@@ -1,0 +1,7 @@
+# The Mars educational game created for ADL's True Game-based learning project
+--- 
+extends: http://vwf.example.com/scene.vwf
+children:
+  environment:
+    extends: http://vwf.example.com/node3.vwf
+    # source: 
