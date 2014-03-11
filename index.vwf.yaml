@@ -5,16 +5,31 @@ properties:
   enableShadows: true
   backgroundColor: [ 0, 0, 5 ]
   ambientColor: [ 150, 100, 100 ]
-children:
-  robot:
+  userObject:
     extends: http://vwf.example.com/node3.vwf
-    source: assets/3d/robot.dae
-    type: model/vnd.collada+xml
+    implements: [ "http://vwf.example.com/navigable.vwf" ]
     properties:
+      name: player
       translation: [ 0, 500, -100 ]
-      scale: 1
-      castShadows: true
-      receiveShadows: true
+      navmode: walk
+      translationSpeed: 1000
+    children:
+      robot:
+        extends: http://vwf.example.com/node3.vwf
+        source: assets/3d/robot.dae
+        type: model/vnd.collada+xml
+        properties:
+          scale: 1
+          castShadows: true
+          receiveShadows: true
+      camera:
+        extends: http://vwf.example.com/camera.vwf
+        properties:
+          translation: [ 0, 1000, 200 ]
+          rotation: [ 0, 0, 1, 180 ]
+          far: 100000
+  makeOwnAvatarVisible: true
+children:
   environment:
     extends: http://vwf.example.com/node3.vwf
     source: assets/3d/mars_terrain.DAE
@@ -42,8 +57,3 @@ children:
       shadowMapWidth: 2048
       shadowMapHeight: 2048
       shadowBias: 0.0001
-scripts:
- - |
-    this.initialize = function() {
-      this.camera.far = 100000;
-    }
