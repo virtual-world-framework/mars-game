@@ -9,7 +9,6 @@ properties:
     implements: [ "http://vwf.example.com/navigable.vwf" ]
     properties:
       name: player
-      translation: [ 0, 0, 0 ]
       navmode: walk
       translationSpeed: 1000
     children:
@@ -33,7 +32,6 @@ children:
     source: assets/3d/mars_terrain.DAE
     type: model/vnd.collada+xml
     properties:
-      translation: [ 0, 0, 0 ]
       castShadows: true
       receiveShadows: true
   sunLight:
