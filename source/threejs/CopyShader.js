@@ -19,7 +19,7 @@ THREE.CopyShader = {
 
 		"void main() {",
 
-			"vUv = uv;",
+			"vUv = uvMap;",
 			"gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );",
 
 		"}"
