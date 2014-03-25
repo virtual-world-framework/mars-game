@@ -6,11 +6,16 @@ this.initialize = function() {
 // --------------------------------------------
 var composer;
 var HDRShader;
+var hud;
 
 function setUp( renderer, scene, camera ) {
   // Modify and add to scene
   scene.fog = new THREE.FogExp2( 0xAA9377, 0.000015 );
   renderer.setClearColor(scene.fog.color);
+
+  // Set up HUD
+  renderer.autoClear = false;
+  hud = new HUD();
 
   // Set up post-processing
   composer = new THREE.EffectComposer( renderer );
@@ -32,5 +37,8 @@ function setUp( renderer, scene, camera ) {
 }
 
 function render( renderer, scene, camera ) {
+  renderer.clear();
   composer.render();
+  hud.update();
+  hud.render( renderer );
 }
