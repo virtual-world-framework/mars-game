@@ -3,14 +3,12 @@
 extends: http://vwf.example.com/scene.vwf
 properties:
   enableShadows: true
-  backgroundColor: [ 0, 0, 5 ]
-  ambientColor: [ 150, 100, 100 ]
+  ambientColor: [ 60, 50, 50 ]
   userObject:
     extends: http://vwf.example.com/node3.vwf
     implements: [ "http://vwf.example.com/navigable.vwf" ]
     properties:
       name: player
-      translation: [ 0, 500, -100 ]
       navmode: walk
       translationSpeed: 1000
     children:
@@ -19,7 +17,6 @@ properties:
         source: assets/3d/robot.dae
         type: model/vnd.collada+xml
         properties:
-          scale: 1
           castShadows: true
           receiveShadows: true
       camera:
@@ -35,20 +32,18 @@ children:
     source: assets/3d/mars_terrain.DAE
     type: model/vnd.collada+xml
     properties:
-      translation: [ 0, 500, -100 ]
-      scale: 1
       castShadows: true
       receiveShadows: true
   sunLight:
     extends: http://vwf.example.com/light.vwf
     properties:
       lightType: "directional"
-      color: [ 255, 225, 200 ]
+      color: [ 255, 245, 230 ]
       translation: [ 1500, 0, 5000 ]
       rotation: [ -0.8206275701522827, -0.3142601549625397, 0.4772954285144806, 77.48947143554688 ]
       intensity: 0.4
       castShadows: true
-      shadowDarkness: 0.75
+      shadowDarkness: 0.6
       shadowCameraBottom: -5000
       shadowCameraTop: 5000
       shadowCameraLeft: -5000
@@ -57,3 +52,13 @@ children:
       shadowMapWidth: 2048
       shadowMapHeight: 2048
       shadowBias: 0.0001
+  envLight:
+    extends: http://vwf.example.com/light.vwf
+    properties:
+      lightType: "hemisphere"
+      translation: [ 0, 100, 0 ]
+      color: [ 255, 240, 225 ]
+      groundColor: [ 255, 230, 230 ]
+      intensity: 0.3
+scripts: 
+ - source: source/setup.js
