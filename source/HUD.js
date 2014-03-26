@@ -47,7 +47,6 @@ HUD.prototype = {
 	    }
 
 	    for ( el in els ) {
-	    	var he = els[ el ].element;
 
 	    	switch ( els[ el ].alignX ) {
 
@@ -56,12 +55,12 @@ HUD.prototype = {
 	    			break;
 
 	    		case "center":
-	    			anchor.x = -he.width / 2;
+	    			anchor.x = -els[ el ].width / 2;
 	    			anchor.x += canvas.width / 2;
 	    			break;
 
 	    		case "right":
-	    			anchor.x = -he.width;
+	    			anchor.x = -els[ el ].width;
 	    			anchor.x += canvas.width;
 	    			break;
 
@@ -74,12 +73,12 @@ HUD.prototype = {
 	    			break;
 
 	    		case "middle":
-	    			anchor.y = -he.height / 2;
+	    			anchor.y = -els[ el ].height / 2;
 	    			anchor.y += canvas.height / 2;
 	    			break;
 
 	    		case "bottom":
-	    			anchor.y = -he.height;
+	    			anchor.y = -els[ el ].height;
 	    			anchor.y += canvas.height;
 	    			break;
 
@@ -88,7 +87,7 @@ HUD.prototype = {
 	    	anchor.x += els[ el ].offset.x;
 	    	anchor.y += els[ el ].offset.y;
 
-	    	els[ el ].element.draw( context, anchor );
+	    	els[ el ].draw( context, anchor );
 
 	    	anchor = {
 		    	"x": 0,
@@ -145,14 +144,10 @@ HUD.prototype = {
 		
 		// Add the element to the HUD's elements list
 		// Initialize the offset position
-		this.elements[ id ] = {
-
-			"element": el,
-			"offset": {
-				"x": offset.x || 0,
-				"y": offset.y || 0
-			}
-
+		this.elements[ id ] = el;
+		this.elements[ id ][ "offset" ] = {
+			"x": offset.x || 0,
+			"y": offset.y || 0
 		};
 
 		switch ( alignX.toLowerCase() ) {
