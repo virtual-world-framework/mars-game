@@ -46,12 +46,14 @@ function setUp( renderer, scene, camera ) {
 
 var frame = 0;
 function render( renderer, scene, camera ) {
+  
+  hud.elements.energyMeter.properties.energy = (Math.sin(frame * Math.PI / 180) + 1) / 2 * 100;
+  hud.update();
 
   renderer.clear();
   composer.render();
-  hud.elements.energyMeter.properties.energy = (Math.sin(frame * Math.PI / 180) + 1) / 2 * 100;
-  hud.update();
-  hud.render( renderer );
+  renderer.clearDepth();
+  renderer.render( hud.scene, hud.camera );
   frame = ++frame % 360;
 
 }
@@ -86,7 +88,7 @@ function createHUD() {
 }
 
 function drawEnergyMeter( context, position ) {
-  
+
   var energy = this.properties.energy;
   var maxEnergy = this.properties.maxEnergy;
   var meterWidth = (this.width - 10) * energy / maxEnergy;

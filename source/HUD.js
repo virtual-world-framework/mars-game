@@ -98,13 +98,6 @@ HUD.prototype = {
 
 	},
 
-	render: function( renderer ) {
-
-		renderer.clearDepth();
-		renderer.render( this.scene, this.camera );
-
-	},
-
 	createElement: function( id, alignX, alignY, offset, params ) {
 
 		// id - Identifier for the element
