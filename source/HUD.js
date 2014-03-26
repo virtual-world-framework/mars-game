@@ -38,6 +38,8 @@ HUD.prototype = {
 
 	draw: function( canvas ) {
 
+		var context = canvas.getContext( '2d' );
+
 	    var els = this.elements;
 	    var anchor = {
 	    	"x": 0,
@@ -86,7 +88,7 @@ HUD.prototype = {
 	    	anchor.x += els[ el ].offset.x;
 	    	anchor.y += els[ el ].offset.y;
 
-	    	els[ el ].element.draw( ctx, anchor );
+	    	els[ el ].element.draw( context, anchor );
 
 	    	anchor = {
 		    	"x": 0,
@@ -111,6 +113,8 @@ HUD.prototype = {
 		// alignY - top, middle, bottom
 		// offset - { x, y } Number of pixels the element is offset from the alignment
 		// ----- Params -----
+		// width - How long the element is (used for positioning)
+		// height - How tall the element is (used for positioning)
 		// images - An object list of IDs and image src paths
 		// vars - An object containing the variables used to render the element
 		// drawFunc - Custom function reference to draw the element
