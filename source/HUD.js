@@ -29,7 +29,11 @@ HUD.prototype = {
 		var canvas = document.createElement('CANVAS');
 		canvas.width = window.innerWidth;
 		canvas.height = window.innerHeight;
+
+		// Draw the HUD to a canvas
 		this.draw( canvas );
+
+		// Create a material using the HUD canvas as the source texture
 		texture = new THREE.Texture( canvas );
 		texture.needsUpdate = true;
 		this.quad.material = new THREE.MeshBasicMaterial( { map: texture, transparent: true } );
