@@ -11,7 +11,7 @@ var hud;
 function setUp( renderer, scene, camera ) {
 
   // Modify and add to scene
-  scene.fog = new THREE.FogExp2( 0xAA9377, 0.000015 );
+  scene.fog = new THREE.FogExp2( 0xAA9377, 0.0002 );
   renderer.setClearColor(scene.fog.color);
 
   // Set up HUD
