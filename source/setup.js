@@ -1,4 +1,6 @@
 this.initialize = function() {
+  this.initializeActiveCamera( this.player.camera );
+
   // Perform additional setup
   vwf.views["vwf/view/threejs"].render = setUp;
 }
