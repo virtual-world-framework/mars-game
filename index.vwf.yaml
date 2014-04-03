@@ -4,28 +4,7 @@ extends: http://vwf.example.com/scene.vwf
 properties:
   enableShadows: true
   ambientColor: [ 60, 50, 50 ]
-  userObject:
-    extends: http://vwf.example.com/node3.vwf
-    implements: [ "http://vwf.example.com/navigable.vwf" ]
-    properties:
-      name: player
-      navmode: walk
-      translationSpeed: 1000
-    children:
-      robot:
-        extends: http://vwf.example.com/node3.vwf
-        source: assets/3d/robot.dae
-        type: model/vnd.collada+xml
-        properties:
-          castShadows: true
-          receiveShadows: true
-      camera:
-        extends: http://vwf.example.com/camera.vwf
-        properties:
-          translation: [ 0, 1000, 200 ]
-          rotation: [ 0, 0, 1, 180 ]
-          far: 100000
-  makeOwnAvatarVisible: true
+  userObject: null
 children:
   environment:
     extends: http://vwf.example.com/node3.vwf
@@ -60,5 +39,30 @@ children:
       color: [ 255, 240, 225 ]
       groundColor: [ 255, 230, 230 ]
       intensity: 0.3
+  player:
+    extends: http://vwf.example.com/node3.vwf
+    methods:
+      togglePerspective:
+    children:
+      camera:
+        extends: http://vwf.example.com/camera.vwf
+        implements: [ "http://vwf.example.com/navigable.vwf" ]
+        properties:
+          navmode: walk
+          translationSpeed: 0
+          translation: [ 0, 0, 135 ]
+          rotation: [ 0, 0, 1, 180 ]
+          far: 100000
+          isFirstPerson: true
+      rover:
+        extends: source/rover.vwf
+        source: assets/3d/robot.dae
+        type: model/vnd.collada+xml
+        properties:
+          visible: false
+          castShadows: true
+          receiveShadows: true
+    scripts:
+     - source: source/player.js
 scripts: 
  - source: source/setup.js
