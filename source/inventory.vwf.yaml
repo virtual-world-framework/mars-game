@@ -1,0 +1,80 @@
+---
+extends: http://vwf.example.com/node3.vwf
+properties:
+  capacity: 
+    set: |
+      if ( !isNaN( value ) ) {
+        value = Math.max( value, 1 );
+        this.slots = new Array( value );
+        this.capacity = value;
+      }
+    value: 1
+  slots: []
+  isInventoryVisible: true
+children: 
+methods:
+  add:
+  swap:
+  remove:
+events:
+scripts: |
+  //@ sourceURL=inventory.vwf
+  this.add = function( objectID, index ) {
+
+    if ( !validIndex( index, this.capacity ) ) {
+      return;
+    }
+
+    var object = this.find("//" + objectID)[0];
+
+    if ( object && object.isInventoriable ) {
+
+      object.pickedUp();
+      object.parent_ = this;
+      this.slots[ index ] = object.name;
+      object.visible = this.isInventoryVisible;
+
+    }
+
+  }
+
+  this.swap = function( index1, index2 ) {
+
+    if ( !validIndex( index1, this.capacity ) || !validIndex( index2, this.capacity ) ) {
+      return;
+    }
+
+    var tmp = this.slots[ index1 ];
+    this.slots[ index1 ] = this.slots[ index2 ];
+    this.slots[ index2 ] = tmp;
+
+  } 
+
+  this.remove = function( index ) {
+
+    if ( !validIndex( index, this.capacity ) ) {
+      return;
+    }
+
+    var object = this.find( "//" + this.slots[ index ] )[0];
+
+    if ( object && object.parent === this ) {
+
+      object.parent_ = this.find("//objectsInScene")[0];
+      object.dropped();
+      this.slots[ index ] = undefined;
+      object.visible = true;
+      
+    }
+
+  } 
+
+  function validIndex( index, capacity ) {
+
+    if ( isNaN( index ) || index > capacity || index < 0 ) {
+      return false;
+    }
+
+    return true;
+
+  } 
