@@ -35,6 +35,14 @@ HUD.prototype = {
 		// Draw the HUD to a canvas
 		this.draw( canvas );
 
+		// Dispose of the last HUD texture
+		var texture;
+		if ( this.quad.material && this.quad.material.map ) {
+			texture = this.quad.material.map;
+			this.quad.material.map = undefined;
+			texture.dispose();
+		}
+
 		// Create a material using the HUD canvas as the source texture
 		texture = new THREE.Texture( canvas );
 		texture.needsUpdate = true;
@@ -229,4 +237,4 @@ HUD.Element.prototype = {
 	},
 
 	draw: function( context, position ) { }
-}
+} //@ sourceURL=source/hud.js
