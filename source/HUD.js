@@ -12,6 +12,7 @@ HUD.prototype = {
 	camera: undefined,
 	quad: undefined,
 	elements: undefined,
+	canvas: undefined,
 
 	initialize: function() {
 
@@ -20,13 +21,14 @@ HUD.prototype = {
 		this.quad = new THREE.Mesh( new THREE.PlaneGeometry( 2, 2 ), null );
 		this.scene.add( this.quad );
 		this.elements = {};
+		this.canvas = document.createElement('CANVAS');
 		this.update();
 
 	},
 
 	update: function() {
 
-		var canvas = document.createElement('CANVAS');
+		var canvas = this.canvas;
 		canvas.width = window.innerWidth;
 		canvas.height = window.innerHeight;
 
