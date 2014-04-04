@@ -12,6 +12,7 @@ HUD.prototype = {
 	camera: undefined,
 	quad: undefined,
 	elements: undefined,
+	canvas: undefined,
 
 	initialize: function() {
 
@@ -20,18 +21,27 @@ HUD.prototype = {
 		this.quad = new THREE.Mesh( new THREE.PlaneGeometry( 2, 2 ), null );
 		this.scene.add( this.quad );
 		this.elements = {};
+		this.canvas = document.createElement('CANVAS');
 		this.update();
 
 	},
 
 	update: function() {
 
-		var canvas = document.createElement('CANVAS');
+		var canvas = this.canvas;
 		canvas.width = window.innerWidth;
 		canvas.height = window.innerHeight;
 
 		// Draw the HUD to a canvas
 		this.draw( canvas );
+
+		// Dispose of the last HUD texture
+		var texture;
+		if ( this.quad.material && this.quad.material.map ) {
+			texture = this.quad.material.map;
+			this.quad.material.map = undefined;
+			texture.dispose();
+		}
 
 		// Create a material using the HUD canvas as the source texture
 		texture = new THREE.Texture( canvas );
@@ -227,4 +237,4 @@ HUD.Element.prototype = {
 	},
 
 	draw: function( context, position ) { }
-}
+} //@ sourceURL=source/hud.js
