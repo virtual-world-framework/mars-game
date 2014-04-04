@@ -73,5 +73,6 @@ children:
         source: assets/3d/robot.dae
         type: model/vnd.collada+xml
         properties:
-          scale: 0.2scripts: 
+          scale: 0.2
+scripts: 
  - source: source/setup.js
