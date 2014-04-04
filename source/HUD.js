@@ -24,6 +24,9 @@ HUD.prototype = {
 		this.canvas = document.createElement('CANVAS');
 		this.update();
 
+		var gameCanvas = document.getElementById( vwf_view.kernel.application() );
+		this.registerEventListeners( gameCanvas );
+
 	},
 
 	update: function() {
@@ -101,6 +104,8 @@ HUD.prototype = {
 	    	anchor.x += els[ el ].offset.x;
 	    	anchor.y += els[ el ].offset.y;
 
+	    	els[ el ].position = anchor;
+
 	    	els[ el ].draw( context, anchor );
 
 	    	anchor = {
@@ -156,6 +161,10 @@ HUD.prototype = {
 			"x": offset.x || 0,
 			"y": offset.y || 0
 		};
+		this.elements[ id ][ "position" ] = {
+			"x": 0,
+			"y": 0
+		}
 
 		switch ( alignX.toLowerCase() ) {
 
@@ -183,6 +192,79 @@ HUD.prototype = {
 
 		}
 
+	},
+
+	pickElement: function( event ) {
+
+		var els = this.elements;
+		var coords = {
+			"x": event.clientX,
+			"y": event.clientY
+		}
+
+		for ( el in els ) {
+			
+			var v1 = els[ el ].position;
+			var v2 = { 
+				"x": v1.x + els[ el ].width,
+				"y": v1.y + els[ el ].height
+			}
+
+			if ( coords.x > v1.x && coords.x < v2.x && coords.y > v1.y && coords.y < v2.y ) {
+				if ( els[ el ].isMouseOver !== true ) {
+					els[ el ].isMouseOver = true;
+					els[ el ].onMouseOver( event );
+				}
+				return el;
+			} else if ( els[ el ].isMouseOver === true ) {
+				els[ el ].isMouseOver = false;
+				els[ el ].onMouseOut( event );
+			}
+
+		}
+
+		return false;
+
+	},
+
+	registerEventListeners: function( gameCanvas ) {
+
+		gameCanvas.addEventListener( "click", ( function( event ) { 
+			
+			var el = this.pickElement( event );
+			if ( el ) {
+				this.elements[ el ].onClick( event );
+			}
+			
+		} ).bind(this) );
+
+		gameCanvas.addEventListener( "mouseup", ( function( event ) { 
+			
+			var el = this.pickElement( event );
+			if ( el ) {
+				this.elements[ el ].onMouseUp( event );
+			}
+			
+		} ).bind(this) );
+
+		gameCanvas.addEventListener( "mousedown", ( function( event ) { 
+			
+			var el = this.pickElement( event );
+			if ( el ) {
+				this.elements[ el ].onMouseDown( event );
+			}
+			
+		} ).bind(this) );
+
+		gameCanvas.addEventListener( "mousemove", ( function( event ) { 
+			
+			var el = this.pickElement( event );
+			if ( el ) {
+				this.elements[ el ].onMouseMove( event );
+			}
+			
+		} ).bind(this) );
+
 	}
 
 }
@@ -200,6 +282,7 @@ HUD.Element.prototype = {
 	id: undefined,
 	width: undefined,
 	height: undefined,
+	isMouseOver: undefined,
 
 	images: {
 
@@ -236,5 +319,18 @@ HUD.Element.prototype = {
 
 	},
 
-	draw: function( context, position ) { }
+	draw: function( context, position ) { },
+
+	onClick: function( event ) { },
+
+	onMouseDown: function( event ) { },
+
+	onMouseUp: function( event ) { },
+
+	onMouseMove: function( event ) { },
+
+	onMouseOver: function( event ) { },
+
+	onMouseOut: function( event ) { }
+
 } //@ sourceURL=source/hud.js
