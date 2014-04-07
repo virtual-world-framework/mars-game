@@ -1,0 +1,7 @@
+---
+properties:
+  isInventoriable: true
+methods:
+events:
+  pickedUp:
+  dropped:

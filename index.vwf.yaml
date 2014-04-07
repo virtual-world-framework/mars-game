@@ -64,5 +64,15 @@ children:
           receiveShadows: true
     scripts:
      - source: source/player.js
+  pickups:
+    extends: http://vwf.example.com/node3.vwf
+    children:
+      toyRover:
+        extends: http://vwf.example.com/node3.vwf
+        implements: [ "source/inventoriable.vwf" ]
+        source: assets/3d/robot.dae
+        type: model/vnd.collada+xml
+        properties:
+          scale: 0.2
 scripts: 
  - source: source/setup.js
