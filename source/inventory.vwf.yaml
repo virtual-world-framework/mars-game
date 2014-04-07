@@ -4,13 +4,14 @@ properties:
   capacity: 
     set: |
       if ( !isNaN( value ) ) {
-        value = Math.max( value, 1 );
+        value = Math.round( value );
+        value = Math.max( value, 0 );
         this.slots = new Array( value );
         this.capacity = value;
       }
     value: 1
   slots: []
-  isInventoryVisible: true
+  inventoryIsVisible: true
 children: 
 methods:
   add:
@@ -19,20 +20,20 @@ methods:
 events:
 scripts: |
   //@ sourceURL=inventory.vwf
-  this.add = function( objectID, index ) {
+  this.add = function( objectName, index ) {
 
     if ( !validIndex( index, this.capacity ) ) {
       return;
     }
 
-    var object = this.find("//" + objectID)[0];
+    var object = this.find("//" + objectName)[0];
 
     if ( object && object.isInventoriable ) {
 
       object.pickedUp();
       object.parent_ = this;
       this.slots[ index ] = object.name;
-      object.visible = this.isInventoryVisible;
+      object.visible = this.inventoryIsVisible;
 
     }
 
@@ -40,7 +41,7 @@ scripts: |
 
   this.swap = function( index1, index2 ) {
 
-    if ( !validIndex( index1, this.capacity ) || !validIndex( index2, this.capacity ) ) {
+    if ( !( validIndex( index1, this.capacity ) && validIndex( index2, this.capacity ) ) ) {
       return;
     }
 
