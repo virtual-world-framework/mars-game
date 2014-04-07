@@ -12,6 +12,7 @@ HUD.prototype = {
     camera: undefined,
     quad: undefined,
     elements: undefined,
+    elementCount: undefined,
     canvas: undefined,
 
     initialize: function() {
@@ -21,6 +22,7 @@ HUD.prototype = {
         this.quad = new THREE.Mesh( new THREE.PlaneGeometry( 2, 2 ), null );
         this.scene.add( this.quad );
         this.elements = {};
+        this.elementCount = 0;
         this.canvas = document.createElement('CANVAS');
         this.update();
 
@@ -58,14 +60,17 @@ HUD.prototype = {
         var context = canvas.getContext( '2d' );
 
         var els = this.elements;
-        var anchor = {
-            "x": 0,
-            "y": 0
-        }
+
+        var orderedElements = new Array();
 
         for ( var el in els ) {
 
-            switch ( els[ el ].alignX ) {
+            var anchor = {
+                "x": 0,
+                "y": 0
+            }
+
+            switch ( els[ el ].alignH ) {
 
                 case "left":
                     anchor.x = 0;
@@ -83,7 +88,7 @@ HUD.prototype = {
 
             }
 
-            switch ( els[ el ].alignY ) {
+            switch ( els[ el ].alignV ) {
 
                 case "top":
                     anchor.y = 0;
@@ -106,97 +111,92 @@ HUD.prototype = {
 
             els[ el ].position = anchor;
 
-            els[ el ].draw( context, anchor );
+            orderedElements.push( els[ el ] );
 
-            anchor = {
-                "x": 0,
-                "y": 0
-            }
+        }
 
+        orderedElements.sort( function( a, b ) {
+            return a.drawOrder - b.drawOrder;
+        } );
+
+        for ( var i = 0; i < orderedElements.length; i++ ) {
+            orderedElements[i].draw( context, orderedElements[i].position );
         }
 
     },
 
-    createElement: function( id, alignX, alignY, offset, params ) {
+    add: function( element, alignH, alignV, offset ) {
 
-        // id - Identifier for the element
-        // alignX - left, center, right
-        // alignY - top, middle, bottom
-        // offset - { x, y } Number of pixels the element is offset from the alignment
-        // ----- Params -----
-        // width - How long the element is (used for positioning)
-        // height - How tall the element is (used for positioning)
-        // images - An object list of IDs and image src paths
-        // vars - An object containing the variables used to render the element
-        // drawFunc - Custom function reference to draw the element
+        // Add the element to the HUD's elements list
+        // Initialize the offset position
+        this.elements[ element.id ] = element;
 
-        // Initialize the HUD element
-        var width = params[ "width" ] || 0;
-        var height = params[ "height" ] || 0;
-        var df = params[ "drawFunc" ];
-        var el = new HUD.Element( id, width, height, df );
+        if ( offset && !( isNaN( offset.x ) || isNaN( offset.y ) ) ) {
 
-        // Add the images to the element
-        var imgs = params[ "images" ];
+            this.elements[ element.id ][ "offset" ] = {
+                "x": offset.x,
+                "y": offset.y
+            };
 
-        for ( var img in imgs ) {
+        } else {
 
-            el.images.add( img, imgs[ img ] );
-
-        }
-
-        // Set the properties of the element
-        var props = params[ "vars" ];
-
-        for ( var prop in props ) {
-
-            el.properties.set( prop, props[ prop ] );
+            this.elements[ element.id ][ "offset" ] = {
+                "x": 0,
+                "y": 0
+            };
 
         }
         
-        // Add the element to the HUD's elements list
-        // Initialize the offset position
-        this.elements[ id ] = el;
-        this.elements[ id ][ "offset" ] = {
-            "x": offset.x || 0,
-            "y": offset.y || 0
-        };
-        this.elements[ id ][ "position" ] = {
+        this.elements[ element.id ][ "position" ] = {
             "x": 0,
             "y": 0
         }
 
-        switch ( alignX.toLowerCase() ) {
+        switch ( alignH ) {
 
             case "left":
             case "center":
             case "right":
-                this.elements[ id ][ "alignX" ] = alignX.toLowerCase();
+                this.elements[ element.id ][ "alignH" ] = alignH;
                 break;
             default:
-                this.elements[ id ][ "alignX" ] = "left";
+                this.elements[ element.id ][ "alignH" ] = "left";
                 break;
 
         }
 
-        switch ( alignY.toLowerCase() ) {
+        switch ( alignV ) {
 
             case "top":
             case "middle":
             case "bottom":
-                this.elements[ id ][ "alignY" ] = alignY.toLowerCase();
+                this.elements[ element.id ][ "alignV" ] = alignV;
                 break;
             default:
-                this.elements[ id ][ "alignY" ] = "top";
+                this.elements[ element.id ][ "alignV" ] = "top";
                 break;
 
         }
 
+        this.countElements();
+
+        this.elements[ element.id ][ "drawOrder" ] = this.elementCount;
+
     },
 
-    pickElement: function( event ) {
+    countElements: function() {
+        var l = 0;
 
-        var result = null;
+        for ( var el in this.elements ) {
+            l++;
+        }
+
+        this.elementCount = l;
+    },
+
+    pick: function( event ) {
+
+        var picks = new Array();
         var els = this.elements;
         var coords = {
             "x": event.clientX,
@@ -220,7 +220,7 @@ HUD.prototype = {
 
                 }
 
-                result = el;
+                picks.push( els[ el ] );
 
             } else if ( els[ el ].isMouseOver === true ) {
 
@@ -231,7 +231,7 @@ HUD.prototype = {
 
         }
 
-        return result;
+        return picks;
 
     },
 
@@ -239,47 +239,80 @@ HUD.prototype = {
 
         gameCanvas.addEventListener( "click", ( function( event ) { 
             
-            var el = this.pickElement( event );
-            if ( el !== null ) {
-                this.elements[ el ].onClick( event );
+            var picks = this.pick( event );
+            var topPick = this.getTopElement( picks );
+
+            if ( topPick !== null ) {
+                this.elements[ topPick.id ].onClick( event );
             }
             
         } ).bind(this) );
 
         gameCanvas.addEventListener( "mouseup", ( function( event ) { 
             
-            var el = this.pickElement( event );
-            if ( el !== null ) {
-                this.elements[ el ].onMouseUp( event );
+            var picks = this.pick( event );
+            var topPick = this.getTopElement( picks );
+
+            if ( topPick !== null ) {
+                this.elements[ topPick.id ].onMouseUp( event );
             }
             
         } ).bind(this) );
 
         gameCanvas.addEventListener( "mousedown", ( function( event ) { 
             
-            var el = this.pickElement( event );
-            if ( el !== null ) {
-                this.elements[ el ].onMouseDown( event );
+            var picks = this.pick( event );
+            var topPick = this.getTopElement( picks );
+
+            if ( topPick !== null ) {
+                this.elements[ topPick.id ].onMouseDown( event );
             }
             
         } ).bind(this) );
 
         gameCanvas.addEventListener( "mousemove", ( function( event ) { 
             
-            var el = this.pickElement( event );
-            if ( el !== null ) {
-                this.elements[ el ].onMouseMove( event );
+            var picks = this.pick( event );
+            var topPick = this.getTopElement( picks );
+
+            if ( topPick !== null ) {
+                this.elements[ topPick.id ].onMouseMove( event );
             }
             
         } ).bind(this) );
 
+    },
+
+    getTopElement: function( elements ) {
+
+        var el = null;
+
+        for ( var i = 0; i < elements.length; i++ ) {
+
+            if ( el === null || elements[i].drawOrder > el.drawOrder ) {
+                el = elements[i];
+            }
+
+        }
+
+        return el;
+    },
+
+    moveToTop: function( id ) {
+        var index = this.elements[ id ].drawOrder;
+        for ( var el in this.elements ) {
+            if ( this.elements[ el ].drawOrder > index ) {
+                this.elements[ el ].drawOrder--;
+            }
+        }
+        this.elements[ id ].drawOrder = this.elementCount;
     }
 
 }
 
-HUD.Element = function( id, width, height, drawFunc ) {
+HUD.Element = function( id, drawFunc, width, height ) {
 
-    this.initialize( id, width, height, drawFunc );
+    this.initialize( id, drawFunc, width, height );
     return this;
 
 }
@@ -313,17 +346,18 @@ HUD.Element.prototype = {
 
     },
 
-    initialize: function( id, width, height, drawFunc ) {
+    initialize: function( id, drawFunc, width, height ) {
 
         this.id = id;
-        this.width = width;
-        this.height = height;
 
         if ( drawFunc instanceof Function ) {
 
             this.draw = drawFunc;
 
         }
+
+        this.width = isNaN( width ) ? 0 : width;
+        this.height = isNaN( height ) ? 0 : height;
 
     },
 

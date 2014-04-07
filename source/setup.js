@@ -49,7 +49,7 @@ function setUp( renderer, scene, camera ) {
 var frame = 0;
 function render( renderer, scene, camera ) {
   
-  hud.elements.energyMeter.properties.energy = (Math.sin(frame * Math.PI / 180) + 1) / 2 * 100;
+  hud.elements.batteryMeter.battery = (Math.sin(frame * Math.PI / 180) + 1) / 2 * 100;
   hud.update();
 
   renderer.clear();
@@ -62,38 +62,36 @@ function render( renderer, scene, camera ) {
 
 function createHUD() {
 
-  var params = {
+  var batteryMeter = new HUD.Element( "batteryMeter", drawEnergyMeter, 250, 40);
+  batteryMeter.battery = 100;
+  batteryMeter.maxBattery = 100;
+  hud.add( batteryMeter, "left", "bottom", { "x": 30, "y": -30 } );
 
-    "width": 250,
-    "height": 40,
+  var dragTest = new HUD.Element( "dragEl", drawDraggable, 128, 16 );
+  dragTest.isDragging = false ;
+  dragTest.startPos = { "x": 0, "y": 0 };
+  dragTest.onMouseDown = startDragging;
+  dragTest.onMouseUp = stopDragging;
+  dragTest.onMouseOut = drag;
+  dragTest.onMouseMove = drag;
+  hud.add( dragTest );
 
-    "vars": {
+  var dragTest2 = new HUD.Element( "dragEl2", drawDraggable2, 128, 16 );
+  dragTest2.isDragging = false ;
+  dragTest2.startPos = { "x": 0, "y": 0 };
+  dragTest2.onMouseDown = startDragging;
+  dragTest2.onMouseUp = stopDragging;
+  dragTest2.onMouseOut = drag;
+  dragTest2.onMouseMove = drag;
+  hud.add( dragTest2 );
 
-      "energy": 100,
-      "maxEnergy": 100
-
-    },
-
-    "drawFunc": drawEnergyMeter
-
-  };
-
-  hud.createElement(
-
-    "energyMeter",
-    "left",
-    "bottom",
-    { x: 30, y: -30},
-    params
-
-  );
 }
 
 function drawEnergyMeter( context, position ) {
 
-  var energy = this.properties.energy;
-  var maxEnergy = this.properties.maxEnergy;
-  var meterWidth = (this.width - 10) * energy / maxEnergy;
+  var battery = this.battery;
+  var maxBattery = this.maxBattery;
+  var meterWidth = (this.width - 10) * battery / maxBattery;
   var meterHeight = (this.height - 10);
 
   context.strokeStyle = "rgb(255,255,255)";
@@ -105,11 +103,87 @@ function drawEnergyMeter( context, position ) {
   context.textBaseline = "bottom";
   context.font = '16px Arial';
   context.fillStyle = "rgb(255,255,255)";
-  context.fillText("Energy:", position.x, position.y - 4);
+  context.fillText("Battery:", position.x, position.y - 4);
 
   context.textBaseline = "top";
   context.font = 'bold 28px Arial';
   context.fillStyle = "rgb(255,255,255)";
-  context.fillText(Math.round(energy), position.x + 25, position.y + 4);
+  context.fillText(Math.round(battery), position.x + 25, position.y + 4);
 
 }
+
+function drawDraggable( context, position ) {
+
+  context.fillStyle = "rgb(125,0,125)";
+  context.fillRect( position.x, position.y, 16, 16 );
+  context.fillStyle = "rgba(25,25,25,0.75)";
+  context.fillRect( position.x + 16, position.y, 112, 16 );
+
+  context.textBaseline = "top";
+  context.font = '12px Arial';
+  context.fillStyle = "rgb(255,255,255)";
+  context.fillText("( x: " + position.x + ", y: " + position.y + " )", position.x + 20, position.y);
+
+}
+
+function drawDraggable2( context, position ) {
+
+  context.fillStyle = "rgb(0,125,0)";
+  context.fillRect( position.x, position.y, 16, 16 );
+  context.fillStyle = "rgba(25,25,25,0.75)";
+  context.fillRect( position.x + 16, position.y, 112, 16 );
+
+  context.textBaseline = "top";
+  context.font = '12px Arial';
+  context.fillStyle = "rgb(255,255,255)";
+  context.fillText("( x: " + position.x + ", y: " + position.y + " )", position.x + 20, position.y);
+
+}
+
+function startDragging( event ) {
+
+  if ( event.which === 1 ) {
+
+    this.isDragging = true;
+    this.startPos.x = event.clientX;
+    this.startPos.y = event.clientY;
+    hud.moveToTop( this.id );
+
+  }
+
+}
+
+function stopDragging( event ) {
+
+  this.isDragging = false;
+
+}
+
+function drag( event ) {
+
+  if ( this.isDragging && event.which === 1 ) {
+
+    var movX = event.clientX - this.startPos.x;
+    var movY = event.clientY - this.startPos.y;
+
+    this.offset.x += movX;
+    this.offset.y += movY;
+
+    this.startPos.x = event.clientX;
+    this.startPos.y = event.clientY;
+
+    // Prevent element from losing mouse position
+    this.isMouseOver = true;
+
+    var picks = hud.pick( event );
+    picks.splice( picks.indexOf( this ), 1 );
+
+  } else {
+
+    this.isDragging = false;
+
+  }
+
+}
+
+//@ sourceURL=source/setup.js

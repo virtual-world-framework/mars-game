@@ -19,7 +19,7 @@ methods:
   remove:
 events:
 scripts: |
-  //@ sourceURL=inventory.vwf
+  
   this.add = function( objectName, index ) {
 
     if ( !validIndex( index, this.capacity ) ) {
@@ -79,3 +79,5 @@ scripts: |
     return true;
 
   } 
+
+  //@ sourceURL=inventory.vwf
