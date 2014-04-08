@@ -38,22 +38,16 @@ Blockly.Blocks['maze_moveForward'] = {
     this.setColour(290);
     this.appendDummyInput()
         .appendField( 'forward' );
-    this.appendValueInput("DISTANCE")
-        .setCheck("Number")
-        .appendField("dist");
-    this.appendValueInput("TIME")
-        .setCheck("Number")
-        .appendField("time");
     this.setInputsInline(true);
     this.setPreviousStatement(true);
     this.setNextStatement(true);
-    this.setTooltip(BlocklyApps.getMsg('Moves the rover on the screen representing the player forward one square on the maze board'));
+    this.setTooltip('Moves the rover on the screen representing the player forward one square on the maze board');
   }
 };
 
 Blockly.JavaScript['maze_moveForward'] = function(block) {
   var dist = Blockly.JavaScript.valueToCode(block, 'DISTANCE', Blockly.JavaScript.ORDER_NONE) || '0';
-  var t = Blockly.JavaScript.valueToCode(block, 'TIME', Blockly.JavaScript.ORDER_NONE) || '0';
+  var t = Blockly.JavaScript.valueToCode(block, 'TIME', Blockly.JavaScript.ORDER_NONE) || '1';
   return "vwf.callMethod(vwf.find( undefined, '//player' ),'executeBlocklyCmd',['moveForward','"+dist+"','"+t+"']);\n";
 };
 
@@ -67,16 +61,10 @@ Blockly.Blocks['maze_turn'] = {
     this.setColour(290);
     this.appendDummyInput()
         .appendField(new Blockly.FieldDropdown(DIRECTIONS), 'DIR');
-    this.appendValueInput("ANGLE")
-        .setCheck("Number")
-        .appendField("angle");
-    this.appendValueInput("TIME")
-        .setCheck("Number")
-        .appendField("time");
     this.setInputsInline(true);
     this.setPreviousStatement(true);
     this.setNextStatement(true);
-    this.setTooltip(BlocklyApps.getMsg('Turns the rover on the screen representing the player 90 degrees counter-clockwise (left) or clockwise (right)'));
+    this.setTooltip('Turns the rover on the screen representing the player 90 degrees counter-clockwise (left) or clockwise (right)');
   }
 };
 
