@@ -29,12 +29,15 @@ scripts: |
     var object = this.find("//" + objectName)[0];
 
     if ( object && object.isInventoriable ) {
-
+      if ( object.parent_ == this ) {
+        this.swap( this.slots.indexOf( objectName ), index );
+        return;
+      }
       object.pickedUp();
       object.parent_ = this;
       this.slots[ index ] = object.name;
       object.visible = this.inventoryIsVisible;
-
+      
     }
 
   }
@@ -51,19 +54,15 @@ scripts: |
 
   } 
 
-  this.remove = function( index ) {
+  this.remove = function( objectName ) {
 
-    if ( !validIndex( index, this.capacity ) ) {
-      return;
-    }
-
-    var object = this.find( "//" + this.slots[ index ] )[0];
+    var object = this.find( "//" + objectName )[0];
 
     if ( object && object.parent === this ) {
 
-      object.parent_ = this.find("//objectsInScene")[0];
+      object.parent_ = this.find("//pickups")[0];
       object.dropped();
-      this.slots[ index ] = undefined;
+      this.slots[ this.slots.indexOf( objectName ) ] = undefined;
       object.visible = true;
       
     }
@@ -72,7 +71,7 @@ scripts: |
 
   function validIndex( index, capacity ) {
 
-    if ( isNaN( index ) || index > capacity || index < 0 ) {
+    if ( isNaN( index ) || index >= capacity || index < 0 ) {
       return false;
     }
 

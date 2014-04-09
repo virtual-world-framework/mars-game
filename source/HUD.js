@@ -184,6 +184,20 @@ HUD.prototype = {
 
     },
 
+    remove: function( element ) {
+
+        var index = this.elements[ element.id ].drawOrder;
+        delete this.elements[ element.id ];
+
+        for ( var el in this.elements ) {
+            if ( this.elements[ el ].drawOrder > index ) {
+                this.elements[ el ].drawOrder--;
+            }
+        }
+
+        this.countElements();
+    },
+
     countElements: function() {
         var l = 0;
 
