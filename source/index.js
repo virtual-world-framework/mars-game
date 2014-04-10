@@ -19,24 +19,6 @@ window.addEventListener( "keyup", function (event) {
 	}
 } );
 
-function trace() {
-    var result;
-    var rc = new THREE.Raycaster();
-    var pr = new THREE.Projector();
-    var dir = new THREE.Vector3();
-    var pos = new THREE.Vector3();
-    var camera = vwf.views[0].state.cameraInUse;
-    var scene = vwf.views[0].state.scenes[vwf.application()].threeScene;
-    dir.set(0,0,0.5);
-    pr.unprojectVector(dir, camera);
-    pos.setFromMatrixPosition( camera.matrixWorld );
-    dir.sub(pos);
-    dir.normalize();
-    rc.set(pos, dir);
-    result = rc.intersectObjects(scene.children, true);
-    return result || undefined;
-} 
-
 vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
 
     if ( eventName === "grabbed" ) {
@@ -118,6 +100,7 @@ function setUp( renderer, scene, camera ) {
 function render( renderer, scene, camera ) {
   
   hud.elements.batteryMeter.battery = (Math.sin(frame * Math.PI / 180) + 1) / 2 * 100;
+  hud.elements.ramMeter.ram = (Math.sin(frame * Math.PI / 180) + 1) / 2 * 100;
   hud.update();
 
   renderer.clear();
@@ -130,16 +113,21 @@ function render( renderer, scene, camera ) {
 
 function createHUD() {
 
-  var batteryMeter = new HUD.Element( "batteryMeter", drawBatterMeter, 250, 40);
+  var batteryMeter = new HUD.Element( "batteryMeter", drawBatteryMeter, 250, 40);
   batteryMeter.battery = 100;
   batteryMeter.maxBattery = 100;
   hud.add( batteryMeter, "left", "bottom", { "x": 30, "y": -30 } );
+
+  var ramMeter = new HUD.Element( "ramMeter", drawRamMeter, 250, 40);
+  ramMeter.ram = 100;
+  ramMeter.maxRam = 100;
+  hud.add( ramMeter, "right", "bottom", { "x": -30, "y": -30 } );
 
   createInventoryHUD( 4 );
 
 }
 
-function drawBatterMeter( context, position ) {
+function drawBatteryMeter( context, position ) {
 
   var battery = this.battery;
   var maxBattery = this.maxBattery;
@@ -149,18 +137,45 @@ function drawBatterMeter( context, position ) {
   context.strokeStyle = "rgb(255,255,255)";
   context.lineWidth = 3;
   context.strokeRect( position.x, position.y, this.width, this.height );
-  context.fillStyle = "rgb(50,110,220)";
+  context.fillStyle = "rgb(50,90,220)";
   context.fillRect( position.x + 5, position.y + 5, meterWidth, meterHeight );
 
   context.textBaseline = "bottom";
   context.font = '16px Arial';
   context.fillStyle = "rgb(255,255,255)";
-  context.fillText("Battery:", position.x, position.y - 4);
+  context.fillText("BATTERY", position.x, position.y - 4);
 
   context.textBaseline = "top";
   context.font = 'bold 28px Arial';
   context.fillStyle = "rgb(255,255,255)";
   context.fillText(Math.round(battery), position.x + 25, position.y + 4);
+
+}
+
+function drawRamMeter( context, position ) {
+
+  var ram = this.ram;
+  var maxRam = this.maxRam;
+  var meterWidth = (this.width - 10) * ram / maxRam;
+  var meterHeight = (this.height - 10);
+
+  context.strokeStyle = "rgb(255,255,255)";
+  context.lineWidth = 3;
+  context.strokeRect( position.x, position.y, this.width, this.height );
+  context.fillStyle = "rgb(220,90,50)";
+  context.fillRect( position.x + this.width - 5, position.y + 5, -meterWidth, meterHeight );
+
+  context.textBaseline = "bottom";
+  context.font = '16px Arial';
+  context.fillStyle = "rgb(255,255,255)";
+  context.textAlign = "end";
+  context.fillText("RAM", position.x + this.width, position.y - 4);
+
+  context.textBaseline = "top";
+  context.font = 'bold 28px Arial';
+  context.fillStyle = "rgb(255,255,255)";
+  context.textAlign = "end";
+  context.fillText(Math.round(ram), position.x + this.width - 25, position.y + 4);
 
 }
 
@@ -262,7 +277,7 @@ function createInventoryHUD( capacity ) {
     inventory.onMouseMove = selectGrid;
     inventory.onMouseOut = deselectGrid;
     inventory.onMouseDown = selectItem;
-    hud.add( inventory, "right", "bottom", { "x": -30, "y": -30 } );
+    hud.add( inventory, "right", "middle", { "x": -30, "y": -30 } );
 
 }
 
