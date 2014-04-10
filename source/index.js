@@ -4,7 +4,6 @@ Blockly.inject( document.getElementById( 'blocklyDiv' ), {
 } );
 
 function onRun() {
-    console.info( "========= onRun =========" );
     vwf_view.kernel.setProperty( vwf_view.kernel.application(), "executing", true );
 }
 
