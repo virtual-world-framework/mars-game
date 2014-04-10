@@ -5,9 +5,7 @@ Blockly.inject( document.getElementById( 'blocklyDiv' ), {
 
 function onRun() {
     console.info( "========= onRun =========" );
-    var appId = vwf_view.kernel.find( "", "/" )[ 0 ];
-
-    vwf_view.kernel.setProperty( appId, "executing", true );
+    vwf_view.kernel.setProperty( vwf_view.kernel.application(), "executing", true );
 }
 
 window.addEventListener( "keyup", function (event) {
