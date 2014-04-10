@@ -52,10 +52,9 @@ Blockly.Blocks['maze_moveForward'] = {
 };
 
 Blockly.JavaScript['maze_moveForward'] = function(block) {
-  var id = Blockly.Blocks.vwfNodes[ "player" ];
   var dist = Blockly.JavaScript.valueToCode(block, 'DISTANCE', Blockly.JavaScript.ORDER_NONE) || '0';
   var t = Blockly.JavaScript.valueToCode(block, 'TIME', Blockly.JavaScript.ORDER_NONE) || '0';
-  return "vwf.callMethod('"+id+"','executeBlocklyCmd',['moveForward','"+dist+"','"+t+"']);\n";
+  return "vwf.callMethod(vwf.find( undefined, '//player' ),'executeBlocklyCmd',['moveForward','"+dist+"','"+t+"']);\n";
 };
 
 Blockly.Blocks['maze_turn'] = {
@@ -84,10 +83,9 @@ Blockly.Blocks['maze_turn'] = {
 Blockly.JavaScript['maze_turn'] = function(block) {
   // Generate JavaScript for turning left or right.
   var dir = block.getFieldValue('DIR');
-  var id = Blockly.Blocks.vwfNodes[ "player" ];
   var angle = Blockly.JavaScript.valueToCode(block, 'ANGLE', Blockly.JavaScript.ORDER_NONE) || '0';
   var t = Blockly.JavaScript.valueToCode(block, 'TIME', Blockly.JavaScript.ORDER_NONE) || '0';
-  return "vwf.callMethod('"+id+"','executeBlocklyCmd',['"+dir+"','"+angle+"','"+t+"']);\n";
+  return "vwf.callMethod(vwf.find( undefined, '//player' ),'executeBlocklyCmd',['"+dir+"','"+angle+"','"+t+"']);\n";
 };
 
 Blockly.Blocks['maze_if'] = {
