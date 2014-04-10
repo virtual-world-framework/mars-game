@@ -86,6 +86,6 @@ children:
         type: model/vnd.collada+xml
         properties:
           scale: 0.2
-          iconSrc: "../assets/images/pointOfInterest.png"
+          iconSrc: "../assets/images/toyIcon.png"
 scripts: 
  - source: source/scene.js

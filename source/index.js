@@ -49,16 +49,19 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
             var parentName = eventArgs[3];
             var name = nodeID.split("-")[ nodeID.split("-").length - 1 ];
 
-            var inventoryItem = new HUD.Element( name, drawIcon, 64, 64 );
-            inventoryItem.icon = new Image();
-            inventoryItem.icon.src = iconSrc;
-            inventoryItem.owner = parentName;
-            inventoryItem.isDragging = true;
-            inventoryItem.startPos = screenPos;
-            inventoryItem.onMouseUp = drop;
-            inventoryItem.onMouseOut = drag;
-            inventoryItem.onMouseMove = drag;
-            hud.add( inventoryItem, "top", "left", { "x": screenPos.x - 32, "y": screenPos.y - 32 } );
+            var icon = new Image();
+            icon.src = iconSrc;
+            icon.onload = ( function() {
+              var inventoryItem = new HUD.Element( name, drawIcon, icon.width, icon.height );
+              inventoryItem.icon = icon;
+              inventoryItem.owner = parentName;
+              inventoryItem.isDragging = true;
+              inventoryItem.startPos = screenPos;
+              inventoryItem.onMouseUp = drop;
+              inventoryItem.onMouseOut = drag;
+              inventoryItem.onMouseMove = drag;
+              hud.add( inventoryItem, "top", "left", { "x": screenPos.x - icon.width / 2, "y": screenPos.y - icon.height / 2 } );
+            } );
 
         }
 
@@ -271,14 +274,26 @@ function drawInventory( context, position ) {
 
     for ( var r = 0; r < this.grid.length; r++ ) {
         for ( var c = 0; c < this.grid[r].length; c++ ) {
-            if ( this.grid[r][c].item !== null ) {
-                context.fillStyle = "rgb(80,80,160)";
-            } else if ( this.grid[r][c].isMouseOver ) {
-                context.fillStyle = "rgb(180,180,225)";
-            } else {
-                context.fillStyle = "rgb(225,225,225)";
+
+          var posX = position.x + (c*48) + c;
+          var posY = position.y + (r*48) + r;
+          var item = this.grid[r][c].item;
+
+          if ( item !== null ) {
+            
+            context.fillStyle = "rgb(80,80,160)";
+            context.fillRect( posX, posY, 48, 48 );
+
+            if ( item.icon instanceof Image ) {
+              context.drawImage( item.icon, posX, posY );
             }
-            context.fillRect( position.x + (c*48) + c, position.y + (r*48) + r, 48, 48 );
+          } else if ( this.grid[r][c].isMouseOver ) {
+              context.fillStyle = "rgb(180,180,225)";
+              context.fillRect( posX, posY, 48, 48 );
+          } else {
+              context.fillStyle = "rgb(225,225,225)";
+              context.fillRect( posX, posY, 48, 48 );
+          }
         }
     }
 }
