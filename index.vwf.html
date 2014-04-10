@@ -6,25 +6,9 @@
 <script type="text/javascript" src="source/threejs/ShaderPass.js"></script>
 <script type="text/javascript" src="source/threejs/MaskPass.js"></script>
 <script type="text/javascript" src="source/CustomShaders.js"></script>
+<script type="text/javascript" src="source/blocks.js"></script>
 <script type="text/javascript" src="source/index.js"></script>
 <script type="text/javascript" src="source/HUD.js"></script>
-<script type="text/javascript" src="source/blocks.js"></script>
-<script type="text/javascript">
-    Blockly.inject( document.getElementById( 'blocklyDiv' ), { 
-      path: './source/blockly/', 
-      toolbox: document.getElementById( 'toolbox' ) 
-    } );
-
-    function onRun() {
-      console.info( "========= onRun =========" );
-      var appId = vwf_view.kernel.find( "", "/" )[ 0 ];
-
-      vwf_view.kernel.setProperty( appId, "executing", true );
-    }
-
-    vwf_view.satProperty = function( nodeID, propertyName, propertyValue ) {
-    } //@ sourceURL=index.html
-</script> 
 
 <!-- CSS -->
 <link rel="stylesheet" href="index.vwf.css"></link>
