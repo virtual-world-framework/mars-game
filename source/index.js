@@ -277,7 +277,7 @@ function createInventoryHUD( capacity ) {
     inventory.onMouseMove = selectGrid;
     inventory.onMouseOut = deselectGrid;
     inventory.onMouseDown = selectItem;
-    hud.add( inventory, "right", "middle", { "x": -30, "y": -30 } );
+    hud.add( inventory, "center", "bottom", { "x": 0, "y": -30 } );
 
 }
 
@@ -349,7 +349,6 @@ function selectItem( event ) {
     if ( this.grid[r][c] !== undefined && this.grid[r][c].item !== null ) {
         var vwfID = vwf_view.kernel.find("", "//" + this.grid[r][c].item.id)[0];
         vwf_view.kernel.callMethod( vwfID, "grab", [{ "x": event.clientX, "y": event.clientY }] );
-        this.grid[r][c].item = null;
     }
 }
 
@@ -372,14 +371,29 @@ function addItemToInventory( item, inventory, slot ) {
 
     if ( vwfObject && vwfInventory ) {
         vwf_view.kernel.callMethod( vwfInventory, "add", [ vwfObject, slot.slot ] );
+        removeSlotIcon( item );
         slot.item = item;
     }
 }
 
 function removeItemFromInventory( item ) {
     if ( hud.elements.hasOwnProperty( item.owner ) ) {
+        removeSlotIcon( item );
         var vwfInventory = vwf_view.kernel.find( "", "//" + item.owner )[0];
         vwf_view.kernel.callMethod( vwfInventory, "remove", [ item.id ] );
+    }
+}
+
+function removeSlotIcon( item ) {
+    var inventory = hud.elements[ item.owner ];
+    if ( hud.elements.hasOwnProperty( item.owner ) ) {
+        for ( var rr = 0; rr < inventory.grid.length; rr++ ) {
+            for ( var cc = 0; cc < inventory.grid[rr].length; cc++ ) {
+                if ( inventory.grid[rr][cc].item !== null && inventory.grid[rr][cc].item.id === item.id ) {
+                    inventory.grid[rr][cc].item = null;
+                }
+            }
+        }
     }
 }
 
