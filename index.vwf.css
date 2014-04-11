@@ -1,15 +1,23 @@
+#blocklyWrapper {
+	position: absolute;
+	top: 10px;
+	left: 10px;
+	pointer-events: none;
+}
+
 #blocklyDiv {
 	height: 400px;
 	width: 560px;
 	overflow: hidden;
-	margin: 10px;
 	border-radius: 10px;
 	opacity: 0.9;
+	pointer-events: all;
 }
 
 #runButton {
 	margin-left: 10px;
 	border-radius: 5px;
+	pointer-events: all;
 }
 
 #toolbox {

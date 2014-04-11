@@ -14,10 +14,12 @@
 <link rel="stylesheet" href="index.vwf.css"></link>
 
 <!-- HTML -->
-<div id="blocklyDiv"></div>
-<div><button id="runButton" onclick="onRun()">Run</button></div>
-<xml id="toolbox">
-  <block type="maze_moveForward"></block>
-  <block type="maze_turn"><field name="DIR">turnLeft</field></block>
-  <block type="maze_turn"><field name="DIR">turnRight</field></block>
-</xml>
+<div id="blocklyWrapper">
+	<div id="blocklyDiv"></div>
+	<div><button id="runButton" onclick="onRun()">Run</button></div>
+	<xml id="toolbox">
+	  <block type="maze_moveForward"></block>
+	  <block type="maze_turn"><field name="DIR">turnLeft</field></block>
+	  <block type="maze_turn"><field name="DIR">turnRight</field></block>
+	</xml>
+</div>
