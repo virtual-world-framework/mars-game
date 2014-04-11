@@ -2,6 +2,7 @@
 --- 
 extends: http://vwf.example.com/scene.vwf
 properties:
+  executing: false
   enableShadows: true
   ambientColor: [ 60, 50, 50 ]
   userObject: null
@@ -41,9 +42,12 @@ children:
       groundColor: [ 255, 230, 230 ]
       intensity: 0.3
   player:
-    extends: http://vwf.example.com/node3.vwf
+    extends: http://vwf.example.com/blockly/blockly3.vwf
+    implements: [ "http://vwf.example.com/blockly/controller.vwf" ]
     properties:
       rotation: [ 0, 0, 1, 270 ]
+      forwardSpeed: -3
+      rotateSpeed: 90
     methods:
       togglePerspective:
     children:

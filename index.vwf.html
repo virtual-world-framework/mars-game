@@ -1,15 +1,25 @@
-<!DOCTYPE HTML>
-<html>
-  <head>
-  </head>
-  <body>
-    <script type="text/javascript" src="source/threejs/EffectComposer.js"></script>
-    <script type="text/javascript" src="source/threejs/CopyShader.js"></script>
-    <script type="text/javascript" src="source/threejs/RenderPass.js"></script>
-    <script type="text/javascript" src="source/threejs/ShaderPass.js"></script>
-    <script type="text/javascript" src="source/threejs/MaskPass.js"></script>
-    <script type="text/javascript" src="source/CustomShaders.js"></script>
-    <script type="text/javascript" src="source/index.js"></script>
-    <script type="text/javascript" src="source/HUD.js"></script>
-  </body>
-</html>
+
+<!-- Scripts -->
+<script type="text/javascript" src="source/threejs/EffectComposer.js"></script>
+<script type="text/javascript" src="source/threejs/CopyShader.js"></script>
+<script type="text/javascript" src="source/threejs/RenderPass.js"></script>
+<script type="text/javascript" src="source/threejs/ShaderPass.js"></script>
+<script type="text/javascript" src="source/threejs/MaskPass.js"></script>
+<script type="text/javascript" src="source/CustomShaders.js"></script>
+<script type="text/javascript" src="source/blocks.js"></script>
+<script type="text/javascript" src="source/index.js"></script>
+<script type="text/javascript" src="source/HUD.js"></script>
+
+<!-- CSS -->
+<link rel="stylesheet" href="index.vwf.css"></link>
+
+<!-- HTML -->
+<div id="blocklyWrapper">
+	<div id="blocklyDiv"></div>
+	<div><button id="runButton" onclick="onRun()">Run</button></div>
+	<xml id="toolbox">
+	  <block type="maze_moveForward"></block>
+	  <block type="maze_turn"><field name="DIR">turnLeft</field></block>
+	  <block type="maze_turn"><field name="DIR">turnRight</field></block>
+	</xml>
+</div>
