@@ -1,7 +1,20 @@
 ---
 properties:
   isInventoriable: true
+  iconSrc: ""
 methods:
+  grab:
 events:
   pickedUp:
   dropped:
+  pointerDown:
+  grabbed:
+scripts: |
+  this.pointerDown = function( pointerInfo, pickInfo ) {
+  	var pos = { "x": pointerInfo.screenPosition[0], "y": pointerInfo.screenPosition[1] };
+    this.grab( pos );
+  }
+
+  this.grab = function( position ) {
+  	this.grabbed( this.client, this.iconSrc, position, this.parent.name );
+  }

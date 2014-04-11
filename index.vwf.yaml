@@ -68,6 +68,12 @@ children:
           visible: false
           castShadows: true
           receiveShadows: true
+        children:
+          cargo:
+            extends: source/inventory.vwf
+            properties:
+              capacity: 4
+              inventoryIsVisible: false
     scripts:
      - source: source/player.js
   pickups:
@@ -80,5 +86,6 @@ children:
         type: model/vnd.collada+xml
         properties:
           scale: 0.2
+          iconSrc: "../assets/images/toyIcon.png"
 scripts: 
- - source: source/setup.js
+ - source: source/scene.js
