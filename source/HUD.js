@@ -199,13 +199,13 @@ HUD.prototype = {
     },
 
     countElements: function() {
-        var l = 0;
+        var count = 0;
 
         for ( var el in this.elements ) {
-            l++;
+            count++;
         }
 
-        this.elementCount = l;
+        this.elementCount = count;
     },
 
     pick: function( event ) {

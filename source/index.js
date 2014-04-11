@@ -34,15 +34,15 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
             var icon = new Image();
             icon.src = iconSrc;
             icon.onload = ( function() {
-              var inventoryItem = new HUD.Element( name, drawIcon, icon.width, icon.height );
-              inventoryItem.icon = icon;
-              inventoryItem.owner = parentName;
-              inventoryItem.isDragging = true;
-              inventoryItem.startPos = screenPos;
-              inventoryItem.onMouseUp = drop;
-              inventoryItem.onMouseOut = drag;
-              inventoryItem.onMouseMove = drag;
-              hud.add( inventoryItem, "top", "left", { "x": screenPos.x - icon.width / 2, "y": screenPos.y - icon.height / 2 } );
+                var inventoryItem = new HUD.Element( name, drawIcon, icon.width, icon.height );
+                inventoryItem.icon = icon;
+                inventoryItem.owner = parentName;
+                inventoryItem.isDragging = true;
+                inventoryItem.startPos = screenPos;
+                inventoryItem.onMouseUp = drop;
+                inventoryItem.onMouseOut = drag;
+                inventoryItem.onMouseMove = drag;
+                hud.add( inventoryItem, "top", "left", { "x": screenPos.x - icon.width / 2, "y": screenPos.y - icon.height / 2 } );
             } );
 
         }
@@ -63,119 +63,119 @@ vwf_view.initializedNode = function( nodeID, childID, childExtendsID, childImple
 
 function setUp( renderer, scene, camera ) {
 
-  // Modify and add to scene
-  scene.fog = new THREE.FogExp2( 0xAA9377, 0.000015 );
-  renderer.setClearColor(scene.fog.color);
+    // Modify and add to scene
+    scene.fog = new THREE.FogExp2( 0xAA9377, 0.000015 );
+    renderer.setClearColor(scene.fog.color);
 
-  // Set up HUD
-  renderer.autoClear = false;
-  hud = new HUD();
-  createHUD();
+    // Set up HUD
+    renderer.autoClear = false;
+    hud = new HUD();
+    createHUD();
 
-  // Set up post-processing
-  composer = new THREE.EffectComposer( renderer );
-  composer.addPass( new THREE.RenderPass( scene, camera ) );
+    // Set up post-processing
+    composer = new THREE.EffectComposer( renderer );
+    composer.addPass( new THREE.RenderPass( scene, camera ) );
 
-  // Initialize the environment shader
-  var EnvironmentShader = new THREE.ShaderPass( MGShaders.Environment );
+    // Initialize the environment shader
+    var EnvironmentShader = new THREE.ShaderPass( MGShaders.Environment );
 
-  // Initialize the HDR lighting shader
-  HDRShader = new THREE.ShaderPass( MGShaders.HDR );
-  HDRShader.uniforms[ 'exposure' ].value = 0.000015;
+    // Initialize the HDR lighting shader
+    HDRShader = new THREE.ShaderPass( MGShaders.HDR );
+    HDRShader.uniforms[ 'exposure' ].value = 0.000015;
 
-  // Final pass that renders the processed image to the screen
-  var FinalPass = new THREE.ShaderPass( THREE.CopyShader );
-  FinalPass.renderToScreen = true;
+    // Final pass that renders the processed image to the screen
+    var FinalPass = new THREE.ShaderPass( THREE.CopyShader );
+    FinalPass.renderToScreen = true;
 
-  // Add passes to the effect composer
-  composer.addPass( EnvironmentShader );
-  composer.addPass( HDRShader );
-  composer.addPass( FinalPass );
+    // Add passes to the effect composer
+    composer.addPass( EnvironmentShader );
+    composer.addPass( HDRShader );
+    composer.addPass( FinalPass );
 
-  // Set render loop to use custom render function
-  vwf_view.kernel.kernel.views["vwf/view/threejs"].render = render;
+    // Set render loop to use custom render function
+    vwf_view.kernel.kernel.views["vwf/view/threejs"].render = render;
 
 }
 
 function render( renderer, scene, camera ) {
   
-  hud.elements.batteryMeter.battery = (Math.sin(frame * Math.PI / 180) + 1) / 2 * 100;
-  hud.elements.ramMeter.ram = (Math.sin(frame * Math.PI / 180) + 1) / 2 * 100;
-  hud.update();
+    hud.elements.batteryMeter.battery = (Math.sin(frame * Math.PI / 180) + 1) / 2 * 100;
+    hud.elements.ramMeter.ram = (Math.sin(frame * Math.PI / 180) + 1) / 2 * 100;
+    hud.update();
 
-  renderer.clear();
-  composer.render();
-  renderer.clearDepth();
-  renderer.render( hud.scene, hud.camera );
-  frame = ++frame % 360;
+    renderer.clear();
+    composer.render();
+    renderer.clearDepth();
+    renderer.render( hud.scene, hud.camera );
+    frame = ++frame % 360;
 
 }
 
 function createHUD() {
 
-  var batteryMeter = new HUD.Element( "batteryMeter", drawBatteryMeter, 250, 40);
-  batteryMeter.battery = 100;
-  batteryMeter.maxBattery = 100;
-  hud.add( batteryMeter, "left", "bottom", { "x": 30, "y": -30 } );
+    var batteryMeter = new HUD.Element( "batteryMeter", drawBatteryMeter, 250, 40);
+    batteryMeter.battery = 100;
+    batteryMeter.maxBattery = 100;
+    hud.add( batteryMeter, "left", "bottom", { "x": 30, "y": -30 } );
 
-  var ramMeter = new HUD.Element( "ramMeter", drawRamMeter, 250, 40);
-  ramMeter.ram = 100;
-  ramMeter.maxRam = 100;
-  hud.add( ramMeter, "right", "bottom", { "x": -30, "y": -30 } );
+    var ramMeter = new HUD.Element( "ramMeter", drawRamMeter, 250, 40);
+    ramMeter.ram = 100;
+    ramMeter.maxRam = 100;
+    hud.add( ramMeter, "right", "bottom", { "x": -30, "y": -30 } );
 
-  createInventoryHUD( 4 );
+    createInventoryHUD( 4 );
 
 }
 
 function drawBatteryMeter( context, position ) {
 
-  var battery = this.battery;
-  var maxBattery = this.maxBattery;
-  var meterWidth = (this.width - 10) * battery / maxBattery;
-  var meterHeight = (this.height - 10);
+    var battery = this.battery;
+    var maxBattery = this.maxBattery;
+    var meterWidth = (this.width - 10) * battery / maxBattery;
+    var meterHeight = (this.height - 10);
 
-  context.strokeStyle = "rgb(255,255,255)";
-  context.lineWidth = 3;
-  context.strokeRect( position.x, position.y, this.width, this.height );
-  context.fillStyle = "rgb(50,90,220)";
-  context.fillRect( position.x + 5, position.y + 5, meterWidth, meterHeight );
+    context.strokeStyle = "rgb(255,255,255)";
+    context.lineWidth = 3;
+    context.strokeRect( position.x, position.y, this.width, this.height );
+    context.fillStyle = "rgb(50,90,220)";
+    context.fillRect( position.x + 5, position.y + 5, meterWidth, meterHeight );
 
-  context.textBaseline = "bottom";
-  context.font = '16px Arial';
-  context.fillStyle = "rgb(255,255,255)";
-  context.fillText("BATTERY", position.x, position.y - 4);
+    context.textBaseline = "bottom";
+    context.font = '16px Arial';
+    context.fillStyle = "rgb(255,255,255)";
+    context.fillText("BATTERY", position.x, position.y - 4);
 
-  context.textBaseline = "top";
-  context.font = 'bold 28px Arial';
-  context.fillStyle = "rgb(255,255,255)";
-  context.fillText(Math.round(battery), position.x + 25, position.y + 4);
+    context.textBaseline = "top";
+    context.font = 'bold 28px Arial';
+    context.fillStyle = "rgb(255,255,255)";
+    context.fillText(Math.round(battery), position.x + 25, position.y + 4);
 
 }
 
 function drawRamMeter( context, position ) {
 
-  var ram = this.ram;
-  var maxRam = this.maxRam;
-  var meterWidth = (this.width - 10) * ram / maxRam;
-  var meterHeight = (this.height - 10);
+    var ram = this.ram;
+    var maxRam = this.maxRam;
+    var meterWidth = (this.width - 10) * ram / maxRam;
+    var meterHeight = (this.height - 10);
 
-  context.strokeStyle = "rgb(255,255,255)";
-  context.lineWidth = 3;
-  context.strokeRect( position.x, position.y, this.width, this.height );
-  context.fillStyle = "rgb(220,90,50)";
-  context.fillRect( position.x + this.width - 5, position.y + 5, -meterWidth, meterHeight );
+    context.strokeStyle = "rgb(255,255,255)";
+    context.lineWidth = 3;
+    context.strokeRect( position.x, position.y, this.width, this.height );
+    context.fillStyle = "rgb(220,90,50)";
+    context.fillRect( position.x + this.width - 5, position.y + 5, -meterWidth, meterHeight );
 
-  context.textBaseline = "bottom";
-  context.font = '16px Arial';
-  context.fillStyle = "rgb(255,255,255)";
-  context.textAlign = "end";
-  context.fillText("RAM", position.x + this.width, position.y - 4);
+    context.textBaseline = "bottom";
+    context.font = '16px Arial';
+    context.fillStyle = "rgb(255,255,255)";
+    context.textAlign = "end";
+    context.fillText("RAM", position.x + this.width, position.y - 4);
 
-  context.textBaseline = "top";
-  context.font = 'bold 28px Arial';
-  context.fillStyle = "rgb(255,255,255)";
-  context.textAlign = "end";
-  context.fillText(Math.round(ram), position.x + this.width - 25, position.y + 4);
+    context.textBaseline = "top";
+    context.font = 'bold 28px Arial';
+    context.fillStyle = "rgb(255,255,255)";
+    context.textAlign = "end";
+    context.fillText(Math.round(ram), position.x + this.width - 25, position.y + 4);
 
 }
 
@@ -187,48 +187,48 @@ function drawIcon( context, position ) {
 
 function startDrag( event ) {
 
-  if ( event.which === 1 ) {
+    if ( event.which === 1 ) {
 
-    this.isDragging = true;
-    this.startPos.x = event.clientX;
-    this.startPos.y = event.clientY;
-    hud.moveToTop( this.id );
+        this.isDragging = true;
+        this.startPos.x = event.clientX;
+        this.startPos.y = event.clientY;
+        hud.moveToTop( this.id );
 
-  }
+    }
 
 }
 
 function drag( event ) {
 
-  if ( this.isDragging && event.which === 1 ) {
+    if ( this.isDragging && event.which === 1 ) {
 
-    var movX = event.clientX - this.startPos.x;
-    var movY = event.clientY - this.startPos.y;
+        var movX = event.clientX - this.startPos.x;
+        var movY = event.clientY - this.startPos.y;
 
-    this.offset.x += movX;
-    this.offset.y += movY;
+        this.offset.x += movX;
+        this.offset.y += movY;
 
-    this.startPos.x = event.clientX;
-    this.startPos.y = event.clientY;
+        this.startPos.x = event.clientX;
+        this.startPos.y = event.clientY;
 
-    // Prevent element from losing mouse position
-    this.isMouseOver = true;
-    this.position.x += movX;
-    this.position.y += movY;
+        // Prevent element from losing mouse position
+        this.isMouseOver = true;
+        this.position.x += movX;
+        this.position.y += movY;
 
-    var picks = hud.pick( event );
-    picks.splice( picks.indexOf( this ), 1 );
+        var picks = hud.pick( event );
+        picks.splice( picks.indexOf( this ), 1 );
 
-    for ( var i = 0; i < picks.length; i++ ) {
-        picks[i].onMouseMove( event );
+        for ( var i = 0; i < picks.length; i++ ) {
+            picks[i].onMouseMove( event );
+        }
+
+    } else {
+
+        this.isDragging = false;
+        hud.remove( this );
+
     }
-
-  } else {
-
-    this.isDragging = false;
-    hud.remove( this );
-
-  }
 
 }
 
@@ -290,25 +290,25 @@ function drawInventory( context, position ) {
     for ( var r = 0; r < this.grid.length; r++ ) {
         for ( var c = 0; c < this.grid[r].length; c++ ) {
 
-          var posX = position.x + (c*48) + c;
-          var posY = position.y + (r*48) + r;
-          var item = this.grid[r][c].item;
+            var posX = position.x + (c*48) + c;
+            var posY = position.y + (r*48) + r;
+            var item = this.grid[r][c].item;
 
-          if ( item !== null ) {
-            
-            context.fillStyle = "rgb(80,80,160)";
-            context.fillRect( posX, posY, 48, 48 );
+            if ( item !== null ) {
 
-            if ( item.icon instanceof Image ) {
-              context.drawImage( item.icon, posX, posY );
+                context.fillStyle = "rgb(80,80,160)";
+                context.fillRect( posX, posY, 48, 48 );
+
+                if ( item.icon instanceof Image ) {
+                    context.drawImage( item.icon, posX, posY );
+                }
+            } else if ( this.grid[r][c].isMouseOver ) {
+                context.fillStyle = "rgb(180,180,225)";
+                context.fillRect( posX, posY, 48, 48 );
+            } else {
+                context.fillStyle = "rgb(225,225,225)";
+                context.fillRect( posX, posY, 48, 48 );
             }
-          } else if ( this.grid[r][c].isMouseOver ) {
-              context.fillStyle = "rgb(180,180,225)";
-              context.fillRect( posX, posY, 48, 48 );
-          } else {
-              context.fillStyle = "rgb(225,225,225)";
-              context.fillRect( posX, posY, 48, 48 );
-          }
         }
     }
 }
