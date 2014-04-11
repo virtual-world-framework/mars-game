@@ -8,9 +8,10 @@ properties:
 children:
   environment:
     extends: http://vwf.example.com/node3.vwf
-    source: assets/3d/mars_terrain.DAE
+    source: assets/3d/Terrain/mars_terrain.DAE
     type: model/vnd.collada+xml
     properties:
+      scale: 0.01
       castShadows: true
       receiveShadows: true
   sunLight:
@@ -41,6 +42,8 @@ children:
       intensity: 0.3
   player:
     extends: http://vwf.example.com/node3.vwf
+    properties:
+      rotation: [ 0, 0, 1, 270 ]
     methods:
       togglePerspective:
     children:
@@ -50,13 +53,12 @@ children:
         properties:
           navmode: walk
           translationSpeed: 0
-          translation: [ 0, 0, 135 ]
-          rotation: [ 0, 0, 1, 180 ]
+          translation: [ 0, 0, 1 ]
           far: 100000
           isFirstPerson: true
       rover:
         extends: source/rover.vwf
-        source: assets/3d/robot.dae
+        source: assets/3d/Rover/Rover.dae
         type: model/vnd.collada+xml
         properties:
           visible: false
@@ -70,7 +72,7 @@ children:
       toyRover:
         extends: http://vwf.example.com/node3.vwf
         implements: [ "source/inventoriable.vwf" ]
-        source: assets/3d/robot.dae
+        source: assets/3d/Rover/Rover.dae
         type: model/vnd.collada+xml
         properties:
           scale: 0.2
