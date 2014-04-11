@@ -46,6 +46,8 @@ children:
     implements: [ "http://vwf.example.com/blockly/controller.vwf" ]
     properties:
       rotation: [ 0, 0, 1, 270 ]
+      forwardSpeed: -3
+      rotateSpeed: 90
     methods:
       togglePerspective:
     children:
