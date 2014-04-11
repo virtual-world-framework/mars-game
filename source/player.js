@@ -1,5 +1,5 @@
 this.togglePerspective = function() {
-  var firstPersonTransform = [ 1, 0, 0, 0,  0,     1,  0,     0,  0, 0,     1,     0,  0,   0,  1, 0 ];
+  var firstPersonTransform = [ 1, 0, 0, 0,  0, 1,      0,     0,  0, 0,     1,     0,  0,   0,  1, 0 ];
   var thirdPersonTransform = [ 1, 0, 0, 0,  0, 0.707, -0.707, 0,  0, 0.707, 0.707, 0,  0, -55, 55, 1 ];
   var durationSeconds = 1;
   var delaySeconds = 0.1;
