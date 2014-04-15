@@ -20,17 +20,18 @@ methods:
 events:
 scripts: |
   
-  this.add = function( objectName, index ) {
+  this.add = function( objectID, index ) {
 
     if ( !validIndex( index, this.capacity ) ) {
       return;
     }
 
-    var object = this.find("//" + objectName)[0];
+    var sceneNode = this.find("/")[0];
+    var object = sceneNode.findByID( sceneNode, objectID );
 
     if ( object && object.isInventoriable ) {
       if ( object.parent_ == this ) {
-        this.swap( this.slots.indexOf( objectName ), index );
+        this.swap( this.slots.indexOf( objectID ), index );
         return;
       }
       object.pickedUp();
@@ -54,15 +55,16 @@ scripts: |
 
   } 
 
-  this.remove = function( objectName ) {
+  this.remove = function( objectID ) {
 
-    var object = this.find( "//" + objectName )[0];
+    var sceneNode = this.find("/")[0];
+    var object = sceneNode.findByID( sceneNode, objectID );
 
     if ( object && object.parent === this ) {
 
       object.parent_ = this.find("//pickups")[0];
       object.dropped();
-      this.slots[ this.slots.indexOf( objectName ) ] = undefined;
+      this.slots[ this.slots.indexOf( objectID ) ] = undefined;
       object.visible = true;
       
     }
