@@ -15,6 +15,28 @@ children:
       scale: 0.01
       castShadows: true
       receiveShadows: true
+  boundaryMap:
+    extends: source/boundaryMap.vwf
+    properties:
+      topLeft: [ -10.5, 25.5 ]
+      gridLength: 3
+      map:
+        - [ -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,  1, -1, -1, -1, -1, -1 ]
+        - [ -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,  1, -1, -1, -1, -1, -1 ]
+        - [ -1, -1, -1, -1, -1, -1, -1, -1,  1,  1,  1,  1,  2,  2,  2,  2 ]
+        - [ -1, -1, -1, -1, -1, -1, -1, -1,  1, -1, -1, -1, -1, -1, -1, -1 ]
+        - [ -1, -1, -1, -1, -1, -1, -1, -1,  1, -1, -1, -1, -1, -1, -1, -1 ]
+        - [ -1, -1,  4, -1, -1, -1, -1, -1,  1, -1, -1, -1, -1, -1, -1, -1 ]
+        - [ -1, -1,  2,  2,  2,  1,  1,  1,  1,  1,  1,  1, -1, -1, -1, -1 ]
+        - [  1, -1,  2, -1, -1, -1, -1, -1, -1, -1, -1,  1, -1, -1, -1, -1 ]
+        - [  1,  1,  1,  4,  4,  4,  4,  2,  2,  2,  2,  2,  2,  2,  2,  0 ]
+        - [  1, -1,  1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,  1 ]
+        - [ -1, -1,  1, -1, -1,  1,  1,  1,  1,  1, -1, -1, -1, -1, -1,  1 ]
+        - [ -1, -1,  1, -1, -1,  1, -1,  1, -1,  1, -1, -1, -1, -1, -1,  1 ]
+        - [ -1, -1,  1,  1,  1,  1, -1,  1, -1,  1,  1,  1,  1,  1,  1,  1 ]
+        - [ -1, -1, -1, -1, -1, -1, -1,  1, -1, -1, -1, -1,  2, -1, -1, -1 ]
+        - [ -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,  2, -1, -1, -1 ]
+        - [ -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,  1,  1,  1, -1 ]
   sunLight:
     extends: http://vwf.example.com/light.vwf
     properties:
@@ -48,7 +70,6 @@ children:
     - "http://vwf.example.com/node3/animation.vwf"
     - "http://vwf.example.com/blockly/controller.vwf"
     properties:
-      rotation: [ 0, 0, 1, 270 ]
       forwardSpeed: -3
       rotateSpeed: 90
       showButton: true
@@ -70,8 +91,11 @@ children:
         type: model/vnd.collada+xml
         properties:
           visible: false
+          rotation: [ 0, 0, 1, 270 ]
           castShadows: true
           receiveShadows: true
+          currentGridSquare: [ 0, 7 ]
+          heading: 270
         children:
           cargo:
             extends: source/inventory.vwf
