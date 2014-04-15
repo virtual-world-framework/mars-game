@@ -62,7 +62,7 @@ children:
           isFirstPerson: true
       rover:
         extends: source/rover.vwf
-        source: assets/3d/Rover/Rover.dae
+        source: assets/3d/Rover/Rover.DAE
         type: model/vnd.collada+xml
         properties:
           visible: false
