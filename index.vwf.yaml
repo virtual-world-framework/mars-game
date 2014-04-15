@@ -82,7 +82,7 @@ children:
       toyRover:
         extends: http://vwf.example.com/node3.vwf
         implements: [ "source/inventoriable.vwf" ]
-        source: assets/3d/Rover/Rover.dae
+        source: assets/3d/Rover/Rover.DAE
         type: model/vnd.collada+xml
         properties:
           scale: 0.2
