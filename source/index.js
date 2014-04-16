@@ -30,8 +30,7 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
             var iconSrc = eventArgs[1];
             var screenPos = eventArgs[2];
             var parentName = eventArgs[3];
-            var name = nodeID.split("-")[ nodeID.split("-").length - 1 ];
-            createInventoryItem( iconSrc, screenPos, parentName, name );
+            createInventoryItem( nodeID, iconSrc, screenPos, parentName );
 
         }
 

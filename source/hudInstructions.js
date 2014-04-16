@@ -46,13 +46,13 @@ function createInventoryHUD( capacity ) {
 
 }
 
-function createInventoryItem( iconSrc, screenPos, parentName, name ) {
+function createInventoryItem( id, iconSrc, screenPos, parentName ) {
 
     var icon = new Image();
     icon.src = iconSrc;
     icon.onload = ( function() {
 
-        var inventoryItem = new HUD.Element( name, drawIcon, icon.width, icon.height );
+        var inventoryItem = new HUD.Element( id, drawIcon, icon.width, icon.height );
         inventoryItem.icon = icon;
         inventoryItem.owner = parentName;
         inventoryItem.isDragging = true;
@@ -369,7 +369,7 @@ function selectItem( event ) {
 
     if ( this.grid[r][c] !== undefined && this.grid[r][c].item !== null ) {
 
-        var vwfID = vwf_view.kernel.find("", "//" + this.grid[r][c].item.id)[0];
+        var vwfID = this.grid[r][c].item.id;
         vwf_view.kernel.callMethod( vwfID, "grab", [{ "x": event.clientX, "y": event.clientY }] );
 
     }
