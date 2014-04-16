@@ -46,13 +46,13 @@ function createInventoryHUD( capacity ) {
 
 }
 
-function createInventoryItem( name, iconSrc, screenPos, parentName ) {
+function createInventoryItem( id, iconSrc, screenPos, parentName ) {
 
     var icon = new Image();
     icon.src = iconSrc;
     icon.onload = ( function() {
 
-        var inventoryItem = new HUD.Element( name, drawIcon, icon.width, icon.height );
+        var inventoryItem = new HUD.Element( id, drawIcon, icon.width, icon.height );
         inventoryItem.icon = icon;
         inventoryItem.owner = parentName;
         inventoryItem.isDragging = true;

@@ -26,7 +26,7 @@ scripts: |
       return;
     }
 
-    var sceneNode = this.find("/")[0];
+    var sceneNode = this.find( "/" )[ 0 ];
     var object = sceneNode.findByID( sceneNode, objectID );
 
     if ( object && object.isInventoriable ) {
@@ -57,12 +57,12 @@ scripts: |
 
   this.remove = function( objectID ) {
 
-    var sceneNode = this.find("/")[0];
+    var sceneNode = this.find( "/" )[ 0 ];
     var object = sceneNode.findByID( sceneNode, objectID );
 
     if ( object && object.parent === this ) {
 
-      object.parent_ = this.find("//pickups")[0];
+      object.parent_ = this.find( "//pickups" )[ 0 ];
       object.dropped();
       this.slots[ this.slots.indexOf( objectID ) ] = undefined;
       object.visible = true;
@@ -81,4 +81,4 @@ scripts: |
 
   } 
 
-  //@ sourceURL=inventory.vwf
+  //@ sourceURL=source/inventory.vwf
