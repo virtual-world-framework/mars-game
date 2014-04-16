@@ -91,6 +91,7 @@ children:
           heading: 270
           showButton: true
           buttonTransform: [1,0,0,0,0,1,0,0,0,0,1,0,0,0,4,1]
+          terrainName: "environment"
         children:
           cargo:
             extends: source/inventory.vwf
