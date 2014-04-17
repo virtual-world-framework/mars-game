@@ -4,4 +4,4 @@ model:
   vwf/model/blockly:
 view:
   vwf/view/threejs: "#vwf-root"
-  vwf/view/blockly: 
+  vwf/view/blockly: { "blocklyPath": './source/blockly/' }
