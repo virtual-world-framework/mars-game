@@ -9,12 +9,29 @@ events:
   dropped:
   pointerDown:
   grabbed:
-scripts: |
+scripts: 
+- |
+
   this.pointerDown = function( pointerInfo, pickInfo ) {
-  	var pos = { "x": pointerInfo.screenPosition[0], "y": pointerInfo.screenPosition[1] };
-    this.grab( pos );
+
+    // TODO: Find player rover and get its distance from this object
+    if ( pickInfo.distance < 5 ) {
+
+      var pos = { "x": pointerInfo.screenPosition[0], "y": pointerInfo.screenPosition[1] };
+      this.grab( pos, this.client );
+
+    }
+
   }
 
-  this.grab = function( position ) {
-  	this.grabbed( this.client, this.iconSrc, position, this.parent.name );
+  this.grab = function( position, client ) {
+
+    if ( !client ) {
+      client = this.client;
+    }
+
+  	this.grabbed( client, this.iconSrc, position, this.parent.name );
+
   }
+
+  //@ sourceURL=source/inventoriable.vwf
