@@ -83,7 +83,10 @@ scripts:
 
   this.translateOnTerrain = function( translation, duration ) {
 
-    if ( this.terrainName === undefined ) {
+    var terrain = this.find( "//" + this.terrainName )[0];
+    var scene = this.find("/")[0];
+
+    if ( terrain === undefined ) {
 
       this.translateBy( translation, duration );
 
@@ -108,10 +111,8 @@ scripts:
             goog.vec.Vec3.create()
           );
 
-          var origin = [ newTranslation[0], newTranslation[1], 50 ];
-          var environment = this.find( "//" + this.terrainName )[0];
-          var scene = this.find("/")[0];
-          var intersects = scene.raycast( origin, [0,0,-1], 0, Infinity, true, environment.id );
+          var origin = [ newTranslation[0], newTranslation[1], newTranslation[2] + 3 ];
+          var intersects = scene.raycast( origin, [0,0,-1], 0, Infinity, true, terrain.id );
           newTranslation[2] = intersects.length > 0 ? intersects[0].point.z : newTranslation[2];
 
           this.translation = newTranslation;
