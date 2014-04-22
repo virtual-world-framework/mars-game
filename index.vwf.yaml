@@ -102,13 +102,13 @@ children:
   pickups:
     extends: http://vwf.example.com/node3.vwf
     children:
-      toyRover:
+      radio:
         extends: http://vwf.example.com/node3.vwf
         implements: [ "source/inventoriable.vwf" ]
-        source: assets/3d/Rover/Rover.DAE
+        source: assets/3d/Radio/Radio.DAE
         type: model/vnd.collada+xml
         properties:
-          scale: 0.2
-          iconSrc: "../assets/images/toyIcon.png"
+          iconSrc: "../assets/images/radio.png"
+          translation: [ 45, 0, 0 ]
 scripts: 
  - source: source/scene.js
