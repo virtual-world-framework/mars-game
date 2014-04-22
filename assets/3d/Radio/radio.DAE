@@ -751,7 +751,7 @@
   </library_lights>
   <library_images>
     <image id="radio_PNG">
-      <init_from>./radio.PNG</init_from>
+      <init_from>./radio.png</init_from>
     </image>
     <image id="radio_nrm_png">
       <init_from>./radio_nrm.png</init_from>
