@@ -3,10 +3,7 @@ var HDRShader;
 var hud;
 var frame = 0;
 
-Blockly.inject( document.getElementById( 'blocklyDiv' ), { 
-    path: './source/blockly/', 
-    toolbox: document.getElementById( 'toolbox' ) 
-} );
+
 
 function onRun() {
     vwf_view.kernel.setProperty( vwf_view.kernel.application(), "executing", true );
@@ -40,10 +37,8 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
 
 vwf_view.initializedNode = function( nodeID, childID, childExtendsID, childImplementsIDs, childSource, childType, childIndex, childName ) {
 
-    if ( nodeID === vwf_view.kernel.application() ) {
-
+    if ( childID === vwf_view.kernel.application() ) {
         vwf_view.kernel.kernel.views["vwf/view/threejs"].render = setUp;
-
     }
 
 }

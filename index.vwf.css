@@ -12,12 +12,14 @@
 	border-radius: 10px;
 	opacity: 0.9;
 	pointer-events: all;
+	visibility: visible;
 }
 
 #runButton {
 	margin-left: 10px;
 	border-radius: 5px;
 	pointer-events: all;
+	visibility: visible;
 }
 
 #toolbox {
