@@ -15,12 +15,10 @@ scripts:
   this.pointerDown = function( pointerInfo, pickInfo ) {
 
     // TODO: Find player rover and get its distance from this object
-    if ( pickInfo.distance < 5 ) {
+    //       to determine if the object can be grabbed.
 
-      var pos = { "x": pointerInfo.screenPosition[0], "y": pointerInfo.screenPosition[1] };
-      this.grab( pos );
-
-    }
+    var pos = { "x": pointerInfo.screenPosition[0], "y": pointerInfo.screenPosition[1] };
+    this.grab( pos );
 
   }
 
