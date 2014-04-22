@@ -122,6 +122,10 @@ scripts:
         this.animationPlay(0, duration);
 
       } else {
+        
+        var origin = [ stopTranslation[0], stopTranslation[1], stopTranslation[2] + 300 ];
+        var intersects = scene.raycast( origin, [0,0,-1], 0, Infinity, true, terrain.id );
+        stopTranslation[2] = intersects.length > 0 ? intersects[0].point.z : stopTranslation[2];
 
         this.translation = stopTranslation;
 
