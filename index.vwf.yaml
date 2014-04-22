@@ -65,14 +65,6 @@ children:
       intensity: 0.3
   player:
     extends: http://vwf.example.com/node3.vwf
-    implements:
-    - "http://vwf.example.com/animation.vwf" 
-    - "http://vwf.example.com/node3/animation.vwf"
-    - "http://vwf.example.com/blockly/controller.vwf"
-    properties:
-      forwardSpeed: -3
-      rotateSpeed: 90
-      showButton: true
     methods:
       togglePerspective:
     children:
@@ -87,6 +79,7 @@ children:
           isFirstPerson: true
       rover:
         extends: source/rover.vwf
+        implements: [ "http://vwf.example.com/blockly/controller.vwf" ]
         source: assets/3d/Rover/Rover.DAE
         type: model/vnd.collada+xml
         properties:
@@ -96,6 +89,8 @@ children:
           receiveShadows: true
           currentGridSquare: [ 0, 7 ]
           heading: 270
+          showButton: true
+          buttonTransform: [1,0,0,0,0,1,0,0,0,0,1,0,0,0,4,1]
         children:
           cargo:
             extends: source/inventory.vwf
