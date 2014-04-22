@@ -48,7 +48,7 @@ Blockly.Blocks['maze_moveForward'] = {
 Blockly.JavaScript['maze_moveForward'] = function(block) {
   var dist = Blockly.JavaScript.valueToCode(block, 'DISTANCE', Blockly.JavaScript.ORDER_NONE) || '0';
   var t = Blockly.JavaScript.valueToCode(block, 'TIME', Blockly.JavaScript.ORDER_NONE) || '1';
-  return "vwf.callMethod(vwf.find( undefined, '//player' ),'executeBlocklyCmd',['moveForward','"+dist+"','"+t+"']);\n";
+  return "vwf.callMethod( vwf.find( undefined, '//rover' ), 'moveForward' );\n";
 };
 
 Blockly.Blocks['maze_turn'] = {
@@ -70,10 +70,10 @@ Blockly.Blocks['maze_turn'] = {
 
 Blockly.JavaScript['maze_turn'] = function(block) {
   // Generate JavaScript for turning left or right.
-  var dir = block.getFieldValue('DIR');
+  var turnCommand = block.getFieldValue('DIR');
   var angle = Blockly.JavaScript.valueToCode(block, 'ANGLE', Blockly.JavaScript.ORDER_NONE) || '0';
   var t = Blockly.JavaScript.valueToCode(block, 'TIME', Blockly.JavaScript.ORDER_NONE) || '0';
-  return "vwf.callMethod(vwf.find( undefined, '//player' ),'executeBlocklyCmd',['"+dir+"','"+angle+"','"+t+"']);\n";
+  return "vwf.callMethod(vwf.find( undefined, '//rover' ),'" + turnCommand + "');\n";
 };
 
 Blockly.Blocks['maze_if'] = {
@@ -158,4 +158,4 @@ Blockly.JavaScript['maze_forever'] = function(block) {
         '\'block_id_' + block.id + '\'') + branch;
   }
   return 'while (true) {\n' + branch + '}\n';
-};
+}; //@ sourceURL=blocks.js

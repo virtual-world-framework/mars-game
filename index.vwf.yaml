@@ -15,6 +15,28 @@ children:
       scale: 0.01
       castShadows: true
       receiveShadows: true
+  boundaryMap:
+    extends: source/boundaryMap.vwf
+    properties:
+      topLeft: [ -10.5, 25.5 ]
+      gridLength: 3
+      map:
+        - [ -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,  1, -1, -1, -1, -1, -1 ]
+        - [ -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,  1, -1, -1, -1, -1, -1 ]
+        - [ -1, -1, -1, -1, -1, -1, -1, -1,  1,  1,  1,  1,  2,  2,  2,  2 ]
+        - [ -1, -1, -1, -1, -1, -1, -1, -1,  1, -1, -1, -1, -1, -1, -1, -1 ]
+        - [ -1, -1, -1, -1, -1, -1, -1, -1,  1, -1, -1, -1, -1, -1, -1, -1 ]
+        - [ -1, -1,  4, -1, -1, -1, -1, -1,  1, -1, -1, -1, -1, -1, -1, -1 ]
+        - [ -1, -1,  2,  2,  2,  1,  1,  1,  1,  1,  1,  1, -1, -1, -1, -1 ]
+        - [  1, -1,  2, -1, -1, -1, -1, -1, -1, -1, -1,  1, -1, -1, -1, -1 ]
+        - [  1,  1,  1,  4,  4,  4,  4,  2,  2,  2,  2,  2,  2,  2,  2,  0 ]
+        - [  1, -1,  1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,  1 ]
+        - [ -1, -1,  1, -1, -1,  1,  1,  1,  1,  1, -1, -1, -1, -1, -1,  1 ]
+        - [ -1, -1,  1, -1, -1,  1, -1,  1, -1,  1, -1, -1, -1, -1, -1,  1 ]
+        - [ -1, -1,  1,  1,  1,  1, -1,  1, -1,  1,  1,  1,  1,  1,  1,  1 ]
+        - [ -1, -1, -1, -1, -1, -1, -1,  1, -1, -1, -1, -1,  2, -1, -1, -1 ]
+        - [ -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,  2, -1, -1, -1 ]
+        - [ -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,  1,  1,  1, -1 ]
   sunLight:
     extends: http://vwf.example.com/light.vwf
     properties:
@@ -43,15 +65,6 @@ children:
       intensity: 0.3
   player:
     extends: http://vwf.example.com/node3.vwf
-    implements:
-    - "http://vwf.example.com/animation.vwf" 
-    - "http://vwf.example.com/node3/animation.vwf"
-    - "http://vwf.example.com/blockly/controller.vwf"
-    properties:
-      rotation: [ 0, 0, 1, 270 ]
-      forwardSpeed: -3
-      rotateSpeed: 90
-      showButton: true
     methods:
       togglePerspective:
     children:
@@ -66,12 +79,18 @@ children:
           isFirstPerson: true
       rover:
         extends: source/rover.vwf
+        implements: [ "http://vwf.example.com/blockly/controller.vwf" ]
         source: assets/3d/Rover/Rover.DAE
         type: model/vnd.collada+xml
         properties:
           visible: false
+          rotation: [ 0, 0, 1, 270 ]
           castShadows: true
           receiveShadows: true
+          currentGridSquare: [ 0, 7 ]
+          heading: 270
+          showButton: true
+          buttonTransform: [1,0,0,0,0,1,0,0,0,0,1,0,0,0,4,1]
         children:
           cargo:
             extends: source/inventory.vwf
