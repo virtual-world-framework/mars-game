@@ -30,7 +30,7 @@ scripts:
       client = this.client;
     }
 
-  	this.grabbed( client, this.iconSrc, position, this.parent.name );
+    this.grabbed( client, this.iconSrc, position, this.parent.name );
 
   }
 
