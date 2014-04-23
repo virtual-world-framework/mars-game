@@ -66,6 +66,7 @@ children:
   player:
     extends: http://vwf.example.com/node3.vwf
     methods:
+      initializeEventHandlers:
       togglePerspective:
     children:
       camera:
@@ -77,10 +78,6 @@ children:
           translation: [ 0, 0, 1 ]
           far: 100000
           isFirstPerson: true
-        methods:
-          initializeEventHandlers:
-        scripts:
-          - source: source/camera.js
       rover:
         extends: source/rover.vwf
         implements: [ "http://vwf.example.com/blockly/controller.vwf" ]
