@@ -1,11 +1,8 @@
 var composer;
 var HDRShader;
 var hud;
-var frame = 0;
 var blocklyNodes = {};
 var currentBlocklyNode = undefined;
-
-
 
 function onRun() {
     vwf_view.kernel.setProperty( vwf_view.kernel.application(), "executing", true );
@@ -32,6 +29,16 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
             createInventoryItem( nodeID, iconSrc, screenPos, parentName );
 
         }
+
+    }
+
+    if ( eventName === "pickedUp" ) {
+        vwf_view.kernel.callMethod( vwf_view.kernel.application(), "checkForSuccess" );
+    }
+
+    if ( eventName === "achievedSuccess" ) {
+
+        console.log("Success achieved!");
 
     }
 
@@ -119,12 +126,16 @@ vwf_view.satProperty = function( nodeID, propertyName, propertyValue ) {
 
         }
     }
+
+    if ( propertyName === "currentGridSquare" ) {
+        vwf_view.kernel.callMethod( vwf_view.kernel.application(), "checkForSuccess" );
+    }
 }
 
 function setUp( renderer, scene, camera ) {
 
     // Modify and add to scene
-    scene.fog = new THREE.FogExp2( 0xAA9377, 0.000015 );
+    scene.fog = new THREE.FogExp2( 0xAA9377, 0.005 );
     renderer.setClearColor(scene.fog.color);
 
     // Set up HUD
@@ -172,13 +183,11 @@ function render( renderer, scene, camera ) {
         hud.elements.cargo.visible = false;
 
     }
-
     hud.update();
     renderer.clear();
     composer.render();
     renderer.clearDepth();
     renderer.render( hud.scene, hud.camera );
-    frame = ++frame % 360;
 
 }
 

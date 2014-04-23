@@ -118,5 +118,9 @@ children:
         properties:
           iconSrc: "../assets/images/radio.png"
           translation: [ 45, 0, 0 ]
+methods:
+  checkForSuccess:
+events:
+  achievedSuccess:
 scripts: 
  - source: source/scene.js
