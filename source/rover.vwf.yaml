@@ -53,9 +53,9 @@ scripts:
     var boundaryXArray = this.boundaryMap[ proposedNewGridSquare[ 0 ] ];
     if ( boundaryXArray ) {
       var boundaryValue = boundaryXArray[ proposedNewGridSquare[ 1 ] ];
-      if ( ( boundaryValue < 0 ) || ( boundaryValue === undefined ) {
+      if ( ( boundaryValue < 0 ) || ( boundaryValue === undefined ) ) {
         this.moveFailed( "collision" );
-      } else if ( boundaryValue > this.battery ) ) {
+      } else if ( boundaryValue > this.battery ) {
         this.moveFailed( "battery" );
       } else {
         this.battery -= boundaryValue;
