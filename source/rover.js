@@ -23,16 +23,18 @@ this.moveForward = function() {
         } else {
             this.battery -= boundaryValue;
             this.currentGridSquare = proposedNewGridSquare;
+            var displacement = [ dirVector[ 0 ] * this.gridSquareLength, 
+                                 dirVector[ 1 ] * this.gridSquareLength, 0 ];
             // TODO: This should use worldTransformBy, but we are getting a bug where the rover's transform isn't set
             //       yet when this method is called.  Until we can debug that, we are assuming that the rover's 
             //       parent's frame of reference is the world frame of reference
-            this.translateOnTerrain( [ dirVector[ 0 ] * this.gridSquareLength, 
-                                                    dirVector[ 1 ] * this.gridSquareLength, 0 ], 1 );
+            this.translateOnTerrain( displacement, 1 );
             // this.worldTransformBy( [
             //   1, 0, 0, 0,  
             //   0, 1, 0, 0,  
             //   0, 0, 1, 0,  
             //   dirVector[ 0 ] * this.gridSquareLength, dirVector[ 1 ] * this.gridSquareLength, 0, 0 ], 1 );
+            this.moved( displacement );
         }
     }
 }
