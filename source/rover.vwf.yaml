@@ -32,6 +32,7 @@ methods:
   turnRight:
   translateOnTerrain:
 events:
+  moved:
   moveFailed:
 scripts:
  - source: source/rover.js
