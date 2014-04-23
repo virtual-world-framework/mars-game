@@ -113,4 +113,8 @@ function getTerrainHeight( x, y, z, terrain ) {
 
 }
 
+function blocksUpdated( blocks ) {
+    console.info( "rover - blocksUpdated( "+blocks+" )" );
+}
+
 //@ sourceURL=source/rover.js
