@@ -51,9 +51,10 @@ scripts:
     var boundaryXArray = this.boundaryMap[ proposedNewGridSquare[ 0 ] ];
     if ( boundaryXArray ) {
       var boundaryValue = boundaryXArray[ proposedNewGridSquare[ 1 ] ];
-      if ( ( boundaryValue < 0 ) || ( boundaryValue === undefined ) ) {
+      if ( ( boundaryValue < 0 ) || ( boundaryValue === undefined ) || ( boundaryValue > this.battery ) ) {
         this.logger.warnx( "moveForward", "Rover can't move forward" );
       } else {
+        this.battery -= boundaryValue;
         this.currentGridSquare = proposedNewGridSquare;
         // TODO: This should use worldTransformBy, but we are getting a bug where the rover's transform isn't set
         //       yet when this method is called.  Until we can debug that, we are assuming that the rover's 
