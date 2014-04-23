@@ -88,7 +88,7 @@ function setUp( renderer, scene, camera ) {
 
 function render( renderer, scene, camera ) {
   
-   hud.elements.ramMeter.ram = (Math.sin(frame * Math.PI / 180) + 1) / 2 * 100;
+    hud.elements.ramMeter.ram = (Math.sin(frame * Math.PI / 180) + 1) / 2 * 100;
     hud.update();
 
     renderer.clear();
