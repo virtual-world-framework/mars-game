@@ -77,6 +77,22 @@ children:
           translation: [ 0, 0, 1 ]
           far: 100000
           isFirstPerson: true
+        methods:
+          initializeEventHandlers:
+        scripts:
+        - |
+          var self;
+
+          this.initialize = function() {
+            self = this;
+            this.future( 0 ).initializeEventHandlers();
+          }
+
+          this.initializeEventHandlers = function() {
+            this.parent.rover.moved = function( displacement ) {
+              self.translateBy( displacement, 1 );
+            }
+          }
       rover:
         extends: source/rover.vwf
         implements: [ "http://vwf.example.com/blockly/controller.vwf" ]
