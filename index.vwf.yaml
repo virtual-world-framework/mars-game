@@ -112,7 +112,7 @@ children:
       radio:
         extends: http://vwf.example.com/node3.vwf
         implements: [ "source/inventoriable.vwf" ]
-        source: assets/3d/Radio/Radio.DAE
+        source: assets/3d/Radio/radio.DAE
         type: model/vnd.collada+xml
         properties:
           iconSrc: "../assets/images/radio.png"
