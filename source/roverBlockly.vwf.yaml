@@ -20,7 +20,6 @@
 extends:
   http://vwf.example.com/blockly/controller.vwf
 methods:
-  blockCountChanged:
   executeBlocklyCmd:
 scripts: |
   this.blockCountChanged = function( bc ) {
