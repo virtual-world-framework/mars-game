@@ -124,6 +124,14 @@ children:
       showButton: false
       buttonTransform: [1,0,0,0,0,1,0,0,0,0,1,0,0,0,4,1]
       terrainName: "environment"
+    children:
+      noComm:
+        extends: http://vwf.example.com/node3.vwf
+        source: assets/3d/blockly_no/blockly_no.dae
+        type: model/vnd.collada+xml
+        properties:
+          translation: [ 0, 0, 4 ]
+          scale: 0.5
   pickups:
     extends: http://vwf.example.com/node3.vwf
     children:
