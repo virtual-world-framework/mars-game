@@ -48,7 +48,7 @@ Blockly.Blocks['maze_moveForward'] = {
 Blockly.JavaScript['maze_moveForward'] = function(block) {
   var dist = Blockly.JavaScript.valueToCode(block, 'DISTANCE', Blockly.JavaScript.ORDER_NONE) || '0';
   var t = Blockly.JavaScript.valueToCode(block, 'TIME', Blockly.JavaScript.ORDER_NONE) || '1';
-  return "vwf.callMethod( vwf.find( undefined, '//rover' ), 'moveForward' );\n";
+  return "vwf.callMethod( '"+Blockly.JavaScript.vwfID+"', 'moveForward' );\n";
 };
 
 Blockly.Blocks['maze_turn'] = {
@@ -73,7 +73,7 @@ Blockly.JavaScript['maze_turn'] = function(block) {
   var turnCommand = block.getFieldValue('DIR');
   var angle = Blockly.JavaScript.valueToCode(block, 'ANGLE', Blockly.JavaScript.ORDER_NONE) || '0';
   var t = Blockly.JavaScript.valueToCode(block, 'TIME', Blockly.JavaScript.ORDER_NONE) || '0';
-  return "vwf.callMethod(vwf.find( undefined, '//rover' ),'" + turnCommand + "');\n";
+  return "vwf.callMethod( '"+Blockly.JavaScript.vwfID+"','" + turnCommand + "');\n";
 };
 
 Blockly.Blocks['maze_if'] = {

@@ -20,15 +20,14 @@
 extends:
   http://vwf.example.com/blockly/controller.vwf
 methods:
-  blockContentChanged:
+  blockCountChanged:
   executeBlocklyCmd:
 scripts: |
-  this.blockContentChanged = function( blockCount ) {
-    console.info( "roverBlockly - blockContentChanged( "+blockCount+" )" );
-    var rover = this.find( "/rover" )[ 0 ];
-    if ( rover ) {
-      rover.blocksUpdated( blockCount );
-    }    
+  this.blockCountChanged = function( bc ) {
+    //console.info( "roverBlockly - blockCountChanged( "+bc+" )" );
+
+    this.ram = this.ramMax - ( this.ramMax / this.allowedBlocks ) * bc;
+
   }
 
   this.executeBlocklyCmd = function( cmd, magnitude, time ) {
@@ -62,4 +61,4 @@ scripts: |
         break;
     }
 
-  }  
+  }  //@ sourceURL=roverblockly.vwf

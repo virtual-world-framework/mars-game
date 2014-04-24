@@ -6,7 +6,6 @@ properties:
   enableShadows: true
   ambientColor: [ 60, 50, 50 ]
   userObject: null
-  # property for a temp hack to set the initial node for blockly to interface with
   blocklyUiNodeID:
 children:
   environment:
