@@ -64,76 +64,53 @@ vwf_view.initializedNode = function( nodeID, childID, childExtendsID, childImple
 
 }
 
-// vwf_view.satProperty = function( nodeID, propertyName, propertyValue ) {
-//    if ( propertyName === "battery" ) {
-//         // TODO: look at the nodeID to determine *which* rover this is, and handle it accordingly
-//         hud.elements.batteryMeter.battery = propertyValue;
-//    }
-// }
-
 vwf_view.initializedProperty = function( nodeID, propertyName, propertyValue ) {
-    var node = blocklyNodes[ nodeID ];
-    if ( node ) {
-        switch ( propertyName ) {
-            case "battery":
-            case "batteryMax":
-            case "ram":
-            case "ramMax":
-                vwf_view.satProperty( nodeID, propertyName, propertyValue );
-                break;
-        }
-    } else if ( nodeID === vwf_view.kernel.application() ) {
-        vwf_view.satProperty( nodeID, propertyName, propertyValue );
-    }    
+    vwf_view.satProperty( nodeID, propertyName, propertyValue );
 } 
 
 vwf_view.satProperty = function( nodeID, propertyName, propertyValue ) {
     //console.info( "satProperty( "+nodeID+", "+propertyName+", "+propertyValue+" )" );
-    var node = blocklyNodes[ nodeID ];
-    if ( node ) {
+    var blocklyNode = blocklyNodes[ nodeID ];
+    if ( blocklyNode ) {
         switch ( propertyName ) {
             case "battery":
-                node[ propertyName ] = parseFloat( propertyValue );
+                blocklyNode[ propertyName ] = parseFloat( propertyValue );
                 if ( nodeID == currentBlocklyNode.ID ) {
                     hud.elements.batteryMeter.battery = parseFloat( propertyValue );  
                 }
                 break;
             case "batteryMax":
-                node[ propertyName ] = parseFloat( propertyValue );
+                blocklyNode[ propertyName ] = parseFloat( propertyValue );
                 if ( nodeID == currentBlocklyNode.ID ) {
                     hud.elements.batteryMeter.maxBattery = parseFloat( propertyValue );    
                 }
                 break;
             case "ram":
-                node[ propertyName ] = parseFloat( propertyValue );
+                blocklyNode[ propertyName ] = parseFloat( propertyValue );
                 if ( nodeID == currentBlocklyNode.ID ) {
                     hud.elements.ramMeter.ram = parseFloat( propertyValue );    
                 }
                 break;
             case "ramMax":
-                node[ propertyName ] = parseFloat( propertyValue );
+                blocklyNode[ propertyName ] = parseFloat( propertyValue );
                 if ( nodeID == currentBlocklyNode.ID ) {
                     hud.elements.ramMeter.maxRam = parseFloat( propertyValue );
                 }
-
                 break;
         }
     } else if ( nodeID === vwf_view.kernel.application() ) {
         if ( propertyName == "blocklyUiNodeID" ) {
             if ( propertyValue !== undefined ) {
-                node = blocklyNodes[ propertyValue ];
-                if ( node ) {
+                blocklyNode = blocklyNodes[ propertyValue ];
+                if ( blocklyNode ) {
                     if ( nodeID != currentBlocklyNode.ID ) {
                         currentBlocklyNode = node;
-                        hud.elements.batteryMeter.battery = node.battery;
-                        hud.elements.batteryMeter.maxBattery = node.batteryMax;
-                        hud.elements.ramMeter.ram = node.ram;
-                        hud.elements.ramMeter.maxRam = node.ramMax;
+                        hud.elements.batteryMeter.battery = blocklyNode.battery;
+                        hud.elements.batteryMeter.maxBattery = blocklyNode.batteryMax;
+                        hud.elements.ramMeter.ram = blocklyNode.ram;
+                        hud.elements.ramMeter.maxRam = blocklyNode.ramMax;
                     }
-                } else {
-                    // should we have values here if the blockly 
-                    // UI isn't visible 
-                }
+                } 
             } else {
                 currentBlocklyNode = undefined;    
             }
