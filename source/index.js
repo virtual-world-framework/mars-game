@@ -93,18 +93,51 @@ vwf_view.satProperty = function( nodeID, propertyName, propertyValue ) {
     if ( node ) {
         switch ( propertyName ) {
             case "battery":
+                node[ propertyName ] = parseFloat( propertyValue );
+                if ( nodeID == currentNode.ID ) {
+                    hud.elements.batteryMeter.battery = parseFloat( propertyValue );  
+                }
+                break;
             case "batteryMax":
+                node[ propertyName ] = parseFloat( propertyValue );
+                if ( nodeID == currentNode.ID ) {
+                    hud.elements.batteryMeter.maxBattery = parseFloat( propertyValue );    
+                }
+                break;
             case "ram":
+                node[ propertyName ] = parseFloat( propertyValue );
+                if ( nodeID == currentNode.ID ) {
+                    hud.elements.ramMeter.ram = parseFloat( propertyValue );    
+                }
+                break;
             case "ramMax":
                 node[ propertyName ] = parseFloat( propertyValue );
+                if ( nodeID == currentNode.ID ) {
+                    hud.elements.ramMeter.maxRam = parseFloat( propertyValue );
+                }
+
                 break;
         }
     } else if ( nodeID === vwf_view.kernel.application() ) {
         if ( propertyName == "blocklyUiNodeID" ) {
-            node = blocklyNodes[ propertyValue ];
-            if ( node ) {
-                currentNode = node;
+            if ( propertyValue !== undefined ) {
+                node = blocklyNodes[ propertyValue ];
+                if ( node ) {
+                    if ( nodeID != currentNode.ID ) {
+                        currentNode = node;
+                        hud.elements.batteryMeter.battery = node.battery;
+                        hud.elements.batteryMeter.maxBattery = node.batteryMax;
+                        hud.elements.ramMeter.ram = node.ram;
+                        hud.elements.ramMeter.maxRam = node.ramMax;
+                    }
+                } else {
+                    // should we have values here if the blockly 
+                    // UI isn't visible 
+                }
+            } else {
+                currentNode = undefined;    
             }
+
         }
     }
 }
@@ -147,11 +180,10 @@ function setUp( renderer, scene, camera ) {
 
 function render( renderer, scene, camera ) {
   
-    // hud.elements.ramMeter.ram = (Math.sin(frame * Math.PI / 180) + 1) / 2 * 100;
-    // hud.update();
+    // should the battery and ram be visible if the 
+    // there isn't a current node - blockly visible?
+    // it should definitely be visible during playback
     if ( currentNode !== undefined ) {
-        hud.elements.batteryMeter.battery = ( currentNode.battery / currentNode.batteryMax ) * 100;
-        hud.elements.ramMeter.ram = ( currentNode.ram / currentNode.ramMax ) * 100;
         hud.update();
     }
 
