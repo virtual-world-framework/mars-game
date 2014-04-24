@@ -37,3 +37,4 @@ this.togglePerspective = function() {
         this.camera.isFirstPerson = true;
     }
 } //@ sourceURL=player
+

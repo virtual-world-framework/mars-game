@@ -112,5 +112,4 @@ function getTerrainHeight( x, y, z, terrain ) {
     return height;
 
 }
-
 //@ sourceURL=source/rover.js

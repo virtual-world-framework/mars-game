@@ -6,6 +6,7 @@ properties:
   enableShadows: true
   ambientColor: [ 60, 50, 50 ]
   userObject: null
+  blocklyUiNodeID:
 children:
   environment:
     extends: http://vwf.example.com/node3.vwf
@@ -80,7 +81,11 @@ children:
           isFirstPerson: true
       rover:
         extends: source/rover.vwf
-        implements: [ "http://vwf.example.com/blockly/controller.vwf" ]
+        implements:
+        - "http://vwf.example.com/animation.vwf" 
+        - "http://vwf.example.com/node3/animation.vwf"
+        - "http://vwf.example.com/blockly/controller.vwf"
+        - "source/roverBlockly.vwf"
         source: assets/3d/Rover/Rover.DAE
         type: model/vnd.collada+xml
         properties:
