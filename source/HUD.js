@@ -228,6 +228,11 @@ HUD.prototype = {
         }
 
         for ( var el in els ) {
+
+            // Ignore picks on hidden elements
+            if ( els[ el ].visible !== true ) {
+                continue;
+            }
             
             var v1 = els[ el ].position;
             var v2 = { 
