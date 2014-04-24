@@ -107,6 +107,23 @@ children:
               inventoryIsVisible: false
     scripts:
      - source: source/player.js
+  minirover:
+    extends: source/rover.vwf
+    implements: [ "http://vwf.example.com/blockly/controller.vwf" ]
+    source: assets/3d/Rover/Rover.DAE
+    type: model/vnd.collada+xml
+    properties:
+      visible: true
+      translation: [ 0, 3, 0 ]
+      rotation: [ 0, 0, 1, 270 ]
+      scale: 0.5
+      castShadows: true
+      receiveShadows: true
+      currentGridSquare: [ 0, 6 ]
+      heading: 270
+      showButton: false
+      buttonTransform: [1,0,0,0,0,1,0,0,0,0,1,0,0,0,4,1]
+      terrainName: "environment"
   pickups:
     extends: http://vwf.example.com/node3.vwf
     children:
