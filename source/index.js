@@ -43,6 +43,13 @@ vwf_view.initializedNode = function( nodeID, childID, childExtendsID, childImple
 
 }
 
+vwf_view.satProperty = function( nodeID, propertyName, propertyValue ) {
+   if ( propertyName === "battery" ) {
+        // TODO: look at the nodeID to determine *which* rover this is, and handle it accordingly
+        hud.elements.batteryMeter.battery = propertyValue;
+   }
+}
+
 function setUp( renderer, scene, camera ) {
 
     // Modify and add to scene
@@ -81,7 +88,6 @@ function setUp( renderer, scene, camera ) {
 
 function render( renderer, scene, camera ) {
   
-    hud.elements.batteryMeter.battery = (Math.sin(frame * Math.PI / 180) + 1) / 2 * 100;
     hud.elements.ramMeter.ram = (Math.sin(frame * Math.PI / 180) + 1) / 2 * 100;
     hud.update();
 

@@ -31,6 +31,8 @@ methods:
   turnLeft:
   turnRight:
   translateOnTerrain:
+events:
+  moveFailed:
 scripts:
 - |
   
@@ -52,8 +54,11 @@ scripts:
     if ( boundaryXArray ) {
       var boundaryValue = boundaryXArray[ proposedNewGridSquare[ 1 ] ];
       if ( ( boundaryValue < 0 ) || ( boundaryValue === undefined ) ) {
-        this.logger.warnx( "moveForward", "Rover can't move forward" );
+        this.moveFailed( "collision" );
+      } else if ( boundaryValue > this.battery ) {
+        this.moveFailed( "battery" );
       } else {
+        this.battery -= boundaryValue;
         this.currentGridSquare = proposedNewGridSquare;
         // TODO: This should use worldTransformBy, but we are getting a bug where the rover's transform isn't set
         //       yet when this method is called.  Until we can debug that, we are assuming that the rover's 
