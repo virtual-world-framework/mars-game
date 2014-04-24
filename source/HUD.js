@@ -14,6 +14,7 @@ HUD.prototype = {
     elements: undefined,
     elementCount: undefined,
     canvas: undefined,
+    visible: undefined,
 
     initialize: function() {
 
@@ -24,6 +25,7 @@ HUD.prototype = {
         this.elements = {};
         this.elementCount = 0;
         this.canvas = document.createElement('CANVAS');
+        this.visible = true;
         this.update();
 
         var gameCanvas = document.getElementById( vwf_view.kernel.application() );
@@ -38,7 +40,9 @@ HUD.prototype = {
         canvas.height = window.innerHeight;
 
         // Draw the HUD to a canvas
-        this.draw( canvas );
+        if ( this.visible ) {
+            this.draw( canvas );
+        }
 
         // Dispose of the last HUD texture
         var texture;
@@ -120,7 +124,13 @@ HUD.prototype = {
         } );
 
         for ( var i = 0; i < orderedElements.length; i++ ) {
-            orderedElements[i].draw( context, orderedElements[i].position );
+
+            if ( orderedElements[i].visible ) {
+
+                orderedElements[i].draw( context, orderedElements[i].position );
+
+            }
+
         }
 
     },
@@ -324,7 +334,7 @@ HUD.prototype = {
 
 }
 
-HUD.Element = function( id, drawFunc, width, height ) {
+HUD.Element = function( id, drawFunc, width, height, visible ) {
 
     this.initialize( id, drawFunc, width, height );
     return this;
@@ -338,29 +348,9 @@ HUD.Element.prototype = {
     width: undefined,
     height: undefined,
     isMouseOver: undefined,
+    visible: undefined,
 
-    images: {
-
-        add: function( imageID, imageSrc ) {
-
-            this[ imageID ] = new Image();
-            this[ imageID ].src = imageSrc;
-
-        }
-
-    },
-
-    properties: {
-
-        set: function( propertyID, propertyValue ) {
-
-            this[ propertyID ] = propertyValue;
-
-        }
-
-    },
-
-    initialize: function( id, drawFunc, width, height ) {
+    initialize: function( id, drawFunc, width, height, visible ) {
 
         this.id = id;
 
@@ -372,6 +362,16 @@ HUD.Element.prototype = {
 
         this.width = isNaN( width ) ? 0 : width;
         this.height = isNaN( height ) ? 0 : height;
+
+        if ( visible === true || visible === undefined ) {
+
+            this.visible = true;
+
+        } else {
+
+            this.visible = false;
+
+        }
 
     },
 
