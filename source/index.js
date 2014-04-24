@@ -2,6 +2,8 @@ var composer;
 var HDRShader;
 var hud;
 var frame = 0;
+var blocklyNodes = {};
+var currentNode = undefined;
 
 
 
@@ -35,6 +37,25 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
 
 }
 
+vwf_view.createdNode = function( nodeID, childID, childExtendsID, childImplementsIDs, childSource, childType, childIndex, childName ) {
+    
+    if ( isBlockly3Node( childImplementsIDs ) ) {
+
+        //console.info( "blocklyNode = " + childID );
+        currentNode = blocklyNodes[ childID ] = { 
+            "ID": childID, 
+            "name": childName,
+            "ram": 100, 
+            "battery": 100,
+            "ramMax": 100,
+            "batteryMax": 100
+        };
+
+    }
+
+}
+
+
 vwf_view.initializedNode = function( nodeID, childID, childExtendsID, childImplementsIDs, childSource, childType, childIndex, childName ) {
 
     if ( childID === vwf_view.kernel.application() ) {
@@ -43,11 +64,49 @@ vwf_view.initializedNode = function( nodeID, childID, childExtendsID, childImple
 
 }
 
+// vwf_view.satProperty = function( nodeID, propertyName, propertyValue ) {
+//    if ( propertyName === "battery" ) {
+//         // TODO: look at the nodeID to determine *which* rover this is, and handle it accordingly
+//         hud.elements.batteryMeter.battery = propertyValue;
+//    }
+// }
+
+vwf_view.initializedProperty = function( nodeID, propertyName, propertyValue ) {
+    var node = blocklyNodes[ nodeID ];
+    if ( node ) {
+        switch ( propertyName ) {
+            case "battery":
+            case "batteryMax":
+            case "ram":
+            case "ramMax":
+                vwf_view.satProperty( nodeID, propertyName, propertyValue );
+                break;
+        }
+    } else if ( nodeID === vwf_view.kernel.application() ) {
+        vwf_view.satProperty( nodeID, propertyName, propertyValue );
+    }    
+} 
+
 vwf_view.satProperty = function( nodeID, propertyName, propertyValue ) {
-   if ( propertyName === "battery" ) {
-        // TODO: look at the nodeID to determine *which* rover this is, and handle it accordingly
-        hud.elements.batteryMeter.battery = propertyValue;
-   }
+    //console.info( "satProperty( "+nodeID+", "+propertyName+", "+propertyValue+" )" );
+    var node = blocklyNodes[ nodeID ];
+    if ( node ) {
+        switch ( propertyName ) {
+            case "battery":
+            case "batteryMax":
+            case "ram":
+            case "ramMax":
+                node[ propertyName ] = parseFloat( propertyValue );
+                break;
+        }
+    } else if ( nodeID === vwf_view.kernel.application() ) {
+        if ( propertyName == "blocklyUiNodeID" ) {
+            node = blocklyNodes[ propertyValue ];
+            if ( node ) {
+                currentNode = node;
+            }
+        }
+    }
 }
 
 function setUp( renderer, scene, camera ) {
@@ -88,8 +147,13 @@ function setUp( renderer, scene, camera ) {
 
 function render( renderer, scene, camera ) {
   
-    hud.elements.ramMeter.ram = (Math.sin(frame * Math.PI / 180) + 1) / 2 * 100;
-    hud.update();
+    // hud.elements.ramMeter.ram = (Math.sin(frame * Math.PI / 180) + 1) / 2 * 100;
+    // hud.update();
+    if ( currentNode !== undefined ) {
+        hud.elements.batteryMeter.battery = ( currentNode.battery / currentNode.batteryMax ) * 100;
+        hud.elements.ramMeter.ram = ( currentNode.ram / currentNode.ramMax ) * 100;
+        hud.update();
+    }
 
     renderer.clear();
     composer.render();
@@ -97,6 +161,17 @@ function render( renderer, scene, camera ) {
     renderer.render( hud.scene, hud.camera );
     frame = ++frame % 360;
 
+}
+
+function isBlockly3Node( implementsIDs ) {
+    var found = false;
+    if ( implementsIDs ) {
+        for ( var i = 0; i < implementsIDs.length && !found; i++ ) {
+            found = ( implementsIDs[i] == "http-vwf-example-com-blockly-controller-vwf" ); 
+        }
+    }
+
+    return found;
 }
 
 //@ sourceURL=source/index.js
