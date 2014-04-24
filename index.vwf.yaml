@@ -66,6 +66,7 @@ children:
   player:
     extends: http://vwf.example.com/node3.vwf
     methods:
+      initializeEventHandlers:
       togglePerspective:
     children:
       camera:
