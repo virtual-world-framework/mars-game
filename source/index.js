@@ -3,7 +3,7 @@ var HDRShader;
 var hud;
 var frame = 0;
 var blocklyNodes = {};
-var currentNode = undefined;
+var currentBlocklyNode = undefined;
 
 
 
@@ -42,7 +42,7 @@ vwf_view.createdNode = function( nodeID, childID, childExtendsID, childImplement
     if ( isBlockly3Node( childImplementsIDs ) ) {
 
         //console.info( "blocklyNode = " + childID );
-        currentNode = blocklyNodes[ childID ] = { 
+        currentBlocklyNode = blocklyNodes[ childID ] = { 
             "ID": childID, 
             "name": childName,
             "ram": 100, 
@@ -94,25 +94,25 @@ vwf_view.satProperty = function( nodeID, propertyName, propertyValue ) {
         switch ( propertyName ) {
             case "battery":
                 node[ propertyName ] = parseFloat( propertyValue );
-                if ( nodeID == currentNode.ID ) {
+                if ( nodeID == currentBlocklyNode.ID ) {
                     hud.elements.batteryMeter.battery = parseFloat( propertyValue );  
                 }
                 break;
             case "batteryMax":
                 node[ propertyName ] = parseFloat( propertyValue );
-                if ( nodeID == currentNode.ID ) {
+                if ( nodeID == currentBlocklyNode.ID ) {
                     hud.elements.batteryMeter.maxBattery = parseFloat( propertyValue );    
                 }
                 break;
             case "ram":
                 node[ propertyName ] = parseFloat( propertyValue );
-                if ( nodeID == currentNode.ID ) {
+                if ( nodeID == currentBlocklyNode.ID ) {
                     hud.elements.ramMeter.ram = parseFloat( propertyValue );    
                 }
                 break;
             case "ramMax":
                 node[ propertyName ] = parseFloat( propertyValue );
-                if ( nodeID == currentNode.ID ) {
+                if ( nodeID == currentBlocklyNode.ID ) {
                     hud.elements.ramMeter.maxRam = parseFloat( propertyValue );
                 }
 
@@ -123,8 +123,8 @@ vwf_view.satProperty = function( nodeID, propertyName, propertyValue ) {
             if ( propertyValue !== undefined ) {
                 node = blocklyNodes[ propertyValue ];
                 if ( node ) {
-                    if ( nodeID != currentNode.ID ) {
-                        currentNode = node;
+                    if ( nodeID != currentBlocklyNode.ID ) {
+                        currentBlocklyNode = node;
                         hud.elements.batteryMeter.battery = node.battery;
                         hud.elements.batteryMeter.maxBattery = node.batteryMax;
                         hud.elements.ramMeter.ram = node.ram;
@@ -135,7 +135,7 @@ vwf_view.satProperty = function( nodeID, propertyName, propertyValue ) {
                     // UI isn't visible 
                 }
             } else {
-                currentNode = undefined;    
+                currentBlocklyNode = undefined;    
             }
 
         }
@@ -183,7 +183,7 @@ function render( renderer, scene, camera ) {
     // should the battery and ram be visible if the 
     // there isn't a current node - blockly visible?
     // it should definitely be visible during playback
-    if ( currentNode !== undefined ) {
+    if ( currentBlocklyNode !== undefined ) {
         hud.update();
     }
 
