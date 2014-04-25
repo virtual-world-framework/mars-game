@@ -2,7 +2,7 @@ var composer;
 var HDRShader;
 var hud;
 var blocklyNodes = {};
-var currentBlocklyNode = undefined;
+var currentBlocklyNodeID = undefined;
 
 function onRun() {
     vwf_view.kernel.setProperty( vwf_view.kernel.application(), "executing", true );
@@ -30,6 +30,23 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
 
         }
 
+    } else if ( eventName === "toggleBlocklyUI" ) {
+        // 
+        var blocklyNodeID = ( blocklyNodes[ nodeID ] !== undefined ) ? nodeID : eventArgs[ 0 ];
+        if ( blocklyNodes[ blocklyNodeID ] !== undefined ) {
+            var blocklyNode = blocklyNodes[ blocklyNodeID ];
+            var blocklyVisible = ( currentBlocklyNodeID !== undefined );
+            if ( blocklyNode.ID === currentBlocklyNodeID ) {
+                currentBlocklyNodeID = undefined;
+                showHud( false );
+            } else {
+                currentBlocklyNodeID = blocklyNode.ID;
+                showHud( true );
+            }
+        } else {
+            currentBlocklyNodeID = undefined;
+            showHud( false );    
+        }
     }
 
     if ( eventName === "completed" ) {
@@ -51,7 +68,7 @@ vwf_view.createdNode = function( nodeID, childID, childExtendsID, childImplement
     if ( isBlockly3Node( childImplementsIDs ) ) {
 
         //console.info( "blocklyNode = " + childID );
-        currentBlocklyNode = blocklyNodes[ childID ] = { 
+        blocklyNodes[ childID ] = { 
             "ID": childID, 
             "name": childName,
             "ram": 100, 
@@ -84,25 +101,25 @@ vwf_view.satProperty = function( nodeID, propertyName, propertyValue ) {
         switch ( propertyName ) {
             case "battery":
                 blocklyNode[ propertyName ] = parseFloat( propertyValue );
-                if ( nodeID == currentBlocklyNode.ID ) {
+                if ( nodeID == currentBlocklyNodeID ) {
                     hud.elements.batteryMeter.battery = parseFloat( propertyValue );  
                 }
                 break;
             case "batteryMax":
                 blocklyNode[ propertyName ] = parseFloat( propertyValue );
-                if ( nodeID == currentBlocklyNode.ID ) {
+                if ( nodeID == currentBlocklyNodeID ) {
                     hud.elements.batteryMeter.maxBattery = parseFloat( propertyValue );    
                 }
                 break;
             case "ram":
                 blocklyNode[ propertyName ] = parseFloat( propertyValue );
-                if ( nodeID == currentBlocklyNode.ID ) {
+                if ( nodeID == currentBlocklyNodeID ) {
                     hud.elements.ramMeter.ram = parseFloat( propertyValue );    
                 }
                 break;
             case "ramMax":
                 blocklyNode[ propertyName ] = parseFloat( propertyValue );
-                if ( nodeID == currentBlocklyNode.ID ) {
+                if ( nodeID == currentBlocklyNodeID ) {
                     hud.elements.ramMeter.maxRam = parseFloat( propertyValue );
                 }
                 break;
@@ -112,8 +129,8 @@ vwf_view.satProperty = function( nodeID, propertyName, propertyValue ) {
             if ( propertyValue !== undefined ) {
                 blocklyNode = blocklyNodes[ propertyValue ];
                 if ( blocklyNode ) {
-                    if ( nodeID != currentBlocklyNode.ID ) {
-                        currentBlocklyNode = blocklyNode;
+                    if ( nodeID != currentBlocklyNodeID ) {
+                        currentBlocklyNodeID = nodeID;
                         hud.elements.batteryMeter.battery = blocklyNode.battery;
                         hud.elements.batteryMeter.maxBattery = blocklyNode.batteryMax;
                         hud.elements.ramMeter.ram = blocklyNode.ram;
@@ -123,7 +140,8 @@ vwf_view.satProperty = function( nodeID, propertyName, propertyValue ) {
                     currentBlocklyNode = undefined;
                 }
             } else {
-                currentBlocklyNode = undefined;    
+                currentBlocklyNodeID = undefined;
+                hideHud( false );    
             }
 
         }
@@ -249,5 +267,16 @@ function endScenario( endType ) {
 function loadNewSession() {
     window.location.assign( window.location.origin + "/mars-game/" );
 }
+
+function showHud( show ) {
+    if ( hud && hud.elements ) {
+        hud.elements.batteryMeter.visible = show;
+        hud.elements.ramMeter.visible = show;
+    }
+}
+
+// hud elements have not been created yet
+// moved the visible = false into the creation of the HUD elements
+// showHud( false );
 
 //@ sourceURL=source/index.js

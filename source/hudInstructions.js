@@ -4,11 +4,13 @@ function createHUD() {
     batteryMeter.battery = 100;
     batteryMeter.maxBattery = 100;
     hud.add( batteryMeter, "left", "bottom", { "x": 30, "y": -30 } );
+    batteryMeter.visible = false;
 
     var ramMeter = new HUD.Element( "ramMeter", drawRamMeter, 250, 40 );
     ramMeter.ram = 100;
     ramMeter.maxRam = 100;
     hud.add( ramMeter, "right", "bottom", { "x": -30, "y": -30 } );
+    ramMeter.visible = false;
 
     var icon = new Image();
     icon.src = "assets/images/1stPersonBlockly.png";
