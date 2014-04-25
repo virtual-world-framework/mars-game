@@ -161,9 +161,20 @@ function render( renderer, scene, camera ) {
     // there isn't a current node - blockly visible?
     // it should definitely be visible during playback
     if ( currentBlocklyNode !== undefined ) {
-        hud.update();
+        
+        hud.elements.batteryMeter.visible = true;
+        hud.elements.ramMeter.visible = true;
+        hud.elements.cargo.visible = true;
+
+    } else {
+
+        hud.elements.batteryMeter.visible = false;
+        hud.elements.ramMeter.visible = false;
+        hud.elements.cargo.visible = false;
+
     }
 
+    hud.update();
     renderer.clear();
     composer.render();
     renderer.clearDepth();
