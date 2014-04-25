@@ -1,11 +1,8 @@
 var composer;
 var HDRShader;
 var hud;
-var frame = 0;
 var blocklyNodes = {};
 var currentBlocklyNode = undefined;
-
-
 
 function onRun() {
     vwf_view.kernel.setProperty( vwf_view.kernel.application(), "executing", true );
@@ -32,6 +29,22 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
             createInventoryItem( nodeID, iconSrc, screenPos, parentName );
 
         }
+
+    }
+
+    if ( eventName === "pickedUp" ) {
+        vwf_view.kernel.callMethod( vwf_view.kernel.application(), "checkForSuccess" );
+    }
+
+    if ( eventName === "scenarioSucceeded" ) {
+
+        endScenario( "success" );
+
+    }
+
+    if ( eventName === "scenarioFailed" ) {
+
+        endScenario( "failure" );
 
     }
 
@@ -119,12 +132,17 @@ vwf_view.satProperty = function( nodeID, propertyName, propertyValue ) {
 
         }
     }
+
+    if ( propertyName === "currentGridSquare" ) {
+        vwf_view.kernel.callMethod( vwf_view.kernel.application(), "checkForSuccess" );
+    }
+
 }
 
 function setUp( renderer, scene, camera ) {
 
     // Modify and add to scene
-    scene.fog = new THREE.FogExp2( 0xAA9377, 0.000015 );
+    scene.fog = new THREE.FogExp2( 0xAA9377, 0.005 );
     renderer.setClearColor(scene.fog.color);
 
     // Set up HUD
@@ -172,13 +190,11 @@ function render( renderer, scene, camera ) {
         hud.elements.cargo.visible = false;
 
     }
-
     hud.update();
     renderer.clear();
     composer.render();
     renderer.clearDepth();
     renderer.render( hud.scene, hud.camera );
-    frame = ++frame % 360;
 
 }
 
@@ -191,6 +207,51 @@ function isBlockly3Node( implementsIDs ) {
     }
 
     return found;
+}
+
+function endScenario( endType ) {
+
+    var blocker = document.createElement( 'DIV' );
+    blocker.style.backgroundColor = "#000000";
+    blocker.style.position = "absolute";
+    blocker.style.top = "0px";
+    blocker.style.left = "0px";
+    blocker.style.bottom = "0px";
+    blocker.style.right = "0px";
+    blocker.style.opacity = "0.5";
+    blocker.style.zIndex = "99";
+
+    var div = document.createElement( 'DIV' );
+    div.id = "gameOver";
+    div.onclick = loadNewSession;
+    div.style.height = "256px";
+    div.style.width = "512px";
+    div.style.marginLeft = "-256px";
+    div.style.marginTop = "-128px";
+    div.style.position = "absolute";
+    div.style.top = "50%";
+    div.style.left = "50%";
+    div.style.backgroundColor = "#333444";
+    div.style.textAlign = "center";
+    div.style.color = "#FFFFFF";
+    div.style.zIndex = "100";
+
+    if ( endType === "success" ) {
+        div.innerHTML = "<h1>Success</h1>";
+    } else if ( endType === "failure" ) {
+        div.innerHTML = "<h1>Objective Failed</h1>";
+    } else {
+        div.innerHTML = "<h1>Game Over</h1>";
+    }
+
+    div.innerHTML += "\nClick here to try again.";
+    document.body.appendChild(blocker);
+    document.body.appendChild(div);
+
+}
+
+function loadNewSession() {
+    window.location.assign( window.location.origin + "/mars-game/" );
 }
 
 //@ sourceURL=source/index.js
