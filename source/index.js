@@ -104,13 +104,15 @@ vwf_view.satProperty = function( nodeID, propertyName, propertyValue ) {
                 blocklyNode = blocklyNodes[ propertyValue ];
                 if ( blocklyNode ) {
                     if ( nodeID != currentBlocklyNode.ID ) {
-                        currentBlocklyNode = node;
+                        currentBlocklyNode = blocklyNode;
                         hud.elements.batteryMeter.battery = blocklyNode.battery;
                         hud.elements.batteryMeter.maxBattery = blocklyNode.batteryMax;
                         hud.elements.ramMeter.ram = blocklyNode.ram;
                         hud.elements.ramMeter.maxRam = blocklyNode.ramMax;
                     }
-                } 
+                } else {
+                    currentBlocklyNode = undefined;
+                }
             } else {
                 currentBlocklyNode = undefined;    
             }
@@ -161,7 +163,7 @@ function render( renderer, scene, camera ) {
     // there isn't a current node - blockly visible?
     // it should definitely be visible during playback
     if ( currentBlocklyNode !== undefined ) {
-        
+
         hud.elements.batteryMeter.visible = true;
         hud.elements.ramMeter.visible = true;
         hud.elements.cargo.visible = true;
