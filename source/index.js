@@ -38,13 +38,13 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
 
     if ( eventName === "scenarioSucceeded" ) {
 
-        console.log("Success achieved!");
+        endScenario( "success" );
 
     }
 
     if ( eventName === "scenarioFailed" ) {
 
-        console.log("You have failed! Shame!");
+        endScenario( "failure" );
 
     }
 
@@ -207,6 +207,51 @@ function isBlockly3Node( implementsIDs ) {
     }
 
     return found;
+}
+
+function endScenario( endType ) {
+
+    var blocker = document.createElement( 'DIV' );
+    blocker.style.backgroundColor = "#000000";
+    blocker.style.position = "absolute";
+    blocker.style.top = "0px";
+    blocker.style.left = "0px";
+    blocker.style.bottom = "0px";
+    blocker.style.right = "0px";
+    blocker.style.opacity = "0.5";
+    blocker.style.zIndex = "99";
+
+    var div = document.createElement( 'DIV' );
+    div.id = "gameOver";
+    div.onclick = loadNewSession;
+    div.style.height = "256px";
+    div.style.width = "512px";
+    div.style.marginLeft = "-256px";
+    div.style.marginTop = "-128px";
+    div.style.position = "absolute";
+    div.style.top = "50%";
+    div.style.left = "50%";
+    div.style.backgroundColor = "#333444";
+    div.style.textAlign = "center";
+    div.style.color = "#FFFFFF";
+    div.style.zIndex = "100";
+
+    if ( endType === "success" ) {
+        div.innerHTML = "<h1>Success</h1>";
+    } else if ( endType === "failure" ) {
+        div.innerHTML = "<h1>Objective Failed</h1>";
+    } else {
+        div.innerHTML = "<h1>Game Over</h1>";
+    }
+
+    div.innerHTML += "\nClick here to try again.";
+    document.body.appendChild(blocker);
+    document.body.appendChild(div);
+
+}
+
+function loadNewSession() {
+    window.location.assign( window.location.origin + "/mars-game/" );
 }
 
 //@ sourceURL=source/index.js
