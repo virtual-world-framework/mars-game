@@ -158,10 +158,7 @@ function setUp( renderer, scene, camera ) {
 }
 
 function render( renderer, scene, camera ) {
-  
-    // should the battery and ram be visible if the 
-    // there isn't a current node - blockly visible?
-    // it should definitely be visible during playback
+    
     if ( currentBlocklyNode !== undefined ) {
 
         hud.elements.batteryMeter.visible = true;
