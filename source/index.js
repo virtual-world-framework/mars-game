@@ -103,30 +103,46 @@ vwf_view.satProperty = function( nodeID, propertyName, propertyValue ) {
     var blocklyNode = blocklyNodes[ nodeID ];
     if ( blocklyNode ) {
         switch ( propertyName ) {
+
             case "battery":
                 blocklyNode[ propertyName ] = parseFloat( propertyValue );
                 if ( nodeID == currentBlocklyNodeID ) {
                     hud.elements.batteryMeter.battery = parseFloat( propertyValue );  
                 }
                 break;
+
             case "batteryMax":
                 blocklyNode[ propertyName ] = parseFloat( propertyValue );
                 if ( nodeID == currentBlocklyNodeID ) {
                     hud.elements.batteryMeter.maxBattery = parseFloat( propertyValue );    
                 }
                 break;
+
             case "ram":
                 blocklyNode[ propertyName ] = parseFloat( propertyValue );
                 if ( nodeID == currentBlocklyNodeID ) {
                     hud.elements.ramMeter.ram = parseFloat( propertyValue );    
                 }
                 break;
+
             case "ramMax":
                 blocklyNode[ propertyName ] = parseFloat( propertyValue );
                 if ( nodeID == currentBlocklyNodeID ) {
                     hud.elements.ramMeter.maxRam = parseFloat( propertyValue );
                 }
                 break;
+
+            case "blockCount":
+                blocklyNode[ propertyName ] = parseFloat( propertyValue );
+                break;
+
+            case "allowedBlocks":
+                blocklyNode[ propertyName ] = parseFloat( propertyValue );
+                if ( nodeID == currentBlocklyNode.ID ) {
+                    Blockly.mainWorkspace.maxBlocks = Number( propertyValue );    
+                }
+                break;
+
         }
     } 
 
