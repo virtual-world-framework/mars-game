@@ -190,21 +190,10 @@ function setUp( renderer, scene, camera ) {
 }
 
 function render( renderer, scene, camera ) {
-    
-    if ( currentBlocklyNode !== undefined ) {
 
-        hud.elements.batteryMeter.visible = true;
-        hud.elements.ramMeter.visible = true;
-        hud.elements.cargo.visible = true;
-
-    } else {
-
-        hud.elements.batteryMeter.visible = false;
-        hud.elements.ramMeter.visible = false;
-        hud.elements.cargo.visible = false;
-
-    }
+    showHud( currentBlocklyNode !== undefined ); 
     hud.update();
+
     renderer.clear();
     composer.render();
     renderer.clearDepth();
@@ -272,6 +261,7 @@ function showHud( show ) {
     if ( hud && hud.elements ) {
         hud.elements.batteryMeter.visible = show;
         hud.elements.ramMeter.visible = show;
+        hud.elements.cargo.visible = show;
     }
 }
 
