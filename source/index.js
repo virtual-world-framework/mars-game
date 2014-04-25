@@ -137,6 +137,10 @@ vwf_view.satProperty = function( nodeID, propertyName, propertyValue ) {
         vwf_view.kernel.callMethod( vwf_view.kernel.application(), "checkForSuccess" );
     }
 
+    if ( propertyName === "isFirstPerson" ) {
+        hud.elements.blocklyButton.visible = propertyValue;
+    }
+
 }
 
 function setUp( renderer, scene, camera ) {
