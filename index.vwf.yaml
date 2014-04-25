@@ -7,6 +7,11 @@ properties:
   ambientColor: [ 60, 50, 50 ]
   userObject: null
   blocklyUiNodeID:
+methods:
+  checkForSuccess:
+events:
+  scenarioSucceeded:
+  scenarioFailed:
 children:
   environment:
     extends: http://vwf.example.com/node3.vwf
@@ -143,10 +148,53 @@ children:
         properties:
           iconSrc: "../assets/images/radio.png"
           translation: [ 45, 0, 0 ]
-methods:
-  checkForSuccess:
-events:
-  scenarioSucceeded:
-  scenarioFailed:
+  ac_unit:
+    extends: http://vwf.example.com/node3.vwf
+    source: assets/3d/Debris_Field/ac_unit.dae
+    type: model/vnd.collada+xml
+    properties:
+      translation: [ 0, 20, 0 ]    
+  bubble_lander:
+    extends: http://vwf.example.com/node3.vwf
+    source: assets/3d/Debris_Field/bubble_lander.dae
+    type: model/vnd.collada+xml
+    properties:
+      translation: [ 0, 20, 0 ] 
+  bubble_lander_open:
+    extends: http://vwf.example.com/node3.vwf
+    source: assets/3d/Debris_Field/bubble_lander_open.dae
+    type: model/vnd.collada+xml
+    properties:
+      translation: [ 0, 20, 0 ] 
+  o2_tank:
+    extends: http://vwf.example.com/node3.vwf
+    source: assets/3d/Debris_Field/o2_tank.dae
+    type: model/vnd.collada+xml
+    properties:
+      translation: [ 0, 20, 0 ] 
+  parachute:
+    extends: http://vwf.example.com/node3.vwf
+    source: assets/3d/Debris_Field/parachute.dae
+    type: model/vnd.collada+xml
+    properties:
+      translation: [ 0, 20, 0 ] 
+  parachute2:
+    extends: http://vwf.example.com/node3.vwf
+    source: assets/3d/Debris_Field/parachute2.dae
+    type: model/vnd.collada+xml
+    properties:
+      translation: [ 0, 20, 0 ] 
+  quadcon_storage_container:
+    extends: http://vwf.example.com/node3.vwf
+    source: assets/3d/Debris_Field/quadcon_storage_container.dae
+    type: model/vnd.collada+xml
+    properties:
+      translation: [ 0, 20, 0 ] 
+  ram:
+    extends: http://vwf.example.com/node3.vwf
+    source: assets/3d/Debris_Field/ram.dae
+    type: model/vnd.collada+xml
+    properties:
+      translation: [ 0, 20, 0 ] 
 scripts: 
  - source: source/scene.js
