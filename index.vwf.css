@@ -3,7 +3,7 @@
 	top: 10px;
 	left: 10px;
 	pointer-events: none;
-	visibility: visible;
+	visibility: hidden;
 }
 
 #blocklyDiv {
