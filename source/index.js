@@ -104,13 +104,15 @@ vwf_view.satProperty = function( nodeID, propertyName, propertyValue ) {
                 blocklyNode = blocklyNodes[ propertyValue ];
                 if ( blocklyNode ) {
                     if ( nodeID != currentBlocklyNode.ID ) {
-                        currentBlocklyNode = node;
+                        currentBlocklyNode = blocklyNode;
                         hud.elements.batteryMeter.battery = blocklyNode.battery;
                         hud.elements.batteryMeter.maxBattery = blocklyNode.batteryMax;
                         hud.elements.ramMeter.ram = blocklyNode.ram;
                         hud.elements.ramMeter.maxRam = blocklyNode.ramMax;
                     }
-                } 
+                } else {
+                    currentBlocklyNode = undefined;
+                }
             } else {
                 currentBlocklyNode = undefined;    
             }
@@ -156,14 +158,22 @@ function setUp( renderer, scene, camera ) {
 }
 
 function render( renderer, scene, camera ) {
-  
-    // should the battery and ram be visible if the 
-    // there isn't a current node - blockly visible?
-    // it should definitely be visible during playback
+    
     if ( currentBlocklyNode !== undefined ) {
-        hud.update();
+
+        hud.elements.batteryMeter.visible = true;
+        hud.elements.ramMeter.visible = true;
+        hud.elements.cargo.visible = true;
+
+    } else {
+
+        hud.elements.batteryMeter.visible = false;
+        hud.elements.ramMeter.visible = false;
+        hud.elements.cargo.visible = false;
+
     }
 
+    hud.update();
     renderer.clear();
     composer.render();
     renderer.clearDepth();
