@@ -36,9 +36,15 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
         vwf_view.kernel.callMethod( vwf_view.kernel.application(), "checkForSuccess" );
     }
 
-    if ( eventName === "achievedSuccess" ) {
+    if ( eventName === "scenarioSucceeded" ) {
 
         console.log("Success achieved!");
+
+    }
+
+    if ( eventName === "scenarioFailed" ) {
+
+        console.log("You have failed! Shame!");
 
     }
 

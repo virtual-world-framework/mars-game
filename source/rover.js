@@ -36,6 +36,8 @@ this.moveForward = function() {
             //   dirVector[ 0 ] * this.gridSquareLength, dirVector[ 1 ] * this.gridSquareLength, 0, 0 ], 1 );
             this.moved( displacement );
         }
+    } else {
+        this.moveFailed( "collision" );
     }
 }
 
@@ -54,6 +56,13 @@ this.turnRight = function() {
     }
     this.rotateBy( [ 0, 0, 1, -90 ], 1 );
 } 
+
+this.moveFailed = function( type ) {
+
+    var scene = this.find("/")[0];
+    scene.scenarioFailed();
+
+}
 
 this.translateOnTerrain = function( translation, duration ) {
 

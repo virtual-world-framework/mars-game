@@ -14,7 +14,7 @@ this.checkForSuccess = function() {
 	roverHasRadio = !!( playerRover.find("*/radio")[0] );
 
 	if ( roverIsOnGoal && roverHasRadio ) {
-		this.achievedSuccess();
+		this.scenarioSucceeded();
 	}
 
 }

@@ -121,6 +121,7 @@ children:
 methods:
   checkForSuccess:
 events:
-  achievedSuccess:
+  scenarioSucceeded:
+  scenarioFailed:
 scripts: 
  - source: source/scene.js
