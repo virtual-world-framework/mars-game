@@ -1,14 +1,25 @@
 function createHUD() {
 
-    var batteryMeter = new HUD.Element( "batteryMeter", drawBatteryMeter, 250, 40);
+    var batteryMeter = new HUD.Element( "batteryMeter", drawBatteryMeter, 250, 40 );
     batteryMeter.battery = 100;
     batteryMeter.maxBattery = 100;
     hud.add( batteryMeter, "left", "bottom", { "x": 30, "y": -30 } );
 
-    var ramMeter = new HUD.Element( "ramMeter", drawRamMeter, 250, 40);
+    var ramMeter = new HUD.Element( "ramMeter", drawRamMeter, 250, 40 );
     ramMeter.ram = 100;
     ramMeter.maxRam = 100;
     hud.add( ramMeter, "right", "bottom", { "x": -30, "y": -30 } );
+
+    var icon = new Image();
+    icon.src = iconSrc;
+    icon.onload = ( function() {
+
+        var blocklyButton = new HUD.Element( "blocklyButton", drawIcon, icon.width, icon.height );
+        blocklyButton.icon = icon;
+        blocklyButton.onMouseDown = clickBlockly;
+        hud.add( blocklyButton, "top", "right", { "x": -30, "y": 30 } );
+        
+    } );
 
     createInventoryHUD( 4 );
 
@@ -374,4 +385,11 @@ function selectItem( event ) {
 
     }
 
+}
+
+function clickBlockly( event ) {
+
+    var roverID = currentBlocklyNode.ID;
+    vwf_view.kernel.fireEvent( roverID, "toggleBlocklyUI" );
+    
 }
