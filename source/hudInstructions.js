@@ -17,7 +17,7 @@ function createHUD() {
         var blocklyButton = new HUD.Element( "blocklyButton", drawIcon, icon.width, icon.height );
         blocklyButton.icon = icon;
         blocklyButton.onMouseDown = clickBlockly;
-        hud.add( blocklyButton, "top", "right", { "x": -30, "y": 30 } );
+        hud.add( blocklyButton, "right", "top", { "x": -30, "y": 30 } );
         
     } );
 
@@ -71,7 +71,7 @@ function createInventoryItem( id, iconSrc, screenPos, parentName ) {
         inventoryItem.onMouseUp = drop;
         inventoryItem.onMouseOut = drag;
         inventoryItem.onMouseMove = drag;
-        hud.add( inventoryItem, "top", "left", { "x": screenPos.x - icon.width / 2, "y": screenPos.y - icon.height / 2 } );
+        hud.add( inventoryItem, "left", "top", { "x": screenPos.x - icon.width / 2, "y": screenPos.y - icon.height / 2 } );
         
     } );
 
