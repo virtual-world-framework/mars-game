@@ -11,7 +11,7 @@ function createHUD() {
     hud.add( ramMeter, "right", "bottom", { "x": -30, "y": -30 } );
 
     var icon = new Image();
-    icon.src = iconSrc;
+    icon.src = "assets/images/1stPersonBlockly.png";
     icon.onload = ( function() {
 
         var blocklyButton = new HUD.Element( "blocklyButton", drawIcon, icon.width, icon.height );
@@ -391,5 +391,5 @@ function clickBlockly( event ) {
 
     var roverID = currentBlocklyNode.ID;
     vwf_view.kernel.fireEvent( roverID, "toggleBlocklyUI" );
-    
+
 }
