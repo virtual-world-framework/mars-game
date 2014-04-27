@@ -76,7 +76,7 @@
               <specularLevel>
                 <texture texture="tank_rack_spec_png-sampler" texcoord="CHANNEL1"/>
               </specularLevel>
-              <bump bumptype="HEIGHTFIELD">
+              <bump bumptype="NORMALMAP">
                 <texture texture="tank_rack_nrm_png-sampler" texcoord="CHANNEL1"/>
               </bump>
             </technique>

@@ -76,7 +76,7 @@
               <specularLevel>
                 <texture texture="ram_spec_png-sampler" texcoord="CHANNEL1"/>
               </specularLevel>
-              <bump bumptype="HEIGHTFIELD">
+              <bump bumptype="NORMALMAP">
                 <texture texture="ram_nrm_png-sampler" texcoord="CHANNEL1"/>
               </bump>
             </technique>
