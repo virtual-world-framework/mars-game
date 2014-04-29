@@ -55,13 +55,6 @@ this.turnRight = function() {
         this.heading += 360;
     }
     this.rotateBy( [ 0, 0, 1, -90 ], 1 );
-} 
-
-this.moveFailed = function( type ) {
-
-    var scene = this.find("/")[0];
-    scene.scenarioFailed();
-
 }
 
 this.translateOnTerrain = function( translation, duration ) {

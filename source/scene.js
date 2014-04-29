@@ -34,21 +34,7 @@ this.initialize = function() {
     this.debris.quadcon_storage_container_3.rotateBy( [ 0, 0, 1, 87.387 ] );
       
     this.initializeActiveCamera( this.player.camera );
-
-}
-
-this.checkForSuccess = function() {
-
-	var playerRover, gridSquare, roverIsOnGoal, roverHasRadio;
-
-	playerRover = this.player.rover;
-	gridSquare = playerRover.currentGridSquare;
-	roverIsOnGoal = playerRover.boundaryMap[ gridSquare[0] ][ gridSquare[1] ] === 0;
-	roverHasRadio = !!( playerRover.find("*/radio")[0] );
-
-	if ( roverIsOnGoal && roverHasRadio ) {
-		this.scenarioSucceeded();
-	}
+    this.scenario1.future(0).enter();
 
 }
 
