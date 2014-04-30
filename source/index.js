@@ -32,17 +32,13 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
 
     }
 
-    if ( eventName === "pickedUp" ) {
-        vwf_view.kernel.callMethod( vwf_view.kernel.application(), "checkForSuccess" );
-    }
-
-    if ( eventName === "scenarioSucceeded" ) {
+    if ( eventName === "completed" ) {
 
         endScenario( "success" );
 
     }
 
-    if ( eventName === "scenarioFailed" ) {
+    if ( eventName === "failed" ) {
 
         endScenario( "failure" );
 
@@ -131,10 +127,6 @@ vwf_view.satProperty = function( nodeID, propertyName, propertyValue ) {
             }
 
         }
-    }
-
-    if ( propertyName === "currentGridSquare" ) {
-        vwf_view.kernel.callMethod( vwf_view.kernel.application(), "checkForSuccess" );
     }
 
     if ( propertyName === "isFirstPerson" ) {
