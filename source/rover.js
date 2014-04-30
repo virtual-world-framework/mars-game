@@ -1,11 +1,19 @@
 var self;
 
 this.initialize = function() {
-    // TODO: Find the first node of type boundaryMap.vwf and grab its map
     // TODO: Find current grid square (rather than making app developer specify)
     // TODO: Find the current heading (rather than making app developer specify)
 
     self = this;
+    this.future( 0 ).findAndSetBoundaryMap();
+}
+
+this.findAndSetBoundaryMap = function() {
+    var boundaryMapObject = this.find( "//element(*,'source/boundaryMap.vwf')" )[ 0 ];
+    if ( boundaryMapObject ) {
+        this.boundaryMap = boundaryMapObject.map;
+        this.gridSquareLength = boundaryMapObject.gridSquareLength;
+    }
 }
 
 this.moveForward = function() {

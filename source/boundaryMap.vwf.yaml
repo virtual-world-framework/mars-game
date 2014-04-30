@@ -2,5 +2,5 @@
 extends: http://vwf.example.com/node.vwf
 properties:
   bottomLeft: [ 0, 0 ]
-  gridLength: 1
+  gridSquareLength: 1
   map: []
