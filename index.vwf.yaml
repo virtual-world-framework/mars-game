@@ -115,13 +115,12 @@ children:
   minirover:
     extends: source/rover.vwf
     implements: [ "http://vwf.example.com/blockly/controller.vwf" ]
-    source: assets/3d/Rover/Rover.DAE
+    source: assets/3d/minirover/minirover.dae
     type: model/vnd.collada+xml
     properties:
       visible: true
       translation: [ 0, 3, 0 ]
       rotation: [ 0, 0, 1, 270 ]
-      scale: 0.5
       castShadows: true
       receiveShadows: true
       currentGridSquare: [ 0, 6 ]
