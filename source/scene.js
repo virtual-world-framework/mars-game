@@ -1,5 +1,8 @@
 this.initialize = function() {
 
+    var self = this;
+
+    // Lay out the debris models
     this.debris.ac_unit.rotateBy( [ 1, 0, 0, -3.609 ] );
     this.debris.ac_unit.rotateBy( [ 0, 1, 0, -20.793 ] );
     this.debris.ac_unit.rotateBy( [ 0, 0, 1, -125.919 ]  );
@@ -33,7 +36,22 @@ this.initialize = function() {
     this.debris.quadcon_storage_container_3.rotateBy( [ 0, 1, 0, -9.656 ] );
     this.debris.quadcon_storage_container_3.rotateBy( [ 0, 0, 1, 87.387 ] );
       
+    // Set the active camera so we can see the 3D scene
     this.initializeActiveCamera( this.player.camera );
+
+    // Activate the minirover when the user picks up the radio
+    this.pickups.radio.pickedUp = function() {
+        self.minirover.noComm.visible = false;
+        self.minirover.showButton = true;
+    }
+
+    // Deactivate the minirover when the user picks up the radio
+    this.pickups.radio.dropped = function() {
+        self.minirover.noComm.visible = true;
+        self.minirover.showButton = false;
+    }
+
+    // Start the first scenario
     this.scenario1.future(0).enter();
 
 }
