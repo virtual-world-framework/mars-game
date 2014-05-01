@@ -23,8 +23,7 @@ methods:
   executeBlocklyCmd:
 scripts: |
   this.blockCountChanged = function( bc ) {
-    //console.info( "roverBlockly - blockCountChanged( "+bc+" )" );
-
+    
     this.ram = this.ramMax - ( this.ramMax / this.allowedBlocks ) * bc;
 
   }
