@@ -139,7 +139,10 @@ vwf_view.satProperty = function( nodeID, propertyName, propertyValue ) {
             case "allowedBlocks":
                 blocklyNode[ propertyName ] = parseFloat( propertyValue );
                 if ( nodeID == currentBlocklyNode.ID ) {
-                    Blockly.mainWorkspace.maxBlocks = Number( propertyValue );    
+                    // the mainWorkSpace is not valid until the UI is visible
+                    if ( Blockly.mainWorkspace ) {
+                        Blockly.mainWorkspace.maxBlocks = Number( propertyValue );    
+                    }
                 }
                 break;
 
