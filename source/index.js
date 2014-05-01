@@ -98,7 +98,7 @@ vwf_view.initializedProperty = function( nodeID, propertyName, propertyValue ) {
 } 
 
 vwf_view.satProperty = function( nodeID, propertyName, propertyValue ) {
-    
+
     //console.info( "satProperty( "+nodeID+", "+propertyName+", "+propertyValue+" )" );
     var blocklyNode = blocklyNodes[ nodeID ];
     if ( blocklyNode ) {
