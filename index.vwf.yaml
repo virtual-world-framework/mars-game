@@ -103,7 +103,7 @@ children:
           receiveShadows: true
           currentGridSquare: [ 0, 7 ]
           heading: 270
-          showButton: true
+          showButton: false
           buttonTransform: [1,0,0,0,0,1,0,0,0,0,1,0,0,0,4,1]
           terrainName: "environment"
           allowedBlocks: 10
