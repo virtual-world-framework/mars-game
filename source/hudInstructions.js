@@ -390,8 +390,17 @@ function selectItem( event ) {
 }
 
 function clickBlockly( event ) {
+    
+    // isn't there an easier way to find the 'rover' id?
+    // two magic strings here to find the id is bad
+    var playerID = vwf_view.kernel.find( undefined, "/player" );
+    var roverID = vwf_view.kernel.find( playerID, "rover" )[ 0 ];
+    var sceneID = vwf_view.kernel.find( undefined, '/' )[ 0 ];
 
-    var roverID = currentBlocklyNode.ID;
-    vwf_view.kernel.fireEvent( roverID, "toggleBlocklyUI" );
+    if ( sceneID !== undefined && roverID !== undefined ) {
+        vwf_view.kernel.setProperty( sceneID, "blocklyUiNodeID", roverID );        
+    }
 
 }
+
+//@ sourceURL=source/hudInstructions.js

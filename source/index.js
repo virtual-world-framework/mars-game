@@ -17,47 +17,49 @@ window.addEventListener( "keyup", function (event) {
 
 vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
 
-    if ( eventName === "grabbed" ) {
-
-        var client = eventArgs[0];
-
-        if ( client === vwf_view.kernel.moniker() ) {
-
-            var iconSrc = eventArgs[1];
-            var screenPos = eventArgs[2];
-            var parentName = eventArgs[3];
-            createInventoryItem( nodeID, iconSrc, screenPos, parentName );
-
+    if ( blocklyNodes[ nodeID ] !== undefined ) {
+        var blocklyNode = blocklyNodes[ nodeID ];
+        switch ( eventName ) {
+            case "blocklyVisibleChanged":
+                if ( eventArgs[ 0 ] ) {
+                    currentBlocklyNodeID = nodeID;
+                    updateHudElements( blocklyNode );    
+                } else {
+                    currentBlocklyNodeID = undefined;    
+                }
+                break;
         }
+    } else {
 
-    } else if ( eventName === "toggleBlocklyUI" ) {
-        // 
-        var blocklyNodeID = ( blocklyNodes[ nodeID ] !== undefined ) ? nodeID : eventArgs[ 0 ];
-        if ( blocklyNodes[ blocklyNodeID ] !== undefined ) {
-            var blocklyNode = blocklyNodes[ blocklyNodeID ];
-            var blocklyVisible = ( currentBlocklyNodeID !== undefined );
-            if ( blocklyNode.ID === currentBlocklyNodeID ) {
-                currentBlocklyNodeID = undefined;
-                showHud( false );
-            } else {
-                currentBlocklyNodeID = blocklyNode.ID;
-                showHud( true );
+        // nodeID is ignored here?
+        if ( eventName === "grabbed" ) {
+
+            var client = eventArgs[0];
+
+            if ( client === vwf_view.kernel.moniker() ) {
+
+                var iconSrc = eventArgs[1];
+                var screenPos = eventArgs[2];
+                var parentName = eventArgs[3];
+                createInventoryItem( nodeID, iconSrc, screenPos, parentName );
+
             }
-        } else {
-            currentBlocklyNodeID = undefined;
-            showHud( false );    
+
+        } 
+
+        // nodeID is ignored here?
+        if ( eventName === "completed" ) {
+
+            endScenario( "success" );
+
         }
-    }
 
-    if ( eventName === "completed" ) {
+        // nodeID is ignored here?
+        if ( eventName === "failed" ) {
 
-        endScenario( "success" );
+            endScenario( "failure" );
 
-    }
-
-    if ( eventName === "failed" ) {
-
-        endScenario( "failure" );
+        }
 
     }
 
@@ -95,6 +97,7 @@ vwf_view.initializedProperty = function( nodeID, propertyName, propertyValue ) {
 } 
 
 vwf_view.satProperty = function( nodeID, propertyName, propertyValue ) {
+    
     //console.info( "satProperty( "+nodeID+", "+propertyName+", "+propertyValue+" )" );
     var blocklyNode = blocklyNodes[ nodeID ];
     if ( blocklyNode ) {
@@ -124,29 +127,9 @@ vwf_view.satProperty = function( nodeID, propertyName, propertyValue ) {
                 }
                 break;
         }
-    } else if ( nodeID === vwf_view.kernel.application() ) {
-        if ( propertyName == "blocklyUiNodeID" ) {
-            if ( propertyValue !== undefined ) {
-                blocklyNode = blocklyNodes[ propertyValue ];
-                if ( blocklyNode ) {
-                    if ( nodeID != currentBlocklyNodeID ) {
-                        currentBlocklyNodeID = nodeID;
-                        hud.elements.batteryMeter.battery = blocklyNode.battery;
-                        hud.elements.batteryMeter.maxBattery = blocklyNode.batteryMax;
-                        hud.elements.ramMeter.ram = blocklyNode.ram;
-                        hud.elements.ramMeter.maxRam = blocklyNode.ramMax;
-                    }
-                } else {
-                    currentBlocklyNode = undefined;
-                }
-            } else {
-                currentBlocklyNodeID = undefined;
-                hideHud( false );    
-            }
+    } 
 
-        }
-    }
-
+    // nodeID is ignored here?
     if ( propertyName === "isFirstPerson" ) {
         hud.elements.blocklyButton.visible = propertyValue;
     }
@@ -191,7 +174,7 @@ function setUp( renderer, scene, camera ) {
 
 function render( renderer, scene, camera ) {
 
-    showHud( currentBlocklyNode !== undefined ); 
+    showHud( currentBlocklyNodeID !== undefined ); 
     hud.update();
 
     renderer.clear();
@@ -263,6 +246,14 @@ function showHud( show ) {
         hud.elements.ramMeter.visible = show;
         hud.elements.cargo.visible = show;
     }
+}
+
+function updateHudElements( blocklyNode ) {
+    hud.elements.batteryMeter.battery = blocklyNode.battery;
+    hud.elements.batteryMeter.maxBattery = blocklyNode.batteryMax;
+    hud.elements.ramMeter.ram = blocklyNode.ram;
+    hud.elements.ramMeter.maxRam = blocklyNode.ramMax;  
+    // update the Max blocks here as well  
 }
 
 // hud elements have not been created yet
