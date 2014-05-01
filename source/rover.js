@@ -1,4 +1,5 @@
 var self;
+var buttonName = 'blocklyButton';
 
 this.initialize = function() {
     // TODO: Find current grid square (rather than making app developer specify)
@@ -115,7 +116,7 @@ this.translateOnTerrain = function( translation, duration ) {
 
 this.createBlocklyButton = function() {
   
-    if ( this.children[ "blocklyButton" ] === undefined  ) {
+    if ( this.children[ buttonName ] === undefined  ) {
         var script = "this.pointerClick = function( pointerInfo, pickInfo ) {"+
             "var scene = this.find( '/' )[ 0 ];"+
             "if ( scene ) {"+
@@ -133,11 +134,18 @@ this.createBlocklyButton = function() {
             scripts: [ script ]
         };
 
-        this.children.create( "blocklyButton", buttonDef, function( child ) {
+        this.children.create( buttonName, buttonDef, function( child ) {
             child.visible = this.showButton; 
         } );
     }
           
+}
+
+this.pointerClick = function( pointerInfo, pickInfo ) {
+    this.showButton = !this.showButton;
+    if ( this.children[ buttonName ] !== undefined ) {
+        this.children[ buttonName ].visible = this.showButton;    
+    }
 }
 
 function getTerrainHeight( x, y, z, terrain ) {
