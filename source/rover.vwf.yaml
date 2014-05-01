@@ -17,6 +17,7 @@ methods:
   turnRight:
   translateOnTerrain:
   blocksUpdated:
+  createBlocklyButton:
 events:
   moved:
   moveFailed:

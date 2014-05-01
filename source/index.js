@@ -2,6 +2,7 @@ var composer;
 var HDRShader;
 var hud;
 var blocklyNodes = {};
+var firstPersonMode = true;
 var currentBlocklyNodeID = undefined;
 
 function onRun() {
@@ -131,7 +132,8 @@ vwf_view.satProperty = function( nodeID, propertyName, propertyValue ) {
 
     // nodeID is ignored here?
     if ( propertyName === "isFirstPerson" ) {
-        hud.elements.blocklyButton.visible = propertyValue;
+        hud.elements.blocklyButton.visible = Boolean( propertyValue );;
+        firstPersonMode = Boolean( propertyValue );
     }
 
 }
@@ -174,7 +176,7 @@ function setUp( renderer, scene, camera ) {
 
 function render( renderer, scene, camera ) {
 
-    showHud( currentBlocklyNodeID !== undefined ); 
+    showHud( firstPersonMode || currentBlocklyNodeID !== undefined ); 
     hud.update();
 
     renderer.clear();
@@ -255,9 +257,5 @@ function updateHudElements( blocklyNode ) {
     hud.elements.ramMeter.maxRam = blocklyNode.ramMax;  
     // update the Max blocks here as well  
 }
-
-// hud elements have not been created yet
-// moved the visible = false into the creation of the HUD elements
-// showHud( false );
 
 //@ sourceURL=source/index.js

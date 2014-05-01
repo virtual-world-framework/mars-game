@@ -6,6 +6,7 @@ this.initialize = function() {
 
     self = this;
     this.future( 0 ).findAndSetBoundaryMap();
+    this.future( 0 ).createBlocklyButton();
 }
 
 this.findAndSetBoundaryMap = function() {
@@ -112,6 +113,33 @@ this.translateOnTerrain = function( translation, duration ) {
 
 }
 
+this.createBlocklyButton = function() {
+  
+    if ( this.children[ "blocklyButton" ] === undefined  ) {
+        var script = "this.pointerClick = function( pointerInfo, pickInfo ) {"+
+            "var scene = this.find( '/' )[ 0 ];"+
+            "if ( scene ) {"+
+                "scene.blocklyUiNodeID = this.parent.id;"+
+            "}"+
+        "}";
+
+        var buttonDef = { 
+            "extends": "http://vwf.example.com/node3.vwf",
+            "source": "assets/3d/Blockly.DAE",
+            "type": "model/vnd.collada+xml",
+            "properties": {
+                "transform": this.buttonTransform
+            },
+            scripts: [ script ]
+        };
+
+        this.children.create( "blocklyButton", buttonDef, function( child ) {
+            child.visible = this.showButton; 
+        } );
+    }
+          
+}
+
 function getTerrainHeight( x, y, z, terrain ) {
 
     var height;
@@ -122,4 +150,6 @@ function getTerrainHeight( x, y, z, terrain ) {
     return height;
 
 }
+
+
 //@ sourceURL=source/rover.js

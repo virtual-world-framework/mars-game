@@ -4,13 +4,13 @@ function createHUD() {
     batteryMeter.battery = 100;
     batteryMeter.maxBattery = 100;
     hud.add( batteryMeter, "left", "bottom", { "x": 30, "y": -30 } );
-    batteryMeter.visible = false;
+    batteryMeter.visible = true;
 
     var ramMeter = new HUD.Element( "ramMeter", drawRamMeter, 250, 40 );
     ramMeter.ram = 100;
     ramMeter.maxRam = 100;
     hud.add( ramMeter, "right", "bottom", { "x": -30, "y": -30 } );
-    ramMeter.visible = false;
+    ramMeter.visible = true;
 
     var icon = new Image();
     icon.src = "assets/images/1stPersonBlockly.png";
@@ -391,11 +391,8 @@ function selectItem( event ) {
 
 function clickBlockly( event ) {
     
-    // isn't there an easier way to find the 'rover' id?
-    // two magic strings here to find the id is bad
-    var playerID = vwf_view.kernel.find( undefined, "/player" );
-    var roverID = vwf_view.kernel.find( playerID, "rover" )[ 0 ];
-    var sceneID = vwf_view.kernel.find( undefined, '/' )[ 0 ];
+    var roverID = vwf_view.kernel.find( undefined, "/player/rover" )[ 0 ];
+    var sceneID = vwf_view.kernel.application();
 
     if ( sceneID !== undefined && roverID !== undefined ) {
         vwf_view.kernel.setProperty( sceneID, "blocklyUiNodeID", roverID );        
