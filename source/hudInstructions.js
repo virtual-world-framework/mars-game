@@ -4,11 +4,13 @@ function createHUD() {
     batteryMeter.battery = 100;
     batteryMeter.maxBattery = 100;
     hud.add( batteryMeter, "left", "bottom", { "x": 30, "y": -30 } );
+    batteryMeter.visible = true;
 
     var ramMeter = new HUD.Element( "ramMeter", drawRamMeter, 250, 40 );
     ramMeter.ram = 100;
     ramMeter.maxRam = 100;
     hud.add( ramMeter, "right", "bottom", { "x": -30, "y": -30 } );
+    ramMeter.visible = true;
 
     var icon = new Image();
     icon.src = "assets/images/1stPersonBlockly.png";
@@ -388,8 +390,14 @@ function selectItem( event ) {
 }
 
 function clickBlockly( event ) {
+    
+    var roverID = vwf_view.kernel.find( undefined, "/player/rover" )[ 0 ];
+    var sceneID = vwf_view.kernel.application();
 
-    var roverID = currentBlocklyNode.ID;
-    vwf_view.kernel.fireEvent( roverID, "toggleBlocklyUI" );
+    if ( sceneID !== undefined && roverID !== undefined ) {
+        vwf_view.kernel.setProperty( sceneID, "blocklyUiNodeID", roverID );        
+    }
 
 }
+
+//@ sourceURL=source/hudInstructions.js
