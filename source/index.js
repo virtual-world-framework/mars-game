@@ -77,7 +77,8 @@ vwf_view.createdNode = function( nodeID, childID, childExtendsID, childImplement
             "ram": 100, 
             "battery": 100,
             "ramMax": 100,
-            "batteryMax": 100
+            "batteryMax": 100,
+            "allowedBlocks": 10
         };
 
     }
@@ -98,35 +99,54 @@ vwf_view.initializedProperty = function( nodeID, propertyName, propertyValue ) {
 } 
 
 vwf_view.satProperty = function( nodeID, propertyName, propertyValue ) {
-    
+
     //console.info( "satProperty( "+nodeID+", "+propertyName+", "+propertyValue+" )" );
     var blocklyNode = blocklyNodes[ nodeID ];
     if ( blocklyNode ) {
         switch ( propertyName ) {
+
             case "battery":
                 blocklyNode[ propertyName ] = parseFloat( propertyValue );
                 if ( nodeID == currentBlocklyNodeID ) {
                     hud.elements.batteryMeter.battery = parseFloat( propertyValue );  
                 }
                 break;
+
             case "batteryMax":
                 blocklyNode[ propertyName ] = parseFloat( propertyValue );
                 if ( nodeID == currentBlocklyNodeID ) {
                     hud.elements.batteryMeter.maxBattery = parseFloat( propertyValue );    
                 }
                 break;
+
             case "ram":
                 blocklyNode[ propertyName ] = parseFloat( propertyValue );
                 if ( nodeID == currentBlocklyNodeID ) {
                     hud.elements.ramMeter.ram = parseFloat( propertyValue );    
                 }
                 break;
+
             case "ramMax":
                 blocklyNode[ propertyName ] = parseFloat( propertyValue );
                 if ( nodeID == currentBlocklyNodeID ) {
                     hud.elements.ramMeter.maxRam = parseFloat( propertyValue );
                 }
                 break;
+
+            case "blockCount":
+                blocklyNode[ propertyName ] = parseFloat( propertyValue );
+                break;
+
+            case "allowedBlocks":
+                blocklyNode[ propertyName ] = parseFloat( propertyValue );
+                if ( nodeID == currentBlocklyNodeID ) {
+                    // the mainWorkSpace is not valid until the UI is visible
+                    if ( Blockly.mainWorkspace ) {
+                        Blockly.mainWorkspace.maxBlocks = Number( propertyValue );    
+                    }
+                }
+                break;
+
         }
     } 
 
@@ -255,7 +275,9 @@ function updateHudElements( blocklyNode ) {
     hud.elements.batteryMeter.maxBattery = blocklyNode.batteryMax;
     hud.elements.ramMeter.ram = blocklyNode.ram;
     hud.elements.ramMeter.maxRam = blocklyNode.ramMax;  
-    // update the Max blocks here as well  
+    if ( Blockly.mainWorkspace ) {
+        Blockly.mainWorkspace.maxBlocks = blocklyNode.allowedBlocks;    
+    }
 }
 
 //@ sourceURL=source/index.js

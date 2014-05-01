@@ -105,6 +105,7 @@ children:
           showButton: true
           buttonTransform: [1,0,0,0,0,1,0,0,0,0,1,0,0,0,4,1]
           terrainName: "environment"
+          allowedBlocks: 10
         children:
           cargo:
             extends: source/inventory.vwf
