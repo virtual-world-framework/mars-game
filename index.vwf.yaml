@@ -102,8 +102,6 @@ children:
           receiveShadows: true
           currentGridSquare: [ 0, 7 ]
           heading: 270
-          showButton: true
-          buttonTransform: [1,0,0,0,0,1,0,0,0,0,1,0,0,0,4,1]
           terrainName: "environment"
           allowedBlocks: 10
         children:
@@ -112,6 +110,14 @@ children:
             properties:
               capacity: 4
               inventoryIsVisible: false
+          blocklyButton:
+            extends: http://vwf.example.com/node3.vwf
+            source: assets/3d/Blockly.DAE
+            type: model/vnd.collada+xml
+            properties: 
+              visible: false
+            scripts:
+            - source: source/blocklyButton.js         
     scripts:
      - source: source/player.js
   minirover:
@@ -127,8 +133,6 @@ children:
       receiveShadows: true
       currentGridSquare: [ 0, 6 ]
       heading: 270
-      showButton: false
-      buttonTransform: [1,0,0,0,0,1,0,0,0,0,1,0,0,0,4,1]
       terrainName: "environment"
     children:
       noComm:
@@ -138,6 +142,15 @@ children:
         properties:
           translation: [ 0, 0, 4 ]
           scale: 0.5
+      blocklyButton:
+        extends: http://vwf.example.com/node3.vwf
+        source: assets/3d/Blockly.DAE
+        type: model/vnd.collada+xml
+        properties:
+          translation: [ 0, 0, 4 ] 
+          visible: false
+        scripts:
+        - source: source/blocklyButton.js
   pickups:
     extends: http://vwf.example.com/node3.vwf
     children:
