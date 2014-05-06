@@ -233,10 +233,6 @@ children:
         properties:
           translation: [ 23.915, 17.35, 0.382 ]
   scenario1:
-    extends: http://vwf.example.com/lesson/task.vwf
-    properties:
-      scenePath: /
-    scripts:
-    - source: source/scenario1.js
+    extends: source/scenario1.vwf
 scripts: 
  - source: source/scene.js

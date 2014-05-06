@@ -1,0 +1,13 @@
+--- 
+extends: http://vwf.example.com/lesson/task.vwf
+methods:
+  hasSucceeded:
+  hasFailed:
+  Clause_isAtPosition:
+  Clause_hasObject:
+  Clause_moveFailed:
+  Clause_AND:
+  Clause_OR:
+  Clause_NOT:
+scripts:
+ - source: source/scenario.js
