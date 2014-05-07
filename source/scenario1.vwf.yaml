@@ -2,18 +2,17 @@
 extends: source/scenario.vwf
 properties:
   scenePath: /
-  # TODO: this stuff is for the next round of changes (I think) - leaving for now.
-  # successClause:
-  #   AND:
-  #     isAtPosition:
-  #      - rover
-  #      - 15
-  #      - 7
-  #     hasObject:
-  #      - rover
-  #      - radio
-  # failureClause:
-  #   moveFailed:
-  #    - rover
+  successClause:
+  - AND:
+    - isAtPosition:
+      - rover
+      - 15
+      - 7
+    - hasObject:
+      - rover
+      - radio
+  failureClause:
+  - moveFailed:
+    - rover
 scripts:
- - source: source/scenario1.js
+- source: source/scenario1.js
