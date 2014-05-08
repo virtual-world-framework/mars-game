@@ -1,0 +1,40 @@
+--- 
+extends: http://vwf.example.com/node.vwf
+properties:
+  defaultClauseSet:
+    # These are constructor methods for creating the types of clauses we support in this
+    # clause set. We could probably not expose these - but it's kind of nice to be able 
+    # to see which clauses are handled here.
+    isAtPosition:
+    hasObject:
+    moveFailed:
+    and:
+    or:
+    not:
+  # This needs to be a property in order to replicate, but rather than manipulate it 
+  # directly we suggest that you call AddClauseSet().
+  clauseSets:
+methods:
+  # Accepts a properly formatted clause that was specified in yaml.  Parses the yaml,
+  # creates the clause, sets up the hooks to ensure that the callback function gets 
+  # called, and returns the clauses check function.
+  # Arguments: 
+  #   clause - the clause definition from the yaml
+  #   callback - the callback function to call when the clause's value might have changed
+  #   context - the context in which we should search for compontns - typically the scene
+  constructClause:
+  # Add your own clauses to the manager.  We keep a stack of clause sets, and when 
+  # constructing a clause we work from the top of the stack down, looking for a set
+  # which defines the clause in question.  This method adds your set to the top of 
+  # the stack.
+  # Arguments: 
+  #   clauseSet - the clause set to add to the top of the stack
+  addClauseSet:
+  # A helper that does basically what Find does, except that it handles pulling out 
+  # the 0th element (and writes appropriate errors if there isn't just one element)
+  # Arguments: 
+  #   context - where to look
+  #   objectName - the string to search for
+  findInContext:
+scripts:
+- source: source/clauseMgr.js

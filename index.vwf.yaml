@@ -43,6 +43,8 @@ children:
       - [  1, -1, -1,  1, -1, -1, -1,  2, -1, -1, -1, -1, -1,  2, -1, -1 ]
       - [  1, -1, -1,  1, -1, -1, -1,  2, -1, -1, -1, -1, -1,  2, -1, -1 ]
       - [ -1, -1, -1,  1,  1,  1,  1,  1, -1, -1, -1, -1, -1,  2, -1, -1 ]
+  clauseMgr:
+    extends: source/clauseMgr.vwf
   sunLight:
     extends: http://vwf.example.com/light.vwf
     properties:

@@ -1,11 +1,9 @@
 --- 
 extends: http://vwf.example.com/lesson/task.vwf
-methods:
- Clause_isAtPosition:
- Clause_hasObject:
- Clause_moveFailed:
- Clause_AND:
- Clause_OR:
- Clause_NOT:
+# properties:
+#   clauseConstructor:
+#     isAtPosition:
+#     hasObject:
+#     moveFailed:
 scripts:
 - source: source/scenario.js

@@ -3,7 +3,7 @@ extends: source/scenario.vwf
 properties:
   scenePath: /
   successClause:
-  - AND:
+  - and:
     - isAtPosition:
       - rover
       - 15
@@ -14,5 +14,3 @@ properties:
   failureClause:
   - moveFailed:
     - rover
-scripts:
-- source: source/scenario1.js
