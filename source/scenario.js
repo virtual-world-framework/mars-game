@@ -7,7 +7,7 @@ var checkFailedFn;
 
 this.initialize = function() {
     self = this;
-    this.future(0).onSceneReady();
+    self.future(0).onSceneReady();
 }
 
 this.onSceneReady = function() {
@@ -66,7 +66,7 @@ this.checkForFailure = function() {
 
 this.clauseSet.isAtPosition = function( params, callback, context ) {
     if ( !params || ( params.length != 3 ) ) {
-        this.logger.errorx( "isAtPosition", 
+        self.logger.errorx( "isAtPosition", 
                             "The isAtPosition clause requires three " +
                             "arguments: the object, the x, and the y." );
         return undefined;
@@ -88,7 +88,7 @@ this.clauseSet.isAtPosition = function( params, callback, context ) {
 
 this.clauseSet.hasObject = function( params, callback, context ) {
     if ( !params || ( params.length != 2 ) ) {
-        this.logger.errorx( "hasObject", 
+        self.logger.errorx( "hasObject", 
                             "The hasObject clause requires two arguments: " +
                             "the owner and the object." );
         return undefined;
@@ -110,7 +110,7 @@ this.clauseSet.hasObject = function( params, callback, context ) {
 
 this.clauseSet.moveFailed = function( params, callback, context ) {
     if ( !params || ( params.length != 1 ) ) {
-        this.logger.errorx( "moveFailed", "The moveFailed clause " +
+        self.logger.errorx( "moveFailed", "The moveFailed clause " +
                             "requires one argument: the object." );
         return undefined;
     }
@@ -130,5 +130,29 @@ this.clauseSet.moveFailed = function( params, callback, context ) {
     };
 }
 
+this.clauseSet.isBlocklyExecuting = function( params, callback, context ) {
+    if ( !params || ( params.length != 1 ) ) {
+        self.logger.errorx( "isBlocklyExecuting", 
+                            "The hasObject clause requires two arguments: " +
+                            "the owner and the object." );
+        return undefined;
+    }
+
+    var objectName = params[ 0 ];
+
+    var object = clauseMgr.findInContext( context, objectName );
+
+    object.blocklyStarted = self.events.add( callback );
+    object.blocklyStopped = self.events.add( callback );
+    object.blocklyErrored = self.events.add( callback );
+
+    return function() {
+        if (object.executing === undefined){
+            self.logger.errorx( "isBlocklyExecuting", "The owner doesn't have " +
+                                "an 'executing' property - does if support Blockly?" );
+        }
+        return object.executing;
+    };
+}
 
 //@ sourceURL=source/scenario.js

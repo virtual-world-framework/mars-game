@@ -11,6 +11,9 @@ properties:
     - hasObject:
       - rover
       - radio
+    - not:
+      - isBlocklyExecuting:
+        - rover
   failureClause:
   - moveFailed:
     - rover
