@@ -29,6 +29,7 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                     currentBlocklyNodeID = undefined;    
                 }
                 break;
+
         }
     } else {
 
@@ -145,6 +146,13 @@ vwf_view.satProperty = function( nodeID, propertyName, propertyValue ) {
                         Blockly.mainWorkspace.maxBlocks = Number( propertyValue );    
                     }
                 }
+                break;
+
+            case "executing":
+                var exe = Boolean( propertyValue );
+                // the run button should be disabled while the 
+                // current blocks are being executed
+                document.getElementById( "runButton" ).disabled = exe;
                 break;
 
         }
