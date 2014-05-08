@@ -150,6 +150,8 @@ vwf_view.satProperty = function( nodeID, propertyName, propertyValue ) {
 
             case "executing":
                 var exe = Boolean( propertyValue );
+                // the run button should be disabled while the 
+                // current blocks are being executed
                 document.getElementById( "runButton" ).disabled = exe;
                 break;
 
