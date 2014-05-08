@@ -92,7 +92,7 @@ children:
         - "http://vwf.example.com/node3/animation.vwf"
         - "http://vwf.example.com/blockly/controller.vwf"
         - "source/roverBlockly.vwf"
-        source: assets/3d/Rover/Rover.DAE
+        source: assets/3d/Rover/rover.dae
         type: model/vnd.collada+xml
         properties:
           visible: false
