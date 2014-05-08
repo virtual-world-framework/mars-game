@@ -1,20 +1,31 @@
 var self;
-var cachedScene;
+var scene;
+var clauseMgr;
+
 var checkSucceededFn;
 var checkFailedFn;
 
 this.initialize = function() {
     self = this;
+    this.future(0).onSceneReady();
+}
+
+this.onSceneReady = function() {
+    var searchArray = self.find( self.scenePath );
+    if ( searchArray.length ) {
+        scene = searchArray[ 0 ];
+    }
+
+    var clauseMgrs = scene.find( ".//element(*,'source/clauseMgr.vwf')" );
+    if ( clauseMgrs.length == 1 ) {
+        clauseMgr = clauseMgrs[0];
+    } else {
+        self.logger.errorx( "entering", "There should be exactly one clause manager." );
+    }
 }
 
 this.entering = function() {
-    var scene = getScene();
-    var clauseMgrs = scene.find( "*/element(*,'source/clauseMgr.vwf')" );
-    if ( clauseMgrs.length != 1 ) {
-        self.logger.errorx( "entering", "There should be exactly one clause manager." );
-        return;
-    }
-    var clauseMgr = clauseMgrs[0];
+    clauseMgr.addClauseSet(self.clauseSet);
 
     if ( self.successClause && self.successClause.length > 0 ) {
         if ( self.successClause.length > 1 ) {
@@ -53,14 +64,71 @@ this.checkForFailure = function() {
     }
 }
 
-function getScene() {
-    if ( !cachedScene ) {
-        var searchArray = self.find( self.scenePath );
-        if ( searchArray.length ) {
-            cachedScene = searchArray[ 0 ];
-        }
+this.clauseSet.isAtPosition = function( params, callback, context ) {
+    if ( !params || ( params.length != 3 ) ) {
+        this.logger.errorx( "isAtPosition", 
+                            "The isAtPosition clause requires three " +
+                            "arguments: the object, the x, and the y." );
+        return undefined;
     }
-    return cachedScene;
+
+    var objectName = params[ 0 ];
+    var x = params[ 1 ];
+    var y = params[ 2 ];
+
+    var object = clauseMgr.findInContext( context, objectName );
+ 
+    object.moved = self.events.add( callback );
+
+    return function() {
+        return ( object.currentGridSquare[ 0 ] === x && 
+                 object.currentGridSquare[ 1 ] === y );
+    };
 }
+
+this.clauseSet.hasObject = function( params, callback, context ) {
+    if ( !params || ( params.length != 2 ) ) {
+        this.logger.errorx( "hasObject", 
+                            "The hasObject clause requires two arguments: " +
+                            "the owner and the object." );
+        return undefined;
+    }
+
+    var ownerName = params[ 0 ];
+    var objectName = params[ 1 ];
+
+    var owner = clauseMgr.findInContext( context, ownerName );
+    var object = clauseMgr.findInContext( context, objectName );
+
+    object.pickedUp = self.events.add( callback );
+    object.dropped = self.events.add( callback );
+
+    return function() {
+        return owner.find( "*/" + objectName ).length > 0;
+    };
+}
+
+this.clauseSet.moveFailed = function( params, callback, context ) {
+    if ( !params || ( params.length != 1 ) ) {
+        this.logger.errorx( "moveFailed", "The moveFailed clause " +
+                            "requires one argument: the object." );
+        return undefined;
+    }
+
+    var objectName = params[ 0 ];
+
+    var object = clauseMgr.findInContext( context, objectName );
+    var moveHasFailed = false;
+
+    object.moveFailed = self.events.add( function() {
+        moveHasFailed = true;
+        callback();
+    } );
+
+    return function() {
+        return moveHasFailed;
+    };
+}
+
 
 //@ sourceURL=source/scenario.js

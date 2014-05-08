@@ -1,6 +1,6 @@
 var self;
 
-this.clauseSets = [];
+this.clauseSets$ = [];
 
 this.initialize = function() {
 	self = this;
@@ -21,8 +21,8 @@ this.constructClause = function( clause, callback, context ) {
 	var clauseName = clauseKeys[ 0 ];
    	var clauseParams = clause[ clauseName ];
  
-	for ( var i = 0; i < self.clauseSets.length; ++i ) {
-		var clauseSet = self.clauseSets[ i ];
+	for ( var i = 0; i < self.clauseSets$.length; ++i ) {
+		var clauseSet = self.clauseSets$[ i ];
 
 		// This gray magic looks on this particular clause set to see if it has the
 		//  required constructor function.
@@ -42,7 +42,7 @@ this.constructClause = function( clause, callback, context ) {
 }
 
 this.addClauseSet = function( clauseSet ) {
-	self.clauseSets.unshift( clauseSet );
+	self.clauseSets$.unshift( clauseSet );
 }
 
 this.findInContext = function( context, objectName ) {
@@ -66,72 +66,6 @@ this.findInContext = function( context, objectName ) {
 	} 
 
 	return results[ 0 ];
-}
-
-this.defaultClauseSet.isAtPosition = function( params, callback, context ) {
-	if ( !params || ( params.length != 3 ) ) {
-		this.logger.errorx( "isAtPosition", 
-							 		 		"The isAtPosition clause requires three " +
-							 		 		"arguments: the object, the x, and the y." );
-		return undefined;
-	}
-
-	var objectName = params[ 0 ];
-	var x = params[ 1 ];
-	var y = params[ 2 ];
-
-	var object = self.findInContext( context, objectName );
- 
-	object.moved = self.events.add( callback );
-
-	return function() {
-		return ( object.currentGridSquare[ 0 ] === x && 
-				 object.currentGridSquare[ 1 ] === y );
-	};
-}
-
-this.defaultClauseSet.hasObject = function( params, callback, context ) {
-	if ( !params || ( params.length != 2 ) ) {
-		this.logger.errorx( "hasObject", 
-								 	 		"The hasObject clause requires two arguments: " +
-									 		"the owner and the object." );
-		return undefined;
-	}
-
-	var ownerName = params[ 0 ];
-	var objectName = params[ 1 ];
-
-	var owner = self.findInContext( context, ownerName );
-	var object = self.findInContext( context, objectName );
-
-	object.pickedUp = self.events.add( callback );
-	object.dropped = self.events.add( callback );
-
-	return function() {
-		return owner.find( "*/" + objectName ).length > 0;
-	};
-}
-
-this.defaultClauseSet.moveFailed = function( params, callback, context ) {
-	if ( !params || ( params.length != 1 ) ) {
-		this.logger.errorx( "moveFailed", "The moveFailed clause " +
-									 		"requires one argument: the object." );
-		return undefined;
-	}
-
-	var objectName = params[ 0 ];
-
-	var object = self.findInContext( context, objectName );
-	var moveHasFailed = false;
-
-	object.moveFailed = self.events.add( function() {
-		moveHasFailed = true;
-		callback();
-	} );
-
-	return function() {
-		return moveHasFailed;
-	};
 }
 
 this.defaultClauseSet.and = function( params, callback, context ) {

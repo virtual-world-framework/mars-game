@@ -1,9 +1,13 @@
 --- 
 extends: http://vwf.example.com/lesson/task.vwf
-# properties:
-#   clauseConstructor:
-#     isAtPosition:
-#     hasObject:
-#     moveFailed:
+properties:
+  # The clause set contains clauses we want to be able to use for scenarios
+  clauseSet:
+    isAtPosition:
+    hasObject:
+    moveFailed:
+methods:
+  # This is called using future(0) inside of initialize (at least for now).
+  onSceneReady:
 scripts:
 - source: source/scenario.js

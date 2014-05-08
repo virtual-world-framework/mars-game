@@ -5,15 +5,12 @@ properties:
     # These are constructor methods for creating the types of clauses we support in this
     # clause set. We could probably not expose these - but it's kind of nice to be able 
     # to see which clauses are handled here.
-    isAtPosition:
-    hasObject:
-    moveFailed:
     and:
     or:
     not:
   # This needs to be a property in order to replicate, but rather than manipulate it 
   # directly we suggest that you call AddClauseSet().
-  clauseSets:
+  clauseSets$:
 methods:
   # Accepts a properly formatted clause that was specified in yaml.  Parses the yaml,
   # creates the clause, sets up the hooks to ensure that the callback function gets 
