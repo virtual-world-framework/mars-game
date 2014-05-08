@@ -4,6 +4,7 @@ var hud;
 var blocklyNodes = {};
 var firstPersonMode = true;
 var currentBlocklyNodeID = undefined;
+var blocklyExecuting = false;
 
 function onRun() {
     vwf_view.kernel.setProperty( currentBlocklyNodeID, "executing", true );
@@ -27,6 +28,17 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                     updateHudElements( blocklyNode );    
                 } else {
                     currentBlocklyNodeID = undefined;    
+                }
+                break;
+
+            case "topBlockCountChanged":
+                if ( !blocklyExecuting ) {
+                    if ( Blockly.mainWorkspace ) {
+                        var topBlockCount = Number( eventArgs[ 0 ] );
+                        document.getElementById( "runButton" ).disabled = ( topBlockCount !== 1 );
+                        // if disabled then need to set the tooltip
+                        // There must be only one program for each blockly object
+                    }
                 }
                 break;
 
@@ -153,6 +165,7 @@ vwf_view.satProperty = function( nodeID, propertyName, propertyValue ) {
                 // the run button should be disabled while the 
                 // current blocks are being executed
                 document.getElementById( "runButton" ).disabled = exe;
+                blocklyExecuting = exe;
                 break;
 
         }
