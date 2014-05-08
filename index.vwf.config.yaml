@@ -5,3 +5,5 @@ model:
 view:
   vwf/view/threejs: "#vwf-root"
   vwf/view/blockly: { "blocklyPath": './source/blockly/' }
+  vwf/view/editor:
+  
