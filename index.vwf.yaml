@@ -4,7 +4,6 @@ extends: http://vwf.example.com/scene.vwf
 implements:
 - "http://vwf.example.com/blockly/manager.vwf"
 properties:
-  executing: false
   enableShadows: true
   ambientColor: [ 60, 50, 50 ]
   userObject: null

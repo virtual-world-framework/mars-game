@@ -6,7 +6,7 @@ var firstPersonMode = true;
 var currentBlocklyNodeID = undefined;
 
 function onRun() {
-    vwf_view.kernel.setProperty( vwf_view.kernel.application(), "executing", true );
+    vwf_view.kernel.setProperty( currentBlocklyNodeID, "executing", true );
 }
 
 window.addEventListener( "keyup", function (event) {
