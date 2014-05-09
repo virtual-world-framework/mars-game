@@ -4,6 +4,7 @@ var thirdPersonTransform = [ 0, -1, 0, 0,  0.707, 0, -0.707, 0,  0.707, 0, 0.707
 
 this.initialize = function() {
     self = this;
+    this.blocklyButtonVisible = this.rover.blocklyButton.visible;
     this.future( 0 ).initializeEventHandlers();
 }
 
@@ -26,15 +27,23 @@ this.togglePerspective = function() {
     if ( this.camera.isFirstPerson ) {
         // Switch to third person
         this.camera.transformTo( thirdPersonTransform, durationSeconds );
-        this.rover.future( delaySeconds ).visible = true;
+        this.blocklyButtonVisible = this.rover.blocklyButton.visible;
+        this.future( delaySeconds ).setRoverVisible( true );
         this.camera.navmode = "none";
         this.camera.isFirstPerson = false;
     } else {
         // Switch to first person
         this.camera.transformTo( firstPersonTransform, durationSeconds );
-        this.rover.future( durationSeconds - delaySeconds ).visible = false;
+        this.blocklyButtonVisible = this.rover.blocklyButton.visible;
+        this.future( durationSeconds - delaySeconds ).setRoverVisible( false );
         this.camera.future( durationSeconds ).navmode = "walk";
         this.camera.isFirstPerson = true;
     }
-} //@ sourceURL=player
+} 
+
+this.setRoverVisible = function( vis ) {
+    this.rover.visible = vis;
+    this.rover.blocklyButton.visible = this.blocklyButtonVisible;
+}
+//@ sourceURL=player
 
