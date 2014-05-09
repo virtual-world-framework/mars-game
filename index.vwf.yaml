@@ -123,9 +123,7 @@ children:
               visible: false
               translation: [ 0, 0, 4 ]
             scripts:
-            - source: source/blocklyButton.js 
-      scripts:
-      - source: source/hideButton.js        
+            - source: source/blocklyButton.js
     scripts:
      - source: source/player.js
   minirover:
@@ -134,7 +132,6 @@ children:
     source: assets/3d/minirover/minirover.dae
     type: model/vnd.collada+xml
     properties:
-      visible: true
       translation: [ 0, 3, 0 ]
       rotation: [ 0, 0, 1, 270 ]
       castShadows: true
@@ -160,8 +157,6 @@ children:
           visible: false
         scripts:
         - source: source/blocklyButton.js
-    scripts:
-    - source: source/hideButton.js
   pickups:
     extends: http://vwf.example.com/node3.vwf
     children:
