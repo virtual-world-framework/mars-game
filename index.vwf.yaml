@@ -107,14 +107,11 @@ children:
           terrainName: "environment"
           allowedBlocks: 10
         children:
-          inventory:
-            extends: http://vwf.example.com/node3.vwf
-            children:
-              cargo:
-                extends: source/inventory.vwf
-                properties:
-                  capacity: 4
-                  inventoryIsVisible: false
+          cargo:
+            extends: source/inventory.vwf
+            properties:
+              capacity: 4
+              inventoryIsVisible: false
           blocklyButton:
             extends: http://vwf.example.com/node3.vwf
             source: assets/3d/Blockly.DAE
