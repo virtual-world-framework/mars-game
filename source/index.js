@@ -22,6 +22,7 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
     if ( blocklyNodes[ nodeID ] !== undefined ) {
         var blocklyNode = blocklyNodes[ nodeID ];
         switch ( eventName ) {
+            
             case "blocklyVisibleChanged":
                 if ( eventArgs[ 0 ] ) {
                     currentBlocklyNodeID = nodeID;
@@ -41,6 +42,17 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                     }
                 }
                 break;
+
+            case "moveFailed":
+                stopBlocklyExecution();
+                break;
+
+            case "batteryChanged":
+                var currentBattery = Number( eventArgs[ 0 ] );
+                if ( currentBattery <= 0 ) {
+                    stopBlocklyExecution();    
+                } 
+                break;   
 
         }
     } else {
@@ -299,6 +311,15 @@ function updateHudElements( blocklyNode ) {
     if ( Blockly.mainWorkspace ) {
         Blockly.mainWorkspace.maxBlocks = blocklyNode.allowedBlocks;    
     }
+}
+
+function stopBlocklyExecution( id ) {
+    if ( id !== undefined ) {
+        vwf_view.kernel.callMethod( vwf_view.kernel.application(), "stopAllExecution", [ true ] );
+    } else {
+        vwf_view.kernel.setProperty( id, "stopExecution", [ true ] );
+    }
+
 }
 
 //@ sourceURL=source/index.js
