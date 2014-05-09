@@ -148,6 +148,11 @@ children:
         properties:
           iconSrc: "../assets/images/radio.png"
           translation: [ 45, 0, 0 ]
+          animationLoop: true
+        scripts: |
+          this.initialize = function() {
+            this.animationPlay();
+          }
   debris:
     extends: http://vwf.example.com/node3.vwf
     properties:
