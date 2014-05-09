@@ -17,7 +17,7 @@ this.onSceneReady = function() {
     }
 
     var clauseMgrs = scene.find( ".//element(*,'source/clauseMgr.vwf')" );
-    if ( clauseMgrs.length == 1 ) {
+    if ( clauseMgrs.length === 1 ) {
         clauseMgr = clauseMgrs[0];
     } else {
         self.logger.errorx( "entering", "There should be exactly one clause manager." );
