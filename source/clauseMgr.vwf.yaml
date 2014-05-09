@@ -18,7 +18,7 @@ methods:
   # Arguments: 
   #   clause - the clause definition from the yaml
   #   callback - the callback function to call when the clause's value might have changed
-  #   context - the context in which we should search for compontns - typically the scene
+  #   context - the context in which we should search for components - typically the scene
   constructClause:
   # Add your own clauses to the manager.  We keep a stack of clause sets, and when 
   # constructing a clause we work from the top of the stack down, looking for a set
