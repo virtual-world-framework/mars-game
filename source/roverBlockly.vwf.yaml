@@ -23,9 +23,7 @@ methods:
   executeBlocklyCmd:
 scripts: |
   this.blockCountChanged = function( bc ) {
-
     this.ram = this.ramMax - ( this.ramMax / this.allowedBlocks ) * bc;
-
   }
 
   this.executeBlocklyCmd = function( cmd, magnitude, time ) {
