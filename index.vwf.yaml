@@ -133,6 +133,7 @@ children:
       rotation: [ 0, 0, 1, 270 ]
       castShadows: true
       receiveShadows: true
+      blocklyEnabled: false
       currentGridSquare: [ 0, 6 ]
       heading: 270
       terrainName: "environment"
