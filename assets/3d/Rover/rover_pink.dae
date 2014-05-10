@@ -6,22 +6,22 @@
       <authoring_tool>OpenCOLLADA for 3ds Max;  Version: 1.4.1;  Revision: exported;  Platform: x64;  Configuration: Release_Max2012_static</authoring_tool>
       <source_data>file:///C:/Users/mcclurek/Desktop/MARS/Rover_1_SCALED_UPDATED.max</source_data>
     </contributor>
-    <created>2014-05-07T10:18:43</created>
-    <modified>2014-05-07T10:18:43</modified>
+    <created>2014-05-07T10:18:57</created>
+    <modified>2014-05-07T10:18:57</modified>
     <unit name="meter" meter="1"/>
     <up_axis>Z_UP</up_axis>
   </asset>
   <library_effects>
-    <effect id="rover">
+    <effect id="rover_pink">
       <profile_COMMON>
-        <newparam sid="rover_png-surface">
+        <newparam sid="rover_pink_png-surface">
           <surface type="2D">
-            <init_from>rover_png</init_from>
+            <init_from>rover_pink_png</init_from>
           </surface>
         </newparam>
-        <newparam sid="rover_png-sampler">
+        <newparam sid="rover_pink_png-sampler">
           <sampler2D>
-            <source>rover_png-surface</source>
+            <source>rover_pink_png-surface</source>
           </sampler2D>
         </newparam>
         <newparam sid="rover_spec_png-surface">
@@ -53,7 +53,7 @@
               <color>0.588235 0.588235 0.588235 1</color>
             </ambient>
             <diffuse>
-              <texture texture="rover_png-sampler" texcoord="CHANNEL1"/>
+              <texture texture="rover_pink_png-sampler" texcoord="CHANNEL1"/>
             </diffuse>
             <specular>
               <color>0.9 0.9 0.9 1</color>
@@ -107,8 +107,8 @@
     </effect>
   </library_effects>
   <library_materials>
-    <material id="rover-material" name="rover">
-      <instance_effect url="#rover"/>
+    <material id="rover_pink-material" name="rover_pink">
+      <instance_effect url="#rover_pink"/>
     </material>
   </library_materials>
   <library_geometries>
@@ -147,7 +147,7 @@
         <vertices id="geom-Cylinder014-vertices">
           <input semantic="POSITION" source="#geom-Cylinder014-positions"/>
         </vertices>
-        <triangles material="rover" count="100">
+        <triangles material="rover_pink" count="100">
           <input semantic="VERTEX" source="#geom-Cylinder014-vertices" offset="0"/>
           <input semantic="NORMAL" source="#geom-Cylinder014-normals" offset="1"/>
           <input semantic="TEXCOORD" source="#geom-Cylinder014-map1" offset="2" set="0"/>
@@ -190,7 +190,7 @@
         <vertices id="geom-Object001-vertices">
           <input semantic="POSITION" source="#geom-Object001-positions"/>
         </vertices>
-        <triangles material="rover" count="428">
+        <triangles material="rover_pink" count="428">
           <input semantic="VERTEX" source="#geom-Object001-vertices" offset="0"/>
           <input semantic="NORMAL" source="#geom-Object001-normals" offset="1"/>
           <input semantic="TEXCOORD" source="#geom-Object001-map1" offset="2" set="0"/>
@@ -233,7 +233,7 @@
         <vertices id="geom-pop_up-vertices">
           <input semantic="POSITION" source="#geom-pop_up-positions"/>
         </vertices>
-        <triangles material="rover" count="128">
+        <triangles material="rover_pink" count="128">
           <input semantic="VERTEX" source="#geom-pop_up-vertices" offset="0"/>
           <input semantic="NORMAL" source="#geom-pop_up-normals" offset="1"/>
           <input semantic="TEXCOORD" source="#geom-pop_up-map1" offset="2" set="0"/>
@@ -276,7 +276,7 @@
         <vertices id="geom-Object171-vertices">
           <input semantic="POSITION" source="#geom-Object171-positions"/>
         </vertices>
-        <triangles material="rover" count="130">
+        <triangles material="rover_pink" count="130">
           <input semantic="VERTEX" source="#geom-Object171-vertices" offset="0"/>
           <input semantic="NORMAL" source="#geom-Object171-normals" offset="1"/>
           <input semantic="TEXCOORD" source="#geom-Object171-map1" offset="2" set="0"/>
@@ -319,7 +319,7 @@
         <vertices id="geom-cam_eye-vertices">
           <input semantic="POSITION" source="#geom-cam_eye-positions"/>
         </vertices>
-        <triangles material="rover" count="130">
+        <triangles material="rover_pink" count="130">
           <input semantic="VERTEX" source="#geom-cam_eye-vertices" offset="0"/>
           <input semantic="NORMAL" source="#geom-cam_eye-normals" offset="1"/>
           <input semantic="TEXCOORD" source="#geom-cam_eye-map1" offset="2" set="0"/>
@@ -362,7 +362,7 @@
         <vertices id="geom-body-vertices">
           <input semantic="POSITION" source="#geom-body-positions"/>
         </vertices>
-        <triangles material="rover" count="580">
+        <triangles material="rover_pink" count="580">
           <input semantic="VERTEX" source="#geom-body-vertices" offset="0"/>
           <input semantic="NORMAL" source="#geom-body-normals" offset="1"/>
           <input semantic="TEXCOORD" source="#geom-body-map1" offset="2" set="0"/>
@@ -405,7 +405,7 @@
         <vertices id="geom-OilTank002-vertices">
           <input semantic="POSITION" source="#geom-OilTank002-positions"/>
         </vertices>
-        <triangles material="rover" count="416">
+        <triangles material="rover_pink" count="416">
           <input semantic="VERTEX" source="#geom-OilTank002-vertices" offset="0"/>
           <input semantic="NORMAL" source="#geom-OilTank002-normals" offset="1"/>
           <input semantic="TEXCOORD" source="#geom-OilTank002-map1" offset="2" set="0"/>
@@ -448,7 +448,7 @@
         <vertices id="geom-Cylinder044-vertices">
           <input semantic="POSITION" source="#geom-Cylinder044-positions"/>
         </vertices>
-        <triangles material="rover" count="644">
+        <triangles material="rover_pink" count="644">
           <input semantic="VERTEX" source="#geom-Cylinder044-vertices" offset="0"/>
           <input semantic="NORMAL" source="#geom-Cylinder044-normals" offset="1"/>
           <input semantic="TEXCOORD" source="#geom-Cylinder044-map1" offset="2" set="0"/>
@@ -491,7 +491,7 @@
         <vertices id="geom-wheel-vertices">
           <input semantic="POSITION" source="#geom-wheel-positions"/>
         </vertices>
-        <triangles material="rover" count="384">
+        <triangles material="rover_pink" count="384">
           <input semantic="VERTEX" source="#geom-wheel-vertices" offset="0"/>
           <input semantic="NORMAL" source="#geom-wheel-normals" offset="1"/>
           <input semantic="TEXCOORD" source="#geom-wheel-map1" offset="2" set="0"/>
@@ -534,7 +534,7 @@
         <vertices id="geom-wheel001-vertices">
           <input semantic="POSITION" source="#geom-wheel001-positions"/>
         </vertices>
-        <triangles material="rover" count="384">
+        <triangles material="rover_pink" count="384">
           <input semantic="VERTEX" source="#geom-wheel001-vertices" offset="0"/>
           <input semantic="NORMAL" source="#geom-wheel001-normals" offset="1"/>
           <input semantic="TEXCOORD" source="#geom-wheel001-map1" offset="2" set="0"/>
@@ -577,7 +577,7 @@
         <vertices id="geom-wheel002-vertices">
           <input semantic="POSITION" source="#geom-wheel002-positions"/>
         </vertices>
-        <triangles material="rover" count="384">
+        <triangles material="rover_pink" count="384">
           <input semantic="VERTEX" source="#geom-wheel002-vertices" offset="0"/>
           <input semantic="NORMAL" source="#geom-wheel002-normals" offset="1"/>
           <input semantic="TEXCOORD" source="#geom-wheel002-map1" offset="2" set="0"/>
@@ -620,7 +620,7 @@
         <vertices id="geom-wheel003-vertices">
           <input semantic="POSITION" source="#geom-wheel003-positions"/>
         </vertices>
-        <triangles material="rover" count="384">
+        <triangles material="rover_pink" count="384">
           <input semantic="VERTEX" source="#geom-wheel003-vertices" offset="0"/>
           <input semantic="NORMAL" source="#geom-wheel003-normals" offset="1"/>
           <input semantic="TEXCOORD" source="#geom-wheel003-map1" offset="2" set="0"/>
@@ -663,7 +663,7 @@
         <vertices id="geom-brace-vertices">
           <input semantic="POSITION" source="#geom-brace-positions"/>
         </vertices>
-        <triangles material="rover" count="1228">
+        <triangles material="rover_pink" count="1228">
           <input semantic="VERTEX" source="#geom-brace-vertices" offset="0"/>
           <input semantic="NORMAL" source="#geom-brace-normals" offset="1"/>
           <input semantic="TEXCOORD" source="#geom-brace-map1" offset="2" set="0"/>
@@ -706,7 +706,7 @@
         <vertices id="geom-Object174-vertices">
           <input semantic="POSITION" source="#geom-Object174-positions"/>
         </vertices>
-        <triangles material="rover" count="36">
+        <triangles material="rover_pink" count="36">
           <input semantic="VERTEX" source="#geom-Object174-vertices" offset="0"/>
           <input semantic="NORMAL" source="#geom-Object174-normals" offset="1"/>
           <input semantic="TEXCOORD" source="#geom-Object174-map1" offset="2" set="0"/>
@@ -749,7 +749,7 @@
         <vertices id="geom-Object175-vertices">
           <input semantic="POSITION" source="#geom-Object175-positions"/>
         </vertices>
-        <triangles material="rover" count="36">
+        <triangles material="rover_pink" count="36">
           <input semantic="VERTEX" source="#geom-Object175-vertices" offset="0"/>
           <input semantic="NORMAL" source="#geom-Object175-normals" offset="1"/>
           <input semantic="TEXCOORD" source="#geom-Object175-map1" offset="2" set="0"/>
@@ -792,7 +792,7 @@
         <vertices id="geom-wheel_well-vertices">
           <input semantic="POSITION" source="#geom-wheel_well-positions"/>
         </vertices>
-        <triangles material="rover" count="156">
+        <triangles material="rover_pink" count="156">
           <input semantic="VERTEX" source="#geom-wheel_well-vertices" offset="0"/>
           <input semantic="NORMAL" source="#geom-wheel_well-normals" offset="1"/>
           <input semantic="TEXCOORD" source="#geom-wheel_well-map1" offset="2" set="0"/>
@@ -835,7 +835,7 @@
         <vertices id="geom-Line003-vertices">
           <input semantic="POSITION" source="#geom-Line003-positions"/>
         </vertices>
-        <triangles material="rover" count="252">
+        <triangles material="rover_pink" count="252">
           <input semantic="VERTEX" source="#geom-Line003-vertices" offset="0"/>
           <input semantic="NORMAL" source="#geom-Line003-normals" offset="1"/>
           <input semantic="TEXCOORD" source="#geom-Line003-map1" offset="2" set="0"/>
@@ -878,7 +878,7 @@
         <vertices id="geom-Object180-vertices">
           <input semantic="POSITION" source="#geom-Object180-positions"/>
         </vertices>
-        <triangles material="rover" count="72">
+        <triangles material="rover_pink" count="72">
           <input semantic="VERTEX" source="#geom-Object180-vertices" offset="0"/>
           <input semantic="NORMAL" source="#geom-Object180-normals" offset="1"/>
           <input semantic="TEXCOORD" source="#geom-Object180-map1" offset="2" set="0"/>
@@ -921,7 +921,7 @@
         <vertices id="geom-Object181-vertices">
           <input semantic="POSITION" source="#geom-Object181-positions"/>
         </vertices>
-        <triangles material="rover" count="72">
+        <triangles material="rover_pink" count="72">
           <input semantic="VERTEX" source="#geom-Object181-vertices" offset="0"/>
           <input semantic="NORMAL" source="#geom-Object181-normals" offset="1"/>
           <input semantic="TEXCOORD" source="#geom-Object181-map1" offset="2" set="0"/>
@@ -964,7 +964,7 @@
         <vertices id="geom-OilTank003-vertices">
           <input semantic="POSITION" source="#geom-OilTank003-positions"/>
         </vertices>
-        <triangles material="rover" count="416">
+        <triangles material="rover_pink" count="416">
           <input semantic="VERTEX" source="#geom-OilTank003-vertices" offset="0"/>
           <input semantic="NORMAL" source="#geom-OilTank003-normals" offset="1"/>
           <input semantic="TEXCOORD" source="#geom-OilTank003-map1" offset="2" set="0"/>
@@ -1007,7 +1007,7 @@
         <vertices id="geom-Cylinder050-vertices">
           <input semantic="POSITION" source="#geom-Cylinder050-positions"/>
         </vertices>
-        <triangles material="rover" count="644">
+        <triangles material="rover_pink" count="644">
           <input semantic="VERTEX" source="#geom-Cylinder050-vertices" offset="0"/>
           <input semantic="NORMAL" source="#geom-Cylinder050-normals" offset="1"/>
           <input semantic="TEXCOORD" source="#geom-Cylinder050-map1" offset="2" set="0"/>
@@ -1050,7 +1050,7 @@
         <vertices id="geom-Cylinder051-vertices">
           <input semantic="POSITION" source="#geom-Cylinder051-positions"/>
         </vertices>
-        <triangles material="rover" count="644">
+        <triangles material="rover_pink" count="644">
           <input semantic="VERTEX" source="#geom-Cylinder051-vertices" offset="0"/>
           <input semantic="NORMAL" source="#geom-Cylinder051-normals" offset="1"/>
           <input semantic="TEXCOORD" source="#geom-Cylinder051-map1" offset="2" set="0"/>
@@ -1093,7 +1093,7 @@
         <vertices id="geom-Cylinder052-vertices">
           <input semantic="POSITION" source="#geom-Cylinder052-positions"/>
         </vertices>
-        <triangles material="rover" count="644">
+        <triangles material="rover_pink" count="644">
           <input semantic="VERTEX" source="#geom-Cylinder052-vertices" offset="0"/>
           <input semantic="NORMAL" source="#geom-Cylinder052-normals" offset="1"/>
           <input semantic="TEXCOORD" source="#geom-Cylinder052-map1" offset="2" set="0"/>
@@ -1136,7 +1136,7 @@
         <vertices id="geom-wheel_well001-vertices">
           <input semantic="POSITION" source="#geom-wheel_well001-positions"/>
         </vertices>
-        <triangles material="rover" count="156">
+        <triangles material="rover_pink" count="156">
           <input semantic="VERTEX" source="#geom-wheel_well001-vertices" offset="0"/>
           <input semantic="NORMAL" source="#geom-wheel_well001-normals" offset="1"/>
           <input semantic="TEXCOORD" source="#geom-wheel_well001-map1" offset="2" set="0"/>
@@ -1179,7 +1179,7 @@
         <vertices id="geom-wheel_well002-vertices">
           <input semantic="POSITION" source="#geom-wheel_well002-positions"/>
         </vertices>
-        <triangles material="rover" count="156">
+        <triangles material="rover_pink" count="156">
           <input semantic="VERTEX" source="#geom-wheel_well002-vertices" offset="0"/>
           <input semantic="NORMAL" source="#geom-wheel_well002-normals" offset="1"/>
           <input semantic="TEXCOORD" source="#geom-wheel_well002-map1" offset="2" set="0"/>
@@ -1222,7 +1222,7 @@
         <vertices id="geom-wheel_well003-vertices">
           <input semantic="POSITION" source="#geom-wheel_well003-positions"/>
         </vertices>
-        <triangles material="rover" count="156">
+        <triangles material="rover_pink" count="156">
           <input semantic="VERTEX" source="#geom-wheel_well003-vertices" offset="0"/>
           <input semantic="NORMAL" source="#geom-wheel_well003-normals" offset="1"/>
           <input semantic="TEXCOORD" source="#geom-wheel_well003-map1" offset="2" set="0"/>
@@ -1265,7 +1265,7 @@
         <vertices id="geom-Cylinder053-vertices">
           <input semantic="POSITION" source="#geom-Cylinder053-positions"/>
         </vertices>
-        <triangles material="rover" count="24">
+        <triangles material="rover_pink" count="24">
           <input semantic="VERTEX" source="#geom-Cylinder053-vertices" offset="0"/>
           <input semantic="NORMAL" source="#geom-Cylinder053-normals" offset="1"/>
           <input semantic="TEXCOORD" source="#geom-Cylinder053-map1" offset="2" set="0"/>
@@ -1284,11 +1284,11 @@
     </light>
   </library_lights>
   <library_images>
-    <image id="rover_png">
-      <init_from>./rover.png</init_from>
-    </image>
     <image id="rover_nrm_png">
       <init_from>./rover_nrm.png</init_from>
+    </image>
+    <image id="rover_pink_png">
+      <init_from>./rover_pink.png</init_from>
     </image>
     <image id="rover_spec_png">
       <init_from>./rover_spec.png</init_from>
@@ -1306,7 +1306,7 @@
           <instance_geometry url="#geom-Cylinder014">
             <bind_material>
               <technique_common>
-                <instance_material symbol="rover" target="#rover-material">
+                <instance_material symbol="rover_pink" target="#rover_pink-material">
                   <bind_vertex_input semantic="CHANNEL1" input_semantic="TEXCOORD" input_set="0"/>
                   <bind_vertex_input semantic="CHANNEL1" input_semantic="TEXCOORD" input_set="0"/>
                   <bind_vertex_input semantic="CHANNEL1" input_semantic="TEXCOORD" input_set="0"/>
@@ -1331,7 +1331,7 @@
           <instance_geometry url="#geom-Object001">
             <bind_material>
               <technique_common>
-                <instance_material symbol="rover" target="#rover-material">
+                <instance_material symbol="rover_pink" target="#rover_pink-material">
                   <bind_vertex_input semantic="CHANNEL1" input_semantic="TEXCOORD" input_set="0"/>
                   <bind_vertex_input semantic="CHANNEL1" input_semantic="TEXCOORD" input_set="0"/>
                   <bind_vertex_input semantic="CHANNEL1" input_semantic="TEXCOORD" input_set="0"/>
@@ -1357,7 +1357,7 @@
           <instance_geometry url="#geom-pop_up">
             <bind_material>
               <technique_common>
-                <instance_material symbol="rover" target="#rover-material">
+                <instance_material symbol="rover_pink" target="#rover_pink-material">
                   <bind_vertex_input semantic="CHANNEL1" input_semantic="TEXCOORD" input_set="0"/>
                   <bind_vertex_input semantic="CHANNEL1" input_semantic="TEXCOORD" input_set="0"/>
                   <bind_vertex_input semantic="CHANNEL1" input_semantic="TEXCOORD" input_set="0"/>
@@ -1374,7 +1374,7 @@
             <instance_geometry url="#geom-Object171">
               <bind_material>
                 <technique_common>
-                  <instance_material symbol="rover" target="#rover-material">
+                  <instance_material symbol="rover_pink" target="#rover_pink-material">
                     <bind_vertex_input semantic="CHANNEL1" input_semantic="TEXCOORD" input_set="0"/>
                     <bind_vertex_input semantic="CHANNEL1" input_semantic="TEXCOORD" input_set="0"/>
                     <bind_vertex_input semantic="CHANNEL1" input_semantic="TEXCOORD" input_set="0"/>
@@ -1400,7 +1400,7 @@
             <instance_geometry url="#geom-cam_eye">
               <bind_material>
                 <technique_common>
-                  <instance_material symbol="rover" target="#rover-material">
+                  <instance_material symbol="rover_pink" target="#rover_pink-material">
                     <bind_vertex_input semantic="CHANNEL1" input_semantic="TEXCOORD" input_set="0"/>
                     <bind_vertex_input semantic="CHANNEL1" input_semantic="TEXCOORD" input_set="0"/>
                     <bind_vertex_input semantic="CHANNEL1" input_semantic="TEXCOORD" input_set="0"/>
@@ -1434,7 +1434,7 @@
           <instance_geometry url="#geom-body">
             <bind_material>
               <technique_common>
-                <instance_material symbol="rover" target="#rover-material">
+                <instance_material symbol="rover_pink" target="#rover_pink-material">
                   <bind_vertex_input semantic="CHANNEL1" input_semantic="TEXCOORD" input_set="0"/>
                   <bind_vertex_input semantic="CHANNEL1" input_semantic="TEXCOORD" input_set="0"/>
                   <bind_vertex_input semantic="CHANNEL1" input_semantic="TEXCOORD" input_set="0"/>
@@ -1460,7 +1460,7 @@
           <instance_geometry url="#geom-OilTank002">
             <bind_material>
               <technique_common>
-                <instance_material symbol="rover" target="#rover-material">
+                <instance_material symbol="rover_pink" target="#rover_pink-material">
                   <bind_vertex_input semantic="CHANNEL1" input_semantic="TEXCOORD" input_set="0"/>
                   <bind_vertex_input semantic="CHANNEL1" input_semantic="TEXCOORD" input_set="0"/>
                   <bind_vertex_input semantic="CHANNEL1" input_semantic="TEXCOORD" input_set="0"/>
@@ -1485,7 +1485,7 @@
         <instance_geometry url="#geom-Cylinder044">
           <bind_material>
             <technique_common>
-              <instance_material symbol="rover" target="#rover-material">
+              <instance_material symbol="rover_pink" target="#rover_pink-material">
                 <bind_vertex_input semantic="CHANNEL1" input_semantic="TEXCOORD" input_set="0"/>
                 <bind_vertex_input semantic="CHANNEL1" input_semantic="TEXCOORD" input_set="0"/>
                 <bind_vertex_input semantic="CHANNEL1" input_semantic="TEXCOORD" input_set="0"/>
@@ -1501,7 +1501,7 @@
             <instance_geometry url="#geom-wheel">
               <bind_material>
                 <technique_common>
-                  <instance_material symbol="rover" target="#rover-material">
+                  <instance_material symbol="rover_pink" target="#rover_pink-material">
                     <bind_vertex_input semantic="CHANNEL1" input_semantic="TEXCOORD" input_set="0"/>
                     <bind_vertex_input semantic="CHANNEL1" input_semantic="TEXCOORD" input_set="0"/>
                     <bind_vertex_input semantic="CHANNEL1" input_semantic="TEXCOORD" input_set="0"/>
@@ -1527,7 +1527,7 @@
             <instance_geometry url="#geom-wheel001">
               <bind_material>
                 <technique_common>
-                  <instance_material symbol="rover" target="#rover-material">
+                  <instance_material symbol="rover_pink" target="#rover_pink-material">
                     <bind_vertex_input semantic="CHANNEL1" input_semantic="TEXCOORD" input_set="0"/>
                     <bind_vertex_input semantic="CHANNEL1" input_semantic="TEXCOORD" input_set="0"/>
                     <bind_vertex_input semantic="CHANNEL1" input_semantic="TEXCOORD" input_set="0"/>
@@ -1552,7 +1552,7 @@
           <instance_geometry url="#geom-wheel002">
             <bind_material>
               <technique_common>
-                <instance_material symbol="rover" target="#rover-material">
+                <instance_material symbol="rover_pink" target="#rover_pink-material">
                   <bind_vertex_input semantic="CHANNEL1" input_semantic="TEXCOORD" input_set="0"/>
                   <bind_vertex_input semantic="CHANNEL1" input_semantic="TEXCOORD" input_set="0"/>
                   <bind_vertex_input semantic="CHANNEL1" input_semantic="TEXCOORD" input_set="0"/>
@@ -1576,7 +1576,7 @@
           <instance_geometry url="#geom-wheel003">
             <bind_material>
               <technique_common>
-                <instance_material symbol="rover" target="#rover-material">
+                <instance_material symbol="rover_pink" target="#rover_pink-material">
                   <bind_vertex_input semantic="CHANNEL1" input_semantic="TEXCOORD" input_set="0"/>
                   <bind_vertex_input semantic="CHANNEL1" input_semantic="TEXCOORD" input_set="0"/>
                   <bind_vertex_input semantic="CHANNEL1" input_semantic="TEXCOORD" input_set="0"/>
@@ -1613,7 +1613,7 @@
           <instance_geometry url="#geom-brace">
             <bind_material>
               <technique_common>
-                <instance_material symbol="rover" target="#rover-material">
+                <instance_material symbol="rover_pink" target="#rover_pink-material">
                   <bind_vertex_input semantic="CHANNEL1" input_semantic="TEXCOORD" input_set="0"/>
                   <bind_vertex_input semantic="CHANNEL1" input_semantic="TEXCOORD" input_set="0"/>
                   <bind_vertex_input semantic="CHANNEL1" input_semantic="TEXCOORD" input_set="0"/>
@@ -1638,7 +1638,7 @@
           <instance_geometry url="#geom-Object174">
             <bind_material>
               <technique_common>
-                <instance_material symbol="rover" target="#rover-material">
+                <instance_material symbol="rover_pink" target="#rover_pink-material">
                   <bind_vertex_input semantic="CHANNEL1" input_semantic="TEXCOORD" input_set="0"/>
                   <bind_vertex_input semantic="CHANNEL1" input_semantic="TEXCOORD" input_set="0"/>
                   <bind_vertex_input semantic="CHANNEL1" input_semantic="TEXCOORD" input_set="0"/>
@@ -1663,7 +1663,7 @@
           <instance_geometry url="#geom-Object175">
             <bind_material>
               <technique_common>
-                <instance_material symbol="rover" target="#rover-material">
+                <instance_material symbol="rover_pink" target="#rover_pink-material">
                   <bind_vertex_input semantic="CHANNEL1" input_semantic="TEXCOORD" input_set="0"/>
                   <bind_vertex_input semantic="CHANNEL1" input_semantic="TEXCOORD" input_set="0"/>
                   <bind_vertex_input semantic="CHANNEL1" input_semantic="TEXCOORD" input_set="0"/>
@@ -1691,7 +1691,7 @@
           <instance_geometry url="#geom-wheel_well">
             <bind_material>
               <technique_common>
-                <instance_material symbol="rover" target="#rover-material">
+                <instance_material symbol="rover_pink" target="#rover_pink-material">
                   <bind_vertex_input semantic="CHANNEL1" input_semantic="TEXCOORD" input_set="0"/>
                   <bind_vertex_input semantic="CHANNEL1" input_semantic="TEXCOORD" input_set="0"/>
                   <bind_vertex_input semantic="CHANNEL1" input_semantic="TEXCOORD" input_set="0"/>
@@ -1718,7 +1718,7 @@
           <instance_geometry url="#geom-Line003">
             <bind_material>
               <technique_common>
-                <instance_material symbol="rover" target="#rover-material">
+                <instance_material symbol="rover_pink" target="#rover_pink-material">
                   <bind_vertex_input semantic="CHANNEL1" input_semantic="TEXCOORD" input_set="0"/>
                   <bind_vertex_input semantic="CHANNEL1" input_semantic="TEXCOORD" input_set="0"/>
                   <bind_vertex_input semantic="CHANNEL1" input_semantic="TEXCOORD" input_set="0"/>
@@ -1745,7 +1745,7 @@
           <instance_geometry url="#geom-Object180">
             <bind_material>
               <technique_common>
-                <instance_material symbol="rover" target="#rover-material">
+                <instance_material symbol="rover_pink" target="#rover_pink-material">
                   <bind_vertex_input semantic="CHANNEL1" input_semantic="TEXCOORD" input_set="0"/>
                   <bind_vertex_input semantic="CHANNEL1" input_semantic="TEXCOORD" input_set="0"/>
                   <bind_vertex_input semantic="CHANNEL1" input_semantic="TEXCOORD" input_set="0"/>
@@ -1770,7 +1770,7 @@
           <instance_geometry url="#geom-Object181">
             <bind_material>
               <technique_common>
-                <instance_material symbol="rover" target="#rover-material">
+                <instance_material symbol="rover_pink" target="#rover_pink-material">
                   <bind_vertex_input semantic="CHANNEL1" input_semantic="TEXCOORD" input_set="0"/>
                   <bind_vertex_input semantic="CHANNEL1" input_semantic="TEXCOORD" input_set="0"/>
                   <bind_vertex_input semantic="CHANNEL1" input_semantic="TEXCOORD" input_set="0"/>
@@ -1796,7 +1796,7 @@
           <instance_geometry url="#geom-OilTank003">
             <bind_material>
               <technique_common>
-                <instance_material symbol="rover" target="#rover-material">
+                <instance_material symbol="rover_pink" target="#rover_pink-material">
                   <bind_vertex_input semantic="CHANNEL1" input_semantic="TEXCOORD" input_set="0"/>
                   <bind_vertex_input semantic="CHANNEL1" input_semantic="TEXCOORD" input_set="0"/>
                   <bind_vertex_input semantic="CHANNEL1" input_semantic="TEXCOORD" input_set="0"/>
@@ -1821,7 +1821,7 @@
         <instance_geometry url="#geom-Cylinder050">
           <bind_material>
             <technique_common>
-              <instance_material symbol="rover" target="#rover-material">
+              <instance_material symbol="rover_pink" target="#rover_pink-material">
                 <bind_vertex_input semantic="CHANNEL1" input_semantic="TEXCOORD" input_set="0"/>
                 <bind_vertex_input semantic="CHANNEL1" input_semantic="TEXCOORD" input_set="0"/>
                 <bind_vertex_input semantic="CHANNEL1" input_semantic="TEXCOORD" input_set="0"/>
@@ -1845,7 +1845,7 @@
         <instance_geometry url="#geom-Cylinder051">
           <bind_material>
             <technique_common>
-              <instance_material symbol="rover" target="#rover-material">
+              <instance_material symbol="rover_pink" target="#rover_pink-material">
                 <bind_vertex_input semantic="CHANNEL1" input_semantic="TEXCOORD" input_set="0"/>
                 <bind_vertex_input semantic="CHANNEL1" input_semantic="TEXCOORD" input_set="0"/>
                 <bind_vertex_input semantic="CHANNEL1" input_semantic="TEXCOORD" input_set="0"/>
@@ -1869,7 +1869,7 @@
         <instance_geometry url="#geom-Cylinder052">
           <bind_material>
             <technique_common>
-              <instance_material symbol="rover" target="#rover-material">
+              <instance_material symbol="rover_pink" target="#rover_pink-material">
                 <bind_vertex_input semantic="CHANNEL1" input_semantic="TEXCOORD" input_set="0"/>
                 <bind_vertex_input semantic="CHANNEL1" input_semantic="TEXCOORD" input_set="0"/>
                 <bind_vertex_input semantic="CHANNEL1" input_semantic="TEXCOORD" input_set="0"/>
@@ -1898,7 +1898,7 @@
           <instance_geometry url="#geom-wheel_well001">
             <bind_material>
               <technique_common>
-                <instance_material symbol="rover" target="#rover-material">
+                <instance_material symbol="rover_pink" target="#rover_pink-material">
                   <bind_vertex_input semantic="CHANNEL1" input_semantic="TEXCOORD" input_set="0"/>
                   <bind_vertex_input semantic="CHANNEL1" input_semantic="TEXCOORD" input_set="0"/>
                   <bind_vertex_input semantic="CHANNEL1" input_semantic="TEXCOORD" input_set="0"/>
@@ -1923,7 +1923,7 @@
         <instance_geometry url="#geom-wheel_well002">
           <bind_material>
             <technique_common>
-              <instance_material symbol="rover" target="#rover-material">
+              <instance_material symbol="rover_pink" target="#rover_pink-material">
                 <bind_vertex_input semantic="CHANNEL1" input_semantic="TEXCOORD" input_set="0"/>
                 <bind_vertex_input semantic="CHANNEL1" input_semantic="TEXCOORD" input_set="0"/>
                 <bind_vertex_input semantic="CHANNEL1" input_semantic="TEXCOORD" input_set="0"/>
@@ -1947,7 +1947,7 @@
         <instance_geometry url="#geom-wheel_well003">
           <bind_material>
             <technique_common>
-              <instance_material symbol="rover" target="#rover-material">
+              <instance_material symbol="rover_pink" target="#rover_pink-material">
                 <bind_vertex_input semantic="CHANNEL1" input_semantic="TEXCOORD" input_set="0"/>
                 <bind_vertex_input semantic="CHANNEL1" input_semantic="TEXCOORD" input_set="0"/>
                 <bind_vertex_input semantic="CHANNEL1" input_semantic="TEXCOORD" input_set="0"/>
@@ -1971,7 +1971,7 @@
         <instance_geometry url="#geom-Cylinder053">
           <bind_material>
             <technique_common>
-              <instance_material symbol="rover" target="#rover-material">
+              <instance_material symbol="rover_pink" target="#rover_pink-material">
                 <bind_vertex_input semantic="CHANNEL1" input_semantic="TEXCOORD" input_set="0"/>
                 <bind_vertex_input semantic="CHANNEL1" input_semantic="TEXCOORD" input_set="0"/>
                 <bind_vertex_input semantic="CHANNEL1" input_semantic="TEXCOORD" input_set="0"/>
