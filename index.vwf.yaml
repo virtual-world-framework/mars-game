@@ -144,7 +144,7 @@ children:
         properties:
           translation: [ 0, 0, 4 ]
           scale: 0.5
-          visible: true
+          visible: false
       blocklyButton:
         extends: http://vwf.example.com/node3.vwf
         source: assets/3d/Blockly.DAE
