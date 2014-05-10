@@ -49,7 +49,7 @@ this.initialize = function() {
         }
     }
 
-    // Deactivate the minirover when the user picks up the radio
+    // Deactivate the minirover when the user drops the radio
     this.pickups.radio.dropped = function() {
         self.minirover.blocklyEnabled = false;
         var blocklyWidget = self.minirover.blocklyButton;
