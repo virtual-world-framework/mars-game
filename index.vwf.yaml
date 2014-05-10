@@ -134,7 +134,7 @@ children:
       castShadows: true
       receiveShadows: true
       blocklyEnabled: false
-      currentGridSquare: [ 0, 6 ]
+      currentGridSquare: [ 0, 8 ]
       heading: 270
       terrainName: "environment"
     children:
