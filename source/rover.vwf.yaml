@@ -1,9 +1,21 @@
 ---
 extends: http://vwf.example.com/node3.vwf
 properties:
-  battery: 100
+  battery:
+    set: |
+      if ( this.battery != value ) {
+        this.battery = value;
+        this.batteryChanged( value );
+      }
+    value: 100 
   batteryMax: 100
-  ram: 100
+  ram:
+    set: |
+      if ( this.ram != value ) {
+        this.ram = value;
+        this.ramChanged( value );
+      }
+    value: 100   
   ramMax: 100
   boundaryMap: []
   gridSquareLength: 1
@@ -20,5 +32,7 @@ methods:
 events:
   moved:
   moveFailed:
+  batteryChanged:
+  ramChanged:
 scripts:
  - source: source/rover.js
