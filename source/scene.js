@@ -57,7 +57,10 @@ this.initialize = function() {
             blocklyWidget.visible = false;
             self.minirover.noComm.visible = true;
         }
-        self.blocklyUiNodeID = null;
+
+        if ( self.blocklyUiNodeID === self.minirover.id ) {
+            self.blocklyUiNodeID = null;
+        }
     }
 
     // Start the first scenario
