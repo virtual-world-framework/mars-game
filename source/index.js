@@ -314,7 +314,7 @@ function updateHudElements( blocklyNode ) {
 }
 
 function stopBlocklyExecution( id ) {
-    if ( id !== undefined ) {
+    if ( id === undefined ) {
         vwf_view.kernel.callMethod( vwf_view.kernel.application(), "stopAllExecution", [ true ] );
     } else {
         vwf_view.kernel.setProperty( id, "stopExecution", [ true ] );
