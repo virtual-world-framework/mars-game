@@ -133,7 +133,8 @@ children:
       rotation: [ 0, 0, 1, 270 ]
       castShadows: true
       receiveShadows: true
-      currentGridSquare: [ 0, 6 ]
+      blocklyEnabled: false
+      currentGridSquare: [ 0, 8 ]
       heading: 270
       terrainName: "environment"
     children:
@@ -144,7 +145,7 @@ children:
         properties:
           translation: [ 0, 0, 4 ]
           scale: 0.5
-          visible: true
+          visible: false
       blocklyButton:
         extends: http://vwf.example.com/node3.vwf
         source: assets/3d/Blockly.DAE

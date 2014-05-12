@@ -1,6 +1,7 @@
 ---
 extends: http://vwf.example.com/node3.vwf
 properties:
+  blocklyEnabled: true
   battery: 100
   batteryMax: 100
   ram: 100
