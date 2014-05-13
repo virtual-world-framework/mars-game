@@ -28,6 +28,8 @@ this.moveForward = function() {
         if ( ( boundaryValue < 0 ) || ( boundaryValue === undefined ) ) {
             this.moveFailed( "collision" );
         } else if ( boundaryValue > this.battery ) {
+            // if the move fails because of battery, drain the rest of our battery
+            this.battery = 0;
             this.moveFailed( "battery" );
         } else {
             this.battery -= boundaryValue;
