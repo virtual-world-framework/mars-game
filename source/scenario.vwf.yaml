@@ -1,14 +1,45 @@
 --- 
 extends: http://vwf.example.com/lesson/task.vwf
 properties:
-  # The clause set contains clauses we want to be able to use for scenarios
+
+  # The clause set contains clauses that we want to be able to use for the 
+  # the success and failure criteria.  Each of these clauses takes a callback
+  # which will be called when the relevant value might have changed, and
+  # returns the function to check if the clause is true or false.
   clauseSet:
+    # arguments: object, x, y
     isAtPosition:
+    # arguments: owner, object
     hasObject:
+    #arguments: object
     moveFailed:
+    #arguments: object
     isBlocklyExecuting:
+
+  # # The state param set contains initialization parameters that we want to be 
+  # # able to use for our scenarios
+  # # NOTE: These work just like clauses (in fact, they piggyback on the 
+  # # clause system)
+  # startStateParamSet:
+  #   # Set the starting and maximum battery values for a particular object
+  #   # arguments: object, starting, max
+  #   battery:
+  #   # Set the maximum number of Blockly commands a particular object can have
+  #   # arguments: object, maxCommands
+  #   cpu:
+
 methods:
   # This is called using future(0) inside of initialize (at least for now).
   onSceneReady:
+
+# children:
+#   # HACK: We should really refactor the clause manager, rather than just
+#   # bending it to our will.
+#   # This is allows us to have a separate clause manager for the start state
+#   # parameters.
+#   # NOTE: nobody external should be using this!
+#   startStateParamMgr$:
+#     extends: source/clauseMgr.vwf
+
 scripts:
 - source: source/scenario.js

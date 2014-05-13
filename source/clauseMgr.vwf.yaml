@@ -1,25 +1,34 @@
 --- 
 extends: http://vwf.example.com/node.vwf
 properties:
+
+  # These are constructor methods for creating the types of clauses we support in this
+  # clause set. We could probably not expose these - but it's kind of nice to be able 
+  # to see which clauses are handled here.
   defaultClauseSet:
-    # These are constructor methods for creating the types of clauses we support in this
-    # clause set. We could probably not expose these - but it's kind of nice to be able 
-    # to see which clauses are handled here.
+
+    # arguments: an array of clauses
     and:
+
+    # arguments: an array of clauses
     or:
+
+    # arguments: a single clause
     not:
+
   # This needs to be a property in order to replicate, but rather than manipulate it 
   # directly we suggest that you call AddClauseSet().
   clauseSets$:
+
 methods:
-  # Accepts a properly formatted clause that was specified in yaml.  Parses the yaml,
-  # creates the clause, sets up the hooks to ensure that the callback function gets 
-  # called, and returns the clauses check function.
-  # Arguments: 
-  #   clause - the clause definition from the yaml
-  #   callback - the callback function to call when the clause's value might have changed
-  #   context - the context in which we should search for components - typically the scene
+
+  # This is now badly named.  What it really does is run a function that is specified
+  #   in our own custom yaml-based language.  The function takes the clause from yaml,
+  #   the context (typically the scene), and any additional arguments that the caller
+  #   wants to provide, creates the function using its clause sets, and runs the function
+  #   with those three items as the three arguments, and returns the result.
   constructClause:
+
   # Add your own clauses to the manager.  We keep a stack of clause sets, and when 
   # constructing a clause we work from the top of the stack down, looking for a set
   # which defines the clause in question.  This method adds your set to the top of 
@@ -27,11 +36,13 @@ methods:
   # Arguments: 
   #   clauseSet - the clause set to add to the top of the stack
   addClauseSet:
+
   # A helper that does basically what Find does, except that it handles pulling out 
   # the 0th element (and writes appropriate errors if there isn't just one element)
   # Arguments: 
   #   context - where to look
   #   objectName - the string to search for
   findInContext:
+
 scripts:
 - source: source/clauseMgr.js
