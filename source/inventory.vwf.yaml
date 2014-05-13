@@ -34,11 +34,12 @@ scripts: |
         this.swap( this.slots.indexOf( objectID ), index );
         return;
       }
-      object.pickedUp();
+
       object.parent_ = this;
       this.slots[ index ] = object.name;
       object.visible = this.inventoryIsVisible;
-      
+      object.pickedUp();
+
     }
 
   }
@@ -63,9 +64,9 @@ scripts: |
     if ( object && object.parent === this ) {
 
       object.parent_ = this.find( "//pickups" )[ 0 ];
-      object.dropped();
       this.slots[ this.slots.indexOf( objectID ) ] = undefined;
       object.visible = true;
+      object.dropped();
       
     }
 
