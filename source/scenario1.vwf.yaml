@@ -2,6 +2,16 @@
 extends: source/scenario.vwf
 properties:
   scenePath: /
+
+  startState:
+  - battery:
+    - rover
+    - 30
+    - 50
+  - ram:
+    - rover
+    - 15
+
   successClause:
   - and:
     - isAtPosition:
@@ -14,6 +24,7 @@ properties:
     - not:
       - isBlocklyExecuting:
         - rover
+
   failureClause:
   - moveFailed:
     - rover

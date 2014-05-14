@@ -1,31 +1,26 @@
 --- 
 extends: http://vwf.example.com/lesson/task.vwf
-# properties:
+properties:
 
-  # # The state param set contains initialization parameters that we want to be 
-  # # able to use for our scenarios
-  # # NOTE: These work just like clauses (in fact, they piggyback on the 
-  # # clause system)
-  # startStateParamSet:
-  #   # Set the starting and maximum battery values for a particular object
-  #   # arguments: object, starting, max
-  #   battery:
-  #   # Set the maximum number of Blockly commands a particular object can have
-  #   # arguments: object, maxCommands
-  #   cpu:
+  # The state param set contains initialization parameters that we want to be 
+  #   able to use for our scenarios.  These will be added to the start state
+  #   executor (see children).
+  # TODO: should we refactor this into a separate file, as we did with the
+  #   boolean clauses for the success and failure criteria?  That would make
+  #   them easier to reuse...
+  startStateParamSet:
+
+    # Set the starting and maximum battery values for a particular object
+    # arguments: object, starting, max
+    battery:
+
+    # Set the maximum number of Blockly commands a particular object can have
+    # arguments: object, maxCommands
+    ram:
 
 methods:
   # This is called using future(0) inside of initialize (at least for now).
   onSceneReady:
-
-# children:
-#   # HACK: We should really refactor the clause manager, rather than just
-#   # bending it to our will.
-#   # This is allows us to have a separate clause manager for the start state
-#   # parameters.
-#   # NOTE: nobody external should be using this!
-#   startStateParamMgr$:
-#     extends: source/clauseMgr.vwf
 
 scripts:
 - source: source/scenario.js

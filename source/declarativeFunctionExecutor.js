@@ -1,9 +1,3 @@
-var self;
-
-this.initialize = function() {
-    self = this;
-}
-
 this.executeFunction = function( declarativeFn, context, callback ) {
     // So this is a little bit ugly (or maybe just Javascript-ey)...
     // The first thing we're going to do is get the name of the function, which 
@@ -17,17 +11,17 @@ this.executeFunction = function( declarativeFn, context, callback ) {
     var fnName = fnKeys[ 0 ];
     var fnParams = declarativeFn[ fnName ];
  
-    for ( var i = 0; i < self.functionSets.length; ++i ) {
-        var fnSet = self.functionSets[ i ];
+    for ( var i = 0; i < this.functionSets.length; ++i ) {
+        var fnSet = this.functionSets[ i ];
 
         // This gray magic looks on this particular function set to see if it 
         //  has the required constructor function.
-        var implementation = fnSet[ fnName ];
+        var fnImplementation = fnSet[ fnName ];
 
         // If we found it, call it.  They all take the same arguments - 
         //  fnParams is an array which contains the arguments from the yaml.
-        if (implementation) {
-            return implementation( fnParams, context, callback );
+        if (fnImplementation) {
+            return fnImplementation( fnParams, context, callback );
         }
     }
 
@@ -38,7 +32,7 @@ this.executeFunction = function( declarativeFn, context, callback ) {
 }
 
 this.addFunctionSet = function( functionSet ) {
-    self.functionSets.unshift( functionSet );
+    this.functionSets.unshift( functionSet );
 }
 
 this.findInContext = function( context, objectName ) {
