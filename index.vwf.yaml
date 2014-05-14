@@ -18,7 +18,6 @@ children:
     source: assets/3d/Terrain/mars_terrain.DAE
     type: model/vnd.collada+xml
     properties:
-      scale: 0.01
       castShadows: true
       receiveShadows: true
   boundaryMap:

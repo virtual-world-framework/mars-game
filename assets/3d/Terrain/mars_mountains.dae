@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<COLLADA xmlns="http://www.collada.org/2005/11/COLLADASchema" version="1.4.1">
+  <asset>
+    <contributor>
+      <author>mcclurek</author>
+      <authoring_tool>OpenCOLLADA for 3ds Max;  Version: 1.4.1;  Revision: exported;  Platform: x64;  Configuration: Release_Max2012_static</authoring_tool>
+      <source_data>file:///C:/Users/mcclurek/Desktop/MARS/Mars_Terrain_Paint2_Debris.max</source_data>
+    </contributor>
+    <created>2014-05-13T17:44:21</created>
+    <modified>2014-05-13T17:44:21</modified>
+    <unit name="meter" meter="1"/>
+    <up_axis>Z_UP</up_axis>
+  </asset>
+  <library_effects>
+    <effect id="Material__0">
+      <profile_COMMON>
+        <newparam sid="mars_mountain_panoramic_png-surface">
+          <surface type="2D">
+            <init_from>mars_mountain_panoramic_png</init_from>
+          </surface>
+        </newparam>
+        <newparam sid="mars_mountain_panoramic_png-sampler">
+          <sampler2D>
+            <source>mars_mountain_panoramic_png-surface</source>
+          </sampler2D>
+        </newparam>
+        <technique sid="common">
+          <blinn>
+            <emission>
+              <color>0 0 0 1</color>
+            </emission>
+            <ambient>
+              <color>0.5882353 0.5882353 0.5882353 1</color>
+            </ambient>
+            <diffuse>
+              <texture texture="mars_mountain_panoramic_png-sampler" texcoord="CHANNEL1"/>
+            </diffuse>
+            <specular>
+              <color>0.9 0.9 0.9 1</color>
+            </specular>
+            <shininess>
+              <float>0</float>
+            </shininess>
+            <reflective>
+              <color>0 0 0 1</color>
+            </reflective>
+            <transparent opaque="A_ONE">
+              <texture texture="mars_mountain_panoramic_png-sampler" texcoord="CHANNEL1"/>
+            </transparent>
+            <transparency>
+              <float>1</float>
+            </transparency>
+          </blinn>
+        </technique>
+      </profile_COMMON>
+      <extra>
+        <technique profile="OpenCOLLADA3dsMax">
+          <extended_shader>
+            <apply_reflection_dimming>0</apply_reflection_dimming>
+            <dim_level>0</dim_level>
+            <falloff_type>0</falloff_type>
+            <index_of_refraction>1.5</index_of_refraction>
+            <opacity_type>0</opacity_type>
+            <reflection_level>3</reflection_level>
+            <wire_size>1</wire_size>
+            <wire_units>0</wire_units>
+          </extended_shader>
+          <shader>
+            <ambient_diffuse_lock>1</ambient_diffuse_lock>
+            <ambient_diffuse_texture_lock>1</ambient_diffuse_texture_lock>
+            <diffuse_specular_lock>0</diffuse_specular_lock>
+            <soften>0.1</soften>
+            <use_self_illum_color>0</use_self_illum_color>
+          </shader>
+        </technique>
+      </extra>
+    </effect>
+  </library_effects>
+  <library_materials>
+    <material id="Material__0-material" name="Material__0">
+      <instance_effect url="#Material__0"/>
+    </material>
+  </library_materials>
+  <library_geometries>
+    <geometry id="geom-Plane003" name="Plane003">
+      <mesh>
+        <source id="geom-Plane003-positions">
+          <float_array id="geom-Plane003-positions-array" count="144">-42.84344 159.894 -26.17279 -82.7672 143.3571 -26.17279 -117.0505 117.0506 -26.17279 -143.357 82.7673 -26.17279 -159.894 42.84356 -26.17279 -165.5345 9.76562e-5 -26.1728 -159.894 -42.84339 -26.1728 -143.3571 -82.76717 -26.1728 -117.0506 -117.0505 -26.1728 -82.76728 -143.357 -26.1728 -42.84352 -159.894 -26.1728 -5.08587e-5 -165.5345 -26.1728 42.84343 -159.894 -26.1728 82.7672 -143.357 -26.1728 117.0505 -117.0505 -26.1728 143.357 -82.76723 -26.1728 159.894 -42.84346 -26.1728 165.5345 1.95312e-5 -26.1728 159.894 42.84351 -26.17279 143.357 82.76727 -26.17279 117.0505 117.0506 -26.17279 82.76721 143.3571 -26.17279 42.84346 159.894 -26.17279 4.38315e-6 165.5345 -26.17279 -42.84344 159.894 18.77551 -82.7672 143.3571 18.77551 -117.0505 117.0506 18.77551 -143.357 82.7673 18.77551 -159.894 42.84356 18.77551 -165.5345 9.76562e-5 18.77551 -159.894 -42.84339 18.77551 -143.3571 -82.76717 18.77551 -117.0506 -117.0505 18.77551 -82.76728 -143.357 18.77551 -42.84352 -159.894 18.77551 -5.08587e-5 -165.5345 18.77551 42.84343 -159.894 18.77551 82.7672 -143.357 18.77551 117.0505 -117.0506 18.77551 143.357 -82.76723 18.77551 159.894 -42.84346 18.77551 165.5345 1.95312e-5 18.77551 159.894 42.84351 18.77551 143.357 82.76727 18.77551 117.0505 117.0506 18.77551 82.76721 143.3571 18.77551 42.84346 159.894 18.77551 4.38315e-6 165.5345 18.77551</float_array>
+          <technique_common>
+            <accessor source="#geom-Plane003-positions-array" count="48" stride="3">
+              <param name="X" type="float"/>
+              <param name="Y" type="float"/>
+              <param name="Z" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <source id="geom-Plane003-normals">
+          <float_array id="geom-Plane003-normals-array" count="144">0.2588188 -0.9659259 0 3.75553e-7 -1 0 3.63593e-7 -1 0 0.2588188 -0.9659259 0 0.4999996 -0.8660256 0 0.4999996 -0.8660256 0 0.7071064 -0.7071071 0 0.7071064 -0.7071071 0 0.8660251 -0.5000004 0 0.8660251 -0.5000004 0 0.9659257 -0.2588195 0 0.9659257 -0.2588195 0 1 -5.50173e-7 0 1 -5.62134e-7 0 0.965926 0.2588186 0 0.965926 0.2588186 0 0.8660256 0.4999997 0 0.8660256 0.4999997 0 0.707107 0.7071065 0 0.707107 0.7071065 0 0.5000004 0.8660251 0 0.5000004 0.8660252 0 0.2588194 0.9659257 0 0.2588194 0.9659258 0 1.81796e-7 1 0 1.86581e-7 1 0 -0.258819 0.9659259 0 -0.258819 0.9659259 0 -0.4999999 0.8660255 0 -0.4999999 0.8660255 3.48067e-8 -0.7071066 0.7071069 8.52156e-8 -0.7071065 0.7071069 9.33142e-8 -0.8660254 0.5000001 2.67081e-8 -0.8660254 0.5000001 0 -0.9659259 0.258819 0 -0.9659259 0.258819 0 -1 -1.38739e-7 0 -1 -1.41131e-7 0 -0.9659258 -0.258819 0 -0.9659259 -0.2588191 0 -0.8660254 -0.5 0 -0.8660254 -0.5 0 -0.7071066 -0.7071069 0 -0.7071066 -0.7071069 0 -0.4999999 -0.8660254 0 -0.5 -0.8660254 0 -0.2588188 -0.9659259 0 -0.2588188 -0.9659259 0</float_array>
+          <technique_common>
+            <accessor source="#geom-Plane003-normals-array" count="48" stride="3">
+              <param name="X" type="float"/>
+              <param name="Y" type="float"/>
+              <param name="Z" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <source id="geom-Plane003-map1">
+          <float_array id="geom-Plane003-map1-array" count="156">0.5000026 2.14378e-5 0 0.5833358 2.14378e-5 0 0.6666684 2.14378e-5 0 0.7500006 2.14378e-5 0 6.83672e-7 2.14378e-5 0 0.08333485 2.14378e-5 0 0.1666687 2.14378e-5 0 0.2500023 2.14378e-5 0 0.3333358 2.14378e-5 0 0.4166693 2.14378e-5 0 0.8333329 2.14378e-5 0 0.916666 2.14378e-5 0 1 2.14378e-5 0 1.11874e-6 2.14378e-5 0 0.08333524 2.14378e-5 0 0.166669 2.14378e-5 0 0.2500026 2.14378e-5 0 0.5000026 2.14378e-5 0 0.5833358 2.14378e-5 0 0.6666684 2.14378e-5 0 0.7500006 2.14378e-5 0 0.8333329 2.14378e-5 0 0.333336 2.14378e-5 0 0.4166695 2.14378e-5 0 0.916666 2.14378e-5 0 1 2.14378e-5 0 0.5833358 0.858591 0 0.6666684 0.858591 0 0.7500006 0.8585911 0 0.8333329 0.8585911 0 0.916666 0.8585911 0 1 0.8585911 0 7.08186e-7 0.8585911 0 0.08333488 0.8585912 0 0.1666687 0.8585913 0 0.2500022 0.8585913 0 0.3333358 0.8585913 0 0.4166693 0.8585913 0 0.5000026 0.8585913 0 0.5833358 0.8585913 0 0.6666683 0.8585913 0 0.7500006 0.8585913 0 0.8333329 0.8585913 0 0.916666 0.8585912 0 1 0.8585911 0 1.09427e-6 0.8585911 0 0.08333522 0.8585911 0 0.166669 0.8585911 0 0.2500026 0.8585911 0 0.333336 0.858591 0 0.4166695 0.858591 0 0.5000026 0.858591 0</float_array>
+          <technique_common>
+            <accessor source="#geom-Plane003-map1-array" count="52" stride="3">
+              <param name="S" type="float"/>
+              <param name="T" type="float"/>
+              <param name="P" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <vertices id="geom-Plane003-vertices">
+          <input semantic="POSITION" source="#geom-Plane003-positions"/>
+        </vertices>
+        <triangles material="Material__0_1" count="48">
+          <input semantic="VERTEX" source="#geom-Plane003-vertices" offset="0"/>
+          <input semantic="NORMAL" source="#geom-Plane003-normals" offset="1"/>
+          <input semantic="TEXCOORD" source="#geom-Plane003-map1" offset="2" set="0"/>
+          <p>0 0 1 23 1 0 47 2 51 47 2 51 24 3 26 0 0 1 1 4 2 0 0 1 24 3 26 24 3 26 25 5 27 1 4 2 2 6 3 1 4 2 25 5 27 25 5 27 26 7 28 2 6 3 3 8 10 2 6 3 26 7 28 26 7 28 27 9 29 3 8 10 4 10 11 3 8 10 27 9 29 27 9 29 28 11 30 4 10 11 5 12 12 4 10 11 28 11 30 28 11 30 29 13 31 5 12 12 6 14 5 5 12 4 29 13 32 29 13 32 30 15 33 6 14 5 7 16 6 6 14 5 30 15 33 30 15 33 31 17 34 7 16 6 8 18 7 7 16 6 31 17 34 31 17 34 32 19 35 8 18 7 9 20 8 8 18 7 32 19 35 32 19 35 33 21 36 9 20 8 10 22 9 9 20 8 33 21 36 33 21 36 34 23 37 10 22 9 11 24 17 10 22 9 34 23 37 34 23 37 35 25 38 11 24 17 12 26 18 11 24 17 35 25 38 35 25 38 36 27 39 12 26 18 13 28 19 12 26 18 36 27 39 36 27 39 37 29 40 13 28 19 14 30 20 13 28 19 37 29 40 37 29 40 38 31 41 14 30 20 15 32 21 14 30 20 38 31 41 38 31 41 39 33 42 15 32 21 16 34 24 15 32 21 39 33 42 39 33 42 40 35 43 16 34 24 17 36 25 16 34 24 40 35 43 40 35 43 41 37 44 17 36 25 18 38 14 17 36 13 41 37 45 41 37 45 42 39 46 18 38 14 19 40 15 18 38 14 42 39 46 42 39 46 43 41 47 19 40 15 20 42 16 19 40 15 43 41 47 43 41 47 44 43 48 20 42 16 21 44 22 20 42 16 44 43 48 44 43 48 45 45 49 21 44 22 22 46 23 21 44 22 45 45 49 45 45 49 46 47 50 22 46 23 23 1 0 22 46 23 46 47 50 46 47 50 47 2 51 23 1 0</p>
+        </triangles>
+      </mesh>
+    </geometry>
+  </library_geometries>
+  <library_lights>
+    <light id="EnvironmentAmbientLight" name="EnvironmentAmbientLight">
+      <technique_common>
+        <ambient>
+          <color>0 0 0</color>
+        </ambient>
+      </technique_common>
+    </light>
+  </library_lights>
+  <library_images>
+    <image id="mars_mountain_panoramic_png">
+      <init_from>./mars_mountain_panoramic.png</init_from>
+    </image>
+  </library_images>
+  <library_visual_scenes>
+    <visual_scene id="MaxScene">
+      <node name="EnvironmentAmbientLight">
+        <instance_light url="#EnvironmentAmbientLight"/>
+      </node>
+      <node id="node-Plane003" name="Plane003">
+        <node>
+          <matrix>1 0 0 39.55577 0 1 0 -10.15526 0 0 1 7.84059 0 0 0 1</matrix>
+          <instance_geometry url="#geom-Plane003">
+            <bind_material>
+              <technique_common>
+                <instance_material symbol="Material__0_1" target="#Material__0-material">
+                  <bind_vertex_input semantic="CHANNEL1" input_semantic="TEXCOORD" input_set="0"/>
+                  <bind_vertex_input semantic="CHANNEL1" input_semantic="TEXCOORD" input_set="0"/>
+                </instance_material>
+              </technique_common>
+            </bind_material>
+          </instance_geometry>
+        </node>
+        <extra>
+          <technique profile="OpenCOLLADA">
+            <cast_shadows>0</cast_shadows>
+            <primary_visibility>1</primary_visibility>
+            <receive_shadows>0</receive_shadows>
+            <secondary_visibility>1</secondary_visibility>
+          </technique>
+        </extra>
+      </node>
+    </visual_scene>
+  </library_visual_scenes>
+  <scene>
+    <instance_visual_scene url="#MaxScene"/>
+  </scene>
+</COLLADA>
