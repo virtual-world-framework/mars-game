@@ -1,20 +1,6 @@
 --- 
 extends: http://vwf.example.com/lesson/task.vwf
-properties:
-
-  # The clause set contains clauses that we want to be able to use for the 
-  # the success and failure criteria.  Each of these clauses takes a callback
-  # which will be called when the relevant value might have changed, and
-  # returns the function to check if the clause is true or false.
-  clauseSet:
-    # arguments: object, x, y
-    isAtPosition:
-    # arguments: owner, object
-    hasObject:
-    #arguments: object
-    moveFailed:
-    #arguments: object
-    isBlocklyExecuting:
+# properties:
 
   # # The state param set contains initialization parameters that we want to be 
   # # able to use for our scenarios

@@ -1,0 +1,52 @@
+# The big idea here is that we can create implementations for declarative 
+#   functions that can be defined in yaml (or, presumably, json). When you 
+#   call the executeFunction method (which is the heart of the whole system) 
+#   with the declarative function definition taken from the yaml, it will 
+#   look up the implementation and run it, passing in the arguments from the
+#   yaml declaration.
+# For a simple example of how this can be used, look at the start conditions
+#   in the scenarios.  For a more complex example, look at the success and
+#   failure criteria.
+--- 
+extends: http://vwf.example.com/node.vwf
+properties:
+
+  # This needs to be a property in order to allow each function executor to 
+  #   create their own (because we will have more than one executor).  However,
+  #   we recommend that rather than manipulate it directly you call 
+  #   addFunctionSet() (i.e. treat it as private once you've created it).
+  functionSets:
+
+methods:
+
+  # This goes through our function sets in the reverse order from the one 
+  #   they were added in (in other words, we look in the most recently added 
+  #   function set first) until it find a function set that contains a 
+  #   functions set that has a declaration for the function that's passed in 
+  #   as the first argument. It then executes that  function in, passing in 
+  #   the context and callback.
+  # Arguments: 
+  #   declarativeFn - the declarative function to execute
+  #   context       - the context in which we should execute the function - 
+  #                   typically the scene
+  #   callback      - a callback which is needed in some applications.  If your
+  #                   application doesn't need it, it's probably safe to omit 
+  #                   it.
+  executeFunction:
+
+  # Add another function set. This allows specific applications to add their 
+  #   own functions.
+  # Arguments: 
+  #   functionSet - the function set to add to the top of the stack
+  addFunctionSet:
+
+  # A helper that does basically what Find does, except that it handles pulling 
+  #   out the 0th element (and writes appropriate errors if there isn't just 
+  #   one element).
+  # Arguments: 
+  #   context - where to look
+  #   objectName - the string to search for
+  findInContext:
+
+scripts:
+- source: source/declarativeFunctionExecutor.js
