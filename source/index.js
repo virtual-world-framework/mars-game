@@ -113,10 +113,6 @@ vwf_view.initializedProperty = function( nodeID, propertyName, propertyValue ) {
 
 vwf_view.satProperty = function( nodeID, propertyName, propertyValue ) {
 
-    if ( nodeID.indexOf( 'rover' ) !== -1 ) {
-        console.info( "satProperty( "+nodeID+", "+propertyName+", "+propertyValue+" )" );
-    }
-
     var blocklyNode = blocklyNodes[ nodeID ];
     if ( blocklyNode ) {
         switch ( propertyName ) {
