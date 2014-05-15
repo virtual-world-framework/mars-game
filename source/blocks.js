@@ -1,26 +1,17 @@
-/**
- * Blockly Apps: Maze Blocks
- *
- * Copyright 2012 Google Inc.
- * https://blockly.googlecode.com/
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *   http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
+// Copyright 2012 United States Government, as represented by the Secretary of Defense, Under
+// Secretary of Defense (Personnel & Readiness).
+// 
+// Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
+// in compliance with the License. You may obtain a copy of the License at
+// 
+//   http://www.apache.org/licenses/LICENSE-2.0
+// 
+// Unless required by applicable law or agreed to in writing, software distributed under the License
+// is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
+// or implied. See the License for the specific language governing permissions and limitations under
+// the License.
 
-/**
- * @fileoverview Blocks for Blockly's Maze application.
- * @author fraser@google.com (Neil Fraser)
- */
+
 'use strict';
 
 
@@ -41,7 +32,7 @@ Blockly.Blocks['rover_moveForward'] = {
     this.setInputsInline(true);
     this.setPreviousStatement(true);
     this.setNextStatement(true);
-    this.setTooltip('Moves the rover on the screen representing the player forward one square on the maze board');
+    this.setTooltip('Moves the rover on the screen representing the player forward one square on mars');
   }
 };
 
@@ -75,5 +66,33 @@ Blockly.JavaScript['rover_turn'] = function(block) {
   var t = Blockly.JavaScript.valueToCode(block, 'TIME', Blockly.JavaScript.ORDER_NONE) || '0';
   return "vwf.callMethod( '"+Blockly.JavaScript.vwfID+"','" + turnCommand + "');\n";
 };
+
+Blockly.Blocks['rover_forever'] = {
+  // Block for forever loop.
+  init: function() {
+    
+    //this.setHelpUrl('http://code.google.com/p/blockly/wiki/Repeat');
+    
+    this.setColour(120);
+    this.appendDummyInput()
+        .appendField( 'repeat until' )
+        .appendField( new Blockly.FieldImage('source/blockly/media/marker.png', 12, 16) );
+    this.appendStatementInput('DO')
+        .appendField( 'do' );
+    this.setPreviousStatement(true);
+    this.setTooltip( 'Moves the rover until the next goal is reached' );
+  }
+};
+
+Blockly.JavaScript['rover_forever'] = function(block) {
+  // Generate JavaScript for forever loop.
+  var branch = Blockly.JavaScript.statementToCode(block, 'DO');
+  if (Blockly.JavaScript.INFINITE_LOOP_TRAP) {
+    branch = Blockly.JavaScript.INFINITE_LOOP_TRAP.replace(/%1/g,
+        '\'block_id_' + block.id + '\'') + branch;
+  }
+  return 'while (true) {\n' + branch + '}\n';
+};
+
 
 //@ sourceURL=blocks.js
