@@ -34,7 +34,10 @@ var BlocklyApps = {
 Blockly.Blocks['rover_moveForward'] = {
   // Block for moving forward.
   init: function() {
-    this.setHelpUrl('http://code.google.com/p/blockly/wiki/Move');
+    
+    // we need a url to set this to
+    //this.setHelpUrl('http://code.google.com/p/blockly/wiki/Move');
+    
     this.setColour(290);
     this.appendDummyInput()
         .appendField( 'forward' );
@@ -57,7 +60,10 @@ Blockly.Blocks['rover_turn'] = {
     var DIRECTIONS =
         [[ 'turnLeft', 'turnLeft' ],
          [ 'turnRight', 'turnRight' ] ];
-    this.setHelpUrl('http://code.google.com/p/blockly/wiki/Turn');
+    
+    // we need a url to set this to
+    //this.setHelpUrl('http://code.google.com/p/blockly/wiki/Turn');
+    
     this.setColour(290);
     this.appendDummyInput()
         .appendField(new Blockly.FieldDropdown(DIRECTIONS), 'DIR');
