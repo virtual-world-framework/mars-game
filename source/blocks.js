@@ -12,7 +12,6 @@ var BlocklyApps = {
 Blockly.Blocks['rover_moveForward'] = {
   // Block for moving forward.
   init: function() {
-    
     // we need a url to set this to
     //this.setHelpUrl('http://code.google.com/p/blockly/wiki/Move');
     
@@ -30,6 +29,33 @@ Blockly.JavaScript['rover_moveForward'] = function(block) {
   var dist = Blockly.JavaScript.valueToCode(block, 'DISTANCE', Blockly.JavaScript.ORDER_NONE) || '0';
   var t = Blockly.JavaScript.valueToCode(block, 'TIME', Blockly.JavaScript.ORDER_NONE) || '1';
   return "vwf.callMethod( '"+Blockly.JavaScript.vwfID+"', 'moveForward' );\n";
+};
+
+Blockly.Blocks['rover_forward_ext'] = {
+  init: function() {
+    
+    //this.setHelpUrl('http://www.example.com/');
+    
+    this.setColour(290);
+    this.appendDummyInput()
+        .appendField("forward");
+    this.appendValueInput("UNITS")
+        .setCheck("Number")
+        .appendField("units");
+    this.appendValueInput("TIME")
+        .setCheck("Number")
+        .appendField("time");
+    this.setInputsInline(true);
+    this.setPreviousStatement(true);
+    this.setNextStatement(true);
+    this.setTooltip('');
+  }
+};
+
+Blockly.JavaScript['rover_forward_ext'] = function(block) {
+  var value_units = Blockly.JavaScript.valueToCode(block, 'UNITS', Blockly.JavaScript.ORDER_ATOMIC) || '1';
+  var value_time = Blockly.JavaScript.valueToCode(block, 'TIME', Blockly.JavaScript.ORDER_ATOMIC) || '1';
+  return "vwf.callMethod( '"+Blockly.JavaScript.vwfID+"', 'moveForward', [ "+value_units+", "+value_time+" ] );\n";
 };
 
 Blockly.Blocks['rover_turn'] = {
