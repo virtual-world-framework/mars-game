@@ -11,6 +11,7 @@ properties:
   - ram:
     - rover
     - 15
+    - 15
 
   successClause:
   - and:

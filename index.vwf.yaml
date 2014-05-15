@@ -90,11 +90,7 @@ children:
           isFirstPerson: true
       rover:
         extends: source/rover.vwf
-        implements:
-        - "http://vwf.example.com/animation.vwf" 
-        - "http://vwf.example.com/node3/animation.vwf"
-        - "http://vwf.example.com/blockly/controller.vwf"
-        - "source/roverBlockly.vwf"
+        implements: [ "http://vwf.example.com/blockly/controller.vwf" ]
         source: assets/3d/Rover/rover_retro.dae
         type: model/vnd.collada+xml
         properties:
@@ -105,7 +101,7 @@ children:
           currentGridSquare: [ 0, 7 ]
           heading: 270
           terrainName: "environment"
-          allowedBlocks: 10
+          blockly_allowedBlocks: 10
         children:
           cargo:
             extends: source/inventory.vwf
@@ -121,6 +117,8 @@ children:
               translation: [ 0, 0, 4 ]
             scripts:
             - source: source/blocklyButton.js
+        scripts:
+        - source: source/blocklyListeners.js
     scripts:
      - source: source/player.js
   minirover:
