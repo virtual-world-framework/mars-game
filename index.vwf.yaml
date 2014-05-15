@@ -18,9 +18,14 @@ children:
     source: assets/3d/Terrain/mars_terrain.DAE
     type: model/vnd.collada+xml
     properties:
-      scale: 0.01
       castShadows: true
       receiveShadows: true
+  mountains:
+    extends: http://vwf.example.com/node3.vwf
+    source: assets/3d/Terrain/mars_mountains.dae
+    type: model/vnd.collada+xml
+    properties:
+      castShadows: true
   boundaryMap:
     extends: source/boundaryMap.vwf
     properties:
