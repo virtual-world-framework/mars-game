@@ -107,14 +107,14 @@ this.startStateParamSet.ram = function( params, context ) {
     }
 
     var objectName = params[ 0 ];
-    var starting = params[ 1 ];
+    var startingRam = params[ 1 ];
     var maxCommands = params[ 2 ];
 
     var object = self.startStateExecutor.findInContext( context, objectName );
 
     // If we want each block to take 1 unit of RAM then these values should
     //  be the same.
-    object.ram = starting;
+    object.ram = startingRam;
     object.ramMax = maxCommands;
     object.blockly_allowedBlocks = maxCommands;
 }
