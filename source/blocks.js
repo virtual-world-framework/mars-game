@@ -113,5 +113,44 @@ Blockly.JavaScript['rover_forever'] = function(block) {
   return 'while (true) {\n' + branch + '}\n';
 };
 
+Blockly.Blocks['graph_get_x'] = {
+  // x variable getter.
+  init: function() {
+
+    //this.setHelpUrl(Blockly.Msg.VARIABLES_GET_HELPURL);
+
+    this.setColour(330);
+    this.appendDummyInput()
+        .appendField('x');
+    this.setOutput(true, 'Number');
+    this.setTooltip( "Sets this variable to be equal to the input." );
+  }
+};
+
+Blockly.JavaScript['graph_get_x'] = function(block) {
+  // x variable getter.
+  return ['x', Blockly.JavaScript.ORDER_ATOMIC];
+};
+
+Blockly.Blocks['graph_set_y'] = {
+  // y variable setter.
+  init: function() {
+
+    //this.setHelpUrl(Blockly.Msg.VARIABLES_SET_HELPURL);
+
+    this.setColour(330);
+    this.appendValueInput('VALUE')
+        .appendField('y =');
+    this.setTooltip( "Sets this variable to be equal to the input." );
+  }
+};
+
+Blockly.JavaScript['graph_set_y'] = function(block) {
+  // y variable setter.
+  var argument0 = Blockly.JavaScript.valueToCode(block, 'VALUE',
+      Blockly.JavaScript.ORDER_ASSIGNMENT) || '';
+  return argument0 + ';';
+};
+
 
 //@ sourceURL=blocks.js
