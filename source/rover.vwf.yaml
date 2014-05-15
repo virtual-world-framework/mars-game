@@ -2,10 +2,34 @@
 extends: http://vwf.example.com/node3.vwf
 properties:
   blocklyEnabled: true
-  battery: 100
-  batteryMax: 100
-  ram: 100
-  ramMax: 100
+  battery:
+    set: |
+      if ( this.battery != value ) {
+        this.battery = value;
+        this.batteryChanged( value );
+      }
+    value: 100 
+  batteryMax:
+    set: |
+      if ( this.batteryMax != value ) {
+        this.batteryMax = value;
+        this.batteryMaxChanged( value );
+      }
+    value: 100 
+  ram:
+    set: |
+      if ( this.ram != value ) {
+        this.ram = value;
+        this.ramChanged( value );
+      }
+    value: 100 
+  ramMax:
+    set: |
+      if ( this.ramMax != value ) {
+        this.ramMax = value;
+        this.ramMaxChanged( value );
+      }
+    value: 100 
   boundaryMap: []
   gridSquareLength: 1
   currentGridSquare: [ 0, 0 ]
@@ -18,8 +42,13 @@ methods:
   turnRight:
   translateOnTerrain:
   blocksUpdated:
+  calcRam:
 events:
   moved:
   moveFailed:
+  batteryChanged:
+  batteryMaxChanged:
+  ramChanged:
+  ramMaxChanged:
 scripts:
  - source: source/rover.js

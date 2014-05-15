@@ -175,11 +175,11 @@ this.clauseSet.isBlocklyExecuting = function( params, context, callback ) {
     }
 
     return function() {
-        if (object.executing === undefined){
+        if (object.blockly_executing === undefined){
             self.logger.errorx( "isBlocklyExecuting", "The owner doesn't have " +
-                                "an 'executing' property - does it support Blockly?" );
+                                "an 'blockly_executing' property - does it support Blockly?" );
         }
-        return object.executing;
+        return object.blockly_executing;
     };
 }
 

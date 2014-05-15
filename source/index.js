@@ -7,7 +7,7 @@ var currentBlocklyNodeID = undefined;
 var blocklyExecuting = false;
 
 function onRun() {
-    vwf_view.kernel.setProperty( currentBlocklyNodeID, "executing", true );
+    vwf_view.kernel.setProperty( currentBlocklyNodeID, "blockly_executing", true );
 }
 
 window.addEventListener( "keyup", function (event) {
@@ -113,7 +113,10 @@ vwf_view.initializedProperty = function( nodeID, propertyName, propertyValue ) {
 
 vwf_view.satProperty = function( nodeID, propertyName, propertyValue ) {
 
-    //console.info( "satProperty( "+nodeID+", "+propertyName+", "+propertyValue+" )" );
+    if ( nodeID.indexOf( 'rover' ) !== -1 ) {
+        console.info( "satProperty( "+nodeID+", "+propertyName+", "+propertyValue+" )" );
+    }
+
     var blocklyNode = blocklyNodes[ nodeID ];
     if ( blocklyNode ) {
         switch ( propertyName ) {
@@ -146,11 +149,11 @@ vwf_view.satProperty = function( nodeID, propertyName, propertyValue ) {
                 }
                 break;
 
-            case "blockCount":
+            case "blockly_blockCount":
                 blocklyNode[ propertyName ] = parseFloat( propertyValue );
                 break;
 
-            case "allowedBlocks":
+            case "blockly_allowedBlocks":
                 blocklyNode[ propertyName ] = parseFloat( propertyValue );
                 if ( nodeID == currentBlocklyNodeID ) {
                     // the mainWorkSpace is not valid until the UI is visible
@@ -160,7 +163,7 @@ vwf_view.satProperty = function( nodeID, propertyName, propertyValue ) {
                 }
                 break;
 
-            case "executing":
+            case "blockly_executing":
                 var exe = Boolean( propertyValue );
                 // the run button should be disabled while the 
                 // current blocks are being executed
