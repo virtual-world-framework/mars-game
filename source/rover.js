@@ -139,7 +139,7 @@ function getTerrainHeight( x, y, z, terrain ) {
 }
 
 this.calcRam = function() {
-    this.ram = this.ramMax - ( this.ramMax / this.blockly_allowedBlocks ) * this.blockly_blockCount;
+    this.ram = this.blockly_allowedBlocks - this.blockly_blockCount;
 }
 
 //@ sourceURL=source/rover.js
