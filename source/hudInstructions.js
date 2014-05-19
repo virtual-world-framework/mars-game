@@ -1,14 +1,14 @@
 function createHUD() {
 
     var batteryMeter = new HUD.Element( "batteryMeter", drawBatteryMeter, 250, 40 );
-    batteryMeter.battery = 100;
-    batteryMeter.maxBattery = 100;
+    batteryMeter.battery = 30;
+    batteryMeter.maxBattery = 50;
     hud.add( batteryMeter, "left", "bottom", { "x": 30, "y": -30 } );
     batteryMeter.visible = true;
 
     var ramMeter = new HUD.Element( "ramMeter", drawRamMeter, 250, 40 );
-    ramMeter.ram = 100;
-    ramMeter.maxRam = 100;
+    ramMeter.ram = 15;
+    ramMeter.maxRam = 15;
     hud.add( ramMeter, "right", "bottom", { "x": -30, "y": -30 } );
     ramMeter.visible = true;
 

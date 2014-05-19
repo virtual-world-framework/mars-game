@@ -87,11 +87,11 @@ vwf_view.createdNode = function( nodeID, childID, childExtendsID, childImplement
         blocklyNodes[ childID ] = { 
             "ID": childID, 
             "name": childName,
-            "ram": 100, 
-            "battery": 100,
-            "ramMax": 100,
-            "batteryMax": 100,
-            "allowedBlocks": 10
+            "ram": 15, 
+            "battery": 30,
+            "ramMax": 15,
+            "batteryMax": 50,
+            "allowedBlocks": 15
         };
 
     }
@@ -138,21 +138,15 @@ vwf_view.satProperty = function( nodeID, propertyName, propertyValue ) {
                 }
                 break;
 
-            case "ramMax":
-                blocklyNode[ propertyName ] = parseFloat( propertyValue );
-                if ( nodeID == currentBlocklyNodeID ) {
-                    hud.elements.ramMeter.maxRam = parseFloat( propertyValue );
-                }
-                break;
-
             case "blockly_blockCount":
                 blocklyNode[ propertyName ] = parseFloat( propertyValue );
                 break;
 
             case "blockly_allowedBlocks":
-                blocklyNode[ propertyName ] = parseFloat( propertyValue );
+                blocklyNode[ propertyName ] = Number( propertyValue );
                 if ( nodeID == currentBlocklyNodeID ) {
                     // the mainWorkSpace is not valid until the UI is visible
+                    hud.elements.ramMeter.maxRam = Number( propertyValue );
                     if ( Blockly.mainWorkspace ) {
                         Blockly.mainWorkspace.maxBlocks = Number( propertyValue );    
                     }
@@ -294,7 +288,7 @@ function updateHudElements( blocklyNode ) {
     hud.elements.batteryMeter.battery = blocklyNode.battery;
     hud.elements.batteryMeter.maxBattery = blocklyNode.batteryMax;
     hud.elements.ramMeter.ram = blocklyNode.ram;
-    hud.elements.ramMeter.maxRam = blocklyNode.ramMax;  
+    hud.elements.ramMeter.maxRam = blocklyNode.allowedBlocks;  
     if ( Blockly.mainWorkspace ) {
         Blockly.mainWorkspace.maxBlocks = blocklyNode.allowedBlocks;    
     }
