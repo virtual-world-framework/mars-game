@@ -199,12 +199,12 @@ children:
     source: assets/3d/minirover/minirover.dae
     type: model/vnd.collada+xml
     properties:
-      translation: [ 0, 3, 0 ]
+      translation: [ 0, 9, 0 ]
       rotation: [ 0, 0, 1, 270 ]
       castShadows: true
       receiveShadows: true
       blocklyEnabled: false
-      currentGridSquare: [ 2, 8 ]
+      currentGridSquare: [ 2, 10 ]
       heading: 270
       terrainName: "terrain"
     children:
