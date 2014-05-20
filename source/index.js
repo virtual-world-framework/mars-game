@@ -71,7 +71,6 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
         // nodeID is ignored here?
         if ( eventName === "failed" ) {
 
-            vwf_view.kernel.callMethod( vwf_view.kernel.application(), "stopAllExecution", [ true ] );
             endScenario( "failure" );
 
         }

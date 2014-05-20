@@ -75,6 +75,9 @@ this.checkForSuccess = function() {
 
 this.checkForFailure = function() {
     if ( checkFailedFn && checkFailedFn() ) {
+        if ( scene ) {
+            scene.stopAllExecution();
+        }
         self.failed();
     }
 }
