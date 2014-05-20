@@ -15,17 +15,84 @@ events:
 children:
   environment:
     extends: http://vwf.example.com/node3.vwf
-    source: assets/3d/Terrain/mars_terrain.DAE
-    type: model/vnd.collada+xml
-    properties:
-      castShadows: true
-      receiveShadows: true
-  mountains:
-    extends: http://vwf.example.com/node3.vwf
-    source: assets/3d/Terrain/mars_mountains.dae
-    type: model/vnd.collada+xml
-    properties:
-      castShadows: true
+    children:
+      craterWalls:
+        extends: http://vwf.example.com/node3.vwf
+        source: assets/3d/Terrain/crater_walls.dae
+        type: model/vnd.collada+xml
+        properties:
+          castShadows: true
+          receiveShadows: true
+      cratersSmall:
+        extends: http://vwf.example.com/node3.vwf
+        source: assets/3d/Terrain/craters_small.dae
+        type: model/vnd.collada+xml
+        properties:
+          castShadows: true
+          receiveShadows: true
+      dirt:
+        extends: http://vwf.example.com/node3.vwf
+        source: assets/3d/Terrain/dirt.dae
+        type: model/vnd.collada+xml
+        properties:
+          castShadows: true
+          receiveShadows: true
+      rocksInMazeGrooves:
+        extends: http://vwf.example.com/node3.vwf
+        source: assets/3d/Terrain/ground_rocks_terrain.dae
+        type: model/vnd.collada+xml
+        properties:
+          castShadows: true
+          receiveShadows: true
+      cracks:
+        extends: http://vwf.example.com/node3.vwf
+        source: assets/3d/Terrain/mars_ground_cracks.dae
+        type: model/vnd.collada+xml
+        properties:
+          castShadows: true
+          receiveShadows: true
+      hills:
+        extends: http://vwf.example.com/node3.vwf
+        source: assets/3d/Terrain/mars_hills.dae
+        type: model/vnd.collada+xml
+        properties:
+          castShadows: true
+          receiveShadows: true
+      mountains:
+        extends: http://vwf.example.com/node3.vwf
+        source: assets/3d/Terrain/mars_mountains.dae
+        type: model/vnd.collada+xml
+        properties:
+          castShadows: true
+          receiveShadows: true
+      rocks:
+        extends: http://vwf.example.com/node3.vwf
+        source: assets/3d/Terrain/rocks.dae
+        type: model/vnd.collada+xml
+        properties:
+          castShadows: true
+          receiveShadows: true
+      brownRocks:
+        extends: http://vwf.example.com/node3.vwf
+        source: assets/3d/Terrain/rocks_brown.dae
+        type: model/vnd.collada+xml
+        properties:
+          castShadows: true
+          receiveShadows: true
+      longRocks:
+        extends: http://vwf.example.com/node3.vwf
+        source: assets/3d/Terrain/rocks_long.dae
+        type: model/vnd.collada+xml
+        properties:
+          castShadows: true
+          receiveShadows: true
+      terrain:
+        extends: http://vwf.example.com/node3.vwf
+        source: assets/3d/Terrain/terrain.dae
+        type: model/vnd.collada+xml
+        properties:
+          castShadows: true
+          receiveShadows: true
   boundaryMap:
     extends: source/boundaryMap.vwf
     properties:
@@ -105,7 +172,7 @@ children:
           receiveShadows: true
           currentGridSquare: [ 0, 7 ]
           heading: 270
-          terrainName: "environment"
+          terrainName: "terrain"
           blockly_allowedBlocks: 10
         children:
           cargo:
@@ -139,7 +206,7 @@ children:
       blocklyEnabled: false
       currentGridSquare: [ 0, 8 ]
       heading: 270
-      terrainName: "environment"
+      terrainName: "terrain"
     children:
       noComm:
         extends: http://vwf.example.com/node3.vwf
