@@ -170,7 +170,7 @@ children:
           rotation: [ 0, 0, 1, 270 ]
           castShadows: true
           receiveShadows: true
-          currentGridSquare: [ 0, 7 ]
+          currentGridSquare: [ 2, 7 ]
           heading: 270
           terrainName: "terrain"
           blockly_allowedBlocks: 10
@@ -204,7 +204,7 @@ children:
       castShadows: true
       receiveShadows: true
       blocklyEnabled: false
-      currentGridSquare: [ 0, 8 ]
+      currentGridSquare: [ 2, 8 ]
       heading: 270
       terrainName: "terrain"
     children:
