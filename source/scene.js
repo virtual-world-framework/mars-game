@@ -3,10 +3,6 @@ this.initialize = function() {
     var self = this;
 
     // Lay out the debris models
-    this.debris.ac_unit.rotateBy( [ 1, 0, 0, -3.609 ] );
-    this.debris.ac_unit.rotateBy( [ 0, 1, 0, -20.793 ] );
-    this.debris.ac_unit.rotateBy( [ 0, 0, 1, -125.919 ]  );
-
     this.debris.bubble_lander.rotateBy( [ 1, 0, 0, -20 ] );
 
     this.debris.bubble_lander_open.rotateBy( [ 0, 0, 1, 93.144 ] );

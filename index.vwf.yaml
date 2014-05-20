@@ -246,12 +246,6 @@ children:
     properties:
       translation: [ 0, 6, -0.721 ]
     children:
-      ac_unit:
-        extends: http://vwf.example.com/node3.vwf
-        source: assets/3d/Debris_Field/ac_unit.dae
-        type: model/vnd.collada+xml
-        properties:
-          translation: [ 21.729, -9.164, 0.23 ]
       bubble_lander:
         extends: http://vwf.example.com/node3.vwf
         source: assets/3d/Debris_Field/bubble_lander.dae
@@ -269,25 +263,25 @@ children:
         source: assets/3d/Debris_Field/o2_tank.dae
         type: model/vnd.collada+xml
         properties:
-          translation: [ -2.876, -8, 0.806 ]
+          translation: [ -2.876, -8, 1 ]
       o2_tank_2:
         extends: http://vwf.example.com/node3.vwf
         source: assets/3d/Debris_Field/o2_tank.dae
         type: model/vnd.collada+xml
         properties:
-          translation: [ -2.147, -8.03, 0.806 ]
+          translation: [ -2.147, -8.03, 1 ]
       o2_tank_3:
         extends: http://vwf.example.com/node3.vwf
         source: assets/3d/Debris_Field/o2_tank.dae
         type: model/vnd.collada+xml
         properties:
-          translation: [ 12.268, 1.487, -0.839 ]
+          translation: [ 12.268, 1.487, -0.5 ]
       o2_tank_4:
         extends: http://vwf.example.com/node3.vwf
         source: assets/3d/Debris_Field/o2_tank.dae
         type: model/vnd.collada+xml
         properties:
-          translation: [ 12.329, 1.781, -1.152 ]
+          translation: [ 12.329, 1.781, -0.75 ]
       parachute:
         extends: http://vwf.example.com/node3.vwf
         source: assets/3d/Debris_Field/parachute.dae
