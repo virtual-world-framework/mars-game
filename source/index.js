@@ -2,6 +2,7 @@ var composer;
 var HDRShader;
 var hud;
 var blocklyNodes = {};
+var graphLines = {};
 var firstPersonMode = true;
 var currentBlocklyNodeID = undefined;
 var blocklyExecuting = false;
@@ -43,6 +44,23 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 break;
 
         }
+    } else if ( nodeID === this.kernel.application() ) {
+        
+        switch ( eventName ) {
+            
+            case "blocklyContentChanged":
+                if ( currentBlocklyNodeID !== undefined ) {
+                    var currentCode = getBlocklyFunction();
+                    if ( currentCode !== undefined ) {
+                        this.kernel.setProperty( graphLines[ "blocklyLine" ].ID, "lineFunction", currentCode );
+                        vwf_view.kernel.setProperty( graphLines[ "blocklyLine" ].ID, "visible", true );
+                    } else {
+                        vwf_view.kernel.setProperty( graphLines[ "blocklyLine" ].ID, "visible", false );
+                    }
+                }
+                break;
+        } 
+
     } else {
 
         // nodeID is ignored here?
@@ -80,7 +98,9 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
 }
 
 vwf_view.createdNode = function( nodeID, childID, childExtendsID, childImplementsIDs, childSource, childType, childIndex, childName ) {
-    
+  
+    var protos = getPrototypes.call( this, vwf_view.kernel, childExtendsID );
+
     if ( isBlockly3Node( childImplementsIDs ) ) {
 
         //console.info( "blocklyNode = " + childID );
@@ -94,6 +114,11 @@ vwf_view.createdNode = function( nodeID, childID, childExtendsID, childImplement
             "allowedBlocks": 15
         };
 
+    } else if ( isGraphlineNode( protos ) && childName === "blocklyLine" ) {
+        graphLines[ childName ] = { 
+            "ID": childID, 
+            "name": childName
+        } 
     }
 
 }
@@ -103,8 +128,7 @@ vwf_view.initializedNode = function( nodeID, childID, childExtendsID, childImple
 
     if ( childID === vwf_view.kernel.application() ) {
         vwf_view.kernel.kernel.views["vwf/view/threejs"].render = setUp;
-    }
-
+    } 
 }
 
 vwf_view.initializedProperty = function( nodeID, propertyName, propertyValue ) {
@@ -230,6 +254,54 @@ function isBlockly3Node( implementsIDs ) {
 
     return found;
 }
+
+function getPrototypes( kernel, extendsID ) {
+    var prototypes = [];
+    var id = extendsID;
+
+    while ( id !== undefined ) {
+        prototypes.push( id );
+        id = kernel.prototype( id );
+    }
+            
+    return prototypes;
+}
+
+function isGraphlineNode( prototypes ) {
+
+    var foundGraph = false;
+
+    if ( prototypes ) {
+        for ( var i = 0; i < prototypes.length && !foundGraph; i++ ) {
+            foundGraph = ( prototypes[i] == "http-vwf-example-com-graphline-vwf" );    
+        }
+    }
+
+    return foundGraph;
+
+}
+
+function getBlocklyFunction() {
+    var topBlocks = Blockly.mainWorkspace.getTopBlocks( false );
+    var yBlock = undefined;
+    // Set yBlock to only the code plugged into 'graph_set_y'.
+    for ( var j = 0; j < topBlocks.length; j++ ) {
+        if ( topBlocks[j].type == 'graph_set_y' ) {
+            yBlock = topBlocks[j];
+        }
+    }
+    if ( yBlock === undefined ) {
+        return undefined;
+    }
+    Blockly.JavaScript.init();
+    var code = Blockly.JavaScript.blockToCode( yBlock );
+    var defs = Blockly.JavaScript.finish( '' );
+    if ( code !== ";" ) {
+        return "y = " + code;
+    } else {
+        return undefined;
+    }
+};
 
 function endScenario( endType ) {
 
