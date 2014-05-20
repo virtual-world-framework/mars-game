@@ -263,11 +263,11 @@ children:
     extends: http://vwf.example.com/graphline.vwf
     properties:
       lineFunction: undefined
-      startValue: -40
+      startValue: 0
       endValue: 40
-      pointCount: 100
-      color: [ 255, 255, 255 ]
-      lineThickness: 0.25
+      pointCount: 200
+      color: [ 0, 255, 255 ]
+      lineThickness: 0.2
       visible: false
 scripts: 
  - source: source/scene.js

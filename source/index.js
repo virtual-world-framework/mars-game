@@ -52,9 +52,10 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 if ( currentBlocklyNodeID !== undefined ) {
                     var currentCode = getBlocklyFunction();
                     if ( currentCode !== undefined ) {
-                        for ( var id in graphLines ) {
-                            this.kernel.setProperty( id, "lineFunction", currentCode );
-                        }    
+                        this.kernel.setProperty( graphLines[ "blocklyLine" ].ID, "lineFunction", currentCode );
+                        vwf_view.kernel.setProperty( graphLines[ "blocklyLine" ].ID, "visible", true );
+                    } else {
+                        vwf_view.kernel.setProperty( graphLines[ "blocklyLine" ].ID, "visible", false );
                     }
                 }
                 break;
@@ -114,7 +115,7 @@ vwf_view.createdNode = function( nodeID, childID, childExtendsID, childImplement
         };
 
     } else if ( isGraphlineNode( protos ) && childName === "blocklyLine" ) {
-        graphLines[ childID ] = { 
+        graphLines[ childName ] = { 
             "ID": childID, 
             "name": childName
         } 
