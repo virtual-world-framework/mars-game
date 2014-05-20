@@ -259,5 +259,15 @@ children:
           translation: [ 23.915, 17.35, 0.382 ]
   scenario1:
     extends: source/scenario1.vwf
+  blocklyLine:
+    extends: http://vwf.example.com/graphline.vwf
+    properties:
+      lineFunction: undefined
+      startValue: -40
+      endValue: 40
+      pointCount: 100
+      color: [ 255, 255, 255 ]
+      lineThickness: 0.25
+      visible: false
 scripts: 
  - source: source/scene.js
