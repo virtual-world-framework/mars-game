@@ -244,7 +244,7 @@ children:
   debris:
     extends: http://vwf.example.com/node3.vwf
     properties:
-      translation: [ 6, 6, -0.721 ]
+      translation: [ 0, 6, -0.721 ]
     children:
       ac_unit:
         extends: http://vwf.example.com/node3.vwf
