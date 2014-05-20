@@ -1,6 +1,10 @@
 var self;
 var firstPersonTransform = [ 0 ,-1, 0, 0,  1, 0, 0, 0,  0, 0, 1, 0,  0, 0, 1, 1 ];
-var thirdPersonTransform = [ 0, -1, 0, 0,  0.707, 0, -0.707, 0,  0.707, 0, 0.707, 0,  -28, 0, 40, 1 ];
+var thirdPersonTransform = [ 
+      0    , -1,  0    , 0, 
+      0.963,  0, -0.27 , 0,
+      0.27 ,  0,  0.963, 0,
+    -15.531,  0,  5.553, 1 ];
 
 this.initialize = function() {
     self = this;
