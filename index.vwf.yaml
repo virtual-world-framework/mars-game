@@ -235,7 +235,7 @@ children:
         type: model/vnd.collada+xml
         properties:
           iconSrc: "../assets/images/radio.png"
-          translation: [ 45, 0, 0 ]
+          translation: [ 39, 0, 0 ]
           animationLoop: true
         scripts: |
           this.initialize = function() {
