@@ -327,8 +327,8 @@ children:
       startValue: 0
       endValue: 40
       pointCount: 200
-      color: [ 0, 255, 255 ]
-      lineThickness: 0.2
+      color: [ 100, 255, 100 ]
+      lineThickness: 0.15
       visible: false
 scripts: 
  - source: source/scene.js
