@@ -62,22 +62,6 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
     } else {
 
         // nodeID is ignored here?
-        if ( eventName === "grabbed" ) {
-
-            var client = eventArgs[0];
-
-            if ( client === vwf_view.kernel.moniker() ) {
-
-                var iconSrc = eventArgs[1];
-                var screenPos = eventArgs[2];
-                var parentName = eventArgs[3];
-                createInventoryItem( nodeID, iconSrc, screenPos, parentName );
-
-            }
-
-        } 
-
-        // nodeID is ignored here?
         if ( eventName === "completed" ) {
 
             endScenario( "success" );

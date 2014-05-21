@@ -1,5 +1,4 @@
 var self;
-var scene;
 
 this.initialize = function() {
     // TODO: Find current grid square (rather than making app developer specify)
@@ -18,8 +17,6 @@ this.findAndSetBoundaryMap = function() {
 }
 
 this.moveForward = function() {
-    var scene = this.find("/")[0];
-    this.battery = 50;
 
     var headingInRadians = this.heading * Math.PI / 180;
     var dirVector = [ Math.round( -Math.sin( headingInRadians ) ), Math.round( Math.cos( headingInRadians ) ) ];
@@ -51,12 +48,14 @@ this.moveForward = function() {
             this.moved( displacement );
 
             //If the rover moves onto a space containing pickups, add the pickup to the inventory
+            //Only handles if the ending position is exactly the pickup position
+            var scene = this.find( "/" )[ 0 ];
             var pickup;
             for ( var i = 0; i < scene.pickups.children.length; i++ ) {
-                pickup = scene.pickups.children[i]
+                pickup = scene.pickups.children[ i ]
                 if ( ( this.currentGridSquare[ 0 ] == pickup.currentGridSquare[ 0 ] ) && ( this.currentGridSquare[ 1 ] == pickup.currentGridSquare[ 1 ] ) ) {
-                    var inventory = this.find("//cargo")[ 0 ];
-                    addItemToInventory(pickup, inventory)
+                    var inventory = this.find( "//cargo" )[ 0 ];
+                    addItemToInventory( pickup, inventory );
                 }
             }
         }

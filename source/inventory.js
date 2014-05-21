@@ -1,5 +1,3 @@
-this.currentSize = 0;
-
 this.add = function( objectID, index ) {
 
   index = this.currentSize;
@@ -47,9 +45,11 @@ this.remove = function( objectID ) {
   if ( object && object.parent === this ) {
 
     object.parent_ = this.find( "//pickups" )[ 0 ];
+
     if ( this.slots.indexOf( objectID ) != currentSize ) {
       this.swap( this.currentSize, this.slots.indexOf( objectID ) );
     }
+    
     this.slots[ this.currentSize ] = undefined;
     this.currentSize--;
     object.visible = true;
