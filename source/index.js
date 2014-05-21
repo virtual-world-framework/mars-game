@@ -1,5 +1,5 @@
-var composer;
-var HDRShader;
+// var composer;
+// var HDRShader;
 var hud;
 var blocklyNodes = {};
 var graphLines = {};
@@ -199,7 +199,7 @@ vwf_view.satProperty = function( nodeID, propertyName, propertyValue ) {
 function setUp( renderer, scene, camera ) {
 
     // Modify and add to scene
-    scene.fog = new THREE.FogExp2( 0xAA9377, 0.005 );
+    scene.fog = new THREE.FogExp2( 0xC49E70, 0.005 );
     renderer.setClearColor(scene.fog.color);
 
     // Set up HUD
@@ -208,24 +208,24 @@ function setUp( renderer, scene, camera ) {
     createHUD();
 
     // Set up post-processing
-    composer = new THREE.EffectComposer( renderer );
-    composer.addPass( new THREE.RenderPass( scene, camera ) );
+    // composer = new THREE.EffectComposer( renderer );
+    // composer.addPass( new THREE.RenderPass( scene, camera ) );
 
     // Initialize the environment shader
-    var EnvironmentShader = new THREE.ShaderPass( MGShaders.Environment );
+    // var EnvironmentShader = new THREE.ShaderPass( MGShaders.Environment );
 
     // Initialize the HDR lighting shader
-    HDRShader = new THREE.ShaderPass( MGShaders.HDR );
-    HDRShader.uniforms[ 'exposure' ].value = 0.000015;
+    // HDRShader = new THREE.ShaderPass( MGShaders.HDR );
+    // HDRShader.uniforms[ 'exposure' ].value = 0.000015;
 
     // Final pass that renders the processed image to the screen
-    var FinalPass = new THREE.ShaderPass( THREE.CopyShader );
-    FinalPass.renderToScreen = true;
+    // var FinalPass = new THREE.ShaderPass( THREE.CopyShader );
+    // FinalPass.renderToScreen = true;
 
     // Add passes to the effect composer
-    composer.addPass( EnvironmentShader );
-    composer.addPass( HDRShader );
-    composer.addPass( FinalPass );
+    // composer.addPass( EnvironmentShader );
+    // composer.addPass( HDRShader );
+    // composer.addPass( FinalPass );
 
     // Set render loop to use custom render function
     vwf_view.kernel.kernel.views["vwf/view/threejs"].render = render;
@@ -238,7 +238,8 @@ function render( renderer, scene, camera ) {
     hud.update();
 
     renderer.clear();
-    composer.render();
+    // composer.render();
+    renderer.render( scene, camera );
     renderer.clearDepth();
     renderer.render( hud.scene, hud.camera );
 
