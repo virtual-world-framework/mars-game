@@ -122,19 +122,19 @@ children:
     properties:
       lightType: "directional"
       color: [ 255, 245, 230 ]
-      translation: [ 128, 64, 1024 ]
+      translation: [ 32, 16, 256 ]
       rotation: [ -0.8206275701522827, -0.3142601549625397, 0.4772954285144806, 77.48947143554688 ]
       intensity: 0.75
       castShadows: true
       shadowDarkness: 0.7
-      shadowCameraBottom: -512
-      shadowCameraTop: 512
-      shadowCameraLeft: -512
-      shadowCameraRight: 512
-      shadowCameraFar: 2048
+      shadowCameraBottom: -1024
+      shadowCameraTop: 1024
+      shadowCameraLeft: -1024
+      shadowCameraRight: 1024
+      shadowCameraFar: 512
       shadowMapWidth: 2048
       shadowMapHeight: 2048
-      shadowBias: 0.0001
+      shadowBias: 0
   envLight:
     extends: http://vwf.example.com/light.vwf
     properties:
