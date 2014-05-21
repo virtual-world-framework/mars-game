@@ -199,12 +199,12 @@ children:
     source: assets/3d/minirover/minirover.dae
     type: model/vnd.collada+xml
     properties:
-      translation: [ 0, 3, 0 ]
+      translation: [ 0, 9, 0 ]
       rotation: [ 0, 0, 1, 270 ]
       castShadows: true
       receiveShadows: true
       blocklyEnabled: false
-      currentGridSquare: [ 2, 8 ]
+      currentGridSquare: [ 2, 10 ]
       heading: 270
       terrainName: "terrain"
     children:
@@ -235,7 +235,7 @@ children:
         type: model/vnd.collada+xml
         properties:
           iconSrc: "../assets/images/radio.png"
-          translation: [ 45, 0, 0 ]
+          translation: [ 39, 0, 0 ]
           animationLoop: true
         scripts: |
           this.initialize = function() {
@@ -244,14 +244,8 @@ children:
   debris:
     extends: http://vwf.example.com/node3.vwf
     properties:
-      translation: [ 6, 6, -0.721 ]
+      translation: [ 0, 6, -0.721 ]
     children:
-      ac_unit:
-        extends: http://vwf.example.com/node3.vwf
-        source: assets/3d/Debris_Field/ac_unit.dae
-        type: model/vnd.collada+xml
-        properties:
-          translation: [ 21.729, -9.164, 0.23 ]
       bubble_lander:
         extends: http://vwf.example.com/node3.vwf
         source: assets/3d/Debris_Field/bubble_lander.dae
@@ -269,25 +263,25 @@ children:
         source: assets/3d/Debris_Field/o2_tank.dae
         type: model/vnd.collada+xml
         properties:
-          translation: [ -2.876, -8, 0.806 ]
+          translation: [ -2.876, -8, 1 ]
       o2_tank_2:
         extends: http://vwf.example.com/node3.vwf
         source: assets/3d/Debris_Field/o2_tank.dae
         type: model/vnd.collada+xml
         properties:
-          translation: [ -2.147, -8.03, 0.806 ]
+          translation: [ -2.147, -8.03, 1 ]
       o2_tank_3:
         extends: http://vwf.example.com/node3.vwf
         source: assets/3d/Debris_Field/o2_tank.dae
         type: model/vnd.collada+xml
         properties:
-          translation: [ 12.268, 1.487, -0.839 ]
+          translation: [ 12.268, 1.487, -0.5 ]
       o2_tank_4:
         extends: http://vwf.example.com/node3.vwf
         source: assets/3d/Debris_Field/o2_tank.dae
         type: model/vnd.collada+xml
         properties:
-          translation: [ 12.329, 1.781, -1.152 ]
+          translation: [ 12.329, 1.781, -0.75 ]
       parachute:
         extends: http://vwf.example.com/node3.vwf
         source: assets/3d/Debris_Field/parachute.dae
