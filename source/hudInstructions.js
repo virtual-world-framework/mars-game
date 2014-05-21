@@ -79,39 +79,60 @@ function createInventoryItem( id, iconSrc, screenPos, parentName ) {
 
 }
 
-function getInventorySlot( event, inventory ) {
+// function getInventorySlot( event, inventory ) {
 
-    var slot = null;
-    var posX = event.clientX - inventory.position.x;
-    var posY = event.clientY - inventory.position.y;
+//     var slot = null;
+//     var posX = event.clientX - inventory.position.x;
+//     var posY = event.clientY - inventory.position.y;
 
-    var r = Math.round( posY / 49 - 0.5 );
-    var c = Math.round( posX / 49 - 0.5 );
+//     var r = Math.round( posY / 49 - 0.5 );
+//     var c = Math.round( posX / 49 - 0.5 );
 
-    if ( inventory.grid[r][c] !== undefined ) {
+//     if ( inventory.grid[r][c] !== undefined ) {
 
-        slot = inventory.grid[r][c];
+//         slot = inventory.grid[r][c];
 
-    }
+//     }
 
-    return slot;
+//     return slot;
+
+// }
+
+function getInventorySlot( inventory ) {
+    var row = inventory.currentSize % 2;
+    var col = inventory.currentSize / 2 % 2;
+    return hud.elements.cargo.grid[ row ][ col ];
+}
+
+function addItemToInventory( item, inventory ) {
+    inventory.add(item, 0);
+
+    var slot = getInventorySlot( inventory );
+
+    var icon = new Image();
+    icon.src = item.iconSrc;
+    icon.onload = ( function(){
+        var inventoryItem = new HUD.Element( item.id, drawIcon, icon.width, icon.height );
+        inventoryItem.icon = icon;
+        slot.item = inventoryItem;
+    });
 
 }
 
-function addItemToInventory( item, inventory, slot ) {
+// function addItemToInventory( item, inventory, slot ) {
 
-    var vwfObject = item.id;
-    var vwfInventory = vwf_view.kernel.find( "", "//" + inventory.id )[0];
+//     var vwfObject = item.id;
+//     var vwfInventory = vwf_view.kernel.find( "", "//" + inventory.id )[0];
 
-    if ( vwfObject && vwfInventory ) {
+//     if ( vwfObject && vwfInventory ) {
 
-        vwf_view.kernel.callMethod( vwfInventory, "add", [ vwfObject, slot.slot ] );
-        removeSlotIcon( item );
-        slot.item = item;
+//         vwf_view.kernel.callMethod( vwfInventory, "add", [ vwfObject, slot.slot ] );
+//         removeSlotIcon( item );
+//         slot.item = item;
 
-    }
+//     }
 
-}
+// }
 
 function removeItemFromInventory( item ) {
 

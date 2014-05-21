@@ -1,5 +1,5 @@
 var self;
-
+var scene;
 
 this.initialize = function() {
     // TODO: Find current grid square (rather than making app developer specify)
@@ -18,6 +18,9 @@ this.findAndSetBoundaryMap = function() {
 }
 
 this.moveForward = function() {
+    var scene = this.find("/")[0];
+    this.battery = 50;
+
     var headingInRadians = this.heading * Math.PI / 180;
     var dirVector = [ Math.round( -Math.sin( headingInRadians ) ), Math.round( Math.cos( headingInRadians ) ) ];
     var proposedNewGridSquare = [ this.currentGridSquare[ 0 ] + dirVector[ 0 ], 
@@ -46,6 +49,16 @@ this.moveForward = function() {
             //   0, 0, 1, 0,  
             //   dirVector[ 0 ] * this.gridSquareLength, dirVector[ 1 ] * this.gridSquareLength, 0, 0 ], 1 );
             this.moved( displacement );
+
+            //If the rover moves onto a space containing pickups, add the pickup to the inventory
+            var pickup;
+            for ( var i = 0; i < scene.pickups.children.length; i++ ) {
+                pickup = scene.pickups.children[i]
+                if ( ( this.currentGridSquare[ 0 ] == pickup.currentGridSquare[ 0 ] ) && ( this.currentGridSquare[ 1 ] == pickup.currentGridSquare[ 1 ] ) ) {
+                    var inventory = this.find("//cargo")[ 0 ];
+                    addItemToInventory(pickup, inventory)
+                }
+            }
         }
     } else {
         this.moveFailed( "collision" );
