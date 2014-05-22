@@ -55,16 +55,10 @@ children:
         extends: http://vwf.example.com/node3.vwf
         source: assets/3d/Terrain/mars_hills.dae
         type: model/vnd.collada+xml
-        properties:
-          castShadows: true
-          receiveShadows: true
       mountains:
         extends: http://vwf.example.com/node3.vwf
         source: assets/3d/Terrain/mars_mountains.dae
         type: model/vnd.collada+xml
-        properties:
-          castShadows: true
-          receiveShadows: true
       rocks:
         extends: http://vwf.example.com/node3.vwf
         source: assets/3d/Terrain/rocks.dae
