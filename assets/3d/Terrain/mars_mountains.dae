@@ -4,15 +4,15 @@
     <contributor>
       <author>mcclurek</author>
       <authoring_tool>OpenCOLLADA for 3ds Max;  Version: 1.4.1;  Revision: exported;  Platform: x64;  Configuration: Release_Max2012_static</authoring_tool>
-      <source_data>file:///C:/Users/mcclurek/Desktop/MARS/Terrain_Models/rock_edge.max</source_data>
+      <source_data>file:///C:/Users/mcclurek/Desktop/MARS/Terrain_Models/rock_edge2.max</source_data>
     </contributor>
-    <created>2014-05-20T15:36:29</created>
-    <modified>2014-05-20T15:36:29</modified>
+    <created>2014-05-22T08:40:43</created>
+    <modified>2014-05-22T08:40:43</modified>
     <unit name="meter" meter="1"/>
     <up_axis>Z_UP</up_axis>
   </asset>
   <library_effects>
-    <effect id="Material__0">
+    <effect id="mars_mountain_panoramic">
       <profile_COMMON>
         <newparam sid="mars_mountain_panoramic_png-surface">
           <surface type="2D">
@@ -77,8 +77,8 @@
     </effect>
   </library_effects>
   <library_materials>
-    <material id="Material__0-material" name="Material__0">
-      <instance_effect url="#Material__0"/>
+    <material id="mars_mountain_panoramic-material" name="mars_mountain_panoramic">
+      <instance_effect url="#mars_mountain_panoramic"/>
     </material>
   </library_materials>
   <library_geometries>
@@ -137,7 +137,7 @@
         <vertices id="geom-mountains-vertices">
           <input semantic="POSITION" source="#geom-mountains-positions"/>
         </vertices>
-        <triangles material="Material__0_1" count="48">
+        <triangles material="mars_mountain_panoramic" count="48">
           <input semantic="VERTEX" source="#geom-mountains-vertices" offset="0"/>
           <input semantic="NORMAL" source="#geom-mountains-normals" offset="1"/>
           <input semantic="TEXCOORD" source="#geom-mountains-map1" offset="2" set="0"/>
@@ -175,7 +175,7 @@
           <instance_geometry url="#geom-mountains">
             <bind_material>
               <technique_common>
-                <instance_material symbol="Material__0_1" target="#Material__0-material">
+                <instance_material symbol="mars_mountain_panoramic" target="#mars_mountain_panoramic-material">
                   <bind_vertex_input semantic="CHANNEL1" input_semantic="TEXCOORD" input_set="0"/>
                   <bind_vertex_input semantic="CHANNEL1" input_semantic="TEXCOORD" input_set="0"/>
                 </instance_material>
