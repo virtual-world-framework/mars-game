@@ -14,11 +14,13 @@ properties:
   currentSize:
     value: 0
   inventoryIsVisible: true
-children: 
 methods:
   add:
   swap:
   remove:
+  onReady:
 events:
+  pickup:
+children: 
 scripts: 
 - source: source/inventory.js

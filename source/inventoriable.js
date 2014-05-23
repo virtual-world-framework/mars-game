@@ -1,2 +1,1 @@
-
-  //@ sourceURL=source/inventoriable.js
+//@ sourceURL=source/inventoriable.js

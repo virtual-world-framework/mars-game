@@ -75,6 +75,14 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
 
         }
 
+        if ( eventName === "pickup" ) {
+
+            var objectID = eventArgs[ 0 ];
+            var iconSrc = eventArgs[ 1 ];
+            var inventorySize = eventArgs[ 2 ];
+            addSlotIcon( objectID, iconSrc, inventorySize );
+
+        }
     }
 
 }

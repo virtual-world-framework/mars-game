@@ -2,6 +2,7 @@
 properties:
   isInventoriable: true
   iconSrc: ""
+  isPickedUp: false
 methods:
   grab:
 events:

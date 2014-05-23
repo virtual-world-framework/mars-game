@@ -52,46 +52,80 @@ function createInventoryHUD( capacity ) {
     inventory.grid = grid;
     inventory.capacity = capacity;
     inventory.type = "inventory";
-    // ---Drag and drop functionality, may use later---
-    // inventory.onMouseMove = selectGrid;
-    // inventory.onMouseOut = deselectGrid;
-    // inventory.onMouseDown = selectItem;
+    inventory.onMouseMove = selectGrid;
+    inventory.onMouseOut = deselectGrid;
+    inventory.onMouseDown = selectItem;
     hud.add( inventory, "center", "bottom", { "x": 0, "y": -30 } );
 
 }
 
-//Returns the first available inventory HUD slot
-function getInventorySlot( inventory ) {
+//Returns the first available inventory HUD slot based on current size of inventory
+function getAvailableInventorySlot( inventorySize ) {
 
-    var col = inventory.currentSize % 2;
-    var row = Math.floor( inventory.currentSize / 2 ) % 2;
-    return hud.elements.cargo.grid[ row ][ col ];
+    var inventory;
+    for ( var els in hud.elements ) {
+        if ( hud.elements[ els ].type === "inventory" ) {
+            inventory = hud.elements[els];
+        }
+    }
 
-}
-
-function addItemToInventory( item, inventory ) {
-
-    var slot = getInventorySlot( inventory );
-
-    var icon = new Image();
-    icon.src = item.iconSrc;
-    icon.onload = ( function(){
-        var inventoryItem = new HUD.Element( item.id, drawIcon, icon.width, icon.height );
-        inventoryItem.icon = icon;
-        slot.item = inventoryItem;
-    });
-
-    inventory.add( item.id, 0 );
-
+    if ( inventory ){
+        var col = inventorySize % 2;
+        var row = Math.floor( inventorySize / 2 ) % 2;
+        return inventory.grid[ row ][ col ];
+    }
+    return null;
 
 }
 
-function removeItemFromInventory( item, inventory ) {
+function addSlotIcon( objectID, iconSrc, inventorySize ) {
 
-    inventory.remove( item.id );
-    var slot = getInventorySlot( inventory );
-    slot.item = null;
+    var slot = getAvailableInventorySlot( inventorySize );
 
+    if ( slot ){
+        var icon = new Image();
+        icon.src = iconSrc;
+        icon.onload = ( function(){
+            var inventoryItem = new HUD.Element( objectID, drawIcon, icon.width, icon.height );
+            inventoryItem.icon = icon;
+            slot.item = inventoryItem;
+        });
+    }
+
+}
+
+function removeItemFromInventory( item ) {
+
+    if ( hud.elements.hasOwnProperty( item.owner ) ) {
+
+        var vwfInventory = vwf_view.kernel.find( "", "//" + item.owner )[ 0 ];
+        vwf_view.kernel.callMethod( vwfInventory, "remove", [ item.id ] );
+        removeSlotIcon( item );
+
+    }
+
+}
+
+function removeSlotIcon( item, inventorySize ) {
+
+    var inventory = hud.elements[ item.owner ];
+
+    if ( hud.elements.hasOwnProperty( item.owner ) ) {
+
+        for ( var r = 0; r < inventory.grid.length; r++ ) {
+
+            for ( var c = 0; c < inventory.grid[ r ].length; c++ ) {
+
+                if ( inventory.grid[ r ][ c ].item !== null && inventory.grid[ r ][ c ].item.id === item.id ){
+
+                    var lastSlot = getAvailableInventorySlot( inventorySize );
+                    inventory.grid[ r ][ c ].item = lastSlot;
+                    lastSlot = null;
+
+                }
+            }
+        }
+    }
 }
 
 
@@ -195,166 +229,167 @@ function drawInventory( context, position ) {
     }
 }
 
-// ---Drag and drop functionality, may use later---
 
-// function startDrag( event ) {
+// === HUD Event Handlers ===
 
-//     if ( event.which === 1 ) {
+function startDrag( event ) {
 
-//         this.isDragging = true;
-//         this.startPos.x = event.clientX;
-//         this.startPos.y = event.clientY;
-//         hud.moveToTop( this.id );
+    if ( event.which === 1 ) {
 
-//     }
+        this.isDragging = true;
+        this.startPos.x = event.clientX;
+        this.startPos.y = event.clientY;
+        hud.moveToTop( this.id );
 
-// }
+    }
 
-// function drag( event ) {
+}
 
-//     if ( this.isDragging && event.which === 1 ) {
+function drag( event ) {
 
-//         var movX = event.clientX - this.startPos.x;
-//         var movY = event.clientY - this.startPos.y;
+    if ( this.isDragging && event.which === 1 ) {
 
-//         this.offset.x += movX;
-//         this.offset.y += movY;
+        var movX = event.clientX - this.startPos.x;
+        var movY = event.clientY - this.startPos.y;
 
-//         this.startPos.x = event.clientX;
-//         this.startPos.y = event.clientY;
+        this.offset.x += movX;
+        this.offset.y += movY;
 
-//         // Prevent element from losing mouse position
-//         this.isMouseOver = true;
-//         this.position.x += movX;
-//         this.position.y += movY;
+        this.startPos.x = event.clientX;
+        this.startPos.y = event.clientY;
 
-//         var picks = hud.pick( event );
-//         picks.splice( picks.indexOf( this ), 1 );
+        // Prevent element from losing mouse position
+        this.isMouseOver = true;
+        this.position.x += movX;
+        this.position.y += movY;
 
-//         for ( var i = 0; i < picks.length; i++ ) {
+        var picks = hud.pick( event );
+        picks.splice( picks.indexOf( this ), 1 );
 
-//             picks[i].onMouseMove( event );
+        for ( var i = 0; i < picks.length; i++ ) {
 
-//         }
+            picks[i].onMouseMove( event );
 
-//     } else {
+        }
 
-//         this.isDragging = false;
-//         hud.remove( this );
+    } else {
 
-//     }
+        this.isDragging = false;
+        hud.remove( this );
 
-// }
+    }
 
-// function drop( event ) {
+}
 
-//     this.isDragging = false;
-//     hud.remove( this );
+function drop( event ) {
 
-//     var picks = hud.pick( event );
-//     var inventory = null;
+    this.isDragging = false;
+    hud.remove( this );
 
-//     for ( var i = 0; i < picks.length; i++ ) {
+    var picks = hud.pick( event );
+    var inventory = null;
 
-//         if ( picks[i].hasOwnProperty("type") && picks[i].type === "inventory" ) {
+    for ( var i = 0; i < picks.length; i++ ) {
 
-//             inventory = picks[i];
+        if ( picks[i].hasOwnProperty("type") && picks[i].type === "inventory" ) {
 
-//         }
+            inventory = picks[i];
 
-//     }
+        }
 
-//     if ( inventory !== null ) {
+    }
 
-//         var slot = getInventorySlot( event, inventory );
+    if ( inventory !== null ) {
 
-//         if ( slot !== null ) {
+        var slot = getInventorySlot( event, inventory );
 
-//             addItemToInventory( this, inventory, slot );
+        if ( slot !== null ) {
 
-//         }
+            addItemToInventory( this, inventory, slot );
 
-//     } else {
+        }
 
-//         removeItemFromInventory( this );
+    } else {
 
-//     }
-// }
+        removeItemFromInventory( this );
 
-// function getInventorySlot( event, inventory ) {
+    }
+}
 
-//     var slot = null;
-//     var posX = event.clientX - inventory.position.x;
-//     var posY = event.clientY - inventory.position.y;
+function getInventorySlot( event, inventory ) {
 
-//     var r = Math.round( posY / 49 - 0.5 );
-//     var c = Math.round( posX / 49 - 0.5 );
+    var slot = null;
+    var posX = event.clientX - inventory.position.x;
+    var posY = event.clientY - inventory.position.y;
 
-//     if ( inventory.grid[r][c] !== undefined ) {
+    var r = Math.round( posY / 49 - 0.5 );
+    var c = Math.round( posX / 49 - 0.5 );
 
-//         slot = inventory.grid[r][c];
+    if ( inventory.grid[r][c] !== undefined ) {
 
-//     }
+        slot = inventory.grid[r][c];
 
-//     return slot;
+    }
 
-// }
+    return slot;
 
-// function selectGrid( event ) {
+}
 
-//     var posX = event.clientX - this.position.x;
-//     var posY = event.clientY - this.position.y;
+function selectGrid( event ) {
 
-//     var r = Math.round( posY / 49 - 0.5 );
-//     var c = Math.round( posX / 49 - 0.5 );
+    var posX = event.clientX - this.position.x;
+    var posY = event.clientY - this.position.y;
 
-//     for ( var rr = 0; rr < this.grid.length; rr++ ) {
+    var r = Math.round( posY / 49 - 0.5 );
+    var c = Math.round( posX / 49 - 0.5 );
 
-//         for ( var cc = 0; cc < this.grid[rr].length; cc++ ) {
+    for ( var rr = 0; rr < this.grid.length; rr++ ) {
 
-//             this.grid[rr][cc].isMouseOver = false;
+        for ( var cc = 0; cc < this.grid[rr].length; cc++ ) {
 
-//         }
+            this.grid[rr][cc].isMouseOver = false;
 
-//     }
+        }
 
-//     if ( this.grid[r][c] !== undefined ) {
+    }
 
-//         this.grid[r][c].isMouseOver = true;
+    if ( this.grid[r][c] !== undefined ) {
 
-//     }
-// }
+        this.grid[r][c].isMouseOver = true;
 
-// function deselectGrid( event ) {
+    }
+}
 
-//     for ( var r = 0; r < this.grid.length; r++ ) {
+function deselectGrid( event ) {
 
-//         for ( var c = 0; c < this.grid[r].length; c++ ) {
+    for ( var r = 0; r < this.grid.length; r++ ) {
 
-//             this.grid[r][c].isMouseOver = false;
+        for ( var c = 0; c < this.grid[r].length; c++ ) {
 
-//         }
+            this.grid[r][c].isMouseOver = false;
 
-//     }
+        }
 
-// }
+    }
 
-// function selectItem( event ) {
+}
 
-//     var posX = event.clientX - this.position.x;
-//     var posY = event.clientY - this.position.y;
+function selectItem( event ) {
 
-//     var r = Math.round( posY / 49 - 0.5 );
-//     var c = Math.round( posX / 49 - 0.5 );
+    var posX = event.clientX - this.position.x;
+    var posY = event.clientY - this.position.y;
 
-//     if ( this.grid[r][c] !== undefined && this.grid[r][c].item !== null ) {
+    var r = Math.round( posY / 49 - 0.5 );
+    var c = Math.round( posX / 49 - 0.5 );
 
-//         var vwfID = this.grid[r][c].item.id;
-//         vwf_view.kernel.callMethod( vwfID, "grab", [{ "x": event.clientX, "y": event.clientY }] );
+    if ( this.grid[r][c] !== undefined && this.grid[r][c].item !== null ) {
 
-//     }
+        var vwfID = this.grid[r][c].item.id;
+        vwf_view.kernel.callMethod( vwfID, "grab", [{ "x": event.clientX, "y": event.clientY }] );
 
-// }
+    }
+
+}
 
 function clickBlockly( event ) {
     
