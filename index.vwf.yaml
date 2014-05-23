@@ -87,6 +87,20 @@ children:
         properties:
           castShadows: true
           receiveShadows: true
+      crash_grooves:
+        extends: http://vwf.example.com/node3.vwf
+        source: assets/3d/Terrain/crash_grooves.dae
+        type: model/vnd.collada+xml
+        properties:
+          castShadows: true
+          receiveShadows: true
+      rubble:
+        extends: http://vwf.example.com/node3.vwf
+        source: assets/3d/Rubble/rubble.dae
+        type: model/vnd.collada+xml
+        properties:
+          castShadows: true
+          receiveShadows: true
   boundaryMap:
     extends: source/boundaryMap.vwf
     properties:

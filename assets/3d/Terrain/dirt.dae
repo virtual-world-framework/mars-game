@@ -4,44 +4,44 @@
     <contributor>
       <author>mcclurek</author>
       <authoring_tool>OpenCOLLADA for 3ds Max;  Version: 1.4.1;  Revision: exported;  Platform: x64;  Configuration: Release_Max2012_static</authoring_tool>
-      <source_data>file:///C:/Users/mcclurek/Desktop/MARS/Terrain_Models/rock_edge.max</source_data>
+      <source_data>file:///C:/Users/mcclurek/Desktop/MARS/Terrain_Models/rock_edge2.max</source_data>
     </contributor>
-    <created>2014-05-20T15:38:10</created>
-    <modified>2014-05-20T15:38:10</modified>
+    <created>2014-05-22T08:15:40</created>
+    <modified>2014-05-22T08:15:40</modified>
     <unit name="meter" meter="1"/>
     <up_axis>Z_UP</up_axis>
   </asset>
   <library_effects>
     <effect id="ground_rocks">
       <profile_COMMON>
-        <newparam sid="ground_rocks_png-surface">
+        <newparam sid="ground_rocks_jpg-surface">
           <surface type="2D">
-            <init_from>ground_rocks_png</init_from>
+            <init_from>ground_rocks_jpg</init_from>
           </surface>
         </newparam>
-        <newparam sid="ground_rocks_png-sampler">
+        <newparam sid="ground_rocks_jpg-sampler">
           <sampler2D>
-            <source>ground_rocks_png-surface</source>
+            <source>ground_rocks_jpg-surface</source>
           </sampler2D>
         </newparam>
-        <newparam sid="ground_rocks_spec_png-surface">
+        <newparam sid="ground_rocks_spec_jpg-surface">
           <surface type="2D">
-            <init_from>ground_rocks_spec_png</init_from>
+            <init_from>ground_rocks_spec_jpg</init_from>
           </surface>
         </newparam>
-        <newparam sid="ground_rocks_spec_png-sampler">
+        <newparam sid="ground_rocks_spec_jpg-sampler">
           <sampler2D>
-            <source>ground_rocks_spec_png-surface</source>
+            <source>ground_rocks_spec_jpg-surface</source>
           </sampler2D>
         </newparam>
-        <newparam sid="ground_rocks_nrm_png-surface">
+        <newparam sid="ground_rocks_nrm_jpg-surface">
           <surface type="2D">
-            <init_from>ground_rocks_nrm_png</init_from>
+            <init_from>ground_rocks_nrm_jpg</init_from>
           </surface>
         </newparam>
-        <newparam sid="ground_rocks_nrm_png-sampler">
+        <newparam sid="ground_rocks_nrm_jpg-sampler">
           <sampler2D>
-            <source>ground_rocks_nrm_png-surface</source>
+            <source>ground_rocks_nrm_jpg-surface</source>
           </sampler2D>
         </newparam>
         <technique sid="common">
@@ -53,7 +53,7 @@
               <color>0 0 0 1</color>
             </ambient>
             <diffuse>
-              <texture texture="ground_rocks_png-sampler" texcoord="CHANNEL1"/>
+              <texture texture="ground_rocks_jpg-sampler" texcoord="CHANNEL1"/>
             </diffuse>
             <specular>
               <color>0.4 0.4 0.4 1</color>
@@ -74,10 +74,10 @@
           <extra>
             <technique profile="OpenCOLLADA3dsMax">
               <specularLevel>
-                <texture texture="ground_rocks_spec_png-sampler" texcoord="CHANNEL1"/>
+                <texture texture="ground_rocks_spec_jpg-sampler" texcoord="CHANNEL1"/>
               </specularLevel>
               <bump bumptype="NORMALMAP">
-                <texture texture="ground_rocks_nrm_png-sampler" texcoord="CHANNEL1"/>
+                <texture texture="ground_rocks_nrm_jpg-sampler" texcoord="CHANNEL1"/>
               </bump>
             </technique>
           </extra>
@@ -188,14 +188,14 @@
     </light>
   </library_lights>
   <library_images>
-    <image id="ground_rocks_png">
-      <init_from>./ground_rocks.png</init_from>
+    <image id="ground_rocks_jpg">
+      <init_from>./ground_rocks.jpg</init_from>
     </image>
-    <image id="ground_rocks_nrm_png">
-      <init_from>./ground_rocks_nrm.png</init_from>
+    <image id="ground_rocks_nrm_jpg">
+      <init_from>./ground_rocks_nrm.jpg</init_from>
     </image>
-    <image id="ground_rocks_spec_png">
-      <init_from>./ground_rocks_spec.png</init_from>
+    <image id="ground_rocks_spec_jpg">
+      <init_from>./ground_rocks_spec.jpg</init_from>
     </image>
   </library_images>
   <library_visual_scenes>
