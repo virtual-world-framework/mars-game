@@ -64,9 +64,10 @@ function getInventoryHUD() {
     for ( var els in hud.elements ) {
         if ( hud.elements[ els ].type === "inventory" ) {
             inventory = hud.elements[els];
+            return inventory;
         }
     }
-    return inventory;
+    return null;
 }
 
 //Returns the first available inventory HUD slot based on current size of inventory
