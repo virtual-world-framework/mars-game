@@ -106,11 +106,11 @@ function removeItemFromInventory( item ) {
 
 }
 
-function removeSlotIcon( item, inventorySize ) {
+function removeSlotIcon( item ) {
 
     var inventory = hud.elements[ item.owner ];
 
-    if ( hud.elements.hasOwnProperty( item.owner ) ) {
+    if ( inventory ){
 
         for ( var r = 0; r < inventory.grid.length; r++ ) {
 
@@ -118,9 +118,7 @@ function removeSlotIcon( item, inventorySize ) {
 
                 if ( inventory.grid[ r ][ c ].item !== null && inventory.grid[ r ][ c ].item.id === item.id ){
 
-                    var lastSlot = getAvailableInventorySlot( inventory, inventorySize );
-                    inventory.grid[ r ][ c ] = lastSlot;
-                    lastSlot = null;
+                    inventory.grid[ r ][ c ] = null;
 
                 }
             }

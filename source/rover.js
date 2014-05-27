@@ -18,15 +18,14 @@ this.findAndSetBoundaryMap = function() {
 
 this.moved = function() {
 
-    var inventory = this.find(".//cargo")[ 0 ];
+    var inventory = this.cargo;
 
     //If the rover moves onto a space containing pickups, add the pickup to the inventory
-    if (inventory) {
-        var inventoriables = this.find("//element(*,'source/inventoriable.vwf')" );
-        for ( var i = 0; i < inventoriables.length; i++) {
+    if ( inventory ) {
+        var inventoriables = this.find( "//element(*,'source/inventoriable.vwf')" );
+        for ( var i = 0; i < inventoriables.length; i++ ) {
             if ( ( !inventoriables[ i ].isPickedUp ) && ( this.currentGridSquare[ 0 ] === inventoriables[ i ].currentGridSquare[ 0 ] ) && ( this.currentGridSquare[ 1 ] === inventoriables[ i ].currentGridSquare[ 1 ] ) ) {
                 inventory.add( inventoriables[ i ].id );
-                inventoriables[ i ].isPickedUp = true;
             }
         }
     }

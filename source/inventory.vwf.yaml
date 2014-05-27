@@ -15,7 +15,6 @@ methods:
   add:
   swap:
   remove:
-  onReady:
 children: 
 scripts: 
 - source: source/inventory.js
