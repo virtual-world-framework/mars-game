@@ -118,7 +118,7 @@ function removeSlotIcon( item ) {
 
                 if ( inventory.grid[ r ][ c ].item !== null && inventory.grid[ r ][ c ].item.id === item.id ){
 
-                    inventory.grid[ r ][ c ] = null;
+                    inventory.grid[ r ][ c ].item = null;
 
                 }
             }
