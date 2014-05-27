@@ -6,21 +6,16 @@ properties:
       if ( !isNaN( value ) ) {
         value = Math.round( value );
         value = Math.max( value, 0 );
-        this.slots = new Array( value );
         this.capacity = value;
       }
     value: 1
   slots: []
-  currentSize:
-    value: 0
   inventoryIsVisible: true
 methods:
   add:
   swap:
   remove:
   onReady:
-events:
-  pickup:
 children: 
 scripts: 
 - source: source/inventory.js

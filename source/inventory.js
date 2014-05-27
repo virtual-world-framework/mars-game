@@ -1,27 +1,6 @@
-this.initialize = function() {
-
-    this.future( 0 ).onReady();
-}
-
-this.onReady = function() {
-
-    this.parent.moved = function() {
-
-        //If the rover moves onto a space containing pickups, add the pickup to the inventory
-        var inventoriables = this.find("//element(*,'source/inventoriable.vwf')" );
-        for ( var i = 0; i < inventoriables.length; i++) {
-            if ( ( !inventoriables[ i ].isPickedUp ) && ( this.currentGridSquare[ 0 ] === inventoriables[ i ].currentGridSquare[ 0 ] ) && ( this.currentGridSquare[ 1 ] === inventoriables[ i ].currentGridSquare[ 1 ] ) ) {
-                this.cargo.pickup( inventoriables[ i ].id, inventoriables[ i ].iconSrc, this.cargo.currentSize );
-                this.cargo.add( inventoriables[ i ].id );
-                inventoriables[ i ].isPickedUp = true;
-            }
-        }
-    }
-}
-
 this.add = function( objectID ) {
 
-    var index = this.currentSize;
+    var index = this.slots.length;
 
     if ( !validIndex( index, this.capacity ) ) {
         return;
@@ -38,9 +17,8 @@ this.add = function( objectID ) {
 
         object.parent_ = this;
         this.slots[ index ] = object.name;
-        this.currentSize++;
         object.visible = this.inventoryIsVisible;
-        object.pickedUp();
+        object.pickedUp( objectID, object.iconSrc, index, this.id );
 
     }
 
@@ -67,12 +45,7 @@ this.remove = function( objectID ) {
 
         object.parent_ = this.find( "//pickups" )[ 0 ];
 
-        if ( this.slots.indexOf( objectID ) != currentSize ) {
-            this.swap( this.currentSize, this.slots.indexOf( objectID ) );
-        }
-
-        this.slots[ this.currentSize ] = undefined;
-        this.currentSize--;
+        this.slots = this.slots.splice( this.slots.indexOf( objectID ), 1 );
         object.visible = true;
         object.isPickedUp = false;
         object.dropped();

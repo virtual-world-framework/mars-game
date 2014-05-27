@@ -59,15 +59,18 @@ function createInventoryHUD( capacity ) {
 
 }
 
-//Returns the first available inventory HUD slot based on current size of inventory
-function getAvailableInventorySlot( inventorySize ) {
-
+function getInventoryHUD() {
     var inventory;
     for ( var els in hud.elements ) {
         if ( hud.elements[ els ].type === "inventory" ) {
             inventory = hud.elements[els];
         }
     }
+    return inventory;
+}
+
+//Returns the first available inventory HUD slot based on current size of inventory
+function getAvailableInventorySlot( inventory, inventorySize ) {
 
     if ( inventory ){
         var col = inventorySize % 2;
@@ -78,9 +81,9 @@ function getAvailableInventorySlot( inventorySize ) {
 
 }
 
-function addSlotIcon( objectID, iconSrc, inventorySize ) {
+function addSlotIcon( objectID, iconSrc, inventorySize, parentName ) {
 
-    var slot = getAvailableInventorySlot( inventorySize );
+    var slot = getAvailableInventorySlot( getInventoryHUD(), inventorySize );
 
     if ( slot ){
         var icon = new Image();
@@ -88,6 +91,7 @@ function addSlotIcon( objectID, iconSrc, inventorySize ) {
         icon.onload = ( function(){
             var inventoryItem = new HUD.Element( objectID, drawIcon, icon.width, icon.height );
             inventoryItem.icon = icon;
+            inventoryItem.owner = parentName;
             slot.item = inventoryItem;
         });
     }
@@ -96,13 +100,8 @@ function addSlotIcon( objectID, iconSrc, inventorySize ) {
 
 function removeItemFromInventory( item ) {
 
-    if ( hud.elements.hasOwnProperty( item.owner ) ) {
-
-        var vwfInventory = vwf_view.kernel.find( "", "//" + item.owner )[ 0 ];
-        vwf_view.kernel.callMethod( vwfInventory, "remove", [ item.id ] );
-        removeSlotIcon( item );
-
-    }
+    var vwfInventory = vwf_view.kernel.find( "", "//" + item.owner )[ 0 ];
+    vwf_view.kernel.callMethod( vwfInventory, "remove", [ item.id ] );
 
 }
 
@@ -118,8 +117,8 @@ function removeSlotIcon( item, inventorySize ) {
 
                 if ( inventory.grid[ r ][ c ].item !== null && inventory.grid[ r ][ c ].item.id === item.id ){
 
-                    var lastSlot = getAvailableInventorySlot( inventorySize );
-                    inventory.grid[ r ][ c ].item = lastSlot;
+                    var lastSlot = getAvailableInventorySlot( inventory, inventorySize );
+                    inventory.grid[ r ][ c ] = lastSlot;
                     lastSlot = null;
 
                 }
