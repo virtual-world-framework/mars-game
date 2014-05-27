@@ -10,7 +10,10 @@ function onRun() {
 }
 
 window.addEventListener( "keyup", function (event) {
-	switch ( event.keyCode ) {
+    switch ( event.keyCode ) {
+        case 32:
+            nextIntroSlide();
+            break;
 		case 80:
 			vwf_view.kernel.callMethod( vwf_view.kernel.find( undefined, "/player" ), "togglePerspective" );
 	}
@@ -186,6 +189,9 @@ vwf_view.satProperty = function( nodeID, propertyName, propertyValue ) {
 }
 
 function setUp( renderer, scene, camera ) {
+
+    //Set up the introductory screens
+    setUpIntro();
 
     // Modify and add to scene
     scene.fog = new THREE.FogExp2( 0xC49E70, 0.005 );
