@@ -38,7 +38,7 @@ function setUpIntro() {
 }
 
 function nextIntroSlide() {
-    if ( index >= images.length ) {
+    if ( index > images.length - 1 ) {
         if ( div ){
             document.body.removeChild( div );
             delete div;
@@ -49,6 +49,13 @@ function nextIntroSlide() {
             div.removeChild( div.firstChild );
         }
         div.appendChild( images[ index++ ] );
+    }
+}
+
+function prevIntroSlide() {
+    if ( index > 0 ) {
+        div.removeChild( div.lastChild );
+        div.appendChild( images[ --index ] );
     }
 }
 
