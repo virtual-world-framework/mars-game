@@ -1,20 +1,21 @@
 var div;
 var images;
 var index;
+var numberOfScreens;
 
 function setUpIntro() {
     div = document.createElement( 'DIV' );
-    vwfroot = document.getElementById('vwf-root');
 
     images = [];
+    numberOfScreens = 3;
 
-    //for each in directory of images
-    var image = document.createElement( 'img' );
-    image.src = '../assets/images/birdseye.png';
-    images.push( image );
-    var image = document.createElement( 'img' );
-    image.src = '../assets/images/birdseye2.png';
-    images.push(image);
+    var dir = "../assets/images/introScreens/";
+    for ( var i = 0; i < numberOfScreens; i++ ) {
+        var image = document.createElement( 'img' );
+        image.src = dir + "screen" + i + ".png";
+        images.push( image );
+    }
+
 
     index = 0;
     nextIntroSlide();
@@ -23,15 +24,15 @@ function setUpIntro() {
 }
 
 function nextIntroSlide() {
-    if ( index >= images.length ){
+    if ( index >= images.length ) {
         document.body.removeChild( div );
         delete div;
     }
-    else{
-        if (index != 0){
-            div.removeChild(div.firstChild);
+    else {
+        if ( index != 0 ){
+            div.removeChild( div.firstChild );
         }
-        div.appendChild(images[index++]);
+        div.appendChild( images[ index++ ] );
     }
 }
 
