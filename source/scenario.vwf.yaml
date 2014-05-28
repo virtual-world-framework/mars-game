@@ -18,6 +18,11 @@ properties:
     # arguments: object, maxCommands
     ram:
 
+  # These are the standard properties that every scenario should define
+  startState:
+  successClause:
+  failureClause:
+
 methods:
   # This is called using future(0) inside of initialize (at least for now).
   onSceneReady:

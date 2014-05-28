@@ -2,8 +2,10 @@
 model:
   vwf/model/threejs:
   vwf/model/blockly:
+  vwf/model/sound:
 view:
   vwf/view/threejs: "#vwf-root"
   vwf/view/blockly: { "blocklyPath": './source/blockly/' }
+  vwf/view/sound: 
   vwf/view/editor:
   
