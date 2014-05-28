@@ -4,7 +4,17 @@ var index;
 var numberOfScreens;
 
 function setUpIntro() {
-    div = document.createElement( 'DIV' );
+    div = document.createElement( 'div' );
+    div.id = "introScreen";
+    div.onclick = nextIntroSlide;
+    div.style.height = "256px";
+    div.style.width = "512px";
+    div.style.marginLeft = "-256px";
+    div.style.marginTop = "-128px";
+    div.style.position = "absolute";
+    div.style.top = "50%";
+    div.style.left = "50%";
+    div.style.backgroundColor = "#424242";
 
     images = [];
     numberOfScreens = 3;
@@ -13,6 +23,10 @@ function setUpIntro() {
     for ( var i = 0; i < numberOfScreens; i++ ) {
         var image = document.createElement( 'img' );
         image.src = dir + "screen" + i + ".png";
+        image.style.display = "block";
+        image.style.marginLeft = "auto";
+        image.style.marginRight = "auto";
+        image.style.marginTop = "15%";
         images.push( image );
     }
 
@@ -25,8 +39,10 @@ function setUpIntro() {
 
 function nextIntroSlide() {
     if ( index >= images.length ) {
-        document.body.removeChild( div );
-        delete div;
+        if ( div ){
+            document.body.removeChild( div );
+            delete div;
+        }
     }
     else {
         if ( index != 0 ){
