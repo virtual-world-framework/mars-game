@@ -91,42 +91,21 @@ this.checkForFailure = function() {
     }
 }
 
-this.startStateParamSet.battery = function( params, context ) {
+this.startStateParamSet.setProperty = function( params, context ) {
     if ( !params || ( params.length != 3 ) ) {
-        self.logger.errorx( "battery", 
-                            "The battery start condition requires three " +
-                            "arguments: the object, the starting power, " +
-                            "and the max power." );
+        self.logger.errorx( "setProperty", 
+                            "The setProperty condition requires three " +
+                            "arguments: the object name, the property name, " +
+                            "and the property value." );
         return undefined;
     }
 
     var objectName = params[ 0 ];
-    var starting = params[ 1 ];
-    var max = params[ 2 ];
+    var propertyName = params[ 1 ];
+    var value = params[ 2 ];
 
     var object = self.startStateExecutor.findInContext( context, objectName );
-    object.battery = starting;
-    object.batteryMax = max;
-}
-
-this.startStateParamSet.ram = function( params, context ) {
-    if ( !params || ( params.length != 2 ) ) {
-        self.logger.errorx( "ram", 
-                            "The ram start condition requires two " +
-                            "arguments: the object, and the max number of, " +
-                            "Blockly commands." );
-        return undefined;
-    }
-
-    var objectName = params[ 0 ];
-    var startingRam = params[ 1 ];
-
-    var object = self.startStateExecutor.findInContext( context, objectName );
-
-    // If we want each block to take 1 unit of RAM then these values should
-    //  be the same.
-    object.ram = startingRam;
-    object.blockly_allowedBlocks = startingRam;
+    object[ propertyName ] = value;
 }
 
 //@ sourceURL=source/scenario.js

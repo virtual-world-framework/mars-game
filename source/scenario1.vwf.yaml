@@ -5,12 +5,21 @@ properties:
   blockly: assets/scenario/scenario1.xml
 
   startState:
-  - battery:
+  - setProperty:
     - rover
+    - battery
     - 30
-    - 50
-  - ram:
+  - setProperty:
     - rover
+    - batteryMax
+    - 50
+  - setProperty:
+    - rover
+    - ram
+    - 15
+  - setProperty:
+    - rover
+    - blockly_allowedBlocks
     - 15
 
   successClause:
