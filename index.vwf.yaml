@@ -245,6 +245,7 @@ children:
           iconSrc: "../assets/images/radio.png"
           translation: [ 39, 0, 0 ]
           animationLoop: true
+          currentGridSquare: [ 15, 7 ]
         scripts: |
           this.initialize = function() {
             this.animationPlay();

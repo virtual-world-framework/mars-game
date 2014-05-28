@@ -59,69 +59,50 @@ function createInventoryHUD( capacity ) {
 
 }
 
-function createInventoryItem( id, iconSrc, screenPos, parentName ) {
-
-    var icon = new Image();
-    icon.src = iconSrc;
-    icon.onload = ( function() {
-
-        var inventoryItem = new HUD.Element( id, drawIcon, icon.width, icon.height );
-        inventoryItem.icon = icon;
-        inventoryItem.owner = parentName;
-        inventoryItem.isDragging = true;
-        inventoryItem.startPos = screenPos;
-        inventoryItem.onMouseUp = drop;
-        inventoryItem.onMouseOut = drag;
-        inventoryItem.onMouseMove = drag;
-        hud.add( inventoryItem, "left", "top", { "x": screenPos.x - icon.width / 2, "y": screenPos.y - icon.height / 2 } );
-        
-    } );
-
-}
-
-function getInventorySlot( event, inventory ) {
-
-    var slot = null;
-    var posX = event.clientX - inventory.position.x;
-    var posY = event.clientY - inventory.position.y;
-
-    var r = Math.round( posY / 49 - 0.5 );
-    var c = Math.round( posX / 49 - 0.5 );
-
-    if ( inventory.grid[r][c] !== undefined ) {
-
-        slot = inventory.grid[r][c];
-
+function getInventoryHUD() {
+    var inventory;
+    for ( var els in hud.elements ) {
+        if ( hud.elements[ els ].type === "inventory" ) {
+            inventory = hud.elements[els];
+            return inventory;
+        }
     }
+    return null;
+}
 
-    return slot;
+//Returns the first available inventory HUD slot based on current size of inventory
+function getAvailableInventorySlot( inventory, inventorySize ) {
+
+    if ( inventory ){
+        var col = inventorySize % 2;
+        var row = Math.floor( inventorySize / 2 ) % 2;
+        return inventory.grid[ row ][ col ];
+    }
+    return null;
 
 }
 
-function addItemToInventory( item, inventory, slot ) {
+function addSlotIcon( objectID, iconSrc, inventorySize, parentName ) {
 
-    var vwfObject = item.id;
-    var vwfInventory = vwf_view.kernel.find( "", "//" + inventory.id )[0];
+    var slot = getAvailableInventorySlot( getInventoryHUD(), inventorySize );
 
-    if ( vwfObject && vwfInventory ) {
-
-        vwf_view.kernel.callMethod( vwfInventory, "add", [ vwfObject, slot.slot ] );
-        removeSlotIcon( item );
-        slot.item = item;
-
+    if ( slot ){
+        var icon = new Image();
+        icon.src = iconSrc;
+        icon.onload = ( function(){
+            var inventoryItem = new HUD.Element( objectID, drawIcon, icon.width, icon.height );
+            inventoryItem.icon = icon;
+            inventoryItem.owner = parentName;
+            slot.item = inventoryItem;
+        });
     }
 
 }
 
 function removeItemFromInventory( item ) {
 
-    if ( hud.elements.hasOwnProperty( item.owner ) ) {
-
-        removeSlotIcon( item );
-        var vwfInventory = vwf_view.kernel.find( "", "//" + item.owner )[0];
-        vwf_view.kernel.callMethod( vwfInventory, "remove", [ item.id ] );
-
-    }
+    var vwfInventory = vwf_view.kernel.find( "", "//" + item.owner )[ 0 ];
+    vwf_view.kernel.callMethod( vwfInventory, "remove", [ item.id ] );
 
 }
 
@@ -129,21 +110,22 @@ function removeSlotIcon( item ) {
 
     var inventory = hud.elements[ item.owner ];
 
-    if ( hud.elements.hasOwnProperty( item.owner ) ) {
+    if ( inventory ){
 
         for ( var r = 0; r < inventory.grid.length; r++ ) {
 
-            for ( var c = 0; c < inventory.grid[r].length; c++ ) {
+            for ( var c = 0; c < inventory.grid[ r ].length; c++ ) {
 
-                if ( inventory.grid[r][c].item !== null && inventory.grid[r][c].item.id === item.id ) {
+                if ( inventory.grid[ r ][ c ].item !== null && inventory.grid[ r ][ c ].item.id === item.id ){
 
-                    inventory.grid[r][c].item = null;
+                    inventory.grid[ r ][ c ].item = null;
 
                 }
             }
         }
     }
 }
+
 
 // === Draw Functions ===
 
@@ -245,6 +227,7 @@ function drawInventory( context, position ) {
     }
 }
 
+
 // === HUD Event Handlers ===
 
 function startDrag( event ) {
@@ -331,7 +314,24 @@ function drop( event ) {
     }
 }
 
+function getInventorySlot( event, inventory ) {
 
+    var slot = null;
+    var posX = event.clientX - inventory.position.x;
+    var posY = event.clientY - inventory.position.y;
+
+    var r = Math.round( posY / 49 - 0.5 );
+    var c = Math.round( posX / 49 - 0.5 );
+
+    if ( inventory.grid[r][c] !== undefined ) {
+
+        slot = inventory.grid[r][c];
+
+    }
+
+    return slot;
+
+}
 
 function selectGrid( event ) {
 

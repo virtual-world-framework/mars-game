@@ -62,22 +62,6 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
     } else {
 
         // nodeID is ignored here?
-        if ( eventName === "grabbed" ) {
-
-            var client = eventArgs[0];
-
-            if ( client === vwf_view.kernel.moniker() ) {
-
-                var iconSrc = eventArgs[1];
-                var screenPos = eventArgs[2];
-                var parentName = eventArgs[3];
-                createInventoryItem( nodeID, iconSrc, screenPos, parentName );
-
-            }
-
-        } 
-
-        // nodeID is ignored here?
         if ( eventName === "completed" ) {
 
             endScenario( "success" );
@@ -89,6 +73,13 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
 
             endScenario( "failure" );
 
+        }
+
+        if ( eventName === "pickedUp" ) {
+            var iconSrc = eventArgs[ 0 ];
+            var inventorySize = eventArgs[ 1 ];
+            var parentName = eventArgs[ 2 ];
+            addSlotIcon( nodeID, iconSrc, inventorySize, parentName );
         }
 
     }
