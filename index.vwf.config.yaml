@@ -4,6 +4,6 @@ model:
   vwf/model/blockly:
 view:
   vwf/view/threejs: "#vwf-root"
-  vwf/view/blockly: { "blocklyPath": './source/blockly/' }
+  vwf/view/blockly: { "blocklyPath": './source/blockly/', "toolbox": 'toolbox' }
   vwf/view/editor:
   
