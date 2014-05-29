@@ -31,6 +31,7 @@ properties:
       }
     value: 100 
   boundaryMap: []
+  grid: []
   gridSquareLength: 1
   currentGridSquare: [ 0, 0 ]
   heading: 90

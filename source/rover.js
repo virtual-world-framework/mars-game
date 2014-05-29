@@ -15,6 +15,14 @@ this.findAndSetBoundaryMap = function() {
         this.boundaryMap = boundaryMapObject.map;
         this.gridSquareLength = boundaryMapObject.gridSquareLength;
     }
+    this.findAndSetGridMap();
+}
+
+this.findAndSetGridMap = function() {
+    var gridObject = this.find( "//element(*,'source/grid.vwf')" )[ 0 ];
+    if ( gridObject ) {
+        this.grid = gridObject;
+    }
 }
 
 this.moved = function() {
@@ -42,6 +50,8 @@ this.moveForward = function() {
     if ( boundaryXArray ) {
         var boundaryValue = boundaryXArray[ proposedNewGridSquare[ 1 ] ];
         if ( ( boundaryValue < 0 ) || ( boundaryValue === undefined ) ) {
+            this.moveFailed( "collision" );
+        } else if ( this.grid.checkCoord( proposedNewGridSquare ) ) {
             this.moveFailed( "collision" );
         } else if ( boundaryValue > this.battery ) {
             // if the move fails because of battery, drain the rest of our battery

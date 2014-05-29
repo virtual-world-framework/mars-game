@@ -1,0 +1,16 @@
+---
+extends: http://vwf.example.com/node.vwf
+properties:
+  gridMap: []
+  gridSquareLength: 1
+  maxX: 15
+  maxY: 15
+
+methods:
+  addToGrid:
+  checkCoord:
+  validCoord:
+  isOccupied:
+
+scripts:
+- source: source/grid.js
