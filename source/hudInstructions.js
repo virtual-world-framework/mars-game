@@ -1,16 +1,14 @@
 function createHUD() {
 
     var batteryMeter = new HUD.Element( "batteryMeter", drawBatteryMeter, 250, 40 );
-    batteryMeter.battery = 30;
-    batteryMeter.maxBattery = 50;
+    batteryMeter.battery = 100;
+    batteryMeter.maxBattery = 100;
     hud.add( batteryMeter, "left", "bottom", { "x": 30, "y": -30 } );
-    batteryMeter.visible = true;
 
     var ramMeter = new HUD.Element( "ramMeter", drawRamMeter, 250, 40 );
-    ramMeter.ram = 15;
-    ramMeter.maxRam = 15;
+    ramMeter.ram = 100;
+    ramMeter.maxRam = 100;
     hud.add( ramMeter, "right", "bottom", { "x": -30, "y": -30 } );
-    ramMeter.visible = true;
 
     var icon = new Image();
     icon.src = "assets/images/1stPersonBlockly.png";
@@ -391,11 +389,10 @@ function selectItem( event ) {
 
 function clickBlockly( event ) {
     
-    var roverID = vwf_view.kernel.find( undefined, "/player/rover" )[ 0 ];
     var sceneID = vwf_view.kernel.application();
 
-    if ( sceneID !== undefined && roverID !== undefined ) {
-        vwf_view.kernel.setProperty( sceneID, "blockly_activeNodeID", roverID );        
+    if ( sceneID !== undefined && targetID !== undefined ) {
+        vwf_view.kernel.setProperty( sceneID, "blockly_activeNodeID", targetID );
     }
 
 }

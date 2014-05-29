@@ -3,6 +3,8 @@ var blocklyNodes = {};
 var graphLines = {};
 var currentBlocklyNodeID = undefined;
 var blocklyExecuting = false;
+var targetID = undefined;
+var mainRover = undefined;
 
 function onRun() {
     vwf_view.kernel.setProperty( currentBlocklyNodeID, "blockly_executing", true );
@@ -87,6 +89,10 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
 }
 
 vwf_view.createdNode = function( nodeID, childID, childExtendsID, childImplementsIDs, childSource, childType, childIndex, childName ) {
+
+    if ( childName === "rover" ) {
+        mainRover = childID;
+    }
   
     var protos = getPrototypes.call( this, vwf_view.kernel, childExtendsID );
 
@@ -116,6 +122,8 @@ vwf_view.createdNode = function( nodeID, childID, childExtendsID, childImplement
 vwf_view.initializedNode = function( nodeID, childID, childExtendsID, childImplementsIDs, childSource, childType, childIndex, childName ) {
 
     if ( childID === vwf_view.kernel.application() ) {
+        hud = new HUD();
+        createHUD();
         vwf_view.kernel.kernel.views["vwf/view/threejs"].render = setUp;
     } 
 }
@@ -132,14 +140,14 @@ vwf_view.satProperty = function( nodeID, propertyName, propertyValue ) {
 
             case "battery":
                 blocklyNode[ propertyName ] = parseFloat( propertyValue );
-                if ( nodeID == currentBlocklyNodeID ) {
+                if ( nodeID === mainRover ) {
                     hud.elements.batteryMeter.battery = parseFloat( propertyValue );  
                 }
                 break;
 
             case "batteryMax":
                 blocklyNode[ propertyName ] = parseFloat( propertyValue );
-                if ( nodeID == currentBlocklyNodeID ) {
+                if ( nodeID === mainRover ) {
                     hud.elements.batteryMeter.maxBattery = parseFloat( propertyValue );    
                 }
                 break;
@@ -177,6 +185,13 @@ vwf_view.satProperty = function( nodeID, propertyName, propertyValue ) {
         }
     } 
 
+    if ( nodeID === vwf_view.kernel.find( "", "//camera" )[0] ) {
+
+        if ( propertyName === "target" ) {
+            targetID = vwf_view.kernel.find( "", "//" + propertyValue );
+        }
+    }
+
 }
 
 function setUp( renderer, scene, camera ) {
@@ -187,11 +202,7 @@ function setUp( renderer, scene, camera ) {
     // Modify and add to scene
     scene.fog = new THREE.FogExp2( 0xC49E70, 0.005 );
     renderer.setClearColor(scene.fog.color);
-
-    // Set up HUD
     renderer.autoClear = false;
-    hud = new HUD();
-    createHUD();
 
     // Set render loop to use custom render function
     vwf_view.kernel.kernel.views["vwf/view/threejs"].render = render;
@@ -200,7 +211,7 @@ function setUp( renderer, scene, camera ) {
 
 function render( renderer, scene, camera ) {
 
-    showHud( currentBlocklyNodeID !== undefined ); 
+    // showHud( targetID !== undefined ); 
     hud.update();
 
     renderer.clear();
@@ -316,9 +327,7 @@ function loadNewSession() {
 
 function showHud( show ) {
     if ( hud && hud.elements ) {
-        hud.elements.batteryMeter.visible = show;
-        hud.elements.ramMeter.visible = show;
-        hud.elements.cargo.visible = show;
+        hud.visible = show;
     }
 }
 

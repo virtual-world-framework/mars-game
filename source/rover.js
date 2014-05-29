@@ -131,9 +131,9 @@ this.translateOnTerrain = function( translation, duration ) {
 }
 
 this.pointerClick = function( pointerInfo, pickInfo ) {
-    var scene = this.find( '/' )[ 0 ];
-    if ( scene && this.blocklyEnabled ) {
-        scene.blocklyUiNodeID = this.id;
+    var camera = this.find( "//camera" )[ 0 ];
+    if ( camera && this.blocklyEnabled ) {
+        camera.target = this.name;
     }
 }
 
