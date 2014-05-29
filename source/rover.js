@@ -131,14 +131,9 @@ this.translateOnTerrain = function( translation, duration ) {
 }
 
 this.pointerClick = function( pointerInfo, pickInfo ) {
-    var blocklyWidget;
-    if ( this.blocklyEnabled ) {
-        blocklyWidget = this.blocklyButton;
-    } else {
-        blocklyWidget = this.noComm;
-    }
-    if ( blocklyWidget ) {
-        blocklyWidget.visible = !blocklyWidget.visible;    
+    var scene = this.find( '/' )[ 0 ];
+    if ( scene && this.blocklyEnabled ) {
+        scene.blocklyUiNodeID = this.id;
     }
 }
 
