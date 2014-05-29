@@ -79,9 +79,9 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
 
         if ( eventName === "pickedUp" ) {
             var iconSrc = eventArgs[ 0 ];
-            var inventorySize = eventArgs[ 1 ];
+            var index = eventArgs[ 1 ];
             var parentName = eventArgs[ 2 ];
-            addSlotIcon( nodeID, iconSrc, inventorySize, parentName );
+            addSlotIcon( nodeID, iconSrc, index, parentName );
         }
 
     }
