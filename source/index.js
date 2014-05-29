@@ -1,7 +1,6 @@
 var hud;
 var blocklyNodes = {};
 var graphLines = {};
-var firstPersonMode = true;
 var currentBlocklyNodeID = undefined;
 var blocklyExecuting = false;
 
@@ -178,12 +177,6 @@ vwf_view.satProperty = function( nodeID, propertyName, propertyValue ) {
         }
     } 
 
-    // nodeID is ignored here?
-    if ( propertyName === "isFirstPerson" ) {
-        hud.elements.blocklyButton.visible = Boolean( propertyValue );;
-        firstPersonMode = Boolean( propertyValue );
-    }
-
 }
 
 function setUp( renderer, scene, camera ) {
@@ -207,7 +200,7 @@ function setUp( renderer, scene, camera ) {
 
 function render( renderer, scene, camera ) {
 
-    showHud( firstPersonMode || currentBlocklyNodeID !== undefined ); 
+    showHud( currentBlocklyNodeID !== undefined ); 
     hud.update();
 
     renderer.clear();
