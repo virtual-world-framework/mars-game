@@ -171,25 +171,18 @@ children:
           pointOfView:
             set: |
               this.pointOfView = value;
-              this.updateCamera();
+              this.updateCamera$();
             value: thirdPerson
           targetPath:
             set: |
-              var previousTargetPath = this.targetPath;
-              if ( value !== previousTargetPath ) {
-                if ( previousTargetPath ) {
-                  var targetNode = this.find( previousTargetPath )[ 0 ];
-                  if ( targetNode ) {
-                    targetNode.visible = true;
-                  }
-                }
-                this.targetPath = value;
-                this.updateCamera();
-              }
+              this.setTargetPath$( value );
             value: "/player/rover"
+          firstPersonOffset: [ 0, 0, 1 ]
+          thirdPersonOffset: [ -15.531,  0,  5.553 ]
         methods:
-          onSceneReady:
-          updateCamera:
+          onSceneReady$:
+          setTargetPath$:
+          updateCamera$:
         scripts:
         - source: "source/camera.js"
       rover:
