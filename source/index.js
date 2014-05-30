@@ -11,10 +11,10 @@ function onRun() {
 
 window.addEventListener( "keyup", function (event) {
     switch ( event.keyCode ) {
-		case 80:
-			vwf_view.kernel.callMethod( vwf_view.kernel.find( undefined, "/player" ), "togglePerspective" );
+        case 80:
+            vwf_view.kernel.callMethod( vwf_view.kernel.find( undefined, "/player" ), "togglePerspective" );
             break;
-	}
+    }
 } );
 
 vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
