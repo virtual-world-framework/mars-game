@@ -53,6 +53,7 @@ this.initialize = function() {
 
 }
 
+
 this.setScenario = function( path ) {
     var scenario = this.find( path )[ 0 ];
     if ( scenario ) {

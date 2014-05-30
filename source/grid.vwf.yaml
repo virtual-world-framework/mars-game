@@ -3,14 +3,18 @@ extends: http://vwf.example.com/node.vwf
 properties:
   gridMap: []
   gridSquareLength: 1
-  maxX: 15
-  maxY: 15
+  minX: 0
+  minY: 0
+  maxX: 16
+  maxY: 16
 
 methods:
   addToGrid:
   checkCoord:
   validCoord:
   isOccupied:
+  gridToScene:
+  sceneToGrid:
 
 scripts:
 - source: source/grid.js

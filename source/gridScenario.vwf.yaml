@@ -1,0 +1,6 @@
+---
+extends: source/scenario.vwf
+methods:
+  onReady:
+scripts:
+- source: source/gridScenario.js

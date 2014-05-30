@@ -31,13 +31,14 @@ properties:
       }
     value: 100 
   boundaryMap: []
-  grid: []
+  gridManager: 
   gridSquareLength: 1
   currentGridSquare: [ 0, 0 ]
   heading: 90
   terrainName: undefined
 methods:
   findAndSetBoundaryMap:
+  findAndSetGridManager:
   moveForward:
   turnLeft:
   turnRight:

@@ -1,52 +1,52 @@
-var gridMap;
 var x = 0;
 var y = 1;
 
 this.initialize = function() {
 
     //Set up the grid map as a 2D array
-    gridMap = this.gridMap;
+    this.gridMap = this.gridMap;
     for ( var i = 0; i < this.maxX; i++ ) {
-        gridMap[ i ] = [];
+        this.gridMap[ i ] = [];
     }
 }
 
 this.validCoord = function( gridCoord ) {
-    if ( ( ( gridCoord[ x ] < 0 ) || ( gridCoord[ x ] > this.maxX ) ) && ( ( gridCoord[ y ] < 0 ) || ( gridCoord[ y ] > this.maxY ) ) ) {
+    if ( ( ( gridCoord[ x ] < this.minX ) || ( gridCoord[ x ] > this.maxX ) ) && ( ( gridCoord[ y ] < this.minX ) || ( gridCoord[ y ] > this.maxY ) ) ) {
         return false;
     }
     return true;
 }
 
 this.isOccupied = function( gridCoord ) {
-    if ( gridMap[ gridCoord [ x ] ][ gridCoord [ y ] ] == null ){
-        return false;
+    if ( this.gridMap[ gridCoord[ x ] ][ gridCoord[ y ] ] ){
+        return true;
     }
-    return true;
+    return false;
 }
 
-//Add an object to the grid based on a given coordinate
+//Add an object to the grid based on its current coordinate
 this.addToGrid = function( object ) {
     var gridCoord = object.currentGridSquare;
     if ( this.validCoord( gridCoord ) && !this.isOccupied( gridCoord ) ) {
-        gridMap[ gridCoord[ x ] ][ gridCoord[ y ] ] = object;
+        this.gridMap[ gridCoord[ x ] ][ gridCoord[ y ] ] = object;
     }
 }
 
-//Add an object to the grid based on a given position
-// this.addToGrid = function( object, position ) {
-//     var x = Math.floor( position.x / 3 );
-//     var y = Math.floor( position.y / 3 );
-//     var gridCoord = { x, y };
-//     this.addToGrid( object, gridCoord );
-// }
+//Assign an object a coordinate and add it to the grid
+this.addToGridFromCoord = function( object, gridCoord ) {
+    if ( this.validCoord( gridCoord ) && !this.isOccupied( gridCoord ) ) {
+        this.gridMap[ gridCoord[ x ] ][ gridCoord[ y ] ] = object;
+        object.currentGridSquare = gridCoord;
+    }
+}
 
 this.removeFromGrid = function( object ) {
     for ( var i = 0; i < this.maxX; i++ ) {
         for ( var j = 0; j < this.maxY; j++ ) {
-            if ( gridMap[ i ][ j ] === object ){
-                gridMap[ i ][ j ] = null;
+            if ( this.gridMap[ i ][ j ] === object ){
+                this.gridMap[ i ][ j ] = null;
                 object.currentGridSquare = null;
+                return;
             }
         }
     }
@@ -54,9 +54,10 @@ this.removeFromGrid = function( object ) {
 
 this.checkCoord = function( gridCoord ) {
     if ( this.validCoord( gridCoord ) && this.isOccupied( gridCoord ) ) {
-        return gridMap[ gridCoord[ x ] ][ gridCoord[ y ] ];
+        return this.gridMap[ gridCoord[ x ] ][ gridCoord[ y ] ];
     }
     return null;
 }
+
 
 //@ sourceURL=source/grid.js

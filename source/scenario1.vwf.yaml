@@ -1,5 +1,5 @@
 ---
-extends: source/scenario.vwf
+extends: source/gridScenario.vwf
 properties:
   scenePath: /
   blockly: assets/scenario/scenario1.xml
