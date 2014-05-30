@@ -103,9 +103,7 @@ vwf_view.createdNode = function( nodeID, childID, childExtendsID, childImplement
             "ID": childID, 
             "name": childName,
             "ram": 15, 
-            "battery": 30,
             "ramMax": 15,
-            "batteryMax": 50,
             "allowedBlocks": 15
         };
 
@@ -134,29 +132,28 @@ vwf_view.initializedProperty = function( nodeID, propertyName, propertyValue ) {
 
 vwf_view.satProperty = function( nodeID, propertyName, propertyValue ) {
 
+    if ( nodeID === mainRover ) {
+        switch ( propertyName ) {
+
+            case "battery":
+                hud.elements.batteryMeter.battery = parseFloat( propertyValue );
+                break;
+
+            case "batteryMax":
+                hud.elements.batteryMeter.maxBattery = parseFloat( propertyValue );
+                break;
+    }
+
     var blocklyNode = blocklyNodes[ nodeID ];
     if ( blocklyNode ) {
         switch ( propertyName ) {
 
-            case "battery":
-                blocklyNode[ propertyName ] = parseFloat( propertyValue );
-                if ( nodeID === mainRover ) {
-                    hud.elements.batteryMeter.battery = parseFloat( propertyValue );  
-                }
-                break;
-
-            case "batteryMax":
-                blocklyNode[ propertyName ] = parseFloat( propertyValue );
-                if ( nodeID === mainRover ) {
-                    hud.elements.batteryMeter.maxBattery = parseFloat( propertyValue );    
-                }
-                break;
-
             case "ram":
                 blocklyNode[ propertyName ] = parseFloat( propertyValue );
-                if ( nodeID == currentBlocklyNodeID ) {
-                    hud.elements.ramMeter.ram = parseFloat( propertyValue );    
-                }
+                break;
+
+            case "ramMax":
+                blocklyNode[ propertyName ] = parseFloat( propertyValue );
                 break;
 
             case "blockly_blockCount":
@@ -167,7 +164,6 @@ vwf_view.satProperty = function( nodeID, propertyName, propertyValue ) {
                 blocklyNode[ propertyName ] = Number( propertyValue );
                 if ( nodeID == currentBlocklyNodeID ) {
                     // the mainWorkSpace is not valid until the UI is visible
-                    hud.elements.ramMeter.maxRam = Number( propertyValue );
                     if ( Blockly.mainWorkspace ) {
                         Blockly.mainWorkspace.maxBlocks = Number( propertyValue );    
                     }
@@ -211,7 +207,6 @@ function setUp( renderer, scene, camera ) {
 
 function render( renderer, scene, camera ) {
 
-    // showHud( targetID !== undefined ); 
     hud.update();
 
     renderer.clear();
@@ -325,17 +320,7 @@ function loadNewSession() {
     window.location.assign( window.location.origin + "/mars-game/" );
 }
 
-function showHud( show ) {
-    if ( hud && hud.elements ) {
-        hud.visible = show;
-    }
-}
-
-function updateHudElements( blocklyNode ) {
-    hud.elements.batteryMeter.battery = blocklyNode.battery;
-    hud.elements.batteryMeter.maxBattery = blocklyNode.batteryMax;
-    hud.elements.ramMeter.ram = blocklyNode.ram;
-    hud.elements.ramMeter.maxRam = blocklyNode.allowedBlocks;  
+function updateBlocklyUI( blocklyNode ) {
     if ( Blockly.mainWorkspace ) {
         Blockly.mainWorkspace.maxBlocks = blocklyNode.allowedBlocks;    
     }

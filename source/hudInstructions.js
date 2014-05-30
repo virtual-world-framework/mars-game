@@ -5,11 +5,6 @@ function createHUD() {
     batteryMeter.maxBattery = 100;
     hud.add( batteryMeter, "left", "top", { "x": 30, "y": 30 } );
 
-    var ramMeter = new HUD.Element( "ramMeter", drawRamMeter, 250, 40 );
-    ramMeter.ram = 100;
-    ramMeter.maxRam = 100;
-    hud.add( ramMeter, "right", "bottom", { "x": -30, "y": -30 } );
-
     var icon = new Image();
     icon.src = "assets/images/1stPersonBlockly.png";
     icon.onload = ( function() {
@@ -129,33 +124,6 @@ function drawBatteryMeter( context, position ) {
     context.font = 'bold 28px Arial';
     context.fillStyle = "rgb(255,255,255)";
     context.fillText( Math.round(battery), center.x, center.y );
-
-}
-
-function drawRamMeter( context, position ) {
-
-    var ram = this.ram;
-    var maxRam = this.maxRam;
-    var meterWidth = (this.width - 10) * ram / maxRam;
-    var meterHeight = (this.height - 10);
-
-    context.strokeStyle = "rgb(255,255,255)";
-    context.lineWidth = 3;
-    context.strokeRect( position.x, position.y, this.width, this.height );
-    context.fillStyle = "rgb(220,90,50)";
-    context.fillRect( position.x + this.width - 5, position.y + 5, -meterWidth, meterHeight );
-
-    context.textBaseline = "bottom";
-    context.font = '16px Arial';
-    context.fillStyle = "rgb(255,255,255)";
-    context.textAlign = "end";
-    context.fillText("RAM", position.x + this.width, position.y - 4);
-
-    context.textBaseline = "top";
-    context.font = 'bold 28px Arial';
-    context.fillStyle = "rgb(255,255,255)";
-    context.textAlign = "end";
-    context.fillText(Math.round(ram), position.x + this.width - 25, position.y + 4);
 
 }
 
