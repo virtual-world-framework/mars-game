@@ -8,6 +8,7 @@ this.onSceneReady = function() {
 
 this.updateCamera = function() {
     var durationSeconds = 1;
+    var delaySeconds = 0.1;
     var targetTransform;
     var targetNode;
     if ( this.targetPath ) {
@@ -32,6 +33,9 @@ this.updateCamera = function() {
             firstPersonTransform[ 14 ] += firstPersonOffset[ 2 ];
             this.transformTo( firstPersonTransform, durationSeconds );
             this.future( durationSeconds ).navmode = "walk";
+            if ( targetNode ) {
+                targetNode.future( durationSeconds - delaySeconds ).visible = false;
+            }
             break;
         case "thirdPerson":
             var thirdPersonOrientationTransform = [ 
@@ -46,6 +50,9 @@ this.updateCamera = function() {
             thirdPersonTransform[ 14 ] = targetTransform[ 14 ] + thirdPersonOffset[ 2 ];
             this.transformTo( thirdPersonTransform, durationSeconds );
             this.navmode = "none";
+            if ( targetNode ) {
+                targetNode.future( delaySeconds ).visible = true;
+            }
             break;
         default:
             break;

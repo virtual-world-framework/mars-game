@@ -177,8 +177,12 @@ children:
             set: |
               var previousTargetPath = this.targetPath;
               if ( value !== previousTargetPath ) {
-                // TODO: Unregister event listener 
-                // TODO: Register new event listener
+                if ( previousTargetPath ) {
+                  var targetNode = this.find( previousTargetPath )[ 0 ];
+                  if ( targetNode ) {
+                    targetNode.visible = true;
+                  }
+                }
                 this.targetPath = value;
                 this.updateCamera();
               }

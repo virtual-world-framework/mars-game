@@ -26,25 +26,8 @@ this.initializeEventHandlers = function() {
 }
 
 this.togglePerspective = function() {
-    var durationSeconds = 1;
-    var delaySeconds = 0.1;
-
-    if ( this.camera.pointOfView === "firstPerson" ) {
-        // Switch to third person
-        this.camera.pointOfView = "thirdPerson";
-        this.blocklyButtonVisible = this.rover.blocklyButton.visible;
-        this.future( delaySeconds ).setRoverVisible( true );
-    } else {
-        // Switch to first person
-        this.camera.pointOfView = "firstPerson";
-        this.blocklyButtonVisible = this.rover.blocklyButton.visible;
-        this.future( durationSeconds - delaySeconds ).setRoverVisible( false );
-    }
+    this.camera.pointOfView = ( this.camera.pointOfView === "firstPerson" ) ? 
+                              "thirdPerson" : "firstPerson";
 } 
-
-this.setRoverVisible = function( vis ) {
-    this.rover.visible = vis;
-    this.rover.blocklyButton.visible = this.blocklyButtonVisible;
-}
 //@ sourceURL=player
 
