@@ -41,7 +41,7 @@ this.setTargetPath$ = function( newTargetPath ) {
     var previousTargetNode = getTargetNode();
     if ( previousTargetNode ) {
         previousTargetNode.future( delaySeconds ).visible = true;
-        previousTargetNode.transformChanged = previousTargetNode.events.flush( this );
+        previousTargetNode.transformChanged = previousTargetNode.events.remove( this.followTarget$ );
     }
     this.targetPath = newTargetPath;
     cachedTargetNode = null;
