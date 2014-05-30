@@ -153,4 +153,12 @@ this.calcRam = function() {
     this.ram = this.blockly_allowedBlocks - this.blockly_blockCount;
 }
 
+this.blockCountChanged = function( value ) {
+    this.calcRam();
+}
+this.allowedBlocksChanged = function( value ) {
+    this.calcRam();
+    this.ramMax = this.blockly_allowedBlocks;
+}
+
 //@ sourceURL=source/rover.js

@@ -26,9 +26,9 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
             case "blocklyVisibleChanged":
                 if ( eventArgs[ 0 ] ) {
                     currentBlocklyNodeID = nodeID;
-                    updateHudElements( blocklyNode );    
+                    updateBlocklyUI( blocklyNode );
                 } else {
-                    currentBlocklyNodeID = undefined;    
+                    currentBlocklyNodeID = undefined;
                 }
                 break;
 
@@ -103,8 +103,7 @@ vwf_view.createdNode = function( nodeID, childID, childExtendsID, childImplement
             "ID": childID, 
             "name": childName,
             "ram": 15, 
-            "ramMax": 15,
-            "allowedBlocks": 15
+            "ramMax": 15
         };
 
     } else if ( isGraphlineNode( protos ) && childName === "blocklyLine" ) {
@@ -142,6 +141,8 @@ vwf_view.satProperty = function( nodeID, propertyName, propertyValue ) {
             case "batteryMax":
                 hud.elements.batteryMeter.maxBattery = parseFloat( propertyValue );
                 break;
+                
+        }
     }
 
     var blocklyNode = blocklyNodes[ nodeID ];
@@ -154,15 +155,7 @@ vwf_view.satProperty = function( nodeID, propertyName, propertyValue ) {
 
             case "ramMax":
                 blocklyNode[ propertyName ] = parseFloat( propertyValue );
-                break;
-
-            case "blockly_blockCount":
-                blocklyNode[ propertyName ] = parseFloat( propertyValue );
-                break;
-
-            case "blockly_allowedBlocks":
-                blocklyNode[ propertyName ] = Number( propertyValue );
-                if ( nodeID == currentBlocklyNodeID ) {
+                if ( nodeID === currentBlocklyNodeID ) {
                     // the mainWorkSpace is not valid until the UI is visible
                     if ( Blockly.mainWorkspace ) {
                         Blockly.mainWorkspace.maxBlocks = Number( propertyValue );    
@@ -322,7 +315,7 @@ function loadNewSession() {
 
 function updateBlocklyUI( blocklyNode ) {
     if ( Blockly.mainWorkspace ) {
-        Blockly.mainWorkspace.maxBlocks = blocklyNode.allowedBlocks;    
+        Blockly.mainWorkspace.maxBlocks = blocklyNode.ramMax;
     }
 }
 

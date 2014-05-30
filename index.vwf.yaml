@@ -205,8 +205,6 @@ children:
             properties:
               capacity: 4
               inventoryIsVisible: false
-        scripts:
-        - source: source/blocklyListeners.js
     scripts:
      - source: source/player.js
   minirover:
