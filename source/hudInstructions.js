@@ -1,9 +1,9 @@
 function createHUD() {
 
-    var batteryMeter = new HUD.Element( "batteryMeter", drawBatteryMeter, 250, 40 );
+    var batteryMeter = new HUD.Element( "batteryMeter", drawBatteryMeter, 128, 128 );
     batteryMeter.battery = 100;
     batteryMeter.maxBattery = 100;
-    hud.add( batteryMeter, "left", "bottom", { "x": 30, "y": -30 } );
+    hud.add( batteryMeter, "left", "top", { "x": 30, "y": 30 } );
 
     var ramMeter = new HUD.Element( "ramMeter", drawRamMeter, 250, 40 );
     ramMeter.ram = 100;
@@ -109,24 +109,26 @@ function drawBatteryMeter( context, position ) {
 
     var battery = this.battery;
     var maxBattery = this.maxBattery;
-    var meterWidth = (this.width - 10) * battery / maxBattery;
-    var meterHeight = (this.height - 10);
+    var arcWidth = 16;
+    var center = {
+        "x": position.x + this.width / 2,
+        "y": position.y + this.height / 2
+    };
+    var radius = ( ( this.width + this.height ) / 2 ) / 2 - ( arcWidth / 2 );
+    var start = Math.PI * 1.5;
+    var end = start - ( battery / maxBattery ) * Math.PI * 2;
 
-    context.strokeStyle = "rgb(255,255,255)";
-    context.lineWidth = 3;
-    context.strokeRect( position.x, position.y, this.width, this.height );
-    context.fillStyle = "rgb(50,90,220)";
-    context.fillRect( position.x + 5, position.y + 5, meterWidth, meterHeight );
+    context.beginPath();
+    context.arc( center.x, center.y, radius, start, end, true );
+    context.lineWidth = arcWidth;
+    context.strokeStyle = "rgb(50,90,220)";
+    context.stroke();
 
-    context.textBaseline = "bottom";
-    context.font = '16px Arial';
-    context.fillStyle = "rgb(255,255,255)";
-    context.fillText("BATTERY", position.x, position.y - 4);
-
-    context.textBaseline = "top";
+    context.textBaseline = "middle";
+    context.textAlign = "center";
     context.font = 'bold 28px Arial';
     context.fillStyle = "rgb(255,255,255)";
-    context.fillText(Math.round(battery), position.x + 25, position.y + 4);
+    context.fillText( Math.round(battery), center.x, center.y );
 
 }
 
