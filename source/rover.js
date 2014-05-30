@@ -47,14 +47,13 @@ this.moveForward = function() {
             this.battery = 0;
             this.moveFailed( "battery" );
         } else {
-            this.battery -= boundaryValue;
             this.currentGridSquare = proposedNewGridSquare;
             var displacement = [ dirVector[ 0 ] * this.gridSquareLength, 
                                  dirVector[ 1 ] * this.gridSquareLength, 0 ];
             // TODO: This should use worldTransformBy, but we are getting a bug where the rover's transform isn't set
             //       yet when this method is called.  Until we can debug that, we are assuming that the rover's 
             //       parent's frame of reference is the world frame of reference
-            this.translateOnTerrain( displacement, 1 );
+            this.translateOnTerrain( displacement, 1, boundaryValue );
             // this.worldTransformBy( [
             //   1, 0, 0, 0,  
             //   0, 1, 0, 0,  
@@ -83,7 +82,7 @@ this.turnRight = function() {
     this.rotateBy( [ 0, 0, 1, -90 ], 1 );
 }
 
-this.translateOnTerrain = function( translation, duration ) {
+this.translateOnTerrain = function( translation, duration, boundaryValue ) {
 
     var terrain = this.find( "//" + this.terrainName )[0];
 
@@ -100,6 +99,7 @@ this.translateOnTerrain = function( translation, duration ) {
             deltaTranslation,
             goog.vec.Vec3.create()
         );
+        var currentBattery = this.battery;
 
         if(duration > 0) {
 
@@ -114,6 +114,7 @@ this.translateOnTerrain = function( translation, duration ) {
 
                 newTranslation[2] = getTerrainHeight( newTranslation[0], newTranslation[1], newTranslation[2] + 3, terrain );
                 this.translation = newTranslation;
+                this.battery = currentBattery - ( time / duration ) * boundaryValue;
 
             }
 
