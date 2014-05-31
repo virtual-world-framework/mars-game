@@ -7,6 +7,7 @@ properties:
   enableShadows: true
   ambientColor: [ 60, 50, 50 ]
   userObject: null
+  blockly_autoClose: false
 methods:
   checkForSuccess:
 events:
