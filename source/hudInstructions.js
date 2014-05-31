@@ -395,7 +395,7 @@ function clickBlockly( event ) {
     var sceneID = vwf_view.kernel.application();
 
     if ( sceneID !== undefined && roverID !== undefined ) {
-        vwf_view.kernel.setProperty( sceneID, "blocklyUiNodeID", roverID );        
+        vwf_view.kernel.setProperty( sceneID, "blockly_activeNodeID", roverID );        
     }
 
 }

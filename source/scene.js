@@ -54,8 +54,8 @@ this.initialize = function() {
             self.minirover.noComm.visible = true;
         }
 
-        if ( self.blocklyUiNodeID === self.minirover.id ) {
-            self.blocklyUiNodeID = null;
+        if ( self.blockly_activeNodeID === self.minirover.id ) {
+            self.blockly_activeNodeID = undefined;
         }
     }
 
