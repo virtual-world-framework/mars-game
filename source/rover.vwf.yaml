@@ -30,9 +30,7 @@ properties:
         this.ramMaxChanged( value );
       }
     value: 100 
-  boundaryMap: []
   gridManager: 
-  gridSquareLength: 1
   currentGridSquare: [ 0, 0 ]
   heading: 90
   terrainName: undefined

@@ -6,15 +6,7 @@ this.initialize = function() {
 
     self = this;
     this.calcRam();
-    //this.future( 0 ).findAndSetGridManager();
 }
-
-// this.findAndSetGridManager = function() {
-//     var managerObject = this.find( "//element(*,'source/gridManager.vwf')" )[ 0 ];
-//     if ( managerObject ) {
-//         myGridManager = managerObject;
-//     }
-// }
 
 this.moveForward = function() {
 
@@ -36,11 +28,13 @@ this.moveForward = function() {
             this.battery = 0;
             this.moveFailed( "battery" );
         }
-        //Otherwise, check if the space if occupied
+
+        //Otherwise, check if the space is occupied
         else{
             var objectAtNewSquare = myGridManager.currentGrid.checkCoord( proposedNewGridSquare );
             if ( objectAtNewSquare === null || objectAtNewSquare.isInventoriable ){
                 this.battery -= energyRequired;
+                myGridManager.currentGrid.moveObjectOnGrid( this.currentGridSquare, proposedNewGridSquare );
                 this.currentGridSquare = proposedNewGridSquare;
                 var displacement = [ dirVector[ 0 ] * myGridManager.gridSquareLength, 
                                      dirVector[ 1 ] * myGridManager.gridSquareLength, 0 ];

@@ -7,7 +7,7 @@ this.validCoord = function( gridCoord ) {
 
 this.getEnergy = function ( gridCoord ) {
 	if ( this.currentBoundaryMap && this.validCoord( gridCoord ) ) {
-		return this.currentBoundaryMap.map[ gridCoord[ 0 ] ][ gridCoord[ 1 ] ];
+		return this.currentGrid.boundaryMap[ gridCoord[ 0 ] ][ gridCoord[ 1 ] ];
 	}
 	return null;
 }

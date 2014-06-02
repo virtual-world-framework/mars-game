@@ -5,8 +5,6 @@ properties:
 children:
   currentGridMap:
     extends: http://vwf.example.com/node.vwf
-  currentBoundaryMap:
-    extends: http://vwf.example.com/node.vwf
 methods:
 scripts:
 - source: source/gridManager.js

@@ -297,10 +297,7 @@ children:
     children:
       grid:
         extends: source/grid.vwf
-      boundaryMap:
-        extends: source/boundaryMap.vwf
         properties:
-          topLeft: [ -10.5, 25.5 ]
           gridSquareLength: 3
           map:
           - [ -1, -1, -1, -1, -1, -1,  1,  1,  1, -1, -1, -1, -1, -1, -1, -1 ]
@@ -319,6 +316,7 @@ children:
           - [  1, -1, -1,  1, -1, -1, -1,  2, -1, -1, -1, -1, -1,  2, -1, -1 ]
           - [  1, -1, -1,  1, -1, -1, -1,  2, -1, -1, -1, -1, -1,  2, -1, -1 ]
           - [ -1, -1, -1,  1,  1,  1,  1,  1, -1, -1, -1, -1, -1,  2, -1, -1 ]
+
   blocklyLine:
     extends: http://vwf.example.com/graphline.vwf
     properties:

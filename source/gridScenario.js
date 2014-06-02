@@ -11,8 +11,7 @@ this.findAndSetUpGridManager = function() {
     var managerObject = this.find( "//element(*,'source/gridManager.vwf')" )[ 0 ];
     if ( managerObject ) {
         managerObject.currentGrid = self.grid;
-        managerObject.currentBoundaryMap = self.boundaryMap;
-        managerObject.gridSquareLength = self.boundaryMap.gridSquareLength;
+        managerObject.gridSquareLength = self.grid.gridSquareLength;
     }
     else {
         self.logger.errorx( "findAndSetUpGridManager", "Failed to find the grid manager." );
