@@ -168,14 +168,30 @@ children:
           translation: [ 0, 0, 1 ]
           rotation: [ 0, 0, 1, 270 ]
           far: 100000
-          isFirstPerson: true
+          pointOfView:
+            set: |
+              this.changePointOfView$( value );
+            value: thirdPerson
+          targetPath:
+            set: |
+              this.setTargetPath$( value );
+            value: "/player/rover"
+          firstPersonOffset: [ 0, 0, 1 ]
+          thirdPersonOffset: [ -15.531,  0,  5.553 ]
+          needToSetupEventHandler$: false
+        methods:
+          onSceneReady$:
+          changePointOfView$:
+          setTargetPath$:
+          followTarget$:
+        scripts:
+        - source: "source/camera.js"
       rover:
         extends: source/rover.vwf
         implements: [ "http://vwf.example.com/blockly/controller.vwf" ]
         source: assets/3d/Rover/rover_retro.dae
         type: model/vnd.collada+xml
         properties:
-          visible: false
           rotation: [ 0, 0, 1, 270 ]
           castShadows: true
           receiveShadows: true
