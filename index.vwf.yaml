@@ -186,7 +186,6 @@ children:
           followTarget$:
         scripts:
         - source: "source/camera.js"
-          target: undefined
       rover:
         extends: source/rover.vwf
         implements: [ "http://vwf.example.com/blockly/controller.vwf" ]
