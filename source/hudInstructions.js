@@ -1,54 +1,87 @@
 function createHUD() {
 
-    var batteryMeter = new HUD.Element( "batteryMeter", drawBatteryMeter, 128, 128 );
-    batteryMeter.battery = 100;
-    batteryMeter.maxBattery = 100;
-    hud.add( batteryMeter, "left", "top", { "x": 30, "y": 30 } );
-
-    var roverIcon = new Image();
-    roverIcon.src = "assets/hud/rover_frame.png";
-    roverIcon.onload = ( function() {
-
-        var roverFrame = new HUD.Element( "rover", drawIcon, roverIcon.width, roverIcon.height );
-        roverFrame.icon = roverIcon;
-        batteryMeter.frame = roverFrame;
-        
-    } );
-
-    var roverPortrait = new Image();
-    roverPortrait.src = "assets/hud/rover_portrait.png";
-    roverPortrait.onload = ( function() {
-
-        var roverp = new HUD.Element( "roverp", drawIcon, roverPortrait.width, roverPortrait.height );
-        roverp.icon = roverPortrait;
-        roverp.onMouseDown = clickBlockly;
-        batteryMeter.portrait = roverp;
-        
-    } );
-
-    var roverDetail = new Image();
-    roverDetail.src = "assets/hud/rover_frame_detail.png";
-    roverDetail.onload = ( function() {
-
-        var rd = new HUD.Element( "roverDetail", drawIcon, roverPortrait.width, roverPortrait.height );
-        rd.icon = roverDetail;
-        batteryMeter.detail = rd;
-        
-    } );
+    createRoverElement();
+    createMiniRoverElement();
+    createCameraSelector();
 
     var icon = new Image();
-    icon.src = "assets/images/1stPersonBlockly.png";
+    icon.src = "assets/hud/blockly_large.png";
     icon.onload = ( function() {
 
         var blocklyButton = new HUD.Element( "blocklyButton", drawIcon, icon.width, icon.height );
         blocklyButton.icon = icon;
         blocklyButton.onMouseDown = clickBlockly;
-        hud.add( blocklyButton, "right", "top", { "x": -30, "y": 30 } );
+        hud.add( blocklyButton, "right", "bottom", { "x": -30, "y": -30 } );
         
     } );
 
     createInventoryHUD( 4 );
 
+}
+
+function createRoverElement() {
+    var batteryMeter = new HUD.Element( "batteryMeter", drawBatteryMeter, 128, 128 );
+    batteryMeter.battery = 100;
+    batteryMeter.maxBattery = 100;
+    hud.add( batteryMeter, "left", "top", { "x": 30, "y": 30 } );
+
+    var roverFrame = new Image();
+    roverFrame.src = "assets/hud/rover_frame.png";
+    roverFrame.onload = ( function() { batteryMeter.frame = roverFrame; } );
+
+    var roverPortrait = new Image();
+    roverPortrait.src = "assets/hud/rover_portrait.png";
+    roverPortrait.onload = ( function() { batteryMeter.portrait = roverPortrait; } );
+
+    var roverDetail = new Image();
+    roverDetail.src = "assets/hud/rover_frame_detail.png";
+    roverDetail.onload = ( function() { batteryMeter.detail = roverDetail; } );
+}
+
+function createMiniRoverElement() {
+    var miniroverElement = new HUD.Element( "minirover", drawMiniRoverElement, 88, 88 );
+    hud.add( miniroverElement, "left", "top", { "x": 50, "y": 168 } );
+
+    var portrait = new Image();
+    portrait.src = "assets/hud/minirover_portrait.png";
+    portrait.onload = ( function() { miniroverElement.portrait = portrait; } );
+
+    var frame = new Image();
+    frame.src = "assets/hud/minirover_frame.png";
+    frame.onload = ( function() { miniroverElement.frame = frame; } );
+}
+
+function createCameraSelector() {
+
+    var largeIcon = new Image();
+    largeIcon.src = "assets/hud/camera_bg_large.png";
+    largeIcon.onload = ( function() {
+
+        var selectedMode = new HUD.Element( "camera_selected", drawCameraSelector, largeIcon.width, largeIcon.height );
+        selectedMode.background = largeIcon;
+        hud.add( selectedMode, "right", "top", { "x": -80, "y": 80 } );
+        
+    } );
+
+    var smallIcon1 = new Image();
+    smallIcon1.src = "assets/hud/camera_bg_small.png";
+    smallIcon1.onload = ( function() {
+
+        var optionMode1 = new HUD.Element( "camera_option1", drawCameraSelector, smallIcon1.width, smallIcon1.height );
+        optionMode1.background = smallIcon1;
+        hud.add( optionMode1, "right", "top", { "x": -70, "y": 30 } );
+        
+    } );
+
+    var smallIcon2 = new Image();
+    smallIcon2.src = "assets/hud/camera_bg_small.png";
+    smallIcon2.onload = ( function() {
+
+        var optionMode2 = new HUD.Element( "camera_option2", drawCameraSelector, smallIcon2.width, smallIcon2.height );
+        optionMode2.background = smallIcon2;
+        hud.add( optionMode2, "right", "top", { "x": -30, "y": 70 } );
+        
+    } );
 }
 
 function createInventoryHUD( capacity ) {
@@ -151,15 +184,15 @@ function drawBatteryMeter( context, position ) {
     context.stroke();
 
     if ( this.portrait ) {
-        context.drawImage( this.portrait.icon, center.x - this.portrait.width / 2, center.y - this.portrait.height / 2 );
+        context.drawImage( this.portrait, center.x - this.portrait.width / 2, center.y - this.portrait.height / 2 );
     }
 
     if ( this.detail ) {
-        context.drawImage( this.detail.icon, position.x, position.y );
+        context.drawImage( this.detail, position.x, position.y );
     }
 
     if ( this.frame ) {
-        context.drawImage( this.frame.icon, position.x, position.y );
+        context.drawImage( this.frame, position.x, position.y );
     }
 
     context.textBaseline = "top";
@@ -167,6 +200,27 @@ function drawBatteryMeter( context, position ) {
     context.fillStyle = "rgb(255,255,255)";
     context.fillText( Math.round(battery), position.x + this.width + 3, position.y - 1 );
 
+}
+
+function drawMiniRoverElement( context, position ) {
+    var center = {
+        "x": position.x + this.width / 2,
+        "y": position.y + this.height / 2
+    };
+
+    if ( this.portrait ) {
+        context.drawImage( this.portrait, center.x - this.portrait.width / 2, center.y - this.portrait.height / 2 );
+    }
+
+    if ( this.frame ) {
+        context.drawImage( this.frame, position.x, position.y );
+    }
+}
+
+function drawCameraSelector( context, position ) {
+    if ( this.background ) {
+        context.drawImage( this.background, this.position.x, this.position.y );
+    }
 }
 
 function drawIcon( context, position ) {
