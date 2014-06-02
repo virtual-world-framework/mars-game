@@ -5,6 +5,37 @@ function createHUD() {
     batteryMeter.maxBattery = 100;
     hud.add( batteryMeter, "left", "top", { "x": 30, "y": 30 } );
 
+    var roverIcon = new Image();
+    roverIcon.src = "assets/hud/rover_frame.png";
+    roverIcon.onload = ( function() {
+
+        var roverFrame = new HUD.Element( "rover", drawIcon, roverIcon.width, roverIcon.height );
+        roverFrame.icon = roverIcon;
+        batteryMeter.frame = roverFrame;
+        
+    } );
+
+    var roverPortrait = new Image();
+    roverPortrait.src = "assets/hud/rover_portrait.png";
+    roverPortrait.onload = ( function() {
+
+        var roverp = new HUD.Element( "roverp", drawIcon, roverPortrait.width, roverPortrait.height );
+        roverp.icon = roverPortrait;
+        roverp.onMouseDown = clickBlockly;
+        batteryMeter.portrait = roverp;
+        
+    } );
+
+    var roverDetail = new Image();
+    roverDetail.src = "assets/hud/rover_frame_detail.png";
+    roverDetail.onload = ( function() {
+
+        var rd = new HUD.Element( "roverDetail", drawIcon, roverPortrait.width, roverPortrait.height );
+        rd.icon = roverDetail;
+        batteryMeter.detail = rd;
+        
+    } );
+
     var icon = new Image();
     icon.src = "assets/images/1stPersonBlockly.png";
     icon.onload = ( function() {
@@ -104,26 +135,37 @@ function drawBatteryMeter( context, position ) {
 
     var battery = this.battery;
     var maxBattery = this.maxBattery;
-    var arcWidth = 16;
+    var arcWidth = ( this.height + this.width ) / 4 ;
     var center = {
         "x": position.x + this.width / 2,
         "y": position.y + this.height / 2
     };
-    var radius = ( ( this.width + this.height ) / 2 ) / 2 - ( arcWidth / 2 );
+    var radius = ( ( this.width + this.height ) / 2 ) / 2 - ( arcWidth );
     var start = Math.PI * 1.5;
     var end = start - ( battery / maxBattery ) * Math.PI * 2;
 
     context.beginPath();
-    context.arc( center.x, center.y, radius, start, end, true );
-    context.lineWidth = arcWidth;
+    context.arc( center.x, center.y, arcWidth / 2, start, end, true );
+    context.lineWidth = arcWidth - 1;
     context.strokeStyle = "rgb(50,90,220)";
     context.stroke();
 
-    context.textBaseline = "middle";
-    context.textAlign = "center";
-    context.font = 'bold 28px Arial';
+    if ( this.portrait ) {
+        context.drawImage( this.portrait.icon, center.x - this.portrait.width / 2, center.y - this.portrait.height / 2 );
+    }
+
+    if ( this.detail ) {
+        context.drawImage( this.detail.icon, position.x, position.y );
+    }
+
+    if ( this.frame ) {
+        context.drawImage( this.frame.icon, position.x, position.y );
+    }
+
+    context.textBaseline = "top";
+    context.font = 'bold 24px Arial';
     context.fillStyle = "rgb(255,255,255)";
-    context.fillText( Math.round(battery), center.x, center.y );
+    context.fillText( Math.round(battery), position.x + this.width + 3, position.y - 1 );
 
 }
 
