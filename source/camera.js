@@ -60,7 +60,7 @@ this.setTargetPath$ = function( newTargetPath ) {
 
     // Attempt to set an event handler for when the target moves so the camera can follow
     // If we cannot find the target because the scene has not been fully created, the 
-    // needToSetupEventHandler$ property remains true so that it the event handler will be set in
+    // needToSetupEventHandler$ property remains true so that if the event handler will be set in
     // onSceneReady$
     this.needToSetupEventHandler$ = true;
     setTargetEventHandler();
