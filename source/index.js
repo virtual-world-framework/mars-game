@@ -176,8 +176,8 @@ vwf_view.satProperty = function( nodeID, propertyName, propertyValue ) {
 
     if ( nodeID === vwf_view.kernel.find( "", "//camera" )[0] ) {
 
-        if ( propertyName === "target" ) {
-            targetID = vwf_view.kernel.find( "", "//" + propertyValue )[ 0 ];
+        if ( propertyName === "targetPath" ) {
+            targetID = vwf_view.kernel.find( "", propertyValue )[ 0 ];
         }
     }
 
