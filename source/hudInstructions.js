@@ -101,6 +101,27 @@ function createInventoryHUD( capacity ) {
     inventory.type = "inventory";
     hud.add( inventory, "center", "bottom", { "x": 0, "y": -30 } );
 
+    var leftEnd = new Image();
+    leftEnd.src = "assets/hud/inventory_end_left.png";
+    leftEnd.onload = ( function() { 
+        inventory.leftEnd = leftEnd;
+        inventory.width += leftEnd.width;
+    } );
+
+    var rightEnd = new Image();
+    rightEnd.src = "assets/hud/inventory_end_right.png";
+    rightEnd.onload = ( function() { 
+        inventory.rightEnd = rightEnd;
+        inventory.width += rightEnd.width;
+    } );
+
+    var separator = new Image();
+    separator.src = "assets/hud/inventory_separator.png";
+    separator.onload = ( function() { 
+        inventory.separator = separator;
+        inventory.width += ( capacity - 1 ) * separator.width;
+    } );
+
 }
 
 function getInventoryHUD() {
@@ -219,7 +240,7 @@ function drawMiniRoverElement( context, position ) {
 
 function drawCameraSelector( context, position ) {
     if ( this.background ) {
-        context.drawImage( this.background, this.position.x, this.position.y );
+        context.drawImage( this.background, position.x, position.y );
     }
 }
 
@@ -232,19 +253,34 @@ function drawIcon( context, position ) {
 function drawInventory( context, position ) {
 
     var cap = this.capacity;
-    context.fillStyle = "rgb(80,40,40)";
-    context.fillRect( position.x - 1, position.y - 1, this.width + this.capacity + 1, this.height + 2 );
+    var separatorWidth = this.separator ? this.separator.width : 1;
+    var elementWidth = this.capacity * 48 + ( this.capacity - 1 ) * separatorWidth;
+    var startPosition = position.x;
+
+    if ( this.leftEnd ) {
+        context.drawImage( this.leftEnd, position.x, position.y );
+        startPosition += this.leftEnd.width;
+    }
+
+    if ( this.rightEnd ) {
+        context.drawImage( this.rightEnd, startPosition + elementWidth, position.y );
+    }
 
     for ( var i = 0; i < this.slots.length; i++ ) {
 
-        var posX = position.x + (i*48) + i;
+        var posX = startPosition + (i*48);
         var posY = position.y;
         var item = this.slots[ i ].item;
 
-        if ( item !== null ) {
+        if ( i > 0 ) {
+            if ( this.separator ) {
+                context.drawImage( this.separator, posX + (i - 1) * separatorWidth, posY );
+            }
 
-            context.fillStyle = "rgb(80,80,160)";
-            context.fillRect( posX, posY, 48, 48 );
+            posX += i * separatorWidth;
+        }
+
+        if ( item !== null ) {
 
             if ( item.icon instanceof Image ) {
 
@@ -259,7 +295,7 @@ function drawInventory( context, position ) {
 
         } else {
 
-            context.fillStyle = "rgb(225,225,225)";
+            context.fillStyle = "rgb(50,90,220)";
             context.fillRect( posX, posY, 48, 48 );
 
         }
