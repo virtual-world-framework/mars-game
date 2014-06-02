@@ -208,12 +208,12 @@ function drawBatteryMeter( context, position ) {
         context.drawImage( this.portrait, center.x - this.portrait.width / 2, center.y - this.portrait.height / 2 );
     }
 
-    if ( this.detail ) {
-        context.drawImage( this.detail, position.x, position.y );
-    }
-
     if ( this.frame ) {
         context.drawImage( this.frame, position.x, position.y );
+    }
+
+    if ( this.detail ) {
+        context.drawImage( this.detail, position.x, position.y );
     }
 
     context.textBaseline = "top";
