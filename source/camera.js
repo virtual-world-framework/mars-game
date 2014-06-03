@@ -27,7 +27,10 @@ this.changePointOfView$ = function( newPointOfView ) {
             this.future( durationSeconds ).navmode = "walk";
             break;
         case "thirdPerson":
-            this.navmode = "none";
+            this.navmode = "walk";
+            break;
+        case "topDown":
+            this.navmode = "walk";
             break;
         default:
             self.logger.warnx( "changePointOfView$", "Unrecognized camera point of view: '", 
@@ -126,6 +129,21 @@ function getNewCameraTransform() {
             newCameraTransform[ 14 ] = targetTransform[ 14 ] + self.thirdPersonOffset[ 2 ];
             break;
 
+        case "topDown":
+
+            // Lock the camera's orientation, but have it's position follow the target 
+            // (plus an offset)
+            var topDownOrientationTransform = [ 
+                1, 0,  0, 0, 
+                0, 0, -1, 0,
+                0, 1,  0, 0,
+                0, 0,  0, 1 ];
+            newCameraTransform = topDownOrientationTransform.slice( 0, 16 );
+            newCameraTransform[ 12 ] = targetTransform[ 12 ] + self.topDownOffset[ 0 ];
+            newCameraTransform[ 13 ] = targetTransform[ 13 ] + self.topDownOffset[ 1 ];
+            newCameraTransform[ 14 ] = self.topDownOffset[ 2 ];
+            break;
+
         default:
             self.logger.warnx( "getNewCameraTransform", "Unrecognized camera point of view: '", 
                 self.pointOfView, "'" );
@@ -148,6 +166,9 @@ function manageTargetVisibility() {
             targetNode.future( durationSeconds - delaySeconds ).visible = false;
             break;
         case "thirdPerson":
+            targetNode.future( delaySeconds ).visible = true;
+            break;
+        case "topDown":
             targetNode.future( delaySeconds ).visible = true;
             break;
         default:

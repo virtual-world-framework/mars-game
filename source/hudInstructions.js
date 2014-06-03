@@ -83,18 +83,18 @@ function createCameraSelector() {
         
     } );
 
-    // var smallIcon2 = new Image();
-    // smallIcon2.src = "assets/hud/camera_bg_small.png";
-    // smallIcon2.onload = ( function() {
+    var smallIcon2 = new Image();
+    smallIcon2.src = "assets/hud/camera_bg_small.png";
+    smallIcon2.onload = ( function() {
 
-    //     var optionMode2 = new HUD.Element( "camera_option2", drawCameraSelector, smallIcon2.width, smallIcon2.height );
-    //     optionMode2.background = smallIcon2;
-    //     optionMode2.mode = "topDown";
-    //     optionMode2.icon = undefined;
-    //     optionMode2.onMouseDown = switchCameraMode;
-    //     hud.add( optionMode2, "right", "top", { "x": -30, "y": 70 } );
+        var optionMode2 = new HUD.Element( "camera_option2", drawCameraSelector, smallIcon2.width, smallIcon2.height );
+        optionMode2.background = smallIcon2;
+        optionMode2.mode = "topDown";
+        optionMode2.icon = undefined;
+        optionMode2.onMouseDown = switchCameraMode;
+        hud.add( optionMode2, "right", "top", { "x": -30, "y": 70 } );
         
-    // } );
+    } );
 }
 
 function createCommsDisplay() {
