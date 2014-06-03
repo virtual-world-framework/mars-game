@@ -20,6 +20,7 @@ function setUpIntro() {
     var dir = "../assets/images/introScreens/";
     for ( var i = 0; i < intro.numberOfScreens; i++ ) {
         var image = document.createElement( 'img' );
+        image.className = "introImage";
         image.src = dir + "screen" + i + ".png";
         image.style.margin = "-384px 0 0 -512px";
         image.style.top = "50%";
@@ -41,16 +42,27 @@ function nextIntroSlide() {
 
         //If we're at the end of the deck, remove the intro screen div
         if ( intro.index > intro.images.length - 1 ) {
-            document.body.removeChild( intro.div );
-            delete intro.div;
+            $( ".introImage" ).fadeOut( function() {
+                $( "#introScreen" ).fadeOut( function() {
+                    document.body.removeChild( intro.div );
+                    delete intro.div;
+                } );        
+            } );            
         }
 
         //Otherwise, move to next screen
         else {
             if ( intro.index != 0 ){
-                intro.div.removeChild( intro.div.lastChild );
+                $( ".introImage" ).fadeOut( function() {
+                    intro.div.removeChild( intro.div.lastChild );
+                    intro.div.appendChild( intro.images[ intro.index ] );
+                    $( ".introImage" ).fadeIn();                    
+                } );
             }
-            intro.div.appendChild( intro.images[ intro.index ] );
+            else {
+                intro.div.appendChild( intro.images[ intro.index ] );
+                $( ".introImage" ).fadeIn();
+            }
         }
     }
 }
@@ -58,9 +70,12 @@ function nextIntroSlide() {
 function prevIntroSlide() {
 
     if ( ( intro.div ) && ( intro.index > 0 ) ) {
-        intro.index--;
-        intro.div.removeChild( intro.div.lastChild );
-        intro.div.appendChild( intro.images[ intro.index ] );
+        $( ".introImage" ).fadeOut( function() {
+            intro.index--;
+            intro.div.removeChild( intro.div.lastChild );
+            intro.div.appendChild( intro.images[ intro.index ] );
+            $( ".introImage" ).fadeIn();
+        } );
     }
 }
 
