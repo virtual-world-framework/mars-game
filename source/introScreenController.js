@@ -43,26 +43,19 @@ function nextIntroSlide() {
 
         //If we're at the end of the deck, remove the intro screen div
         if ( intro.index > intro.imagePaths.length - 1 ) {
-            $( ".introImage" ).fadeOut( function() {
-                $( "#introScreen" ).fadeOut( function() {
-                    document.body.removeChild( intro.div );
-                    delete intro.div;
-                } );        
-            } );            
+            $( "#transitionScreen" ).fadeIn( function() {
+                document.body.removeChild( intro.div );
+                delete intro.div;
+                $( "#transitionScreen" ).fadeOut();
+            } );      
         }
 
         //Otherwise, move to next screen
         else {
-            if ( intro.index != 0 ){
-                $( ".introImage" ).fadeOut( function() {
-                    intro.image.src = intro.imagePaths[ intro.index ];
-                    $( ".introImage" ).fadeIn();                    
-                } );
-            }
-            else {
+            $( "#transitionScreen" ).fadeIn( function() {
                 intro.image.src = intro.imagePaths[ intro.index ];
-                $( ".introImage" ).fadeIn();
-            }
+                intro.image.onload = $( "#transitionScreen" ).fadeOut();
+            } );
         }
     }
 }
@@ -70,10 +63,10 @@ function nextIntroSlide() {
 function prevIntroSlide() {
 
     if ( ( intro.div ) && ( intro.index > 0 ) ) {
-        $( ".introImage" ).fadeOut( function() {
-            intro.index--;
+        intro.index--;
+        $( "#transitionScreen" ).fadeIn( function() {
             intro.image.src = intro.imagePaths[ intro.index ];
-            $( ".introImage" ).fadeIn();
+            intro.image.onload = $( "#transitionScreen" ).fadeOut();
         } );
     }
 }

@@ -24,3 +24,13 @@
 #toolbox {
 	display: none;
 }
+
+#transitionScreen {
+	height: 100%;
+	width: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+	background-color: #000;
+	z-index: 3;
+}
