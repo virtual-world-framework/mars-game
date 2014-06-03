@@ -15,12 +15,38 @@ properties:
     - 50
   - setProperty:
     - rover
-    - ram
-    - 15
-  - setProperty:
-    - rover
     - blockly_allowedBlocks
     - 15
+
+  # Simplify heading/rotation
+  # Set initial rotation using heading
+  # Currently, moveLeft & moveRight in rover.js
+  # fight with adding that to the setter of heading
+  - setProperty:
+    - rover
+    - heading
+    - 270
+  - setProperty:
+    - rover
+    - rotation
+    - [ 0, 0, 1, 270 ]
+
+  # Simplify position/grid position
+  # Integrate position/grid square calculation so
+  # only one property needs to be set
+  - setProperty:
+    - rover
+    - translation
+    - [ 0, 0, 0 ]
+  - setProperty:
+    - rover
+    - currentGridSquare
+    - [ 2, 7 ]
+    
+  - setProperty:
+    - camera
+    - pointOfView
+    - "thirdPerson"
 
   successClause:
   - and:

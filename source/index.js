@@ -63,6 +63,14 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                     }
                 }
                 break;
+
+            case "scenarioReset":
+                var body = document.body;
+                var blocker = document.getElementById( "blocker" );
+                var gameOver = document.getElementById( "gameOver" );
+                body.removeChild( blocker );
+                body.removeChild( gameOver );
+                break;
         } 
 
     } else {
@@ -301,10 +309,11 @@ function endScenario( endType ) {
     blocker.style.right = "0px";
     blocker.style.opacity = "0.5";
     blocker.style.zIndex = "99";
+    blocker.id = "blocker";
 
     var div = document.createElement( 'DIV' );
     div.id = "gameOver";
-    div.onclick = loadNewSession;
+    div.onclick = resetScenario;
     div.style.height = "256px";
     div.style.width = "512px";
     div.style.marginLeft = "-256px";
@@ -333,6 +342,10 @@ function endScenario( endType ) {
 
 function loadNewSession() {
     window.location.assign( window.location.origin + "/mars-game/" );
+}
+
+function resetScenario() {
+    vwf_view.kernel.callMethod( vwf_view.kernel.application(), "resetScenario" );
 }
 
 function updateBlocklyUI( blocklyNode ) {
