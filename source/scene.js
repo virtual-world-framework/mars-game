@@ -38,22 +38,11 @@ this.initialize = function() {
     // Activate the minirover when the user picks up the radio
     this.pickups.radio.pickedUp = function() {
         self.minirover.blocklyEnabled = true;
-        var blocklyNoCommWidget = self.minirover.noComm;
-        if ( blocklyNoCommWidget.visible ) {
-            self.minirover.noComm.visible = false;
-            self.minirover.blocklyButton.visible = true;
-        }
     }
 
     // Deactivate the minirover when the user drops the radio
     this.pickups.radio.dropped = function() {
         self.minirover.blocklyEnabled = false;
-        var blocklyWidget = self.minirover.blocklyButton;
-        if ( blocklyWidget.visible ) {
-            blocklyWidget.visible = false;
-            self.minirover.noComm.visible = true;
-        }
-
         if ( self.blockly_activeNodeID === self.minirover.id ) {
             self.blockly_activeNodeID = undefined;
         }

@@ -1,9 +1,10 @@
 var hud;
 var blocklyNodes = {};
 var graphLines = {};
-var firstPersonMode = true;
 var currentBlocklyNodeID = undefined;
 var blocklyExecuting = false;
+var targetID = undefined;
+var mainRover = undefined;
 
 function onRun() {
     vwf_view.kernel.setProperty( currentBlocklyNodeID, "blockly_executing", true );
@@ -25,9 +26,9 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
             case "blocklyVisibleChanged":
                 if ( eventArgs[ 0 ] ) {
                     currentBlocklyNodeID = nodeID;
-                    updateHudElements( blocklyNode );    
+                    updateBlocklyUI( blocklyNode );
                 } else {
-                    currentBlocklyNodeID = undefined;    
+                    currentBlocklyNodeID = undefined;
                 }
                 break;
 
@@ -78,9 +79,9 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
 
         if ( eventName === "pickedUp" ) {
             var iconSrc = eventArgs[ 0 ];
-            var inventorySize = eventArgs[ 1 ];
+            var index = eventArgs[ 1 ];
             var parentName = eventArgs[ 2 ];
-            addSlotIcon( nodeID, iconSrc, inventorySize, parentName );
+            addSlotIcon( nodeID, iconSrc, index, parentName );
         }
 
     }
@@ -88,6 +89,10 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
 }
 
 vwf_view.createdNode = function( nodeID, childID, childExtendsID, childImplementsIDs, childSource, childType, childIndex, childName ) {
+
+    if ( childName === "rover" ) {
+        mainRover = childID;
+    }
   
     var protos = getPrototypes.call( this, vwf_view.kernel, childExtendsID );
 
@@ -98,10 +103,7 @@ vwf_view.createdNode = function( nodeID, childID, childExtendsID, childImplement
             "ID": childID, 
             "name": childName,
             "ram": 15, 
-            "battery": 30,
-            "ramMax": 15,
-            "batteryMax": 50,
-            "allowedBlocks": 15
+            "ramMax": 15
         };
 
     } else if ( isGraphlineNode( protos ) && childName === "blocklyLine" ) {
@@ -117,6 +119,8 @@ vwf_view.createdNode = function( nodeID, childID, childExtendsID, childImplement
 vwf_view.initializedNode = function( nodeID, childID, childExtendsID, childImplementsIDs, childSource, childType, childIndex, childName ) {
 
     if ( childID === vwf_view.kernel.application() ) {
+        hud = new HUD();
+        createHUD();
         vwf_view.kernel.kernel.views["vwf/view/threejs"].render = setUp;
     } 
 }
@@ -127,40 +131,32 @@ vwf_view.initializedProperty = function( nodeID, propertyName, propertyValue ) {
 
 vwf_view.satProperty = function( nodeID, propertyName, propertyValue ) {
 
+    if ( nodeID === mainRover ) {
+        switch ( propertyName ) {
+
+            case "battery":
+                hud.elements.batteryMeter.battery = parseFloat( propertyValue );
+                break;
+
+            case "batteryMax":
+                hud.elements.batteryMeter.maxBattery = parseFloat( propertyValue );
+                break;
+                
+        }
+    }
+
     var blocklyNode = blocklyNodes[ nodeID ];
     if ( blocklyNode ) {
         switch ( propertyName ) {
 
-            case "battery":
-                blocklyNode[ propertyName ] = parseFloat( propertyValue );
-                if ( nodeID == currentBlocklyNodeID ) {
-                    hud.elements.batteryMeter.battery = parseFloat( propertyValue );  
-                }
-                break;
-
-            case "batteryMax":
-                blocklyNode[ propertyName ] = parseFloat( propertyValue );
-                if ( nodeID == currentBlocklyNodeID ) {
-                    hud.elements.batteryMeter.maxBattery = parseFloat( propertyValue );    
-                }
-                break;
-
             case "ram":
                 blocklyNode[ propertyName ] = parseFloat( propertyValue );
-                if ( nodeID == currentBlocklyNodeID ) {
-                    hud.elements.ramMeter.ram = parseFloat( propertyValue );    
-                }
                 break;
 
-            case "blockly_blockCount":
+            case "ramMax":
                 blocklyNode[ propertyName ] = parseFloat( propertyValue );
-                break;
-
-            case "blockly_allowedBlocks":
-                blocklyNode[ propertyName ] = Number( propertyValue );
-                if ( nodeID == currentBlocklyNodeID ) {
+                if ( nodeID === currentBlocklyNodeID ) {
                     // the mainWorkSpace is not valid until the UI is visible
-                    hud.elements.ramMeter.maxRam = Number( propertyValue );
                     if ( Blockly.mainWorkspace ) {
                         Blockly.mainWorkspace.maxBlocks = Number( propertyValue );    
                     }
@@ -178,10 +174,11 @@ vwf_view.satProperty = function( nodeID, propertyName, propertyValue ) {
         }
     } 
 
-    // nodeID is ignored here?
-    if ( propertyName === "isFirstPerson" ) {
-        hud.elements.blocklyButton.visible = Boolean( propertyValue );;
-        firstPersonMode = Boolean( propertyValue );
+    if ( nodeID === vwf_view.kernel.find( "", "//camera" )[0] ) {
+
+        if ( propertyName === "targetPath" ) {
+            targetID = vwf_view.kernel.find( "", propertyValue )[ 0 ];
+        }
     }
 
 }
@@ -194,11 +191,7 @@ function setUp( renderer, scene, camera ) {
     // Modify and add to scene
     scene.fog = new THREE.FogExp2( 0xC49E70, 0.005 );
     renderer.setClearColor(scene.fog.color);
-
-    // Set up HUD
     renderer.autoClear = false;
-    hud = new HUD();
-    createHUD();
 
     // Set render loop to use custom render function
     vwf_view.kernel.kernel.views["vwf/view/threejs"].render = render;
@@ -207,7 +200,6 @@ function setUp( renderer, scene, camera ) {
 
 function render( renderer, scene, camera ) {
 
-    showHud( firstPersonMode || currentBlocklyNodeID !== undefined ); 
     hud.update();
 
     renderer.clear();
@@ -321,21 +313,9 @@ function loadNewSession() {
     window.location.assign( window.location.origin + "/mars-game/" );
 }
 
-function showHud( show ) {
-    if ( hud && hud.elements ) {
-        hud.elements.batteryMeter.visible = show;
-        hud.elements.ramMeter.visible = show;
-        hud.elements.cargo.visible = show;
-    }
-}
-
-function updateHudElements( blocklyNode ) {
-    hud.elements.batteryMeter.battery = blocklyNode.battery;
-    hud.elements.batteryMeter.maxBattery = blocklyNode.batteryMax;
-    hud.elements.ramMeter.ram = blocklyNode.ram;
-    hud.elements.ramMeter.maxRam = blocklyNode.allowedBlocks;  
+function updateBlocklyUI( blocklyNode ) {
     if ( Blockly.mainWorkspace ) {
-        Blockly.mainWorkspace.maxBlocks = blocklyNode.allowedBlocks;    
+        Blockly.mainWorkspace.maxBlocks = blocklyNode.ramMax;
     }
 }
 

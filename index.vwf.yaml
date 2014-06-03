@@ -197,25 +197,13 @@ children:
           receiveShadows: true
           currentGridSquare: [ 2, 7 ]
           heading: 270
-          terrainName: "terrain"
-          blockly_allowedBlocks: 10
+          terrainName: "environment"
         children:
           cargo:
             extends: source/inventory.vwf
             properties:
               capacity: 4
               inventoryIsVisible: false
-          blocklyButton:
-            extends: http://vwf.example.com/node3.vwf
-            source: assets/3d/Blockly.DAE
-            type: model/vnd.collada+xml
-            properties: 
-              visible: false
-              translation: [ 0, 0, 4 ]
-            scripts:
-            - source: source/blocklyButton.js
-        scripts:
-        - source: source/blocklyListeners.js
     scripts:
      - source: source/player.js
   minirover:
@@ -231,25 +219,7 @@ children:
       blocklyEnabled: false
       currentGridSquare: [ 2, 10 ]
       heading: 270
-      terrainName: "terrain"
-    children:
-      noComm:
-        extends: http://vwf.example.com/node3.vwf
-        source: assets/3d/blockly_no/blockly_no.dae
-        type: model/vnd.collada+xml
-        properties:
-          translation: [ 0, 0, 4 ]
-          scale: 0.5
-          visible: false
-      blocklyButton:
-        extends: http://vwf.example.com/node3.vwf
-        source: assets/3d/Blockly.DAE
-        type: model/vnd.collada+xml
-        properties:
-          translation: [ 0, 0, 4 ] 
-          visible: false
-        scripts:
-        - source: source/blocklyButton.js
+      terrainName: "environment"
   pickups:
     extends: http://vwf.example.com/node3.vwf
     children:
