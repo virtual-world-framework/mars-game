@@ -114,8 +114,9 @@ function createCommsDisplay() {
 
 function createInventoryHUD( capacity ) {
 
-    var width = 48 * capacity;
-    var height = 48;
+    var iconSize = 48;
+    var width = iconSize * capacity;
+    var height = iconSize;
 
     var slots = new Array();
 
@@ -290,9 +291,10 @@ function drawIcon( context, position ) {
 
 function drawInventory( context, position ) {
 
+    var iconSize = 48;
     var cap = this.capacity;
     var separatorWidth = this.separator ? this.separator.width : 1;
-    var elementWidth = this.capacity * 48 + ( this.capacity - 1 ) * separatorWidth;
+    var elementWidth = this.capacity * iconSize + ( this.capacity - 1 ) * separatorWidth;
     var startPosition = position.x;
 
     if ( this.leftEnd ) {
@@ -306,13 +308,13 @@ function drawInventory( context, position ) {
 
     for ( var i = 0; i < this.slots.length; i++ ) {
 
-        var posX = startPosition + (i*48);
+        var posX = startPosition + ( i * iconSize );
         var posY = position.y;
         var item = this.slots[ i ].item;
 
         if ( i > 0 ) {
             if ( this.separator ) {
-                context.drawImage( this.separator, posX + (i - 1) * separatorWidth, posY );
+                context.drawImage( this.separator, posX + ( i - 1 ) * separatorWidth, posY );
             }
 
             posX += i * separatorWidth;
@@ -329,12 +331,12 @@ function drawInventory( context, position ) {
         } else if ( this.slots[ i ].isMouseOver ) {
 
             context.fillStyle = "rgb(180,180,225)";
-            context.fillRect( posX, posY, 48, 48 );
+            context.fillRect( posX, posY, iconSize, iconSize );
 
         } else {
 
             context.fillStyle = "rgb(50,90,220)";
-            context.fillRect( posX, posY, 48, 48 );
+            context.fillRect( posX, posY, iconSize, iconSize );
 
         }
     }
@@ -354,14 +356,14 @@ function clickBlockly( event ) {
 }
 
 function switchTarget( event ) {
-    var cameraNode = vwf_view.kernel.find( "", "//camera" )[0];
+    var cameraNode = vwf_view.kernel.find( "", "//camera" )[ 0 ];
     vwf_view.kernel.setProperty( cameraNode, "targetPath", this.path );
 }
 
 function switchCameraMode( event ) {
     var selectedMode = hud.elements[ "camera_selected" ].mode;
     var selectedIcon = hud.elements[ "camera_selected" ].icon;
-    var cameraNode = vwf_view.kernel.find( "", "//camera" )[0];
+    var cameraNode = vwf_view.kernel.find( "", "//camera" )[ 0 ];
     vwf_view.kernel.setProperty( cameraNode, "pointOfView", this.mode );
     hud.elements[ "camera_selected" ].mode = this.mode;
     hud.elements[ "camera_selected" ].icon = this.icon;
