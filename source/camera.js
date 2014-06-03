@@ -27,7 +27,7 @@ this.changePointOfView$ = function( newPointOfView ) {
             this.future( durationSeconds ).navmode = "walk";
             break;
         case "thirdPerson":
-            this.navmode = "none";
+            this.navmode = "walk";
             break;
         case "topDown":
             this.navmode = "walk";
