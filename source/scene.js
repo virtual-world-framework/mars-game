@@ -61,12 +61,12 @@ this.setScenario = function( path ) {
 }
 
 this.resetScenario = function() {
-    var scenario = this.find( this.activeScenario )[ 0 ];
+    var scenario = this.find( this.activeScenarioPath )[ 0 ];
     if ( scenario ) {
         scenario.enter();
         this.scenarioReset( scenario.name );
     } else {
-        this.logger.warnx( "resetScenario", "Invalid scenario path: " + this.activeScenario );
+        this.logger.warnx( "resetScenario", "Invalid scenario path: " + this.activeScenarioPath );
     }
 }
 
