@@ -4,7 +4,8 @@ function setUpIntro() {
 
     intro = {
         "div" : document.createElement( 'div' ),
-        "images" : [],
+        "image" : document.createElement( 'img' ),
+        "imagePaths" : [],
         "index" : -1,
         "numberOfScreens" : 3
     };
@@ -17,20 +18,20 @@ function setUpIntro() {
     intro.div.style.left = "0";
     intro.div.style.backgroundColor = "#000";
 
+    intro.image.className = "introImage";
+    intro.image.style.margin = "-384px 0 0 -512px";
+    intro.image.style.top = "50%";
+    intro.image.style.left = "50%";
+    intro.image.style.position = "absolute";
+    intro.image.onclick = nextIntroSlide;    
+
     var dir = "../assets/images/introScreens/";
     for ( var i = 0; i < intro.numberOfScreens; i++ ) {
-        var image = document.createElement( 'img' );
-        image.className = "introImage";
-        image.src = dir + "screen" + i + ".png";
-        image.style.margin = "-384px 0 0 -512px";
-        image.style.top = "50%";
-        image.style.left = "50%";
-        image.style.position = "absolute";
-        image.onclick = nextIntroSlide;
-        intro.images.push( image );
+        intro.imagePaths.push( dir + "screen" + i + ".png" );
     }
 
     document.body.appendChild( intro.div );
+    intro.div.appendChild( intro.image );
 
     nextIntroSlide();
 }
@@ -41,7 +42,7 @@ function nextIntroSlide() {
         intro.index++;
 
         //If we're at the end of the deck, remove the intro screen div
-        if ( intro.index > intro.images.length - 1 ) {
+        if ( intro.index > intro.imagePaths.length - 1 ) {
             $( ".introImage" ).fadeOut( function() {
                 $( "#introScreen" ).fadeOut( function() {
                     document.body.removeChild( intro.div );
@@ -54,13 +55,12 @@ function nextIntroSlide() {
         else {
             if ( intro.index != 0 ){
                 $( ".introImage" ).fadeOut( function() {
-                    intro.div.removeChild( intro.div.lastChild );
-                    intro.div.appendChild( intro.images[ intro.index ] );
+                    intro.image.src = intro.imagePaths[ intro.index ];
                     $( ".introImage" ).fadeIn();                    
                 } );
             }
             else {
-                intro.div.appendChild( intro.images[ intro.index ] );
+                intro.image.src = intro.imagePaths[ intro.index ];
                 $( ".introImage" ).fadeIn();
             }
         }
@@ -72,8 +72,7 @@ function prevIntroSlide() {
     if ( ( intro.div ) && ( intro.index > 0 ) ) {
         $( ".introImage" ).fadeOut( function() {
             intro.index--;
-            intro.div.removeChild( intro.div.lastChild );
-            intro.div.appendChild( intro.images[ intro.index ] );
+            intro.image.src = intro.imagePaths[ intro.index ];
             $( ".introImage" ).fadeIn();
         } );
     }
