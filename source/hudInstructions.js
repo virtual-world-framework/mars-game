@@ -60,9 +60,10 @@ function createCameraSelector() {
 
     var selector = new HUD.Element( "cameraSelector", drawCameraSelector, 96, 96 );
     selector.activeMode = {
-        "icon": undefined,
+        "icon": new Image(),
         "type": "thirdPerson"
     };
+    selector.activeMode.icon.src = "assets/hud/camera_thirdperson.png";
     selector.frame = new Image();
     selector.frame.src = "assets/hud/camera_selector_frame.png";
     hud.add( selector, "right", "top", { "x": -30, "y": 30 } );
