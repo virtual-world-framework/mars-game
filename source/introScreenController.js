@@ -54,7 +54,9 @@ function nextIntroSlide() {
         else {
             $( "#transitionScreen" ).fadeIn( function() {
                 intro.image.src = intro.imagePaths[ intro.index ];
-                intro.image.onload = $( "#transitionScreen" ).fadeOut();
+                intro.image.onload = function() {
+                    $( "#transitionScreen" ).fadeOut();
+                };
             } );
         }
     }
@@ -66,7 +68,9 @@ function prevIntroSlide() {
         intro.index--;
         $( "#transitionScreen" ).fadeIn( function() {
             intro.image.src = intro.imagePaths[ intro.index ];
-            intro.image.onload = $( "#transitionScreen" ).fadeOut();
+            intro.image.onload = function() {
+                $( "#transitionScreen" ).fadeOut();
+            };
         } );
     }
 }
