@@ -2,6 +2,7 @@
 extends: source/scenario.vwf
 properties:
   scenePath: /
+  blockly: assets/scenario/scenario1.xml
 
   startState:
   - battery:

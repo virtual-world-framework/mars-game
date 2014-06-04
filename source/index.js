@@ -10,6 +10,10 @@ function onRun() {
     vwf_view.kernel.setProperty( currentBlocklyNodeID, "blockly_executing", true );
 }
 
+function onSetActive( btn ) {
+    vwf_view.kernel.setProperty( vwf_view.kernel.application(), "blockly_activeNodeID", btn.id );
+}
+
 window.addEventListener( "keyup", function (event) {
     switch ( event.keyCode ) {
         case 80:
@@ -122,7 +126,14 @@ vwf_view.initializedNode = function( nodeID, childID, childExtendsID, childImple
         hud = new HUD();
         createHUD();
         vwf_view.kernel.kernel.views["vwf/view/threejs"].render = setUp;
-    } 
+    } else if ( blocklyNodes[ childID ] !== undefined ) {
+        var node = blocklyNodes[ childID ];
+        if ( $( "#blocklyWrapper-top" ) !== undefined ) {
+            $( "#blocklyWrapper-top" ).append( 
+                "<button id='" + childID + "' onclick='onSetActive(this)'>"+childName+"</button>"
+            ).children(":last"); 
+        }
+    }
 }
 
 vwf_view.initializedProperty = function( nodeID, propertyName, propertyValue ) {

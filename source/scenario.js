@@ -32,6 +32,15 @@ this.onSceneReady = function() {
         self.logger.errorx( "onSceneReady", "There should be exactly one booleanFunctionFactory, " +
                             "at least for now." );
     }
+
+    if ( scene !== undefined ) {
+        if ( self.blockly && self.blockly !== '' ) {
+            scene.blockly_toolbox = self.blockly;
+        }
+        if ( self.blocklyDefault && self.blocklyDefault !== '' ) {
+            scene.blockly_defaultXml = self.blocklyDefault;
+        }
+    }
 }
 
 this.entering = function() {

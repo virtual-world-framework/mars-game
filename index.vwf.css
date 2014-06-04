@@ -6,6 +6,10 @@
 	visibility: hidden;
 }
 
+#blocklyWrapper-top {
+	pointer-events: all;
+}
+
 #blocklyDiv {
 	height: 400px;
 	width: 560px;
