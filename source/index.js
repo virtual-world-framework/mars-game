@@ -190,6 +190,13 @@ vwf_view.satProperty = function( nodeID, propertyName, propertyValue ) {
         if ( propertyName === "targetPath" ) {
             targetID = vwf_view.kernel.find( "", propertyValue )[ 0 ];
         }
+
+        if ( propertyName === "pointOfView" ) {
+            var selector = hud.elements[ "cameraSelector" ];
+            var pov = hud.elements[ "camera_" + propertyValue ];
+            selector.activeMode.icon = pov.icon;
+            selector.activeMode.type = pov.mode;
+        }
     }
 
 }
