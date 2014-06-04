@@ -1,0 +1,6 @@
+--- 
+extends: http://vwf.example.com/sound/soundManager.vwf
+properties:
+methods:
+scripts:
+- source: source/marsGameSound.js

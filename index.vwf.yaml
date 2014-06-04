@@ -15,7 +15,7 @@ events:
   scenarioFailed:
 children:
   soundManager:
-    extends: http://vwf.example.com/sound/soundManager.vwf
+    extends: source/marsGameSound.vwf # http://vwf.example.com/sound/soundManager.vwf
   environment:
     extends: http://vwf.example.com/node3.vwf
     children:
