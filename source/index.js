@@ -128,8 +128,7 @@ vwf_view.initializedNode = function( nodeID, childID, childExtendsID, childImple
         vwf_view.kernel.kernel.views["vwf/view/threejs"].render = setUp;
     } else if ( blocklyNodes[ childID ] !== undefined ) {
         var node = blocklyNodes[ childID ];
-        var topDiv = document.getElementById( "blocklyWrapper-top" );
-        if ( topDiv !== undefined ) {
+        if ( $( "#blocklyWrapper-top" ) !== undefined ) {
             $( "#blocklyWrapper-top" ).append( 
                 "<button id='" + childID + "' onclick='onSetActive(this)'>"+childName+"</button>"
             ).children(":last"); 
