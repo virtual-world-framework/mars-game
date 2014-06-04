@@ -23,7 +23,7 @@ this.onSceneReady = function() {
     }
 
     self.startStateExecutor.functionSets = [];
-    self.startStateExecutor.addFunctionSet(self.startStateParamSet);
+    self.startStateExecutor.addFunctionSet( self.startStateParamSet );
 
     var clauseFactories = scene.find( ".//element(*,'source/booleanFunctionFactory.vwf')" );
     if ( clauseFactories.length === 1 ) {
