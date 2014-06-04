@@ -1,6 +1,8 @@
 --- 
 extends: http://vwf.example.com/sound/soundManager.vwf
 properties:
+  # put the metadata for all the sound here, maybe?
 methods:
+children:
 scripts:
 - source: source/marsGameSound.js
