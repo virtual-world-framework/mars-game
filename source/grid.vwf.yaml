@@ -1,8 +1,9 @@
 ---
 extends: http://vwf.example.com/node.vwf
 properties:
-  boundaryMap: []
-  objectsOnGrid: []
+  tiles: []
+  boundaryValues: []
+  gridOriginInSpace: []
   gridSquareLength: 1
   minX: 0
   minY: 0
@@ -12,11 +13,14 @@ properties:
 methods:
   addToGrid:
   removeFromGrid:
-  addToGridFromCoord:
+  addToGrid:
   moveObjectOnGrid:
   checkCoord:
   validCoord:
   isOccupied:
+  getTileFromGrid:
+  getTileFromWorld:
+  setBoundaryValues:
 
 scripts:
 - source: source/grid.js

@@ -31,10 +31,11 @@ this.moveForward = function() {
 
         //Otherwise, check if the space is occupied
         else{
-            var objectAtNewSquare = myGridManager.currentGrid.checkCoord( proposedNewGridSquare );
-            if ( objectAtNewSquare === null || objectAtNewSquare.isInventoriable ){
+            var objectsOnNewSquare = myGridManager.currentGrid.checkCoord( proposedNewGridSquare );
+            var inventoriableObject = myGridManager.hasInventoriable( proposedNewGridSquare );
+            if ( objectsOnNewSquare.length === 0 || inventoriableObject ){
                 this.battery -= energyRequired;
-                myGridManager.currentGrid.moveObjectOnGrid( this.currentGridSquare, proposedNewGridSquare );
+                myGridManager.currentGrid.moveObjectOnGrid( this, this.currentGridSquare, proposedNewGridSquare );
                 this.currentGridSquare = proposedNewGridSquare;
                 var displacement = [ dirVector[ 0 ] * myGridManager.gridSquareLength, 
                                      dirVector[ 1 ] * myGridManager.gridSquareLength, 0 ];
@@ -48,9 +49,9 @@ this.moveForward = function() {
                 //   0, 0, 1, 0,
                 //   dirVector[ 0 ] * this.gridSquareLength, dirVector[ 1 ] * this.gridSquareLength, 0, 0 ], 1 );
 
-                if ( objectAtNewSquare !== null && objectAtNewSquare.isInventoriable && !objectAtNewSquare.isPickedUp && this.cargo ) {
-                    myGridManager.currentGrid.removeFromGrid( objectAtNewSquare );
-                    this.cargo.add( objectAtNewSquare.id );
+                if ( inventoriableObject ){
+                    myGridManager.currentGrid.removeFromGrid( inventoriableObject );
+                    this.cargo.add( inventoriableObject.id );
                 }
                 this.moved( displacement );
             }

@@ -50,9 +50,7 @@ this.initialize = function() {
 
     this.graphObject = undefined;
     this.miniRover = undefined;
-
 }
-
 
 this.setScenario = function( path ) {
     var scenario = this.find( path )[ 0 ];

@@ -6,10 +6,20 @@ this.validCoord = function( gridCoord ) {
 }
 
 this.getEnergy = function ( gridCoord ) {
-	if ( this.currentBoundaryMap && this.validCoord( gridCoord ) ) {
-		return this.currentGrid.boundaryMap[ gridCoord[ 0 ] ][ gridCoord[ 1 ] ];
-	}
-	return null;
+    if ( this.validCoord( gridCoord ) ) {
+        return this.currentGrid.getTileFromGrid( gridCoord ).energyRequired;
+    }
+    return null;
+}
+
+this.hasInventoriable = function( gridCoord ) {
+    var list = this.currentGrid.checkCoord( gridCoord );
+    for (var i = 0; i < list.length; i++ ){
+        if ( list[ i ].isInventoriable ){
+            return list[ i ];
+        }
+    }
+    return null;
 }
 
 //@ sourceURL=source/gridManager.js
