@@ -1,4 +1,5 @@
 var self;
+var gridManager;
 
 this.initialize = function() {
     // TODO: Find current grid square (rather than making app developer specify)
@@ -6,11 +7,16 @@ this.initialize = function() {
 
     self = this;
     this.calcRam();
+
+    this.future( 0 ).findAndSetGridManager();
+}
+
+this.findAndSetGridManager = function() {
+    gridManager = this.find( "//element(*,'source/gridManager.vwf')" )[ 0 ];
 }
 
 this.moveForward = function() {
 
-    var gridManager = this.find( "//element(*,'source/gridManager.vwf')" )[ 0 ];
     var headingInRadians = this.heading * Math.PI / 180;
     var dirVector = [ Math.round( -Math.sin( headingInRadians ) ), Math.round( Math.cos( headingInRadians ) ) ];
     var proposedNewGridSquare = [ this.currentGridSquare[ 0 ] + dirVector[ 0 ], 
@@ -32,7 +38,6 @@ this.moveForward = function() {
         //Otherwise, check if the space is occupied
         else {
             if ( !gridManager.hasCollidable( proposedNewGridSquare ) ){
-                this.battery -= energyRequired;
                 gridManager.currentGrid.moveObjectOnGrid( this, this.currentGridSquare, proposedNewGridSquare );
                 this.currentGridSquare = proposedNewGridSquare;
                 var displacement = [ dirVector[ 0 ] * gridManager.gridSquareLength, 
@@ -40,7 +45,7 @@ this.moveForward = function() {
                 // TODO: This should use worldTransformBy, but we are getting a bug where the rover's transform isn't set
                 //       yet when this method is called.  Until we can debug that, we are assuming that the rover's 
                 //       parent's frame of reference is the world frame of reference
-                this.translateOnTerrain( displacement, 1 );
+                this.translateOnTerrain( displacement, 1, energyRequired );
                 // this.worldTransformBy( [
                 //   1, 0, 0, 0,
                 //   0, 1, 0, 0,
@@ -49,7 +54,7 @@ this.moveForward = function() {
 
                 var inventoriableObject = gridManager.hasInventoriable( proposedNewGridSquare );
                 if ( inventoriableObject ){
-                    gridManager.currentGrid.removeFromGrid( inventoriableObject );
+                    gridManager.currentGrid.removeFromGrid( inventoriableObject, proposedNewGridSquare );
                     this.cargo.add( inventoriableObject.id );
                 }
                 this.moved( displacement );
