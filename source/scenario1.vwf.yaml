@@ -18,7 +18,7 @@ properties:
     - blockly_allowedBlocks
     - 15
 
-  # Simplify heading/rotation
+  # TODO: Simplify heading/rotation
   # Set initial rotation using heading
   # Currently, moveLeft & moveRight in rover.js
   # fight with adding that to the setter of heading
@@ -31,7 +31,7 @@ properties:
     - rotation
     - [ 0, 0, 1, 270 ]
 
-  # Simplify position/grid position
+  # TODO: Simplify position/grid position
   # Integrate position/grid square calculation so
   # only one property needs to be set
   - setProperty:
@@ -42,6 +42,18 @@ properties:
     - rover
     - currentGridSquare
     - [ 2, 7 ]
+
+  - emptyInventory:
+    - rover/cargo
+
+  - setProperty:
+    - radio
+    - translation
+    - [ 39, 0, 0 ]
+  - setProperty:
+    - radio
+    - currentGridSquare
+    - [ 15, 7 ]
     
   - setProperty:
     - camera

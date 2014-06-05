@@ -96,6 +96,10 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
             addSlotIcon( nodeID, iconSrc, index, parentName );
         }
 
+        if ( eventName === "dropped" ) {
+            removeSlotIcon( nodeID );
+        }
+
     }
 
 }

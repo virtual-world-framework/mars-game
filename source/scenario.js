@@ -108,4 +108,17 @@ this.startStateParamSet.setProperty = function( params, context ) {
     object[ propertyName ] = value;
 }
 
+this.startStateParamSet.emptyInventory = function( params, context ) { 
+    if ( !params || ( params.length !== 1 ) ) {
+        self.logger.errorx( "emptyInventory", 
+                            "The emptyInventory condition requires the path " +
+                            "of the inventory object." );
+        return undefined;
+    }
+
+    var inventoryPath = params[ 0 ];
+    var inventory = self.startStateExecutor.findInContext( context, inventoryPath );
+    inventory.empty();
+}
+
 //@ sourceURL=source/scenario.js
