@@ -28,17 +28,12 @@ function createRoverElement() {
     batteryMeter.onMouseDown = switchTarget;
     hud.add( batteryMeter, "left", "top", { "x": 30, "y": 30 } );
 
-    var roverFrame = new Image();
-    roverFrame.src = "assets/hud/rover_frame.png";
-    roverFrame.onload = ( function() { batteryMeter.frame = roverFrame; } );
-
-    var roverPortrait = new Image();
-    roverPortrait.src = "assets/hud/rover_portrait.png";
-    roverPortrait.onload = ( function() { batteryMeter.portrait = roverPortrait; } );
-
-    var roverDetail = new Image();
-    roverDetail.src = "assets/hud/rover_frame_detail.png";
-    roverDetail.onload = ( function() { batteryMeter.detail = roverDetail; } );
+    batteryMeter.frame = new Image();
+    batteryMeter.frame.src = "assets/hud/rover_frame.png";
+    batteryMeter.portrait = new Image();
+    batteryMeter.portrait.src = "assets/hud/rover_portrait.png";
+    batteryMeter.selectedIcon = new Image();
+    batteryMeter.selectedIcon.src = "assets/hud/rover_select.png";
 }
 
 function createMiniRoverElement() {
@@ -47,13 +42,12 @@ function createMiniRoverElement() {
     miniroverElement.onMouseDown = switchTarget;
     hud.add( miniroverElement, "left", "top", { "x": 50, "y": 168 } );
 
-    var portrait = new Image();
-    portrait.src = "assets/hud/minirover_portrait.png";
-    portrait.onload = ( function() { miniroverElement.portrait = portrait; } );
-
-    var frame = new Image();
-    frame.src = "assets/hud/minirover_frame.png";
-    frame.onload = ( function() { miniroverElement.frame = frame; } );
+    miniroverElement.portrait = new Image();
+    miniroverElement.portrait.src = "assets/hud/minirover_portrait.png";
+    miniroverElement.frame = new Image();
+    miniroverElement.frame.src = "assets/hud/minirover_frame.png";
+    miniroverElement.selectedIcon = new Image();
+    miniroverElement.selectedIcon.src = "assets/hud/minirover_select.png";
 }
 
 function createCameraSelector() {
@@ -224,19 +218,19 @@ function drawBatteryMeter( context, position ) {
     context.beginPath();
     context.arc( center.x, center.y, arcWidth / 2, start, end, true );
     context.lineWidth = arcWidth - 1;
-    context.strokeStyle = "rgb(50,90,220)";
+    context.strokeStyle = "rgb(70,120,255)";
     context.stroke();
 
     if ( this.portrait ) {
         context.drawImage( this.portrait, center.x - this.portrait.width / 2, center.y - this.portrait.height / 2 );
     }
 
-    if ( this.frame ) {
-        context.drawImage( this.frame, position.x, position.y );
+    if ( this.selectedIcon && targetPath === this.path ) {
+        context.drawImage( this.selectedIcon, center.x - this.selectedIcon.width / 2, center.y - this.selectedIcon.height / 2 );
     }
 
-    if ( this.detail ) {
-        context.drawImage( this.detail, position.x, position.y );
+    if ( this.frame ) {
+        context.drawImage( this.frame, position.x, position.y );
     }
 
     context.textBaseline = "top";
@@ -254,6 +248,10 @@ function drawMiniRoverElement( context, position ) {
 
     if ( this.portrait ) {
         context.drawImage( this.portrait, center.x - this.portrait.width / 2, center.y - this.portrait.height / 2 );
+    }
+
+    if ( this.selectedIcon && targetPath === this.path ) {
+        context.drawImage( this.selectedIcon, center.x - this.selectedIcon.width / 2, center.y - this.selectedIcon.height / 2 );
     }
 
     if ( this.frame ) {
@@ -343,6 +341,7 @@ function drawInventory( context, position ) {
 function clickBlockly( event ) {
     
     var sceneID = vwf_view.kernel.application();
+    var targetID = vwf_view.kernel.find( "", targetPath )[ 0 ];
 
     if ( sceneID !== undefined && targetID !== undefined ) {
         vwf_view.kernel.setProperty( sceneID, "blockly_activeNodeID", targetID );
