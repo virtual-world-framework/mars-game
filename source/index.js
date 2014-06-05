@@ -234,6 +234,15 @@ function setUp( renderer, scene, camera ) {
     renderer.setClearColor(scene.fog.color);
     renderer.autoClear = false;
 
+    // Make blockly interface draggable
+    var blocklyUI = document.createElement( "div" );
+    blocklyUI.id = "blocklyUI";
+    $( "#blocklyWrapper" ).append( blocklyUI )
+    $( "#blocklyWrapper" ).draggable( {
+        containment: "body",
+        handle: "div#blocklyUI"
+    } );
+
     // Set render loop to use custom render function
     vwf_view.kernel.kernel.views["vwf/view/threejs"].render = render;
 
