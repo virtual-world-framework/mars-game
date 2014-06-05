@@ -5,7 +5,7 @@ this.initialize = function() {
     for ( var i = 0; i < this.maxX; i++ ) {
         this.tiles[ i ] = [];
         for ( var j = 0; j < this.maxY; j++ ) {
-            this.tiles[ i ][ j ] = new GridTile( 0 );
+            this.tiles[ i ][ j ] = new GridTile();
         }
     }
 }
@@ -35,23 +35,22 @@ this.validCoord = function( gridCoord ) {
     return true;
 }
 
-this.isOccupied = function( gridCoord ) {
-    if ( this.getTileFromGrid( gridCoord ).objects ){
-        return true;
-    }
-    return false;
-}
-
 //Return the list of objects at gridCoord, if any
 this.checkCoord = function( gridCoord ) {
-    if ( this.validCoord( gridCoord ) && this.isOccupied( gridCoord ) ) {
+    if ( this.validCoord( gridCoord ) ) {
         return this.getTileFromGrid( gridCoord ).objects;
     }
     return null;
 }
 
+//Add an object to the grid based on its current coordinate
+this.addToGrid = function( object ) {
+    var gridCoord = object.currentGridSquare;
+    this.addToGridFromCoord( object, gridCoord );
+}
+
 //Assign an object a coordinate and add it to the grid
-this.addToGrid = function( object, gridCoord ) {
+this.addToGridFromCoord = function( object, gridCoord ) {
     if ( this.validCoord( gridCoord ) ) {
         this.getTileFromGrid( gridCoord ).addToTile( object );
         object.currentGridSquare = gridCoord;
@@ -62,17 +61,20 @@ this.removeFromGrid = function( object, gridCoord ) {
     var objects = this.getTileFromGrid( gridCoord ).objects;
     var index = objects.indexOf( object )
     if ( index > -1) {
-        return objects.splice( index, 1 );
+        return objects.splice( index, 1 )[ 0 ];
     }
     return null;
 }
 
 this.moveObjectOnGrid = function( object, srcCoord, destCoord ) {
-    this.getTileFromGrid( destCoord ).addToTile( this.removeFromGrid( object, srcCoord ) );
+    var removed = this.removeFromGrid( object, srcCoord );
+    if ( removed ) {
+        this.getTileFromGrid( destCoord ).addToTile( removed );
+    }
 }
 
-function GridTile( energy ) {
-    this.energyRequired = energy;
+function GridTile() {
+    this.energyRequired = 0;
     this.objects = [];
 
     this.addToTile = function( object ) {

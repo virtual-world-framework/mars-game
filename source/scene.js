@@ -50,6 +50,14 @@ this.initialize = function() {
 
     this.graphObject = undefined;
     this.miniRover = undefined;
+
+    //TODO: Add objects to grid based on definition in scenario,
+    //      instead of hard coding them in
+
+    //Add objects to scenario grids
+    this.scenario1.grid.addToGrid( this.minirover );
+    this.scenario1.grid.addToGrid( this.player.rover );
+    this.scenario1.grid.addToGrid( this.pickups.radio );
 }
 
 this.setScenario = function( path ) {

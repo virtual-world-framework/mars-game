@@ -182,7 +182,7 @@ children:
         - source: "source/camera.js"
       rover:
         extends: source/rover.vwf
-        implements: [ "http://vwf.example.com/blockly/controller.vwf" ]
+        implements: [ "http://vwf.example.com/blockly/controller.vwf", "source/griddable.vwf" ]
         source: assets/3d/Rover/rover_retro.dae
         type: model/vnd.collada+xml
         properties:
@@ -203,7 +203,7 @@ children:
     children:
       radio:
         extends: http://vwf.example.com/node3.vwf
-        implements: [ "source/inventoriable.vwf" ]
+        implements: [ "source/inventoriable.vwf", "source/griddable.vwf" ]
         source: assets/3d/Radio/radio.DAE
         type: model/vnd.collada+xml
         properties:
@@ -211,6 +211,7 @@ children:
           translation: [ 39, 0, 0 ]
           animationLoop: true
           currentGridSquare: [ 15, 7 ]
+          isCollidable: false
         scripts: |
           this.initialize = function() {
             this.animationPlay();

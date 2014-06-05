@@ -10,17 +10,17 @@ this.initialize = function() {
 
 this.moveForward = function() {
 
-    var myGridManager = this.find( "//element(*,'source/gridManager.vwf')" )[ 0 ];
+    var gridManager = this.find( "//element(*,'source/gridManager.vwf')" )[ 0 ];
     var headingInRadians = this.heading * Math.PI / 180;
     var dirVector = [ Math.round( -Math.sin( headingInRadians ) ), Math.round( Math.cos( headingInRadians ) ) ];
     var proposedNewGridSquare = [ this.currentGridSquare[ 0 ] + dirVector[ 0 ], 
                                                                 this.currentGridSquare[ 1 ] + dirVector[ 1 ] ];
 
     //First check if the coordinate is valid
-    if ( myGridManager.validCoord( proposedNewGridSquare ) ) {
+    if ( gridManager.validCoord( proposedNewGridSquare ) ) {
 
         //Then check if the boundary value allows for movement:
-        var energyRequired = myGridManager.getEnergy( proposedNewGridSquare );
+        var energyRequired = gridManager.getEnergy( proposedNewGridSquare );
         if ( energyRequired < 0 ) {
             this.moveFailed( "collision" );
         }
@@ -30,15 +30,13 @@ this.moveForward = function() {
         }
 
         //Otherwise, check if the space is occupied
-        else{
-            var objectsOnNewSquare = myGridManager.currentGrid.checkCoord( proposedNewGridSquare );
-            var inventoriableObject = myGridManager.hasInventoriable( proposedNewGridSquare );
-            if ( objectsOnNewSquare.length === 0 || inventoriableObject ){
+        else {
+            if ( !gridManager.hasCollidable( proposedNewGridSquare ) ){
                 this.battery -= energyRequired;
-                myGridManager.currentGrid.moveObjectOnGrid( this, this.currentGridSquare, proposedNewGridSquare );
+                gridManager.currentGrid.moveObjectOnGrid( this, this.currentGridSquare, proposedNewGridSquare );
                 this.currentGridSquare = proposedNewGridSquare;
-                var displacement = [ dirVector[ 0 ] * myGridManager.gridSquareLength, 
-                                     dirVector[ 1 ] * myGridManager.gridSquareLength, 0 ];
+                var displacement = [ dirVector[ 0 ] * gridManager.gridSquareLength, 
+                                     dirVector[ 1 ] * gridManager.gridSquareLength, 0 ];
                 // TODO: This should use worldTransformBy, but we are getting a bug where the rover's transform isn't set
                 //       yet when this method is called.  Until we can debug that, we are assuming that the rover's 
                 //       parent's frame of reference is the world frame of reference
@@ -49,8 +47,9 @@ this.moveForward = function() {
                 //   0, 0, 1, 0,
                 //   dirVector[ 0 ] * this.gridSquareLength, dirVector[ 1 ] * this.gridSquareLength, 0, 0 ], 1 );
 
+                var inventoriableObject = gridManager.hasInventoriable( proposedNewGridSquare );
                 if ( inventoriableObject ){
-                    myGridManager.currentGrid.removeFromGrid( inventoriableObject );
+                    gridManager.currentGrid.removeFromGrid( inventoriableObject );
                     this.cargo.add( inventoriableObject.id );
                 }
                 this.moved( displacement );
