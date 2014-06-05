@@ -16,6 +16,11 @@ events:
 children:
   soundManager:
     extends: http://vwf.example.com/sound/soundManager.vwf
+  graph:
+    extends: http://vwf.example.com/node3.vwf
+    implements: [ "http://vwf.example.com/blockly/controller.vwf" ]
+    properties:
+      blockly_toolbox: assets/scenario/graph.xml
   environment:
     extends: http://vwf.example.com/node3.vwf
     children:
