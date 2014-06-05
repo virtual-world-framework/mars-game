@@ -189,14 +189,8 @@ vwf_view.satProperty = function( nodeID, propertyName, propertyValue ) {
             case "blockly_executing":
                 var exe = Boolean( propertyValue );
 
-                //Disables the run button and hides the blockly window while executing
+                //Disables the run button
                 document.getElementById( "runButton" ).disabled = exe;
-                if ( exe ) {
-                    document.getElementById( "blocklyWrapper" ).style.display = "none";
-                }
-                else {
-                    document.getElementById( "blocklyWrapper" ).style.display = "block";
-                }
                 
                 blocklyExecuting = exe;
                 break;
