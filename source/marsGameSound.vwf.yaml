@@ -1,7 +1,10 @@
 --- 
 extends: http://vwf.example.com/sound/soundManager.vwf
 properties:
-  # put the metadata for all the sound here, maybe?
+  SoundSet:
+    Sound1:
+      soundName: "laser"
+      soundURL: "assets/sounds/laser.wav"
 methods:
 children:
 scripts:
