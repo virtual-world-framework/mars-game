@@ -57,6 +57,14 @@ this.addToGridFromCoord = function( object, gridCoord ) {
     }
 }
 
+//Add an object to the grid based on its current world position
+this.addToGridFromWorld = function( object ) {
+    var gridCoord = this.getTileFromWorld( object.translation );
+    if ( this.validCoord( gridCoord ) ) {
+        this.addToGridFromCoord( gridCoord );
+    }
+}
+
 this.removeFromGrid = function( object, gridCoord ) {
     var objects = this.getTileFromGrid( gridCoord ).objects;
     var index = objects.indexOf( object )

@@ -317,7 +317,7 @@ children:
       grid:
         extends: source/grid.vwf
         properties:
-          gridOriginInSpace: [ 0, 0 ]
+          gridOriginInSpace: [ -6, -21 ]
           gridSquareLength: 3
   blocklyLine:
     extends: http://vwf.example.com/graphline.vwf
