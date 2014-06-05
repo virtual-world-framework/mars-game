@@ -6,23 +6,17 @@
 	visibility: hidden;
 }
 
-#blocklyWrapper-top {
-	pointer-events: all;
-}
-
 #blocklyDiv {
 	height: 400px;
 	width: 560px;
 	overflow: hidden;
 	border-radius: 10px;
 	opacity: 0.9;
-	pointer-events: all;
 }
 
 #runButton {
 	margin-left: 10px;
 	border-radius: 5px;
-	pointer-events: all;
 }
 
 #toolbox {
