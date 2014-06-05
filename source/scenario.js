@@ -55,7 +55,7 @@ this.entering = function() {
         if ( self.successClause.length > 1 ) {
              self.logger.errorx( "entering", "The success clause can only " +
                                  "have a single entry.  Try using AND or OR." );
-        } else {
+        } else if ( checkSucceededFn === undefined ) {
             checkSucceededFn = 
                 clauseFactory.executeFunction( self.successClause[ 0 ],
                                                scene, 
@@ -67,7 +67,7 @@ this.entering = function() {
         if ( self.failureClause.length > 1 ) {
              self.logger.errorx( "entering", "The failure clause can only " +
                                  "have a single entry.  Try using AND or OR." );
-        } else {
+        } else if ( checkFailedFn === undefined ) {
             checkFailedFn = 
                 clauseFactory.executeFunction( self.failureClause[ 0 ],
                                                scene, 
