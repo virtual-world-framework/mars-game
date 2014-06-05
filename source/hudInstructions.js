@@ -28,17 +28,12 @@ function createRoverElement() {
     batteryMeter.onMouseDown = switchTarget;
     hud.add( batteryMeter, "left", "top", { "x": 30, "y": 30 } );
 
-    var roverFrame = new Image();
-    roverFrame.src = "assets/hud/rover_frame.png";
-    roverFrame.onload = ( function() { batteryMeter.frame = roverFrame; } );
-
-    var roverPortrait = new Image();
-    roverPortrait.src = "assets/hud/rover_portrait.png";
-    roverPortrait.onload = ( function() { batteryMeter.portrait = roverPortrait; } );
-
-    var roverDetail = new Image();
-    roverDetail.src = "assets/hud/rover_frame_detail.png";
-    roverDetail.onload = ( function() { batteryMeter.detail = roverDetail; } );
+    batteryMeter.frame = new Image();
+    batteryMeter.frame.src = "assets/hud/rover_frame.png";
+    batteryMeter.portrait = new Image();
+    batteryMeter.portrait.src = "assets/hud/rover_portrait.png";
+    batteryMeter.selectedIcon = new Image();
+    batteryMeter.selectedIcon.src = "assets/hud/rover_select.png";
 }
 
 function createMiniRoverElement() {
@@ -47,54 +42,47 @@ function createMiniRoverElement() {
     miniroverElement.onMouseDown = switchTarget;
     hud.add( miniroverElement, "left", "top", { "x": 50, "y": 168 } );
 
-    var portrait = new Image();
-    portrait.src = "assets/hud/minirover_portrait.png";
-    portrait.onload = ( function() { miniroverElement.portrait = portrait; } );
-
-    var frame = new Image();
-    frame.src = "assets/hud/minirover_frame.png";
-    frame.onload = ( function() { miniroverElement.frame = frame; } );
+    miniroverElement.portrait = new Image();
+    miniroverElement.portrait.src = "assets/hud/minirover_portrait.png";
+    miniroverElement.frame = new Image();
+    miniroverElement.frame.src = "assets/hud/minirover_frame.png";
+    miniroverElement.selectedIcon = new Image();
+    miniroverElement.selectedIcon.src = "assets/hud/minirover_select.png";
 }
 
 function createCameraSelector() {
 
-    var largeIcon = new Image();
-    largeIcon.src = "assets/hud/camera_bg_large.png";
-    largeIcon.onload = ( function() {
+    var selector = new HUD.Element( "cameraSelector", drawCameraSelector, 96, 96 );
+    selector.activeMode = {
+        "icon": new Image(),
+        "type": "thirdPerson"
+    };
+    selector.activeMode.icon.src = "assets/hud/camera_thirdperson.png";
+    selector.frame = new Image();
+    selector.frame.src = "assets/hud/camera_selector_frame.png";
+    hud.add( selector, "right", "top", { "x": -30, "y": 30 } );
 
-        var selectedMode = new HUD.Element( "camera_selected", drawCameraSelector, largeIcon.width, largeIcon.height );
-        selectedMode.background = largeIcon;
-        selectedMode.mode = "thirdPerson";
-        selectedMode.icon = undefined;
-        hud.add( selectedMode, "right", "top", { "x": -80, "y": 80 } );
-        
-    } );
+    var firstPersonBtn = new HUD.Element( "camera_firstPerson", drawIcon, 22, 22 );
+    firstPersonBtn.icon = new Image();
+    firstPersonBtn.icon.src = "assets/hud/camera_firstperson.png";
+    firstPersonBtn.mode = "firstPerson";
+    firstPersonBtn.onMouseDown = selectCameraMode;
+    hud.add( firstPersonBtn, "right", "top", { "x": -62, "y": 32 } );
 
-    var smallIcon1 = new Image();
-    smallIcon1.src = "assets/hud/camera_bg_small.png";
-    smallIcon1.onload = ( function() {
+    var thirdPersonBtn = new HUD.Element( "camera_thirdPerson", drawIcon, 22, 22 );
+    thirdPersonBtn.icon = new Image();
+    thirdPersonBtn.icon.src = "assets/hud/camera_thirdperson.png";
+    thirdPersonBtn.mode = "thirdPerson";
+    thirdPersonBtn.onMouseDown = selectCameraMode;
+    hud.add( thirdPersonBtn, "right", "top", { "x": -35, "y": 52 } );
 
-        var optionMode1 = new HUD.Element( "camera_option1", drawCameraSelector, smallIcon1.width, smallIcon1.height );
-        optionMode1.background = smallIcon1;
-        optionMode1.mode = "firstPerson";
-        optionMode1.icon = undefined;
-        optionMode1.onMouseDown = switchCameraMode;
-        hud.add( optionMode1, "right", "top", { "x": -70, "y": 30 } );
-        
-    } );
+    var topDownBtn = new HUD.Element( "camera_topDown", drawIcon, 22, 22 );
+    topDownBtn.icon = new Image();
+    topDownBtn.icon.src = "assets/hud/camera_topdown.png";
+    topDownBtn.mode = "topDown";
+    topDownBtn.onMouseDown = selectCameraMode;
+    hud.add( topDownBtn, "right", "top", { "x": -38, "y": 84 } );
 
-    var smallIcon2 = new Image();
-    smallIcon2.src = "assets/hud/camera_bg_small.png";
-    smallIcon2.onload = ( function() {
-
-        var optionMode2 = new HUD.Element( "camera_option2", drawCameraSelector, smallIcon2.width, smallIcon2.height );
-        optionMode2.background = smallIcon2;
-        optionMode2.mode = "topDown";
-        optionMode2.icon = undefined;
-        optionMode2.onMouseDown = switchCameraMode;
-        hud.add( optionMode2, "right", "top", { "x": -30, "y": 70 } );
-        
-    } );
 }
 
 function createCommsDisplay() {
@@ -230,19 +218,19 @@ function drawBatteryMeter( context, position ) {
     context.beginPath();
     context.arc( center.x, center.y, arcWidth / 2, start, end, true );
     context.lineWidth = arcWidth - 1;
-    context.strokeStyle = "rgb(50,90,220)";
+    context.strokeStyle = "rgb(70,120,255)";
     context.stroke();
 
     if ( this.portrait ) {
         context.drawImage( this.portrait, center.x - this.portrait.width / 2, center.y - this.portrait.height / 2 );
     }
 
-    if ( this.frame ) {
-        context.drawImage( this.frame, position.x, position.y );
+    if ( this.selectedIcon && targetPath === this.path ) {
+        context.drawImage( this.selectedIcon, center.x - this.selectedIcon.width / 2, center.y - this.selectedIcon.height / 2 );
     }
 
-    if ( this.detail ) {
-        context.drawImage( this.detail, position.x, position.y );
+    if ( this.frame ) {
+        context.drawImage( this.frame, position.x, position.y );
     }
 
     context.textBaseline = "top";
@@ -262,6 +250,10 @@ function drawMiniRoverElement( context, position ) {
         context.drawImage( this.portrait, center.x - this.portrait.width / 2, center.y - this.portrait.height / 2 );
     }
 
+    if ( this.selectedIcon && targetPath === this.path ) {
+        context.drawImage( this.selectedIcon, center.x - this.selectedIcon.width / 2, center.y - this.selectedIcon.height / 2 );
+    }
+
     if ( this.frame ) {
         context.drawImage( this.frame, position.x, position.y );
     }
@@ -278,8 +270,14 @@ function drawComms( context, position ) {
 }
 
 function drawCameraSelector( context, position ) {
-    if ( this.background ) {
-        context.drawImage( this.background, position.x, position.y );
+    if ( this.frame ) {
+        context.drawImage( this.frame, position.x, position.y );
+    }
+
+    if ( this.activeMode.icon ) {
+        var posx = ( position.x + this.width / 2 ) - ( this.activeMode.icon.width / 2 );
+        var posy = ( position.y + this.height / 2 ) - ( this.activeMode.icon.height / 2 );
+        context.drawImage( this.activeMode.icon, posx, posy );
     }
 }
 
@@ -328,15 +326,10 @@ function drawInventory( context, position ) {
 
             }
 
-        } else if ( this.slots[ i ].isMouseOver ) {
-
-            context.fillStyle = "rgb(180,180,225)";
-            context.fillRect( posX, posY, iconSize, iconSize );
-
         } else {
 
             context.fillStyle = "rgb(50,90,220)";
-            context.fillRect( posX, posY, iconSize, iconSize );
+            context.fillRect( posX, posY + 5, iconSize, iconSize - 10 );
 
         }
     }
@@ -348,6 +341,7 @@ function drawInventory( context, position ) {
 function clickBlockly( event ) {
     
     var sceneID = vwf_view.kernel.application();
+    var targetID = vwf_view.kernel.find( "", targetPath )[ 0 ];
 
     if ( sceneID !== undefined && targetID !== undefined ) {
         vwf_view.kernel.setProperty( sceneID, "blockly_activeNodeID", targetID );
@@ -360,15 +354,9 @@ function switchTarget( event ) {
     vwf_view.kernel.setProperty( cameraNode, "targetPath", this.path );
 }
 
-function switchCameraMode( event ) {
-    var selectedMode = hud.elements[ "camera_selected" ].mode;
-    var selectedIcon = hud.elements[ "camera_selected" ].icon;
+function selectCameraMode( event ) {
     var cameraNode = vwf_view.kernel.find( "", "//camera" )[ 0 ];
     vwf_view.kernel.setProperty( cameraNode, "pointOfView", this.mode );
-    hud.elements[ "camera_selected" ].mode = this.mode;
-    hud.elements[ "camera_selected" ].icon = this.icon;
-    this.mode = selectedMode;
-    this.icon = selectedIcon;
 }
 
 //@ sourceURL=source/hudInstructions.js

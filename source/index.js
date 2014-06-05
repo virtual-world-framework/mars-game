@@ -3,7 +3,7 @@ var blocklyNodes = {};
 var graphLines = {};
 var currentBlocklyNodeID = undefined;
 var blocklyExecuting = false;
-var targetID = undefined;
+var targetPath = undefined;
 var mainRover = undefined;
 
 function onRun() {
@@ -188,7 +188,18 @@ vwf_view.satProperty = function( nodeID, propertyName, propertyValue ) {
     if ( nodeID === vwf_view.kernel.find( "", "//camera" )[0] ) {
 
         if ( propertyName === "targetPath" ) {
-            targetID = vwf_view.kernel.find( "", propertyValue )[ 0 ];
+            if ( targetPath !== propertyValue ) {
+                targetPath = propertyValue;
+            }
+        }
+
+        if ( propertyName === "pointOfView" ) {
+            if ( hud ) {
+                var selector = hud.elements[ "cameraSelector" ];
+                var pov = hud.elements[ "camera_" + propertyValue ];
+                selector.activeMode.icon = pov.icon;
+                selector.activeMode.type = pov.mode;
+            }
         }
     }
 
