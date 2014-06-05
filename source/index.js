@@ -344,10 +344,6 @@ function endScenario( endType ) {
 
 }
 
-function loadNewSession() {
-    window.location.assign( window.location.origin + "/mars-game/" );
-}
-
 function resetScenario() {
     vwf_view.kernel.callMethod( vwf_view.kernel.application(), "resetScenario" );
 }
