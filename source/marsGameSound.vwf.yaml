@@ -1,141 +1,53 @@
 --- 
 extends: http://vwf.example.com/sound/soundManager.vwf
 properties:
-  allSoundsLoaded: false
-  soundSet:
-    - soundName: "blockly_bobble_appear"
-      soundURL: "assets/sounds/sfx/uiBlockyBobbleAppear_02.wav"
-      isLooping: false
-      isLayered: false
-<<<<<<< HEAD
-      initialVolume: 1.0
-    - soundName: "blockly_bobble_disappear"
-      soundURL: "assets/sounds/sfx/uiBlockyBobbleDisappear_02.wav"
-      isLooping: false
-      isLayered: false
-      initialVolume: 1.0
-    - soundName: "blockly_execute"
-      soundURL: "assets/sounds/sfx/uiBlockyBlockExecute_02.wav"
-      isLooping: false
-      isLayered: false
-      initialVolume: 1.0
-    - soundName: "blockly_select"
-      soundURL: "assets/sounds/sfx/uiBlockyBlockTapSelect_01.wav"
-      isLooping: false
-      isLayered: false
-      initialVolume: 1.0
-    - soundName: "selection"
-      soundURL: "assets/sounds/sfx/uiTapObjectSelected_02.wav"
-      isLooping: false
-      isLayered: false
-      initialVolume: 1.0
-    - soundName: "transition"
-      soundURL: "assets/sounds/sfx/uiScreenTransition_01.wav"
-      isLooping: false
-      isLayered: false
-      initialVolume: 1.0
-    - soundName: "error"
-      soundURL: "assets/sounds/sfx/uiNegativeFeedback_02.wav"
-      isLooping: false
-      isLayered: false
-      initialVolume: 1.0
-    - soundName: "restart"
-      soundURL: "assets/sounds/sfx/uiRestart_01.wav"
-      isLooping: false
-      isLayered: false
-      initialVolume: 1.0
-    - soundName: "low_battery"
-      soundURL: "assets/sounds/sfx/uiLowBattery_01.wav"
-      isLooping: false
-      isLayered: false
-      initialVolume: 1.0
-    - soundName: "low_ram"
-      soundURL: "assets/sounds/sfx/uiLowRam_01.wav"
-      isLooping: false
-      isLayered: false
-      initialVolume: 1.0
-    - soundName: "rover_motor"
+  SoundSet:
+    - Sound1:
+      soundName: "rover"
       soundURL: "assets/sounds/sfx/objectRoverMotor_04.wav"
       isLooping: true
       isLayered: false
-      initialVolume: 1.0
-    - soundName: "rover_treads"
-      soundURL: "assets/sounds/sfx/objectRoverMovementGroundCrunch_01.wav"
-      isLooping: true
-      isLayered: false
-      initialVolume: 1.0
-    - soundName: "menu"
-      soundURL: "assets/sounds/music/musicMenuLoop.ogg"
-      isLooping: true
-      isLayered: false
-      initialVolume: 1.0
-      allowMultiplay: false
-    - soundName: "gameplay"
-      soundURL: ""
-      isLooping: true
-      isLayered: true
-      initialVolume: 0.0
-      allowMultiplay: false
-      soundDefinitions: 
-        - soundName: "gameplay_layer0"
-          soundURL: "assets/sounds/music/musicStandardGameplayLoopLayer_01.ogg"
-          isLooping: true
-          allowMultiplay: false
-          initialVolume: 0.0
-        - soundName: "gameplay_layer1"
-          soundURL: "assets/sounds/music/musicStandardGameplayLoopLayer_02.ogg"
-          isLooping: true
-          allowMultiplay: false
-          initialVolume: 0.0
-    - soundName: "wind"
-      soundURL: ""
-      isLooping: true
-      isLayered: true
-      initialVolume: 0.0
-      soundDefinitions:
-        - soundName: "wind_layer0"
-          soundURL: "assets/sounds/sfx/environmentWind_01.wav"
-          isLooping: true
-          isLayered: false
-          initialVolume: 0.0
-        - soundName: "wind_layer1"
-          soundURL: "assets/sounds/sfx/environmentWind_02.wav"
-          isLooping: true
-          isLayered: false
-          initialVolume: 0.0
-methods:
-  fadeInMainMusic:
-  stopMainMusic:
-  fadeOutMainMusic:
-  playMenuMusic:
-  stopMenuMusic:
-  playRoverSounds:
-  stopRoverSounds:
-  fadeInWindSounds:
-  stopWindSounds:
-  fadeOutWindSounds:
-=======
     - Sound2:
+      soundName: "menu"
+      soundURL: "assets/sounds/music/musicMenuLoop.wav"
+      isLooping: true
+      isLayered: false
+    - Sound3:
       soundName: "gameplay"
       soundURL: ""
       isLooping: true
       isLayered: true
-      soundDefinitions:
+      soundDefinitions: #Sound layers should start with 0 to avoid fencepost errors
+        - Layer0:
+          soundName: "gameplay_layer0"
+          soundURL: "assets/sounds/music/musicStandardGameplayLoopLayer_01.wav"
+          isLooping: true
+          isLayered: false
         - Layer1:
           soundName: "gameplay_layer1"
-          soundURL: "assets/sounds/music/musicStandardGameplayLoopLayer_01.wav"
-          isLooping: false
-          isLayered: false
-        - Layer2:
-          soundName: "gameplay_layer2"
           soundURL: "assets/sounds/music/musicStandardGameplayLoopLayer_02.wav"
-          isLooping: false
+          isLooping: true
+          isLayered: false
+    - Sound4:
+      soundName: "wind"
+      soundURL: ""
+      isLooping: true
+      isLayered: true
+      soundDefinitions: #Sound layers should start with 0 to avoid fencepost errors
+        - Layer0:
+          soundName: "wind_layer0"
+          soundURL: "assets/sounds/sfx/environmentWind_01.wav"
+          isLooping: true
+          isLayered: false
+        - Layer1:
+          soundName: "wind_layer1"
+          soundURL: "assets/sounds/sfx/environmentWind_02.wav"
+          isLooping: true
           isLayered: false
 methods:
 methods:
   loadAllSounds:
   playMainMusic:
->>>>>>> c9d482c... Finally back to point before rebase errors
 children:
 scripts:
 - source: source/marsGameSound.js
