@@ -1,7 +1,7 @@
-var ramCount;
+var ramBarCount;
 var ramBar;
-var currentRam = 15;
-var maxRam = 15;
+var ramBarCurrentLength = 15;
+var ramBarMaxLength = 15;
 
 function setUpBlocklyUI() {
 
@@ -15,14 +15,14 @@ function setUpBlocklyUI() {
 
     ramBar = document.createElement( "div" );
     ramBar.id = "ramBar";
-    ramCount = document.createElement( "div" );
-    ramCount.id = "ramCount";
-    ramCount.innerHTML = currentRam;
+    ramBarCount = document.createElement( "div" );
+    ramBarCount.id = "ramBarCount";
+    ramBarCount.innerHTML = ramBarCurrentLength;
     blocklyUI.appendChild( ramBar );
-    blocklyUI.appendChild( ramCount );	
+    blocklyUI.appendChild( ramBarCount );	
 }
 
 function updateBlocklyRamBar() {
-    ramBar.style.width = 300 * ( currentRam / maxRam ) + "px";
-    ramCount.innerHTML = currentRam;
+    ramBar.style.width = 280 * ( ramBarCurrentLength / ramBarMaxLength ) + "px";
+    ramBarCount.innerHTML = ramBarCurrentLength;
 }

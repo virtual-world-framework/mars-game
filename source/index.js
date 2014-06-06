@@ -173,12 +173,12 @@ vwf_view.satProperty = function( nodeID, propertyName, propertyValue ) {
         switch ( propertyName ) {
 
             case "ram":
-                currentRam = parseFloat( propertyValue );
+                ramBarCurrentLength = parseFloat( propertyValue );
                 blocklyNode[ propertyName ] = parseFloat( propertyValue );
                 break;
 
             case "ramMax":
-                maxRam = parseFloat( propertyValue );
+                ramBarMaxLength = parseFloat( propertyValue );
                 blocklyNode[ propertyName ] = parseFloat( propertyValue );
                 if ( nodeID === currentBlocklyNodeID ) {
                     // the mainWorkSpace is not valid until the UI is visible
@@ -189,8 +189,8 @@ vwf_view.satProperty = function( nodeID, propertyName, propertyValue ) {
                 break;
 
             case "blockly_blockCount":
-                maxRam = blocklyNode.ramMax;
-                currentRam = maxRam - parseFloat( propertyValue );
+                ramBarMaxLength = blocklyNode.ramMax;
+                ramBarCurrentLength = ramBarMaxLength - parseFloat( propertyValue );
                 break;
 
             case "blockly_executing":
@@ -363,7 +363,7 @@ function resetScenario() {
 function updateBlocklyUI( blocklyNode ) {
     if ( Blockly.mainWorkspace ) {
         Blockly.mainWorkspace.maxBlocks = blocklyNode.ramMax;
-        maxRam = blocklyNode.ramMax;
+        ramBarMaxLength = blocklyNode.ramMax;
     }
 }
 
