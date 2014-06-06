@@ -6,7 +6,7 @@ this.initialize = function() {
 
 }
 
-this.loadAllSounds = function() {
+this.loadAllSounds = function(failureCallback,successCallback) {
 
 	var allSounds = this.SoundSet;
 
@@ -18,14 +18,26 @@ this.loadAllSounds = function() {
     		//self.playSound('laser')
     	}
 
-    	self.loadSound(soundDefinition, playMe);
+    	self.loadSound(allSounds[i], playMe);
 
 	}
 
 }
 
+this.playMenuMusic = function(){
+	self.playSound('menu');
+}
+
 this.playMainMusic = function(){
 	self.playSound('gameplay');
+}
+
+this.playWind = function(){
+	self.playSound('wind');
+}
+
+this.playRoverSounds = function(){
+	self.playSound('rover');
 }
 
 //@ sourceURL=source/marsGameSound.js
