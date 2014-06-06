@@ -7,8 +7,26 @@ properties:
       soundURL: "assets/sounds/laser.wav"
       isLooping: false
       isLayered: false
+    - Sound2:
+      soundName: "gameplay"
+      soundURL: ""
+      isLooping: true
+      isLayered: true
+      soundDefinitions:
+        - Layer1:
+          soundName: "gameplay_layer1"
+          soundURL: "assets/sounds/music/musicStandardGameplayLoopLayer_01.wav"
+          isLooping: false
+          isLayered: false
+        - Layer2:
+          soundName: "gameplay_layer2"
+          soundURL: "assets/sounds/music/musicStandardGameplayLoopLayer_02.wav"
+          isLooping: false
+          isLayered: false
 methods:
 methods:
+  loadAllSounds:
+  playMainMusic:
 children:
 scripts:
 - source: source/marsGameSound.js

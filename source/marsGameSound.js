@@ -15,14 +15,17 @@ this.loadAllSounds = function() {
    		var soundDefinition = allSounds[i];
 
     	var playMe = function() {
-      		self.playSound("laser");
+    		//self.playSound('laser')
     	}
 
-    	this.loadSound(soundDefinition, playMe);
+    	self.loadSound(soundDefinition, playMe);
 
 	}
 
 }
 
+this.playMainMusic = function(){
+	self.playSound('gameplay');
+}
 
 //@ sourceURL=source/marsGameSound.js
