@@ -1,25 +1,18 @@
 function createHUD() {
 
-    var batteryMeter = new HUD.Element( "batteryMeter", drawBatteryMeter, 250, 40 );
-    batteryMeter.battery = 30;
-    batteryMeter.maxBattery = 50;
-    hud.add( batteryMeter, "left", "bottom", { "x": 30, "y": -30 } );
-    batteryMeter.visible = true;
-
-    var ramMeter = new HUD.Element( "ramMeter", drawRamMeter, 250, 40 );
-    ramMeter.ram = 15;
-    ramMeter.maxRam = 15;
-    hud.add( ramMeter, "right", "bottom", { "x": -30, "y": -30 } );
-    ramMeter.visible = true;
+    createRoverElement();
+    createMiniRoverElement();
+    createCameraSelector();
+    createCommsDisplay();
 
     var icon = new Image();
-    icon.src = "assets/images/1stPersonBlockly.png";
+    icon.src = "assets/hud/blockly_large.png";
     icon.onload = ( function() {
 
         var blocklyButton = new HUD.Element( "blocklyButton", drawIcon, icon.width, icon.height );
         blocklyButton.icon = icon;
         blocklyButton.onMouseDown = clickBlockly;
-        hud.add( blocklyButton, "right", "top", { "x": -30, "y": 30 } );
+        hud.add( blocklyButton, "right", "bottom", { "x": -30, "y": -30 } );
         
     } );
 
@@ -27,35 +20,136 @@ function createHUD() {
 
 }
 
+function createRoverElement() {
+    var batteryMeter = new HUD.Element( "batteryMeter", drawBatteryMeter, 128, 128 );
+    batteryMeter.battery = 100;
+    batteryMeter.maxBattery = 100;
+    batteryMeter.path = "/player/rover";
+    batteryMeter.onMouseDown = switchTarget;
+    hud.add( batteryMeter, "left", "top", { "x": 30, "y": 30 } );
+
+    var roverFrame = new Image();
+    roverFrame.src = "assets/hud/rover_frame.png";
+    roverFrame.onload = ( function() { batteryMeter.frame = roverFrame; } );
+
+    var roverPortrait = new Image();
+    roverPortrait.src = "assets/hud/rover_portrait.png";
+    roverPortrait.onload = ( function() { batteryMeter.portrait = roverPortrait; } );
+
+    var roverDetail = new Image();
+    roverDetail.src = "assets/hud/rover_frame_detail.png";
+    roverDetail.onload = ( function() { batteryMeter.detail = roverDetail; } );
+}
+
+function createMiniRoverElement() {
+    var miniroverElement = new HUD.Element( "minirover", drawMiniRoverElement, 88, 88 );
+    miniroverElement.path = "/minirover";
+    miniroverElement.onMouseDown = switchTarget;
+    hud.add( miniroverElement, "left", "top", { "x": 50, "y": 168 } );
+
+    var portrait = new Image();
+    portrait.src = "assets/hud/minirover_portrait.png";
+    portrait.onload = ( function() { miniroverElement.portrait = portrait; } );
+
+    var frame = new Image();
+    frame.src = "assets/hud/minirover_frame.png";
+    frame.onload = ( function() { miniroverElement.frame = frame; } );
+}
+
+function createCameraSelector() {
+
+    var largeIcon = new Image();
+    largeIcon.src = "assets/hud/camera_bg_large.png";
+    largeIcon.onload = ( function() {
+
+        var selectedMode = new HUD.Element( "camera_selected", drawCameraSelector, largeIcon.width, largeIcon.height );
+        selectedMode.background = largeIcon;
+        selectedMode.mode = "thirdPerson";
+        selectedMode.icon = undefined;
+        hud.add( selectedMode, "right", "top", { "x": -80, "y": 80 } );
+        
+    } );
+
+    var smallIcon1 = new Image();
+    smallIcon1.src = "assets/hud/camera_bg_small.png";
+    smallIcon1.onload = ( function() {
+
+        var optionMode1 = new HUD.Element( "camera_option1", drawCameraSelector, smallIcon1.width, smallIcon1.height );
+        optionMode1.background = smallIcon1;
+        optionMode1.mode = "firstPerson";
+        optionMode1.icon = undefined;
+        optionMode1.onMouseDown = switchCameraMode;
+        hud.add( optionMode1, "right", "top", { "x": -70, "y": 30 } );
+        
+    } );
+
+    var smallIcon2 = new Image();
+    smallIcon2.src = "assets/hud/camera_bg_small.png";
+    smallIcon2.onload = ( function() {
+
+        var optionMode2 = new HUD.Element( "camera_option2", drawCameraSelector, smallIcon2.width, smallIcon2.height );
+        optionMode2.background = smallIcon2;
+        optionMode2.mode = "topDown";
+        optionMode2.icon = undefined;
+        optionMode2.onMouseDown = switchCameraMode;
+        hud.add( optionMode2, "right", "top", { "x": -30, "y": 70 } );
+        
+    } );
+}
+
+function createCommsDisplay() {
+
+    var commsElement = new HUD.Element( "comms", drawComms, 128, 192 );
+    hud.add( commsElement, "left", "bottom", { "x": 30, "y": -30 } );
+
+    var background = new Image();
+    background.src = "assets/hud/communication_bg.png";
+    background.onload = ( function() { commsElement.background = background; } );
+
+    var frame = new Image();
+    frame.src = "assets/hud/communication_frame.png";
+    frame.onload = ( function() { commsElement.frame = frame; } );
+
+}
+
 function createInventoryHUD( capacity ) {
 
-    var cols = Math.round( Math.sqrt( capacity ) );
-    var rows = cols * cols < capacity ? cols + 1 : cols;
-    var width = 48 * cols + cols;
-    var height = 48 * rows + rows;
+    var iconSize = 48;
+    var width = iconSize * capacity;
+    var height = iconSize;
 
-    var grid = new Array();
+    var slots = new Array();
 
-    for ( var i = 0, slot = 0; i < rows; i++ ) {
-
-        grid[i] = new Array();
-
-        for ( var n = 0; n < cols && slot < capacity; n++, slot++ ) {
-
-            grid[i][n] = { "item": null, "slot": slot, "isMouseOver": false };
-
-        }
-
+    for ( var i = 0; i < capacity; i++ ) {
+        slots[ i ] = { "item": null, "isMouseOver": false };
     }
 
     var inventory = new HUD.Element( "cargo", drawInventory, width, height );
-    inventory.grid = grid;
+    inventory.slots = slots;
     inventory.capacity = capacity;
     inventory.type = "inventory";
-    inventory.onMouseMove = selectGrid;
-    inventory.onMouseOut = deselectGrid;
-    inventory.onMouseDown = selectItem;
     hud.add( inventory, "center", "bottom", { "x": 0, "y": -30 } );
+
+    var leftEnd = new Image();
+    leftEnd.src = "assets/hud/inventory_end_left.png";
+    leftEnd.onload = ( function() { 
+        inventory.leftEnd = leftEnd;
+        inventory.width += leftEnd.width;
+    } );
+
+    var rightEnd = new Image();
+    rightEnd.src = "assets/hud/inventory_end_right.png";
+    rightEnd.onload = ( function() { 
+        inventory.rightEnd = rightEnd;
+        inventory.width += rightEnd.width;
+    } );
+
+    var separator = new Image();
+    separator.src = "assets/hud/inventory_separator.png";
+    separator.onload = ( function() { 
+        inventory.separator = separator;
+        inventory.width += ( capacity - 1 ) * separator.width;
+    } );
 
 }
 
@@ -70,31 +164,25 @@ function getInventoryHUD() {
     return null;
 }
 
-//Returns the first available inventory HUD slot based on current size of inventory
-function getAvailableInventorySlot( inventory, inventorySize ) {
+function addSlotIcon( objectID, iconSrc, index, parentName ) {
 
-    if ( inventory ){
-        var col = inventorySize % 2;
-        var row = Math.floor( inventorySize / 2 ) % 2;
-        return inventory.grid[ row ][ col ];
-    }
-    return null;
+    var inventory = getInventoryHUD();
+    var slot;
 
-}
+    if ( inventory ) {
 
-function addSlotIcon( objectID, iconSrc, inventorySize, parentName ) {
+        slot = inventory.slots[ index ];
 
-    var slot = getAvailableInventorySlot( getInventoryHUD(), inventorySize );
-
-    if ( slot ){
-        var icon = new Image();
-        icon.src = iconSrc;
-        icon.onload = ( function(){
-            var inventoryItem = new HUD.Element( objectID, drawIcon, icon.width, icon.height );
-            inventoryItem.icon = icon;
-            inventoryItem.owner = parentName;
-            slot.item = inventoryItem;
-        });
+        if ( slot ){
+            var icon = new Image();
+            icon.src = iconSrc;
+            icon.onload = ( function(){
+                var inventoryItem = new HUD.Element( objectID, drawIcon, icon.width, icon.height );
+                inventoryItem.icon = icon;
+                inventoryItem.owner = parentName;
+                slot.item = inventoryItem;
+            });
+        }
     }
 
 }
@@ -112,15 +200,12 @@ function removeSlotIcon( item ) {
 
     if ( inventory ){
 
-        for ( var r = 0; r < inventory.grid.length; r++ ) {
+        for ( var i = 0; i < inventory.slots.length; i++ ) {
 
-            for ( var c = 0; c < inventory.grid[ r ].length; c++ ) {
+            if ( inventory.slots[ i ].item !== null && inventory.slots[ i ].item.id === item.id ){
 
-                if ( inventory.grid[ r ][ c ].item !== null && inventory.grid[ r ][ c ].item.id === item.id ){
+                inventory.slots[ i ].item = null;
 
-                    inventory.grid[ r ][ c ].item = null;
-
-                }
             }
         }
     }
@@ -133,52 +218,69 @@ function drawBatteryMeter( context, position ) {
 
     var battery = this.battery;
     var maxBattery = this.maxBattery;
-    var meterWidth = (this.width - 10) * battery / maxBattery;
-    var meterHeight = (this.height - 10);
+    var arcWidth = ( this.height + this.width ) / 4 ;
+    var center = {
+        "x": position.x + this.width / 2,
+        "y": position.y + this.height / 2
+    };
+    var radius = ( ( this.width + this.height ) / 2 ) / 2 - ( arcWidth );
+    var start = Math.PI * 1.5;
+    var end = start - ( battery / maxBattery ) * Math.PI * 2;
 
-    context.strokeStyle = "rgb(255,255,255)";
-    context.lineWidth = 3;
-    context.strokeRect( position.x, position.y, this.width, this.height );
-    context.fillStyle = "rgb(50,90,220)";
-    context.fillRect( position.x + 5, position.y + 5, meterWidth, meterHeight );
+    context.beginPath();
+    context.arc( center.x, center.y, arcWidth / 2, start, end, true );
+    context.lineWidth = arcWidth - 1;
+    context.strokeStyle = "rgb(50,90,220)";
+    context.stroke();
 
-    context.textBaseline = "bottom";
-    context.font = '16px Arial';
-    context.fillStyle = "rgb(255,255,255)";
-    context.fillText("BATTERY", position.x, position.y - 4);
+    if ( this.portrait ) {
+        context.drawImage( this.portrait, center.x - this.portrait.width / 2, center.y - this.portrait.height / 2 );
+    }
+
+    if ( this.frame ) {
+        context.drawImage( this.frame, position.x, position.y );
+    }
+
+    if ( this.detail ) {
+        context.drawImage( this.detail, position.x, position.y );
+    }
 
     context.textBaseline = "top";
-    context.font = 'bold 28px Arial';
+    context.font = 'bold 24px Arial';
     context.fillStyle = "rgb(255,255,255)";
-    context.fillText(Math.round(battery), position.x + 25, position.y + 4);
+    context.fillText( Math.round(battery), position.x + this.width + 3, position.y - 1 );
 
 }
 
-function drawRamMeter( context, position ) {
+function drawMiniRoverElement( context, position ) {
+    var center = {
+        "x": position.x + this.width / 2,
+        "y": position.y + this.height / 2
+    };
 
-    var ram = this.ram;
-    var maxRam = this.maxRam;
-    var meterWidth = (this.width - 10) * ram / maxRam;
-    var meterHeight = (this.height - 10);
+    if ( this.portrait ) {
+        context.drawImage( this.portrait, center.x - this.portrait.width / 2, center.y - this.portrait.height / 2 );
+    }
 
-    context.strokeStyle = "rgb(255,255,255)";
-    context.lineWidth = 3;
-    context.strokeRect( position.x, position.y, this.width, this.height );
-    context.fillStyle = "rgb(220,90,50)";
-    context.fillRect( position.x + this.width - 5, position.y + 5, -meterWidth, meterHeight );
+    if ( this.frame ) {
+        context.drawImage( this.frame, position.x, position.y );
+    }
+}
 
-    context.textBaseline = "bottom";
-    context.font = '16px Arial';
-    context.fillStyle = "rgb(255,255,255)";
-    context.textAlign = "end";
-    context.fillText("RAM", position.x + this.width, position.y - 4);
+function drawComms( context, position ) {
+    if ( this.background ) {
+        context.drawImage( this.background, position.x, position.y );
+    }
 
-    context.textBaseline = "top";
-    context.font = 'bold 28px Arial';
-    context.fillStyle = "rgb(255,255,255)";
-    context.textAlign = "end";
-    context.fillText(Math.round(ram), position.x + this.width - 25, position.y + 4);
+    if ( this.frame ) {
+        context.drawImage( this.frame, position.x, position.y );
+    }
+}
 
+function drawCameraSelector( context, position ) {
+    if ( this.background ) {
+        context.drawImage( this.background, position.x, position.y );
+    }
 }
 
 function drawIcon( context, position ) {
@@ -189,40 +291,53 @@ function drawIcon( context, position ) {
 
 function drawInventory( context, position ) {
 
+    var iconSize = 48;
     var cap = this.capacity;
-    context.fillStyle = "rgb(80,40,40)";
-    context.fillRect( position.x - 1, position.y - 1, this.width + 1, this.height + 1);
+    var separatorWidth = this.separator ? this.separator.width : 1;
+    var elementWidth = this.capacity * iconSize + ( this.capacity - 1 ) * separatorWidth;
+    var startPosition = position.x;
 
-    for ( var r = 0; r < this.grid.length; r++ ) {
+    if ( this.leftEnd ) {
+        context.drawImage( this.leftEnd, position.x, position.y );
+        startPosition += this.leftEnd.width;
+    }
 
-        for ( var c = 0; c < this.grid[r].length; c++ ) {
+    if ( this.rightEnd ) {
+        context.drawImage( this.rightEnd, startPosition + elementWidth, position.y );
+    }
 
-            var posX = position.x + (c*48) + c;
-            var posY = position.y + (r*48) + r;
-            var item = this.grid[r][c].item;
+    for ( var i = 0; i < this.slots.length; i++ ) {
 
-            if ( item !== null ) {
+        var posX = startPosition + ( i * iconSize );
+        var posY = position.y;
+        var item = this.slots[ i ].item;
 
-                context.fillStyle = "rgb(80,80,160)";
-                context.fillRect( posX, posY, 48, 48 );
+        if ( i > 0 ) {
+            if ( this.separator ) {
+                context.drawImage( this.separator, posX + ( i - 1 ) * separatorWidth, posY );
+            }
 
-                if ( item.icon instanceof Image ) {
+            posX += i * separatorWidth;
+        }
 
-                    context.drawImage( item.icon, posX, posY );
+        if ( item !== null ) {
 
-                }
+            if ( item.icon instanceof Image ) {
 
-            } else if ( this.grid[r][c].isMouseOver ) {
-
-                context.fillStyle = "rgb(180,180,225)";
-                context.fillRect( posX, posY, 48, 48 );
-
-            } else {
-
-                context.fillStyle = "rgb(225,225,225)";
-                context.fillRect( posX, posY, 48, 48 );
+                context.drawImage( item.icon, posX, posY );
 
             }
+
+        } else if ( this.slots[ i ].isMouseOver ) {
+
+            context.fillStyle = "rgb(180,180,225)";
+            context.fillRect( posX, posY, iconSize, iconSize );
+
+        } else {
+
+            context.fillStyle = "rgb(50,90,220)";
+            context.fillRect( posX, posY, iconSize, iconSize );
+
         }
     }
 }
@@ -230,174 +345,30 @@ function drawInventory( context, position ) {
 
 // === HUD Event Handlers ===
 
-function startDrag( event ) {
-
-    if ( event.which === 1 ) {
-
-        this.isDragging = true;
-        this.startPos.x = event.clientX;
-        this.startPos.y = event.clientY;
-        hud.moveToTop( this.id );
-
-    }
-
-}
-
-function drag( event ) {
-
-    if ( this.isDragging && event.which === 1 ) {
-
-        var movX = event.clientX - this.startPos.x;
-        var movY = event.clientY - this.startPos.y;
-
-        this.offset.x += movX;
-        this.offset.y += movY;
-
-        this.startPos.x = event.clientX;
-        this.startPos.y = event.clientY;
-
-        // Prevent element from losing mouse position
-        this.isMouseOver = true;
-        this.position.x += movX;
-        this.position.y += movY;
-
-        var picks = hud.pick( event );
-        picks.splice( picks.indexOf( this ), 1 );
-
-        for ( var i = 0; i < picks.length; i++ ) {
-
-            picks[i].onMouseMove( event );
-
-        }
-
-    } else {
-
-        this.isDragging = false;
-        hud.remove( this );
-
-    }
-
-}
-
-function drop( event ) {
-
-    this.isDragging = false;
-    hud.remove( this );
-
-    var picks = hud.pick( event );
-    var inventory = null;
-
-    for ( var i = 0; i < picks.length; i++ ) {
-
-        if ( picks[i].hasOwnProperty("type") && picks[i].type === "inventory" ) {
-
-            inventory = picks[i];
-
-        }
-
-    }
-
-    if ( inventory !== null ) {
-
-        var slot = getInventorySlot( event, inventory );
-
-        if ( slot !== null ) {
-
-            addItemToInventory( this, inventory, slot );
-
-        }
-
-    } else {
-
-        removeItemFromInventory( this );
-
-    }
-}
-
-function getInventorySlot( event, inventory ) {
-
-    var slot = null;
-    var posX = event.clientX - inventory.position.x;
-    var posY = event.clientY - inventory.position.y;
-
-    var r = Math.round( posY / 49 - 0.5 );
-    var c = Math.round( posX / 49 - 0.5 );
-
-    if ( inventory.grid[r][c] !== undefined ) {
-
-        slot = inventory.grid[r][c];
-
-    }
-
-    return slot;
-
-}
-
-function selectGrid( event ) {
-
-    var posX = event.clientX - this.position.x;
-    var posY = event.clientY - this.position.y;
-
-    var r = Math.round( posY / 49 - 0.5 );
-    var c = Math.round( posX / 49 - 0.5 );
-
-    for ( var rr = 0; rr < this.grid.length; rr++ ) {
-
-        for ( var cc = 0; cc < this.grid[rr].length; cc++ ) {
-
-            this.grid[rr][cc].isMouseOver = false;
-
-        }
-
-    }
-
-    if ( this.grid[r][c] !== undefined ) {
-
-        this.grid[r][c].isMouseOver = true;
-
-    }
-}
-
-function deselectGrid( event ) {
-
-    for ( var r = 0; r < this.grid.length; r++ ) {
-
-        for ( var c = 0; c < this.grid[r].length; c++ ) {
-
-            this.grid[r][c].isMouseOver = false;
-
-        }
-
-    }
-
-}
-
-function selectItem( event ) {
-
-    var posX = event.clientX - this.position.x;
-    var posY = event.clientY - this.position.y;
-
-    var r = Math.round( posY / 49 - 0.5 );
-    var c = Math.round( posX / 49 - 0.5 );
-
-    if ( this.grid[r][c] !== undefined && this.grid[r][c].item !== null ) {
-
-        var vwfID = this.grid[r][c].item.id;
-        vwf_view.kernel.callMethod( vwfID, "grab", [{ "x": event.clientX, "y": event.clientY }] );
-
-    }
-
-}
-
 function clickBlockly( event ) {
     
-    var roverID = vwf_view.kernel.find( undefined, "/player/rover" )[ 0 ];
     var sceneID = vwf_view.kernel.application();
 
-    if ( sceneID !== undefined && roverID !== undefined ) {
-        vwf_view.kernel.setProperty( sceneID, "blocklyUiNodeID", roverID );        
+    if ( sceneID !== undefined && targetID !== undefined ) {
+        vwf_view.kernel.setProperty( sceneID, "blockly_activeNodeID", targetID );
     }
 
+}
+
+function switchTarget( event ) {
+    var cameraNode = vwf_view.kernel.find( "", "//camera" )[ 0 ];
+    vwf_view.kernel.setProperty( cameraNode, "targetPath", this.path );
+}
+
+function switchCameraMode( event ) {
+    var selectedMode = hud.elements[ "camera_selected" ].mode;
+    var selectedIcon = hud.elements[ "camera_selected" ].icon;
+    var cameraNode = vwf_view.kernel.find( "", "//camera" )[ 0 ];
+    vwf_view.kernel.setProperty( cameraNode, "pointOfView", this.mode );
+    hud.elements[ "camera_selected" ].mode = this.mode;
+    hud.elements[ "camera_selected" ].icon = this.icon;
+    this.mode = selectedMode;
+    this.icon = selectedIcon;
 }
 
 //@ sourceURL=source/hudInstructions.js

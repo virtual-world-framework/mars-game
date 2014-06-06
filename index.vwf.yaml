@@ -7,6 +7,7 @@ properties:
   enableShadows: true
   ambientColor: [ 60, 50, 50 ]
   userObject: null
+  blockly_autoClose: false
 methods:
   checkForSuccess:
 events:
@@ -14,7 +15,11 @@ events:
   scenarioFailed:
 children:
   soundManager:
+<<<<<<< HEAD
     extends: http://vwf.example.com/sound/soundManager.vwf
+=======
+    extends: source/marsGameSound.vwf # http://vwf.example.com/sound/soundManager.vwf
+>>>>>>> FETCH_HEAD
   environment:
     extends: http://vwf.example.com/node3.vwf
     children:
@@ -169,38 +174,43 @@ children:
           translation: [ 0, 0, 1 ]
           rotation: [ 0, 0, 1, 270 ]
           far: 100000
-          isFirstPerson: true
+          pointOfView:
+            set: |
+              this.changePointOfView$( value );
+            value: thirdPerson
+          targetPath:
+            set: |
+              this.setTargetPath$( value );
+            value: "/player/rover"
+          firstPersonOffset: [ 0, 0, 1 ]
+          thirdPersonOffset: [ -15.531,  0,  5.553 ]
+          topDownOffset: [ 0, 0, 100 ]
+          needToSetupEventHandler$: false
+        methods:
+          onSceneReady$:
+          changePointOfView$:
+          setTargetPath$:
+          followTarget$:
+        scripts:
+        - source: "source/camera.js"
       rover:
         extends: source/rover.vwf
         implements: [ "http://vwf.example.com/blockly/controller.vwf" ]
         source: assets/3d/Rover/rover_retro.dae
         type: model/vnd.collada+xml
         properties:
-          visible: false
           rotation: [ 0, 0, 1, 270 ]
           castShadows: true
           receiveShadows: true
           currentGridSquare: [ 2, 7 ]
           heading: 270
-          terrainName: "terrain"
-          blockly_allowedBlocks: 10
+          terrainName: "environment"
         children:
           cargo:
             extends: source/inventory.vwf
             properties:
               capacity: 4
               inventoryIsVisible: false
-          blocklyButton:
-            extends: http://vwf.example.com/node3.vwf
-            source: assets/3d/Blockly.DAE
-            type: model/vnd.collada+xml
-            properties: 
-              visible: false
-              translation: [ 0, 0, 4 ]
-            scripts:
-            - source: source/blocklyButton.js
-        scripts:
-        - source: source/blocklyListeners.js
     scripts:
      - source: source/player.js
   minirover:
@@ -216,25 +226,7 @@ children:
       blocklyEnabled: false
       currentGridSquare: [ 2, 10 ]
       heading: 270
-      terrainName: "terrain"
-    children:
-      noComm:
-        extends: http://vwf.example.com/node3.vwf
-        source: assets/3d/blockly_no/blockly_no.dae
-        type: model/vnd.collada+xml
-        properties:
-          translation: [ 0, 0, 4 ]
-          scale: 0.5
-          visible: false
-      blocklyButton:
-        extends: http://vwf.example.com/node3.vwf
-        source: assets/3d/Blockly.DAE
-        type: model/vnd.collada+xml
-        properties:
-          translation: [ 0, 0, 4 ] 
-          visible: false
-        scripts:
-        - source: source/blocklyButton.js
+      terrainName: "environment"
   pickups:
     extends: http://vwf.example.com/node3.vwf
     children:

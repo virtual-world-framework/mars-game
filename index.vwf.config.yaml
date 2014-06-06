@@ -5,7 +5,11 @@ model:
   vwf/model/sound:
 view:
   vwf/view/threejs: "#vwf-root"
+<<<<<<< HEAD
   vwf/view/blockly: { "blocklyPath": './source/blockly/' }
+=======
+  vwf/view/blockly: { "blocklyPath": './source/blockly/', "toolbox": 'toolbox' }
+>>>>>>> FETCH_HEAD
   vwf/view/sound: 
   vwf/view/editor:
   
