@@ -173,10 +173,12 @@ vwf_view.satProperty = function( nodeID, propertyName, propertyValue ) {
         switch ( propertyName ) {
 
             case "ram":
+                currentRam = parseFloat( propertyValue );
                 blocklyNode[ propertyName ] = parseFloat( propertyValue );
                 break;
 
             case "ramMax":
+                maxRam = parseFloat( propertyValue );
                 blocklyNode[ propertyName ] = parseFloat( propertyValue );
                 if ( nodeID === currentBlocklyNodeID ) {
                     // the mainWorkSpace is not valid until the UI is visible
@@ -184,6 +186,11 @@ vwf_view.satProperty = function( nodeID, propertyName, propertyValue ) {
                         Blockly.mainWorkspace.maxBlocks = Number( propertyValue );    
                     }
                 }
+                break;
+
+            case "blockly_blockCount":
+                maxRam = blocklyNode.ramMax;
+                currentRam = maxRam - parseFloat( propertyValue );
                 break;
 
             case "blockly_executing":
@@ -223,19 +230,12 @@ function setUp( renderer, scene, camera ) {
     //Set up the introductory screens
     setUpIntro();
 
+    setUpBlocklyUI();
+
     // Modify and add to scene
     scene.fog = new THREE.FogExp2( 0xC49E70, 0.005 );
     renderer.setClearColor(scene.fog.color);
     renderer.autoClear = false;
-
-    // Make blockly interface draggable
-    var blocklyUI = document.createElement( "div" );
-    blocklyUI.id = "blocklyUI";
-    $( "#blocklyWrapper" ).append( blocklyUI )
-    $( "#blocklyWrapper" ).draggable( {
-        containment: "body",
-        handle: "div#blocklyUI"
-    } );
 
     // Set render loop to use custom render function
     vwf_view.kernel.kernel.views["vwf/view/threejs"].render = render;
@@ -245,6 +245,8 @@ function setUp( renderer, scene, camera ) {
 function render( renderer, scene, camera ) {
 
     hud.update();
+
+    updateBlocklyRamBar();
 
     renderer.clear();
     renderer.render( scene, camera );
@@ -361,6 +363,7 @@ function resetScenario() {
 function updateBlocklyUI( blocklyNode ) {
     if ( Blockly.mainWorkspace ) {
         Blockly.mainWorkspace.maxBlocks = blocklyNode.ramMax;
+        maxRam = blocklyNode.ramMax;
     }
 }
 

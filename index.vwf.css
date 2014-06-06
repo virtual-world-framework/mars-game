@@ -5,7 +5,6 @@
     margin-top: -200px;
     margin-left: -280px;
     pointer-events: none
-    visibility: hidden;
 }
 
 #blocklyDiv {
@@ -48,4 +47,25 @@
     z-index: -1;
     position: absolute;
     pointer-events: all;
+}
+
+#ramBar {
+    width: 100px;
+    height: 42px;
+    right: 0;
+    bottom: 0;
+    background-color: #FF3333;
+    position: absolute;
+}
+
+#ramCount {
+    width: 35px;
+    height: 35px;
+    right: 0;
+    bottom: 0;
+    position: absolute;
+    color: #fff;
+    font-size: 24px;
+    font-family: arial;
+    text-shadow: 0 0 0.2em #F00;
 }
