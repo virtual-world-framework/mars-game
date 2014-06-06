@@ -1,0 +1,14 @@
+--- 
+extends: http://vwf.example.com/sound/soundManager.vwf
+properties:
+  SoundSet:
+    - Sound1:
+      soundName: "laser"
+      soundURL: "assets/sounds/laser.wav"
+      isLooping: false
+      isLayered: false
+methods:
+methods:
+children:
+scripts:
+- source: source/marsGameSound.js
