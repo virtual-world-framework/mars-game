@@ -5,9 +5,9 @@ this.initialize = function() {
     self = this;
     //Set up the grid map as a 2D array
     this.tiles = [];
-    for ( var i = 0; i < this.maxX; i++ ) {
+    for ( var i = 0; i < this.maxX - this.minX; i++ ) {
         this.tiles[ i ] = [];
-        for ( var j = 0; j < this.maxY; j++ ) {
+        for ( var j = 0; j < this.maxY - this.minY; j++ ) {
             this.tiles[ i ][ j ] = new GridTile();
         }
     }
@@ -15,9 +15,17 @@ this.initialize = function() {
 }
 
 this.setBoundaryValues = function( boundaryValues ) {
-    for ( var i = 0; i < this.maxX; i++ ) {
-        for (var j = 0; j < this.maxY; j++) {
+    for ( var i = 0; i < this.maxX - this.minX; i++ ) {
+        for (var j = 0; j < this.maxY - this.minY; j++) {
             this.tiles[ i ][ j ].energyRequired = self.boundaryValues[ i ][ j ];
+        }
+    }
+}
+
+this.clearGrid = function() {
+    for ( var i = 0; i < this.maxX - this.minX; i++ ) {
+        for ( var j = 0; j < this.maxY - this.minY; j++ ) {
+            this.tiles[ i ][ j ].objects = [];
         }
     }
 }

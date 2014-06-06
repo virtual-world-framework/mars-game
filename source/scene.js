@@ -65,6 +65,7 @@ this.setScenario = function( path ) {
 this.resetScenario = function() {
     var scenario = this.find( this.activeScenarioPath )[ 0 ];
     if ( scenario ) {
+        scenario.grid.clearGrid();        
         scenario.enter();
         this.scenarioReset( scenario.name );
     } else {
