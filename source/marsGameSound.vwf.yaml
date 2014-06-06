@@ -1,6 +1,7 @@
 --- 
 extends: http://vwf.example.com/sound/soundManager.vwf
 properties:
+  allSoundsLoaded: false
   SoundSet:
     - Sound1:
       soundName: "rover"

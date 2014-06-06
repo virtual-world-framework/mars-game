@@ -2,23 +2,21 @@ this.initialize = function() {
 
 	self = this;
 
-	this.loadAllSounds();
+	var notifyIsLoaded = function(){
+		self.allSoundsLoaded = true;
+	}
+
+	this.loadAllSounds(notifyIsLoaded);
 
 }
 
-this.loadAllSounds = function(failureCallback,successCallback) {
+this.loadAllSounds = function(exitCallback) {
 
-	var allSounds = this.SoundSet;
+	for (var i in this.SoundSet) { 
 
-	for (var i in allSounds) { 
-
-   		var soundDefinition = allSounds[i];
-
-    	var playMe = function() {
-    		//self.playSound('laser')
-    	}
-
-    	self.loadSound(allSounds[i], playMe);
+		//Explore generators/promises here to track completion of all loading
+   		var soundDefinition = this.SoundSet[i];
+    	self.loadSound(this.SoundSet[i], exitCallback);
 
 	}
 
