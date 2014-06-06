@@ -34,7 +34,7 @@
 	z-index: 3;
 }
 
-#blocklyUI {
+#blocklyHandle {
     width: 560px;
     height: 480px;
     top: 50%;
@@ -46,7 +46,6 @@
     opacity: 0.5;
     z-index: -1;
     position: absolute;
-    pointer-events: all;
 }
 
 #ramBar {

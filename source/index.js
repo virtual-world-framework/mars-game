@@ -30,6 +30,7 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
             case "blocklyVisibleChanged":
                 if ( eventArgs[ 0 ] ) {
                     currentBlocklyNodeID = nodeID;
+                    updateBlocklyRamBar();
                     updateBlocklyUI( blocklyNode );
                 } else {
                     currentBlocklyNodeID = undefined;
@@ -173,12 +174,11 @@ vwf_view.satProperty = function( nodeID, propertyName, propertyValue ) {
         switch ( propertyName ) {
 
             case "ram":
-                ramBarCurrentLength = parseFloat( propertyValue );
                 blocklyNode[ propertyName ] = parseFloat( propertyValue );
+                updateBlocklyRamBar();
                 break;
 
             case "ramMax":
-                ramBarMaxLength = parseFloat( propertyValue );
                 blocklyNode[ propertyName ] = parseFloat( propertyValue );
                 if ( nodeID === currentBlocklyNodeID ) {
                     // the mainWorkSpace is not valid until the UI is visible
@@ -186,11 +186,7 @@ vwf_view.satProperty = function( nodeID, propertyName, propertyValue ) {
                         Blockly.mainWorkspace.maxBlocks = Number( propertyValue );    
                     }
                 }
-                break;
-
-            case "blockly_blockCount":
-                ramBarMaxLength = blocklyNode.ramMax;
-                ramBarCurrentLength = ramBarMaxLength - parseFloat( propertyValue );
+                updateBlocklyRamBar();
                 break;
 
             case "blockly_executing":
@@ -230,7 +226,7 @@ function setUp( renderer, scene, camera ) {
     //Set up the introductory screens
     setUpIntro();
 
-    setUpBlocklyUI();
+    setUpBlocklyPeripherals();
 
     // Modify and add to scene
     scene.fog = new THREE.FogExp2( 0xC49E70, 0.005 );
@@ -245,8 +241,6 @@ function setUp( renderer, scene, camera ) {
 function render( renderer, scene, camera ) {
 
     hud.update();
-
-    updateBlocklyRamBar();
 
     renderer.clear();
     renderer.render( scene, camera );
@@ -363,7 +357,6 @@ function resetScenario() {
 function updateBlocklyUI( blocklyNode ) {
     if ( Blockly.mainWorkspace ) {
         Blockly.mainWorkspace.maxBlocks = blocklyNode.ramMax;
-        ramBarMaxLength = blocklyNode.ramMax;
     }
 }
 
