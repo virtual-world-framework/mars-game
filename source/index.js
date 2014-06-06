@@ -30,6 +30,7 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
             case "blocklyVisibleChanged":
                 if ( eventArgs[ 0 ] ) {
                     currentBlocklyNodeID = nodeID;
+                    updateBlocklyRamBar();
                     updateBlocklyUI( blocklyNode );
                 } else {
                     currentBlocklyNodeID = undefined;
@@ -174,6 +175,7 @@ vwf_view.satProperty = function( nodeID, propertyName, propertyValue ) {
 
             case "ram":
                 blocklyNode[ propertyName ] = parseFloat( propertyValue );
+                updateBlocklyRamBar();
                 break;
 
             case "ramMax":
@@ -184,13 +186,15 @@ vwf_view.satProperty = function( nodeID, propertyName, propertyValue ) {
                         Blockly.mainWorkspace.maxBlocks = Number( propertyValue );    
                     }
                 }
+                updateBlocklyRamBar();
                 break;
 
             case "blockly_executing":
                 var exe = Boolean( propertyValue );
-                // the run button should be disabled while the 
-                // current blocks are being executed
+
+                //Disables the run button
                 document.getElementById( "runButton" ).disabled = exe;
+                
                 blocklyExecuting = exe;
                 break;
 
@@ -221,6 +225,8 @@ function setUp( renderer, scene, camera ) {
 
     //Set up the introductory screens
     setUpIntro();
+
+    setUpBlocklyPeripherals();
 
     // Modify and add to scene
     scene.fog = new THREE.FogExp2( 0xC49E70, 0.005 );

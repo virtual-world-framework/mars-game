@@ -1,16 +1,17 @@
 #blocklyWrapper {
-	position: absolute;
-	top: 10px;
-	left: 10px;
-	pointer-events: none;
-	visibility: hidden;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -200px;
+    margin-left: -280px;
+    visibility: hidden;
+    pointer-events: none
 }
 
 #blocklyDiv {
 	height: 400px;
 	width: 560px;
 	overflow: hidden;
-	border-radius: 10px;
 	opacity: 0.9;
 }
 
@@ -20,7 +21,7 @@
 }
 
 #toolbox {
-	display: none;
+    display: none;
 }
 
 #transitionScreen {
@@ -31,4 +32,39 @@
 	left: 0;
 	background-color: #000;
 	z-index: 3;
+}
+
+#blocklyHandle {
+    width: 560px;
+    height: 480px;
+    top: 50%;
+    left: 50%;
+    margin-left: -280px;
+    margin-top: -240px;
+    background-color: #fff;
+    border-radius: 10px;
+    opacity: 0.5;
+    z-index: -1;
+    position: absolute;
+}
+
+#ramBar {
+    width: 100px;
+    height: 42px;
+    right: 0;
+    bottom: 0;
+    background-color: #FF3333;
+    position: absolute;
+}
+
+#ramBarCount {
+    width: 35px;
+    height: 35px;
+    right: 0;
+    bottom: 0;
+    position: absolute;
+    color: #fff;
+    font-size: 24px;
+    font-family: arial;
+    text-shadow: 0 0 0.2em #F00;
 }
