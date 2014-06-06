@@ -1,13 +1,3 @@
-<<<<<<< HEAD
-this.initialize = function() {
-    var soundDefinition = { soundName: "laser", soundURL: "assets/sounds/laser.wav" }
-    var playMe = function() {
-        PlaySound("laser");
-    }
-    loadSound(soundDefinition, playMe);
-}
-=======
-var self;
 
 
 this.initialize = function() {
@@ -24,14 +14,10 @@ this.loadAllSounds = function() {
 
 	for (var i in allSounds) { 
 
-   		var name = allSounds[i].soundName;
-		var url = allSounds[i].soundURL;
-		var looping = allSounds[i].isLooping;
-
    		var soundDefinition = allSounds[i];
 
     	var playMe = function() {
-      		self.playSound(name);
+      		//self.playSound(name);
     	}
 
     	this.loadSound(soundDefinition, playMe);
@@ -42,4 +28,3 @@ this.loadAllSounds = function() {
 
 
 //@ sourceURL=source/marsGameSound.js
->>>>>>> FETCH_HEAD

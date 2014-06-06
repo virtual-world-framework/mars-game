@@ -1,9 +1,7 @@
 --- 
 extends: http://vwf.example.com/sound/soundManager.vwf
 properties:
-<<<<<<< HEAD
 methods:
-=======
   SoundSet:
     - Sound1:
       soundName: "laser"
@@ -19,6 +17,5 @@ methods:
       isLooping: true
 methods:
 children:
->>>>>>> FETCH_HEAD
 scripts:
 - source: source/marsGameSound.js
