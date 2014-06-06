@@ -10,13 +10,11 @@ properties:
   #   them easier to reuse...
   startStateParamSet:
 
-    # Set the starting and maximum battery values for a particular object
-    # arguments: object, starting, max
-    battery:
+    # Set a property of an object to the specified value
+    # arguments: objectName, propertyName, propertyValue
+    setProperty:
 
-    # Set the maximum number of Blockly commands a particular object can have
-    # arguments: object, maxCommands
-    ram:
+    emptyInventory:
 
   # These are the standard properties that every scenario should define
   startState:

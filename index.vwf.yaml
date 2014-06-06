@@ -8,11 +8,18 @@ properties:
   ambientColor: [ 150, 140, 140 ]
   userObject: null
   blockly_autoClose: false
+  activeScenarioPath:
+    set: |
+      this.setScenario( value );
+      this.activeScenarioPath = value;
+    value: "scenario1"
 methods:
-  checkForSuccess:
+  setScenario:
+  resetScenario:
+  advanceScenario:
 events:
-  scenarioSucceeded:
-  scenarioFailed:
+  scenarioReset:
+  scenarioChanged:
 children:
   soundManager:
     extends: http://vwf.example.com/sound/soundManager.vwf
@@ -195,11 +202,9 @@ children:
         source: assets/3d/Rover/rover_retro.dae
         type: model/vnd.collada+xml
         properties:
-          rotation: [ 0, 0, 1, 270 ]
           castShadows: true
           receiveShadows: true
           currentGridSquare: [ 2, 7 ]
-          heading: 270
           terrainName: "environment"
         children:
           cargo:

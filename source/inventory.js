@@ -16,7 +16,7 @@ this.add = function( objectID ) {
         }
 
         object.parent_ = this;
-        this.slots[ index ] = object.name;
+        this.slots[ index ] = object.id;
         object.visible = this.inventoryIsVisible;
         object.pickedUp( object.iconSrc, index, this.id );
 
@@ -49,6 +49,13 @@ this.remove = function( objectID ) {
         object.visible = true;
         object.dropped();
 
+    }
+
+}
+
+this.empty = function() {
+    for ( var i = 0; i < this.slots.length; i++ ) {
+        this.remove( this.slots[i] );
     }
 
 }

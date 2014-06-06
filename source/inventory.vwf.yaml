@@ -15,6 +15,7 @@ methods:
   add:
   swap:
   remove:
+  empty:
 children: 
 scripts: 
 - source: source/inventory.js

@@ -48,9 +48,26 @@ this.initialize = function() {
         }
     }
 
-    // Start the first scenario
-    this.scenario1.future(0).enter();
+}
 
+this.setScenario = function( path ) {
+    var scenario = this.find( path )[ 0 ];
+    if ( scenario ) {
+        scenario.future( 0 ).enter();
+        this.scenarioChanged( scenario.name );
+    } else {
+        this.logger.warnx( "setScenario", "Scenario for path '" + path + "' not found." );
+    }
+}
+
+this.resetScenario = function() {
+    var scenario = this.find( this.activeScenarioPath )[ 0 ];
+    if ( scenario ) {
+        scenario.enter();
+        this.scenarioReset( scenario.name );
+    } else {
+        this.logger.warnx( "resetScenario", "Invalid scenario path: " + this.activeScenarioPath );
+    }
 }
 
 //@ sourceURL=source/scene.js

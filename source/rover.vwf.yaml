@@ -50,5 +50,7 @@ events:
   batteryMaxChanged:
   ramChanged:
   ramMaxChanged:
+  blockCountChanged:
+  allowedBlocksChanged:
 scripts:
  - source: source/rover.js

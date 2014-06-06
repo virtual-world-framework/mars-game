@@ -182,15 +182,15 @@ function removeItemFromInventory( item ) {
 
 }
 
-function removeSlotIcon( item ) {
+function removeSlotIcon( objectID ) {
 
-    var inventory = hud.elements[ item.owner ];
+    var inventory = getInventoryHUD();
 
     if ( inventory ){
 
         for ( var i = 0; i < inventory.slots.length; i++ ) {
 
-            if ( inventory.slots[ i ].item !== null && inventory.slots[ i ].item.id === item.id ){
+            if ( inventory.slots[ i ].item !== null && inventory.slots[ i ].item.id === objectID ){
 
                 inventory.slots[ i ].item = null;
 
