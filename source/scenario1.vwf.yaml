@@ -1,5 +1,5 @@
 ---
-extends: source/gridScenario.vwf
+extends: source/scenario.vwf
 properties:
   scenePath: /
   blockly: assets/scenario/scenario1.xml
@@ -33,34 +33,21 @@ properties:
     - rotation
     - [ 0, 0, 1, 270 ]
 
-  # TODO: Simplify position/grid position
-  # Integrate position/grid square calculation so
-  # only one property needs to be set
-  - setProperty:
-    - rover
-    - translation
-    - [ 0, 0, 0 ]
-  - setProperty:
-    - rover
-    - currentGridSquare
-    - [ 2, 7 ]
-
   - emptyInventory:
     - rover/cargo
 
   - setProperty:
-    - radio
-    - translation
-    - [ 39, 0, 0 ]
-  - setProperty:
-    - radio
-    - currentGridSquare
-    - [ 15, 7 ]
-    
-  - setProperty:
     - camera
     - pointOfView
     - "thirdPerson"
+
+  - addToGrid:
+    - rover
+    - [ 2, 7 ]
+
+  - addToGrid:
+    - radio
+    - [ 15, 7 ]
 
   successClause:
   - and:

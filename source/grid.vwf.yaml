@@ -20,7 +20,11 @@ methods:
   isOccupied:
   getTileFromGrid:
   getTileFromWorld:
+  getWorldFromGrid:
   setBoundaryValues:
+  hasInventoriable:
+  hasCollidable:
+  getEnergy:
 
 scripts:
 - source: source/grid.js
