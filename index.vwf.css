@@ -4,6 +4,7 @@
     left: 50%;
     margin-top: -200px;
     margin-left: -280px;
+    visibility: hidden;
     pointer-events: none
 }
 
