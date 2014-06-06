@@ -90,19 +90,33 @@ this.fadeInWindSounds = function(){
     if (windInstance === undefined){
         windInstance = this.playSound("wind")
 
+<<<<<<< HEAD
         //fade in
         this.setVolume( windInstance, 1.0 , 1.0 , 'exponential');
     }
 }
 
 this.stopWindSounds = function(){
+=======
+    	var playMe = function() {
+    		//self.playSound('laser')
+    	}
+
+    	self.loadSound(soundDefinition, playMe);
+>>>>>>> c9d482c... Finally back to point before rebase errors
 
     this.stopSoundInstance( windInstance, true);
     windInstance = undefined;
 
 }
 
+<<<<<<< HEAD
 this.fadeOutWindSounds = function(){
+=======
+this.playMainMusic = function(){
+	self.playSound('gameplay');
+}
+>>>>>>> c9d482c... Finally back to point before rebase errors
 
     //fade out
     this.setVolume( windInstance , 0.0 , 3.0 ,'exponential');

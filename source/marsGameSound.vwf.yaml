@@ -7,6 +7,7 @@ properties:
       soundURL: "assets/sounds/sfx/uiBlockyBobbleAppear_02.wav"
       isLooping: false
       isLayered: false
+<<<<<<< HEAD
       initialVolume: 1.0
     - soundName: "blockly_bobble_disappear"
       soundURL: "assets/sounds/sfx/uiBlockyBobbleDisappear_02.wav"
@@ -113,6 +114,28 @@ methods:
   fadeInWindSounds:
   stopWindSounds:
   fadeOutWindSounds:
+=======
+    - Sound2:
+      soundName: "gameplay"
+      soundURL: ""
+      isLooping: true
+      isLayered: true
+      soundDefinitions:
+        - Layer1:
+          soundName: "gameplay_layer1"
+          soundURL: "assets/sounds/music/musicStandardGameplayLoopLayer_01.wav"
+          isLooping: false
+          isLayered: false
+        - Layer2:
+          soundName: "gameplay_layer2"
+          soundURL: "assets/sounds/music/musicStandardGameplayLoopLayer_02.wav"
+          isLooping: false
+          isLayered: false
+methods:
+methods:
+  loadAllSounds:
+  playMainMusic:
+>>>>>>> c9d482c... Finally back to point before rebase errors
 children:
 scripts:
 - source: source/marsGameSound.js
