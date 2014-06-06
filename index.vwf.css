@@ -1,23 +1,62 @@
 #blocklyWrapper {
+    width: 560px;
+    height: 480px;
     position: absolute;
     top: 50%;
     left: 50%;
-    margin-top: -200px;
     margin-left: -280px;
+    margin-top: -240px;
+    background-color: #fff;
+    border-radius: 10px;
     visibility: hidden;
-    pointer-events: none
+    pointer-events: none;
+    opacity: 1;
+}
+
+#blocklyWrapper-top {
+    height: 32px;
 }
 
 #blocklyDiv {
 	height: 400px;
 	width: 560px;
 	overflow: hidden;
-	opacity: 0.9;
+	opacity: 1;
+    border-top: 1px solid #000;
+    border-bottom: 1px solid #000;
+
 }
 
 #runButton {
-	margin-left: 10px;
-	border-radius: 5px;
+    height: 32px;
+    width: 64px;
+	background: url( "assets/images/blockly_ui/run_button.png" );
+    text-indent: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    position: absolute;
+    right: 8px;
+    bottom: 8px;
+}
+
+#runButton.disabled {
+    background: url( "assets/images/blockly_ui/run_button_disabled.png" );
+}
+
+.blocklyTab {
+    height: 32px;
+    width: 96px;
+    background: url( "assets/images/blockly_ui/tab.png" );
+    display: inline-block;
+    color: #FFF;
+    font-variant: small-caps;
+    font-weight: bold;
+    text-align: center;
+    line-height: 32px;
+}
+
+.blocklyTab.selected {
+    background: url( "assets/images/blockly_ui/tab_selected.png" );
 }
 
 #toolbox {
@@ -35,36 +74,27 @@
 }
 
 #blocklyHandle {
-    width: 560px;
-    height: 480px;
-    top: 50%;
-    left: 50%;
-    margin-left: -280px;
-    margin-top: -240px;
-    background-color: #fff;
-    border-radius: 10px;
-    opacity: 0.5;
-    z-index: -1;
+    width: 32px;
+    height: 32px;
     position: absolute;
+    top: 0;
+    right: 34px;
+    background: url( "assets/images/blockly_ui/drag_handle.png" );
 }
 
 #ramBar {
     width: 100px;
-    height: 42px;
-    right: 0;
-    bottom: 0;
-    background-color: #FF3333;
-    position: absolute;
+    height: 32px;
+    background-color: rgb( 220, 90, 50 );
 }
 
 #ramBarCount {
-    width: 35px;
-    height: 35px;
-    right: 0;
-    bottom: 0;
-    position: absolute;
+    width: 32px;
+    height: 32px;
     color: #fff;
     font-size: 24px;
     font-family: arial;
-    text-shadow: 0 0 0.2em #F00;
+    text-shadow: 0 0 0.2em rgb( 220, 90, 50 );
+    line-height: 32px;
+    margin-left: 8px;
 }

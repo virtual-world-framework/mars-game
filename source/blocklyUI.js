@@ -14,8 +14,8 @@ function setUpBlocklyPeripherals() {
     ramBar.id = "ramBar";
     ramBarCount.id = "ramBarCount";
     ramBarCount.innerHTML = 15;
-    blocklyHandle.appendChild( ramBar );
-    blocklyHandle.appendChild( ramBarCount );
+    $( "#blocklyWrapper" ).append( ramBar );
+    ramBar.appendChild( ramBarCount );
 }
 
 function updateBlocklyRamBar() {
