@@ -16,7 +16,11 @@ events:
 children:
   soundManager:
 <<<<<<< HEAD
+<<<<<<< HEAD
     extends: http://vwf.example.com/sound/soundManager.vwf
+=======
+    extends: source/marsGameSound.vwf # http://vwf.example.com/sound/soundManager.vwf
+>>>>>>> FETCH_HEAD
 =======
     extends: source/marsGameSound.vwf # http://vwf.example.com/sound/soundManager.vwf
 >>>>>>> FETCH_HEAD

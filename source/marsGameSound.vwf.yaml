@@ -1,6 +1,24 @@
 --- 
 extends: http://vwf.example.com/sound/soundManager.vwf
 properties:
+<<<<<<< HEAD
 methods:
+=======
+  SoundSet:
+    - Sound1:
+      soundName: "laser"
+      soundURL: "assets/sounds/laser.wav"
+      isLooping: false
+    - Sound2:
+      soundName: "menu"
+      soundURL: "assets/sounds/TrueGameAudioMusicMenu_20140530.03.wav"
+      isLooping: false
+    - Sound3:
+      soundName: "gameplay"
+      soundURL: "assets/sounds/TrueGameAudioMusicStandardGameplayFullMix_20140530.01.wav"
+      isLooping: true
+methods:
+children:
+>>>>>>> FETCH_HEAD
 scripts:
 - source: source/marsGameSound.js
