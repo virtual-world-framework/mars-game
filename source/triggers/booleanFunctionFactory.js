@@ -9,12 +9,12 @@ this.initialize = function() {
 
 this.clauseSet.and = function( params, context, callback ) {
     if ( !params || ( params.length < 1 ) ) {
-        this.logger.errorx( "and", "The 'and' clause needs to have at " +
+        this.logger.errorx( "and", "This clause needs to have at " +
                             " least one (and ideally two or more) clauses " +
                             " inside of it." );
         return undefined;
     } else if ( params.length < 2 ) {
-        this.logger.warnx( "and", "The 'and' clause probably ought to " +
+        this.logger.warnx( "and", "This clause probably ought to " +
                            "have two or more clauses inside of it." );
     }
 
@@ -36,12 +36,12 @@ this.clauseSet.and = function( params, context, callback ) {
 
 this.clauseSet.or = function( params, context, callback ) {
     if ( !params || ( params.length < 1 ) ) {
-        this.logger.errorx( "or", "The 'or' clause needs to have at " +
+        this.logger.errorx( "or", "This clause needs to have at " +
                             "least one (and ideally two or more) clauses " +
                             "inside of it." );
         return undefined;
     } else if ( params.length < 2 ) {
-        this.logger.warnx( "or", "The 'or' clause probably ought to " +
+        this.logger.warnx( "or", "This clause probably ought to " +
                            "have two or more clauses inside of it." );
     }
 
@@ -62,8 +62,8 @@ this.clauseSet.or = function( params, context, callback ) {
 }
 
 this.clauseSet.not = function( params, context, callback ) {
-    if ( !params || ( params.length != 1 ) ) {
-        this.logger.errorx( "not", "The 'not' clause needs to have one " +
+    if ( !params || ( params.length !== 1 ) ) {
+        this.logger.errorx( "not", "This clause needs to have one " +
                             "clause inside of it." );
         return undefined;
     }
@@ -77,9 +77,9 @@ this.clauseSet.not = function( params, context, callback ) {
 }
 
 this.clauseSet.isAtPosition = function( params, context, callback ) {
-    if ( !params || ( params.length != 3 ) ) {
+    if ( !params || ( params.length !== 3 ) ) {
         self.logger.errorx( "isAtPosition", 
-                            "The isAtPosition clause requires three " +
+                            "This clause requires three " +
                             "arguments: the object, the x, and the y." );
         return undefined;
     }
@@ -103,9 +103,9 @@ this.clauseSet.isAtPosition = function( params, context, callback ) {
 }
 
 this.clauseSet.hasObject = function( params, context, callback ) {
-    if ( !params || ( params.length != 2 ) ) {
+    if ( !params || ( params.length !== 2 ) ) {
         self.logger.errorx( "hasObject", 
-                            "The hasObject clause requires two arguments: " +
+                            "This clause requires two arguments: " +
                             "the owner and the object." );
         return undefined;
     }
@@ -129,8 +129,8 @@ this.clauseSet.hasObject = function( params, context, callback ) {
 }
 
 this.clauseSet.moveFailed = function( params, context, callback ) {
-    if ( !params || ( params.length != 1 ) ) {
-        self.logger.errorx( "moveFailed", "The moveFailed clause " +
+    if ( !params || ( params.length !== 1 ) ) {
+        self.logger.errorx( "moveFailed", "This clause " +
                             "requires one argument: the object." );
         return undefined;
     }
@@ -144,7 +144,7 @@ this.clauseSet.moveFailed = function( params, context, callback ) {
         object.moveFailed = self.events.add( function() {
                                                 moveHasFailed = true;
                                                 callback();
-                                            });
+                                            } );
     } else {
         self.logger.warnx( "moveFailed", "No callback defined!" );        
     }
@@ -155,9 +155,9 @@ this.clauseSet.moveFailed = function( params, context, callback ) {
 }
 
 this.clauseSet.isBlocklyExecuting = function( params, context, callback ) {
-    if ( !params || ( params.length != 1 ) ) {
+    if ( !params || ( params.length !== 1 ) ) {
         self.logger.errorx( "isBlocklyExecuting", 
-                            "The hasObject clause requires two arguments: " +
+                            "This clause requires two arguments: " +
                             "the owner and the object." );
         return undefined;
     }
@@ -183,4 +183,45 @@ this.clauseSet.isBlocklyExecuting = function( params, context, callback ) {
     };
 }
 
-//@ sourceURL=source/booleanFunctionFactory.js
+// arguments: scenarioName
+this.clauseSet.onScenarioStart = function( params, context, callback ) {
+    if ( params && ( params.length > 1 ) ) {
+        self.logger.errorx( "onScenarioStart", 
+                            "This clause takes at most one argument: " +
+                            "the name of the scenario." );
+        return undefined;
+    }
+
+    var scenarioName = params ? params[ 0 ] : undefined;
+
+    // NOTE: what we want to do is allow this to be true only when the scenario
+    //   has just started.  Right now, we do this by setting the scenario name
+    //   when the event occurs, and then setting it back to undefined in the 
+    //   function that we return - but that doesn't enforce the fact that it
+    //   should only be true if the function is called right away.  If that 
+    //   turns out to be a problem, we may need to use future() or a time 
+    //   stamp.
+    var scenarioStarted = undefined;
+
+    if ( callback ) {
+        var scenario = self.findTypeInContext( context, "source/scenario.vwf" );
+
+        if ( scenario ) {
+            scenario.starting = self.events.add( function( startingName ) {
+                                                    scenarioStarted = startingName;
+                                                    callback();
+                                                } );
+        }
+    }
+
+    return function() {
+        var retVal = ( scenarioStarted !== undefined ) && 
+                     ( !scenarioName || ( scenarioStarted === scenarioName ) );
+
+        scenarioStarted = undefined;
+
+        return retVal;
+    };
+}
+
+//@ sourceURL=source/triggers/booleanFunctionFactory.js

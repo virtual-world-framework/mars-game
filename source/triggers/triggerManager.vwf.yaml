@@ -1,0 +1,29 @@
+# The trigger factory creates triggers from yaml declarations.
+--- 
+extends: http://vwf.example.com/node.vwf
+properties:
+  # This holds our triggers.  For internal use only.
+  triggers$: {}
+methods:
+  # This function takes an object which contains a collection of triggers.
+  # It loops through the collection, and creates all the triggers, including
+  #   setting up callbacks to make them fire.  From there on out, the magic
+  #   should just happen.
+  # A trigger consists of three pieces:
+  #   triggerCondition: When this condition becomes true, the trigger may fire
+  #   additionalCondition: This condition won't cause the trigger to fire, but it 
+  #     must be true in order for the trigger to fire
+  #   actions: Each of these will be run, in order, when the trigger fires
+  #
+  # arguments: triggers, context
+  loadTriggers:
+
+  # This function clears out all of our triggers.  It's used when we load a
+  #   new scenario, so that the old triggers don't keep firing.
+  clearTriggers:
+
+  # Checks whether we have any triggers
+  isEmpty:
+
+scripts:
+- source: source/triggers/triggerManager.js

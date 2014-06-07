@@ -1,0 +1,22 @@
+# The action function factory creates action functions from yaml declarations.
+# This is used to create the effects of triggers.
+#
+# This all leans on the declarative function executor, which creates the action
+# functions from the yaml.
+--- 
+extends: source/triggers/declarativeFunctionExecutor.vwf
+
+properties:
+
+  # The action set contains the functions that  we pass into the function
+  # executor.  It's fine if other function sets are also added, but this 
+  # provides the baseline functionality that we need.
+  actionSet:
+
+    # play/stops a sound
+    # arguments: the sound name
+    playSound:
+    stopSound:
+
+scripts:
+- source: source/triggers/actionFactory.js

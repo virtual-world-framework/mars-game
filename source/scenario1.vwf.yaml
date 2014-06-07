@@ -4,6 +4,8 @@ properties:
   scenePath: /
   blockly: assets/scenario/scenario1.xml
 
+  scenarioName: scenario1
+
   startState:
   - setProperty:
     - rover
@@ -76,3 +78,13 @@ properties:
   failureClause:
   - moveFailed:
     - rover
+
+  triggers:
+    laserOnScenarioStart:
+      triggerCondition: 
+      - onScenarioStart:
+      additionalCondition:
+      actions:
+      - playSound:
+        - laser
+

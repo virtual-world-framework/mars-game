@@ -9,9 +9,12 @@ this.initialize = function() {
     self = this;
 
     this.children.create( "startStateExecutor", 
-                          "source/declarativeFunctionExecutor.vwf" );
+                          "source/triggers/declarativeFunctionExecutor.vwf" );
 
-    self.future( 0 ).onSceneReady();
+    this.children.create( "triggerManager", 
+                          "source/triggers/triggerManager.vwf" );
+
+    this.future( 0 ).onSceneReady();
 }
 
 this.onSceneReady = function() {
@@ -22,16 +25,19 @@ this.onSceneReady = function() {
         self.logger.errorx( "onSceneReady", "Failed to find the scene!" );
     }
 
-    self.startStateExecutor.functionSets = [];
-    self.startStateExecutor.addFunctionSet( self.startStateParamSet );
+    this.startStateExecutor.functionSets = [];
+    this.startStateExecutor.addFunctionSet( this.startStateParamSet );
 
-    var clauseFactories = scene.find( ".//element(*,'source/booleanFunctionFactory.vwf')" );
-    if ( clauseFactories.length === 1 ) {
-        clauseFactory = clauseFactories[0];
-    } else {
-        self.logger.errorx( "onSceneReady", "There should be exactly one booleanFunctionFactory, " +
-                            "at least for now." );
+    // TODO: move the clause factory into the scenario, as we did with the
+    //   startStateExecutor and the trigger Manager.  Or, get rid of it and 
+    //   use triggers for everything.
+    var clauseFactories = scene.find( ".//element(*,'source/triggers/booleanFunctionFactory.vwf')" );
+    if ( clauseFactories.length !== 1 ) {
+        self.logger.errorx( "onSceneReady", "There should be exactly one " +
+                            "booleanFunctionFactory, at least for now." );
     }
+    
+    clauseFactory = clauseFactories[ 0 ];
 
     if ( scene !== undefined ) {
         if ( self.blockly && self.blockly !== '' ) {
@@ -74,6 +80,14 @@ this.entering = function() {
                                                self.checkForFailure.bind( self ) );
         }
     }
+
+    self.triggerManager.clearTriggers();
+    if ( self.triggers ) {
+        self.triggerManager.loadTriggers( self.triggers, scene );
+    }
+
+    // Do this last, once all configuration is done.
+    self.starting( self.scenarioName );
 }
 
 this.checkForSuccess = function() {

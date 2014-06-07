@@ -48,5 +48,11 @@ methods:
   #   objectName - the string to search for
   findInContext:
 
+  # Same as findInContext, except that this looks by type, rather than by name.
+  # Arguments: 
+  #   context - where to look
+  #   typeName - the type to search for
+  findTypeInContext:
+
 scripts:
-- source: source/declarativeFunctionExecutor.js
+- source: source/triggers/declarativeFunctionExecutor.js
