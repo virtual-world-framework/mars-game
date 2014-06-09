@@ -1,9 +1,9 @@
 this.initialize = function() {
 
-	self = this;
+	//self = this;
 
 	var notifyIsLoaded = function(){
-		self.allSoundsLoaded = true;
+
 	}
 
 	this.loadAllSounds(notifyIsLoaded);
@@ -16,26 +16,34 @@ this.loadAllSounds = function(exitCallback) {
 
 		//Explore generators/promises here to track completion of all loading
    		var soundDefinition = this.SoundSet[i];
-    	self.loadSound(this.SoundSet[i], exitCallback);
+    	this.loadSound(this.SoundSet[i], exitCallback);
 
 	}
 
 }
 
 this.playMenuMusic = function(){
-	self.playSound('menu');
+	this.playSound(this.SoundSet[1]);
 }
 
 this.playMainMusic = function(){
-	self.playSound('gameplay');
+	this.playSound(this.SoundSet[2]);
 }
 
-this.playWind = function(){
-	self.playSound('wind');
+this.muteMainMusic = function(){
+	
+}
+
+this.playWindSounds = function(){
+	this.playSound(this.SoundSet[3]);
 }
 
 this.playRoverSounds = function(){
-	self.playSound('rover');
+	this.playSound(this.SoundSet[0]);
+}
+
+this.stopAllSounds = function(){
+
 }
 
 //@ sourceURL=source/marsGameSound.js
