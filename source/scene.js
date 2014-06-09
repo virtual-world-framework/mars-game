@@ -55,6 +55,7 @@ this.initialize = function() {
 this.setScenario = function( path ) {
     var scenario = this.find( path )[ 0 ];
     if ( scenario ) {
+        scenario.grid.clearGrid();
         scenario.future( 0 ).enter();
         this.scenarioChanged( scenario.name );
     } else {
