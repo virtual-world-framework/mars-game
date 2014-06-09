@@ -13,28 +13,34 @@ properties:
       soundURL: "assets/sounds/music/musicMenuLoop.wav"
       isLooping: true
       isLayered: false
+      allowMultiplay: false
     - Sound3:
       soundName: "gameplay"
       soundURL: ""
       isLooping: true
       isLayered: true
-      soundDefinitions: #Sound layers should start with 0 to avoid fencepost errors
+      allowMultiplay: false
+      soundDefinitions: 
         - Layer0:
           soundName: "gameplay_layer0"
           soundURL: "assets/sounds/music/musicStandardGameplayLoopLayer_01.wav"
           isLooping: true
           isLayered: false
+          allowMultiplay: false
+          volumeAdjustment: 0
         - Layer1:
           soundName: "gameplay_layer1"
           soundURL: "assets/sounds/music/musicStandardGameplayLoopLayer_02.wav"
           isLooping: true
           isLayered: false
+          allowMultiplay: false
+          volumeAdjustment: 0
     - Sound4:
       soundName: "wind"
       soundURL: ""
       isLooping: true
       isLayered: true
-      soundDefinitions: #Sound layers should start with 0 to avoid fencepost errors
+      soundDefinitions:
         - Layer0:
           soundName: "wind_layer0"
           soundURL: "assets/sounds/sfx/environmentWind_01.wav"
@@ -49,6 +55,10 @@ methods:
 methods:
   loadAllSounds:
   playMainMusic:
+  playMenuMusic:
+  playWindSounds:
+  playRoverSounds:
+  muteMainMusic:
 children:
 scripts:
 - source: source/marsGameSound.js
