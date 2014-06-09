@@ -1,5 +1,6 @@
 var ramBarCount = document.createElement( "div" );
 var ramBar = document.createElement( "div" );
+var currentRam = document.createElement( "div" );
 
 function setUpBlocklyPeripherals() {
 
@@ -13,15 +14,17 @@ function setUpBlocklyPeripherals() {
 
     ramBar.id = "ramBar";
     ramBarCount.id = "ramBarCount";
+    currentRam.id = "currentRam";
     ramBarCount.innerHTML = 15;
     $( "#blocklyWrapper" ).append( ramBar );
+    ramBar.appendChild( currentRam );
     ramBar.appendChild( ramBarCount );
 }
 
 function updateBlocklyRamBar() {
     if ( currentBlocklyNodeID ) {
-        ramBar.style.width = 280 * ( blocklyNodes[ currentBlocklyNodeID ].ram / blocklyNodes[ currentBlocklyNodeID ].ramMax ) + "px";
-        ramBarCount.innerHTML = blocklyNodes[ currentBlocklyNodeID ].ram ;
+        currentRam.style.width = ramBar.clientWidth * ( blocklyNodes[ currentBlocklyNodeID ].ram / blocklyNodes[ currentBlocklyNodeID ].ramMax ) + "px";
+        ramBarCount.innerHTML = blocklyNodes[ currentBlocklyNodeID ].ram;
     }
 }
 

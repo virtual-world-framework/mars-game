@@ -5,6 +5,7 @@ this.initialize = function() {
     // TODO: Find the current heading (rather than making app developer specify)
 
     self = this;
+    this.calcRam();
     this.future( 0 ).findAndSetBoundaryMap();
 }
 
@@ -150,7 +151,8 @@ function getTerrainHeight( x, y, z, terrain ) {
 }
 
 this.calcRam = function() {
-    this.ram = this.blockly_allowedBlocks - this.blockly_blockCount;
+    this.ramMax = this.blockly_allowedBlocks;
+    this.ram = this.ramMax - this.blockly_blockCount;
 }
 
 this.blockCountChanged = function( value ) {
@@ -158,7 +160,6 @@ this.blockCountChanged = function( value ) {
 }
 this.allowedBlocksChanged = function( value ) {
     this.calcRam();
-    this.ramMax = this.blockly_allowedBlocks;
 }
 
 //@ sourceURL=source/rover.js

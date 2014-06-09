@@ -204,7 +204,6 @@ vwf_view.satProperty = function( nodeID, propertyName, propertyValue ) {
 
                 //Disables the run button
                 document.getElementById( "runButton" ).className = exe ? "disabled" : "";
-                document.getElementById( "blocklyWrapper" ).style.opacity = exe ? 0.5 : 1;
                 
                 blocklyExecuting = exe;
                 break;
