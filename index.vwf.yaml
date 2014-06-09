@@ -186,8 +186,8 @@ children:
         properties:
           castShadows: true
           receiveShadows: true
-          currentGridSquare: [ 2, 7 ]
           terrainName: "environment"
+          visible: false          
         children:
           cargo:
             extends: source/inventory.vwf
@@ -206,10 +206,9 @@ children:
         type: model/vnd.collada+xml
         properties:
           iconSrc: "../assets/images/radio.png"
-          translation: [ 39, 0, 0 ]
           animationLoop: true
-          currentGridSquare: [ 15, 7 ]
           isCollidable: false
+          visible: false
         scripts: |
           this.initialize = function() {
             this.animationPlay();
