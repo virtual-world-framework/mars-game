@@ -128,3 +128,12 @@
     margin-left: auto;
     margin-right: auto;
 }
+
+#blocklyCloseBtn {
+    width: 24px;
+    height: 24px;
+    background-image: url( "assets/images/blockly_ui/close_button.png" );
+    position: absolute;
+    top: 8px;
+    right: 4px;
+}
