@@ -113,7 +113,7 @@ vwf_view.createdNode = function( nodeID, childID, childExtendsID, childImplement
   
     var protos = getPrototypes.call( this, vwf_view.kernel, childExtendsID );
 
-    if ( isBlockly3Node( childImplementsIDs ) ) {
+    if ( isBlocklyNode( childImplementsIDs ) ) {
 
         //console.info( "blocklyNode = " + childID );
         blocklyNodes[ childID ] = { 
@@ -249,15 +249,20 @@ function render( renderer, scene, camera ) {
 
 }
 
-function isBlockly3Node( implementsIDs ) {
+function isBlockly3Node( nodeID ) {
+    return self.kernel.test( nodeID,
+        "self::element(*,'http://vwf.example.com/blockly/controller.vwf')",
+        nodeID );
+}
+
+function isBlocklyNode( implementsIDs ) {
     var found = false;
     if ( implementsIDs ) {
         for ( var i = 0; i < implementsIDs.length && !found; i++ ) {
             found = ( implementsIDs[i] == "http-vwf-example-com-blockly-controller-vwf" ); 
         }
     }
-
-    return found;
+   return found;
 }
 
 function getPrototypes( kernel, extendsID ) {
