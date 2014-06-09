@@ -33,12 +33,12 @@ this.loadAllSounds = function(exitCallback) {
 
 this.playMenuMusic = function(){
     this.playSound("menu");
-    this.playSound(this.SoundSet[1].name);
+    //this.playSound(this.SoundSet[1].name);
 }
 
 this.playMainMusic = function(){
-    this.playSound("")
-    this.playSound(this.SoundSet[2]);
+    this.playSound("gameplay")
+    
 }
 
 this.muteMainMusic = function(){
@@ -46,11 +46,11 @@ this.muteMainMusic = function(){
 }
 
 this.playWindSounds = function(){
-    this.playSound(this.SoundSet[3]);
+   this.playSound("wind")
 }
 
 this.playRoverSounds = function(){
-    this.playSound(this.SoundSet[0]);
+    this.playSound("rover")
 }
 
 this.stopAllSounds = function(){
