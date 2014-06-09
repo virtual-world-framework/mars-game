@@ -2,25 +2,30 @@ this.initialize = function() {
 
 	//self = this;
 
-	var notifyIsLoaded = function(){
+	
+	self = this;
 
+	var loadNext = function (i){
+		if (self.SoundSet[i] === undefined) {
+
+		}else{
+			self.loadSound(self.SoundSet[i],loadNext(i+1));
+		}
 	}
-
-	this.loadAllSounds(notifyIsLoaded);
+    this.loadSound(this.SoundSet[0],loadNext(1));
 
 }
 
 this.loadAllSounds = function(exitCallback) {
 
-	for (var i in this.SoundSet) { 
+	//Explore generators/promises here to track completion of all loading
 
-		//Explore generators/promises here to track completion of all loading
-   		var soundDefinition = this.SoundSet[i];
-    	this.loadSound(this.SoundSet[i], exitCallback);
 
-	}
+
+	
 
 }
+
 
 this.playMenuMusic = function(){
 	this.playSound(this.SoundSet[1]);
