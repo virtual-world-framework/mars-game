@@ -74,6 +74,7 @@ this.addToGridFromCoord = function( object, gridCoord ) {
         object.currentGridSquare = gridCoord;
         object.translation = this.getWorldFromGrid( gridCoord );
         object.visible = true;
+        this.setHeightFromTerrain( object );
     }
 }
 
@@ -100,6 +101,19 @@ this.moveObjectOnGrid = function( object, srcCoord, destCoord ) {
     if ( removed ) {
         object.visible = true;
         this.getTileFromGrid( destCoord ).addToTile( removed );
+    }
+}
+
+//Places the object on the terrain according to the terrain height
+this.setHeightFromTerrain = function ( object ) {
+    var scene = self.find( "/" )[ 0 ];
+    var origin = [ object.translation[ 0 ], object.translation[ 1 ], object.translation[ 2 ] + 3 ];
+    var terrain = self.find( "//" + object.terrainName )[ 0 ];
+    if ( scene && origin && terrain ) {
+        var intersects = scene.raycast( origin, [ 0, 0, -1 ], 0, Infinity, true, terrain.id );
+        var terrainHeight = intersects.length > 0 ? intersects[ 0 ].point.z : object.translation[ 2 ];
+        var translation = [ origin[ 0 ], origin[ 1 ], terrainHeight ];
+        object.translation = translation;
     }
 }
 

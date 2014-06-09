@@ -208,6 +208,7 @@ children:
           iconSrc: "../assets/images/radio.png"
           animationLoop: true
           isCollidable: false
+          terrainName: "environment"
           visible: false
         scripts: |
           this.initialize = function() {
