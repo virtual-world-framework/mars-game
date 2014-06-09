@@ -17,17 +17,16 @@ methods:
   setScenario:
   resetScenario:
   advanceScenario:
+  createGraph:
+  removeGraph:
+  createMiniRover:
+  removeMiniRover:
 events:
   scenarioReset:
   scenarioChanged:
 children:
   soundManager:
     extends: http://vwf.example.com/sound/soundManager.vwf
-  graph:
-    extends: http://vwf.example.com/node3.vwf
-    implements: [ "http://vwf.example.com/blockly/controller.vwf" ]
-    properties:
-      blockly_toolbox: assets/scenario/graph.xml
   environment:
     extends: http://vwf.example.com/node3.vwf
     children:
@@ -219,20 +218,6 @@ children:
               inventoryIsVisible: false
     scripts:
      - source: source/player.js
-  minirover:
-    extends: source/rover.vwf
-    implements: [ "http://vwf.example.com/blockly/controller.vwf" ]
-    source: assets/3d/minirover/minirover.dae
-    type: model/vnd.collada+xml
-    properties:
-      translation: [ 0, 9, 0 ]
-      rotation: [ 0, 0, 1, 270 ]
-      castShadows: true
-      receiveShadows: true
-      blocklyEnabled: false
-      currentGridSquare: [ 2, 10 ]
-      heading: 270
-      terrainName: "environment"
   pickups:
     extends: http://vwf.example.com/node3.vwf
     children:
