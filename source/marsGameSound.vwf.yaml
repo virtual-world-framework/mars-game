@@ -2,13 +2,15 @@
 extends: http://vwf.example.com/sound/soundManager.vwf
 properties:
   allSoundsLoaded: false
-  SoundSet:
+  soundSet:
     - soundName: "rover"
       soundURL: "assets/sounds/sfx/objectRoverMotor_04.wav"
       isLooping: true
+      isLayered: false
     - soundName: "menu"
       soundURL: "assets/sounds/music/musicMenuLoop.wav"
       isLooping: true
+      isLayered: false
       allowMultiplay: false
     - soundName: "gameplay"
       soundURL: ""
