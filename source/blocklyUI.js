@@ -9,8 +9,22 @@ function setUpBlocklyPeripherals() {
     blocklyHandle.id = "blocklyHandle";
     $( "#blocklyWrapper" ).append( blocklyHandle );
     $( "#blocklyWrapper" ).draggable( {
-        containment: "body",
-        handle: "div#blocklyHandle"
+        handle: "div#blocklyHandle",
+        scroll: false,
+        drag: function( event, element ) {
+            var width = element.helper.context.clientWidth;
+            var height = element.helper.context.clientHeight;
+            if ( element.position.left < width / 2 ) {
+                element.position.left = width / 2;
+            } else if ( element.position.left > window.innerWidth - width / 2 ) {
+                element.position.left = window.innerWidth - width / 2;
+            }
+            if ( element.position.top < height / 2 ) {
+                element.position.top = height / 2;
+            } else if ( element.position.top > window.innerHeight - height / 2 ) {
+                element.position.top = window.innerHeight - height / 2;
+            }
+        }
     } );
 
     ramBar.id = "ramBar";
