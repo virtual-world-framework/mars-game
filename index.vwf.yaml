@@ -17,6 +17,7 @@ methods:
   setScenario:
   resetScenario:
   advanceScenario:
+  getCurrentScenario:
   createGraph:
   removeGraph:
   createMiniRover:
