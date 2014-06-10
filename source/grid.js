@@ -57,7 +57,7 @@ this.validCoord = function( gridCoord ) {
 }
 
 //Return the list of objects at gridCoord, if any
-this.checkCoord = function( gridCoord ) {
+this.getObjectsAtCoord = function( gridCoord ) {
     if ( this.validCoord( gridCoord ) ) {
         return this.getTileFromGrid( gridCoord ).objects;
     }
@@ -100,7 +100,6 @@ this.removeFromGrid = function( object, gridCoord ) {
 this.moveObjectOnGrid = function( object, srcCoord, destCoord ) {
     var removed = this.removeFromGrid( object, srcCoord );
     if ( removed ) {
-        object.visible = true;
         this.getTileFromGrid( destCoord ).addToTile( removed );
     }
 }
@@ -121,7 +120,7 @@ this.setHeightFromTerrain = function ( object ) {
 //Returns the first instance of an inventoriable object on the specified grid tile
 this.hasInventoriable = function( gridCoord ) {
     if ( this.validCoord( gridCoord ) ) {    
-        var list = this.checkCoord( gridCoord );
+        var list = this.getObjectsAtCoord( gridCoord );
         for ( var i = 0; i < list.length; i++ ) {
             if ( list[ i ].isInventoriable ) {
                 return list[ i ];
@@ -134,7 +133,7 @@ this.hasInventoriable = function( gridCoord ) {
 //Returns the first instance of a collidable object on the specified grid tile
 this.hasCollidable = function( gridCoord ) {
     if ( this.validCoord( gridCoord ) ) {
-        var list = this.checkCoord( gridCoord );
+        var list = this.getObjectsAtCoord( gridCoord );
         for ( var i = 0; i < list.length; i++ ) {
             if ( list[ i ].isCollidable ) {
                 return list[ i ];
@@ -157,15 +156,6 @@ function GridTile() {
 
     this.addToTile = function( object ) {
         this.objects.push( object );
-    }
-
-    this.hasInventoriable = function() {
-        for ( var i = 0; i < this.objects.length; i++ ) {
-            if ( this.objects[ i ].isInventoriable ) { 
-                return true;
-            }
-        }
-        return false;
     }
 }
 //@ sourceURL=source/grid.js
