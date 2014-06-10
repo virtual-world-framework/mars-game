@@ -14,6 +14,16 @@ function onSetActive( btn ) {
     vwf_view.kernel.setProperty( vwf_view.kernel.application(), "blockly_activeNodeID", btn.id );
 }
 
+function selectBlocklyTab( nodeID ) {
+    var tabs = document.getElementsByClassName("blocklyTab");
+    for ( var i = 0; i < tabs.length; i++ ) {
+        tabs[ i ].className = "blocklyTab";
+        if ( tabs[ i ].id === nodeID ) {
+            tabs[ i ].className += " selected";
+        }
+    }
+}
+
 window.addEventListener( "keyup", function (event) {
     switch ( event.keyCode ) {
         case 80:
@@ -143,7 +153,7 @@ vwf_view.initializedNode = function( nodeID, childID, childExtendsID, childImple
         var node = blocklyNodes[ childID ];
         if ( $( "#blocklyWrapper-top" ) !== undefined ) {
             $( "#blocklyWrapper-top" ).append( 
-                "<button id='" + childID + "' onclick='onSetActive(this)'>"+childName+"</button>"
+                "<div id='" + childID + "' class='blocklyTab' onclick='onSetActive(this)'>"+childName+"</div>"
             ).children(":last"); 
         }
     }
@@ -193,7 +203,7 @@ vwf_view.satProperty = function( nodeID, propertyName, propertyValue ) {
                 var exe = Boolean( propertyValue );
 
                 //Disables the run button
-                document.getElementById( "runButton" ).disabled = exe;
+                document.getElementById( "runButton" ).className = exe ? "disabled" : "";
                 
                 blocklyExecuting = exe;
                 break;
@@ -216,6 +226,12 @@ vwf_view.satProperty = function( nodeID, propertyName, propertyValue ) {
                 selector.activeMode.icon = pov.icon;
                 selector.activeMode.type = pov.mode;
             }
+        }
+    }
+
+    if ( nodeID === vwf_view.kernel.application() ) {
+        if ( propertyName === "blockly_activeNodeID" ) {
+            selectBlocklyTab( propertyValue );
         }
     }
 
