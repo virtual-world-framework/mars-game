@@ -5,13 +5,24 @@ var currentBlocklyNodeID = undefined;
 var blocklyExecuting = false;
 var targetPath = undefined;
 var mainRover = undefined;
+var blocklyGraphID = undefined;
+
+
 
 function onRun() {
     vwf_view.kernel.setProperty( currentBlocklyNodeID, "blockly_executing", true );
 }
 
 function onSetActive( btn ) {
-    vwf_view.kernel.setProperty( vwf_view.kernel.application(), "blockly_activeNodeID", btn.id );
+    if ( currentBlocklyNodeID !== btn.id ) {
+        vwf_view.kernel.setProperty( vwf_view.kernel.application(), "blockly_activeNodeID", btn.id );
+        if ( blocklyGraphID && blocklyGraphID === btn.id ) {
+            var cam = vwf_view.kernel.find( "", "//camera" )[0];
+            if ( cam ) {
+                vwf_view.kernel.setProperty( cam, "pointOfView", "topDown" );
+            }    
+        }
+    }
 }
 
 function selectBlocklyTab( nodeID ) {
@@ -132,6 +143,10 @@ vwf_view.createdNode = function( nodeID, childID, childExtendsID, childImplement
             "ram": 15, 
             "ramMax": 15
         };
+
+        if ( childName === "graph" ) {
+            blocklyGraphID = childID;
+        }
 
     } else if ( isGraphlineNode( protos ) && childName === "blocklyLine" ) {
         graphLines[ childName ] = { 
