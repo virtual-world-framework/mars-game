@@ -174,6 +174,17 @@ vwf_view.initializedNode = function( nodeID, childID, childExtendsID, childImple
     }
 }
 
+vwf_view.deletedNode = function( nodeID ) {
+    
+    if ( blocklyNodes[ nodeID ] !== undefined ) {
+        
+        delete blocklyNodes[ nodeID ];
+
+        // how do we delete the tab from $( "#blocklyWrapper-top" )
+    }
+
+}
+
 vwf_view.initializedProperty = function( nodeID, propertyName, propertyValue ) {
     vwf_view.satProperty( nodeID, propertyName, propertyValue );
 } 
