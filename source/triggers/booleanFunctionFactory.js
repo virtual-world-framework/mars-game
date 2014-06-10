@@ -148,6 +148,27 @@ this.clauseSet.moveFailed = function( params, context, callback ) {
     };
 }
 
+this.clauseSet.batteryDead = function( params, context, callback ) {
+    if ( !params || ( params.length !== 1 ) ) {
+        self.logger.errorx( "batteryDead", "This clause " +
+                            "requires one argument: the object." );
+    }
+
+    var objectName = params[ 0 ];
+
+    var object = self.findInContext( context, objectName );
+
+    if ( callback ) {
+        object.moveFailed = self.events.add( callback );
+    } else {
+        self.logger.warnx( "batteryDead", "No callback defined!" );
+    }
+
+    return function() {
+        return object.battery <= 0;
+    }
+}
+
 this.clauseSet.isBlocklyExecuting = function( params, context, callback ) {
     var objectArray = getBlocklyObjects( params, context );
 

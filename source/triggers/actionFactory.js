@@ -65,6 +65,31 @@ this.actionSet.stopSound = function( params, context ) {
     }
 }
 
+this.actionSet.displayPopup = function( params, context ) {
+    if ( !params || ( params.length !== 1 ) ) {
+        this.logger.warnx( "displayPopup", "We need to know what kind of popup this is, " +
+                            "and a message to display on the popup!" );
+        return undefined;
+    }
+
+    var type = params[ 0 ];
+    var message = params[ 1 ];
+    var scene = self.find("/")[0];
+    var scenario = self.find( "//" + scene.activeScenarioPath )[ 0 ];
+
+    return function() {
+        switch ( type ) {
+            case "failure":
+                scenario.failed( message );
+                break;
+
+            case "success":
+                scenario.completed( message );
+                break;
+        }
+    }
+}
+
 function getScenario( context ) {
     if ( context.getCurrentScenario ){
         return context.getCurrentScenario();

@@ -66,12 +66,27 @@ properties:
       actions:
       - scenarioSuccess:
 
-    failOnMoveFailed:
+    failOnMoveFailedCollision:
       triggerCondition:
       - moveFailed:
         - rover
+      additionalCondition:
       actions:
-      - scenarioFailure:
+      - displayPopup:
+        - failure
+        - "Your navigation program is blocked by an obstacle!"
+      - scenarioFailure:        
+
+    failOnMoveFailedBattery:
+      triggerCondition:
+      - batteryDead:
+        - rover
+      additionalCondition:
+      actions:
+      - displayPopup:
+        - failure
+        - "You have run out of battery!"
+      - scenarioFailure:         
 
     failOnIncompleteProgram:
       triggerCondition:
@@ -87,6 +102,9 @@ properties:
             - rover
             - radio
       actions:
+      - displayPopup:
+        - failure
+        - "You didn't reach the destination!"
       - scenarioFailure:
 
 children:

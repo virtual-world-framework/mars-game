@@ -137,3 +137,28 @@
     top: 8px;
     right: 4px;
 }
+
+#popupDiv {
+    width: 512px;
+    height: 256px;
+    margin-left: -256px;
+    margin-top: -128px;
+    top: 50%;
+    left: 50%;
+    position: absolute;
+    text-align: center;
+    background-color: #333444;
+    color: #fff;
+    z-index: 100;
+}
+
+#popupBlocker {
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    position: absolute;
+    opacity: 0.5;
+    background-color: #000;
+    z-index: 99;
+}

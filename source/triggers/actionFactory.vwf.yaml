@@ -23,5 +23,7 @@ properties:
     playSound:
     stopSound:
 
+    displayPopup:
+
 scripts:
 - source: source/triggers/actionFactory.js
