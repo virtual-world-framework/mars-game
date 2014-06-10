@@ -1,6 +1,5 @@
 ---
 extends: http://vwf.example.com/node.vwf
 properties:
-  bottomLeft: [ 0, 0 ]
-  gridSquareLength: 1
-  map: []
+  currentGridSquare: [ 0, 0 ]
+  isCollidable: true

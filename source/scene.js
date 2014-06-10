@@ -35,27 +35,14 @@ this.initialize = function() {
     // Set the active camera so we can see the 3D scene
     this.initializeActiveCamera( this.player.camera );
 
-    // Activate the minirover when the user picks up the radio
-    this.pickups.radio.pickedUp = function() {
-        self.minirover.blocklyEnabled = true;
-    }
-
-    // Deactivate the minirover when the user drops the radio
-    this.pickups.radio.dropped = function() {
-        self.minirover.blocklyEnabled = false;
-        if ( self.blockly_activeNodeID === self.minirover.id ) {
-            self.blockly_activeNodeID = undefined;
-        }
-    }
-
     this.graphObject = undefined;
     this.miniRover = undefined;
-
 }
 
 this.setScenario = function( path ) {
     var scenario = this.find( path )[ 0 ];
     if ( scenario ) {
+        scenario.grid.clearGrid();
         scenario.future( 0 ).enter();
         this.scenarioChanged( scenario.name );
     } else {
@@ -66,6 +53,7 @@ this.setScenario = function( path ) {
 this.resetScenario = function() {
     var scenario = this.find( this.activeScenarioPath )[ 0 ];
     if ( scenario ) {
+        scenario.grid.clearGrid();        
         scenario.enter();
         this.scenarioReset( scenario.name );
     } else {

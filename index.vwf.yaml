@@ -115,28 +115,6 @@ children:
         properties:
           castShadows: true
           receiveShadows: true
-  boundaryMap:
-    extends: source/boundaryMap.vwf
-    properties:
-      topLeft: [ -10.5, 25.5 ]
-      gridSquareLength: 3
-      map:
-      - [ -1, -1, -1, -1, -1, -1,  1,  1,  1, -1, -1, -1, -1, -1, -1, -1 ]
-      - [ -1, -1, -1, -1, -1, -1, -1,  1, -1, -1, -1, -1, -1, -1, -1, -1 ]
-      - [ -1, -1, -1,  1,  1,  1,  1,  1,  2,  2,  4, -1, -1, -1, -1, -1 ]
-      - [ -1, -1, -1,  1, -1, -1, -1,  4, -1,  2, -1, -1, -1, -1, -1, -1 ]
-      - [ -1, -1, -1,  1, -1, -1, -1,  4, -1,  2, -1, -1, -1, -1, -1, -1 ]
-      - [ -1, -1, -1,  1,  1,  1, -1,  4, -1,  1, -1, -1, -1, -1, -1, -1 ]
-      - [ -1, -1, -1, -1, -1,  1, -1,  4, -1,  1, -1, -1, -1, -1, -1, -1 ]
-      - [ -1, -1,  1,  1,  1,  1, -1,  2, -1,  1, -1, -1, -1, -1, -1, -1 ]
-      - [ -1, -1, -1, -1, -1,  1, -1,  2, -1,  1,  1,  1,  1,  1, -1, -1 ]
-      - [ -1, -1, -1,  1,  1,  1, -1,  2, -1,  1, -1, -1, -1,  1, -1, -1 ]
-      - [ -1, -1, -1,  1, -1, -1, -1,  2, -1,  1, -1, -1, -1,  1,  1,  1 ]
-      - [ -1, -1, -1,  1, -1, -1, -1,  2,  1,  1, -1, -1, -1,  1, -1, -1 ]
-      - [  1,  2,  2,  1, -1, -1, -1,  2, -1, -1, -1, -1, -1,  2, -1, -1 ]
-      - [  1, -1, -1,  1, -1, -1, -1,  2, -1, -1, -1, -1, -1,  2, -1, -1 ]
-      - [  1, -1, -1,  1, -1, -1, -1,  2, -1, -1, -1, -1, -1,  2, -1, -1 ]
-      - [ -1, -1, -1,  1,  1,  1,  1,  1, -1, -1, -1, -1, -1,  2, -1, -1 ]
   booleanFunctionFactory:  # Does this belong to be exposed here?
     extends: source/triggers/booleanFunctionFactory.vwf
   sunLight:
@@ -202,13 +180,12 @@ children:
         - source: "source/camera.js"
       rover:
         extends: source/rover.vwf
-        implements: [ "http://vwf.example.com/blockly/controller.vwf" ]
+        implements: [ "http://vwf.example.com/blockly/controller.vwf", "source/griddable.vwf" ]
         source: assets/3d/Rover/rover_retro.dae
         type: model/vnd.collada+xml
         properties:
           castShadows: true
           receiveShadows: true
-          currentGridSquare: [ 2, 7 ]
           terrainName: "environment"
         children:
           cargo:
@@ -223,14 +200,14 @@ children:
     children:
       radio:
         extends: http://vwf.example.com/node3.vwf
-        implements: [ "source/inventoriable.vwf" ]
+        implements: [ "source/inventoriable.vwf", "source/griddable.vwf" ]
         source: assets/3d/Radio/radio.DAE
         type: model/vnd.collada+xml
         properties:
           iconSrc: "../assets/images/radio.png"
-          translation: [ 39, 0, 0 ]
           animationLoop: true
-          currentGridSquare: [ 15, 7 ]
+          isCollidable: false
+          terrainName: "environment"
         scripts: |
           this.initialize = function() {
             this.animationPlay();

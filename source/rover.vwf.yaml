@@ -30,13 +30,11 @@ properties:
         this.ramMaxChanged( value );
       }
     value: 100 
-  boundaryMap: []
-  gridSquareLength: 1
   currentGridSquare: [ 0, 0 ]
   heading: 90
   terrainName: undefined
 methods:
-  findAndSetBoundaryMap:
+  findAndSetCurrentGrid:
   moveForward:
   turnLeft:
   turnRight:

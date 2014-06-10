@@ -1,4 +1,5 @@
 var self;
+var currentGrid;
 
 this.initialize = function() {
     // TODO: Find current grid square (rather than making app developer specify)
@@ -6,30 +7,14 @@ this.initialize = function() {
 
     self = this;
     this.calcRam();
-    this.future( 0 ).findAndSetBoundaryMap();
+
+    this.future( 0 ).findAndSetCurrentGrid();
 }
 
-this.findAndSetBoundaryMap = function() {
-    var boundaryMapObject = this.find( "//element(*,'source/boundaryMap.vwf')" )[ 0 ];
-    if ( boundaryMapObject ) {
-        this.boundaryMap = boundaryMapObject.map;
-        this.gridSquareLength = boundaryMapObject.gridSquareLength;
-    }
-}
-
-this.moved = function() {
-
-    var inventory = this.cargo;
-
-    //If the rover moves onto a space containing pickups, add the pickup to the inventory
-    if ( inventory ) {
-        var inventoriables = this.find( "//element(*,'source/inventoriable.vwf')" );
-        for ( var i = 0; i < inventoriables.length; i++ ) {
-            if ( ( !inventoriables[ i ].isPickedUp ) && ( this.currentGridSquare[ 0 ] === inventoriables[ i ].currentGridSquare[ 0 ] ) && ( this.currentGridSquare[ 1 ] === inventoriables[ i ].currentGridSquare[ 1 ] ) ) {
-                inventory.add( inventoriables[ i ].id );
-            }
-        }
-    }
+this.findAndSetCurrentGrid = function() {
+    var scene = self.find( "/" )[ 0 ];
+    var scenario = self.find( "//" + scene.activeScenarioPath )[ 0 ];
+    currentGrid = scenario.grid;
 }
 
 this.moveForward = function() {
@@ -38,29 +23,46 @@ this.moveForward = function() {
     var dirVector = [ Math.round( -Math.sin( headingInRadians ) ), Math.round( Math.cos( headingInRadians ) ) ];
     var proposedNewGridSquare = [ this.currentGridSquare[ 0 ] + dirVector[ 0 ], 
                                                                 this.currentGridSquare[ 1 ] + dirVector[ 1 ] ];
-    var boundaryXArray = this.boundaryMap[ proposedNewGridSquare[ 0 ] ];
-    if ( boundaryXArray ) {
-        var boundaryValue = boundaryXArray[ proposedNewGridSquare[ 1 ] ];
-        if ( ( boundaryValue < 0 ) || ( boundaryValue === undefined ) ) {
+
+    //First check if the coordinate is valid
+    if ( currentGrid.validCoord( proposedNewGridSquare ) ) {
+
+        //Then check if the boundary value allows for movement:
+        var energyRequired = currentGrid.getEnergy( proposedNewGridSquare );
+        if ( energyRequired < 0 ) {
             this.moveFailed( "collision" );
-        } else if ( boundaryValue > this.battery ) {
-            // if the move fails because of battery, drain the rest of our battery
+        } else if ( energyRequired > this.battery ) {
             this.battery = 0;
             this.moveFailed( "battery" );
         } else {
-            this.currentGridSquare = proposedNewGridSquare;
-            var displacement = [ dirVector[ 0 ] * this.gridSquareLength, 
-                                 dirVector[ 1 ] * this.gridSquareLength, 0 ];
-            // TODO: This should use worldTransformBy, but we are getting a bug where the rover's transform isn't set
-            //       yet when this method is called.  Until we can debug that, we are assuming that the rover's 
-            //       parent's frame of reference is the world frame of reference
-            this.translateOnTerrain( displacement, 1, boundaryValue );
-            // this.worldTransformBy( [
-            //   1, 0, 0, 0,  
-            //   0, 1, 0, 0,  
-            //   0, 0, 1, 0,  
-            //   dirVector[ 0 ] * this.gridSquareLength, dirVector[ 1 ] * this.gridSquareLength, 0, 0 ], 1 );
-            this.moved( displacement );
+
+            //Otherwise, check if the space is occupied
+            if ( currentGrid.getCollidables( proposedNewGridSquare ).length === 0 ){
+                currentGrid.moveObjectOnGrid( this, this.currentGridSquare, proposedNewGridSquare );
+                this.currentGridSquare = proposedNewGridSquare;
+                var displacement = [ dirVector[ 0 ] * currentGrid.gridSquareLength, 
+                                     dirVector[ 1 ] * currentGrid.gridSquareLength, 0 ];
+                // TODO: This should use worldTransformBy, but we are getting a bug where the rover's transform isn't set
+                //       yet when this method is called.  Until we can debug that, we are assuming that the rover's 
+                //       parent's frame of reference is the world frame of reference
+                this.translateOnTerrain( displacement, 1, energyRequired );
+                // this.worldTransformBy( [
+                //   1, 0, 0, 0,
+                //   0, 1, 0, 0,
+                //   0, 0, 1, 0,
+                //   dirVector[ 0 ] * this.gridSquareLength, dirVector[ 1 ] * this.gridSquareLength, 0, 0 ], 1 );
+
+                var inventoriableObjects = currentGrid.getInventoriables( proposedNewGridSquare );
+                if ( inventoriableObjects ){
+                    for ( var i = 0; i < inventoriableObjects.length; i++ ) {
+                        currentGrid.removeFromGrid( inventoriableObjects[ i ], proposedNewGridSquare );
+                        this.cargo.add( inventoriableObjects[ i ].id );
+                    }
+                }
+                this.moved();
+            } else {
+                this.moveFailed( "collision" );
+            }
         }
     } else {
         this.moveFailed( "collision" );

@@ -135,4 +135,20 @@ this.startStateParamSet.emptyInventory = function( params, context ) {
     inventory.empty();
 }
 
+this.startStateParamSet.addToGrid = function( params, context ) {
+    if ( !params || ( params.length !== 2 ) ) {
+        self.logger.errorx( "addToGrid",
+                            "The addToGrid condition requires 2 arguments: " +
+                            "the object to be added, and the coordinates of " +
+                            "the grid tile." );
+        return undefined;
+    }
+
+    var objectName = params[ 0 ];
+    var gridCoord = params[ 1 ];
+
+    var object = self.startStateExecutor.findInContext( context, objectName );
+    self.grid.addToGridFromCoord( object, gridCoord );
+}
+
 //@ sourceURL=source/scenario.js
