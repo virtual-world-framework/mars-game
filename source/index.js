@@ -9,6 +9,8 @@ var blocklyGraphID = undefined;
 
 
 
+var failureText = "";
+
 function onRun() {
     vwf_view.kernel.setProperty( currentBlocklyNodeID, "blockly_executing", true );
 }
@@ -66,6 +68,15 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                         // if disabled then need to set the tooltip
                         // There must be only one program for each blockly object
                     }
+                }
+                break;
+
+            case "moveFailed":
+                var situation = eventArgs[ 0 ];
+                if ( situation === "battery" ) {
+                    failureText = "You have run out of battery.\n";
+                } else if ( situation === "collision" ) {
+                    failureText = "Your navigation program is blocked by an obstacle.\n";
                 }
                 break;
 
@@ -393,11 +404,12 @@ function endScenario( endType ) {
     } else if ( endType === "failure" ) {
         div.onclick = resetScenario;
         div.innerHTML = "<h1>Objective Failed</h1>";
+        div.innerHTML += "<br />" + failureText + "<br /";
     } else {
         div.innerHTML = "<h1>Game Over</h1>";
     }
 
-    div.innerHTML += "\nClick here to try again.";
+    div.innerHTML += "<br />Click here to try again.";
     document.body.appendChild(blocker);
     document.body.appendChild(div);
 
