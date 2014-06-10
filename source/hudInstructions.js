@@ -1,7 +1,6 @@
 function createHUD() {
 
     createRoverElement();
-    createMiniRoverElement();
     createCameraSelector();
     createCommsDisplay();
 
