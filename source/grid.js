@@ -76,7 +76,6 @@ this.addToGridFromCoord = function( object, gridCoord ) {
         this.getTileFromGrid( gridCoord ).addToTile( object );
         object.currentGridSquare = gridCoord;
         object.translation = this.getWorldFromGrid( gridCoord );
-        object.visible = true;
         this.setHeightFromTerrain( object );
     }
 }
@@ -93,7 +92,6 @@ this.removeFromGrid = function( object, gridCoord ) {
     var objects = this.getTileFromGrid( gridCoord ).objects;
     var index = objects.indexOf( object )
     if ( index > -1) {
-        object.visible = false;
         return objects.splice( index, 1 )[ 0 ];
     }
     return null;

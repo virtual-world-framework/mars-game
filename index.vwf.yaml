@@ -187,7 +187,6 @@ children:
           castShadows: true
           receiveShadows: true
           terrainName: "environment"
-          visible: false          
         children:
           cargo:
             extends: source/inventory.vwf
@@ -209,7 +208,6 @@ children:
           animationLoop: true
           isCollidable: false
           terrainName: "environment"
-          visible: false
         scripts: |
           this.initialize = function() {
             this.animationPlay();
