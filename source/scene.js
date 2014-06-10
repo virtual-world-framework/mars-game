@@ -37,7 +37,9 @@ this.initialize = function() {
 
     // Activate the minirover when the user picks up the radio
     this.pickups.radio.pickedUp = function() {
-        self.minirover.blocklyEnabled = true;
+        if ( self.minirover ) {
+            self.minirover.blocklyEnabled = true;
+        }
     }
 
     // Deactivate the minirover when the user drops the radio

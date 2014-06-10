@@ -36,7 +36,7 @@ this.moveForward = function() {
         } else {
 
             //Otherwise, check if the space is occupied
-            if ( !currentGrid.hasCollidable( proposedNewGridSquare ) ){
+            if ( currentGrid.getCollidables( proposedNewGridSquare ).length === 0 ){
                 currentGrid.moveObjectOnGrid( this, this.currentGridSquare, proposedNewGridSquare );
                 this.currentGridSquare = proposedNewGridSquare;
                 var displacement = [ dirVector[ 0 ] * currentGrid.gridSquareLength, 
@@ -51,12 +51,14 @@ this.moveForward = function() {
                 //   0, 0, 1, 0,
                 //   dirVector[ 0 ] * this.gridSquareLength, dirVector[ 1 ] * this.gridSquareLength, 0, 0 ], 1 );
 
-                var inventoriableObject = currentGrid.hasInventoriable( proposedNewGridSquare );
-                if ( inventoriableObject ){
-                    currentGrid.removeFromGrid( inventoriableObject, proposedNewGridSquare );
-                    this.cargo.add( inventoriableObject.id );
+                var inventoriableObjects = currentGrid.getInventoriables( proposedNewGridSquare );
+                if ( inventoriableObjects ){
+                    for ( var i = 0; i < inventoriableObjects.length; i++ ) {
+                        currentGrid.removeFromGrid( inventoriableObjects[ i ], proposedNewGridSquare );
+                        this.cargo.add( inventoriableObjects[ i ].id );
+                    }
                 }
-                this.moved( displacement );
+                this.moved();
             } else {
                 this.moveFailed( "collision" );
             }

@@ -118,29 +118,31 @@ this.setHeightFromTerrain = function ( object ) {
 }
 
 //Returns the first instance of an inventoriable object on the specified grid tile
-this.hasInventoriable = function( gridCoord ) {
+this.getInventoriables = function( gridCoord ) {
+    var inventoriables = [];
     if ( this.validCoord( gridCoord ) ) {    
         var list = this.getObjectsAtCoord( gridCoord );
         for ( var i = 0; i < list.length; i++ ) {
             if ( list[ i ].isInventoriable ) {
-                return list[ i ];
+                inventoriables.push( list[i] );
             }
         }
     }
-    return null;
+    return inventoriables;
 }
 
 //Returns the first instance of a collidable object on the specified grid tile
-this.hasCollidable = function( gridCoord ) {
+this.getCollidables = function( gridCoord ) {
+    var collidables = [];
     if ( this.validCoord( gridCoord ) ) {
         var list = this.getObjectsAtCoord( gridCoord );
         for ( var i = 0; i < list.length; i++ ) {
             if ( list[ i ].isCollidable ) {
-                return list[ i ];
+                collidables.push( list[ i ] );
             }
         }
     }
-    return null;
+    return collidables;
 }
 
 this.getEnergy = function ( gridCoord ) {
