@@ -60,7 +60,7 @@ Trigger.prototype = {
     additionalCondition: undefined,
 
     // The actions we take when the trigger fires
-    actions: [],
+    actions: undefined,
 
     initialize: function( conditionFactory, actionFactory, context, definition, logger ) {
         if ( !definition.triggerCondition || ( definition.triggerCondition.length !== 1 ) ) {
@@ -91,6 +91,7 @@ Trigger.prototype = {
                                                   context );
         }
 
+        this.actions = [];
         for ( var i = 0; i < definition.actions.length; ++i ) {
             var action = actionFactory.executeFunction( definition.actions[ i ], context );
             action && this.actions.push( action );
