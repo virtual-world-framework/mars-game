@@ -30,8 +30,7 @@ this.moveForward = function() {
         var energyRequired = currentGrid.getEnergy( proposedNewGridSquare );
         if ( energyRequired < 0 ) {
             this.moveFailed( "collision" );
-        }
-        else if ( energyRequired > this.battery ) {
+        } else if ( energyRequired > this.battery ) {
             this.battery = 0;
             this.moveFailed( "battery" );
         } else {
@@ -58,13 +57,11 @@ this.moveForward = function() {
                     this.cargo.add( inventoriableObject.id );
                 }
                 this.moved( displacement );
-            }
-            else {
+            } else {
                 this.moveFailed( "collision" );
             }
         }
-    }
-    else {
+    } else {
         this.moveFailed( "collision" );
     }
 }
