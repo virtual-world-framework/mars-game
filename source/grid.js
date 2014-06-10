@@ -91,7 +91,7 @@ this.addToGridFromWorld = function( object ) {
 this.removeFromGrid = function( object, gridCoord ) {
     var objects = this.getTileFromGrid( gridCoord ).objects;
     var index = objects.indexOf( object )
-    if ( index > -1) {
+    if ( index !== -1 ) {
         return objects.splice( index, 1 )[ 0 ];
     }
     return null;

@@ -12,7 +12,8 @@ this.initialize = function() {
 }
 
 this.findAndSetCurrentGrid = function() {
-    var scenario = self.find( "//" + self.find( "/" )[ 0 ].activeScenarioPath )[ 0 ];
+    var scene = self.find( "/" )[ 0 ];
+    var scenario = self.find( "//" + scene.activeScenarioPath )[ 0 ];
     currentGrid = scenario.grid;
 }
 
