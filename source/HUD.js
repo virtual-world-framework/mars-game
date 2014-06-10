@@ -266,6 +266,12 @@ HUD.prototype = {
 
     registerEventListeners: function( gameCanvas ) {
 
+        // Store the default event handlers so they can be used if
+        // the HUD does not handle the event.
+        var defaultHandlers = {};
+
+        defaultHandlers.onclick = gameCanvas.onclick;
+        gameCanvas.onclick = ( function( event ) {} );
         gameCanvas.addEventListener( "click", ( function( event ) { 
             
             var picks = this.pick( event );
@@ -273,10 +279,14 @@ HUD.prototype = {
 
             if ( topPick !== null ) {
                 this.elements[ topPick.id ].onClick( event );
+            } else if ( defaultHandlers.onclick instanceof Function ) {
+                defaultHandlers.onclick( event );
             }
             
         } ).bind(this) );
 
+        defaultHandlers.onmouseup = gameCanvas.onmouseup;
+        gameCanvas.onmouseup = ( function( event ) {} );
         gameCanvas.addEventListener( "mouseup", ( function( event ) { 
             
             var picks = this.pick( event );
@@ -284,10 +294,14 @@ HUD.prototype = {
 
             if ( topPick !== null ) {
                 this.elements[ topPick.id ].onMouseUp( event );
+            } else if ( defaultHandlers.onmouseup instanceof Function ) {
+                defaultHandlers.onmouseup( event );
             }
             
         } ).bind(this) );
 
+        defaultHandlers.onmousedown = gameCanvas.onmousedown;
+        gameCanvas.onmousedown = ( function( event ) {} );
         gameCanvas.addEventListener( "mousedown", ( function( event ) { 
             
             var picks = this.pick( event );
@@ -295,10 +309,14 @@ HUD.prototype = {
 
             if ( topPick !== null ) {
                 this.elements[ topPick.id ].onMouseDown( event );
+            } else if ( defaultHandlers.onmousedown instanceof Function ) {
+                defaultHandlers.onmousedown( event );
             }
             
         } ).bind(this) );
 
+        defaultHandlers.onmousemove = gameCanvas.onmousemove;
+        gameCanvas.onmousemove = ( function( event ) {} );
         gameCanvas.addEventListener( "mousemove", ( function( event ) { 
             
             var picks = this.pick( event );
@@ -306,6 +324,8 @@ HUD.prototype = {
 
             if ( topPick !== null ) {
                 this.elements[ topPick.id ].onMouseMove( event );
+            } else if ( defaultHandlers.onmousemove instanceof Function ) {
+                defaultHandlers.onmousemove( event );
             }
             
         } ).bind(this) );
