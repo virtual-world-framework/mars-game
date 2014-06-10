@@ -19,8 +19,6 @@ properties:
   # These are the standard properties that every scenario should define
   scenarioName:
   startState:
-  successClause:
-  failureClause:
   triggers:
 
   # The blockly toolbox xml definition

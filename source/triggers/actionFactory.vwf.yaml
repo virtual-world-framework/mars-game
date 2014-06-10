@@ -13,6 +13,11 @@ properties:
   # provides the baseline functionality that we need.
   actionSet:
 
+    # cause scenario success/failure
+    # arguments: none
+    scenarioSuccess:
+    scenarioFailure:
+
     # play/stops a sound
     # arguments: the sound name
     playSound:

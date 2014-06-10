@@ -1,8 +1,4 @@
-var self;
-
 this.initialize = function() {
-	self = this;
-
     this.children.create( "conditionFactory", 
                           "source/triggers/booleanFunctionFactory.vwf" );
 
@@ -11,8 +7,8 @@ this.initialize = function() {
 }
 
 this.loadTriggers = function( triggers, context ) {
-	if ( !self.isEmpty() ) {
-		self.logger.warnx( "loadTriggers", "Loading a new set of triggers, but " +
+	if ( !this.isEmpty() ) {
+		this.logger.warnx( "loadTriggers", "Loading a new set of triggers, but " +
 						   "we still had some there from a previous set!" );
 	}
 
@@ -21,31 +17,31 @@ this.loadTriggers = function( triggers, context ) {
 			continue;
 		}
 
-		self.triggers$[ key ] = new Trigger( self.conditionFactory, 
-											 self.actionFactory, 
+		this.triggers$[ key ] = new Trigger( this.conditionFactory, 
+											 this.actionFactory, 
 											 context, 
 											 triggers[ key ], 
-											 self.logger );
+											 this.logger );
 	}
 }
 
 this.clearTriggers = function() {
-	for ( var key in self.triggers$ ) {
-		if ( !self.triggers$.hasOwnProperty( key ) ) {
+	for ( var key in this.triggers$ ) {
+		if ( !this.triggers$.hasOwnProperty( key ) ) {
 			continue;
 		}
 
-		delete self.triggers$[ key ];
+		delete this.triggers$[ key ];
 	}
 
-	if ( !self.isEmpty() ) {
-		self.logger.errorx( "clearTriggers", "How do we still have triggers?!" );
+	if ( !this.isEmpty() ) {
+		this.logger.errorx( "clearTriggers", "How do we still have triggers?!" );
 	}
 }
 
 this.isEmpty = function() {
-	for ( var key in self.triggers$ ) {
-		if ( self.triggers$.hasOwnProperty( key ) ) {
+	for ( var key in this.triggers$ ) {
+		if ( this.triggers$.hasOwnProperty( key ) ) {
 			return false;
 		}
 	}
@@ -59,8 +55,6 @@ function Trigger( conditionFactory, actionFactory, context, definition, logger )
 }
 
 Trigger.prototype = {
-    self: undefined,
-
     // The conditions that we check to see if the trigger should fire
     triggerCondition: undefined,
     additionalCondition: undefined,
@@ -69,8 +63,6 @@ Trigger.prototype = {
     actions: [],
 
     initialize: function( conditionFactory, actionFactory, context, definition, logger ) {
-        self = this;
-
         if ( !definition.triggerCondition || ( definition.triggerCondition.length !== 1 ) ) {
             logger.errorx( "Trigger.initialize", "There must be exactly one trigger " +
                            "condition.  Try using 'and' or 'or'." );
@@ -88,29 +80,29 @@ Trigger.prototype = {
             return undefined;
         }
 
-        self.triggerCondition = 
+        this.triggerCondition = 
             conditionFactory.executeFunction( definition.triggerCondition[0],
                                               context, 
-                                              self.checkFire.bind( self ) );
+                                              this.checkFire.bind( this ) );
 
         if ( definition.additionalCondition ) {
-            self.additionalCondition = 
+            this.additionalCondition = 
                 conditionFactory.executeFunction( definition.additionalCondition[0],
                                                   context );
         }
 
         for ( var i = 0; i < definition.actions.length; ++i ) {
             var action = actionFactory.executeFunction( definition.actions[ i ], context );
-            action && self.actions.push( action );
+            action && this.actions.push( action );
         }
     },
 
     // Check our conditions, and take action if they're true
     checkFire: function() {
-        if ( self.triggerCondition && self.triggerCondition() &&
-             ( !self.additionalCondition || self.additionalCondition() ) ) {
-            for ( var i = 0; i < self.actions.length; ++i ) {
-                self.actions[ i ] && self.actions[ i ]();
+        if ( this.triggerCondition && this.triggerCondition() &&
+             ( !this.additionalCondition || this.additionalCondition() ) ) {
+            for ( var i = 0; i < this.actions.length; ++i ) {
+                this.actions[ i ] && this.actions[ i ]();
             }
         }
     },

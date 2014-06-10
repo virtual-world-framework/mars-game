@@ -116,8 +116,6 @@ children:
         properties:
           castShadows: true
           receiveShadows: true
-  booleanFunctionFactory:  # Does this belong to be exposed here?
-    extends: source/triggers/booleanFunctionFactory.vwf
   sunLight:
     extends: http://vwf.example.com/light.vwf
     properties:

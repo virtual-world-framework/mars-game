@@ -49,31 +49,60 @@ properties:
     - radio
     - [ 15, 7 ]
 
-  successClause:
-  - and:
-    - isAtPosition:
-      - rover
-      - 15
-      - 7
-    - hasObject:
-      - rover
-      - radio
-    - not:
-      - isBlocklyExecuting:
-        - rover
-
-  failureClause:
-  - moveFailed:
-    - rover
-
   triggers:
-    laserOnScenarioStart:
-      triggerCondition: 
-      - onScenarioStart:
+    successConditions:
+      triggerCondition:
+      - and:
+        - isAtPosition:
+          - rover
+          - 15
+          - 7
+        - hasObject:
+          - rover
+          - radio
+        - not:
+          - isBlocklyExecuting:
+            - rover
       additionalCondition:
       actions:
-      - playSound:
-        - laser
+      - scenarioSuccess:
+
+    failOnMoveFailed:
+      triggerCondition:
+      - moveFailed:
+        - rover
+      additionalCondition:
+      actions:
+      - scenarioFailure:
+
+    # laserOnScenarioStart:
+    #   triggerCondition: 
+    #   - onScenarioStart:
+    #   additionalCondition:
+    #   actions:
+    #   - playSound:
+    #     - laser
+
+    # failOnBlocklyEnd:
+    #   triggerCondition:
+    #   - onBlocklyProgramComplete
+    #   additionalCondition:
+    #   - not:
+    #     - or:
+    #       - isAtPosition:
+    #         - rover
+    #         - 15
+    #         - 7
+    #       - hasObject:
+    #         - rover
+    #         - radio
+    #   actions:
+    #     - failScenario:
+    #       - "Good try, but you didn't get there!"
+    #     - playAnimation:
+    #       - sadPuppy
+    #     - playSound:
+    #       - scenarioFailProgramEnded
 
 children:
   grid:
