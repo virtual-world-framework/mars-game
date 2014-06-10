@@ -61,6 +61,11 @@ this.resetScenario = function() {
     }
 }
 
+this.getCurrentScenario = function() {
+    // TODO: make this handle more than one scenario
+    return this.find( this.activeScenarioPath )[ 0 ];
+}
+
 this.createGraph = function() {
 
     var self = this;

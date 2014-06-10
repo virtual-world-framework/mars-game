@@ -359,7 +359,6 @@ function endScenario( endType ) {
 
     var div = document.createElement( 'DIV' );
     div.id = "gameOver";
-    div.onclick = resetScenario;
     div.style.height = "256px";
     div.style.width = "512px";
     div.style.marginLeft = "-256px";
@@ -373,8 +372,10 @@ function endScenario( endType ) {
     div.style.zIndex = "100";
 
     if ( endType === "success" ) {
+        div.onclick = advanceScenario;
         div.innerHTML = "<h1>Success</h1>";
     } else if ( endType === "failure" ) {
+        div.onclick = resetScenario;
         div.innerHTML = "<h1>Objective Failed</h1>";
     } else {
         div.innerHTML = "<h1>Game Over</h1>";
@@ -388,6 +389,10 @@ function endScenario( endType ) {
 
 function resetScenario() {
     vwf_view.kernel.callMethod( vwf_view.kernel.application(), "resetScenario" );
+}
+
+function advanceScenario() {
+    vwf_view.kernel.callMethod( vwf_view.kernel.application(), "advanceScenario" );
 }
 
 function updateBlocklyUI( blocklyNode ) {
