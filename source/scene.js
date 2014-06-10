@@ -61,6 +61,13 @@ this.resetScenario = function() {
     }
 }
 
+this.advanceScenario = function() {
+    // HACK HACK HACK: For now, just reset the scenario (so it at least does someting)
+    // TODO: make this actually advance to the next scenario (once we have more than
+    //   one).
+    this.resetScenario();
+}
+
 this.getCurrentScenario = function() {
     // TODO: make this handle more than one scenario
     return this.find( this.activeScenarioPath )[ 0 ];
