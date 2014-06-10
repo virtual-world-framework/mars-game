@@ -14,7 +14,7 @@ this.initialize = function() {
     this.future( 0 ).setBoundaryValues();
 }
 
-this.setBoundaryValues = function( boundaryValues ) {
+this.setBoundaryValues = function() {
     for ( var i = 0; i < this.maxX - this.minX; i++ ) {
         for (var j = 0; j < this.maxY - this.minY; j++) {
             this.tiles[ i ][ j ].energyRequired = self.boundaryValues[ i ][ j ];
@@ -47,7 +47,10 @@ this.getWorldFromGrid = function( gridCoord ) {
 }
 
 this.validCoord = function( gridCoord ) {
-    if ( ( gridCoord[ 0 ] < this.minX ) || ( gridCoord[ 0 ] > this.maxX ) || ( gridCoord[ 1 ] < this.minX ) || ( gridCoord[ 1 ] > this.maxY ) ) {
+    if ( ( gridCoord[ 0 ] < this.minX ) || ( gridCoord[ 0 ] > this.maxX ) || ( gridCoord[ 1 ] < this.minY ) || ( gridCoord[ 1 ] > this.maxY ) ) {
+        self.logger.errorx( "validCoord",
+                            "The gridCoord given is not a valid " +
+                            "coordinate in the current grid system." );
         return false;
     }
     return true;
