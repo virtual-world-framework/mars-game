@@ -1,7 +1,6 @@
 # The boolean function factory creates boolean function from yaml declarations.
 # It also sets up the callbacks necessary to know when the boolean function 
-# needs to be reevaluated. This is used to create the success and failure 
-# conditions for scenarios (and hopefully for other things as well).
+# needs to be reevaluated. This is used to create the checks for triggers.
 #
 # A boolean function contains a single "clause," which is something we want to
 # check (for example, an isAtPosition clause, or a hasObject clause).  The 
@@ -12,7 +11,7 @@
 # as declarative functions that set up the necessary callbacks and return the
 # function that performs the actual check.
 --- 
-extends: source/declarativeFunctionExecutor.vwf
+extends: source/triggers/declarativeFunctionExecutor.vwf
 
 properties:
 
@@ -34,9 +33,12 @@ properties:
     # arguments: owner, object
     hasObject:
 
-    #arguments: object
+    # arguments: object
     moveFailed:
     isBlocklyExecuting:
 
+    # arguments: scenarioName
+    onScenarioStart:
+
 scripts:
-- source: source/booleanFunctionFactory.js
+- source: source/triggers/booleanFunctionFactory.js

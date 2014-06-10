@@ -58,4 +58,25 @@ this.findInContext = function( context, objectName ) {
     return results[ 0 ];
 }
 
-//@ sourceURL=source/declarativeFunctionExecutor.js
+this.findTypeInContext = function( context, typeName ) {
+    if (!context) {
+        this.logger.errorx( "findInContext", "Context  is undefined!" );
+        return undefined;
+    }
+
+    var results = context.find( ".//element(*,'" + typeName + "')" );
+
+    if ( results.length < 1 ) {
+        this.logger.errorx( "findTypeInContext", "Nothing found with type '" +
+                            typeName + "'." );
+    }
+
+    if ( results.length > 1 ) {
+        this.logger.warnx( "findTypeInContext", "Multiple objects of type '" + 
+                           typeName + "' found.  We'll return the first one." );
+    }
+
+    return results[ 0 ];
+}
+
+//@ sourceURL=source/triggers/declarativeFunctionExecutor.js
