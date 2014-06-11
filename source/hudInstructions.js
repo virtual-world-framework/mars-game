@@ -17,6 +17,8 @@ function createHUD() {
 
     createInventoryHUD( 4 );
 
+    hideCommsDisplay();
+
 }
 
 function createRoverElement() {
