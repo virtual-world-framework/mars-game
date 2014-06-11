@@ -7,10 +7,6 @@ var targetPath = undefined;
 var mainRover = undefined;
 var blocklyGraphID = undefined;
 
-
-
-var failureText = "";
-
 function onRun() {
     vwf_view.kernel.setProperty( currentBlocklyNodeID, "blockly_executing", true );
 }
@@ -70,16 +66,6 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                     }
                 }
                 break;
-
-            case "moveFailed":
-                var situation = eventArgs[ 0 ];
-                if ( situation === "battery" ) {
-                    failureText = "You have run out of battery.\n";
-                } else if ( situation === "collision" ) {
-                    failureText = "Your navigation program is blocked by an obstacle.\n";
-                }
-                break;
-
         }
     } else if ( nodeID === this.kernel.application() ) {
         
