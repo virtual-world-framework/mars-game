@@ -71,23 +71,13 @@ this.actionSet.stopSound = function( params, context ) {
     }
 }
 
-function getScenario( context ) {
-    if ( context.getCurrentScenario ){
-        return context.getCurrentScenario();
-    } else {
-        self.logger.errorx( "getScenario", "context does not have a getCurrentScenario " +
-                            "method." );
-        return undefined;
-    }
-}
-
 this.actionSet.showCommsDisplay = function( params, context ) {
     if ( !params || ( params.length !== 1 ) ) {
         self.logger.warnx( "activateCommDisplay", "We need to know the path of the image to display!" );
     }
 
     var imagePath = params[ 0 ];
-    var scenario = context.getCurrentScenario();
+    var scenario = getScenario();
 
     return function() {
         scenario.showComms( imagePath );
@@ -99,10 +89,20 @@ this.actionSet.hideCommsDisplay = function( params, context ) {
         self.logger.warnx( "activateCommDisplay", "This action does not take any parameters." );
     }
 
-    var scenario = context.getCurrentScenario();
+    var scenario = getScenario();
 
     return function() {
         scenario.hideComms();
+    }
+}
+
+function getScenario( context ) {
+    if ( context.getCurrentScenario ){
+        return context.getCurrentScenario();
+    } else {
+        self.logger.errorx( "getScenario", "context does not have a getCurrentScenario " +
+                            "method." );
+        return undefined;
     }
 }
 
