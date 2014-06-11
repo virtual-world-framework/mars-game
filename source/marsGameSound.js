@@ -5,14 +5,21 @@ var self;
 var menuInstance;
 var mainInstance;
 var windInstance;
-var roverInstance;
+var roverMotorInstance;
+var roverTreadsInstance;
 
 this.initialize = function() {
 
     self = this;
 
+    var done = function ( name ){
+        //console.log('Sound '+name+' loaded.');
+    }
+    
+    //Load sounds defined in yaml file
+
     for ( var i = 0; i < this.soundSet.length; ++i ) {
-        this.loadSound(this.soundSet[i]);
+        this.loadSound(this.soundSet[i], done(this.soundSet[i].soundName) );
     }
 
 }
@@ -20,65 +27,85 @@ this.initialize = function() {
 
 this.playMenuMusic = function(){
 
-	var newSoundInstance;
-
-    newSoundInstance = this.playSound("menu");
-    menuInstance = newSoundInstance;
-    //fade in
-    this.setVolume(menuInstance,1.0,2.0,'exponential');
+    if (menuInstance === undefined){
+        menuInstance = this.playSound("menu");
+        //fade in
+        //this.setVolume(menuInstance,1.0,2.0,'exponential');
+    }
 
 }
 
 this.stopMenuMusic = function(){
 
     this.stopSoundInstance(menuInstance);
+    menuInstance = undefined;
+}
+
+this.fadeInMainMusic = function(){
+
+    if (mainInstance === undefined) {
+        mainInstance = this.playSound("gameplay");
+
+        //fade in
+        this.setVolume(mainInstance,1.0,3.0,'exponential');
+    }
 
 }
 
-this.playMainMusic = function(){
-    var newSoundInstance;
+this.fadeOutMainMusic = function(){
 
-    newSoundInstance = this.playSound("gameplay");
+    //fade out
+    this.setVolume(mainInstance,0.0,3.0,'exponential');
 
-    mainInstance = newSoundInstance;
-    //fade in
-    this.setVolume(mainInstance,1.0,3.0,'exponential');
 }
 
 this.stopMainMusic = function(){
 
-    this.stopSoundInstance(mainInstance, 'layered');
+    this.stopSoundInstance(mainInstance, true);
+    mainInstance = undefined;
 
 }
 
-this.playWindSounds = function(){
-   
-    var newSoundInstance;
-
-    newSoundInstance = this.playSound("wind")
-    windInstance = newSoundInstance;
-    //fade in
-    this.setVolume(windInstance,1.0,1.0,'exponential');
-}
-
-
-this.stopWindSounds = function(){
-	this.stopSoundInstance(windInstance, 'layered');
-}
 this.playRoverSounds = function(){
-    var newSoundInstance;
 
-    newSoundInstance = this.playSound("rover");
-    roverInstance = newSoundInstance;
+    if (roverMotorInstance === undefined && roverTreadsInstance === undefined) {
+        roverMotorInstance = this.playSound("rover_motor");
+        roverTreadsInstance = this.playSound("rover_treads");
+    }
     //fade in
-    this.setVolume(roverInstance,1.0,0.5,'exponential');
+   // this.setVolume(roverInstance,1.0,0.5,'exponential');
 }
 
 this.stopRoverSounds = function(){
 
-	this.stopSoundInstance(roverInstance);
+    this.stopSoundInstance(roverMotorInstance);
+    this.stopSoundInstance(roverTreadsInstance);
+    roverTreadsInstance = undefined;
+    roverMotorInstance = undefined;
 
 }
 
+this.fadeInWindSounds = function(){
+  
+    if (windInstance === undefined){
+        windInstance = this.playSound("wind")
 
+        //fade in
+        this.setVolume( windInstance, 1.0 , 1.0 , 'exponential');
+    }
+}
+
+this.stopWindSounds = function(){
+
+    this.stopSoundInstance( windInstance, true);
+    windInstance = undefined;
+
+}
+
+this.fadeOutWindSounds = function(){
+
+    //fade out
+    this.setVolume( windInstance , 0.0 , 3.0 ,'exponential');
+
+}
 //@ sourceURL=source/marsGameSound.js

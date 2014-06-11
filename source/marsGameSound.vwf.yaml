@@ -3,13 +3,68 @@ extends: http://vwf.example.com/sound/soundManager.vwf
 properties:
   allSoundsLoaded: false
   soundSet:
-    - soundName: "rover"
+    - soundName: "blockly_bobble_appear"
+      soundURL: "assets/sounds/sfx/uiBlockyBobbleAppear_02.wav"
+      isLooping: false
+      isLayered: false
+      initialVolume: 1.0
+    - soundName: "blockly_bobble_disappear"
+      soundURL: "assets/sounds/sfx/uiBlockyBobbleDisappear_02.wav"
+      isLooping: false
+      isLayered: false
+      initialVolume: 1.0
+    - soundName: "blockly_execute"
+      soundURL: "assets/sounds/sfx/uiBlockyBlockExecute_02.wav"
+      isLooping: false
+      isLayered: false
+      initialVolume: 1.0
+    - soundName: "blockly_select"
+      soundURL: "assets/sounds/sfx/uiBlockyBlockTapSelect_01.wav"
+      isLooping: false
+      isLayered: false
+      initialVolume: 1.0
+    - soundName: "selection"
+      soundURL: "assets/sounds/sfx/uiTapObjectSelected_02.wav"
+      isLooping: false
+      isLayered: false
+      initialVolume: 1.0
+    - soundName: "transition"
+      soundURL: "assets/sounds/sfx/uiScreenTransition_01.wav"
+      isLooping: false
+      isLayered: false
+      initialVolume: 1.0
+    - soundName: "error"
+      soundURL: "assets/sounds/sfx/uiNegativeFeedback_02.wav"
+      isLooping: false
+      isLayered: false
+      initialVolume: 1.0
+    - soundName: "restart"
+      soundURL: "assets/sounds/sfx/uiRestart_01.wav"
+      isLooping: false
+      isLayered: false
+      initialVolume: 1.0
+    - soundName: "low_battery"
+      soundURL: "assets/sounds/sfx/uiLowBattery_01.wav"
+      isLooping: false
+      isLayered: false
+      initialVolume: 1.0
+    - soundName: "low_ram"
+      soundURL: "assets/sounds/sfx/uiLowRam_01.wav"
+      isLooping: false
+      isLayered: false
+      initialVolume: 1.0
+    - soundName: "rover_motor"
       soundURL: "assets/sounds/sfx/objectRoverMotor_04.wav"
       isLooping: true
       isLayered: false
       initialVolume: 1.0
+    - soundName: "rover_treads"
+      soundURL: "assets/sounds/sfx/objectRoverMovementGroundCrunch_01.wav"
+      isLooping: true
+      isLayered: false
+      initialVolume: 1.0
     - soundName: "menu"
-      soundURL: "assets/sounds/music/musicMenuLoop.wav"
+      soundURL: "assets/sounds/music/musicMenuLoop.ogg"
       isLooping: true
       isLayered: false
       initialVolume: 1.0
@@ -22,12 +77,12 @@ properties:
       allowMultiplay: false
       soundDefinitions: 
         - soundName: "gameplay_layer0"
-          soundURL: "assets/sounds/music/musicStandardGameplayLoopLayer_01.wav"
+          soundURL: "assets/sounds/music/musicStandardGameplayLoopLayer_01.ogg"
           isLooping: true
           allowMultiplay: false
           initialVolume: 0.0
         - soundName: "gameplay_layer1"
-          soundURL: "assets/sounds/music/musicStandardGameplayLoopLayer_02.wav"
+          soundURL: "assets/sounds/music/musicStandardGameplayLoopLayer_02.ogg"
           isLooping: true
           allowMultiplay: false
           initialVolume: 0.0
@@ -48,16 +103,16 @@ properties:
           isLayered: false
           initialVolume: 0.0
 methods:
-  loadAllSounds:
-  playMainMusic:
+  fadeInMainMusic:
+  stopMainMusic:
+  fadeOutMainMusic:
   playMenuMusic:
   stopMenuMusic:
-  stopMainMusic:
-  playWindSounds:
   playRoverSounds:
   stopRoverSounds:
+  fadeInWindSounds:
   stopWindSounds:
-  muteMainMusic:
+  fadeOutWindSounds:
 children:
 scripts:
 - source: source/marsGameSound.js
