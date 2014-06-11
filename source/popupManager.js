@@ -26,6 +26,7 @@ function displaySuccessPopup( text ) {
         popup.onclick = resetScenario;
 
         popup.innerHTML += "<h1>Success!</h1>";
+        popup.innerHTML += text + "<br />";
         popup.innerHTML += "<br /> Click here to proceed.";
 
         document.body.appendChild( blocker );

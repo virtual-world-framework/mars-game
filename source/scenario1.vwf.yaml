@@ -64,6 +64,9 @@ properties:
           - rover
           - radio
       actions:
+      - displayPopup:
+        - success
+        - "You have picked up the radio!"
       - scenarioSuccess:
 
     failOnMoveFailedCollision:
