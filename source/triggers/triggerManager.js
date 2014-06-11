@@ -7,46 +7,48 @@ this.initialize = function() {
 }
 
 this.loadTriggers = function( triggers, context ) {
-	if ( !this.isEmpty() ) {
-		this.logger.warnx( "loadTriggers", "Loading a new set of triggers, but " +
-						   "we still had some there from a previous set!" );
-	}
+    if ( !this.isEmpty() ) {
+        this.logger.warnx( "loadTriggers", "Loading a new set of triggers, but " +
+                           "we still had some there from a previous set!" );
+    }
 
-	for ( var key in triggers ) {
-		if ( !triggers.hasOwnProperty( key ) ) {
-			continue;
-		}
+    for ( var key in triggers ) {
+        if ( !triggers.hasOwnProperty( key ) ) {
+            continue;
+        }
 
-		this.triggers$[ key ] = new Trigger( this.conditionFactory, 
-											 this.actionFactory, 
-											 context, 
-											 triggers[ key ], 
-											 this.logger );
-	}
+        this.triggers$[ key ] = new Trigger( this.conditionFactory, 
+                                             this.actionFactory, 
+                                             context, 
+                                             triggers[ key ], 
+                                             this.logger );
+    }
 }
 
 this.clearTriggers = function() {
-	for ( var key in this.triggers$ ) {
-		if ( !this.triggers$.hasOwnProperty( key ) ) {
-			continue;
-		}
+    for ( var key in this.triggers$ ) {
+        if ( !this.triggers$.hasOwnProperty( key ) ) {
+            continue;
+        }
 
-		delete this.triggers$[ key ];
-	}
+        this.triggers$[ key ].isDeleted = true;
 
-	if ( !this.isEmpty() ) {
-		this.logger.errorx( "clearTriggers", "How do we still have triggers?!" );
-	}
+        delete this.triggers$[ key ];
+    }
+
+    if ( !this.isEmpty() ) {
+        this.logger.errorx( "clearTriggers", "How do we still have triggers?!" );
+    }
 }
 
 this.isEmpty = function() {
-	for ( var key in this.triggers$ ) {
-		if ( this.triggers$.hasOwnProperty( key ) ) {
-			return false;
-		}
-	}
+    for ( var key in this.triggers$ ) {
+        if ( this.triggers$.hasOwnProperty( key ) ) {
+            return false;
+        }
+    }
 
-	return true;
+    return true;
 }
 
 function Trigger( conditionFactory, actionFactory, context, definition, logger ) {
@@ -61,6 +63,10 @@ Trigger.prototype = {
 
     // The actions we take when the trigger fires
     actions: undefined,
+
+    // This doesn't appear to be getting deleted properly, so redundantly disable it
+    //   if it should be deleted.
+    isDeleted: undefined,
 
     initialize: function( conditionFactory, actionFactory, context, definition, logger ) {
         if ( !definition.triggerCondition || ( definition.triggerCondition.length !== 1 ) ) {
@@ -79,6 +85,8 @@ Trigger.prototype = {
             logger.errorx( "Trigger.initialize", "There must be at least one action." );
             return undefined;
         }
+
+        this.isDeleted = false;
 
         this.triggerCondition = 
             conditionFactory.executeFunction( definition.triggerCondition[0],
@@ -100,7 +108,8 @@ Trigger.prototype = {
 
     // Check our conditions, and take action if they're true
     checkFire: function() {
-        if ( this.triggerCondition && this.triggerCondition() &&
+        if ( !this.isDeleted && 
+             this.triggerCondition && this.triggerCondition() &&
              ( !this.additionalCondition || this.additionalCondition() ) ) {
             for ( var i = 0; i < this.actions.length; ++i ) {
                 this.actions[ i ] && this.actions[ i ]();
