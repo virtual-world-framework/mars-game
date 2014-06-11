@@ -3,13 +3,69 @@ extends: http://vwf.example.com/sound/soundManager.vwf
 properties:
   allSoundsLoaded: false
   soundSet:
-    - soundName: "rover"
+    - soundName: "uiBlockyBobbleAppear"
+      soundURL: "assets/sounds/sfx/uiBlockyBobbleAppear_02.wav"
+      isLooping: false
+      isLayered: false
+      initialVolume: 1.0
+    - soundName: "uiBlockyBobbleDisappear"
+      soundURL: "assets/sounds/sfx/uiBlockyBobbleDisappear_02.wav"
+      isLooping: false
+      isLayered: false
+      initialVolume: 1.0
+    - soundName: "uiBlockyBlockExecute"
+      soundURL: "assets/sounds/sfx/uiBlockyBlockExecute_02.wav"
+      isLooping: false
+      isLayered: false
+      initialVolume: 1.0
+    - soundName: "uiBlockyBlockTapSelect"
+      soundURL: "assets/sounds/sfx/uiBlockyBlockTapSelect_01.wav"
+      isLooping: false
+      isLayered: false
+      initialVolume: 1.0
+    - soundName: "uiTapObjectSelected"
+      soundURL: "assets/sounds/sfx/uiTapObjectSelected_02.wav"
+      isLooping: false
+      isLayered: false
+      initialVolume: 1.0
+    - soundName: "uiScreenTransition"
+      soundURL: "assets/sounds/sfx/uiScreenTransition_01.wav"
+      isLooping: false
+      isLayered: false
+      initialVolume: 1.0
+    - soundName: "uiNegativeFeedback"
+      soundURL: "assets/sounds/sfx/uiNegativeFeedback_02.wav"
+      isLooping: false
+      isLayered: false
+      initialVolume: 1.0
+    - soundName: "uiRestart"
+      soundURL: "assets/sounds/sfx/uiRestart_01.wav"
+      isLooping: false
+      isLayered: false
+      initialVolume: 1.0
+    - soundName: "uiLowBattery"
+      soundURL: "assets/sounds/sfx/uiLowBattery_01.wav"
+      isLooping: false
+      isLayered: false
+      initialVolume: 1.0
+      playOnLoad: true
+    - soundName: "uiLowRam"
+      soundURL: "assets/sounds/sfx/uiLowRam_01.wav"
+      isLooping: false
+      isLayered: false
+      initialVolume: 1.0
+    - soundName: "objectRoverMotor"
       soundURL: "assets/sounds/sfx/objectRoverMotor_04.wav"
       isLooping: true
       isLayered: false
       initialVolume: 1.0
-    - soundName: "menu"
-      soundURL: "assets/sounds/music/musicMenuLoop.wav"
+    - soundName: "objectRoverMovementGroundCrunch"
+      soundURL: "assets/sounds/sfx/objectRoverMovementGroundCrunch_01.wav"
+      isLooping: true
+      isLayered: false
+      initialVolume: 1.0
+    - soundName: "musicMenuLoop"
+      soundURL: "assets/sounds/music/musicMenuLoop.ogg"
       isLooping: true
       isLayered: false
       initialVolume: 1.0
@@ -18,46 +74,51 @@ properties:
       soundURL: ""
       isLooping: true
       isLayered: true
+      playOnLoad: true
       initialVolume: 0.0
       allowMultiplay: false
       soundDefinitions: 
         - soundName: "gameplay_layer0"
           soundURL: "assets/sounds/music/musicStandardGameplayLoopLayer_01.wav"
           isLooping: true
+          playOnLoad: true
           allowMultiplay: false
           initialVolume: 0.0
         - soundName: "gameplay_layer1"
           soundURL: "assets/sounds/music/musicStandardGameplayLoopLayer_02.wav"
           isLooping: true
+          playOnLoad: true
           allowMultiplay: false
           initialVolume: 0.0
     - soundName: "wind"
       soundURL: ""
       isLooping: true
       isLayered: true
-      initialVolume: 0.0
+      playOnLoad: true
+      initialVolume: 1.0
       soundDefinitions:
         - soundName: "wind_layer0"
           soundURL: "assets/sounds/sfx/environmentWind_01.wav"
           isLooping: true
           isLayered: false
-          initialVolume: 0.0
+          initialVolume: 1.0
         - soundName: "wind_layer1"
           soundURL: "assets/sounds/sfx/environmentWind_02.wav"
           isLooping: true
           isLayered: false
-          initialVolume: 0.0
+          initialVolume: 1.0
 methods:
-  loadAllSounds:
-  playMainMusic:
+  playTestSequence:
+  fadeInMainMusic:
+  stopMainMusic:
+  fadeOutMainMusic:
   playMenuMusic:
   stopMenuMusic:
-  stopMainMusic:
-  playWindSounds:
   playRoverSounds:
   stopRoverSounds:
+  fadeInWindSounds:
   stopWindSounds:
-  muteMainMusic:
+  fadeOutWindSounds:
 children:
 scripts:
 - source: source/marsGameSound.js
