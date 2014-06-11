@@ -97,6 +97,30 @@ function createCommsDisplay() {
     frame.src = "assets/hud/communication_frame.png";
     frame.onload = ( function() { commsElement.frame = frame; } );
 
+    var character = new Image();
+    commsElement.characterImage = character;
+
+}
+
+function addImageToCommsDisplay( imagePath ) {
+    var comms = hud.elements.comms; 
+    if ( comms ) {
+        comms.characterImage.src = imagePath;
+    }
+}
+
+function showCommsDisplay() {
+    var comms = hud.elements.comms;
+    if ( comms ) {
+        comms.visible = true;
+    }
+}
+
+function hideCommsDisplay() {
+    var comms = hud.elements.comms;
+    if ( comms ) {
+        comms.visible = false;
+    }
 }
 
 function createInventoryHUD( capacity ) {
@@ -261,6 +285,10 @@ function drawMiniRoverElement( context, position ) {
 function drawComms( context, position ) {
     if ( this.background ) {
         context.drawImage( this.background, position.x, position.y );
+    }
+
+    if ( this.characterImage ) {
+        context.drawImage( this.characterImage, position.x, position.y );
     }
 
     if ( this.frame ) {
