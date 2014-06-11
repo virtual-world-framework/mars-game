@@ -30,92 +30,15 @@ children:
     extends: http://vwf.example.com/sound/soundManager.vwf
   environment:
     extends: http://vwf.example.com/node3.vwf
-    children:
-      craterWalls:
-        extends: http://vwf.example.com/node3.vwf
-        source: assets/3d/Terrain/crater_walls.dae
-        type: model/vnd.collada+xml
-        properties:
-          castShadows: true
-          receiveShadows: true
-      cratersSmall:
-        extends: http://vwf.example.com/node3.vwf
-        source: assets/3d/Terrain/craters_small.dae
-        type: model/vnd.collada+xml
-        properties:
-          castShadows: true
-          receiveShadows: true
-      dirt:
-        extends: http://vwf.example.com/node3.vwf
-        source: assets/3d/Terrain/dirt.dae
-        type: model/vnd.collada+xml
-        properties:
-          castShadows: true
-          receiveShadows: true
-      rocksInMazeGrooves:
-        extends: http://vwf.example.com/node3.vwf
-        source: assets/3d/Terrain/ground_rocks_terrain.dae
-        type: model/vnd.collada+xml
-        properties:
-          castShadows: true
-          receiveShadows: true
-      cracks:
-        extends: http://vwf.example.com/node3.vwf
-        source: assets/3d/Terrain/mars_ground_cracks.dae
-        type: model/vnd.collada+xml
-        properties:
-          castShadows: true
-          receiveShadows: true
-      hills:
-        extends: http://vwf.example.com/node3.vwf
-        source: assets/3d/Terrain/mars_hills.dae
-        type: model/vnd.collada+xml
-      mountains:
-        extends: http://vwf.example.com/node3.vwf
-        source: assets/3d/Terrain/mars_mountains.dae
-        type: model/vnd.collada+xml
-      rocks:
-        extends: http://vwf.example.com/node3.vwf
-        source: assets/3d/Terrain/rocks.dae
-        type: model/vnd.collada+xml
-        properties:
-          castShadows: true
-          receiveShadows: true
-      brownRocks:
-        extends: http://vwf.example.com/node3.vwf
-        source: assets/3d/Terrain/rocks_brown.dae
-        type: model/vnd.collada+xml
-        properties:
-          castShadows: true
-          receiveShadows: true
-      longRocks:
-        extends: http://vwf.example.com/node3.vwf
-        source: assets/3d/Terrain/rocks_long.dae
-        type: model/vnd.collada+xml
-        properties:
-          castShadows: true
-          receiveShadows: true
-      terrain:
-        extends: http://vwf.example.com/node3.vwf
-        source: assets/3d/Terrain/terrain.dae
-        type: model/vnd.collada+xml
-        properties:
-          castShadows: true
-          receiveShadows: true
-      crash_grooves:
-        extends: http://vwf.example.com/node3.vwf
-        source: assets/3d/Terrain/crash_grooves.dae
-        type: model/vnd.collada+xml
-        properties:
-          castShadows: true
-          receiveShadows: true
-      rubble:
-        extends: http://vwf.example.com/node3.vwf
-        source: assets/3d/Rubble/rubble.dae
-        type: model/vnd.collada+xml
-        properties:
-          castShadows: true
-          receiveShadows: true
+    source: assets/3d/Terrain/scene.dae
+    type: model/vnd.collada+xml
+    properties:
+      castShadows: true
+      receiveShadows: true
+  backdrop:
+    extends: http://vwf.example.com/node3.vwf
+    source: assets/3d/Terrain/backdrop.dae
+    type: model/vnd.collada+xml
   booleanFunctionFactory:  # Does this belong to be exposed here?
     extends: source/triggers/booleanFunctionFactory.vwf
   sunLight:
@@ -213,83 +136,83 @@ children:
           this.initialize = function() {
             this.animationPlay();
           }
-  debris:
-    extends: http://vwf.example.com/node3.vwf
-    properties:
-      translation: [ 0, 6, -0.721 ]
-    children:
-      bubble_lander:
-        extends: http://vwf.example.com/node3.vwf
-        source: assets/3d/Debris_Field/bubble_lander.dae
-        type: model/vnd.collada+xml
-        properties:
-          translation: [ 34.956, 48.886, -0.836 ]
-      bubble_lander_open:
-        extends: http://vwf.example.com/node3.vwf
-        source: assets/3d/Debris_Field/bubble_lander_open.dae
-        type: model/vnd.collada+xml
-        properties:
-          translation: [ -15.048, -6.203, 0.456 ]
-      o2_tank_1:
-        extends: http://vwf.example.com/node3.vwf
-        source: assets/3d/Debris_Field/o2_tank.dae
-        type: model/vnd.collada+xml
-        properties:
-          translation: [ -2.876, -8, 1 ]
-      o2_tank_2:
-        extends: http://vwf.example.com/node3.vwf
-        source: assets/3d/Debris_Field/o2_tank.dae
-        type: model/vnd.collada+xml
-        properties:
-          translation: [ -2.147, -8.03, 1 ]
-      o2_tank_3:
-        extends: http://vwf.example.com/node3.vwf
-        source: assets/3d/Debris_Field/o2_tank.dae
-        type: model/vnd.collada+xml
-        properties:
-          translation: [ 12.268, 1.487, -0.5 ]
-      o2_tank_4:
-        extends: http://vwf.example.com/node3.vwf
-        source: assets/3d/Debris_Field/o2_tank.dae
-        type: model/vnd.collada+xml
-        properties:
-          translation: [ 12.329, 1.781, -0.75 ]
-      parachute:
-        extends: http://vwf.example.com/node3.vwf
-        source: assets/3d/Debris_Field/parachute.dae
-        type: model/vnd.collada+xml
-        properties:
-          translation: [ 65.902, 12.382, 0.649 ]
-      parachute2:
-        extends: http://vwf.example.com/node3.vwf
-        source: assets/3d/Debris_Field/parachute2.dae
-        type: model/vnd.collada+xml
-        properties:
-          translation: [ -9.69, 7.92, 0.456 ]
-      quadcon_storage_container_1:
-        extends: http://vwf.example.com/node3.vwf
-        source: assets/3d/Debris_Field/quadcon_storage_container.dae
-        type: model/vnd.collada+xml
-        properties:
-          translation: [ 5.342, -21.799, 1.825 ]
-      quadcon_storage_container_2:
-        extends: http://vwf.example.com/node3.vwf
-        source: assets/3d/Debris_Field/quadcon_storage_container.dae
-        type: model/vnd.collada+xml
-        properties:
-          translation: [ 30.058, -2.851, -1 ]
-      quadcon_storage_container_3:
-        extends: http://vwf.example.com/node3.vwf
-        source: assets/3d/Debris_Field/quadcon_storage_container.dae
-        type: model/vnd.collada+xml
-        properties:
-          translation: [ 66.139, 13.462, 0.224 ]
-      ram:
-        extends: http://vwf.example.com/node3.vwf
-        source: assets/3d/Debris_Field/ram.dae
-        type: model/vnd.collada+xml
-        properties:
-          translation: [ 23.915, 17.35, 0.382 ]
+  # debris:
+  #   extends: http://vwf.example.com/node3.vwf
+  #   properties:
+  #     translation: [ 0, 6, -0.721 ]
+  #   children:
+  #     bubble_lander:
+  #       extends: http://vwf.example.com/node3.vwf
+  #       source: assets/3d/Debris_Field/bubble_lander.dae
+  #       type: model/vnd.collada+xml
+  #       properties:
+  #         translation: [ 34.956, 48.886, -0.836 ]
+  #     bubble_lander_open:
+  #       extends: http://vwf.example.com/node3.vwf
+  #       source: assets/3d/Debris_Field/bubble_lander_open.dae
+  #       type: model/vnd.collada+xml
+  #       properties:
+  #         translation: [ -15.048, -6.203, 0.456 ]
+  #     o2_tank_1:
+  #       extends: http://vwf.example.com/node3.vwf
+  #       source: assets/3d/Debris_Field/o2_tank.dae
+  #       type: model/vnd.collada+xml
+  #       properties:
+  #         translation: [ -2.876, -8, 1 ]
+  #     o2_tank_2:
+  #       extends: http://vwf.example.com/node3.vwf
+  #       source: assets/3d/Debris_Field/o2_tank.dae
+  #       type: model/vnd.collada+xml
+  #       properties:
+  #         translation: [ -2.147, -8.03, 1 ]
+  #     o2_tank_3:
+  #       extends: http://vwf.example.com/node3.vwf
+  #       source: assets/3d/Debris_Field/o2_tank.dae
+  #       type: model/vnd.collada+xml
+  #       properties:
+  #         translation: [ 12.268, 1.487, -0.5 ]
+  #     o2_tank_4:
+  #       extends: http://vwf.example.com/node3.vwf
+  #       source: assets/3d/Debris_Field/o2_tank.dae
+  #       type: model/vnd.collada+xml
+  #       properties:
+  #         translation: [ 12.329, 1.781, -0.75 ]
+  #     parachute:
+  #       extends: http://vwf.example.com/node3.vwf
+  #       source: assets/3d/Debris_Field/parachute.dae
+  #       type: model/vnd.collada+xml
+  #       properties:
+  #         translation: [ 65.902, 12.382, 0.649 ]
+  #     parachute2:
+  #       extends: http://vwf.example.com/node3.vwf
+  #       source: assets/3d/Debris_Field/parachute2.dae
+  #       type: model/vnd.collada+xml
+  #       properties:
+  #         translation: [ -9.69, 7.92, 0.456 ]
+  #     quadcon_storage_container_1:
+  #       extends: http://vwf.example.com/node3.vwf
+  #       source: assets/3d/Debris_Field/quadcon_storage_container.dae
+  #       type: model/vnd.collada+xml
+  #       properties:
+  #         translation: [ 5.342, -21.799, 1.825 ]
+  #     quadcon_storage_container_2:
+  #       extends: http://vwf.example.com/node3.vwf
+  #       source: assets/3d/Debris_Field/quadcon_storage_container.dae
+  #       type: model/vnd.collada+xml
+  #       properties:
+  #         translation: [ 30.058, -2.851, -1 ]
+  #     quadcon_storage_container_3:
+  #       extends: http://vwf.example.com/node3.vwf
+  #       source: assets/3d/Debris_Field/quadcon_storage_container.dae
+  #       type: model/vnd.collada+xml
+  #       properties:
+  #         translation: [ 66.139, 13.462, 0.224 ]
+  #     ram:
+  #       extends: http://vwf.example.com/node3.vwf
+  #       source: assets/3d/Debris_Field/ram.dae
+  #       type: model/vnd.collada+xml
+  #       properties:
+  #         translation: [ 23.915, 17.35, 0.382 ]
   scenario1:
     extends: source/scenario1.vwf
   blocklyLine:
