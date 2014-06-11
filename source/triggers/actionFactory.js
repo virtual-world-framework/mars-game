@@ -74,17 +74,16 @@ this.actionSet.displayPopup = function( params, context ) {
 
     var type = params[ 0 ];
     var message = params[ 1 ];
-    var scene = self.find("/")[0];
-    var scenario = self.find( "//" + scene.activeScenarioPath )[ 0 ];
 
     return function() {
+        var scenario = getScenario( context );
         switch ( type ) {
             case "failure":
-                scenario.failed( message );
+                scenario.callFailurePopup( message );
                 break;
 
             case "success":
-                scenario.completed( message );
+                scenario.callSuccessPopup( message );
                 break;
         }
     }

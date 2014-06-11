@@ -98,27 +98,25 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 break;
 
             case "scenarioReset":
-                var body = document.body;
-                var blocker = document.getElementById( "popupBlocker" );
-                var gameOver = document.getElementById( "popupDiv" );
-                body.removeChild( blocker );
-                body.removeChild( gameOver );
+                removePopup();
                 break;
         } 
 
     } else {
 
         // nodeID is ignored here?
-        if ( eventName === "completed" ) {
+        if ( eventName === "callSuccessPopup" ) {
 
-            displaySuccessPopup( eventArgs[ 0 ] );
+            var message = eventArgs[ 0 ];
+            displaySuccessPopup( message );
 
         }
 
         // nodeID is ignored here?
-        if ( eventName === "failed" ) {
+        if ( eventName === "callFailurePopup" ) {
 
-            displayFailurePopup( eventArgs[ 0 ] );
+            var message = eventArgs[ 0 ];
+            displayFailurePopup( message );
 
         }
 
