@@ -35,6 +35,10 @@ children:
     properties:
       castShadows: true
       receiveShadows: true
+  backdrop:
+    extends: http://vwf.example.com/node3.vwf
+    source: assets/3d/Terrain/backdrop.dae
+    type: model/vnd.collada+xml
   booleanFunctionFactory:  # Does this belong to be exposed here?
     extends: source/triggers/booleanFunctionFactory.vwf
   sunLight:
