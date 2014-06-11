@@ -18,7 +18,7 @@ properties:
   - setProperty:
     - rover
     - blockly_allowedBlocks
-    - 15
+    - 16
 
   # TODO: Simplify heading/rotation
   # Set initial rotation using heading
@@ -52,6 +52,9 @@ properties:
   triggers:
     succeedOnSuccess:
       triggerCondition:
+      - onBlocklyStopped:
+        - rover
+      additionalCondition:
       - and:
         - isAtPosition:
           - rover
@@ -60,10 +63,6 @@ properties:
         - hasObject:
           - rover
           - radio
-        - not:
-          - isBlocklyExecuting:
-            - rover
-      additionalCondition:
       actions:
       - scenarioSuccess:
 
@@ -71,38 +70,24 @@ properties:
       triggerCondition:
       - moveFailed:
         - rover
-      additionalCondition:
       actions:
       - scenarioFailure:
 
-    # laserOnScenarioStart:
-    #   triggerCondition: 
-    #   - onScenarioStart:
-    #   additionalCondition:
-    #   actions:
-    #   - playSound:
-    #     - laser
-
-    # failOnBlocklyEnd:
-    #   triggerCondition:
-    #   - onBlocklyProgramComplete
-    #   additionalCondition:
-    #   - not:
-    #     - or:
-    #       - isAtPosition:
-    #         - rover
-    #         - 15
-    #         - 7
-    #       - hasObject:
-    #         - rover
-    #         - radio
-    #   actions:
-    #     - failScenario:
-    #       - "Good try, but you didn't get there!"
-    #     - playAnimation:
-    #       - sadPuppy
-    #     - playSound:
-    #       - scenarioFailProgramEnded
+    failOnIncompleteProgram:
+      triggerCondition:
+      - onBlocklyStopped:
+      additionalCondition:
+      - not:
+        - and:
+          - isAtPosition:
+            - rover
+            - 15
+            - 7
+          - hasObject:
+            - rover
+            - radio
+      actions:
+      - scenarioFailure:
 
 children:
   grid:
