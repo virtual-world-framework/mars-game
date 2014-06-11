@@ -180,7 +180,12 @@ vwf_view.deletedNode = function( nodeID ) {
         
         delete blocklyNodes[ nodeID ];
 
-        // how do we delete the tab from $( "#blocklyWrapper-top" )
+        var blocklyTop = document.getElementById( "blocklyWrapper-top" );
+        var tab = document.getElementById( nodeID );
+
+        if ( blocklyTop && tab ) {
+            blocklyTop.removeChild( tab );
+        }
     }
 
 }
