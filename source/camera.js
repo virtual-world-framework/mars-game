@@ -134,9 +134,9 @@ function getNewCameraTransform() {
             // Lock the camera's orientation, but have it's position follow the target 
             // (plus an offset)
             var topDownOrientationTransform = [ 
-                1, 0,  0, 0, 
+                0, -1, 0, 0, 
                 0, 0, -1, 0,
-                0, 1,  0, 0,
+                1, 0,  0, 0,
                 0, 0,  0, 1 ];
             newCameraTransform = topDownOrientationTransform.slice( 0, 16 );
             newCameraTransform[ 12 ] = targetTransform[ 12 ] + self.topDownOffset[ 0 ];
