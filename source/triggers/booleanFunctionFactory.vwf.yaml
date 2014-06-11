@@ -56,5 +56,7 @@ properties:
     # arguments: none
     doOnce:
 
+    isVOPlaying:
+
 scripts:
 - source: source/triggers/booleanFunctionFactory.js

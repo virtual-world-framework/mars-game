@@ -296,6 +296,21 @@ this.clauseSet.onBlocklyProgramChanged = function( params, context, callback ) {
     };
 }
 
+this.clauseSet.isVOPlaying = function( params, context, callback ) {
+    if ( params && ( params.length !== 0 ) ) {
+        self.logger.errorx( "isVOPlaying",
+                            "This clause does not require any arguments." );
+        return undefined;
+    }
+
+    //TODO: This is currently a placeholder, to be filled when VO is added
+
+    return function() {
+
+    }
+}
+
+// arguments: scenarioName (optional)
 this.clauseSet.onScenarioStart = function( params, context, callback ) {
     if ( params && ( params.length > 1 ) ) {
         self.logger.errorx( "onScenarioStart", 
