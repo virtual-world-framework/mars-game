@@ -81,6 +81,31 @@ function getScenario( context ) {
     }
 }
 
+this.actionSet.showCommsDisplay = function( params, context ) {
+    if ( !params || ( params.length !== 1 ) ) {
+        self.logger.warnx( "activateCommDisplay", "We need to know the path of the image to display!" );
+    }
+
+    var imagePath = params[ 0 ];
+    var scenario = context.getCurrentScenario();
+
+    return function() {
+        scenario.showComms( imagePath );
+    }
+}
+
+this.actionSet.hideCommsDisplay = function( params, context ) {
+    if ( params && ( params.length !== 0 ) ) {
+        self.logger.warnx( "activateCommDisplay", "This action does not take any parameters." );
+    }
+
+    var scenario = context.getCurrentScenario();
+
+    return function() {
+        scenario.hideComms();
+    }
+}
+
 function getSoundMgr( context ) {
     return self.findTypeInContext( context, "http://vwf.example.com/sound/soundManager.vwf" );
 }

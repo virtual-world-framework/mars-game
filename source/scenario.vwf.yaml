@@ -35,5 +35,8 @@ events:
   #   for it.
   starting:
 
+  showComms:
+  hideComms:
+
 scripts:
 - source: source/scenario.js

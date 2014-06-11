@@ -25,5 +25,8 @@ properties:
 
     displayPopup:
 
+    showCommsDisplay:
+    hideCommsDisplay:
+
 scripts:
 - source: source/triggers/actionFactory.js
