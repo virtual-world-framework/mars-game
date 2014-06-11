@@ -82,6 +82,10 @@ properties:
       - batteryDead:
         - rover
       additionalCondition:
+      - not:
+        - batteryLevelAt:
+          - rover
+          - 0
       actions:
       - displayPopup:
         - failure

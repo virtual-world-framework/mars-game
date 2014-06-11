@@ -148,13 +148,15 @@ this.clauseSet.moveFailed = function( params, context, callback ) {
     };
 }
 
-this.clauseSet.batteryDead = function( params, context, callback ) {
-    if ( !params || ( params.length !== 1 ) ) {
+this.clauseSet.batteryLevelAt = function( params, context, callback ) {
+    if ( !params || ( params.length !== 2 ) ) {
         self.logger.errorx( "batteryDead", "This clause " +
-                            "requires one argument: the object." );
+                            "requires two arguments: the object, " +
+                            "and the battery level." );
     }
 
     var objectName = params[ 0 ];
+    var batteryLevel = params[ 1 ];
 
     var object = self.findInContext( context, objectName );
 
@@ -165,7 +167,7 @@ this.clauseSet.batteryDead = function( params, context, callback ) {
     }
 
     return function() {
-        return object.battery <= 0;
+        return object.battery === batteryLevel;
     }
 }
 

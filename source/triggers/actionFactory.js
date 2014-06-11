@@ -66,8 +66,8 @@ this.actionSet.stopSound = function( params, context ) {
 }
 
 this.actionSet.displayPopup = function( params, context ) {
-    if ( !params || ( params.length !== 1 ) ) {
-        this.logger.warnx( "displayPopup", "We need to know what kind of popup this is, " +
+    if ( !params || ( params.length !== 2 ) ) {
+        self.logger.warnx( "displayPopup", "We need to know what kind of popup this is, " +
                             "and a message to display on the popup!" );
         return undefined;
     }
