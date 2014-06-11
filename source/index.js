@@ -174,6 +174,22 @@ vwf_view.initializedNode = function( nodeID, childID, childExtendsID, childImple
     }
 }
 
+vwf_view.deletedNode = function( nodeID ) {
+    
+    if ( blocklyNodes[ nodeID ] !== undefined ) {
+        
+        delete blocklyNodes[ nodeID ];
+
+        var blocklyTop = document.getElementById( "blocklyWrapper-top" );
+        var tab = document.getElementById( nodeID );
+
+        if ( blocklyTop && tab ) {
+            blocklyTop.removeChild( tab );
+        }
+    }
+
+}
+
 vwf_view.initializedProperty = function( nodeID, propertyName, propertyValue ) {
     vwf_view.satProperty( nodeID, propertyName, propertyValue );
 } 
