@@ -170,7 +170,7 @@ children:
             value: "/player/rover"
           firstPersonOffset: [ 0, 0, 1 ]
           thirdPersonOffset: [ -15.531,  0,  5.553 ]
-          topDownOffset: [ 0, 0, 100 ]
+          topDownOffset: [ 0, 0, 60 ]
           needToSetupEventHandler$: false
         methods:
           onSceneReady$:
