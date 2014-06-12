@@ -130,215 +130,91 @@ properties:
           initialVolume: 1.0
     - soundName: "L1VO1_Rover_f"
       soundURL: "assets/sounds/VO/L1VO1_Rover_f.mp3"
-      isLooping: false
-      isLayered: false
-      initialVolume: 1.0
     - soundName: "L1VO1_Rover_m"
       soundURL: "assets/sounds/VO/L1VO1_Rover_m.mp3"
-      isLooping: false
-      isLayered: false
-      initialVolume: 1.0
     - soundName: "L1VO2_Rover_f"
       soundURL: "assets/sounds/VO/L1VO2_Rover_f.mp3"
-      isLooping: false
-      isLayered: false
-      initialVolume: 1.0
     - soundName: "L1VO2_Rover_m"
       soundURL: "assets/sounds/VO/L1VO2_Rover_m.mp3"
-      isLooping: false
-      isLayered: false
-      initialVolume: 1.0
     - soundName: "L1VO3_Rover_f"
       soundURL: "assets/sounds/VO/L1VO3_Rover_f.mp3"
-      isLooping: false
-      isLayered: false
-      initialVolume: 1.0
     - soundName: "L1VO3_Rover_m"
       soundURL: "assets/sounds/VO/L1VO3_Rover_m.mp3"
-      isLooping: false
-      isLayered: false
-      initialVolume: 1.0
     - soundName: "L1VO4_Rover_f"
       soundURL: "assets/sounds/VO/L1VO4_Rover_f.mp3"
-      isLooping: false
-      isLayered: false
-      initialVolume: 1.0
     - soundName: "L1VO4_Rover_m"
       soundURL: "assets/sounds/VO/L1VO4_Rover_m.mp3"
-      isLooping: false
-      isLayered: false
-      initialVolume: 1.0
     - soundName: "L1VO5_Rover_f"
       soundURL: "assets/sounds/VO/L1VO5_Rover_f.mp3"
-      isLooping: false
-      isLayered: false
-      initialVolume: 1.0
     - soundName: "L1VO5_Rover_m"
       soundURL: "assets/sounds/VO/L1VO5_Rover_m.mp3"
-      isLooping: false
-      isLayered: false
-      initialVolume: 1.0
     - soundName: "L1VO6_Control_f"
       soundURL: "assets/sounds/VO/L1VO6_Control_f.mp3"
-      isLooping: false
-      isLayered: false
-      initialVolume: 1.0
     - soundName: "L1VO6_Control_m"
       soundURL: "assets/sounds/VO/L1VO6_Control_m.mp3"
-      isLooping: false
-      isLayered: false
-      initialVolume: 1.0
     - soundName: "L2VO1_Control_f"
       soundURL: "assets/sounds/VO/L2VO1_Control_f.mp3"
-      isLooping: false
-      isLayered: false
-      initialVolume: 1.0
     - soundName: "L2VO1_Control_m"
       soundURL: "assets/sounds/VO/L2VO1_Control_m.mp3"
-      isLooping: false
-      isLayered: false
-      initialVolume: 1.0
     - soundName: "L2VO2_Rover_f"
       soundURL: "assets/sounds/VO/L2VO2_Rover_f.mp3"
-      isLooping: false
-      isLayered: false
-      initialVolume: 1.0
     - soundName: "L2VO2_Rover_m"
       soundURL: "assets/sounds/VO/L2VO2_Rover_m.mp3"
-      isLooping: false
-      isLayered: false
-      initialVolume: 1.0
     - soundName: "L2VO3_Rover_f"
       soundURL: "assets/sounds/VO/L2VO3_Rover_f.mp3"
-      isLooping: false
-      isLayered: false
-      initialVolume: 1.0
     - soundName: "L2VO3_Rover_m"
       soundURL: "assets/sounds/VO/L2VO3_Rover_m.mp3"
-      isLooping: false
-      isLayered: false
-      initialVolume: 1.0
     - soundName: "L3VO1_Control_f"
       soundURL: "assets/sounds/VO/L3VO1_Control_f.mp3"
-      isLooping: false
-      isLayered: false
-      initialVolume: 1.0
     - soundName: "L3VO1_Control_m"
       soundURL: "assets/sounds/VO/L3VO1_Control_m.mp3"
-      isLooping: false
-      isLayered: false
-      initialVolume: 1.0
     - soundName: "L3VO2_Control_f"
       soundURL: "assets/sounds/VO/L3VO2_Control_f.mp3"
-      isLooping: false
-      isLayered: false
-      initialVolume: 1.0
     - soundName: "L3VO2_Control_m"
       soundURL: "assets/sounds/VO/L3VO2_Control_m.mp3"
-      isLooping: false
-      isLayered: false
-      initialVolume: 1.0
     - soundName: "L3VO3_Rover_f"
       soundURL: "assets/sounds/VO/L3VO3_Rover_f.mp3"
-      isLooping: false
-      isLayered: false
-      initialVolume: 1.0
     - soundName: "L3VO3_Rover_m"
       soundURL: "assets/sounds/VO/L3VO3_Rover_m.mp3"
-      isLooping: false
-      isLayered: false
-      initialVolume: 1.0
     - soundName: "L3VO3a_Rover_f"
       soundURL: "assets/sounds/VO/L3VO3a_Rover_f.mp3"
-      isLooping: false
-      isLayered: false
-      initialVolume: 1.0
     - soundName: "L3VOa_Rover_m"
       soundURL: "assets/sounds/VO/L3VO3a_Rover_m.mp3"
-      isLooping: false
-      isLayered: false
-      initialVolume: 1.0
     - soundName: "L3VO3b_Rover_f"
       soundURL: "assets/sounds/VO/L3VO3b_Rover_f.mp3"
-      isLooping: false
-      isLayered: false
-      initialVolume: 1.0
     - soundName: "L3VO3b_Rover_m"
       soundURL: "assets/sounds/VO/L3VO3b_Rover_m.mp3"
-      isLooping: false
-      isLayered: false
-      initialVolume: 1.0
     - soundName: "L3VO4_Control_f"
       soundURL: "assets/sounds/VO/L3VO4_Control_f.mp3"
-      isLooping: false
-      isLayered: false
-      initialVolume: 1.0
     - soundName: "L3VO4_Control_m"
       soundURL: "assets/sounds/VO/L3VO4_Control_m.mp3"
-      isLooping: false
-      isLayered: false
-      initialVolume: 1.0
     - soundName: "L3VO5_Rover_f"
       soundURL: "assets/sounds/VO/L3VO5_Rover_f.mp3"
-      isLooping: false
-      isLayered: false
-      initialVolume: 1.0
     - soundName: "L3VO5_Rover_m"
       soundURL: "assets/sounds/VO/L3VO5_Rover_m.mp3"
-      isLooping: false
-      isLayered: false
-      initialVolume: 1.0
     - soundName: "L3VO6_Control_f"
       soundURL: "assets/sounds/VO/L3VO6_Control_f.mp3"
-      isLooping: false
-      isLayered: false
-      initialVolume: 1.0
     - soundName: "L3VO6_Control_m"
       soundURL: "assets/sounds/VO/L3VO6_Control_m.mp3"
-      isLooping: false
-      isLayered: false
-      initialVolume: 1.0
     - soundName: "L3VO7_Control_f"
       soundURL: "assets/sounds/VO/L3VO7_Control_f.mp3"
-      isLooping: false
-      isLayered: false
-      initialVolume: 1.0
     - soundName: "L3VO7_Control_m"
       soundURL: "assets/sounds/VO/L3VO7_Control_m.mp3"
-      isLooping: false
-      isLayered: false
-      initialVolume: 1.0
     - soundName: "L3VO8_Control_f"
       soundURL: "assets/sounds/VO/L3VO8_Control_f.mp3"
-      isLooping: false
-      isLayered: false
-      initialVolume: 1.0
     - soundName: "L3VO8_Control_m"
       soundURL: "assets/sounds/VO/L3VO8_Control_m.mp3"
-      isLooping: false
-      isLayered: false
-      initialVolume: 1.0
     - soundName: "L3VO9_Control_f"
       soundURL: "assets/sounds/VO/L3VO9_Control_f.mp3"
-      isLooping: false
-      isLayered: false
-      initialVolume: 1.0
     - soundName: "L3VO9_Control_m"
       soundURL: "assets/sounds/VO/L3VO9_Control_m.mp3"
-      isLooping: false
-      isLayered: false
-      initialVolume: 1.0
     - soundName: "L3VO10_Control_f"
       soundURL: "assets/sounds/VO/L3VO10_Control_f.mp3"
-      isLooping: false
-      isLayered: false
-      initialVolume: 1.0
     - soundName: "L3VO10_Control_m"
       soundURL: "assets/sounds/VO/L3VO10_Control_m.mp3"
-      isLooping: false
-      isLayered: false
-      initialVolume: 1.0
 methods:
+  startRoverSounds:
+  stopRoverSounds:
 children:
 scripts:
 - source: source/marsGameSound.js

@@ -19,6 +19,9 @@ this.findAndSetCurrentGrid = function() {
 
 this.moveForward = function() {
 
+    var scene = self.find( "/" )[ 0 ];
+    var soundManager = scene.find( ".//element(*,'http://vwf.example.com/sound/soundManager.vwf')" )[ 0 ];
+
     var headingInRadians = this.heading * Math.PI / 180;
     var dirVector = [ Math.round( -Math.sin( headingInRadians ) ), Math.round( Math.cos( headingInRadians ) ) ];
     var proposedNewGridSquare = [ this.currentGridSquare[ 0 ] + dirVector[ 0 ], 
@@ -31,9 +34,12 @@ this.moveForward = function() {
         var energyRequired = currentGrid.getEnergy( proposedNewGridSquare );
         if ( energyRequired < 0 ) {
             this.moveFailed( "collision" );
+            soundManager.stopRoverSounds();
         } else if ( energyRequired > this.battery ) {
             this.battery = 0;
             this.moveFailed( "battery" );
+            soundManager.stopRoverSounds();
+            soundManager.playSound('uiLowBattery');
         } else {
 
             //Otherwise, check if the space is occupied
@@ -59,12 +65,18 @@ this.moveForward = function() {
                         this.cargo.add( inventoriableObjects[ i ].id );
                     }
                 }
+                
                 this.moved();
+                soundManager.startRoverSounds();
+                
             } else {
+                soundManager.stopRoverSounds();
                 this.moveFailed( "collision" );
             }
         }
     } else {
+
+        soundManager.stopRoverSounds();
         this.moveFailed( "collision" );
     }
 }
