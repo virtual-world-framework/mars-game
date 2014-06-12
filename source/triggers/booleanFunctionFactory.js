@@ -141,12 +141,13 @@ this.clauseSet.moveFailed = function( params, context, callback ) {
     if ( callback ) {
         object.moveFailed = self.events.add( function( situation ) {
                                                 if ( failureType ) {
-                                                    if ( failureType === situation ) {
+                                                    if ( failureType === situation ) {                                                   
                                                         moveHasFailed = true;
                                                     }
                                                 } else {
                                                     moveHasFailed = true;
                                                 }
+                                                callback();
                                             } );
     }
 

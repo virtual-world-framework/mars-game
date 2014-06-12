@@ -34,8 +34,7 @@ properties:
     hasObject:
 
     # arguments: object
-    moveFailedCollision:
-    moveFailedBattery:
+    moveFailed:
 
     # arguments: these blockly clauses can take a single blockly object (e.g.
     #   "rover"), an array of blockly objects (e.g. [ "minirover", "graph" ]),

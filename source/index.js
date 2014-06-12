@@ -94,7 +94,7 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
         if ( eventName === "callSuccessPopup" ) {
 
             var message = eventArgs[ 0 ];
-            displaySuccessPopup( message );
+            displayPopup( "success", message );
 
         }
 
@@ -102,7 +102,7 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
         if ( eventName === "callFailurePopup" ) {
 
             var message = eventArgs[ 0 ];
-            displayFailurePopup( message );
+            displayPopup( "failure", message );
 
         }
 
