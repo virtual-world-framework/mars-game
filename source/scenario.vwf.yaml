@@ -34,9 +34,6 @@ events:
   # Raised at the end of the entering() function, so that triggers can listen
   #   for it.
   starting:
-  
-  callSuccessPopup:
-  callFailurePopup:
 
 scripts:
 - source: source/scenario.js

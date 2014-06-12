@@ -91,7 +91,7 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
     } else {
 
         // nodeID is ignored here?
-        if ( eventName === "callSuccessPopup" ) {
+        if ( eventName === "completed" ) {
 
             var message = eventArgs[ 0 ];
             displayPopup( "success", message );
@@ -99,7 +99,7 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
         }
 
         // nodeID is ignored here?
-        if ( eventName === "callFailurePopup" ) {
+        if ( eventName === "failed" ) {
 
             var message = eventArgs[ 0 ];
             displayPopup( "failure", message );

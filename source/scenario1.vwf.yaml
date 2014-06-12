@@ -64,10 +64,8 @@ properties:
           - rover
           - radio
       actions:
-      - displayPopup:
-        - success
-        - "You have picked up the radio!"
       - scenarioSuccess:
+        - "You have picked up the radio!"
 
     failOnMoveFailedCollision:
       triggerCondition:
@@ -75,10 +73,8 @@ properties:
         - rover
         - collision
       actions:
-      - displayPopup:
-        - failure
-        - "Your navigation program is blocked by an obstacle!"
       - scenarioFailure:        
+        - "Your navigation program is blocked by an obstacle!"
 
     failOnMoveFailedBattery:
       triggerCondition:
@@ -86,10 +82,8 @@ properties:
         - rover
         - battery
       actions:
-      - displayPopup:
-        - failure
-        - "You have run out of battery!"
       - scenarioFailure:         
+        - "You have run out of battery!"
 
     failOnIncompleteProgram:
       triggerCondition:
@@ -105,10 +99,8 @@ properties:
             - rover
             - radio
       actions:
-      - displayPopup:
-        - failure
-        - "You didn't reach the destination!"
       - scenarioFailure:
+        - "You didn't reach the destination!"
 
 children:
   grid:

@@ -128,8 +128,8 @@ this.clauseSet.moveFailed = function( params, context, callback ) {
     if ( !params || ( params.length < 1 ) || ( params.length > 2 ) ) {
         self.logger.errorx( "moveFailed", "This clause requires " + 
                             "one argument: the object, and takes " +
-                            "an additional argument: the type of " +
-                            "failure. " );
+                            "an additional optional argument: the " +
+                            "type of failure. " );
     }
 
     var objectName = params[ 0 ];
