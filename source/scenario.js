@@ -2,7 +2,6 @@ var self;
 var scene;
 
 this.initialize = function() {
-    self = this;
 
     this.children.create( "startStateExecutor", 
                           "source/triggers/declarativeFunctionExecutor.vwf" );
@@ -10,10 +9,11 @@ this.initialize = function() {
     this.children.create( "triggerManager", 
                           "source/triggers/triggerManager.vwf" );
 
-    this.future( 0 ).onSceneReady();
+    // this.future( 0 ).onSceneReady();
 }
 
 this.onSceneReady = function() {
+    self = this;
     var searchArray = self.find( self.scenePath );
     if ( searchArray.length ) {
         scene = searchArray[ 0 ];
@@ -35,6 +35,8 @@ this.onSceneReady = function() {
 }
 
 this.entering = function() {
+    this.onSceneReady();
+
     if ( self.startState && self.startState.length > 0 ) {
         for ( var i = 0; i < self.startState.length; ++i ) {
             var param = self.startState[ i ];
@@ -91,6 +93,20 @@ this.startStateParamSet.emptyInventory = function( params, context ) {
     var inventoryPath = params[ 0 ];
     var inventory = self.startStateExecutor.findInContext( context, inventoryPath );
     inventory.empty();
+}
+
+this.startStateParamSet.addToInventory = function( params, context ) {
+    if ( !params || ( params.length !== 2 ) ) {
+        self.logger.errorx( "addToInventory", "The addToInventory condition " +
+                            "requires 2 parameters: The name of the object to be added " +
+                            "and the name of the inventory it will be added to." );
+        return undefined;
+    }
+
+    var object = self.startStateExecutor.findInContext( context, params[0] );
+    var inventory = self.startStateExecutor.findInContext( context, params[1] );
+
+    inventory.add( object.id );
 }
 
 this.startStateParamSet.addToGrid = function( params, context ) {

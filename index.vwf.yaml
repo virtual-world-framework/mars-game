@@ -138,6 +138,8 @@ children:
           }
   scenario1:
     extends: source/scenario1.vwf
+  scenario2:
+    extends: source/scenario2.vwf
   blocklyLine:
     extends: http://vwf.example.com/graphline.vwf
     properties:

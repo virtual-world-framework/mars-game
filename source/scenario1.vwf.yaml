@@ -2,6 +2,7 @@
 extends: source/scenario.vwf
 properties:
   scenePath: /
+  nextScenarioPath: "scenario2"
   blockly: assets/scenario/scenario1.xml
 
   scenarioName: scenario1
@@ -36,11 +37,6 @@ properties:
   - emptyInventory:
     - rover/cargo
 
-  - setProperty:
-    - camera
-    - pointOfView
-    - "thirdPerson"
-
   - addToGrid:
     - rover
     - [ 8, 2 ]
@@ -48,6 +44,11 @@ properties:
   - addToGrid:
     - radio
     - [ 8, 15 ]
+
+  - setProperty:
+    - camera
+    - pointOfView
+    - "thirdPerson"
 
   triggers:
     succeedOnSuccess:

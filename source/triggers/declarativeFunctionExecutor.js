@@ -41,7 +41,7 @@ this.findInContext = function( context, objectName ) {
         return undefined;
     }
 
-    var results = context.find( "*/" + objectName );
+    var results = context.find( "//" + objectName );
 
     if ( results.length < 1 ) {
         this.logger.errorx( "findInContext", "Object '" + objectName + 
