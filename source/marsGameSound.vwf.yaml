@@ -10,13 +10,13 @@ properties:
       initialVolume: 0.0
       allowMultiplay: false
       soundDefinitions:
-        - soundName: "gameplay_layer0"
+        - soundName: "musicStandardGameplayLoopLayer_01"
           soundURL: "assets/sounds/music/musicStandardGameplayLoopLayer_01.ogg"
           isLooping: true
           fadeIn: true
           allowMultiplay: false
           initialVolume: 0.0
-        - soundName: "gameplay_layer1"
+        - soundName: "musicStandardGameplayLoopLayer_02"
           soundURL: "assets/sounds/music/musicStandardGameplayLoopLayer_02.ogg"
           isLooping: 
           fadeIn: true
@@ -118,28 +118,17 @@ properties:
       playOnLoad: false
       initialVolume: 1.0
       soundDefinitions:
-        - soundName: "wind_layer0"
+        - soundName: "environmentWind_01"
           soundURL: "assets/sounds/sfx/environmentWind_01.wav"
           isLooping: true
           isLayered: false
           initialVolume: 1.0
-        - soundName: "wind_layer1"
+        - soundName: "environmentWind_02"
           soundURL: "assets/sounds/sfx/environmentWind_02.wav"
           isLooping: true
           isLayered: false
           initialVolume: 1.0
 methods:
-  playTestSequence:
-  fadeInMainMusic:
-  stopMainMusic:
-  fadeOutMainMusic:
-  playMenuMusic:
-  stopMenuMusic:
-  playRoverSounds:
-  stopRoverSounds:
-  fadeInWindSounds:
-  stopWindSounds:
-  fadeOutWindSounds:
 children:
 scripts:
 - source: source/marsGameSound.js
