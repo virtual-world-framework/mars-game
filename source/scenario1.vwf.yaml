@@ -95,8 +95,8 @@ properties:
         - and:
           - isAtPosition:
             - rover
+            - 8
             - 15
-            - 7
           - hasObject:
             - rover
             - radio
@@ -135,8 +135,8 @@ properties:
       - not:
         - isAtPosition:
           - rover
+          - 8
           - 2
-          - 7
       additionalCondition:
       - doOnce:
       actions:
