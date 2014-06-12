@@ -153,10 +153,12 @@ children:
     implements: [ "http://vwf.example.com/logger.vwf" ]
     properties:
       logger_maxLength: 4
+      logger_logs: []
   status:
     extends: http://vwf.example.com/node2.vwf
     implements: [ "http://vwf.example.com/logger.vwf" ]
     properties:
       logger_maxLength: 4
+      logger_logs: []
 scripts: 
  - source: source/scene.js
