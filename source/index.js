@@ -133,9 +133,9 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
         }
 
         if ( eventName === "showComms" ) {
-            var characterImage = eventArgs[ 0 ];
+            var imagePath = eventArgs[ 0 ];
             showCommsDisplay();
-            addImageToCommsDisplay( characterImage );
+            addImageToCommsDisplay( imagePath );
         }
 
         if ( eventName === "hideComms" ) {

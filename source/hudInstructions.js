@@ -99,8 +99,7 @@ function createCommsDisplay() {
     frame.src = "assets/hud/communication_frame.png";
     frame.onload = ( function() { commsElement.frame = frame; } );
 
-    var character = new Image();
-    commsElement.characterImage = character;
+    commsElement.characterImage = new Image();
 
 }
 
