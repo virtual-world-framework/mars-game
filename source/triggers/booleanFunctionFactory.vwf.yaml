@@ -35,10 +35,26 @@ properties:
 
     # arguments: object
     moveFailed:
-    isBlocklyExecuting:
 
-    # arguments: scenarioName
+    # arguments: these blockly clauses can take a single blockly object (e.g.
+    #   "rover"), an array of blockly objects (e.g. [ "minirover", "graph" ]),
+    #   or nothing (in which case, we fire them if the event occurs on *any*
+    #   blockly object).
+    isBlocklyExecuting:
+    onBlocklyStarted:
+    onBlocklyStopped:
+    onBlocklyWindowOpened:
+    onBlocklyProgramChanged:
+
+    # arguments: scenarioName (optional)
     onScenarioStart:
+
+    # This is a crappy solution, but better than no solution at all.  It will only
+    #   work if it is the last argument in an and/or clause - basically, the first 
+    #   time it is checked is the only time that it will return true (whether the
+    #   trigger actually fires or not).
+    # arguments: none
+    doOnce:
 
 scripts:
 - source: source/triggers/booleanFunctionFactory.js
