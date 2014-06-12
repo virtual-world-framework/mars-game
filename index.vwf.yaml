@@ -27,7 +27,7 @@ events:
   scenarioChanged:
 children:
   soundManager:
-    extends: http://vwf.example.com/sound/soundManager.vwf
+    extends: source/marsGameSound.vwf
   environment:
     extends: http://vwf.example.com/node3.vwf
     source: assets/3d/Terrain/scene.dae
