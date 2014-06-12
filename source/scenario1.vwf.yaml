@@ -67,7 +67,7 @@ properties:
       - scenarioSuccess:
         - "You have picked up the radio!"
       - playSound:
-        - L1VO6_Control_f
+        - L1VO6_Control
 
     failOnCollision:
       triggerCondition:
@@ -104,23 +104,23 @@ properties:
       - scenarioFailure:
         - "You didn't reach the destination!"
 
-    playL1VO1_Rover_f:
+    playL1VO1_Rover:
       triggerCondition:
       - onScenarioStart:
       actions:
       - playSound:
-        - L1VO1_Rover_f
+        - L1VO1_Rover
 
-    playL1VO2_Rover_f:
+    playL1VO2_Rover:
       triggerCondition:
       - onBlocklyWindowOpened:
       additionalCondition:
       - doOnce:
       actions:
       - playSound:
-        - L1VO2_Rover_f
+        - L1VO2_Rover
 
-    playL1VO3_Rover_f:
+    playL1VO3_Rover:
       triggerCondition:
       - onBlocklyProgramChanged:
         - rover
@@ -128,9 +128,9 @@ properties:
       - doOnce:
       actions:
       - playSound:
-        - L1VO3_Rover_f
+        - L1VO3_Rover
 
-    playL1VO4_Rover_f:
+    playL1VO4_Rover:
       triggerCondition:
       - not:
         - isAtPosition:
@@ -141,7 +141,7 @@ properties:
       - doOnce:
       actions:
       - playSound:
-        - L1VO4_Rover_f
+        - L1VO4_Rover
 
 children:
   grid:

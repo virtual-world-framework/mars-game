@@ -1,8 +1,6 @@
 var self;
 var scene;
 
-var soundsLoaded = false;
-
 this.initialize = function() {
     self = this;
 
@@ -33,36 +31,6 @@ this.onSceneReady = function() {
         if ( self.blocklyDefault && self.blocklyDefault !== '' ) {
             scene.blockly_defaultXml = self.blocklyDefault;
         }
-    }
-
-    // HACK HACK HACK
-    // Temporarily loading sound assets here, since I don't have Spencer's changes yet.
-    // TODO: do this the right way
-    var soundManager = scene.find( ".//element(*,'http://vwf.example.com/sound/soundManager.vwf')" )[ 0 ];
-    if ( soundManager && !soundsLoaded ) {
-        soundsLoaded = true;
-
-        var soundDefinition = { soundName: undefined, soundURL: undefined };
-
-        soundDefinition.soundName = "L1VO1_Rover_f"
-        soundDefinition.soundURL = "assets/sounds/VO/L1VO1_Rover_f.mp3"
-        soundManager.loadSound( soundDefinition );
-
-        soundDefinition.soundName = "L1VO2_Rover_f"
-        soundDefinition.soundURL = "assets/sounds/VO/L1VO2_Rover_f.mp3"
-        soundManager.loadSound( soundDefinition );
-
-        soundDefinition.soundName = "L1VO3_Rover_f"
-        soundDefinition.soundURL = "assets/sounds/VO/L1VO3_Rover_f.mp3"
-        soundManager.loadSound( soundDefinition );
-
-        soundDefinition.soundName = "L1VO4_Rover_f"
-        soundDefinition.soundURL = "assets/sounds/VO/L1VO4_Rover_f.mp3"
-        soundManager.loadSound( soundDefinition );
-
-        soundDefinition.soundName = "L1VO6_Control_f"
-        soundDefinition.soundURL = "assets/sounds/VO/L1VO6_Control_f.mp3"
-        soundManager.loadSound( soundDefinition );
     }
 }
 
