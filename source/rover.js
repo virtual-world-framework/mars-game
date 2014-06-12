@@ -19,6 +19,7 @@ this.findAndSetCurrentGrid = function() {
 
 this.moveForward = function() {
 
+    var scene = self.find( "/" )[ 0 ];
     var headingInRadians = this.heading * Math.PI / 180;
     var dirVector = [ Math.round( -Math.sin( headingInRadians ) ), Math.round( Math.cos( headingInRadians ) ) ];
     var proposedNewGridSquare = [ this.currentGridSquare[ 0 ] + dirVector[ 0 ], 
@@ -59,6 +60,9 @@ this.moveForward = function() {
                         this.cargo.add( inventoriableObjects[ i ].id );
                     }
                 }
+                if ( scene ) {
+                    scene.addStatus( this.name + " is moving forward" );
+                }
                 this.moved();
             } else {
                 this.moveFailed( "collision" );
@@ -70,17 +74,25 @@ this.moveForward = function() {
 }
 
 this.turnLeft = function() {
+    var scene = self.find( "/" )[ 0 ];
     this.heading += 90;
     if ( this.heading > 360 ) {
         this.heading -= 360;
     }
+    if ( scene ) {
+        scene.addStatus( this.name + " is turning left" );
+    }    
     this.rotateBy( [ 0, 0, 1, 90 ], 1 );
 }
 
 this.turnRight = function() {
+    var scene = self.find( "/" )[ 0 ];
     this.heading -= 90;
     if ( this.heading < 0 ) {
         this.heading += 360;
+    }
+    if ( scene ) {
+        scene.addStatus( this.name + " is turning right" );
     }
     this.rotateBy( [ 0, 0, 1, -90 ], 1 );
 }

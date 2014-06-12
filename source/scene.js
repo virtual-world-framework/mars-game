@@ -110,6 +110,19 @@ this.removeMiniRover = function() {
     
 }
 
+this.addStatus = function( log ) {
+    
+    if ( this.status !== undefined ) {
+        this.status.addLog( log );
+    }
+    
+}
 
-
+this.addAlert = function() {
+    
+    if ( this.alert !== undefined ) {
+        this.alert.addLog( log );
+    }
+    
+}
 //@ sourceURL=source/scene.js
