@@ -1,0 +1,19 @@
+---
+extends: http://vwf.example.com/particlesystem.vwf
+properties:
+  translation: [ 0, 0, 5 ]
+  minVelocity: [ -0.2, -0.2, -0.01 ]
+  maxVelocity: [ 0.2, 0.2, 0.01 ]
+  maxAcceleration: [ 0.1, 0.1, 0.01 ]
+  minAcceleration: [ -0.1, -0.1, -0.05 ]
+  startSize: 0.05
+  endSize: 0.05
+  maxLifeTime: 120
+  minLifeTime: 50
+  startColor: [ 0.85, 0.57, 0.33, 1]
+  endColor: [ 0.85, 0.57, 0.33, 1]
+  additive: false
+  opacity: 0.1
+  particleCount: 5000
+  emitterType: box
+  emitterSize: [ 100, 100, 1 ]
