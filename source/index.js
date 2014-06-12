@@ -93,11 +93,25 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
         } 
 
     } else if ( loggerNodes[ nodeID ] !== undefined ) { 
-        var msg = eventArgs[ 0 ];
-        if ( nodeID === alertsLoggerID ) {
-            console.info( "ALERT: time " + msg.time + " " + msg.log );
-        } else if ( nodeID === statusLoggerID ) {
-            console.info( "STATUS: time " + msg.time + " " + msg.log );
+
+        switch ( eventName ) {
+            
+            case "logAdded":
+                var msg = eventArgs[ 0 ];
+                //console.info( Array.prototype.slice.call( eventArgs ) );
+                if ( nodeID === alertsLoggerID ) {
+                    console.info( "ALERT: time " + msg.time + " " + msg.log );
+                } else if ( nodeID === statusLoggerID ) {
+                    console.info( "STATUS: time " + msg.time + " " + msg.log );
+                }
+                break;
+
+            case "logRemoved":
+                var index = eventArgs[ 0 ];
+                // not sure this is needed, will always remove the first 
+                // log in the list
+                break;
+                
         }
 
     } else {
