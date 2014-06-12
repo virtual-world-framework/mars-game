@@ -71,8 +71,9 @@ properties:
 
     failOnMoveFailedCollision:
       triggerCondition:
-      - moveFailedCollision:
+      - moveFailed:
         - rover
+        - collision
       actions:
       - displayPopup:
         - failure
@@ -81,8 +82,9 @@ properties:
 
     failOnMoveFailedBattery:
       triggerCondition:
-      - moveFailedBattery:
+      - moveFailed:
         - rover
+        - battery
       actions:
       - displayPopup:
         - failure

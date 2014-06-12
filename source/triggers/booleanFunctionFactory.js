@@ -124,51 +124,30 @@ this.clauseSet.hasObject = function( params, context, callback ) {
     };
 }
 
-this.clauseSet.moveFailedCollision = function( params, context, callback ) {
-    if ( !params || ( params.length !== 1 ) ) {
-        self.logger.errorx( "moveFailedCollision", "This clause requires " +
-                            "one argument: the object." );
-        return undefined;
+this.clauseSet.moveFailed = function( params, context, callback ) {
+    if ( !params || ( params.length < 1 ) || ( params.length > 2 ) ) {
+        self.logger.errorx( "moveFailed", "This clause requires " + 
+                            "one argument: the object, and takes " +
+                            "an additional argument: the type of " +
+                            "failure. " );
     }
 
     var objectName = params[ 0 ];
+    var failureType = params[ 1 ];
 
     var object = self.findInContext( context, objectName );
     var moveHasFailed = false;
 
     if ( callback ) {
         object.moveFailed = self.events.add( function( situation ) {
-                                                if ( situation === "collision" ) {
+                                                if ( failureType ) {
+                                                    if ( failureType === situation ) {
+                                                        moveHasFailed = true;
+                                                    }
+                                                } else {
                                                     moveHasFailed = true;
                                                 }
-                                                callback();
                                             } );
-    }
-
-    return function() {
-        return moveHasFailed;
-    }
-}
-
-this.clauseSet.moveFailedBattery = function( params, context, callback ) {
-    if ( !params || ( params.length !== 1 ) ) {
-        self.logger.errorx( "moveFailedBattery", "This clause requires " +
-                            "one argument: the object." );
-        return undefined;
-    }
-
-    var objectName = params[ 0 ];
-
-    var object = self.findInContext( context, objectName );
-    var moveHasFailed = false;
-
-    if ( callback ) {
-        object.moveFailed = self.events.add( function( situation ) {
-                                                        if ( situation === "battery" ) {
-                                                            moveHasFailed = true;
-                                                        }
-                                                        callback();
-                                                    } );
     }
 
     return function() {
