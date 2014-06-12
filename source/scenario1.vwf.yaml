@@ -65,13 +65,25 @@ properties:
           - radio
       actions:
       - scenarioSuccess:
+        - "You have picked up the radio!"
 
-    failOnMoveFailed:
+    failOnCollision:
       triggerCondition:
       - moveFailed:
         - rover
+        - collision
       actions:
-      - scenarioFailure:
+      - scenarioFailure:        
+        - "Your navigation program is blocked by an obstacle!"
+
+    failOnBatteryDepleted:
+      triggerCondition:
+      - moveFailed:
+        - rover
+        - battery
+      actions:
+      - scenarioFailure:         
+        - "You have run out of battery!"
 
     failOnIncompleteProgram:
       triggerCondition:
@@ -88,6 +100,7 @@ properties:
             - radio
       actions:
       - scenarioFailure:
+        - "You didn't reach the destination!"
 
 children:
   grid:

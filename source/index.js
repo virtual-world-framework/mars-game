@@ -7,8 +7,6 @@ var targetPath = undefined;
 var mainRover = undefined;
 var blocklyGraphID = undefined;
 
-
-
 function onRun() {
     vwf_view.kernel.setProperty( currentBlocklyNodeID, "blockly_executing", true );
 }
@@ -68,7 +66,6 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                     }
                 }
                 break;
-
         }
     } else if ( nodeID === this.kernel.application() ) {
         
@@ -87,11 +84,7 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 break;
 
             case "scenarioReset":
-                var body = document.body;
-                var blocker = document.getElementById( "blocker" );
-                var gameOver = document.getElementById( "gameOver" );
-                body.removeChild( blocker );
-                body.removeChild( gameOver );
+                removePopup();
                 break;
         } 
 
@@ -100,14 +93,16 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
         // nodeID is ignored here?
         if ( eventName === "completed" ) {
 
-            endScenario( "success" );
+            var message = eventArgs[ 0 ];
+            displayPopup( "success", message );
 
         }
 
         // nodeID is ignored here?
         if ( eventName === "failed" ) {
 
-            endScenario( "failure" );
+            var message = eventArgs[ 0 ];
+            displayPopup( "failure", message );
 
         }
 
@@ -358,49 +353,6 @@ function getBlocklyFunction() {
     } else {
         return undefined;
     }
-};
-
-function endScenario( endType ) {
-
-    var blocker = document.createElement( 'DIV' );
-    blocker.style.backgroundColor = "#000000";
-    blocker.style.position = "absolute";
-    blocker.style.top = "0px";
-    blocker.style.left = "0px";
-    blocker.style.bottom = "0px";
-    blocker.style.right = "0px";
-    blocker.style.opacity = "0.5";
-    blocker.style.zIndex = "99";
-    blocker.id = "blocker";
-
-    var div = document.createElement( 'DIV' );
-    div.id = "gameOver";
-    div.style.height = "256px";
-    div.style.width = "512px";
-    div.style.marginLeft = "-256px";
-    div.style.marginTop = "-128px";
-    div.style.position = "absolute";
-    div.style.top = "50%";
-    div.style.left = "50%";
-    div.style.backgroundColor = "#333444";
-    div.style.textAlign = "center";
-    div.style.color = "#FFFFFF";
-    div.style.zIndex = "100";
-
-    if ( endType === "success" ) {
-        div.onclick = advanceScenario;
-        div.innerHTML = "<h1>Success</h1>";
-    } else if ( endType === "failure" ) {
-        div.onclick = resetScenario;
-        div.innerHTML = "<h1>Objective Failed</h1>";
-    } else {
-        div.innerHTML = "<h1>Game Over</h1>";
-    }
-
-    div.innerHTML += "\nClick here to try again.";
-    document.body.appendChild(blocker);
-    document.body.appendChild(div);
-
 }
 
 function resetScenario() {
