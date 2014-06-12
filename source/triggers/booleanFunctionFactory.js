@@ -137,15 +137,12 @@ this.clauseSet.moveFailedCollision = function( params, context, callback ) {
     var moveHasFailed = false;
 
     if ( callback ) {
-        object.moveFailed = self.events.add( function() {
-                                                var situation = eventArgs[ 0 ];
+        object.moveFailed = self.events.add( function( situation ) {
                                                 if ( situation === "collision" ) {
                                                     moveHasFailed = true;
                                                 }
                                                 callback();
                                             } );
-    } else {
-        self.logger.warnx( "moveFailedCollision", "No callback defined!" );
     }
 
     return function() {
@@ -166,15 +163,12 @@ this.clauseSet.moveFailedBattery = function( params, context, callback ) {
     var moveHasFailed = false;
 
     if ( callback ) {
-        object.moveFailedBattery = self.events.add( function() {
-                                                        var situation = eventArgs[ 0 ];
+        object.moveFailed = self.events.add( function( situation ) {
                                                         if ( situation === "battery" ) {
                                                             moveHasFailed = true;
                                                         }
                                                         callback();
                                                     } );
-    } else {
-        self.logger.warnx( "moveFailedBattery", "No callback defined!" );
     }
 
     return function() {
