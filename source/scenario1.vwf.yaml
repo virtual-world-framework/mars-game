@@ -67,7 +67,7 @@ properties:
       - scenarioSuccess:
         - "You have picked up the radio!"
 
-    failOnMoveFailedCollision:
+    failOnCollision:
       triggerCondition:
       - moveFailed:
         - rover
@@ -76,7 +76,7 @@ properties:
       - scenarioFailure:        
         - "Your navigation program is blocked by an obstacle!"
 
-    failOnMoveFailedBattery:
+    failOnBatteryDepleted:
       triggerCondition:
       - moveFailed:
         - rover
