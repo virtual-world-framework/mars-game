@@ -124,10 +124,10 @@ this.clauseSet.hasObject = function( params, context, callback ) {
     };
 }
 
-this.clauseSet.moveFailed = function( params, context, callback ) {
+this.clauseSet.moveFailedCollision = function( params, context, callback ) {
     if ( !params || ( params.length !== 1 ) ) {
-        self.logger.errorx( "moveFailed", "This clause " +
-                            "requires one argument: the object." );
+        self.logger.errorx( "moveFailedCollision", "This clause requires " +
+                            "one argument: the object." );
         return undefined;
     }
 
@@ -138,36 +138,47 @@ this.clauseSet.moveFailed = function( params, context, callback ) {
 
     if ( callback ) {
         object.moveFailed = self.events.add( function() {
-                                                moveHasFailed = true;
+                                                var situation = eventArgs[ 0 ];
+                                                if ( situation === "collision" ) {
+                                                    moveHasFailed = true;
+                                                }
                                                 callback();
                                             } );
-    } 
+    } else {
+        self.logger.warnx( "moveFailedCollision", "No callback defined!" );
+    }
 
     return function() {
         return moveHasFailed;
-    };
+    }
 }
 
-this.clauseSet.batteryLevelAt = function( params, context, callback ) {
-    if ( !params || ( params.length !== 2 ) ) {
-        self.logger.errorx( "batteryDead", "This clause " +
-                            "requires two arguments: the object, " +
-                            "and the battery level." );
+this.clauseSet.moveFailedBattery = function( params, context, callback ) {
+    if ( !params || ( params.length !== 1 ) ) {
+        self.logger.errorx( "moveFailedBattery", "This clause requires " +
+                            "one argument: the object." );
+        return undefined;
     }
 
     var objectName = params[ 0 ];
-    var batteryLevel = params[ 1 ];
 
     var object = self.findInContext( context, objectName );
+    var moveHasFailed = false;
 
     if ( callback ) {
-        object.moveFailed = self.events.add( callback );
+        object.moveFailedBattery = self.events.add( function() {
+                                                        var situation = eventArgs[ 0 ];
+                                                        if ( situation === "battery" ) {
+                                                            moveHasFailed = true;
+                                                        }
+                                                        callback();
+                                                    } );
     } else {
-        self.logger.warnx( "batteryDead", "No callback defined!" );
+        self.logger.warnx( "moveFailedBattery", "No callback defined!" );
     }
 
     return function() {
-        return object.battery === batteryLevel;
+        return moveHasFailed;
     }
 }
 

@@ -71,9 +71,8 @@ properties:
 
     failOnMoveFailedCollision:
       triggerCondition:
-      - moveFailed:
+      - moveFailedCollision:
         - rover
-      additionalCondition:
       actions:
       - displayPopup:
         - failure
@@ -82,13 +81,8 @@ properties:
 
     failOnMoveFailedBattery:
       triggerCondition:
-      - batteryDead:
+      - moveFailedBattery:
         - rover
-      additionalCondition:
-      - not:
-        - batteryLevelAt:
-          - rover
-          - 0
       actions:
       - displayPopup:
         - failure
