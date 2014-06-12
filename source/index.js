@@ -1,11 +1,15 @@
 var hud;
 var blocklyNodes = {};
 var graphLines = {};
+var loggerNodes = {};
 var currentBlocklyNodeID = undefined;
 var blocklyExecuting = false;
 var targetPath = undefined;
 var mainRover = undefined;
 var blocklyGraphID = undefined;
+var alertsLoggerID = undefined;
+var statusLoggerID = undefined;
+
 
 function onRun() {
     vwf_view.kernel.setProperty( currentBlocklyNodeID, "blockly_executing", true );
@@ -88,6 +92,14 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 break;
         } 
 
+    } else if ( loggerNodes[ nodeID ] !== undefined ) { 
+        var msg = eventArgs[ 0 ];
+        if ( nodeID === alertsLoggerID ) {
+            console.info( "ALERT: time " + msg.time + " " + msg.log );
+        } else if ( nodeID === statusLoggerID ) {
+            console.info( "STATUS: time " + msg.time + " " + msg.log );
+        }
+
     } else {
 
         // nodeID is ignored here?
@@ -148,6 +160,22 @@ vwf_view.createdNode = function( nodeID, childID, childExtendsID, childImplement
             "ID": childID, 
             "name": childName
         } 
+    } else if ( isLoggerNode( childImplementsIDs ) ) {
+        loggerNodes[ childID ] = {
+            "ID": childID, 
+            "name": childName            
+        } 
+        switch ( childName ) {
+            
+            case "alerts":
+                alertsLoggerID = childID;
+                break;
+            
+            case "status":
+                statusLoggerID = childID;
+                break;
+
+        }
     }
 
 }
@@ -317,6 +345,16 @@ function getPrototypes( kernel, extendsID ) {
     }
             
     return prototypes;
+}
+
+function isLoggerNode( implementsIDs ) {
+    var found = false;
+    if ( implementsIDs ) {
+        for ( var i = 0; i < implementsIDs.length && !found; i++ ) {
+            found = ( implementsIDs[i] == "http-vwf-example-com-logger-vwf" ); 
+        }
+    }
+   return found;
 }
 
 function isGraphlineNode( prototypes ) {
