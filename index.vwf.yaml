@@ -22,6 +22,8 @@ methods:
   removeGraph:
   createMiniRover:
   removeMiniRover:
+  addStatus:
+  addAlert:
 events:
   scenarioReset:
   scenarioChanged:
@@ -146,5 +148,15 @@ children:
       color: [ 100, 255, 100 ]
       lineThickness: 0.15
       visible: false
+  alerts:
+    extends: http://vwf.example.com/node2.vwf
+    implements: [ "http://vwf.example.com/logger.vwf" ]
+    properties:
+      logger_maxLength: 4
+  status:
+    extends: http://vwf.example.com/node2.vwf
+    implements: [ "http://vwf.example.com/logger.vwf" ]
+    properties:
+      logger_maxLength: 4
 scripts: 
  - source: source/scene.js
