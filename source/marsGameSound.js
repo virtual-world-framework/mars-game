@@ -24,7 +24,7 @@ this.initialize = function() {
 
 this.playTestSequence = function(){
 
-    this.playSequence( 'uiNegativeFeedback', 'uiRestart', 'uiLowBattery', 'uiLowRam' );
+    this.playSequence( 'gameplay_layer0', 'gameplay_layer1' );
 }
 
 this.playMenuMusic = function(){

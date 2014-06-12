@@ -3,6 +3,25 @@ extends: http://vwf.example.com/sound/soundManager.vwf
 properties:
   allSoundsLoaded: false
   soundSet:
+    - soundName: "gameplay"
+      soundURL: ""
+      isLooping: true
+      isLayered: true
+      initialVolume: 0.0
+      allowMultiplay: false
+      soundDefinitions:
+        - soundName: "gameplay_layer0"
+          soundURL: "assets/sounds/music/musicStandardGameplayLoopLayer_01.ogg"
+          isLooping: true
+          fadeIn: true
+          allowMultiplay: false
+          initialVolume: 0.0
+        - soundName: "gameplay_layer1"
+          soundURL: "assets/sounds/music/musicStandardGameplayLoopLayer_02.ogg"
+          isLooping: 
+          fadeIn: true
+          allowMultiplay: false
+          initialVolume: 0.0  
     - soundName: "uiBlockyBobbleAppear"
       soundURL: "assets/sounds/sfx/uiBlockyBobbleAppear_02.wav"
       isLooping: false
@@ -48,7 +67,6 @@ properties:
       isLooping: false
       isLayered: false
       initialVolume: 1.0
-      playOnLoad: true
     - soundName: "uiLowRam"
       soundURL: "assets/sounds/sfx/uiLowRam_01.wav"
       isLooping: false
@@ -70,31 +88,34 @@ properties:
       isLayered: false
       initialVolume: 1.0
       allowMultiplay: false
-    - soundName: "gameplay"
+    - soundName: "story"
       soundURL: ""
       isLooping: true
       isLayered: true
-      playOnLoad: true
-      initialVolume: 0.0
+      playOnLoad: false
+      initialVolume: 1.0
       allowMultiplay: false
-      soundDefinitions: 
-        - soundName: "gameplay_layer0"
-          soundURL: "assets/sounds/music/musicStandardGameplayLoopLayer_01.wav"
+      soundDefinitions:
+        - soundName: "musicStoryScreenLoopLayer_01"
+          soundURL: "assets/sounds/music/musicStoryScreenLoopLayer_01.wav"
           isLooping: true
-          playOnLoad: true
           allowMultiplay: false
-          initialVolume: 0.0
-        - soundName: "gameplay_layer1"
-          soundURL: "assets/sounds/music/musicStandardGameplayLoopLayer_02.wav"
+          initialVolume: 1.0
+        - soundName: "musicStoryScreenLoopLayer_02"
+          soundURL: "assets/sounds/music/musicStoryScreenLoopLayer_02.wav"
           isLooping: true
-          playOnLoad: true
           allowMultiplay: false
-          initialVolume: 0.0
+          initialVolume: 1.0
+        - soundName: "musicStoryScreenLoopLayer_03"
+          soundURL: "assets/sounds/music/musicStoryScreenLoopLayer_03.wav"
+          isLooping: true
+          allowMultiplay: false
+          initialVolume: 1.0
     - soundName: "wind"
       soundURL: ""
       isLooping: true
       isLayered: true
-      playOnLoad: true
+      playOnLoad: false
       initialVolume: 1.0
       soundDefinitions:
         - soundName: "wind_layer0"
