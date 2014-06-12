@@ -119,10 +119,10 @@ function getNewCameraTransform() {
             // Lock the camera's orientation, but have it's position follow the target 
             // (plus an offset)
             var thirdPersonOrientationTransform = [ 
-                0    , -1,  0    , 0, 
-                0.963,  0, -0.27 , 0,
-                0.27 ,  0,  0.963, 0,
-                0,      0,  0,     1 ];
+                1, 0,      0,     0, 
+                0, 0.966, -0.259, 0,
+                0, 0.259,  0.966, 0,
+                0, 0,      0,     1 ];
             newCameraTransform = thirdPersonOrientationTransform.slice( 0, 16 );
             newCameraTransform[ 12 ] = targetTransform[ 12 ] + self.thirdPersonOffset[ 0 ];
             newCameraTransform[ 13 ] = targetTransform[ 13 ] + self.thirdPersonOffset[ 1 ];
@@ -134,9 +134,9 @@ function getNewCameraTransform() {
             // Lock the camera's orientation, but have it's position follow the target 
             // (plus an offset)
             var topDownOrientationTransform = [ 
-                0, -1, 0, 0, 
+                1, 0, 0, 0, 
                 0, 0, -1, 0,
-                1, 0,  0, 0,
+                0, 1,  0, 0,
                 0, 0,  0, 1 ];
             newCameraTransform = topDownOrientationTransform.slice( 0, 16 );
             newCameraTransform[ 12 ] = targetTransform[ 12 ] + self.topDownOffset[ 0 ];
