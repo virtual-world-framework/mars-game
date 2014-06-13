@@ -4,8 +4,6 @@ properties:
   translation: [ 0, 0, 5 ]
   minVelocity: [ -0.2, -0.2, -0.01 ]
   maxVelocity: [ 0.2, 0.2, 0.01 ]
-  maxAcceleration: [ 0.1, 0.1, 0.01 ]
-  minAcceleration: [ -0.1, -0.1, -0.05 ]
   startSize: 0.05
   endSize: 0.05
   maxLifeTime: 120
@@ -14,6 +12,10 @@ properties:
   endColor: [ 0.85, 0.57, 0.33, 1]
   additive: false
   opacity: 0.1
-  particleCount: 5000
+  particleCount: 2000
   emitterType: box
   emitterSize: [ 100, 100, 1 ]
+methods:
+  update:
+scripts:
+  - source: source/dustSystem.js
