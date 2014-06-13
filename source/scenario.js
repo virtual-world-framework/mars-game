@@ -33,11 +33,6 @@ this.startScenario = function() {
         }
     }
 
-    this.enter();
-}
-
-this.entering = function() {
-
     if ( self.startState && self.startState.length > 0 ) {
         for ( var i = 0; i < self.startState.length; ++i ) {
             var param = self.startState[ i ];
@@ -50,9 +45,7 @@ this.entering = function() {
         self.triggerManager.loadTriggers( self.triggers, scene );
     }
 
-    // Do this last, once all configuration is done.
-    // TODO: rather than do this, should we make these triggers fire when created?
-    self.starting( self.scenarioName );
+    this.enter();
 }
 
 this.failed = function() {

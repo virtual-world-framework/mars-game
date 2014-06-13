@@ -41,12 +41,11 @@ properties:
     - rover
     - [ 15, 0 ]
 
-  - setProperty:
-    - camera
-    - pointOfView
-    - "topDown"
-
   - createGraph:
+
+  - addToGrid:
+    - blocklyLine
+    - [ 15, 1 ]
 
   # triggers:
   #   succeedOnSuccess:

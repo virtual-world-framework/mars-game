@@ -321,7 +321,7 @@ this.clauseSet.onScenarioStart = function( params, context, callback ) {
         var scenario = self.findTypeInContext( context, "source/scenario.vwf" );
 
         if ( scenario ) {
-            scenario.starting = self.events.add( function( startingName ) {
+            scenario.entering = self.events.add( function( startingName ) {
                                                     scenarioStarted = startingName;
                                                     callback();
                                                 } );

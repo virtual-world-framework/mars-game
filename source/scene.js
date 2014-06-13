@@ -32,7 +32,7 @@ this.resetScenario = function() {
 this.advanceScenario = function() {
     var scenario = this.find( this.activeScenarioPath )[ 0 ];
     if ( scenario.nextScenarioPath ) {
-        this.setScenario( scenario.nextScenarioPath );
+        this.activeScenarioPath = scenario.nextScenarioPath;
     } else {
         this.logger.warnx( "advanceScenario", "nextScenarioPath not found." );
     }
@@ -53,7 +53,8 @@ this.createGraph = function() {
             "extends": "http://vwf.example.com/node3.vwf",
             "implements": [ "http://vwf.example.com/blockly/controller.vwf" ],
             "properties": {
-                  "blockly_toolbox": "assets/scenario/graph.xml"
+                  "blockly_toolbox": "assets/scenario/graph.xml",
+                  "isCollidable": false
             }
         };
 
