@@ -1,5 +1,9 @@
 var self;
 var scene;
+var clauseFactory;
+
+var checkSucceededFn;
+var checkFailedFn;
 
 this.initialize = function() {
     self = this;
@@ -24,6 +28,17 @@ this.onSceneReady = function() {
     this.startStateExecutor.functionSets = [];
     this.startStateExecutor.addFunctionSet( this.startStateParamSet );
 
+    // TODO: move the clause factory into the scenario, as we did with the
+    //   startStateExecutor and the trigger Manager.  Or, get rid of it and 
+    //   use triggers for everything.
+    var clauseFactories = scene.find( ".//element(*,'source/triggers/booleanFunctionFactory.vwf')" );
+    if ( clauseFactories.length !== 1 ) {
+        self.logger.errorx( "onSceneReady", "There should be exactly one " +
+                            "booleanFunctionFactory, at least for now." );
+    }
+    
+    clauseFactory = clauseFactories[ 0 ];
+
     if ( scene !== undefined ) {
         if ( self.blockly && self.blockly !== '' ) {
             scene.blockly_toolbox = self.blockly;
@@ -42,25 +57,60 @@ this.entering = function() {
         }
     }
 
+    if ( self.successClause && self.successClause.length > 0 ) {
+        if ( self.successClause.length > 1 ) {
+             self.logger.errorx( "entering", "The success clause can only " +
+                                 "have a single entry.  Try using AND or OR." );
+        } else if ( checkSucceededFn === undefined ) {
+            checkSucceededFn = 
+                clauseFactory.executeFunction( self.successClause[ 0 ],
+                                               scene, 
+                                               self.checkForSuccess.bind( self ) );
+        }
+    }
+
+    if ( self.failureClause && self.failureClause.length > 0 ) {
+        if ( self.failureClause.length > 1 ) {
+             self.logger.errorx( "entering", "The failure clause can only " +
+                                 "have a single entry.  Try using AND or OR." );
+        } else if ( checkFailedFn === undefined ) {
+            checkFailedFn = 
+                clauseFactory.executeFunction( self.failureClause[ 0 ],
+                                               scene, 
+                                               self.checkForFailure.bind( self ) );
+        }
+    }
+
     self.triggerManager.clearTriggers();
     if ( self.triggers ) {
         self.triggerManager.loadTriggers( self.triggers, scene );
     }
 
     // Do this last, once all configuration is done.
-    // TODO: rather than do this, should we make these triggers fire when created?
     self.starting( self.scenarioName );
 }
 
-this.failed = function() {
-    // If we need to do anything on failure, it should go in here.
-    if ( scene ) {
-        scene.stopAllExecution();
+this.checkForSuccess = function() {
+    if ( checkSucceededFn && checkSucceededFn() ) {
+        self.completed();
     }
 }
 
-this.completed = function() {
-    // If we need to do anything on success, it should go in here.
+this.checkForFailure = function() {
+    if ( checkFailedFn && checkFailedFn() ) {
+        self.failed();
+    }
+}
+
+this.failed = function() {
+    if ( scene ) {
+        scene.stopAllExecution();
+
+        //HACK HACK HACK - not sure if this is where we want this but rover execution seems to stop once a scenario is failed.
+        var soundManager = scene.find( ".//element(*,'http://vwf.example.com/sound/soundManager.vwf')" )[ 0 ];
+        soundManager.stopRoverSounds();
+        soundManager.playSound( 'uiNegativeFeedback' );
+    }
 }
 
 this.startStateParamSet.setProperty = function( params, context ) {

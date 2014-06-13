@@ -7,21 +7,24 @@ properties:
       soundURL: ""
       isLooping: true
       isLayered: true
-      initialVolume: 0.0
+      playOnLoad: true
+      initialVolume: 0.2
       allowMultiplay: false
       soundDefinitions:
         - soundName: "musicStandardGameplayLoopLayer_01"
           soundURL: "assets/sounds/music/musicStandardGameplayLoopLayer_01.ogg"
           isLooping: true
+          playOnLoad: true
           fadeIn: true
           allowMultiplay: false
-          initialVolume: 0.0
+          initialVolume: 0.2
         - soundName: "musicStandardGameplayLoopLayer_02"
           soundURL: "assets/sounds/music/musicStandardGameplayLoopLayer_02.ogg"
-          isLooping: 
+          isLooping: true
+          playOnLoad: true
           fadeIn: true
           allowMultiplay: false
-          initialVolume: 0.0  
+          initialVolume: 0.2 
     - soundName: "uiBlockyBobbleAppear"
       soundURL: "assets/sounds/sfx/uiBlockyBobbleAppear_02.wav"
       isLooping: false
@@ -115,19 +118,19 @@ properties:
       soundURL: ""
       isLooping: true
       isLayered: true
-      playOnLoad: false
+      playOnLoad: true
       initialVolume: 1.0
       soundDefinitions:
         - soundName: "environmentWind_01"
           soundURL: "assets/sounds/sfx/environmentWind_01.wav"
           isLooping: true
           isLayered: false
-          initialVolume: 1.0
+          initialVolume: 0.5
         - soundName: "environmentWind_02"
           soundURL: "assets/sounds/sfx/environmentWind_02.wav"
           isLooping: true
           isLayered: false
-          initialVolume: 1.0
+          initialVolume: 0.5
     - soundName: "L1VO1_Rover_f"
       soundURL: "assets/sounds/VO/L1VO1_Rover_f.mp3"
     - soundName: "L1VO1_Rover_m"
@@ -215,6 +218,8 @@ properties:
 methods:
   startRoverSounds:
   stopRoverSounds:
+  startMotorSound:
+  stopMotorSound:
 children:
 scripts:
 - source: source/marsGameSound.js

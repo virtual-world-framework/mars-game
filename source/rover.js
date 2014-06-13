@@ -19,9 +19,6 @@ this.findAndSetCurrentGrid = function() {
 
 this.moveForward = function() {
 
-    var scene = self.find( "/" )[ 0 ];
-    var soundManager = scene.find( ".//element(*,'http://vwf.example.com/sound/soundManager.vwf')" )[ 0 ];
-
     var headingInRadians = this.heading * Math.PI / 180;
     var dirVector = [ Math.round( -Math.sin( headingInRadians ) ), Math.round( Math.cos( headingInRadians ) ) ];
     var proposedNewGridSquare = [ this.currentGridSquare[ 0 ] + dirVector[ 0 ], 
@@ -34,13 +31,13 @@ this.moveForward = function() {
         var energyRequired = currentGrid.getEnergy( proposedNewGridSquare );
         if ( energyRequired < 0 ) {
             this.moveFailed( "collision" );
-            soundManager.stopRoverSounds();
         } else if ( energyRequired > this.battery ) {
             this.battery = 0;
+            var scene = self.find( "/" )[ 0 ];
+            var soundManager = scene.find( ".//element(*,'http://vwf.example.com/sound/soundManager.vwf')" )[ 0 ];
+            soundManager.playSound ( 'uiLowBattery' );
             this.moveFailed( "battery" );
-            soundManager.stopRoverSounds();
-            soundManager.playSound('uiLowBattery');
-        } else {
+        } else {    
 
             //Otherwise, check if the space is occupied
             if ( currentGrid.getCollidables( proposedNewGridSquare ).length === 0 ){
@@ -67,16 +64,12 @@ this.moveForward = function() {
                 }
                 
                 this.moved();
-                soundManager.startRoverSounds();
-                
+
             } else {
-                soundManager.stopRoverSounds();
                 this.moveFailed( "collision" );
             }
         }
     } else {
-
-        soundManager.stopRoverSounds();
         this.moveFailed( "collision" );
     }
 }
@@ -100,6 +93,8 @@ this.turnRight = function() {
 this.translateOnTerrain = function( translation, duration, boundaryValue ) {
 
     var terrain = this.find( "//" + this.terrainName )[0];
+    var scene = self.find( "/" )[ 0 ];
+    var soundManager = scene.find( ".//element(*,'http://vwf.example.com/sound/soundManager.vwf')" )[ 0 ];
 
     if ( terrain === undefined ) {
 
@@ -115,6 +110,7 @@ this.translateOnTerrain = function( translation, duration, boundaryValue ) {
             goog.vec.Vec3.create()
         );
         var currentBattery = this.battery;
+        soundManager.startRoverSounds();
 
         if(duration > 0) {
 
@@ -131,9 +127,14 @@ this.translateOnTerrain = function( translation, duration, boundaryValue ) {
                 this.translation = newTranslation;
                 this.battery = currentBattery - ( time / duration ) * boundaryValue;
 
+                if (this.battery <= 4){
+                    soundManager.playSound( 'uiLowBattery' );
+                }
+
             }
 
             this.animationPlay(0, duration);
+
 
         } else {
 

@@ -34,4 +34,19 @@ this.stopRoverSounds = function() {
 	roverSounds = undefined;
 
 }
+
+this.stopMotorSound = function() {
+
+	this.stopSoundInstance( roverSounds[ 1 ] );
+	roverSounds [ 1 ] = undefined;
+
+}
+
+this.startMotorSound = function() {
+
+	if ( roverSounds [ 1 ] === undefined ){
+		roverSounds[ 1 ] = this.playSound('objectRoverMotor');
+	}
+
+}
 //@ sourceURL=source/marsGameSound.js
