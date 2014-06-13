@@ -28,7 +28,7 @@ properties:
 
 methods:
   # This is called using future(0) inside of initialize (at least for now).
-  onSceneReady:
+  startScenario:
 
 events:
   # Raised at the end of the entering() function, so that triggers can listen

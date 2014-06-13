@@ -8,34 +8,35 @@ this.initialize = function() {
 
     this.children.create( "triggerManager", 
                           "source/triggers/triggerManager.vwf" );
-
-    // this.future( 0 ).onSceneReady();
 }
 
-this.onSceneReady = function() {
-    self = this;
-    var searchArray = self.find( self.scenePath );
-    if ( searchArray.length ) {
-        scene = searchArray[ 0 ];
-    } else {
-        self.logger.errorx( "onSceneReady", "Failed to find the scene!" );
+this.startScenario = function() {
+    if ( self !== this ) {
+        self = this;
+        var searchArray = self.find( self.scenePath );
+        if ( searchArray.length ) {
+            scene = searchArray[ 0 ];
+        } else {
+            self.logger.errorx( "startScenario", "Failed to find the scene!" );
+        }
+
+        this.startStateExecutor.functionSets = [];
+        this.startStateExecutor.addFunctionSet( this.startStateParamSet );
+
+        if ( scene !== undefined ) {
+            if ( self.blockly && self.blockly !== '' ) {
+                scene.blockly_toolbox = self.blockly;
+            }
+            if ( self.blocklyDefault && self.blocklyDefault !== '' ) {
+                scene.blockly_defaultXml = self.blocklyDefault;
+            }
+        }
     }
 
-    this.startStateExecutor.functionSets = [];
-    this.startStateExecutor.addFunctionSet( this.startStateParamSet );
-
-    if ( scene !== undefined ) {
-        if ( self.blockly && self.blockly !== '' ) {
-            scene.blockly_toolbox = self.blockly;
-        }
-        if ( self.blocklyDefault && self.blocklyDefault !== '' ) {
-            scene.blockly_defaultXml = self.blocklyDefault;
-        }
-    }
+    this.enter();
 }
 
 this.entering = function() {
-    this.onSceneReady();
 
     if ( self.startState && self.startState.length > 0 ) {
         for ( var i = 0; i < self.startState.length; ++i ) {
@@ -123,6 +124,16 @@ this.startStateParamSet.addToGrid = function( params, context ) {
 
     var object = self.startStateExecutor.findInContext( context, objectName );
     self.grid.addToGridFromCoord( object, gridCoord );
+}
+
+this.startStateParamSet.createGraph = function( params, context ) {
+    if ( params && ( params.length !== 0 ) ) {
+        self.logger.errorx( "createGraph",
+                            "The createGraph condition takes no arguments." );
+        return undefined;
+    }
+
+    scene.createGraph();
 }
 
 //@ sourceURL=source/scenario.js

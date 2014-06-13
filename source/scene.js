@@ -11,7 +11,7 @@ this.setScenario = function( path ) {
     var scenario = this.find( path )[ 0 ];
     if ( scenario ) {
         scenario.grid.clearGrid();
-        scenario.future( 0 ).enter();
+        scenario.future( 0 ).startScenario();
         this.scenarioChanged( scenario.name );
     } else {
         this.logger.warnx( "setScenario", "Scenario for path '" + path + "' not found." );
@@ -22,7 +22,7 @@ this.resetScenario = function() {
     var scenario = this.find( this.activeScenarioPath )[ 0 ];
     if ( scenario ) {
         scenario.grid.clearGrid();        
-        scenario.enter();
+        scenario.future( 0 ).startScenario();
         this.scenarioReset( scenario.name );
     } else {
         this.logger.warnx( "resetScenario", "Invalid scenario path: " + this.activeScenarioPath );

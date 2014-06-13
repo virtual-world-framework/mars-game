@@ -2,7 +2,7 @@
 extends: source/scenario.vwf
 properties:
   scenePath: /
-  blockly: assets/scenario/graph.xml
+  blockly: assets/scenario/scenario1.xml
 
   scenarioName: scenario2
 
@@ -10,15 +10,15 @@ properties:
   - setProperty:
     - rover
     - battery
-    - 75
+    - 50
   - setProperty:
     - rover
     - batteryMax
-    - 75
+    - 50
   - setProperty:
     - rover
     - blockly_allowedBlocks
-    - 20
+    - 16
 
   # TODO: Simplify heading/rotation
   # Set initial rotation using heading
@@ -45,6 +45,8 @@ properties:
     - camera
     - pointOfView
     - "topDown"
+
+  - createGraph:
 
   # triggers:
   #   succeedOnSuccess:
