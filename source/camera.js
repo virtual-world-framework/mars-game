@@ -1,4 +1,4 @@
-var durationSeconds = 1;
+var durationSeconds = 0;
 var delaySeconds = 0.1;
 var self = this;
 var cachedTargetNode;
@@ -9,6 +9,7 @@ this.initialize = function() {
 
 this.onSceneReady$ = function() {
     setTargetEventHandler();
+    durationSeconds = 1;
 }
 
 this.changePointOfView$ = function( newPointOfView ) {
