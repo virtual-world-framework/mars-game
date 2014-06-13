@@ -34,8 +34,8 @@ properties:
     - [ 0, 0, 1, 0 ]
 
   - addToInventory:
-    - radio
     - rover/cargo
+    - [ "radio" ]
 
   - addToGrid:
     - rover
@@ -45,7 +45,7 @@ properties:
 
   - addToGrid:
     - blocklyLine
-    - [ 15, 1 ]
+    - [ 15, 0 ]
 
   # triggers:
   #   succeedOnSuccess:

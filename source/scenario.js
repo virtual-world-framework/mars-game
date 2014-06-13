@@ -92,13 +92,19 @@ this.startStateParamSet.emptyInventory = function( params, context ) {
 this.startStateParamSet.addToInventory = function( params, context ) {
     if ( !params || ( params.length !== 2 ) ) {
         self.logger.errorx( "addToInventory", "The addToInventory condition " +
-                            "requires 2 parameters: The name of the object to be added " +
-                            "and the name of the inventory it will be added to." );
+                            "requires 2 parameters: The path of the inventory object " +
+                            "and an array of names of the objects to be added." );
         return undefined;
     }
 
-    var object = self.startStateExecutor.findInContext( context, params[0] );
-    var inventory = self.startStateExecutor.findInContext( context, params[1] );
+    var inventory = self.startStateExecutor.findInContext( context, params[0] );
+
+    var objects = params[1];
+    var object;
+    for ( var i = 0; i < objects.length; i++ ) {
+        object = self.startStateExecutor.findInContext( context, objects[ i ] );
+
+    }
 
     inventory.add( object.id );
 }
