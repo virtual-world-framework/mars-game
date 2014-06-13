@@ -1,6 +1,4 @@
 this.initialize = function() {
-
-    var self = this;
       
     // Set the active camera so we can see the 3D scene
     this.initializeActiveCamera( this.player.camera );
@@ -13,7 +11,7 @@ this.setScenario = function( path ) {
     var scenario = this.find( path )[ 0 ];
     if ( scenario ) {
         scenario.grid.clearGrid();
-        scenario.future( 0 ).enter();
+        scenario.future( 0 ).startScenario();
         this.scenarioChanged( scenario.name );
     } else {
         this.logger.warnx( "setScenario", "Scenario for path '" + path + "' not found." );
@@ -24,7 +22,7 @@ this.resetScenario = function() {
     var scenario = this.find( this.activeScenarioPath )[ 0 ];
     if ( scenario ) {
         scenario.grid.clearGrid();        
-        scenario.enter();
+        scenario.future( 0 ).startScenario();
         this.scenarioReset( scenario.name );
     } else {
         this.logger.warnx( "resetScenario", "Invalid scenario path: " + this.activeScenarioPath );
@@ -32,10 +30,12 @@ this.resetScenario = function() {
 }
 
 this.advanceScenario = function() {
-    // HACK HACK HACK: For now, just reset the scenario (so it at least does someting)
-    // TODO: make this actually advance to the next scenario (once we have more than
-    //   one).
-    this.resetScenario();
+    var scenario = this.find( this.activeScenarioPath )[ 0 ];
+    if ( scenario.nextScenarioPath ) {
+        this.activeScenarioPath = scenario.nextScenarioPath;
+    } else {
+        this.logger.warnx( "advanceScenario", "nextScenarioPath not found." );
+    }
 }
 
 this.getCurrentScenario = function() {

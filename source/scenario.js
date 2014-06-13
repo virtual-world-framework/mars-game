@@ -2,39 +2,37 @@ var self;
 var scene;
 
 this.initialize = function() {
-    self = this;
 
     this.children.create( "startStateExecutor", 
                           "source/triggers/declarativeFunctionExecutor.vwf" );
 
     this.children.create( "triggerManager", 
                           "source/triggers/triggerManager.vwf" );
-
-    this.future( 0 ).onSceneReady();
 }
 
-this.onSceneReady = function() {
-    var searchArray = self.find( self.scenePath );
-    if ( searchArray.length ) {
-        scene = searchArray[ 0 ];
-    } else {
-        self.logger.errorx( "onSceneReady", "Failed to find the scene!" );
+this.startScenario = function() {
+    if ( self !== this ) {
+        self = this;
+        var searchArray = self.find( self.scenePath );
+        if ( searchArray.length ) {
+            scene = searchArray[ 0 ];
+        } else {
+            self.logger.errorx( "startScenario", "Failed to find the scene!" );
+        }
+
+        this.startStateExecutor.functionSets = [];
+        this.startStateExecutor.addFunctionSet( this.startStateParamSet );
+
+        if ( scene !== undefined ) {
+            if ( self.blockly && self.blockly !== '' ) {
+                scene.blockly_toolbox = self.blockly;
+            }
+            if ( self.blocklyDefault && self.blocklyDefault !== '' ) {
+                scene.blockly_defaultXml = self.blocklyDefault;
+            }
+        }
     }
 
-    this.startStateExecutor.functionSets = [];
-    this.startStateExecutor.addFunctionSet( this.startStateParamSet );
-
-    if ( scene !== undefined ) {
-        if ( self.blockly && self.blockly !== '' ) {
-            scene.blockly_toolbox = self.blockly;
-        }
-        if ( self.blocklyDefault && self.blocklyDefault !== '' ) {
-            scene.blockly_defaultXml = self.blocklyDefault;
-        }
-    }
-}
-
-this.entering = function() {
     if ( self.startState && self.startState.length > 0 ) {
         for ( var i = 0; i < self.startState.length; ++i ) {
             var param = self.startState[ i ];
@@ -47,9 +45,7 @@ this.entering = function() {
         self.triggerManager.loadTriggers( self.triggers, scene );
     }
 
-    // Do this last, once all configuration is done.
-    // TODO: rather than do this, should we make these triggers fire when created?
-    self.starting( self.scenarioName );
+    this.enter();
 }
 
 this.failed = function() {
@@ -93,6 +89,26 @@ this.startStateParamSet.emptyInventory = function( params, context ) {
     inventory.empty();
 }
 
+this.startStateParamSet.addToInventory = function( params, context ) {
+    if ( !params || ( params.length !== 2 ) ) {
+        self.logger.errorx( "addToInventory", "The addToInventory condition " +
+                            "requires 2 parameters: The path of the inventory object " +
+                            "and an array of names of the objects to be added." );
+        return undefined;
+    }
+
+    var inventory = self.startStateExecutor.findInContext( context, params[0] );
+
+    var objects = params[1];
+    var object;
+    for ( var i = 0; i < objects.length; i++ ) {
+        object = self.startStateExecutor.findInContext( context, objects[ i ] );
+
+    }
+
+    inventory.add( object.id );
+}
+
 this.startStateParamSet.addToGrid = function( params, context ) {
     if ( !params || ( params.length !== 2 ) ) {
         self.logger.errorx( "addToGrid",
@@ -107,6 +123,16 @@ this.startStateParamSet.addToGrid = function( params, context ) {
 
     var object = self.startStateExecutor.findInContext( context, objectName );
     self.grid.addToGridFromCoord( object, gridCoord );
+}
+
+this.startStateParamSet.createGraph = function( params, context ) {
+    if ( params && ( params.length !== 0 ) ) {
+        self.logger.errorx( "createGraph",
+                            "The createGraph condition takes no arguments." );
+        return undefined;
+    }
+
+    scene.createGraph();
 }
 
 //@ sourceURL=source/scenario.js

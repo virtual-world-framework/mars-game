@@ -15,6 +15,11 @@ properties:
     setProperty:
 
     emptyInventory:
+    addToInventory:
+
+    addToGrid:
+    
+    createGraph:
 
   # These are the standard properties that every scenario should define
   scenarioName:
@@ -28,12 +33,9 @@ properties:
 
 methods:
   # This is called using future(0) inside of initialize (at least for now).
-  onSceneReady:
+  startScenario:
 
 events:
-  # Raised at the end of the entering() function, so that triggers can listen
-  #   for it.
-  starting:
 
   showComms:
   hideComms:

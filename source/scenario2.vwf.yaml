@@ -1,0 +1,116 @@
+---
+extends: source/scenario.vwf
+properties:
+  scenePath: /
+  blockly: assets/scenario/scenario1.xml
+
+  scenarioName: scenario2
+
+  startState:
+  - setProperty:
+    - rover
+    - battery
+    - 50
+  - setProperty:
+    - rover
+    - batteryMax
+    - 50
+  - setProperty:
+    - rover
+    - blockly_allowedBlocks
+    - 16
+
+  # TODO: Simplify heading/rotation
+  # Set initial rotation using heading
+  # Currently, moveLeft & moveRight in rover.js
+  # fight with adding that to the setter of heading
+  - setProperty:
+    - rover
+    - heading
+    - 0
+  - setProperty:
+    - rover
+    - rotation
+    - [ 0, 0, 1, 0 ]
+
+  - addToInventory:
+    - rover/cargo
+    - [ "radio" ]
+
+  - addToGrid:
+    - rover
+    - [ 15, 0 ]
+
+  - createGraph:
+
+  - addToGrid:
+    - blocklyLine
+    - [ 15, 0 ]
+
+  # triggers:
+  #   succeedOnSuccess:
+  #     triggerCondition:
+  #     - onBlocklyStopped:
+  #       - rover
+  #     additionalCondition:
+  #     - and:
+  #       - isAtPosition:
+  #         - rover
+  #         - 8
+  #         - 15
+  #       - hasObject:
+  #         - rover
+  #         - radio
+  #     actions:
+  #     - scenarioSuccess:
+
+  #   failOnMoveFailed:
+  #     triggerCondition:
+  #     - moveFailed:
+  #       - rover
+  #     actions:
+  #     - scenarioFailure:
+
+  #   failOnIncompleteProgram:
+  #     triggerCondition:
+  #     - onBlocklyStopped:
+  #     additionalCondition:
+  #     - not:
+  #       - and:
+  #         - isAtPosition:
+  #           - rover
+  #           - 15
+  #           - 7
+  #         - hasObject:
+  #           - rover
+  #           - radio
+  #     actions:
+  #     - scenarioFailure:
+
+children:
+  grid:
+    extends: source/grid.vwf
+    properties:
+      minX: 0
+      maxX: 16
+      minY: 0
+      maxY: 16
+      gridOriginInSpace: [ -45, 39 ]
+      gridSquareLength: 3
+      boundaryValues:
+      - [  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1 ]
+      - [  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1 ]
+      - [  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  2,  2,  2,  2 ]
+      - [  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1 ]
+      - [  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1 ]
+      - [  1,  1,  4,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1 ]
+      - [  1,  1,  2,  2,  2,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1 ]
+      - [  1,  1,  2,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1 ]
+      - [  1,  1,  1,  4,  4,  4,  4,  2,  2,  2,  2,  2,  2,  2,  2,  1 ]
+      - [  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1 ]
+      - [  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1 ]
+      - [  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1 ]
+      - [  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1 ]
+      - [  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  2,  1,  1,  1 ]
+      - [  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  2,  1,  1,  1 ]
+      - [  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1 ]
