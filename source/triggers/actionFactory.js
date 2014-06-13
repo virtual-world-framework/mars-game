@@ -71,6 +71,31 @@ this.actionSet.stopSound = function( params, context ) {
     }
 }
 
+this.actionSet.showCommsDisplay = function( params, context ) {
+    if ( !params || ( params.length !== 1 ) ) {
+        self.logger.warnx( "activateCommDisplay", "We need to know the path of the image to display!" );
+    }
+
+    var imagePath = params[ 0 ];
+    var scenario = getScenario();
+
+    return function() {
+        scenario.showComms( imagePath );
+    }
+}
+
+this.actionSet.hideCommsDisplay = function( params, context ) {
+    if ( params && ( params.length !== 0 ) ) {
+        self.logger.warnx( "activateCommDisplay", "This action does not take any parameters." );
+    }
+
+    var scenario = getScenario();
+
+    return function() {
+        scenario.hideComms();
+    }
+}
+
 function getScenario( context ) {
     if ( context.getCurrentScenario ){
         return context.getCurrentScenario();

@@ -132,6 +132,16 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
 
         }
 
+        if ( eventName === "showComms" ) {
+            var imagePath = eventArgs[ 0 ];
+            showCommsDisplay();
+            addImageToCommsDisplay( imagePath );
+        }
+
+        if ( eventName === "hideComms" ) {
+            hideCommsDisplay();
+        }
+
         if ( eventName === "pickedUp" ) {
             var iconSrc = eventArgs[ 0 ];
             var index = eventArgs[ 1 ];

@@ -296,6 +296,7 @@ this.clauseSet.onBlocklyProgramChanged = function( params, context, callback ) {
     };
 }
 
+// arguments: scenarioName (optional)
 this.clauseSet.onScenarioStart = function( params, context, callback ) {
     if ( params && ( params.length > 1 ) ) {
         self.logger.errorx( "onScenarioStart", 
