@@ -53,8 +53,7 @@ this.createGraph = function() {
             "extends": "http://vwf.example.com/node3.vwf",
             "implements": [ "http://vwf.example.com/blockly/controller.vwf" ],
             "properties": {
-                  "blockly_toolbox": "assets/scenario/graph.xml",
-                  "isCollidable": false
+                  "blockly_toolbox": "assets/scenario/graph.xml"
             }
         };
 
