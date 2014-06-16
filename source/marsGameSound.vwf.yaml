@@ -24,53 +24,33 @@ properties:
           initialVolume: 0.0  
     - soundName: "uiBlockyBobbleAppear"
       soundURL: "assets/sounds/sfx/uiBlockyBobbleAppear_02.wav"
-      isLooping: false
-      isLayered: false
       initialVolume: 1.0
     - soundName: "uiBlockyBobbleDisappear"
       soundURL: "assets/sounds/sfx/uiBlockyBobbleDisappear_02.wav"
-      isLooping: false
-      isLayered: false
       initialVolume: 1.0
     - soundName: "uiBlockyBlockExecute"
       soundURL: "assets/sounds/sfx/uiBlockyBlockExecute_02.wav"
-      isLooping: false
-      isLayered: false
       initialVolume: 1.0
     - soundName: "uiBlockyBlockTapSelect"
       soundURL: "assets/sounds/sfx/uiBlockyBlockTapSelect_01.wav"
-      isLooping: false
-      isLayered: false
       initialVolume: 1.0
     - soundName: "uiTapObjectSelected"
       soundURL: "assets/sounds/sfx/uiTapObjectSelected_02.wav"
-      isLooping: false
-      isLayered: false
       initialVolume: 1.0
     - soundName: "uiScreenTransition"
       soundURL: "assets/sounds/sfx/uiScreenTransition_01.wav"
-      isLooping: false
-      isLayered: false
       initialVolume: 1.0
     - soundName: "uiNegativeFeedback"
       soundURL: "assets/sounds/sfx/uiNegativeFeedback_02.wav"
-      isLooping: false
-      isLayered: false
       initialVolume: 1.0
     - soundName: "uiRestart"
       soundURL: "assets/sounds/sfx/uiRestart_01.wav"
-      isLooping: false
-      isLayered: false
       initialVolume: 1.0
     - soundName: "uiLowBattery"
       soundURL: "assets/sounds/sfx/uiLowBattery_01.wav"
-      isLooping: false
-      isLayered: false
       initialVolume: 1.0
     - soundName: "uiLowRam"
       soundURL: "assets/sounds/sfx/uiLowRam_01.wav"
-      isLooping: false
-      isLayered: false
       initialVolume: 1.0
     - soundName: "objectRoverMotor"
       soundURL: "assets/sounds/sfx/objectRoverMotor_04.wav"
