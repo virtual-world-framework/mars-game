@@ -48,7 +48,7 @@ this.actionSet.playSound = function( params, context ) {
         return function() {
             // NOTE: I deliberately don't check if the sound is ready.  That 
             //  way, I'll get errors if it's not.
-            soundMgr.playSound( soundName );
+            soundMgr.playSoundAndRetain( soundName );
         };
     } else {
         return undefined;
