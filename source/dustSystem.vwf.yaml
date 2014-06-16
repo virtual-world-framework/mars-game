@@ -1,9 +1,9 @@
 ---
 extends: http://vwf.example.com/particlesystem.vwf
 properties:
-  translation: [ 0, 0, 5 ]
-  minVelocity: [ -0.2, -0.2, -0.01 ]
-  maxVelocity: [ 0.2, 0.2, 0.01 ]
+  translation: [ 0, 0, 0 ]
+  minVelocity: [ 0, 0, 0 ]
+  maxVelocity: [ 0.2, 0.2, 0 ]
   startSize: 0.05
   endSize: 0.05
   maxLifeTime: 120
@@ -14,8 +14,9 @@ properties:
   opacity: 0.1
   particleCount: 2000
   emitterType: box
-  emitterSize: [ 100, 100, 1 ]
+  emitterSize: [ 100, 100, 0.25 ]
 methods:
   update:
+  changeDirection:
 scripts:
   - source: source/dustSystem.js

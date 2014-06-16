@@ -2,29 +2,33 @@ var self;
 var windDirection;
 var maxScalar;
 var minScalar;
-var camera;
 
 this.initialize = function() {
 
     self = this;
     windDirection = [ 1, 1, 0 ];
-    this.minVelocity = [ 0, 0, 0 ];
-    maxScalar = 0.2;
-    minScalar = 0;
+    maxScalar = 0.01;
     this.future( 0.05 ).update();
 }
 
 this.update = function() {
-    self.translation = [ 0, 0, 0];
-    for ( var i = 0; i < windDirection.length; i++ ) {
-        self.maxVelocity[ i ] = maxScalar * windDirection[ i ];
-        //self.minVelocity[ i ] = minScalar * windDirection[ i ];
-    }
+    this.followTarget();
+
     this.future( 0.05 ).update();
 }
 
-this.followPlayer = function() {
+this.changeDirection = function() {
+    windDirection = [ -1, -1, 0 ];
+    for ( var i = 0; i < windDirection.length; i++ ) {
+        self.maxVelocity[ i ] = maxScalar * windDirection[ i ];
+    }
+    this.future( 100 ).changeDirection();
+}
 
+this.followTarget = function() {
+    var camera = self.find( "//camera" )[ 0 ];
+    var node = self.find( camera.targetPath )[ 0 ];
+    self.translation = node.translation;
 }
 
 //@ sourceURL=source/dustSystem.js
