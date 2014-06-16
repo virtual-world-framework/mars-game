@@ -76,7 +76,7 @@
               <specularLevel>
                 <texture texture="space_craft_spec_jpg-sampler" texcoord="CHANNEL1"/>
               </specularLevel>
-              <bump bumptype="HEIGHTFIELD">
+              <bump bumptype="NORMALMAP">
                 <texture texture="space_craft_nrm_jpg-sampler" texcoord="CHANNEL1"/>
               </bump>
             </technique>
@@ -169,7 +169,7 @@
               <specularLevel>
                 <texture texture="platform_spec_jpg-sampler" texcoord="CHANNEL1"/>
               </specularLevel>
-              <bump bumptype="HEIGHTFIELD">
+              <bump bumptype="NORMALMAP">
                 <texture texture="platform_nrm_jpg-sampler" texcoord="CHANNEL1"/>
               </bump>
             </technique>
