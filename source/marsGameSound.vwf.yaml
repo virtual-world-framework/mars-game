@@ -52,16 +52,19 @@ properties:
     - soundName: "uiLowRam"
       soundURL: "assets/sounds/sfx/uiLowRam_01.wav"
       initialVolume: 1.0
-    - soundName: "objectRoverMotor"
-      soundURL: "assets/sounds/sfx/objectRoverMotor_04.wav"
-      isLooping: true
-      isLayered: false
-      initialVolume: 1.0
-    - soundName: "objectRoverMovementGroundCrunch"
-      soundURL: "assets/sounds/sfx/objectRoverMovementGroundCrunch_01.wav"
-      isLooping: true
-      isLayered: false
-      initialVolume: 1.0
+    - soundName: "roverSounds"
+      soundURL: ""
+      soundDefinitions:
+      - soundName: "objectRoverMotor"
+        soundURL: "assets/sounds/sfx/objectRoverMotor_04.wav"
+        isLooping: true
+        isLayered: false
+        initialVolume: 1.0
+      - soundName: "objectRoverMovementGroundCrunch"
+        soundURL: "assets/sounds/sfx/objectRoverMovementGroundCrunch_01.wav"
+        isLooping: true
+        isLayered: false
+        initialVolume: 1.0
     - soundName: "musicMenuLoop"
       soundURL: "assets/sounds/music/musicMenuLoop.ogg"
       isLooping: true
