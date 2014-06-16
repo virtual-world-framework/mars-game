@@ -7,21 +7,22 @@ properties:
       soundURL: ""
       isLooping: true
       isLayered: true
-      initialVolume: 0.0
+      playOnLoad: true
+      initialVolume: 0.4
       allowMultiplay: false
       soundDefinitions:
         - soundName: "musicStandardGameplayLoopLayer_01"
-          soundURL: "assets/sounds/music/musicStandardGameplayLoopLayer_01.ogg"
+          soundURL: "assets/sounds/music/musicStandardGameplayLoopLayer_01.wav"
           isLooping: true
           fadeIn: true
           allowMultiplay: false
-          initialVolume: 0.0
+          initialVolume: 0.4
         - soundName: "musicStandardGameplayLoopLayer_02"
-          soundURL: "assets/sounds/music/musicStandardGameplayLoopLayer_02.ogg"
-          isLooping: 
+          soundURL: "assets/sounds/music/musicStandardGameplayLoopLayer_02.wav"
+          isLooping: true
           fadeIn: true
           allowMultiplay: false
-          initialVolume: 0.0  
+          initialVolume: 0.4  
     - soundName: "uiBlockyBobbleAppear"
       soundURL: "assets/sounds/sfx/uiBlockyBobbleAppear_02.wav"
       initialVolume: 1.0
@@ -101,7 +102,7 @@ properties:
       soundURL: ""
       isLooping: true
       isLayered: true
-      playOnLoad: false
+      playOnLoad: true
       initialVolume: 1.0
       soundDefinitions:
         - soundName: "environmentWind_01"
