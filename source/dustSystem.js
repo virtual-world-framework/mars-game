@@ -1,9 +1,14 @@
 var self;
+var count;
+var rotation;
+var maxDirectionChange;
 
 this.initialize = function() {
 
     self = this;
-    this.counter = 0;
+    count = 0;
+    rotation = 0;
+    maxDirectionChange = 30;
     this.changeDirection();
     this.future( 0.05 ).update();
 }
@@ -13,9 +18,23 @@ this.update = function() {
     this.future( 0.05 ).update();
 }
 
+//Rotates system by maxDirectionChange to simulate wind changing
 this.changeDirection = function() {
-    self.rotation = [ 0, 0, 1, self.rotation[ 3 ] + 10 ];
-    this.future( 20 ).changeDirection();
+
+    rotation++;
+    if ( rotation > 360 ) {
+        rotation = 0;
+    }
+    self.rotation = [ 0, 0, 1, rotation ];
+
+    //Make the rotation look smooth
+    if ( count < maxDirectionChange ) {
+        count++;
+        this.future( 0.05 ).changeDirection();
+    } else {
+        count = 0;
+        this.future( 50 ).changeDirection();
+    }
 }
 
 this.followTarget = function() {
