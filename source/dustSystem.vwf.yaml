@@ -5,7 +5,7 @@ properties:
   minVelocity: [ 0, 0, 0 ]
   maxVelocity: [ 0.2, 0.2, 0 ]
   startSize: 0.05
-  endSize: 0.05
+  endSize: 0
   maxLifeTime: 120
   minLifeTime: 50
   startColor: [ 0.85, 0.57, 0.33, 1]
