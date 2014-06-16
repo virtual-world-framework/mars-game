@@ -164,7 +164,6 @@ children:
       zAxisVisible: false
       gridVisible: true
       renderTop: true
-      visible: false
     children:
       blocklyLine:
         extends: http://vwf.example.com/graphline.vwf
@@ -175,8 +174,12 @@ children:
           pointCount: 400
           color: [ 100, 255, 100 ]
           lineThickness: 0.15
-          visible: false
           renderTop: true
+          visible: false
+    scripts: |
+      this.initialize = function() {
+        this.future( 0 ).setGraphVisibility( false );
+      }
   alerts:
     extends: http://vwf.example.com/logger.vwf
     properties:
