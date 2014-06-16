@@ -318,7 +318,7 @@ this.clauseSet.onScenarioStart = function( params, context, callback ) {
 
     onClauseCallbackWarning( callback );
     if ( callback ) {
-        var scenario = self.findTypeInContext( context, "source/scenario.vwf" );
+        var scenario = self.findInContext( context, context.activeScenarioPath );
 
         if ( scenario ) {
             scenario.entering = self.events.add( function( startingName ) {
