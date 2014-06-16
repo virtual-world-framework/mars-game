@@ -161,16 +161,16 @@ children:
       visible: false
       renderTop: true
   alerts:
-    extends: http://vwf.example.com/node2.vwf
-    implements: [ "http://vwf.example.com/logger.vwf" ]
+    extends: http://vwf.example.com/logger.vwf
     properties:
       logger_maxLength: 4
       logger_logs: []
+      logger_logFormat: "ALERTS: %s"
   status:
-    extends: http://vwf.example.com/node2.vwf
-    implements: [ "http://vwf.example.com/logger.vwf" ]
+    extends: http://vwf.example.com/logger.vwf
     properties:
       logger_maxLength: 4
       logger_logs: []
+      logger_logFormat: "STATUS: %s"
 scripts: 
  - source: source/scene.js
