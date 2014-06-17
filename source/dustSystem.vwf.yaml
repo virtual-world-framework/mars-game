@@ -3,7 +3,7 @@ extends: http://vwf.example.com/particlesystem.vwf
 properties:
   translation: [ 0, 0, 0 ]
   minVelocity: [ 0, 0, 0 ]
-  maxVelocity: [ 0.2, 0.2, 0 ]
+  maxVelocity: [ -0.2, -0.2, 0 ]
   startSize: 0.01
   endSize: 0
   maxLifeTime: 120
