@@ -1,25 +1,36 @@
-var self;
 var currentGrid;
 
 this.initialize = function() {
     // TODO: Find current grid square (rather than making app developer specify)
     // TODO: Find the current heading (rather than making app developer specify)
 
-    self = this;
     this.calcRam();
 
-    this.future( 0 ).findAndSetCurrentGrid();
+    this.future( 0 ).registerScenarioListener();
 }
 
-this.findAndSetCurrentGrid = function() {
-    var scene = self.find( "/" )[ 0 ];
-    var scenario = self.find( "//" + scene.activeScenarioPath )[ 0 ];
+this.registerScenarioListener = function() {
+    var self = this;
+    var scene = this.find( "/" )[ 0 ];
+    scene.scenarioChanged = function( scenarioName ) {
+        self.findAndSetCurrentGrid( scenarioName );
+    }
+
+    // TODO: Find a way to register the listener before the first
+    // scenario is set in order to eliminate the following code.
+    if ( !currentGrid ) {
+        this.findAndSetCurrentGrid( scene.activeScenarioPath );
+    }
+}
+
+this.findAndSetCurrentGrid = function( scenarioName ) {
+    var scenario = this.find( "//" + scenarioName )[ 0 ];
     currentGrid = scenario.grid;
 }
 
 this.moveForward = function() {
 
-    var scene = self.find( "/" )[ 0 ];
+    var scene = this.find( "/" )[ 0 ];
     var headingInRadians = this.heading * Math.PI / 180;
     var dirVector = [ Math.round( -Math.sin( headingInRadians ) ), Math.round( Math.cos( headingInRadians ) ) ];
     var proposedNewGridSquare = [ this.currentGridSquare[ 0 ] + dirVector[ 0 ], 
@@ -74,7 +85,7 @@ this.moveForward = function() {
 }
 
 this.turnLeft = function() {
-    var scene = self.find( "/" )[ 0 ];
+    var scene = this.find( "/" )[ 0 ];
     this.heading += 90;
     if ( this.heading > 360 ) {
         this.heading -= 360;
@@ -86,7 +97,7 @@ this.turnLeft = function() {
 }
 
 this.turnRight = function() {
-    var scene = self.find( "/" )[ 0 ];
+    var scene = this.find( "/" )[ 0 ];
     this.heading -= 90;
     if ( this.heading < 0 ) {
         this.heading += 360;
@@ -127,7 +138,7 @@ this.translateOnTerrain = function( translation, duration, boundaryValue ) {
                     goog.vec.Vec3.create()
                 );
 
-                newTranslation[2] = getTerrainHeight( newTranslation[0], newTranslation[1], newTranslation[2] + 3, terrain );
+                newTranslation[2] = this.getTerrainHeight( newTranslation[0], newTranslation[1], newTranslation[2] + 3, terrain );
                 this.translation = newTranslation;
                 this.battery = currentBattery - ( time / duration ) * boundaryValue;
 
@@ -137,7 +148,7 @@ this.translateOnTerrain = function( translation, duration, boundaryValue ) {
 
         } else {
 
-            stopTranslation[2] = getTerrainHeight( stopTranslation[0], stopTranslation[1], stopTranslation[2] + 300, terrain ); 
+            stopTranslation[2] = this.getTerrainHeight( stopTranslation[0], stopTranslation[1], stopTranslation[2] + 300, terrain ); 
             this.translation = stopTranslation;
 
         }
@@ -153,10 +164,10 @@ this.pointerClick = function( pointerInfo, pickInfo ) {
     }
 }
 
-function getTerrainHeight( x, y, z, terrain ) {
+this.getTerrainHeight = function( x, y, z, terrain ) {
 
     var height;
-    var scene = self.find("/")[0];
+    var scene = this.find("/")[0];
     var origin = [ x, y, z ];
     var intersects = scene.raycast( origin, [0,0,-1], 0, Infinity, true, terrain.id );
     height = intersects.length > 0 ? intersects[0].point.z : z;
