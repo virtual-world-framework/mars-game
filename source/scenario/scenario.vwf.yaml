@@ -41,4 +41,4 @@ events:
   hideComms:
 
 scripts:
-- source: source/scenario.js
+- source: source/scenario/scenario.js
