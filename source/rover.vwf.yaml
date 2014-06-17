@@ -16,6 +16,13 @@ properties:
         this.batteryMaxChanged( value );
       }
     value: 100 
+  lowBattery:
+    set: |
+      if ( this.lowBattery != value ) {
+        this.lowBattery = value;
+        this.batteryChanged( this.battery );
+      }
+    value: 5
   ram:
     set: |
       if ( this.ram != value ) {
@@ -30,6 +37,13 @@ properties:
         this.ramMaxChanged( value );
       }
     value: 100 
+  lowRam: 
+    set: |
+      if ( this.lowRam != value ) {
+        this.lowRam = value;
+        this.ramChanged( this.ram );
+      }
+    value: 5
   currentGridSquare: [ 0, 0 ]
   heading: 90
   terrainName: undefined

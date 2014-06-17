@@ -179,7 +179,7 @@ this.allowedBlocksChanged = function( value ) {
 this.ramChanged = function( value ) {
     var scene = this.find("/")[0];
     if ( scene !== undefined && scene.alerts ) {
-        if ( value < 5 ) {
+        if ( value < this.lowRam ) {
             scene.alerts.addLog( this.name + " is Low on Memory" );
         } else if ( value <= 0 ) {
             scene.alerts.addLog( this.name + " is Out of Memory" );
@@ -190,7 +190,7 @@ this.ramChanged = function( value ) {
 this.batteryChanged = function( value ) {
     var scene = this.find("/")[0];
     if ( scene !== undefined && scene.alerts ) {
-        if ( value < 5 ) {
+        if ( value < this.lowBattery ) {
             scene.alerts.addLog( this.name + " is Low on Power" );
         } else if ( value <= 0 ) {
             scene.alerts.addLog( this.name + " is Out of Power" );
