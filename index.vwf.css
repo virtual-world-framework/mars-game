@@ -163,6 +163,36 @@
     z-index: 99;
 }
 
+.statusText {
+    color: #fff;
+    font-family: arial;
+    font-size: 16px;
+    opacity: 1;
+    z-index: 3;
+}
+
+.alertsText {
+    color: #fff;
+    font-family: arial;
+    font-size: 24px;
+    font-style: bold;
+    opacity: 1;
+    z-index: 3;
+}
+
+#statusDisplayWrapper {
+    text-align: center;
+    position: absolute;
+    bottom: 15%;
+    width: 100%;
+}
+
+#alertDisplayWrapper {
+    text-align: center;
+    position: absolute;
+    bottom: 10%;
+    width: 100%;
+}
 #introScreen {
     height: 100%;
     width: 100%;

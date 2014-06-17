@@ -97,7 +97,10 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
             
             case "logAdded":
                 var msg = eventArgs[ 0 ];
-                console.info( msg.log + " time: " + msg.time );
+                var msgType = loggerNodes[ nodeID ].name;
+                if ( msgType === "status" ) {
+                    pushStatusToDisplay( msg.log );
+                }
                 break;
 
             case "logRemoved":
@@ -308,6 +311,7 @@ function setUp( renderer, scene, camera ) {
     setUpIntro();
 
     setUpBlocklyPeripherals();
+    setUpStatusDisplay();
 
     // Modify and add to scene
     scene.fog = new THREE.FogExp2( 0xC49E70, 0.005 );
