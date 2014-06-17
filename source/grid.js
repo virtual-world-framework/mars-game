@@ -1,8 +1,5 @@
-var self;
-
 this.initialize = function() {
 
-    self = this;
     //Set up the grid map as a 2D array
     this.tiles = [];
     for ( var i = 0; i < this.maxX - this.minX; i++ ) {
@@ -15,9 +12,17 @@ this.initialize = function() {
 }
 
 this.setBoundaryValues = function() {
-    for ( var i = 0; i < this.maxX - this.minX; i++ ) {
-        for (var j = 0; j < this.maxY - this.minY; j++) {
-            this.tiles[ i ][ j ].energyRequired = self.boundaryValues[ i ][ j ];
+
+    if ( this.boundaryValues ) {
+
+        for ( var i = 0; i < this.maxX - this.minX; i++ ) {
+
+            if ( this.boundaryValues[i] ) {
+
+                for (var j = 0; j < this.maxY - this.minY; j++) {
+                        this.tiles[ i ][ j ].energyRequired = this.boundaryValues[ i ][ j ];
+                }
+            }
         }
     }
 }
@@ -48,7 +53,7 @@ this.getWorldFromGrid = function( gridCoord ) {
 
 this.validCoord = function( gridCoord ) {
     if ( ( gridCoord[ 0 ] < this.minX ) || ( gridCoord[ 0 ] > this.maxX ) || ( gridCoord[ 1 ] < this.minY ) || ( gridCoord[ 1 ] > this.maxY ) ) {
-        self.logger.errorx( "validCoord",
+        this.logger.errorx( "validCoord",
                             "The gridCoord given is not a valid " +
                             "coordinate in the current grid system." );
         return false;
@@ -106,9 +111,9 @@ this.moveObjectOnGrid = function( object, srcCoord, destCoord ) {
 
 //Places the object on the terrain according to the terrain height
 this.setHeightFromTerrain = function ( object ) {
-    var scene = self.find( "/" )[ 0 ];
+    var scene = this.find( "/" )[ 0 ];
     var origin = [ object.translation[ 0 ], object.translation[ 1 ], object.translation[ 2 ] + 3 ];
-    var terrain = self.find( "//" + object.terrainName )[ 0 ];
+    var terrain = this.find( "//" + object.terrainName )[ 0 ];
     if ( scene && origin && terrain ) {
         var intersects = scene.raycast( origin, [ 0, 0, -1 ], 0, Infinity, true, terrain.id );
         var terrainHeight = intersects.length > 0 ? intersects[ 0 ].point.z : object.translation[ 2 ];

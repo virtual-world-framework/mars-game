@@ -55,6 +55,7 @@ methods:
   translateOnTerrain:
   blocksUpdated:
   calcRam:
+  registerScenarioListener:
 events:
   moved:
   moveFailed:
