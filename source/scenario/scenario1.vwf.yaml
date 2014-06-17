@@ -1,5 +1,5 @@
 ---
-extends: source/scenario.vwf
+extends: source/scenario/scenario.vwf
 properties:
   scenePath: /
   nextScenarioPath: "scenario2"

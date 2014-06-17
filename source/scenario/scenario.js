@@ -135,4 +135,4 @@ this.startStateParamSet.createGraph = function( params, context ) {
     scene.createGraph();
 }
 
-//@ sourceURL=source/scenario.js
+//@ sourceURL=source/scenario/scenario.js
