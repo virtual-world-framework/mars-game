@@ -158,9 +158,6 @@ properties:
     - soundName: "L3VO10_Control"
       soundURL: "assets/sounds/VO/L3VO10_Control_f.mp3"
 methods:
-  startRoverSounds:
-  stopRoverSounds:
-  stopSound:
 children:
 scripts:
 - source: source/marsGameSound.js
