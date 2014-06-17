@@ -10,11 +10,10 @@ this.initialize = function() {
 }
 
 this.registerScenarioListener = function() {
-    var self = this;
     var scene = this.find( "/" )[ 0 ];
-    scene.scenarioChanged = function( scenarioName ) {
-        self.findAndSetCurrentGrid( scenarioName );
-    }
+    scene.scenarioChanged = ( function( scenarioName ) {
+        this.findAndSetCurrentGrid( scenarioName );
+    } ).bind( this );
 
     // TODO: Find a way to register the listener before the first
     // scenario is set in order to eliminate the following code.
