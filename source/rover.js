@@ -167,14 +167,6 @@ function getTerrainHeight( x, y, z, terrain ) {
 this.calcRam = function() {
     this.ramMax = this.blockly_allowedBlocks;
     this.ram = this.ramMax - this.blockly_blockCount;
-    var scene = this.find("/")[0];
-    if ( scene !== undefined && scene.alerts) {
-        if ( this.ram < 5 ) {
-            scene.alerts.addLog( this.name + " is Low on Memory" );
-        } else if ( this.ram <= 0 ) {
-            scene.alerts.addLog( this.name + " is Out of Memory" );
-        }
-    }
 }
 
 this.blockCountChanged = function( value ) {
@@ -184,9 +176,20 @@ this.allowedBlocksChanged = function( value ) {
     this.calcRam();
 }
 
+this.ramChanged = function( value ) {
+    var scene = this.find("/")[0];
+    if ( scene !== undefined && scene.alerts ) {
+        if ( value < 5 ) {
+            scene.alerts.addLog( this.name + " is Low on Memory" );
+        } else if ( value <= 0 ) {
+            scene.alerts.addLog( this.name + " is Out of Memory" );
+        }
+    }
+}
+
 this.batteryChanged = function( value ) {
     var scene = this.find("/")[0];
-    if ( scene !== undefined && scene.alerts) {
+    if ( scene !== undefined && scene.alerts ) {
         if ( value < 5 ) {
             scene.alerts.addLog( this.name + " is Low on Power" );
         } else if ( value <= 0 ) {
@@ -197,7 +200,7 @@ this.batteryChanged = function( value ) {
 
 this.moveFailed = function( value ) {
     var scene = this.find("/")[0];
-    if ( scene !== undefined && scene.alerts) {
+    if ( scene !== undefined && scene.alerts ) {
         switch( value ) {
             case 'collision':
                 scene.alerts.addLog( this.name + " is Blocked" );
