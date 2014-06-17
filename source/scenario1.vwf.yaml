@@ -144,6 +144,22 @@ properties:
       - playSound:
         - L1VO4_Rover
 
+    startRoverSounds:
+      triggerCondition:
+      - onBlocklyStarted:
+        - rover
+      actions:
+      - playSound:
+        - roverSounds
+
+    stopRoverSounds:
+      triggerCondition:
+      - onBlocklyStopped:
+        - rover
+      actions:
+      - stopSound:
+        - roverSounds
+
 children:
   grid:
     extends: source/grid.vwf

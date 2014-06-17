@@ -1,7 +1,6 @@
 "use strict";
 
 var self;
-var instance;
 
 this.initialize = function() {
 

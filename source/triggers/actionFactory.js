@@ -65,7 +65,7 @@ this.actionSet.stopSound = function( params, context ) {
     var soundMgr = getSoundMgr( context );
 
     if ( soundMgr ) {
-        return function() { soundMgr.stopSound( soundName ); };
+        return function() { soundMgr.stopSoundInstance( soundName ); };
     } else {
         return undefined;
     }
