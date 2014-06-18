@@ -155,7 +155,7 @@ children:
     extends: http://vwf.example.com/graph.vwf
     implements: "source/griddable.vwf"
     properties:
-      gridScale: 3
+      graphScale: 3
       gridInterval: 1
       gridLineInterval: 10
       gridLength: 100
