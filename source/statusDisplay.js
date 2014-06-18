@@ -26,11 +26,32 @@ function setUpStatusDisplay() {
     document.body.appendChild( alertDisplayWrapper );
 }
 
+function resetStatusDisplay() {
+    lastMessage = "";
+    duplicateMessageCount = 1;
+    for ( var i = 0; i < statusDisplayWrapper.children.length; i++ ) {
+        statusDisplayWrapper.children[ i ].innerHTML = "<br />";
+    }
+}
+
 function pushStatusToDisplay( message ) {
 
-    for ( var i = 0; i < maxMessages; i++ ) {
-        statusDisplayWrapper.children[ i ].style.opacity -= ( 1 / maxMessages );
-    }
+    $( "#statusDisplayWrapper" ).animate( { 
+        'bottom':'+=18px'
+     }, "fast", function() {
+        var statusTextBox = document.createElement( "div" );
+        statusTextBox.className = "statusText";
+        statusTextBox.innerHTML = message;
+        statusTextBox.style.opacity = 1;
+        statusDisplayWrapper.appendChild( statusTextBox );
+        statusDisplayWrapper.removeChild( statusDisplayWrapper.firstChild );
+        statusDisplayWrapper.style.bottom = "150px";
+    } );
+
+    var opacityDecrease = ( 1 / maxMessages );    
+    $( ".statusText" ).animate( {
+        'opacity' : '-=' + opacityDecrease
+    }, "fast" );
 
     if ( message === lastMessage ) {
         duplicateMessageCount++;
@@ -40,15 +61,10 @@ function pushStatusToDisplay( message ) {
         lastMessage = message;
         duplicateMessageCount = 1;
     }
+}
 
-    var statusTextBox = document.createElement( "div" );
-    statusTextBox.className = "statusText";
-    statusTextBox.innerHTML = message;
-    statusTextBox.style.opacity = 1;
-    statusDisplayWrapper.appendChild( statusTextBox );
-
-    statusDisplayWrapper.removeChild( statusDisplayWrapper.firstChild );
-
+function pushAlertToDisplay( message ) {
+    alertDisplayWrapper.innerHTML = message;
 }
 
 //@ sourceURL=source/statusDisplay.js
