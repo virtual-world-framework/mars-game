@@ -14,19 +14,13 @@ function onRun() {
 }
 
 function onSetActive( btn ) {
-    var cam = vwf_view.kernel.find( "", "//camera" )[ 0 ];
-    var graph = vwf_view.kernel.find( "", "//blocklyGraph" )[ 0 ];
     if ( currentBlocklyNodeID !== btn.id ) {
         vwf_view.kernel.setProperty( vwf_view.kernel.application(), "blockly_activeNodeID", btn.id );
         if ( blocklyGraphID && blocklyGraphID === btn.id ) {
+            var cam = vwf_view.kernel.find( "", "//camera" )[ 0 ];
             if ( cam ) {
                 vwf_view.kernel.setProperty( cam, "pointOfView", "topDown" );
             }
-            if ( graph ) {
-                vwf_view.kernel.callMethod( graph, "setGraphVisibility", [ true ] );
-            }
-        } else {
-            vwf_view.kernel.callMethod( graph, "setGraphVisibility", [ false ] );
         }
     }
 }
