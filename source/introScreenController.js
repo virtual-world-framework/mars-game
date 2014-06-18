@@ -11,19 +11,9 @@ function setUpIntro() {
     };
 
     intro.div.id = "introScreen";
-    intro.div.style.height = "100%";
-    intro.div.style.width = "100%";
-    intro.div.style.position = "absolute";
-    intro.div.style.top = "0";
-    intro.div.style.left = "0";
-    intro.div.style.backgroundColor = "#000";
+    intro.div.onclick = nextIntroSlide;
 
     intro.image.className = "introImage";
-    intro.image.style.margin = "-384px 0 0 -512px";
-    intro.image.style.top = "50%";
-    intro.image.style.left = "50%";
-    intro.image.style.position = "absolute";
-    intro.image.onclick = nextIntroSlide;    
 
     var dir = "../assets/images/introScreens/";
     for ( var i = 0; i < intro.numberOfScreens; i++ ) {

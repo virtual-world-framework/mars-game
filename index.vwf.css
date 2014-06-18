@@ -162,3 +162,20 @@
     background-color: #000;
     z-index: 99;
 }
+
+#introScreen {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: #000;
+}
+
+.introImage {
+    min-height: 100%;
+    width: auto;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
