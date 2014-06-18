@@ -157,8 +157,8 @@ children:
     properties:
       graphScale: 3
       gridInterval: 1
-      gridLineInterval: 10
-      gridLength: 100
+      gridLineInterval: 4
+      gridLength: 64
       xAxisVisible: true
       yAxisVisible: true
       zAxisVisible: false
@@ -169,8 +169,8 @@ children:
         extends: http://vwf.example.com/graphline.vwf
         properties:
           lineFunction: undefined
-          startValue: -100
-          endValue: 100
+          startValue: -64
+          endValue: 64
           pointCount: 400
           color: [ 100, 255, 100 ]
           lineThickness: 0.15
