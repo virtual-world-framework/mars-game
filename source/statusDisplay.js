@@ -5,6 +5,7 @@ var duplicateStatusCount;
 
 var alertDisplayWrapper = document.createElement( "div" );
 var maxAlerts = 1;
+var lastAlert;
 
 function setUpStatusDisplay() {
 
@@ -30,6 +31,8 @@ function setUpStatusDisplay() {
         alertDisplayWrapper.appendChild( alertText );
     }
     document.body.appendChild( alertDisplayWrapper );
+
+    lastAlert = "";
 }
 
 function resetStatusDisplay() {
@@ -44,72 +47,75 @@ function resetStatusDisplay() {
     }
 }
 
-function pushStatusToDisplay( message ) {
+function pushToDisplay( type, message ) {
 
-    var statusBottom = statusDisplayWrapper.style.bottom;
+    var displayWrapperSelector;
+    var textSelector;
+    var maxDisplayTime;
+    var stackLength;
 
-    $( "#statusDisplayWrapper" ).animate( { 
-        'bottom' : '+=18px'
-     }, "fast", function() {
-        var statusText = document.createElement( "div" );
-        statusText.className = "statusText";
-        statusText.innerHTML = message;
-        statusText.style.opacity = 1;
-        statusDisplayWrapper.appendChild( statusText );
-        statusDisplayWrapper.removeChild( statusDisplayWrapper.firstChild );
-        statusDisplayWrapper.style.bottom = statusBottom;
-    } );
+    if ( type === "status" ) {
+        
+        displayWrapperSelector = "#statusDisplayWrapper";
+        textSelector = ".statusText";
+        maxDisplayTime = 5000;
+        stackLength = maxStatuses;
 
-    fadeMessageStack( ".statusText", maxStatuses, 5000 );
+        // Add "x#" to duplicate status messages
+        if ( message === lastStatus ) {
+            duplicateStatusCount++;
+            lastStatus = message;
+            message += " x" + duplicateStatusCount;
+        } else {
+            lastStatus = message;
+            duplicateStatusCount = 1;
+        }
 
-    if ( message === lastStatus ) {
-        duplicateStatusCount++;
-        lastStatus = message;
-        message += " x" + duplicateStatusCount;
-    } else {
-        lastStatus = message;
-        duplicateStatusCount = 1;
+    } else if ( type === "alerts" ) {
+
+        if ( message === lastAlert ) {
+            return undefined;
+        }
+        lastAlert = message;
+        displayWrapperSelector = "#alertDisplayWrapper";
+        textSelector = ".alertText";
+        maxDisplayTime = 10000;
+        stackLength = maxAlerts;
     }
-}
 
-function pushAlertToDisplay( message ) {
-    
-    var alertsBottom = alertDisplayWrapper.style.bottom;
-
-    $( "#alertDisplayWrapper" ).animate( {
-        'bottom' : '+=26px'
+    //Pushes older messages up
+    var bottomDistance = $( displayWrapperSelector ).css( "bottom" );
+    $( displayWrapperSelector ).animate( {
+        'bottom' : '+=' + $( textSelector ).css( "font-size" )
     }, "fast", function() {
-        var alertText = document.createElement( "div" );
-        alertText.className = "alertText";
-        alertText.innerHTML = message;
-        alertText.style.opacity = 1;
-        alertDisplayWrapper.appendChild( alertText );
-        alertDisplayWrapper.removeChild( alertDisplayWrapper.firstChild );
-        alertDisplayWrapper.style.bottom = alertsBottom;
+        var text = document.createElement( "div" );
+        text.className = textSelector.slice( 1, textSelector.length );
+        text.innerHTML = message;
+        text.style.opacity = 1;
+        $( displayWrapperSelector ).append( text );
+        $( displayWrapperSelector ).children( "div:first" ).remove();
+        $( displayWrapperSelector ).css( "bottom", bottomDistance );
     } );
 
-    fadeMessageStack( ".alertText", maxAlerts, 10000 );
-}
+    // Fades out statuses by opacityDecrease when pushed up, otherwise fades out entirely
+    var opacityDecrease = ( 1 / stackLength );
+    $( textSelector ).stop( true, false ).animate( {
+        'opacity' : '-=' + opacityDecrease
+    }, "fast", function() {
 
-// Fades out statuses by opacityDecrease when pushed up, otherwise fades out entirely
-function fadeMessageStack( jqSelector, stackLength, maxDisplayTime ) {
+        // After messages shift up, continue complete fade out
+        $( textSelector ).stop( true, false ).animate( {
+            'opacity' : 0
+        }, maxDisplayTime, function() {
 
-    if ( jqSelector ) {
-        var opacityDecrease = ( 1 / stackLength );
-
-        $( jqSelector ).stop( true, false ).animate( {
-
-            'opacity' : '-=' + opacityDecrease
-
-        }, "fast", function() {
-
-            $( jqSelector ).animate( {
-
-                'opacity' : 0
-
-            }, maxDisplayTime );
+            //After messages fade out completely, clear history
+            if ( type === "status" ) {
+                lastStatus = "";
+            } else if ( type === "alerts" ) {
+                lastAlert = "";
+            }
         } );
-    }
+    } );
 }
 
 //@ sourceURL=source/statusDisplay.js
