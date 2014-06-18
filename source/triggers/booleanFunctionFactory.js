@@ -268,30 +268,87 @@ this.clauseSet.onBlocklyWindowOpened = function( params, context, callback ) {
 }
 
 this.clauseSet.onBlocklyProgramChanged = function( params, context, callback ) {
-    // Set this to the object that started when the event occurs, back to null
-    //   in the function that we return (so it only fires once).
+    var objectArray = [];
+    var addOrRemove = "either";
+    var blockTypes = [];
+
+    if ( params ) {
+        // Get the objects that can make us fire
+        objectArray = getBlocklyObjects( params, context );
+
+        // Determine whether we should fire when a block is added, removed,
+        //   or both.
+        if ( params[ 1 ] ) {
+            addOrRemove = params[ 1 ];
+            if ( ( addOrRemove !== "add" ) && ( addOrRemove !== "remove" ) &&
+                 ( addOrRemove !== "either" ) ) {
+                this.logger.errorx( "onBlocklyProgramChanged", 
+                                    "The second parameter should be 'add', " +
+                                    "'remove', or 'either', indicating when " +
+                                    "this trigger should fire." );
+                addOrRemove = "either";
+            }
+        }
+
+        // Get the list of blocks that can make us fire (an empty list means
+        //   any block will do).
+        var blockTypeParam = params[ 2 ];
+        if( typeof blockTypeParam === 'string' ) {
+            blockTypes = [ blockTypeParam ];
+        } else if ( Object.prototype.toString.call( blockTypeParam ) === '[object Array]' ) {
+            blockTypes = blockTypeParam;
+        } else if ( !!blockTypeParam ) {
+            this.logger.errorx( "onBlocklyProgramChanged", 
+                                "Unable to parse the array of block types." );
+        }
+    }
+
+    // Set this to the object and block type that we get from the event, then 
+    //   clear it if this trigger fires.
     // TODO: do we need to limit the time for which this is true?  Do we even 
     //   need this restriction?
     var triggerObject = null;
-    var objectArray = getBlocklyObjects( params, context );
+    var triggerBlockType = undefined;
 
     onClauseCallbackWarning( callback );
     if ( callback ) {
         for ( var i = 0; i < objectArray.length; ++i ) {
             var object = objectArray[ i ];
 
-            var fullCallback = function() {
+            var fullCallback = function( ignoreMe, blockType ) {
                 triggerObject = object;
+                triggerBlockType = blockType;
                 callback();
             };
 
-            object.blocklyContentChanged = self.events.add( fullCallback );
-        } 
+            // Warning - I'm getting fancy here. The logic is twisted around
+            //   backwards. :)
+            if ( addOrRemove !== "add" ) {
+                object.blocklyBlockRemoved = self.events.add( fullCallback );
+            }
+            if (addOrRemove !== "remove" ) {
+                object.blocklyBlockAdded = self.events.add( fullCallback );
+            }
+        }
     }
 
     return function() {
-        var retVal = !!triggerObject;
+        var retVal = true;
+        if ( !triggerObject ) {
+            retVal = false;
+        } else if ( blockTypes.length > 0 ) {
+            var blockTypeFound = false;
+            for ( var i = 0; i < blockTypes.length && !blockTypeFound; ++i ) {
+                if ( triggerBlockType === blockTypes[ i ] ) {
+                    blockTypeFound = true;
+                }
+            }
+            retVal = blockTypeFound;
+        }
+
         triggerObject = null;
+        triggerBlockType = undefined;
+
         return retVal;
     };
 }

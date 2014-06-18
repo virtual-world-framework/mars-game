@@ -39,11 +39,19 @@ properties:
     # arguments: these blockly clauses can take a single blockly object (e.g.
     #   "rover"), an array of blockly objects (e.g. [ "minirover", "graph" ]),
     #   or nothing (in which case, we fire them if the event occurs on *any*
-    #   blockly object).
+    #   blockly object).  An empty array counts as "nothing."
     isBlocklyExecuting:
     onBlocklyStarted:
     onBlocklyStopped:
     onBlocklyWindowOpened:
+
+    # arguments:
+    #   1: A blockly object (as described above)
+    #   2: add | remove | either - should it fire when a block is added, when 
+    #      one is removed, or either.  Either is the default.
+    #   3: the type of block, on array of block types, or nothing (in which 
+    #      case any type of block will match). An empty array counts as 
+    #      "nothing."
     onBlocklyProgramChanged:
 
     # arguments: scenarioName (optional)

@@ -131,6 +131,8 @@ properties:
       triggerCondition:
       - onBlocklyProgramChanged:
         - rover
+        - add
+        - rover_moveForward
       additionalCondition:
       - doOnce:
       actions:
