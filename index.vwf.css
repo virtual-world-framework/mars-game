@@ -183,17 +183,16 @@
 #statusDisplayWrapper {
     text-align: center;
     position: absolute;
-    bottom: 15%;
+    bottom: 150px;
     width: 100%;
 }
 
 #alertDisplayWrapper {
     text-align: center;
     position: absolute;
-    bottom: 10%;
+    bottom: 120px;
     width: 100%;
-}
-#introScreen {
+}#introScreen {
     height: 100%;
     width: 100%;
     position: absolute;

@@ -185,12 +185,10 @@ children:
     properties:
       logger_maxLength: 4
       logger_logs: []
-      logger_logFormat: "ALERTS: %s"
   status:
     extends: http://vwf.example.com/logger.vwf
     properties:
       logger_maxLength: 4
       logger_logs: []
-      logger_logFormat: "STATUS: %s"
 scripts: 
  - source: source/scene.js

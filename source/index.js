@@ -86,8 +86,10 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 break;
 
             case "scenarioReset":
+
             case "scenarioChanged":
                 removePopup();
+                resetStatusDisplay();
                 break;
         } 
 
@@ -100,6 +102,9 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 var msgType = loggerNodes[ nodeID ].name;
                 if ( msgType === "status" ) {
                     pushStatusToDisplay( msg.log );
+                }
+                else if ( msgType === "alerts" ) {
+                    pushAlertToDisplay( msg.log );
                 }
                 break;
 
