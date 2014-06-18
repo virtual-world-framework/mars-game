@@ -55,7 +55,7 @@ function pushToDisplay( type, message ) {
     var stackLength;
 
     if ( type === "status" ) {
-        
+
         displayWrapperSelector = "#statusDisplayWrapper";
         textSelector = ".statusText";
         maxDisplayTime = 5000;
@@ -73,20 +73,23 @@ function pushToDisplay( type, message ) {
 
     } else if ( type === "alerts" ) {
 
-        if ( message === lastAlert ) {
-            return undefined;
-        }
-        lastAlert = message;
         displayWrapperSelector = "#alertDisplayWrapper";
         textSelector = ".alertText";
         maxDisplayTime = 10000;
         stackLength = maxAlerts;
+        if ( message === lastAlert ) {
+            statusFadeComplete( type, textSelector, maxDisplayTime );
+            return undefined;
+        }
+        lastAlert = message;
     }
 
     //Pushes older messages up
     var bottomDistance = $( displayWrapperSelector ).css( "bottom" );
     $( displayWrapperSelector ).animate( {
+
         'bottom' : '+=' + $( textSelector ).css( "font-size" )
+        
     }, "fast", function() {
         var text = document.createElement( "div" );
         text.className = textSelector.slice( 1, textSelector.length );
@@ -100,22 +103,34 @@ function pushToDisplay( type, message ) {
     // Fades out statuses by opacityDecrease when pushed up, otherwise fades out entirely
     var opacityDecrease = ( 1 / stackLength );
     $( textSelector ).stop( true, false ).animate( {
+
         'opacity' : '-=' + opacityDecrease
+
     }, "fast", function() {
 
         // After messages shift up, continue complete fade out
-        $( textSelector ).stop( true, false ).animate( {
-            'opacity' : 0
-        }, maxDisplayTime, function() {
-
-            //After messages fade out completely, clear history
-            if ( type === "status" ) {
-                lastStatus = "";
-            } else if ( type === "alerts" ) {
-                lastAlert = "";
-            }
-        } );
+        statusFadeComplete( type, textSelector, maxDisplayTime );
     } );
+}
+
+function statusFadeComplete( messageType, jqSelector, time ) {
+    $( jqSelector ).stop( true, false ).animate( {
+
+        'opacity' : 0
+
+    }, time, function() {
+
+        //After messages fade out completely, clear history
+        statusClearHistory( messageType );
+    } );
+}
+
+function statusClearHistory( messageType ) {
+    if ( messageType === "status" ) {
+        lastStatus = "";
+    } else if ( messageType === "alerts" ) {
+        lastAlert = "";
+    }
 }
 
 //@ sourceURL=source/statusDisplay.js
