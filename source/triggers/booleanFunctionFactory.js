@@ -397,7 +397,8 @@ this.clauseSet.onScenarioStart = function( params, context, callback ) {
 
 this.clauseSet.onIntroScreensComplete = function( params, context, callback ) {
     if ( params ) {
-        self.logger.warnx( "doOnce", "This clause doesn't take any arguments." );
+        self.logger.warnx( "onIntroScreensComplete", 
+                           "This clause doesn't take any arguments." );
     }
 
     var introScreensComplete = false;
@@ -439,19 +440,13 @@ this.clauseSet.doOnce = function( params, context, callback ) {
 
 function onClauseCallbackWarning( callback ) {
       if ( !callback ) {
-        self.logger.warnx( "onScenarioStart", 
+        self.logger.warnx( "onClauseCallbackWarning", 
                            "The on... clauses are meant to be immediate triggers, " +
                            "but no callback was found.");
     }  
 }
 
 function getBlocklyObjects( params, context ) {
-    if ( params && ( params.length > 1 ) ) {
-        self.logger.errorx( "isBlocklyExecuting", 
-                            "This clause takes at most one argument: the object " +
-                            "or array of objects." );
-    }
-
     var objectParam = params ? params[ 0 ] : undefined;
 
     // if the objectParam is undefined, we return all of the blockly objects
