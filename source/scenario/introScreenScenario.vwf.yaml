@@ -1,0 +1,26 @@
+---
+extends: source/scenario/scenario.vwf
+properties:
+  scenePath: /
+  nextScenarioPath: "scenario1"
+  blockly: assets/scenario/scenario1.xml
+
+  scenarioName: introScreenScenario
+
+  triggers:
+    succeedOnIntroDone:
+      triggerCondition:
+      - onIntroScreensComplete:
+      actions:
+      - scenarioSuccess:
+
+    playMusic:
+      triggerCondition:
+      - onScenarioStart:
+      actions:
+      - playSound:
+        - musicStoryScreen
+
+children:
+  grid:
+    extends: source/grid.vwf

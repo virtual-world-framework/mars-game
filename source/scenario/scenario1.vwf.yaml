@@ -105,10 +105,16 @@ properties:
       - scenarioFailure:
         - "You didn't reach the destination!"
 
-    playL1VO1_Rover:
+    playStartingSounds:
       triggerCondition:
       - onScenarioStart:
       actions:
+      - stopSound:
+        - musicStoryScreen
+      - playSound:
+        - musicStandardGameplay
+      - playSound:
+        - environmentWind
       - playSound:
         - L1VO1_Rover
 
@@ -125,6 +131,8 @@ properties:
       triggerCondition:
       - onBlocklyProgramChanged:
         - rover
+        - add
+        - rover_moveForward
       additionalCondition:
       - doOnce:
       actions:

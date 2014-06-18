@@ -3,7 +3,7 @@ extends: http://vwf.example.com/sound/soundManager.vwf
 properties:
   allSoundsLoaded: false
   soundSet:
-    - soundName: "gameplay"
+    - soundName: "musicStandardGameplay"
       soundURL: ""
       isLooping: true
       isLayered: true
@@ -75,7 +75,7 @@ properties:
       isLayered: false
       initialVolume: 1.0
       allowMultiplay: false
-    - soundName: "story"
+    - soundName: "musicStoryScreen"
       soundURL: ""
       isLooping: true
       isLayered: true
@@ -98,11 +98,11 @@ properties:
           isLooping: true
           allowMultiplay: false
           initialVolume: 1.0
-    - soundName: "wind"
+    - soundName: "environmentWind"
       soundURL: ""
       isLooping: true
       isLayered: true
-      playOnLoad: true
+      playOnLoad: false
       initialVolume: 1.0
       soundDefinitions:
         - soundName: "environmentWind_01"

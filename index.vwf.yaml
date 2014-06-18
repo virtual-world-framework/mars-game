@@ -12,7 +12,7 @@ properties:
     set: |
       this.setScenario( value );
       this.activeScenarioPath = value;
-    value: "scenario1"
+    value: "introScreenScenario"
 methods:
   setScenario:
   resetScenario:
@@ -25,6 +25,7 @@ methods:
   addStatus:
   addAlert:
 events:
+  introScreensComplete:
   scenarioReset:
   scenarioChanged:
 children:
@@ -144,6 +145,8 @@ children:
           this.initialize = function() {
             this.animationPlay();
           }
+  introScreenScenario:
+    extends: source/scenario/introScreenScenario.vwf
   scenario1:
     extends: source/scenario/scenario1.vwf
   scenario2:
