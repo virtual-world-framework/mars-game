@@ -151,18 +151,35 @@ children:
     extends: source/scenario/scenario1.vwf
   scenario2:
     extends: source/scenario/scenario2.vwf
-  blocklyLine:
-    extends: http://vwf.example.com/graphline.vwf
+  blocklyGraph:
+    extends: http://vwf.example.com/graph.vwf
     implements: "source/griddable.vwf"
     properties:
-      lineFunction: undefined
-      startValue: -100
-      endValue: 100
-      pointCount: 400
-      color: [ 100, 255, 100 ]
-      lineThickness: 0.15
-      visible: false
+      graphScale: 3
+      gridInterval: 1
+      gridLineInterval: 4
+      gridLength: 64
+      xAxisVisible: true
+      yAxisVisible: true
+      zAxisVisible: false
+      gridVisible: true
       renderTop: true
+    children:
+      blocklyLine:
+        extends: http://vwf.example.com/graphline.vwf
+        properties:
+          lineFunction: undefined
+          startValue: -64
+          endValue: 64
+          pointCount: 400
+          color: [ 100, 255, 100 ]
+          lineThickness: 0.15
+          renderTop: true
+          visible: false
+    scripts: |
+      this.initialize = function() {
+        this.future( 0 ).setGraphVisibility( false );
+      }
   alerts:
     extends: http://vwf.example.com/logger.vwf
     properties:

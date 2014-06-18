@@ -4,16 +4,17 @@ function createHUD() {
     createCameraSelector();
     createCommsDisplay();
 
-    var icon = new Image();
-    icon.src = "assets/hud/blockly_large.png";
-    icon.onload = ( function() {
+    var blocklyButton = new HUD.Element( "blocklyButton", drawIcon, 48, 48 );
+    blocklyButton.icon = new Image();
+    blocklyButton.icon.src = "assets/hud/blockly_large.png";
+    blocklyButton.onMouseDown = clickBlockly;
+    hud.add( blocklyButton, "right", "bottom", { "x": -30, "y": -30 } );
 
-        var blocklyButton = new HUD.Element( "blocklyButton", drawIcon, icon.width, icon.height );
-        blocklyButton.icon = icon;
-        blocklyButton.onMouseDown = clickBlockly;
-        hud.add( blocklyButton, "right", "bottom", { "x": -30, "y": -30 } );
-        
-    } );
+    var graphButton = new HUD.Element( "graphButton", drawIcon, 48, 48 );
+    graphButton.icon = new Image();
+    graphButton.icon.src = "assets/hud/graph_display.png";
+    graphButton.onMouseDown = toggleGraphDisplay;
+    hud.add( graphButton, "right", "bottom", { "x": -94, "y": -30 } );
 
     createInventoryHUD( 4 );
 
@@ -310,8 +311,9 @@ function drawCameraSelector( context, position ) {
 }
 
 function drawIcon( context, position ) {
-
-    context.drawImage( this.icon, position.x, position.y );
+    if ( this.icon ) {
+        context.drawImage( this.icon, position.x, position.y );
+    }
 
 }
 
@@ -375,6 +377,14 @@ function clickBlockly( event ) {
         vwf_view.kernel.setProperty( sceneID, "blockly_activeNodeID", targetID );
     }
 
+}
+
+function toggleGraphDisplay( event ) {
+
+    var graphID = vwf_view.kernel.find( "", "//blocklyGraph" )[ 0 ];
+    if ( graphID ) {
+        vwf_view.kernel.callMethod( graphID, "toggleGraphVisibility" );
+    }
 }
 
 function switchTarget( event ) {
