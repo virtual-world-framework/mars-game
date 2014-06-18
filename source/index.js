@@ -100,11 +100,8 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
             case "logAdded":
                 var msg = eventArgs[ 0 ];
                 var msgType = loggerNodes[ nodeID ].name;
-                if ( msgType === "status" ) {
-                    pushStatusToDisplay( msg.log );
-                }
-                else if ( msgType === "alerts" ) {
-                    pushAlertToDisplay( msg.log );
+                if ( msgType ) {
+                    pushToDisplay( msgType, msg.log );
                 }
                 break;
 
