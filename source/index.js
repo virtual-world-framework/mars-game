@@ -112,18 +112,22 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
 
         // nodeID is ignored here?
         if ( eventName === "completed" ) {
-
             var message = eventArgs[ 0 ];
-            displayPopup( "success", message );
-
+            if ( message ) {
+                displayPopup( "success", message );
+            } else {
+                advanceScenario();
+            }
         }
 
         // nodeID is ignored here?
         if ( eventName === "failed" ) {
-
             var message = eventArgs[ 0 ];
-            displayPopup( "failure", message );
-
+            if ( message ) {
+                displayPopup( "failure", message );
+            } else {
+                resetScenario();
+            }
         }
 
         if ( eventName === "showComms" ) {

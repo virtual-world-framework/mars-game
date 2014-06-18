@@ -47,7 +47,13 @@ function nextIntroSlide() {
                 document.body.removeChild( intro.div );
                 delete intro.div;
                 $( "#transitionScreen" ).fadeOut();
-            } );      
+            } );
+
+            // Fire an event on the model side to let things know that the 
+            //  intro is complete.
+            vwf_view.kernel.fireEvent( vwf_view.kernel.application(),
+                                       "introScreensComplete",
+                                       [] );
         }
 
         //Otherwise, move to next screen

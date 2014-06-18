@@ -338,6 +338,30 @@ this.clauseSet.onScenarioStart = function( params, context, callback ) {
     };
 }
 
+this.clauseSet.onIntroScreensComplete = function( params, context, callback ) {
+    if ( params ) {
+        self.logger.warnx( "doOnce", "This clause doesn't take any arguments." );
+    }
+
+    var introScreensComplete = false;
+
+    onClauseCallbackWarning( callback );
+    if ( callback ) {
+        if ( context && context.introScreensComplete ) {
+            context.introScreensComplete = self.events.add( function() {
+                                                                introScreensComplete = true;
+                                                                callback();
+                                                            } );
+        }
+    }
+
+    return function() {
+        var retVal = introScreensComplete;
+        introScreensComplete = false;
+        return retVal;
+    };
+}
+
 this.clauseSet.doOnce = function( params, context, callback ) {
     if ( params ) {
         self.logger.warnx( "doOnce", "This clause doesn't take any arguments." );

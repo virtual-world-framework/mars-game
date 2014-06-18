@@ -13,7 +13,7 @@ this.actionSet.scenarioSuccess = function( params, context ) {
         return undefined;
     }
 
-    var message = params[ 0 ] !== undefined ? params[ 0 ] : "";
+    var message = params ? params[ 0 ] : undefined;
 
     return function() {
         var scenario = getScenario( context );
@@ -27,7 +27,7 @@ this.actionSet.scenarioFailure = function( params, context ) {
         return undefined;
     }
 
-    var message = params[ 0 ] !== undefined ? params[ 0 ] : "";
+    var message = params ? params[ 0 ] : undefined;
 
     return function() {
         var scenario = getScenario( context );
