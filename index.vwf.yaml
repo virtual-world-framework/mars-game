@@ -117,6 +117,7 @@ children:
         source: assets/3d/Rover/rover_retro.dae
         type: model/vnd.collada+xml
         properties:
+          displayName: "Rover"
           castShadows: true
           receiveShadows: true
           terrainName: "environment"
@@ -183,14 +184,14 @@ children:
   alerts:
     extends: http://vwf.example.com/logger.vwf
     properties:
-      logger_maxLength: 4
+      logger_maxLogs: 1
+      logger_lifeTime: 10000
       logger_logs: []
-      logger_logFormat: "ALERTS: %s"
   status:
     extends: http://vwf.example.com/logger.vwf
     properties:
-      logger_maxLength: 4
+      logger_maxLogs: 4
+      logger_lifeTime: 5000
       logger_logs: []
-      logger_logFormat: "STATUS: %s"
 scripts: 
  - source: source/scene.js

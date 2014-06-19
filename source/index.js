@@ -7,6 +7,8 @@ var blocklyExecuting = false;
 var targetPath = undefined;
 var mainRover = undefined;
 var blocklyGraphID = undefined;
+var alertNodeID = undefined;
+var statusNodeID = undefined;
 
 
 function onRun() {
@@ -88,6 +90,7 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
             case "scenarioReset":
             case "scenarioChanged":
                 removePopup();
+                resetStatusDisplay();
                 break;
         } 
 
@@ -97,7 +100,10 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
             
             case "logAdded":
                 var msg = eventArgs[ 0 ];
-                console.info( msg.log + " time: " + msg.time );
+                var msgType = loggerNodes[ nodeID ].name;
+                if ( msgType ) {
+                    pushToDisplay( msgType, msg.log );
+                }
                 break;
 
             case "logRemoved":
@@ -185,8 +191,16 @@ vwf_view.createdNode = function( nodeID, childID, childExtendsID, childImplement
     } else if ( isLoggerNode( protos ) ) {
         loggerNodes[ childID ] = {
             "ID": childID, 
-            "name": childName            
-        } 
+            "name": childName,
+            "logger_maxLogs": 1,
+            "logger_lifeTime": 1000
+        }
+
+        if ( childName === "status" ) {
+            statusNodeID = childID;
+        } else if ( childName === "alerts" ) {
+            alertNodeID = childID;
+        }
     }
 
 }
@@ -300,6 +314,19 @@ vwf_view.satProperty = function( nodeID, propertyName, propertyValue ) {
         }
     }
 
+    var loggerNode = loggerNodes[ nodeID ];
+    if ( loggerNode ) {
+        switch ( propertyName ) {
+
+            case "logger_maxLogs":
+                loggerNode[ propertyName ] = parseFloat( propertyValue );
+                break;
+
+            case "logger_lifeTime":
+                loggerNode[ propertyName ] = parseFloat( propertyValue );
+                break;
+        }
+    }
 }
 
 function setUp( renderer, scene, camera ) {
@@ -308,6 +335,7 @@ function setUp( renderer, scene, camera ) {
     setUpIntro();
 
     setUpBlocklyPeripherals();
+    setUpStatusDisplay();
 
     // Modify and add to scene
     scene.fog = new THREE.FogExp2( 0xC49E70, 0.005 );
