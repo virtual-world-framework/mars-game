@@ -266,22 +266,21 @@ this.clauseSet.onBlocklyWindowOpened = function( params, context, callback ) {
     // TODO: do we need to limit the time for which this is true?  Do we even 
     //   need this restriction?
     var triggerObject = null;
-    var objectArray = getBlocklyObjects( params, context );
 
     onClauseCallbackWarning( callback );
     if ( callback ) {
-        for ( var i = 0; i < objectArray.length; ++i ) {
-            var object = objectArray[ i ];
+        // HACK HACK HACK
+        // The graph will not exist yet when scenario 2 is setup, but we 
+        //  need a callback on it.  This is an awful way to fix that, but
+        //  it will get us through the formative study.
+        var fullCallback = function( show ) {
+            if ( show ) {
+                triggerObject = true;
+                callback();
+            }
+        };
 
-            var fullCallback = function( show ) {
-                if ( show ) {
-                    triggerObject = object;
-                    callback();
-                }
-            };
-
-            object.blocklyVisibleChanged = self.events.add( fullCallback );
-        }
+        setupOnBlocklyWindowOpenedCallbacks( params, context, fullCallback, 2 );
     }
 
     return function() {
@@ -289,6 +288,27 @@ this.clauseSet.onBlocklyWindowOpened = function( params, context, callback ) {
         triggerObject = null;
         return retVal;
     };
+}
+
+function setupOnBlocklyWindowOpenedCallbacks( params, context, callback, tryTime ) {
+    var objectArray = getBlocklyObjects( params, context );
+    if ( !objectArray ) {
+        if ( tryTime > 0 ) {
+            setTimeout( function() {
+                            setupOnBlocklyWindowOpenedCallbacks( params, 
+                                                                 context, 
+                                                                 callback, 
+                                                                 tryTime - 0.5 );
+                        }, 
+                        0.5 );
+        }
+        return;
+    }
+    for ( var i = 0; i < objectArray.length; ++i ) {
+        var object = objectArray[ i ];
+
+        object.blocklyVisibleChanged = self.events.add( callback );
+    }
 }
 
 this.clauseSet.onBlocklyProgramChanged = function( params, context, callback ) {
@@ -518,7 +538,8 @@ function getBlocklyObjects( params, context ) {
     // if the objectParam is a string, look up that particular blockly object and
     //   return it in an array
     if( typeof objectParam === 'string' ) {
-        return [ self.findInContext( context, objectParam ) ];
+        var object = self.findInContext( context, objectParam );
+        return !!object ? [ self.findInContext( context, objectParam ) ] : undefined;
     }
 
     // if the objectParam is an array, look up the blockly object for each entry in
@@ -527,7 +548,7 @@ function getBlocklyObjects( params, context ) {
         var retVal = [];
         for ( var i = 0; i < objectParam.length; ++i ) {
             var object = self.findInContext( context, objectParam[ i ] );
-            object && retVal.push( object );
+            retVal.push( object );
         }
 
         return retVal;
