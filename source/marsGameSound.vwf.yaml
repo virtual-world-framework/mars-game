@@ -10,6 +10,8 @@ properties:
       playOnLoad: false
       initialVolume: 0.4
       allowMultiplay: false
+      soundGroup: music
+      replacementMethod: cut
       soundDefinitions:
         - soundName: "musicStandardGameplayLoopLayer_01"
           soundURL: "assets/sounds/music/musicStandardGameplayLoopLayer_01.wav"
@@ -23,6 +25,14 @@ properties:
           fadeIn: true
           allowMultiplay: false
           initialVolume: 0.4  
+    - soundName: "musicFailure"
+      soundURL: "assets/sounds/music/musicFailure_01.ogg"
+      soundGroup: music
+      replacementMethod: duck
+    - soundName: "musicSuccess"
+      soundURL: "assets/sounds/music/musicSuccess_01.ogg"
+      soundGroup: music
+      replacementMethod: duck
     - soundName: "uiBlockyBobbleAppear"
       soundURL: "assets/sounds/sfx/uiBlockyBobbleAppear_02.wav"
       initialVolume: 1.0
@@ -75,6 +85,8 @@ properties:
       isLayered: false
       initialVolume: 1.0
       allowMultiplay: false
+      soundGroup: music
+      replacementMethod: cut
     - soundName: "musicStoryScreen"
       soundURL: ""
       isLooping: true
@@ -82,19 +94,21 @@ properties:
       playOnLoad: false
       initialVolume: 1.0
       allowMultiplay: false
+      soundGroup: music
+      replacementMethod: cut
       soundDefinitions:
         - soundName: "musicStoryScreenLoopLayer_01"
-          soundURL: "assets/sounds/music/musicStoryScreenLoopLayer_01.wav"
+          soundURL: "assets/sounds/music/musicStoryScreenLoopLayer_01.ogg"
           isLooping: true
           allowMultiplay: false
           initialVolume: 1.0
         - soundName: "musicStoryScreenLoopLayer_02"
-          soundURL: "assets/sounds/music/musicStoryScreenLoopLayer_02.wav"
+          soundURL: "assets/sounds/music/musicStoryScreenLoopLayer_02.ogg"
           isLooping: true
           allowMultiplay: false
           initialVolume: 1.0
         - soundName: "musicStoryScreenLoopLayer_03"
-          soundURL: "assets/sounds/music/musicStoryScreenLoopLayer_03.wav"
+          soundURL: "assets/sounds/music/musicStoryScreenLoopLayer_03.ogg"
           isLooping: true
           allowMultiplay: false
           initialVolume: 1.0
