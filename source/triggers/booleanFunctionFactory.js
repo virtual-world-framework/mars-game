@@ -124,6 +124,30 @@ this.clauseSet.hasObject = function( params, context, callback ) {
     };
 }
 
+this.clauseSet.onMoved = function( params, context, callback ) {
+    if ( !params || ( params.length !== 1 ) ) {
+        self.logger.errorx( "onMoved", "this clause requires " +
+                            "one argument: the obect." );
+    }
+
+    var object = self.findInContext( context, params[ 0 ] );
+    var hasMoved = false;
+
+    onClauseCallbackWarning( callback );
+    if ( callback ) {
+        object.moved = self.events.add( function() {
+                                            hasMoved = true;
+                                            callback();
+                                        } );
+    }
+
+    return function() {
+        var retVal = hasMoved;
+        hasMoved = false;
+        return retVal;
+    };
+}
+
 this.clauseSet.moveFailed = function( params, context, callback ) {
     if ( !params || ( params.length < 1 ) || ( params.length > 2 ) ) {
         self.logger.errorx( "moveFailed", "This clause requires " + 
@@ -436,6 +460,38 @@ this.clauseSet.doOnce = function( params, context, callback ) {
         wasDone = true;
         return retVal;
     };
+}
+
+this.clauseSet.blocklyLineEval = function( params, context, callback ) {
+    if ( !params || params.length !== 1 || 
+         !params[ 0 ].length || !params[ 0 ].length === 2 ) {
+        self.logger.errorx( "blocklyLineEval", "This clause requires an array " +
+                            "with the x,y position you want to check against.");
+        return undefined;
+    }
+
+    var targetPos = params[ 0 ];
+
+    // TODO: should we not hardcode the name?
+    var blocklyLine = self.findInContext( context, "blocklyLine" );
+    if ( !blocklyLine ) {
+        self.logger.errorx( "blocklyLineEval", "Line not found!" );
+        return undefined;
+    }
+
+    if ( callback ) {
+        context.blocklyContentChanged = self.events.add( function() {
+                                                            callback();
+                                                        } );
+    }
+
+    return function() {
+        var x = targetPos[ 0 ];
+        var actualPos = blocklyLine.evaluateLineAtPoint( [ x ] );
+
+        return ( targetPos [ 0 ] === actualPos[ 0 ] ) &&
+               ( targetPos [ 1 ] === actualPos[ 1 ] );
+    }
 }
 
 function onClauseCallbackWarning( callback ) {

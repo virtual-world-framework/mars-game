@@ -1,11 +1,11 @@
 ---
 extends: source/scenario/scenario.vwf
 properties:
+  scenarioName: scenario1
+
   scenePath: /
   nextScenarioPath: "scenario2"
   blockly: assets/scenario/scenario1.xml
-
-  scenarioName: scenario1
 
   startState:
   - setProperty:
@@ -138,19 +138,6 @@ properties:
       actions:
       - playSound:
         - L1VO3_Rover
-
-    playL1VO4_Rover:
-      triggerCondition:
-      - not:
-        - isAtPosition:
-          - rover
-          - 8
-          - 2
-      additionalCondition:
-      - doOnce:
-      actions:
-      - playSound:
-        - L1VO4_Rover
 
     startRoverSounds:
       triggerCondition:

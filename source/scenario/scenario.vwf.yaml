@@ -18,7 +18,7 @@ properties:
     addToInventory:
 
     addToGrid:
-    
+
     createGraph:
 
   # These are the standard properties that every scenario should define

@@ -1,10 +1,11 @@
 ---
 extends: source/scenario/scenario.vwf
 properties:
-  scenePath: /
-  blockly: assets/scenario/scenario1.xml
-
   scenarioName: scenario2
+
+  scenePath: /
+  nextScenarioPath: "scenario2"
+  blockly: assets/scenario/scenario1.xml
 
   startState:
   - setProperty:
@@ -39,53 +40,33 @@ properties:
 
   - addToGrid:
     - rover
-    - [ 15, 0 ]
+    - [ 15, 1 ]
 
   - createGraph:
 
   - addToGrid:
     - blocklyGraph
-    - [ 15, 0 ]
+    - [ 15, 1 ]
 
-  # triggers:
-  #   succeedOnSuccess:
-  #     triggerCondition:
-  #     - onBlocklyStopped:
-  #       - rover
-  #     additionalCondition:
-  #     - and:
-  #       - isAtPosition:
-  #         - rover
-  #         - 8
-  #         - 15
-  #       - hasObject:
-  #         - rover
-  #         - radio
-  #     actions:
-  #     - scenarioSuccess:
+  triggers:
+      failOnMove:
+        triggerCondition:
+        - onMoved:
+          - rover
+        actions:
+        - scenarioFailure:
+          - "You need to plot the course of the wayward rover before going to find it!"
 
-  #   failOnMoveFailed:
-  #     triggerCondition:
-  #     - moveFailed:
-  #       - rover
-  #     actions:
-  #     - scenarioFailure:
-
-  #   failOnIncompleteProgram:
-  #     triggerCondition:
-  #     - onBlocklyStopped:
-  #     additionalCondition:
-  #     - not:
-  #       - and:
-  #         - isAtPosition:
-  #           - rover
-  #           - 15
-  #           - 7
-  #         - hasObject:
-  #           - rover
-  #           - radio
-  #     actions:
-  #     - scenarioFailure:
+      succeedOnSuccessfulCoursePlot:
+        triggerCondition:
+        - and:
+          - blocklyLineEval:
+            - [ 10, -5 ]
+          - blocklyLineEval:
+            - [ -16, 8 ]
+        actions:
+        - scenarioSuccess:
+          - "Course plotted!  Now to find the little guy."
 
 children:
   grid:
@@ -100,17 +81,17 @@ children:
       boundaryValues:
       - [  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1 ]
       - [  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1 ]
-      - [  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  2,  2,  2,  2 ]
-      - [  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1 ]
-      - [  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1 ]
-      - [  1,  1,  4,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1 ]
-      - [  1,  1,  2,  2,  2,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1 ]
-      - [  1,  1,  2,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1 ]
-      - [  1,  1,  1,  4,  4,  4,  4,  2,  2,  2,  2,  2,  2,  2,  2,  1 ]
       - [  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1 ]
       - [  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1 ]
       - [  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1 ]
       - [  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1 ]
-      - [  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  2,  1,  1,  1 ]
-      - [  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  2,  1,  1,  1 ]
+      - [  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1 ]
+      - [  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1 ]
+      - [  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1 ]
+      - [  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1 ]
+      - [  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1 ]
+      - [  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1 ]
+      - [  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1 ]
+      - [  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1 ]
+      - [  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1 ]
       - [  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1 ]
