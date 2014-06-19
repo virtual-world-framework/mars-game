@@ -7,6 +7,8 @@ var blocklyExecuting = false;
 var targetPath = undefined;
 var mainRover = undefined;
 var blocklyGraphID = undefined;
+var alertNodeID = undefined;
+var statusNodeID = undefined;
 
 
 function onRun() {
@@ -86,7 +88,6 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 break;
 
             case "scenarioReset":
-
             case "scenarioChanged":
                 removePopup();
                 resetStatusDisplay();
@@ -190,8 +191,16 @@ vwf_view.createdNode = function( nodeID, childID, childExtendsID, childImplement
     } else if ( isLoggerNode( protos ) ) {
         loggerNodes[ childID ] = {
             "ID": childID, 
-            "name": childName            
-        } 
+            "name": childName,
+            "logger_maxLogs": 1,
+            "logger_lifeTime": 1000
+        }
+
+        if ( childName === "status" ) {
+            statusNodeID = childID;
+        } else if ( childName === "alerts" ) {
+            alertNodeID = childID;
+        }
     }
 
 }
@@ -305,6 +314,19 @@ vwf_view.satProperty = function( nodeID, propertyName, propertyValue ) {
         }
     }
 
+    var loggerNode = loggerNodes[ nodeID ];
+    if ( loggerNode ) {
+        switch ( propertyName ) {
+
+            case "logger_maxLogs":
+                loggerNode[ propertyName ] = parseFloat( propertyValue );
+                break;
+
+            case "logger_lifeTime":
+                loggerNode[ propertyName ] = parseFloat( propertyValue );
+                break;
+        }
+    }
 }
 
 function setUp( renderer, scene, camera ) {

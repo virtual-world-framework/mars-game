@@ -1,16 +1,14 @@
 var statusDisplayWrapper = document.createElement( "div" );
-var maxStatuses = 4;
 var lastStatus;
 var duplicateStatusCount;
 
 var alertDisplayWrapper = document.createElement( "div" );
-var maxAlerts = 1;
 var lastAlert;
 
 function setUpStatusDisplay() {
 
     statusDisplayWrapper.id = "statusDisplayWrapper";
-    for ( var i = 0; i < maxStatuses; i++ ) {
+    for ( var i = 0; i < 4; i++ ) {
         var statusText = document.createElement( "div" );
         statusText.className = "statusText";
         statusText.innerHTML = "<br />";
@@ -23,7 +21,7 @@ function setUpStatusDisplay() {
     lastStatus = "";
 
     alertDisplayWrapper.id = "alertDisplayWrapper";
-    for ( var i = 0; i < maxAlerts; i++ ) {
+    for ( var i = 0; i < loggerNodes[ alertNodeID ].logger_maxLogs; i++ ) {
         var alertText = document.createElement( "div" );
         alertText.className = "alertText";
         alertText.innerHTML = "<br />";
@@ -42,6 +40,7 @@ function resetStatusDisplay() {
         statusDisplayWrapper.children[ i ].innerHTML = "<br />";
     }
 
+    lastAlert = "";
     for ( var i = 0; i < alertDisplayWrapper.children.length; i++ ) {
         alertDisplayWrapper.children[ i ].innerHTML = "<br />";
     }
@@ -54,12 +53,20 @@ function pushToDisplay( type, message ) {
     var maxDisplayTime;
     var stackLength;
 
+    var pushAttribute;
+    var pushAnimation = {};
+    var originalPos;
+
     if ( type === "status" ) {
+
+        if ( !statusNodeID ) {
+            return undefined;
+        }
 
         displayWrapperSelector = "#statusDisplayWrapper";
         textSelector = ".statusText";
-        maxDisplayTime = 5000;
-        stackLength = maxStatuses;
+        maxDisplayTime = loggerNodes[ statusNodeID ].logger_lifeTime;
+        stackLength = 4;
 
         // Add "x#" to duplicate status messages
         if ( message === lastStatus ) {
@@ -71,36 +78,44 @@ function pushToDisplay( type, message ) {
             duplicateStatusCount = 1;
         }
 
+        originalPos = $( displayWrapperSelector ).css( "bottom" );
+        pushAttribute = "bottom";        
+        pushAnimation[ pushAttribute ] = '+=' + $( textSelector ).css( "font-size" );
+
     } else if ( type === "alerts" ) {
+
+        if ( !alertNodeID ) {
+            return undefined;
+        }
 
         displayWrapperSelector = "#alertDisplayWrapper";
         textSelector = ".alertText";
-        maxDisplayTime = 10000;
-        stackLength = maxAlerts;
+        maxDisplayTime = loggerNodes[ alertNodeID ].logger_lifeTime;
+        stackLength = loggerNodes[ alertNodeID ].logger_maxLogs;
         if ( message === lastAlert ) {
             statusFadeComplete( type, textSelector, maxDisplayTime );
             return undefined;
         }
         lastAlert = message;
+
+        originalPos = $( displayWrapperSelector ).css( "top" );
+        pushAttribute = "top";
+        pushAnimation[ pushAttribute ] = '-=' + $( textSelector ).css( "font-size" );
     }
 
     //Pushes older messages up
-    var bottomDistance = $( displayWrapperSelector ).css( "bottom" );
-    $( displayWrapperSelector ).animate( {
-
-        'bottom' : '+=' + $( textSelector ).css( "font-size" )
-        
-    }, "fast", function() {
+    $( displayWrapperSelector ).animate( pushAnimation, "fast", 
+    function() {
         var text = document.createElement( "div" );
         text.className = textSelector.slice( 1, textSelector.length );
         text.innerHTML = message;
         text.style.opacity = 1;
         $( displayWrapperSelector ).append( text );
         $( displayWrapperSelector ).children( "div:first" ).remove();
-        $( displayWrapperSelector ).css( "bottom", bottomDistance );
+        $( displayWrapperSelector ).css( pushAttribute, originalPos );
     } );
 
-    // Fades out statuses by opacityDecrease when pushed up, otherwise fades out entirely
+    // Fades out statuses by opacityDecrease when pushed up
     var opacityDecrease = ( 1 / stackLength );
     $( textSelector ).stop( true, false ).animate( {
 

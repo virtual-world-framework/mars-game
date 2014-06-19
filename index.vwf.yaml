@@ -183,12 +183,14 @@ children:
   alerts:
     extends: http://vwf.example.com/logger.vwf
     properties:
-      logger_maxLength: 4
+      logger_maxLogs: 1
+      logger_lifeTime: 10000
       logger_logs: []
   status:
     extends: http://vwf.example.com/logger.vwf
     properties:
-      logger_maxLength: 4
+      logger_maxLogs: 4
+      logger_lifeTime: 5000
       logger_logs: []
 scripts: 
  - source: source/scene.js
