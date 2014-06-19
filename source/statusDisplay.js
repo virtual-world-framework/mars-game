@@ -93,6 +93,7 @@ function pushToDisplay( type, message ) {
         maxDisplayTime = loggerNodes[ alertNodeID ].logger_lifeTime;
         stackLength = loggerNodes[ alertNodeID ].logger_maxLogs;
         if ( message === lastAlert ) {
+            $( textSelector ).css( 'opacity', 1 );
             statusFadeComplete( type, textSelector, maxDisplayTime );
             return undefined;
         }
