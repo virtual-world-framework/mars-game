@@ -14,13 +14,13 @@ properties:
       replacementMethod: cut
       soundDefinitions:
         - soundName: "musicStandardGameplayLoopLayer_01"
-          soundURL: "assets/sounds/music/musicStandardGameplayLoopLayer_01.wav"
+          soundURL: "assets/sounds/music/musicStandardGameplayLoopLayer_01.ogg"
           isLooping: true
           fadeIn: true
           allowMultiplay: false
           initialVolume: 0.4
         - soundName: "musicStandardGameplayLoopLayer_02"
-          soundURL: "assets/sounds/music/musicStandardGameplayLoopLayer_02.wav"
+          soundURL: "assets/sounds/music/musicStandardGameplayLoopLayer_02.ogg"
           isLooping: true
           fadeIn: true
           allowMultiplay: false
