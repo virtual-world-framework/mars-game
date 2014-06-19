@@ -132,86 +132,107 @@ properties:
     - soundName: "L1VO1_Rover"
       soundURL: "assets/sounds/VO/L1VO1_Rover_m.mp3"
       soundGroup: VO
+      subtitle: "Where am I? Who am I? I appear to be on Mars. I have wheels, a computer for a brain, and a battery. Hmm…if I had to guess I would say that I’m a rover!"
       groupReplacementMethod: queue
     - soundName: "L1VO2_Rover"
       soundURL: "assets/sounds/VO/L1VO2_Rover_m.mp3"
       soundGroup: VO
+      subtitle: "I need to relearn the basics. I remember this is my internal interface to my programming…"
       groupReplacementMethod: queue
     - soundName: "L1VO3_Rover"
       soundURL: "assets/sounds/VO/L1VO3_Rover_m.mp3"
       soundGroup: VO
+      subtitle: "Whoa…I need to watch my power level. Every forward move I make uses some, and I don’t have much left."
       groupReplacementMethod: queue
     - soundName: "L1VO4_Rover"
       soundURL: "assets/sounds/VO/L1VO4_Rover_m.mp3"
       soundGroup: VO
+      subtitle: ""
       groupReplacementMethod: queue
     - soundName: "L1VO5_Rover"
       soundURL: "assets/sounds/VO/L1VO5_Rover_m.mp3"
       soundGroup: VO
+      subtitle: "OK, got that worked out. Now I need to find my radio and call home."
       groupReplacementMethod: queue
     - soundName: "L1VO6_Control"
       soundURL: "assets/sounds/VO/L1VO6_Control_f.mp3"
       soundGroup: VO
+      subtitle: "COMPUTER SAYS NO!…Just kidding. Wow! You’re still active. This is PAL 10K, your AI Mission Controller…here are the deets. You are a super advanced self-learning rover that we sent to Mars to prepare a Base for our pets- I mean Human Explorers, who are hurtling toward you at a gagillgion meters per second per second. Anyhoo, something went wrong during your atmosphere entry procedure and your vehicle and all your mission equipment have been scattered over a significant fraction of the planet’s surface. So that’s problem number one. Problem number two: we have lost contact with the humans. The good news is you can restore contact with them from your end. The bad news is there is third problem: You are missing 99.9% of your brain."
       groupReplacementMethod: queue
     - soundName: "L2VO1_Control"
       soundURL: "assets/sounds/VO/L2VO1_Control_f.mp3"
       soundGroup: VO
+      subtitle: "OK, here is the deal. You need to find another Rover that has wandered off somewhere. Navigate around and look for a sign of its whereabouts."
       groupReplacementMethod: queue
     - soundName: "L2VO2_Rover"
       soundURL: "assets/sounds/VO/L2VO2_Rover_m.mp3"
       soundGroup: VO
+      subtitle: "I see the lost rover’s tracks. Now I need to plot a course to match its course."
       groupReplacementMethod: queue
     - soundName: "L2VO3_Rover"
       soundURL: "assets/sounds/VO/L2VO3_Rover_m.mp3"
       soundGroup: VO
+      subtitle: "I need to match course, got to find a function that matches these tracks."
       groupReplacementMethod: queue
     - soundName: "L3VO1_Control"
       soundURL: "assets/sounds/VO/L3VO1_Control_f.mp3"
       soundGroup: VO
+      subtitle: "Great! You’ve found the course of the lost rover. Now we need to find out the distance to it, so that you check how much power you need to get there. Them, we will need to find out the angle between your current heading the lost rover. Let’s start with the distance. I’m beaming a new program for you to use."
       groupReplacementMethod: queue
     - soundName: "L3VO2_Control"
       soundURL: "assets/sounds/VO/L3VO2_Control_f.mp3"
       soundGroup: VO
+      subtitle: "This new program will help you. If you enter in 2 coordinates, it will give you the distance between those points on the line, also known as a segment of the line."
       groupReplacementMethod: queue
     - soundName: "L3VO3_Rover"
       soundURL: "assets/sounds/VO/L3VO3_Rover_m.mp3"
       soundGroup: VO
+      subtitle: "If I know the distance, I should be able to work out how much power I need to get there."
       groupReplacementMethod: queue
     - soundName: "L3VO3a_Rover"
       soundURL: "assets/sounds/VO/L3VO3a_Rover_m.mp3"
       soundGroup: VO
+      subtitle: "I have enough power to reach the lost rover!"
       groupReplacementMethod: queue
     - soundName: "L3VO3b_Rover"
       soundURL: "assets/sounds/VO/L3VO3b_Rover_m.mp3"
       soundGroup: VO
+      subtitle: "I don’t have enough power to get there…I need to find more battery packs."
       groupReplacementMethod: queue
     - soundName: "L3VO4_Control"
       soundURL: "assets/sounds/VO/L3VO4_Control_f.mp3"
       soundGroup: VO
+      subtitle: "Now you know how far away the rover is, but you will never reach it unless you are heading in the right direction. You need to reprogram your movement program to set you on the right heading."
       groupReplacementMethod: queue
     - soundName: "L3VO5_Rover"
       soundURL: "assets/sounds/VO/L3VO5_Rover_m.mp3"
       soundGroup: VO
+      subtitle: "I’m on the right track, now I need to find the heading to navigate."
       groupReplacementMethod: queue
     - soundName: "L3VO6_Control"
       soundURL: "assets/sounds/VO/L3VO6_Control_f.mp3"
       soundGroup: VO
+      subtitle: "OK! I’m beaming a program to help with that too! It will help you determine the changes in direction you will need to take in order to reach the lost Rover. Plug in the coordinates and solve for m. m is the slope of the graph."
       groupReplacementMethod: queue
     - soundName: "L3VO7_Control"
       soundURL: "assets/sounds/VO/L3VO7_Control_f.mp3"
       soundGroup: VO
+      subtitle: "Great! Now we need to make a movement program for you that moves you there. Let’s take what you have, solve for Y, and use that for the movement program you need to make."
       groupReplacementMethod: queue
     - soundName: "L3VO8_Control"
       soundURL: "assets/sounds/VO/L3VO8_Control_f.mp3"
       soundGroup: VO
+      subtitle: "Here's a clue, you can click on where the graph meets the Y axis to get the value for b, which is the Y intercept."
       groupReplacementMethod: queue
     - soundName: "L3VO9_Control"
       soundURL: "assets/sounds/VO/L3VO9_Control_f.mp3"
       soundGroup: VO
+      subtitle: "Great job! Now we need to repeat this over and over until you get to the Rover, and to check to see if you have reached it. For this you will need some new blocks: loops and conditionals."
       groupReplacementMethod: queue
     - soundName: "L3VO10_Control"
       soundURL: "assets/sounds/VO/L3VO10_Control_f.mp3"
       soundGroup: VO
+      subtitle: "Yay! We found it!"
       groupReplacementMethod: queue
 methods:
 children:
