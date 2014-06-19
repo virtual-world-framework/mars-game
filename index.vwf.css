@@ -165,11 +165,13 @@
 
 .statusText {
     color: #fff;
-/*    font-family: "Arial Black", Gadget, sans-serif;
-*/    font-size: 16px;
-    font-family: arial;
+    font-family: "Arial Black", Gadget, sans-serif;
+    font-size: 16px;
     opacity: 1;
     z-index: 3;
+    width: 70%;
+    margin: 0 auto;
+    overflow: hidden;
 }
 
 .alertText {
@@ -179,6 +181,9 @@
     font-style: bold;
     opacity: 1;
     z-index: 3;
+    width: 70%;
+    margin: 0 auto;
+    overflow: hidden;
 }
 
 #statusDisplayWrapper {
@@ -186,6 +191,8 @@
     position: absolute;
     bottom: 120px;
     width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
     pointer-events: none;
     user-select: none;
     -webkit-user-select: none;  /* Chrome all / Safari all */
@@ -199,6 +206,8 @@
     position: absolute;
     top: 50px;
     width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
     pointer-events: none;
     user-select: none;
     -webkit-user-select: none;  /* Chrome all / Safari all */
