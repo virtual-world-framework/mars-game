@@ -21,6 +21,10 @@ properties:
     - blockly_allowedBlocks
     - 16
 
+  - setSceneProperty:
+    - blockly_activeNodeID
+    - undefined
+
   # TODO: Simplify heading/rotation
   # Set initial rotation using heading
   # Currently, moveLeft & moveRight in rover.js
@@ -49,24 +53,45 @@ properties:
     - [ 15, 1 ]
 
   triggers:
-      failOnMove:
-        triggerCondition:
-        - onMoved:
-          - rover
-        actions:
-        - scenarioFailure:
-          - "You need to plot the course of the wayward rover before going to find it!"
+    failOnMove:
+      triggerCondition:
+      - onMoved:
+        - rover
+      actions:
+      - scenarioFailure:
+        - "You need to plot the course of the wayward rover before going to find it."
 
-      succeedOnSuccessfulCoursePlot:
-        triggerCondition:
-        - and:
-          - blocklyLineEval:
-            - [ 10, -5 ]
-          - blocklyLineEval:
-            - [ -16, 8 ]
-        actions:
-        - scenarioSuccess:
-          - "Course plotted!  Now to find the little guy."
+    succeedOnSuccessfulCoursePlot:
+      triggerCondition:
+      - and:
+        - blocklyLineEval:
+          - [ 10, -5 ]
+        - blocklyLineEval:
+          - [ -16, 8 ]
+      actions:
+      - scenarioSuccess:
+        - "Course plotted!  Now to find the little guy."
+
+    playStartingSounds:
+      triggerCondition:
+      - onScenarioStart:
+      actions:
+      - playSound:
+        - L2VO1_Control
+      - delay:
+        - 0.5
+        - playSound:
+          - L2VO2_Rover
+
+    playL2VO3_Rover:
+      triggerCondition:
+      - onBlocklyWindowOpened:
+        - graph
+      additionalCondition:
+      - doOnce:
+      actions:
+      - playSound:
+        - L2VO3_Rover
 
 children:
   grid:
