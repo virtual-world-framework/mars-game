@@ -47,6 +47,7 @@ properties:
   currentGridSquare: [ 0, 0 ]
   heading: 90
   terrainName: undefined
+  displayName: undefined
 methods:
   findAndSetCurrentGrid:
   moveForward:
