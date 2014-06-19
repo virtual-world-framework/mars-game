@@ -71,7 +71,7 @@ this.moveForward = function() {
                     }
                 }
                 if ( scene ) {
-                    scene.addStatus( this.name + " is moving forward" );
+                    scene.addStatus( this.displayName + " is moving forward" );
                 }
                 this.moved();
             } else {
@@ -90,7 +90,7 @@ this.turnLeft = function() {
         this.heading -= 360;
     }
     if ( scene ) {
-        scene.addStatus( this.name + " is turning left" );
+        scene.addStatus( this.displayName + " is turning left" );
     }    
     this.rotateBy( [ 0, 0, 1, 90 ], 1 );
 }
@@ -102,7 +102,7 @@ this.turnRight = function() {
         this.heading += 360;
     }
     if ( scene ) {
-        scene.addStatus( this.name + " is turning right" );
+        scene.addStatus( this.displayName + " is turning right" );
     }
     this.rotateBy( [ 0, 0, 1, -90 ], 1 );
 }
@@ -191,9 +191,9 @@ this.ramChanged = function( value ) {
     if ( scene !== undefined && scene.alerts ) {
         if ( value < this.lowRam ) {
             if ( value <= 0 ) {
-                scene.alerts.addLog( this.name + " is Out of Memory" );
+                scene.alerts.addLog( this.displayName + " is Out of Memory" );
             } else {
-                scene.alerts.addLog( this.name + " is Low on Memory" );
+                scene.alerts.addLog( this.displayName + " is Low on Memory" );
             }
         }
     }
@@ -204,9 +204,9 @@ this.batteryChanged = function( value ) {
     if ( scene !== undefined && scene.alerts ) {
         if ( value < this.lowBattery ) {
             if ( value <= 0 ) {
-                scene.alerts.addLog( this.name + " is Out of Power" );
+                scene.alerts.addLog( this.displayName + " is Out of Power" );
             } else {
-                scene.alerts.addLog( this.name + " is Low on Power" );
+                scene.alerts.addLog( this.displayName + " is Low on Power" );
             }
         }
     }
@@ -217,7 +217,7 @@ this.moveFailed = function( value ) {
     if ( scene !== undefined && scene.alerts ) {
         switch( value ) {
             case 'collision':
-                scene.alerts.addLog( this.name + " is Blocked" );
+                scene.alerts.addLog( this.displayName + " is Blocked" );
                 break;
         }
     }

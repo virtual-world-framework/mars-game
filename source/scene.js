@@ -91,7 +91,8 @@ this.createMiniRover = function() {
                 "blocklyEnabled": false,
                 "currentGridSquare": [ 2, 10 ],
                 "heading": 270,
-                "terrainName": "environment"
+                "terrainName": "environment",
+                "displayName": "Minirover"
             }
         };
 
