@@ -1,0 +1,25 @@
+---
+extends: http://vwf.example.com/particlesystem.vwf
+properties:
+  translation: [ 0, 0, 0 ]
+  minVelocity: [ -0.025, -0.025, 0 ]
+  maxVelocity: [ -0.03, -0.03, 0 ]
+  startSize: 15
+  endSize: 15
+  maxLifeTime: 600
+  minLifeTime: 400
+  startColor: [ 0.85, 0.55, 0.25, 0.15]
+  endColor: [ 0.85, 0.55, 0.25, 0.01]
+  additive: true
+  particleCount: 250
+  maxSpin: -7
+  minSpin: -15
+  emitterType: box
+  emitterSize: [ 100, 100, 0.25 ]
+  image: "assets/images/dust_bits.png"
+  depthWrite: false
+methods:
+  update:
+  changeDirection:
+scripts:
+  - source: source/dustSystem.js  
