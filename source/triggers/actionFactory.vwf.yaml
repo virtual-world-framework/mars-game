@@ -28,5 +28,9 @@ properties:
     showCommsDisplay:
     hideCommsDisplay:
 
+    # delays for a fixed time, and then plays one or more actions
+    # arguments: delay, action(s)
+    delay:
+
 scripts:
 - source: source/triggers/actionFactory.js

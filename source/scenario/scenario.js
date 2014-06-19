@@ -60,7 +60,7 @@ this.completed = function() {
 }
 
 this.startStateParamSet.setProperty = function( params, context ) {
-    if ( !params || ( params.length != 3 ) ) {
+    if ( !params || ( params.length !== 3 ) ) {
         self.logger.errorx( "setProperty", 
                             "The setProperty condition requires three " +
                             "arguments: the object name, the property name, " +
@@ -74,6 +74,21 @@ this.startStateParamSet.setProperty = function( params, context ) {
 
     var object = self.startStateExecutor.findInContext( context, objectName );
     object[ propertyName ] = value;
+}
+
+this.startStateParamSet.setSceneProperty = function( params, context ) {
+    if ( !params || ( params.length !== 2 ) ) {
+        self.logger.errorx( "setSceneProperty", 
+                            "The setSceneProperty condition requires two " +
+                            "arguments: the property name and the property " +
+                            "value." );
+        return undefined;
+    }
+
+    var propertyName = params[ 0 ];
+    var value = params[ 1 ];
+    
+    context[ propertyName ] = value;
 }
 
 this.startStateParamSet.emptyInventory = function( params, context ) { 
