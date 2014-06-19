@@ -96,6 +96,35 @@ this.actionSet.hideCommsDisplay = function( params, context ) {
     }
 }
 
+this.actionSet.delay = function( params, context ) {
+    if ( params && ( params.length < 2 ) ) {
+        self.logger.errorx( "delay", "This action takes two parameters: delay and action(s).");
+        return undefined;
+    }
+
+    var delay = params[ 0 ];
+    if ( delay <= 0 ) {
+        self.logger.errorx( "delay", "The delay must be positive." );
+        return undefined;
+    }
+
+    var actions = [];
+    for (var i = 1; i < params.length; ++i ) {
+        var action = self.executeFunction( params[ i ], context );
+        actions.push( action );
+    }
+
+    if ( actions.length === 0 ) {
+        return undefined;
+    }
+
+    return function() {
+        for ( var i = 0; i < actions.length; ++i ) {
+            setTimeout( actions[ i ], delay );
+        }
+    }
+}
+
 function getScenario( context ) {
     if ( context.getCurrentScenario ){
         return context.getCurrentScenario();

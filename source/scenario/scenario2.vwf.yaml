@@ -78,8 +78,10 @@ properties:
       actions:
       - playSound:
         - L2VO1_Control
-      - playSound:
-        - L2VO2_Rover
+      - delay:
+        - 0.5
+        - playSound:
+          - L2VO2_Rover
 
     playL2VO3_Rover:
       triggerCondition:
