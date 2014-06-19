@@ -167,7 +167,7 @@ children:
   scenario3:
     extends: source/scenario/scenario3.vwf
   blocklyGraph:
-    extends: http://vwf.example.com/graph.vwf
+    extends: http://vwf.example.com/graphtool/graph.vwf
     implements: "source/griddable.vwf"
     properties:
       graphScale: 3
@@ -181,7 +181,7 @@ children:
       renderTop: true
     children:
       blocklyLine:
-        extends: http://vwf.example.com/graphline.vwf
+        extends: http://vwf.example.com/graphtool/graphlinefunction.vwf
         properties:
           lineFunction:
             set: |
