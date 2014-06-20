@@ -67,35 +67,39 @@ properties:
       soundGroup: music
       groupReplacementMethod: duck
     - soundName: "uiBlockyBobbleAppear"
-      soundURL: "assets/sounds/sfx/uiBlockyBobbleAppear_02.wav"
-      initialVolume: 1.0
+      soundURL: "assets/sounds/sfx/uiBlockyBobbleAppear_02.ogg"
     - soundName: "uiBlockyBobbleDisappear"
-      soundURL: "assets/sounds/sfx/uiBlockyBobbleDisappear_02.wav"
-      initialVolume: 1.0
+      soundURL: "assets/sounds/sfx/uiBlockyBobbleDisappear_02.ogg"
     - soundName: "uiBlockyBlockExecute"
-      soundURL: "assets/sounds/sfx/uiBlockyBlockExecute_02.wav"
-      initialVolume: 1.0
+      soundURL: "assets/sounds/sfx/uiBlockyBlockExecute_02.ogg"
     - soundName: "uiBlockyBlockTapSelect"
-      soundURL: "assets/sounds/sfx/uiBlockyBlockTapSelect_01.wav"
-      initialVolume: 1.0
+      soundURL: "assets/sounds/sfx/uiBlockyBlockTapSelect_01.ogg"
+    - soundName: "uiBlockyBlockTrash"
+      soundURL: "assets/sounds/sfx/uiBlockyBlockTrash_02.ogg"
     - soundName: "uiTapObjectSelected"
-      soundURL: "assets/sounds/sfx/uiTapObjectSelected_02.wav"
-      initialVolume: 1.0
+      soundURL: "assets/sounds/sfx/uiTapObjectSelected_02.ogg"
     - soundName: "uiScreenTransition"
-      soundURL: "assets/sounds/sfx/uiScreenTransition_01.wav"
-      initialVolume: 1.0
+      soundURL: "assets/sounds/sfx/uiScreenTransition_01.ogg"
     - soundName: "uiNegativeFeedback"
-      soundURL: "assets/sounds/sfx/uiNegativeFeedback_02.wav"
-      initialVolume: 1.0
+      soundURL: "assets/sounds/sfx/uiNegativeFeedback_02.ogg"
     - soundName: "uiRestart"
-      soundURL: "assets/sounds/sfx/uiRestart_01.wav"
-      initialVolume: 1.0
+      soundURL: "assets/sounds/sfx/uiRestart_01.ogg"
     - soundName: "uiLowBattery"
-      soundURL: "assets/sounds/sfx/uiLowBattery_01.wav"
-      initialVolume: 1.0
+      soundURL: "assets/sounds/sfx/uiLowBattery_01.ogg"
     - soundName: "uiLowRam"
-      soundURL: "assets/sounds/sfx/uiLowRam_01.wav"
-      initialVolume: 1.0
+      soundURL: "assets/sounds/sfx/uiLowRam_01.ogg"
+    - soundName: "uiGoalAchieved"
+      soundURL: "assets/sounds/sfx/uiGoalAchieved_01.ogg"
+    - soundName: "uiRadioContactEstablished"
+      soundURL: "assets/sounds/sfx/uiRadioContactEstablished_01.ogg"
+    - soundName: "objectRadioStatic"
+      soundURL: "assets/sounds/sfx/objectRadioStatic_01.ogg"
+    - soundName: "objectSoundCollision"
+      soundURL: "assets/sounds/sfx/objectSoundCollision_03.ogg"
+    - soundName: "objectPickupObjectSound"
+      soundURL: "assets/sounds/sfx/objectPickupObjectSound_01.ogg"
+    - soundName: "objectDropObjectSound"
+      soundURL: "assets/sounds/sfx/objectDropObjectSound_01.ogg"
     - soundName: "roverSounds"
       soundURL: ""
       isLooping: true
@@ -108,6 +112,22 @@ properties:
           isLayered: false
           initialVolume: 1.0
         - soundName: "objectRoverMovementGroundCrunch"
+          soundURL: "assets/sounds/sfx/objectRoverMovementGroundCrunch_01.wav"
+          isLooping: true
+          isLayered: false
+          initialVolume: 1.0
+    - soundName: "miniRoverSounds"
+      soundURL: ""
+      isLooping: true
+      isLayered: true
+      initialVolume: 1.0
+      soundDefinitions:
+        - soundName: "objectMiniRoverMotor"
+          soundURL: "assets/sounds/sfx/objectRoverMotor_04.wav"
+          isLooping: true
+          isLayered: false
+          initialVolume: 1.0
+        - soundName: "objectMiniRoverMovementGroundCrunch"
           soundURL: "assets/sounds/sfx/objectRoverMovementGroundCrunch_01.wav"
           isLooping: true
           isLayered: false
