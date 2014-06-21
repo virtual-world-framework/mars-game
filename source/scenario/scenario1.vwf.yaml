@@ -139,6 +139,16 @@ properties:
       - playSound:
         - L1VO3_Rover
 
+    playL1VO5_Rover:
+      triggerCondition:
+      - onMoved:
+        - rover
+      additionalCondition:
+      - doOnce:
+      actions:
+      - playSound:
+        - L1VO5_Rover
+
     startRoverSounds:
       triggerCondition:
       - onBlocklyStarted:
