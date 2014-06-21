@@ -14,15 +14,17 @@ function setUpBlocklyPeripherals() {
         drag: function( event, element ) {
             var width = element.helper.context.clientWidth;
             var height = element.helper.context.clientHeight;
-            if ( element.position.left < width / 2 ) {
-                element.position.left = width / 2;
-            } else if ( element.position.left > window.innerWidth - width / 2 ) {
-                element.position.left = window.innerWidth - width / 2;
+            var offscreenAllowanceWidth = width * 0.85;
+            var offscreenAllowanceHeight = height * 0.95;
+            if ( element.position.left < width / 2 - offscreenAllowanceWidth ) {
+                element.position.left = width / 2 - offscreenAllowanceWidth;
+            } else if ( element.position.left > window.innerWidth - width / 2 + offscreenAllowanceWidth ) {
+                element.position.left = window.innerWidth - width / 2 + offscreenAllowanceWidth;
             }
             if ( element.position.top < height / 2 ) {
                 element.position.top = height / 2;
-            } else if ( element.position.top > window.innerHeight - height / 2 ) {
-                element.position.top = window.innerHeight - height / 2;
+            } else if ( element.position.top > window.innerHeight - height / 2 + offscreenAllowanceHeight) {
+                element.position.top = window.innerHeight - height / 2 + offscreenAllowanceHeight;
             }
         }
     } );
