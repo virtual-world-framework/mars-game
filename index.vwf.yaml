@@ -47,6 +47,10 @@ children:
         properties:
           castShadows: true
           receiveShadows: true
+      roverTracks:
+        extends: http://vwf.example.com/node3.vwf
+        source: assets/3d/Terrain/rover_tracks_straight.dae
+        type: model/vnd.collada+xml
   backdrop:
     extends: http://vwf.example.com/node3.vwf
     source: assets/3d/Terrain/backdrop.dae
