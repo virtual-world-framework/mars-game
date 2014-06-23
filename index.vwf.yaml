@@ -51,6 +51,8 @@ children:
         extends: http://vwf.example.com/node3.vwf
         source: assets/3d/Terrain/rover_tracks_straight.dae
         type: model/vnd.collada+xml
+        properties:
+          translation: [ 0, 1, 0 ]
   backdrop:
     extends: http://vwf.example.com/node3.vwf
     source: assets/3d/Terrain/backdrop.dae
