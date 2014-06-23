@@ -1,10 +1,13 @@
 var self;
+var blackboard;
 
 this.initialize = function() {
     self = this;
 
     self.functionSets = [];
     self.addFunctionSet(self.clauseSet);
+    blackboard = {};
+
 }
 
 this.clauseSet.and = function( params, context, callback ) {
@@ -479,6 +482,29 @@ this.clauseSet.doOnce = function( params, context, callback ) {
         var retVal = !wasDone;
         wasDone = true;
         return retVal;
+    };
+}
+
+this.clauseSet.doOnceEver = function( params, context, callback ) {
+    if ( !params ) {
+        self.logger.warnx( "doOnceEver", "This clause needs a parameter to check" );
+    }
+
+    if ( callback ) {
+        self.logger.warnx( "doOnceEver", "This clause can't do anything with a callback." );
+    }
+    
+    return function() {
+
+    var blackboardVal = 'doOnceEver' + params[ 0 ];
+
+        if ( !!blackboard[ blackboardVal ] ){
+            return false;
+        }else{
+            blackboard[ blackboardVal ] = true;
+            return true;
+        }
+
     };
 }
 

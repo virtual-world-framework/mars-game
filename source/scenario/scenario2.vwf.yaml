@@ -75,6 +75,9 @@ properties:
     playStartingSounds:
       triggerCondition:
       - onScenarioStart:
+      additionalCondition:
+      - doOnceEver:
+        - L2Start
       actions:
       - playSound:
         - L2VO1_Control
@@ -88,7 +91,8 @@ properties:
       - onBlocklyWindowOpened:
         - graph
       additionalCondition:
-      - doOnce:
+      - doOnceEver:
+        - L2VO3
       actions:
       - playSound:
         - L2VO3_Rover

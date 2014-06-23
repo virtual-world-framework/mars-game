@@ -68,6 +68,11 @@ properties:
     # arguments: none
     doOnce:
 
+    #Do once ever - this takes a string as an argument and returns true only the
+    #   first time it is checked but persists across clearing of triggers using
+    #   a blackboard to store values.
+    doOnceEver:
+
     # Checks to see if the graph passes through a particular x,y point
     # arguments: an x,y array
     blocklyLineEval:
