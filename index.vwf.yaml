@@ -152,6 +152,8 @@ children:
     extends: source/scenario/scenario1.vwf
   scenario2:
     extends: source/scenario/scenario2.vwf
+  scenario3:
+    extends: source/scenario/scenario3.vwf
   blocklyGraph:
     extends: http://vwf.example.com/graph.vwf
     implements: "source/griddable.vwf"

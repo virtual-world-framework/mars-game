@@ -16,6 +16,12 @@ function createHUD() {
     graphButton.onMouseDown = toggleGraphDisplay;
     hud.add( graphButton, "right", "bottom", { "x": -94, "y": -30 } );
 
+    var helpButton = new HUD.Element( "helpButton", drawIcon, 24, 24 );
+    helpButton.icon = new Image();
+    helpButton.icon.src = "assets/hud/help_small.png";
+    helpButton.onMouseDown = showHelp;
+    hud.add( helpButton, "right", "top", { "x": -8, "y": 8 } );
+
     createInventoryHUD( 4 );
 
     hideCommsDisplay();
@@ -69,21 +75,21 @@ function createCameraSelector() {
     firstPersonBtn.icon.src = "assets/hud/camera_firstperson.png";
     firstPersonBtn.mode = "firstPerson";
     firstPersonBtn.onMouseDown = selectCameraMode;
-    hud.add( firstPersonBtn, "right", "top", { "x": -62, "y": 32 } );
+    hud.add( firstPersonBtn, "right", "top", { "x": -53, "y": 32 } );
 
     var thirdPersonBtn = new HUD.Element( "camera_thirdPerson", drawIcon, 22, 22 );
     thirdPersonBtn.icon = new Image();
     thirdPersonBtn.icon.src = "assets/hud/camera_thirdperson.png";
     thirdPersonBtn.mode = "thirdPerson";
     thirdPersonBtn.onMouseDown = selectCameraMode;
-    hud.add( thirdPersonBtn, "right", "top", { "x": -35, "y": 52 } );
+    hud.add( thirdPersonBtn, "right", "top", { "x": -34, "y": 54 } );
 
     var topDownBtn = new HUD.Element( "camera_topDown", drawIcon, 22, 22 );
     topDownBtn.icon = new Image();
     topDownBtn.icon.src = "assets/hud/camera_topdown.png";
     topDownBtn.mode = "topDown";
     topDownBtn.onMouseDown = selectCameraMode;
-    hud.add( topDownBtn, "right", "top", { "x": -38, "y": 84 } );
+    hud.add( topDownBtn, "right", "top", { "x": -35, "y": 80 } );
 
 }
 
@@ -141,6 +147,8 @@ function createInventoryHUD( capacity ) {
     inventory.slots = slots;
     inventory.capacity = capacity;
     inventory.type = "inventory";
+    inventory.label = new Image();
+    inventory.label.src = "assets/hud/inventory_label.png";
     hud.add( inventory, "center", "bottom", { "x": 0, "y": -30 } );
 
     var leftEnd = new Image();
@@ -241,9 +249,14 @@ function drawBatteryMeter( context, position ) {
     var end = start - ( battery / maxBattery ) * Math.PI * 2;
 
     context.beginPath();
+    context.arc( center.x, center.y, arcWidth, 0, 2 * Math.PI, false );
+    context.fillStyle = "rgba(50,90,150,0.5)";
+    context.fill();
+
+    context.beginPath();
     context.arc( center.x, center.y, arcWidth / 2, start, end, true );
     context.lineWidth = arcWidth - 1;
-    context.strokeStyle = "rgb(70,120,255)";
+    context.strokeStyle = "rgb(50,130,255)";
     context.stroke();
 
     if ( this.portrait ) {
@@ -325,6 +338,8 @@ function drawInventory( context, position ) {
     var elementWidth = this.capacity * iconSize + ( this.capacity - 1 ) * separatorWidth;
     var startPosition = position.x;
 
+    context.drawImage( this.label, position.x + this.width / 2 - this.label.width / 2, position.y + 56 );
+
     if ( this.leftEnd ) {
         context.drawImage( this.leftEnd, position.x, position.y );
         startPosition += this.leftEnd.width;
@@ -358,7 +373,7 @@ function drawInventory( context, position ) {
 
         } else {
 
-            context.fillStyle = "rgb(50,90,220)";
+            context.fillStyle = "rgb(50,90,150)";
             context.fillRect( posX, posY + 5, iconSize, iconSize - 10 );
 
         }
@@ -395,6 +410,24 @@ function switchTarget( event ) {
 function selectCameraMode( event ) {
     var cameraNode = vwf_view.kernel.find( "", "//camera" )[ 0 ];
     vwf_view.kernel.setProperty( cameraNode, "pointOfView", this.mode );
+}
+
+function showHelp( event ) {
+    var help = document.createElement( "DIV" );
+    help.id = "helpscreen";
+    help.style.backgroundColor = "rgb(0,0,0)"
+    help.style.backgroundImage = "url('assets/images/introScreens/screen3.png')";
+    help.style.backgroundRepeat = "no-repeat";
+    help.style.backgroundSize = "contain";
+    help.style.backgroundPosition = "center center";
+    help.style.position = "absolute";
+    help.style.width = "100%";
+    help.style.height = "100%";
+    help.onclick = ( function() {
+        var dialog = document.getElementById( "helpscreen" );
+        document.body.removeChild( dialog );
+    } );
+    document.body.appendChild( help );
 }
 
 //@ sourceURL=source/hudInstructions.js

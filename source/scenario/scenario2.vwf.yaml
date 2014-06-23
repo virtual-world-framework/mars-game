@@ -4,7 +4,7 @@ properties:
   scenarioName: scenario2
 
   scenePath: /
-  nextScenarioPath: "scenario2"
+  nextScenarioPath: "scenario3"
   blockly: assets/scenario/scenario1.xml
 
   startState:
@@ -19,7 +19,7 @@ properties:
   - setProperty:
     - rover
     - blockly_allowedBlocks
-    - 16
+    - 30
 
   - setSceneProperty:
     - blockly_activeNodeID

@@ -1,11 +1,15 @@
+body {
+    overflow: hidden;
+}
+
 #blocklyWrapper {
     width: 560px;
-    height: 500px;
+    height: 800px;
     position: absolute;
     top: 50%;
     left: 50%;
     margin-left: -280px;
-    margin-top: -250px;
+    margin-top: -400px;
     background-color: #fff;
     border-radius: 10px;
     visibility: hidden;
@@ -24,10 +28,10 @@
 }
 
 #blocklyDiv {
-	height: 400px;
-	width: 560px;
-	overflow: hidden;
-	opacity: 1;
+    height: 700px;
+    width: 560px;
+    overflow: hidden;
+    opacity: 1;
     border-top: 3px solid rgb( 0, 40, 120 );
     border-bottom: 3px solid rgb( 0, 40, 120 );
 
@@ -36,7 +40,7 @@
 #runButton {
     height: 32px;
     width: 64px;
-	background: url( "assets/images/blockly_ui/run_button.png" );
+    background: url( "assets/images/blockly_ui/run_button.png" );
     text-indent: 100%;
     white-space: nowrap;
     overflow: hidden;
@@ -117,7 +121,7 @@
 }
 
 #ramBarCount {
-    width: 32px;
+    width: 100%;
     height: 32px;
     color: #fff;
     font-size: 24px;
@@ -127,6 +131,7 @@
     top: -32px;
     margin-left: auto;
     margin-right: auto;
+    text-align: center;
 }
 
 #blocklyCloseBtn {
