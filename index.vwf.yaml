@@ -212,5 +212,7 @@ children:
       logger_maxLogs: 4
       logger_lifeTime: 5000
       logger_logs: []
+    scripts:
+    - source: source/loggerHelper.js
 scripts: 
  - source: source/scene.js

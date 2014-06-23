@@ -191,9 +191,9 @@ this.ramChanged = function( value ) {
     if ( scene !== undefined && scene.alerts ) {
         if ( value < this.lowRam ) {
             if ( value <= 0 ) {
-                scene.alerts.addLog( this.displayName + " is Out of Memory" );
+                scene.addAlert( this.displayName + " is Out of Memory" );
             } else {
-                scene.alerts.addLog( this.displayName + " is Low on Memory" );
+                scene.addAlert( this.displayName + " is Low on Memory" );
             }
         }
     }
@@ -204,9 +204,9 @@ this.batteryChanged = function( value ) {
     if ( scene !== undefined && scene.alerts ) {
         if ( value < this.lowBattery ) {
             if ( value <= 0 ) {
-                scene.alerts.addLog( this.displayName + " is Out of Power" );
+                scene.addAlert( this.displayName + " is Out of Power" );
             } else {
-                scene.alerts.addLog( this.displayName + " is Low on Power" );
+                scene.addAlert( this.displayName + " is Low on Power" );
             }
         }
     }
@@ -217,7 +217,7 @@ this.moveFailed = function( value ) {
     if ( scene !== undefined && scene.alerts ) {
         switch( value ) {
             case 'collision':
-                scene.alerts.addLog( this.displayName + " is Blocked" );
+                scene.addAlert( this.displayName + " is Blocked" );
                 break;
         }
     }
