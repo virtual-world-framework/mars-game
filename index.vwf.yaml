@@ -171,7 +171,11 @@ children:
       blocklyLine:
         extends: http://vwf.example.com/graphline.vwf
         properties:
-          lineFunction: undefined
+          lineFunction:
+            set: |
+              this.lineFunction = value;
+              this.lineGraphed();
+            value: undefined
           startValue: -64
           endValue: 64
           pointCount: 400
@@ -179,6 +183,8 @@ children:
           lineThickness: 0.15
           renderTop: true
           visible: false
+        events:
+          lineGraphed:
     scripts: |
       this.initialize = function() {
         this.future( 0 ).setGraphVisibility( false );

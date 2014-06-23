@@ -500,9 +500,9 @@ this.clauseSet.blocklyLineEval = function( params, context, callback ) {
     }
 
     if ( callback ) {
-        context.blocklyContentChanged = self.events.add( function() {
-                                                            callback();
-                                                        } );
+        blocklyLine.lineGraphed = self.events.add( function() {
+                                                    callback();
+                                                } );
     }
 
     return function() {
