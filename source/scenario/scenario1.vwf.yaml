@@ -122,7 +122,10 @@ properties:
       triggerCondition:
       - onBlocklyWindowOpened:
       additionalCondition:
-      - doOnce:
+      - and:
+        - doOnce:
+        - doOnceEver:
+          - VO2
       actions:
       - playSound:
         - L1VO2_Rover
@@ -134,7 +137,10 @@ properties:
         - add
         - rover_moveForward
       additionalCondition:
-      - doOnce:
+      - and:
+        - doOnce:
+        - doOnceEver:
+          - VO3
       actions:
       - playSound:
         - L1VO3_Rover
@@ -144,7 +150,10 @@ properties:
       - onMoved:
         - rover
       additionalCondition:
-      - doOnce:
+      - and:
+        - doOnce:
+        - doOnceEver:
+          - VO5
       actions:
       - playSound:
         - L1VO5_Rover
