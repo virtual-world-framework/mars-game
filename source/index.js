@@ -448,4 +448,37 @@ function updateBlocklyUI( blocklyNode ) {
     }
 }
 
+function blinkTab( nodeID ) {
+    var tab = document.getElementById( nodeID );
+    var time, lastBlinkTime, rafID, oldClickHandler;
+    var blinkInterval = 0.25;
+
+    var blink = function() {
+        time = vwf_view.kernel.time();
+        lastBlinkTime = lastBlinkTime || time;
+        if ( time - lastBlinkTime > blinkInterval ) {
+            tab.style.opacity = "0.5";
+
+            if ( time - lastBlinkTime > blinkInterval * 2 ) {
+                lastBlinkTime = time;
+            }
+        } else {
+            tab.style.opacity = "1";
+        }
+
+        rafID = requestAnimationFrame( blink );
+    }
+
+    if ( tab && tab.className.indexOf( "blocklyTab" ) !== -1 ) {
+        rafID = requestAnimationFrame( blink );
+        oldClickHandler = tab.onclick;
+        tab.onclick = ( function( event ) {
+            tab.style.opacity = "1";
+            cancelAnimationFrame( rafID );
+            oldClickHandler.bind( tab )( event );
+            tab.onclick = oldClickHandler;
+        } );
+    }
+}
+
 //@ sourceURL=source/index.js
