@@ -75,21 +75,21 @@ function createCameraSelector() {
     firstPersonBtn.icon.src = "assets/hud/camera_firstperson.png";
     firstPersonBtn.mode = "firstPerson";
     firstPersonBtn.onMouseDown = selectCameraMode;
-    hud.add( firstPersonBtn, "right", "top", { "x": -62, "y": 32 } );
+    hud.add( firstPersonBtn, "right", "top", { "x": -53, "y": 32 } );
 
     var thirdPersonBtn = new HUD.Element( "camera_thirdPerson", drawIcon, 22, 22 );
     thirdPersonBtn.icon = new Image();
     thirdPersonBtn.icon.src = "assets/hud/camera_thirdperson.png";
     thirdPersonBtn.mode = "thirdPerson";
     thirdPersonBtn.onMouseDown = selectCameraMode;
-    hud.add( thirdPersonBtn, "right", "top", { "x": -35, "y": 52 } );
+    hud.add( thirdPersonBtn, "right", "top", { "x": -34, "y": 54 } );
 
     var topDownBtn = new HUD.Element( "camera_topDown", drawIcon, 22, 22 );
     topDownBtn.icon = new Image();
     topDownBtn.icon.src = "assets/hud/camera_topdown.png";
     topDownBtn.mode = "topDown";
     topDownBtn.onMouseDown = selectCameraMode;
-    hud.add( topDownBtn, "right", "top", { "x": -38, "y": 84 } );
+    hud.add( topDownBtn, "right", "top", { "x": -35, "y": 80 } );
 
 }
 
@@ -247,9 +247,14 @@ function drawBatteryMeter( context, position ) {
     var end = start - ( battery / maxBattery ) * Math.PI * 2;
 
     context.beginPath();
+    context.arc( center.x, center.y, arcWidth, 0, 2 * Math.PI, false );
+    context.fillStyle = "rgba(50,90,150,0.5)";
+    context.fill();
+
+    context.beginPath();
     context.arc( center.x, center.y, arcWidth / 2, start, end, true );
     context.lineWidth = arcWidth - 1;
-    context.strokeStyle = "rgb(70,120,255)";
+    context.strokeStyle = "rgb(50,90,220)";
     context.stroke();
 
     if ( this.portrait ) {
@@ -364,7 +369,7 @@ function drawInventory( context, position ) {
 
         } else {
 
-            context.fillStyle = "rgb(50,90,220)";
+            context.fillStyle = "rgb(50,90,150)";
             context.fillRect( posX, posY + 5, iconSize, iconSize - 10 );
 
         }

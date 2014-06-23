@@ -49,7 +49,7 @@ function setUpBlocklyPeripherals() {
 function updateBlocklyRamBar() {
     if ( currentBlocklyNodeID ) {
         currentRam.style.width = ramBar.clientWidth * ( blocklyNodes[ currentBlocklyNodeID ].ram / blocklyNodes[ currentBlocklyNodeID ].ramMax ) + "px";
-        ramBarCount.innerHTML = blocklyNodes[ currentBlocklyNodeID ].ram;
+        ramBarCount.innerHTML = "RAM: " + blocklyNodes[ currentBlocklyNodeID ].ram;
     }
 }
 
