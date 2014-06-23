@@ -147,6 +147,8 @@ function createInventoryHUD( capacity ) {
     inventory.slots = slots;
     inventory.capacity = capacity;
     inventory.type = "inventory";
+    inventory.label = new Image();
+    inventory.label.src = "assets/hud/inventory_label.png";
     hud.add( inventory, "center", "bottom", { "x": 0, "y": -30 } );
 
     var leftEnd = new Image();
@@ -254,7 +256,7 @@ function drawBatteryMeter( context, position ) {
     context.beginPath();
     context.arc( center.x, center.y, arcWidth / 2, start, end, true );
     context.lineWidth = arcWidth - 1;
-    context.strokeStyle = "rgb(50,90,220)";
+    context.strokeStyle = "rgb(50,130,255)";
     context.stroke();
 
     if ( this.portrait ) {
@@ -335,6 +337,8 @@ function drawInventory( context, position ) {
     var separatorWidth = this.separator ? this.separator.width : 1;
     var elementWidth = this.capacity * iconSize + ( this.capacity - 1 ) * separatorWidth;
     var startPosition = position.x;
+
+    context.drawImage( this.label, position.x + this.width / 2 - this.label.width / 2, position.y + 56 );
 
     if ( this.leftEnd ) {
         context.drawImage( this.leftEnd, position.x, position.y );
