@@ -76,7 +76,8 @@ properties:
         - rover
         - collision
       actions:
-      - scenarioFailure:        
+      - scenarioFailure:
+        - collision
         - "Your navigation program is blocked by an obstacle!"
 
     failOnBatteryDepleted:
@@ -86,6 +87,7 @@ properties:
         - battery
       actions:
       - scenarioFailure:         
+        - battery
         - "You have run out of battery!"
 
     failOnIncompleteProgram:
@@ -110,6 +112,7 @@ properties:
             - battery
       actions:
       - scenarioFailure:
+        - incomplete
         - "You didn't reach the destination!"
 
     blinkBlocklyIcon:

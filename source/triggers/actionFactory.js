@@ -22,16 +22,18 @@ this.actionSet.scenarioSuccess = function( params, context ) {
 }
 
 this.actionSet.scenarioFailure = function( params, context ) {
-    if ( params && ( params.length > 1 ) ) {
-        self.logger.warnx( "scenarioFailure", "This action takes one optional argument: a message to display." );
+    if ( params && ( params.length > 2 ) ) {
+        self.logger.warnx( "scenarioFailure", "This action takes two optional arguments: " +
+                            "the type of failure, and a message to display." );
         return undefined;
     }
 
-    var message = params ? params[ 0 ] : undefined;
+    var type = params[ 0 ];
+    var message = params ? params[ 1 ] : undefined;
 
     return function() {
         var scenario = getScenario( context );
-        scenario && scenario.failed( message );
+        scenario && scenario.failed( type, message );
     }
 }
 
