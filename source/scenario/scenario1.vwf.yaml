@@ -93,14 +93,21 @@ properties:
       - onBlocklyStopped:
       additionalCondition:
       - not:
-        - and:
-          - isAtPosition:
+        - or:
+          - and:
+            - isAtPosition:
+              - rover
+              - 8
+              - 16
+            - hasObject:
+              - rover
+              - radio
+          - moveFailed:
             - rover
-            - 8
-            - 16
-          - hasObject:
+            - collision
+          - moveFailed:
             - rover
-            - radio
+            - battery
       actions:
       - scenarioFailure:
         - "You didn't reach the destination!"
