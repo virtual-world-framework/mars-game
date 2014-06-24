@@ -19,7 +19,7 @@ body {
 }
 
 #blocklyWrapper-top {
-    height: 40px;
+    height: 48px;
     user-select: none;
     -webkit-user-select: none;  /* Chrome all / Safari all */
     -moz-user-select: none;     /* Firefox all */
@@ -88,15 +88,25 @@ body {
 }
 
 #blocklyHandle {
-    height: 12px;
+    height: 24px;
+    width: 100%;
     position: absolute;
-    top: 0;
-    right: 32px;
-    left: 32px;
+    top: 0px;
+    left: 0px;
+    background-image: url( "assets/images/blockly_ui/drag_handle_bg.png" );
+    background-repeat: repeat-x;
+    background-color: rgb( 50, 90, 150 );
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+}
+
+#blocklyHandleIcon {
+    height: 24px;
     background-image: url( "assets/images/blockly_ui/drag_handle.png" );
-    background-position: center;
     background-repeat: no-repeat;
-    background-color: rgb( 50, 90, 220 );
+    background-position: center;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 #ramBar {
@@ -135,12 +145,17 @@ body {
 }
 
 #blocklyCloseBtn {
-    width: 24px;
+    width: 32px;
     height: 24px;
     background-image: url( "assets/images/blockly_ui/close_button.png" );
     position: absolute;
-    top: 8px;
-    right: 4px;
+    top: 0px;
+    right: 0px;
+    border-top-right-radius: 8px;
+}
+
+#blocklyCloseBtn.hover {
+    background-image: url( "assets/images/blockly_ui/close_button_hover.png" );
 }
 
 #popupDiv {
