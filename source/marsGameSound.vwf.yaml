@@ -60,12 +60,8 @@ properties:
           initialVolume: 1.0
     - soundName: "musicFailure"
       soundURL: "assets/sounds/music/musicFailure_01.ogg"
-      soundGroup: music
-      groupReplacementMethod: duck
     - soundName: "musicSuccess"
       soundURL: "assets/sounds/music/musicSuccess_01.ogg"
-      soundGroup: music
-      groupReplacementMethod: duck
     - soundName: "uiBlockyBobbleAppear"
       soundURL: "assets/sounds/sfx/uiBlockyBobbleAppear_02.wav"
       initialVolume: 1.0
@@ -117,17 +113,20 @@ properties:
       isLooping: true
       isLayered: true
       playOnLoad: false
+      allowMultiplay: false
       initialVolume: 1.0
       soundDefinitions:
         - soundName: "environmentWind_01"
           soundURL: "assets/sounds/sfx/environmentWind_01.wav"
           isLooping: true
           isLayered: false
+          allowMultiplay: false
           initialVolume: 1.0
         - soundName: "environmentWind_02"
           soundURL: "assets/sounds/sfx/environmentWind_02.wav"
           isLooping: true
           isLayered: false
+          allowMultiplay: false
           initialVolume: 1.0
     - soundName: "L1VO1_Rover"
       soundURL: "assets/sounds/VO/L1VO1_Rover_m.mp3"
@@ -147,7 +146,6 @@ properties:
     - soundName: "L1VO4_Rover"
       soundURL: "assets/sounds/VO/L1VO4_Rover_m.mp3"
       soundGroup: VO
-      subtitle: ""
       groupReplacementMethod: queue
     - soundName: "L1VO5_Rover"
       soundURL: "assets/sounds/VO/L1VO5_Rover_m.mp3"

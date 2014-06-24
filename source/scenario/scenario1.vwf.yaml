@@ -69,6 +69,12 @@ properties:
         - "You have picked up the radio!"
       - playSound:
         - L1VO6_Control
+      - playSound:
+        - musicSuccess
+      - stopSound:
+        - musicFailure
+      - stopSound:
+        - musicStandardGameplay
 
     failOnCollision:
       triggerCondition:
@@ -76,9 +82,14 @@ properties:
         - rover
         - collision
       actions:
-      - scenarioFailure:
-        - collision
+      - scenarioFailure:        
         - "Your navigation program is blocked by an obstacle!"
+      - playSound:
+        - musicFailure
+      - stopSound:
+        - musicSuccess
+      - stopSound:
+        - musicStandardGameplay
 
     failOnBatteryDepleted:
       triggerCondition:
@@ -87,70 +98,83 @@ properties:
         - battery
       actions:
       - scenarioFailure:         
-        - battery
         - "You have run out of battery!"
+      - playSound:
+        - musicFailure
+      - stopSound:
+        - musicSuccess
+      - stopSound:
+        - musicStandardGameplay
 
     failOnIncompleteProgram:
       triggerCondition:
       - onBlocklyStopped:
       additionalCondition:
       - not:
-        - or:
-          - and:
-            - isAtPosition:
-              - rover
-              - 8
-              - 16
-            - hasObject:
-              - rover
-              - radio
-          - moveFailed:
+        - and:
+          - isAtPosition:
             - rover
-            - collision
-          - moveFailed:
+            - 8
+            - 16
+          - hasObject:
             - rover
-            - battery
+            - radio
       actions:
       - scenarioFailure:
-        - incomplete
         - "You didn't reach the destination!"
+      - playSound:
+        - musicFailure
+      - stopSound:
+        - musicSuccess
+      - stopSound:
+        - musicStandardGameplay
 
-    blinkBlocklyIcon:
+    stopIntroMusic:
       triggerCondition:
       - onScenarioStart:
-      actions:
-      - blinkHUDElement:
-        - blocklyButton
-
-    stopBlinkBlocklyIcon:
-      triggerCondition:
-      - onBlocklyWindowOpened:
       additionalCondition:
-      - doOnce:
+      - not:
+        - readBlackboard:
+          - musicStoryScreen
       actions:
-      - stopBlinkHUDElement:
-        - blocklyButton
+      - stopSound:
+        - musicStoryScreen
+      - playSound:
+        - environmentWind
+      - writeToBlackboard:
+        - musicStoryScreen
 
     playStartingSounds:
       triggerCondition:
       - onScenarioStart:
       actions:
-      - stopSound:
-        - musicStoryScreen
       - playSound:
         - musicStandardGameplay
-      - playSound:
-        - environmentWind
+
+    playL1VO1_Rover:
+      triggerCondition:
+      - onScenarioStart:
+      additionalCondition:
+      - and:
+        - not:
+          - readBlackboard:
+            - L1VO1
+        - doOnce:
+      actions:
       - playSound:
         - L1VO1_Rover
+      - writeToBlackboard:
+        - L1VO1
 
     playL1VO2_Rover:
       triggerCondition:
       - onBlocklyWindowOpened:
       additionalCondition:
-      - not:
-        - readBlackboard:
-          - L1VO2
+      - and:
+        - not:
+          - readBlackboard:
+            - L1VO2
+        - doOnce:
       actions:
       - playSound:
         - L1VO2_Rover
@@ -164,9 +188,11 @@ properties:
         - add
         - rover_moveForward
       additionalCondition:
-      - not:
-        - readBlackboard:
-          - L1VO3
+      - and:
+        - not:
+          - readBlackboard:
+            - L1VO3
+        - doOnce:
       actions:
       - playSound:
         - L1VO3_Rover
@@ -183,7 +209,6 @@ properties:
           - readBlackboard:
             - L1VO5
         - doOnce:
-
       actions:
       - playSound:
         - L1VO5_Rover
