@@ -72,5 +72,9 @@ properties:
     # arguments: an x,y array
     blocklyLineEval:
 
+    # Checks the sceneBlackboard for a given key
+    # arguments: variableName, optionally check value
+    readBlackboard:
+
 scripts:
 - source: source/triggers/booleanFunctionFactory.js

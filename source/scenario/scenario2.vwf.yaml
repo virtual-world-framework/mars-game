@@ -88,10 +88,14 @@ properties:
       - onBlocklyWindowOpened:
         - graph
       additionalCondition:
-      - doOnce:
+      - not:
+        - readBlackboard:
+          - L2VO3
       actions:
       - playSound:
         - L2VO3_Rover
+      - writeToBlackboard:
+        - L2VO3
 
 children:
   grid:
