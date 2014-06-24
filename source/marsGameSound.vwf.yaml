@@ -11,18 +11,19 @@ properties:
       initialVolume: 0.4
       allowMultiplay: false
       soundGroup: music
-      groupReplacementMethod: cut
       soundDefinitions:
         - soundName: "musicStandardGameplayLoopLayer_01"
           soundURL: "assets/sounds/music/musicStandardGameplayLoopLayer_01.ogg"
           isLooping: true
           fadeIn: true
+          soundGroup: music
           allowMultiplay: false
           initialVolume: 0.4
         - soundName: "musicStandardGameplayLoopLayer_02"
           soundURL: "assets/sounds/music/musicStandardGameplayLoopLayer_02.ogg"
           isLooping: true
           fadeIn: true
+          soundGroup: music
           allowMultiplay: false
           initialVolume: 0.4  
     - soundName: "musicMenuLoop"
@@ -32,7 +33,6 @@ properties:
       initialVolume: 1.0
       allowMultiplay: false
       soundGroup: music
-      groupReplacementMethod: cut
     - soundName: "musicStoryScreen"
       soundURL: ""
       isLooping: true
@@ -41,22 +41,24 @@ properties:
       initialVolume: 1.0
       allowMultiplay: false
       soundGroup: music
-      groupReplacementMethod: cut
       soundDefinitions:
         - soundName: "musicStoryScreenLoopLayer_01"
           soundURL: "assets/sounds/music/musicStoryScreenLoopLayer_01.ogg"
           isLooping: true
           allowMultiplay: false
+          soundGroup: music
           initialVolume: 1.0
         - soundName: "musicStoryScreenLoopLayer_02"
           soundURL: "assets/sounds/music/musicStoryScreenLoopLayer_02.ogg"
           isLooping: true
           allowMultiplay: false
+          soundGroup: music
           initialVolume: 1.0
         - soundName: "musicStoryScreenLoopLayer_03"
           soundURL: "assets/sounds/music/musicStoryScreenLoopLayer_03.ogg"
           isLooping: true
           allowMultiplay: false
+          soundGroup: music
           initialVolume: 1.0
     - soundName: "musicFailure"
       soundURL: "assets/sounds/music/musicFailure_01.ogg"
