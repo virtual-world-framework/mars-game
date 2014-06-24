@@ -6,8 +6,7 @@ function setUpIntro( imagePathArray ) {
         "div" : document.createElement( 'div' ),
         "image" : document.createElement( 'img' ),
         "imagePaths" : imagePathArray || new Array(),
-        "index" : -1,
-        "numberOfScreens" : imagePathArray.length || 0
+        "index" : -1
     };
 
     intro.div.id = "introScreen";
