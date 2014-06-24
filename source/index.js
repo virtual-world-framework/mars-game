@@ -13,6 +13,7 @@ var statusNodeID = undefined;
 
 function onRun() {
     vwf_view.kernel.setProperty( currentBlocklyNodeID, "blockly_executing", true );
+    vwf_view.kernel.setProperty( vwf_view.kernel.application(), "blockly_activeNodeID", undefined );
 }
 
 function onSetActive( btn ) {
