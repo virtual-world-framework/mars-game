@@ -60,12 +60,8 @@ properties:
           initialVolume: 1.0
     - soundName: "musicFailure"
       soundURL: "assets/sounds/music/musicFailure_01.ogg"
-      soundGroup: music
-      groupReplacementMethod: duck
     - soundName: "musicSuccess"
       soundURL: "assets/sounds/music/musicSuccess_01.ogg"
-      soundGroup: music
-      groupReplacementMethod: duck
     - soundName: "uiBlockyBobbleAppear"
       soundURL: "assets/sounds/sfx/uiBlockyBobbleAppear_02.wav"
       initialVolume: 1.0

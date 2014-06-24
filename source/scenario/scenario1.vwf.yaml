@@ -69,6 +69,10 @@ properties:
         - "You have picked up the radio!"
       - playSound:
         - L1VO6_Control
+      - stopSound:
+        - musicStandardGameplay
+      - playSound:
+        - musicSuccess
 
     failOnCollision:
       triggerCondition:
@@ -78,6 +82,10 @@ properties:
       actions:
       - scenarioFailure:        
         - "Your navigation program is blocked by an obstacle!"
+      - stopSound:
+        - musicStandardGameplay
+      - playSound:
+        - musicFailure
 
     failOnBatteryDepleted:
       triggerCondition:
@@ -87,6 +95,10 @@ properties:
       actions:
       - scenarioFailure:         
         - "You have run out of battery!"
+      - stopSound:
+        - musicStandardGameplay
+      - playSound:
+        - musicFailure
 
     failOnIncompleteProgram:
       triggerCondition:
@@ -111,6 +123,10 @@ properties:
       actions:
       - scenarioFailure:
         - "You didn't reach the destination!"
+      - stopSound:
+        - musicStandardGameplay
+      - playSound:
+        - musicFailure
 
     blinkBlocklyIcon:
       triggerCondition:
