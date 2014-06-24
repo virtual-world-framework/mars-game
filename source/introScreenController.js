@@ -1,24 +1,18 @@
 var intro;
 
-function setUpIntro() {
+function setUpIntro( imagePathArray ) {
 
     intro = {
         "div" : document.createElement( 'div' ),
         "image" : document.createElement( 'img' ),
-        "imagePaths" : [],
-        "index" : -1,
-        "numberOfScreens" : 4
+        "imagePaths" : imagePathArray || new Array(),
+        "index" : -1
     };
 
     intro.div.id = "introScreen";
     intro.div.onclick = nextIntroSlide;
 
     intro.image.className = "introImage";
-
-    var dir = "../assets/images/introScreens/";
-    for ( var i = 0; i < intro.numberOfScreens; i++ ) {
-        intro.imagePaths.push( dir + "screen" + i + ".png" );
-    }
 
     document.body.appendChild( intro.div );
     intro.div.appendChild( intro.image );
