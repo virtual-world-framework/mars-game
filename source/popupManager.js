@@ -38,6 +38,8 @@ function currentPopup() {
 function showFailScreen( type ) {
 
     if ( !currentFailScreen() ) {
+        var blocker = document.createElement( "div" );
+        blocker.id = "popupBlocker";        
         var failScreen = document.createElement( "div" );
         failScreen.id = "failScreen";
         console.log("type: "+type);
@@ -52,10 +54,11 @@ function showFailScreen( type ) {
             removeFailScreen();        
             resetScenario();
         }
-        $( "#transitionScreen" ).delay( 500 ).fadeIn( function() {
+
+        setTimeout( function() {
+            document.body.appendChild( blocker );
             document.body.appendChild( failScreen );
-            $( "#transitionScreen" ).fadeOut();
-        } );
+        }, 500 );     
     }
 }
 
@@ -67,6 +70,9 @@ function removeFailScreen() {
     var failScreen = currentFailScreen();
     if ( failScreen ) {
         document.body.removeChild( failScreen );
+
+        var blocker = document.getElementById( "popupBlocker" );
+        document.body.removeChild( blocker );
     }
 }
 
