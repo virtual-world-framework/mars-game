@@ -430,4 +430,41 @@ function showHelp( event ) {
     document.body.appendChild( help );
 }
 
+// Other functions
+
+function blinkElement( elementID ) {
+    var el = hud.elements[ elementID ];
+    if ( el ) {
+        el.currentDrawFunction = el.draw;
+        el.lastBlinkTime = vwf_view.kernel.time();
+        el.blinkInterval = 0.25;
+        el.blinkDuration = 0.25;
+        el.isBlinking = true;
+        el.draw = ( function( context, position ) {
+            var time = vwf_view.kernel.time();
+            if ( time  - this.lastBlinkTime > this.blinkInterval ) {
+                context.globalAlpha = 0.5;
+                
+                if ( time - this.lastBlinkTime > this.blinkInterval + this.blinkDuration ) {
+                    this.lastBlinkTime = time;
+                }
+            }
+            this.currentDrawFunction( context, position );
+            context.globalAlpha = 1;
+        } );
+    }
+}
+
+function stopElementBlinking( elementID ) {
+    var el = hud.elements[ elementID ];
+    if ( el.isBlinking ) {
+        el.draw = el.currentDrawFunction;
+        delete el.currentDrawFunction;
+        delete el.lastBlinkTime;
+        delete el.blinkInterval;
+        delete el.blinkDuration;
+        delete el.isBlinking;
+    }
+}
+
 //@ sourceURL=source/hudInstructions.js

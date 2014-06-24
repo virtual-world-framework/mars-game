@@ -91,6 +91,19 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 removePopup();
                 resetStatusDisplay();
                 break;
+
+            case "blinkHUD":
+                blinkElement( eventArgs[ 0 ] );
+                break;
+            case "stopBlinkHUD":
+                stopElementBlinking( eventArgs[ 0 ] );
+                break;
+            case "blinkTab":
+                blinkTab( eventArgs[ 0 ] );
+                break;
+            case "stopBlinkTab":
+                stopBlinkTab( eventArgs[ 0 ] );
+                break;
         } 
 
     } else if ( loggerNodes[ nodeID ] !== undefined ) { 
@@ -445,6 +458,45 @@ function advanceScenario() {
 function updateBlocklyUI( blocklyNode ) {
     if ( Blockly.mainWorkspace ) {
         Blockly.mainWorkspace.maxBlocks = blocklyNode.ramMax;
+    }
+}
+
+function blinkTab( nodeID ) {
+    var tab = document.getElementById( nodeID );
+    var time, lastBlinkTime, rafID, oldClickHandler;
+    var blinkInterval = 0.25;
+
+    var blink = function() {
+        time = vwf_view.kernel.time();
+        lastBlinkTime = lastBlinkTime || time;
+        if ( time - lastBlinkTime > blinkInterval ) {
+            tab.style.opacity = "0.5";
+
+            if ( time - lastBlinkTime > blinkInterval * 2 ) {
+                lastBlinkTime = time;
+            }
+        } else {
+            tab.style.opacity = "1";
+        }
+
+        rafID = requestAnimationFrame( blink );
+    }
+
+    if ( tab && tab.className.indexOf( "blocklyTab" ) !== -1 ) {
+        rafID = requestAnimationFrame( blink );
+        tab.stopBlink = ( function( event ) {
+            tab.style.opacity = "1";
+            cancelAnimationFrame( rafID );
+            delete tab.stopBlink;
+        } );
+    }
+}
+
+function stopBlinkTab( nodeID ) {
+    var tab = document.getElementById( nodeID );
+
+    if ( tab && tab.stopBlink ) {
+        tab.stopBlink();
     }
 }
 
