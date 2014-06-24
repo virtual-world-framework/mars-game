@@ -13,6 +13,7 @@ properties:
       this.setScenario( value );
       this.activeScenarioPath = value;
     value: "introScreenScenario"
+  sceneBlackboard: {}
 methods:
   setScenario:
   resetScenario:

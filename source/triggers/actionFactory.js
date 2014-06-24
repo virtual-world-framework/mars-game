@@ -125,6 +125,44 @@ this.actionSet.delay = function( params, context ) {
     }
 }
 
+
+this.actionSet.writeToBlackboard = function( params, context ) {
+
+    if ( params && ( params.length < 1 ) ) {
+        self.logger.errorx( "writeToBlackboard", "This action takes one parameter: variable name.");
+        return undefined;
+    }
+
+    var blackboard = context.sceneBlackboard;
+
+    return function() {
+        blackboard[ params[ 0 ] ] = 1;
+    }
+
+}
+
+this.actionSet.incrementBlackboardValue = function( params, context ) {
+
+    if ( params && ( params.length < 1 ) ) {
+        self.logger.errorx( "incrementBlackboardValue", "This action takes one parameter: variable name.");
+        return undefined;
+    }
+
+    var blackboard = context.sceneBlackboard;
+
+    return function() {
+        if ( !blackboard[ params[ 0 ] ] ){
+            blackboard[ params[ 0 ] ] = 1;
+        } else {
+            blackboard[ params[ 0 ] ] = blackboard[ params[ 0 ] ] + 1;
+        }
+        
+    }
+
+}
+
+
+
 function getScenario( context ) {
     if ( context.getCurrentScenario ){
         return context.getCurrentScenario();
