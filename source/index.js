@@ -36,6 +36,9 @@ function selectBlocklyTab( nodeID ) {
             tabs[ i ].className += " selected";
         }
     }
+
+    var showLine = ( nodeID === blocklyGraphID );
+    vwf_view.kernel.setProperty( graphLines[ "blocklyLine" ].ID, "visible", showLine );
 }
 
 window.addEventListener( "keyup", function (event) {
@@ -79,12 +82,7 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
             case "blocklyContentChanged":
                 if ( currentBlocklyNodeID !== undefined ) {
                     var currentCode = getBlocklyFunction();
-                    if ( currentCode !== undefined ) {
-                        this.kernel.setProperty( graphLines[ "blocklyLine" ].ID, "lineFunction", currentCode );
-                        vwf_view.kernel.setProperty( graphLines[ "blocklyLine" ].ID, "visible", true );
-                    } else {
-                        vwf_view.kernel.setProperty( graphLines[ "blocklyLine" ].ID, "visible", false );
-                    }
+                    this.kernel.setProperty( graphLines[ "blocklyLine" ].ID, "lineFunction", currentCode );
                 }
                 break;
 
