@@ -35,4 +35,39 @@ function currentPopup() {
     return document.getElementById( "popupDiv" );
 }
 
+function showFailScreen( type ) {
+
+    if ( !currentFailScreen() ) {
+        var failScreen = document.createElement( "div" );
+        failScreen.id = "failScreen";
+        console.log("type: "+type);
+        if ( type === "collision" ) {
+            failScreen.style.backgroundImage = "url('assets/images/failureScreens/fail_crash.jpg')";
+        } else if ( type === "battery" ) {
+            failScreen.style.backgroundImage = "url('assets/images/failureScreens/fail_no_power.jpg')";
+        } else if ( type === "incomplete" ) {
+            failScreen.style.backgroundImage = "url('assets/images/failureScreens/fail_lost.jpg')";        
+        }
+        failScreen.onclick = function() {
+            removeFailScreen();        
+            resetScenario();
+        }
+        $( "#transitionScreen" ).delay( 500 ).fadeIn( function() {
+            document.body.appendChild( failScreen );
+            $( "#transitionScreen" ).fadeOut();
+        } );
+    }
+}
+
+function currentFailScreen() {
+    return document.getElementById( "failScreen" );
+}
+
+function removeFailScreen() {
+    var failScreen = currentFailScreen();
+    if ( failScreen ) {
+        document.body.removeChild( failScreen );
+    }
+}
+
 //@ sourceURL=source/popupManager.js

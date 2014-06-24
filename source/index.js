@@ -89,6 +89,7 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
             case "scenarioReset":
             case "scenarioChanged":
                 removePopup();
+                removeFailScreen();
                 resetStatusDisplay();
                 break;
 
@@ -140,8 +141,11 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
 
         // nodeID is ignored here?
         if ( eventName === "failed" ) {
-            var message = eventArgs[ 0 ];
-            if ( message ) {
+            var type = eventArgs[ 0 ];
+            var message = eventArgs[ 1 ];
+            if ( type ) {
+                showFailScreen( type );
+            } else if ( message ) {
                 displayPopup( "failure", message );
             } else {
                 resetScenario();
