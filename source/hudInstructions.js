@@ -6,19 +6,19 @@ function createHUD() {
 
     var blocklyButton = new HUD.Element( "blocklyButton", drawIcon, 48, 48 );
     blocklyButton.icon = new Image();
-    blocklyButton.icon.src = "assets/hud/blockly_large.png";
+    blocklyButton.icon.src = "assets/images/hud/blockly_large.png";
     blocklyButton.onMouseDown = clickBlockly;
     hud.add( blocklyButton, "right", "bottom", { "x": -30, "y": -30 } );
 
     var graphButton = new HUD.Element( "graphButton", drawIcon, 48, 48 );
     graphButton.icon = new Image();
-    graphButton.icon.src = "assets/hud/graph_display.png";
+    graphButton.icon.src = "assets/images/hud/graph_display.png";
     graphButton.onMouseDown = toggleGraphDisplay;
     hud.add( graphButton, "right", "bottom", { "x": -94, "y": -30 } );
 
     var helpButton = new HUD.Element( "helpButton", drawIcon, 24, 24 );
     helpButton.icon = new Image();
-    helpButton.icon.src = "assets/hud/help_small.png";
+    helpButton.icon.src = "assets/images/hud/help_small.png";
     helpButton.onMouseDown = showHelp;
     hud.add( helpButton, "right", "top", { "x": -8, "y": 8 } );
 
@@ -37,11 +37,11 @@ function createRoverElement() {
     hud.add( batteryMeter, "left", "top", { "x": 30, "y": 30 } );
 
     batteryMeter.frame = new Image();
-    batteryMeter.frame.src = "assets/hud/rover_frame.png";
+    batteryMeter.frame.src = "assets/images/hud/rover_frame.png";
     batteryMeter.portrait = new Image();
-    batteryMeter.portrait.src = "assets/hud/rover_portrait.png";
+    batteryMeter.portrait.src = "assets/images/hud/rover_portrait.png";
     batteryMeter.selectedIcon = new Image();
-    batteryMeter.selectedIcon.src = "assets/hud/rover_select.png";
+    batteryMeter.selectedIcon.src = "assets/images/hud/rover_select.png";
 }
 
 function createMiniRoverElement() {
@@ -51,11 +51,11 @@ function createMiniRoverElement() {
     hud.add( miniroverElement, "left", "top", { "x": 50, "y": 168 } );
 
     miniroverElement.portrait = new Image();
-    miniroverElement.portrait.src = "assets/hud/minirover_portrait.png";
+    miniroverElement.portrait.src = "assets/images/hud/minirover_portrait.png";
     miniroverElement.frame = new Image();
-    miniroverElement.frame.src = "assets/hud/minirover_frame.png";
+    miniroverElement.frame.src = "assets/images/hud/minirover_frame.png";
     miniroverElement.selectedIcon = new Image();
-    miniroverElement.selectedIcon.src = "assets/hud/minirover_select.png";
+    miniroverElement.selectedIcon.src = "assets/images/hud/minirover_select.png";
 }
 
 function createCameraSelector() {
@@ -65,28 +65,28 @@ function createCameraSelector() {
         "icon": new Image(),
         "type": "thirdPerson"
     };
-    selector.activeMode.icon.src = "assets/hud/camera_thirdperson.png";
+    selector.activeMode.icon.src = "assets/images/hud/camera_thirdperson.png";
     selector.frame = new Image();
-    selector.frame.src = "assets/hud/camera_selector_frame.png";
+    selector.frame.src = "assets/images/hud/camera_selector_frame.png";
     hud.add( selector, "right", "top", { "x": -30, "y": 30 } );
 
     var firstPersonBtn = new HUD.Element( "camera_firstPerson", drawIcon, 22, 22 );
     firstPersonBtn.icon = new Image();
-    firstPersonBtn.icon.src = "assets/hud/camera_firstperson.png";
+    firstPersonBtn.icon.src = "assets/images/hud/camera_firstperson.png";
     firstPersonBtn.mode = "firstPerson";
     firstPersonBtn.onMouseDown = selectCameraMode;
     hud.add( firstPersonBtn, "right", "top", { "x": -53, "y": 32 } );
 
     var thirdPersonBtn = new HUD.Element( "camera_thirdPerson", drawIcon, 22, 22 );
     thirdPersonBtn.icon = new Image();
-    thirdPersonBtn.icon.src = "assets/hud/camera_thirdperson.png";
+    thirdPersonBtn.icon.src = "assets/images/hud/camera_thirdperson.png";
     thirdPersonBtn.mode = "thirdPerson";
     thirdPersonBtn.onMouseDown = selectCameraMode;
     hud.add( thirdPersonBtn, "right", "top", { "x": -34, "y": 54 } );
 
     var topDownBtn = new HUD.Element( "camera_topDown", drawIcon, 22, 22 );
     topDownBtn.icon = new Image();
-    topDownBtn.icon.src = "assets/hud/camera_topdown.png";
+    topDownBtn.icon.src = "assets/images/hud/camera_topdown.png";
     topDownBtn.mode = "topDown";
     topDownBtn.onMouseDown = selectCameraMode;
     hud.add( topDownBtn, "right", "top", { "x": -35, "y": 80 } );
@@ -99,11 +99,11 @@ function createCommsDisplay() {
     hud.add( commsElement, "left", "bottom", { "x": 30, "y": -30 } );
 
     var background = new Image();
-    background.src = "assets/hud/communication_bg.png";
+    background.src = "assets/images/hud/communication_bg.png";
     background.onload = ( function() { commsElement.background = background; } );
 
     var frame = new Image();
-    frame.src = "assets/hud/communication_frame.png";
+    frame.src = "assets/images/hud/communication_frame.png";
     frame.onload = ( function() { commsElement.frame = frame; } );
 
     commsElement.characterImage = new Image();
@@ -148,25 +148,25 @@ function createInventoryHUD( capacity ) {
     inventory.capacity = capacity;
     inventory.type = "inventory";
     inventory.label = new Image();
-    inventory.label.src = "assets/hud/inventory_label.png";
+    inventory.label.src = "assets/images/hud/inventory_label.png";
     hud.add( inventory, "center", "bottom", { "x": 0, "y": -30 } );
 
     var leftEnd = new Image();
-    leftEnd.src = "assets/hud/inventory_end_left.png";
+    leftEnd.src = "assets/images/hud/inventory_end_left.png";
     leftEnd.onload = ( function() { 
         inventory.leftEnd = leftEnd;
         inventory.width += leftEnd.width;
     } );
 
     var rightEnd = new Image();
-    rightEnd.src = "assets/hud/inventory_end_right.png";
+    rightEnd.src = "assets/images/hud/inventory_end_right.png";
     rightEnd.onload = ( function() { 
         inventory.rightEnd = rightEnd;
         inventory.width += rightEnd.width;
     } );
 
     var separator = new Image();
-    separator.src = "assets/hud/inventory_separator.png";
+    separator.src = "assets/images/hud/inventory_separator.png";
     separator.onload = ( function() { 
         inventory.separator = separator;
         inventory.width += ( capacity - 1 ) * separator.width;
