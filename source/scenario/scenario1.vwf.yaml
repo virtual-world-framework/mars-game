@@ -112,6 +112,22 @@ properties:
       - scenarioFailure:
         - "You didn't reach the destination!"
 
+    blinkBlocklyIcon:
+      triggerCondition:
+      - onScenarioStart:
+      actions:
+      - blinkHUDElement:
+        - blocklyButton
+
+    stopBlinkBlocklyIcon:
+      triggerCondition:
+      - onBlocklyWindowOpened:
+      additionalCondition:
+      - doOnce:
+      actions:
+      - stopBlinkHUDElement:
+        - blocklyButton
+
     playStartingSounds:
       triggerCondition:
       - onScenarioStart:

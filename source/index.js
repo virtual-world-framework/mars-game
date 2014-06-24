@@ -91,6 +91,19 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 removePopup();
                 resetStatusDisplay();
                 break;
+
+            case "blinkHUD":
+                blinkElement( eventArgs[ 0 ] );
+                break;
+            case "stopBlinkHUD":
+                stopElementBlinking( eventArgs[ 0 ] );
+                break;
+            case "blinkTab":
+                blinkTab( eventArgs[ 0 ] );
+                break;
+            case "stopBlinkTab":
+                stopBlinkTab( eventArgs[ 0 ] );
+                break;
         } 
 
     } else if ( loggerNodes[ nodeID ] !== undefined ) { 
@@ -471,13 +484,19 @@ function blinkTab( nodeID ) {
 
     if ( tab && tab.className.indexOf( "blocklyTab" ) !== -1 ) {
         rafID = requestAnimationFrame( blink );
-        oldClickHandler = tab.onclick;
-        tab.onclick = ( function( event ) {
+        tab.stopBlink = ( function( event ) {
             tab.style.opacity = "1";
             cancelAnimationFrame( rafID );
-            oldClickHandler.bind( tab )( event );
-            tab.onclick = oldClickHandler;
+            delete tab.stopBlink;
         } );
+    }
+}
+
+function stopBlinkTab( nodeID ) {
+    var tab = document.getElementById( nodeID );
+
+    if ( tab && tab.stopBlink ) {
+        tab.stopBlink();
     }
 }
 

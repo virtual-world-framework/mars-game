@@ -29,6 +29,10 @@ events:
   introScreensComplete:
   scenarioReset:
   scenarioChanged:
+  blinkHUD:
+  stopBlinkHUD:
+  blinkTab:
+  stopBlinkTab:
 children:
   soundManager:
     extends: source/marsGameSound.vwf

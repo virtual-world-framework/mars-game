@@ -163,6 +163,93 @@ this.actionSet.incrementBlackboardValue = function( params, context ) {
 
 
 
+this.actionSet.waitForNode = function ( params, context ) {
+    if ( params && ( params.length < 2 ) ) {
+        self.logger.errorx( "waitForNode", "This action takes two parameters: The name " +
+                            "of the node to wait for and action(s).");
+        return undefined;
+    }
+
+    var nodeName = params[ 0 ];
+    var actions = [];
+    for (var i = 1; i < params.length; ++i ) {
+        var action = self.executeFunction( params[ i ], context );
+        actions.push( action );
+    }
+
+    if ( actions.length === 0 ) {
+        return undefined;
+    }
+
+    var callBack = function() {
+        var node = context.find( "//" + nodeName )[ 0 ];
+
+        if ( node ) {
+            for ( var i = 0; i < actions.length; ++i ) {
+                actions[ i ]();
+            }
+        } else {
+            setTimeout( callBack, 0.1 );
+        }
+    }
+
+    return callBack;
+}
+
+this.actionSet.blinkHUDElement = function( params, context ) {
+    if ( params && params.length > 1 ) {
+        self.logger.errorx( "blinkHUDElement", "This action takes one parameter: HUD element ID.");
+        return undefined;
+    }
+
+    var elementID = params[ 0 ];
+    return function() {
+        context.blinkHUD( elementID );
+    }
+}
+
+this.actionSet.stopBlinkHUDElement = function( params, context ) {
+    if ( params && params.length > 1 ) {
+        self.logger.errorx( "stopBlinkHUDElement", "This action takes one parameter: HUD element ID.");
+        return undefined;
+    }
+
+    var elementID = params[ 0 ];
+    return function() {
+        context.stopBlinkHUD( elementID );
+    }
+}
+
+this.actionSet.blinkBlocklyTab = function( params, context ) {
+    if ( params && params.length > 1 ) {
+        self.logger.errorx( "blinkBlocklyTab", "This action takes one parameter: The name of the " +
+                            "blockly node associated with the tab.");
+        return undefined;
+    }
+
+    var objectName = params[ 0 ];
+    
+    return function() {
+        var object = context.find( "//" + objectName  )[ 0 ];
+        context.blinkTab( object.id );
+    }
+}
+
+this.actionSet.stopBlinkBlocklyTab = function( params, context ) {
+    if ( params && params.length > 1 ) {
+        self.logger.errorx( "stopBlinkBlocklyTab", "This action takes one parameter: The name of the " +
+                            "blockly node associated with the tab.");
+        return undefined;
+    }
+
+    var objectName = params[ 0 ];
+    
+    return function() {
+        var object = context.find( "//" + objectName  )[ 0 ];
+        context.stopBlinkTab( object.id );
+    }
+}
+
 function getScenario( context ) {
     if ( context.getCurrentScenario ){
         return context.getCurrentScenario();

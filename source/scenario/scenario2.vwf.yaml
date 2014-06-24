@@ -72,6 +72,25 @@ properties:
       - scenarioSuccess:
         - "Course plotted!  Now to find the little guy."
 
+    blinkGraphTab:
+      triggerCondition:
+      - onScenarioStart:
+      actions:
+      - waitForNode:
+        - graph
+        - blinkBlocklyTab:
+          - graph
+
+    stopBlinkGraphTab:
+      triggerCondition:
+      - onBlocklyWindowOpened:
+        - graph
+      additionalCondition:
+      - doOnce:
+      actions:
+      - stopBlinkBlocklyTab:
+        - graph
+
     playStartingSounds:
       triggerCondition:
       - onScenarioStart:
