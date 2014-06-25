@@ -90,7 +90,7 @@ body {
 	top: 0;
 	left: 0;
 	background-color: #000;
-	z-index: 3;
+	z-index: 100;
 }
 
 #blocklyHandle {
@@ -191,6 +191,7 @@ body {
 
 .statusText {
     color: #fff;
+    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;    
     font-family: "Arial Black", Gadget, sans-serif;
     font-size: 16px;
     opacity: 1;
@@ -202,6 +203,7 @@ body {
 
 .alertText {
     color: #fff;
+    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;    
     font-family: "Arial Black", Gadget, sans-serif;
     font-size: 24px;
     font-style: bold;
@@ -210,6 +212,14 @@ body {
     width: 70%;
     margin: 0 auto;
     overflow: hidden;
+}
+
+.subtitleText {
+    color: #fff;
+    font-family: "Arial Black", Gadget, sans-serif;
+    font-size: 14px;
+    width: 100%;
+    margin-bottom: 5px;
 }
 
 #statusDisplayWrapper {
@@ -242,6 +252,31 @@ body {
     cursor: default;
 }
 
+#subtitleDisplayWrapper {
+    position: relative;
+    bottom: 5px;
+    left: 5px;
+    width: 100%;
+    pointer-events: none;
+    user-select: none;
+    -webkit-user-select: none;  /* Chrome all / Safari all */
+    -moz-user-select: none;     /* Firefox all */
+    -ms-user-select: none;      /* IE 10+ */
+    cursor: default;    
+}
+
+#loggerBox {
+    width: 30%;
+    height: 150px;
+    background-color: rgba( 0, 30, 60, 0.5 );
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    overflow-y: scroll;
+    z-index: 3;
+    padding: 5px;
+}
+
 #introScreen {
     height: 100%;
     width: 100%;
@@ -249,6 +284,7 @@ body {
     top: 0;
     left: 0;
     background-color: #000;
+    z-index: 99;
 }
 
 .introImage {

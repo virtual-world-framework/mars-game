@@ -87,10 +87,10 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 break;
 
             case "scenarioReset":
+                resetStatusDisplay();
             case "scenarioChanged":
                 removePopup();
                 removeFailScreen();
-                resetStatusDisplay();
                 break;
 
             case "blinkHUD":
@@ -115,7 +115,11 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 var msg = eventArgs[ 0 ];
                 var msgType = loggerNodes[ nodeID ].name;
                 if ( msgType ) {
-                    pushToDisplay( msgType, msg.log );
+                    if ( msgType === "subtitles" ) {
+                        pushSubtitle( msg.log );
+                    } else {
+                        pushToDisplay( msgType, msg.log );
+                    }
                 }
                 break;
 
