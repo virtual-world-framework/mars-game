@@ -12,6 +12,7 @@ body {
     margin-top: -400px;
     background-color: rgb( 50, 90, 150);
     border-radius: 8px;
+    border: 1px solid rgb( 70, 110, 170 );
     visibility: hidden;
     pointer-events: none;
     font-family: "Arial Black", Gadget, sans-serif;
@@ -56,7 +57,7 @@ body {
     background-position: bottom;
     background-repeat: no-repeat;
     display: inline-block;
-    color: rgb( 50, 90, 150 );
+    color: rgb( 51, 51, 51 );
     font-variant: small-caps;
     font-weight: bold;
     text-align: center;
@@ -66,7 +67,7 @@ body {
 
 .blocklyTab.selected {
     background-image: url( "assets/images/blockly_ui/tab_selected.png" );
-    color: rgb( 255, 255, 255 );
+    color: rgb( 50, 90, 150 );
 }
 
 #toolbox {
