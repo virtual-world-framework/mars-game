@@ -55,7 +55,9 @@ function resetStatusDisplay() {
     for ( var i = 0; i < alertDisplayWrapper.children.length; i++ ) {
         alertDisplayWrapper.children[ i ].innerHTML = "<br />";
     }
+}
 
+function resetSubtitles() {
     while ( subtitleDisplayWrapper.firstChild ) {
         subtitleDisplayWrapper.removeChild( subtitleDisplayWrapper.firstChild );
     }
@@ -157,7 +159,7 @@ function pushSubtitle( message ) {
         if ( index >= message.length ) {
             clearInterval( typeHandle );
         }
-    }, 50 );
+    }, 40 );
 
     subtitleDisplayWrapper.appendChild( text );
 }
