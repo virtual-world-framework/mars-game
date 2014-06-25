@@ -70,6 +70,10 @@ function setUpBlocklyPeripherals() {
     runButton.className = "disabled";
     stopButton.className = "disabled";
 
+    stopButton.onclick = ( function() {
+        vwf_view.kernel.callMethod( vwf_view.kernel.application(), "stopAllExecution" );
+    } );
+
     $( "#blocklyWrapper-top" ).append( blocklyCloseBtn );
     $( "#blocklyWrapper" ).append( blocklyHelpButton );
     $( blocklyFooter ).append( ramBar );
