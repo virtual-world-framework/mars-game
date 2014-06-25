@@ -5,7 +5,7 @@ var currentRam = document.createElement( "div" );
 function setUpBlocklyPeripherals() {
 
     var blocklyCloseBtn = document.createElement( "div" );
-    var blocklyHelpBtn = document.createElement( "div" );
+    var blocklyHelpButton = document.createElement( "div" );
     var blocklyHandle = document.createElement( "div" );
     var blocklyHandleIcon = document.createElement( "div" );
     blocklyHandle.id = "blocklyHandle";
@@ -53,10 +53,11 @@ function setUpBlocklyPeripherals() {
         vwf_view.kernel.setProperty( vwf_view.kernel.application(), "blockly_activeNodeID", undefined );
     } );
 
-    blocklyHelpBtn.id = "blocklyHelpButton";
+    blocklyHelpButton.id = "blocklyHelpButton";
     blocklyHelpButton.onclick = showBlocklyHelp;
 
     $( "#blocklyWrapper-top" ).append( blocklyCloseBtn );
+    $( "#blocklyWrapper" ).append( blocklyHelpButton );
     $( "#blocklyWrapper" ).append( ramBar );
     ramBar.appendChild( currentRam );
     ramBar.appendChild( ramBarCount );
