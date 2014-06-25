@@ -139,6 +139,13 @@ properties:
       - stopSound:
         - musicStandardGameplay
 
+    resetFailure:
+      triggerCondition:
+      - onScenarioStart:
+      actions:
+      - clearBlackboard:
+        - hasFailed
+
     blinkBlocklyIcon:
       triggerCondition:
       - onScenarioStart:
@@ -169,8 +176,6 @@ properties:
         - environmentWind
       - writeToBlackboard:
         - musicStoryScreen
-      - clearBlackboard:
-        - hasFailed
 
     playStartingSounds:
       triggerCondition:
