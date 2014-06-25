@@ -149,14 +149,15 @@ function pushSubtitle( message ) {
     text.className = "subtitleText";
 
     //Displays subtitle one character at a time
-    for ( var i = 0; i < message.length; i++ ) {
-        ( function( index ) {
-            setTimeout( function() {
-                text.innerHTML += message[ index ];
-                loggerBox.scrollTop = loggerBox.scrollHeight;
-            }, 70 * index );
-        } ) ( i );
-    }
+    var index = 0;
+    var typeHandle = setInterval( function() {
+        text.innerHTML += message[ index ];
+        loggerBox.scrollTop = loggerBox.scrollHeight;
+        index++;
+        if ( index >= message.length ) {
+            clearInterval( typeHandle );
+        }
+    }, 50 );
 
     subtitleDisplayWrapper.appendChild( text );
 }
