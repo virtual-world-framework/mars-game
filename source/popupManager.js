@@ -35,29 +35,37 @@ function currentPopup() {
     return document.getElementById( "popupDiv" );
 }
 
-function showFailScreen( type ) {
+function showFailScreen( type, message ) {
 
     if ( !currentFailScreen() ) {
         var blocker = document.createElement( "div" );
         blocker.id = "popupBlocker";        
         var failScreen = document.createElement( "div" );
         failScreen.id = "failScreen";
-        console.log("type: "+type);
         if ( type === "collision" ) {
             failScreen.style.backgroundImage = "url('assets/images/failureScreens/fail_crash.jpg')";
         } else if ( type === "battery" ) {
             failScreen.style.backgroundImage = "url('assets/images/failureScreens/fail_no_power.jpg')";
         } else if ( type === "incomplete" ) {
-            failScreen.style.backgroundImage = "url('assets/images/failureScreens/fail_lost.jpg')";        
+            failScreen.style.backgroundImage = "url('assets/images/failureScreens/fail_incomplete.jpg')";
+        } else if ( type === "lost" ) {
+            failScreen.style.backgroundImage = "url('assets/images/failureScreens/fail_lost.jpg')";
         }
+
+        if ( message ) {
+            failScreen.innerHTML = "<p class='failText' >" + message + "</p>";            
+        }
+
         failScreen.onclick = function() {
-            removeFailScreen();        
+            removeFailScreen();
             resetScenario();
         }
 
         setTimeout( function() {
-            document.body.appendChild( blocker );
-            document.body.appendChild( failScreen );
+            if ( !currentFailScreen() ) {
+                document.body.appendChild( blocker );
+                document.body.appendChild( failScreen );
+            }
         }, 500 );     
     }
 }
