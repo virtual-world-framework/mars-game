@@ -60,7 +60,7 @@ function resetStatusDisplay() {
 function resetSubtitles() {
     while ( subtitleDisplayWrapper.firstChild ) {
         subtitleDisplayWrapper.removeChild( subtitleDisplayWrapper.firstChild );
-    }    
+    }
 }
 
 function pushToDisplay( type, message ) {
@@ -159,7 +159,7 @@ function pushSubtitle( message ) {
         if ( index >= message.length ) {
             clearInterval( typeHandle );
         }
-    }, 50 );
+    }, 40 );
 
     subtitleDisplayWrapper.appendChild( text );
 }
