@@ -82,7 +82,8 @@ properties:
         - rover
         - collision
       actions:
-      - scenarioFailure:        
+      - scenarioFailure:
+        - collision  
         - "Your navigation program is blocked by an obstacle!"
       - playSound:
         - musicFailure
@@ -97,7 +98,8 @@ properties:
         - rover
         - battery
       actions:
-      - scenarioFailure:         
+      - scenarioFailure:
+        - battery     
         - "You have run out of battery!"
       - playSound:
         - musicFailure
@@ -111,16 +113,24 @@ properties:
       - onBlocklyStopped:
       additionalCondition:
       - not:
-        - and:
-          - isAtPosition:
+        - or:
+          - and:
+            - isAtPosition:
+              - rover
+              - 8
+              - 16
+            - hasObject:
+              - rover
+              - radio
+          - moveFailed:
             - rover
-            - 8
-            - 16
-          - hasObject:
+            - battery
+          - moveFailed:
             - rover
-            - radio
+            - collision
       actions:
       - scenarioFailure:
+        - incomplete
         - "You didn't reach the destination!"
       - playSound:
         - musicFailure

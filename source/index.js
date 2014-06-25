@@ -144,7 +144,7 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
             var type = eventArgs[ 0 ];
             var message = eventArgs[ 1 ];
             if ( type ) {
-                showFailScreen( type );
+                showFailScreen( type, message );
             } else if ( message ) {
                 displayPopup( "failure", message );
             } else {
