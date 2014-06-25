@@ -75,6 +75,17 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                     }
                 }
                 break;
+
+            case "blocklyStarted":
+                var stopButton = document.getElementById( "stopButton" );
+                stopButton.className = "";
+                break;
+
+            case "blocklyStopped":
+            case "blocklyErrored":
+                var stopButton = document.getElementById( "stopButton" );
+                stopButton.className = "disabled";
+                break;
         }
     } else if ( nodeID === this.kernel.application() ) {
         

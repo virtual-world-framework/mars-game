@@ -9,6 +9,7 @@ function setUpBlocklyPeripherals() {
     var blocklyHelpButton = document.createElement( "div" );
     var blocklyHandle = document.createElement( "div" );
     var blocklyHandleIcon = document.createElement( "div" );
+    var runStopContainer = document.createElement( "div" );
     var runButton = document.getElementById( "runButton" );
     var stopButton = document.createElement( "div" );
 
@@ -64,13 +65,17 @@ function setUpBlocklyPeripherals() {
     blocklyHelpButton.onclick = showBlocklyHelp;
 
     // Run and stop buttons
+    runStopContainer.id = "runStopContainer";
     runButton.innerHTML = "";
+    runButton.className = "disabled";
+    stopButton.className = "disabled";
 
     $( "#blocklyWrapper-top" ).append( blocklyCloseBtn );
-    $( blocklyFooter ).append( blocklyHelpButton );
+    $( "#blocklyWrapper" ).append( blocklyHelpButton );
     $( blocklyFooter ).append( ramBar );
-    $( blocklyFooter ).append( runButton );
-    $( blocklyFooter ).append( stopButton );
+    $( blocklyFooter ).append( runStopContainer );
+    $( runStopContainer ).append( runButton );
+    $( runStopContainer ).append( stopButton );
     $( "#blocklyWrapper" ).append( blocklyFooter );
     ramBar.appendChild( currentRam );
     ramBar.appendChild( ramBarCount );
