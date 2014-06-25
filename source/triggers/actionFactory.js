@@ -149,7 +149,7 @@ this.actionSet.clearBlackboard = function( params, context ) {
     }
 
     return function() {
-        context.sceneBlackboard[ params[ 0 ] ] = undefined;
+        delete context.sceneBlackboard[ params[ 0 ] ];
     }
 
 }
@@ -165,7 +165,7 @@ this.actionSet.incrementBlackboardValue = function( params, context ) {
         if ( context.sceneBlackboard[ params[ 0 ] ] === undefined ){
             context.sceneBlackboard[ params[ 0 ] ] = 1;
         } else {
-            context.sceneBlackboard[ params[ 0 ] ] = context.sceneBlackboard[ params[ 0 ] ] + 1;
+            ++context.sceneBlackboard[ params[ 0 ] ];
         }
         
     }
