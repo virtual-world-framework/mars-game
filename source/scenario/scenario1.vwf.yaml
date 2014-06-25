@@ -129,6 +129,22 @@ properties:
       - stopSound:
         - musicStandardGameplay
 
+    blinkBlocklyIcon:
+      triggerCondition:
+      - onScenarioStart:
+      actions:
+      - blinkHUDElement:
+        - blocklyButton
+
+    stopBlinkBlocklyIcon:
+      triggerCondition:
+      - onBlocklyWindowOpened:
+      additionalCondition:
+      - doOnce:
+      actions:
+      - stopBlinkHUDElement:
+        - blocklyButton
+
     stopIntroMusic:
       triggerCondition:
       - onScenarioStart:
