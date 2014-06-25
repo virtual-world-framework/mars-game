@@ -13,6 +13,7 @@ var statusNodeID = undefined;
 
 function onRun() {
     vwf_view.kernel.setProperty( currentBlocklyNodeID, "blockly_executing", true );
+    vwf_view.kernel.setProperty( vwf_view.kernel.application(), "blockly_activeNodeID", undefined );
 }
 
 function onSetActive( btn ) {
@@ -35,6 +36,9 @@ function selectBlocklyTab( nodeID ) {
             tabs[ i ].className += " selected";
         }
     }
+
+    var showLine = ( nodeID === blocklyGraphID );
+    vwf_view.kernel.setProperty( graphLines[ "blocklyLine" ].ID, "visible", showLine );
 }
 
 window.addEventListener( "keyup", function (event) {
@@ -78,19 +82,28 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
             case "blocklyContentChanged":
                 if ( currentBlocklyNodeID !== undefined ) {
                     var currentCode = getBlocklyFunction();
-                    if ( currentCode !== undefined ) {
-                        this.kernel.setProperty( graphLines[ "blocklyLine" ].ID, "lineFunction", currentCode );
-                        vwf_view.kernel.setProperty( graphLines[ "blocklyLine" ].ID, "visible", true );
-                    } else {
-                        vwf_view.kernel.setProperty( graphLines[ "blocklyLine" ].ID, "visible", false );
-                    }
+                    this.kernel.setProperty( graphLines[ "blocklyLine" ].ID, "lineFunction", currentCode );
                 }
                 break;
 
             case "scenarioReset":
+                resetStatusDisplay();
             case "scenarioChanged":
                 removePopup();
-                resetStatusDisplay();
+                removeFailScreen();
+                break;
+
+            case "blinkHUD":
+                blinkElement( eventArgs[ 0 ] );
+                break;
+            case "stopBlinkHUD":
+                stopElementBlinking( eventArgs[ 0 ] );
+                break;
+            case "blinkTab":
+                blinkTab( eventArgs[ 0 ] );
+                break;
+            case "stopBlinkTab":
+                stopBlinkTab( eventArgs[ 0 ] );
                 break;
         } 
 
@@ -102,7 +115,11 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 var msg = eventArgs[ 0 ];
                 var msgType = loggerNodes[ nodeID ].name;
                 if ( msgType ) {
-                    pushToDisplay( msgType, msg.log );
+                    if ( msgType === "subtitles" ) {
+                        pushSubtitle( msg.log );
+                    } else {
+                        pushToDisplay( msgType, msg.log );
+                    }
                 }
                 break;
 
@@ -128,8 +145,11 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
 
         // nodeID is ignored here?
         if ( eventName === "failed" ) {
-            var message = eventArgs[ 0 ];
-            if ( message ) {
+            var type = eventArgs[ 0 ];
+            var message = eventArgs[ 1 ];
+            if ( type ) {
+                showFailScreen( type );
+            } else if ( message ) {
                 displayPopup( "failure", message );
             } else {
                 resetScenario();
@@ -332,7 +352,12 @@ vwf_view.satProperty = function( nodeID, propertyName, propertyValue ) {
 function setUp( renderer, scene, camera ) {
 
     //Set up the introductory screens
-    setUpIntro();
+    var introScreens = new Array();
+    introScreens.push( "assets/images/introScreens/Intro_screen.jpg" );
+    introScreens.push( "assets/images/introScreens/Intro_screen2.jpg" );
+    introScreens.push( "assets/images/introScreens/bios_screen_red.jpg" );
+    introScreens.push( "assets/images/introScreens/screen3.png" );
+    setUpIntro( introScreens );
 
     setUpBlocklyPeripherals();
     setUpStatusDisplay();
@@ -446,6 +471,45 @@ function advanceScenario() {
 function updateBlocklyUI( blocklyNode ) {
     if ( Blockly.mainWorkspace ) {
         Blockly.mainWorkspace.maxBlocks = blocklyNode.ramMax;
+    }
+}
+
+function blinkTab( nodeID ) {
+    var tab = document.getElementById( nodeID );
+    var time, lastBlinkTime, rafID, oldClickHandler;
+    var blinkInterval = 0.25;
+
+    var blink = function() {
+        time = vwf_view.kernel.time();
+        lastBlinkTime = lastBlinkTime || time;
+        if ( time - lastBlinkTime > blinkInterval ) {
+            tab.style.opacity = "0.5";
+
+            if ( time - lastBlinkTime > blinkInterval * 2 ) {
+                lastBlinkTime = time;
+            }
+        } else {
+            tab.style.opacity = "1";
+        }
+
+        rafID = requestAnimationFrame( blink );
+    }
+
+    if ( tab && tab.className.indexOf( "blocklyTab" ) !== -1 ) {
+        rafID = requestAnimationFrame( blink );
+        tab.stopBlink = ( function( event ) {
+            tab.style.opacity = "1";
+            cancelAnimationFrame( rafID );
+            delete tab.stopBlink;
+        } );
+    }
+}
+
+function stopBlinkTab( nodeID ) {
+    var tab = document.getElementById( nodeID );
+
+    if ( tab && tab.stopBlink ) {
+        tab.stopBlink();
     }
 }
 

@@ -4,7 +4,7 @@ properties:
   scenarioName: scenario2
 
   scenePath: /
-  nextScenarioPath: "scenario2"
+  nextScenarioPath: "scenario3"
   blockly: assets/scenario/scenario1.xml
 
   startState:
@@ -19,7 +19,7 @@ properties:
   - setProperty:
     - rover
     - blockly_allowedBlocks
-    - 16
+    - 30
 
   - setSceneProperty:
     - blockly_activeNodeID
@@ -59,7 +59,14 @@ properties:
         - rover
       actions:
       - scenarioFailure:
+        - ""
         - "You need to plot the course of the wayward rover before going to find it."
+      - playSound:
+        - musicFailure
+      - stopSound:
+        - musicSuccess
+      - stopSound:
+        - musicStandardGameplay
 
     succeedOnSuccessfulCoursePlot:
       triggerCondition:
@@ -71,11 +78,38 @@ properties:
       actions:
       - scenarioSuccess:
         - "Course plotted!  Now to find the little guy."
+      - playSound:
+        - musicSuccess
+      - stopSound:
+        - musicFailure
+      - stopSound:
+        - musicStandardGameplay
+
+    blinkGraphTab:
+      triggerCondition:
+      - onScenarioStart:
+      actions:
+      - waitForNode:
+        - graph
+        - blinkBlocklyTab:
+          - graph
+
+    stopBlinkGraphTab:
+      triggerCondition:
+      - onBlocklyWindowOpened:
+        - graph
+      additionalCondition:
+      - doOnce:
+      actions:
+      - stopBlinkBlocklyTab:
+        - graph
 
     playStartingSounds:
       triggerCondition:
       - onScenarioStart:
       actions:
+      - playSound:
+        - musicStandardGameplay
       - playSound:
         - L2VO1_Control
       - delay:
@@ -88,10 +122,16 @@ properties:
       - onBlocklyWindowOpened:
         - graph
       additionalCondition:
-      - doOnce:
+      - and:
+        - not:
+          - readBlackboard:
+            - L2VO3
+        - doOnce:
       actions:
       - playSound:
         - L2VO3_Rover
+      - writeToBlackboard:
+        - L2VO3
 
 children:
   grid:

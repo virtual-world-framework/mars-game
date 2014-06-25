@@ -500,9 +500,9 @@ this.clauseSet.blocklyLineEval = function( params, context, callback ) {
     }
 
     if ( callback ) {
-        context.blocklyContentChanged = self.events.add( function() {
-                                                            callback();
-                                                        } );
+        blocklyLine.lineGraphed = self.events.add( function() {
+                                                    callback();
+                                                } );
     }
 
     return function() {
@@ -556,6 +556,32 @@ function getBlocklyObjects( params, context ) {
 
     self.logger.errorx( "getBlocklyObjects", "Unable to parse objectParam!" );
     return undefined;
+}
+
+// arguments: variableName
+this.clauseSet.readBlackboard = function( params, context ) {
+    if ( params.length < 1 ) {
+        self.logger.errorx( "readBlackboard", 
+                            "This clause takes one argument: the name of the variable" +
+                            " and optionally a second argument for occurance count if" + 
+                            " using an incrementing blackboard value" );
+        return undefined;
+    }
+
+    var blackboard = context.sceneBlackboard;
+
+    var checkedValue = blackboard[ params[ 0 ] ];
+
+    return function() {
+
+        if ( params[ 1 ] ){
+        var retVal = ( checkedValue !== undefined && checkedValue < params[ 1 ] );
+        } else {
+        var retVal = ( checkedValue !== undefined );  
+        }
+
+        return retVal;
+    };
 }
 
 //@ sourceURL=source/triggers/booleanFunctionFactory.js

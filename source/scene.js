@@ -114,16 +114,30 @@ this.removeMiniRover = function() {
 this.addStatus = function( log ) {
     
     if ( this.status !== undefined ) {
-        this.status.addLog( log );
+        var fontSize = parseInt( $( ".statusText").css( "font-size" ) );
+        var textWidth = parseInt( $( ".statusText" ).css( "width" ) );
+        var width = textWidth / fontSize * 1.7;
+        this.status.addLogWithLimit( log, width );
     }
     
 }
 
-this.addAlert = function() {
+this.addAlert = function( log ) {
     
-    if ( this.alert !== undefined ) {
-        this.alert.addLog( log );
+    if ( this.alerts !== undefined ) {
+        var fontSize = parseInt( $( ".alertText").css( "font-size" ) );
+        var textWidth = parseInt( $( ".alertText" ).css( "width" ) );
+        var width = textWidth / fontSize * 1.7;        
+        this.alerts.addLogWithLimit( log, width );
     }
     
 }
+
+this.addSubtitle = function( log ) {
+
+    if ( this.subtitles !== undefined ) {    
+        this.subtitles.addLog( log );
+    }
+}
+
 //@ sourceURL=source/scene.js

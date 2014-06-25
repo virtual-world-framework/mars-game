@@ -69,6 +69,12 @@ properties:
         - "You have picked up the radio!"
       - playSound:
         - L1VO6_Control
+      - playSound:
+        - musicSuccess
+      - stopSound:
+        - musicFailure
+      - stopSound:
+        - musicStandardGameplay
 
     failOnCollision:
       triggerCondition:
@@ -77,7 +83,13 @@ properties:
         - collision
       actions:
       - scenarioFailure:        
-        - "Your navigation program is blocked by an obstacle!"
+        - collision
+      - playSound:
+        - musicFailure
+      - stopSound:
+        - musicSuccess
+      - stopSound:
+        - musicStandardGameplay
 
     failOnBatteryDepleted:
       triggerCondition:
@@ -86,7 +98,13 @@ properties:
         - battery
       actions:
       - scenarioFailure:         
-        - "You have run out of battery!"
+        - battery
+      - playSound:
+        - musicFailure
+      - stopSound:
+        - musicSuccess
+      - stopSound:
+        - musicStandardGameplay
 
     failOnIncompleteProgram:
       triggerCondition:
@@ -103,29 +121,81 @@ properties:
             - radio
       actions:
       - scenarioFailure:
-        - "You didn't reach the destination!"
+        - incomplete
+      - playSound:
+        - musicFailure
+      - stopSound:
+        - musicSuccess
+      - stopSound:
+        - musicStandardGameplay
 
-    playStartingSounds:
+    blinkBlocklyIcon:
       triggerCondition:
       - onScenarioStart:
       actions:
-      - stopSound:
-        - musicStoryScreen
-      - playSound:
-        - musicStandardGameplay
-      - playSound:
-        - environmentWind
-      - playSound:
-        - L1VO1_Rover
+      - blinkHUDElement:
+        - blocklyButton
 
-    playL1VO2_Rover:
+    stopBlinkBlocklyIcon:
       triggerCondition:
       - onBlocklyWindowOpened:
       additionalCondition:
       - doOnce:
       actions:
+      - stopBlinkHUDElement:
+        - blocklyButton
+
+    stopIntroMusic:
+      triggerCondition:
+      - onScenarioStart:
+      additionalCondition:
+      - not:
+        - readBlackboard:
+          - musicStoryScreen
+      actions:
+      - stopSound:
+        - musicStoryScreen
+      - playSound:
+        - environmentWind
+      - writeToBlackboard:
+        - musicStoryScreen
+
+    playStartingSounds:
+      triggerCondition:
+      - onScenarioStart:
+      actions:
+      - playSound:
+        - musicStandardGameplay
+
+    playL1VO1_Rover:
+      triggerCondition:
+      - onScenarioStart:
+      additionalCondition:
+      - and:
+        - not:
+          - readBlackboard:
+            - L1VO1
+        - doOnce:
+      actions:
+      - playSound:
+        - L1VO1_Rover
+      - writeToBlackboard:
+        - L1VO1
+
+    playL1VO2_Rover:
+      triggerCondition:
+      - onBlocklyWindowOpened:
+      additionalCondition:
+      - and:
+        - not:
+          - readBlackboard:
+            - L1VO2
+        - doOnce:
+      actions:
       - playSound:
         - L1VO2_Rover
+      - writeToBlackboard:
+        - L1VO2
 
     playL1VO3_Rover:
       triggerCondition:
@@ -134,10 +204,32 @@ properties:
         - add
         - rover_moveForward
       additionalCondition:
-      - doOnce:
+      - and:
+        - not:
+          - readBlackboard:
+            - L1VO3
+        - doOnce:
       actions:
       - playSound:
         - L1VO3_Rover
+      - writeToBlackboard:
+        - L1VO3
+
+    playL1VO5_Rover:
+      triggerCondition:
+      - onMoved:
+        - rover
+      additionalCondition:
+      - and:
+        - not:
+          - readBlackboard:
+            - L1VO5
+        - doOnce:
+      actions:
+      - playSound:
+        - L1VO5_Rover
+      - writeToBlackboard:
+        - L1VO5
 
     startRoverSounds:
       triggerCondition:
@@ -177,8 +269,8 @@ children:
       - [ -1, -1,  1,  1,  1,  1,  1,  1, -1,  1,  1,  1,  1,  1,  1,  1,  1, -1 ]
       - [ -1, -1,  1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,  1,  1, -1 ]
       - [ -1, -1,  1, -1, -1,  1,  1,  1,  1,  1, -1, -1, -1, -1, -1,  1,  1, -1 ]
-      - [ -1, -1,  1, -1, -1,  1, -1, -1, -1,  1,  1,  1,  1,  1,  1,  1,  1, -1 ]
-      - [ -1, -1,  1,  1,  1,  1, -1, -1, -1,  1,  1,  1,  1,  1,  1,  1,  1, -1 ]
+      - [ -1, -1,  1, -1, -1,  1, -1, -1, -1,  1,  1,  1,  1,  1,  1,  1, -1, -1 ]
+      - [ -1, -1,  1,  1,  1,  1, -1, -1, -1,  1,  1,  1,  1,  1,  1,  1, -1, -1 ]
       - [ -1, -1, -1, -1, -1, -1, -1, -1, -1,  1,  1,  1,  1, -1, -1, -1, -1, -1 ]
       - [ -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,  1,  1, -1, -1, -1, -1, -1 ]
       - [ -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1 ]
