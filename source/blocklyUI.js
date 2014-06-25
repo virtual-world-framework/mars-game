@@ -25,8 +25,8 @@ function setUpBlocklyPeripherals() {
         scroll: false,
         drag: function( event, element ) {
             $( ".blocklyWidgetDiv" ).css( "display", "none" );
-            var width = element.helper.context.clientWidth;
-            var height = element.helper.context.clientHeight;
+            var width = element.helper.context.offsetWidth;
+            var height = element.helper.context.offsetHeight;
             var offscreenAllowanceWidth = width * 0.85;
             var offscreenAllowanceHeight = height * 0.95;
             if ( element.position.left < width / 2 - offscreenAllowanceWidth ) {
