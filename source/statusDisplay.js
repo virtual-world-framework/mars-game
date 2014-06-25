@@ -55,10 +55,12 @@ function resetStatusDisplay() {
     for ( var i = 0; i < alertDisplayWrapper.children.length; i++ ) {
         alertDisplayWrapper.children[ i ].innerHTML = "<br />";
     }
+}
 
+function resetSubtitles() {
     while ( subtitleDisplayWrapper.firstChild ) {
         subtitleDisplayWrapper.removeChild( subtitleDisplayWrapper.firstChild );
-    }
+    }    
 }
 
 function pushToDisplay( type, message ) {
