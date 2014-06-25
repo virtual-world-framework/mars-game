@@ -61,6 +61,12 @@ properties:
       - scenarioFailure:
         - ""
         - "You need to plot the course of the wayward rover before going to find it."
+      - playSound:
+        - musicFailure
+      - stopSound:
+        - musicSuccess
+      - stopSound:
+        - musicStandardGameplay
 
     succeedOnSuccessfulCoursePlot:
       triggerCondition:
@@ -72,6 +78,12 @@ properties:
       actions:
       - scenarioSuccess:
         - "Course plotted!  Now to find the little guy."
+      - playSound:
+        - musicSuccess
+      - stopSound:
+        - musicFailure
+      - stopSound:
+        - musicStandardGameplay
 
     blinkGraphTab:
       triggerCondition:
@@ -97,6 +109,8 @@ properties:
       - onScenarioStart:
       actions:
       - playSound:
+        - musicStandardGameplay
+      - playSound:
         - L2VO1_Control
       - delay:
         - 0.5
@@ -108,9 +122,11 @@ properties:
       - onBlocklyWindowOpened:
         - graph
       additionalCondition:
-      - not:
-        - readBlackboard:
-          - L2VO3
+      - and:
+        - not:
+          - readBlackboard:
+            - L2VO3
+        - doOnce:
       actions:
       - playSound:
         - L2VO3_Rover
