@@ -5,6 +5,7 @@ var currentRam = document.createElement( "div" );
 function setUpBlocklyPeripherals() {
 
     var blocklyCloseBtn = document.createElement( "div" );
+    var blocklyHelpButton = document.createElement( "div" );
     var blocklyHandle = document.createElement( "div" );
     var blocklyHandleIcon = document.createElement( "div" );
     blocklyHandle.id = "blocklyHandle";
@@ -52,7 +53,11 @@ function setUpBlocklyPeripherals() {
         vwf_view.kernel.setProperty( vwf_view.kernel.application(), "blockly_activeNodeID", undefined );
     } );
 
+    blocklyHelpButton.id = "blocklyHelpButton";
+    blocklyHelpButton.onclick = showBlocklyHelp;
+
     $( "#blocklyWrapper-top" ).append( blocklyCloseBtn );
+    $( "#blocklyWrapper" ).append( blocklyHelpButton );
     $( "#blocklyWrapper" ).append( ramBar );
     ramBar.appendChild( currentRam );
     ramBar.appendChild( ramBarCount );
@@ -63,6 +68,19 @@ function updateBlocklyRamBar() {
         currentRam.style.width = ramBar.clientWidth * ( blocklyNodes[ currentBlocklyNodeID ].ram / blocklyNodes[ currentBlocklyNodeID ].ramMax ) + "px";
         ramBarCount.innerHTML = "RAM: " + blocklyNodes[ currentBlocklyNodeID ].ram;
     }
+}
+
+function showBlocklyHelp() {
+
+    var help = document.createElement( "DIV" );
+    help.id = "blocklyHelpScreen";
+    help.className = "help";
+    help.onclick = ( function() {
+        var dialog = document.getElementById( "blocklyHelpScreen" );
+        document.body.removeChild( dialog );
+    } );
+    document.body.appendChild( help );
+
 }
 
 //@ sourceURL=source/blocklyUI.js

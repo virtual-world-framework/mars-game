@@ -414,17 +414,10 @@ function selectCameraMode( event ) {
 
 function showHelp( event ) {
     var help = document.createElement( "DIV" );
-    help.id = "helpscreen";
-    help.style.backgroundColor = "rgb(0,0,0)"
-    help.style.backgroundImage = "url('assets/images/introScreens/screen3.png')";
-    help.style.backgroundRepeat = "no-repeat";
-    help.style.backgroundSize = "contain";
-    help.style.backgroundPosition = "center center";
-    help.style.position = "absolute";
-    help.style.width = "100%";
-    help.style.height = "100%";
+    help.id = "helpScreen";
+    help.className = "help";
     help.onclick = ( function() {
-        var dialog = document.getElementById( "helpscreen" );
+        var dialog = document.getElementById( "helpScreen" );
         document.body.removeChild( dialog );
     } );
     document.body.appendChild( help );
