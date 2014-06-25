@@ -87,10 +87,10 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 break;
 
             case "scenarioReset":
+                resetStatusDisplay();
             case "scenarioChanged":
                 removePopup();
                 removeFailScreen();
-                resetStatusDisplay();
                 break;
 
             case "blinkHUD":

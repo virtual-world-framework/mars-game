@@ -191,6 +191,7 @@ body {
 
 .statusText {
     color: #fff;
+    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;    
     font-family: "Arial Black", Gadget, sans-serif;
     font-size: 16px;
     opacity: 1;
@@ -202,6 +203,7 @@ body {
 
 .alertText {
     color: #fff;
+    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;    
     font-family: "Arial Black", Gadget, sans-serif;
     font-size: 24px;
     font-style: bold;
@@ -266,7 +268,7 @@ body {
 #loggerBox {
     width: 30%;
     height: 150px;
-    background-color: rgba( 0, 0, 0, 0.5 );
+    background-color: rgba( 0, 30, 60, 0.5 );
     position: absolute;
     bottom: 10px;
     left: 10px;
