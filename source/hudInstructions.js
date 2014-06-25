@@ -414,10 +414,10 @@ function selectCameraMode( event ) {
 
 function showHelp( event ) {
     var help = document.createElement( "DIV" );
-    help.id = "helpscreen";
+    help.id = "helpScreen";
     help.className = "help";
     help.onclick = ( function() {
-        var dialog = document.getElementById( "helpscreen" );
+        var dialog = document.getElementById( "helpScreen" );
         document.body.removeChild( dialog );
     } );
     document.body.appendChild( help );
