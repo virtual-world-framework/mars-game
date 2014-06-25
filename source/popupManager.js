@@ -42,7 +42,6 @@ function showFailScreen( type ) {
         blocker.id = "popupBlocker";        
         var failScreen = document.createElement( "div" );
         failScreen.id = "failScreen";
-        console.log("type: "+type);
         if ( type === "collision" ) {
             failScreen.style.backgroundImage = "url('assets/images/failureScreens/fail_crash.jpg')";
         } else if ( type === "battery" ) {
