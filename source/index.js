@@ -68,7 +68,8 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 if ( !blocklyExecuting ) {
                     if ( Blockly.mainWorkspace ) {
                         var topBlockCount = Number( eventArgs[ 0 ] );
-                        document.getElementById( "runButton" ).disabled = ( topBlockCount !== 1 );
+                        var runButton = document.getElementById( "runButton" );
+                        runButton.className = topBlockCount !== 1 ? "disabled" : "" ;
                         // if disabled then need to set the tooltip
                         // There must be only one program for each blockly object
                     }

@@ -4,12 +4,19 @@ var currentRam = document.createElement( "div" );
 
 function setUpBlocklyPeripherals() {
 
+    var blocklyFooter = document.createElement( "div" );
     var blocklyCloseBtn = document.createElement( "div" );
     var blocklyHelpButton = document.createElement( "div" );
     var blocklyHandle = document.createElement( "div" );
     var blocklyHandleIcon = document.createElement( "div" );
+    var runButton = document.getElementById( "runButton" );
+    var stopButton = document.createElement( "div" );
+
+    blocklyFooter.id = "blocklyFooter";
     blocklyHandle.id = "blocklyHandle";
     blocklyHandleIcon.id = "blocklyHandleIcon";
+    stopButton.id = "stopButton";
+
     $( blocklyHandle ).append( blocklyHandleIcon );
     $( "#blocklyWrapper-top" ).append( blocklyHandle );
     $( "#blocklyWrapper" ).draggable( {
@@ -56,9 +63,15 @@ function setUpBlocklyPeripherals() {
     blocklyHelpButton.id = "blocklyHelpButton";
     blocklyHelpButton.onclick = showBlocklyHelp;
 
+    // Run and stop buttons
+    runButton.innerHTML = "";
+
     $( "#blocklyWrapper-top" ).append( blocklyCloseBtn );
-    $( "#blocklyWrapper" ).append( blocklyHelpButton );
-    $( "#blocklyWrapper" ).append( ramBar );
+    $( blocklyFooter ).append( blocklyHelpButton );
+    $( blocklyFooter ).append( ramBar );
+    $( blocklyFooter ).append( runButton );
+    $( blocklyFooter ).append( stopButton );
+    $( "#blocklyWrapper" ).append( blocklyFooter );
     ramBar.appendChild( currentRam );
     ramBar.appendChild( ramBarCount );
 }
