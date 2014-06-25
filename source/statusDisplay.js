@@ -154,7 +154,7 @@ function pushSubtitle( message ) {
             setTimeout( function() {
                 text.innerHTML += message[ index ];
                 loggerBox.scrollTop = loggerBox.scrollHeight;
-            }, 80 * index );
+            }, 70 * index );
         } ) ( i );
     }
 

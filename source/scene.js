@@ -135,10 +135,7 @@ this.addAlert = function( log ) {
 
 this.addSubtitle = function( log ) {
 
-    if ( this.subtitles !== undefined ) {
-        var fontSize = parseInt( $( "#subtitleDisplayWrapper").css( "font-size" ) );
-        var textWidth = parseInt( $( "#subtitleDisplayWrapper" ).css( "width" ) );
-        var width = textWidth / fontSize * 1.7;        
+    if ( this.subtitles !== undefined ) {    
         this.subtitles.addLog( log );
     }
 }
