@@ -113,14 +113,21 @@ properties:
       - onBlocklyStopped:
       additionalCondition:
       - not:
-        - and:
-          - isAtPosition:
+        - or:
+          - and:
+            - isAtPosition:
+              - rover
+              - 8
+              - 16
+            - hasObject:
+              - rover
+              - radio
+          - moveFailed:
             - rover
-            - 8
-            - 16
-          - hasObject:
+            - battery
+          - moveFailed:
             - rover
-            - radio
+            - collision
       actions:
       - scenarioFailure:
         - incomplete
