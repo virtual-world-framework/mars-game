@@ -82,7 +82,8 @@ properties:
         - rover
         - collision
       actions:
-      - scenarioFailure:        
+      - scenarioFailure:
+        - collision  
         - "Your navigation program is blocked by an obstacle!"
       - playSound:
         - musicFailure
@@ -97,7 +98,8 @@ properties:
         - rover
         - battery
       actions:
-      - scenarioFailure:         
+      - scenarioFailure:
+        - battery     
         - "You have run out of battery!"
       - playSound:
         - musicFailure
@@ -121,6 +123,7 @@ properties:
             - radio
       actions:
       - scenarioFailure:
+        - incomplete
         - "You didn't reach the destination!"
       - playSound:
         - musicFailure
