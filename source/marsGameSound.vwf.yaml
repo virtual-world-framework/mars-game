@@ -233,6 +233,7 @@ properties:
       subtitle: "Yay! We found it!"
       groupReplacementMethod: queue
 methods:
+  setUpSubtitles:
 children:
 scripts:
 - source: source/marsGameSound.js

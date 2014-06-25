@@ -4,12 +4,12 @@ body {
 
 #blocklyWrapper {
     width: 560px;
-    height: 800px;
+    height: 500px;
     position: absolute;
     top: 50%;
     left: 50%;
     margin-left: -280px;
-    margin-top: -400px;
+    margin-top: -200px;
     background-color: rgb( 50, 90, 150);
     border-radius: 8px;
     border: 1px solid rgb( 70, 110, 170 );
@@ -28,7 +28,7 @@ body {
 }
 
 #blocklyDiv {
-    height: 700px;
+    height: 400px;
     width: 560px;
     overflow: hidden;
 }
@@ -90,7 +90,7 @@ body {
 	top: 0;
 	left: 0;
 	background-color: #000;
-	z-index: 3;
+	z-index: 100;
 }
 
 #blocklyHandle {
@@ -212,6 +212,13 @@ body {
     overflow: hidden;
 }
 
+.subtitleText {
+    color: #fff;
+    font-family: "Arial Black", Gadget, sans-serif;
+    font-size: 14px;
+    width: 100%;
+}
+
 #statusDisplayWrapper {
     text-align: center;
     position: absolute;
@@ -242,6 +249,31 @@ body {
     cursor: default;
 }
 
+#subtitleDisplayWrapper {
+    position: relative;
+    bottom: 5px;
+    left: 5px;
+    width: 100%;
+    pointer-events: none;
+    user-select: none;
+    -webkit-user-select: none;  /* Chrome all / Safari all */
+    -moz-user-select: none;     /* Firefox all */
+    -ms-user-select: none;      /* IE 10+ */
+    cursor: default;    
+}
+
+#loggerBox {
+    width: 30%;
+    height: 150px;
+    background-color: rgba( 0, 0, 0, 0.5 );
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    overflow-y: scroll;
+    z-index: 3;
+    padding: 5px;
+}
+
 #introScreen {
     height: 100%;
     width: 100%;
@@ -249,6 +281,7 @@ body {
     top: 0;
     left: 0;
     background-color: #000;
+    z-index: 99;
 }
 
 .introImage {

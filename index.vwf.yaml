@@ -25,6 +25,7 @@ methods:
   removeMiniRover:
   addStatus:
   addAlert:
+  addSubtitle:
 events:
   introScreensComplete:
   scenarioReset:
@@ -206,11 +207,21 @@ children:
       logger_maxLogs: 1
       logger_lifeTime: 10000
       logger_logs: []
+    scripts:
+    - source: source/loggerHelper.js
   status:
     extends: http://vwf.example.com/logger.vwf
     properties:
       logger_maxLogs: 4
       logger_lifeTime: 5000
+      logger_logs: []
+    scripts:
+    - source: source/loggerHelper.js
+  subtitles:
+    extends: http://vwf.example.com/logger.vwf
+    properties:
+      logger_maxLogs: 10
+      logger_lifeTime: 10000
       logger_logs: []
     scripts:
     - source: source/loggerHelper.js

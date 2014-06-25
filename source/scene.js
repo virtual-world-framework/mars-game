@@ -116,7 +116,7 @@ this.addStatus = function( log ) {
     if ( this.status !== undefined ) {
         var fontSize = parseInt( $( ".statusText").css( "font-size" ) );
         var textWidth = parseInt( $( ".statusText" ).css( "width" ) );
-        var width = textWidth / fontSize;
+        var width = textWidth / fontSize * 1.7;
         this.status.addLogWithLimit( log, width );
     }
     
@@ -127,10 +127,20 @@ this.addAlert = function( log ) {
     if ( this.alerts !== undefined ) {
         var fontSize = parseInt( $( ".alertText").css( "font-size" ) );
         var textWidth = parseInt( $( ".alertText" ).css( "width" ) );
-        var width = textWidth / fontSize;        
-        this.alerts.addLogWithLimit( log );
+        var width = textWidth / fontSize * 1.7;        
+        this.alerts.addLogWithLimit( log, width );
     }
     
+}
+
+this.addSubtitle = function( log ) {
+
+    if ( this.subtitles !== undefined ) {
+        var fontSize = parseInt( $( "#subtitleDisplayWrapper").css( "font-size" ) );
+        var textWidth = parseInt( $( "#subtitleDisplayWrapper" ).css( "width" ) );
+        var width = textWidth / fontSize * 1.7;        
+        this.subtitles.addLog( log );
+    }
 }
 
 //@ sourceURL=source/scene.js

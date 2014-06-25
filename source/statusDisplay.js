@@ -1,3 +1,6 @@
+var loggerBox = document.createElement( "div" );
+var subtitleDisplayWrapper = document.createElement( "div" );
+
 var statusDisplayWrapper = document.createElement( "div" );
 var lastStatus;
 var duplicateStatusCount;
@@ -6,6 +9,14 @@ var alertDisplayWrapper = document.createElement( "div" );
 var lastAlert;
 
 function setUpStatusDisplay() {
+
+    loggerBox.id = "loggerBox";
+    document.body.appendChild( loggerBox );
+    subtitleDisplayWrapper.id = "subtitleDisplayWrapper";
+    loggerBox.appendChild( subtitleDisplayWrapper );
+    var subtitleText = document.createElement( "div" );
+    subtitleText.id = "subtitleText";
+    subtitleDisplayWrapper.appendChild( subtitleText );
 
     statusDisplayWrapper.id = "statusDisplayWrapper";
     for ( var i = 0; i < 4; i++ ) {
@@ -43,6 +54,10 @@ function resetStatusDisplay() {
     lastAlert = "";
     for ( var i = 0; i < alertDisplayWrapper.children.length; i++ ) {
         alertDisplayWrapper.children[ i ].innerHTML = "<br />";
+    }
+
+    while ( subtitleDisplayWrapper.firstChild ) {
+        subtitleDisplayWrapper.removeChild( subtitleDisplayWrapper.firstChild );
     }
 }
 
@@ -118,7 +133,7 @@ function pushToDisplay( type, message ) {
 
     // Fades out statuses by opacityDecrease when pushed up
     var opacityDecrease = ( 1 / stackLength );
-    $( textSelector ).stop( true, false ).animate( {
+    $( textSelector ).delay( 5000 ).stop( true, false ).animate( {
 
         'opacity' : '-=' + opacityDecrease
 
@@ -127,6 +142,23 @@ function pushToDisplay( type, message ) {
         // After messages shift up, continue complete fade out
         statusFadeComplete( type, textSelector, maxDisplayTime );
     } );
+}
+
+function pushSubtitle( message ) {
+    var text = document.createElement( "div" );
+    text.className = "subtitleText";
+
+    //Displays subtitle one character at a time
+    for ( var i = 0; i < message.length; i++ ) {
+        ( function( index ) {
+            setTimeout( function() {
+                text.innerHTML += message[ index ];
+                loggerBox.scrollTop = loggerBox.scrollHeight;
+            }, 80 * index );
+        } ) ( i );
+    }
+
+    subtitleDisplayWrapper.appendChild( text );
 }
 
 function statusFadeComplete( messageType, jqSelector, time ) {
