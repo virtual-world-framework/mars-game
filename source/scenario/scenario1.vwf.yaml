@@ -82,6 +82,8 @@ properties:
         - rover
         - collision
       actions:
+      - writeToBlackboard:
+        - hasFailed
       - scenarioFailure:        
         - collision
       - playSound:
@@ -97,6 +99,8 @@ properties:
         - rover
         - battery
       actions:
+      - writeToBlackboard:
+        - hasFailed
       - scenarioFailure:         
         - battery
       - playSound:
@@ -110,16 +114,22 @@ properties:
       triggerCondition:
       - onBlocklyStopped:
       additionalCondition:
-      - not:
-        - and:
-          - isAtPosition:
-            - rover
-            - 8
-            - 16
-          - hasObject:
-            - rover
-            - radio
+      - and:
+        - not:
+          - and:
+            - isAtPosition:
+              - rover
+              - 8
+              - 16
+            - hasObject:
+              - rover
+              - radio
+        - not:
+          - readBlackboard:
+            - hasFailed
       actions:
+      - writeToBlackboard:
+        - hasFailed
       - scenarioFailure:
         - incomplete
       - playSound:
@@ -159,6 +169,8 @@ properties:
         - environmentWind
       - writeToBlackboard:
         - musicStoryScreen
+      - clearBlackboard:
+        - hasFailed
 
     playStartingSounds:
       triggerCondition:

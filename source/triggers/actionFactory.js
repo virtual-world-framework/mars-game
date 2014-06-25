@@ -135,10 +135,25 @@ this.actionSet.writeToBlackboard = function( params, context ) {
         return undefined;
     }
 
-    var blackboard = context.sceneBlackboard;
+    var scene = self.find( "/" )[ 0 ];
 
     return function() {
-        blackboard[ params[ 0 ] ] = 1;
+        scene.sceneBlackboard[ params[ 0 ] ] = 1;
+    }
+
+}
+
+this.actionSet.clearBlackboard = function( params, context ) {
+
+    if ( params && ( params.length < 1 ) ) {
+        self.logger.errorx( "clearBlackboard", "This action takes one parameter: variable name.");
+        return undefined;
+    }
+
+    var scene = self.find( "/" )[ 0 ];
+
+    return function() {
+        scene.sceneBlackboard[ params[ 0 ] ] = undefined;
     }
 
 }
@@ -150,13 +165,13 @@ this.actionSet.incrementBlackboardValue = function( params, context ) {
         return undefined;
     }
 
-    var blackboard = context.sceneBlackboard;
+    var scene = self.find( "/" )[ 0 ];
 
     return function() {
-        if ( !blackboard[ params[ 0 ] ] ){
-            blackboard[ params[ 0 ] ] = 1;
+        if ( !scene.sceneBlackboard[ params[ 0 ] ] ){
+            scene.sceneBlackboard[ params[ 0 ] ] = 1;
         } else {
-            blackboard[ params[ 0 ] ] = blackboard[ params[ 0 ] ] + 1;
+            scene.sceneBlackboard[ params[ 0 ] ] = scene.sceneBlackboard[ params[ 0 ] ] + 1;
         }
         
     }
