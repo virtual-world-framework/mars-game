@@ -83,7 +83,7 @@ properties:
         - collision
       actions:
       - scenarioFailure:        
-        - "Your navigation program is blocked by an obstacle!"
+        - collision
       - playSound:
         - musicFailure
       - stopSound:
@@ -98,7 +98,7 @@ properties:
         - battery
       actions:
       - scenarioFailure:         
-        - "You have run out of battery!"
+        - battery
       - playSound:
         - musicFailure
       - stopSound:
@@ -121,7 +121,7 @@ properties:
             - radio
       actions:
       - scenarioFailure:
-        - "You didn't reach the destination!"
+        - incomplete
       - playSound:
         - musicFailure
       - stopSound:
