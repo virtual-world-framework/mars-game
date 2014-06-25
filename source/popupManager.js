@@ -48,7 +48,9 @@ function showFailScreen( type ) {
         } else if ( type === "battery" ) {
             failScreen.style.backgroundImage = "url('assets/images/failureScreens/fail_no_power.jpg')";
         } else if ( type === "incomplete" ) {
-            failScreen.style.backgroundImage = "url('assets/images/failureScreens/fail_lost.jpg')";        
+            failScreen.style.backgroundImage = "url('assets/images/failureScreens/fail_incomplete.jpg')";        
+        } else if ( type === "lost" ) {
+            failScreen.style.backgroundImage = "url('assets/images/failureScreens/fail_lost.jpg')";                    
         }
         failScreen.onclick = function() {
             removeFailScreen();        
