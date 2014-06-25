@@ -6,8 +6,11 @@ function setUpBlocklyPeripherals() {
 
     var blocklyCloseBtn = document.createElement( "div" );
     var blocklyHandle = document.createElement( "div" );
+    var blocklyHandleIcon = document.createElement( "div" );
     blocklyHandle.id = "blocklyHandle";
-    $( "#blocklyWrapper" ).append( blocklyHandle );
+    blocklyHandleIcon.id = "blocklyHandleIcon";
+    $( blocklyHandle ).append( blocklyHandleIcon );
+    $( "#blocklyWrapper-top" ).append( blocklyHandle );
     $( "#blocklyWrapper" ).draggable( {
         handle: "div#blocklyHandle",
         scroll: false,
@@ -36,6 +39,15 @@ function setUpBlocklyPeripherals() {
     ramBarCount.innerHTML = 15;
 
     blocklyCloseBtn.id = "blocklyCloseBtn";
+
+    blocklyCloseBtn.onmouseover = ( function() {
+        this.className = "hover";
+    } ).bind( blocklyCloseBtn );
+
+    blocklyCloseBtn.onmouseout = ( function() {
+        this.className = "";
+    } ).bind( blocklyCloseBtn );
+
     blocklyCloseBtn.onclick = ( function() {
         vwf_view.kernel.setProperty( vwf_view.kernel.application(), "blockly_activeNodeID", undefined );
     } );
