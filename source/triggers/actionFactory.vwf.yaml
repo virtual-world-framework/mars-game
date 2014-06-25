@@ -38,6 +38,10 @@ properties:
     # arguments: variableName
     incrementBlackboardValue:
 
+    # clears the value at the specified blackboard variableName
+    # arguments: variableName
+    clearBlackboard:
+    
     # delays for a fixed time, and then plays one or more actions
     # arguments: delay, action(s)
     delay:
