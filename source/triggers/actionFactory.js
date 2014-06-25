@@ -135,10 +135,8 @@ this.actionSet.writeToBlackboard = function( params, context ) {
         return undefined;
     }
 
-    var scene = self.find( "/" )[ 0 ];
-
     return function() {
-        scene.sceneBlackboard[ params[ 0 ] ] = 1;
+        context.sceneBlackboard[ params[ 0 ] ] = 1;
     }
 
 }
@@ -150,10 +148,8 @@ this.actionSet.clearBlackboard = function( params, context ) {
         return undefined;
     }
 
-    var scene = self.find( "/" )[ 0 ];
-
     return function() {
-        scene.sceneBlackboard[ params[ 0 ] ] = undefined;
+        context.sceneBlackboard[ params[ 0 ] ] = undefined;
     }
 
 }
@@ -165,20 +161,16 @@ this.actionSet.incrementBlackboardValue = function( params, context ) {
         return undefined;
     }
 
-    var scene = self.find( "/" )[ 0 ];
-
     return function() {
-        if ( !scene.sceneBlackboard[ params[ 0 ] ] ){
-            scene.sceneBlackboard[ params[ 0 ] ] = 1;
+        if ( context.sceneBlackboard[ params[ 0 ] ] === undefined ){
+            context.sceneBlackboard[ params[ 0 ] ] = 1;
         } else {
-            scene.sceneBlackboard[ params[ 0 ] ] = scene.sceneBlackboard[ params[ 0 ] ] + 1;
+            context.sceneBlackboard[ params[ 0 ] ] = context.sceneBlackboard[ params[ 0 ] ] + 1;
         }
         
     }
 
 }
-
-
 
 this.actionSet.waitForNode = function ( params, context ) {
     if ( params && ( params.length < 2 ) ) {

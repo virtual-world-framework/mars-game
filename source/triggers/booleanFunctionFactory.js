@@ -568,11 +568,9 @@ this.clauseSet.readBlackboard = function( params, context ) {
         return undefined;
     }
 
-    var scene = self.find( "/" )[ 0 ];
-    
-    var checkedValue = scene.sceneBlackboard[ params[ 0 ] ];
-
     return function() {
+    
+        var checkedValue = context.sceneBlackboard[ params[ 0 ] ];
 
         if ( params[ 1 ] !== undefined ){
         var retVal = ( checkedValue !== undefined && checkedValue < params[ 1 ] );
