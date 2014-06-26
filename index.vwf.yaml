@@ -23,6 +23,8 @@ methods:
   removeGraph:
   createMiniRover:
   removeMiniRover:
+  createGridDisplay:
+  removeGridDisplay:
   addStatus:
   addAlert:
   addSubtitle:
@@ -178,6 +180,8 @@ children:
       yAxisVisible: true
       zAxisVisible: false
       gridVisible: true
+      axisOpacity: 1
+      gridOpacity: 0.75
       renderTop: true
     children:
       blocklyLine:
@@ -192,6 +196,7 @@ children:
           endValue: 64
           pointCount: 400
           color: [ 100, 255, 100 ]
+          opacity: 1
           lineThickness: 0.15
           renderTop: true
           visible: false
@@ -201,6 +206,20 @@ children:
       this.initialize = function() {
         this.future( 0 ).setGraphVisibility( false );
       }
+  gridTileGraph:
+    extends: http://vwf.example.com/graphtool/graph.vwf
+    properties:
+      graphScale: 3
+      gridInterval: 1
+      gridLineInterval: 4
+      gridLength: 1
+      xAxisVisible: false
+      yAxisVisible: false
+      zAxisVisible: false
+      gridVisible: false
+      axisOpacity: 1
+      gridOpacity: 1
+      renderTop: false
   alerts:
     extends: http://vwf.example.com/logger.vwf
     properties:

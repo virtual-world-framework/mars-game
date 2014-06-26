@@ -31,6 +31,11 @@ this.startScenario = function() {
                 scene.blockly_defaultXml = self.blocklyDefault;
             }
         }
+
+        if ( self.grid ) {
+            scene.removeGridDisplay();
+            scene.future(0).createGridDisplay( self.grid );
+        }
     }
 
     if ( self.startState && self.startState.length > 0 ) {
@@ -147,7 +152,7 @@ this.startStateParamSet.createGraph = function( params, context ) {
         return undefined;
     }
 
-    scene.createGraph();
+    scene.future( 0 ).createGraph();
 }
 
 //@ sourceURL=source/scenario/scenario.js

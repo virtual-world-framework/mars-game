@@ -140,4 +140,69 @@ this.addSubtitle = function( log ) {
     }
 }
 
+/*
+  Plane:
+    extends: http://vwf.example.com/graphtool/graphplane.vwf
+    properties:
+      origin: [ -50, 30, 10 ]
+      normal: [ 1, 0.5, 0.25 ]
+      rotationAngle: 90
+      size: 10
+      color: [ 50, 100, 200 ]
+      renderTop: false
+*/
+
+
+this.createGridDisplay = function( grid ) {
+    var PASSABLE_COLOR = [ 50, 90, 150 ];
+    var IMPASSABLE_COLOR = [ 200, 40, 10 ];
+    var OPACITY = 0.5;
+    var NORMAL = [ 0, 0, 1 ];
+    var ROTATION = 90;
+    var RENDERTOP = true;
+    var SIZE = 0.8;
+    var origin, name, color;
+
+    var offset = new Array(); 
+    offset.push( grid.gridOriginInSpace[ 0 ] / grid.gridSquareLength );
+    offset.push( grid.gridOriginInSpace[ 1 ] / grid.gridSquareLength );
+
+    for ( var x = 0; x < grid.boundaryValues.length; x++ ) {
+
+        for ( var y = 0; y < grid.boundaryValues[ x ].length; y++ ) {
+
+            name = "tile_" + x + "_" + y;
+
+            origin = [
+                offset[ 0 ] + ( x ),
+                offset[ 1 ] + ( y ),
+                0.1
+            ];
+
+            color = grid.boundaryValues[ x ][ y ] === -1 ? IMPASSABLE_COLOR : PASSABLE_COLOR;
+
+            this.gridTileGraph.graphPlane(
+                origin,
+                NORMAL,
+                ROTATION,
+                SIZE,
+                color,
+                OPACITY,
+                RENDERTOP,
+                name
+            );
+
+        }
+
+    }
+}
+
+this.removeGridDisplay = function() {
+    var graph = this.gridTileGraph;
+
+    for ( var obj in graph.children ) {
+        graph.children.delete( graph.children[ obj ] );
+    }
+}
+
 //@ sourceURL=source/scene.js
