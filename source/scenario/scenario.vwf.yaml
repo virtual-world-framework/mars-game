@@ -37,10 +37,5 @@ methods:
   # This is called using future(0) inside of initialize (at least for now).
   startScenario:
 
-events:
-
-  showComms:
-  hideComms:
-
 scripts:
 - source: source/scenario/scenario.js

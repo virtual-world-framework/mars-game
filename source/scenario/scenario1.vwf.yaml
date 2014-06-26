@@ -75,6 +75,8 @@ properties:
         - musicFailure
       - stopSound:
         - musicStandardGameplay
+      - showComms:
+        - "assets/images/hud/comms_missioncontrol.png"
 
     failOnCollision:
       triggerCondition:
@@ -198,6 +200,8 @@ properties:
         - L1VO1_Rover
       - writeToBlackboard:
         - L1VO1
+      - showComms:
+        - "assets/images/hud/comms_rover.png"
 
     playL1VO2_Rover:
       triggerCondition:
@@ -213,6 +217,8 @@ properties:
         - L1VO2_Rover
       - writeToBlackboard:
         - L1VO2
+      - showComms:
+        - "assets/images/hud/comms_rover.png"
 
     playL1VO3_Rover:
       triggerCondition:
@@ -231,6 +237,8 @@ properties:
         - L1VO3_Rover
       - writeToBlackboard:
         - L1VO3
+      - showComms:
+        - "assets/images/hud/comms_rover.png"
 
     playL1VO5_Rover:
       triggerCondition:
@@ -247,6 +255,8 @@ properties:
         - L1VO5_Rover
       - writeToBlackboard:
         - L1VO5
+      - showComms:
+        - "assets/images/hud/comms_rover.png"
 
     startRoverSounds:
       triggerCondition:

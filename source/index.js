@@ -117,6 +117,15 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
             case "stopBlinkTab":
                 stopBlinkTab( eventArgs[ 0 ] );
                 break;
+
+            case "showComms":
+                var imagePath = eventArgs[ 0 ];
+                showCommsDisplay();
+                addImageToCommsDisplay( imagePath );
+                break;
+            case "hideComms":
+                hideCommsDisplay();
+                break;
         } 
 
     } else if ( loggerNodes[ nodeID ] !== undefined ) { 
@@ -168,14 +177,11 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
             }
         }
 
-        if ( eventName === "showComms" ) {
-            var imagePath = eventArgs[ 0 ];
-            showCommsDisplay();
-            addImageToCommsDisplay( imagePath );
-        }
-
-        if ( eventName === "hideComms" ) {
-            hideCommsDisplay();
+        if ( eventName === "soundFinished" ) {
+            var soundDefinition = eventArgs[ 0 ];
+            if ( soundDefinition && soundDefinition.soundGroup === "VO" ) {
+                removeImageFromCommsDisplay();
+            }
         }
 
         // TODO: Decide if inventory HUD element should be displayed,
