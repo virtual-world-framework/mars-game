@@ -65,6 +65,7 @@ properties:
           - rover
           - radio
       actions:
+      - hideBlockly:
       - scenarioSuccess:
         - "You have picked up the radio!"
       - playSound:
@@ -82,6 +83,7 @@ properties:
         - rover
         - collision
       actions:
+      - hideBlockly:
       - writeToBlackboard:
         - hasFailed
       - scenarioFailure:        
@@ -99,6 +101,7 @@ properties:
         - rover
         - battery
       actions:
+      - hideBlockly:
       - writeToBlackboard:
         - hasFailed
       - scenarioFailure:         
@@ -128,6 +131,7 @@ properties:
           - readBlackboard:
             - hasFailed
       actions:
+      - hideBlockly:
       - writeToBlackboard:
         - hasFailed
       - scenarioFailure:
