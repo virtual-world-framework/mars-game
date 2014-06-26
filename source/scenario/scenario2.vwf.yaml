@@ -110,12 +110,25 @@ properties:
       actions:
       - playSound:
         - musicStandardGameplay
+
+    playStartingVO:
+      triggerCondition:
+      - onScenarioStart:
+      additionalCondition:
+      - and:
+        - not:
+          - readBlackboard:
+            - L2VO1
+        - doOnce:
+      actions:
       - playSound:
         - L2VO1_Control
       - delay:
         - 0.5
         - playSound:
           - L2VO2_Rover
+      - writeToBlackboard:
+        - L2VO1
 
     playL2VO3_Rover:
       triggerCondition:
