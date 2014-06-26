@@ -439,6 +439,23 @@ this.clauseSet.onScenarioStart = function( params, context, callback ) {
     };
 }
 
+this.clauseSet.onScenarioChanged = function( params, context, callback ) {
+    if ( params && ( params.length > 0 ) ) {
+        self.logger.errorx( "onScenarioChanged", 
+                            "This clause takes no arguments." );
+        return undefined;
+    }
+
+    onClauseCallbackWarning( callback );
+    if ( callback ) {
+        context.scenarioChanged = self.events.add( callback );
+    }
+
+    return function() {
+        return true;
+    };
+}
+
 this.clauseSet.onIntroScreensComplete = function( params, context, callback ) {
     if ( params ) {
         self.logger.warnx( "onIntroScreensComplete", 

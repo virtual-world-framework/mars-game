@@ -155,9 +155,9 @@ properties:
 
     stopBlinkBlocklyIcon:
       triggerCondition:
-      - onBlocklyWindowOpened:
-      additionalCondition:
-      - doOnce:
+      - or:
+        - onBlocklyWindowOpened:
+        - onScenarioChanged:
       actions:
       - stopBlinkHUDElement:
         - blocklyButton
