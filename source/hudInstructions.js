@@ -95,8 +95,8 @@ function createCameraSelector() {
 
 function createCommsDisplay() {
 
-    var commsElement = new HUD.Element( "comms", drawComms, 128, 192 );
-    hud.add( commsElement, "left", "bottom", { "x": 30, "y": -30 } );
+    var commsElement = new HUD.Element( "comms", drawComms, 100, 150 );
+    hud.add( commsElement, "left", "bottom", { "x": 10, "y": -10 } );
 
     var background = new Image();
     background.src = "assets/images/hud/communication_bg.png";
@@ -114,6 +114,13 @@ function addImageToCommsDisplay( imagePath ) {
     var comms = hud.elements.comms; 
     if ( comms ) {
         comms.characterImage.src = imagePath;
+    }
+}
+
+function removeImageFromCommsDisplay() {
+    var comms = hud.elements.comms;
+    if ( comms ) {
+        comms.characterImage.src = "";
     }
 }
 

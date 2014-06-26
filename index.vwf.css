@@ -294,11 +294,11 @@ body {
 
 #loggerBox {
     width: 30%;
-    height: 150px;
+    height: 140px;
     background-color: rgba( 0, 30, 60, 0.5 );
     position: absolute;
     bottom: 10px;
-    left: 10px;
+    left: 110px;
     overflow-y: scroll;
     z-index: 3;
     padding: 5px;
