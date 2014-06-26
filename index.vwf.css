@@ -1,21 +1,35 @@
+body {
+    overflow: hidden;
+}
+
 #blocklyWrapper {
     width: 560px;
-    height: 500px;
+    height: 812px;
     position: absolute;
     top: 50%;
     left: 50%;
     margin-left: -280px;
-    margin-top: -250px;
-    background-color: #fff;
-    border-radius: 10px;
+    margin-top: -406px;
+    background-color: rgb( 50, 90, 150);
+    border-radius: 8px;
+    border: 1px solid rgb( 70, 110, 170 );
     visibility: hidden;
     pointer-events: none;
-    opacity: 1;
     font-family: "Arial Black", Gadget, sans-serif;
 }
 
 #blocklyWrapper-top {
-    height: 40px;
+    height: 48px;
+    user-select: none;
+    -webkit-user-select: none;  /* Chrome all / Safari all */
+    -moz-user-select: none;     /* Firefox all */
+    -ms-user-select: none;      /* IE 10+ */
+    cursor: default;
+}
+
+#blocklyFooter {
+    height: 64px;
+    width: 100%;
     user-select: none;
     -webkit-user-select: none;  /* Chrome all / Safari all */
     -moz-user-select: none;     /* Firefox all */
@@ -24,29 +38,37 @@
 }
 
 #blocklyDiv {
-	height: 400px;
-	width: 560px;
-	overflow: hidden;
-	opacity: 1;
-    border-top: 3px solid rgb( 0, 40, 120 );
-    border-bottom: 3px solid rgb( 0, 40, 120 );
+    height: 700px;
+    width: 560px;
+    overflow: hidden;
+}
 
+#runStopContainer {
+    position: relative;
+    top: -24px;
+    left: 480px;
 }
 
 #runButton {
-    height: 32px;
+    height: 24px;
     width: 64px;
-	background: url( "assets/images/blockly_ui/run_button.png" );
-    text-indent: 100%;
-    white-space: nowrap;
-    overflow: hidden;
-    position: absolute;
-    right: 8px;
-    margin-top: 8px;
+    background: url( "assets/images/blockly_ui/run_button.png" );
 }
 
 #runButton.disabled {
     background: url( "assets/images/blockly_ui/run_button_disabled.png" );
+    pointer-events: none;
+}
+
+#stopButton {
+    height: 24px;
+    width: 64px;
+    background: url( "assets/images/blockly_ui/stop_button.png" );
+}
+
+#stopButton.disabled {
+    background: url( "assets/images/blockly_ui/stop_button_disabled.png" );
+    pointer-events: none;
 }
 
 .blocklyTab {
@@ -56,17 +78,17 @@
     background-position: bottom;
     background-repeat: no-repeat;
     display: inline-block;
-    color: rgb( 50, 90, 220 );
+    color: rgb( 51, 51, 51 );
     font-variant: small-caps;
     font-weight: bold;
     text-align: center;
     line-height: 24px;
-    margin-top: 16px;
+    margin-top: 24px;
 }
 
 .blocklyTab.selected {
     background-image: url( "assets/images/blockly_ui/tab_selected.png" );
-    color: rgb( 255, 255, 255 );
+    color: rgb( 50, 90, 150 );
 }
 
 #toolbox {
@@ -80,34 +102,45 @@
 	top: 0;
 	left: 0;
 	background-color: #000;
-	z-index: 3;
+	z-index: 100;
 }
 
 #blocklyHandle {
-    height: 12px;
+    height: 24px;
+    width: 100%;
     position: absolute;
-    top: 0;
-    right: 32px;
-    left: 32px;
+    top: 0px;
+    left: 0px;
+    background-image: url( "assets/images/blockly_ui/drag_handle_bg.png" );
+    background-repeat: repeat-x;
+    background-color: rgb( 50, 90, 150 );
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+}
+
+#blocklyHandleIcon {
+    height: 24px;
     background-image: url( "assets/images/blockly_ui/drag_handle.png" );
-    background-position: center;
     background-repeat: no-repeat;
-    background-color: rgb( 50, 90, 220 );
+    background-position: center;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 #ramBar {
     width: 384px;
     height: 32px;
-    background-color: rgb( 0, 40, 120 );
-    border: 1px solid rgb( 50, 90, 220 );
+    background-color: rgb( 51, 51, 51 );
+    border: 1px solid rgb( 51, 51, 51 );
     border-radius: 16px;
-    margin-top: 8px;
-    margin-left: 8px;
     user-select: none;
     -webkit-user-select: none;  /* Chrome all / Safari all */
     -moz-user-select: none;     /* Firefox all */
     -ms-user-select: none;      /* IE 10+ */
     cursor: default;
+    position: relative;
+    top: 16px;
+    left: 8px;
 }
 
 #currentRam {
@@ -117,25 +150,45 @@
 }
 
 #ramBarCount {
-    width: 32px;
+    width: 100%;
     height: 32px;
     color: #fff;
     font-size: 24px;
-    text-shadow: 0 0 0.2em rgb( 220, 90, 50 );
+    text-shadow: 0 0 0.2em rgb( 150, 90, 50 );
     line-height: 32px;
     position: relative;
     top: -32px;
     margin-left: auto;
     margin-right: auto;
+    text-align: center;
 }
 
 #blocklyCloseBtn {
-    width: 24px;
+    width: 32px;
     height: 24px;
     background-image: url( "assets/images/blockly_ui/close_button.png" );
     position: absolute;
-    top: 8px;
-    right: 4px;
+    top: 0px;
+    right: 0px;
+    border-top-right-radius: 8px;
+}
+
+#blocklyCloseBtn.hover {
+    background-image: url( "assets/images/blockly_ui/close_button_hover.png" );
+}
+
+#blocklyHelpButton {
+    height: 24px;
+    width: 32px;
+    background-image: url( "assets/images/blockly_ui/help_button.png" );
+    position: absolute;
+    top: 0px;
+    right: 32px;
+    border-right: 1px solid rgb( 70, 110, 170 );
+}
+
+#blocklyHelpButton.hover {
+    background-image: url( "assets/images/blockly_ui/help_button_hover.png" );
 }
 
 #popupDiv {
@@ -165,6 +218,7 @@
 
 .statusText {
     color: #fff;
+    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;    
     font-family: "Arial Black", Gadget, sans-serif;
     font-size: 16px;
     opacity: 1;
@@ -176,6 +230,7 @@
 
 .alertText {
     color: #fff;
+    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;    
     font-family: "Arial Black", Gadget, sans-serif;
     font-size: 24px;
     font-style: bold;
@@ -184,6 +239,14 @@
     width: 70%;
     margin: 0 auto;
     overflow: hidden;
+}
+
+.subtitleText {
+    color: #fff;
+    font-family: "Arial Black", Gadget, sans-serif;
+    font-size: 14px;
+    width: 100%;
+    margin-bottom: 5px;
 }
 
 #statusDisplayWrapper {
@@ -216,6 +279,31 @@
     cursor: default;
 }
 
+#subtitleDisplayWrapper {
+    position: relative;
+    bottom: 5px;
+    left: 5px;
+    width: 100%;
+    pointer-events: none;
+    user-select: none;
+    -webkit-user-select: none;  /* Chrome all / Safari all */
+    -moz-user-select: none;     /* Firefox all */
+    -ms-user-select: none;      /* IE 10+ */
+    cursor: default;    
+}
+
+#loggerBox {
+    width: 30%;
+    height: 150px;
+    background-color: rgba( 0, 30, 60, 0.5 );
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    overflow-y: scroll;
+    z-index: 3;
+    padding: 5px;
+}
+
 #introScreen {
     height: 100%;
     width: 100%;
@@ -223,6 +311,7 @@
     top: 0;
     left: 0;
     background-color: #000;
+    z-index: 99;
 }
 
 .introImage {
@@ -231,4 +320,32 @@
     display: block;
     margin-left: auto;
     margin-right: auto;
+}
+
+#failScreen {
+    background-repeat: no-repeat;
+    background-position: center center;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 100;
+}
+
+#blocklyHelpScreen {
+    background-image: url('assets/images/introScreens/screen1.png');
+}
+
+#helpScreen {
+    background-image: url('assets/images/introScreens/screen3.png');
+}
+
+.help {
+    background-color: rgb(0,0,0);
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center center;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 2500;
 }

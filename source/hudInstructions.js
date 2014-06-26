@@ -4,19 +4,25 @@ function createHUD() {
     createCameraSelector();
     createCommsDisplay();
 
-    var blocklyButton = new HUD.Element( "blocklyButton", drawIcon, 48, 48 );
+    var blocklyButton = new HUD.Element( "blocklyButton", drawIcon, 64, 64 );
     blocklyButton.icon = new Image();
-    blocklyButton.icon.src = "assets/hud/blockly_large.png";
+    blocklyButton.icon.src = "assets/images/hud/blockly_large.png";
     blocklyButton.onMouseDown = clickBlockly;
     hud.add( blocklyButton, "right", "bottom", { "x": -30, "y": -30 } );
 
-    var graphButton = new HUD.Element( "graphButton", drawIcon, 48, 48 );
+    var graphButton = new HUD.Element( "graphButton", drawIcon, 64, 64 );
     graphButton.icon = new Image();
-    graphButton.icon.src = "assets/hud/graph_display.png";
+    graphButton.icon.src = "assets/images/hud/graph_display.png";
     graphButton.onMouseDown = toggleGraphDisplay;
-    hud.add( graphButton, "right", "bottom", { "x": -94, "y": -30 } );
+    hud.add( graphButton, "right", "bottom", { "x": -102, "y": -30 } );
 
-    createInventoryHUD( 4 );
+    var helpButton = new HUD.Element( "helpButton", drawIcon, 64, 64 );
+    helpButton.icon = new Image();
+    helpButton.icon.src = "assets/images/hud/help_large.png";
+    helpButton.onMouseDown = showHelp;
+    hud.add( helpButton, "right", "bottom", { "x": -174, "y": -30 } );
+
+    // createInventoryHUD( 4 );
 
     hideCommsDisplay();
 
@@ -31,11 +37,11 @@ function createRoverElement() {
     hud.add( batteryMeter, "left", "top", { "x": 30, "y": 30 } );
 
     batteryMeter.frame = new Image();
-    batteryMeter.frame.src = "assets/hud/rover_frame.png";
+    batteryMeter.frame.src = "assets/images/hud/rover_frame.png";
     batteryMeter.portrait = new Image();
-    batteryMeter.portrait.src = "assets/hud/rover_portrait.png";
+    batteryMeter.portrait.src = "assets/images/hud/rover_portrait.png";
     batteryMeter.selectedIcon = new Image();
-    batteryMeter.selectedIcon.src = "assets/hud/rover_select.png";
+    batteryMeter.selectedIcon.src = "assets/images/hud/rover_select.png";
 }
 
 function createMiniRoverElement() {
@@ -45,11 +51,11 @@ function createMiniRoverElement() {
     hud.add( miniroverElement, "left", "top", { "x": 50, "y": 168 } );
 
     miniroverElement.portrait = new Image();
-    miniroverElement.portrait.src = "assets/hud/minirover_portrait.png";
+    miniroverElement.portrait.src = "assets/images/hud/minirover_portrait.png";
     miniroverElement.frame = new Image();
-    miniroverElement.frame.src = "assets/hud/minirover_frame.png";
+    miniroverElement.frame.src = "assets/images/hud/minirover_frame.png";
     miniroverElement.selectedIcon = new Image();
-    miniroverElement.selectedIcon.src = "assets/hud/minirover_select.png";
+    miniroverElement.selectedIcon.src = "assets/images/hud/minirover_select.png";
 }
 
 function createCameraSelector() {
@@ -59,31 +65,31 @@ function createCameraSelector() {
         "icon": new Image(),
         "type": "thirdPerson"
     };
-    selector.activeMode.icon.src = "assets/hud/camera_thirdperson.png";
+    selector.activeMode.icon.src = "assets/images/hud/camera_thirdperson.png";
     selector.frame = new Image();
-    selector.frame.src = "assets/hud/camera_selector_frame.png";
+    selector.frame.src = "assets/images/hud/camera_selector_frame.png";
     hud.add( selector, "right", "top", { "x": -30, "y": 30 } );
 
     var firstPersonBtn = new HUD.Element( "camera_firstPerson", drawIcon, 22, 22 );
     firstPersonBtn.icon = new Image();
-    firstPersonBtn.icon.src = "assets/hud/camera_firstperson.png";
+    firstPersonBtn.icon.src = "assets/images/hud/camera_firstperson.png";
     firstPersonBtn.mode = "firstPerson";
     firstPersonBtn.onMouseDown = selectCameraMode;
-    hud.add( firstPersonBtn, "right", "top", { "x": -62, "y": 32 } );
+    hud.add( firstPersonBtn, "right", "top", { "x": -53, "y": 32 } );
 
     var thirdPersonBtn = new HUD.Element( "camera_thirdPerson", drawIcon, 22, 22 );
     thirdPersonBtn.icon = new Image();
-    thirdPersonBtn.icon.src = "assets/hud/camera_thirdperson.png";
+    thirdPersonBtn.icon.src = "assets/images/hud/camera_thirdperson.png";
     thirdPersonBtn.mode = "thirdPerson";
     thirdPersonBtn.onMouseDown = selectCameraMode;
-    hud.add( thirdPersonBtn, "right", "top", { "x": -35, "y": 52 } );
+    hud.add( thirdPersonBtn, "right", "top", { "x": -34, "y": 54 } );
 
     var topDownBtn = new HUD.Element( "camera_topDown", drawIcon, 22, 22 );
     topDownBtn.icon = new Image();
-    topDownBtn.icon.src = "assets/hud/camera_topdown.png";
+    topDownBtn.icon.src = "assets/images/hud/camera_topdown.png";
     topDownBtn.mode = "topDown";
     topDownBtn.onMouseDown = selectCameraMode;
-    hud.add( topDownBtn, "right", "top", { "x": -38, "y": 84 } );
+    hud.add( topDownBtn, "right", "top", { "x": -35, "y": 80 } );
 
 }
 
@@ -93,11 +99,11 @@ function createCommsDisplay() {
     hud.add( commsElement, "left", "bottom", { "x": 30, "y": -30 } );
 
     var background = new Image();
-    background.src = "assets/hud/communication_bg.png";
+    background.src = "assets/images/hud/communication_bg.png";
     background.onload = ( function() { commsElement.background = background; } );
 
     var frame = new Image();
-    frame.src = "assets/hud/communication_frame.png";
+    frame.src = "assets/images/hud/communication_frame.png";
     frame.onload = ( function() { commsElement.frame = frame; } );
 
     commsElement.characterImage = new Image();
@@ -141,24 +147,26 @@ function createInventoryHUD( capacity ) {
     inventory.slots = slots;
     inventory.capacity = capacity;
     inventory.type = "inventory";
+    inventory.label = new Image();
+    inventory.label.src = "assets/images/hud/inventory_label.png";
     hud.add( inventory, "center", "bottom", { "x": 0, "y": -30 } );
 
     var leftEnd = new Image();
-    leftEnd.src = "assets/hud/inventory_end_left.png";
+    leftEnd.src = "assets/images/hud/inventory_end_left.png";
     leftEnd.onload = ( function() { 
         inventory.leftEnd = leftEnd;
         inventory.width += leftEnd.width;
     } );
 
     var rightEnd = new Image();
-    rightEnd.src = "assets/hud/inventory_end_right.png";
+    rightEnd.src = "assets/images/hud/inventory_end_right.png";
     rightEnd.onload = ( function() { 
         inventory.rightEnd = rightEnd;
         inventory.width += rightEnd.width;
     } );
 
     var separator = new Image();
-    separator.src = "assets/hud/inventory_separator.png";
+    separator.src = "assets/images/hud/inventory_separator.png";
     separator.onload = ( function() { 
         inventory.separator = separator;
         inventory.width += ( capacity - 1 ) * separator.width;
@@ -241,9 +249,14 @@ function drawBatteryMeter( context, position ) {
     var end = start - ( battery / maxBattery ) * Math.PI * 2;
 
     context.beginPath();
+    context.arc( center.x, center.y, arcWidth, 0, 2 * Math.PI, false );
+    context.fillStyle = "rgba(50,90,150,0.5)";
+    context.fill();
+
+    context.beginPath();
     context.arc( center.x, center.y, arcWidth / 2, start, end, true );
     context.lineWidth = arcWidth - 1;
-    context.strokeStyle = "rgb(70,120,255)";
+    context.strokeStyle = "rgb(50,130,255)";
     context.stroke();
 
     if ( this.portrait ) {
@@ -325,6 +338,8 @@ function drawInventory( context, position ) {
     var elementWidth = this.capacity * iconSize + ( this.capacity - 1 ) * separatorWidth;
     var startPosition = position.x;
 
+    context.drawImage( this.label, position.x + this.width / 2 - this.label.width / 2, position.y + 56 );
+
     if ( this.leftEnd ) {
         context.drawImage( this.leftEnd, position.x, position.y );
         startPosition += this.leftEnd.width;
@@ -358,7 +373,7 @@ function drawInventory( context, position ) {
 
         } else {
 
-            context.fillStyle = "rgb(50,90,220)";
+            context.fillStyle = "rgb(50,90,150)";
             context.fillRect( posX, posY + 5, iconSize, iconSize - 10 );
 
         }
@@ -395,6 +410,54 @@ function switchTarget( event ) {
 function selectCameraMode( event ) {
     var cameraNode = vwf_view.kernel.find( "", "//camera" )[ 0 ];
     vwf_view.kernel.setProperty( cameraNode, "pointOfView", this.mode );
+}
+
+function showHelp( event ) {
+    var help = document.createElement( "DIV" );
+    help.id = "helpScreen";
+    help.className = "help";
+    help.onclick = ( function() {
+        var dialog = document.getElementById( "helpScreen" );
+        document.body.removeChild( dialog );
+    } );
+    document.body.appendChild( help );
+}
+
+// Other functions
+
+function blinkElement( elementID ) {
+    var el = hud.elements[ elementID ];
+    if ( el ) {
+        el.currentDrawFunction = el.draw;
+        el.lastBlinkTime = vwf_view.kernel.time();
+        el.blinkInterval = 0.25;
+        el.blinkDuration = 0.25;
+        el.isBlinking = true;
+        el.draw = ( function( context, position ) {
+            var time = vwf_view.kernel.time();
+            if ( time  - this.lastBlinkTime > this.blinkInterval ) {
+                context.globalAlpha = 0.5;
+                
+                if ( time - this.lastBlinkTime > this.blinkInterval + this.blinkDuration ) {
+                    this.lastBlinkTime = time;
+                }
+            }
+            this.currentDrawFunction( context, position );
+            context.globalAlpha = 1;
+        } );
+    }
+}
+
+function stopElementBlinking( elementID ) {
+    var el = hud.elements[ elementID ];
+    if ( el.isBlinking ) {
+        el.draw = el.currentDrawFunction;
+        delete el.currentDrawFunction;
+        delete el.lastBlinkTime;
+        delete el.blinkInterval;
+        delete el.blinkDuration;
+        delete el.isBlinking;
+    }
 }
 
 //@ sourceURL=source/hudInstructions.js
