@@ -4,12 +4,12 @@ body {
 
 #blocklyWrapper {
     width: 560px;
-    height: 800px;
+    height: 812px;
     position: absolute;
     top: 50%;
     left: 50%;
     margin-left: -280px;
-    margin-top: -400px;
+    margin-top: -406px;
     background-color: rgb( 50, 90, 150);
     border-radius: 8px;
     border: 1px solid rgb( 70, 110, 170 );
@@ -20,6 +20,16 @@ body {
 
 #blocklyWrapper-top {
     height: 48px;
+    user-select: none;
+    -webkit-user-select: none;  /* Chrome all / Safari all */
+    -moz-user-select: none;     /* Firefox all */
+    -ms-user-select: none;      /* IE 10+ */
+    cursor: default;
+}
+
+#blocklyFooter {
+    height: 64px;
+    width: 100%;
     user-select: none;
     -webkit-user-select: none;  /* Chrome all / Safari all */
     -moz-user-select: none;     /* Firefox all */
@@ -42,20 +52,31 @@ body {
     left: 0px;
 }
 
+#runStopContainer {
+    position: relative;
+    top: -24px;
+    left: 480px;
+}
+
 #runButton {
-    height: 32px;
+    height: 24px;
     width: 64px;
     background: url( "assets/images/blockly_ui/run_button.png" );
-    text-indent: 100%;
-    white-space: nowrap;
-    overflow: hidden;
-    position: absolute;
-    right: 8px;
-    margin-top: 8px;
 }
 
 #runButton.disabled {
     background: url( "assets/images/blockly_ui/run_button_disabled.png" );
+    pointer-events: none;
+}
+
+#stopButton {
+    height: 24px;
+    width: 64px;
+    background: url( "assets/images/blockly_ui/stop_button.png" );
+}
+
+#stopButton.disabled {
+    background: url( "assets/images/blockly_ui/stop_button_disabled.png" );
     pointer-events: none;
 }
 
@@ -121,13 +142,14 @@ body {
     background-color: rgb( 51, 51, 51 );
     border: 1px solid rgb( 51, 51, 51 );
     border-radius: 16px;
-    margin-top: 8px;
-    margin-left: 8px;
     user-select: none;
     -webkit-user-select: none;  /* Chrome all / Safari all */
     -moz-user-select: none;     /* Firefox all */
     -ms-user-select: none;      /* IE 10+ */
     cursor: default;
+    position: relative;
+    top: 16px;
+    left: 8px;
 }
 
 #currentRam {
@@ -320,4 +342,5 @@ body {
     position: absolute;
     width: 100%;
     height: 100%;
+    z-index: 2500;
 }
