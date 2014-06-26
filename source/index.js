@@ -491,6 +491,12 @@ function updateBlocklyUI( blocklyNode ) {
 
 function blinkTab( nodeID ) {
     var tab = document.getElementById( nodeID );
+
+    if ( tab && tab.stopBlink ) {
+        // Tab has already been set to blink
+        return;
+    }
+
     var time, lastBlinkTime, rafID, oldClickHandler;
     var blinkInterval = 0.25;
 

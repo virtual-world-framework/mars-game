@@ -96,10 +96,10 @@ properties:
 
     stopBlinkGraphTab:
       triggerCondition:
-      - onBlocklyWindowOpened:
-        - graph
-      additionalCondition:
-      - doOnce:
+      - or:
+        - onBlocklyWindowOpened:
+          - graph
+        - onScenarioChanged:
       actions:
       - stopBlinkBlocklyTab:
         - graph
