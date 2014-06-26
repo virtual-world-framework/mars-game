@@ -63,6 +63,13 @@ function setUpBlocklyPeripherals() {
 
     blocklyHelpButton.id = "blocklyHelpButton";
     blocklyHelpButton.onclick = showBlocklyHelp;
+    blocklyHelpButton.onmouseover = ( function() {
+        this.className = "hover";
+    } ).bind( blocklyHelpButton );
+
+    blocklyHelpButton.onmouseout = ( function() {
+        this.className = "";
+    } ).bind( blocklyHelpButton );
 
     // Run and stop buttons
     runStopContainer.id = "runStopContainer";

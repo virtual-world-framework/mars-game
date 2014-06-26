@@ -43,15 +43,6 @@ body {
     overflow: hidden;
 }
 
-#blocklyHelpButton {
-    height: 24px;
-    width: 24px;
-    background-image: url( "assets/images/hud/help_small.png" );
-    position: absolute;
-    top: 0px;
-    left: 0px;
-}
-
 #runStopContainer {
     position: relative;
     top: -24px;
@@ -184,6 +175,20 @@ body {
 
 #blocklyCloseBtn.hover {
     background-image: url( "assets/images/blockly_ui/close_button_hover.png" );
+}
+
+#blocklyHelpButton {
+    height: 24px;
+    width: 32px;
+    background-image: url( "assets/images/blockly_ui/help_button.png" );
+    position: absolute;
+    top: 0px;
+    right: 32px;
+    border-right: 1px solid rgb( 70, 110, 170 );
+}
+
+#blocklyHelpButton.hover {
+    background-image: url( "assets/images/blockly_ui/help_button_hover.png" );
 }
 
 #popupDiv {

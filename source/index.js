@@ -178,16 +178,19 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
             hideCommsDisplay();
         }
 
-        if ( eventName === "pickedUp" ) {
-            var iconSrc = eventArgs[ 0 ];
-            var index = eventArgs[ 1 ];
-            var parentName = eventArgs[ 2 ];
-            addSlotIcon( nodeID, iconSrc, index, parentName );
-        }
+        // TODO: Decide if inventory HUD element should be displayed,
+        // redesigned, or removed entirely.
 
-        if ( eventName === "dropped" ) {
-            removeSlotIcon( nodeID );
-        }
+        // if ( eventName === "pickedUp" ) {
+        //     var iconSrc = eventArgs[ 0 ];
+        //     var index = eventArgs[ 1 ];
+        //     var parentName = eventArgs[ 2 ];
+        //     addSlotIcon( nodeID, iconSrc, index, parentName );
+        // }
+
+        // if ( eventName === "dropped" ) {
+        //     removeSlotIcon( nodeID );
+        // }
 
     }
 

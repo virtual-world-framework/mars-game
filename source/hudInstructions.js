@@ -4,25 +4,25 @@ function createHUD() {
     createCameraSelector();
     createCommsDisplay();
 
-    var blocklyButton = new HUD.Element( "blocklyButton", drawIcon, 48, 48 );
+    var blocklyButton = new HUD.Element( "blocklyButton", drawIcon, 64, 64 );
     blocklyButton.icon = new Image();
     blocklyButton.icon.src = "assets/images/hud/blockly_large.png";
     blocklyButton.onMouseDown = clickBlockly;
     hud.add( blocklyButton, "right", "bottom", { "x": -30, "y": -30 } );
 
-    var graphButton = new HUD.Element( "graphButton", drawIcon, 48, 48 );
+    var graphButton = new HUD.Element( "graphButton", drawIcon, 64, 64 );
     graphButton.icon = new Image();
     graphButton.icon.src = "assets/images/hud/graph_display.png";
     graphButton.onMouseDown = toggleGraphDisplay;
-    hud.add( graphButton, "right", "bottom", { "x": -94, "y": -30 } );
+    hud.add( graphButton, "right", "bottom", { "x": -102, "y": -30 } );
 
-    var helpButton = new HUD.Element( "helpButton", drawIcon, 24, 24 );
+    var helpButton = new HUD.Element( "helpButton", drawIcon, 64, 64 );
     helpButton.icon = new Image();
-    helpButton.icon.src = "assets/images/hud/help_small.png";
+    helpButton.icon.src = "assets/images/hud/help_large.png";
     helpButton.onMouseDown = showHelp;
-    hud.add( helpButton, "right", "top", { "x": -8, "y": 8 } );
+    hud.add( helpButton, "right", "bottom", { "x": -174, "y": -30 } );
 
-    createInventoryHUD( 4 );
+    // createInventoryHUD( 4 );
 
     hideCommsDisplay();
 
