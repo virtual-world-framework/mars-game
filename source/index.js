@@ -447,7 +447,8 @@ function isGraphObject( prototypes ) {
         for ( var i = 0; i < prototypes.length && !foundObject; i++ ) {
             foundObject = ( prototypes[i] == "http-vwf-example-com-graphtool-graphline-vwf" ) ||
                 ( prototypes[i] == "http-vwf-example-com-graphtool-graphlinefunction-vwf" ) ||
-                ( prototypes[i] == "http-vwf-example-com-graphtool-graphplane-vwf" );
+                ( prototypes[i] == "http-vwf-example-com-graphtool-graphplane-vwf" ) ||
+                ( prototypes[i] == "http-vwf-example-com-graphtool-graphgroup-vwf" );
         }
     }
 

@@ -149,6 +149,7 @@ this.createGridDisplay = function( grid ) {
     var RENDERTOP = true;
     var SIZE = 0.8;
     var origin, name, color;
+    var tiles = new Array;
 
     var offset = new Array(); 
     offset.push( grid.gridOriginInSpace[ 0 ] / grid.gridSquareLength );
@@ -167,22 +168,25 @@ this.createGridDisplay = function( grid ) {
             ];
 
             color = grid.boundaryValues[ x ][ y ] === -1 ? IMPASSABLE_COLOR : PASSABLE_COLOR;
-
-            this.gridTileGraph.graphPlane(
-                origin,
-                NORMAL,
-                ROTATION,
-                SIZE,
-                color,
-                OPACITY,
-                RENDERTOP,
-                name,
-                { "visible": this.gridTileGraph.tileVisible }
-            );
+            
+            tiles.push( { "plane": {
+                "origin": origin,
+                "normal": NORMAL,
+                "rotationAngle": ROTATION,
+                "size": SIZE,
+                "color": color,
+                "opacity": OPACITY,
+                "renderTop": RENDERTOP
+            } } );
 
         }
 
     }
+
+    this.gridTileGraph.graphGroup(
+        this.gridTileGraph.tileVisible,
+        tiles
+    );
 }
 
 this.removeGridDisplay = function() {
