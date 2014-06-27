@@ -140,4 +140,61 @@ this.addSubtitle = function( log ) {
     }
 }
 
+this.createGridDisplay = function( grid ) {
+    var PASSABLE_COLOR = [ 220, 255, 220 ];
+    var IMPASSABLE_COLOR = [ 255, 220, 220 ];
+    var OPACITY = 0.5;
+    var NORMAL = [ 0, 0, 1 ];
+    var ROTATION = 90;
+    var RENDERTOP = true;
+    var SIZE = 0.8;
+    var origin, name, color;
+    var tiles = new Array;
+
+    var offset = new Array(); 
+    offset.push( grid.gridOriginInSpace[ 0 ] / grid.gridSquareLength );
+    offset.push( grid.gridOriginInSpace[ 1 ] / grid.gridSquareLength );
+
+    for ( var x = 0; x < grid.boundaryValues.length; x++ ) {
+
+        for ( var y = 0; y < grid.boundaryValues[ x ].length; y++ ) {
+
+            name = "tile_" + x + "_" + y;
+
+            origin = [
+                offset[ 0 ] + ( x ),
+                offset[ 1 ] + ( y ),
+                0
+            ];
+
+            color = grid.boundaryValues[ x ][ y ] === -1 ? IMPASSABLE_COLOR : PASSABLE_COLOR;
+            
+            tiles.push( { "plane": {
+                "origin": origin,
+                "normal": NORMAL,
+                "rotationAngle": ROTATION,
+                "size": SIZE,
+                "color": color,
+                "opacity": OPACITY,
+                "renderTop": RENDERTOP
+            } } );
+
+        }
+
+    }
+
+    this.gridTileGraph.graphGroup(
+        this.gridTileGraph.tileVisible,
+        tiles
+    );
+}
+
+this.removeGridDisplay = function() {
+    var graph = this.gridTileGraph;
+
+    for ( var obj in graph.children ) {
+        graph.children.delete( graph.children[ obj ] );
+    }
+}
+
 //@ sourceURL=source/scene.js

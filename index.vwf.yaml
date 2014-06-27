@@ -23,6 +23,8 @@ methods:
   removeGraph:
   createMiniRover:
   removeMiniRover:
+  createGridDisplay:
+  removeGridDisplay:
   addStatus:
   addAlert:
   addSubtitle:
@@ -167,7 +169,7 @@ children:
   scenario3:
     extends: source/scenario/scenario3.vwf
   blocklyGraph:
-    extends: http://vwf.example.com/graph.vwf
+    extends: http://vwf.example.com/graphtool/graph.vwf
     implements: "source/griddable.vwf"
     properties:
       graphScale: 3
@@ -178,10 +180,12 @@ children:
       yAxisVisible: true
       zAxisVisible: false
       gridVisible: true
+      axisOpacity: 1
+      gridOpacity: 0.75
       renderTop: true
     children:
       blocklyLine:
-        extends: http://vwf.example.com/graphline.vwf
+        extends: http://vwf.example.com/graphtool/graphlinefunction.vwf
         properties:
           lineFunction:
             set: |
@@ -192,6 +196,7 @@ children:
           endValue: 64
           pointCount: 400
           color: [ 100, 255, 100 ]
+          opacity: 1
           lineThickness: 0.15
           renderTop: true
           visible: false
@@ -201,6 +206,28 @@ children:
       this.initialize = function() {
         this.future( 0 ).setGraphVisibility( false );
       }
+  gridTileGraph:
+    extends: http://vwf.example.com/graphtool/graph.vwf
+    properties:
+      graphScale: 3
+      gridInterval: 1
+      gridLineInterval: 4
+      gridLength: 1
+      xAxisVisible: false
+      yAxisVisible: false
+      zAxisVisible: false
+      gridVisible: false
+      axisOpacity: 1
+      gridOpacity: 1
+      renderTop: false
+      tileVisible: false
+    methods:
+      toggleTileVisibility: |
+        this.tileVisible = !this.tileVisible;
+        for ( var tile in this.children ) {
+          this.children[ tile ].visible = this.tileVisible;
+        }
+        //@ sourceURL=scene.gridTileGraph.toggleTileVisiblity
   alerts:
     extends: http://vwf.example.com/logger.vwf
     properties:

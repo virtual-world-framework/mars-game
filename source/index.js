@@ -218,7 +218,7 @@ vwf_view.createdNode = function( nodeID, childID, childExtendsID, childImplement
             blocklyGraphID = childID;
         }
 
-    } else if ( isGraphlineNode( protos ) && childName === "blocklyLine" ) {
+    } else if ( isGraphObject( protos ) && childName === "blocklyLine" ) {
         graphLines[ childName ] = { 
             "ID": childID, 
             "name": childName
@@ -439,18 +439,20 @@ function isLoggerNode( prototypes ) {
     return foundLogger;
 }
 
-function isGraphlineNode( prototypes ) {
+function isGraphObject( prototypes ) {
 
-    var foundGraph = false;
+    var foundObject = false;
 
     if ( prototypes ) {
-        for ( var i = 0; i < prototypes.length && !foundGraph; i++ ) {
-            foundGraph = ( prototypes[i] == "http-vwf-example-com-graphline-vwf" );    
+        for ( var i = 0; i < prototypes.length && !foundObject; i++ ) {
+            foundObject = ( prototypes[i] == "http-vwf-example-com-graphtool-graphline-vwf" ) ||
+                ( prototypes[i] == "http-vwf-example-com-graphtool-graphlinefunction-vwf" ) ||
+                ( prototypes[i] == "http-vwf-example-com-graphtool-graphplane-vwf" ) ||
+                ( prototypes[i] == "http-vwf-example-com-graphtool-graphgroup-vwf" );
         }
     }
 
-    return foundGraph;
-
+    return foundObject;
 }
 
 function getBlocklyFunction() {
