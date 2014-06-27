@@ -4,6 +4,11 @@ var currentRam = document.createElement( "div" );
 
 function setUpBlocklyPeripherals() {
 
+    centerBlocklyWindow();
+    $( window ).resize( function() {
+        centerBlocklyWindow();
+    });
+
     var blocklyFooter = document.createElement( "div" );
     var blocklyCloseBtn = document.createElement( "div" );
     var blocklyHelpButton = document.createElement( "div" );
@@ -26,18 +31,20 @@ function setUpBlocklyPeripherals() {
         drag: function( event, element ) {
             $( ".blocklyWidgetDiv" ).css( "display", "none" );
             var width = element.helper.context.offsetWidth;
-            var height = element.helper.context.offsetHeight;
-            var offscreenAllowanceWidth = width * 0.85;
-            var offscreenAllowanceHeight = height * 0.95;
-            if ( element.position.left < width / 2 - offscreenAllowanceWidth ) {
-                element.position.left = width / 2 - offscreenAllowanceWidth;
-            } else if ( element.position.left > window.innerWidth - width / 2 + offscreenAllowanceWidth ) {
-                element.position.left = window.innerWidth - width / 2 + offscreenAllowanceWidth;
+            var top = 0;
+            var bottom = window.innerHeight - blocklyHandle.offsetHeight;
+            var left = width * -0.5;
+            var right = window.innerWidth - width * 0.5;
+
+            if ( element.position.left < left ) {
+                element.position.left = left;
+            } else if ( element.position.left > right ) {
+                element.position.left = right;
             }
-            if ( element.position.top < height / 2 ) {
-                element.position.top = height / 2;
-            } else if ( element.position.top > window.innerHeight - height / 2 + offscreenAllowanceHeight) {
-                element.position.top = window.innerHeight - height / 2 + offscreenAllowanceHeight;
+            if ( element.position.top < top ) {
+                element.position.top = top;
+            } else if ( element.position.top > bottom ) {
+                element.position.top = bottom;
             }
         }
     } );
@@ -109,6 +116,16 @@ function showBlocklyHelp() {
         document.body.removeChild( dialog );
     } );
     document.body.appendChild( help );
+
+}
+
+function centerBlocklyWindow() {
+
+    var blocklyUI = document.getElementById( "blocklyWrapper" );
+    var top = window.innerHeight / 2 - blocklyUI.offsetHeight / 2;
+    var left = window.innerWidth / 2 - blocklyUI.offsetWidth / 2;
+    blocklyUI.style.top = top + "px";
+    blocklyUI.style.left = left + "px";
 
 }
 
