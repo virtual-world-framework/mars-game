@@ -220,6 +220,14 @@ children:
       axisOpacity: 1
       gridOpacity: 1
       renderTop: false
+      tileVisible: false
+    methods:
+      toggleTileVisibility: |
+        this.tileVisible = !this.tileVisible;
+        for ( var tile in this.children ) {
+          this.children[ tile ].visible = this.tileVisible;
+        }
+        //@ sourceURL=scene.gridTileGraph.toggleTileVisiblity
   alerts:
     extends: http://vwf.example.com/logger.vwf
     properties:

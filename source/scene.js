@@ -140,22 +140,9 @@ this.addSubtitle = function( log ) {
     }
 }
 
-/*
-  Plane:
-    extends: http://vwf.example.com/graphtool/graphplane.vwf
-    properties:
-      origin: [ -50, 30, 10 ]
-      normal: [ 1, 0.5, 0.25 ]
-      rotationAngle: 90
-      size: 10
-      color: [ 50, 100, 200 ]
-      renderTop: false
-*/
-
-
 this.createGridDisplay = function( grid ) {
-    var PASSABLE_COLOR = [ 50, 90, 150 ];
-    var IMPASSABLE_COLOR = [ 200, 40, 10 ];
+    var PASSABLE_COLOR = [ 220, 255, 220 ];
+    var IMPASSABLE_COLOR = [ 255, 220, 220 ];
     var OPACITY = 0.5;
     var NORMAL = [ 0, 0, 1 ];
     var ROTATION = 90;
@@ -189,7 +176,8 @@ this.createGridDisplay = function( grid ) {
                 color,
                 OPACITY,
                 RENDERTOP,
-                name
+                name,
+                { "visible": this.gridTileGraph.tileVisible }
             );
 
         }

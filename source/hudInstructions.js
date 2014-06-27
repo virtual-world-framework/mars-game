@@ -16,11 +16,17 @@ function createHUD() {
     graphButton.onMouseDown = toggleGraphDisplay;
     hud.add( graphButton, "right", "bottom", { "x": -102, "y": -30 } );
 
+    var tilesButton = new HUD.Element( "tilesButton", drawIcon, 64, 64 );
+    tilesButton.icon = new Image();
+    tilesButton.icon.src = "assets/images/hud/tiles_button.png";
+    tilesButton.onMouseDown = toggleTiles;
+    hud.add( tilesButton, "right", "bottom", { "x": -174, "y": -30 } );
+
     var helpButton = new HUD.Element( "helpButton", drawIcon, 64, 64 );
     helpButton.icon = new Image();
     helpButton.icon.src = "assets/images/hud/help_large.png";
     helpButton.onMouseDown = showHelp;
-    hud.add( helpButton, "right", "bottom", { "x": -174, "y": -30 } );
+    hud.add( helpButton, "right", "bottom", { "x": -246, "y": -30 } );
 
     // createInventoryHUD( 4 );
 
@@ -395,7 +401,6 @@ function clickBlockly( event ) {
 }
 
 function toggleGraphDisplay( event ) {
-
     var graphID = vwf_view.kernel.find( "", "//blocklyGraph" )[ 0 ];
     if ( graphID ) {
         vwf_view.kernel.callMethod( graphID, "toggleGraphVisibility" );
@@ -421,6 +426,13 @@ function showHelp( event ) {
         document.body.removeChild( dialog );
     } );
     document.body.appendChild( help );
+}
+
+function toggleTiles( event ) {
+    var graphTilesID = vwf_view.kernel.find( "", "//gridTileGraph" )[ 0 ];
+    if ( graphTilesID ) {
+        vwf_view.kernel.callMethod( graphTilesID, "toggleTileVisibility" );
+    }
 }
 
 // Other functions
