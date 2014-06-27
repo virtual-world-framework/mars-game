@@ -23,9 +23,6 @@ function createHUD() {
     hud.add( helpButton, "right", "bottom", { "x": -174, "y": -30 } );
 
     // createInventoryHUD( 4 );
-
-    hideCommsDisplay();
-
 }
 
 function createRoverElement() {
