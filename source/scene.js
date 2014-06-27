@@ -164,7 +164,7 @@ this.createGridDisplay = function( grid ) {
             origin = [
                 offset[ 0 ] + ( x ),
                 offset[ 1 ] + ( y ),
-                0.1
+                0
             ];
 
             color = grid.boundaryValues[ x ][ y ] === -1 ? IMPASSABLE_COLOR : PASSABLE_COLOR;
