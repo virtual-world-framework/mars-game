@@ -73,28 +73,6 @@ this.actionSet.stopSound = function( params, context ) {
     }
 }
 
-this.actionSet.showComms = function( params, context ) {
-    if ( !params || ( params.length !== 1 ) ) {
-        self.logger.warnx( "showComms", "We need to know the path of the image to display!" );
-    }
-
-    var imagePath = params[ 0 ];
-
-    return function() {
-        context.showComms( imagePath );
-    }
-}
-
-this.actionSet.hideComms = function( params, context ) {
-    if ( params && ( params.length !== 0 ) ) {
-        self.logger.warnx( "hideComms", "This action does not take any parameters." );
-    }
-
-    return function() {
-        context.hideComms();
-    }
-}
-
 this.actionSet.delay = function( params, context ) {
     if ( params && ( params.length < 2 ) ) {
         self.logger.errorx( "delay", "This action takes two parameters: delay and action(s).");

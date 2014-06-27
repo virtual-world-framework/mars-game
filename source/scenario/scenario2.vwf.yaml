@@ -123,8 +123,6 @@ properties:
       actions:
       - playSound:
         - L2VO1_Control
-      - showComms:
-        - "assets/images/hud/comms_missioncontrol.png"
       - delay:
         - 0.5
         - playSound:
@@ -147,8 +145,6 @@ properties:
         - L2VO3_Rover
       - writeToBlackboard:
         - L2VO3
-      - showComms:
-        - "assets/images/hud/comms_rover.png"
 
 children:
   grid:
