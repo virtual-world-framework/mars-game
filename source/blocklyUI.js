@@ -5,9 +5,6 @@ var currentRam = document.createElement( "div" );
 function setUpBlocklyPeripherals() {
 
     centerBlocklyWindow();
-    $( window ).resize( function() {
-        centerBlocklyWindow();
-    });
 
     var blocklyFooter = document.createElement( "div" );
     var blocklyCloseBtn = document.createElement( "div" );
