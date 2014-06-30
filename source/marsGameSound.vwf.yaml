@@ -99,7 +99,7 @@ properties:
       initialVolume: 1.0
       soundDefinitions:
         - soundName: "objectRoverMotor"
-          soundURL: "assets/sounds/sfx/objectRoverMotor_04.wav"
+          soundURL: "assets/sounds/sfx/objectRoverMotor_10.wav"
           isLooping: true
           isLayered: false
           initialVolume: 1.0
