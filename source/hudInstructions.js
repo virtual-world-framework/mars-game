@@ -110,20 +110,39 @@ function createCommsDisplay() {
     frame.onload = ( function() { commsElement.frame = frame; } );
 
     commsElement.characterImage = new Image();
+    commsElement.interval = 0;
 
 }
 
 function addImageToCommsDisplay( imagePath ) {
     var comms = hud.elements.comms; 
     if ( comms ) {
+        comms.interval = 0;        
         comms.characterImage.src = imagePath;
+        comms.characterImage.onload = function() {
+            var dispHandle = setInterval( function() {
+                comms.interval += 0.1;
+                if ( comms.interval >= 1 ) {
+                    comms.interval = 1;
+                    clearInterval( dispHandle );
+                }
+            }, 30 );
+        }
     }
 }
 
 function removeImageFromCommsDisplay() {
     var comms = hud.elements.comms;
     if ( comms ) {
-        comms.characterImage.src = "";
+        comms.interval = 1;
+        var dispHandle = setInterval( function() {
+            comms.interval -= 0.1;
+            if ( comms.interval <= 0 ) {
+                comms.interval = 0;
+                comms.characterImage.src = "";
+                clearInterval( dispHandle );
+            }
+        }, 30 );
     }
 }
 
@@ -312,13 +331,19 @@ function drawComms( context, position ) {
         context.drawImage( this.background, position.x, position.y );
     }
 
-    if ( this.characterImage ) {
+    if ( this.characterImage && this.characterImage.src ) {
+        context.save();
+        var opening = this.height * this.interval;
+        context.beginPath();
+        context.rect( position.x, position.y + ( ( this.height - opening ) / 2 ), this.width, opening );
+        context.clip();
         context.drawImage( this.characterImage, position.x, position.y );
+        context.restore();
     }
 
     if ( this.frame ) {
         context.drawImage( this.frame, position.x, position.y );
-    }
+    }    
 }
 
 function drawCameraSelector( context, position ) {
