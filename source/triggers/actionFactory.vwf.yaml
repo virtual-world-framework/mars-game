@@ -28,6 +28,20 @@ properties:
     showCommsDisplay:
     hideCommsDisplay:
 
+    # writes a value to the sceneBlackboard which can be referenced later
+    # to determine whether an action has occurred.
+    # arguments: variableName
+    writeToBlackboard:
+
+    # increments a value to the sceneBlackboard which can be referenced later
+    # to determine whether an action has occurred.
+    # arguments: variableName
+    incrementBlackboardValue:
+
+    # clears the value at the specified blackboard variableName
+    # arguments: variableName
+    clearBlackboard:
+    
     # delays for a fixed time, and then plays one or more actions
     # arguments: delay, action(s)
     delay:

@@ -4,7 +4,7 @@ properties:
   scenarioName: scenario2
 
   scenePath: /
-  nextScenarioPath: "scenario2"
+  nextScenarioPath: "scenario3"
   blockly: assets/scenario/scenario1.xml
 
   startState:
@@ -19,7 +19,7 @@ properties:
   - setProperty:
     - rover
     - blockly_allowedBlocks
-    - 16
+    - 30
 
   - setSceneProperty:
     - blockly_activeNodeID
@@ -59,7 +59,14 @@ properties:
         - rover
       actions:
       - scenarioFailure:
+        - lost
         - "You need to plot the course of the wayward rover before going to find it."
+      - playSound:
+        - musicFailure
+      - stopSound:
+        - musicSuccess
+      - stopSound:
+        - musicStandardGameplay
 
     succeedOnSuccessfulCoursePlot:
       triggerCondition:
@@ -71,10 +78,48 @@ properties:
       actions:
       - scenarioSuccess:
         - "Course plotted!  Now to find the little guy."
+      - playSound:
+        - musicSuccess
+      - stopSound:
+        - musicFailure
+      - stopSound:
+        - musicStandardGameplay
+
+    blinkGraphTab:
+      triggerCondition:
+      - onScenarioStart:
+      actions:
+      - waitForNode:
+        - graph
+        - blinkBlocklyTab:
+          - graph
+
+    stopBlinkGraphTab:
+      triggerCondition:
+      - or:
+        - onBlocklyWindowOpened:
+          - graph
+        - onScenarioChanged:
+      actions:
+      - stopBlinkBlocklyTab:
+        - graph
 
     playStartingSounds:
       triggerCondition:
       - onScenarioStart:
+      actions:
+      - playSound:
+        - musicStandardGameplay
+
+    playStartingVO:
+      triggerCondition:
+      - onScenarioStart:
+      additionalCondition:
+      - and:
+        - not:
+          - readBlackboard:
+            - L2VO1
+        - doOnce:
       actions:
       - playSound:
         - L2VO1_Control
@@ -82,16 +127,24 @@ properties:
         - 0.5
         - playSound:
           - L2VO2_Rover
+      - writeToBlackboard:
+        - L2VO1
 
     playL2VO3_Rover:
       triggerCondition:
       - onBlocklyWindowOpened:
         - graph
       additionalCondition:
-      - doOnce:
+      - and:
+        - not:
+          - readBlackboard:
+            - L2VO3
+        - doOnce:
       actions:
       - playSound:
         - L2VO3_Rover
+      - writeToBlackboard:
+        - L2VO3
 
 children:
   grid:

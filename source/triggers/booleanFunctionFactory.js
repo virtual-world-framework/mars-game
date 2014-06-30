@@ -439,6 +439,23 @@ this.clauseSet.onScenarioStart = function( params, context, callback ) {
     };
 }
 
+this.clauseSet.onScenarioChanged = function( params, context, callback ) {
+    if ( params && ( params.length > 0 ) ) {
+        self.logger.errorx( "onScenarioChanged", 
+                            "This clause takes no arguments." );
+        return undefined;
+    }
+
+    onClauseCallbackWarning( callback );
+    if ( callback ) {
+        context.scenarioChanged = self.events.add( callback );
+    }
+
+    return function() {
+        return true;
+    };
+}
+
 this.clauseSet.onIntroScreensComplete = function( params, context, callback ) {
     if ( params ) {
         self.logger.warnx( "onIntroScreensComplete", 
@@ -500,9 +517,9 @@ this.clauseSet.blocklyLineEval = function( params, context, callback ) {
     }
 
     if ( callback ) {
-        context.blocklyContentChanged = self.events.add( function() {
-                                                            callback();
-                                                        } );
+        blocklyLine.lineGraphed = self.events.add( function() {
+                                                    callback();
+                                                } );
     }
 
     return function() {
@@ -556,6 +573,30 @@ function getBlocklyObjects( params, context ) {
 
     self.logger.errorx( "getBlocklyObjects", "Unable to parse objectParam!" );
     return undefined;
+}
+
+// arguments: variableName
+this.clauseSet.readBlackboard = function( params, context ) {
+    if ( params.length < 1 ) {
+        self.logger.errorx( "readBlackboard", 
+                            "This clause takes one argument: the name of the variable" +
+                            " and optionally a second argument for occurance count if" + 
+                            " using an incrementing blackboard value" );
+        return undefined;
+    }
+
+    return function() {
+    
+        var checkedValue = context.sceneBlackboard[ params[ 0 ] ];
+
+        if ( params[ 1 ] !== undefined ){
+        var retVal = ( checkedValue !== undefined && checkedValue < params[ 1 ] );
+        } else {
+        var retVal = ( checkedValue !== undefined );  
+        }
+
+        return retVal;
+    };
 }
 
 //@ sourceURL=source/triggers/booleanFunctionFactory.js
