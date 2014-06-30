@@ -111,20 +111,25 @@ function createCommsDisplay() {
 
     commsElement.characterImage = new Image();
     commsElement.interval = 0;
+    commsElement.transitionHandle = null;
 
 }
 
 function addImageToCommsDisplay( imagePath ) {
-    var comms = hud.elements.comms; 
+    var comms = hud.elements.comms;
     if ( comms ) {
-        comms.interval = 0;        
         comms.characterImage.src = imagePath;
-        comms.characterImage.onload = function() {
-            var dispHandle = setInterval( function() {
+        if ( comms.transitionHandle ) {
+            clearInterval( comms.transitionHandle );
+            comms.transitionHandle = null;
+        } else {
+            comms.interval = 0;
+            comms.transitionHandle = setInterval( function() {
                 comms.interval += 0.1;
                 if ( comms.interval >= 1 ) {
                     comms.interval = 1;
-                    clearInterval( dispHandle );
+                    clearInterval( comms.transitionHandle );
+                    comms.transitionHandle = null;
                 }
             }, 30 );
         }
@@ -134,13 +139,18 @@ function addImageToCommsDisplay( imagePath ) {
 function removeImageFromCommsDisplay() {
     var comms = hud.elements.comms;
     if ( comms ) {
+        if ( comms.transitionHandle ) {
+            clearInterval( comms.transitionHandle );
+            comms.transitionHandle = null;
+        }        
         comms.interval = 1;
-        var dispHandle = setInterval( function() {
+        comms.transitionHandle = setInterval( function() {
             comms.interval -= 0.1;
             if ( comms.interval <= 0 ) {
                 comms.interval = 0;
                 comms.characterImage.src = "";
-                clearInterval( dispHandle );
+                clearInterval( comms.transitionHandle );
+                comms.transitionHandle = null;
             }
         }, 30 );
     }
