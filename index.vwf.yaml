@@ -36,6 +36,8 @@ events:
   stopBlinkHUD:
   blinkTab:
   stopBlinkTab:
+  showCommsImage:
+  hideCommsImage:
 children:
   soundManager:
     extends: source/marsGameSound.vwf

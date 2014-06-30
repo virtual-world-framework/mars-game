@@ -117,6 +117,13 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
             case "stopBlinkTab":
                 stopBlinkTab( eventArgs[ 0 ] );
                 break;
+
+            case "showCommsImage":
+                addImageToCommsDisplay( eventArgs[ 0 ] );
+                break;
+            case "hideCommsImage":
+                removeImageFromCommsDisplay();
+                break;
         } 
 
     } else if ( loggerNodes[ nodeID ] !== undefined ) { 
@@ -165,30 +172,6 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 displayPopup( "failure", message );
             } else {
                 resetScenario();
-            }
-        }
-
-        if ( eventName === "playSubtitle" ) {
-
-            //Parse subtitle to find the character image to display
-            var subtitle = eventArgs[ 0 ];
-            var character = subtitle.split( ":" )[ 0 ];
-            if ( character ) {
-                character = character.slice( 1, character.length - 1 );
-                var imagePath = "";
-                if ( character === "ROVER" ) {
-                    var imagePath = "assets/images/hud/comms_rover.png";
-                } else if ( character === "MC" ) {
-                    var imagePath = "assets/images/hud/comms_missioncontrol.png";
-                }
-                addImageToCommsDisplay( imagePath );
-            }
-        }
-
-        if ( eventName === "soundFinished" ) {
-            var soundDefinition = eventArgs[ 0 ];
-            if ( soundDefinition && soundDefinition.soundGroup === "VO" ) {
-                removeImageFromCommsDisplay();
             }
         }
 
