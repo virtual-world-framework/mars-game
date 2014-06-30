@@ -21,9 +21,32 @@ this.setUpSubtitles = function() {
 
     if ( scene && setUpOnce ) {
         setUpOnce = false;
-        this.playSubtitle = this.events.add( function( message ) {
-            scene.addSubtitle( message );
-        });
+        this.soundStarted = this.events.add( function( instanceHandle ) {
+            if ( this.hasSubtitle( instanceHandle ) ) {
+
+                var subtitle = this.getSubtitle( instanceHandle );
+                scene.addSubtitle( subtitle );
+
+                //Parse subtitle to find the character image to display
+                var character = subtitle.split( ":" )[ 0 ];
+                if ( character ) {
+                    character = character.slice( 1, character.length - 1 );
+                    var imagePath = "";
+                    if ( character === "ROVER" ) {
+                        var imagePath = "assets/images/hud/comms_rover.png";
+                    } else if ( character === "MC" ) {
+                        var imagePath = "assets/images/hud/comms_missioncontrol.png";
+                    }
+                    scene.showCommsImage( imagePath );
+                }                
+            }
+        } );
+
+        this.soundFinished = this.events.add( function( instanceHandle ) {
+            if ( this.hasSubtitle( instanceHandle ) ) {
+                scene.hideCommsImage();
+            }
+        } );
     }
 }
 //@ sourceURL=source/marsGameSound.js
