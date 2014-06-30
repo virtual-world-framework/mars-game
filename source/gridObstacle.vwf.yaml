@@ -1,0 +1,43 @@
+---
+extends: http://vwf.example.com/node3.vwf
+implements:
+  - source/griddable.vwf
+properties:
+
+  # gridSize - How many grid squares the object extends from its origin
+  #
+  # Minimum: [ 1, 1 ]
+  gridSize: [ 1, 1 ]
+
+  # collisionMap - The boundary map values to inject into the grid
+  #
+  # Impassable value: -1
+  # Passable values: 0 and greater
+  #
+  # If replacesTerrain is true, both passable and impassible values
+  # are injected into the grid
+  # If replacesTerrain is false, only impassable values are injected
+  collisionMap: 
+    - [ 0 ]
+
+  # gridRotation - The rotation in degrees about the object's origin tile
+  # valid values: 0, 90, 180, 270
+  # Setting this will rotate the grid size and collision map accordingly
+  gridRotation: 0
+
+  # replacesTerrain - This object removes the terrain within its bounds
+  replacesTerrain: false
+
+events:
+
+  addedToGrid:
+    parameters:
+    - grid
+    body: |
+      for ( var x = 0; x < this.gridSize[ 0 ]; x++ ) {
+        for ( var y = 0; y < this.gridSize[ 1 ]; y++ ) {
+          if ( this.replacesTerrain || this.collisionMap[ x ][ y ] === -1 ) {
+            grid.boundaryValues[ x ][ y ] = this.collisionMap[ x ][ y ];
+          }
+        }
+      }
