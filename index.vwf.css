@@ -40,9 +40,11 @@ body {
 }
 
 #runStopContainer {
-    position: relative;
-    top: -24px;
-    left: 480px;
+    position: absolute;
+    bottom: 6px;
+    right: 8px;
+    width: 64px;
+    display: inline-block;
 }
 
 #runButton {
@@ -134,9 +136,10 @@ body {
     -moz-user-select: none;     /* Firefox all */
     -ms-user-select: none;      /* IE 10+ */
     cursor: default;
-    position: relative;
-    top: 16px;
+    position: absolute;
+    bottom: 15px;
     left: 8px;
+    display: inline-block;
 }
 
 #currentRam {
