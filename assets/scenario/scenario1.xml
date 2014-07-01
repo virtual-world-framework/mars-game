@@ -2,11 +2,6 @@
   <block type="rover_moveForward"></block>
   <block type="rover_turn"><field name="DIR">turnLeft</field></block>
   <block type="rover_turn"><field name="DIR">turnRight</field></block>
-  <block type="controls_repeat_ext">
-    <value name="TIMES">
-      <block type="math_number">
-        <field name="NUM">4</field>
-      </block>
-    </value>
-  </block>
+  <block type="controls_repeat_ext"></block>
+  <block type="math_number"><field name="NUM">4</field></block>
 </xml>
