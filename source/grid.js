@@ -82,6 +82,7 @@ this.addToGridFromCoord = function( object, gridCoord ) {
         object.currentGridSquare = gridCoord;
         object.translation = this.getWorldFromGrid( gridCoord );
         this.setHeightFromTerrain( object );
+        object.addedToGrid( this );
     }
 }
 

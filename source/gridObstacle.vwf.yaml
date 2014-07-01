@@ -17,27 +17,96 @@ properties:
   # If replacesTerrain is true, both passable and impassible values
   # are injected into the grid
   # If replacesTerrain is false, only impassable values are injected
+  #
+  # Collision map is based on 0 rotation
   collisionMap: 
     - [ 0 ]
 
   # gridRotation - The rotation in degrees about the object's origin tile
   # valid values: 0, 90, 180, 270
   # Setting this will rotate the grid size and collision map accordingly
-  gridRotation: 0
+  gridRotation:
+    set: |
+      this.updateCollisionMap.bind( this )( value );
+      this.gridRotation = value;
+    value: 0
 
   # replacesTerrain - This object removes the terrain within its bounds
   replacesTerrain: false
 
 events:
-
   addedToGrid:
-    parameters:
-    - grid
-    body: |
-      for ( var x = 0; x < this.gridSize[ 0 ]; x++ ) {
-        for ( var y = 0; y < this.gridSize[ 1 ]; y++ ) {
-          if ( this.replacesTerrain || this.collisionMap[ x ][ y ] === -1 ) {
-            grid.boundaryValues[ x ][ y ] = this.collisionMap[ x ][ y ];
-          }
+
+scripts: |
+  this.addedToGrid = function( grid ) {
+    for ( var x = 0; x < this.gridSize[ 0 ]; x++ ) {
+      for ( var y = 0; y < this.gridSize[ 1 ]; y++ ) {
+        if ( this.replacesTerrain || this.collisionMap[ x ][ y ] === -1 ) {
+          var gridx = this.currentGridSquare[ 0 ] + x;
+          var gridy = this.currentGridSquare[ 1 ] + y;
+          grid.boundaryValues[ gridx ][ gridy ] = this.collisionMap[ x ][ y ];
         }
       }
+    }
+
+    this.rotateTo( [ 0, 0, 1, this.gridRotation ], 0 );
+
+    // Adjust object position
+    var posx = this.translation[ 0 ];
+    posx += this.gridSize[ 0 ] * grid.gridSquareLength / 2;
+    posx -= grid.gridSquareLength / 2;
+
+    var posy = this.translation[ 1 ];
+    posy += this.gridSize[ 1 ] * grid.gridSquareLength / 2;
+    posy -= grid.gridSquareLength / 2;
+
+    this.translateTo( [ posx, posy, this.translation[ 2 ] ], 0 );
+  }
+
+  this.updateCollisionMap = function( angle ) {
+    var tmp;
+
+    switch ( angle ) {
+      case 90:
+        this.invertGridSize.bind( this )();
+        tmp = new Array();
+        for ( var x = 0; x < this.gridSize[ 0 ]; x++ ) {
+          tmp[ x ] = new Array();
+          for ( var y = 0; y < this.gridSize[ 1 ]; y++ ) {
+            tmp[ x ].push( this.collisionMap[ y ][ this.gridSize[ 0 ] - 1 - x ] );
+          }
+        }
+        this.collisionMap = tmp.slice();
+        break;
+      case 180:
+        tmp = new Array();
+        for ( var x = 0; x < this.gridSize[ 0 ]; x++ ) {
+          tmp[ x ] = new Array();
+          for ( var y = 0; y < this.gridSize[ 1 ]; y++ ) {
+            tmp[ x ].push( this.collisionMap[ this.gridSize[ 0 ] - 1 - x ][ this.gridSize[ 1 ] - 1 - y ] );
+          }
+        }
+        this.collisionMap = tmp.slice();
+        break;
+      case 270:
+        this.invertGridSize.bind( this )();
+        tmp = new Array();
+        for ( var x = 0; x < this.gridSize[ 0 ]; x++ ) {
+          tmp[ x ] = new Array();
+          for ( var y = 0; y < this.gridSize[ 1 ]; y++ ) {
+            tmp[ x ].push( this.collisionMap[ this.gridSize[ 1 ] - 1 - y ][ x ] );
+          }
+        }
+        this.collisionMap = tmp.slice();
+        break;
+    }
+  }
+
+  this.invertGridSize = function() {
+    var tmp;
+    tmp = this.gridSize[ 0 ];
+    this.gridSize[ 0 ] = this.gridSize[ 1 ];
+    this.gridSize[ 1 ] = tmp;
+  }
+
+  //@ sourceURL=source/gridObstacle.vwf
