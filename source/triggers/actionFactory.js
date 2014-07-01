@@ -234,6 +234,17 @@ this.actionSet.stopBlinkBlocklyTab = function( params, context ) {
     }
 }
 
+this.actionSet.hideBlockly = function( params, context ) {
+    if ( params && params.length > 0 ) {
+        self.logger.errorx( "hideBlockly", "This action takes no parameters.");
+        return undefined;
+    }
+    
+    return function() {
+        vwf_view.kernel.setProperty( vwf_view.kernel.application(), "blockly_activeNodeID", undefined );
+    }
+}
+
 function getScenario( context ) {
     if ( context.getCurrentScenario ){
         return context.getCurrentScenario();

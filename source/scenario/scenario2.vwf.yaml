@@ -58,6 +58,7 @@ properties:
       - onMoved:
         - rover
       actions:
+      - hideBlockly:
       - scenarioFailure:
         - lost
         - "You need to plot the course of the wayward rover before going to find it."
@@ -76,6 +77,7 @@ properties:
         - blocklyLineEval:
           - [ -16, 8 ]
       actions:
+      - hideBlockly:
       - scenarioSuccess:
         - "Course plotted!  Now to find the little guy."
       - playSound:
