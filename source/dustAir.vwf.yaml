@@ -20,4 +20,4 @@ methods:
   update:
   changeDirection:
 scripts:
-  - source: source/dustSystem.js  
+  - source: source/dustSystem.js

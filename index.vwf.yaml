@@ -62,10 +62,8 @@ children:
         type: model/vnd.collada+xml
         properties:
           translation: [ 0, 1, 0 ]
-  rollingDust:
-    extends: source/dustRolling.vwf
   airDust:
-    extends: source/dustAir.vwf    
+    extends: source/dustAir.vwf
   backdrop:
     extends: http://vwf.example.com/node3.vwf
     source: assets/3d/Terrain/backdrop.dae
