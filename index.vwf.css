@@ -33,8 +33,14 @@ body {
     cursor: default;
 }
 
-#blocklyDiv {
+#blocklyScrollDiv {
     height: 700px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+#blocklyDiv {
+    height: 1000px;
     width: 560px;
     overflow: hidden;
 }

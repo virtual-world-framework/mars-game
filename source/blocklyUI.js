@@ -11,6 +11,7 @@ function setUpBlocklyPeripherals() {
     var blocklyHelpButton = document.createElement( "div" );
     var blocklyHandle = document.createElement( "div" );
     var blocklyHandleIcon = document.createElement( "div" );
+    var blocklyScrollDiv = document.createElement( "div" );
     var runStopContainer = document.createElement( "div" );
     var runButton = document.getElementById( "runButton" );
     var stopButton = document.createElement( "div" );
@@ -18,6 +19,7 @@ function setUpBlocklyPeripherals() {
     blocklyFooter.id = "blocklyFooter";
     blocklyHandle.id = "blocklyHandle";
     blocklyHandleIcon.id = "blocklyHandleIcon";
+    blocklyScrollDiv.id = "blocklyScrollDiv";
     stopButton.id = "stopButton";
 
     $( blocklyHandle ).append( blocklyHandleIcon );
@@ -85,6 +87,7 @@ function setUpBlocklyPeripherals() {
         vwf_view.kernel.callMethod( vwf_view.kernel.application(), "stopAllExecution" );
     } );
 
+    $( "#blocklyDiv" ).wrap( blocklyScrollDiv );
     $( "#blocklyWrapper-top" ).append( blocklyCloseBtn );
     $( "#blocklyWrapper" ).append( blocklyHelpButton );
     $( blocklyFooter ).append( ramBar );
