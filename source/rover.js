@@ -27,7 +27,7 @@ this.findAndSetCurrentGrid = function( scenarioName ) {
     currentGrid = scenario.grid;
 }
 
-this.moveForward = function() {
+this.moveForward = function( blockid, x, y ) {
 
     var scene = this.find( "/" )[ 0 ];
     var headingInRadians = this.heading * Math.PI / 180;
@@ -81,9 +81,11 @@ this.moveForward = function() {
     } else {
         this.moveFailed( "collision" );
     }
+
+    vwf_view.kernel.fireEvent( vwf_view.kernel.application(), "blockExecuted", [ 'moveForward',x, y ] );
 }
 
-this.turnLeft = function() {
+this.turnLeft = function( blockid, x, y ) {
     var scene = this.find( "/" )[ 0 ];
     this.heading += 90;
     if ( this.heading > 360 ) {
@@ -93,9 +95,11 @@ this.turnLeft = function() {
         scene.addStatus( this.displayName + " is turning left" );
     }    
     this.rotateBy( [ 0, 0, 1, 90 ], 1 );
+
+    vwf_view.kernel.fireEvent( vwf_view.kernel.application(), "blockExecuted", [ 'turnLeft', x, y ] );
 }
 
-this.turnRight = function() {
+this.turnRight = function( blockid, x, y ) {
     var scene = this.find( "/" )[ 0 ];
     this.heading -= 90;
     if ( this.heading < 0 ) {
@@ -105,6 +109,8 @@ this.turnRight = function() {
         scene.addStatus( this.displayName + " is turning right" );
     }
     this.rotateBy( [ 0, 0, 1, -90 ], 1 );
+
+    vwf_view.kernel.fireEvent( vwf_view.kernel.application(), "blockExecuted", [ 'turnRight', x, y ] );
 }
 
 this.translateOnTerrain = function( translation, duration, boundaryValue ) {

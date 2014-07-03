@@ -28,7 +28,8 @@ Blockly.Blocks['rover_moveForward'] = {
 Blockly.JavaScript['rover_moveForward'] = function(block) {
   var dist = Blockly.JavaScript.valueToCode(block, 'DISTANCE', Blockly.JavaScript.ORDER_NONE) || '0';
   var t = Blockly.JavaScript.valueToCode(block, 'TIME', Blockly.JavaScript.ORDER_NONE) || '1';
-  return "vwf.callMethod( '"+Blockly.JavaScript.vwfID+"', 'moveForward' );\n";
+  return "vwf.callMethod( '"+Blockly.JavaScript.vwfID+"', 'moveForward', ["+block.id+","
+    +block.nextConnection.x_+","+block.nextConnection.y_+"] );\n"; 
 };
 
 Blockly.Blocks['rover_forward_ext'] = {
@@ -83,7 +84,8 @@ Blockly.JavaScript['rover_turn'] = function(block) {
   var turnCommand = block.getFieldValue('DIR');
   var angle = Blockly.JavaScript.valueToCode(block, 'ANGLE', Blockly.JavaScript.ORDER_NONE) || '0';
   var t = Blockly.JavaScript.valueToCode(block, 'TIME', Blockly.JavaScript.ORDER_NONE) || '0';
-  return "vwf.callMethod( '"+Blockly.JavaScript.vwfID+"','" + turnCommand + "');\n";
+  return "vwf.callMethod( '"+Blockly.JavaScript.vwfID+"', '" + turnCommand "', ["+block.id+","
+    +block.nextConnection.x_+","+block.nextConnection.y_+"] );\n"; 
 };
 
 Blockly.Blocks['rover_forever'] = {

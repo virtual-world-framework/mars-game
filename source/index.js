@@ -86,6 +86,9 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 var stopButton = document.getElementById( "stopButton" );
                 stopButton.className = "disabled";
                 break;
+            case "blockFired":
+                console.log (eventArgs[0]);
+                break;
         }
     } else if ( nodeID === this.kernel.application() ) {
         
@@ -483,6 +486,10 @@ function updateBlocklyUI( blocklyNode ) {
     if ( Blockly.mainWorkspace ) {
         Blockly.mainWorkspace.maxBlocks = blocklyNode.ramMax;
     }
+}
+
+function sayHi ( word ) {
+    console.log ( word );
 }
 
 function blinkTab( nodeID ) {
