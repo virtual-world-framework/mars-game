@@ -20,7 +20,7 @@ function setUpBlocklyPeripherals() {
     blocklyHandle.id = "blocklyHandle";
     blocklyHandleIcon.id = "blocklyHandleIcon";
     blocklyScrollDiv.id = "blocklyScrollDiv";
-    stopButton.id = "stopButton";
+    stopButton.id = "stopButton"; 
 
     $( blocklyHandle ).append( blocklyHandleIcon );
     $( "#blocklyWrapper-top" ).append( blocklyHandle );
@@ -46,7 +46,7 @@ function setUpBlocklyPeripherals() {
                 element.position.top = bottom;
             }
         }
-    } );
+    } );      
 
     ramBar.id = "ramBar";
     ramBarCount.id = "ramBarCount";
@@ -97,6 +97,17 @@ function setUpBlocklyPeripherals() {
     $( "#blocklyWrapper" ).append( blocklyFooter );
     ramBar.appendChild( currentRam );
     ramBar.appendChild( ramBarCount );
+
+    // Ensure that the blockly ui is accessible on smaller screens
+    if ( window.innerHeight <= parseInt( $( "#blocklyWrapper" ).css( "height") ) ) {
+        var height = window.innerHeight;
+        $( "#blocklyWrapper" ).css( "height", height + "px" );
+        $( "#blocklyScrollDiv" ).css( "height", ( height - 112 ) + "px" );
+        $( "#blocklyWrapper" ).css( "top", 0 );
+    } else {
+        $( "#blocklyWrapper" ).css( "height", "812px" );
+        $( "#blocklyScrollDiv" ).css( "height", "700px" );        
+    }
 }
 
 function updateBlocklyRamBar() {
