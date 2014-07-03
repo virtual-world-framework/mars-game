@@ -82,7 +82,7 @@ this.moveForward = function( blockid, x, y ) {
         this.moveFailed( "collision" );
     }
 
-    vwf_view.kernel.fireEvent( vwf_view.kernel.application(), "blockExecuted", [ 'moveForward',x, y ] );
+    scene.blockExecuted( 'moveForward', x, y );
 }
 
 this.turnLeft = function( blockid, x, y ) {
@@ -96,7 +96,7 @@ this.turnLeft = function( blockid, x, y ) {
     }    
     this.rotateBy( [ 0, 0, 1, 90 ], 1 );
 
-    vwf_view.kernel.fireEvent( vwf_view.kernel.application(), "blockExecuted", [ 'turnLeft', x, y ] );
+    scene.blockExecuted( 'turnLeft', x, y );
 }
 
 this.turnRight = function( blockid, x, y ) {
@@ -110,7 +110,7 @@ this.turnRight = function( blockid, x, y ) {
     }
     this.rotateBy( [ 0, 0, 1, -90 ], 1 );
 
-    vwf_view.kernel.fireEvent( vwf_view.kernel.application(), "blockExecuted", [ 'turnRight', x, y ] );
+    scene.blockExecuted( 'turnRight', x, y );
 }
 
 this.translateOnTerrain = function( translation, duration, boundaryValue ) {

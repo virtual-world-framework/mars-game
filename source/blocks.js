@@ -84,7 +84,7 @@ Blockly.JavaScript['rover_turn'] = function(block) {
   var turnCommand = block.getFieldValue('DIR');
   var angle = Blockly.JavaScript.valueToCode(block, 'ANGLE', Blockly.JavaScript.ORDER_NONE) || '0';
   var t = Blockly.JavaScript.valueToCode(block, 'TIME', Blockly.JavaScript.ORDER_NONE) || '0';
-  return "vwf.callMethod( '"+Blockly.JavaScript.vwfID+"', '" + turnCommand "', ["+block.id+","
+  return "vwf.callMethod( '"+Blockly.JavaScript.vwfID+"', '" + turnCommand + "', ["+block.id+","
     +block.nextConnection.x_+","+block.nextConnection.y_+"] );\n"; 
 };
 

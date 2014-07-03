@@ -86,9 +86,6 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 var stopButton = document.getElementById( "stopButton" );
                 stopButton.className = "disabled";
                 break;
-            case "blockFired":
-                console.log (eventArgs[0]);
-                break;
         }
     } else if ( nodeID === this.kernel.application() ) {
         
@@ -126,6 +123,12 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 break;
             case "hideCommsImage":
                 removeImageFromCommsDisplay();
+                break;
+
+            case "blockExecuted":
+                var x = eventArgs[ 1 ];
+                var y = eventArgs[ 2 ];
+                moveBlocklyIndicator( x, y );
                 break;
         } 
 
@@ -486,10 +489,6 @@ function updateBlocklyUI( blocklyNode ) {
     if ( Blockly.mainWorkspace ) {
         Blockly.mainWorkspace.maxBlocks = blocklyNode.ramMax;
     }
-}
-
-function sayHi ( word ) {
-    console.log ( word );
 }
 
 function blinkTab( nodeID ) {
