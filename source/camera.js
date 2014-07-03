@@ -28,10 +28,10 @@ this.changePointOfView$ = function( newPointOfView ) {
             this.future( durationSeconds ).navmode = "walk";
             break;
         case "thirdPerson":
-            this.navmode = "walk";
+            this.navmode = "thirdPerson";
             break;
         case "topDown":
-            this.navmode = "walk";
+            this.navmode = "topDown";
             break;
         default:
             self.logger.warnx( "changePointOfView$", "Unrecognized camera point of view: '", 
@@ -78,7 +78,8 @@ this.setTargetPath$ = function( newTargetPath ) {
 }
 
 this.followTarget$ = function() {
-    this.transform = getNewCameraTransform();
+    //this.transform = getNewCameraTransform();
+    this.transformTo( getNewCameraTransform(), durationSeconds );
 }
 
 function getTargetNode() {

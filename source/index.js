@@ -9,7 +9,8 @@ var mainRover = undefined;
 var blocklyGraphID = undefined;
 var alertNodeID = undefined;
 var statusNodeID = undefined;
-
+var defaultHandleNav;
+var defaultHandleMoveNav;
 
 function onRun() {
     vwf_view.kernel.setProperty( currentBlocklyNodeID, "blockly_executing", true );
@@ -233,7 +234,7 @@ vwf_view.createdNode = function( nodeID, childID, childExtendsID, childImplement
         } else if ( childName === "alerts" ) {
             alertNodeID = childID;
         }
-    }
+    } 
 
 }
 
@@ -244,6 +245,12 @@ vwf_view.initializedNode = function( nodeID, childID, childExtendsID, childImple
         hud = new HUD();
         createHUD();
         vwf_view.kernel.kernel.views["vwf/view/threejs"].render = setUp;
+        defaultHandleNav = vwf_view.kernel.kernel.views[ "vwf/view/threejs" ].handleMouseHelper;
+        vwf_view.kernel.kernel.views[ "vwf/view/threejs" ].handleMouseHelper = handleMouseNavigation;
+        defaultHandleMoveNav = vwf_view.kernel.kernel.views[ "vwf/view/threejs" ].moveNavObjectHelper;
+        vwf_view.kernel.kernel.views[ "vwf/view/threejs" ].moveNavObjectHelper = moveNavObject;
+        defaultHandleNavRotate = vwf_view.kernel.kernel.views[ "vwf/view/threejs" ].rotateNavObjectByKey;
+
     } else if ( blocklyNodes[ childID ] !== undefined ) {
         var node = blocklyNodes[ childID ];
         if ( $( "#blocklyWrapper-top" ) !== undefined ) {
@@ -359,6 +366,10 @@ vwf_view.satProperty = function( nodeID, propertyName, propertyValue ) {
                 break;
         }
     }
+
+    // if ( nodeID === vwf_view.kernel.find( "", "//element(*,'grid.vwf')" )[0] ) {
+    //     console.log( "GRID GRID GRID " + propertyName );
+    // }
 }
 
 function setUp( renderer, scene, camera ) {
@@ -390,6 +401,80 @@ function render( renderer, scene, camera ) {
     renderer.clearDepth();
     renderer.render( hud.scene, hud.camera );
 
+}
+
+function overrideCameraNavigation() {
+
+}
+
+function handleMouseNavigation( deltaX, deltaY, navMode, navObject) {
+   
+    switch( navMode ) {
+
+        case "walk":
+        case "fly":
+        case "none":
+            defaultHandleNav( deltaX, deltaY, navMode, navObject, navThreeObject, originalTransform );
+            break;
+
+        case "topDown":
+            navObject.threeObject.matrixWorld.elements[ 12 ] += -deltaX * 10;
+            navObject.threeObject.matrixWorld.elements[ 13 ] += deltaY * 10;
+            break;
+
+        case "thirdPerson":
+            var degreesToRadians = Math.PI / 180;
+            var rotationSpeed = 90; //degrees per sec
+            var rotationSpeedRadians = degreesToRadians * rotationSpeed;
+            var yawRadians = deltaX * rotationSpeedRadians;
+            var orbitTarget = [ 0, 0, 0 ];
+            var yawQuat = new THREE.Quaternion();
+            yawQuat.setFromAxisAngle( new THREE.Vector3( 0, 0, 1 ), yawRadians );
+            var yawDeltaMatrix = new THREE.Matrix4();
+            yawDeltaMatrix.makeRotationFromQuaternion( yawQuat );
+            navObject.threeObject.matrixWorld.multiplyMatrices( yawDeltaMatrix, navObject.threeObject.matrixWorld );              
+            break;
+    }
+}
+
+function moveNavObject( dx, dy, navMode, navObject, msSinceLastFrame ) {
+
+    switch ( navMode ) {
+
+        case "walk":
+        case "fly":
+        case "none":
+            defaultHandleMoveNav( dx, dy, navMode, navObject, msSinceLastFrame );
+            break;
+
+        case "topDown":
+            var dist = 10 * Math.min( msSinceLastFrame * 0.001, 0.5 );
+            navObject.threeObject.matrixWorld.elements[ 12 ] += dx * dist;
+            navObject.threeObject.matrixWorld.elements[ 13 ] += dy * dist;
+            break;
+
+        case "thirdPerson":
+            var degreesToRadians = Math.PI / 180;
+            var rotationSpeed = 3; //degrees per sec
+            var rotationSpeedRadians = degreesToRadians * rotationSpeed;
+            var yawRadians = dx * rotationSpeedRadians;
+            var orbitTarget = [ 0, 0, 0 ];
+            var yawQuat = new THREE.Quaternion();
+            yawQuat.setFromAxisAngle( new THREE.Vector3( 0, 0, 1 ), yawRadians );
+            var yawDeltaMatrix = new THREE.Matrix4();
+            yawDeltaMatrix.makeRotationFromQuaternion( yawQuat );
+            navObject.threeObject.matrixWorld.multiplyMatrices( yawDeltaMatrix, navObject.threeObject.matrixWorld );
+            break;
+    }
+
+}
+
+function rotateNavObject(){
+
+}
+
+function findThreejsView() {
+    return vwf_view.kernel.kernel.views["vwf/view/threejs"];
 }
 
 function isBlockly3Node( nodeID ) {
