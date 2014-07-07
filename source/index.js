@@ -254,7 +254,8 @@ vwf_view.initializedNode = function( nodeID, childID, childExtendsID, childImple
         threejs.handleMouseHelper = handleMouseNavigation;
         defaultHandleMoveNav = threejs.moveNavObjectHelper;
         threejs.moveNavObjectHelper = moveNavObject;
-        defaultHandleNavRotate = threejs.rotateNavObjectByKey;
+        defaultHandleNavRotate = threejs.rotateNavObjectByKeyHelper;
+        threejs.rotateNavObjectByKeyHelper = rotateNavObject;
 
     } else if ( blocklyNodes[ childID ] !== undefined ) {
         var node = blocklyNodes[ childID ];
@@ -371,10 +372,6 @@ vwf_view.satProperty = function( nodeID, propertyName, propertyValue ) {
                 break;
         }
     }
-
-    // if ( nodeID === vwf_view.kernel.find( "", "//element(*,'grid.vwf')" )[0] ) {
-    //     console.log( "GRID GRID GRID " + propertyName );
-    // }
 }
 
 function setUp( renderer, scene, camera ) {
@@ -409,10 +406,6 @@ function render( renderer, scene, camera ) {
 
 }
 
-function overrideCameraNavigation() {
-
-}
-
 function handleMouseNavigation( deltaX, deltaY, navMode, navObject) {
    
     switch( navMode ) {
@@ -420,7 +413,7 @@ function handleMouseNavigation( deltaX, deltaY, navMode, navObject) {
         case "walk":
         case "fly":
         case "none":
-            defaultHandleNav( deltaX, deltaY, navMode, navObject, navThreeObject, originalTransform );
+            defaultHandleNav( deltaX, deltaY, navMode, navObject );
             break;
 
         case "topDown":
@@ -475,14 +468,14 @@ function moveNavObject( dx, dy, navMode, navObject, msSinceLastFrame ) {
 
 }
 
-function rotateNavObject( navmode, navObject ){
+function rotateNavObject( direction, navMode, navObject, msSinceLastFrame ){
 
     switch ( navMode ) {
 
         case "walk":
         case "fly":
         case "none":
-            defaultHandleNavRotate( navmode, navObject );
+            defaultHandleNavRotate( direction, navMode, navObject, msSinceLastFrame );
             break;
     }
 }
