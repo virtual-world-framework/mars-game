@@ -6,8 +6,8 @@
       <authoring_tool>OpenCOLLADA for 3ds Max;  Version: 1.4.1;  Revision: exported;  Platform: x64;  Configuration: Release_Max2012_static</authoring_tool>
       <source_data>file:///C:/Users/mcclurek/Desktop/MARS/Terrain_Models/Placeable_Objects.max</source_data>
     </contributor>
-    <created>2014-07-02T10:13:19</created>
-    <modified>2014-07-02T10:13:19</modified>
+    <created>2014-07-07T08:52:12</created>
+    <modified>2014-07-07T08:52:12</modified>
     <unit name="meter" meter="1"/>
     <up_axis>Z_UP</up_axis>
   </asset>
@@ -205,7 +205,7 @@
       </node>
       <node id="node-rock_2x3" name="rock_2x3">
         <node>
-          <matrix>0.3311553 -0.2642787 3.599543 -1.290054 0.3636968 -3.820594 0.05956293 -0.2833731 3.676265 -0.08420879 -0.08285169 -0.20789 0 0 0 1</matrix>
+          <matrix>-0.3636977 3.820595 -0.05956445 0.2833736 0.3311554 -0.2642784 3.599543 -1.290053 3.676265 -0.08420835 -0.0828523 -0.20789 0 0 0 1</matrix>
           <instance_geometry url="#geom-rock_2x3">
             <bind_material>
               <technique_common>
