@@ -113,23 +113,220 @@ Blockly.JavaScript['rover_forever'] = function(block) {
   return 'while (true) {\n' + branch + '}\n';
 };
 
-Blockly.Blocks['graph_get_x'] = {
+Blockly.Blocks[ 'math_number_drop' ] = {
+  init: function() {
+    //this.setHelpUrl('http://www.example.com/');
+    this.setColour(225);
+    this.appendDummyInput()
+        .appendField(new Blockly.FieldDropdown([["1", "1"], ["2", "2"],
+         ["3", "3"], ["4", "4"], ["5", "5"], ["6", "6"], ["7", "7"],
+         ["8", "8"], ["9", "9"], ["10", "10"], ["11", "11"], ["12", "12"],
+         ["13", "13"], ["14", "14"], ["15","15"]]), "VALUE");
+    this.setOutput( true, "Number" );
+    this.setTooltip( 'A dropdown selector for number values' );
+  }
+};
+
+Blockly.JavaScript[ 'math_number_drop' ] = function( block ) {
+  
+  var dropdown_value = block.getFieldValue('VALUE');
+
+  return [ dropdown_value , Blockly.JavaScript.ORDER_ATOMIC ];
+};
+
+Blockly.Blocks[ 'math_number_drop_output' ] = {
+  init: function() {
+    //this.setHelpUrl('http://www.example.com/');
+    this.setColour( 225 );
+    this.appendValueInput( "Input" )
+        .appendField(new Blockly.FieldDropdown([["1", "1"], ["2", "2"],
+         ["3", "3"], ["4", "4"], ["5", "5"], ["6", "6"], ["7", "7"],
+         ["8", "8"], ["9", "9"], ["10", "10"], ["11", "11"], ["12", "12"],
+         ["13", "13"], ["14", "14"], ["15","15"]]), "VALUE");
+    this.setOutput( true, "Number" );
+    this.setTooltip( 'A dropdown selector for number values' );
+  }
+};
+
+Blockly.JavaScript['math_number_drop_output' ] = function(block) {
+  
+  var dropdown_value = block.getFieldValue('Value');
+  
+  var argument0 = Blockly.JavaScript.valueToCode(block, 'INPUT',
+      Blockly.JavaScript.ORDER_ATOMIC) || '';
+
+  return [ dropdown_value , Blockly.JavaScript.ORDER_ATOMIC ];
+};
+
+Blockly.Blocks[ 'graph_get_x' ] = {
   // x variable getter.
   init: function() {
 
     //this.setHelpUrl(Blockly.Msg.VARIABLES_GET_HELPURL);
 
-    this.setColour(330);
-    this.appendDummyInput()
-        .appendField('x');
-    this.setOutput(true, 'Number');
+    this.setColour( 330 );
+    this.appendValueInput( 'INPUT' )
+        .appendField( 'x' );
+    this.setOutput( true, 'VALUE' );
     this.setTooltip( "Sets this variable to be equal to the input." );
   }
 };
 
 Blockly.JavaScript['graph_get_x'] = function(block) {
   // x variable getter.
-  return ['x', Blockly.JavaScript.ORDER_ATOMIC];
+  var argument0 = Blockly.JavaScript.valueToCode(block, 'INPUT',
+      Blockly.JavaScript.ORDER_ATOMIC) || '';
+
+  return [' x '+argument0, Blockly.JavaScript.ORDER_ATOMIC];
+};
+
+Blockly.Blocks['graph_add'] = {
+  /**
+   * Block for basic addition arithmetic operator.
+   * @this Blockly.Block
+   */
+  init: function() {
+    this.setColour(160);
+    this.appendValueInput('INPUT')
+        .appendField('+');
+    this.setOutput(true, 'VALUE');
+    this.setTooltip( "Addition operator" );
+  }
+};
+
+Blockly.JavaScript['graph_add'] = function(block) {
+  /**
+   * Code for basic addition arithmetic operator.
+   * @this Blockly.Block
+   */
+  var argument0 = Blockly.JavaScript.valueToCode(block, 'INPUT',
+      Blockly.JavaScript.ORDER_ATOMIC) || '0';
+  return [' + ' + argument0, Blockly.JavaScript.ORDER_ATOMIC];
+};
+
+Blockly.Blocks['graph_subtract'] = {
+  /**
+   * Block for basic subtraction arithmetic operator.
+   * @this Blockly.Block
+   */
+  init: function() {
+    this.setColour(160);
+    this.appendValueInput('INPUT')
+        .appendField('-');
+    this.setOutput(true, 'VALUE');
+    this.setTooltip( "Subtraction operator" );
+  }
+};
+
+Blockly.JavaScript['graph_subtract'] = function(block) {
+  /**
+   * Code for basic subtraction arithmetic operator.
+   * @this Blockly.Block
+   */
+
+  var argument0 = Blockly.JavaScript.valueToCode(block, 'INPUT',
+      Blockly.JavaScript.ORDER_ATOMIC) || '0';
+  return [' - ' + argument0, Blockly.JavaScript.ORDER_ATOMIC];
+};
+
+Blockly.Blocks['graph_multiply'] = {
+  /**
+   * Block for basic multiply arithmetic operator.
+   * @this Blockly.Block
+   */
+  init: function() {
+    this.setColour(160);
+    this.appendValueInput('INPUT')
+        .appendField('*');
+    this.setOutput(true, 'VALUE');
+    this.setTooltip( "Multiplication operator" );
+  }
+};
+
+Blockly.JavaScript['graph_multiply'] = function(block) {
+  /**
+   * Code for basic multiply arithmetic operator.
+   * @this Blockly.Block
+   */
+
+  var argument0 = Blockly.JavaScript.valueToCode(block, 'INPUT',
+      Blockly.JavaScript.ORDER_ATOMIC) || '0';
+  return [' * ' + argument0, Blockly.JavaScript.ORDER_ATOMIC];
+};
+
+Blockly.Blocks['graph_divide'] = {
+  /**
+   * Block for basic divide arithmetic operator.
+   * @this Blockly.Block
+   */
+  init: function() {
+    this.setColour(160);
+    this.appendValueInput('INPUT')
+        .appendField('/');
+    this.setOutput(true, 'VALUE');
+    this.setTooltip( "Division operator" );
+  }
+};
+
+Blockly.JavaScript['graph_divide'] = function(block) {
+  /**
+   * Code for basic divide arithmetic operator.
+   * @this Blockly.Block
+   */
+
+  var argument0 = Blockly.JavaScript.valueToCode(block, 'INPUT',
+      Blockly.JavaScript.ORDER_ATOMIC) || '0';
+  return [' / ' + argument0, Blockly.JavaScript.ORDER_ATOMIC];
+};
+
+Blockly.Blocks['graph_left_paren'] = {
+  /**
+   * Block for basic left parenthesis operator.
+   * @this Blockly.Block
+   */
+  init: function() {
+    this.setColour(110);
+    this.appendValueInput('INPUT')
+        .appendField('(');
+    this.setOutput(true, 'VALUE');
+    this.setTooltip( "Left Parenthesis" );
+  }
+};
+
+Blockly.JavaScript['graph_left_paren'] = function(block) {
+  /**
+   * Code for basic left parenthesis operator.
+   * @this Blockly.Block
+   */
+
+  var argument0 = Blockly.JavaScript.valueToCode(block, 'INPUT',
+      Blockly.JavaScript.ORDER_ATOMIC) || '';
+  return [' ( ' + argument0, Blockly.JavaScript.ORDER_ATOMIC];
+};
+
+Blockly.Blocks['graph_right_paren'] = {
+  /**
+   * Block for basic right parenthesis operator.
+   * @this Blockly.Block
+   */
+  init: function() {
+    this.setColour(110);
+    this.appendValueInput('INPUT')
+        .appendField(')');
+    this.setOutput(true, 'VALUE');
+    this.setTooltip( "Right Parenthesis" );
+  }
+};
+
+Blockly.JavaScript['graph_right_paren'] = function(block) {
+  /**
+   * Code for basic right parenthesis operator.
+   * @this Blockly.Block
+   */
+
+  var argument0 = Blockly.JavaScript.valueToCode(block, 'INPUT',
+      Blockly.JavaScript.ORDER_ATOMIC) || '';
+  return [' ) ' + argument0, Blockly.JavaScript.ORDER_ATOMIC];
 };
 
 Blockly.Blocks['graph_set_y'] = {
@@ -139,7 +336,7 @@ Blockly.Blocks['graph_set_y'] = {
     //this.setHelpUrl(Blockly.Msg.VARIABLES_SET_HELPURL);
 
     this.setColour(330);
-    this.appendValueInput('VALUE')
+    this.appendValueInput('INPUT')
         .appendField('y =');
     this.setTooltip( "Sets this variable to be equal to the input." );
   }
@@ -147,9 +344,16 @@ Blockly.Blocks['graph_set_y'] = {
 
 Blockly.JavaScript['graph_set_y'] = function(block) {
   // y variable setter.
-  var argument0 = Blockly.JavaScript.valueToCode(block, 'VALUE',
+  var argument0 = Blockly.JavaScript.valueToCode(block, 'INPUT',
       Blockly.JavaScript.ORDER_ASSIGNMENT) || '';
-  return argument0 + ';';
+
+  if(argument0.split('(').length == argument0.split(')').length) {
+    return argument0 + ';';
+  } else {
+    return ';';
+  }
+
+  
 };
 
 
