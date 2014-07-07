@@ -1,0 +1,12 @@
+---
+extends: source/gridObstacle.vwf
+source: ../../assets/3d/Terrain/rubble_crater2_3x3.dae
+type: model/vnd.collada+xml
+properties:
+  gridSize: [ 3, 3 ]
+  collisionMap: 
+    - [ -1, -1, -1 ]
+    - [ -1, -1, -1 ]
+    - [ -1, -1, -1 ]
+  gridRotation: 0
+  replacesTerrain: false
