@@ -108,6 +108,14 @@ function setUpBlocklyPeripherals() {
         $( "#blocklyWrapper" ).css( "height", "812px" );
         $( "#blocklyScrollDiv" ).css( "height", "700px" );        
     }
+
+    // and resize it if the window resizes
+    window.addEventListener( 'resize', function( event ) {
+        var height = window.innerHeight <= 812 ? window.innerHeight : 812;
+        $( "#blocklyWrapper" ).css( "height", height + "px" );
+        $( "#blocklyScrollDiv" ).css( "height", ( height - 112 ) + "px" );
+        centerBlocklyWindow();
+    } );
 }
 
 function updateBlocklyRamBar() {
