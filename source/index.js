@@ -366,9 +366,6 @@ function setUp( renderer, scene, camera ) {
     //Set up the introductory screens
     var introScreens = new Array();
     introScreens.push( "assets/images/introScreens/Intro_screen.jpg" );
-    introScreens.push( "assets/images/introScreens/Intro_screen2.jpg" );
-    introScreens.push( "assets/images/introScreens/bios_screen_red.jpg" );
-    introScreens.push( "assets/images/introScreens/screen3.png" );
     setUpIntro( introScreens );
 
     setUpBlocklyPeripherals();
