@@ -11,6 +11,7 @@ var alertNodeID = undefined;
 var statusNodeID = undefined;
 var defaultHandleNav;
 var defaultHandleMoveNav;
+var defaultHandleNavRotate;
 
 function onRun() {
     vwf_view.kernel.setProperty( currentBlocklyNodeID, "blockly_executing", true );
@@ -244,12 +245,16 @@ vwf_view.initializedNode = function( nodeID, childID, childExtendsID, childImple
     if ( childID === vwf_view.kernel.application() ) {
         hud = new HUD();
         createHUD();
-        vwf_view.kernel.kernel.views["vwf/view/threejs"].render = setUp;
-        defaultHandleNav = vwf_view.kernel.kernel.views[ "vwf/view/threejs" ].handleMouseHelper;
-        vwf_view.kernel.kernel.views[ "vwf/view/threejs" ].handleMouseHelper = handleMouseNavigation;
-        defaultHandleMoveNav = vwf_view.kernel.kernel.views[ "vwf/view/threejs" ].moveNavObjectHelper;
-        vwf_view.kernel.kernel.views[ "vwf/view/threejs" ].moveNavObjectHelper = moveNavObject;
-        defaultHandleNavRotate = vwf_view.kernel.kernel.views[ "vwf/view/threejs" ].rotateNavObjectByKey;
+
+        var threejs = findThreejsView();
+        threejs.render = setUp;
+
+        //Set camera navigation methods
+        defaultHandleNav = threejs.handleMouseHelper;
+        threejs.handleMouseHelper = handleMouseNavigation;
+        defaultHandleMoveNav = threejs.moveNavObjectHelper;
+        threejs.moveNavObjectHelper = moveNavObject;
+        defaultHandleNavRotate = threejs.rotateNavObjectByKey;
 
     } else if ( blocklyNodes[ childID ] !== undefined ) {
         var node = blocklyNodes[ childID ];
@@ -388,7 +393,8 @@ function setUp( renderer, scene, camera ) {
     renderer.autoClear = false;
 
     // Set render loop to use custom render function
-    vwf_view.kernel.kernel.views["vwf/view/threejs"].render = render;
+    var threejs = findThreejsView();
+    threejs.render = render;
 
 }
 
@@ -469,12 +475,24 @@ function moveNavObject( dx, dy, navMode, navObject, msSinceLastFrame ) {
 
 }
 
-function rotateNavObject(){
+function rotateNavObject( navmode, navObject ){
 
+    switch ( navMode ) {
+
+        case "walk":
+        case "fly":
+        case "none":
+            defaultHandleNavRotate( navmode, navObject );
+            break;
+    }
 }
 
 function findThreejsView() {
-    return vwf_view.kernel.kernel.views["vwf/view/threejs"];
+    var lastKernel = vwf_view.kernel;
+    while ( lastKernel.kernel ) {
+        lastKernel = lastKernel.kernel;
+    }
+    return lastKernel.views[ "vwf/view/threejs" ];
 }
 
 function isBlockly3Node( nodeID ) {
