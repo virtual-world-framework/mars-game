@@ -12,6 +12,7 @@ var statusNodeID = undefined;
 var defaultHandleNav;
 var defaultHandleMoveNav;
 var defaultHandleNavRotate;
+var defaultHandleScroll;
 var gridBounds;
 
 function onRun() {
@@ -258,12 +259,14 @@ vwf_view.initializedNode = function( nodeID, childID, childExtendsID, childImple
         threejs.render = setUp;
 
         //Set camera navigation methods
-        defaultHandleNav = threejs.handleMouseHelper;
-        threejs.handleMouseHelper = handleMouseNavigation;
-        defaultHandleMoveNav = threejs.moveNavObjectHelper;
-        threejs.moveNavObjectHelper = moveNavObject;
-        defaultHandleNavRotate = threejs.rotateNavObjectByKeyHelper;
-        threejs.rotateNavObjectByKeyHelper = rotateNavObject;
+        defaultHandleNav = threejs.handleMouseNavigation;
+        threejs.handleMouseNavigation = handleMouseNavigation;
+        defaultHandleScroll = threejs.handleScroll;
+        threejs.handleScroll = handleScroll;
+        defaultHandleMoveNav = threejs.moveNavObject;
+        threejs.moveNavObject = moveNavObject;
+        defaultHandleNavRotate = threejs.rotateNavObjectByKey;
+        threejs.rotateNavObjectByKey = rotateNavObject;
 
     } else if ( blocklyNodes[ childID ] !== undefined ) {
         var node = blocklyNodes[ childID ];
@@ -443,16 +446,35 @@ function handleMouseNavigation( deltaX, deltaY, navObject, navMode, rotationSpee
             break;
 
         case "thirdPerson":
-            if ( mouseDown.right ) {
-                var degreesToRadians = Math.PI / 180;
-                var rotationSpeedRadians = degreesToRadians * rotationSpeed;
-                var yawRadians = deltaX * rotationSpeedRadians;
-                var yawQuat = new THREE.Quaternion();
-                yawQuat.setFromAxisAngle( new THREE.Vector3( 0, 0, 1 ), yawRadians );
-                var yawDeltaMatrix = new THREE.Matrix4();
-                yawDeltaMatrix.makeRotationFromQuaternion( yawQuat );
-                navObject.threeObject.matrixWorld.multiplyMatrices( yawDeltaMatrix, navObject.threeObject.matrixWorld );
-            }
+            break;
+    }
+}
+
+function handleScroll( wheelDelta, navObject, navMode, rotationSpeed, translationSpeed, distanceToTarget ) {
+
+    switch ( navMode ) {
+
+        case "walk":
+        case "fly":
+        case "none":
+            defaultHandleScroll( wheelDelta, navObject, navMode, rotationSpeed, translationSpeed, distanceToTarget );
+            break;
+
+        case "topDown":
+            var numClicks = wheelDelta / 3;
+            var navZ = navObject.threeObject.matrixWorld.elements[ 14 ];
+            navZ -= numClicks;
+
+            // Keep the view within reasonable distance of the grid area
+            var upperBound = gridBounds.topRight[ 0 ] - gridBounds.bottomLeft[ 0 ];
+            var lowerBound = ( gridBounds.topRight[ 0 ] - gridBounds.bottomLeft[ 0 ] ) / 3;
+            navZ = navZ > upperBound ? upperBound : navZ;
+            navZ = navZ < lowerBound ? lowerBound : navZ;
+
+            navObject.threeObject.matrixWorld.elements[ 14 ] = navZ;
+            break;
+
+        case "thirdPerson":
             break;
     }
 }
@@ -485,15 +507,6 @@ function moveNavObject( dx, dy, navObject, navMode, rotationSpeed, translationSp
             break;
 
         case "thirdPerson":
-            var degreesToRadians = Math.PI / 180;
-            var rotationSpeedRadians = degreesToRadians * rotationSpeed * 
-                                       Math.min( msSinceLastFrame * 0.001, 0.5 );
-            var yawRadians = dx * rotationSpeedRadians;
-            var yawQuat = new THREE.Quaternion();
-            yawQuat.setFromAxisAngle( new THREE.Vector3( 0, 0, 1 ), yawRadians );
-            var yawDeltaMatrix = new THREE.Matrix4();
-            yawDeltaMatrix.makeRotationFromQuaternion( yawQuat );
-            navObject.threeObject.matrixWorld.multiplyMatrices( yawDeltaMatrix, navObject.threeObject.matrixWorld );
             break;
     }
 

@@ -29,8 +29,8 @@ this.changePointOfView$ = function( newPointOfView ) {
             this.translationSpeed = 0;
             break;
         case "thirdPerson":
-            this.navmode = "thirdPerson";
-            this.translationSpeed = 10;
+            this.navmode = "walk";
+            this.translationSpeed = 0;
             break;
         case "topDown":
             this.navmode = "topDown";
