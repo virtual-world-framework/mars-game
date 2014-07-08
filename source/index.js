@@ -9,10 +9,6 @@ var mainRover = undefined;
 var blocklyGraphID = undefined;
 var alertNodeID = undefined;
 var statusNodeID = undefined;
-var defaultHandleNav;
-var defaultHandleMoveNav;
-var defaultHandleNavRotate;
-var defaultHandleScroll;
 var gridBounds;
 
 function onRun() {
@@ -258,15 +254,7 @@ vwf_view.initializedNode = function( nodeID, childID, childExtendsID, childImple
         var threejs = findThreejsView();
         threejs.render = setUp;
 
-        //Set camera navigation methods
-        defaultHandleNav = threejs.handleMouseNavigation;
-        threejs.handleMouseNavigation = handleMouseNavigation;
-        defaultHandleScroll = threejs.handleScroll;
-        threejs.handleScroll = handleScroll;
-        defaultHandleMoveNav = threejs.moveNavObject;
-        threejs.moveNavObject = moveNavObject;
-        defaultHandleNavRotate = threejs.rotateNavObjectByKey;
-        threejs.rotateNavObjectByKey = rotateNavObject;
+        setUpNavigation();
 
     } else if ( blocklyNodes[ childID ] !== undefined ) {
         var node = blocklyNodes[ childID ];
@@ -415,113 +403,6 @@ function render( renderer, scene, camera ) {
     renderer.clearDepth();
     renderer.render( hud.scene, hud.camera );
 
-}
-
-function handleMouseNavigation( deltaX, deltaY, navObject, navMode, rotationSpeed, translationSpeed, mouseDown ) {
-   
-    switch( navMode ) {
-
-        case "walk":
-        case "fly":
-        case "none":
-            defaultHandleNav( deltaX, deltaY, navObject, navMode, rotationSpeed, translationSpeed, mouseDown );
-            break;
-
-        case "topDown":
-            if ( mouseDown.right ) {
-                var navX = navObject.threeObject.matrixWorld.elements[ 12 ];
-                var navY = navObject.threeObject.matrixWorld.elements[ 13 ];
-                navX += -deltaX * translationSpeed;
-                navY += deltaY * translationSpeed;
-
-                // Keep the view within grid boundaries
-                navX = navX < gridBounds.bottomLeft[ 0 ] ? gridBounds.bottomLeft[ 0 ] : navX;
-                navX = navX > gridBounds.topRight[ 0 ] ? gridBounds.topRight[ 0 ] : navX;       
-                navY = navY < gridBounds.bottomLeft[ 1 ] ? gridBounds.bottomLeft[ 1 ] : navY;
-                navY = navY > gridBounds.topRight[ 1 ] ? gridBounds.topRight[ 1 ] : navY;
-
-                navObject.threeObject.matrixWorld.elements[ 12 ] = navX;
-                navObject.threeObject.matrixWorld.elements[ 13 ] = navY;
-            }
-            break;
-
-        case "thirdPerson":
-            break;
-    }
-}
-
-function handleScroll( wheelDelta, navObject, navMode, rotationSpeed, translationSpeed, distanceToTarget ) {
-
-    switch ( navMode ) {
-
-        case "walk":
-        case "fly":
-        case "none":
-            defaultHandleScroll( wheelDelta, navObject, navMode, rotationSpeed, translationSpeed, distanceToTarget );
-            break;
-
-        case "topDown":
-            var numClicks = wheelDelta / 3;
-            var navZ = navObject.threeObject.matrixWorld.elements[ 14 ];
-            navZ -= numClicks;
-
-            // Keep the view within reasonable distance of the grid area
-            var upperBound = gridBounds.topRight[ 0 ] - gridBounds.bottomLeft[ 0 ];
-            var lowerBound = ( gridBounds.topRight[ 0 ] - gridBounds.bottomLeft[ 0 ] ) / 3;
-            navZ = navZ > upperBound ? upperBound : navZ;
-            navZ = navZ < lowerBound ? lowerBound : navZ;
-
-            navObject.threeObject.matrixWorld.elements[ 14 ] = navZ;
-            break;
-
-        case "thirdPerson":
-            break;
-    }
-}
-
-function moveNavObject( dx, dy, navObject, navMode, rotationSpeed, translationSpeed, msSinceLastFrame ) {
-
-    switch ( navMode ) {
-
-        case "walk":
-        case "fly":
-        case "none":
-            defaultHandleMoveNav( dx, dy, navObject, navMode, rotationSpeed, translationSpeed, msSinceLastFrame );
-            break;
-
-        case "topDown":
-            var dist = translationSpeed * Math.min( msSinceLastFrame * 0.001, 0.5 );
-            var navX = navObject.threeObject.matrixWorld.elements[ 12 ];
-            var navY = navObject.threeObject.matrixWorld.elements[ 13 ];
-            navX += dx * dist;
-            navY += dy * dist;
-
-            // Keep the view within grid boundaries
-            navX = navX < gridBounds.bottomLeft[ 0 ] ? gridBounds.bottomLeft[ 0 ] : navX;
-            navX = navX > gridBounds.topRight[ 0 ] ? gridBounds.topRight[ 0 ] : navX;       
-            navY = navY < gridBounds.bottomLeft[ 1 ] ? gridBounds.bottomLeft[ 1 ] : navY;
-            navY = navY > gridBounds.topRight[ 1 ] ? gridBounds.topRight[ 1 ] : navY;
-
-            navObject.threeObject.matrixWorld.elements[ 12 ] = navX;
-            navObject.threeObject.matrixWorld.elements[ 13 ] = navY;
-            break;
-
-        case "thirdPerson":
-            break;
-    }
-
-}
-
-function rotateNavObject( direction, navObject, navMode, rotationSpeed, translationSpeed, msSinceLastFrame ){
-
-    switch ( navMode ) {
-
-        case "walk":
-        case "fly":
-        case "none":
-            defaultHandleNavRotate( direction, navObject, navMode, rotationSpeed, translationSpeed, msSinceLastFrame );
-            break;
-    }
 }
 
 function findThreejsView() {
