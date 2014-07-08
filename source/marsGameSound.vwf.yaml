@@ -117,13 +117,13 @@ properties:
       initialVolume: 1.0
       soundDefinitions:
         - soundName: "environmentWind_01"
-          soundURL: "assets/sounds/sfx/environmentWind_01.wav"
+          soundURL: "assets/sounds/sfx/environmentWind_01.ogg"
           isLooping: true
           isLayered: false
           allowMultiplay: false
           initialVolume: 1.0
         - soundName: "environmentWind_02"
-          soundURL: "assets/sounds/sfx/environmentWind_02.wav"
+          soundURL: "assets/sounds/sfx/environmentWind_02.ogg"
           isLooping: true
           isLayered: false
           allowMultiplay: false
