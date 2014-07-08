@@ -12,7 +12,7 @@ this.setScenario = function( path ) {
     if ( scenario ) {
         scenario.grid.clearGrid();
         scenario.future( 0 ).startScenario();
-        this.scenarioChanged( scenario.name );
+        this.scenarioChanged( scenario.name, scenario.grid );
     } else {
         this.logger.warnx( "setScenario", "Scenario for path '" + path + "' not found." );
     }
