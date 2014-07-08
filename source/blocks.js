@@ -118,7 +118,7 @@ Blockly.Blocks[ 'math_number_drop' ] = {
     //this.setHelpUrl('http://www.example.com/');
     this.setColour(225);
     this.appendDummyInput()
-        .appendField(new Blockly.FieldDropdown([["1", "1"], ["2", "2"],
+        .appendField(new Blockly.FieldDropdown([["0", "0"],["1", "1"], ["2", "2"],
          ["3", "3"], ["4", "4"], ["5", "5"], ["6", "6"], ["7", "7"],
          ["8", "8"], ["9", "9"], ["10", "10"], ["11", "11"], ["12", "12"],
          ["13", "13"], ["14", "14"], ["15","15"]]), "VALUE");
@@ -139,7 +139,7 @@ Blockly.Blocks[ 'math_number_drop_output' ] = {
     this.setHelpUrl('http://www.google.com/');
     this.setColour( 225 );
     this.appendValueInput( "INPUT" )
-        .appendField(new Blockly.FieldDropdown([["1", "1"], ["2", "2"],
+        .appendField(new Blockly.FieldDropdown([["0", "0"],["1", "1"], ["2", "2"],
          ["3", "3"], ["4", "4"], ["5", "5"], ["6", "6"], ["7", "7"],
          ["8", "8"], ["9", "9"], ["10", "10"], ["11", "11"], ["12", "12"],
          ["13", "13"], ["14", "14"], ["15","15"]]), "VALUE")
@@ -167,7 +167,7 @@ Blockly.JavaScript['math_number_drop_output' ] = function(block) {
 
 Blockly.Blocks[ 'math_number_output' ] = {
   init: function() {
-    this.setColour( 225 );
+    this.setColour( 160 );
     this.appendValueInput( "INPUT" )
         .appendField( new Blockly.FieldTextInput( "0" ), "VALUE" )
         .setCheck( [ 'Operator','Variable' ] );
@@ -198,7 +198,7 @@ Blockly.Blocks[ 'graph_get_x' ] = {
 
     //this.setHelpUrl(Blockly.Msg.VARIABLES_GET_HELPURL);
 
-    this.setColour( 330 );
+    this.setColour( 350 );
     this.appendValueInput( 'INPUT' )
         .appendField( 'x' )
         .setCheck( 'Operator' );
@@ -221,7 +221,7 @@ Blockly.Blocks['graph_add'] = {
    * @this Blockly.Block
    */
   init: function() {
-    this.setColour(160);
+    this.setColour(120);
     this.appendValueInput('INPUT')
         .appendField(new Blockly.FieldDropdown([["+", "+"], ["-", "-"],["×", "*"],
          ["÷", "/"]]), "VALUE")
@@ -247,7 +247,7 @@ Blockly.Blocks['graph_subtract'] = {
    * @this Blockly.Block
    */
   init: function() {
-    this.setColour(160);
+    this.setColour(120);
     this.appendValueInput('INPUT')
         .appendField(new Blockly.FieldDropdown([["-", "-"], ["+", "+"], ["×", "*"],
          ["÷", "/"]]), "VALUE")
@@ -274,7 +274,7 @@ Blockly.Blocks['graph_multiply'] = {
    * @this Blockly.Block
    */
   init: function() {
-    this.setColour(160);
+    this.setColour(120);
     this.appendValueInput('INPUT')
         .appendField(new Blockly.FieldDropdown([["×", "*"],["+", "+"], ["-", "-"],
           ["÷", "/"]]), "VALUE")
@@ -301,7 +301,7 @@ Blockly.Blocks['graph_divide'] = {
    * @this Blockly.Block
    */
   init: function() {
-    this.setColour(160);
+    this.setColour(120);
     this.appendValueInput('INPUT')
         .appendField(new Blockly.FieldDropdown([["÷", "/"],["×", "*"],["+", "+"],
           ["-", "-"]]), "VALUE")
@@ -378,7 +378,7 @@ Blockly.Blocks['graph_set_y'] = {
 
     //this.setHelpUrl(Blockly.Msg.VARIABLES_SET_HELPURL);
 
-    this.setColour(100);
+    this.setColour(240);
     this.appendValueInput('INPUT')
         .appendField('y=');
     this.setTooltip( "Sets this variable to be equal to the input." );
