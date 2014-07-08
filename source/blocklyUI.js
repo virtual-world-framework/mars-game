@@ -133,7 +133,7 @@ function centerBlocklyWindow() {
 }
 
 function moveBlocklyIndicator( x, y ) {
-    $( "#blocklyIndicator" ).animate( { "top" : ( y + 20 ) + "px" } );
+    $( "#blocklyIndicator" ).animate( { "top" : ( y + 25 ) + "px" } );
     $( "#blocklyIndicator" ).css( "left", ( x + parseInt( $( ".blocklyFlyoutBackground" ).css( "width" ) ) + 120 ) + "px" );
 }
 
