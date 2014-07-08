@@ -157,9 +157,36 @@ Blockly.JavaScript['math_number_drop_output' ] = function(block) {
       Blockly.JavaScript.ORDER_ATOMIC) || '';
 
   if (argument0[0] === 'x'){
-    return [ dropdown_value+'*'+argument0 , Blockly.JavaScript.ORDER_ATOMIC ];
+    return [ dropdown_value + '*' + argument0, Blockly.JavaScript.ORDER_ATOMIC ];
   } else {
-    return [ dropdown_value+argument0 , Blockly.JavaScript.ORDER_ATOMIC ];
+    return [ dropdown_value + argument0, Blockly.JavaScript.ORDER_ATOMIC ];
+  }
+
+
+};
+
+Blockly.Blocks[ 'math_number_output' ] = {
+  init: function() {
+    this.setColour( 225 );
+    this.appendValueInput( "INPUT" )
+        .appendField( new Blockly.FieldTextInput( "0" ), "VALUE" )
+        .setCheck( [ 'Operator','Variable' ] );
+    this.setOutput( true, "Number" );
+    this.setTooltip( 'A dropdown selector for number values' );
+  }
+};
+
+Blockly.JavaScript['math_number_output' ] = function(block) {
+  
+  var dropdown_value = block.getFieldValue('VALUE');
+  
+  var argument0 = Blockly.JavaScript.valueToCode(block, 'INPUT',
+      Blockly.JavaScript.ORDER_ATOMIC) || '';
+
+  if ( argument0[0] === 'x' ){
+    return [ dropdown_value + '*' + argument0 , Blockly.JavaScript.ORDER_ATOMIC ];
+  } else {
+    return [ dropdown_value + argument0 , Blockly.JavaScript.ORDER_ATOMIC ];
   }
 
 
@@ -174,7 +201,7 @@ Blockly.Blocks[ 'graph_get_x' ] = {
     this.setColour( 330 );
     this.appendValueInput( 'INPUT' )
         .appendField( 'x' )
-        .setCheck('Operator');
+        .setCheck( 'Operator' );
     this.setOutput( true, 'Variable' );
     this.setTooltip( "Sets this variable to be equal to the input." );
   }
@@ -185,7 +212,7 @@ Blockly.JavaScript['graph_get_x'] = function(block) {
   var argument0 = Blockly.JavaScript.valueToCode(block, 'INPUT',
       Blockly.JavaScript.ORDER_ATOMIC) || '';
 
-  return ['x'+argument0, Blockly.JavaScript.ORDER_ATOMIC];
+  return [ 'x' + argument0, Blockly.JavaScript.ORDER_ATOMIC ];
 };
 
 Blockly.Blocks['graph_add'] = {
@@ -196,10 +223,11 @@ Blockly.Blocks['graph_add'] = {
   init: function() {
     this.setColour(160);
     this.appendValueInput('INPUT')
-        .appendField('+')
+        .appendField(new Blockly.FieldDropdown([["+", "+"], ["-", "-"],["×", "*"],
+         ["÷", "/"]]), "VALUE")
         .setCheck(['Number','Variable']);
     this.setOutput(true, 'Operator');
-    this.setTooltip( "Addition operator" );
+    this.setTooltip( "Arithmetic Operator" );
   }
 };
 
@@ -210,7 +238,7 @@ Blockly.JavaScript['graph_add'] = function(block) {
    */
   var argument0 = Blockly.JavaScript.valueToCode(block, 'INPUT',
       Blockly.JavaScript.ORDER_ATOMIC) || '0';
-  return ['+' + argument0, Blockly.JavaScript.ORDER_ATOMIC];
+  return [block.getFieldValue('VALUE') + argument0, Blockly.JavaScript.ORDER_ATOMIC];
 };
 
 Blockly.Blocks['graph_subtract'] = {
@@ -221,10 +249,11 @@ Blockly.Blocks['graph_subtract'] = {
   init: function() {
     this.setColour(160);
     this.appendValueInput('INPUT')
-        .appendField('-')
+        .appendField(new Blockly.FieldDropdown([["-", "-"], ["+", "+"], ["×", "*"],
+         ["÷", "/"]]), "VALUE")
         .setCheck(['Number','Variable']);
     this.setOutput(true, 'Operator');
-    this.setTooltip( "Subtraction operator" );
+    this.setTooltip( "Arithmetic Operator" );
   }
 };
 
@@ -236,7 +265,7 @@ Blockly.JavaScript['graph_subtract'] = function(block) {
 
   var argument0 = Blockly.JavaScript.valueToCode(block, 'INPUT',
       Blockly.JavaScript.ORDER_ATOMIC) || '0';
-  return ['-' + argument0, Blockly.JavaScript.ORDER_ATOMIC];
+  return [block.getFieldValue('VALUE') + argument0, Blockly.JavaScript.ORDER_ATOMIC];
 };
 
 Blockly.Blocks['graph_multiply'] = {
@@ -247,10 +276,11 @@ Blockly.Blocks['graph_multiply'] = {
   init: function() {
     this.setColour(160);
     this.appendValueInput('INPUT')
-        .appendField('*')
+        .appendField(new Blockly.FieldDropdown([["×", "*"],["+", "+"], ["-", "-"],
+          ["÷", "/"]]), "VALUE")
         .setCheck(['Number','Variable']);
     this.setOutput(true, 'Operator');
-    this.setTooltip( "Multiplication operator" );
+    this.setTooltip( "Arithmetic Operator" );
   }
 };
 
@@ -262,7 +292,7 @@ Blockly.JavaScript['graph_multiply'] = function(block) {
 
   var argument0 = Blockly.JavaScript.valueToCode(block, 'INPUT',
       Blockly.JavaScript.ORDER_ATOMIC) || '0';
-  return ['*' + argument0, Blockly.JavaScript.ORDER_ATOMIC];
+  return [block.getFieldValue('VALUE') + argument0, Blockly.JavaScript.ORDER_ATOMIC];
 };
 
 Blockly.Blocks['graph_divide'] = {
@@ -273,10 +303,11 @@ Blockly.Blocks['graph_divide'] = {
   init: function() {
     this.setColour(160);
     this.appendValueInput('INPUT')
-        .appendField('/')
+        .appendField(new Blockly.FieldDropdown([["÷", "/"],["×", "*"],["+", "+"],
+          ["-", "-"]]), "VALUE")
         .setCheck(['Number','Variable']);
     this.setOutput(true, 'Operator');
-    this.setTooltip( "Division operator" );
+    this.setTooltip( "Arithmetic Operator" );
   }
 };
 
@@ -288,7 +319,7 @@ Blockly.JavaScript['graph_divide'] = function(block) {
 
   var argument0 = Blockly.JavaScript.valueToCode(block, 'INPUT',
       Blockly.JavaScript.ORDER_ATOMIC) || '0';
-  return ['/' + argument0, Blockly.JavaScript.ORDER_ATOMIC];
+  return [block.getFieldValue('VALUE') + argument0, Blockly.JavaScript.ORDER_ATOMIC];
 };
 
 Blockly.Blocks['graph_left_paren'] = {
@@ -347,9 +378,9 @@ Blockly.Blocks['graph_set_y'] = {
 
     //this.setHelpUrl(Blockly.Msg.VARIABLES_SET_HELPURL);
 
-    this.setColour(330);
+    this.setColour(100);
     this.appendValueInput('INPUT')
-        .appendField('y =');
+        .appendField('y=');
     this.setTooltip( "Sets this variable to be equal to the input." );
   }
 };
