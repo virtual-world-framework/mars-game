@@ -21,7 +21,7 @@ function setUpNavigation() {
     threejs.appRequestsPointerLock = requestPointerLock;
 }
 
-function handleMouseNavigation( deltaX, deltaY, navObject, navMode, rotationSpeed, translationSpeed, mouseDown ) {
+function handleMouseNavigation( deltaX, deltaY, navObject, navMode, rotationSpeed, translationSpeed, mouseDown, mouseEventData ) {
 
     switch( navMode ) {
 

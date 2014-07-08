@@ -81,7 +81,6 @@ this.setTargetPath$ = function( newTargetPath ) {
 }
 
 this.followTarget$ = function() {
-    //this.transform = getNewCameraTransform();
     this.transformTo( getNewCameraTransform(), durationSeconds );
 }
 
