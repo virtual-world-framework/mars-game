@@ -143,7 +143,7 @@ Blockly.Blocks[ 'math_number_drop_output' ] = {
          ["3", "3"], ["4", "4"], ["5", "5"], ["6", "6"], ["7", "7"],
          ["8", "8"], ["9", "9"], ["10", "10"], ["11", "11"], ["12", "12"],
          ["13", "13"], ["14", "14"], ["15","15"]]), "VALUE")
-        .setCheck('Operator');
+        .setCheck(['Operator','Variable']);
     this.setOutput( true, "Number" );
     this.setTooltip( 'A dropdown selector for number values' );
   }
@@ -156,7 +156,13 @@ Blockly.JavaScript['math_number_drop_output' ] = function(block) {
   var argument0 = Blockly.JavaScript.valueToCode(block, 'INPUT',
       Blockly.JavaScript.ORDER_ATOMIC) || '';
 
-  return [ dropdown_value , Blockly.JavaScript.ORDER_ATOMIC ];
+  if (argument0[0] === 'x'){
+    return [ dropdown_value+'*' , Blockly.JavaScript.ORDER_ATOMIC ];
+  } else {
+      return [ dropdown_value , Blockly.JavaScript.ORDER_ATOMIC ];
+  }
+
+
 };
 
 Blockly.Blocks[ 'graph_get_x' ] = {
@@ -179,7 +185,7 @@ Blockly.JavaScript['graph_get_x'] = function(block) {
   var argument0 = Blockly.JavaScript.valueToCode(block, 'INPUT',
       Blockly.JavaScript.ORDER_ATOMIC) || '';
 
-  return [' x '+argument0, Blockly.JavaScript.ORDER_ATOMIC];
+  return ['x'+argument0, Blockly.JavaScript.ORDER_ATOMIC];
 };
 
 Blockly.Blocks['graph_add'] = {
@@ -204,7 +210,7 @@ Blockly.JavaScript['graph_add'] = function(block) {
    */
   var argument0 = Blockly.JavaScript.valueToCode(block, 'INPUT',
       Blockly.JavaScript.ORDER_ATOMIC) || '0';
-  return [' + ' + argument0, Blockly.JavaScript.ORDER_ATOMIC];
+  return ['+' + argument0, Blockly.JavaScript.ORDER_ATOMIC];
 };
 
 Blockly.Blocks['graph_subtract'] = {
@@ -230,7 +236,7 @@ Blockly.JavaScript['graph_subtract'] = function(block) {
 
   var argument0 = Blockly.JavaScript.valueToCode(block, 'INPUT',
       Blockly.JavaScript.ORDER_ATOMIC) || '0';
-  return [' - ' + argument0, Blockly.JavaScript.ORDER_ATOMIC];
+  return ['-' + argument0, Blockly.JavaScript.ORDER_ATOMIC];
 };
 
 Blockly.Blocks['graph_multiply'] = {
@@ -256,7 +262,7 @@ Blockly.JavaScript['graph_multiply'] = function(block) {
 
   var argument0 = Blockly.JavaScript.valueToCode(block, 'INPUT',
       Blockly.JavaScript.ORDER_ATOMIC) || '0';
-  return [' * ' + argument0, Blockly.JavaScript.ORDER_ATOMIC];
+  return ['*' + argument0, Blockly.JavaScript.ORDER_ATOMIC];
 };
 
 Blockly.Blocks['graph_divide'] = {
@@ -282,7 +288,7 @@ Blockly.JavaScript['graph_divide'] = function(block) {
 
   var argument0 = Blockly.JavaScript.valueToCode(block, 'INPUT',
       Blockly.JavaScript.ORDER_ATOMIC) || '0';
-  return [' / ' + argument0, Blockly.JavaScript.ORDER_ATOMIC];
+  return ['/' + argument0, Blockly.JavaScript.ORDER_ATOMIC];
 };
 
 Blockly.Blocks['graph_left_paren'] = {
@@ -307,7 +313,7 @@ Blockly.JavaScript['graph_left_paren'] = function(block) {
 
   var argument0 = Blockly.JavaScript.valueToCode(block, 'INPUT',
       Blockly.JavaScript.ORDER_ATOMIC) || '';
-  return [' ( ' + argument0, Blockly.JavaScript.ORDER_ATOMIC];
+  return ['(' + argument0, Blockly.JavaScript.ORDER_ATOMIC];
 };
 
 Blockly.Blocks['graph_right_paren'] = {
@@ -332,7 +338,7 @@ Blockly.JavaScript['graph_right_paren'] = function(block) {
 
   var argument0 = Blockly.JavaScript.valueToCode(block, 'INPUT',
       Blockly.JavaScript.ORDER_ATOMIC) || '';
-  return [' ) ' + argument0, Blockly.JavaScript.ORDER_ATOMIC];
+  return [')' + argument0, Blockly.JavaScript.ORDER_ATOMIC];
 };
 
 Blockly.Blocks['graph_set_y'] = {
