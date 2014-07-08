@@ -21,7 +21,7 @@ Blockly.Blocks['rover_moveForward'] = {
     this.setInputsInline(true);
     this.setPreviousStatement(true);
     this.setNextStatement(true);
-    this.setTooltip('Moves the rover on the screen representing the player forward one square on mars');
+    this.setTooltip('');
   }
 };
 
@@ -180,6 +180,11 @@ Blockly.JavaScript['math_number_output' ] = function(block) {
   
   var dropdown_value = block.getFieldValue('VALUE');
   
+  if ( isNaN( dropdown_value ) ){
+    dropdown_value = 0;
+    block.setFieldValue('0','VALUE');
+  }
+
   var argument0 = Blockly.JavaScript.valueToCode(block, 'INPUT',
       Blockly.JavaScript.ORDER_ATOMIC) || '';
 
