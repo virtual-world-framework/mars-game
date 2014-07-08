@@ -5,6 +5,8 @@ body {
 #blocklyWrapper {
     width: 560px;
     height: 812px;
+    min-height: 200px;
+    max-height: 812px;
     position: absolute;
     background-color: rgb( 50, 90, 150);
     border-radius: 8px;
