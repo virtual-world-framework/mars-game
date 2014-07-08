@@ -52,19 +52,19 @@ children:
     includes: source/marsGameSound.vwf
   environment:
     extends: http://vwf.example.com/node3.vwf
-    source: assets/3d/Terrain/scene2.dae
+    source: assets/3d/Terrain/scene.dae
     type: model/vnd.collada+xml
     properties:
       castShadows: true
       receiveShadows: true
-    scripts: |
-      this.initialize = function() {
-        debugger;
-      }
     children:
       crashPod:
-        extends: source/obstacles/crash_pod.vwf
+        extends: http://vwf.example.com/node3.vwf
+        source: assets/3d/crash_pod/crash_pod.dae
+        type: model/vnd.collada+xml
         properties:
+          castShadows: true
+          receiveShadows: true
           translation: [ 0, -1.5, 0 ]
       roverTracks:
         extends: http://vwf.example.com/node3.vwf

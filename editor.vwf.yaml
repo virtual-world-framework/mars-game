@@ -1,0 +1,41 @@
+# The Mars educational game content Editor created for ADL's True Game-based learning project
+--- 
+extends: http://vwf.example.com/scene.vwf
+properties:
+  backgroundColor: [ 10, 20, 30 ]
+  ambientColor: [ 255, 255, 255 ]
+children:
+  graph:
+    extends: http://vwf.example.com/graphtool/graph.vwf
+    properties:
+      graphScale: 3
+      gridInterval: 1
+      gridLineInterval: 10
+      gridLength: 100
+      xAxisVisible: true
+      yAxisVisible: true
+      zAxisVisible: true
+      gridVisible: true
+      axisOpacity: 1
+      gridOpacity: 0.5
+      renderTop: false
+  # environment:
+  #   extends: http://vwf.example.com/node3.vwf
+  #   source: assets/3d/Terrain/scene.dae
+  #   type: model/vnd.collada+xml
+methods:
+  loadObject:
+    parameters:
+      - path
+    body: |
+      var objDef = {
+        "extends": "http://vwf.example.com/node3.vwf",
+        "source": path,
+        "type": "model/vnd.collada+xml"
+      }
+      this.children.create( "object_" + this.objCount++, objDef );
+scripts: |
+  this.objCount = 0;
+  this.initialize = function() {
+    this.camera.transform = [-0.6877578496932983,0.7259325385093689,2.705990027607186e-7,0,-0.6843284964561462,-0.6483430862426758,-0.3336801826953888,0,-0.24222907423973083,-0.2294914275407791,0.9426885843276978,0,100,100.00012969970703,50.0000114440918,1];
+  }
