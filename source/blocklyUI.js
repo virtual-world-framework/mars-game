@@ -99,23 +99,25 @@ function setUpBlocklyPeripherals() {
     ramBar.appendChild( ramBarCount );
 
     // Ensure that the blockly ui is accessible on smaller screens
-    if ( window.innerHeight <= parseInt( $( "#blocklyWrapper" ).css( "height") ) ) {
-        var height = window.innerHeight;
-        $( "#blocklyWrapper" ).css( "height", height + "px" );
-        $( "#blocklyScrollDiv" ).css( "height", ( height - 112 ) + "px" );
-        $( "#blocklyWrapper" ).css( "top", 0 );
-    } else {
-        $( "#blocklyWrapper" ).css( "height", "812px" );
-        $( "#blocklyScrollDiv" ).css( "height", "700px" );        
-    }
+    resizeBlocklyOnWindowResize();
 
     // and resize it if the window resizes
-    window.addEventListener( 'resize', function( event ) {
-        var height = window.innerHeight <= 812 ? window.innerHeight : 812;
+    window.addEventListener( 'resize', resizeBlocklyOnWindowResize );
+}
+
+function resizeBlocklyOnWindowResize( event ) {
+    var maxBlocklyHeight = parseInt( $( "#blocklyWrapper" ).css( "max-height") );
+    var minBlocklyHeight = parseInt( $( "#blocklyWrapper" ).css( "min-height") );
+    var currentHeight = parseInt( $( "#blocklyWrapper" ).css( "height") );
+    var height = window.innerHeight * 0.9 <= maxBlocklyHeight ? Math.floor( window.innerHeight * 0.9 ): maxBlocklyHeight;
+    var height = height > minBlocklyHeight ? height : minBlocklyHeight;
+
+    if ( height !== currentHeight ) {
+        var wrapperDifference = parseInt( $( "#blocklyWrapper-top" ).css( "height") ) + parseInt( $( "#blocklyFooter" ).css( "height") );        
         $( "#blocklyWrapper" ).css( "height", height + "px" );
-        $( "#blocklyScrollDiv" ).css( "height", ( height - 112 ) + "px" );
+        $( "#blocklyScrollDiv" ).css( "height", ( height - wrapperDifference ) + "px" );
         centerBlocklyWindow();
-    } );
+    }
 }
 
 function updateBlocklyRamBar() {
