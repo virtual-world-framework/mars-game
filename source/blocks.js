@@ -136,9 +136,9 @@ Blockly.JavaScript[ 'math_number_drop' ] = function( block ) {
 
 Blockly.Blocks[ 'math_number_drop_output' ] = {
   init: function() {
-    //this.setHelpUrl('http://www.example.com/');
+    this.setHelpUrl('http://www.google.com/');
     this.setColour( 225 );
-    this.appendValueInput( "Input" )
+    this.appendValueInput( "INPUT" )
         .appendField(new Blockly.FieldDropdown([["1", "1"], ["2", "2"],
          ["3", "3"], ["4", "4"], ["5", "5"], ["6", "6"], ["7", "7"],
          ["8", "8"], ["9", "9"], ["10", "10"], ["11", "11"], ["12", "12"],
@@ -157,9 +157,9 @@ Blockly.JavaScript['math_number_drop_output' ] = function(block) {
       Blockly.JavaScript.ORDER_ATOMIC) || '';
 
   if (argument0[0] === 'x'){
-    return [ dropdown_value+'*' , Blockly.JavaScript.ORDER_ATOMIC ];
+    return [ dropdown_value+'*'+argument0 , Blockly.JavaScript.ORDER_ATOMIC ];
   } else {
-      return [ dropdown_value , Blockly.JavaScript.ORDER_ATOMIC ];
+    return [ dropdown_value+argument0 , Blockly.JavaScript.ORDER_ATOMIC ];
   }
 
 
