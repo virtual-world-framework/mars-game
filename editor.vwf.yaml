@@ -19,6 +19,38 @@ children:
       axisOpacity: 1
       gridOpacity: 0.5
       renderTop: false
+      tileVisible: true
+    methods:
+      toggleTileVisibility: |
+        this.tileVisible = !this.tileVisible;
+        for ( var tile in this.children ) {
+          this.children[ tile ].visible = this.tileVisible;
+        }
+  grid:
+    extends: source/grid.vwf
+    properties:
+      minX: 0
+      maxX: 30
+      minY: 0
+      maxY: 30
+      gridOriginInSpace: []
+      gridSquareLength: 3
+      boundaryValues: []
+    scripts: |
+      this.initialize = function() {
+        var xlen = this.maxX - this.minX;
+        var ylen = this.maxY - this.minY;
+        this.gridOriginInSpace = [
+          Math.floor( -xlen / 2 * this.gridSquareLength ),
+          Math.floor( -ylen / 2 * this.gridSquareLength )
+        ];
+        for ( var x = 0; x < this.maxX - this.minX; x++ ) {
+          this.boundaryValues.push( new Array() );
+          for ( var y = 0; y < this.maxY - this.minY; y++ ) {
+            this.boundaryValues[ x ].push( 0 );
+          }
+        }
+      }
   # environment:
   #   extends: http://vwf.example.com/node3.vwf
   #   source: assets/3d/Terrain/scene.dae
@@ -34,8 +66,7 @@ methods:
         "type": "model/vnd.collada+xml"
       }
       this.children.create( "object_" + this.objCount++, objDef );
-scripts: |
-  this.objCount = 0;
-  this.initialize = function() {
-    this.camera.transform = [-0.6877578496932983,0.7259325385093689,2.705990027607186e-7,0,-0.6843284964561462,-0.6483430862426758,-0.3336801826953888,0,-0.24222907423973083,-0.2294914275407791,0.9426885843276978,0,100,100.00012969970703,50.0000114440918,1];
-  }
+  createGridDisplay:
+  removeGridDisplay:
+scripts: 
+  - source: editor/scene.js
