@@ -385,7 +385,8 @@ Blockly.Blocks['graph_set_y'] = {
 
     this.setColour(240);
     this.appendValueInput('INPUT')
-        .appendField('y=');
+        .appendField('y=')
+        .setCheck(['Number','Variable']);
     this.setTooltip( "Sets this variable to be equal to the input." );
   }
 };
