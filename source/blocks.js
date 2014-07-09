@@ -21,7 +21,14 @@ Blockly.Blocks['rover_moveForward'] = {
     this.setInputsInline(true);
     this.setPreviousStatement(true);
     this.setNextStatement(true);
-    this.setTooltip('');
+    var thisBlock = this;
+    this.setTooltip( function() {
+      var pos = thisBlock.getRelativeToSurfaceXY();
+      var offsetX = parseInt( $( "#blocklyWrapper" ).css( "left" ) );
+      var offsetY = parseInt( $( "#blocklyWrapper" ).css( "top" ) ) + parseInt( $( "#blocklyWrapper-top" ).css( "height" ));
+      return showTooltip( pos.x + offsetX, pos.y + offsetY, 300, 100, 
+                          "Moves the rover on the screen representing the player forward one square on mars" );
+    } );
   }
 };
 
@@ -74,7 +81,14 @@ Blockly.Blocks['rover_turn'] = {
     this.setInputsInline(true);
     this.setPreviousStatement(true);
     this.setNextStatement(true);
-    this.setTooltip('Turns the rover on the screen representing the player 90 degrees counter-clockwise (left) or clockwise (right)');
+    var thisBlock = this;
+    this.setTooltip( function() {
+      var pos = thisBlock.getRelativeToSurfaceXY();
+      var offsetX = parseInt( $( "#blocklyWrapper" ).css( "left" ) );
+      var offsetY = parseInt( $( "#blocklyWrapper" ).css( "top" ) ) + parseInt( $( "#blocklyWrapper-top" ).css( "height" ));
+      return showTooltip( pos.x + offsetX, pos.y + offsetY, 300, 100, 
+                          "Turns the rover on the screen representing the player 90 degrees counter-clockwise (left) or clockwise (right)" );
+    } ); 
   }
 };
 
@@ -99,7 +113,13 @@ Blockly.Blocks['rover_forever'] = {
     this.appendStatementInput('DO')
         .appendField( 'do' );
     this.setPreviousStatement(true);
-    this.setTooltip( 'Moves the rover until the next goal is reached' );
+    var thisBlock = this;
+    this.setTooltip( function() {
+      var pos = thisBlock.getRelativeToSurfaceXY();
+      var offsetX = parseInt( $( "#blocklyWrapper" ).css( "left" ) );
+      var offsetY = parseInt( $( "#blocklyWrapper" ).css( "top" ) ) + parseInt( $( "#blocklyWrapper-top" ).css( "height" ));
+      return showTooltip( pos.x + offsetX, pos.y + offsetY, 300, 100, "Moves the rover until the next goal is reached" );
+    } );
   }
 };
 
@@ -252,7 +272,13 @@ Blockly.Blocks[ 'graph_get_x' ] = {
         .appendField( 'x' )
         .setCheck( ['OperatorAddSubtract','OperatorMultiplyDivide'] );
     this.setOutput( true, 'Variable' );
-    this.setTooltip( "Sets this variable to be equal to the input." );
+    var thisBlock = this;
+    this.setTooltip( function() {
+      var pos = thisBlock.getRelativeToSurfaceXY();
+      var offsetX = parseInt( $( "#blocklyWrapper" ).css( "left" ) );
+      var offsetY = parseInt( $( "#blocklyWrapper" ).css( "top" ) ) + parseInt( $( "#blocklyWrapper-top" ).css( "height" ));
+      return showTooltip( pos.x + offsetX, pos.y + offsetY, 300, 100, "Sets this variable to be equal to the input." );
+    } ); 
   }
 };
 
@@ -427,7 +453,13 @@ Blockly.Blocks['graph_set_y'] = {
     this.appendValueInput('INPUT')
         .appendField('y=')
         .setCheck(['Number','Variable','OperatorAddSubtract']);
-    this.setTooltip( "Sets this variable to be equal to the input." );
+    var thisBlock = this;
+    this.setTooltip( function() {
+      var pos = thisBlock.getRelativeToSurfaceXY();
+      var offsetX = parseInt( $( "#blocklyWrapper" ).css( "left" ) );
+      var offsetY = parseInt( $( "#blocklyWrapper" ).css( "top" ) ) + parseInt( $( "#blocklyWrapper-top" ).css( "height" ));
+      return showTooltip( pos.x + offsetX, pos.y + offsetY, 300, 100, "Sets this variable to be equal to the input." );
+    } ); 
   }
 };
 
