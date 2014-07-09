@@ -8,4 +8,4 @@ view:
   vwf/view/threejs: "#vwf-root"
   # vwf/view/blockly: { "blocklyPath": './source/blockly/', "toolbox": 'toolbox' }
   # vwf/view/sound: 
-  vwf/view/editor:
+  # vwf/view/editor:
