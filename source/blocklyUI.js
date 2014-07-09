@@ -104,9 +104,11 @@ function setUpBlocklyPeripherals() {
 
     // Ensure that the blockly ui is accessible on smaller screens
     resizeBlockly();
+
+    window.addEventListener( 'resize', keepBlocklyWithinBounds );
 }
 
-function resizeBlockly( event ) {
+function resizeBlockly() {
     var maxBlocklyHeight = parseInt( $( "#blocklyWrapper" ).css( "max-height") );
     var currentHeight = parseInt( $( "#blocklyWrapper" ).css( "height") );
     var height = window.innerHeight * 0.9 <= maxBlocklyHeight ? Math.floor( window.innerHeight * 0.9 ): maxBlocklyHeight;
@@ -116,6 +118,27 @@ function resizeBlockly( event ) {
         $( "#blocklyWrapper" ).css( "height", height + "px" );
         $( "#blocklyScrollDiv" ).css( "height", ( height - wrapperDifference ) + "px" );
         centerBlocklyWindow();
+    }
+}
+
+function keepBlocklyWithinBounds() {
+    var handle = document.getElementById( "blocklyHandle" );
+    var wrapper = document.getElementById( "blocklyWrapper" );
+    if ( handle && wrapper ) {
+        var width = wrapper.offsetWidth;
+        var bottom = window.innerHeight - handle.offsetHeight;
+        var left = width * -0.5;
+        var right = window.innerWidth - width * 0.5;        
+        if ( parseInt( wrapper.style.top ) > bottom ) {
+            wrapper.style.top = bottom + "px";
+        } else if ( parseInt( wrapper.style.top ) < 0 ) {
+            wrapper.style.top = 0 + "px";
+        }
+        if ( parseInt( wrapper.style.left ) < left ) {
+            wrapper.style.left = left + "px";
+        } else if ( parseInt ( wrapper.style.left ) > right ) {
+            wrapper.style.left = right + "px";
+        }
     }
 }
 
