@@ -167,7 +167,7 @@ Blockly.JavaScript['math_number_drop_output' ] = function(block) {
 
 Blockly.Blocks[ 'math_number_output' ] = {
   init: function() {
-    this.setColour( 160 );
+    this.setColour( 60 );
     this.appendValueInput( "INPUT" )
         .appendField( new Blockly.FieldTextInput( "0" ), "VALUE" )
         .setCheck( [ 'OperatorAddSubtract','OperatorMultiplyDivide','Variable' ] );
