@@ -1,21 +1,22 @@
 function showTooltip( x, y, width, height, content ) {
-	var tooltip = document.createElement( "div" );
-	tooltip.className = "tooltip";
-	tooltip.innerHTML = content;
-	tooltip.style.left = x + "px";
-	tooltip.style.top = y + "px";
-	tooltip.style.width = width + "px";
-	tooltip.style.height = height + "px";
+    var tooltip = document.createElement( "div" );
+    tooltip.className = "tooltip";
+    tooltip.innerHTML = content;
+    tooltip.style.left = x + "px";
+    tooltip.style.top = y + "px";
+    tooltip.style.width = width + "px";
+    tooltip.style.height = height + "px";
+    document.body.appendChild( tooltip );
 
-	tooltip.onmouseout = function() {
-		document.body.removeChild( this );
-		delete this;
-	}
+    document.onmousemove = function() {
+        $( ".tooltip" ).fadeOut( function() {
+            document.body.removeChild( "fast", tooltip );
+            delete tooltip;
+        } );
+    }
 
-	document.body.appendChild( tooltip );
-
-	// Return an empty string because blockly gets mad if we don't
-	return "";
+    // Return an empty string because blockly gets mad if we don't
+    return "";
 }
 
 //@ sourceURL=source/tooltips.js
