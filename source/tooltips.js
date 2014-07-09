@@ -8,15 +8,17 @@ function showTooltip( x, y, width, height, content ) {
     tooltip.style.height = height + "px";
     document.body.appendChild( tooltip );
 
-    document.onmousemove = function() {
-        $( ".tooltip" ).fadeOut( function() {
-            document.body.removeChild( "fast", tooltip );
-            delete tooltip;
-        } );
-    }
+    document.addEventListener( "mousemove", removeTooltip );
 
     // Return an empty string because blockly gets mad if we don't
     return "";
+}
+
+function removeTooltip() {
+    $( ".tooltip" ).fadeOut( function() {
+        $( ".tooltip" ).remove();
+        document.removeEventListener( "mousemove", removeTooltip);
+    } );
 }
 
 //@ sourceURL=source/tooltips.js

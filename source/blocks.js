@@ -26,8 +26,8 @@ Blockly.Blocks['rover_moveForward'] = {
       var pos = thisBlock.getRelativeToSurfaceXY();
       var offsetX = parseInt( $( "#blocklyWrapper" ).css( "left" ) );
       var offsetY = parseInt( $( "#blocklyWrapper" ).css( "top" ) ) + parseInt( $( "#blocklyWrapper-top" ).css( "height" ));
-      return showTooltip( pos.x + offsetX, pos.y + offsetY, 300, 100, 
-                          "Moves the rover on the screen representing the player forward one square on mars" );
+      var content = "<img src='assets/images/tooltips/move_forward.png' />" + "<p>Moves the rover one space forward</p>";
+      return showTooltip( pos.x + offsetX, pos.y + offsetY, 550, 350, content );
     } );
   }
 };
@@ -86,8 +86,8 @@ Blockly.Blocks['rover_turn'] = {
       var pos = thisBlock.getRelativeToSurfaceXY();
       var offsetX = parseInt( $( "#blocklyWrapper" ).css( "left" ) );
       var offsetY = parseInt( $( "#blocklyWrapper" ).css( "top" ) ) + parseInt( $( "#blocklyWrapper-top" ).css( "height" ));
-      return showTooltip( pos.x + offsetX, pos.y + offsetY, 300, 100, 
-                          "Turns the rover on the screen representing the player 90 degrees counter-clockwise (left) or clockwise (right)" );
+      var content = "<img src='assets/images/tooltips/turn.png' />" + "<p>Turns the rover 90 degrees counter-clockwise (left) or clockwise (right)</p>";
+      return showTooltip( pos.x + offsetX, pos.y + offsetY, 520, 350, content );
     } ); 
   }
 };
