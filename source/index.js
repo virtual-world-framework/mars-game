@@ -9,7 +9,7 @@ var mainRover = undefined;
 var blocklyGraphID = undefined;
 var alertNodeID = undefined;
 var statusNodeID = undefined;
-
+var gridBounds;
 
 function onRun() {
     vwf_view.kernel.setProperty( currentBlocklyNodeID, "blockly_executing", true );
@@ -103,6 +103,13 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
             case "scenarioChanged":
                 removePopup();
                 removeFailScreen();
+                var grid = eventArgs[ 1 ];
+                if ( grid ) {
+                    gridBounds = {
+                        bottomLeft: grid.getWorldFromGrid( [ grid.minX, grid.minY ] ),
+                        topRight: grid.getWorldFromGrid( [ grid.maxX, grid.maxY ] )
+                    };
+                }
                 break;
 
             case "blinkHUD":
@@ -233,7 +240,7 @@ vwf_view.createdNode = function( nodeID, childID, childExtendsID, childImplement
         } else if ( childName === "alerts" ) {
             alertNodeID = childID;
         }
-    }
+    } 
 
 }
 
@@ -243,7 +250,12 @@ vwf_view.initializedNode = function( nodeID, childID, childExtendsID, childImple
     if ( childID === vwf_view.kernel.application() ) {
         hud = new HUD();
         createHUD();
-        vwf_view.kernel.kernel.views["vwf/view/threejs"].render = setUp;
+
+        var threejs = findThreejsView();
+        threejs.render = setUp;
+
+        setUpNavigation();
+
     } else if ( blocklyNodes[ childID ] !== undefined ) {
         var node = blocklyNodes[ childID ];
         if ( $( "#blocklyWrapper-top" ) !== undefined ) {
@@ -366,9 +378,6 @@ function setUp( renderer, scene, camera ) {
     //Set up the introductory screens
     var introScreens = new Array();
     introScreens.push( "assets/images/introScreens/Intro_screen.jpg" );
-    introScreens.push( "assets/images/introScreens/Intro_screen2.jpg" );
-    introScreens.push( "assets/images/introScreens/bios_screen_red.jpg" );
-    introScreens.push( "assets/images/introScreens/screen3.png" );
     setUpIntro( introScreens );
 
     setUpBlocklyPeripherals();
@@ -380,7 +389,8 @@ function setUp( renderer, scene, camera ) {
     renderer.autoClear = false;
 
     // Set render loop to use custom render function
-    vwf_view.kernel.kernel.views["vwf/view/threejs"].render = render;
+    var threejs = findThreejsView();
+    threejs.render = render;
 
 }
 
@@ -393,6 +403,14 @@ function render( renderer, scene, camera ) {
     renderer.clearDepth();
     renderer.render( hud.scene, hud.camera );
 
+}
+
+function findThreejsView() {
+    var lastKernel = vwf_view;
+    while ( lastKernel.kernel ) {
+        lastKernel = lastKernel.kernel;
+    }
+    return lastKernel.views[ "vwf/view/threejs" ];
 }
 
 function isBlockly3Node( nodeID ) {

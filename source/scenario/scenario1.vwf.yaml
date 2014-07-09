@@ -45,11 +45,6 @@ properties:
     - radio
     - [ 8, 16 ]
 
-  - setProperty:
-    - camera
-    - pointOfView
-    - "thirdPerson"
-
   triggers:
     succeedOnSuccess:
       triggerCondition:
