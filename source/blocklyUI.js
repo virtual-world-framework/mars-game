@@ -49,7 +49,8 @@ function setUpBlocklyPeripherals() {
     } );
     $( "#blocklyWrapper" ).resizable( {
         alsoResize: "#blocklyScrollDiv",
-        handles: 'n, s'
+        handles: 'n, s',
+        stop: keepBlocklyWithinBounds
     } );
 
     ramBar.id = "ramBar";
