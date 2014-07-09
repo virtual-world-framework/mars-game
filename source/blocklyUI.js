@@ -46,7 +46,11 @@ function setUpBlocklyPeripherals() {
                 element.position.top = bottom;
             }
         }
-    } );      
+    } );
+    $( "#blocklyWrapper" ).resizable( {
+        alsoResize: "#blocklyScrollDiv",
+        handles: 'n, s'
+    } );
 
     ramBar.id = "ramBar";
     ramBarCount.id = "ramBarCount";
@@ -99,18 +103,13 @@ function setUpBlocklyPeripherals() {
     ramBar.appendChild( ramBarCount );
 
     // Ensure that the blockly ui is accessible on smaller screens
-    resizeBlocklyOnWindowResize();
-
-    // and resize it if the window resizes
-    window.addEventListener( 'resize', resizeBlocklyOnWindowResize );
+    resizeBlockly();
 }
 
-function resizeBlocklyOnWindowResize( event ) {
+function resizeBlockly( event ) {
     var maxBlocklyHeight = parseInt( $( "#blocklyWrapper" ).css( "max-height") );
-    var minBlocklyHeight = parseInt( $( "#blocklyWrapper" ).css( "min-height") );
     var currentHeight = parseInt( $( "#blocklyWrapper" ).css( "height") );
     var height = window.innerHeight * 0.9 <= maxBlocklyHeight ? Math.floor( window.innerHeight * 0.9 ): maxBlocklyHeight;
-    var height = height > minBlocklyHeight ? height : minBlocklyHeight;
 
     if ( height !== currentHeight ) {
         var wrapperDifference = parseInt( $( "#blocklyWrapper-top" ).css( "height") ) + parseInt( $( "#blocklyFooter" ).css( "height") );        
