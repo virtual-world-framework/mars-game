@@ -10,6 +10,10 @@ var blocklyGraphID = undefined;
 var alertNodeID = undefined;
 var statusNodeID = undefined;
 var gridBounds;
+var isVisible = {
+    graph: false,
+    tiles: false
+};
 
 function onRun() {
     vwf_view.kernel.setProperty( currentBlocklyNodeID, "blockly_executing", true );
@@ -43,9 +47,6 @@ function selectBlocklyTab( nodeID ) {
 
 window.addEventListener( "keyup", function (event) {
     switch ( event.keyCode ) {
-        case 80:
-            vwf_view.kernel.callMethod( vwf_view.kernel.find( undefined, "/player" ), "togglePerspective" );
-            break;
     }
 } );
 
