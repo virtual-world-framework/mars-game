@@ -34,30 +34,13 @@ properties:
       soundGroup: music
       groupReplacementMethod: cut
     - soundName: "musicStoryScreen"
-      soundURL: ""
+      soundURL: "assets/sounds/music/musicStoryScreenLoopFullMix.ogg"
       isLooping: true
-      isLayered: true
-      playOnLoad: false
+      isLayered: false
       initialVolume: 1.0
       allowMultiplay: false
       soundGroup: music
       groupReplacementMethod: cut
-      soundDefinitions:
-        - soundName: "musicStoryScreenLoopLayer_01"
-          soundURL: "assets/sounds/music/musicStoryScreenLoopLayer_01.ogg"
-          isLooping: true
-          allowMultiplay: false
-          initialVolume: 1.0
-        - soundName: "musicStoryScreenLoopLayer_02"
-          soundURL: "assets/sounds/music/musicStoryScreenLoopLayer_02.ogg"
-          isLooping: true
-          allowMultiplay: false
-          initialVolume: 1.0
-        - soundName: "musicStoryScreenLoopLayer_03"
-          soundURL: "assets/sounds/music/musicStoryScreenLoopLayer_03.ogg"
-          isLooping: true
-          allowMultiplay: false
-          initialVolume: 1.0
     - soundName: "musicFailure"
       soundURL: "assets/sounds/music/musicFailure_01.ogg"
     - soundName: "musicSuccess"
