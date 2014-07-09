@@ -143,7 +143,7 @@ Blockly.Blocks[ 'math_number_drop_output' ] = {
          ["3", "3"], ["4", "4"], ["5", "5"], ["6", "6"], ["7", "7"],
          ["8", "8"], ["9", "9"], ["10", "10"], ["11", "11"], ["12", "12"],
          ["13", "13"], ["14", "14"], ["15","15"]]), "VALUE")
-        .setCheck(['Operator','Variable']);
+        .setCheck(['OperatorAddSubtract','OperatorMultiplyDivide','Variable']);
     this.setOutput( true, "Number" );
     this.setTooltip( 'A dropdown selector for number values' );
   }
@@ -170,7 +170,7 @@ Blockly.Blocks[ 'math_number_output' ] = {
     this.setColour( 160 );
     this.appendValueInput( "INPUT" )
         .appendField( new Blockly.FieldTextInput( "0" ), "VALUE" )
-        .setCheck( [ 'Operator','Variable' ] );
+        .setCheck( [ 'OperatorAddSubtract','OperatorMultiplyDivide','Variable' ] );
     this.setOutput( true, "Number" );
     this.setTooltip( 'A dropdown selector for number values' );
   }
@@ -206,7 +206,7 @@ Blockly.Blocks[ 'graph_get_x' ] = {
     this.setColour( 350 );
     this.appendValueInput( 'INPUT' )
         .appendField( 'x' )
-        .setCheck( 'Operator' );
+        .setCheck( ['OperatorAddSubtract','OperatorMultiplyDivide'] );
     this.setOutput( true, 'Variable' );
     this.setTooltip( "Sets this variable to be equal to the input." );
   }
@@ -228,10 +228,9 @@ Blockly.Blocks['graph_add'] = {
   init: function() {
     this.setColour(120);
     this.appendValueInput('INPUT')
-        .appendField(new Blockly.FieldDropdown([["+", "+"], ["-", "-"],["×", "*"],
-         ["÷", "/"]]), "VALUE")
+        .appendField(new Blockly.FieldDropdown([["+", "+"], ["-", "-"]]), "VALUE")
         .setCheck(['Number','Variable']);
-    this.setOutput(true, 'Operator');
+    this.setOutput(true, 'OperatorAddSubtract');
     this.setTooltip( "Arithmetic Operator" );
   }
 };
@@ -254,10 +253,9 @@ Blockly.Blocks['graph_subtract'] = {
   init: function() {
     this.setColour(120);
     this.appendValueInput('INPUT')
-        .appendField(new Blockly.FieldDropdown([["-", "-"], ["+", "+"], ["×", "*"],
-         ["÷", "/"]]), "VALUE")
+        .appendField(new Blockly.FieldDropdown([["-", "-"], ["+", "+"]]), "VALUE")
         .setCheck(['Number','Variable']);
-    this.setOutput(true, 'Operator');
+    this.setOutput(true, 'OperatorAddSubtract');
     this.setTooltip( "Arithmetic Operator" );
   }
 };
@@ -281,10 +279,9 @@ Blockly.Blocks['graph_multiply'] = {
   init: function() {
     this.setColour(120);
     this.appendValueInput('INPUT')
-        .appendField(new Blockly.FieldDropdown([["×", "*"],["+", "+"], ["-", "-"],
-          ["÷", "/"]]), "VALUE")
+        .appendField(new Blockly.FieldDropdown([["×", "*"],["÷", "/"]]), "VALUE")
         .setCheck(['Number','Variable']);
-    this.setOutput(true, 'Operator');
+    this.setOutput(true, 'OperatorMultiplyDivide');
     this.setTooltip( "Arithmetic Operator" );
   }
 };
@@ -308,10 +305,9 @@ Blockly.Blocks['graph_divide'] = {
   init: function() {
     this.setColour(120);
     this.appendValueInput('INPUT')
-        .appendField(new Blockly.FieldDropdown([["÷", "/"],["×", "*"],["+", "+"],
-          ["-", "-"]]), "VALUE")
+        .appendField(new Blockly.FieldDropdown([["÷", "/"],["×", "*"]]), "VALUE")
         .setCheck(['Number','Variable']);
-    this.setOutput(true, 'Operator');
+    this.setOutput(true, 'OperatorMultiplyDivide');
     this.setTooltip( "Arithmetic Operator" );
   }
 };
@@ -386,7 +382,7 @@ Blockly.Blocks['graph_set_y'] = {
     this.setColour(240);
     this.appendValueInput('INPUT')
         .appendField('y=')
-        .setCheck(['Number','Variable']);
+        .setCheck(['Number','Variable','OperatorAddSubtract']);
     this.setTooltip( "Sets this variable to be equal to the input." );
   }
 };
