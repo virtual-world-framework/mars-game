@@ -5,6 +5,10 @@ body {
 #blocklyWrapper {
     width: 560px;
     height: 812px;
+    min-height: 200px;
+    max-height: 812px;
+    min-width: 470px;
+    max-width: 812px;
     position: absolute;
     background-color: rgb( 50, 90, 150);
     border-radius: 8px;
@@ -33,9 +37,20 @@ body {
     cursor: default;
 }
 
-#blocklyDiv {
+#blocklyScrollDiv {
     height: 700px;
-    width: 560px;
+    min-height: 88px;
+    max-height: 700px;
+    min-width: 470px;
+    max-width: 812px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    background-color: white;
+}
+
+#blocklyDiv {
+    height: 1000px;
+    width: 100%;
     overflow: hidden;
 }
 
