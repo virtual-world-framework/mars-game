@@ -455,10 +455,13 @@ function switchTarget( event ) {
 }
 
 function selectCameraMode( event ) {
-    if ( ( isVisible.graph || isVisible.tiles ) && ( this.mode !== "topDown" ) ) {
-        var sceneID = vwf_view.kernel.application();
-        vwf_view.kernel.callMethod( sceneID, "addStatus", [ "You can't switch camera modes with the grid or tiles enabled!" ] );
-        return;
+    if ( this.mode !== "topDown" ) {
+        if ( isVisible.graph ) {
+            toggleGraphDisplay( event );
+        }
+        if ( isVisible.tiles ) {
+            toggleTiles( event );
+        }
     }
     var cameraNode = vwf_view.kernel.find( "", "//camera" )[ 0 ];
     vwf_view.kernel.setProperty( cameraNode, "pointOfView", this.mode );
