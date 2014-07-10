@@ -6,6 +6,7 @@ function setUpBlocklyPeripherals() {
 
     centerBlocklyWindow();
 
+    var blocklyOverlay = document.createElement( "div" );
     var blocklyFooter = document.createElement( "div" );
     var blocklyCloseBtn = document.createElement( "div" );
     var blocklyHelpButton = document.createElement( "div" );
@@ -14,11 +15,14 @@ function setUpBlocklyPeripherals() {
     var runStopContainer = document.createElement( "div" );
     var runButton = document.getElementById( "runButton" );
     var stopButton = document.createElement( "div" );
+    var indicator = document.createElement( "div" );
 
+    blocklyOverlay.id = "blocklyOverlay";
     blocklyFooter.id = "blocklyFooter";
     blocklyHandle.id = "blocklyHandle";
     blocklyHandleIcon.id = "blocklyHandleIcon";
     stopButton.id = "stopButton";
+    indicator.id = "blocklyIndicator";
 
     $( blocklyHandle ).append( blocklyHandleIcon );
     $( "#blocklyWrapper-top" ).append( blocklyHandle );
@@ -92,6 +96,8 @@ function setUpBlocklyPeripherals() {
     $( runStopContainer ).append( runButton );
     $( runStopContainer ).append( stopButton );
     $( "#blocklyWrapper" ).append( blocklyFooter );
+    $( "#blocklyWrapper" ).append( blocklyOverlay );
+    $( blocklyOverlay ).append( indicator );
     ramBar.appendChild( currentRam );
     ramBar.appendChild( ramBarCount );
 }
@@ -124,6 +130,18 @@ function centerBlocklyWindow() {
     blocklyUI.style.top = top + "px";
     blocklyUI.style.left = left + "px";
 
+}
+
+function resetBlocklyIndicator() {
+    $( "#blocklyIndicator" ).css( {
+        "left" : 0,
+        "top" : 0
+    } );
+}
+
+function moveBlocklyIndicator( x, y ) {
+    $( "#blocklyIndicator" ).animate( { "top" : ( y + 25 ) + "px" } );
+    $( "#blocklyIndicator" ).css( "left", ( x + parseInt( $( ".blocklyFlyoutBackground" ).css( "width" ) ) + 120 ) + "px" );
 }
 
 //@ sourceURL=source/blocklyUI.js

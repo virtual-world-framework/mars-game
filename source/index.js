@@ -100,6 +100,7 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
 
             case "scenarioReset":
                 resetStatusDisplay();
+                resetBlocklyIndicator();
             case "scenarioChanged":
                 removePopup();
                 removeFailScreen();
@@ -130,6 +131,12 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 break;
             case "hideCommsImage":
                 removeImageFromCommsDisplay();
+                break;
+
+            case "blockExecuted":
+                var x = eventArgs[ 1 ];
+                var y = eventArgs[ 2 ];
+                moveBlocklyIndicator( x, y );
                 break;
         } 
 
