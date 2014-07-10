@@ -9,6 +9,10 @@ this.initialize = function() {
     ];
 
     this.future( 0 ).createGridDisplay( this.grid );
+    this.future( 0 ).onSceneReady();
+}
+
+this.onSceneReady = function() {
 }
 
 this.createGridDisplay = function( grid ) {

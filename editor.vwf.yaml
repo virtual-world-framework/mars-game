@@ -61,12 +61,12 @@ methods:
       - path
     body: |
       var objDef = {
-        "extends": "http://vwf.example.com/node3.vwf",
-        "source": path,
-        "type": "model/vnd.collada+xml"
+        "extends": path
       }
       this.children.create( "object_" + this.objCount++, objDef );
   createGridDisplay:
   removeGridDisplay:
+events:
+  onSceneReady:
 scripts: 
   - source: editor/scene.js
