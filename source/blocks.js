@@ -24,10 +24,8 @@ Blockly.Blocks['rover_moveForward'] = {
     var thisBlock = this;
     this.setTooltip( function() {
       var pos = thisBlock.getRelativeToSurfaceXY();
-      var offsetX = parseInt( $( "#blocklyWrapper" ).css( "left" ) );
-      var offsetY = parseInt( $( "#blocklyWrapper" ).css( "top" ) ) + parseInt( $( "#blocklyWrapper-top" ).css( "height" ));
-      var content = "<img src='assets/images/tooltips/move_forward.png' />" + "<p>Moves the rover one space forward</p>";
-      return showTooltip( pos.x + offsetX, pos.y + offsetY, 550, 350, content );
+      var content = "<img src='assets/images/tooltips/move_forward.png' />" + "<p>Moves the rover one space forward.</p>";
+      return showTooltipInBlockly( pos, 550, 350, content );
     } );
   }
 };
@@ -84,10 +82,8 @@ Blockly.Blocks['rover_turn'] = {
     var thisBlock = this;
     this.setTooltip( function() {
       var pos = thisBlock.getRelativeToSurfaceXY();
-      var offsetX = parseInt( $( "#blocklyWrapper" ).css( "left" ) );
-      var offsetY = parseInt( $( "#blocklyWrapper" ).css( "top" ) ) + parseInt( $( "#blocklyWrapper-top" ).css( "height" ));
-      var content = "<img src='assets/images/tooltips/turn.png' />" + "<p>Turns the rover 90 degrees counter-clockwise (left) or clockwise (right)</p>";
-      return showTooltip( pos.x + offsetX, pos.y + offsetY, 520, 350, content );
+      var content = "<img src='assets/images/tooltips/turn.png' />" + "<p>Turns the rover 90 degrees counter-clockwise (left) or clockwise (right).</p>";
+      return showTooltipInBlockly( pos, 520, 350, content );
     } ); 
   }
 };
@@ -116,9 +112,7 @@ Blockly.Blocks['rover_forever'] = {
     var thisBlock = this;
     this.setTooltip( function() {
       var pos = thisBlock.getRelativeToSurfaceXY();
-      var offsetX = parseInt( $( "#blocklyWrapper" ).css( "left" ) );
-      var offsetY = parseInt( $( "#blocklyWrapper" ).css( "top" ) ) + parseInt( $( "#blocklyWrapper-top" ).css( "height" ));
-      return showTooltip( pos.x + offsetX, pos.y + offsetY, 300, 100, "Moves the rover until the next goal is reached" );
+      return showTooltipInBlockly( pos, 300, 100, "<p>Moves the rover until the next goal is reached.</p>" );
     } );
   }
 };
@@ -187,7 +181,12 @@ Blockly.Blocks[ 'math_number_drop' ] = {
          ["8", "8"], ["9", "9"], ["10", "10"], ["11", "11"], ["12", "12"],
          ["13", "13"], ["14", "14"], ["15","15"]]), "VALUE");
     this.setOutput( true, "Number" );
-    this.setTooltip( 'A dropdown selector for number values' );
+    var thisBlock = this;
+    this.setTooltip( function() {
+      var pos = thisBlock.getRelativeToSurfaceXY();
+      var content = "<p> A dropdown selector for number values. </p>";
+      return showTooltipInBlockly( pos, 300, 50, content );
+    } );
   }
 };
 
@@ -209,7 +208,12 @@ Blockly.Blocks[ 'math_number_drop_output' ] = {
          ["13", "13"], ["14", "14"], ["15","15"]]), "VALUE")
         .setCheck(['OperatorAddSubtract','OperatorMultiplyDivide','Variable']);
     this.setOutput( true, "Number" );
-    this.setTooltip( 'A dropdown selector for number values' );
+    var thisBlock = this;
+    this.setTooltip( function() {
+      var pos = thisBlock.getRelativeToSurfaceXY();
+      var content = "<p> A dropdown selector for number values </p>";
+      return showTooltipInBlockly( pos, 300, 50, content );
+    } );
   }
 };
 
@@ -236,11 +240,16 @@ Blockly.Blocks[ 'math_number_output' ] = {
         .appendField( new Blockly.FieldTextInput( "0" ), "VALUE" )
         .setCheck( [ 'OperatorAddSubtract','OperatorMultiplyDivide','Variable' ] );
     this.setOutput( true, "Number" );
-    this.setTooltip( 'A dropdown selector for number values' );
+    var thisBlock = this;
+    this.setTooltip( function() {
+      var pos = thisBlock.getRelativeToSurfaceXY();
+      var content = "<p> A text field for selecting number values. Try typing any number! (e.g. 1, -3, 0.2)<p>";
+      return showTooltipInBlockly( pos, 300, 80, content );
+    } );
   }
 };
 
-Blockly.JavaScript['math_number_output' ] = function(block) {
+Blockly.JavaScript[ 'math_number_output' ] = function(block) {
   
   var dropdown_value = block.getFieldValue('VALUE');
   
@@ -275,14 +284,13 @@ Blockly.Blocks[ 'graph_get_x' ] = {
     var thisBlock = this;
     this.setTooltip( function() {
       var pos = thisBlock.getRelativeToSurfaceXY();
-      var offsetX = parseInt( $( "#blocklyWrapper" ).css( "left" ) );
-      var offsetY = parseInt( $( "#blocklyWrapper" ).css( "top" ) ) + parseInt( $( "#blocklyWrapper-top" ).css( "height" ));
-      return showTooltip( pos.x + offsetX, pos.y + offsetY, 300, 100, "Sets this variable to be equal to the input." );
+      var content = "<p>This is the X variable, also known as the independent variable.</p>";
+      return showTooltipInBlockly( pos, 300, 80, content );
     } ); 
   }
 };
 
-Blockly.JavaScript['graph_get_x'] = function(block) {
+Blockly.JavaScript[ 'graph_get_x' ] = function(block) {
   // x variable getter.
   var argument0 = Blockly.JavaScript.valueToCode(block, 'INPUT',
       Blockly.JavaScript.ORDER_ATOMIC) || '';
@@ -290,7 +298,7 @@ Blockly.JavaScript['graph_get_x'] = function(block) {
   return [ 'x' + argument0, Blockly.JavaScript.ORDER_ATOMIC ];
 };
 
-Blockly.Blocks['graph_add'] = {
+Blockly.Blocks[ 'graph_add' ] = {
   /**
    * Block for basic addition arithmetic operator.
    * @this Blockly.Block
@@ -301,11 +309,16 @@ Blockly.Blocks['graph_add'] = {
         .appendField(new Blockly.FieldDropdown([["+", "+"], ["-", "-"]]), "VALUE")
         .setCheck(['Number','Variable']);
     this.setOutput(true, 'OperatorAddSubtract');
-    this.setTooltip( "Arithmetic Operator" );
+    var thisBlock = this;
+    this.setTooltip( function() {
+      var pos = thisBlock.getRelativeToSurfaceXY();
+      var content = "<p>This is the arithmetic operator for adding two values.</p>";
+      return showTooltipInBlockly( pos, 300, 80, content );
+    } );
   }
 };
 
-Blockly.JavaScript['graph_add'] = function(block) {
+Blockly.JavaScript[ 'graph_add' ] = function(block) {
   /**
    * Code for basic addition arithmetic operator.
    * @this Blockly.Block
@@ -315,7 +328,7 @@ Blockly.JavaScript['graph_add'] = function(block) {
   return [block.getFieldValue('VALUE') + argument0, Blockly.JavaScript.ORDER_ATOMIC];
 };
 
-Blockly.Blocks['graph_subtract'] = {
+Blockly.Blocks[ 'graph_subtract' ] = {
   /**
    * Block for basic subtraction arithmetic operator.
    * @this Blockly.Block
@@ -326,7 +339,12 @@ Blockly.Blocks['graph_subtract'] = {
         .appendField(new Blockly.FieldDropdown([["-", "-"], ["+", "+"]]), "VALUE")
         .setCheck(['Number','Variable']);
     this.setOutput(true, 'OperatorAddSubtract');
-    this.setTooltip( "Arithmetic Operator" );
+    var thisBlock = this;
+    this.setTooltip( function() {
+      var pos = thisBlock.getRelativeToSurfaceXY();
+      var content = "<p>This is the arithmetic operator for subtracting two values.</p>";
+      return showTooltipInBlockly( pos, 300, 80, content );
+    } ); 
   }
 };
 
@@ -341,7 +359,7 @@ Blockly.JavaScript['graph_subtract'] = function(block) {
   return [block.getFieldValue('VALUE') + argument0, Blockly.JavaScript.ORDER_ATOMIC];
 };
 
-Blockly.Blocks['graph_multiply'] = {
+Blockly.Blocks[ 'graph_multiply' ] = {
   /**
    * Block for basic multiply arithmetic operator.
    * @this Blockly.Block
@@ -352,11 +370,16 @@ Blockly.Blocks['graph_multiply'] = {
         .appendField(new Blockly.FieldDropdown([["×", "*"],["÷", "/"]]), "VALUE")
         .setCheck(['Number','Variable']);
     this.setOutput(true, 'OperatorMultiplyDivide');
-    this.setTooltip( "Arithmetic Operator" );
+    var thisBlock = this;
+    this.setTooltip( function() {
+      var pos = thisBlock.getRelativeToSurfaceXY();
+      var content = "<p>This is the arithmetic operator for multiplying two values.</p>";
+      return showTooltipInBlockly( pos,  300, 80, content );
+    } ); 
   }
 };
 
-Blockly.JavaScript['graph_multiply'] = function(block) {
+Blockly.JavaScript[ 'graph_multiply' ] = function(block) {
   /**
    * Code for basic multiply arithmetic operator.
    * @this Blockly.Block
@@ -367,7 +390,7 @@ Blockly.JavaScript['graph_multiply'] = function(block) {
   return [block.getFieldValue('VALUE') + argument0, Blockly.JavaScript.ORDER_ATOMIC];
 };
 
-Blockly.Blocks['graph_divide'] = {
+Blockly.Blocks[ 'graph_divide' ] = {
   /**
    * Block for basic divide arithmetic operator.
    * @this Blockly.Block
@@ -378,11 +401,16 @@ Blockly.Blocks['graph_divide'] = {
         .appendField(new Blockly.FieldDropdown([["÷", "/"],["×", "*"]]), "VALUE")
         .setCheck(['Number','Variable']);
     this.setOutput(true, 'OperatorMultiplyDivide');
-    this.setTooltip( "Arithmetic Operator" );
+    var thisBlock = this;
+    this.setTooltip( function() {
+      var pos = thisBlock.getRelativeToSurfaceXY();
+      var content = "<p>This is the arithmetic operator for dividing two values.</p>";
+      return showTooltipInBlockly( pos,  300, 80, content );
+    } ); 
   }
 };
 
-Blockly.JavaScript['graph_divide'] = function(block) {
+Blockly.JavaScript[ 'graph_divide' ] = function(block) {
   /**
    * Code for basic divide arithmetic operator.
    * @this Blockly.Block
@@ -393,7 +421,7 @@ Blockly.JavaScript['graph_divide'] = function(block) {
   return [block.getFieldValue('VALUE') + argument0, Blockly.JavaScript.ORDER_ATOMIC];
 };
 
-Blockly.Blocks['graph_left_paren'] = {
+Blockly.Blocks[ 'graph_left_paren' ] = {
   /**
    * Block for basic left parenthesis operator.
    * @this Blockly.Block
@@ -403,11 +431,16 @@ Blockly.Blocks['graph_left_paren'] = {
     this.appendValueInput('INPUT')
         .appendField('(');
     this.setOutput(true, 'VALUE');
-    this.setTooltip( "Left Parenthesis" );
+    var thisBlock = this;
+    this.setTooltip( function() {
+      var pos = thisBlock.getRelativeToSurfaceXY();
+      var content = "<p>This is a left parenthesis.</p>";
+      return showTooltipInBlockly( pos,  300, 50, content );
+    } ); 
   }
 };
 
-Blockly.JavaScript['graph_left_paren'] = function(block) {
+Blockly.JavaScript[ 'graph_left_paren' ] = function(block) {
   /**
    * Code for basic left parenthesis operator.
    * @this Blockly.Block
@@ -418,7 +451,7 @@ Blockly.JavaScript['graph_left_paren'] = function(block) {
   return ['(' + argument0, Blockly.JavaScript.ORDER_ATOMIC];
 };
 
-Blockly.Blocks['graph_right_paren'] = {
+Blockly.Blocks[ 'graph_right_paren' ] = {
   /**
    * Block for basic right parenthesis operator.
    * @this Blockly.Block
@@ -428,11 +461,16 @@ Blockly.Blocks['graph_right_paren'] = {
     this.appendValueInput('INPUT')
         .appendField(')');
     this.setOutput(true, 'VALUE');
-    this.setTooltip( "Right Parenthesis" );
+    var thisBlock = this;
+    this.setTooltip( function() {
+      var pos = thisBlock.getRelativeToSurfaceXY();
+      var content = "<p>This is a right parenthesis.</p>";
+      return showTooltipInBlockly( pos,  300, 50, content );
+    } ); 
   }
 };
 
-Blockly.JavaScript['graph_right_paren'] = function(block) {
+Blockly.JavaScript[ 'graph_right_paren' ] = function(block) {
   /**
    * Code for basic right parenthesis operator.
    * @this Blockly.Block
@@ -443,7 +481,7 @@ Blockly.JavaScript['graph_right_paren'] = function(block) {
   return [')' + argument0, Blockly.JavaScript.ORDER_ATOMIC];
 };
 
-Blockly.Blocks['graph_set_y'] = {
+Blockly.Blocks[ 'graph_set_y' ] = {
   // y variable setter.
   init: function() {
 
@@ -456,14 +494,13 @@ Blockly.Blocks['graph_set_y'] = {
     var thisBlock = this;
     this.setTooltip( function() {
       var pos = thisBlock.getRelativeToSurfaceXY();
-      var offsetX = parseInt( $( "#blocklyWrapper" ).css( "left" ) );
-      var offsetY = parseInt( $( "#blocklyWrapper" ).css( "top" ) ) + parseInt( $( "#blocklyWrapper-top" ).css( "height" ));
-      return showTooltip( pos.x + offsetX, pos.y + offsetY, 300, 100, "Sets this variable to be equal to the input." );
+      var content = "<p>This is the Y variable, also known as the dependent variable. Try setting it to a function! (e.g. y = x + 3)</p>";
+      return showTooltipInBlockly( pos,  300, 100, content );
     } ); 
   }
 };
 
-Blockly.JavaScript['graph_set_y'] = function(block) {
+Blockly.JavaScript[ 'graph_set_y' ] = function(block) {
   // y variable setter.
   var argument0 = Blockly.JavaScript.valueToCode(block, 'INPUT',
       Blockly.JavaScript.ORDER_ASSIGNMENT) || '';

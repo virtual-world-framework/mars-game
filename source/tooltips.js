@@ -14,6 +14,12 @@ function showTooltip( x, y, width, height, content ) {
     return "";
 }
 
+function showTooltipInBlockly( blockPos, width, height, content ) {
+    var offsetX = parseInt( $( "#blocklyWrapper" ).css( "left" ) );
+    var offsetY = parseInt( $( "#blocklyWrapper" ).css( "top" ) ) + parseInt( $( "#blocklyWrapper-top" ).css( "height" ));
+    return showTooltip( blockPos.x + offsetX, blockPos.y + offsetY, width, height, content );
+}
+
 function removeTooltip() {
     $( ".tooltip" ).fadeOut( function() {
         $( ".tooltip" ).remove();
