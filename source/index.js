@@ -110,6 +110,11 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                     this.kernel.setProperty( graphLines[ "blocklyLine" ].ID, "lineFunction", currentCode );
                 }
                 break;
+            case "blockFired":
+                var blockName = eventArgs[ 0 ];
+                if ( blockName ) {
+                    pushNextBlocklyStatus( blockName );
+                }
 
             case "scenarioReset":
                 resetStatusDisplay();

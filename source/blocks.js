@@ -36,7 +36,8 @@ Blockly.Blocks['rover_moveForward'] = {
 Blockly.JavaScript['rover_moveForward'] = function( block ) {
   var dist = Blockly.JavaScript.valueToCode(block, 'DISTANCE', Blockly.JavaScript.ORDER_NONE) || '0';
   var t = Blockly.JavaScript.valueToCode(block, 'TIME', Blockly.JavaScript.ORDER_NONE) || '1';
-  return "vwf.callMethod( '"+Blockly.JavaScript.vwfID+"', 'moveForward' );\n";
+  return "vwf.callMethod( '"+Blockly.JavaScript.vwfID+"', 'moveForward' );\n" +
+         "vwf.callMethod( '"+vwf_view.kernel.application()+"', 'blockExecuted', [ '" + block + "' ] );\n";
 };
 
 Blockly.Blocks['rover_forward_ext'] = {

@@ -3,6 +3,7 @@ function createHUD() {
     createRoverElement();
     createCameraSelector();
     createCommsDisplay();
+    createBlocklyStatus();
 
     var blocklyButton = new HUD.Element( "blocklyButton", drawIcon, 64, 64 );
     blocklyButton.icon = new Image();
@@ -167,6 +168,27 @@ function hideCommsDisplay() {
     var comms = hud.elements.comms;
     if ( comms ) {
         comms.visible = false;
+    }
+}
+
+function createBlocklyStatus() {
+    var status = new HUD.Element( "blocklyStatus", drawBlocklyStatus, 300, 100 );
+    status.blockStack = [];
+    status.blockImages = {};
+    status.defaultDraw = status.draw;
+    status.lastUpdateTime = vwf_view.kernel.time();
+    status.updateIntervalTime = 0.2;
+    status.offsetY = 0;
+    status.spacing = 10;
+    hud.add( status, "right", "bottom", { "x": 150, "y": -60 } );
+    addBlockToStatusList( "forward", "assets/images/hud/blockly_move_forward.png");
+}
+
+function addBlockToStatusList( name, imageSrc ) {
+    var status = hud.elements.blocklyStatus;
+    if ( status ) {
+        status.blockImages[ name ] = new Image();
+        status.blockImages[ name ].src = imageSrc;
     }
 }
 
@@ -368,6 +390,30 @@ function drawCameraSelector( context, position ) {
     }
 }
 
+function drawBlocklyStatus( context, position ) {
+    if ( this.blockImages && this.blockStack ) {
+        for ( var i = 0; i < this.blockStack.length; i++ ) {
+            context.globalAlpha = this.blockStack[ i ].alpha;
+            var block = this.blockImages[ this.blockStack[ i ].name ];
+            if ( block ) {
+                context.drawImage( block, position.x, position.y - ( i * ( block.height + this.spacing ) + this.offsetY ) );
+            }
+        }
+        context.globalAlpha = 1;
+
+        var time = vwf_view.kernel.time();
+        if ( time - this.lastUpdateTime > this.updateIntervalTime ) {
+            this.lastUpdateTime = time;
+            for ( var i = 0; i < this.blockStack.length; i++ ) {
+                this.blockStack[ i ].alpha -= 0.01;
+                if ( this.blockStack[ i ].alpha <= 0 ) {
+                    this.blockStack.splice( i, 1 );
+                }
+            }
+        }        
+    }
+}
+
 function drawIcon( context, position ) {
     if ( this.icon ) {
         context.drawImage( this.icon, position.x, position.y );
@@ -522,6 +568,50 @@ function stopElementBlinking( elementID ) {
         delete el.blinkInterval;
         delete el.blinkDuration;
         delete el.isBlinking;
+    }
+}
+
+function pushNextBlocklyStatus( blockName ) {
+    var statusElem = hud.elements.blocklyStatus;
+    if ( statusElem ) {
+//maintain pushlist?
+        
+        if ( statusElem.draw === statusElem.defaultDraw && statusElem.blockStack.length !== 0 ){
+            statusElem.offsetY = 0;
+            var newBlockHeight = statusElem.blockImages[ blockName ].height;
+            var interval = 7;
+            statusElem.draw = ( function( context, position ) {
+                var time = vwf_view.kernel.time();
+                if ( time - this.lastUpdateTime > this.updateIntervalTime ) {
+                    this.offsetY += newBlockHeight / interval; //new block height / iterations
+                    if ( this.offsetY > newBlockHeight + this.spacing ) { //new block height
+                        this.offsetY = 0;
+                        this.draw = this.defaultDraw;
+                        this.blockStack.unshift( { "name": blockName, "alpha": 1 } );
+                        return;
+                    }                    
+                    for ( var i = 0; i < this.blockStack.length; i++ ) {
+                        this.blockStack[ i ].alpha -= 0.5 / interval;
+                        if ( this.blockStack[ i ].alpha <= 0 ) {
+                            this.blockStack.splice( i, 1 );
+                        }
+                    }
+                }
+
+                for ( var i = 0; i < this.blockStack.length; i++ ) {
+                    context.globalAlpha = this.blockStack[ i ].alpha;
+                    var block = this.blockImages[ this.blockStack[ i ].name ];
+                    if ( block ) {
+                        context.drawImage( block, position.x, position.y - ( i * ( block.height + this.spacing ) + this.offsetY ) );
+                    }
+                }
+                context.globalAlpha = 1;                
+            } );
+
+        } else {
+            //add to pushList?
+            statusElem.blockStack.unshift( { "name": blockName, "alpha": 1 } );
+        }
     }
 }
 
