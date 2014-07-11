@@ -40,9 +40,15 @@ this.getTileFromGrid = function( gridCoord ) {
 }
 
 this.getTileFromWorld = function( worldCoord ) {
-    var x = ( worldCoord[ 0 ] - this.gridOriginInSpace[ 0 ] ) / this.gridSquareLength;
-    var y = ( worldCoord[ 1 ] - this.gridOriginInSpace[ 1 ] ) / this.gridSquareLength;
+    var x = Math.round( ( worldCoord[ 0 ] - this.gridOriginInSpace[ 0 ] ) / this.gridSquareLength );
+    var y = Math.round( ( worldCoord[ 1 ] - this.gridOriginInSpace[ 1 ] ) / this.gridSquareLength );
     return this.tiles[ x ][ y ];
+}
+
+this.getGridFromWorld = function( worldCoord ) {
+    var x = Math.round( ( worldCoord[ 0 ] - this.gridOriginInSpace[ 0 ] ) / this.gridSquareLength );
+    var y = Math.round( ( worldCoord[ 1 ] - this.gridOriginInSpace[ 1 ] ) / this.gridSquareLength );
+    return [ x, y ];
 }
 
 this.getWorldFromGrid = function( gridCoord ) {
@@ -87,10 +93,11 @@ this.addToGridFromCoord = function( object, gridCoord ) {
 }
 
 //Add an object to the grid based on its current world position
-this.addToGridFromWorld = function( object ) {
-    var gridCoord = this.getTileFromWorld( object.translation );
+this.addToGridFromWorld = function( object, worldCoord ) {
+    worldCoord = worldCoord || object.translation;
+    var gridCoord = this.getGridFromWorld( worldCoord );
     if ( this.validCoord( gridCoord ) ) {
-        this.addToGridFromCoord( gridCoord );
+        this.addToGridFromCoord( object, gridCoord );
     }
 }
 
