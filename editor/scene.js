@@ -1,4 +1,5 @@
 this.objCount = 0;
+this.dragObject = undefined;
 
 this.initialize = function() {
     this.camera.transform = [
@@ -8,7 +9,7 @@ this.initialize = function() {
         100,100.00012969970703,50.0000114440918,1
     ];
 
-    this.future( 0 ).createGridDisplay( this.grid );
+    // this.future( 0 ).createGridDisplay( this.grid );
     this.future( 0 ).onSceneReady();
 }
 
@@ -72,3 +73,110 @@ this.removeGridDisplay = function() {
         graph.children.delete( graph.children[ obj ] );
     }
 }
+
+this.loadMap = function( path ) {
+    if ( this.map ) {
+        this.deleteMap();
+    }
+
+    this.future( 0 ).createObject( "map", path );
+}
+
+this.deleteMap = function() {
+    this.children.delete( this.map );
+}
+
+this.loadObject = function( path ) {
+    if ( this.dragObject !== undefined ) {
+        this.deleteObject( this.dragObject.name );
+    }
+
+    var objectName = "object_" + this.objCount++;
+
+    this.future( 0 ).createObject( objectName, path, setDragObject );
+}
+
+this.deleteObject = function( objectName ) {
+    var object = this.find( objectName )[ 0 ];
+    if ( object !== undefined ) {
+        if ( object.id === this.dragObject.id ) {
+            this.dragObject = undefined;
+        }
+        this.children.delete( object );
+    }
+}
+
+this.createObject = function( name, path, callback ) {
+    var objDef = {
+        "extends": path
+    }
+    this.children.create( name, objDef, callback );
+}
+
+function setDragObject( object ) {
+    this.dragObject = object;
+}
+
+
+this.pointerMove = function( pointerInfo, pickInfo ) {
+    this.drag( pointerInfo, pickInfo );
+}
+
+this.pointerOver = function( pointerInfo, pickInfo ) {
+    this.drag( pointerInfo, pickInfo );
+}
+
+this.drag = function( pointerInfo, pickInfo ) {
+    if ( !this.dragObject ) {
+        return;
+    }
+
+    this.dragObject.terrainName = this.map.name;
+
+    if ( pickInfo.pickID !== this.dragObject.id ) {
+        this.grid.addToGridFromWorld( this.dragObject, pickInfo.globalPosition );
+        // this.dragObject.translateTo( pickInfo.globalPosition );
+    } else {
+        var origin = pickInfo.globalSource;
+        var normal = pickInfo.pointerVector;
+        if ( origin && normal ) {
+            var intersects = this.raycast( origin, normal, 0, Infinity, true, this.map );
+            var nearest = findNearestOther( this.dragObject, intersects );
+            if ( nearest ) {
+                var point = [
+                    nearest.point.x,
+                    nearest.point.y,
+                    nearest.point.z
+                ];
+                this.grid.addToGridFromWorld( this.dragObject, point );
+                // this.dragObject.translateTo( point );
+            }
+        }
+    }
+}
+
+function findNearestOther( dragObj, picks ) {
+    for ( var i = 0; i < picks.length; i++ ) {
+        var pickID = findNodeID( picks[ i ].object );
+        if ( pickID !== dragObj.id ) {
+            return picks[ i ];
+        }
+    }
+
+    return undefined;
+}
+
+function findNodeID( object ) {
+    var id = undefined;
+
+    while ( !id && object ) {
+        if ( object.vwfID ) {
+            id = object.vwfID;
+        } else {
+            object = object.parent;
+        }
+    }
+
+    return id;
+}
+//@ sourceURL=editor/scene.js

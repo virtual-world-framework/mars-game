@@ -16,8 +16,15 @@ function handleSceneReady( params ) {
 	loadAssetList( assetTypeSelector.value );
 }
 
-function loadModelByPath( path ) {
-    vwf_view.kernel.callMethod( vwf_view.kernel.application(), "loadObject", [ path ] );
+function loadAsset( assetType, path ) {
+	switch ( assetType ) {
+		case "maps":
+			vwf_view.kernel.callMethod( vwf_view.kernel.application(), "loadMap", [ path ] );
+			break;
+		default:
+    		vwf_view.kernel.callMethod( vwf_view.kernel.application(), "loadObject", [ path ] );
+    		break;
+	}
 }
 
 function loadAssetList( listType ) {
@@ -37,11 +44,11 @@ function loadAssetList( listType ) {
 			listItem = document.createElement( "div" );
 			listItem.innerHTML = list[ i ].name;
 			listItem.className = "listitem";
-			listItem.onclick = function( path ) { 
+			listItem.onclick = function( listType, path ) { 
 				return function() { 
-					loadModelByPath( path ); 
+					loadAsset( listType, path ); 
 				} 
-			}( list[ i ].path );
+			}( listType, list[ i ].path );
 			listItem.onmouseover = function() {
 				this.className = "listitem hover";
 			}

@@ -30,9 +30,9 @@ children:
     extends: source/grid.vwf
     properties:
       minX: 0
-      maxX: 30
+      maxX: 100
       minY: 0
-      maxY: 30
+      maxY: 100
       gridOriginInSpace: []
       gridSquareLength: 3
       boundaryValues: []
@@ -51,22 +51,18 @@ children:
           }
         }
       }
-  # environment:
-  #   extends: http://vwf.example.com/node3.vwf
-  #   source: assets/3d/Terrain/scene.dae
-  #   type: model/vnd.collada+xml
 methods:
+  loadMap:
+  deleteMap:
   loadObject:
-    parameters:
-      - path
-    body: |
-      var objDef = {
-        "extends": path
-      }
-      this.children.create( "object_" + this.objCount++, objDef );
+  deleteObject:
+  createObject:
   createGridDisplay:
   removeGridDisplay:
+  drag:
 events:
   onSceneReady:
+  pointerOver:
+  pointerMove:
 scripts: 
   - source: editor/scene.js
