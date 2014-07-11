@@ -54,6 +54,17 @@ body {
 	border-radius: 4px;
 }
 
+.listitem {
+	height: 24px;
+	width: 100%;
+	line-height: 24px;
+}
+
+.listitem.hover {
+	background-color: rgb( 50, 90, 150 );
+	color: rgb( 255, 255, 255 );
+}
+
 #vwf-root {
 	position: absolute;
 	left: 200px;

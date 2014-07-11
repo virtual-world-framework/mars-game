@@ -9,7 +9,7 @@ vwf_view.firedEvent = function( nodeID, eventName, eventParams ) {
 }
 
 function handleSceneReady( params ) {
-	var assetTypeSelector = document.getElementById( "type" );
+	var assetTypeSelector = document.getElementById( "typeselector" );
 	assetTypeSelector.onchange = ( function() {
 			loadAssetList( this.value );
 	} ).bind( assetTypeSelector );
@@ -42,6 +42,12 @@ function loadAssetList( listType ) {
 					loadModelByPath( path ); 
 				} 
 			}( list[ i ].path );
+			listItem.onmouseover = function() {
+				this.className = "listitem hover";
+			}
+			listItem.onmouseout = function() {
+				this.className = "listitem";
+			}
 			listDom.appendChild( listItem );
 		}
 	}
@@ -55,6 +61,7 @@ function retrieveAssetListItems( listPath ) {
 	switch ( listPath ) {
 		case "maps":
 			list.push( { name: "Mars", path: "source/maps/mars.vwf" } );
+			list.push( { name: "Mars Empty", path: "source/maps/mars_empty.vwf" } );
 			break;
 		case "obstacles":
 			list.push( { name: "Crash Furrow", path: "source/obstacles/crash_furrow.vwf" } );
@@ -65,6 +72,11 @@ function retrieveAssetListItems( listPath ) {
 			list.push( { name: "Rock Large", path: "source/obstacles/rock_large.vwf" } );
 			list.push( { name: "Rock Medium", path: "source/obstacles/rock_medium.vwf" } );
 			list.push( { name: "Rock Small", path: "source/obstacles/rock_small.vwf" } );
+			list.push( { name: "Rubble Blades", path: "source/obstacles/rubble_blades.vwf" } );
+			list.push( { name: "Rubble Box", path: "source/obstacles/rubble_box.vwf" } );
+			list.push( { name: "Rubble Container", path: "source/obstacles/rubble_container.vwf" } );
+			list.push( { name: "Rubble Parts", path: "source/obstacles/rubble_parts.vwf" } );
+			list.push( { name: "Rubble Tank", path: "source/obstacles/rubble_tank.vwf" } );
 			break;
 		case "pickups":
 			break;

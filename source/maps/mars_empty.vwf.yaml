@@ -1,0 +1,4 @@
+---
+extends: http://vwf.example.com/node3.vwf
+source: ../../assets/3d/Terrain/scene2.dae
+type: model/vnd.collada+xml
