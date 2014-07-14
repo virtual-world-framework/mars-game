@@ -111,6 +111,71 @@ properties:
           isLayered: false
           allowMultiplay: false
           initialVolume: 1.0
+    - soundName: "ALVO1_Rover"
+      soundURL: "assets/sounds/VO/ALVO1_Rover_m.ogg"
+      soundGroup: VO
+      subtitle: "[ROVER]: The red and blue lines look like my axes, so the green line must be the line I’m plotting."
+      groupReplacementMethod: queue
+    - soundName: "ALVO2_Rover"
+      soundURL: "assets/sounds/VO/ALVO2_Rover_m.ogg"
+      soundGroup: VO
+      subtitle: "[ROVER]: Maybe I should try doing different things to x and see what happens."
+      groupReplacementMethod: queue
+    - soundName: "ALVO3_Rover"
+      soundURL: "assets/sounds/VO/ALVO3_Rover_m.ogg"
+      soundGroup: VO
+      subtitle: "[ROVER]: I wonder what happens if I multiply x by something."
+      groupReplacementMethod: queue
+    - soundName: "ALVO4_Rover"
+      soundURL: "assets/sounds/VO/ALVO4_Rover_m.ogg"
+      soundGroup: VO
+      subtitle: "[ROVER]: I wonder what happens if I add something to x."
+      groupReplacementMethod: queue
+    - soundName: "ALVO5_Rover"
+      soundURL: "assets/sounds/VO/ALVO5_Rover_m.ogg"
+      soundGroup: VO
+      subtitle: "[ROVER]: I wonder what happens if I make x negative."
+      groupReplacementMethod: queue
+    - soundName: "ALVO6_Rover"
+      soundURL: "assets/sounds/VO/ALVO6_Rover_m.ogg"
+      soundGroup: VO
+      subtitle: "[ROVER]: I see… if I plug in a number for x, that will tell me what the y value is at that point on the line!"
+      groupReplacementMethod: queue
+    - soundName: "ALVO7_Rover"
+      soundURL: "assets/sounds/VO/ALVO7_Rover_m.ogg"
+      soundGroup: VO
+      subtitle: "[ROVER]: I should make sure that I test early and often."
+      groupReplacementMethod: queue
+    - soundName: "ALVO8_Rover"
+      soundURL: "assets/sounds/VO/ALVO8_Rover_m.ogg"
+      soundGroup: VO
+      subtitle: "[ROVER]: Maybe I should try just moving forward, and see if I can get that down."
+      groupReplacementMethod: queue
+    - soundName: "ALVO9_Rover"
+      soundURL: "assets/sounds/VO/ALVO9_Rover_m.ogg"
+      soundGroup: VO
+      subtitle: "[ROVER]: Hrm, I seem to have more than one program there.  How do I know which one to execute?"
+      groupReplacementMethod: queue
+    - soundName: "ALVO10_Rover"
+      soundURL: "assets/sounds/VO/ALVO10_Rover_m.ogg"
+      soundGroup: VO
+      subtitle: "[ROVER]: I'm going to need to turn at some point but I'll need to do it at just the right point or I'll run into trouble."
+      groupReplacementMethod: queue
+    - soundName: "ALVO11_Rover"
+      soundURL: "assets/sounds/VO/ALVO11_Rover_m.ogg"
+      soundGroup: VO
+      subtitle: "[ROVER]: I seem to be running out of RAM.  Maybe I could fit more commands in memory if I used a Repeat loop."
+      groupReplacementMethod: queue
+    - soundName: "ALVO12_Rover"
+      soundURL: "assets/sounds/VO/ALVO13_Rover_m.ogg"
+      soundGroup: VO
+      subtitle: "[ROVER]: My program is really long and I’m failing somewhere in the middle.  Perhaps I should throw away the parts that aren’t working and start fresh?"
+      groupReplacementMethod: queue
+    - soundName: "ALVO13_Rover"
+      soundURL: "assets/sounds/VO/ALVO12_Rover_m.ogg"
+      soundGroup: VO
+      subtitle: "[ROVER]: That path seems tricky – is there there an easier way around the other side?"
+      groupReplacementMethod: queue
     - soundName: "L1VO1_Rover"
       soundURL: "assets/sounds/VO/L1VO1_Rover_m.mp3"
       soundGroup: VO
