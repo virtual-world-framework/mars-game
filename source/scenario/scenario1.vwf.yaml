@@ -231,6 +231,24 @@ properties:
       - writeToBlackboard:
         - L1VO3
 
+    playALVO8_Rover:
+      triggerCondition:
+      - onBlocklyProgramChanged:
+        - rover
+        - add
+        - rover_turn
+      additionalCondition:
+      - and:
+        - not:
+          - readBlackboard:
+            - ALVO8
+        - doOnce:
+      actions:
+      - playSound:
+        - ALVO8_Rover
+      - writeToBlackboard:
+        - ALVO8
+
     playL1VO5_Rover:
       triggerCondition:
       - onMoved:
