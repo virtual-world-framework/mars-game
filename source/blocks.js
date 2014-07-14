@@ -113,6 +113,50 @@ Blockly.JavaScript['rover_forever'] = function(block) {
   return 'while (true) {\n' + branch + '}\n';
 };
 
+Blockly.Blocks[ 'controls_repeat_extended' ] = {
+  /**
+   * Block for repeat n times (external number).
+   * @this Blockly.Block
+   */
+  init: function() {
+    this.setHelpUrl( Blockly.Msg.CONTROLS_REPEAT_HELPURL );
+    this.setColour( 120 );
+    this.interpolateMsg( Blockly.Msg.CONTROLS_REPEAT_TITLE,
+                        ['TIMES', 'Number', Blockly.ALIGN_RIGHT ],
+                        Blockly.ALIGN_RIGHT );
+    this.appendStatementInput( 'DO' )
+        .appendField( Blockly.Msg.CONTROLS_REPEAT_INPUT_DO );
+    this.setPreviousStatement( true );
+    this.setNextStatement( true );
+    this.setInputsInline( true );
+    this.setTooltip( "Moves the rover in a certain way a certain number of" + 
+        "times. Put any combination of blocks inside this block!" );
+    
+  }
+};
+
+Blockly.JavaScript[ 'controls_repeat_extended' ] = function( block ) {
+  // Repeat n times (external number).
+  var repeats = Blockly.JavaScript.valueToCode( block, 'TIMES',
+      Blockly.JavaScript.ORDER_ASSIGNMENT ) || '0';
+  var branch = Blockly.JavaScript.statementToCode( block, 'DO' );
+  var code = '';
+  var loopVar = Blockly.JavaScript.variableDB_.getDistinctName(
+      'count', Blockly.Variables.NAME_TYPE);
+  var endVar = repeats;
+  if ( !repeats.match(/^\w+$/) && !Blockly.isNumber( repeats ) ) {
+    var endVar = Blockly.JavaScript.variableDB_.getDistinctName(
+        'repeat_end', Blockly.Variables.NAME_TYPE );
+    code += 'var ' + endVar + ' = ' + repeats + ';\n';
+  }
+  code += 'for (var ' + loopVar + ' = 0; ' +
+      loopVar + ' < ' + endVar + '; ' +
+      loopVar + '++) {\n' +
+      branch + '}\n';
+  return code;
+};
+
+
 Blockly.Blocks[ 'math_number_drop' ] = {
   init: function() {
     //this.setHelpUrl('http://www.example.com/');
