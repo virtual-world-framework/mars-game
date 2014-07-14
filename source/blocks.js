@@ -149,9 +149,16 @@ Blockly.Blocks[ 'controls_repeat_extended' ] = {
     this.setPreviousStatement( true );
     this.setNextStatement( true );
     this.setInputsInline( true );
-    this.setTooltip( "Moves the rover in a certain way a certain number of" + 
-        "times. Put any combination of blocks inside this block!" );
-    
+    var thisBlock = this;
+    this.setTooltip( function() {
+      var content = {
+        text: "Performs a routine a certain number of " + 
+        "times. Put any combination of blocks inside this block!" + 
+        " (e.g. Make the rover turn left and then move forward 5 times.)",
+        imagePath: "assets/images/tooltips/while.png"
+      }
+      return showTooltipInBlockly( thisBlock, content );
+    } );    
   }
 };
 
