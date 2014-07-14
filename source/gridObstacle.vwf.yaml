@@ -34,6 +34,8 @@ properties:
   # replacesTerrain - This object removes the terrain within its bounds
   replacesTerrain: false
 
+  isOnGrid: false
+
 events:
   addedToGrid:
 
@@ -61,6 +63,7 @@ scripts: |
     posy -= grid.gridSquareLength / 2;
 
     this.translateTo( [ posx, posy, this.translation[ 2 ] ], 0 );
+    this.isOnGrid = true;
   }
 
   this.updateCollisionMap = function( angle ) {

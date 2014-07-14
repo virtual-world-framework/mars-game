@@ -1,0 +1,9 @@
+---
+methods:
+  select:
+  deselect:
+events:
+  pointerDown:
+  pointerUp:
+scripts:
+  - source: editor/editable.js

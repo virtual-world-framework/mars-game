@@ -120,7 +120,7 @@ this.moveObjectOnGrid = function( object, srcCoord, destCoord ) {
 //Places the object on the terrain according to the terrain height
 this.setHeightFromTerrain = function ( object ) {
     var scene = this.find( "/" )[ 0 ];
-    var origin = [ object.translation[ 0 ], object.translation[ 1 ], object.translation[ 2 ] + 3 ];
+    var origin = [ object.translation[ 0 ], object.translation[ 1 ], object.translation[ 2 ] + 15 ];
     var terrain = this.find( "//" + object.terrainName )[ 0 ];
     if ( scene && origin && terrain ) {
         var intersects = scene.raycast( origin, [ 0, 0, -1 ], 0, Infinity, true, terrain.id );
