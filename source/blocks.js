@@ -23,9 +23,11 @@ Blockly.Blocks['rover_moveForward'] = {
     this.setNextStatement(true);
     var thisBlock = this;
     this.setTooltip( function() {
-      var pos = thisBlock.getRelativeToSurfaceXY();
-      var content = "<img src='assets/images/tooltips/move_forward.png' />" + "<p>Moves the rover one space forward.</p>";
-      return showTooltipInBlockly( pos, 550, 350, content );
+      var content = {
+        text: "Moves the rover one space forward.",
+        imagePath: "assets/images/tooltips/move_forward.png"
+      }
+      return showTooltipInBlockly( thisBlock, content );
     } );
   }
 };
@@ -81,9 +83,11 @@ Blockly.Blocks['rover_turn'] = {
     this.setNextStatement(true);
     var thisBlock = this;
     this.setTooltip( function() {
-      var pos = thisBlock.getRelativeToSurfaceXY();
-      var content = "<img src='assets/images/tooltips/turn.png' />" + "<p>Turns the rover 90 degrees counter-clockwise (left) or clockwise (right).</p>";
-      return showTooltipInBlockly( pos, 520, 350, content );
+      var content = {
+        text: "Turns the rover 90 degrees counter-clockwise (left) or clockwise (right).",
+        imagePath: "assets/images/tooltips/turn.png"
+      }
+      return showTooltipInBlockly( thisBlock, content );
     } ); 
   }
 };
@@ -111,8 +115,10 @@ Blockly.Blocks['rover_forever'] = {
     this.setPreviousStatement(true);
     var thisBlock = this;
     this.setTooltip( function() {
-      var pos = thisBlock.getRelativeToSurfaceXY();
-      return showTooltipInBlockly( pos, 300, 100, "<p>Moves the rover until the next goal is reached.</p>" );
+      var content = {
+        text: "Moves the rover until the next goal is reached."
+      }
+      return showTooltipInBlockly( thisBlock, content );
     } );
   }
 };
@@ -183,9 +189,10 @@ Blockly.Blocks[ 'math_number_drop' ] = {
     this.setOutput( true, "Number" );
     var thisBlock = this;
     this.setTooltip( function() {
-      var pos = thisBlock.getRelativeToSurfaceXY();
-      var content = "<p> A dropdown selector for number values. </p>";
-      return showTooltipInBlockly( pos, 300, 50, content );
+      var content = {
+        text: "A dropdown selector for number values."
+      }
+      return showTooltipInBlockly( thisBlock, content );
     } );
   }
 };
@@ -210,9 +217,10 @@ Blockly.Blocks[ 'math_number_drop_output' ] = {
     this.setOutput( true, "Number" );
     var thisBlock = this;
     this.setTooltip( function() {
-      var pos = thisBlock.getRelativeToSurfaceXY();
-      var content = "<p> A dropdown selector for number values </p>";
-      return showTooltipInBlockly( pos, 300, 50, content );
+      var content = {
+        text: "A dropdown selector for number values."
+      }
+      return showTooltipInBlockly( thisBlock, content );
     } );
   }
 };
@@ -242,9 +250,10 @@ Blockly.Blocks[ 'math_number_output' ] = {
     this.setOutput( true, "Number" );
     var thisBlock = this;
     this.setTooltip( function() {
-      var pos = thisBlock.getRelativeToSurfaceXY();
-      var content = "<p> A text field for selecting number values. Try typing any number! (e.g. 1, -3, 0.2)<p>";
-      return showTooltipInBlockly( pos, 300, 80, content );
+      var content = {
+        text: "A text field for selecting number values. Try typing any number! (e.g. 1, -3, 0.2)"
+      }
+      return showTooltipInBlockly( thisBlock, content );
     } );
   }
 };
@@ -283,9 +292,10 @@ Blockly.Blocks[ 'graph_get_x' ] = {
     this.setOutput( true, 'Variable' );
     var thisBlock = this;
     this.setTooltip( function() {
-      var pos = thisBlock.getRelativeToSurfaceXY();
-      var content = "<p>This is the X variable, also known as the independent variable.</p>";
-      return showTooltipInBlockly( pos, 300, 80, content );
+      var content = {
+        text: "This is the X variable, also known as the independent variable."
+      }
+      return showTooltipInBlockly( thisBlock, content );
     } ); 
   }
 };
@@ -311,9 +321,10 @@ Blockly.Blocks[ 'graph_add' ] = {
     this.setOutput(true, 'OperatorAddSubtract');
     var thisBlock = this;
     this.setTooltip( function() {
-      var pos = thisBlock.getRelativeToSurfaceXY();
-      var content = "<p>This is the arithmetic operator for adding two values.</p>";
-      return showTooltipInBlockly( pos, 300, 80, content );
+      var content = {
+        text: "This is the arithmetic operator for adding two values."
+      }
+      return showTooltipInBlockly( thisBlock, content );
     } );
   }
 };
@@ -341,9 +352,10 @@ Blockly.Blocks[ 'graph_subtract' ] = {
     this.setOutput(true, 'OperatorAddSubtract');
     var thisBlock = this;
     this.setTooltip( function() {
-      var pos = thisBlock.getRelativeToSurfaceXY();
-      var content = "<p>This is the arithmetic operator for subtracting two values.</p>";
-      return showTooltipInBlockly( pos, 300, 80, content );
+      var content = {
+        text: "This is the arithmetic operator for subtracting two values."
+      }
+      return showTooltipInBlockly( thisBlock, content );
     } ); 
   }
 };
@@ -372,9 +384,10 @@ Blockly.Blocks[ 'graph_multiply' ] = {
     this.setOutput(true, 'OperatorMultiplyDivide');
     var thisBlock = this;
     this.setTooltip( function() {
-      var pos = thisBlock.getRelativeToSurfaceXY();
-      var content = "<p>This is the arithmetic operator for multiplying two values.</p>";
-      return showTooltipInBlockly( pos,  300, 80, content );
+      var content = {
+        text: "This is the arithmetic operator for multiplying two values."
+      }
+      return showTooltipInBlockly( thisBlock, content );
     } ); 
   }
 };
@@ -403,9 +416,10 @@ Blockly.Blocks[ 'graph_divide' ] = {
     this.setOutput(true, 'OperatorMultiplyDivide');
     var thisBlock = this;
     this.setTooltip( function() {
-      var pos = thisBlock.getRelativeToSurfaceXY();
-      var content = "<p>This is the arithmetic operator for dividing two values.</p>";
-      return showTooltipInBlockly( pos,  300, 80, content );
+      var content = {
+        text: "This is the arithmetic operator for dividing two values."
+      }
+      return showTooltipInBlockly( thisBlock, content );
     } ); 
   }
 };
@@ -433,9 +447,10 @@ Blockly.Blocks[ 'graph_left_paren' ] = {
     this.setOutput(true, 'VALUE');
     var thisBlock = this;
     this.setTooltip( function() {
-      var pos = thisBlock.getRelativeToSurfaceXY();
-      var content = "<p>This is a left parenthesis.</p>";
-      return showTooltipInBlockly( pos,  300, 50, content );
+      var content = {
+        text: "This is a left parenthesis."
+      }
+      return showTooltipInBlockly( thisBlock, content );
     } ); 
   }
 };
@@ -463,9 +478,10 @@ Blockly.Blocks[ 'graph_right_paren' ] = {
     this.setOutput(true, 'VALUE');
     var thisBlock = this;
     this.setTooltip( function() {
-      var pos = thisBlock.getRelativeToSurfaceXY();
-      var content = "<p>This is a right parenthesis.</p>";
-      return showTooltipInBlockly( pos,  300, 50, content );
+      var content = {
+        text: "This is a right parenthesis."
+      }
+      return showTooltipInBlockly( thisBlock, content );
     } ); 
   }
 };
@@ -493,9 +509,10 @@ Blockly.Blocks[ 'graph_set_y' ] = {
         .setCheck(['Number','Variable','OperatorAddSubtract']);
     var thisBlock = this;
     this.setTooltip( function() {
-      var pos = thisBlock.getRelativeToSurfaceXY();
-      var content = "<p>This is the Y variable, also known as the dependent variable. Try setting it to a function! (e.g. y = x + 3)</p>";
-      return showTooltipInBlockly( pos,  300, 100, content );
+      var content = {
+        text: "This is the Y variable, also known as the dependent variable. Try setting it to a function! (e.g. y = x + 3)"
+      }
+      return showTooltipInBlockly( thisBlock, content );
     } ); 
   }
 };

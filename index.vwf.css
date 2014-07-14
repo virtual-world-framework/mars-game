@@ -367,10 +367,12 @@ body {
 .tooltip {
     background-color: white;
     font-family: Gadget, sans-serif;
+    text-align: center;
     border-radius: 5px;
     padding: 5px;
     position: absolute;
     overflow: hidden;
+    display: inline-block;
     border: 1px solid rgb( 0, 30, 60 );
     user-select: none;
     -webkit-user-select: none;  /* Chrome all / Safari all */
