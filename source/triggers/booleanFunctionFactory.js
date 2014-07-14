@@ -100,6 +100,28 @@ this.clauseSet.isAtPosition = function( params, context, callback ) {
     };
 }
 
+this.clauseSet.hasHeading = function( params, context, callback ) {
+    if ( !params || ( params.length !== 3 ) ) {
+        self.logger.errorx( "hasHeading", 
+                            "This clause requires two " +
+                            "arguments: the object and the heading." );
+        return undefined;
+    }
+
+    var objectName = params[ 0 ];
+    var heading = params[ 1 ];
+
+    var object = self.findInContext( context, objectName );
+
+    if ( callback ) {
+        object.moved = self.events.add( callback );
+    } 
+
+    return function() {
+        return ( object.heading === heading );
+    };
+}
+
 this.clauseSet.hasObject = function( params, context, callback ) {
     if ( !params || ( params.length !== 2 ) ) {
         self.logger.errorx( "hasObject", 

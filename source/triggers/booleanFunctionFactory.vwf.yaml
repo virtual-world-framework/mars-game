@@ -30,6 +30,9 @@ properties:
     # arguments: object, x, y
     isAtPosition:
 
+    # arguments: object, heading
+    hasHeading:
+
     # arguments: owner, object
     hasObject:
 

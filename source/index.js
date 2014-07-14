@@ -134,6 +134,13 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
             case "scenarioReset":
                 resetStatusDisplay();
             case "scenarioChanged":
+
+                //TODO: Move this into an event??
+                if ( Blockly.mainWorkspace ){
+                    Blockly.mainWorkspace.clear();
+                }
+                this.kernel.setProperty( mainRover, "blockly_xml", '<xml></xml>' );
+
                 removePopup();
                 removeFailScreen();
                 clearBlocklyStatus();
@@ -338,6 +345,10 @@ vwf_view.satProperty = function( nodeID, propertyName, propertyValue ) {
 
             case "batteryMax":
                 hud.elements.batteryMeter.maxBattery = parseFloat( propertyValue );
+                break;
+
+            case "blockly_xml":
+
                 break;
                 
         }
