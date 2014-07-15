@@ -1,3 +1,5 @@
+var selectedTool = undefined;
+
 vwf_view.firedEvent = function( nodeID, eventName, eventParams ) {
     if ( nodeID === vwf_view.kernel.application() ) {
         switch ( eventName ) {
@@ -14,6 +16,7 @@ function handleSceneReady( params ) {
             loadAssetList( this.value );
     } ).bind( assetTypeSelector );
     loadAssetList( assetTypeSelector.value );
+    setupTools();
 }
 
 function loadAsset( assetType, path ) {
@@ -94,4 +97,26 @@ function retrieveAssetListItems( listPath ) {
     }
 
     return list;
+}
+
+function setupTools() {
+    var tools = document.getElementsByClassName( "toolbutton" );
+    var img;
+
+    for ( var i = 0; i < tools.length; i++ ) {
+        img = document.createElement( "img" );
+        img.src = "../assets/images/editor/" + tools[ i ].id + ".png";
+        tools[ i ].appendChild( img );
+        tools[ i ].onclick = function() {
+            selectTool( this );
+        }
+    }
+}
+
+function selectTool( tool ) {
+    if ( selectedTool ) {
+        selectedTool.className = "toolbutton";
+    }
+    tool.className = "toolbutton selected";
+    selectedTool = tool;
 }
