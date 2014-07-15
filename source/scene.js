@@ -204,8 +204,16 @@ function calcGridBounds( grid ) {
     return gridBounds;
 }
 
-this.blockExecuted = function( blockName ) {
-    this.blockFired( blockName );
+this.blockExecuted = function ( block, action ) {
+    //this.blockFired( block );
+
+    var nodeID = action[ 0 ];
+    var methodName = action[ 1 ];
+    var args = action[ 2 ];
+    var node = this.findByID( this, nodeID );
+    if ( node ) {
+        node[ methodName ]( action.args );
+    }
 }
 
 //@ sourceURL=source/scene.js

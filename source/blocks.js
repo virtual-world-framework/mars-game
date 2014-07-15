@@ -36,8 +36,12 @@ Blockly.Blocks['rover_moveForward'] = {
 Blockly.JavaScript['rover_moveForward'] = function( block ) {
   var dist = Blockly.JavaScript.valueToCode(block, 'DISTANCE', Blockly.JavaScript.ORDER_NONE) || '0';
   var t = Blockly.JavaScript.valueToCode(block, 'TIME', Blockly.JavaScript.ORDER_NONE) || '1';
-  return "vwf.callMethod( '"+Blockly.JavaScript.vwfID+"', 'moveForward' );\n" +
-         "vwf.callMethod( '"+vwf_view.kernel.application()+"', 'blockExecuted', [ '" + block + "' ] );\n";
+  var action = {
+    nodeID: Blockly.JavaScript.vwfID,
+    methodName: 'moveForward',
+    args: []
+  };
+  return constructBlockExecutedCall( block, action );
 };
 
 Blockly.Blocks['rover_forward_ext'] = {
@@ -99,7 +103,12 @@ Blockly.JavaScript['rover_turn'] = function( block ) {
   var turnCommand = block.getFieldValue('DIR');
   var angle = Blockly.JavaScript.valueToCode(block, 'ANGLE', Blockly.JavaScript.ORDER_NONE) || '0';
   var t = Blockly.JavaScript.valueToCode(block, 'TIME', Blockly.JavaScript.ORDER_NONE) || '0';
-  return "vwf.callMethod( '"+Blockly.JavaScript.vwfID+"','" + turnCommand + "');\n";
+  var action = {
+    nodeID: Blockly.JavaScript.vwfID,
+    methodName: turnCommand,
+    args: []
+  };
+  return constructBlockExecutedCall( block, action );
 };
 
 Blockly.Blocks['rover_forever'] = {
@@ -575,8 +584,20 @@ Blockly.JavaScript[ 'graph_set_y' ] = function( block ) {
   } else {
     return ';';
   }
+<<<<<<< HEAD
   
+=======
+
+  console.log (argument0);  
+>>>>>>> Add wrapper func to handle blockFired event
 };
+
+function constructBlockExecutedCall( block, action ) {
+  var returnCode = "vwf.callMethod( '" + vwf_view.kernel.application() + "', 'blockExecuted', [ '" + 
+                   block + "', { 'nodeID': '" + action.nodeID + "', 'methodName': '" + action.methodName + "', ";
+  returnCode += ( action.args.length > 0 ) ? "'args': " + action.args + " } ] );\n" : "'args': [] } ] );\n";  
+  return returnCode; 
+}
 
 
 //@ sourceURL=blocks.js

@@ -181,7 +181,7 @@ function createBlocklyStatus() {
     status.offsetY = 0;
     status.spacing = 10;
     hud.add( status, "right", "bottom", { "x": 150, "y": -60 } );
-    addBlockToStatusList( "forward", "assets/images/hud/blockly_move_forward.png");
+    addBlockToStatusList( "forward", "assets/images/hud/blockly_move_forward.png" );
 }
 
 function addBlockToStatusList( name, imageSrc ) {

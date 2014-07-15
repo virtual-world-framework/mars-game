@@ -115,6 +115,7 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 if ( blockName ) {
                     pushNextBlocklyStatus( blockName );
                 }
+                break;
 
             case "scenarioReset":
                 resetStatusDisplay();
