@@ -348,7 +348,7 @@ Blockly.Blocks[ 'graph_add' ] = {
   }
 };
 
-
+Blockly.JavaScript[ 'graph_add' ] = function(block) {
   /**
    * Code for basic addition arithmetic operator.
    * @this Blockly.Block
