@@ -312,7 +312,12 @@ Blockly.JavaScript[ 'graph_get_x' ] = function(block) {
   var argument0 = Blockly.JavaScript.valueToCode(block, 'INPUT',
       Blockly.JavaScript.ORDER_ATOMIC) || '';
 
-  return [ 'x' + argument0, Blockly.JavaScript.ORDER_ATOMIC ];
+  if ( argument0[0] === '(' ){
+    return [ 'x' + '*' + argument0 , Blockly.JavaScript.ORDER_ATOMIC ];
+  } else {
+    return [ 'x' + argument0 , Blockly.JavaScript.ORDER_ATOMIC ];
+  }
+
 };
 
 Blockly.Blocks[ 'graph_add' ] = {
@@ -407,6 +412,8 @@ Blockly.JavaScript[ 'graph_multiply' ] = function(block) {
 
   var argument0 = Blockly.JavaScript.valueToCode(block, 'INPUT',
       Blockly.JavaScript.ORDER_ATOMIC) || '0';
+
+
   return [block.getFieldValue('VALUE') + argument0, Blockly.JavaScript.ORDER_ATOMIC];
 };
 
@@ -470,7 +477,13 @@ Blockly.JavaScript[ 'graph_left_paren' ] = function(block) {
 
   var argument0 = Blockly.JavaScript.valueToCode(block, 'INPUT',
       Blockly.JavaScript.ORDER_ATOMIC) || '';
-  return ['(' + argument0, Blockly.JavaScript.ORDER_ATOMIC];
+
+  if ( argument0[0] === ')' ){
+    return [ '(' + '0' + argument0 , Blockly.JavaScript.ORDER_ATOMIC ];
+  } else {
+    return [ '(' + argument0 , Blockly.JavaScript.ORDER_ATOMIC ];
+  }
+  
 };
 
 Blockly.Blocks[ 'graph_right_paren' ] = {
@@ -501,7 +514,13 @@ Blockly.JavaScript[ 'graph_right_paren' ] = function(block) {
 
   var argument0 = Blockly.JavaScript.valueToCode(block, 'INPUT',
       Blockly.JavaScript.ORDER_ATOMIC) || '';
-  return [')' + argument0, Blockly.JavaScript.ORDER_ATOMIC];
+
+  if ( argument0[0] === '(' ){
+    return [ ')' + '*' + argument0 , Blockly.JavaScript.ORDER_ATOMIC ];
+  } else {
+    return [ ')' + argument0 , Blockly.JavaScript.ORDER_ATOMIC ];
+  }
+
 };
 
 Blockly.Blocks[ 'graph_set_y' ] = {
