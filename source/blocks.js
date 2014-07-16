@@ -584,12 +584,6 @@ Blockly.JavaScript[ 'graph_set_y' ] = function( block ) {
   } else {
     return ';';
   }
-<<<<<<< HEAD
-  
-=======
-
-  console.log (argument0);  
->>>>>>> Add wrapper func to handle blockFired event
 };
 
 function constructBlockExecutedCall( block, action ) {

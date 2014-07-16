@@ -32,7 +32,7 @@ this.findAndSetCurrentGrid = function( scenarioName ) {
     currentGrid = scenario.grid;
 }
 
-this.moveForward = function( blockName ) {
+this.moveForward = function() {
 
     var scene = this.find( "/" )[ 0 ];
     var headingInRadians = this.heading * Math.PI / 180;
@@ -86,8 +86,6 @@ this.moveForward = function( blockName ) {
     } else {
         this.moveFailed( "collision" );
     }
-
-    //scene.blockFired( blockName );
 }
 
 this.turnLeft = function() {
