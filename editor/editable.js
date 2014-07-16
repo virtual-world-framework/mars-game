@@ -7,9 +7,9 @@ this.select = function() {
 
 /* --- Events --- */
 
-this.pointerClick = function( pointerInfo, pickInfo ) {
-    var scene = this.find( "/" )[ 0 ];
-    if ( pointerInfo.button === "left" ) {
-        this.select();
-    }
-}
+// this.pointerClick = function( pointerInfo, pickInfo ) {
+//     var scene = this.find( "/" )[ 0 ];
+//     if ( pointerInfo.button === "left" ) {
+//         this.select();
+//     }
+// }

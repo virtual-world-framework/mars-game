@@ -1,5 +1,7 @@
 this.objCount = 0;
-this.selectedObject = undefined;
+this.selectedObject;
+
+var lastPointerPosition;
 
 this.initialize = function() {
     this.camera.transform = [
@@ -177,7 +179,6 @@ this.loadObject = function( path ) {
     var objectName = "object_" + this.objCount++;
     var callback = function( object ) {
         this.grid.addToGridFromWorld( object, [ 0, 0, 0 ] );
-        this.selectedObject = object;
     }
 
     this.future( 0 ).createObject( objectName, path, callback );
@@ -209,47 +210,67 @@ this.setActiveTool = function( toolID ) {
     this.activeTool = toolID;
 }
 
-this.pointerMove = function( pointerInfo, pickInfo ) {
-    if ( pointerInfo.buttons.left ) {
-        this.drag( pointerInfo, pickInfo );
+this.useTool = function( eventType, pointerInfo, pickInfo ) {
+    switch ( this.activeTool ) {
+        case "camera":
+            if ( eventType === "pointerClick" && pointerInfo.button === "left" ) {
+                var object = this.findByID( this, pickInfo.pickID );
+                if ( object.select instanceof Function ) {
+                    object.select();
+                }
+            }
+            break;
+        case "translate":
+            if ( ( eventType === "pointerDown" || eventType === "pointerMove" ) &&
+                pointerInfo.buttons.left && this.selectedObject ) {
+                this.drag( pickInfo );
+            } else if ( eventType === "pointerClick" && pointerInfo.button === "left" ) {
+                var object = this.findByID( this, pickInfo.pickID );
+                if ( object.select instanceof Function ) {
+                    object.select();
+                }
+            }
+            break;
+        case "rotate":
+            if ( eventType === "pointerDown" && pointerInfo.buttons.left && this.selectedObject ) {
+                if ( this.selectedObject.isOnGrid ) {
+                    lastPointerPosition = pointerInfo.position[ 0 ];
+                }
+            } else if ( eventType === "pointerMove" && pointerInfo.buttons.left && this.selectedObject ) {
+                if ( this.selectedObject.isOnGrid ) {
+                    var delta = pointerInfo.position[ 0 ] - lastPointerPosition;
+                    if ( delta > 0.15 || delta < 0.15 ) {
+                        this.selectedObject.rotateObstacle( delta );
+                        this.grid.removeFromGrid( this.selectedObject, 
+                            this.selectedObject.currentGridSquare );
+                        this.grid.addToGridFromCoord( this.selectedObject, 
+                            this.selectedObject.currentGridSquare );
+                        this.editTool.grid.moveGridOrigin( this.selectedObject.currentGridSquare );
+                        lastPointerPosition = pointerInfo.position[ 0 ];
+                    }
+                }
+            } else if ( eventType === "pointerMove" && pointerInfo.buttons.left && this.selectedObject ) {
+                if ( this.selectedObject.isOnGrid ) {
+                    lastPointerPosition = undefined;
+                }
+            } else if ( eventType === "pointerClick" && pointerInfo.button === "left" ) {
+                var object = this.findByID( this, pickInfo.pickID );
+                if ( object.select instanceof Function ) {
+                    object.select();
+                }
+            }
+            break;
+        case "raise_lower":
+            break;
     }
 }
 
-this.pointerOver = function( pointerInfo, pickInfo ) {
-}
-
-this.pointerDown = function( pointerInfo, pickInfo ) {
-    if ( pointerInfo.buttons.left ) {
-        if ( this.selectedObject ) {
-            this.drag( pointerInfo, pickInfo );
-        }
-    }
-}
-
-this.pointerClick = function( pointerInfo, pickInfo ) {
-    if ( pointerInfo.button === "left" ) {
-        this.deselectObject();
-    }
-}
-
-this.pointerUp = function( pointerInfo, pickInfo ) {
-    if ( !pointerInfo.buttons.left ) {
-        this.stopDrag( pointerInfo, pickInfo );
-    }
-}
-
-this.drag = function( pointerInfo, pickInfo ) {
-    if ( !this.selectedObject ) {
-        return;
-    }
-
+this.drag = function( pickInfo ) {
     this.selectedObject.terrainName = this.map.name;
     var coord, curCoord;
 
     if ( pickInfo.pickID !== this.selectedObject.id ) {
         coord = this.grid.getGridFromWorld( pickInfo.globalPosition );
-        // this.grid.addToGridFromWorld( this.selectedObject, pickInfo.globalPosition );
-        // this.selectedObject.translateTo( pickInfo.globalPosition );
     } else {
         var origin = pickInfo.globalSource;
         var normal = pickInfo.pointerVector;
@@ -263,8 +284,6 @@ this.drag = function( pointerInfo, pickInfo ) {
                     nearest.point.z
                 ];
                 coord = this.grid.getGridFromWorld( point );
-                // this.grid.addToGridFromWorld( this.selectedObject, point );
-                // this.selectedObject.translateTo( point );
             }
         }
     }
@@ -294,16 +313,13 @@ this.stopDrag = function( pointerInfo, pickInfo ) {
 this.selectObject = function( id ) {
     var object;
 
-    if ( this.selectedObject && this.selectedObject.id === id ) {
-        return;
-    }
-
     if ( this.editTool.selectedObjectId === id ) {
         this.deselectObject();
     } else {
         object = this.findByID( this, id );
         this.editTool.grid.updateGrid( object );
         this.editTool.selectedObjectId = id;
+        this.selectedObject = object;
     }
 }
 
@@ -311,6 +327,30 @@ this.deselectObject = function() {
     this.removeEditToolGrid();
     this.editTool.selectedObjectId = undefined;
     this.selectedObject = undefined;
+}
+
+this.pointerOver = function( pointerInfo, pickInfo ) {
+    this.useTool( "pointerOver", pointerInfo, pickInfo );
+}
+
+this.pointerOut = function( pointerInfo, pickInfo ) {
+    this.useTool( "pointerOut", pointerInfo, pickInfo );
+}
+
+this.pointerDown = function( pointerInfo, pickInfo ) {
+    this.useTool( "pointerDown", pointerInfo, pickInfo );
+}
+
+this.pointerUp = function( pointerInfo, pickInfo ) {
+    this.useTool( "pointerUp", pointerInfo, pickInfo );
+}
+
+this.pointerClick = function( pointerInfo, pickInfo ) {
+    this.useTool( "pointerClick", pointerInfo, pickInfo );
+}
+
+this.pointerMove = function( pointerInfo, pickInfo ) {
+    this.useTool( "pointerMove", pointerInfo, pickInfo );
 }
 
 function setselectedObject( object ) {

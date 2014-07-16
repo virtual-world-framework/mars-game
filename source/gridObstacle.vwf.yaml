@@ -36,10 +36,18 @@ properties:
 
   isOnGrid: false
 
+methods:
+  rotateObstacle:
 events:
   addedToGrid:
 
 scripts: |
+  this.rotateObstacle = function( direction ) {
+    direction = direction < 0 ? -1 : 1;
+    var rotation = this.gridRotation + ( 90 * direction );
+    rotation = rotation < 0 ? 360 + rotation : rotation % 360;
+    this.gridRotation = rotation;
+  }
   this.addedToGrid = function( grid ) {
     for ( var x = 0; x < this.gridSize[ 0 ]; x++ ) {
       for ( var y = 0; y < this.gridSize[ 1 ]; y++ ) {

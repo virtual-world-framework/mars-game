@@ -11,6 +11,20 @@ vwf_view.firedEvent = function( nodeID, eventName, eventParams ) {
     }
 }
 
+vwf_view.gotProperty = function( nodeID, propertyName, propertyValue ) {
+    if ( nodeID === sceneID ) {
+        if ( propertyName === "activeTool" ) {
+            var tool = document.getElementById( propertyValue );
+            if ( tool ) {
+                selectTool( tool );
+            } else {
+                console.log( "vwf_view.gotProperty: " + propertyName +
+                             " - Could not find a tool with the ID: " + propertyValue );
+            }
+        }
+    }
+}
+
 function handleSceneReady( params ) {
     sceneID = vwf_view.kernel.application();
     var assetTypeSelector = document.getElementById( "typeselector" );
@@ -115,6 +129,8 @@ function setupTools() {
             selectTool( this );
         }
     }
+
+    vwf_view.kernel.getProperty( sceneID, "activeTool" );
 }
 
 function selectTool( tool ) {
@@ -124,7 +140,7 @@ function selectTool( tool ) {
     tool.className = "toolbutton selected";
     selectedTool = tool;
 
-    vwf_view.kernel.callMethod( sceneID, "setActiveTool", tool.id );
+    vwf_view.kernel.callMethod( sceneID, "setActiveTool", [ tool.id ] );
 }
 
 function addToolsToGroup( groupID, toolIDs ) {
