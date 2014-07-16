@@ -6,4 +6,6 @@
   <block type="graph_subtract"></block>
   <block type="graph_multiply"></block>
   <block type="graph_divide"></block>
+  <block type="graph_right_paren"></block>
+  <block type="graph_left_paren"></block>
 </xml>
