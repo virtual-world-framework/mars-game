@@ -4,6 +4,7 @@ extends: http://vwf.example.com/scene.vwf
 properties:
   backgroundColor: [ 10, 20, 30 ]
   ambientColor: [ 255, 255, 255 ]
+  activeTool: camera
 children:
   graph:
     extends: http://vwf.example.com/graphtool/graph.vwf
@@ -126,10 +127,12 @@ methods:
   setUpListeners:
   selectObject:
   deselectObject:
+  setActiveTool:
 events:
   onSceneReady:
   pointerOver:
   pointerMove:
   pointerDown:
+  pointerClick:
 scripts: 
   - source: editor/scene.js

@@ -1,4 +1,5 @@
 var selectedTool = undefined;
+var sceneID;
 
 vwf_view.firedEvent = function( nodeID, eventName, eventParams ) {
     if ( nodeID === vwf_view.kernel.application() ) {
@@ -11,6 +12,7 @@ vwf_view.firedEvent = function( nodeID, eventName, eventParams ) {
 }
 
 function handleSceneReady( params ) {
+    sceneID = vwf_view.kernel.application();
     var assetTypeSelector = document.getElementById( "typeselector" );
     assetTypeSelector.onchange = ( function() {
             loadAssetList( this.value );
@@ -22,10 +24,10 @@ function handleSceneReady( params ) {
 function loadAsset( assetType, path ) {
     switch ( assetType ) {
         case "maps":
-            vwf_view.kernel.callMethod( vwf_view.kernel.application(), "loadMap", [ path ] );
+            vwf_view.kernel.callMethod( sceneID, "loadMap", [ path ] );
             break;
         default:
-            vwf_view.kernel.callMethod( vwf_view.kernel.application(), "loadObject", [ path ] );
+            vwf_view.kernel.callMethod( sceneID, "loadObject", [ path ] );
             break;
     }
 }
@@ -100,7 +102,7 @@ function retrieveAssetListItems( listPath ) {
 }
 
 function setupTools() {
-    createTransformTools();
+    addToolsToGroup( "transformtools", [ "camera", "translate", "rotate", "raise_lower"] );
 
     var tools = document.getElementsByClassName( "toolbutton" );
     var img;
@@ -121,20 +123,20 @@ function selectTool( tool ) {
     }
     tool.className = "toolbutton selected";
     selectedTool = tool;
+
+    vwf_view.kernel.callMethod( sceneID, "setActiveTool", tool.id );
 }
 
-function createTransformTools() {
-    var container = document.getElementById( "transformtools" );
-    var translate = document.createElement( "div" );
-    var rotate = document.createElement( "div" );
-    var raiseLower = document.createElement( "div" );
+function addToolsToGroup( groupID, toolIDs ) {
+    var container = document.getElementById( groupID );
+    for ( var i = 0; i < toolIDs.length; i++ ) {
+        container.appendChild( createToolButton( toolIDs[ i ] ) );
+    }
+}
 
-    translate.id = "translate";
-    rotate.id = "rotate";
-    raiseLower.id = "raise_lower";
-    translate.className = rotate.className = raiseLower.className = "toolbutton";
-
-    container.appendChild( translate );
-    container.appendChild( rotate );
-    container.appendChild( raiseLower );
+function createToolButton( toolID ) {
+    var tool = document.createElement( "div" );
+    tool.id = toolID;
+    tool.className = "toolbutton";
+    return tool;
 }

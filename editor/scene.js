@@ -1,5 +1,5 @@
 this.objCount = 0;
-this.dragObject = undefined;
+this.selectedObject = undefined;
 
 this.initialize = function() {
     this.camera.transform = [
@@ -170,15 +170,14 @@ this.deleteMap = function() {
 }
 
 this.loadObject = function( path ) {
-    if ( this.dragObject !== undefined ) {
-        this.deleteObject( this.dragObject.name );
+    if ( this.selectedObject !== undefined ) {
+        this.deselectObject();
     }
 
     var objectName = "object_" + this.objCount++;
     var callback = function( object ) {
         this.grid.addToGridFromWorld( object, [ 0, 0, 0 ] );
-        object.select();
-        setDragObject.bind( this )( object );
+        this.selectedObject = object;
     }
 
     this.future( 0 ).createObject( objectName, path, callback );
@@ -187,8 +186,8 @@ this.loadObject = function( path ) {
 this.deleteObject = function( objectName ) {
     var object = this.find( objectName )[ 0 ];
     if ( object !== undefined ) {
-        if ( object.id === this.dragObject.id ) {
-            this.dragObject = undefined;
+        if ( object.id === this.selectedObject.id ) {
+            this.selectedObject = undefined;
         }
         this.children.delete( object );
     }
@@ -206,6 +205,10 @@ this.createObject = function( name, path, callback ) {
     this.children.create( name, objDef, callback );
 }
 
+this.setActiveTool = function( toolID ) {
+    this.activeTool = toolID;
+}
+
 this.pointerMove = function( pointerInfo, pickInfo ) {
     if ( pointerInfo.buttons.left ) {
         this.drag( pointerInfo, pickInfo );
@@ -217,11 +220,15 @@ this.pointerOver = function( pointerInfo, pickInfo ) {
 
 this.pointerDown = function( pointerInfo, pickInfo ) {
     if ( pointerInfo.buttons.left ) {
-        if ( this.dragObject ) {
+        if ( this.selectedObject ) {
             this.drag( pointerInfo, pickInfo );
-        } else {
-            this.deselectObject();
         }
+    }
+}
+
+this.pointerClick = function( pointerInfo, pickInfo ) {
+    if ( pointerInfo.button === "left" ) {
+        this.deselectObject();
     }
 }
 
@@ -232,23 +239,23 @@ this.pointerUp = function( pointerInfo, pickInfo ) {
 }
 
 this.drag = function( pointerInfo, pickInfo ) {
-    if ( !this.dragObject ) {
+    if ( !this.selectedObject ) {
         return;
     }
 
-    this.dragObject.terrainName = this.map.name;
+    this.selectedObject.terrainName = this.map.name;
     var coord, curCoord;
 
-    if ( pickInfo.pickID !== this.dragObject.id ) {
+    if ( pickInfo.pickID !== this.selectedObject.id ) {
         coord = this.grid.getGridFromWorld( pickInfo.globalPosition );
-        // this.grid.addToGridFromWorld( this.dragObject, pickInfo.globalPosition );
-        // this.dragObject.translateTo( pickInfo.globalPosition );
+        // this.grid.addToGridFromWorld( this.selectedObject, pickInfo.globalPosition );
+        // this.selectedObject.translateTo( pickInfo.globalPosition );
     } else {
         var origin = pickInfo.globalSource;
         var normal = pickInfo.pointerVector;
         if ( origin && normal ) {
             var intersects = this.raycast( origin, normal, 0, Infinity, true, this.map );
-            var nearest = findNearestOther( this.dragObject, intersects );
+            var nearest = findNearestOther( this.selectedObject, intersects );
             if ( nearest ) {
                 var point = [
                     nearest.point.x,
@@ -256,38 +263,38 @@ this.drag = function( pointerInfo, pickInfo ) {
                     nearest.point.z
                 ];
                 coord = this.grid.getGridFromWorld( point );
-                // this.grid.addToGridFromWorld( this.dragObject, point );
-                // this.dragObject.translateTo( point );
+                // this.grid.addToGridFromWorld( this.selectedObject, point );
+                // this.selectedObject.translateTo( point );
             }
         }
     }
 
-    curCoord = this.dragObject.currentGridSquare;
+    curCoord = this.selectedObject.currentGridSquare;
 
     if ( coord[ 0 ] === curCoord[ 0 ] && coord[ 1 ] === curCoord[ 1 ] ) {
         return;
     }
 
-    if ( this.dragObject.isOnGrid ) {
-        this.grid.removeFromGrid( this.dragObject, this.dragObject.currentGridSquare );
+    if ( this.selectedObject.isOnGrid ) {
+        this.grid.removeFromGrid( this.selectedObject, this.selectedObject.currentGridSquare );
     }
 
-    this.grid.addToGridFromCoord( this.dragObject, coord );
+    this.grid.addToGridFromCoord( this.selectedObject, coord );
     this.editTool.grid.moveGridOrigin( coord );
 }
 
 this.stopDrag = function( pointerInfo, pickInfo ) {
-    if ( !this.dragObject ) {
+    if ( !this.selectedObject ) {
         return;
     }
 
-    setDragObject.bind( this )();
+    this.selectedObject = undefined;
 }
 
 this.selectObject = function( id ) {
     var object;
 
-    if ( this.dragObject && this.dragObject.id === id ) {
+    if ( this.selectedObject && this.selectedObject.id === id ) {
         return;
     }
 
@@ -303,10 +310,11 @@ this.selectObject = function( id ) {
 this.deselectObject = function() {
     this.removeEditToolGrid();
     this.editTool.selectedObjectId = undefined;
+    this.selectedObject = undefined;
 }
 
-function setDragObject( object ) {
-    this.dragObject = object;
+function setselectedObject( object ) {
+    this.selectedObject = object;
 }
 
 function findNearestOther( dragObj, picks ) {
