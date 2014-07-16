@@ -116,16 +116,19 @@ properties:
       soundGroup: VO
       subtitle: "[MC]: OK, here is the deal. You need to find another Rover that has wandered off somewhere. Navigate around and look for a sign of its whereabouts."
       groupReplacementMethod: queue
+      queueDelayTime: 1.5
     - soundName: "L2VO2_Rover"
       soundURL: "assets/sounds/VO/L2VO2_Rover_m.mp3"
       soundGroup: VO
       subtitle: "[ROVER]: I see the lost rover’s tracks. Now I need to plot a course to match its course."
       groupReplacementMethod: queue
+      queueDelayTime: 2
     - soundName: "L2VO3_Rover"
       soundURL: "assets/sounds/VO/L2VO3_Rover_m.mp3"
       soundGroup: VO
       subtitle: "[ROVER]: I need to match course, got to find a function that matches these tracks."
       groupReplacementMethod: queue
+      queueDelayTime: 2
     - soundName: "L3VO1_Control"
       soundURL: "assets/sounds/VO/L3VO1_Control_f.mp3"
       soundGroup: VO
