@@ -110,7 +110,7 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                     this.kernel.setProperty( graphLines[ "blocklyLine" ].ID, "lineFunction", currentCode );
                 }
                 break;
-            case "blockFired":
+            case "blockExecuted":
                 var blockName = eventArgs[ 0 ];
                 var blockID = eventArgs[ 1 ];
                 if ( blockName ) {

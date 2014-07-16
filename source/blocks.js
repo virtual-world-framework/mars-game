@@ -590,7 +590,7 @@ function constructBlockExecutedCall( block, action ) {
   var blockCode = " { 'blockName': '" + block + "', 'id': " + block.id + "}";
   var actionCode = "{ 'nodeID': '" + action.nodeID + "', 'methodName': '" + action.methodName + "', ";
   actionCode += ( action.args.length > 0 ) ? "'args': " + action.args + " } ] );\n" : "'args': [] }";
-  var returnCode = "vwf.callMethod( '" + vwf_view.kernel.application() + "', 'blockExecuted', [ " + blockCode + "," +
+  var returnCode = "vwf.callMethod( '" + vwf_view.kernel.application() + "', 'executeBlock', [ " + blockCode + "," +
                     actionCode + "] );\n";  
   return returnCode; 
 }
