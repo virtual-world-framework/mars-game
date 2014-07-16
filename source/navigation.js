@@ -57,7 +57,7 @@ function handleMouseNavigation( deltaX, deltaY, navObject, navMode, rotationSpee
                 var degreesToRadians = Math.PI / 180;
                 var rotationSpeedRadians = degreesToRadians * rotationSpeed;
 
-                // Then find the pitch
+                // Find the pitch
                 var pitchAxis = new THREE.Vector3( navThreeObject.matrixWorld.elements[ 0 ],
                                                    navThreeObject.matrixWorld.elements[ 1 ],
                                                    0 );
@@ -74,7 +74,7 @@ function handleMouseNavigation( deltaX, deltaY, navObject, navMode, rotationSpee
                     navThreeObject.matrixWorld.multiplyMatrices( pitchDeltaMatrix, navThreeObject.matrixWorld );
                 }
 
-                // Find the yaw and apply it
+                // Then find the yaw and apply it
                 var yawRadians = deltaX * rotationSpeedRadians;
                 var yawQuat = new THREE.Quaternion();
                 yawQuat.setFromAxisAngle( new THREE.Vector3( 0, 0, 1 ), yawRadians );
@@ -155,7 +155,7 @@ function moveNavObject( dx, dy, navObject, navMode, rotationSpeed, translationSp
             navThreeObject.matrixWorld.elements[ 13 ] -= orbitTarget[ 1 ];
             navThreeObject.matrixWorld.elements[ 14 ] -= orbitTarget[ 2 ];
 
-            // Then find the pitch
+            // Find the pitch
             var pitchAxis = new THREE.Vector3( navThreeObject.matrixWorld.elements[ 0 ],
                                                navThreeObject.matrixWorld.elements[ 1 ],
                                                0 );
@@ -172,7 +172,7 @@ function moveNavObject( dx, dy, navObject, navMode, rotationSpeed, translationSp
                 navThreeObject.matrixWorld.multiplyMatrices( pitchDeltaMatrix, navThreeObject.matrixWorld );
             }
 
-            // Find the yaw and apply it
+            // Then find the yaw and apply it
             var yawRadians = dx * rotationSpeedRadians;
             var yawQuat = new THREE.Quaternion();
             yawQuat.setFromAxisAngle( new THREE.Vector3( 0, 0, 1 ), yawRadians );
