@@ -45,20 +45,28 @@ body {
 }
 
 .toolbutton {
-    width: 40px;
-    height: 40px;
+    width: 36px;
+    height: 36px;
     display: inline-block;
     text-align: center;
-    margin-left: 2px;
-    background-image: url( "../assets/images/editor/tool_bg.png" );
+    background-color: rgb( 225, 225, 225 );
+    border: 1px solid rgb( 200, 200, 200 );
+    border-radius: 4px;
+    margin-right: 2px;
+    margin-top: 1px;
 }
 
 .toolbutton.selected {
-    background-image: url( "../assets/images/editor/tool_bg_selected.png" );
+    background-color: rgb( 255, 255, 255 );
+    border: 1px solid rgb( 50, 90, 150 );
+}
+
+.toolbutton:first-child {
+    margin-left: 2px;
 }
 
 .toolbutton img {
-    margin-top: 4px;
+    margin-top: 2px;
 }
 
 .events {

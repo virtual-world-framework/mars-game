@@ -100,6 +100,8 @@ function retrieveAssetListItems( listPath ) {
 }
 
 function setupTools() {
+    createTransformTools();
+
     var tools = document.getElementsByClassName( "toolbutton" );
     var img;
 
@@ -119,4 +121,20 @@ function selectTool( tool ) {
     }
     tool.className = "toolbutton selected";
     selectedTool = tool;
+}
+
+function createTransformTools() {
+    var container = document.getElementById( "transformtools" );
+    var translate = document.createElement( "div" );
+    var rotate = document.createElement( "div" );
+    var raiseLower = document.createElement( "div" );
+
+    translate.id = "translate";
+    rotate.id = "rotate";
+    raiseLower.id = "raise_lower";
+    translate.className = rotate.className = raiseLower.className = "toolbutton";
+
+    container.appendChild( translate );
+    container.appendChild( rotate );
+    container.appendChild( raiseLower );
 }
