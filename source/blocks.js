@@ -318,7 +318,7 @@ Blockly.JavaScript[ 'graph_get_x' ] = function( block ) {
   if ( argument0[0] === '(' ){
     return [ 'x' + '*' + argument0 , Blockly.JavaScript.ORDER_ATOMIC ];
   } else if ( !isNaN( argument0[0] ) ) {
-    return [ 'x' + '+' + argument0 , Blockly.JavaScript.ORDER_ATOMIC ];
+    return [ 'x' + '*' + argument0 , Blockly.JavaScript.ORDER_ATOMIC ];
   } else {
     return [ 'x' + argument0 , Blockly.JavaScript.ORDER_ATOMIC ];
   }
