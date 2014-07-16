@@ -271,7 +271,7 @@ Blockly.JavaScript['math_number_output' ] = function( block ) {
   
   var dropdown_value = block.getFieldValue('VALUE');
   
-  if ( isNaN( dropdown_value ) ){
+  if ( isNaN( dropdown_value ) || dropdown_value === "" ){
     dropdown_value = 0;
     block.setFieldValue('0','VALUE');
   }
@@ -359,7 +359,7 @@ Blockly.JavaScript[ 'graph_add' ] = function( block ) {
       Blockly.JavaScript.ORDER_ATOMIC) || '0';
 
   if ( block.getFieldValue('VALUE') === '-' && argument0[0] === '-' ){
-    return [ "- (" + argument0 + ")" , Blockly.JavaScript.ORDER_ATOMIC ];
+    return [ "+" + argument0.slice( 1 ), Blockly.JavaScript.ORDER_ATOMIC ];
   } else {
     return [ block.getFieldValue('VALUE') + argument0 , Blockly.JavaScript.ORDER_ATOMIC ];
   }
@@ -396,7 +396,7 @@ Blockly.JavaScript['graph_subtract'] = function( block ) {
       Blockly.JavaScript.ORDER_ATOMIC) || '0';
 
   if ( block.getFieldValue('VALUE') === '-' && argument0[0] === '-' ){
-    return [ "- (" + argument0 + ")", Blockly.JavaScript.ORDER_ATOMIC ];
+    return [ "+" + argument0.slice( 1 ), Blockly.JavaScript.ORDER_ATOMIC ];
   } else {
     return [ block.getFieldValue('VALUE') + argument0 , Blockly.JavaScript.ORDER_ATOMIC ];
   }
