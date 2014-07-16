@@ -205,7 +205,9 @@ function calcGridBounds( grid ) {
 }
 
 this.blockExecuted = function ( block, action ) {
-    //this.blockFired( block );
+    var blockName = block[ 0 ];
+    var blockID = block[ 1 ];
+    this.blockFired( blockName, blockID );
 
     var nodeID = action[ 0 ];
     var methodName = action[ 1 ];

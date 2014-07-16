@@ -593,9 +593,11 @@ Blockly.JavaScript[ 'graph_set_y' ] = function( block ) {
 };
 
 function constructBlockExecutedCall( block, action ) {
-  var returnCode = "vwf.callMethod( '" + vwf_view.kernel.application() + "', 'blockExecuted', [ '" + 
-                   block + "', { 'nodeID': '" + action.nodeID + "', 'methodName': '" + action.methodName + "', ";
-  returnCode += ( action.args.length > 0 ) ? "'args': " + action.args + " } ] );\n" : "'args': [] } ] );\n";  
+  var blockCode = " { 'blockName': '" + block + "', 'id': " + block.id + "}";
+  var actionCode = "{ 'nodeID': '" + action.nodeID + "', 'methodName': '" + action.methodName + "', ";
+  actionCode += ( action.args.length > 0 ) ? "'args': " + action.args + " } ] );\n" : "'args': [] }";
+  var returnCode = "vwf.callMethod( '" + vwf_view.kernel.application() + "', 'blockExecuted', [ " + blockCode + "," +
+                    actionCode + "] );\n";  
   return returnCode; 
 }
 

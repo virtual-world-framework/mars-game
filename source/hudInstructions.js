@@ -178,10 +178,12 @@ function createBlocklyStatus() {
     status.defaultDraw = status.draw;
     status.lastUpdateTime = vwf_view.kernel.time();
     status.updateIntervalTime = 0.2;
-    status.offsetY = 0;
     status.spacing = 10;
+    status.toBePushed = [];
     hud.add( status, "right", "bottom", { "x": 150, "y": -60 } );
     addBlockToStatusList( "forward", "assets/images/hud/blockly_move_forward.png" );
+    addBlockToStatusList( "turnLeft", "assets/images/hud/blockly_turn_left.png" );
+    addBlockToStatusList( "turnRight", "assets/images/hud/blockly_turn_right.png" );
 }
 
 function addBlockToStatusList( name, imageSrc ) {
@@ -396,7 +398,7 @@ function drawBlocklyStatus( context, position ) {
             context.globalAlpha = this.blockStack[ i ].alpha;
             var block = this.blockImages[ this.blockStack[ i ].name ];
             if ( block ) {
-                context.drawImage( block, position.x, position.y - ( i * ( block.height + this.spacing ) + this.offsetY ) );
+                context.drawImage( block, position.x, position.y - ( i * ( block.height + this.spacing ) ) );
             }
         }
         context.globalAlpha = 1;
@@ -573,21 +575,23 @@ function stopElementBlinking( elementID ) {
 
 function pushNextBlocklyStatus( blockName ) {
     var statusElem = hud.elements.blocklyStatus;
-    if ( statusElem ) {
-//maintain pushlist?
-        
-        if ( statusElem.draw === statusElem.defaultDraw && statusElem.blockStack.length !== 0 ){
-            statusElem.offsetY = 0;
+    if ( statusElem && statusElem.blockImages.hasOwnProperty( blockName ) ) {
+
+        statusElem.toBePushed.push( { "name": blockName, "alpha": 1 } );
+        if ( statusElem.draw === statusElem.defaultDraw ){
+            var offsetY = 0;
             var newBlockHeight = statusElem.blockImages[ blockName ].height;
             var interval = 7;
             statusElem.draw = ( function( context, position ) {
                 var time = vwf_view.kernel.time();
                 if ( time - this.lastUpdateTime > this.updateIntervalTime ) {
-                    this.offsetY += newBlockHeight / interval; //new block height / iterations
-                    if ( this.offsetY > newBlockHeight + this.spacing ) { //new block height
-                        this.offsetY = 0;
-                        this.draw = this.defaultDraw;
-                        this.blockStack.unshift( { "name": blockName, "alpha": 1 } );
+                    offsetY += newBlockHeight / interval;
+                    if ( offsetY > newBlockHeight + this.spacing ) {
+                        offsetY = 0;
+                        this.blockStack.unshift( this.toBePushed.pop() );
+                        if ( this.toBePushed.length === 0 ) {
+                            this.draw = this.defaultDraw;
+                        }
                         return;
                     }                    
                     for ( var i = 0; i < this.blockStack.length; i++ ) {
@@ -602,16 +606,22 @@ function pushNextBlocklyStatus( blockName ) {
                     context.globalAlpha = this.blockStack[ i ].alpha;
                     var block = this.blockImages[ this.blockStack[ i ].name ];
                     if ( block ) {
-                        context.drawImage( block, position.x, position.y - ( i * ( block.height + this.spacing ) + this.offsetY ) );
+                        context.drawImage( block, position.x, position.y - ( i * ( block.height + this.spacing ) + offsetY ) );
                     }
                 }
                 context.globalAlpha = 1;                
             } );
+        } 
+    }
+}
 
-        } else {
-            //add to pushList?
-            statusElem.blockStack.unshift( { "name": blockName, "alpha": 1 } );
-        }
+function clearBlocklyStatus() {
+    if ( hud ) {
+        var statusElem = hud.elements.blocklyStatus;
+        if ( statusElem ) {
+            statusElem.blockStack = [];
+            statusElem.toBePushed = [];
+        }         
     }
 }
 

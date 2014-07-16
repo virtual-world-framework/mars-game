@@ -112,17 +112,25 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 break;
             case "blockFired":
                 var blockName = eventArgs[ 0 ];
+                var blockID = eventArgs[ 1 ];
                 if ( blockName ) {
                     pushNextBlocklyStatus( blockName );
+                }
+                if ( blockID ) {
+                    var workspace = Blockly.getMainWorkspace();
+                    var block = workspace ? workspace.getBlockById( blockID ) : undefined;
+                    if ( block ) {
+                        block.select();
+                    }
                 }
                 break;
 
             case "scenarioReset":
                 resetStatusDisplay();
             case "scenarioChanged":
-
                 removePopup();
                 removeFailScreen();
+                clearBlocklyStatus();
                 gridBounds = eventArgs[ 1 ];
                 break;
 
