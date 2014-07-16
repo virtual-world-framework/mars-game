@@ -57,6 +57,10 @@ function handleMouseNavigation( deltaX, deltaY, navObject, navMode, rotationSpee
                 var degreesToRadians = Math.PI / 180;
                 var rotationSpeedRadians = degreesToRadians * rotationSpeed;
 
+                navThreeObject.matrixWorld.elements[ 12 ] -= orbitTarget[ 0 ];
+                navThreeObject.matrixWorld.elements[ 13 ] -= orbitTarget[ 1 ];
+                navThreeObject.matrixWorld.elements[ 14 ] -= orbitTarget[ 2 ];
+
                 // Find the pitch
                 var pitchAxis = new THREE.Vector3( navThreeObject.matrixWorld.elements[ 0 ],
                                                    navThreeObject.matrixWorld.elements[ 1 ],
@@ -82,7 +86,9 @@ function handleMouseNavigation( deltaX, deltaY, navObject, navMode, rotationSpee
                 yawDeltaMatrix.makeRotationFromQuaternion( yawQuat );
                 navThreeObject.matrixWorld.multiplyMatrices( yawDeltaMatrix, navThreeObject.matrixWorld );
 
-                }
+                navThreeObject.matrixWorld.elements[ 12 ] += orbitTarget[ 0 ];
+                navThreeObject.matrixWorld.elements[ 13 ] += orbitTarget[ 1 ];
+                navThreeObject.matrixWorld.elements[ 14 ] += orbitTarget[ 2 ];
             }
             break;
     }
