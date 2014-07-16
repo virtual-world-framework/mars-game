@@ -5,6 +5,10 @@ body {
 #blocklyWrapper {
     width: 560px;
     height: 812px;
+    min-height: 200px;
+    max-height: 812px;
+    min-width: 470px;
+    max-width: 812px;
     position: absolute;
     background-color: rgb( 50, 90, 150);
     border-radius: 8px;
@@ -33,9 +37,20 @@ body {
     cursor: default;
 }
 
-#blocklyDiv {
+#blocklyScrollDiv {
     height: 700px;
-    width: 560px;
+    min-height: 88px;
+    max-height: 700px;
+    min-width: 470px;
+    max-width: 812px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    background-color: white;
+}
+
+#blocklyDiv {
+    height: 1000px;
+    width: 100%;
     overflow: hidden;
 }
 
@@ -347,4 +362,21 @@ body {
     width: 100%;
     height: 100%;
     z-index: 2500;
+}
+
+.tooltip {
+    background-color: white;
+    font-family: Gadget, sans-serif;
+    text-align: center;
+    border-radius: 5px;
+    padding: 5px;
+    position: absolute;
+    overflow: hidden;
+    display: inline-block;
+    border: 1px solid rgb( 0, 30, 60 );
+    user-select: none;
+    -webkit-user-select: none;  /* Chrome all / Safari all */
+    -moz-user-select: none;     /* Firefox all */
+    -ms-user-select: none;      /* IE 10+ */
+    cursor: default;
 }

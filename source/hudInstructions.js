@@ -440,9 +440,12 @@ function clickBlockly( event ) {
 }
 
 function toggleGraphDisplay( event ) {
+    var cameraNode = vwf_view.kernel.find( "", "//camera" )[ 0 ];
     var graphID = vwf_view.kernel.find( "", "//blocklyGraph" )[ 0 ];
-    if ( graphID ) {
+    if ( cameraNode && graphID ) {
         vwf_view.kernel.callMethod( graphID, "toggleGraphVisibility" );
+        vwf_view.kernel.setProperty( cameraNode, "pointOfView", "topDown" );
+        isVisible.graph = !isVisible.graph;
     }
 }
 
@@ -452,6 +455,14 @@ function switchTarget( event ) {
 }
 
 function selectCameraMode( event ) {
+    if ( this.mode !== "topDown" ) {
+        if ( isVisible.graph ) {
+            toggleGraphDisplay( event );
+        }
+        if ( isVisible.tiles ) {
+            toggleTiles( event );
+        }
+    }
     var cameraNode = vwf_view.kernel.find( "", "//camera" )[ 0 ];
     vwf_view.kernel.setProperty( cameraNode, "pointOfView", this.mode );
 }
@@ -468,9 +479,12 @@ function showHelp( event ) {
 }
 
 function toggleTiles( event ) {
+    var cameraNode = vwf_view.kernel.find( "", "//camera" )[ 0 ];
     var graphTilesID = vwf_view.kernel.find( "", "//gridTileGraph" )[ 0 ];
-    if ( graphTilesID ) {
+    if ( cameraNode && graphTilesID ) {
         vwf_view.kernel.callMethod( graphTilesID, "toggleTileVisibility" );
+        vwf_view.kernel.setProperty( cameraNode, "pointOfView", "topDown" );
+        isVisible.tiles = !isVisible.tiles;
     }
 }
 

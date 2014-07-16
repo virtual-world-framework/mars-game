@@ -11,6 +11,7 @@ function setUpBlocklyPeripherals() {
     var blocklyHelpButton = document.createElement( "div" );
     var blocklyHandle = document.createElement( "div" );
     var blocklyHandleIcon = document.createElement( "div" );
+    var blocklyScrollDiv = document.createElement( "div" );
     var runStopContainer = document.createElement( "div" );
     var runButton = document.getElementById( "runButton" );
     var stopButton = document.createElement( "div" );
@@ -18,7 +19,8 @@ function setUpBlocklyPeripherals() {
     blocklyFooter.id = "blocklyFooter";
     blocklyHandle.id = "blocklyHandle";
     blocklyHandleIcon.id = "blocklyHandleIcon";
-    stopButton.id = "stopButton";
+    blocklyScrollDiv.id = "blocklyScrollDiv";
+    stopButton.id = "stopButton"; 
 
     $( blocklyHandle ).append( blocklyHandleIcon );
     $( "#blocklyWrapper-top" ).append( blocklyHandle );
@@ -44,6 +46,11 @@ function setUpBlocklyPeripherals() {
                 element.position.top = bottom;
             }
         }
+    } );
+    $( "#blocklyWrapper" ).resizable( {
+        alsoResize: "#blocklyScrollDiv",
+        handles: 'n, s',
+        stop: keepBlocklyWithinBounds
     } );
 
     ramBar.id = "ramBar";
@@ -85,6 +92,7 @@ function setUpBlocklyPeripherals() {
         vwf_view.kernel.callMethod( vwf_view.kernel.application(), "stopAllExecution" );
     } );
 
+    $( "#blocklyDiv" ).wrap( blocklyScrollDiv );
     $( "#blocklyWrapper-top" ).append( blocklyCloseBtn );
     $( "#blocklyWrapper" ).append( blocklyHelpButton );
     $( blocklyFooter ).append( ramBar );
@@ -94,6 +102,45 @@ function setUpBlocklyPeripherals() {
     $( "#blocklyWrapper" ).append( blocklyFooter );
     ramBar.appendChild( currentRam );
     ramBar.appendChild( ramBarCount );
+
+    // Ensure that the blockly ui is accessible on smaller screens
+    resizeBlockly();
+
+    window.addEventListener( 'resize', keepBlocklyWithinBounds );
+}
+
+function resizeBlockly() {
+    var maxBlocklyHeight = parseInt( $( "#blocklyWrapper" ).css( "max-height") );
+    var currentHeight = parseInt( $( "#blocklyWrapper" ).css( "height") );
+    var height = window.innerHeight * 0.9 <= maxBlocklyHeight ? Math.floor( window.innerHeight * 0.9 ): maxBlocklyHeight;
+
+    if ( height !== currentHeight ) {
+        var wrapperDifference = parseInt( $( "#blocklyWrapper-top" ).css( "height") ) + parseInt( $( "#blocklyFooter" ).css( "height") );        
+        $( "#blocklyWrapper" ).css( "height", height + "px" );
+        $( "#blocklyScrollDiv" ).css( "height", ( height - wrapperDifference ) + "px" );
+        centerBlocklyWindow();
+    }
+}
+
+function keepBlocklyWithinBounds() {
+    var handle = document.getElementById( "blocklyHandle" );
+    var wrapper = document.getElementById( "blocklyWrapper" );
+    if ( handle && wrapper ) {
+        var width = wrapper.offsetWidth;
+        var bottom = window.innerHeight - handle.offsetHeight;
+        var left = width * -0.5;
+        var right = window.innerWidth - width * 0.5;        
+        if ( parseInt( wrapper.style.top ) > bottom ) {
+            wrapper.style.top = bottom + "px";
+        } else if ( parseInt( wrapper.style.top ) < 0 ) {
+            wrapper.style.top = 0 + "px";
+        }
+        if ( parseInt( wrapper.style.left ) < left ) {
+            wrapper.style.left = left + "px";
+        } else if ( parseInt ( wrapper.style.left ) > right ) {
+            wrapper.style.left = right + "px";
+        }
+    }
 }
 
 function updateBlocklyRamBar() {
