@@ -52,6 +52,38 @@ function handleMouseNavigation( deltaX, deltaY, navObject, navMode, rotationSpee
             break;
 
         case "thirdPerson":
+            if ( mouseDown.right ) {
+                var navThreeObject = navObject.threeObject;
+                var degreesToRadians = Math.PI / 180;
+                var rotationSpeedRadians = degreesToRadians * rotationSpeed;
+
+                // Then find the pitch
+                var pitchAxis = new THREE.Vector3( navThreeObject.matrixWorld.elements[ 0 ],
+                                                   navThreeObject.matrixWorld.elements[ 1 ],
+                                                   0 );
+                var pitchRadians = -deltaY * rotationSpeedRadians;
+                var pitchQuat = new THREE.Quaternion();
+                pitchQuat.setFromAxisAngle( pitchAxis, pitchRadians );
+                var pitchDeltaMatrix = new THREE.Matrix4();
+                pitchDeltaMatrix.makeRotationFromQuaternion( pitchQuat );
+                var tempMatrix = new THREE.Matrix4();
+                tempMatrix.multiplyMatrices( pitchDeltaMatrix, navThreeObject.matrixWorld );
+
+                //Constrain the pitch to 0-90 degrees
+                if ( !( tempMatrix.elements[ 10 ] < 0 || tempMatrix.elements[ 10 ] > 0.9 ) ) {
+                    navThreeObject.matrixWorld.multiplyMatrices( pitchDeltaMatrix, navThreeObject.matrixWorld );
+                }
+
+                // Find the yaw and apply it
+                var yawRadians = deltaX * rotationSpeedRadians;
+                var yawQuat = new THREE.Quaternion();
+                yawQuat.setFromAxisAngle( new THREE.Vector3( 0, 0, 1 ), yawRadians );
+                var yawDeltaMatrix = new THREE.Matrix4();
+                yawDeltaMatrix.makeRotationFromQuaternion( yawQuat );
+                navThreeObject.matrixWorld.multiplyMatrices( yawDeltaMatrix, navThreeObject.matrixWorld );
+
+                }
+            }
             break;
     }
 }
@@ -113,6 +145,44 @@ function moveNavObject( dx, dy, navObject, navMode, rotationSpeed, translationSp
             break;
 
         case "thirdPerson":
+
+            var navThreeObject = navObject.threeObject;
+            var degreesToRadians = Math.PI / 180;
+            var rotationSpeedRadians = degreesToRadians * rotationSpeed * 
+                                        Math.min( msSinceLastFrame * 0.001, 0.5 );
+
+            navThreeObject.matrixWorld.elements[ 12 ] -= orbitTarget[ 0 ];
+            navThreeObject.matrixWorld.elements[ 13 ] -= orbitTarget[ 1 ];
+            navThreeObject.matrixWorld.elements[ 14 ] -= orbitTarget[ 2 ];
+
+            // Then find the pitch
+            var pitchAxis = new THREE.Vector3( navThreeObject.matrixWorld.elements[ 0 ],
+                                               navThreeObject.matrixWorld.elements[ 1 ],
+                                               0 );
+            var pitchRadians = -dy * rotationSpeedRadians;
+            var pitchQuat = new THREE.Quaternion();
+            pitchQuat.setFromAxisAngle( pitchAxis, pitchRadians );
+            var pitchDeltaMatrix = new THREE.Matrix4();
+            pitchDeltaMatrix.makeRotationFromQuaternion( pitchQuat );
+            var tempMatrix = new THREE.Matrix4();
+            tempMatrix.multiplyMatrices( pitchDeltaMatrix, navThreeObject.matrixWorld );
+
+            //Constrain the pitch between 0 and ~90 degrees
+            if ( !( tempMatrix.elements[ 10 ] < 0 || tempMatrix.elements[ 10 ] > 0.9 ) ) {
+                navThreeObject.matrixWorld.multiplyMatrices( pitchDeltaMatrix, navThreeObject.matrixWorld );
+            }
+
+            // Find the yaw and apply it
+            var yawRadians = dx * rotationSpeedRadians;
+            var yawQuat = new THREE.Quaternion();
+            yawQuat.setFromAxisAngle( new THREE.Vector3( 0, 0, 1 ), yawRadians );
+            var yawDeltaMatrix = new THREE.Matrix4();
+            yawDeltaMatrix.makeRotationFromQuaternion( yawQuat );
+            navThreeObject.matrixWorld.multiplyMatrices( yawDeltaMatrix, navThreeObject.matrixWorld );
+
+            navThreeObject.matrixWorld.elements[ 12 ] += orbitTarget[ 0 ];
+            navThreeObject.matrixWorld.elements[ 13 ] += orbitTarget[ 1 ];
+            navThreeObject.matrixWorld.elements[ 14 ] += orbitTarget[ 2 ];
             break;
     }
 
@@ -133,6 +203,9 @@ function rotateNavObject( direction, navObject, navMode, rotationSpeed, translat
 function requestPointerLock( navMode, mouseDown ) {
 
     if ( mouseDown.right && ( navMode === "walk" ) ) {
+        return true;
+    }
+    if ( mouseDown.right && ( navMode === "thirdPerson" ) ) {
         return true;
     }
     return false;

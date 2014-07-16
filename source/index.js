@@ -9,11 +9,15 @@ var mainRover = undefined;
 var blocklyGraphID = undefined;
 var alertNodeID = undefined;
 var statusNodeID = undefined;
-var gridBounds;
 var isVisible = {
     graph: false,
     tiles: false
 };
+var gridBounds = {
+    bottomLeft: undefined,
+    topRight: undefined
+};
+var orbitTarget = undefined;
 
 function onRun() {
     vwf_view.kernel.setProperty( currentBlocklyNodeID, "blockly_executing", true );
@@ -87,6 +91,14 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 var stopButton = document.getElementById( "stopButton" );
                 stopButton.className = "disabled";
                 break;
+
+            case "transformChanged":
+                if ( nodeID === vwf_view.kernel.find( "", targetPath )[ 0 ] ) {
+                    var targetTransform = eventArgs[ 0 ];
+                    if ( targetTransform ) {
+                        orbitTarget = [ targetTransform[ 12 ], targetTransform[ 13 ], targetTransform[ 14 ] ];
+                    }
+                }
         }
     } else if ( nodeID === this.kernel.application() ) {
         
