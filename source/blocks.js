@@ -359,7 +359,7 @@ Blockly.JavaScript[ 'graph_add' ] = function( block ) {
       Blockly.JavaScript.ORDER_ATOMIC) || '0';
 
   if ( block.getFieldValue('VALUE') === '-' && argument0[0] === '-' ){
-    return [ -( argument0 ) , Blockly.JavaScript.ORDER_ATOMIC ];
+    return [ "- (" + argument0 + ")" , Blockly.JavaScript.ORDER_ATOMIC ];
   } else {
     return [ block.getFieldValue('VALUE') + argument0 , Blockly.JavaScript.ORDER_ATOMIC ];
   }
@@ -396,7 +396,7 @@ Blockly.JavaScript['graph_subtract'] = function( block ) {
       Blockly.JavaScript.ORDER_ATOMIC) || '0';
 
   if ( block.getFieldValue('VALUE') === '-' && argument0[0] === '-' ){
-    return [ -( argument0 ), Blockly.JavaScript.ORDER_ATOMIC ];
+    return [ "- (" + argument0 + ")", Blockly.JavaScript.ORDER_ATOMIC ];
   } else {
     return [ block.getFieldValue('VALUE') + argument0 , Blockly.JavaScript.ORDER_ATOMIC ];
   }
