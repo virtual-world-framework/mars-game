@@ -56,38 +56,32 @@ properties:
       soundURL: ""
       isLooping: true
       isLayered: true
-      initialVolume: 1.0
       soundDefinitions:
         - soundName: "objectRoverMotor"
           soundURL: "assets/sounds/sfx/objectRoverMotor_10.ogg"
           isLooping: true
           isLayered: false
-          initialVolume: 1.0
         - soundName: "objectRoverMovementGroundCrunch"
           soundURL: "assets/sounds/sfx/objectRoverMovementGroundCrunch_01.ogg"
           isLooping: true
           isLayered: false
-          initialVolume: 1.0
     - soundName: "environmentWind"
       soundURL: ""
       isLooping: true
       isLayered: true
       playOnLoad: false
       allowMultiplay: false
-      initialVolume: 1.0
       soundDefinitions:
         - soundName: "environmentWind_01"
           soundURL: "assets/sounds/sfx/environmentWind_01.ogg"
           isLooping: true
           isLayered: false
           allowMultiplay: false
-          initialVolume: 1.0
         - soundName: "environmentWind_02"
           soundURL: "assets/sounds/sfx/environmentWind_02.ogg"
           isLooping: true
           isLayered: false
           allowMultiplay: false
-          initialVolume: 1.0
     - soundName: "L1VO1_Rover"
       soundURL: "assets/sounds/VO/L1VO1_Rover_m.mp3"
       soundGroup: VO
