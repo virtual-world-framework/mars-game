@@ -480,8 +480,6 @@ Blockly.Blocks['graph_left_paren'] = {
     this.appendValueInput('INPUT')
         .appendField('(');
     this.setOutput(true, 'LeftParenthesis');
-    this.setTooltip( "Left Parenthesis" );
-    this.setOutput(true, 'VALUE');
     var thisBlock = this;
     this.setTooltip( function() {
       var content = {
@@ -518,7 +516,6 @@ Blockly.Blocks['graph_right_paren'] = {
     this.appendValueInput('INPUT')
         .appendField(')');
     this.setOutput(true, 'RightParenthesis');
-    this.setOutput(true, 'VALUE');
     var thisBlock = this;
     this.setTooltip( function() {
       var content = {
