@@ -4,113 +4,84 @@ properties:
   allSoundsLoaded: false
   soundSet:
     - soundName: "musicStandardGameplay"
-      soundURL: ""
+      soundURL: "assets/sounds/music/musicStandardGameplayLoopFullMix.ogg"
       isLooping: true
-      isLayered: true
-      playOnLoad: false
-      initialVolume: 0.4
+      # initialVolume: 0.4
       allowMultiplay: false
-      soundGroup: music
-      groupReplacementMethod: cut
-      soundDefinitions:
-        - soundName: "musicStandardGameplayLoopLayer_01"
-          soundURL: "assets/sounds/music/musicStandardGameplayLoopLayer_01.ogg"
-          isLooping: true
-          fadeIn: true
-          allowMultiplay: false
-          initialVolume: 0.4
-        - soundName: "musicStandardGameplayLoopLayer_02"
-          soundURL: "assets/sounds/music/musicStandardGameplayLoopLayer_02.ogg"
-          isLooping: true
-          fadeIn: true
-          allowMultiplay: false
-          initialVolume: 0.4  
     - soundName: "musicMenuLoop"
       soundURL: "assets/sounds/music/musicMenuLoop.ogg"
       isLooping: true
-      isLayered: false
-      initialVolume: 1.0
       allowMultiplay: false
-      soundGroup: music
-      groupReplacementMethod: cut
     - soundName: "musicStoryScreen"
       soundURL: "assets/sounds/music/musicStoryScreenLoopFullMix.ogg"
       isLooping: true
-      isLayered: false
-      initialVolume: 1.0
       allowMultiplay: false
-      soundGroup: music
-      groupReplacementMethod: cut
     - soundName: "musicFailure"
       soundURL: "assets/sounds/music/musicFailure_01.ogg"
+      allowMultiplay: false
     - soundName: "musicSuccess"
       soundURL: "assets/sounds/music/musicSuccess_01.ogg"
-    - soundName: "uiBlockyBobbleAppear"
-      soundURL: "assets/sounds/sfx/uiBlockyBobbleAppear_02.ogg"
-      initialVolume: 1.0
-    - soundName: "uiBlockyBobbleDisappear"
-      soundURL: "assets/sounds/sfx/uiBlockyBobbleDisappear_02.ogg"
-      initialVolume: 1.0
-    - soundName: "uiBlockyBlockExecute"
-      soundURL: "assets/sounds/sfx/uiBlockyBlockExecute_02.ogg"
-      initialVolume: 1.0
-    - soundName: "uiBlockyBlockTapSelect"
-      soundURL: "assets/sounds/sfx/uiBlockyBlockTapSelect_01.ogg"
-      initialVolume: 1.0
-    - soundName: "uiTapObjectSelected"
-      soundURL: "assets/sounds/sfx/uiTapObjectSelected_02.ogg"
-      initialVolume: 1.0
-    - soundName: "uiScreenTransition"
-      soundURL: "assets/sounds/sfx/uiScreenTransition_01.ogg"
-      initialVolume: 1.0
-    - soundName: "uiNegativeFeedback"
-      soundURL: "assets/sounds/sfx/uiNegativeFeedback_02.ogg"
-      initialVolume: 1.0
-    - soundName: "uiRestart"
-      soundURL: "assets/sounds/sfx/uiRestart_01.ogg"
-      initialVolume: 1.0
-    - soundName: "uiLowBattery"
-      soundURL: "assets/sounds/sfx/uiLowBattery_01.ogg"
-      initialVolume: 1.0
-    - soundName: "uiLowRam"
-      soundURL: "assets/sounds/sfx/uiLowRam_01.ogg"
-      initialVolume: 1.0
+      allowMultiplay: false
+    # - soundName: "uiBlockyBobbleAppear"
+    #   soundURL: "assets/sounds/sfx/uiBlockyBobbleAppear_02.ogg"
+    #   initialVolume: 1.0
+    # - soundName: "uiBlockyBobbleDisappear"
+    #   soundURL: "assets/sounds/sfx/uiBlockyBobbleDisappear_02.ogg"
+    #   initialVolume: 1.0
+    # - soundName: "uiBlockyBlockExecute"
+    #   soundURL: "assets/sounds/sfx/uiBlockyBlockExecute_02.ogg"
+    #   initialVolume: 1.0
+    # - soundName: "uiBlockyBlockTapSelect"
+    #   soundURL: "assets/sounds/sfx/uiBlockyBlockTapSelect_01.ogg"
+    #   initialVolume: 1.0
+    # - soundName: "uiTapObjectSelected"
+    #   soundURL: "assets/sounds/sfx/uiTapObjectSelected_02.ogg"
+    #   initialVolume: 1.0
+    # - soundName: "uiScreenTransition"
+    #   soundURL: "assets/sounds/sfx/uiScreenTransition_01.ogg"
+    #   initialVolume: 1.0
+    # - soundName: "uiNegativeFeedback"
+    #   soundURL: "assets/sounds/sfx/uiNegativeFeedback_02.ogg"
+    #   initialVolume: 1.0
+    # - soundName: "uiRestart"
+    #   soundURL: "assets/sounds/sfx/uiRestart_01.ogg"
+    #   initialVolume: 1.0
+    # - soundName: "uiLowBattery"
+    #   soundURL: "assets/sounds/sfx/uiLowBattery_01.ogg"
+    #   initialVolume: 1.0
+    # - soundName: "uiLowRam"
+    #   soundURL: "assets/sounds/sfx/uiLowRam_01.ogg"
+    #   initialVolume: 1.0
     - soundName: "roverSounds"
       soundURL: ""
       isLooping: true
       isLayered: true
-      initialVolume: 1.0
       soundDefinitions:
         - soundName: "objectRoverMotor"
           soundURL: "assets/sounds/sfx/objectRoverMotor_10.ogg"
           isLooping: true
           isLayered: false
-          initialVolume: 1.0
         - soundName: "objectRoverMovementGroundCrunch"
           soundURL: "assets/sounds/sfx/objectRoverMovementGroundCrunch_01.ogg"
           isLooping: true
           isLayered: false
-          initialVolume: 1.0
     - soundName: "environmentWind"
       soundURL: ""
       isLooping: true
       isLayered: true
       playOnLoad: false
       allowMultiplay: false
-      initialVolume: 1.0
       soundDefinitions:
         - soundName: "environmentWind_01"
           soundURL: "assets/sounds/sfx/environmentWind_01.ogg"
           isLooping: true
           isLayered: false
           allowMultiplay: false
-          initialVolume: 1.0
         - soundName: "environmentWind_02"
           soundURL: "assets/sounds/sfx/environmentWind_02.ogg"
           isLooping: true
           isLayered: false
           allowMultiplay: false
-          initialVolume: 1.0
     - soundName: "L1VO1_Rover"
       soundURL: "assets/sounds/VO/L1VO1_Rover_m.mp3"
       soundGroup: VO
