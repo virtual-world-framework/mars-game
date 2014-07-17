@@ -221,8 +221,7 @@ this.useTool = function( eventType, pointerInfo, pickInfo ) {
             }
             break;
         case "translate":
-            if ( ( eventType === "pointerDown" || eventType === "pointerMove" ) &&
-                pointerInfo.buttons.left && this.selectedObject ) {
+            if ( eventType === "pointerMove" && pointerInfo.buttons.left && this.selectedObject ) {
                 this.drag( pickInfo );
             } else if ( eventType === "pointerClick" && pointerInfo.button === "left" ) {
                 var object = this.findByID( this, pickInfo.pickID );
@@ -239,13 +238,13 @@ this.useTool = function( eventType, pointerInfo, pickInfo ) {
             } else if ( eventType === "pointerMove" && pointerInfo.buttons.left && this.selectedObject ) {
                 if ( this.selectedObject.isOnGrid ) {
                     var delta = pointerInfo.position[ 0 ] - lastPointerPosition;
-                    if ( delta > 0.15 || delta < 0.15 ) {
+                    if ( delta > 0.05 || delta < -0.05 ) {
                         this.selectedObject.rotateObstacle( delta );
                         this.grid.removeFromGrid( this.selectedObject, 
                             this.selectedObject.currentGridSquare );
                         this.grid.addToGridFromCoord( this.selectedObject, 
                             this.selectedObject.currentGridSquare );
-                        this.editTool.grid.moveGridOrigin( this.selectedObject.currentGridSquare );
+                        this.editTool.grid.updateGrid( this.selectedObject );
                         lastPointerPosition = pointerInfo.position[ 0 ];
                     }
                 }
@@ -351,10 +350,6 @@ this.pointerClick = function( pointerInfo, pickInfo ) {
 
 this.pointerMove = function( pointerInfo, pickInfo ) {
     this.useTool( "pointerMove", pointerInfo, pickInfo );
-}
-
-function setselectedObject( object ) {
-    this.selectedObject = object;
 }
 
 function findNearestOther( dragObj, picks ) {
