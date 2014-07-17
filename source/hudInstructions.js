@@ -603,7 +603,7 @@ function pushNextBlocklyStatus( blockName ) {
                     offsetY += newBlockHeight / interval;
                     if ( offsetY > newBlockHeight + this.spacing ) {
                         offsetY = 0;
-                        var block = this.toBePushed.pop();
+                        var block = this.toBePushed.shift();
                         if ( block ) {
                             this.blockStack.unshift( block );
                         }
