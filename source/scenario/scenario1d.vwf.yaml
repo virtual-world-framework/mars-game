@@ -28,18 +28,18 @@ properties:
   - setProperty:
     - rover
     - heading
-    - 0
+    - 180
   - setProperty:
     - rover
     - rotation
-    - [ 0, 0, 1, 0 ]
+    - [ 0, 0, 1, 180 ]
 
   - emptyInventory:
     - rover/cargo
 
   - addToGrid:
     - rover
-    - [ 8, 2 ]
+    - [ 8, 5 ]
 
   - addToGrid:
     - radio

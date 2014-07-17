@@ -101,7 +101,7 @@ this.clauseSet.isAtPosition = function( params, context, callback ) {
 }
 
 this.clauseSet.hasHeading = function( params, context, callback ) {
-    if ( !params || ( params.length !== 3 ) ) {
+    if ( !params || ( params.length !== 2 ) ) {
         self.logger.errorx( "hasHeading", 
                             "This clause requires two " +
                             "arguments: the object and the heading." );

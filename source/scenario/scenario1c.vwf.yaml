@@ -58,11 +58,13 @@ properties:
           - 5
         - hasHeading:
           - rover
-          - 0
+          - 180
       actions:
       - hideBlockly:
       - scenarioSuccess:
         - "Now I can get out of this ditch and find the radio!"
+      - playSound:
+        - L1VO5_Rover
       - playSound:
         - musicSuccess
       - stopSound:
@@ -116,10 +118,10 @@ properties:
             - isAtPosition:
               - rover
               - 8
-              - 16
-            - hasObject:
+              - 5
+            - hasHeading:
               - rover
-              - radio
+              - 180
         - not:
           - readBlackboard:
             - hasFailed
