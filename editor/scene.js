@@ -1,7 +1,7 @@
 this.objCount = 0;
 this.selectedObject;
 
-var lastPointerPosition;
+var lastPointerPosition, lastPointerDownTime, lastPointerDownID;
 
 this.initialize = function() {
     this.camera.transform = [
@@ -221,8 +221,14 @@ this.useTool = function( eventType, pointerInfo, pickInfo ) {
             }
             break;
         case "translate":
-            if ( eventType === "pointerMove" && pointerInfo.buttons.left && this.selectedObject ) {
-                this.drag( pickInfo );
+            if ( eventType === "pointerDown" && pointerInfo.buttons.left && this.selectedObject ) {
+                lastPointerPosition = pointerInfo.screenPosition;
+            } else if ( eventType === "pointerMove" && pointerInfo.buttons.left && this.selectedObject ) {
+                if ( lastPointerPosition[ 0 ] !== pointerInfo.screenPosition[ 0 ] ||
+                     lastPointerPosition[ 1 ] !== pointerInfo.screenPosition[ 1 ] ) {
+                    this.drag( pickInfo );
+                    lastPointerPosition = pointerInfo.screenPosition;
+                }
             } else if ( eventType === "pointerClick" && pointerInfo.button === "left" ) {
                 var object = this.findByID( this, pickInfo.pickID );
                 if ( object.select instanceof Function ) {
@@ -329,14 +335,22 @@ this.deselectObject = function() {
 }
 
 this.pointerOver = function( pointerInfo, pickInfo ) {
+    if ( pickInfo.pickID !== lastPointerDownID ) {
+        lastPointerDownID = undefined;
+        lastPointerDownTime = undefined;
+    }
     this.useTool( "pointerOver", pointerInfo, pickInfo );
 }
 
 this.pointerOut = function( pointerInfo, pickInfo ) {
+    lastPointerDownID = undefined;
+    lastPointerDownTime = undefined;
     this.useTool( "pointerOut", pointerInfo, pickInfo );
 }
 
 this.pointerDown = function( pointerInfo, pickInfo ) {
+    lastPointerDownID = pickInfo.pickID;
+    lastPointerDownTime = vwf_view.kernel.time();
     this.useTool( "pointerDown", pointerInfo, pickInfo );
 }
 
@@ -345,10 +359,17 @@ this.pointerUp = function( pointerInfo, pickInfo ) {
 }
 
 this.pointerClick = function( pointerInfo, pickInfo ) {
-    this.useTool( "pointerClick", pointerInfo, pickInfo );
+    var time = vwf_view.kernel.time();
+    if ( lastPointerDownID && time - lastPointerDownTime < 0.25 ) {
+        this.useTool( "pointerClick", pointerInfo, pickInfo );
+    }
 }
 
 this.pointerMove = function( pointerInfo, pickInfo ) {
+    if ( pickInfo.pickID !== lastPointerDownID ) {
+        lastPointerDownID = undefined;
+        lastPointerDownTime = undefined;
+    }
     this.useTool( "pointerMove", pointerInfo, pickInfo );
 }
 
