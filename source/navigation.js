@@ -119,6 +119,29 @@ function handleScroll( wheelDelta, navObject, navMode, rotationSpeed, translatio
             break;
 
         case "thirdPerson":
+            var navWorldMat = navObject.threeObject.matrixWorld;
+            var numClicks = -wheelDelta / 3;
+            var origin = new THREE.Vector3( orbitTarget[ 0 ],
+                                            orbitTarget[ 1 ],
+                                            orbitTarget[ 2 ] );
+            var cameraLoc = new THREE.Vector3( navWorldMat.elements[ 12 ],
+                                               navWorldMat.elements[ 13 ],
+                                               navWorldMat.elements[ 14 ] );
+            var newCameraLoc = new THREE.Vector3( ( navWorldMat.elements[ 12 ] - orbitTarget[ 0 ] ) * 0.1,
+                           ( navWorldMat.elements[ 13 ] - orbitTarget[ 1 ] ) * 0.1,
+                           ( navWorldMat.elements[ 14 ] - orbitTarget[ 2 ] ) * 0.1 );
+            newCameraLoc.multiplyScalar( numClicks ).add( cameraLoc );
+
+            // Keep the view within reasonable distance of the grid area
+            var dist = origin.distanceTo( newCameraLoc );
+            var upperBound = gridBounds.topRight[ 0 ] - gridBounds.bottomLeft[ 0 ];
+            var lowerBound = ( gridBounds.topRight[ 0 ] - gridBounds.bottomLeft[ 0 ] ) / 4;
+            if ( !( dist < lowerBound || dist > upperBound ) ) {
+                navWorldMat.elements[ 12 ] = newCameraLoc.x;
+                navWorldMat.elements[ 13 ] = newCameraLoc.y;
+                navWorldMat.elements[ 14 ] = newCameraLoc.z;
+            }
+
             break;
     }
 }
