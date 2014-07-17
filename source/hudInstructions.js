@@ -604,6 +604,7 @@ function pushNextBlocklyStatus( blockName ) {
             statusElem.draw = ( function( context, position ) {
                 var time = vwf_view.kernel.time();
                 var intervalTime = this.toBePushed.length > 1 ? this.updateIntervalTime / this.toBePushed.length : this.updateIntervalTime;
+                intervalTime /= interval;
                 if ( time - this.lastUpdateTime > intervalTime ) {
                     this.lastUpdateTime = time;
                     offsetY += newBlockHeight / interval;
@@ -612,6 +613,7 @@ function pushNextBlocklyStatus( blockName ) {
                         var block = this.toBePushed.shift();
                         if ( block ) {
                             this.blockStack.unshift( block );
+                            this.drawAllBlocks( context, position, offsetY );
                         }
                         if ( this.toBePushed.length <= 0 ) {
                             this.draw = this.defaultDraw;
@@ -636,6 +638,11 @@ function pushNextBlocklyStatus( blockName ) {
 
                 if ( this.toBePushed.length <= 0 ) {
                     this.draw = this.defaultDraw;
+                } else {
+                    var tempBlock = this.blockImages[ this.toBePushed[ 0 ].name ];
+                    if ( tempBlock ) {
+                        context.drawImage( tempBlock, position.x, position.y - ( tempBlock.height ) );
+                    }
                 }
                 this.drawAllBlocks( context, position, offsetY );
             } );
