@@ -1,12 +1,8 @@
 "use strict";
 
-var self;
 var setUpOnce = true;
 
 this.initialize = function() {
-
-    self = this;
-
     //Load sounds defined in yaml file
     for ( var i = 0; i < this.soundSet.length; ++i ) {
             this.loadSound( this.soundSet[i] );
@@ -21,7 +17,7 @@ this.setUpSubtitles = function() {
 
     if ( scene && setUpOnce ) {
         setUpOnce = false;
-        this.soundStarted = this.events.add( function( instanceHandle ) {
+        this.soundStarted = this.events.add( ( function( instanceHandle ) {
             if ( this.hasSubtitle( instanceHandle ) ) {
 
                 var subtitle = this.getSubtitle( instanceHandle );
@@ -40,13 +36,13 @@ this.setUpSubtitles = function() {
                     scene.showCommsImage( imagePath );
                 }                
             }
-        } );
+        } ).bind( this ) );
 
-        this.soundFinished = this.events.add( function( instanceHandle ) {
+        this.soundFinished = this.events.add( ( function( instanceHandle ) {
             if ( this.hasSubtitle( instanceHandle ) ) {
                 scene.hideCommsImage();
             }
-        } );
+        } ).bind( this ) );
     }
 }
 //@ sourceURL=source/marsGameSound.js
