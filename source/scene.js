@@ -12,7 +12,8 @@ this.setScenario = function( path ) {
     if ( scenario ) {
         scenario.grid.clearGrid();
         scenario.future( 0 ).startScenario();
-        this.scenarioChanged( scenario.name, scenario.grid );
+        var gridBounds = calcGridBounds( scenario.grid );
+        this.scenarioChanged( scenario.name, gridBounds );
     } else {
         this.logger.warnx( "setScenario", "Scenario for path '" + path + "' not found." );
     }
@@ -197,4 +198,9 @@ this.removeGridDisplay = function() {
     }
 }
 
+function calcGridBounds( grid ) {
+    var gridBounds = {  bottomLeft: grid.getWorldFromGrid( [ grid.minX, grid.minY ] ),
+                        topRight: grid.getWorldFromGrid( [ grid.maxX, grid.maxY ] ) };
+    return gridBounds;
+}
 //@ sourceURL=source/scene.js
