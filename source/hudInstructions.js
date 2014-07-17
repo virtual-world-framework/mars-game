@@ -176,6 +176,7 @@ function createBlocklyStatus() {
     status.blockStack = [];
     status.blockImages = {};
     status.defaultDraw = status.draw;
+    status.drawAllBlocks = drawAllBlocks;
     status.lastUpdateTime = vwf_view.kernel.time();
     status.updateIntervalTime = 0.2;
     status.spacing = 10;
@@ -392,16 +393,29 @@ function drawCameraSelector( context, position ) {
     }
 }
 
+function drawAllBlocks( context, position, offset ) {
+    for ( var i = 0; i < this.blockStack.length; i++ ) {
+
+        //Escape if there is nothing left in the stack
+        if ( this.blockStack.length <= 0 || 
+             i >= this.blockStack.length || 
+             !this.blockStack[ i ].alpha ) {
+            return;
+        }
+
+        context.globalAlpha = this.blockStack[ i ].alpha;
+        var block = this.blockImages[ this.blockStack[ i ].name ];
+        if ( block ) {
+            context.drawImage( block, position.x, position.y - ( i * ( block.height + this.spacing ) + offset ) );
+        }
+    }
+    context.globalAlpha = 1;
+}
+
 function drawBlocklyStatus( context, position ) {
     if ( this.blockImages && this.blockStack ) {
-        for ( var i = 0; i < this.blockStack.length; i++ ) {
-            context.globalAlpha = this.blockStack[ i ].alpha;
-            var block = this.blockImages[ this.blockStack[ i ].name ];
-            if ( block ) {
-                context.drawImage( block, position.x, position.y - ( i * ( block.height + this.spacing ) ) );
-            }
-        }
-        context.globalAlpha = 1;
+
+        this.drawAllBlocks( context, position, 0 );
 
         var time = vwf_view.kernel.time();
         if ( time - this.lastUpdateTime > this.updateIntervalTime ) {
@@ -576,40 +590,48 @@ function stopElementBlinking( elementID ) {
 function pushNextBlocklyStatus( blockName ) {
     var statusElem = hud.elements.blocklyStatus;
     if ( statusElem && statusElem.blockImages.hasOwnProperty( blockName ) ) {
-
         statusElem.toBePushed.push( { "name": blockName, "alpha": 1 } );
+
         if ( statusElem.draw === statusElem.defaultDraw ){
             var offsetY = 0;
             var newBlockHeight = statusElem.blockImages[ blockName ].height;
             var interval = 7;
+
             statusElem.draw = ( function( context, position ) {
                 var time = vwf_view.kernel.time();
                 if ( time - this.lastUpdateTime > this.updateIntervalTime ) {
                     offsetY += newBlockHeight / interval;
                     if ( offsetY > newBlockHeight + this.spacing ) {
                         offsetY = 0;
-                        this.blockStack.unshift( this.toBePushed.pop() );
-                        if ( this.toBePushed.length === 0 ) {
-                            this.draw = this.defaultDraw;
+                        var block = this.toBePushed.pop();
+                        if ( block ) {
+                            this.blockStack.unshift( block );
                         }
+                        if ( this.toBePushed.length <= 0 ) {
+                            this.draw = this.defaultDraw;
+                        }                        
                         return;
                     }                    
                     for ( var i = 0; i < this.blockStack.length; i++ ) {
-                        this.blockStack[ i ].alpha -= 0.5 / interval;
-                        if ( this.blockStack[ i ].alpha <= 0 ) {
+
+                        //Escape if there is nothing left in the stack
+                        if ( this.blockStack.length <= 0 || 
+                             i >= this.blockStack.length || 
+                             !this.blockStack[ i ] ) {
+                            return;
+                        }
+                                                
+                        this.blockStack[ i ].alpha -= 0.5 / interval;                      
+                        if ( this.blockStack[ i ].alpha <= 0.1 ) {
                             this.blockStack.splice( i, 1 );
                         }
                     }
                 }
 
-                for ( var i = 0; i < this.blockStack.length; i++ ) {
-                    context.globalAlpha = this.blockStack[ i ].alpha;
-                    var block = this.blockImages[ this.blockStack[ i ].name ];
-                    if ( block ) {
-                        context.drawImage( block, position.x, position.y - ( i * ( block.height + this.spacing ) + offsetY ) );
-                    }
+                if ( this.toBePushed.length <= 0 ) {
+                    this.draw = this.defaultDraw;
                 }
-                context.globalAlpha = 1;                
+                this.drawAllBlocks( context, position, offsetY );
             } );
         } 
     }
