@@ -178,7 +178,7 @@ function createBlocklyStatus() {
     status.defaultDraw = status.draw;
     status.drawAllBlocks = drawAllBlocks;
     status.lastUpdateTime = vwf_view.kernel.time();
-    status.updateIntervalTime = 0.2;
+    status.updateIntervalTime = 0.01;
     status.spacing = 10;
     status.toBePushed = [];
     hud.add( status, "right", "bottom", { "x": 150, "y": -30 } );
@@ -603,7 +603,9 @@ function pushNextBlocklyStatus( blockName ) {
 
             statusElem.draw = ( function( context, position ) {
                 var time = vwf_view.kernel.time();
-                if ( time - this.lastUpdateTime > this.updateIntervalTime ) {
+                var intervalTime = this.toBePushed.length > 1 ? this.updateIntervalTime / this.toBePushed.length : this.updateIntervalTime;
+                if ( time - this.lastUpdateTime > intervalTime ) {
+                    this.lastUpdateTime = time;
                     offsetY += newBlockHeight / interval;
                     if ( offsetY > newBlockHeight + this.spacing ) {
                         offsetY = 0;
