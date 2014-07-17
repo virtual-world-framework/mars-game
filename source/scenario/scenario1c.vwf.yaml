@@ -4,8 +4,8 @@ properties:
   scenarioName: scenario1c
 
   scenePath: /
-  nextScenarioPath: "scenario2"
-  blockly: assets/scenario/scenario1.xml
+  nextScenarioPath: "scenario1d"
+  blockly: assets/scenario/scenario1c.xml
 
   startState:
   - setProperty:

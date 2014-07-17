@@ -1,7 +1,3 @@
 <xml id="rover" style="display: none">
   <block type="rover_moveForward"></block>
-  <block type="rover_turn"><field name="DIR">turnLeft</field></block>
-  <block type="rover_turn"><field name="DIR">turnRight</field></block>
-  <block type="controls_repeat_extended"></block>
-  <block type="math_number_drop"></block>
 </xml>
