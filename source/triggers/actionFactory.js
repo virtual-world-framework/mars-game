@@ -245,6 +245,17 @@ this.actionSet.hideBlockly = function( params, context ) {
     }
 }
 
+this.actionSet.clearBlockly = function( params, context ) {
+    if ( params && params.length > 0 ) {
+        self.logger.errorx( "clearBlockly", "This action takes no parameters.");
+        return undefined;
+    }
+    
+    return function() {
+        context.clearBlockly();
+    }
+}
+
 function getScenario( context ) {
     if ( context.getCurrentScenario ){
         return context.getCurrentScenario();

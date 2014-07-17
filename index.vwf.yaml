@@ -36,6 +36,7 @@ events:
   stopBlinkHUD:
   blinkTab:
   stopBlinkTab:
+  clearBlockly:
   showCommsImage:
   hideCommsImage:
 children:
