@@ -19,7 +19,7 @@ properties:
   - setProperty:
     - rover
     - blockly_allowedBlocks
-    - 10
+    - 5
 
   # TODO: Simplify heading/rotation
   # Set initial rotation using heading
@@ -55,14 +55,14 @@ properties:
         - isAtPosition:
           - rover
           - 8
-          - 2
+          - 5
         - hasHeading:
           - rover
-          - 180
+          - 90
       actions:
       - hideBlockly:
       - scenarioSuccess:
-        - "Turning re-enabled and battery powered up!"
+        - "Turning motors are good to go!"
       - playSound:
         - musicSuccess
       - stopSound:
@@ -116,10 +116,10 @@ properties:
             - isAtPosition:
               - rover
               - 8
-              - 2
+              - 5
             - hasHeading:
               - rover
-              - 180
+              - 90
         - not:
           - readBlackboard:
             - hasFailed

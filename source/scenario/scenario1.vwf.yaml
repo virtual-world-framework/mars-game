@@ -19,7 +19,7 @@ properties:
   - setProperty:
     - rover
     - blockly_allowedBlocks
-    - 10
+    - 1
 
   # TODO: Simplify heading/rotation
   # Set initial rotation using heading
@@ -68,7 +68,7 @@ properties:
       - hideBlockly:
       - clearBlockly:
       - scenarioSuccess:
-        - "You have initialized movement!"
+        - "You have executed a movement command! More RAM coming online!"
       - playSound:
         - musicSuccess
       - stopSound:

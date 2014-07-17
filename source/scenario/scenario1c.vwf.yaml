@@ -19,7 +19,7 @@ properties:
   - setProperty:
     - rover
     - blockly_allowedBlocks
-    - 30
+    - 5
 
   # TODO: Simplify heading/rotation
   # Set initial rotation using heading
@@ -28,18 +28,18 @@ properties:
   - setProperty:
     - rover
     - heading
-    - 180
+    - 90
   - setProperty:
     - rover
     - rotation
-    - [ 0, 0, 1, 180 ]
+    - [ 0, 0, 1, 90 ]
 
   - emptyInventory:
     - rover/cargo
 
   - addToGrid:
     - rover
-    - [ 8, 2 ]
+    - [ 8, 5 ]
 
   - addToGrid:
     - radio
@@ -55,16 +55,14 @@ properties:
         - isAtPosition:
           - rover
           - 8
-          - 16
-        - hasObject:
+          - 5
+        - hasHeading:
           - rover
-          - radio
+          - 0
       actions:
       - hideBlockly:
       - scenarioSuccess:
-        - "You have picked up the radio!"
-      - playSound:
-        - L1VO6_Control
+        - "Now I can get out of this ditch and find the radio!"
       - playSound:
         - musicSuccess
       - stopSound:

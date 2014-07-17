@@ -1,25 +1,25 @@
 ---
 extends: source/scenario/scenario.vwf
 properties:
-  scenarioName: scenario1a
+  scenarioName: scenario1d
 
   scenePath: /
-  nextScenarioPath: "scenario1b"
-  blockly: assets/scenario/scenario1a.xml
+  nextScenarioPath: "scenario2"
+  blockly: assets/scenario/scenario1d.xml
 
   startState:
   - setProperty:
     - rover
     - battery
-    - 10
+    - 30
   - setProperty:
     - rover
     - batteryMax
-    - 10
+    - 50
   - setProperty:
     - rover
     - blockly_allowedBlocks
-    - 2
+    - 30
 
   # TODO: Simplify heading/rotation
   # Set initial rotation using heading
@@ -39,7 +39,7 @@ properties:
 
   - addToGrid:
     - rover
-    - [ 8, 3 ]
+    - [ 8, 2 ]
 
   - addToGrid:
     - radio
@@ -51,14 +51,20 @@ properties:
       - onBlocklyStopped:
         - rover
       additionalCondition:
-      - isAtPosition:
-        - rover
-        - 8
-        - 5
+      - and:
+        - isAtPosition:
+          - rover
+          - 8
+          - 16
+        - hasObject:
+          - rover
+          - radio
       actions:
       - hideBlockly:
       - scenarioSuccess:
-        - "You have calibrated your motors and program chaining!"
+        - "You have picked up the radio!"
+      - playSound:
+        - L1VO6_Control
       - playSound:
         - musicSuccess
       - stopSound:
@@ -108,10 +114,14 @@ properties:
       additionalCondition:
       - and:
         - not:
-          - isAtPosition:
-            - rover
-            - 8
-            - 5
+          - and:
+            - isAtPosition:
+              - rover
+              - 8
+              - 16
+            - hasObject:
+              - rover
+              - radio
         - not:
           - readBlackboard:
             - hasFailed
