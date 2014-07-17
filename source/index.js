@@ -105,13 +105,7 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
 
                 removePopup();
                 removeFailScreen();
-                var grid = eventArgs[ 1 ];
-                if ( grid ) {
-                    gridBounds = {
-                        bottomLeft: grid.getWorldFromGrid( [ grid.minX, grid.minY ] ),
-                        topRight: grid.getWorldFromGrid( [ grid.maxX, grid.maxY ] )
-                    };
-                }
+                gridBounds = eventArgs[ 1 ];
                 break;
 
             case "blinkHUD":
