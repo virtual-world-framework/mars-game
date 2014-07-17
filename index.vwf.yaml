@@ -41,7 +41,7 @@ events:
   hideCommsImage:
 children:
   soundManager:
-    extends: source/marsGameSound.vwf
+    includes: source/marsGameSound.vwf
   environment:
     extends: http://vwf.example.com/node3.vwf
     source: assets/3d/Terrain/scene.dae
@@ -64,7 +64,7 @@ children:
         properties:
           translation: [ 0, 1, 0 ]
   airDust:
-    extends: source/dustAir.vwf
+    includes: source/dustAir.vwf
   backdrop:
     extends: http://vwf.example.com/node3.vwf
     source: assets/3d/Terrain/backdrop.dae
@@ -166,13 +166,13 @@ children:
             this.animationPlay();
           }
   introScreenScenario:
-    extends: source/scenario/introScreenScenario.vwf
+    includes: source/scenario/introScreenScenario.vwf
   scenario1:
-    extends: source/scenario/scenario1.vwf
+    includes: source/scenario/scenario1.vwf
   scenario2:
-    extends: source/scenario/scenario2.vwf
+    includes: source/scenario/scenario2.vwf
   scenario3:
-    extends: source/scenario/scenario3.vwf
+    includes: source/scenario/scenario3.vwf
   blocklyGraph:
     extends: http://vwf.example.com/graphtool/graph.vwf
     implements: "source/griddable.vwf"
