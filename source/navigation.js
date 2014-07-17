@@ -65,7 +65,7 @@ function handleMouseNavigation( deltaX, deltaY, navObject, navMode, rotationSpee
                 var pitchAxis = new THREE.Vector3( navThreeObject.matrixWorld.elements[ 0 ],
                                                    navThreeObject.matrixWorld.elements[ 1 ],
                                                    0 );
-                var pitchRadians = -deltaY * rotationSpeedRadians;
+                var pitchRadians = deltaY * rotationSpeedRadians;
                 var pitchQuat = new THREE.Quaternion();
                 pitchQuat.setFromAxisAngle( pitchAxis, pitchRadians );
                 var pitchDeltaMatrix = new THREE.Matrix4();
