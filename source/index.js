@@ -102,15 +102,10 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
             case "scenarioReset":
                 resetStatusDisplay();
             case "scenarioChanged":
+
                 removePopup();
                 removeFailScreen();
-                var grid = eventArgs[ 1 ];
-                if ( grid ) {
-                    gridBounds = {
-                        bottomLeft: grid.getWorldFromGrid( [ grid.minX, grid.minY ] ),
-                        topRight: grid.getWorldFromGrid( [ grid.maxX, grid.maxY ] )
-                    };
-                }
+                gridBounds = eventArgs[ 1 ];
                 break;
 
             case "blinkHUD":
@@ -131,6 +126,9 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 break;
             case "hideCommsImage":
                 removeImageFromCommsDisplay();
+                break;
+            case "clearBlockly":
+                clearBlockly();
                 break;
         } 
 
@@ -549,6 +547,20 @@ function stopBlinkTab( nodeID ) {
 
     if ( tab && tab.stopBlink ) {
         tab.stopBlink();
+    }
+}
+
+function clearBlockly() {
+    if ( Blockly.mainWorkspace ){
+        Blockly.mainWorkspace.clear();
+    }
+
+    if ( mainRover ){
+        vwf_view.kernel.setProperty( mainRover, "blockly_xml", '<xml></xml>' );
+    }
+
+    if ( blocklyGraphID ){
+        vwf_view.kernel.setProperty( blocklyGraphID, "blockly_xml", '<xml></xml>' );
     }
 }
 

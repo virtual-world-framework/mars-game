@@ -61,6 +61,7 @@ properties:
           - radio
       actions:
       - hideBlockly:
+      - clearBlockly:
       - scenarioSuccess:
         - "You have picked up the radio!"
       - playSound:

@@ -50,5 +50,9 @@ properties:
     # arguments: none
     hideBlockly:
 
+    # clears the blocklyui of all blocks
+    # arguments: none
+    clearBlockly:
+
 scripts:
 - source: source/triggers/actionFactory.js
