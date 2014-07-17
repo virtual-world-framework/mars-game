@@ -215,7 +215,7 @@ this.executeBlock = function ( block, action ) {
     var node = this.findByID( this, nodeID );
     if ( node ) {
         args = args instanceof Array ? args : [ args ];
-        node[ methodName ]( args );
+        node[ methodName ].apply( node, args );
     }
 }
 
