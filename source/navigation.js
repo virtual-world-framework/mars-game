@@ -132,15 +132,18 @@ function handleScroll( wheelDelta, navObject, navMode, rotationSpeed, translatio
                            ( navWorldMat.elements[ 14 ] - orbitTarget[ 2 ] ) * 0.1 );
             newCameraLoc.multiplyScalar( numClicks ).add( cameraLoc );
 
-            // Keep the view within reasonable distance of the grid area
+            // Keep the view within reasonable distance of the grid area, and from going through the target
             var dist = origin.distanceTo( newCameraLoc );
-            var upperBound = gridBounds.topRight[ 0 ] - gridBounds.bottomLeft[ 0 ];
-            var lowerBound = ( gridBounds.topRight[ 0 ] - gridBounds.bottomLeft[ 0 ] ) / 4;
-            if ( !( dist < lowerBound || dist > upperBound ) ) {
-                navWorldMat.elements[ 12 ] = newCameraLoc.x;
-                navWorldMat.elements[ 13 ] = newCameraLoc.y;
-                navWorldMat.elements[ 14 ] = newCameraLoc.z;
+            var upperBound = ( gridBounds.topRight[ 0 ] - gridBounds.bottomLeft[ 0 ] ) / 2.5;
+            var lowerBound = ( gridBounds.topRight[ 0 ] - gridBounds.bottomLeft[ 0 ] ) / 8;
+            if ( dist < lowerBound || dist > upperBound || 
+                ( wheelDelta > 0 && cameraLoc.distanceTo( newCameraLoc ) > dist ) ) {
+                return;
             }
+
+            navWorldMat.elements[ 12 ] = newCameraLoc.x;
+            navWorldMat.elements[ 13 ] = newCameraLoc.y;
+            navWorldMat.elements[ 14 ] = newCameraLoc.z;
 
             break;
     }
