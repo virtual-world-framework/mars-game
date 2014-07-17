@@ -181,10 +181,11 @@ function createBlocklyStatus() {
     status.updateIntervalTime = 0.2;
     status.spacing = 10;
     status.toBePushed = [];
-    hud.add( status, "right", "bottom", { "x": 150, "y": -60 } );
+    hud.add( status, "right", "bottom", { "x": 150, "y": -30 } );
     addBlockToStatusList( "forward", "assets/images/hud/blockly_move_forward.png" );
     addBlockToStatusList( "turnLeft", "assets/images/hud/blockly_turn_left.png" );
     addBlockToStatusList( "turnRight", "assets/images/hud/blockly_turn_right.png" );
+    addBlockToStatusList( "repeatTimes", "assets/images/hud/blockly_repeat_times.png" );
 }
 
 function addBlockToStatusList( name, imageSrc ) {
@@ -394,6 +395,7 @@ function drawCameraSelector( context, position ) {
 }
 
 function drawAllBlocks( context, position, offset ) {
+    var lastHeight = 0;
     for ( var i = 0; i < this.blockStack.length; i++ ) {
 
         //Escape if there is nothing left in the stack
@@ -406,7 +408,9 @@ function drawAllBlocks( context, position, offset ) {
         context.globalAlpha = this.blockStack[ i ].alpha;
         var block = this.blockImages[ this.blockStack[ i ].name ];
         if ( block ) {
-            context.drawImage( block, position.x, position.y - ( i * ( block.height + this.spacing ) + offset ) );
+            lastHeight += block.height;
+            context.drawImage( block, position.x, position.y - 
+                ( i * this.spacing + lastHeight + offset ) );
         }
     }
     context.globalAlpha = 1;

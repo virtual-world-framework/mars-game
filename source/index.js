@@ -114,6 +114,9 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 var blockName = eventArgs[ 0 ];
                 var blockID = eventArgs[ 1 ];
                 if ( blockName ) {
+                    if ( blockName.indexOf( "repeat" > -1 ) ) {
+                        blockName = blockName.indexOf( "times" ) > -1 ? "repeatTimes" : blockName;
+                    }
                     pushNextBlocklyStatus( blockName );
                 }
                 if ( blockID ) {
