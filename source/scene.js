@@ -203,4 +203,20 @@ function calcGridBounds( grid ) {
                         topRight: grid.getWorldFromGrid( [ grid.maxX, grid.maxY ] ) };
     return gridBounds;
 }
+
+this.executeBlock = function ( block, action ) {
+    var blockName = block[ 0 ];
+    var blockID = block[ 1 ];
+    this.blockExecuted( blockName, blockID );
+
+    var nodeID = action[ 0 ];
+    var methodName = action[ 1 ];
+    var args = action[ 2 ];
+    var node = this.findByID( this, nodeID );
+    if ( node ) {
+        args = args instanceof Array ? args : [ args ];
+        node[ methodName ].apply( node, args );
+    }
+}
+
 //@ sourceURL=source/scene.js

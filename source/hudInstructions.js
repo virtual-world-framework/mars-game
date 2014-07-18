@@ -3,6 +3,7 @@ function createHUD() {
     createRoverElement();
     createCameraSelector();
     createCommsDisplay();
+    createBlocklyStatus();
 
     var blocklyButton = new HUD.Element( "blocklyButton", drawIcon, 64, 64 );
     blocklyButton.icon = new Image();
@@ -167,6 +168,31 @@ function hideCommsDisplay() {
     var comms = hud.elements.comms;
     if ( comms ) {
         comms.visible = false;
+    }
+}
+
+function createBlocklyStatus() {
+    var status = new HUD.Element( "blocklyStatus", drawBlocklyStatus, 300, 100 );
+    status.blockStack = [];
+    status.blockImages = {};
+    status.defaultDraw = status.draw;
+    status.drawAllBlocks = drawAllBlocks;
+    status.lastUpdateTime = vwf_view.kernel.time();
+    status.updateIntervalTime = 0.01;
+    status.spacing = 10;
+    status.toBePushed = [];
+    hud.add( status, "right", "bottom", { "x": 150, "y": -30 } );
+    addBlockToStatusList( "forward", "assets/images/hud/blockly_move_forward.png" );
+    addBlockToStatusList( "turnLeft", "assets/images/hud/blockly_turn_left.png" );
+    addBlockToStatusList( "turnRight", "assets/images/hud/blockly_turn_right.png" );
+    addBlockToStatusList( "repeatTimes", "assets/images/hud/blockly_repeat_times.png" );
+}
+
+function addBlockToStatusList( name, imageSrc ) {
+    var status = hud.elements.blocklyStatus;
+    if ( status ) {
+        status.blockImages[ name ] = new Image();
+        status.blockImages[ name ].src = imageSrc;
     }
 }
 
@@ -368,6 +394,46 @@ function drawCameraSelector( context, position ) {
     }
 }
 
+function drawAllBlocks( context, position, offset ) {
+    var lastHeight = 0;
+    for ( var i = 0; i < this.blockStack.length; i++ ) {
+
+        //Escape if there is nothing left in the stack
+        if ( this.blockStack.length <= 0 || 
+             i >= this.blockStack.length || 
+             !this.blockStack[ i ].alpha ) {
+            return;
+        }
+
+        context.globalAlpha = this.blockStack[ i ].alpha;
+        var block = this.blockImages[ this.blockStack[ i ].name ];
+        if ( block ) {
+            lastHeight += block.height;
+            context.drawImage( block, position.x, position.y - 
+                ( i * this.spacing + lastHeight + offset ) );
+        }
+    }
+    context.globalAlpha = 1;
+}
+
+function drawBlocklyStatus( context, position ) {
+    if ( this.blockImages && this.blockStack ) {
+
+        this.drawAllBlocks( context, position, 0 );
+
+        var time = vwf_view.kernel.time();
+        if ( time - this.lastUpdateTime > this.updateIntervalTime ) {
+            this.lastUpdateTime = time;
+            for ( var i = 0; i < this.blockStack.length; i++ ) {
+                this.blockStack[ i ].alpha -= 0.01;
+                if ( this.blockStack[ i ].alpha <= 0 ) {
+                    this.blockStack.splice( i, 1 );
+                }
+            }
+        }        
+    }
+}
+
 function drawIcon( context, position ) {
     if ( this.icon ) {
         context.drawImage( this.icon, position.x, position.y );
@@ -522,6 +588,75 @@ function stopElementBlinking( elementID ) {
         delete el.blinkInterval;
         delete el.blinkDuration;
         delete el.isBlinking;
+    }
+}
+
+function pushNextBlocklyStatus( blockName ) {
+    var statusElem = hud.elements.blocklyStatus;
+    if ( statusElem && statusElem.blockImages.hasOwnProperty( blockName ) ) {
+        statusElem.toBePushed.push( { "name": blockName, "alpha": 1 } );
+
+        if ( statusElem.draw === statusElem.defaultDraw ){
+            var offsetY = 0;
+            var newBlockHeight = statusElem.blockImages[ blockName ].height;
+            var interval = 7;
+
+            statusElem.draw = ( function( context, position ) {
+                var time = vwf_view.kernel.time();
+                var intervalTime = this.toBePushed.length > 1 ? this.updateIntervalTime / this.toBePushed.length : this.updateIntervalTime;
+                intervalTime /= interval;
+                if ( time - this.lastUpdateTime > intervalTime ) {
+                    this.lastUpdateTime = time;
+                    offsetY += newBlockHeight / interval;
+                    if ( offsetY > newBlockHeight + this.spacing ) {
+                        offsetY = 0;
+                        var block = this.toBePushed.shift();
+                        if ( block ) {
+                            this.blockStack.unshift( block );
+                            this.drawAllBlocks( context, position, offsetY );
+                        }
+                        if ( this.toBePushed.length <= 0 ) {
+                            this.draw = this.defaultDraw;
+                        }                        
+                        return;
+                    }                    
+                    for ( var i = 0; i < this.blockStack.length; i++ ) {
+
+                        //Escape if there is nothing left in the stack
+                        if ( this.blockStack.length <= 0 || 
+                             i >= this.blockStack.length || 
+                             !this.blockStack[ i ] ) {
+                            return;
+                        }
+                                                
+                        this.blockStack[ i ].alpha -= 0.5 / interval;                      
+                        if ( this.blockStack[ i ].alpha <= 0.1 ) {
+                            this.blockStack.splice( i, 1 );
+                        }
+                    }
+                }
+
+                if ( this.toBePushed.length <= 0 ) {
+                    this.draw = this.defaultDraw;
+                } else {
+                    var tempBlock = this.blockImages[ this.toBePushed[ 0 ].name ];
+                    if ( tempBlock ) {
+                        context.drawImage( tempBlock, position.x, position.y - ( tempBlock.height ) );
+                    }
+                }
+                this.drawAllBlocks( context, position, offsetY );
+            } );
+        } 
+    }
+}
+
+function clearBlocklyStatus() {
+    if ( hud ) {
+        var statusElem = hud.elements.blocklyStatus;
+        if ( statusElem ) {
+            statusElem.blockStack = [];
+            statusElem.toBePushed = [];
+        }         
     }
 }
 

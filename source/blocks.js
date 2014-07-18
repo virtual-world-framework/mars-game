@@ -36,7 +36,12 @@ Blockly.Blocks['rover_moveForward'] = {
 Blockly.JavaScript['rover_moveForward'] = function( block ) {
   var dist = Blockly.JavaScript.valueToCode(block, 'DISTANCE', Blockly.JavaScript.ORDER_NONE) || '0';
   var t = Blockly.JavaScript.valueToCode(block, 'TIME', Blockly.JavaScript.ORDER_NONE) || '1';
-  return "vwf.callMethod( '"+Blockly.JavaScript.vwfID+"', 'moveForward' );\n";
+  var action = {
+    nodeID: Blockly.JavaScript.vwfID,
+    methodName: 'moveForward',
+    args: []
+  };
+  return constructBlockExeFuncCall( block, action );
 };
 
 Blockly.Blocks['rover_forward_ext'] = {
@@ -98,7 +103,12 @@ Blockly.JavaScript['rover_turn'] = function( block ) {
   var turnCommand = block.getFieldValue('DIR');
   var angle = Blockly.JavaScript.valueToCode(block, 'ANGLE', Blockly.JavaScript.ORDER_NONE) || '0';
   var t = Blockly.JavaScript.valueToCode(block, 'TIME', Blockly.JavaScript.ORDER_NONE) || '0';
-  return "vwf.callMethod( '"+Blockly.JavaScript.vwfID+"','" + turnCommand + "');\n";
+  var action = {
+    nodeID: Blockly.JavaScript.vwfID,
+    methodName: turnCommand,
+    args: []
+  };
+  return constructBlockExeFuncCall( block, action );
 };
 
 Blockly.Blocks['rover_forever'] = {
@@ -181,7 +191,7 @@ Blockly.JavaScript[ 'controls_repeat_extended' ] = function( block ) {
       loopVar + ' < ' + endVar + '; ' +
       loopVar + '++) {\n' +
       branch + '}\n';
-  return code;
+  return constructBlockExeEventCall( block ) + code;
 };
 
 
@@ -574,8 +584,22 @@ Blockly.JavaScript[ 'graph_set_y' ] = function( block ) {
   } else {
     return ';';
   }
-  
 };
+
+function constructBlockExeEventCall( block ) {
+  var eventCall = "vwf.fireEvent( '" + vwf_view.kernel.application() + 
+                  "', 'blockExecuted', " + " [ '" + block + "', " + block.id + " ] );\n";
+  return eventCall;  
+}
+
+function constructBlockExeFuncCall( block, action ) {
+  var blockCode = " { 'blockName': '" + block + "', 'id': " + block.id + "}";
+  var actionCode = "{ 'nodeID': '" + action.nodeID + "', 'methodName': '" + action.methodName + "', ";
+  actionCode += ( action.args.length > 0 ) ? "'args': " + action.args + " } ] );\n" : "'args': [] }";
+  var returnCode = "vwf.callMethod( '" + vwf_view.kernel.application() + "', 'executeBlock', [ " + blockCode + "," +
+                    actionCode + "] );\n";  
+  return returnCode; 
+}
 
 
 //@ sourceURL=blocks.js
