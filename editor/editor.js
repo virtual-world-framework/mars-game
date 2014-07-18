@@ -101,6 +101,7 @@ function retrieveAssetListItems( listPath ) {
             list.push( { name: "Rubble Blades", path: "source/obstacles/rubble_blades.vwf" } );
             list.push( { name: "Rubble Box", path: "source/obstacles/rubble_box.vwf" } );
             list.push( { name: "Rubble Container", path: "source/obstacles/rubble_container.vwf" } );
+            list.push( { name: "Rubble Container Open", path: "source/obstacles/rubble_container_open.vwf" } );
             list.push( { name: "Rubble Parts", path: "source/obstacles/rubble_parts.vwf" } );
             list.push( { name: "Rubble Tank", path: "source/obstacles/rubble_tank.vwf" } );
             break;
