@@ -1,7 +1,6 @@
 ---
 extends: source/pickup.vwf
-# Change to Helicam model
-source: assets/3d/Batteries/battery_pickup3.dae 
+source: assets/3d/quadcopter/quadcopter.dae 
 type: model/vnd.collada+xml
 properties:
   animationLoop: true
