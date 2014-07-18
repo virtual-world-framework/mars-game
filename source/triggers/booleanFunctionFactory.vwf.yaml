@@ -76,5 +76,11 @@ properties:
     # arguments: variableName, optionally check value
     readBlackboard:
 
+    # Becomes true after some delay has expired.  For now, the delay is calculated
+    #  from the time the scenario started, but ultimately we could make it more
+    #  flexible.
+    # arguments: delayTime (seconds)
+    delay:
+
 scripts:
 - source: source/triggers/booleanFunctionFactory.js
