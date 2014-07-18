@@ -153,21 +153,6 @@ properties:
       - stopBlinkHUDElement:
         - blocklyButton
 
-    stopIntroMusic:
-      triggerCondition:
-      - onScenarioStart:
-      additionalCondition:
-      - not:
-        - readBlackboard:
-          - musicStoryScreen
-      actions:
-      - stopSound:
-        - musicStoryScreen
-      - playSound:
-        - environmentWind
-      - writeToBlackboard:
-        - musicStoryScreen
-
     playStartingSounds:
       triggerCondition:
       - onScenarioStart:
