@@ -1,7 +1,5 @@
 ---
-methods:
-  select:
-# events:
-#   pointerClick:
+properties:
+  isEditable: true
 scripts:
   - source: editor/editable.js

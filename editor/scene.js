@@ -215,8 +215,8 @@ this.useTool = function( eventType, pointerInfo, pickInfo ) {
         case "camera":
             if ( eventType === "pointerClick" && pointerInfo.button === "left" ) {
                 var object = this.findByID( this, pickInfo.pickID );
-                if ( object.select instanceof Function ) {
-                    object.select();
+                if ( object && object.isEditable ) {
+                    this.selectObject( object );
                 }
             }
             break;
@@ -231,8 +231,8 @@ this.useTool = function( eventType, pointerInfo, pickInfo ) {
                 }
             } else if ( eventType === "pointerClick" && pointerInfo.button === "left" ) {
                 var object = this.findByID( this, pickInfo.pickID );
-                if ( object.select instanceof Function ) {
-                    object.select();
+                if ( object && object.isEditable ) {
+                    this.selectObject( object );
                 }
             }
             break;
@@ -260,12 +260,34 @@ this.useTool = function( eventType, pointerInfo, pickInfo ) {
                 }
             } else if ( eventType === "pointerClick" && pointerInfo.button === "left" ) {
                 var object = this.findByID( this, pickInfo.pickID );
-                if ( object.select instanceof Function ) {
-                    object.select();
+                if ( object && object.isEditable ) {
+                    this.selectObject( object );
                 }
             }
             break;
         case "raise_lower":
+            if ( eventType === "pointerClick" && pointerInfo.button === "left" ) {
+                var object = this.findByID( this, pickInfo.pickID );
+                if ( object && object.isEditable ) {
+                    this.selectObject( object );
+                }
+            }
+            break;
+        case "delete":
+            if ( eventType === "pointerClick" && pointerInfo.button === "left" ) {
+                var object = this.findByID( this, pickInfo.pickID );
+                if ( object && object.isEditable ) {
+                    this.selectObject( object );
+                }
+            }
+            break;
+        default:
+            if ( eventType === "pointerClick" && pointerInfo.button === "left" ) {
+                var object = this.findByID( this, pickInfo.pickID );
+                if ( object && object.isEditable ) {
+                    this.selectObject( object );
+                }
+            }
             break;
     }
 }
@@ -315,15 +337,12 @@ this.stopDrag = function( pointerInfo, pickInfo ) {
     this.selectedObject = undefined;
 }
 
-this.selectObject = function( id ) {
-    var object;
-
-    if ( this.editTool.selectedObjectId === id ) {
+this.selectObject = function( object ) {
+    if ( this.editTool.selectedObjectId === object.id ) {
         this.deselectObject();
     } else {
-        object = this.findByID( this, id );
         this.editTool.grid.updateGrid( object );
-        this.editTool.selectedObjectId = id;
+        this.editTool.selectedObjectId = object.id;
         this.selectedObject = object;
     }
 }
