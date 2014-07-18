@@ -136,9 +136,18 @@ function handleScroll( wheelDelta, navObject, navMode, rotationSpeed, translatio
             var dist = origin.distanceTo( newCameraLoc );
             var upperBound = ( gridBounds.topRight[ 0 ] - gridBounds.bottomLeft[ 0 ] ) / 2.5;
             var lowerBound = ( gridBounds.topRight[ 0 ] - gridBounds.bottomLeft[ 0 ] ) / 8;
-            if ( dist < lowerBound || dist > upperBound || 
-                ( wheelDelta > 0 && cameraLoc.distanceTo( newCameraLoc ) > dist ) ) {
+            if ( wheelDelta > 0 && cameraLoc.distanceTo( newCameraLoc ) > dist ) {
                 return;
+            }
+
+            if ( dist < lowerBound ) {
+                var heading = new THREE.Vector3();
+                heading.subVectors( cameraLoc, origin ).normalize();
+                newCameraLoc.addVectors( origin, heading.multiplyScalar( lowerBound ) );
+            } else if ( dist > upperBound ) {
+                var heading = new THREE.Vector3();
+                heading.subVectors( cameraLoc, origin ).normalize();
+                newCameraLoc.addVectors( origin, heading.multiplyScalar( upperBound ) );
             }
 
             navWorldMat.elements[ 12 ] = newCameraLoc.x;
