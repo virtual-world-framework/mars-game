@@ -116,7 +116,7 @@ function retrieveAssetListItems( listPath ) {
 }
 
 function setupTools() {
-    addToolsToGroup( "transformtools", [ "camera", "translate", "rotate", "raise_lower"] );
+    addToolsToGroup( "transformtools", [ "camera", "translate", "rotate", "raise_lower", "delete" ] );
 
     var tools = document.getElementsByClassName( "toolbutton" );
     var img;
