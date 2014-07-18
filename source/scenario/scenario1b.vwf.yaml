@@ -136,6 +136,13 @@ properties:
       - stopSound:
         - musicStandardGameplay
 
+    playStartingSounds:
+      triggerCondition:
+      - onScenarioStart:
+      actions:
+      - playSound:
+        - musicStandardGameplay
+        
     resetFailure:
       triggerCondition:
       - onScenarioStart:
