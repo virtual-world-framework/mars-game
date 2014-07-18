@@ -196,7 +196,6 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
             case "addSubtitle":
                 var msg = eventArgs[ 0 ];
                 var time = eventArgs[ 1 ] ? eventArgs[ 1 ] : 1;
-                console.log( time );
                 pushSubtitle( msg, time );
                 break;            
                 

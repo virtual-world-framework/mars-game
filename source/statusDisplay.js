@@ -153,13 +153,14 @@ function pushSubtitle( message, subtitleTime ) {
     var time, lastUpdateTime;
     var index = 0;
     var charInterval = message.length > 0 ? subtitleTime / message.length : 0;
-    console.log( message.length + " : " + charInterval );
 
     var updateSubtitle = function() {
         time = vwf_view.kernel.time();
         lastUpdateTime = lastUpdateTime || time;
-        if ( time - lastUpdateTime > charInterval ) {
-            lastUpdateTime = time;
+        
+        var difference = time - lastUpdateTime;
+        if ( difference >= charInterval ) {
+            lastUpdateTime = time - ( difference - charInterval );
             text.innerHTML += message[ index ];
             loggerBox.scrollTop = loggerBox.scrollHeight;
             index++;
