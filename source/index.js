@@ -340,10 +340,6 @@ vwf_view.satProperty = function( nodeID, propertyName, propertyValue ) {
             case "batteryMax":
                 hud.elements.batteryMeter.maxBattery = parseFloat( propertyValue );
                 break;
-
-            case "blockly_xml":
-
-                break;
                 
         }
     }
