@@ -110,13 +110,30 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                     this.kernel.setProperty( graphLines[ "blocklyLine" ].ID, "lineFunction", currentCode );
                 }
                 break;
+            case "blockExecuted":
+                var blockName = eventArgs[ 0 ];
+                var blockID = eventArgs[ 1 ];
+                if ( blockName ) {
+                    if ( blockName.indexOf( "repeat" > -1 ) ) {
+                        blockName = blockName.indexOf( "times" ) > -1 ? "repeatTimes" : blockName;
+                    }
+                    pushNextBlocklyStatus( blockName );
+                }
+                if ( blockID ) {
+                    var workspace = Blockly.getMainWorkspace();
+                    var block = workspace ? workspace.getBlockById( blockID ) : undefined;
+                    if ( block ) {
+                        block.select();
+                    }
+                }
+                break;
 
             case "scenarioReset":
                 resetStatusDisplay();
             case "scenarioChanged":
-
                 removePopup();
                 removeFailScreen();
+                clearBlocklyStatus();
                 gridBounds = eventArgs[ 1 ];
                 break;
 

@@ -28,6 +28,7 @@ methods:
   addStatus:
   addAlert:
   addSubtitle:
+  executeBlock:
 events:
   introScreensComplete:
   scenarioReset:
@@ -39,6 +40,7 @@ events:
   clearBlockly:
   showCommsImage:
   hideCommsImage:
+  blockExecuted:
 children:
   soundManager:
     includes: source/marsGameSound.vwf
