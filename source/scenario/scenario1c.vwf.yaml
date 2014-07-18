@@ -15,11 +15,11 @@ properties:
   - setProperty:
     - rover
     - batteryMax
-    - 50
+    - 8
   - setProperty:
     - rover
     - blockly_allowedBlocks
-    - 5
+    - 3
 
   # TODO: Simplify heading/rotation
   # Set initial rotation using heading

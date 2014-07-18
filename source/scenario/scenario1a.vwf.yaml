@@ -19,7 +19,7 @@ properties:
   - setProperty:
     - rover
     - blockly_allowedBlocks
-    - 5
+    - 3
 
   # TODO: Simplify heading/rotation
   # Set initial rotation using heading
@@ -96,7 +96,7 @@ properties:
         - environmentWind
       - writeToBlackboard:
         - musicStoryScreen
-        
+
 children:
   grid:
     extends: source/grid.vwf
