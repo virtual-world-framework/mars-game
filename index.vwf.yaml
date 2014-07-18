@@ -38,6 +38,7 @@ events:
   blinkTab:
   stopBlinkTab:
   clearBlockly:
+  selectLastBlock:
   showCommsImage:
   hideCommsImage:
   blockExecuted:
