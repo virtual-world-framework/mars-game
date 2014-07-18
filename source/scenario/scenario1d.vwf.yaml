@@ -11,7 +11,7 @@ properties:
   - setProperty:
     - rover
     - battery
-    - 30
+    - 50
   - setProperty:
     - rover
     - batteryMax
@@ -39,7 +39,7 @@ properties:
 
   - addToGrid:
     - rover
-    - [ 8, 5 ]
+    - [ 8, 2 ]
 
   - addToGrid:
     - radio

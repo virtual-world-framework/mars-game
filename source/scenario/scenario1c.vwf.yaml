@@ -11,7 +11,7 @@ properties:
   - setProperty:
     - rover
     - battery
-    - 30
+    - 4
   - setProperty:
     - rover
     - batteryMax
@@ -28,18 +28,18 @@ properties:
   - setProperty:
     - rover
     - heading
-    - 90
+    - 180
   - setProperty:
     - rover
     - rotation
-    - [ 0, 0, 1, 90 ]
+    - [ 0, 0, 1, 180 ]
 
   - emptyInventory:
     - rover/cargo
 
   - addToGrid:
     - rover
-    - [ 8, 5 ]
+    - [ 8, 6 ]
 
   - addToGrid:
     - radio
@@ -55,7 +55,7 @@ properties:
         - isAtPosition:
           - rover
           - 8
-          - 5
+          - 2
         - hasHeading:
           - rover
           - 180
@@ -118,7 +118,7 @@ properties:
             - isAtPosition:
               - rover
               - 8
-              - 5
+              - 2
             - hasHeading:
               - rover
               - 180

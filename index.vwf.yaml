@@ -166,6 +166,14 @@ children:
     includes: source/scenario/introScreenScenario.vwf
   scenario1:
     includes: source/scenario/scenario1.vwf
+  scenario1a:
+    includes: source/scenario/scenario1a.vwf
+  scenario1b:
+    includes: source/scenario/scenario1b.vwf
+  scenario1c:
+    includes: source/scenario/scenario1c.vwf
+  scenario1d:
+    includes: source/scenario/scenario1d.vwf
   scenario2:
     includes: source/scenario/scenario2.vwf
   scenario3:

@@ -11,15 +11,15 @@ properties:
   - setProperty:
     - rover
     - battery
-    - 10
+    - 8
   - setProperty:
     - rover
     - batteryMax
-    - 10
+    - 8
   - setProperty:
     - rover
     - blockly_allowedBlocks
-    - 2
+    - 5
 
   # TODO: Simplify heading/rotation
   # Set initial rotation using heading
@@ -68,7 +68,7 @@ properties:
       - hideBlockly:
       - clearBlockly:
       - scenarioSuccess:
-        - "You have executed a movement command! More RAM coming online!"
+        - "You have executed a movement command!"
       - playSound:
         - musicSuccess
       - stopSound:

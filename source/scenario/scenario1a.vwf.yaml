@@ -11,15 +11,15 @@ properties:
   - setProperty:
     - rover
     - battery
-    - 10
+    - 7
   - setProperty:
     - rover
     - batteryMax
-    - 10
+    - 8
   - setProperty:
     - rover
     - blockly_allowedBlocks
-    - 2
+    - 5
 
   # TODO: Simplify heading/rotation
   # Set initial rotation using heading
@@ -54,7 +54,7 @@ properties:
       - isAtPosition:
         - rover
         - 8
-        - 5
+        - 6
       actions:
       - hideBlockly:
       - scenarioSuccess:
@@ -111,7 +111,7 @@ properties:
           - isAtPosition:
             - rover
             - 8
-            - 5
+            - 6
         - not:
           - readBlackboard:
             - hasFailed

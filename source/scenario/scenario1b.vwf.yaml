@@ -11,11 +11,11 @@ properties:
   - setProperty:
     - rover
     - battery
-    - 10
+    - 4
   - setProperty:
     - rover
     - batteryMax
-    - 10
+    - 50
   - setProperty:
     - rover
     - blockly_allowedBlocks
@@ -39,7 +39,7 @@ properties:
 
   - addToGrid:
     - rover
-    - [ 8, 5 ]
+    - [ 8, 6 ]
 
   - addToGrid:
     - radio
@@ -55,10 +55,10 @@ properties:
         - isAtPosition:
           - rover
           - 8
-          - 5
+          - 6
         - hasHeading:
           - rover
-          - 90
+          - 180
       actions:
       - hideBlockly:
       - scenarioSuccess:
@@ -116,10 +116,10 @@ properties:
             - isAtPosition:
               - rover
               - 8
-              - 5
+              - 6
             - hasHeading:
               - rover
-              - 90
+              - 180
         - not:
           - readBlackboard:
             - hasFailed
