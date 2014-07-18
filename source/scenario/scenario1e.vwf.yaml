@@ -1,17 +1,17 @@
 ---
 extends: source/scenario/scenario.vwf
 properties:
-  scenarioName: scenario1b
+  scenarioName: scenario1e
 
   scenePath: /
-  nextScenarioPath: "scenario1c"
-  blockly: assets/scenario/scenario1b.xml
+  nextScenarioPath: "scenario1f"
+  blockly: assets/scenario/scenario1e.xml
 
   startState:
   - setProperty:
     - rover
     - battery
-    - 8
+    - 7
   - setProperty:
     - rover
     - batteryMax
@@ -39,7 +39,7 @@ properties:
 
   - addToGrid:
     - rover
-    - [ 8, 2 ]
+    - [ 8, 3 ]
 
   - addToGrid:
     - radio
@@ -51,16 +51,15 @@ properties:
       - onBlocklyStopped:
         - rover
       additionalCondition:
-      - and:
-        - isAtPosition:
-          - rover
-          - 8
-          - 3
+      - isAtPosition:
+        - rover
+        - 8
+        - 6
       actions:
       - hideBlockly:
       - clearBlockly:
       - scenarioSuccess:
-        - "You have executed a movement command and picked up your helicam!"
+        - "You have calibrated your motors picked up your battery!"
       - playSound:
         - musicSuccess
       - stopSound:
@@ -113,7 +112,7 @@ properties:
           - isAtPosition:
             - rover
             - 8
-            - 3
+            - 6
         - not:
           - readBlackboard:
             - hasFailed
@@ -128,6 +127,13 @@ properties:
       - stopSound:
         - musicSuccess
       - stopSound:
+        - musicStandardGameplay
+
+    playStartingSounds:
+      triggerCondition:
+      - onScenarioStart:
+      actions:
+      - playSound:
         - musicStandardGameplay
 
     resetFailure:
@@ -152,76 +158,6 @@ properties:
       actions:
       - stopBlinkHUDElement:
         - blocklyButton
-
-    stopIntroMusic:
-      triggerCondition:
-      - onScenarioStart:
-      additionalCondition:
-      - not:
-        - readBlackboard:
-          - musicStoryScreen
-      actions:
-      - stopSound:
-        - musicStoryScreen
-      - playSound:
-        - environmentWind
-      - writeToBlackboard:
-        - musicStoryScreen
-
-    playStartingSounds:
-      triggerCondition:
-      - onScenarioStart:
-      actions:
-      - playSound:
-        - musicStandardGameplay
-
-    playL1VO1_Rover:
-      triggerCondition:
-      - onScenarioStart:
-      additionalCondition:
-      - and:
-        - not:
-          - readBlackboard:
-            - L1VO1
-        - doOnce:
-      actions:
-      - playSound:
-        - L1VO1_Rover
-      - writeToBlackboard:
-        - L1VO1
-
-    playL1VO2_Rover:
-      triggerCondition:
-      - onBlocklyWindowOpened:
-      additionalCondition:
-      - and:
-        - not:
-          - readBlackboard:
-            - L1VO2
-        - doOnce:
-      actions:
-      - playSound:
-        - L1VO2_Rover
-      - writeToBlackboard:
-        - L1VO2
-
-    # playL1VO3_Rover:
-    #   triggerCondition:
-    #   - onBlocklyProgramChanged:
-    #     - rover
-    #     - add
-    #     - rover_moveForward
-    #   additionalCondition:
-    #   - and:
-    #     - not:
-    #       - readBlackboard:
-    #         - L1VO3
-    #     - doOnce:
-    #   actions:
-    #   - playSound:
-    #     - L1VO3_Rover
-    #   - writeToBlackboard:
-    #     - L1VO3
 
     startRoverSounds:
       triggerCondition:

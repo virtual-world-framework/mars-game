@@ -4,7 +4,7 @@ properties:
   scenarioName: introScreenScenario
 
   scenePath: /
-  nextScenarioPath: "scenario1"
+  nextScenarioPath: "scenario1a"
   blockly: assets/scenario/scenario1.xml
 
   triggers:

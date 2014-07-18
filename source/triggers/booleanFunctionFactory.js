@@ -503,6 +503,56 @@ this.clauseSet.onIntroScreensComplete = function( params, context, callback ) {
     };
 }
 
+this.clauseSet.onHelicamToggle= function( params, context, callback ) {
+    if ( params ) {
+        self.logger.warnx( "onHelicamToggle", 
+                           "This clause doesn't take any arguments." );
+    }
+
+    var toggledHelicam = false;
+
+    onClauseCallbackWarning( callback );
+    if ( callback ) {
+        if ( context && context.toggledHelicam ) {
+            context.toggledHelicam = self.events.add( function() {
+                                                                toggledHelicam = true;
+                                                                callback();
+                                                            } );
+        }
+    }
+
+    return function() {
+        var retVal = toggledHelicam;
+        toggledHelicam = false;
+        return retVal;
+    };
+}
+
+this.clauseSet.onGridToggle= function( params, context, callback ) {
+    if ( params ) {
+        self.logger.warnx( "onGridToggle", 
+                           "This clause doesn't take any arguments." );
+    }
+
+    var toggledGrid = false;
+
+    onClauseCallbackWarning( callback );
+    if ( callback ) {
+        if ( context && context.toggledGrid ) {
+            context.toggledGrid = self.events.add( function() {
+                                                                toggledGrid = true;
+                                                                callback();
+                                                            } );
+        }
+    }
+
+    return function() {
+        var retVal = toggledGrid;
+        toggledGrid = false;
+        return retVal;
+    };
+}
+
 this.clauseSet.doOnce = function( params, context, callback ) {
     if ( params ) {
         self.logger.warnx( "doOnce", "This clause doesn't take any arguments." );

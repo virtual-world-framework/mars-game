@@ -11,7 +11,7 @@ properties:
   - setProperty:
     - rover
     - battery
-    - 4
+    - 7
   - setProperty:
     - rover
     - batteryMax
@@ -28,18 +28,18 @@ properties:
   - setProperty:
     - rover
     - heading
-    - 180
+    - 0
   - setProperty:
     - rover
     - rotation
-    - [ 0, 0, 1, 180 ]
+    - [ 0, 0, 1, 0 ]
 
   - emptyInventory:
     - rover/cargo
 
   - addToGrid:
     - rover
-    - [ 8, 6 ]
+    - [ 8, 3 ]
 
   - addToGrid:
     - radio
@@ -48,93 +48,16 @@ properties:
   triggers:
     succeedOnSuccess:
       triggerCondition:
-      - onBlocklyStopped:
-        - rover
-      additionalCondition:
-      - and:
-        - isAtPosition:
-          - rover
-          - 8
-          - 2
-        - hasHeading:
-          - rover
-          - 180
+      - onHelicamToggle:
       actions:
       - hideBlockly:
+      - clearBlockly:
       - scenarioSuccess:
-        - "Now I can get out of this ditch and find the radio!"
-      - playSound:
-        - L1VO5_Rover
+        - "You have a bird's eye view now! What a mess!"
       - playSound:
         - musicSuccess
       - stopSound:
         - musicFailure
-      - stopSound:
-        - musicStandardGameplay
-
-    failOnCollision:
-      triggerCondition:
-      - moveFailed:
-        - rover
-        - collision
-      actions:
-      - hideBlockly:
-      - writeToBlackboard:
-        - hasFailed
-      - scenarioFailure:        
-        - collision
-      - playSound:
-        - musicFailure
-      - stopSound:
-        - musicSuccess
-      - stopSound:
-        - musicStandardGameplay
-
-    failOnBatteryDepleted:
-      triggerCondition:
-      - moveFailed:
-        - rover
-        - battery
-      actions:
-      - hideBlockly:
-      - writeToBlackboard:
-        - hasFailed
-      - scenarioFailure:         
-        - battery
-      - playSound:
-        - musicFailure
-      - stopSound:
-        - musicSuccess
-      - stopSound:
-        - musicStandardGameplay
-
-    failOnIncompleteProgram:
-      triggerCondition:
-      - onBlocklyStopped:
-      additionalCondition:
-      - and:
-        - not:
-          - and:
-            - isAtPosition:
-              - rover
-              - 8
-              - 2
-            - hasHeading:
-              - rover
-              - 180
-        - not:
-          - readBlackboard:
-            - hasFailed
-      actions:
-      - hideBlockly:
-      - writeToBlackboard:
-        - hasFailed
-      - scenarioFailure:
-        - incomplete
-      - playSound:
-        - musicFailure
-      - stopSound:
-        - musicSuccess
       - stopSound:
         - musicStandardGameplay
 
@@ -144,61 +67,22 @@ properties:
       actions:
       - playSound:
         - musicStandardGameplay
-        
-    resetFailure:
-      triggerCondition:
-      - onScenarioStart:
-      actions:
-      - clearBlackboard:
-        - hasFailed
 
-    blinkBlocklyIcon:
+    blinkCameraIcon:
       triggerCondition:
       - onScenarioStart:
       actions:
       - blinkHUDElement:
-        - blocklyButton
+        - camera_topDown
 
-    stopBlinkBlocklyIcon:
+    stopBlinkCameraIcon:
       triggerCondition:
       - or:
-        - onBlocklyWindowOpened:
+        - onHelicamToggle:
         - onScenarioChanged:
       actions:
       - stopBlinkHUDElement:
-        - blocklyButton
-
-    playL1VO5_Rover:
-      triggerCondition:
-      - onMoved:
-        - rover
-      additionalCondition:
-      - and:
-        - not:
-          - readBlackboard:
-            - L1VO5
-        - doOnce:
-      actions:
-      - playSound:
-        - L1VO5_Rover
-      - writeToBlackboard:
-        - L1VO5
-
-    startRoverSounds:
-      triggerCondition:
-      - onBlocklyStarted:
-        - rover
-      actions:
-      - playSound:
-        - roverSounds
-
-    stopRoverSounds:
-      triggerCondition:
-      - onBlocklyStopped:
-        - rover
-      actions:
-      - stopSound:
-        - roverSounds
+        - camera_topDown
 
 children:
   grid:

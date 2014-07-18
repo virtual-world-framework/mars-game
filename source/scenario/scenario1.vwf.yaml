@@ -1,11 +1,11 @@
 ---
 extends: source/scenario/scenario.vwf
 properties:
-  scenarioName: scenario1
+  scenarioName: scenario1b
 
   scenePath: /
-  nextScenarioPath: "scenario1a"
-  blockly: assets/scenario/scenario1.xml
+  nextScenarioPath: "scenario1c"
+  blockly: assets/scenario/scenario1b.xml
 
   startState:
   - setProperty:

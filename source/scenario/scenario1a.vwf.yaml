@@ -5,13 +5,13 @@ properties:
 
   scenePath: /
   nextScenarioPath: "scenario1b"
-  blockly: assets/scenario/scenario1a.xml
+  blockly: assets/scenario/scenario1.xml
 
   startState:
   - setProperty:
     - rover
     - battery
-    - 7
+    - 8
   - setProperty:
     - rover
     - batteryMax
@@ -39,7 +39,7 @@ properties:
 
   - addToGrid:
     - rover
-    - [ 8, 3 ]
+    - [ 8, 2 ]
 
   - addToGrid:
     - radio
@@ -48,83 +48,14 @@ properties:
   triggers:
     succeedOnSuccess:
       triggerCondition:
-      - onBlocklyStopped:
-        - rover
-      additionalCondition:
-      - isAtPosition:
-        - rover
-        - 8
-        - 6
+      - onBlocklyWindowOpened:
       actions:
-      - hideBlockly:
       - scenarioSuccess:
-        - "You have calibrated your motors and program chaining!"
+        - "You have accessed your programming interface!"
       - playSound:
         - musicSuccess
       - stopSound:
         - musicFailure
-      - stopSound:
-        - musicStandardGameplay
-
-    failOnCollision:
-      triggerCondition:
-      - moveFailed:
-        - rover
-        - collision
-      actions:
-      - hideBlockly:
-      - writeToBlackboard:
-        - hasFailed
-      - scenarioFailure:        
-        - collision
-      - playSound:
-        - musicFailure
-      - stopSound:
-        - musicSuccess
-      - stopSound:
-        - musicStandardGameplay
-
-    failOnBatteryDepleted:
-      triggerCondition:
-      - moveFailed:
-        - rover
-        - battery
-      actions:
-      - hideBlockly:
-      - writeToBlackboard:
-        - hasFailed
-      - scenarioFailure:         
-        - battery
-      - playSound:
-        - musicFailure
-      - stopSound:
-        - musicSuccess
-      - stopSound:
-        - musicStandardGameplay
-
-    failOnIncompleteProgram:
-      triggerCondition:
-      - onBlocklyStopped:
-      additionalCondition:
-      - and:
-        - not:
-          - isAtPosition:
-            - rover
-            - 8
-            - 6
-        - not:
-          - readBlackboard:
-            - hasFailed
-      actions:
-      - hideBlockly:
-      - writeToBlackboard:
-        - hasFailed
-      - scenarioFailure:
-        - incomplete
-      - playSound:
-        - musicFailure
-      - stopSound:
-        - musicSuccess
       - stopSound:
         - musicStandardGameplay
 
@@ -134,13 +65,6 @@ properties:
       actions:
       - playSound:
         - musicStandardGameplay
-        
-    resetFailure:
-      triggerCondition:
-      - onScenarioStart:
-      actions:
-      - clearBlackboard:
-        - hasFailed
 
     blinkBlocklyIcon:
       triggerCondition:
@@ -157,38 +81,6 @@ properties:
       actions:
       - stopBlinkHUDElement:
         - blocklyButton
-
-    playL1VO5_Rover:
-      triggerCondition:
-      - onMoved:
-        - rover
-      additionalCondition:
-      - and:
-        - not:
-          - readBlackboard:
-            - L1VO5
-        - doOnce:
-      actions:
-      - playSound:
-        - L1VO5_Rover
-      - writeToBlackboard:
-        - L1VO5
-
-    startRoverSounds:
-      triggerCondition:
-      - onBlocklyStarted:
-        - rover
-      actions:
-      - playSound:
-        - roverSounds
-
-    stopRoverSounds:
-      triggerCondition:
-      - onBlocklyStopped:
-        - rover
-      actions:
-      - stopSound:
-        - roverSounds
 
 children:
   grid:

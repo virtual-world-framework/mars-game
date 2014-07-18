@@ -135,12 +135,6 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 resetStatusDisplay();
             case "scenarioChanged":
 
-                //TODO: Move this into an event??
-                if ( Blockly.mainWorkspace ){
-                    Blockly.mainWorkspace.clear();
-                }
-                this.kernel.setProperty( mainRover, "blockly_xml", '<xml></xml>' );
-
                 removePopup();
                 removeFailScreen();
                 clearBlocklyStatus();

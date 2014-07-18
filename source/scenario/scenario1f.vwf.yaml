@@ -1,21 +1,21 @@
 ---
 extends: source/scenario/scenario.vwf
 properties:
-  scenarioName: scenario1b
+  scenarioName: scenario1f
 
   scenePath: /
-  nextScenarioPath: "scenario1c"
-  blockly: assets/scenario/scenario1b.xml
+  nextScenarioPath: "scenario1g"
+  blockly: assets/scenario/scenario1f.xml
 
   startState:
   - setProperty:
     - rover
     - battery
-    - 8
+    - 4
   - setProperty:
     - rover
     - batteryMax
-    - 8
+    - 50
   - setProperty:
     - rover
     - blockly_allowedBlocks
@@ -39,7 +39,7 @@ properties:
 
   - addToGrid:
     - rover
-    - [ 8, 2 ]
+    - [ 8, 6 ]
 
   - addToGrid:
     - radio
@@ -55,12 +55,15 @@ properties:
         - isAtPosition:
           - rover
           - 8
-          - 3
+          - 6
+        - hasHeading:
+          - rover
+          - 180
       actions:
       - hideBlockly:
       - clearBlockly:
       - scenarioSuccess:
-        - "You have executed a movement command and picked up your helicam!"
+        - "Turning motors are good to go!"
       - playSound:
         - musicSuccess
       - stopSound:
@@ -110,10 +113,14 @@ properties:
       additionalCondition:
       - and:
         - not:
-          - isAtPosition:
-            - rover
-            - 8
-            - 3
+          - and:
+            - isAtPosition:
+              - rover
+              - 8
+              - 6
+            - hasHeading:
+              - rover
+              - 180
         - not:
           - readBlackboard:
             - hasFailed
@@ -130,44 +137,6 @@ properties:
       - stopSound:
         - musicStandardGameplay
 
-    resetFailure:
-      triggerCondition:
-      - onScenarioStart:
-      actions:
-      - clearBlackboard:
-        - hasFailed
-
-    blinkBlocklyIcon:
-      triggerCondition:
-      - onScenarioStart:
-      actions:
-      - blinkHUDElement:
-        - blocklyButton
-
-    stopBlinkBlocklyIcon:
-      triggerCondition:
-      - or:
-        - onBlocklyWindowOpened:
-        - onScenarioChanged:
-      actions:
-      - stopBlinkHUDElement:
-        - blocklyButton
-
-    stopIntroMusic:
-      triggerCondition:
-      - onScenarioStart:
-      additionalCondition:
-      - not:
-        - readBlackboard:
-          - musicStoryScreen
-      actions:
-      - stopSound:
-        - musicStoryScreen
-      - playSound:
-        - environmentWind
-      - writeToBlackboard:
-        - musicStoryScreen
-
     playStartingSounds:
       triggerCondition:
       - onScenarioStart:
@@ -175,53 +144,12 @@ properties:
       - playSound:
         - musicStandardGameplay
 
-    playL1VO1_Rover:
+    resetFailure:
       triggerCondition:
       - onScenarioStart:
-      additionalCondition:
-      - and:
-        - not:
-          - readBlackboard:
-            - L1VO1
-        - doOnce:
       actions:
-      - playSound:
-        - L1VO1_Rover
-      - writeToBlackboard:
-        - L1VO1
-
-    playL1VO2_Rover:
-      triggerCondition:
-      - onBlocklyWindowOpened:
-      additionalCondition:
-      - and:
-        - not:
-          - readBlackboard:
-            - L1VO2
-        - doOnce:
-      actions:
-      - playSound:
-        - L1VO2_Rover
-      - writeToBlackboard:
-        - L1VO2
-
-    # playL1VO3_Rover:
-    #   triggerCondition:
-    #   - onBlocklyProgramChanged:
-    #     - rover
-    #     - add
-    #     - rover_moveForward
-    #   additionalCondition:
-    #   - and:
-    #     - not:
-    #       - readBlackboard:
-    #         - L1VO3
-    #     - doOnce:
-    #   actions:
-    #   - playSound:
-    #     - L1VO3_Rover
-    #   - writeToBlackboard:
-    #     - L1VO3
+      - clearBlackboard:
+        - hasFailed
 
     startRoverSounds:
       triggerCondition:

@@ -526,6 +526,11 @@ function toggleGraphDisplay( event ) {
     }
     var cameraNode = vwf_view.kernel.find( "", "//camera" )[ 0 ];
     var graphID = vwf_view.kernel.find( "", "//blocklyGraph" )[ 0 ];
+
+    vwf_view.kernel.fireEvent( vwf_view.kernel.application(),
+            "toggledGrid",
+            [] );
+
     if ( cameraNode && graphID ) {
         vwf_view.kernel.callMethod( graphID, "toggleGraphVisibility" );
         vwf_view.kernel.setProperty( cameraNode, "pointOfView", "topDown" );
@@ -549,6 +554,13 @@ function selectCameraMode( event ) {
     } else if ( !this.enabled ) {
         return;
     }
+    if ( this.mode === "topDown" ){
+        vwf_view.kernel.fireEvent( vwf_view.kernel.application(),
+            "toggledHelicam",
+            [] );
+        
+    }
+
     var cameraNode = vwf_view.kernel.find( "", "//camera" )[ 0 ];
     vwf_view.kernel.setProperty( cameraNode, "pointOfView", this.mode );
 }
