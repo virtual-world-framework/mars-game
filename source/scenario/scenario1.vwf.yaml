@@ -42,6 +42,14 @@ properties:
     - [ 8, 2 ]
 
   - addToGrid:
+    - battery
+    - [ 8, 3 ]
+
+  - addToGrid:
+    - helicam
+    - [ 8, 6 ]
+
+  - addToGrid:
     - radio
     - [ 8, 16 ]
 
@@ -145,6 +153,20 @@ properties:
       actions:
       - clearBlackboard:
         - hasFailed
+
+    disableHelicam:
+      triggerCondition:
+      - onScenarioStart:
+      actions:
+      - disableHelicam:
+
+    enableHelicam:
+      triggerCondition:
+      - hasObject:
+        - rover
+        - helicam
+      actions:
+      - enableHelicam:
 
     blinkBlocklyIcon:
       triggerCondition:

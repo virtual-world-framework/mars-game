@@ -11,15 +11,17 @@ function createHUD() {
     blocklyButton.onMouseDown = clickBlockly;
     hud.add( blocklyButton, "right", "bottom", { "x": -30, "y": -30 } );
 
-    var graphButton = new HUD.Element( "graphButton", drawIcon, 64, 64 );
+    var graphButton = new HUD.Element( "graphButton", drawHelicamButton, 64, 64 );
     graphButton.icon = new Image();
     graphButton.icon.src = "assets/images/hud/graph_display.png";
+    graphButton.enabled = true;
     graphButton.onMouseDown = toggleGraphDisplay;
     hud.add( graphButton, "right", "bottom", { "x": -102, "y": -30 } );
 
-    var tilesButton = new HUD.Element( "tilesButton", drawIcon, 64, 64 );
+    var tilesButton = new HUD.Element( "tilesButton", drawHelicamButton, 64, 64 );
     tilesButton.icon = new Image();
     tilesButton.icon.src = "assets/images/hud/tiles_button.png";
+    tilesButton.enabled = true;
     tilesButton.onMouseDown = toggleTiles;
     hud.add( tilesButton, "right", "bottom", { "x": -174, "y": -30 } );
 
@@ -88,10 +90,11 @@ function createCameraSelector() {
     thirdPersonBtn.onMouseDown = selectCameraMode;
     hud.add( thirdPersonBtn, "right", "top", { "x": -34, "y": 54 } );
 
-    var topDownBtn = new HUD.Element( "camera_topDown", drawIcon, 22, 22 );
+    var topDownBtn = new HUD.Element( "camera_topDown", drawHelicamButton, 22, 22 );
     topDownBtn.icon = new Image();
     topDownBtn.icon.src = "assets/images/hud/camera_topdown.png";
     topDownBtn.mode = "topDown";
+    topDownBtn.enabled = true;
     topDownBtn.onMouseDown = selectCameraMode;
     hud.add( topDownBtn, "right", "top", { "x": -35, "y": 80 } );
 
@@ -434,6 +437,18 @@ function drawBlocklyStatus( context, position ) {
     }
 }
 
+function drawHelicamButton( context, position ) {
+    if ( this.icon ) {
+        if ( this.enabled ) {
+            context.drawImage( this.icon, position.x, position.y );
+        } else {
+            context.globalAlpha = 0.25;
+            context.drawImage( this.icon, position.x, position.y );
+            context.globalAlpha = 1;
+        }
+    }
+}
+
 function drawIcon( context, position ) {
     if ( this.icon ) {
         context.drawImage( this.icon, position.x, position.y );
@@ -506,6 +521,9 @@ function clickBlockly( event ) {
 }
 
 function toggleGraphDisplay( event ) {
+    if ( !this.enabled ) {
+        return;
+    }
     var cameraNode = vwf_view.kernel.find( "", "//camera" )[ 0 ];
     var graphID = vwf_view.kernel.find( "", "//blocklyGraph" )[ 0 ];
     if ( cameraNode && graphID ) {
@@ -528,6 +546,8 @@ function selectCameraMode( event ) {
         if ( isVisible.tiles ) {
             toggleTiles( event );
         }
+    } else if ( !this.enabled ) {
+        return;
     }
     var cameraNode = vwf_view.kernel.find( "", "//camera" )[ 0 ];
     vwf_view.kernel.setProperty( cameraNode, "pointOfView", this.mode );
@@ -545,6 +565,9 @@ function showHelp( event ) {
 }
 
 function toggleTiles( event ) {
+    if ( !this.enabled ) {
+        return;
+    }
     var cameraNode = vwf_view.kernel.find( "", "//camera" )[ 0 ];
     var graphTilesID = vwf_view.kernel.find( "", "//gridTileGraph" )[ 0 ];
     if ( cameraNode && graphTilesID ) {
@@ -658,6 +681,12 @@ function clearBlocklyStatus() {
             statusElem.toBePushed = [];
         }         
     }
+}
+
+function setHelicamButtonsEnabled( value ) {
+    hud.elements[ "graphButton" ].enabled = value;
+    hud.elements[ "tilesButton" ].enabled = value;
+    hud.elements[ "camera_topDown" ].enabled = value;
 }
 
 //@ sourceURL=source/hudInstructions.js

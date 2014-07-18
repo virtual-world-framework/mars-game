@@ -1,0 +1,9 @@
+---
+extends: source/pickup.vwf
+# Change to Helicam model
+source: assets/3d/Batteries/battery_pickup3.dae 
+type: model/vnd.collada+xml
+properties:
+  animationLoop: true
+  isCollidable: false
+  terrainName: "environment"

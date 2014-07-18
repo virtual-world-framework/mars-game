@@ -42,6 +42,8 @@ events:
   showCommsImage:
   hideCommsImage:
   blockExecuted:
+  enableHelicam:
+  disableHelicam:
 children:
   soundManager:
     includes: source/marsGameSound.vwf
@@ -155,19 +157,11 @@ children:
     extends: http://vwf.example.com/node3.vwf
     children:
       radio:
-        extends: http://vwf.example.com/node3.vwf
-        implements: [ "source/inventoriable.vwf", "source/griddable.vwf" ]
-        source: assets/3d/Radio/radio.DAE
-        type: model/vnd.collada+xml
-        properties:
-          iconSrc: "../assets/images/radio.png"
-          animationLoop: true
-          isCollidable: false
-          terrainName: "environment"
-        scripts: |
-          this.initialize = function() {
-            this.animationPlay();
-          }
+        includes: source/pickups/radio.vwf
+      battery:
+        includes: source/pickups/battery_1.vwf
+      helicam:
+        includes: source/pickups/helicam.vwf
   introScreenScenario:
     includes: source/scenario/introScreenScenario.vwf
   scenario1:
