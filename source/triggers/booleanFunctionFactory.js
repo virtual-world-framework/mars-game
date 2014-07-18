@@ -531,6 +531,49 @@ this.clauseSet.blocklyLineEval = function( params, context, callback ) {
     }
 }
 
+// arguments: variableName
+this.clauseSet.readBlackboard = function( params, context ) {
+    if ( params.length < 1 ) {
+        self.logger.errorx( "readBlackboard", 
+                            "This clause takes one argument: the name of the variable" +
+                            " and optionally a second argument for occurance count if" + 
+                            " using an incrementing blackboard value" );
+        return undefined;
+    }
+
+    return function() {
+    
+        var checkedValue = context.sceneBlackboard[ params[ 0 ] ];
+
+        if ( params[ 1 ] !== undefined ){
+        var retVal = ( checkedValue !== undefined && checkedValue < params[ 1 ] );
+        } else {
+        var retVal = ( checkedValue !== undefined );  
+        }
+
+        return retVal;
+    };
+}
+
+this.clauseSet.delay = function( delayTime, context, callback ) {
+    if ( params.length !== 1 ) {
+        self.logger.errorx( "delay", "This clause takes exactly one argument: " +
+                            "the amount of time to delay (in seconds).");
+        return undefined;
+    }
+
+    var delayComplete = false;
+    var onDelayComplete = function() {
+        delayComplete = true;
+        callback && callback();
+    }
+    setTimeout( onDelayComplete, delayTime * 1000 )
+
+    return function() {
+        return delayComplete;
+    }
+}
+
 function onClauseCallbackWarning( callback ) {
       if ( !callback ) {
         self.logger.warnx( "onClauseCallbackWarning", 
@@ -575,28 +618,5 @@ function getBlocklyObjects( params, context ) {
     return undefined;
 }
 
-// arguments: variableName
-this.clauseSet.readBlackboard = function( params, context ) {
-    if ( params.length < 1 ) {
-        self.logger.errorx( "readBlackboard", 
-                            "This clause takes one argument: the name of the variable" +
-                            " and optionally a second argument for occurance count if" + 
-                            " using an incrementing blackboard value" );
-        return undefined;
-    }
-
-    return function() {
-    
-        var checkedValue = context.sceneBlackboard[ params[ 0 ] ];
-
-        if ( params[ 1 ] !== undefined ){
-        var retVal = ( checkedValue !== undefined && checkedValue < params[ 1 ] );
-        } else {
-        var retVal = ( checkedValue !== undefined );  
-        }
-
-        return retVal;
-    };
-}
 
 //@ sourceURL=source/triggers/booleanFunctionFactory.js

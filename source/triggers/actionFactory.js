@@ -75,7 +75,8 @@ this.actionSet.stopSound = function( params, context ) {
 
 this.actionSet.delay = function( params, context ) {
     if ( params && ( params.length < 2 ) ) {
-        self.logger.errorx( "delay", "This action takes two parameters: delay and action(s).");
+        self.logger.errorx( "delay", "This action takes two parameters: " +
+                            "delay (in seconds) and action(s).");
         return undefined;
     }
 
@@ -97,7 +98,7 @@ this.actionSet.delay = function( params, context ) {
 
     return function() {
         for ( var i = 0; i < actions.length; ++i ) {
-            setTimeout( actions[ i ], delay );
+            setTimeout( actions[ i ], delay * 1000 );
         }
     }
 }
