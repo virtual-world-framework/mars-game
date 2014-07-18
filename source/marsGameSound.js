@@ -21,7 +21,11 @@ this.setUpSubtitles = function() {
             if ( this.hasSubtitle( instanceHandle ) ) {
 
                 var subtitle = this.getSubtitle( instanceHandle );
-                scene.addSubtitle( subtitle );
+
+                //Get the time in seconds
+                var time = this.getDuration( instanceHandle );
+                
+                scene.addSubtitle( subtitle, time );
 
                 //Parse subtitle to find the character image to display
                 var character = subtitle.split( ":" )[ 0 ];

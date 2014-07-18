@@ -146,21 +146,31 @@ function pushToDisplay( type, message ) {
     } );
 }
 
-function pushSubtitle( message ) {
+function pushSubtitle( message, subtitleTime ) {
     var text = document.createElement( "div" );
     text.className = "subtitleText";
 
-    //Displays subtitle one character at a time
+    var time, lastUpdateTime;
     var index = 0;
-    var typeHandle = setInterval( function() {
-        text.innerHTML += message[ index ];
-        loggerBox.scrollTop = loggerBox.scrollHeight;
-        index++;
-        if ( index >= message.length ) {
-            clearInterval( typeHandle );
-        }
-    }, 40 );
+    var charInterval = message.length > 0 ? subtitleTime / message.length : 0;
+    console.log( message.length + " : " + charInterval );
 
+    var updateSubtitle = function() {
+        time = vwf_view.kernel.time();
+        lastUpdateTime = lastUpdateTime || time;
+        if ( time - lastUpdateTime > charInterval ) {
+            lastUpdateTime = time;
+            text.innerHTML += message[ index ];
+            loggerBox.scrollTop = loggerBox.scrollHeight;
+            index++;
+        }
+
+        if ( index < message.length ) {
+            requestAnimationFrame( updateSubtitle );
+        }
+    }
+
+    requestAnimationFrame( updateSubtitle );
     subtitleDisplayWrapper.appendChild( text );
 }
 
