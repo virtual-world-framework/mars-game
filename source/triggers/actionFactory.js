@@ -257,6 +257,28 @@ this.actionSet.clearBlockly = function( params, context ) {
     }
 }
 
+this.actionSet.disableHelicam = function( params, context ) {
+    if ( params && params.length > 0 ) {
+        self.logger.errorx( "disableHelicam", "This action takes no parameters.");
+        return undefined;
+    }
+    
+    return function() {
+        context.disableHelicam();
+    }
+}
+
+this.actionSet.enableHelicam = function( params, context ) {
+    if ( params && params.length > 0 ) {
+        self.logger.errorx( "enableHelicam", "This action takes no parameters.");
+        return undefined;
+    }
+    
+    return function() {
+        context.enableHelicam();
+    }
+}
+
 function getScenario( context ) {
     if ( context.getCurrentScenario ){
         return context.getCurrentScenario();

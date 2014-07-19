@@ -137,7 +137,7 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 removePopup();
                 removeFailScreen();
                 clearBlocklyStatus();
-                gridBounds = eventArgs[ 1 ];
+                gridBounds = eventArgs[ 1 ] || gridBounds;
                 break;
 
             case "blinkHUD":
@@ -151,6 +151,13 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 break;
             case "stopBlinkTab":
                 stopBlinkTab( eventArgs[ 0 ] );
+                break;
+
+            case "enableHelicam":
+                setHelicamButtonsEnabled( true );
+                break;
+            case "disableHelicam":
+                setHelicamButtonsEnabled( false );
                 break;
 
             case "showCommsImage":
