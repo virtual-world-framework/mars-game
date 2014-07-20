@@ -54,8 +54,8 @@ this.remove = function( objectID ) {
 }
 
 this.empty = function() {
-    for ( var i = 0; i < this.slots.length; i++ ) {
-        this.remove( this.slots[i] );
+    while ( this.slots.length > 0 ) {
+        this.remove( this.slots[ 0 ] );
     }
 
 }

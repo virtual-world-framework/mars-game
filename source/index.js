@@ -4,16 +4,21 @@ var graphLines = {};
 var loggerNodes = {};
 var currentBlocklyNodeID = undefined;
 var blocklyExecuting = false;
+var lastBlockIDExecuted = undefined;
 var targetPath = undefined;
 var mainRover = undefined;
 var blocklyGraphID = undefined;
 var alertNodeID = undefined;
 var statusNodeID = undefined;
-var gridBounds;
 var isVisible = {
     graph: false,
     tiles: false
 };
+var gridBounds = {
+    bottomLeft: undefined,
+    topRight: undefined
+};
+var orbitTarget = undefined;
 
 function onRun() {
     vwf_view.kernel.setProperty( currentBlocklyNodeID, "blockly_executing", true );
@@ -60,6 +65,7 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                     currentBlocklyNodeID = nodeID;
                     updateBlocklyRamBar();
                     updateBlocklyUI( blocklyNode );
+                    selectLastBlock();
                 } else {
                     currentBlocklyNodeID = undefined;
                 }
@@ -87,6 +93,14 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 var stopButton = document.getElementById( "stopButton" );
                 stopButton.className = "disabled";
                 break;
+
+            case "transformChanged":
+                if ( nodeID === vwf_view.kernel.find( "", targetPath )[ 0 ] ) {
+                    var targetTransform = eventArgs[ 0 ];
+                    if ( targetTransform ) {
+                        orbitTarget = [ targetTransform[ 12 ], targetTransform[ 13 ], targetTransform[ 14 ] ];
+                    }
+                }
         }
     } else if ( nodeID === this.kernel.application() ) {
         
@@ -98,14 +112,32 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                     this.kernel.setProperty( graphLines[ "blocklyLine" ].ID, "lineFunction", currentCode );
                 }
                 break;
+            case "blockExecuted":
+                var blockName = eventArgs[ 0 ];
+                var blockID = eventArgs[ 1 ];
+                if ( blockName ) {
+                    if ( blockName.indexOf( "repeat" > -1 ) ) {
+                        blockName = blockName.indexOf( "times" ) > -1 ? "repeatTimes" : blockName;
+                    }
+                    pushNextBlocklyStatus( blockName );
+                }
+                if ( blockID ) {
+                    var workspace = Blockly.getMainWorkspace();
+                    var block = workspace ? workspace.getBlockById( blockID ) : undefined;
+                    if ( block ) {
+                        block.select();
+                    }
+                    lastBlockIDExecuted = blockID;
+                }
+                break;
 
             case "scenarioReset":
                 resetStatusDisplay();
             case "scenarioChanged":
-
                 removePopup();
                 removeFailScreen();
-                gridBounds = eventArgs[ 1 ];
+                clearBlocklyStatus();
+                gridBounds = eventArgs[ 1 ] || gridBounds;
                 break;
 
             case "blinkHUD":
@@ -121,6 +153,13 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 stopBlinkTab( eventArgs[ 0 ] );
                 break;
 
+            case "enableHelicam":
+                setHelicamButtonsEnabled( true );
+                break;
+            case "disableHelicam":
+                setHelicamButtonsEnabled( false );
+                break;
+
             case "showCommsImage":
                 addImageToCommsDisplay( eventArgs[ 0 ] );
                 break;
@@ -129,6 +168,9 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 break;
             case "clearBlockly":
                 clearBlockly();
+                break;
+            case "selectLastBlock":
+                selectLastBlock();
                 break;
         } 
 
@@ -561,6 +603,14 @@ function clearBlockly() {
 
     if ( blocklyGraphID ){
         vwf_view.kernel.setProperty( blocklyGraphID, "blockly_xml", '<xml></xml>' );
+    }
+}
+
+function selectLastBlock(){
+    var workspace = Blockly.getMainWorkspace();
+    var block = workspace ? workspace.getBlockById( lastBlockIDExecuted ) : undefined;
+    if ( block ) {
+        block.select();
     }
 }
 
