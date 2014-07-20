@@ -91,16 +91,12 @@ properties:
       soundURL: "assets/sounds/VO/L1VO2_Rover_m.ogg"
       soundGroup: VO
       subtitle: "[ROVER]: I need to relearn the basics. I remember this is my internal interface to my programming…"
-      groupReplacementMethod: queue
+      groupReplacementMethod: replace
     - soundName: "L1VO3_Rover"
       soundURL: "assets/sounds/VO/L1VO3_Rover_m.ogg"
       soundGroup: VO
-      subtitle: "[ROVER]: Whoa…I need to watch my power level. Every forward move I make uses some, and I don’t have much left."
-      groupReplacementMethod: queue
-    - soundName: "L1VO4_Rover"
-      soundURL: "assets/sounds/VO/L1VO4_Rover_m.ogg"
-      soundGroup: VO
-      groupReplacementMethod: queue
+      subtitle: "[ROVER]: I need to watch my power level. Turning doesn't take any power, but moving forward on this rough terrain drains my battery."
+      groupReplacementMethod: replace
     - soundName: "L1VO5_Rover"
       soundURL: "assets/sounds/VO/L1VO5_Rover_m.ogg"
       soundGroup: VO
@@ -111,6 +107,7 @@ properties:
       soundGroup: VO
       subtitle: "[MC]: COMPUTER SAYS NO!…Just kidding. Wow! You’re still active. This is PAL 10K, your AI Mission Controller…here are the deets. You are a super advanced self-learning rover that we sent to Mars to prepare a Base for our pets- I mean Human Explorers, who are hurtling toward you at a gagillgion meters per second per second. Anyhoo, something went wrong during your atmosphere entry procedure and your vehicle and all your mission equipment have been scattered over a significant fraction of the planet’s surface. So that’s problem number one. Problem number two: we have lost contact with the humans. The good news is you can restore contact with them from your end. The bad news is there is third problem: You are missing 99.9% of your brain."
       groupReplacementMethod: queue
+      queueDelayTime: 2
     - soundName: "L1VO7_Rover"
       soundURL: "assets/sounds/VO/L1VO7_Rover_m.ogg"
       soundGroup: VO
@@ -120,7 +117,7 @@ properties:
       soundURL: "assets/sounds/VO/L1VO8_Rover_m.ogg"
       soundGroup: VO
       subtitle: "[ROVER]: Ah! There is my Helicam…that should let me get a better sense of my surroundings."
-      groupReplacementMethod: queue
+      groupReplacementMethod: replace
     - soundName: "L1VO9_Rover"
       soundURL: "assets/sounds/VO/L1VO9_Rover_m.ogg"
       soundGroup: VO
@@ -135,7 +132,7 @@ properties:
       soundURL: "assets/sounds/VO/L1VO11_Rover_m.ogg"
       soundGroup: VO
       subtitle: "[ROVER]: Ah that’s better…now I can see where I can drive."
-      groupReplacementMethod: queue
+      groupReplacementMethod: replace
     - soundName: "L1VO12_Rover"
       soundURL: "assets/sounds/VO/L1VO12_Rover_m.ogg"
       soundGroup: VO
@@ -145,7 +142,7 @@ properties:
       soundURL: "assets/sounds/VO/L1VO13_Rover_m.ogg"
       soundGroup: VO
       subtitle: "[ROVER]: Connecting Blocks is fundamental to making Programs. A program is a sequence of Blocks."
-      groupReplacementMethod: queue
+      groupReplacementMethod: replace
     - soundName: "L1VO14_Rover"
       soundURL: "assets/sounds/VO/L1VO14_Rover_m.ogg"
       soundGroup: VO
@@ -354,6 +351,21 @@ properties:
       soundGroup: VO
       subtitle: "[ROVER]: I’m going to need to work out the moves all the way to the Radio Module and turn that into a Program."
       groupReplacementMethod: queue
+    - soundName: "SCVO1_Rover"
+      soundURL: "assets/sounds/VO/SCVO1_Rover_m.ogg"
+      soundGroup: VO
+      subtitle: "[ROVER]: Whoa! What a view! It's a good thing I'm not afraid of heights."
+      groupReplacementMethod: replace
+    - soundName: "SCVO3_Rover"
+      soundURL: "assets/sounds/VO/SCVO3_Rover_m.ogg"
+      soundGroup: VO
+      subtitle: "[ROVER]: Now that looks like a real program. I'm getting good at this!"
+      groupReplacementMethod: replace
+    - soundName: "SCVO4_Rover"
+      soundURL: "assets/sounds/VO/SCVO4_Rover_m.ogg"
+      soundGroup: VO
+      subtitle: "[ROVER]: Yay!  Now I can call home."
+      groupReplacementMethod: replace
 methods:
   setUpSubtitles:
 children:

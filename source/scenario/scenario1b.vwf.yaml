@@ -3,7 +3,6 @@ extends: source/scenario/scenario.vwf
 properties:
   scenarioName: scenario1b
 
-  scenePath: /
   nextScenarioPath: "scenario1c"
   blockly: assets/scenario/scenario1b.xml
 
@@ -19,7 +18,7 @@ properties:
   - setProperty:
     - rover
     - blockly_allowedBlocks
-    - 3
+    - 1
 
   # TODO: Simplify heading/rotation
   # Set initial rotation using heading
@@ -42,31 +41,52 @@ properties:
     - [ 8, 2 ]
 
   - addToGrid:
+    - helicam
+    - [ 8, 3 ]
+
+  - addToGrid:
+    - battery
+    - [ 8, 6 ]
+
+  - addToGrid:
     - radio
     - [ 8, 16 ]
 
   triggers:
+    beginScenario:
+      triggerCondition:
+      - onScenarioStart:
+      actions:
+      - playSound:
+        - musicStandardGameplay
+      - playSound:
+        - L1VO7_Rover
+      - disableHelicam:
+
     succeedOnSuccess:
       triggerCondition:
       - onBlocklyStopped:
         - rover
       additionalCondition:
-      - and:
-        - isAtPosition:
-          - rover
-          - 8
-          - 3
+      - isAtPosition:
+        - rover
+        - 8
+        - 3
       actions:
       - hideBlockly:
       - clearBlockly:
       - scenarioSuccess:
         - "You have executed a movement command and picked up your helicam!"
+      - writeToBlackboard:
+        - Level1bSuccess
       - playSound:
         - musicSuccess
       - stopSound:
         - musicFailure
       - stopSound:
         - musicStandardGameplay
+      - playSound:
+        - L1VO8_Rover
 
     failOnCollision:
       triggerCondition:
@@ -137,76 +157,37 @@ properties:
       - clearBlackboard:
         - hasFailed
 
-    blinkBlocklyIcon:
+    playHint1:
       triggerCondition:
-      - onScenarioStart:
-      actions:
-      - blinkHUDElement:
-        - blocklyButton
-
-    stopBlinkBlocklyIcon:
-      triggerCondition:
-      - or:
-        - onBlocklyWindowOpened:
-        - onScenarioChanged:
-      actions:
-      - stopBlinkHUDElement:
-        - blocklyButton
-
-    playStartingSounds:
-      triggerCondition:
-      - onScenarioStart:
+      - delay:
+        - 20
+      additionalCondition:
+      - not:
+        - readBlackboard:
+          - Level1bHint2
       actions:
       - playSound:
-        - musicStandardGameplay
+        - ALVO15_Rover
 
-    playL1VO1_Rover:
+    playHint2:
       triggerCondition:
-      - onScenarioStart:
+      - onBlocklyProgramChanged:
+        - rover
+        - add
+        - rover_moveForward
       additionalCondition:
       - and:
         - not:
           - readBlackboard:
-            - L1VO1
-        - doOnce:
-      actions:
-      - playSound:
-        - L1VO1_Rover
-      - writeToBlackboard:
-        - L1VO1
-
-    playL1VO2_Rover:
-      triggerCondition:
-      - onBlocklyWindowOpened:
-      additionalCondition:
-      - and:
+            - Level1bHint2
         - not:
           - readBlackboard:
-            - L1VO2
-        - doOnce:
+            - Level1bSuccess
       actions:
       - playSound:
-        - L1VO2_Rover
+        - ALVO16_Rover
       - writeToBlackboard:
-        - L1VO2
-
-    # playL1VO3_Rover:
-    #   triggerCondition:
-    #   - onBlocklyProgramChanged:
-    #     - rover
-    #     - add
-    #     - rover_moveForward
-    #   additionalCondition:
-    #   - and:
-    #     - not:
-    #       - readBlackboard:
-    #         - L1VO3
-    #     - doOnce:
-    #   actions:
-    #   - playSound:
-    #     - L1VO3_Rover
-    #   - writeToBlackboard:
-    #     - L1VO3
+        - Level1bHint2
 
     startRoverSounds:
       triggerCondition:

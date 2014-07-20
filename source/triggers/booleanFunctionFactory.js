@@ -9,12 +9,12 @@ this.initialize = function() {
 
 this.clauseSet.and = function( params, context, callback ) {
     if ( !params || ( params.length < 1 ) ) {
-        this.logger.errorx( "and", "This clause needs to have at " +
+        self.logger.errorx( "and", "This clause needs to have at " +
                             " least one (and ideally two or more) clauses " +
                             " inside of it." );
         return undefined;
     } else if ( params.length < 2 ) {
-        this.logger.warnx( "and", "This clause probably ought to " +
+        self.logger.warnx( "and", "This clause probably ought to " +
                            "have two or more clauses inside of it." );
     }
 
@@ -36,12 +36,12 @@ this.clauseSet.and = function( params, context, callback ) {
 
 this.clauseSet.or = function( params, context, callback ) {
     if ( !params || ( params.length < 1 ) ) {
-        this.logger.errorx( "or", "This clause needs to have at " +
+        self.logger.errorx( "or", "This clause needs to have at " +
                             "least one (and ideally two or more) clauses " +
                             "inside of it." );
         return undefined;
     } else if ( params.length < 2 ) {
-        this.logger.warnx( "or", "This clause probably ought to " +
+        self.logger.warnx( "or", "This clause probably ought to " +
                            "have two or more clauses inside of it." );
     }
 
@@ -63,7 +63,7 @@ this.clauseSet.or = function( params, context, callback ) {
 
 this.clauseSet.not = function( params, context, callback ) {
     if ( !params || ( params.length !== 1 ) ) {
-        this.logger.errorx( "not", "This clause needs to have one " +
+        self.logger.errorx( "not", "This clause needs to have one " +
                             "clause inside of it." );
         return undefined;
     }
@@ -627,12 +627,14 @@ this.clauseSet.readBlackboard = function( params, context ) {
     };
 }
 
-this.clauseSet.delay = function( delayTime, context, callback ) {
+this.clauseSet.delay = function( params, context, callback ) {
     if ( params.length !== 1 ) {
         self.logger.errorx( "delay", "This clause takes exactly one argument: " +
                             "the amount of time to delay (in seconds).");
         return undefined;
     }
+
+    var delayTime = params[ 0 ];
 
     var delayComplete = false;
     var onDelayComplete = function() {

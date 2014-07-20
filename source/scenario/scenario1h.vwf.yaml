@@ -3,7 +3,6 @@ extends: source/scenario/scenario.vwf
 properties:
   scenarioName: scenario1h
 
-  scenePath: /
   nextScenarioPath: "scenario2"
   blockly: assets/scenario/scenario1h.xml
 
@@ -11,15 +10,15 @@ properties:
   - setProperty:
     - rover
     - battery
-    - 50
+    - 30
   - setProperty:
     - rover
     - batteryMax
-    - 50
+    - 30
   - setProperty:
     - rover
     - blockly_allowedBlocks
-    - 30
+    - 25
 
   # TODO: Simplify heading/rotation
   # Set initial rotation using heading
@@ -34,8 +33,9 @@ properties:
     - rotation
     - [ 0, 0, 1, 180 ]
 
-  - emptyInventory:
+  - addToInventory:
     - rover/cargo
+    - [ "helicam", "battery" ]
 
   - addToGrid:
     - rover
@@ -46,24 +46,31 @@ properties:
     - [ 8, 16 ]
 
   triggers:
+    beginScenario:
+      triggerCondition:
+      - onScenarioStart:
+      actions:
+      - playSound:
+        - musicStandardGameplay
+      - playSound:
+        - L1VO16_Rover
+
     succeedOnSuccess:
       triggerCondition:
       - onBlocklyStopped:
         - rover
       additionalCondition:
-      - and:
-        - isAtPosition:
-          - rover
-          - 8
-          - 16
-        - hasObject:
-          - rover
-          - radio
+      - isAtPosition:
+        - rover
+        - 8
+        - 16
       actions:
       - hideBlockly:
       - clearBlockly:
       - scenarioSuccess:
         - "You have picked up the radio!"
+      - playSound:
+        - SCVO4_Rover
       - playSound:
         - L1VO6_Control
       - playSound:
@@ -115,14 +122,10 @@ properties:
       additionalCondition:
       - and:
         - not:
-          - and:
-            - isAtPosition:
-              - rover
-              - 8
-              - 16
-            - hasObject:
-              - rover
-              - radio
+          - isAtPosition:
+            - rover
+            - 8
+            - 16
         - not:
           - readBlackboard:
             - hasFailed
@@ -137,13 +140,6 @@ properties:
       - stopSound:
         - musicSuccess
       - stopSound:
-        - musicStandardGameplay
-
-    playStartingSounds:
-      triggerCondition:
-      - onScenarioStart:
-      actions:
-      - playSound:
         - musicStandardGameplay
 
     resetFailure:

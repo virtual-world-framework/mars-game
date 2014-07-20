@@ -3,7 +3,6 @@ extends: source/scenario/scenario.vwf
 properties:
   scenarioName: scenario1e
 
-  scenePath: /
   nextScenarioPath: "scenario1f"
   blockly: assets/scenario/scenario1e.xml
 
@@ -34,18 +33,32 @@ properties:
     - rotation
     - [ 0, 0, 1, 0 ]
 
-  - emptyInventory:
+  - addToInventory:
     - rover/cargo
+    - [ "helicam" ]
 
   - addToGrid:
     - rover
     - [ 8, 3 ]
 
   - addToGrid:
+    - battery
+    - [ 8, 6 ]
+
+  - addToGrid:
     - radio
     - [ 8, 16 ]
 
   triggers:
+    beginScenario:
+      triggerCondition:
+      - onScenarioStart:
+      actions:
+      - playSound:
+        - musicStandardGameplay
+      - playSound:
+        - L1VO12_Rover
+
     succeedOnSuccess:
       triggerCondition:
       - onBlocklyStopped:
@@ -59,13 +72,23 @@ properties:
       - hideBlockly:
       - clearBlockly:
       - scenarioSuccess:
-        - "You have calibrated your motors picked up your battery!"
+        - "You have calibrated your motors and picked up a spare battery!"
       - playSound:
         - musicSuccess
+      - playSound:
+        - L1VO13_Rover
       - stopSound:
         - musicFailure
       - stopSound:
         - musicStandardGameplay
+
+    playHint1:
+      triggerCondition:
+      - delay:
+        - 20
+      actions:
+      - playSound:
+        - ALVO19_Rover
 
     failOnCollision:
       triggerCondition:
@@ -129,35 +152,12 @@ properties:
       - stopSound:
         - musicStandardGameplay
 
-    playStartingSounds:
-      triggerCondition:
-      - onScenarioStart:
-      actions:
-      - playSound:
-        - musicStandardGameplay
-
     resetFailure:
       triggerCondition:
       - onScenarioStart:
       actions:
       - clearBlackboard:
         - hasFailed
-
-    blinkBlocklyIcon:
-      triggerCondition:
-      - onScenarioStart:
-      actions:
-      - blinkHUDElement:
-        - blocklyButton
-
-    stopBlinkBlocklyIcon:
-      triggerCondition:
-      - or:
-        - onBlocklyWindowOpened:
-        - onScenarioChanged:
-      actions:
-      - stopBlinkHUDElement:
-        - blocklyButton
 
     startRoverSounds:
       triggerCondition:

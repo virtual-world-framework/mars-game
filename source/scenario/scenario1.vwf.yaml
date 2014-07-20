@@ -19,7 +19,7 @@ properties:
   - setProperty:
     - rover
     - blockly_allowedBlocks
-    - 5
+    - 3
 
   # TODO: Simplify heading/rotation
   # Set initial rotation using heading
@@ -59,11 +59,10 @@ properties:
       - onBlocklyStopped:
         - rover
       additionalCondition:
-      - and:
-        - isAtPosition:
-          - rover
-          - 8
-          - 3
+      - isAtPosition:
+        - rover
+        - 8
+        - 3
       actions:
       - hideBlockly:
       - clearBlockly:

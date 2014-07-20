@@ -3,7 +3,6 @@ extends: source/scenario/scenario.vwf
 properties:
   scenarioName: scenario1g
 
-  scenePath: /
   nextScenarioPath: "scenario1h"
   blockly: assets/scenario/scenario1g.xml
 
@@ -15,7 +14,7 @@ properties:
   - setProperty:
     - rover
     - batteryMax
-    - 50
+    - 30
   - setProperty:
     - rover
     - blockly_allowedBlocks
@@ -34,8 +33,9 @@ properties:
     - rotation
     - [ 0, 0, 1, 180 ]
 
-  - emptyInventory:
+  - addToInventory:
     - rover/cargo
+    - [ "helicam", "battery" ]
 
   - addToGrid:
     - rover
@@ -46,6 +46,15 @@ properties:
     - [ 8, 16 ]
 
   triggers:
+    beginScenario:
+      triggerCondition:
+      - onScenarioStart:
+      actions:
+      - playSound:
+        - musicStandardGameplay
+      - playSound:
+        - L1VO15_Rover
+
     succeedOnSuccess:
       triggerCondition:
       - onBlocklyStopped:
@@ -65,13 +74,15 @@ properties:
       - scenarioSuccess:
         - "Now I can get out of this ditch and find the radio!"
       - playSound:
-        - L1VO5_Rover
+        - SCVO3_Rover
       - playSound:
         - musicSuccess
       - stopSound:
         - musicFailure
       - stopSound:
         - musicStandardGameplay
+
+    # TODO: Add hint VO
 
     failOnCollision:
       triggerCondition:
@@ -137,13 +148,6 @@ properties:
       - stopSound:
         - musicSuccess
       - stopSound:
-        - musicStandardGameplay
-
-    playStartingSounds:
-      triggerCondition:
-      - onScenarioStart:
-      actions:
-      - playSound:
         - musicStandardGameplay
 
     resetFailure:

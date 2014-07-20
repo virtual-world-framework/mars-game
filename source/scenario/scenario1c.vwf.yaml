@@ -3,7 +3,6 @@ extends: source/scenario/scenario.vwf
 properties:
   scenarioName: scenario1c
 
-  scenePath: /
   nextScenarioPath: "scenario1d"
   blockly: assets/scenario/scenario1c.xml
 
@@ -34,18 +33,35 @@ properties:
     - rotation
     - [ 0, 0, 1, 0 ]
 
-  - emptyInventory:
+  - addToInventory:
     - rover/cargo
+    - [ "helicam" ]
 
   - addToGrid:
     - rover
     - [ 8, 3 ]
 
   - addToGrid:
+    - battery
+    - [ 8, 6 ]
+
+  - addToGrid:
     - radio
     - [ 8, 16 ]
 
   triggers:
+    beginScenario:
+      triggerCondition:
+      - onScenarioStart:
+      actions:
+      - playSound:
+        - musicStandardGameplay
+      - playSound:
+        - L1VO9_Rover
+      - enableHelicam:
+      - blinkHUDElement:
+        - camera_topDown
+
     succeedOnSuccess:
       triggerCondition:
       - onHelicamToggle:
@@ -53,36 +69,25 @@ properties:
       - hideBlockly:
       - clearBlockly:
       - scenarioSuccess:
-        - "You have a bird's eye view now! What a mess!"
+        - "You have a bird's eye view now!"
+      - stopBlinkHUDElement:
+        - camera_topDown
       - playSound:
         - musicSuccess
+      - playSound:
+        - SCVO1_Rover
       - stopSound:
         - musicFailure
       - stopSound:
         - musicStandardGameplay
 
-    playStartingSounds:
+    playHint1:
       triggerCondition:
-      - onScenarioStart:
+      - delay:
+        - 20
       actions:
       - playSound:
-        - musicStandardGameplay
-
-    blinkCameraIcon:
-      triggerCondition:
-      - onScenarioStart:
-      actions:
-      - blinkHUDElement:
-        - camera_topDown
-
-    stopBlinkCameraIcon:
-      triggerCondition:
-      - or:
-        - onHelicamToggle:
-        - onScenarioChanged:
-      actions:
-      - stopBlinkHUDElement:
-        - camera_topDown
+        - ALVO17_Rover
 
 children:
   grid:
