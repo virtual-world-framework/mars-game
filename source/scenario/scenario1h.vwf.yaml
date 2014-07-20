@@ -80,6 +80,26 @@ properties:
       - stopSound:
         - musicStandardGameplay
 
+    playHint1:
+      triggerCondition:
+      - delay:
+        - 20
+      additionalCondition:
+      - doOnce:
+      actions:
+      - playSound:
+        - ALVO22_Rover
+
+    playHint1:
+      triggerCondition:
+      - delay:
+        - 50
+      additionalCondition:
+      - doOnce:
+      actions:
+      - playSound:
+        - ALVO23_Rover
+
     failOnCollision:
       triggerCondition:
       - moveFailed:

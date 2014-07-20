@@ -528,27 +528,52 @@ this.clauseSet.onHelicamToggle= function( params, context, callback ) {
     };
 }
 
-this.clauseSet.onGridToggle= function( params, context, callback ) {
+this.clauseSet.onGraphToggle= function( params, context, callback ) {
     if ( params ) {
-        self.logger.warnx( "onGridToggle", 
+        self.logger.warnx( "onGraphToggle", 
                            "This clause doesn't take any arguments." );
     }
 
-    var toggledGrid = false;
+    var toggledGraph = false;
 
     onClauseCallbackWarning( callback );
     if ( callback ) {
-        if ( context && context.toggledGrid ) {
-            context.toggledGrid = self.events.add( function() {
-                                                                toggledGrid = true;
-                                                                callback();
-                                                            } );
+        if ( context && context.toggledGraph ) {
+            context.toggledGraph = self.events.add( function() {
+                toggledGraph = true;
+                callback();
+            } );
         }
     }
 
     return function() {
-        var retVal = toggledGrid;
-        toggledGrid = false;
+        var retVal = toggledGraph;
+        toggledGraph = false;
+        return retVal;
+    };
+}
+
+this.clauseSet.onTilesToggle= function( params, context, callback ) {
+    if ( params ) {
+        self.logger.warnx( "onTilesToggle", 
+                           "This clause doesn't take any arguments." );
+    }
+
+    var toggledTiles = false;
+
+    onClauseCallbackWarning( callback );
+    if ( callback ) {
+        if ( context && context.toggledTiles ) {
+            context.toggledTiles = self.events.add( function() {
+                toggledTiles = true;
+                callback();
+            } );
+        }
+    }
+
+    return function() {
+        var retVal = toggledTiles;
+        toggledTiles = false;
         return retVal;
     };
 }

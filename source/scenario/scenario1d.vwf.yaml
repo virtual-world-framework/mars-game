@@ -60,18 +60,18 @@ properties:
         - L1VO10_Rover
       - enableHelicam:
       - blinkHUDElement:
-        - graphButton
+        - tilesButton
 
     succeedOnSuccess:
       triggerCondition:
-      - onGridToggle:
+      - onTilesToggle:
       actions:
       - hideBlockly:
       - clearBlockly:
       - scenarioSuccess:
         - "You have accessed the grid!"
       - stopBlinkHUDElement:
-        - graphButton
+        - tilesButton
       - playSound:
         - musicSuccess
       - playSound:

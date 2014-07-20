@@ -64,11 +64,11 @@ properties:
     # arguments: (none)
     onIntroScreensComplete:
 
+    # Triggers when the appropriate UI element is used
     # arguments: (none)
     onHelicamToggle:
-
-    # arguments: (none)
     onGraphToggle:
+    onTilesToggle:
 
     # This is a crappy solution, but better than no solution at all.  It will only
     #   work if it is the last argument in an and/or clause - basically, the first 

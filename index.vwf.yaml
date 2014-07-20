@@ -45,7 +45,8 @@ events:
   enableHelicam:
   disableHelicam:
   toggledHelicam:
-  toggledGrid:
+  toggledGraph:
+  toggledTiles:
 children:
   soundManager:
     includes: source/marsGameSound.vwf
