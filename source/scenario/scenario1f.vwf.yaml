@@ -1,0 +1,208 @@
+---
+extends: source/scenario/scenario.vwf
+properties:
+  scenarioName: scenario1f
+
+  nextScenarioPath: "scenario1g"
+  blockly: assets/scenario/scenario1f.xml
+
+  startState:
+  - setProperty:
+    - rover
+    - battery
+    - 4
+  - setProperty:
+    - rover
+    - batteryMax
+    - 30
+  - setProperty:
+    - rover
+    - blockly_allowedBlocks
+    - 3
+
+  # TODO: Simplify heading/rotation
+  # Set initial rotation using heading
+  # Currently, moveLeft & moveRight in rover.js
+  # fight with adding that to the setter of heading
+  - setProperty:
+    - rover
+    - heading
+    - 0
+  - setProperty:
+    - rover
+    - rotation
+    - [ 0, 0, 1, 0 ]
+
+  - addToInventory:
+    - rover/cargo
+    - [ "helicam", "battery" ]
+
+  - addToGrid:
+    - rover
+    - [ 8, 6 ]
+
+  - addToGrid:
+    - radio
+    - [ 8, 16 ]
+
+  triggers:
+    beginScenario:
+      triggerCondition:
+      - onScenarioStart:
+      actions:
+      - playSound:
+        - musicStandardGameplay
+      - playSound:
+        - L1VO14_Rover
+
+    succeedOnSuccess:
+      triggerCondition:
+      - onBlocklyStopped:
+        - rover
+      additionalCondition:
+      - and:
+        - isAtPosition:
+          - rover
+          - 8
+          - 6
+        - hasHeading:
+          - rover
+          - 180
+      actions:
+      - hideBlockly:
+      - clearBlockly:
+      - scenarioSuccess:
+        - "Turning motors are good to go!"
+      - playSound:
+        - musicSuccess
+      - playSound:
+        - L1VO3_Rover
+      - stopSound:
+        - musicFailure
+      - stopSound:
+        - musicStandardGameplay
+
+    playHint1:
+      triggerCondition:
+      - delay:
+        - 20
+      actions:
+      - playSound:
+        - ALVO20_Rover
+
+    failOnCollision:
+      triggerCondition:
+      - moveFailed:
+        - rover
+        - collision
+      actions:
+      - hideBlockly:
+      - writeToBlackboard:
+        - hasFailed
+      - scenarioFailure:        
+        - collision
+      - playSound:
+        - musicFailure
+      - stopSound:
+        - musicSuccess
+      - stopSound:
+        - musicStandardGameplay
+
+    failOnBatteryDepleted:
+      triggerCondition:
+      - moveFailed:
+        - rover
+        - battery
+      actions:
+      - hideBlockly:
+      - writeToBlackboard:
+        - hasFailed
+      - scenarioFailure:         
+        - battery
+      - playSound:
+        - musicFailure
+      - stopSound:
+        - musicSuccess
+      - stopSound:
+        - musicStandardGameplay
+
+    failOnIncompleteProgram:
+      triggerCondition:
+      - onBlocklyStopped:
+      additionalCondition:
+      - and:
+        - not:
+          - and:
+            - isAtPosition:
+              - rover
+              - 8
+              - 6
+            - hasHeading:
+              - rover
+              - 180
+        - not:
+          - readBlackboard:
+            - hasFailed
+      actions:
+      - hideBlockly:
+      - writeToBlackboard:
+        - hasFailed
+      - scenarioFailure:
+        - incomplete
+      - playSound:
+        - musicFailure
+      - stopSound:
+        - musicSuccess
+      - stopSound:
+        - musicStandardGameplay
+
+    resetFailure:
+      triggerCondition:
+      - onScenarioStart:
+      actions:
+      - clearBlackboard:
+        - hasFailed
+
+    startRoverSounds:
+      triggerCondition:
+      - onBlocklyStarted:
+        - rover
+      actions:
+      - playSound:
+        - roverSounds
+
+    stopRoverSounds:
+      triggerCondition:
+      - onBlocklyStopped:
+        - rover
+      actions:
+      - stopSound:
+        - roverSounds
+
+children:
+  grid:
+    extends: source/grid.vwf
+    properties:
+      minX: 0
+      maxX: 16
+      minY: 0
+      maxY: 18
+      gridOriginInSpace: [ -24, -6 ]
+      gridSquareLength: 3
+      boundaryValues:
+      - [ -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1 ]
+      - [ -1, -1, -1, -1,  1,  1, -1, -1, -1, -1,  1, -1, -1, -1, -1, -1, -1, -1 ]
+      - [ -1, -1, -1, -1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1, -1, -1, -1 ]
+      - [ -1, -1,  1,  1,  1,  1,  1,  1,  1,  1, -1, -1, -1, -1, -1, -1, -1, -1 ]
+      - [ -1, -1,  1,  1, -1, -1, -1, -1,  1, -1, -1, -1, -1, -1, -1, -1, -1, -1 ]
+      - [ -1, -1,  1,  1, -1, -1, -1, -1,  1, -1, -1, -1, -1, -1, -1, -1, -1, -1 ]
+      - [ -1, -1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1, -1 ]
+      - [ -1, -1,  1, -1, -1, -1, -1, -1, -1,  1,  1,  1,  1,  1,  1,  1,  1, -1 ]
+      - [ -1, -1,  1,  1,  1,  1,  1,  1, -1,  1,  1,  1,  1,  1,  1,  1,  1, -1 ]
+      - [ -1, -1,  1, -1, -1, -1, -1, -1, -1,  1, -1, -1,  1,  1,  1,  1,  1, -1 ]
+      - [ -1, -1,  1, -1, -1,  1,  1,  1,  1,  1, -1, -1,  1,  1,  1,  1,  1, -1 ]
+      - [ -1, -1,  1, -1, -1,  1, -1, -1, -1,  1,  1,  1,  1,  1,  1,  1, -1, -1 ]
+      - [ -1, -1,  1,  1,  1,  1, -1, -1, -1,  1,  1,  1,  1,  1,  1,  1, -1, -1 ]
+      - [ -1, -1, -1, -1, -1, -1, -1, -1, -1,  1,  1,  1,  1, -1, -1, -1, -1, -1 ]
+      - [ -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,  1,  1, -1, -1, -1, -1, -1 ]
+      - [ -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1 ]

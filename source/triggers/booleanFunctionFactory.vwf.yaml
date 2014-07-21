@@ -30,6 +30,9 @@ properties:
     # arguments: object, x, y
     isAtPosition:
 
+    # arguments: object, heading
+    hasHeading:
+
     # arguments: owner, object
     hasObject:
 
@@ -61,6 +64,12 @@ properties:
     # arguments: (none)
     onIntroScreensComplete:
 
+    # Triggers when the appropriate UI element is used
+    # arguments: (none)
+    onHelicamToggle:
+    onGraphToggle:
+    onTilesToggle:
+
     # This is a crappy solution, but better than no solution at all.  It will only
     #   work if it is the last argument in an and/or clause - basically, the first 
     #   time it is checked is the only time that it will return true (whether the
@@ -75,12 +84,6 @@ properties:
     # Checks the sceneBlackboard for a given key
     # arguments: variableName, optionally check value
     readBlackboard:
-
-    # Becomes true after some delay has expired.  For now, the delay is calculated
-    #  from the time the scenario started, but ultimately we could make it more
-    #  flexible.
-    # arguments: delayTime (seconds)
-    delay:
 
 scripts:
 - source: source/triggers/booleanFunctionFactory.js

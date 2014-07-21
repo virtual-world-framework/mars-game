@@ -1,0 +1,118 @@
+---
+extends: source/scenario/scenario.vwf
+properties:
+  scenarioName: scenario1d
+
+  nextScenarioPath: "scenario1e"
+  blockly: assets/scenario/scenario1d.xml
+
+  startState:
+  - setProperty:
+    - rover
+    - battery
+    - 7
+  - setProperty:
+    - rover
+    - batteryMax
+    - 8
+  - setProperty:
+    - rover
+    - blockly_allowedBlocks
+    - 3
+
+  # TODO: Simplify heading/rotation
+  # Set initial rotation using heading
+  # Currently, moveLeft & moveRight in rover.js
+  # fight with adding that to the setter of heading
+  - setProperty:
+    - rover
+    - heading
+    - 0
+  - setProperty:
+    - rover
+    - rotation
+    - [ 0, 0, 1, 0 ]
+
+  - addToInventory:
+    - rover/cargo
+    - [ "helicam" ]
+
+  - addToGrid:
+    - rover
+    - [ 8, 3 ]
+
+  - addToGrid:
+    - battery
+    - [ 8, 6 ]
+
+  - addToGrid:
+    - radio
+    - [ 8, 16 ]
+
+  triggers:
+    beginScenario:
+      triggerCondition:
+      - onScenarioStart:
+      actions:
+      - playSound:
+        - musicStandardGameplay
+      - playSound:
+        - L1VO10_Rover
+      - enableHelicam:
+      - blinkHUDElement:
+        - tilesButton
+
+    succeedOnSuccess:
+      triggerCondition:
+      - onTilesToggle:
+      actions:
+      - hideBlockly:
+      - clearBlockly:
+      - scenarioSuccess:
+        - "You have accessed the grid!"
+      - stopBlinkHUDElement:
+        - tilesButton
+      - playSound:
+        - musicSuccess
+      - playSound:
+        - L1VO11_Rover
+      - stopSound:
+        - musicFailure
+      - stopSound:
+        - musicStandardGameplay
+
+    playHint1:
+      triggerCondition:
+      - delay:
+        - 20
+      actions:
+      - playSound:
+        - ALVO18_Rover
+
+children:
+  grid:
+    extends: source/grid.vwf
+    properties:
+      minX: 0
+      maxX: 16
+      minY: 0
+      maxY: 18
+      gridOriginInSpace: [ -24, -6 ]
+      gridSquareLength: 3
+      boundaryValues:
+      - [ -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1 ]
+      - [ -1, -1, -1, -1,  1,  1, -1, -1, -1, -1,  1, -1, -1, -1, -1, -1, -1, -1 ]
+      - [ -1, -1, -1, -1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1, -1, -1, -1 ]
+      - [ -1, -1,  1,  1,  1,  1,  1,  1,  1,  1, -1, -1, -1, -1, -1, -1, -1, -1 ]
+      - [ -1, -1,  1,  1, -1, -1, -1, -1,  1, -1, -1, -1, -1, -1, -1, -1, -1, -1 ]
+      - [ -1, -1,  1,  1, -1, -1, -1, -1,  1, -1, -1, -1, -1, -1, -1, -1, -1, -1 ]
+      - [ -1, -1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1, -1 ]
+      - [ -1, -1,  1, -1, -1, -1, -1, -1, -1,  1,  1,  1,  1,  1,  1,  1,  1, -1 ]
+      - [ -1, -1,  1,  1,  1,  1,  1,  1, -1,  1,  1,  1,  1,  1,  1,  1,  1, -1 ]
+      - [ -1, -1,  1, -1, -1, -1, -1, -1, -1,  1, -1, -1,  1,  1,  1,  1,  1, -1 ]
+      - [ -1, -1,  1, -1, -1,  1,  1,  1,  1,  1, -1, -1,  1,  1,  1,  1,  1, -1 ]
+      - [ -1, -1,  1, -1, -1,  1, -1, -1, -1,  1,  1,  1,  1,  1,  1,  1, -1, -1 ]
+      - [ -1, -1,  1,  1,  1,  1, -1, -1, -1,  1,  1,  1,  1,  1,  1,  1, -1, -1 ]
+      - [ -1, -1, -1, -1, -1, -1, -1, -1, -1,  1,  1,  1,  1, -1, -1, -1, -1, -1 ]
+      - [ -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,  1,  1, -1, -1, -1, -1, -1 ]
+      - [ -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1 ]

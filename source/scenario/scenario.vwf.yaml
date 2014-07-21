@@ -1,8 +1,9 @@
 --- 
 extends: http://vwf.example.com/lesson/task.vwf
 properties:
+  scenePath: /
 
-  # The state param set contains initialization parameters that we want to be 
+ # The state param set contains initialization parameters that we want to be 
   #   able to use for our scenarios.  These will be added to the start state
   #   executor (see children).
   # TODO: should we refactor this into a separate file, as we did with the

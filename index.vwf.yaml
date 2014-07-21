@@ -44,6 +44,9 @@ events:
   blockExecuted:
   enableHelicam:
   disableHelicam:
+  toggledHelicam:
+  toggledGraph:
+  toggledTiles:
 children:
   soundManager:
     includes: source/marsGameSound.vwf
@@ -164,8 +167,22 @@ children:
         includes: source/pickups/helicam.vwf
   introScreenScenario:
     includes: source/scenario/introScreenScenario.vwf
-  scenario1:
-    includes: source/scenario/scenario1.vwf
+  scenario1a:
+    includes: source/scenario/scenario1a.vwf
+  scenario1b:
+    includes: source/scenario/scenario1b.vwf
+  scenario1c:
+    includes: source/scenario/scenario1c.vwf
+  scenario1d:
+    includes: source/scenario/scenario1d.vwf
+  scenario1e:
+    includes: source/scenario/scenario1e.vwf
+  scenario1f:
+    includes: source/scenario/scenario1f.vwf
+  scenario1g:
+    includes: source/scenario/scenario1g.vwf
+  scenario1h:
+    includes: source/scenario/scenario1h.vwf
   scenario2:
     includes: source/scenario/scenario2.vwf
   scenario3:

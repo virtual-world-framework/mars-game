@@ -1,3 +1,2 @@
 <xml id="rover" style="display: none">
-  <block type="rover_moveForward"></block>
 </xml>
