@@ -288,6 +288,6 @@ children:
     events:
       addSubtitle:
     scripts:
-    - source: source/loggerHelper.js  
+    - source: source/loggerHelper.js
 scripts: 
  - source: source/scene.js
