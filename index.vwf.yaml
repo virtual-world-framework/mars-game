@@ -167,8 +167,6 @@ children:
         includes: source/pickups/helicam.vwf
   introScreenScenario:
     includes: source/scenario/introScreenScenario.vwf
-  scenario1:
-    includes: source/scenario/scenario1.vwf
   scenario1a:
     includes: source/scenario/scenario1a.vwf
   scenario1b:
