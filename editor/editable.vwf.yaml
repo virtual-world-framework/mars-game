@@ -1,5 +1,3 @@
 ---
 properties:
   isEditable: true
-scripts:
-  - source: editor/editable.js
