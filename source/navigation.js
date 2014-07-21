@@ -61,22 +61,29 @@ function handleMouseNavigation( deltaX, deltaY, navObject, navMode, rotationSpee
                 navThreeObject.matrixWorld.elements[ 13 ] -= orbitTarget[ 1 ];
                 navThreeObject.matrixWorld.elements[ 14 ] -= orbitTarget[ 2 ];
 
-                // Find the pitch
+                // Find the pitch and constrain it to 0 - ~90 degrees
                 var pitchAxis = new THREE.Vector3( navThreeObject.matrixWorld.elements[ 0 ],
                                                    navThreeObject.matrixWorld.elements[ 1 ],
                                                    0 );
                 var pitchRadians = deltaY * rotationSpeedRadians;
+                var currentPitch = Math.acos( navThreeObject.matrixWorld.elements[ 10 ] );
+                var resultingPitch = currentPitch + pitchRadians;
+                var upperBound = Math.PI / 2;
+                var lowerBound = 0.3;
+
+                if ( resultingPitch > upperBound ) {
+                    pitchRadians = upperBound - currentPitch;
+                } else if ( resultingPitch < lowerBound ) {
+                    pitchRadians = lowerBound - currentPitch;
+                } else if ( isNaN( currentPitch ) && pitchRadians < 0 ) {
+                    pitchRadians = 0;
+                }
+
                 var pitchQuat = new THREE.Quaternion();
                 pitchQuat.setFromAxisAngle( pitchAxis, pitchRadians );
                 var pitchDeltaMatrix = new THREE.Matrix4();
                 pitchDeltaMatrix.makeRotationFromQuaternion( pitchQuat );
-                var tempMatrix = new THREE.Matrix4();
-                tempMatrix.multiplyMatrices( pitchDeltaMatrix, navThreeObject.matrixWorld );
-
-                //Constrain the pitch to 0-90 degrees
-                if ( !( tempMatrix.elements[ 10 ] < 0 || tempMatrix.elements[ 10 ] > 0.9 ) ) {
-                    navThreeObject.matrixWorld.multiplyMatrices( pitchDeltaMatrix, navThreeObject.matrixWorld );
-                }
+                navThreeObject.matrixWorld.multiplyMatrices( pitchDeltaMatrix, navThreeObject.matrixWorld );
 
                 // Then find the yaw and apply it
                 var yawRadians = deltaX * rotationSpeedRadians;
@@ -196,22 +203,30 @@ function moveNavObject( dx, dy, navObject, navMode, rotationSpeed, translationSp
             navThreeObject.matrixWorld.elements[ 13 ] -= orbitTarget[ 1 ];
             navThreeObject.matrixWorld.elements[ 14 ] -= orbitTarget[ 2 ];
 
-            // Find the pitch
+            // Find the pitch and constrain it to 0 - ~90 degrees
             var pitchAxis = new THREE.Vector3( navThreeObject.matrixWorld.elements[ 0 ],
                                                navThreeObject.matrixWorld.elements[ 1 ],
                                                0 );
             var pitchRadians = -dy * rotationSpeedRadians;
+
+            var currentPitch = Math.acos( navThreeObject.matrixWorld.elements[ 10 ] );
+            var resultingPitch = currentPitch + pitchRadians;
+            var upperBound = Math.PI / 2;
+            var lowerBound = 0.3;
+
+            if ( resultingPitch > upperBound ) {
+                pitchRadians = upperBound - currentPitch;
+            } else if ( resultingPitch < lowerBound ) {
+                pitchRadians = lowerBound - currentPitch;
+            } else if ( isNaN( currentPitch ) && pitchRadians < 0 ) {
+                pitchRadians = 0;
+            }
+
             var pitchQuat = new THREE.Quaternion();
             pitchQuat.setFromAxisAngle( pitchAxis, pitchRadians );
             var pitchDeltaMatrix = new THREE.Matrix4();
             pitchDeltaMatrix.makeRotationFromQuaternion( pitchQuat );
-            var tempMatrix = new THREE.Matrix4();
-            tempMatrix.multiplyMatrices( pitchDeltaMatrix, navThreeObject.matrixWorld );
-
-            //Constrain the pitch between 0 and ~90 degrees
-            if ( !( tempMatrix.elements[ 10 ] < 0 || tempMatrix.elements[ 10 ] > 0.9 ) ) {
-                navThreeObject.matrixWorld.multiplyMatrices( pitchDeltaMatrix, navThreeObject.matrixWorld );
-            }
+            navThreeObject.matrixWorld.multiplyMatrices( pitchDeltaMatrix, navThreeObject.matrixWorld );
 
             // Then find the yaw and apply it
             var yawRadians = dx * rotationSpeedRadians;
