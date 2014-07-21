@@ -143,7 +143,7 @@ function handleScroll( wheelDelta, navObject, navMode, rotationSpeed, translatio
             var dist = origin.distanceTo( newCameraLoc );
             var upperBound = ( gridBounds.topRight[ 0 ] - gridBounds.bottomLeft[ 0 ] ) / 2.5;
             var lowerBound = ( gridBounds.topRight[ 0 ] - gridBounds.bottomLeft[ 0 ] ) / 8;
-            if ( wheelDelta > 0 && cameraLoc.distanceTo( newCameraLoc ) > dist ) {
+            if ( wheelDelta > 0 && cameraLoc.distanceTo( newCameraLoc ) > cameraLoc.distanceTo( origin ) ) {
                 return;
             }
 
