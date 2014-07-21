@@ -9,12 +9,12 @@ this.initialize = function() {
 
 this.clauseSet.and = function( params, context, callback ) {
     if ( !params || ( params.length < 1 ) ) {
-        this.logger.errorx( "and", "This clause needs to have at " +
+        self.logger.errorx( "and", "This clause needs to have at " +
                             " least one (and ideally two or more) clauses " +
                             " inside of it." );
         return undefined;
     } else if ( params.length < 2 ) {
-        this.logger.warnx( "and", "This clause probably ought to " +
+        self.logger.warnx( "and", "This clause probably ought to " +
                            "have two or more clauses inside of it." );
     }
 
@@ -36,12 +36,12 @@ this.clauseSet.and = function( params, context, callback ) {
 
 this.clauseSet.or = function( params, context, callback ) {
     if ( !params || ( params.length < 1 ) ) {
-        this.logger.errorx( "or", "This clause needs to have at " +
+        self.logger.errorx( "or", "This clause needs to have at " +
                             "least one (and ideally two or more) clauses " +
                             "inside of it." );
         return undefined;
     } else if ( params.length < 2 ) {
-        this.logger.warnx( "or", "This clause probably ought to " +
+        self.logger.warnx( "or", "This clause probably ought to " +
                            "have two or more clauses inside of it." );
     }
 
@@ -63,7 +63,7 @@ this.clauseSet.or = function( params, context, callback ) {
 
 this.clauseSet.not = function( params, context, callback ) {
     if ( !params || ( params.length !== 1 ) ) {
-        this.logger.errorx( "not", "This clause needs to have one " +
+        self.logger.errorx( "not", "This clause needs to have one " +
                             "clause inside of it." );
         return undefined;
     }
@@ -97,6 +97,28 @@ this.clauseSet.isAtPosition = function( params, context, callback ) {
     return function() {
         return ( object.currentGridSquare[ 0 ] === x && 
                  object.currentGridSquare[ 1 ] === y );
+    };
+}
+
+this.clauseSet.hasHeading = function( params, context, callback ) {
+    if ( !params || ( params.length !== 2 ) ) {
+        self.logger.errorx( "hasHeading", 
+                            "This clause requires two " +
+                            "arguments: the object and the heading." );
+        return undefined;
+    }
+
+    var objectName = params[ 0 ];
+    var heading = params[ 1 ];
+
+    var object = self.findInContext( context, objectName );
+
+    if ( callback ) {
+        object.moved = self.events.add( callback );
+    } 
+
+    return function() {
+        return ( object.heading === heading );
     };
 }
 
@@ -481,6 +503,81 @@ this.clauseSet.onIntroScreensComplete = function( params, context, callback ) {
     };
 }
 
+this.clauseSet.onHelicamToggle= function( params, context, callback ) {
+    if ( params ) {
+        self.logger.warnx( "onHelicamToggle", 
+                           "This clause doesn't take any arguments." );
+    }
+
+    var toggledHelicam = false;
+
+    onClauseCallbackWarning( callback );
+    if ( callback ) {
+        if ( context && context.toggledHelicam ) {
+            context.toggledHelicam = self.events.add( function() {
+                                                                toggledHelicam = true;
+                                                                callback();
+                                                            } );
+        }
+    }
+
+    return function() {
+        var retVal = toggledHelicam;
+        toggledHelicam = false;
+        return retVal;
+    };
+}
+
+this.clauseSet.onGraphToggle= function( params, context, callback ) {
+    if ( params ) {
+        self.logger.warnx( "onGraphToggle", 
+                           "This clause doesn't take any arguments." );
+    }
+
+    var toggledGraph = false;
+
+    onClauseCallbackWarning( callback );
+    if ( callback ) {
+        if ( context && context.toggledGraph ) {
+            context.toggledGraph = self.events.add( function() {
+                toggledGraph = true;
+                callback();
+            } );
+        }
+    }
+
+    return function() {
+        var retVal = toggledGraph;
+        toggledGraph = false;
+        return retVal;
+    };
+}
+
+this.clauseSet.onTilesToggle= function( params, context, callback ) {
+    if ( params ) {
+        self.logger.warnx( "onTilesToggle", 
+                           "This clause doesn't take any arguments." );
+    }
+
+    var toggledTiles = false;
+
+    onClauseCallbackWarning( callback );
+    if ( callback ) {
+        if ( context && context.toggledTiles ) {
+            context.toggledTiles = self.events.add( function() {
+                toggledTiles = true;
+                callback();
+            } );
+        }
+    }
+
+    return function() {
+        var retVal = toggledTiles;
+        toggledTiles = false;
+        return retVal;
+    };
+}
+
 this.clauseSet.doOnce = function( params, context, callback ) {
     if ( params ) {
         self.logger.warnx( "doOnce", "This clause doesn't take any arguments." );
@@ -531,6 +628,51 @@ this.clauseSet.blocklyLineEval = function( params, context, callback ) {
     }
 }
 
+// arguments: variableName
+this.clauseSet.readBlackboard = function( params, context ) {
+    if ( params.length < 1 ) {
+        self.logger.errorx( "readBlackboard", 
+                            "This clause takes one argument: the name of the variable" +
+                            " and optionally a second argument for occurance count if" + 
+                            " using an incrementing blackboard value" );
+        return undefined;
+    }
+
+    return function() {
+    
+        var checkedValue = context.sceneBlackboard[ params[ 0 ] ];
+
+        if ( params[ 1 ] !== undefined ){
+        var retVal = ( checkedValue !== undefined && checkedValue < params[ 1 ] );
+        } else {
+        var retVal = ( checkedValue !== undefined );  
+        }
+
+        return retVal;
+    };
+}
+
+this.clauseSet.delay = function( params, context, callback ) {
+    if ( params.length !== 1 ) {
+        self.logger.errorx( "delay", "This clause takes exactly one argument: " +
+                            "the amount of time to delay (in seconds).");
+        return undefined;
+    }
+
+    var delayTime = params[ 0 ];
+
+    var delayComplete = false;
+    var onDelayComplete = function() {
+        delayComplete = true;
+        callback && callback();
+    }
+    setTimeout( onDelayComplete, delayTime * 1000 )
+
+    return function() {
+        return delayComplete;
+    }
+}
+
 function onClauseCallbackWarning( callback ) {
       if ( !callback ) {
         self.logger.warnx( "onClauseCallbackWarning", 
@@ -575,28 +717,5 @@ function getBlocklyObjects( params, context ) {
     return undefined;
 }
 
-// arguments: variableName
-this.clauseSet.readBlackboard = function( params, context ) {
-    if ( params.length < 1 ) {
-        self.logger.errorx( "readBlackboard", 
-                            "This clause takes one argument: the name of the variable" +
-                            " and optionally a second argument for occurance count if" + 
-                            " using an incrementing blackboard value" );
-        return undefined;
-    }
-
-    return function() {
-    
-        var checkedValue = context.sceneBlackboard[ params[ 0 ] ];
-
-        if ( params[ 1 ] !== undefined ){
-        var retVal = ( checkedValue !== undefined && checkedValue < params[ 1 ] );
-        } else {
-        var retVal = ( checkedValue !== undefined );  
-        }
-
-        return retVal;
-    };
-}
 
 //@ sourceURL=source/triggers/booleanFunctionFactory.js

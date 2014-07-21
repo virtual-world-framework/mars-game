@@ -1,0 +1,134 @@
+---
+extends: source/scenario/scenario.vwf
+properties:
+  scenarioName: scenario1a
+
+  nextScenarioPath: "scenario1b"
+  blockly: assets/scenario/scenario1.xml
+
+  startState:
+  - setProperty:
+    - rover
+    - battery
+    - 8
+  - setProperty:
+    - rover
+    - batteryMax
+    - 8
+  - setProperty:
+    - rover
+    - blockly_allowedBlocks
+    - 1
+
+  # TODO: Simplify heading/rotation
+  # Set initial rotation using heading
+  # Currently, moveLeft & moveRight in rover.js
+  # fight with adding that to the setter of heading
+  - setProperty:
+    - rover
+    - heading
+    - 0
+  - setProperty:
+    - rover
+    - rotation
+    - [ 0, 0, 1, 0 ]
+
+  - emptyInventory:
+    - rover/cargo
+
+  - addToGrid:
+    - rover
+    - [ 8, 2 ]
+
+  - addToGrid:
+    - helicam
+    - [ 8, 3 ]
+
+  - addToGrid:
+    - battery
+    - [ 8, 6 ]
+
+  - addToGrid:
+    - radio
+    - [ 8, 16 ]
+
+  triggers:
+    beginScenario:
+      triggerCondition:
+      - onScenarioStart:
+      actions:
+      - playSound:
+        - musicStandardGameplay
+      - playSound:
+        - L1VO1_Rover
+      - blinkHUDElement:
+        - blocklyButton
+      - disableHelicam:
+
+    succeedOnSuccess:
+      triggerCondition:
+      - onBlocklyWindowOpened:
+      actions:
+      - scenarioSuccess:
+        - "You have accessed your programming interface!"
+      - playSound:
+        - musicSuccess
+      - playSound:
+        - L1VO2_Rover
+      - stopSound:
+        - musicFailure
+      - stopSound:
+        - musicStandardGameplay
+      - stopBlinkHUDElement:
+        - blocklyButton
+
+    playHint1:
+      triggerCondition:
+      - delay:
+        - 30
+      actions:
+      - playSound:
+        - ALVO14_Rover
+
+    stopIntroMusic:
+      triggerCondition:
+      - onScenarioStart:
+      additionalCondition:
+      - not:
+        - readBlackboard:
+          - musicStoryScreen
+      actions:
+      - stopSound:
+        - musicStoryScreen
+      - playSound:
+        - environmentWind
+      - writeToBlackboard:
+        - musicStoryScreen
+
+children:
+  grid:
+    extends: source/grid.vwf
+    properties:
+      minX: 0
+      maxX: 16
+      minY: 0
+      maxY: 18
+      gridOriginInSpace: [ -24, -6 ]
+      gridSquareLength: 3
+      boundaryValues:
+      - [ -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1 ]
+      - [ -1, -1, -1, -1,  1,  1, -1, -1, -1, -1,  1, -1, -1, -1, -1, -1, -1, -1 ]
+      - [ -1, -1, -1, -1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1, -1, -1, -1 ]
+      - [ -1, -1,  1,  1,  1,  1,  1,  1,  1,  1, -1, -1, -1, -1, -1, -1, -1, -1 ]
+      - [ -1, -1,  1,  1, -1, -1, -1, -1,  1, -1, -1, -1, -1, -1, -1, -1, -1, -1 ]
+      - [ -1, -1,  1,  1, -1, -1, -1, -1,  1, -1, -1, -1, -1, -1, -1, -1, -1, -1 ]
+      - [ -1, -1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1, -1 ]
+      - [ -1, -1,  1, -1, -1, -1, -1, -1, -1,  1,  1,  1,  1,  1,  1,  1,  1, -1 ]
+      - [ -1, -1,  1,  1,  1,  1,  1,  1, -1,  1,  1,  1,  1,  1,  1,  1,  1, -1 ]
+      - [ -1, -1,  1, -1, -1, -1, -1, -1, -1,  1, -1, -1,  1,  1,  1,  1,  1, -1 ]
+      - [ -1, -1,  1, -1, -1,  1,  1,  1,  1,  1, -1, -1,  1,  1,  1,  1,  1, -1 ]
+      - [ -1, -1,  1, -1, -1,  1, -1, -1, -1,  1,  1,  1,  1,  1,  1,  1, -1, -1 ]
+      - [ -1, -1,  1,  1,  1,  1, -1, -1, -1,  1,  1,  1,  1,  1,  1,  1, -1, -1 ]
+      - [ -1, -1, -1, -1, -1, -1, -1, -1, -1,  1,  1,  1,  1, -1, -1, -1, -1, -1 ]
+      - [ -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,  1,  1, -1, -1, -1, -1, -1 ]
+      - [ -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1 ]
