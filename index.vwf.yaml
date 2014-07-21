@@ -288,15 +288,6 @@ children:
     events:
       addSubtitle:
     scripts:
-    - source: source/loggerHelper.js
-
-  # Test Obstacles:
-  # smallRock:
-  #   extends: source/obstacles/crash_furrow.vwf
-  # mediumRock:
-  #   extends: source/obstacles/rubble_container.vwf
-  # largeRock:
-  #   extends: source/obstacles/crater_small.vwf
-  
+    - source: source/loggerHelper.js  
 scripts: 
  - source: source/scene.js

@@ -1,11 +1,6 @@
 ---
 model:
   vwf/model/threejs:
-  # vwf/model/blockly:
-  # vwf/model/sound:
   vwf/model/graphtool:
 view:
   vwf/view/threejs: "#vwf-root"
-  # vwf/view/blockly: { "blocklyPath": './source/blockly/', "toolbox": 'toolbox' }
-  # vwf/view/sound: 
-  # vwf/view/editor:
