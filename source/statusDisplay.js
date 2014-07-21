@@ -150,6 +150,10 @@ function pushSubtitle( message, subtitleTime ) {
     var text = document.createElement( "div" );
     text.className = "subtitleText";
 
+    // Shave 100ms off the subtitle time to make up for any
+    // delay between the VO and the subtitle firing
+    subtitleTime -= 0.1;
+
     var time, lastUpdateTime;
     var index = 0;
     var charInterval = message.length > 0 ? subtitleTime / message.length : 0;
