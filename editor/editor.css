@@ -90,6 +90,25 @@ body {
     color: rgb( 255, 255, 255 );
 }
 
+.promptbutton {
+    width: 48px;
+    height: 24px;
+    line-height: 24px;
+    margin-left: 2px;
+    margin-right: 2px;
+    text-align: center;
+    color: rgb( 255, 255, 255 );
+    background-color: rgb( 50, 90, 150 );
+    border: 1px dashed rgb( 200, 200, 200 );
+    display: inline-block;
+}
+
+.prompttext {
+    margin-bottom: 4px;
+    text-align: center;
+    display: block;
+}
+
 #vwf-root {
     position: absolute;
     left: 200px;
@@ -159,4 +178,16 @@ body {
     background-color: rgb( 245, 245, 245 );
     border: 1px solid rgb( 225, 225, 225 );
     font-size: 12px;
+}
+
+#prompt {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    text-align: center;
+    color: rgb( 50, 90, 150 );
+    background-color: rgb( 225, 225, 225 );
+    border: 1px solid rgb( 255, 255, 255 );
+    padding: 4px;
+    pointer-events: all;
 }

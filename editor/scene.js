@@ -171,7 +171,7 @@ this.deleteMap = function() {
     this.children.delete( this.map );
 }
 
-this.loadObject = function( path ) {
+this.loadObject = function( path, name ) {
     if ( this.selectedObject !== undefined ) {
         this.deselectObject();
     }
@@ -181,29 +181,31 @@ this.loadObject = function( path ) {
         this.grid.addToGridFromWorld( object, [ 0, 0, 0 ] );
     }
 
-    this.future( 0 ).createObject( objectName, path, callback );
+    this.future( 0 ).createObject( objectName, path, name, callback );
 }
 
-this.deleteObject = function( objectName ) {
-    var object = this.find( objectName )[ 0 ];
+this.deleteObject = function( objectID ) {
+    var object = this.findByID( this, objectID );
     if ( object !== undefined ) {
-        if ( object.id === this.selectedObject.id ) {
-            this.selectedObject = undefined;
+        if ( this.selectedObject && object.id === this.selectedObject.id ) {
+            this.deselectObject();
         }
         this.children.delete( object );
     }
 }
 
-this.createObject = function( name, path, callback ) {
+this.createObject = function( objName, path, name, callback ) {
     var objDef = {
-        "extends": path
+        "extends": path,
+        "properties": {}
     }
 
-    if ( name !== "map" ) {
+    if ( objName !== "map" ) {
         objDef[ "implements" ] = "editor/editable.vwf";
+        objDef.properties[ "nameString" ] = name;
     }
 
-    this.children.create( name, objDef, callback );
+    this.children.create( objName, objDef, callback );
 }
 
 this.setActiveTool = function( toolID ) {
@@ -217,6 +219,8 @@ this.useTool = function( eventType, pointerInfo, pickInfo ) {
                 var object = this.findByID( this, pickInfo.pickID );
                 if ( object && object.isEditable ) {
                     this.selectObject( object );
+                } else {
+                    this.deselectObject();
                 }
             }
             break;
@@ -233,6 +237,8 @@ this.useTool = function( eventType, pointerInfo, pickInfo ) {
                 var object = this.findByID( this, pickInfo.pickID );
                 if ( object && object.isEditable ) {
                     this.selectObject( object );
+                } else {
+                    this.deselectObject();
                 }
             }
             break;
@@ -262,6 +268,8 @@ this.useTool = function( eventType, pointerInfo, pickInfo ) {
                 var object = this.findByID( this, pickInfo.pickID );
                 if ( object && object.isEditable ) {
                     this.selectObject( object );
+                } else {
+                    this.deselectObject();
                 }
             }
             break;
@@ -271,13 +279,17 @@ this.useTool = function( eventType, pointerInfo, pickInfo ) {
                 if ( object && object.isEditable ) {
                     this.selectObject( object );
                 }
+            } else {
+                this.deselectObject();
             }
             break;
         case "delete":
             if ( eventType === "pointerClick" && pointerInfo.button === "left" ) {
                 var object = this.findByID( this, pickInfo.pickID );
                 if ( object && object.isEditable ) {
-                    this.selectObject( object );
+                    this.requestDelete( object.id, object.nameString );
+                } else {
+                    this.deselectObject();
                 }
             }
             break;
@@ -286,6 +298,8 @@ this.useTool = function( eventType, pointerInfo, pickInfo ) {
                 var object = this.findByID( this, pickInfo.pickID );
                 if ( object && object.isEditable ) {
                     this.selectObject( object );
+                } else {
+                    this.deselectObject();
                 }
             }
             break;

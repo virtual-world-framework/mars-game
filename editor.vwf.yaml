@@ -62,9 +62,9 @@ children:
         extends: source/grid.vwf
         properties:
           minX: 0
-          maxX: 2
+          maxX: 1
           minY: 0
-          maxY: 3
+          maxY: 1
           gridOriginInSpace: [ 0, 0 ]
           gridSquareLength: 3
           boundaryValues: []
@@ -92,6 +92,8 @@ methods:
   selectObject:
   deselectObject:
   setActiveTool:
+  # Methods handled by View
+  requestDelete:
 events:
   onSceneReady:
   pointerOver:

@@ -1,11 +1,23 @@
 var selectedTool = undefined;
 var sceneID;
 
-vwf_view.firedEvent = function( nodeID, eventName, eventParams ) {
+vwf_view.firedEvent = function( nodeID, eventName, args ) {
     if ( nodeID === vwf_view.kernel.application() ) {
         switch ( eventName ) {
             case "onSceneReady":
-                handleSceneReady( eventParams );
+                handleSceneReady( args );
+                break;
+        }
+    }
+}
+
+vwf_view.calledMethod = function( nodeID, methodName, args ) {
+    if ( nodeID === vwf_view.kernel.application() ) {
+        switch ( methodName ) {
+            case "requestDelete":
+                var objectID = args[ 0 ];
+                var objectName = args[ 1 ];
+                deletePrompt( objectID, objectName );
                 break;
         }
     }
@@ -35,13 +47,13 @@ function handleSceneReady( params ) {
     setupTools();
 }
 
-function loadAsset( assetType, path ) {
+function loadAsset( assetType, path, name ) {
     switch ( assetType ) {
         case "maps":
             vwf_view.kernel.callMethod( sceneID, "loadMap", [ path ] );
             break;
         default:
-            vwf_view.kernel.callMethod( sceneID, "loadObject", [ path ] );
+            vwf_view.kernel.callMethod( sceneID, "loadObject", [ path, name ] );
             break;
     }
 }
@@ -63,11 +75,11 @@ function loadAssetList( listType ) {
             listItem = document.createElement( "div" );
             listItem.innerHTML = list[ i ].name;
             listItem.className = "listitem";
-            listItem.onclick = function( listType, path ) { 
+            listItem.onclick = function( listType, path, name ) {
                 return function() { 
-                    loadAsset( listType, path ); 
+                    loadAsset( listType, path, name ); 
                 } 
-            }( listType, list[ i ].path );
+            }( listType, list[ i ].path, list[ i ].name );
             listItem.onmouseover = function() {
                 this.className = "listitem hover";
             }
@@ -106,6 +118,11 @@ function retrieveAssetListItems( listPath ) {
             list.push( { name: "Rubble Tank", path: "source/obstacles/rubble_tank.vwf" } );
             break;
         case "pickups":
+            list.push( { name: "Battery 1", path: "source/pickups/battery_1.vwf" } );
+            list.push( { name: "Battery 2", path: "source/pickups/battery_2.vwf" } );
+            list.push( { name: "Battery 3", path: "source/pickups/battery_3.vwf" } );
+            list.push( { name: "Quadcopter", path: "source/pickups/helicam.vwf" } );
+            list.push( { name: "Radio", path: "source/pickups/radio.vwf" } );
             break;
         case "characters":
             break;
@@ -157,3 +174,55 @@ function createToolButton( toolID ) {
     tool.className = "toolbutton";
     return tool;
 }
+
+function deletePrompt( id, name ) {
+    var message = "Delete " + name + "?";
+    var yes = function() {
+        vwf_view.kernel.callMethod( sceneID, "deleteObject", [ id ] );
+    }
+    createPrompt( message, yes );
+}
+
+function createPrompt( message, yesFunc, noFunc ) {
+    var ui = document.getElementById( "uiwrapper" );
+    var dialog = document.getElementById( "prompt" );
+    var messageBox, yesBtn, noBtn;
+    if ( dialog ) {
+        dialog.no();
+    }
+    dialog = document.createElement( "div" );
+    dialog.id = "prompt";
+    dialog.yes = function() {
+        if ( yesFunc instanceof Function ) {
+            yesFunc();
+        }
+        dialog.parentElement.removeChild( dialog );
+    }
+    dialog.no = function() {
+        if ( noFunc instanceof Function ) {
+            noFunc();
+        }
+        dialog.parentElement.removeChild( dialog );
+    }
+
+    messageBox = document.createElement( "div" );
+    messageBox.className = "prompttext";
+    messageBox.innerHTML = message;
+    dialog.appendChild( messageBox );
+
+    yesBtn = document.createElement( "div" );
+    yesBtn.className = "promptbutton";
+    yesBtn.innerHTML = "Yes";
+    yesBtn.onclick = dialog.yes;
+    dialog.appendChild( yesBtn );
+
+    noBtn = document.createElement( "div" );
+    noBtn.className = "promptbutton";
+    noBtn.innerHTML = "No";
+    noBtn.onclick = dialog.no;
+    dialog.appendChild( noBtn );
+
+    ui.appendChild( dialog );
+}
+
+//@ sourceURL=editor/editor.js
