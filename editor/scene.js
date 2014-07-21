@@ -1,7 +1,7 @@
 this.objCount = 0;
 this.selectedObject;
 
-var lastPointerPosition, lastPointerDownTime, lastPointerDownID;
+var lastPointerPosition, lastPointerDownTime, lastPointerDownID, tileHeight;
 
 this.initialize = function() {
     this.camera.transform = [
@@ -260,10 +260,8 @@ this.useTool = function( eventType, pointerInfo, pickInfo ) {
                         lastPointerPosition = pointerInfo.position[ 0 ];
                     }
                 }
-            } else if ( eventType === "pointerMove" && pointerInfo.buttons.left && this.selectedObject ) {
-                if ( this.selectedObject.isOnGrid ) {
-                    lastPointerPosition = undefined;
-                }
+            } else if ( eventType === "pointerUp" ) {
+                lastPointerPosition = undefined;
             } else if ( eventType === "pointerClick" && pointerInfo.button === "left" ) {
                 var object = this.findByID( this, pickInfo.pickID );
                 if ( object && object.isEditable ) {
@@ -274,13 +272,44 @@ this.useTool = function( eventType, pointerInfo, pickInfo ) {
             }
             break;
         case "raise_lower":
-            if ( eventType === "pointerClick" && pointerInfo.button === "left" ) {
+            // TODO: The bounding boxes aren't correct on our models, so this tool does not work 100% properly
+            if ( eventType === "pointerDown" && pointerInfo.buttons.left && this.selectedObject ) {
+                if ( this.selectedObject.isOnGrid ) {
+                    if ( this.map ) {
+                        var origin = this.selectedObject.translation;
+                        origin[ 2 ] += 15;
+                        var picks = this.raycast( origin, [ 0, 0, -1 ], 0, Infinity, true, this.map );
+                        if ( picks[ 0 ] ) {
+                            tileHeight = picks[ 0 ].point.z;
+                        } else {
+                            tileHeight = 0;
+                        }
+                    } else {
+                        tileHeight = 0;
+                    }
+                    lastPointerPosition = pointerInfo.position[ 1 ];
+                }
+            } else if ( eventType === "pointerMove" && pointerInfo.buttons.left && this.selectedObject ) {
+                if ( this.selectedObject.isOnGrid && !isNaN( tileHeight ) ) {
+                    var height = this.selectedObject.boundingbox.max.z - this.selectedObject.boundingbox.min.z;
+                    var delta = ( pointerInfo.position[ 1 ] - lastPointerPosition ) / 0.5;
+                    var max = tileHeight - this.selectedObject.boundingbox.min.z;
+                    var min = tileHeight - this.selectedObject.boundingbox.max.z;
+                    var trans = this.selectedObject.translation;
+                    var adj = Math.max( Math.min( trans[ 2 ] - ( height * delta ), max ), min );
+                    this.selectedObject.translateTo( [ trans[ 0 ], trans[ 1 ], adj ] );
+                    lastPointerPosition = pointerInfo.position[ 1 ];
+                }
+            } else if ( eventType === "pointerUp" ) {
+                tileHeight = undefined;
+                lastPointerPosition = undefined;
+            } else if ( eventType === "pointerClick" && pointerInfo.button === "left" ) {
                 var object = this.findByID( this, pickInfo.pickID );
                 if ( object && object.isEditable ) {
                     this.selectObject( object );
+                } else {
+                    this.deselectObject();
                 }
-            } else {
-                this.deselectObject();
             }
             break;
         case "delete":
