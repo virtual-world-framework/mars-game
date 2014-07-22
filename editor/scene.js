@@ -272,7 +272,6 @@ this.useTool = function( eventType, pointerInfo, pickInfo ) {
             }
             break;
         case "raise_lower":
-            // TODO: The bounding boxes aren't correct on our models, so this tool does not work 100% properly
             if ( eventType === "pointerDown" && pointerInfo.buttons.left && this.selectedObject ) {
                 if ( this.selectedObject.isOnGrid ) {
                     if ( this.map ) {
@@ -291,12 +290,20 @@ this.useTool = function( eventType, pointerInfo, pickInfo ) {
                 }
             } else if ( eventType === "pointerMove" && pointerInfo.buttons.left && this.selectedObject ) {
                 if ( this.selectedObject.isOnGrid && !isNaN( tileHeight ) ) {
-                    var height = this.selectedObject.boundingbox.max.z - this.selectedObject.boundingbox.min.z;
-                    var delta = ( pointerInfo.position[ 1 ] - lastPointerPosition ) / 0.5;
-                    var max = tileHeight - this.selectedObject.boundingbox.min.z;
-                    var min = tileHeight - this.selectedObject.boundingbox.max.z;
+                    var cameraPos = new THREE.Vector3(
+                            this.camera.worldTransform[ 12 ],
+                            this.camera.worldTransform[ 13 ],
+                            this.camera.worldTransform[ 14 ]
+                        );
+                    var targetPos = new THREE.Vector3(
+                            this.selectedObject.worldTransform[ 12 ],
+                            this.selectedObject.worldTransform[ 13 ],
+                            this.selectedObject.worldTransform[ 14 ]
+                        );
+                    var height = cameraPos.distanceTo( targetPos );
+                    var delta = ( pointerInfo.position[ 1 ] - lastPointerPosition ) / 1.5;
                     var trans = this.selectedObject.translation;
-                    var adj = Math.max( Math.min( trans[ 2 ] - ( height * delta ), max ), min );
+                    var adj = trans[ 2 ] - ( height * delta );
                     this.selectedObject.translateTo( [ trans[ 0 ], trans[ 1 ], adj ] );
                     lastPointerPosition = pointerInfo.position[ 1 ];
                 }
