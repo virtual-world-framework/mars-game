@@ -59,7 +59,6 @@ properties:
       - clearBlackboard:
         - hasFailed
 
-
     succeedOnSuccess:
       triggerCondition:
       - onBlocklyStopped:

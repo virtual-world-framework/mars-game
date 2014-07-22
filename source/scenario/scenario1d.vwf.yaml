@@ -61,6 +61,10 @@ properties:
       - enableHelicam:
       - blinkHUDElement:
         - tilesButton
+      - clearBlackboard:
+        - hasSucceeded
+      - clearBlackboard:
+        - hasFailed
 
     succeedOnSuccess:
       triggerCondition:
