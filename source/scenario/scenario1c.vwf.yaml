@@ -61,6 +61,10 @@ properties:
       - enableHelicam:
       - blinkHUDElement:
         - camera_topDown
+      - clearBlackboard:
+        - hasSucceeded
+      - clearBlackboard:
+        - hasFailed
 
     succeedOnSuccess:
       triggerCondition:
@@ -70,6 +74,8 @@ properties:
       - clearBlockly:
       - scenarioSuccess:
         - "You have a bird's eye view now!"
+      - writeToBlackboard:
+        - hasSucceeded
       - stopBlinkHUDElement:
         - camera_topDown
       - playSound:

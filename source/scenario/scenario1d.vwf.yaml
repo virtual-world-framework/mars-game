@@ -70,6 +70,8 @@ properties:
       - clearBlockly:
       - scenarioSuccess:
         - "You have accessed the grid!"
+      - writeToBlackboard:
+        - hasSucceeded
       - stopBlinkHUDElement:
         - tilesButton
       - playSound:
@@ -85,6 +87,17 @@ properties:
       triggerCondition:
       - delay:
         - 20
+      additionalCondition:
+      - and:
+        - not:
+          - readBlackboard:
+            - Level1dHint1
+        - not:
+          - readBlackboard:
+            - hasSucceeded
+        - not:
+          - readBlackboard:
+            - hasFailed
       actions:
       - playSound:
         - ALVO18_Rover

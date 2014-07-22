@@ -54,6 +54,11 @@ properties:
         - musicStandardGameplay
       - playSound:
         - L1VO15_Rover
+      - clearBlackboard:
+        - hasSucceeded
+      - clearBlackboard:
+        - hasFailed
+
 
     succeedOnSuccess:
       triggerCondition:
@@ -73,6 +78,8 @@ properties:
       - clearBlockly:
       - scenarioSuccess:
         - "Now I can get out of this ditch and find the radio!"
+      - writeToBlackboard:
+        - hasSucceeded
       - playSound:
         - SCVO3_Rover
       - playSound:
@@ -149,13 +156,6 @@ properties:
         - musicSuccess
       - stopSound:
         - musicStandardGameplay
-
-    resetFailure:
-      triggerCondition:
-      - onScenarioStart:
-      actions:
-      - clearBlackboard:
-        - hasFailed
 
     startRoverSounds:
       triggerCondition:

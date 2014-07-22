@@ -64,6 +64,10 @@ properties:
       - blinkHUDElement:
         - blocklyButton
       - disableHelicam:
+      - clearBlackboard:
+        - hasSucceeded
+      - clearBlackboard:
+        - hasFailed
 
     succeedOnSuccess:
       triggerCondition:
@@ -71,6 +75,8 @@ properties:
       actions:
       - scenarioSuccess:
         - "You have accessed your programming interface!"
+      - writeToBlackboard:
+        - hasSucceeded
       - playSound:
         - musicSuccess
       - playSound:
@@ -86,7 +92,20 @@ properties:
       triggerCondition:
       - delay:
         - 30
+      additionalCondition:
+      - and:
+        - not:
+          - readBlackboard:
+            - Level1aHint1
+        - not:
+          - readBlackboard:
+            - hasSucceeded
+        - not:
+          - readBlackboard:
+            - hasFailed
       actions:
+      - writeToBlackboard:
+        - Level1aHint1
       - playSound:
         - ALVO14_Rover
 
