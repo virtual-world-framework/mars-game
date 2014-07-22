@@ -113,6 +113,10 @@ properties:
       - moveFailed:
         - rover
         - collision
+      additionalCondition:
+      - not:
+        - readBlackboard:
+          - hasFailed
       actions:
       - hideBlockly:
       - writeToBlackboard:
@@ -131,6 +135,10 @@ properties:
       - moveFailed:
         - rover
         - battery
+      additionalCondition:
+      - not:
+        - readBlackboard:
+          - hasFailed
       actions:
       - hideBlockly:
       - writeToBlackboard:

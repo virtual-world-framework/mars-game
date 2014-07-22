@@ -96,15 +96,9 @@ properties:
         - rover
         - collision
       additionalCondition:
-      - and:
-        - not:
-          - isAtPosition:
-            - rover
-            - 8
-            - 3
-        - not:
-          - readBlackboard:
-            - hasFailed
+      - not:
+        - readBlackboard:
+          - hasFailed
       actions:
       - hideBlockly:
       - writeToBlackboard:
@@ -124,15 +118,9 @@ properties:
         - rover
         - battery
       additionalCondition:
-      - and:
-        - not:
-          - isAtPosition:
-            - rover
-            - 8
-            - 3
-        - not:
-          - readBlackboard:
-            - hasFailed
+      - not:
+        - readBlackboard:
+          - hasFailed
       actions:
       - hideBlockly:
       - writeToBlackboard:
@@ -181,6 +169,9 @@ properties:
         - not:
           - readBlackboard:
             - Level1bHint1
+        - not:
+          - readBlackboard:
+            - Level1bHint2
         - not:
           - readBlackboard:
             - hasSucceeded
