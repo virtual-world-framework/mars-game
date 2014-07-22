@@ -11,7 +11,6 @@ this.add = function( objectID ) {
 
     if ( object && object.isInventoriable ) {
         if ( object.parent_ === this ) {
-            this.swap( this.slots.indexOf( objectID ), index );
             return;
         }
 
@@ -19,9 +18,7 @@ this.add = function( objectID ) {
         this.slots[ index ] = object.id;
         object.visible = this.inventoryIsVisible;
         object.pickedUp( object.iconSrc, index, this.id );
-
     }
-
 }
 
 this.swap = function( index1, index2 ) {
