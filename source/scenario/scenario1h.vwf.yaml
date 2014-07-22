@@ -64,6 +64,21 @@ properties:
       - clearBlackboard:
         - hasFailed
 
+    panToRadio:
+      triggerCondition:
+      - onScenarioStart:
+      additionalCondition:
+      - doOnce:
+      actions:
+      - delay:
+        - 2
+        - panCamera:
+          - /pickups/radio
+        - delay:
+          - 3
+          - panCamera:
+            - /player/rover
+
     succeedOnSuccess:
       triggerCondition:
       - onBlocklyStopped:
