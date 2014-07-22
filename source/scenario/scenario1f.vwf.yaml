@@ -54,6 +54,10 @@ properties:
         - musicStandardGameplay
       - playSound:
         - L1VO14_Rover
+      - clearBlackboard:
+        - hasSucceeded
+      - clearBlackboard:
+        - hasFailed
 
     succeedOnSuccess:
       triggerCondition:
@@ -73,6 +77,8 @@ properties:
       - clearBlockly:
       - scenarioSuccess:
         - "Turning motors are good to go!"
+      - writeToBlackboard:
+        - hasSucceeded
       - playSound:
         - musicSuccess
       - playSound:
@@ -86,6 +92,17 @@ properties:
       triggerCondition:
       - delay:
         - 20
+      additionalCondition:
+      - and:
+        - not:
+          - readBlackboard:
+            - Level1fHint1
+        - not:
+          - readBlackboard:
+            - hasSucceeded
+        - not:
+          - readBlackboard:
+            - hasFailed
       actions:
       - playSound:
         - ALVO20_Rover
@@ -95,6 +112,10 @@ properties:
       - moveFailed:
         - rover
         - collision
+      additionalCondition:
+      - not:
+        - readBlackboard:
+          - hasFailed
       actions:
       - hideBlockly:
       - writeToBlackboard:
@@ -113,6 +134,10 @@ properties:
       - moveFailed:
         - rover
         - battery
+      additionalCondition:
+      - not:
+        - readBlackboard:
+          - hasFailed
       actions:
       - hideBlockly:
       - writeToBlackboard:
@@ -155,13 +180,6 @@ properties:
         - musicSuccess
       - stopSound:
         - musicStandardGameplay
-
-    resetFailure:
-      triggerCondition:
-      - onScenarioStart:
-      actions:
-      - clearBlackboard:
-        - hasFailed
 
     startRoverSounds:
       triggerCondition:
