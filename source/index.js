@@ -183,11 +183,7 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 var msg = eventArgs[ 0 ];
                 var msgType = loggerNodes[ nodeID ].name;
                 if ( msgType ) {
-                    if ( msgType === "subtitles" ) {
-                        pushSubtitle( msg.log );
-                    } else {
-                        pushToDisplay( msgType, msg.log );
-                    }
+                    pushToDisplay( msgType, msg.log );
                 }
                 break;
 
@@ -196,6 +192,12 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 // not sure this is needed, will always remove the first 
                 // log in the list
                 break;
+
+            case "addSubtitle":
+                var msg = eventArgs[ 0 ];
+                var time = eventArgs[ 1 ] ? eventArgs[ 1 ] : 1;
+                pushSubtitle( msg, time );
+                break;            
                 
         }
 

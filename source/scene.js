@@ -134,10 +134,10 @@ this.addAlert = function( log ) {
     
 }
 
-this.addSubtitle = function( log ) {
+this.addSubtitle = function( log, time ) {
 
     if ( this.subtitles !== undefined ) {    
-        this.subtitles.addLog( log );
+        this.subtitles.addSubtitle( log, time );
     }
 }
 
