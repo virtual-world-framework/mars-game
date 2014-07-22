@@ -279,6 +279,21 @@ this.actionSet.enableHelicam = function( params, context ) {
     }
 }
 
+this.actionSet.panCamera = function( params, context ) {
+    if ( params && params.length > 1 ) {
+        self.logger.errorx( "panCamera", "This action takes one parameter: the " +
+                            "path of the node to pan towards.");
+        return undefined;        
+    }
+
+    var targetPath = params[ 0 ];
+    var camera = context.find( "//camera" )[ 0 ];
+
+    return function() {
+        camera.setTargetPath$( targetPath );
+    }
+}
+
 function getScenario( context ) {
     if ( context.getCurrentScenario ){
         return context.getCurrentScenario();

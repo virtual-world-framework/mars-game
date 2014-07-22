@@ -33,6 +33,11 @@ properties:
     - rotation
     - [ 0, 0, 1, 180 ]
 
+  - setProperty:
+    - camera
+    - pointOfView
+    - topDown
+
   - addToInventory:
     - rover/cargo
     - [ "helicam", "battery" ]
@@ -58,7 +63,6 @@ properties:
         - hasSucceeded
       - clearBlackboard:
         - hasFailed
-
 
     succeedOnSuccess:
       triggerCondition:
