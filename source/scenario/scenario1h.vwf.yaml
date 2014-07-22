@@ -68,8 +68,12 @@ properties:
       triggerCondition:
       - onScenarioStart:
       additionalCondition:
-      - doOnce:
+      - not:
+        - readBlackboard:
+          - hasPannedToRadio
       actions:
+      - writeToBlackboard:
+        - hasPannedToRadio
       - delay:
         - 2
         - panCamera:
