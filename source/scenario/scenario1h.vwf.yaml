@@ -33,6 +33,11 @@ properties:
     - rotation
     - [ 0, 0, 1, 180 ]
 
+  - setProperty:
+    - camera
+    - pointOfView
+    - topDown
+
   - addToInventory:
     - rover/cargo
     - [ "helicam", "battery" ]
@@ -59,6 +64,24 @@ properties:
       - clearBlackboard:
         - hasFailed
 
+    panToRadio:
+      triggerCondition:
+      - onScenarioStart:
+      additionalCondition:
+      - not:
+        - readBlackboard:
+          - hasPannedToRadio
+      actions:
+      - writeToBlackboard:
+        - hasPannedToRadio
+      - delay:
+        - 2
+        - panCamera:
+          - /pickups/radio
+        - delay:
+          - 3
+          - panCamera:
+            - /player/rover
 
     succeedOnSuccess:
       triggerCondition:
