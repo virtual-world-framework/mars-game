@@ -65,6 +65,7 @@ children:
         properties:
           castShadows: true
           receiveShadows: true
+          translation: [ 0, -1.5, 0 ]
       roverTracks:
         extends: http://vwf.example.com/node3.vwf
         source: assets/3d/Terrain/rover_tracks_straight.dae
