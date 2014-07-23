@@ -191,6 +191,7 @@ function createBlocklyStatus() {
     addBlockToImageList( "turnLeft", "assets/images/hud/blockly_turn_left.png" );
     addBlockToImageList( "turnRight", "assets/images/hud/blockly_turn_right.png" );
     addBlockToImageList( "repeatTimes", "assets/images/hud/blockly_repeat_times.png" );
+    addBlockToImageList( "number", "assets/images/hud/blockly_number.png" );
 }
 
 function addBlockToImageList( name, imageSrc ) {
@@ -211,7 +212,8 @@ function populateBlockStack() {
     }
 }
 
-function addBlockToStackList( topBlock ) {
+function addBlockToStackList( topBlock, loopCounts ) {
+    loopCounts = loopCounts || [];
     var status = hud.elements.blocklyStatus;
     var currentBlock = topBlock;
     while ( currentBlock ) {
@@ -220,7 +222,8 @@ function addBlockToStackList( topBlock ) {
         var blockData = {
             "name": blockType,
             "id": blockID,
-            "alpha": 0
+            "alpha": 0,
+            "loopCounts": loopCounts.slice( 0 )
         };        
 
         if ( blockType === "rover_turn" ) {
@@ -232,8 +235,10 @@ function addBlockToStackList( topBlock ) {
 
             var firstBlockInLoop = currentBlock.getInput( "DO" ).connection.targetConnection.sourceBlock_;
             var loopTimes = parseInt( Blockly.JavaScript.valueToCode( currentBlock, 'TIMES', Blockly.JavaScript.ORDER_ASSIGNMENT ) || '0' ) || 0;
-            for ( var i = 0; i < loopTimes; i++ ) {
-                addBlockToStackList( firstBlockInLoop );
+            var counts = loopCounts.slice( 0 );
+            for ( var i = loopTimes; i > 0; i-- ) {
+                counts[ loopCounts.length ] = i;
+                addBlockToStackList( firstBlockInLoop, counts );
             }
         } else {
             status.blockStack.push( blockData );            
@@ -445,13 +450,27 @@ function drawAllBlocks( context, position, offset ) {
 
     // Check all blocks, but only draw if the opacity is not zero
     for ( var i = 0; i < this.index + this.range / 2; i++ ) {
-        if ( this.blockStack[ i ] ) {
-            var alpha = this.blockStack[ i ].alpha;
-            var block = this.blockImages[ this.blockStack[ i ].name ];
+        var blockData = this.blockStack[ i ];
+        if ( blockData ) {
+            var alpha = blockData.alpha;
+            var block = this.blockImages[ blockData.name ];
+            var loopCounts = blockData.loopCounts;
             if ( alpha && block ) {
                 context.globalAlpha = alpha;
-                context.drawImage( block, position.x, position.y - 
-                    ( this.topOffset - lastHeight ) );
+                context.drawImage( block, position.x, 
+                                   position.y - ( this.topOffset - lastHeight ) );
+                if ( this.index === i && loopCounts ) {
+                    var numBlock = this.blockImages[ "number" ];
+                    for ( var j = 0; j < loopCounts.length; j++ ) {
+                        var posX = position.x - numBlock.width * ( j + 1 );
+                        var posY = position.y - ( this.topOffset - lastHeight );
+                        context.drawImage( numBlock, posX, posY );
+                        context.textBaseline = "top";
+                        context.font = '15px sans-serif';
+                        context.fillStyle = "rgb( 0, 0, 0 )";
+                        context.fillText( loopCounts[ j ], posX + 20, posY + 9 );
+                    }
+                }
             }
             lastHeight += block.height || 0;
         }
