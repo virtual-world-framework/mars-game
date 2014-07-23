@@ -179,7 +179,6 @@ function createBlocklyStatus() {
     status.blockStack = [];
     status.blockImages = {};
     status.defaultDraw = status.draw;
-    status.drawAllBlocks = drawAllBlocks;
     status.lastUpdateTime = vwf_view.kernel.time();
     status.updateIntervalTime = 0.01;
     status.index = -1;
@@ -236,7 +235,7 @@ function addBlockToStackList( topBlock, loopCounts ) {
             var firstBlockInLoop = currentBlock.getInput( "DO" ).connection.targetConnection.sourceBlock_;
             var loopTimes = parseInt( Blockly.JavaScript.valueToCode( currentBlock, 'TIMES', Blockly.JavaScript.ORDER_ASSIGNMENT ) || '0' ) || 0;
             var counts = loopCounts.slice( 0 );
-            for ( var i = loopTimes; i > 0; i-- ) {
+            for ( var i = loopTimes - 1; i >= 0; i-- ) {
                 counts[ loopCounts.length ] = i;
                 addBlockToStackList( firstBlockInLoop, counts );
             }
@@ -445,42 +444,40 @@ function drawCameraSelector( context, position ) {
     }
 }
 
-function drawAllBlocks( context, position, offset ) {
-    var lastHeight = 0;
-
-    // Check all blocks, but only draw if the opacity is not zero
-    for ( var i = 0; i < this.index + this.range / 2; i++ ) {
-        var blockData = this.blockStack[ i ];
-        if ( blockData ) {
-            var alpha = blockData.alpha;
-            var block = this.blockImages[ blockData.name ];
-            var loopCounts = blockData.loopCounts;
-            if ( alpha && block ) {
-                context.globalAlpha = alpha;
-                context.drawImage( block, position.x, 
-                                   position.y - ( this.topOffset - lastHeight ) );
-                if ( this.index === i && loopCounts ) {
-                    var numBlock = this.blockImages[ "number" ];
-                    for ( var j = 0; j < loopCounts.length; j++ ) {
-                        var posX = position.x - numBlock.width * ( j + 1 );
-                        var posY = position.y - ( this.topOffset - lastHeight );
-                        context.drawImage( numBlock, posX, posY );
-                        context.textBaseline = "top";
-                        context.font = '15px sans-serif';
-                        context.fillStyle = "rgb( 0, 0, 0 )";
-                        context.fillText( loopCounts[ j ], posX + 20, posY + 9 );
-                    }
-                }
-            }
-            lastHeight += block.height || 0;
-        }
-    }
-    context.globalAlpha = 1;
-}
-
 function drawBlocklyStatus( context, position ) {
     if ( this.blockImages && this.blockStack ) {
-        this.drawAllBlocks( context, position, 0 );       
+        var lastHeight = 0;
+
+        // Draw all blocks within the range of the selected block
+        for ( var i = 0; i < this.index + this.range / 2; i++ ) {
+            var blockData = this.blockStack[ i ];
+            if ( blockData ) {
+                var alpha = blockData.alpha;
+                var block = this.blockImages[ blockData.name ];
+                var loopCounts = blockData.loopCounts;
+                if ( alpha && block && Math.abs( i - this.index ) < this.range ) {
+                    context.globalAlpha = alpha;
+                    context.drawImage( block, position.x, 
+                                       position.y - ( this.topOffset - lastHeight ) );
+                    if ( this.index === i && loopCounts ) {
+                        var numBlock = this.blockImages[ "number" ];
+                        for ( var j = 0; j < loopCounts.length; j++ ) {
+                            if ( loopCounts[ j ] > 0 ) {
+                                var posX = position.x - numBlock.width * ( j + 1 );
+                                var posY = position.y - ( this.topOffset - lastHeight );
+                                context.drawImage( numBlock, posX, posY );
+                                context.textBaseline = "top";
+                                context.font = '15px sans-serif';
+                                context.fillStyle = "rgb( 0, 0, 0 )";
+                                context.fillText( loopCounts[ j ], posX + 20, posY + 9 );
+                            }
+                        }
+                    }
+                }
+                lastHeight += block.height || 0;
+            }
+        }
+        context.globalAlpha = 1;
     }
 }
 
@@ -678,33 +675,9 @@ function stopElementBlinking( elementID ) {
     }
 }
 
-function pushNextBlocklyStatus() {
+function setBlocklyAlphas() {
     var statusElem = hud.elements.blocklyStatus;
-
     if ( statusElem ) {
-        statusElem.index++;
-        var blockName = statusElem.blockStack[ statusElem.index ].name;
-        var block = statusElem.blockImages[ blockName ];
-        if ( block ) {
-            statusElem.nextTopOffset = statusElem.topOffset + block.height;
-        }
-
-        statusElem.draw = ( function( context, position ) {
-            var time = vwf_view.kernel.time();
-            if ( time - this.lastUpdateTime > this.updateIntervalTime ) {
-                this.lastUpdateTime = time;
-                var difference = this.nextTopOffset - this.topOffset;
-                this.topOffset += difference / this.range;
-            }
-
-            if ( this.topOffset >= this.nextTopOffset ) {
-                this.topOffset = this.nextTopOffset;
-                this.draw = this.defaultDraw;
-            }
-
-            this.defaultDraw( context, position );
-        } );
-
         // Blocks within range of the selected block are given 0.5 opacity
         for ( var i = 0; i < statusElem.blockStack.length; i++ ) {
             var alpha = statusElem.blockStack[ i ].alpha;
@@ -716,6 +689,62 @@ function pushNextBlocklyStatus() {
                 alpha = 0;
             }
             statusElem.blockStack[ i ].alpha = alpha;
+        }
+    }
+}
+
+function pushNextBlocklyStatus() {
+    var statusElem = hud.elements.blocklyStatus;
+
+    if ( statusElem ) {
+        statusElem.index++;
+        var blockName = statusElem.blockStack[ statusElem.index ].name;
+        var block = statusElem.blockImages[ blockName ];
+        if ( block ) {
+
+            // Check if block pushes are outrunning the animation
+            if ( statusElem.draw === statusElem.defaultDraw ) {
+                statusElem.nextTopOffset = statusElem.topOffset + block.height;
+                var interval = statusElem.range;
+                var offsetIncrement = block.height / interval;
+                var alphaIncrement = 0.5 / interval;
+
+                statusElem.draw = ( function( context, position ) {
+                    var time = vwf_view.kernel.time();
+                    if ( time - this.lastUpdateTime > this.updateIntervalTime ) {
+                        this.lastUpdateTime = time;
+                        this.topOffset += offsetIncrement;
+                        for ( var i = 0; i < this.blockStack.length; i++ ) {
+                            var alpha = this.blockStack[ i ].alpha;
+                            if ( i < this.index ) {
+                                alpha -= alphaIncrement;
+                                alpha = alpha < 0 ? 0 : alpha;
+                            } else if ( i > this.index ) {
+                                alpha += alphaIncrement;
+                            } else {
+                                alpha = 1;
+                            }
+                            this.blockStack[ i ].alpha = alpha;
+                        }
+                    }
+
+                    if ( this.topOffset >= this.nextTopOffset ) {
+                        this.topOffset = this.nextTopOffset;
+                        this.draw = this.defaultDraw;
+                        setBlocklyAlphas();
+                    }
+
+                    this.defaultDraw( context, position );
+                } );
+
+            // If they are, set the top right away and don't animate
+            } else {
+                setBlocklyAlphas();
+                statusElem.draw = statusElem.defaultDraw;
+                statusElem.topOffset = statusElem.nextTopOffset + block.height;
+            }
+
+            
         }
     }
 }
