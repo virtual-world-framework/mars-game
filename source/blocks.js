@@ -218,6 +218,54 @@ Blockly.JavaScript['controls_if'] = function(block) {
   return code + '\n';
 };
 
+Blockly.JavaScript[ 'controls_environment' ] = function( block ) {
+  
+  var dropdown_value = block.getFieldValue('VALUE');
+  // var rover = vwf_view.kernel.find( "", "//rover" );
+  // var scenario = vwf_view.kernel.find( "", "//scenario1b" );
+  var scene = vwf_view.kernel.find( "", "/" )[ 0 ];
+  var rover = vwf_view.kernel.find( "", "//rover" )[ 0 ];
+  var scenario = vwf_view.kernel.find( "", "//scenario1b" )[ 0 ];
+  if ( rover ){
+
+  //var scene = vwf_view.kernel.application();
+  //var scene = vwf_view.kernel.find( "", "/" )[ 0 ];
+  //var scenario = scene.find( "//scenario1b" )[ 0 ];
+  var currentGrid = scenario.grid;
+  
+  
+  var headingInRadians = rover.heading * Math.PI / 180;
+  var dirVector = [ Math.round( -Math.sin( headingInRadians ) ), Math.round( Math.cos( headingInRadians ) ) ];
+  var proposedNewGridSquare = [ rover.currentGridSquare[ 0 ] + dirVector[ 0 ], 
+                                                                rover.currentGridSquare[ 1 ] + dirVector[ 1 ] ];
+  var inventoriableObjects = currentGrid.getInventoriables( proposedNewGridSquare );
+  if ( inventoriableObjects ){
+    return [ 'true' , Blockly.JavaScript.ORDER_ATOMIC ];
+  }
+  else {
+    return [ 'false' , Blockly.JavaScript.ORDER_ATOMIC ];
+  }
+} else {
+  [ 'false' , Blockly.JavaScript.ORDER_ATOMIC ];
+}
+};
+
+Blockly.Blocks[ 'controls_environment' ] = {
+  init: function() {
+    this.setColour( 225 );
+    this.appendDummyInput("INPUT")
+        .appendField(new Blockly.FieldDropdown([["somethingAhead", "somethingAhead"]]), "VALUE");
+    this.setOutput( true, "Boolean" );
+    var thisBlock = this;
+    this.setTooltip( function() {
+      var content = {
+        text: "A dropdown selector for sensing objects in the environment."
+      }
+      return showTooltipInBlockly( thisBlock, content );
+    } );
+  }
+};
+
 Blockly.Blocks['rover_moveForward'] = {
   // Block for moving forward.
   init: function() {

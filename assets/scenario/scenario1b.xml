@@ -1,3 +1,5 @@
 <xml id="rover" style="display: none">
   <block type="rover_moveForward"></block>
+  <block type="controls_if"><mutation else="1"></mutation></block>
+  <block type="controls_environment"></block>
 </xml>

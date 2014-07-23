@@ -18,7 +18,7 @@ properties:
   - setProperty:
     - rover
     - blockly_allowedBlocks
-    - 1
+    - 5
 
   # TODO: Simplify heading/rotation
   # Set initial rotation using heading

@@ -172,6 +172,7 @@ children:
           castShadows: true
           receiveShadows: true
           terrainName: "environment"
+          currentGridSquare: [ 0, 0 ]
         children:
           cargo:
             extends: source/inventory.vwf
