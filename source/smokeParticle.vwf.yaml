@@ -1,0 +1,22 @@
+---
+extends: http://vwf.example.com/particlesystem.vwf
+properties:
+  minVelocity: [ -0.0001, -0.0001, 0.002 ]
+  maxVelocity: [ -0.0012, -0.0012, 0.006 ]
+  minAcceleration: [ -0.000000001, -0.000000001, 0.00000001 ]
+  maxAcceleration: [ -0.00000001, -0.00000001, 0.0000001 ]
+  startSize: 3
+  endSize: 9
+  maxLifeTime: 4000
+  minLifeTime: 3000
+  startColor: [ 0.1, 0.1, 0.1, 1]
+  endColor: [ 0.2, 0.2, 0.2, 0]
+  additive: false
+  particleCount: 100
+  maxRate: 1
+  emitterType: point
+  sizeRange: 1
+  colorRange: [ 0.02, 0.02, 0.02, 0 ]
+  image: "assets/images/dust_smoke.png"
+  depthWrite: false
+  solver: AnalyticShader

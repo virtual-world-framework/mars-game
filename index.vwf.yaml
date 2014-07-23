@@ -74,27 +74,18 @@ children:
           translation: [ 0, 1, 0 ]
   airDust:
     includes: source/dustAir.vwf
-  smoke:
-    extends: http://vwf.example.com/particlesystem.vwf
+  smoke1:
+    extends: source/smokeParticle.vwf
     properties:
-      translation: [ -15, 35, 0 ]
-      minVelocity: [ -0.01, -0.01, 0.15 ]
-      maxVelocity: [ -0.015, -0.015, 0.2 ]
-      startSize: 3
-      endSize: 15
-      maxLifeTime: 600
-      minLifeTime: 300
-      startColor: [ 0.1, 0.1, 0.1, 0.75]
-      endColor: [ 0.2, 0.2, 0.2, 0]
-      additive: false
-      particleCount: 1000
-      maxRate: 1
-      emitterType: point
-      sizeRange: 1
-      colorRange: [ 0.05, 0.05, 0.05, 0.25 ]
-      image: "assets/images/dust_smoke.png"
-      depthWrite: false
-      solver: Euler
+      translation: [ -11, 31, 3 ]
+  smoke2:
+    extends: source/smokeParticle.vwf
+    properties:
+      translation: [ 4.5, 26, 0 ]
+  smoke3:
+    extends: source/smokeParticle.vwf
+    properties:
+      translation: [ 13.5, 16.5, 2 ]
   backdrop:
     extends: http://vwf.example.com/node3.vwf
     source: assets/3d/Terrain/backdrop.dae
