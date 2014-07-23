@@ -3,6 +3,5 @@ extends: source/pickup.vwf
 source: assets/3d/Radio/radio.DAE
 type: model/vnd.collada+xml
 properties:
-  animationLoop: true
   isCollidable: false
   terrainName: "environment"

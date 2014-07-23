@@ -62,6 +62,10 @@ properties:
       - playSound:
         - L1VO7_Rover
       - disableHelicam:
+      - clearBlackboard:
+        - hasSucceeded
+      - clearBlackboard:
+        - hasFailed
 
     succeedOnSuccess:
       triggerCondition:
@@ -78,11 +82,9 @@ properties:
       - scenarioSuccess:
         - "You have executed a movement command and picked up your helicam!"
       - writeToBlackboard:
-        - Level1bSuccess
+        - hasSucceeded
       - playSound:
         - musicSuccess
-      - stopSound:
-        - musicFailure
       - stopSound:
         - musicStandardGameplay
       - playSound:
@@ -93,6 +95,10 @@ properties:
       - moveFailed:
         - rover
         - collision
+      additionalCondition:
+      - not:
+        - readBlackboard:
+          - hasFailed
       actions:
       - hideBlockly:
       - writeToBlackboard:
@@ -111,6 +117,10 @@ properties:
       - moveFailed:
         - rover
         - battery
+      additionalCondition:
+      - not:
+        - readBlackboard:
+          - hasFailed
       actions:
       - hideBlockly:
       - writeToBlackboard:
@@ -150,22 +160,27 @@ properties:
       - stopSound:
         - musicStandardGameplay
 
-    resetFailure:
-      triggerCondition:
-      - onScenarioStart:
-      actions:
-      - clearBlackboard:
-        - hasFailed
-
     playHint1:
       triggerCondition:
       - delay:
         - 20
       additionalCondition:
-      - not:
-        - readBlackboard:
-          - Level1bHint2
+      - and:
+        - not:
+          - readBlackboard:
+            - Level1bHint1
+        - not:
+          - readBlackboard:
+            - Level1bHint2
+        - not:
+          - readBlackboard:
+            - hasSucceeded
+        - not:
+          - readBlackboard:
+            - hasFailed
       actions:
+      - writeToBlackboard:
+        - Level1bHint1
       - playSound:
         - ALVO15_Rover
 
@@ -182,7 +197,10 @@ properties:
             - Level1bHint2
         - not:
           - readBlackboard:
-            - Level1bSuccess
+            - hasSucceeded
+        - not:
+          - readBlackboard:
+            - hasFailed
       actions:
       - playSound:
         - ALVO16_Rover
