@@ -186,7 +186,7 @@ function createBlocklyStatus() {
     status.nextTopOffset = 0;
     status.range = 3;
     hud.add( status, "right", "bottom", { "x": 130, "y": -60 } );
-    addBlockToImageList( "rover_moveForward", "assets/images/hud/blockly_move_forward.png" );
+    addBlockToImageList( "moveForward", "assets/images/hud/blockly_move_forward.png" );
     addBlockToImageList( "turnLeft", "assets/images/hud/blockly_turn_left.png" );
     addBlockToImageList( "turnRight", "assets/images/hud/blockly_turn_right.png" );
     addBlockToImageList( "repeatTimes", "assets/images/hud/blockly_repeat_times.png" );
@@ -220,12 +220,16 @@ function addBlockToStackList( topBlock, loopCounts ) {
         var blockID = currentBlock.id;
         var blockData = {
             "name": blockType,
-            "id": blockID,
+            "id": parseInt( blockID ),
             "alpha": 0,
             "loopCounts": loopCounts.slice( 0 )
         };        
 
-        if ( blockType === "rover_turn" ) {
+        if ( blockType === "rover_moveForward" ) {
+            blockData.name = "moveForward";
+            status.blockStack.push( blockData );
+        }
+        else if ( blockType === "rover_turn" ) {
             blockData.name = currentBlock.getFieldValue( "DIR" );
             status.blockStack.push( blockData );            
         } else if ( blockType === "controls_repeat_extended" ) {
@@ -239,9 +243,8 @@ function addBlockToStackList( topBlock, loopCounts ) {
                 counts[ loopCounts.length ] = i;
                 addBlockToStackList( firstBlockInLoop, counts );
             }
-        } else {
-            status.blockStack.push( blockData );            
-        }
+        } 
+
         currentBlock = currentBlock.getNextBlock();
     }
 }
@@ -693,14 +696,15 @@ function setBlocklyAlphas() {
     }
 }
 
-function pushNextBlocklyStatus() {
+function pushNextBlocklyStatus( id ) {
     var statusElem = hud.elements.blocklyStatus;
 
     if ( statusElem ) {
         statusElem.index++;
         var blockName = statusElem.blockStack[ statusElem.index ].name;
+        var blockID = statusElem.blockStack[ statusElem.index ].id;
         var block = statusElem.blockImages[ blockName ];
-        if ( block ) {
+        if ( block && blockID === id ) {
 
             // Check if block pushes are outrunning the animation
             if ( statusElem.draw === statusElem.defaultDraw ) {
