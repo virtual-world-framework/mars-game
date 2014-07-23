@@ -4,3 +4,11 @@ implements: [ "source/inventoriable.vwf", "source/griddable.vwf" ]
 properties:
   isCollidable: false
   terrainName: undefined
+  visible:
+    set: |
+      this.setPickupVisibility( value );
+    value: true
+methods:
+  setPickupVisibility:
+scripts:
+  - source: source/pickup.js
