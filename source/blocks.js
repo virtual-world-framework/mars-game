@@ -1,12 +1,21 @@
 
 'use strict';
 
+var self;
+
+this.initialize = function() {
+    self = this;
+}
 
 var BlocklyApps = {
   getMsg: function( id ) { return ""; }
 }; 
 
-
+this.getBlackboardValue = function( name ) {
+  var scene = vwf_view.kernel.application();
+  var retVal = scene.sceneBlackboard[ name ];
+  return retVal;
+}
 // Extensions to Blockly's language and JavaScript generator.
 
 Blockly.Blocks['controls_if'] = {
@@ -221,33 +230,21 @@ Blockly.JavaScript['controls_if'] = function(block) {
 Blockly.JavaScript[ 'controls_environment' ] = function( block ) {
   
   var dropdown_value = block.getFieldValue('VALUE');
-  // var rover = vwf_view.kernel.find( "", "//rover" );
-  // var scenario = vwf_view.kernel.find( "", "//scenario1b" );
-  var scene = vwf_view.kernel.find( "", "/" )[ 0 ];
-  var rover = vwf_view.kernel.find( "", "//rover" )[ 0 ];
-  var scenario = vwf_view.kernel.find( "", "//scenario1b" )[ 0 ];
-  if ( rover ){
 
-  //var scene = vwf_view.kernel.application();
-  //var scene = vwf_view.kernel.find( "", "/" )[ 0 ];
-  //var scenario = scene.find( "//scenario1b" )[ 0 ];
-  var currentGrid = scenario.grid;
+  // var retVal = self.getBlackboardValue('roverSensing');
+  // if ( retVal === 'true' ){
+  //     var test = 0;
+  // }
+
+
+  var rover = vwf_view.kernel.find( "", "//rover" )[ 0 ];
+  vwf.callMethod( rover, 'activateSensor', []);
+  var properties = vwf.getProperties( rover );
+  var retVal = properties[ 'isSensing' ];
+  var test = 0;
+
+  return [ retVal , Blockly.JavaScript.ORDER_ATOMIC ];
   
-  
-  var headingInRadians = rover.heading * Math.PI / 180;
-  var dirVector = [ Math.round( -Math.sin( headingInRadians ) ), Math.round( Math.cos( headingInRadians ) ) ];
-  var proposedNewGridSquare = [ rover.currentGridSquare[ 0 ] + dirVector[ 0 ], 
-                                                                rover.currentGridSquare[ 1 ] + dirVector[ 1 ] ];
-  var inventoriableObjects = currentGrid.getInventoriables( proposedNewGridSquare );
-  if ( inventoriableObjects ){
-    return [ 'true' , Blockly.JavaScript.ORDER_ATOMIC ];
-  }
-  else {
-    return [ 'false' , Blockly.JavaScript.ORDER_ATOMIC ];
-  }
-} else {
-  [ 'false' , Blockly.JavaScript.ORDER_ATOMIC ];
-}
 };
 
 Blockly.Blocks[ 'controls_environment' ] = {

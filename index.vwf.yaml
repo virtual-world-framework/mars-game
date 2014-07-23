@@ -77,6 +77,8 @@ children:
         type: model/vnd.collada+xml
         properties:
           translation: [ 0, 1, 0 ]
+  blocks:
+    includes: source/blocks.vwf
   airDust:
     includes: source/dustAir.vwf
   smoke1:
@@ -173,6 +175,7 @@ children:
           receiveShadows: true
           terrainName: "environment"
           currentGridSquare: [ 0, 0 ]
+          isSensing: false
         children:
           cargo:
             extends: source/inventory.vwf
