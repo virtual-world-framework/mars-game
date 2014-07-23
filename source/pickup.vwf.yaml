@@ -2,6 +2,8 @@
 extends: source/gridObstacle.vwf
 implements: [ "source/inventoriable.vwf", "source/griddable.vwf" ]
 properties:
+  castShadows: true
+  receiveShadows: true
   isCollidable: false
   terrainName: undefined
   visible:

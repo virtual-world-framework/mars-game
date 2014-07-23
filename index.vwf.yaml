@@ -100,7 +100,7 @@ children:
     properties:
       lightType: "directional"
       color: [ 255, 245, 230 ]
-      translation: [ 8, 4, 48 ]
+      translation: [ 2, 1, 16 ]
       intensity: 0.5
       castShadows: true
       shadowDarkness: 0.5
@@ -108,10 +108,17 @@ children:
       shadowCameraTop: 48
       shadowCameraLeft: -48
       shadowCameraRight: 48
-      shadowCameraFar: 96
-      shadowMapWidth: 1024
-      shadowMapHeight: 1024
-      shadowBias: 0.0015
+      shadowCameraFar: 24
+      shadowMapWidth: 2048
+      shadowMapHeight: 2048
+      shadowBias: -0.01
+      target: [ 0, 0, 0 ]
+      offsetFromTarget: [ 2, 1, 16 ]
+    methods:
+      setUpEvents:
+      followCamera:
+    scripts:
+      - source: source/lights.js
   envLight:
     extends: http://vwf.example.com/light.vwf
     properties:
