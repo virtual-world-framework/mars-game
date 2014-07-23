@@ -161,6 +161,9 @@ children:
     children:
       radio:
         includes: source/pickups/radio.vwf
+        properties:
+          animationPlaying: true
+          animationLoop: true
       battery:
         includes: source/pickups/battery_1.vwf
       helicam:

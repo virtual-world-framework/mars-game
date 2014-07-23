@@ -2,10 +2,5 @@
 extends: http://vwf.example.com/node3.vwf
 implements: [ "source/inventoriable.vwf", "source/griddable.vwf" ]
 properties:
-  animationLoop: true
   isCollidable: false
   terrainName: undefined
-scripts: |
-  this.initialize = function() {
-    this.animationPlay();
-  }

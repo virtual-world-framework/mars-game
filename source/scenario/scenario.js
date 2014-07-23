@@ -123,10 +123,8 @@ this.startStateParamSet.addToInventory = function( params, context ) {
     var object;
     for ( var i = 0; i < objects.length; i++ ) {
         object = self.startStateExecutor.findInContext( context, objects[ i ] );
-
+        inventory.add( object.id );
     }
-
-    inventory.add( object.id );
 }
 
 this.startStateParamSet.addToGrid = function( params, context ) {
