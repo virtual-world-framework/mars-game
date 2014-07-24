@@ -20,6 +20,9 @@ this.onSceneLoaded = function() {
 this.startScenario = function() {
     if ( activeScenario !== this ) {
 
+        // Clear out the triggers from the previous scenario.
+        // NOTE: it might be better to do this inside success/failure, so
+        //   that it doesn't wait until the player clicks forward to happen.
         var lastScenario = activeScenario;
         lastScenario && lastScenario.triggerManager && 
             lastScenario.triggerManager.future( 0 ).clearTriggers();
