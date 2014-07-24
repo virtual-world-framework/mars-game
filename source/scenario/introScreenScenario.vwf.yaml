@@ -11,22 +11,20 @@ children:
     extends: source/triggers/triggerManager.vwf
     properties: 
       triggers:
-        succeedOnIntroDone:
-          triggerCondition:
-          - onIntroScreensComplete:
-          actions:
-          - scenarioSuccess:
-          - stopSound:
-            - musicStoryScreen
-          - playSound:
-            - environmentWind
-
-        playMusic:
+        beginScenario_Intro:
           triggerCondition:
           - onScenarioStart:
           actions:
           - playSound:
             - musicStoryScreen
+
+        succeedOnIntroDone:
+          triggerCondition:
+          - onIntroScreensComplete:
+          actions:
+          - scenarioSuccess:
+          - playSound:
+            - environmentWind
 
   grid:
     extends: source/grid.vwf

@@ -40,7 +40,7 @@ properties:
 
   - addToInventory:
     - rover/cargo
-    - [ "radio" ]
+    - [ "helicam", "battery", "radio" ]
 
   - addToGrid:
     - rover

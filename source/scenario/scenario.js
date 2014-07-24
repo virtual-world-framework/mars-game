@@ -19,6 +19,11 @@ this.onSceneLoaded = function() {
 
 this.startScenario = function() {
     if ( activeScenario !== this ) {
+
+        var lastScenario = activeScenario;
+        lastScenario && lastScenario.triggerManager && 
+            lastScenario.triggerManager.future( 0 ).clearTriggers();
+
         activeScenario = this;
 
         this.startStateExecutor.functionSets = [];
@@ -34,6 +39,7 @@ this.startScenario = function() {
         }
 
         if ( this.grid ) {
+            scene.removeGridDisplay();
             scene.future(0).createGridDisplay( this.grid );
         }
     }
@@ -45,6 +51,9 @@ this.startScenario = function() {
         }
     }
 
+    // The global trigger list has late load triggers which need to be 
+    //   loaded last (for order of operations reasons), so we will unload
+    //   them, load this scenarios triggers, and then reload them.
     var globalTriggers = scene.globalTriggerManager;
     globalTriggers.clearTriggerList( globalTriggers.lateLoadTriggers );
 
@@ -61,8 +70,6 @@ this.failed = function() {
     if ( scene ) {
         scene.scenarioFailed( this );
         scene.stopAllExecution();
-
-        this.triggerManager && this.triggerManager.future( 0 ).clearTriggers();
     }
 }
 
@@ -70,7 +77,6 @@ this.completed = function() {
     // If we need to do anything on success, it should go in here.
     if ( scene ) {
         scene.scenarioSucceeded( this );
-        this.triggerManager && this.triggerManager.future( 0 ).clearTriggers();
     }
 }
 
@@ -133,10 +139,8 @@ this.startStateParamSet.addToInventory = function( params, context ) {
     var object;
     for ( var i = 0; i < objects.length; i++ ) {
         object = activeScenario.startStateExecutor.findInContext( context, objects[ i ] );
-
+        inventory.add( object.id );
     }
-
-    inventory.add( object.id );
 }
 
 this.startStateParamSet.addToGrid = function( params, context ) {

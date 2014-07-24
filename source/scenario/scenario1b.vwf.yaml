@@ -63,7 +63,6 @@ children:
           actions:
           - playSound:
             - musicStandardGameplay
-          - disableHelicam:
 
         playStartingVO_1b:
           triggerCondition:
@@ -96,7 +95,6 @@ children:
             - musicSuccess
           - playSound:
             - L1VO8_Rover
-          - enableHelicam:
 
         playHint1_1b:
           triggerCondition:

@@ -6,16 +6,21 @@ properties:
     - soundName: "musicStandardGameplay"
       soundURL: "assets/sounds/music/musicStandardGameplayLoopFullMix.ogg"
       isLooping: true
-      # initialVolume: 0.4
       allowMultiplay: false
+      soundGroup: music
+      groupReplacementMethod: replace
     - soundName: "musicMenuLoop"
       soundURL: "assets/sounds/music/musicMenuLoop.ogg"
       isLooping: true
       allowMultiplay: false
+      soundGroup: music
+      groupReplacementMethod: replace
     - soundName: "musicStoryScreen"
       soundURL: "assets/sounds/music/musicStoryScreenLoopFullMix.ogg"
       isLooping: true
       allowMultiplay: false
+      soundGroup: music
+      groupReplacementMethod: replace
     - soundName: "musicFailure"
       soundURL: "assets/sounds/music/musicFailure_01.ogg"
       allowMultiplay: false
