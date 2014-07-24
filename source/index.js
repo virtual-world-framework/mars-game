@@ -86,9 +86,14 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
             case "blocklyStarted":
                 var stopButton = document.getElementById( "stopButton" );
                 stopButton.className = "";
+                var indicator = document.getElementById( "blocklyIndicator" );
+                indicator.className = "";
+                indicator.style.visibility = "inherit";
                 break;
 
             case "blocklyStopped":
+                var indicator = document.getElementById( "blocklyIndicator" );
+                indicator.className = "stopped";                
             case "blocklyErrored":
                 var stopButton = document.getElementById( "stopButton" );
                 stopButton.className = "disabled";

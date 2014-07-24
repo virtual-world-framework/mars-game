@@ -4,10 +4,14 @@ body {
 
 #blocklyIndicator {
     background-image: url( "assets/images/blockly_ui/blockly_indicator.png" );
-    width: 24px;
-    height: 16px;
+    width: 40px;
+    height: 17px;
     position: absolute;
-    visibility: inherit;
+    visibility: hidden;
+}
+
+#blocklyIndicator.stopped {
+    background-image: url( "assets/images/blockly_ui/blockly_indicator_stopped.png" );
 }
 
 #blocklyWrapper {

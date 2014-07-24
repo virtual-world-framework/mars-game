@@ -179,7 +179,8 @@ function centerBlocklyWindow() {
 function resetBlocklyIndicator() {
     $( "#blocklyIndicator" ).css( {
         "left" : 0,
-        "top" : 0
+        "top" : 0,
+        "visibility" : "hidden"
     } );
 }
 
