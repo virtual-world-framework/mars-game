@@ -5,6 +5,7 @@ var loggerNodes = {};
 var currentBlocklyNodeID = undefined;
 var blocklyExecuting = false;
 var lastBlockIDExecuted = undefined;
+var currentBlockIDSelected = undefined;
 var targetPath = undefined;
 var mainRover = undefined;
 var blocklyGraphID = undefined;
@@ -65,7 +66,7 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                     currentBlocklyNodeID = nodeID;
                     updateBlocklyRamBar();
                     updateBlocklyUI( blocklyNode );
-                    selectLastBlock();
+                    selectBlock( lastBlockIDExecuted );
                 } else {
                     currentBlocklyNodeID = undefined;
                 }
@@ -116,7 +117,7 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                     var currentCode = getBlocklyFunction();
                     this.kernel.setProperty( graphLines[ "blocklyLine" ].ID, "lineFunction", currentCode );
 
-                    indicateLastBlock();
+                    indicateBlock( lastBlockIDExecuted );
                 }
                 break;
             case "blockExecuted":
@@ -129,16 +130,8 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                     pushNextBlocklyStatus( blockName );
                 }
                 if ( blockID ) {
-                    var workspace = Blockly.getMainWorkspace();
-                    var block = workspace ? workspace.getBlockById( blockID ) : undefined;
-                    if ( block ) {
-                        if ( Blockly.selected ) {
-                            Blockly.selected.unselect();
-                        }
-                        block.select();
-                        var pos = block.getRelativeToSurfaceXY();
-                        moveBlocklyIndicator( pos.x, pos.y );
-                    }
+                    selectBlock( blockID );
+                    indicateBlock( blockID );
                     lastBlockIDExecuted = blockID;
                 }
                 break;
@@ -146,7 +139,7 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
             case "scenarioReset":
                 resetStatusDisplay();
             case "scenarioChanged":
-
+                resetBlocklyIndicator();
                 removePopup();
                 removeFailScreen();
                 clearBlocklyStatus();
@@ -183,7 +176,7 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 clearBlockly();
                 break;
             case "selectLastBlock":
-                selectLastBlock();
+                selectBlock( lastBlockIDExecuted );
                 break;
         } 
 
@@ -621,26 +614,28 @@ function clearBlockly() {
     }
 }
 
-function selectLastBlock() {
+function selectBlock( blockID ) {
     var workspace = Blockly.getMainWorkspace();
-    var block = workspace ? workspace.getBlockById( lastBlockIDExecuted ) : undefined;
+    var block = workspace ? workspace.getBlockById( blockID ) : undefined;
+    var lastBlock = workspace ? workspace.getBlockById( currentBlockIDSelected ) : undefined;
+    if ( lastBlock ) {
+        Blockly.removeClass_( lastBlock.svg_.svgGroup_, "blocklySelected" );
+    }
     if ( block ) {
-        if ( Blockly.selected ) {
-            Blockly.selected.unselect();
-        }        
-        block.select();     
+        Blockly.addClass_( block.svg_.svgGroup_, "blocklySelected" );
+        currentBlockIDSelected = blockID;
     }
 }
 
-function indicateLastBlock() {
+function indicateBlock( blockID ) {
     var workspace = Blockly.getMainWorkspace();
-    var block = workspace ? workspace.getBlockById( lastBlockIDExecuted ) : undefined;
+    var block = workspace ? workspace.getBlockById( blockID ) : undefined;
     if ( block ) {
         var pos = block.getRelativeToSurfaceXY();
         moveBlocklyIndicator( pos.x, pos.y );
-    } else {
+    } else if ( blockID === lastBlockIDExecuted ) {
         resetBlocklyIndicator();
-    }
+    }    
 }
 
 //@ sourceURL=source/index.js

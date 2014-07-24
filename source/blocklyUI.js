@@ -185,8 +185,9 @@ function resetBlocklyIndicator() {
 }
 
 function moveBlocklyIndicator( x, y ) {
+    var toolbox = document.getElementsByClassName( "blocklyFlyoutBackground" )[ 0 ];
     var yOffset = parseInt( $( "#blocklyWrapper-top" ).css( "height" ) );
-    var xOffset = parseInt( $( ".blocklyFlyoutBackground" ).css( "width" ) ) + 175;
+    var xOffset = toolbox.getBBox().width;
     $( "#blocklyIndicator" ).stop().animate( { 
         "top" : ( y + yOffset ) + "px",
         "left": ( x + xOffset ) + "px"
