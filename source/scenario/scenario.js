@@ -5,9 +5,6 @@ this.initialize = function() {
     this.children.create( "startStateExecutor", 
                           "source/triggers/declarativeFunctionExecutor.vwf" );
 
-    // this.children.create( "triggerManager", 
-    //                       "source/triggers/triggerManager.vwf" );
-
     this.future( 0 ).onSceneLoaded();
 }
 
