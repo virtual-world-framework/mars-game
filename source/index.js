@@ -136,10 +136,10 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 }
                 break;
 
-            case "scenarioReset":
-                resetStatusDisplay();
             case "scenarioChanged":
                 resetBlocklyIndicator();
+            case "scenarioReset":
+                resetStatusDisplay();
                 removePopup();
                 removeFailScreen();
                 clearBlocklyStatus();
