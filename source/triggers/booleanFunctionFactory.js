@@ -777,7 +777,7 @@ function getBlocklyObjects( params, context ) {
     // if the objectParam is undefined, we return all of the blockly objects
     if ( !objectParam || ( objectParam.length === 0 ) ) {
         if (!context) {
-            self.logger.errorx( "getBlocklyObjects", "Context  is undefined!" );
+            self.logger.errorx( "getBlocklyObjects", "Context is undefined!" );
             return undefined;
         }
 

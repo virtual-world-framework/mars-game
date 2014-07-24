@@ -53,7 +53,7 @@ this.startScenario = function() {
 
     this.triggerManager.loadTriggers( scene );
 
-    globalTriggers.loadTriggerList( globalTriggers.lateLoadTriggers );
+    globalTriggers.loadTriggerList( globalTriggers.lateLoadTriggers, scene );
 
     this.enter();
     scene.scenarioStarted( this );

@@ -61,10 +61,7 @@ this.clearTriggerList = function( triggerList ) {
         if ( this.triggerSet$[ key ] !== undefined ) {
             this.triggerSet$[ key ].isDeleted = true;
             delete this.triggerSet$[ key ];
-        } else {
-            this.logger.warnx( "clearTriggerList", "Trigger '" + key +
-                               "' not found.");
-        }
+        } 
     }
 }
 
