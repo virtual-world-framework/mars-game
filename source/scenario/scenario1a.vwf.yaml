@@ -79,6 +79,22 @@ children:
           - writeToBlackboard:
             - Level1aStartSounds
 
+        panToRadio_1h:
+          triggerCondition:
+          - delay:
+            - 2
+          actions:
+          - panCamera:
+            - /pickups/radio
+
+        panToRover_1h:
+          triggerCondition:
+          - delay:
+            - 5
+          actions:
+          - panCamera:
+            - /player/rover
+
         succeedOnSuccess_1a:
           triggerCondition:
           - onBlocklyWindowOpened:
