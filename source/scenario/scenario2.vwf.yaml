@@ -57,7 +57,7 @@ children:
     extends: source/triggers/triggerManager.vwf
     properties: 
       triggers:
-        beginScenario:
+        beginScenario_2:
           triggerCondition:
           - onScenarioStart:
           actions:
@@ -68,7 +68,7 @@ children:
             - blinkBlocklyTab:
               - graph
 
-        playStartingVO:
+        playStartingVO_2:
           triggerCondition:
           - onScenarioStart:
           additionalCondition:
@@ -83,7 +83,7 @@ children:
           - writeToBlackboard:
             - Level2StartSounds
 
-        failOnMove:
+        failOnMove_2:
           triggerCondition:
           - onMoved:
             - rover
@@ -94,7 +94,7 @@ children:
             - lost
             - "You need to plot the course of the wayward rover before going to find it."
 
-        succeedOnSuccessfulCoursePlot:
+        succeedOnSuccessfulCoursePlot_2:
           triggerCondition:
           - and:
             - blocklyLineEval:
@@ -109,7 +109,7 @@ children:
           - playSound:
             - musicSuccess
 
-        stopBlinkGraphTab:
+        stopBlinkGraphTab_2:
           triggerCondition:
           - or:
             - onBlocklyWindowOpened:
@@ -119,7 +119,7 @@ children:
           - stopBlinkBlocklyTab:
             - graph
 
-        playGraphOpenedVO:
+        playGraphOpenedVO_2:
           triggerCondition:
           - onBlocklyWindowOpened:
             - graph

@@ -50,14 +50,14 @@ children:
     extends: source/triggers/triggerManager.vwf
     properties: 
       triggers:
-        beginScenario:
+        beginScenario_1g:
           triggerCondition:
           - onScenarioStart:
           actions:
           - playSound:
             - musicStandardGameplay
 
-        playStartingVO:
+        playStartingVO_1g:
           triggerCondition:
           - onScenarioStart:
           additionalCondition:
@@ -70,7 +70,7 @@ children:
           - writeToBlackboard:
             - Level1gStartSounds
 
-        succeedOnSuccess:
+        succeedOnSuccess_1g:
           triggerCondition:
           - onBlocklyStopped:
             - rover

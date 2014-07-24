@@ -57,7 +57,7 @@ children:
     extends: source/triggers/triggerManager.vwf
     properties: 
       triggers:
-        beginScenario:
+        beginScenario_1a:
           triggerCondition:
           - onScenarioStart:
           actions:
@@ -67,7 +67,7 @@ children:
             - blocklyButton
           - disableHelicam:
 
-        playStartingVO:
+        playStartingVO_1a:
           triggerCondition:
           - onScenarioStart:
           additionalCondition:
@@ -80,7 +80,7 @@ children:
           - writeToBlackboard:
             - Level1aStartSounds
 
-        succeedOnSuccess:
+        succeedOnSuccess_1a:
           triggerCondition:
           - onBlocklyWindowOpened:
           actions:
@@ -95,7 +95,7 @@ children:
           - stopBlinkHUDElement:
             - blocklyButton
 
-        playHint1:
+        playHint1_1a:
           triggerCondition:
           - delay:
             - 30

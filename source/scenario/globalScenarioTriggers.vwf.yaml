@@ -27,7 +27,7 @@ properties:
         - incomplete
 
   triggers:
-    beginScenario:
+    recordKeepingOnBegin:
       triggerCondition:
       - onScenarioStart:
       actions:

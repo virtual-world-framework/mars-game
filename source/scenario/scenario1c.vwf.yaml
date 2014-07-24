@@ -54,7 +54,7 @@ children:
     extends: source/triggers/triggerManager.vwf
     properties: 
       triggers:
-        beginScenario:
+        beginScenario_1c:
           triggerCondition:
           - onScenarioStart:
           actions:
@@ -63,7 +63,7 @@ children:
           - blinkHUDElement:
             - camera_topDown
 
-        playStartingVO:
+        playStartingVO_1c:
           triggerCondition:
           - onScenarioStart:
           additionalCondition:
@@ -76,7 +76,7 @@ children:
           - writeToBlackboard:
             - Level1cStartSounds
 
-        succeedOnSuccess:
+        succeedOnSuccess_1c:
           triggerCondition:
           - onHelicamToggle:
           actions:
@@ -91,7 +91,7 @@ children:
           - playSound:
             - SCVO1_Rover
 
-        playHint1:
+        playHint1_1c:
           triggerCondition:
           - delay:
             - 20

@@ -54,14 +54,14 @@ children:
     extends: source/triggers/triggerManager.vwf
     properties: 
       triggers:
-        beginScenario:
+        beginScenario_1e:
           triggerCondition:
           - onScenarioStart:
           actions:
           - playSound:
             - musicStandardGameplay
 
-        playStartingVO:
+        playStartingVO_1e:
           triggerCondition:
           - onScenarioStart:
           additionalCondition:
@@ -74,7 +74,7 @@ children:
           - writeToBlackboard:
             - Level1eStartSounds
 
-        succeedOnSuccess:
+        succeedOnSuccess_1e:
           triggerCondition:
           - onBlocklyStopped:
             - rover
@@ -93,7 +93,7 @@ children:
           - playSound:
             - L1VO13_Rover
 
-        playHint1:
+        playHint1_1e:
           triggerCondition:
           - delay:
             - 20

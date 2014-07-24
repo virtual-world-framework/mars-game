@@ -34,7 +34,8 @@ this.addTrigger = function( triggerName, trigger, context ) {
                                                    this.actionFactory, 
                                                    context, 
                                                    trigger, 
-                                                   this.logger );
+                                                   this.logger,
+                                                   triggerName );
 }
 
 this.clearTriggers = function() {
@@ -75,12 +76,18 @@ this.isEmpty = function() {
     return true;
 }
 
-function Trigger( conditionFactory, actionFactory, context, definition, logger ) {
-    this.initialize( conditionFactory, actionFactory, context, definition, logger );
+function Trigger( conditionFactory, actionFactory, context, definition, 
+                  logger, triggerName ) {
+
+    this.initialize( conditionFactory, actionFactory, context, definition, 
+                     logger, triggerName );
     return this;
 }
 
 Trigger.prototype = {
+    // Our name - also the key in the trigger list.  Used for debugging.
+    name: "",
+
     // The conditions that we check to see if the trigger should fire
     triggerCondition: undefined,
     additionalCondition: undefined,
@@ -88,33 +95,40 @@ Trigger.prototype = {
     // The actions we take when the trigger fires
     actions: undefined,
 
-    // This doesn't appear to be getting deleted properly, so redundantly disable it
-    //   if it should be deleted.
+    // This doesn't appear to be getting deleted properly, so redundantly 
+    //   disable it if it should be deleted.
     isDeleted: undefined,
 
+    // A logger.  Also used for debugging.
+    logger: undefined,
+
     initialize: function( conditionFactory, actionFactory, context, definition, 
-                          logger ) {
+                          logger, triggerName ) {
         if ( !definition.triggerCondition || 
              ( definition.triggerCondition.length !== 1 ) ) {
 
-            logger.errorx( "Trigger.initialize", "There must be exactly one " +
-                           "trigger condition.  Try using 'and' or 'or'." );
+            logger.errorx( triggerName + ".initialize", "There must be " +
+                           "exactly one trigger condition.  Try using 'and' " +
+                           "or 'or'." );
             return undefined;
         } 
 
         if ( definition.additionalCondition && 
              ( definition.additionalCondition.length !== 1 ) ) {
 
-            logger.errorx( "Trigger.initialize", "There must be at most one " +
-                           "additional condition.  Try using 'and' or 'or'." );
+            logger.errorx( triggerName + ".initialize", "There must be at " +
+                           "most one additional condition.  Try using 'and' " +
+                           "or 'or'." );
             return undefined;
         }
 
         if ( !definition.actions || ( definition.actions.length < 1 )) {
-            logger.errorx( "Trigger.initialize", "There must be at least one " +
-                           "action." );
+            logger.errorx( triggerName + ".initialize", "There must be at " +
+                           "least one action." );
             return undefined;
         }
+
+        this.name = triggerName;
 
         this.isDeleted = false;
 
@@ -135,6 +149,8 @@ Trigger.prototype = {
                                                         context );
             action && this.actions.push( action );
         }
+
+        this.logger = logger;
     },
 
     // Check our conditions, and take action if they're true
@@ -142,9 +158,21 @@ Trigger.prototype = {
         if ( !this.isDeleted && 
              this.triggerCondition && this.triggerCondition() &&
              ( !this.additionalCondition || this.additionalCondition() ) ) {
+
+            // this.logger.logx( this.name + ".checkFire", "Firing actions " +
+            //                   "for trigger '" + this.name + "'.");
+
             for ( var i = 0; i < this.actions.length; ++i ) {
+
+                // this.logger.logx( this.name + ".checkFire", "    Action " + 
+                //                   i + " starting.");
                 this.actions[ i ] && this.actions[ i ]();
+                // this.logger.logx( this.name + ".checkFire", "    Action " + 
+                //                   i + " complete.");
             }
+
+            // this.logger.logx( this.name + ".checkFire", "All actions " +
+            //                   "complete for trigger '" + this.name + "'.");
         }
     },
 }

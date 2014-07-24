@@ -57,7 +57,7 @@ children:
     extends: source/triggers/triggerManager.vwf
     properties: 
       triggers:
-        beginScenario:
+        beginScenario_1b:
           triggerCondition:
           - onScenarioStart:
           actions:
@@ -65,7 +65,7 @@ children:
             - musicStandardGameplay
           - disableHelicam:
 
-        playStartingVO:
+        playStartingVO_1b:
           triggerCondition:
           - onScenarioStart:
           additionalCondition:
@@ -78,7 +78,7 @@ children:
           - writeToBlackboard:
             - Level1bStartSounds
 
-        succeedOnSuccess:
+        succeedOnSuccess_1b:
           triggerCondition:
           - onBlocklyStopped:
             - rover
@@ -98,7 +98,7 @@ children:
             - L1VO8_Rover
           - enableHelicam:
 
-        playHint1:
+        playHint1_1b:
           triggerCondition:
           - delay:
             - 20
@@ -122,7 +122,7 @@ children:
           - playSound:
             - ALVO15_Rover
 
-        playHint2:
+        playHint2_1b:
           triggerCondition:
           - onBlocklyProgramChanged:
             - rover
