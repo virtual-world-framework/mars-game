@@ -343,27 +343,39 @@ this.useTool = function( eventType, pointerInfo, pickInfo ) {
 }
 
 this.drag = function( pickInfo ) {
-    this.selectedObject.terrainName = this.map.name;
-    var coord, curCoord;
+    this.selectedObject.terrainName = this.map ? this.map.name : undefined;
+    var coord, curCoord, origin, normal, intersects, nearest, point, factor;
 
-    if ( pickInfo.pickID !== this.selectedObject.id ) {
+    if ( pickInfo.pickID && pickInfo.pickID !== this.selectedObject.id ) {
         coord = this.grid.getGridFromWorld( pickInfo.globalPosition );
     } else {
-        var origin = pickInfo.globalSource;
-        var normal = pickInfo.pointerVector;
+        origin = pickInfo.globalSource;
+        normal = pickInfo.pointerVector;
         if ( origin && normal ) {
-            var intersects = this.raycast( origin, normal, 0, Infinity, true, this.map );
-            var nearest = findNearestOther( this.selectedObject, intersects );
-            if ( nearest ) {
-                var point = [
-                    nearest.point.x,
-                    nearest.point.y,
-                    nearest.point.z
+            if ( this.map ) {
+                intersects = this.raycast( origin, normal, 0, Infinity, true, this.map );
+                nearest = findNearestOther( this.selectedObject, intersects );
+                if ( nearest ) {
+                    point = [
+                        nearest.point.x,
+                        nearest.point.y,
+                        nearest.point.z
+                    ];
+                    coord = this.grid.getGridFromWorld( point );
+                }
+            } else {
+                factor = -origin[ 2 ] / normal[ 2 ];
+                point = [
+                    origin[ 0 ] + ( factor * normal[ 0 ] ),
+                    origin[ 1 ] + ( factor * normal[ 1 ] ),
+                    origin[ 2 ] + ( factor * normal[ 2 ] )
                 ];
                 coord = this.grid.getGridFromWorld( point );
             }
         }
     }
+
+    coord = coord || this.selectedObject.currentGridSquare;
 
     curCoord = this.selectedObject.currentGridSquare;
 
