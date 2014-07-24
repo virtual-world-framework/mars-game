@@ -1,19 +1,19 @@
 ---
 extends: http://vwf.example.com/particlesystem.vwf
 properties:
-  translation: [ 0, 0, 0 ]
-  minVelocity: [ -0.025, -0.025, 0 ]
-  maxVelocity: [ -0.05, -0.05, 0 ]
+  minVelocity: [ -7, -7, -0.5 ]
+  maxVelocity: [ -5, -5, 0.5 ]
   startSize: 15
   endSize: 15
-  maxLifeTime: 600
-  minLifeTime: 400
-  startColor: [ 0.85, 0.55, 0.25, 0.1]
-  endColor: [ 0.85, 0.55, 0.25, 0.025]
+  maxLifeTime: 5
+  minLifeTime: 5
+  startColor: [ 0.85, 0.55, 0.25, 0.15 ]
+  endColor: [ 0.85, 0.55, 0.25, 0.15 ]
+  colorRange: [ 0.02, 0.02, 0.02, 0.05 ]
   additive: true
-  particleCount: 300
+  particleCount: 50
   emitterType: box
-  emitterSize: [ 100, 100, 18 ]
+  emitterSize: [ 48, 48, 15 ]
   image: "assets/images/dust_smoke.png"
   depthWrite: false
 methods:
