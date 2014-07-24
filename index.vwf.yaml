@@ -175,7 +175,7 @@ children:
           receiveShadows: true
           terrainName: "environment"
           currentGridSquare: [ 0, 0 ]
-          isSensing: false
+          sensorValue: false
         children:
           cargo:
             extends: source/inventory.vwf

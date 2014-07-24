@@ -45,7 +45,7 @@ properties:
       }
     value: 5
   currentGridSquare: [ 0, 0 ]
-  isSensing: false
+  sensorValue: false
   heading: 90
   terrainName: undefined
   displayName: undefined

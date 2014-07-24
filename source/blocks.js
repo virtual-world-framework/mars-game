@@ -22,7 +22,7 @@ Blockly.Blocks['controls_if'] = {
   // If/elseif/else condition.
   init: function() {
     this.setHelpUrl(Blockly.Msg.CONTROLS_IF_HELPURL);
-    this.setColour(210);
+    this.setColour(20);
     this.appendValueInput('IF0')
         .setCheck('Boolean')
         .appendField(Blockly.Msg.CONTROLS_IF_MSG_IF);
@@ -173,7 +173,7 @@ Blockly.Blocks['controls_if'] = {
 Blockly.Blocks['controls_if_if'] = {
   // If condition.
   init: function() {
-    this.setColour(210);
+    this.setColour(20);
     this.appendDummyInput()
         .appendField(Blockly.Msg.CONTROLS_IF_IF_TITLE_IF);
     this.appendStatementInput('STACK');
@@ -185,7 +185,7 @@ Blockly.Blocks['controls_if_if'] = {
 Blockly.Blocks['controls_if_elseif'] = {
   // Else-If condition.
   init: function() {
-    this.setColour(210);
+    this.setColour(20);
     this.appendDummyInput()
         .appendField(Blockly.Msg.CONTROLS_IF_ELSEIF_TITLE_ELSEIF);
     this.setPreviousStatement(true);
@@ -198,7 +198,7 @@ Blockly.Blocks['controls_if_elseif'] = {
 Blockly.Blocks['controls_if_else'] = {
   // Else condition.
   init: function() {
-    this.setColour(210);
+    this.setColour(20);
     this.appendDummyInput()
         .appendField(Blockly.Msg.CONTROLS_IF_ELSE_TITLE_ELSE);
     this.setPreviousStatement(true);
@@ -227,31 +227,31 @@ Blockly.JavaScript['controls_if'] = function(block) {
   return code + '\n';
 };
 
-Blockly.JavaScript[ 'controls_environment' ] = function( block ) {
+Blockly.JavaScript[ 'controls_sensor' ] = function( block ) {
   
   var dropdown_value = block.getFieldValue('VALUE');
-
-  // var retVal = self.getBlackboardValue('roverSensing');
-  // if ( retVal === 'true' ){
-  //     var test = 0;
-  // }
-
-
+  var retVal = false;
   var rover = vwf_view.kernel.find( "", "//rover" )[ 0 ];
-  vwf.callMethod( rover, 'activateSensor', []);
-  var properties = vwf.getProperties( rover );
-  var retVal = properties[ 'isSensing' ];
-  var test = 0;
+
+  if ( dropdown_value === 'objectAhead' ){
+
+    vwf.callMethod( rover, 'activateSensor', [ 'forward' ] );
+    var properties = vwf.getProperties( rover );
+    var retVal = properties[ 'sensorValue' ];
+
+    vwf.callMethod( rover, 'deactivateSensor', [ 'forward' ] );
+
+  }
 
   return [ retVal , Blockly.JavaScript.ORDER_ATOMIC ];
   
 };
 
-Blockly.Blocks[ 'controls_environment' ] = {
+Blockly.Blocks[ 'controls_sensor' ] = {
   init: function() {
-    this.setColour( 225 );
+    this.setColour( 30 );
     this.appendDummyInput("INPUT")
-        .appendField(new Blockly.FieldDropdown([["somethingAhead", "somethingAhead"]]), "VALUE");
+        .appendField(new Blockly.FieldDropdown([["objectAhead", "objectAhead"]]), "VALUE");
     this.setOutput( true, "Boolean" );
     var thisBlock = this;
     this.setTooltip( function() {
