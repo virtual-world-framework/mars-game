@@ -60,6 +60,8 @@ properties:
 
     # arguments: scenarioName (optional)
     onScenarioStart:
+    onScenarioSucceeded:
+    onScenarioFailed:
 
     # arguments: (none)
     onIntroScreensComplete:

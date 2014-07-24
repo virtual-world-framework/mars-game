@@ -52,111 +52,87 @@ properties:
     - blocklyGraph
     - [ 15, 1 ]
 
-  triggers:
-    beginScenario:
-      triggerCondition:
-      - onScenarioStart:
-      actions:
-      - playSound:
-        - musicStandardGameplay
-      - clearBlackboard:
-        - hasSucceeded
-      - clearBlackboard:
-        - hasFailed
-
-    failOnMove:
-      triggerCondition:
-      - onMoved:
-        - rover
-      actions:
-      - hideBlockly:
-      - writeToBlackboard:
-        - hasFailed
-      - scenarioFailure:
-        - lost
-        - "You need to plot the course of the wayward rover before going to find it."
-      - playSound:
-        - musicFailure
-      - stopSound:
-        - musicSuccess
-      - stopSound:
-        - musicStandardGameplay
-
-    succeedOnSuccessfulCoursePlot:
-      triggerCondition:
-      - and:
-        - blocklyLineEval:
-          - [ 10, -5 ]
-        - blocklyLineEval:
-          - [ -16, 8 ]
-      actions:
-      - hideBlockly:
-      - writeToBlackboard:
-        - hasSucceeded
-      - scenarioSuccess:
-        - "Course plotted!  Now to find the little guy."
-      - playSound:
-        - musicSuccess
-      - stopSound:
-        - musicFailure
-      - stopSound:
-        - musicStandardGameplay
-
-    blinkGraphTab:
-      triggerCondition:
-      - onScenarioStart:
-      actions:
-      - waitForNode:
-        - graph
-        - blinkBlocklyTab:
-          - graph
-
-    stopBlinkGraphTab:
-      triggerCondition:
-      - or:
-        - onBlocklyWindowOpened:
-          - graph
-        - onScenarioChanged:
-      actions:
-      - stopBlinkBlocklyTab:
-        - graph
-
-    playStartingVO:
-      triggerCondition:
-      - onScenarioStart:
-      additionalCondition:
-      - and:
-        - not:
-          - readBlackboard:
-            - L2VO1
-        - doOnce:
-      actions:
-      - playSound:
-        - L2VO1_Control
-      - delay:
-        - 0.5
-        - playSound:
-          - L2VO2_Rover
-      - writeToBlackboard:
-        - L2VO1
-
-    playL2VO3_Rover:
-      triggerCondition:
-      - onBlocklyWindowOpened:
-        - graph
-      additionalCondition:
-      - and:
-        - not:
-          - readBlackboard:
-            - L2VO3
-        - doOnce:
-      actions:
-      - playSound:
-        - L2VO3_Rover
-      - writeToBlackboard:
-        - L2VO3
-
 children:
+  triggerManager:
+    extends: source/triggers/triggerManager.vwf
+    properties: 
+      triggers:
+        beginScenario:
+          triggerCondition:
+          - onScenarioStart:
+          actions:
+          - playSound:
+            - musicStandardGameplay
+          - waitForNode:
+            - graph
+            - blinkBlocklyTab:
+              - graph
+
+        playStartingVO:
+          triggerCondition:
+          - onScenarioStart:
+          additionalCondition:
+          - not:
+            - readBlackboard:
+              - Level2StartSounds
+          actions:
+          - playSound:
+            - L2VO1_Control
+          - playSound:
+            - L2VO2_Rover
+          - writeToBlackboard:
+            - Level2StartSounds
+
+        failOnMove:
+          triggerCondition:
+          - onMoved:
+            - rover
+          actions:
+          - hideBlockly:
+          - clearBlockly:
+          - scenarioFailure:
+            - lost
+            - "You need to plot the course of the wayward rover before going to find it."
+
+        succeedOnSuccessfulCoursePlot:
+          triggerCondition:
+          - and:
+            - blocklyLineEval:
+              - [ 10, -5 ]
+            - blocklyLineEval:
+              - [ -16, 8 ]
+          actions:
+          - scenarioSuccess:
+            - "Course plotted!  Now to find the little guy."
+          - stopSound:
+            - musicStandardGameplay
+          - playSound:
+            - musicSuccess
+
+        stopBlinkGraphTab:
+          triggerCondition:
+          - or:
+            - onBlocklyWindowOpened:
+              - graph
+            - onScenarioChanged:
+          actions:
+          - stopBlinkBlocklyTab:
+            - graph
+
+        playGraphOpenedVO:
+          triggerCondition:
+          - onBlocklyWindowOpened:
+            - graph
+          additionalCondition:
+          - not:
+            - readBlackboard:
+              - Level2GraphOpened
+          actions:
+          - playSound:
+            - L2VO3_Rover
+          - writeToBlackboard:
+            - Level2GraphOpened
+
   grid:
     extends: source/grid.vwf
     properties:

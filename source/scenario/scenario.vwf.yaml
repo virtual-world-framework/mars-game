@@ -35,7 +35,10 @@ properties:
   blocklyDefault:
 
 methods:
-  # This is called using future(0) inside of initialize (at least for now).
+  # This is called using future(0) inside of initialize.
+  onSceneLoaded:
+
+  # These are called from the scene when the scenario starts.
   startScenario:
 
 scripts:

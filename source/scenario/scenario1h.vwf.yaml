@@ -33,11 +33,6 @@ properties:
     - rotation
     - [ 0, 0, 1, 180 ]
 
-  - setProperty:
-    - camera
-    - pointOfView
-    - topDown
-
   - addToInventory:
     - rover/cargo
     - [ "helicam", "battery" ]
@@ -50,198 +45,94 @@ properties:
     - radio
     - [ 8, 16 ]
 
-  triggers:
-    beginScenario:
-      triggerCondition:
-      - onScenarioStart:
-      actions:
-      - playSound:
-        - musicStandardGameplay
-      - playSound:
-        - L1VO16_Rover
-      - clearBlackboard:
-        - hasSucceeded
-      - clearBlackboard:
-        - hasFailed
+children:
+  triggerManager:
+    extends: source/triggers/triggerManager.vwf
+    properties: 
+      triggers:
+        beginScenario:
+          triggerCondition:
+          - onScenarioStart:
+          actions:
+          - playSound:
+            - musicStandardGameplay
 
-    panToRadio:
-      triggerCondition:
-      - onScenarioStart:
-      additionalCondition:
-      - not:
-        - readBlackboard:
-          - hasPannedToRadio
-      actions:
-      - writeToBlackboard:
-        - hasPannedToRadio
-      - delay:
-        - 2
-        - panCamera:
-          - /pickups/radio
-        - delay:
-          - 3
-          - panCamera:
-            - /player/rover
+        playStartingVO:
+          triggerCondition:
+          - onScenarioStart:
+          additionalCondition:
+          - not:
+            - readBlackboard:
+              - Level1hStartSounds
+          actions:
+          - playSound:
+            - L1VO16_Rover
+          - writeToBlackboard:
+            - Level1hStartSounds
 
-    succeedOnSuccess:
-      triggerCondition:
-      - onBlocklyStopped:
-        - rover
-      additionalCondition:
-      - isAtPosition:
-        - rover
-        - 8
-        - 16
-      actions:
-      - hideBlockly:
-      - clearBlockly:
-      - scenarioSuccess:
-        - "You have picked up the radio!"
-      - writeToBlackboard:
-        - hasSucceeded
-      - playSound:
-        - SCVO4_Rover
-      - playSound:
-        - L1VO6_Control
-      - playSound:
-        - musicSuccess
-      - stopSound:
-        - musicFailure
-      - stopSound:
-        - musicStandardGameplay
-
-    playHint1:
-      triggerCondition:
-      - delay:
-        - 20
-      additionalCondition:
-      - and:
-        - not:
-          - readBlackboard:
-            - Level1hHint1
-        - not:
-          - readBlackboard:
-            - Level1hHint2
-        - not:
-          - readBlackboard:
-            - hasSucceeded
-        - not:
-          - readBlackboard:
-            - hasFailed
-      actions:
-      - playSound:
-        - ALVO22_Rover
-      - writeToBlackboard:
-        - Level1hHint1
-
-    playHint2:
-      triggerCondition:
-      - delay:
-        - 50
-      additionalCondition:
-      - and:
-        - not:
-          - readBlackboard:
-            - Level1hHint2
-        - not:
-          - readBlackboard:
-            - hasSucceeded
-        - not:
-          - readBlackboard:
-            - hasFailed
-      actions:
-      - playSound:
-        - ALVO23_Rover
-      - writeToBlackboard:
-        - Level1hHint2
-
-    failOnCollision:
-      triggerCondition:
-      - moveFailed:
-        - rover
-        - collision
-      additionalCondition:
-      - not:
-        - readBlackboard:
-          - hasFailed
-      actions:
-      - hideBlockly:
-      - writeToBlackboard:
-        - hasFailed
-      - scenarioFailure:        
-        - collision
-      - playSound:
-        - musicFailure
-      - stopSound:
-        - musicSuccess
-      - stopSound:
-        - musicStandardGameplay
-
-    failOnBatteryDepleted:
-      triggerCondition:
-      - moveFailed:
-        - rover
-        - battery
-      additionalCondition:
-      - not:
-        - readBlackboard:
-          - hasFailed
-      actions:
-      - hideBlockly:
-      - writeToBlackboard:
-        - hasFailed
-      - scenarioFailure:         
-        - battery
-      - playSound:
-        - musicFailure
-      - stopSound:
-        - musicSuccess
-      - stopSound:
-        - musicStandardGameplay
-
-    failOnIncompleteProgram:
-      triggerCondition:
-      - onBlocklyStopped:
-      additionalCondition:
-      - and:
-        - not:
+        succeedOnSuccess:
+          triggerCondition:
+          - onBlocklyStopped:
+            - rover
+          additionalCondition:
           - isAtPosition:
             - rover
             - 8
             - 16
-        - not:
-          - readBlackboard:
-            - hasFailed
-      actions:
-      - hideBlockly:
-      - writeToBlackboard:
-        - hasFailed
-      - scenarioFailure:
-        - incomplete
-      - playSound:
-        - musicFailure
-      - stopSound:
-        - musicSuccess
-      - stopSound:
-        - musicStandardGameplay
+          actions:
+          - scenarioSuccess:
+            - "You have picked up the radio!"
+          - stopSound:
+            - musicStandardGameplay
+          - playSound:
+            - musicSuccess
+          - playSound:
+            - SCVO4_Rover
+          - playSound:
+            - L1VO6_Control
 
-    startRoverSounds:
-      triggerCondition:
-      - onBlocklyStarted:
-        - rover
-      actions:
-      - playSound:
-        - roverSounds
+        playHint1:
+          triggerCondition:
+          - delay:
+            - 20
+          additionalCondition:
+          - and:
+            - not:
+              - readBlackboard:
+                - Level1hHint1
+            - not:
+              - readBlackboard:
+                - hasSucceeded
+            - not:
+              - readBlackboard:
+                - hasFailed
+          actions:
+          - playSound:
+            - ALVO22_Rover
+          - writeToBlackboard:
+            - Level1hHint1
 
-    stopRoverSounds:
-      triggerCondition:
-      - onBlocklyStopped:
-        - rover
-      actions:
-      - stopSound:
-        - roverSounds
+        playHint2:
+          triggerCondition:
+          - delay:
+            - 50
+          additionalCondition:
+          - and:
+            - not:
+              - readBlackboard:
+                - Level1hHint2
+            - not:
+              - readBlackboard:
+                - hasSucceeded
+            - not:
+              - readBlackboard:
+                - hasFailed
+          actions:
+          - playSound:
+            - ALVO23_Rover
+          - writeToBlackboard:
+            - Level1hHint2
 
-children:
   grid:
     extends: source/grid.vwf
     properties:

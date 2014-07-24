@@ -6,20 +6,27 @@ properties:
   nextScenarioPath: "scenario1a"
   blockly: assets/scenario/scenario1.xml
 
-  triggers:
-    succeedOnIntroDone:
-      triggerCondition:
-      - onIntroScreensComplete:
-      actions:
-      - scenarioSuccess:
-
-    playMusic:
-      triggerCondition:
-      - onScenarioStart:
-      actions:
-      - playSound:
-        - musicStoryScreen
-
 children:
+  triggerManager:
+    extends: source/triggers/triggerManager.vwf
+    properties: 
+      triggers:
+        succeedOnIntroDone:
+          triggerCondition:
+          - onIntroScreensComplete:
+          actions:
+          - scenarioSuccess:
+          - stopSound:
+            - musicStoryScreen
+          - playSound:
+            - environmentWind
+
+        playMusic:
+          triggerCondition:
+          - onScenarioStart:
+          actions:
+          - playSound:
+            - musicStoryScreen
+
   grid:
     extends: source/grid.vwf

@@ -45,118 +45,36 @@ properties:
     - radio
     - [ 8, 16 ]
 
-  triggers:
-    beginScenario:
-      triggerCondition:
-      - onScenarioStart:
-      actions:
-      - playSound:
-        - musicStandardGameplay
-      - playSound:
-        - L1VO14_Rover
-      - clearBlackboard:
-        - hasSucceeded
-      - clearBlackboard:
-        - hasFailed
+children:
+  triggerManager:
+    extends: source/triggers/triggerManager.vwf
+    properties: 
+      triggers:
+        beginScenario:
+          triggerCondition:
+          - onScenarioStart:
+          actions:
+          - playSound:
+            - musicStandardGameplay
 
-    succeedOnSuccess:
-      triggerCondition:
-      - onBlocklyStopped:
-        - rover
-      additionalCondition:
-      - and:
-        - isAtPosition:
-          - rover
-          - 8
-          - 6
-        - hasHeading:
-          - rover
-          - 180
-      actions:
-      - hideBlockly:
-      - clearBlockly:
-      - scenarioSuccess:
-        - "Turning motors are good to go!"
-      - writeToBlackboard:
-        - hasSucceeded
-      - playSound:
-        - musicSuccess
-      - playSound:
-        - L1VO3_Rover
-      - stopSound:
-        - musicFailure
-      - stopSound:
-        - musicStandardGameplay
+        playStartingVO:
+          triggerCondition:
+          - onScenarioStart:
+          additionalCondition:
+          - not:
+            - readBlackboard:
+              - Level1fStartSounds
+          actions:
+          - playSound:
+            - L1VO14_Rover
+          - writeToBlackboard:
+            - Level1fStartSounds
 
-    playHint1:
-      triggerCondition:
-      - delay:
-        - 20
-      additionalCondition:
-      - and:
-        - not:
-          - readBlackboard:
-            - Level1fHint1
-        - not:
-          - readBlackboard:
-            - hasSucceeded
-        - not:
-          - readBlackboard:
-            - hasFailed
-      actions:
-      - playSound:
-        - ALVO20_Rover
-
-    failOnCollision:
-      triggerCondition:
-      - moveFailed:
-        - rover
-        - collision
-      additionalCondition:
-      - not:
-        - readBlackboard:
-          - hasFailed
-      actions:
-      - hideBlockly:
-      - writeToBlackboard:
-        - hasFailed
-      - scenarioFailure:        
-        - collision
-      - playSound:
-        - musicFailure
-      - stopSound:
-        - musicSuccess
-      - stopSound:
-        - musicStandardGameplay
-
-    failOnBatteryDepleted:
-      triggerCondition:
-      - moveFailed:
-        - rover
-        - battery
-      additionalCondition:
-      - not:
-        - readBlackboard:
-          - hasFailed
-      actions:
-      - hideBlockly:
-      - writeToBlackboard:
-        - hasFailed
-      - scenarioFailure:         
-        - battery
-      - playSound:
-        - musicFailure
-      - stopSound:
-        - musicSuccess
-      - stopSound:
-        - musicStandardGameplay
-
-    failOnIncompleteProgram:
-      triggerCondition:
-      - onBlocklyStopped:
-      additionalCondition:
-      - and:
-        - not:
+        succeedOnSuccess:
+          triggerCondition:
+          - onBlocklyStopped:
+            - rover
+          additionalCondition:
           - and:
             - isAtPosition:
               - rover
@@ -165,39 +83,37 @@ properties:
             - hasHeading:
               - rover
               - 180
-        - not:
-          - readBlackboard:
-            - hasFailed
-      actions:
-      - hideBlockly:
-      - writeToBlackboard:
-        - hasFailed
-      - scenarioFailure:
-        - incomplete
-      - playSound:
-        - musicFailure
-      - stopSound:
-        - musicSuccess
-      - stopSound:
-        - musicStandardGameplay
+          actions:
+          - scenarioSuccess:
+            - "Turning motors are good to go!"
+          - stopSound:
+            - musicStandardGameplay
+          - playSound:
+            - musicSuccess
+          - playSound:
+            - L1VO3_Rover
 
-    startRoverSounds:
-      triggerCondition:
-      - onBlocklyStarted:
-        - rover
-      actions:
-      - playSound:
-        - roverSounds
+        playHint1:
+          triggerCondition:
+          - delay:
+            - 20
+          additionalCondition:
+          - and:
+            - not:
+              - readBlackboard:
+                - Level1fHint1
+            - not:
+              - readBlackboard:
+                - hasSucceeded
+            - not:
+              - readBlackboard:
+                - hasFailed
+          actions:
+          - playSound:
+            - ALVO20_Rover
+          - writeToBlackboard:
+            - Level1fHint1
 
-    stopRoverSounds:
-      triggerCondition:
-      - onBlocklyStopped:
-        - rover
-      actions:
-      - stopSound:
-        - roverSounds
-
-children:
   grid:
     extends: source/grid.vwf
     properties:

@@ -430,8 +430,8 @@ this.clauseSet.onScenarioStart = function( params, context, callback ) {
 
     var scenarioName = params ? params[ 0 ] : undefined;
 
-    // NOTE: what we want to do is allow this to be true only when the scenario
-    //   has just started.  Right now, we do this by setting the scenario name
+    // NOTE: what we want to do is allow this to be true only when the event
+    //   has just happened.  Right now, we do this by setting the scenario name
     //   when the event occurs, and then setting it back to undefined in the 
     //   function that we return - but that doesn't enforce the fact that it
     //   should only be true if the function is called right away.  If that 
@@ -441,14 +441,16 @@ this.clauseSet.onScenarioStart = function( params, context, callback ) {
 
     onClauseCallbackWarning( callback );
     if ( callback ) {
-        var scenario = self.findInContext( context, context.activeScenarioPath );
+        var localCallback = function( scenario ) {
+            var scenarioName = scenario && scenario.scenarioName 
+                                ? scenario.scenarioName
+                                : "unnamed";
+            scenarioStarted = scenarioName;
 
-        if ( scenario ) {
-            scenario.entering = self.events.add( function( startingName ) {
-                                                    scenarioStarted = startingName;
-                                                    callback();
-                                                } );
-        }
+            callback();
+        };
+
+        context.scenarioStarted = self.events.add( localCallback );
     }
 
     return function() {
@@ -456,6 +458,94 @@ this.clauseSet.onScenarioStart = function( params, context, callback ) {
                      ( !scenarioName || ( scenarioStarted === scenarioName ) );
 
         scenarioStarted = undefined;
+
+        return retVal;
+    };
+}
+
+// arguments: scenarioName (optional)
+this.clauseSet.onScenarioSucceeded = function( params, context, callback ) {
+    if ( params && ( params.length > 1 ) ) {
+        self.logger.errorx( "onScenarioStart", 
+                            "This clause takes at most one argument: " +
+                            "the name of the scenario." );
+        return undefined;
+    }
+
+    var scenarioName = params ? params[ 0 ] : undefined;
+
+    // NOTE: what we want to do is allow this to be true only when the event
+    //   has just happened.  Right now, we do this by setting the scenario name
+    //   when the event occurs, and then setting it back to undefined in the 
+    //   function that we return - but that doesn't enforce the fact that it
+    //   should only be true if the function is called right away.  If that 
+    //   turns out to be a problem, we may need to use future() or a time 
+    //   stamp.
+    var scenarioSucceeded = undefined;
+
+    onClauseCallbackWarning( callback );
+    if ( callback ) {
+        var localCallback = function( scenario ) {
+            var scenarioName = scenario && scenario.scenarioName 
+                                ? scenario.scenarioName
+                                : "unnamed";
+            scenarioSucceeded = scenarioName;
+
+            callback();
+        };
+
+        context.scenarioSucceeded = self.events.add( localCallback );
+    }
+
+    return function() {
+        var retVal = ( scenarioSucceeded !== undefined ) && 
+                     ( !scenarioName || ( scenarioSucceeded === scenarioName ) );
+
+        scenarioSucceeded = undefined;
+
+        return retVal;
+    };
+}
+
+// arguments: scenarioName (optional)
+this.clauseSet.onScenarioFailed = function( params, context, callback ) {
+    if ( params && ( params.length > 1 ) ) {
+        self.logger.errorx( "onScenarioStart", 
+                            "This clause takes at most one argument: " +
+                            "the name of the scenario." );
+        return undefined;
+    }
+
+    var scenarioName = params ? params[ 0 ] : undefined;
+
+    // NOTE: what we want to do is allow this to be true only when the event
+    //   has just happened.  Right now, we do this by setting the scenario name
+    //   when the event occurs, and then setting it back to undefined in the 
+    //   function that we return - but that doesn't enforce the fact that it
+    //   should only be true if the function is called right away.  If that 
+    //   turns out to be a problem, we may need to use future() or a time 
+    //   stamp.
+    var scenarioFailed = undefined;
+
+    onClauseCallbackWarning( callback );
+    if ( callback ) {
+        var localCallback = function( scenario ) {
+            var scenarioName = scenario && scenario.scenarioName 
+                                ? scenario.scenarioName
+                                : "unnamed";
+            scenarioFailed = scenarioName;
+
+            callback();
+        };
+
+        context.scenarioFailed = self.events.add( localCallback );
+    }
+
+    return function() {
+        var retVal = ( scenarioFailed !== undefined ) && 
+                     ( !scenarioName || ( scenarioFailed === scenarioName ) );
+
+        scenarioFailed = undefined;
 
         return retVal;
     };
@@ -630,7 +720,7 @@ this.clauseSet.blocklyLineEval = function( params, context, callback ) {
 
 // arguments: variableName
 this.clauseSet.readBlackboard = function( params, context ) {
-    if ( params.length < 1 ) {
+    if ( ( params.length < 1 ) || ( params.length > 2 ) ) {
         self.logger.errorx( "readBlackboard", 
                             "This clause takes one argument: the name of the variable" +
                             " and optionally a second argument for occurance count if" + 
