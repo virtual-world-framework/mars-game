@@ -25,7 +25,7 @@ this.changePointOfView$ = function( newPointOfView ) {
     // Set the navigation mode of the camera appropriately for the new point of view
     switch ( newPointOfView ) {
         case "firstPerson":
-            this.future( durationSeconds ).navmode = "walk";
+            this.navmode = "walk";
             this.translationSpeed = 0;
             break;
         case "thirdPerson":
@@ -125,8 +125,8 @@ function getNewCameraTransform() {
             // (plus an offset)
             var thirdPersonOrientationTransform = [ 
                 1, 0,      0,     0, 
-                0, 0.966, -0.259, 0,
-                0, 0.259,  0.966, 0,
+                0, 0.966, -0.199, 0,
+                0, 0.199,  0.966, 0,
                 0, 0,      0,     1 ];
             newCameraTransform = thirdPersonOrientationTransform.slice( 0, 16 );
             newCameraTransform[ 12 ] = targetTransform[ 12 ] + self.thirdPersonOffset[ 0 ];

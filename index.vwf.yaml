@@ -130,7 +130,7 @@ children:
           navmode: walk
           translationSpeed: 0
           translation: [ 0, 0, 1 ]
-          rotation: [ 0, 0, 1, 270 ]
+          rotation: [ 0, 0, 1, 300 ]
           far: 100000
           pointOfView:
             set: |
@@ -141,7 +141,7 @@ children:
               this.setTargetPath$( value );
             value: "/player/rover"
           firstPersonOffset: [ 0, 0, 1 ]
-          thirdPersonOffset: [ 0, -15.531, 5.553 ]
+          thirdPersonOffset: [ 0, -15.531, 5 ]
           topDownOffset: [ 0, 0, 40 ]
           needToSetupEventHandler$: false
         methods:
