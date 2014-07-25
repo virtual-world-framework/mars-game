@@ -23,6 +23,10 @@ properties:
     playSound:
     stopSound:
 
+    # sets the master volume for the game
+    # arguments: volume (0.0-1.0)
+    setMasterVolume:
+
     displayPopup:
 
     showCommsDisplay:
