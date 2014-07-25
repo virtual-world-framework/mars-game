@@ -45,102 +45,36 @@ properties:
     - radio
     - [ 8, 16 ]
 
-  triggers:
-    beginScenario:
-      triggerCondition:
-      - onScenarioStart:
-      actions:
-      - playSound:
-        - musicStandardGameplay
-      - playSound:
-        - L1VO15_Rover
-      - clearBlackboard:
-        - hasSucceeded
-      - clearBlackboard:
-        - hasFailed
+children:
+  triggerManager:
+    extends: source/triggers/triggerManager.vwf
+    properties: 
+      triggers:
+        beginScenario_1g:
+          triggerCondition:
+          - onScenarioStart:
+          actions:
+          - playSound:
+            - musicStandardGameplay
 
+        playStartingVO_1g:
+          triggerCondition:
+          - onScenarioStart:
+          additionalCondition:
+          - not:
+            - readBlackboard:
+              - Level1gStartSounds
+          actions:
+          - playSound:
+            - L1VO15_Rover
+          - writeToBlackboard:
+            - Level1gStartSounds
 
-    succeedOnSuccess:
-      triggerCondition:
-      - onBlocklyStopped:
-        - rover
-      additionalCondition:
-      - and:
-        - isAtPosition:
-          - rover
-          - 8
-          - 2
-        - hasHeading:
-          - rover
-          - 180
-      actions:
-      - hideBlockly:
-      - clearBlockly:
-      - scenarioSuccess:
-        - "Now I can get out of this ditch and find the radio!"
-      - writeToBlackboard:
-        - hasSucceeded
-      - playSound:
-        - SCVO3_Rover
-      - playSound:
-        - musicSuccess
-      - stopSound:
-        - musicFailure
-      - stopSound:
-        - musicStandardGameplay
-
-    # TODO: Add hint VO
-
-    failOnCollision:
-      triggerCondition:
-      - moveFailed:
-        - rover
-        - collision
-      additionalCondition:
-      - not:
-        - readBlackboard:
-          - hasFailed
-      actions:
-      - hideBlockly:
-      - writeToBlackboard:
-        - hasFailed
-      - scenarioFailure:        
-        - collision
-      - playSound:
-        - musicFailure
-      - stopSound:
-        - musicSuccess
-      - stopSound:
-        - musicStandardGameplay
-
-    failOnBatteryDepleted:
-      triggerCondition:
-      - moveFailed:
-        - rover
-        - battery
-      additionalCondition:
-      - not:
-        - readBlackboard:
-          - hasFailed
-      actions:
-      - hideBlockly:
-      - writeToBlackboard:
-        - hasFailed
-      - scenarioFailure:         
-        - battery
-      - playSound:
-        - musicFailure
-      - stopSound:
-        - musicSuccess
-      - stopSound:
-        - musicStandardGameplay
-
-    failOnIncompleteProgram:
-      triggerCondition:
-      - onBlocklyStopped:
-      additionalCondition:
-      - and:
-        - not:
+        succeedOnSuccess_1g:
+          triggerCondition:
+          - onBlocklyStopped:
+            - rover
+          additionalCondition:
           - and:
             - isAtPosition:
               - rover
@@ -149,39 +83,18 @@ properties:
             - hasHeading:
               - rover
               - 180
-        - not:
-          - readBlackboard:
-            - hasFailed
-      actions:
-      - hideBlockly:
-      - writeToBlackboard:
-        - hasFailed
-      - scenarioFailure:
-        - incomplete
-      - playSound:
-        - musicFailure
-      - stopSound:
-        - musicSuccess
-      - stopSound:
-        - musicStandardGameplay
+          actions:
+          - scenarioSuccess:
+            - "Now I can get out of this ditch and find the radio!"
+          - stopSound:
+            - musicStandardGameplay
+          - playSound:
+            - SCVO3_Rover
+          - playSound:
+            - musicSuccess
 
-    startRoverSounds:
-      triggerCondition:
-      - onBlocklyStarted:
-        - rover
-      actions:
-      - playSound:
-        - roverSounds
+        # TODO: Add hint VO
 
-    stopRoverSounds:
-      triggerCondition:
-      - onBlocklyStopped:
-        - rover
-      actions:
-      - stopSound:
-        - roverSounds
-
-children:
   grid:
     extends: source/grid.vwf
     properties:

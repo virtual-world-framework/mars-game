@@ -52,79 +52,62 @@ properties:
     - radio
     - [ 8, 16 ]
 
-  triggers:
-    beginScenario:
-      triggerCondition:
-      - onScenarioStart:
-      actions:
-      - playSound:
-        - musicStandardGameplay
-      - playSound:
-        - L1VO1_Rover
-      - blinkHUDElement:
-        - blocklyButton
-      - disableHelicam:
-      - clearBlackboard:
-        - hasSucceeded
-      - clearBlackboard:
-        - hasFailed
-
-    succeedOnSuccess:
-      triggerCondition:
-      - onBlocklyWindowOpened:
-      actions:
-      - scenarioSuccess:
-        - "You have accessed your programming interface!"
-      - writeToBlackboard:
-        - hasSucceeded
-      - playSound:
-        - musicSuccess
-      - playSound:
-        - L1VO2_Rover
-      - stopSound:
-        - musicFailure
-      - stopSound:
-        - musicStandardGameplay
-      - stopBlinkHUDElement:
-        - blocklyButton
-
-    playHint1:
-      triggerCondition:
-      - delay:
-        - 30
-      additionalCondition:
-      - and:
-        - not:
-          - readBlackboard:
-            - Level1aHint1
-        - not:
-          - readBlackboard:
-            - hasSucceeded
-        - not:
-          - readBlackboard:
-            - hasFailed
-      actions:
-      - writeToBlackboard:
-        - Level1aHint1
-      - playSound:
-        - ALVO14_Rover
-
-    stopIntroMusic:
-      triggerCondition:
-      - onScenarioStart:
-      additionalCondition:
-      - not:
-        - readBlackboard:
-          - musicStoryScreen
-      actions:
-      - stopSound:
-        - musicStoryScreen
-      - playSound:
-        - environmentWind
-      - writeToBlackboard:
-        - musicStoryScreen
-
 children:
+  triggerManager:
+    extends: source/triggers/triggerManager.vwf
+    properties: 
+      triggers:
+        beginScenario_1a:
+          triggerCondition:
+          - onScenarioStart:
+          actions:
+          - playSound:
+            - musicStandardGameplay
+          - blinkHUDElement:
+            - blocklyButton
+
+        playStartingVO_1a:
+          triggerCondition:
+          - onScenarioStart:
+          additionalCondition:
+          - not:
+            - readBlackboard:
+              - Level1aStartSounds
+          actions:
+          - playSound:
+            - L1VO1_Rover
+          - writeToBlackboard:
+            - Level1aStartSounds
+
+        succeedOnSuccess_1a:
+          triggerCondition:
+          - onBlocklyWindowOpened:
+          actions:
+          - scenarioSuccess:
+            - "You have accessed your programming interface!"
+          - stopSound:
+            - musicStandardGameplay
+          - playSound:
+            - musicSuccess
+          - playSound:
+            - L1VO2_Rover
+          - stopBlinkHUDElement:
+            - blocklyButton
+
+        playHint1_1a:
+          triggerCondition:
+          - delay:
+            - 30
+          additionalCondition:
+          - not:
+            - readBlackboard:
+              - Level1aHint1
+          actions:
+          - writeToBlackboard:
+            - Level1aHint1
+          - playSound:
+            - ALVO14_Rover
+
   grid:
     extends: source/grid.vwf
     properties:

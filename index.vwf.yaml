@@ -33,6 +33,9 @@ events:
   introScreensComplete:
   scenarioReset:
   scenarioChanged:
+  scenarioStarted:
+  scenarioSucceeded:
+  scenarioFailed:
   blinkHUD:
   stopBlinkHUD:
   blinkTab:
@@ -50,6 +53,8 @@ events:
 children:
   soundManager:
     includes: source/marsGameSound.vwf
+  globalTriggerManager:
+    includes: source/scenario/globalScenarioTriggers.vwf
   environment:
     extends: http://vwf.example.com/node3.vwf
     source: assets/3d/Terrain/scene.dae
