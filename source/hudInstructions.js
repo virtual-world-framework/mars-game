@@ -600,12 +600,10 @@ function switchTarget( event ) {
 function selectCameraMode( event ) {
     if ( this.mode !== "topDown" ) {
         if ( isVisible.graph ) {
-            var graphButton = hud.elements.graphButton;
-            graphButton.onMouseDown( event );
+            toggleGraphDisplay.bind( hud.elements.graphButton )( event );
         }
         if ( isVisible.tiles ) {
-            var tilesButton = hud.elements.tilesButton;
-            tilesButton.onMouseDown( event );
+            toggleTiles.bind( hud.elements.tilesButton )( event );
         }
     } else if ( !this.enabled ) {
         return;
