@@ -74,6 +74,18 @@ children:
           translation: [ 0, 1, 0 ]
   airDust:
     includes: source/dustAir.vwf
+  smoke1:
+    extends: source/smokeParticle.vwf
+    properties:
+      translation: [ -11, 31, 3 ]
+  smoke2:
+    extends: source/smokeParticle.vwf
+    properties:
+      translation: [ 4.5, 26, 0 ]
+  smoke3:
+    extends: source/smokeParticle.vwf
+    properties:
+      translation: [ 13.5, 16.5, 2 ]
   backdrop:
     extends: http://vwf.example.com/node3.vwf
     source: assets/3d/Terrain/backdrop.dae
