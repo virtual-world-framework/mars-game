@@ -5,3 +5,4 @@ properties:
   isCollidable: true
 events:
   addedToGrid:
+  
