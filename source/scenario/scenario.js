@@ -24,8 +24,12 @@ this.startScenario = function() {
         // NOTE: it might be better to do this inside success/failure, so
         //   that it doesn't wait until the player clicks forward to happen.
         var lastScenario = activeScenario;
-        lastScenario && lastScenario.triggerManager && 
+        if ( lastScenario && lastScenario.triggerManager && 
+             !lastScenario.triggerManager.isEmpty() ) {
+            this.logger.warnx( "startScenario", "How did the last scenario's " +
+                               "trigger manager not get cleared on success?" );
             lastScenario.triggerManager.future( 0 ).clearTriggers();
+        }
 
         activeScenario = this;
 
@@ -45,6 +49,18 @@ this.startScenario = function() {
             scene.removeGridDisplay();
             scene.future(0).createGridDisplay( this.grid );
         }
+
+        // The global trigger list has late load triggers which need to be 
+        //   loaded last (for order of operations reasons), so we will unload
+        //   them, load this scenarios triggers, and then reload them.
+        // NOTE: we now only clear triggers when we advance the scenario, not
+        //   when we reset it.
+        var globalTriggers = scene.globalTriggerManager;
+        globalTriggers.clearTriggerList( globalTriggers.lateLoadTriggers );
+
+        this.triggerManager.loadTriggers( scene );
+
+        globalTriggers.loadTriggerList( globalTriggers.lateLoadTriggers, scene );
     }
 
     if ( this.startState && this.startState.length > 0 ) {
@@ -53,16 +69,6 @@ this.startScenario = function() {
             this.startStateExecutor.executeFunction( param, scene );
         }
     }
-
-    // The global trigger list has late load triggers which need to be 
-    //   loaded last (for order of operations reasons), so we will unload
-    //   them, load this scenarios triggers, and then reload them.
-    var globalTriggers = scene.globalTriggerManager;
-    globalTriggers.clearTriggerList( globalTriggers.lateLoadTriggers );
-
-    this.triggerManager.loadTriggers( scene );
-
-    globalTriggers.loadTriggerList( globalTriggers.lateLoadTriggers, scene );
 
     this.enter();
     scene.scenarioStarted( this );
@@ -80,6 +86,7 @@ this.completed = function() {
     // If we need to do anything on success, it should go in here.
     if ( scene ) {
         scene.scenarioSucceeded( this );
+        this.triggerManager.future( 0 ).clearTriggers();
     }
 }
 
