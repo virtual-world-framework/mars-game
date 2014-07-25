@@ -183,6 +183,8 @@ properties:
         - Level1bHint1
       - playSound:
         - ALVO15_Rover
+      - setMasterVolume:
+        - 0.0
 
     playHint2:
       triggerCondition:

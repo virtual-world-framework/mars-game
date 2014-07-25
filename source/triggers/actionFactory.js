@@ -73,6 +73,22 @@ this.actionSet.stopSound = function( params, context ) {
     }
 }
 
+this.actionSet.setMasterVolume = function( params, context ) {
+    if ( !params || ( params.length !== 1 ) || ( params[ 0 ] > 1.0 ) || ( params[ 0 ] < 0.0 ) ) {
+        self.logger.warnx( "setMasterVolume", "Takes a single argument 0.0 - 1.0" );
+        return undefined;
+    }
+
+    var masterVolume = params[ 0 ];
+    var soundMgr = getSoundMgr( context );
+
+    if ( soundMgr ) {
+        return function() { soundMgr.setMasterVolume( masterVolume ); };
+    } else {
+        return undefined;
+    }
+}
+
 this.actionSet.delay = function( params, context ) {
     if ( params && ( params.length < 2 ) ) {
         self.logger.errorx( "delay", "This action takes two parameters: " +
