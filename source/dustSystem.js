@@ -12,7 +12,7 @@ this.followTarget = function() {
     this.translateTo( [
     		camera.translation[ 0 ],
     		camera.translation[ 1 ],
-    		0
+    		3
     	] );
 }
 
