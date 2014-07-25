@@ -130,7 +130,7 @@ children:
           navmode: walk
           translationSpeed: 0
           translation: [ 0, 0, 1 ]
-          rotation: [ 0, 0, 1, 300 ]
+          rotation: [ 0, 0, 1, 270 ]
           far: 100000
           pointOfView:
             set: |
