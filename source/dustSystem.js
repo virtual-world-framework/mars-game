@@ -9,8 +9,11 @@ this.update = function() {
 
 this.followTarget = function() {
     var camera = this.find( "//camera" )[ 0 ];
-    var node = this.find( camera.targetPath )[ 0 ];
-    this.translation = node.translation;
+    this.translateTo( [
+    		camera.translation[ 0 ],
+    		camera.translation[ 1 ],
+    		3
+    	] );
 }
 
 //@ sourceURL=source/dustSystem.js

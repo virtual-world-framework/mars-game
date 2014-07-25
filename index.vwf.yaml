@@ -65,6 +65,7 @@ children:
         properties:
           castShadows: true
           receiveShadows: true
+          translation: [ 0, -1.5, 0 ]
       roverTracks:
         extends: http://vwf.example.com/node3.vwf
         source: assets/3d/Terrain/rover_tracks_straight.dae
@@ -73,6 +74,18 @@ children:
           translation: [ 0, 1, 0 ]
   airDust:
     includes: source/dustAir.vwf
+  smoke1:
+    extends: source/smokeParticle.vwf
+    properties:
+      translation: [ -11, 31, 3 ]
+  smoke2:
+    extends: source/smokeParticle.vwf
+    properties:
+      translation: [ 4.5, 26, 0 ]
+  smoke3:
+    extends: source/smokeParticle.vwf
+    properties:
+      translation: [ 13.5, 16.5, 2 ]
   backdrop:
     extends: http://vwf.example.com/node3.vwf
     source: assets/3d/Terrain/backdrop.dae
@@ -128,7 +141,7 @@ children:
               this.setTargetPath$( value );
             value: "/player/rover"
           firstPersonOffset: [ 0, 0, 1 ]
-          thirdPersonOffset: [ 0, -15.531, 5.553 ]
+          thirdPersonOffset: [ 0, -15.531, 5 ]
           topDownOffset: [ 0, 0, 40 ]
           needToSetupEventHandler$: false
         methods:
@@ -160,11 +173,14 @@ children:
     extends: http://vwf.example.com/node3.vwf
     children:
       radio:
-        includes: source/pickups/radio.vwf
+        extends: source/pickups/radio.vwf
+        properties:
+          animationPlaying: true
+          animationLoop: true
       battery:
-        includes: source/pickups/battery_1.vwf
+        extends: source/pickups/battery_1.vwf
       helicam:
-        includes: source/pickups/helicam.vwf
+        extends: source/pickups/helicam.vwf
   introScreenScenario:
     includes: source/scenario/introScreenScenario.vwf
   scenario1a:
@@ -269,6 +285,8 @@ children:
       logger_maxLogs: 10
       logger_lifeTime: 10000
       logger_logs: []
+    events:
+      addSubtitle:
     scripts:
     - source: source/loggerHelper.js
 scripts: 

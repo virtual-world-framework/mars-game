@@ -53,12 +53,25 @@ properties:
     - [ 15, 1 ]
 
   triggers:
+    beginScenario:
+      triggerCondition:
+      - onScenarioStart:
+      actions:
+      - playSound:
+        - musicStandardGameplay
+      - clearBlackboard:
+        - hasSucceeded
+      - clearBlackboard:
+        - hasFailed
+
     failOnMove:
       triggerCondition:
       - onMoved:
         - rover
       actions:
       - hideBlockly:
+      - writeToBlackboard:
+        - hasFailed
       - scenarioFailure:
         - lost
         - "You need to plot the course of the wayward rover before going to find it."
@@ -78,6 +91,8 @@ properties:
           - [ -16, 8 ]
       actions:
       - hideBlockly:
+      - writeToBlackboard:
+        - hasSucceeded
       - scenarioSuccess:
         - "Course plotted!  Now to find the little guy."
       - playSound:
@@ -105,13 +120,6 @@ properties:
       actions:
       - stopBlinkBlocklyTab:
         - graph
-
-    playStartingSounds:
-      triggerCondition:
-      - onScenarioStart:
-      actions:
-      - playSound:
-        - musicStandardGameplay
 
     playStartingVO:
       triggerCondition:

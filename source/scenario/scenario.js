@@ -31,11 +31,6 @@ this.startScenario = function() {
                 scene.blockly_defaultXml = self.blocklyDefault;
             }
         }
-
-        if ( self.grid ) {
-            scene.removeGridDisplay();
-            scene.future(0).createGridDisplay( self.grid );
-        }
     }
 
     if ( self.startState && self.startState.length > 0 ) {
@@ -43,6 +38,11 @@ this.startScenario = function() {
             var param = self.startState[ i ];
             self.startStateExecutor.executeFunction( param, scene );
         }
+    }
+
+    if ( self.grid ) {
+        scene.removeGridDisplay();
+        scene.future(0).createGridDisplay( self.grid );
     }
 
     self.triggerManager.clearTriggers();
@@ -123,10 +123,8 @@ this.startStateParamSet.addToInventory = function( params, context ) {
     var object;
     for ( var i = 0; i < objects.length; i++ ) {
         object = self.startStateExecutor.findInContext( context, objects[ i ] );
-
+        inventory.add( object.id );
     }
-
-    inventory.add( object.id );
 }
 
 this.startStateParamSet.addToGrid = function( params, context ) {

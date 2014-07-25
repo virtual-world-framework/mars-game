@@ -1,8 +1,7 @@
 ---
 extends: source/pickup.vwf
-source: assets/3d/quadcopter/quadcopter.dae 
+source: ../../assets/3d/quadcopter/quadcopter.dae 
 type: model/vnd.collada+xml
 properties:
-  animationLoop: true
   isCollidable: false
   terrainName: "environment"

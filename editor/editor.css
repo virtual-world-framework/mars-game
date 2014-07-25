@@ -1,0 +1,193 @@
+body {
+    font-family: "Arial", Gadget, sans-serif;
+}
+
+.wrapper {
+    pointer-events: none;
+    user-select: none;
+    -webkit-user-select: none;  /* Chrome all / Safari all */
+    -moz-user-select: none;     /* Firefox all */
+    -ms-user-select: none;      /* IE 10+ */
+    cursor: default;
+}
+
+.menu {
+    pointer-events: all;
+    border-spacing: 0px;
+    font-size: 0px;
+}
+
+.menubutton {
+    height: 24px;
+    display: inline-block;
+    padding-left: 8px;
+    padding-right: 8px;
+    line-height: 24px;
+    text-transform: uppercase;
+    font-variant: small-caps;
+    color: rgb( 50, 90, 150 );
+    background-color: rgb( 225, 225, 225 );
+    border: 1px solid rgb( 200, 200, 200 );
+    border-top: 0px;
+    font-size: 12px;
+    font-family: "Arial Black", Gadget, sans-serif;
+}
+
+.toolbar {
+    pointer-events: all;
+    display: table;
+    border-spacing: 4px;
+}
+
+.toolgroup {
+    display: table-cell;
+    height: 100%;
+}
+
+.toolbutton {
+    width: 36px;
+    height: 36px;
+    display: inline-block;
+    text-align: center;
+    background-color: rgb( 225, 225, 225 );
+    border: 1px solid rgb( 200, 200, 200 );
+    border-radius: 4px;
+    margin-right: 2px;
+    margin-top: 1px;
+}
+
+.toolbutton.selected {
+    background-color: rgb( 255, 255, 255 );
+    border: 1px solid rgb( 50, 90, 150 );
+}
+
+.toolbutton:first-child {
+    margin-left: 2px;
+}
+
+.toolbutton img {
+    margin-top: 2px;
+}
+
+.events {
+    pointer-events: all;
+}
+
+.bordered {
+    background-color: rgb( 255, 255, 255 );
+    border: 1px dashed rgb( 50, 90, 150 );
+    border-radius: 4px;
+}
+
+.listitem {
+    height: 24px;
+    width: 100%;
+    line-height: 24px;
+}
+
+.listitem.hover {
+    background-color: rgb( 50, 90, 150 );
+    color: rgb( 255, 255, 255 );
+}
+
+.promptbutton {
+    width: 48px;
+    height: 24px;
+    line-height: 24px;
+    margin-left: 2px;
+    margin-right: 2px;
+    text-align: center;
+    color: rgb( 255, 255, 255 );
+    background-color: rgb( 50, 90, 150 );
+    border: 1px dashed rgb( 200, 200, 200 );
+    display: inline-block;
+}
+
+.prompttext {
+    margin-bottom: 4px;
+    text-align: center;
+    display: block;
+}
+
+#vwf-root {
+    position: absolute;
+    left: 200px;
+    right: 0px;
+    top: 72px;
+    bottom: 0px;
+}
+
+#vwf-root canvas {
+    height: 100%;
+    width: 100%;
+}
+
+#uiwrapper {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    bottom: 0px;
+    right: 0px;
+}
+
+#header {
+    width: 100%;
+    height: 72px;
+    background-color: rgb( 245, 245, 245 );
+    border-bottom: 1px solid rgb( 225, 225, 225 );
+}
+
+#menubar {
+    width: 100%;
+    height: 24px;
+    background-color: rgb( 245, 245, 245 );
+}
+
+#headertoolbar {
+    width: 100%;
+    height: 44px;
+}
+
+#sidepanel {
+    position: absolute;
+    top: 72px;
+    bottom: 0px;
+    width: 200px;
+    background-color: rgb( 245, 245, 245 );
+    border-right: 1px solid rgb( 225, 225, 225 );
+}
+
+#assetwrapper {
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    right: 4px;
+    bottom: 4px;
+    text-align: center;
+    font-size: 14px;
+    padding: 2px;
+}
+
+#assettype {
+    background-color: rgb( 50, 90, 150 );
+    color: rgb( 255, 255, 255 );
+    margin-bottom: 2px;
+}
+
+#assetlist {
+    background-color: rgb( 245, 245, 245 );
+    border: 1px solid rgb( 225, 225, 225 );
+    font-size: 12px;
+}
+
+#prompt {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    text-align: center;
+    color: rgb( 50, 90, 150 );
+    background-color: rgb( 225, 225, 225 );
+    border: 1px solid rgb( 255, 255, 255 );
+    padding: 4px;
+    pointer-events: all;
+}

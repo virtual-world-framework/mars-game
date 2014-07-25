@@ -5,6 +5,7 @@ var loggerNodes = {};
 var currentBlocklyNodeID = undefined;
 var blocklyExecuting = false;
 var lastBlockIDExecuted = undefined;
+var currentBlockIDSelected = undefined;
 var targetPath = undefined;
 var mainRover = undefined;
 var blocklyGraphID = undefined;
@@ -22,6 +23,7 @@ var orbitTarget = undefined;
 
 function onRun() {
     vwf_view.kernel.setProperty( currentBlocklyNodeID, "blockly_executing", true );
+    populateBlockStack();
     vwf_view.kernel.setProperty( vwf_view.kernel.application(), "blockly_activeNodeID", undefined );
 }
 
@@ -65,7 +67,7 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                     currentBlocklyNodeID = nodeID;
                     updateBlocklyRamBar();
                     updateBlocklyUI( blocklyNode );
-                    selectLastBlock();
+                    selectBlock( lastBlockIDExecuted );
                 } else {
                     currentBlocklyNodeID = undefined;
                 }
@@ -86,9 +88,15 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
             case "blocklyStarted":
                 var stopButton = document.getElementById( "stopButton" );
                 stopButton.className = "";
+                var indicator = document.getElementById( "blocklyIndicator" );
+                indicator.className = "";
+                indicator.style.visibility = "inherit";
                 break;
 
             case "blocklyStopped":
+                var indicator = document.getElementById( "blocklyIndicator" );
+                indicator.className = "stopped";
+                clearBlocklyStatus();
             case "blocklyErrored":
                 var stopButton = document.getElementById( "stopButton" );
                 stopButton.className = "disabled";
@@ -110,31 +118,25 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 if ( currentBlocklyNodeID !== undefined ) {
                     var currentCode = getBlocklyFunction();
                     this.kernel.setProperty( graphLines[ "blocklyLine" ].ID, "lineFunction", currentCode );
+
+                    indicateBlock( lastBlockIDExecuted );
                 }
                 break;
             case "blockExecuted":
                 var blockName = eventArgs[ 0 ];
                 var blockID = eventArgs[ 1 ];
-                if ( blockName ) {
-                    if ( blockName.indexOf( "repeat" > -1 ) ) {
-                        blockName = blockName.indexOf( "times" ) > -1 ? "repeatTimes" : blockName;
-                    }
-                    pushNextBlocklyStatus( blockName );
-                }
                 if ( blockID ) {
-                    var workspace = Blockly.getMainWorkspace();
-                    var block = workspace ? workspace.getBlockById( blockID ) : undefined;
-                    if ( block ) {
-                        block.select();
-                    }
+                    selectBlock( blockID );
+                    indicateBlock( blockID );
+                    pushNextBlocklyStatus( blockID );
                     lastBlockIDExecuted = blockID;
                 }
                 break;
 
+            case "scenarioChanged":
+                resetBlocklyIndicator();
             case "scenarioReset":
                 resetStatusDisplay();
-            case "scenarioChanged":
-
                 removePopup();
                 removeFailScreen();
                 clearBlocklyStatus();
@@ -171,7 +173,7 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 clearBlockly();
                 break;
             case "selectLastBlock":
-                selectLastBlock();
+                selectBlock( lastBlockIDExecuted );
                 break;
         } 
 
@@ -183,11 +185,7 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 var msg = eventArgs[ 0 ];
                 var msgType = loggerNodes[ nodeID ].name;
                 if ( msgType ) {
-                    if ( msgType === "subtitles" ) {
-                        pushSubtitle( msg.log );
-                    } else {
-                        pushToDisplay( msgType, msg.log );
-                    }
+                    pushToDisplay( msgType, msg.log );
                 }
                 break;
 
@@ -196,6 +194,12 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 // not sure this is needed, will always remove the first 
                 // log in the list
                 break;
+
+            case "addSubtitle":
+                var msg = eventArgs[ 0 ];
+                var time = eventArgs[ 1 ] ? eventArgs[ 1 ] : 1;
+                pushSubtitle( msg, time );
+                break;            
                 
         }
 
@@ -607,12 +611,28 @@ function clearBlockly() {
     }
 }
 
-function selectLastBlock(){
+function selectBlock( blockID ) {
     var workspace = Blockly.getMainWorkspace();
-    var block = workspace ? workspace.getBlockById( lastBlockIDExecuted ) : undefined;
-    if ( block ) {
-        block.select();
+    var block = workspace ? workspace.getBlockById( blockID ) : undefined;
+    var lastBlock = workspace ? workspace.getBlockById( currentBlockIDSelected ) : undefined;
+    if ( lastBlock ) {
+        Blockly.removeClass_( lastBlock.svg_.svgGroup_, "blocklySelected" );
     }
+    if ( block ) {
+        Blockly.addClass_( block.svg_.svgGroup_, "blocklySelected" );
+        currentBlockIDSelected = blockID;
+    }
+}
+
+function indicateBlock( blockID ) {
+    var workspace = Blockly.getMainWorkspace();
+    var block = workspace ? workspace.getBlockById( blockID ) : undefined;
+    if ( block ) {
+        var pos = block.getRelativeToSurfaceXY();
+        moveBlocklyIndicator( pos.x, pos.y );
+    } else if ( blockID === lastBlockIDExecuted ) {
+        resetBlocklyIndicator();
+    }    
 }
 
 //@ sourceURL=source/index.js

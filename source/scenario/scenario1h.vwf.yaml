@@ -33,6 +33,11 @@ properties:
     - rotation
     - [ 0, 0, 1, 180 ]
 
+  - setProperty:
+    - camera
+    - pointOfView
+    - topDown
+
   - addToInventory:
     - rover/cargo
     - [ "helicam", "battery" ]
@@ -54,6 +59,29 @@ properties:
         - musicStandardGameplay
       - playSound:
         - L1VO16_Rover
+      - clearBlackboard:
+        - hasSucceeded
+      - clearBlackboard:
+        - hasFailed
+
+    panToRadio:
+      triggerCondition:
+      - onScenarioStart:
+      additionalCondition:
+      - not:
+        - readBlackboard:
+          - hasPannedToRadio
+      actions:
+      - writeToBlackboard:
+        - hasPannedToRadio
+      - delay:
+        - 2
+        - panCamera:
+          - /pickups/radio
+        - delay:
+          - 3
+          - panCamera:
+            - /player/rover
 
     succeedOnSuccess:
       triggerCondition:
@@ -69,6 +97,8 @@ properties:
       - clearBlockly:
       - scenarioSuccess:
         - "You have picked up the radio!"
+      - writeToBlackboard:
+        - hasSucceeded
       - playSound:
         - SCVO4_Rover
       - playSound:
@@ -85,26 +115,55 @@ properties:
       - delay:
         - 20
       additionalCondition:
-      - doOnce:
+      - and:
+        - not:
+          - readBlackboard:
+            - Level1hHint1
+        - not:
+          - readBlackboard:
+            - Level1hHint2
+        - not:
+          - readBlackboard:
+            - hasSucceeded
+        - not:
+          - readBlackboard:
+            - hasFailed
       actions:
       - playSound:
         - ALVO22_Rover
+      - writeToBlackboard:
+        - Level1hHint1
 
-    playHint1:
+    playHint2:
       triggerCondition:
       - delay:
         - 50
       additionalCondition:
-      - doOnce:
+      - and:
+        - not:
+          - readBlackboard:
+            - Level1hHint2
+        - not:
+          - readBlackboard:
+            - hasSucceeded
+        - not:
+          - readBlackboard:
+            - hasFailed
       actions:
       - playSound:
         - ALVO23_Rover
+      - writeToBlackboard:
+        - Level1hHint2
 
     failOnCollision:
       triggerCondition:
       - moveFailed:
         - rover
         - collision
+      additionalCondition:
+      - not:
+        - readBlackboard:
+          - hasFailed
       actions:
       - hideBlockly:
       - writeToBlackboard:
@@ -123,6 +182,10 @@ properties:
       - moveFailed:
         - rover
         - battery
+      additionalCondition:
+      - not:
+        - readBlackboard:
+          - hasFailed
       actions:
       - hideBlockly:
       - writeToBlackboard:
@@ -161,13 +224,6 @@ properties:
         - musicSuccess
       - stopSound:
         - musicStandardGameplay
-
-    resetFailure:
-      triggerCondition:
-      - onScenarioStart:
-      actions:
-      - clearBlackboard:
-        - hasFailed
 
     startRoverSounds:
       triggerCondition:

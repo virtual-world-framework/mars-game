@@ -2,6 +2,18 @@ body {
     overflow: hidden;
 }
 
+#blocklyIndicator {
+    background-image: url( "assets/images/blockly_ui/blockly_indicator.png" );
+    width: 40px;
+    height: 17px;
+    position: absolute;
+    visibility: hidden;
+}
+
+#blocklyIndicator.stopped {
+    background-image: url( "assets/images/blockly_ui/blockly_indicator_stopped.png" );
+}
+
 #blocklyWrapper {
     width: 560px;
     height: 812px;
