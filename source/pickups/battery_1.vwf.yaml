@@ -1,6 +1,6 @@
 ---
 extends: source/pickup.vwf
-source: assets/3d/Batteries/battery_pickup1.dae
+source: ../../assets/3d/Batteries/battery_pickup1.dae
 type: model/vnd.collada+xml
 properties:
   isCollidable: false

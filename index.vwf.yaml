@@ -173,14 +173,14 @@ children:
     extends: http://vwf.example.com/node3.vwf
     children:
       radio:
-        includes: source/pickups/radio.vwf
+        extends: source/pickups/radio.vwf
         properties:
           animationPlaying: true
           animationLoop: true
       battery:
-        includes: source/pickups/battery_1.vwf
+        extends: source/pickups/battery_1.vwf
       helicam:
-        includes: source/pickups/helicam.vwf
+        extends: source/pickups/helicam.vwf
   introScreenScenario:
     includes: source/scenario/introScreenScenario.vwf
   scenario1a:

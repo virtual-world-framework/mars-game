@@ -12,8 +12,9 @@ properties:
 
 methods:
   addToGrid:
+  addToGridFromCoord:
+  addToGridFromWorld:
   removeFromGrid:
-  addToGrid:
   moveObjectOnGrid:
   checkCoord:
   validCoord:
@@ -21,6 +22,7 @@ methods:
   getTileFromGrid:
   getTileFromWorld:
   getWorldFromGrid:
+  getGridFromWorld:
   setBoundaryValues:
   hasInventoriable:
   hasCollidable:

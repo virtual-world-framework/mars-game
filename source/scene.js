@@ -148,7 +148,7 @@ this.createGridDisplay = function( grid ) {
     var NORMAL = [ 0, 0, 1 ];
     var ROTATION = 90;
     var RENDERTOP = true;
-    var SIZE = 0.8;
+    var SIZE = 0.9;
     var origin, name, color;
     var tiles = new Array;
 

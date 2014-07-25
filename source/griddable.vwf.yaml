@@ -3,3 +3,5 @@ extends: http://vwf.example.com/node.vwf
 properties:
   currentGridSquare: [ 0, 0 ]
   isCollidable: true
+events:
+  addedToGrid:

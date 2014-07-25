@@ -1,0 +1,12 @@
+---
+extends: source/gridObstacle.vwf
+source: ../../assets/3d/crash_pod/crash_pod.dae
+type: model/vnd.collada+xml
+properties:
+  gridSize: [ 3, 6 ]
+  collisionMap: 
+    - [ -1, -1, -1,  1, -1, -1 ]
+    - [ -1, -1,  1,  1,  1,  1 ]
+    - [ -1, -1, -1,  1, -1, -1 ]
+  gridRotation: 0
+  replacesTerrain: false

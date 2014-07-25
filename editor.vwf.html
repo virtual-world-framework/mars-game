@@ -1,0 +1,29 @@
+<script type="text/javascript" src="editor/editor.js"></script>
+
+<link rel="stylesheet" type="text/css" href="editor/editor.css"></link>
+
+<div id="uiwrapper" class="wrapper">
+    <div id="header" class="wrapper">
+        <div id="menubar" class="menu">
+            <div id="file" class="menubutton">File</div>
+            <div id="edit" class="menubutton">Edit</div>
+            <div id="help" class="menubutton">Help</div>
+        </div>
+        <div id="headertoolbar" class="toolbar">
+            <div id="transformtools" class="toolgroup bordered"></div>
+        </div>
+    </div>
+    <div id="sidepanel" class="wrapper">
+        <div id="assetwrapper" class="events bordered">
+            <form id="assettype" action="">
+                Asset Type: <select id="typeselector" name="type">
+                    <option value="maps">Maps</option>
+                    <option value="obstacles">Obstacles</option>
+                    <option value="pickups">Pickups</option>
+                    <option value="characters">Characters</option>
+                </select>
+            </form>
+            <div id="assetlist"></div>
+        </div>
+    </div>
+</div>

@@ -1,5 +1,5 @@
 ---
-extends: http://vwf.example.com/node3.vwf
+extends: source/gridObstacle.vwf
 implements: [ "source/inventoriable.vwf", "source/griddable.vwf" ]
 properties:
   isCollidable: false
