@@ -15,15 +15,18 @@ function setUpBlocklyPeripherals() {
     var runStopContainer = document.createElement( "div" );
     var runButton = document.getElementById( "runButton" );
     var stopButton = document.createElement( "div" );
+    var indicator = document.createElement( "div" );
 
     blocklyFooter.id = "blocklyFooter";
     blocklyHandle.id = "blocklyHandle";
     blocklyHandleIcon.id = "blocklyHandleIcon";
     blocklyScrollDiv.id = "blocklyScrollDiv";
     stopButton.id = "stopButton"; 
+    indicator.id = "blocklyIndicator";
 
     $( blocklyHandle ).append( blocklyHandleIcon );
-    $( "#blocklyWrapper-top" ).append( blocklyHandle );
+    $( "#blocklyWrapper-top" ).append( blocklyHandle )
+    $( "#blocklyWrapper" ).append( indicator );
     $( "#blocklyWrapper" ).draggable( {
         handle: "div#blocklyHandle",
         scroll: false,
@@ -171,6 +174,24 @@ function centerBlocklyWindow() {
     blocklyUI.style.top = top + "px";
     blocklyUI.style.left = left + "px";
 
+}
+
+function resetBlocklyIndicator() {
+    $( "#blocklyIndicator" ).css( {
+        "left" : 0,
+        "top" : 0,
+        "visibility" : "hidden"
+    } );
+}
+
+function moveBlocklyIndicator( x, y ) {
+    var toolbox = document.getElementsByClassName( "blocklyFlyoutBackground" )[ 0 ];
+    var yOffset = parseInt( $( "#blocklyWrapper-top" ).css( "height" ) );
+    var xOffset = toolbox.getBBox().width;
+    $( "#blocklyIndicator" ).stop().animate( { 
+        "top" : ( y + yOffset ) + "px",
+        "left": ( x + xOffset ) + "px"
+    } );
 }
 
 //@ sourceURL=source/blocklyUI.js

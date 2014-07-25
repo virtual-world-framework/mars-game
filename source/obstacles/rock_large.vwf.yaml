@@ -1,0 +1,11 @@
+---
+extends: source/gridObstacle.vwf
+source: ../../assets/3d/Terrain/rock_2x3.dae
+type: model/vnd.collada+xml
+properties:
+  gridSize: [ 2, 3 ]
+  collisionMap: 
+    - [ -1, -1, -1 ]
+    - [ -1, -1, -1 ]
+  gridRotation: 0
+  replacesTerrain: false

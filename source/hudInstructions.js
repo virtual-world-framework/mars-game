@@ -179,23 +179,75 @@ function createBlocklyStatus() {
     status.blockStack = [];
     status.blockImages = {};
     status.defaultDraw = status.draw;
-    status.drawAllBlocks = drawAllBlocks;
     status.lastUpdateTime = vwf_view.kernel.time();
     status.updateIntervalTime = 0.01;
-    status.spacing = 10;
-    status.toBePushed = [];
-    hud.add( status, "right", "bottom", { "x": 150, "y": -30 } );
-    addBlockToStatusList( "forward", "assets/images/hud/blockly_move_forward.png" );
-    addBlockToStatusList( "turnLeft", "assets/images/hud/blockly_turn_left.png" );
-    addBlockToStatusList( "turnRight", "assets/images/hud/blockly_turn_right.png" );
-    addBlockToStatusList( "repeatTimes", "assets/images/hud/blockly_repeat_times.png" );
+    status.index = -1;
+    status.topOffset = 0;
+    status.nextTopOffset = 0;
+    status.range = 3;
+    status.runIcon = new Image();
+    status.runIcon.src = "assets/images/blockly_ui/blockly_indicator.png";
+    hud.add( status, "right", "bottom", { "x": 130, "y": -60 } );
+    addBlockToImageList( "moveForward", "assets/images/hud/blockly_move_forward.png" );
+    addBlockToImageList( "turnLeft", "assets/images/hud/blockly_turn_left.png" );
+    addBlockToImageList( "turnRight", "assets/images/hud/blockly_turn_right.png" );
+    addBlockToImageList( "repeatTimes", "assets/images/hud/blockly_repeat_times.png" );
+    addBlockToImageList( "number", "assets/images/hud/blockly_number.png" );
 }
 
-function addBlockToStatusList( name, imageSrc ) {
+function addBlockToImageList( name, imageSrc ) {
     var status = hud.elements.blocklyStatus;
     if ( status ) {
         status.blockImages[ name ] = new Image();
         status.blockImages[ name ].src = imageSrc;
+    }
+}
+
+function populateBlockStack() {
+    var status = hud.elements.blocklyStatus;
+    var workspace = Blockly.getMainWorkspace();
+    if ( status && workspace ) {
+        status.blockStack = [];
+        var blocks = workspace.getTopBlocks()[ 0 ];
+        addBlockToStackList( blocks );
+    }
+}
+
+function addBlockToStackList( topBlock, loopCounts ) {
+    loopCounts = loopCounts || [];
+    var status = hud.elements.blocklyStatus;
+    var currentBlock = topBlock;
+    while ( currentBlock ) {
+        var blockType = currentBlock.type;
+        var blockID = currentBlock.id;
+        var blockData = {
+            "name": blockType,
+            "id": parseInt( blockID ),
+            "alpha": 0,
+            "loopCounts": loopCounts.slice( 0 )
+        };        
+
+        if ( blockType === "rover_moveForward" ) {
+            blockData.name = "moveForward";
+            status.blockStack.push( blockData );
+        }
+        else if ( blockType === "rover_turn" ) {
+            blockData.name = currentBlock.getFieldValue( "DIR" );
+            status.blockStack.push( blockData );            
+        } else if ( blockType === "controls_repeat_extended" ) {
+            blockData.name = "repeatTimes";
+            status.blockStack.push( blockData );
+
+            var firstBlockInLoop = currentBlock.getInput( "DO" ).connection.targetConnection.sourceBlock_;
+            var loopTimes = parseInt( Blockly.JavaScript.valueToCode( currentBlock, 'TIMES', Blockly.JavaScript.ORDER_ASSIGNMENT ) || '0' ) || 0;
+            var counts = loopCounts.slice( 0 );
+            for ( var i = loopTimes - 1; i >= 0; i-- ) {
+                counts[ loopCounts.length ] = i;
+                addBlockToStackList( firstBlockInLoop, counts );
+            }
+        } 
+
+        currentBlock = currentBlock.getNextBlock();
     }
 }
 
@@ -397,43 +449,45 @@ function drawCameraSelector( context, position ) {
     }
 }
 
-function drawAllBlocks( context, position, offset ) {
-    var lastHeight = 0;
-    for ( var i = 0; i < this.blockStack.length; i++ ) {
-
-        //Escape if there is nothing left in the stack
-        if ( this.blockStack.length <= 0 || 
-             i >= this.blockStack.length || 
-             !this.blockStack[ i ].alpha ) {
-            return;
-        }
-
-        context.globalAlpha = this.blockStack[ i ].alpha;
-        var block = this.blockImages[ this.blockStack[ i ].name ];
-        if ( block ) {
-            lastHeight += block.height;
-            context.drawImage( block, position.x, position.y - 
-                ( i * this.spacing + lastHeight + offset ) );
-        }
-    }
-    context.globalAlpha = 1;
-}
-
 function drawBlocklyStatus( context, position ) {
     if ( this.blockImages && this.blockStack ) {
-
-        this.drawAllBlocks( context, position, 0 );
-
-        var time = vwf_view.kernel.time();
-        if ( time - this.lastUpdateTime > this.updateIntervalTime ) {
-            this.lastUpdateTime = time;
-            for ( var i = 0; i < this.blockStack.length; i++ ) {
-                this.blockStack[ i ].alpha -= 0.01;
-                if ( this.blockStack[ i ].alpha <= 0 ) {
-                    this.blockStack.splice( i, 1 );
+        var lastHeight = 0;
+        var offsetX = 0;
+        // Draw all blocks within the range of the selected block
+        for ( var i = 0; i < this.index + this.range / 2; i++ ) {
+            var blockData = this.blockStack[ i ];
+            if ( blockData ) {
+                var alpha = blockData.alpha;
+                var block = this.blockImages[ blockData.name ];
+                var loopCounts = blockData.loopCounts;
+                if ( alpha && block && Math.abs( i - this.index ) < this.range ) {
+                    context.globalAlpha = alpha;
+                    context.drawImage( block, position.x, 
+                                       position.y - ( this.topOffset - lastHeight ) );
+                    if ( this.index === i && loopCounts ) {
+                        var numBlock = this.blockImages[ "number" ];
+                        for ( var j = 0; j < loopCounts.length; j++ ) {
+                            if ( loopCounts[ j ] > 0 ) {
+                                offsetX += numBlock.width;
+                                var posY = position.y - ( this.topOffset - lastHeight - 8 );
+                                context.drawImage( numBlock, position.x - offsetX, posY );
+                                context.textBaseline = "top";
+                                context.font = '15px sans-serif';
+                                context.fillStyle = "rgb( 0, 0, 0 )";
+                                context.fillText( loopCounts[ j ], position.x - offsetX + 20, posY + 8 );
+                            }
+                        }
+                    }
                 }
+                lastHeight += block.height || 0;
             }
-        }        
+        }       
+        context.globalAlpha = 1;
+        if ( this.index > -1 ) {
+            offsetX += this.runIcon.width;
+            var offsetY = this.runIcon.height * 1.5;
+            context.drawImage( this.runIcon, position.x - offsetX, position.y - offsetY );
+        }
     }
 }
 
@@ -546,10 +600,10 @@ function switchTarget( event ) {
 function selectCameraMode( event ) {
     if ( this.mode !== "topDown" ) {
         if ( isVisible.graph ) {
-            toggleGraphDisplay( event );
+            toggleGraphDisplay.bind( hud.elements.graphButton )( event );
         }
         if ( isVisible.tiles ) {
-            toggleTiles( event );
+            toggleTiles.bind( hud.elements.tilesButton )( event );
         }
     } else if ( !this.enabled ) {
         return;
@@ -631,62 +685,78 @@ function stopElementBlinking( elementID ) {
     }
 }
 
-function pushNextBlocklyStatus( blockName ) {
+function setBlocklyAlphas() {
     var statusElem = hud.elements.blocklyStatus;
-    if ( statusElem && statusElem.blockImages.hasOwnProperty( blockName ) ) {
-        statusElem.toBePushed.push( { "name": blockName, "alpha": 1 } );
+    if ( statusElem ) {
+        // Blocks within range of the selected block are given 0.5 opacity
+        for ( var i = 0; i < statusElem.blockStack.length; i++ ) {
+            var alpha = statusElem.blockStack[ i ].alpha;
+            if ( i === statusElem.index ) {
+                alpha = 1;
+            } else if ( Math.abs( statusElem.index - i ) < statusElem.range / 2 ) {
+                alpha = 0.5;
+            } else {
+                alpha = 0;
+            }
+            statusElem.blockStack[ i ].alpha = alpha;
+        }
+    }
+}
 
-        if ( statusElem.draw === statusElem.defaultDraw ){
-            var offsetY = 0;
-            var newBlockHeight = statusElem.blockImages[ blockName ].height;
-            var interval = 7;
+function pushNextBlocklyStatus( id ) {
+    var statusElem = hud.elements.blocklyStatus;
 
-            statusElem.draw = ( function( context, position ) {
-                var time = vwf_view.kernel.time();
-                var intervalTime = this.toBePushed.length > 1 ? this.updateIntervalTime / this.toBePushed.length : this.updateIntervalTime;
-                intervalTime /= interval;
-                if ( time - this.lastUpdateTime > intervalTime ) {
-                    this.lastUpdateTime = time;
-                    offsetY += newBlockHeight / interval;
-                    if ( offsetY > newBlockHeight + this.spacing ) {
-                        offsetY = 0;
-                        var block = this.toBePushed.shift();
-                        if ( block ) {
-                            this.blockStack.unshift( block );
-                            this.drawAllBlocks( context, position, offsetY );
-                        }
-                        if ( this.toBePushed.length <= 0 ) {
-                            this.draw = this.defaultDraw;
-                        }                        
-                        return;
-                    }                    
-                    for ( var i = 0; i < this.blockStack.length; i++ ) {
+    if ( statusElem ) {
+        statusElem.index++;
+        var blockName = statusElem.blockStack[ statusElem.index ].name;
+        var blockID = statusElem.blockStack[ statusElem.index ].id;
+        var block = statusElem.blockImages[ blockName ];
+        if ( block && blockID === id ) {
 
-                        //Escape if there is nothing left in the stack
-                        if ( this.blockStack.length <= 0 || 
-                             i >= this.blockStack.length || 
-                             !this.blockStack[ i ] ) {
-                            return;
-                        }
-                                                
-                        this.blockStack[ i ].alpha -= 0.5 / interval;                      
-                        if ( this.blockStack[ i ].alpha <= 0.1 ) {
-                            this.blockStack.splice( i, 1 );
+            // Check if block pushes are outrunning the animation
+            if ( statusElem.draw === statusElem.defaultDraw ) {
+                statusElem.nextTopOffset = statusElem.topOffset + block.height;
+                var interval = statusElem.range;
+                var offsetIncrement = block.height / interval;
+                var alphaIncrement = 0.5 / interval;
+
+                statusElem.draw = ( function( context, position ) {
+                    var time = vwf_view.kernel.time();
+                    if ( time - this.lastUpdateTime > this.updateIntervalTime ) {
+                        this.lastUpdateTime = time;
+                        this.topOffset += offsetIncrement;
+                        for ( var i = 0; i < this.blockStack.length; i++ ) {
+                            var alpha = this.blockStack[ i ].alpha;
+                            if ( i < this.index ) {
+                                alpha -= alphaIncrement;
+                                alpha = alpha < 0 ? 0 : alpha;
+                            } else if ( i > this.index ) {
+                                alpha += alphaIncrement;
+                            } else {
+                                alpha = 1;
+                            }
+                            this.blockStack[ i ].alpha = alpha;
                         }
                     }
-                }
 
-                if ( this.toBePushed.length <= 0 ) {
-                    this.draw = this.defaultDraw;
-                } else {
-                    var tempBlock = this.blockImages[ this.toBePushed[ 0 ].name ];
-                    if ( tempBlock ) {
-                        context.drawImage( tempBlock, position.x, position.y - ( tempBlock.height ) );
+                    if ( this.topOffset >= this.nextTopOffset ) {
+                        this.topOffset = this.nextTopOffset;
+                        this.draw = this.defaultDraw;
+                        setBlocklyAlphas();
                     }
-                }
-                this.drawAllBlocks( context, position, offsetY );
-            } );
-        } 
+
+                    this.defaultDraw( context, position );
+                } );
+
+            // If they are, set the top right away and don't animate
+            } else {
+                setBlocklyAlphas();
+                statusElem.draw = statusElem.defaultDraw;
+                statusElem.topOffset = statusElem.nextTopOffset + block.height;
+            }
+
+            
+        }
     }
 }
 
@@ -695,7 +765,9 @@ function clearBlocklyStatus() {
         var statusElem = hud.elements.blocklyStatus;
         if ( statusElem ) {
             statusElem.blockStack = [];
-            statusElem.toBePushed = [];
+            statusElem.index = -1;
+            statusElem.topOffset = 0;
+            statusElem.nextTopOffset = 0;
         }         
     }
 }

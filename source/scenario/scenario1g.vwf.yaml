@@ -45,87 +45,36 @@ properties:
     - radio
     - [ 8, 16 ]
 
-  triggers:
-    beginScenario:
-      triggerCondition:
-      - onScenarioStart:
-      actions:
-      - playSound:
-        - musicStandardGameplay
-      - playSound:
-        - L1VO15_Rover
+children:
+  triggerManager:
+    extends: source/triggers/triggerManager.vwf
+    properties: 
+      triggers:
+        beginScenario_1g:
+          triggerCondition:
+          - onScenarioStart:
+          actions:
+          - playSound:
+            - musicStandardGameplay
 
-    succeedOnSuccess:
-      triggerCondition:
-      - onBlocklyStopped:
-        - rover
-      additionalCondition:
-      - and:
-        - isAtPosition:
-          - rover
-          - 8
-          - 2
-        - hasHeading:
-          - rover
-          - 180
-      actions:
-      - hideBlockly:
-      - clearBlockly:
-      - scenarioSuccess:
-        - "Now I can get out of this ditch and find the radio!"
-      - playSound:
-        - SCVO3_Rover
-      - playSound:
-        - musicSuccess
-      - stopSound:
-        - musicFailure
-      - stopSound:
-        - musicStandardGameplay
+        playStartingVO_1g:
+          triggerCondition:
+          - onScenarioStart:
+          additionalCondition:
+          - not:
+            - readBlackboard:
+              - Level1gStartSounds
+          actions:
+          - playSound:
+            - L1VO15_Rover
+          - writeToBlackboard:
+            - Level1gStartSounds
 
-    # TODO: Add hint VO
-
-    failOnCollision:
-      triggerCondition:
-      - moveFailed:
-        - rover
-        - collision
-      actions:
-      - hideBlockly:
-      - writeToBlackboard:
-        - hasFailed
-      - scenarioFailure:        
-        - collision
-      - playSound:
-        - musicFailure
-      - stopSound:
-        - musicSuccess
-      - stopSound:
-        - musicStandardGameplay
-
-    failOnBatteryDepleted:
-      triggerCondition:
-      - moveFailed:
-        - rover
-        - battery
-      actions:
-      - hideBlockly:
-      - writeToBlackboard:
-        - hasFailed
-      - scenarioFailure:         
-        - battery
-      - playSound:
-        - musicFailure
-      - stopSound:
-        - musicSuccess
-      - stopSound:
-        - musicStandardGameplay
-
-    failOnIncompleteProgram:
-      triggerCondition:
-      - onBlocklyStopped:
-      additionalCondition:
-      - and:
-        - not:
+        succeedOnSuccess_1g:
+          triggerCondition:
+          - onBlocklyStopped:
+            - rover
+          additionalCondition:
           - and:
             - isAtPosition:
               - rover
@@ -134,46 +83,18 @@ properties:
             - hasHeading:
               - rover
               - 180
-        - not:
-          - readBlackboard:
-            - hasFailed
-      actions:
-      - hideBlockly:
-      - writeToBlackboard:
-        - hasFailed
-      - scenarioFailure:
-        - incomplete
-      - playSound:
-        - musicFailure
-      - stopSound:
-        - musicSuccess
-      - stopSound:
-        - musicStandardGameplay
+          actions:
+          - scenarioSuccess:
+            - "Now I can get out of this ditch and find the radio!"
+          - stopSound:
+            - musicStandardGameplay
+          - playSound:
+            - SCVO3_Rover
+          - playSound:
+            - musicSuccess
 
-    resetFailure:
-      triggerCondition:
-      - onScenarioStart:
-      actions:
-      - clearBlackboard:
-        - hasFailed
+        # TODO: Add hint VO
 
-    startRoverSounds:
-      triggerCondition:
-      - onBlocklyStarted:
-        - rover
-      actions:
-      - playSound:
-        - roverSounds
-
-    stopRoverSounds:
-      triggerCondition:
-      - onBlocklyStopped:
-        - rover
-      actions:
-      - stopSound:
-        - roverSounds
-
-children:
   grid:
     extends: source/grid.vwf
     properties:

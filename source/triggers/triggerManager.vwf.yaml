@@ -1,26 +1,46 @@
 # The trigger factory creates triggers from yaml declarations.
+# NOTE: you are responsible for calling loadTriggers with the context in order
+#   to get things started.
 --- 
 extends: http://vwf.example.com/node.vwf
 properties:
-  # This holds our triggers.  For internal use only.
-  triggers$: {}
-methods:
-  # This function takes an object which contains a collection of triggers.
-  # It loops through the collection, and creates all the triggers, including
-  #   setting up callbacks to make them fire.  From there on out, the magic
-  #   should just happen.
+  # Any triggers placed here will be automatically loaded when loadTriggers
+  #   is called.
   # A trigger consists of three pieces:
   #   triggerCondition: When this condition becomes true, the trigger may fire
   #   additionalCondition: This condition won't cause the trigger to fire, but it 
   #     must be true in order for the trigger to fire
   #   actions: Each of these will be run, in order, when the trigger fires
-  #
-  # arguments: triggers, context
+  triggers:
+
+  # This holds our triggers.  For internal use only.
+  triggersSet$: undefined
+
+methods:
+  # This function loops through our triggers property and creates all the 
+  #   triggers, including setting up callbacks to make them fire.  From 
+  #   there on out, the magic should just happen.
+  # arguments: context
   loadTriggers:
 
-  # This function clears out all of our triggers.  It's used when we load a
-  #   new scenario, so that the old triggers don't keep firing.
+  # This function takes a trigger list (like our triggers property) and loads
+  #   the contents.
+  # arguments: triggerList, context
+  loadTriggerList:
+
+  # Adds a single trigger.
+  # arguments: triggerName, trigger, context
+  addTrigger:
+
+  # This function clears out all of our triggers so that they will stop firing.
+  #   You can still call loadTriggers again if you want to recreate them.
   clearTriggers:
+
+  # This function clears out only triggers that appear in the specified list.
+  # NOTE: we do matching based solely on the keys - we don't check if the 
+  #   trigger is actually the same.
+  # arguments: triggerList
+  clearTriggerList:
 
   # Checks whether we have any triggers
   isEmpty:

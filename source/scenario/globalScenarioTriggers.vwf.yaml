@@ -1,0 +1,150 @@
+---
+extends: source/triggers/triggerManager.vwf
+properties: 
+  scenePath: /
+
+  # These triggers work just like any other trigger, except that we load them
+  #   after every other scenario trigger has been loaded (and reload them for
+  #   each scenario).  Needed for triggers that are sensitive to the order in
+  #   which they fire.
+  lateLoadTriggers:
+    failOnIncompleteProgram:
+      triggerCondition:
+      - onBlocklyStopped:
+      additionalCondition:
+      - and:
+        - not:
+          - readBlackboard:
+            - hasFailed
+        - not:
+          - readBlackboard:
+            - hasSucceeded
+        - not:
+          - readBlackboard:
+            - disableFailOnIncompleteProgram
+      actions:
+      - scenarioFailure:
+        - incomplete
+
+  triggers:
+    recordKeepingOnBegin:
+      triggerCondition:
+      - onScenarioStart:
+      actions:
+      - clearBlackboard:
+        - hasSucceeded
+      - clearBlackboard:
+        - hasFailed
+      - clearBlackboard:
+        - disableFailOnIncompleteProgram
+
+    recordKeepingOnSuccess:
+      triggerCondition:
+      - onScenarioSucceeded:
+      actions:
+      # - hideBlockly:
+      - clearBlockly:
+      - stopSound:
+        - musicSuccess
+      - stopSound:
+        - musicFailure
+      - writeToBlackboard:
+        - hasSucceeded
+
+    recordKeepingOnFailure:
+      triggerCondition:
+      - onScenarioFailed:
+      actions:
+      - writeToBlackboard:
+        - hasFailed
+      - stopSound:
+        - musicStandardGameplay
+      - stopSound:
+        - musicSuccess
+      - stopSound:
+        - musicFailure
+      - playSound:
+        - musicFailure
+
+    failOnCollision:
+      triggerCondition:
+      - moveFailed:
+        - rover
+        - collision
+      additionalCondition:
+      - not:
+        - readBlackboard:
+          - hasFailed
+      actions:
+      - scenarioFailure:        
+        - collision
+
+    failOnBatteryDepleted:
+      triggerCondition:
+      - moveFailed:
+        - rover
+        - battery
+      additionalCondition:
+      - not:
+        - readBlackboard:
+          - hasFailed
+      actions:
+      - scenarioFailure:         
+        - battery
+
+    startRoverSounds:
+      triggerCondition:
+      - onBlocklyStarted:
+        - rover
+      actions:
+      - playSound:
+        - roverSounds
+
+    stopRoverSounds:
+      triggerCondition:
+      - onBlocklyStopped:
+        - rover
+      actions:
+      - stopSound:
+        - roverSounds
+
+    # This can be triggered either by picking up the helicam or on scenario
+    #   start, but only fires if we have the helicam in hand.
+    enableHelicamView:
+      triggerCondition:
+      - or:
+        - hasObject:
+          - rover
+          - helicam
+        - onScenarioStart:
+      additionalCondition:
+      - hasObject:
+        - rover
+        - helicam
+      actions:
+      - enableHelicam:
+
+    # This can be triggered either by dropping the helicam or on scenario
+    #   start, but only fires if we don't have the helicam in hand.
+    disableHelicamViewOnDrop:
+      triggerCondition:
+      - or:
+        - not:
+          - hasObject:
+            - rover
+            - helicam
+        - onScenarioStart:
+      additionalCondition:
+      - not:
+        - hasObject:
+          - rover
+          - helicam
+      actions:
+      - disableHelicam:
+
+methods:
+  # This is called using future(0) inside of initialize.
+  onSceneLoaded:
+
+scripts:
+- source: source/scenario/globalScenarioTriggers.js

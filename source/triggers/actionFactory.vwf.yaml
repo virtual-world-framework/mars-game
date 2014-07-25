@@ -23,6 +23,10 @@ properties:
     playSound:
     stopSound:
 
+    # sets the master volume for the game
+    # arguments: volume (0.0-1.0)
+    setMasterVolume:
+
     displayPopup:
 
     showCommsDisplay:
@@ -41,7 +45,7 @@ properties:
     # clears the value at the specified blackboard variableName
     # arguments: variableName
     clearBlackboard:
-    
+
     # delays for a fixed time, and then plays one or more actions
     # arguments: delay, action(s)
     delay:
@@ -53,6 +57,10 @@ properties:
     # clears the blocklyui of all blocks
     # arguments: none
     clearBlockly:
+
+    # pans the camera to the node of the targetpath
+    # arguments: targetPath
+    panCamera:
 
 scripts:
 - source: source/triggers/actionFactory.js

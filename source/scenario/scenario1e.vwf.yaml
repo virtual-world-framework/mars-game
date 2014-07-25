@@ -49,133 +49,71 @@ properties:
     - radio
     - [ 8, 16 ]
 
-  triggers:
-    beginScenario:
-      triggerCondition:
-      - onScenarioStart:
-      actions:
-      - playSound:
-        - musicStandardGameplay
-      - playSound:
-        - L1VO12_Rover
+children:
+  triggerManager:
+    extends: source/triggers/triggerManager.vwf
+    properties: 
+      triggers:
+        beginScenario_1e:
+          triggerCondition:
+          - onScenarioStart:
+          actions:
+          - playSound:
+            - musicStandardGameplay
 
-    succeedOnSuccess:
-      triggerCondition:
-      - onBlocklyStopped:
-        - rover
-      additionalCondition:
-      - isAtPosition:
-        - rover
-        - 8
-        - 6
-      actions:
-      - hideBlockly:
-      - clearBlockly:
-      - scenarioSuccess:
-        - "You have calibrated your motors and picked up a spare battery!"
-      - playSound:
-        - musicSuccess
-      - playSound:
-        - L1VO13_Rover
-      - stopSound:
-        - musicFailure
-      - stopSound:
-        - musicStandardGameplay
+        playStartingVO_1e:
+          triggerCondition:
+          - onScenarioStart:
+          additionalCondition:
+          - not:
+            - readBlackboard:
+              - Level1eStartSounds
+          actions:
+          - playSound:
+            - L1VO12_Rover
+          - writeToBlackboard:
+            - Level1eStartSounds
 
-    playHint1:
-      triggerCondition:
-      - delay:
-        - 20
-      actions:
-      - playSound:
-        - ALVO19_Rover
-
-    failOnCollision:
-      triggerCondition:
-      - moveFailed:
-        - rover
-        - collision
-      actions:
-      - hideBlockly:
-      - writeToBlackboard:
-        - hasFailed
-      - scenarioFailure:        
-        - collision
-      - playSound:
-        - musicFailure
-      - stopSound:
-        - musicSuccess
-      - stopSound:
-        - musicStandardGameplay
-
-    failOnBatteryDepleted:
-      triggerCondition:
-      - moveFailed:
-        - rover
-        - battery
-      actions:
-      - hideBlockly:
-      - writeToBlackboard:
-        - hasFailed
-      - scenarioFailure:         
-        - battery
-      - playSound:
-        - musicFailure
-      - stopSound:
-        - musicSuccess
-      - stopSound:
-        - musicStandardGameplay
-
-    failOnIncompleteProgram:
-      triggerCondition:
-      - onBlocklyStopped:
-      additionalCondition:
-      - and:
-        - not:
+        succeedOnSuccess_1e:
+          triggerCondition:
+          - onBlocklyStopped:
+            - rover
+          additionalCondition:
           - isAtPosition:
             - rover
             - 8
             - 6
-        - not:
-          - readBlackboard:
-            - hasFailed
-      actions:
-      - hideBlockly:
-      - writeToBlackboard:
-        - hasFailed
-      - scenarioFailure:
-        - incomplete
-      - playSound:
-        - musicFailure
-      - stopSound:
-        - musicSuccess
-      - stopSound:
-        - musicStandardGameplay
+          actions:
+          - scenarioSuccess:
+            - "You have calibrated your motors and picked up a spare battery!"
+          - stopSound:
+            - musicStandardGameplay
+          - playSound:
+            - musicSuccess
+          - playSound:
+            - L1VO13_Rover
 
-    resetFailure:
-      triggerCondition:
-      - onScenarioStart:
-      actions:
-      - clearBlackboard:
-        - hasFailed
+        playHint1_1e:
+          triggerCondition:
+          - delay:
+            - 20
+          additionalCondition:
+          - and:
+            - not:
+              - readBlackboard:
+                - Level1eHint1
+            - not:
+              - readBlackboard:
+                - hasSucceeded
+            - not:
+              - readBlackboard:
+                - hasFailed
+          actions:
+          - playSound:
+            - ALVO19_Rover
+          - writeToBlackboard:
+            - Level1eHint1
 
-    startRoverSounds:
-      triggerCondition:
-      - onBlocklyStarted:
-        - rover
-      actions:
-      - playSound:
-        - roverSounds
-
-    stopRoverSounds:
-      triggerCondition:
-      - onBlocklyStopped:
-        - rover
-      actions:
-      - stopSound:
-        - roverSounds
-
-children:
   grid:
     extends: source/grid.vwf
     properties:

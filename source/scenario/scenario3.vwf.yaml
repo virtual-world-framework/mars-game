@@ -39,7 +39,7 @@ properties:
 
   - addToInventory:
     - rover/cargo
-    - [ "radio" ]
+    - [ "helicam", "battery", "radio" ]
 
   - addToGrid:
     - rover
@@ -49,9 +49,27 @@ properties:
     - blocklyGraph
     - [ 8, 16 ]
 
-  triggers:
-
 children:
+  triggerManager:
+    extends: source/triggers/triggerManager.vwf
+    properties: 
+      triggers:
+        beginScenario_3:
+          triggerCondition:
+          - onScenarioStart:
+          actions:
+          - playSound:
+            - musicStandardGameplay
+          - writeToBlackboard:
+            - disableFailOnIncompleteProgram
+
+        reenableFailOnIncomplete_3:
+          triggerCondition:
+          - onScenarioSucceeded:
+          actions:
+          - clearBlackboard:
+            - disableFailOnIncompleteProgram
+
   grid:
     extends: source/grid.vwf
     properties:

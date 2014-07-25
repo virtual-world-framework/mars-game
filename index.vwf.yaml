@@ -33,6 +33,9 @@ events:
   introScreensComplete:
   scenarioReset:
   scenarioChanged:
+  scenarioStarted:
+  scenarioSucceeded:
+  scenarioFailed:
   blinkHUD:
   stopBlinkHUD:
   blinkTab:
@@ -50,6 +53,8 @@ events:
 children:
   soundManager:
     includes: source/marsGameSound.vwf
+  globalTriggerManager:
+    includes: source/scenario/globalScenarioTriggers.vwf
   environment:
     extends: http://vwf.example.com/node3.vwf
     source: assets/3d/Terrain/scene.dae
@@ -65,6 +70,7 @@ children:
         properties:
           castShadows: true
           receiveShadows: true
+          translation: [ 0, -1.5, 0 ]
       roverTracks:
         extends: http://vwf.example.com/node3.vwf
         source: assets/3d/Terrain/rover_tracks_straight.dae
@@ -73,6 +79,18 @@ children:
           translation: [ 0, 1, 0 ]
   airDust:
     includes: source/dustAir.vwf
+  smoke1:
+    extends: source/smokeParticle.vwf
+    properties:
+      translation: [ -11, 31, 3 ]
+  smoke2:
+    extends: source/smokeParticle.vwf
+    properties:
+      translation: [ 4.5, 26, 0 ]
+  smoke3:
+    extends: source/smokeParticle.vwf
+    properties:
+      translation: [ 13.5, 16.5, 2 ]
   backdrop:
     extends: http://vwf.example.com/node3.vwf
     source: assets/3d/Terrain/backdrop.dae
@@ -82,19 +100,25 @@ children:
     properties:
       lightType: "directional"
       color: [ 255, 245, 230 ]
-      translation: [ 32, 16, 256 ]
-      rotation: [ -0.8206275701522827, -0.3142601549625397, 0.4772954285144806, 77.48947143554688 ]
-      intensity: 0.75
+      translation: [ 2, 1, 16 ]
+      intensity: 0.5
       castShadows: true
-      shadowDarkness: 0.7
-      shadowCameraBottom: -1024
-      shadowCameraTop: 1024
-      shadowCameraLeft: -1024
-      shadowCameraRight: 1024
-      shadowCameraFar: 512
+      shadowDarkness: 0.5
+      shadowCameraBottom: -64
+      shadowCameraTop: 64
+      shadowCameraLeft: -64
+      shadowCameraRight: 64
+      shadowCameraFar: 24
       shadowMapWidth: 2048
       shadowMapHeight: 2048
-      shadowBias: 0
+      shadowBias: -0.0025
+      target: [ 0, 0, 0 ]
+      offsetFromTarget: [ 2, 1, 16 ]
+    methods:
+      setUpEvents:
+      followCamera:
+    scripts:
+      - source: source/lights.js
   envLight:
     extends: http://vwf.example.com/light.vwf
     properties:
@@ -102,7 +126,7 @@ children:
       translation: [ 0, 0, 100 ]
       color: [ 255, 200, 175 ]
       groundColor: [ 200, 160, 80 ]
-      intensity: 0.65
+      intensity: 0.7
   player:
     extends: http://vwf.example.com/node3.vwf
     methods:
@@ -128,7 +152,7 @@ children:
               this.setTargetPath$( value );
             value: "/player/rover"
           firstPersonOffset: [ 0, 0, 1 ]
-          thirdPersonOffset: [ 0, -15.531, 5.553 ]
+          thirdPersonOffset: [ 0, -15.531, 5 ]
           topDownOffset: [ 0, 0, 40 ]
           needToSetupEventHandler$: false
         methods:
@@ -160,11 +184,14 @@ children:
     extends: http://vwf.example.com/node3.vwf
     children:
       radio:
-        includes: source/pickups/radio.vwf
+        extends: source/pickups/radio.vwf
+        properties:
+          animationPlaying: true
+          animationLoop: true
       battery:
-        includes: source/pickups/battery_1.vwf
+        extends: source/pickups/battery_1.vwf
       helicam:
-        includes: source/pickups/helicam.vwf
+        extends: source/pickups/helicam.vwf
   introScreenScenario:
     includes: source/scenario/introScreenScenario.vwf
   scenario1a:
@@ -269,6 +296,8 @@ children:
       logger_maxLogs: 10
       logger_lifeTime: 10000
       logger_logs: []
+    events:
+      addSubtitle:
     scripts:
     - source: source/loggerHelper.js
 scripts: 

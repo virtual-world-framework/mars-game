@@ -1,11 +1,16 @@
 ---
-extends: http://vwf.example.com/node3.vwf
+extends: source/gridObstacle.vwf
 implements: [ "source/inventoriable.vwf", "source/griddable.vwf" ]
 properties:
-  animationLoop: true
+  castShadows: true
+  receiveShadows: true
   isCollidable: false
   terrainName: undefined
-scripts: |
-  this.initialize = function() {
-    this.animationPlay();
-  }
+  visible:
+    set: |
+      this.setPickupVisibility( value );
+    value: true
+methods:
+  setPickupVisibility:
+scripts:
+  - source: source/pickup.js
