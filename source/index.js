@@ -23,6 +23,7 @@ var orbitTarget = undefined;
 
 function onRun() {
     vwf_view.kernel.setProperty( currentBlocklyNodeID, "blockly_executing", true );
+    populateBlockStack();
     vwf_view.kernel.setProperty( vwf_view.kernel.application(), "blockly_activeNodeID", undefined );
 }
 
@@ -94,7 +95,8 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
 
             case "blocklyStopped":
                 var indicator = document.getElementById( "blocklyIndicator" );
-                indicator.className = "stopped";                
+                indicator.className = "stopped";
+                clearBlocklyStatus();
             case "blocklyErrored":
                 var stopButton = document.getElementById( "stopButton" );
                 stopButton.className = "disabled";
@@ -123,15 +125,10 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
             case "blockExecuted":
                 var blockName = eventArgs[ 0 ];
                 var blockID = eventArgs[ 1 ];
-                if ( blockName ) {
-                    if ( blockName.indexOf( "repeat" > -1 ) ) {
-                        blockName = blockName.indexOf( "times" ) > -1 ? "repeatTimes" : blockName;
-                    }
-                    pushNextBlocklyStatus( blockName );
-                }
                 if ( blockID ) {
                     selectBlock( blockID );
                     indicateBlock( blockID );
+                    pushNextBlocklyStatus( blockID );
                     lastBlockIDExecuted = blockID;
                 }
                 break;
