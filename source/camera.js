@@ -1,5 +1,5 @@
 var durationSeconds = 0;
-var delaySeconds = 0.1;
+var delaySeconds = 0;
 var self = this;
 var cachedTargetNode;
 
@@ -19,13 +19,13 @@ this.changePointOfView$ = function( newPointOfView ) {
     }
     this.pointOfView = newPointOfView;
 
-    // Smoothly move the camera to the new point of view
-    this.transformTo( getNewCameraTransform(), durationSeconds );
+    // Cut to the new point of view
+    this.transform = getNewCameraTransform();
 
     // Set the navigation mode of the camera appropriately for the new point of view
     switch ( newPointOfView ) {
         case "firstPerson":
-            this.future( durationSeconds ).navmode = "walk";
+            this.navmode = "walk";
             this.translationSpeed = 0;
             break;
         case "thirdPerson":
@@ -47,7 +47,7 @@ this.changePointOfView$ = function( newPointOfView ) {
     manageTargetVisibility();
 }
 
-this.setTargetPath$ = function( newTargetPath ) {
+this.setTargetPath$ = function( newTargetPath, duration ) {
     var previousTargetPath = this.targetPath;
     if ( newTargetPath === previousTargetPath ) {
         return;
@@ -73,7 +73,8 @@ this.setTargetPath$ = function( newTargetPath ) {
     setTargetEventHandler();
 
     // Smoothly move the camera to the new target
-    this.transformTo( getNewCameraTransform(), durationSeconds );
+    duration = duration || durationSeconds;
+    this.transformTo( getNewCameraTransform(), duration );
     
     // Hide the target if the camera is moving into first-person mode
     // Make it visible if it is in any other mode
@@ -124,8 +125,8 @@ function getNewCameraTransform() {
             // (plus an offset)
             var thirdPersonOrientationTransform = [ 
                 1, 0,      0,     0, 
-                0, 0.966, -0.259, 0,
-                0, 0.259,  0.966, 0,
+                0, 0.966, -0.199, 0,
+                0, 0.199,  0.966, 0,
                 0, 0,      0,     1 ];
             newCameraTransform = thirdPersonOrientationTransform.slice( 0, 16 );
             newCameraTransform[ 12 ] = targetTransform[ 12 ] + self.thirdPersonOffset[ 0 ];
@@ -167,7 +168,7 @@ function manageTargetVisibility() {
     // Immediately make it visible if it is in any other mode
     switch ( self.pointOfView ) {
         case "firstPerson":
-            targetNode.future( durationSeconds - delaySeconds ).visible = false;
+            targetNode.future( delaySeconds ).visible = false;
             break;
         case "thirdPerson":
             targetNode.future( delaySeconds ).visible = true;
