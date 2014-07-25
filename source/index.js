@@ -5,6 +5,7 @@ var loggerNodes = {};
 var currentBlocklyNodeID = undefined;
 var blocklyExecuting = false;
 var lastBlockIDExecuted = undefined;
+var currentBlockIDSelected = undefined;
 var targetPath = undefined;
 var mainRover = undefined;
 var blocklyGraphID = undefined;
@@ -65,7 +66,7 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                     currentBlocklyNodeID = nodeID;
                     updateBlocklyRamBar();
                     updateBlocklyUI( blocklyNode );
-                    selectLastBlock();
+                    selectBlock( lastBlockIDExecuted );
                 } else {
                     currentBlocklyNodeID = undefined;
                 }
@@ -86,9 +87,14 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
             case "blocklyStarted":
                 var stopButton = document.getElementById( "stopButton" );
                 stopButton.className = "";
+                var indicator = document.getElementById( "blocklyIndicator" );
+                indicator.className = "";
+                indicator.style.visibility = "inherit";
                 break;
 
             case "blocklyStopped":
+                var indicator = document.getElementById( "blocklyIndicator" );
+                indicator.className = "stopped";                
             case "blocklyErrored":
                 var stopButton = document.getElementById( "stopButton" );
                 stopButton.className = "disabled";
@@ -110,6 +116,8 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 if ( currentBlocklyNodeID !== undefined ) {
                     var currentCode = getBlocklyFunction();
                     this.kernel.setProperty( graphLines[ "blocklyLine" ].ID, "lineFunction", currentCode );
+
+                    indicateBlock( lastBlockIDExecuted );
                 }
                 break;
             case "blockExecuted":
@@ -122,19 +130,16 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                     pushNextBlocklyStatus( blockName );
                 }
                 if ( blockID ) {
-                    var workspace = Blockly.getMainWorkspace();
-                    var block = workspace ? workspace.getBlockById( blockID ) : undefined;
-                    if ( block ) {
-                        block.select();
-                    }
+                    selectBlock( blockID );
+                    indicateBlock( blockID );
                     lastBlockIDExecuted = blockID;
                 }
                 break;
 
+            case "scenarioChanged":
+                resetBlocklyIndicator();
             case "scenarioReset":
                 resetStatusDisplay();
-            case "scenarioChanged":
-
                 removePopup();
                 removeFailScreen();
                 clearBlocklyStatus();
@@ -171,7 +176,7 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 clearBlockly();
                 break;
             case "selectLastBlock":
-                selectLastBlock();
+                selectBlock( lastBlockIDExecuted );
                 break;
         } 
 
@@ -609,12 +614,28 @@ function clearBlockly() {
     }
 }
 
-function selectLastBlock(){
+function selectBlock( blockID ) {
     var workspace = Blockly.getMainWorkspace();
-    var block = workspace ? workspace.getBlockById( lastBlockIDExecuted ) : undefined;
-    if ( block ) {
-        block.select();
+    var block = workspace ? workspace.getBlockById( blockID ) : undefined;
+    var lastBlock = workspace ? workspace.getBlockById( currentBlockIDSelected ) : undefined;
+    if ( lastBlock ) {
+        Blockly.removeClass_( lastBlock.svg_.svgGroup_, "blocklySelected" );
     }
+    if ( block ) {
+        Blockly.addClass_( block.svg_.svgGroup_, "blocklySelected" );
+        currentBlockIDSelected = blockID;
+    }
+}
+
+function indicateBlock( blockID ) {
+    var workspace = Blockly.getMainWorkspace();
+    var block = workspace ? workspace.getBlockById( blockID ) : undefined;
+    if ( block ) {
+        var pos = block.getRelativeToSurfaceXY();
+        moveBlocklyIndicator( pos.x, pos.y );
+    } else if ( blockID === lastBlockIDExecuted ) {
+        resetBlocklyIndicator();
+    }    
 }
 
 //@ sourceURL=source/index.js
