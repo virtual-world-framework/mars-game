@@ -185,6 +185,8 @@ function createBlocklyStatus() {
     status.topOffset = 0;
     status.nextTopOffset = 0;
     status.range = 3;
+    status.runIcon = new Image();
+    status.runIcon.src = "assets/images/blockly_ui/blockly_indicator.png";
     hud.add( status, "right", "bottom", { "x": 130, "y": -60 } );
     addBlockToImageList( "moveForward", "assets/images/hud/blockly_move_forward.png" );
     addBlockToImageList( "turnLeft", "assets/images/hud/blockly_turn_left.png" );
@@ -450,7 +452,7 @@ function drawCameraSelector( context, position ) {
 function drawBlocklyStatus( context, position ) {
     if ( this.blockImages && this.blockStack ) {
         var lastHeight = 0;
-
+        var offsetX = 0;
         // Draw all blocks within the range of the selected block
         for ( var i = 0; i < this.index + this.range / 2; i++ ) {
             var blockData = this.blockStack[ i ];
@@ -466,21 +468,26 @@ function drawBlocklyStatus( context, position ) {
                         var numBlock = this.blockImages[ "number" ];
                         for ( var j = 0; j < loopCounts.length; j++ ) {
                             if ( loopCounts[ j ] > 0 ) {
-                                var posX = position.x - numBlock.width * ( j + 1 );
-                                var posY = position.y - ( this.topOffset - lastHeight );
-                                context.drawImage( numBlock, posX, posY );
+                                offsetX += numBlock.width;
+                                var posY = position.y - ( this.topOffset - lastHeight - 8 );
+                                context.drawImage( numBlock, position.x - offsetX, posY );
                                 context.textBaseline = "top";
                                 context.font = '15px sans-serif';
                                 context.fillStyle = "rgb( 0, 0, 0 )";
-                                context.fillText( loopCounts[ j ], posX + 20, posY + 9 );
+                                context.fillText( loopCounts[ j ], position.x - offsetX + 20, posY + 8 );
                             }
                         }
                     }
                 }
                 lastHeight += block.height || 0;
             }
-        }
+        }       
         context.globalAlpha = 1;
+        if ( this.index > -1 ) {
+            offsetX += this.runIcon.width;
+            var offsetY = this.runIcon.height * 1.5;
+            context.drawImage( this.runIcon, position.x - offsetX, position.y - offsetY );
+        }
     }
 }
 
