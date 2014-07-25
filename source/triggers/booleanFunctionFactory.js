@@ -419,7 +419,7 @@ this.clauseSet.onBlocklyProgramChanged = function( params, context, callback ) {
     };
 }
 
-// arguments: scenarioName (optional)
+// arguments: scenarioToCheck (optional)
 this.clauseSet.onScenarioStart = function( params, context, callback ) {
     if ( params && ( params.length > 1 ) ) {
         self.logger.errorx( "onScenarioStart", 
@@ -428,7 +428,7 @@ this.clauseSet.onScenarioStart = function( params, context, callback ) {
         return undefined;
     }
 
-    var scenarioName = params ? params[ 0 ] : undefined;
+    var scenarioToCheck = params ? params[ 0 ] : undefined;
 
     // NOTE: what we want to do is allow this to be true only when the event
     //   has just happened.  Right now, we do this by setting the scenario name
@@ -455,7 +455,7 @@ this.clauseSet.onScenarioStart = function( params, context, callback ) {
 
     return function() {
         var retVal = ( scenarioStarted !== undefined ) && 
-                     ( !scenarioName || ( scenarioStarted === scenarioName ) );
+                     ( !scenarioToCheck || ( scenarioStarted === scenarioToCheck ) );
 
         scenarioStarted = undefined;
 
@@ -463,7 +463,7 @@ this.clauseSet.onScenarioStart = function( params, context, callback ) {
     };
 }
 
-// arguments: scenarioName (optional)
+// arguments: scenarioToCheck (optional)
 this.clauseSet.onScenarioSucceeded = function( params, context, callback ) {
     if ( params && ( params.length > 1 ) ) {
         self.logger.errorx( "onScenarioStart", 
@@ -472,7 +472,7 @@ this.clauseSet.onScenarioSucceeded = function( params, context, callback ) {
         return undefined;
     }
 
-    var scenarioName = params ? params[ 0 ] : undefined;
+    var scenarioToCheck = params ? params[ 0 ] : undefined;
 
     // NOTE: what we want to do is allow this to be true only when the event
     //   has just happened.  Right now, we do this by setting the scenario name
@@ -499,7 +499,7 @@ this.clauseSet.onScenarioSucceeded = function( params, context, callback ) {
 
     return function() {
         var retVal = ( scenarioSucceeded !== undefined ) && 
-                     ( !scenarioName || ( scenarioSucceeded === scenarioName ) );
+                     ( !scenarioToCheck || ( scenarioSucceeded === scenarioToCheck ) );
 
         scenarioSucceeded = undefined;
 
@@ -507,7 +507,7 @@ this.clauseSet.onScenarioSucceeded = function( params, context, callback ) {
     };
 }
 
-// arguments: scenarioName (optional)
+// arguments: scenarioToCheck (optional)
 this.clauseSet.onScenarioFailed = function( params, context, callback ) {
     if ( params && ( params.length > 1 ) ) {
         self.logger.errorx( "onScenarioStart", 
@@ -516,7 +516,7 @@ this.clauseSet.onScenarioFailed = function( params, context, callback ) {
         return undefined;
     }
 
-    var scenarioName = params ? params[ 0 ] : undefined;
+    var scenarioToCheck = params ? params[ 0 ] : undefined;
 
     // NOTE: what we want to do is allow this to be true only when the event
     //   has just happened.  Right now, we do this by setting the scenario name
@@ -543,7 +543,7 @@ this.clauseSet.onScenarioFailed = function( params, context, callback ) {
 
     return function() {
         var retVal = ( scenarioFailed !== undefined ) && 
-                     ( !scenarioName || ( scenarioFailed === scenarioName ) );
+                     ( !scenarioToCheck || ( scenarioFailed === scenarioToCheck ) );
 
         scenarioFailed = undefined;
 

@@ -28,7 +28,7 @@ this.startScenario = function() {
              !lastScenario.triggerManager.isEmpty() ) {
             this.logger.warnx( "startScenario", "How did the last scenario's " +
                                "trigger manager not get cleared on success?" );
-            lastScenario.triggerManager.future( 0 ).clearTriggers();
+            lastScenario.triggerManager.clearTriggers();
         }
 
         activeScenario = this;
