@@ -44,19 +44,30 @@ this.getCurrentScenario = function() {
     return this.find( this.activeScenarioPath )[ 0 ];
 }
 
-this.createGraph = function() {
+this.createGraph = function( xml ) {
 
     var self = this;
 
     if ( self.graphObject === undefined ) {
 
-        var graphDef = {
-            "extends": "http://vwf.example.com/node3.vwf",
-            "implements": [ "http://vwf.example.com/blockly/controller.vwf" ],
-            "properties": {
-                  "blockly_toolbox": "assets/scenario/graph.xml"
-            }
-        };
+        if ( !!xml ) {
+            var graphDef = {
+                "extends": "http://vwf.example.com/node3.vwf",
+                "implements": [ "http://vwf.example.com/blockly/controller.vwf" ],
+                "properties": {
+                      "blockly_toolbox": "assets/scenario/"+xml+".xml"
+                }
+            };
+        } else {
+            var graphDef = {
+                "extends": "http://vwf.example.com/node3.vwf",
+                "implements": [ "http://vwf.example.com/blockly/controller.vwf" ],
+                "properties": {
+                      "blockly_toolbox": "assets/scenario/graph.xml"
+                }
+            };  
+        }
+        
 
         self.children.create( "graph", graphDef, function( child ) {
             self.graphObject = child;
