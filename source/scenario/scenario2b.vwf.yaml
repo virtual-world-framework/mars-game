@@ -37,8 +37,6 @@ properties:
   - addToGrid:
     - rover
     - [ 15, 1 ]
-  - createGraph:
-    - graph2b
   - addToGrid:
     - blocklyGraph
     - [ 15, 1 ]

@@ -34,8 +34,6 @@ properties:
   - addToGrid:
     - rover
     - [ 15, 1 ]
-  - createGraph:
-    - graph2c
   - addToGrid:
     - blocklyGraph
     - [ 15, 1 ]
@@ -86,6 +84,7 @@ children:
           actions:
           - scenarioSuccess:
             - "Now I can plot course... can I plot the course to match those tracks?"
+          - clearBlockly:
           - stopSound:
             - musicStandardGameplay
           - playSound:

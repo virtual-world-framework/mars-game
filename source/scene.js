@@ -3,8 +3,6 @@ this.initialize = function() {
     // Set the active camera so we can see the 3D scene
     this.initializeActiveCamera( this.player.camera );
 
-    this.graphObject = undefined;
-    this.miniRover = undefined;
 }
 
 this.setScenario = function( path ) {
@@ -12,8 +10,6 @@ this.setScenario = function( path ) {
     if ( scenario ) {
         if ( scenario.grid && scenario.grid.clearGrid ) {
             scenario.grid.clearGrid();
-        } else {
-            debugger;
         }
         scenario.future( 0 ).startScenario();
         var gridBounds = calcGridBounds( scenario.grid );
@@ -26,7 +22,9 @@ this.setScenario = function( path ) {
 this.resetScenario = function() {
     var scenario = this.find( this.activeScenarioPath )[ 0 ];
     if ( scenario ) {
-        scenario.grid.clearGrid();        
+        if ( scenario.grid && scenario.grid.clearGrid ) {
+            scenario.grid.clearGrid();
+        }      
         scenario.future( 0 ).startScenario();
         this.scenarioReset( scenario.name );
     } else {
@@ -74,8 +72,12 @@ this.createGraph = function( xml ) {
         
 
         self.children.create( "graph", graphDef, function( child ) {
-            self.graphObject = child;
+        self.graphObject = child;
         } );
+    } else {
+        // TODO: Graph is not reloading properly when scenarios change. The graph will
+        // get rid of all of its blocks and necessitates clicking ont the graph tab
+        // again to reload.
     }
 }
 
