@@ -240,12 +240,13 @@ this.activateSensor = function( sensor ) {
         var dirVector = [ Math.round( -Math.sin( headingInRadians ) ), Math.round( Math.cos( headingInRadians ) ) ];
         var proposedNewGridSquare = [ this.currentGridSquare[ 0 ] + dirVector[ 0 ], 
                                                                 this.currentGridSquare[ 1 ] + dirVector[ 1 ] ];
-    }
 
-    var inventoriableObjects = scenario.grid.getObjectsAtCoord( proposedNewGridSquare );
+        var inventoriableObjects = scenario.grid.getObjectsAtCoord( proposedNewGridSquare );
 
-    if ( inventoriableObjects.length > 0 ) {
-        this.sensorValue = true;
+        if ( inventoriableObjects.length > 0 ) {
+            this.sensorValue = true;
+        }
+
     }
 
 }
