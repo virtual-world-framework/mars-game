@@ -63,6 +63,8 @@ children:
           actions:
           - playSound:
             - musicStandardGameplay
+          - blinkHUDElement:
+            - blocklyButton
 
         playStartingVO_1b:
           triggerCondition:
@@ -89,6 +91,8 @@ children:
           actions:
           - scenarioSuccess:
             - "You have executed a movement command and picked up your helicam!"
+          - stopBlinkHUDElement:
+            - blocklyButton
           - stopSound:
             - musicStandardGameplay
           - playSound:
