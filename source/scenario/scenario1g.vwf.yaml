@@ -96,7 +96,7 @@ children:
         # TODO: Add hint VO
 
   grid:
-    extends: source/grid.vwf
+    includes: source/grid.vwf
     properties:
       minX: 0
       maxX: 16

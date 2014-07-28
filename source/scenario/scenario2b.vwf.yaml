@@ -37,6 +37,8 @@ properties:
   - addToGrid:
     - rover
     - [ 15, 1 ]
+  - createGraph:
+    - graph2b
   - addToGrid:
     - blocklyGraph
     - [ 15, 1 ]
@@ -64,8 +66,6 @@ children:
           - onMoved:
             - rover
           actions:
-          - hideBlockly:
-          - clearBlockly:
           - scenarioFailure:
             - lost
             - "You need to plot the course of the wayward rover before going to find it."
@@ -101,7 +101,7 @@ children:
             - Level2bGraphOpened
 
   grid:
-    extends: source/grid.vwf
+    includes: source/grid.vwf
     properties:
       minX: 0
       maxX: 16

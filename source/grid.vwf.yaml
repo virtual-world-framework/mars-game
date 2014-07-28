@@ -24,6 +24,7 @@ methods:
   getWorldFromGrid:
   getGridFromWorld:
   setBoundaryValues:
+  clearGrid:
   hasInventoriable:
   hasCollidable:
   getEnergy:

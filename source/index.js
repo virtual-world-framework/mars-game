@@ -605,10 +605,6 @@ function clearBlockly() {
         Blockly.mainWorkspace.clear();
     }
 
-    if ( mainRover ){
-        vwf_view.kernel.setProperty( mainRover, "blockly_xml", '<xml></xml>' );
-    }
-
     if ( blocklyGraphID ){
         vwf_view.kernel.setProperty( blocklyGraphID, "blockly_xml", '<xml></xml>' );
     }

@@ -10,7 +10,11 @@ this.initialize = function() {
 this.setScenario = function( path ) {
     var scenario = this.find( path )[ 0 ];
     if ( scenario ) {
-        scenario.grid.clearGrid();
+        if ( scenario.grid && scenario.grid.clearGrid ) {
+            scenario.grid.clearGrid();
+        } else {
+            debugger;
+        }
         scenario.future( 0 ).startScenario();
         var gridBounds = calcGridBounds( scenario.grid );
         this.scenarioChanged( scenario.name, gridBounds );

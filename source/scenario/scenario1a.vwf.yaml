@@ -109,7 +109,7 @@ children:
             - ALVO14_Rover
 
   grid:
-    extends: source/grid.vwf
+    includes: source/grid.vwf
     properties:
       minX: 0
       maxX: 16

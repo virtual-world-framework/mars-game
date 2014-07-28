@@ -61,6 +61,8 @@ children:
           actions:
           - playSound:
             - musicStandardGameplay
+          - blinkHUDElement:
+            - blocklyButton
 
         playStartingVO_1e:
           triggerCondition:
@@ -87,6 +89,8 @@ children:
           actions:
           - scenarioSuccess:
             - "You have calibrated your motors and picked up a spare battery!"
+          - stopBlinkHUDElement:
+            - blocklyButton
           - stopSound:
             - musicStandardGameplay
           - playSound:
@@ -116,7 +120,7 @@ children:
             - Level1eHint1
 
   grid:
-    extends: source/grid.vwf
+    includes: source/grid.vwf
     properties:
       minX: 0
       maxX: 16

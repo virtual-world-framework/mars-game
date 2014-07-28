@@ -42,7 +42,6 @@ properties:
       triggerCondition:
       - onScenarioSucceeded:
       actions:
-      - clearBlockly:
       - stopSound:
         - musicSuccess
       - stopSound:
