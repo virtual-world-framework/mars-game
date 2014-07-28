@@ -1,0 +1,128 @@
+---
+extends: source/scenario/scenario.vwf
+properties:
+  scenarioName: scenario2b
+
+  scenePath: /
+  nextScenarioPath: "scenario2c"
+  blockly: assets/scenario/scenario2b.xml
+
+  startState:
+  - setProperty:
+    - rover
+    - battery
+    - 50
+  - setProperty:
+    - rover
+    - batteryMax
+    - 50
+  - setProperty:
+    - rover
+    - blockly_allowedBlocks
+    - 30
+  - setSceneProperty:
+    - blockly_activeNodeID
+    - undefined
+  - setProperty:
+    - rover
+    - heading
+    - 0
+  - setProperty:
+    - rover
+    - rotation
+    - [ 0, 0, 1, 0 ]
+  - addToInventory:
+    - rover/cargo
+    - [ "helicam", "battery", "radio" ]
+  - addToGrid:
+    - rover
+    - [ 15, 1 ]
+  - addToGrid:
+    - blocklyGraph
+    - [ 15, 1 ]
+
+children:
+  triggerManager:
+    extends: source/triggers/triggerManager.vwf
+    properties: 
+      triggers:
+        beginScenario_2b:
+          triggerCondition:
+          - onScenarioStart:
+          actions:
+          - playSound:
+            - musicStandardGameplay
+          - blinkHUDElement:
+            - blocklyButton
+          - waitForNode:
+            - graph
+            - blinkBlocklyTab:
+              - graph
+
+        failOnMove_2b:
+          triggerCondition:
+          - onMoved:
+            - rover
+          actions:
+          - hideBlockly:
+          - clearBlockly:
+          - scenarioFailure:
+            - lost
+            - "You need to plot the course of the wayward rover before going to find it."
+
+        succeedOnGraphOpenPlot_2b:
+          triggerCondition:
+          - onBlocklyWindowOpened:
+              - graph
+          actions:
+          - scenarioSuccess:
+            - "My new interface really opens new dimensions for me!"
+          - stopBlinkBlocklyTab:
+            - graph
+          - stopBlinkHUDElement:
+            - blocklyButton
+          - stopSound:
+            - musicStandardGameplay
+          - playSound:
+            - musicSuccess
+
+        playGraphOpenedVO_2b:
+          triggerCondition:
+          - onBlocklyWindowOpened:
+            - graph
+          additionalCondition:
+          - not:
+            - readBlackboard:
+              - Level2bGraphOpened
+          actions:
+          - playSound:
+            - L2VO3_Rover
+          - writeToBlackboard:
+            - Level2bGraphOpened
+
+  grid:
+    extends: source/grid.vwf
+    properties:
+      minX: 0
+      maxX: 16
+      minY: 0
+      maxY: 16
+      gridOriginInSpace: [ -45, 39 ]
+      gridSquareLength: 3
+      boundaryValues:
+      - [  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1 ]
+      - [  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1 ]
+      - [  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1 ]
+      - [  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1 ]
+      - [  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1 ]
+      - [  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1 ]
+      - [  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1 ]
+      - [  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1 ]
+      - [  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1 ]
+      - [  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1 ]
+      - [  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1 ]
+      - [  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1 ]
+      - [  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1 ]
+      - [  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1 ]
+      - [  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1 ]
+      - [  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1 ]

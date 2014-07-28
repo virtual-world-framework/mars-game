@@ -1,0 +1,99 @@
+---
+extends: source/scenario/scenario.vwf
+properties:
+  scenarioName: scenario3
+
+  scenePath: /
+  blockly: assets/scenario/scenario1.xml
+
+  startState:
+  - setProperty:
+    - rover
+    - battery
+    - 5000
+  - setProperty:
+    - rover
+    - batteryMax
+    - 5000
+  - setProperty:
+    - rover
+    - blockly_allowedBlocks
+    - 30
+
+  - setSceneProperty:
+    - blockly_activeNodeID
+    - undefined
+
+  # TODO: Simplify heading/rotation
+  # Set initial rotation using heading
+  # Currently, moveLeft & moveRight in rover.js
+  # fight with adding that to the setter of heading
+  - setProperty:
+    - rover
+    - heading
+    - 0
+    
+  - setProperty:
+    - rover
+    - rotation
+    - [ 0, 0, 1, 0 ]
+
+  - addToInventory:
+    - rover/cargo
+    - [ "helicam", "battery", "radio" ]
+
+  - addToGrid:
+    - rover
+    - [ 8, 16 ]
+
+  - addToGrid:
+    - blocklyGraph
+    - [ 8, 16 ]
+
+children:
+  triggerManager:
+    extends: source/triggers/triggerManager.vwf
+    properties: 
+      triggers:
+        beginScenario_3:
+          triggerCondition:
+          - onScenarioStart:
+          actions:
+          - playSound:
+            - musicStandardGameplay
+          - writeToBlackboard:
+            - disableFailOnIncompleteProgram
+
+        reenableFailOnIncomplete_3:
+          triggerCondition:
+          - onScenarioSucceeded:
+          actions:
+          - clearBlackboard:
+            - disableFailOnIncompleteProgram
+
+  grid:
+    extends: source/grid.vwf
+    properties:
+      minX: 0
+      maxX: 16
+      minY: 0
+      maxY: 18
+      gridOriginInSpace: [ -24, -6 ]
+      gridSquareLength: 3
+      boundaryValues:
+      - [ -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1 ]
+      - [ -1, -1, -1, -1,  1,  1, -1, -1, -1, -1,  1, -1, -1, -1, -1, -1, -1, -1 ]
+      - [ -1, -1, -1, -1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1, -1, -1, -1 ]
+      - [ -1, -1,  1,  1,  1,  1,  1,  1,  1,  1, -1, -1, -1, -1, -1, -1, -1, -1 ]
+      - [ -1, -1,  1,  1, -1, -1, -1, -1,  1, -1, -1, -1, -1, -1, -1, -1, -1, -1 ]
+      - [ -1, -1,  1,  1, -1, -1, -1, -1,  1, -1, -1, -1, -1, -1, -1, -1, -1, -1 ]
+      - [ -1, -1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1, -1 ]
+      - [ -1, -1,  1, -1, -1, -1, -1, -1, -1,  1,  1,  1,  1,  1,  1,  1,  1, -1 ]
+      - [ -1, -1,  1,  1,  1,  1,  1,  1, -1,  1,  1,  1,  1,  1,  1,  1,  1, -1 ]
+      - [ -1, -1,  1, -1, -1, -1, -1, -1, -1,  1, -1, -1,  1,  1,  1,  1,  1, -1 ]
+      - [ -1, -1,  1, -1, -1,  1,  1,  1,  1,  1, -1, -1,  1,  1,  1,  1,  1, -1 ]
+      - [ -1, -1,  1, -1, -1,  1, -1, -1, -1,  1,  1,  1,  1,  1,  1,  1, -1, -1 ]
+      - [ -1, -1,  1,  1,  1,  1, -1, -1, -1,  1,  1,  1,  1,  1,  1,  1, -1, -1 ]
+      - [ -1, -1, -1, -1, -1, -1, -1, -1, -1,  1,  1,  1,  1, -1, -1, -1, -1, -1 ]
+      - [ -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,  1,  1, -1, -1, -1, -1, -1 ]
+      - [ -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1 ]
