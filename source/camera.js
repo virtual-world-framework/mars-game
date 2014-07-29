@@ -81,7 +81,7 @@ this.setTargetPath$ = function( newTargetPath, duration ) {
 }
 
 this.followTarget$ = function() {
-    this.transformTo( getNewCameraTransform(), durationSeconds );
+    this.transformTo( getNewCameraTransform(), 0 );
 }
 
 function getTargetNode() {
