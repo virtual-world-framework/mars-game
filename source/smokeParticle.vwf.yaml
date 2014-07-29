@@ -1,14 +1,14 @@
 ---
 extends: http://vwf.example.com/particlesystem.vwf
 properties:
-  minVelocity: [ -0.1, -0.1, 2 ]
-  maxVelocity: [ -0.4, -0.4, 6 ]
-  minAcceleration: [ -0.1, -0.1, 0 ]
-  maxAcceleration: [ -0.01, -0.01, 0 ]
-  startSize: 4
-  endSize: 12
-  maxLifeTime: 8
-  minLifeTime: 7
+  minVelocity: [ -0.25, -0.25, 2 ]
+  maxVelocity: [ -0.2, -0.2, 6 ]
+  minAcceleration: [ -0.4, -0.4, 0 ]
+  maxAcceleration: [ -0.3, -0.3, 0 ]
+  startSize: 5
+  endSize: 15
+  maxLifeTime: 10
+  minLifeTime: 9
   startColor: [ 0.2, 0.2, 0.2, 1]
   endColor: [ 0.7, 0.7, 0.7, 0]
   additive: false
