@@ -9,7 +9,6 @@ this.initialize = function() {
 
 this.onSceneReady$ = function() {
     setTargetEventHandler();
-    durationSeconds = 1;
 }
 
 this.changePointOfView$ = function( newPointOfView ) {
