@@ -12,8 +12,7 @@ this.onSceneReady$ = function() {
 }
 
 this.changePointOfView$ = function( newPointOfView ) {
-    var previousPointOfView = this.pointOfView;
-    if ( newPointOfView === previousPointOfView ) {
+    if ( newPointOfView === this.pointOfView ) {
         return;
     }
     this.pointOfView = newPointOfView;
@@ -46,9 +45,8 @@ this.changePointOfView$ = function( newPointOfView ) {
     manageTargetVisibility();
 }
 
-this.setTargetPath$ = function( newTargetPath, duration ) {
-    var previousTargetPath = this.targetPath;
-    if ( newTargetPath === previousTargetPath ) {
+this.setTargetPath$ = function( newTargetPath ) {
+    if ( newTargetPath === this.targetPath ) {
         return;
     }
 
@@ -72,8 +70,7 @@ this.setTargetPath$ = function( newTargetPath, duration ) {
     setTargetEventHandler();
 
     // Smoothly move the camera to the new target
-    duration = duration || durationSeconds;
-    this.transformTo( getNewCameraTransform(), duration );
+    this.transformTo( getNewCameraTransform(), durationSeconds );
     
     // Hide the target if the camera is moving into first-person mode
     // Make it visible if it is in any other mode
@@ -101,7 +98,7 @@ function setTargetEventHandler() {
 
 function getNewCameraTransform() {
     var targetNode = getTargetNode();
-    var targetTransform = targetNode ? targetNode.transform.slice( 0, 16 ) : [
+    var targetTransform = targetNode ? targetNode.transform : [
         1, 0, 0, 0,
         0, 1, 0, 1,
         0, 0, 1, 0,
@@ -127,7 +124,7 @@ function getNewCameraTransform() {
                 0, 0.966, -0.199, 0,
                 0, 0.199,  0.966, 0,
                 0, 0,      0,     1 ];
-            newCameraTransform = thirdPersonOrientationTransform.slice( 0, 16 );
+            newCameraTransform = thirdPersonOrientationTransform;
             newCameraTransform[ 12 ] = targetTransform[ 12 ] + self.thirdPersonOffset[ 0 ];
             newCameraTransform[ 13 ] = targetTransform[ 13 ] + self.thirdPersonOffset[ 1 ];
             newCameraTransform[ 14 ] = targetTransform[ 14 ] + self.thirdPersonOffset[ 2 ];
@@ -142,7 +139,7 @@ function getNewCameraTransform() {
                 0, 0, -1, 0,
                 0, 1,  0, 0,
                 0, 0,  0, 1 ];
-            newCameraTransform = topDownOrientationTransform.slice( 0, 16 );
+            newCameraTransform = topDownOrientationTransform;
             newCameraTransform[ 12 ] = targetTransform[ 12 ] + self.topDownOffset[ 0 ];
             newCameraTransform[ 13 ] = targetTransform[ 13 ] + self.topDownOffset[ 1 ];
             newCameraTransform[ 14 ] = self.topDownOffset[ 2 ];
