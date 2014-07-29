@@ -1,10 +1,6 @@
 var loggerBox = document.createElement( "div" );
 var subtitleDisplayWrapper = document.createElement( "div" );
 
-var statusDisplayWrapper = document.createElement( "div" );
-var lastStatus;
-var duplicateStatusCount;
-
 var alertDisplayWrapper = document.createElement( "div" );
 var lastAlert;
 
@@ -17,19 +13,6 @@ function setUpStatusDisplay() {
     var subtitleText = document.createElement( "div" );
     subtitleText.id = "subtitleText";
     subtitleDisplayWrapper.appendChild( subtitleText );
-
-    statusDisplayWrapper.id = "statusDisplayWrapper";
-    for ( var i = 0; i < 4; i++ ) {
-        var statusText = document.createElement( "div" );
-        statusText.className = "statusText";
-        statusText.innerHTML = "<br />";
-        statusText.style.opacity = 1;
-        statusDisplayWrapper.appendChild( statusText );
-    }
-    document.body.appendChild( statusDisplayWrapper );
-
-    duplicateStatusCount = 1;
-    lastStatus = "";
 
     alertDisplayWrapper.id = "alertDisplayWrapper";
     for ( var i = 0; i < loggerNodes[ alertNodeID ].logger_maxLogs; i++ ) {
@@ -45,12 +28,6 @@ function setUpStatusDisplay() {
 }
 
 function resetStatusDisplay() {
-    lastStatus = "";
-    duplicateStatusCount = 1;
-    for ( var i = 0; i < statusDisplayWrapper.children.length; i++ ) {
-        statusDisplayWrapper.children[ i ].innerHTML = "<br />";
-    }
-
     lastAlert = "";
     for ( var i = 0; i < alertDisplayWrapper.children.length; i++ ) {
         alertDisplayWrapper.children[ i ].innerHTML = "<br />";
@@ -74,32 +51,7 @@ function pushToDisplay( type, message ) {
     var pushAnimation = {};
     var originalPos;
 
-    if ( type === "status" ) {
-
-        if ( !statusNodeID ) {
-            return undefined;
-        }
-
-        displayWrapperSelector = "#statusDisplayWrapper";
-        textSelector = ".statusText";
-        maxDisplayTime = loggerNodes[ statusNodeID ].logger_lifeTime;
-        stackLength = 4;
-
-        // Add "x#" to duplicate status messages
-        if ( message === lastStatus ) {
-            duplicateStatusCount++;
-            lastStatus = message;
-            message += " x" + duplicateStatusCount;
-        } else {
-            lastStatus = message;
-            duplicateStatusCount = 1;
-        }
-
-        originalPos = $( displayWrapperSelector ).css( "bottom" );
-        pushAttribute = "bottom";        
-        pushAnimation[ pushAttribute ] = '+=' + $( textSelector ).css( "font-size" );
-
-    } else if ( type === "alerts" ) {
+     if ( type === "alerts" ) {
 
         if ( !alertNodeID ) {
             return undefined;
