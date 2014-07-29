@@ -1,12 +1,9 @@
 HUD = function() {
-
     this.initialize();
     return this;
-
 }
 
 HUD.prototype = {
-
     constructor: HUD,
     scene: undefined,
     camera: undefined,
@@ -17,7 +14,6 @@ HUD.prototype = {
     visible: undefined,
 
     initialize: function() {
-
         this.camera = new THREE.OrthographicCamera( -1, 1, 1, -1, 0, 10 );
         this.scene = new THREE.Scene();
         this.quad = new THREE.Mesh( new THREE.PlaneGeometry( 2, 2 ), null );
@@ -25,48 +21,31 @@ HUD.prototype = {
         this.elements = {};
         this.elementCount = 0;
         this.canvas = document.createElement('CANVAS');
+        this.quad.material = new THREE.MeshBasicMaterial();
+        this.quad.material.map = new THREE.Texture( this.canvas );
+        this.quad.material.transparent = true;
         this.visible = true;
         this.update();
-
         var gameCanvas = document.getElementById( vwf_view.kernel.application() );
         this.registerEventListeners( gameCanvas );
-
     },
 
     update: function() {
-
         var canvas = this.canvas;
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-
-        // Draw the HUD to a canvas
+        this.canvas.width = window.innerWidth;
+        this.canvas.height = window.innerHeight;
         if ( this.visible ) {
-            this.draw( canvas );
+            this.draw( this.canvas );
         }
-
-        // Dispose of the last HUD texture
-        var texture;
-        if ( this.quad.material && this.quad.material.map ) {
-            texture = this.quad.material.map;
-            this.quad.material.map = undefined;
-            texture.dispose();
-        }
-
-        // Create a material using the HUD canvas as the source texture
-        texture = new THREE.Texture( canvas );
-        texture.needsUpdate = true;
-        this.quad.material = new THREE.MeshBasicMaterial( { map: texture, transparent: true } );
+        this.quad.material.map.needsUpdate = true;
+        this.quad.material.needsUpdate = true;
 
     },
 
     draw: function( canvas ) {
-
         var context = canvas.getContext( '2d' );
-
         var els = this.elements;
-
         var orderedElements = new Array();
-
         for ( var el in els ) {
 
             var anchor = {
