@@ -1,5 +1,4 @@
 this.initialize = function() {
-
     //Set up the grid map as a 2D array
     this.tiles = [];
     for ( var i = 0; i < this.maxX - this.minX; i++ ) {
@@ -12,13 +11,9 @@ this.initialize = function() {
 }
 
 this.setBoundaryValues = function() {
-
     if ( this.boundaryValues ) {
-
         for ( var i = 0; i < this.maxX - this.minX; i++ ) {
-
             if ( this.boundaryValues[i] ) {
-
                 for (var j = 0; j < this.maxY - this.minY; j++) {
                         this.tiles[ i ][ j ].energyRequired = this.boundaryValues[ i ][ j ];
                 }
@@ -30,7 +25,7 @@ this.setBoundaryValues = function() {
 this.clearGrid = function() {
     for ( var i = 0; i < this.maxX - this.minX; i++ ) {
         for ( var j = 0; j < this.maxY - this.minY; j++ ) {
-            this.tiles[ i ][ j ].objects = [];
+            this.tiles[ i ][ j ].objects.length = 0;
         }
     }
 }
@@ -58,7 +53,10 @@ this.getWorldFromGrid = function( gridCoord ) {
 }
 
 this.validCoord = function( gridCoord ) {
-    if ( ( gridCoord[ 0 ] < this.minX ) || ( gridCoord[ 0 ] > this.maxX ) || ( gridCoord[ 1 ] < this.minY ) || ( gridCoord[ 1 ] > this.maxY ) ) {
+    if ( ( gridCoord[ 0 ] < this.minX ) || 
+         ( gridCoord[ 0 ] > this.maxX ) || 
+         ( gridCoord[ 1 ] < this.minY ) || 
+         ( gridCoord[ 1 ] > this.maxY ) ) {
         this.logger.errorx( "validCoord",
                             "The gridCoord given is not a valid " +
                             "coordinate in the current grid system." );
@@ -103,9 +101,14 @@ this.addToGridFromWorld = function( object, worldCoord ) {
 
 this.removeFromGrid = function( object, gridCoord ) {
     var objects = this.getTileFromGrid( gridCoord ).objects;
-    var index = objects.indexOf( object )
+    var index = objects.indexOf( object );
     if ( index !== -1 ) {
-        return objects.splice( index, 1 )[ 0 ];
+        var object = objects[ index ];
+        for ( var i = index; i < objects.length - 1; i++ ) {
+            objects[ i ] = objects[ i ] + 1;
+        }
+        objects.length--;
+        return object;
     }
     return null;
 }
@@ -125,8 +128,7 @@ this.setHeightFromTerrain = function ( object ) {
     if ( scene && origin && terrain ) {
         var intersects = scene.raycast( origin, [ 0, 0, -1 ], 0, Infinity, true, terrain.id );
         var terrainHeight = intersects.length > 0 ? intersects[ 0 ].point.z : object.translation[ 2 ];
-        var translation = [ origin[ 0 ], origin[ 1 ], terrainHeight ];
-        object.translation = translation;
+        object.translation = [ origin[ 0 ], origin[ 1 ], terrainHeight ];
     }
 }
 
