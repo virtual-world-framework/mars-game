@@ -4,6 +4,7 @@ function createHUD() {
     createCameraSelector();
     createCommsDisplay();
     createBlocklyStatus();
+    createStatusText();
 
     var blocklyButton = new HUD.Element( "blocklyButton", drawIcon, 64, 64 );
     blocklyButton.icon = new Image();
@@ -230,8 +231,7 @@ function addBlockToStackList( topBlock, loopCounts ) {
         if ( blockType === "rover_moveForward" ) {
             blockData.name = "moveForward";
             status.blockStack.push( blockData );
-        }
-        else if ( blockType === "rover_turn" ) {
+        } else if ( blockType === "rover_turn" ) {
             blockData.name = currentBlock.getFieldValue( "DIR" );
             status.blockStack.push( blockData );            
         } else if ( blockType === "controls_repeat_extended" ) {
@@ -249,6 +249,22 @@ function addBlockToStackList( topBlock, loopCounts ) {
 
         currentBlock = currentBlock.getNextBlock();
     }
+}
+
+function createStatusText() {
+    var width = 400;
+    var height = 200;
+    var status = new HUD.Element( "status", drawStatus, width, height );
+    status.stackLength = 4;
+    status.lastMessage = "";
+    status.duplicateCount = 1;
+    status.messages = [];
+    status.fontStyle = "16px Arial Black";
+    status.fontSize = parseInt( status.fontStyle ) || 16;
+    status.defaultDraw = drawStatus;
+    status.lastUpdateTime = vwf_view.kernel.time();
+    status.updateIntervalTime = 0.01;
+    hud.add( status, "center", "bottom", { "x" : width / 2, "y" : 60 } );
 }
 
 function createInventoryHUD( capacity ) {
@@ -560,6 +576,44 @@ function drawInventory( context, position ) {
     }
 }
 
+function drawStatus( context, position ) {
+    context.font = this.fontStyle;
+    context.fillStyle = "rgb( 255, 255, 255 )";
+    context.strokeStyle = "rgb( 0, 0, 0 )";
+    context.textAlign = "center";
+    context.lineWidth = 4;
+    context.miterLimit = 2;
+    for ( var i = 0; i < this.messages.length; i++ ) {
+        var message = this.messages[ i ];
+        if ( message ) {
+            context.globalAlpha = message.alpha;
+            context.strokeText( message.text, position.x, position.y - message.offset );
+            context.fillText( message.text, position.x, position.y - message.offset );
+        }
+    }
+    context.globalAlpha = 1;
+
+    // Slowly fade out the messages when nothing is being pushed
+    var time = vwf_view.kernel.time();
+    if ( time - this.lastUpdateTime > this.updateIntervalTime ) {
+        this.lastUpdateTime = time;
+
+        // Loop backwards to mitigate splicing
+        for ( var i = this.messages.length - 1; i >= 0 ; i-- ) {
+            var message = this.messages[ i ];
+            if ( message ) {
+                message.alpha -= 0.01;
+                if ( message.alpha <= 0 ) {
+                    this.messages.splice( i, 1 );
+                    if ( this.messages.length <= 0 ) {
+                        this.lastMessage = "";
+                    }
+                }
+            }
+        }
+    }
+}
+
 
 // === HUD Event Handlers ===
 
@@ -769,6 +823,93 @@ function clearBlocklyStatus() {
             statusElem.topOffset = 0;
             statusElem.nextTopOffset = 0;
         }         
+    }
+}
+
+function clearStatus() {
+    var status = hud.elements.status;
+    if ( status ) {
+        status.messages = [];
+        status.lastMessage = "";
+    }
+}
+
+function setStatusDefaults() {
+    var status = hud.elements.status;
+    while ( status.messages.length > 4 ) {
+        status.messages.pop();
+    }
+    for ( var i = 0; i < status.messages.length; i++ ) {
+        var message = status.messages[ i ];
+        message.alpha = 1 - ( 1 / status.stackLength ) * i;
+        message.offset = status.fontSize * i;
+    }
+}
+
+function pushStatus( message ) {
+    var status = hud.elements.status;
+    if ( status ) {
+
+        // Handle duplicate status messages
+        if ( message === status.lastMessage ) {
+            status.duplicateCount++;
+            message += " x" + status.duplicateCount;
+        } else {
+            status.lastMessage = message;
+            status.duplicateCount = 1;
+        }
+
+        var messageObj = {
+            "alpha": 1,
+            "text": message,
+            "offset": -status.fontSize
+        }
+        status.messages.unshift( messageObj );
+
+        if ( status.draw === status.defaultDraw ) {
+
+            // Push all the other statuses up and animate
+            var interval = 3;
+            var addedOffset = 0;
+            status.draw = ( function( context, position ) {
+                var time = vwf_view.kernel.time();
+                if ( time - this.lastUpdateTime > this.updateIntervalTime ) {
+                    this.lastUpdateTime = time;
+                    for ( var i = 0; i < this.messages.length; i++ ) {
+                        this.messages[ i ].offset += this.fontSize / interval;
+                        this.messages[ i ].alpha -= 1 / this.stackLength / interval;
+                    }
+                    addedOffset += this.fontSize / interval;
+
+                    if ( addedOffset >= this.fontSize ) {
+                        this.draw = this.defaultDraw;
+                        setStatusDefaults();
+                    }
+                }
+
+                // Draw all statuses
+                context.font = this.fontStyle;
+                context.fillStyle = "rgb( 255, 255, 255 )";
+                context.strokeStyle = "rgb( 0, 0, 0 )";
+                context.textAlign = "center";
+                context.lineWidth = 4;
+                context.miterLimit = 2;
+                for ( var i = 0; i < this.messages.length; i++ ) {
+                    var message = this.messages[ i ];
+                    if ( message ) {
+                        context.globalAlpha = message.alpha;
+                        context.strokeText( message.text, position.x, position.y - message.offset );
+                        context.fillText( message.text, position.x, position.y - message.offset );
+                    }
+                }
+                context.globalAlpha = 1;
+            } );
+        } else {
+
+            // If pushes are faster than the animation, don't animate
+            setStatusDefaults();
+            status.draw = status.defaultDraw;
+        }
     }
 }
 
