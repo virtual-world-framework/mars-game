@@ -1,3 +1,7 @@
+this.initialize = function() {
+    
+}
+
 this.setPickupVisibility = function( value ) {
     var scene = this.find( "/" )[ 0 ];
     if ( scene && scene.name === "application" ) {
