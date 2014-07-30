@@ -4,7 +4,6 @@ properties:
   scenarioName: scenario3a
 
   scenePath: /
-  nextScenarioPath: "scenario3b"
   blockly: assets/scenario/scenario3a.xml
 
   startState:
@@ -45,7 +44,7 @@ properties:
 
   - addToGrid:
     - rover
-    - [ 1, 8 ]
+    - [ 7, 5 ]
 
   - addToGrid:
     - blocklyGraph
@@ -63,16 +62,23 @@ children:
           - playSound:
             - musicStandardGameplay
 
-        succeedOnSuccessfulCoursePlot_3a:
+        succeedOnSuccessfulMovement_3b:
           triggerCondition:
+          - onBlocklyStopped:
+            - rover
+          additionalCondition:
           - and:
-            - blocklyLineEval:
-              - [ 10, -5 ]
-            - blocklyLineEval:
-              - [ -16, 8 ]
+            - isAtPosition:
+              - rover
+              - 1
+              - 8
+            - hasHeading:
+              - rover
+              - 0
           actions:
           - scenarioSuccess:
-            - "Course plotted! Now to find the little guy."
+            - "I found the minirover!"
+          - clearBlockly:
           - hideBlockly:
           - stopSound:
             - musicStandardGameplay

@@ -11,11 +11,11 @@ properties:
   - setProperty:
     - rover
     - battery
-    - 50
+    - 5000
   - setProperty:
     - rover
     - batteryMax
-    - 50
+    - 5000
   - setProperty:
     - rover
     - blockly_allowedBlocks
@@ -62,20 +62,22 @@ children:
           - and:
             - isAtPosition:
               - rover
-              - 1
-              - 8
+              - 7
+              - 5
             - hasHeading:
               - rover
               - 0
           actions:
           - scenarioSuccess:
-            - "I got through the canyon!"
+            - "I'm getting through the canyon! Now I need to figure out when I see a rover!"
           - clearBlockly:
           - hideBlockly:
           - stopSound:
             - musicStandardGameplay
           - playSound:
             - musicSuccess
+          - playSound:
+            - 
 
         stopBlinkRoverTab_2f:
           triggerCondition:

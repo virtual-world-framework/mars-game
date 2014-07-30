@@ -829,28 +829,32 @@ function pushNextBlocklyStatus( id ) {
 
     if ( statusElem ) {
         statusElem.index++;
-        var blockName = statusElem.blockStack[ statusElem.index ].name;
-        var blockID = statusElem.blockStack[ statusElem.index ].id;
-        var block = statusElem.blockImages[ blockName ];
-        if ( block && blockID === id ) {
 
-            // Check if block pushes are outrunning the animation
-            if ( statusElem.draw === statusElem.defaultDraw ) {
-                statusElem.nextTopOffset = statusElem.topOffset + block.height;
-                statusElem.offsetIncrement = block.height / statusElem.range
-                statusElem.draw = drawBlocklyStatusAnimating;
+        if ( !!statusElem.blockStack[ statusElem.index ].name ) {
+            var blockName = statusElem.blockStack[ statusElem.index ].name;
+            var blockID = statusElem.blockStack[ statusElem.index ].id;
+            var block = statusElem.blockImages[ blockName ];
+            if ( block && blockID === id ) {
 
-            // If they are, set the top right away and don't animate
+                // Check if block pushes are outrunning the animation
+                if ( statusElem.draw === statusElem.defaultDraw ) {
+                    statusElem.nextTopOffset = statusElem.topOffset + block.height;
+                    statusElem.offsetIncrement = block.height / statusElem.range
+                    statusElem.draw = drawBlocklyStatusAnimating;
+
+                // If they are, set the top right away and don't animate
+                } else {
+                    setBlocklyAlphas();
+                    statusElem.draw = statusElem.defaultDraw;
+                    statusElem.topOffset = statusElem.nextTopOffset + block.height;
+                }
+
+                
             } else {
-                setBlocklyAlphas();
-                statusElem.draw = statusElem.defaultDraw;
-                statusElem.topOffset = statusElem.nextTopOffset + block.height;
+                statusElem.index--;
             }
-
-            
-        } else {
-            statusElem.index--;
         }
+        
     }
 }
 

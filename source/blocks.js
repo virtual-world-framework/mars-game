@@ -53,17 +53,37 @@ Blockly.Blocks['controls_whileUntil'] = {
 };
 
 Blockly.JavaScript['controls_whileUntil'] = function(block) {
-  // Do while/until loop.
+
   var until = block.getFieldValue('MODE') == 'UNTIL';
+
   var argument0 = Blockly.JavaScript.valueToCode(block, 'BOOL',
       until ? Blockly.JavaScript.ORDER_LOGICAL_NOT :
       Blockly.JavaScript.ORDER_NONE) || 'false';
+
   var branch = Blockly.JavaScript.statementToCode(block, 'DO');
-  branch = Blockly.JavaScript.addLoopTrap(branch, block.id);
-  if (until) {
-    argument0 = '!' + argument0;
+  if (Blockly.JavaScript.INFINITE_LOOP_TRAP) {
+    branch = Blockly.JavaScript.INFINITE_LOOP_TRAP.replace(/%1/g,
+        '\'block_id_' + block.id + '\'') + branch;
   }
-  return 'while (' + argument0 + ') {\n' + branch + '}\n';
+
+  if (until) {
+     argument0 = '!' + argument0;
+  }
+
+  var code = 'while ('+ argument0 +') {\n' + branch + '}\n';
+  return constructBlockExeEventCall( block ) + code;
+
+  // Do while/until loop.
+  // var until = block.getFieldValue('MODE') == 'UNTIL';
+  // var argument0 = Blockly.JavaScript.valueToCode(block, 'BOOL',
+  //     until ? Blockly.JavaScript.ORDER_LOGICAL_NOT :
+  //     Blockly.JavaScript.ORDER_NONE) || 'false';
+  // var branch = Blockly.JavaScript.statementToCode(block, 'DO');
+  // branch = Blockly.JavaScript.addLoopTrap(branch, block.id);
+  // if (until) {
+  //   argument0 = '!' + argument0;
+  // }
+  // return 'while (' + argument0 + ') {\n' + branch + '}\n';
 };
 
 Blockly.Blocks['controls_if'] = {
@@ -290,8 +310,17 @@ Blockly.JavaScript[ 'controls_sensor' ] = function( block ) {
     vwf.callMethod( rover, 'deactivateSensor', [ 'forward' ] );
 
   }
+  if ( dropdown_value === 'noObjectAhead' ){
 
-  return [ retVal , Blockly.JavaScript.ORDER_ATOMIC ];
+    vwf.callMethod( rover, 'activateSensor', [ 'forward' ] );
+    var properties = vwf.getProperties( rover );
+    var retVal = properties[ 'sensorValue' ];
+
+    vwf.callMethod( rover, 'deactivateSensor', [ 'forward' ] );
+
+  }
+
+  return [ !retVal , Blockly.JavaScript.ORDER_ATOMIC ];
   
 };
 
@@ -299,7 +328,7 @@ Blockly.Blocks[ 'controls_sensor' ] = {
   init: function() {
     this.setColour( 30 );
     this.appendDummyInput("INPUT")
-        .appendField(new Blockly.FieldDropdown([["objectAhead", "objectAhead"]]), "VALUE");
+        .appendField(new Blockly.FieldDropdown([["noObjectAhead", "noObjectAhead"],["objectAhead", "objectAhead"]]), "VALUE");
     this.setOutput( true, "Boolean" );
     var thisBlock = this;
     this.setTooltip( function() {
