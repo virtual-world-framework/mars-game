@@ -1,0 +1,4 @@
+<xml id="graph" style="display: none">
+  <block type="graph_set_y"></block>
+  <block type="graph_get_x"></block>
+</xml>

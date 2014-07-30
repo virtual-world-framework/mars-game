@@ -228,4 +228,30 @@ this.moveFailed = function( value ) {
     }
 }
 
+this.activateSensor = function( sensor ) {
+
+    var scene = this.find("/")[0];
+    var scenario = this.find( "//"+scene.activeScenarioPath )[ 0 ];
+  
+    var retVal = false;
+
+    if ( sensor === 'forward' ) {
+        var headingInRadians = this.heading * Math.PI / 180;
+        var dirVector = [ Math.round( -Math.sin( headingInRadians ) ), Math.round( Math.cos( headingInRadians ) ) ];
+        var proposedNewGridSquare = [ this.currentGridSquare[ 0 ] + dirVector[ 0 ], 
+                                                                this.currentGridSquare[ 1 ] + dirVector[ 1 ] ];
+
+        var inventoriableObjects = scenario.grid.getObjectsAtCoord( proposedNewGridSquare );
+
+        if ( inventoriableObjects.length > 0 ) {
+            this.sensorValue = true;
+        }
+
+    }
+
+}
+
+this.deactivateSensor = function() {
+    this.sensorValue = false;
+}
 //@ sourceURL=source/rover.js

@@ -246,7 +246,23 @@ function addBlockToStackList( topBlock, loopCounts ) {
                 counts[ loopCounts.length ] = i;
                 addBlockToStackList( firstBlockInLoop, counts );
             }
-        } 
+        } else if ( blockType === "controls_whileUntil" ) {
+            blockData.name = "repeatTimes";
+            status.blockStack.push( blockData );
+
+            var firstBlockInLoop = currentBlock.getInput( "DO" ).connection.targetConnection.sourceBlock_;
+            var loopTimes = 1;
+            var counts = loopCounts.slice( 0 );
+            for ( var i = loopTimes - 1; i >= 0; i-- ) {
+                counts[ loopCounts.length ] = i;
+                addBlockToStackList( firstBlockInLoop, counts );
+            }
+
+        } else if ( blockType === "controls_sensor" ) {
+            blockData.name = "repeatTimes";
+            status.blockStack.push( blockData );
+        }
+
 
         currentBlock = currentBlock.getNextBlock();
     }
@@ -829,6 +845,7 @@ function pushNextBlocklyStatus( id ) {
 
     if ( statusElem ) {
         statusElem.index++;
+
         var blockName = statusElem.blockStack[ statusElem.index ].name;
         var blockID = statusElem.blockStack[ statusElem.index ].id;
         var block = statusElem.blockImages[ blockName ];
@@ -851,6 +868,7 @@ function pushNextBlocklyStatus( id ) {
         } else {
             statusElem.index--;
         }
+        
     }
 }
 

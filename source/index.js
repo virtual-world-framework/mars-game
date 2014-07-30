@@ -69,7 +69,7 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                     updateBlocklyUI( blocklyNode );
                     selectBlock( lastBlockIDExecuted );
                 } else {
-                    currentBlocklyNodeID = undefined;
+                    //currentBlocklyNodeID = undefined;
                 }
                 break;
 
@@ -255,6 +255,10 @@ vwf_view.createdNode = function( nodeID, childID, childExtendsID, childImplement
         mainRover = childID;
     }
   
+    if ( childName === "graph" ) {
+        blocklyGraphID = childID;
+    }
+
     var protos = getPrototypes.call( this, vwf_view.kernel, childExtendsID );
 
     if ( isBlocklyNode( childImplementsIDs ) ) {
@@ -267,9 +271,7 @@ vwf_view.createdNode = function( nodeID, childID, childExtendsID, childImplement
             "ramMax": 15
         };
 
-        if ( childName === "graph" ) {
-            blocklyGraphID = childID;
-        }
+        
 
     } else if ( isGraphObject( protos ) && childName === "blocklyLine" ) {
         graphLines[ childName ] = { 

@@ -1,0 +1,7 @@
+<xml id="rover" style="display: none">
+  <block type="rover_moveForward"></block>
+  <block type="rover_turn"><field name="DIR">turnRight</field></block>
+  <block type="rover_turn"><field name="DIR">turnLeft</field></block>
+  <block type="controls_sensor"></block>
+  <block type="controls_whileUntil"><field name="MODE">UNTIL</field></block>
+</xml>

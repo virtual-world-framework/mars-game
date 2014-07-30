@@ -141,7 +141,7 @@ properties:
     - soundName: "L1VO12_Rover"
       soundURL: "assets/sounds/VO/L1VO12_Rover_m.ogg"
       soundGroup: VO
-      subtitle: "[ROVER]: I can connect blocks to make a program, and then Run it. I want to try moving forward twice this time."
+      subtitle: "[ROVER]: I can connect blocks to make a program, and then Run it. I want to try moving forward three this time."
       groupReplacementMethod: queue
     - soundName: "L1VO13_Rover"
       soundURL: "assets/sounds/VO/L1VO13_Rover_m.ogg"
