@@ -103,20 +103,21 @@ HUD.prototype = {
         // Add the element to the HUD's elements list
         // Initialize the offset position
         this.elements[ element.id ] = element;
+        var newElement = this.elements[ element.id ];
 
         if ( offset && !( isNaN( offset.x ) || isNaN( offset.y ) ) ) {
-            this.elements[ element.id ][ "offset" ] = {
+            newElement[ "offset" ] = {
                 "x": offset.x,
                 "y": offset.y
             };
         } else {
-            this.elements[ element.id ][ "offset" ] = {
+            newElement[ "offset" ] = {
                 "x": 0,
                 "y": 0
             };
         }
         
-        this.elements[ element.id ][ "position" ] = {
+        newElement[ "position" ] = {
             "x": 0,
             "y": 0
         }
@@ -125,10 +126,10 @@ HUD.prototype = {
             case "left":
             case "center":
             case "right":
-                this.elements[ element.id ][ "alignH" ] = alignH;
+                newElement[ "alignH" ] = alignH;
                 break;
             default:
-                this.elements[ element.id ][ "alignH" ] = "left";
+                newElement[ "alignH" ] = "left";
                 break;
         }
 
@@ -136,16 +137,15 @@ HUD.prototype = {
             case "top":
             case "middle":
             case "bottom":
-                this.elements[ element.id ][ "alignV" ] = alignV;
+                newElement[ "alignV" ] = alignV;
                 break;
             default:
-                this.elements[ element.id ][ "alignV" ] = "top";
+                newElement[ "alignV" ] = "top";
                 break;
         }
 
         this.countElements();
-        this.elements[ element.id ][ "drawOrder" ] = this.elementCount;
-
+        newElement[ "drawOrder" ] = this.elementCount;
     },
 
     sortFunction: function( a, b ) {
@@ -263,14 +263,11 @@ HUD.prototype = {
 }
 
 HUD.Element = function( id, drawFunc, width, height, visible ) {
-
     this.initialize( id, drawFunc, width, height );
     return this;
-
 }
 
 HUD.Element.prototype = {
-
     constructor: HUD.Element,
     id: undefined,
     width: undefined,
@@ -279,28 +276,20 @@ HUD.Element.prototype = {
     visible: undefined,
 
     initialize: function( id, drawFunc, width, height, visible ) {
-
         this.id = id;
 
         if ( drawFunc instanceof Function ) {
-
             this.draw = drawFunc;
-
         }
 
         this.width = isNaN( width ) ? 0 : width;
         this.height = isNaN( height ) ? 0 : height;
 
         if ( visible === true || visible === undefined ) {
-
             this.visible = true;
-
         } else {
-
             this.visible = false;
-
         }
-
     },
 
     draw: function( context, position ) { },
