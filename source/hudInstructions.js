@@ -1009,7 +1009,7 @@ function pushAlert( message ) {
 
                 // If pushes are faster than the animation, don't animate
                 setAlertDefaults();
-                alert.draw = status.defaultDraw;
+                alert.draw = alert.defaultDraw;
             }
         }
     }

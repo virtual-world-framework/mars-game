@@ -194,7 +194,7 @@ this.allowedBlocksChanged = function( value ) {
 this.ramChanged = function( value ) {
     var scene = this.find("/")[0];
     if ( scene !== undefined && scene.alerts ) {
-        if ( value < this.lowRam ) {
+        if ( value <= this.lowRam ) {
             if ( value <= 0 ) {
                 scene.addAlert( this.displayName + " is Out of Memory" );
             } else {
