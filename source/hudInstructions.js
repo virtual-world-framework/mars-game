@@ -1,10 +1,10 @@
 function createHUD() {
-    createRoverElement();
-    createCameraSelector();
-    createCommsDisplay();
     createBlocklyStatus();
     createStatusText();
     createAlertText();
+    createCommsDisplay();
+    createRoverElement();
+    createCameraSelector();
 
     var blocklyButton = new HUD.Element( "blocklyButton", drawIcon, 64, 64 );
     blocklyButton.icon = new Image();
