@@ -1,5 +1,4 @@
 function createHUD() {
-
     createRoverElement();
     createCameraSelector();
     createCommsDisplay();
@@ -32,8 +31,6 @@ function createHUD() {
     helpButton.icon.src = "assets/images/hud/help_large.png";
     helpButton.onMouseDown = showHelp;
     hud.add( helpButton, "right", "bottom", { "x": -246, "y": -30 } );
-
-    // createInventoryHUD( 4 );
 }
 
 function createRoverElement() {
@@ -67,7 +64,6 @@ function createMiniRoverElement() {
 }
 
 function createCameraSelector() {
-
     var selector = new HUD.Element( "cameraSelector", drawCameraSelector, 96, 96 );
     selector.activeMode = {
         "icon": new Image(),
@@ -99,11 +95,9 @@ function createCameraSelector() {
     topDownBtn.enabled = true;
     topDownBtn.onMouseDown = selectCameraMode;
     hud.add( topDownBtn, "right", "top", { "x": -35, "y": 80 } );
-
 }
 
 function createCommsDisplay() {
-
     var commsElement = new HUD.Element( "comms", drawComms, 100, 150 );
     hud.add( commsElement, "left", "bottom", { "x": 10, "y": -10 } );
 
@@ -117,48 +111,24 @@ function createCommsDisplay() {
 
     commsElement.characterImage = new Image();
     commsElement.interval = 0;
+    commsElement.direction = 0;
     commsElement.transitionHandle = null;
-
 }
 
 function addImageToCommsDisplay( imagePath ) {
     var comms = hud.elements.comms;
     if ( comms ) {
         comms.characterImage.src = imagePath;
-        if ( comms.transitionHandle ) {
-            clearInterval( comms.transitionHandle );
-            comms.transitionHandle = null;
-        } else {
-            comms.interval = 0;
-            comms.transitionHandle = setInterval( function() {
-                comms.interval += 0.1;
-                if ( comms.interval >= 1 ) {
-                    comms.interval = 1;
-                    clearInterval( comms.transitionHandle );
-                    comms.transitionHandle = null;
-                }
-            }, 30 );
-        }
+        comms.interval = 0;
+        comms.direction = 1;
     }
 }
 
 function removeImageFromCommsDisplay() {
     var comms = hud.elements.comms;
     if ( comms ) {
-        if ( comms.transitionHandle ) {
-            clearInterval( comms.transitionHandle );
-            comms.transitionHandle = null;
-        }        
         comms.interval = 1;
-        comms.transitionHandle = setInterval( function() {
-            comms.interval -= 0.1;
-            if ( comms.interval <= 0 ) {
-                comms.interval = 0;
-                comms.characterImage.src = "";
-                clearInterval( comms.transitionHandle );
-                comms.transitionHandle = null;
-            }
-        }, 30 );
+        comms.direction = -1;
     }
 }
 
@@ -484,6 +454,13 @@ function drawComms( context, position ) {
         context.clip();
         context.drawImage( this.characterImage, position.x, position.y );
         context.restore();
+        this.interval += 0.1 * this.direction;
+        if ( this.interval > 1 ) {
+            this.interval = 1;
+        } else if ( this.interval <= 0 && this.direction === -1 ) {
+            this.interval = 0;
+            this.characterImage.src = "";
+        }
     }
 
     if ( this.frame ) {
