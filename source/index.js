@@ -136,8 +136,8 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
             case "scenarioChanged":
                 resetBlocklyIndicator();
             case "scenarioReset":
-                resetStatusDisplay();
                 clearStatus();
+                clearAlert();
                 removePopup();
                 removeFailScreen();
                 clearBlocklyStatus();
@@ -187,8 +187,8 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 var msgType = loggerNodes[ nodeID ].name;
                 if ( msgType === "status" ) {
                     pushStatus( msg.log );
-                } else {
-                    pushToDisplay( msgType, msg.log );
+                } else if ( msgType === "alerts" ) {
+                    pushAlert( msg.log );
                 }
                 break;
 

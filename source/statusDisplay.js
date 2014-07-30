@@ -1,9 +1,6 @@
 var loggerBox = document.createElement( "div" );
 var subtitleDisplayWrapper = document.createElement( "div" );
 
-var alertDisplayWrapper = document.createElement( "div" );
-var lastAlert;
-
 function setUpStatusDisplay() {
 
     loggerBox.id = "loggerBox";
@@ -14,88 +11,12 @@ function setUpStatusDisplay() {
     subtitleText.id = "subtitleText";
     subtitleDisplayWrapper.appendChild( subtitleText );
 
-    alertDisplayWrapper.id = "alertDisplayWrapper";
-    for ( var i = 0; i < loggerNodes[ alertNodeID ].logger_maxLogs; i++ ) {
-        var alertText = document.createElement( "div" );
-        alertText.className = "alertText";
-        alertText.innerHTML = "<br />";
-        alertText.style.opacity = 1;
-        alertDisplayWrapper.appendChild( alertText );
-    }
-    document.body.appendChild( alertDisplayWrapper );
-
-    lastAlert = "";
-}
-
-function resetStatusDisplay() {
-    lastAlert = "";
-    for ( var i = 0; i < alertDisplayWrapper.children.length; i++ ) {
-        alertDisplayWrapper.children[ i ].innerHTML = "<br />";
-    }
 }
 
 function resetSubtitles() {
     while ( subtitleDisplayWrapper.firstChild ) {
         subtitleDisplayWrapper.removeChild( subtitleDisplayWrapper.firstChild );
     }
-}
-
-function pushToDisplay( type, message ) {
-
-    var displayWrapperSelector;
-    var textSelector;
-    var maxDisplayTime;
-    var stackLength;
-
-    var pushAttribute;
-    var pushAnimation = {};
-    var originalPos;
-
-     if ( type === "alerts" ) {
-
-        if ( !alertNodeID ) {
-            return undefined;
-        }
-
-        displayWrapperSelector = "#alertDisplayWrapper";
-        textSelector = ".alertText";
-        maxDisplayTime = loggerNodes[ alertNodeID ].logger_lifeTime;
-        stackLength = loggerNodes[ alertNodeID ].logger_maxLogs;
-        if ( message === lastAlert ) {
-            $( textSelector ).css( 'opacity', 1 );
-            statusFadeComplete( type, textSelector, maxDisplayTime );
-            return undefined;
-        }
-        lastAlert = message;
-
-        originalPos = $( displayWrapperSelector ).css( "top" );
-        pushAttribute = "top";
-        pushAnimation[ pushAttribute ] = '-=' + $( textSelector ).css( "font-size" );
-    }
-
-    //Pushes older messages up
-    $( displayWrapperSelector ).animate( pushAnimation, "fast", 
-    function() {
-        var text = document.createElement( "div" );
-        text.className = textSelector.slice( 1, textSelector.length );
-        text.innerHTML = message;
-        text.style.opacity = 1;
-        $( displayWrapperSelector ).append( text );
-        $( displayWrapperSelector ).children( "div:first" ).remove();
-        $( displayWrapperSelector ).css( pushAttribute, originalPos );
-    } );
-
-    // Fades out statuses by opacityDecrease when pushed up
-    var opacityDecrease = ( 1 / stackLength );
-    $( textSelector ).delay( 5000 ).stop( true, false ).animate( {
-
-        'opacity' : '-=' + opacityDecrease
-
-    }, "fast", function() {
-
-        // After messages shift up, continue complete fade out
-        statusFadeComplete( type, textSelector, maxDisplayTime );
-    } );
 }
 
 function pushSubtitle( message, subtitleTime ) {
@@ -138,26 +59,6 @@ function pushSubtitle( message, subtitleTime ) {
 
     requestAnimationFrame( updateSubtitle );
     subtitleDisplayWrapper.appendChild( text );
-}
-
-function statusFadeComplete( messageType, jqSelector, time ) {
-    $( jqSelector ).stop( true, false ).animate( {
-
-        'opacity' : 0
-
-    }, time, function() {
-
-        //After messages fade out completely, clear history
-        statusClearHistory( messageType );
-    } );
-}
-
-function statusClearHistory( messageType ) {
-    if ( messageType === "status" ) {
-        lastStatus = "";
-    } else if ( messageType === "alerts" ) {
-        lastAlert = "";
-    }
 }
 
 //@ sourceURL=source/statusDisplay.js
