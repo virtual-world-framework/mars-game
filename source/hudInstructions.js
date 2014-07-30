@@ -112,7 +112,6 @@ function createCommsDisplay() {
     commsElement.characterImage = new Image();
     commsElement.interval = 0;
     commsElement.direction = 0;
-    commsElement.transitionHandle = null;
 }
 
 function addImageToCommsDisplay( imagePath ) {
@@ -180,14 +179,13 @@ function populateBlockStack() {
     var status = hud.elements.blocklyStatus;
     var workspace = Blockly.getMainWorkspace();
     if ( status && workspace ) {
-        status.blockStack = [];
+        status.blockStack.length = 0;
         var blocks = workspace.getTopBlocks()[ 0 ];
         addBlockToStackList( blocks );
     }
 }
 
-function addBlockToStackList( topBlock, loopCounts ) {
-    loopCounts = loopCounts || [];
+function addBlockToStackList( topBlock, loopIndex ) {
     var status = hud.elements.blocklyStatus;
     var currentBlock = topBlock;
     while ( currentBlock ) {
@@ -197,7 +195,7 @@ function addBlockToStackList( topBlock, loopCounts ) {
             "name": blockType,
             "id": parseInt( blockID ),
             "alpha": 0,
-            "loopCounts": loopCounts.slice( 0 )
+            "loopIndex": loopIndex
         };        
 
         if ( blockType === "rover_moveForward" ) {
@@ -212,10 +210,9 @@ function addBlockToStackList( topBlock, loopCounts ) {
 
             var firstBlockInLoop = currentBlock.getInput( "DO" ).connection.targetConnection.sourceBlock_;
             var loopTimes = parseInt( Blockly.JavaScript.valueToCode( currentBlock, 'TIMES', Blockly.JavaScript.ORDER_ASSIGNMENT ) || '0' ) || 0;
-            var counts = loopCounts.slice( 0 );
             for ( var i = loopTimes - 1; i >= 0; i-- ) {
-                counts[ loopCounts.length ] = i;
-                addBlockToStackList( firstBlockInLoop, counts );
+                loopIndex = i;
+                addBlockToStackList( firstBlockInLoop, loopIndex );
             }
         } else if ( blockType === "controls_whileUntil" ) {
             blockData.name = "repeatTimes";
@@ -490,23 +487,21 @@ function drawBlocklyStatus( context, position ) {
             if ( blockData ) {
                 var alpha = blockData.alpha;
                 var block = this.blockImages[ blockData.name ];
-                var loopCounts = blockData.loopCounts;
+                var loopIndex = blockData.loopIndex;
                 if ( alpha && block && Math.abs( i - this.index ) < this.range ) {
                     context.globalAlpha = alpha;
                     context.drawImage( block, position.x, 
                                        position.y - ( this.topOffset - lastHeight ) );
-                    if ( this.index === i && loopCounts ) {
+                    if ( this.index === i && !isNaN( loopIndex ) ) {
                         var numBlock = this.blockImages[ "number" ];
-                        for ( var j = 0; j < loopCounts.length; j++ ) {
-                            if ( loopCounts[ j ] > 0 ) {
-                                offsetX += numBlock.width;
-                                var posY = position.y - ( this.topOffset - lastHeight - 8 );
-                                context.drawImage( numBlock, position.x - offsetX, posY );
-                                context.textBaseline = "top";
-                                context.font = '15px sans-serif';
-                                context.fillStyle = "rgb( 0, 0, 0 )";
-                                context.fillText( loopCounts[ j ], position.x - offsetX + 20, posY + 8 );
-                            }
+                        if ( loopIndex > 0 ) {
+                            offsetX += numBlock.width;
+                            var posY = position.y - ( this.topOffset - lastHeight - 8 );
+                            context.drawImage( numBlock, position.x - offsetX, posY );
+                            context.textBaseline = "top";
+                            context.font = '15px sans-serif';
+                            context.fillStyle = "rgb( 0, 0, 0 )";
+                            context.fillText( loopIndex, position.x - offsetX + 20, posY + 8 );
                         }
                     }
                 }
