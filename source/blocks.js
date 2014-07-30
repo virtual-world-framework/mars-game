@@ -11,13 +11,6 @@ var BlocklyApps = {
   getMsg: function( id ) { return ""; }
 }; 
 
-
-
-this.getBlackboardValue = function( name ) {
-  var scene = vwf_view.kernel.application();
-  var retVal = scene.sceneBlackboard[ name ];
-  return retVal;
-}
 // Extensions to Blockly's language and JavaScript generator.
 
 
