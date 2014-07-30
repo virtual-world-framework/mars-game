@@ -52,7 +52,7 @@ this.createGraph = function( xml ) {
 
     if ( self.graphObject === undefined ) {
 
-        if ( !!xml ) {
+        if ( xml ) {
             var graphDef = {
                 "extends": "http://vwf.example.com/node3.vwf",
                 "implements": [ "http://vwf.example.com/blockly/controller.vwf" ],
@@ -70,13 +70,13 @@ this.createGraph = function( xml ) {
             };  
         }
         
-
         self.children.create( "graph", graphDef, function( child ) {
-        self.graphObject = child;
+            self.graphObject = child;
         } );
+
     } else {
         // TODO: Graph is not reloading properly when scenarios change. The graph will
-        // get rid of all of its blocks and necessitates clicking ont the graph tab
+        // get rid of all of its blocks and necessitates clicking on the graph tab
         // again to reload.
     }
 }

@@ -77,6 +77,13 @@ children:
           - writeToBlackboard:
             - Level1eStartSounds
 
+        stopBlinkingBlockly_1e:
+          triggerCondition:
+          - onBlocklyWindowOpened:
+          actions:
+          - stopBlinkHUDElement:
+            - blocklyButton
+
         succeedOnSuccess_1e:
           triggerCondition:
           - onBlocklyStopped:
@@ -89,8 +96,6 @@ children:
           actions:
           - scenarioSuccess:
             - "You have calibrated your motors and picked up a spare battery!"
-          - stopBlinkHUDElement:
-            - blocklyButton
           - stopSound:
             - musicStandardGameplay
           - playSound:
