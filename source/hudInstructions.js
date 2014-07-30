@@ -246,7 +246,23 @@ function addBlockToStackList( topBlock, loopCounts ) {
                 counts[ loopCounts.length ] = i;
                 addBlockToStackList( firstBlockInLoop, counts );
             }
-        } 
+        } else if ( blockType === "controls_whileUntil" ) {
+            blockData.name = "repeatTimes";
+            status.blockStack.push( blockData );
+
+            var firstBlockInLoop = currentBlock.getInput( "DO" ).connection.targetConnection.sourceBlock_;
+            var loopTimes = 1;
+            var counts = loopCounts.slice( 0 );
+            for ( var i = loopTimes - 1; i >= 0; i-- ) {
+                counts[ loopCounts.length ] = i;
+                addBlockToStackList( firstBlockInLoop, counts );
+            }
+
+        } else if ( blockType === "controls_sensor" ) {
+            blockData.name = "repeatTimes";
+            status.blockStack.push( blockData );
+        }
+
 
         currentBlock = currentBlock.getNextBlock();
     }
@@ -830,29 +846,27 @@ function pushNextBlocklyStatus( id ) {
     if ( statusElem ) {
         statusElem.index++;
 
-        if ( !!statusElem.blockStack[ statusElem.index ].name ) {
-            var blockName = statusElem.blockStack[ statusElem.index ].name;
-            var blockID = statusElem.blockStack[ statusElem.index ].id;
-            var block = statusElem.blockImages[ blockName ];
-            if ( block && blockID === id ) {
+        var blockName = statusElem.blockStack[ statusElem.index ].name;
+        var blockID = statusElem.blockStack[ statusElem.index ].id;
+        var block = statusElem.blockImages[ blockName ];
+        if ( block && blockID === id ) {
 
-                // Check if block pushes are outrunning the animation
-                if ( statusElem.draw === statusElem.defaultDraw ) {
-                    statusElem.nextTopOffset = statusElem.topOffset + block.height;
-                    statusElem.offsetIncrement = block.height / statusElem.range
-                    statusElem.draw = drawBlocklyStatusAnimating;
+            // Check if block pushes are outrunning the animation
+            if ( statusElem.draw === statusElem.defaultDraw ) {
+                statusElem.nextTopOffset = statusElem.topOffset + block.height;
+                statusElem.offsetIncrement = block.height / statusElem.range
+                statusElem.draw = drawBlocklyStatusAnimating;
 
-                // If they are, set the top right away and don't animate
-                } else {
-                    setBlocklyAlphas();
-                    statusElem.draw = statusElem.defaultDraw;
-                    statusElem.topOffset = statusElem.nextTopOffset + block.height;
-                }
-
-                
+            // If they are, set the top right away and don't animate
             } else {
-                statusElem.index--;
+                setBlocklyAlphas();
+                statusElem.draw = statusElem.defaultDraw;
+                statusElem.topOffset = statusElem.nextTopOffset + block.height;
             }
+
+            
+        } else {
+            statusElem.index--;
         }
         
     }

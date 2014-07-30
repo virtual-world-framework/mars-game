@@ -61,17 +61,17 @@ Blockly.JavaScript['controls_whileUntil'] = function(block) {
       Blockly.JavaScript.ORDER_NONE) || 'false';
 
   var branch = Blockly.JavaScript.statementToCode(block, 'DO');
-  if (Blockly.JavaScript.INFINITE_LOOP_TRAP) {
-    branch = Blockly.JavaScript.INFINITE_LOOP_TRAP.replace(/%1/g,
-        '\'block_id_' + block.id + '\'') + branch;
-  }
+  // if (Blockly.JavaScript.INFINITE_LOOP_TRAP) {
+  //   branch = Blockly.JavaScript.INFINITE_LOOP_TRAP.replace(/%1/g,
+  //       '\'block_id_' + block.id + '\'') + branch;
+  // }
 
   if (until) {
      argument0 = '!' + argument0;
   }
 
   var code = 'while ('+ argument0 +') {\n' + branch + '}\n';
-  return constructBlockExeEventCall( block ) + code;
+  return code;
 
   // Do while/until loop.
   // var until = block.getFieldValue('MODE') == 'UNTIL';
@@ -314,13 +314,13 @@ Blockly.JavaScript[ 'controls_sensor' ] = function( block ) {
 
     vwf.callMethod( rover, 'activateSensor', [ 'forward' ] );
     var properties = vwf.getProperties( rover );
-    var retVal = properties[ 'sensorValue' ];
+    var retVal = !properties[ 'sensorValue' ];
 
     vwf.callMethod( rover, 'deactivateSensor', [ 'forward' ] );
 
   }
 
-  return [ !retVal , Blockly.JavaScript.ORDER_ATOMIC ];
+  return [ retVal , Blockly.JavaScript.ORDER_ATOMIC ];
   
 };
 
