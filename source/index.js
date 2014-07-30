@@ -137,7 +137,6 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 resetBlocklyIndicator();
             case "scenarioReset":
                 clearStatus();
-                clearAlert();
                 removePopup();
                 removeFailScreen();
                 clearBlocklyStatus();
@@ -210,12 +209,7 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
 
         // nodeID is ignored here?
         if ( eventName === "completed" ) {
-            var message = eventArgs[ 0 ];
-            if ( message ) {
-                displayPopup( "success", message );
-            } else {
-                advanceScenario();
-            }
+            advanceScenario();
         }
 
         // nodeID is ignored here?
