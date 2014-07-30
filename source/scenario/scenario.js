@@ -172,13 +172,15 @@ this.startStateParamSet.addToGrid = function( params, context ) {
 this.startStateParamSet.createGraph = function( params, context ) {
     if ( params && ( params.length > 1 ) ) {
         self.logger.errorx( "createGraph",
-                            "The createGraph condition takes either no" +
-                            "arguments or one argument: the name of the" +
-                            "XML file to load." );
+                            "The createGraph condition takes one optional" +
+                            " argument: the name of the XML file to load." );
         return undefined;
     }
 
-    return !!params[ 0 ] ? [ scene.future( 0 ).createGraph( params[ 0 ] ) ] : [ scene.future( 0 ).createGraph() ];
+    if ( !!params[ 0 ] ) {
+        return params[ 0 ] ? [ scene.future( 0 ).createGraph( params[ 0 ] ) ] : [ scene.future( 0 ).createGraph() ];
+    }
+
 }
 
 //@ sourceURL=source/scenario/scenario.js
