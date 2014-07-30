@@ -159,6 +159,9 @@ function createBlocklyStatus() {
     addBlockToImageList( "turnRight", "assets/images/hud/blockly_turn_right.png" );
     addBlockToImageList( "repeatTimes", "assets/images/hud/blockly_repeat_times.png" );
     addBlockToImageList( "number", "assets/images/hud/blockly_number.png" );
+    addBlockToImageList( "repeatUntil", "assets/images/hud/blockly_repeat_until.png" );
+    addBlockToImageList( "repeatWhile", "assets/images/hud/blockly_repeat_while.png" );
+    addBlockToImageList( "sensor", "assets/images/hud/blockly_sensor.png" );
 }
 
 function addBlockToImageList( name, imageSrc ) {
@@ -208,7 +211,7 @@ function addBlockToStackList( topBlock, loopIndex ) {
                 addBlockToStackList( firstBlockInLoop, i );
             }
         } else if ( blockType === "controls_whileUntil" ) {
-            blockData.name = "repeatTimes";
+            blockData.name = "repeatUntil";
             status.blockStack.push( blockData );
 
             var firstBlockInLoop = currentBlock.getInput( "DO" ).connection.targetConnection.sourceBlock_;
@@ -218,7 +221,7 @@ function addBlockToStackList( topBlock, loopIndex ) {
             }
 
         } else if ( blockType === "controls_sensor" ) {
-            blockData.name = "repeatTimes";
+            blockData.name = "sensor";
             status.blockStack.push( blockData );
         }
         currentBlock = currentBlock.getNextBlock();
