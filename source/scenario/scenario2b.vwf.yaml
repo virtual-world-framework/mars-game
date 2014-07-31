@@ -74,6 +74,7 @@ children:
               - graph
           actions:
           - scenarioSuccess:
+          - showAlert:
             - "My new interface really opens new dimensions for me!"
           - stopBlinkBlocklyTab:
             - graph

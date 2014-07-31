@@ -82,13 +82,10 @@ this.failed = function() {
     }
 }
 
-this.completed = function( type, message ) {
+this.completed = function() {
     // If we need to do anything on success, it should go in here.
     if ( scene ) {
         scene.scenarioSucceeded( this );
-        if ( message ) {
-            scene.addAlert( message );
-        }
         this.triggerManager.clearTriggers();
     }
 }

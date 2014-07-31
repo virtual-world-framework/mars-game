@@ -68,6 +68,7 @@ children:
               - [ -16, 8 ]
           actions:
           - scenarioSuccess:
+          - showAlert:
             - "Course plotted! Now to find the little guy."
           - hideBlockly:
           - stopSound:

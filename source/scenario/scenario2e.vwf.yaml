@@ -69,6 +69,7 @@ children:
               - 0
           actions:
           - scenarioSuccess:
+          - showAlert:
             - "I found the right rise and run of the path!"
           - stopSound:
             - musicStandardGameplay

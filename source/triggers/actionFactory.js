@@ -9,17 +9,16 @@ this.initialize = function() {
 
 this.actionSet.scenarioSuccess = function( params, context ) {
     if ( params && ( params.length > 2 ) ) {
-        self.logger.warnx( "scenarioSuccess", "This action takes two optional arguments: "+
-                            " a message to display, and the type of success." );
+        self.logger.warnx( "scenarioSuccess", "This action takes one optional argument: "+
+                            "the type of success." );
         return undefined;
     }
 
-    var message = params ? params[ 0 ] : undefined;
-    var type = params && params[ 1 ] ? params[ 1 ] : undefined;
+    var type = params && params[ 0 ] ? params[ 0 ] : undefined;
 
     return function() {
         var scenario = getScenario( context );
-        scenario && scenario.completed( type, message );
+        scenario && scenario.completed( type );
     }
 }
 
@@ -337,6 +336,32 @@ this.actionSet.orbitCamera = function( params, context ) {
     }
 
     return callback;
+}
+
+this.actionSet.showStatus = function( params, context ) {
+    if ( !params || params.length > 1 ) {
+        self.logger.errorx( "showStatus", "This action takes one parameter: the status to show." );
+        return undefined;
+    }
+
+    var status = params[ 0 ];
+
+    return function() {
+        context.addStatus( status );
+    }
+}
+
+this.actionSet.showAlert = function( params, context ) {
+    if ( !params || params.length > 1 ) {
+        self.logger.errorx( "showAlert", "This action takes one parameter: the alert to show." );
+        return undefined;
+    }
+
+    var alert = params[ 0 ];
+
+    return function() {
+        context.addAlert( alert );
+    }
 }
 
 function getScenario( context ) {

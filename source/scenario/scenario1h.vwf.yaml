@@ -85,9 +85,12 @@ children:
             - 16
           actions:
           - scenarioSuccess:
-            - "You have picked up the radio!"
             - levelComplete
-          - clearBlockly:
+          - showAlert:
+            - "You have picked up the radio!"
+          - showStatus:
+            - "Click to continue!"
+          - clearBlockly:      
           - orbitCamera:
             - 0.1
             - 20

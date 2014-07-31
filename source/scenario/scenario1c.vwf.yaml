@@ -32,7 +32,7 @@ properties:
     - rover
     - heading
     - 0
-    
+
   - setProperty:
     - rover
     - rotation
@@ -86,6 +86,7 @@ children:
           - onHelicamToggle:
           actions:
           - scenarioSuccess:
+          - showAlert:
             - "You have a bird's eye view now!"
           - stopBlinkHUDElement:
             - camera_topDown

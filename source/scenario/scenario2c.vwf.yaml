@@ -68,6 +68,7 @@ children:
               - [ -1, -1 ]
           actions:
           - scenarioSuccess:
+          - showAlert:
             - "Now I can plot course... can I plot the course to match those tracks?"
           - clearBlockly:
           - hideBlockly:

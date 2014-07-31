@@ -75,6 +75,7 @@ children:
               - 7
           actions:
           - scenarioSuccess:
+          - showAlert:
             - "I found the minirover!"
           - clearBlockly:
           - hideBlockly:

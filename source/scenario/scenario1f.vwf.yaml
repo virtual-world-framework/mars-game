@@ -89,6 +89,7 @@ children:
               - 180
           actions:
           - scenarioSuccess:
+          - showAlert:
             - "Turning motors are good to go!"
           - clearBlockly:
           - stopSound:
