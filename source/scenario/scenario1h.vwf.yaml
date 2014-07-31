@@ -86,6 +86,7 @@ children:
           actions:
           - scenarioSuccess:
             - "You have picked up the radio!"
+          - clearBlockly:
           - stopSound:
             - musicStandardGameplay
           - playSound:
