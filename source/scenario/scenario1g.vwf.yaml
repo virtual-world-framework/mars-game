@@ -95,7 +95,7 @@ children:
           - playSound:
             - SCVO3_Rover
           - playSound:
-            - musicSuccess
+            - musicSuccessShort
 
         # TODO: Add hint VO
 

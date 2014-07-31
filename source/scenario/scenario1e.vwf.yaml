@@ -103,7 +103,7 @@ children:
           - stopSound:
             - musicStandardGameplay
           - playSound:
-            - musicSuccess
+            - musicSuccessShort
           - playSound:
             - L1VO13_Rover
 

@@ -75,9 +75,7 @@ children:
           - stopSound:
             - musicStandardGameplay
           - playSound:
-            - musicSuccess
-          - playSound:
-            - 
+            - musicSuccessShort
 
         stopBlinkRoverTab_2f:
           triggerCondition:

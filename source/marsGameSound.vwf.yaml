@@ -27,6 +27,9 @@ properties:
     - soundName: "musicSuccess"
       soundURL: "assets/sounds/music/musicSuccess_01.ogg"
       allowMultiplay: false
+    - soundName: "musicSuccessShort"
+      soundURL: "assets/sounds/music/musicSuccessShort08.ogg"
+      allowMultiplay: false
     # - soundName: "uiBlockyBobbleAppear"
     #   soundURL: "assets/sounds/sfx/uiBlockyBobbleAppear_02.ogg"
     #   initialVolume: 1.0

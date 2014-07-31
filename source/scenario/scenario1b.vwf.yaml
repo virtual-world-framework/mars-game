@@ -96,7 +96,7 @@ children:
           - stopSound:
             - musicStandardGameplay
           - playSound:
-            - musicSuccess
+            - musicSuccessShort
           - playSound:
             - L1VO8_Rover
 
