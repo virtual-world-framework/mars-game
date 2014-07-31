@@ -1,4 +1,3 @@
-var durationSeconds = 0;
 var delaySeconds = 0;
 var self = this;
 var cachedTargetNode;
@@ -70,7 +69,7 @@ this.setTargetPath$ = function( newTargetPath ) {
     setTargetEventHandler();
 
     // Smoothly move the camera to the new target
-    this.transformTo( getNewCameraTransform(), durationSeconds );
+    this.transformTo( getNewCameraTransform(), 1 );
     
     // Hide the target if the camera is moving into first-person mode
     // Make it visible if it is in any other mode
