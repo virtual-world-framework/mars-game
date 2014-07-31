@@ -1,11 +1,10 @@
 function createHUD() {
-
-    createRoverElement();
-    createCameraSelector();
-    createCommsDisplay();
     createBlocklyStatus();
     createStatusText();
     createAlertText();
+    createCommsDisplay();
+    createRoverElement();
+    createCameraSelector();
 
     var blocklyButton = new HUD.Element( "blocklyButton", drawIcon, 64, 64 );
     blocklyButton.icon = new Image();
@@ -32,8 +31,6 @@ function createHUD() {
     helpButton.icon.src = "assets/images/hud/help_large.png";
     helpButton.onMouseDown = showHelp;
     hud.add( helpButton, "right", "bottom", { "x": -246, "y": -30 } );
-
-    // createInventoryHUD( 4 );
 }
 
 function createRoverElement() {
@@ -67,7 +64,6 @@ function createMiniRoverElement() {
 }
 
 function createCameraSelector() {
-
     var selector = new HUD.Element( "cameraSelector", drawCameraSelector, 96, 96 );
     selector.activeMode = {
         "icon": new Image(),
@@ -99,11 +95,9 @@ function createCameraSelector() {
     topDownBtn.enabled = true;
     topDownBtn.onMouseDown = selectCameraMode;
     hud.add( topDownBtn, "right", "top", { "x": -35, "y": 80 } );
-
 }
 
 function createCommsDisplay() {
-
     var commsElement = new HUD.Element( "comms", drawComms, 100, 150 );
     hud.add( commsElement, "left", "bottom", { "x": 10, "y": -10 } );
 
@@ -117,48 +111,23 @@ function createCommsDisplay() {
 
     commsElement.characterImage = new Image();
     commsElement.interval = 0;
-    commsElement.transitionHandle = null;
-
+    commsElement.direction = 0;
 }
 
 function addImageToCommsDisplay( imagePath ) {
     var comms = hud.elements.comms;
     if ( comms ) {
         comms.characterImage.src = imagePath;
-        if ( comms.transitionHandle ) {
-            clearInterval( comms.transitionHandle );
-            comms.transitionHandle = null;
-        } else {
-            comms.interval = 0;
-            comms.transitionHandle = setInterval( function() {
-                comms.interval += 0.1;
-                if ( comms.interval >= 1 ) {
-                    comms.interval = 1;
-                    clearInterval( comms.transitionHandle );
-                    comms.transitionHandle = null;
-                }
-            }, 30 );
-        }
+        comms.interval = 0;
+        comms.direction = 1;
     }
 }
 
 function removeImageFromCommsDisplay() {
     var comms = hud.elements.comms;
     if ( comms ) {
-        if ( comms.transitionHandle ) {
-            clearInterval( comms.transitionHandle );
-            comms.transitionHandle = null;
-        }        
         comms.interval = 1;
-        comms.transitionHandle = setInterval( function() {
-            comms.interval -= 0.1;
-            if ( comms.interval <= 0 ) {
-                comms.interval = 0;
-                comms.characterImage.src = "";
-                clearInterval( comms.transitionHandle );
-                comms.transitionHandle = null;
-            }
-        }, 30 );
+        comms.direction = -1;
     }
 }
 
@@ -210,14 +179,13 @@ function populateBlockStack() {
     var status = hud.elements.blocklyStatus;
     var workspace = Blockly.getMainWorkspace();
     if ( status && workspace ) {
-        status.blockStack = [];
+        status.blockStack.length = 0;
         var blocks = workspace.getTopBlocks()[ 0 ];
         addBlockToStackList( blocks );
     }
 }
 
-function addBlockToStackList( topBlock, loopCounts ) {
-    loopCounts = loopCounts || [];
+function addBlockToStackList( topBlock, loopIndex ) {
     var status = hud.elements.blocklyStatus;
     var currentBlock = topBlock;
     while ( currentBlock ) {
@@ -227,7 +195,7 @@ function addBlockToStackList( topBlock, loopCounts ) {
             "name": blockType,
             "id": parseInt( blockID ),
             "alpha": 0,
-            "loopCounts": loopCounts.slice( 0 )
+            "loopIndex": loopIndex
         };        
 
         if ( blockType === "rover_moveForward" ) {
@@ -242,10 +210,9 @@ function addBlockToStackList( topBlock, loopCounts ) {
 
             var firstBlockInLoop = currentBlock.getInput( "DO" ).connection.targetConnection.sourceBlock_;
             var loopTimes = parseInt( Blockly.JavaScript.valueToCode( currentBlock, 'TIMES', Blockly.JavaScript.ORDER_ASSIGNMENT ) || '0' ) || 0;
-            var counts = loopCounts.slice( 0 );
             for ( var i = loopTimes - 1; i >= 0; i-- ) {
-                counts[ loopCounts.length ] = i;
-                addBlockToStackList( firstBlockInLoop, counts );
+                loopIndex = i;
+                addBlockToStackList( firstBlockInLoop, loopIndex );
             }
         } else if ( blockType === "controls_whileUntil" ) {
             blockData.name = "repeatTimes";
@@ -253,10 +220,9 @@ function addBlockToStackList( topBlock, loopCounts ) {
 
             var firstBlockInLoop = currentBlock.getInput( "DO" ).connection.targetConnection.sourceBlock_;
             var loopTimes = 1;
-            var counts = loopCounts.slice( 0 );
             for ( var i = loopTimes - 1; i >= 0; i-- ) {
-                counts[ loopCounts.length ] = i;
-                addBlockToStackList( firstBlockInLoop, counts );
+                loopIndex = i;
+                addBlockToStackList( firstBlockInLoop, loopIndex );
             }
 
         } else if ( blockType === "controls_sensor" ) {
@@ -410,37 +376,32 @@ function removeSlotIcon( objectID ) {
 // === Draw Functions ===
 
 function drawBatteryMeter( context, position ) {
-
     var battery = this.battery;
     var maxBattery = this.maxBattery;
     var arcWidth = ( this.height + this.width ) / 4 ;
-    var center = {
-        "x": position.x + this.width / 2,
-        "y": position.y + this.height / 2
-    };
-    var radius = ( ( this.width + this.height ) / 2 ) / 2 - ( arcWidth );
+    var centerX = position.x + this.width / 2;
+    var centerY = position.y + this.height / 2;
+    var radius = ( this.width + this.height ) / 4 - arcWidth;
     var start = Math.PI * 1.5;
-    var end = start - ( battery / maxBattery ) * Math.PI * 2;
+    var end = start - battery / maxBattery * Math.PI * 2;
 
     context.beginPath();
-    context.arc( center.x, center.y, arcWidth, 0, 2 * Math.PI, false );
+    context.arc( centerX, centerY, arcWidth, 0, 2 * Math.PI, false );
     context.fillStyle = "rgba(50,90,150,0.5)";
     context.fill();
 
     context.beginPath();
-    context.arc( center.x, center.y, arcWidth / 2, start, end, true );
+    context.arc( centerX, centerY, arcWidth / 2, start, end, true );
     context.lineWidth = arcWidth - 1;
     context.strokeStyle = "rgb(50,130,255)";
     context.stroke();
 
     if ( this.portrait ) {
-        context.drawImage( this.portrait, center.x - this.portrait.width / 2, center.y - this.portrait.height / 2 );
+        context.drawImage( this.portrait, centerX - this.portrait.width / 2, centerY - this.portrait.height / 2 );
     }
-
     if ( this.selectedIcon && targetPath === this.path ) {
-        context.drawImage( this.selectedIcon, center.x - this.selectedIcon.width / 2, center.y - this.selectedIcon.height / 2 );
+        context.drawImage( this.selectedIcon, centerX - this.selectedIcon.width / 2, centerY - this.selectedIcon.height / 2 );
     }
-
     if ( this.frame ) {
         context.drawImage( this.frame, position.x, position.y );
     }
@@ -449,23 +410,18 @@ function drawBatteryMeter( context, position ) {
     context.font = 'bold 24px Arial';
     context.fillStyle = "rgb(255,255,255)";
     context.fillText( Math.round(battery), position.x + this.width + 3, position.y - 1 );
-
 }
 
 function drawMiniRoverElement( context, position ) {
-    var center = {
-        "x": position.x + this.width / 2,
-        "y": position.y + this.height / 2
-    };
+    var centerX = position.x + this.width / 2;
+    var centerY = position.y + this.height / 2;
 
     if ( this.portrait ) {
-        context.drawImage( this.portrait, center.x - this.portrait.width / 2, center.y - this.portrait.height / 2 );
+        context.drawImage( this.portrait, centerX - this.portrait.width / 2, centerY - this.portrait.height / 2 );
     }
-
     if ( this.selectedIcon && targetPath === this.path ) {
-        context.drawImage( this.selectedIcon, center.x - this.selectedIcon.width / 2, center.y - this.selectedIcon.height / 2 );
+        context.drawImage( this.selectedIcon, centerX - this.selectedIcon.width / 2, centerY - this.selectedIcon.height / 2 );
     }
-
     if ( this.frame ) {
         context.drawImage( this.frame, position.x, position.y );
     }
@@ -484,6 +440,13 @@ function drawComms( context, position ) {
         context.clip();
         context.drawImage( this.characterImage, position.x, position.y );
         context.restore();
+        this.interval += 0.1 * this.direction;
+        if ( this.interval > 1 ) {
+            this.interval = 1;
+        } else if ( this.interval <= 0 && this.direction === -1 ) {
+            this.interval = 0;
+            this.characterImage.src = "";
+        }
     }
 
     if ( this.frame ) {
@@ -513,23 +476,21 @@ function drawBlocklyStatus( context, position ) {
             if ( blockData ) {
                 var alpha = blockData.alpha;
                 var block = this.blockImages[ blockData.name ];
-                var loopCounts = blockData.loopCounts;
+                var loopIndex = blockData.loopIndex;
                 if ( alpha && block && Math.abs( i - this.index ) < this.range ) {
                     context.globalAlpha = alpha;
                     context.drawImage( block, position.x, 
                                        position.y - ( this.topOffset - lastHeight ) );
-                    if ( this.index === i && loopCounts ) {
+                    if ( this.index === i && !isNaN( loopIndex ) ) {
                         var numBlock = this.blockImages[ "number" ];
-                        for ( var j = 0; j < loopCounts.length; j++ ) {
-                            if ( loopCounts[ j ] > 0 ) {
-                                offsetX += numBlock.width;
-                                var posY = position.y - ( this.topOffset - lastHeight - 8 );
-                                context.drawImage( numBlock, position.x - offsetX, posY );
-                                context.textBaseline = "top";
-                                context.font = '15px sans-serif';
-                                context.fillStyle = "rgb( 0, 0, 0 )";
-                                context.fillText( loopCounts[ j ], position.x - offsetX + 20, posY + 8 );
-                            }
+                        if ( loopIndex > 0 ) {
+                            offsetX += numBlock.width;
+                            var posY = position.y - ( this.topOffset - lastHeight - 8 );
+                            context.drawImage( numBlock, position.x - offsetX, posY );
+                            context.textBaseline = "top";
+                            context.font = '15px sans-serif';
+                            context.fillStyle = "rgb( 0, 0, 0 )";
+                            context.fillText( loopIndex, position.x - offsetX + 20, posY + 8 );
                         }
                     }
                 }
@@ -594,57 +555,8 @@ function drawIcon( context, position ) {
 
 }
 
-function drawInventory( context, position ) {
-
-    var iconSize = 48;
-    var cap = this.capacity;
-    var separatorWidth = this.separator ? this.separator.width : 1;
-    var elementWidth = this.capacity * iconSize + ( this.capacity - 1 ) * separatorWidth;
-    var startPosition = position.x;
-
-    context.drawImage( this.label, position.x + this.width / 2 - this.label.width / 2, position.y + 56 );
-
-    if ( this.leftEnd ) {
-        context.drawImage( this.leftEnd, position.x, position.y );
-        startPosition += this.leftEnd.width;
-    }
-
-    if ( this.rightEnd ) {
-        context.drawImage( this.rightEnd, startPosition + elementWidth, position.y );
-    }
-
-    for ( var i = 0; i < this.slots.length; i++ ) {
-
-        var posX = startPosition + ( i * iconSize );
-        var posY = position.y;
-        var item = this.slots[ i ].item;
-
-        if ( i > 0 ) {
-            if ( this.separator ) {
-                context.drawImage( this.separator, posX + ( i - 1 ) * separatorWidth, posY );
-            }
-
-            posX += i * separatorWidth;
-        }
-
-        if ( item !== null ) {
-
-            if ( item.icon instanceof Image ) {
-
-                context.drawImage( item.icon, posX, posY );
-
-            }
-
-        } else {
-
-            context.fillStyle = "rgb(50,90,150)";
-            context.fillRect( posX, posY + 5, iconSize, iconSize - 10 );
-
-        }
-    }
-}
-
 function drawLogger( context, position ) {
+    var message;
     context.font = this.fontStyle;
     context.fillStyle = "rgb( 255, 255, 255 )";
     context.strokeStyle = "rgb( 0, 0, 0 )";
@@ -652,7 +564,7 @@ function drawLogger( context, position ) {
     context.lineWidth = 4;
     context.miterLimit = 2;
     for ( var i = 0; i < this.messages.length; i++ ) {
-        var message = this.messages[ i ];
+        message = this.messages[ i ];
         if ( message ) {
             context.globalAlpha = message.alpha;
             context.strokeText( message.text, position.x, position.y - message.offset );
@@ -689,9 +601,10 @@ function drawLogger( context, position ) {
 function drawLoggerAnimating( context, position ) {
     var interval = 3;
     var time = vwf_view.kernel.time();
+    var i;
     if ( time - this.lastUpdateTime > this.updateIntervalTime ) {
         this.lastUpdateTime = time;
-        for ( var i = 0; i < this.messages.length; i++ ) {
+        for ( i = 0; i < this.messages.length; i++ ) {
             this.messages[ i ].offset += this.fontSize / interval;
             this.messages[ i ].alpha -= 1 / this.stackLength / interval;
         }
@@ -710,7 +623,7 @@ function drawLoggerAnimating( context, position ) {
     context.textAlign = "center";
     context.lineWidth = 4;
     context.miterLimit = 2;
-    for ( var i = 0; i < this.messages.length; i++ ) {
+    for ( i = 0; i < this.messages.length; i++ ) {
         var message = this.messages[ i ];
         if ( message ) {
             context.globalAlpha = message.alpha;
@@ -724,14 +637,11 @@ function drawLoggerAnimating( context, position ) {
 // === HUD Event Handlers ===
 
 function clickBlockly( event ) {
-    
     var sceneID = vwf_view.kernel.application();
     var targetID = vwf_view.kernel.find( "", targetPath )[ 0 ];
-
     if ( sceneID !== undefined && targetID !== undefined ) {
         vwf_view.kernel.setProperty( sceneID, "blockly_activeNodeID", targetID );
     }
-
 }
 
 function toggleGraphDisplay( event ) {
@@ -744,11 +654,8 @@ function toggleGraphDisplay( event ) {
     if ( cameraNode && graphID ) {
         vwf_view.kernel.callMethod( graphID, "toggleGraphVisibility" );
         vwf_view.kernel.setProperty( cameraNode, "pointOfView", "topDown" );
-        isVisible.graph = !isVisible.graph;
-
-        vwf_view.kernel.fireEvent( vwf_view.kernel.application(),
-                "toggledGraph",
-                [] );
+        graphIsVisible = !graphIsVisible;
+        vwf_view.kernel.fireEvent( vwf_view.kernel.application(), "toggledGraph" );
     }
 }
 
@@ -759,10 +666,10 @@ function switchTarget( event ) {
 
 function selectCameraMode( event ) {
     if ( this.mode !== "topDown" ) {
-        if ( isVisible.graph ) {
+        if ( graphIsVisible ) {
             toggleGraphDisplay.bind( hud.elements.graphButton )( event );
         }
-        if ( isVisible.tiles ) {
+        if ( tilesAreVisible ) {
             toggleTiles.bind( hud.elements.tilesButton )( event );
         }
     } else if ( !this.enabled ) {
@@ -773,22 +680,19 @@ function selectCameraMode( event ) {
     vwf_view.kernel.setProperty( cameraNode, "pointOfView", this.mode );
 
     if ( this.mode === "topDown" ){
-        vwf_view.kernel.fireEvent( vwf_view.kernel.application(),
-            "toggledHelicam",
-            [] );
-        
+        vwf_view.kernel.fireEvent( vwf_view.kernel.application(), "toggledHelicam" );
     }
 }
 
 function showHelp( event ) {
-    var help = document.createElement( "DIV" );
-    help.id = "helpScreen";
-    help.className = "help";
-    help.onclick = ( function() {
-        var dialog = document.getElementById( "helpScreen" );
-        document.body.removeChild( dialog );
-    } );
-    document.body.appendChild( help );
+    var help = document.getElementById( "helpScreen" );
+    help.style.display = "block";
+    help.onclick = hideHelp;
+}
+
+function hideHelp( event ) {
+    var help = document.getElementById( "helpScreen" );
+    help.style.display = "none";
 }
 
 function toggleTiles( event ) {
@@ -800,11 +704,8 @@ function toggleTiles( event ) {
     if ( cameraNode && graphTilesID ) {
         vwf_view.kernel.callMethod( graphTilesID, "toggleTileVisibility" );
         vwf_view.kernel.setProperty( cameraNode, "pointOfView", "topDown" );
-        isVisible.tiles = !isVisible.tiles;
-
-        vwf_view.kernel.fireEvent( vwf_view.kernel.application(),
-            "toggledTiles",
-            [] );
+        tilesAreVisible = !tilesAreVisible;
+        vwf_view.kernel.fireEvent( vwf_view.kernel.application(), "toggledTiles" );
     }
 }
 
@@ -813,35 +714,32 @@ function toggleTiles( event ) {
 function blinkElement( elementID ) {
     var el = hud.elements[ elementID ];
     if ( el ) {
-        el.currentDrawFunction = el.draw;
+        el.normalDrawFunction = el.draw;
         el.lastBlinkTime = vwf_view.kernel.time();
         el.blinkInterval = 0.25;
         el.blinkDuration = 0.25;
         el.isBlinking = true;
-        el.draw = ( function( context, position ) {
-            var time = vwf_view.kernel.time();
-            if ( time  - this.lastBlinkTime > this.blinkInterval ) {
-                context.globalAlpha = 0.5;
-                
-                if ( time - this.lastBlinkTime > this.blinkInterval + this.blinkDuration ) {
-                    this.lastBlinkTime = time;
-                }
-            }
-            this.currentDrawFunction( context, position );
-            context.globalAlpha = 1;
-        } );
+        el.draw = drawBlink;
     }
+}
+
+function drawBlink( context, position ) {
+    var time = vwf_view.kernel.time();
+    if ( time  - this.lastBlinkTime > this.blinkInterval ) {
+        context.globalAlpha = 0.5;
+        if ( time - this.lastBlinkTime > this.blinkInterval + this.blinkDuration ) {
+            this.lastBlinkTime = time;
+        }
+    }
+    this.normalDrawFunction( context, position );
+    context.globalAlpha = 1;
 }
 
 function stopElementBlinking( elementID ) {
     var el = hud.elements[ elementID ];
     if ( el.isBlinking ) {
-        el.draw = el.currentDrawFunction;
-        delete el.currentDrawFunction;
-        delete el.lastBlinkTime;
-        delete el.blinkInterval;
-        delete el.blinkDuration;
-        delete el.isBlinking;
+        el.draw = el.normalDrawFunction;
+        el.isBlinking = false;
     }
 }
 
@@ -865,7 +763,6 @@ function setBlocklyAlphas() {
 
 function pushNextBlocklyStatus( id ) {
     var statusElem = hud.elements.blocklyStatus;
-
     if ( statusElem ) {
         statusElem.index++;
 
@@ -886,8 +783,6 @@ function pushNextBlocklyStatus( id ) {
                 statusElem.draw = statusElem.defaultDraw;
                 statusElem.topOffset = statusElem.nextTopOffset + block.height;
             }
-
-            
         } else {
             statusElem.index--;
         }
@@ -930,7 +825,7 @@ function clearAlert() {
 function setStatusDefaults() {
     var status = hud.elements.status;
     while ( status.messages.length > status.stackLength ) {
-        status.messages.pop();
+        status.messages.length--;
     }
     for ( var i = 0; i < status.messages.length; i++ ) {
         var message = status.messages[ i ];

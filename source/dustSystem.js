@@ -1,5 +1,5 @@
 this.initialize = function() {
-    this.future( 0.05 ).update();
+    this.future( 0 ).update();
 }
 
 this.update = function() {
