@@ -100,6 +100,7 @@ children:
           actions:
           - scenarioSuccess:
             - "You have calibrated your motors and picked up a spare battery!"
+          - clearBlockly:
           - stopSound:
             - musicStandardGameplay
           - playSound:

@@ -90,6 +90,7 @@ children:
           actions:
           - scenarioSuccess:
             - "Turning motors are good to go!"
+          - clearBlockly:
           - stopSound:
             - musicStandardGameplay
           - playSound:
