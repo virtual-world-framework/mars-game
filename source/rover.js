@@ -137,7 +137,7 @@ this.translateOnTerrain = function( translation, duration, boundaryValue ) {
             this.animationDuration = duration;
             this.animationUpdate = function(time, duration) {
 
-                if ( lastRenderTime === lastTime ) { // Only update at 30fps max
+                if ( lastRenderTime === lastTime ) {
                     return;
                 }
 
