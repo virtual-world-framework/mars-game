@@ -122,6 +122,7 @@ this.translateOnTerrain = function( translation, duration, boundaryValue ) {
 
     } else {
 
+        var lastTime = 0;
         var startTranslation = this.translation || goog.vec.Vec3.create();
         var deltaTranslation = this.translationFromValue( translation );
         var stopTranslation = goog.vec.Vec3.add(
@@ -135,6 +136,12 @@ this.translateOnTerrain = function( translation, duration, boundaryValue ) {
 
             this.animationDuration = duration;
             this.animationUpdate = function(time, duration) {
+
+                if ( lastRenderTime === lastTime ) { // Only update at 30fps max
+                    return;
+                }
+
+                lastTime = lastRenderTime;
 
                 var newTranslation = goog.vec.Vec3.lerp(
                     startTranslation, stopTranslation,

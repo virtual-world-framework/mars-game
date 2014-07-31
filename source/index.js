@@ -20,6 +20,7 @@ var gridBounds = {
     topRight: undefined
 };
 var orbitTarget = undefined;
+var lastRenderTime = 0;
 
 function onRun() {
     vwf_view.kernel.setProperty( currentBlocklyNodeID, "blockly_executing", true );
@@ -447,6 +448,7 @@ function render( renderer, scene, camera ) {
     renderer.render( scene, camera );
     renderer.clearDepth();
     renderer.render( hud.scene, hud.camera );
+    lastRenderTime = vwf_view.kernel.time();
 
 }
 
