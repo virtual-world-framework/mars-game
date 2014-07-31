@@ -23,6 +23,7 @@ var lastRenderTime = 0;
 function runBlockly() {
     vwf_view.kernel.setProperty( currentBlocklyNodeID, "blockly_executing", true );
     populateBlockStack();
+    vwf_view.kernel.setProperty( vwf_view.kernel.application(), "blockly_activeNodeID", undefined );
 }
 
 function setActiveBlocklyTab( btn ) {
@@ -76,7 +77,6 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 break;
 
             case "blocklyStarted":
-                vwf_view.kernel.setProperty( vwf_view.kernel.application(), "blockly_activeNodeID", undefined );
                 var stopButton = document.getElementById( "stopButton" );
                 stopButton.className = "";
                 var indicator = document.getElementById( "blocklyIndicator" );
