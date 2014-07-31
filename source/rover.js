@@ -135,9 +135,9 @@ this.translateOnTerrain = function( translation, duration, boundaryValue ) {
         if(duration > 0) {
 
             this.animationDuration = duration;
-            this.animationUpdate = function(time, duration) {
+            this.animationUpdate = function( time, duration ) {
 
-                if ( lastRenderTime === lastTime ) {
+                if ( lastRenderTime === lastTime && time < duration ) {
                     return;
                 }
 
