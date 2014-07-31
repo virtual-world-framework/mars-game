@@ -70,6 +70,10 @@ children:
           actions:
           - scenarioSuccess:
             - "I'm getting through the canyon! Now I need to figure out when I see a rover!"
+            - levelComplete
+          - orbitCamera:
+            - 0.1
+            - 20
           - clearBlockly:
           - hideBlockly:
           - stopSound:

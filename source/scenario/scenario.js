@@ -82,7 +82,7 @@ this.failed = function() {
     }
 }
 
-this.completed = function( message ) {
+this.completed = function( type, message ) {
     // If we need to do anything on success, it should go in here.
     if ( scene ) {
         scene.scenarioSucceeded( this );

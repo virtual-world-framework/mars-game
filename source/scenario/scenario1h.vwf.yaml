@@ -86,7 +86,11 @@ children:
           actions:
           - scenarioSuccess:
             - "You have picked up the radio!"
+            - levelComplete
           - clearBlockly:
+          - orbitCamera:
+            - 0.1
+            - 20
           - stopSound:
             - musicStandardGameplay
           - playSound:

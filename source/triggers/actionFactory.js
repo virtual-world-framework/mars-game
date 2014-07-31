@@ -8,16 +8,18 @@ this.initialize = function() {
 }
 
 this.actionSet.scenarioSuccess = function( params, context ) {
-    if ( params && ( params.length > 1 ) ) {
-        self.logger.warnx( "scenarioSuccess", "This action takes one optional argument: a message to display." );
+    if ( params && ( params.length > 2 ) ) {
+        self.logger.warnx( "scenarioSuccess", "This action takes two optional arguments: "+
+                            " a message to display, and the type of success." );
         return undefined;
     }
 
     var message = params ? params[ 0 ] : undefined;
+    var type = params && params[ 1 ] ? params[ 1 ] : undefined;
 
     return function() {
         var scenario = getScenario( context );
-        scenario && scenario.completed( message );
+        scenario && scenario.completed( type, message );
     }
 }
 
@@ -310,6 +312,33 @@ this.actionSet.panCamera = function( params, context ) {
     }
 }
 
+this.actionSet.orbitCamera = function( params, context ) {
+    if ( params && params.length > 2 ) {
+        self.logger.errorx( "orbitCamera", "This action takes one parameter: the " +
+                            "speed at which the camera orbits the target node ( in rads/sec ), " +
+                            "and the time (in seconds) to automatically stop orbiting." );
+        return undefined;        
+    }
+
+    var speed = params[ 0 ];
+    var hardStop = params[ 1 ];
+    var camera = context.find( "//camera" )[ 0 ];
+    var hardStopID = setTimeout( setOrbitingFalse( camera ), hardStop * 1000 );
+    camera.orbiting = true;
+    camera.pointOfView = "thirdPerson";    
+
+    var callback = function() {
+        camera.orbitTarget$( speed );
+        if ( camera.orbiting ) {
+            setTimeout( callback, 0.1 );
+        } else {
+            clearTimeout( hardStopID );
+        }
+    }
+
+    return callback;
+}
+
 function getScenario( context ) {
     if ( context.getCurrentScenario ){
         return context.getCurrentScenario();
@@ -322,6 +351,10 @@ function getScenario( context ) {
 
 function getSoundMgr( context ) {
     return self.findTypeInContext( context, "http://vwf.example.com/sound/soundManager.vwf" );
+}
+
+function setOrbitingFalse( camera ) {
+    camera.orbiting && ( camera.orbiting = false );
 }
 
 
