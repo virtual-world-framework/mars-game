@@ -11,24 +11,21 @@ var mainRover = undefined;
 var blocklyGraphID = undefined;
 var alertNodeID = undefined;
 var statusNodeID = undefined;
-var isVisible = {
-    graph: false,
-    tiles: false
-};
+var graphIsVisible = false;
+var tilesAreVisible = false;
 var gridBounds = {
     bottomLeft: undefined,
     topRight: undefined
 };
-var orbitTarget = undefined;
+var orbitTarget = new Array( 3 );
 var lastRenderTime = 0;
 
-function onRun() {
+function runBlockly() {
     vwf_view.kernel.setProperty( currentBlocklyNodeID, "blockly_executing", true );
     populateBlockStack();
-    vwf_view.kernel.setProperty( vwf_view.kernel.application(), "blockly_activeNodeID", undefined );
 }
 
-function onSetActive( btn ) {
+function setActiveBlocklyTab( btn ) {
     if ( currentBlocklyNodeID !== btn.id ) {
         vwf_view.kernel.setProperty( vwf_view.kernel.application(), "blockly_activeNodeID", btn.id );
         if ( blocklyGraphID && blocklyGraphID === btn.id ) {
@@ -48,29 +45,21 @@ function selectBlocklyTab( nodeID ) {
             tabs[ i ].className += " selected";
         }
     }
-
     var showLine = ( nodeID === blocklyGraphID );
     vwf_view.kernel.setProperty( graphLines[ "blocklyLine" ].ID, "visible", showLine );
 }
 
-window.addEventListener( "keyup", function (event) {
-    switch ( event.keyCode ) {
-    }
-} );
-
 vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
-
     if ( blocklyNodes[ nodeID ] !== undefined ) {
         var blocklyNode = blocklyNodes[ nodeID ];
         switch ( eventName ) {
+
             case "blocklyVisibleChanged":
                 if ( eventArgs[ 0 ] ) {
                     currentBlocklyNodeID = nodeID;
                     updateBlocklyRamBar();
                     updateBlocklyUI( blocklyNode );
                     selectBlock( lastBlockIDExecuted );
-                } else {
-                    //currentBlocklyNodeID = undefined;
                 }
                 break;
 
@@ -87,6 +76,7 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 break;
 
             case "blocklyStarted":
+                vwf_view.kernel.setProperty( vwf_view.kernel.application(), "blockly_activeNodeID", undefined );
                 var stopButton = document.getElementById( "stopButton" );
                 stopButton.className = "";
                 var indicator = document.getElementById( "blocklyIndicator" );
@@ -98,6 +88,7 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 var indicator = document.getElementById( "blocklyIndicator" );
                 indicator.className = "stopped";
                 clearBlocklyStatus();
+
             case "blocklyErrored":
                 var stopButton = document.getElementById( "stopButton" );
                 stopButton.className = "disabled";
@@ -107,12 +98,15 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 if ( nodeID === vwf_view.kernel.find( "", targetPath )[ 0 ] ) {
                     var targetTransform = eventArgs[ 0 ];
                     if ( targetTransform ) {
-                        orbitTarget = [ targetTransform[ 12 ], targetTransform[ 13 ], targetTransform[ 14 ] ];
+                        orbitTarget[ 0 ] = targetTransform[ 12 ];
+                        orbitTarget[ 1 ] = targetTransform[ 13 ];
+                        orbitTarget[ 2 ] = targetTransform[ 14 ];
                     }
                 }
+                break;
+
         }
     } else if ( nodeID === this.kernel.application() ) {
-        
         switch ( eventName ) {
             
             case "blocklyContentChanged":
@@ -123,6 +117,7 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                     indicateBlock( lastBlockIDExecuted );
                 }
                 break;
+
             case "blockExecuted":
                 var blockName = eventArgs[ 0 ];
                 var blockID = eventArgs[ 1 ];
@@ -147,12 +142,15 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
             case "blinkHUD":
                 blinkElement( eventArgs[ 0 ] );
                 break;
+
             case "stopBlinkHUD":
                 stopElementBlinking( eventArgs[ 0 ] );
                 break;
+
             case "blinkTab":
                 blinkTab( eventArgs[ 0 ] );
                 break;
+
             case "stopBlinkTab":
                 stopBlinkTab( eventArgs[ 0 ] );
                 break;
@@ -160,6 +158,7 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
             case "enableHelicam":
                 setHelicamButtonsEnabled( true );
                 break;
+
             case "disableHelicam":
                 setHelicamButtonsEnabled( false );
                 break;
@@ -167,19 +166,21 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
             case "showCommsImage":
                 addImageToCommsDisplay( eventArgs[ 0 ] );
                 break;
+
             case "hideCommsImage":
                 removeImageFromCommsDisplay();
                 break;
+
             case "clearBlockly":
                 clearBlockly();
                 break;
+
             case "selectLastBlock":
                 selectBlock( lastBlockIDExecuted );
                 break;
+
         } 
-
     } else if ( loggerNodes[ nodeID ] !== undefined ) { 
-
         switch ( eventName ) {
             
             case "logAdded":
@@ -203,11 +204,9 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 var time = eventArgs[ 1 ] ? eventArgs[ 1 ] : 1;
                 pushSubtitle( msg, time );
                 break;            
-                
+            
         }
-
     } else {
-
         // nodeID is ignored here?
         if ( eventName === "completed" ) {
             advanceScenario();
@@ -225,23 +224,7 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 resetScenario();
             }
         }
-
-        // TODO: Decide if inventory HUD element should be displayed,
-        // redesigned, or removed entirely.
-
-        // if ( eventName === "pickedUp" ) {
-        //     var iconSrc = eventArgs[ 0 ];
-        //     var index = eventArgs[ 1 ];
-        //     var parentName = eventArgs[ 2 ];
-        //     addSlotIcon( nodeID, iconSrc, index, parentName );
-        // }
-
-        // if ( eventName === "dropped" ) {
-        //     removeSlotIcon( nodeID );
-        // }
-
     }
-
 }
 
 vwf_view.createdNode = function( nodeID, childID, childExtendsID, childImplementsIDs, childSource, childType, childIndex, childName ) {
@@ -306,7 +289,7 @@ vwf_view.initializedNode = function( nodeID, childID, childExtendsID, childImple
         var node = blocklyNodes[ childID ];
         if ( $( "#blocklyWrapper-top" ) !== undefined ) {
             $( "#blocklyWrapper-top" ).append( 
-                "<div id='" + childID + "' class='blocklyTab' onclick='onSetActive(this)'>"+childName+"</div>"
+                "<div id='" + childID + "' class='blocklyTab' onclick='setActiveBlocklyTab(this)'>"+childName+"</div>"
             ).children(":last"); 
         }
     }

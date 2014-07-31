@@ -89,6 +89,7 @@ function setUpBlocklyPeripherals() {
     runStopContainer.id = "runStopContainer";
     runButton.innerHTML = "";
     runButton.className = "disabled";
+    runButton.onclick = runBlockly;
     stopButton.className = "disabled";
 
     stopButton.onclick = ( function() {

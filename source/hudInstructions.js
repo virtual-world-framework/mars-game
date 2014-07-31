@@ -654,7 +654,7 @@ function toggleGraphDisplay( event ) {
     if ( cameraNode && graphID ) {
         vwf_view.kernel.callMethod( graphID, "toggleGraphVisibility" );
         vwf_view.kernel.setProperty( cameraNode, "pointOfView", "topDown" );
-        isVisible.graph = !isVisible.graph;
+        graphIsVisible = !graphIsVisible;
         vwf_view.kernel.fireEvent( vwf_view.kernel.application(), "toggledGraph" );
     }
 }
@@ -666,10 +666,10 @@ function switchTarget( event ) {
 
 function selectCameraMode( event ) {
     if ( this.mode !== "topDown" ) {
-        if ( isVisible.graph ) {
+        if ( graphIsVisible ) {
             toggleGraphDisplay.bind( hud.elements.graphButton )( event );
         }
-        if ( isVisible.tiles ) {
+        if ( tilesAreVisible ) {
             toggleTiles.bind( hud.elements.tilesButton )( event );
         }
     } else if ( !this.enabled ) {
@@ -704,7 +704,7 @@ function toggleTiles( event ) {
     if ( cameraNode && graphTilesID ) {
         vwf_view.kernel.callMethod( graphTilesID, "toggleTileVisibility" );
         vwf_view.kernel.setProperty( cameraNode, "pointOfView", "topDown" );
-        isVisible.tiles = !isVisible.tiles;
+        tilesAreVisible = !tilesAreVisible;
         vwf_view.kernel.fireEvent( vwf_view.kernel.application(), "toggledTiles" );
     }
 }
