@@ -73,7 +73,7 @@ children:
           - stopSound:
             - musicStandardGameplay
           - playSound:
-            - musicSuccess
+            - musicSuccessShort
           - playSound:
             - L3VO9_Control
 

@@ -74,7 +74,7 @@ children:
           - stopSound:
             - musicStandardGameplay
           - playSound:
-            - musicSuccess
+            - musicSuccessShort
 
   grid:
     includes: source/grid.vwf
