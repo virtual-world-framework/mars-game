@@ -25,12 +25,10 @@ function pushSubtitle( message, subtitleTime ) {
 
     // Break up the message into the character speaking
     // and the actual message
-    var splitMessage = message.split( ":", 2 );
-    var messageText = message;
-    if ( splitMessage.length > 1 ) {
-        text.innerHTML += splitMessage[ 0 ] + ":";
-        messageText = splitMessage[ 1 ];
-    }
+    var messageText = "";
+    var breakIndex = message.indexOf( ":" ) || 0;
+    text.innerHTML += message.substring( 0, breakIndex + 1 );
+    messageText += message.substring( breakIndex + 1, message.length );
 
     // Shave 100ms off the subtitle time to make up for any
     // delay between the VO and the subtitle firing
