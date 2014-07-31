@@ -15,14 +15,14 @@ this.setUpEvents = function() {
 }
 
 this.followCamera = function( camTransform ) {
-    camPos[ 0 ] = Math.round( camTransform[ 12 ];
-    camPos[ 1 ] = Math.round( camTransform[ 13 ];
-    camPos[ 2 ] = 0;
+    cameraPos[ 0 ] = Math.round( camTransform[ 12 ] );
+    cameraPos[ 1 ] = Math.round( camTransform[ 13 ] );
+    cameraPos[ 2 ] = 0;
     var offset = this.offsetFromTarget;
-    newPos[ 0 ] = camPos[ 0 ] + offset[ 0 ];
-    newPos[ 1 ] = camPos[ 1 ] + offset[ 1 ];
-    newPos[ 2 ] = camPos[ 2 ] + offset[ 2 ];
-    this.target = camPos;
+    newPos[ 0 ] = cameraPos[ 0 ] + offset[ 0 ];
+    newPos[ 1 ] = cameraPos[ 1 ] + offset[ 1 ];
+    newPos[ 2 ] = cameraPos[ 2 ] + offset[ 2 ];
+    this.target = cameraPos;
     this.translateTo( newPos );
 }
 
