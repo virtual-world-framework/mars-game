@@ -538,38 +538,42 @@ function clearBlockly() {
     if ( Blockly.mainWorkspace ){
         Blockly.mainWorkspace.clear();
     }
-
     if ( mainRover ){
         vwf_view.kernel.setProperty( mainRover, "blockly_xml", '<xml></xml>' );
     }
-
     if ( blocklyGraphID ){
         vwf_view.kernel.setProperty( blocklyGraphID, "blockly_xml", '<xml></xml>' );
     }
 }
 
 function selectBlock( blockID ) {
-    var workspace = Blockly.getMainWorkspace();
-    var block = workspace ? workspace.getBlockById( blockID ) : undefined;
-    var lastBlock = workspace ? workspace.getBlockById( currentBlockIDSelected ) : undefined;
-    if ( lastBlock ) {
-        Blockly.removeClass_( lastBlock.svg_.svgGroup_, "blocklySelected" );
-    }
-    if ( block ) {
-        Blockly.addClass_( block.svg_.svgGroup_, "blocklySelected" );
-        currentBlockIDSelected = blockID;
+    var workspace, block, lastBlock;
+    workspace = Blockly.getMainWorkspace();
+    if ( workspace ) {
+        block = workspace.getBlockById( blockID );
+        lastBlock = workspace.getBlockById( currentBlockIDSelected );
+        if ( lastBlock ) {
+            Blockly.removeClass_( lastBlock.svg_.svgGroup_, "blocklySelected" );
+        }
+        if ( block ) {
+            Blockly.addClass_( block.svg_.svgGroup_, "blocklySelected" );
+            currentBlockIDSelected = blockID;
+        }
     }
 }
 
 function indicateBlock( blockID ) {
-    var workspace = Blockly.getMainWorkspace();
-    var block = workspace ? workspace.getBlockById( blockID ) : undefined;
+    var workspace, block;
+    workspace = Blockly.getMainWorkspace();
+    if ( workspace ) {
+        block = workspace.getBlockById( blockID );
+    }
     if ( block ) {
         var pos = block.getRelativeToSurfaceXY();
         moveBlocklyIndicator( pos.x, pos.y );
     } else if ( blockID === lastBlockIDExecuted ) {
         resetBlocklyIndicator();
-    }    
+    }
 }
 
 //@ sourceURL=source/index.js
