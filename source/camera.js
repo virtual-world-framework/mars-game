@@ -1,6 +1,8 @@
 var delaySeconds = 0;
 var self = this;
 var cachedTargetNode;
+var cameraLoc;
+var targetLoc;
 
 this.initialize = function() {
     this.orbiting = false;
@@ -9,6 +11,8 @@ this.initialize = function() {
 
 this.onSceneReady$ = function() {
     setTargetEventHandler();
+    cameraLoc = new THREE.Vector3();
+    targetLoc = new THREE.Vector3();
 }
 
 this.changePointOfView$ = function( newPointOfView ) {
@@ -104,7 +108,46 @@ this.orbitTarget$ = function( speed ) {
     tempTransform[ 13 ] += targetNode.transform[ 13 ];
     tempTransform[ 14 ] += targetNode.transform[ 14 ];    
     this.transform = tempTransform;
+}
 
+this.pullIn = function() {
+    cameraLoc.x = this.transform[ 12 ];
+    cameraLoc.y = this.transform[ 13 ];
+    cameraLoc.z = this.transform[ 14 ];
+    var target = getTargetNode();
+    targetLoc.x = target.transform[ 12 ];
+    targetLoc.y = target.transform[ 13 ];
+    targetLoc.z = target.transform[ 14 ];
+    var scene = this.find( "/" )[ 0 ];
+    var direction = new THREE.Vector3();
+    direction.subVectors( cameraLoc, targetLoc ).normalize();
+    var far = cameraLoc.distanceTo( targetLoc );
+    var terrain = this.find( "/environment//" )[ 0 ];
+    var intersects = scene.raycast( cameraLoc, direction, 0, far, true, terrain.id );
+
+    if ( intersects.length > 0 ) {
+        var distance = intersects[ 0 ].distance;
+        if ( distance < far ) {
+            this.setDistanceToTarget( distance );
+            console.log( distance );
+        }
+    }
+}
+
+this.setDistanceToTarget = function( distance ) {
+    var direction = new THREE.Vector3();
+    direction.subVectors( cameraLoc, targetLoc ).normalize();
+    var newTransform = this.transform.slice( 0 );
+    switch ( this.pointOfView ) {
+        case "thirdPerson":
+            var newLoc = new THREE.Vector3();
+            newLoc.addVectors( targetLoc, direction.multiplyScalar( distance ) );
+            newTransform[ 12 ] = newLoc.x;
+            newTransform[ 13 ] = newLoc.y;
+            newTransform[ 14 ] = newLoc.z;
+            this.transform = newTransform;
+            break;
+    }
 }
 
 function getTargetNode() {
@@ -118,6 +161,7 @@ function setTargetEventHandler() {
     var targetNode = getTargetNode();
     if ( targetNode && self.needToSetupEventHandler$ ) {
         targetNode.transformChanged = targetNode.events.add( self.followTarget$, self );
+        self.transformChanged = self.events.add( self.pullIn, self );
         self.needToSetupEventHandler$ = false;
     }
 }
