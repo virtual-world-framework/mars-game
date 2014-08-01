@@ -182,6 +182,20 @@ children:
             properties:
               capacity: 4
               inventoryIsVisible: false
+      # minirover:
+      #   extends: http://vwf.example.com/node3.vwf
+      #   implements: [ "source/griddable.vwf" ]
+      #   source: assets/3d/minirover/minirover.dae
+      #   type: model/vnd.collada+xml
+      #   properties:
+      #       translation: [ 0, 9, 0 ]
+      #       rotation: [ 0, 0, 1, 270 ]
+      #       castShadows: true
+      #       receiveShadows: true
+      #       blocklyEnabled: false
+      #       currentGridSquare: [ 0, 0 ]
+      #       terrainName: "environment"
+      #       displayName: "Minirover"
     scripts:
      - source: source/player.js
   pickups:
@@ -196,6 +210,8 @@ children:
         extends: source/pickups/battery_1.vwf
       helicam:
         extends: source/pickups/helicam.vwf
+      minirover:
+        extends: source/pickups/minirover.vwf
   introScreenScenario:
     includes: source/scenario/introScreenScenario.vwf
   scenario1a:

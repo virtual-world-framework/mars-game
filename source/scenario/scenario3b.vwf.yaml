@@ -31,12 +31,12 @@ properties:
   - setProperty:
     - rover
     - heading
-    - 0
+    - 270
     
   - setProperty:
     - rover
     - rotation
-    - [ 0, 0, 1, 0 ]
+    - [ 0, 0, 1, 270 ]
 
   - addToInventory:
     - rover/cargo
@@ -44,7 +44,7 @@ properties:
 
   - addToGrid:
     - rover
-    - [ 1, 8 ]
+    - [ 3, 7 ]
 
   - addToGrid:
     - blocklyGraph
