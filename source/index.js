@@ -19,6 +19,7 @@ var gridBounds = {
 };
 var orbitTarget = new Array( 3 );
 var lastRenderTime = 0;
+var threejs = findThreejsView();
 
 function runBlockly() {
     vwf_view.kernel.setProperty( currentBlocklyNodeID, "blockly_executing", true );
@@ -207,12 +208,11 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
             
         }
     } else {
-        // nodeID is ignored here?
+        // scenario events
         if ( eventName === "completed" ) {
             advanceScenario();
         }
 
-        // nodeID is ignored here?
         if ( eventName === "failed" ) {
             var type = eventArgs[ 0 ];
             var message = eventArgs[ 1 ];
@@ -240,17 +240,12 @@ vwf_view.createdNode = function( nodeID, childID, childExtendsID, childImplement
     var protos = getPrototypes.call( this, vwf_view.kernel, childExtendsID );
 
     if ( isBlocklyNode( childImplementsIDs ) ) {
-
-        //console.info( "blocklyNode = " + childID );
         blocklyNodes[ childID ] = { 
             "ID": childID, 
             "name": childName,
             "ram": 15, 
             "ramMax": 15
         };
-
-        
-
     } else if ( isGraphObject( protos ) && childName === "blocklyLine" ) {
         graphLines[ childName ] = { 
             "ID": childID, 
@@ -270,45 +265,30 @@ vwf_view.createdNode = function( nodeID, childID, childExtendsID, childImplement
             alertNodeID = childID;
         }
     } 
-
 }
 
-
 vwf_view.initializedNode = function( nodeID, childID, childExtendsID, childImplementsIDs, childSource, childType, childIndex, childName ) {
-
     if ( childID === vwf_view.kernel.application() ) {
-        hud = new HUD();
-        createHUD();
-
-        var threejs = findThreejsView();
         threejs.render = setUp;
-
-        setUpNavigation();
-
     } else if ( blocklyNodes[ childID ] !== undefined ) {
         var node = blocklyNodes[ childID ];
         if ( $( "#blocklyWrapper-top" ) !== undefined ) {
             $( "#blocklyWrapper-top" ).append( 
-                "<div id='" + childID + "' class='blocklyTab' onclick='setActiveBlocklyTab(this)'>"+childName+"</div>"
-            ).children(":last"); 
+                "<div id='" + childID + "' class='blocklyTab' onclick='setActiveBlocklyTab(this)'>" + childName + "</div>"
+            ).children(":last");
         }
     }
 }
 
 vwf_view.deletedNode = function( nodeID ) {
-    
     if ( blocklyNodes[ nodeID ] !== undefined ) {
-        
         delete blocklyNodes[ nodeID ];
-
         var blocklyTop = document.getElementById( "blocklyWrapper-top" );
         var tab = document.getElementById( nodeID );
-
         if ( blocklyTop && tab ) {
             blocklyTop.removeChild( tab );
         }
     }
-
 }
 
 vwf_view.initializedProperty = function( nodeID, propertyName, propertyValue ) {
@@ -316,7 +296,6 @@ vwf_view.initializedProperty = function( nodeID, propertyName, propertyValue ) {
 } 
 
 vwf_view.satProperty = function( nodeID, propertyName, propertyValue ) {
-
     if ( nodeID === mainRover ) {
         switch ( propertyName ) {
 
@@ -327,7 +306,7 @@ vwf_view.satProperty = function( nodeID, propertyName, propertyValue ) {
             case "batteryMax":
                 hud.elements.batteryMeter.maxBattery = parseFloat( propertyValue );
                 break;
-                
+
         }
     }
 
@@ -343,7 +322,6 @@ vwf_view.satProperty = function( nodeID, propertyName, propertyValue ) {
             case "ramMax":
                 blocklyNode[ propertyName ] = parseFloat( propertyValue );
                 if ( nodeID === currentBlocklyNodeID ) {
-                    // the mainWorkSpace is not valid until the UI is visible
                     if ( Blockly.mainWorkspace ) {
                         Blockly.mainWorkspace.maxBlocks = Number( propertyValue );    
                     }
@@ -352,19 +330,15 @@ vwf_view.satProperty = function( nodeID, propertyName, propertyValue ) {
                 break;
 
             case "blockly_executing":
-                var exe = Boolean( propertyValue );
-
-                //Disables the run button
-                document.getElementById( "runButton" ).className = exe ? "disabled" : "";
-                
-                blocklyExecuting = exe;
+                var isExecuting = Boolean( propertyValue );
+                document.getElementById( "runButton" ).className = isExecuting ? "disabled" : "";
+                blocklyExecuting = isExecuting;
                 break;
 
         }
     } 
 
-    if ( nodeID === vwf_view.kernel.find( "", "//camera" )[0] ) {
-
+    if ( nodeID === vwf_view.kernel.find( "", "//camera" )[ 0 ] ) {
         if ( propertyName === "targetPath" ) {
             if ( targetPath !== propertyValue ) {
                 targetPath = propertyValue;
@@ -373,7 +347,7 @@ vwf_view.satProperty = function( nodeID, propertyName, propertyValue ) {
 
         if ( propertyName === "pointOfView" ) {
             if ( hud ) {
-                var selector = hud.elements[ "cameraSelector" ];
+                var selector = hud.elements.cameraSelector;
                 var pov = hud.elements[ "camera_" + propertyValue ];
                 selector.activeMode.icon = pov.icon;
                 selector.activeMode.type = pov.mode;
@@ -392,47 +366,45 @@ vwf_view.satProperty = function( nodeID, propertyName, propertyValue ) {
         switch ( propertyName ) {
 
             case "logger_maxLogs":
-                loggerNode[ propertyName ] = parseFloat( propertyValue );
+                loggerNode[ propertyName ] = parseInt( propertyValue );
                 break;
 
             case "logger_lifeTime":
                 loggerNode[ propertyName ] = parseFloat( propertyValue );
                 break;
+
         }
     }
 }
 
 function setUp( renderer, scene, camera ) {
+    hud = new HUD();
+    createHUD();
 
-    //Set up the introductory screens
     var introScreens = new Array();
     introScreens.push( "assets/images/introScreens/Intro_screen.jpg" );
     setUpIntro( introScreens );
-
+    
     setUpBlocklyPeripherals();
     setUpStatusDisplay();
 
-    // Modify and add to scene
     scene.fog = new THREE.FogExp2( 0xC49E70, 0.005 );
     renderer.setClearColor(scene.fog.color);
     renderer.autoClear = false;
 
-    // Set render loop to use custom render function
-    var threejs = findThreejsView();
-    threejs.render = render;
+    setUpNavigation();
 
+    threejs.render = render;
 }
 
 function render( renderer, scene, camera ) {
-
     hud.update();
-
+    blinkTabs();
     renderer.clear();
     renderer.render( scene, camera );
     renderer.clearDepth();
     renderer.render( hud.scene, hud.camera );
     lastRenderTime = vwf_view.kernel.time();
-
 }
 
 function findThreejsView() {
@@ -441,12 +413,6 @@ function findThreejsView() {
         lastKernel = lastKernel.kernel;
     }
     return lastKernel.views[ "vwf/view/threejs" ];
-}
-
-function isBlockly3Node( nodeID ) {
-    return self.kernel.test( nodeID,
-        "self::element(*,'http://vwf.example.com/blockly/controller.vwf')",
-        nodeID );
 }
 
 function isBlocklyNode( implementsIDs ) {
@@ -462,48 +428,39 @@ function isBlocklyNode( implementsIDs ) {
 function getPrototypes( kernel, extendsID ) {
     var prototypes = [];
     var id = extendsID;
-
     while ( id !== undefined ) {
         prototypes.push( id );
         id = kernel.prototype( id );
     }
-            
     return prototypes;
 }
 
 function isLoggerNode( prototypes ) {
-
     var foundLogger = false;
-
     if ( prototypes ) {
         for ( var i = 0; i < prototypes.length && !foundLogger; i++ ) {
             foundLogger = ( prototypes[i] == "http-vwf-example-com-logger-vwf" );    
         }
     }
-
     return foundLogger;
 }
 
 function isGraphObject( prototypes ) {
-
     var foundObject = false;
-
     if ( prototypes ) {
         for ( var i = 0; i < prototypes.length && !foundObject; i++ ) {
-            foundObject = ( prototypes[i] == "http-vwf-example-com-graphtool-graphline-vwf" ) ||
-                ( prototypes[i] == "http-vwf-example-com-graphtool-graphlinefunction-vwf" ) ||
-                ( prototypes[i] == "http-vwf-example-com-graphtool-graphplane-vwf" ) ||
-                ( prototypes[i] == "http-vwf-example-com-graphtool-graphgroup-vwf" );
+            foundObject = prototypes[i] === "http-vwf-example-com-graphtool-graphline-vwf" ||
+                          prototypes[i] === "http-vwf-example-com-graphtool-graphlinefunction-vwf" ||
+                          prototypes[i] === "http-vwf-example-com-graphtool-graphplane-vwf" ||
+                          prototypes[i] === "http-vwf-example-com-graphtool-graphgroup-vwf";
         }
     }
-
     return foundObject;
 }
 
 function getBlocklyFunction() {
     var topBlocks = Blockly.mainWorkspace.getTopBlocks( false );
     var yBlock = undefined;
-    // Set yBlock to only the code plugged into 'graph_set_y'.
     for ( var j = 0; j < topBlocks.length; j++ ) {
         if ( topBlocks[j].type == 'graph_set_y' ) {
             yBlock = topBlocks[j];
@@ -536,47 +493,43 @@ function updateBlocklyUI( blocklyNode ) {
     }
 }
 
+function blinkTabs() {
+    var tabs = document.getElementsByClassName( "blocklyTab" );
+    for ( var i = 0; i < tabs.length; i++ ) {
+        if ( tabs[ i ].isBlinking )
+        tabs[ i ].blink();
+    }
+}
+
 function blinkTab( nodeID ) {
     var tab = document.getElementById( nodeID );
-
-    if ( tab && tab.stopBlink ) {
-        // Tab has already been set to blink
+    if ( tab && tab.className.indexOf( "blinking" ) !== -1 ) {
         return;
     }
-
-    var time, lastBlinkTime, rafID, oldClickHandler;
-    var blinkInterval = 0.25;
-
-    var blink = function() {
-        time = vwf_view.kernel.time();
-        lastBlinkTime = lastBlinkTime || time;
-        if ( time - lastBlinkTime > blinkInterval ) {
-            tab.style.opacity = "0.5";
-
-            if ( time - lastBlinkTime > blinkInterval * 2 ) {
-                lastBlinkTime = time;
-            }
-        } else {
-            tab.style.opacity = "1";
-        }
-
-        rafID = requestAnimationFrame( blink );
-    }
-
     if ( tab && tab.className.indexOf( "blocklyTab" ) !== -1 ) {
-        rafID = requestAnimationFrame( blink );
-        tab.stopBlink = ( function( event ) {
-            tab.style.opacity = "1";
-            cancelAnimationFrame( rafID );
-            delete tab.stopBlink;
-        } );
+        tab.blink = blink;
+        tab.stopBlink = stopBlink;
+        tab.lastBlinkTime = lastRenderTime;
+        tab.isBlinking = true;
     }
+}
+
+function blink() {
+    var blinkInterval = 0.25;
+    if ( lastRenderTime > this.lastBlinkTime + blinkInterval ) {
+        this.style.opacity = this.style.opacity === "1" ? "0.5" : "1";
+        this.lastBlinkTime = lastRenderTime;
+    }
+}
+
+function stopBlink() {
+    this.style.opacity = "1";
+    this.isBlinking = false;
 }
 
 function stopBlinkTab( nodeID ) {
     var tab = document.getElementById( nodeID );
-
-    if ( tab && tab.stopBlink ) {
+    if ( tab && tab.isBlinking ) {
         tab.stopBlink();
     }
 }
@@ -585,38 +538,42 @@ function clearBlockly() {
     if ( Blockly.mainWorkspace ){
         Blockly.mainWorkspace.clear();
     }
-
     if ( mainRover ){
         vwf_view.kernel.setProperty( mainRover, "blockly_xml", '<xml></xml>' );
     }
-
     if ( blocklyGraphID ){
         vwf_view.kernel.setProperty( blocklyGraphID, "blockly_xml", '<xml></xml>' );
     }
 }
 
 function selectBlock( blockID ) {
-    var workspace = Blockly.getMainWorkspace();
-    var block = workspace ? workspace.getBlockById( blockID ) : undefined;
-    var lastBlock = workspace ? workspace.getBlockById( currentBlockIDSelected ) : undefined;
-    if ( lastBlock ) {
-        Blockly.removeClass_( lastBlock.svg_.svgGroup_, "blocklySelected" );
-    }
-    if ( block ) {
-        Blockly.addClass_( block.svg_.svgGroup_, "blocklySelected" );
-        currentBlockIDSelected = blockID;
+    var workspace, block, lastBlock;
+    workspace = Blockly.getMainWorkspace();
+    if ( workspace ) {
+        block = workspace.getBlockById( blockID );
+        lastBlock = workspace.getBlockById( currentBlockIDSelected );
+        if ( lastBlock ) {
+            Blockly.removeClass_( lastBlock.svg_.svgGroup_, "blocklySelected" );
+        }
+        if ( block ) {
+            Blockly.addClass_( block.svg_.svgGroup_, "blocklySelected" );
+            currentBlockIDSelected = blockID;
+        }
     }
 }
 
 function indicateBlock( blockID ) {
-    var workspace = Blockly.getMainWorkspace();
-    var block = workspace ? workspace.getBlockById( blockID ) : undefined;
+    var workspace, block;
+    workspace = Blockly.getMainWorkspace();
+    if ( workspace ) {
+        block = workspace.getBlockById( blockID );
+    }
     if ( block ) {
         var pos = block.getRelativeToSurfaceXY();
         moveBlocklyIndicator( pos.x, pos.y );
     } else if ( blockID === lastBlockIDExecuted ) {
         resetBlocklyIndicator();
-    }    
+    }
 }
 
 //@ sourceURL=source/index.js
