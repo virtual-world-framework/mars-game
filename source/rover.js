@@ -40,8 +40,6 @@ this.moveForward = function() {
     var proposedNewGridSquare = [ this.currentGridSquare[ 0 ] + dirVector[ 0 ], 
                                                                 this.currentGridSquare[ 1 ] + dirVector[ 1 ] ];
 
-    this.activateSensor( 'forward' );
-
     //First check if the coordinate is valid
     if ( currentGrid.validCoord( proposedNewGridSquare ) ) {
 
@@ -81,6 +79,7 @@ this.moveForward = function() {
                     scene.addStatus( this.displayName + " is moving forward" );
                 }
                 this.moved();
+                this.activateSensor( 'forward' );
             } else {
                 this.moveFailed( "collision" );
             }

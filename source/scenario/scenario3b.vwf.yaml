@@ -31,12 +31,12 @@ properties:
   - setProperty:
     - rover
     - heading
-    - 270
+    - 0
     
   - setProperty:
     - rover
     - rotation
-    - [ 0, 0, 1, 270 ]
+    - [ 0, 0, 1, 0 ]
 
   - addToInventory:
     - rover/cargo
