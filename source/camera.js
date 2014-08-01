@@ -80,7 +80,7 @@ this.setTargetPath$ = function( newTargetPath ) {
 }
 
 this.followTarget$ = function() {
-    this.transformTo( getNewCameraTransform(), 0 );
+    this.transformTo( getNextCameraTransform(), 0 );
 }
 
 // Orbit the camera around the targetNode at speed radians/second
