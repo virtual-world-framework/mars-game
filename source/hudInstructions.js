@@ -409,6 +409,7 @@ function drawBatteryMeter( context, position ) {
     context.textBaseline = "top";
     context.font = 'bold 24px Arial';
     context.fillStyle = "rgb(255,255,255)";
+    context.textAlign = "left";
     context.fillText( Math.round(battery), position.x + this.width + 3, position.y - 1 );
 }
 

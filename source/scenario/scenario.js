@@ -89,7 +89,7 @@ this.completed = function( message ) {
         if ( message ) {
             scene.addAlert( message );
         }
-        this.triggerManager.future( 0 ).clearTriggers();
+        this.triggerManager.clearTriggers();
     }
 }
 
