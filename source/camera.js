@@ -25,18 +25,22 @@ this.changePointOfView$ = function( newPointOfView ) {
     this.transform = getNewCameraTransform();
 
     // Set the navigation mode of the camera appropriately for the new point of view
+    // TODO: Add lowerZoomBounds based on grid bounds
     switch ( newPointOfView ) {
         case "firstPerson":
             this.navmode = "walk";
             this.translationSpeed = 0;
+            this.lowerZoomBound = 0;
             break;
         case "thirdPerson":
             this.navmode = "thirdPerson";
             this.translationSpeed = 0;
+            this.lowerZoomBound = 5;
             break;
         case "topDown":
             this.navmode = "topDown";
             this.translationSpeed = 10;
+            this.lowerZoomBound = 10;
             break;
         default:
             self.logger.warnx( "changePointOfView$", "Unrecognized camera point of view: '", 
@@ -124,10 +128,9 @@ this.pullIn = function() {
     var far = cameraLoc.distanceTo( targetLoc );
     var terrain = this.find( "/environment//" )[ 0 ];
     var intersects = scene.raycast( cameraLoc, direction, 0, far, true, terrain.id );
-
     if ( intersects.length > 0 ) {
         var distance = intersects[ 0 ].distance;
-        if ( distance < far ) {
+        if ( distance < far && distance > this.lowerZoomBound ) {
             this.setDistanceToTarget( distance );
             console.log( distance );
         }
@@ -145,7 +148,7 @@ this.setDistanceToTarget = function( distance ) {
             newTransform[ 12 ] = newLoc.x;
             newTransform[ 13 ] = newLoc.y;
             newTransform[ 14 ] = newLoc.z;
-            this.transform = newTransform;
+            this.transformTo( newTransform, 0 );
             break;
     }
 }
