@@ -1,6 +1,11 @@
 var delaySeconds = 0;
 var self = this;
 var cachedTargetNode;
+var currentGrid;
+var gridBounds = {
+    bottomLeft: undefined,
+    topRight: undefined
+}
 var cameraLoc;
 var targetLoc;
 
@@ -11,6 +16,7 @@ this.initialize = function() {
 
 this.onSceneReady$ = function() {
     setTargetEventHandler();
+    this.registerScenarioListener();
     cameraLoc = new THREE.Vector3();
     targetLoc = new THREE.Vector3();
 }
@@ -21,32 +27,38 @@ this.changePointOfView$ = function( newPointOfView ) {
     }
     this.pointOfView = newPointOfView;
 
-    // Cut to the new point of view
-    this.transform = getNewCameraTransform();
-
     // Set the navigation mode of the camera appropriately for the new point of view
-    // TODO: Add lowerZoomBounds based on grid bounds
     switch ( newPointOfView ) {
         case "firstPerson":
             this.navmode = "walk";
             this.translationSpeed = 0;
             this.lowerZoomBound = 0;
+            this.upperZoomBound = 0;
             break;
         case "thirdPerson":
             this.navmode = "thirdPerson";
             this.translationSpeed = 0;
-            this.lowerZoomBound = 5;
+            if ( gridBounds && gridBounds.topRight ) {
+                this.lowerZoomBound = ( gridBounds.topRight[ 0 ] - gridBounds.bottomLeft[ 0 ] ) / 8 || 3;
+                this.upperZoomBound = ( gridBounds.topRight[ 0 ] - gridBounds.bottomLeft[ 0 ] ) / 2.5 || 3;
+            }
             break;
         case "topDown":
             this.navmode = "topDown";
             this.translationSpeed = 10;
-            this.lowerZoomBound = 10;
+            if ( gridBounds && gridBounds.topRight ) {
+                this.lowerZoomBound = ( gridBounds.topRight[ 0 ] - gridBounds.bottomLeft[ 0 ] ) / 3 || 3;;
+                this.upperZoomBound = gridBounds.topRight[ 0 ] - gridBounds.bottomLeft[ 0 ] || 3;;
+            }
             break;
         default:
             self.logger.warnx( "changePointOfView$", "Unrecognized camera point of view: '", 
                 newPointOfView, "'" );
             break;
     }
+
+    // Cut to the new point of view
+    this.transform = getNewCameraTransform();    
 
     // Hide the target if the camera is moving into first-person mode
     // Make it visible if it is in any other mode
@@ -122,19 +134,27 @@ this.pullIn = function() {
     targetLoc.x = target.transform[ 12 ];
     targetLoc.y = target.transform[ 13 ];
     targetLoc.z = target.transform[ 14 ];
-    var scene = this.find( "/" )[ 0 ];
-    var direction = new THREE.Vector3();
-    direction.subVectors( cameraLoc, targetLoc ).normalize();
-    var far = cameraLoc.distanceTo( targetLoc );
-    var terrain = this.find( "/environment//" )[ 0 ];
-    var intersects = scene.raycast( cameraLoc, direction, 0, far, true, terrain.id );
-    if ( intersects.length > 0 ) {
-        var distance = intersects[ 0 ].distance;
-        if ( distance < far && distance > this.lowerZoomBound ) {
-            this.setDistanceToTarget( distance );
-            console.log( distance );
-        }
+
+    var distance = cameraLoc.distanceTo( targetLoc );
+
+    if ( distance > this.upperZoomBound ) {
+        this.setDistanceToTarget( this.upperZoomBound );
+    } else if ( distance < this.lowerZoomBound ) {
+        this.setDistanceToTarget( this.lowerZoomBound );
     }
+
+    if ( cameraLoc.y > gridBounds.topRight[ 1 ] ) {
+        this.setDistanceToTarget( Math.abs( gridBounds.topRight[ 1 ] - targetLoc.y ) );
+    } 
+    // else if ( cameraLoc.y < gridBounds.bottomLeft[ 1 ] ) {
+    //     this.setDistanceToTarget( Math.abs( gridBounds.bottomLeft[ 1 ] - targetLoc.y ) );
+    // }
+
+    if ( cameraLoc.x > gridBounds.topRight[ 0 ] ) {
+        this.setDistanceToTarget( Math.abs( gridBounds.topRight[ 0 ] - targetLoc.x ) );
+    } else if ( cameraLoc.x < gridBounds.bottomLeft[ 0 ] ) {
+        this.setDistanceToTarget( Math.abs( gridBounds.bottomLeft[ 0 ] - targetLoc.x ) );
+    }    
 }
 
 this.setDistanceToTarget = function( distance ) {
@@ -149,6 +169,47 @@ this.setDistanceToTarget = function( distance ) {
             newTransform[ 13 ] = newLoc.y;
             newTransform[ 14 ] = newLoc.z;
             this.transformTo( newTransform, 0 );
+            break;
+    }
+}
+
+this.registerScenarioListener = function() {
+    var scene = this.find( "/" )[ 0 ];
+    scene.scenarioChanged = ( function( scenarioName ) {
+        this.findAndSetCurrentGrid( scenarioName );
+    } ).bind( this );
+
+    // TODO: Find a way to register the listener before the first
+    // scenario is set in order to eliminate the following code.
+    if ( !currentGrid ) {
+        this.findAndSetCurrentGrid( scene.activeScenarioPath );
+    }
+}
+
+this.findAndSetCurrentGrid = function( scenarioName ) {
+    var scenario = this.find( "//" + scenarioName )[ 0 ];
+    currentGrid = scenario.grid;
+    gridBounds = {  
+        bottomLeft: currentGrid.getWorldFromGrid( [ currentGrid.minX, currentGrid.minY ] ),
+        topRight: currentGrid.getWorldFromGrid( [ currentGrid.maxX, currentGrid.maxY ] ) 
+    };
+
+    switch ( this.pointOfView ) {
+        case "firstPerson":
+            this.lowerZoomBound = 0;
+            this.upperZoomBound = 0;
+            break;
+        case "thirdPerson":
+            this.lowerZoomBound = ( gridBounds.topRight[ 0 ] - gridBounds.bottomLeft[ 0 ] ) / 8 || 3;
+            this.upperZoomBound = ( gridBounds.topRight[ 0 ] - gridBounds.bottomLeft[ 0 ] ) / 2.5 || 3;
+            break;
+        case "topDown":
+            this.lowerZoomBound = ( gridBounds.topRight[ 0 ] - gridBounds.bottomLeft[ 0 ] ) / 3 || 3;;
+            this.upperZoomBound = gridBounds.topRight[ 0 ] - gridBounds.bottomLeft[ 0 ] || 3;;
+            break;
+        default:
+            self.logger.warnx( "changePointOfView$", "Unrecognized camera point of view: '", 
+                newPointOfView, "'" );
             break;
     }
 }
