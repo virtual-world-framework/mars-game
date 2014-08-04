@@ -51,10 +51,6 @@ properties:
     - minirover
     - [ 3, 8 ]
 
-  - addToGrid:
-    - blocklyGraph
-    - [ 8, 16 ]
-
 children:
   triggerManager:
     extends: source/triggers/triggerManager.vwf

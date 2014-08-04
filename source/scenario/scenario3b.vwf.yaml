@@ -46,10 +46,6 @@ properties:
     - rover
     - [ 3, 7 ]
 
-  - addToGrid:
-    - blocklyGraph
-    - [ 8, 16 ]
-
 children:
   triggerManager:
     extends: source/triggers/triggerManager.vwf
