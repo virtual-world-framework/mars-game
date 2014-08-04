@@ -62,5 +62,10 @@ properties:
     # arguments: targetPath
     panCamera:
 
+    # shows text in either the status or alert areas
+    # arguments: message
+    showAlert:
+    showStatus:
+
 scripts:
 - source: source/triggers/actionFactory.js
