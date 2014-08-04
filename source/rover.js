@@ -99,6 +99,7 @@ this.turnLeft = function() {
         scene.addStatus( this.displayName + " is turning left" );
     }    
     this.rotateBy( [ 0, 0, 1, 90 ], 1 );
+    this.activateSensor( 'forward' );
 }
 
 this.turnRight = function() {
@@ -111,6 +112,7 @@ this.turnRight = function() {
         scene.addStatus( this.displayName + " is turning right" );
     }
     this.rotateBy( [ 0, 0, 1, -90 ], 1 );
+    this.activateSensor( 'forward' );
 }
 
 this.translateOnTerrain = function( translation, duration, boundaryValue ) {
