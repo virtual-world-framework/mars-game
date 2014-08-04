@@ -32,7 +32,7 @@ properties:
     - rover
     - heading
     - 0
-    
+
   - setProperty:
     - rover
     - rotation
@@ -99,6 +99,7 @@ children:
             - 6
           actions:
           - scenarioSuccess:
+          - showAlert:
             - "You have calibrated your motors and picked up a spare battery!"
           - clearBlockly:
           - stopSound:

@@ -88,6 +88,7 @@ children:
           - onBlocklyWindowOpened:
           actions:
           - scenarioSuccess:
+          - showAlert:
             - "You have accessed your programming interface!"
           - stopSound:
             - musicStandardGameplay

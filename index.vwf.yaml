@@ -156,6 +156,7 @@ children:
           firstPersonOffset: [ 0, 0, 1 ]
           thirdPersonOffset: [ 0, -15.531, 5 ]
           topDownOffset: [ 0, 0, 40 ]
+          orbiting: false
           needToSetupEventHandler$: false
         methods:
           onSceneReady$:

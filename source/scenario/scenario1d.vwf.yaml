@@ -86,6 +86,7 @@ children:
           - onTilesToggle:
           actions:
           - scenarioSuccess:
+          - showAlert:
             - "You have accessed the grid!"
           - stopBlinkHUDElement:
             - tilesButton

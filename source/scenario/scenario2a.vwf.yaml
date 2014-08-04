@@ -68,6 +68,7 @@ children:
           - onGraphToggle:
           actions:
           - scenarioSuccess:
+          - showAlert:
             - "I can see clearly now... the lines are drawn!"
           - stopBlinkHUDElement:
             - graphButton

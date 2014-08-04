@@ -85,8 +85,15 @@ children:
             - 16
           actions:
           - scenarioSuccess:
+            - levelComplete
+          - showAlert:
             - "You have picked up the radio!"
-          - clearBlockly:
+          - showStatus:
+            - "Click to continue!"
+          - clearBlockly:      
+          - orbitCamera:
+            - 0.1
+            - 20
           - stopSound:
             - musicStandardGameplay
           - playSound:
