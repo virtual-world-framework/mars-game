@@ -2,6 +2,10 @@ body {
     overflow: hidden;
 }
 
+.pace {
+    display: none;
+}
+
 #blocklyIndicator {
     background-image: url( "assets/images/blockly_ui/blockly_indicator.png" );
     width: 40px;
