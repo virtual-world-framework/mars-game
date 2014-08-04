@@ -79,6 +79,7 @@ this.moveForward = function() {
                     scene.addStatus( this.displayName + " is moving forward" );
                 }
                 this.moved();
+                this.activateSensor( 'forward' );
             } else {
                 this.moveFailed( "collision" );
             }
@@ -248,10 +249,16 @@ this.activateSensor = function( sensor ) {
         var proposedNewGridSquare = [ this.currentGridSquare[ 0 ] + dirVector[ 0 ], 
                                                                 this.currentGridSquare[ 1 ] + dirVector[ 1 ] ];
 
-        var inventoriableObjects = scenario.grid.getObjectsAtCoord( proposedNewGridSquare );
+        var objects = scenario.grid.getObjectsAtCoord( proposedNewGridSquare );
 
-        if ( inventoriableObjects.length > 0 ) {
+        var rover = vwf_view.kernel.find( "", "//rover" )[ 0 ];
+
+        if ( objects.length > 0 ) {
             this.sensorValue = true;
+            vwf_view.kernel.setProperty( rover, "sensorValue", true );
+        } else {
+            this.sensorValue = false;
+            vwf_view.kernel.setProperty( rover, "sensorValue", false );
         }
 
     }
@@ -259,6 +266,6 @@ this.activateSensor = function( sensor ) {
 }
 
 this.deactivateSensor = function() {
-    this.sensorValue = false;
+    
 }
 //@ sourceURL=source/rover.js

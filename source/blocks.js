@@ -294,26 +294,7 @@ Blockly.JavaScript[ 'controls_sensor' ] = function( block ) {
   var retVal = false;
   var rover = vwf_view.kernel.find( "", "//rover" )[ 0 ];
 
-  if ( dropdown_value === 'objectAhead' ){
-
-    vwf.callMethod( rover, 'activateSensor', [ 'forward' ] );
-    var properties = vwf.getProperties( rover );
-    var retVal = properties[ 'sensorValue' ];
-
-    vwf.callMethod( rover, 'deactivateSensor', [ 'forward' ] );
-
-  }
-  if ( dropdown_value === 'noObjectAhead' ){
-
-    vwf.callMethod( rover, 'activateSensor', [ 'forward' ] );
-    var properties = vwf.getProperties( rover );
-    var retVal = !properties[ 'sensorValue' ];
-
-    vwf.callMethod( rover, 'deactivateSensor', [ 'forward' ] );
-
-  }
-
-  return [ retVal , Blockly.JavaScript.ORDER_ATOMIC ];
+  return [ "vwf.getProperty( '" + rover + "', 'sensorValue' )", Blockly.JavaScript.ORDER_ATOMIC ];
   
 };
 

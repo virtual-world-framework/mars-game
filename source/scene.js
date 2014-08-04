@@ -107,7 +107,7 @@ this.createMiniRover = function() {
                 "castShadows": true,
                 "receiveShadows": true,
                 "blocklyEnabled": false,
-                "currentGridSquare": [ 2, 10 ],
+                "currentGridSquare": [ 0, 8 ],
                 "heading": 270,
                 "terrainName": "environment",
                 "displayName": "Minirover"

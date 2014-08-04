@@ -196,6 +196,8 @@ children:
         extends: source/pickups/battery_1.vwf
       helicam:
         extends: source/pickups/helicam.vwf
+      minirover:
+        extends: source/pickups/minirover.vwf
   introScreenScenario:
     includes: source/scenario/introScreenScenario.vwf
   scenario1a:

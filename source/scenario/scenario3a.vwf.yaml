@@ -4,6 +4,7 @@ properties:
   scenarioName: scenario3a
 
   scenePath: /
+  nextScenarioPath: "scenario3b"
   blockly: assets/scenario/scenario3a.xml
 
   startState:
@@ -47,8 +48,8 @@ properties:
     - [ 7, 5 ]
 
   - addToGrid:
-    - blocklyGraph
-    - [ 8, 16 ]
+    - minirover
+    - [ 3, 8 ]
 
 children:
   triggerManager:
@@ -70,11 +71,8 @@ children:
           - and:
             - isAtPosition:
               - rover
-              - 1
-              - 8
-            - hasHeading:
-              - rover
-              - 0
+              - 3
+              - 7
           actions:
           - scenarioSuccess:
             - "I found the minirover!"
