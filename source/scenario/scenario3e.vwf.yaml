@@ -45,14 +45,14 @@ children:
     extends: source/triggers/triggerManager.vwf
     properties: 
       triggers:
-        beginScenario_3a:
+        beginScenario_3e:
           triggerCondition:
           - onScenarioStart:
           actions:
           - playSound:
             - musicStandardGameplay
 
-        succeedOnSuccessfulMovement_3b:
+        succeedOnSuccessfulMovement_3e:
           triggerCondition:
           - onBlocklyStopped:
             - rover

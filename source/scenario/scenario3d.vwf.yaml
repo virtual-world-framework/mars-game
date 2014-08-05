@@ -48,14 +48,14 @@ children:
     extends: source/triggers/triggerManager.vwf
     properties: 
       triggers:
-        beginScenario_2d:
+        beginScenario_3d:
           triggerCondition:
           - onScenarioStart:
           actions:
           - playSound:
             - musicStandardGameplay
 
-        failOnMove_2d:
+        failOnMove_3d:
           triggerCondition:
           - onMoved:
             - rover
@@ -64,7 +64,7 @@ children:
             - lost
             - "You need to plot the course of the wayward rover before going to find it."
 
-        succeedOnSuccessfulCoursePlot_2d:
+        succeedOnSuccessfulCoursePlot_3d:
           triggerCondition:
           - and:
             - blocklyLineEval:
@@ -80,7 +80,7 @@ children:
           - playSound:
             - musicSuccessShort
 
-        playHint1_2d:
+        playHint1_3d:
           triggerCondition:
           - delay:
             - 30
@@ -88,13 +88,13 @@ children:
           - and:
             - not:
               - readBlackboard:
-                - Level2dHint1
+                - Level3dHint1
             - not:
               - readBlackboard:
-                - Level2dHint2
+                - Level3dHint2
             - not:
               - readBlackboard:
-                - Level2dHint3
+                - Level3dHint3
             - not:
               - readBlackboard:
                 - hasSucceeded
@@ -103,11 +103,11 @@ children:
                 - hasFailed
           actions:
           - writeToBlackboard:
-            - Level2dHint1
+            - Level3dHint1
           - playSound:
             - ALVO2_Rover
 
-        playHint2_2d:
+        playHint2_3d:
           triggerCondition:
           - delay:
             - 60
@@ -115,10 +115,10 @@ children:
           - and:
             - not:
               - readBlackboard:
-                - Level2dHint2
+                - Level3dHint2
             - not:
               - readBlackboard:
-                - Level2dHint3
+                - Level3dHint3
             - not:
               - readBlackboard:
                 - hasSucceeded
@@ -127,11 +127,11 @@ children:
                 - hasFailed
           actions:
           - writeToBlackboard:
-            - Level2dHint2
+            - Level3dHint2
           - playSound:
             - ALVO3_Rover
 
-        playHint3_2d:
+        playHint3_3d:
           triggerCondition:
           - delay:
             - 90
@@ -139,7 +139,7 @@ children:
           - and:
             - not:
               - readBlackboard:
-                - Level2dHint3
+                - Level3dHint3
             - not:
               - readBlackboard:
                 - hasSucceeded
@@ -148,7 +148,7 @@ children:
                 - hasFailed
           actions:
           - writeToBlackboard:
-            - Level2dHint3
+            - Level3dHint3
           - playSound:
             - ALVO5_Rover
 

@@ -63,7 +63,7 @@ children:
           - playSound:
             - musicStandardGameplay
 
-        succeedOnSuccessfulMovement_3b:
+        succeedOnSuccessfulMovement_3a:
           triggerCondition:
           - onBlocklyStopped:
             - rover
