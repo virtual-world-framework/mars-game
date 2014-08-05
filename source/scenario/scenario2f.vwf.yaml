@@ -1,0 +1,120 @@
+---
+extends: source/scenario/scenario.vwf
+properties:
+  scenarioName: scenario2f
+
+  scenePath: /
+  nextScenarioPath: "scenario3a"
+  blockly: assets/scenario/scenario2f.xml
+
+  startState:
+  - setProperty:
+    - rover
+    - battery
+    - 5000
+  - setProperty:
+    - rover
+    - batteryMax
+    - 5000
+  - setProperty:
+    - rover
+    - blockly_allowedBlocks
+    - 30
+  - setProperty:
+    - rover
+    - heading
+    - 0
+  - setProperty:
+    - rover
+    - rotation
+    - [ 0, 0, 1, 0 ]
+  - addToInventory:
+    - rover/cargo
+    - [ "helicam", "battery", "radio" ]
+  - addToGrid:
+    - rover
+    - [ 13, 2 ]
+  - addToGrid:
+    - blocklyGraph
+    - [ 15, 1 ]
+
+children:
+  triggerManager:
+    extends: source/triggers/triggerManager.vwf
+    properties: 
+      triggers:
+        beginScenario_2f:
+          triggerCondition:
+          - onScenarioStart:
+          actions:
+          - playSound:
+            - musicStandardGameplay
+          - waitForNode:
+            - rover
+            - blinkBlocklyTab:
+              - rover
+
+        succeedOnSuccessfulMovement_2f:
+          triggerCondition:
+          - onBlocklyStopped:
+            - rover
+          additionalCondition:
+          - and:
+            - isAtPosition:
+              - rover
+              - 7
+              - 5
+            - hasHeading:
+              - rover
+              - 0
+          actions:
+          - scenarioSuccess:
+            - levelComplete
+          - showAlert:
+            - "I'm getting through the canyon! Now I need to figure out when I see a rover!"
+          - orbitCamera:
+            - 0.1
+            - 20
+          - clearBlockly:
+          - hideBlockly:
+          - stopSound:
+            - musicStandardGameplay
+          - playSound:
+            - musicSuccessShort
+
+        stopBlinkRoverTab_2f:
+          triggerCondition:
+          - or:
+            - onBlocklyWindowOpened:
+              - rover
+            - onScenarioChanged:
+          actions:
+          - stopBlinkBlocklyTab:
+            - rover
+
+  grid:
+    includes: source/grid.vwf
+    properties:
+      minX: 0
+      maxX: 16
+      minY: 0
+      maxY: 16
+      gridOriginInSpace: [ -45, 39 ]
+      gridSquareLength: 3
+      boundaryValues:
+      - [ -1, -1, -1, -1, -1, -1, -1,  1,  1,  1,  1, -1, -1, -1, -1, -1 ]
+      - [ -1, -1, -1, -1, -1, -1, -1,  1,  1,  1, -1, -1, -1, -1, -1, -1 ]
+      - [ -1, -1, -1, -1, -1, -1,  1,  1,  1, -1, -1, -1, -1, -1, -1, -1 ]
+      - [ -1, -1, -1, -1, -1, -1,  1,  1,  1, -1, -1, -1, -1, -1, -1, -1 ]
+      - [ -1, -1, -1, -1, -1, -1,  1,  1,  1, -1, -1, -1, -1, -1, -1, -1 ]
+      - [ -1, -1, -1, -1, -1,  1,  1,  1,  1, -1, -1, -1, -1, -1, -1, -1 ]
+      - [ -1, -1, -1, -1, -1,  1,  1,  1,  1, -1, -1, -1, -1, -1, -1, -1 ]
+      - [ -1, -1, -1, -1,  1,  1,  1,  1, -1, -1, -1, -1, -1, -1, -1, -1 ]
+      - [ -1, -1, -1,  1,  1,  1,  1, -1, -1, -1, -1, -1, -1, -1, -1, -1 ]
+      - [ -1,  1,  1,  1,  1,  1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1 ]
+      - [ -1,  1,  1,  1,  1,  1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1 ]
+      - [ -1,  1,  1,  1,  1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1 ]
+      - [ -1,  1,  1,  1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1 ]
+      - [  1,  1,  1,  1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1 ]
+      - [  1,  1,  1,  1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1 ]
+      - [  1,  1,  1,  1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1 ]

@@ -8,16 +8,17 @@ this.initialize = function() {
 }
 
 this.actionSet.scenarioSuccess = function( params, context ) {
-    if ( params && ( params.length > 1 ) ) {
-        self.logger.warnx( "scenarioSuccess", "This action takes one optional argument: a message to display." );
+    if ( params && ( params.length > 2 ) ) {
+        self.logger.warnx( "scenarioSuccess", "This action takes one optional argument: "+
+                            "the type of success." );
         return undefined;
     }
 
-    var message = params ? params[ 0 ] : undefined;
+    var type = params && params[ 0 ] ? params[ 0 ] : undefined;
 
     return function() {
         var scenario = getScenario( context );
-        scenario && scenario.completed( message );
+        scenario && scenario.completed( type );
     }
 }
 
@@ -310,6 +311,59 @@ this.actionSet.panCamera = function( params, context ) {
     }
 }
 
+this.actionSet.orbitCamera = function( params, context ) {
+    if ( params && params.length > 2 ) {
+        self.logger.errorx( "orbitCamera", "This action takes one parameter: the " +
+                            "speed at which the camera orbits the target node ( in rads/sec ), " +
+                            "and the time (in seconds) to automatically stop orbiting." );
+        return undefined;        
+    }
+
+    var speed = params[ 0 ];
+    var hardStop = params[ 1 ];
+    var camera = context.find( "//camera" )[ 0 ];
+    var hardStopID = setTimeout( setOrbitingFalse( camera ), hardStop * 1000 );
+    camera.orbiting = true;
+    camera.pointOfView = "thirdPerson";    
+
+    var callback = function() {
+        camera.orbitTarget$( speed );
+        if ( camera.orbiting ) {
+            setTimeout( callback, 0.1 );
+        } else {
+            clearTimeout( hardStopID );
+        }
+    }
+
+    return callback;
+}
+
+this.actionSet.showStatus = function( params, context ) {
+    if ( !params || params.length > 1 ) {
+        self.logger.errorx( "showStatus", "This action takes one parameter: the status to show." );
+        return undefined;
+    }
+
+    var status = params[ 0 ];
+
+    return function() {
+        context.addStatus( status );
+    }
+}
+
+this.actionSet.showAlert = function( params, context ) {
+    if ( !params || params.length > 1 ) {
+        self.logger.errorx( "showAlert", "This action takes one parameter: the alert to show." );
+        return undefined;
+    }
+
+    var alert = params[ 0 ];
+
+    return function() {
+        context.addAlert( alert );
+    }
+}
+
 function getScenario( context ) {
     if ( context.getCurrentScenario ){
         return context.getCurrentScenario();
@@ -322,6 +376,10 @@ function getScenario( context ) {
 
 function getSoundMgr( context ) {
     return self.findTypeInContext( context, "http://vwf.example.com/sound/soundManager.vwf" );
+}
+
+function setOrbitingFalse( camera ) {
+    camera.orbiting && ( camera.orbiting = false );
 }
 
 

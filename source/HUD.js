@@ -1,136 +1,99 @@
 HUD = function() {
-
     this.initialize();
     return this;
-
 }
 
 HUD.prototype = {
-
     constructor: HUD,
     scene: undefined,
     camera: undefined,
     quad: undefined,
     elements: undefined,
     elementCount: undefined,
+    sortedElements: undefined,
+    picks: undefined,
     canvas: undefined,
     visible: undefined,
+    defaultHandlers: undefined,
 
     initialize: function() {
-
         this.camera = new THREE.OrthographicCamera( -1, 1, 1, -1, 0, 10 );
         this.scene = new THREE.Scene();
         this.quad = new THREE.Mesh( new THREE.PlaneGeometry( 2, 2 ), null );
         this.scene.add( this.quad );
         this.elements = {};
         this.elementCount = 0;
+        this.sortedElements = [];
+        this.picks = [];
         this.canvas = document.createElement('CANVAS');
+        this.quad.material = new THREE.MeshBasicMaterial();
+        this.quad.material.map = new THREE.Texture( this.canvas );
+        this.quad.material.transparent = true;
         this.visible = true;
         this.update();
-
         var gameCanvas = document.getElementById( vwf_view.kernel.application() );
+        this.defaultHandlers = {};
         this.registerEventListeners( gameCanvas );
-
     },
 
     update: function() {
-
-        var canvas = this.canvas;
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-
-        // Draw the HUD to a canvas
+        this.canvas.width = window.innerWidth;
+        this.canvas.height = window.innerHeight;
         if ( this.visible ) {
-            this.draw( canvas );
+            this.draw();
         }
-
-        // Dispose of the last HUD texture
-        var texture;
-        if ( this.quad.material && this.quad.material.map ) {
-            texture = this.quad.material.map;
-            this.quad.material.map = undefined;
-            texture.dispose();
-        }
-
-        // Create a material using the HUD canvas as the source texture
-        texture = new THREE.Texture( canvas );
-        texture.needsUpdate = true;
-        this.quad.material = new THREE.MeshBasicMaterial( { map: texture, transparent: true } );
-
+        this.quad.material.map.needsUpdate = true;
+        this.quad.material.needsUpdate = true;
     },
 
-    draw: function( canvas ) {
+    draw: function() {
+        var context = this.canvas.getContext( '2d' );
+        this.sortedElements.length = 0;
 
-        var context = canvas.getContext( '2d' );
+        for ( var el in this.elements ) {
+            var element = this.elements[ el ];
+            element.position.x = 0;
+            element.position.y = 0;
 
-        var els = this.elements;
-
-        var orderedElements = new Array();
-
-        for ( var el in els ) {
-
-            var anchor = {
-                "x": 0,
-                "y": 0
-            }
-
-            switch ( els[ el ].alignH ) {
-
+            switch ( element.alignH ) {
                 case "left":
-                    anchor.x = 0;
+                    element.position.x = 0;
                     break;
-
                 case "center":
-                    anchor.x = -els[ el ].width / 2;
-                    anchor.x += canvas.width / 2;
+                    element.position.x = -element.width / 2;
+                    element.position.x += this.canvas.width / 2;
                     break;
-
                 case "right":
-                    anchor.x = -els[ el ].width;
-                    anchor.x += canvas.width;
+                    element.position.x = -element.width;
+                    element.position.x += this.canvas.width;
                     break;
-
             }
 
-            switch ( els[ el ].alignV ) {
-
+            switch ( element.alignV ) {
                 case "top":
-                    anchor.y = 0;
+                    element.position.y = 0;
                     break;
-
                 case "middle":
-                    anchor.y = -els[ el ].height / 2;
-                    anchor.y += canvas.height / 2;
+                    element.position.y = -element.height / 2;
+                    element.position.y += this.canvas.height / 2;
                     break;
-
                 case "bottom":
-                    anchor.y = -els[ el ].height;
-                    anchor.y += canvas.height;
+                    element.position.y = -element.height;
+                    element.position.y += this.canvas.height;
                     break;
-
             }
 
-            anchor.x += els[ el ].offset.x;
-            anchor.y += els[ el ].offset.y;
+            element.position.x += element.offset.x;
+            element.position.y += element.offset.y;
 
-            els[ el ].position = anchor;
-
-            orderedElements.push( els[ el ] );
-
+            if ( element.visible ) {
+                this.sortedElements.push( element );
+            }
         }
 
-        orderedElements.sort( function( a, b ) {
-            return a.drawOrder - b.drawOrder;
-        } );
-
-        for ( var i = 0; i < orderedElements.length; i++ ) {
-
-            if ( orderedElements[i].visible ) {
-
-                orderedElements[i].draw( context, orderedElements[i].position );
-
-            }
-
+        this.sortedElements.sort( this.sortFunction );
+        for ( var i = 0; i < this.sortedElements.length; i++ ) {
+            this.sortedElements[ i ].draw( context, this.sortedElements[ i ].position );
         }
 
     },
@@ -140,62 +103,56 @@ HUD.prototype = {
         // Add the element to the HUD's elements list
         // Initialize the offset position
         this.elements[ element.id ] = element;
+        var newElement = this.elements[ element.id ];
 
         if ( offset && !( isNaN( offset.x ) || isNaN( offset.y ) ) ) {
-
-            this.elements[ element.id ][ "offset" ] = {
+            newElement[ "offset" ] = {
                 "x": offset.x,
                 "y": offset.y
             };
-
         } else {
-
-            this.elements[ element.id ][ "offset" ] = {
+            newElement[ "offset" ] = {
                 "x": 0,
                 "y": 0
             };
-
         }
         
-        this.elements[ element.id ][ "position" ] = {
+        newElement[ "position" ] = {
             "x": 0,
             "y": 0
         }
 
         switch ( alignH ) {
-
             case "left":
             case "center":
             case "right":
-                this.elements[ element.id ][ "alignH" ] = alignH;
+                newElement[ "alignH" ] = alignH;
                 break;
             default:
-                this.elements[ element.id ][ "alignH" ] = "left";
+                newElement[ "alignH" ] = "left";
                 break;
-
         }
 
         switch ( alignV ) {
-
             case "top":
             case "middle":
             case "bottom":
-                this.elements[ element.id ][ "alignV" ] = alignV;
+                newElement[ "alignV" ] = alignV;
                 break;
             default:
-                this.elements[ element.id ][ "alignV" ] = "top";
+                newElement[ "alignV" ] = "top";
                 break;
-
         }
 
         this.countElements();
+        newElement[ "drawOrder" ] = this.elementCount;
+    },
 
-        this.elements[ element.id ][ "drawOrder" ] = this.elementCount;
-
+    sortFunction: function( a, b ) {
+        return a.drawOrder - b.drawOrder;
     },
 
     remove: function( element ) {
-
         var index = this.elements[ element.id ].drawOrder;
         delete this.elements[ element.id ];
 
@@ -219,132 +176,78 @@ HUD.prototype = {
     },
 
     pick: function( event ) {
+        // Use sortedElements since they are all visible
+        var elements = this.sortedElements;
+        this.picks.length = 0;
+        // Loop backward to order picks from nearest to furthest
+        for ( var i = elements.length - 1; i >= 0; i-- ) {
+            var pos = elements[ i ].position;
+            var width = pos.x + elements[ i ].width;
+            var height = pos.y + elements[ i ].height;
 
-        var picks = new Array();
-        var els = this.elements;
-        var coords = {
-            "x": event.clientX,
-            "y": event.clientY
-        }
+            if ( event.clientX > pos.x && event.clientX < width && 
+                 event.clientY > pos.y && event.clientY < height ) {
 
-        for ( var el in els ) {
-
-            // Ignore picks on hidden elements
-            if ( els[ el ].visible !== true ) {
-                continue;
-            }
-            
-            var v1 = els[ el ].position;
-            var v2 = { 
-                "x": v1.x + els[ el ].width,
-                "y": v1.y + els[ el ].height
-            }
-
-            if ( coords.x > v1.x && coords.x < v2.x && coords.y > v1.y && coords.y < v2.y ) {
-
-                if ( els[ el ].isMouseOver !== true ) {
-
-                    els[ el ].isMouseOver = true;
-                    els[ el ].onMouseOver( event );
-
+                if ( elements[ i ].isMouseOver !== true ) {
+                    elements[ i ].isMouseOver = true;
+                    elements[ i ].onMouseOver( event );
                 }
+                this.picks.push( elements[ i ] );
 
-                picks.push( els[ el ] );
-
-            } else if ( els[ el ].isMouseOver === true ) {
-
-                els[ el ].isMouseOver = false;
-                els[ el ].onMouseOut( event );
-
+            } else if ( elements[ i ].isMouseOver === true ) {
+                elements[ i ].isMouseOver = false;
+                elements[ i ].onMouseOut( event );
             }
-
         }
-
-        return picks;
-
     },
 
     registerEventListeners: function( gameCanvas ) {
+        var emptyEvent = function( event ) {};
+        this.defaultHandlers.onClick = gameCanvas.onclick;
+        gameCanvas.onclick = emptyEvent;
+        gameCanvas.addEventListener( "click", this.handleEvent.bind( this ) );
 
-        // Store the default event handlers so they can be used if
-        // the HUD does not handle the event.
-        var defaultHandlers = {};
+        this.defaultHandlers.onMouseUp = gameCanvas.onmouseup;
+        gameCanvas.onmouseup = emptyEvent;
+        gameCanvas.addEventListener( "mouseup", this.handleEvent.bind( this ) );
 
-        defaultHandlers.onclick = gameCanvas.onclick;
-        gameCanvas.onclick = ( function( event ) {} );
-        gameCanvas.addEventListener( "click", ( function( event ) { 
-            
-            var picks = this.pick( event );
-            var topPick = this.getTopElement( picks );
+        this.defaultHandlers.onMouseDown = gameCanvas.onmousedown;
+        gameCanvas.onmousedown = emptyEvent;
+        gameCanvas.addEventListener( "mousedown", this.handleEvent.bind( this ) );
 
-            if ( topPick !== null ) {
-                this.elements[ topPick.id ].onClick( event );
-            } else if ( defaultHandlers.onclick instanceof Function ) {
-                defaultHandlers.onclick( event );
-            }
-            
-        } ).bind(this) );
-
-        defaultHandlers.onmouseup = gameCanvas.onmouseup;
-        gameCanvas.onmouseup = ( function( event ) {} );
-        gameCanvas.addEventListener( "mouseup", ( function( event ) { 
-            
-            var picks = this.pick( event );
-            var topPick = this.getTopElement( picks );
-
-            if ( topPick !== null ) {
-                this.elements[ topPick.id ].onMouseUp( event );
-            } else if ( defaultHandlers.onmouseup instanceof Function ) {
-                defaultHandlers.onmouseup( event );
-            }
-            
-        } ).bind(this) );
-
-        defaultHandlers.onmousedown = gameCanvas.onmousedown;
-        gameCanvas.onmousedown = ( function( event ) {} );
-        gameCanvas.addEventListener( "mousedown", ( function( event ) { 
-            
-            var picks = this.pick( event );
-            var topPick = this.getTopElement( picks );
-
-            if ( topPick !== null ) {
-                this.elements[ topPick.id ].onMouseDown( event );
-            } else if ( defaultHandlers.onmousedown instanceof Function ) {
-                defaultHandlers.onmousedown( event );
-            }
-            
-        } ).bind(this) );
-
-        defaultHandlers.onmousemove = gameCanvas.onmousemove;
-        gameCanvas.onmousemove = ( function( event ) {} );
-        gameCanvas.addEventListener( "mousemove", ( function( event ) { 
-            
-            var picks = this.pick( event );
-            var topPick = this.getTopElement( picks );
-
-            if ( topPick !== null ) {
-                this.elements[ topPick.id ].onMouseMove( event );
-            } else if ( defaultHandlers.onmousemove instanceof Function ) {
-                defaultHandlers.onmousemove( event );
-            }
-            
-        } ).bind(this) );
-
+        this.defaultHandlers.onMouseMove = gameCanvas.onmousemove;
+        gameCanvas.onmousemove = emptyEvent;
+        gameCanvas.addEventListener( "mousemove", this.handleEvent.bind( this ) );
     },
 
-    getTopElement: function( elements ) {
+    handleEvent: function( event ) {
+        this.pick( event );
+        var topPick = this.picks[ 0 ];
+        var type;
 
-        var el = null;
-
-        for ( var i = 0; i < elements.length; i++ ) {
-
-            if ( el === null || elements[i].drawOrder > el.drawOrder ) {
-                el = elements[i];
-            }
-
+        switch ( event.type ) {
+            case "click":
+                type = "onClick";
+                break;
+            case "mouseup":
+                type = "onMouseUp";
+                break;
+            case "mousedown":
+                type = "onMouseDown";
+                break;
+            case "mousemove":
+                type = "onMouseMove";
+                break;
+            default:
+                console.log( "HUD.handleEvent - Unhandled event type: " + event.type );
+                return;
         }
 
-        return el;
+        if ( topPick ) {
+            this.elements[ topPick.id ][ type ]( event );
+        } else if ( this.defaultHandlers[ type ] instanceof Function ) {
+            this.defaultHandlers[ type ]( event );
+        }
     },
 
     moveToTop: function( id ) {
@@ -360,14 +263,11 @@ HUD.prototype = {
 }
 
 HUD.Element = function( id, drawFunc, width, height, visible ) {
-
     this.initialize( id, drawFunc, width, height );
     return this;
-
 }
 
 HUD.Element.prototype = {
-
     constructor: HUD.Element,
     id: undefined,
     width: undefined,
@@ -376,28 +276,20 @@ HUD.Element.prototype = {
     visible: undefined,
 
     initialize: function( id, drawFunc, width, height, visible ) {
-
         this.id = id;
 
         if ( drawFunc instanceof Function ) {
-
             this.draw = drawFunc;
-
         }
 
         this.width = isNaN( width ) ? 0 : width;
         this.height = isNaN( height ) ? 0 : height;
 
         if ( visible === true || visible === undefined ) {
-
             this.visible = true;
-
         } else {
-
             this.visible = false;
-
         }
-
     },
 
     draw: function( context, position ) { },

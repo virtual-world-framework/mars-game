@@ -1,5 +1,5 @@
 this.initialize = function() {
-    this.future( 0.05 ).update();
+    this.future( 0 ).update();
 }
 
 this.update = function() {
@@ -10,8 +10,8 @@ this.update = function() {
 this.followTarget = function() {
     var camera = this.find( "//camera" )[ 0 ];
     this.translateTo( [
-    		camera.translation[ 0 ],
-    		camera.translation[ 1 ],
+    		camera.translation[ 0 ] + 10,
+    		camera.translation[ 1 ] + 10,
     		3
     	] );
 }

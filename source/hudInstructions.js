@@ -1,9 +1,10 @@
 function createHUD() {
-
+    createBlocklyStatus();
+    createStatusText();
+    createAlertText();
+    createCommsDisplay();
     createRoverElement();
     createCameraSelector();
-    createCommsDisplay();
-    createBlocklyStatus();
 
     var blocklyButton = new HUD.Element( "blocklyButton", drawIcon, 64, 64 );
     blocklyButton.icon = new Image();
@@ -30,8 +31,6 @@ function createHUD() {
     helpButton.icon.src = "assets/images/hud/help_large.png";
     helpButton.onMouseDown = showHelp;
     hud.add( helpButton, "right", "bottom", { "x": -246, "y": -30 } );
-
-    // createInventoryHUD( 4 );
 }
 
 function createRoverElement() {
@@ -65,7 +64,6 @@ function createMiniRoverElement() {
 }
 
 function createCameraSelector() {
-
     var selector = new HUD.Element( "cameraSelector", drawCameraSelector, 96, 96 );
     selector.activeMode = {
         "icon": new Image(),
@@ -97,11 +95,9 @@ function createCameraSelector() {
     topDownBtn.enabled = true;
     topDownBtn.onMouseDown = selectCameraMode;
     hud.add( topDownBtn, "right", "top", { "x": -35, "y": 80 } );
-
 }
 
 function createCommsDisplay() {
-
     var commsElement = new HUD.Element( "comms", drawComms, 100, 150 );
     hud.add( commsElement, "left", "bottom", { "x": 10, "y": -10 } );
 
@@ -115,48 +111,23 @@ function createCommsDisplay() {
 
     commsElement.characterImage = new Image();
     commsElement.interval = 0;
-    commsElement.transitionHandle = null;
-
+    commsElement.direction = 0;
 }
 
 function addImageToCommsDisplay( imagePath ) {
     var comms = hud.elements.comms;
     if ( comms ) {
         comms.characterImage.src = imagePath;
-        if ( comms.transitionHandle ) {
-            clearInterval( comms.transitionHandle );
-            comms.transitionHandle = null;
-        } else {
-            comms.interval = 0;
-            comms.transitionHandle = setInterval( function() {
-                comms.interval += 0.1;
-                if ( comms.interval >= 1 ) {
-                    comms.interval = 1;
-                    clearInterval( comms.transitionHandle );
-                    comms.transitionHandle = null;
-                }
-            }, 30 );
-        }
+        comms.interval = 0;
+        comms.direction = 1;
     }
 }
 
 function removeImageFromCommsDisplay() {
     var comms = hud.elements.comms;
     if ( comms ) {
-        if ( comms.transitionHandle ) {
-            clearInterval( comms.transitionHandle );
-            comms.transitionHandle = null;
-        }        
         comms.interval = 1;
-        comms.transitionHandle = setInterval( function() {
-            comms.interval -= 0.1;
-            if ( comms.interval <= 0 ) {
-                comms.interval = 0;
-                comms.characterImage.src = "";
-                clearInterval( comms.transitionHandle );
-                comms.transitionHandle = null;
-            }
-        }, 30 );
+        comms.direction = -1;
     }
 }
 
@@ -184,6 +155,7 @@ function createBlocklyStatus() {
     status.index = -1;
     status.topOffset = 0;
     status.nextTopOffset = 0;
+    status.offsetIncrement = 0;
     status.range = 3;
     status.runIcon = new Image();
     status.runIcon.src = "assets/images/blockly_ui/blockly_indicator.png";
@@ -207,14 +179,13 @@ function populateBlockStack() {
     var status = hud.elements.blocklyStatus;
     var workspace = Blockly.getMainWorkspace();
     if ( status && workspace ) {
-        status.blockStack = [];
+        status.blockStack.length = 0;
         var blocks = workspace.getTopBlocks()[ 0 ];
         addBlockToStackList( blocks );
     }
 }
 
-function addBlockToStackList( topBlock, loopCounts ) {
-    loopCounts = loopCounts || [];
+function addBlockToStackList( topBlock, loopIndex ) {
     var status = hud.elements.blocklyStatus;
     var currentBlock = topBlock;
     while ( currentBlock ) {
@@ -224,14 +195,13 @@ function addBlockToStackList( topBlock, loopCounts ) {
             "name": blockType,
             "id": parseInt( blockID ),
             "alpha": 0,
-            "loopCounts": loopCounts.slice( 0 )
+            "loopIndex": loopIndex
         };        
 
         if ( blockType === "rover_moveForward" ) {
             blockData.name = "moveForward";
             status.blockStack.push( blockData );
-        }
-        else if ( blockType === "rover_turn" ) {
+        } else if ( blockType === "rover_turn" ) {
             blockData.name = currentBlock.getFieldValue( "DIR" );
             status.blockStack.push( blockData );            
         } else if ( blockType === "controls_repeat_extended" ) {
@@ -240,15 +210,65 @@ function addBlockToStackList( topBlock, loopCounts ) {
 
             var firstBlockInLoop = currentBlock.getInput( "DO" ).connection.targetConnection.sourceBlock_;
             var loopTimes = parseInt( Blockly.JavaScript.valueToCode( currentBlock, 'TIMES', Blockly.JavaScript.ORDER_ASSIGNMENT ) || '0' ) || 0;
-            var counts = loopCounts.slice( 0 );
             for ( var i = loopTimes - 1; i >= 0; i-- ) {
-                counts[ loopCounts.length ] = i;
-                addBlockToStackList( firstBlockInLoop, counts );
+                loopIndex = i;
+                addBlockToStackList( firstBlockInLoop, loopIndex );
             }
-        } 
+        } else if ( blockType === "controls_whileUntil" ) {
+            blockData.name = "repeatTimes";
+            status.blockStack.push( blockData );
+
+            var firstBlockInLoop = currentBlock.getInput( "DO" ).connection.targetConnection.sourceBlock_;
+            var loopTimes = 1;
+            for ( var i = loopTimes - 1; i >= 0; i-- ) {
+                loopIndex = i;
+                addBlockToStackList( firstBlockInLoop, loopIndex );
+            }
+
+        } else if ( blockType === "controls_sensor" ) {
+            blockData.name = "repeatTimes";
+            status.blockStack.push( blockData );
+        }
+
 
         currentBlock = currentBlock.getNextBlock();
     }
+}
+
+function createStatusText() {
+    var width = 400;
+    var height = 200;
+    var status = new HUD.Element( "status", drawLogger, width, height );
+    status.stackLength = loggerNodes[ statusNodeID ].logger_maxLogs;
+    status.lastMessage = "";
+    status.duplicateCount = 1;
+    status.messages = [];
+    status.fontSize = 16;
+    status.fontStyle = status.fontSize + "px Arial Black";
+    status.defaultDraw = drawLogger;
+    status.setDefaults = setStatusDefaults;
+    status.lastUpdateTime = vwf_view.kernel.time();
+    status.addedOffset;
+    status.updateIntervalTime = 0.01;
+    hud.add( status, "center", "bottom", { "x" : width / 2, "y" : 60 } );
+}
+
+function createAlertText() {
+    var width = 400;
+    var height = 50;
+    var alert = new HUD.Element( "alert", drawLogger, width, height );
+    alert.stackLength = loggerNodes[ alertNodeID ].logger_maxLogs;
+    alert.messages = [];
+    alert.lastMessage = "";
+    alert.fontSize = 24;
+    alert.fontStyle = alert.fontSize + "px Arial Black";
+    alert.defaultDraw = drawLogger;
+    alert.setDefaults = setAlertDefaults;
+    alert.lastUpdateTime = vwf_view.kernel.time();
+    alert.addedOffset;
+    alert.updateIntervalTime = 0.01;
+    alert.persistTimer = 3;
+    hud.add( alert, "center", "top", { "x" : width / 2, "y": 50 } );
 }
 
 function createInventoryHUD( capacity ) {
@@ -356,37 +376,32 @@ function removeSlotIcon( objectID ) {
 // === Draw Functions ===
 
 function drawBatteryMeter( context, position ) {
-
     var battery = this.battery;
     var maxBattery = this.maxBattery;
     var arcWidth = ( this.height + this.width ) / 4 ;
-    var center = {
-        "x": position.x + this.width / 2,
-        "y": position.y + this.height / 2
-    };
-    var radius = ( ( this.width + this.height ) / 2 ) / 2 - ( arcWidth );
+    var centerX = position.x + this.width / 2;
+    var centerY = position.y + this.height / 2;
+    var radius = ( this.width + this.height ) / 4 - arcWidth;
     var start = Math.PI * 1.5;
-    var end = start - ( battery / maxBattery ) * Math.PI * 2;
+    var end = start - battery / maxBattery * Math.PI * 2;
 
     context.beginPath();
-    context.arc( center.x, center.y, arcWidth, 0, 2 * Math.PI, false );
+    context.arc( centerX, centerY, arcWidth, 0, 2 * Math.PI, false );
     context.fillStyle = "rgba(50,90,150,0.5)";
     context.fill();
 
     context.beginPath();
-    context.arc( center.x, center.y, arcWidth / 2, start, end, true );
+    context.arc( centerX, centerY, arcWidth / 2, start, end, true );
     context.lineWidth = arcWidth - 1;
     context.strokeStyle = "rgb(50,130,255)";
     context.stroke();
 
     if ( this.portrait ) {
-        context.drawImage( this.portrait, center.x - this.portrait.width / 2, center.y - this.portrait.height / 2 );
+        context.drawImage( this.portrait, centerX - this.portrait.width / 2, centerY - this.portrait.height / 2 );
     }
-
     if ( this.selectedIcon && targetPath === this.path ) {
-        context.drawImage( this.selectedIcon, center.x - this.selectedIcon.width / 2, center.y - this.selectedIcon.height / 2 );
+        context.drawImage( this.selectedIcon, centerX - this.selectedIcon.width / 2, centerY - this.selectedIcon.height / 2 );
     }
-
     if ( this.frame ) {
         context.drawImage( this.frame, position.x, position.y );
     }
@@ -394,24 +409,20 @@ function drawBatteryMeter( context, position ) {
     context.textBaseline = "top";
     context.font = 'bold 24px Arial';
     context.fillStyle = "rgb(255,255,255)";
+    context.textAlign = "left";
     context.fillText( Math.round(battery), position.x + this.width + 3, position.y - 1 );
-
 }
 
 function drawMiniRoverElement( context, position ) {
-    var center = {
-        "x": position.x + this.width / 2,
-        "y": position.y + this.height / 2
-    };
+    var centerX = position.x + this.width / 2;
+    var centerY = position.y + this.height / 2;
 
     if ( this.portrait ) {
-        context.drawImage( this.portrait, center.x - this.portrait.width / 2, center.y - this.portrait.height / 2 );
+        context.drawImage( this.portrait, centerX - this.portrait.width / 2, centerY - this.portrait.height / 2 );
     }
-
     if ( this.selectedIcon && targetPath === this.path ) {
-        context.drawImage( this.selectedIcon, center.x - this.selectedIcon.width / 2, center.y - this.selectedIcon.height / 2 );
+        context.drawImage( this.selectedIcon, centerX - this.selectedIcon.width / 2, centerY - this.selectedIcon.height / 2 );
     }
-
     if ( this.frame ) {
         context.drawImage( this.frame, position.x, position.y );
     }
@@ -430,6 +441,13 @@ function drawComms( context, position ) {
         context.clip();
         context.drawImage( this.characterImage, position.x, position.y );
         context.restore();
+        this.interval += 0.1 * this.direction;
+        if ( this.interval > 1 ) {
+            this.interval = 1;
+        } else if ( this.interval <= 0 && this.direction === -1 ) {
+            this.interval = 0;
+            this.characterImage.src = "";
+        }
     }
 
     if ( this.frame ) {
@@ -459,23 +477,21 @@ function drawBlocklyStatus( context, position ) {
             if ( blockData ) {
                 var alpha = blockData.alpha;
                 var block = this.blockImages[ blockData.name ];
-                var loopCounts = blockData.loopCounts;
+                var loopIndex = blockData.loopIndex;
                 if ( alpha && block && Math.abs( i - this.index ) < this.range ) {
                     context.globalAlpha = alpha;
                     context.drawImage( block, position.x, 
                                        position.y - ( this.topOffset - lastHeight ) );
-                    if ( this.index === i && loopCounts ) {
+                    if ( this.index === i && !isNaN( loopIndex ) ) {
                         var numBlock = this.blockImages[ "number" ];
-                        for ( var j = 0; j < loopCounts.length; j++ ) {
-                            if ( loopCounts[ j ] > 0 ) {
-                                offsetX += numBlock.width;
-                                var posY = position.y - ( this.topOffset - lastHeight - 8 );
-                                context.drawImage( numBlock, position.x - offsetX, posY );
-                                context.textBaseline = "top";
-                                context.font = '15px sans-serif';
-                                context.fillStyle = "rgb( 0, 0, 0 )";
-                                context.fillText( loopCounts[ j ], position.x - offsetX + 20, posY + 8 );
-                            }
+                        if ( loopIndex > 0 ) {
+                            offsetX += numBlock.width;
+                            var posY = position.y - ( this.topOffset - lastHeight - 8 );
+                            context.drawImage( numBlock, position.x - offsetX, posY );
+                            context.textBaseline = "top";
+                            context.font = '15px sans-serif';
+                            context.fillStyle = "rgb( 0, 0, 0 )";
+                            context.fillText( loopIndex, position.x - offsetX + 20, posY + 8 );
                         }
                     }
                 }
@@ -489,6 +505,36 @@ function drawBlocklyStatus( context, position ) {
             context.drawImage( this.runIcon, position.x - offsetX, position.y - offsetY );
         }
     }
+}
+
+function drawBlocklyStatusAnimating( context, position ) {
+    var alphaIncrement = 0.5 / this.range;    
+    var time = vwf_view.kernel.time();
+    if ( time - this.lastUpdateTime > this.updateIntervalTime ) {
+        this.lastUpdateTime = time;
+        this.topOffset += this.offsetIncrement;
+        for ( var i = 0; i < this.blockStack.length; i++ ) {
+            var alpha = this.blockStack[ i ].alpha;
+            if ( i < this.index ) {
+                alpha -= alphaIncrement;
+                alpha = alpha < 0 ? 0 : alpha;
+            } else if ( i > this.index ) {
+                alpha += alphaIncrement;
+            } else {
+                alpha = 1;
+            }
+            this.blockStack[ i ].alpha = alpha;
+        }
+    }
+
+    if ( this.topOffset >= this.nextTopOffset ) {
+        this.topOffset = this.nextTopOffset;
+        this.offsetIncrement = 0;
+        this.draw = this.defaultDraw;
+        setBlocklyAlphas();
+    }
+
+    this.defaultDraw( context, position );
 }
 
 function drawHelicamButton( context, position ) {
@@ -510,68 +556,93 @@ function drawIcon( context, position ) {
 
 }
 
-function drawInventory( context, position ) {
-
-    var iconSize = 48;
-    var cap = this.capacity;
-    var separatorWidth = this.separator ? this.separator.width : 1;
-    var elementWidth = this.capacity * iconSize + ( this.capacity - 1 ) * separatorWidth;
-    var startPosition = position.x;
-
-    context.drawImage( this.label, position.x + this.width / 2 - this.label.width / 2, position.y + 56 );
-
-    if ( this.leftEnd ) {
-        context.drawImage( this.leftEnd, position.x, position.y );
-        startPosition += this.leftEnd.width;
-    }
-
-    if ( this.rightEnd ) {
-        context.drawImage( this.rightEnd, startPosition + elementWidth, position.y );
-    }
-
-    for ( var i = 0; i < this.slots.length; i++ ) {
-
-        var posX = startPosition + ( i * iconSize );
-        var posY = position.y;
-        var item = this.slots[ i ].item;
-
-        if ( i > 0 ) {
-            if ( this.separator ) {
-                context.drawImage( this.separator, posX + ( i - 1 ) * separatorWidth, posY );
-            }
-
-            posX += i * separatorWidth;
+function drawLogger( context, position ) {
+    var message;
+    context.font = this.fontStyle;
+    context.fillStyle = "rgb( 255, 255, 255 )";
+    context.strokeStyle = "rgb( 0, 0, 0 )";
+    context.textAlign = "center";
+    context.lineWidth = 4;
+    context.miterLimit = 2;
+    for ( var i = 0; i < this.messages.length; i++ ) {
+        message = this.messages[ i ];
+        if ( message ) {
+            context.globalAlpha = message.alpha;
+            context.strokeText( message.text, position.x, position.y - message.offset );
+            context.fillText( message.text, position.x, position.y - message.offset );
         }
+    }
+    context.globalAlpha = 1;
 
-        if ( item !== null ) {
+    // Slowly fade out the messages when nothing is being pushed, after persistTimer seconds
+    var time = vwf_view.kernel.time();
+    if ( time - this.lastUpdateTime > this.updateIntervalTime ) {
+        this.lastUpdateTime = time;
 
-            if ( item.icon instanceof Image ) {
-
-                context.drawImage( item.icon, posX, posY );
-
+        if ( !this.persistTimer || this.persistTimer <= 0 ) {
+            // Loop backwards to mitigate element removal
+            for ( var i = this.messages.length - 1; i >= 0 ; i-- ) {
+                var message = this.messages[ i ];
+                if ( message ) {
+                    message.alpha -= 0.01;
+                    if ( message.alpha <= 0 ) {
+                        removeElement( this.messages, i );
+                        if ( this.messages.length <= 0 && this.lastMessage ) {
+                            this.lastMessage = "";
+                        }
+                    }
+                }
             }
-
         } else {
-
-            context.fillStyle = "rgb(50,90,150)";
-            context.fillRect( posX, posY + 5, iconSize, iconSize - 10 );
-
+            this.persistTimer -= this.updateIntervalTime;
         }
     }
 }
 
+function drawLoggerAnimating( context, position ) {
+    var interval = 3;
+    var time = vwf_view.kernel.time();
+    var i;
+    if ( time - this.lastUpdateTime > this.updateIntervalTime ) {
+        this.lastUpdateTime = time;
+        for ( i = 0; i < this.messages.length; i++ ) {
+            this.messages[ i ].offset += this.fontSize / interval;
+            this.messages[ i ].alpha -= 1 / this.stackLength / interval;
+        }
+        this.addedOffset += this.fontSize / interval;
+
+        if ( this.addedOffset >= this.fontSize ) {
+            this.draw = this.defaultDraw;
+            this.setDefaults();
+        }
+    }
+
+    // Draw all statuses
+    context.font = this.fontStyle;
+    context.fillStyle = "rgb( 255, 255, 255 )";
+    context.strokeStyle = "rgb( 0, 0, 0 )";
+    context.textAlign = "center";
+    context.lineWidth = 4;
+    context.miterLimit = 2;
+    for ( i = 0; i < this.messages.length; i++ ) {
+        var message = this.messages[ i ];
+        if ( message ) {
+            context.globalAlpha = message.alpha;
+            context.strokeText( message.text, position.x, position.y - message.offset );
+            context.fillText( message.text, position.x, position.y - message.offset );
+        }
+    }
+    context.globalAlpha = 1;
+}
 
 // === HUD Event Handlers ===
 
 function clickBlockly( event ) {
-    
     var sceneID = vwf_view.kernel.application();
     var targetID = vwf_view.kernel.find( "", targetPath )[ 0 ];
-
     if ( sceneID !== undefined && targetID !== undefined ) {
         vwf_view.kernel.setProperty( sceneID, "blockly_activeNodeID", targetID );
     }
-
 }
 
 function toggleGraphDisplay( event ) {
@@ -584,11 +655,8 @@ function toggleGraphDisplay( event ) {
     if ( cameraNode && graphID ) {
         vwf_view.kernel.callMethod( graphID, "toggleGraphVisibility" );
         vwf_view.kernel.setProperty( cameraNode, "pointOfView", "topDown" );
-        isVisible.graph = !isVisible.graph;
-
-        vwf_view.kernel.fireEvent( vwf_view.kernel.application(),
-                "toggledGraph",
-                [] );
+        graphIsVisible = !graphIsVisible;
+        vwf_view.kernel.fireEvent( vwf_view.kernel.application(), "toggledGraph" );
     }
 }
 
@@ -599,10 +667,10 @@ function switchTarget( event ) {
 
 function selectCameraMode( event ) {
     if ( this.mode !== "topDown" ) {
-        if ( isVisible.graph ) {
+        if ( graphIsVisible ) {
             toggleGraphDisplay.bind( hud.elements.graphButton )( event );
         }
-        if ( isVisible.tiles ) {
+        if ( tilesAreVisible ) {
             toggleTiles.bind( hud.elements.tilesButton )( event );
         }
     } else if ( !this.enabled ) {
@@ -613,22 +681,19 @@ function selectCameraMode( event ) {
     vwf_view.kernel.setProperty( cameraNode, "pointOfView", this.mode );
 
     if ( this.mode === "topDown" ){
-        vwf_view.kernel.fireEvent( vwf_view.kernel.application(),
-            "toggledHelicam",
-            [] );
-        
+        vwf_view.kernel.fireEvent( vwf_view.kernel.application(), "toggledHelicam" );
     }
 }
 
 function showHelp( event ) {
-    var help = document.createElement( "DIV" );
-    help.id = "helpScreen";
-    help.className = "help";
-    help.onclick = ( function() {
-        var dialog = document.getElementById( "helpScreen" );
-        document.body.removeChild( dialog );
-    } );
-    document.body.appendChild( help );
+    var help = document.getElementById( "helpScreen" );
+    help.style.display = "block";
+    help.onclick = hideHelp;
+}
+
+function hideHelp( event ) {
+    var help = document.getElementById( "helpScreen" );
+    help.style.display = "none";
 }
 
 function toggleTiles( event ) {
@@ -640,11 +705,8 @@ function toggleTiles( event ) {
     if ( cameraNode && graphTilesID ) {
         vwf_view.kernel.callMethod( graphTilesID, "toggleTileVisibility" );
         vwf_view.kernel.setProperty( cameraNode, "pointOfView", "topDown" );
-        isVisible.tiles = !isVisible.tiles;
-
-        vwf_view.kernel.fireEvent( vwf_view.kernel.application(),
-            "toggledTiles",
-            [] );
+        tilesAreVisible = !tilesAreVisible;
+        vwf_view.kernel.fireEvent( vwf_view.kernel.application(), "toggledTiles" );
     }
 }
 
@@ -653,35 +715,32 @@ function toggleTiles( event ) {
 function blinkElement( elementID ) {
     var el = hud.elements[ elementID ];
     if ( el ) {
-        el.currentDrawFunction = el.draw;
+        el.normalDrawFunction = el.draw;
         el.lastBlinkTime = vwf_view.kernel.time();
         el.blinkInterval = 0.25;
         el.blinkDuration = 0.25;
         el.isBlinking = true;
-        el.draw = ( function( context, position ) {
-            var time = vwf_view.kernel.time();
-            if ( time  - this.lastBlinkTime > this.blinkInterval ) {
-                context.globalAlpha = 0.5;
-                
-                if ( time - this.lastBlinkTime > this.blinkInterval + this.blinkDuration ) {
-                    this.lastBlinkTime = time;
-                }
-            }
-            this.currentDrawFunction( context, position );
-            context.globalAlpha = 1;
-        } );
+        el.draw = drawBlink;
     }
+}
+
+function drawBlink( context, position ) {
+    var time = vwf_view.kernel.time();
+    if ( time  - this.lastBlinkTime > this.blinkInterval ) {
+        context.globalAlpha = 0.5;
+        if ( time - this.lastBlinkTime > this.blinkInterval + this.blinkDuration ) {
+            this.lastBlinkTime = time;
+        }
+    }
+    this.normalDrawFunction( context, position );
+    context.globalAlpha = 1;
 }
 
 function stopElementBlinking( elementID ) {
     var el = hud.elements[ elementID ];
     if ( el.isBlinking ) {
-        el.draw = el.currentDrawFunction;
-        delete el.currentDrawFunction;
-        delete el.lastBlinkTime;
-        delete el.blinkInterval;
-        delete el.blinkDuration;
-        delete el.isBlinking;
+        el.draw = el.normalDrawFunction;
+        el.isBlinking = false;
     }
 }
 
@@ -705,9 +764,9 @@ function setBlocklyAlphas() {
 
 function pushNextBlocklyStatus( id ) {
     var statusElem = hud.elements.blocklyStatus;
-
     if ( statusElem ) {
         statusElem.index++;
+
         var blockName = statusElem.blockStack[ statusElem.index ].name;
         var blockID = statusElem.blockStack[ statusElem.index ].id;
         var block = statusElem.blockImages[ blockName ];
@@ -716,37 +775,8 @@ function pushNextBlocklyStatus( id ) {
             // Check if block pushes are outrunning the animation
             if ( statusElem.draw === statusElem.defaultDraw ) {
                 statusElem.nextTopOffset = statusElem.topOffset + block.height;
-                var interval = statusElem.range;
-                var offsetIncrement = block.height / interval;
-                var alphaIncrement = 0.5 / interval;
-
-                statusElem.draw = ( function( context, position ) {
-                    var time = vwf_view.kernel.time();
-                    if ( time - this.lastUpdateTime > this.updateIntervalTime ) {
-                        this.lastUpdateTime = time;
-                        this.topOffset += offsetIncrement;
-                        for ( var i = 0; i < this.blockStack.length; i++ ) {
-                            var alpha = this.blockStack[ i ].alpha;
-                            if ( i < this.index ) {
-                                alpha -= alphaIncrement;
-                                alpha = alpha < 0 ? 0 : alpha;
-                            } else if ( i > this.index ) {
-                                alpha += alphaIncrement;
-                            } else {
-                                alpha = 1;
-                            }
-                            this.blockStack[ i ].alpha = alpha;
-                        }
-                    }
-
-                    if ( this.topOffset >= this.nextTopOffset ) {
-                        this.topOffset = this.nextTopOffset;
-                        this.draw = this.defaultDraw;
-                        setBlocklyAlphas();
-                    }
-
-                    this.defaultDraw( context, position );
-                } );
+                statusElem.offsetIncrement = block.height / statusElem.range
+                statusElem.draw = drawBlocklyStatusAnimating;
 
             // If they are, set the top right away and don't animate
             } else {
@@ -754,9 +784,10 @@ function pushNextBlocklyStatus( id ) {
                 statusElem.draw = statusElem.defaultDraw;
                 statusElem.topOffset = statusElem.nextTopOffset + block.height;
             }
-
-            
+        } else {
+            statusElem.index--;
         }
+        
     }
 }
 
@@ -764,7 +795,7 @@ function clearBlocklyStatus() {
     if ( hud ) {
         var statusElem = hud.elements.blocklyStatus;
         if ( statusElem ) {
-            statusElem.blockStack = [];
+            statusElem.blockStack.length = 0;
             statusElem.index = -1;
             statusElem.topOffset = 0;
             statusElem.nextTopOffset = 0;
@@ -772,10 +803,125 @@ function clearBlocklyStatus() {
     }
 }
 
+function clearStatus() {
+    if ( hud ) {
+        var status = hud.elements.status;
+        if ( status ) {
+            status.messages.length = 0;
+            status.lastMessage = "";
+        }
+    }
+}
+
+function clearAlert() {
+    if ( hud ) {
+        var alert = hud.elements.alert;
+        if ( alert ) {
+            alert.messages.length = 0;
+            alert.lastMessage = "";
+        }
+    }
+}
+
+function setStatusDefaults() {
+    var status = hud.elements.status;
+    while ( status.messages.length > status.stackLength ) {
+        status.messages.length--;
+    }
+    for ( var i = 0; i < status.messages.length; i++ ) {
+        var message = status.messages[ i ];
+        message.alpha = 1 - ( 1 / status.stackLength ) * i;
+        message.offset = status.fontSize * i;
+    }
+}
+
+function setAlertDefaults() {
+    var alert = hud.elements.alert;
+    while ( alert.messages.length > alert.stackLength ) {
+        alert.messages.length--;
+    }
+    for ( var i = 0; i < alert.messages.length; i++ ) {
+        var message = alert.messages[ i ];
+        message.alpha = 1 - ( 1 / alert.stackLength ) * i;
+        message.offset = alert.fontSize * i;
+    }
+}
+
+function pushStatus( message ) {
+    var status = hud.elements.status;
+    if ( status ) {
+
+        // Handle duplicate status messages
+        if ( message === status.lastMessage ) {
+            status.duplicateCount++;
+            message += " x" + status.duplicateCount;
+        } else {
+            status.lastMessage = message;
+            status.duplicateCount = 1;
+        }
+
+        var messageObj = {
+            "alpha": 1,
+            "text": message,
+            "offset": -status.fontSize
+        }
+        status.messages.unshift( messageObj );
+
+        if ( status.draw === status.defaultDraw ) {
+
+            // Push all the other statuses up and animate
+            status.addedOffset = 0;
+            status.draw = drawLoggerAnimating;
+        } else {
+
+            // If pushes are faster than the animation, don't animate
+            setStatusDefaults();
+            status.draw = status.defaultDraw;
+        }
+    }
+}
+
+function pushAlert( message ) {
+    var alert = hud.elements.alert;
+    if ( alert ) {
+        if ( message === alert.lastMessage ) {
+            alert.persistTimer = 3;
+            setAlertDefaults();
+        } else {
+            alert.lastMessage = message;
+            var messageObj = {
+                "alpha": 1,
+                "text": message,
+                "offset": -alert.fontSize
+            }
+            alert.messages.unshift( messageObj );
+            alert.persistTimer = 3;
+            if ( alert.draw === alert.defaultDraw ) {
+
+                // Push all the other statuses up and animate
+                alert.addedOffset = 0;
+                alert.draw = drawLoggerAnimating;
+            } else {
+
+                // If pushes are faster than the animation, don't animate
+                setAlertDefaults();
+                alert.draw = alert.defaultDraw;
+            }
+        }
+    }
+}
+
 function setHelicamButtonsEnabled( value ) {
     hud.elements[ "graphButton" ].enabled = value;
     hud.elements[ "tilesButton" ].enabled = value;
     hud.elements[ "camera_topDown" ].enabled = value;
+}
+
+function removeElement( array, index ) {
+    for ( var i = index; i < array.length - 1; i++ ) {
+        array[ i ] = array[ i ] + 1;
+    }
+    array.length--;
 }
 
 //@ sourceURL=source/hudInstructions.js

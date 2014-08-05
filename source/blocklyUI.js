@@ -89,6 +89,7 @@ function setUpBlocklyPeripherals() {
     runStopContainer.id = "runStopContainer";
     runButton.innerHTML = "";
     runButton.className = "disabled";
+    runButton.onclick = runBlockly;
     stopButton.className = "disabled";
 
     stopButton.onclick = ( function() {
@@ -115,7 +116,7 @@ function setUpBlocklyPeripherals() {
 function resizeBlockly() {
     var maxBlocklyHeight = parseInt( $( "#blocklyWrapper" ).css( "max-height") );
     var currentHeight = parseInt( $( "#blocklyWrapper" ).css( "height") );
-    var height = window.innerHeight * 0.9 <= maxBlocklyHeight ? Math.floor( window.innerHeight * 0.9 ): maxBlocklyHeight;
+    var height = window.innerHeight * 0.6 <= maxBlocklyHeight ? Math.floor( window.innerHeight * 0.6 ): maxBlocklyHeight;
 
     if ( height !== currentHeight ) {
         var wrapperDifference = parseInt( $( "#blocklyWrapper-top" ).css( "height") ) + parseInt( $( "#blocklyFooter" ).css( "height") );        

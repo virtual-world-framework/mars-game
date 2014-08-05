@@ -79,6 +79,7 @@ this.moveForward = function() {
                     scene.addStatus( this.displayName + " is moving forward" );
                 }
                 this.moved();
+                this.activateSensor( 'forward' );
             } else {
                 this.moveFailed( "collision" );
             }
@@ -122,6 +123,7 @@ this.translateOnTerrain = function( translation, duration, boundaryValue ) {
 
     } else {
 
+        var lastTime = 0;
         var startTranslation = this.translation || goog.vec.Vec3.create();
         var deltaTranslation = this.translationFromValue( translation );
         var stopTranslation = goog.vec.Vec3.add(
@@ -134,7 +136,13 @@ this.translateOnTerrain = function( translation, duration, boundaryValue ) {
         if(duration > 0) {
 
             this.animationDuration = duration;
-            this.animationUpdate = function(time, duration) {
+            this.animationUpdate = function( time, duration ) {
+
+                if ( lastRenderTime === lastTime && time < duration ) {
+                    return;
+                }
+
+                lastTime = lastRenderTime;
 
                 var newTranslation = goog.vec.Vec3.lerp(
                     startTranslation, stopTranslation,
@@ -194,7 +202,7 @@ this.allowedBlocksChanged = function( value ) {
 this.ramChanged = function( value ) {
     var scene = this.find("/")[0];
     if ( scene !== undefined && scene.alerts ) {
-        if ( value < this.lowRam ) {
+        if ( value <= this.lowRam ) {
             if ( value <= 0 ) {
                 scene.addAlert( this.displayName + " is Out of Memory" );
             } else {
@@ -228,4 +236,36 @@ this.moveFailed = function( value ) {
     }
 }
 
+this.activateSensor = function( sensor ) {
+
+    var scene = this.find("/")[0];
+    var scenario = this.find( "//"+scene.activeScenarioPath )[ 0 ];
+  
+    var retVal = false;
+
+    if ( sensor === 'forward' ) {
+        var headingInRadians = this.heading * Math.PI / 180;
+        var dirVector = [ Math.round( -Math.sin( headingInRadians ) ), Math.round( Math.cos( headingInRadians ) ) ];
+        var proposedNewGridSquare = [ this.currentGridSquare[ 0 ] + dirVector[ 0 ], 
+                                                                this.currentGridSquare[ 1 ] + dirVector[ 1 ] ];
+
+        var objects = scenario.grid.getObjectsAtCoord( proposedNewGridSquare );
+
+        var rover = vwf_view.kernel.find( "", "//rover" )[ 0 ];
+
+        if ( objects.length > 0 ) {
+            this.sensorValue = true;
+            vwf_view.kernel.setProperty( rover, "sensorValue", true );
+        } else {
+            this.sensorValue = false;
+            vwf_view.kernel.setProperty( rover, "sensorValue", false );
+        }
+
+    }
+
+}
+
+this.deactivateSensor = function() {
+    
+}
 //@ sourceURL=source/rover.js

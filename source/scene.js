@@ -3,14 +3,14 @@ this.initialize = function() {
     // Set the active camera so we can see the 3D scene
     this.initializeActiveCamera( this.player.camera );
 
-    this.graphObject = undefined;
-    this.miniRover = undefined;
 }
 
 this.setScenario = function( path ) {
     var scenario = this.find( path )[ 0 ];
     if ( scenario ) {
-        scenario.grid.clearGrid();
+        if ( scenario.grid && scenario.grid.clearGrid ) {
+            scenario.grid.clearGrid();
+        }
         scenario.future( 0 ).startScenario();
         var gridBounds = calcGridBounds( scenario.grid );
         this.scenarioChanged( scenario.name, gridBounds );
@@ -22,7 +22,9 @@ this.setScenario = function( path ) {
 this.resetScenario = function() {
     var scenario = this.find( this.activeScenarioPath )[ 0 ];
     if ( scenario ) {
-        scenario.grid.clearGrid();        
+        if ( scenario.grid && scenario.grid.clearGrid ) {
+            scenario.grid.clearGrid();
+        }      
         scenario.future( 0 ).startScenario();
         this.scenarioReset( scenario.name );
     } else {
@@ -44,23 +46,38 @@ this.getCurrentScenario = function() {
     return this.find( this.activeScenarioPath )[ 0 ];
 }
 
-this.createGraph = function() {
+this.createGraph = function( xml ) {
 
     var self = this;
 
     if ( self.graphObject === undefined ) {
 
-        var graphDef = {
-            "extends": "http://vwf.example.com/node3.vwf",
-            "implements": [ "http://vwf.example.com/blockly/controller.vwf" ],
-            "properties": {
-                  "blockly_toolbox": "assets/scenario/graph.xml"
-            }
-        };
-
+        if ( xml ) {
+            var graphDef = {
+                "extends": "http://vwf.example.com/node3.vwf",
+                "implements": [ "http://vwf.example.com/blockly/controller.vwf" ],
+                "properties": {
+                      "blockly_toolbox": "assets/scenario/"+xml+".xml"
+                }
+            };
+        } else {
+            var graphDef = {
+                "extends": "http://vwf.example.com/node3.vwf",
+                "implements": [ "http://vwf.example.com/blockly/controller.vwf" ],
+                "properties": {
+                      "blockly_toolbox": "assets/scenario/graph.xml"
+                }
+            };  
+        }
+        
         self.children.create( "graph", graphDef, function( child ) {
             self.graphObject = child;
         } );
+
+    } else {
+        // TODO: Graph is not reloading properly when scenarios change. The graph will
+        // get rid of all of its blocks and necessitates clicking on the graph tab
+        // again to reload.
     }
 }
 
@@ -90,7 +107,7 @@ this.createMiniRover = function() {
                 "castShadows": true,
                 "receiveShadows": true,
                 "blocklyEnabled": false,
-                "currentGridSquare": [ 2, 10 ],
+                "currentGridSquare": [ 0, 8 ],
                 "heading": 270,
                 "terrainName": "environment",
                 "displayName": "Minirover"

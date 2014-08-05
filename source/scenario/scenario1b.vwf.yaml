@@ -19,6 +19,10 @@ properties:
     - rover
     - blockly_allowedBlocks
     - 1
+  - setProperty:
+    - rover
+    - lowRam
+    - 0    
 
   # TODO: Simplify heading/rotation
   # Set initial rotation using heading
@@ -88,11 +92,13 @@ children:
             - 3
           actions:
           - scenarioSuccess:
+          - showAlert:
             - "You have executed a movement command and picked up your helicam!"
+          - clearBlockly:
           - stopSound:
             - musicStandardGameplay
           - playSound:
-            - musicSuccess
+            - musicSuccessShort
           - playSound:
             - L1VO8_Rover
 
@@ -144,7 +150,7 @@ children:
             - Level1bHint2
 
   grid:
-    extends: source/grid.vwf
+    includes: source/grid.vwf
     properties:
       minX: 0
       maxX: 16

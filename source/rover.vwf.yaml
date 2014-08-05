@@ -45,6 +45,7 @@ properties:
       }
     value: 5
   currentGridSquare: [ 0, 0 ]
+  sensorValue: false
   heading: 90
   terrainName: undefined
   displayName: undefined
@@ -57,6 +58,8 @@ methods:
   blocksUpdated:
   calcRam:
   registerScenarioListener:
+  activateSensor:
+  deactivateSensor:
 events:
   moved:
   moveFailed:
