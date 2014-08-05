@@ -264,7 +264,7 @@ this.activateSensor = function( sensor ) {
 
         for ( var a = 0; a < objects.length; a++ ) {
             if ( objects.objectName !== undefined ) {
-                if ( objects.objectName === "trackEdge" ) {
+                if ( objects.objectName === "trackanomaly" ) {
                     this.tracksSensorValue = true;
                     vwf_view.kernel.setProperty( rover, "tracksSensorValue", true );
                 }

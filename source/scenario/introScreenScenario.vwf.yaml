@@ -36,4 +36,4 @@ children:
       gridOriginInSpace: [ -45, 39 ]
       gridSquareLength: 3
       boundaryValues:
-      - [ 1, 1 ]
+      - [ 1 ]

@@ -1,8 +1,0 @@
----
-extends: source/pickup.vwf
-source: ../../assets/3d/Radio/radio.DAE
-type: model/vnd.collada+xml
-properties:
-  isCollidable: false
-  terrainName: "environment"
-  objectName: "trackanomaly"
