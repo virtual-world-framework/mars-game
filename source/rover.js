@@ -169,13 +169,6 @@ this.translateOnTerrain = function( translation, duration, boundaryValue ) {
 
 }
 
-this.pointerClick = function( pointerInfo, pickInfo ) {
-    var camera = this.find( "//camera" )[ 0 ];
-    if ( camera && this.blocklyEnabled ) {
-        camera.target = this.name;
-    }
-}
-
 this.getTerrainHeight = function( x, y, z, terrain ) {
 
     var height;
