@@ -1,8 +1,8 @@
 ---
 extends: source/pickup.vwf
-source: ../../assets/3d/minirover/minirover.dae
+source: ../../assets/3d/Radio/radio.DAE
 type: model/vnd.collada+xml
 properties:
-  isCollidable: true
+  isCollidable: false
   terrainName: "environment"
-  objectName: "minirover"
+  objectName: "trackanomaly"

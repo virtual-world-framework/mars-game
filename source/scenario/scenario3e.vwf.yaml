@@ -1,11 +1,10 @@
 ---
 extends: source/scenario/scenario.vwf
 properties:
-  scenarioName: scenario3a
+  scenarioName: scenario3e
 
   scenePath: /
-  nextScenarioPath: "scenario3b"
-  blockly: assets/scenario/scenario3a.xml
+  blockly: assets/scenario/scenario3e.xml
 
   startState:
   - setProperty:
@@ -48,7 +47,7 @@ properties:
     - [ 57, 5 ]
 
   - addToGrid:
-    - trackanomaly
+    - minirover
     - [ 53, 8 ]
 
 children:
@@ -75,7 +74,7 @@ children:
               - 7
           actions:
           - scenarioSuccess:
-            - "I found a track anomaly... time to change course!"
+            - "I found the minirover but it ran away! Plot course again!"
           - clearBlockly:
           - hideBlockly:
           - stopSound:

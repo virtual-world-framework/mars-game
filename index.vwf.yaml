@@ -233,6 +233,12 @@ children:
     includes: source/scenario/scenario3a.vwf
   scenario3b:
     includes: source/scenario/scenario3b.vwf
+  scenario3c:
+    includes: source/scenario/scenario3c.vwf
+  scenario3d:
+    includes: source/scenario/scenario3d.vwf
+  scenario3e:
+    includes: source/scenario/scenario3e.vwf
   blocklyGraph:
     extends: http://vwf.example.com/graphtool/graph.vwf
     implements: "source/griddable.vwf"

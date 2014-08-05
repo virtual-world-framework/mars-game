@@ -244,16 +244,31 @@ this.activateSensor = function( sensor ) {
         var proposedNewGridSquare = [ this.currentGridSquare[ 0 ] + dirVector[ 0 ], 
                                                                 this.currentGridSquare[ 1 ] + dirVector[ 1 ] ];
 
-        var objects = scenario.grid.getObjectsAtCoord( proposedNewGridSquare );
-
         var rover = vwf_view.kernel.find( "", "//rover" )[ 0 ];
 
+        //Any objects?
+
+        var objects = scenario.grid.getObjectsAtCoord( proposedNewGridSquare );
+
         if ( objects.length > 0 ) {
-            this.sensorValue = true;
-            vwf_view.kernel.setProperty( rover, "sensorValue", true );
+            this.objectSensorValue = true;
+            vwf_view.kernel.setProperty( rover, "objectSensorValue", true );
         } else {
-            this.sensorValue = false;
-            vwf_view.kernel.setProperty( rover, "sensorValue", false );
+            this.objectSensorValue = false;
+            vwf_view.kernel.setProperty( rover, "objectSensorValue", false );
+        }
+
+        //Any track edges?
+        this.tracksSensorValue = false;
+        vwf_view.kernel.setProperty( rover, "tracksSensorValue", false );
+
+        for ( var a = 0; a < objects.length; a++ ) {
+            if ( objects.objectName !== undefined ) {
+                if ( objects.objectName === "trackEdge" ) {
+                    this.tracksSensorValue = true;
+                    vwf_view.kernel.setProperty( rover, "tracksSensorValue", true );
+                }
+            }
         }
 
     }
