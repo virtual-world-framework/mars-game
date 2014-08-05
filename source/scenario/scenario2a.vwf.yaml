@@ -51,6 +51,8 @@ children:
           actions:
           - playSound:
             - musicStandardGameplay
+          - playSound:
+            - L2VO4_Rover
           - blinkHUDElement:
             - graphButton
 
@@ -70,6 +72,8 @@ children:
           - scenarioSuccess:
           - showAlert:
             - "I can see clearly now... the lines are drawn!"
+          - playSound:
+            - SCVO5_Rover
           - stopBlinkHUDElement:
             - graphButton
           - stopSound:

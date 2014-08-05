@@ -78,7 +78,7 @@ children:
           - playSound:
             - musicSuccess
           - playSound:
-            - L3VO7_Control
+            - SCVO8_Control
 
         playHint1_2d:
           triggerCondition:
