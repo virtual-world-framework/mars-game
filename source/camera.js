@@ -122,39 +122,41 @@ this.orbitTarget$ = function( speed ) {
     tempTransform = multiplyMatrices( rotationMatrix, tempTransform );
     tempTransform[ 12 ] += targetNode.transform[ 12 ];
     tempTransform[ 13 ] += targetNode.transform[ 13 ];
-    tempTransform[ 14 ] += targetNode.transform[ 14 ];    
+    tempTransform[ 14 ] += targetNode.transform[ 14 ];
     this.transform = tempTransform;
 }
 
 this.pullIn = function() {
-    cameraLoc.x = this.transform[ 12 ];
-    cameraLoc.y = this.transform[ 13 ];
-    cameraLoc.z = this.transform[ 14 ];
-    var target = getTargetNode();
-    targetLoc.x = target.transform[ 12 ];
-    targetLoc.y = target.transform[ 13 ];
-    targetLoc.z = target.transform[ 14 ];
+    if ( this.pointOfView === "thirdPerson" ) {
+        cameraLoc.x = this.transform[ 12 ];
+        cameraLoc.y = this.transform[ 13 ];
+        cameraLoc.z = this.transform[ 14 ];
+        var target = getTargetNode();
+        targetLoc.x = target.transform[ 12 ];
+        targetLoc.y = target.transform[ 13 ];
+        targetLoc.z = target.transform[ 14 ];
 
-    var distance = cameraLoc.distanceTo( targetLoc );
+        var distanceToSet = cameraLoc.distanceTo( targetLoc );
 
-    if ( distance > this.upperZoomBound ) {
-        this.setDistanceToTarget( this.upperZoomBound );
-    } else if ( distance < this.lowerZoomBound ) {
-        this.setDistanceToTarget( this.lowerZoomBound );
+        // Restrict camera to appropriate grid tiles
+        var worldCoords = currentGrid.getGridFromWorld( [ cameraLoc.x, cameraLoc.y ] );
+        var energy = currentGrid.getEnergy( worldCoords );
+        if ( !energy || energy <= -3 ) {
+            distanceToSet -= currentGrid.gridSquareLength;
+        }
+
+        // Then check overall bounds
+        if ( distanceToSet > this.upperZoomBound ) {
+            distanceToSet = this.upperZoomBound;
+        } else if ( distanceToSet < this.lowerZoomBound ) {
+            distanceToSet = this.lowerZoomBound;
+        }
+
+        // Finally, set the distance if it isn't the same as the current distance
+        if ( distanceToSet !== cameraLoc.distanceTo( targetLoc ) ) {
+            this.setDistanceToTarget( distanceToSet );
+        }
     }
-
-    if ( cameraLoc.y > gridBounds.topRight[ 1 ] ) {
-        this.setDistanceToTarget( Math.abs( gridBounds.topRight[ 1 ] - targetLoc.y ) );
-    } 
-    // else if ( cameraLoc.y < gridBounds.bottomLeft[ 1 ] ) {
-    //     this.setDistanceToTarget( Math.abs( gridBounds.bottomLeft[ 1 ] - targetLoc.y ) );
-    // }
-
-    if ( cameraLoc.x > gridBounds.topRight[ 0 ] ) {
-        this.setDistanceToTarget( Math.abs( gridBounds.topRight[ 0 ] - targetLoc.x ) );
-    } else if ( cameraLoc.x < gridBounds.bottomLeft[ 0 ] ) {
-        this.setDistanceToTarget( Math.abs( gridBounds.bottomLeft[ 0 ] - targetLoc.x ) );
-    }    
 }
 
 this.setDistanceToTarget = function( distance ) {

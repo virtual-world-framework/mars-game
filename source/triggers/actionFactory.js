@@ -323,10 +323,12 @@ this.actionSet.orbitCamera = function( params, context ) {
     var hardStop = params[ 1 ];
     var camera = context.find( "//camera" )[ 0 ];
     var hardStopID = setTimeout( setOrbitingFalse( camera ), hardStop * 1000 );
-    camera.orbiting = true;
-    camera.pointOfView = "thirdPerson";    
+    camera.orbiting = true;    
 
     var callback = function() {
+        if ( camera.pointOfView !== "thirdPerson" ) {
+            camera.pointOfView = "thirdPerson";
+        }
         camera.orbitTarget$( speed );
         if ( camera.orbiting ) {
             setTimeout( callback, 0.1 );
