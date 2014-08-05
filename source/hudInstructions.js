@@ -38,7 +38,6 @@ function createRoverElement() {
     batteryMeter.battery = 100;
     batteryMeter.maxBattery = 100;
     batteryMeter.path = "/player/rover";
-    batteryMeter.onMouseDown = switchTarget;
     hud.add( batteryMeter, "left", "top", { "x": 30, "y": 30 } );
 
     batteryMeter.frame = new Image();
@@ -52,7 +51,6 @@ function createRoverElement() {
 function createMiniRoverElement() {
     var miniroverElement = new HUD.Element( "minirover", drawMiniRoverElement, 88, 88 );
     miniroverElement.path = "/minirover";
-    miniroverElement.onMouseDown = switchTarget;
     hud.add( miniroverElement, "left", "top", { "x": 50, "y": 168 } );
 
     miniroverElement.portrait = new Image();
@@ -399,9 +397,9 @@ function drawBatteryMeter( context, position ) {
     if ( this.portrait ) {
         context.drawImage( this.portrait, centerX - this.portrait.width / 2, centerY - this.portrait.height / 2 );
     }
-    if ( this.selectedIcon && targetPath === this.path ) {
-        context.drawImage( this.selectedIcon, centerX - this.selectedIcon.width / 2, centerY - this.selectedIcon.height / 2 );
-    }
+    // if ( this.selectedIcon && targetPath === this.path ) {
+    //     context.drawImage( this.selectedIcon, centerX - this.selectedIcon.width / 2, centerY - this.selectedIcon.height / 2 );
+    // }
     if ( this.frame ) {
         context.drawImage( this.frame, position.x, position.y );
     }
@@ -420,9 +418,9 @@ function drawMiniRoverElement( context, position ) {
     if ( this.portrait ) {
         context.drawImage( this.portrait, centerX - this.portrait.width / 2, centerY - this.portrait.height / 2 );
     }
-    if ( this.selectedIcon && targetPath === this.path ) {
-        context.drawImage( this.selectedIcon, centerX - this.selectedIcon.width / 2, centerY - this.selectedIcon.height / 2 );
-    }
+    // if ( this.selectedIcon && targetPath === this.path ) {
+    //     context.drawImage( this.selectedIcon, centerX - this.selectedIcon.width / 2, centerY - this.selectedIcon.height / 2 );
+    // }
     if ( this.frame ) {
         context.drawImage( this.frame, position.x, position.y );
     }
@@ -639,9 +637,9 @@ function drawLoggerAnimating( context, position ) {
 
 function clickBlockly( event ) {
     var sceneID = vwf_view.kernel.application();
-    var targetID = vwf_view.kernel.find( "", targetPath )[ 0 ];
-    if ( sceneID !== undefined && targetID !== undefined ) {
-        vwf_view.kernel.setProperty( sceneID, "blockly_activeNodeID", targetID );
+    var nodeID = currentBlocklyNodeID || vwf_view.kernel.find( "", "/player/rover" )[ 0 ];
+    if ( sceneID !== undefined && nodeID !== undefined ) {
+        vwf_view.kernel.setProperty( sceneID, "blockly_activeNodeID", nodeID );
     }
 }
 
@@ -658,11 +656,6 @@ function toggleGraphDisplay( event ) {
         graphIsVisible = !graphIsVisible;
         vwf_view.kernel.fireEvent( vwf_view.kernel.application(), "toggledGraph" );
     }
-}
-
-function switchTarget( event ) {
-    var cameraNode = vwf_view.kernel.find( "", "//camera" )[ 0 ];
-    vwf_view.kernel.setProperty( cameraNode, "targetPath", this.path );
 }
 
 function selectCameraMode( event ) {
