@@ -100,6 +100,27 @@ children:
           - writeToBlackboard:
             - Level2bGraphOpened
 
+        playHint1_2b:
+          triggerCondition:
+          - delay:
+            - 20
+          additionalCondition:
+          - and:
+            - not:
+              - readBlackboard:
+                - Level2bHint1
+            - not:
+              - readBlackboard:
+                - hasSucceeded
+            - not:
+              - readBlackboard:
+                - hasFailed
+          actions:
+          - playSound:
+            - ALVO17_Rover
+          - writeToBlackboard:
+            - Level2bHint1
+
   grid:
     includes: source/grid.vwf
     properties:

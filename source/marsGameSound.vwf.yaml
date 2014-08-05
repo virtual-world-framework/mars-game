@@ -184,6 +184,11 @@ properties:
       subtitle: "[ROVER]: I need to match course, got to find a function that matches these tracks."
       groupReplacementMethod: queue
       queueDelayTime: 2
+    - soundName: "L2VO9_Control"
+      soundURL: "assets/sounds/VO/L2VO9_Control.ogg"
+      soundGroup: VO
+      subtitle: "You don’t want to keep having to do this all the way up the line. Remember you can repeat this small movement program, and save yourself some work. Try repeating it three times to start."
+      groupReplacementMethod: queue
     - soundName: "L3VO1_Control"
       soundURL: "assets/sounds/vo/L3VO1_Control.ogg"
       soundGroup: vo
@@ -359,6 +364,21 @@ properties:
       soundGroup: vo
       subtitle: "[ROVER]: I’m going to need to work out the moves all the way to the Radio Module and turn that into a Program."
       groupReplacementMethod: queue
+    - soundName: "ALVO24_Rover_m"
+      soundURL: "assets/sounds/VO/ALVO24_Rover_m.ogg"
+      soundGroup: VO
+      subtitle: "[ROVER]: I wonder what happens if I connect a Y block to an X block?"
+      groupReplacementMethod: queue
+    - soundName: "ALVO25_Rover_m"
+      soundURL: "assets/sounds/VO/ALVO25_Rover_m.ogg"
+      soundGroup: VO
+      subtitle: "[ROVER]: If I know the slope, I can use that to determine my course."
+      groupReplacementMethod: queue
+    - soundName: "ALVO26_Rover_m"
+      soundURL: "assets/sounds/VO/ALVO26_Rover_m.ogg"
+      soundGroup: VO
+      subtitle: "[ROVER]: Slope is the number of grid squares 'up' the Y axis the graph crosses, by the number of grid squares along the X axis."
+      groupReplacementMethod: queue
     - soundName: "SCVO1_Rover"
       soundURL: "assets/sounds/vo/SCVO1_Rover_m.ogg"
       soundGroup: vo
@@ -374,6 +394,35 @@ properties:
       soundGroup: vo
       subtitle: "[ROVER]: Yay!  Now I can call home."
       groupReplacementMethod: replace
+    - soundName: "FCVO1_Rover"
+      soundURL: "assets/sounds/VO/FCVO1_Rover_m.ogg"
+      soundGroup: VO
+      subtitle: "[ROVER]: I swear I feel dizzy, but I can’t be — I’m a Robot. Hmm."
+    - soundName: "FCVO2_Rover"
+      soundURL: "assets/sounds/VO/FCVO2_Rover_m.ogg"
+      soundGroup: VO
+      subtitle: "[ROVER]: I didn’t make it. I need to rethink my Program."
+    - soundName: "SCVO2_Rover"
+      soundURL: "assets/sounds/VO/SCVO2_Rover_m.ogg"
+      soundGroup: VO
+      subtitle: "[ROVER]: Ah that’s better...now I can see where I can drive."
+    - soundName: "SCVO5_Rover"
+      soundURL: "assets/sounds/VO/SCVO5_Rover_m.ogg"
+      soundGroup: VO
+      subtitle: "[ROVER]: This grid will help me work things out, but I need someway to make a graph appear. I recall it has something to do with my Blockly programming..."
+    - soundName: "SCVO6_Rover"
+      soundURL: "assets/sounds/VO/SCVO6_Rover_m.ogg"
+      soundGroup: VO
+      subtitle: "[ROVER]: Now I need to plot a graph. I recall it starts with the why Block."
+    - soundName: "SCVO8_Control"
+      soundURL: "assets/sounds/VO/SCVO8_Control.ogg"
+      soundGroup: VO
+      subtitle: "[MC]: Now you are on the right track! This graph is going to help you overcome your next challenge: Find the slope of the line, and use that to make a navigation Program that will follow that track!"
+    - soundName: "SCVO9_Rover"
+      soundURL: "assets/sounds/VO/SCVO9_Rover_m.ogg"
+      soundGroup: VO
+      subtitle: "[ROVER]: Yay! That will save some time and memory. But I think I’m forgetting something…"
+
 methods:
   setUpSubtitles:
 children:

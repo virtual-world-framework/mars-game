@@ -49,6 +49,8 @@ children:
           actions:
           - playSound:
             - musicStandardGameplay
+          - playSound:
+            - L2VO9_Control
           - waitForNode:
             - rover
             - blinkBlocklyTab:

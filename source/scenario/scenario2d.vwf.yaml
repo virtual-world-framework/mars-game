@@ -49,6 +49,8 @@ children:
           actions:
           - playSound:
             - musicStandardGameplay
+          - playSound:
+            - ALVO6_Rover
 
         failOnMove_2d:
           triggerCondition:
