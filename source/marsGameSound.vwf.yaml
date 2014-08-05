@@ -113,7 +113,7 @@ properties:
     - soundName: "L1VO6_Control"
       soundURL: "assets/sounds/VO/L1VO6_Control.ogg"
       soundGroup: VO
-      subtitle: "[MC]: COMPUTER SAYS NO!…Just kidding. Wow! You’re still active. This is PAL 10K, your AI Mission Controller…here are the deets. You are a super advanced self-learning rover that we sent to Mars to prepare a Base for our pets- I mean Human Explorers, who are hurtling toward you at a gagillgion meters per second per second. Anyhoo, something went wrong during your atmosphere entry procedure and your vehicle and all your mission equipment have been scattered over a significant fraction of the planet’s surface. So that’s problem number one. Problem number two: we have lost contact with the humans. The good news is you can restore contact with them from your end. The bad news is there is third problem: You are missing 99.9% of your brain."
+      subtitle: "[MC]: Wow! You’re still active. I’m PAL 10K, your AI Mission Controller...here is a status report. You are a super advanced self-learning rover that we sent to Mars to prepare a Base for our Human Explorers. Something went wrong during your atmosphere entry procedure and your vehicle and all your mission equipment have been scattered over the planet’s surface. So that’s problem number one. Problem number two: we have lost contact with the humans. The good news is you can restore contact with them from your end. But first you need to find one of your Rover’s that was wandered off. It is carrying supplies you will need to continue your mission. Plot a course to match its heading."
       groupReplacementMethod: queue
       queueDelayTime: 2
     - soundName: "L1VO7_Rover"
@@ -190,11 +190,24 @@ properties:
       subtitle: "[ROVER]: I’m going to need something to help me plot the course. If only I had some way to graph things..."
       groupReplacementMethod: queue
       queueDelayTime: 2
+    - soundName: "L2VO7_Control"
+      soundURL: "assets/sounds/VO/L2VO7_Control.ogg"
+      soundGroup: VO
+      subtitle: "[MC]: Now you have your first graph plotted, why don’t you try changing it. We see the track of your lost Mini Rover from our satellite view. Can you match it?"
+      groupReplacementMethod: queue
+      queueDelayTime: 2
     - soundName: "L2VO9_Control"
       soundURL: "assets/sounds/VO/L2VO9_Control.ogg"
       soundGroup: VO
-      subtitle: "You don’t want to keep having to do this all the way up the line. Remember you can repeat this small movement program, and save yourself some work. Try repeating it three times to start."
+      subtitle: "[MC]: You don’t want to keep having to do this all the way up the line. Remember you can repeat this small movement program, and save yourself some work. Try repeating it three times to start."
       groupReplacementMethod: queue
+      queueDelayTime: 2
+    - soundName: "L2VO10_Control"
+      soundURL: "assets/sounds/VO/L2VO10_Control.ogg"
+      soundGroup: VO
+      subtitle: "[MC]: Yes, you are…but you need to check if you can actually see the MiniRover! For this you will need a new Block: the Scan Block"
+      groupReplacementMethod: queue
+      queueDelayTime: 2
     - soundName: "L3VO1_Control"
       soundURL: "assets/sounds/VO/L3VO1_Control.ogg"
       soundGroup: VO
@@ -370,20 +383,30 @@ properties:
       soundGroup: VO
       subtitle: "[ROVER]: I’m going to need to work out the moves all the way to the Radio Module and turn that into a Program."
       groupReplacementMethod: queue
-    - soundName: "ALVO24_Rover_m"
+    - soundName: "ALVO24_Rover"
       soundURL: "assets/sounds/VO/ALVO24_Rover_m.ogg"
       soundGroup: VO
       subtitle: "[ROVER]: I wonder what happens if I connect a Y block to an X block?"
       groupReplacementMethod: queue
-    - soundName: "ALVO25_Rover_m"
+    - soundName: "ALVO25_Rover"
       soundURL: "assets/sounds/VO/ALVO25_Rover_m.ogg"
       soundGroup: VO
       subtitle: "[ROVER]: If I know the slope, I can use that to determine my course."
       groupReplacementMethod: queue
-    - soundName: "ALVO26_Rover_m"
+    - soundName: "ALVO26_Rover"
       soundURL: "assets/sounds/VO/ALVO26_Rover_m.ogg"
       soundGroup: VO
       subtitle: "[ROVER]: Slope is the number of grid squares 'up' the Y axis the graph crosses, by the number of grid squares along the X axis."
+      groupReplacementMethod: queue
+    - soundName: "ALVO27_Rover"
+      soundURL: "assets/sounds/VO/ALVO27_Rover_m.ogg"
+      soundGroup: VO
+      subtitle: "[ROVER]: Try using the Scanblock to detect the MiniRover."
+      groupReplacementMethod: queue
+    - soundName: "ALVO28_Rover"
+      soundURL: "assets/sounds/VO/ALVO28_Rover_m.ogg"
+      soundGroup: VO
+      subtitle: "[ROVER]: Try using the Conditional Block to decide what to do after you scan."
       groupReplacementMethod: queue
     - soundName: "SCVO1_Rover"
       soundURL: "assets/sounds/VO/SCVO1_Rover_m.ogg"
@@ -404,30 +427,37 @@ properties:
       soundURL: "assets/sounds/VO/FCVO1_Rover_m.ogg"
       soundGroup: VO
       subtitle: "[ROVER]: I swear I feel dizzy, but I can’t be — I’m a Robot. Hmm."
+      groupReplacementMethod: replace
     - soundName: "FCVO2_Rover"
       soundURL: "assets/sounds/VO/FCVO2_Rover_m.ogg"
       soundGroup: VO
       subtitle: "[ROVER]: I didn’t make it. I need to rethink my Program."
+      groupReplacementMethod: replace
     - soundName: "SCVO2_Rover"
       soundURL: "assets/sounds/VO/SCVO2_Rover_m.ogg"
       soundGroup: VO
       subtitle: "[ROVER]: Ah that’s better...now I can see where I can drive."
+      groupReplacementMethod: replace
     - soundName: "SCVO5_Rover"
       soundURL: "assets/sounds/VO/SCVO5_Rover_m.ogg"
       soundGroup: VO
       subtitle: "[ROVER]: This grid will help me work things out, but I need someway to make a graph appear. I recall it has something to do with my Blockly programming..."
+      groupReplacementMethod: replace
     - soundName: "SCVO6_Rover"
       soundURL: "assets/sounds/VO/SCVO6_Rover_m.ogg"
       soundGroup: VO
-      subtitle: "[ROVER]: Now I need to plot a graph. I recall it starts with the why Block."
+      subtitle: "[ROVER]: Now I need to plot a graph. I recall it starts with the Y Block."
+      groupReplacementMethod: replace
     - soundName: "SCVO8_Control"
       soundURL: "assets/sounds/VO/SCVO8_Control.ogg"
       soundGroup: VO
       subtitle: "[MC]: Now you are on the right track! This graph is going to help you overcome your next challenge: Find the slope of the line, and use that to make a navigation Program that will follow that track!"
+      groupReplacementMethod: replace
     - soundName: "SCVO9_Rover"
       soundURL: "assets/sounds/VO/SCVO9_Rover_m.ogg"
       soundGroup: VO
       subtitle: "[ROVER]: Yay! That will save some time and memory. But I think I’m forgetting something…"
+      groupReplacementMethod: replace
 
 methods:
   setUpSubtitles:

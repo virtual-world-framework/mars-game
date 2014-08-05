@@ -45,11 +45,11 @@ properties:
 
   - addToGrid:
     - rover
-    - [ 57, 5 ]
+    - [ 37, 15 ]
 
   - addToGrid:
-    - minirover
-    - [ 53, 8 ]
+    - trackanomaly
+    - [ 11, 10 ]
 
 children:
   triggerManager:
@@ -71,17 +71,16 @@ children:
           - and:
             - isAtPosition:
               - rover
-              - 53
-              - 7
+              - 12
+              - 10
           actions:
           - scenarioSuccess:
             - "I found a track anomaly... time to change course!"
-          - clearBlockly:
           - hideBlockly:
           - stopSound:
             - musicStandardGameplay
           - playSound:
-            - musicSuccess
+            - musicSuccessShort
 
   grid:
     includes: source/grid.vwf

@@ -253,22 +253,13 @@ this.activateSensor = function( sensor ) {
         if ( objects.length > 0 ) {
             this.objectSensorValue = true;
             vwf_view.kernel.setProperty( rover, "objectSensorValue", true );
+            this.tracksSensorValue = true;
+            vwf_view.kernel.setProperty( rover, "tracksSensorValue", true );
         } else {
             this.objectSensorValue = false;
             vwf_view.kernel.setProperty( rover, "objectSensorValue", false );
-        }
-
-        //Any track edges?
-        this.tracksSensorValue = false;
-        vwf_view.kernel.setProperty( rover, "tracksSensorValue", false );
-
-        for ( var a = 0; a < objects.length; a++ ) {
-            if ( objects.objectName !== undefined ) {
-                if ( objects.objectName === "trackanomaly" ) {
-                    this.tracksSensorValue = true;
-                    vwf_view.kernel.setProperty( rover, "tracksSensorValue", true );
-                }
-            }
+            this.tracksSensorValue = false;
+            vwf_view.kernel.setProperty( rover, "tracksSensorValue", false );
         }
 
     }

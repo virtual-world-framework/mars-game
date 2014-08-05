@@ -33,10 +33,10 @@ properties:
     - [ "helicam", "battery", "radio" ]
   - addToGrid:
     - rover
-    - [ 15, 1 ]
+    - [ 37, 15 ]
   - addToGrid:
     - blocklyGraph
-    - [ 15, 1 ]
+    - [ 37, 15 ]
 
 children:
   triggerManager:
@@ -63,9 +63,9 @@ children:
           triggerCondition:
           - and:
             - blocklyLineEval:
-              - [ 10, -5 ]
+              - [ 32, 14 ]
             - blocklyLineEval:
-              - [ -16, 8 ]
+              - [ 42, 16 ]
           actions:
           - scenarioSuccess:
             - "Course plotted! Now to find the little guy."
@@ -73,9 +73,7 @@ children:
           - stopSound:
             - musicStandardGameplay
           - playSound:
-            - musicSuccess
-          - playSound:
-            - L3VO7_Control
+            - musicSuccessShort
 
         playHint1_2d:
           triggerCondition:

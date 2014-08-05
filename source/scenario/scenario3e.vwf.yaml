@@ -44,11 +44,11 @@ properties:
 
   - addToGrid:
     - rover
-    - [ 57, 5 ]
+    - [ 12, 10 ]
 
   - addToGrid:
-    - minirover
-    - [ 53, 8 ]
+    - trackanomaly
+    - [ 24, 35 ]
 
 children:
   triggerManager:
@@ -70,17 +70,19 @@ children:
           - and:
             - isAtPosition:
               - rover
-              - 53
-              - 7
+              - 24
+              - 34
           actions:
           - scenarioSuccess:
-            - "I found the minirover but it ran away! Plot course again!"
+            - "I found the minirover!"
           - clearBlockly:
           - hideBlockly:
           - stopSound:
             - musicStandardGameplay
           - playSound:
             - musicSuccess
+          - playSound:
+            - L3VO10_Control
 
   grid:
     includes: source/grid.vwf

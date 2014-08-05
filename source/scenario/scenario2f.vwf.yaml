@@ -78,6 +78,10 @@ children:
             - musicStandardGameplay
           - playSound:
             - musicSuccessShort
+          - playSound:
+            - SCVO9_Rover
+          - playSound:
+            - L2VO10_Control
 
         stopBlinkRoverTab_2f:
           triggerCondition:

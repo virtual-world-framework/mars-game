@@ -48,8 +48,8 @@ properties:
     - [ 57, 5 ]
 
   - addToGrid:
-    - minirover
-    - [ 53, 8 ]
+    - trackanomaly
+    - [ 37, 16 ]
 
 children:
   triggerManager:
@@ -71,17 +71,61 @@ children:
           - and:
             - isAtPosition:
               - rover
-              - 53
-              - 7
+              - 37
+              - 15
           actions:
           - scenarioSuccess:
             - "I found a track anomaly... time to change course!"
-          - clearBlockly:
           - hideBlockly:
           - stopSound:
             - musicStandardGameplay
           - playSound:
-            - musicSuccess
+            - musicSuccessShort
+
+        playHint1_3a:
+          triggerCondition:
+          - delay:
+            - 20
+          additionalCondition:
+          - and:
+            - not:
+              - readBlackboard:
+                - Level3aHint1
+            - not:
+              - readBlackboard:
+                - Level3aHint2
+            - not:
+              - readBlackboard:
+                - hasSucceeded
+            - not:
+              - readBlackboard:
+                - hasFailed
+          actions:
+          - playSound:
+            - ALVO27_Rover
+          - writeToBlackboard:
+            - Level3aHint1
+
+        playHint2_3a:
+          triggerCondition:
+          - delay:
+            - 40
+          additionalCondition:
+          - and:
+            - not:
+              - readBlackboard:
+                - Level3aHint2
+            - not:
+              - readBlackboard:
+                - hasSucceeded
+            - not:
+              - readBlackboard:
+                - hasFailed
+          actions:
+          - playSound:
+            - ALVO28_Rover
+          - writeToBlackboard:
+            - Level3aHint2
 
   grid:
     includes: source/grid.vwf

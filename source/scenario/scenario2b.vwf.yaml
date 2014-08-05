@@ -80,6 +80,8 @@ children:
             - graph
           - stopBlinkHUDElement:
             - blocklyButton
+          - playSound:
+            - SCVO6_Rover
           - hideBlockly:
           - stopSound:
             - musicStandardGameplay

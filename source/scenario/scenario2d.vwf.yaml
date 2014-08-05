@@ -50,7 +50,7 @@ children:
           - playSound:
             - musicStandardGameplay
           - playSound:
-            - ALVO6_Rover
+            - L2VO7_Control
 
         failOnMove_2d:
           triggerCondition:

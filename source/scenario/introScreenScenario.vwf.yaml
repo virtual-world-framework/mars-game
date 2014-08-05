@@ -3,7 +3,7 @@ extends: source/scenario/scenario.vwf
 properties:
   scenarioName: introScreenScenario
 
-  nextScenarioPath: "scenario2a"
+  nextScenarioPath: "scenario3a"
   blockly: assets/scenario/scenario1.xml
 
 children:
@@ -25,7 +25,7 @@ children:
           - scenarioSuccess:
           - playSound:
             - environmentWind
-            
+
   grid:
     includes: source/grid.vwf
     properties:
