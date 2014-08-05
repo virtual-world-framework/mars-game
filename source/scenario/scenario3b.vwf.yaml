@@ -37,6 +37,11 @@ properties:
   - addToGrid:
     - blocklyGraph
     - [ 37, 15 ]
+  - removeFromGrid:
+    - trackanomaly
+    - [ 37, 16 ]
+  - createGraph:
+    - graph
 
 children:
   triggerManager:
@@ -63,9 +68,9 @@ children:
           triggerCondition:
           - and:
             - blocklyLineEval:
-              - [ 32, 14 ]
+              - [ -5, -1 ]
             - blocklyLineEval:
-              - [ 42, 16 ]
+              - [ 5, 1 ]
           actions:
           - scenarioSuccess:
             - "Course plotted! Now to find the little guy."

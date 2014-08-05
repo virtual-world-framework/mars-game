@@ -20,36 +20,26 @@ properties:
     - rover
     - blockly_allowedBlocks
     - 30
-
   - setSceneProperty:
     - blockly_activeNodeID
     - undefined
-
-  # TODO: Simplify heading/rotation
-  # Set initial rotation using heading
-  # Currently, moveLeft & moveRight in rover.js
-  # fight with adding that to the setter of heading
   - setProperty:
     - rover
     - heading
     - 0
-    
   - setProperty:
     - rover
     - rotation
     - [ 0, 0, 1, 0 ]
-
   - addToInventory:
     - rover/cargo
     - [ "helicam", "battery", "radio" ]
-
   - addToGrid:
     - rover
     - [ 37, 15 ]
-
   - addToGrid:
     - trackanomaly
-    - [ 11, 10 ]
+    - [ 12, 11 ]
 
 children:
   triggerManager:

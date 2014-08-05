@@ -20,9 +20,6 @@ properties:
     - rover
     - blockly_allowedBlocks
     - 30
-  - setSceneProperty:
-    - blockly_activeNodeID
-    - undefined
   - setProperty:
     - rover
     - heading
