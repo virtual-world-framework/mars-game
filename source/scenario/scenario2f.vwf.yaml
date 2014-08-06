@@ -70,7 +70,6 @@ children:
           - scenarioSuccess:
           - showAlert:
             - "I'm on the right path. How will I stop when I see the rover?"
-          - clearBlockly:
           - hideBlockly:
           - stopSound:
             - musicStandardGameplay

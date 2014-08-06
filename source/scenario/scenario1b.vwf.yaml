@@ -94,7 +94,6 @@ children:
           - scenarioSuccess:
           - showAlert:
             - "You have executed a movement command and picked up your helicam!"
-          - clearBlockly:
           - stopSound:
             - musicStandardGameplay
           - playSound:
