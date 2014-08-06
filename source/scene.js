@@ -170,8 +170,8 @@ this.createGridDisplay = function( grid ) {
     var tiles = new Array;
 
     var offset = new Array(); 
-    offset.push( grid.gridOriginInSpace[ 0 ] / grid.gridSquareLength );
-    offset.push( grid.gridOriginInSpace[ 1 ] / grid.gridSquareLength );
+    offset.push( grid.gridOriginInSpace[ 0 ] / grid.gridSquareLength + grid.minX );
+    offset.push( grid.gridOriginInSpace[ 1 ] / grid.gridSquareLength + grid.minY );
 
     for ( var x = 0; x < grid.boundaryValues.length; x++ ) {
 
@@ -185,7 +185,7 @@ this.createGridDisplay = function( grid ) {
                 0
             ];
 
-            color = grid.boundaryValues[ x ][ y ] === -1 ? IMPASSABLE_COLOR : PASSABLE_COLOR;
+            color = grid.boundaryValues[ x ][ y ] <= -1 ? IMPASSABLE_COLOR : PASSABLE_COLOR;
             
             tiles.push( { "plane": {
                 "origin": origin,
