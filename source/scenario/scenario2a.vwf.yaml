@@ -69,13 +69,13 @@ children:
           triggerCondition:
           - onGraphToggle:
           actions:
+          - stopBlinkHUDElement:
+            - graphButton
           - scenarioSuccess:
           - showAlert:
             - "I can see clearly now... the lines are drawn!"
           - playSound:
             - SCVO5_Rover
-          - stopBlinkHUDElement:
-            - graphButton
           - stopSound:
             - musicStandardGameplay
           - playSound:

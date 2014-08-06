@@ -50,6 +50,7 @@ events:
   toggledHelicam:
   toggledGraph:
   toggledTiles:
+  resetRoverSensors:
 children:
   soundManager:
     includes: source/marsGameSound.vwf
