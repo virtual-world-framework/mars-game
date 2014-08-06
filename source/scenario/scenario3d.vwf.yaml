@@ -40,6 +40,9 @@ properties:
   - removeFromGrid:
     - trackanomaly
     - [ 12, 11 ]
+  - removeFromGrid:
+    - trackanomaly
+    - [ 11, 10 ]
   - createGraph:
     - graph
 
@@ -54,6 +57,7 @@ children:
           actions:
           - playSound:
             - musicStandardGameplay
+          - resetRoverSensors:
 
         failOnMove_3d:
           triggerCondition:
@@ -73,6 +77,7 @@ children:
               - [ -3, -7 ]
           actions:
           - scenarioSuccess:
+          - showAlert:
             - "Course plotted! Now to find the little guy."
           - hideBlockly:
           - stopSound:

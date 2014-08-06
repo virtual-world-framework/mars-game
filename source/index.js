@@ -176,6 +176,10 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 clearBlockly();
                 break;
 
+            case "resetRoverSensors":
+                resetRoverSensors();
+                break;
+
             case "selectLastBlock":
                 selectBlock( lastBlockIDExecuted );
                 break;
@@ -555,6 +559,13 @@ function clearBlockly() {
     }
     if ( blocklyGraphID ){
         vwf_view.kernel.setProperty( blocklyGraphID, "blockly_xml", '<xml></xml>' );
+    }
+}
+
+function resetRoverSensors() {
+    if ( mainRover ){
+        vwf_view.kernel.setProperty( mainRover, "objectSensorValue", false );
+        vwf_view.kernel.setProperty( mainRover, "tracksSensorValue", false );
     }
 }
 

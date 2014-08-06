@@ -66,11 +66,9 @@ children:
               - rover
               - 7
               - 5
-            - hasHeading:
-              - rover
-              - 0
           actions:
           - scenarioSuccess:
+          - showAlert:
             - "I'm on the right path. How will I stop when I see the rover?"
           - clearBlockly:
           - hideBlockly:

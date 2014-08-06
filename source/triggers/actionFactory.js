@@ -364,6 +364,17 @@ this.actionSet.showAlert = function( params, context ) {
     }
 }
 
+this.actionSet.resetRoverSensors = function( params, context ) {
+    if ( params && params.length > 0 ) {
+        self.logger.errorx( "resetRoverSensors", "This action takes no parameters.");
+        return undefined;
+    }
+    
+    return function() {
+        context.resetRoverSensors();
+    }
+}
+
 function getScenario( context ) {
     if ( context.getCurrentScenario ){
         return context.getCurrentScenario();

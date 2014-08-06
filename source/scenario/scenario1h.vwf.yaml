@@ -79,10 +79,14 @@ children:
           - onBlocklyStopped:
             - rover
           additionalCondition:
-          - isAtPosition:
-            - rover
-            - 8
-            - 16
+          - and:
+            - isAtPosition:
+              - rover
+              - 8
+              - 16
+            - not:
+              - readBlackboard:
+                - hasFailed
           actions:
           - scenarioSuccess:
             - levelComplete

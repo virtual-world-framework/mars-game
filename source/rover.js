@@ -234,7 +234,6 @@ this.moveFailed = function( value ) {
 this.activateSensor = function( sensor ) {
 
     var scene = this.find("/")[0];
-    var scenario = this.find( "//"+scene.activeScenarioPath )[ 0 ];
   
     var retVal = false;
 
@@ -248,18 +247,15 @@ this.activateSensor = function( sensor ) {
 
         //Any objects?
 
-        var objects = scenario.grid.getObjectsAtCoord( proposedNewGridSquare );
-
-        if ( objects.length > 0 ) {
-            this.objectSensorValue = true;
-            vwf_view.kernel.setProperty( rover, "objectSensorValue", true );
-            this.tracksSensorValue = true;
-            vwf_view.kernel.setProperty( rover, "tracksSensorValue", true );
-        } else {
-            this.objectSensorValue = false;
-            vwf_view.kernel.setProperty( rover, "objectSensorValue", false );
-            this.tracksSensorValue = false;
-            vwf_view.kernel.setProperty( rover, "tracksSensorValue", false );
+        var objects = currentGrid.getObjectsAtCoord( proposedNewGridSquare );
+        if ( objects !== undefined ) {
+            if ( objects.length > 0 ) {
+                this.objectSensorValue = true;
+                this.tracksSensorValue = true;
+            } else {
+                this.objectSensorValue = false;
+                this.tracksSensorValue = false;
+            }
         }
 
     }

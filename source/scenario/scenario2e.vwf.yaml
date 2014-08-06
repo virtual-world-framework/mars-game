@@ -64,9 +64,6 @@ children:
               - rover
               - 13
               - 2
-            - hasHeading:
-              - rover
-              - 0
           actions:
           - scenarioSuccess:
           - showAlert:
@@ -75,8 +72,6 @@ children:
             - musicStandardGameplay
           - playSound:
             - musicSuccessShort
-          - playSound:
-            - L3VO9_Control
 
         stopBlinkRoverTab_2e:
           triggerCondition:

@@ -39,6 +39,12 @@ properties:
   - addToGrid:
     - trackanomaly
     - [ 24, 39 ]
+  - addToGrid:
+    - trackanomaly
+    - [ 23, 38 ]
+  - addToGrid:
+    - trackanomaly
+    - [ 25, 38 ]
 
 children:
   triggerManager:
@@ -51,6 +57,7 @@ children:
           actions:
           - playSound:
             - musicStandardGameplay
+          - resetRoverSensors:
 
         succeedOnSuccessfulMovement_3e:
           triggerCondition:
@@ -64,6 +71,7 @@ children:
               - 38
           actions:
           - scenarioSuccess:
+          - showAlert:
             - "I found the minirover!"
           - clearBlockly:
           - hideBlockly:

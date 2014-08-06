@@ -51,6 +51,10 @@ properties:
     - trackanomaly
     - [ 37, 16 ]
 
+  - addToGrid:
+    - trackanomaly
+    - [ 36, 15 ]
+
 children:
   triggerManager:
     extends: source/triggers/triggerManager.vwf
@@ -62,6 +66,7 @@ children:
           actions:
           - playSound:
             - musicStandardGameplay
+          - resetRoverSensors:
 
         succeedOnSuccessfulMovement_3a:
           triggerCondition:
@@ -75,6 +80,7 @@ children:
               - 15
           actions:
           - scenarioSuccess:
+          - showAlert:
             - "I found a track anomaly... time to change course!"
           - hideBlockly:
           - stopSound:
