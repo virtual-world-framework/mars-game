@@ -243,10 +243,6 @@ this.activateSensor = function( sensor ) {
         var proposedNewGridSquare = [ this.currentGridSquare[ 0 ] + dirVector[ 0 ], 
                                                                 this.currentGridSquare[ 1 ] + dirVector[ 1 ] ];
 
-        var rover = vwf_view.kernel.find( "", "//rover" )[ 0 ];
-
-        //Any objects?
-
         var objects = currentGrid.getObjectsAtCoord( proposedNewGridSquare );
         if ( objects !== undefined ) {
             if ( objects.length > 0 ) {
