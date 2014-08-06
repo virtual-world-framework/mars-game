@@ -87,6 +87,9 @@ children:
             - hasHeading:
               - rover
               - 180
+            - not:
+              - readBlackboard:
+                - hasFailed
           actions:
           - scenarioSuccess:
           - showAlert:
