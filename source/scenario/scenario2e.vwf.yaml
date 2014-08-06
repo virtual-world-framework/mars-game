@@ -11,11 +11,11 @@ properties:
   - setProperty:
     - rover
     - battery
-    - 5000
+    - 50
   - setProperty:
     - rover
     - batteryMax
-    - 5000
+    - 50
   - setProperty:
     - rover
     - blockly_allowedBlocks
@@ -64,9 +64,6 @@ children:
               - rover
               - 13
               - 2
-            - hasHeading:
-              - rover
-              - 0
           actions:
           - scenarioSuccess:
           - showAlert:
@@ -75,8 +72,6 @@ children:
             - musicStandardGameplay
           - playSound:
             - musicSuccessShort
-          - playSound:
-            - L3VO9_Control
 
         stopBlinkRoverTab_2e:
           triggerCondition:
@@ -87,6 +82,51 @@ children:
           actions:
           - stopBlinkBlocklyTab:
             - rover
+
+        playHint1_2e:
+          triggerCondition:
+          - delay:
+            - 20
+          additionalCondition:
+          - and:
+            - not:
+              - readBlackboard:
+                - Level2eHint1
+            - not:
+              - readBlackboard:
+                - Level2eHint2
+            - not:
+              - readBlackboard:
+                - hasSucceeded
+            - not:
+              - readBlackboard:
+                - hasFailed
+          actions:
+          - playSound:
+            - ALVO25_Rover
+          - writeToBlackboard:
+            - Level2eHint1
+
+        playHint2_2e:
+          triggerCondition:
+          - delay:
+            - 40
+          additionalCondition:
+          - and:
+            - not:
+              - readBlackboard:
+                - Level2eHint2
+            - not:
+              - readBlackboard:
+                - hasSucceeded
+            - not:
+              - readBlackboard:
+                - hasFailed
+          actions:
+          - playSound:
+            - ALVO26_Rover
+          - writeToBlackboard:
+            - Level2eHint2
 
   grid:
     includes: source/grid.vwf

@@ -1,3 +1,8 @@
+var gridBounds = {
+    bottomLeft: [],
+    topRight: []
+}
+
 this.initialize = function() {
       
     // Set the active camera so we can see the 3D scene
@@ -12,7 +17,7 @@ this.setScenario = function( path ) {
             scenario.grid.clearGrid();
         }
         scenario.future( 0 ).startScenario();
-        var gridBounds = calcGridBounds( scenario.grid );
+        calcGridBounds( scenario.grid );
         this.scenarioChanged( scenario.name, gridBounds );
     } else {
         this.logger.warnx( "setScenario", "Scenario for path '" + path + "' not found." );
@@ -216,9 +221,8 @@ this.removeGridDisplay = function() {
 }
 
 function calcGridBounds( grid ) {
-    var gridBounds = {  bottomLeft: grid.getWorldFromGrid( [ grid.minX, grid.minY ] ),
-                        topRight: grid.getWorldFromGrid( [ grid.maxX, grid.maxY ] ) };
-    return gridBounds;
+    grid.getWorldFromGrid( grid.minX, grid.minY, gridBounds.bottomLeft );
+    grid.getWorldFromGrid( grid.maxX, grid.maxY, gridBounds.topRight );
 }
 
 this.executeBlock = function ( block, action ) {

@@ -1,0 +1,9 @@
+---
+extends: source/pickup.vwf
+source: ../../assets/3d/minirover/minirover.dae
+type: model/vnd.collada+xml
+properties:
+  isCollidable: false
+  terrainName: "environment"
+  visible: false
+  objectName: trackanomaly

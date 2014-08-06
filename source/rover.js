@@ -99,6 +99,7 @@ this.turnLeft = function() {
         scene.addStatus( this.displayName + " is turning left" );
     }    
     this.rotateBy( [ 0, 0, 1, 90 ], 1 );
+    this.activateSensor( 'forward' );
 }
 
 this.turnRight = function() {
@@ -111,6 +112,7 @@ this.turnRight = function() {
         scene.addStatus( this.displayName + " is turning right" );
     }
     this.rotateBy( [ 0, 0, 1, -90 ], 1 );
+    this.activateSensor( 'forward' );
 }
 
 this.translateOnTerrain = function( translation, duration, boundaryValue ) {
@@ -232,7 +234,6 @@ this.moveFailed = function( value ) {
 this.activateSensor = function( sensor ) {
 
     var scene = this.find("/")[0];
-    var scenario = this.find( "//"+scene.activeScenarioPath )[ 0 ];
   
     var retVal = false;
 
@@ -242,16 +243,15 @@ this.activateSensor = function( sensor ) {
         var proposedNewGridSquare = [ this.currentGridSquare[ 0 ] + dirVector[ 0 ], 
                                                                 this.currentGridSquare[ 1 ] + dirVector[ 1 ] ];
 
-        var objects = scenario.grid.getObjectsAtCoord( proposedNewGridSquare );
-
-        var rover = vwf_view.kernel.find( "", "//rover" )[ 0 ];
-
-        if ( objects.length > 0 ) {
-            this.sensorValue = true;
-            vwf_view.kernel.setProperty( rover, "sensorValue", true );
-        } else {
-            this.sensorValue = false;
-            vwf_view.kernel.setProperty( rover, "sensorValue", false );
+        var objects = currentGrid.getObjectsAtCoord( proposedNewGridSquare );
+        if ( objects !== undefined ) {
+            if ( objects.length > 0 ) {
+                this.objectSensorValue = true;
+                this.tracksSensorValue = true;
+            } else {
+                this.objectSensorValue = false;
+                this.tracksSensorValue = false;
+            }
         }
 
     }

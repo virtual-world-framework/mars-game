@@ -50,6 +50,7 @@ events:
   toggledHelicam:
   toggledGraph:
   toggledTiles:
+  resetRoverSensors:
 children:
   soundManager:
     includes: source/marsGameSound.vwf
@@ -199,6 +200,8 @@ children:
         extends: source/pickups/helicam.vwf
       minirover:
         extends: source/pickups/minirover.vwf
+      trackanomaly:
+        extends: source/pickups/trackanomaly.vwf
   introScreenScenario:
     includes: source/scenario/introScreenScenario.vwf
   scenario1a:
@@ -233,6 +236,12 @@ children:
     includes: source/scenario/scenario3a.vwf
   scenario3b:
     includes: source/scenario/scenario3b.vwf
+  scenario3c:
+    includes: source/scenario/scenario3c.vwf
+  scenario3d:
+    includes: source/scenario/scenario3d.vwf
+  scenario3e:
+    includes: source/scenario/scenario3e.vwf
   blocklyGraph:
     extends: http://vwf.example.com/graphtool/graph.vwf
     implements: "source/griddable.vwf"

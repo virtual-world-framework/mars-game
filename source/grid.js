@@ -1,3 +1,7 @@
+// TODO: Accept coordinates as individual numbers instead of
+//         arrays so that we don't have to keep track of and
+//         reuse unnecessary arrays.
+
 this.initialize = function() {
     //Set up the grid map as a 2D array
     this.tiles = [];
@@ -31,25 +35,46 @@ this.clearGrid = function() {
 }
 
 this.getTileFromGrid = function( gridCoord ) {
-    return this.tiles[ gridCoord[ 0 ] - this.minX ][ gridCoord[ 1 ] - this.minY ];
+    var x, y, tile;
+    x = gridCoord[ 0 ] - this.minX;
+    y = gridCoord[ 1 ] - this.minY;
+    tile = this.tiles[ x ] && this.tiles[ x ][ y ] ? this.tiles[ x ][ y ] : null;
+    return tile;
 }
 
 this.getTileFromWorld = function( worldCoord ) {
-    var x = Math.round( ( worldCoord[ 0 ] - this.gridOriginInSpace[ 0 ] ) / this.gridSquareLength );
-    var y = Math.round( ( worldCoord[ 1 ] - this.gridOriginInSpace[ 1 ] ) / this.gridSquareLength );
-    return this.tiles[ x ][ y ];
+    var x, y, tile;
+    x = Math.round( ( worldCoord[ 0 ] - this.gridOriginInSpace[ 0 ] ) / this.gridSquareLength );
+    y = Math.round( ( worldCoord[ 1 ] - this.gridOriginInSpace[ 1 ] ) / this.gridSquareLength );
+    tile = this.tiles[ x ] && this.tiles[ x ][ y ] ? this.tiles[ x ][ y ] : null;
+    return tile;
 }
 
-this.getGridFromWorld = function( worldCoord ) {
+this.getGridFromWorld = function( worldCoord, gridVec ) {
     var x = Math.round( ( worldCoord[ 0 ] - this.gridOriginInSpace[ 0 ] ) / this.gridSquareLength );
     var y = Math.round( ( worldCoord[ 1 ] - this.gridOriginInSpace[ 1 ] ) / this.gridSquareLength );
-    return [ x, y ];
+    if ( gridVec && gridVec instanceof Array ) {
+        gridVec.length = 0;
+        gridVec.push( x );
+        gridVec.push( y );
+    } else {
+        gridVec = [ x, y ];
+    }
+    return gridVec;
 }
 
-this.getWorldFromGrid = function( gridCoord ) {
-    var x = gridCoord[ 0 ] * this.gridSquareLength + this.gridOriginInSpace[ 0 ];
-    var y = gridCoord[ 1 ] * this.gridSquareLength + this.gridOriginInSpace[ 1 ];
-    return [ x, y, 0 ];
+this.getWorldFromGrid = function( x, y, worldVec ) {
+    x = x * this.gridSquareLength + this.gridOriginInSpace[ 0 ];
+    y = y * this.gridSquareLength + this.gridOriginInSpace[ 1 ];
+    if ( worldVec && worldVec instanceof Array ) {
+        worldVec.length = 0;
+        worldVec.push( x );
+        worldVec.push( y );
+        worldVec.push( 0 );
+    } else {
+        worldVec = [ x, y, 0 ];
+    }
+    return worldVec;
 }
 
 this.validCoord = function( gridCoord ) {
@@ -84,7 +109,7 @@ this.addToGridFromCoord = function( object, gridCoord ) {
     if ( this.validCoord( gridCoord ) ) {
         this.getTileFromGrid( gridCoord ).addToTile( object );
         object.currentGridSquare = gridCoord;
-        object.translation = this.getWorldFromGrid( gridCoord );
+        object.translation = this.getWorldFromGrid( gridCoord[ 0 ], gridCoord[ 1 ] );
         this.setHeightFromTerrain( object );
         object.addedToGrid( this );
     }

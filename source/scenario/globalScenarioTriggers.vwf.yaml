@@ -25,6 +25,8 @@ properties:
       actions:
       - scenarioFailure:
         - incomplete
+      - playSound:
+        - FCVO2_Rover
 
   triggers:
     recordKeepingOnBegin:
@@ -76,6 +78,8 @@ properties:
       actions:
       - scenarioFailure:        
         - collision
+      - playSound:
+        - FCVO1_Rover
 
     failOnBatteryDepleted:
       triggerCondition:

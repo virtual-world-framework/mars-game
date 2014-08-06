@@ -11,11 +11,11 @@ properties:
   - setProperty:
     - rover
     - battery
-    - 5000
+    - 50
   - setProperty:
     - rover
     - batteryMax
-    - 5000
+    - 50
   - setProperty:
     - rover
     - blockly_allowedBlocks
@@ -49,6 +49,8 @@ children:
           actions:
           - playSound:
             - musicStandardGameplay
+          - playSound:
+            - L2VO9_Control
           - waitForNode:
             - rover
             - blinkBlocklyTab:
@@ -64,23 +66,20 @@ children:
               - rover
               - 7
               - 5
-            - hasHeading:
-              - rover
-              - 0
           actions:
           - scenarioSuccess:
-            - levelComplete
           - showAlert:
-            - "I'm getting through the canyon! Now I need to figure out when I see a rover!"
-          - orbitCamera:
-            - 0.1
-            - 20
+            - "I'm on the right path. How will I stop when I see the rover?"
           - clearBlockly:
           - hideBlockly:
           - stopSound:
             - musicStandardGameplay
           - playSound:
             - musicSuccessShort
+          - playSound:
+            - SCVO9_Rover
+          - playSound:
+            - L2VO10_Control
 
         stopBlinkRoverTab_2f:
           triggerCondition:

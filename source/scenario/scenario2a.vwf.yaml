@@ -51,6 +51,8 @@ children:
           actions:
           - playSound:
             - musicStandardGameplay
+          - playSound:
+            - L2VO4_Rover
           - blinkHUDElement:
             - graphButton
 
@@ -67,15 +69,38 @@ children:
           triggerCondition:
           - onGraphToggle:
           actions:
+          - stopBlinkHUDElement:
+            - graphButton
           - scenarioSuccess:
           - showAlert:
             - "I can see clearly now... the lines are drawn!"
-          - stopBlinkHUDElement:
-            - graphButton
+          - playSound:
+            - SCVO5_Rover
           - stopSound:
             - musicStandardGameplay
           - playSound:
             - musicSuccessShort
+
+        playHint1_2a:
+          triggerCondition:
+          - delay:
+            - 20
+          additionalCondition:
+          - and:
+            - not:
+              - readBlackboard:
+                - Level2aHint1
+            - not:
+              - readBlackboard:
+                - hasSucceeded
+            - not:
+              - readBlackboard:
+                - hasFailed
+          actions:
+          - playSound:
+            - ALVO18_Rover
+          - writeToBlackboard:
+            - Level2aHint1
 
   grid:
     includes: source/grid.vwf

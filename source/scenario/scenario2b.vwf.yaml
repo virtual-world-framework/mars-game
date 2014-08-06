@@ -20,9 +20,6 @@ properties:
     - rover
     - blockly_allowedBlocks
     - 30
-  - setSceneProperty:
-    - blockly_activeNodeID
-    - undefined
   - setProperty:
     - rover
     - heading
@@ -80,6 +77,8 @@ children:
             - graph
           - stopBlinkHUDElement:
             - blocklyButton
+          - playSound:
+            - SCVO6_Rover
           - hideBlockly:
           - stopSound:
             - musicStandardGameplay
@@ -99,6 +98,27 @@ children:
             - L2VO3_Rover
           - writeToBlackboard:
             - Level2bGraphOpened
+
+        playHint1_2b:
+          triggerCondition:
+          - delay:
+            - 20
+          additionalCondition:
+          - and:
+            - not:
+              - readBlackboard:
+                - Level2bHint1
+            - not:
+              - readBlackboard:
+                - hasSucceeded
+            - not:
+              - readBlackboard:
+                - hasFailed
+          actions:
+          - playSound:
+            - ALVO17_Rover
+          - writeToBlackboard:
+            - Level2bHint1
 
   grid:
     includes: source/grid.vwf
