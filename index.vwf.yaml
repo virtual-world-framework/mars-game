@@ -85,7 +85,7 @@ children:
   smoke1:
     extends: source/smokeParticle.vwf
     properties:
-      translation: [ -11, 31, 3 ]
+      translation: [ -5, 34.75, 3 ]
   smoke2:
     extends: source/smokeParticle.vwf
     properties:
