@@ -212,6 +212,9 @@ this.startStateParamSet.loadToolbox = function( params, context ) {
     var node = activeScenario.startStateExecutor.findInContext( context, params[ 0 ] );
     var toolbox = params[ 1 ];
     node.blockly_toolbox = toolbox;
+    if ( context.blockly_activeNodeID === node.id ) {
+        context.blockly_toolbox = toolbox;
+    }
 }
 
 //@ sourceURL=source/scenario/scenario.js
