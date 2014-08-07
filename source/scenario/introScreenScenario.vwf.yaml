@@ -25,6 +25,7 @@ children:
           - scenarioSuccess:
           - playSound:
             - environmentWind
+          - renderGame:
 
   grid:
     includes: source/grid.vwf

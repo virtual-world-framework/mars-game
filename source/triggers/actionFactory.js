@@ -385,6 +385,18 @@ this.actionSet.resetHUDState = function( params, context ) {
         context.resetHUDState();
     }
 }
+
+this.actionSet.renderGame = function( params, context ) {
+    if ( params && params.length > 0 ) {
+        self.logger.errorx( "resetHUDState", "This action takes no parameters.");
+        return undefined;
+    }
+
+    return function() {
+        context.beginRender();
+    }
+}
+
 function getScenario( context ) {
     if ( context.getCurrentScenario ){
         return context.getCurrentScenario();

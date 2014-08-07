@@ -54,6 +54,7 @@ events:
   toggledTiles:
   resetRoverSensors:
   resetHUDState:
+  beginRender:
 children:
   soundManager:
     includes: source/marsGameSound.vwf

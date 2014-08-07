@@ -20,6 +20,7 @@ var gridBounds = {
 var orbitTarget = new Array( 3 );
 var lastRenderTime = 0;
 var threejs = findThreejsView();
+var introPlayed = false;
 
 function runBlockly() {
     vwf_view.kernel.setProperty( currentBlocklyNodeID, "blockly_executing", true );
@@ -195,6 +196,10 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
             case "toggledGraph":
                 graphIsVisible = eventArgs[ 0 ];
                 break;
+
+            case "beginRender":
+                introPlayed = true;
+                break;
             
         } 
     } else if ( loggerNodes[ nodeID ] !== undefined ) { 
@@ -296,7 +301,8 @@ vwf_view.createdNode = function( nodeID, childID, childExtendsID, childImplement
 
 vwf_view.initializedNode = function( nodeID, childID, childExtendsID, childImplementsIDs, childSource, childType, childIndex, childName ) {
     if ( childID === vwf_view.kernel.application() ) {
-        threejs.render = setUp;
+        setUpView();
+        threejs.render = loadGame;
     } else if ( blocklyNodes[ childID ] !== undefined ) {
         var node = blocklyNodes[ childID ];
         if ( $( "#blocklyWrapper-top" ) !== undefined ) {
@@ -404,26 +410,25 @@ vwf_view.satProperty = function( nodeID, propertyName, propertyValue ) {
     }
 }
 
-function setUp( renderer, scene, camera ) {
+function setUpView() {
     hud = new HUD();
     createHUD();
-
     initializePauseMenu();
-
+    setUpNavigation();
     var introScreens = new Array();
     introScreens.push( "assets/images/introScreens/Intro_screen.jpg" );
     setUpIntro( introScreens );
-    
     setUpBlocklyPeripherals();
     setUpStatusDisplay();
+}
 
-    scene.fog = new THREE.FogExp2( 0xC49E70, 0.005 );
-    renderer.setClearColor(scene.fog.color);
-    renderer.autoClear = false;
-
-    setUpNavigation();
-
-    threejs.render = render;
+function loadGame( renderer, scene, camera ) {
+    if ( introPlayed ) {
+        scene.fog = new THREE.FogExp2( 0xC49E70, 0.005 );
+        renderer.setClearColor( scene.fog.color );
+        renderer.autoClear = false;
+        threejs.render = render;
+    }
 }
 
 function render( renderer, scene, camera ) {
