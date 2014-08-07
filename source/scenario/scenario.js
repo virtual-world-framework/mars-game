@@ -192,6 +192,7 @@ this.startStateParamSet.enableBlocklyTabs = function( params, context ) {
     }
 
     var object;
+    context.clearBlocklyTabs();
     for ( var i = 0; i < params.length; i++ ) {
         object = activeScenario.startStateExecutor.findInContext( context, params[ i ] );
         if ( object ) {

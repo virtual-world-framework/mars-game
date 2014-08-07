@@ -187,6 +187,9 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
 
             case "resetHUDState":
                 clearHUDEffects();
+                break;
+
+            case "clearBlocklyTabs":
                 clearBlocklyTabs();
                 break;
 
@@ -203,7 +206,7 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 break;
             
             case "enableBlocklyTab":
-                addBlocklyTab( eventArgs[ 0 ] );
+                addBlocklyTab( eventArgs[ 0 ], eventArgs[ 1 ] );
                 break;
 
         } 
@@ -708,8 +711,8 @@ function removeBlocklyTab( nodeID ) {
 function clearBlocklyTabs() {
     var blocklyHeader = document.getElementById( "blocklyWrapper-top" );
     var blocklyTabs = blocklyHeader.getElementsByClassName( "blocklyTab" );
-    for ( var i = 0; i < blocklyTabs.length; i++ ) {
-        blocklyHeader.removeChild( blocklyTabs[ i ] );
+    while ( blocklyTabs.length > 0 ) {
+        blocklyHeader.removeChild( blocklyTabs[ 0 ] );
     }
 }
 
