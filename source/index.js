@@ -390,6 +390,8 @@ function setUp( renderer, scene, camera ) {
     hud = new HUD();
     createHUD();
 
+    initializePauseMenu();
+
     var introScreens = new Array();
     introScreens.push( "assets/images/introScreens/Intro_screen.jpg" );
     setUpIntro( introScreens );
@@ -597,6 +599,53 @@ function indicateBlock( blockID ) {
     } else if ( blockID === lastBlockIDExecuted ) {
         resetBlocklyIndicator();
     }
+}
+
+function initializePauseMenu() {
+    var pauseButtons = document.getElementsByClassName( "pauseMenuButton" );
+    for ( var i = 0; i < pauseButtons.length; i++ ) {
+        pauseButtons[ i ].onmouseover = highlightPauseBtn;
+        pauseButtons[ i ].onmouseout = resetPauseBtn;
+        pauseButtons[ i ].onmousedown = selectPauseBtn;
+        pauseButtons[ i ].onmouseup = highlightPauseBtn;
+        switch ( pauseButtons[ i ].id ) {
+            case "resume":
+                pauseButtons[ i ].onclick = closePauseMenu;
+                break;
+            case "restart":
+                pauseButtons[ i ].onclick = restartGame;
+                break;
+            case "settings":
+                break;
+        }
+    }
+}
+
+function highlightPauseBtn( event ) {
+    this.className = "pauseMenuButton hover";
+}
+
+function resetPauseBtn( event ) {
+    this.className = "pauseMenuButton";
+}
+
+function selectPauseBtn( event ) {
+    this.className = "pauseMenuButton select";
+}
+
+function closePauseMenu( event ) {
+    var pauseScreen = document.getElementById( "pauseScreen" );
+    pauseScreen.style.display = "none";
+}
+
+function openPauseMenu( event ) {
+    var pauseScreen = document.getElementById( "pauseScreen" );
+    pauseScreen.style.display = "block";
+}
+
+function restartGame( event ) {
+    var sceneID = vwf_view.kernel.application();
+    vwf_view.kernel.setProperty( sceneID, "activeScenarioPath", "introScreenScenario" );
 }
 
 //@ sourceURL=source/index.js
