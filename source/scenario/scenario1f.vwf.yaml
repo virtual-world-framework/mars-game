@@ -91,7 +91,6 @@ children:
           - scenarioSuccess:
           - showAlert:
             - "Turning motors are good to go!"
-          - clearBlockly:
           - stopSound:
             - musicStandardGameplay
           - playSound:

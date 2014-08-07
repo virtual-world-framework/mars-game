@@ -73,7 +73,6 @@ children:
           - scenarioSuccess:
           - showAlert:
             - "I found the minirover!"
-          - clearBlockly:
           - hideBlockly:
           - stopSound:
             - musicStandardGameplay

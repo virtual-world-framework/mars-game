@@ -94,7 +94,6 @@ children:
           - scenarioSuccess:
           - showAlert:
             - "Now I can get out of this ditch and find the radio!"
-          - clearBlockly:
           - stopSound:
             - musicStandardGameplay
           - playSound:
