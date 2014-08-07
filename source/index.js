@@ -18,6 +18,7 @@ var gridBounds = {
     topRight: undefined
 };
 var orbitTarget = new Array( 3 );
+var introVideoId;
 var lastRenderTime = 0;
 var threejs = findThreejsView();
 var introPlayed = false;
@@ -412,11 +413,10 @@ function setUpView() {
     createHUD();
     initializePauseMenu();
     setUpNavigation();
-    var introScreens = new Array();
-    introScreens.push( "assets/images/introScreens/Intro_screen.jpg" );
-    setUpIntro( introScreens );
     setUpBlocklyPeripherals();
     setUpStatusDisplay();
+    introVideoId = loadVideo( "intro_cinematic.mp4" );
+    playVideo( introVideoId );
 }
 
 function loadGame( renderer, scene, camera ) {
