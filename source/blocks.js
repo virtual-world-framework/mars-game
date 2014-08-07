@@ -594,8 +594,6 @@ Blockly.JavaScript['math_number_drop_output' ] = function( block ) {
   } else {
     return [ dropdown_value + argument0, Blockly.JavaScript.ORDER_ATOMIC ];
   }
-
-
 };
 
 Blockly.Blocks[ 'math_number_output' ] = {
@@ -612,7 +610,7 @@ Blockly.Blocks[ 'math_number_output' ] = {
     var thisBlock = this;
     this.setTooltip( function() {
       var content = {
-        text: "A text field for selecting number values."
+        text: "A block for selecting number values 10 through -10."
       }
       return showTooltipInBlockly( thisBlock, content );
     } );
@@ -636,8 +634,6 @@ Blockly.JavaScript['math_number_output' ] = function( block ) {
   } else {
     return [ dropdown_value + argument0 , Blockly.JavaScript.ORDER_ATOMIC ];
   }
-
-
 };
 
 Blockly.Blocks[ 'graph_get_x' ] = {
@@ -786,8 +782,6 @@ Blockly.JavaScript[ 'graph_multiply' ] = function( block ) {
 
   var argument0 = Blockly.JavaScript.valueToCode(block, 'INPUT',
       Blockly.JavaScript.ORDER_ATOMIC) || '0';
-
-  
   return [block.getFieldValue('VALUE') + argument0, Blockly.JavaScript.ORDER_ATOMIC];
 };
 
