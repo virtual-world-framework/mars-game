@@ -36,15 +36,6 @@ this.startScenario = function() {
         this.startStateExecutor.functionSets = [];
         this.startStateExecutor.addFunctionSet( this.startStateParamSet );
 
-        // if ( scene !== undefined ) {
-        //     if ( this.blockly && this.blockly !== '' ) {
-        //         scene.blockly_toolbox = this.blockly;
-        //     }
-        //     if ( this.blocklyDefault && this.blocklyDefault !== '' ) {
-        //         scene.blockly_defaultXml = this.blocklyDefault;
-        //     }
-        // }
-
         if ( this.grid ) {
             scene.removeGridDisplay();
             scene.future(0).createGridDisplay( this.grid );
@@ -167,20 +158,6 @@ this.startStateParamSet.addToGrid = function( params, context ) {
 
     var object = activeScenario.startStateExecutor.findInContext( context, objectName );
     activeScenario.grid.addToGridFromCoord( object, gridCoord );
-}
-
-this.startStateParamSet.createGraph = function( params, context ) {
-    if ( params && ( params.length > 1 ) ) {
-        self.logger.errorx( "createGraph",
-                            "The createGraph condition takes one optional" +
-                            " argument: the name of the XML file to load." );
-        return undefined;
-    }
-
-    if ( !!params[ 0 ] ) {
-        return params[ 0 ] ? [ scene.future( 0 ).createGraph( params[ 0 ] ) ] : [ scene.future( 0 ).createGraph() ];
-    }
-
 }
 
 this.startStateParamSet.enableBlocklyTabs = function( params, context ) {

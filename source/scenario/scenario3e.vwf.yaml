@@ -4,7 +4,6 @@ properties:
   scenarioName: scenario3e
 
   scenePath: /
-  blockly: assets/scenario/scenario3e.xml
 
   startState:
   - setProperty:

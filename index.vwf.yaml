@@ -12,15 +12,13 @@ properties:
     set: |
       this.setScenario( value );
       this.activeScenarioPath = value;
-    value: "scenario2a"
+    value: "introScreenScenario"
   sceneBlackboard: {}
 methods:
   setScenario:
   resetScenario:
   advanceScenario:
   getCurrentScenario:
-  createGraph:
-  removeGraph:
   createMiniRover:
   removeMiniRover:
   createGridDisplay:
