@@ -43,7 +43,8 @@ properties:
   - removeFromGrid:
     - trackanomaly
     - [ 36, 15 ]
-  - createGraph:
+  - enableBlocklyTabs:
+    - rover
     - graph
 
 children:

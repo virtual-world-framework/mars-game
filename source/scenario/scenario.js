@@ -36,14 +36,14 @@ this.startScenario = function() {
         this.startStateExecutor.functionSets = [];
         this.startStateExecutor.addFunctionSet( this.startStateParamSet );
 
-        if ( scene !== undefined ) {
-            if ( this.blockly && this.blockly !== '' ) {
-                scene.blockly_toolbox = this.blockly;
-            }
-            if ( this.blocklyDefault && this.blocklyDefault !== '' ) {
-                scene.blockly_defaultXml = this.blocklyDefault;
-            }
-        }
+        // if ( scene !== undefined ) {
+        //     if ( this.blockly && this.blockly !== '' ) {
+        //         scene.blockly_toolbox = this.blockly;
+        //     }
+        //     if ( this.blocklyDefault && this.blocklyDefault !== '' ) {
+        //         scene.blockly_defaultXml = this.blocklyDefault;
+        //     }
+        // }
 
         if ( this.grid ) {
             scene.removeGridDisplay();
@@ -181,6 +181,23 @@ this.startStateParamSet.createGraph = function( params, context ) {
         return params[ 0 ] ? [ scene.future( 0 ).createGraph( params[ 0 ] ) ] : [ scene.future( 0 ).createGraph() ];
     }
 
+}
+
+this.startStateParamSet.enableBlocklyTabs = function( params, context ) {
+    if ( !params || params.length < 1 ) {
+        self.logger.errorx( "enableBlocklyTabs",
+                            "The enableBlocklyTabs condition requires at least" +
+                            " one parameter: the name of a blockly tab to be enabled." );
+        return undefined;
+    }
+
+    var object;
+    for ( var i = 0; i < params.length; i++ ) {
+        object = activeScenario.startStateExecutor.findInContext( context, params[ i ] );
+        if ( object ) {
+            context.enableBlocklyTab( object.id );
+        }
+    }
 }
 
 //@ sourceURL=source/scenario/scenario.js

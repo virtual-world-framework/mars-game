@@ -55,6 +55,7 @@ events:
   resetRoverSensors:
   resetHUDState:
   beginRender:
+  enableBlocklyTab:
 children:
   soundManager:
     includes: source/marsGameSound.vwf
@@ -301,6 +302,11 @@ children:
       gridOpacity: 1
       renderTop: false
       tileVisible: false
+  graph:
+    extends: http://vwf.example.com/node3.vwf
+    implements: http://vwf.example.com/blockly/controller.vwf
+    properties:
+      blockly_toolbox: assets/scenario/graph.xml
   alerts:
     extends: http://vwf.example.com/logger.vwf
     properties:

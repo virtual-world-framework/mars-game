@@ -43,6 +43,9 @@ properties:
   - addToGrid:
     - trackanomaly
     - [ 11, 10 ]
+  - enableBlocklyTabs:
+    - rover
+    - graph
 
 children:
   triggerManager:

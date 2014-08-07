@@ -34,11 +34,12 @@ properties:
   - addToGrid:
     - rover
     - [ 15, 1 ]
-  - createGraph:
-    - graph
   - addToGrid:
     - blocklyGraph
     - [ 15, 1 ]
+  - enableBlocklyTabs:
+    - rover
+    - graph
 
 children:
   triggerManager:

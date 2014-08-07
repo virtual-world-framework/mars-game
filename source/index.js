@@ -28,10 +28,10 @@ function runBlockly() {
     vwf_view.kernel.setProperty( vwf_view.kernel.application(), "blockly_activeNodeID", undefined );
 }
 
-function setActiveBlocklyTab( btn ) {
-    if ( currentBlocklyNodeID !== btn.id ) {
-        vwf_view.kernel.setProperty( vwf_view.kernel.application(), "blockly_activeNodeID", btn.id );
-        if ( blocklyGraphID && blocklyGraphID === btn.id ) {
+function setActiveBlocklyTab() {
+    if ( currentBlocklyNodeID !== this.id ) {
+        vwf_view.kernel.setProperty( vwf_view.kernel.application(), "blockly_activeNodeID", this.id );
+        if ( blocklyGraphID && blocklyGraphID === this.id ) {
             var cam = vwf_view.kernel.find( "", "//camera" )[ 0 ];
             if ( cam ) {
                 vwf_view.kernel.setProperty( cam, "pointOfView", "topDown" );
@@ -201,6 +201,10 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 introPlayed = true;
                 break;
             
+            case "enableBlocklyTab":
+                addBlocklyTab( eventArgs[ 0 ] );
+                break;
+
         } 
     } else if ( loggerNodes[ nodeID ] !== undefined ) { 
         switch ( eventName ) {
@@ -305,22 +309,11 @@ vwf_view.initializedNode = function( nodeID, childID, childExtendsID, childImple
         threejs.render = loadGame;
     } else if ( blocklyNodes[ childID ] !== undefined ) {
         var node = blocklyNodes[ childID ];
-        if ( $( "#blocklyWrapper-top" ) !== undefined ) {
-            $( "#blocklyWrapper-top" ).append( 
-                "<div id='" + childID + "' class='blocklyTab' onclick='setActiveBlocklyTab(this)'>" + childName + "</div>"
-            ).children(":last");
-        }
-    }
-}
-
-vwf_view.deletedNode = function( nodeID ) {
-    if ( blocklyNodes[ nodeID ] !== undefined ) {
-        delete blocklyNodes[ nodeID ];
-        var blocklyTop = document.getElementById( "blocklyWrapper-top" );
-        var tab = document.getElementById( nodeID );
-        if ( blocklyTop && tab ) {
-            blocklyTop.removeChild( tab );
-        }
+        node.tab = document.createElement( "div" );
+        node.tab.id = childID;
+        node.tab.className = "blocklyTab";
+        node.tab.onclick = setActiveBlocklyTab;
+        node.tab.innerHTML = childName;
     }
 }
 
@@ -687,6 +680,36 @@ function restartGame( event ) {
     var sceneID = vwf_view.kernel.application();
     vwf_view.kernel.setProperty( sceneID, "activeScenarioPath", "scenario1a" );
     closePauseMenu();
+}
+
+function addBlocklyTab( nodeID ) {
+    var node = blocklyNodes[ nodeID ];
+    if ( node ) {
+        var blocklyHeader = document.getElementById( "blocklyWrapper-top" );
+        if ( node.tab.parentNode && node.tab.parentNode === blocklyHeader ) {
+            return;
+        }
+        blocklyHeader.appendChild( node.tab );
+    }
+}
+
+function removeBlocklyTab( nodeID ) {
+    var node = blocklyNodes[ nodeID ];
+    if ( node ) {
+        var blocklyHeader = document.getElementById( "blocklyWrapper-top" );
+        if ( !node.tab.parentNode || node.tab.parentNode !== blocklyHeader ) {
+            return;
+        }
+        blocklyHeader.removeChild( node.tab );
+    }
+}
+
+function clearBlocklyTabs() {
+    var blocklyHeader = document.getElementById( "blocklyWrapper-top" );
+    var blocklyTabs = blocklyHeader.getElementsByClassName( "blocklyTab" );
+    for ( var i = 0; i < blocklyTabs.length; i++ ) {
+        blocklyHeader.removeChild( blocklyTabs[ i ] );
+    }
 }
 
 //@ sourceURL=source/index.js

@@ -55,6 +55,8 @@ properties:
   - addToGrid:
     - radio
     - [ 8, 16 ]
+  - enableBlocklyTabs:
+    - rover
 
 children:
   triggerManager:
