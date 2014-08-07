@@ -125,12 +125,12 @@ body {
 }
 
 #transitionScreen {
-	height: 100%;
-	width: 100%;
-	position: absolute;
-	top: 0;
-	left: 0;
-	background-color: #000;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: #000;
     pointer-events: none;
 }
 
@@ -347,7 +347,7 @@ body {
     top: 0;
     left: 0;
     background-color: #000;
-	z-index: 99;
+    z-index: 99;
 }
 
 .video {
