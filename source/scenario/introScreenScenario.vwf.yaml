@@ -11,10 +11,10 @@ children:
     extends: source/triggers/triggerManager.vwf
     properties: 
       triggers:
-        beginScenario_Intro:
-          triggerCondition:
-          - onScenarioStart:
-          actions:       
+        # beginScenario_Intro:
+        #   triggerCondition:
+        #   - onScenarioStart:
+        #   actions:       
 
         succeedOnIntroDone:
           triggerCondition:
