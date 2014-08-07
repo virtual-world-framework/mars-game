@@ -131,7 +131,7 @@ body {
 	top: 0;
 	left: 0;
 	background-color: #000;
-	z-index: 100;
+    pointer-events: none;
 }
 
 #blocklyHandle {
@@ -275,7 +275,6 @@ body {
     bottom: 10px;
     left: 110px;
     overflow-y: scroll;
-    z-index: 3;
     padding: 5px;
 }
 
@@ -286,7 +285,6 @@ body {
     top: 0;
     left: 0;
     background-color: #000;
-    z-index: 99;
 }
 
 .introImage {
@@ -340,6 +338,22 @@ body {
     -moz-user-select: none;     /* Firefox all */
     -ms-user-select: none;      /* IE 10+ */
     cursor: default;
+}
+
+.videoWrapper {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: #000;
+	z-index: 99;
+}
+
+.video {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;    
 }
 
 #pauseScreen {

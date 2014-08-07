@@ -14,9 +14,7 @@ children:
         beginScenario_Intro:
           triggerCondition:
           - onScenarioStart:
-          actions:
-          - playSound:
-            - musicStoryScreen
+          actions:       
 
         succeedOnIntroDone:
           triggerCondition:
