@@ -299,6 +299,7 @@ children:
       axisOpacity: 1
       gridOpacity: 1
       renderTop: false
+      tileVisible: false
   alerts:
     extends: http://vwf.example.com/logger.vwf
     properties:

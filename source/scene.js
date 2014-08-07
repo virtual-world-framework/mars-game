@@ -242,6 +242,7 @@ this.executeBlock = function ( block, action ) {
 
 this.displayTiles = function( isVisible ) {
     this.gridTileGraph.mapTiles.visible = isVisible;
+    this.gridTileGraph.tileVisible = isVisible;
     if ( isVisible && this.player.camera.pointOfView !== "topDown" ) {
         this.player.camera.pointOfView = "topDown";
     }
