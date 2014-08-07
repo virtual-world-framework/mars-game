@@ -62,6 +62,9 @@ properties:
     - [ 8, 16 ]
   - enableBlocklyTabs:
     - rover
+  - loadToolbox:
+    - rover
+    - assets/scenario/scenario1.xml
 
 children:
   triggerManager:

@@ -40,6 +40,12 @@ properties:
   - enableBlocklyTabs:
     - rover
     - graph
+  - loadToolbox:
+    - rover
+    - assets/scenario/scenario2d.xml
+  - loadToolbox:
+    - graph
+    - assets/scenario/graph2d.xml
 
 children:
   triggerManager:

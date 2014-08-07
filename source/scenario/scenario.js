@@ -200,4 +200,18 @@ this.startStateParamSet.enableBlocklyTabs = function( params, context ) {
     }
 }
 
+this.startStateParamSet.loadToolbox = function( params, context ) {
+    if ( params && params.length !== 2 ) {
+        self.logger.errorx( "loadToolbox",
+                            "The loadToolbox condition takes two parameters:" +
+                            " The blockly node name and the path to the xml" +
+                            " blockly toolbox." );
+        return undefined;
+    }
+
+    var node = activeScenario.startStateExecutor.findInContext( context, params[ 0 ] );
+    var toolbox = params[ 1 ];
+    node.blockly_toolbox = toolbox;
+}
+
 //@ sourceURL=source/scenario/scenario.js
