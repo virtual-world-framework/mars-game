@@ -131,6 +131,7 @@ body {
     top: 0;
     left: 0;
     background-color: #000;
+    z-index: 102;
     pointer-events: none;
 }
 
@@ -347,7 +348,7 @@ body {
     top: 0;
     left: 0;
     background-color: #000;
-    z-index: 99;
+    z-index: 103;
 }
 
 .video {
