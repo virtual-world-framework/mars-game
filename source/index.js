@@ -187,6 +187,7 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
 
             case "resetHUDState":
                 clearHUDEffects();
+                clearBlocklyTabs();
                 break;
 
             case "toggledTiles":
