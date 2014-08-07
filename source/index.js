@@ -184,6 +184,18 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 selectBlock( lastBlockIDExecuted );
                 break;
 
+            case "resetHUDState":
+                clearHUDEffects();
+                break;
+
+            case "toggledTiles":
+                tilesAreVisible = eventArgs[ 0 ];
+                break;
+
+            case "toggledGraph":
+                graphIsVisible = eventArgs[ 0 ];
+                break;
+            
         } 
     } else if ( loggerNodes[ nodeID ] !== undefined ) { 
         switch ( eventName ) {
@@ -232,6 +244,12 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
             } else {
                 resetScenario();
             }
+        }
+
+        // camera events
+
+        if ( eventName === "changedPOV" ) {
+            setHelicamDisplays( eventArgs[ 0 ] );
         }
     }
 }
@@ -601,7 +619,22 @@ function indicateBlock( blockID ) {
     }
 }
 
+window.onkeypress = function( event ) {
+    var pauseScreen;
+    if ( event.which === 112 ) {
+        pauseScreen = document.getElementById( "pauseScreen" );
+        if ( pauseScreen.isOpen ){
+            closePauseMenu();
+        } else {
+            openPauseMenu();
+        }
+    }
+}
+
 function initializePauseMenu() {
+    var pauseScreen = document.getElementById( "pauseScreen" );
+    pauseScreen.isOpen = false;
+
     var pauseButtons = document.getElementsByClassName( "pauseMenuButton" );
     for ( var i = 0; i < pauseButtons.length; i++ ) {
         pauseButtons[ i ].onmouseover = highlightPauseBtn;
@@ -635,17 +668,20 @@ function selectPauseBtn( event ) {
 
 function closePauseMenu( event ) {
     var pauseScreen = document.getElementById( "pauseScreen" );
+    pauseScreen.isOpen = false;
     pauseScreen.style.display = "none";
 }
 
 function openPauseMenu( event ) {
     var pauseScreen = document.getElementById( "pauseScreen" );
+    pauseScreen.isOpen = true;
     pauseScreen.style.display = "block";
 }
 
 function restartGame( event ) {
     var sceneID = vwf_view.kernel.application();
-    vwf_view.kernel.setProperty( sceneID, "activeScenarioPath", "introScreenScenario" );
+    vwf_view.kernel.setProperty( sceneID, "activeScenarioPath", "scenario1a" );
+    closePauseMenu();
 }
 
 //@ sourceURL=source/index.js

@@ -208,15 +208,15 @@ this.createGridDisplay = function( grid ) {
 
     this.gridTileGraph.graphGroup(
         this.gridTileGraph.tileVisible,
-        tiles
+        tiles,
+        "mapTiles"
     );
 }
 
 this.removeGridDisplay = function() {
     var graph = this.gridTileGraph;
-
-    for ( var obj in graph.children ) {
-        graph.children.delete( graph.children[ obj ] );
+    if ( graph.children.mapTiles ) {
+        graph.children.delete( graph.children.mapTiles );
     }
 }
 
@@ -238,6 +238,22 @@ this.executeBlock = function ( block, action ) {
         args = args instanceof Array ? args : [ args ];
         node[ methodName ].apply( node, args );
     }
+}
+
+this.displayTiles = function( isVisible ) {
+    this.gridTileGraph.mapTiles.visible = isVisible;
+    if ( isVisible && this.player.camera.pointOfView !== "topDown" ) {
+        this.player.camera.pointOfView = "topDown";
+    }
+    this.toggledTiles( isVisible );
+}
+
+this.displayGraph = function( isVisible ) {
+    this.blocklyGraph.setGraphVisibility( isVisible );
+    if ( isVisible && this.player.camera.pointOfView !== "topDown" ) {
+        this.player.camera.pointOfView = "topDown";
+    }
+    this.toggledGraph( isVisible );
 }
 
 //@ sourceURL=source/scene.js

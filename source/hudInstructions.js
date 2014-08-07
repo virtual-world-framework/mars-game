@@ -76,6 +76,7 @@ function createCameraSelector() {
     firstPersonBtn.icon = new Image();
     firstPersonBtn.icon.src = "assets/images/hud/camera_firstperson.png";
     firstPersonBtn.mode = "firstPerson";
+    firstPersonBtn.enabled = true;
     firstPersonBtn.onMouseDown = selectCameraMode;
     hud.add( firstPersonBtn, "right", "top", { "x": -53, "y": 32 } );
 
@@ -83,6 +84,7 @@ function createCameraSelector() {
     thirdPersonBtn.icon = new Image();
     thirdPersonBtn.icon.src = "assets/images/hud/camera_thirdperson.png";
     thirdPersonBtn.mode = "thirdPerson";
+    thirdPersonBtn.enabled = true;
     thirdPersonBtn.onMouseDown = selectCameraMode;
     hud.add( thirdPersonBtn, "right", "top", { "x": -34, "y": 54 } );
 
@@ -643,30 +645,8 @@ function clickBlockly( event ) {
     }
 }
 
-function toggleGraphDisplay( event ) {
-    if ( !this.enabled ) {
-        return;
-    }
-    var cameraNode = vwf_view.kernel.find( "", "//camera" )[ 0 ];
-    var graphID = vwf_view.kernel.find( "", "//blocklyGraph" )[ 0 ];
-
-    if ( cameraNode && graphID ) {
-        vwf_view.kernel.callMethod( graphID, "toggleGraphVisibility" );
-        vwf_view.kernel.setProperty( cameraNode, "pointOfView", "topDown" );
-        graphIsVisible = !graphIsVisible;
-        vwf_view.kernel.fireEvent( vwf_view.kernel.application(), "toggledGraph" );
-    }
-}
-
 function selectCameraMode( event ) {
-    if ( this.mode !== "topDown" ) {
-        if ( graphIsVisible ) {
-            toggleGraphDisplay.bind( hud.elements.graphButton )( event );
-        }
-        if ( tilesAreVisible ) {
-            toggleTiles.bind( hud.elements.tilesButton )( event );
-        }
-    } else if ( !this.enabled ) {
+    if ( !this.enabled ) {
         return;
     }
 
@@ -689,25 +669,27 @@ function hideHelp( event ) {
     help.style.display = "none";
 }
 
+function toggleGraphDisplay( event ) {
+    if ( !this.enabled ) {
+        return;
+    }
+    var sceneID = vwf_view.kernel.application();
+    vwf_view.kernel.callMethod( sceneID, "displayGraph", [ !graphIsVisible ] );
+}
+
 function toggleTiles( event ) {
     if ( !this.enabled ) {
         return;
     }
-    var cameraNode = vwf_view.kernel.find( "", "//camera" )[ 0 ];
-    var graphTilesID = vwf_view.kernel.find( "", "//gridTileGraph" )[ 0 ];
-    if ( cameraNode && graphTilesID ) {
-        vwf_view.kernel.callMethod( graphTilesID, "toggleTileVisibility" );
-        vwf_view.kernel.setProperty( cameraNode, "pointOfView", "topDown" );
-        tilesAreVisible = !tilesAreVisible;
-        vwf_view.kernel.fireEvent( vwf_view.kernel.application(), "toggledTiles" );
-    }
+    var sceneID = vwf_view.kernel.application();
+    vwf_view.kernel.callMethod( sceneID, "displayTiles", [ !tilesAreVisible ] );
 }
 
 // Other functions
 
 function blinkElement( elementID ) {
     var el = hud.elements[ elementID ];
-    if ( el ) {
+    if ( el && !el.isBlinking ) {
         el.normalDrawFunction = el.draw;
         el.lastBlinkTime = vwf_view.kernel.time();
         el.blinkInterval = 0.25;
@@ -915,6 +897,26 @@ function removeElement( array, index ) {
         array[ i ] = array[ i ] + 1;
     }
     array.length--;
+}
+
+function clearHUDEffects() {
+    var els = hud.elements;
+    for ( var id in els ) {
+        if ( els[ id ].isBlinking ) {
+            stopElementBlinking( id );
+        }
+    }
+}
+
+function setHelicamDisplays( pov ) {
+    if ( pov !== "topDown" ) {
+        if ( graphIsVisible ) {
+            toggleGraphDisplay.bind( hud.elements.graphButton )( event );
+        }
+        if ( tilesAreVisible ) {
+            toggleTiles.bind( hud.elements.tilesButton )( event );
+        }
+    }
 }
 
 //@ sourceURL=source/hudInstructions.js

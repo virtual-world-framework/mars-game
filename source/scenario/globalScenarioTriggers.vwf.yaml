@@ -39,6 +39,7 @@ properties:
         - hasFailed
       - clearBlackboard:
         - disableFailOnIncompleteProgram
+      - resetHUDState:
 
     recordKeepingOnSuccess:
       triggerCondition:
