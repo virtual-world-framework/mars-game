@@ -90,9 +90,6 @@ children:
           - scenarioSuccess:
           - showAlert:
             - "I found a track anomaly... time to change course!"
-          - hideBlockly:
-          - stopSound:
-            - musicStandardGameplay
           - playSound:
             - musicSuccessShort
 

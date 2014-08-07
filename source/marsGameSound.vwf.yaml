@@ -113,7 +113,7 @@ properties:
     - soundName: "L1VO6_Control"
       soundURL: "assets/sounds/VO/L1VO6_Control.ogg"
       soundGroup: VO
-      subtitle: "[MC]: Wow! You’re still active. I’m PAL 10K, your AI Mission Controller...here is a status report. You are a super advanced self-learning rover that we sent to Mars to prepare a Base for our Human Explorers. Something went wrong during your atmosphere entry procedure and your vehicle and all your mission equipment have been scattered over the planet’s surface. So that’s problem number one. Problem number two: we have lost contact with the humans. The good news is you can restore contact with them from your end. But first you need to find one of your Rover’s that was wandered off. It is carrying supplies you will need to continue your mission. Plot a course to match its heading."
+      subtitle: "[MC]: Wow! You’re still active. I’m PAL 10K, your AI Mission Controller...here is a status report. You are a super advanced self-learning rover that we sent to Mars to prepare a Base for our Human Explorers. Something went wrong during your atmosphere entry procedure and your vehicle and all your mission equipment have been scattered over the planet’s surface. So that’s problem number one. Problem number two: we have lost contact with the humans. The good news is you can restore contact with them from your end. But first you need to find one of your rovers that has wandered off. It is carrying supplies you will need to continue your mission. Plot a course to match its heading."
       groupReplacementMethod: queue
       queueDelayTime: 2
     - soundName: "L1VO7_Rover"
@@ -144,7 +144,7 @@ properties:
     - soundName: "L1VO12_Rover"
       soundURL: "assets/sounds/VO/L1VO12_Rover_m.ogg"
       soundGroup: VO
-      subtitle: "[ROVER]: I can connect blocks to make a program, and then Run it. I want to try moving forward three this time."
+      subtitle: "[ROVER]: I can connect blocks to make a program, and then Run it. I see a spare battery up ahead. Why don't I go and get it?"
       groupReplacementMethod: queue
     - soundName: "L1VO13_Rover"
       soundURL: "assets/sounds/VO/L1VO13_Rover_m.ogg"
