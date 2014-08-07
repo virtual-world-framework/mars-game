@@ -29,6 +29,8 @@ methods:
   addAlert:
   addSubtitle:
   executeBlock:
+  displayTiles:
+  displayGraph:
 events:
   introScreensComplete:
   scenarioReset:
@@ -51,6 +53,8 @@ events:
   toggledGraph:
   toggledTiles:
   resetRoverSensors:
+  resetHUDState:
+  beginRender:
 children:
   soundManager:
     includes: source/marsGameSound.vwf
@@ -164,6 +168,8 @@ children:
           changePointOfView$:
           setTargetPath$:
           followTarget$:
+        events:
+          changedPOV:
         scripts:
         - source: "source/camera.js"
       rover:
@@ -295,13 +301,6 @@ children:
       gridOpacity: 1
       renderTop: false
       tileVisible: false
-    methods:
-      toggleTileVisibility: |
-        this.tileVisible = !this.tileVisible;
-        for ( var tile in this.children ) {
-          this.children[ tile ].visible = this.tileVisible;
-        }
-        //@ sourceURL=scene.gridTileGraph.toggleTileVisiblity
   alerts:
     extends: http://vwf.example.com/logger.vwf
     properties:

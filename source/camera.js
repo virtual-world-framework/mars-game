@@ -43,6 +43,7 @@ this.changePointOfView$ = function( newPointOfView ) {
     // Hide the target if the camera is moving into first-person mode
     // Make it visible if it is in any other mode
     manageTargetVisibility();
+    this.changedPOV( newPointOfView );
 }
 
 this.setTargetPath$ = function( newTargetPath ) {

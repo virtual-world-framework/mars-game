@@ -20,6 +20,7 @@ var gridBounds = {
 var orbitTarget = new Array( 3 );
 var lastRenderTime = 0;
 var threejs = findThreejsView();
+var introPlayed = false;
 
 function runBlockly() {
     vwf_view.kernel.setProperty( currentBlocklyNodeID, "blockly_executing", true );
@@ -184,6 +185,22 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 selectBlock( lastBlockIDExecuted );
                 break;
 
+            case "resetHUDState":
+                clearHUDEffects();
+                break;
+
+            case "toggledTiles":
+                tilesAreVisible = eventArgs[ 0 ];
+                break;
+
+            case "toggledGraph":
+                graphIsVisible = eventArgs[ 0 ];
+                break;
+
+            case "beginRender":
+                introPlayed = true;
+                break;
+            
         } 
     } else if ( loggerNodes[ nodeID ] !== undefined ) { 
         switch ( eventName ) {
@@ -233,6 +250,12 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 resetScenario();
             }
         }
+
+        // camera events
+
+        if ( eventName === "changedPOV" ) {
+            setHelicamDisplays( eventArgs[ 0 ] );
+        }
     }
 }
 
@@ -278,7 +301,8 @@ vwf_view.createdNode = function( nodeID, childID, childExtendsID, childImplement
 
 vwf_view.initializedNode = function( nodeID, childID, childExtendsID, childImplementsIDs, childSource, childType, childIndex, childName ) {
     if ( childID === vwf_view.kernel.application() ) {
-        threejs.render = setUp;
+        setUpView();
+        threejs.render = loadGame;
     } else if ( blocklyNodes[ childID ] !== undefined ) {
         var node = blocklyNodes[ childID ];
         if ( $( "#blocklyWrapper-top" ) !== undefined ) {
@@ -386,24 +410,25 @@ vwf_view.satProperty = function( nodeID, propertyName, propertyValue ) {
     }
 }
 
-function setUp( renderer, scene, camera ) {
+function setUpView() {
     hud = new HUD();
     createHUD();
-
+    initializePauseMenu();
+    setUpNavigation();
     var introScreens = new Array();
     introScreens.push( "assets/images/introScreens/Intro_screen.jpg" );
     setUpIntro( introScreens );
-    
     setUpBlocklyPeripherals();
     setUpStatusDisplay();
+}
 
-    scene.fog = new THREE.FogExp2( 0xC49E70, 0.005 );
-    renderer.setClearColor(scene.fog.color);
-    renderer.autoClear = false;
-
-    setUpNavigation();
-
-    threejs.render = render;
+function loadGame( renderer, scene, camera ) {
+    if ( introPlayed ) {
+        scene.fog = new THREE.FogExp2( 0xC49E70, 0.005 );
+        renderer.setClearColor( scene.fog.color );
+        renderer.autoClear = false;
+        threejs.render = render;
+    }
 }
 
 function render( renderer, scene, camera ) {
@@ -597,6 +622,71 @@ function indicateBlock( blockID ) {
     } else if ( blockID === lastBlockIDExecuted ) {
         resetBlocklyIndicator();
     }
+}
+
+window.onkeypress = function( event ) {
+    var pauseScreen;
+    if ( event.which === 112 ) {
+        pauseScreen = document.getElementById( "pauseScreen" );
+        if ( pauseScreen.isOpen ){
+            closePauseMenu();
+        } else {
+            openPauseMenu();
+        }
+    }
+}
+
+function initializePauseMenu() {
+    var pauseScreen = document.getElementById( "pauseScreen" );
+    pauseScreen.isOpen = false;
+
+    var pauseButtons = document.getElementsByClassName( "pauseMenuButton" );
+    for ( var i = 0; i < pauseButtons.length; i++ ) {
+        pauseButtons[ i ].onmouseover = highlightPauseBtn;
+        pauseButtons[ i ].onmouseout = resetPauseBtn;
+        pauseButtons[ i ].onmousedown = selectPauseBtn;
+        pauseButtons[ i ].onmouseup = highlightPauseBtn;
+        switch ( pauseButtons[ i ].id ) {
+            case "resume":
+                pauseButtons[ i ].onclick = closePauseMenu;
+                break;
+            case "restart":
+                pauseButtons[ i ].onclick = restartGame;
+                break;
+            case "settings":
+                break;
+        }
+    }
+}
+
+function highlightPauseBtn( event ) {
+    this.className = "pauseMenuButton hover";
+}
+
+function resetPauseBtn( event ) {
+    this.className = "pauseMenuButton";
+}
+
+function selectPauseBtn( event ) {
+    this.className = "pauseMenuButton select";
+}
+
+function closePauseMenu( event ) {
+    var pauseScreen = document.getElementById( "pauseScreen" );
+    pauseScreen.isOpen = false;
+    pauseScreen.style.display = "none";
+}
+
+function openPauseMenu( event ) {
+    var pauseScreen = document.getElementById( "pauseScreen" );
+    pauseScreen.isOpen = true;
+    pauseScreen.style.display = "block";
+}
+
+function restartGame( event ) {
+    var sceneID = vwf_view.kernel.application();
+    vwf_view.kernel.setProperty( sceneID, "activeScenarioPath", "scenario1a" );
+    closePauseMenu();
 }
 
 //@ sourceURL=source/index.js
