@@ -602,13 +602,17 @@ Blockly.Blocks[ 'math_number_output' ] = {
   init: function() {
     this.setColour( 60 );
     this.appendValueInput( "INPUT" )
-        .appendField( new Blockly.FieldTextInput( "0" ), "VALUE" )
+        .appendField(new Blockly.FieldDropdown([["10", "10"],["9", "9"],["8", "8"],
+         ["7", "7"],["6", "6"],["5", "5"],["4", "4"],["3", "3"],["2", "2"],
+         ["1", "1"],["0", "0"],["-1", "-1"], ["-2", "-2"], ["-3", "-3"], 
+         ["-4", "-4"], ["-5", "-5"], ["-6", "-6"], ["-7", "-7"], ["-8", "-8"], 
+         ["-9", "-9"], ["-10", "-10"]]), "VALUE")
         .setCheck( [ 'OperatorAddSubtract','OperatorMultiplyDivide','Variable','LeftParenthesis','RightParenthesis' ] );
     this.setOutput( true, "Number" );
     var thisBlock = this;
     this.setTooltip( function() {
       var content = {
-        text: "A text field for selecting number values. Try typing any number! (e.g. 1, -3, 0.2)"
+        text: "A text field for selecting number values."
       }
       return showTooltipInBlockly( thisBlock, content );
     } );
@@ -783,7 +787,7 @@ Blockly.JavaScript[ 'graph_multiply' ] = function( block ) {
   var argument0 = Blockly.JavaScript.valueToCode(block, 'INPUT',
       Blockly.JavaScript.ORDER_ATOMIC) || '0';
 
-
+  
   return [block.getFieldValue('VALUE') + argument0, Blockly.JavaScript.ORDER_ATOMIC];
 };
 
