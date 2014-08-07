@@ -4,7 +4,6 @@ properties:
   scenarioName: scenario1d
 
   nextScenarioPath: "scenario1e"
-  blockly: assets/scenario/scenario1d.xml
 
   startState:
   - setProperty:
@@ -53,6 +52,11 @@ properties:
   - addToGrid:
     - radio
     - [ 8, 16 ]
+  - enableBlocklyTabs:
+    - rover
+  - loadToolbox:
+    - rover
+    - assets/scenario/scenario1d.xml
 
 children:
   triggerManager:

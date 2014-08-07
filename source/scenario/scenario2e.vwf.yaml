@@ -5,7 +5,6 @@ properties:
 
   scenePath: /
   nextScenarioPath: "scenario2f"
-  blockly: assets/scenario/scenario2e.xml
 
   startState:
   - setProperty:
@@ -37,6 +36,15 @@ properties:
   - addToGrid:
     - blocklyGraph
     - [ 15, 1 ]
+  - enableBlocklyTabs:
+    - rover
+    - graph
+  - loadToolbox:
+    - rover
+    - assets/scenario/scenario2e.xml
+  - loadToolbox:
+    - graph
+    - assets/scenario/graph2e.xml
 
 children:
   triggerManager:
