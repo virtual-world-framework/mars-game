@@ -301,6 +301,12 @@ children:
       gridOpacity: 1
       renderTop: false
       tileVisible: false
+    children:
+      mapTiles:
+        extends: http://vwf.example.com/graphtool/graphgroup.vwf
+        properties:
+          groupVisible: false
+          graphObjects: []
   graph:
     extends: http://vwf.example.com/node3.vwf
     implements: http://vwf.example.com/blockly/controller.vwf
