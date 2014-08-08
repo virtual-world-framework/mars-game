@@ -72,18 +72,18 @@ children:
           - blinkHUDElement:
             - camera_topDown
 
-        playStartingVO_1c:
-          triggerCondition:
-          - onScenarioStart:
-          additionalCondition:
-          - not:
-            - readBlackboard:
-              - Level1cStartSounds
-          actions:
-          - playSound:
-            - L1VO9_Rover
-          - writeToBlackboard:
-            - Level1cStartSounds
+        # playStartingVO_1c:
+        #   triggerCondition:
+        #   - onScenarioStart:
+        #   additionalCondition:
+        #   - not:
+        #     - readBlackboard:
+        #       - Level1cStartSounds
+        #   actions:
+        #   - playSound:
+        #     - L1VO9_Rover
+        #   - writeToBlackboard:
+        #     - Level1cStartSounds
 
         succeedOnSuccess_1c:
           triggerCondition:
@@ -94,8 +94,6 @@ children:
             - "You have a bird's eye view now!"
           - stopBlinkHUDElement:
             - camera_topDown
-          - stopSound:
-            - musicStandardGameplay
           - playSound:
             - musicSuccessShort
           - playSound:

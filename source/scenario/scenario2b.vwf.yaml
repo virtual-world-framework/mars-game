@@ -87,9 +87,6 @@ children:
             - blocklyButton
           - playSound:
             - SCVO6_Rover
-          - hideBlockly:
-          - stopSound:
-            - musicStandardGameplay
           - playSound:
             - musicSuccessShort
 

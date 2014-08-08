@@ -78,9 +78,6 @@ children:
           - scenarioSuccess:
           - showAlert:
             - "Now I can plot course... can I plot the course to match those tracks?"
-          - hideBlockly:
-          - stopSound:
-            - musicStandardGameplay
           - playSound:
             - musicSuccessShort
           - playSound:

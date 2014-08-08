@@ -99,8 +99,6 @@ children:
           - scenarioSuccess:
           - showAlert:
             - "You have accessed your programming interface!"
-          - stopSound:
-            - musicStandardGameplay
           - playSound:
             - musicSuccessShort
           - playSound:

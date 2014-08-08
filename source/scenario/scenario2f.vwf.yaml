@@ -57,12 +57,23 @@ children:
           actions:
           - playSound:
             - musicStandardGameplay
-          - playSound:
-            - L2VO9_Control
           - waitForNode:
             - rover
             - blinkBlocklyTab:
               - rover
+
+        playStartingVO_2f:
+          triggerCondition:
+          - onScenarioStart:
+          additionalCondition:
+          - not:
+            - readBlackboard:
+              - Level2fStartSounds
+          actions:
+          - playSound:
+            - L2VO9_Control
+          - writeToBlackboard:
+            - Level2fStartSounds
 
         succeedOnSuccessfulMovement_2f:
           triggerCondition:
@@ -78,9 +89,6 @@ children:
           - scenarioSuccess:
           - showAlert:
             - "I'm on the right path. How will I stop when I see the rover?"
-          - hideBlockly:
-          - stopSound:
-            - musicStandardGameplay
           - playSound:
             - musicSuccessShort
           - playSound:

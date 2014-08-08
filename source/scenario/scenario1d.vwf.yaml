@@ -94,8 +94,6 @@ children:
             - "You have accessed the grid!"
           - stopBlinkHUDElement:
             - tilesButton
-          - stopSound:
-            - musicStandardGameplay
           - playSound:
             - musicSuccessShort
           - playSound:

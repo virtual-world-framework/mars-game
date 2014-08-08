@@ -105,8 +105,6 @@ children:
           - scenarioSuccess:
           - showAlert:
             - "You have calibrated your motors and picked up a spare battery!"
-          - stopSound:
-            - musicStandardGameplay
           - playSound:
             - musicSuccessShort
           - playSound:

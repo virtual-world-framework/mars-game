@@ -80,7 +80,6 @@ children:
           - scenarioSuccess:
           - showAlert:
             - "Course plotted! Now to find the little guy."
-          - hideBlockly:
           - stopSound:
             - musicStandardGameplay
           - playSound:

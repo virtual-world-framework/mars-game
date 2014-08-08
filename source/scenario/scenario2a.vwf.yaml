@@ -82,8 +82,6 @@ children:
             - "I can see clearly now... the lines are drawn!"
           - playSound:
             - SCVO5_Rover
-          - stopSound:
-            - musicStandardGameplay
           - playSound:
             - musicSuccessShort
 
