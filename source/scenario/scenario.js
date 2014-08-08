@@ -61,6 +61,8 @@ this.startScenario = function() {
         }
     }
 
+    this.logger.logx( this.scenarioName + ".startScenario", "Scenario started." );
+
     this.enter();
     scene.scenarioStarted( this );
 }

@@ -135,7 +135,7 @@ properties:
       soundURL: "assets/sounds/vo/L1VO10_Rover_m.ogg"
       soundGroup: vo
       subtitle: "[ROVER]: I can display an overlay that will help me navigate."
-      groupReplacementMethod: replace
+      groupReplacementMethod: queue
     - soundName: "L1VO11_Rover"
       soundURL: "assets/sounds/vo/L1VO11_Rover_m.ogg"
       soundGroup: vo
