@@ -22,7 +22,6 @@ methods:
   createMiniRover:
   removeMiniRover:
   createGridDisplay:
-  removeGridDisplay:
   addStatus:
   addAlert:
   addSubtitle:
