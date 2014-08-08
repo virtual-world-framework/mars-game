@@ -81,6 +81,7 @@ this.createEditToolGrid = function() {
                 "size": SIZE,
                 "color": color,
                 "opacity": OPACITY,
+                "doubleSided": false,
                 "renderTop": RENDERTOP
             } } );
 
@@ -138,6 +139,7 @@ this.createGridDisplay = function( grid ) {
                 "size": SIZE,
                 "color": color,
                 "opacity": OPACITY,
+                "doubleSided": false,
                 "renderTop": RENDERTOP
             } } );
 
