@@ -5,7 +5,6 @@ properties:
 
   scenePath: /
   nextScenarioPath: "scenario3d"
-  blockly: assets/scenario/scenario3c.xml
 
   startState:
   - setProperty:
@@ -43,6 +42,15 @@ properties:
   - addToGrid:
     - trackanomaly
     - [ 11, 10 ]
+  - enableBlocklyTabs:
+    - rover
+    - graph
+  - loadToolbox:
+    - rover
+    - assets/scenario/scenario3c.xml
+  - loadToolbox:
+    - graph
+    - assets/scenario/graph.xml
 
 children:
   triggerManager:
@@ -71,9 +79,6 @@ children:
           - scenarioSuccess:
           - showAlert:
             - "I found a track anomaly... time to change course!"
-          - hideBlockly:
-          - stopSound:
-            - musicStandardGameplay
           - playSound:
             - musicSuccessShort
 

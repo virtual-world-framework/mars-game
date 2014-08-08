@@ -19,8 +19,6 @@ methods:
   resetScenario:
   advanceScenario:
   getCurrentScenario:
-  createGraph:
-  removeGraph:
   createMiniRover:
   removeMiniRover:
   createGridDisplay:
@@ -29,6 +27,8 @@ methods:
   addAlert:
   addSubtitle:
   executeBlock:
+  displayTiles:
+  displayGraph:
 events:
   introScreensComplete:
   scenarioReset:
@@ -51,6 +51,10 @@ events:
   toggledGraph:
   toggledTiles:
   resetRoverSensors:
+  resetHUDState:
+  beginRender:
+  enableBlocklyTab:
+  clearBlocklyTabs:
 children:
   soundManager:
     includes: source/marsGameSound.vwf
@@ -85,7 +89,7 @@ children:
   smoke1:
     extends: source/smokeParticle.vwf
     properties:
-      translation: [ -11, 31, 3 ]
+      translation: [ -5, 34.75, 3 ]
   smoke2:
     extends: source/smokeParticle.vwf
     properties:
@@ -164,6 +168,8 @@ children:
           changePointOfView$:
           setTargetPath$:
           followTarget$:
+        events:
+          changedPOV:
         scripts:
         - source: "source/camera.js"
       rover:
@@ -295,13 +301,11 @@ children:
       gridOpacity: 1
       renderTop: false
       tileVisible: false
-    methods:
-      toggleTileVisibility: |
-        this.tileVisible = !this.tileVisible;
-        for ( var tile in this.children ) {
-          this.children[ tile ].visible = this.tileVisible;
-        }
-        //@ sourceURL=scene.gridTileGraph.toggleTileVisiblity
+  graph:
+    extends: http://vwf.example.com/node3.vwf
+    implements: http://vwf.example.com/blockly/controller.vwf
+    properties:
+      blockly_toolbox: assets/scenario/graph.xml
   alerts:
     extends: http://vwf.example.com/logger.vwf
     properties:

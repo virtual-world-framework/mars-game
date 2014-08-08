@@ -18,8 +18,10 @@ var gridBounds = {
     topRight: undefined
 };
 var orbitTarget = new Array( 3 );
+var introVideoId;
 var lastRenderTime = 0;
 var threejs = findThreejsView();
+var introPlayed = false;
 
 function runBlockly() {
     vwf_view.kernel.setProperty( currentBlocklyNodeID, "blockly_executing", true );
@@ -27,10 +29,10 @@ function runBlockly() {
     vwf_view.kernel.setProperty( vwf_view.kernel.application(), "blockly_activeNodeID", undefined );
 }
 
-function setActiveBlocklyTab( btn ) {
-    if ( currentBlocklyNodeID !== btn.id ) {
-        vwf_view.kernel.setProperty( vwf_view.kernel.application(), "blockly_activeNodeID", btn.id );
-        if ( blocklyGraphID && blocklyGraphID === btn.id ) {
+function setActiveBlocklyTab() {
+    if ( currentBlocklyNodeID !== this.id ) {
+        vwf_view.kernel.setProperty( vwf_view.kernel.application(), "blockly_activeNodeID", this.id );
+        if ( blocklyGraphID && blocklyGraphID === this.id ) {
             var cam = vwf_view.kernel.find( "", "//camera" )[ 0 ];
             if ( cam ) {
                 vwf_view.kernel.setProperty( cam, "pointOfView", "topDown" );
@@ -184,6 +186,30 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 selectBlock( lastBlockIDExecuted );
                 break;
 
+            case "resetHUDState":
+                clearHUDEffects();
+                break;
+
+            case "clearBlocklyTabs":
+                clearBlocklyTabs();
+                break;
+
+            case "toggledTiles":
+                tilesAreVisible = eventArgs[ 0 ];
+                break;
+
+            case "toggledGraph":
+                graphIsVisible = eventArgs[ 0 ];
+                break;
+
+            case "beginRender":
+                introPlayed = true;
+                break;
+            
+            case "enableBlocklyTab":
+                addBlocklyTab( eventArgs[ 0 ], eventArgs[ 1 ] );
+                break;
+
         } 
     } else if ( loggerNodes[ nodeID ] !== undefined ) { 
         switch ( eventName ) {
@@ -233,6 +259,12 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 resetScenario();
             }
         }
+
+        // camera events
+
+        if ( eventName === "changedPOV" ) {
+            setHelicamDisplays( eventArgs[ 0 ] );
+        }
     }
 }
 
@@ -278,25 +310,15 @@ vwf_view.createdNode = function( nodeID, childID, childExtendsID, childImplement
 
 vwf_view.initializedNode = function( nodeID, childID, childExtendsID, childImplementsIDs, childSource, childType, childIndex, childName ) {
     if ( childID === vwf_view.kernel.application() ) {
-        threejs.render = setUp;
+        setUpView();
+        threejs.render = loadGame;
     } else if ( blocklyNodes[ childID ] !== undefined ) {
         var node = blocklyNodes[ childID ];
-        if ( $( "#blocklyWrapper-top" ) !== undefined ) {
-            $( "#blocklyWrapper-top" ).append( 
-                "<div id='" + childID + "' class='blocklyTab' onclick='setActiveBlocklyTab(this)'>" + childName + "</div>"
-            ).children(":last");
-        }
-    }
-}
-
-vwf_view.deletedNode = function( nodeID ) {
-    if ( blocklyNodes[ nodeID ] !== undefined ) {
-        delete blocklyNodes[ nodeID ];
-        var blocklyTop = document.getElementById( "blocklyWrapper-top" );
-        var tab = document.getElementById( nodeID );
-        if ( blocklyTop && tab ) {
-            blocklyTop.removeChild( tab );
-        }
+        node.tab = document.createElement( "div" );
+        node.tab.id = childID;
+        node.tab.className = "blocklyTab";
+        node.tab.onclick = setActiveBlocklyTab;
+        node.tab.innerHTML = childName;
     }
 }
 
@@ -386,24 +408,24 @@ vwf_view.satProperty = function( nodeID, propertyName, propertyValue ) {
     }
 }
 
-function setUp( renderer, scene, camera ) {
+function setUpView() {
     hud = new HUD();
     createHUD();
-
-    var introScreens = new Array();
-    introScreens.push( "assets/images/introScreens/Intro_screen.jpg" );
-    setUpIntro( introScreens );
-    
+    initializePauseMenu();
+    setUpNavigation();
     setUpBlocklyPeripherals();
     setUpStatusDisplay();
+    introVideoId = loadVideo( "intro_cinematic.mp4" );
+    playVideo( introVideoId );
+}
 
-    scene.fog = new THREE.FogExp2( 0xC49E70, 0.005 );
-    renderer.setClearColor(scene.fog.color);
-    renderer.autoClear = false;
-
-    setUpNavigation();
-
-    threejs.render = render;
+function loadGame( renderer, scene, camera ) {
+    if ( introPlayed ) {
+        scene.fog = new THREE.FogExp2( 0xC49E70, 0.005 );
+        renderer.setClearColor( scene.fog.color );
+        renderer.autoClear = false;
+        threejs.render = render;
+    }
 }
 
 function render( renderer, scene, camera ) {
@@ -596,6 +618,101 @@ function indicateBlock( blockID ) {
         moveBlocklyIndicator( pos.x, pos.y );
     } else if ( blockID === lastBlockIDExecuted ) {
         resetBlocklyIndicator();
+    }
+}
+
+window.onkeypress = function( event ) {
+    var pauseScreen;
+    if ( event.which === 112 ) {
+        pauseScreen = document.getElementById( "pauseScreen" );
+        if ( pauseScreen.isOpen ){
+            closePauseMenu();
+        } else {
+            openPauseMenu();
+        }
+    }
+}
+
+function initializePauseMenu() {
+    var pauseScreen = document.getElementById( "pauseScreen" );
+    pauseScreen.isOpen = false;
+
+    var pauseButtons = document.getElementsByClassName( "pauseMenuButton" );
+    for ( var i = 0; i < pauseButtons.length; i++ ) {
+        pauseButtons[ i ].onmouseover = highlightPauseBtn;
+        pauseButtons[ i ].onmouseout = resetPauseBtn;
+        pauseButtons[ i ].onmousedown = selectPauseBtn;
+        pauseButtons[ i ].onmouseup = highlightPauseBtn;
+        switch ( pauseButtons[ i ].id ) {
+            case "resume":
+                pauseButtons[ i ].onclick = closePauseMenu;
+                break;
+            case "restart":
+                pauseButtons[ i ].onclick = restartGame;
+                break;
+            case "settings":
+                break;
+        }
+    }
+}
+
+function highlightPauseBtn( event ) {
+    this.className = "pauseMenuButton hover";
+}
+
+function resetPauseBtn( event ) {
+    this.className = "pauseMenuButton";
+}
+
+function selectPauseBtn( event ) {
+    this.className = "pauseMenuButton select";
+}
+
+function closePauseMenu( event ) {
+    var pauseScreen = document.getElementById( "pauseScreen" );
+    pauseScreen.isOpen = false;
+    pauseScreen.style.display = "none";
+}
+
+function openPauseMenu( event ) {
+    var pauseScreen = document.getElementById( "pauseScreen" );
+    pauseScreen.isOpen = true;
+    pauseScreen.style.display = "block";
+}
+
+function restartGame( event ) {
+    var sceneID = vwf_view.kernel.application();
+    vwf_view.kernel.setProperty( sceneID, "activeScenarioPath", "scenario1a" );
+    closePauseMenu();
+}
+
+function addBlocklyTab( nodeID ) {
+    var node = blocklyNodes[ nodeID ];
+    if ( node ) {
+        var blocklyHeader = document.getElementById( "blocklyWrapper-top" );
+        if ( node.tab.parentNode && node.tab.parentNode === blocklyHeader ) {
+            return;
+        }
+        blocklyHeader.appendChild( node.tab );
+    }
+}
+
+function removeBlocklyTab( nodeID ) {
+    var node = blocklyNodes[ nodeID ];
+    if ( node ) {
+        var blocklyHeader = document.getElementById( "blocklyWrapper-top" );
+        if ( !node.tab.parentNode || node.tab.parentNode !== blocklyHeader ) {
+            return;
+        }
+        blocklyHeader.removeChild( node.tab );
+    }
+}
+
+function clearBlocklyTabs() {
+    var blocklyHeader = document.getElementById( "blocklyWrapper-top" );
+    var blocklyTabs = blocklyHeader.getElementsByClassName( "blocklyTab" );
+    while ( blocklyTabs.length > 0 ) {
+        blocklyHeader.removeChild( blocklyTabs[ 0 ] );
     }
 }
 

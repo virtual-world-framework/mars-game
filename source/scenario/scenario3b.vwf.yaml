@@ -5,7 +5,6 @@ properties:
 
   scenePath: /
   nextScenarioPath: "scenario3c"
-  blockly: assets/scenario/scenario3b.xml
 
   startState:
   - setProperty:
@@ -43,8 +42,15 @@ properties:
   - removeFromGrid:
     - trackanomaly
     - [ 36, 15 ]
-  - createGraph:
+  - enableBlocklyTabs:
+    - rover
     - graph
+  - loadToolbox:
+    - rover
+    - assets/scenario/scenario3b.xml
+  - loadToolbox:
+    - graph
+    - assets/scenario/graph3b.xml
 
 children:
   triggerManager:
@@ -79,9 +85,6 @@ children:
           - scenarioSuccess:
           - showAlert:
             - "Course plotted! Now to find the little guy."
-          - hideBlockly:
-          - stopSound:
-            - musicStandardGameplay
           - playSound:
             - musicSuccessShort
 

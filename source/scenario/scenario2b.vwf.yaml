@@ -5,7 +5,6 @@ properties:
 
   scenePath: /
   nextScenarioPath: "scenario2c"
-  blockly: assets/scenario/scenario2b.xml
 
   startState:
   - setProperty:
@@ -37,6 +36,15 @@ properties:
   - addToGrid:
     - blocklyGraph
     - [ 15, 1 ]
+  - enableBlocklyTabs:
+    - rover
+    - graph
+  - loadToolbox:
+    - rover
+    - assets/scenario/scenario2b.xml
+  - loadToolbox:
+    - graph
+    - assets/scenario/graph2b.xml
 
 children:
   triggerManager:
@@ -79,9 +87,6 @@ children:
             - blocklyButton
           - playSound:
             - SCVO6_Rover
-          - hideBlockly:
-          - stopSound:
-            - musicStandardGameplay
           - playSound:
             - musicSuccessShort
 

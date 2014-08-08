@@ -51,89 +51,6 @@ this.getCurrentScenario = function() {
     return this.find( this.activeScenarioPath )[ 0 ];
 }
 
-this.createGraph = function( xml ) {
-
-    var self = this;
-
-    if ( self.graphObject === undefined ) {
-
-        if ( xml ) {
-            var graphDef = {
-                "extends": "http://vwf.example.com/node3.vwf",
-                "implements": [ "http://vwf.example.com/blockly/controller.vwf" ],
-                "properties": {
-                      "blockly_toolbox": "assets/scenario/"+xml+".xml"
-                }
-            };
-        } else {
-            var graphDef = {
-                "extends": "http://vwf.example.com/node3.vwf",
-                "implements": [ "http://vwf.example.com/blockly/controller.vwf" ],
-                "properties": {
-                      "blockly_toolbox": "assets/scenario/graph.xml"
-                }
-            };  
-        }
-        
-        self.children.create( "graph", graphDef, function( child ) {
-            self.graphObject = child;
-        } );
-
-    } else {
-        // TODO: Graph is not reloading properly when scenarios change. The graph will
-        // get rid of all of its blocks and necessitates clicking on the graph tab
-        // again to reload.
-    }
-}
-
-this.removeGraph = function() {
-    
-    if ( this.graphObject !== undefined ) {
-        this.children.delete( this.graphObject );
-        this.graphObject = undefined;    
-    }
-    
-}
-
-this.createMiniRover = function() {
-
-    var self = this;
-
-    if ( self.miniRover === undefined ) {
-
-        var miniroverDef = {
-            "extends": "source/rover.vwf",
-            "implements": [ "http://vwf.example.com/blockly/controller.vwf" ],
-            "source": "assets/3d/minirover/minirover.dae",
-            "type": "model/vnd.collada+xml",
-            "properties": {
-                "translation": [ 0, 9, 0 ],
-                "rotation": [ 0, 0, 1, 270 ],
-                "castShadows": true,
-                "receiveShadows": true,
-                "blocklyEnabled": false,
-                "currentGridSquare": [ 0, 8 ],
-                "heading": 270,
-                "terrainName": "environment",
-                "displayName": "Minirover"
-            }
-        };
-
-        self.children.create( "minirover", miniroverDef, function( child ) {
-            self.miniRover = child;
-        } );
-    }
-}
-
-this.removeMiniRover = function() {
-    
-    if ( this.miniRover !== undefined ) {
-        this.children.delete( this.miniRover );
-        this.miniRover = undefined;    
-    }
-    
-}
-
 this.addStatus = function( log ) {
     
     if ( this.status !== undefined ) {
@@ -166,7 +83,7 @@ this.addSubtitle = function( log, time ) {
 this.createGridDisplay = function( grid ) {
     var PASSABLE_COLOR = [ 220, 255, 220 ];
     var IMPASSABLE_COLOR = [ 255, 220, 220 ];
-    var OPACITY = 0.5;
+    var OPACITY = 0.3;
     var NORMAL = [ 0, 0, 1 ];
     var ROTATION = 90;
     var RENDERTOP = true;
@@ -208,15 +125,15 @@ this.createGridDisplay = function( grid ) {
 
     this.gridTileGraph.graphGroup(
         this.gridTileGraph.tileVisible,
-        tiles
+        tiles,
+        "mapTiles"
     );
 }
 
 this.removeGridDisplay = function() {
     var graph = this.gridTileGraph;
-
-    for ( var obj in graph.children ) {
-        graph.children.delete( graph.children[ obj ] );
+    if ( graph.children.mapTiles ) {
+        graph.children.delete( graph.children.mapTiles );
     }
 }
 
@@ -238,6 +155,23 @@ this.executeBlock = function ( block, action ) {
         args = args instanceof Array ? args : [ args ];
         node[ methodName ].apply( node, args );
     }
+}
+
+this.displayTiles = function( isVisible ) {
+    this.gridTileGraph.mapTiles.visible = isVisible;
+    this.gridTileGraph.tileVisible = isVisible;
+    if ( isVisible && this.player.camera.pointOfView !== "topDown" ) {
+        this.player.camera.pointOfView = "topDown";
+    }
+    this.toggledTiles( isVisible );
+}
+
+this.displayGraph = function( isVisible ) {
+    this.blocklyGraph.setGraphVisibility( isVisible );
+    if ( isVisible && this.player.camera.pointOfView !== "topDown" ) {
+        this.player.camera.pointOfView = "topDown";
+    }
+    this.toggledGraph( isVisible );
 }
 
 //@ sourceURL=source/scene.js

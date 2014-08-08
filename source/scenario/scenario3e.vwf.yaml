@@ -4,7 +4,6 @@ properties:
   scenarioName: scenario3e
 
   scenePath: /
-  blockly: assets/scenario/scenario3e.xml
 
   startState:
   - setProperty:
@@ -45,6 +44,15 @@ properties:
   - addToGrid:
     - trackanomaly
     - [ 25, 38 ]
+  - enableBlocklyTabs:
+    - rover
+    - graph
+  - loadToolbox:
+    - rover
+    - assets/scenario/scenario3e.xml
+  - loadToolbox:
+    - graph
+    - assets/scenario/graph.xml
 
 children:
   triggerManager:
@@ -73,7 +81,6 @@ children:
           - scenarioSuccess:
           - showAlert:
             - "I found the minirover!"
-          - clearBlockly:
           - hideBlockly:
           - stopSound:
             - musicStandardGameplay

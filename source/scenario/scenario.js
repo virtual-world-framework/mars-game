@@ -36,15 +36,6 @@ this.startScenario = function() {
         this.startStateExecutor.functionSets = [];
         this.startStateExecutor.addFunctionSet( this.startStateParamSet );
 
-        if ( scene !== undefined ) {
-            if ( this.blockly && this.blockly !== '' ) {
-                scene.blockly_toolbox = this.blockly;
-            }
-            if ( this.blocklyDefault && this.blocklyDefault !== '' ) {
-                scene.blockly_defaultXml = this.blocklyDefault;
-            }
-        }
-
         if ( this.grid ) {
             scene.removeGridDisplay();
             scene.future(0).createGridDisplay( this.grid );
@@ -169,18 +160,39 @@ this.startStateParamSet.addToGrid = function( params, context ) {
     activeScenario.grid.addToGridFromCoord( object, gridCoord );
 }
 
-this.startStateParamSet.createGraph = function( params, context ) {
-    if ( params && ( params.length > 1 ) ) {
-        self.logger.errorx( "createGraph",
-                            "The createGraph condition takes one optional" +
-                            " argument: the name of the XML file to load." );
+this.startStateParamSet.enableBlocklyTabs = function( params, context ) {
+    if ( !params || params.length < 1 ) {
+        self.logger.errorx( "enableBlocklyTabs",
+                            "The enableBlocklyTabs condition requires at least" +
+                            " one parameter: the name of a blockly tab to be enabled." );
         return undefined;
     }
 
-    if ( !!params[ 0 ] ) {
-        return params[ 0 ] ? [ scene.future( 0 ).createGraph( params[ 0 ] ) ] : [ scene.future( 0 ).createGraph() ];
+    var object;
+    context.clearBlocklyTabs();
+    for ( var i = 0; i < params.length; i++ ) {
+        object = activeScenario.startStateExecutor.findInContext( context, params[ i ] );
+        if ( object ) {
+            context.enableBlocklyTab( object.id );
+        }
+    }
+}
+
+this.startStateParamSet.loadToolbox = function( params, context ) {
+    if ( params && params.length !== 2 ) {
+        self.logger.errorx( "loadToolbox",
+                            "The loadToolbox condition takes two parameters:" +
+                            " The blockly node name and the path to the xml" +
+                            " blockly toolbox." );
+        return undefined;
     }
 
+    var node = activeScenario.startStateExecutor.findInContext( context, params[ 0 ] );
+    var toolbox = params[ 1 ];
+    node.blockly_toolbox = toolbox;
+    if ( context.blockly_activeNodeID === node.id ) {
+        context.blockly_toolbox = toolbox;
+    }
 }
 
 //@ sourceURL=source/scenario/scenario.js
