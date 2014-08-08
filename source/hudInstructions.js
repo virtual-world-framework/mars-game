@@ -25,12 +25,6 @@ function createHUD() {
     tilesButton.enabled = true;
     tilesButton.onMouseDown = toggleTiles;
     hud.add( tilesButton, "right", "bottom", { "x": -174, "y": -30 } );
-
-    var helpButton = new HUD.Element( "helpButton", drawIcon, 64, 64 );
-    helpButton.icon = new Image();
-    helpButton.icon.src = "assets/images/hud/help_large.png";
-    helpButton.onMouseDown = showHelp;
-    hud.add( helpButton, "right", "bottom", { "x": -246, "y": -30 } );
 }
 
 function createRoverElement() {
@@ -654,17 +648,6 @@ function selectCameraMode( event ) {
     if ( this.mode === "topDown" ){
         vwf_view.kernel.fireEvent( vwf_view.kernel.application(), "toggledHelicam" );
     }
-}
-
-function showHelp( event ) {
-    var help = document.getElementById( "helpScreen" );
-    help.style.display = "block";
-    help.onclick = hideHelp;
-}
-
-function hideHelp( event ) {
-    var help = document.getElementById( "helpScreen" );
-    help.style.display = "none";
 }
 
 function toggleGraphDisplay( event ) {
