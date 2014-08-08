@@ -908,15 +908,4 @@ function clearHUDEffects() {
     }
 }
 
-function setHelicamDisplays( pov ) {
-    if ( pov !== "topDown" ) {
-        if ( graphIsVisible ) {
-            toggleGraphDisplay.bind( hud.elements.graphButton )( event );
-        }
-        if ( tilesAreVisible ) {
-            toggleTiles.bind( hud.elements.tilesButton )( event );
-        }
-    }
-}
-
 //@ sourceURL=source/hudInstructions.js

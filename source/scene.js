@@ -12,10 +12,9 @@ var SIZE = 0.9;
 var tiles = new Array();
 
 this.initialize = function() {
-      
     // Set the active camera so we can see the 3D scene
     this.initializeActiveCamera( this.player.camera );
-
+    this.setUpCameraListener();
 }
 
 this.setScenario = function( path ) {
@@ -134,6 +133,16 @@ this.executeBlock = function ( block, action ) {
     if ( node ) {
         args = args instanceof Array ? args : [ args ];
         node[ methodName ].apply( node, args );
+    }
+}
+
+this.setUpCameraListener = function() {
+    var scene = this;
+    this.player.camera.changedPOV = function( pov ) {
+        if ( pov !== "topDown") {
+            scene.displayTiles( false );
+            scene.displayGraph( false );
+        }
     }
 }
 
