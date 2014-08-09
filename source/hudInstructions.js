@@ -204,8 +204,8 @@ function addBlockToStackList( topBlock, loopIndex ) {
 
             var firstBlockInLoop = currentBlock.getInput( "DO" ).connection.targetConnection.sourceBlock_;
             var loopTimes = parseInt( Blockly.JavaScript.valueToCode( currentBlock, 'TIMES', Blockly.JavaScript.ORDER_ASSIGNMENT ) || '0' ) || 0;
-            for ( var i = 0; i < loopTimes; i++ ) {
-                loopIndex = i + 1;
+            for ( var i = 1; i <= loopTimes; i++ ) {
+                loopIndex = i;
                 addBlockToStackList( firstBlockInLoop, loopIndex );
             }
         } else if ( blockType === "controls_whileUntil" ) {
