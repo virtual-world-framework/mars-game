@@ -224,7 +224,7 @@ function addBlockToStackList( topBlock, loopIndex ) {
             status.blockStack.push( blockData );
         }
 
-
+        loopIndex = undefined;
         currentBlock = currentBlock.getNextBlock();
     }
 }
