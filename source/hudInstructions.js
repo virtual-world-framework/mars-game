@@ -25,12 +25,6 @@ function createHUD() {
     tilesButton.enabled = true;
     tilesButton.onMouseDown = toggleTiles;
     hud.add( tilesButton, "right", "bottom", { "x": -174, "y": -30 } );
-
-    var helpButton = new HUD.Element( "helpButton", drawIcon, 64, 64 );
-    helpButton.icon = new Image();
-    helpButton.icon.src = "assets/images/hud/help_large.png";
-    helpButton.onMouseDown = showHelp;
-    hud.add( helpButton, "right", "bottom", { "x": -246, "y": -30 } );
 }
 
 function createRoverElement() {
@@ -210,7 +204,7 @@ function addBlockToStackList( topBlock, loopIndex ) {
 
             var firstBlockInLoop = currentBlock.getInput( "DO" ).connection.targetConnection.sourceBlock_;
             var loopTimes = parseInt( Blockly.JavaScript.valueToCode( currentBlock, 'TIMES', Blockly.JavaScript.ORDER_ASSIGNMENT ) || '0' ) || 0;
-            for ( var i = loopTimes - 1; i >= 0; i-- ) {
+            for ( var i = 1; i <= loopTimes; i++ ) {
                 loopIndex = i;
                 addBlockToStackList( firstBlockInLoop, loopIndex );
             }
@@ -254,7 +248,7 @@ function createStatusText() {
 }
 
 function createAlertText() {
-    var width = 400;
+    var width = 0;
     var height = 50;
     var alert = new HUD.Element( "alert", drawLogger, width, height );
     alert.stackLength = loggerNodes[ alertNodeID ].logger_maxLogs;
@@ -268,7 +262,7 @@ function createAlertText() {
     alert.addedOffset;
     alert.updateIntervalTime = 0.01;
     alert.persistTimer = 3;
-    hud.add( alert, "center", "top", { "x" : width / 2, "y": 50 } );
+    hud.add( alert, "center", "top", { "x" : 0, "y": 100 } );
 }
 
 function createInventoryHUD( capacity ) {
@@ -484,15 +478,13 @@ function drawBlocklyStatus( context, position ) {
                                        position.y - ( this.topOffset - lastHeight ) );
                     if ( this.index === i && !isNaN( loopIndex ) ) {
                         var numBlock = this.blockImages[ "number" ];
-                        if ( loopIndex > 0 ) {
-                            offsetX += numBlock.width;
-                            var posY = position.y - ( this.topOffset - lastHeight - 8 );
-                            context.drawImage( numBlock, position.x - offsetX, posY );
-                            context.textBaseline = "top";
-                            context.font = '15px sans-serif';
-                            context.fillStyle = "rgb( 0, 0, 0 )";
-                            context.fillText( loopIndex, position.x - offsetX + 20, posY + 8 );
-                        }
+                        offsetX += numBlock.width;
+                        var posY = position.y - ( this.topOffset - lastHeight );
+                        context.drawImage( numBlock, position.x - offsetX, posY + 1 );
+                        context.textBaseline = "top";
+                        context.font = '16px sans-serif';
+                        context.fillStyle = "rgb( 0, 0, 0 )";
+                        context.fillText( loopIndex, position.x - offsetX + 20, posY + 6 );
                     }
                 }
                 lastHeight += block.height || 0;
@@ -656,17 +648,6 @@ function selectCameraMode( event ) {
     if ( this.mode === "topDown" ){
         vwf_view.kernel.fireEvent( vwf_view.kernel.application(), "toggledHelicam" );
     }
-}
-
-function showHelp( event ) {
-    var help = document.getElementById( "helpScreen" );
-    help.style.display = "block";
-    help.onclick = hideHelp;
-}
-
-function hideHelp( event ) {
-    var help = document.getElementById( "helpScreen" );
-    help.style.display = "none";
 }
 
 function toggleGraphDisplay( event ) {

@@ -208,20 +208,6 @@ body {
     background-image: url( "assets/images/blockly_ui/close_button_hover.png" );
 }
 
-#blocklyHelpButton {
-    height: 24px;
-    width: 32px;
-    background-image: url( "assets/images/blockly_ui/help_button.png" );
-    position: absolute;
-    top: 0px;
-    right: 32px;
-    border-right: 1px solid rgb( 70, 110, 170 );
-}
-
-#blocklyHelpButton.hover {
-    background-image: url( "assets/images/blockly_ui/help_button_hover.png" );
-}
-
 #popupDiv {
     width: 512px;
     height: 256px;
@@ -303,25 +289,6 @@ body {
     width: 100%;
     height: 100%;
     z-index: 95;
-}
-
-#blocklyHelpScreen {
-    background-image: url('assets/images/introScreens/screen1.png');
-}
-
-#helpScreen {
-    background-image: url('assets/images/introScreens/screen3.png');
-}
-
-.help {
-    background-color: rgb(0,0,0);
-    background-repeat: no-repeat;
-    background-size: contain;
-    background-position: center center;
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    z-index: 98;
 }
 
 .tooltip {
