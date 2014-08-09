@@ -2,12 +2,19 @@ var gridBounds = {
     bottomLeft: [],
     topRight: []
 }
+var PASSABLE_COLOR = [ 220, 255, 220 ];
+var IMPASSABLE_COLOR = [ 255, 220, 220 ];
+var OPACITY = 0.3;
+var NORMAL = [ 0, 0, 1 ];
+var ROTATION = 90;
+var RENDERTOP = true;
+var SIZE = 0.9;
+var tiles = new Array();
 
 this.initialize = function() {
-      
     // Set the active camera so we can see the 3D scene
     this.initializeActiveCamera( this.player.camera );
-
+    this.setUpCameraListener();
 }
 
 this.setScenario = function( path ) {
@@ -81,34 +88,19 @@ this.addSubtitle = function( log, time ) {
 }
 
 this.createGridDisplay = function( grid ) {
-    var PASSABLE_COLOR = [ 220, 255, 220 ];
-    var IMPASSABLE_COLOR = [ 255, 220, 220 ];
-    var OPACITY = 0.3;
-    var NORMAL = [ 0, 0, 1 ];
-    var ROTATION = 90;
-    var RENDERTOP = true;
-    var SIZE = 0.9;
-    var origin, name, color;
-    var tiles = new Array;
-
-    var offset = new Array(); 
+    var origin, color;
+    var offset = new Array();
     offset.push( grid.gridOriginInSpace[ 0 ] / grid.gridSquareLength );
     offset.push( grid.gridOriginInSpace[ 1 ] / grid.gridSquareLength );
-
+    tiles.length = 0;
     for ( var x = 0; x < grid.boundaryValues.length; x++ ) {
-
         for ( var y = 0; y < grid.boundaryValues[ x ].length; y++ ) {
-
-            name = "tile_" + x + "_" + y;
-
             origin = [
                 offset[ 0 ] + ( x ),
                 offset[ 1 ] + ( y ),
                 0
             ];
-
             color = grid.boundaryValues[ x ][ y ] === -1 ? IMPASSABLE_COLOR : PASSABLE_COLOR;
-            
             tiles.push( { "plane": {
                 "origin": origin,
                 "normal": NORMAL,
@@ -116,25 +108,12 @@ this.createGridDisplay = function( grid ) {
                 "size": SIZE,
                 "color": color,
                 "opacity": OPACITY,
+                "doubleSided": false,
                 "renderTop": RENDERTOP
             } } );
-
         }
-
     }
-
-    this.gridTileGraph.graphGroup(
-        this.gridTileGraph.tileVisible,
-        tiles,
-        "mapTiles"
-    );
-}
-
-this.removeGridDisplay = function() {
-    var graph = this.gridTileGraph;
-    if ( graph.children.mapTiles ) {
-        graph.children.delete( graph.children.mapTiles );
-    }
+    this.gridTileGraph.mapTiles.graphObjects = tiles;
 }
 
 function calcGridBounds( grid ) {
@@ -157,9 +136,18 @@ this.executeBlock = function ( block, action ) {
     }
 }
 
+this.setUpCameraListener = function() {
+    var scene = this;
+    this.player.camera.changedPOV = function( pov ) {
+        if ( pov !== "topDown") {
+            scene.displayTiles( false );
+            scene.displayGraph( false );
+        }
+    }
+}
+
 this.displayTiles = function( isVisible ) {
-    this.gridTileGraph.mapTiles.visible = isVisible;
-    this.gridTileGraph.tileVisible = isVisible;
+    this.gridTileGraph.mapTiles.groupVisible = isVisible;
     if ( isVisible && this.player.camera.pointOfView !== "topDown" ) {
         this.player.camera.pointOfView = "topDown";
     }

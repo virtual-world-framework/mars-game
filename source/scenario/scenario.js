@@ -37,8 +37,7 @@ this.startScenario = function() {
         this.startStateExecutor.addFunctionSet( this.startStateParamSet );
 
         if ( this.grid ) {
-            scene.removeGridDisplay();
-            scene.future(0).createGridDisplay( this.grid );
+            scene.createGridDisplay( this.grid );
         }
 
         // The global trigger list has late load triggers which need to be 

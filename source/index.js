@@ -259,12 +259,6 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 resetScenario();
             }
         }
-
-        // camera events
-
-        if ( eventName === "changedPOV" ) {
-            setHelicamDisplays( eventArgs[ 0 ] );
-        }
     }
 }
 
