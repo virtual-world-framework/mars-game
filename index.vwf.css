@@ -70,34 +70,22 @@ body {
     overflow: hidden;
 }
 
-#runStopContainer {
-    position: absolute;
-    bottom: 6px;
-    right: 8px;
-    width: 64px;
-    display: inline-block;
-}
-
 #runButton {
-    height: 24px;
+    height: 32px;
     width: 64px;
-    background: url( "assets/images/blockly_ui/run_button.png" );
+    position: absolute;
+    bottom: 16px;
+    right: 8px;
+    background: url( "assets/images/blockly_ui/start_button.png" );
 }
 
 #runButton.disabled {
-    background: url( "assets/images/blockly_ui/run_button_disabled.png" );
+    background: url( "assets/images/blockly_ui/start_button_disabled.png" );
     pointer-events: none;
 }
 
-#stopButton {
-    height: 24px;
-    width: 64px;
-    background: url( "assets/images/blockly_ui/stop_button.png" );
-}
-
-#stopButton.disabled {
-    background: url( "assets/images/blockly_ui/stop_button_disabled.png" );
-    pointer-events: none;
+#runButton.reset {
+    background: url( "assets/images/blockly_ui/reset_button.png" );
 }
 
 .blocklyTab {
