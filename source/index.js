@@ -50,6 +50,12 @@ function selectBlocklyTab( nodeID ) {
         }
     }
     var showLine = ( nodeID === blocklyGraphID );
+    var blocklyFooter = document.getElementById( "blocklyFooter" );
+    if ( nodeID === blocklyGraphID ) {
+        blocklyFooter.style.display = "none";
+    } else {
+        blocklyFooter.style.display = "block";
+    }
     vwf_view.kernel.setProperty( graphLines[ "blocklyLine" ].ID, "visible", showLine );
 }
 
