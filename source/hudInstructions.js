@@ -205,8 +205,7 @@ function addBlockToStackList( topBlock, loopIndex ) {
             var firstBlockInLoop = currentBlock.getInput( "DO" ).connection.targetConnection.sourceBlock_;
             var loopTimes = parseInt( Blockly.JavaScript.valueToCode( currentBlock, 'TIMES', Blockly.JavaScript.ORDER_ASSIGNMENT ) || '0' ) || 0;
             for ( var i = 1; i <= loopTimes; i++ ) {
-                loopIndex = i;
-                addBlockToStackList( firstBlockInLoop, loopIndex );
+                addBlockToStackList( firstBlockInLoop, i );
             }
         } else if ( blockType === "controls_whileUntil" ) {
             blockData.name = "repeatTimes";
@@ -215,8 +214,7 @@ function addBlockToStackList( topBlock, loopIndex ) {
             var firstBlockInLoop = currentBlock.getInput( "DO" ).connection.targetConnection.sourceBlock_;
             var loopTimes = 1;
             for ( var i = loopTimes - 1; i >= 0; i-- ) {
-                loopIndex = i;
-                addBlockToStackList( firstBlockInLoop, loopIndex );
+                addBlockToStackList( firstBlockInLoop, i );
             }
 
         } else if ( blockType === "controls_sensor" ) {
@@ -225,7 +223,6 @@ function addBlockToStackList( topBlock, loopIndex ) {
         }
         currentBlock = currentBlock.getNextBlock();
     }
-    loopIndex = undefined;
 }
 
 function createStatusText() {
