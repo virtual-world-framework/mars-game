@@ -22,6 +22,9 @@ var introVideoId;
 var lastRenderTime = 0;
 var threejs = findThreejsView();
 var introPlayed = false;
+var activePauseMenu;
+var cachedVolume = 1;
+var muted = false;
 
 function runBlockly() {
     vwf_view.kernel.setProperty( currentBlocklyNodeID, "blockly_executing", true );
@@ -632,11 +635,13 @@ window.onkeypress = function( event ) {
 }
 
 function initializePauseMenu() {
-    var pauseScreen = document.getElementById( "pauseScreen" );
+    var pauseScreen, pauseButtons, i;
+
+    pauseScreen = document.getElementById( "pauseScreen" );
     pauseScreen.isOpen = false;
 
-    var pauseButtons = document.getElementsByClassName( "pauseMenuButton" );
-    for ( var i = 0; i < pauseButtons.length; i++ ) {
+    pauseButtons = document.getElementsByClassName( "pauseMenuButton" );
+    for ( i = 0; i < pauseButtons.length; i++ ) {
         pauseButtons[ i ].onmouseover = highlightPauseBtn;
         pauseButtons[ i ].onmouseout = resetPauseBtn;
         pauseButtons[ i ].onmousedown = selectPauseBtn;
@@ -649,39 +654,60 @@ function initializePauseMenu() {
                 pauseButtons[ i ].onclick = restartGame;
                 break;
             case "settings":
+                pauseButtons[ i ].onclick = openSettingsMenu;
+                break;
+            case "back":
+                pauseButtons[ i ].onclick = openPauseMenu;
                 break;
         }
     }
 }
 
-function highlightPauseBtn( event ) {
+function highlightPauseBtn() {
     this.className = "pauseMenuButton hover";
 }
 
-function resetPauseBtn( event ) {
+function resetPauseBtn() {
     this.className = "pauseMenuButton";
 }
 
-function selectPauseBtn( event ) {
+function selectPauseBtn() {
     this.className = "pauseMenuButton select";
 }
 
-function closePauseMenu( event ) {
+function closePauseMenu() {
     var pauseScreen = document.getElementById( "pauseScreen" );
     pauseScreen.isOpen = false;
     pauseScreen.style.display = "none";
 }
 
-function openPauseMenu( event ) {
+function openPauseMenu() {
     var pauseScreen = document.getElementById( "pauseScreen" );
     pauseScreen.isOpen = true;
     pauseScreen.style.display = "block";
+    setActivePauseMenu( "pauseMenu" );
 }
 
-function restartGame( event ) {
+function openSettingsMenu() {
+    setActivePauseMenu( "settingsMenu" );
+}
+
+function restartGame() {
     var sceneID = vwf_view.kernel.application();
     vwf_view.kernel.setProperty( sceneID, "activeScenarioPath", "scenario1a" );
     closePauseMenu();
+}
+
+function setActivePauseMenu( menuID ) {
+    if ( !activePauseMenu || menuID !== activePauseMenu.id ) {
+        activePauseMenu && ( activePauseMenu.style.display = "none" );
+        activePauseMenu = document.getElementById( menuID );
+        if ( activePauseMenu ) {
+            activePauseMenu.style.display = "block";
+        } else {
+            closePauseMenu();
+        }
+    }
 }
 
 function addBlocklyTab( nodeID ) {
@@ -711,6 +737,44 @@ function clearBlocklyTabs() {
     var blocklyTabs = blocklyHeader.getElementsByClassName( "blocklyTab" );
     while ( blocklyTabs.length > 0 ) {
         blocklyHeader.removeChild( blocklyTabs[ 0 ] );
+    }
+}
+
+function setVolume( value ) {
+    var sm, muteButton;
+    sm = vwf_view.kernel.find( vwf_view.kernel.application(), "/soundManager" )[ 0 ];
+    if ( sm ) {
+        value = Math.min( 1, Math.max( 0, value ) );
+        muteButton = document.getElementById( "mute" );
+        if ( value === 0 ) {
+            appendClass( muteButton, "muted" );
+            muted = true;
+        } else {
+            removeClass( muteButton, "muted" );
+            muted = false;
+            cachedVolume = value;
+        }
+        vwf_view.kernel.callMethod( sm, "setMasterVolume", [ value ] );
+    }
+}
+
+function muteVolume() {
+    if ( muted ) {
+        setVolume( cachedVolume );
+    } else {
+        setVolume( 0 );
+    }
+}
+
+function appendClass( element, className ) {
+    if ( element.className.indexOf( className ) === -1 ) {
+        element.className += " " + className;
+    }
+}
+
+function removeClass( element, className ) {
+    if ( element.className.indexOf( className ) !== -1 ) {
+        element.className = element.className.replace( " " + className, "" );
     }
 }
 

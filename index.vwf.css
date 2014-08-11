@@ -335,10 +335,22 @@ body {
     border-radius: 4px;
 }
 
+#settingsMenu {
+    width: 400px;
+    min-height: 320px;
+    margin-top: 10%;
+    margin-bottom: 10%;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: rgb( 24, 32, 64 );
+    border: 2px solid rgb( 255, 255, 255 );
+    border-radius: 4px;
+}
+
 .pauseMenuButton {
-    height: 80px;
-    line-height: 80px;
-    font-size: 40px;
+    height: 64;
+    line-height: 64px;
+    font-size: 32px;
     text-align: center;
     text-transform: uppercase;
     font-family: Gadget, sans-serif;
@@ -363,4 +375,64 @@ body {
 .pauseMenuButton.select {
     color: rgb( 255, 255, 255 );
     background-color: rgba( 70, 110, 170, 0.25 );
+}
+
+.slider {
+    height: 64;
+    user-select: none;
+    -webkit-user-select: none;  /* Chrome all / Safari all */
+    -moz-user-select: none;     /* Firefox all */
+    -ms-user-select: none;      /* IE 10+ */
+    cursor: default;
+    border-radius: 4px;
+    margin-left: 10%;
+    margin-right: 10%;
+    display: table;
+}
+
+.sliderToggle {
+    height: 64px;
+    width: 64px;
+    border-radius: 4px;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: table-cell;
+}
+
+.sliderToggle.hover {
+    background-color: rgba( 255, 255, 255, 0.25 );
+}
+
+.sliderTrack {
+    height: 64px;
+    width: 256px;
+    border-radius: 4px;
+    background-position: left bottom;
+    background-repeat: repeat-x;
+    background-image: url( "assets/images/slider_notch_large.png" );
+    display: table-cell;
+}
+
+.sliderReadout {
+    height: 32px;
+    line-height: 32px;
+    font-size: 16px;
+    font-family: Gadget, sans-serif;
+    font-weight: bold;
+    color: rgb( 200, 200, 200 );
+}
+
+.sliderHandle {
+    height: 32px;
+    width: 32px;
+    background-position: left bottom;
+    background-repeat: no-repeat;
+    background-image: url( "assets/images/slider_handle_large.png" );
+}
+
+#mute {
+    background-image: url( "assets/images/volume_icon.png" );
+}
+#mute.muted {
+    background-image: url( "assets/images/volume_mute_icon.png" );
 }
