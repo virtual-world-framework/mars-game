@@ -49,14 +49,14 @@ function selectBlocklyTab( nodeID ) {
             tabs[ i ].className += " selected";
         }
     }
-    var showLine = ( nodeID === blocklyGraphID );
+    
     var blocklyFooter = document.getElementById( "blocklyFooter" );
     if ( nodeID === blocklyGraphID ) {
         blocklyFooter.style.display = "none";
     } else {
         blocklyFooter.style.display = "block";
     }
-    vwf_view.kernel.setProperty( graphLines[ "blocklyLine" ].ID, "visible", showLine );
+
 }
 
 vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
@@ -117,10 +117,10 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
         switch ( eventName ) {
             
             case "blocklyContentChanged":
-                if ( currentBlocklyNodeID !== undefined ) {
+                if ( currentBlocklyNodeID === blocklyGraphID ) {
                     var currentCode = getBlocklyFunction();
                     this.kernel.setProperty( graphLines[ "blocklyLine" ].ID, "lineFunction", currentCode );
-
+                } else {
                     indicateBlock( lastBlockIDExecuted );
                 }
                 break;
