@@ -635,7 +635,7 @@ window.onkeypress = function( event ) {
 }
 
 function initializePauseMenu() {
-    var pauseScreen, pauseButtons, sliderButtons, i;
+    var pauseScreen, pauseButtons, sliderButtons, volumeSlider, i;
 
     pauseScreen = document.getElementById( "pauseScreen" );
     pauseScreen.isOpen = false;
@@ -674,6 +674,11 @@ function initializePauseMenu() {
                 break;
         }
     }
+
+    volumeSlider = document.getElementById( "volumeSlider" );
+    volumeSlider.onmousedown = moveVolumeSlider;
+    volumeSlider.onmousemove = moveVolumeSlider;
+    volumeSlider.onmouseout = moveVolumeSlider;
 }
 
 function highlightPauseBtn() {
@@ -718,6 +723,7 @@ function openPauseMenu() {
 
 function openSettingsMenu() {
     setActivePauseMenu( "settingsMenu" );
+    setVolumeSliderPosition( cachedVolume );
 }
 
 function restartGame() {
@@ -769,7 +775,7 @@ function clearBlocklyTabs() {
 }
 
 function setVolume( value ) {
-    var sm, muteButton;
+    var sm, muteButton, readout, readoutPct;
     sm = vwf_view.kernel.find( vwf_view.kernel.application(), "/soundManager" )[ 0 ];
     if ( sm ) {
         value = Math.min( 1, Math.max( 0, value ) );
@@ -782,7 +788,22 @@ function setVolume( value ) {
             muted = false;
             cachedVolume = value;
         }
+        setVolumeSliderPosition( value );
+        readout = document.getElementById( "volumeReadout" );
+        readoutPct = value * 100;
+        readoutPct = Math.round( readoutPct );
+        readout.innerHTML = "Volume: " + readoutPct + "%";
         vwf_view.kernel.callMethod( sm, "setMasterVolume", [ value ] );
+    }
+}
+
+function moveVolumeSlider( event ) {
+    var pct, handle, deadzone;
+    if ( event.which === 1 ) {
+        handle = document.getElementById( "volumeHandle" );
+        deadzone = handle.clientWidth / 2;
+        pct = ( event.offsetX - deadzone ) / ( this.clientWidth - deadzone * 2 );
+        setVolume( pct );
     }
 }
 
@@ -804,6 +825,13 @@ function removeClass( element, className ) {
     if ( element.className.indexOf( className ) !== -1 ) {
         element.className = element.className.replace( " " + className, "" );
     }
+}
+
+function setVolumeSliderPosition( volume ) {
+    var volumeHandle = document.getElementById( "volumeHandle" );
+    var deadzone = volumeHandle.clientWidth / 2;
+    var pos = volume * ( volumeHandle.parentNode.clientWidth - deadzone * 2 );
+    volumeHandle.style.marginLeft = pos + "px";
 }
 
 //@ sourceURL=source/index.js

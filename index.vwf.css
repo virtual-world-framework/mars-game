@@ -413,7 +413,7 @@ body {
     border-radius: 4px;
     background-position: left bottom;
     background-repeat: repeat-x;
-    background-image: url( "assets/images/slider_notch_large.png" );
+    background-image: url( "assets/images/slider_track.png" );
     display: table-cell;
 }
 
@@ -424,6 +424,7 @@ body {
     font-family: Gadget, sans-serif;
     font-weight: bold;
     color: rgb( 200, 200, 200 );
+    pointer-events: none;
 }
 
 .sliderHandle {
@@ -431,7 +432,8 @@ body {
     width: 32px;
     background-position: left bottom;
     background-repeat: no-repeat;
-    background-image: url( "assets/images/slider_handle_large.png" );
+    background-image: url( "assets/images/slider_handle.png" );
+    pointer-events: none;
 }
 
 #mute {
