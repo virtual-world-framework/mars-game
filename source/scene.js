@@ -160,6 +160,7 @@ this.displayGraph = function( isVisible ) {
         this.player.camera.pointOfView = "topDown";
     }
     this.toggledGraph( isVisible );
+    this.blocklyGraph.blocklyLine.visible = isVisible;
 }
 
 //@ sourceURL=source/scene.js
