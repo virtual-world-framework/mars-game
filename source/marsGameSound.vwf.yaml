@@ -115,7 +115,6 @@ properties:
       soundGroup: vo
       subtitle: "[MC]: Wow! You’re still active. I’m PAL 10K, your AI Mission Controller...here is a status report. You are a super advanced self-learning rover that we sent to Mars to prepare a Base for our Human Explorers. Something went wrong during your atmosphere entry procedure and your vehicle and all your mission equipment have been scattered over the planet’s surface. So that’s problem number one. Problem number two: we have lost contact with the humans. The good news is you can restore contact with them from your end. But first you need to find one of your rovers that has wandered off. It is carrying supplies you will need to continue your mission. Plot a course to match its heading."
       groupReplacementMethod: queue
-      queueDelayTime: 2
     - soundName: "L1VO7_Rover"
       soundURL: "assets/sounds/vo/L1VO7_Rover_m.ogg"
       soundGroup: vo
@@ -171,43 +170,36 @@ properties:
       soundGroup: vo
       subtitle: "[MC]: OK, here is the deal. You need to find another Rover that has wandered off somewhere. Navigate around and look for a sign of its whereabouts."
       groupReplacementMethod: queue
-      queueDelayTime: 1.5
     - soundName: "L2VO2_Rover"
       soundURL: "assets/sounds/vo/L2VO2_Rover_m.ogg"
       soundGroup: vo
       subtitle: "[ROVER]: I see the lost rover’s tracks. Now I need to plot a course to match its course."
       groupReplacementMethod: queue
-      queueDelayTime: 2
     - soundName: "L2VO3_Rover"
       soundURL: "assets/sounds/vo/L2VO3_Rover_m.ogg"
       soundGroup: vo
       subtitle: "[ROVER]: I need to match course, got to find a function that matches these tracks."
       groupReplacementMethod: queue
-      queueDelayTime: 2
     - soundName: "L2VO4_Rover"
       soundURL: "assets/sounds/vo/L2VO4_Rover_m.ogg"
       soundGroup: vo
       subtitle: "[ROVER]: I’m going to need something to help me plot the course. If only I had some way to graph things..."
       groupReplacementMethod: queue
-      queueDelayTime: 2
     - soundName: "L2VO7_Control"
       soundURL: "assets/sounds/vo/L2VO7_Control.ogg"
       soundGroup: vo
       subtitle: "[MC]: Now you have your first graph plotted, why don’t you try changing it. We see the track of your lost Mini Rover from our satellite view. Can you match it?"
       groupReplacementMethod: queue
-      queueDelayTime: 2
     - soundName: "L2VO9_Control"
       soundURL: "assets/sounds/vo/L2VO9_Control.ogg"
       soundGroup: vo
       subtitle: "[MC]: You don’t want to keep having to do this all the way up the line. Remember you can repeat this small movement program, and save yourself some work. Try repeating it three times to start."
       groupReplacementMethod: queue
-      queueDelayTime: 2
     - soundName: "L2VO10_Control"
       soundURL: "assets/sounds/vo/L2VO10_Control.ogg"
       soundGroup: vo
       subtitle: "[MC]: Yes, you are…but you need to check if you can actually see the MiniRover! For this you will need a new Block: the Scan Block"
       groupReplacementMethod: queue
-      queueDelayTime: 2
     - soundName: "L3VO1_Control"
       soundURL: "assets/sounds/vo/L3VO1_Control.ogg"
       soundGroup: vo
@@ -451,7 +443,7 @@ properties:
     - soundName: "SCVO8_Control"
       soundURL: "assets/sounds/vo/SCVO8_Control.ogg"
       soundGroup: vo
-      subtitle: "[MC]: Now you are on the right track! This graph is going to help you overcome your next challenge: Find the slope of the line, and use that to make a navigation Program that will follow that track!"
+      subtitle: "[MC]: Now you are on the right track! This graph is going to help you overcome your next challenge: Find the slope of the line, and use that to make a navigation program that will follow that track!"
       groupReplacementMethod: replace
     - soundName: "SCVO9_Rover"
       soundURL: "assets/sounds/vo/SCVO9_Rover_m.ogg"
