@@ -1,6 +1,7 @@
 var ramBarCount = document.createElement( "div" );
 var ramBar = document.createElement( "div" );
 var currentRam = document.createElement( "div" );
+var startBlocklyButton = document.getElementById( "runButton" );
 
 function setUpBlocklyPeripherals() {
 
@@ -11,17 +12,14 @@ function setUpBlocklyPeripherals() {
     var blocklyHandle = document.createElement( "div" );
     var blocklyHandleIcon = document.createElement( "div" );
     var blocklyScrollDiv = document.createElement( "div" );
-    var runStopContainer = document.createElement( "div" );
-    var runButton = document.getElementById( "runButton" );
-    var stopButton = document.createElement( "div" );
     var indicator = document.createElement( "div" );
 
     blocklyFooter.id = "blocklyFooter";
     blocklyHandle.id = "blocklyHandle";
     blocklyHandleIcon.id = "blocklyHandleIcon";
     blocklyScrollDiv.id = "blocklyScrollDiv";
-    stopButton.id = "stopButton"; 
     indicator.id = "blocklyIndicator";
+    startBlocklyButton.id = "startBlockly";
 
     $( blocklyHandle ).append( blocklyHandleIcon );
     $( "#blocklyWrapper-top" ).append( blocklyHandle )
@@ -74,23 +72,14 @@ function setUpBlocklyPeripherals() {
         vwf_view.kernel.setProperty( vwf_view.kernel.application(), "blockly_activeNodeID", undefined );
     } );
 
-    // Run and stop buttons
-    runStopContainer.id = "runStopContainer";
-    runButton.innerHTML = "";
-    runButton.className = "disabled";
-    runButton.onclick = runBlockly;
-    stopButton.className = "disabled";
-
-    stopButton.onclick = ( function() {
-        vwf_view.kernel.callMethod( vwf_view.kernel.application(), "stopAllExecution" );
-    } );
+    startBlocklyButton.innerHTML = "";
+    startBlocklyButton.className = "disabled";
+    startBlocklyButton.onclick = clickStartButton;
 
     $( "#blocklyDiv" ).wrap( blocklyScrollDiv );
     $( "#blocklyWrapper-top" ).append( blocklyCloseBtn );
     $( blocklyFooter ).append( ramBar );
-    $( blocklyFooter ).append( runStopContainer );
-    $( runStopContainer ).append( runButton );
-    $( runStopContainer ).append( stopButton );
+    $( blocklyFooter ).append( startBlocklyButton );
     $( "#blocklyWrapper" ).append( blocklyFooter );
     ramBar.appendChild( currentRam );
     ramBar.appendChild( ramBarCount );
@@ -168,6 +157,14 @@ function moveBlocklyIndicator( x, y ) {
         "top" : ( y + yOffset ) + "px",
         "left": ( x + xOffset ) + "px"
     } );
+}
+
+function clickStartButton() {
+    if ( this.className === "" ) {
+        runBlockly();
+    } else if ( this.className === "reset" ) {
+        vwf_view.kernel.callMethod( vwf_view.kernel.application(), "stopAllExecution" );
+    }
 }
 
 //@ sourceURL=source/blocklyUI.js
