@@ -223,10 +223,9 @@ function addBlockToStackList( topBlock, loopIndex ) {
             blockData.name = "repeatTimes";
             status.blockStack.push( blockData );
         }
-
-        loopIndex = undefined;
         currentBlock = currentBlock.getNextBlock();
     }
+    loopIndex = undefined;
 }
 
 function createStatusText() {
@@ -723,8 +722,9 @@ function pushNextBlocklyStatus( id ) {
     if ( statusElem ) {
         statusElem.index++;
 
-        var blockName = statusElem.blockStack[ statusElem.index ].name;
-        var blockID = statusElem.blockStack[ statusElem.index ].id;
+        var blockData = statusElem.blockStack[ statusElem.index ];
+        var blockName = blockData.name;
+        var blockID = blockData.id;
         var block = statusElem.blockImages[ blockName ];
         if ( block && blockID === id ) {
 
@@ -740,6 +740,16 @@ function pushNextBlocklyStatus( id ) {
                 statusElem.draw = statusElem.defaultDraw;
                 statusElem.topOffset = statusElem.nextTopOffset + block.height;
             }
+
+            // Check if the block is associated with a loop count
+            // and send to the ui display
+            var loopIndex = blockData.loopIndex;
+            if ( !isNaN( loopIndex ) ) {
+                showBlocklyLoopCount( loopIndex );
+            } else {
+                hideBlocklyLoopCount();
+            }
+
         } else {
             statusElem.index--;
         }
