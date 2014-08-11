@@ -403,6 +403,10 @@ body {
     background-color: rgba( 255, 255, 255, 0.25 );
 }
 
+.sliderToggle.select {
+    background-color: rgba( 70, 110, 170, 0.25 );
+}
+
 .sliderTrack {
     height: 64px;
     width: 256px;

@@ -635,7 +635,7 @@ window.onkeypress = function( event ) {
 }
 
 function initializePauseMenu() {
-    var pauseScreen, pauseButtons, i;
+    var pauseScreen, pauseButtons, sliderButtons, i;
 
     pauseScreen = document.getElementById( "pauseScreen" );
     pauseScreen.isOpen = false;
@@ -661,6 +661,19 @@ function initializePauseMenu() {
                 break;
         }
     }
+
+    sliderButtons = document.getElementsByClassName( "sliderToggle" );
+    for ( i = 0; i < sliderButtons.length; i++ ) {
+        sliderButtons[ i ].onmouseover = setHover;
+        sliderButtons[ i ].onmouseout = resetButtonClasses;
+        sliderButtons[ i ].onmousedown = setSelect;
+        sliderButtons[ i ].onmouseup = setHover;
+        switch ( sliderButtons[ i ].id ) {
+            case "mute":
+                sliderButtons[ i ].onclick = muteVolume;
+                break;
+        }
+    }
 }
 
 function highlightPauseBtn() {
@@ -673,6 +686,21 @@ function resetPauseBtn() {
 
 function selectPauseBtn() {
     this.className = "pauseMenuButton select";
+}
+
+function setHover() {
+    removeClass( this, "select" );
+    appendClass( this, "hover" );
+}
+
+function setSelect() {
+    removeClass( this, "hover" );
+    appendClass( this, "select" );
+}
+
+function resetButtonClasses() {
+    removeClass( this, "select" );
+    removeClass( this, "hover" );
 }
 
 function closePauseMenu() {
