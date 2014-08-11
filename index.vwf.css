@@ -70,7 +70,7 @@ body {
     overflow: hidden;
 }
 
-#runButton {
+#startBlockly {
     height: 32px;
     width: 64px;
     position: absolute;
@@ -79,12 +79,12 @@ body {
     background: url( "assets/images/blockly_ui/start_button.png" );
 }
 
-#runButton.disabled {
+#startBlockly.disabled {
     background: url( "assets/images/blockly_ui/start_button_disabled.png" );
     pointer-events: none;
 }
 
-#runButton.reset {
+#startBlockly.reset {
     background: url( "assets/images/blockly_ui/reset_button.png" );
 }
 

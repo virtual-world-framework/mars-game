@@ -77,7 +77,7 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 if ( !blocklyExecuting ) {
                     if ( Blockly.mainWorkspace ) {
                         var topBlockCount = Number( eventArgs[ 0 ] );
-                        runButton.className = topBlockCount !== 1 ? "disabled" : "" ;
+                        startBlocklyButton.className = topBlockCount !== 1 ? "disabled" : "" ;
                         // if disabled then need to set the tooltip
                         // There must be only one program for each blockly object
                     }
@@ -85,20 +85,20 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 break;
 
             case "blocklyStarted":
-                runButton.className = "reset";
+                startBlocklyButton.className = "reset";
                 var indicator = document.getElementById( "blocklyIndicator" );
                 indicator.className = "";
                 indicator.style.visibility = "inherit";
                 break;
 
             case "blocklyStopped":
-                runButton.className = "";
+                startBlocklyButton.className = "";
                 var indicator = document.getElementById( "blocklyIndicator" );
                 indicator.className = "stopped";
                 clearBlocklyStatus();
 
             case "blocklyErrored":
-                runButton.className = "";
+                startBlocklyButton.className = "";
                 break;
 
             case "transformChanged":
@@ -360,7 +360,7 @@ vwf_view.satProperty = function( nodeID, propertyName, propertyValue ) {
 
             case "blockly_executing":
                 var isExecuting = Boolean( propertyValue );
-                runButton.className = isExecuting ? "reset" : "";
+                startBlocklyButton.className = isExecuting ? "reset" : "";
                 blocklyExecuting = isExecuting;
                 break;
 
