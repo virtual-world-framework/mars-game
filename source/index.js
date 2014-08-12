@@ -22,6 +22,9 @@ var introVideoId;
 var lastRenderTime = 0;
 var threejs = findThreejsView();
 var introPlayed = false;
+var activePauseMenu;
+var cachedVolume = 1;
+var muted = false;
 
 function runBlockly() {
     vwf_view.kernel.setProperty( currentBlocklyNodeID, "blockly_executing", true );
@@ -632,11 +635,13 @@ window.onkeypress = function( event ) {
 }
 
 function initializePauseMenu() {
-    var pauseScreen = document.getElementById( "pauseScreen" );
+    var pauseScreen, pauseButtons, sliderButtons, volumeSlider, i;
+
+    pauseScreen = document.getElementById( "pauseScreen" );
     pauseScreen.isOpen = false;
 
-    var pauseButtons = document.getElementsByClassName( "pauseMenuButton" );
-    for ( var i = 0; i < pauseButtons.length; i++ ) {
+    pauseButtons = document.getElementsByClassName( "pauseMenuButton" );
+    for ( i = 0; i < pauseButtons.length; i++ ) {
         pauseButtons[ i ].onmouseover = highlightPauseBtn;
         pauseButtons[ i ].onmouseout = resetPauseBtn;
         pauseButtons[ i ].onmousedown = selectPauseBtn;
@@ -649,39 +654,94 @@ function initializePauseMenu() {
                 pauseButtons[ i ].onclick = restartGame;
                 break;
             case "settings":
+                pauseButtons[ i ].onclick = openSettingsMenu;
+                break;
+            case "back":
+                pauseButtons[ i ].onclick = openPauseMenu;
                 break;
         }
     }
+
+    sliderButtons = document.getElementsByClassName( "sliderToggle" );
+    for ( i = 0; i < sliderButtons.length; i++ ) {
+        sliderButtons[ i ].onmouseover = setHover;
+        sliderButtons[ i ].onmouseout = resetButtonClasses;
+        sliderButtons[ i ].onmousedown = setSelect;
+        sliderButtons[ i ].onmouseup = setHover;
+        switch ( sliderButtons[ i ].id ) {
+            case "mute":
+                sliderButtons[ i ].onclick = muteVolume;
+                break;
+        }
+    }
+
+    volumeSlider = document.getElementById( "volumeSlider" );
+    volumeSlider.onmousedown = moveVolumeSlider;
+    volumeSlider.onmousemove = moveVolumeSlider;
+    volumeSlider.onmouseout = moveVolumeSlider;
 }
 
-function highlightPauseBtn( event ) {
+function highlightPauseBtn() {
     this.className = "pauseMenuButton hover";
 }
 
-function resetPauseBtn( event ) {
+function resetPauseBtn() {
     this.className = "pauseMenuButton";
 }
 
-function selectPauseBtn( event ) {
+function selectPauseBtn() {
     this.className = "pauseMenuButton select";
 }
 
-function closePauseMenu( event ) {
+function setHover() {
+    removeClass( this, "select" );
+    appendClass( this, "hover" );
+}
+
+function setSelect() {
+    removeClass( this, "hover" );
+    appendClass( this, "select" );
+}
+
+function resetButtonClasses() {
+    removeClass( this, "select" );
+    removeClass( this, "hover" );
+}
+
+function closePauseMenu() {
     var pauseScreen = document.getElementById( "pauseScreen" );
     pauseScreen.isOpen = false;
     pauseScreen.style.display = "none";
 }
 
-function openPauseMenu( event ) {
+function openPauseMenu() {
     var pauseScreen = document.getElementById( "pauseScreen" );
     pauseScreen.isOpen = true;
     pauseScreen.style.display = "block";
+    setActivePauseMenu( "pauseMenu" );
 }
 
-function restartGame( event ) {
+function openSettingsMenu() {
+    setActivePauseMenu( "settingsMenu" );
+    setVolumeSliderPosition( cachedVolume );
+}
+
+function restartGame() {
     var sceneID = vwf_view.kernel.application();
     vwf_view.kernel.setProperty( sceneID, "activeScenarioPath", "scenario1a" );
     closePauseMenu();
+}
+
+function setActivePauseMenu( menuID ) {
+    if ( !activePauseMenu || menuID !== activePauseMenu.id ) {
+        activePauseMenu && ( activePauseMenu.style.display = "none" );
+        activePauseMenu = document.getElementById( menuID );
+        if ( activePauseMenu ) {
+            activePauseMenu.style.display = "block";
+        } else {
+            closePauseMenu();
+        }
+    }
 }
 
 function addBlocklyTab( nodeID ) {
@@ -712,6 +772,66 @@ function clearBlocklyTabs() {
     while ( blocklyTabs.length > 0 ) {
         blocklyHeader.removeChild( blocklyTabs[ 0 ] );
     }
+}
+
+function setVolume( value ) {
+    var sm, muteButton, readout, readoutPct;
+    sm = vwf_view.kernel.find( vwf_view.kernel.application(), "/soundManager" )[ 0 ];
+    if ( sm ) {
+        value = Math.min( 1, Math.max( 0, value ) );
+        muteButton = document.getElementById( "mute" );
+        if ( value === 0 ) {
+            appendClass( muteButton, "muted" );
+            muted = true;
+        } else {
+            removeClass( muteButton, "muted" );
+            muted = false;
+            cachedVolume = value;
+        }
+        setVolumeSliderPosition( value );
+        readout = document.getElementById( "volumeReadout" );
+        readoutPct = value * 100;
+        readoutPct = Math.round( readoutPct );
+        readout.innerHTML = "Volume: " + readoutPct + "%";
+        vwf_view.kernel.callMethod( sm, "setMasterVolume", [ value ] );
+    }
+}
+
+function moveVolumeSlider( event ) {
+    var pct, handle, deadzone;
+    if ( event.which === 1 ) {
+        handle = document.getElementById( "volumeHandle" );
+        deadzone = handle.clientWidth / 2;
+        pct = ( event.offsetX - deadzone ) / ( this.clientWidth - deadzone * 2 );
+        setVolume( pct );
+    }
+}
+
+function muteVolume() {
+    if ( muted ) {
+        setVolume( cachedVolume );
+    } else {
+        setVolume( 0 );
+    }
+}
+
+function appendClass( element, className ) {
+    if ( element.className.indexOf( className ) === -1 ) {
+        element.className += " " + className;
+    }
+}
+
+function removeClass( element, className ) {
+    if ( element.className.indexOf( className ) !== -1 ) {
+        element.className = element.className.replace( " " + className, "" );
+    }
+}
+
+function setVolumeSliderPosition( volume ) {
+    var volumeHandle = document.getElementById( "volumeHandle" );
+    var deadzone = volumeHandle.clientWidth / 2;
+    var pos = volume * ( volumeHandle.parentNode.clientWidth - deadzone * 2 );
+    volumeHandle.style.marginLeft = pos + "px";
 }
 
 //@ sourceURL=source/index.js
