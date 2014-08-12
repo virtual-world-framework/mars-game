@@ -761,7 +761,7 @@ Blockly.Blocks[ 'graph_multiply' ] = {
     this.setColour(120);
     this.appendValueInput('INPUT')
         .appendField(new Blockly.FieldDropdown([["×", "*"],["/", "/"]]), "VALUE")
-        .setCheck(['Number','Variable','LeftParenthesis']);
+        .setCheck(['Number','Variable','LeftParenthesis','OperatorAddSubtract']);
     this.setOutput(true, 'OperatorMultiplyDivide');
     var thisBlock = this;
     this.setTooltip( function() {
@@ -782,7 +782,11 @@ Blockly.JavaScript[ 'graph_multiply' ] = function( block ) {
 
   var argument0 = Blockly.JavaScript.valueToCode(block, 'INPUT',
       Blockly.JavaScript.ORDER_ATOMIC) || '0';
-  return [block.getFieldValue('VALUE') + argument0, Blockly.JavaScript.ORDER_ATOMIC];
+  if ( argument0[0] === '+' ){
+    return [block.getFieldValue('VALUE') + argument0.substring(1), Blockly.JavaScript.ORDER_ATOMIC];
+  } else {
+    return [block.getFieldValue('VALUE') + argument0, Blockly.JavaScript.ORDER_ATOMIC];
+  }
 };
 
 
@@ -795,7 +799,7 @@ Blockly.Blocks[ 'graph_divide' ] = {
     this.setColour(120);
     this.appendValueInput('INPUT')
         .appendField(new Blockly.FieldDropdown([["/", "/"],["×", "*"]]), "VALUE")
-        .setCheck(['Number','Variable','LeftParenthesis']);
+        .setCheck(['Number','Variable','LeftParenthesis','OperatorAddSubtract']);
     this.setOutput(true, 'OperatorMultiplyDivide');
     var thisBlock = this;
     this.setTooltip( function() {
@@ -815,7 +819,11 @@ Blockly.JavaScript['graph_divide'] = function( block ) {
 
   var argument0 = Blockly.JavaScript.valueToCode(block, 'INPUT',
       Blockly.JavaScript.ORDER_ATOMIC) || '0';
-  return [block.getFieldValue('VALUE') + argument0, Blockly.JavaScript.ORDER_ATOMIC];
+  if ( argument0[0] === '+' ){
+    return [block.getFieldValue('VALUE') + argument0.substring(1), Blockly.JavaScript.ORDER_ATOMIC];
+  } else {
+    return [block.getFieldValue('VALUE') + argument0, Blockly.JavaScript.ORDER_ATOMIC];
+  }
 };
 
 Blockly.Blocks['graph_left_paren'] = {

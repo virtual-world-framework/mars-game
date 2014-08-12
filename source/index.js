@@ -49,8 +49,14 @@ function selectBlocklyTab( nodeID ) {
             tabs[ i ].className += " selected";
         }
     }
-    var showLine = ( nodeID === blocklyGraphID );
-    vwf_view.kernel.setProperty( graphLines[ "blocklyLine" ].ID, "visible", showLine );
+    
+    var blocklyFooter = document.getElementById( "blocklyFooter" );
+    if ( nodeID === blocklyGraphID ) {
+        blocklyFooter.style.display = "none";
+    } else {
+        blocklyFooter.style.display = "block";
+    }
+
 }
 
 vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
@@ -71,8 +77,7 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 if ( !blocklyExecuting ) {
                     if ( Blockly.mainWorkspace ) {
                         var topBlockCount = Number( eventArgs[ 0 ] );
-                        var runButton = document.getElementById( "runButton" );
-                        runButton.className = topBlockCount !== 1 ? "disabled" : "" ;
+                        startBlocklyButton.className = topBlockCount !== 1 ? "disabled" : "" ;
                         // if disabled then need to set the tooltip
                         // There must be only one program for each blockly object
                     }
@@ -80,21 +85,20 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 break;
 
             case "blocklyStarted":
-                var stopButton = document.getElementById( "stopButton" );
-                stopButton.className = "";
+                startBlocklyButton.className = "reset";
                 var indicator = document.getElementById( "blocklyIndicator" );
                 indicator.className = "";
                 indicator.style.visibility = "inherit";
                 break;
 
             case "blocklyStopped":
+                startBlocklyButton.className = "";
                 var indicator = document.getElementById( "blocklyIndicator" );
                 indicator.className = "stopped";
                 clearBlocklyStatus();
 
             case "blocklyErrored":
-                var stopButton = document.getElementById( "stopButton" );
-                stopButton.className = "disabled";
+                startBlocklyButton.className = "";
                 break;
 
             case "transformChanged":
@@ -113,10 +117,10 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
         switch ( eventName ) {
             
             case "blocklyContentChanged":
-                if ( currentBlocklyNodeID !== undefined ) {
+                if ( currentBlocklyNodeID === blocklyGraphID ) {
                     var currentCode = getBlocklyFunction();
                     this.kernel.setProperty( graphLines[ "blocklyLine" ].ID, "lineFunction", currentCode );
-
+                } else {
                     indicateBlock( lastBlockIDExecuted );
                 }
                 break;
@@ -259,12 +263,6 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 resetScenario();
             }
         }
-
-        // camera events
-
-        if ( eventName === "changedPOV" ) {
-            setHelicamDisplays( eventArgs[ 0 ] );
-        }
     }
 }
 
@@ -362,7 +360,7 @@ vwf_view.satProperty = function( nodeID, propertyName, propertyValue ) {
 
             case "blockly_executing":
                 var isExecuting = Boolean( propertyValue );
-                document.getElementById( "runButton" ).className = isExecuting ? "disabled" : "";
+                startBlocklyButton.className = isExecuting ? "reset" : "";
                 blocklyExecuting = isExecuting;
                 break;
 
