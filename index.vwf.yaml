@@ -19,6 +19,8 @@ methods:
   resetScenario:
   advanceScenario:
   getCurrentScenario:
+  getScenarios:
+  getScenarioPaths:
   createMiniRover:
   removeMiniRover:
   createGridDisplay:
@@ -35,6 +37,7 @@ events:
   scenarioStarted:
   scenarioSucceeded:
   scenarioFailed:
+  gotScenarioPaths:
   blinkHUD:
   stopBlinkHUD:
   blinkTab:
