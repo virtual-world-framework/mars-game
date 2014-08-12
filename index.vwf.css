@@ -18,6 +18,19 @@ body {
     background-image: url( "assets/images/blockly_ui/blockly_indicator_stopped.png" );
 }
 
+#blocklyIndicatorCount {
+    background-image: url( "assets/images/hud/blockly_number.png" );
+    width: 42px;
+    height: 22px;
+    padding-left: 20px;
+    padding-top: 6px;
+    position: absolute;
+    right: 40px;
+    font-size: 16px;
+    font-family: sans-serif;
+    visibility: hidden;
+}
+
 #blocklyWrapper {
     width: 560px;
     height: 812px;

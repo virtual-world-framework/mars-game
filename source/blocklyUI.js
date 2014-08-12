@@ -13,14 +13,18 @@ function setUpBlocklyPeripherals() {
     var blocklyHandleIcon = document.createElement( "div" );
     var blocklyScrollDiv = document.createElement( "div" );
     var indicator = document.createElement( "div" );
+    var indicatorCount = document.createElement( "div" );
 
     blocklyFooter.id = "blocklyFooter";
     blocklyHandle.id = "blocklyHandle";
     blocklyHandleIcon.id = "blocklyHandleIcon";
     blocklyScrollDiv.id = "blocklyScrollDiv";
     indicator.id = "blocklyIndicator";
+    indicatorCount.id = "blocklyIndicatorCount";
+    indicatorCount.innerHTML = "";
     startBlocklyButton.id = "startBlockly";
 
+    indicator.appendChild( indicatorCount );
     $( blocklyHandle ).append( blocklyHandleIcon );
     $( "#blocklyWrapper-top" ).append( blocklyHandle )
     $( "#blocklyWrapper" ).append( indicator );
@@ -157,6 +161,17 @@ function moveBlocklyIndicator( x, y ) {
         "top" : ( y + yOffset ) + "px",
         "left": ( x + xOffset ) + "px"
     } );
+}
+
+function showBlocklyLoopCount( count ) {
+    var indicatorCount = document.getElementById( "blocklyIndicatorCount" );
+    indicatorCount.style.visibility = "inherit";
+    indicatorCount.innerHTML = count;
+}
+
+function hideBlocklyLoopCount() {
+    var indicatorCount = document.getElementById( "blocklyIndicatorCount" );
+    indicatorCount.style.visibility = "hidden";
 }
 
 function clickStartButton() {

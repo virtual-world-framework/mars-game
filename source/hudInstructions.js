@@ -205,8 +205,7 @@ function addBlockToStackList( topBlock, loopIndex ) {
             var firstBlockInLoop = currentBlock.getInput( "DO" ).connection.targetConnection.sourceBlock_;
             var loopTimes = parseInt( Blockly.JavaScript.valueToCode( currentBlock, 'TIMES', Blockly.JavaScript.ORDER_ASSIGNMENT ) || '0' ) || 0;
             for ( var i = 1; i <= loopTimes; i++ ) {
-                loopIndex = i;
-                addBlockToStackList( firstBlockInLoop, loopIndex );
+                addBlockToStackList( firstBlockInLoop, i );
             }
         } else if ( blockType === "controls_whileUntil" ) {
             blockData.name = "repeatTimes";
@@ -215,16 +214,13 @@ function addBlockToStackList( topBlock, loopIndex ) {
             var firstBlockInLoop = currentBlock.getInput( "DO" ).connection.targetConnection.sourceBlock_;
             var loopTimes = 1;
             for ( var i = loopTimes - 1; i >= 0; i-- ) {
-                loopIndex = i;
-                addBlockToStackList( firstBlockInLoop, loopIndex );
+                addBlockToStackList( firstBlockInLoop, i );
             }
 
         } else if ( blockType === "controls_sensor" ) {
             blockData.name = "repeatTimes";
             status.blockStack.push( blockData );
         }
-
-        loopIndex = undefined;
         currentBlock = currentBlock.getNextBlock();
     }
 }
@@ -723,8 +719,9 @@ function pushNextBlocklyStatus( id ) {
     if ( statusElem ) {
         statusElem.index++;
 
-        var blockName = statusElem.blockStack[ statusElem.index ].name;
-        var blockID = statusElem.blockStack[ statusElem.index ].id;
+        var blockData = statusElem.blockStack[ statusElem.index ];
+        var blockName = blockData.name;
+        var blockID = blockData.id;
         var block = statusElem.blockImages[ blockName ];
         if ( block && blockID === id ) {
 
@@ -740,6 +737,16 @@ function pushNextBlocklyStatus( id ) {
                 statusElem.draw = statusElem.defaultDraw;
                 statusElem.topOffset = statusElem.nextTopOffset + block.height;
             }
+
+            // Check if the block is associated with a loop count
+            // and send to the ui display
+            var loopIndex = blockData.loopIndex;
+            if ( !isNaN( loopIndex ) ) {
+                showBlocklyLoopCount( loopIndex );
+            } else {
+                hideBlocklyLoopCount();
+            }
+
         } else {
             statusElem.index--;
         }
