@@ -52,4 +52,14 @@ function removeVideo( id ) {
     }
 }
 
+function getVideoIdFromSrc( src ) {
+    src = "assets/video/" + src;
+    for ( var i = 0; i < videos.length; i++ ) {
+        if ( src === videos[ i ].source.src ) {
+            return videos[ i ].id;
+        }
+    }
+    return undefined;
+}
+
 //@ sourceURL=source/videoController.js

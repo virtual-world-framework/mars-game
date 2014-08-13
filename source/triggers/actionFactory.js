@@ -397,6 +397,19 @@ this.actionSet.renderGame = function( params, context ) {
     }
 }
 
+this.actionSet.playVideo = function( params, context ) {
+    if ( !params || params.length > 1 ) {
+        self.logger.errorx( "playVideo", "This action takes one parameter: the source of the video");
+        return undefined;
+    }
+
+    var src = params[ 0 ];
+
+    return function() {
+        context.playVideo( src );
+    }
+}
+
 function getScenario( context ) {
     if ( context.getCurrentScenario ){
         return context.getCurrentScenario();
