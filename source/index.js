@@ -109,13 +109,15 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
 
             case "scenarioChanged":
                 currentScenario = eventArgs[ 0 ];
-                resetBlocklyIndicator();
             case "scenarioReset":
                 clearStatus();
                 removePopup();
                 removeFailScreen();
                 clearBlocklyStatus();
                 gridBounds = eventArgs[ 1 ] || gridBounds;
+                break;
+            case "scenarioStarted":
+                indicateBlock( lastBlockIDExecuted );
                 break;
 
             case "gotScenarioPaths":
@@ -630,8 +632,8 @@ function indicateBlock( blockID ) {
     if ( block ) {
         var pos = block.getRelativeToSurfaceXY();
         moveBlocklyIndicator( pos.x, pos.y );
-    } else if ( blockID === lastBlockIDExecuted ) {
-        resetBlocklyIndicator();
+    } else {
+        hideBlocklyIndicator();
     }
 }
 

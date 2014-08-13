@@ -54,6 +54,7 @@ function setUpBlocklyPeripherals() {
     $( "#blocklyWrapper" ).resizable( {
         alsoResize: "#blocklyScrollDiv",
         handles: 'n, s',
+        resize: updateOnBlocklyResize,
         stop: keepBlocklyWithinBounds
     } );
 
@@ -87,6 +88,10 @@ function setUpBlocklyPeripherals() {
     $( "#blocklyWrapper" ).append( blocklyFooter );
     ramBar.appendChild( currentRam );
     ramBar.appendChild( ramBarCount );
+
+    $( "#blocklyScrollDiv" ).on( "scroll", function() {
+        indicateBlock( currentBlockIDSelected );
+    });    
 
     // Ensure that the blockly ui is accessible on smaller screens
     resizeBlockly();
@@ -128,6 +133,11 @@ function keepBlocklyWithinBounds() {
     }
 }
 
+function updateOnBlocklyResize( event ) {
+    keepBlocklyWithinBounds();
+    indicateBlock( currentBlockIDSelected );
+}
+
 function updateBlocklyRamBar() {
     if ( currentBlocklyNodeID ) {
         currentRam.style.width = ramBar.clientWidth * ( blocklyNodes[ currentBlocklyNodeID ].ram / blocklyNodes[ currentBlocklyNodeID ].ramMax ) + "px";
@@ -153,10 +163,26 @@ function resetBlocklyIndicator() {
     } );
 }
 
+function showBlocklyIndicator() {
+    var indicator = document.getElementById( "blocklyIndicator" );
+    indicator.style.visibility = "inherit";
+}
+
+function hideBlocklyIndicator() {
+    var indicator = document.getElementById( "blocklyIndicator" );
+    indicator.style.visibility = "hidden";
+}
+
 function moveBlocklyIndicator( x, y ) {
+    var blocklyDiv = document.getElementById( "blocklyScrollDiv" );
     var toolbox = document.getElementsByClassName( "blocklyFlyoutBackground" )[ 0 ];
-    var yOffset = parseInt( $( "#blocklyWrapper-top" ).css( "height" ) );
+    var yOffset = parseInt( $( "#blocklyWrapper-top" ).css( "height" ) ) - blocklyDiv.scrollTop;
     var xOffset = toolbox.getBBox().width;
+    if ( x > blocklyDiv.offsetWidth || y + yOffset - 20 > blocklyDiv.offsetHeight || y + yOffset < 0 ) {
+        hideBlocklyIndicator();
+    } else {
+        showBlocklyIndicator();
+    }
     $( "#blocklyIndicator" ).stop().animate( { 
         "top" : ( y + yOffset ) + "px",
         "left": ( x + xOffset ) + "px"
