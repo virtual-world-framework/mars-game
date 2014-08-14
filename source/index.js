@@ -1,3 +1,4 @@
+var mainMenu;
 var hud;
 var blocklyNodes = {};
 var graphLines = {};
@@ -394,6 +395,7 @@ vwf_view.satProperty = function( nodeID, propertyName, propertyValue ) {
 }
 
 function setUpView() {
+    mainMenu = new MainMenu();
     hud = new HUD();
     createHUD();
     initializePauseMenu();
@@ -407,11 +409,13 @@ function setUpView() {
 }
 
 function loadGame( renderer, scene, camera ) {
+    renderer.render( mainMenu.scene, mainMenu.camera );
     if ( introPlayed ) {
         scene.fog = new THREE.FogExp2( 0xC49E70, 0.005 );
         renderer.setClearColor( scene.fog.color );
         renderer.autoClear = false;
         threejs.render = render;
+        loggerBox.style.display = "block";
     }
 }
 
