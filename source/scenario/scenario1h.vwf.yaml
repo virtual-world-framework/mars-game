@@ -107,9 +107,6 @@ children:
             - 20
             - playSound:
               - L1VO6_Control
-            - orbitCamera:
-              - 0.1
-              - 50
             - showStatus:
               - "Click to continue!"
           - playVideo:
