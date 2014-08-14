@@ -8,18 +8,21 @@ MainMenu.prototype = {
     scene: undefined,
     camera: undefined,
     overlay: undefined,
-    lastRenderTime: undefined,
     assetsLoaded: undefined,
+    firstRender: undefined,
+    active: undefined,
 
     initialize: function() {
         this.assetsLoaded = false;
+        this.firstRender = true;
+        this.active = true;
         this.delayMenu = 5;
         this.createScene();
         this.createOverlay();
     },
 
     createScene: function() {
-        var loader, rover, geo, ground, wall, groundMat, light, ambient;
+        var loader, rover, geo, ground, groundMat, light, ambient;
         this.camera = new THREE.PerspectiveCamera( 45, window.innerWidth / window.innerHeight, 1, 1000 );
         window.addEventListener( "resize", this.updateMenuCamera.bind( this ) );
         this.camera.position.set( 0, 0, 2.5 );
@@ -35,22 +38,32 @@ MainMenu.prototype = {
         groundMat = new THREE.MeshPhongMaterial( { color: 0xFFFFFF } );
         geo = new THREE.PlaneGeometry( 100, 100 );
         ground = new THREE.Mesh( geo, groundMat );
-        wall = new THREE.Mesh( geo, groundMat );
-        wall.rotateX( Math.PI / 2 );
-        wall.position.set( 0, 50, 50 );
         this.scene.add( light );
         this.scene.add( ambient );
         this.scene.add( ground );
-        this.scene.add( wall );
     },
 
     createOverlay: function() {
         var playButton;
         this.overlay = document.createElement( "div" );
         this.overlay.id = "MainMenu-Wrapper";
+        this.overlay.style.display = "none";
         playButton = document.createElement( "div" );
         playButton.id = "MainMenu-Play";
+        playButton.className = "MainMenu-Button"
         playButton.innerHTML = "Play Game";
+        playButton.onmouseover = function( event ) {
+            appendClass( this, "hover" );
+        }
+        playButton.onmouseout = function( event ) {
+            removeClass( this, "hover" );
+            removeClass( this, "select" );
+        }
+        playButton.onmousedown = function( event ) {
+            removeClass( this, "hover" );
+            appendClass( this, "select" );
+        }
+        playButton.onclick = this.playGame.bind( this );
         this.overlay.appendChild( playButton );
         document.body.appendChild( this.overlay );
     },
@@ -71,11 +84,17 @@ MainMenu.prototype = {
     },
 
     render: function( renderer ) {
-        var time = vwf_view.kernel.time();
-        if ( this.assetsLoaded ) {
-            renderer.render( this.scene, this.camera );
-            this.lastRenderTime = time;
+        if ( this.firstRender ) {
+            this.overlay.style.display = "block";
+            renderer.setClearColor( this.scene.fog.color );
+            this.firstRender = false;
         }
+        renderer.render( this.scene, this.camera );
+    },
+
+    playGame: function() {
+        this.overlay.style.display = "none";
+        this.active = false;
     }
 }
 
