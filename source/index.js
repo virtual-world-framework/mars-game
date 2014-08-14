@@ -192,6 +192,15 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 addBlocklyTab( eventArgs[ 0 ], eventArgs[ 1 ] );
                 break;
 
+            case "playVideo":
+                var src = eventArgs[ 0 ];
+                var id = getVideoIdFromSrc( src );
+                if ( !id ) {
+                    id = loadVideo( src );
+                }
+                playVideo( id );
+                break;
+
         } 
     } else if ( loggerNodes[ nodeID ] !== undefined ) { 
         switch ( eventName ) {
@@ -393,6 +402,7 @@ function setUpView() {
     setUpStatusDisplay();
     loadScenarioList();
     introVideoId = loadVideo( "intro_cinematic.mp4" );
+    loadVideo( "success_cinematic.mp4" );
     playVideo( introVideoId );
 }
 

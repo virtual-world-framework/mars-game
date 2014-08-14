@@ -96,20 +96,21 @@ children:
             - levelComplete
           - showAlert:
             - "You have picked up the radio!"
-          - showStatus:
-            - "Click to continue!"
           - clearBlockly:      
-          - orbitCamera:
-            - 0.1
-            - 20
           - stopSound:
             - musicStandardGameplay
           - playSound:
             - musicSuccess
           - playSound:
             - SCVO4_Rover
-          - playSound:
-            - L1VO6_Control
+          - delay:
+            - 20
+            - playSound:
+              - L1VO6_Control
+            - showStatus:
+              - "Click to continue!"
+          - playVideo:
+            - "success_cinematic.mp4"          
 
         playHint1_1h:
           triggerCondition:

@@ -324,9 +324,11 @@ this.actionSet.orbitCamera = function( params, context ) {
     var camera = context.find( "//camera" )[ 0 ];
     var hardStopID = setTimeout( setOrbitingFalse( camera ), hardStop * 1000 );
     camera.orbiting = true;
-    camera.pointOfView = "thirdPerson";    
 
     var callback = function() {
+        if ( camera.pointOfView !== "thirdPerson" ) {
+            camera.pointOfView = "thirdPerson";
+        }
         camera.orbitTarget$( speed );
         if ( camera.orbiting ) {
             setTimeout( callback, 0.1 );
@@ -394,6 +396,19 @@ this.actionSet.renderGame = function( params, context ) {
 
     return function() {
         context.beginRender();
+    }
+}
+
+this.actionSet.playVideo = function( params, context ) {
+    if ( !params || params.length > 1 ) {
+        self.logger.errorx( "playVideo", "This action takes one parameter: the source of the video");
+        return undefined;
+    }
+
+    var src = params[ 0 ];
+
+    return function() {
+        context.playVideo( src );
     }
 }
 
