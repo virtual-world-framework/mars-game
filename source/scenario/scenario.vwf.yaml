@@ -21,6 +21,7 @@ properties:
     addToInventory:
 
     addToGrid:
+    removeFromGrid:
 
     createGraph:
 
