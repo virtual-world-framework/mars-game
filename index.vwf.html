@@ -19,11 +19,32 @@
 
 <!-- HTML -->
 <div id="transitionScreen"></div>
-<div id="pauseScreen" class="pause" style="display: none;">
-  <div id="pauseMenu" class="pause">
+<div id="pauseScreen" style="display: none;">
+  <div id="pauseMenu" class="pauseMenu">
     <div id="resume" class="pauseMenuButton">Resume</div>
     <div id="restart" class="pauseMenuButton">Restart</div>
     <div id="settings" class="pauseMenuButton">Settings</div>
+    <div id="scenario" class="pauseMenuButton">Switch Scenario</div>
+  </div>
+  <div id="settingsMenu" class="pauseMenu" style="display: none;">
+    <div id="resume" class="pauseMenuButton">Resume</div>
+    <div id="volume" class="slider">
+      <div id="mute" class="sliderToggle"></div>
+      <div id="volumeSlider" class="sliderTrack">
+        <div id="volumeReadout" class="sliderReadout">Volume: 100%</div>
+        <div id="volumeHandle" class="sliderHandle"></div>
+      </div>
+    </div>
+    <div id="back" class="pauseMenuButton">Back</div>
+  </div>
+  <div id="scenarioMenu" class="pauseMenu" style="display: none">
+    <div id="resume" class="pauseMenuButton">Resume</div>
+    <div id="scenarioSelector">
+      <div id="previousScenario" class="inlineButton"></div>
+      <div id="scenarioDisplay" class="inlineButton"></div>
+      <div id="nextScenario" class="inlineButton"></div>
+    </div>
+    <div id="back" class="pauseMenuButton">Back</div>
   </div>
 </div>
 

@@ -22,42 +22,11 @@ var introVideoId;
 var lastRenderTime = 0;
 var threejs = findThreejsView();
 var introPlayed = false;
-
-function runBlockly() {
-    vwf_view.kernel.setProperty( currentBlocklyNodeID, "blockly_executing", true );
-    populateBlockStack();
-    vwf_view.kernel.setProperty( vwf_view.kernel.application(), "blockly_activeNodeID", undefined );
-}
-
-function setActiveBlocklyTab() {
-    if ( currentBlocklyNodeID !== this.id ) {
-        vwf_view.kernel.setProperty( vwf_view.kernel.application(), "blockly_activeNodeID", this.id );
-        if ( blocklyGraphID && blocklyGraphID === this.id ) {
-            var cam = vwf_view.kernel.find( "", "//camera" )[ 0 ];
-            if ( cam ) {
-                vwf_view.kernel.setProperty( cam, "pointOfView", "topDown" );
-            }
-        }
-    }
-}
-
-function selectBlocklyTab( nodeID ) {
-    var tabs = document.getElementsByClassName("blocklyTab");
-    for ( var i = 0; i < tabs.length; i++ ) {
-        tabs[ i ].className = "blocklyTab";
-        if ( tabs[ i ].id === nodeID ) {
-            tabs[ i ].className += " selected";
-        }
-    }
-    
-    var blocklyFooter = document.getElementById( "blocklyFooter" );
-    if ( nodeID === blocklyGraphID ) {
-        blocklyFooter.style.display = "none";
-    } else {
-        blocklyFooter.style.display = "block";
-    }
-
-}
+var activePauseMenu;
+var cachedVolume = 1;
+var muted = false;
+var currentScenario;
+var scenarioList;
 
 vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
     if ( blocklyNodes[ nodeID ] !== undefined ) {
@@ -89,6 +58,8 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 var indicator = document.getElementById( "blocklyIndicator" );
                 indicator.className = "";
                 indicator.style.visibility = "inherit";
+                var indicatorCount = document.getElementById( "blocklyIndicatorCount" );
+                indicatorCount.style.visibility = "inherit";
                 break;
 
             case "blocklyStopped":
@@ -137,13 +108,20 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 break;
 
             case "scenarioChanged":
-                resetBlocklyIndicator();
+                currentScenario = eventArgs[ 0 ];
             case "scenarioReset":
                 clearStatus();
                 removePopup();
                 removeFailScreen();
                 clearBlocklyStatus();
                 gridBounds = eventArgs[ 1 ] || gridBounds;
+                break;
+            case "scenarioStarted":
+                indicateBlock( lastBlockIDExecuted );
+                break;
+
+            case "gotScenarioPaths":
+                scenarioList = eventArgs[ 0 ];
                 break;
 
             case "blinkHUD":
@@ -212,6 +190,15 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
             
             case "enableBlocklyTab":
                 addBlocklyTab( eventArgs[ 0 ], eventArgs[ 1 ] );
+                break;
+
+            case "playVideo":
+                var src = eventArgs[ 0 ];
+                var id = getVideoIdFromSrc( src );
+                if ( !id ) {
+                    id = loadVideo( src );
+                }
+                playVideo( id );
                 break;
 
         } 
@@ -367,7 +354,7 @@ vwf_view.satProperty = function( nodeID, propertyName, propertyValue ) {
         }
     } 
 
-    if ( nodeID === vwf_view.kernel.find( "", "//camera" )[ 0 ] ) {
+    if ( nodeID === vwf_view.kernel.find( "", "/player/targetFollower" )[ 0 ] ) {
         if ( propertyName === "targetPath" ) {
             if ( targetPath !== propertyValue ) {
                 targetPath = propertyValue;
@@ -413,7 +400,9 @@ function setUpView() {
     setUpNavigation();
     setUpBlocklyPeripherals();
     setUpStatusDisplay();
+    loadScenarioList();
     introVideoId = loadVideo( "intro_cinematic.mp4" );
+    loadVideo( "success_cinematic.mp4" );
     playVideo( introVideoId );
 }
 
@@ -516,11 +505,50 @@ function advanceScenario() {
     vwf_view.kernel.callMethod( vwf_view.kernel.application(), "advanceScenario" );
 }
 
+function loadScenarioList() {
+    vwf_view.kernel.callMethod( vwf_view.kernel.application(), "getScenarioPaths" );
+}
+
 function advanceOnClick( event ) {
     var cam = vwf_view.kernel.find( "", "//camera" )[ 0 ];
     vwf_view.kernel.setProperty( cam, "orbiting", false );
     advanceScenario();
     window.removeEventListener( "click", advanceOnClick, false );
+}
+
+function runBlockly() {
+    vwf_view.kernel.setProperty( currentBlocklyNodeID, "blockly_executing", true );
+    populateBlockStack();
+    vwf_view.kernel.setProperty( vwf_view.kernel.application(), "blockly_activeNodeID", undefined );
+}
+
+function setActiveBlocklyTab() {
+    if ( currentBlocklyNodeID !== this.id ) {
+        vwf_view.kernel.setProperty( vwf_view.kernel.application(), "blockly_activeNodeID", this.id );
+        if ( blocklyGraphID && blocklyGraphID === this.id ) {
+            var cam = vwf_view.kernel.find( "", "//camera" )[ 0 ];
+            if ( cam ) {
+                vwf_view.kernel.setProperty( cam, "pointOfView", "topDown" );
+            }
+        }
+    }
+}
+
+function selectBlocklyTab( nodeID ) {
+    var tabs = document.getElementsByClassName("blocklyTab");
+    for ( var i = 0; i < tabs.length; i++ ) {
+        tabs[ i ].className = "blocklyTab";
+        if ( tabs[ i ].id === nodeID ) {
+            tabs[ i ].className += " selected";
+        }
+    }
+    
+    var blocklyFooter = document.getElementById( "blocklyFooter" );
+    if ( nodeID === blocklyGraphID ) {
+        blocklyFooter.style.display = "none";
+    } else {
+        blocklyFooter.style.display = "block";
+    }
 }
 
 function updateBlocklyUI( blocklyNode ) {
@@ -614,8 +642,8 @@ function indicateBlock( blockID ) {
     if ( block ) {
         var pos = block.getRelativeToSurfaceXY();
         moveBlocklyIndicator( pos.x, pos.y );
-    } else if ( blockID === lastBlockIDExecuted ) {
-        resetBlocklyIndicator();
+    } else {
+        hideBlocklyIndicator();
     }
 }
 
@@ -632,56 +660,170 @@ window.onkeypress = function( event ) {
 }
 
 function initializePauseMenu() {
-    var pauseScreen = document.getElementById( "pauseScreen" );
+    var pauseScreen, buttons, volumeSlider, i;
+
+    pauseScreen = document.getElementById( "pauseScreen" );
     pauseScreen.isOpen = false;
 
-    var pauseButtons = document.getElementsByClassName( "pauseMenuButton" );
-    for ( var i = 0; i < pauseButtons.length; i++ ) {
-        pauseButtons[ i ].onmouseover = highlightPauseBtn;
-        pauseButtons[ i ].onmouseout = resetPauseBtn;
-        pauseButtons[ i ].onmousedown = selectPauseBtn;
-        pauseButtons[ i ].onmouseup = highlightPauseBtn;
-        switch ( pauseButtons[ i ].id ) {
+    buttons = document.getElementsByClassName( "pauseMenuButton" );
+    for ( i = 0; i < buttons.length; i++ ) {
+        buttons[ i ].onmouseover = highlightPauseBtn;
+        buttons[ i ].onmouseout = resetPauseBtn;
+        buttons[ i ].onmousedown = selectPauseBtn;
+        buttons[ i ].onmouseup = highlightPauseBtn;
+        switch ( buttons[ i ].id ) {
             case "resume":
-                pauseButtons[ i ].onclick = closePauseMenu;
+                buttons[ i ].onclick = closePauseMenu;
                 break;
             case "restart":
-                pauseButtons[ i ].onclick = restartGame;
+                buttons[ i ].onclick = restartGame;
                 break;
             case "settings":
+                buttons[ i ].onclick = openSettingsMenu;
+                break;
+            case "back":
+                buttons[ i ].onclick = openPauseMenu;
+                break;
+            case "scenario":
+                buttons[ i ].onclick = openScenarioMenu;
                 break;
         }
     }
+
+    buttons = document.getElementsByClassName( "sliderToggle" );
+    for ( i = 0; i < buttons.length; i++ ) {
+        buttons[ i ].onmouseover = setHover;
+        buttons[ i ].onmouseout = resetButtonClasses;
+        buttons[ i ].onmousedown = setSelect;
+        buttons[ i ].onmouseup = setHover;
+        switch ( buttons[ i ].id ) {
+            case "mute":
+                buttons[ i ].onclick = muteVolume;
+                break;
+        }
+    }
+
+    buttons = document.getElementsByClassName( "inlineButton" );
+    for ( i = 0; i < buttons.length; i++ ) {
+        buttons[ i ].onmouseover = setHover;
+        buttons[ i ].onmouseout = resetButtonClasses;
+        buttons[ i ].onmousedown = setSelect;
+        buttons[ i ].onmouseup = setHover;
+        switch ( buttons[ i ].id ) {
+            case "previousScenario":
+                buttons[ i ].onclick = displayPreviousScenario;
+                break;
+            case "nextScenario":
+                buttons[ i ].onclick = displayNextScenario;
+                break;
+            case "scenarioDisplay":
+                buttons[ i ].onclick = switchToDisplayedScenario;
+                break;
+        }
+    }
+
+    volumeSlider = document.getElementById( "volumeSlider" );
+    volumeSlider.onmousedown = moveVolumeSlider;
+    volumeSlider.onmousemove = moveVolumeSlider;
+    volumeSlider.onmouseout = moveVolumeSlider;
 }
 
-function highlightPauseBtn( event ) {
+function highlightPauseBtn() {
     this.className = "pauseMenuButton hover";
 }
 
-function resetPauseBtn( event ) {
+function resetPauseBtn() {
     this.className = "pauseMenuButton";
 }
 
-function selectPauseBtn( event ) {
+function selectPauseBtn() {
     this.className = "pauseMenuButton select";
 }
 
-function closePauseMenu( event ) {
+function setHover() {
+    removeClass( this, "select" );
+    appendClass( this, "hover" );
+}
+
+function setSelect() {
+    removeClass( this, "hover" );
+    appendClass( this, "select" );
+}
+
+function resetButtonClasses() {
+    removeClass( this, "select" );
+    removeClass( this, "hover" );
+}
+
+function closePauseMenu() {
     var pauseScreen = document.getElementById( "pauseScreen" );
     pauseScreen.isOpen = false;
     pauseScreen.style.display = "none";
 }
 
-function openPauseMenu( event ) {
+function openPauseMenu() {
     var pauseScreen = document.getElementById( "pauseScreen" );
     pauseScreen.isOpen = true;
     pauseScreen.style.display = "block";
+    setActivePauseMenu( "pauseMenu" );
 }
 
-function restartGame( event ) {
+function openSettingsMenu() {
+    setActivePauseMenu( "settingsMenu" );
+    setVolumeSliderPosition( cachedVolume );
+}
+
+function openScenarioMenu() {
+    setActivePauseMenu( "scenarioMenu" );
+    loadScenarioData();
+}
+
+function restartGame() {
     var sceneID = vwf_view.kernel.application();
     vwf_view.kernel.setProperty( sceneID, "activeScenarioPath", "scenario1a" );
     closePauseMenu();
+}
+
+function loadScenarioData() {
+    var display = document.getElementById( "scenarioDisplay" );
+    display.innerHTML = currentScenario;
+}
+
+function displayPreviousScenario() {
+    var display = document.getElementById( "scenarioDisplay" );
+    var displayedScenario = display.innerHTML;
+    var displayedIndex = scenarioList.indexOf( displayedScenario );
+    if ( displayedIndex > 0 ) {
+        display.innerHTML = scenarioList[ displayedIndex - 1 ];
+    }
+}
+
+function displayNextScenario() {
+    var display = document.getElementById( "scenarioDisplay" );
+    var displayedScenario = display.innerHTML;
+    var displayedIndex = scenarioList.indexOf( displayedScenario );
+    if ( displayedIndex < scenarioList.length - 1 ) {
+        display.innerHTML = scenarioList[ displayedIndex + 1 ];
+    }
+}
+
+function switchToDisplayedScenario() {
+    var display = document.getElementById( "scenarioDisplay" );
+    var displayedScenario = display.innerHTML;
+    vwf_view.kernel.setProperty( vwf_view.kernel.application(), "activeScenarioPath", displayedScenario );
+    closePauseMenu();
+}
+
+function setActivePauseMenu( menuID ) {
+    if ( !activePauseMenu || menuID !== activePauseMenu.id ) {
+        activePauseMenu && ( activePauseMenu.style.display = "none" );
+        activePauseMenu = document.getElementById( menuID );
+        if ( activePauseMenu ) {
+            activePauseMenu.style.display = "block";
+        } else {
+            closePauseMenu();
+        }
+    }
 }
 
 function addBlocklyTab( nodeID ) {
@@ -712,6 +854,66 @@ function clearBlocklyTabs() {
     while ( blocklyTabs.length > 0 ) {
         blocklyHeader.removeChild( blocklyTabs[ 0 ] );
     }
+}
+
+function setVolume( value ) {
+    var sm, muteButton, readout, readoutPct;
+    sm = vwf_view.kernel.find( vwf_view.kernel.application(), "/soundManager" )[ 0 ];
+    if ( sm ) {
+        value = Math.min( 1, Math.max( 0, value ) );
+        muteButton = document.getElementById( "mute" );
+        if ( value === 0 ) {
+            appendClass( muteButton, "muted" );
+            muted = true;
+        } else {
+            removeClass( muteButton, "muted" );
+            muted = false;
+            cachedVolume = value;
+        }
+        setVolumeSliderPosition( value );
+        readout = document.getElementById( "volumeReadout" );
+        readoutPct = value * 100;
+        readoutPct = Math.round( readoutPct );
+        readout.innerHTML = "Volume: " + readoutPct + "%";
+        vwf_view.kernel.callMethod( sm, "setMasterVolume", [ value ] );
+    }
+}
+
+function moveVolumeSlider( event ) {
+    var pct, handle, deadzone;
+    if ( event.which === 1 ) {
+        handle = document.getElementById( "volumeHandle" );
+        deadzone = handle.clientWidth / 2;
+        pct = ( event.offsetX - deadzone ) / ( this.clientWidth - deadzone * 2 );
+        setVolume( pct );
+    }
+}
+
+function muteVolume() {
+    if ( muted ) {
+        setVolume( cachedVolume );
+    } else {
+        setVolume( 0 );
+    }
+}
+
+function appendClass( element, className ) {
+    if ( element.className.indexOf( className ) === -1 ) {
+        element.className += " " + className;
+    }
+}
+
+function removeClass( element, className ) {
+    if ( element.className.indexOf( className ) !== -1 ) {
+        element.className = element.className.replace( " " + className, "" );
+    }
+}
+
+function setVolumeSliderPosition( volume ) {
+    var volumeHandle = document.getElementById( "volumeHandle" );
+    var deadzone = volumeHandle.clientWidth / 2;
+    var pos = volume * ( volumeHandle.parentNode.clientWidth - deadzone * 2 );
+    volumeHandle.style.marginLeft = pos + "px";
 }
 
 //@ sourceURL=source/index.js

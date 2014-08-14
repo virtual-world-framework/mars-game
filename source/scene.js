@@ -13,7 +13,7 @@ var tiles = new Array();
 
 this.initialize = function() {
     // Set the active camera so we can see the 3D scene
-    this.initializeActiveCamera( this.player.camera );
+    this.initializeActiveCamera( this.player.targetFollower.camera );
     this.setUpCameraListener();
 }
 
@@ -32,7 +32,7 @@ this.setScenario = function( path ) {
 }
 
 this.resetScenario = function() {
-    var scenario = this.find( this.activeScenarioPath )[ 0 ];
+    var scenario = this.getCurrentScenario();
     if ( scenario ) {
         if ( scenario.grid && scenario.grid.clearGrid ) {
             scenario.grid.clearGrid();
@@ -45,12 +45,29 @@ this.resetScenario = function() {
 }
 
 this.advanceScenario = function() {
-    var scenario = this.find( this.activeScenarioPath )[ 0 ];
+    var scenario = this.getCurrentScenario();
     if ( scenario.nextScenarioPath ) {
         this.activeScenarioPath = scenario.nextScenarioPath;
     } else {
         this.logger.warnx( "advanceScenario", "nextScenarioPath not found." );
     }
+}
+
+this.getScenarioPaths = function() {
+    var scenarios = this.getScenarios();
+    var paths = new Array();
+    for ( var i = 0; i < scenarios.length; i++ ) {
+        if ( scenarios[ i ].name === "introScreenScenario" ) {
+            continue;
+        }
+        paths.push( scenarios[ i ].name );
+    }
+    this.gotScenarioPaths( paths );
+}
+
+this.getScenarios = function() {
+    var scenarios = this.find( ".//element(*,'source/scenario/scenario.vwf')" );
+    return scenarios;
 }
 
 this.getCurrentScenario = function() {
@@ -138,7 +155,7 @@ this.executeBlock = function ( block, action ) {
 
 this.setUpCameraListener = function() {
     var scene = this;
-    this.player.camera.changedPOV = function( pov ) {
+    this.player.targetFollower.camera.changedPOV = function( pov ) {
         if ( pov !== "topDown") {
             scene.displayTiles( false );
             scene.displayGraph( false );
@@ -148,7 +165,7 @@ this.setUpCameraListener = function() {
 
 this.displayTiles = function( isVisible ) {
     this.gridTileGraph.mapTiles.groupVisible = isVisible;
-    if ( isVisible && this.player.camera.pointOfView !== "topDown" ) {
+    if ( isVisible && this.player.targetFollower.camera.pointOfView !== "topDown" ) {
         this.player.camera.pointOfView = "topDown";
     }
     this.toggledTiles( isVisible );
@@ -156,8 +173,8 @@ this.displayTiles = function( isVisible ) {
 
 this.displayGraph = function( isVisible ) {
     this.blocklyGraph.setGraphVisibility( isVisible );
-    if ( isVisible && this.player.camera.pointOfView !== "topDown" ) {
-        this.player.camera.pointOfView = "topDown";
+    if ( isVisible && this.player.targetFollower.camera.pointOfView !== "topDown" ) {
+        this.player.targetFollower.camera.pointOfView = "topDown";
     }
     this.toggledGraph( isVisible );
     this.blocklyGraph.blocklyLine.visible = isVisible;

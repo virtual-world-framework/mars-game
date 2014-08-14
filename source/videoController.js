@@ -52,4 +52,15 @@ function removeVideo( id ) {
     }
 }
 
+function getVideoIdFromSrc( src ) {
+    for ( var i = 0; i < videos.length; i++ ) {
+        var compareSrc = videos[ i ].source.src.split( "/" );
+        compareSrc = compareSrc[ compareSrc.length - 1 ];
+        if ( src === compareSrc ) {
+            return videos[ i ].id;
+        }
+    }
+    return undefined;
+}
+
 //@ sourceURL=source/videoController.js
