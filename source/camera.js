@@ -1,6 +1,7 @@
 var delaySeconds = 0;
 var self = this;
 var cachedTargetNode;
+var cachedTargetTransform;
 
 this.initialize = function() {
     this.orbiting = false;
@@ -79,7 +80,7 @@ this.setTargetPath$ = function( newTargetPath ) {
 }
 
 this.followTarget$ = function() {
-    this.transformTo( getNewCameraTransform(), 0 );
+    this.transformTo( getNextCameraTransform(), 0 );
 }
 
 // Orbit the camera around the targetNode at speed radians/second
@@ -123,6 +124,7 @@ function setTargetEventHandler() {
     }
 }
 
+// Gets the initial transform for the camera in each point of view
 function getNewCameraTransform() {
     var targetNode = getTargetNode();
     var targetTransform = targetNode ? targetNode.transform : [
@@ -131,11 +133,12 @@ function getNewCameraTransform() {
         0, 0, 1, 0,
         0, 0, 0, 1
     ];
+    cachedTargetTransform = targetTransform;
     var newCameraTransform;
     switch ( self.pointOfView ) {
         case "firstPerson":
             
-            // Have the camera follow the target transform plus a position offset
+            
             newCameraTransform = targetTransform;
             newCameraTransform[ 12 ] += self.firstPersonOffset[ 0 ];
             newCameraTransform[ 13 ] += self.firstPersonOffset[ 1 ];
@@ -144,8 +147,6 @@ function getNewCameraTransform() {
 
         case "thirdPerson":
             
-            // Lock the camera's orientation, but have it's position follow the target 
-            // (plus an offset)
             var thirdPersonOrientationTransform = [ 
                 1, 0,      0,     0, 
                 0, 0.966, -0.199, 0,
@@ -159,8 +160,6 @@ function getNewCameraTransform() {
 
         case "topDown":
 
-            // Lock the camera's orientation, but have it's position follow the target 
-            // (plus an offset)
             var topDownOrientationTransform = [ 
                 1, 0, 0, 0, 
                 0, 0, -1, 0,
@@ -178,6 +177,49 @@ function getNewCameraTransform() {
             newCameraTransform = targetTransform;
             break;
     }
+    return newCameraTransform;
+}
+
+// Gets a new transform for the camera without losing its relative position and orientation
+function getNextCameraTransform() {
+    var targetNode = getTargetNode();
+    var newTargetTransform = targetNode ? targetNode.transform.slice( 0 ) : [
+        1, 0, 0, 0,
+        0, 1, 0, 1,
+        0, 0, 1, 0,
+        0, 0, 0, 1
+    ];
+    var dx = newTargetTransform[ 12 ] - cachedTargetTransform[ 12 ];
+    var dy = newTargetTransform[ 13 ] - cachedTargetTransform[ 13 ];
+    var dz = newTargetTransform[ 14 ] - cachedTargetTransform[ 14 ];
+    console.log( "dx: " + dx + ", dy: " + dy + ", dz: " + dz );
+    cachedTargetTransform = newTargetTransform;
+    var newCameraTransform = self.transform.slice( 0 );;
+    switch ( self.pointOfView ) {
+        case "firstPerson":
+
+            // Have the camera follow the target transform plus a position offset
+            newCameraTransform = newTargetTransform;
+            newCameraTransform[ 12 ] += self.firstPersonOffset[ 0 ];
+            newCameraTransform[ 13 ] += self.firstPersonOffset[ 1 ];
+            newCameraTransform[ 14 ] += self.firstPersonOffset[ 2 ];
+            break;
+
+        case "thirdPerson":
+
+            // Have the camera follow the target's change in position
+            newCameraTransform[ 14 ] += dz;
+        case "topDown":
+            newCameraTransform[ 12 ] += dx;
+            newCameraTransform[ 13 ] += dy;        
+            break;
+
+        default:
+            self.logger.warnx( "getNextCameraTransform", "Unrecognized camera point of view: '", 
+                self.pointOfView, "'" );        
+            break;
+    }
+
     return newCameraTransform;
 }
 

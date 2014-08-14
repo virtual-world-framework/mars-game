@@ -109,8 +109,9 @@ this.addToGridFromCoord = function( object, gridCoord ) {
     if ( this.validCoord( gridCoord ) ) {
         this.getTileFromGrid( gridCoord ).addToTile( object );
         object.currentGridSquare = gridCoord;
-        object.translation = this.getWorldFromGrid( gridCoord[ 0 ], gridCoord[ 1 ] );
-        this.setHeightFromTerrain( object );
+        var translation = this.getWorldFromGrid( gridCoord );
+        translation[ 2 ] = this.getHeightFromTerrain( object.terrainName, translation );
+        object.translation = translation;
         object.addedToGrid( this );
     }
 }
@@ -147,14 +148,26 @@ this.moveObjectOnGrid = function( object, srcCoord, destCoord ) {
 
 //Places the object on the terrain according to the terrain height
 this.setHeightFromTerrain = function ( object ) {
+    var translation = [ object.translation[ 0 ],
+                        object.translation[ 1 ],
+                        object.translation[ 2 ] ];
+    var height = this.getHeightFromTerrain( object.terrainName, translation );
+    translation[ 2 ] = height;
+    object.translation = translation;
+}
+
+this.getHeightFromTerrain = function ( terrainName, worldCoord ) {
     var scene = this.find( "/" )[ 0 ];
-    var origin = [ object.translation[ 0 ], object.translation[ 1 ], object.translation[ 2 ] + 15 ];
-    var terrain = this.find( "//" + object.terrainName )[ 0 ];
+    var origin = worldCoord;
+    var terrainMaxHeight = 20;
+    origin[ 2 ] = terrainMaxHeight;
+    var terrain = this.find( "//" + terrainName )[ 0 ];
+    var terrainHeight;
     if ( scene && origin && terrain ) {
         var intersects = scene.raycast( origin, [ 0, 0, -1 ], 0, Infinity, true, terrain.id );
-        var terrainHeight = intersects.length > 0 ? intersects[ 0 ].point.z : object.translation[ 2 ];
-        object.translation = [ origin[ 0 ], origin[ 1 ], terrainHeight ];
+        terrainHeight = intersects.length > 0 ? intersects[ 0 ].point.z : object.translation[ 2 ];   
     }
+    return terrainHeight;
 }
 
 //Returns the first instance of an inventoriable object on the specified grid tile
