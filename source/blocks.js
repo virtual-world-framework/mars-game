@@ -323,7 +323,7 @@ Blockly.JavaScript[ 'controls_sensor_tracks' ] = function( block ) {
   var retVal = false;
   var rover = vwf_view.kernel.find( "", "//rover" )[ 0 ];
 
-  if ( dropdown_value === 'noTrackAnomalyAhead' ) {
+  if ( dropdown_value === 'scan-TracksAhead' ) {
       return [ "!vwf.getProperty( '" + rover + "', 'tracksSensorValue' )", Blockly.JavaScript.ORDER_ATOMIC ];
   } else {
       return [ "vwf.getProperty( '" + rover + "', 'tracksSensorValue' )", Blockly.JavaScript.ORDER_ATOMIC ];
@@ -335,7 +335,7 @@ Blockly.Blocks[ 'controls_sensor_tracks' ] = {
   init: function() {
     this.setColour( 30 );
     this.appendDummyInput("INPUT")
-        .appendField(new Blockly.FieldDropdown([["noTrackAnomalyAhead", "noTrackAnomalyAhead"],["trackAnomalyAhead", "trackAnomalyAhead"]]), "MODE");
+        .appendField(new Blockly.FieldDropdown([["scan-TracksAhead", "scan-TracksAhead"],["scan-NoTracksAhead", "scan-NoTracksAhead"]]), "MODE");
     this.setOutput( true, "Boolean" );
     var thisBlock = this;
     this.setTooltip( function() {
