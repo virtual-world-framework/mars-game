@@ -57,15 +57,15 @@ this.orbitTarget$ = function( speed ) {
     tempTransform = multiplyMatrices( rotationMatrix, tempTransform );
     // tempTransform[ 12 ] += targetNode.transform[ 12 ];
     // tempTransform[ 13 ] += targetNode.transform[ 13 ];
-    // tempTransform[ 14 ] += targetNode.transform[ 14 ];    
+    // tempTransform[ 14 ] += targetNode.transform[ 14 ];
     this.transform = tempTransform;
 
 }
 
 function getNewCameraTransform() {
-    var targetTransform = [
+    var identity = [
         1, 0, 0, 0,
-        0, 1, 0, 1,
+        0, 1, 0, 0,
         0, 0, 1, 0,
         0, 0, 0, 1
     ];
@@ -73,47 +73,34 @@ function getNewCameraTransform() {
     switch ( self.pointOfView ) {
         case "firstPerson":
             
-            // Have the camera follow the target transform plus a position offset
-            newCameraTransform = targetTransform;
-            newCameraTransform[ 12 ] += self.firstPersonOffset[ 0 ];
-            newCameraTransform[ 13 ] += self.firstPersonOffset[ 1 ];
-            newCameraTransform[ 14 ] += self.firstPersonOffset[ 2 ];
+            // Have the camera follow its parent (the target follower)
+            newCameraTransform = identity;
             break;
 
         case "thirdPerson":
             
-            // Lock the camera's orientation, but have it's position follow the target 
-            // (plus an offset)
+            // Have the camera follow its parent (the target follower) - plus an offset
             var thirdPersonOrientationTransform = [ 
                 1, 0,      0,     0, 
                 0, 0.966, -0.199, 0,
                 0, 0.199,  0.966, 0,
                 0, 0,      0,     1 ];
             newCameraTransform = thirdPersonOrientationTransform;
-            newCameraTransform[ 12 ] = targetTransform[ 12 ] + self.thirdPersonOffset[ 0 ];
-            newCameraTransform[ 13 ] = targetTransform[ 13 ] + self.thirdPersonOffset[ 1 ];
-            newCameraTransform[ 14 ] = targetTransform[ 14 ] + self.thirdPersonOffset[ 2 ];
+            newCameraTransform[ 12 ] += self.thirdPersonOffset[ 0 ];
+            newCameraTransform[ 13 ] += self.thirdPersonOffset[ 1 ];
+            newCameraTransform[ 14 ] += self.thirdPersonOffset[ 2 ];
             break;
 
         case "topDown":
 
-            // Lock the camera's orientation, but have it's position follow the target 
-            // (plus an offset)
-            var topDownOrientationTransform = [ 
-                1, 0, 0, 0, 
-                0, 0, -1, 0,
-                0, 1,  0, 0,
-                0, 0,  0, 1 ];
-            newCameraTransform = topDownOrientationTransform;
-            newCameraTransform[ 12 ] = targetTransform[ 12 ] + self.topDownOffset[ 0 ];
-            newCameraTransform[ 13 ] = targetTransform[ 13 ] + self.topDownOffset[ 1 ];
-            newCameraTransform[ 14 ] = self.topDownOffset[ 2 ];
+            // Have the camera follow its parent (the target follower)
+            newCameraTransform = identity;
             break;
 
         default:
             self.logger.warnx( "getNewCameraTransform", "Unrecognized camera point of view: '", 
                 self.pointOfView, "'" );
-            newCameraTransform = targetTransform;
+            newCameraTransform = identity;
             break;
     }
     return newCameraTransform;

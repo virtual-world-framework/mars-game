@@ -6,8 +6,10 @@ this.initialize = function() {
 }
 
 this.onSceneReady$ = function() {
-	this.setTargetEventHandler();
-	this.camera.changedPOV = this.camera.events.add( this.manageTargetVisibility, this );
+    this.setTargetEventHandler();
+    this.camera.changedPOV = this.camera.events.add( function( newPointOfView ) {
+        this.changePointOfView( newPointOfView );
+    }, this );
 }
 
 this.setTargetPath$ = function( newTargetPath ) {
@@ -64,11 +66,74 @@ this.setTargetEventHandler = function() {
 }
 
 this.getNewTransform = function() {
-	var targetNode = this.getTargetNode();
-	return targetNode && targetNode.transform;
+    var targetNode = this.getTargetNode();
+    var targetTransform = targetNode ? targetNode.transform : [
+        1, 0, 0, 0,
+        0, 1, 0, 1,
+        0, 0, 1, 0,
+        0, 0, 0, 1
+    ];
+
+    var newCameraTransform;
+    switch ( this.camera.pointOfView ) {
+        case "firstPerson":
+            
+            // Have the camera follow the target transform plus a position offset
+            newCameraTransform = targetTransform.slice( 0 );
+            newCameraTransform[ 12 ] += this.firstPersonOffset[ 0 ];
+            newCameraTransform[ 13 ] += this.firstPersonOffset[ 1 ];
+            newCameraTransform[ 14 ] += this.firstPersonOffset[ 2 ];
+            break;
+
+        case "thirdPerson":
+            
+            // Lock the camera's orientation, but have it's position follow the target 
+            // (plus an offset)
+            var thirdPersonOrientationTransform = [ 
+                1, 0, 0, 0, 
+                0, 1, 0, 0,
+                0, 0, 1, 0,
+                0, 0, 0, 1 ];
+            newCameraTransform = thirdPersonOrientationTransform;
+            newCameraTransform[ 12 ] += targetTransform[ 12 ];
+            newCameraTransform[ 13 ] += targetTransform[ 13 ];
+            newCameraTransform[ 14 ] += targetTransform[ 14 ];
+            break;
+
+        case "topDown":
+
+            // Lock the camera's orientation, but have it's position follow the target 
+            // (plus an offset)
+            var topDownOrientationTransform = [ 
+                1, 0, 0, 0, 
+                0, 0, -1, 0,
+                0, 1,  0, 0,
+                0, 0,  0, 1 ];
+            newCameraTransform = topDownOrientationTransform;
+            newCameraTransform[ 12 ] = targetTransform[ 12 ] + this.topDownOffset[ 0 ];
+            newCameraTransform[ 13 ] = targetTransform[ 13 ] + this.topDownOffset[ 1 ];
+            newCameraTransform[ 14 ] = this.topDownOffset[ 2 ];
+            break;
+
+        default:
+            this.logger.warnx( "changePointOfView", "Unrecognized camera point of view: '", 
+                this.pointOfView, "'" );
+            newCameraTransform = targetTransform;
+            break;
+    }
+
+    return newCameraTransform;
 }
 
-this.manageTargetVisibility = function() {
+this.changePointOfView = function( newPointOfView ) {
+
+    // Cut to the new point of view
+    this.transformTo( this.getNewTransform(), 0 );
+
+    this.manageTargetVisibility( newPointOfView );
+}
+
+this.manageTargetVisibility = function( newPointOfView ) {
     var targetNode = this.getTargetNode();
     if ( !targetNode ) {
         return;
@@ -76,7 +141,7 @@ this.manageTargetVisibility = function() {
 
     // Hide the target at the right time if the camera is moving into first-person mode
     // Immediately make it visible if it is in any other mode
-    switch ( this.camera.pointOfView ) {
+    switch ( newPointOfView ) {
         case "firstPerson":
             targetNode.future( delaySeconds ).visible = false;
             break;

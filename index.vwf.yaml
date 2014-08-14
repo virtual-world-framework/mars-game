@@ -149,6 +149,8 @@ children:
               this.setTargetPath$( value );
             value: "/player/rover"
           needToSetupEventHandler$: false
+          firstPersonOffset: [ 0, 0, 1 ]
+          topDownOffset: [ 0, 0, 40 ]
         methods:
           onSceneReady$:
           setTargetPath$:
@@ -167,10 +169,8 @@ children:
                 set: |
                   this.changePointOfView$( value );
                 value: thirdPerson
-              firstPersonOffset: [ 0, 0, 1 ]
-              thirdPersonOffset: [ 0, -15.531, 5 ]
-              topDownOffset: [ 0, 0, 40 ]
               orbiting: false
+              thirdPersonOffset: [ 0, -15.531, 5 ]
             methods:
               changePointOfView$:
             events:
