@@ -2,7 +2,7 @@
   <block type="rover_moveForward"></block>
   <block type="rover_turn"><field name="DIR">turnLeft</field></block>
   <block type="controls_sensor_tracks"><field name="MODE">trackAnomalyAhead</field></block>
-  <block type="controls_whileUntil"><field name="MODE">UNTIL</field></block>
+  <block type="controls_whileUntil"></block>
   <block type="controls_repeat_extended"></block>
   <block type="math_number_drop"></block>
 </xml>
