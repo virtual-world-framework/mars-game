@@ -304,10 +304,10 @@ this.actionSet.panCamera = function( params, context ) {
     }
 
     var targetPath = params[ 0 ];
-    var camera = context.find( "//camera" )[ 0 ];
+    var targetFollower = context.find( "//targetFollower" )[ 0 ];
 
     return function() {
-        camera.setTargetPath$( targetPath );
+        targetFollower.setTargetPath$( targetPath );
     }
 }
 

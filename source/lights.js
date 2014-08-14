@@ -10,7 +10,7 @@ this.setUpEvents = function() {
     if ( !scene || scene.name !== "application" ) {
         return;
     }
-    var cam = scene.player.camera;
+    var cam = scene.player.targetFollower.camera;
     cam.transformChanged = cam.events.add( this.followCamera, this );
 }
 
