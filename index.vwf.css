@@ -506,3 +506,35 @@ body {
 #mute.muted {
     background-image: url( "assets/images/volume_mute_icon.png" );
 }
+
+#MainMenu-Wrapper {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+    user-select: none;
+    -webkit-user-select: none;  /* Chrome all / Safari all */
+    -moz-user-select: none;     /* Firefox all */
+    -ms-user-select: none;      /* IE 10+ */
+    cursor: default;
+}
+
+#MainMenu-Play {
+    position: absolute;
+    top: 256px;
+    left: 10%;
+    width: 512px;
+    height: 64px;
+    text-align: center;
+    text-transform: uppercase;
+    font-family: Gadget, sans-serif;
+    font-size: 48px;
+    font-weight: bold;
+    line-height: 64px;
+    color: rgb( 255, 255, 255 );
+    background-color: rgb( 50, 90, 150 );
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 32px;
+}

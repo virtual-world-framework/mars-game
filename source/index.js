@@ -409,7 +409,7 @@ function setUpView() {
 }
 
 function loadGame( renderer, scene, camera ) {
-    renderer.render( mainMenu.scene, mainMenu.camera );
+    mainMenu.render( renderer );
     if ( introPlayed ) {
         scene.fog = new THREE.FogExp2( 0xC49E70, 0.005 );
         renderer.setClearColor( scene.fog.color );
