@@ -49,17 +49,7 @@ this.orbitTarget$ = function( speed ) {
         0, 0, 1, 0,
         0, 0, 0, 1
     ];
-    // var targetNode = getTargetNode();
-    var tempTransform = this.transform.slice( 0 );
-    // tempTransform[ 12 ] -= targetNode.transform[ 12 ];
-    // tempTransform[ 13 ] -= targetNode.transform[ 13 ];
-    // tempTransform[ 14 ] -= targetNode.transform[ 14 ];
-    tempTransform = multiplyMatrices( rotationMatrix, tempTransform );
-    // tempTransform[ 12 ] += targetNode.transform[ 12 ];
-    // tempTransform[ 13 ] += targetNode.transform[ 13 ];
-    // tempTransform[ 14 ] += targetNode.transform[ 14 ];
-    this.transform = tempTransform;
-
+    this.transform = multiplyMatrices( rotationMatrix, this.transform );
 }
 
 function getNewCameraTransform() {
