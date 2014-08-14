@@ -336,19 +336,7 @@ body {
     z-index: 101;
 }
 
-#pauseMenu {
-    width: 400px;
-    min-height: 320px;
-    margin-top: 10%;
-    margin-bottom: 10%;
-    margin-left: auto;
-    margin-right: auto;
-    background-color: rgb( 24, 32, 64 );
-    border: 2px solid rgb( 255, 255, 255 );
-    border-radius: 4px;
-}
-
-#settingsMenu {
+.pauseMenu {
     width: 400px;
     min-height: 320px;
     margin-top: 10%;
@@ -386,6 +374,54 @@ body {
 }
 
 .pauseMenuButton.select {
+    color: rgb( 255, 255, 255 );
+    background-color: rgba( 70, 110, 170, 0.25 );
+}
+
+#scenarioSelector {
+    user-select: none;
+    -webkit-user-select: none;  /* Chrome all / Safari all */
+    -moz-user-select: none;     /* Firefox all */
+    -ms-user-select: none;      /* IE 10+ */
+    cursor: default;
+    margin-left: 10%;
+    margin-right: 10%;
+    display: table;
+}
+
+#previousScenario {
+    width: 64px;
+    height: 64px;
+    background-image: url( "assets/images/previous_arrow.png" );
+}
+
+#nextScenario {
+    width: 64px;
+    height: 64px;
+    background-image: url( "assets/images/next_arrow.png" );
+}
+
+#scenarioDisplay {
+    height: 64px;
+    width: 192px;
+    line-height: 24px;
+    font-size: 24px;
+    text-align: center;
+    font-family: Gadget, sans-serif;
+    text-shadow: 0px 0px 4px rgb( 255, 255, 255 );
+}
+
+.inlineButton {
+    color: rgb( 200, 200, 200 );
+    display: table-cell;
+    vertical-align: middle;
+    border-radius: 4px;
+}
+.inlineButton.hover {
+    color: rgb( 255, 255, 255 );
+    background-color: rgba( 255, 255, 255, 0.25 );
+}
+.inlineButton.select {
     color: rgb( 255, 255, 255 );
     background-color: rgba( 70, 110, 170, 0.25 );
 }

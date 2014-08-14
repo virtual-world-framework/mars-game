@@ -32,7 +32,7 @@ this.setScenario = function( path ) {
 }
 
 this.resetScenario = function() {
-    var scenario = this.find( this.activeScenarioPath )[ 0 ];
+    var scenario = this.getCurrentScenario();
     if ( scenario ) {
         if ( scenario.grid && scenario.grid.clearGrid ) {
             scenario.grid.clearGrid();
@@ -45,12 +45,29 @@ this.resetScenario = function() {
 }
 
 this.advanceScenario = function() {
-    var scenario = this.find( this.activeScenarioPath )[ 0 ];
+    var scenario = this.getCurrentScenario();
     if ( scenario.nextScenarioPath ) {
         this.activeScenarioPath = scenario.nextScenarioPath;
     } else {
         this.logger.warnx( "advanceScenario", "nextScenarioPath not found." );
     }
+}
+
+this.getScenarioPaths = function() {
+    var scenarios = this.getScenarios();
+    var paths = new Array();
+    for ( var i = 0; i < scenarios.length; i++ ) {
+        if ( scenarios[ i ].name === "introScreenScenario" ) {
+            continue;
+        }
+        paths.push( scenarios[ i ].name );
+    }
+    this.gotScenarioPaths( paths );
+}
+
+this.getScenarios = function() {
+    var scenarios = this.find( ".//element(*,'source/scenario/scenario.vwf')" );
+    return scenarios;
 }
 
 this.getCurrentScenario = function() {

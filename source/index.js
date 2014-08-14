@@ -25,42 +25,8 @@ var introPlayed = false;
 var activePauseMenu;
 var cachedVolume = 1;
 var muted = false;
-
-function runBlockly() {
-    vwf_view.kernel.setProperty( currentBlocklyNodeID, "blockly_executing", true );
-    populateBlockStack();
-    vwf_view.kernel.setProperty( vwf_view.kernel.application(), "blockly_activeNodeID", undefined );
-}
-
-function setActiveBlocklyTab() {
-    if ( currentBlocklyNodeID !== this.id ) {
-        vwf_view.kernel.setProperty( vwf_view.kernel.application(), "blockly_activeNodeID", this.id );
-        if ( blocklyGraphID && blocklyGraphID === this.id ) {
-            var cam = vwf_view.kernel.find( "", "//camera" )[ 0 ];
-            if ( cam ) {
-                vwf_view.kernel.setProperty( cam, "pointOfView", "topDown" );
-            }
-        }
-    }
-}
-
-function selectBlocklyTab( nodeID ) {
-    var tabs = document.getElementsByClassName("blocklyTab");
-    for ( var i = 0; i < tabs.length; i++ ) {
-        tabs[ i ].className = "blocklyTab";
-        if ( tabs[ i ].id === nodeID ) {
-            tabs[ i ].className += " selected";
-        }
-    }
-    
-    var blocklyFooter = document.getElementById( "blocklyFooter" );
-    if ( nodeID === blocklyGraphID ) {
-        blocklyFooter.style.display = "none";
-    } else {
-        blocklyFooter.style.display = "block";
-    }
-
-}
+var currentScenario;
+var scenarioList;
 
 vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
     if ( blocklyNodes[ nodeID ] !== undefined ) {
@@ -142,6 +108,7 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 break;
 
             case "scenarioChanged":
+                currentScenario = eventArgs[ 0 ];
                 resetBlocklyIndicator();
             case "scenarioReset":
                 clearStatus();
@@ -149,6 +116,10 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 removeFailScreen();
                 clearBlocklyStatus();
                 gridBounds = eventArgs[ 1 ] || gridBounds;
+                break;
+
+            case "gotScenarioPaths":
+                scenarioList = eventArgs[ 0 ];
                 break;
 
             case "blinkHUD":
@@ -418,6 +389,7 @@ function setUpView() {
     setUpNavigation();
     setUpBlocklyPeripherals();
     setUpStatusDisplay();
+    loadScenarioList();
     introVideoId = loadVideo( "intro_cinematic.mp4" );
     playVideo( introVideoId );
 }
@@ -521,11 +493,50 @@ function advanceScenario() {
     vwf_view.kernel.callMethod( vwf_view.kernel.application(), "advanceScenario" );
 }
 
+function loadScenarioList() {
+    vwf_view.kernel.callMethod( vwf_view.kernel.application(), "getScenarioPaths" );
+}
+
 function advanceOnClick( event ) {
     var cam = vwf_view.kernel.find( "", "//camera" )[ 0 ];
     vwf_view.kernel.setProperty( cam, "orbiting", false );
     advanceScenario();
     window.removeEventListener( "click", advanceOnClick, false );
+}
+
+function runBlockly() {
+    vwf_view.kernel.setProperty( currentBlocklyNodeID, "blockly_executing", true );
+    populateBlockStack();
+    vwf_view.kernel.setProperty( vwf_view.kernel.application(), "blockly_activeNodeID", undefined );
+}
+
+function setActiveBlocklyTab() {
+    if ( currentBlocklyNodeID !== this.id ) {
+        vwf_view.kernel.setProperty( vwf_view.kernel.application(), "blockly_activeNodeID", this.id );
+        if ( blocklyGraphID && blocklyGraphID === this.id ) {
+            var cam = vwf_view.kernel.find( "", "//camera" )[ 0 ];
+            if ( cam ) {
+                vwf_view.kernel.setProperty( cam, "pointOfView", "topDown" );
+            }
+        }
+    }
+}
+
+function selectBlocklyTab( nodeID ) {
+    var tabs = document.getElementsByClassName("blocklyTab");
+    for ( var i = 0; i < tabs.length; i++ ) {
+        tabs[ i ].className = "blocklyTab";
+        if ( tabs[ i ].id === nodeID ) {
+            tabs[ i ].className += " selected";
+        }
+    }
+    
+    var blocklyFooter = document.getElementById( "blocklyFooter" );
+    if ( nodeID === blocklyGraphID ) {
+        blocklyFooter.style.display = "none";
+    } else {
+        blocklyFooter.style.display = "block";
+    }
 }
 
 function updateBlocklyUI( blocklyNode ) {
@@ -637,42 +648,64 @@ window.onkeypress = function( event ) {
 }
 
 function initializePauseMenu() {
-    var pauseScreen, pauseButtons, sliderButtons, volumeSlider, i;
+    var pauseScreen, buttons, volumeSlider, i;
 
     pauseScreen = document.getElementById( "pauseScreen" );
     pauseScreen.isOpen = false;
 
-    pauseButtons = document.getElementsByClassName( "pauseMenuButton" );
-    for ( i = 0; i < pauseButtons.length; i++ ) {
-        pauseButtons[ i ].onmouseover = highlightPauseBtn;
-        pauseButtons[ i ].onmouseout = resetPauseBtn;
-        pauseButtons[ i ].onmousedown = selectPauseBtn;
-        pauseButtons[ i ].onmouseup = highlightPauseBtn;
-        switch ( pauseButtons[ i ].id ) {
+    buttons = document.getElementsByClassName( "pauseMenuButton" );
+    for ( i = 0; i < buttons.length; i++ ) {
+        buttons[ i ].onmouseover = highlightPauseBtn;
+        buttons[ i ].onmouseout = resetPauseBtn;
+        buttons[ i ].onmousedown = selectPauseBtn;
+        buttons[ i ].onmouseup = highlightPauseBtn;
+        switch ( buttons[ i ].id ) {
             case "resume":
-                pauseButtons[ i ].onclick = closePauseMenu;
+                buttons[ i ].onclick = closePauseMenu;
                 break;
             case "restart":
-                pauseButtons[ i ].onclick = restartGame;
+                buttons[ i ].onclick = restartGame;
                 break;
             case "settings":
-                pauseButtons[ i ].onclick = openSettingsMenu;
+                buttons[ i ].onclick = openSettingsMenu;
                 break;
             case "back":
-                pauseButtons[ i ].onclick = openPauseMenu;
+                buttons[ i ].onclick = openPauseMenu;
+                break;
+            case "scenario":
+                buttons[ i ].onclick = openScenarioMenu;
                 break;
         }
     }
 
-    sliderButtons = document.getElementsByClassName( "sliderToggle" );
-    for ( i = 0; i < sliderButtons.length; i++ ) {
-        sliderButtons[ i ].onmouseover = setHover;
-        sliderButtons[ i ].onmouseout = resetButtonClasses;
-        sliderButtons[ i ].onmousedown = setSelect;
-        sliderButtons[ i ].onmouseup = setHover;
-        switch ( sliderButtons[ i ].id ) {
+    buttons = document.getElementsByClassName( "sliderToggle" );
+    for ( i = 0; i < buttons.length; i++ ) {
+        buttons[ i ].onmouseover = setHover;
+        buttons[ i ].onmouseout = resetButtonClasses;
+        buttons[ i ].onmousedown = setSelect;
+        buttons[ i ].onmouseup = setHover;
+        switch ( buttons[ i ].id ) {
             case "mute":
-                sliderButtons[ i ].onclick = muteVolume;
+                buttons[ i ].onclick = muteVolume;
+                break;
+        }
+    }
+
+    buttons = document.getElementsByClassName( "inlineButton" );
+    for ( i = 0; i < buttons.length; i++ ) {
+        buttons[ i ].onmouseover = setHover;
+        buttons[ i ].onmouseout = resetButtonClasses;
+        buttons[ i ].onmousedown = setSelect;
+        buttons[ i ].onmouseup = setHover;
+        switch ( buttons[ i ].id ) {
+            case "previousScenario":
+                buttons[ i ].onclick = displayPreviousScenario;
+                break;
+            case "nextScenario":
+                buttons[ i ].onclick = displayNextScenario;
+                break;
+            case "scenarioDisplay":
+                buttons[ i ].onclick = switchToDisplayedScenario;
                 break;
         }
     }
@@ -728,9 +761,44 @@ function openSettingsMenu() {
     setVolumeSliderPosition( cachedVolume );
 }
 
+function openScenarioMenu() {
+    setActivePauseMenu( "scenarioMenu" );
+    loadScenarioData();
+}
+
 function restartGame() {
     var sceneID = vwf_view.kernel.application();
     vwf_view.kernel.setProperty( sceneID, "activeScenarioPath", "scenario1a" );
+    closePauseMenu();
+}
+
+function loadScenarioData() {
+    var display = document.getElementById( "scenarioDisplay" );
+    display.innerHTML = currentScenario;
+}
+
+function displayPreviousScenario() {
+    var display = document.getElementById( "scenarioDisplay" );
+    var displayedScenario = display.innerHTML;
+    var displayedIndex = scenarioList.indexOf( displayedScenario );
+    if ( displayedIndex > 0 ) {
+        display.innerHTML = scenarioList[ displayedIndex - 1 ];
+    }
+}
+
+function displayNextScenario() {
+    var display = document.getElementById( "scenarioDisplay" );
+    var displayedScenario = display.innerHTML;
+    var displayedIndex = scenarioList.indexOf( displayedScenario );
+    if ( displayedIndex < scenarioList.length - 1 ) {
+        display.innerHTML = scenarioList[ displayedIndex + 1 ];
+    }
+}
+
+function switchToDisplayedScenario() {
+    var display = document.getElementById( "scenarioDisplay" );
+    var displayedScenario = display.innerHTML;
+    vwf_view.kernel.setProperty( vwf_view.kernel.application(), "activeScenarioPath", displayedScenario );
     closePauseMenu();
 }
 
