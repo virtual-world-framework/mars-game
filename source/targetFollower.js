@@ -7,9 +7,7 @@ this.initialize = function() {
 
 this.onSceneReady$ = function() {
     this.setTargetEventHandler();
-    this.camera.changedPOV = this.camera.events.add( function( newPointOfView ) {
-        this.changePointOfView( newPointOfView );
-    }, this );
+    this.camera.changedPOV = this.camera.events.add( this.changePointOfView, this );
 }
 
 this.setTargetPath$ = function( newTargetPath ) {
@@ -125,15 +123,15 @@ this.getNewTransform = function() {
     return newCameraTransform;
 }
 
-this.changePointOfView = function( newPointOfView ) {
+this.changePointOfView = function() {
 
     // Cut to the new point of view
     this.transformTo( this.getNewTransform(), 0 );
 
-    this.manageTargetVisibility( newPointOfView );
+    this.manageTargetVisibility();
 }
 
-this.manageTargetVisibility = function( newPointOfView ) {
+this.manageTargetVisibility = function() {
     var targetNode = this.getTargetNode();
     if ( !targetNode ) {
         return;
@@ -141,7 +139,7 @@ this.manageTargetVisibility = function( newPointOfView ) {
 
     // Hide the target at the right time if the camera is moving into first-person mode
     // Immediately make it visible if it is in any other mode
-    switch ( newPointOfView ) {
+    switch ( this.camera.pointOfView ) {
         case "firstPerson":
             targetNode.future( delaySeconds ).visible = false;
             break;
