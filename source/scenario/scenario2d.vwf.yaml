@@ -57,8 +57,19 @@ children:
           actions:
           - playSound:
             - musicStandardGameplay
+
+        playStartingVO_2d:
+          triggerCondition:
+          - onScenarioStart:
+          additionalCondition:
+          - not:
+            - readBlackboard:
+              - Level2dStartSounds
+          actions:
           - playSound:
             - L2VO7_Control
+          - writeToBlackboard:
+            - Level2dStartSounds
 
         failOnMove_2d:
           triggerCondition:
@@ -90,7 +101,7 @@ children:
         playHint1_2d:
           triggerCondition:
           - delay:
-            - 30
+            - 20
           additionalCondition:
           - and:
             - not:
@@ -104,6 +115,9 @@ children:
                 - Level2dHint3
             - not:
               - readBlackboard:
+                - Level2dHint4
+            - not:
+              - readBlackboard:
                 - hasSucceeded
             - not:
               - readBlackboard:
@@ -112,12 +126,12 @@ children:
           - writeToBlackboard:
             - Level2dHint1
           - playSound:
-            - ALVO2_Rover
+            - L2VO3_Rover_H
 
         playHint2_2d:
           triggerCondition:
           - delay:
-            - 60
+            - 40
           additionalCondition:
           - and:
             - not:
@@ -128,6 +142,9 @@ children:
                 - Level2dHint3
             - not:
               - readBlackboard:
+                - Level2dHint4
+            - not:
+              - readBlackboard:
                 - hasSucceeded
             - not:
               - readBlackboard:
@@ -136,17 +153,20 @@ children:
           - writeToBlackboard:
             - Level2dHint2
           - playSound:
-            - ALVO3_Rover
+            - L2VO3_Rover_H2
 
         playHint3_2d:
           triggerCondition:
           - delay:
-            - 90
+            - 60
           additionalCondition:
           - and:
             - not:
               - readBlackboard:
                 - Level2dHint3
+            - not:
+              - readBlackboard:
+                - Level2dHint4
             - not:
               - readBlackboard:
                 - hasSucceeded
@@ -158,6 +178,27 @@ children:
             - Level2dHint3
           - playSound:
             - ALVO5_Rover
+
+        playHint4_2d:
+          triggerCondition:
+          - delay:
+            - 80
+          additionalCondition:
+          - and:
+            - not:
+              - readBlackboard:
+                - Level2dHint4
+            - not:
+              - readBlackboard:
+                - hasSucceeded
+            - not:
+              - readBlackboard:
+                - hasFailed
+          actions:
+          - writeToBlackboard:
+            - Level2dHint4
+          - playSound:
+            - L2VO3_Rover_H4
 
   grid:
     includes: source/grid.vwf

@@ -3,7 +3,7 @@ extends: source/scenario/scenario.vwf
 properties:
   scenarioName: introScreenScenario
 
-  nextScenarioPath: "scenario1a"
+  nextScenarioPath: "scenario2f"
   blockly: assets/scenario/scenario1.xml
 
 children:

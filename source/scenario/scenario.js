@@ -161,6 +161,22 @@ this.startStateParamSet.addToGrid = function( params, context ) {
     activeScenario.grid.addToGridFromCoord( object, gridCoord );
 }
 
+this.startStateParamSet.removeFromGrid = function( params, context ) {
+    if ( !params || ( params.length !== 2 ) ) {
+        activeScenario.logger.errorx( "removeFromGrid",
+                            "The removeFromGrid condition requires 2 arguments: " +
+                            "the object to be added, and the coordinates of " +
+                            "the grid tile." );
+        return undefined;
+    }
+
+    var objectName = params[ 0 ];
+    var gridCoord = params[ 1 ];
+
+    var object = activeScenario.startStateExecutor.findInContext( context, objectName );
+    activeScenario.grid.removeFromGrid( object, gridCoord );
+}
+
 this.startStateParamSet.enableBlocklyTabs = function( params, context ) {
     if ( !params || params.length < 1 ) {
         self.logger.errorx( "enableBlocklyTabs",
