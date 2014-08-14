@@ -354,7 +354,7 @@ vwf_view.satProperty = function( nodeID, propertyName, propertyValue ) {
         }
     } 
 
-    if ( nodeID === vwf_view.kernel.find( "", "//camera" )[ 0 ] ) {
+    if ( nodeID === vwf_view.kernel.find( "", "/player/targetFollower" )[ 0 ] ) {
         if ( propertyName === "targetPath" ) {
             if ( targetPath !== propertyValue ) {
                 targetPath = propertyValue;

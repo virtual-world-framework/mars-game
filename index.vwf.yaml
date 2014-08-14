@@ -141,37 +141,44 @@ children:
       togglePerspective:
       setRoverVisible:
     children:
-      camera:
-        extends: http://vwf.example.com/camera.vwf
-        implements: [ "http://vwf.example.com/navigable.vwf" ]
+      targetFollower:
+        extends: http://vwf.example.com/node3.vwf
         properties:
-          navmode: walk
-          translationSpeed: 0
-          translation: [ 0, 0, 1 ]
-          rotation: [ 0, 0, 1, 270 ]
-          far: 100000
-          pointOfView:
-            set: |
-              this.changePointOfView$( value );
-            value: thirdPerson
           targetPath:
             set: |
               this.setTargetPath$( value );
             value: "/player/rover"
-          firstPersonOffset: [ 0, 0, 1 ]
-          thirdPersonOffset: [ 0, -15.531, 5 ]
-          topDownOffset: [ 0, 0, 40 ]
-          orbiting: false
           needToSetupEventHandler$: false
         methods:
           onSceneReady$:
-          changePointOfView$:
           setTargetPath$:
           followTarget$:
-        events:
-          changedPOV:
+        children:
+          camera:
+            extends: http://vwf.example.com/camera.vwf
+            implements: [ "http://vwf.example.com/navigable.vwf" ]
+            properties:
+              navmode: walk
+              translationSpeed: 0
+              translation: [ 0, 0, 1 ]
+              rotation: [ 0, 0, 1, 270 ]
+              far: 100000
+              pointOfView:
+                set: |
+                  this.changePointOfView$( value );
+                value: thirdPerson
+              firstPersonOffset: [ 0, 0, 1 ]
+              thirdPersonOffset: [ 0, -15.531, 5 ]
+              topDownOffset: [ 0, 0, 40 ]
+              orbiting: false
+            methods:
+              changePointOfView$:
+            events:
+              changedPOV:
+            scripts:
+            - source: "source/camera.js"
         scripts:
-        - source: "source/camera.js"
+        - source: "source/targetFollower.js"
       rover:
         extends: source/rover.vwf
         implements: [ "http://vwf.example.com/blockly/controller.vwf", "source/griddable.vwf" ]

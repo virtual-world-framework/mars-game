@@ -13,7 +13,7 @@ var tiles = new Array();
 
 this.initialize = function() {
     // Set the active camera so we can see the 3D scene
-    this.initializeActiveCamera( this.player.camera );
+    this.initializeActiveCamera( this.player.targetFollower.camera );
     this.setUpCameraListener();
 }
 
@@ -155,7 +155,7 @@ this.executeBlock = function ( block, action ) {
 
 this.setUpCameraListener = function() {
     var scene = this;
-    this.player.camera.changedPOV = function( pov ) {
+    this.player.targetFollower.camera.changedPOV = function( pov ) {
         if ( pov !== "topDown") {
             scene.displayTiles( false );
             scene.displayGraph( false );
@@ -165,7 +165,7 @@ this.setUpCameraListener = function() {
 
 this.displayTiles = function( isVisible ) {
     this.gridTileGraph.mapTiles.groupVisible = isVisible;
-    if ( isVisible && this.player.camera.pointOfView !== "topDown" ) {
+    if ( isVisible && this.player.targetFollower.camera.pointOfView !== "topDown" ) {
         this.player.camera.pointOfView = "topDown";
     }
     this.toggledTiles( isVisible );
@@ -173,8 +173,8 @@ this.displayTiles = function( isVisible ) {
 
 this.displayGraph = function( isVisible ) {
     this.blocklyGraph.setGraphVisibility( isVisible );
-    if ( isVisible && this.player.camera.pointOfView !== "topDown" ) {
-        this.player.camera.pointOfView = "topDown";
+    if ( isVisible && this.player.targetFollower.camera.pointOfView !== "topDown" ) {
+        this.player.targetFollower.camera.pointOfView = "topDown";
     }
     this.toggledGraph( isVisible );
     this.blocklyGraph.blocklyLine.visible = isVisible;

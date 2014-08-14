@@ -1,14 +1,7 @@
-var delaySeconds = 0;
 var self = this;
-var cachedTargetNode;
 
 this.initialize = function() {
     this.orbiting = false;
-    this.future( 0 ).onSceneReady$();
-}
-
-this.onSceneReady$ = function() {
-    setTargetEventHandler();
 }
 
 this.changePointOfView$ = function( newPointOfView ) {
@@ -40,46 +33,7 @@ this.changePointOfView$ = function( newPointOfView ) {
             break;
     }
 
-    // Hide the target if the camera is moving into first-person mode
-    // Make it visible if it is in any other mode
-    manageTargetVisibility();
     this.changedPOV( newPointOfView );
-}
-
-this.setTargetPath$ = function( newTargetPath ) {
-    if ( newTargetPath === this.targetPath ) {
-        return;
-    }
-
-    // Put the previous target node back the way we found it
-    var previousTargetNode = getTargetNode();
-    if ( previousTargetNode ) {
-        previousTargetNode.future( delaySeconds ).visible = true;
-        previousTargetNode.transformChanged = previousTargetNode.events.remove( this.followTarget$ );
-    }
-
-    this.targetPath = newTargetPath;
-
-    // Nullify the cachedTargetNode so getTargetNode will find it fresh next time it is called
-    cachedTargetNode = null;
-
-    // Attempt to set an event handler for when the target moves so the camera can follow
-    // If we cannot find the target because the scene has not been fully created, the 
-    // needToSetupEventHandler$ property remains true so that if the event handler will be set in
-    // onSceneReady$
-    this.needToSetupEventHandler$ = true;
-    setTargetEventHandler();
-
-    // Smoothly move the camera to the new target
-    this.transformTo( getNewCameraTransform(), 1 );
-    
-    // Hide the target if the camera is moving into first-person mode
-    // Make it visible if it is in any other mode
-    manageTargetVisibility();
-}
-
-this.followTarget$ = function() {
-    this.transformTo( getNewCameraTransform(), 0 );
 }
 
 // Orbit the camera around the targetNode at speed radians/second
@@ -95,37 +49,21 @@ this.orbitTarget$ = function( speed ) {
         0, 0, 1, 0,
         0, 0, 0, 1
     ];
-    var targetNode = getTargetNode();
+    // var targetNode = getTargetNode();
     var tempTransform = this.transform.slice( 0 );
-    tempTransform[ 12 ] -= targetNode.transform[ 12 ];
-    tempTransform[ 13 ] -= targetNode.transform[ 13 ];
-    tempTransform[ 14 ] -= targetNode.transform[ 14 ];
+    // tempTransform[ 12 ] -= targetNode.transform[ 12 ];
+    // tempTransform[ 13 ] -= targetNode.transform[ 13 ];
+    // tempTransform[ 14 ] -= targetNode.transform[ 14 ];
     tempTransform = multiplyMatrices( rotationMatrix, tempTransform );
-    tempTransform[ 12 ] += targetNode.transform[ 12 ];
-    tempTransform[ 13 ] += targetNode.transform[ 13 ];
-    tempTransform[ 14 ] += targetNode.transform[ 14 ];    
+    // tempTransform[ 12 ] += targetNode.transform[ 12 ];
+    // tempTransform[ 13 ] += targetNode.transform[ 13 ];
+    // tempTransform[ 14 ] += targetNode.transform[ 14 ];    
     this.transform = tempTransform;
 
 }
 
-function getTargetNode() {
-    if ( !cachedTargetNode ) {
-        cachedTargetNode = self.targetPath ? self.find( self.targetPath )[ 0 ] : undefined;
-    }
-    return cachedTargetNode;
-}
-
-function setTargetEventHandler() {
-    var targetNode = getTargetNode();
-    if ( targetNode && self.needToSetupEventHandler$ ) {
-        targetNode.transformChanged = targetNode.events.add( self.followTarget$, self );
-        self.needToSetupEventHandler$ = false;
-    }
-}
-
 function getNewCameraTransform() {
-    var targetNode = getTargetNode();
-    var targetTransform = targetNode ? targetNode.transform : [
+    var targetTransform = [
         1, 0, 0, 0,
         0, 1, 0, 1,
         0, 0, 1, 0,
@@ -179,31 +117,6 @@ function getNewCameraTransform() {
             break;
     }
     return newCameraTransform;
-}
-
-function manageTargetVisibility() {
-    var targetNode = getTargetNode();
-    if ( !targetNode ) {
-        return;
-    }
-
-    // Hide the target at the right time if the camera is moving into first-person mode
-    // Immediately make it visible if it is in any other mode
-    switch ( self.pointOfView ) {
-        case "firstPerson":
-            targetNode.future( delaySeconds ).visible = false;
-            break;
-        case "thirdPerson":
-            targetNode.future( delaySeconds ).visible = true;
-            break;
-        case "topDown":
-            targetNode.future( delaySeconds ).visible = true;
-            break;
-        default:
-            self.logger.warnx( "manageTargetVisibility", "Unrecognized camera point of view: '", 
-                self.pointOfView, "'" );
-            break;
-    }
 }
 
 function multiplyMatrices( a, b ) {
