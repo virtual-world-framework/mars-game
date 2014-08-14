@@ -53,9 +53,10 @@ function removeVideo( id ) {
 }
 
 function getVideoIdFromSrc( src ) {
-    src = "assets/video/" + src;
     for ( var i = 0; i < videos.length; i++ ) {
-        if ( src === videos[ i ].source.src ) {
+        var compareSrc = videos[ i ].source.src.split( "/" );
+        compareSrc = compareSrc[ compareSrc.length - 1 ];
+        if ( src === compareSrc ) {
             return videos[ i ].id;
         }
     }

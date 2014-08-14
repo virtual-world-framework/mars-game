@@ -99,9 +99,6 @@ children:
           - showStatus:
             - "Click to continue!"
           - clearBlockly:      
-          - orbitCamera:
-            - 0.1
-            - 20
           - stopSound:
             - musicStandardGameplay
           - playSound:
@@ -110,6 +107,8 @@ children:
             - SCVO4_Rover
           - playSound:
             - L1VO6_Control
+          - playVideo:
+            - "success_cinematic.mp4"          
 
         playHint1_1h:
           triggerCondition:
