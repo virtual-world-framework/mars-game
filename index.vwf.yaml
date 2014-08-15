@@ -210,9 +210,9 @@ children:
       battery:
         extends: source/pickups/battery_1.vwf
       supplies_1:
-        extends: source/pickups/supplies_1.vwf
+        extends: source/pickups/supplies.vwf
       supplies_2:
-        extends: source/pickups/supplies_2.vwf
+        extends: source/pickups/supplies.vwf
       helicam:
         extends: source/pickups/helicam.vwf
       minirover:
