@@ -1,5 +1,3 @@
-var self = this;
-
 this.initialize = function() {
     this.orbiting = false;
 }
@@ -11,7 +9,7 @@ this.changePointOfView$ = function( newPointOfView ) {
     this.pointOfView = newPointOfView;
 
     // Cut to the new point of view
-    this.transform = getNewCameraTransform();
+    this.transform = this.getCameraStartTransform();
 
     // Set the navigation mode of the camera appropriately for the new point of view
     switch ( newPointOfView ) {
@@ -28,8 +26,8 @@ this.changePointOfView$ = function( newPointOfView ) {
             this.translationSpeed = 10;
             break;
         default:
-            self.logger.warnx( "changePointOfView$", "Unrecognized camera point of view: '", 
-                newPointOfView, "'" );
+            this.logger.warnx( "changePointOfView$", 
+                "Unrecognized camera point of view: '", newPointOfView, "'" );
             break;
     }
 
@@ -50,50 +48,6 @@ this.orbitTarget$ = function( speed ) {
         0, 0, 0, 1
     ];
     this.transform = multiplyMatrices( rotationMatrix, this.transform );
-}
-
-function getNewCameraTransform() {
-    var identity = [
-        1, 0, 0, 0,
-        0, 1, 0, 0,
-        0, 0, 1, 0,
-        0, 0, 0, 1
-    ];
-    var newCameraTransform;
-    switch ( self.pointOfView ) {
-        case "firstPerson":
-            
-            // Have the camera follow its parent (the target follower)
-            newCameraTransform = identity;
-            break;
-
-        case "thirdPerson":
-            
-            // Have the camera follow its parent (the target follower) - plus an offset
-            var thirdPersonOrientationTransform = [ 
-                1, 0,      0,     0, 
-                0, 0.966, -0.199, 0,
-                0, 0.199,  0.966, 0,
-                0, 0,      0,     1 ];
-            newCameraTransform = thirdPersonOrientationTransform;
-            newCameraTransform[ 12 ] += self.thirdPersonOffset[ 0 ];
-            newCameraTransform[ 13 ] += self.thirdPersonOffset[ 1 ];
-            newCameraTransform[ 14 ] += self.thirdPersonOffset[ 2 ];
-            break;
-
-        case "topDown":
-
-            // Have the camera follow its parent (the target follower)
-            newCameraTransform = identity;
-            break;
-
-        default:
-            self.logger.warnx( "getNewCameraTransform", "Unrecognized camera point of view: '", 
-                self.pointOfView, "'" );
-            newCameraTransform = identity;
-            break;
-    }
-    return newCameraTransform;
 }
 
 function multiplyMatrices( a, b ) {
@@ -131,6 +85,54 @@ function multiplyMatrices( a, b ) {
     ret[15] = a41 * b14 + a42 * b24 + a43 * b34 + a44 * b44;
 
     return ret;
+}
+
+// --- Private functions ---
+
+this.getCameraStartTransform = function() {
+    var newCameraTransform;
+    switch ( this.pointOfView ) {
+        case "firstPerson":
+            newCameraTransform = this.convertPoseToTransform( this.firstPersonStartPose );
+            break;
+        case "thirdPerson":
+            newCameraTransform = this.convertPoseToTransform( this.thirdPersonStartPose );
+            break;
+        case "topDown":
+            newCameraTransform = this.convertPoseToTransform( this.topDownStartPose );
+            break;
+        default:
+            this.logger.warnx( "getCameraStartTransform",
+                "Unrecognized camera point of view: '", this.pointOfView, "'" );
+            newCameraTransform = [
+                1, 0, 0, 0,
+                0, 1, 0, 0,
+                0, 0, 1, 0,
+                0, 0, 0, 1
+            ];
+            break;
+    }
+    return newCameraTransform;
+}
+
+this.convertPoseToTransform = function( pose ) {
+
+    // A pose is of the form [ radius, yawAngle, pitchAngle ]
+
+    var degreesToRadians = Math.PI / 180;
+    var radius = pose[ 0 ];
+    var yawRadians = pose[ 1 ] * degreesToRadians;
+    var pitchRadians = pose[ 2 ] * degreesToRadians;
+    var cosYaw = Math.cos( yawRadians );
+    var sinYaw = Math.sin( yawRadians );
+    var cosPitch = Math.cos( pitchRadians );
+    var sinPitch = Math.sin( pitchRadians );
+    return [
+        cosYaw,           sinYaw,             0,                 0,
+        sinYaw,           cosYaw * cosPitch,  sinPitch,          0,
+        0,               -sinPitch,           cosPitch,          0,
+        radius * sinYaw, -radius * cosYaw,   -radius * sinPitch, 1
+    ];
 }
 
 //@ sourceURL=source/camera.js
