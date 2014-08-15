@@ -11,9 +11,9 @@ function removeClass( element, className ) {
 }
 
 function copyArray( a, b ) {
-	for ( var i = 0; i < b.length; i++ ) {
-		a[ i ] = b[ i ];
-	}
+    for ( var i = 0; i < b.length; i++ ) {
+        a[ i ] = b[ i ];
+    }
 }
 
 function removeArrayElement( array, index ) {
