@@ -57,9 +57,6 @@ this.getScenarioPaths = function() {
     var scenarios = this.getScenarios();
     var paths = new Array();
     for ( var i = 0; i < scenarios.length; i++ ) {
-        if ( scenarios[ i ].name === "introScreenScenario" ) {
-            continue;
-        }
         paths.push( scenarios[ i ].name );
     }
     this.gotScenarioPaths( paths );

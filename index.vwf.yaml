@@ -12,7 +12,7 @@ properties:
     set: |
       this.setScenario( value );
       this.activeScenarioPath = value;
-    value: "introScreenScenario"
+    value: "mainMenuScenario"
   sceneBlackboard: {}
 methods:
   setScenario:
@@ -31,7 +31,7 @@ methods:
   displayTiles:
   displayGraph:
 events:
-  introScreensComplete:
+  gameStarted:
   scenarioReset:
   scenarioChanged:
   scenarioStarted:
@@ -54,10 +54,10 @@ events:
   toggledTiles:
   resetRoverSensors:
   resetHUDState:
-  beginRender:
   enableBlocklyTab:
   clearBlocklyTabs:
   playVideo:
+  videoPlayed:
 children:
   soundManager:
     includes: source/marsGameSound.vwf
@@ -224,6 +224,8 @@ children:
         extends: source/pickups/minirover.vwf
       trackanomaly:
         extends: source/pickups/trackanomaly.vwf
+  mainMenuScenario:
+    includes: source/scenario/mainMenu.vwf
   introScreenScenario:
     includes: source/scenario/introScreenScenario.vwf
   scenario1a:

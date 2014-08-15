@@ -36,26 +36,21 @@ function playVideo( id ) {
 function removeVideoOnEvent( event ) {
     var videoElem = event.srcElement;
     var id = parseInt( videoElem.id.split( "video" )[ 1 ] );
+    var fileName = getVideoFileName( videos[ id ] );
+    vwf_view.kernel.fireEvent( vwf_view.kernel.application(), "videoPlayed", [ fileName ] );
     removeVideo( id );
 }
 
 function removeVideo( id ) {
     var video = videos[ id ];
     if ( video && video.wrapper.parentNode === document.body ) {
-        $( "#transitionScreen" ).fadeIn( function() {
-            if ( video.id === introVideoId ) {
-                vwf_view.kernel.fireEvent( vwf_view.kernel.application(), "introScreensComplete" );
-            }
-            document.body.removeChild( video.wrapper );
-            $( "#transitionScreen" ).fadeOut( "slow" );
-        } );
+        document.body.removeChild( video.wrapper );
     }
 }
 
 function getVideoIdFromSrc( src ) {
     for ( var i = 0; i < videos.length; i++ ) {
-        var compareSrc = videos[ i ].source.src.split( "/" );
-        compareSrc = compareSrc[ compareSrc.length - 1 ];
+        var compareSrc = getVideoFileName( videos[ i ] );
         if ( src === compareSrc ) {
             return videos[ i ].id;
         }
@@ -63,4 +58,8 @@ function getVideoIdFromSrc( src ) {
     return undefined;
 }
 
+function getVideoFileName( video ) {
+    var fileName = video.source.src.split( "/" ).pop();
+    return fileName;
+}
 //@ sourceURL=source/videoController.js

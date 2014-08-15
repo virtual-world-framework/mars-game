@@ -1,16 +1,11 @@
-var loggerBox = document.createElement( "div" );
-var subtitleDisplayWrapper = document.createElement( "div" );
+var loggerBox = document.getElementById( "loggerBox" );
+var subtitleDisplayWrapper = document.getElementById( "subtitleDisplayWrapper" );
 
 function setUpStatusDisplay() {
-
-    loggerBox.id = "loggerBox";
     document.body.appendChild( loggerBox );
-    subtitleDisplayWrapper.id = "subtitleDisplayWrapper";
-    loggerBox.appendChild( subtitleDisplayWrapper );
     var subtitleText = document.createElement( "div" );
     subtitleText.id = "subtitleText";
     subtitleDisplayWrapper.appendChild( subtitleText );
-
 }
 
 function resetSubtitles() {

@@ -568,27 +568,31 @@ this.clauseSet.onScenarioChanged = function( params, context, callback ) {
     };
 }
 
-this.clauseSet.onIntroScreensComplete = function( params, context, callback ) {
-    if ( params ) {
+this.clauseSet.onVideoPlayed = function( params, context, callback ) {
+    if ( !params || params.length !== 1 ) {
         self.logger.warnx( "onIntroScreensComplete", 
-                           "This clause doesn't take any arguments." );
+                           "This clause takes one argument: The video source." );
+        return undefined;
     }
 
-    var introScreensComplete = false;
+    var videoPlayed = false;
+    var videoSrc = params[ 0 ];
 
     onClauseCallbackWarning( callback );
     if ( callback ) {
-        if ( context && context.introScreensComplete ) {
-            context.introScreensComplete = self.events.add( function() {
-                                                                introScreensComplete = true;
+        if ( context && context.videoPlayed ) {
+            context.videoPlayed = self.events.add( function( src ) {
+                                                                if ( src === videoSrc ) {
+                                                                    videoPlayed = true;
+                                                                }
                                                                 callback();
                                                             } );
         }
     }
 
     return function() {
-        var retVal = introScreensComplete;
-        introScreensComplete = false;
+        var retVal = videoPlayed;
+        videoPlayed = false;
         return retVal;
     };
 }
@@ -761,6 +765,31 @@ this.clauseSet.delay = function( params, context, callback ) {
     return function() {
         return delayComplete;
     }
+}
+
+this.clauseSet.onGameStarted = function( params, context, callback ) {
+    if ( params ) {
+        self.logger.warnx( "onGameStarted", 
+                           "This clause doesn't take any arguments." );
+    }
+
+    var gameStarted = false;
+
+    onClauseCallbackWarning( callback );
+    if ( callback ) {
+        if ( context && context.gameStarted ) {
+            context.gameStarted = self.events.add( function() {
+                gameStarted = true;
+                callback();
+            } );
+        }
+    }
+
+    return function() {
+        var retVal = gameStarted;
+        gameStarted = false;
+        return retVal;
+    };
 }
 
 function onClauseCallbackWarning( callback ) {

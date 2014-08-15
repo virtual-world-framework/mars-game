@@ -1,3 +1,4 @@
+var mainMenu;
 var hud;
 var blocklyNodes = {};
 var graphLines = {};
@@ -18,15 +19,21 @@ var gridBounds = {
     topRight: undefined
 };
 var orbitTarget = new Array( 3 );
-var introVideoId;
 var lastRenderTime = 0;
 var threejs = findThreejsView();
-var introPlayed = false;
 var activePauseMenu;
 var cachedVolume = 1;
 var muted = false;
 var currentScenario;
 var scenarioList;
+
+var renderTransition = true;
+var playingVideo = false;
+// Render modes
+var RENDER_NONE = 0;
+var RENDER_MENU = 1;
+var RENDER_GAME = 2;
+var renderMode = RENDER_NONE;
 
 vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
     if ( blocklyNodes[ nodeID ] !== undefined ) {
@@ -109,6 +116,11 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
 
             case "scenarioChanged":
                 currentScenario = eventArgs[ 0 ];
+                if ( currentScenario === "mainMenuScenario" ) {
+                    setRenderMode( RENDER_MENU );
+                } else {
+                    setRenderMode( RENDER_GAME );
+                }
             case "scenarioReset":
                 clearStatus();
                 removePopup();
@@ -183,22 +195,27 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
             case "toggledGraph":
                 graphIsVisible = eventArgs[ 0 ];
                 break;
-
-            case "beginRender":
-                introPlayed = true;
-                break;
             
             case "enableBlocklyTab":
                 addBlocklyTab( eventArgs[ 0 ], eventArgs[ 1 ] );
                 break;
 
             case "playVideo":
+                setRenderMode( RENDER_NONE );
                 var src = eventArgs[ 0 ];
                 var id = getVideoIdFromSrc( src );
                 if ( !id ) {
                     id = loadVideo( src );
                 }
-                playVideo( id );
+                $( "#transitionScreen" ).fadeIn( function() {
+                    playVideo( id );
+                } );
+                
+                break;
+
+            case "videoPlayed":
+                $( "#transitionScreen" ).fadeOut();
+                setRenderMode( RENDER_GAME );
                 break;
 
         } 
@@ -296,7 +313,7 @@ vwf_view.createdNode = function( nodeID, childID, childExtendsID, childImplement
 vwf_view.initializedNode = function( nodeID, childID, childExtendsID, childImplementsIDs, childSource, childType, childIndex, childName ) {
     if ( childID === vwf_view.kernel.application() ) {
         setUpView();
-        threejs.render = loadGame;
+        threejs.render = render;
     } else if ( blocklyNodes[ childID ] !== undefined ) {
         var node = blocklyNodes[ childID ];
         node.tab = document.createElement( "div" );
@@ -394,6 +411,7 @@ vwf_view.satProperty = function( nodeID, propertyName, propertyValue ) {
 }
 
 function setUpView() {
+    mainMenu = new MainMenu();
     hud = new HUD();
     createHUD();
     initializePauseMenu();
@@ -401,28 +419,53 @@ function setUpView() {
     setUpBlocklyPeripherals();
     setUpStatusDisplay();
     loadScenarioList();
-    introVideoId = loadVideo( "intro_cinematic.mp4" );
+    loadVideo( "intro_cinematic.mp4" );
     loadVideo( "success_cinematic.mp4" );
-    playVideo( introVideoId );
 }
 
-function loadGame( renderer, scene, camera ) {
-    if ( introPlayed ) {
-        scene.fog = new THREE.FogExp2( 0xC49E70, 0.005 );
-        renderer.setClearColor( scene.fog.color );
-        renderer.autoClear = false;
-        threejs.render = render;
-    }
+function setRenderMode( sceneID ) {
+    renderTransition = true;
+    renderMode = sceneID;
 }
 
 function render( renderer, scene, camera ) {
-    hud.update();
-    blinkTabs();
-    renderer.clear();
-    renderer.render( scene, camera );
-    renderer.clearDepth();
-    renderer.render( hud.scene, hud.camera );
-    lastRenderTime = vwf_view.kernel.time();
+    switch ( renderMode ) {
+
+        case RENDER_NONE:
+            if ( renderTransition ) {
+                renderer.clear();
+                loggerBox.style.display = "none";
+                renderTransition = false;
+            }
+            return;
+
+        case RENDER_MENU:
+            if ( renderTransition ) {
+                renderer.autoClear = true;
+                loggerBox.style.display = "none";
+                mainMenu.setupRenderer( renderer );
+                renderTransition = false;
+            }
+            mainMenu.render( renderer );
+            break;
+
+        case RENDER_GAME:
+            if ( renderTransition ) {
+                loggerBox.style.display = "block";
+                scene.fog = new THREE.FogExp2( 0xC49E70, 0.005 );
+                renderer.setClearColor( scene.fog.color );
+                renderer.autoClear = false;
+                renderTransition = false;
+            }
+            hud.update();
+            blinkTabs();
+            renderer.clear();
+            renderer.render( scene, camera );
+            renderer.clearDepth();
+            renderer.render( hud.scene, hud.camera );
+            lastRenderTime = vwf_view.kernel.time();
+            break;
+    }
 }
 
 function findThreejsView() {
@@ -653,7 +696,7 @@ window.onkeypress = function( event ) {
         pauseScreen = document.getElementById( "pauseScreen" );
         if ( pauseScreen.isOpen ){
             closePauseMenu();
-        } else {
+        } else if ( renderMode === RENDER_GAME ) {
             openPauseMenu();
         }
     }
@@ -894,18 +937,6 @@ function muteVolume() {
         setVolume( cachedVolume );
     } else {
         setVolume( 0 );
-    }
-}
-
-function appendClass( element, className ) {
-    if ( element.className.indexOf( className ) === -1 ) {
-        element.className += " " + className;
-    }
-}
-
-function removeClass( element, className ) {
-    if ( element.className.indexOf( className ) !== -1 ) {
-        element.className = element.className.replace( " " + className, "" );
     }
 }
 
