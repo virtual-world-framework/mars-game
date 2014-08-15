@@ -8,9 +8,8 @@ body {
 
 #version {
     z-index: 1000;
-    color: rgb( 255, 255, 255 );
-    width: 64px;
-    height: 16px;
+    color: rgb( 225, 225, 225 );
+    text-shadow: 0px 0px 1px rgb( 0, 0, 0 );
     font-family: Gadget, sans-serif;
     font-size: 16px;
     line-height: 16px;
