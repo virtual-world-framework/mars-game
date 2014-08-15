@@ -103,10 +103,10 @@ children:
             - musicSuccess
           - playSound:
             - SCVO4_Rover
+          - playSound:
+              - L1VO10_Control_E
           - delay:
             - 20
-            - playSound:
-              - L1VO6_Control
             - showStatus:
               - "Click to continue!"
           - playVideo:

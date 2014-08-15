@@ -135,6 +135,11 @@ properties:
       soundGroup: vo
       subtitle: "[ROVER]: I can display an overlay that will help me navigate."
       groupReplacementMethod: queue
+    - soundName: "L1VO10_Control_E"
+      soundURL: "assets/sounds/vo/L1VO10_Control_E.ogg"
+      soundGroup: vo
+      subtitle: "[MC]: Wow! You made it! This is PAL 10K, your Super Advanced AI Mission Controller…here is your status. You are a new kind of self-learning rover that we sent to Mars to prepare a Base for the Human Explorers, who are nearing Mars orbit. A comet fragment hit your ship during reentry and all your equipment has been scattered over the planet’s surface. That’s problem number one. Problem number two: we have lost contact with the humans. The good news is you can restore contact with them from your end with the help of your Mini Rover. Which brings us to problem number three: your Mini Rover has wandered off and we need you to find it. To do so you will need to plot a course to match the track it left behind. I’ve beamed a new update to your OS that will free up some more of your memory to help in the meantime."
+      groupReplacementMethod: queue
     - soundName: "L1VO11_Rover"
       soundURL: "assets/sounds/vo/L1VO11_Rover_m.ogg"
       soundGroup: vo
@@ -190,6 +195,11 @@ properties:
       soundGroup: vo
       subtitle: "[ROVER]: I remember I can put a number in front of X…that will multiply them together. I wonder what will happen if I make the number bigger or smaller."
       groupReplacementMethod: queue
+    - soundName: "L2VO3_Rover_H3"
+      soundURL: "assets/sounds/vo/L2VO3_Rover_H3.ogg"
+      soundGroup: vo
+      subtitle: "[ROVER]: I wonder what happens if I multiply x by something."
+      groupReplacementMethod: queue
     - soundName: "L2VO3_Rover_H4"
       soundURL: "assets/sounds/vo/L2VO3_Rover_H4.ogg"
       soundGroup: vo
@@ -231,17 +241,22 @@ properties:
       subtitle: "[MC]: Great! You’ve found the course of the lost rover. Now we need to find out the distance to it, so that you check how much power you need to get there. Them, we will need to find out the angle between your current heading the lost rover. Let’s start with the distance. I’m beaming a new program for you to use."
       groupReplacementMethod: queue
     - soundName: "L3VO2_Rover_H"
-      soundURL: "assets/sounds/vo/L3VO2_Rover_H.mp3"
+      soundURL: "assets/sounds/vo/L3VO2_Rover_H.ogg"
       soundGroup: vo
       subtitle: "[ROVER]: Loop blocks repeat actions and save RAM. I remember I used loops to get out of the crash site."
       groupReplacementMethod: queue
     - soundName: "L3VO2_Rover_H2"
-      soundURL: "assets/sounds/vo/L3VO2_Rover_H2.mp3"
+      soundURL: "assets/sounds/vo/L3VO2_Rover_H2.ogg"
       soundGroup: vo
       subtitle: "[ROVER]: I need to remember to face the right direction at the beginning and end of the loop."
       groupReplacementMethod: queue
+    - soundName: "L3VO2_Mission_S"
+      soundURL: "assets/sounds/vo/L3VO2_Mission_S.ogg"
+      soundGroup: vo
+      subtitle: "[MC]: Yes you are…but you need to check if you can actually see the Mini Rover! For this you will need two new Blocks: the Conditional Loop Block, and the Scan Block. The Conditional Loop will repeat programs until something happens. The Scan Block detects nearby objects."
+      groupReplacementMethod: queue
     - soundName: "L3VO3_Rover_S"
-      soundURL: "assets/sounds/vo/L3VO3_Rover_S.mp3"
+      soundURL: "assets/sounds/vo/L3VO3_Rover_S.ogg"
       soundGroup: vo
       subtitle: "[ROVER]: I’ve found something! Looks like the MiniRover dropped some supplies and changed direction. I’ll need to update my Grapher to match it’s new course."
       groupReplacementMethod: replace
@@ -258,7 +273,7 @@ properties:
     - soundName: "L3VO4_Mission_E"
       soundURL: "assets/sounds/vo/L3VO4_Mission_E.ogg"
       soundGroup: vo
-      subtitle: "[MC]: It looks like the course you are on will take you out onto the Cartesian Plane."
+      subtitle: "[MC]: It looks like the course you are on will take you out onto the Cartesian Plain."
       groupReplacementMethod: queue
     - soundName: "L3VO5_Rover"
       soundURL: "assets/sounds/vo/L3VO5_Rover.ogg"
