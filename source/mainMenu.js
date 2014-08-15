@@ -66,7 +66,7 @@ MainMenu.prototype = {
         rover.position.set( 1.5, 5, 0 );
         rover.rotateZ( Math.PI / 1.5 );
         this.scene.add( rover );
-        $( "#transitionScreen" ).fadeOut( "slow" );
+        $( "#transitionScreen" ).fadeOut();
     },
 
     updateMenuCamera: function() {

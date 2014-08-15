@@ -201,6 +201,7 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 break;
 
             case "playVideo":
+                $( "#transitionScreen" ).fadeIn();
                 setRenderMode( RENDER_NONE );
                 var src = eventArgs[ 0 ];
                 var id = getVideoIdFromSrc( src );
@@ -211,6 +212,7 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 break;
 
             case "videoPlayed":
+                $( "#transitionScreen" ).fadeOut();
                 setRenderMode( RENDER_GAME );
                 break;
 

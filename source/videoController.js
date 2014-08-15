@@ -42,12 +42,9 @@ function removeVideoOnEvent( event ) {
 function removeVideo( id ) {
     var video = videos[ id ];
     if ( video && video.wrapper.parentNode === document.body ) {
-        $( "#transitionScreen" ).fadeIn( function() {
-            var fileName = getVideoFileName( video );
-            vwf_view.kernel.fireEvent( vwf_view.kernel.application(), "videoPlayed", [ fileName ] );
-            document.body.removeChild( video.wrapper );
-            $( "#transitionScreen" ).fadeOut( "slow" );
-        } );
+        var fileName = getVideoFileName( video );
+        vwf_view.kernel.fireEvent( vwf_view.kernel.application(), "videoPlayed", [ fileName ] );
+        document.body.removeChild( video.wrapper );
     }
 }
 
