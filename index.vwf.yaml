@@ -209,8 +209,10 @@ children:
           animationLoop: true
       battery:
         extends: source/pickups/battery_1.vwf
-      supplies:
-        extends: source/pickups/supplies.vwf
+      supplies_1:
+        extends: source/pickups/supplies_1.vwf
+      supplies_2:
+        extends: source/pickups/supplies_2.vwf
       helicam:
         extends: source/pickups/helicam.vwf
       minirover:

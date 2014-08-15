@@ -1,0 +1,7 @@
+---
+extends: source/pickup.vwf
+source: ../../assets/3d/Batteries/battery_pickup3.dae
+type: model/vnd.collada+xml
+properties:
+  isCollidable: false
+  terrainName: "environment"
