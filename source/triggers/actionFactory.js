@@ -389,17 +389,6 @@ this.actionSet.resetHUDState = function( params, context ) {
     }
 }
 
-this.actionSet.renderGame = function( params, context ) {
-    if ( params && params.length > 0 ) {
-        self.logger.errorx( "resetHUDState", "This action takes no parameters.");
-        return undefined;
-    }
-
-    return function() {
-        context.beginRender();
-    }
-}
-
 this.actionSet.playVideo = function( params, context ) {
     if ( !params || params.length > 1 ) {
         self.logger.errorx( "playVideo", "This action takes one parameter: the source of the video");

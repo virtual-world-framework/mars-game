@@ -528,18 +528,18 @@ body {
 
 .MainMenu-Button {
     width: 512px;
-    height: 64px;
+    height: 128px;
     text-align: center;
     text-transform: uppercase;
     font-family: Gadget, sans-serif;
-    font-size: 48px;
+    font-size: 64px;
     font-weight: bold;
-    line-height: 64px;
+    line-height: 128px;
     color: rgb( 150, 190, 255 );
     background-color: rgb( 50, 90, 150 );
     margin-left: auto;
     margin-right: auto;
-    border-radius: 32px;
+    border-radius: 8px;
 }
 
 .MainMenu-Button.hover {

@@ -93,8 +93,7 @@ MainMenu.prototype = {
 
     playGame: function() {
         this.overlay.style.display = "none";
-        setRenderMode( RENDER_NONE );
-        playVideo( introVideoId );
+        vwf_view.kernel.fireEvent( vwf_view.kernel.application(), "gameStarted" );
     }
 }
 

@@ -19,7 +19,6 @@ var gridBounds = {
     topRight: undefined
 };
 var orbitTarget = new Array( 3 );
-var introVideoId;
 var lastRenderTime = 0;
 var threejs = findThreejsView();
 var activePauseMenu;
@@ -117,6 +116,11 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
 
             case "scenarioChanged":
                 currentScenario = eventArgs[ 0 ];
+                if ( currentScenario === "mainMenuScenario" ) {
+                    setRenderMode( RENDER_MENU );
+                } else {
+                    setRenderMode( RENDER_GAME );
+                }
             case "scenarioReset":
                 clearStatus();
                 removePopup();
@@ -191,23 +195,23 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
             case "toggledGraph":
                 graphIsVisible = eventArgs[ 0 ];
                 break;
-
-            case "beginRender":
-                loggerBox.style.display = "block";
-                setRenderMode( RENDER_GAME );
-                break;
             
             case "enableBlocklyTab":
                 addBlocklyTab( eventArgs[ 0 ], eventArgs[ 1 ] );
                 break;
 
             case "playVideo":
+                setRenderMode( RENDER_NONE );
                 var src = eventArgs[ 0 ];
                 var id = getVideoIdFromSrc( src );
                 if ( !id ) {
                     id = loadVideo( src );
                 }
                 playVideo( id );
+                break;
+
+            case "videoPlayed":
+                setRenderMode( RENDER_GAME );
                 break;
 
         } 
@@ -411,9 +415,8 @@ function setUpView() {
     setUpBlocklyPeripherals();
     setUpStatusDisplay();
     loadScenarioList();
-    introVideoId = loadVideo( "intro_cinematic.mp4" );
+    loadVideo( "intro_cinematic.mp4" );
     loadVideo( "success_cinematic.mp4" );
-    setRenderMode( RENDER_MENU );
 }
 
 function setRenderMode( sceneID ) {
@@ -438,6 +441,7 @@ function render( renderer, scene, camera ) {
 
         case RENDER_GAME:
             if ( renderTransition ) {
+                loggerBox.style.display = "block";
                 scene.fog = new THREE.FogExp2( 0xC49E70, 0.005 );
                 renderer.setClearColor( scene.fog.color );
                 renderer.autoClear = false;

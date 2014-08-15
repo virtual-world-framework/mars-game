@@ -1,9 +1,9 @@
 ---
 extends: source/scenario/scenario.vwf
 properties:
-  scenarioName: introScreenScenario
+  scenarioName: mainMenuScenario
 
-  nextScenarioPath: "scenario1a"
+  nextScenarioPath: "introScreenScenario"
   blockly: assets/scenario/scenario1.xml
 
 children:
@@ -11,21 +11,20 @@ children:
     extends: source/triggers/triggerManager.vwf
     properties: 
       triggers:
-        beginScenario_Intro:
+        beginMainMenu:
           triggerCondition:
           - onScenarioStart:
           actions:
-          - playVideo:
-            - intro_cinematic.mp4
+          - playSound:
+            - musicMenuLoop
 
         succeedOnIntroDone:
           triggerCondition:
-          - onVideoPlayed:
-            - intro_cinematic.mp4
+          - onGameStarted:
           actions:
           - scenarioSuccess:
-          - playSound:
-            - environmentWind
+          - stopSound:
+            - musicMenuLoop
 
   grid:
     includes: source/grid.vwf
