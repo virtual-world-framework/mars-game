@@ -324,18 +324,21 @@ body {
 }
 
 .videoWrapper {
-    height: 100%;
-    width: 100%;
     position: absolute;
-    top: 0;
-    left: 0;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
     z-index: 103;
 }
 
 .video {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;    
+    margin: auto;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
 }
 
 #pauseScreen {
