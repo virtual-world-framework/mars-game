@@ -64,13 +64,14 @@ this.setTargetEventHandler = function() {
 }
 
 this.getNewTransform = function() {
-    var targetNode = this.getTargetNode();
-    var targetTransform = targetNode ? targetNode.transform : [
+    var identity = [
         1, 0, 0, 0,
-        0, 1, 0, 1,
+        0, 1, 0, 0,
         0, 0, 1, 0,
         0, 0, 0, 1
     ];
+    var targetNode = this.getTargetNode();
+    var targetTransform = targetNode ? targetNode.transform : identity;
 
     var newCameraTransform;
     switch ( this.camera.pointOfView ) {
@@ -87,12 +88,7 @@ this.getNewTransform = function() {
             
             // Lock the camera's orientation, but have it's position follow the target 
             // (plus an offset)
-            var thirdPersonOrientationTransform = [ 
-                1, 0, 0, 0, 
-                0, 1, 0, 0,
-                0, 0, 1, 0,
-                0, 0, 0, 1 ];
-            newCameraTransform = thirdPersonOrientationTransform;
+            newCameraTransform = identity;
             newCameraTransform[ 12 ] += targetTransform[ 12 ];
             newCameraTransform[ 13 ] += targetTransform[ 13 ];
             newCameraTransform[ 14 ] += targetTransform[ 14 ];
@@ -102,12 +98,7 @@ this.getNewTransform = function() {
 
             // Lock the camera's orientation, but have it's position follow the target 
             // (plus an offset)
-            var topDownOrientationTransform = [ 
-                1, 0, 0, 0, 
-                0, 1, 0, 0,
-                0, 0, 1, 0,
-                0, 0, 0, 1 ];
-            newCameraTransform = topDownOrientationTransform;
+            newCameraTransform = identity;
             newCameraTransform[ 12 ] = targetTransform[ 12 ] + this.topDownOffset[ 0 ];
             newCameraTransform[ 13 ] = targetTransform[ 13 ] + this.topDownOffset[ 1 ];
             newCameraTransform[ 14 ] = this.topDownOffset[ 2 ];
