@@ -42,6 +42,9 @@ properties:
   - addToGrid:
     - trackanomaly
     - [ 11, 10 ]
+  - addToGrid:
+    - battery
+    - [ 11, 10 ]
   - enableBlocklyTabs:
     - rover
     - graph

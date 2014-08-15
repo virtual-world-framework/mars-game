@@ -42,6 +42,9 @@ properties:
   - removeFromGrid:
     - trackanomaly
     - [ 11, 10 ]
+  - removeFromGrid:
+    - battery
+    - [ 11, 10 ]
   - enableBlocklyTabs:
     - rover
     - graph
