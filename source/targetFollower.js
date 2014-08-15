@@ -104,9 +104,9 @@ this.getNewTransform = function() {
             // (plus an offset)
             var topDownOrientationTransform = [ 
                 1, 0, 0, 0, 
-                0, 0, -1, 0,
-                0, 1,  0, 0,
-                0, 0,  0, 1 ];
+                0, 1, 0, 0,
+                0, 0, 1, 0,
+                0, 0, 0, 1 ];
             newCameraTransform = topDownOrientationTransform;
             newCameraTransform[ 12 ] = targetTransform[ 12 ] + this.topDownOffset[ 0 ];
             newCameraTransform[ 13 ] = targetTransform[ 13 ] + this.topDownOffset[ 1 ];
