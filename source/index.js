@@ -201,14 +201,16 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 break;
 
             case "playVideo":
-                $( "#transitionScreen" ).fadeIn();
                 setRenderMode( RENDER_NONE );
                 var src = eventArgs[ 0 ];
                 var id = getVideoIdFromSrc( src );
                 if ( !id ) {
                     id = loadVideo( src );
                 }
-                playVideo( id );
+                $( "#transitionScreen" ).fadeIn( function() {
+                    playVideo( id );
+                } );
+                
                 break;
 
             case "videoPlayed":
