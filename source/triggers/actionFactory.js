@@ -307,6 +307,7 @@ this.actionSet.panCamera = function( params, context ) {
     var targetFollower = context.find( "//targetFollower" )[ 0 ];
 
     return function() {
+        targetFollower.camera.pointOfView = "thirdPerson";
         targetFollower.setTargetPath$( targetPath );
     }
 }
