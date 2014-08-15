@@ -428,7 +428,11 @@ function render( renderer, scene, camera ) {
     switch ( renderMode ) {
 
         case RENDER_NONE:
-            loggerBox.style.display = "none";
+            if ( renderTransition ) {
+                renderer.clear();
+                loggerBox.style.display = "none";
+                renderTransition = false;
+            }
             return;
 
         case RENDER_MENU:
