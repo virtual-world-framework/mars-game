@@ -43,7 +43,7 @@ properties:
     - trackanomaly
     - [ 11, 10 ]
   - removeFromGrid:
-    - battery
+    - supplies
     - [ 11, 10 ]
   - enableBlocklyTabs:
     - rover
