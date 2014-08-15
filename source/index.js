@@ -28,6 +28,14 @@ var muted = false;
 var currentScenario;
 var scenarioList;
 
+var renderTransition = true;
+var playingVideo = false;
+// Render modes
+var RENDER_NONE = 0;
+var RENDER_MENU = 1;
+var RENDER_GAME = 2;
+var renderMode = RENDER_NONE;
+
 vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
     if ( blocklyNodes[ nodeID ] !== undefined ) {
         var blocklyNode = blocklyNodes[ nodeID ];
@@ -186,7 +194,7 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
 
             case "beginRender":
                 loggerBox.style.display = "block";
-                threejs.render = render;
+                setRenderMode( RENDER_GAME );
                 break;
             
             case "enableBlocklyTab":
@@ -297,7 +305,7 @@ vwf_view.createdNode = function( nodeID, childID, childExtendsID, childImplement
 vwf_view.initializedNode = function( nodeID, childID, childExtendsID, childImplementsIDs, childSource, childType, childIndex, childName ) {
     if ( childID === vwf_view.kernel.application() ) {
         setUpView();
-        threejs.render = renderMainMenu;
+        threejs.render = render;
     } else if ( blocklyNodes[ childID ] !== undefined ) {
         var node = blocklyNodes[ childID ];
         node.tab = document.createElement( "div" );
@@ -405,27 +413,45 @@ function setUpView() {
     loadScenarioList();
     introVideoId = loadVideo( "intro_cinematic.mp4" );
     loadVideo( "success_cinematic.mp4" );
+    setRenderMode( RENDER_MENU );
 }
 
-function renderMainMenu( renderer, scene, camera ) {
-    if ( mainMenu.active && mainMenu.assetsLoaded ) {
-        mainMenu.render( renderer );
-    } else if ( !mainMenu.active ) {
-        scene.fog = new THREE.FogExp2( 0xC49E70, 0.005 );
-        renderer.setClearColor( scene.fog.color );
-        renderer.autoClear = false;
-        playVideo( introVideoId );
-    }
+function setRenderMode( sceneID ) {
+    renderTransition = true;
+    renderMode = sceneID;
 }
 
 function render( renderer, scene, camera ) {
-    hud.update();
-    blinkTabs();
-    renderer.clear();
-    renderer.render( scene, camera );
-    renderer.clearDepth();
-    renderer.render( hud.scene, hud.camera );
-    lastRenderTime = vwf_view.kernel.time();
+    switch ( renderMode ) {
+
+        case RENDER_NONE:
+            return;
+            break;
+
+        case RENDER_MENU:
+            if ( renderTransition ) {
+                mainMenu.setupRenderer( renderer );
+                renderTransition = false;
+            }
+            mainMenu.render( renderer );
+            break;
+
+        case RENDER_GAME:
+            if ( renderTransition ) {
+                scene.fog = new THREE.FogExp2( 0xC49E70, 0.005 );
+                renderer.setClearColor( scene.fog.color );
+                renderer.autoClear = false;
+                renderTransition = false;
+            }
+            hud.update();
+            blinkTabs();
+            renderer.clear();
+            renderer.render( scene, camera );
+            renderer.clearDepth();
+            renderer.render( hud.scene, hud.camera );
+            lastRenderTime = vwf_view.kernel.time();
+            break;
+    }
 }
 
 function findThreejsView() {

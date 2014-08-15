@@ -10,7 +10,6 @@ MainMenu.prototype = {
     overlay: undefined,
     assetsLoaded: undefined,
     firstRender: undefined,
-    active: undefined,
 
     initialize: function() {
         this.assetsLoaded = false;
@@ -83,18 +82,19 @@ MainMenu.prototype = {
         this.camera.updateProjectionMatrix();
     },
 
+    setupRenderer: function( renderer ) {
+        this.overlay.style.display = "block";
+        renderer.setClearColor( this.scene.fog.color );
+    },
+
     render: function( renderer ) {
-        if ( this.firstRender ) {
-            this.overlay.style.display = "block";
-            renderer.setClearColor( this.scene.fog.color );
-            this.firstRender = false;
-        }
         renderer.render( this.scene, this.camera );
     },
 
     playGame: function() {
         this.overlay.style.display = "none";
-        this.active = false;
+        setRenderMode( RENDER_NONE );
+        playVideo( introVideoId );
     }
 }
 
