@@ -8,13 +8,8 @@ MainMenu.prototype = {
     scene: undefined,
     camera: undefined,
     overlay: undefined,
-    assetsLoaded: undefined,
-    firstRender: undefined,
 
     initialize: function() {
-        this.assetsLoaded = false;
-        this.firstRender = true;
-        this.active = true;
         this.delayMenu = 5;
         this.createScene();
         this.createOverlay();
@@ -27,7 +22,6 @@ MainMenu.prototype = {
         this.camera.position.set( 0, 0, 2.5 );
         this.camera.rotateX( Math.PI / 2.3 );
         this.scene = new THREE.Scene();
-        this.scene.fog = new THREE.Fog( 0xFFFFFF, 4, 30 );
         loader = new THREE.ColladaLoader();
         loader.load( "assets/3d/Rover/rover_retro.dae", this.placeRover.bind( this ) );
         light = new THREE.SpotLight( 0xffffff, 1, 0, Math.PI / 2, 1 );
@@ -67,14 +61,12 @@ MainMenu.prototype = {
         document.body.appendChild( this.overlay );
     },
 
-    loadAssets: function() {},
-
     placeRover: function( collada ) {
         var rover = collada.scene;
-        rover.position.set( 2, 5, 0 );
+        rover.position.set( 1.5, 5, 0 );
         rover.rotateZ( Math.PI / 1.5 );
         this.scene.add( rover );
-        this.assetsLoaded = true;
+        $( "#transitionScreen" ).fadeOut( "slow" );
     },
 
     updateMenuCamera: function() {
@@ -84,10 +76,13 @@ MainMenu.prototype = {
 
     setupRenderer: function( renderer ) {
         this.overlay.style.display = "block";
+        this.scene.fog = new THREE.FogExp2( 0xFFFFFF, 0.04);
         renderer.setClearColor( this.scene.fog.color );
     },
 
     render: function( renderer ) {
+        var theta = Date.now() / 300 % 360 * Math.PI;
+        this.camera.position.set( Math.sin( theta / 100 ) / 2, 0, 2 + Math.cos( theta / 60 ) / 5 );
         renderer.render( this.scene, this.camera );
     },
 

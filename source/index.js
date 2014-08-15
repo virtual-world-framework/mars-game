@@ -428,11 +428,13 @@ function render( renderer, scene, camera ) {
     switch ( renderMode ) {
 
         case RENDER_NONE:
+            loggerBox.style.display = "none";
             return;
-            break;
 
         case RENDER_MENU:
             if ( renderTransition ) {
+                renderer.autoClear = true;
+                loggerBox.style.display = "none";
                 mainMenu.setupRenderer( renderer );
                 renderTransition = false;
             }
@@ -686,7 +688,7 @@ window.onkeypress = function( event ) {
         pauseScreen = document.getElementById( "pauseScreen" );
         if ( pauseScreen.isOpen ){
             closePauseMenu();
-        } else {
+        } else if ( renderMode === RENDER_GAME ) {
             openPauseMenu();
         }
     }
