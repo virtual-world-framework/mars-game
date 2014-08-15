@@ -6,6 +6,18 @@ body {
     display: none;
 }
 
+#version {
+    z-index: 1000;
+    color: rgb( 255, 255, 255 );
+    font-family: Gadget, sans-serif;
+    font-size: 16px;
+    line-height: 16px;
+    pointer-events: none;
+    position: absolute;
+    bottom: 2px;
+    right: 2px;
+}
+
 #blocklyIndicator {
     background-image: url( "assets/images/blockly_ui/blockly_indicator.png" );
     width: 40px;
@@ -44,7 +56,7 @@ body {
     border: 1px solid rgb( 70, 110, 170 );
     visibility: hidden;
     pointer-events: none;
-    font-family: "Arial Black", Gadget, sans-serif;
+    font-family: Gadget, sans-serif;
 }
 
 #blocklyWrapper-top {
@@ -236,7 +248,7 @@ body {
 
 .subtitleText {
     color: #fff;
-    font-family: "Arial Black", Gadget, sans-serif;
+    font-family: Gadget, sans-serif;
     font-size: 14px;
     width: 100%;
     margin-bottom: 5px;
