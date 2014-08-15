@@ -53,6 +53,10 @@ properties:
   - addToGrid:
     - trackanomaly
     - [ 37, 16 ]
+    
+  - addToGrid:
+    - supplies_1
+    - [ 36, 15 ]
 
   - addToGrid:
     - trackanomaly
@@ -131,9 +135,6 @@ children:
             - not:
               - readBlackboard:
                 - Level3aHint1
-            - not:
-              - readBlackboard:
-                - Level3aHint2
             - not:
               - readBlackboard:
                 - hasSucceeded
