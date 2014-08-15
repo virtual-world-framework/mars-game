@@ -94,7 +94,7 @@ children:
           - playSound:
             - SCVO9_Rover
           - playSound:
-            - L2VO10_Control
+            - L3VO2_Mission_S
 
         stopBlinkRoverTab_2f:
           triggerCondition:

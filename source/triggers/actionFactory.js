@@ -307,6 +307,7 @@ this.actionSet.panCamera = function( params, context ) {
     var targetFollower = context.find( "//targetFollower" )[ 0 ];
 
     return function() {
+        targetFollower.camera.pointOfView = "thirdPerson";
         targetFollower.setTargetPath$( targetPath );
     }
 }
@@ -385,17 +386,6 @@ this.actionSet.resetHUDState = function( params, context ) {
 
     return function() {
         context.resetHUDState();
-    }
-}
-
-this.actionSet.renderGame = function( params, context ) {
-    if ( params && params.length > 0 ) {
-        self.logger.errorx( "resetHUDState", "This action takes no parameters.");
-        return undefined;
-    }
-
-    return function() {
-        context.beginRender();
     }
 }
 

@@ -574,7 +574,7 @@ function drawLogger( context, position ) {
                 if ( message ) {
                     message.alpha -= 0.01;
                     if ( message.alpha <= 0 ) {
-                        removeElement( this.messages, i );
+                        removeArrayElement( this.messages, i );
                         if ( this.messages.length <= 0 && this.lastMessage ) {
                             this.lastMessage = "";
                         }
@@ -878,13 +878,6 @@ function setHelicamButtonsEnabled( value ) {
     hud.elements[ "graphButton" ].enabled = value;
     hud.elements[ "tilesButton" ].enabled = value;
     hud.elements[ "camera_topDown" ].enabled = value;
-}
-
-function removeElement( array, index ) {
-    for ( var i = index; i < array.length - 1; i++ ) {
-        array[ i ] = array[ i ] + 1;
-    }
-    array.length--;
 }
 
 function clearHUDEffects() {

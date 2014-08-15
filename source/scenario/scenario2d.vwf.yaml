@@ -177,7 +177,7 @@ children:
           - writeToBlackboard:
             - Level2dHint3
           - playSound:
-            - ALVO5_Rover
+            - L2VO3_Rover_H3
 
         playHint4_2d:
           triggerCondition:

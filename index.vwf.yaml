@@ -12,7 +12,7 @@ properties:
     set: |
       this.setScenario( value );
       this.activeScenarioPath = value;
-    value: "introScreenScenario"
+    value: "mainMenuScenario"
   sceneBlackboard: {}
 methods:
   setScenario:
@@ -31,7 +31,7 @@ methods:
   displayTiles:
   displayGraph:
 events:
-  introScreensComplete:
+  gameStarted:
   scenarioReset:
   scenarioChanged:
   scenarioStarted:
@@ -54,9 +54,10 @@ events:
   toggledTiles:
   resetRoverSensors:
   resetHUDState:
-  beginRender:
   enableBlocklyTab:
   clearBlocklyTabs:
+  playVideo:
+  videoPlayed:
 children:
   soundManager:
     includes: source/marsGameSound.vwf
@@ -170,7 +171,11 @@ children:
                   this.changePointOfView$( value );
                 value: thirdPerson
               orbiting: false
-              thirdPersonOffset: [ 0, -15.531, 5 ]
+
+              # The start poses are given as [ radius, yawAngle, pitchAngle ]
+              firstPersonStartPose: [ 0, 0, 0 ]
+              thirdPersonStartPose: [ 16.316, 0, -15 ]
+              topDownStartPose: [ 0, 0, -90 ]
             methods:
               changePointOfView$:
             events:
@@ -209,12 +214,18 @@ children:
           animationLoop: true
       battery:
         extends: source/pickups/battery_1.vwf
+      supplies_1:
+        extends: source/pickups/supplies.vwf
+      supplies_2:
+        extends: source/pickups/supplies.vwf
       helicam:
         extends: source/pickups/helicam.vwf
       minirover:
         extends: source/pickups/minirover.vwf
       trackanomaly:
         extends: source/pickups/trackanomaly.vwf
+  mainMenuScenario:
+    includes: source/scenario/mainMenu.vwf
   introScreenScenario:
     includes: source/scenario/introScreenScenario.vwf
   scenario1a:
