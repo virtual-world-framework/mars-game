@@ -204,7 +204,7 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 setRenderMode( RENDER_NONE );
                 var src = eventArgs[ 0 ];
                 var id = getVideoIdFromSrc( src );
-                if ( !id ) {
+                if ( isNaN( id ) || id < 0 || id >= videos.length ) {
                     id = loadVideo( src );
                 }
                 $( "#transitionScreen" ).fadeIn( function() {
