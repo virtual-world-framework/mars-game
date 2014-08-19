@@ -133,26 +133,26 @@ children:
           - writeToBlackboard:
             - Level1hHint1
 
-        playHint2_1h:
-          triggerCondition:
-          - delay:
-            - 50
-          additionalCondition:
-          - and:
-            - not:
-              - readBlackboard:
-                - Level1hHint2
-            - not:
-              - readBlackboard:
-                - hasSucceeded
-            - not:
-              - readBlackboard:
-                - hasFailed
-          actions:
-          - playSound:
-            - ALVO23_Rover
-          - writeToBlackboard:
-            - Level1hHint2
+        # playHint2_1h:
+        #   triggerCondition:
+        #   - delay:
+        #     - 50
+        #   additionalCondition:
+        #   - and:
+        #     - not:
+        #       - readBlackboard:
+        #         - Level1hHint2
+        #     - not:
+        #       - readBlackboard:
+        #         - hasSucceeded
+        #     - not:
+        #       - readBlackboard:
+        #         - hasFailed
+        #   actions:
+        #   - playSound:
+        #     - ALVO23_Rover
+        #   - writeToBlackboard:
+        #     - Level1hHint2
 
         panToRadio_1h:
           triggerCondition:
