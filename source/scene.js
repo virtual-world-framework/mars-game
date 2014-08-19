@@ -163,7 +163,7 @@ this.setUpCameraListener = function() {
 this.displayTiles = function( isVisible ) {
     this.gridTileGraph.mapTiles.groupVisible = isVisible;
     if ( isVisible && this.player.targetFollower.camera.pointOfView !== "topDown" ) {
-        this.player.camera.pointOfView = "topDown";
+        this.player.targetFollower.camera.pointOfView = "topDown";
     }
     this.toggledTiles( isVisible );
 }
