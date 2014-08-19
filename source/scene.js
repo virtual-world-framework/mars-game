@@ -177,4 +177,17 @@ this.displayGraph = function( isVisible ) {
     this.blocklyGraph.blocklyLine.visible = isVisible;
 }
 
+this.lockCamera = function( pose ) {
+    var camera = this.player.targetFollower.camera;
+    camera.navmode = "locked";
+    if ( pose ) {
+        camera.setCameraPose( pose );
+    }
+}
+
+this.unlockCamera = function() {
+    var camera = this.player.targetFollower.camera;
+    camera.setNavigationFromPOV();
+}
+
 //@ sourceURL=source/scene.js
