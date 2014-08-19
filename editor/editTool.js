@@ -7,7 +7,9 @@ this.updateGrid = function( object ) {
         gridSize = object.gridSize;
         collisionMap = object.collisionMap;
         scene = this.find( "/" )[ 0 ];
-        this.gridOriginInSpace = scene.grid.getWorldFromGrid( object.currentGridSquare );
+        this.gridOriginInSpace = scene.grid.getWorldFromGrid(
+            object.currentGridSquare[ 0 ],
+            object.currentGridSquare[ 1 ] );
     }
     this.boundaryValues = [];
     if ( gridSize && gridSize.length === 2 ) {
@@ -28,8 +30,10 @@ this.updateGrid = function( object ) {
 }
 this.moveGridOrigin = function( coord ) {
     var scene = this.find( "/" )[ 0 ];
-    var worldGrid = scene.grid.getWorldFromGrid( coord );
-    var lastOrigin = this.gridOriginInSpace;
-    this.gridOriginInSpace = [ worldGrid[ 0 ], worldGrid[ 1 ] ];
-    this.gridMoved( lastOrigin );
+    var worldGrid = scene.grid.getWorldFromGrid( coord[ 0 ], coord[ 1 ] );
+    this.gridOriginInSpace[ 0 ] = worldGrid[ 0 ]
+    this.gridOriginInSpace[ 1 ] = worldGrid[ 1 ];
+    this.gridUpdated();
 }
+
+//@ sourceURL=editor/editTool.js
