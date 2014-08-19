@@ -31,9 +31,9 @@ this.updateGrid = function( object ) {
 this.moveGridOrigin = function( coord ) {
     var scene = this.find( "/" )[ 0 ];
     var worldGrid = scene.grid.getWorldFromGrid( coord[ 0 ], coord[ 1 ] );
-    var lastOrigin = this.gridOriginInSpace;
-    this.gridOriginInSpace = [ worldGrid[ 0 ], worldGrid[ 1 ] ];
-    this.gridMoved( lastOrigin );
+    this.gridOriginInSpace[ 0 ] = worldGrid[ 0 ]
+    this.gridOriginInSpace[ 1 ] = worldGrid[ 1 ];
+    this.gridUpdated();
 }
 
 //@ sourceURL=editor/editTool.js
