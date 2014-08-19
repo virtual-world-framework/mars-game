@@ -32,17 +32,7 @@ this.setUpListeners = function() {
     var scene = this;
 
     this.editTool.grid.gridUpdated = function() {
-        scene.hideEditToolTiles();
         scene.updateEditToolTiles();
-    }
-
-    this.editTool.grid.gridMoved = function( lastOrigin ) {
-        var scene = this.find( "/" )[ 0 ];
-        var diff = [
-            this.gridOriginInSpace[ 0 ] - lastOrigin[ 0 ],
-            this.gridOriginInSpace[ 1 ] - lastOrigin[ 1 ]
-        ];
-        scene.graph.editToolTiles.translateBy( [ diff[ 0 ], diff[ 1 ], 0 ] );
     }
 }
 
