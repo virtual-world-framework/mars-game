@@ -573,6 +573,9 @@ function setActiveBlocklyTab() {
             if ( cam ) {
                 vwf_view.kernel.setProperty( cam, "pointOfView", "topDown" );
             }
+            hideBlocklyIndicator();
+        } else {
+            indicateBlock( lastBlockIDExecuted );
         }
     }
 }
