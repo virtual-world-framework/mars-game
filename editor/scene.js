@@ -2,6 +2,14 @@ this.objCount = 0;
 this.selectedObject;
 
 var lastPointerPosition, lastPointerDownTime, lastPointerDownID, tileHeight;
+var ORIGIN_COLOR = [ 220, 220, 255 ];
+var PASSABLE_COLOR = [ 220, 255, 220 ];
+var IMPASSABLE_COLOR = [ 255, 220, 220 ];
+var OPACITY = 0.5;
+var NORMAL = [ 0, 0, 1 ];
+var ROTATION = 90;
+var RENDERTOP = true;
+var SIZE = 0.9;
 
 this.initialize = function() {
     this.camera.transform = [
@@ -24,8 +32,8 @@ this.setUpListeners = function() {
     var scene = this;
 
     this.editTool.grid.gridUpdated = function() {
-        scene.removeEditToolGrid();
-        scene.createEditToolGrid();
+        scene.hideEditToolTiles();
+        scene.updateEditToolTiles();
     }
 
     this.editTool.grid.gridMoved = function( lastOrigin ) {
@@ -34,21 +42,13 @@ this.setUpListeners = function() {
             this.gridOriginInSpace[ 0 ] - lastOrigin[ 0 ],
             this.gridOriginInSpace[ 1 ] - lastOrigin[ 1 ]
         ];
-        scene.graph.editToolGrid.translateBy( [ diff[ 0 ], diff[ 1 ], 0 ] );
+        scene.graph.editToolTiles.translateBy( [ diff[ 0 ], diff[ 1 ], 0 ] );
     }
 }
 
-this.createEditToolGrid = function() {
+this.updateEditToolTiles = function() {
     var grid = this.editTool.grid;
-    var ORIGIN_COLOR = [ 220, 220, 255 ];
-    var PASSABLE_COLOR = [ 220, 255, 220 ];
-    var IMPASSABLE_COLOR = [ 255, 220, 220 ];
-    var OPACITY = 0.5;
-    var NORMAL = [ 0, 0, 1 ];
-    var ROTATION = 90;
-    var RENDERTOP = true;
-    var SIZE = 0.9;
-    var origin, name, color;
+    var origin, color;
     var tiles = new Array;
 
     var offset = new Array(); 
@@ -58,9 +58,6 @@ this.createEditToolGrid = function() {
     for ( var x = 0; x < grid.boundaryValues.length; x++ ) {
 
         for ( var y = 0; y < grid.boundaryValues[ x ].length; y++ ) {
-
-            name = "tile_" + x + "_" + y;
-
             origin = [
                 offset[ 0 ] + ( x ),
                 offset[ 1 ] + ( y ),
@@ -84,45 +81,26 @@ this.createEditToolGrid = function() {
                 "doubleSided": false,
                 "renderTop": RENDERTOP
             } } );
-
         }
-
     }
 
-    this.graph.graphGroup(
-        this.graph.tileVisible,
-        tiles,
-        "editToolGrid"
-    );
+    this.graph.editToolTiles.graphObjects = tiles;
+    this.graph.editToolTiles.groupVisible = true;
 }
 
-this.removeEditToolGrid = function() {
-    if ( this.graph.editToolGrid ) {
-        this.graph.children.delete( this.graph.editToolGrid );
-    }
+this.hideEditToolTiles = function() {
+    this.graph.editToolTiles.groupVisible = false;
 }
 
 this.createGridDisplay = function( grid ) {
-    var PASSABLE_COLOR = [ 220, 255, 220 ];
-    var IMPASSABLE_COLOR = [ 255, 220, 220 ];
-    var OPACITY = 0.5;
-    var NORMAL = [ 0, 0, 1 ];
-    var ROTATION = 90;
-    var RENDERTOP = false;
-    var SIZE = 0.9;
-    var origin, name, color;
+    var origin, color;
     var tiles = new Array;
-
     var offset = new Array(); 
     offset.push( grid.gridOriginInSpace[ 0 ] / grid.gridSquareLength );
     offset.push( grid.gridOriginInSpace[ 1 ] / grid.gridSquareLength );
 
     for ( var x = 0; x < grid.boundaryValues.length; x++ ) {
-
         for ( var y = 0; y < grid.boundaryValues[ x ].length; y++ ) {
-
-            name = "tile_" + x + "_" + y;
-
             origin = [
                 offset[ 0 ] + ( x ),
                 offset[ 1 ] + ( y ),
@@ -142,9 +120,7 @@ this.createGridDisplay = function( grid ) {
                 "doubleSided": false,
                 "renderTop": RENDERTOP
             } } );
-
         }
-
     }
 
     this.graph.graphGroup(
@@ -412,7 +388,7 @@ this.selectObject = function( object ) {
 }
 
 this.deselectObject = function() {
-    this.removeEditToolGrid();
+    this.hideEditToolTiles();
     this.editTool.selectedObjectId = undefined;
     this.selectedObject = undefined;
 }
