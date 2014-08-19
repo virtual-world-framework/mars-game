@@ -87,12 +87,21 @@ children:
               - 2
           actions:
           - scenarioSuccess:
+          - resetCameraView:
           - showAlert:
             - "I found the right rise and run of the path!"
           - playSound:
             - musicSuccessShort
           - playSound:
             - L3VO1_Rover_S
+
+        setCameraView:
+          triggerCondition:
+          - onBlocklyStarted:
+            - rover
+          actions:
+          - setCinematicCameraView:
+            - [ 13, 65, -15 ]
 
         stopBlinkRoverTab_2e:
           triggerCondition:

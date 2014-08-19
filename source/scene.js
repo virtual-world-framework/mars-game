@@ -11,6 +11,8 @@ var RENDERTOP = true;
 var SIZE = 0.9;
 var tiles = new Array();
 
+var lastCameraPOV = "thirdPerson";
+
 this.initialize = function() {
     // Set the active camera so we can see the 3D scene
     this.initializeActiveCamera( this.player.targetFollower.camera );
@@ -175,6 +177,24 @@ this.displayGraph = function( isVisible ) {
     }
     this.toggledGraph( isVisible );
     this.blocklyGraph.blocklyLine.visible = isVisible;
+}
+
+this.setCinematicView = function( pose ) {
+    var camera = this.player.targetFollower.camera;
+    lastCameraPOV = camera.pointOfView;
+    camera.pointOfView = "thirdPerson";
+    if ( pose ) {
+        camera.setCameraPose( pose );
+    }
+}
+
+this.resetView = function() {
+    var camera = this.player.targetFollower.camera;
+    if ( lastCameraPOV === camera.pointOfView ) {
+        camera.setNavigationFromPOV( lastCameraPOV );
+    } else {
+        camera.pointOfView = lastCameraPOV;
+    }
 }
 
 //@ sourceURL=source/scene.js
