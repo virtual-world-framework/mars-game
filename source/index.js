@@ -204,7 +204,7 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 setRenderMode( RENDER_NONE );
                 var src = eventArgs[ 0 ];
                 var id = getVideoIdFromSrc( src );
-                if ( !id ) {
+                if ( isNaN( id ) || id < 0 || id >= videos.length ) {
                     id = loadVideo( src );
                 }
                 $( "#transitionScreen" ).fadeIn( function() {
@@ -823,6 +823,9 @@ function openScenarioMenu() {
 
 function restartGame() {
     var sceneID = vwf_view.kernel.application();
+    currentBlocklyNodeID = undefined;
+    clearBlockly();
+    vwf_view.kernel.setProperty( sceneID, "blockly_activeNodeID", undefined );
     vwf_view.kernel.setProperty( sceneID, "activeScenarioPath", "scenario1a" );
     closePauseMenu();
 }
@@ -853,6 +856,9 @@ function displayNextScenario() {
 function switchToDisplayedScenario() {
     var display = document.getElementById( "scenarioDisplay" );
     var displayedScenario = display.innerHTML;
+    currentBlocklyNodeID = undefined;
+    clearBlockly();
+    vwf_view.kernel.setProperty( sceneID, "blockly_activeNodeID", undefined );
     vwf_view.kernel.setProperty( vwf_view.kernel.application(), "activeScenarioPath", displayedScenario );
     closePauseMenu();
 }
