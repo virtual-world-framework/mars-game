@@ -11,6 +11,8 @@ var RENDERTOP = true;
 var SIZE = 0.9;
 var tiles = new Array();
 
+var lastCameraPOV = "thirdPerson";
+
 this.initialize = function() {
     // Set the active camera so we can see the 3D scene
     this.initializeActiveCamera( this.player.targetFollower.camera );
@@ -179,6 +181,8 @@ this.displayGraph = function( isVisible ) {
 
 this.lockCamera = function( pose ) {
     var camera = this.player.targetFollower.camera;
+    lastCameraPOV = camera.pointOfView;
+    camera.pointOfView = "thirdPerson";
     camera.navmode = "locked";
     if ( pose ) {
         camera.setCameraPose( pose );
@@ -187,7 +191,7 @@ this.lockCamera = function( pose ) {
 
 this.unlockCamera = function() {
     var camera = this.player.targetFollower.camera;
-    camera.setNavigationFromPOV();
+    camera.pointOfView = lastCameraPOV;
 }
 
 //@ sourceURL=source/scene.js
