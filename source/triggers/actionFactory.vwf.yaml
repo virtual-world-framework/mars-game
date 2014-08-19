@@ -75,5 +75,13 @@ properties:
     # arguments: none
     resetRoverSensors:
 
+    # Sets the orientation of the camera in third person
+    # arguments: array [ radius, yaw, pitch ]
+    setCinematicCameraView:
+
+    # Resets the camera to the point of view before the cinematic camera mode was set
+    # arguments: none
+    resetCameraView:
+
 scripts:
 - source: source/triggers/actionFactory.js
