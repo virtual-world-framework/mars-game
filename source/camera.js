@@ -12,7 +12,14 @@ this.changePointOfView$ = function( newPointOfView ) {
     this.transform = this.getCameraStartTransform();
 
     // Set the navigation mode of the camera appropriately for the new point of view
-    switch ( newPointOfView ) {
+    this.setNavigationFromPOV( newPointOfView );
+
+    this.changedPOV( newPointOfView );
+}
+
+this.setNavigationFromPOV = function( pov ) {
+    pov = pov || this.pointOfView;
+    switch ( pov ) {
         case "firstPerson":
             this.navmode = "walk";
             this.translationSpeed = 0;
@@ -27,11 +34,9 @@ this.changePointOfView$ = function( newPointOfView ) {
             break;
         default:
             this.logger.warnx( "changePointOfView$", 
-                "Unrecognized camera point of view: '", newPointOfView, "'" );
+                "Unrecognized camera point of view: '", pov, "'" );
             break;
     }
-
-    this.changedPOV( newPointOfView );
 }
 
 // Orbit the camera around the targetNode at speed radians/second
@@ -48,6 +53,10 @@ this.orbitTarget$ = function( speed ) {
         0, 0, 0, 1
     ];
     this.transform = multiplyMatrices( rotationMatrix, this.transform );
+}
+
+this.setCameraPose = function( pose ) {
+    this.transform = this.convertPoseToTransform( pose );
 }
 
 function multiplyMatrices( a, b ) {
@@ -128,10 +137,10 @@ this.convertPoseToTransform = function( pose ) {
     var cosPitch = Math.cos( pitchRadians );
     var sinPitch = Math.sin( pitchRadians );
     return [
-        cosYaw,           sinYaw,             0,                 0,
-        sinYaw,           cosYaw * cosPitch,  sinPitch,          0,
-        0,               -sinPitch,           cosPitch,          0,
-        radius * sinYaw, -radius * cosYaw,   -radius * sinPitch, 1
+         cosYaw,                      sinYaw,                      0,                 0,
+        -cosPitch * sinYaw,           cosPitch * cosYaw,           sinPitch,          0,
+         sinPitch * sinYaw,          -sinPitch * cosYaw,           cosPitch,          0,
+         radius * cosPitch * sinYaw, -radius * cosPitch * cosYaw, -radius * sinPitch, 1
     ];
 }
 
