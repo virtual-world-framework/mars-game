@@ -192,33 +192,29 @@ function addBlockToStackList( topBlock, loopIndex ) {
             "name": blockType,
             "id": parseInt( blockID ),
             "alpha": 0,
-            "loopIndex": loopIndex
+            "loopIndex": loopIndex >= 0 ? loopIndex : -1,
+            "topOffset": 0
         };        
 
         if ( blockType === "rover_moveForward" ) {
             blockData.name = "moveForward";
             status.blockStack.push( blockData );
+
         } else if ( blockType === "rover_turn" ) {
             blockData.name = currentBlock.getFieldValue( "DIR" );
-            status.blockStack.push( blockData );            
+            status.blockStack.push( blockData );
+
         } else if ( blockType === "controls_repeat_extended" ) {
             blockData.name = "repeatTimes";
             status.blockStack.push( blockData );
-
             var firstBlockInLoop = currentBlock.getInput( "DO" ).connection.targetConnection.sourceBlock_;
-            var loopTimes = parseInt( Blockly.JavaScript.valueToCode( currentBlock, 'TIMES', Blockly.JavaScript.ORDER_ASSIGNMENT ) || '0' ) || 0;
-            for ( var i = 1; i <= loopTimes; i++ ) {
-                addBlockToStackList( firstBlockInLoop, i );
-            }
+            addBlockToStackList( firstBlockInLoop, 0 );
+
         } else if ( blockType === "controls_whileUntil" ) {
             blockData.name = "repeatUntil";
             status.blockStack.push( blockData );
-
             var firstBlockInLoop = currentBlock.getInput( "DO" ).connection.targetConnection.sourceBlock_;
-            var loopTimes = 1;
-            for ( var i = loopTimes - 1; i >= 0; i-- ) {
-                addBlockToStackList( firstBlockInLoop, i );
-            }
+            addBlockToStackList( firstBlockInLoop, 0 );
 
         } else if ( blockType === "controls_sensor" ) {
             blockData.name = "sensor";
@@ -226,6 +222,18 @@ function addBlockToStackList( topBlock, loopIndex ) {
         }
         currentBlock = currentBlock.getNextBlock();
     }
+}
+
+function getBlockDataSlotFromId( id ) {
+    var status = hud.elements.blocklyStatus;
+    if ( status ) {
+        for ( var i = 0; i < status.blockStack.length; i++ ) {
+            if ( status.blockStack[ i ].id === id ) {
+                return i;
+            }
+        }
+    }
+    return undefined;
 }
 
 function createStatusText() {
@@ -475,7 +483,7 @@ function drawBlocklyStatus( context, position ) {
                     context.globalAlpha = alpha;
                     context.drawImage( block, position.x, 
                                        position.y - ( this.topOffset - lastHeight ) );
-                    if ( this.index === i && !isNaN( loopIndex ) ) {
+                    if ( this.index === i && loopIndex >= 1 ) {
                         var numBlock = this.blockImages[ "number" ];
                         offsetX += numBlock.width;
                         var posY = position.y - ( this.topOffset - lastHeight );
@@ -721,30 +729,41 @@ function pushNextBlocklyStatus( id ) {
     var statusElem = hud.elements.blocklyStatus;
     if ( statusElem ) {
         statusElem.index++;
-
-        var blockData = statusElem.blockStack[ statusElem.index ];
+        var index = getBlockDataSlotFromId( id );
+        var blockData = statusElem.blockStack[ index ];
         var blockName = blockData.name;
-        var blockID = blockData.id;
         var block = statusElem.blockImages[ blockName ];
-        if ( block && blockID === id ) {
+        if ( block ) {
 
-            // Check if block pushes are outrunning the animation
-            if ( statusElem.draw === statusElem.defaultDraw ) {
-                statusElem.nextTopOffset = statusElem.topOffset + block.height;
-                statusElem.offsetIncrement = block.height / statusElem.range
-                statusElem.draw = drawBlocklyStatusAnimating;
-
-            // If they are, set the top right away and don't animate
-            } else {
+            // If the index doesn't match, then we're looping back
+            if ( index !== statusElem.index ) {             
+                statusElem.index = index;
+                statusElem.topOffset = blockData.topOffset;
                 setBlocklyAlphas();
-                statusElem.draw = statusElem.defaultDraw;
-                statusElem.topOffset = statusElem.nextTopOffset + block.height;
+                statusElem.draw = statusElem.defaultDraw;                
+
+            } else {
+
+                // Check if block pushes are outrunning the animation
+                if ( statusElem.draw === statusElem.defaultDraw ) {
+                    statusElem.nextTopOffset = statusElem.topOffset + block.height;
+                    statusElem.offsetIncrement = block.height / statusElem.range
+                    statusElem.draw = drawBlocklyStatusAnimating;
+                    blockData.topOffset = statusElem.nextTopOffset;
+
+                // If they are, set the top right away and don't animate
+                } else {
+                    setBlocklyAlphas();
+                    statusElem.draw = statusElem.defaultDraw;
+                    statusElem.topOffset = statusElem.nextTopOffset + block.height;
+                    blockData.topOffset = statusElem.topOffset;
+                }
             }
 
             // Check if the block is associated with a loop count
             // and send to the ui display
-            var loopIndex = blockData.loopIndex;
-            if ( !isNaN( loopIndex ) ) {
+            var loopIndex = ++blockData.loopIndex;
+            if ( !isNaN( loopIndex ) && loopIndex >= 1 ) {
                 showBlocklyLoopCount( loopIndex );
             } else {
                 hideBlocklyLoopCount();
