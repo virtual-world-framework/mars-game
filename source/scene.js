@@ -191,7 +191,11 @@ this.lockCamera = function( pose ) {
 
 this.unlockCamera = function() {
     var camera = this.player.targetFollower.camera;
-    camera.pointOfView = lastCameraPOV;
+    if ( lastCameraPOV === camera.pointOfView ) {
+        camera.setNavigationFromPOV( lastCameraPOV );
+    } else {
+        camera.pointOfView = lastCameraPOV;
+    }
 }
 
 //@ sourceURL=source/scene.js
