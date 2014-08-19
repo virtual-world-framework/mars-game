@@ -30,8 +30,8 @@ methods:
   executeBlock:
   displayTiles:
   displayGraph:
-  lockCamera:
-  unlockCamera:
+  setCinematicView:
+  resetView:
 events:
   gameStarted:
   scenarioReset:

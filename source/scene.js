@@ -179,17 +179,16 @@ this.displayGraph = function( isVisible ) {
     this.blocklyGraph.blocklyLine.visible = isVisible;
 }
 
-this.lockCamera = function( pose ) {
+this.setCinematicView = function( pose ) {
     var camera = this.player.targetFollower.camera;
     lastCameraPOV = camera.pointOfView;
     camera.pointOfView = "thirdPerson";
-    camera.navmode = "locked";
     if ( pose ) {
         camera.setCameraPose( pose );
     }
 }
 
-this.unlockCamera = function() {
+this.resetView = function() {
     var camera = this.player.targetFollower.camera;
     if ( lastCameraPOV === camera.pointOfView ) {
         camera.setNavigationFromPOV( lastCameraPOV );

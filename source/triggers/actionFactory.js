@@ -413,7 +413,7 @@ this.actionSet.setCinematicCameraView = function( params, context ) {
     var pose = params[ 0 ];
 
     return function() {
-        context.lockCamera( pose );
+        context.setCinematicView( pose );
     }
 }
 
@@ -423,7 +423,7 @@ this.actionSet.resetCameraView = function( params, context ) {
     }
 
     return function() {
-        context.unlockCamera();
+        context.resetView();
     }
 }
 
