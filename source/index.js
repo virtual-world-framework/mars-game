@@ -854,12 +854,13 @@ function displayNextScenario() {
 }
 
 function switchToDisplayedScenario() {
+    var sceneID = vwf_view.kernel.application();
     var display = document.getElementById( "scenarioDisplay" );
     var displayedScenario = display.innerHTML;
     currentBlocklyNodeID = undefined;
     clearBlockly();
     vwf_view.kernel.setProperty( sceneID, "blockly_activeNodeID", undefined );
-    vwf_view.kernel.setProperty( vwf_view.kernel.application(), "activeScenarioPath", displayedScenario );
+    vwf_view.kernel.setProperty( sceneID, "activeScenarioPath", displayedScenario );
     closePauseMenu();
 }
 
