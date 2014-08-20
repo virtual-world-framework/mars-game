@@ -8,10 +8,7 @@ methods:
   registerScenarioSucceededListener:
   registerScenarioFailedListener:
   registerScenarioResetListener:
-  broadcastGameStarted:
-  broadcastScenarioSucceeded:
-  broadcastScenarioFailed:
-  broadcastScenarioReset:
+  broadcastEvent:
   createRequest:
 
 scripts:
