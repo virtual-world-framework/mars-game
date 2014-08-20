@@ -2,11 +2,17 @@
 extends: http://vwf.example.com/node3.vwf
 properties:
   url: http://pcvm4-1.instageni.nysernet.org/simple.php
+  enabled: true
 methods:
   registerGameStartedListener:
   registerScenarioSucceededListener:
   registerScenarioFailedListener:
   registerScenarioResetListener:
+  broadcastGameStarted:
+  broadcastScenarioSucceeded:
+  broadcastScenarioFailed:
+  broadcastScenarioReset:
+  createRequest:
 
 scripts:
  - source: source/instrumentationManager.js
