@@ -30,66 +30,13 @@ properties:
     - soundName: "musicSuccessShort"
       soundURL: "assets/sounds/music/musicSuccessShort08.ogg"
       allowMultiplay: false
-    # - soundName: "uiBlockyBobbleAppear"
-    #   soundURL: "assets/sounds/sfx/uiBlockyBobbleAppear_02.ogg"
-    #   initialVolume: 1.0
-    # - soundName: "uiBlockyBobbleDisappear"
-    #   soundURL: "assets/sounds/sfx/uiBlockyBobbleDisappear_02.ogg"
-    #   initialVolume: 1.0
-    # - soundName: "uiBlockyBlockExecute"
-    #   soundURL: "assets/sounds/sfx/uiBlockyBlockExecute_02.ogg"
-    #   initialVolume: 1.0
-    # - soundName: "uiBlockyBlockTapSelect"
-    #   soundURL: "assets/sounds/sfx/uiBlockyBlockTapSelect_01.ogg"
-    #   initialVolume: 1.0
-    # - soundName: "uiTapObjectSelected"
-    #   soundURL: "assets/sounds/sfx/uiTapObjectSelected_02.ogg"
-    #   initialVolume: 1.0
-    # - soundName: "uiScreenTransition"
-    #   soundURL: "assets/sounds/sfx/uiScreenTransition_01.ogg"
-    #   initialVolume: 1.0
-    # - soundName: "uiNegativeFeedback"
-    #   soundURL: "assets/sounds/sfx/uiNegativeFeedback_02.ogg"
-    #   initialVolume: 1.0
-    # - soundName: "uiRestart"
-    #   soundURL: "assets/sounds/sfx/uiRestart_01.ogg"
-    #   initialVolume: 1.0
-    # - soundName: "uiLowBattery"
-    #   soundURL: "assets/sounds/sfx/uiLowBattery_01.ogg"
-    #   initialVolume: 1.0
-    # - soundName: "uiLowRam"
-    #   soundURL: "assets/sounds/sfx/uiLowRam_01.ogg"
-    #   initialVolume: 1.0
     - soundName: "roverSounds"
-      soundURL: ""
+      soundURL: "assets/sounds/sfx/objectRoverMotorGroundCrunch_01.ogg"
       isLooping: true
-      isLayered: true
-      soundDefinitions:
-        - soundName: "objectRoverMotor"
-          soundURL: "assets/sounds/sfx/objectRoverMotor_10.ogg"
-          isLooping: true
-          isLayered: false
-        - soundName: "objectRoverMovementGroundCrunch"
-          soundURL: "assets/sounds/sfx/objectRoverMovementGroundCrunch_01.ogg"
-          isLooping: true
-          isLayered: false
     - soundName: "environmentWind"
-      soundURL: ""
+      soundURL: "assets/sounds/sfx/environmentWind_04.ogg"
       isLooping: true
-      isLayered: true
-      playOnLoad: false
       allowMultiplay: false
-      soundDefinitions:
-        - soundName: "environmentWind_01"
-          soundURL: "assets/sounds/sfx/environmentWind_01.ogg"
-          isLooping: true
-          isLayered: false
-          allowMultiplay: false
-        - soundName: "environmentWind_02"
-          soundURL: "assets/sounds/sfx/environmentWind_02.ogg"
-          isLooping: true
-          isLayered: false
-          allowMultiplay: false
     - soundName: "L1VO1_Rover"
       soundURL: "assets/sounds/vo/L1VO1_Rover_m.ogg"
       soundGroup: vo
