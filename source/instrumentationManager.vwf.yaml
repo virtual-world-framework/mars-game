@@ -1,0 +1,12 @@
+---
+extends: http://vwf.example.com/node3.vwf
+properties:
+  url: http://pcvm4-1.instageni.nysernet.org/collect.php
+methods:
+  registerGameStartedListener:
+  registerScenarioSucceededListener:
+  registerScenarioFailedListener:
+  registerScenarioResetListener:
+
+scripts:
+ - source: source/instrumentationManager.js
