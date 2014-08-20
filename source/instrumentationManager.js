@@ -10,45 +10,67 @@ this.initialize = function() {
 
 this.registerGameStartedListener = function() {
     var scene = this.find( "/" )[ 0 ];
-    scene.gameStarted= ( function( ) {
-        this.broadcastScenarioSucceeded( );
+    scene.gameStarted = ( function( ) {
+        this.broadcastGameStarted( );
     } ).bind( this );
 }
 
 this.registerScenarioSucceededListener = function() {
     var scene = this.find( "/" )[ 0 ];
-    scene.scenarioChanged = ( function( scenarioName ) {
-        this.broadcastScenarioSucceeded( scenarioName );
+    scene.scenarioSucceeded = ( function( ) {
+        this.broadcastScenarioSucceeded( scene.activeScenarioPath );
     } ).bind( this );
 }
 
 this.registerScenarioFailedListener = function() {
     var scene = this.find( "/" )[ 0 ];
-    scene.scenarioChanged = ( function( scenarioName ) {
-        this.broadcastScenarioFailed( scenarioName );
+    scene.scenarioFailed = ( function( ) {
+        this.broadcastScenarioFailed( scene.activeScenarioPath );
     } ).bind( this );
 }
 
 this.broadcastScenarioSucceeded = function( scenarioName ) {
-    var scenario = this.find( "//" + scenarioName )[ 0 ];
+	var event = 'scenarioSucceeded';
+	var value = scenarioName;
+	var params = [ event, value ];
+	this.createRequest ( 'event', params );
 }
 
 this.broadcastScenarioFailed = function( scenarioName ) {
-    var scenario = this.find( "//" + scenarioName )[ 0 ];
+    var event = 'scenarioFailed';
+	var value = scenarioName;
+	var params = [ event, value ];
+	this.createRequest ( 'event', params );
 }
 
 this.broadcastGameStarted = function( ) {
-    var scenario = this.find( "//" + scenarioName )[ 0 ];
-    currentGrid = scenario.grid;
+	var event = 'gameStarted';
+	var value = '';
+	var params = [ event, value ];
+	this.createRequest ( 'event', params );
 }
 
 this.createRequest = function( type, params ) {
+
+	var scene = this.find( "/" )[ 0 ];
+	
+	var event = params[ 0 ];
+	var value = params[ 1 ];
+	
+	var playerId = scene.playerId;
+	var version = scene.version;
+	
+	//HACK HACK HACK: Should use vwf utility.resolveURI("/")
+	var pathArray = window.location.pathname.split( '/' );
+	var vwfSession = pathArray[pathArray.length-2];
+	
     if ( type === 'event' ) {
-    
-    } else if ( type === 'action' ) {
-    
-    }
+        var xhr = new XMLHttpRequest();
+		xhr.open("POST", this.url, true);
+		xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+		xhr.send("vwf_session="+vwfSession+"&player_id="+playerId+"&action="+event+"$&value="+value+"$&version="+version);
+	}
     
 }
 
-//@ sourceURL=source/rover.js
+//@ sourceURL=source/instrumentationManager.js
