@@ -205,7 +205,7 @@ properties:
       soundURL: "assets/sounds/vo/L2VO10_Control.ogg"
       initialVolume: 0.65
       soundGroup: vo
-      subtitle: "[MC]: Yes, you are…but you need to check if you can actually see the MiniRover! For this you will need a new Block: the Scan Block"
+      subtitle: "[MC]: Yes, you are… you need to check if you can actually see the MiniRover! For this you will need a new Block: the Scan Block."
       groupReplacementMethod: queue
     - soundName: "L3VO1_Rover"
       soundURL: "assets/sounds/vo/L3VO1_Rover.ogg"
