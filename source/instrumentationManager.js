@@ -1,9 +1,9 @@
 this.initialize = function() {
 	if ( this.enabled === true ) {
 		this.future( 0 ).registerGameStartedListener();
-    	this.future( 0 ).registerScenarioSucceededListener();
-    	this.future( 0 ).registerScenarioFailedListener();
-    	this.future( 0 ).registerScenarioResetListener();
+		this.future( 0 ).registerScenarioSucceededListener();
+		this.future( 0 ).registerScenarioFailedListener();
+		this.future( 0 ).registerScenarioResetListener();
     }
 }
 
