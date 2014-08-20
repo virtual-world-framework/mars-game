@@ -13,6 +13,8 @@ properties:
       this.setScenario( value );
       this.activeScenarioPath = value;
     value: "mainMenuScenario"
+  playerId: ???
+  version: 0.1
   sceneBlackboard: {}
 methods:
   setScenario:
