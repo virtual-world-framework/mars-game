@@ -170,6 +170,14 @@ children:
           - writeToBlackboard:
             - Level3aHint2
 
+        setCameraView:
+          triggerCondition:
+          - onBlocklyStarted:
+            - rover
+          actions:
+          - setCinematicCameraView:
+            - [ 13, 0, -15 ]
+
   grid:
     includes: source/grid.vwf
     properties:
