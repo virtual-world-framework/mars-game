@@ -1,4 +1,5 @@
 this.initialize = function() {
+	
 	if ( this.enabled === true ) {
 		this.future( 0 ).registerGameStartedListener();
 		this.future( 0 ).registerScenarioSucceededListener();
@@ -8,63 +9,40 @@ this.initialize = function() {
 }
 
 this.registerGameStartedListener = function() {
-    var scene = this.find( "/" )[ 0 ];
+	var scene = this.find( "/" )[ 0 ];
     scene.gameStarted = ( function( ) {
-        this.broadcastGameStarted( );
+        this.broadcastEvent( 'gameStarted', '' );
     } ).bind( this );
 }
 
 this.registerScenarioSucceededListener = function() {
-    var scene = this.find( "/" )[ 0 ];
+	var scene = this.find( "/" )[ 0 ];
     scene.scenarioSucceeded = ( function( ) {
-        this.broadcastScenarioSucceeded( scene.activeScenarioPath );
+    	this.broadcastEvent( 'scenarioSucceeded', scene.activeScenarioPath );
     } ).bind( this );
 }
 
 this.registerScenarioFailedListener = function() {
-    var scene = this.find( "/" )[ 0 ];
+	var scene = this.find( "/" )[ 0 ];
     scene.scenarioFailed = ( function( ) {
-        this.broadcastScenarioFailed( scene.activeScenarioPath );
+        this.broadcastEvent( 'scenarioFailed', scene.activeScenarioPath );
     } ).bind( this );
 }
 
 this.registerScenarioResetListener = function() {
-    var scene = this.find( "/" )[ 0 ];
+	var scene = this.find( "/" )[ 0 ];
     scene.scenarioReset = ( function( scenarioName ) {
-        this.broadcastScenarioReset( scenarioName );
+        this.broadcastEvent( 'scenarioReset', scenarioName );
     } ).bind( this );
 }
 
-this.broadcastGameStarted = function( ) {
-	var event = 'gameStarted';
-	var value = '';
-	var params = [ event, value ];
-	this.createRequest ( 'event', params );
-}
-
-this.broadcastScenarioSucceeded = function( scenarioName ) {
-	var event = 'scenarioSucceeded';
-	var value = scenarioName;
-	var params = [ event, value ];
-	this.createRequest ( 'event', params );
-}
-
-this.broadcastScenarioFailed = function( scenarioName ) {
-    var event = 'scenarioFailed';
-	var value = scenarioName;
-	var params = [ event, value ];
-	this.createRequest ( 'event', params );
-}
-
-this.broadcastScenarioReset = function( scenarioName ) {
-	var event = 'scenarioReset';
-	var value = scenarioName;
+this.broadcastEvent = function( event, value ) {
 	var params = [ event, value ];
 	this.createRequest ( 'event', params );
 }
 
 this.createRequest = function( type, params ) {
-
+	
 	var scene = this.find( "/" )[ 0 ];
 	
 	var event = params[ 0 ];
