@@ -1,11 +1,10 @@
-var currentGrid;
-
 this.initialize = function() {
-
-    this.future( 0 ).registerGameStartedListener();
-    this.future( 0 ).registerScenarioSucceededListener();
-    this.future( 0 ).registerScenarioFailedListener();
-    
+	if ( this.enabled === true ) {
+		this.future( 0 ).registerGameStartedListener();
+    	this.future( 0 ).registerScenarioSucceededListener();
+    	this.future( 0 ).registerScenarioFailedListener();
+    	this.future( 0 ).registerScenarioResetListener();
+    }
 }
 
 this.registerGameStartedListener = function() {
@@ -29,6 +28,20 @@ this.registerScenarioFailedListener = function() {
     } ).bind( this );
 }
 
+this.registerScenarioResetListener = function() {
+    var scene = this.find( "/" )[ 0 ];
+    scene.scenarioReset = ( function( scenarioName ) {
+        this.broadcastScenarioReset( scenarioName );
+    } ).bind( this );
+}
+
+this.broadcastGameStarted = function( ) {
+	var event = 'gameStarted';
+	var value = '';
+	var params = [ event, value ];
+	this.createRequest ( 'event', params );
+}
+
 this.broadcastScenarioSucceeded = function( scenarioName ) {
 	var event = 'scenarioSucceeded';
 	var value = scenarioName;
@@ -43,9 +56,9 @@ this.broadcastScenarioFailed = function( scenarioName ) {
 	this.createRequest ( 'event', params );
 }
 
-this.broadcastGameStarted = function( ) {
-	var event = 'gameStarted';
-	var value = '';
+this.broadcastScenarioReset = function( scenarioName ) {
+	var event = 'scenarioReset';
+	var value = scenarioName;
 	var params = [ event, value ];
 	this.createRequest ( 'event', params );
 }
