@@ -241,7 +241,7 @@ properties:
       soundURL: "assets/sounds/vo/L3VO2_Mission_S.ogg"
       initialVolume: 0.65
       soundGroup: vo
-      subtitle: "[MC]: Yes you are…but you need to check if you can actually see the Mini Rover! For this you will need two new Blocks: the Conditional Loop Block, and the Scan Block. The Conditional Loop will repeat programs until something happens. The Scan Block detects nearby objects."
+      subtitle: "[MC]: Yes you are… you need to check if you can actually see the Mini Rover! For this you will need two new Blocks: the Conditional Loop Block, and the Scan Block. The Conditional Loop will repeat programs until something happens. The Scan Block detects nearby objects."
       groupReplacementMethod: queue
     - soundName: "L3VO3_Rover_S"
       soundURL: "assets/sounds/vo/L3VO3_Rover_S.ogg"
