@@ -67,19 +67,10 @@ children:
           - playSound:
             - musicStandardGameplay
           - resetRoverSensors:
-
-        playStartingVO_3b:
-          triggerCondition:
-          - onScenarioStart:
-          additionalCondition:
-          - not:
-            - readBlackboard:
-              - Level3bStartSounds
-          actions:
-          - playSound:
-            - L3VO4_Rover
-          - writeToBlackboard:
-            - Level3bStartSounds
+          - waitForNode:
+            - graph
+            - blinkBlocklyTab:
+              - graph
 
         failOnMove_2d:
           triggerCondition:
@@ -105,6 +96,8 @@ children:
             - musicSuccessShort
           - playSound:
             - L3VO4_Rover_S
+          - stopBlinkBlocklyTab:
+            - graph
 
         setCameraView:
           triggerCondition:
