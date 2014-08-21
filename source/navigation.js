@@ -5,6 +5,16 @@ var defaultNav = {
     scroll: undefined
 }
 
+// Zoom bounds in meters
+var topDown_MaxAltitude = 42;
+var topDown_MinAltitude = 9;
+var thirdPerson_MaxZoom = 21;
+var thirdPerson_MinZoom = 6;
+
+// Angle bounds in degrees
+var thirdPerson_MaxAngle = 85;
+var thirdPerson_MinAngle = 5;
+
 function setUpNavigation() {
 
     var threejs = findThreejsView();
@@ -68,8 +78,8 @@ function handleMouseNavigation( deltaX, deltaY, navObject, navMode, rotationSpee
                 var pitchRadians = deltaY * rotationSpeedRadians;
                 var currentPitch = Math.acos( navThreeObject.matrixWorld.elements[ 10 ] );
                 var resultingPitch = currentPitch + pitchRadians;
-                var upperBound = Math.PI / 2;
-                var lowerBound = 0.3;
+                var upperBound = thirdPerson_MaxAngle * Math.PI / 180;
+                var lowerBound = thirdPerson_MinAngle * Math.PI / 180;
 
                 if ( resultingPitch > upperBound ) {
                     pitchRadians = upperBound - currentPitch;
@@ -115,13 +125,8 @@ function handleScroll( wheelDelta, navObject, navMode, rotationSpeed, translatio
             var numClicks = wheelDelta / 3;
             var navZ = navObject.threeObject.matrixWorld.elements[ 14 ];
             navZ -= numClicks;
-
-            // Keep the view within reasonable distance of the grid area
-            var upperBound = gridBounds.topRight[ 0 ] - gridBounds.bottomLeft[ 0 ];
-            var lowerBound = ( gridBounds.topRight[ 0 ] - gridBounds.bottomLeft[ 0 ] ) / 3;
-            navZ = navZ > upperBound ? upperBound : navZ;
-            navZ = navZ < lowerBound ? lowerBound : navZ;
-
+            navZ = navZ > topDown_MaxAltitude ? topDown_MaxAltitude : navZ;
+            navZ = navZ < topDown_MinAltitude ? topDown_MinAltitude : navZ;
             navObject.threeObject.matrixWorld.elements[ 14 ] = navZ;
             break;
 
@@ -139,22 +144,19 @@ function handleScroll( wheelDelta, navObject, navMode, rotationSpeed, translatio
                            ( navWorldMat.elements[ 14 ] - orbitTarget[ 2 ] ) * 0.1 );
             newCameraLoc.multiplyScalar( numClicks ).add( cameraLoc );
 
-            // Keep the view within reasonable distance of the grid area, and from going through the target
             var dist = origin.distanceTo( newCameraLoc );
-            var upperBound = ( gridBounds.topRight[ 0 ] - gridBounds.bottomLeft[ 0 ] ) / 2.5;
-            var lowerBound = ( gridBounds.topRight[ 0 ] - gridBounds.bottomLeft[ 0 ] ) / 8;
             if ( wheelDelta > 0 && cameraLoc.distanceTo( newCameraLoc ) > cameraLoc.distanceTo( origin ) ) {
                 return;
             }
 
-            if ( dist < lowerBound ) {
+            if ( dist < thirdPerson_MinZoom ) {
                 var heading = new THREE.Vector3();
                 heading.subVectors( cameraLoc, origin ).normalize();
-                newCameraLoc.addVectors( origin, heading.multiplyScalar( lowerBound ) );
-            } else if ( dist > upperBound ) {
+                newCameraLoc.addVectors( origin, heading.multiplyScalar( thirdPerson_MinZoom ) );
+            } else if ( dist > thirdPerson_MaxZoom ) {
                 var heading = new THREE.Vector3();
                 heading.subVectors( cameraLoc, origin ).normalize();
-                newCameraLoc.addVectors( origin, heading.multiplyScalar( upperBound ) );
+                newCameraLoc.addVectors( origin, heading.multiplyScalar( thirdPerson_MaxZoom ) );
             }
 
             navWorldMat.elements[ 12 ] = newCameraLoc.x;
@@ -211,8 +213,8 @@ function moveNavObject( dx, dy, navObject, navMode, rotationSpeed, translationSp
 
             var currentPitch = Math.acos( navThreeObject.matrixWorld.elements[ 10 ] );
             var resultingPitch = currentPitch + pitchRadians;
-            var upperBound = Math.PI / 2;
-            var lowerBound = 0.3;
+            var upperBound = thirdPerson_MaxAngle * Math.PI / 180;
+            var lowerBound = thirdPerson_MinAngle * Math.PI / 180;
 
             if ( resultingPitch > upperBound ) {
                 pitchRadians = upperBound - currentPitch;
