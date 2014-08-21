@@ -16,8 +16,9 @@ properties:
   emitterSize: [ 48, 48, 15 ]
   image: "assets/images/dust_smoke.png"
   depthWrite: false
+  offsetFromTarget: [ 10, 10, 3 ]
 methods:
-  update:
-  changeDirection:
+  setUpEvents:
+  followCamera:
 scripts:
   - source: source/dustSystem.js

@@ -200,6 +200,14 @@ children:
           - playSound:
             - L2VO3_Rover_H4
 
+        setCameraView:
+          triggerCondition:
+          - onBlocklyStarted:
+            - rover
+          actions:
+          - setCinematicCameraView:
+            - [ 13, 65, -15 ]
+
   grid:
     includes: source/grid.vwf
     properties:

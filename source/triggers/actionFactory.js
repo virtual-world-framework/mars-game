@@ -402,6 +402,31 @@ this.actionSet.playVideo = function( params, context ) {
     }
 }
 
+this.actionSet.setCinematicCameraView = function( params, context ) {
+    if ( !params || params.length !== 1 ) {
+        self.logger.errorx( "setCinematicCameraView", "This action takes one parameter: An array " +
+                            "containing the radius (meters), yaw (degrees), and pitch (degrees) " +
+                            "of the camera." );
+        return undefined;
+    }
+
+    var pose = params[ 0 ];
+
+    return function() {
+        context.setCinematicView( pose );
+    }
+}
+
+this.actionSet.resetCameraView = function( params, context ) {
+    if ( params && params.length > 0 ) {
+        self.logger.warnx( "resetCameraView", "This action does not take parameters." );
+    }
+
+    return function() {
+        context.resetView();
+    }
+}
+
 function getScenario( context ) {
     if ( context.getCurrentScenario ){
         return context.getCurrentScenario();

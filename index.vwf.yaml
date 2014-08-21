@@ -30,6 +30,8 @@ methods:
   executeBlock:
   displayTiles:
   displayGraph:
+  setCinematicView:
+  resetView:
 events:
   gameStarted:
   scenarioReset:
@@ -178,6 +180,8 @@ children:
               topDownStartPose: [ 0, 0, -90 ]
             methods:
               changePointOfView$:
+              setCameraPose:
+              setNavigationFromPOV:
             events:
               changedPOV:
             scripts:

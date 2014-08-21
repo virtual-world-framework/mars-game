@@ -18,6 +18,8 @@ this.onSceneLoaded = function() {
 }
 
 this.startScenario = function() {
+    this.logger.logx( this.scenarioName + ".startScenario", "Scenario started." );
+
     if ( activeScenario !== this ) {
 
         // Clear out the triggers from the previous scenario.
@@ -59,8 +61,6 @@ this.startScenario = function() {
             this.startStateExecutor.executeFunction( param, scene );
         }
     }
-
-    this.logger.logx( this.scenarioName + ".startScenario", "Scenario started." );
 
     this.enter();
     scene.scenarioStarted( this );

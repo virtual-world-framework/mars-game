@@ -80,11 +80,10 @@ children:
           - onBlocklyStopped:
             - rover
           additionalCondition:
-          - and:
-            - isAtPosition:
-              - rover
-              - 7
-              - 5
+          - isAtPosition:
+            - rover
+            - 7
+            - 5
           actions:
           - scenarioSuccess:
           - showAlert:
@@ -150,6 +149,14 @@ children:
             - L3VO2_Rover_H2
           - writeToBlackboard:
             - Level2eHint2
+
+        setCameraView:
+          triggerCondition:
+          - onBlocklyStarted:
+            - rover
+          actions:
+          - setCinematicCameraView:
+            - [ 13, 65, -15 ]
 
   grid:
     includes: source/grid.vwf

@@ -21,6 +21,12 @@ children:
       gridOpacity: 0.5
       renderTop: false
       tileVisible: true
+    children:
+      editToolTiles:
+        extends: http://vwf.example.com/graphtool/graphgroup.vwf
+        properties:
+          groupVisible: false
+          graphObjects: []
     methods:
       toggleTileVisibility: |
         this.tileVisible = !this.tileVisible;
