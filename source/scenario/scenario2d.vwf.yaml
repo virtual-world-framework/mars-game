@@ -95,8 +95,10 @@ children:
             - musicStandardGameplay
           - playSound:
             - musicSuccess
-          - playSound:
-            - SCVO8_Control
+          - delay:
+            - 5
+            - playSound:
+              - SCVO8_Control
 
         playHint1_2d:
           triggerCondition:
