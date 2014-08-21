@@ -12,7 +12,7 @@ properties:
       groupReplacementMethod: replace
     - soundName: "musicMenuLoop"
       soundURL: "assets/sounds/music/musicMenuLoop.ogg"
-      initialVolume: 0.8
+      initialVolume: 0.3
       isLooping: true
       allowMultiplay: false
       soundGroup: music
