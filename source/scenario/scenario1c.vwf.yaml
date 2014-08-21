@@ -92,6 +92,8 @@ children:
           - scenarioSuccess:
           - showAlert:
             - "You have a bird's eye view now!"
+          - showAlert:
+            - "Right click to move camera!"
           - stopBlinkHUDElement:
             - camera_topDown
           - playSound:

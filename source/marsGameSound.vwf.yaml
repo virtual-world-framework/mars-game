@@ -127,7 +127,7 @@ properties:
       soundURL: "assets/sounds/vo/L1VO14_Rover_m.ogg"
       initialVolume: 0.65
       soundGroup: vo
-      subtitle: "[ROVER]: Now that I’ve got this spare battery, I should go back to the landing pod and get it charged up!  First step is to figure out how to turn around…"
+      subtitle: "[ROVER]: Now that I've got this spare battery, I should go back to my starting point and get it charged up! First step is to figure out how to turn around...."
       groupReplacementMethod: queue
     - soundName: "L1VO15_Rover"
       soundURL: "assets/sounds/vo/L1VO15_Rover_m.ogg"

@@ -100,7 +100,7 @@ children:
           actions:
           - scenarioSuccess:
           - showAlert:
-            - "Course plotted! Now to find the little guy."
+            - "Course Plotted: Navigation Program Update Required"
           - playSound:
             - musicSuccessShort
 
