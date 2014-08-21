@@ -9,9 +9,7 @@ function setUpStatusDisplay() {
 }
 
 function resetSubtitles() {
-    while ( subtitleDisplayWrapper.firstChild ) {
-        subtitleDisplayWrapper.removeChild( subtitleDisplayWrapper.firstChild );
-    }
+    subtitleDisplayWrapper.innerHTML = "";
 }
 
 function pushSubtitle( message, subtitleTime ) {
