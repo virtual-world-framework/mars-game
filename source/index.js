@@ -721,9 +721,6 @@ function initializePauseMenu() {
             case "resume":
                 buttons[ i ].onclick = closePauseMenu;
                 break;
-            case "restart":
-                buttons[ i ].onclick = restartGame;
-                break;
             case "settings":
                 buttons[ i ].onclick = openSettingsMenu;
                 break;
@@ -827,23 +824,13 @@ function openScenarioMenu() {
     loadScenarioData();
 }
 
-function restartGame() {
-    var sceneID = vwf_view.kernel.application();
-    resetSubtitles();
-    clearBlockly();
-    currentBlocklyNodeID = undefined;
-    vwf_view.kernel.setProperty( sceneID, "blockly_activeNodeID", undefined );
-    vwf_view.kernel.callMethod( sceneID, "restartGame" );
-    closePauseMenu();
-}
-
 function exitToMainMenu() {
     var sceneID = vwf_view.kernel.application();
     resetSubtitles();
     clearBlockly();
     currentBlocklyNodeID = undefined;
     vwf_view.kernel.setProperty( sceneID, "blockly_activeNodeID", undefined );
-    vwf_view.kernel.callMethod( sceneID, "goToMainMenu" );
+    vwf_view.kernel.callMethod( sceneID, "restartGame" );
     closePauseMenu();
 }
 

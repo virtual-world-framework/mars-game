@@ -33,7 +33,6 @@ methods:
   setCinematicView:
   resetView:
   restartGame:
-  goToMainMenu:
 events:
   gameStarted:
   scenarioReset:
