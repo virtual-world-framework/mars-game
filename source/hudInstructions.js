@@ -207,15 +207,19 @@ function addBlockToStackList( topBlock, loopIndex ) {
         } else if ( blockType === "controls_repeat_extended" ) {
             blockData.name = "repeatTimes";
             status.blockStack.push( blockData );
-            var firstBlockInLoop = currentBlock.getInput( "DO" ).connection.targetConnection.sourceBlock_;
-            addBlockToStackList( firstBlockInLoop, 0 );
-
+            var loopConnection = currentBlock.getInput( "DO" ).connection.targetConnection;
+            if ( loopConnection ) {
+                var firstBlockInLoop = loopConnection.sourceBlock_;
+                addBlockToStackList( firstBlockInLoop, 0 );
+            }
         } else if ( blockType === "controls_whileUntil" ) {
             blockData.name = "repeatUntil";
             status.blockStack.push( blockData );
-            var firstBlockInLoop = currentBlock.getInput( "DO" ).connection.targetConnection.sourceBlock_;
-            addBlockToStackList( firstBlockInLoop, 0 );
-
+            var loopConnection = currentBlock.getInput( "DO" ).connection.targetConnection;
+            if ( loopConnection ) {
+                var firstBlockInLoop = currentBlock.getInput( "DO" ).connection.targetConnection.sourceBlock_;
+                addBlockToStackList( firstBlockInLoop, 0 );
+            }
         } else if ( blockType === "controls_sensor" ) {
             blockData.name = "sensor";
             status.blockStack.push( blockData );
