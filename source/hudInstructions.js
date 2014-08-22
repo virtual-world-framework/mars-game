@@ -201,22 +201,25 @@ function addBlockToStackList( topBlock, loopIndex ) {
         } else if ( blockType === "controls_repeat_extended" ) {
             blockData.name = "repeatTimes";
             status.blockStack.push( blockData );
-
-            var firstBlockInLoop = currentBlock.getInput( "DO" ).connection.targetConnection.sourceBlock_;
-            var loopTimes = parseInt( Blockly.JavaScript.valueToCode( currentBlock, 'TIMES', Blockly.JavaScript.ORDER_ASSIGNMENT ) || '0' ) || 0;
-            for ( var i = 1; i <= loopTimes; i++ ) {
-                addBlockToStackList( firstBlockInLoop, i );
+            var loopConnection = currentBlock.getInput( "DO" ).connection.targetConnection;
+            if ( loopConnection ) {
+                var firstBlockInLoop = loopConnection.sourceBlock_;
+                var loopTimes = parseInt( Blockly.JavaScript.valueToCode( currentBlock, 'TIMES', Blockly.JavaScript.ORDER_ASSIGNMENT ) || '0' ) || 0;
+                for ( var i = 1; i <= loopTimes; i++ ) {
+                    addBlockToStackList( firstBlockInLoop, i );
+                }
             }
         } else if ( blockType === "controls_whileUntil" ) {
             blockData.name = "repeatTimes";
             status.blockStack.push( blockData );
-
-            var firstBlockInLoop = currentBlock.getInput( "DO" ).connection.targetConnection.sourceBlock_;
-            var loopTimes = 1;
-            for ( var i = loopTimes - 1; i >= 0; i-- ) {
-                addBlockToStackList( firstBlockInLoop, i );
+            var loopConnection = currentBlock.getInput( "DO" ).connection.targetConnection;
+            if ( loopConnection ) {
+                var firstBlockInLoop = currentBlock.getInput( "DO" ).connection.targetConnection.sourceBlock_;
+                var loopTimes = 1;
+                for ( var i = loopTimes - 1; i >= 0; i-- ) {
+                    addBlockToStackList( firstBlockInLoop, i );
+                }
             }
-
         } else if ( blockType === "controls_sensor" ) {
             blockData.name = "repeatTimes";
             status.blockStack.push( blockData );

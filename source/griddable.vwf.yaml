@@ -5,4 +5,6 @@ properties:
   isCollidable: true
 events:
   addedToGrid:
+scripts:
+  - source: source/griddable.js
   
