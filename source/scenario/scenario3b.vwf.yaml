@@ -67,19 +67,10 @@ children:
           - playSound:
             - musicStandardGameplay
           - resetRoverSensors:
-
-        playStartingVO_3b:
-          triggerCondition:
-          - onScenarioStart:
-          additionalCondition:
-          - not:
-            - readBlackboard:
-              - Level3bStartSounds
-          actions:
-          - playSound:
-            - L3VO4_Rover
-          - writeToBlackboard:
-            - Level3bStartSounds
+          - waitForNode:
+            - graph
+            - blinkBlocklyTab:
+              - graph
 
         failOnMove_2d:
           triggerCondition:
@@ -100,11 +91,13 @@ children:
           actions:
           - scenarioSuccess:
           - showAlert:
-            - "Course plotted! Now to find the little guy."
+            - "Course Plotted: Navigation Program Update Required"
           - playSound:
             - musicSuccessShort
           - playSound:
             - L3VO4_Rover_S
+          - stopBlinkBlocklyTab:
+            - graph
 
         setCameraView:
           triggerCondition:

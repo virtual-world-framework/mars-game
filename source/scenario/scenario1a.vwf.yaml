@@ -17,11 +17,11 @@ properties:
   - setProperty:
     - rover
     - blockly_allowedBlocks
-    - 1
+    - 3
   - setProperty:
     - rover
     - lowRam
-    - 0
+    - 1
 
   # TODO: Simplify heading/rotation
   # Set initial rotation using heading
