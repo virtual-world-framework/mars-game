@@ -9,7 +9,7 @@ properties:
   visible:
     set: |
       this.setPickupVisibility( value );
-    value: true
+    value: false
 methods:
   setPickupVisibility:
 scripts:

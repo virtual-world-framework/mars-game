@@ -20,10 +20,6 @@ properties:
     - blockly_allowedBlocks
     - 30
 
-  - setSceneProperty:
-    - blockly_activeNodeID
-    - undefined
-
   # TODO: Simplify heading/rotation
   # Set initial rotation using heading
   # Currently, moveLeft & moveRight in rover.js
