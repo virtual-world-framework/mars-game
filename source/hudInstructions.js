@@ -10,21 +10,27 @@ function createHUD() {
     blocklyButton.icon = new Image();
     blocklyButton.icon.src = "assets/images/hud/blockly_large.png";
     blocklyButton.onMouseDown = clickBlockly;
-    hud.add( blocklyButton, "right", "bottom", { "x": -30, "y": -30 } );
+    hud.add( blocklyButton, "right", "bottom", { "x": -32, "y": -30 } );
 
     var graphButton = new HUD.Element( "graphButton", drawHelicamButton, 64, 64 );
     graphButton.icon = new Image();
     graphButton.icon.src = "assets/images/hud/graph_display.png";
     graphButton.enabled = true;
     graphButton.onMouseDown = toggleGraphDisplay;
-    hud.add( graphButton, "right", "bottom", { "x": -102, "y": -30 } );
+    hud.add( graphButton, "right", "bottom", { "x": -104, "y": -30 } );
 
     var tilesButton = new HUD.Element( "tilesButton", drawHelicamButton, 64, 64 );
     tilesButton.icon = new Image();
     tilesButton.icon.src = "assets/images/hud/tiles_button.png";
     tilesButton.enabled = true;
     tilesButton.onMouseDown = toggleTiles;
-    hud.add( tilesButton, "right", "bottom", { "x": -174, "y": -30 } );
+    hud.add( tilesButton, "right", "bottom", { "x": -176, "y": -30 } );
+
+    var optionsButton = new HUD.Element( "optionsButton", drawIcon, 64, 64 );
+    optionsButton.icon = new Image();
+    optionsButton.icon.src = "assets/images/hud/options_button.png";
+    optionsButton.onMouseDown = openPauseMenu;
+    hud.add( optionsButton, "right", "bottom", { "x": -248, "y": -30 } );
 }
 
 function createRoverElement() {
