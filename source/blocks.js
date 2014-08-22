@@ -64,7 +64,7 @@ Blockly.JavaScript['controls_whileUntil'] = function(block) {
   }
 
   var code = 'while ('+ argument0 +') {\n' + branch + '}\n';
-  return code;
+  return constructBlockExeEventCall( block ) + code;
 
   // Do while/until loop.
   // var until = block.getFieldValue('MODE') == 'UNTIL';
