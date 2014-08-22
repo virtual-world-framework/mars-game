@@ -197,4 +197,10 @@ this.resetView = function() {
     }
 }
 
+this.restartGame = function() {
+    this.sceneBlackboard = {};
+    this.soundManager.stopAllSoundInstances();
+    this.activeScenarioPath = "mainMenuScenario";
+}
+
 //@ sourceURL=source/scene.js
