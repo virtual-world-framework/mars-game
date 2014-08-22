@@ -10,13 +10,20 @@ properties:
       allowMultiplay: false
       soundGroup: music
       groupReplacementMethod: replace
+    - soundName: "musicMenuIntro"
+      soundURL: "assets/sounds/music/musicMenuIntro.ogg"
+      initialVolume: 0.3
+      isLooping: false
+      allowMultiplay: false
+      soundGroup: music
+      groupReplacementMethod: replace
     - soundName: "musicMenuLoop"
       soundURL: "assets/sounds/music/musicMenuLoop.ogg"
       initialVolume: 0.3
       isLooping: true
       allowMultiplay: false
       soundGroup: music
-      groupReplacementMethod: replace
+      groupReplacementMethod: queue
     - soundName: "musicStoryScreen"
       soundURL: "assets/sounds/music/musicStoryScreenLoopFullMix.ogg"
       initialVolume: 0.8
@@ -132,7 +139,7 @@ properties:
     - soundName: "L1VO15_Rover"
       soundURL: "assets/sounds/vo/L1VO15_Rover_m.ogg"
       initialVolume: 0.65
-      subtitle: "[ROVER]: I can use a Loop Block to repeat Blocks. Doing this saves me time and RAM. I can specify the number of times it repeats by putting a Number Block in it."
+      subtitle: "[ROVER]: I can use a Loop Block to repeat Blocks. Doing this saves me time and RAM. I can specify the number of times it repeats by putting a Number Block in it. Right now I need to go four spaces to get to the ramp."
       soundGroup: vo
       groupReplacementMethod: queue
     - soundName: "L1VO16_Rover"
@@ -499,6 +506,66 @@ properties:
       soundURL: "assets/sounds/vo/ALVO28_Rover_m.ogg"
       initialVolume: 0.65
       subtitle: "[ROVER]: Try using the Conditional Block to decide what to do after you scan."
+      soundGroup: vo
+      groupReplacementMethod: queue
+    - soundName: "ALVO29_Rover"
+      soundURL: "assets/sounds/vo/ALVO29_Rover.ogg"
+      initialVolume: 0.65
+      subtitle: "[ROVER]: When I change the sign of the number in front of X, what happens?"
+      soundGroup: vo
+      groupReplacementMethod: queue
+    - soundName: "ALVO30_Rover"
+      soundURL: "assets/sounds/vo/ALVO30_Rover.ogg"
+      initialVolume: 0.65
+      subtitle: "[ROVER]: How does the line move as I change the size of the number in front of X?"
+      soundGroup: vo
+      groupReplacementMethod: queue
+    - soundName: "ALVO31_Rover"
+      soundURL: "assets/sounds/vo/ALVO31_Rover.ogg"
+      initialVolume: 0.65
+      subtitle: "[ROVER]: Can I put a number that's between 0 and 1 in front of X?  What happens then?"
+      soundGroup: vo
+      groupReplacementMethod: queue
+    - soundName: "ALVO32_Rover"
+      soundURL: "assets/sounds/vo/ALVO32_Rover.ogg"
+      initialVolume: 0.65
+      subtitle: "[ROVER]: If I open the programming window while I move, I can watch the program execute to see where the mistake is."
+      soundGroup: vo
+      groupReplacementMethod: queue
+    - soundName: "ALVO33_Rover"
+      soundURL: "assets/sounds/vo/ALVO33_Rover.ogg"
+      initialVolume: 0.65
+      subtitle: "[ROVER]: Hmmm.  Maybe I should step through the program in my head to make sure it is going to do what I think it should do."
+      soundGroup: vo
+      groupReplacementMethod: queue
+    - soundName: "ALVO34_Rover"
+      soundURL: "assets/sounds/vo/ALVO34_Rover.ogg"
+      initialVolume: 0.65
+      subtitle: "[ROVER]: Up there, in the top right corner.  What’s that blinking thing?"
+      soundGroup: vo
+      groupReplacementMethod: queue
+    - soundName: "ALVO35_Rover"
+      soundURL: "assets/sounds/vo/ALVO35_Rover.ogg"
+      initialVolume: 0.65
+      subtitle: "[ROVER]: I can get rid of blocks by dragging them back over to the left hand side."
+      soundGroup: vo
+      groupReplacementMethod: queue
+    - soundName: "ALVO36_Rover"
+      soundURL: "assets/sounds/vo/ALVO36_Rover.ogg"
+      initialVolume: 0.65
+      subtitle: "[ROVER]: I can move my helicam around using the arrow keys or the right mouse button."
+      soundGroup: vo
+      groupReplacementMethod: queue
+    - soundName: "ALVO37_Rover"
+      soundURL: "assets/sounds/vo/ALVO37_Rover.ogg"
+      initialVolume: 0.65
+      subtitle: "[ROVER]: This one is tricky.  I may need to do some of the work before I enter my loop."
+      soundGroup: vo
+      groupReplacementMethod: queue
+    - soundName: "ALVO38_Rover"
+      soundURL: "assets/sounds/vo/ALVO38_Rover.ogg"
+      initialVolume: 0.65
+      subtitle: "[ROVER]: I need to remember to make sure that I end my loop facing the same direction as I started, or else I'm going to go in circles."
       soundGroup: vo
       groupReplacementMethod: queue
     - soundName: "SCVO1_Rover"
