@@ -323,6 +323,7 @@ body {
     -moz-user-select: none;     /* Firefox all */
     -ms-user-select: none;      /* IE 10+ */
     cursor: default;
+    z-index: 51;
 }
 
 .videoWrapper {
