@@ -23,6 +23,10 @@ properties:
     playSound:
     stopSound:
 
+    # stop all sounds in a group (and clear the queue)
+    # arguments: the name of the sound group
+    stopSoundGroup:
+
     # play a video
     # arguments: the source of the video
     playVideo:

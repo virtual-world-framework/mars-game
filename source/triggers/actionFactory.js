@@ -74,6 +74,22 @@ this.actionSet.stopSound = function( params, context ) {
     }
 }
 
+this.actionSet.stopSoundGroup = function( params, context ) {
+    if ( !params || ( params.length !== 1 ) ) {
+        self.logger.warnx( "stopSound", "We need to know the name of the sound to stop!" );
+        return undefined;
+    }
+
+    var groupName = params[ 0 ];
+    var soundMgr = getSoundMgr( context );
+
+    if ( soundMgr ) {
+        return function() { soundMgr.stopSoundGroup( groupName ); };
+    } else {
+        return undefined;
+    }
+}
+
 this.actionSet.setMasterVolume = function( params, context ) {
     if ( !params || ( params.length !== 1 ) || ( params[ 0 ] > 1.0 ) || ( params[ 0 ] < 0.0 ) ) {
         self.logger.warnx( "setMasterVolume", "Takes a single argument 0.0 - 1.0" );

@@ -16,6 +16,8 @@ children:
           - onScenarioStart:
           actions:
           - playSound:
+            - musicMenuIntro
+          - playSound:
             - musicMenuLoop
 
         succeedOnIntroDone:
@@ -23,8 +25,8 @@ children:
           - onGameStarted:
           actions:
           - scenarioSuccess:
-          - stopSound:
-            - musicMenuLoop
+          - stopSoundGroup:
+            - music
 
   grid:
     includes: source/grid.vwf
