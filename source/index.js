@@ -911,7 +911,7 @@ function clearBlocklyTabs() {
 }
 
 function setVolume( value ) {
-    var sm, muteButton, readout, readoutPct;
+    var sm, muteButton;
     sm = vwf_view.kernel.find( vwf_view.kernel.application(), "/soundManager" )[ 0 ];
     if ( sm ) {
         value = Math.min( 1, Math.max( 0, value ) );
@@ -925,10 +925,6 @@ function setVolume( value ) {
             cachedVolume = value;
         }
         setVolumeSliderPosition( value );
-        readout = document.getElementById( "volumeReadout" );
-        readoutPct = value * 100;
-        readoutPct = Math.round( readoutPct );
-        readout.innerHTML = "Volume: " + readoutPct + "%";
         vwf_view.kernel.callMethod( sm, "setMasterVolume", [ value ] );
     }
 }
@@ -955,7 +951,12 @@ function setVolumeSliderPosition( volume ) {
     var volumeHandle = document.getElementById( "volumeHandle" );
     var deadzone = volumeHandle.clientWidth / 2;
     var pos = volume * ( volumeHandle.parentNode.clientWidth - deadzone * 2 );
+    var readout, readoutPct;
     volumeHandle.style.marginLeft = pos + "px";
+    readout = document.getElementById( "volumeReadout" );
+    readoutPct = volume * 100;
+    readoutPct = Math.round( readoutPct );
+    readout.innerHTML = "Volume: " + readoutPct + "%";
 }
 
 //@ sourceURL=source/index.js
