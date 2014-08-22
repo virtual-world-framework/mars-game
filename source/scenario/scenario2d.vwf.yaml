@@ -111,15 +111,6 @@ children:
                 - Level2dHint1
             - not:
               - readBlackboard:
-                - Level2dHint2
-            - not:
-              - readBlackboard:
-                - Level2dHint3
-            - not:
-              - readBlackboard:
-                - Level2dHint4
-            - not:
-              - readBlackboard:
                 - hasSucceeded
             - not:
               - readBlackboard:
@@ -139,12 +130,6 @@ children:
             - not:
               - readBlackboard:
                 - Level2dHint2
-            - not:
-              - readBlackboard:
-                - Level2dHint3
-            - not:
-              - readBlackboard:
-                - Level2dHint4
             - not:
               - readBlackboard:
                 - hasSucceeded
@@ -168,9 +153,6 @@ children:
                 - Level2dHint3
             - not:
               - readBlackboard:
-                - Level2dHint4
-            - not:
-              - readBlackboard:
                 - hasSucceeded
             - not:
               - readBlackboard:
@@ -179,7 +161,7 @@ children:
           - writeToBlackboard:
             - Level2dHint3
           - playSound:
-            - L2VO3_Rover_H3
+            - ALVO30_Rover
 
         playHint4_2d:
           triggerCondition:
@@ -200,7 +182,28 @@ children:
           - writeToBlackboard:
             - Level2dHint4
           - playSound:
-            - L2VO3_Rover_H4
+            - ALVO29_Rover
+
+        playHint5_2d:
+          triggerCondition:
+          - delay:
+            - 100
+          additionalCondition:
+          - and:
+            - not:
+              - readBlackboard:
+                - Level2dHint5
+            - not:
+              - readBlackboard:
+                - hasSucceeded
+            - not:
+              - readBlackboard:
+                - hasFailed
+          actions:
+          - writeToBlackboard:
+            - Level2dHint5
+          - playSound:
+            - ALVO31_Rover
 
         setCameraView:
           triggerCondition:
