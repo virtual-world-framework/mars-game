@@ -131,9 +131,35 @@ children:
                 - hasFailed
           actions:
           - playSound:
-            - ALVO22_Rover
+            - ALVO36_Rover
           - writeToBlackboard:
             - Level1hHint1
+
+        failOnIncompleteProgram_1h:
+          triggerCondition:
+          - onBlocklyStopped:
+          additionalCondition:
+          - and:
+            - not:
+              - readBlackboard:
+                - hasFailed
+            - not:
+              - readBlackboard:
+                - hasSucceeded
+            - not:
+              - readBlackboard:
+                - Level1hHint2
+          actions:
+          - scenarioFailure:
+            - incomplete
+          - playSound:
+            - FCVO2_Rover
+          - playSound:
+            - ALVO22_Rover
+          - writeToBlackboard:
+            - Level1hHint2
+          - writeToBlackboard:
+            - disableFailOnIncompleteProgram
 
         panToRadio_1h:
           triggerCondition:

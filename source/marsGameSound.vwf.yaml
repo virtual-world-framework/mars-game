@@ -24,6 +24,7 @@ properties:
       allowMultiplay: false
       soundGroup: music
       groupReplacementMethod: queue
+      queueDelayTime: 0.0
     - soundName: "musicStoryScreen"
       soundURL: "assets/sounds/music/musicStoryScreenLoopFullMix.ogg"
       initialVolume: 0.8
@@ -175,7 +176,7 @@ properties:
     - soundName: "L2VO3_Rover_H2"
       soundURL: "assets/sounds/vo/L2VO3_Rover_H2.ogg"
       initialVolume: 0.65
-      subtitle: "[ROVER]: I remember I can put a number in front of X…that will multiply them together. I wonder what will happen if I make the number bigger or smaller."
+      subtitle: "[ROVER]: I remember I can put a number in front of X… that will multiply them together. I wonder what will happen if I make the number bigger or smaller."
       soundGroup: vo
       groupReplacementMethod: queue
     - soundName: "L2VO3_Rover_H3"
@@ -532,12 +533,14 @@ properties:
       subtitle: "[ROVER]: If I open the programming window while I move, I can watch the program execute to see where the mistake is."
       soundGroup: vo
       groupReplacementMethod: queue
+      queueDelayTime: 2.0
     - soundName: "ALVO33_Rover"
       soundURL: "assets/sounds/vo/ALVO33_Rover.ogg"
       initialVolume: 0.65
       subtitle: "[ROVER]: Hmmm.  Maybe I should step through the program in my head to make sure it is going to do what I think it should do."
       soundGroup: vo
       groupReplacementMethod: queue
+      queueDelayTime: 2.0
     - soundName: "ALVO34_Rover"
       soundURL: "assets/sounds/vo/ALVO34_Rover.ogg"
       initialVolume: 0.65
@@ -566,6 +569,12 @@ properties:
       soundURL: "assets/sounds/vo/ALVO38_Rover.ogg"
       initialVolume: 0.65
       subtitle: "[ROVER]: I need to remember to make sure that I end my loop facing the same direction as I started, or else I'm going to go in circles."
+      soundGroup: vo
+      groupReplacementMethod: queue
+    - soundName: "ALVO39_Rover"
+      soundURL: "assets/sounds/vo/ALVO39_Rover.ogg"
+      initialVolume: 0.65
+      subtitle: "[ROVER]: What happens if I put a number in front of X?"
       soundGroup: vo
       groupReplacementMethod: queue
     - soundName: "SCVO1_Rover"

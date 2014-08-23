@@ -13,7 +13,8 @@ children:
       triggers:
         beginMainMenu:
           triggerCondition:
-          - onScenarioStart:
+          - delay:
+            - 1
           actions:
           - playSound:
             - musicMenuIntro
