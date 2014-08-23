@@ -103,7 +103,7 @@ children:
         playHint1_1f:
           triggerCondition:
           - delay:
-            - 20
+            - 1
           additionalCondition:
           - and:
             - not:
@@ -120,6 +120,27 @@ children:
             - ALVO20_Rover
           - writeToBlackboard:
             - Level1fHint1
+
+        playHint2_1f:
+          triggerCondition:
+          - delay:
+            - 30
+          additionalCondition:
+          - and:
+            - not:
+              - readBlackboard:
+                - Level1fHint2
+            - not:
+              - readBlackboard:
+                - hasSucceeded
+            - not:
+              - readBlackboard:
+                - hasFailed
+          actions:
+          - playSound:
+            - ALVO35_Rover
+          - writeToBlackboard:
+            - Level1fHint2
 
         setCameraView:
           triggerCondition:

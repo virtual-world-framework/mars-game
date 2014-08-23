@@ -72,19 +72,6 @@ children:
           - blinkHUDElement:
             - camera_topDown
 
-        # playStartingVO_1c:
-        #   triggerCondition:
-        #   - onScenarioStart:
-        #   additionalCondition:
-        #   - not:
-        #     - readBlackboard:
-        #       - Level1cStartSounds
-        #   actions:
-        #   - playSound:
-        #     - L1VO9_Rover
-        #   - writeToBlackboard:
-        #     - Level1cStartSounds
-
         succeedOnSuccess_1c:
           triggerCondition:
           - onHelicamToggle:
@@ -121,6 +108,27 @@ children:
             - ALVO17_Rover
           - writeToBlackboard:
             - Level1cHint1
+
+        playHint2_1c:
+          triggerCondition:
+          - delay:
+            - 40
+          additionalCondition:
+          - and:
+            - not:
+              - readBlackboard:
+                - Level1cHint2
+            - not:
+              - readBlackboard:
+                - hasSucceeded
+            - not:
+              - readBlackboard:
+                - hasFailed
+          actions:
+          - playSound:
+            - ALVO34_Rover
+          - writeToBlackboard:
+            - Level1cHint2
 
         setCameraView:
           triggerCondition:

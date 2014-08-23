@@ -12,7 +12,6 @@ properties:
   # executor.  It's fine if other function sets are also added, but this 
   # provides the baseline functionality that we need.
   actionSet:
-
     # cause scenario success/failure
     # arguments: none
     scenarioSuccess:

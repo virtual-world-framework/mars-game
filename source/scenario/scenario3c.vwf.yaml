@@ -96,6 +96,53 @@ children:
           - playSound:
             - L3VO5_Rover_S
 
+        playHint1_3c:
+          triggerCondition:
+          - delay:
+            - 20
+          additionalCondition:
+          - and:
+            - not:
+              - readBlackboard:
+                - Level3cHint1
+            - not:
+              - readBlackboard:
+                - hasSucceeded
+            - not:
+              - readBlackboard:
+                - hasFailed
+          actions:
+          - playSound:
+            - ALVO37_Rover
+          - writeToBlackboard:
+            - Level3cHint1
+
+        failOnIncompleteProgram_3c:
+          triggerCondition:
+          - onBlocklyStopped:
+          additionalCondition:
+          - and:
+            - not:
+              - readBlackboard:
+                - hasFailed
+            - not:
+              - readBlackboard:
+                - hasSucceeded
+            - not:
+              - readBlackboard:
+                - Level1hHint2
+          actions:
+          - scenarioFailure:
+            - incomplete
+          - playSound:
+            - FCVO2_Rover
+          - playSound:
+            - ALVO38_Rover
+          - writeToBlackboard:
+            - Level1hHint2
+          - writeToBlackboard:
+            - disableFailOnIncompleteProgram
+
         setCameraView:
           triggerCondition:
           - onBlocklyStarted:

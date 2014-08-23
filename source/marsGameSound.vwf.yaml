@@ -24,6 +24,7 @@ properties:
       allowMultiplay: false
       soundGroup: music
       groupReplacementMethod: queue
+      queueDelayTime: 0.0
     - soundName: "musicStoryScreen"
       soundURL: "assets/sounds/music/musicStoryScreenLoopFullMix.ogg"
       initialVolume: 0.8
@@ -532,12 +533,14 @@ properties:
       subtitle: "[ROVER]: If I open the programming window while I move, I can watch the program execute to see where the mistake is."
       soundGroup: vo
       groupReplacementMethod: queue
+      queueDelayTime: 2.0
     - soundName: "ALVO33_Rover"
       soundURL: "assets/sounds/vo/ALVO33_Rover.ogg"
       initialVolume: 0.65
       subtitle: "[ROVER]: Hmmm.  Maybe I should step through the program in my head to make sure it is going to do what I think it should do."
       soundGroup: vo
       groupReplacementMethod: queue
+      queueDelayTime: 2.0
     - soundName: "ALVO34_Rover"
       soundURL: "assets/sounds/vo/ALVO34_Rover.ogg"
       initialVolume: 0.65
