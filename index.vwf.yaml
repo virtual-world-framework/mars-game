@@ -86,6 +86,12 @@ children:
         extends: http://vwf.example.com/node3.vwf
         source: assets/3d/Terrain/rover_tracks_straight.dae
         type: model/vnd.collada+xml
+  collisionTerrain:
+    extends: http://vwf.example.com/node3.vwf
+    source: assets/3d/Terrain/collision_terrain.dae
+    type: model/vnd.collada+xml
+    properties:
+      visible: false
   blocks:
     includes: source/blocks.vwf
   airDust:
@@ -198,7 +204,7 @@ children:
           displayName: "Rover"
           castShadows: true
           receiveShadows: true
-          terrainName: "environment"
+          terrainName: "collisionTerrain"
           currentGridSquare: [ 0, 0 ]
           sensorValue: false
         children:
