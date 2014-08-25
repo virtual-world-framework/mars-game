@@ -411,6 +411,7 @@ vwf_view.satProperty = function( nodeID, propertyName, propertyValue ) {
 }
 
 function setUpView() {
+    Blockly.SOUNDS_ = {};
     mainMenu = new MainMenu();
     hud = new HUD();
     createHUD();
