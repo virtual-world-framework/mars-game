@@ -78,6 +78,13 @@ children:
           - writeToBlackboard:
             - Level1hStartSounds
 
+        highlightEndTile:
+          triggerCondition:
+          - onScenarioStart:
+          actions:
+          - callOutObjective:
+            - [ 8, 16 ]
+
         succeedOnSuccess_1h:
           triggerCondition:
           - onBlocklyStopped:
@@ -112,7 +119,7 @@ children:
             - showStatus:
               - "Click to continue!"
           - playVideo:
-            - "success_cinematic.mp4"          
+            - "success_cinematic.mp4"
 
         playHint1_1h:
           triggerCondition:

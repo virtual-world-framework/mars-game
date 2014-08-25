@@ -336,6 +336,24 @@ children:
         properties:
           groupVisible: false
           graphObjects: []
+      callOutTile:
+        extends: http://vwf.example.com/graphtool/graphplane.vwf
+        properties:
+          origin: [ 0, 0, 0 ]
+          normal: [ 0, 0, 1 ]
+          rotationAngle: 90
+          size: 1
+          color: [ 255, 255, 255 ]
+          opacity: 0.5
+          doubleSided: false
+          renderTop: true
+          visible: false
+        methods:
+          callOut:
+          blink:
+          stopBlink:
+        scripts:
+          - source: source/callouttile.js
   graph:
     extends: http://vwf.example.com/node3.vwf
     implements: http://vwf.example.com/blockly/controller.vwf

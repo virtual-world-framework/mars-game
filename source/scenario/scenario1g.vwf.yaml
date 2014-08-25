@@ -103,6 +103,13 @@ children:
           - playSound:
             - musicSuccessShort
 
+        highlightEndTile:
+          triggerCondition:
+          - onScenarioStart:
+          actions:
+          - callOutObjective:
+            - [ 8, 2 ]
+
         setCameraView:
           triggerCondition:
           - onBlocklyStarted:

@@ -93,6 +93,13 @@ children:
           - playSound:
             - L3VO1_Rover_S
 
+        highlightEndTile:
+          triggerCondition:
+          - onScenarioStart:
+          actions:
+          - callOutObjective:
+            - [ 13, 2 ]
+
         stopBlinkRoverTab_2e:
           triggerCondition:
           - or:
