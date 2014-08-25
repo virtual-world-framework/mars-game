@@ -390,6 +390,7 @@ vwf_view.satProperty = function( nodeID, propertyName, propertyValue ) {
 
     if ( nodeID === vwf_view.kernel.application() ) {
         if ( propertyName === "blockly_activeNodeID" ) {
+            Blockly.SOUNDS_ = {};
             selectBlocklyTab( propertyValue );
         }
     }
@@ -411,7 +412,6 @@ vwf_view.satProperty = function( nodeID, propertyName, propertyValue ) {
 }
 
 function setUpView() {
-    Blockly.SOUNDS_ = {};
     mainMenu = new MainMenu();
     hud = new HUD();
     createHUD();
