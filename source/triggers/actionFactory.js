@@ -313,18 +313,25 @@ this.actionSet.enableHelicam = function( params, context ) {
 }
 
 this.actionSet.panCamera = function( params, context ) {
-    if ( params && params.length > 1 ) {
-        self.logger.errorx( "panCamera", "This action takes one parameter: the " +
-                            "path of the node to pan towards.");
+    if ( params && params.length > 2 ) {
+        self.logger.errorx( "panCamera", "This action takes two parameters: the " +
+                            "path of the node to pan towards and an optional duration " +
+                            "for the camera to target that node before returning to " +
+                            "its original target.");
         return undefined;        
     }
 
     var targetPath = params[ 0 ];
+    var duration = params[ 1 ];
     var targetFollower = context.find( "//targetFollower" )[ 0 ];
 
     return function() {
+        var lastTargetPath = targetFollower.targetPath;
         targetFollower.camera.pointOfView = "thirdPerson";
         targetFollower.setTargetPath$( targetPath );
+        if ( !isNaN( duration ) ) {
+            targetFollower.future( duration ).setTargetPath$( lastTargetPath );
+        }
     }
 }
 

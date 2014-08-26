@@ -175,14 +175,7 @@ children:
           actions:
           - panCamera:
             - /pickups/radio
-
-        panToRover_1h:
-          triggerCondition:
-          - delay:
-            - 5
-          actions:
-          - panCamera:
-            - /player/rover
+            - 3
 
         setCameraView:
           triggerCondition:
