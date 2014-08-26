@@ -443,6 +443,34 @@ this.actionSet.resetCameraView = function( params, context ) {
     }
 }
 
+this.actionSet.callOutObjective = function( params, context ) {
+    if ( params && params.length !== 1 ) {
+        self.logger.warnx( "callOutObjective", "This action takes one parameter: The " +
+                                               "coordinates of the tile to be called out." );
+    }
+
+    var callOutTile = context.gridTileGraph.callOutTile;
+    var grid = context[ context.activeScenarioPath ].grid;
+    var tileCoords = params[ 0 ];
+    var coords = grid.getWorldFromGrid( tileCoords[ 0 ], tileCoords[ 1 ] );
+
+    return function() {
+        callOutTile.callOut( coords );
+    }
+}
+
+this.actionSet.cancelCallOut = function( params, context ) {
+    if ( params && params.length > 0 ) {
+        self.logger.warnx( "cancelCallOut", "This action takes no parameters." );
+    }
+
+    var callOutTile = context.find( "/gridTileGraph/callOutTile" )[ 0 ];
+
+    return function() {
+        callOutTile.stopBlink();
+    }
+}
+
 function getScenario( context ) {
     if ( context.getCurrentScenario ){
         return context.getCurrentScenario();

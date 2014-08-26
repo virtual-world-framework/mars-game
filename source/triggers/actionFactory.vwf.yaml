@@ -86,5 +86,13 @@ properties:
     # arguments: none
     resetCameraView:
 
+    # Adds a blinking tile to the objective grid space
+    # arguments: coordinates
+    callOutObjective:
+
+    # Removes callout tile
+    # arguments: none
+    cancelCallOut:
+
 scripts:
 - source: source/triggers/actionFactory.js

@@ -97,6 +97,7 @@ properties:
         - musicFailure
       - writeToBlackboard:
         - hasSucceeded
+      - cancelCallOut:
 
     recordKeepingOnFailure:
       triggerCondition:

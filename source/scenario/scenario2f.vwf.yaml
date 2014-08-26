@@ -95,6 +95,13 @@ children:
           - playSound:
             - L3VO2_Mission_S
 
+        highlightEndTile:
+          triggerCondition:
+          - onScenarioStart:
+          actions:
+          - callOutObjective:
+            - [ 7, 5 ]
+
         stopBlinkRoverTab_2f:
           triggerCondition:
           - or:
