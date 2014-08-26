@@ -57,6 +57,8 @@ children:
           actions:
           - playSound:
             - musicStandardGameplay
+          - setObjective:
+            - "Graph a basic line function"
 
         failOnMove_2c:
           triggerCondition:

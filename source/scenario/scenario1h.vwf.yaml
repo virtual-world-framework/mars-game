@@ -64,6 +64,8 @@ children:
           actions:
           - playSound:
             - musicStandardGameplay
+          - setObjective:
+            - "Create a program to reach the radio module"
 
         playStartingVO_1h:
           triggerCondition:

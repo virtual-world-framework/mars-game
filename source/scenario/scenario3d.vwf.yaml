@@ -70,6 +70,8 @@ children:
           - playSound:
             - musicStandardGameplay
           - resetRoverSensors:
+          - setObjective:
+            - "Graph a line to find the slope of the tracks"
 
         playStartingVO_3d:
           triggerCondition:

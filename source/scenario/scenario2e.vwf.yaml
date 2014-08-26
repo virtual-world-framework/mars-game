@@ -57,10 +57,10 @@ children:
           actions:
           - playSound:
             - musicStandardGameplay
-          - waitForNode:
+          - blinkBlocklyTab:
             - rover
-            - blinkBlocklyTab:
-              - rover
+          - setObjective:
+            - "Create a program to follow the slope of the tracks"
 
         playStartingVO_2e:
           triggerCondition:

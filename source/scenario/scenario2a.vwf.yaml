@@ -61,6 +61,8 @@ children:
             - L2VO4_Rover
           - blinkHUDElement:
             - graphButton
+          - setObjective:
+            - "Click the GRAPH icon on your heads-up display"
 
         failOnMove_2a:
           triggerCondition:

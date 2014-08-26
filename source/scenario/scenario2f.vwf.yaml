@@ -57,10 +57,10 @@ children:
           actions:
           - playSound:
             - musicStandardGameplay
-          - waitForNode:
+          - blinkBlocklyTab:
             - rover
-            - blinkBlocklyTab:
-              - rover
+          - setObjective:
+            - "Repeat the program to follow the slope 3 times"
 
         playStartingVO_2f:
           triggerCondition:

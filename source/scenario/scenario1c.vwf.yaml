@@ -71,6 +71,8 @@ children:
             - musicStandardGameplay
           - blinkHUDElement:
             - camera_topDown
+          - setObjective:
+            - "Select the Helicam view using the CAMERA selector"
 
         succeedOnSuccess_1c:
           triggerCondition:

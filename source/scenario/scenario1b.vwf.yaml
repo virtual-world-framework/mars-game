@@ -71,6 +71,8 @@ children:
           actions:
           - playSound:
             - musicStandardGameplay
+          - setObjective:
+            - "Move forward to pick up your Helicam"
 
         playStartingVO_1b:
           triggerCondition:

@@ -59,10 +59,10 @@ children:
             - musicStandardGameplay
           - blinkHUDElement:
             - blocklyButton
-          - waitForNode:
+          - blinkBlocklyTab:
             - graph
-            - blinkBlocklyTab:
-              - graph
+          - setObjective:
+            - "Switch to the GRAPH tab in your PROGRAM interface"
 
         failOnMove_2b:
           triggerCondition:

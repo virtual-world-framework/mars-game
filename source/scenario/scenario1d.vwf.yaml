@@ -71,6 +71,8 @@ children:
             - musicStandardGameplay
           - blinkHUDElement:
             - tilesButton
+          - setObjective:
+            - "Click the TILES icon on your heads-up display"
 
         playStartingVO_1d:
           triggerCondition:

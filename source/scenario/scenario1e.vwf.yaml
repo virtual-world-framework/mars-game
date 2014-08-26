@@ -71,6 +71,8 @@ children:
             - musicStandardGameplay
           - blinkHUDElement:
             - blocklyButton
+          - setObjective:
+            - "Pick up the battery pack up ahead"
 
         playStartingVO_1e:
           triggerCondition:

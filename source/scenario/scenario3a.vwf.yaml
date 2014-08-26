@@ -79,6 +79,8 @@ children:
           - playSound:
             - musicStandardGameplay
           - resetRoverSensors:
+          - setObjective:
+            - "Create a program to follow the tracks"
 
         playTravelVO_3a:
           triggerCondition:

@@ -70,10 +70,10 @@ children:
           - playSound:
             - musicStandardGameplay
           - resetRoverSensors:
-          - waitForNode:
+          - blinkBlocklyTab:
             - graph
-            - blinkBlocklyTab:
-              - graph
+          - setObjective:
+            - "Graph a line to find the slope of the tracks"
 
         failOnMove_2d:
           triggerCondition:

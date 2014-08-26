@@ -57,6 +57,8 @@ children:
           actions:
           - playSound:
             - musicStandardGameplay
+          - setObjective:
+            - "Graph a line to match the slope of the tracks"
 
         playStartingVO_2d:
           triggerCondition:
