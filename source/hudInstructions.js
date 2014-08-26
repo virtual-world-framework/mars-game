@@ -30,6 +30,16 @@ function createHUD() {
     optionsButton.icon.src = "assets/images/hud/options_button.png";
     optionsButton.onMouseDown = openPauseMenu;
     hud.add( optionsButton, "right", "bottom", { "x": -248, "y": -30 } );
+
+    var objective = new HUD.Element( "objective", drawObjective, 32, 32 );
+    objective.icon = new Image();
+    objective.icon.src = "assets/images/hud/objective_indicator.png";
+    objective.text = "Current objective displayed here.";
+    objective.blinkTicks = 0;
+    objective.blinkInterval = 0.5;
+    objective.lastBlinkTime = 0;
+    objective.opacity = 1;
+    hud.add( objective, "left", "bottom", { "x": 30, "y": -172 } );
 }
 
 function createRoverElement() {
@@ -263,108 +273,6 @@ function createAlertText() {
     hud.add( alert, "center", "top", { "x" : 0, "y": 100 } );
 }
 
-function createInventoryHUD( capacity ) {
-
-    var iconSize = 48;
-    var width = iconSize * capacity;
-    var height = iconSize;
-
-    var slots = new Array();
-
-    for ( var i = 0; i < capacity; i++ ) {
-        slots[ i ] = { "item": null, "isMouseOver": false };
-    }
-
-    var inventory = new HUD.Element( "cargo", drawInventory, width, height );
-    inventory.slots = slots;
-    inventory.capacity = capacity;
-    inventory.type = "inventory";
-    inventory.label = new Image();
-    inventory.label.src = "assets/images/hud/inventory_label.png";
-    hud.add( inventory, "center", "bottom", { "x": 0, "y": -30 } );
-
-    var leftEnd = new Image();
-    leftEnd.src = "assets/images/hud/inventory_end_left.png";
-    leftEnd.onload = ( function() { 
-        inventory.leftEnd = leftEnd;
-        inventory.width += leftEnd.width;
-    } );
-
-    var rightEnd = new Image();
-    rightEnd.src = "assets/images/hud/inventory_end_right.png";
-    rightEnd.onload = ( function() { 
-        inventory.rightEnd = rightEnd;
-        inventory.width += rightEnd.width;
-    } );
-
-    var separator = new Image();
-    separator.src = "assets/images/hud/inventory_separator.png";
-    separator.onload = ( function() { 
-        inventory.separator = separator;
-        inventory.width += ( capacity - 1 ) * separator.width;
-    } );
-
-}
-
-function getInventoryHUD() {
-    var inventory;
-    for ( var els in hud.elements ) {
-        if ( hud.elements[ els ].type === "inventory" ) {
-            inventory = hud.elements[els];
-            return inventory;
-        }
-    }
-    return null;
-}
-
-function addSlotIcon( objectID, iconSrc, index, parentName ) {
-
-    var inventory = getInventoryHUD();
-    var slot;
-
-    if ( inventory ) {
-
-        slot = inventory.slots[ index ];
-
-        if ( slot ){
-            var icon = new Image();
-            icon.src = iconSrc;
-            icon.onload = ( function(){
-                var inventoryItem = new HUD.Element( objectID, drawIcon, icon.width, icon.height );
-                inventoryItem.icon = icon;
-                inventoryItem.owner = parentName;
-                slot.item = inventoryItem;
-            });
-        }
-    }
-
-}
-
-function removeItemFromInventory( item ) {
-
-    var vwfInventory = vwf_view.kernel.find( "", "//" + item.owner )[ 0 ];
-    vwf_view.kernel.callMethod( vwfInventory, "remove", [ item.id ] );
-
-}
-
-function removeSlotIcon( objectID ) {
-
-    var inventory = getInventoryHUD();
-
-    if ( inventory ){
-
-        for ( var i = 0; i < inventory.slots.length; i++ ) {
-
-            if ( inventory.slots[ i ].item !== null && inventory.slots[ i ].item.id === objectID ){
-
-                inventory.slots[ i ].item = null;
-
-            }
-        }
-    }
-}
-
-
 // === Draw Functions ===
 
 function drawBatteryMeter( context, position ) {
@@ -391,9 +299,6 @@ function drawBatteryMeter( context, position ) {
     if ( this.portrait ) {
         context.drawImage( this.portrait, centerX - this.portrait.width / 2, centerY - this.portrait.height / 2 );
     }
-    // if ( this.selectedIcon && targetPath === this.path ) {
-    //     context.drawImage( this.selectedIcon, centerX - this.selectedIcon.width / 2, centerY - this.selectedIcon.height / 2 );
-    // }
     if ( this.frame ) {
         context.drawImage( this.frame, position.x, position.y );
     }
@@ -403,21 +308,6 @@ function drawBatteryMeter( context, position ) {
     context.fillStyle = "rgb(255,255,255)";
     context.textAlign = "left";
     context.fillText( Math.round(battery), position.x + this.width + 3, position.y - 1 );
-}
-
-function drawMiniRoverElement( context, position ) {
-    var centerX = position.x + this.width / 2;
-    var centerY = position.y + this.height / 2;
-
-    if ( this.portrait ) {
-        context.drawImage( this.portrait, centerX - this.portrait.width / 2, centerY - this.portrait.height / 2 );
-    }
-    // if ( this.selectedIcon && targetPath === this.path ) {
-    //     context.drawImage( this.selectedIcon, centerX - this.selectedIcon.width / 2, centerY - this.selectedIcon.height / 2 );
-    // }
-    if ( this.frame ) {
-        context.drawImage( this.frame, position.x, position.y );
-    }
 }
 
 function drawComms( context, position ) {
@@ -544,6 +434,28 @@ function drawIcon( context, position ) {
         context.drawImage( this.icon, position.x, position.y );
     }
 
+}
+
+function drawObjective( context, position ) {
+    var time = vwf_view.kernel.time();
+    var timeSinceLastBlink = time - this.lastBlinkTime;
+    if ( this.icon ) {
+        if ( this.blinkTicks > 0 && timeSinceLastBlink >= this.blinkInterval ) {
+            this.opacity = this.blinkTicks % 2 ? 1 : 0.5;
+            this.blinkTicks--;
+            this.lastBlinkTime = time;
+        }
+        context.globalAlpha = this.opacity;
+        context.drawImage( this.icon, position.x, position.y );
+        context.globalAlpha = 1;
+    }
+    context.font = '20px Arial';
+    context.fillStyle = "rgb( 224, 255, 100 )";
+    context.strokeStyle = "rgb( 0, 0, 0 )";
+    context.textAlign = "left";
+    context.textBaseline = "top";
+    context.strokeText( this.text, position.x + 40, position.y + 4 );
+    context.fillText( this.text, position.x + 40, position.y + 4 );
 }
 
 function drawLogger( context, position ) {
