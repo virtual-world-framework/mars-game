@@ -174,7 +174,7 @@ children:
             - rover
           actions:
           - setCinematicCameraView:
-            - [ 13, 0, -15 ]
+            - [ 13, 65, -15 ]
 
   grid:
     includes: source/grid.vwf
