@@ -1,6 +1,6 @@
 ---
 extends: source/pickup.vwf
-source: ../../assets/3d/minirover/minirover.dae
+source: ../../assets/3d/minirover/mini_rover_slumped.dae
 type: model/vnd.collada+xml
 properties:
   isCollidable: true
