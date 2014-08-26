@@ -33,6 +33,9 @@ properties:
     - rover
     - [ 12, 10 ]
   - addToGrid:
+    - minirover
+    - [ 24, 39 ]
+  - addToGrid:
     - trackanomaly
     - [ 24, 39 ]
   - addToGrid:
