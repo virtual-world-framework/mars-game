@@ -1,6 +1,5 @@
 function createHUD() {
     createBlocklyStatus();
-    createStatusText();
     createAlertText();
     createCommsDisplay();
     createRoverElement();
@@ -244,24 +243,6 @@ function getBlockDataSlotFromId( id ) {
         }
     }
     return undefined;
-}
-
-function createStatusText() {
-    var width = 400;
-    var height = 200;
-    var status = new HUD.Element( "status", drawLogger, width, height );
-    status.stackLength = loggerNodes[ statusNodeID ].logger_maxLogs;
-    status.lastMessage = "";
-    status.duplicateCount = 1;
-    status.messages = [];
-    status.fontSize = 16;
-    status.fontStyle = status.fontSize + "px Arial Black";
-    status.defaultDraw = drawLogger;
-    status.setDefaults = setStatusDefaults;
-    status.lastUpdateTime = vwf_view.kernel.time();
-    status.addedOffset;
-    status.updateIntervalTime = 0.01;
-    hud.add( status, "center", "bottom", { "x" : width / 2, "y" : 60 } );
 }
 
 function createAlertText() {
@@ -798,16 +779,6 @@ function clearBlocklyStatus() {
     }
 }
 
-function clearStatus() {
-    if ( hud ) {
-        var status = hud.elements.status;
-        if ( status ) {
-            status.messages.length = 0;
-            status.lastMessage = "";
-        }
-    }
-}
-
 function clearAlert() {
     if ( hud ) {
         var alert = hud.elements.alert;
@@ -815,18 +786,6 @@ function clearAlert() {
             alert.messages.length = 0;
             alert.lastMessage = "";
         }
-    }
-}
-
-function setStatusDefaults() {
-    var status = hud.elements.status;
-    while ( status.messages.length > status.stackLength ) {
-        status.messages.length--;
-    }
-    for ( var i = 0; i < status.messages.length; i++ ) {
-        var message = status.messages[ i ];
-        message.alpha = 1 - ( 1 / status.stackLength ) * i;
-        message.offset = status.fontSize * i;
     }
 }
 
@@ -839,40 +798,6 @@ function setAlertDefaults() {
         var message = alert.messages[ i ];
         message.alpha = 1 - ( 1 / alert.stackLength ) * i;
         message.offset = alert.fontSize * i;
-    }
-}
-
-function pushStatus( message ) {
-    var status = hud.elements.status;
-    if ( status ) {
-
-        // Handle duplicate status messages
-        if ( message === status.lastMessage ) {
-            status.duplicateCount++;
-            message += " x" + status.duplicateCount;
-        } else {
-            status.lastMessage = message;
-            status.duplicateCount = 1;
-        }
-
-        var messageObj = {
-            "alpha": 1,
-            "text": message,
-            "offset": -status.fontSize
-        }
-        status.messages.unshift( messageObj );
-
-        if ( status.draw === status.defaultDraw ) {
-
-            // Push all the other statuses up and animate
-            status.addedOffset = 0;
-            status.draw = drawLoggerAnimating;
-        } else {
-
-            // If pushes are faster than the animation, don't animate
-            setStatusDefaults();
-            status.draw = status.defaultDraw;
-        }
     }
 }
 

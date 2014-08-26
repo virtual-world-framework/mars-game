@@ -71,10 +71,9 @@ properties:
     # arguments: targetPath, (optional) duration
     panCamera:
 
-    # shows text in either the status or alert areas
+    # shows text in alert area
     # arguments: message
     showAlert:
-    showStatus:
 
     # resets sensors on the rover
     # arguments: none

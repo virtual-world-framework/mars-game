@@ -11,7 +11,6 @@ var targetPath = undefined;
 var mainRover = undefined;
 var blocklyGraphID = undefined;
 var alertNodeID = undefined;
-var statusNodeID = undefined;
 var graphIsVisible = false;
 var tilesAreVisible = false;
 var gridBounds = {
@@ -122,7 +121,6 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                     setRenderMode( RENDER_GAME );
                 }
             case "scenarioReset":
-                clearStatus();
                 removePopup();
                 removeFailScreen();
                 clearBlocklyStatus();
@@ -225,9 +223,7 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
             case "logAdded":
                 var msg = eventArgs[ 0 ];
                 var msgType = loggerNodes[ nodeID ].name;
-                if ( msgType === "status" ) {
-                    pushStatus( msg.log );
-                } else if ( msgType === "alerts" ) {
+                if ( msgType === "alerts" ) {
                     pushAlert( msg.log );
                 }
                 break;
@@ -302,9 +298,7 @@ vwf_view.createdNode = function( nodeID, childID, childExtendsID, childImplement
             "logger_lifeTime": 1000
         }
 
-        if ( childName === "status" ) {
-            statusNodeID = childID;
-        } else if ( childName === "alerts" ) {
+        if ( childName === "alerts" ) {
             alertNodeID = childID;
         }
     } 
