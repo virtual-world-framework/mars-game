@@ -34,7 +34,7 @@ function createHUD() {
     var objective = new HUD.Element( "objective", drawObjective, 32, 32 );
     objective.icon = new Image();
     objective.icon.src = "assets/images/hud/objective_indicator.png";
-    objective.text = "Current objective displayed here.";
+    objective.text = "";
     objective.blinkTicks = 0;
     objective.blinkInterval = 0.5;
     objective.lastBlinkTime = 0;
@@ -439,23 +439,26 @@ function drawIcon( context, position ) {
 function drawObjective( context, position ) {
     var time = vwf_view.kernel.time();
     var timeSinceLastBlink = time - this.lastBlinkTime;
-    if ( this.icon ) {
-        if ( this.blinkTicks > 0 && timeSinceLastBlink >= this.blinkInterval ) {
-            this.opacity = this.blinkTicks % 2 ? 1 : 0.5;
-            this.blinkTicks--;
-            this.lastBlinkTime = time;
+    if ( this.text && this.text.length > 0 ) {
+        if ( this.icon ) {
+            if ( this.blinkTicks > 0 && timeSinceLastBlink >= this.blinkInterval ) {
+                this.opacity = this.blinkTicks % 2 ? 1 : 0.5;
+                this.blinkTicks--;
+                this.lastBlinkTime = time;
+            }
+            context.globalAlpha = this.opacity;
+            context.drawImage( this.icon, position.x, position.y );
+            context.globalAlpha = 1;
         }
-        context.globalAlpha = this.opacity;
-        context.drawImage( this.icon, position.x, position.y );
-        context.globalAlpha = 1;
+        context.font = '20px Arial';
+        context.fillStyle = "rgb( 224, 255, 100 )";
+        context.strokeStyle = "rgb( 0, 0, 0 )";
+        context.lineWidth = 3;
+        context.textAlign = "left";
+        context.textBaseline = "top";
+        context.strokeText( this.text, position.x + 40, position.y + 4 );
+        context.fillText( this.text, position.x + 40, position.y + 4 );
     }
-    context.font = '20px Arial';
-    context.fillStyle = "rgb( 224, 255, 100 )";
-    context.strokeStyle = "rgb( 0, 0, 0 )";
-    context.textAlign = "left";
-    context.textBaseline = "top";
-    context.strokeText( this.text, position.x + 40, position.y + 4 );
-    context.fillText( this.text, position.x + 40, position.y + 4 );
 }
 
 function drawLogger( context, position ) {
@@ -756,6 +759,11 @@ function clearHUDEffects() {
             stopElementBlinking( id );
         }
     }
+}
+
+function setNewObjective( text ) {
+    hud.elements.objective.text = text;
+    hud.elements.objective.blinkTicks = 10;
 }
 
 //@ sourceURL=source/hudInstructions.js

@@ -95,5 +95,9 @@ properties:
     # arguments: none
     cancelCallOut:
 
+    # Sets the objective HUD text
+    # arguments: objectiveText
+    setObjective:
+
 scripts:
 - source: source/triggers/actionFactory.js
