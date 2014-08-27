@@ -1,15 +1,19 @@
 ---
 extends: http://vwf.example.com/node3.vwf
 properties:
-  url: http://pcvm4-1.instageni.nysernet.org/simple.php
+  logEventUrl: http://pcvm4-1.instageni.nysernet.org/simple.php
+  logBlocklyUrl: http://pcvm4-1.instageni.nysernet.org/blockly.php
+  getPlayerStateUrl: http://pcvm4-1.instageni.nysernet.org/state.php
   enabled: true
 methods:
   registerGameStartedListener:
+  registerScenarioStartedListener:
   registerScenarioSucceededListener:
   registerScenarioFailedListener:
   registerScenarioResetListener:
   broadcastEvent:
   createRequest:
+  getRequest:
 
 scripts:
  - source: source/instrumentationManager.js
