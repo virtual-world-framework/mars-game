@@ -197,7 +197,7 @@ function populateBlockStack() {
     }
 }
 
-function addBlockToStackList( topBlock, loopIndex ) {
+function addBlockToStackList( topBlock, maxLoopIndex ) {
     var status = hud.elements.blocklyStatus;
     var currentBlock = topBlock;
     while ( currentBlock ) {
@@ -207,9 +207,10 @@ function addBlockToStackList( topBlock, loopIndex ) {
             "name": blockType,
             "id": parseInt( blockID ),
             "alpha": 0,
-            "loopIndex": loopIndex >= 0 ? loopIndex : -1,
+            "loopIndex": maxLoopIndex > 0 ? 0 : -1,
+            "maxLoopIndex": maxLoopIndex,
             "topOffset": 0
-        };        
+        };
 
         if ( blockType === "rover_moveForward" ) {
             blockData.name = "moveForward";
@@ -225,7 +226,8 @@ function addBlockToStackList( topBlock, loopIndex ) {
             var loopConnection = currentBlock.getInput( "DO" ).connection.targetConnection;
             if ( loopConnection ) {
                 var firstBlockInLoop = loopConnection.sourceBlock_;
-                addBlockToStackList( firstBlockInLoop, 0 );
+                var loopTimes = parseInt( Blockly.JavaScript.valueToCode( currentBlock, 'TIMES', Blockly.JavaScript.ORDER_ASSIGNMENT ) || '0' );
+                addBlockToStackList( firstBlockInLoop, loopTimes );
             }
         } else if ( blockType === "controls_whileUntil" ) {
             blockData.name = "repeatUntil";
@@ -233,7 +235,7 @@ function addBlockToStackList( topBlock, loopIndex ) {
             var loopConnection = currentBlock.getInput( "DO" ).connection.targetConnection;
             if ( loopConnection ) {
                 var firstBlockInLoop = currentBlock.getInput( "DO" ).connection.targetConnection.sourceBlock_;
-                addBlockToStackList( firstBlockInLoop, 0 );
+                addBlockToStackList( firstBlockInLoop );
             }
         } else if ( blockType === "controls_sensor" ) {
             blockData.name = "sensor";
@@ -668,9 +670,17 @@ function pushNextBlocklyStatus( id ) {
 
             // Check if the block is associated with a loop count
             // and send to the ui display
-            var loopIndex = ++blockData.loopIndex;
-            if ( !isNaN( loopIndex ) && loopIndex >= 1 ) {
-                showBlocklyLoopCount( loopIndex );
+            if ( blockData.maxLoopIndex ) {
+                blockData.loopIndex++;
+                if ( blockData.loopIndex > blockData.maxLoopIndex ) {
+                    blockData.loopIndex = 1;
+                }  
+                var loopIndex = blockData.loopIndex;          
+                if ( !isNaN( loopIndex ) && loopIndex >= 1 ) {
+                    showBlocklyLoopCount( loopIndex );
+                } else {
+                    hideBlocklyLoopCount();
+                }
             } else {
                 hideBlocklyLoopCount();
             }
