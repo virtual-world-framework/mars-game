@@ -73,6 +73,18 @@ children:
             - camera_topDown
           - setObjective:
             - "Activate Helicam view to inspect the crash site."
+          - setHUDProperty:
+            - graphButton
+            - enabled
+            - false
+          - setHUDProperty:
+            - tilesButton
+            - enabled
+            - false
+          - setHUDProperty:
+            - blocklyButton
+            - enabled
+            - false
 
         succeedOnSuccess_1c:
           triggerCondition:

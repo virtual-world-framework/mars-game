@@ -120,6 +120,7 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 } else {
                     setRenderMode( RENDER_GAME );
                 }
+                enableAllHUDElements();
             case "scenarioReset":
                 removePopup();
                 removeFailScreen();

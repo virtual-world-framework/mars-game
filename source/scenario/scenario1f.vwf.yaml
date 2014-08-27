@@ -66,6 +66,10 @@ children:
             - musicStandardGameplay
           - setObjective:
             - "Turn around to face back torward the crash pod."
+          - setHUDProperty:
+            - graphButton
+            - enabled
+            - false
 
         playStartingVO_1f:
           triggerCondition:

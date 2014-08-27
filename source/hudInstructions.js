@@ -758,4 +758,11 @@ function setNewObjective( text ) {
     hud.elements.objective.blinkTicks = 10;
 }
 
+function enableAllHUDElements() {
+    var els = hud.elements;
+    for ( var el in els ) {
+        els[ el ].enabled = true;
+    }
+}
+
 //@ sourceURL=source/hudInstructions.js

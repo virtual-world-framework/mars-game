@@ -83,15 +83,15 @@ children:
           - setObjective:
             - "Click the PROGRAM button to open your control processor."
           - setHUDProperty:
+            - camera_topDown
+            - enabled
+            - false
+          - setHUDProperty:
             - graphButton
             - enabled
             - false
           - setHUDProperty:
             - tilesButton
-            - enabled
-            - false
-          - setHUDProperty:
-            - camera_topDown
             - enabled
             - false
 
