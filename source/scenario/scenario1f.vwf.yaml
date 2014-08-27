@@ -64,6 +64,8 @@ children:
           actions:
           - playSound:
             - musicStandardGameplay
+          - setObjective:
+            - "Turn around to face back torward the crash pod."
 
         playStartingVO_1f:
           triggerCondition:

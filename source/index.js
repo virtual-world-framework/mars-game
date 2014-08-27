@@ -216,6 +216,11 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 setRenderMode( RENDER_GAME );
                 break;
 
+            case "setObjective":
+                var objectiveText = eventArgs[ 0 ];
+                setNewObjective( objectiveText );
+                break;
+
         } 
     } else if ( loggerNodes[ nodeID ] !== undefined ) { 
         switch ( eventName ) {

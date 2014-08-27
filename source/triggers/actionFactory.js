@@ -441,6 +441,7 @@ this.actionSet.callOutObjective = function( params, context ) {
     if ( params && params.length !== 1 ) {
         self.logger.warnx( "callOutObjective", "This action takes one parameter: The " +
                                                "coordinates of the tile to be called out." );
+        return undefined;
     }
 
     var callOutTile = context.gridTileGraph.callOutTile;
@@ -462,6 +463,20 @@ this.actionSet.cancelCallOut = function( params, context ) {
 
     return function() {
         callOutTile.stopBlink();
+    }
+}
+
+this.actionSet.setObjective = function( params, context ) {
+    if ( params && params.length !== 1 ) {
+        self.logger.warnx( "setObjective", "This action takes one parameter: The mission " +
+                                           "objective text." );
+        return undefined;
+    }
+
+    var text = params[ 0 ];
+
+    return function() {
+        context.setObjective( text );
     }
 }
 

@@ -70,10 +70,10 @@ children:
           - playSound:
             - musicStandardGameplay
           - resetRoverSensors:
-          - waitForNode:
+          - blinkBlocklyTab:
             - graph
-            - blinkBlocklyTab:
-              - graph
+          - setObjective:
+            - "Graph a line that matches the slope of the tracks."
 
         failOnMove_2d:
           triggerCondition:
@@ -99,16 +99,15 @@ children:
             - musicSuccessShort
           - playSound:
             - L3VO4_Rover_S
+
+        graphTabOpened_3b:
+          triggerCondition:
+          - onBlocklyWindowOpened:
+            - graph
+          actions:
           - stopBlinkBlocklyTab:
             - graph
 
-        setCameraView:
-          triggerCondition:
-          - onBlocklyStarted:
-            - rover
-          actions:
-          - setCinematicCameraView:
-            - [ 13, 0, -15 ]
 
   grid:
     includes: source/grid.vwf

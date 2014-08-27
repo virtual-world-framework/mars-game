@@ -57,10 +57,10 @@ children:
           actions:
           - playSound:
             - musicStandardGameplay
-          - waitForNode:
+          - blinkBlocklyTab:
             - rover
-            - blinkBlocklyTab:
-              - rover
+          - setObjective:
+            - "Build a program to move along the slope: over two spaces and up one."
 
         playStartingVO_2e:
           triggerCondition:
@@ -154,14 +154,6 @@ children:
             - ALVO26_Rover
           - writeToBlackboard:
             - Level2eHint2
-
-        setCameraView:
-          triggerCondition:
-          - onBlocklyStarted:
-            - rover
-          actions:
-          - setCinematicCameraView:
-            - [ 13, 65, -15 ]
 
   grid:
     includes: source/grid.vwf

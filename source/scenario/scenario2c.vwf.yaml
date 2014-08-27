@@ -57,6 +57,8 @@ children:
           actions:
           - playSound:
             - musicStandardGameplay
+          - setObjective:
+            - "Build an equation in the GRAPH tab to graph a line."
 
         failOnMove_2c:
           triggerCondition:
@@ -103,15 +105,7 @@ children:
             - ALVO24_Rover
           - writeToBlackboard:
             - Level2cHint1
-
-        setCameraView:
-          triggerCondition:
-          - onBlocklyStarted:
-            - rover
-          actions:
-          - setCinematicCameraView:
-            - [ 13, 65, -15 ]
-
+            
   grid:
     includes: source/grid.vwf
     properties:

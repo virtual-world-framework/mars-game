@@ -71,6 +71,8 @@ children:
             - musicStandardGameplay
           - blinkHUDElement:
             - tilesButton
+          - setObjective:
+            - "Click the TILES button to see where you can safely move."
 
         playStartingVO_1d:
           triggerCondition:

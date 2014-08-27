@@ -71,6 +71,8 @@ children:
             - musicStandardGameplay
           - blinkHUDElement:
             - camera_topDown
+          - setObjective:
+            - "Activate Helicam view to inspect the crash site."
 
         succeedOnSuccess_1c:
           triggerCondition:

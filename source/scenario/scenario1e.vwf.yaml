@@ -71,6 +71,8 @@ children:
             - musicStandardGameplay
           - blinkHUDElement:
             - blocklyButton
+          - setObjective:
+            - "Move forward three spaces to pick up the battery pack."
 
         playStartingVO_1e:
           triggerCondition:

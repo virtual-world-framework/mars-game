@@ -79,6 +79,8 @@ children:
           - playSound:
             - musicStandardGameplay
           - resetRoverSensors:
+          - setObjective:
+            - "Build a program to follow the tracks until you find a man-made object."
 
         playTravelVO_3a:
           triggerCondition:
@@ -165,14 +167,6 @@ children:
             - ALVO28_Rover
           - writeToBlackboard:
             - Level3aHint2
-
-        setCameraView:
-          triggerCondition:
-          - onBlocklyStarted:
-            - rover
-          actions:
-          - setCinematicCameraView:
-            - [ 13, 0, -15 ]
 
   grid:
     includes: source/grid.vwf

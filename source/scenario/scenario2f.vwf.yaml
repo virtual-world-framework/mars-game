@@ -57,10 +57,10 @@ children:
           actions:
           - playSound:
             - musicStandardGameplay
-          - waitForNode:
+          - blinkBlocklyTab:
             - rover
-            - blinkBlocklyTab:
-              - rover
+          - setObjective:
+            - "Use a loop to move along the slope of the tracks three more times."
 
         playStartingVO_2f:
           triggerCondition:
@@ -156,14 +156,6 @@ children:
             - L3VO2_Rover_H2
           - writeToBlackboard:
             - Level2eHint2
-
-        setCameraView:
-          triggerCondition:
-          - onBlocklyStarted:
-            - rover
-          actions:
-          - setCinematicCameraView:
-            - [ 13, 65, -15 ]
 
   grid:
     includes: source/grid.vwf

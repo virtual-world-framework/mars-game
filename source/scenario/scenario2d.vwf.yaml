@@ -57,6 +57,8 @@ children:
           actions:
           - playSound:
             - musicStandardGameplay
+          - setObjective:
+            - "Graph a line that matches the slope of the tracks."
 
         playStartingVO_2d:
           triggerCondition:
@@ -204,14 +206,6 @@ children:
             - Level2dHint5
           - playSound:
             - ALVO31_Rover
-
-        setCameraView:
-          triggerCondition:
-          - onBlocklyStarted:
-            - rover
-          actions:
-          - setCinematicCameraView:
-            - [ 13, 65, -15 ]
 
   grid:
     includes: source/grid.vwf

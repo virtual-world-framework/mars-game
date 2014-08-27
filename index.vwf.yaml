@@ -21,8 +21,6 @@ methods:
   getCurrentScenario:
   getScenarios:
   getScenarioPaths:
-  createMiniRover:
-  removeMiniRover:
   createGridDisplay:
   addStatus:
   addAlert:
@@ -61,6 +59,7 @@ events:
   clearBlocklyTabs:
   playVideo:
   videoPlayed:
+  setObjective:
 children:
   soundManager:
     includes: source/marsGameSound.vwf
