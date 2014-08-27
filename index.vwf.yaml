@@ -367,14 +367,6 @@ children:
       logger_logs: []
     scripts:
     - source: source/loggerHelper.js
-  status:
-    extends: http://vwf.example.com/logger.vwf
-    properties:
-      logger_maxLogs: 4
-      logger_lifeTime: 5000
-      logger_logs: []
-    scripts:
-    - source: source/loggerHelper.js
   subtitles:
     extends: http://vwf.example.com/logger.vwf
     properties:

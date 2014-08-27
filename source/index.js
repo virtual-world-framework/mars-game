@@ -11,7 +11,6 @@ var targetPath = undefined;
 var mainRover = undefined;
 var blocklyGraphID = undefined;
 var alertNodeID = undefined;
-var statusNodeID = undefined;
 var graphIsVisible = false;
 var tilesAreVisible = false;
 var gridBounds = {
@@ -122,7 +121,6 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                     setRenderMode( RENDER_GAME );
                 }
             case "scenarioReset":
-                clearStatus();
                 removePopup();
                 removeFailScreen();
                 clearBlocklyStatus();
@@ -225,9 +223,7 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
             case "logAdded":
                 var msg = eventArgs[ 0 ];
                 var msgType = loggerNodes[ nodeID ].name;
-                if ( msgType === "status" ) {
-                    pushStatus( msg.log );
-                } else if ( msgType === "alerts" ) {
+                if ( msgType === "alerts" ) {
                     pushAlert( msg.log );
                 }
                 break;
@@ -248,12 +244,7 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
     } else {
         // scenario events
         if ( eventName === "completed" ) {
-            var type = eventArgs[ 0 ];
-            if ( type === "levelComplete" ) {
-                window.addEventListener( "click", advanceOnClick, false );
-            } else {
-                advanceScenario();
-            }
+            advanceScenario();
         }
 
         if ( eventName === "failed" ) {
@@ -302,9 +293,7 @@ vwf_view.createdNode = function( nodeID, childID, childExtendsID, childImplement
             "logger_lifeTime": 1000
         }
 
-        if ( childName === "status" ) {
-            statusNodeID = childID;
-        } else if ( childName === "alerts" ) {
+        if ( childName === "alerts" ) {
             alertNodeID = childID;
         }
     } 
@@ -551,13 +540,6 @@ function advanceScenario() {
 
 function loadScenarioList() {
     vwf_view.kernel.callMethod( vwf_view.kernel.application(), "getScenarioPaths" );
-}
-
-function advanceOnClick( event ) {
-    var cam = vwf_view.kernel.find( "", "//camera" )[ 0 ];
-    vwf_view.kernel.setProperty( cam, "orbiting", false );
-    advanceScenario();
-    window.removeEventListener( "click", advanceOnClick, false );
 }
 
 function runBlockly() {

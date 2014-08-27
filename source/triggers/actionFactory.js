@@ -364,19 +364,6 @@ this.actionSet.orbitCamera = function( params, context ) {
     return callback;
 }
 
-this.actionSet.showStatus = function( params, context ) {
-    if ( !params || params.length > 1 ) {
-        self.logger.errorx( "showStatus", "This action takes one parameter: the status to show." );
-        return undefined;
-    }
-
-    var status = params[ 0 ];
-
-    return function() {
-        context.addStatus( status );
-    }
-}
-
 this.actionSet.showAlert = function( params, context ) {
     if ( !params || params.length > 1 ) {
         self.logger.errorx( "showAlert", "This action takes one parameter: the alert to show." );

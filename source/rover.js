@@ -75,9 +75,6 @@ this.moveForward = function() {
                         this.cargo.add( inventoriableObjects[ i ].id );
                     }
                 }
-                if ( scene ) {
-                    scene.addStatus( this.displayName + " is moving forward" );
-                }
                 this.moved();
                 this.activateSensor( 'forward' );
             } else {
@@ -95,9 +92,6 @@ this.turnLeft = function() {
     if ( this.heading > 360 ) {
         this.heading -= 360;
     }
-    if ( scene ) {
-        scene.addStatus( this.displayName + " is turning left" );
-    }    
     this.rotateBy( [ 0, 0, 1, 90 ], 1 );
     this.activateSensor( 'forward' );
 }
@@ -107,9 +101,6 @@ this.turnRight = function() {
     this.heading -= 90;
     if ( this.heading < 0 ) {
         this.heading += 360;
-    }
-    if ( scene ) {
-        scene.addStatus( this.displayName + " is turning right" );
     }
     this.rotateBy( [ 0, 0, 1, -90 ], 1 );
     this.activateSensor( 'forward' );

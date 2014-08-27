@@ -100,7 +100,6 @@ children:
                 - hasFailed
           actions:
           - scenarioSuccess:
-            - levelComplete
           - showAlert:
             - "You have picked up the radio!"
           - clearBlockly:      
@@ -114,10 +113,6 @@ children:
               - SCVO4_Rover
             - playSound:
               - L1VO10_Control_E
-          - delay:
-            - 20
-            - showStatus:
-              - "Click to continue!"
           - playVideo:
             - "success_cinematic.mp4"
 
