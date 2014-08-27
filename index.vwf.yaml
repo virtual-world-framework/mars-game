@@ -13,6 +13,8 @@ properties:
       this.setScenario( value );
       this.activeScenarioPath = value;
     value: "mainMenuScenario"
+  playerId: "test"
+  version: 0.3
   sceneBlackboard: {}
 methods:
   setScenario:
@@ -63,6 +65,8 @@ events:
 children:
   soundManager:
     includes: source/marsGameSound.vwf
+  instrumentationManager:
+    includes: source/instrumentationManager.vwf
   globalTriggerManager:
     includes: source/scenario/globalScenarioTriggers.vwf
   environment:
