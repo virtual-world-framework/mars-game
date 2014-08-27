@@ -100,7 +100,6 @@ children:
                 - hasFailed
           actions:
           - scenarioSuccess:
-            - levelComplete
           - showAlert:
             - "You have picked up the radio!"
           - clearBlockly:      

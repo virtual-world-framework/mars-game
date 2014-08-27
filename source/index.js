@@ -244,12 +244,7 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
     } else {
         // scenario events
         if ( eventName === "completed" ) {
-            var type = eventArgs[ 0 ];
-            if ( type === "levelComplete" ) {
-                window.addEventListener( "click", advanceOnClick, false );
-            } else {
-                advanceScenario();
-            }
+            advanceScenario();
         }
 
         if ( eventName === "failed" ) {
@@ -545,13 +540,6 @@ function advanceScenario() {
 
 function loadScenarioList() {
     vwf_view.kernel.callMethod( vwf_view.kernel.application(), "getScenarioPaths" );
-}
-
-function advanceOnClick( event ) {
-    var cam = vwf_view.kernel.find( "", "//camera" )[ 0 ];
-    vwf_view.kernel.setProperty( cam, "orbiting", false );
-    advanceScenario();
-    window.removeEventListener( "click", advanceOnClick, false );
 }
 
 function runBlockly() {
