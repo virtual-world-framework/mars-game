@@ -166,7 +166,7 @@ children:
         panToRadio_1h:
           triggerCondition:
           - delay:
-            - 2
+            - 10
           actions:
           - panCamera:
             - /pickups/radio

@@ -103,7 +103,7 @@ children:
         playHint1_1f:
           triggerCondition:
           - delay:
-            - 1
+            - 18
           additionalCondition:
           - and:
             - not:
@@ -117,7 +117,7 @@ children:
                 - hasFailed
           actions:
           - playSound:
-            - ALVO20_Rover
+            - ALVO35_Rover
           - writeToBlackboard:
             - Level1fHint1
 
@@ -138,7 +138,7 @@ children:
                 - hasFailed
           actions:
           - playSound:
-            - ALVO35_Rover
+            - ALVO20_Rover
           - writeToBlackboard:
             - Level1fHint2
 
