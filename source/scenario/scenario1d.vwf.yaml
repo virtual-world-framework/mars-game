@@ -72,7 +72,7 @@ children:
           - blinkHUDElement:
             - tilesButton
           - setObjective:
-            - "Click the TILES icon on your heads-up display"
+            - "Click the TILES button to see where you can safely move."
 
         playStartingVO_1d:
           triggerCondition:

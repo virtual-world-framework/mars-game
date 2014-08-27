@@ -65,7 +65,7 @@ children:
           - playSound:
             - musicStandardGameplay
           - setObjective:
-            - "Move back to the top of the ramp"
+            - "Move back to the top of the ramp."
 
         playStartingVO_1g:
           triggerCondition:

@@ -81,7 +81,7 @@ children:
           - setCinematicCameraView:
             - [ 13, 15, -15 ]
           - setObjective:
-            - "Click the PROGRAM icon on your heads-up display"
+            - "Click the PROGRAM button to open your control processor."
 
         playStartingVO_1a:
           triggerCondition:

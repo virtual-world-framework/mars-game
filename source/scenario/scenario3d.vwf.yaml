@@ -71,7 +71,7 @@ children:
             - musicStandardGameplay
           - resetRoverSensors:
           - setObjective:
-            - "Graph a line to find the slope of the tracks"
+            - "Graph a line that matches the slope of the tracks."
 
         playStartingVO_3d:
           triggerCondition:
@@ -108,14 +108,6 @@ children:
             - "Course Plotted: Navigation Program Update Required"
           - playSound:
             - musicSuccessShort
-
-        setCameraView:
-          triggerCondition:
-          - onBlocklyStarted:
-            - rover
-          actions:
-          - setCinematicCameraView:
-            - [ 13, 0, -15 ]
 
   grid:
     includes: source/grid.vwf

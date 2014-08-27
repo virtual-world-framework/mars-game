@@ -72,7 +72,7 @@ children:
           - blinkHUDElement:
             - blocklyButton
           - setObjective:
-            - "Pick up the battery pack up ahead"
+            - "Move forward three spaces to pick up the battery pack."
 
         playStartingVO_1e:
           triggerCondition:

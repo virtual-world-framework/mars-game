@@ -65,7 +65,7 @@ children:
           - playSound:
             - musicStandardGameplay
           - setObjective:
-            - "Create a program to reach the radio module"
+            - "Move to the far end of the crash site and pick up the radio module."
 
         playStartingVO_1h:
           triggerCondition:

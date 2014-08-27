@@ -62,7 +62,7 @@ children:
           - blinkBlocklyTab:
             - graph
           - setObjective:
-            - "Switch to the GRAPH tab in your PROGRAM interface"
+            - "Open the GRAPH tab in your PROGRAM interface."
 
         failOnMove_2b:
           triggerCondition:
@@ -124,14 +124,6 @@ children:
             - ALVO17_Rover
           - writeToBlackboard:
             - Level2bHint1
-
-        setCameraView:
-          triggerCondition:
-          - onBlocklyStarted:
-            - rover
-          actions:
-          - setCinematicCameraView:
-            - [ 13, 65, -15 ]
 
   grid:
     includes: source/grid.vwf

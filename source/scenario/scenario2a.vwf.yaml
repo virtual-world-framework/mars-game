@@ -62,7 +62,7 @@ children:
           - blinkHUDElement:
             - graphButton
           - setObjective:
-            - "Click the GRAPH icon on your heads-up display"
+            - "Click the GRAPH button to display the coordinate axes."
 
         failOnMove_2a:
           triggerCondition:
@@ -107,14 +107,6 @@ children:
             - ALVO18_Rover
           - writeToBlackboard:
             - Level2aHint1
-
-        setCameraView:
-          triggerCondition:
-          - onBlocklyStarted:
-            - rover
-          actions:
-          - setCinematicCameraView:
-            - [ 13, 65, -15 ]
 
   grid:
     includes: source/grid.vwf

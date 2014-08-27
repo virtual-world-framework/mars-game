@@ -65,7 +65,7 @@ children:
           - playSound:
             - musicStandardGameplay
           - setObjective:
-            - "Turn 180 degrees to face your crash pod"
+            - "Turn around to face back torward the crash pod."
 
         playStartingVO_1f:
           triggerCondition:
