@@ -57,6 +57,8 @@ children:
           actions:
           - playSound:
             - musicStandardGameplay
+          - setObjective:
+            - "Graph a line that matches the slope of the tracks."
 
         playStartingVO_2d:
           triggerCondition:
@@ -95,8 +97,10 @@ children:
             - musicStandardGameplay
           - playSound:
             - musicSuccess
-          - playSound:
-            - SCVO8_Control
+          - delay:
+            - 5
+            - playSound:
+              - SCVO8_Control
 
         playHint1_2d:
           triggerCondition:
@@ -107,15 +111,6 @@ children:
             - not:
               - readBlackboard:
                 - Level2dHint1
-            - not:
-              - readBlackboard:
-                - Level2dHint2
-            - not:
-              - readBlackboard:
-                - Level2dHint3
-            - not:
-              - readBlackboard:
-                - Level2dHint4
             - not:
               - readBlackboard:
                 - hasSucceeded
@@ -139,12 +134,6 @@ children:
                 - Level2dHint2
             - not:
               - readBlackboard:
-                - Level2dHint3
-            - not:
-              - readBlackboard:
-                - Level2dHint4
-            - not:
-              - readBlackboard:
                 - hasSucceeded
             - not:
               - readBlackboard:
@@ -166,9 +155,6 @@ children:
                 - Level2dHint3
             - not:
               - readBlackboard:
-                - Level2dHint4
-            - not:
-              - readBlackboard:
                 - hasSucceeded
             - not:
               - readBlackboard:
@@ -177,7 +163,7 @@ children:
           - writeToBlackboard:
             - Level2dHint3
           - playSound:
-            - L2VO3_Rover_H3
+            - ALVO30_Rover
 
         playHint4_2d:
           triggerCondition:
@@ -198,15 +184,28 @@ children:
           - writeToBlackboard:
             - Level2dHint4
           - playSound:
-            - L2VO3_Rover_H4
+            - ALVO29_Rover
 
-        setCameraView:
+        playHint5_2d:
           triggerCondition:
-          - onBlocklyStarted:
-            - rover
+          - delay:
+            - 100
+          additionalCondition:
+          - and:
+            - not:
+              - readBlackboard:
+                - Level2dHint5
+            - not:
+              - readBlackboard:
+                - hasSucceeded
+            - not:
+              - readBlackboard:
+                - hasFailed
           actions:
-          - setCinematicCameraView:
-            - [ 13, 65, -15 ]
+          - writeToBlackboard:
+            - Level2dHint5
+          - playSound:
+            - ALVO31_Rover
 
   grid:
     includes: source/grid.vwf

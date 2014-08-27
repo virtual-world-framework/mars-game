@@ -1,6 +1,5 @@
 function createHUD() {
     createBlocklyStatus();
-    createStatusText();
     createAlertText();
     createCommsDisplay();
     createRoverElement();
@@ -10,21 +9,37 @@ function createHUD() {
     blocklyButton.icon = new Image();
     blocklyButton.icon.src = "assets/images/hud/blockly_large.png";
     blocklyButton.onMouseDown = clickBlockly;
-    hud.add( blocklyButton, "right", "bottom", { "x": -30, "y": -30 } );
+    hud.add( blocklyButton, "right", "bottom", { "x": -32, "y": -30 } );
 
     var graphButton = new HUD.Element( "graphButton", drawHelicamButton, 64, 64 );
     graphButton.icon = new Image();
     graphButton.icon.src = "assets/images/hud/graph_display.png";
     graphButton.enabled = true;
     graphButton.onMouseDown = toggleGraphDisplay;
-    hud.add( graphButton, "right", "bottom", { "x": -102, "y": -30 } );
+    hud.add( graphButton, "right", "bottom", { "x": -104, "y": -30 } );
 
     var tilesButton = new HUD.Element( "tilesButton", drawHelicamButton, 64, 64 );
     tilesButton.icon = new Image();
     tilesButton.icon.src = "assets/images/hud/tiles_button.png";
     tilesButton.enabled = true;
     tilesButton.onMouseDown = toggleTiles;
-    hud.add( tilesButton, "right", "bottom", { "x": -174, "y": -30 } );
+    hud.add( tilesButton, "right", "bottom", { "x": -176, "y": -30 } );
+
+    var optionsButton = new HUD.Element( "optionsButton", drawIcon, 64, 64 );
+    optionsButton.icon = new Image();
+    optionsButton.icon.src = "assets/images/hud/options_button.png";
+    optionsButton.onMouseDown = openPauseMenu;
+    hud.add( optionsButton, "right", "bottom", { "x": -248, "y": -30 } );
+
+    var objective = new HUD.Element( "objective", drawObjective, 32, 32 );
+    objective.icon = new Image();
+    objective.icon.src = "assets/images/hud/objective_indicator.png";
+    objective.text = "";
+    objective.blinkTicks = 0;
+    objective.blinkInterval = 0.5;
+    objective.lastBlinkTime = 0;
+    objective.opacity = 1;
+    hud.add( objective, "left", "bottom", { "x": 30, "y": -172 } );
 }
 
 function createRoverElement() {
@@ -159,6 +174,9 @@ function createBlocklyStatus() {
     addBlockToImageList( "turnRight", "assets/images/hud/blockly_turn_right.png" );
     addBlockToImageList( "repeatTimes", "assets/images/hud/blockly_repeat_times.png" );
     addBlockToImageList( "number", "assets/images/hud/blockly_number.png" );
+    addBlockToImageList( "repeatUntil", "assets/images/hud/blockly_repeat_until.png" );
+    addBlockToImageList( "repeatWhile", "assets/images/hud/blockly_repeat_while.png" );
+    addBlockToImageList( "sensor", "assets/images/hud/blockly_sensor.png" );
 }
 
 function addBlockToImageList( name, imageSrc ) {
@@ -179,7 +197,7 @@ function populateBlockStack() {
     }
 }
 
-function addBlockToStackList( topBlock, loopIndex ) {
+function addBlockToStackList( topBlock, maxLoopIndex ) {
     var status = hud.elements.blocklyStatus;
     var currentBlock = topBlock;
     while ( currentBlock ) {
@@ -189,58 +207,54 @@ function addBlockToStackList( topBlock, loopIndex ) {
             "name": blockType,
             "id": parseInt( blockID ),
             "alpha": 0,
-            "loopIndex": loopIndex
-        };        
+            "loopIndex": maxLoopIndex > 0 ? 0 : -1,
+            "maxLoopIndex": maxLoopIndex,
+            "topOffset": 0
+        };
 
         if ( blockType === "rover_moveForward" ) {
             blockData.name = "moveForward";
             status.blockStack.push( blockData );
+
         } else if ( blockType === "rover_turn" ) {
             blockData.name = currentBlock.getFieldValue( "DIR" );
-            status.blockStack.push( blockData );            
+            status.blockStack.push( blockData );
+
         } else if ( blockType === "controls_repeat_extended" ) {
             blockData.name = "repeatTimes";
             status.blockStack.push( blockData );
-
-            var firstBlockInLoop = currentBlock.getInput( "DO" ).connection.targetConnection.sourceBlock_;
-            var loopTimes = parseInt( Blockly.JavaScript.valueToCode( currentBlock, 'TIMES', Blockly.JavaScript.ORDER_ASSIGNMENT ) || '0' ) || 0;
-            for ( var i = 1; i <= loopTimes; i++ ) {
-                addBlockToStackList( firstBlockInLoop, i );
+            var loopConnection = currentBlock.getInput( "DO" ).connection.targetConnection;
+            if ( loopConnection ) {
+                var firstBlockInLoop = loopConnection.sourceBlock_;
+                var loopTimes = parseInt( Blockly.JavaScript.valueToCode( currentBlock, 'TIMES', Blockly.JavaScript.ORDER_ASSIGNMENT ) || '0' );
+                addBlockToStackList( firstBlockInLoop, loopTimes );
             }
         } else if ( blockType === "controls_whileUntil" ) {
-            blockData.name = "repeatTimes";
+            blockData.name = "repeatUntil";
             status.blockStack.push( blockData );
-
-            var firstBlockInLoop = currentBlock.getInput( "DO" ).connection.targetConnection.sourceBlock_;
-            var loopTimes = 1;
-            for ( var i = loopTimes - 1; i >= 0; i-- ) {
-                addBlockToStackList( firstBlockInLoop, i );
+            var loopConnection = currentBlock.getInput( "DO" ).connection.targetConnection;
+            if ( loopConnection ) {
+                var firstBlockInLoop = currentBlock.getInput( "DO" ).connection.targetConnection.sourceBlock_;
+                addBlockToStackList( firstBlockInLoop );
             }
-
         } else if ( blockType === "controls_sensor" ) {
-            blockData.name = "repeatTimes";
+            blockData.name = "sensor";
             status.blockStack.push( blockData );
         }
         currentBlock = currentBlock.getNextBlock();
     }
 }
 
-function createStatusText() {
-    var width = 400;
-    var height = 200;
-    var status = new HUD.Element( "status", drawLogger, width, height );
-    status.stackLength = loggerNodes[ statusNodeID ].logger_maxLogs;
-    status.lastMessage = "";
-    status.duplicateCount = 1;
-    status.messages = [];
-    status.fontSize = 16;
-    status.fontStyle = status.fontSize + "px Arial Black";
-    status.defaultDraw = drawLogger;
-    status.setDefaults = setStatusDefaults;
-    status.lastUpdateTime = vwf_view.kernel.time();
-    status.addedOffset;
-    status.updateIntervalTime = 0.01;
-    hud.add( status, "center", "bottom", { "x" : width / 2, "y" : 60 } );
+function getBlockDataSlotFromId( id ) {
+    var status = hud.elements.blocklyStatus;
+    if ( status ) {
+        for ( var i = 0; i < status.blockStack.length; i++ ) {
+            if ( status.blockStack[ i ].id === id ) {
+                return i;
+            }
+        }
+    }
+    return undefined;
 }
 
 function createAlertText() {
@@ -260,108 +274,6 @@ function createAlertText() {
     alert.persistTimer = 3;
     hud.add( alert, "center", "top", { "x" : 0, "y": 100 } );
 }
-
-function createInventoryHUD( capacity ) {
-
-    var iconSize = 48;
-    var width = iconSize * capacity;
-    var height = iconSize;
-
-    var slots = new Array();
-
-    for ( var i = 0; i < capacity; i++ ) {
-        slots[ i ] = { "item": null, "isMouseOver": false };
-    }
-
-    var inventory = new HUD.Element( "cargo", drawInventory, width, height );
-    inventory.slots = slots;
-    inventory.capacity = capacity;
-    inventory.type = "inventory";
-    inventory.label = new Image();
-    inventory.label.src = "assets/images/hud/inventory_label.png";
-    hud.add( inventory, "center", "bottom", { "x": 0, "y": -30 } );
-
-    var leftEnd = new Image();
-    leftEnd.src = "assets/images/hud/inventory_end_left.png";
-    leftEnd.onload = ( function() { 
-        inventory.leftEnd = leftEnd;
-        inventory.width += leftEnd.width;
-    } );
-
-    var rightEnd = new Image();
-    rightEnd.src = "assets/images/hud/inventory_end_right.png";
-    rightEnd.onload = ( function() { 
-        inventory.rightEnd = rightEnd;
-        inventory.width += rightEnd.width;
-    } );
-
-    var separator = new Image();
-    separator.src = "assets/images/hud/inventory_separator.png";
-    separator.onload = ( function() { 
-        inventory.separator = separator;
-        inventory.width += ( capacity - 1 ) * separator.width;
-    } );
-
-}
-
-function getInventoryHUD() {
-    var inventory;
-    for ( var els in hud.elements ) {
-        if ( hud.elements[ els ].type === "inventory" ) {
-            inventory = hud.elements[els];
-            return inventory;
-        }
-    }
-    return null;
-}
-
-function addSlotIcon( objectID, iconSrc, index, parentName ) {
-
-    var inventory = getInventoryHUD();
-    var slot;
-
-    if ( inventory ) {
-
-        slot = inventory.slots[ index ];
-
-        if ( slot ){
-            var icon = new Image();
-            icon.src = iconSrc;
-            icon.onload = ( function(){
-                var inventoryItem = new HUD.Element( objectID, drawIcon, icon.width, icon.height );
-                inventoryItem.icon = icon;
-                inventoryItem.owner = parentName;
-                slot.item = inventoryItem;
-            });
-        }
-    }
-
-}
-
-function removeItemFromInventory( item ) {
-
-    var vwfInventory = vwf_view.kernel.find( "", "//" + item.owner )[ 0 ];
-    vwf_view.kernel.callMethod( vwfInventory, "remove", [ item.id ] );
-
-}
-
-function removeSlotIcon( objectID ) {
-
-    var inventory = getInventoryHUD();
-
-    if ( inventory ){
-
-        for ( var i = 0; i < inventory.slots.length; i++ ) {
-
-            if ( inventory.slots[ i ].item !== null && inventory.slots[ i ].item.id === objectID ){
-
-                inventory.slots[ i ].item = null;
-
-            }
-        }
-    }
-}
-
 
 // === Draw Functions ===
 
@@ -389,9 +301,6 @@ function drawBatteryMeter( context, position ) {
     if ( this.portrait ) {
         context.drawImage( this.portrait, centerX - this.portrait.width / 2, centerY - this.portrait.height / 2 );
     }
-    // if ( this.selectedIcon && targetPath === this.path ) {
-    //     context.drawImage( this.selectedIcon, centerX - this.selectedIcon.width / 2, centerY - this.selectedIcon.height / 2 );
-    // }
     if ( this.frame ) {
         context.drawImage( this.frame, position.x, position.y );
     }
@@ -401,21 +310,6 @@ function drawBatteryMeter( context, position ) {
     context.fillStyle = "rgb(255,255,255)";
     context.textAlign = "left";
     context.fillText( Math.round(battery), position.x + this.width + 3, position.y - 1 );
-}
-
-function drawMiniRoverElement( context, position ) {
-    var centerX = position.x + this.width / 2;
-    var centerY = position.y + this.height / 2;
-
-    if ( this.portrait ) {
-        context.drawImage( this.portrait, centerX - this.portrait.width / 2, centerY - this.portrait.height / 2 );
-    }
-    // if ( this.selectedIcon && targetPath === this.path ) {
-    //     context.drawImage( this.selectedIcon, centerX - this.selectedIcon.width / 2, centerY - this.selectedIcon.height / 2 );
-    // }
-    if ( this.frame ) {
-        context.drawImage( this.frame, position.x, position.y );
-    }
 }
 
 function drawComms( context, position ) {
@@ -472,7 +366,7 @@ function drawBlocklyStatus( context, position ) {
                     context.globalAlpha = alpha;
                     context.drawImage( block, position.x, 
                                        position.y - ( this.topOffset - lastHeight ) );
-                    if ( this.index === i && !isNaN( loopIndex ) ) {
+                    if ( this.index === i && loopIndex >= 1 ) {
                         var numBlock = this.blockImages[ "number" ];
                         offsetX += numBlock.width;
                         var posY = position.y - ( this.topOffset - lastHeight );
@@ -542,6 +436,31 @@ function drawIcon( context, position ) {
         context.drawImage( this.icon, position.x, position.y );
     }
 
+}
+
+function drawObjective( context, position ) {
+    var time = vwf_view.kernel.time();
+    var timeSinceLastBlink = time - this.lastBlinkTime;
+    if ( this.text && this.text.length > 0 ) {
+        if ( this.icon ) {
+            if ( this.blinkTicks > 0 && timeSinceLastBlink >= this.blinkInterval ) {
+                this.opacity = this.blinkTicks % 2 ? 1 : 0.5;
+                this.blinkTicks--;
+                this.lastBlinkTime = time;
+            }
+            context.globalAlpha = this.opacity;
+            context.drawImage( this.icon, position.x, position.y );
+            context.globalAlpha = 1;
+        }
+        context.font = '16px Arial';
+        context.fillStyle = "rgb( 224, 255, 100 )";
+        context.strokeStyle = "rgb( 0, 0, 0 )";
+        context.lineWidth = 3;
+        context.textAlign = "left";
+        context.textBaseline = "top";
+        context.strokeText( this.text, position.x + 40, position.y + 6 );
+        context.fillText( this.text, position.x + 40, position.y + 6 );
+    }
 }
 
 function drawLogger( context, position ) {
@@ -718,31 +637,50 @@ function pushNextBlocklyStatus( id ) {
     var statusElem = hud.elements.blocklyStatus;
     if ( statusElem ) {
         statusElem.index++;
-
-        var blockData = statusElem.blockStack[ statusElem.index ];
+        var index = getBlockDataSlotFromId( id );
+        var blockData = statusElem.blockStack[ index ];
         var blockName = blockData.name;
-        var blockID = blockData.id;
         var block = statusElem.blockImages[ blockName ];
-        if ( block && blockID === id ) {
+        if ( block ) {
 
-            // Check if block pushes are outrunning the animation
-            if ( statusElem.draw === statusElem.defaultDraw ) {
-                statusElem.nextTopOffset = statusElem.topOffset + block.height;
-                statusElem.offsetIncrement = block.height / statusElem.range
-                statusElem.draw = drawBlocklyStatusAnimating;
-
-            // If they are, set the top right away and don't animate
-            } else {
+            // If the index doesn't match, then we're looping back
+            if ( index !== statusElem.index ) {             
+                statusElem.index = index;
+                statusElem.topOffset = blockData.topOffset;
                 setBlocklyAlphas();
-                statusElem.draw = statusElem.defaultDraw;
-                statusElem.topOffset = statusElem.nextTopOffset + block.height;
+                statusElem.draw = statusElem.defaultDraw;                
+
+            } else {
+
+                // Check if block pushes are outrunning the animation
+                if ( statusElem.draw === statusElem.defaultDraw ) {
+                    statusElem.nextTopOffset = statusElem.topOffset + block.height;
+                    statusElem.offsetIncrement = block.height / statusElem.range
+                    statusElem.draw = drawBlocklyStatusAnimating;
+                    blockData.topOffset = statusElem.nextTopOffset;
+
+                // If they are, set the top right away and don't animate
+                } else {
+                    setBlocklyAlphas();
+                    statusElem.draw = statusElem.defaultDraw;
+                    statusElem.topOffset = statusElem.nextTopOffset + block.height;
+                    blockData.topOffset = statusElem.topOffset;
+                }
             }
 
             // Check if the block is associated with a loop count
             // and send to the ui display
-            var loopIndex = blockData.loopIndex;
-            if ( !isNaN( loopIndex ) ) {
-                showBlocklyLoopCount( loopIndex );
+            if ( blockData.maxLoopIndex ) {
+                blockData.loopIndex++;
+                if ( blockData.loopIndex > blockData.maxLoopIndex ) {
+                    blockData.loopIndex = 1;
+                }  
+                var loopIndex = blockData.loopIndex;          
+                if ( !isNaN( loopIndex ) && loopIndex >= 1 ) {
+                    showBlocklyLoopCount( loopIndex );
+                } else {
+                    hideBlocklyLoopCount();
+                }
             } else {
                 hideBlocklyLoopCount();
             }
@@ -766,16 +704,6 @@ function clearBlocklyStatus() {
     }
 }
 
-function clearStatus() {
-    if ( hud ) {
-        var status = hud.elements.status;
-        if ( status ) {
-            status.messages.length = 0;
-            status.lastMessage = "";
-        }
-    }
-}
-
 function clearAlert() {
     if ( hud ) {
         var alert = hud.elements.alert;
@@ -783,18 +711,6 @@ function clearAlert() {
             alert.messages.length = 0;
             alert.lastMessage = "";
         }
-    }
-}
-
-function setStatusDefaults() {
-    var status = hud.elements.status;
-    while ( status.messages.length > status.stackLength ) {
-        status.messages.length--;
-    }
-    for ( var i = 0; i < status.messages.length; i++ ) {
-        var message = status.messages[ i ];
-        message.alpha = 1 - ( 1 / status.stackLength ) * i;
-        message.offset = status.fontSize * i;
     }
 }
 
@@ -807,40 +723,6 @@ function setAlertDefaults() {
         var message = alert.messages[ i ];
         message.alpha = 1 - ( 1 / alert.stackLength ) * i;
         message.offset = alert.fontSize * i;
-    }
-}
-
-function pushStatus( message ) {
-    var status = hud.elements.status;
-    if ( status ) {
-
-        // Handle duplicate status messages
-        if ( message === status.lastMessage ) {
-            status.duplicateCount++;
-            message += " x" + status.duplicateCount;
-        } else {
-            status.lastMessage = message;
-            status.duplicateCount = 1;
-        }
-
-        var messageObj = {
-            "alpha": 1,
-            "text": message,
-            "offset": -status.fontSize
-        }
-        status.messages.unshift( messageObj );
-
-        if ( status.draw === status.defaultDraw ) {
-
-            // Push all the other statuses up and animate
-            status.addedOffset = 0;
-            status.draw = drawLoggerAnimating;
-        } else {
-
-            // If pushes are faster than the animation, don't animate
-            setStatusDefaults();
-            status.draw = status.defaultDraw;
-        }
     }
 }
 
@@ -887,6 +769,11 @@ function clearHUDEffects() {
             stopElementBlinking( id );
         }
     }
+}
+
+function setNewObjective( text ) {
+    hud.elements.objective.text = text;
+    hud.elements.objective.blinkTicks = 10;
 }
 
 //@ sourceURL=source/hudInstructions.js

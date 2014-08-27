@@ -9,7 +9,7 @@ properties:
   - setProperty:
     - rover
     - battery
-    - 30
+    - 20
   - setProperty:
     - rover
     - batteryMax
@@ -17,7 +17,7 @@ properties:
   - setProperty:
     - rover
     - blockly_allowedBlocks
-    - 25
+    - 20
   - setProperty:
     - rover
     - lowRam
@@ -64,6 +64,8 @@ children:
           actions:
           - playSound:
             - musicStandardGameplay
+          - setObjective:
+            - "Move to the far end of the crash site and pick up the radio module."
 
         playStartingVO_1h:
           triggerCondition:
@@ -77,6 +79,13 @@ children:
             - L1VO16_Rover
           - writeToBlackboard:
             - Level1hStartSounds
+
+        highlightEndTile:
+          triggerCondition:
+          - onScenarioStart:
+          actions:
+          - callOutObjective:
+            - [ 8, 16 ]
 
         succeedOnSuccess_1h:
           triggerCondition:
@@ -93,7 +102,6 @@ children:
                 - hasFailed
           actions:
           - scenarioSuccess:
-            - levelComplete
           - showAlert:
             - "You have picked up the radio!"
           - clearBlockly:      
@@ -101,16 +109,14 @@ children:
             - musicStandardGameplay
           - playSound:
             - musicSuccess
-          - playSound:
-            - SCVO4_Rover
-          - playSound:
-              - L1VO10_Control_E
           - delay:
-            - 20
-            - showStatus:
-              - "Click to continue!"
+            - 5
+            - playSound:
+              - SCVO4_Rover
+            - playSound:
+              - L1VO10_Control_E
           - playVideo:
-            - "success_cinematic.mp4"          
+            - "success_cinematic.mp4"
 
         playHint1_1h:
           triggerCondition:
@@ -129,25 +135,44 @@ children:
                 - hasFailed
           actions:
           - playSound:
-            - ALVO22_Rover
+            - ALVO36_Rover
           - writeToBlackboard:
             - Level1hHint1
+
+        failOnIncompleteProgram_1h:
+          triggerCondition:
+          - onBlocklyStopped:
+          additionalCondition:
+          - and:
+            - not:
+              - readBlackboard:
+                - hasFailed
+            - not:
+              - readBlackboard:
+                - hasSucceeded
+            - not:
+              - readBlackboard:
+                - Level1hHint2
+          actions:
+          - scenarioFailure:
+            - incomplete
+          - playSound:
+            - FCVO2_Rover
+          - playSound:
+            - ALVO22_Rover
+          - writeToBlackboard:
+            - Level1hHint2
+          - writeToBlackboard:
+            - disableFailOnIncompleteProgram
 
         panToRadio_1h:
           triggerCondition:
           - delay:
-            - 2
+            - 10
           actions:
           - panCamera:
             - /pickups/radio
-
-        panToRover_1h:
-          triggerCondition:
-          - delay:
-            - 5
-          actions:
-          - panCamera:
-            - /player/rover
+            - 3
 
         setCameraView:
           triggerCondition:

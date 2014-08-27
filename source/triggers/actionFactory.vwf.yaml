@@ -12,7 +12,6 @@ properties:
   # executor.  It's fine if other function sets are also added, but this 
   # provides the baseline functionality that we need.
   actionSet:
-
     # cause scenario success/failure
     # arguments: none
     scenarioSuccess:
@@ -22,6 +21,10 @@ properties:
     # arguments: the sound name
     playSound:
     stopSound:
+
+    # stop all sounds in a group (and clear the queue)
+    # arguments: the name of the sound group
+    stopSoundGroup:
 
     # play a video
     # arguments: the source of the video
@@ -63,13 +66,14 @@ properties:
     clearBlockly:
 
     # pans the camera to the node of the targetpath
-    # arguments: targetPath
+    # If duration is specified, the camera will pan back to its original
+    # target after the duration in seconds
+    # arguments: targetPath, (optional) duration
     panCamera:
 
-    # shows text in either the status or alert areas
+    # shows text in alert area
     # arguments: message
     showAlert:
-    showStatus:
 
     # resets sensors on the rover
     # arguments: none
@@ -82,6 +86,18 @@ properties:
     # Resets the camera to the point of view before the cinematic camera mode was set
     # arguments: none
     resetCameraView:
+
+    # Adds a blinking tile to the objective grid space
+    # arguments: coordinates
+    callOutObjective:
+
+    # Removes callout tile
+    # arguments: none
+    cancelCallOut:
+
+    # Sets the objective HUD text
+    # arguments: objectiveText
+    setObjective:
 
 scripts:
 - source: source/triggers/actionFactory.js

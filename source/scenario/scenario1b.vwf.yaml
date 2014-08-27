@@ -17,11 +17,11 @@ properties:
   - setProperty:
     - rover
     - blockly_allowedBlocks
-    - 1
+    - 3
   - setProperty:
     - rover
     - lowRam
-    - 0    
+    - 1    
 
   # TODO: Simplify heading/rotation
   # Set initial rotation using heading
@@ -71,6 +71,8 @@ children:
           actions:
           - playSound:
             - musicStandardGameplay
+          - setObjective:
+            - "Move forward to pick up your Helicam."
 
         playStartingVO_1b:
           triggerCondition:
@@ -81,7 +83,7 @@ children:
               - Level1bStartSounds
           actions:
           - playSound:
-            - L1VO7_Rover
+            - L1VO2_Rover
           - writeToBlackboard:
             - Level1bStartSounds
 
@@ -106,7 +108,7 @@ children:
         playHint1_1b:
           triggerCondition:
           - delay:
-            - 20
+            - 13
           additionalCondition:
           - and:
             - not:

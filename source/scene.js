@@ -74,26 +74,13 @@ this.getCurrentScenario = function() {
     return this.find( this.activeScenarioPath )[ 0 ];
 }
 
-this.addStatus = function( log ) {
-    
-    if ( this.status !== undefined ) {
-        var fontSize = parseInt( $( ".statusText").css( "font-size" ) );
-        var textWidth = parseInt( $( ".statusText" ).css( "width" ) );
-        var width = textWidth / fontSize * 1.7;
-        this.status.addLogWithLimit( log, width );
-    }
-    
-}
-
 this.addAlert = function( log ) {
-    
     if ( this.alerts !== undefined ) {
         var fontSize = parseInt( $( ".alertText").css( "font-size" ) );
         var textWidth = parseInt( $( ".alertText" ).css( "width" ) );
         var width = textWidth / fontSize * 1.7;        
         this.alerts.addLogWithLimit( log, width );
     }
-    
 }
 
 this.addSubtitle = function( log, time ) {
@@ -195,6 +182,12 @@ this.resetView = function() {
     } else {
         camera.pointOfView = lastCameraPOV;
     }
+}
+
+this.restartGame = function() {
+    this.sceneBlackboard = {};
+    this.soundManager.stopAllSoundInstances();
+    this.activeScenarioPath = "mainMenuScenario";
 }
 
 //@ sourceURL=source/scene.js

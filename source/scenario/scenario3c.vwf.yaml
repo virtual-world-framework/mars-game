@@ -19,9 +19,6 @@ properties:
     - rover
     - blockly_allowedBlocks
     - 30
-  - setSceneProperty:
-    - blockly_activeNodeID
-    - undefined
   - setProperty:
     - rover
     - heading
@@ -36,6 +33,9 @@ properties:
   - addToGrid:
     - rover
     - [ 37, 15 ]
+  - addToGrid:
+    - minirover
+    - [ 24, 39 ]
   - addToGrid:
     - trackanomaly
     - [ 12, 11 ]
@@ -67,6 +67,8 @@ children:
           - playSound:
             - musicStandardGameplay
           - resetRoverSensors:
+          - setObjective:
+            - "Build a program to follow the tracks until you find a man-made object."
 
         playStartingVO_3c:
           triggerCondition:
@@ -93,19 +95,58 @@ children:
           actions:
           - scenarioSuccess:
           - showAlert:
-            - "The tracks changed... time to change course!"
+            - "Looks like the rover changed course!  Time to plot the new line…"
           - playSound:
             - musicSuccessShort
           - playSound:
             - L3VO5_Rover_S
 
-        setCameraView:
+        playHint1_3c:
           triggerCondition:
-          - onBlocklyStarted:
-            - rover
+          - delay:
+            - 20
+          additionalCondition:
+          - and:
+            - not:
+              - readBlackboard:
+                - Level3cHint1
+            - not:
+              - readBlackboard:
+                - hasSucceeded
+            - not:
+              - readBlackboard:
+                - hasFailed
           actions:
-          - setCinematicCameraView:
-            - [ 13, 0, -15 ]
+          - playSound:
+            - ALVO37_Rover
+          - writeToBlackboard:
+            - Level3cHint1
+
+        failOnIncompleteProgram_3c:
+          triggerCondition:
+          - onBlocklyStopped:
+          additionalCondition:
+          - and:
+            - not:
+              - readBlackboard:
+                - hasFailed
+            - not:
+              - readBlackboard:
+                - hasSucceeded
+            - not:
+              - readBlackboard:
+                - Level1hHint2
+          actions:
+          - scenarioFailure:
+            - incomplete
+          - playSound:
+            - FCVO2_Rover
+          - playSound:
+            - ALVO38_Rover
+          - writeToBlackboard:
+            - Level1hHint2
+          - writeToBlackboard:
+            - disableFailOnIncompleteProgram
 
   grid:
     includes: source/grid.vwf

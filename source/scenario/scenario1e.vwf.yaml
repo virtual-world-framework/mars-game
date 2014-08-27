@@ -71,6 +71,8 @@ children:
             - musicStandardGameplay
           - blinkHUDElement:
             - blocklyButton
+          - setObjective:
+            - "Move forward three spaces to pick up the battery pack."
 
         playStartingVO_1e:
           triggerCondition:
@@ -109,6 +111,13 @@ children:
             - musicSuccessShort
           - playSound:
             - L1VO13_Rover
+
+        highlightEndTile:
+          triggerCondition:
+          - onScenarioStart:
+          actions:
+          - callOutObjective:
+            - [ 8, 6 ]
 
         playHint1_1e:
           triggerCondition:

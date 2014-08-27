@@ -74,6 +74,22 @@ this.actionSet.stopSound = function( params, context ) {
     }
 }
 
+this.actionSet.stopSoundGroup = function( params, context ) {
+    if ( !params || ( params.length !== 1 ) ) {
+        self.logger.warnx( "stopSound", "We need to know the name of the sound to stop!" );
+        return undefined;
+    }
+
+    var groupName = params[ 0 ];
+    var soundMgr = getSoundMgr( context );
+
+    if ( soundMgr ) {
+        return function() { soundMgr.stopSoundGroup( groupName ); };
+    } else {
+        return undefined;
+    }
+}
+
 this.actionSet.setMasterVolume = function( params, context ) {
     if ( !params || ( params.length !== 1 ) || ( params[ 0 ] > 1.0 ) || ( params[ 0 ] < 0.0 ) ) {
         self.logger.warnx( "setMasterVolume", "Takes a single argument 0.0 - 1.0" );
@@ -297,18 +313,25 @@ this.actionSet.enableHelicam = function( params, context ) {
 }
 
 this.actionSet.panCamera = function( params, context ) {
-    if ( params && params.length > 1 ) {
-        self.logger.errorx( "panCamera", "This action takes one parameter: the " +
-                            "path of the node to pan towards.");
+    if ( params && params.length > 2 ) {
+        self.logger.errorx( "panCamera", "This action takes two parameters: the " +
+                            "path of the node to pan towards and an optional duration " +
+                            "for the camera to target that node before returning to " +
+                            "its original target.");
         return undefined;        
     }
 
     var targetPath = params[ 0 ];
+    var duration = params[ 1 ];
     var targetFollower = context.find( "//targetFollower" )[ 0 ];
 
     return function() {
+        var lastTargetPath = targetFollower.targetPath;
         targetFollower.camera.pointOfView = "thirdPerson";
         targetFollower.setTargetPath$( targetPath );
+        if ( !isNaN( duration ) ) {
+            targetFollower.future( duration ).setTargetPath$( lastTargetPath );
+        }
     }
 }
 
@@ -339,19 +362,6 @@ this.actionSet.orbitCamera = function( params, context ) {
     }
 
     return callback;
-}
-
-this.actionSet.showStatus = function( params, context ) {
-    if ( !params || params.length > 1 ) {
-        self.logger.errorx( "showStatus", "This action takes one parameter: the status to show." );
-        return undefined;
-    }
-
-    var status = params[ 0 ];
-
-    return function() {
-        context.addStatus( status );
-    }
 }
 
 this.actionSet.showAlert = function( params, context ) {
@@ -424,6 +434,49 @@ this.actionSet.resetCameraView = function( params, context ) {
 
     return function() {
         context.resetView();
+    }
+}
+
+this.actionSet.callOutObjective = function( params, context ) {
+    if ( params && params.length !== 1 ) {
+        self.logger.warnx( "callOutObjective", "This action takes one parameter: The " +
+                                               "coordinates of the tile to be called out." );
+        return undefined;
+    }
+
+    var callOutTile = context.gridTileGraph.callOutTile;
+    var grid = context[ context.activeScenarioPath ].grid;
+    var tileCoords = params[ 0 ];
+    var coords = grid.getWorldFromGrid( tileCoords[ 0 ], tileCoords[ 1 ] );
+
+    return function() {
+        callOutTile.callOut( coords );
+    }
+}
+
+this.actionSet.cancelCallOut = function( params, context ) {
+    if ( params && params.length > 0 ) {
+        self.logger.warnx( "cancelCallOut", "This action takes no parameters." );
+    }
+
+    var callOutTile = context.find( "/gridTileGraph/callOutTile" )[ 0 ];
+
+    return function() {
+        callOutTile.stopBlink();
+    }
+}
+
+this.actionSet.setObjective = function( params, context ) {
+    if ( params && params.length !== 1 ) {
+        self.logger.warnx( "setObjective", "This action takes one parameter: The mission " +
+                                           "objective text." );
+        return undefined;
+    }
+
+    var text = params[ 0 ];
+
+    return function() {
+        context.setObjective( text );
     }
 }
 

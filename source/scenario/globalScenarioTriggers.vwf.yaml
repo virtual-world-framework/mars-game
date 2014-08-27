@@ -28,6 +28,52 @@ properties:
       - playSound:
         - FCVO2_Rover
 
+    hintOnIncompleteProgram_1:
+      triggerCondition:
+      - onBlocklyStopped:
+      additionalCondition:
+      - and:
+        - not:
+          - readBlackboard:
+            - hasSucceeded
+        - not:
+          - readBlackboard:
+            - disableFailOnIncompleteProgram
+        - not:
+          - readBlackboard:
+            - stepThroughProgramHint
+      actions:
+      - delay:
+        - 0.2
+        - writeToBlackboard:
+          - stepThroughProgramHint
+        - playSound:
+          - ALVO33_Rover
+
+    hintOnIncompleteProgram_2:
+      triggerCondition:
+      - onBlocklyStopped:
+      additionalCondition:
+      - and:
+        - readBlackboard:
+          - stepThroughProgramHint
+        - not:
+          - readBlackboard:
+            - hasSucceeded
+        - not:
+          - readBlackboard:
+            - disableFailOnIncompleteProgram
+        - not:
+          - readBlackboard:
+            - blocklyTraceHint
+      actions:
+      - delay:
+        - 0.2
+        - writeToBlackboard:
+          - blocklyTraceHint
+        - playSound:
+          - ALVO32_Rover
+
   triggers:
     recordKeepingOnBegin:
       triggerCondition:
@@ -51,6 +97,7 @@ properties:
         - musicFailure
       - writeToBlackboard:
         - hasSucceeded
+      - cancelCallOut:
 
     recordKeepingOnFailure:
       triggerCondition:
@@ -81,6 +128,43 @@ properties:
         - collision
       - playSound:
         - FCVO1_Rover
+
+    hintOnCollision_1:
+      triggerCondition:
+      - moveFailed:
+        - rover
+        - collision
+      additionalCondition:
+      - not:
+        - readBlackboard:
+          - stepThroughProgramHint
+      actions:
+      - delay:
+        - 0.2
+        - writeToBlackboard:
+          - stepThroughProgramHint
+        - playSound:
+          - ALVO33_Rover
+
+    hintOnCollision_2:
+      triggerCondition:
+      - moveFailed:
+        - rover
+        - collision
+      additionalCondition:
+      - and:
+        - readBlackboard:
+          - stepThroughProgramHint
+        - not:
+          - readBlackboard:
+            - blocklyTraceHint
+      actions:
+      - delay:
+        - 0.2
+        - writeToBlackboard:
+          - blocklyTraceHint
+        - playSound:
+          - ALVO32_Rover
 
     failOnBatteryDepleted:
       triggerCondition:

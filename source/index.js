@@ -11,7 +11,6 @@ var targetPath = undefined;
 var mainRover = undefined;
 var blocklyGraphID = undefined;
 var alertNodeID = undefined;
-var statusNodeID = undefined;
 var graphIsVisible = false;
 var tilesAreVisible = false;
 var gridBounds = {
@@ -122,7 +121,6 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                     setRenderMode( RENDER_GAME );
                 }
             case "scenarioReset":
-                clearStatus();
                 removePopup();
                 removeFailScreen();
                 clearBlocklyStatus();
@@ -218,6 +216,11 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 setRenderMode( RENDER_GAME );
                 break;
 
+            case "setObjective":
+                var objectiveText = eventArgs[ 0 ];
+                setNewObjective( objectiveText );
+                break;
+
         } 
     } else if ( loggerNodes[ nodeID ] !== undefined ) { 
         switch ( eventName ) {
@@ -225,9 +228,7 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
             case "logAdded":
                 var msg = eventArgs[ 0 ];
                 var msgType = loggerNodes[ nodeID ].name;
-                if ( msgType === "status" ) {
-                    pushStatus( msg.log );
-                } else if ( msgType === "alerts" ) {
+                if ( msgType === "alerts" ) {
                     pushAlert( msg.log );
                 }
                 break;
@@ -248,12 +249,7 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
     } else {
         // scenario events
         if ( eventName === "completed" ) {
-            var type = eventArgs[ 0 ];
-            if ( type === "levelComplete" ) {
-                window.addEventListener( "click", advanceOnClick, false );
-            } else {
-                advanceScenario();
-            }
+            advanceScenario();
         }
 
         if ( eventName === "failed" ) {
@@ -302,9 +298,7 @@ vwf_view.createdNode = function( nodeID, childID, childExtendsID, childImplement
             "logger_lifeTime": 1000
         }
 
-        if ( childName === "status" ) {
-            statusNodeID = childID;
-        } else if ( childName === "alerts" ) {
+        if ( childName === "alerts" ) {
             alertNodeID = childID;
         }
     } 
@@ -390,6 +384,7 @@ vwf_view.satProperty = function( nodeID, propertyName, propertyValue ) {
 
     if ( nodeID === vwf_view.kernel.application() ) {
         if ( propertyName === "blockly_activeNodeID" ) {
+            Blockly.SOUNDS_ = {};
             selectBlocklyTab( propertyValue );
         }
     }
@@ -410,7 +405,20 @@ vwf_view.satProperty = function( nodeID, propertyName, propertyValue ) {
     }
 }
 
+vwf_view.gotProperty = function( nodeID, propertyName, propertyValue ) {
+    if ( nodeID === vwf_view.kernel.application() ) {
+        if ( propertyName === "version" ) {
+            var version = propertyValue;
+            var element = document.getElementById( "version" );
+            element.innerHTML = "Source available on " +
+                "<a href='https://github.com/virtual-world-framework/mars-game'>GitHub</a>. " +
+                "Licensed using Apache 2. - Version: " + version;
+        }
+    }
+}
+
 function setUpView() {
+    vwf_view.kernel.getProperty( vwf_view.kernel.application(), "version" );
     mainMenu = new MainMenu();
     hud = new HUD();
     createHUD();
@@ -552,13 +560,6 @@ function loadScenarioList() {
     vwf_view.kernel.callMethod( vwf_view.kernel.application(), "getScenarioPaths" );
 }
 
-function advanceOnClick( event ) {
-    var cam = vwf_view.kernel.find( "", "//camera" )[ 0 ];
-    vwf_view.kernel.setProperty( cam, "orbiting", false );
-    advanceScenario();
-    window.removeEventListener( "click", advanceOnClick, false );
-}
-
 function runBlockly() {
     vwf_view.kernel.setProperty( currentBlocklyNodeID, "blockly_executing", true );
     populateBlockStack();
@@ -573,6 +574,9 @@ function setActiveBlocklyTab() {
             if ( cam ) {
                 vwf_view.kernel.setProperty( cam, "pointOfView", "topDown" );
             }
+            hideBlocklyIndicator();
+        } else {
+            indicateBlock( lastBlockIDExecuted );
         }
     }
 }
@@ -718,9 +722,6 @@ function initializePauseMenu() {
             case "resume":
                 buttons[ i ].onclick = closePauseMenu;
                 break;
-            case "restart":
-                buttons[ i ].onclick = restartGame;
-                break;
             case "settings":
                 buttons[ i ].onclick = openSettingsMenu;
                 break;
@@ -729,6 +730,9 @@ function initializePauseMenu() {
                 break;
             case "scenario":
                 buttons[ i ].onclick = openScenarioMenu;
+                break;
+            case "exit":
+                buttons[ i ].onclick = exitToMainMenu;
                 break;
         }
     }
@@ -821,12 +825,13 @@ function openScenarioMenu() {
     loadScenarioData();
 }
 
-function restartGame() {
+function exitToMainMenu() {
     var sceneID = vwf_view.kernel.application();
-    currentBlocklyNodeID = undefined;
+    resetSubtitles();
     clearBlockly();
+    currentBlocklyNodeID = undefined;
     vwf_view.kernel.setProperty( sceneID, "blockly_activeNodeID", undefined );
-    vwf_view.kernel.setProperty( sceneID, "activeScenarioPath", "scenario1a" );
+    vwf_view.kernel.callMethod( sceneID, "restartGame" );
     closePauseMenu();
 }
 
@@ -907,7 +912,7 @@ function clearBlocklyTabs() {
 }
 
 function setVolume( value ) {
-    var sm, muteButton, readout, readoutPct;
+    var sm, muteButton;
     sm = vwf_view.kernel.find( vwf_view.kernel.application(), "/soundManager" )[ 0 ];
     if ( sm ) {
         value = Math.min( 1, Math.max( 0, value ) );
@@ -921,10 +926,6 @@ function setVolume( value ) {
             cachedVolume = value;
         }
         setVolumeSliderPosition( value );
-        readout = document.getElementById( "volumeReadout" );
-        readoutPct = value * 100;
-        readoutPct = Math.round( readoutPct );
-        readout.innerHTML = "Volume: " + readoutPct + "%";
         vwf_view.kernel.callMethod( sm, "setMasterVolume", [ value ] );
     }
 }
@@ -951,7 +952,12 @@ function setVolumeSliderPosition( volume ) {
     var volumeHandle = document.getElementById( "volumeHandle" );
     var deadzone = volumeHandle.clientWidth / 2;
     var pos = volume * ( volumeHandle.parentNode.clientWidth - deadzone * 2 );
+    var readout, readoutPct;
     volumeHandle.style.marginLeft = pos + "px";
+    readout = document.getElementById( "volumeReadout" );
+    readoutPct = volume * 100;
+    readoutPct = Math.round( readoutPct );
+    readout.innerHTML = "Volume: " + readoutPct + "%";
 }
 
 //@ sourceURL=source/index.js

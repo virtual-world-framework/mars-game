@@ -17,11 +17,11 @@ properties:
   - setProperty:
     - rover
     - blockly_allowedBlocks
-    - 1
+    - 3
   - setProperty:
     - rover
     - lowRam
-    - 0
+    - 1
 
   # TODO: Simplify heading/rotation
   # Set initial rotation using heading
@@ -80,6 +80,8 @@ children:
             - blocklyButton
           - setCinematicCameraView:
             - [ 13, 15, -15 ]
+          - setObjective:
+            - "Click the PROGRAM button to open your control processor."
 
         playStartingVO_1a:
           triggerCondition:
@@ -103,15 +105,13 @@ children:
             - "You have accessed your programming interface!"
           - playSound:
             - musicSuccessShort
-          - playSound:
-            - L1VO2_Rover
           - stopBlinkHUDElement:
             - blocklyButton
 
         playHint1_1a:
           triggerCondition:
           - delay:
-            - 30
+            - 20
           additionalCondition:
           - not:
             - readBlackboard:

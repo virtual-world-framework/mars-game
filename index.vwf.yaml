@@ -13,6 +13,8 @@ properties:
       this.setScenario( value );
       this.activeScenarioPath = value;
     value: "mainMenuScenario"
+  playerId: "test"
+  version: 0.4
   sceneBlackboard: {}
 methods:
   setScenario:
@@ -21,8 +23,6 @@ methods:
   getCurrentScenario:
   getScenarios:
   getScenarioPaths:
-  createMiniRover:
-  removeMiniRover:
   createGridDisplay:
   addStatus:
   addAlert:
@@ -32,6 +32,7 @@ methods:
   displayGraph:
   setCinematicView:
   resetView:
+  restartGame:
 events:
   gameStarted:
   scenarioReset:
@@ -60,9 +61,12 @@ events:
   clearBlocklyTabs:
   playVideo:
   videoPlayed:
+  setObjective:
 children:
   soundManager:
     includes: source/marsGameSound.vwf
+  instrumentationManager:
+    includes: source/instrumentationManager.vwf
   globalTriggerManager:
     includes: source/scenario/globalScenarioTriggers.vwf
   environment:
@@ -85,6 +89,12 @@ children:
         extends: http://vwf.example.com/node3.vwf
         source: assets/3d/Terrain/rover_tracks_straight.dae
         type: model/vnd.collada+xml
+  collisionTerrain:
+    extends: http://vwf.example.com/node3.vwf
+    source: assets/3d/Terrain/collision_terrain.dae
+    type: model/vnd.collada+xml
+    properties:
+      visible: false
   blocks:
     includes: source/blocks.vwf
   airDust:
@@ -197,7 +207,7 @@ children:
           displayName: "Rover"
           castShadows: true
           receiveShadows: true
-          terrainName: "environment"
+          terrainName: "collisionTerrain"
           currentGridSquare: [ 0, 0 ]
           sensorValue: false
         children:
@@ -329,6 +339,24 @@ children:
         properties:
           groupVisible: false
           graphObjects: []
+      callOutTile:
+        extends: http://vwf.example.com/graphtool/graphplane.vwf
+        properties:
+          origin: [ 0, 0, 0 ]
+          normal: [ 0, 0, 1 ]
+          rotationAngle: 90
+          size: 1
+          color: [ 255, 255, 255 ]
+          opacity: 0.5
+          doubleSided: false
+          renderTop: true
+          visible: false
+        methods:
+          callOut:
+          blink:
+          stopBlink:
+        scripts:
+          - source: source/callouttile.js
   graph:
     extends: http://vwf.example.com/node3.vwf
     implements: http://vwf.example.com/blockly/controller.vwf
@@ -339,14 +367,6 @@ children:
     properties:
       logger_maxLogs: 1
       logger_lifeTime: 10000
-      logger_logs: []
-    scripts:
-    - source: source/loggerHelper.js
-  status:
-    extends: http://vwf.example.com/logger.vwf
-    properties:
-      logger_maxLogs: 4
-      logger_lifeTime: 5000
       logger_logs: []
     scripts:
     - source: source/loggerHelper.js

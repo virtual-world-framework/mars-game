@@ -71,6 +71,8 @@ children:
             - musicStandardGameplay
           - blinkHUDElement:
             - tilesButton
+          - setObjective:
+            - "Click the TILES button to see where you can safely move."
 
         playStartingVO_1d:
           triggerCondition:
@@ -102,7 +104,7 @@ children:
         playHint1_1d:
           triggerCondition:
           - delay:
-            - 20
+            - 13
           additionalCondition:
           - and:
             - not:

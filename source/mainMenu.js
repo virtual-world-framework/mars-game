@@ -37,12 +37,17 @@ MainMenu.prototype = {
     },
 
     createOverlay: function() {
-        var playButton;
+        var playButton, settingsButton, backButton, volume;
+
         this.overlay = document.createElement( "div" );
         this.overlay.id = "MainMenu-Wrapper";
         this.overlay.style.display = "none";
+
+        this.overlay.mainMenu = document.createElement( "div" );
+        this.overlay.mainMenu.id = "MainMenu-Main";
+
         playButton = document.createElement( "div" );
-        playButton.id = "MainMenu-Play";
+        playButton.id = "MainMenu-PlayButton";
         playButton.className = "MainMenu-Button"
         playButton.innerHTML = "Play Game";
         playButton.onmouseover = function( event ) {
@@ -57,7 +62,71 @@ MainMenu.prototype = {
             appendClass( this, "select" );
         }
         playButton.onclick = this.playGame.bind( this );
-        this.overlay.appendChild( playButton );
+
+        settingsButton = document.createElement( "div" );
+        settingsButton.id = "MainMenu-SettingsButton";
+        settingsButton.className = "MainMenu-Button"
+        settingsButton.innerHTML = "Settings";
+        settingsButton.onmouseover = function( event ) {
+            appendClass( this, "hover" );
+        }
+        settingsButton.onmouseout = function( event ) {
+            removeClass( this, "hover" );
+            removeClass( this, "select" );
+        }
+        settingsButton.onmousedown = function( event ) {
+            removeClass( this, "hover" );
+            appendClass( this, "select" );
+        }
+        settingsButton.onclick = this.openSettings.bind( this );
+
+        this.overlay.settingsMenu = document.createElement( "div" );
+        this.overlay.settingsMenu.id = "MainMenu-Settings";
+        this.overlay.settingsMenu.style.display = "none";
+
+        backButton = document.createElement( "div" );
+        backButton.id = "MainMenu-BackButton";
+        backButton.className = "MainMenu-Button"
+        backButton.innerHTML = "Back";
+        backButton.onmouseover = function( event ) {
+            appendClass( this, "hover" );
+        }
+        backButton.onmouseout = function( event ) {
+            removeClass( this, "hover" );
+            removeClass( this, "select" );
+        }
+        backButton.onmousedown = function( event ) {
+            removeClass( this, "hover" );
+            appendClass( this, "select" );
+        }
+        backButton.onclick = this.openMain.bind( this );
+
+        volume = document.createElement( "div" );
+        volume.id = "MainMenu-Volume";
+        volume.mute = document.createElement( "div" );
+        volume.mute.id = "MainMenu-MuteButton";
+        volume.appendChild( volume.mute );
+        volume.slider = document.createElement( "div" );
+        volume.slider.id = "MainMenu-Slider";
+        volume.appendChild( volume.slider );
+        volume.slider.readout = document.createElement( "div" );
+        volume.slider.readout.id = "MainMenu-Readout";
+        volume.slider.appendChild( volume.slider.readout );
+        volume.slider.handle = document.createElement( "div" );
+        volume.slider.handle.id = "MainMenu-Handle";
+        volume.slider.appendChild( volume.slider.handle );
+
+        volume.mute.onclick = this.muteVolume.bind( this );
+        volume.slider.onmousedown = this.moveVolumeSlider.bind( this );
+        volume.slider.onmousemove = this.moveVolumeSlider.bind( this );
+        volume.slider.onmouseout = this.moveVolumeSlider.bind( this );
+
+        this.overlay.mainMenu.appendChild( playButton );
+        this.overlay.mainMenu.appendChild( settingsButton );
+        this.overlay.settingsMenu.appendChild( backButton );
+        this.overlay.settingsMenu.appendChild( volume );
+        this.overlay.appendChild( this.overlay.mainMenu );
+        this.overlay.appendChild( this.overlay.settingsMenu );
         document.body.appendChild( this.overlay );
     },
 
@@ -89,6 +158,67 @@ MainMenu.prototype = {
     playGame: function() {
         this.overlay.style.display = "none";
         vwf_view.kernel.fireEvent( vwf_view.kernel.application(), "gameStarted" );
+    },
+
+    openSettings: function() {
+        this.overlay.mainMenu.style.display = "none";
+        this.overlay.settingsMenu.style.display = "block";
+        this.setVolumeSliderPosition( cachedVolume );
+    },
+
+    openMain: function() {
+        this.overlay.settingsMenu.style.display = "none";
+        this.overlay.mainMenu.style.display = "block";
+    },
+
+    setVolume: function( value ) {
+        var sm, muteButton;
+        sm = vwf_view.kernel.find( vwf_view.kernel.application(), "/soundManager" )[ 0 ];
+        if ( sm ) {
+            value = Math.min( 1, Math.max( 0, value ) );
+            muteButton = document.getElementById( "MainMenu-MuteButton" );
+            if ( value === 0 ) {
+                appendClass( muteButton, "muted" );
+                muted = true;
+            } else {
+                removeClass( muteButton, "muted" );
+                muted = false;
+                cachedVolume = value;
+            }
+            this.setVolumeSliderPosition( value );
+            vwf_view.kernel.callMethod( sm, "setMasterVolume", [ value ] );
+        }
+    },
+
+    moveVolumeSlider: function( event ) {
+        var pct, handle, slider, deadzone;
+        if ( event.which === 1 ) {
+            handle = document.getElementById( "MainMenu-Handle" );
+            slider = document.getElementById( "MainMenu-Slider" );
+            deadzone = handle.clientWidth / 2;
+            pct = ( event.offsetX - deadzone ) / ( slider.clientWidth - deadzone * 2 );
+            this.setVolume( pct );
+        }
+    },
+
+    muteVolume: function() {
+        if ( muted ) {
+            this.setVolume( cachedVolume );
+        } else {
+            this.setVolume( 0 );
+        }
+    },
+
+    setVolumeSliderPosition: function( volume ) {
+        var volumeHandle = document.getElementById( "MainMenu-Handle" );
+        var deadzone = volumeHandle.clientWidth / 2;
+        var pos = volume * ( volumeHandle.parentNode.clientWidth - deadzone * 2 );
+        var readout, readoutPct;
+        volumeHandle.style.marginLeft = pos + "px";
+        readout = document.getElementById( "MainMenu-Readout" );
+        readoutPct = volume * 100;
+        readoutPct = Math.round( readoutPct );
+        readout.innerHTML = "Volume: " + readoutPct + "%";
     }
 }
 

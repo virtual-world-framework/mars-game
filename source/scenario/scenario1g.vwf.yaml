@@ -64,6 +64,8 @@ children:
           actions:
           - playSound:
             - musicStandardGameplay
+          - setObjective:
+            - "Move back to the top of the ramp."
 
         playStartingVO_1g:
           triggerCondition:
@@ -102,6 +104,13 @@ children:
             - SCVO3_Rover
           - playSound:
             - musicSuccessShort
+
+        highlightEndTile:
+          triggerCondition:
+          - onScenarioStart:
+          actions:
+          - callOutObjective:
+            - [ 8, 2 ]
 
         setCameraView:
           triggerCondition:

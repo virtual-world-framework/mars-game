@@ -64,7 +64,7 @@ Blockly.JavaScript['controls_whileUntil'] = function(block) {
   }
 
   var code = 'while ('+ argument0 +') {\n' + branch + '}\n';
-  return code;
+  return constructBlockExeEventCall( block ) + code;
 
   // Do while/until loop.
   // var until = block.getFieldValue('MODE') == 'UNTIL';
@@ -288,42 +288,13 @@ Blockly.JavaScript['controls_if'] = function(block) {
   return code + '\n';
 };
 
-Blockly.JavaScript[ 'controls_sensor_objects' ] = function( block ) {
-  
-  var dropdown_value = block.getFieldValue('MODE');
-  var retVal = false;
-  var rover = vwf_view.kernel.find( "", "//rover" )[ 0 ];
-
-  if ( dropdown_value === 'noObjectAhead' ) {
-      return [ "!vwf.getProperty( '" + rover + "', 'objectSensorValue' )", Blockly.JavaScript.ORDER_ATOMIC ];
-  } else {
-      return [ "vwf.getProperty( '" + rover + "', 'objectSensorValue' )", Blockly.JavaScript.ORDER_ATOMIC ];
-  }
-};
-
-Blockly.Blocks[ 'controls_sensor_objects' ] = {
-  init: function() {
-    this.setColour( 30 );
-    this.appendDummyInput("INPUT")
-        .appendField(new Blockly.FieldDropdown([["noObjectAhead", "noObjectAhead"],["objectAhead", "objectAhead"]]), "MODE");
-    this.setOutput( true, "Boolean" );
-    var thisBlock = this;
-    this.setTooltip( function() {
-      var content = {
-        text: "A dropdown selector for sensing objects in the environment."
-      }
-      return showTooltipInBlockly( thisBlock, content );
-    } );
-  }
-};
-
 Blockly.JavaScript[ 'controls_sensor_tracks' ] = function( block ) {
   
   var dropdown_value = block.getFieldValue('MODE');
   var retVal = false;
   var rover = vwf_view.kernel.find( "", "//rover" )[ 0 ];
 
-  if ( dropdown_value === 'noTrackAnomalyAhead' ) {
+  if ( dropdown_value === 'SCAN: POSITIVE' ) {
       return [ "!vwf.getProperty( '" + rover + "', 'tracksSensorValue' )", Blockly.JavaScript.ORDER_ATOMIC ];
   } else {
       return [ "vwf.getProperty( '" + rover + "', 'tracksSensorValue' )", Blockly.JavaScript.ORDER_ATOMIC ];
@@ -335,12 +306,12 @@ Blockly.Blocks[ 'controls_sensor_tracks' ] = {
   init: function() {
     this.setColour( 30 );
     this.appendDummyInput("INPUT")
-        .appendField(new Blockly.FieldDropdown([["noTrackAnomalyAhead", "noTrackAnomalyAhead"],["trackAnomalyAhead", "trackAnomalyAhead"]]), "MODE");
+        .appendField(new Blockly.FieldDropdown([["scan: positive", "SCAN: POSITIVE"],["scan: negative", "SCAN: NEGATIVE"]]), "MODE");
     this.setOutput( true, "Boolean" );
     var thisBlock = this;
     this.setTooltip( function() {
       var content = {
-        text: "A dropdown selector for sensing track deviations on the ground."
+        text: "Checks our scanner for man-made objects and other anomolies."
       }
       return showTooltipInBlockly( thisBlock, content );
     } );

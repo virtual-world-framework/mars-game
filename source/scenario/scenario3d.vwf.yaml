@@ -34,6 +34,9 @@ properties:
     - rover
     - [ 12, 10 ]
   - addToGrid:
+    - minirover
+    - [ 24, 39 ]
+  - addToGrid:
     - blocklyGraph
     - [ 12, 10 ]
   - removeFromGrid:
@@ -67,6 +70,8 @@ children:
           - playSound:
             - musicStandardGameplay
           - resetRoverSensors:
+          - setObjective:
+            - "Graph a line that matches the slope of the tracks."
 
         playStartingVO_3d:
           triggerCondition:
@@ -100,17 +105,9 @@ children:
           actions:
           - scenarioSuccess:
           - showAlert:
-            - "Course plotted! Now to find the little guy."
+            - "Course Plotted: Navigation Program Update Required"
           - playSound:
             - musicSuccessShort
-
-        setCameraView:
-          triggerCondition:
-          - onBlocklyStarted:
-            - rover
-          actions:
-          - setCinematicCameraView:
-            - [ 13, 0, -15 ]
 
   grid:
     includes: source/grid.vwf
