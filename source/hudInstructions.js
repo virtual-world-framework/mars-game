@@ -746,6 +746,10 @@ function setHelicamButtonsEnabled( value ) {
     hud.elements[ "camera_topDown" ].enabled = value;
 }
 
+function setHUDElementProperty( element, property, value ) {
+    hud.elements[ element ][ property ] = value;
+}
+
 function clearHUDEffects() {
     var els = hud.elements;
     for ( var id in els ) {

@@ -290,25 +290,20 @@ this.actionSet.clearBlockly = function( params, context ) {
     }
 }
 
-this.actionSet.disableHelicam = function( params, context ) {
-    if ( params && params.length > 0 ) {
-        self.logger.errorx( "disableHelicam", "This action takes no parameters.");
+this.actionSet.setHUDProperty = function( params, context ) {
+    if ( !params || params.length !== 3 ) {
+        self.logger.errorx( "setHUDProperty", "This action takes three parameters: " +
+                            "The HUD element's name, the property to change, and the " +
+                            "value to set the property to.");
         return undefined;
     }
-    
-    return function() {
-        context.disableHelicam();
-    }
-}
 
-this.actionSet.enableHelicam = function( params, context ) {
-    if ( params && params.length > 0 ) {
-        self.logger.errorx( "enableHelicam", "This action takes no parameters.");
-        return undefined;
-    }
+    var element = params[ 0 ];
+    var property = params[ 1 ];
+    var value = params[ 2 ];
     
     return function() {
-        context.enableHelicam();
+        context.setHUDElementProperty( element, property, value );
     }
 }
 

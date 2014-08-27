@@ -158,6 +158,14 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 setHelicamButtonsEnabled( false );
                 break;
 
+            case "setHUDElementProperty":
+                var element, property, value;
+                element = eventArgs[ 0 ];
+                property = eventArgs[ 1 ];
+                value = eventArgs[ 2 ]
+                setHUDElementProperty( element, property, value );
+                break;
+
             case "showCommsImage":
                 addImageToCommsDisplay( eventArgs[ 0 ] );
                 break;

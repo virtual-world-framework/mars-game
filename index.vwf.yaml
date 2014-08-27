@@ -62,6 +62,7 @@ events:
   playVideo:
   videoPlayed:
   setObjective:
+  setHUDElementProperty:
 children:
   soundManager:
     includes: source/marsGameSound.vwf

@@ -99,5 +99,9 @@ properties:
     # arguments: objectiveText
     setObjective:
 
+    # Sets a property of a HUD element to the specified value
+    # arguments: elementName, propertyName, propertyValue
+    setHUDProperty:
+
 scripts:
 - source: source/triggers/actionFactory.js
