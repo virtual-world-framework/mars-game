@@ -11,17 +11,15 @@ function createHUD() {
     blocklyButton.onMouseDown = clickBlockly;
     hud.add( blocklyButton, "right", "bottom", { "x": -32, "y": -30 } );
 
-    var graphButton = new HUD.Element( "graphButton", drawHelicamButton, 64, 64 );
+    var graphButton = new HUD.Element( "graphButton", drawIcon, 64, 64 );
     graphButton.icon = new Image();
     graphButton.icon.src = "assets/images/hud/graph_display.png";
-    graphButton.enabled = true;
     graphButton.onMouseDown = toggleGraphDisplay;
     hud.add( graphButton, "right", "bottom", { "x": -104, "y": -30 } );
 
-    var tilesButton = new HUD.Element( "tilesButton", drawHelicamButton, 64, 64 );
+    var tilesButton = new HUD.Element( "tilesButton", drawIcon, 64, 64 );
     tilesButton.icon = new Image();
     tilesButton.icon.src = "assets/images/hud/tiles_button.png";
-    tilesButton.enabled = true;
     tilesButton.onMouseDown = toggleTiles;
     hud.add( tilesButton, "right", "bottom", { "x": -176, "y": -30 } );
 
@@ -40,6 +38,9 @@ function createHUD() {
     objective.lastBlinkTime = 0;
     objective.opacity = 1;
     hud.add( objective, "left", "bottom", { "x": 30, "y": -172 } );
+
+    hud.elementPreDraw = drawEnabled;
+    hud.elementPostDraw = drawEnabledPost;
 }
 
 function createRoverElement() {
@@ -85,7 +86,6 @@ function createCameraSelector() {
     firstPersonBtn.icon = new Image();
     firstPersonBtn.icon.src = "assets/images/hud/camera_firstperson.png";
     firstPersonBtn.mode = "firstPerson";
-    firstPersonBtn.enabled = true;
     firstPersonBtn.onMouseDown = selectCameraMode;
     hud.add( firstPersonBtn, "right", "top", { "x": -53, "y": 32 } );
 
@@ -93,15 +93,13 @@ function createCameraSelector() {
     thirdPersonBtn.icon = new Image();
     thirdPersonBtn.icon.src = "assets/images/hud/camera_thirdperson.png";
     thirdPersonBtn.mode = "thirdPerson";
-    thirdPersonBtn.enabled = true;
     thirdPersonBtn.onMouseDown = selectCameraMode;
     hud.add( thirdPersonBtn, "right", "top", { "x": -34, "y": 54 } );
 
-    var topDownBtn = new HUD.Element( "camera_topDown", drawHelicamButton, 22, 22 );
+    var topDownBtn = new HUD.Element( "camera_topDown", drawIcon, 22, 22 );
     topDownBtn.icon = new Image();
     topDownBtn.icon.src = "assets/images/hud/camera_topdown.png";
     topDownBtn.mode = "topDown";
-    topDownBtn.enabled = true;
     topDownBtn.onMouseDown = selectCameraMode;
     hud.add( topDownBtn, "right", "top", { "x": -35, "y": 80 } );
 }
@@ -277,6 +275,14 @@ function createAlertText() {
 
 // === Draw Functions ===
 
+function drawEnabled( context, element ) {
+    context.globalAlpha = element.enabled ? 1 : 0.5;
+}
+
+function drawEnabledPost( context, element ) {
+    context.globalAlpha = 1;
+}
+
 function drawBatteryMeter( context, position ) {
     var battery = this.battery;
     var maxBattery = this.maxBattery;
@@ -419,18 +425,6 @@ function drawBlocklyStatusAnimating( context, position ) {
     this.defaultDraw( context, position );
 }
 
-function drawHelicamButton( context, position ) {
-    if ( this.icon ) {
-        if ( this.enabled ) {
-            context.drawImage( this.icon, position.x, position.y );
-        } else {
-            context.globalAlpha = 0.25;
-            context.drawImage( this.icon, position.x, position.y );
-            context.globalAlpha = 1;
-        }
-    }
-}
-
 function drawIcon( context, position ) {
     if ( this.icon ) {
         context.drawImage( this.icon, position.x, position.y );
@@ -553,10 +547,6 @@ function clickBlockly( event ) {
 }
 
 function selectCameraMode( event ) {
-    if ( !this.enabled ) {
-        return;
-    }
-
     var cameraNode = vwf_view.kernel.find( "", "//camera" )[ 0 ];
     vwf_view.kernel.setProperty( cameraNode, "pointOfView", this.mode );
 
@@ -566,17 +556,11 @@ function selectCameraMode( event ) {
 }
 
 function toggleGraphDisplay( event ) {
-    if ( !this.enabled ) {
-        return;
-    }
     var sceneID = vwf_view.kernel.application();
     vwf_view.kernel.callMethod( sceneID, "displayGraph", [ !graphIsVisible ] );
 }
 
 function toggleTiles( event ) {
-    if ( !this.enabled ) {
-        return;
-    }
     var sceneID = vwf_view.kernel.application();
     vwf_view.kernel.callMethod( sceneID, "displayTiles", [ !tilesAreVisible ] );
 }
