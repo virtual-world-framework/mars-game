@@ -405,7 +405,20 @@ vwf_view.satProperty = function( nodeID, propertyName, propertyValue ) {
     }
 }
 
+vwf_view.gotProperty = function( nodeID, propertyName, propertyValue ) {
+    if ( nodeID === vwf_view.kernel.application() ) {
+        if ( propertyName === "version" ) {
+            var version = propertyValue;
+            var element = document.getElementById( "version" );
+            element.innerHTML = "Source available on " +
+                "<a href='https://github.com/virtual-world-framework/mars-game'>GitHub</a>. " +
+                "Licensed using Apache 2. - Version: " + version;
+        }
+    }
+}
+
 function setUpView() {
+    vwf_view.kernel.getProperty( vwf_view.kernel.application(), "version" );
     mainMenu = new MainMenu();
     hud = new HUD();
     createHUD();

@@ -17,6 +17,31 @@ body {
     position: absolute;
     bottom: 2px;
     right: 2px;
+    user-select: none;
+    -webkit-user-select: none;  /* Chrome all / Safari all */
+    -moz-user-select: none;     /* Firefox all */
+    -ms-user-select: none;      /* IE 10+ */
+    cursor: default;
+}
+
+a {
+    pointer-events: all;
+}
+
+a:link {
+    color: rgb( 224, 255, 100 );
+}
+
+a:visited {
+    color: rgb( 224, 255, 100 );
+}
+
+a:hover {
+    color: rgb( 255, 255, 255 );
+}
+
+a:active {
+    color: rgb( 255, 0, 0 );
 }
 
 #blocklyIndicator {
