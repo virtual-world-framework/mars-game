@@ -212,7 +212,7 @@ properties:
     - soundName: "L2VO10_Control"
       soundURL: "assets/sounds/vo/L2VO10_Control.ogg"
       initialVolume: 0.65
-      subtitle: "[MC]: Yes, you are… you need to check if you can actually see the MiniRover! For this you will need a new Block: the Scan Block."
+      subtitle: "[MC]: Yes, you are… you need to check if you can actually see the Mini Rover! For this you will need a new Block: the Scan Block."
       soundGroup: vo
       groupReplacementMethod: queue
     - soundName: "L3VO1_Rover"
@@ -254,7 +254,7 @@ properties:
     - soundName: "L3VO3_Rover_S"
       soundURL: "assets/sounds/vo/L3VO3_Rover_S.ogg"
       initialVolume: 0.65
-      subtitle: "[ROVER]: I’ve found something! Looks like the MiniRover dropped some supplies and changed direction. I’ll need to update my Grapher to match it’s new course."
+      subtitle: "[ROVER]: I’ve found something! Looks like the Mini Rover dropped some supplies and changed direction. I’ll need to update my Grapher to match it’s new course."
       soundGroup: vo
       groupReplacementMethod: replace
     - soundName: "L3VO4_Rover"
@@ -284,7 +284,7 @@ properties:
     - soundName: "L3VO5_Rover_S"
       soundURL: "assets/sounds/vo/L3VO5_Rover_S.ogg"
       initialVolume: 0.65
-      subtitle: "[ROVER]: Some more dropped supplies, and the MiniRover has changed direction again! I wonder why it is driving so erratically."
+      subtitle: "[ROVER]: Some more dropped supplies, and the  Rover has changed direction again! I wonder why it is driving so erratically."
       soundGroup: vo
       groupReplacementMethod: queue
     - soundName: "L3VO6_Rover"
@@ -500,7 +500,7 @@ properties:
     - soundName: "ALVO27_Rover"
       soundURL: "assets/sounds/vo/ALVO27_Rover_m.ogg"
       initialVolume: 0.65
-      subtitle: "[ROVER]: Try using the Scanblock to detect the MiniRover."
+      subtitle: "[ROVER]: Try using the Scanblock to detect the Mini Rover."
       soundGroup: vo
       groupReplacementMethod: queue
     - soundName: "ALVO28_Rover"
