@@ -83,12 +83,17 @@ children:
             - "My new interface really opens new dimensions for me!"
           - stopBlinkBlocklyTab:
             - graph
-          - stopBlinkHUDElement:
-            - blocklyButton
           - playSound:
             - SCVO6_Rover
           - playSound:
             - musicSuccessShort
+
+        blocklyOpened_2b:
+          triggerCondition:
+          - onBlocklyWindowOpened:
+          actions:
+          - stopBlinkHUDElement:
+            - blocklyButton
 
         playGraphOpenedVO_2b:
           triggerCondition:

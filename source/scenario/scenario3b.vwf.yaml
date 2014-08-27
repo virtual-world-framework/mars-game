@@ -99,8 +99,15 @@ children:
             - musicSuccessShort
           - playSound:
             - L3VO4_Rover_S
+
+        graphTabOpened_3b:
+          triggerCondition:
+          - onBlocklyWindowOpened:
+            - graph
+          actions:
           - stopBlinkBlocklyTab:
             - graph
+
 
   grid:
     includes: source/grid.vwf
