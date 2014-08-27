@@ -93,7 +93,7 @@ children:
         playHint1_1c:
           triggerCondition:
           - delay:
-            - 20
+            - 10
           additionalCondition:
           - and:
             - not:
@@ -114,7 +114,7 @@ children:
         playHint2_1c:
           triggerCondition:
           - delay:
-            - 40
+            - 20
           additionalCondition:
           - and:
             - not:

@@ -105,15 +105,13 @@ children:
             - "You have accessed your programming interface!"
           - playSound:
             - musicSuccessShort
-          - playSound:
-            - L1VO2_Rover
           - stopBlinkHUDElement:
             - blocklyButton
 
         playHint1_1a:
           triggerCondition:
           - delay:
-            - 30
+            - 20
           additionalCondition:
           - not:
             - readBlackboard:

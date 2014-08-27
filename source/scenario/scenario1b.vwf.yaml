@@ -83,7 +83,7 @@ children:
               - Level1bStartSounds
           actions:
           - playSound:
-            - L1VO7_Rover
+            - L1VO2_Rover
           - writeToBlackboard:
             - Level1bStartSounds
 
@@ -108,7 +108,7 @@ children:
         playHint1_1b:
           triggerCondition:
           - delay:
-            - 20
+            - 13
           additionalCondition:
           - and:
             - not:
