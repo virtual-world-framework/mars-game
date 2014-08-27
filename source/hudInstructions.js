@@ -450,14 +450,14 @@ function drawObjective( context, position ) {
             context.drawImage( this.icon, position.x, position.y );
             context.globalAlpha = 1;
         }
-        context.font = '20px Arial';
+        context.font = '16px Arial';
         context.fillStyle = "rgb( 224, 255, 100 )";
         context.strokeStyle = "rgb( 0, 0, 0 )";
         context.lineWidth = 3;
         context.textAlign = "left";
         context.textBaseline = "top";
-        context.strokeText( this.text, position.x + 40, position.y + 4 );
-        context.fillText( this.text, position.x + 40, position.y + 4 );
+        context.strokeText( this.text, position.x + 40, position.y + 6 );
+        context.fillText( this.text, position.x + 40, position.y + 6 );
     }
 }
 

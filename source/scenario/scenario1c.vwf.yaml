@@ -72,7 +72,7 @@ children:
           - blinkHUDElement:
             - camera_topDown
           - setObjective:
-            - "Activate Helicam view to get a better view of the crash site."
+            - "Activate Helicam view to inspect the crash site."
 
         succeedOnSuccess_1c:
           triggerCondition:
