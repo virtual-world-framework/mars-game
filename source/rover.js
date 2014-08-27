@@ -176,15 +176,12 @@ this.translateOnTerrain = function( translation, duration, boundaryValue ) {
 
 }
 
-this.getTerrainHeight = function( x, y, z, terrain ) {
+this.getTerrainHeight = function( x, y ) {
 
     var height;
     var scene = this.find("/")[0];
-    var origin = [ x, y, z ];
-    var intersects = scene.raycast( origin, [0,0,-1], 0, Infinity, true, terrain.id );
-    height = intersects.length > 0 ? intersects[0].point.z : z;
+    height = scene.environment.heightmap.getHeight( x, y );
     return height;
-
 }
 
 this.calcRam = function() {
