@@ -73,10 +73,10 @@ this.createRequest = function( type, params ) {
         var event = params[ 0 ];
         var value = params[ 1 ];
         
-        xhr.open("POST", this.logEventUrl, true);
+        xhr.open( "POST", this.logEventUrl, true );
         xhr.setRequestHeader( "Content-type", "application/x-www-form-urlencoded" );
         xhr.send("vwf_session=" + vwfSession + "&player_id=" + playerId + "&action=" + 
-        event + "$&value="+value+"$&version="+version);
+                event + "$&value="+value+"$&version="+version);
         
     }
 }
