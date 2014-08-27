@@ -150,14 +150,6 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 stopBlinkTab( eventArgs[ 0 ] );
                 break;
 
-            case "enableHelicam":
-                setHelicamButtonsEnabled( true );
-                break;
-
-            case "disableHelicam":
-                setHelicamButtonsEnabled( false );
-                break;
-
             case "setHUDElementProperty":
                 var element, property, value;
                 element = eventArgs[ 0 ];

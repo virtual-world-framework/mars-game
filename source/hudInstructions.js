@@ -740,12 +740,6 @@ function pushAlert( message ) {
     }
 }
 
-function setHelicamButtonsEnabled( value ) {
-    hud.elements[ "graphButton" ].enabled = value;
-    hud.elements[ "tilesButton" ].enabled = value;
-    hud.elements[ "camera_topDown" ].enabled = value;
-}
-
 function setHUDElementProperty( element, property, value ) {
     hud.elements[ element ][ property ] = value;
 }

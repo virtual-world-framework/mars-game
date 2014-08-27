@@ -50,8 +50,6 @@ events:
   showCommsImage:
   hideCommsImage:
   blockExecuted:
-  enableHelicam:
-  disableHelicam:
   toggledHelicam:
   toggledGraph:
   toggledTiles:
