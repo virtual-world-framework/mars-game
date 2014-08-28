@@ -792,6 +792,30 @@ this.clauseSet.onGameStarted = function( params, context, callback ) {
     };
 }
 
+this.clauseSet.onHUDMouseOver = function( params, context, callback ) {
+    if ( !params || params.length !== 1 ) {
+        self.logger.warnx( "onHUDMouseOver", 
+                           "This clause takes one argument: The HUD element name." );
+    }
+
+    var elementID;
+
+    onClauseCallbackWarning( callback );
+    if ( callback ) {
+        if ( context && context.mouseOverHUD ) {
+            context.mouseOverHUD = self.events.add( function( id ) {
+                elementID = id;
+                callback();
+            } );
+        }
+    }
+
+    return function() {
+        var retVal = params[ 0 ] === elementID;
+        return retVal;
+    };
+}
+
 function onClauseCallbackWarning( callback ) {
       if ( !callback ) {
         self.logger.warnx( "onClauseCallbackWarning", 

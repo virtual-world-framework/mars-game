@@ -48,6 +48,7 @@ function createRoverElement() {
     batteryMeter.battery = 100;
     batteryMeter.maxBattery = 100;
     batteryMeter.path = "/player/rover";
+    batteryMeter.onMouseOver = fireElementMouseOver;
     hud.add( batteryMeter, "left", "top", { "x": 30, "y": 30 } );
 
     batteryMeter.frame = new Image();
@@ -80,6 +81,7 @@ function createCameraSelector() {
     selector.activeMode.icon.src = "assets/images/hud/camera_thirdperson.png";
     selector.frame = new Image();
     selector.frame.src = "assets/images/hud/camera_selector_frame.png";
+    selector.onMouseOver = fireElementMouseOver;
     hud.add( selector, "right", "top", { "x": -30, "y": 30 } );
 
     var firstPersonBtn = new HUD.Element( "camera_firstPerson", drawIcon, 22, 22 );
@@ -763,6 +765,10 @@ function enableAllHUDElements() {
     for ( var el in els ) {
         els[ el ].enabled = true;
     }
+}
+
+function fireElementMouseOver() {
+    vwf_view.kernel.fireEvent( vwf_view.kernel.application(), "mouseOverHUD", [ this.id ] );
 }
 
 //@ sourceURL=source/hudInstructions.js
