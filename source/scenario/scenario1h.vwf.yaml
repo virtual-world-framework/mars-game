@@ -38,18 +38,10 @@ properties:
     - lowRam
     - 5    
 
-  # TODO: Simplify heading/rotation
-  # Set initial rotation using heading
-  # Currently, moveLeft & moveRight in rover.js
-  # fight with adding that to the setter of heading
-  - setProperty:
+  - callMethod:
     - rover
-    - heading
+    - setHeading
     - 180
-  - setProperty:
-    - rover
-    - rotation
-    - [ 0, 0, 1, 180 ]
 
   - addToInventory:
     - rover/cargo

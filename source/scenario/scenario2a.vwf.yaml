@@ -32,15 +32,16 @@ properties:
   - setProperty:
     - rover
     - blockly_allowedBlocks
+<<<<<<< HEAD
     - 12
   - setProperty:
+=======
+    - 30
+  - callMethod:
+>>>>>>> 9e4d9e0... Update scenarios to use callMethod for setHeading instead of setProperty rotation
     - rover
-    - heading
+    - setHeading
     - 0
-  - setProperty:
-    - rover
-    - rotation
-    - [ 0, 0, 1, 0 ]
   - addToInventory:
     - rover/cargo
     - [ "helicam", "battery", "radio" ]
