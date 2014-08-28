@@ -48,7 +48,6 @@ function createRoverElement() {
     batteryMeter.battery = 100;
     batteryMeter.maxBattery = 100;
     batteryMeter.path = "/player/rover";
-    batteryMeter.onMouseOver = fireElementMouseOver;
     hud.add( batteryMeter, "left", "top", { "x": 30, "y": 30 } );
 
     batteryMeter.frame = new Image();
