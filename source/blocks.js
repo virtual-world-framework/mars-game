@@ -805,7 +805,8 @@ Blockly.Blocks['graph_left_paren'] = {
   init: function() {
     this.setColour(280);
     this.appendValueInput('INPUT')
-        .appendField('(');
+        .appendField('(')
+        .setCheck(['Number','Variable','OperatorAddSubtract','RightParenthesis']);
     this.setOutput(true, 'LeftParenthesis');
     var thisBlock = this;
     this.setTooltip( function() {
