@@ -98,12 +98,15 @@ this.createGridDisplay = function( grid ) {
     tiles.length = 0;
     for ( var x = 0; x < grid.boundaryValues.length; x++ ) {
         for ( var y = 0; y < grid.boundaryValues[ x ].length; y++ ) {
+            if ( grid.boundaryValues[ x ][ y ] === -1 ) {
+                continue;
+            }
             origin = [
                 offset[ 0 ] + ( x ),
                 offset[ 1 ] + ( y ),
                 0
             ];
-            color = grid.boundaryValues[ x ][ y ] === -1 ? IMPASSABLE_COLOR : PASSABLE_COLOR;
+            color = PASSABLE_COLOR;
             tiles.push( { "plane": {
                 "origin": origin,
                 "normal": NORMAL,
