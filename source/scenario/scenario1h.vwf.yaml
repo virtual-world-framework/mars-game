@@ -9,15 +9,15 @@ properties:
   - setProperty:
     - rover
     - battery
-    - 20
+    - 25
   - setProperty:
     - rover
     - batteryMax
-    - 30
+    - 25
   - setProperty:
     - rover
     - blockly_allowedBlocks
-    - 20
+    - 25
   - setProperty:
     - rover
     - lowRam
