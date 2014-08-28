@@ -412,7 +412,7 @@ vwf_view.gotProperty = function( nodeID, propertyName, propertyValue ) {
             var element = document.getElementById( "version" );
             element.innerHTML = "Source available on " +
                 "<a href='https://github.com/virtual-world-framework/mars-game'>GitHub</a>. " +
-                "Licensed using Apache 2. - Version: " + version;
+                "Licensed using Apache 2. Version: " + version;
         }
     }
 }
