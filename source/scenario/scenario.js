@@ -146,6 +146,21 @@ this.startStateParamSet.setProperty = function( params, context ) {
     object[ propertyName ] = value;
 }
 
+this.startStateParamSet.callMethod = function( params, context ) {
+    if ( !params || ( params.length < 2 ) ) {
+        activeScenario.logger.errorx( "callMethod", 
+                            "The callMethod condition requires at least two ",
+                            "arguments: the object name and the method name." );
+        return undefined;
+    }
+
+    var objectName = params.shift();
+    var methodName = params.shift();
+
+    var object = activeScenario.startStateExecutor.findInContext( context, objectName );
+    object[ methodName ].apply( object, params );
+}
+
 this.startStateParamSet.setSceneProperty = function( params, context ) {
     if ( !params || ( params.length !== 2 ) ) {
         activeScenario.logger.errorx( "setSceneProperty", 
