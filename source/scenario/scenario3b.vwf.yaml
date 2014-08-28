@@ -75,6 +75,19 @@ children:
           - setObjective:
             - "Graph a line that matches the slope of the tracks."
 
+        playStartingVO_3b:
+          triggerCondition:
+          - onScenarioStart:
+          additionalCondition:
+          - not:
+            - readBlackboard:
+              - Level3bStartSounds
+          actions:
+          - playSound:
+            - L3VO3_Rover_S
+          - writeToBlackboard:
+            - Level3bStartSounds
+
         failOnMove_2d:
           triggerCondition:
           - onMoved:
@@ -107,7 +120,6 @@ children:
           actions:
           - stopBlinkBlocklyTab:
             - graph
-
 
   grid:
     includes: source/grid.vwf

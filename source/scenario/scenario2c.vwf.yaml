@@ -60,6 +60,19 @@ children:
           - setObjective:
             - "Build an equation in the GRAPH tab to graph a line."
 
+        playStartingVO_2c:
+          triggerCondition:
+          - onScenarioStart:
+          additionalCondition:
+          - not:
+            - readBlackboard:
+              - Level2cStartSounds
+          actions:
+          - playSound:
+            - SCVO6_Rover
+          - writeToBlackboard:
+            - Level2cStartSounds
+
         failOnMove_2c:
           triggerCondition:
           - onMoved:
@@ -67,7 +80,7 @@ children:
           actions:
           - scenarioFailure:
             - lost
-            - "You need to learn to plot course!"
+            - "You need to plot the course of the wayward rover before going to find it."
 
         succeedOnSuccessfulCoursePlot_2c:
           triggerCondition:

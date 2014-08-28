@@ -75,6 +75,22 @@ children:
           - writeToBlackboard:
             - Level2eStartSounds
 
+        failOnWrongFacing_2e:
+          triggerCondition:
+          - onBlocklyStopped:
+            - rover
+          additionalCondition:
+          - not:
+            - hasHeading:
+              - rover
+              - 0
+          actions:
+          - scenarioFailure:
+            - lost
+            - "You need to end your program facing the same direction as you started."
+          - playSound:
+            - FCVO3_Rover
+
         succeedOnSuccessfulMovement_2e:
           triggerCondition:
           - onBlocklyStopped:

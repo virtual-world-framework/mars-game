@@ -75,6 +75,22 @@ children:
           - writeToBlackboard:
             - Level2fStartSounds
 
+        failOnWrongFacing_2f:
+          triggerCondition:
+          - onBlocklyStopped:
+            - rover
+          additionalCondition:
+          - not:
+            - hasHeading:
+              - rover
+              - 0
+          actions:
+          - scenarioFailure:
+            - lost
+            - "You need to end your program facing the same direction as you started."
+          - playSound:
+            - FCVO3_Rover
+
         succeedOnSuccessfulMovement_2f:
           triggerCondition:
           - onBlocklyStopped:
@@ -90,10 +106,6 @@ children:
             - "I'm on the right path. How will I stop when I see the rover?"
           - playSound:
             - musicSuccessShort
-          - playSound:
-            - SCVO9_Rover
-          - playSound:
-            - L3VO2_Mission_S
 
         highlightEndTile:
           triggerCondition:
