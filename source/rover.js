@@ -29,7 +29,7 @@ this.initialize = function() {
 }
 
 this.registerScenarioListener = function() {
-    var scene = this.find( "/" )[ 0 ];
+    var scene = this.sceneNode;
     scene.scenarioChanged = ( function( scenarioName ) {
         this.findAndSetCurrentGrid( scenarioName );
     } ).bind( this );
@@ -48,7 +48,7 @@ this.findAndSetCurrentGrid = function( scenarioName ) {
 
 this.moveForward = function() {
 
-    var scene = this.find( "/" )[ 0 ];
+    var scene = this.sceneNode;
     var headingInRadians = this.heading * Math.PI / 180;
     var dirVector = [ Math.round( -Math.sin( headingInRadians ) ), Math.round( Math.cos( headingInRadians ) ) ];
     var proposedNewGridSquare = [ this.currentGridSquare[ 0 ] + dirVector[ 0 ], 
@@ -101,13 +101,11 @@ this.moveForward = function() {
 }
 
 this.turnLeft = function() {
-    var scene = this.find( "/" )[ 0 ];
     this.setHeading( this.heading + 90, 1 );
     this.activateSensor( 'forward' );
 }
 
 this.turnRight = function() {
-    var scene = this.find( "/" )[ 0 ];
     this.setHeading( this.heading - 90, 1 );
     this.activateSensor( 'forward' );
 }
@@ -267,7 +265,7 @@ this.allowedBlocksChanged = function( value ) {
 }
 
 this.ramChanged = function( value ) {
-    var scene = this.find("/")[0];
+    var scene = this.sceneNode;
     if ( scene !== undefined && scene.alerts ) {
         if ( value <= this.lowRam ) {
             if ( value <= 0 ) {
@@ -280,7 +278,7 @@ this.ramChanged = function( value ) {
 }
 
 this.batteryChanged = function( value ) {
-    var scene = this.find("/")[0];
+    var scene = this.sceneNode;
     if ( scene !== undefined && scene.alerts ) {
         if ( value < this.lowBattery ) {
             if ( value <= 0 ) {
@@ -293,7 +291,7 @@ this.batteryChanged = function( value ) {
 }
 
 this.moveFailed = function( value ) {
-    var scene = this.find("/")[0];
+    var scene = this.sceneNode;
     if ( scene !== undefined && scene.alerts ) {
         switch( value ) {
             case 'collision':
@@ -304,10 +302,6 @@ this.moveFailed = function( value ) {
 }
 
 this.activateSensor = function( sensor ) {
-
-    var scene = this.find("/")[0];
-  
-    var retVal = false;
 
     if ( sensor === 'forward' ) {
         // This sensor just checks the current position against the 
