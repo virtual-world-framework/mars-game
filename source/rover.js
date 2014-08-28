@@ -102,21 +102,13 @@ this.moveForward = function() {
 
 this.turnLeft = function() {
     var scene = this.find( "/" )[ 0 ];
-    this.heading += 90;
-    if ( this.heading > 360 ) {
-        this.heading -= 360;
-    }
-    this.rotateBy( [ 0, 0, 1, 90 ], 1 );
+    this.setHeading( this.heading + 90, 1 );
     this.activateSensor( 'forward' );
 }
 
 this.turnRight = function() {
     var scene = this.find( "/" )[ 0 ];
-    this.heading -= 90;
-    if ( this.heading < 0 ) {
-        this.heading += 360;
-    }
-    this.rotateBy( [ 0, 0, 1, -90 ], 1 );
+    this.setHeading( this.heading - 90, 1 );
     this.activateSensor( 'forward' );
 }
 
@@ -332,4 +324,27 @@ this.activateSensor = function( sensor ) {
 this.deactivateSensor = function() {
     
 }
+
+this.setHeading = function( newHeading, duration ) {
+    if ( this.heading !== undefined ) {
+        // Find the delta in heading and rotateBy that amount via the optional duration
+        var headingDelta = newHeading - this.heading;
+        var axisAngle = [
+            this.transform[ 8 ], 
+            this.transform[ 9 ],
+            this.transform[ 10 ], 
+            headingDelta ];
+        this.rotateBy( axisAngle, duration || 0 );
+    }
+
+    // Set the heading value
+    while ( newHeading > 360 ) {
+        newHeading -= 360;
+    }
+    while ( newHeading < 0 ) {
+        newHeading += 360;
+    }
+    this.heading = newHeading;
+}
+
 //@ sourceURL=source/rover.js
