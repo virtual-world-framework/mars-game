@@ -151,14 +151,14 @@ this.placeOnTerrain = function( pos ) {
     goog.vec.Vec3.cross( normal, xAxis, yAxis );
 
     // Step 4: Find the point on the terrain below the rover
-    var roverPos = this.getTerrainPosUnderNode( this, deltaPos );
+    pos[ 2 ] = ( terrainPosFL[ 2 ] + terrainPosBL[ 2 ] + terrainPosFR[ 2 ] + terrainPosBR[ 2 ] ) * 0.25
 
     // Step 5: Assign the new transform to the rover
     this.transform = [
-        xAxis[ 0 ],    xAxis[ 1 ],    xAxis[ 2 ],    0,
-        yAxis[ 0 ],    yAxis[ 1 ],    yAxis[ 2 ],    0,
-        normal[ 0 ],   normal[ 1 ],   normal[ 2 ],   0,
-        roverPos[ 0 ], roverPos[ 1 ], roverPos[ 2 ], 1
+        xAxis[ 0 ],  xAxis[ 1 ],  xAxis[ 2 ],  0,
+        yAxis[ 0 ],  yAxis[ 1 ],  yAxis[ 2 ],  0,
+        normal[ 0 ], normal[ 1 ], normal[ 2 ], 0,
+        pos[ 0 ],    pos[ 1 ],    pos[ 2 ],    1
     ];
 }
 
