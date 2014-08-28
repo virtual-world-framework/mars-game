@@ -294,7 +294,7 @@ Blockly.JavaScript[ 'controls_sensor_tracks' ] = function( block ) {
   var retVal = false;
   var rover = vwf_view.kernel.find( "", "//rover" )[ 0 ];
 
-  if ( dropdown_value === 'SCAN: POSITIVE' ) {
+  if ( dropdown_value === 'SCAN: NEGATIVE' ) {
       return [ "!vwf.getProperty( '" + rover + "', 'tracksSensorValue' )", Blockly.JavaScript.ORDER_ATOMIC ];
   } else {
       return [ "vwf.getProperty( '" + rover + "', 'tracksSensorValue' )", Blockly.JavaScript.ORDER_ATOMIC ];

@@ -9,15 +9,15 @@ properties:
   - setProperty:
     - rover
     - battery
-    - 50
+    - 40
   - setProperty:
     - rover
     - batteryMax
-    - 50
+    - 40
   - setProperty:
     - rover
     - blockly_allowedBlocks
-    - 15
+    - 12
   - setProperty:
     - rover
     - heading
@@ -67,7 +67,7 @@ children:
             - musicLevel2
           - resetRoverSensors:
           - setObjective:
-            - "Build a program to follow the tracks until you find a man-made object."
+            - "Build a program to follow the tracks until your scanner finds something."
 
         playTravelVO_3e:
           triggerCondition:
