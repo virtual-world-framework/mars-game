@@ -68,6 +68,7 @@ methods:
   moveForward:
   turnLeft:
   turnRight:
+  placeOnTerrain:
   translateOnTerrain:
   blocksUpdated:
   calcRam:

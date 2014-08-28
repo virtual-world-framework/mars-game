@@ -112,59 +112,7 @@ this.turnRight = function() {
     this.activateSensor( 'forward' );
 }
 
-this.translateOnTerrain = function( translation, duration, boundaryValue ) {
-
-    if ( this.terrain === undefined ) {
-
-        this.translateBy( translation, duration );
-
-    } else {
-
-        var lastTime = 0;
-        var startTranslation = this.translation || goog.vec.Vec3.create();
-        var deltaTranslation = this.translationFromValue( translation );
-        var stopTranslation = goog.vec.Vec3.add(
-            startTranslation,
-            deltaTranslation,
-            goog.vec.Vec3.create()
-        );
-        var currentBattery = this.battery;
-
-        if ( duration > 0 ) {
-
-            this.animationDuration = duration;
-            this.animationUpdate = function( time, duration ) {
-
-                if ( lastRenderTime === lastTime && time < duration ) {
-                    return;
-                }
-
-                lastTime = lastRenderTime;
-
-                var newTranslation = goog.vec.Vec3.lerp(
-                    startTranslation, stopTranslation,
-                    time >= duration ? 1 : time / duration,
-                    goog.vec.Vec3.create()
-                );
-
-                this.placeRoverOnTerrain( newTranslation );
-                this.battery = currentBattery - ( time / duration ) * boundaryValue;
-
-            }
-
-            this.animationPlay(0, duration);
-
-        } else {
-
-            this.placeRoverOnTerrain( stopTranslation );
-
-        }
-
-    }
-
-}
-
-this.placeRoverOnTerrain = function( pos ) {
+this.placeOnTerrain = function( pos ) {
     // Step 1: Get height of the terrain under the four wheels
     var deltaPos = [ 
         pos[ 0 ] - this.transform[ 12 ], 
@@ -212,6 +160,58 @@ this.placeRoverOnTerrain = function( pos ) {
         normal[ 0 ],   normal[ 1 ],   normal[ 2 ],   0,
         roverPos[ 0 ], roverPos[ 1 ], roverPos[ 2 ], 1
     ];
+}
+
+this.translateOnTerrain = function( translation, duration, boundaryValue ) {
+
+    if ( this.terrain === undefined ) {
+
+        this.translateBy( translation, duration );
+
+    } else {
+
+        var lastTime = 0;
+        var startTranslation = this.translation || goog.vec.Vec3.create();
+        var deltaTranslation = this.translationFromValue( translation );
+        var stopTranslation = goog.vec.Vec3.add(
+            startTranslation,
+            deltaTranslation,
+            goog.vec.Vec3.create()
+        );
+        var currentBattery = this.battery;
+
+        if ( duration > 0 ) {
+
+            this.animationDuration = duration;
+            this.animationUpdate = function( time, duration ) {
+
+                if ( lastRenderTime === lastTime && time < duration ) {
+                    return;
+                }
+
+                lastTime = lastRenderTime;
+
+                var newTranslation = goog.vec.Vec3.lerp(
+                    startTranslation, stopTranslation,
+                    time >= duration ? 1 : time / duration,
+                    goog.vec.Vec3.create()
+                );
+
+                this.placeOnTerrain( newTranslation );
+                this.battery = currentBattery - ( time / duration ) * boundaryValue;
+
+            }
+
+            this.animationPlay(0, duration);
+
+        } else {
+
+            this.placeOnTerrain( stopTranslation );
+
+        }
+
+    }
+
 }
 
 this.getTerrainPosUnderNode = function( node, offset ) {
