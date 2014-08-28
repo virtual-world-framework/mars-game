@@ -244,10 +244,48 @@ children:
           displayName: "Rover"
           castShadows: true
           receiveShadows: true
-          terrainName: "collisionTerrain"
+          terrainName:
+            set: |
+              this.terrainName = value;
+              this.terrain = this.find( "//" + value )[ 0 ];
+              //@ sourceURL=index.vwf.player.rover.terrainName.set
+            value: collisionTerrain
+          terrain:
+            get: |
+              return this.terrain || this.find( "//" + this.terrainName )[ 0 ];
+              //@ sourceURL=index.vwf.player.rover.terrain.get
           currentGridSquare: [ 0, 0 ]
           sensorValue: false
         children:
+          Cylinder014:
+            extends: http://vwf.example.com/node3.vwf
+            children: 
+              Cylinder058:
+                extends: http://vwf.example.com/node3.vwf
+                children: 
+                  wheel:
+                    extends: http://vwf.example.com/node3.vwf
+              Cylinder059:
+                extends: http://vwf.example.com/node3.vwf
+                children: 
+                  wheel001:
+                    extends: http://vwf.example.com/node3.vwf
+              Cylinder050:
+                extends: http://vwf.example.com/node3.vwf
+                children: 
+                  wheel002:
+                    extends: http://vwf.example.com/node3.vwf
+                    children: 
+                      material:
+                        extends: http://vwf.example.com/material.vwf
+              Cylinder060:
+                extends: http://vwf.example.com/node3.vwf
+                children: 
+                  wheel003:
+                    extends: http://vwf.example.com/node3.vwf
+                    children: 
+                      material:
+                        extends: http://vwf.example.com/material.vwf
           cargo:
             extends: source/inventory.vwf
             properties:
