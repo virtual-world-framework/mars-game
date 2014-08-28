@@ -104,7 +104,7 @@ children:
           - playSound:
             - musicSuccessShort
           - playSound:
-            - L1VO3_Rover
+            - ALVO20_Rover
 
         playHint1_1f:
           triggerCondition:
@@ -126,27 +126,6 @@ children:
             - ALVO35_Rover
           - writeToBlackboard:
             - Level1fHint1
-
-        playHint2_1f:
-          triggerCondition:
-          - delay:
-            - 30
-          additionalCondition:
-          - and:
-            - not:
-              - readBlackboard:
-                - Level1fHint2
-            - not:
-              - readBlackboard:
-                - hasSucceeded
-            - not:
-              - readBlackboard:
-                - hasFailed
-          actions:
-          - playSound:
-            - ALVO20_Rover
-          - writeToBlackboard:
-            - Level1fHint2
 
         setCameraView:
           triggerCondition:

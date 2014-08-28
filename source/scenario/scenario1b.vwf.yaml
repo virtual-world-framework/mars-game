@@ -115,7 +115,7 @@ children:
           - playSound:
             - musicSuccessShort
           - playSound:
-            - L1VO8_Rover
+            - ALVO40_Rover
 
         playHint1_1b:
           triggerCondition:

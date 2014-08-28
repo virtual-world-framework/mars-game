@@ -68,7 +68,7 @@ children:
           - onScenarioStart:
           actions:
           - playSound:
-            - musicStandardGameplay
+            - musicLevel2
           - resetRoverSensors:
           - blinkBlocklyTab:
             - graph

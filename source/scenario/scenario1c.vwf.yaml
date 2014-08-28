@@ -144,6 +144,27 @@ children:
           - writeToBlackboard:
             - Level1cHint2
 
+        playHint3_1c:
+          triggerCondition:
+          - delay:
+            - 40
+          additionalCondition:
+          - and:
+            - not:
+              - readBlackboard:
+                - Level1cHint3
+            - not:
+              - readBlackboard:
+                - hasSucceeded
+            - not:
+              - readBlackboard:
+                - hasFailed
+          actions:
+          - playSound:
+            - ALVO40_Rover
+          - writeToBlackboard:
+            - Level1cHint3
+
         setCameraView:
           triggerCondition:
           - onBlocklyStarted:

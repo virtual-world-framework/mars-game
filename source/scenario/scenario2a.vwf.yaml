@@ -56,7 +56,7 @@ children:
           - onScenarioStart:
           actions:
           - playSound:
-            - musicStandardGameplay
+            - musicLevel2
           - playSound:
             - L2VO4_Rover
           - blinkHUDElement:
