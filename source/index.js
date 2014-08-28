@@ -120,15 +120,14 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 } else {
                     setRenderMode( RENDER_GAME );
                 }
+                lastBlockIDExecuted = undefined;
                 enableAllHUDElements();
             case "scenarioReset":
                 removePopup();
                 removeFailScreen();
                 clearBlocklyStatus();
-                gridBounds = eventArgs[ 1 ] || gridBounds;
-                break;
-            case "scenarioStarted":
                 indicateBlock( lastBlockIDExecuted );
+                gridBounds = eventArgs[ 1 ] || gridBounds;
                 break;
 
             case "gotScenarioPaths":
