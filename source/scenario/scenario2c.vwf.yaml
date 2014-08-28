@@ -18,7 +18,7 @@ properties:
   - setProperty:
     - rover
     - blockly_allowedBlocks
-    - 30
+    - 15
   - setProperty:
     - rover
     - heading
@@ -105,7 +105,7 @@ children:
             - ALVO24_Rover
           - writeToBlackboard:
             - Level2cHint1
-            
+
   grid:
     includes: source/grid.vwf
     properties:

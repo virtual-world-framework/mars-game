@@ -17,7 +17,7 @@ properties:
   - setProperty:
     - rover
     - blockly_allowedBlocks
-    - 30
+    - 15
   - setProperty:
     - rover
     - heading
