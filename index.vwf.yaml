@@ -114,6 +114,19 @@ children:
     extends: http://vwf.example.com/node3.vwf
     source: assets/3d/Terrain/backdrop.dae
     type: model/vnd.collada+xml
+    children:
+      Group023:
+        extends: http://vwf.example.com/node3.vwf
+        children:
+          hills: 
+            extends: http://vwf.example.com/node3.vwf
+            children:
+              material:
+                extends: http://vwf.example.com/material.vwf
+                properties:
+                  alphaTest: 0.85
+          mountains:
+            extends: http://vwf.example.com/node3.vwf
   sunLight:
     extends: http://vwf.example.com/light.vwf
     properties:
