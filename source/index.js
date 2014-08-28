@@ -460,7 +460,7 @@ function render( renderer, scene, camera ) {
         case RENDER_GAME:
             if ( renderTransition ) {
                 loggerBox.style.display = "block";
-                scene.fog = new THREE.FogExp2( 0xC49E70, 0.005 );
+                scene.fog = new THREE.FogExp2( 0xC49E70, 0.0035 );
                 renderer.setClearColor( scene.fog.color );
                 renderer.autoClear = false;
                 renderTransition = false;
