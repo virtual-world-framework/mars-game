@@ -66,6 +66,10 @@ children:
             - musicStandardGameplay
           - setObjective:
             - "Move back to the top of the ramp."
+          - setHUDProperty:
+            - graphButton
+            - enabled
+            - false
 
         playStartingVO_1g:
           triggerCondition:

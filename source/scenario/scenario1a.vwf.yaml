@@ -82,6 +82,18 @@ children:
             - [ 13, 15, -15 ]
           - setObjective:
             - "Click the PROGRAM button to open your control processor."
+          - setHUDProperty:
+            - camera_topDown
+            - enabled
+            - false
+          - setHUDProperty:
+            - graphButton
+            - enabled
+            - false
+          - setHUDProperty:
+            - tilesButton
+            - enabled
+            - false
 
         playStartingVO_1a:
           triggerCondition:

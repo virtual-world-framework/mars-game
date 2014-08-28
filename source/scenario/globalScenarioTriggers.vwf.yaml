@@ -195,40 +195,6 @@ properties:
       - stopSound:
         - roverSounds
 
-    # This can be triggered either by picking up the helicam or on scenario
-    #   start, but only fires if we have the helicam in hand.
-    enableHelicamView:
-      triggerCondition:
-      - or:
-        - hasObject:
-          - rover
-          - helicam
-        - onScenarioStart:
-      additionalCondition:
-      - hasObject:
-        - rover
-        - helicam
-      actions:
-      - enableHelicam:
-
-    # This can be triggered either by dropping the helicam or on scenario
-    #   start, but only fires if we don't have the helicam in hand.
-    disableHelicamViewOnDrop:
-      triggerCondition:
-      - or:
-        - not:
-          - hasObject:
-            - rover
-            - helicam
-        - onScenarioStart:
-      additionalCondition:
-      - not:
-        - hasObject:
-          - rover
-          - helicam
-      actions:
-      - disableHelicam:
-
 methods:
   # This is called using future(0) inside of initialize.
   onSceneLoaded:

@@ -120,6 +120,7 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 } else {
                     setRenderMode( RENDER_GAME );
                 }
+                enableAllHUDElements();
             case "scenarioReset":
                 removePopup();
                 removeFailScreen();
@@ -150,12 +151,12 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 stopBlinkTab( eventArgs[ 0 ] );
                 break;
 
-            case "enableHelicam":
-                setHelicamButtonsEnabled( true );
-                break;
-
-            case "disableHelicam":
-                setHelicamButtonsEnabled( false );
+            case "setHUDElementProperty":
+                var element, property, value;
+                element = eventArgs[ 0 ];
+                property = eventArgs[ 1 ];
+                value = eventArgs[ 2 ]
+                setHUDElementProperty( element, property, value );
                 break;
 
             case "showCommsImage":

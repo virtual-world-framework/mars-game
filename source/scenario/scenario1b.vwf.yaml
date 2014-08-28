@@ -73,6 +73,18 @@ children:
             - musicStandardGameplay
           - setObjective:
             - "Move forward to pick up your Helicam."
+          - setHUDProperty:
+            - camera_topDown
+            - enabled
+            - false
+          - setHUDProperty:
+            - graphButton
+            - enabled
+            - false
+          - setHUDProperty:
+            - tilesButton
+            - enabled
+            - false
 
         playStartingVO_1b:
           triggerCondition:
