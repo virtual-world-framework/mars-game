@@ -57,8 +57,6 @@ children:
           actions:
           - playSound:
             - musicLevel2
-          - playSound:
-            - L2VO4_Rover
           - blinkHUDElement:
             - graphButton
           - setObjective:
@@ -67,6 +65,19 @@ children:
             - blocklyButton
             - enabled
             - false
+
+        playStartingVO_2a:
+          triggerCondition:
+          - onScenarioStart:
+          additionalCondition:
+          - not:
+            - readBlackboard:
+              - Level2aStartSounds
+          actions:
+          - playSound:
+            - L2VO4_Rover
+          - writeToBlackboard:
+            - Level2aStartSounds
 
         failOnMove_2a:
           triggerCondition:
@@ -86,8 +97,6 @@ children:
           - scenarioSuccess:
           - showAlert:
             - "I can see clearly now... the lines are drawn!"
-          - playSound:
-            - SCVO5_Rover
           - playSound:
             - musicSuccessShort
 

@@ -64,6 +64,19 @@ children:
           - setObjective:
             - "Open the GRAPH tab in your PROGRAM interface."
 
+        playStartingVO_2b:
+          triggerCondition:
+          - onScenarioStart:
+          additionalCondition:
+          - not:
+            - readBlackboard:
+              - Level2bStartSounds
+          actions:
+          - playSound:
+            - SCVO5_Rover
+          - writeToBlackboard:
+            - Level2bStartSounds
+
         failOnMove_2b:
           triggerCondition:
           - onMoved:

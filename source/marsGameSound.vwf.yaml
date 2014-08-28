@@ -207,7 +207,7 @@ properties:
     - soundName: "L2VO7_Control"
       soundURL: "assets/sounds/vo/L2VO7_Control.ogg"
       initialVolume: 0.65
-      subtitle: "[MC]: Now you have your first graph plotted, why don’t you try changing it. We see the track of your lost Mini Rover from our satellite view. Can you match it?"
+      subtitle: "[MC]: Now you have your first graph plotted, why don’t you try changing it? We see the track of your lost Mini Rover from our satellite view. Can you match it?"
       soundGroup: vo
       groupReplacementMethod: queue
     - soundName: "L2VO9_Control"
@@ -249,7 +249,7 @@ properties:
     - soundName: "L3VO2_Rover_H2"
       soundURL: "assets/sounds/vo/L3VO2_Rover_H2.ogg"
       initialVolume: 0.65
-      subtitle: "[ROVER]: I need to remember to face the right direction at the beginning and end of the loop."
+      subtitle: "[ROVER]: I need to remember to face the same direction at the beginning and end of the loop."
       soundGroup: vo
       groupReplacementMethod: queue
     - soundName: "L3VO2_Mission_S"
@@ -261,7 +261,7 @@ properties:
     - soundName: "L3VO3_Rover_S"
       soundURL: "assets/sounds/vo/L3VO3_Rover_S.ogg"
       initialVolume: 0.65
-      subtitle: "[ROVER]: I’ve found something! Looks like the Mini Rover dropped some supplies and changed direction. I’ll need to update my Grapher to match it’s new course."
+      subtitle: "[ROVER]: I’ve found something! Looks like the Mini Rover dropped some supplies and changed direction. I’ll need to update my Grapher to match its new course."
       soundGroup: vo
       groupReplacementMethod: replace
     - soundName: "L3VO4_Rover"
@@ -614,24 +614,6 @@ properties:
       subtitle: "[ROVER]: Yay!  Now I can call home."
       soundGroup: vo
       groupReplacementMethod: replace
-    - soundName: "FCVO1_Rover"
-      soundURL: "assets/sounds/vo/FCVO1_Rover_m.ogg"
-      initialVolume: 0.65
-      subtitle: "[ROVER]: I swear I feel dizzy, but I can’t be — I’m a Robot. Hmm."
-      soundGroup: vo
-      groupReplacementMethod: replace
-    - soundName: "FCVO2_Rover"
-      soundURL: "assets/sounds/vo/FCVO2_Rover_m.ogg"
-      initialVolume: 0.65
-      subtitle: "[ROVER]: I didn’t make it. I need to rethink my Program."
-      soundGroup: vo
-      groupReplacementMethod: replace
-    - soundName: "FCVO3_Rover"
-      soundURL: "assets/sounds/vo/FCVO3_Rover_m.ogg"
-      initialVolume: 0.65
-      subtitle: "[ROVER]: I need to end facing the same direction as I started."
-      soundGroup: vo
-      groupReplacementMethod: replace
     - soundName: "SCVO2_Rover"
       soundURL: "assets/sounds/vo/SCVO2_Rover_m.ogg"
       initialVolume: 0.65
@@ -641,7 +623,7 @@ properties:
     - soundName: "SCVO5_Rover"
       soundURL: "assets/sounds/vo/SCVO5_Rover_m.ogg"
       initialVolume: 0.65
-      subtitle: "[ROVER]: This grid will help me work things out, but I need someway to make a graph appear. I recall it has something to do with my Blockly programming..."
+      subtitle: "[ROVER]: This grid will help me work things out, but I need some way to make a graph appear. I recall it has something to do with my Blockly programming..."
       soundGroup: vo
       groupReplacementMethod: replace
     - soundName: "SCVO6_Rover"
@@ -660,6 +642,24 @@ properties:
       soundURL: "assets/sounds/vo/SCVO9_Rover_m.ogg"
       initialVolume: 0.65
       subtitle: "[ROVER]: Yay! That will save some time and memory. But I think I’m forgetting something…"
+      soundGroup: vo
+      groupReplacementMethod: replace
+    - soundName: "FCVO1_Rover"
+      soundURL: "assets/sounds/vo/FCVO1_Rover_m.ogg"
+      initialVolume: 0.65
+      subtitle: "[ROVER]: I swear I feel dizzy, but I can’t be — I’m a Robot. Hmm."
+      soundGroup: vo
+      groupReplacementMethod: replace
+    - soundName: "FCVO2_Rover"
+      soundURL: "assets/sounds/vo/FCVO2_Rover_m.ogg"
+      initialVolume: 0.65
+      subtitle: "[ROVER]: I didn’t make it. I need to rethink my Program."
+      soundGroup: vo
+      groupReplacementMethod: replace
+    - soundName: "FCVO3_Rover"
+      soundURL: "assets/sounds/vo/FCVO3_Rover_m.ogg"
+      initialVolume: 0.65
+      subtitle: "[ROVER]: I need to end facing the same direction as I started."
       soundGroup: vo
       groupReplacementMethod: replace
 

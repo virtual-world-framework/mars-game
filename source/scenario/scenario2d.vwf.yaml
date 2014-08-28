@@ -69,6 +69,8 @@ children:
               - Level2dStartSounds
           actions:
           - playSound:
+            - ALVO1_Rover
+          - playSound:
             - L2VO7_Control
           - writeToBlackboard:
             - Level2dStartSounds

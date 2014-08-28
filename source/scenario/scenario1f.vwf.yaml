@@ -65,7 +65,7 @@ children:
           - playSound:
             - musicStandardGameplay
           - setObjective:
-            - "Turn around to face back torward the crash pod."
+            - "Turn around to face back toward the crash pod."
           - setHUDProperty:
             - graphButton
             - enabled
