@@ -64,7 +64,7 @@ children:
           - onScenarioStart:
           actions:
           - playSound:
-            - musicStandardGameplay
+            - musicLevel2
           - resetRoverSensors:
           - setObjective:
             - "Build a program to follow the tracks until you find a man-made object."

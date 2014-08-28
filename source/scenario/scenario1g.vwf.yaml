@@ -94,9 +94,6 @@ children:
               - rover
               - 8
               - 2
-            - hasHeading:
-              - rover
-              - 180
             - not:
               - readBlackboard:
                 - hasFailed

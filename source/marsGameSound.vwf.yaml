@@ -10,6 +10,13 @@ properties:
       allowMultiplay: false
       soundGroup: music
       groupReplacementMethod: replace
+    - soundName: "musicLevel2"
+      soundURL: "assets/sounds/music/musicLevel2Loop.ogg"
+      initialVolume: 0.8
+      isLooping: true
+      allowMultiplay: false
+      soundGroup: music
+      groupReplacementMethod: replace
     - soundName: "musicMenuIntro"
       soundURL: "assets/sounds/music/musicMenuIntro.ogg"
       initialVolume: 0.3
@@ -92,7 +99,7 @@ properties:
     - soundName: "L1VO8_Rover"
       soundURL: "assets/sounds/vo/L1VO8_Rover_m.ogg"
       initialVolume: 0.65
-      subtitle: "[ROVER]: Ah! There is my Helicam…that should let me get a better sense of my surroundings."
+      subtitle: "[ROVER]: Ah! There is my helicam… that should let me get a better sense of my surroundings."
       soundGroup: vo
       groupReplacementMethod: replace
     - soundName: "L1VO9_Rover"
@@ -218,7 +225,7 @@ properties:
     - soundName: "L3VO1_Rover"
       soundURL: "assets/sounds/vo/L3VO1_Rover.ogg"
       initialVolume: 0.65
-      subtitle: "[ROVER]: Now that I have matched the tracks, I can count the tiles needed to move along the line. I need to use my forward and turn blocks to make a course that returns me to another point further down the line."
+      subtitle: "[ROVER]: Now that I have matched the tracks, I can count the tiles needed to move along the line. Let's start by moving over two and up one."
       soundGroup: vo
       groupReplacementMethod: queue
     - soundName: "L3VO1_Rover_S"
@@ -434,7 +441,7 @@ properties:
     - soundName: "ALVO16_Rover"
       soundURL: "assets/sounds/vo/ALVO16_Rover_m.ogg"
       initialVolume: 0.65
-      subtitle: "[ROVER]: I remember now! I need to Run the program."
+      subtitle: "[ROVER]: I remember now! I need to Start my program."
       soundGroup: vo
       groupReplacementMethod: queue
     - soundName: "ALVO17_Rover"
@@ -577,6 +584,18 @@ properties:
       subtitle: "[ROVER]: What happens if I put a number in front of X?"
       soundGroup: vo
       groupReplacementMethod: queue
+    - soundName: "ALVO40_Rover"
+      soundURL: "assets/sounds/vo/ALVO40_Rover.ogg"
+      initialVolume: 0.65
+      subtitle: "[ROVER]: There's my helicam. I should get it reactivated, so that I can take a look around."
+      soundGroup: vo
+      groupReplacementMethod: replace
+    - soundName: "ALVO41_Rover"
+      soundURL: "assets/sounds/vo/ALVO41_Rover.ogg"
+      initialVolume: 0.65
+      subtitle: "[ROVER]: Up there, in the top right corner.  Click the blinky thing."
+      soundGroup: vo
+      groupReplacementMethod: queue
     - soundName: "SCVO1_Rover"
       soundURL: "assets/sounds/vo/SCVO1_Rover_m.ogg"
       initialVolume: 0.65
@@ -586,7 +605,7 @@ properties:
     - soundName: "SCVO3_Rover"
       soundURL: "assets/sounds/vo/SCVO3_Rover_m.ogg"
       initialVolume: 0.65
-      subtitle: "[ROVER]: Now that looks like a real program. I'm getting good at this!"
+      subtitle: "[ROVER]: Phew! Made it back to the ramp. I need to remember to watch my power level. Turning doesn't take any power, but moving forward on this rough terrain drains my battery."
       soundGroup: vo
       groupReplacementMethod: replace
     - soundName: "SCVO4_Rover"
@@ -605,6 +624,12 @@ properties:
       soundURL: "assets/sounds/vo/FCVO2_Rover_m.ogg"
       initialVolume: 0.65
       subtitle: "[ROVER]: I didn’t make it. I need to rethink my Program."
+      soundGroup: vo
+      groupReplacementMethod: replace
+    - soundName: "FCVO3_Rover"
+      soundURL: "assets/sounds/vo/FCVO3_Rover_m.ogg"
+      initialVolume: 0.65
+      subtitle: "[ROVER]: I need to end facing the same direction as I started."
       soundGroup: vo
       groupReplacementMethod: replace
     - soundName: "SCVO2_Rover"

@@ -68,7 +68,7 @@ children:
           - onScenarioStart:
           actions:
           - playSound:
-            - musicStandardGameplay
+            - musicLevel2
           - resetRoverSensors:
           - setObjective:
             - "Graph a line that matches the slope of the tracks."
