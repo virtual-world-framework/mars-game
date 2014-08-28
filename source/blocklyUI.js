@@ -165,12 +165,16 @@ function resetBlocklyIndicator() {
 
 function showBlocklyIndicator() {
     var indicator = document.getElementById( "blocklyIndicator" );
-    indicator.style.visibility = "inherit";
+    if ( indicator ) {
+        indicator.style.visibility = "inherit";
+    }
 }
 
 function hideBlocklyIndicator() {
     var indicator = document.getElementById( "blocklyIndicator" );
-    indicator.style.visibility = "hidden";
+    if ( indicator ) {
+        indicator.style.visibility = "hidden";
+    }
 }
 
 function moveBlocklyIndicator( x, y ) {
