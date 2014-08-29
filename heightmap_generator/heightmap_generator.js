@@ -20,7 +20,7 @@ window.onload = function() {
         canvas: canvasForRender,
         preserveDrawingBuffer: true
     } );
-    renderer.setClearColor( 0x000099 );
+    // renderer.setClearColor( 0x000099 );
     renderer.setSize( 2048, 2048 );
 
     // Create the three.js scene
@@ -41,7 +41,7 @@ window.onload = function() {
 
     requestAnimationFrame( render );
 
-    setTimeout( generateHeightmap, 5000 );
+    document.addEventListener( "keypress", generateHeightmap );
 }
 
 function render() {
