@@ -4,6 +4,54 @@
     <script type="text/javascript" src="three.js"></script>
     <script type="text/javascript" src="ColladaLoader.js"></script>
     <script type="text/javascript" src="heightmap_generator.js"></script>
+    <script id="vertexShader" type="x-shader/x-vertex">
+		varying vec2 vUv;
+		void main() {
+			vUv = uvMap;
+			vec4 mvPosition = modelViewMatrix * vec4( position, 1.0 );
+			gl_Position = projectionMatrix * mvPosition;
+		}
+	</script>
+	<script id="fragmentShader" type="x-shader/x-fragment">
+		uniform float low;
+		uniform float high;
+		varying vec2 vUv;
+		void main( void ) {
+		    float range = high - low;
+		    float h = ( gl_FragCoord.z - low ) / range * pow( 256.0, 3.0 );
+		    float b = floor( h / ( 256.0 * 256.0 ) ) / 255.0;
+		    h = mod( h, 256.0 * 256.0 );
+		    float g = floor( h / 256.0 ) / 255.0;
+		    h = mod( h, 256.0 );
+		    float r = h / 255.0;
+		    gl_FragColor = vec4( r, g, b, 1.0 );
+		}
+	</script>
+	<script id="fragmentShader_rgb" type="x-shader/x-fragment">
+		uniform float low;
+		uniform float high;
+		varying vec2 vUv;
+		void main( void ) {
+		    float range = high - low;
+		    float h = ( gl_FragCoord.z - low ) / range * 768.0;
+		    float b = ( floor( h / 512.0 ) * mod( h, 512.0 ) ) / 256.0;
+		    h = h - mod( h, 512.0 );
+		    float g = ( floor( h / 256.0 ) * mod( h, 256.0 ) ) / 256.0;
+		    h = h - mod( h, 256.0 );
+		    float r = h / 256.0;
+		    gl_FragColor = vec4( r, g, b, 1.0 );
+		}
+	</script>
+	<script id="fragmentShader_gray" type="x-shader/x-fragment">
+		uniform float low;
+		uniform float high;
+		varying vec2 vUv;
+		void main( void ) {
+		    float range = high - low;
+		    float h = ( gl_FragCoord.z - low ) / range;
+		    gl_FragColor = vec4( h, h, h, 1.0 );
+		}
+	</script>
   </head>
   <body>
     <canvas id="3Dcanvas"></canvas>

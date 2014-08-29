@@ -26,18 +26,29 @@ window.onload = function() {
     // Create the three.js scene
     scene = new THREE.Scene();
 
+    // Set up a shader material for the ground - where we will do our magic
+    material = new THREE.ShaderMaterial(
+        { "uniforms": { 
+            "low": { "type": "f", "value": -3.0 },
+            "high": { "type": "f", "value": 8.0 } },
+          "vertexShader": document.getElementById( "vertexShader" ).textContent,
+          "fragmentShader": document.getElementById( "fragmentShader" ).textContent 
+        } );
+
     // Load the 3D model
     loader = new THREE.ColladaLoader();
     loader.load( "collision_terrain.dae", function( object ) {
-        scene.add( object.scene );
+        var env = object.scene;
+        var meshes = findAllMeshes( env );
+        for ( var i = 0; i < meshes.length; i++ ) {
+            meshes[ i ].material = material;
+        }
+        scene.add( env );
     } );
 
     // Set up a light for the scene
     light = new THREE.AmbientLight( 0xFFFFFF );
     scene.add( light );
-
-    // Set up a shader material for the ground - where we will do our magic
-    material = new THREE.ShaderMaterial( { } );
 
     requestAnimationFrame( render );
 
@@ -52,4 +63,19 @@ function render() {
 function generateHeightmap() {
     var imageData = canvasForRender.toDataURL( "image/png" );
     document.location.href = imageData.replace( "image/png", "image/octet-stream" );
+}
+
+function findAllMeshes( object ) {
+    var meshes = [];
+    for ( var i = 0; i < object.children.length; i++ ) {
+        if ( object.children[ i ] instanceof THREE.Mesh ) {
+            meshes.push( object.children[ i ] );
+        } else {
+            var childMeshes = findAllMeshes( object.children[ i ] );
+            for ( var j = 0; j < childMeshes.length; j++ ) {
+                meshes.push( childMeshes[ j ] );
+            }
+        }
+    }
+    return meshes;
 }
