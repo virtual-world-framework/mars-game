@@ -75,7 +75,7 @@ children:
               - Level2aStartSounds
           actions:
           - playSound:
-            - L2VO4_Rover
+            - L2VO4_Control
           - writeToBlackboard:
             - Level2aStartSounds
 
@@ -87,6 +87,8 @@ children:
           - scenarioFailure:
             - lost
             - "You need to plot the course of the wayward rover before going to find it."
+          - playSound:
+            - FCVO4_Rover
 
         succeedOnSuccessfulGridDisplay_2a:
           triggerCondition:

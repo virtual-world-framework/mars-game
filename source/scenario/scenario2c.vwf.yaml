@@ -81,6 +81,8 @@ children:
           - scenarioFailure:
             - lost
             - "You need to plot the course of the wayward rover before going to find it."
+          - playSound:
+            - FCVO4_Rover
 
         succeedOnSuccessfulCoursePlot_2c:
           triggerCondition:
