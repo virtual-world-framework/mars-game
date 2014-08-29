@@ -1,4 +1,4 @@
-var camera, renderer, scene, loader, light, material;
+var camera, canvasForRender, renderer, scene, loader, light, material;
 
 window.onload = function() {
 
@@ -15,10 +15,12 @@ window.onload = function() {
     camera.rotateX( Math.PI );
 
     // Create a renderer for the scene
+    canvasForRender = document.getElementById( "3Dcanvas" );
     renderer = new THREE.WebGLRenderer( {
-        canvas: document.getElementById( "3Dcanvas" )
+        canvas: canvasForRender,
+        preserveDrawingBuffer: true
     } );
-    // renderer.setClearColor( 0x000099 );
+    renderer.setClearColor( 0x000099 );
     renderer.setSize( 2048, 2048 );
 
     // Create the three.js scene
@@ -38,9 +40,16 @@ window.onload = function() {
     material = new THREE.ShaderMaterial( { } );
 
     requestAnimationFrame( render );
+
+    setTimeout( generateHeightmap, 5000 );
 }
 
 function render() {
     requestAnimationFrame( render );
     renderer.render( scene, camera );
+}
+
+function generateHeightmap() {
+    var imageData = canvasForRender.toDataURL( "image/png" );
+    document.location.href = imageData.replace( "image/png", "image/octet-stream" );
 }
