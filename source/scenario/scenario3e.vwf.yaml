@@ -98,8 +98,8 @@ children:
           - hideBlockly:
           - stopSound:
             - musicStandardGameplay
-          - playSound:
-            - musicSuccess
+          - playVideo:
+            - "end_cinematic.mp4"
 
   grid:
     includes: source/grid.vwf
