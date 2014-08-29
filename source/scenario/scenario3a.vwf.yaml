@@ -140,10 +140,14 @@ children:
           - onBlocklyStopped:
             - rover
           additionalCondition:
-          - isAtPosition:
-            - rover
-            - 37
-            - 15
+          - and:
+            - isAtPosition:
+              - rover
+              - 37
+              - 15
+            - hasHeading:
+              - rover
+              - 0
           actions:
           - scenarioSuccess:
           - showAlert:

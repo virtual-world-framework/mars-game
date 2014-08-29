@@ -97,7 +97,7 @@ children:
             - "I found the minirover!"
           - hideBlockly:
           - stopSound:
-            - musicStandardGameplay
+            - musicLevel2
           - playVideo:
             - "end_cinematic.mp4"
 

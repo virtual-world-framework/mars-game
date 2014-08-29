@@ -473,7 +473,7 @@ properties:
       initialVolume: 0.65
       subtitle: "[ROVER]: That did it! I can set the direction of the turn by clicking Left or Right on the Block."
       soundGroup: vo
-      groupReplacementMethod: queue
+      groupReplacementMethod: replace
     - soundName: "ALVO21_Rover"
       soundURL: "assets/sounds/vo/ALVO21_Rover_m.ogg"
       initialVolume: 0.65
