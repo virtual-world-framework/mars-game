@@ -61,6 +61,7 @@ events:
   videoPlayed:
   setObjective:
   setHUDElementProperty:
+  mouseOverHUD:
 children:
   soundManager:
     includes: source/marsGameSound.vwf

@@ -70,6 +70,8 @@ children:
           - playSound:
             - musicStandardGameplay
           - blinkHUDElement:
+            - cameraSelector
+          - blinkHUDElement:
             - camera_topDown
           - setObjective:
             - "Activate Helicam view to inspect the crash site."
@@ -85,6 +87,22 @@ children:
             - blocklyButton
             - enabled
             - false
+          - setHUDProperty:
+            - camera_thirdPerson
+            - enabled
+            - false
+          - setHUDProperty:
+            - camera_firstPerson
+            - enabled
+            - false
+
+        stopCameraBlinkOnMouseOver_1c:
+          triggerCondition:
+          - onHUDMouseOver:
+            - cameraSelector
+          actions:
+          - stopBlinkHUDElement:
+            - cameraSelector
 
         succeedOnSuccess_1c:
           triggerCondition:

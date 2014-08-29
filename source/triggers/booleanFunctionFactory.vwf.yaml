@@ -87,5 +87,9 @@ properties:
     # arguments: variableName, optionally check value
     readBlackboard:
 
+    # Checks if a HUD element has fired its onMouseOver event
+    # arguments: elementName
+    onHUDMouseOver:
+
 scripts:
 - source: source/triggers/booleanFunctionFactory.js
