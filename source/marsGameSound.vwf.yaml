@@ -204,6 +204,12 @@ properties:
       subtitle: "[ROVER]: I’m going to need something to help me plot the course. If only I had some way to graph things..."
       soundGroup: vo
       groupReplacementMethod: queue
+    - soundName: "L2VO4_Control"
+      soundURL: "assets/sounds/vo/L2VO4_Control.ogg"
+      initialVolume: 0.65
+      subtitle: "[MC]: My satellite view shows that the Mini Rover’s tracks are right next to you. The first thing that you’ll need to do is to plot a course to match its tracks. I’ve beamed a software update which includes a graphing tool and makes your engines more efficient, but takes some of your available RAM."
+      soundGroup: vo
+      groupReplacementMethod: queue
     - soundName: "L2VO7_Control"
       soundURL: "assets/sounds/vo/L2VO7_Control.ogg"
       initialVolume: 0.65
@@ -231,7 +237,7 @@ properties:
     - soundName: "L3VO1_Rover_S"
       soundURL: "assets/sounds/vo/L3VO1_Rover_S.ogg"
       initialVolume: 0.65
-      subtitle: "[ROVER]: OK! So now I Know I need to turn, move forward 2 units, turn, and move forward one unit in order to move to the next point on the line."
+      subtitle: "[ROVER]: OK! So now I know I need to go over two and up one to get to the next point on the line."
       soundGroup: vo
       groupReplacementMethod: replace
     - soundName: "L3VO1_Control"
@@ -297,7 +303,7 @@ properties:
     - soundName: "L3VO6_Rover"
       soundURL: "assets/sounds/vo/L3VO6_Rover.ogg"
       initialVolume: 0.65
-      subtitle: "[ROVER]: Time to plot a course to match and update my movement program."
+      subtitle: "[ROVER]: Time to plot a course to match the tracks…"
       soundGroup: vo
       groupReplacementMethod: queue
     - soundName: "L3VO6_Mission"
@@ -465,7 +471,7 @@ properties:
     - soundName: "ALVO20_Rover"
       soundURL: "assets/sounds/vo/ALVO20_Rover_m.ogg"
       initialVolume: 0.65
-      subtitle: "[ROVER]: I can set the direction of the turn by clicking Left or Right on the Block."
+      subtitle: "[ROVER]: That did it! I can set the direction of the turn by clicking Left or Right on the Block."
       soundGroup: vo
       groupReplacementMethod: queue
     - soundName: "ALVO21_Rover"
@@ -635,7 +641,7 @@ properties:
     - soundName: "SCVO8_Control"
       soundURL: "assets/sounds/vo/SCVO8_Control.ogg"
       initialVolume: 0.65
-      subtitle: "[MC]: Now you are on the right track! This graph is going to help you overcome your next challenge: Find the slope of the line, and use that to make a navigation program that will follow that track!"
+      subtitle: "[MC]: Now you are on the right track! This graph is going to help you overcome your next challenge: Find the slope of the line, and use that to make a navigation program that will follow that track.  Let’s start by just moving over and up once."
       soundGroup: vo
       groupReplacementMethod: replace
     - soundName: "SCVO9_Rover"
@@ -660,6 +666,12 @@ properties:
       soundURL: "assets/sounds/vo/FCVO3_Rover_m.ogg"
       initialVolume: 0.65
       subtitle: "[ROVER]: I need to end facing the same direction as I started."
+      soundGroup: vo
+      groupReplacementMethod: replace
+    - soundName: "FCVO4_Rover"
+      soundURL: "assets/sounds/vo/FCVO4_Rover_m.ogg"
+      initialVolume: 0.65
+      subtitle: "[ROVER]: I need to plot the course before I try to follow it."
       soundGroup: vo
       groupReplacementMethod: replace
 

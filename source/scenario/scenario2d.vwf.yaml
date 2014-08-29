@@ -83,6 +83,8 @@ children:
           - scenarioFailure:
             - lost
             - "You need to plot the course of the wayward rover before going to find it."
+          - playSound:
+            - FCVO4_Rover
 
         succeedOnSuccessfulCoursePlot_2d:
           triggerCondition:
@@ -99,10 +101,10 @@ children:
             - musicStandardGameplay
           - playSound:
             - musicSuccess
-          - delay:
-            - 5
-            - playSound:
-              - SCVO8_Control
+          # - delay:
+          #   - 5
+          #   - playSound:
+          #     - SCVO8_Control
 
         playHint1_2d:
           triggerCondition:

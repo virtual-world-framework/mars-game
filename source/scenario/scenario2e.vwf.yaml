@@ -71,7 +71,7 @@ children:
               - Level2eStartSounds
           actions:
           - playSound:
-            - L3VO1_Rover
+            - SCVO8_Control
           - writeToBlackboard:
             - Level2eStartSounds
 
