@@ -1,4 +1,6 @@
 var camera, canvasForRender, renderer, scene, loader, light, material;
+var high = 10.0;
+var low = -3.0;
 
 window.onload = function() {
 
@@ -13,6 +15,7 @@ window.onload = function() {
     );
     camera.position.set( 0, 0, -5 );
     camera.rotateX( Math.PI );
+    camera.far = high - low;
 
     // Create a renderer for the scene
     canvasForRender = document.getElementById( "3Dcanvas" );
@@ -29,8 +32,8 @@ window.onload = function() {
     // Set up a shader material for the ground - where we will do our magic
     material = new THREE.ShaderMaterial(
         { "uniforms": { 
-            "low": { "type": "f", "value": -3.0 },
-            "high": { "type": "f", "value": 8.0 } },
+            "low": { "type": "f", "value": low },
+            "high": { "type": "f", "value": high } },
           "vertexShader": document.getElementById( "vertexShader" ).textContent,
           "fragmentShader": document.getElementById( "fragmentShader" ).textContent 
         } );
