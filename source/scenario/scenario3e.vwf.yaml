@@ -69,27 +69,18 @@ children:
           - setObjective:
             - "Build a program to follow the tracks until your scanner finds something."
 
-        playTravelVO_3e:
+        playStartingVO_3e:
           triggerCondition:
-          - onBlocklyStarted:
+          - onScenarioStart:
           additionalCondition:
-          - and:
-            - not:
-              - readBlackboard:
-                - Level3eTravel1
-            - not:
-              - readBlackboard:
-                - hasSucceeded
-            - not:
-              - readBlackboard:
-                - hasFailed
+          - not:
+            - readBlackboard:
+              - Level3eStartSounds
           actions:
-          - delay:
-            - 20
-            - playSound:
-              - L3VO6_Mission
-            - writeToBlackboard:
-              - Level3eTravel1
+          - playSound:
+            - L3VO6_Mission
+          - writeToBlackboard:
+            - Level3eStartSounds
 
         succeedOnSuccessfulMovement_3e:
           triggerCondition:
@@ -109,8 +100,6 @@ children:
             - musicStandardGameplay
           - playSound:
             - musicSuccess
-          - playSound:
-            - L3VO6_Rover_S
 
   grid:
     includes: source/grid.vwf
