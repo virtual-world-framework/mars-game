@@ -207,10 +207,10 @@ function moveBlocklyIndicator( x, y ) {
     } );
 }
 
-function showBlocklyLoopCount( count ) {
+function showBlocklyLoopCount( count, maxCount ) {
     var indicatorCount = document.getElementById( "blocklyIndicatorCount" );
     indicatorCount.style.visibility = "inherit";
-    indicatorCount.innerHTML = count;
+    indicatorCount.innerHTML = count + " of " + maxCount;
 }
 
 function hideBlocklyLoopCount() {
