@@ -98,13 +98,9 @@ children:
           - showAlert:
             - "Course plotted! Now to find the little guy."
           - stopSound:
-            - musicStandardGameplay
+            - musicLevel2
           - playSound:
             - musicSuccess
-          # - delay:
-          #   - 5
-          #   - playSound:
-          #     - SCVO8_Control
 
         playHint1_2d:
           triggerCondition:
