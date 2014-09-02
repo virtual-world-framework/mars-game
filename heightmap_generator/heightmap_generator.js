@@ -1,6 +1,6 @@
-var camera, canvasForRender, renderer, scene, loader, light, material;
-var high = 10.0;
-var low = -3.0;
+var camera, canvasForRender, renderer, scene, loader, light, material, env;
+var high = 7.0;
+var low = -5.0;
 
 window.onload = function() {
 
@@ -13,9 +13,11 @@ window.onload = function() {
         offsetY - halfSize, offsetY + halfSize,
         1, 1000 
     );
-    camera.position.set( 0, 0, -5 );
-    camera.rotateX( Math.PI );
+    camera.position.set( 0, 0, high );
+    // camera.rotateX( -Math.PI );
+    camera.lookAt(new THREE.Vector3(0,0,0));
     camera.far = high - low;
+    camera.near = 0.01;
 
     // Create a renderer for the scene
     canvasForRender = document.getElementById( "3Dcanvas" );
@@ -29,23 +31,12 @@ window.onload = function() {
     // Create the three.js scene
     scene = new THREE.Scene();
 
-    // Set up a shader material for the ground - where we will do our magic
-    material = new THREE.ShaderMaterial(
-        { "uniforms": { 
-            "low": { "type": "f", "value": low },
-            "high": { "type": "f", "value": high } },
-          "vertexShader": document.getElementById( "vertexShader" ).textContent,
-          "fragmentShader": document.getElementById( "fragmentShader" ).textContent 
-        } );
-
     // Load the 3D model
     loader = new THREE.ColladaLoader();
     loader.load( "collision_terrain.dae", function( object ) {
-        var env = object.scene;
-        var meshes = findAllMeshes( env );
-        for ( var i = 0; i < meshes.length; i++ ) {
-            meshes[ i ].material = material;
-        }
+        env = object.scene;
+        setHeightMapType( "gray" );
+        env.rotateX( Math.PI );
         scene.add( env );
     } );
 
@@ -81,4 +72,52 @@ function findAllMeshes( object ) {
         }
     }
     return meshes;
+}
+
+function setHeightMapType( mapType ) {
+    switch ( mapType ) {
+        case 0:
+        case "gray":
+            material = new THREE.ShaderMaterial(
+                { "uniforms": { 
+                    "low": { "type": "f", "value": low },
+                    "high": { "type": "f", "value": high } },
+                  "vertexShader": document.getElementById( "vertexShader" ).textContent,
+                  "fragmentShader": document.getElementById( "fragmentShaderGray" ).textContent 
+                } );
+            break;
+        case 1:
+        case "rgb":
+            material = new THREE.ShaderMaterial(
+                { "uniforms": { 
+                    "low": { "type": "f", "value": low },
+                    "high": { "type": "f", "value": high } },
+                  "vertexShader": document.getElementById( "vertexShader" ).textContent,
+                  "fragmentShader": document.getElementById( "fragmentShaderRGB" ).textContent 
+                } );
+            break;
+        case 2:
+        case "exp":
+            material = new THREE.ShaderMaterial(
+                { "uniforms": { 
+                    "low": { "type": "f", "value": low },
+                    "high": { "type": "f", "value": high } },
+                  "vertexShader": document.getElementById( "vertexShader" ).textContent,
+                  "fragmentShader": document.getElementById( "fragmentShader" ).textContent 
+                } );
+            break;
+        default:
+            material = new THREE.ShaderMaterial(
+                { "uniforms": { 
+                    "low": { "type": "f", "value": low },
+                    "high": { "type": "f", "value": high } },
+                  "vertexShader": document.getElementById( "vertexShader" ).textContent,
+                  "fragmentShader": document.getElementById( "fragmentShaderGray" ).textContent 
+                } );
+            break;
+    }
+    var meshes = findAllMeshes( env );
+    for ( var i = 0; i < meshes.length; i++ ) {
+        meshes[ i ].material = material;
+    }
 }
