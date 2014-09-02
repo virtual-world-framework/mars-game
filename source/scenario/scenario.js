@@ -61,14 +61,14 @@ this.startScenario = function() {
     //  that the start state can override it.
     var rover = scene.find( "//rover" );
     if ( rover ) {
-        if ( scene.sceneBlackboard[ lastHeading$ ] ) {
-            rover.heading = scene.sceneBlackboard[ lastHeading$ ];
+        if ( scene.sceneBlackboard[ "lastHeading$" ] ) {
+            rover.heading = scene.sceneBlackboard[ "lastHeading$" ];
         } else {
             rover.heading = 0
         }
 
-        if (  scene.sceneBlackboard[ lastRotation$ ] ) {
-            rover.rotation = scene.sceneBlackboard[ lastRotation$ ];
+        if (  scene.sceneBlackboard[ "lastRotation$" ] ) {
+            rover.rotation = scene.sceneBlackboard[ "lastRotation$" ];
         } else {
             rover.rotation = [ 0, 0, 1, 0 ];
         }
@@ -105,8 +105,8 @@ this.completed = function() {
         //  the blackboard.
         var rover = scene.find( "//rover" );
         if ( rover ) {
-            scene.sceneBlackboard[ lastHeading$ ] = rover.heading;
-            scene.sceneBlackboard[ lastRotation$ ] = rover.rotation;
+            scene.sceneBlackboard[ "lastHeading$" ] = rover.heading;
+            scene.sceneBlackboard[ "lastRotation$" ] = rover.rotation;
         }
     }
 }
