@@ -19,21 +19,6 @@ properties:
     - rover
     - blockly_allowedBlocks
     - 12
-
-  # TODO: Simplify heading/rotation
-  # Set initial rotation using heading
-  # Currently, moveLeft & moveRight in rover.js
-  # fight with adding that to the setter of heading
-  - setProperty:
-    - rover
-    - heading
-    - 0
-
-  - setProperty:
-    - rover
-    - rotation
-    - [ 0, 0, 1, 0 ]
-
   - addToInventory:
     - rover/cargo
     - [ "helicam", "battery", "radio" ]
@@ -119,35 +104,15 @@ children:
         #     - writeToBlackboard:
         #       - Level3aTravel1
 
-        failOnWrongFacing_3a:
-          triggerCondition:
-          - onBlocklyStopped:
-            - rover
-          additionalCondition:
-          - not:
-            - hasHeading:
-              - rover
-              - 0
-          actions:
-          - scenarioFailure:
-            - lost
-            - "You need to end your program facing the same direction as you started."
-          - playSound:
-            - FCVO3_Rover
-
         succeedOnSuccessfulMovement_3a:
           triggerCondition:
           - onBlocklyStopped:
             - rover
           additionalCondition:
-          - and:
-            - isAtPosition:
-              - rover
-              - 37
-              - 15
-            - hasHeading:
-              - rover
-              - 0
+          - isAtPosition:
+            - rover
+            - 37
+            - 15
           actions:
           - scenarioSuccess:
           - showAlert:

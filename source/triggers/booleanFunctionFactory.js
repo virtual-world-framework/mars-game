@@ -736,10 +736,11 @@ this.clauseSet.readBlackboard = function( params, context ) {
     
         var checkedValue = context.sceneBlackboard[ params[ 0 ] ];
 
-        if ( params[ 1 ] !== undefined ){
-        var retVal = ( checkedValue !== undefined && checkedValue < params[ 1 ] );
+        if ( params[ 1 ] !== undefined ) {
+            var retVal = ( checkedValue !== undefined && 
+                           checkedValue < params[ 1 ] );
         } else {
-        var retVal = ( checkedValue !== undefined );  
+            var retVal = ( checkedValue !== undefined );  
         }
 
         return retVal;
