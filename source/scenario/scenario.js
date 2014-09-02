@@ -55,6 +55,25 @@ this.startScenario = function() {
         globalTriggers.loadTriggerList( globalTriggers.lateLoadTriggers, scene );
     }
 
+    // HACK: This is a bit of a hack, but it should work for now.  We want to
+    //  look up the orientation of the rover from the last scenario success
+    //  set it back to that.  We do this before loading the start state, so
+    //  that the start state can override it.
+    var rover = scene.find( "//rover" );
+    if ( rover ) {
+        if ( scene.sceneBlackboard[ "lastHeading$" ] ) {
+            rover.heading = scene.sceneBlackboard[ "lastHeading$" ];
+        } else {
+            rover.heading = 0
+        }
+
+        if (  scene.sceneBlackboard[ "lastRotation$" ] ) {
+            rover.rotation = scene.sceneBlackboard[ "lastRotation$" ];
+        } else {
+            rover.rotation = [ 0, 0, 1, 0 ];
+        }
+    }
+
     if ( this.startState && this.startState.length > 0 ) {
         for ( var i = 0; i < this.startState.length; ++i ) {
             var param = this.startState[ i ];
@@ -79,6 +98,16 @@ this.completed = function() {
     if ( scene ) {
         scene.scenarioSucceeded( this );
         this.triggerManager.clearTriggers();
+
+        // HACK: This is a bit of a hack, but it should solve the problem 
+        //  for now.  We want to always store the heading of the rover on
+        //  success, so look up the rover, and then stuff that value onto 
+        //  the blackboard.
+        var rover = scene.find( "//rover" );
+        if ( rover ) {
+            scene.sceneBlackboard[ "lastHeading$" ] = rover.heading;
+            scene.sceneBlackboard[ "lastRotation$" ] = rover.rotation;
+        }
     }
 }
 

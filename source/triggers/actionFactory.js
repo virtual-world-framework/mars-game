@@ -139,15 +139,24 @@ this.actionSet.delay = function( params, context ) {
 
 this.actionSet.writeToBlackboard = function( params, context ) {
 
-    if ( params && ( params.length < 1 ) ) {
-        self.logger.errorx( "writeToBlackboard", "This action takes one parameter: variable name.");
+    if ( !params || ( params.length !== 1 ) || !params[ 0 ] ) {
+        self.logger.errorx( "writeToBlackboard", 
+                            "This action takes one parameter: variable " +
+                            "name." );
         return undefined;
-    }
+    } 
 
-    return function() {
-        context.sceneBlackboard[ params[ 0 ] ] = 1;
+    switch ( params[ 0 ] ) {
+        case "lastHeading$":
+        case "lastRotation$":
+            self.logger.errorx( "writeToBlackboard", "The '" + params[ 0 ] +
+                                "' parameter is reserved for internal use." );
+            return undefined;
+        default:
+            return function() {
+                context.sceneBlackboard[ params[ 0 ] ] = 1;
+            }
     }
-
 }
 
 this.actionSet.clearBlackboard = function( params, context ) {

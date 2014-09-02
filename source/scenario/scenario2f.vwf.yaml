@@ -19,14 +19,6 @@ properties:
     - rover
     - blockly_allowedBlocks
     - 12
-  - setProperty:
-    - rover
-    - heading
-    - 0
-  - setProperty:
-    - rover
-    - rotation
-    - [ 0, 0, 1, 0 ]
   - addToInventory:
     - rover/cargo
     - [ "helicam", "battery", "radio" ]
@@ -75,35 +67,15 @@ children:
           - writeToBlackboard:
             - Level2fStartSounds
 
-        failOnWrongFacing_2f:
-          triggerCondition:
-          - onBlocklyStopped:
-            - rover
-          additionalCondition:
-          - not:
-            - hasHeading:
-              - rover
-              - 0
-          actions:
-          - scenarioFailure:
-            - lost
-            - "You need to end your program facing the same direction as you started."
-          - playSound:
-            - FCVO3_Rover
-
         succeedOnSuccessfulMovement_2f:
           triggerCondition:
           - onBlocklyStopped:
             - rover
           additionalCondition:
-          - and:
-            - isAtPosition:
-              - rover
-              - 7
-              - 5
-            - hasHeading:
-              - rover
-              - 0
+          - isAtPosition:
+            - rover
+            - 7
+            - 5
           actions:
           - scenarioSuccess:
           - showAlert:
