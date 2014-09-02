@@ -311,7 +311,7 @@ Blockly.Blocks[ 'controls_sensor_tracks' ] = {
     var thisBlock = this;
     this.setTooltip( function() {
       var content = {
-        text: "Checks our scanner for man-made objects and other anomolies."
+        text: "Checks our scanner for man-made objects and other anomalies."
       }
       return showTooltipInBlockly( thisBlock, content );
     } );
