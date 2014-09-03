@@ -71,7 +71,7 @@ this.clauseSet.not = function( params, context, callback ) {
     var clause = self.executeFunction( params[ 0 ], context, callback );
 
     return function() {
-    	var result = clause();
+        var result = clause();
         return !result;
     }
 }
@@ -597,7 +597,7 @@ this.clauseSet.onVideoPlayed = function( params, context, callback ) {
     };
 }
 
-this.clauseSet.onHelicamToggle= function( params, context, callback ) {
+this.clauseSet.onHelicamToggle = function( params, context, callback ) {
     if ( params ) {
         self.logger.warnx( "onHelicamToggle", 
                            "This clause doesn't take any arguments." );
@@ -609,9 +609,9 @@ this.clauseSet.onHelicamToggle= function( params, context, callback ) {
     if ( callback ) {
         if ( context && context.toggledHelicam ) {
             context.toggledHelicam = self.events.add( function() {
-                                                                toggledHelicam = true;
-                                                                callback();
-                                                            } );
+                toggledHelicam = true;
+                callback();
+            } );
         }
     }
 
@@ -622,7 +622,7 @@ this.clauseSet.onHelicamToggle= function( params, context, callback ) {
     };
 }
 
-this.clauseSet.onGraphToggle= function( params, context, callback ) {
+this.clauseSet.onGraphToggle = function( params, context, callback ) {
     if ( params ) {
         self.logger.warnx( "onGraphToggle", 
                            "This clause doesn't take any arguments." );
@@ -633,9 +633,11 @@ this.clauseSet.onGraphToggle= function( params, context, callback ) {
     onClauseCallbackWarning( callback );
     if ( callback ) {
         if ( context && context.toggledGraph ) {
-            context.toggledGraph = self.events.add( function() {
-                toggledGraph = true;
-                callback();
+            context.toggledGraph = self.events.add( function( value ) {
+                if ( value ) {
+                    toggledGraph = true;
+                    callback();
+                }
             } );
         }
     }
@@ -647,7 +649,7 @@ this.clauseSet.onGraphToggle= function( params, context, callback ) {
     };
 }
 
-this.clauseSet.onTilesToggle= function( params, context, callback ) {
+this.clauseSet.onTilesToggle = function( params, context, callback ) {
     if ( params ) {
         self.logger.warnx( "onTilesToggle", 
                            "This clause doesn't take any arguments." );
@@ -658,9 +660,11 @@ this.clauseSet.onTilesToggle= function( params, context, callback ) {
     onClauseCallbackWarning( callback );
     if ( callback ) {
         if ( context && context.toggledTiles ) {
-            context.toggledTiles = self.events.add( function() {
-                toggledTiles = true;
-                callback();
+            context.toggledTiles = self.events.add( function( value ) {
+                if ( value ) {
+                    toggledTiles = true;
+                    callback();
+                }
             } );
         }
     }
