@@ -229,22 +229,13 @@ this.activateSensor = function( sensor ) {
     var retVal = false;
 
     if ( sensor === 'forward' ) {
-        var headingInRadians = this.heading * Math.PI / 180;
-        var dirVector = [ Math.round( -Math.sin( headingInRadians ) ), Math.round( Math.cos( headingInRadians ) ) ];
-        var proposedNewGridSquare = [ this.currentGridSquare[ 0 ] + dirVector[ 0 ], 
-                                                                this.currentGridSquare[ 1 ] + dirVector[ 1 ] ];
-
-        var objects = currentGrid.getObjectsAtCoord( proposedNewGridSquare );
-        if ( objects !== undefined ) {
-            if ( objects.length > 0 ) {
-                this.objectSensorValue = true;
-                this.tracksSensorValue = true;
-            } else {
-                this.objectSensorValue = false;
-                this.tracksSensorValue = false;
-            }
-        }
-
+        // This sensor just checks the current position against the 
+        //  "anomalyPosition" on the blackboard (if any).
+        var anomalyPos = scene.sceneBlackboard[ "anomalyPosition" ];
+        var currentPos = this.currentGridSquare;
+        this.tracksSensorValue = anomalyPos && 
+                                 anomalyPos[ 0 ] === currentPos [ 0 ] && 
+                                 anomalyPos[ 1 ] === currentPos [ 1 ];
     }
 
 }

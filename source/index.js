@@ -659,7 +659,6 @@ function clearBlockly() {
 
 function resetRoverSensors() {
     if ( mainRover ){
-        vwf_view.kernel.setProperty( mainRover, "objectSensorValue", false );
         vwf_view.kernel.setProperty( mainRover, "tracksSensorValue", false );
     }
 }

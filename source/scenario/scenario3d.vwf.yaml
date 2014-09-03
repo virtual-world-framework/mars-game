@@ -32,14 +32,8 @@ properties:
     - blocklyGraph
     - [ 12, 10 ]
   - removeFromGrid:
-    - trackanomaly
-    - [ 12, 11 ]
-  - removeFromGrid:
-    - trackanomaly
-    - [ 11, 10 ]
-  - removeFromGrid:
     - supplies_2
-    - [ 11, 10 ]
+    - [ 12, 10 ]
   - enableBlocklyTabs:
     - rover
     - graph

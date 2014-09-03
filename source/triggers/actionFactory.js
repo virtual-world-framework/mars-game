@@ -139,30 +139,34 @@ this.actionSet.delay = function( params, context ) {
 
 this.actionSet.writeToBlackboard = function( params, context ) {
 
-    if ( !params || ( params.length !== 1 ) || !params[ 0 ] ) {
+    if ( !params || ( params.length > 2 ) || !params[ 0 ] ) {
         self.logger.errorx( "writeToBlackboard", 
-                            "This action takes one parameter: variable " +
-                            "name." );
+                            "This action takes a variable name and an " +
+                            "optional value." );
         return undefined;
     } 
 
-    switch ( params[ 0 ] ) {
+    var name = params[ 0 ];
+    var value = params.length === 2 ? params[ 1 ] : 1;
+
+    switch ( name ) {
         case "lastHeading$":
         case "lastRotation$":
-            self.logger.errorx( "writeToBlackboard", "The '" + params[ 0 ] +
-                                "' parameter is reserved for internal use." );
+            self.logger.errorx( "writeToBlackboard", "The '" + name + "' " +
+                                "parameter is reserved for internal use." );
             return undefined;
         default:
             return function() {
-                context.sceneBlackboard[ params[ 0 ] ] = 1;
+                context.sceneBlackboard[ name ] = value;
             }
     }
 }
 
-this.actionSet.clearBlackboard = function( params, context ) {
+this.actionSet.clearBlackboardValue = function( params, context ) {
 
     if ( params && ( params.length < 1 ) ) {
-        self.logger.errorx( "clearBlackboard", "This action takes one parameter: variable name.");
+        self.logger.errorx( "clearBlackboardValue", "This action takes one " +
+                            "parameter: variable name.");
         return undefined;
     }
 

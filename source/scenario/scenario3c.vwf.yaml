@@ -32,14 +32,8 @@ properties:
     - minirover
     - [ 24, 39 ]
   - addToGrid:
-    - trackanomaly
-    - [ 12, 11 ]
-  - addToGrid:
-    - trackanomaly
-    - [ 11, 10 ]
-  - addToGrid:
     - supplies_2
-    - [ 11, 10 ]
+    - [ 12, 10 ]
   - enableBlocklyTabs:
     - rover
     - graph
@@ -64,6 +58,9 @@ children:
           - resetRoverSensors:
           - setObjective:
             - "Build a program to follow the tracks until your scanner finds something."
+          - writeToBlackboard:
+            - anomalyPosition
+            - [ 12, 10 ]
 
         playStartingVO_3c:
           triggerCondition:
@@ -95,6 +92,8 @@ children:
             - musicSuccessShort
           - playSound:
             - L3VO5_Rover_S
+          - clearBlackboardValue:
+            - anomalyPosition
 
         playHint1_3c:
           triggerCondition:
@@ -102,6 +101,9 @@ children:
             - 20
           additionalCondition:
           - and:
+            - hasHeading:
+              - rover
+              - 0
             - not:
               - readBlackboard:
                 - Level3cHint1
