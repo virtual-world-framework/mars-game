@@ -27,7 +27,7 @@ properties:
     - [ 13, 2 ]
   - addToGrid:
     - blocklyGraph
-    - [ 15, 1 ]
+    - [ 13, 2 ]
   - enableBlocklyTabs:
     - rover
     - graph

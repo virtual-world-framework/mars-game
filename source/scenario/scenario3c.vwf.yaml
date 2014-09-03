@@ -26,6 +26,9 @@ properties:
     - rover
     - [ 37, 15 ]
   - addToGrid:
+    - blocklyGraph
+    - [ 37, 15 ]
+  - addToGrid:
     - minirover
     - [ 24, 39 ]
   - addToGrid:
