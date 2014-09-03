@@ -760,6 +760,10 @@ function setNewObjective( text ) {
 }
 
 function enableAllHUDElements() {
+    if ( !hud ) {
+        return;
+    }
+    
     var els = hud.elements;
     for ( var el in els ) {
         els[ el ].enabled = true;
