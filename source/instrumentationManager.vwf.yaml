@@ -25,6 +25,8 @@ methods:
   registerScenarioSucceededListener:
   registerScenarioFailedListener:
   registerScenarioResetListener:
+  registerVOListener:
+  registerCameraListener:
   broadcastEvent:
   createRequest:
   getRequest:

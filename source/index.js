@@ -205,7 +205,11 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
             case "clearBlocklyTabs":
                 clearBlocklyTabs();
                 break;
-
+                
+            case "toggledCamera":
+                toggledCamera( eventArgs[ 0 ] );
+                break;
+                
             case "toggledTiles":
                 tilesAreVisible = eventArgs[ 0 ];
                 break;
@@ -295,6 +299,11 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
             } else {
                 resetScenario();
             }
+        }
+        
+        if ( eventName === "playedVO" ) {
+            var name = eventArgs[ 0 ];
+            playedVO( name );
         }
     }
 }

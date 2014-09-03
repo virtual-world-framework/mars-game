@@ -36,6 +36,7 @@ this.setUpSubtitles = function() {
 function startSubtitle( instanceHandle ) {
     var scene = this.find( "/" )[ 0 ];
     if ( this.hasSubtitle( instanceHandle ) ) {
+        scene.playedVO( instanceHandle.soundName );
         var subtitle = this.getSubtitle( instanceHandle );
         //Get the time in seconds
         var time = this.getDuration( instanceHandle );

@@ -24,6 +24,8 @@ this.initialize = function() {
         this.future( 0 ).registerScenarioSucceededListener();
         this.future( 0 ).registerScenarioFailedListener();
         this.future( 0 ).registerScenarioResetListener();
+        this.future( 0 ).registerVOListener();
+        this.future( 0 ).registerCameraListener();
     }
 }
 
@@ -59,6 +61,20 @@ this.registerScenarioResetListener = function() {
     var scene = this.find( "/" )[ 0 ];
     scene.scenarioReset = ( function( scenarioName ) {
         this.broadcastEvent( 'scenarioReset', scenarioName );
+    } ).bind( this );
+}
+
+this.registerVOListener = function() {
+    var scene = this.find( "/" )[ 0 ];
+    scene.playedVO = ( function( soundName ) {
+        this.broadcastEvent( 'playedVO', soundName );
+    } ).bind( this );
+}
+
+this.registerCameraListener = function() {
+    var scene = this.find( "/" )[ 0 ];
+    scene.toggledCamera = ( function( pov ) {
+        this.broadcastEvent( 'toggledCamera', pov );
     } ).bind( this );
 }
 
