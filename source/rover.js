@@ -328,7 +328,41 @@ this.setHeading = function( newHeading, duration ) {
             this.transform[ 9 ],
             this.transform[ 10 ], 
             headingDelta ];
-        this.rotateBy( axisAngle, duration || 0 );
+
+        var startQuaternion = this.quaternion;
+        var deltaQuaternion = goog.vec.Quaternion.fromAngleAxis(
+            axisAngle[3] * Math.PI / 180,
+            goog.vec.Vec3.createFromValues( axisAngle[0], axisAngle[1], axisAngle[2] ),
+            goog.vec.Quaternion.create()
+        );
+        var stopQuaternion = goog.vec.Quaternion.concat(
+            deltaQuaternion,
+            startQuaternion,
+            goog.vec.Quaternion.create()
+        );
+
+        var lastTime = 0;
+
+        // This is a version of quaterniateBy that follows the terrain
+        if ( duration > 0 ) {
+            this.animationDuration = duration;
+            this.animationUpdate = function( time, duration ) {
+                if ( lastRenderTime === lastTime && time < duration ) {
+                    return;
+                }
+                lastTime = lastRenderTime;
+                this.quaternion = goog.vec.Quaternion.slerp(
+                    startQuaternion, stopQuaternion,
+                    time >= duration ? 1 : time / duration,
+                    goog.vec.Quaternion.create()
+                );
+                this.placeOnTerrain( this.translation );
+            }
+            this.animationPlay( 0, duration );
+        } else {
+            this.quaternion = stopQuaternion;
+            this.placeOnTerrain( this.translation );
+        }
     }
 
     // Set the heading value
