@@ -64,6 +64,7 @@ events:
   showCommsImage:
   hideCommsImage:
   blockExecuted:
+  toggledCamera:
   toggledHelicam:
   toggledGraph:
   toggledTiles:
@@ -73,6 +74,7 @@ events:
   clearBlocklyTabs:
   playVideo:
   videoPlayed:
+  playedVO:
   setObjective:
   setHUDElementProperty:
   mouseOverHUD:
