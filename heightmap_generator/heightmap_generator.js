@@ -1,23 +1,21 @@
 var camera, canvasForRender, renderer, scene, loader, light, material, env;
-var high = 7.0;
-var low = -5.0;
+var near = 0.0;
+var far = 10.0;
 
 window.onload = function() {
 
     // Set up camera for the scene
     var offsetX = -135;
-    var offsetY = -106;
+    var offsetY = 106;
     var halfSize = 163;
     camera = new THREE.OrthographicCamera(
-        offsetX - halfSize, offsetX + halfSize, 
-        offsetY - halfSize, offsetY + halfSize,
-        1, 1000 
+        offsetX - halfSize, offsetX + halfSize,
+        offsetY + halfSize, offsetY - halfSize,
+        near, far
     );
-    camera.position.set( 0, 0, high );
+    camera.position.set( 0, 0, 7.5 );
     // camera.rotateX( -Math.PI );
     camera.lookAt(new THREE.Vector3(0,0,0));
-    camera.far = high - low;
-    camera.near = 0.01;
 
     // Create a renderer for the scene
     canvasForRender = document.getElementById( "3Dcanvas" );
@@ -36,7 +34,7 @@ window.onload = function() {
     loader.load( "collision_terrain.dae", function( object ) {
         env = object.scene;
         setHeightMapType( "gray" );
-        env.rotateX( Math.PI );
+        // env.rotateX( Math.PI );
         scene.add( env );
     } );
 
@@ -79,39 +77,27 @@ function setHeightMapType( mapType ) {
         case 0:
         case "gray":
             material = new THREE.ShaderMaterial(
-                { "uniforms": { 
-                    "low": { "type": "f", "value": low },
-                    "high": { "type": "f", "value": high } },
-                  "vertexShader": document.getElementById( "vertexShader" ).textContent,
+                { "vertexShader": document.getElementById( "vertexShader" ).textContent,
                   "fragmentShader": document.getElementById( "fragmentShaderGray" ).textContent 
                 } );
             break;
         case 1:
         case "rgb":
             material = new THREE.ShaderMaterial(
-                { "uniforms": { 
-                    "low": { "type": "f", "value": low },
-                    "high": { "type": "f", "value": high } },
-                  "vertexShader": document.getElementById( "vertexShader" ).textContent,
+                { "vertexShader": document.getElementById( "vertexShader" ).textContent,
                   "fragmentShader": document.getElementById( "fragmentShaderRGB" ).textContent 
                 } );
             break;
         case 2:
         case "exp":
             material = new THREE.ShaderMaterial(
-                { "uniforms": { 
-                    "low": { "type": "f", "value": low },
-                    "high": { "type": "f", "value": high } },
-                  "vertexShader": document.getElementById( "vertexShader" ).textContent,
+                { "vertexShader": document.getElementById( "vertexShader" ).textContent,
                   "fragmentShader": document.getElementById( "fragmentShader" ).textContent 
                 } );
             break;
         default:
             material = new THREE.ShaderMaterial(
-                { "uniforms": { 
-                    "low": { "type": "f", "value": low },
-                    "high": { "type": "f", "value": high } },
-                  "vertexShader": document.getElementById( "vertexShader" ).textContent,
+                { "vertexShader": document.getElementById( "vertexShader" ).textContent,
                   "fragmentShader": document.getElementById( "fragmentShaderGray" ).textContent 
                 } );
             break;

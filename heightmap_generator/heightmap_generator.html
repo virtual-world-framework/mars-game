@@ -6,57 +6,46 @@
     <script type="text/javascript" src="heightmap_generator.js"></script>
     <script id="vertexShader" type="x-shader/x-vertex">
         varying vec2 vUv;
-        varying vec4 worldPosition;
         void main() {
             vUv = uvMap;
             vec4 mvPosition = modelViewMatrix * vec4( position, 1.0 );
-            worldPosition = mvPosition;
             gl_Position = projectionMatrix * mvPosition;
         }
     </script>
     <script id="fragmentShader" type="x-shader/x-fragment">
-        uniform float low;
-        uniform float high;
         varying vec2 vUv;
-        varying vec4 worldPosition;
         void main( void ) {
-            float range = high - low;
-            float h = 1.0 - ( worldPosition.z + range ) / range;
-            h = h * pow( 256.0, 3.0 );
-            float b = floor( h / ( 256.0 * 256.0 ) ) / 255.0;
-            h = mod( h, 256.0 * 256.0 );
-            float g = floor( h / 256.0 ) / 255.0;
-            h = mod( h, 256.0 );
-            float r = h / 255.0;
+            float depth = gl_FragCoord.z / gl_FragCoord.w;
+            depth = 1.0 - depth;
+            depth = depth * pow( 256.0, 3.0 );
+            float b = floor( depth / ( 256.0 * 256.0 ) ) / 255.0;
+            depth = mod( depth, 256.0 * 256.0 );
+            float g = floor( depth / 256.0 ) / 255.0;
+            depth = mod( depth, 256.0 );
+            float r = depth / 255.0;
             gl_FragColor = vec4( r, g, b, 1.0 );
         }
     </script>
     <script id="fragmentShaderRGB" type="x-shader/x-fragment">
-        uniform float low;
-        uniform float high;
         varying vec2 vUv;
-        varying vec4 worldPosition;
         void main( void ) {
-            float range = high - low;
-            float h = 1.0 - ( worldPosition.z + range ) / range;
-            h = h * 3.0;
-            float r = min( h, 1.0 );
-            h = h - 1.0;
-            float g = min( h, 1.0 );
-            h = h - 1.0;
-            float b = min( h, 1.0 );
+            float depth = gl_FragCoord.z / gl_FragCoord.w;
+            depth = 1.0 - depth;
+            depth = depth * 3.0;
+            float r = min( depth, 1.0 );
+            depth = depth - 1.0;
+            float g = min( depth, 1.0 );
+            depth = depth - 1.0;
+            float b = min( depth, 1.0 );
             gl_FragColor = vec4( r, g, b, 1.0 );
         }
     </script>
     <script id="fragmentShaderGray" type="x-shader/x-fragment">
-        uniform float low;
-        uniform float high;
         varying vec2 vUv;
-        varying vec4 worldPosition;
         void main( void ) {
-            float range = high - low;
-            float h = 1.0 - ( worldPosition.z + range ) / range;
-            gl_FragColor = vec4( h, h, h, 1.0 );
+            float depth = gl_FragCoord.z / gl_FragCoord.w;
+            depth = 1.0 - depth;
+            gl_FragColor = vec4( depth, depth, depth, 1.0 );
         }
     </script>
   </head>
