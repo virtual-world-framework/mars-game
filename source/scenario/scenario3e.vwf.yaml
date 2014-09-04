@@ -74,6 +74,10 @@ children:
           - writeToBlackboard:
             - anomalyPosition
             - [ 24, 38 ]
+          - clearBlackboardEntry:
+            - Level3eTravel1
+          - stopSound:
+            - CTVO4
 
         playStartingVO_3e:
           triggerCondition:
@@ -87,6 +91,29 @@ children:
             - L3VO6_Mission
           - writeToBlackboard:
             - Level3eStartSounds
+
+        playTravelVO_3c:
+          triggerCondition:
+          - isAtPosition:
+            - rover
+            - 15
+            - 17
+          additionalCondition:
+          - and:
+            - not:
+              - readBlackboard:
+                - Level3eTravel1
+            - not:
+              - readBlackboard:
+                - hasSucceeded
+            - not:
+              - readBlackboard:
+                - hasFailed
+          actions:
+          - playSound:
+            - CTVO4
+          - writeToBlackboard:
+            - Level3eTravel1
 
         succeedOnSuccessfulMovement_3e:
           triggerCondition:
@@ -106,6 +133,8 @@ children:
             - musicLevel2
           - clearBlackboardEntry:
             - anomalyPosition
+          - stopSound:
+            - CTVO4
 
   grid:
     includes: source/grid.vwf

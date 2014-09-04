@@ -15,8 +15,7 @@ children:
           triggerCondition:
           - onScenarioStart:
           actions:
-          - playSound:
-            - environmentWind
+          - stopAllSounds:
           - playVideo:
             - success_cinematic.mp4
 
