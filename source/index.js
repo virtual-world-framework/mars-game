@@ -414,7 +414,6 @@ vwf_view.satProperty = function( nodeID, propertyName, propertyValue ) {
             case "logger_lifeTime":
                 loggerNode[ propertyName ] = parseFloat( propertyValue );
                 break;
-
         }
     }
 }
@@ -426,7 +425,9 @@ vwf_view.gotProperty = function( nodeID, propertyName, propertyValue ) {
             var element = document.getElementById( "version" );
             element.innerHTML = "Source available on " +
                 "<a target='_blank' href='https://github.com/virtual-world-framework/mars-game'>GitHub</a>. " +
-                "Licensed using Apache 2. Version: " + version;
+                "Licensed using " + 
+                "<a target='_blank' href='../LICENSE.txt'>Apache 2</a>. " +
+                ". Version: " + version;
         }
     }
 }
