@@ -66,7 +66,7 @@ properties:
 
     # clears the value at the specified blackboard variableName
     # arguments: variableName
-    clearBlackboardValue:
+    clearBlackboardEntry:
 
     # delays for a fixed time, and then plays one or more actions
     # arguments: delay, action(s)

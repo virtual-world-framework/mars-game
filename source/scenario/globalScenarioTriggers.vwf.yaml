@@ -93,11 +93,11 @@ properties:
       triggerCondition:
       - onScenarioStart:
       actions:
-      - clearBlackboardValue:
+      - clearBlackboardEntry:
         - hasSucceeded
-      - clearBlackboardValue:
+      - clearBlackboardEntry:
         - hasFailed
-      - clearBlackboardValue:
+      - clearBlackboardEntry:
         - disableFailOnIncompleteProgram
       - resetHUDState:
 

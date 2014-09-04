@@ -69,6 +69,8 @@ children:
           actions:
           - playSound:
             - musicLevel2
+          - playSound:
+            - environmentWind
           - resetRoverSensors:
           - setObjective:
             - "Build a program to follow the tracks until your scanner finds something."
@@ -106,7 +108,7 @@ children:
             - musicSuccessShort
           - playSound:
             - L3VO5_Rover_S
-          - clearBlackboardValue:
+          - clearBlackboardEntry:
             - anomalyPosition
 
         playHint1_3c:
