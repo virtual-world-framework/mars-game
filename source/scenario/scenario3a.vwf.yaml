@@ -22,7 +22,6 @@ properties:
   - addToInventory:
     - rover/cargo
     - [ "helicam", "battery", "radio" ]
-
   - addToGrid:
     - rover
     - [ 57, 5 ]
@@ -33,18 +32,9 @@ properties:
   - addToGrid:
     - minirover
     - [ 24, 39 ]
-
-  - addToGrid:
-    - trackanomaly
-    - [ 37, 16 ]
-
   - addToGrid:
     - supplies_1
-    - [ 36, 15 ]
-
-  - addToGrid:
-    - trackanomaly
-    - [ 36, 15 ]
+    - [ 37, 15 ]
   - enableBlocklyTabs:
     - rover
     - graph
@@ -69,6 +59,9 @@ children:
           - resetRoverSensors:
           - setObjective:
             - "Build a program to follow the tracks until your scanner finds something."
+          - writeToBlackboard:
+            - anomalyPosition
+            - [ 37, 15 ]
 
         playStartingVO_3a:
           triggerCondition:
@@ -85,27 +78,51 @@ children:
           - writeToBlackboard:
             - Level3aStartSounds
 
-        # playTravelVO_3a:
-        #   triggerCondition:
-        #   - onBlocklyStarted:
-        #   additionalCondition:
-        #   - and:
-        #     - not:
-        #       - readBlackboard:
-        #         - Level3aTravel1
-        #     - not:
-        #       - readBlackboard:
-        #         - hasSucceeded
-        #     - not:
-        #       - readBlackboard:
-        #         - hasFailed
-        #   actions:
-        #   - delay:
-        #     - 20
-        #     - playSound:
-        #       - L3VO4_Mission_E
-        #     - writeToBlackboard:
-        #       - Level3aTravel1
+        playTravelVO_1_3a:
+          triggerCondition:
+          - isAtPosition:
+            - rover
+            - 51
+            - 8
+          additionalCondition:
+          - and:
+            - not:
+              - readBlackboard:
+                - Level3aTravel1
+            - not:
+              - readBlackboard:
+                - hasSucceeded
+            - not:
+              - readBlackboard:
+                - hasFailed
+          actions:
+          - playSound:
+            - CTVO1_Rover
+          - writeToBlackboard:
+            - Level3aTravel1
+
+        playTravelVO_2_3a:
+          triggerCondition:
+          - isAtPosition:
+            - rover
+            - 41
+            - 13
+          additionalCondition:
+          - and:
+            - not:
+              - readBlackboard:
+                - Level3aTravel2
+            - not:
+              - readBlackboard:
+                - hasSucceeded
+            - not:
+              - readBlackboard:
+                - hasFailed
+          actions:
+          - playSound:
+            - CTVO2_Control
+          - writeToBlackboard:
+            - Level3aTravel2
 
         succeedOnSuccessfulMovement_3a:
           triggerCondition:
@@ -122,6 +139,8 @@ children:
             - "Looks like the rover changed course!  Time to plot the new line…"
           - playSound:
             - musicSuccessShort
+          - clearBlackboardValue:
+            - anomalyPosition
 
         playHint1_3a:
           triggerCondition:

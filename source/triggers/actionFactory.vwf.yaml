@@ -41,7 +41,7 @@ properties:
 
     # writes a value to the sceneBlackboard which can be referenced later
     # to determine whether an action has occurred.
-    # arguments: variableName
+    # arguments: variableName, value (optional, default = 1)
     writeToBlackboard:
 
     # increments a value to the sceneBlackboard which can be referenced later
@@ -51,7 +51,7 @@ properties:
 
     # clears the value at the specified blackboard variableName
     # arguments: variableName
-    clearBlackboard:
+    clearBlackboardValue:
 
     # delays for a fixed time, and then plays one or more actions
     # arguments: delay, action(s)

@@ -1,6 +1,0 @@
----
-extends: source/pickup.vwf
-properties:
-  isCollidable: false
-  terrainName: "environment"
-  objectName: trackanomaly

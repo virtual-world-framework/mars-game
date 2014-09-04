@@ -249,8 +249,6 @@ children:
         extends: source/pickups/helicam.vwf
       minirover:
         extends: source/pickups/minirover.vwf
-      trackanomaly:
-        extends: source/pickups/trackanomaly.vwf
   mainMenuScenario:
     includes: source/scenario/mainMenu.vwf
   introScreenScenario:

@@ -59,19 +59,25 @@ this.startScenario = function() {
     //  look up the orientation of the rover from the last scenario success
     //  set it back to that.  We do this before loading the start state, so
     //  that the start state can override it.
-    var rover = scene.find( "//rover" );
+    var rover = scene.find( "//rover" )[ 0 ];
     if ( rover ) {
         if ( scene.sceneBlackboard[ "lastHeading$" ] ) {
             rover.heading = scene.sceneBlackboard[ "lastHeading$" ];
+            this.logger.logx( "startScenario", "Retrieving heading: " + 
+                              rover.heading );
         } else {
             rover.heading = 0
         }
 
         if (  scene.sceneBlackboard[ "lastRotation$" ] ) {
             rover.rotation = scene.sceneBlackboard[ "lastRotation$" ];
+            this.logger.logx( "startScenario", "Retrieving rotation: " + 
+                              rover.rotation );
         } else {
             rover.rotation = [ 0, 0, 1, 0 ];
         }
+    } else {
+        this.logger.warnx( "startScenario", "Rover not found!!" );
     }
 
     if ( this.startState && this.startState.length > 0 ) {
@@ -103,10 +109,17 @@ this.completed = function() {
         //  for now.  We want to always store the heading of the rover on
         //  success, so look up the rover, and then stuff that value onto 
         //  the blackboard.
-        var rover = scene.find( "//rover" );
+        var rover = scene.find( "//rover" )[ 0 ];
         if ( rover ) {
             scene.sceneBlackboard[ "lastHeading$" ] = rover.heading;
             scene.sceneBlackboard[ "lastRotation$" ] = rover.rotation;
+
+            this.logger.logx( "completed", "Storing heading: " + 
+                              scene.sceneBlackboard[ "lastHeading$" ] );
+            this.logger.logx( "completed", "Storing rotation: ",  
+                              scene.sceneBlackboard[ "lastRotation$" ] );
+        } else {
+            this.logger.warnx( "completed", "Rover not found!!" );
         }
     }
 }
@@ -241,4 +254,3 @@ this.startStateParamSet.loadToolbox = function( params, context ) {
     }
 }
 
-//@ sourceURL=source/scenario/scenario.js

@@ -30,15 +30,6 @@ properties:
   - addToGrid:
     - minirover
     - [ 24, 39 ]
-  - addToGrid:
-    - trackanomaly
-    - [ 24, 39 ]
-  - addToGrid:
-    - trackanomaly
-    - [ 23, 38 ]
-  - addToGrid:
-    - trackanomaly
-    - [ 25, 38 ]
   - enableBlocklyTabs:
     - rover
     - graph
@@ -63,6 +54,9 @@ children:
           - resetRoverSensors:
           - setObjective:
             - "Build a program to follow the tracks until your scanner finds something."
+          - writeToBlackboard:
+            - anomalyPosition
+            - [ 24, 38 ]
 
         playStartingVO_3e:
           triggerCondition:
@@ -95,6 +89,8 @@ children:
             - musicLevel2
           - playVideo:
             - "end_cinematic.mp4"
+          - clearBlackboardValue:
+            - anomalyPosition
 
   grid:
     includes: source/grid.vwf
