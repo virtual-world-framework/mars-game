@@ -69,6 +69,8 @@ children:
           actions:
           - playSound:
             - musicLevel2
+          - playSound:
+            - environmentWind
           - resetRoverSensors:
           - blinkBlocklyTab:
             - graph

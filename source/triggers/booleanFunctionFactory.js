@@ -584,7 +584,7 @@ this.clauseSet.onScenarioChanged = function( params, context, callback ) {
 
 this.clauseSet.onVideoPlayed = function( params, context, callback ) {
     if ( !params || params.length !== 1 ) {
-        self.logger.warnx( "onIntroScreensComplete", 
+        self.logger.warnx( "onVideoPlayed", 
                            "This clause takes one argument: The video source." );
         return undefined;
     }

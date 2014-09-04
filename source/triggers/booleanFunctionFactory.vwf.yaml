@@ -78,8 +78,9 @@ properties:
     onScenarioSucceeded:
     onScenarioFailed:
 
-    # arguments: (none)
-    onIntroScreensComplete:
+    # Triggers when the specified video ends.
+    # arguments: videoSource
+    onVideoPlayed:
 
     # Triggers when the appropriate UI element is used
     # arguments: (none)

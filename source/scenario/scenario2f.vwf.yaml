@@ -63,6 +63,8 @@ children:
           actions:
           - playSound:
             - musicLevel2
+          - playSound:
+            - environmentWind
           - blinkBlocklyTab:
             - rover
           - setObjective:
@@ -117,7 +119,7 @@ children:
         playHint1_2f:
           triggerCondition:
           - delay:
-            - 20
+            - 15
           additionalCondition:
           - and:
             - not:
@@ -141,7 +143,7 @@ children:
         playHint2_2f:
           triggerCondition:
           - delay:
-            - 40
+            - 30
           additionalCondition:
           - and:
             - not:

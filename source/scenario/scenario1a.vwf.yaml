@@ -90,6 +90,8 @@ children:
           actions:
           - playSound:
             - musicStandardGameplay
+          - playSound:
+            - environmentWind
           - blinkHUDElement:
             - blocklyButton
           - setCinematicCameraView:
