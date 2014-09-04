@@ -90,7 +90,7 @@ this.actionSet.stopSound = function( params, context ) {
 
 this.actionSet.stopSoundGroup = function( params, context ) {
     if ( !params || ( params.length !== 1 ) ) {
-        self.logger.warnx( "stopSound", "We need to know the name of the sound to stop!" );
+        self.logger.warnx( "stopSoundGroup", "We need to know the name of the sound group to stop!" );
         return undefined;
     }
 
@@ -99,6 +99,20 @@ this.actionSet.stopSoundGroup = function( params, context ) {
 
     if ( soundMgr ) {
         return function() { soundMgr.stopSoundGroup( groupName ); };
+    } else {
+        return undefined;
+    }
+}
+
+this.actionSet.stopAllSounds = function( params, context ) {
+    if ( !params || ( params.length !== 0 ) ) {
+        self.logger.warnx( "stopAllSounds", "stopAllSounds doesn't take any parameters!" );
+    }
+
+    var soundMgr = getSoundMgr( context );
+
+    if ( soundMgr ) {
+        return function() { soundMgr.stopAllSoundInstances(); };
     } else {
         return undefined;
     }

@@ -41,6 +41,10 @@ properties:
     # arguments: the name of the sound group
     stopSoundGroup:
 
+    # stop every sound
+    # arguments: none
+    stopAllSounds:
+
     # play a video
     # arguments: the source of the video
     playVideo:
