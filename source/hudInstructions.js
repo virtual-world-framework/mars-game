@@ -196,7 +196,7 @@ function populateBlockStack() {
     }
 }
 
-function addBlockToStackList( topBlock, maxLoopIndex ) {
+function addBlockToStackList( topBlock, maxLoopIndex, condition ) {
     var status = hud.elements.blocklyStatus;
     var currentBlock = topBlock;
     while ( currentBlock ) {
@@ -208,6 +208,7 @@ function addBlockToStackList( topBlock, maxLoopIndex ) {
             "alpha": 0,
             "loopIndex": maxLoopIndex > 0 ? 0 : -1,
             "maxLoopIndex": maxLoopIndex,
+            "conditional": condition,
             "topOffset": 0
         };
 
@@ -231,10 +232,12 @@ function addBlockToStackList( topBlock, maxLoopIndex ) {
         } else if ( blockType === "controls_whileUntil" ) {
             blockData.name = "repeatUntil";
             status.blockStack.push( blockData );
+            var conditionBlock = currentBlock.getChildren()[ 0 ];
+            var blockValue = conditionBlock.getInput( "INPUT" ).fieldRow[ 1 ].getValue();
             var loopConnection = currentBlock.getInput( "DO" ).connection.targetConnection;
             if ( loopConnection ) {
                 var firstBlockInLoop = currentBlock.getInput( "DO" ).connection.targetConnection.sourceBlock_;
-                addBlockToStackList( firstBlockInLoop );
+                addBlockToStackList( firstBlockInLoop, undefined, blockValue );
             }
         } else if ( blockType === "controls_sensor" ) {
             blockData.name = "sensor";
@@ -362,6 +365,15 @@ function drawBlocklyStatus( context, position ) {
     if ( this.blockImages && this.blockStack ) {
         var lastHeight = 0;
         var offsetX = 0;
+
+        // Draw the run icon
+        context.globalAlpha = 1;
+        if ( this.index > -1 ) {
+            offsetX += this.runIcon.width;
+            var offsetY = this.runIcon.height * 1.5;
+            context.drawImage( this.runIcon, position.x - offsetX, position.y - offsetY );
+        }
+
         // Draw all blocks within the range of the selected block
         for ( var i = 0; i < this.index + this.range / 2; i++ ) {
             var blockData = this.blockStack[ i ];
@@ -369,30 +381,37 @@ function drawBlocklyStatus( context, position ) {
                 var alpha = blockData.alpha;
                 var block = this.blockImages[ blockData.name ];
                 var loopIndex = blockData.loopIndex;
+                var conditional = blockData.conditional;
                 if ( alpha && block && Math.abs( i - this.index ) < this.range ) {
                     context.globalAlpha = alpha;
                     context.drawImage( block, position.x, 
                                        position.y - ( this.topOffset - lastHeight ) );
-                    if ( this.index === i && loopIndex >= 1 ) {
-                        var numBlock = this.blockImages[ "number" ];
-                        offsetX += numBlock.width;
-                        var posY = position.y - ( this.topOffset - lastHeight );
-                        context.drawImage( numBlock, position.x - offsetX, posY + 1 );
-                        context.textBaseline = "top";
-                        context.font = '16px sans-serif';
-                        context.fillStyle = "rgb( 0, 0, 0 )";
-                        context.fillText( loopIndex, position.x - offsetX + 20, posY + 6 );
+                    if ( this.index === i ) {
+                        if ( loopIndex >= 1 ) {
+                            var numBlock = this.blockImages[ "number" ];
+                            offsetX += numBlock.width;
+                            var posY = position.y - ( this.topOffset - lastHeight );
+                            context.drawImage( numBlock, position.x - offsetX, posY + 1 );
+                            context.textBaseline = "top";
+                            context.font = '16px sans-serif';
+                            context.fillStyle = "rgb( 0, 0, 0 )";
+                            context.fillText( loopIndex, position.x - offsetX + 20, posY + 6 );
+                        }
+                        if ( conditional ) {
+                            var conditionBlock = this.blockImages[ "sensor" ];
+                            offsetX += conditionBlock.width;
+                            var posY = position.y - ( this.topOffset - lastHeight );
+                            context.drawImage( conditionBlock, position.x - offsetX, posY + 1 );
+                            context.textBaseline = "top";
+                            context.font = '16px sans-serif';
+                            context.fillStyle = "rgb( 0, 0, 0 )";
+                            context.fillText( conditional.toLowerCase(), position.x - offsetX + 20, posY + 6 );
+                        }
                     }
                 }
                 lastHeight += block.height || 0;
             }
         }       
-        context.globalAlpha = 1;
-        if ( this.index > -1 ) {
-            offsetX += this.runIcon.width;
-            var offsetY = this.runIcon.height * 1.5;
-            context.drawImage( this.runIcon, position.x - offsetX, position.y - offsetY );
-        }
     }
 }
 
