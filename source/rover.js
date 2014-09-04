@@ -239,7 +239,7 @@ this.calcUpwardNormalizedPlaneNormal = function( vec1, vec2 ) {
     // Cross the two vectors to get a perpendicular vector
     var normal = goog.vec.Vec3.cross( vec1, vec2, goog.vec.Vec3.create() );
 
-    // Normalize the vector to have a lenght of 1
+    // Normalize the vector to have a length of 1
     goog.vec.Vec3.normalize( normal, normal );
 
     // If the vector is pointing downward, point it in the other direction
@@ -365,14 +365,8 @@ this.setHeading = function( newHeading, duration ) {
         }
     }
 
-    // Set the heading value
-    while ( newHeading > 360 ) {
-        newHeading -= 360;
-    }
-    while ( newHeading < 0 ) {
-        newHeading += 360;
-    }
-    this.heading = newHeading;
+    // Set the heading value, constraining the value to be between 0 and 359
+    this.heading = ( newHeading % 360 + 360 ) % 360;
 }
 
 //@ sourceURL=source/rover.js
