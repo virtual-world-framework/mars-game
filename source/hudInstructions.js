@@ -13,7 +13,7 @@
 // limitations under the License.
 
 function createHUD() {
-    createBlocklyStatus();
+    // createBlocklyStatus();
     createAlertText();
     createCommsDisplay();
     createRoverElement();
