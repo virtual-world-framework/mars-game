@@ -269,7 +269,7 @@ properties:
     - soundName: "L3VO2_Rover_H2"
       soundURL: "assets/sounds/vo/L3VO2_Rover_H2.ogg"
       initialVolume: 0.65
-      subtitle: "[ROVER]: I need to remember to face the same direction at the beginning and end of the loop."
+      subtitle: "[ROVER]: I need to face the same direction at the beginning and end of the loop. Otherwise, it will take me in a different direction each time it starts."
       soundGroup: vo
       groupReplacementMethod: queue
     - soundName: "L3VO2_Mission_S"
