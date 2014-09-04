@@ -78,6 +78,8 @@ children:
           actions:
           - playSound:
             - musicStandardGameplay
+          - playSound:
+            - environmentWind
           - setObjective:
             - "Turn around to face back toward the crash pod."
           - setHUDProperty:

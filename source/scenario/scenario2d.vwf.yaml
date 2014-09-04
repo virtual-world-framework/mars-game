@@ -63,6 +63,8 @@ children:
           actions:
           - playSound:
             - musicLevel2
+          - playSound:
+            - environmentWind
           - setObjective:
             - "Graph a line that matches the slope of the tracks."
 

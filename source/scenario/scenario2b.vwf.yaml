@@ -63,6 +63,8 @@ children:
           actions:
           - playSound:
             - musicLevel2
+          - playSound:
+            - environmentWind
           - blinkHUDElement:
             - blocklyButton
           - blinkBlocklyTab:

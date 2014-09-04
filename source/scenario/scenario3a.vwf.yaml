@@ -70,6 +70,8 @@ children:
           actions:
           - playSound:
             - musicLevel2
+          - playSound:
+            - environmentWind
           - resetRoverSensors:
           - setObjective:
             - "Build a program to follow the tracks until your scanner finds something."
@@ -153,7 +155,7 @@ children:
             - "Looks like the rover changed course!  Time to plot the new line…"
           - playSound:
             - musicSuccessShort
-          - clearBlackboardValue:
+          - clearBlackboardEntry:
             - anomalyPosition
 
         playHint1_3a:

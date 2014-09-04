@@ -17,7 +17,8 @@ extends: source/scenario/scenario.vwf
 properties:
   scenarioName: scenario1h
 
-  nextScenarioPath: "scenario2a"
+  scenePath: /
+  nextScenarioPath: scenario1i
 
   startState:
   - setProperty:
@@ -78,6 +79,8 @@ children:
           actions:
           - playSound:
             - musicStandardGameplay
+          - playSound:
+            - environmentWind
           - setObjective:
             - "Move to the far end of the crash site and pick up the radio module."
           - setHUDProperty:
@@ -125,16 +128,6 @@ children:
           - clearBlockly:      
           - stopSound:
             - musicStandardGameplay
-          - playSound:
-            - musicSuccess
-          - delay:
-            - 5
-            - playSound:
-              - SCVO4_Rover
-            - playSound:
-              - L1VO10_Control_E
-          - playVideo:
-            - "success_cinematic.mp4"
 
         playHint1_1h:
           triggerCondition:

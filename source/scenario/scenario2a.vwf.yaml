@@ -71,6 +71,8 @@ children:
           actions:
           - playSound:
             - musicLevel2
+          - playSound:
+            - environmentWind
           - blinkHUDElement:
             - graphButton
           - setObjective:

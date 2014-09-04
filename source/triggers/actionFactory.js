@@ -176,18 +176,17 @@ this.actionSet.writeToBlackboard = function( params, context ) {
     }
 }
 
-this.actionSet.clearBlackboardValue = function( params, context ) {
+this.actionSet.clearBlackboardEntry = function( params, context ) {
 
     if ( params && ( params.length < 1 ) ) {
-        self.logger.errorx( "clearBlackboardValue", "This action takes one " +
+        self.logger.errorx( "clearBlackboardEntry", "This action takes one " +
                             "parameter: variable name.");
         return undefined;
     }
 
     return function() {
-        delete context.sceneBlackboard[ params[ 0 ] ];
+        context.sceneBlackboard[ params[ 0 ] ] = undefined;
     }
-
 }
 
 this.actionSet.incrementBlackboardValue = function( params, context ) {

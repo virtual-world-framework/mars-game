@@ -18,6 +18,7 @@ properties:
   scenarioName: scenario3e
 
   scenePath: /
+  nextScenarioPath: "scenario3f"
 
   startState:
   - setProperty:
@@ -65,6 +66,8 @@ children:
           actions:
           - playSound:
             - musicLevel2
+          - playSound:
+            - environmentWind
           - resetRoverSensors:
           - setObjective:
             - "Build a program to follow the tracks until your scanner finds something."
@@ -101,9 +104,7 @@ children:
           - hideBlockly:
           - stopSound:
             - musicLevel2
-          - playVideo:
-            - "end_cinematic.mp4"
-          - clearBlackboardValue:
+          - clearBlackboardEntry:
             - anomalyPosition
 
   grid:

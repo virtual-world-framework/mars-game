@@ -85,6 +85,8 @@ children:
           actions:
           - playSound:
             - musicStandardGameplay
+          - playSound:
+            - environmentWind
           - setObjective:
             - "Move forward to pick up your Helicam."
           - setHUDProperty:
