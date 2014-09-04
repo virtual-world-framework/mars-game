@@ -34,11 +34,6 @@ properties:
     - blockly_allowedBlocks
     - 12
 
-  - callMethod:
-    - rover
-    - setHeading
-    - 0
-
   - addToInventory:
     - rover/cargo
     - [ "helicam", "battery", "radio" ]
