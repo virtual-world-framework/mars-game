@@ -1,7 +1,18 @@
 mars-game
+
 =========
 
-A game designed to teach STEM concepts to under the ADL True Game-based Learning project.
+A game designed to teach STEM concepts to under the ADL True Game-Based
+Learning project.
+
+Mars-Game is built on top of the Virtual World Framework (VWF, 
+https://virtual.wf/).
+
+Funding for this project was provided by Advanced Distributed Learning 
+(ADL, http://www.adlnet.gov/overview/).
+
+Source code, subject to the license below, is available on GitHub 
+(https://github.com/virtual-world-framework/mars-game).
 
 =========
 
