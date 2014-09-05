@@ -57,16 +57,21 @@ a:active {
 }
 
 #blocklyIndicatorCount {
-    background-image: url( "assets/images/hud/blockly_number.png" );
-    width: 42px;
-    height: 22px;
-    padding-left: 20px;
-    padding-top: 6px;
+    background-image: url( "assets/images/blockly_ui/number_appendix.png" );
+    width: 38px;
+    height: 15px;
+    padding-left: 7px;
+    padding-top: 2px;
     position: absolute;
-    right: 40px;
-    font-size: 16px;
+    right: 39px;
+    font-size: 10px;
     font-family: sans-serif;
+    color: white;
     visibility: hidden;
+}
+
+#blocklyIndicatorCount.stopped {
+    background-image: url( "assets/images/blockly_ui/number_appendix_stopped.png" );
 }
 
 #blocklyWrapper {

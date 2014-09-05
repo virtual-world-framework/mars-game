@@ -181,6 +181,8 @@ function createBlocklyStatus() {
     status.range = 3;
     status.runIcon = new Image();
     status.runIcon.src = "assets/images/blockly_ui/blockly_indicator.png";
+    status.numberAppendix = new Image();
+    status.numberAppendix.src = "assets/images/blockly_ui/number_appendix.png";
     hud.add( status, "right", "bottom", { "x": 130, "y": -60 } );
     addBlockToImageList( "moveForward", "assets/images/hud/blockly_move_forward.png" );
     addBlockToImageList( "turnLeft", "assets/images/hud/blockly_turn_left.png" );
@@ -376,37 +378,37 @@ function drawBlocklyStatus( context, position ) {
     if ( this.blockImages && this.blockStack ) {
         var lastHeight = 0;
         var offsetX = 0;
+        var offsetY = 0;
+        if ( this.index > -1 ) {
+            offsetX += this.runIcon.width;
+            offsetY += this.runIcon.height * 1.5;
+            context.drawImage( this.runIcon, position.x - offsetX, position.y - offsetY );
+        }        
         // Draw all blocks within the range of the selected block
         for ( var i = 0; i < this.index + this.range / 2; i++ ) {
             var blockData = this.blockStack[ i ];
             if ( blockData ) {
                 var alpha = blockData.alpha;
                 var block = this.blockImages[ blockData.name ];
-                var loopIndex = blockData.loopIndex;
                 if ( alpha && block && Math.abs( i - this.index ) < this.range ) {
                     context.globalAlpha = alpha;
                     context.drawImage( block, position.x, 
                                        position.y - ( this.topOffset - lastHeight ) );
-                    if ( this.index === i && loopIndex >= 1 ) {
-                        var numBlock = this.blockImages[ "number" ];
+                    if ( this.index === i && blockData.maxLoopIndex ) {
+                        var numBlock = this.numberAppendix;
                         offsetX += numBlock.width;
-                        var posY = position.y - ( this.topOffset - lastHeight );
-                        context.drawImage( numBlock, position.x - offsetX, posY + 1 );
+                        context.drawImage( numBlock, position.x - offsetX + 2, position.y - offsetY );
                         context.textBaseline = "top";
-                        context.font = '16px sans-serif';
-                        context.fillStyle = "rgb( 0, 0, 0 )";
-                        context.fillText( loopIndex, position.x - offsetX + 20, posY + 6 );
+                        context.font = '10px sans-serif';
+                        context.fillStyle = "rgb( 255, 255, 255 )";
+                        context.fillText( blockData.loopIndex + " of " + blockData.maxLoopIndex,
+                                          position.x - offsetX + 8, position.y - offsetY + 2 );
                     }
                 }
                 lastHeight += block.height || 0;
             }
         }       
         context.globalAlpha = 1;
-        if ( this.index > -1 ) {
-            offsetX += this.runIcon.width;
-            var offsetY = this.runIcon.height * 1.5;
-            context.drawImage( this.runIcon, position.x - offsetX, position.y - offsetY );
-        }
     }
 }
 
@@ -676,7 +678,7 @@ function pushNextBlocklyStatus( id ) {
                 }  
                 var loopIndex = blockData.loopIndex;          
                 if ( !isNaN( loopIndex ) && loopIndex >= 1 ) {
-                    showBlocklyLoopCount( loopIndex );
+                    showBlocklyLoopCount( loopIndex, blockData.maxLoopIndex );
                 } else {
                     hideBlocklyLoopCount();
                 }

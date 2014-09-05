@@ -79,13 +79,17 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 indicator.className = "";
                 indicator.style.visibility = "inherit";
                 var indicatorCount = document.getElementById( "blocklyIndicatorCount" );
+                indicatorCount.className = "";
                 indicatorCount.style.visibility = "inherit";
                 break;
 
             case "blocklyStopped":
                 startBlocklyButton.className = "";
                 var indicator = document.getElementById( "blocklyIndicator" );
+                var count = document.getElementById( "blocklyIndicatorCount" );
                 indicator.className = "stopped";
+                count.className = "stopped";
+
                 clearBlocklyStatus();
 
             case "blocklyErrored":
