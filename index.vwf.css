@@ -108,6 +108,7 @@ a:active {
     -moz-user-select: none;     /* Firefox all */
     -ms-user-select: none;      /* IE 10+ */
     cursor: default;
+    background-color: rgba( 128, 128, 128, 0.5 );
 }
 
 #blocklyFooter {
@@ -118,6 +119,7 @@ a:active {
     -moz-user-select: none;     /* Firefox all */
     -ms-user-select: none;      /* IE 10+ */
     cursor: default;
+    background-color: rgba( 128, 128, 128, 0.5 );
 }
 
 #blocklyScrollDiv {
