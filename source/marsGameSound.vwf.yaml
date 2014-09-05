@@ -26,7 +26,7 @@ properties:
       groupReplacementMethod: replace
     - soundName: "musicLevel2"
       soundURL: "assets/sounds/music/musicLevel2Loop.ogg"
-      initialVolume: 0.8
+      initialVolume: 1
       isLooping: true
       allowMultiplay: false
       soundGroup: music

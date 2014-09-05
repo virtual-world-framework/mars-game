@@ -427,7 +427,7 @@ vwf_view.gotProperty = function( nodeID, propertyName, propertyValue ) {
                 "<a target='_blank' href='https://github.com/virtual-world-framework/mars-game'>GitHub</a>. " +
                 "Licensed using " + 
                 "<a target='_blank' href='../LICENSE.txt'>Apache 2</a>. " +
-                ". Version: " + version;
+                "Version: " + version;
         }
     }
 }
