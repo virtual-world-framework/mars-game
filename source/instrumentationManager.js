@@ -26,6 +26,7 @@ this.initialize = function() {
         this.future( 0 ).registerScenarioResetListener();
         this.future( 0 ).registerVOListener();
         this.future( 0 ).registerCameraListener();
+        this.future( 0 ).registerBlocklyListener();
     }
 }
 
@@ -78,9 +79,23 @@ this.registerCameraListener = function() {
     } ).bind( this );
 }
 
+this.registerBlocklyListener = function() {
+    var scene = this.find( "/" )[ 0 ];
+    scene.blocklyStarted = ( function() {
+        var xml = Blockly.Xml.workspaceToDom( Blockly.mainWorkspace );
+        var scenario = scene.activeScenarioPath;
+        this.broadcastBlockly( xml, scenario );
+    } ).bind( this );
+}
+
 this.broadcastEvent = function( event, value ) {
     var params = [ event, value ];
     this.createRequest ( 'logEvent', params );
+}
+
+this.broadcastBlockly = function( xml, scenario ) {
+    var params = [ xml, scenario ];
+    this.createRequest ( 'logBlockly', params );
 }
 
 this.createRequest = function( type, params ) {
@@ -107,6 +122,20 @@ this.createRequest = function( type, params ) {
         xhr.setRequestHeader( "Content-type", "application/x-www-form-urlencoded" );
         xhr.send("vwf_session=" + vwfSession + "&player_id=" + playerId + "&action=" + 
                 event + "$&value="+value+"$&version="+version);
+        
+    }
+    if ( type === 'logBlockly' ) {
+        if ( !params || ( params.length !== 2 ) ) {
+            self.logger.warnx( "createRequest", "The logBlockly request takes 2 parameters:" +
+                               " the Blockly XML and the scenario name." );
+        }
+        var xml = params[ 0 ];
+        var scenario = params[ 1 ];
+        
+        xhr.open( "POST", this.logBlocklyUrl, true );
+        xhr.setRequestHeader( "Content-type", "application/x-www-form-urlencoded" );
+        xhr.send("vwf_session=" + vwfSession + "&player_id=" + playerId + "&xml=" + 
+                xml + "$&scenario="+scenario+"$&version="+version);
         
     }
 }

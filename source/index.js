@@ -83,6 +83,7 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 var indicatorCount = document.getElementById( "blocklyIndicatorCount" );
                 indicatorCount.className = "";
                 indicatorCount.style.visibility = "inherit";
+                blocklyStarted();
                 break;
 
             case "blocklyStopped":
