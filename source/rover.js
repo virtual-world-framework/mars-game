@@ -306,7 +306,7 @@ this.activateSensor = function( sensor ) {
     if ( sensor === 'forward' ) {
         // This sensor just checks the current position against the 
         //  "anomalyPosition" on the blackboard (if any).
-        var anomalyPos = scene.sceneBlackboard[ "anomalyPosition" ];
+        var anomalyPos = this.sceneNode.sceneBlackboard[ "anomalyPosition" ];
         var currentPos = this.currentGridSquare;
         this.tracksSensorValue = anomalyPos && 
                                  anomalyPos[ 0 ] === currentPos [ 0 ] && 
