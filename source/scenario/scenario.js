@@ -76,15 +76,9 @@ this.startScenario = function() {
     var rover = scene.find( "//rover" )[ 0 ];
     if ( rover ) {
         if ( scene.sceneBlackboard[ "lastHeading$" ] ) {
-            rover.heading = scene.sceneBlackboard[ "lastHeading$" ];
+            rover.setHeading( scene.sceneBlackboard[ "lastHeading$" ] );
         } else {
-            rover.heading = 0
-        }
-
-        if (  scene.sceneBlackboard[ "lastRotation$" ] ) {
-            rover.rotation = scene.sceneBlackboard[ "lastRotation$" ];
-        } else {
-            rover.rotation = [ 0, 0, 1, 0 ];
+            rover.setHeading( 0 );
         }
     } else {
         this.logger.warnx( "startScenario", "Rover not found!!" );
@@ -122,7 +116,6 @@ this.completed = function() {
         var rover = scene.find( "//rover" )[ 0 ];
         if ( rover ) {
             scene.sceneBlackboard[ "lastHeading$" ] = rover.heading;
-            scene.sceneBlackboard[ "lastRotation$" ] = rover.rotation;
         } else {
             this.logger.warnx( "completed", "Rover not found!!" );
         }
