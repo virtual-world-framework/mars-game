@@ -118,6 +118,8 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 if ( currentBlocklyNodeID === blocklyGraphID ) {
                     var currentCode = getBlocklyFunction();
                     this.kernel.setProperty( graphLines[ "blocklyLine" ].ID, "lineFunction", currentCode );
+                    vwf_view.kernel.setProperty( vwf_view.kernel.application(), "activeBlocklyXML", ''+currentCode+'');
+                    vwf_view.kernel.fireEvent( vwf_view.kernel.application(), "blocklyStarted" );
                 } else {
                     indicateBlock( lastBlockIDExecuted );
                 }
@@ -614,9 +616,8 @@ function loadScenarioList() {
 }
 
 function runBlockly() {
-    var sceneID = vwf_view.kernel.application();
     var blocklyXml =  Blockly.Xml.domToText( Blockly.Xml.workspaceToDom( Blockly.getMainWorkspace( ) ) );
-    vwf_view.kernel.setProperty( sceneID, "activeBlocklyXML", ''+blocklyXml+'');
+    vwf_view.kernel.setProperty( vwf_view.kernel.application(), "activeBlocklyXML", ''+blocklyXml+'');
     vwf_view.kernel.setProperty( currentBlocklyNodeID, "blockly_executing", true );
     vwf_view.kernel.fireEvent( vwf_view.kernel.application(), "blocklyStarted" );
     populateBlockStack();
