@@ -32,7 +32,6 @@ function loadVideo( src, type, dontRemoveWhenEnded ) {
     video.elem.load();
 
     video.elem.onclick = removeVideoOnEvent;
-    // video.elem.onkeypress = removeVideoOnKeypress;
 
     if ( !dontRemoveWhenEnded ) {
         video.elem.onended = removeVideoOnEvent;
@@ -58,22 +57,6 @@ function removeVideoOnEvent( event ) {
     vwf_view.kernel.fireEvent( vwf_view.kernel.application(), "videoPlayed", [ fileName ] );
     removeVideo( id );
 }
-
-// function removeVideoOnKeypress( event ) {
-//     // code borrowed from:
-//     //  http://www.w3schools.com/tags/tryit.asp?filename=tryhtml5_ev_onkeypress
-//     var x;
-//     if ( window.event ) {           // IE8 and earlier
-//         x = event.keyCode;
-//     } else if ( event.which ) {     // IE9/Firefox/Chrome/Opera/Safari
-//         x = event.which;
-//     }
-//     var keychar = String.fromCharCode( x );
-
-//     if ( keychar === ' ' ) {
-//         removeVideoOnEvent( event );
-//     }
-// }
 
 function removeVideo( id ) {
     var video = videos[ id ];
