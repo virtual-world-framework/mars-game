@@ -28,6 +28,7 @@ properties:
   playerId: "test"
   version: 1.0
   sceneBlackboard: {}
+  activeBlocklyXML: undefined
 methods:
   setScenario:
   resetScenario:
@@ -64,6 +65,7 @@ events:
   showCommsImage:
   hideCommsImage:
   blockExecuted:
+  blocklyStarted:
   toggledCamera:
   toggledHelicam:
   toggledGraph:
