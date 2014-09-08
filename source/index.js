@@ -134,6 +134,10 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 }
                 break;
 
+            case "blocklyStarted":
+                blocklyStarted();
+                break;
+
             case "scenarioChanged":
                 currentScenario = eventArgs[ 0 ];
                 if ( currentScenario === "mainMenuScenario" ) {
@@ -614,7 +618,11 @@ function loadScenarioList() {
 }
 
 function runBlockly() {
+    var sceneID = vwf_view.kernel.application();
+    var blocklyXml =  Blockly.Xml.domToText( Blockly.Xml.workspaceToDom( Blockly.getMainWorkspace( ) ) );
+    vwf_view.kernel.setProperty( sceneID, "activeBlocklyXML", ''+blocklyXml+'');
     vwf_view.kernel.setProperty( currentBlocklyNodeID, "blockly_executing", true );
+    vwf_view.kernel.fireEvent( vwf_view.kernel.application(), "blocklyStarted" );
     populateBlockStack();
 }
 
