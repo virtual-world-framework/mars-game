@@ -117,10 +117,10 @@ this.placeOnTerrain = function( pos ) {
         pos[ 1 ] - this.transform[ 13 ], 
         pos[ 2 ] - this.transform[ 14 ] 
     ];
-    var terrainPosFL = this.getTerrainPosUnderNode( this.Cylinder014.Cylinder058.wheel, deltaPos );
-    var terrainPosBL = this.getTerrainPosUnderNode( this.Cylinder014.Cylinder059.wheel001, deltaPos );
-    var terrainPosFR = this.getTerrainPosUnderNode( this.Cylinder014.Cylinder050.wheel002, deltaPos );
-    var terrainPosBR = this.getTerrainPosUnderNode( this.Cylinder014.Cylinder060.wheel003, deltaPos );
+    var terrainPosFL = this.getTerrainPosUnderNode( this.wheelFL, deltaPos );
+    var terrainPosBL = this.getTerrainPosUnderNode( this.wheelBL, deltaPos );
+    var terrainPosFR = this.getTerrainPosUnderNode( this.wheelFR, deltaPos );
+    var terrainPosBR = this.getTerrainPosUnderNode( this.wheelBR, deltaPos );
 
     // Step 2: Find the normal of the plane on which the rover will sit
     var vecFLtoFR = goog.vec.Vec3.subtract( terrainPosFR, terrainPosFL, goog.vec.Vec3.create() );
@@ -195,7 +195,29 @@ this.translateOnTerrain = function( translation, duration, boundaryValue ) {
                     goog.vec.Vec3.create()
                 );
 
+                // Record the current translation so that we can measure the distance traveled in 
+                // order to turn the wheels the proper amount
+                var lastTranslation = this.translation;
+
+                // Given a new (x, y) location, place the rover's wheels on the terrain there
                 this.placeOnTerrain( newTranslation );
+
+                // Find the distance that was traveled
+                var dist = goog.vec.Vec3.distance( lastTranslation, this.translation );
+
+                // Turn the wheels the appropriate amount
+                // Use the proportion (in degrees): angle / 360 = dist / ( 2 * pi * radius )
+                // Solving for angle: angle = ( dist / radius ) * ( 180 / pi )
+                // The wheels will rotate around the negative-x axis so that by the right-hand rule,
+                // they will roll forward
+                var angle = ( dist / this.wheelRadius ) * ( 180 / Math.PI );
+                var axisAngle = [ -1, 0, 0, angle ];
+                this.wheelFL.rotateBy( axisAngle );
+                this.wheelBL.rotateBy( axisAngle );
+                this.wheelFR.rotateBy( axisAngle );
+                this.wheelBR.rotateBy( axisAngle );
+
+                // Deplete the battery by the appropriate amount
                 this.battery = currentBattery - ( time / duration ) * boundaryValue;
 
             }
