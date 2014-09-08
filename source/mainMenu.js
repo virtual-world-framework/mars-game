@@ -26,8 +26,7 @@ MainMenu.prototype = {
     initialize: function() {
         this.delayMenu = 5;
         this.createScene();
-        this.createLogin();
-        // this.createOverlay();
+        this.createOverlay();
     },
 
     createScene: function() {
@@ -52,7 +51,7 @@ MainMenu.prototype = {
     },
 
     createOverlay: function() {
-        var playButton, settingsButton, backButton, volume;
+        var playButton, settingsButton, backButton, volume, loginForm, loginTextBox, loginButton;
 
         this.overlay = document.createElement( "div" );
         this.overlay.id = "MainMenu-Wrapper";
@@ -60,6 +59,7 @@ MainMenu.prototype = {
 
         this.overlay.mainMenu = document.createElement( "div" );
         this.overlay.mainMenu.id = "MainMenu-Main";
+        this.overlay.mainMenu.style.display = "none";
 
         playButton = document.createElement( "div" );
         playButton.id = "MainMenu-PlayButton";
@@ -136,6 +136,24 @@ MainMenu.prototype = {
         volume.slider.onmousemove = this.moveVolumeSlider.bind( this );
         volume.slider.onmouseout = this.moveVolumeSlider.bind( this );
 
+
+        this.loginMenu = document.createElement( "div" );
+        this.loginMenu.id = "loginBox";
+        loginForm = document.createElement( "form" );
+        loginForm.id = "loginForm";
+        loginTextBox = document.createElement( "input" );
+        loginTextBox.id = "idTextBox";
+        loginTextBox.type = "text";
+        loginButton = document.createElement( "input" );
+        loginButton.id = "submitButton";
+        loginButton.type = "button";
+        loginButton.value = "Submit";
+        loginForm.appendChild( loginTextBox );
+        loginForm.appendChild( loginButton );
+        this.loginMenu.appendChild( loginForm );
+        this.overlay.appendChild( this.loginMenu );
+        loginButton.onclick = this.submitUserID.bind( loginTextBox );
+
         this.overlay.mainMenu.appendChild( playButton );
         this.overlay.mainMenu.appendChild( settingsButton );
         this.overlay.settingsMenu.appendChild( backButton );
@@ -143,28 +161,6 @@ MainMenu.prototype = {
         this.overlay.appendChild( this.overlay.mainMenu );
         this.overlay.appendChild( this.overlay.settingsMenu );
         document.body.appendChild( this.overlay );
-    },
-
-    createLogin: function() {
-        var body = document.body;
-        var form, textBox, button, container;
-        container.document.createElement( "div" );
-        container.id = "loginBox";
-        form = document.createElement( "form" );
-        form.id = "loginForm";
-        textBox = document.createElement( "input" );
-        textBox.id = "idTextBox";
-        textBox.type = "text";
-        button = document.createElement( "input" );
-        button.id = "submitButton";
-        button.type = "submit";
-        button.value = "Submit";
-        form.appendChild( textBox );
-        form.appendChild( button );
-        container.appendChild( form );
-        body.appendChild( container );
-
-        button.onclick; // Add click function
     },
 
     placeRover: function( collada ) {
@@ -256,6 +252,11 @@ MainMenu.prototype = {
         readoutPct = volume * 100;
         readoutPct = Math.round( readoutPct );
         readout.innerHTML = "Volume: " + readoutPct + "%";
+    },
+
+    submitUserID: function() {
+        var vwfScene = vwf_view.kernel.application();
+        vwf_view.kernel.callMethod( vwfScene, "attemptLogin", [ this.value ] );
     }
 }
 

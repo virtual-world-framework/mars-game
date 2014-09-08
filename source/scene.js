@@ -207,4 +207,17 @@ this.restartGame = function() {
     this.activeScenarioPath = "mainMenuScenario";
 }
 
+this.attemptLogin = function( userID ) {
+    this.playerId = userID;
+    this.instrumentationManager.getRequest( "getPlayerState" );
+}
+
+this.loginFailed = function( responseText ) {
+    console.log( responseText );
+}
+
+this.loginSucceeded = function( scenarioName ) {
+    console.log( scenarioName );
+}
+
 //@ sourceURL=source/scene.js

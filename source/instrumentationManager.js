@@ -113,6 +113,15 @@ this.getRequest = function( type, params ) {
         var xhr = new XMLHttpRequest();
         xhr.onreadystatechange = function() {
             if ( xhr.readyState == 4 ) {
+                var scenarioName = xhr.responseText;
+                if ( scenarioName.lastIndexOf( "$" ) === scenarioName.length - 1 ) {
+                    scenarioName = scenarioName.substr( 0, scenarioName.length - 1 );
+                }
+                if ( scene[ scenarioName ] ) {
+                    scene.loginSucceeded( scenarioName );
+                } else {
+                    scene.loginFailed( xhr.responseText );
+                }
                 return xhr.responseText;
             }
         }

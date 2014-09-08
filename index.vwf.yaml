@@ -46,6 +46,7 @@ methods:
   setCinematicView:
   resetView:
   restartGame:
+  attemptLogin:
 events:
   gameStarted:
   scenarioReset:
@@ -75,6 +76,8 @@ events:
   setObjective:
   setHUDElementProperty:
   mouseOverHUD:
+  loginSucceeded:
+  loginFailed:
 children:
   soundManager:
     includes: source/marsGameSound.vwf
