@@ -56,8 +56,15 @@ HUD.prototype = {
         if ( this.visible ) {
             this.draw();
         }
-        this.quad.material.map.needsUpdate = true;
-        this.quad.material.needsUpdate = true;
+        var texture;
+        if ( this.quad.material && this.quad.material.map ) {
+            texture = this.quad.material.map;
+            this.quad.material.map = undefined;
+            texture.dispose();
+        }
+        texture = new THREE.Texture( this.canvas );
+        texture.needsUpdate = true;
+        this.quad.material = new THREE.MeshBasicMaterial( { map: texture, transparent: true } );
     },
 
     draw: function() {
