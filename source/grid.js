@@ -123,8 +123,13 @@ this.addToGridFromCoord = function( object, gridCoord ) {
     if ( this.validCoord( gridCoord ) ) {
         this.getTileFromGrid( gridCoord ).addToTile( object );
         object.currentGridSquare = gridCoord;
-        object.translation = this.getWorldFromGrid( gridCoord[ 0 ], gridCoord[ 1 ] );
-        this.setHeightFromTerrain( object );
+        var newTranslation = this.getWorldFromGrid( gridCoord[ 0 ], gridCoord[ 1 ] );
+        if ( object.placeOnTerrain ) {
+            object.placeOnTerrain( newTranslation );
+        } else {
+            object.translation = newTranslation;
+            this.setHeightFromTerrain( object );
+        }
         object.addedToGrid( this );
     }
 }

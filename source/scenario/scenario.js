@@ -76,15 +76,9 @@ this.startScenario = function() {
     var rover = scene.find( "//rover" )[ 0 ];
     if ( rover ) {
         if ( scene.sceneBlackboard[ "lastHeading$" ] ) {
-            rover.heading = scene.sceneBlackboard[ "lastHeading$" ];
+            rover.setHeading( scene.sceneBlackboard[ "lastHeading$" ] );
         } else {
-            rover.heading = 0
-        }
-
-        if (  scene.sceneBlackboard[ "lastRotation$" ] ) {
-            rover.rotation = scene.sceneBlackboard[ "lastRotation$" ];
-        } else {
-            rover.rotation = [ 0, 0, 1, 0 ];
+            rover.setHeading( 0 );
         }
     } else {
         this.logger.warnx( "startScenario", "Rover not found!!" );
@@ -122,7 +116,6 @@ this.completed = function() {
         var rover = scene.find( "//rover" )[ 0 ];
         if ( rover ) {
             scene.sceneBlackboard[ "lastHeading$" ] = rover.heading;
-            scene.sceneBlackboard[ "lastRotation$" ] = rover.rotation;
         } else {
             this.logger.warnx( "completed", "Rover not found!!" );
         }
@@ -144,6 +137,21 @@ this.startStateParamSet.setProperty = function( params, context ) {
 
     var object = activeScenario.startStateExecutor.findInContext( context, objectName );
     object[ propertyName ] = value;
+}
+
+this.startStateParamSet.callMethod = function( params, context ) {
+    if ( !params || ( params.length < 2 ) ) {
+        activeScenario.logger.errorx( "callMethod", 
+                            "The callMethod condition requires at least two ",
+                            "arguments: the object name and the method name." );
+        return undefined;
+    }
+
+    var objectName = params.shift();
+    var methodName = params.shift();
+
+    var object = activeScenario.startStateExecutor.findInContext( context, objectName );
+    object[ methodName ].apply( object, params );
 }
 
 this.startStateParamSet.setSceneProperty = function( params, context ) {
@@ -259,3 +267,4 @@ this.startStateParamSet.loadToolbox = function( params, context ) {
     }
 }
 
+//@ sourceURL=scenario.js

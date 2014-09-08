@@ -18,6 +18,7 @@ model:
   vwf/model/blockly:
   vwf/model/sound:
   vwf/model/graphtool:
+  vwf/model/heightmap:
 view:
   vwf/view/threejs: "#vwf-root"
   vwf/view/blockly: { "blocklyPath": './source/blockly/', "toolbox": 'toolbox' }

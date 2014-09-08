@@ -60,7 +60,7 @@ properties:
     value: 5
   currentGridSquare: [ 0, 0 ]
   tracksSensorValue: false
-  heading: 90
+  heading: 0
   terrainName: undefined
   displayName: undefined
 methods:
@@ -68,12 +68,14 @@ methods:
   moveForward:
   turnLeft:
   turnRight:
+  placeOnTerrain:
   translateOnTerrain:
   blocksUpdated:
   calcRam:
   registerScenarioListener:
   activateSensor:
   deactivateSensor:
+  setHeading:
 events:
   moved:
   moveFailed:

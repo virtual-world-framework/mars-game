@@ -33,6 +33,7 @@ properties:
     - rover
     - blockly_allowedBlocks
     - 12
+
   - addToInventory:
     - rover/cargo
     - [ "helicam", "battery", "radio" ]
