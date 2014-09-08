@@ -26,7 +26,8 @@ MainMenu.prototype = {
     initialize: function() {
         this.delayMenu = 5;
         this.createScene();
-        this.createOverlay();
+        this.createLogin();
+        // this.createOverlay();
     },
 
     createScene: function() {
@@ -142,6 +143,28 @@ MainMenu.prototype = {
         this.overlay.appendChild( this.overlay.mainMenu );
         this.overlay.appendChild( this.overlay.settingsMenu );
         document.body.appendChild( this.overlay );
+    },
+
+    createLogin: function() {
+        var body = document.body;
+        var form, textBox, button, container;
+        container.document.createElement( "div" );
+        container.id = "loginBox";
+        form = document.createElement( "form" );
+        form.id = "loginForm";
+        textBox = document.createElement( "input" );
+        textBox.id = "idTextBox";
+        textBox.type = "text";
+        button = document.createElement( "input" );
+        button.id = "submitButton";
+        button.type = "submit";
+        button.value = "Submit";
+        form.appendChild( textBox );
+        form.appendChild( button );
+        container.appendChild( form );
+        body.appendChild( container );
+
+        button.onclick; // Add click function
     },
 
     placeRover: function( collada ) {
