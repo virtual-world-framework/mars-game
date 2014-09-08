@@ -239,6 +239,14 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 setNewObjective( objectiveText );
                 break;
 
+            case "loginSucceeded":
+                console.log( "Successful log in." );
+                mainMenu.loggedIn( eventArgs[ 0 ] );
+                break;
+            case "loginFailed":
+                console.log( "Failed to log in." );
+                break;
+
         } 
     } else if ( loggerNodes[ nodeID ] !== undefined ) { 
         switch ( eventName ) {
