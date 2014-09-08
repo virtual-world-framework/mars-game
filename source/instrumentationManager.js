@@ -82,9 +82,7 @@ this.registerCameraListener = function() {
 this.registerBlocklyListener = function() {
     var scene = this.find( "/" )[ 0 ];
     scene.blocklyStarted = ( function() {
-        var xml = Blockly.Xml.workspaceToDom( Blockly.mainWorkspace );
-        var scenario = scene.activeScenarioPath;
-        this.broadcastBlockly( xml, scenario );
+        this.broadcastBlockly( scene.activeBlocklyXML, scene.activeScenarioPath );
     } ).bind( this );
 }
 
