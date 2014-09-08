@@ -53,6 +53,7 @@ function playVideo( id ) {
 }
 
 function removeVideoOnEvent( event ) {
+    // 32 = space bar character code
     if ( event.type === "keypress" && event.which !== 32 ) {
         return;
     }
