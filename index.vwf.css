@@ -645,3 +645,28 @@ a:active {
     background-image: url( "assets/images/slider_handle.png" );
     pointer-events: none;
 }
+
+#loginBox {
+    margin-left: auto;
+    margin-right: auto;
+    height: 100%;
+    width: 400px;
+}
+
+#loginForm {
+    position: absolute;
+    top: 60%;
+    height: 120px;
+    width: 400px;
+    background-color: rgba( 0, 0, 0, 0.75);
+    color: rgb( 224, 255, 100 );
+    border-radius: 8px;
+    text-align: center;
+}
+
+#loginHeading {
+    height: 40px;
+    line-height: 40px;
+    font-family: Gadget, sans-serif;
+    font-weight: bold;
+}

@@ -112,12 +112,17 @@ this.getRequest = function( type, params ) {
         }
         var xhr = new XMLHttpRequest();
         xhr.onreadystatechange = function() {
-            if ( xhr.readyState == 4 ) {
+            if ( xhr.readyState === 4 && xhr.status === 200 ) {
+                var scenarioName = xhr.responseText;
+                if ( scenarioName.lastIndexOf( "$" ) === scenarioName.length - 1 ) {
+                    scenarioName = scenarioName.substr( 0, scenarioName.length - 1 );
+                }
+                scene.progressFound( ( scene[ scenarioName ] && scenarioName !== "mainMenuScenario" ), scenarioName );
                 return xhr.responseText;
             }
         }
         
-        xhr.open( "GET", this.getPlayerStateUrl, true );
+        xhr.open( "POST", this.getPlayerStateUrl, true );
         xhr.setRequestHeader( "Content-type", "application/x-www-form-urlencoded" );
         xhr.send( "player_id="+playerId );
     }

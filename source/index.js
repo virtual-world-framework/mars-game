@@ -239,6 +239,14 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 setNewObjective( objectiveText );
                 break;
 
+            case "progressFound":
+                var scenario;
+                if ( eventArgs[ 0 ] && eventArgs[ 1 ] ) {
+                    scenario = eventArgs[ 1 ];
+                }
+                mainMenu.loggedIn( scenario );
+                break;
+
         } 
     } else if ( loggerNodes[ nodeID ] !== undefined ) { 
         switch ( eventName ) {
