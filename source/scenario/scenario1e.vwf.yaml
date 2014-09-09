@@ -84,6 +84,8 @@ children:
             - graphButton
             - enabled
             - false
+          - setThirdPersonStartPose:
+            - [ 13, 15, -15 ]
 
         playStartingVO_1e:
           triggerCondition:

@@ -79,6 +79,8 @@ children:
           - writeToBlackboard:
             - anomalyPosition
             - [ 37, 15 ]
+          - setThirdPersonStartPose:
+            - [ 16.316, 65, -15 ]
 
         playStartingVO_3a:
           triggerCondition:

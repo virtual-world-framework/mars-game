@@ -78,6 +78,8 @@ children:
             - Level3eTravel1
           - stopSound:
             - CTVO4
+          - setThirdPersonStartPose:
+            - [ 13, 15, -15 ]
 
         playStartingVO_3e:
           triggerCondition:
