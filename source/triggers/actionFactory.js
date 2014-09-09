@@ -358,7 +358,7 @@ this.actionSet.panCamera = function( params, context ) {
 
     var targetPath = params[ 0 ];
     var duration = params[ 1 ];
-    var targetFollower = context.find( "//targetFollower" )[ 0 ];
+    var targetFollower = context.player.targetFollower;
 
     return function() {
         var lastTargetPath = targetFollower.targetPath;
@@ -380,7 +380,7 @@ this.actionSet.orbitCamera = function( params, context ) {
 
     var speed = params[ 0 ];
     var hardStop = params[ 1 ];
-    var camera = context.find( "//camera" )[ 0 ];
+    var camera = context.player.targetFollower.camera;
     var hardStopID = setTimeout( setOrbitingFalse( camera ), hardStop * 1000 );
     camera.orbiting = true;
 
@@ -471,10 +471,10 @@ this.actionSet.setThirdPersonStartPose = function( params, context ) {
     }
 
     var pose = params[ 0 ];
-    var targetFollower = context.find( "//targetFollower" )[ 0 ];
+    var camera = context.player.targetFollower.camera;
 
     return function() {
-        targetFollower.camera.thirdPersonStartPose = pose;
+        camera.thirdPersonStartPose = pose;
     }
 }
 
@@ -510,7 +510,7 @@ this.actionSet.cancelCallOut = function( params, context ) {
         self.logger.warnx( "cancelCallOut", "This action takes no parameters." );
     }
 
-    var callOutTile = context.find( "/gridTileGraph/callOutTile" )[ 0 ];
+    var callOutTile = context.gridTileGraph.callOutTile;
 
     return function() {
         callOutTile.stopBlink();
@@ -548,7 +548,5 @@ function getSoundMgr( context ) {
 function setOrbitingFalse( camera ) {
     camera.orbiting && ( camera.orbiting = false );
 }
-
-
 
 //@ sourceURL=source/triggers/actionFactory.js
