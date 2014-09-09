@@ -59,7 +59,7 @@ MainMenu.prototype = {
 
         this.overlay.mainMenu = document.createElement( "div" );
         this.overlay.mainMenu.id = "MainMenu-Main";
-        // this.overlay.mainMenu.style.display = "none";
+        this.overlay.mainMenu.style.display = "none";
 
         playButton = document.createElement( "div" );
         playButton.id = "MainMenu-PlayButton";
@@ -194,14 +194,14 @@ MainMenu.prototype = {
     },
 
     openSettings: function() {
-        // this.overlay.loginMenu.style.display = "none";
+        this.overlay.loginMenu.style.display = "none";
         this.overlay.mainMenu.style.display = "none";
         this.overlay.settingsMenu.style.display = "block";
         this.setVolumeSliderPosition( cachedVolume );
     },
 
     openMain: function() {
-        // this.overlay.loginMenu.style.display = "none";
+        this.overlay.loginMenu.style.display = "none";
         this.overlay.settingsMenu.style.display = "none";
         this.overlay.mainMenu.style.display = "block";
     },
@@ -262,7 +262,7 @@ MainMenu.prototype = {
     },
 
     loggedIn: function( scenarioName ) {
-        // this.openMain();        
+        this.openMain();        
     }
 }
 
