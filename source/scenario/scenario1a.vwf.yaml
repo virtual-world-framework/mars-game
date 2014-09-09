@@ -36,6 +36,9 @@ properties:
     - rover
     - lowRam
     - 1
+  - setSceneProperty:
+    - blockly_activeNodeID
+    - undefined
 
   - callMethod:
     - rover

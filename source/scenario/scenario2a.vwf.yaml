@@ -55,6 +55,9 @@ properties:
   - loadToolbox:
     - graph
     - assets/scenario/graph2a.xml
+  - setSceneProperty:
+    - blockly_activeNodeID
+    - undefined
 
 children:
   triggerManager:
