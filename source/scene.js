@@ -1,3 +1,17 @@
+// Copyright 2014 Lockheed Martin Corporation
+//
+// Licensed under the Apache License, Version 2.0 (the "License"); you may 
+// not use this file except in compliance with the License. You may obtain 
+// a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software 
+// distributed under the License is distributed on an "AS IS" BASIS, 
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and 
+// limitations under the License.
+
 var gridBounds = {
     bottomLeft: [],
     topRight: []
@@ -98,12 +112,15 @@ this.createGridDisplay = function( grid ) {
     tiles.length = 0;
     for ( var x = 0; x < grid.boundaryValues.length; x++ ) {
         for ( var y = 0; y < grid.boundaryValues[ x ].length; y++ ) {
+            if ( grid.boundaryValues[ x ][ y ] === -1 ) {
+                continue;
+            }
             origin = [
                 offset[ 0 ] + ( x ),
                 offset[ 1 ] + ( y ),
                 0
             ];
-            color = grid.boundaryValues[ x ][ y ] === -1 ? IMPASSABLE_COLOR : PASSABLE_COLOR;
+            color = PASSABLE_COLOR;
             tiles.push( { "plane": {
                 "origin": origin,
                 "normal": NORMAL,

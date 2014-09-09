@@ -1,3 +1,17 @@
+# Copyright 2014 Lockheed Martin Corporation
+#
+# Licensed under the Apache License, Version 2.0 (the "License"); you may 
+# not use this file except in compliance with the License. You may obtain 
+# a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software 
+# distributed under the License is distributed on an "AS IS" BASIS, 
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and 
+# limitations under the License.
+
 ---
 extends: source/scenario/scenario.vwf
 properties:
@@ -10,23 +24,15 @@ properties:
   - setProperty:
     - rover
     - battery
-    - 50
+    - 40
   - setProperty:
     - rover
     - batteryMax
-    - 50
+    - 40
   - setProperty:
     - rover
     - blockly_allowedBlocks
-    - 30
-  - setProperty:
-    - rover
-    - heading
-    - 0
-  - setProperty:
-    - rover
-    - rotation
-    - [ 0, 0, 1, 0 ]
+    - 12
   - addToInventory:
     - rover/cargo
     - [ "helicam", "battery", "radio" ]
@@ -35,7 +41,7 @@ properties:
     - [ 13, 2 ]
   - addToGrid:
     - blocklyGraph
-    - [ 15, 1 ]
+    - [ 13, 2 ]
   - enableBlocklyTabs:
     - rover
     - graph
@@ -56,7 +62,9 @@ children:
           - onScenarioStart:
           actions:
           - playSound:
-            - musicStandardGameplay
+            - musicLevel2
+          - playSound:
+            - environmentWind
           - blinkBlocklyTab:
             - rover
           - setObjective:
@@ -90,10 +98,6 @@ children:
             - "I'm on the right path. How will I stop when I see the rover?"
           - playSound:
             - musicSuccessShort
-          - playSound:
-            - SCVO9_Rover
-          - playSound:
-            - L3VO2_Mission_S
 
         highlightEndTile:
           triggerCondition:
@@ -115,7 +119,7 @@ children:
         playHint1_2f:
           triggerCondition:
           - delay:
-            - 20
+            - 15
           additionalCondition:
           - and:
             - not:
@@ -139,7 +143,7 @@ children:
         playHint2_2f:
           triggerCondition:
           - delay:
-            - 40
+            - 30
           additionalCondition:
           - and:
             - not:

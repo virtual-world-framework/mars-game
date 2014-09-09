@@ -1,3 +1,17 @@
+// Copyright 2014 Lockheed Martin Corporation
+//
+// Licensed under the Apache License, Version 2.0 (the "License"); you may 
+// not use this file except in compliance with the License. You may obtain 
+// a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software 
+// distributed under the License is distributed on an "AS IS" BASIS, 
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and 
+// limitations under the License.
+
 function createHUD() {
     createBlocklyStatus();
     createAlertText();
@@ -11,17 +25,15 @@ function createHUD() {
     blocklyButton.onMouseDown = clickBlockly;
     hud.add( blocklyButton, "right", "bottom", { "x": -32, "y": -30 } );
 
-    var graphButton = new HUD.Element( "graphButton", drawHelicamButton, 64, 64 );
+    var graphButton = new HUD.Element( "graphButton", drawIcon, 64, 64 );
     graphButton.icon = new Image();
     graphButton.icon.src = "assets/images/hud/graph_display.png";
-    graphButton.enabled = true;
     graphButton.onMouseDown = toggleGraphDisplay;
     hud.add( graphButton, "right", "bottom", { "x": -104, "y": -30 } );
 
-    var tilesButton = new HUD.Element( "tilesButton", drawHelicamButton, 64, 64 );
+    var tilesButton = new HUD.Element( "tilesButton", drawIcon, 64, 64 );
     tilesButton.icon = new Image();
     tilesButton.icon.src = "assets/images/hud/tiles_button.png";
-    tilesButton.enabled = true;
     tilesButton.onMouseDown = toggleTiles;
     hud.add( tilesButton, "right", "bottom", { "x": -176, "y": -30 } );
 
@@ -40,6 +52,9 @@ function createHUD() {
     objective.lastBlinkTime = 0;
     objective.opacity = 1;
     hud.add( objective, "left", "bottom", { "x": 30, "y": -172 } );
+
+    hud.elementPreDraw = drawEnabled;
+    hud.elementPostDraw = drawEnabledPost;
 }
 
 function createRoverElement() {
@@ -79,13 +94,13 @@ function createCameraSelector() {
     selector.activeMode.icon.src = "assets/images/hud/camera_thirdperson.png";
     selector.frame = new Image();
     selector.frame.src = "assets/images/hud/camera_selector_frame.png";
+    selector.onMouseOver = fireElementMouseOver;
     hud.add( selector, "right", "top", { "x": -30, "y": 30 } );
 
     var firstPersonBtn = new HUD.Element( "camera_firstPerson", drawIcon, 22, 22 );
     firstPersonBtn.icon = new Image();
     firstPersonBtn.icon.src = "assets/images/hud/camera_firstperson.png";
     firstPersonBtn.mode = "firstPerson";
-    firstPersonBtn.enabled = true;
     firstPersonBtn.onMouseDown = selectCameraMode;
     hud.add( firstPersonBtn, "right", "top", { "x": -53, "y": 32 } );
 
@@ -93,15 +108,13 @@ function createCameraSelector() {
     thirdPersonBtn.icon = new Image();
     thirdPersonBtn.icon.src = "assets/images/hud/camera_thirdperson.png";
     thirdPersonBtn.mode = "thirdPerson";
-    thirdPersonBtn.enabled = true;
     thirdPersonBtn.onMouseDown = selectCameraMode;
     hud.add( thirdPersonBtn, "right", "top", { "x": -34, "y": 54 } );
 
-    var topDownBtn = new HUD.Element( "camera_topDown", drawHelicamButton, 22, 22 );
+    var topDownBtn = new HUD.Element( "camera_topDown", drawIcon, 22, 22 );
     topDownBtn.icon = new Image();
     topDownBtn.icon.src = "assets/images/hud/camera_topdown.png";
     topDownBtn.mode = "topDown";
-    topDownBtn.enabled = true;
     topDownBtn.onMouseDown = selectCameraMode;
     hud.add( topDownBtn, "right", "top", { "x": -35, "y": 80 } );
 }
@@ -168,6 +181,8 @@ function createBlocklyStatus() {
     status.range = 3;
     status.runIcon = new Image();
     status.runIcon.src = "assets/images/blockly_ui/blockly_indicator.png";
+    status.numberAppendix = new Image();
+    status.numberAppendix.src = "assets/images/blockly_ui/number_appendix.png";
     hud.add( status, "right", "bottom", { "x": 130, "y": -60 } );
     addBlockToImageList( "moveForward", "assets/images/hud/blockly_move_forward.png" );
     addBlockToImageList( "turnLeft", "assets/images/hud/blockly_turn_left.png" );
@@ -277,6 +292,14 @@ function createAlertText() {
 
 // === Draw Functions ===
 
+function drawEnabled( context, element ) {
+    context.globalAlpha = element.enabled ? 1 : 0.5;
+}
+
+function drawEnabledPost( context, element ) {
+    context.globalAlpha = 1;
+}
+
 function drawBatteryMeter( context, position ) {
     var battery = this.battery;
     var maxBattery = this.maxBattery;
@@ -355,37 +378,37 @@ function drawBlocklyStatus( context, position ) {
     if ( this.blockImages && this.blockStack ) {
         var lastHeight = 0;
         var offsetX = 0;
+        var offsetY = 0;
+        if ( this.index > -1 ) {
+            offsetX += this.runIcon.width;
+            offsetY += this.runIcon.height * 1.5;
+            context.drawImage( this.runIcon, position.x - offsetX, position.y - offsetY );
+        }        
         // Draw all blocks within the range of the selected block
         for ( var i = 0; i < this.index + this.range / 2; i++ ) {
             var blockData = this.blockStack[ i ];
             if ( blockData ) {
                 var alpha = blockData.alpha;
                 var block = this.blockImages[ blockData.name ];
-                var loopIndex = blockData.loopIndex;
                 if ( alpha && block && Math.abs( i - this.index ) < this.range ) {
                     context.globalAlpha = alpha;
                     context.drawImage( block, position.x, 
                                        position.y - ( this.topOffset - lastHeight ) );
-                    if ( this.index === i && loopIndex >= 1 ) {
-                        var numBlock = this.blockImages[ "number" ];
+                    if ( this.index === i && blockData.maxLoopIndex ) {
+                        var numBlock = this.numberAppendix;
                         offsetX += numBlock.width;
-                        var posY = position.y - ( this.topOffset - lastHeight );
-                        context.drawImage( numBlock, position.x - offsetX, posY + 1 );
+                        context.drawImage( numBlock, position.x - offsetX + 2, position.y - offsetY );
                         context.textBaseline = "top";
-                        context.font = '16px sans-serif';
-                        context.fillStyle = "rgb( 0, 0, 0 )";
-                        context.fillText( loopIndex, position.x - offsetX + 20, posY + 6 );
+                        context.font = '10px sans-serif';
+                        context.fillStyle = "rgb( 255, 255, 255 )";
+                        context.fillText( blockData.loopIndex + " of " + blockData.maxLoopIndex,
+                                          position.x - offsetX + 8, position.y - offsetY + 2 );
                     }
                 }
                 lastHeight += block.height || 0;
             }
         }       
         context.globalAlpha = 1;
-        if ( this.index > -1 ) {
-            offsetX += this.runIcon.width;
-            var offsetY = this.runIcon.height * 1.5;
-            context.drawImage( this.runIcon, position.x - offsetX, position.y - offsetY );
-        }
     }
 }
 
@@ -417,18 +440,6 @@ function drawBlocklyStatusAnimating( context, position ) {
     }
 
     this.defaultDraw( context, position );
-}
-
-function drawHelicamButton( context, position ) {
-    if ( this.icon ) {
-        if ( this.enabled ) {
-            context.drawImage( this.icon, position.x, position.y );
-        } else {
-            context.globalAlpha = 0.25;
-            context.drawImage( this.icon, position.x, position.y );
-            context.globalAlpha = 1;
-        }
-    }
 }
 
 function drawIcon( context, position ) {
@@ -553,10 +564,6 @@ function clickBlockly( event ) {
 }
 
 function selectCameraMode( event ) {
-    if ( !this.enabled ) {
-        return;
-    }
-
     var cameraNode = vwf_view.kernel.find( "", "//camera" )[ 0 ];
     vwf_view.kernel.setProperty( cameraNode, "pointOfView", this.mode );
 
@@ -566,17 +573,11 @@ function selectCameraMode( event ) {
 }
 
 function toggleGraphDisplay( event ) {
-    if ( !this.enabled ) {
-        return;
-    }
     var sceneID = vwf_view.kernel.application();
     vwf_view.kernel.callMethod( sceneID, "displayGraph", [ !graphIsVisible ] );
 }
 
 function toggleTiles( event ) {
-    if ( !this.enabled ) {
-        return;
-    }
     var sceneID = vwf_view.kernel.application();
     vwf_view.kernel.callMethod( sceneID, "displayTiles", [ !tilesAreVisible ] );
 }
@@ -677,7 +678,7 @@ function pushNextBlocklyStatus( id ) {
                 }  
                 var loopIndex = blockData.loopIndex;          
                 if ( !isNaN( loopIndex ) && loopIndex >= 1 ) {
-                    showBlocklyLoopCount( loopIndex );
+                    showBlocklyLoopCount( loopIndex, blockData.maxLoopIndex );
                 } else {
                     hideBlocklyLoopCount();
                 }
@@ -756,10 +757,8 @@ function pushAlert( message ) {
     }
 }
 
-function setHelicamButtonsEnabled( value ) {
-    hud.elements[ "graphButton" ].enabled = value;
-    hud.elements[ "tilesButton" ].enabled = value;
-    hud.elements[ "camera_topDown" ].enabled = value;
+function setHUDElementProperty( element, property, value ) {
+    hud.elements[ element ][ property ] = value;
 }
 
 function clearHUDEffects() {
@@ -774,6 +773,21 @@ function clearHUDEffects() {
 function setNewObjective( text ) {
     hud.elements.objective.text = text;
     hud.elements.objective.blinkTicks = 10;
+}
+
+function enableAllHUDElements() {
+    if ( !hud ) {
+        return;
+    }
+    
+    var els = hud.elements;
+    for ( var el in els ) {
+        els[ el ].enabled = true;
+    }
+}
+
+function fireElementMouseOver() {
+    vwf_view.kernel.fireEvent( vwf_view.kernel.application(), "mouseOverHUD", [ this.id ] );
 }
 
 //@ sourceURL=source/hudInstructions.js

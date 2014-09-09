@@ -1,8 +1,23 @@
+# Copyright 2014 Lockheed Martin Corporation
+#
+# Licensed under the Apache License, Version 2.0 (the "License"); you may 
+# not use this file except in compliance with the License. You may obtain 
+# a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software 
+# distributed under the License is distributed on an "AS IS" BASIS, 
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and 
+# limitations under the License.
+
 # The action function factory creates action functions from yaml declarations.
 # This is used to create the effects of triggers.
 #
 # This all leans on the declarative function executor, which creates the action
 # functions from the yaml.
+
 --- 
 extends: source/triggers/declarativeFunctionExecutor.vwf
 
@@ -26,6 +41,10 @@ properties:
     # arguments: the name of the sound group
     stopSoundGroup:
 
+    # stop every sound
+    # arguments: none
+    stopAllSounds:
+
     # play a video
     # arguments: the source of the video
     playVideo:
@@ -41,7 +60,7 @@ properties:
 
     # writes a value to the sceneBlackboard which can be referenced later
     # to determine whether an action has occurred.
-    # arguments: variableName
+    # arguments: variableName, value (optional, default = 1)
     writeToBlackboard:
 
     # increments a value to the sceneBlackboard which can be referenced later
@@ -51,7 +70,7 @@ properties:
 
     # clears the value at the specified blackboard variableName
     # arguments: variableName
-    clearBlackboard:
+    clearBlackboardEntry:
 
     # delays for a fixed time, and then plays one or more actions
     # arguments: delay, action(s)
@@ -98,6 +117,10 @@ properties:
     # Sets the objective HUD text
     # arguments: objectiveText
     setObjective:
+
+    # Sets a property of a HUD element to the specified value
+    # arguments: elementName, propertyName, propertyValue
+    setHUDProperty:
 
 scripts:
 - source: source/triggers/actionFactory.js

@@ -1,4 +1,17 @@
-# The Mars educational game created for ADL's True Game-based learning project
+# Copyright 2014 Lockheed Martin Corporation
+#
+# Licensed under the Apache License, Version 2.0 (the "License"); you may 
+# not use this file except in compliance with the License. You may obtain 
+# a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software 
+# distributed under the License is distributed on an "AS IS" BASIS, 
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and 
+# limitations under the License.
+
 --- 
 extends: http://vwf.example.com/scene.vwf
 implements:
@@ -14,7 +27,7 @@ properties:
       this.activeScenarioPath = value;
     value: "mainMenuScenario"
   playerId: "test"
-  version: 0.4
+  version: 0.6
   sceneBlackboard: {}
 methods:
   setScenario:
@@ -50,8 +63,6 @@ events:
   showCommsImage:
   hideCommsImage:
   blockExecuted:
-  enableHelicam:
-  disableHelicam:
   toggledHelicam:
   toggledGraph:
   toggledTiles:
@@ -62,6 +73,8 @@ events:
   playVideo:
   videoPlayed:
   setObjective:
+  setHUDElementProperty:
+  mouseOverHUD:
 children:
   soundManager:
     includes: source/marsGameSound.vwf
@@ -77,6 +90,17 @@ children:
       castShadows: true
       receiveShadows: true
     children:
+      heightmap:
+        extends: http://vwf.example.com/heightmap.vwf
+        source: assets/3d/Terrain/heightmap.png
+        type: image/png
+        properties:
+            minWorldX: -298 
+            maxWorldX: 28
+            minWorldY: -57
+            maxWorldY: 269
+            minWorldZ: -2.5
+            maxWorldZ: 7.5
       crashPod:
         extends: http://vwf.example.com/node3.vwf
         source: assets/3d/crash_pod/crash_pod.dae
@@ -115,6 +139,19 @@ children:
     extends: http://vwf.example.com/node3.vwf
     source: assets/3d/Terrain/backdrop.dae
     type: model/vnd.collada+xml
+    children:
+      Group023:
+        extends: http://vwf.example.com/node3.vwf
+        children:
+          hills: 
+            extends: http://vwf.example.com/node3.vwf
+            children:
+              material:
+                extends: http://vwf.example.com/material.vwf
+                properties:
+                  alphaTest: 0.85
+          mountains:
+            extends: http://vwf.example.com/node3.vwf
   sunLight:
     extends: http://vwf.example.com/light.vwf
     properties:
@@ -207,10 +244,82 @@ children:
           displayName: "Rover"
           castShadows: true
           receiveShadows: true
-          terrainName: "collisionTerrain"
+          sceneNode:
+            get: |
+              if ( !this.sceneNode ) {
+                this.sceneNode = this.find( "/" )[ 0 ];
+              }
+              return this.sceneNode;
+          terrainName:
+            set: |
+              this.terrainName = value;
+              this.terrain = this.find( "//" + value )[ 0 ];
+              //@ sourceURL=index.vwf.player.rover.terrainName.set
+            value: collisionTerrain
+          terrain:
+            get: |
+              if ( !this.terrain ) {
+                this.terrain = this.find( "//" + this.terrainName )[ 0 ];
+              }
+              return this.terrain;
+              //@ sourceURL=index.vwf.player.rover.terrain.get
           currentGridSquare: [ 0, 0 ]
           sensorValue: false
+          wheelFL:
+            get: |
+              if ( !this.wheelFL ) {
+                this.wheelFL = this.find( "Cylinder014/Cylinder058/wheel" )[ 0 ];
+              }
+              return this.wheelFL;
+          wheelBL:
+            get: |
+              if ( !this.wheelBL ) {
+                this.wheelBL = this.find( "Cylinder014/Cylinder059/wheel001" )[ 0 ];
+              }
+              return this.wheelBL;
+          wheelFR:
+            get: |
+              if ( !this.wheelFR ) {
+                this.wheelFR = this.find( "Cylinder014/Cylinder050/wheel002" )[ 0 ];
+              }
+              return this.wheelFR;
+          wheelBR:
+            get: |
+              if ( !this.wheelBR ) {
+                this.wheelBR = this.find( "Cylinder014/Cylinder060/wheel003" )[ 0 ];
+              }
+              return this.wheelBR;
+          wheelRadius: 0.3304
         children:
+          Cylinder014:
+            extends: http://vwf.example.com/node3.vwf
+            children: 
+              Cylinder058:
+                extends: http://vwf.example.com/node3.vwf
+                children: 
+                  wheel:
+                    extends: http://vwf.example.com/node3.vwf
+              Cylinder059:
+                extends: http://vwf.example.com/node3.vwf
+                children: 
+                  wheel001:
+                    extends: http://vwf.example.com/node3.vwf
+              Cylinder050:
+                extends: http://vwf.example.com/node3.vwf
+                children: 
+                  wheel002:
+                    extends: http://vwf.example.com/node3.vwf
+                    children: 
+                      material:
+                        extends: http://vwf.example.com/material.vwf
+              Cylinder060:
+                extends: http://vwf.example.com/node3.vwf
+                children: 
+                  wheel003:
+                    extends: http://vwf.example.com/node3.vwf
+                    children: 
+                      material:
+                        extends: http://vwf.example.com/material.vwf
           cargo:
             extends: source/inventory.vwf
             properties:
@@ -236,8 +345,6 @@ children:
         extends: source/pickups/helicam.vwf
       minirover:
         extends: source/pickups/minirover.vwf
-      trackanomaly:
-        extends: source/pickups/trackanomaly.vwf
   mainMenuScenario:
     includes: source/scenario/mainMenu.vwf
   introScreenScenario:
@@ -258,6 +365,8 @@ children:
     includes: source/scenario/scenario1g.vwf
   scenario1h:
     includes: source/scenario/scenario1h.vwf
+  scenario1i:
+    includes: source/scenario/scenario1i.vwf
   scenario2a:
     includes: source/scenario/scenario2a.vwf
   scenario2b:
@@ -280,6 +389,8 @@ children:
     includes: source/scenario/scenario3d.vwf
   scenario3e:
     includes: source/scenario/scenario3e.vwf
+  scenario3f:
+    includes: source/scenario/scenario3f.vwf
   blocklyGraph:
     extends: http://vwf.example.com/graphtool/graph.vwf
     implements: "source/griddable.vwf"

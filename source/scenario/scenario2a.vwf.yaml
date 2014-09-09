@@ -1,3 +1,17 @@
+# Copyright 2014 Lockheed Martin Corporation
+#
+# Licensed under the Apache License, Version 2.0 (the "License"); you may 
+# not use this file except in compliance with the License. You may obtain 
+# a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software 
+# distributed under the License is distributed on an "AS IS" BASIS, 
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and 
+# limitations under the License.
+
 ---
 extends: source/scenario/scenario.vwf
 properties:
@@ -10,23 +24,19 @@ properties:
   - setProperty:
     - rover
     - battery
-    - 50
+    - 40
   - setProperty:
     - rover
     - batteryMax
-    - 50
+    - 40
   - setProperty:
     - rover
     - blockly_allowedBlocks
-    - 30
-  - setProperty:
+    - 12
+  - callMethod:
     - rover
-    - heading
+    - setHeading
     - 0
-  - setProperty:
-    - rover
-    - rotation
-    - [ 0, 0, 1, 0 ]
   - addToInventory:
     - rover/cargo
     - [ "helicam", "battery", "radio" ]
@@ -56,13 +66,30 @@ children:
           - onScenarioStart:
           actions:
           - playSound:
-            - musicStandardGameplay
+            - musicLevel2
           - playSound:
-            - L2VO4_Rover
+            - environmentWind
           - blinkHUDElement:
             - graphButton
           - setObjective:
             - "Click the GRAPH button to display the coordinate axes."
+          - setHUDProperty:
+            - blocklyButton
+            - enabled
+            - false
+
+        playStartingVO_2a:
+          triggerCondition:
+          - onScenarioStart:
+          additionalCondition:
+          - not:
+            - readBlackboard:
+              - Level2aStartSounds
+          actions:
+          - playSound:
+            - L2VO4_Control
+          - writeToBlackboard:
+            - Level2aStartSounds
 
         failOnMove_2a:
           triggerCondition:
@@ -72,6 +99,8 @@ children:
           - scenarioFailure:
             - lost
             - "You need to plot the course of the wayward rover before going to find it."
+          - playSound:
+            - FCVO4_Rover
 
         succeedOnSuccessfulGridDisplay_2a:
           triggerCondition:
@@ -82,8 +111,6 @@ children:
           - scenarioSuccess:
           - showAlert:
             - "I can see clearly now... the lines are drawn!"
-          - playSound:
-            - SCVO5_Rover
           - playSound:
             - musicSuccessShort
 

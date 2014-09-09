@@ -1,31 +1,38 @@
+# Copyright 2014 Lockheed Martin Corporation
+#
+# Licensed under the Apache License, Version 2.0 (the "License"); you may 
+# not use this file except in compliance with the License. You may obtain 
+# a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software 
+# distributed under the License is distributed on an "AS IS" BASIS, 
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and 
+# limitations under the License.
+
 ---
 extends: source/scenario/scenario.vwf
 properties:
   scenarioName: scenario3e
 
   scenePath: /
+  nextScenarioPath: "scenario3f"
 
   startState:
   - setProperty:
     - rover
     - battery
-    - 50
+    - 40
   - setProperty:
     - rover
     - batteryMax
-    - 50
+    - 40
   - setProperty:
     - rover
     - blockly_allowedBlocks
-    - 30
-  - setProperty:
-    - rover
-    - heading
-    - 0
-  - setProperty:
-    - rover
-    - rotation
-    - [ 0, 0, 1, 0 ]
+    - 12
   - addToInventory:
     - rover/cargo
     - [ "helicam", "battery", "radio" ]
@@ -33,17 +40,11 @@ properties:
     - rover
     - [ 12, 10 ]
   - addToGrid:
+    - blocklyGraph
+    - [ 12, 10 ]
+  - addToGrid:
     - minirover
     - [ 24, 39 ]
-  - addToGrid:
-    - trackanomaly
-    - [ 24, 39 ]
-  - addToGrid:
-    - trackanomaly
-    - [ 23, 38 ]
-  - addToGrid:
-    - trackanomaly
-    - [ 25, 38 ]
   - enableBlocklyTabs:
     - rover
     - graph
@@ -64,14 +65,39 @@ children:
           - onScenarioStart:
           actions:
           - playSound:
-            - musicStandardGameplay
+            - musicLevel2
+          - playSound:
+            - environmentWind
           - resetRoverSensors:
           - setObjective:
-            - "Build a program to follow the tracks until you find a man-made object."
+            - "Build a program to follow the tracks until your scanner finds something."
+          - writeToBlackboard:
+            - anomalyPosition
+            - [ 24, 38 ]
+          - clearBlackboardEntry:
+            - Level3eTravel1
+          - stopSound:
+            - CTVO4
 
-        playTravelVO_3e:
+        playStartingVO_3e:
           triggerCondition:
-          - onBlocklyStarted:
+          - onScenarioStart:
+          additionalCondition:
+          - not:
+            - readBlackboard:
+              - Level3eStartSounds
+          actions:
+          - playSound:
+            - L3VO6_Mission
+          - writeToBlackboard:
+            - Level3eStartSounds
+
+        playTravelVO_3c:
+          triggerCondition:
+          - isAtPosition:
+            - rover
+            - 15
+            - 17
           additionalCondition:
           - and:
             - not:
@@ -84,12 +110,10 @@ children:
               - readBlackboard:
                 - hasFailed
           actions:
-          - delay:
-            - 20
-            - playSound:
-              - L3VO6_Mission
-            - writeToBlackboard:
-              - Level3eTravel1
+          - playSound:
+            - CTVO4
+          - writeToBlackboard:
+            - Level3eTravel1
 
         succeedOnSuccessfulMovement_3e:
           triggerCondition:
@@ -106,11 +130,11 @@ children:
             - "I found the minirover!"
           - hideBlockly:
           - stopSound:
-            - musicStandardGameplay
-          - playSound:
-            - musicSuccess
-          - playSound:
-            - L3VO6_Rover_S
+            - musicLevel2
+          - clearBlackboardEntry:
+            - anomalyPosition
+          - stopSound:
+            - CTVO4
 
   grid:
     includes: source/grid.vwf

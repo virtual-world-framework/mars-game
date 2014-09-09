@@ -1,3 +1,17 @@
+// Copyright 2014 Lockheed Martin Corporation
+//
+// Licensed under the Apache License, Version 2.0 (the "License"); you may 
+// not use this file except in compliance with the License. You may obtain 
+// a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software 
+// distributed under the License is distributed on an "AS IS" BASIS, 
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and 
+// limitations under the License.
+
 var self;
 
 this.initialize = function() {
@@ -76,7 +90,7 @@ this.actionSet.stopSound = function( params, context ) {
 
 this.actionSet.stopSoundGroup = function( params, context ) {
     if ( !params || ( params.length !== 1 ) ) {
-        self.logger.warnx( "stopSound", "We need to know the name of the sound to stop!" );
+        self.logger.warnx( "stopSoundGroup", "We need to know the name of the sound group to stop!" );
         return undefined;
     }
 
@@ -85,6 +99,20 @@ this.actionSet.stopSoundGroup = function( params, context ) {
 
     if ( soundMgr ) {
         return function() { soundMgr.stopSoundGroup( groupName ); };
+    } else {
+        return undefined;
+    }
+}
+
+this.actionSet.stopAllSounds = function( params, context ) {
+    if ( !params || ( params.length !== 0 ) ) {
+        self.logger.warnx( "stopAllSounds", "stopAllSounds doesn't take any parameters!" );
+    }
+
+    var soundMgr = getSoundMgr( context );
+
+    if ( soundMgr ) {
+        return function() { soundMgr.stopAllSoundInstances(); };
     } else {
         return undefined;
     }
@@ -139,28 +167,40 @@ this.actionSet.delay = function( params, context ) {
 
 this.actionSet.writeToBlackboard = function( params, context ) {
 
-    if ( params && ( params.length < 1 ) ) {
-        self.logger.errorx( "writeToBlackboard", "This action takes one parameter: variable name.");
+    if ( !params || ( params.length > 2 ) || !params[ 0 ] ) {
+        self.logger.errorx( "writeToBlackboard", 
+                            "This action takes a variable name and an " +
+                            "optional value." );
         return undefined;
-    }
+    } 
 
-    return function() {
-        context.sceneBlackboard[ params[ 0 ] ] = 1;
-    }
+    var name = params[ 0 ];
+    var value = params.length === 2 ? params[ 1 ] : 1;
 
+    switch ( name ) {
+        case "lastHeading$":
+        case "lastRotation$":
+            self.logger.errorx( "writeToBlackboard", "The '" + name + "' " +
+                                "parameter is reserved for internal use." );
+            return undefined;
+        default:
+            return function() {
+                context.sceneBlackboard[ name ] = value;
+            }
+    }
 }
 
-this.actionSet.clearBlackboard = function( params, context ) {
+this.actionSet.clearBlackboardEntry = function( params, context ) {
 
     if ( params && ( params.length < 1 ) ) {
-        self.logger.errorx( "clearBlackboard", "This action takes one parameter: variable name.");
+        self.logger.errorx( "clearBlackboardEntry", "This action takes one " +
+                            "parameter: variable name.");
         return undefined;
     }
 
     return function() {
-        delete context.sceneBlackboard[ params[ 0 ] ];
+        context.sceneBlackboard[ params[ 0 ] ] = undefined;
     }
-
 }
 
 this.actionSet.incrementBlackboardValue = function( params, context ) {
@@ -290,25 +330,20 @@ this.actionSet.clearBlockly = function( params, context ) {
     }
 }
 
-this.actionSet.disableHelicam = function( params, context ) {
-    if ( params && params.length > 0 ) {
-        self.logger.errorx( "disableHelicam", "This action takes no parameters.");
+this.actionSet.setHUDProperty = function( params, context ) {
+    if ( !params || params.length !== 3 ) {
+        self.logger.errorx( "setHUDProperty", "This action takes three parameters: " +
+                            "The HUD element's name, the property to change, and the " +
+                            "value to set the property to.");
         return undefined;
     }
-    
-    return function() {
-        context.disableHelicam();
-    }
-}
 
-this.actionSet.enableHelicam = function( params, context ) {
-    if ( params && params.length > 0 ) {
-        self.logger.errorx( "enableHelicam", "This action takes no parameters.");
-        return undefined;
-    }
+    var element = params[ 0 ];
+    var property = params[ 1 ];
+    var value = params[ 2 ];
     
     return function() {
-        context.enableHelicam();
+        context.setHUDElementProperty( element, property, value );
     }
 }
 

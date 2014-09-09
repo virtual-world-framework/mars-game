@@ -1,3 +1,17 @@
+// Copyright 2014 Lockheed Martin Corporation
+//
+// Licensed under the Apache License, Version 2.0 (the "License"); you may 
+// not use this file except in compliance with the License. You may obtain 
+// a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software 
+// distributed under the License is distributed on an "AS IS" BASIS, 
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and 
+// limitations under the License.
+
 var self;
 
 this.initialize = function() {
@@ -71,7 +85,7 @@ this.clauseSet.not = function( params, context, callback ) {
     var clause = self.executeFunction( params[ 0 ], context, callback );
 
     return function() {
-    	var result = clause();
+        var result = clause();
         return !result;
     }
 }
@@ -570,7 +584,7 @@ this.clauseSet.onScenarioChanged = function( params, context, callback ) {
 
 this.clauseSet.onVideoPlayed = function( params, context, callback ) {
     if ( !params || params.length !== 1 ) {
-        self.logger.warnx( "onIntroScreensComplete", 
+        self.logger.warnx( "onVideoPlayed", 
                            "This clause takes one argument: The video source." );
         return undefined;
     }
@@ -597,7 +611,7 @@ this.clauseSet.onVideoPlayed = function( params, context, callback ) {
     };
 }
 
-this.clauseSet.onHelicamToggle= function( params, context, callback ) {
+this.clauseSet.onHelicamToggle = function( params, context, callback ) {
     if ( params ) {
         self.logger.warnx( "onHelicamToggle", 
                            "This clause doesn't take any arguments." );
@@ -609,9 +623,9 @@ this.clauseSet.onHelicamToggle= function( params, context, callback ) {
     if ( callback ) {
         if ( context && context.toggledHelicam ) {
             context.toggledHelicam = self.events.add( function() {
-                                                                toggledHelicam = true;
-                                                                callback();
-                                                            } );
+                toggledHelicam = true;
+                callback();
+            } );
         }
     }
 
@@ -622,7 +636,7 @@ this.clauseSet.onHelicamToggle= function( params, context, callback ) {
     };
 }
 
-this.clauseSet.onGraphToggle= function( params, context, callback ) {
+this.clauseSet.onGraphToggle = function( params, context, callback ) {
     if ( params ) {
         self.logger.warnx( "onGraphToggle", 
                            "This clause doesn't take any arguments." );
@@ -633,9 +647,11 @@ this.clauseSet.onGraphToggle= function( params, context, callback ) {
     onClauseCallbackWarning( callback );
     if ( callback ) {
         if ( context && context.toggledGraph ) {
-            context.toggledGraph = self.events.add( function() {
-                toggledGraph = true;
-                callback();
+            context.toggledGraph = self.events.add( function( value ) {
+                if ( value ) {
+                    toggledGraph = true;
+                    callback();
+                }
             } );
         }
     }
@@ -647,7 +663,7 @@ this.clauseSet.onGraphToggle= function( params, context, callback ) {
     };
 }
 
-this.clauseSet.onTilesToggle= function( params, context, callback ) {
+this.clauseSet.onTilesToggle = function( params, context, callback ) {
     if ( params ) {
         self.logger.warnx( "onTilesToggle", 
                            "This clause doesn't take any arguments." );
@@ -658,9 +674,11 @@ this.clauseSet.onTilesToggle= function( params, context, callback ) {
     onClauseCallbackWarning( callback );
     if ( callback ) {
         if ( context && context.toggledTiles ) {
-            context.toggledTiles = self.events.add( function() {
-                toggledTiles = true;
-                callback();
+            context.toggledTiles = self.events.add( function( value ) {
+                if ( value ) {
+                    toggledTiles = true;
+                    callback();
+                }
             } );
         }
     }
@@ -736,10 +754,11 @@ this.clauseSet.readBlackboard = function( params, context ) {
     
         var checkedValue = context.sceneBlackboard[ params[ 0 ] ];
 
-        if ( params[ 1 ] !== undefined ){
-        var retVal = ( checkedValue !== undefined && checkedValue < params[ 1 ] );
+        if ( params[ 1 ] !== undefined ) {
+            var retVal = ( checkedValue !== undefined && 
+                           checkedValue < params[ 1 ] );
         } else {
-        var retVal = ( checkedValue !== undefined );  
+            var retVal = ( checkedValue !== undefined );  
         }
 
         return retVal;
@@ -788,6 +807,30 @@ this.clauseSet.onGameStarted = function( params, context, callback ) {
     return function() {
         var retVal = gameStarted;
         gameStarted = false;
+        return retVal;
+    };
+}
+
+this.clauseSet.onHUDMouseOver = function( params, context, callback ) {
+    if ( !params || params.length !== 1 ) {
+        self.logger.warnx( "onHUDMouseOver", 
+                           "This clause takes one argument: The HUD element name." );
+    }
+
+    var elementID;
+
+    onClauseCallbackWarning( callback );
+    if ( callback ) {
+        if ( context && context.mouseOverHUD ) {
+            context.mouseOverHUD = self.events.add( function( id ) {
+                elementID = id;
+                callback();
+            } );
+        }
+    }
+
+    return function() {
+        var retVal = params[ 0 ] === elementID;
         return retVal;
     };
 }

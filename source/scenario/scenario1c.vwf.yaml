@@ -1,3 +1,17 @@
+# Copyright 2014 Lockheed Martin Corporation
+#
+# Licensed under the Apache License, Version 2.0 (the "License"); you may 
+# not use this file except in compliance with the License. You may obtain 
+# a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software 
+# distributed under the License is distributed on an "AS IS" BASIS, 
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and 
+# limitations under the License.
+
 ---
 extends: source/scenario/scenario.vwf
 properties:
@@ -21,21 +35,12 @@ properties:
   - setProperty:
     - rover
     - lowRam
-    - 1    
+    - 1
 
-  # TODO: Simplify heading/rotation
-  # Set initial rotation using heading
-  # Currently, moveLeft & moveRight in rover.js
-  # fight with adding that to the setter of heading
-  - setProperty:
+  - callMethod:
     - rover
-    - heading
+    - setHeading
     - 0
-
-  - setProperty:
-    - rover
-    - rotation
-    - [ 0, 0, 1, 0 ]
 
   - addToInventory:
     - rover/cargo
@@ -69,10 +74,42 @@ children:
           actions:
           - playSound:
             - musicStandardGameplay
+          - playSound:
+            - environmentWind
+          - blinkHUDElement:
+            - cameraSelector
           - blinkHUDElement:
             - camera_topDown
           - setObjective:
             - "Activate Helicam view to inspect the crash site."
+          - setHUDProperty:
+            - graphButton
+            - enabled
+            - false
+          - setHUDProperty:
+            - tilesButton
+            - enabled
+            - false
+          - setHUDProperty:
+            - blocklyButton
+            - enabled
+            - false
+          - setHUDProperty:
+            - camera_thirdPerson
+            - enabled
+            - false
+          - setHUDProperty:
+            - camera_firstPerson
+            - enabled
+            - false
+
+        stopCameraBlinkOnMouseOver_1c:
+          triggerCondition:
+          - onHUDMouseOver:
+            - cameraSelector
+          actions:
+          - stopBlinkHUDElement:
+            - cameraSelector
 
         succeedOnSuccess_1c:
           triggerCondition:
@@ -131,6 +168,27 @@ children:
             - ALVO34_Rover
           - writeToBlackboard:
             - Level1cHint2
+
+        playHint3_1c:
+          triggerCondition:
+          - delay:
+            - 40
+          additionalCondition:
+          - and:
+            - not:
+              - readBlackboard:
+                - Level1cHint3
+            - not:
+              - readBlackboard:
+                - hasSucceeded
+            - not:
+              - readBlackboard:
+                - hasFailed
+          actions:
+          - playSound:
+            - ALVO40_Rover
+          - writeToBlackboard:
+            - Level1cHint3
 
         setCameraView:
           triggerCondition:

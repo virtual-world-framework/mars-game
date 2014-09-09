@@ -1,3 +1,17 @@
+# Copyright 2014 Lockheed Martin Corporation
+#
+# Licensed under the Apache License, Version 2.0 (the "License"); you may 
+# not use this file except in compliance with the License. You may obtain 
+# a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software 
+# distributed under the License is distributed on an "AS IS" BASIS, 
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and 
+# limitations under the License.
+
 ---
 extends: source/scenario/scenario.vwf
 properties:
@@ -10,53 +24,32 @@ properties:
   - setProperty:
     - rover
     - battery
-    - 50
+    - 40
   - setProperty:
     - rover
     - batteryMax
-    - 50
+    - 40
   - setProperty:
     - rover
     - blockly_allowedBlocks
-    - 30
-
-  # TODO: Simplify heading/rotation
-  # Set initial rotation using heading
-  # Currently, moveLeft & moveRight in rover.js
-  # fight with adding that to the setter of heading
-  - setProperty:
-    - rover
-    - heading
-    - 0
-    
-  - setProperty:
-    - rover
-    - rotation
-    - [ 0, 0, 1, 0 ]
+    - 12
 
   - addToInventory:
     - rover/cargo
     - [ "helicam", "battery", "radio" ]
-
   - addToGrid:
     - rover
+    - [ 57, 5 ]
+  - addToGrid:
+    - blocklyGraph
     - [ 57, 5 ]
 
   - addToGrid:
     - minirover
     - [ 24, 39 ]
-
-  - addToGrid:
-    - trackanomaly
-    - [ 37, 16 ]
-    
   - addToGrid:
     - supplies_1
-    - [ 36, 15 ]
-
-  - addToGrid:
-    - trackanomaly
-    - [ 36, 15 ]
+    - [ 37, 15 ]
   - enableBlocklyTabs:
     - rover
     - graph
@@ -77,14 +70,37 @@ children:
           - onScenarioStart:
           actions:
           - playSound:
-            - musicStandardGameplay
+            - musicLevel2
+          - playSound:
+            - environmentWind
           - resetRoverSensors:
           - setObjective:
-            - "Build a program to follow the tracks until you find a man-made object."
+            - "Build a program to follow the tracks until your scanner finds something."
+          - writeToBlackboard:
+            - anomalyPosition
+            - [ 37, 15 ]
 
-        playTravelVO_3a:
+        playStartingVO_3a:
           triggerCondition:
-          - onBlocklyStarted:
+          - onScenarioStart:
+          additionalCondition:
+          - not:
+            - readBlackboard:
+              - Level3aStartSounds
+          actions:
+          - playSound:
+            - SCVO9_Rover
+          - playSound:
+            - L3VO2_Mission_S
+          - writeToBlackboard:
+            - Level3aStartSounds
+
+        playTravelVO_1_3a:
+          triggerCondition:
+          - isAtPosition:
+            - rover
+            - 51
+            - 8
           additionalCondition:
           - and:
             - not:
@@ -97,12 +113,33 @@ children:
               - readBlackboard:
                 - hasFailed
           actions:
-          - delay:
-            - 20
-            - playSound:
-              - L3VO4_Mission_E
-            - writeToBlackboard:
-              - Level3aTravel1
+          - playSound:
+            - CTVO1_Rover
+          - writeToBlackboard:
+            - Level3aTravel1
+
+        playTravelVO_2_3a:
+          triggerCondition:
+          - isAtPosition:
+            - rover
+            - 41
+            - 13
+          additionalCondition:
+          - and:
+            - not:
+              - readBlackboard:
+                - Level3aTravel2
+            - not:
+              - readBlackboard:
+                - hasSucceeded
+            - not:
+              - readBlackboard:
+                - hasFailed
+          actions:
+          - playSound:
+            - CTVO2_Control
+          - writeToBlackboard:
+            - Level3aTravel2
 
         succeedOnSuccessfulMovement_3a:
           triggerCondition:
@@ -119,8 +156,8 @@ children:
             - "Looks like the rover changed course!  Time to plot the new line…"
           - playSound:
             - musicSuccessShort
-          - playSound:
-            - L3VO3_Rover_S
+          - clearBlackboardEntry:
+            - anomalyPosition
 
         playHint1_3a:
           triggerCondition:

@@ -1,3 +1,17 @@
+// Copyright 2014 Lockheed Martin Corporation
+//
+// Licensed under the Apache License, Version 2.0 (the "License"); you may 
+// not use this file except in compliance with the License. You may obtain 
+// a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software 
+// distributed under the License is distributed on an "AS IS" BASIS, 
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and 
+// limitations under the License.
+
 var mainMenu;
 var hud;
 var blocklyNodes = {};
@@ -65,13 +79,17 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 indicator.className = "";
                 indicator.style.visibility = "inherit";
                 var indicatorCount = document.getElementById( "blocklyIndicatorCount" );
+                indicatorCount.className = "";
                 indicatorCount.style.visibility = "inherit";
                 break;
 
             case "blocklyStopped":
                 startBlocklyButton.className = "";
                 var indicator = document.getElementById( "blocklyIndicator" );
+                var count = document.getElementById( "blocklyIndicatorCount" );
                 indicator.className = "stopped";
+                count.className = "stopped";
+
                 clearBlocklyStatus();
 
             case "blocklyErrored":
@@ -120,14 +138,14 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 } else {
                     setRenderMode( RENDER_GAME );
                 }
+                lastBlockIDExecuted = undefined;
+                enableAllHUDElements();
             case "scenarioReset":
                 removePopup();
                 removeFailScreen();
                 clearBlocklyStatus();
-                gridBounds = eventArgs[ 1 ] || gridBounds;
-                break;
-            case "scenarioStarted":
                 indicateBlock( lastBlockIDExecuted );
+                gridBounds = eventArgs[ 1 ] || gridBounds;
                 break;
 
             case "gotScenarioPaths":
@@ -150,12 +168,12 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 stopBlinkTab( eventArgs[ 0 ] );
                 break;
 
-            case "enableHelicam":
-                setHelicamButtonsEnabled( true );
-                break;
-
-            case "disableHelicam":
-                setHelicamButtonsEnabled( false );
+            case "setHUDElementProperty":
+                var element, property, value;
+                element = eventArgs[ 0 ];
+                property = eventArgs[ 1 ];
+                value = eventArgs[ 2 ]
+                setHUDElementProperty( element, property, value );
                 break;
 
             case "showCommsImage":
@@ -400,7 +418,6 @@ vwf_view.satProperty = function( nodeID, propertyName, propertyValue ) {
             case "logger_lifeTime":
                 loggerNode[ propertyName ] = parseFloat( propertyValue );
                 break;
-
         }
     }
 }
@@ -411,8 +428,10 @@ vwf_view.gotProperty = function( nodeID, propertyName, propertyValue ) {
             var version = propertyValue;
             var element = document.getElementById( "version" );
             element.innerHTML = "Source available on " +
-                "<a href='https://github.com/virtual-world-framework/mars-game'>GitHub</a>. " +
-                "Licensed using Apache 2. - Version: " + version;
+                "<a target='_blank' href='https://github.com/virtual-world-framework/mars-game'>GitHub</a>. " +
+                "Licensed using " + 
+                "<a target='_blank' href='../LICENSE.txt'>Apache 2</a>. " +
+                "Version: " + version;
         }
     }
 }
@@ -429,6 +448,7 @@ function setUpView() {
     loadScenarioList();
     loadVideo( "intro_cinematic.mp4" );
     loadVideo( "success_cinematic.mp4" );
+    loadVideo( "end_cinematic.mp4", undefined, true );
 }
 
 function setRenderMode( sceneID ) {
@@ -460,7 +480,7 @@ function render( renderer, scene, camera ) {
         case RENDER_GAME:
             if ( renderTransition ) {
                 loggerBox.style.display = "block";
-                scene.fog = new THREE.FogExp2( 0xC49E70, 0.005 );
+                scene.fog = new THREE.FogExp2( 0xC49E70, 0.0035 );
                 renderer.setClearColor( scene.fog.color );
                 renderer.autoClear = false;
                 renderTransition = false;
@@ -659,7 +679,6 @@ function clearBlockly() {
 
 function resetRoverSensors() {
     if ( mainRover ){
-        vwf_view.kernel.setProperty( mainRover, "objectSensorValue", false );
         vwf_view.kernel.setProperty( mainRover, "tracksSensorValue", false );
     }
 }
