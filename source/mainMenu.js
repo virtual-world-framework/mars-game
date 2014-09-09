@@ -176,6 +176,7 @@ MainMenu.prototype = {
         loginForm.appendChild( loginButton );
         this.overlay.loginMenu.appendChild( loginForm );
         this.overlay.appendChild( this.overlay.loginMenu );
+        loginForm.onsubmit = this.submitUserID.bind( loginTextBox );
         loginButton.onclick = this.submitUserID.bind( loginTextBox );
 
         this.overlay.mainMenu.appendChild( playButton );
@@ -286,9 +287,10 @@ MainMenu.prototype = {
         readout.innerHTML = "Volume: " + readoutPct + "%";
     },
 
-    submitUserID: function() {
+    submitUserID: function( event ) {
         var vwfScene = vwf_view.kernel.application();
         vwf_view.kernel.callMethod( vwfScene, "attemptLogin", [ this.value ] );
+        event.preventDefault();
     },
 
     loggedIn: function( scenarioName ) {
