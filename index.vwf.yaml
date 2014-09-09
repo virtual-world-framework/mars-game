@@ -76,8 +76,7 @@ events:
   setObjective:
   setHUDElementProperty:
   mouseOverHUD:
-  loginSucceeded:
-  loginFailed:
+  progressFound:
 children:
   soundManager:
     includes: source/marsGameSound.vwf

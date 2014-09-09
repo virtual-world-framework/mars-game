@@ -117,11 +117,7 @@ this.getRequest = function( type, params ) {
                 if ( scenarioName.lastIndexOf( "$" ) === scenarioName.length - 1 ) {
                     scenarioName = scenarioName.substr( 0, scenarioName.length - 1 );
                 }
-                if ( scene[ scenarioName ] ) {
-                    scene.loginSucceeded( scenarioName );
-                } else {
-                    scene.loginFailed( xhr.responseText );
-                }
+                scene.progressFound( ( scene[ scenarioName ] && scenarioName !== "mainMenuScenario" ), scenarioName );
                 return xhr.responseText;
             }
         }
