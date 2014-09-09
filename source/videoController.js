@@ -14,6 +14,7 @@
 
 var videos = new Array();
 var videoID = 0;
+var playingVideo;
 
 function loadVideo( src, type, dontRemoveWhenEnded ) {
     var video = {
@@ -31,7 +32,7 @@ function loadVideo( src, type, dontRemoveWhenEnded ) {
     video.wrapper.className = "videoWrapper";
     video.elem.load();
 
-    video.elem.onclick = removeVideoOnEvent;
+    document.onkeypress = removeVideoOnEvent;
 
     if ( !dontRemoveWhenEnded ) {
         video.elem.onended = removeVideoOnEvent;
@@ -46,16 +47,22 @@ function playVideo( id ) {
     var video = videos[ id ];
     if ( video ) {
         document.body.appendChild( video.wrapper );
+        playingVideo = video;
         video.elem.play();
     }
 }
 
 function removeVideoOnEvent( event ) {
-    var videoElem = event.srcElement;
+    // 32 = space bar character code
+    if ( event.type === "keypress" && event.which !== 32 ) {
+        return;
+    }
+    var videoElem = playingVideo.elem || event.srcElement;
     var id = parseInt( videoElem.id.split( "video" )[ 1 ] );
     var fileName = getVideoFileName( videos[ id ] );
     vwf_view.kernel.fireEvent( vwf_view.kernel.application(), "videoPlayed", [ fileName ] );
     removeVideo( id );
+    playingVideo = undefined;
 }
 
 function removeVideo( id ) {
