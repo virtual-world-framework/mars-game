@@ -98,9 +98,13 @@ properties:
     # arguments: none
     resetRoverSensors:
 
-    # Sets the orientation of the camera in third person
-    # arguments: array [ radius, yaw, pitch ]
+    # Puts the camera in third-person with the specified orientation
+    # arguments: pose[ radius, yaw, pitch ]
     setCinematicCameraView:
+
+    # Sets the default orientation of the camera in third person
+    # arguments: pose[ radius, yaw, pitch ]
+    setThirdPersonStartPose:
 
     # Resets the camera to the point of view before the cinematic camera mode was set
     # arguments: none

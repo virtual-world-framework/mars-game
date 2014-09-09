@@ -67,6 +67,8 @@ children:
             - environmentWind
           - setObjective:
             - "Graph a line that matches the slope of the tracks."
+          - setThirdPersonStartPose:
+            - [ 16.316, 65, -15 ]
 
         playStartingVO_2d:
           triggerCondition:

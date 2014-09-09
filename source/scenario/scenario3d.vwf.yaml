@@ -74,6 +74,8 @@ children:
           - resetRoverSensors:
           - setObjective:
             - "Graph a line that matches the slope of the tracks."
+          - setThirdPersonStartPose:
+            - [ 13, 15, -15 ]
 
         playStartingVO_3d:
           triggerCondition:

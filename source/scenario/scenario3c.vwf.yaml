@@ -81,6 +81,8 @@ children:
             - Level3cTravel1
           - stopSound:
             - CTVO3
+          - setThirdPersonStartPose:
+            - [ 13, 15, -15 ]
 
         playStartingVO_3c:
           triggerCondition:

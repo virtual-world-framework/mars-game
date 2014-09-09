@@ -462,6 +462,22 @@ this.actionSet.setCinematicCameraView = function( params, context ) {
     }
 }
 
+this.actionSet.setThirdPersonStartPose = function( params, context ) {
+    if ( !params || params.length !== 1 ) {
+        self.logger.errorx( "setCinematicCameraView", "This action takes one parameter: An array " +
+                            "containing the radius (meters), yaw (degrees), and pitch (degrees) " +
+                            "of the camera." );
+        return undefined;
+    }
+
+    var pose = params[ 0 ];
+    var targetFollower = context.find( "//targetFollower" )[ 0 ];
+
+    return function() {
+        targetFollower.camera.thirdPersonStartPose = pose;
+    }
+}
+
 this.actionSet.resetCameraView = function( params, context ) {
     if ( params && params.length > 0 ) {
         self.logger.warnx( "resetCameraView", "This action does not take parameters." );
