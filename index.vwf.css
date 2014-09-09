@@ -582,20 +582,20 @@ a:active {
     font-size: 64px;
     font-weight: bold;
     line-height: 128px;
-    color: rgb( 50, 90, 150 );
-    text-shadow: 0px 0px 4px rgb( 50, 90, 150 );
+    color: rgb( 224, 255, 100 );
+    text-shadow: 0px 0px 2px rgb( 224, 255, 100 );
     margin-left: auto;
     margin-right: auto;
 }
 
 .MainMenu-Button.hover {
-    color: rgb( 50, 90, 150 );
-    text-shadow: 0px 0px 8px rgb( 50, 90, 150 );
+    color: rgb( 255, 255, 255 );
+    text-shadow: 0px 0px 8px rgb( 224, 255, 100 );
 }
 
 .MainMenu-Button.select {
     color: rgb( 255, 255, 255 );
-    text-shadow: 0px 0px 8px rgb( 50, 90, 150 );
+    text-shadow: 0px 0px 8px rgb( 255, 255, 255 );
 }
 
 #MainMenu-Volume {
@@ -607,7 +607,7 @@ a:active {
     cursor: default;
     border-radius: 4px;
     display: table;
-    background-color: rgb( 50, 90, 150 );
+    background-color: rgb( 64, 64, 64 );
     padding: 4px;
 }
 

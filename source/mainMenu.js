@@ -41,7 +41,7 @@ MainMenu.prototype = {
         loader = new THREE.ColladaLoader();
         loader.load( "assets/3d/Start/mars_start.dae", this.placeModel.bind( this ) );
         light = new THREE.DirectionalLight( 0xffffff, 1 );
-        light.position.set( -1, 1, 1 );
+        light.position.set( 1, 0.5, 0.5 );
         ambient = new THREE.AmbientLight( 0xFFFFFF );
         this.scene.add( light );
         this.scene.add( ambient );
