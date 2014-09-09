@@ -31,24 +31,27 @@ MainMenu.prototype = {
     },
 
     createScene: function() {
-        var loader, rover, geo, ground, groundMat, light, ambient;
-        this.camera = new THREE.PerspectiveCamera( 45, window.innerWidth / window.innerHeight, 1, 1000 );
+        var loader, light, ambient;
+        this.camera = new THREE.PerspectiveCamera( 45, window.innerWidth / window.innerHeight, 1, 10000 );
         window.addEventListener( "resize", this.updateMenuCamera.bind( this ) );
-        this.camera.position.set( 0, 0, 2.5 );
-        this.camera.rotateX( Math.PI / 2.3 );
+        this.camera.position.set( 0, 0, 0 );
+        this.camera.rotateX( Math.PI / 2 );
+        this.camera.rotateY( Math.PI * 1.25 );
         this.scene = new THREE.Scene();
         loader = new THREE.ColladaLoader();
-        loader.load( "assets/3d/Rover/rover_retro.dae", this.placeRover.bind( this ) );
-        light = new THREE.SpotLight( 0xffffff, 1, 0, Math.PI / 2, 1 );
-        light.intensity = 1;
-        light.position.set( -2, 0, 6 );
-        ambient = new THREE.AmbientLight( 0xCCCCCC );
-        groundMat = new THREE.MeshPhongMaterial( { color: 0xFFFFFF } );
-        geo = new THREE.PlaneGeometry( 100, 100 );
-        ground = new THREE.Mesh( geo, groundMat );
+        loader.load( "assets/3d/Start/mars_start.dae", this.placeModel.bind( this ) );
+        light = new THREE.DirectionalLight( 0xffffff, 1 );
+        light.position.set( -1, 1, 1 );
+        ambient = new THREE.AmbientLight( 0xFFFFFF );
         this.scene.add( light );
         this.scene.add( ambient );
-        this.scene.add( ground );
+    },
+
+    placeModel: function( collada ) {
+        var model = collada.scene;
+        model.position.set( 33, 61, 99.5 );
+        this.scene.add( model );
+        $( "#transitionScreen" ).fadeOut();
     },
 
     createOverlay: function() {
@@ -189,14 +192,6 @@ MainMenu.prototype = {
         document.body.appendChild( this.overlay );
     },
 
-    placeRover: function( collada ) {
-        var rover = collada.scene;
-        rover.position.set( 1.5, 5, 0 );
-        rover.rotateZ( Math.PI / 1.5 );
-        this.scene.add( rover );
-        $( "#transitionScreen" ).fadeOut();
-    },
-
     updateMenuCamera: function() {
         this.camera.aspect = window.innerWidth / window.innerHeight;
         this.camera.updateProjectionMatrix();
@@ -204,13 +199,12 @@ MainMenu.prototype = {
 
     setupRenderer: function( renderer ) {
         this.overlay.style.display = "block";
-        this.scene.fog = new THREE.FogExp2( 0xFFFFFF, 0.04);
-        renderer.setClearColor( this.scene.fog.color );
+        renderer.setClearColor( 0x000000 );
     },
 
     render: function( renderer ) {
-        var theta = Date.now() / 300 % 360 * Math.PI;
-        this.camera.position.set( Math.sin( theta / 100 ) / 2, 0, 2 + Math.cos( theta / 60 ) / 5 );
+        // var theta = Date.now() / 300 % 360 * Math.PI;
+        // this.camera.position.set( Math.sin( theta / 100 ) / 2, 0, 2 + Math.cos( theta / 60 ) / 5 );
         renderer.render( this.scene, this.camera );
     },
 
