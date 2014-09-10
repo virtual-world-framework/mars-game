@@ -242,12 +242,6 @@ properties:
       subtitle: "[MC]: Yes, you are... you need to check if you can actually see the Mini Rover! For this you will need a new Block: the Scan Block."
       soundGroup: vo
       groupReplacementMethod: queue
-    - soundName: "L3VO1_Rover"
-      soundURL: "assets/sounds/vo/L3VO1_Rover.ogg"
-      initialVolume: 0.65
-      subtitle: "[ROVER]: Now that I have matched the tracks, I can count the tiles needed to move along the line. Let's start by moving over two and up one."
-      soundGroup: vo
-      groupReplacementMethod: queue
     - soundName: "L3VO1_Rover_S"
       soundURL: "assets/sounds/vo/L3VO1_Rover_S.ogg"
       initialVolume: 0.65
