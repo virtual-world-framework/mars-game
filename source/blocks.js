@@ -340,7 +340,7 @@ Blockly.Blocks['rover_moveForward'] = {
     
     this.setColour(290);
     this.appendDummyInput()
-        .appendField( 'forward' );
+        .appendField( 'Forward' );
     this.setInputsInline(true);
     this.setPreviousStatement(true);
     this.setNextStatement(true);
@@ -398,14 +398,14 @@ Blockly.Blocks['rover_turn'] = {
   // Block for turning left or right.
   init: function() {
     var DIRECTIONS =
-        [[ 'turnLeft', 'turnLeft' ],
-         [ 'turnRight', 'turnRight' ] ];
+        [[ 'Turn: Left', 'Turn: Left' ],
+         [ 'Turn: Right', 'Turn: Right' ] ];
     
     // we need a url to set this to
     //this.setHelpUrl('http://code.google.com/p/blockly/wiki/Turn');
     
     this.setColour(290);
-    this.appendDummyInput()
+    this.appendDummyInput("Turn: ")
         .appendField(new Blockly.FieldDropdown(DIRECTIONS), 'DIR');
     this.setInputsInline(true);
     this.setPreviousStatement(true);
@@ -423,7 +423,20 @@ Blockly.Blocks['rover_turn'] = {
 
 Blockly.JavaScript['rover_turn'] = function( block ) {
   // Generate JavaScript for turning left or right.
-  var turnCommand = block.getFieldValue('DIR');
+  var turnCommand;
+  var value = block.getFieldValue('DIR');
+  switch ( value ) {
+    case "Left":
+    case "Turn: Left":
+        turnCommand = "turnLeft";
+        break;
+    case "Right":
+    case "Turn: Right":
+        turnCommand = "turnRight";
+        break;
+    default:
+        console.log( "Error in Turn block!", value );
+  }
   var angle = Blockly.JavaScript.valueToCode(block, 'ANGLE', Blockly.JavaScript.ORDER_NONE) || '0';
   var t = Blockly.JavaScript.valueToCode(block, 'TIME', Blockly.JavaScript.ORDER_NONE) || '0';
   var action = {
@@ -486,9 +499,7 @@ Blockly.Blocks[ 'controls_repeat_extended' ] = {
     var thisBlock = this;
     this.setTooltip( function() {
       var content = {
-        text: "Performs a routine a certain number of " + 
-        "times. Put any combination of blocks inside this block!" + 
-        " (e.g. Make the rover turn left and then move forward 5 times.)",
+        text: "Repeats the contained blocks a certain number of times.",
         imagePath: "assets/images/tooltips/while.png"
       }
       return showTooltipInBlockly( thisBlock, content );

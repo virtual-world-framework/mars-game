@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and 
 // limitations under the License.
 
+var appID;
 var mainMenu;
 var hud;
 var blocklyNodes = {};
@@ -39,6 +40,7 @@ var cachedVolume = 1;
 var muted = false;
 var currentScenario;
 var scenarioList;
+var startingZoom;
 
 var renderTransition = true;
 var playingVideo = false;
@@ -239,6 +241,14 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 setNewObjective( objectiveText );
                 break;
 
+            case "progressFound":
+                var scenario;
+                if ( eventArgs[ 0 ] && eventArgs[ 1 ] ) {
+                    scenario = eventArgs[ 1 ];
+                }
+                mainMenu.loggedIn( scenario );
+                break;
+
         } 
     } else if ( loggerNodes[ nodeID ] !== undefined ) { 
         switch ( eventName ) {
@@ -324,6 +334,7 @@ vwf_view.createdNode = function( nodeID, childID, childExtendsID, childImplement
 
 vwf_view.initializedNode = function( nodeID, childID, childExtendsID, childImplementsIDs, childSource, childType, childIndex, childName ) {
     if ( childID === vwf_view.kernel.application() ) {
+        appID = vwf_view.kernel.application();
         setUpView();
         threejs.render = render;
     } else if ( blocklyNodes[ childID ] !== undefined ) {
@@ -400,7 +411,7 @@ vwf_view.satProperty = function( nodeID, propertyName, propertyValue ) {
         }
     }
 
-    if ( nodeID === vwf_view.kernel.application() ) {
+    if ( nodeID === appID ) {
         if ( propertyName === "blockly_activeNodeID" ) {
             Blockly.SOUNDS_ = {};
             selectBlocklyTab( propertyValue );
@@ -423,7 +434,7 @@ vwf_view.satProperty = function( nodeID, propertyName, propertyValue ) {
 }
 
 vwf_view.gotProperty = function( nodeID, propertyName, propertyValue ) {
-    if ( nodeID === vwf_view.kernel.application() ) {
+    if ( nodeID === appID ) {
         if ( propertyName === "version" ) {
             var version = propertyValue;
             var element = document.getElementById( "version" );
@@ -437,7 +448,7 @@ vwf_view.gotProperty = function( nodeID, propertyName, propertyValue ) {
 }
 
 function setUpView() {
-    vwf_view.kernel.getProperty( vwf_view.kernel.application(), "version" );
+    vwf_view.kernel.getProperty( appID, "version" );
     mainMenu = new MainMenu();
     hud = new HUD();
     createHUD();
@@ -457,10 +468,13 @@ function setRenderMode( sceneID ) {
 }
 
 function render( renderer, scene, camera ) {
+    var versionElem;
     switch ( renderMode ) {
 
         case RENDER_NONE:
             if ( renderTransition ) {
+                versionElem = document.getElementById( "version" );
+                versionElem.style.display = "none";
                 renderer.clear();
                 loggerBox.style.display = "none";
                 renderTransition = false;
@@ -469,9 +483,12 @@ function render( renderer, scene, camera ) {
 
         case RENDER_MENU:
             if ( renderTransition ) {
+                versionElem = document.getElementById( "version" );
+                versionElem.style.display = "block";
                 renderer.autoClear = true;
                 loggerBox.style.display = "none";
                 mainMenu.setupRenderer( renderer );
+                checkPageZoom();
                 renderTransition = false;
             }
             mainMenu.render( renderer );
@@ -479,6 +496,8 @@ function render( renderer, scene, camera ) {
 
         case RENDER_GAME:
             if ( renderTransition ) {
+                versionElem = document.getElementById( "version" );
+                versionElem.style.display = "none";
                 loggerBox.style.display = "block";
                 scene.fog = new THREE.FogExp2( 0xC49E70, 0.0035 );
                 renderer.setClearColor( scene.fog.color );
@@ -569,26 +588,25 @@ function getBlocklyFunction() {
 }
 
 function resetScenario() {
-    vwf_view.kernel.callMethod( vwf_view.kernel.application(), "resetScenario" );
+    vwf_view.kernel.callMethod( appID, "resetScenario" );
 }
 
 function advanceScenario() {
-    vwf_view.kernel.callMethod( vwf_view.kernel.application(), "advanceScenario" );
+    vwf_view.kernel.callMethod( appID, "advanceScenario" );
 }
 
 function loadScenarioList() {
-    vwf_view.kernel.callMethod( vwf_view.kernel.application(), "getScenarioPaths" );
+    vwf_view.kernel.callMethod( appID, "getScenarioPaths" );
 }
 
 function runBlockly() {
     vwf_view.kernel.setProperty( currentBlocklyNodeID, "blockly_executing", true );
     populateBlockStack();
-    vwf_view.kernel.setProperty( vwf_view.kernel.application(), "blockly_activeNodeID", undefined );
 }
 
 function setActiveBlocklyTab() {
     if ( currentBlocklyNodeID !== this.id ) {
-        vwf_view.kernel.setProperty( vwf_view.kernel.application(), "blockly_activeNodeID", this.id );
+        vwf_view.kernel.setProperty( appID, "blockly_activeNodeID", this.id );
         if ( blocklyGraphID && blocklyGraphID === this.id ) {
             var cam = vwf_view.kernel.find( "", "//camera" )[ 0 ];
             if ( cam ) {
@@ -845,7 +863,7 @@ function openScenarioMenu() {
 }
 
 function exitToMainMenu() {
-    var sceneID = vwf_view.kernel.application();
+    var sceneID = appID;
     resetSubtitles();
     clearBlockly();
     currentBlocklyNodeID = undefined;
@@ -878,7 +896,7 @@ function displayNextScenario() {
 }
 
 function switchToDisplayedScenario() {
-    var sceneID = vwf_view.kernel.application();
+    var sceneID = appID;
     var display = document.getElementById( "scenarioDisplay" );
     var displayedScenario = display.innerHTML;
     currentBlocklyNodeID = undefined;
@@ -932,7 +950,7 @@ function clearBlocklyTabs() {
 
 function setVolume( value ) {
     var sm, muteButton;
-    sm = vwf_view.kernel.find( vwf_view.kernel.application(), "/soundManager" )[ 0 ];
+    sm = vwf_view.kernel.find( appID, "/soundManager" )[ 0 ];
     if ( sm ) {
         value = Math.min( 1, Math.max( 0, value ) );
         muteButton = document.getElementById( "mute" );
@@ -978,5 +996,37 @@ function setVolumeSliderPosition( volume ) {
     readoutPct = Math.round( readoutPct );
     readout.innerHTML = "Volume: " + readoutPct + "%";
 }
+
+function checkPageZoom() {
+    var zoom, alertDiv, alertStr;
+    // SVG detects the zoom level of the page. Blockly uses SVG, so we
+    //  can use it to detect the page zoom for us.
+    if ( Blockly && Blockly.svg ) {
+        zoom = Math.round( Blockly.svg.currentScale * 100 );
+        if ( startingZoom === undefined ) {
+            startingZoom = zoom;
+        }
+        alertDiv = document.getElementById( "zoomAlert" );
+        if ( zoom !== 100 ) {
+            alertStr = "Your browser zoom is at " + zoom + "%. Press Ctrl and";
+            alertStr += ( zoom > 100 ) ? " - " : " + ";
+            alertStr += "on your keyboard at the same time to change the zoom. ";
+            alertStr += "Please set the zoom to 100%"
+            alertStr += ( startingZoom === 100 ) ? "." : " and reload the page.";
+            alertDiv.style.display = "block";
+            alertDiv.style.fontSize = Math.round( 100 / zoom * 100 ) + "%";
+            alertDiv.style.width = Math.round( 100 / zoom * 300 ) + "px";
+        } else if ( startingZoom !== 100 ) {
+            alertStr = "Zoom set to 100%. Please reload the page.";
+            alertDiv.style.display = "block";
+        } else {
+            alertStr = "";
+            alertDiv.style.display = "none";
+        }
+        alertDiv.innerHTML = alertStr;
+    }
+}
+
+window.addEventListener( "resize", checkPageZoom );
 
 //@ sourceURL=source/index.js

@@ -27,7 +27,7 @@ properties:
       this.activeScenarioPath = value;
     value: "mainMenuScenario"
   playerId: "test"
-  version: 0.6
+  version: 0.7
   sceneBlackboard: {}
 methods:
   setScenario:
@@ -46,6 +46,7 @@ methods:
   setCinematicView:
   resetView:
   restartGame:
+  attemptLogin:
 events:
   gameStarted:
   scenarioReset:
@@ -75,6 +76,7 @@ events:
   setObjective:
   setHUDElementProperty:
   mouseOverHUD:
+  progressFound:
 children:
   soundManager:
     includes: source/marsGameSound.vwf

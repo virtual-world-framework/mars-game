@@ -196,7 +196,7 @@ this.startStateParamSet.addToInventory = function( params, context ) {
     var object;
     for ( var i = 0; i < objects.length; i++ ) {
         object = activeScenario.startStateExecutor.findInContext( context, objects[ i ] );
-        inventory.add( object.id );
+        inventory.add( object );
     }
 }
 

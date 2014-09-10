@@ -69,6 +69,8 @@ children:
             - rover
           - setObjective:
             - "Use a loop to move along the slope of the tracks three more times."
+          - setThirdPersonStartPose:
+            - [ 16.316, 65, -15 ]
 
         playStartingVO_2f:
           triggerCondition:

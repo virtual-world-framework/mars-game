@@ -24,14 +24,12 @@ function setUpBlocklyPeripherals() {
     var blocklyFooter = document.createElement( "div" );
     var blocklyCloseBtn = document.createElement( "div" );
     var blocklyHandle = document.createElement( "div" );
-    var blocklyHandleIcon = document.createElement( "div" );
     var blocklyScrollDiv = document.createElement( "div" );
     var indicator = document.createElement( "div" );
     var indicatorCount = document.createElement( "div" );
 
     blocklyFooter.id = "blocklyFooter";
     blocklyHandle.id = "blocklyHandle";
-    blocklyHandleIcon.id = "blocklyHandleIcon";
     blocklyScrollDiv.id = "blocklyScrollDiv";
     indicator.id = "blocklyIndicator";
     indicatorCount.id = "blocklyIndicatorCount";
@@ -39,7 +37,6 @@ function setUpBlocklyPeripherals() {
     startBlocklyButton.id = "startBlockly";
 
     indicator.appendChild( indicatorCount );
-    $( blocklyHandle ).append( blocklyHandleIcon );
     $( "#blocklyWrapper-top" ).append( blocklyHandle )
     $( "#blocklyWrapper" ).append( indicator );
     $( "#blocklyWrapper" ).draggable( {
@@ -116,7 +113,7 @@ function setUpBlocklyPeripherals() {
 function resizeBlockly() {
     var maxBlocklyHeight = parseInt( $( "#blocklyWrapper" ).css( "max-height") );
     var currentHeight = parseInt( $( "#blocklyWrapper" ).css( "height") );
-    var height = window.innerHeight * 0.6 <= maxBlocklyHeight ? Math.floor( window.innerHeight * 0.6 ): maxBlocklyHeight;
+    var height = window.innerHeight * 0.8 <= maxBlocklyHeight ? Math.floor( window.innerHeight * 0.8 ) : maxBlocklyHeight;
 
     if ( height !== currentHeight ) {
         var wrapperDifference = parseInt( $( "#blocklyWrapper-top" ).css( "height") ) + parseInt( $( "#blocklyFooter" ).css( "height") );        

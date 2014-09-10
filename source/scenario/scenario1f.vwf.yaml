@@ -31,25 +31,21 @@ properties:
   - setProperty:
     - rover
     - blockly_allowedBlocks
-    - 3
+    - 2
   - setProperty:
     - rover
     - lowRam
     - 1
-
   - callMethod:
     - rover
     - setHeading
     - 0
-
   - addToInventory:
     - rover/cargo
     - [ "helicam", "battery" ]
-
   - addToGrid:
     - rover
     - [ 8, 6 ]
-
   - addToGrid:
     - radio
     - [ 8, 16 ]
@@ -78,6 +74,8 @@ children:
             - graphButton
             - enabled
             - false
+          - setThirdPersonStartPose:
+            - [ 13, 15, -15 ]
 
         playStartingVO_1f:
           triggerCondition:

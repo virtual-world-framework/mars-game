@@ -55,6 +55,9 @@ properties:
   - loadToolbox:
     - graph
     - assets/scenario/graph2a.xml
+  - setSceneProperty:
+    - blockly_activeNodeID
+    - undefined
 
 children:
   triggerManager:
@@ -77,6 +80,10 @@ children:
             - blocklyButton
             - enabled
             - false
+          - setCinematicCameraView:
+            - [ 16.316, 65, -15 ]
+          - setThirdPersonStartPose:
+            - [ 16.316, 65, -15 ]
 
         playStartingVO_2a:
           triggerCondition:

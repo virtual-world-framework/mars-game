@@ -36,6 +36,9 @@ properties:
     - rover
     - lowRam
     - 1
+  - setSceneProperty:
+    - blockly_activeNodeID
+    - undefined
 
   - callMethod:
     - rover
@@ -102,6 +105,8 @@ children:
             - camera_firstPerson
             - enabled
             - false
+          - setThirdPersonStartPose:
+            - [ 13, 15, -15 ]
 
         stopCameraBlinkOnMouseOver_1c:
           triggerCondition:

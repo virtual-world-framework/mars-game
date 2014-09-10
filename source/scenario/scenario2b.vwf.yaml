@@ -71,6 +71,8 @@ children:
             - graph
           - setObjective:
             - "Open the GRAPH tab in your PROGRAM interface."
+          - setThirdPersonStartPose:
+            - [ 16.316, 65, -15 ]
 
         playStartingVO_2b:
           triggerCondition:

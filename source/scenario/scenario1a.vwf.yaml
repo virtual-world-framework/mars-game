@@ -36,6 +36,9 @@ properties:
     - rover
     - lowRam
     - 1
+  - setSceneProperty:
+    - blockly_activeNodeID
+    - undefined
 
   - callMethod:
     - rover
@@ -87,6 +90,8 @@ children:
           - blinkHUDElement:
             - blocklyButton
           - setCinematicCameraView:
+            - [ 13, 15, -15 ]
+          - setThirdPersonStartPose:
             - [ 13, 15, -15 ]
           - setObjective:
             - "Click the PROGRAM button to open your control processor."
