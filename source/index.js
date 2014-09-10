@@ -468,10 +468,13 @@ function setRenderMode( sceneID ) {
 }
 
 function render( renderer, scene, camera ) {
+    var versionElem;
     switch ( renderMode ) {
 
         case RENDER_NONE:
             if ( renderTransition ) {
+                versionElem = document.getElementById( "version" );
+                versionElem.style.display = "none";
                 renderer.clear();
                 loggerBox.style.display = "none";
                 renderTransition = false;
@@ -480,6 +483,8 @@ function render( renderer, scene, camera ) {
 
         case RENDER_MENU:
             if ( renderTransition ) {
+                versionElem = document.getElementById( "version" );
+                versionElem.style.display = "block";
                 renderer.autoClear = true;
                 loggerBox.style.display = "none";
                 mainMenu.setupRenderer( renderer );
@@ -491,6 +496,8 @@ function render( renderer, scene, camera ) {
 
         case RENDER_GAME:
             if ( renderTransition ) {
+                versionElem = document.getElementById( "version" );
+                versionElem.style.display = "none";
                 loggerBox.style.display = "block";
                 scene.fog = new THREE.FogExp2( 0xC49E70, 0.0035 );
                 renderer.setClearColor( scene.fog.color );
