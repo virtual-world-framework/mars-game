@@ -1,8 +1,8 @@
 <xml id="toolbox" style="display: none">
   <category name="Rover">
     <block type="rover_moveForward"></block>
-    <block type="rover_turn"><field name="DIR">turnLeft</field></block>
-    <block type="rover_turn"><field name="DIR">turnRight</field></block>
+    <block type="rover_turn"><field name="DIR">Turn: Left</field></block>
+    <block type="rover_turn"><field name="DIR">Turn: Right</field></block>
     <block type="controls_repeat_ext">
       <value name="TIMES">
         <block type="math_number">

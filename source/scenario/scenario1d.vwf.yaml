@@ -62,6 +62,9 @@ properties:
   - loadToolbox:
     - rover
     - assets/scenario/scenario1d.xml
+  - setSceneProperty:
+    - blockly_activeNodeID
+    - undefined
 
 children:
   triggerManager:

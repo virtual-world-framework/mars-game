@@ -593,7 +593,6 @@ function loadScenarioList() {
 function runBlockly() {
     vwf_view.kernel.setProperty( currentBlocklyNodeID, "blockly_executing", true );
     populateBlockStack();
-    vwf_view.kernel.setProperty( appID, "blockly_activeNodeID", undefined );
 }
 
 function setActiveBlocklyTab() {

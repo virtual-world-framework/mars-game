@@ -44,6 +44,16 @@ a:active {
     color: rgb( 255, 0, 0 );
 }
 
+.blocklySvg {
+    background-color: rgba( 0, 0, 0, 0.25 );
+    border-color: rgba( 255, 255, 255, 0.25 );
+}
+
+.blocklyFlyoutBackground {
+    fill: rgb( 0, 0, 0 );
+    fill-opacity: 0.5;
+}
+
 #blocklyIndicator {
     background-image: url( "assets/images/blockly_ui/blockly_indicator.png" );
     width: 40px;
@@ -75,16 +85,16 @@ a:active {
 }
 
 #blocklyWrapper {
-    width: 560px;
+    width: 640px;
     height: 812px;
-    min-height: 200px;
+    min-height: 304px;
     max-height: 812px;
     min-width: 470px;
     max-width: 812px;
     position: absolute;
-    background-color: rgb( 50, 90, 150);
+    background-color: rgba( 128, 128, 128, 0.5 );
     border-radius: 8px;
-    border: 1px solid rgb( 70, 110, 170 );
+    border: 1px solid rgba( 255, 255, 255, 0.25 );
     visibility: hidden;
     pointer-events: none;
     font-family: Gadget, sans-serif;
@@ -92,48 +102,48 @@ a:active {
 }
 
 #blocklyWrapper-top {
-    height: 48px;
+    height: 24px;
     user-select: none;
     -webkit-user-select: none;  /* Chrome all / Safari all */
     -moz-user-select: none;     /* Firefox all */
     -ms-user-select: none;      /* IE 10+ */
     cursor: default;
+    background-color: rgba( 128, 128, 128, 0.5 );
 }
 
 #blocklyFooter {
-    height: 64px;
+    height: 24px;
     width: 100%;
     user-select: none;
     -webkit-user-select: none;  /* Chrome all / Safari all */
     -moz-user-select: none;     /* Firefox all */
     -ms-user-select: none;      /* IE 10+ */
     cursor: default;
+    background-color: rgba( 128, 128, 128, 0.5 );
 }
 
 #blocklyScrollDiv {
     height: 700px;
-    min-height: 88px;
-    max-height: 700px;
-    min-width: 470px;
-    max-width: 812px;
-    overflow-y: auto;
+    min-height: 256px;
+    max-height: 764px;
+    overflow-y: scroll;
     overflow-x: hidden;
-    background-color: white;
 }
 
 #blocklyDiv {
-    height: 1000px;
+    height: 764px;
     width: 100%;
     overflow: hidden;
 }
 
 #startBlockly {
-    height: 32px;
+    height: 24px;
     width: 64px;
     position: absolute;
-    bottom: 16px;
-    right: 8px;
+    bottom: 0px;
+    right: 0px;
     background: url( "assets/images/blockly_ui/start_button.png" );
+    border-bottom-right-radius: 8px;
 }
 
 #startBlockly.disabled {
@@ -152,18 +162,19 @@ a:active {
     background-position: bottom;
     background-repeat: no-repeat;
     display: inline-block;
-    color: rgb( 51, 51, 51 );
+    color: rgba( 0, 0, 0, 0.75 );
     font-family: "Arial Black", Gadget, sans-serif;
     font-variant: small-caps;
     font-weight: bold;
     text-align: center;
-    line-height: 24px;
-    margin-top: 24px;
+    font-size: 18px;
+    line-height: 22px;
+    position: relative;
 }
 
 .blocklyTab.selected {
     background-image: url( "assets/images/blockly_ui/tab_selected.png" );
-    color: rgb( 50, 90, 150 );
+    color: rgba( 224, 255, 100, 0.75 );
 }
 
 #toolbox {
@@ -187,67 +198,55 @@ a:active {
     position: absolute;
     top: 0px;
     left: 0px;
-    background-image: url( "assets/images/blockly_ui/drag_handle_bg.png" );
     background-repeat: repeat-x;
-    background-color: rgb( 50, 90, 150 );
     border-top-left-radius: 8px;
     border-top-right-radius: 8px;
 }
 
-#blocklyHandleIcon {
-    height: 24px;
-    background-image: url( "assets/images/blockly_ui/drag_handle.png" );
-    background-repeat: no-repeat;
-    background-position: center;
-    margin-left: auto;
-    margin-right: auto;
-}
-
 #ramBar {
-    width: 384px;
-    height: 32px;
-    background-color: rgb( 51, 51, 51 );
-    border: 1px solid rgb( 51, 51, 51 );
-    border-radius: 16px;
+    height: 24px;
+    background-color: rgba( 0, 0, 0, 0.5 );
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
     user-select: none;
     -webkit-user-select: none;  /* Chrome all / Safari all */
     -moz-user-select: none;     /* Firefox all */
     -ms-user-select: none;      /* IE 10+ */
     cursor: default;
     position: absolute;
-    bottom: 15px;
-    left: 8px;
+    bottom: 0px;
+    left: 0px;
+    right: 72px;
     display: inline-block;
 }
 
 #currentRam {
-    height: 32px;
-    background-image: url( "assets/images/blockly_ui/ram_bg.png" );
-    border-radius: 16px;
+    height: 24px;
+    background-color: rgba( 225, 0, 0, 0.5 );
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
 }
 
 #ramBarCount {
     width: 100%;
-    height: 32px;
-    color: #fff;
-    font-size: 24px;
-    text-shadow: 0 0 0.2em rgb( 150, 90, 50 );
-    line-height: 32px;
-    position: relative;
-    top: -32px;
+    height: 24px;
+    color: rgba( 255, 255, 255, 0.75 );
+    font-size: 16px;
+    line-height: 24px;
     margin-left: auto;
     margin-right: auto;
     text-align: center;
+    position: relative;
+    top: -24px;
 }
 
 #blocklyCloseBtn {
-    width: 32px;
+    width: 24px;
     height: 24px;
     background-image: url( "assets/images/blockly_ui/close_button.png" );
     position: absolute;
     top: 0px;
-    right: 0px;
-    border-top-right-radius: 8px;
+    right: 4px;
 }
 
 #blocklyCloseBtn.hover {
