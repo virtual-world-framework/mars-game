@@ -12,19 +12,17 @@
 // See the License for the specific language governing permissions and 
 // limitations under the License.
 
-this.add = function( objectID ) {
+this.add = function( object ) {
     var index = this.slots.length;
     if ( !validIndex( index, this.capacity ) ) {
         return;
     }
-    var sceneNode = this.find( "/" )[ 0 ];
-    var object = sceneNode.findByID( sceneNode, objectID );
     if ( object && object.isInventoriable ) {
         if ( object.parent_ === this ) {
             return;
         }
         object.parent_ = this;
-        this.slots[ index ] = objectID;
+        this.slots[ index ] = object;
         object.visible = this.inventoryIsVisible;
         object.pickedUp( object.iconSrc, index, this.id );
     }
@@ -39,11 +37,9 @@ this.swap = function( index1, index2 ) {
     this.slots[ index2 ] = tmp;
 }
 
-this.remove = function( objectID ) {
-    var sceneNode = this.find( "/" )[ 0 ];
-    var object = sceneNode.findByID( sceneNode, objectID );
+this.remove = function( object ) {
     if ( object && object.parent === this ) {
-        var index = this.slots.indexOf( objectID );
+        var index = this.slots.indexOf( object );
         for ( var i = index; i < this.slots.length - 1; i++ ) {
             this.slots[ i ] = this.slots[ i + 1 ];
         }
