@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script type="text/javascript" src="three.js"></script>
+    <script type="text/javascript" src="ColladaLoader.js"></script>
+    <script type="text/javascript" src="heightmap_generator.js"></script>
+    <script id="vertexShader" type="x-shader/x-vertex">
+        varying vec2 vUv;
+        void main() {
+            vUv = uvMap;
+            vec4 mvPosition = modelViewMatrix * vec4( position, 1.0 );
+            gl_Position = projectionMatrix * mvPosition;
+        }
+    </script>
+    <script id="fragmentShader" type="x-shader/x-fragment">
+        varying vec2 vUv;
+        void main( void ) {
+            float depth = gl_FragCoord.z / gl_FragCoord.w;
+            depth = 1.0 - depth;
+            depth = depth * pow( 256.0, 3.0 );
+            float b = floor( depth / ( 256.0 * 256.0 ) ) / 255.0;
+            depth = mod( depth, 256.0 * 256.0 );
+            float g = floor( depth / 256.0 ) / 255.0;
+            depth = mod( depth, 256.0 );
+            float r = depth / 255.0;
+            gl_FragColor = vec4( r, g, b, 1.0 );
+        }
+    </script>
+    <script id="fragmentShaderRGB" type="x-shader/x-fragment">
+        varying vec2 vUv;
+        void main( void ) {
+            float depth = gl_FragCoord.z / gl_FragCoord.w;
+            depth = 1.0 - depth;
+            depth = depth * 3.0;
+            float r = min( depth, 1.0 );
+            depth = depth - 1.0;
+            float g = min( depth, 1.0 );
+            depth = depth - 1.0;
+            float b = min( depth, 1.0 );
+            gl_FragColor = vec4( r, g, b, 1.0 );
+        }
+    </script>
+    <script id="fragmentShaderGray" type="x-shader/x-fragment">
+        varying vec2 vUv;
+        void main( void ) {
+            float depth = gl_FragCoord.z / gl_FragCoord.w;
+            depth = 1.0 - depth;
+            gl_FragColor = vec4( depth, depth, depth, 1.0 );
+        }
+    </script>
+  </head>
+  <body>
+    <canvas id="3Dcanvas"></canvas>
+  </body>
+</html>
