@@ -65,8 +65,6 @@ children:
             - musicLevel2
           - playSound:
             - environmentWind
-          - blinkBlocklyTab:
-            - rover
           - setObjective:
             - "Use a loop to move along the slope of the tracks three more times."
           - setThirdPersonStartPose:
