@@ -90,7 +90,7 @@ children:
               - Level1gStartSounds
           actions:
           - playSound:
-            - L1VO15_Rover
+            - ALVO42_Rover
           - writeToBlackboard:
             - Level1gStartSounds
 

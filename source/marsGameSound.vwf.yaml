@@ -155,7 +155,7 @@ properties:
     - soundName: "L1VO14_Rover"
       soundURL: "assets/sounds/vo/L1VO14_Rover_m.ogg"
       initialVolume: 0.65
-      subtitle: "[ROVER]: Now that I've got this spare battery, I should go back to my starting point and get it charged up! First step is to figure out how to turn around...."
+      subtitle: "[ROVER]: Hmm. I seem to be headed into a dead end.  I’ve done a lot of going forward.  Maybe I should see if I can turn around."
       soundGroup: vo
       groupReplacementMethod: queue
     - soundName: "L1VO15_Rover"
@@ -616,6 +616,12 @@ properties:
       subtitle: "[ROVER]: Up there, in the top right corner.  Click the blinky thing."
       soundGroup: vo
       groupReplacementMethod: queue
+    - soundName: "ALVO42_Rover"
+      soundURL: "assets/sounds/vo/ALVO42_Rover.ogg"
+      initialVolume: 0.65
+      subtitle: "[ROVER]: Now that I've got this spare battery, I need to go back to the ramp to get it charged up - but I don't have enough RAM to do that with forward blocks. I can use a loop block to repeat blocks. Doing this saves me time and RAM. I can specify the number of times it repeats by putting a number block in it."
+      soundGroup: vo
+      groupReplacementMethod: queue
     - soundName: "SCVO1_Rover"
       soundURL: "assets/sounds/vo/SCVO1_Rover_m.ogg"
       initialVolume: 0.65
@@ -655,7 +661,7 @@ properties:
     - soundName: "SCVO8_Control"
       soundURL: "assets/sounds/vo/SCVO8_Control.ogg"
       initialVolume: 1.0
-      subtitle: "[MC]: Now you are on the right track! This graph is going to help you overcome your next challenge: Find the slope of the line, and use that to make a navigation program that will follow that track.  Let's start by just moving over and up once."
+      subtitle: "[MC]: Now you are on the right track! This graph is going to help you overcome your next challenge: Find the slope of the line, and use that to make a navigation program that will follow that track.  Let’s start by moving to that blinking tile just to your left."
       soundGroup: vo
       groupReplacementMethod: replace
     - soundName: "SCVO9_Rover"
