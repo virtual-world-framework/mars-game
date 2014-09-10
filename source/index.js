@@ -40,6 +40,7 @@ var cachedVolume = 1;
 var muted = false;
 var currentScenario;
 var scenarioList;
+var startingZoom;
 
 var renderTransition = true;
 var playingVideo = false;
@@ -482,6 +483,7 @@ function render( renderer, scene, camera ) {
                 renderer.autoClear = true;
                 loggerBox.style.display = "none";
                 mainMenu.setupRenderer( renderer );
+                checkPageZoom();
                 renderTransition = false;
             }
             mainMenu.render( renderer );
@@ -987,5 +989,37 @@ function setVolumeSliderPosition( volume ) {
     readoutPct = Math.round( readoutPct );
     readout.innerHTML = "Volume: " + readoutPct + "%";
 }
+
+function checkPageZoom() {
+    var zoom, alertDiv, alertStr;
+    // SVG detects the zoom level of the page. Blockly uses SVG, so we
+    //  can use it to detect the page zoom for us.
+    if ( Blockly && Blockly.svg ) {
+        zoom = Math.round( Blockly.svg.currentScale * 100 );
+        if ( startingZoom === undefined ) {
+            startingZoom = zoom;
+        }
+        alertDiv = document.getElementById( "zoomAlert" );
+        if ( zoom !== 100 ) {
+            alertStr = "Your browser zoom is at " + zoom + "%. Press Ctrl and";
+            alertStr += ( zoom > 100 ) ? " - " : " + ";
+            alertStr += "on your keyboard at the same time to change the zoom. ";
+            alertStr += "Please set the zoom to 100%"
+            alertStr += ( startingZoom === 100 ) ? "." : " and reload the page.";
+            alertDiv.style.display = "block";
+            alertDiv.style.fontSize = Math.round( 100 / zoom * 100 ) + "%";
+            alertDiv.style.width = Math.round( 100 / zoom * 300 ) + "px";
+        } else if ( startingZoom !== 100 ) {
+            alertStr = "Zoom set to 100%. Please reload the page.";
+            alertDiv.style.display = "block";
+        } else {
+            alertStr = "";
+            alertDiv.style.display = "none";
+        }
+        alertDiv.innerHTML = alertStr;
+    }
+}
+
+window.addEventListener( "resize", checkPageZoom );
 
 //@ sourceURL=source/index.js
