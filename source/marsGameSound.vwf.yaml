@@ -245,7 +245,7 @@ properties:
     - soundName: "L3VO1_Rover_S"
       soundURL: "assets/sounds/vo/L3VO1_Rover_S.ogg"
       initialVolume: 0.65
-      subtitle: "[ROVER]: OK! So now I know I need to go over two and up one to get to the next point on the line."
+      subtitle: "[ROVER]: OK! So now I know I need to go up one and over two to get to the next point on the line."
       soundGroup: vo
       groupReplacementMethod: replace
     - soundName: "L3VO1_Control"
@@ -515,7 +515,7 @@ properties:
     - soundName: "ALVO26_Rover"
       soundURL: "assets/sounds/vo/ALVO26_Rover_m.ogg"
       initialVolume: 0.65
-      subtitle: "[ROVER]: Slope is the number of grid squares 'up' the Y axis the graph crosses, by the number of grid squares along the X axis."
+      subtitle: "[ROVER]: Slope is the number of grid squares up the Y axis divided by the number of grid squares to the right on the X axis."
       soundGroup: vo
       groupReplacementMethod: queue
     - soundName: "ALVO27_Rover"
