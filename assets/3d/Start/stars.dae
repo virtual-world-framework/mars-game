@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="utf-8"?>
+<COLLADA xmlns="http://www.collada.org/2005/11/COLLADASchema" version="1.4.1">
+  <asset>
+    <contributor>
+      <author>mcclurek</author>
+      <authoring_tool>OpenCOLLADA for 3ds Max;  Version: 1.4.1;  Revision: exported;  Platform: x64;  Configuration: Release_Max2012_static</authoring_tool>
+      <source_data>file:///C:/Users/mcclurek/Desktop/MARS/Start/Game%20Start%20Screen.max</source_data>
+    </contributor>
+    <created>2014-09-11T11:47:07</created>
+    <modified>2014-09-11T11:47:07</modified>
+    <unit name="meter" meter="1"/>
+    <up_axis>Z_UP</up_axis>
+  </asset>
+  <library_effects>
+    <effect id="stars">
+      <profile_COMMON>
+        <newparam sid="stars_jpg-surface">
+          <surface type="2D">
+            <init_from>stars_jpg</init_from>
+          </surface>
+        </newparam>
+        <newparam sid="stars_jpg-sampler">
+          <sampler2D>
+            <source>stars_jpg-surface</source>
+          </sampler2D>
+        </newparam>
+        <technique sid="common">
+          <blinn>
+            <emission>
+              <color>0 0 0 1</color>
+            </emission>
+            <ambient>
+              <color>0.5882353 0.5882353 0.5882353 1</color>
+            </ambient>
+            <diffuse>
+              <texture texture="stars_jpg-sampler" texcoord="CHANNEL1"/>
+            </diffuse>
+            <specular>
+              <color>0.9 0.9 0.9 1</color>
+            </specular>
+            <shininess>
+              <float>0</float>
+            </shininess>
+            <reflective>
+              <color>0 0 0 1</color>
+            </reflective>
+            <transparent opaque="A_ONE">
+              <color>1 1 1 1</color>
+            </transparent>
+            <transparency>
+              <float>1</float>
+            </transparency>
+          </blinn>
+        </technique>
+      </profile_COMMON>
+      <extra>
+        <technique profile="OpenCOLLADA3dsMax">
+          <extended_shader>
+            <apply_reflection_dimming>0</apply_reflection_dimming>
+            <dim_level>0</dim_level>
+            <falloff_type>0</falloff_type>
+            <index_of_refraction>1.5</index_of_refraction>
+            <opacity_type>0</opacity_type>
+            <reflection_level>3</reflection_level>
+            <wire_size>1</wire_size>
+            <wire_units>0</wire_units>
+          </extended_shader>
+          <shader>
+            <ambient_diffuse_lock>1</ambient_diffuse_lock>
+            <ambient_diffuse_texture_lock>1</ambient_diffuse_texture_lock>
+            <diffuse_specular_lock>0</diffuse_specular_lock>
+            <soften>0.1</soften>
+            <use_self_illum_color>0</use_self_illum_color>
+          </shader>
+        </technique>
+      </extra>
+    </effect>
+  </library_effects>
+  <library_materials>
+    <material id="stars-material" name="stars">
+      <instance_effect url="#stars"/>
+    </material>
+  </library_materials>
+  <library_geometries>
+    <geometry id="geom-stars" name="stars">
+      <mesh>
+        <source id="geom-stars-positions">
+          <float_array id="geom-stars-positions-array" count="24">-5500 -5500 0 5500 -5500 0 -5500 5500 0 5500 5500 0 -5500 -5500 11000 5500 -5500 11000 -5500 5500 11000 5500 5500 11000</float_array>
+          <technique_common>
+            <accessor source="#geom-stars-positions-array" count="8" stride="3">
+              <param name="X" type="float"/>
+              <param name="Y" type="float"/>
+              <param name="Z" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <source id="geom-stars-normals">
+          <float_array id="geom-stars-normals-array" count="24">0.5773503 0.5773503 0.5773503 -0.5773503 0.5773503 0.5773503 -0.5773503 -0.5773503 0.5773503 0.5773503 -0.5773503 0.5773503 0.5773503 0.5773503 -0.5773503 0.5773503 -0.5773503 -0.5773503 -0.5773503 -0.5773503 -0.5773503 -0.5773503 0.5773503 -0.5773503</float_array>
+          <technique_common>
+            <accessor source="#geom-stars-normals-array" count="8" stride="3">
+              <param name="X" type="float"/>
+              <param name="Y" type="float"/>
+              <param name="Z" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <source id="geom-stars-map1">
+          <float_array id="geom-stars-map1-array" count="72">-0.6391977 -0.639197 -0.3195987 2.639197 -0.6391977 -0.3195987 -0.639197 2.639198 -0.3195987 2.639198 2.639197 -0.3195987 2.639198 -0.639197 1.319599 -0.6391969 -0.6391977 1.319599 2.639197 2.639198 1.319599 -0.6391978 2.639197 1.319599 2.639198 -0.6391973 -0.3195985 2.639198 2.639197 -0.3195985 -0.6391969 2.639197 -0.3195989 -0.6391969 -0.6391973 -0.3195989 2.639198 -0.6391973 1.319598 2.639198 2.639197 1.319598 -0.6391969 2.639197 1.319599 -0.6391969 -0.6391973 1.319599 2.639198 -0.6391973 1.319598 2.639198 2.639197 1.319598 -0.639197 2.639197 1.319599 -0.639197 -0.6391973 1.319599 2.639198 -0.6391973 -0.3195985 2.639198 2.639197 -0.3195985 -0.639197 2.639197 -0.3195989 -0.639197 -0.6391973 -0.3195989</float_array>
+          <technique_common>
+            <accessor source="#geom-stars-map1-array" count="24" stride="3">
+              <param name="S" type="float"/>
+              <param name="T" type="float"/>
+              <param name="P" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <source id="geom-stars-map1-textangents">
+          <float_array id="geom-stars-map1-textangents-array" count="72">0.6666666 -0.3333332 -0.3333334 0.6666668 0.3333335 0.3333332 0.6666666 -0.3333332 0.3333334 0.6666668 0.3333335 -0.3333332 -0.6666666 0.3333332 -0.3333334 -0.6666668 -0.3333335 -0.3333332 -0.6666666 0.3333332 0.3333334 -0.6666668 -0.3333335 0.3333332 -0.6666667 0.3333333 0.3333333 -0.6666667 0.3333333 -0.3333333 -0.6666667 -0.3333333 0.3333333 -0.6666667 -0.3333333 -0.3333333 -0.3333333 -0.6666667 0.3333333 -0.3333333 -0.6666667 -0.3333333 0.3333333 -0.6666667 0.3333333 0.3333333 -0.6666667 -0.3333333 0.6666667 -0.3333333 0.3333333 0.6666667 -0.3333333 -0.3333333 0.6666667 0.3333333 0.3333333 0.6666667 0.3333333 -0.3333333 0.3333333 0.6666667 0.3333333 0.3333333 0.6666667 -0.3333333 -0.3333333 0.6666667 0.3333333 -0.3333333 0.6666667 -0.3333333</float_array>
+          <technique_common>
+            <accessor source="#geom-stars-map1-textangents-array" count="24" stride="3">
+              <param name="X" type="float"/>
+              <param name="Y" type="float"/>
+              <param name="Z" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <source id="geom-stars-map1-texbinormals">
+          <float_array id="geom-stars-map1-texbinormals-array" count="72">1.79983e-7 -0.7071069 0.7071067 1.54271e-7 -0.7071067 0.7071069 1.79983e-7 -0.7071069 -0.7071067 2.05695e-7 -0.7071067 -0.7071069 1.79983e-7 -0.7071069 -0.7071067 2.05695e-7 -0.7071067 0.7071069 1.79983e-7 -0.7071069 0.7071067 1.54271e-7 -0.7071067 -0.7071069 0 0.7071068 -0.7071068 0 -0.7071068 -0.7071068 0 -0.7071068 -0.7071068 0 0.7071068 -0.7071068 -0.7071068 0 -0.7071068 0.7071068 0 -0.7071068 0.7071068 0 -0.7071068 -0.7071068 0 -0.7071068 0 -0.7071068 -0.7071068 0 0.7071068 -0.7071068 0 0.7071068 -0.7071068 0 -0.7071068 -0.7071068 0.7071068 0 -0.7071068 -0.7071068 0 -0.7071068 -0.7071068 0 -0.7071068 0.7071068 0 -0.7071068</float_array>
+          <technique_common>
+            <accessor source="#geom-stars-map1-texbinormals-array" count="24" stride="3">
+              <param name="X" type="float"/>
+              <param name="Y" type="float"/>
+              <param name="Z" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <vertices id="geom-stars-vertices">
+          <input semantic="POSITION" source="#geom-stars-positions"/>
+        </vertices>
+        <triangles material="stars" count="12">
+          <input semantic="VERTEX" source="#geom-stars-vertices" offset="0"/>
+          <input semantic="NORMAL" source="#geom-stars-normals" offset="1"/>
+          <input semantic="TEXCOORD" source="#geom-stars-map1" offset="2" set="0"/>
+          <input semantic="TEXTANGENT" source="#geom-stars-map1-textangents" offset="3" set="1"/>
+          <input semantic="TEXBINORMAL" source="#geom-stars-map1-texbinormals" offset="3" set="1"/>
+          <p>0 0 0 0 1 1 1 1 3 2 3 2 3 2 3 2 2 3 2 3 0 0 0 0 4 4 4 4 6 5 6 5 7 6 7 6 7 6 7 6 5 7 5 7 4 4 4 4 0 0 8 8 4 4 9 9 5 7 10 10 5 7 10 10 1 1 11 11 0 0 8 8 1 1 12 12 5 7 13 13 7 6 14 14 7 6 14 14 3 2 15 15 1 1 12 12 3 2 16 16 7 6 17 17 6 5 18 18 6 5 18 18 2 3 19 19 3 2 16 16 2 3 20 20 6 5 21 21 4 4 22 22 4 4 22 22 0 0 23 23 2 3 20 20</p>
+        </triangles>
+      </mesh>
+    </geometry>
+  </library_geometries>
+  <library_lights>
+    <light id="EnvironmentAmbientLight" name="EnvironmentAmbientLight">
+      <technique_common>
+        <ambient>
+          <color>0 0 0</color>
+        </ambient>
+      </technique_common>
+    </light>
+  </library_lights>
+  <library_images>
+    <image id="stars_jpg">
+      <init_from>./stars.jpg</init_from>
+    </image>
+  </library_images>
+  <library_visual_scenes>
+    <visual_scene id="MaxScene">
+      <node name="EnvironmentAmbientLight">
+        <instance_light url="#EnvironmentAmbientLight"/>
+      </node>
+      <node id="node-stars" name="stars">
+        <scale>0.07893874 0.07893874 0.07893874</scale>
+        <node>
+          <matrix>1 0 0 0 0 1 0 0 0 0 1 -5500 0 0 0 1</matrix>
+          <instance_geometry url="#geom-stars">
+            <bind_material>
+              <technique_common>
+                <instance_material symbol="stars" target="#stars-material">
+                  <bind_vertex_input semantic="CHANNEL1" input_semantic="TEXCOORD" input_set="0"/>
+                </instance_material>
+              </technique_common>
+            </bind_material>
+          </instance_geometry>
+        </node>
+        <extra>
+          <technique profile="OpenCOLLADA">
+            <cast_shadows>0</cast_shadows>
+            <primary_visibility>1</primary_visibility>
+            <receive_shadows>0</receive_shadows>
+            <secondary_visibility>1</secondary_visibility>
+          </technique>
+        </extra>
+      </node>
+    </visual_scene>
+  </library_visual_scenes>
+  <scene>
+    <instance_visual_scene url="#MaxScene"/>
+  </scene>
+</COLLADA>

@@ -104,11 +104,15 @@ children:
             - blocklyLineEval:
               - [ -16, 8 ]
           actions:
-          - scenarioSuccess:
+          - delay:
+            - 9.5
+            - scenarioSuccess:
           - showAlert:
             - "Course plotted! Now to find the little guy."
-          - stopSound:
-            - musicLevel2
+          - stopSoundGroup:
+            - music
+          - stopSoundGroup:
+            - vo
           - playSound:
             - musicSuccess
 
