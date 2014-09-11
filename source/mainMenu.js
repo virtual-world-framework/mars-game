@@ -23,6 +23,11 @@ MainMenu.prototype = {
     camera: undefined,
     overlay: undefined,
     continueScenario: undefined,
+    assetCount: undefined,
+    assetsLoaded: undefined,
+    planet: undefined,
+    planetAxis: undefined,
+    lastTime: undefined,
 
     initialize: function() {
         this.delayMenu = 5;
@@ -39,23 +44,60 @@ MainMenu.prototype = {
         this.camera.rotateY( Math.PI * 1.25 );
         this.scene = new THREE.Scene();
         loader = new THREE.ColladaLoader();
-        loader.load( "assets/3d/Start/mars_start.dae", this.placeModel.bind( this ) );
-        light = new THREE.DirectionalLight( 0xffffff, 1 );
+        this.assetCount = 4;
+        this.assetsLoaded = 0;
+        loader.load( "assets/3d/Start/orange_cloud.dae", this.addClouds.bind( this ) );
+        loader.load( "assets/3d/Start/planet_mars.dae", this.addPlanet.bind( this ) );
+        loader.load( "assets/3d/Start/satellite.dae", this.addSatellite.bind( this ) );
+        loader.load( "assets/3d/Start/stars.dae", this.addStars.bind( this ) );
+        light = new THREE.DirectionalLight( 0xffffff, 1.2 );
         light.position.set( 1, 0.5, 0.5 );
         ambient = new THREE.AmbientLight( 0xFFFFFF );
         this.scene.add( light );
         this.scene.add( ambient );
+        this.lastTime = Date.now();
     },
 
-    placeModel: function( collada ) {
+    addPlanet: function( collada ) {
         var model = collada.scene;
-        model.position.set( 33, 61, 99.5 );
+        model.position.set( 5, -9, 0 );
+        this.planet = model;
+        this.planetAxis = new THREE.Vector3( 0.8, 0, 1.2 );
+        this.planetAxis.normalize();
         this.scene.add( model );
-        $( "#transitionScreen" ).fadeOut();
+        this.assetLoaded();
+    },
+
+    addStars: function( collada ) {
+        var model = collada.scene;
+        this.scene.add( model );
+        this.assetLoaded();
+    },
+
+    addSatellite: function( collada ) {
+        var model = collada.scene;
+        model.children[ 1 ].scale.set( 1, 1, 1 );
+        model.children[ 1 ].position.set( 1.25, -1.75, 0.75 );
+        this.scene.add( model );
+        this.assetLoaded();
+    },
+
+    addClouds: function( collada ) {
+        var model = collada.scene;
+        model.position.set( 5, -5, 0 );
+        this.scene.add( model );
+        this.assetLoaded();
+    },
+
+    assetLoaded: function() {
+        this.assetsLoaded++;
+        if ( this.assetsLoaded >= this.assetCount ) {
+            $( "#transitionScreen" ).fadeOut();
+        }
     },
 
     createOverlay: function() {
-        var playButton, continueButton, settingsButton, backButton, volume;
+        var title, playButton, continueButton, settingsButton, backButton, volume;
         var loginForm, loginTextBox, loginButton, loginHeading;
 
         this.overlay = document.createElement( "div" );
@@ -65,6 +107,10 @@ MainMenu.prototype = {
         this.overlay.mainMenu = document.createElement( "div" );
         this.overlay.mainMenu.id = "MainMenu-Main";
         this.overlay.mainMenu.style.display = "none";
+
+        title = document.createElement( "div" );
+        title.id = "MainMenu-Title";
+        title.innerHTML = "Nomad: Crash Landing"
 
         playButton = document.createElement( "div" );
         playButton.id = "MainMenu-PlayButton";
@@ -182,6 +228,7 @@ MainMenu.prototype = {
         loginForm.onsubmit = this.submitUserID.bind( loginTextBox );
         loginButton.onclick = this.submitUserID.bind( loginTextBox );
 
+        this.overlay.appendChild( title );
         this.overlay.mainMenu.appendChild( playButton );
         this.overlay.mainMenu.appendChild( continueButton );
         this.overlay.mainMenu.appendChild( settingsButton );
@@ -203,9 +250,15 @@ MainMenu.prototype = {
     },
 
     render: function( renderer ) {
-        // var theta = Date.now() / 300 % 360 * Math.PI;
-        // this.camera.position.set( Math.sin( theta / 100 ) / 2, 0, 2 + Math.cos( theta / 60 ) / 5 );
+        var time = Date.now();
+        var theta = time / 300 % 360 * Math.PI / 180;
+        var theta2 = time / 100 % 360 * Math.PI / 180;
+        this.camera.position.set( Math.sin( theta ) * 0.3, 0, 2 + Math.cos( theta2 ) * 0.1 - 1.5 );
+        if ( this.planet ) {
+            this.planet.rotateOnAxis( this.planetAxis, ( time - this.lastTime ) / 100000 );
+        }
         renderer.render( this.scene, this.camera );
+        this.lastTime = time;
     },
 
     playGame: function() {

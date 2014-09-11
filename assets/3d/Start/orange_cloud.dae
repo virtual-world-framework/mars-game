@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8"?>
+<COLLADA xmlns="http://www.collada.org/2005/11/COLLADASchema" version="1.4.1">
+  <asset>
+    <contributor>
+      <author>mcclurek</author>
+      <authoring_tool>OpenCOLLADA for 3ds Max;  Version: 1.4.1;  Revision: exported;  Platform: x64;  Configuration: Release_Max2012_static</authoring_tool>
+      <source_data>file:///C:/Users/mcclurek/Desktop/MARS/Start/Game%20Start%20Screen.max</source_data>
+    </contributor>
+    <created>2014-09-11T11:44:15</created>
+    <modified>2014-09-11T11:44:15</modified>
+    <unit name="meter" meter="1"/>
+    <up_axis>Z_UP</up_axis>
+  </asset>
+  <library_effects>
+    <effect id="gas_orange">
+      <profile_COMMON>
+        <newparam sid="space_gas_orange_png-surface">
+          <surface type="2D">
+            <init_from>space_gas_orange_png</init_from>
+          </surface>
+        </newparam>
+        <newparam sid="space_gas_orange_png-sampler">
+          <sampler2D>
+            <source>space_gas_orange_png-surface</source>
+          </sampler2D>
+        </newparam>
+        <technique sid="common">
+          <blinn>
+            <emission>
+              <color>0 0 0 1</color>
+            </emission>
+            <ambient>
+              <color>0.5882353 0.5882353 0.5882353 1</color>
+            </ambient>
+            <diffuse>
+              <texture texture="space_gas_orange_png-sampler" texcoord="CHANNEL1"/>
+            </diffuse>
+            <specular>
+              <color>0.9 0.9 0.9 1</color>
+            </specular>
+            <shininess>
+              <float>0</float>
+            </shininess>
+            <reflective>
+              <color>0 0 0 1</color>
+            </reflective>
+            <transparent opaque="A_ONE">
+              <texture texture="space_gas_orange_png-sampler" texcoord="CHANNEL1"/>
+            </transparent>
+            <transparency>
+              <float>1</float>
+            </transparency>
+          </blinn>
+        </technique>
+      </profile_COMMON>
+      <extra>
+        <technique profile="OpenCOLLADA3dsMax">
+          <extended_shader>
+            <apply_reflection_dimming>0</apply_reflection_dimming>
+            <dim_level>0</dim_level>
+            <falloff_type>0</falloff_type>
+            <index_of_refraction>1.5</index_of_refraction>
+            <opacity_type>0</opacity_type>
+            <reflection_level>3</reflection_level>
+            <wire_size>1</wire_size>
+            <wire_units>0</wire_units>
+          </extended_shader>
+          <shader>
+            <ambient_diffuse_lock>1</ambient_diffuse_lock>
+            <ambient_diffuse_texture_lock>1</ambient_diffuse_texture_lock>
+            <diffuse_specular_lock>0</diffuse_specular_lock>
+            <soften>0.1</soften>
+            <use_self_illum_color>0</use_self_illum_color>
+          </shader>
+        </technique>
+      </extra>
+    </effect>
+  </library_effects>
+  <library_materials>
+    <material id="gas_orange-material" name="gas_orange">
+      <instance_effect url="#gas_orange"/>
+    </material>
+  </library_materials>
+  <library_geometries>
+    <geometry id="geom-Plane004" name="Plane004">
+      <mesh>
+        <source id="geom-Plane004-positions">
+          <float_array id="geom-Plane004-positions-array" count="63">-488.0061 -256 106.6603 -341.3333 -256 -45.9165 -170.6667 -256 -116.6139 2.40547e-5 -256 -147.8522 170.6667 -256 -151.1405 341.3334 -256 -131.4109 512.0001 -256 -87.03818 -512 256 0 -341.3333 256 -111.8211 -170.6667 256 -182.5185 2.1174e-5 256 -213.7569 170.6667 256 -217.0451 341.3334 256 -197.3156 512.0001 256 -152.9428 -512 0 0 -341.3333 0 -111.8211 -170.6667 0 -182.5185 2.1174e-5 0 -213.7569 170.6667 0 -217.0451 341.3334 0 -197.3156 512.0001 0 -152.9428</float_array>
+          <technique_common>
+            <accessor source="#geom-Plane004-positions-array" count="21" stride="3">
+              <param name="X" type="float"/>
+              <param name="Y" type="float"/>
+              <param name="Z" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <source id="geom-Plane004-normals">
+          <float_array id="geom-Plane004-normals-array" count="63">0.5373017 0.1970178 0.8200554 0.4788673 0.1313083 0.8680117 0.4674231 0 0.8840337 0.5480434 0 0.8364499 0.2787582 0.1199359 0.9528427 0.2829598 4.04985e-8 0.9591318 0.09859902 0.1242752 0.9873368 0.09998164 5.9306e-8 0.9949893 -0.0472768 0.1248539 0.9910481 -0.04789526 1.86834e-8 0.9988524 -0.1813312 0.1229883 0.9757012 -0.1836796 4.00806e-8 0.9829862 -0.2496833 0.1241747 0.9603327 -0.2516308 5.76868e-8 0.9678233 0.6310447 0.2616951 0.7302727 0.5671076 0.2053433 0.797636 0.279258 0.2393923 0.9298959 0.09811493 0.248108 0.963751 -0.0468877 0.2490366 0.9673584 -0.1800353 0.2452371 0.9525996 -0.2441662 0.241765 0.9391127</float_array>
+          <technique_common>
+            <accessor source="#geom-Plane004-normals-array" count="21" stride="3">
+              <param name="X" type="float"/>
+              <param name="Y" type="float"/>
+              <param name="Z" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <source id="geom-Plane004-map1">
+          <float_array id="geom-Plane004-map1-array" count="63">0 0 0 0.1666667 0 0 0.3333333 0 0 0.5 0 0 0.6666667 0 0 0.8333334 0 0 1 0 0 0 1 0 0.1666667 1 0 0.3333333 1 0 0.5 1 0 0.6666667 1 0 0.8333334 1 0 1 1 0 0 0.5 0 0.1666667 0.5 0 0.3333333 0.5 0 0.5 0.5 0 0.6666667 0.5 0 0.8333334 0.5 0 1 0.5 0</float_array>
+          <technique_common>
+            <accessor source="#geom-Plane004-map1-array" count="21" stride="3">
+              <param name="S" type="float"/>
+              <param name="T" type="float"/>
+              <param name="P" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <source id="geom-Plane004-map1-textangents">
+          <float_array id="geom-Plane004-map1-textangents-array" count="63">0.8364499 2.4006e-10 -0.5480434 0.865319 0.002485334 -0.4777577 0.88016 -2.75335e-8 -0.4653749 0.8364499 0 -0.5480434 0.9543879 2.68364e-4 -0.279244 0.9537641 -2.61073e-8 -0.2813762 0.9917963 7.5632e-5 -0.09905388 0.9917363 1.59723e-9 -0.09965476 0.9966108 -3.0388e-5 0.047546 0.9965993 4.18057e-10 0.04778722 0.9807793 -1.19037e-4 0.18229 0.9806038 2.9773e-8 0.1832344 0.9678233 2.75485e-8 0.2516308 0.9678233 4.32651e-8 0.2516308 0.7525951 -0.005034666 -0.6485298 0.798653 -0.01747714 -0.5633313 0.9528692 -0.009309349 -0.2837606 0.9917454 -0.006786159 -0.09921789 0.9965202 -0.005272118 0.04965842 0.9800327 -0.005025092 0.1865137 0.9678233 8.60718e-8 0.2516308</float_array>
+          <technique_common>
+            <accessor source="#geom-Plane004-map1-textangents-array" count="21" stride="3">
+              <param name="X" type="float"/>
+              <param name="Y" type="float"/>
+              <param name="Z" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <source id="geom-Plane004-map1-texbinormals">
+          <float_array id="geom-Plane004-map1-texbinormals-array" count="63">0.1079743 -0.9803999 0.1647955 0.06564905 -0.9913384 0.1137471 -2.44476e-8 -1 1.29264e-8 0 -1 0 0.03393711 -0.9927816 0.1150346 -1.37218e-8 -1 4.62723e-8 0.01242524 -0.9922478 0.1236525 7.52395e-9 -1 5.88486e-8 -0.005979908 -0.9921751 0.1247106 -4.76323e-10 -1 1.8682e-8 -0.02259045 -0.9924081 0.1208959 2.19756e-8 -1 4.48806e-8 -0.03124616 -0.9922604 0.1201792 2.73572e-8 -1 6.67174e-8 0.167129 -0.9651373 0.2014396 0.1040783 -0.9785267 0.1779136 0.05961515 -0.9708778 0.2320396 0.01813608 -0.9687085 0.2475379 -0.01750582 -0.9684797 0.2484767 -0.05064672 -0.96945 0.2400032 -0.06083545 -0.9703348 0.2339858</float_array>
+          <technique_common>
+            <accessor source="#geom-Plane004-map1-texbinormals-array" count="21" stride="3">
+              <param name="X" type="float"/>
+              <param name="Y" type="float"/>
+              <param name="Z" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <vertices id="geom-Plane004-vertices">
+          <input semantic="POSITION" source="#geom-Plane004-positions"/>
+        </vertices>
+        <triangles material="gas_orange" count="24">
+          <input semantic="VERTEX" source="#geom-Plane004-vertices" offset="0"/>
+          <input semantic="NORMAL" source="#geom-Plane004-normals" offset="1"/>
+          <input semantic="TEXCOORD" source="#geom-Plane004-map1" offset="2" set="0"/>
+          <input semantic="TEXTANGENT" source="#geom-Plane004-map1-textangents" offset="3" set="1"/>
+          <input semantic="TEXBINORMAL" source="#geom-Plane004-map1-texbinormals" offset="3" set="1"/>
+          <p>14 0 14 0 15 1 15 1 8 2 8 2 8 2 8 2 7 3 7 3 14 0 14 0 15 1 15 1 16 4 16 4 9 5 9 5 9 5 9 5 8 2 8 2 15 1 15 1 16 4 16 4 17 6 17 6 10 7 10 7 10 7 10 7 9 5 9 5 16 4 16 4 17 6 17 6 18 8 18 8 11 9 11 9 11 9 11 9 10 7 10 7 17 6 17 6 18 8 18 8 19 10 19 10 12 11 12 11 12 11 12 11 11 9 11 9 18 8 18 8 19 10 19 10 20 12 20 12 13 13 13 13 13 13 13 13 12 11 12 11 19 10 19 10 0 14 0 14 1 15 1 15 15 1 15 1 15 1 15 1 14 0 14 0 0 14 0 14 1 15 1 15 2 16 2 16 16 4 16 4 16 4 16 4 15 1 15 1 1 15 1 15 2 16 2 16 3 17 3 17 17 6 17 6 17 6 17 6 16 4 16 4 2 16 2 16 3 17 3 17 4 18 4 18 18 8 18 8 18 8 18 8 17 6 17 6 3 17 3 17 4 18 4 18 5 19 5 19 19 10 19 10 19 10 19 10 18 8 18 8 4 18 4 18 5 19 5 19 6 20 6 20 20 12 20 12 20 12 20 12 19 10 19 10 5 19 5 19</p>
+        </triangles>
+      </mesh>
+    </geometry>
+  </library_geometries>
+  <library_lights>
+    <light id="EnvironmentAmbientLight" name="EnvironmentAmbientLight">
+      <technique_common>
+        <ambient>
+          <color>0 0 0</color>
+        </ambient>
+      </technique_common>
+    </light>
+  </library_lights>
+  <library_images>
+    <image id="space_gas_orange_png">
+      <init_from>./space_gas_orange.png</init_from>
+    </image>
+  </library_images>
+  <library_visual_scenes>
+    <visual_scene id="MaxScene">
+      <node name="EnvironmentAmbientLight">
+        <instance_light url="#EnvironmentAmbientLight"/>
+      </node>
+      <node id="node-Plane004" name="Plane004">
+        <rotate>3.09086e-8 0.7071068 0.7071068 -180</rotate>
+        <scale>0.1560657 0.1560657 0.1560657</scale>
+        <instance_geometry url="#geom-Plane004">
+          <bind_material>
+            <technique_common>
+              <instance_material symbol="gas_orange" target="#gas_orange-material">
+                <bind_vertex_input semantic="CHANNEL1" input_semantic="TEXCOORD" input_set="0"/>
+                <bind_vertex_input semantic="CHANNEL1" input_semantic="TEXCOORD" input_set="0"/>
+              </instance_material>
+            </technique_common>
+          </bind_material>
+        </instance_geometry>
+        <extra>
+          <technique profile="OpenCOLLADA">
+            <cast_shadows>0</cast_shadows>
+            <primary_visibility>1</primary_visibility>
+            <receive_shadows>0</receive_shadows>
+            <secondary_visibility>1</secondary_visibility>
+            <user_properties>LastPose = undefined
+</user_properties>
+          </technique>
+        </extra>
+      </node>
+    </visual_scene>
+  </library_visual_scenes>
+  <scene>
+    <instance_visual_scene url="#MaxScene"/>
+  </scene>
+</COLLADA>
