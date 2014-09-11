@@ -29,8 +29,8 @@ body {
     margin-left: auto;
     margin-right: auto;
     text-align: center;
-    background-color: rgba( 255, 255, 255, 0.8 );
-    color: rgb( 0, 0, 0 );
+    background-color: rgba( 0, 0, 0, 0.8 );
+    color: rgb( 224, 255, 100 );
 }
 
 a {
@@ -85,7 +85,7 @@ a:active {
     right: 39px;
     font-size: 10px;
     font-family: sans-serif;
-    color: white;
+    color: rgb( 255, 255, 255 );
     visibility: hidden;
 }
 
@@ -210,6 +210,7 @@ a:active {
     background-repeat: repeat-x;
     border-top-left-radius: 8px;
     border-top-right-radius: 8px;
+    cursor: move;
 }
 
 #ramBar {
@@ -262,33 +263,8 @@ a:active {
     background-image: url( "assets/images/blockly_ui/close_button_hover.png" );
 }
 
-#popupDiv {
-    width: 512px;
-    height: 256px;
-    margin-left: -256px;
-    margin-top: -128px;
-    top: 50%;
-    left: 50%;
-    position: absolute;
-    text-align: center;
-    background-color: #333444;
-    color: #fff;
-    z-index: 50;
-}
-
-#popupBlocker {
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
-    position: absolute;
-    opacity: 0.5;
-    background-color: #000;
-    z-index: 49;
-}
-
 .subtitleText {
-    color: #fff;
+    color: rgb( 255, 255, 255 );
     font-family: Gadget, sans-serif;
     font-size: 14px;
     width: 100%;
@@ -311,30 +287,13 @@ a:active {
 #loggerBox {
     width: 26%;
     height: 140px;
-    background-color: rgba( 0, 30, 60, 0.5 );
+    background-color: rgba( 0, 0, 0, 0.5 );
     position: absolute;
     bottom: 10px;
     left: 110px;
     overflow-y: scroll;
     padding: 5px;
     z-index: 0;
-}
-
-#introScreen {
-    height: 100%;
-    width: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
-    background-color: #000;
-}
-
-.introImage {
-    min-height: 100%;
-    width: auto;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
 }
 
 #failScreen {
@@ -347,7 +306,7 @@ a:active {
 }
 
 .tooltip {
-    background-color: white;
+    background-color: rgb( 255, 255, 255 );
     font-family: Gadget, sans-serif;
     text-align: center;
     border-radius: 5px;
@@ -389,7 +348,7 @@ a:active {
     right: 0px;
     bottom: 0px;
     pointer-events: all;
-    background-color: rgba( 0, 30, 60, 0.75 );
+    background-color: rgba( 0, 0, 0, 0.5 );
     z-index: 101;
 }
 
@@ -400,9 +359,9 @@ a:active {
     margin-bottom: 10%;
     margin-left: auto;
     margin-right: auto;
-    background-color: rgb( 24, 24, 32 );
-    border: 2px solid rgb( 255, 255, 255 );
-    border-radius: 4px;
+    background-color: rgba( 0, 0, 0, 0.5 );
+    border: 1px solid rgb( 224, 255, 100 );
+    border-radius: 8px;
 }
 
 .pauseMenuButton {
@@ -413,8 +372,8 @@ a:active {
     text-transform: uppercase;
     font-family: Gadget, sans-serif;
     font-weight: bold;
-    color: rgb( 200, 200, 200 );
-    text-shadow: 0px 0px 4px rgb( 255, 255, 255 );
+    color: rgb( 224, 255, 100 );
+    text-shadow: 0px 0px 4px rgb( 224, 255, 100 );
     user-select: none;
     -webkit-user-select: none;  /* Chrome all / Safari all */
     -moz-user-select: none;     /* Firefox all */
@@ -432,7 +391,7 @@ a:active {
 
 .pauseMenuButton.select {
     color: rgb( 255, 255, 255 );
-    background-color: rgba( 70, 110, 170, 0.25 );
+    background-color: rgba( 24, 32, 0, 0.25 );
 }
 
 #scenarioSelector {
@@ -465,11 +424,11 @@ a:active {
     font-size: 24px;
     text-align: center;
     font-family: Gadget, sans-serif;
-    text-shadow: 0px 0px 4px rgb( 255, 255, 255 );
+    text-shadow: 0px 0px 4px rgb( 224, 255, 100 );
 }
 
 .inlineButton {
-    color: rgb( 200, 200, 200 );
+    color: rgb( 224, 255, 100 );
     display: table-cell;
     vertical-align: middle;
     border-radius: 4px;
@@ -480,7 +439,7 @@ a:active {
 }
 .inlineButton.select {
     color: rgb( 255, 255, 255 );
-    background-color: rgba( 70, 110, 170, 0.25 );
+    background-color: rgba( 24, 32, 0, 0.25 );
 }
 
 .slider {
@@ -510,7 +469,7 @@ a:active {
 }
 
 .sliderToggle.select {
-    background-color: rgba( 70, 110, 170, 0.25 );
+    background-color: rgba( 24, 32, 0, 0.25 );
 }
 
 .sliderTrack {
@@ -529,7 +488,7 @@ a:active {
     font-size: 16px;
     font-family: Gadget, sans-serif;
     font-weight: bold;
-    color: rgb( 200, 200, 200 );
+    color: rgb( 255, 255, 255 );
     pointer-events: none;
 }
 
@@ -564,38 +523,54 @@ a:active {
 
 #MainMenu-Main {
     position: absolute;
-    top: 20%;
+    top: 25%;
     left: 10%;
 }
 
 #MainMenu-Settings {
     position: absolute;
-    top: 20%;
+    top: 25%;
     left: 10%;
 }
 
-.MainMenu-Button {
-    width: 512px;
+#MainMenu-Title {
+    position: absolute;
+    top: 10%;
+    left: 5%;
     height: 128px;
     text-transform: uppercase;
     font-family: Gadget, sans-serif;
     font-size: 64px;
     font-weight: bold;
     line-height: 128px;
-    color: rgb( 50, 90, 150 );
-    text-shadow: 0px 0px 4px rgb( 50, 90, 150 );
+    color: rgb( 255, 255, 255 );
+    text-shadow: 0px 0px 8px rgb( 224, 255, 100 );
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.MainMenu-Button {
+    width: 512px;
+    height: 112px;
+    text-transform: uppercase;
+    font-family: Gadget, sans-serif;
+    font-size: 56px;
+    font-weight: bold;
+    line-height: 112px;
+    color: rgb( 224, 255, 100 );
+    text-shadow: 0px 0px 2px rgb( 224, 255, 100 );
     margin-left: auto;
     margin-right: auto;
 }
 
 .MainMenu-Button.hover {
-    color: rgb( 50, 90, 150 );
-    text-shadow: 0px 0px 8px rgb( 50, 90, 150 );
+    color: rgb( 255, 255, 255 );
+    text-shadow: 0px 0px 8px rgb( 224, 255, 100 );
 }
 
 .MainMenu-Button.select {
     color: rgb( 255, 255, 255 );
-    text-shadow: 0px 0px 8px rgb( 50, 90, 150 );
+    text-shadow: 0px 0px 8px rgb( 255, 255, 255 );
 }
 
 #MainMenu-Volume {
@@ -607,7 +582,7 @@ a:active {
     cursor: default;
     border-radius: 4px;
     display: table;
-    background-color: rgb( 50, 90, 150 );
+    background-color: rgb( 64, 64, 64 );
     padding: 4px;
 }
 
