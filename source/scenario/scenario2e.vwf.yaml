@@ -65,10 +65,8 @@ children:
             - musicLevel2
           - playSound:
             - environmentWind
-          - blinkBlocklyTab:
-            - rover
           - setObjective:
-            - "Build a program to move along the slope: over two spaces and up one."
+            - "Build a program to move to the blinking tile."
           - setThirdPersonStartPose:
             - [ 16.316, 65, -15 ]
 
