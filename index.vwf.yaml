@@ -17,6 +17,7 @@ extends: http://vwf.example.com/scene.vwf
 implements:
 - "http://vwf.example.com/blockly/manager.vwf"
 properties:
+  enableShadows: true
   ambientColor: [ 150, 140, 140 ]
   userObject: null
   blockly_autoClose: false
@@ -48,6 +49,8 @@ methods:
   restartGame:
   attemptLogin:
   setAnimationRate:
+  checkActive:
+  isInactive:
 events:
   gameStarted:
   scenarioReset:
@@ -66,7 +69,6 @@ events:
   hideCommsImage:
   blockExecuted:
   blocklyStarted:
-  toggledCamera:
   toggledHelicam:
   toggledGraph:
   toggledTiles:
@@ -81,6 +83,7 @@ events:
   setHUDElementProperty:
   mouseOverHUD:
   progressFound:
+  isInactive:
 children:
   soundManager:
     includes: source/marsGameSound.vwf
