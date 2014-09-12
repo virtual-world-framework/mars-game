@@ -588,6 +588,7 @@ a:active {
     display: table;
     background-color: rgb( 64, 64, 64 );
     padding: 4px;
+    padding-right: 12px;
 }
 
 #MainMenu-MuteButton {

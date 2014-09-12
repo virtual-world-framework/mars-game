@@ -283,7 +283,7 @@ function createAlertText() {
     alert.fontStyle = alert.fontSize + "px Arial Black";
     alert.defaultDraw = drawLogger;
     alert.setDefaults = setAlertDefaults;
-    alert.lastUpdateTime = vwf_view.kernel.time();
+    alert.lastUpdateTime = Date.now() / 1000;
     alert.addedOffset;
     alert.updateIntervalTime = 0.01;
     alert.persistTimer = 3;
@@ -493,33 +493,32 @@ function drawLogger( context, position ) {
     context.globalAlpha = 1;
 
     // Slowly fade out the messages when nothing is being pushed, after persistTimer seconds
-    var time = vwf_view.kernel.time();
-    if ( time - this.lastUpdateTime > this.updateIntervalTime ) {
-        this.lastUpdateTime = time;
+    var time = Date.now() / 1000;
+    var delta = time - this.lastUpdateTime;
+    this.lastUpdateTime = time;
 
-        if ( !this.persistTimer || this.persistTimer <= 0 ) {
-            // Loop backwards to mitigate element removal
-            for ( var i = this.messages.length - 1; i >= 0 ; i-- ) {
-                var message = this.messages[ i ];
-                if ( message ) {
-                    message.alpha -= 0.01;
-                    if ( message.alpha <= 0 ) {
-                        removeArrayElement( this.messages, i );
-                        if ( this.messages.length <= 0 && this.lastMessage ) {
-                            this.lastMessage = "";
-                        }
+    if ( this.persistTimer === undefined || this.persistTimer <= 0 ) {
+        // Loop backwards to mitigate element removal
+        for ( var i = this.messages.length - 1; i >= 0 ; i-- ) {
+            var message = this.messages[ i ];
+            if ( message ) {
+                message.alpha -= delta;
+                if ( message.alpha <= 0 ) {
+                    removeArrayElement( this.messages, i );
+                    if ( this.messages.length <= 0 && this.lastMessage ) {
+                        this.lastMessage = "";
                     }
                 }
             }
-        } else {
-            this.persistTimer -= this.updateIntervalTime;
         }
+    } else {
+        this.persistTimer -= delta;
     }
 }
 
 function drawLoggerAnimating( context, position ) {
     var interval = 3;
-    var time = vwf_view.kernel.time();
+    var time = Date.now() / 1000;
     var i;
     if ( time - this.lastUpdateTime > this.updateIntervalTime ) {
         this.lastUpdateTime = time;
