@@ -22,14 +22,7 @@ this.initialize = function() {
     
     if ( this.enabled === true ) {
         this.future( 0 ).onSceneLoaded();
-        this.future( 0 ).registerGameStartedListener();
-        this.future( 0 ).registerScenarioStartedListener();
-        this.future( 0 ).registerScenarioSucceededListener();
-        this.future( 0 ).registerScenarioFailedListener();
-        this.future( 0 ).registerScenarioResetListener();
-        this.future( 0 ).registerVOListener();
-        this.future( 0 ).registerCameraListener();
-        this.future( 0 ).registerBlocklyListener();
+        this.future( 0 ).registerEventListeners();
     }
 }
 
@@ -38,49 +31,36 @@ this.onSceneLoaded = function() {
     camera = this.find( "", "//camera" )[ 0 ];
 }
 
-this.registerGameStartedListener = function() {
+this.registerEventListeners = function() {
+
     scene.gameStarted = ( function( ) {
         this.broadcastEvent( 'gameStarted', '' );
     } ).bind( this );
-}
 
-this.registerScenarioStartedListener = function() {
     scene.scenarioStarted = ( function( ) {
         this.broadcastEvent( 'scenarioStarted', scene.activeScenarioPath );
     } ).bind( this );
-}
 
-this.registerScenarioSucceededListener = function() {
     scene.scenarioSucceeded = ( function( ) {
         this.broadcastEvent( 'scenarioSucceeded', scene.activeScenarioPath );
     } ).bind( this );
-}
 
-this.registerScenarioFailedListener = function() {
     scene.scenarioFailed = ( function( ) {
         this.broadcastEvent( 'scenarioFailed', scene.activeScenarioPath );
     } ).bind( this );
-}
 
-this.registerScenarioResetListener = function() {
     scene.scenarioReset = ( function( scenarioName ) {
         this.broadcastEvent( 'scenarioReset', scenarioName );
     } ).bind( this );
-}
 
-this.registerVOListener = function() {
     scene.playedVO = ( function( soundName ) {
         this.broadcastEvent( 'playedVO', soundName );
     } ).bind( this );
-}
 
-this.registerCameraListener = function() {
     camera.changedPOV = ( function( pov ) {
         this.broadcastEvent( 'toggledCamera', pov );
     } ).bind( this );
-}
 
-this.registerBlocklyListener = function() {
     scene.blocklyStarted = ( function() {
         this.broadcastBlockly( scene.activeBlocklyXML, scene.activeScenarioPath );
     } ).bind( this );
