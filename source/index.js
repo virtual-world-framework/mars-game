@@ -432,11 +432,6 @@ vwf_view.satProperty = function( nodeID, propertyName, propertyValue ) {
             Blockly.SOUNDS_ = {};
             selectBlocklyTab( propertyValue );
         }
-        else if ( propertyName === "isIdle" ) {
-            app = vwf_view.kernel.application();
-            var im = app.find( "", "//instrumentationManager" )[ 0 ];
-            im.createRequest("logInactivity");
-        }
     }
 
     var loggerNode = loggerNodes[ nodeID ];
@@ -1057,12 +1052,19 @@ function checkPageZoom() {
 }
 
 function checkActive() {
-console.log('move');
     clearTimeout(activityTimeout);
+    vwf_view.kernel.setProperty( vwf_view.kernel.application(), "isIdle", false );
     activityTimeout = setTimeout(function(){                                 
-                                        vwf_view.kernel.setProperty(vwf_view.kernel.application(),
-                                         "isIdle", 'true' );
+                                        vwf_view.kernel.setProperty( vwf_view.kernel.application(), "isIdle", true );
                                          }, 5000);
+}
+
+function isInactive ( value ) {
+    if ( value === true ) {
+        var im = this.find( "", "//instrumentationManager" )[ 0 ];
+        im.createRequest("logInactivity");
+    }
+    
 }
 
 window.addEventListener( "resize", checkPageZoom );

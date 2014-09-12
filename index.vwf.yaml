@@ -26,6 +26,11 @@ properties:
       this.setScenario( value );
       this.activeScenarioPath = value;
     value: "mainMenuScenario"
+  isIdle:
+    set: |
+      this.isInactive( value );
+      this.isIdle = value;
+    value: false
   playerId: "test"
   version: 1.0
   sceneBlackboard: {}
@@ -50,6 +55,7 @@ methods:
   attemptLogin:
   setAnimationRate:
   checkActive:
+  isInactive:
 events:
   gameStarted:
   scenarioReset:
