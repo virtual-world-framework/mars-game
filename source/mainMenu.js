@@ -110,7 +110,10 @@ MainMenu.prototype = {
 
         title = document.createElement( "div" );
         title.id = "MainMenu-Title";
-        title.innerHTML = "Nomad: Crash Landing"
+        title.main = document.createElement( "h1" );
+        title.main.innerHTML = "Nomad";
+        title.sub = document.createElement( "h2" );
+        title.sub.innerHTML = "Crash Landing";
 
         playButton = document.createElement( "div" );
         playButton.id = "MainMenu-PlayButton";
@@ -228,6 +231,8 @@ MainMenu.prototype = {
         loginForm.onsubmit = this.submitUserID.bind( loginTextBox );
         loginButton.onclick = this.submitUserID.bind( loginTextBox );
 
+        title.appendChild( title.main );
+        title.appendChild( title.sub );
         this.overlay.appendChild( title );
         this.overlay.mainMenu.appendChild( playButton );
         this.overlay.mainMenu.appendChild( continueButton );
