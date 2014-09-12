@@ -28,7 +28,7 @@ this.initialize = function() {
 
 this.onSceneLoaded = function() {
     scene = this.find( "/" )[ 0 ];
-    camera = this.find( "", "//camera" )[ 0 ];
+    camera = scene.player.targetFollower.camera;
 }
 
 this.registerEventListeners = function() {
