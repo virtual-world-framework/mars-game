@@ -50,7 +50,6 @@ methods:
   attemptLogin:
   setAnimationRate:
   checkActive:
-  isInactive:
 events:
   gameStarted:
   scenarioReset:
@@ -83,7 +82,6 @@ events:
   setHUDElementProperty:
   mouseOverHUD:
   progressFound:
-  isInactive:
 children:
   soundManager:
     includes: source/marsGameSound.vwf

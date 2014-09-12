@@ -30,7 +30,6 @@ methods:
   registerVOListener:
   registerCameraListener:
   registerBlocklyListener:
-  registerHeartbeatListener:
   broadcastEvent:
   broadcastBlockly:
   createRequest:
