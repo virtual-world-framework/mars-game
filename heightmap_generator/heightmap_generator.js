@@ -1,19 +1,19 @@
 var camera, canvasForRender, renderer, scene, loader, light, material, env;
 var near = 0.0;
-var far = 10.0;
+var far = 25.0;
 
 window.onload = function() {
 
     // Set up camera for the scene
-    var offsetX = -135;
-    var offsetY = 106;
-    var halfSize = 163;
+    var offsetX = -125;
+    var offsetY = 105;
+    var halfSize = 150;
     camera = new THREE.OrthographicCamera(
         offsetX - halfSize, offsetX + halfSize,
         offsetY + halfSize, offsetY - halfSize,
         near, far
     );
-    camera.position.set( 0, 0, 7.5 );
+    camera.position.set( 0, 0, 20 );
     // camera.rotateX( -Math.PI );
     camera.lookAt(new THREE.Vector3(0,0,0));
 
@@ -31,9 +31,9 @@ window.onload = function() {
 
     // Load the 3D model
     loader = new THREE.ColladaLoader();
-    loader.load( "collision_terrain.dae", function( object ) {
+    loader.load( "scene_height.dae", function( object ) {
         env = object.scene;
-        setHeightMapType( "gray" );
+        setHeightMapType( "exp" );
         // env.rotateX( Math.PI );
         scene.add( env );
     } );
