@@ -22,14 +22,7 @@ properties:
   enabled: true
 methods:
   onSceneLoaded:
-  registerGameStartedListener:
-  registerScenarioStartedListener:
-  registerScenarioSucceededListener:
-  registerScenarioFailedListener:
-  registerScenarioResetListener:
-  registerVOListener:
-  registerCameraListener:
-  registerBlocklyListener:
+  registerEventListeners:
   broadcastEvent:
   broadcastBlockly:
   createRequest:
