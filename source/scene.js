@@ -231,4 +231,20 @@ this.loadGame = function( scenarioName ) {
     this.future( 0 ).loadedGame();
 }
 
+function checkActive() {
+    clearTimeout(activityTimeout);
+    vwf_view.kernel.setProperty( vwf_view.kernel.application(), "isIdle", false );
+    activityTimeout = setTimeout(function(){                                 
+                                        vwf_view.kernel.setProperty( vwf_view.kernel.application(), "isIdle", true );
+                                         }, 5000);
+}
+
+function isInactive ( value ) {
+    if ( value === true ) {
+        this.instrumentationManager.createRequest("logInactivity");
+    }
+}
+
+window.addEventListener( "mousemove", checkActive );
+
 //@ sourceURL=source/scene.js
