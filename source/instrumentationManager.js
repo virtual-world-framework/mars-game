@@ -13,12 +13,15 @@
 // limitations under the License.
 
 var self;
+var scene;
+var camera;
 
 this.initialize = function() {
     
     self = this;
     
     if ( this.enabled === true ) {
+        this.future( 0 ).onSceneLoaded();
         this.future( 0 ).registerGameStartedListener();
         this.future( 0 ).registerScenarioStartedListener();
         this.future( 0 ).registerScenarioSucceededListener();
@@ -27,62 +30,67 @@ this.initialize = function() {
         this.future( 0 ).registerVOListener();
         this.future( 0 ).registerCameraListener();
         this.future( 0 ).registerBlocklyListener();
+        this.future( 0 ).registerHeartbeatListener();
     }
 }
 
+this.onSceneLoaded = function() {
+    scene = this.find( "/" )[ 0 ];
+    camera = this.find( "", "//camera" )[ 0 ];
+}
+
 this.registerGameStartedListener = function() {
-    var scene = this.find( "/" )[ 0 ];
     scene.gameStarted = ( function( ) {
         this.broadcastEvent( 'gameStarted', '' );
     } ).bind( this );
 }
 
 this.registerScenarioStartedListener = function() {
-    var scene = this.find( "/" )[ 0 ];
     scene.scenarioStarted = ( function( ) {
         this.broadcastEvent( 'scenarioStarted', scene.activeScenarioPath );
     } ).bind( this );
 }
 
 this.registerScenarioSucceededListener = function() {
-    var scene = this.find( "/" )[ 0 ];
     scene.scenarioSucceeded = ( function( ) {
         this.broadcastEvent( 'scenarioSucceeded', scene.activeScenarioPath );
     } ).bind( this );
 }
 
 this.registerScenarioFailedListener = function() {
-    var scene = this.find( "/" )[ 0 ];
     scene.scenarioFailed = ( function( ) {
         this.broadcastEvent( 'scenarioFailed', scene.activeScenarioPath );
     } ).bind( this );
 }
 
 this.registerScenarioResetListener = function() {
-    var scene = this.find( "/" )[ 0 ];
     scene.scenarioReset = ( function( scenarioName ) {
         this.broadcastEvent( 'scenarioReset', scenarioName );
     } ).bind( this );
 }
 
 this.registerVOListener = function() {
-    var scene = this.find( "/" )[ 0 ];
     scene.playedVO = ( function( soundName ) {
         this.broadcastEvent( 'playedVO', soundName );
     } ).bind( this );
 }
 
 this.registerCameraListener = function() {
-    var scene = this.find( "/" )[ 0 ];
-    scene.toggledCamera = ( function( pov ) {
+    camera.changedPOV = ( function( pov ) {
         this.broadcastEvent( 'toggledCamera', pov );
     } ).bind( this );
 }
 
 this.registerBlocklyListener = function() {
-    var scene = this.find( "/" )[ 0 ];
     scene.blocklyStarted = ( function() {
         this.broadcastBlockly( scene.activeBlocklyXML, scene.activeScenarioPath );
+    } ).bind( this );
+}
+
+this.registerHeartbeatListener = function() {
+    scene.isInactive = ( function() {
+        console.log ('instrumentation');
+        this.createRequest( 'logInactivity' );
     } ).bind( this );
 }
 
@@ -97,9 +105,7 @@ this.broadcastBlockly = function( xml, scenario ) {
 }
 
 this.createRequest = function( type, params ) {
-    
-    var scene = this.find( "/" )[ 0 ];
-    
+
     var playerId = scene.playerId;
     var version = scene.version;
     
@@ -136,11 +142,21 @@ this.createRequest = function( type, params ) {
                 xml + "$&scenario="+scenario+"$&version="+version);
         
     }
+    if ( type === 'logInactivity' ) {
+        if ( params || ( params.length !== 0 ) ) {
+            self.logger.warnx( "createRequest", "The logInactivity request takes no parameters" );
+        }
+        
+        xhr.open( "POST", this.logInactivityUrl, true );
+        xhr.setRequestHeader( "Content-type", "application/x-www-form-urlencoded" );
+        xhr.send("vwf_session=" + vwfSession + "&player_id=" + playerId + "&action=" + 
+                "inactive" +"$&version="+version);
+        
+    }
 }
 
 this.getRequest = function( type, params ) {
-    var scene = this.find( "/" )[ 0 ];
-    
+
     var playerId = scene.playerId;
     var version = scene.version;
     
