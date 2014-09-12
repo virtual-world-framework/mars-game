@@ -1,6 +1,6 @@
 var camera, canvasForRender, renderer, scene, loader, light, material, env;
 var near = 0.0;
-var far = 25.0;
+var far = 17.5;
 
 window.onload = function() {
 
@@ -13,7 +13,7 @@ window.onload = function() {
         offsetY + halfSize, offsetY - halfSize,
         near, far
     );
-    camera.position.set( 0, 0, 20 );
+    camera.position.set( 0, 0, 15 );
     // camera.rotateX( -Math.PI );
     camera.lookAt(new THREE.Vector3(0,0,0));
 

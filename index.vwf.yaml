@@ -101,8 +101,8 @@ children:
             maxWorldX: 25
             minWorldY: -45
             maxWorldY: 255
-            minWorldZ: -5
-            maxWorldZ: 20
+            minWorldZ: -2.5
+            maxWorldZ: 15
       crashPod:
         extends: http://vwf.example.com/node3.vwf
         source: assets/3d/crash_pod/crash_pod.dae
