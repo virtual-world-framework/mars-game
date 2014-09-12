@@ -50,6 +50,8 @@ methods:
   attemptLogin:
   loadGame:
   setAnimationRate:
+  checkActive:
+  isInactive:
 events:
   gameStarted:
   scenarioReset:
@@ -68,7 +70,6 @@ events:
   hideCommsImage:
   blockExecuted:
   blocklyStarted:
-  toggledCamera:
   toggledHelicam:
   toggledGraph:
   toggledTiles:
@@ -85,6 +86,7 @@ events:
   progressFound:
   loadedGame:
   storedScenario:
+  isInactive:
 children:
   soundManager:
     includes: source/marsGameSound.vwf
