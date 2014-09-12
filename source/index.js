@@ -41,6 +41,7 @@ var muted = false;
 var currentScenario;
 var scenarioList;
 var startingZoom;
+var activityTimeout;
 
 var renderTransition = true;
 var playingVideo = false;
@@ -213,10 +214,6 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 clearBlocklyTabs();
                 break;
                 
-            case "toggledCamera":
-                toggledCamera( eventArgs[ 0 ] );
-                break;
-                
             case "toggledTiles":
                 tilesAreVisible = eventArgs[ 0 ];
                 break;
@@ -258,6 +255,9 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                     scenario = eventArgs[ 1 ];
                 }
                 mainMenu.loggedIn( scenario );
+                break;
+            case "isInactive":
+                isInactive();
                 break;
 
         } 
@@ -970,9 +970,6 @@ function clearBlocklyTabs() {
 function playedVO ( name ) {
 }
 
-function toggledCamera ( pov ) {
-}
-
 function blocklyStarted () {
 }
 
@@ -1055,6 +1052,19 @@ function checkPageZoom() {
     }
 }
 
+function checkActive() {
+console.log('move');
+    clearTimeout(activityTimeout);
+    activityTimeout = setTimeout(function(){
+                                         vwf_view.kernel.fireEvent( vwf_view.kernel.application(), "isInactive" );
+                                         }, 5000);
+}
+
+function isInactive() {
+
+}
 window.addEventListener( "resize", checkPageZoom );
+
+window.addEventListener( "mousemove", checkActive );
 
 //@ sourceURL=source/index.js

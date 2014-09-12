@@ -48,6 +48,8 @@ methods:
   resetView:
   restartGame:
   attemptLogin:
+  checkActive:
+  isInactive:
 events:
   gameStarted:
   scenarioReset:
@@ -66,7 +68,6 @@ events:
   hideCommsImage:
   blockExecuted:
   blocklyStarted:
-  toggledCamera:
   toggledHelicam:
   toggledGraph:
   toggledTiles:
@@ -81,6 +82,7 @@ events:
   setHUDElementProperty:
   mouseOverHUD:
   progressFound:
+  isInactive:
 children:
   soundManager:
     includes: source/marsGameSound.vwf
