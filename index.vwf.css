@@ -513,22 +513,18 @@ a:active {
     cursor: default;
 }
 
-#MainMenu-Main {
-    position: absolute;
-    top: 30%;
-    left: 10%;
-}
-
-#MainMenu-Settings {
-    position: absolute;
-    top: 30%;
-    left: 10%;
-}
-
-#MainMenu-Title {
+#MainMenu-Container {
     position: absolute;
     top: 10%;
     left: 10%;
+}
+
+#MainMenu-Main, #MainMenu-Settings {
+    margin-left: 32px;
+    margin-top: 32px;
+}
+
+#MainMenu-Title {
     text-transform: uppercase;
     margin-left: auto;
     margin-right: auto;
@@ -555,16 +551,13 @@ a:active {
 }
 
 .MainMenu-Button {
-    width: 512px;
-    height: 96px;
+    height: 72px;
     text-transform: uppercase;
     font-size: 48px;
     font-weight: bold;
-    line-height: 96px;
+    line-height: 72px;
     color: rgb( 224, 255, 100 );
     text-shadow: 0px 0px 2px rgb( 224, 255, 100 );
-    margin-left: auto;
-    margin-right: auto;
 }
 
 .MainMenu-Button.hover {

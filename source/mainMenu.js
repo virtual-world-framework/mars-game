@@ -98,11 +98,14 @@ MainMenu.prototype = {
 
     createOverlay: function() {
         var title, playButton, continueButton, settingsButton, backButton, volume;
-        var loginForm, loginTextBox, loginButton, loginHeading;
+        var loginForm, loginTextBox, loginButton, loginHeading, container;
 
         this.overlay = document.createElement( "div" );
         this.overlay.id = "MainMenu-Wrapper";
         this.overlay.style.display = "none";
+
+        container = document.createElement( "div" );
+        container.id = "MainMenu-Container";
 
         this.overlay.mainMenu = document.createElement( "div" );
         this.overlay.mainMenu.id = "MainMenu-Main";
@@ -233,14 +236,15 @@ MainMenu.prototype = {
 
         title.appendChild( title.main );
         title.appendChild( title.sub );
-        this.overlay.appendChild( title );
         this.overlay.mainMenu.appendChild( playButton );
         this.overlay.mainMenu.appendChild( continueButton );
         this.overlay.mainMenu.appendChild( settingsButton );
         this.overlay.settingsMenu.appendChild( backButton );
         this.overlay.settingsMenu.appendChild( volume );
-        this.overlay.appendChild( this.overlay.mainMenu );
-        this.overlay.appendChild( this.overlay.settingsMenu );
+        container.appendChild( title );
+        container.appendChild( this.overlay.mainMenu );
+        container.appendChild( this.overlay.settingsMenu );
+        this.overlay.appendChild( container );
         document.body.appendChild( this.overlay );
     },
 
