@@ -432,6 +432,11 @@ vwf_view.satProperty = function( nodeID, propertyName, propertyValue ) {
             Blockly.SOUNDS_ = {};
             selectBlocklyTab( propertyValue );
         }
+        else if ( propertyName === "isIdle" ) {
+            app = vwf_view.kernel.application();
+            var im = app.find( "", "//instrumentationManager" )[ 0 ];
+            im.createRequest("logInactivity");
+        }
     }
 
     var loggerNode = loggerNodes[ nodeID ];
@@ -616,7 +621,7 @@ function loadScenarioList() {
 
 function runBlockly() {
     var blocklyXml =  Blockly.Xml.domToText( Blockly.Xml.workspaceToDom( Blockly.getMainWorkspace( ) ) );
-    vwf_view.kernel.setProperty( vwf_view.kernel.application(), "activeBlocklyXML", ''+blocklyXml+'');
+    vwf_view.kernel.setProperty( vwf_view.kernel.application(), "activeBlocklyXML", blocklyXml );
     vwf_view.kernel.setProperty( currentBlocklyNodeID, "blockly_executing", true );
     vwf_view.kernel.fireEvent( vwf_view.kernel.application(), "blocklyStarted" );
     populateBlockStack();
@@ -1054,14 +1059,12 @@ function checkPageZoom() {
 function checkActive() {
 console.log('move');
     clearTimeout(activityTimeout);
-    activityTimeout = setTimeout(function(){
-                                         vwf_view.kernel.fireEvent( vwf_view.kernel.application(), "isInactive" );
+    activityTimeout = setTimeout(function(){                                 
+                                        vwf_view.kernel.setProperty(vwf_view.kernel.application(),
+                                         "isIdle", 'true' );
                                          }, 5000);
 }
 
-function isInactive() {
-
-}
 window.addEventListener( "resize", checkPageZoom );
 
 window.addEventListener( "mousemove", checkActive );
