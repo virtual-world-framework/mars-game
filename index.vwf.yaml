@@ -51,7 +51,6 @@ methods:
   loadGame:
   setAnimationRate:
   checkActive:
-  isInactive:
 events:
   gameStarted:
   scenarioReset:
@@ -86,7 +85,6 @@ events:
   progressFound:
   loadedGame:
   storedScenario:
-  isInactive:
 children:
   soundManager:
     includes: source/marsGameSound.vwf

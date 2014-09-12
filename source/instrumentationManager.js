@@ -30,7 +30,6 @@ this.initialize = function() {
         this.future( 0 ).registerVOListener();
         this.future( 0 ).registerCameraListener();
         this.future( 0 ).registerBlocklyListener();
-        this.future( 0 ).registerHeartbeatListener();
     }
 }
 
@@ -84,13 +83,6 @@ this.registerCameraListener = function() {
 this.registerBlocklyListener = function() {
     scene.blocklyStarted = ( function() {
         this.broadcastBlockly( scene.activeBlocklyXML, scene.activeScenarioPath );
-    } ).bind( this );
-}
-
-this.registerHeartbeatListener = function() {
-    scene.isInactive = ( function() {
-        console.log ('instrumentation');
-        this.createRequest( 'logInactivity' );
     } ).bind( this );
 }
 
