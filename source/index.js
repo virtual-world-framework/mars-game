@@ -971,6 +971,15 @@ function clearBlocklyTabs() {
     }
 }
 
+function playedVO ( name ) {
+}
+
+function toggledCamera ( pov ) {
+}
+
+function blocklyStarted () {
+}
+
 function setVolume( value ) {
     var sm, muteButton;
     sm = vwf_view.kernel.find( appID, "/soundManager" )[ 0 ];
