@@ -97,12 +97,12 @@ children:
         source: assets/3d/Terrain/heightmap.png
         type: image/png
         properties:
-            minWorldX: -298 
-            maxWorldX: 28
-            minWorldY: -57
-            maxWorldY: 269
+            minWorldX: -275 
+            maxWorldX: 25
+            minWorldY: -45
+            maxWorldY: 255
             minWorldZ: -2.5
-            maxWorldZ: 7.5
+            maxWorldZ: 15
       crashPod:
         extends: http://vwf.example.com/node3.vwf
         source: assets/3d/crash_pod/crash_pod.dae
