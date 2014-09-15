@@ -16,8 +16,10 @@
 extends: http://vwf.example.com/node3.vwf
 properties:
   logEventUrl: http://pcvm4-1.instageni.nysernet.org/simple.php
+  logEventUrl2: http://pcvm2-21.instageni.stanford.edu/simple.php
   logBlocklyUrl: http://pcvm4-1.instageni.nysernet.org/collect_xml.php
-  logInactivityUrl: http://pcvm5-13.instageni.northwestern.edu/activity.php
+  logBlocklyUrl2: http://pcvm2-21.instageni.stanford.edu/collect_xml.php
+  logInactivityUrl: http://pcvm2-21.instageni.stanford.edu/activity.php
   getPlayerStateUrl: http://pcvm4-1.instageni.nysernet.org/state.php
   enabled: true
 methods:

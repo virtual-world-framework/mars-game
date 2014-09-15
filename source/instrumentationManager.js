@@ -80,14 +80,15 @@ this.createRequest = function( type, params ) {
     
     var pathArray = window.location.pathname.split( '/' );
     var vwfSession = pathArray[ pathArray.length-2 ];
-    
-    var xhr = new XMLHttpRequest();
             
     if ( type === 'logEvent' ) {
         if ( !params || ( params.length !== 2 ) ) {
             self.logger.warnx( "createRequest", "The logEvent request takes 2 parameters:" +
                                " an event name and a value associated with the event." );
         }
+        
+        var xhr = new XMLHttpRequest();
+        
         var event = params[ 0 ];
         var value = params[ 1 ];
         
@@ -96,18 +97,35 @@ this.createRequest = function( type, params ) {
         xhr.send("vwf_session=" + vwfSession + "&player_id=" + playerId + "&action=" + 
                 event + "$&value="+value+"$&version="+version);
         
+        var xhrBackup = new XMLHttpRequest();
+        xhrBackup.open( "POST", this.logEventUrl2, true );
+        xhrBackup.setRequestHeader( "Content-type", "application/x-www-form-urlencoded" );
+        xhrBackup.send("vwf_session=" + vwfSession + "&player_id=" + playerId + "&action=" + 
+                event + "$&value="+value+"$&version="+version);
+        
+        
     }
     if ( type === 'logBlockly' ) {
         if ( !params || ( params.length !== 2 ) ) {
             self.logger.warnx( "createRequest", "The logBlockly request takes 2 parameters:" +
                                " the Blockly XML and the scenario name." );
         }
+        
+        var xhr = new XMLHttpRequest();
+        
         var xml = params[ 0 ];
         var scenario = params[ 1 ];
         
         xhr.open( "POST", this.logBlocklyUrl, true );
         xhr.setRequestHeader( "Content-type", "application/x-www-form-urlencoded" );
         xhr.send("vwf_session=" + vwfSession + "&player_id=" + playerId + "&xml=" + 
+                xml + "$&scenario="+scenario+"$&version="+version);
+        
+        var xhrBackup = new XMLHttpRequest();
+        
+        xhrBackup.open( "POST", this.logBlocklyUrl2, true );
+        xhrBackup.setRequestHeader( "Content-type", "application/x-www-form-urlencoded" );
+        xhrBackup.send("vwf_session=" + vwfSession + "&player_id=" + playerId + "&xml=" + 
                 xml + "$&scenario="+scenario+"$&version="+version);
         
     }

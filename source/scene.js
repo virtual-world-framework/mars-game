@@ -231,8 +231,8 @@ this.isInactive = function( value ) {
     }
 }
 
-this.reportBlocklyChange = function( ) {
-    this.instrumentationManager.broadcastBlockly( this.activeScenarioPath, this.activeBlocklyXML );
+this.reportBlocklyChange = function( value ) {
+    this.instrumentationManager.broadcastBlockly( '' + value + '', this.activeScenarioPath );
 }
 
 window.addEventListener( "mousemove", checkActive );
