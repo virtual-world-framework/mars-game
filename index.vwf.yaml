@@ -36,7 +36,7 @@ properties:
   sceneBlackboard: {}
   activeBlocklyXML:
     set: |
-      this.reportBlocklyChange();
+      this.reportBlocklyChange( value );
       this.activeBlocklyXML = value;
     value: undefined
 methods:
@@ -62,6 +62,7 @@ methods:
   checkActive:
   isInactive:
   reportBlocklyChange:
+  playedVO:
 events:
   gameStarted:
   scenarioReset:
