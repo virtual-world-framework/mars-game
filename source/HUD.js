@@ -40,6 +40,8 @@ HUD.prototype = {
         this.sortedElements = [];
         this.picks = [];
         this.canvas = document.createElement('CANVAS');
+        this.canvas.id = "HUDCanvas";
+        document.body.appendChild( this.canvas );
         this.quad.material = new THREE.MeshBasicMaterial();
         this.quad.material.map = new THREE.Texture( this.canvas );
         this.quad.material.transparent = true;

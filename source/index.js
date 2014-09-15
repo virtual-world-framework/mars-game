@@ -485,7 +485,7 @@ function render( renderer, scene, camera ) {
             if ( renderTransition ) {
                 versionElem = document.getElementById( "version" );
                 versionElem.style.display = "block";
-                renderer.autoClear = true;
+                // renderer.autoClear = true;
                 loggerBox.style.display = "none";
                 mainMenu.setupRenderer( renderer );
                 checkPageZoom();
@@ -501,15 +501,15 @@ function render( renderer, scene, camera ) {
                 loggerBox.style.display = "block";
                 scene.fog = new THREE.FogExp2( 0xC49E70, 0.0035 );
                 renderer.setClearColor( scene.fog.color );
-                renderer.autoClear = false;
+                // renderer.autoClear = false;
                 renderTransition = false;
             }
             hud.update();
             blinkTabs();
-            renderer.clear();
+            // renderer.clear();
             renderer.render( scene, camera );
-            renderer.clearDepth();
-            renderer.render( hud.scene, hud.camera );
+            // renderer.clearDepth();
+            // renderer.render( hud.scene, hud.camera );
             lastRenderTime = vwf_view.kernel.time();
             break;
     }
