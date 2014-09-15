@@ -1,5 +1,6 @@
 body {
     overflow: hidden;
+    font-family: sans-serif;
 }
 
 .pace {
@@ -10,7 +11,6 @@ body {
     z-index: 1000;
     color: rgb( 225, 225, 225 );
     text-shadow: 0px 0px 1px rgb( 0, 0, 0 );
-    font-family: Gadget, sans-serif;
     font-size: 16px;
     line-height: 16px;
     pointer-events: none;
@@ -84,7 +84,6 @@ a:active {
     position: absolute;
     right: 39px;
     font-size: 10px;
-    font-family: sans-serif;
     color: rgb( 255, 255, 255 );
     visibility: hidden;
 }
@@ -106,7 +105,6 @@ a:active {
     border: 1px solid rgba( 255, 255, 255, 0.25 );
     visibility: hidden;
     pointer-events: none;
-    font-family: Gadget, sans-serif;
     z-index: 50;
 }
 
@@ -172,12 +170,11 @@ a:active {
     background-repeat: no-repeat;
     display: inline-block;
     color: rgba( 0, 0, 0, 0.75 );
-    font-family: "Arial Black", Gadget, sans-serif;
-    font-variant: small-caps;
+    text-transform: uppercase;
     font-weight: bold;
     text-align: center;
-    font-size: 18px;
-    line-height: 22px;
+    font-size: 14px;
+    line-height: 24px;
     position: relative;
 }
 
@@ -265,7 +262,6 @@ a:active {
 
 .subtitleText {
     color: rgb( 255, 255, 255 );
-    font-family: Gadget, sans-serif;
     font-size: 14px;
     width: 100%;
     margin-bottom: 5px;
@@ -307,7 +303,6 @@ a:active {
 
 .tooltip {
     background-color: rgb( 255, 255, 255 );
-    font-family: Gadget, sans-serif;
     text-align: center;
     border-radius: 5px;
     padding: 5px;
@@ -370,7 +365,6 @@ a:active {
     font-size: 32px;
     text-align: center;
     text-transform: uppercase;
-    font-family: Gadget, sans-serif;
     font-weight: bold;
     color: rgb( 224, 255, 100 );
     text-shadow: 0px 0px 4px rgb( 224, 255, 100 );
@@ -423,7 +417,6 @@ a:active {
     line-height: 24px;
     font-size: 24px;
     text-align: center;
-    font-family: Gadget, sans-serif;
     text-shadow: 0px 0px 4px rgb( 224, 255, 100 );
 }
 
@@ -486,7 +479,6 @@ a:active {
     height: 32px;
     line-height: 32px;
     font-size: 16px;
-    font-family: Gadget, sans-serif;
     font-weight: bold;
     color: rgb( 255, 255, 255 );
     pointer-events: none;
@@ -521,46 +513,51 @@ a:active {
     cursor: default;
 }
 
-#MainMenu-Main {
+#MainMenu-Container {
     position: absolute;
-    top: 25%;
+    top: 10%;
     left: 10%;
 }
 
-#MainMenu-Settings {
-    position: absolute;
-    top: 25%;
-    left: 10%;
+#MainMenu-Main, #MainMenu-Settings {
+    margin-left: 32px;
+    margin-top: 32px;
 }
 
 #MainMenu-Title {
-    position: absolute;
-    top: 10%;
-    left: 5%;
-    height: 128px;
     text-transform: uppercase;
-    font-family: Gadget, sans-serif;
-    font-size: 64px;
-    font-weight: bold;
-    line-height: 128px;
-    color: rgb( 255, 255, 255 );
-    text-shadow: 0px 0px 8px rgb( 224, 255, 100 );
     margin-left: auto;
     margin-right: auto;
 }
 
-.MainMenu-Button {
-    width: 512px;
-    height: 112px;
-    text-transform: uppercase;
-    font-family: Gadget, sans-serif;
-    font-size: 56px;
+#MainMenu-Title h1 {
+    height: 96px;
+    line-height: 96px;
+    font-size: 96px;
     font-weight: bold;
-    line-height: 112px;
+    color: rgb( 255, 255, 255 );
+    text-shadow: 0px 0px 12px rgb( 224, 255, 100 );
+    margin: 0px;
+}
+#MainMenu-Title h2 {
+    height: 40px;
+    line-height: 40px;
+    font-size: 40px;
+    font-weight: normal;
+    color: rgb( 255, 255, 255 );
+    text-shadow: 0px 0px 4px rgb( 224, 255, 100 );
+    margin: 0px;
+    text-align: center;
+}
+
+.MainMenu-Button {
+    height: 72px;
+    text-transform: uppercase;
+    font-size: 48px;
+    font-weight: bold;
+    line-height: 72px;
     color: rgb( 224, 255, 100 );
     text-shadow: 0px 0px 2px rgb( 224, 255, 100 );
-    margin-left: auto;
-    margin-right: auto;
 }
 
 .MainMenu-Button.hover {
@@ -584,6 +581,7 @@ a:active {
     display: table;
     background-color: rgb( 64, 64, 64 );
     padding: 4px;
+    padding-right: 12px;
 }
 
 #MainMenu-MuteButton {
@@ -614,7 +612,6 @@ a:active {
     height: 32px;
     line-height: 32px;
     font-size: 16px;
-    font-family: Gadget, sans-serif;
     font-weight: bold;
     color: rgb( 255, 255, 255 );
     pointer-events: none;
@@ -650,6 +647,5 @@ a:active {
 #loginHeading {
     height: 40px;
     line-height: 40px;
-    font-family: Gadget, sans-serif;
     font-weight: bold;
 }

@@ -98,11 +98,14 @@ MainMenu.prototype = {
 
     createOverlay: function() {
         var title, playButton, continueButton, settingsButton, backButton, volume;
-        var loginForm, loginTextBox, loginButton, loginHeading;
+        var loginForm, loginTextBox, loginButton, loginHeading, container;
 
         this.overlay = document.createElement( "div" );
         this.overlay.id = "MainMenu-Wrapper";
         this.overlay.style.display = "none";
+
+        container = document.createElement( "div" );
+        container.id = "MainMenu-Container";
 
         this.overlay.mainMenu = document.createElement( "div" );
         this.overlay.mainMenu.id = "MainMenu-Main";
@@ -110,7 +113,10 @@ MainMenu.prototype = {
 
         title = document.createElement( "div" );
         title.id = "MainMenu-Title";
-        title.innerHTML = "Nomad: Crash Landing"
+        title.main = document.createElement( "h1" );
+        title.main.innerHTML = "Nomad";
+        title.sub = document.createElement( "h2" );
+        title.sub.innerHTML = "Crash Landing";
 
         playButton = document.createElement( "div" );
         playButton.id = "MainMenu-PlayButton";
@@ -228,14 +234,17 @@ MainMenu.prototype = {
         loginForm.onsubmit = this.submitUserID.bind( loginTextBox );
         loginButton.onclick = this.submitUserID.bind( loginTextBox );
 
-        this.overlay.appendChild( title );
+        title.appendChild( title.main );
+        title.appendChild( title.sub );
         this.overlay.mainMenu.appendChild( playButton );
         this.overlay.mainMenu.appendChild( continueButton );
         this.overlay.mainMenu.appendChild( settingsButton );
         this.overlay.settingsMenu.appendChild( backButton );
         this.overlay.settingsMenu.appendChild( volume );
-        this.overlay.appendChild( this.overlay.mainMenu );
-        this.overlay.appendChild( this.overlay.settingsMenu );
+        container.appendChild( title );
+        container.appendChild( this.overlay.mainMenu );
+        container.appendChild( this.overlay.settingsMenu );
+        this.overlay.appendChild( container );
         document.body.appendChild( this.overlay );
     },
 
