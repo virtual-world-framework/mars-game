@@ -103,6 +103,7 @@ children:
         extends: http://vwf.example.com/node3.vwf
         source: assets/3d/crash_pod/crash_pod.dae
         type: model/vnd.collada+xml
+        properties:
           translation: [ 0, -1.5, 0 ]
       roverTracks:
         extends: http://vwf.example.com/node3.vwf
@@ -153,6 +154,7 @@ children:
       lightType: "directional"
       color: [ 255, 245, 230 ]
       translation: [ 2, 1, 16 ]
+      intensity: 0.5
   envLight:
     extends: http://vwf.example.com/light.vwf
     properties:
