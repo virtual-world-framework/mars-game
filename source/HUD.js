@@ -43,8 +43,8 @@ HUD.prototype = {
     },
 
     update: function() {
-        // this.canvas.width = window.innerWidth;
-        // this.canvas.height = window.innerHeight;
+        this.canvas.width = window.innerWidth;
+        this.canvas.height = window.innerHeight;
         if ( this.visible ) {
             this.draw();
         }
