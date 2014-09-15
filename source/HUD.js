@@ -19,9 +19,6 @@ HUD = function() {
 
 HUD.prototype = {
     constructor: HUD,
-    scene: undefined,
-    camera: undefined,
-    quad: undefined,
     elements: undefined,
     elementCount: undefined,
     sortedElements: undefined,
@@ -31,20 +28,13 @@ HUD.prototype = {
     defaultHandlers: undefined,
 
     initialize: function() {
-        this.camera = new THREE.OrthographicCamera( -1, 1, 1, -1, 0, 10 );
-        this.scene = new THREE.Scene();
-        this.quad = new THREE.Mesh( new THREE.PlaneGeometry( 2, 2 ), null );
-        this.scene.add( this.quad );
         this.elements = {};
         this.elementCount = 0;
         this.sortedElements = [];
         this.picks = [];
-        this.canvas = document.createElement('CANVAS');
+        this.canvas = document.createElement( "CANVAS" );
         this.canvas.id = "HUDCanvas";
         document.body.appendChild( this.canvas );
-        this.quad.material = new THREE.MeshBasicMaterial();
-        this.quad.material.map = new THREE.Texture( this.canvas );
-        this.quad.material.transparent = true;
         this.visible = true;
         this.update();
         var gameCanvas = document.getElementById( vwf_view.kernel.application() );
@@ -53,20 +43,11 @@ HUD.prototype = {
     },
 
     update: function() {
-        this.canvas.width = window.innerWidth;
-        this.canvas.height = window.innerHeight;
+        // this.canvas.width = window.innerWidth;
+        // this.canvas.height = window.innerHeight;
         if ( this.visible ) {
             this.draw();
         }
-        var texture;
-        if ( this.quad.material && this.quad.material.map ) {
-            texture = this.quad.material.map;
-            this.quad.material.map = undefined;
-            texture.dispose();
-        }
-        texture = new THREE.Texture( this.canvas );
-        texture.needsUpdate = true;
-        this.quad.material = new THREE.MeshBasicMaterial( { map: texture, transparent: true } );
     },
 
     draw: function() {
