@@ -478,7 +478,7 @@ a:active {
 }
 
 .sliderToggle.select {
-    background-color: rgba( 24, 32, 0, 0.25 );
+    background-color: rgba( 224, 255, 100, 0.25 );
 }
 
 .sliderTrack {
