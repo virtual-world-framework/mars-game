@@ -27,7 +27,7 @@ properties:
       this.activeScenarioPath = value;
     value: "mainMenuScenario"
   playerId: "test"
-  version: 0.8
+  version: 1.0
   sceneBlackboard: {}
 methods:
   setScenario:
