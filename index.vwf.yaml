@@ -34,7 +34,11 @@ properties:
   playerId: "test"
   version: 1.0
   sceneBlackboard: {}
-  activeBlocklyXML: undefined
+  activeBlocklyXML:
+    set: |
+      this.reportBlocklyChange();
+      this.activeBlocklyXML = value;
+    value: undefined
 methods:
   setScenario:
   resetScenario:
@@ -56,6 +60,7 @@ methods:
   setAnimationRate:
   checkActive:
   isInactive:
+  reportBlocklyChange:
 events:
   gameStarted:
   scenarioReset:
