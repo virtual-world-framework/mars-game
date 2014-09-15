@@ -1046,14 +1046,6 @@ function checkActive() {
                                          }, 5000);
 }
 
-function isInactive ( value ) {
-    if ( value === true ) {
-        var im = this.find( "", "//instrumentationManager" )[ 0 ];
-        im.createRequest("logInactivity");
-    }
-    
-}
-
 window.addEventListener( "resize", checkPageZoom );
 
 window.addEventListener( "mousemove", checkActive );
