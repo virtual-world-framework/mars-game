@@ -245,6 +245,10 @@ function isInactive ( value ) {
     }
 }
 
+this.reportBlocklyChange = function( ) {
+    this.instrumentationManager.broadcastBlockly( this.activeScenarioPath, this.activeBlocklyXML );
+}
+
 window.addEventListener( "mousemove", checkActive );
 
 //@ sourceURL=source/scene.js
