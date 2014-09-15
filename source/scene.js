@@ -220,18 +220,14 @@ this.loginSucceeded = function( scenarioName ) {
     console.log( scenarioName );
 }
 
-function checkActive() {
-    clearTimeout(activityTimeout);
-    vwf_view.kernel.setProperty( vwf_view.kernel.application(), "isIdle", false );
-    activityTimeout = setTimeout(function(){                                 
-                                        vwf_view.kernel.setProperty( vwf_view.kernel.application(), "isIdle", true );
-                                         }, 5000);
-}
-
-function isInactive ( value ) {
+this.isInactive = function( value ) {
     if ( value === true ) {
         this.instrumentationManager.createRequest("logInactivity");
     }
+}
+
+this.reportBlocklyChange = function( ) {
+    this.instrumentationManager.broadcastBlockly( this.activeScenarioPath, this.activeBlocklyXML );
 }
 
 window.addEventListener( "mousemove", checkActive );

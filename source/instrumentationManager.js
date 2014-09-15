@@ -61,9 +61,6 @@ this.registerEventListeners = function() {
         this.broadcastEvent( 'toggledCamera', pov );
     } ).bind( this );
 
-    scene.blocklyStarted = ( function() {
-        this.broadcastBlockly( scene.activeBlocklyXML, scene.activeScenarioPath );
-    } ).bind( this );
 }
 
 this.broadcastEvent = function( event, value ) {
@@ -115,7 +112,7 @@ this.createRequest = function( type, params ) {
         
     }
     if ( type === 'logInactivity' ) {
-        if ( params || ( params.length !== 0 ) ) {
+        if ( params ) {
             self.logger.warnx( "createRequest", "The logInactivity request takes no parameters" );
         }
         

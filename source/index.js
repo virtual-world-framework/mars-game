@@ -84,7 +84,6 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 var indicatorCount = document.getElementById( "blocklyIndicatorCount" );
                 indicatorCount.className = "";
                 indicatorCount.style.visibility = "inherit";
-                blocklyStarted();
                 break;
 
             case "blocklyStopped":
@@ -120,7 +119,6 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                     var currentCode = getBlocklyFunction();
                     this.kernel.setProperty( graphLines[ "blocklyLine" ].ID, "lineFunction", currentCode );
                     vwf_view.kernel.setProperty( vwf_view.kernel.application(), "activeBlocklyXML", ''+currentCode+'');
-                    vwf_view.kernel.fireEvent( vwf_view.kernel.application(), "blocklyStarted" );
                 } else {
                     indicateBlock( lastBlockIDExecuted );
                 }
@@ -135,10 +133,6 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                     pushNextBlocklyStatus( blockID );
                     lastBlockIDExecuted = blockID;
                 }
-                break;
-
-            case "blocklyStarted":
-                blocklyStarted();
                 break;
 
             case "scenarioChanged":
@@ -255,9 +249,6 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                     scenario = eventArgs[ 1 ];
                 }
                 mainMenu.loggedIn( scenario );
-                break;
-            case "isInactive":
-                isInactive();
                 break;
 
         } 
@@ -619,7 +610,6 @@ function runBlockly() {
     var blocklyXml =  Blockly.Xml.domToText( Blockly.Xml.workspaceToDom( Blockly.getMainWorkspace( ) ) );
     vwf_view.kernel.setProperty( vwf_view.kernel.application(), "activeBlocklyXML", blocklyXml );
     vwf_view.kernel.setProperty( currentBlocklyNodeID, "blockly_executing", true );
-    vwf_view.kernel.fireEvent( vwf_view.kernel.application(), "blocklyStarted" );
     populateBlockStack();
 }
 
@@ -968,9 +958,6 @@ function clearBlocklyTabs() {
 }
 
 function playedVO ( name ) {
-}
-
-function blocklyStarted () {
 }
 
 function setVolume( value ) {
