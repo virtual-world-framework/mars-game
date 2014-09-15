@@ -28,16 +28,16 @@ HUD.prototype = {
     defaultHandlers: undefined,
 
     initialize: function() {
+        var gameCanvas = document.getElementById( vwf_view.kernel.application() );
         this.elements = {};
         this.elementCount = 0;
         this.sortedElements = [];
         this.picks = [];
         this.canvas = document.createElement( "CANVAS" );
         this.canvas.id = "HUDCanvas";
-        document.body.appendChild( this.canvas );
+        gameCanvas.parentElement.appendChild( this.canvas );
         this.visible = true;
         this.update();
-        var gameCanvas = document.getElementById( vwf_view.kernel.application() );
         this.defaultHandlers = {};
         this.registerEventListeners( gameCanvas );
     },

@@ -477,6 +477,7 @@ function render( renderer, scene, camera ) {
                 versionElem.style.display = "none";
                 renderer.clear();
                 loggerBox.style.display = "none";
+                hud.visible = false;
                 renderTransition = false;
             }
             return;
@@ -488,6 +489,7 @@ function render( renderer, scene, camera ) {
                 loggerBox.style.display = "none";
                 mainMenu.setupRenderer( renderer );
                 checkPageZoom();
+                hud.visible = false;
                 renderTransition = false;
             }
             mainMenu.render( renderer );
@@ -500,14 +502,16 @@ function render( renderer, scene, camera ) {
                 loggerBox.style.display = "block";
                 scene.fog = new THREE.FogExp2( 0xC49E70, 0.0035 );
                 renderer.setClearColor( scene.fog.color );
+                hud.visible = true;
                 renderTransition = false;
             }
-            hud.update();
             blinkTabs();
             renderer.render( scene, camera );
             lastRenderTime = vwf_view.kernel.time();
             break;
     }
+
+    hud.update();
 }
 
 function findThreejsView() {
