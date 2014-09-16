@@ -107,8 +107,6 @@ children:
             - "Now I can plot course... can I plot the course to match those tracks?"
           - playSound:
             - musicSuccessShort
-          - playSound:
-            - ALVO1_Rover
 
         playHint1_2c:
           triggerCondition:

@@ -109,8 +109,6 @@ children:
           - stopBlinkBlocklyTab:
             - graph
           - playSound:
-            - SCVO6_Rover
-          - playSound:
             - musicSuccessShort
 
         blocklyOpened_2b:

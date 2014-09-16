@@ -191,7 +191,7 @@ children:
                 - hasFailed
           actions:
           - playSound:
-            - ALVO40_Rover
+            - ALVO41_Rover
           - writeToBlackboard:
             - Level1cHint3
 
