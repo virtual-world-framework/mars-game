@@ -98,7 +98,7 @@ MainMenu.prototype = {
 
     createOverlay: function() {
         var title, playButton, continueButton, settingsButton, backButton, volume;
-        var loginForm, loginTextBox, loginButton, loginHeading, container;
+        var loginForm, loginTextBox, loginButton, loginHeading, container, logout;
 
         this.overlay = document.createElement( "div" );
         this.overlay.id = "MainMenu-Wrapper";
@@ -226,6 +226,8 @@ MainMenu.prototype = {
         loginButton.id = "submitButton";
         loginButton.type = "button";
         loginButton.value = "Submit";
+        logout = document.createElement( "div" );
+        logout.id = "logout";
         loginForm.appendChild( loginHeading );
         loginForm.appendChild( loginTextBox );
         loginForm.appendChild( loginButton );
@@ -233,6 +235,8 @@ MainMenu.prototype = {
         this.overlay.appendChild( this.overlay.loginMenu );
         loginForm.onsubmit = this.submitUserID.bind( loginTextBox );
         loginButton.onclick = this.submitUserID.bind( loginTextBox );
+        logout.onclick = this.logoutUser.bind( this );
+        this.overlay.appendChild( logout );
 
         title.appendChild( title.main );
         title.appendChild( title.sub );
@@ -345,7 +349,10 @@ MainMenu.prototype = {
 
     submitUserID: function( event ) {
         var vwfScene = vwf_view.kernel.application();
-        vwf_view.kernel.callMethod( vwfScene, "attemptLogin", [ this.value ] );
+        var logoutDiv = document.getElementById( "logout" );
+        var userID = this.value;
+        vwf_view.kernel.callMethod( vwfScene, "attemptLogin", [ userID ] );
+        logout.innerHTML = userID + " - <a>Log Out</a>";
         event.preventDefault();
     },
 
@@ -356,6 +363,14 @@ MainMenu.prototype = {
             this.continueScenario = scenarioName;
         }
         this.openMain();
+    },
+
+    logoutUser: function( event ) {
+        var logoutDiv = document.getElementById( "logout" );
+        logoutDiv.innerHTML = "";
+        this.overlay.loginMenu.style.display = "block";
+        this.overlay.settingsMenu.style.display = "none";
+        this.overlay.mainMenu.style.display = "none";
     }
 }
 

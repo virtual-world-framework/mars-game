@@ -44,6 +44,7 @@ body {
 
 a {
     pointer-events: all;
+    color: rgb( 224, 255, 100 );
 }
 
 a:link {
@@ -657,4 +658,15 @@ a:active {
     height: 40px;
     line-height: 40px;
     font-weight: bold;
+}
+
+#logout {
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    height: 24px;
+    line-height: 24px;
+    font-size: 20px;
+    color: rgb( 225, 225, 225 );
+    text-shadow: 0px 0px 1px rgb( 0, 0, 0 );
 }
