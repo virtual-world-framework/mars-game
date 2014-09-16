@@ -130,14 +130,19 @@ this.createRequest = function( type, params ) {
         
     }
     if ( type === 'logInactivity' ) {
-        if ( params ) {
-            self.logger.warnx( "createRequest", "The logInactivity request takes no parameters" );
+        if ( !params || params.length !== 1 ) {
+            self.logger.warnx( "createRequest", "The logInactivity request takes 1 parameter:" +
+                               " the activity value." );
         }
+        
+        var xhr = new XMLHttpRequest();
+        
+        var activity = params[ 0 ];
         
         xhr.open( "POST", this.logInactivityUrl, true );
         xhr.setRequestHeader( "Content-type", "application/x-www-form-urlencoded" );
         xhr.send("vwf_session=" + vwfSession + "&player_id=" + playerId + "&action=" + 
-                "inactive" +"$&version="+version);
+                params +"$&version="+version);
         
     }
 }
