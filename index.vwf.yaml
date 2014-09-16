@@ -17,7 +17,6 @@ extends: http://vwf.example.com/scene.vwf
 implements:
 - "http://vwf.example.com/blockly/manager.vwf"
 properties:
-  enableShadows: true
   ambientColor: [ 150, 140, 140 ]
   userObject: null
   blockly_autoClose: false
@@ -88,9 +87,6 @@ children:
     extends: http://vwf.example.com/node3.vwf
     source: assets/3d/Terrain/scene.dae
     type: model/vnd.collada+xml
-    properties:
-      castShadows: true
-      receiveShadows: true
     children:
       heightmap:
         extends: http://vwf.example.com/heightmap.vwf
@@ -108,8 +104,6 @@ children:
         source: assets/3d/crash_pod/crash_pod.dae
         type: model/vnd.collada+xml
         properties:
-          castShadows: true
-          receiveShadows: true
           translation: [ 0, -1.5, 0 ]
       roverTracks:
         extends: http://vwf.example.com/node3.vwf
@@ -123,20 +117,6 @@ children:
       visible: false
   blocks:
     includes: source/blocks.vwf
-  airDust:
-    includes: source/dustAir.vwf
-  smoke1:
-    extends: source/smokeParticle.vwf
-    properties:
-      translation: [ -5, 34.75, 3 ]
-  smoke2:
-    extends: source/smokeParticle.vwf
-    properties:
-      translation: [ 4.5, 26, 0 ]
-  smoke3:
-    extends: source/smokeParticle.vwf
-    properties:
-      translation: [ 13.5, 16.5, 2 ]
   backdrop:
     extends: http://vwf.example.com/node3.vwf
     source: assets/3d/Terrain/backdrop.dae
@@ -161,23 +141,6 @@ children:
       color: [ 255, 245, 230 ]
       translation: [ 2, 1, 16 ]
       intensity: 0.5
-      castShadows: true
-      shadowDarkness: 0.5
-      shadowCameraBottom: -64
-      shadowCameraTop: 64
-      shadowCameraLeft: -64
-      shadowCameraRight: 64
-      shadowCameraFar: 24
-      shadowMapWidth: 2048
-      shadowMapHeight: 2048
-      shadowBias: -0.0025
-      target: [ 0, 0, 0 ]
-      offsetFromTarget: [ 2, 1, 16 ]
-    methods:
-      setUpEvents:
-      followCamera:
-    scripts:
-      - source: source/lights.js
   envLight:
     extends: http://vwf.example.com/light.vwf
     properties:
@@ -244,8 +207,6 @@ children:
         type: model/vnd.collada+xml
         properties:
           displayName: "Rover"
-          castShadows: true
-          receiveShadows: true
           sceneNode:
             get: |
               if ( !this.sceneNode ) {
