@@ -101,7 +101,7 @@ children:
             maxWorldZ: 15
       crashPod:
         extends: http://vwf.example.com/node3.vwf
-        source: assets/3d/crash_pod/crash_pod.dae
+        source: assets/3d/Start/crash_pod.dae
         type: model/vnd.collada+xml
         properties:
           translation: [ 0, -1.5, 0 ]
