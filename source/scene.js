@@ -239,9 +239,11 @@ function checkActive() {
                                          }, 5000);
 }
 
-function isInactive ( value ) {
-    if ( value === true ) {
-        this.instrumentationManager.createRequest("logInactivity");
+this.isInactive = function( value ) {
+    if ( value === true && this.isIdle === false) {
+        this.instrumentationManager.createRequest("logInactivity", [ 'inactive' ] );
+    } else if ( value === false && this.isIdle === true ) {
+    	this.instrumentationManager.createRequest("logInactivity", [ 'active' ] );
     }
 }
 
