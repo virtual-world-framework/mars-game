@@ -31,6 +31,11 @@ this.initialize = function() {
     // Set the active camera so we can see the 3D scene
     this.initializeActiveCamera( this.player.targetFollower.camera );
     this.setUpCameraListener();
+    this.future( 0 ).setAnimationRate();
+}
+
+this.setAnimationRate = function() {
+    this.find( "doc('http://vwf.example.com/animation.vwf')" )[ 0 ].animationTPS = 30;
 }
 
 this.setScenario = function( path ) {

@@ -46,6 +46,7 @@ methods:
   resetView:
   restartGame:
   attemptLogin:
+  setAnimationRate:
 events:
   gameStarted:
   scenarioReset:
