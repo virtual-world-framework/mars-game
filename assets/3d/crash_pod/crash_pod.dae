@@ -6,8 +6,8 @@
       <authoring_tool>OpenCOLLADA for 3ds Max;  Version: 1.4.1;  Revision: exported;  Platform: x64;  Configuration: Release_Max2012_static</authoring_tool>
       <source_data>file:///C:/Users/mcclurek/Desktop/MARS/Terrain_Models/Crash_Pod_Holes_Filled.max</source_data>
     </contributor>
-    <created>2014-08-08T12:20:24</created>
-    <modified>2014-08-08T12:20:24</modified>
+    <created>2014-09-17T11:38:04</created>
+    <modified>2014-09-17T11:38:04</modified>
     <unit name="meter" meter="1"/>
     <up_axis>Z_UP</up_axis>
   </asset>
@@ -117,26 +117,6 @@
             <source>platform_jpg-surface</source>
           </sampler2D>
         </newparam>
-        <newparam sid="platform_spec_jpg-surface">
-          <surface type="2D">
-            <init_from>platform_spec_jpg</init_from>
-          </surface>
-        </newparam>
-        <newparam sid="platform_spec_jpg-sampler">
-          <sampler2D>
-            <source>platform_spec_jpg-surface</source>
-          </sampler2D>
-        </newparam>
-        <newparam sid="platform_nrm_jpg-surface">
-          <surface type="2D">
-            <init_from>platform_nrm_jpg</init_from>
-          </surface>
-        </newparam>
-        <newparam sid="platform_nrm_jpg-sampler">
-          <sampler2D>
-            <source>platform_nrm_jpg-surface</source>
-          </sampler2D>
-        </newparam>
         <technique sid="common">
           <phong>
             <emission>
@@ -164,16 +144,6 @@
               <float>1</float>
             </transparency>
           </phong>
-          <extra>
-            <technique profile="OpenCOLLADA3dsMax">
-              <specularLevel>
-                <texture texture="platform_spec_jpg-sampler" texcoord="CHANNEL1"/>
-              </specularLevel>
-              <bump bumptype="NORMALMAP">
-                <texture texture="platform_nrm_jpg-sampler" texcoord="CHANNEL1"/>
-              </bump>
-            </technique>
-          </extra>
         </technique>
       </profile_COMMON>
       <extra>
@@ -484,12 +454,6 @@
     <image id="platform_jpg">
       <init_from>./platform.jpg</init_from>
     </image>
-    <image id="platform_nrm_jpg">
-      <init_from>./platform_nrm.jpg</init_from>
-    </image>
-    <image id="platform_spec_jpg">
-      <init_from>./platform_spec.jpg</init_from>
-    </image>
     <image id="space_craft_jpg">
       <init_from>./space_craft.jpg</init_from>
     </image>
@@ -542,8 +506,6 @@ MapChannel:3 = UVChannel_1
             <bind_material>
               <technique_common>
                 <instance_material symbol="platform" target="#platform-material">
-                  <bind_vertex_input semantic="CHANNEL1" input_semantic="TEXCOORD" input_set="0"/>
-                  <bind_vertex_input semantic="CHANNEL1" input_semantic="TEXCOORD" input_set="0"/>
                   <bind_vertex_input semantic="CHANNEL1" input_semantic="TEXCOORD" input_set="0"/>
                 </instance_material>
               </technique_common>
