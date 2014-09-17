@@ -93,11 +93,11 @@ this.createRequest = function( type, params ) {
         var event = params[ 0 ];
         var value = params[ 1 ];
         
-        xhr.open( "POST", this.logEventUrl, true );
-        xhr.setRequestHeader( "Content-type", "application/x-www-form-urlencoded" );
-        xhr.send("vwf_session=" + vwfSession + "&player_id=" + playerId + "&action=" + 
-                event + "$&value="+value+"$&version="+version);
-        
+        // xhr.open( "POST", this.logEventUrl, true );
+//         xhr.setRequestHeader( "Content-type", "application/x-www-form-urlencoded" );
+//         xhr.send("vwf_session=" + vwfSession + "&player_id=" + playerId + "&action=" + 
+//                 event + "$&value="+value+"$&version="+version);
+//         
         var xhrBackup = new XMLHttpRequest();
         xhrBackup.open( "POST", this.logEventUrl2, true );
         xhrBackup.setRequestHeader( "Content-type", "application/x-www-form-urlencoded" );
@@ -117,11 +117,11 @@ this.createRequest = function( type, params ) {
         var xml = params[ 0 ];
         var scenario = params[ 1 ];
         
-        xhr.open( "POST", this.logBlocklyUrl, true );
-        xhr.setRequestHeader( "Content-type", "application/x-www-form-urlencoded" );
-        xhr.send("vwf_session=" + vwfSession + "&player_id=" + playerId + "&xml=" + 
-                xml + "$&scenario="+scenario+"$&version="+version);
-        
+        // xhr.open( "POST", this.logBlocklyUrl, true );
+//         xhr.setRequestHeader( "Content-type", "application/x-www-form-urlencoded" );
+//         xhr.send("vwf_session=" + vwfSession + "&player_id=" + playerId + "&xml=" + 
+//                 xml + "$&scenario="+scenario+"$&version="+version);
+//         
         var xhrBackup = new XMLHttpRequest();
         
         xhrBackup.open( "POST", this.logBlocklyUrl2, true );
