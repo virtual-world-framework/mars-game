@@ -48,6 +48,7 @@ methods:
   restartGame:
   attemptLogin:
   loadGame:
+  setAnimationRate:
 events:
   gameStarted:
   scenarioReset:
