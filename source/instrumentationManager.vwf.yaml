@@ -15,13 +15,12 @@
 ---
 extends: http://vwf.example.com/node3.vwf
 properties:
-  logEventUrl: https://pcvm4-1.instageni.nysernet.org/simple.php
-  logEventUrl2: https://pcvm2-21.instageni.stanford.edu/simple.php
-  logBlocklyUrl: https://pcvm4-1.instageni.nysernet.org/collect_xml.php
-  logBlocklyUrl2: https://pcvm2-21.instageni.stanford.edu/collect_xml.php
-  logInactivityUrl: https://pcvm2-21.instageni.stanford.edu/activity.php
-  getPlayerStateUrl: https://pcvm4-1.instageni.nysernet.org/state.php
-  getPlayerStateUrl2: https://pcvm2-21.instageni.stanford.edu/state.php
+  logEventUrl: http://pcvm4-1.instageni.nysernet.org/simple.php
+  logEventUrl2: http://pcvm2-21.instageni.stanford.edu/simple.php
+  logBlocklyUrl: http://pcvm4-1.instageni.nysernet.org/collect_xml.php
+  logBlocklyUrl2: http://pcvm2-21.instageni.stanford.edu/collect_xml.php
+  logInactivityUrl: http://pcvm2-21.instageni.stanford.edu/activity.php
+  getPlayerStateUrl: http://pcvm4-1.instageni.nysernet.org/state.php
   enabled: true
 methods:
   onSceneLoaded:
