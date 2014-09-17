@@ -77,6 +77,7 @@ this.createRequest = function( type, params ) {
 
     var playerId = scene.playerId;
     var version = scene.version;
+    var activeScenario = scene.activeScenarioPath;
     
     var pathArray = window.location.pathname.split( '/' );
     var vwfSession = pathArray[ pathArray.length-2 ];
@@ -142,7 +143,7 @@ this.createRequest = function( type, params ) {
         xhr.open( "POST", this.logInactivityUrl, true );
         xhr.setRequestHeader( "Content-type", "application/x-www-form-urlencoded" );
         xhr.send("vwf_session=" + vwfSession + "&player_id=" + playerId + "&action=" + 
-                params +"$&version="+version);
+                params +"$&version="+version+"$&scenario="+activeScenario);
         
     }
 }
