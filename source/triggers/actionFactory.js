@@ -498,9 +498,9 @@ this.actionSet.callOutObjective = function( params, context ) {
     var callOutTile = context.gridTileGraph.callOutTile;
     var grid = context[ context.activeScenarioPath ].grid;
     var tileCoords = params[ 0 ];
-    var coords = grid.getWorldFromGrid( tileCoords[ 0 ], tileCoords[ 1 ] );
 
     return function() {
+        var coords = grid.getWorldFromGrid( tileCoords[ 0 ], tileCoords[ 1 ] );
         callOutTile.callOut( coords );
     }
 }
