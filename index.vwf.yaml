@@ -26,9 +26,19 @@ properties:
       this.setScenario( value );
       this.activeScenarioPath = value;
     value: "mainMenuScenario"
+  isIdle:
+    set: |
+      this.isInactive( value );
+      this.isIdle = value;
+    value: false
   playerId: "test"
   version: 1.0
   sceneBlackboard: {}
+  activeBlocklyXML:
+    set: |
+      this.reportBlocklyChange( value );
+      this.activeBlocklyXML = value;
+    value: undefined
 methods:
   setScenario:
   resetScenario:
@@ -47,6 +57,9 @@ methods:
   resetView:
   restartGame:
   attemptLogin:
+  isInactive:
+  reportBlocklyChange:
+  playedVO:
 events:
   gameStarted:
   scenarioReset:
@@ -64,6 +77,7 @@ events:
   showCommsImage:
   hideCommsImage:
   blockExecuted:
+  blocklyStarted:
   toggledHelicam:
   toggledGraph:
   toggledTiles:
@@ -73,6 +87,7 @@ events:
   clearBlocklyTabs:
   playVideo:
   videoPlayed:
+  playedVO:
   setObjective:
   setHUDElementProperty:
   mouseOverHUD:

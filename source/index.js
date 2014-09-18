@@ -41,6 +41,7 @@ var muted = false;
 var currentScenario;
 var scenarioList;
 var startingZoom;
+var activityTimeout;
 
 var renderTransition = true;
 var playingVideo = false;
@@ -117,6 +118,7 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 if ( currentBlocklyNodeID === blocklyGraphID ) {
                     var currentCode = getBlocklyFunction();
                     this.kernel.setProperty( graphLines[ "blocklyLine" ].ID, "lineFunction", currentCode );
+                    vwf_view.kernel.setProperty( vwf_view.kernel.application(), "activeBlocklyXML", ''+currentCode+'');
                 } else {
                     indicateBlock( lastBlockIDExecuted );
                 }
@@ -205,7 +207,7 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
             case "clearBlocklyTabs":
                 clearBlocklyTabs();
                 break;
-
+                
             case "toggledTiles":
                 tilesAreVisible = eventArgs[ 0 ];
                 break;
@@ -290,6 +292,11 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
             } else {
                 resetScenario();
             }
+        }
+        
+        if ( eventName === "playedVO" ) {
+            var name = eventArgs[ 0 ];
+            playedVO( name );
         }
     }
 }
@@ -599,6 +606,8 @@ function loadScenarioList() {
 }
 
 function runBlockly() {
+    var blocklyXml =  Blockly.Xml.domToText( Blockly.Xml.workspaceToDom( Blockly.getMainWorkspace( ) ) );
+    vwf_view.kernel.setProperty( vwf_view.kernel.application(), "activeBlocklyXML", blocklyXml );
     vwf_view.kernel.setProperty( currentBlocklyNodeID, "blockly_executing", true );
     populateBlockStack();
 }
@@ -947,6 +956,9 @@ function clearBlocklyTabs() {
     }
 }
 
+function playedVO ( name ) {
+}
+
 function setVolume( value ) {
     var sm, muteButton;
     sm = vwf_view.kernel.find( appID, "/soundManager" )[ 0 ];
@@ -1026,6 +1038,16 @@ function checkPageZoom() {
     }
 }
 
+function checkActive() {
+    clearTimeout(activityTimeout);
+    vwf_view.kernel.setProperty( vwf_view.kernel.application(), "isIdle", false );
+    activityTimeout = setTimeout(function(){                                 
+                                        vwf_view.kernel.setProperty( vwf_view.kernel.application(), "isIdle", true );
+                                         }, 5000);
+}
+
 window.addEventListener( "resize", checkPageZoom );
+
+window.addEventListener( "mousemove", checkActive );
 
 //@ sourceURL=source/index.js

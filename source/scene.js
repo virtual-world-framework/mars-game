@@ -220,4 +220,18 @@ this.loginSucceeded = function( scenarioName ) {
     console.log( scenarioName );
 }
 
+this.isInactive = function( value ) {
+    if ( value === true && this.isIdle === false) {
+        this.instrumentationManager.createRequest("logInactivity", [ 'inactive' ] );
+    } else if ( value === false && this.isIdle === true ) {
+    	this.instrumentationManager.createRequest("logInactivity", [ 'active' ] );
+    }
+}
+
+this.reportBlocklyChange = function( value ) {
+    this.instrumentationManager.broadcastBlockly( '' + value + '', this.activeScenarioPath );
+}
+
+window.addEventListener( "mousemove", checkActive );
+
 //@ sourceURL=source/scene.js
