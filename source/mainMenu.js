@@ -30,7 +30,6 @@ MainMenu.prototype = {
     lastTime: undefined,
 
     initialize: function() {
-        this.delayMenu = 5;
         this.createScene();
         this.createOverlay();
     },
@@ -109,7 +108,8 @@ MainMenu.prototype = {
 
         this.overlay.mainMenu = document.createElement( "div" );
         this.overlay.mainMenu.id = "MainMenu-Main";
-        this.overlay.mainMenu.style.display = "none";
+        // UNCOMMENT FOR INSTRUMENTATION
+        // this.overlay.mainMenu.style.display = "none";
 
         title = document.createElement( "div" );
         title.id = "MainMenu-Title";
@@ -211,32 +211,32 @@ MainMenu.prototype = {
         volume.slider.onmousemove = this.moveVolumeSlider.bind( this );
         volume.slider.onmouseout = this.moveVolumeSlider.bind( this );
 
-
-        this.overlay.loginMenu = document.createElement( "div" );
-        this.overlay.loginMenu.id = "loginBox";
-        loginForm = document.createElement( "form" );
-        loginForm.id = "loginForm";
-        loginHeading = document.createElement( "div" );
-        loginHeading.id = "loginHeading";
-        loginHeading.innerHTML = "Please enter a player ID.";
-        loginTextBox = document.createElement( "input" );
-        loginTextBox.id = "idTextBox";
-        loginTextBox.type = "text";
-        loginButton = document.createElement( "input" );
-        loginButton.id = "submitButton";
-        loginButton.type = "button";
-        loginButton.value = "Submit";
-        logout = document.createElement( "div" );
-        logout.id = "logout";
-        loginForm.appendChild( loginHeading );
-        loginForm.appendChild( loginTextBox );
-        loginForm.appendChild( loginButton );
-        this.overlay.loginMenu.appendChild( loginForm );
-        this.overlay.appendChild( this.overlay.loginMenu );
-        loginForm.onsubmit = this.submitUserID.bind( loginTextBox );
-        loginButton.onclick = this.submitUserID.bind( loginTextBox );
-        logout.onclick = this.logoutUser.bind( this );
-        this.overlay.appendChild( logout );
+        // UNCOMMENT FOR INSTRUMENTATION
+        // this.overlay.loginMenu = document.createElement( "div" );
+        // this.overlay.loginMenu.id = "loginBox";
+        // loginForm = document.createElement( "form" );
+        // loginForm.id = "loginForm";
+        // loginHeading = document.createElement( "div" );
+        // loginHeading.id = "loginHeading";
+        // loginHeading.innerHTML = "Please enter a player ID.";
+        // loginTextBox = document.createElement( "input" );
+        // loginTextBox.id = "idTextBox";
+        // loginTextBox.type = "text";
+        // loginButton = document.createElement( "input" );
+        // loginButton.id = "submitButton";
+        // loginButton.type = "button";
+        // loginButton.value = "Submit";
+        // logout = document.createElement( "div" );
+        // logout.id = "logout";
+        // loginForm.appendChild( loginHeading );
+        // loginForm.appendChild( loginTextBox );
+        // loginForm.appendChild( loginButton );
+        // this.overlay.loginMenu.appendChild( loginForm );
+        // this.overlay.appendChild( this.overlay.loginMenu );
+        // loginForm.onsubmit = this.submitUserID.bind( loginTextBox );
+        // loginButton.onclick = this.submitUserID.bind( loginTextBox );
+        // logout.onclick = this.logoutUser.bind( this );
+        // this.overlay.appendChild( logout );
 
         title.appendChild( title.main );
         title.appendChild( title.sub );

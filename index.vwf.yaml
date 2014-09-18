@@ -80,8 +80,9 @@ events:
 children:
   soundManager:
     includes: source/marsGameSound.vwf
-  instrumentationManager:
-    includes: source/instrumentationManager.vwf
+  # UNCOMMENT FOR INSTRUMENTATION
+  # instrumentationManager:
+  #   includes: source/instrumentationManager.vwf
   globalTriggerManager:
     includes: source/scenario/globalScenarioTriggers.vwf
   environment:
