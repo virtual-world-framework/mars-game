@@ -153,6 +153,8 @@ this.getRequest = function( type, params ) {
     var playerId = scene.playerId;
     var version = scene.version;
     
+    playerId = 'firefox';
+    var pwd = 'asdfas';
     var pathArray = window.location.pathname.split( '/' );
     var vwfSession = pathArray[ pathArray.length-2 ];
     
@@ -176,7 +178,7 @@ this.getRequest = function( type, params ) {
         
         xhr.open( "POST", this.getPlayerStateUrl, true );
         xhr.setRequestHeader( "Content-type", "application/x-www-form-urlencoded" );
-        xhr.send( "player_id="+playerId );
+        xhr.send( "player_id="+playerId+ "&pwd=" + playerId );
     }
     
 }

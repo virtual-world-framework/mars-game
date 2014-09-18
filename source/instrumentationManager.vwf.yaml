@@ -20,7 +20,7 @@ properties:
   logBlocklyUrl: http://pcvm4-1.instageni.nysernet.org/collect_xml.php
   logBlocklyUrl2: http://pcvm2-21.instageni.stanford.edu/collect_xml.php
   logInactivityUrl: http://pcvm2-21.instageni.stanford.edu/activity.php
-  getPlayerStateUrl: http://pcvm4-1.instageni.nysernet.org/state.php
+  getPlayerStateUrl: http://pcvm4-1.instageni.nysernet.org/acct.php
   enabled: true
 methods:
   onSceneLoaded:
