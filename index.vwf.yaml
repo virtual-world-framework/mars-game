@@ -28,7 +28,7 @@ properties:
     value: "mainMenuScenario"
   isIdle:
     set: |
-      this.isInactive( value );
+      this.logInactivity( value );
       this.isIdle = value;
     value: false
   playerId: "test"
@@ -79,7 +79,6 @@ events:
   showCommsImage:
   hideCommsImage:
   blockExecuted:
-  blocklyStarted:
   toggledHelicam:
   toggledGraph:
   toggledTiles:
