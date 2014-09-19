@@ -227,7 +227,6 @@ MainMenu.prototype = {
         loginForm.password = document.createElement( "input" );
         loginForm.password.id = "passwordTextBox";
         loginForm.password.type = "password";
-        loginForm.password.onkeydown = function() { console.log( event.returnValue ) };
         loginButton = document.createElement( "input" );
         loginButton.id = "submitButton";
         loginButton.type = "button";
