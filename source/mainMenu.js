@@ -99,20 +99,21 @@ MainMenu.prototype = {
     createOverlay: function() {
         var title, playButton, continueButton, settingsButton, backButton, volume;
         var loginForm, loginTextBox, loginButton, loginHeading, container, logout;
+        var username, password, buttons, userLabel, passLabel;
 
         this.overlay = document.createElement( "div" );
-        this.overlay.id = "MainMenu-Wrapper";
+        this.overlay.id = "mainMenu";
         this.overlay.style.display = "none";
 
         container = document.createElement( "div" );
-        container.id = "MainMenu-Container";
+        container.id = "mainMenuWrapper";
 
         this.overlay.mainMenu = document.createElement( "div" );
-        this.overlay.mainMenu.id = "MainMenu-Main";
+        this.overlay.mainMenu.id = "startMenu";
         this.overlay.mainMenu.style.display = "none";
 
         title = document.createElement( "div" );
-        title.id = "MainMenu-Title";
+        title.id = "mainMenuTitle";
         title.main = document.createElement( "h1" );
         title.main.innerHTML = "Nomad";
         title.sub = document.createElement( "h2" );
@@ -120,7 +121,7 @@ MainMenu.prototype = {
 
         playButton = document.createElement( "div" );
         playButton.id = "MainMenu-PlayButton";
-        playButton.className = "MainMenu-Button"
+        playButton.className = "mainMenuButton"
         playButton.innerHTML = "New Game";
         playButton.onmouseover = function( event ) {
             appendClass( this, "hover" );
@@ -137,7 +138,7 @@ MainMenu.prototype = {
 
         continueButton = document.createElement( "div" );
         continueButton.id = "MainMenu-ContinueButton";
-        continueButton.className = "MainMenu-Button"
+        continueButton.className = "mainMenuButton"
         continueButton.innerHTML = "Continue";
         continueButton.style.display = "none";
         continueButton.onmouseover = function( event ) {
@@ -154,8 +155,8 @@ MainMenu.prototype = {
         continueButton.onclick = this.resumeGame.bind( this );
 
         settingsButton = document.createElement( "div" );
-        settingsButton.id = "MainMenu-SettingsButton";
-        settingsButton.className = "MainMenu-Button"
+        settingsButton.id = "settingsMenuButton";
+        settingsButton.className = "mainMenuButton"
         settingsButton.innerHTML = "Settings";
         settingsButton.onmouseover = function( event ) {
             appendClass( this, "hover" );
@@ -171,12 +172,12 @@ MainMenu.prototype = {
         settingsButton.onclick = this.openSettings.bind( this );
 
         this.overlay.settingsMenu = document.createElement( "div" );
-        this.overlay.settingsMenu.id = "MainMenu-Settings";
+        this.overlay.settingsMenu.id = "settingsMenu";
         this.overlay.settingsMenu.style.display = "none";
 
         backButton = document.createElement( "div" );
         backButton.id = "MainMenu-BackButton";
-        backButton.className = "MainMenu-Button"
+        backButton.className = "mainMenuButton"
         backButton.innerHTML = "Back";
         backButton.onmouseover = function( event ) {
             appendClass( this, "hover" );
@@ -192,18 +193,18 @@ MainMenu.prototype = {
         backButton.onclick = this.openMain.bind( this );
 
         volume = document.createElement( "div" );
-        volume.id = "MainMenu-Volume";
+        volume.id = "volumeSetting";
         volume.mute = document.createElement( "div" );
-        volume.mute.id = "MainMenu-MuteButton";
+        volume.mute.id = "volumeMute";
         volume.appendChild( volume.mute );
         volume.slider = document.createElement( "div" );
-        volume.slider.id = "MainMenu-Slider";
+        volume.slider.id = "volumeSlider";
         volume.appendChild( volume.slider );
         volume.slider.readout = document.createElement( "div" );
-        volume.slider.readout.id = "MainMenu-Readout";
+        volume.slider.readout.id = "volumeReadout";
         volume.slider.appendChild( volume.slider.readout );
         volume.slider.handle = document.createElement( "div" );
-        volume.slider.handle.id = "MainMenu-Handle";
+        volume.slider.handle.id = "volumeHandle";
         volume.slider.appendChild( volume.slider.handle );
 
         volume.mute.onclick = this.muteVolume.bind( this );
@@ -222,15 +223,33 @@ MainMenu.prototype = {
         loginTextBox = document.createElement( "input" );
         loginTextBox.id = "idTextBox";
         loginTextBox.type = "text";
+        passwordTextBox = document.createElement( "input" );
+        passwordTextBox.id = "passwordTextBox";
+        passwordTextBox.type = "password";
+        passwordTextBox.onkeydown = function() { console.log( event.returnValue ) };
         loginButton = document.createElement( "input" );
         loginButton.id = "submitButton";
         loginButton.type = "button";
         loginButton.value = "Submit";
         logout = document.createElement( "div" );
         logout.id = "logout";
+        username = document.createElement( "div" );
+        username.className = "formGroup";
+        password = document.createElement( "div" );
+        password.className = "formGroup";
+        buttons = document.createElement( "div" );
+        buttons.className = "formGroup";
+        userLabel = document.createTextNode( "Username: " );
+        passLabel = document.createTextNode( "Password: " );
         loginForm.appendChild( loginHeading );
-        loginForm.appendChild( loginTextBox );
-        loginForm.appendChild( loginButton );
+        username.appendChild( userLabel );
+        username.appendChild( loginTextBox );
+        password.appendChild( passLabel );
+        password.appendChild( passwordTextBox );
+        buttons.appendChild( loginButton );
+        loginForm.appendChild( username );
+        loginForm.appendChild( password );
+        loginForm.appendChild( buttons );
         this.overlay.loginMenu.appendChild( loginForm );
         this.overlay.appendChild( this.overlay.loginMenu );
         loginForm.onsubmit = this.submitUserID.bind( loginTextBox );
@@ -302,7 +321,7 @@ MainMenu.prototype = {
         sm = vwf_view.kernel.find( vwf_view.kernel.application(), "/soundManager" )[ 0 ];
         if ( sm ) {
             value = Math.min( 1, Math.max( 0, value ) );
-            muteButton = document.getElementById( "MainMenu-MuteButton" );
+            muteButton = document.getElementById( "volumeMute" );
             if ( value === 0 ) {
                 appendClass( muteButton, "muted" );
                 muted = true;
@@ -319,8 +338,8 @@ MainMenu.prototype = {
     moveVolumeSlider: function( event ) {
         var pct, handle, slider, deadzone;
         if ( event.which === 1 ) {
-            handle = document.getElementById( "MainMenu-Handle" );
-            slider = document.getElementById( "MainMenu-Slider" );
+            handle = document.getElementById( "volumeHandle" );
+            slider = document.getElementById( "volumeSlider" );
             deadzone = handle.clientWidth / 2;
             pct = ( event.offsetX - deadzone ) / ( slider.clientWidth - deadzone * 2 );
             this.setVolume( pct );
@@ -336,12 +355,12 @@ MainMenu.prototype = {
     },
 
     setVolumeSliderPosition: function( volume ) {
-        var volumeHandle = document.getElementById( "MainMenu-Handle" );
+        var volumeHandle = document.getElementById( "volumeHandle" );
         var deadzone = volumeHandle.clientWidth / 2;
         var pos = volume * ( volumeHandle.parentNode.clientWidth - deadzone * 2 );
         var readout, readoutPct;
         volumeHandle.style.marginLeft = pos + "px";
-        readout = document.getElementById( "MainMenu-Readout" );
+        readout = document.getElementById( "volumeReadout" );
         readoutPct = volume * 100;
         readoutPct = Math.round( readoutPct );
         readout.innerHTML = "Volume: " + readoutPct + "%";
