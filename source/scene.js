@@ -212,9 +212,9 @@ this.restartGame = function() {
     this.activeScenarioPath = "mainMenuScenario";
 }
 
-this.attemptLogin = function( userID ) {
-    this.playerId = userID;
-    this.instrumentationManager.getRequest( "getPlayerState" );
+this.attemptLogin = function( userID, password ) {
+    var params = [ userID, password ];
+    this.instrumentationManager.getRequest( "getPlayerState", params );
 }
 
 this.loginFailed = function( responseText ) {
@@ -231,10 +231,6 @@ this.logInactivity = function( value ) {
     } else if ( value === false && this.isIdle === true ) {
     	this.instrumentationManager.createRequest("logInactivity", [ 'active' ] );
     }
-}
-
-this.reportBlocklyChange = function( value ) {
-    this.instrumentationManager.broadcastBlockly( '' + value + '', this.activeScenarioPath );
 }
 
 //@ sourceURL=source/scene.js

@@ -31,12 +31,12 @@ properties:
       this.logInactivity( value );
       this.isIdle = value;
     value: false
-  playerId: "test"
+  playerId: undefined
   version: 1.0
   sceneBlackboard: {}
   activeBlocklyXML:
     set: |
-      this.reportBlocklyChange( value );
+      this.blocklyXmlChanged( value );
       this.activeBlocklyXML = value;
     value: undefined
 methods:
@@ -59,7 +59,6 @@ methods:
   attemptLogin:
   setAnimationRate:
   isInactive:
-  reportBlocklyChange:
 events:
   gameStarted:
   scenarioReset:
@@ -86,6 +85,7 @@ events:
   clearBlocklyTabs:
   playVideo:
   videoPlayed:
+  blocklyXmlChanged:
   playedVO:
   setObjective:
   setHUDElementProperty:
