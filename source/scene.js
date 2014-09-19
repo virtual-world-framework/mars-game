@@ -237,6 +237,4 @@ this.reportBlocklyChange = function( value ) {
     this.instrumentationManager.broadcastBlockly( '' + value + '', this.activeScenarioPath );
 }
 
-window.addEventListener( "mousemove", checkActive );
-
 //@ sourceURL=source/scene.js
