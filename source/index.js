@@ -467,6 +467,7 @@ function setUpView() {
     loadVideo( "intro_cinematic.mp4" );
     loadVideo( "success_cinematic.mp4" );
     loadVideo( "end_cinematic.mp4", undefined, true );
+    window.addEventListener( "mousemove", checkActive );
 }
 
 function setRenderMode( sceneID ) {
@@ -1036,15 +1037,14 @@ function checkPageZoom() {
 }
 
 function checkActive() {
-    clearTimeout(activityTimeout);
+    clearTimeout( activityTimeout );
     vwf_view.kernel.setProperty( appID, "isIdle", false );
-    activityTimeout = setTimeout(function(){                                 
-                                        vwf_view.kernel.setProperty( appID, "isIdle", true );
-                                         }, 5000);
+    activityTimeout = setTimeout(
+        function(){                                 
+            vwf_view.kernel.setProperty( appID, "isIdle", true );
+        }, 5000);
 }
 
 window.addEventListener( "resize", checkPageZoom );
-
-window.addEventListener( "mousemove", checkActive );
 
 //@ sourceURL=source/index.js
