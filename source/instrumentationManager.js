@@ -178,7 +178,7 @@ this.getRequest = function( type, params ) {
         
         xhr.open( "POST", this.getPlayerStateUrl, true );
         xhr.setRequestHeader( "Content-type", "application/x-www-form-urlencoded" );
-        xhr.send( "player_id="+playerId+ "&pwd=" + playerId );
+        xhr.send( "player_id="+playerId+ "&pwd=" + pwd );
     }
     
 }
