@@ -58,10 +58,8 @@ methods:
   restartGame:
   attemptLogin:
   setAnimationRate:
-  checkActive:
   isInactive:
   reportBlocklyChange:
-  playedVO:
 events:
   gameStarted:
   scenarioReset:
