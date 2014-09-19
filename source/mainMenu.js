@@ -223,6 +223,7 @@ MainMenu.prototype = {
         loginForm.userID = document.createElement( "input" );
         loginForm.userID.id = "idTextBox";
         loginForm.userID.type = "text";
+        loginForm.userID.autocomplete = "off";
         loginForm.password = document.createElement( "input" );
         loginForm.password.id = "passwordTextBox";
         loginForm.password.type = "password";
