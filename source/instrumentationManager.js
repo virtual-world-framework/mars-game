@@ -150,20 +150,22 @@ this.createRequest = function( type, params ) {
 
 this.getRequest = function( type, params ) {
 
-    var playerId = scene.playerId;
     var version = scene.version;
     
-    playerId = 'firefox';
-    var pwd = 'asdfas';
     var pathArray = window.location.pathname.split( '/' );
     var vwfSession = pathArray[ pathArray.length-2 ];
     
     var xhr = new XMLHttpRequest();
     
     if ( type == 'getPlayerState' ) {
-        if ( params && ( params.length > 0 ) ) {
-            self.logger.warnx( "getRequest", "The getPlayerState request takes no parameters." );
+        if ( params && ( params.length !== 2 ) ) {
+            self.logger.warnx( "getRequest", "The getPlayerState request takes two parameters: " +
+                               "the playerId and password." );
         }
+        
+        var playerId = params[ 0 ];
+        var pwd = params[ 1 ];
+    
         var xhr = new XMLHttpRequest();
         xhr.onreadystatechange = function() {
             if ( xhr.readyState === 4 && xhr.status === 200 ) {

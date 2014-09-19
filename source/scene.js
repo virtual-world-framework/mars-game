@@ -225,7 +225,7 @@ this.loginSucceeded = function( scenarioName ) {
     console.log( scenarioName );
 }
 
-this.isInactive = function( value ) {
+this.logInactivity = function( value ) {
     if ( value === true && this.isIdle === false) {
         this.instrumentationManager.createRequest("logInactivity", [ 'inactive' ] );
     } else if ( value === false && this.isIdle === true ) {
