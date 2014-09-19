@@ -231,15 +231,7 @@ this.loadGame = function( scenarioName ) {
     this.future( 0 ).loadedGame();
 }
 
-function checkActive() {
-    clearTimeout(activityTimeout);
-    vwf_view.kernel.setProperty( vwf_view.kernel.application(), "isIdle", false );
-    activityTimeout = setTimeout(function(){                                 
-                                        vwf_view.kernel.setProperty( vwf_view.kernel.application(), "isIdle", true );
-                                         }, 5000);
-}
-
-this.isInactive = function( value ) {
+this.logInactivity = function( value ) {
     if ( value === true && this.isIdle === false) {
         this.instrumentationManager.createRequest("logInactivity", [ 'inactive' ] );
     } else if ( value === false && this.isIdle === true ) {
@@ -250,7 +242,5 @@ this.isInactive = function( value ) {
 this.reportBlocklyChange = function( value ) {
     this.instrumentationManager.broadcastBlockly( '' + value + '', this.activeScenarioPath );
 }
-
-window.addEventListener( "mousemove", checkActive );
 
 //@ sourceURL=source/scene.js

@@ -118,7 +118,7 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 if ( currentBlocklyNodeID === blocklyGraphID ) {
                     var currentCode = getBlocklyFunction();
                     this.kernel.setProperty( graphLines[ "blocklyLine" ].ID, "lineFunction", currentCode );
-                    vwf_view.kernel.setProperty( vwf_view.kernel.application(), "activeBlocklyXML", ''+currentCode+'');
+                    vwf_view.kernel.setProperty( appID, "activeBlocklyXML", currentCode.toString() );
                 } else {
                     indicateBlock( lastBlockIDExecuted );
                 }
@@ -612,7 +612,7 @@ function loadScenarioList() {
 
 function runBlockly() {
     var blocklyXml =  Blockly.Xml.domToText( Blockly.Xml.workspaceToDom( Blockly.getMainWorkspace( ) ) );
-    vwf_view.kernel.setProperty( vwf_view.kernel.application(), "activeBlocklyXML", blocklyXml );
+    vwf_view.kernel.setProperty( appID, "activeBlocklyXML", blocklyXml );
     vwf_view.kernel.setProperty( currentBlocklyNodeID, "blockly_executing", true );
     populateBlockStack();
 }
@@ -961,9 +961,6 @@ function clearBlocklyTabs() {
     }
 }
 
-function playedVO ( name ) {
-}
-
 function setVolume( value ) {
     var sm, muteButton;
     sm = vwf_view.kernel.find( appID, "/soundManager" )[ 0 ];
@@ -1045,9 +1042,9 @@ function checkPageZoom() {
 
 function checkActive() {
     clearTimeout(activityTimeout);
-    vwf_view.kernel.setProperty( vwf_view.kernel.application(), "isIdle", false );
+    vwf_view.kernel.setProperty( appID, "isIdle", false );
     activityTimeout = setTimeout(function(){                                 
-                                        vwf_view.kernel.setProperty( vwf_view.kernel.application(), "isIdle", true );
+                                        vwf_view.kernel.setProperty( appID, "isIdle", true );
                                          }, 5000);
 }
 
