@@ -98,7 +98,7 @@ MainMenu.prototype = {
 
     createOverlay: function() {
         var title, playButton, continueButton, settingsButton, backButton, volume;
-        var loginForm, loginTextBox, loginButton, loginHeading, container, logout;
+        var loginForm, loginButton, loginHeading, container, logout;
         var username, password, buttons, userLabel, passLabel;
 
         this.overlay = document.createElement( "div" );
@@ -220,13 +220,13 @@ MainMenu.prototype = {
         loginHeading = document.createElement( "div" );
         loginHeading.id = "loginHeading";
         loginHeading.innerHTML = "Please enter a player ID.";
-        loginTextBox = document.createElement( "input" );
-        loginTextBox.id = "idTextBox";
-        loginTextBox.type = "text";
-        passwordTextBox = document.createElement( "input" );
-        passwordTextBox.id = "passwordTextBox";
-        passwordTextBox.type = "password";
-        passwordTextBox.onkeydown = function() { console.log( event.returnValue ) };
+        loginForm.userID = document.createElement( "input" );
+        loginForm.userID.id = "idTextBox";
+        loginForm.userID.type = "text";
+        loginForm.password = document.createElement( "input" );
+        loginForm.password.id = "passwordTextBox";
+        loginForm.password.type = "password";
+        loginForm.password.onkeydown = function() { console.log( event.returnValue ) };
         loginButton = document.createElement( "input" );
         loginButton.id = "submitButton";
         loginButton.type = "button";
@@ -243,17 +243,17 @@ MainMenu.prototype = {
         passLabel = document.createTextNode( "Password: " );
         loginForm.appendChild( loginHeading );
         username.appendChild( userLabel );
-        username.appendChild( loginTextBox );
+        username.appendChild( loginForm.userID );
         password.appendChild( passLabel );
-        password.appendChild( passwordTextBox );
+        password.appendChild( loginForm.password );
         buttons.appendChild( loginButton );
         loginForm.appendChild( username );
         loginForm.appendChild( password );
         loginForm.appendChild( buttons );
         this.overlay.loginMenu.appendChild( loginForm );
         this.overlay.appendChild( this.overlay.loginMenu );
-        loginForm.onsubmit = this.submitUserID.bind( loginTextBox );
-        loginButton.onclick = this.submitUserID.bind( loginTextBox );
+        loginForm.onsubmit = function( event ) { event.preventDefault(); };
+        loginButton.onclick = this.submitUserID.bind( loginForm );
         logout.onclick = this.logoutUser.bind( this );
         this.overlay.appendChild( logout );
 
@@ -295,12 +295,12 @@ MainMenu.prototype = {
 
     playGame: function() {
         this.overlay.style.display = "none";
-        vwf_view.kernel.fireEvent( vwf_view.kernel.application(), "gameStarted" );
+        vwf_view.kernel.fireEvent( appID, "gameStarted" );
     },
 
     resumeGame: function() {
         this.overlay.style.display = "none";
-        vwf_view.kernel.setProperty( vwf_view.kernel.application(), "activeScenarioPath", this.continueScenario );
+        vwf_view.kernel.setProperty( appID, "activeScenarioPath", this.continueScenario );
     },
 
     openSettings: function() {
@@ -318,7 +318,7 @@ MainMenu.prototype = {
 
     setVolume: function( value ) {
         var sm, muteButton;
-        sm = vwf_view.kernel.find( vwf_view.kernel.application(), "/soundManager" )[ 0 ];
+        sm = vwf_view.kernel.find( appID, "/soundManager" )[ 0 ];
         if ( sm ) {
             value = Math.min( 1, Math.max( 0, value ) );
             muteButton = document.getElementById( "volumeMute" );
@@ -367,15 +367,19 @@ MainMenu.prototype = {
     },
 
     submitUserID: function( event ) {
-        var vwfScene = vwf_view.kernel.application();
-        var logoutDiv = document.getElementById( "logout" );
-        var userID = this.value;
-        vwf_view.kernel.callMethod( vwfScene, "attemptLogin", [ userID ] );
-        logout.innerHTML = userID + " - <a>Log Out</a>";
+        var userID = this.userID.value;
+        var password = this.password.value;
+        vwf_view.kernel.callMethod( appID, "attemptLogin", [ userID, password ] );
         event.preventDefault();
     },
 
-    loggedIn: function( scenarioName ) {
+    loggedIn: function( scenarioName, userID ) {
+        var logoutDiv = document.getElementById( "logout" );
+        if ( userID === undefined || this.username === "" ) {
+            logout.innerHTML = "<a>Sign In</a>";
+        } else {
+            logout.innerHTML = userID + " - <a>Log Out</a>";
+        }
         if ( scenarioName ) {
             var continueButton = document.getElementById( "MainMenu-ContinueButton" );
             continueButton.style.display = "block";
