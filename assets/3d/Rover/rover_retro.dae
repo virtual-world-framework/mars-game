@@ -4,10 +4,10 @@
     <contributor>
       <author>mcclurek</author>
       <authoring_tool>OpenCOLLADA for 3ds Max;  Version: 1.4.1;  Revision: exported;  Platform: x64;  Configuration: Release_Max2012_static</authoring_tool>
-      <source_data>file:///C:/Users/mcclurek/Desktop/MARS/Rover_1_SCALED_UPDATED_SUSPENSION2.max</source_data>
+      <source_data>file:///C:/Users/mcclurek/Desktop/MARS/Rover_FINAL_w_512x5122.max</source_data>
     </contributor>
-    <created>2014-09-16T15:41:00</created>
-    <modified>2014-09-16T15:41:00</modified>
+    <created>2014-09-19T16:53:37</created>
+    <modified>2014-09-19T16:53:37</modified>
     <unit name="meter" meter="1"/>
     <up_axis>Z_UP</up_axis>
   </asset>
@@ -36,7 +36,7 @@
               <texture texture="rover_retro_jpg-sampler" texcoord="CHANNEL1"/>
             </diffuse>
             <specular>
-              <color>0.9 0.9 0.9 1</color>
+              <color>0 0 0 1</color>
             </specular>
             <shininess>
               <float>0</float>
@@ -1252,6 +1252,71 @@
         </triangles>
       </mesh>
     </geometry>
+    <geometry id="geom-Cylinder053" name="Cylinder053">
+      <mesh>
+        <source id="geom-Cylinder053-positions">
+          <float_array id="geom-Cylinder053-positions-array" count="42">0 0 0 0.03938107 0 0 0.01969053 0.03410501 0 -0.01969054 0.03410501 0 -0.03938107 -3.4428e-9 0 -0.01969053 -0.03410501 0 0.01969053 -0.03410501 0 0.03938107 0 0.1755204 0.01969053 0.03410501 0.1755204 -0.01969054 0.03410501 0.1755204 -0.03938107 -3.4428e-9 0.1755204 -0.01969053 -0.03410501 0.1755204 0.01969053 -0.03410501 0.1755204 0 0 0.1755204</float_array>
+          <technique_common>
+            <accessor source="#geom-Cylinder053-positions-array" count="14" stride="3">
+              <param name="X" type="float"/>
+              <param name="Y" type="float"/>
+              <param name="Z" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <source id="geom-Cylinder053-normals">
+          <float_array id="geom-Cylinder053-normals-array" count="78">0 0 -1 0 0 -1 0 0 -1 0 0 -1 0 0 -1 0 0 -1 0 0 -1 1 -2.19078e-8 0 0.5 0.8660254 0 1 -3.83387e-8 0 0.5 0.8660254 0 -0.5000001 0.8660254 0 -0.5000001 0.8660253 0 -1 -8.76314e-8 0 -1 -1.09539e-7 0 -0.4999999 -0.8660254 0 -0.4999999 -0.8660254 0 0.5 -0.8660254 0 0.5 -0.8660254 0 0 0 1 0 0 1 0 0 1 0 0 1 0 0 1 0 0 1 0 0 1</float_array>
+          <technique_common>
+            <accessor source="#geom-Cylinder053-normals-array" count="26" stride="3">
+              <param name="X" type="float"/>
+              <param name="Y" type="float"/>
+              <param name="Z" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <source id="geom-Cylinder053-map1">
+          <float_array id="geom-Cylinder053-map1-array" count="57">0.5 0 0 0.75 0 1 0.9166667 0 1 0.08333335 0 1 0.25 0 1 0.4166667 0 0.9999999 0.5833333 0 1 0.75 1 1 0.9166667 1 1 0.08333335 1 1 0.25 1 1 0.4166667 1 0.9999999 0.5833333 1 1 0.5 1 0 -0.08333331 0 1 -0.08333331 0 1 -0.08333331 1 1 -0.08333331 0 1 -0.08333331 1 1</float_array>
+          <technique_common>
+            <accessor source="#geom-Cylinder053-map1-array" count="19" stride="3">
+              <param name="S" type="float"/>
+              <param name="T" type="float"/>
+              <param name="P" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <source id="geom-Cylinder053-map1-textangents">
+          <float_array id="geom-Cylinder053-map1-textangents-array" count="93">-1.86514e-8 -3.21657e-8 0 0.4999999 0.8660254 0 0.75 0.4330127 0 -0.75 0.4330126 0 -0.5000001 0.8660254 0 -0.75 -0.4330128 0 0 -0.8660255 0 0.75 -0.4330127 0 1.89727e-8 0.8660254 0 -0.75 0.4330127 0 3.32023e-8 0.8660254 0 -0.75 0.4330127 0 -0.75 0.4330126 0 -0.75 -0.4330128 0 -0.75 0.4330127 0 -0.75 0.4330126 0 -0.75 -0.4330128 0 7.5891e-8 -0.8660254 0 9.48637e-8 -0.8660254 0 0.75 -0.4330127 0 0.7500001 -0.4330126 0 0.75 0.4330127 0 0.75 0.4330127 0 -1.86514e-8 -3.21657e-8 0 0.75 -0.4330127 0 1 0 0 0.4999999 0.8660254 0 -5.59541e-8 0.8660254 0 -0.75 0.4330126 0 -0.75 -0.4330128 0 0 -0.8660255 0</float_array>
+          <technique_common>
+            <accessor source="#geom-Cylinder053-map1-textangents-array" count="31" stride="3">
+              <param name="X" type="float"/>
+              <param name="Y" type="float"/>
+              <param name="Z" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <source id="geom-Cylinder053-map1-texbinormals">
+          <float_array id="geom-Cylinder053-map1-texbinormals-array" count="93">0.8650865 -0.5016226 0 -0.8660254 0.4999999 0 -0.5 0.8660254 0 -0.4999999 -0.8660254 0 -0.8660254 -0.5000001 0 0.5000001 -0.8660254 0 1 0 0 0.5 0.8660254 0 0 0 -1 0 0 -1 0 0 -1 0 0 -1 0 0 -1 0 0 -1 0 0 -1 0 0 -1 0 0 -1 0 0 -1 0 0 -1 0 0 -1 0 0 -1 0 0 -1 0 0 -1 -0.8650865 0.5016226 0 -0.5 -0.8660254 0 0 -1 0 0.8660254 -0.4999999 0 1 6.46102e-8 0 0.4999999 0.8660254 0 -0.5000001 0.8660254 0 -1 0 0</float_array>
+          <technique_common>
+            <accessor source="#geom-Cylinder053-map1-texbinormals-array" count="31" stride="3">
+              <param name="X" type="float"/>
+              <param name="Y" type="float"/>
+              <param name="Z" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <vertices id="geom-Cylinder053-vertices">
+          <input semantic="POSITION" source="#geom-Cylinder053-positions"/>
+        </vertices>
+        <triangles material="rover_tan" count="24">
+          <input semantic="VERTEX" source="#geom-Cylinder053-vertices" offset="0"/>
+          <input semantic="NORMAL" source="#geom-Cylinder053-normals" offset="1"/>
+          <input semantic="TEXCOORD" source="#geom-Cylinder053-map1" offset="2" set="0"/>
+          <input semantic="TEXTANGENT" source="#geom-Cylinder053-map1-textangents" offset="3" set="1"/>
+          <input semantic="TEXBINORMAL" source="#geom-Cylinder053-map1-texbinormals" offset="3" set="1"/>
+          <p>0 0 0 0 2 1 2 1 1 2 1 2 0 0 0 0 3 3 3 3 2 1 14 4 0 0 0 0 4 4 4 5 3 3 3 3 0 0 0 0 5 5 5 6 4 4 4 5 0 0 0 0 6 6 6 7 5 5 5 6 0 0 0 0 1 2 1 2 6 6 6 7 1 7 1 8 8 8 8 9 7 9 7 10 1 7 1 8 2 10 2 11 8 8 8 9 2 10 15 12 9 11 9 13 8 8 16 14 2 10 17 15 3 12 3 16 9 11 9 13 3 12 3 16 10 13 10 17 9 11 9 13 3 12 3 16 4 14 4 18 10 13 10 17 4 14 4 18 11 15 11 19 10 13 10 17 4 14 4 18 5 16 5 20 11 15 11 19 5 16 5 20 12 17 12 21 11 15 11 19 5 16 5 20 6 18 6 22 12 17 12 21 6 18 6 22 7 9 7 10 12 17 12 21 6 18 6 22 1 7 1 8 7 9 7 10 13 19 13 23 7 20 7 24 8 21 8 25 13 19 13 23 8 21 18 26 9 22 9 27 13 19 13 23 9 22 9 27 10 23 10 28 13 19 13 23 10 23 10 28 11 24 11 29 13 19 13 23 11 24 11 29 12 25 12 30 13 19 13 23 12 25 12 30 7 20 7 24</p>
+        </triangles>
+      </mesh>
+    </geometry>
   </library_geometries>
   <library_lights>
     <light id="EnvironmentAmbientLight" name="EnvironmentAmbientLight">
@@ -1687,6 +1752,26 @@
             </technique>
           </extra>
         </node>
+        <extra>
+          <technique profile="OpenCOLLADA">
+            <cast_shadows>1</cast_shadows>
+            <primary_visibility>1</primary_visibility>
+            <receive_shadows>1</receive_shadows>
+            <secondary_visibility>1</secondary_visibility>
+          </technique>
+        </extra>
+      </node>
+      <node id="node-Cylinder053" name="Cylinder053">
+        <translate>3.32511e-4 0.1748417 1.087856</translate>
+        <instance_geometry url="#geom-Cylinder053">
+          <bind_material>
+            <technique_common>
+              <instance_material symbol="rover_tan" target="#rover_tan-material">
+                <bind_vertex_input semantic="CHANNEL1" input_semantic="TEXCOORD" input_set="0"/>
+              </instance_material>
+            </technique_common>
+          </bind_material>
+        </instance_geometry>
         <extra>
           <technique profile="OpenCOLLADA">
             <cast_shadows>1</cast_shadows>
