@@ -809,7 +809,7 @@ function initializePauseMenu() {
         }
     }
 
-    volumeSlider = document.getElementById( "volumeSlider" );
+    volumeSlider = document.getElementById( "slider" );
     volumeSlider.onmousedown = moveVolumeSlider;
     volumeSlider.onmousemove = moveVolumeSlider;
     volumeSlider.onmouseout = moveVolumeSlider;
@@ -973,7 +973,7 @@ function setVolume( value ) {
 function moveVolumeSlider( event ) {
     var pct, handle, deadzone;
     if ( event.which === 1 ) {
-        handle = document.getElementById( "volumeHandle" );
+        handle = document.getElementById( "handle" );
         deadzone = handle.clientWidth / 2;
         pct = ( event.offsetX - deadzone ) / ( this.clientWidth - deadzone * 2 );
         setVolume( pct );
@@ -989,12 +989,12 @@ function muteVolume() {
 }
 
 function setVolumeSliderPosition( volume ) {
-    var volumeHandle = document.getElementById( "volumeHandle" );
-    var deadzone = volumeHandle.clientWidth / 2;
-    var pos = volume * ( volumeHandle.parentNode.clientWidth - deadzone * 2 );
+    var handle = document.getElementById( "handle" );
+    var deadzone = handle.clientWidth / 2;
+    var pos = volume * ( handle.parentNode.clientWidth - deadzone * 2 );
     var readout, readoutPct;
-    volumeHandle.style.marginLeft = pos + "px";
-    readout = document.getElementById( "volumeReadout" );
+    handle.style.marginLeft = pos + "px";
+    readout = document.getElementById( "readout" );
     readoutPct = volume * 100;
     readoutPct = Math.round( readoutPct );
     readout.innerHTML = "Volume: " + readoutPct + "%";
