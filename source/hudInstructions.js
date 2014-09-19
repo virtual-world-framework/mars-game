@@ -68,21 +68,6 @@ function createRoverElement() {
     batteryMeter.frame.src = "assets/images/hud/rover_frame.png";
     batteryMeter.portrait = new Image();
     batteryMeter.portrait.src = "assets/images/hud/rover_portrait.png";
-    batteryMeter.selectedIcon = new Image();
-    batteryMeter.selectedIcon.src = "assets/images/hud/rover_select.png";
-}
-
-function createMiniRoverElement() {
-    var miniroverElement = new HUD.Element( "minirover", drawMiniRoverElement, 88, 88 );
-    miniroverElement.path = "/minirover";
-    hud.add( miniroverElement, "left", "top", { "x": 50, "y": 168 } );
-
-    miniroverElement.portrait = new Image();
-    miniroverElement.portrait.src = "assets/images/hud/minirover_portrait.png";
-    miniroverElement.frame = new Image();
-    miniroverElement.frame.src = "assets/images/hud/minirover_frame.png";
-    miniroverElement.selectedIcon = new Image();
-    miniroverElement.selectedIcon.src = "assets/images/hud/minirover_select.png";
 }
 
 function createCameraSelector() {
@@ -184,14 +169,14 @@ function createBlocklyStatus() {
     status.numberAppendix = new Image();
     status.numberAppendix.src = "assets/images/blockly_ui/number_appendix.png";
     hud.add( status, "right", "bottom", { "x": 130, "y": -60 } );
-    addBlockToImageList( "moveForward", "assets/images/hud/blockly_move_forward.png" );
-    addBlockToImageList( "turnLeft", "assets/images/hud/blockly_turn_left.png" );
-    addBlockToImageList( "turnRight", "assets/images/hud/blockly_turn_right.png" );
-    addBlockToImageList( "repeatTimes", "assets/images/hud/blockly_repeat_times.png" );
-    addBlockToImageList( "number", "assets/images/hud/blockly_number.png" );
-    addBlockToImageList( "repeatUntil", "assets/images/hud/blockly_repeat_until.png" );
-    addBlockToImageList( "repeatWhile", "assets/images/hud/blockly_repeat_while.png" );
-    addBlockToImageList( "sensor", "assets/images/hud/blockly_sensor.png" );
+    addBlockToImageList( "moveForward", "" );
+    addBlockToImageList( "turnLeft", "" );
+    addBlockToImageList( "turnRight", "" );
+    addBlockToImageList( "repeatTimes", "" );
+    addBlockToImageList( "number", "" );
+    addBlockToImageList( "repeatUntil", "" );
+    addBlockToImageList( "repeatWhile", "" );
+    addBlockToImageList( "sensor", "" );
 }
 
 function addBlockToImageList( name, imageSrc ) {
@@ -374,73 +359,9 @@ function drawCameraSelector( context, position ) {
     }
 }
 
-function drawBlocklyStatus( context, position ) {
-    // if ( this.blockImages && this.blockStack ) {
-    //     var lastHeight = 0;
-    //     var offsetX = 0;
-    //     var offsetY = 0;
-    //     if ( this.index > -1 ) {
-    //         offsetX += this.runIcon.width;
-    //         offsetY += this.runIcon.height * 1.5;
-    //         context.drawImage( this.runIcon, position.x - offsetX, position.y - offsetY );
-    //     }        
-    //     // Draw all blocks within the range of the selected block
-    //     for ( var i = 0; i < this.index + this.range / 2; i++ ) {
-    //         var blockData = this.blockStack[ i ];
-    //         if ( blockData ) {
-    //             var alpha = blockData.alpha;
-    //             var block = this.blockImages[ blockData.name ];
-    //             if ( alpha && block && Math.abs( i - this.index ) < this.range ) {
-    //                 context.globalAlpha = alpha;
-    //                 context.drawImage( block, position.x, 
-    //                                    position.y - ( this.topOffset - lastHeight ) );
-    //                 if ( this.index === i && blockData.maxLoopIndex ) {
-    //                     var numBlock = this.numberAppendix;
-    //                     offsetX += numBlock.width;
-    //                     context.drawImage( numBlock, position.x - offsetX + 2, position.y - offsetY );
-    //                     context.textBaseline = "top";
-    //                     context.font = '10px sans-serif';
-    //                     context.fillStyle = "rgb( 255, 255, 255 )";
-    //                     context.fillText( blockData.loopIndex + " of " + blockData.maxLoopIndex,
-    //                                       position.x - offsetX + 8, position.y - offsetY + 2 );
-    //                 }
-    //             }
-    //             lastHeight += block.height || 0;
-    //         }
-    //     }       
-    //     context.globalAlpha = 1;
-    // }
-}
+function drawBlocklyStatus( context, position ) {}
 
-function drawBlocklyStatusAnimating( context, position ) {
-    // var alphaIncrement = 0.5 / this.range;    
-    // var time = vwf_view.kernel.time();
-    // if ( time - this.lastUpdateTime > this.updateIntervalTime ) {
-    //     this.lastUpdateTime = time;
-    //     this.topOffset += this.offsetIncrement;
-    //     for ( var i = 0; i < this.blockStack.length; i++ ) {
-    //         var alpha = this.blockStack[ i ].alpha;
-    //         if ( i < this.index ) {
-    //             alpha -= alphaIncrement;
-    //             alpha = alpha < 0 ? 0 : alpha;
-    //         } else if ( i > this.index ) {
-    //             alpha += alphaIncrement;
-    //         } else {
-    //             alpha = 1;
-    //         }
-    //         this.blockStack[ i ].alpha = alpha;
-    //     }
-    // }
-
-    // if ( this.topOffset >= this.nextTopOffset ) {
-    //     this.topOffset = this.nextTopOffset;
-    //     this.offsetIncrement = 0;
-    //     this.draw = this.defaultDraw;
-    //     setBlocklyAlphas();
-    // }
-
-    // this.defaultDraw( context, position );
-}
+function drawBlocklyStatusAnimating( context, position ) {}
 
 function drawIcon( context, position ) {
     if ( this.icon ) {
