@@ -57,11 +57,18 @@ function removeVideoOnEvent( event ) {
     if ( event.type === "keypress" && event.which !== 32 ) {
         return;
     }
-    var videoElem = playingVideo.elem || event.srcElement;
+    var videoElem;
+    if ( playingVideo && playingVideo.elem ) {
+        videoElem = playingVideo.elem;
+    } else {
+        videoElem = event.srcElement;
+    }
     var id = parseInt( videoElem.id.split( "video" )[ 1 ] );
-    var fileName = getVideoFileName( videos[ id ] );
-    vwf_view.kernel.fireEvent( vwf_view.kernel.application(), "videoPlayed", [ fileName ] );
-    removeVideo( id );
+    if ( videos[ id ] ) {
+        var fileName = getVideoFileName( videos[ id ] );
+        vwf_view.kernel.fireEvent( vwf_view.kernel.application(), "videoPlayed", [ fileName ] );
+        removeVideo( id );
+    }
     playingVideo = undefined;
 }
 
