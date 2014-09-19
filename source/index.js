@@ -244,11 +244,12 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 break;
 
             case "progressFound":
-                var scenario;
+                var scenario, userID;
                 if ( eventArgs[ 0 ] && eventArgs[ 1 ] ) {
                     scenario = eventArgs[ 1 ];
                 }
-                mainMenu.loggedIn( scenario );
+                userID = eventArgs[ 2 ];
+                mainMenu.loggedIn( scenario, userID );
                 break;
 
             case "storedScenario":
