@@ -22,13 +22,13 @@ this.initialize = function() {
     
     if ( this.enabled === true ) {
         this.future( 0 ).onSceneLoaded();
-        this.future( 0 ).registerEventListeners();
     }
 }
 
 this.onSceneLoaded = function() {
     scene = this.find( "/" )[ 0 ];
     camera = scene.player.targetFollower.camera;
+    this.registerEventListeners();
 }
 
 this.registerEventListeners = function() {
@@ -55,6 +55,10 @@ this.registerEventListeners = function() {
 
     scene.playedVO = ( function( soundName ) {
         this.broadcastEvent( 'playedVO', soundName );
+    } ).bind( this );
+
+    scene.blocklyXmlChanged = ( function( value ) {
+        this.broadcastBlockly( value, scene.activeScenarioPath );
     } ).bind( this );
 
     camera.changedPOV = ( function( pov ) {
@@ -173,7 +177,8 @@ this.getRequest = function( type, params ) {
                 if ( scenarioName.lastIndexOf( "$" ) === scenarioName.length - 1 ) {
                     scenarioName = scenarioName.substr( 0, scenarioName.length - 1 );
                 }
-                scene.progressFound( ( scene[ scenarioName ] && scenarioName !== "mainMenuScenario" ), scenarioName );
+                scene.progressFound( ( scene[ scenarioName ] && scenarioName !== "mainMenuScenario" ), scenarioName, playerId );
+                scene.playerId = playerId;
                 return xhr.responseText;
             }
         }
