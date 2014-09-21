@@ -98,7 +98,7 @@ MainMenu.prototype = {
 
     createOverlay: function() {
         var title, playButton, continueButton, settingsButton, backButton, volume;
-        var loginForm, loginButton, loginHeading, container, logout;
+        var logInForm, logInButton, logInHeading, container, logout, logInStatus;
         var username, password, buttons, userLabel, passLabel;
 
         this.overlay = document.createElement( "div" );
@@ -213,24 +213,24 @@ MainMenu.prototype = {
         volume.slider.onmouseout = this.moveVolumeSlider.bind( this );
 
 
-        this.overlay.loginMenu = document.createElement( "div" );
-        this.overlay.loginMenu.id = "loginBox";
-        loginForm = document.createElement( "form" );
-        loginForm.id = "loginForm";
-        loginHeading = document.createElement( "div" );
-        loginHeading.id = "loginHeading";
-        loginHeading.innerHTML = "Please enter a player ID.";
-        loginForm.userID = document.createElement( "input" );
-        loginForm.userID.id = "idTextBox";
-        loginForm.userID.type = "text";
-        loginForm.userID.autocomplete = "off";
-        loginForm.password = document.createElement( "input" );
-        loginForm.password.id = "passwordTextBox";
-        loginForm.password.type = "password";
-        loginButton = document.createElement( "input" );
-        loginButton.id = "submitButton";
-        loginButton.type = "button";
-        loginButton.value = "Submit";
+        this.overlay.logInMenu = document.createElement( "div" );
+        this.overlay.logInMenu.id = "logInBox";
+        logInForm = document.createElement( "form" );
+        logInForm.id = "logInForm";
+        logInHeading = document.createElement( "div" );
+        logInHeading.id = "logInHeading";
+        logInHeading.innerHTML = "Please enter a player ID.";
+        logInForm.userID = document.createElement( "input" );
+        logInForm.userID.id = "idTextBox";
+        logInForm.userID.type = "text";
+        logInForm.userID.autocomplete = "off";
+        logInForm.password = document.createElement( "input" );
+        logInForm.password.id = "passwordTextBox";
+        logInForm.password.type = "password";
+        logInButton = document.createElement( "input" );
+        logInButton.id = "submitButton";
+        logInButton.type = "button";
+        logInButton.value = "Submit";
         logout = document.createElement( "div" );
         logout.id = "logout";
         username = document.createElement( "div" );
@@ -239,21 +239,24 @@ MainMenu.prototype = {
         password.className = "formGroup";
         buttons = document.createElement( "div" );
         buttons.className = "formGroup";
+        logInStatus = document.createElement( "div" );
+        logInStatus.id = "logInStatus";
         userLabel = document.createTextNode( "Username: " );
         passLabel = document.createTextNode( "Password: " );
-        loginForm.appendChild( loginHeading );
+        logInForm.appendChild( logInHeading );
         username.appendChild( userLabel );
-        username.appendChild( loginForm.userID );
+        username.appendChild( logInForm.userID );
         password.appendChild( passLabel );
-        password.appendChild( loginForm.password );
-        buttons.appendChild( loginButton );
-        loginForm.appendChild( username );
-        loginForm.appendChild( password );
-        loginForm.appendChild( buttons );
-        this.overlay.loginMenu.appendChild( loginForm );
-        this.overlay.appendChild( this.overlay.loginMenu );
-        loginForm.onsubmit = function( event ) { event.preventDefault(); };
-        loginButton.onclick = this.submitUserID.bind( loginForm );
+        password.appendChild( logInForm.password );
+        buttons.appendChild( logInButton );
+        logInForm.appendChild( username );
+        logInForm.appendChild( password );
+        logInForm.appendChild( logInStatus );
+        logInForm.appendChild( buttons );
+        this.overlay.logInMenu.appendChild( logInForm );
+        this.overlay.appendChild( this.overlay.logInMenu );
+        logInForm.onsubmit = function( event ) { event.preventDefault(); };
+        logInButton.onclick = this.submitUserID.bind( logInForm );
         logout.onclick = this.logoutUser.bind( this );
         this.overlay.appendChild( logout );
 
@@ -304,14 +307,14 @@ MainMenu.prototype = {
     },
 
     openSettings: function() {
-        this.overlay.loginMenu.style.display = "none";
+        this.overlay.logInMenu.style.display = "none";
         this.overlay.mainMenu.style.display = "none";
         this.overlay.settingsMenu.style.display = "block";
         this.setVolumeSliderPosition( cachedVolume );
     },
 
     openMain: function() {
-        this.overlay.loginMenu.style.display = "none";
+        this.overlay.logInMenu.style.display = "none";
         this.overlay.settingsMenu.style.display = "none";
         this.overlay.mainMenu.style.display = "block";
     },
@@ -369,25 +372,28 @@ MainMenu.prototype = {
     submitUserID: function( event ) {
         var userID = this.userID.value;
         var password = this.password.value;
-        vwf_view.kernel.callMethod( appID, "attemptLogin", [ userID, password ] );
+        vwf_view.kernel.callMethod( appID, "attemptLogIn", [ userID, password ] );
         event.preventDefault();
     },
 
     loggedIn: function( scenarioName, userID ) {
         var logoutDiv = document.getElementById( "logout" );
-        if ( userID === undefined || this.username === "" ) {
-            logout.innerHTML = "<a>Sign In</a>";
-        } else {
-            logout.innerHTML = userID + " - <a>Log Out</a>";
-        }
+        var logInStatus = document.getElementById( "logInStatus" );
+        logout.innerHTML = userID + " - <a>Log Out</a>";
+        logInStatus.innerHTML = "";
         this.setContinueScenario( scenarioName );
         this.openMain();
+    },
+
+    failedLogIn: function() {
+        var logInStatus = document.getElementById( "logInStatus" );
+        logInStatus.innerHTML = "Username/Password combination not found.";
     },
 
     logoutUser: function( event ) {
         var logoutDiv = document.getElementById( "logout" );
         logoutDiv.innerHTML = "";
-        this.overlay.loginMenu.style.display = "block";
+        this.overlay.logInMenu.style.display = "block";
         this.overlay.settingsMenu.style.display = "none";
         this.overlay.mainMenu.style.display = "none";
     },
