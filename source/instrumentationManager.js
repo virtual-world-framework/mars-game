@@ -173,13 +173,18 @@ this.getRequest = function( type, params ) {
         var xhr = new XMLHttpRequest();
         xhr.onreadystatechange = function() {
             if ( xhr.readyState === 4 && xhr.status === 200 ) {
-                var scenarioName = xhr.responseText;
-                if ( scenarioName.lastIndexOf( "$" ) === scenarioName.length - 1 ) {
-                    scenarioName = scenarioName.substr( 0, scenarioName.length - 1 );
+                var response = xhr.responseText;
+                var scenarioName;
+                if ( response === "no account" ) {
+                    scene.logInFailed();
+                    return;
+                } else if ( response.lastIndexOf( "$" ) === response.length - 1 ) {
+                    response = response.substr( 0, response.length - 1 );
                 }
-                scene.progressFound( ( scene[ scenarioName ] && scenarioName !== "mainMenuScenario" ), scenarioName, playerId );
-                scene.playerId = playerId;
-                return xhr.responseText;
+                if ( scene[ response ] && response !== "mainMenuScenario" ) {
+                    scenarioName = response;
+                }
+                scene.logInSucceeded( playerId, scenarioName );
             }
         }
         

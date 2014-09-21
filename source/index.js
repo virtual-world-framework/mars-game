@@ -243,13 +243,15 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 setNewObjective( objectiveText );
                 break;
 
-            case "progressFound":
+            case "logInSucceeded":
                 var scenario, userID;
-                if ( eventArgs[ 0 ] && eventArgs[ 1 ] ) {
-                    scenario = eventArgs[ 1 ];
-                }
-                userID = eventArgs[ 2 ];
+                userID = eventArgs[ 0 ];
+                scenario = eventArgs[ 1 ];
                 mainMenu.loggedIn( scenario, userID );
+                break;
+
+            case "logInFailed":
+                mainMenu.failedLogIn();
                 break;
 
         } 

@@ -56,7 +56,7 @@ methods:
   setCinematicView:
   resetView:
   restartGame:
-  attemptLogin:
+  attemptLogIn:
   setAnimationRate:
   isInactive:
 events:
@@ -90,7 +90,8 @@ events:
   setObjective:
   setHUDElementProperty:
   mouseOverHUD:
-  progressFound:
+  logInSucceeded:
+  logInFailed:
 children:
   soundManager:
     includes: source/marsGameSound.vwf

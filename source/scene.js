@@ -212,17 +212,15 @@ this.restartGame = function() {
     this.activeScenarioPath = "mainMenuScenario";
 }
 
-this.attemptLogin = function( userID, password ) {
+this.attemptLogIn = function( userID, password ) {
     var params = [ userID, password ];
     this.instrumentationManager.getRequest( "getPlayerState", params );
 }
 
-this.loginFailed = function( responseText ) {
-    console.log( responseText );
-}
+this.logInFailed = function() {}
 
-this.loginSucceeded = function( scenarioName ) {
-    console.log( scenarioName );
+this.logInSucceeded = function( playerId, scenarioName ) {
+    this.playerId = playerId;
 }
 
 this.logInactivity = function( value ) {
