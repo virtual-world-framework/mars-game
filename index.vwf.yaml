@@ -60,6 +60,7 @@ methods:
   loadGame:
   setAnimationRate:
   isInactive:
+  loadGame:
 events:
   gameStarted:
   scenarioReset:
