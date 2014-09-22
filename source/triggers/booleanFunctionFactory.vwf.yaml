@@ -107,5 +107,10 @@ properties:
     # arguments: elementName
     onHUDMouseOver:
 
+    # Triggers when progress is loaded rather than when a new game is started
+    #   or normal scenario progress occurs
+    # arguments: none
+    onGameLoaded:
+
 scripts:
 - source: source/triggers/booleanFunctionFactory.js

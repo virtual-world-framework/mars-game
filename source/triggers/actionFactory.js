@@ -52,6 +52,18 @@ this.actionSet.scenarioFailure = function( params, context ) {
     }
 }
 
+this.actionSet.initGameOnLoad = function( params, context ) {
+    if ( params && params.length !== 0 ) {
+        self.logger.warnx( "initGameOnLoad", "This action takes no arguments." )
+    }
+
+    var camera = context.player.targetFollower.camera;
+
+    return function() {
+        camera.resetCameraPose();
+    }
+}
+
 this.actionSet.playSound = function( params, context ) {
     if ( !params || ( params.length !== 1 ) ) {
         self.logger.warnx( "playSound", "We need to know the name of the sound to play!" );

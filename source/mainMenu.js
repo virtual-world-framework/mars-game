@@ -303,7 +303,7 @@ MainMenu.prototype = {
 
     resumeGame: function() {
         this.overlay.style.display = "none";
-        vwf_view.kernel.setProperty( appID, "activeScenarioPath", this.continueScenario );
+        vwf_view.kernel.callMethod( appID, "loadGame", [ this.continueScenario ] );
     },
 
     openSettings: function() {
