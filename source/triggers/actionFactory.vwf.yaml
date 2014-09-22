@@ -126,5 +126,9 @@ properties:
     # arguments: elementName, propertyName, propertyValue
     setHUDProperty:
 
+    # Sets up the game when the loadGame method is used
+    # arguments: none
+    initGameOnLoad:
+
 scripts:
 - source: source/triggers/actionFactory.js

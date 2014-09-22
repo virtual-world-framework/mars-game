@@ -835,6 +835,25 @@ this.clauseSet.onHUDMouseOver = function( params, context, callback ) {
     };
 }
 
+this.clauseSet.onGameLoaded = function( params, context, callback ) {
+    if ( params && params.length !== 0 ) {
+        self.logger.warnx( "onGameLoaded", "This clause takes no arguments.");
+    }
+
+    onClauseCallbackWarning( callback );
+    if ( callback ) {
+        if ( context && context.loadedGame ) {
+            context.loadedGame = self.events.add( function( id ) {
+                callback();
+            } );
+        }
+    }
+
+    return function() {
+        return true;
+    };
+}
+
 function onClauseCallbackWarning( callback ) {
       if ( !callback ) {
         self.logger.warnx( "onClauseCallbackWarning", 
