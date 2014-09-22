@@ -41,6 +41,7 @@ var muted = false;
 var currentScenario;
 var scenarioList;
 var startingZoom;
+var activityTimeout;
 
 var renderTransition = true;
 var playingVideo = false;
@@ -117,6 +118,7 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 if ( currentBlocklyNodeID === blocklyGraphID ) {
                     var currentCode = getBlocklyFunction();
                     this.kernel.setProperty( graphLines[ "blocklyLine" ].ID, "lineFunction", currentCode );
+                    vwf_view.kernel.setProperty( appID, "activeBlocklyXML", currentCode.toString() );
                 } else {
                     indicateBlock( lastBlockIDExecuted );
                 }
@@ -205,7 +207,7 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
             case "clearBlocklyTabs":
                 clearBlocklyTabs();
                 break;
-
+                
             case "toggledTiles":
                 tilesAreVisible = eventArgs[ 0 ];
                 break;
@@ -241,12 +243,15 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 setNewObjective( objectiveText );
                 break;
 
-            case "progressFound":
-                var scenario;
-                if ( eventArgs[ 0 ] && eventArgs[ 1 ] ) {
-                    scenario = eventArgs[ 1 ];
-                }
-                mainMenu.loggedIn( scenario );
+            case "logInSucceeded":
+                var scenario, userID;
+                userID = eventArgs[ 0 ];
+                scenario = eventArgs[ 1 ];
+                mainMenu.loggedIn( scenario, userID );
+                break;
+
+            case "logInFailed":
+                mainMenu.failedLogIn();
                 break;
 
         } 
@@ -460,6 +465,7 @@ function setUpView() {
     loadVideo( "intro_cinematic.mp4" );
     loadVideo( "success_cinematic.mp4" );
     loadVideo( "end_cinematic.mp4", undefined, true );
+    window.addEventListener( "mousemove", checkActive );
 }
 
 function setRenderMode( sceneID ) {
@@ -599,6 +605,8 @@ function loadScenarioList() {
 }
 
 function runBlockly() {
+    var blocklyXml =  Blockly.Xml.domToText( Blockly.Xml.workspaceToDom( Blockly.getMainWorkspace( ) ) );
+    vwf_view.kernel.setProperty( appID, "activeBlocklyXML", blocklyXml );
     vwf_view.kernel.setProperty( currentBlocklyNodeID, "blockly_executing", true );
     populateBlockStack();
 }
@@ -805,7 +813,7 @@ function initializePauseMenu() {
         }
     }
 
-    volumeSlider = document.getElementById( "volumeSlider" );
+    volumeSlider = document.getElementById( "slider" );
     volumeSlider.onmousedown = moveVolumeSlider;
     volumeSlider.onmousemove = moveVolumeSlider;
     volumeSlider.onmouseout = moveVolumeSlider;
@@ -969,7 +977,7 @@ function setVolume( value ) {
 function moveVolumeSlider( event ) {
     var pct, handle, deadzone;
     if ( event.which === 1 ) {
-        handle = document.getElementById( "volumeHandle" );
+        handle = document.getElementById( "handle" );
         deadzone = handle.clientWidth / 2;
         pct = ( event.offsetX - deadzone ) / ( this.clientWidth - deadzone * 2 );
         setVolume( pct );
@@ -985,12 +993,12 @@ function muteVolume() {
 }
 
 function setVolumeSliderPosition( volume ) {
-    var volumeHandle = document.getElementById( "volumeHandle" );
-    var deadzone = volumeHandle.clientWidth / 2;
-    var pos = volume * ( volumeHandle.parentNode.clientWidth - deadzone * 2 );
+    var handle = document.getElementById( "handle" );
+    var deadzone = handle.clientWidth / 2;
+    var pos = volume * ( handle.parentNode.clientWidth - deadzone * 2 );
     var readout, readoutPct;
-    volumeHandle.style.marginLeft = pos + "px";
-    readout = document.getElementById( "volumeReadout" );
+    handle.style.marginLeft = pos + "px";
+    readout = document.getElementById( "readout" );
     readoutPct = volume * 100;
     readoutPct = Math.round( readoutPct );
     readout.innerHTML = "Volume: " + readoutPct + "%";
@@ -1024,6 +1032,15 @@ function checkPageZoom() {
         }
         alertDiv.innerHTML = alertStr;
     }
+}
+
+function checkActive() {
+    clearTimeout( activityTimeout );
+    vwf_view.kernel.setProperty( appID, "isIdle", false );
+    activityTimeout = setTimeout(
+        function(){                                 
+            vwf_view.kernel.setProperty( appID, "isIdle", true );
+        }, 5000);
 }
 
 window.addEventListener( "resize", checkPageZoom );

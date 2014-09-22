@@ -486,7 +486,7 @@ function clickBlockly( event ) {
 function selectCameraMode( event ) {
     var cameraNode = vwf_view.kernel.find( "", "//camera" )[ 0 ];
     vwf_view.kernel.setProperty( cameraNode, "pointOfView", this.mode );
-
+    
     if ( this.mode === "topDown" ){
         vwf_view.kernel.fireEvent( vwf_view.kernel.application(), "toggledHelicam" );
     }

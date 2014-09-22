@@ -212,17 +212,23 @@ this.restartGame = function() {
     this.activeScenarioPath = "mainMenuScenario";
 }
 
-this.attemptLogin = function( userID ) {
-    this.playerId = userID;
-    this.instrumentationManager.getRequest( "getPlayerState" );
+this.attemptLogIn = function( userID, password ) {
+    var params = [ userID, password ];
+    this.instrumentationManager.getRequest( "getPlayerState", params );
 }
 
-this.loginFailed = function( responseText ) {
-    console.log( responseText );
+this.logInFailed = function() {}
+
+this.logInSucceeded = function( playerId, scenarioName ) {
+    this.playerId = playerId;
 }
 
-this.loginSucceeded = function( scenarioName ) {
-    console.log( scenarioName );
+this.logInactivity = function( value ) {
+    if ( value === true && this.isIdle === false) {
+        this.instrumentationManager.createRequest("logInactivity", [ 'inactive' ] );
+    } else if ( value === false && this.isIdle === true ) {
+    	this.instrumentationManager.createRequest("logInactivity", [ 'active' ] );
+    }
 }
 
 //@ sourceURL=source/scene.js

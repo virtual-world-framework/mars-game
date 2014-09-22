@@ -17,6 +17,7 @@ extends: http://vwf.example.com/scene.vwf
 implements:
 - "http://vwf.example.com/blockly/manager.vwf"
 properties:
+  enableShadows: true
   ambientColor: [ 150, 140, 140 ]
   userObject: null
   blockly_autoClose: false
@@ -25,9 +26,19 @@ properties:
       this.setScenario( value );
       this.activeScenarioPath = value;
     value: "mainMenuScenario"
-  playerId: "test"
+  isIdle:
+    set: |
+      this.logInactivity( value );
+      this.isIdle = value;
+    value: false
+  playerId: undefined
   version: 1.0
   sceneBlackboard: {}
+  activeBlocklyXML:
+    set: |
+      this.blocklyXmlChanged( value );
+      this.activeBlocklyXML = value;
+    value: undefined
 methods:
   setScenario:
   resetScenario:
@@ -45,8 +56,9 @@ methods:
   setCinematicView:
   resetView:
   restartGame:
-  attemptLogin:
+  attemptLogIn:
   setAnimationRate:
+  isInactive:
 events:
   gameStarted:
   scenarioReset:
@@ -73,10 +85,13 @@ events:
   clearBlocklyTabs:
   playVideo:
   videoPlayed:
+  blocklyXmlChanged:
+  playedVO:
   setObjective:
   setHUDElementProperty:
   mouseOverHUD:
-  progressFound:
+  logInSucceeded:
+  logInFailed:
 children:
   soundManager:
     includes: source/marsGameSound.vwf
