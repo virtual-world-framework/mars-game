@@ -231,4 +231,9 @@ this.logInactivity = function( value ) {
     }
 }
 
+this.loadGame = function( scenarioName ) {
+    this.activeScenarioPath = scenarioName;
+    this.future( 0 ).loadedGame();
+}
+
 //@ sourceURL=source/scene.js

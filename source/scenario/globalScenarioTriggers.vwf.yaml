@@ -211,6 +211,12 @@ properties:
       - stopSound:
         - roverSounds
 
+    initScenarioOnLoadedGame:
+      triggerCondition:
+      - onGameLoaded:
+      actions:
+      - initGameOnLoad:
+
 methods:
   # This is called using future(0) inside of initialize.
   onSceneLoaded:
