@@ -47,6 +47,7 @@ methods:
   resetView:
   restartGame:
   attemptLogin:
+  loadGame:
 events:
   gameStarted:
   scenarioReset:
@@ -77,6 +78,7 @@ events:
   setHUDElementProperty:
   mouseOverHUD:
   progressFound:
+  loadedGame:
 children:
   soundManager:
     includes: source/marsGameSound.vwf

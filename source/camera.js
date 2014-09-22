@@ -73,6 +73,25 @@ this.setCameraPose = function( pose ) {
     this.transform = this.convertPoseToTransform( pose );
 }
 
+this.resetCameraPose = function() {
+    switch ( this.pointOfView ) {
+        case "firstPerson":
+            this.setCameraPose( this.firstPersonStartPose );
+            break;
+        case "thirdPerson":
+            this.setCameraPose( this.thirdPersonStartPose );
+            break;
+        case "topDown":
+            this.setCameraPose( this.topDownStartPose );
+            break;
+        default:
+            this.logger.warnx( "resetCameraPose",
+                "Unrecognized camera point of view: '", this.pointOfView, "'" );
+            this.setCameraPose( [ 0, 0, 0 ] );
+            break;
+    }
+}
+
 function multiplyMatrices( a, b ) {
 
     var ret = [];
