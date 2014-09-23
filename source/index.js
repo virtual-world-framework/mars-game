@@ -249,6 +249,11 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 mainMenu.loggedIn( scenario );
                 break;
 
+            case "storedScenario":
+                var scenarioName = eventArgs[ 0 ];
+                mainMenu.setContinueScenario( scenarioName );
+                break;
+
         } 
     } else if ( loggerNodes[ nodeID ] !== undefined ) { 
         switch ( eventName ) {
