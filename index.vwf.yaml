@@ -79,6 +79,7 @@ events:
   mouseOverHUD:
   progressFound:
   loadedGame:
+  storedScenario:
 children:
   soundManager:
     includes: source/marsGameSound.vwf
