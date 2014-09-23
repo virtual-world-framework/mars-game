@@ -254,6 +254,11 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 mainMenu.failedLogIn();
                 break;
 
+            case "storedScenario":
+                var scenarioName = eventArgs[ 0 ];
+                mainMenu.setContinueScenario( scenarioName );
+                break;
+
         } 
     } else if ( loggerNodes[ nodeID ] !== undefined ) { 
         switch ( eventName ) {

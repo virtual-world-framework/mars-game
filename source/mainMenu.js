@@ -381,11 +381,7 @@ MainMenu.prototype = {
         var logInStatus = document.getElementById( "logInStatus" );
         logout.innerHTML = userID + " - <a>Log Out</a>";
         logInStatus.innerHTML = "";
-        if ( scenarioName ) {
-            var continueButton = document.getElementById( "MainMenu-ContinueButton" );
-            continueButton.style.display = "block";
-            this.continueScenario = scenarioName;
-        }
+        setContinueScenario( scenarioName );
         this.openMain();
     },
 
@@ -400,6 +396,15 @@ MainMenu.prototype = {
         this.overlay.logInMenu.style.display = "block";
         this.overlay.settingsMenu.style.display = "none";
         this.overlay.mainMenu.style.display = "none";
+    },
+
+    setContinueScenario: function( scenarioName) {
+        var continueButton;
+        if ( scenarioName ) {
+            continueButton = document.getElementById( "MainMenu-ContinueButton" );
+            continueButton.style.display = "block";
+            this.continueScenario = scenarioName;
+        }
     }
 }
 

@@ -94,6 +94,7 @@ events:
   logInSucceeded:
   logInFailed:
   loadedGame:
+  storedScenario:
 children:
   soundManager:
     includes: source/marsGameSound.vwf
