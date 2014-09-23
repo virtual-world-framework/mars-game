@@ -357,7 +357,7 @@ MainMenu.prototype = {
     },
 
     loggedIn: function( scenarioName ) {
-        setContinueScenario( scenarioName );
+        this.setContinueScenario( scenarioName );
         this.openMain();
     },
 
