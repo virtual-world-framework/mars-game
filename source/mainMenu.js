@@ -381,7 +381,7 @@ MainMenu.prototype = {
         var logInStatus = document.getElementById( "logInStatus" );
         logout.innerHTML = userID + " - <a>Log Out</a>";
         logInStatus.innerHTML = "";
-        setContinueScenario( scenarioName );
+        this.setContinueScenario( scenarioName );
         this.openMain();
     },
 
