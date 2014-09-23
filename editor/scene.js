@@ -26,6 +26,7 @@ this.initialize = function() {
 
 this.onSceneReady = function() {
     this.setUpListeners();
+    // this.createGridDisplay( this.grid );
 }
 
 this.setUpListeners = function() {
@@ -84,7 +85,7 @@ this.hideEditToolTiles = function() {
 
 this.createGridDisplay = function( grid ) {
     var origin, color;
-    var tiles = new Array;
+    var tiles = new Array();
     var offset = new Array(); 
     offset.push( grid.gridOriginInSpace[ 0 ] / grid.gridSquareLength );
     offset.push( grid.gridOriginInSpace[ 1 ] / grid.gridSquareLength );
@@ -113,10 +114,7 @@ this.createGridDisplay = function( grid ) {
         }
     }
 
-    this.graph.graphGroup(
-        this.graph.tileVisible,
-        tiles
-    );
+    this.graph.mapTiles.graphObjects = tiles;
 }
 
 this.removeGridDisplay = function() {
@@ -173,7 +171,7 @@ this.createObject = function( objName, path, name, callback ) {
         objDef.properties[ "nameString" ] = name;
     }
 
-    this.children.create( objName, objDef, callback );
+    this.environment.children.create( objName, objDef, callback );
 }
 
 this.setActiveTool = function( toolID ) {

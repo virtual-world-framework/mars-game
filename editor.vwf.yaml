@@ -41,6 +41,11 @@ children:
         properties:
           groupVisible: false
           graphObjects: []
+      mapTiles:
+        extends: http://vwf.example.com/graphtool/graphgroup.vwf
+        properties:
+          groupVisible: true
+          graphObjects: []
     methods:
       toggleTileVisibility: |
         this.tileVisible = !this.tileVisible;
@@ -96,6 +101,11 @@ children:
           gridMoved:
         scripts:
           - source: editor/editTool.js
+  environment:
+    extends: http://vwf.example.com/node3.vwf
+    properties:
+      castShadows: true
+      receiveShadows: true
 methods:
   loadMap:
   deleteMap:
