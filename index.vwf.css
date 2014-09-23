@@ -357,13 +357,19 @@ a:active {
     z-index: 101;
 }
 
-.pauseMenu {
-    width: 400px;
-    min-height: 320px;
-    margin-top: 10%;
-    margin-bottom: 10%;
+#pauseWrapper {
     margin-left: auto;
     margin-right: auto;
+    height: 100%;
+    width: 400px;
+}
+
+.pauseMenu {
+    position: absolute;
+    top: 30%;
+    width: 400px;
+    padding-top: 16px;
+    padding-bottom: 16px;
     background-color: rgba( 0, 0, 0, 0.5 );
     border: 1px solid rgb( 224, 255, 100 );
     border-radius: 8px;
@@ -395,7 +401,7 @@ a:active {
 
 .pauseMenuButton.select {
     color: rgb( 255, 255, 255 );
-    background-color: rgba( 24, 32, 0, 0.25 );
+    background-color: rgba( 224, 255, 100, 0.25 );
 }
 
 #scenarioSelector {
@@ -442,7 +448,7 @@ a:active {
 }
 .inlineButton.select {
     color: rgb( 255, 255, 255 );
-    background-color: rgba( 24, 32, 0, 0.25 );
+    background-color: rgba( 224, 255, 100, 0.25 );
 }
 
 .slider {
@@ -472,7 +478,7 @@ a:active {
 }
 
 .sliderToggle.select {
-    background-color: rgba( 24, 32, 0, 0.25 );
+    background-color: rgba( 224, 255, 100, 0.25 );
 }
 
 .sliderTrack {

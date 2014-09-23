@@ -281,7 +281,7 @@ MainMenu.prototype = {
 
     resumeGame: function() {
         this.overlay.style.display = "none";
-        vwf_view.kernel.setProperty( vwf_view.kernel.application(), "activeScenarioPath", this.continueScenario );
+        vwf_view.kernel.callMethod( appID, "loadGame", [ this.continueScenario ] );
     },
 
     openSettings: function() {
