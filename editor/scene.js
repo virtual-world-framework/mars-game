@@ -166,12 +166,30 @@ this.createObject = function( objName, path, name, callback ) {
         "properties": {}
     }
 
+    this.objectCreated( objName, JSON.stringify( objDef ) );
+
     if ( objName !== "map" ) {
         objDef[ "implements" ] = "editor/editable.vwf";
         objDef.properties[ "nameString" ] = name;
     }
 
-    this.environment.children.create( objName, objDef, callback );
+    this.children.create( objName, objDef, callback );
+}
+
+this.createLevelFromFile = function( levelArray ) {
+    var name, obj;
+    var callback = function( object ) {
+        this.grid.addToGridFromWorld( object, [ 0, 0, 0 ] );
+    }
+    for ( var i = 0; i < levelArray.length; i++ ) {
+        name = levelArray[ i ];
+        obj = JSON.parse( levelArray[ ++i ] );
+        if ( name !== "map" ) {
+            obj[ "implements" ] = "editor/editable.vwf";
+            obj.properties[ "nameString" ] = name;
+        }
+        this.children.create( name, obj, callback );
+    }
 }
 
 this.setActiveTool = function( toolID ) {

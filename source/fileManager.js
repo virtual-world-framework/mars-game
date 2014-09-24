@@ -84,6 +84,14 @@ FileManager.prototype = {
         this.saveLink.innerHTML = "Click to download " + filename;
         this.saveLink.href = url;
         this.saveLink.download = filename;
+        this.saveLink.style.display = "block";
+        // this.saveLink.onclick = ( function( event ) {
+        //     this.saveLink.innerHTML = "";
+        //     this.saveLink.href = "";
+        //     this.saveLink.download = "";
+        //     this.saveLink.style.display = "none";
+        //     URL.revokeObjectURL( url );
+        // } ).bind( this );
     },
     cacheFile: function( file, cacheID ) {
         this.cache[ cacheID ] = file;
@@ -105,4 +113,4 @@ FileManager.prototype = {
             return false;
         }
     }
-} //@ sourceURL=fileManager.js
+} //@ sourceURL=source/fileManager.js

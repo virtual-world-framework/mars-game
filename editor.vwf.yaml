@@ -101,11 +101,6 @@ children:
           gridMoved:
         scripts:
           - source: editor/editTool.js
-  environment:
-    extends: http://vwf.example.com/node3.vwf
-    properties:
-      castShadows: true
-      receiveShadows: true
 methods:
   loadMap:
   deleteMap:
@@ -122,6 +117,7 @@ methods:
   selectObject:
   deselectObject:
   setActiveTool:
+  createLevelFromFile:
   # Methods handled by View
   requestDelete:
 events:
@@ -131,5 +127,6 @@ events:
   pointerMove:
   pointerDown:
   pointerClick:
+  objectCreated:
 scripts: 
   - source: editor/scene.js

@@ -191,3 +191,15 @@ body {
     padding: 4px;
     pointer-events: all;
 }
+
+#fileInput {
+    position: absolute;
+    bottom: 32px;
+    right: 16px;
+}
+
+#saveLink {
+    position: absolute;
+    bottom: 16px;
+    right: 16px;
+}

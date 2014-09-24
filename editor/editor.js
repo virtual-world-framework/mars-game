@@ -1,11 +1,17 @@
 var selectedTool = undefined;
+var levelArray = new Array();
 var sceneID;
+var fileManager = new FileManager( document.body );
 
 vwf_view.firedEvent = function( nodeID, eventName, args ) {
     if ( nodeID === vwf_view.kernel.application() ) {
         switch ( eventName ) {
             case "onSceneReady":
                 handleSceneReady( args );
+                break;
+            case "objectCreated":
+                levelArray.push( args[ 0 ] );
+                levelArray.push( args[ 1 ] );
                 break;
         }
     }
@@ -223,6 +229,29 @@ function createPrompt( message, yesFunc, noFunc ) {
     dialog.appendChild( noBtn );
 
     ui.appendChild( dialog );
+}
+
+function saveLevel() {
+    var levelStr = "";
+    for( var i = 0; i < levelArray.length; i++ ) {
+        levelStr += levelArray[ i ];
+        if ( i < levelArray.length - 1 ) {
+            levelStr += "\n";
+        }
+    }
+    var file = fileManager.makeFile( levelStr );
+    fileManager.saveFile( file, "level.txt" );
+}
+
+function loadLevel( file ) {
+    var fileArray;
+    fileManager.readFile( file, function( content ) {
+        fileArray = content.split( "\n" );
+        vwf_view.kernel.callMethod(
+            vwf_view.kernel.application(),
+            "createLevelFromFile",
+            [ fileArray ]);
+    } );
 }
 
 //@ sourceURL=editor/editor.js
