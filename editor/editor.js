@@ -51,6 +51,7 @@ function handleSceneReady( params ) {
     } ).bind( assetTypeSelector );
     loadAssetList( assetTypeSelector.value );
     setupTools();
+    fileManager.onFileOpened = loadLevel;
 }
 
 function loadAsset( assetType, path, name ) {

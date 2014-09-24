@@ -187,8 +187,10 @@ this.createLevelFromFile = function( levelArray ) {
         if ( name !== "map" ) {
             obj[ "implements" ] = "editor/editable.vwf";
             obj.properties[ "nameString" ] = name;
+            this.children.create( name, obj, callback );
+        } else {
+            this.children.create( name, obj );
         }
-        this.children.create( name, obj, callback );
     }
 }
 

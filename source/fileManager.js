@@ -40,7 +40,6 @@ FileManager.prototype = {
         }
         this.saveLink = document.createElement( "a" );
         this.saveLink.id = "saveLink";
-        this.saveLink.style.display = "none";
         document.body.appendChild( this.saveLink );
     },
     openFile: function( callback ) {
@@ -48,9 +47,11 @@ FileManager.prototype = {
         this.reader.onload = ( function( event ) {
             var file = this.makeFile( this.reader.result );
             this.file = file;
+            this.onFileOpened( file );
         } ).bind( this );
         this.reader.readAsText( file, "text/plain" );
     },
+    onFileOpened: function( file ) {},
     makeFile: function( input ) {
         var file;
         if ( !( input instanceof Array ) ) {
@@ -84,14 +85,6 @@ FileManager.prototype = {
         this.saveLink.innerHTML = "Click to download " + filename;
         this.saveLink.href = url;
         this.saveLink.download = filename;
-        this.saveLink.style.display = "block";
-        // this.saveLink.onclick = ( function( event ) {
-        //     this.saveLink.innerHTML = "";
-        //     this.saveLink.href = "";
-        //     this.saveLink.download = "";
-        //     this.saveLink.style.display = "none";
-        //     URL.revokeObjectURL( url );
-        // } ).bind( this );
     },
     cacheFile: function( file, cacheID ) {
         this.cache[ cacheID ] = file;
