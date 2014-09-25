@@ -13,7 +13,8 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and 
 limitations under the License.
  -->
- 
+
+<script type="text/javascript" src="source/utils.js"></script>
 <script type="text/javascript" src="source/fileManager.js"></script>
 <script type="text/javascript" src="editor/editor.js"></script>
 
@@ -22,9 +23,25 @@ limitations under the License.
 <div id="uiwrapper" class="wrapper">
     <div id="header" class="wrapper">
         <div id="menubar" class="menu">
-            <div id="file" class="menubutton">File</div>
-            <div id="edit" class="menubutton">Edit</div>
-            <div id="help" class="menubutton">Help</div>
+            <div id="file" class="menuOption">
+                <div id="fileButton" class="menubutton">File</div>
+                <div id="fileMenu" class="dropDownMenu">
+                    <div id="loadLevel">Load Level</div>
+                    <div id="saveLevel">Save Level</div>
+                </div>
+            </div>
+            <div id="edit" class="menuOption">
+                <div id="editButton" class="menubutton">Edit</div>
+                <div id="editMenu" class="dropDownMenu">
+                    <div id="">Placeholder</div>
+                </div>
+            </div>
+            <div id="help" class="menuOption">
+                <div id="helpButton" class="menubutton">Help</div>
+                <div id="helpMenu" class="dropDownMenu">
+                    <div id="">Placeholder</div>
+                </div>
+            </div>
         </div>
         <div id="headertoolbar" class="toolbar">
             <div id="transformtools" class="toolgroup bordered"></div>
@@ -42,5 +59,11 @@ limitations under the License.
             </form>
             <div id="assetlist"></div>
         </div>
+    </div>
+</div>
+<div id="fileWrapper">
+    <div id="fileDialog">
+        <div id="title"></div>
+        <div id="fileCloseButton">X</div>
     </div>
 </div>

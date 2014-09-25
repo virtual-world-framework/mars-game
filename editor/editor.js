@@ -1,7 +1,8 @@
 var selectedTool = undefined;
 var levelArray = new Array();
 var sceneID;
-var fileManager = new FileManager( document.body );
+var fileManager = new FileManager( document.getElementById( "fileDialog" ) );
+var activeDropDown;
 
 vwf_view.firedEvent = function( nodeID, eventName, args ) {
     if ( nodeID === vwf_view.kernel.application() ) {
@@ -50,6 +51,7 @@ function handleSceneReady( params ) {
             loadAssetList( this.value );
     } ).bind( assetTypeSelector );
     loadAssetList( assetTypeSelector.value );
+    setupMenus();
     setupTools();
     fileManager.onFileOpened = loadLevel;
 }
@@ -138,6 +140,80 @@ function retrieveAssetListItems( listPath ) {
     }
 
     return list;
+}
+
+function setupMenus() {
+    var file, edit, help, load, save, close, saveBtn;
+    file = document.getElementById( "fileButton" );
+    edit = document.getElementById( "editButton" );
+    help = document.getElementById( "helpButton" );
+    load = document.getElementById( "loadLevel" );
+    save = document.getElementById( "saveLevel" );
+    close = document.getElementById( "fileCloseButton" );
+    saveBtn = document.getElementById( "saveLink" );
+    file.onclick = openDropDown;
+    edit.onclick = openDropDown;
+    help.onclick = openDropDown;
+    load.onclick = openFileDialog;
+    save.onclick = openFileDialog;
+    close.onclick = closeFileDialog;
+    saveBtn.onclick = saveLevel;
+}
+
+function openFileDialog( event ) {
+    closeDropDown();
+    var fileDialog = document.getElementById( "fileDialog" );
+    var title = document.getElementById( "title" );
+    switch ( this.id ) {
+        case "loadLevel":
+            fileManager.saveElement.style.display = "none";
+            fileManager.loadElement.style.display = "block";
+            title.innerHTML = "Load Map";
+            break;
+        case "saveLevel":
+            fileManager.loadElement.style.display = "none";
+            fileManager.saveElement.style.display = "block";
+            title.innerHTML = "Save Map";
+            break;
+    }
+    fileDialog.style.display = "block";
+}
+
+function closeFileDialog() {
+    var fileDialog = document.getElementById( "fileDialog" );
+    fileDialog.style.display = "none";
+}
+
+function openDropDown( event ) {
+    var id;
+    switch ( this.id ) {
+        case "fileButton":
+            id = "fileMenu";
+            break;
+        case "editButton":
+            id = "editMenu";
+            break;
+        case "helpButton":
+            id = "helpMenu";
+            break;
+    }
+    if ( activeDropDown ) {
+        activeDropDown.style.display = "none";
+        if ( activeDropDown.id !== id ) {
+            activeDropDown = document.getElementById( id );
+            activeDropDown.style.display = "inline-block";
+        } else {
+            activeDropDown = undefined;
+        }
+    } else {
+        activeDropDown = document.getElementById( id );
+        activeDropDown.style.display = "inline-block";
+    }
+}
+
+function closeDropDown( event ) {
+    activeDropDown.style.display = "none";
+    activeDropDown = undefined;
 }
 
 function setupTools() {
@@ -232,7 +308,11 @@ function createPrompt( message, yesFunc, noFunc ) {
     ui.appendChild( dialog );
 }
 
-function saveLevel() {
+function saveLevel( event ) {
+    var fileName = document.getElementById( "saveText" ).value;
+    if ( !fileName || fileName === "" ) {
+        fileName = "level.txt";
+    }
     var levelStr = "";
     for( var i = 0; i < levelArray.length; i++ ) {
         levelStr += levelArray[ i ];
@@ -241,7 +321,7 @@ function saveLevel() {
         }
     }
     var file = fileManager.makeFile( levelStr );
-    fileManager.saveFile( file, "level.txt" );
+    fileManager.saveFile( file, fileName );
 }
 
 function loadLevel( file ) {
@@ -251,7 +331,7 @@ function loadLevel( file ) {
         vwf_view.kernel.callMethod(
             vwf_view.kernel.application(),
             "createLevelFromFile",
-            [ fileArray ]);
+            [ fileArray ] );
     } );
 }
 

@@ -25,25 +25,36 @@ FileManager.prototype = {
     constructor: FileManager,
     cache: undefined,
     reader: undefined,
-    fileInput: undefined,
+    loadElement: undefined,
+    saveElement: undefined,
     file: undefined,
-    saveLink: undefined,
     initialize: function( domParent ) {
         this.cache = {};
         this.reader = new FileReader();
-        this.fileInput = document.createElement( "input" );
-        this.fileInput.id = "fileInput";
-        this.fileInput.type = "file";
-        this.fileInput.onchange = this.openFile.bind( this );
+        this.loadElement = document.createElement( "input" );
+        this.loadElement.id = "loadElement";
+        this.loadElement.type = "file";
+        this.loadElement.onchange = this.openFile.bind( this );
+        this.saveElement = document.createElement( "div" );
+        this.saveElement.saveLink = document.createElement( "a" );
+        this.saveElement.saveLink.id = "saveLink";
+        this.saveElement.saveText = document.createElement( "input" );
+        this.saveElement.saveText.type = "text";
+        this.saveElement.saveText.id = "saveText";
+        this.saveElement.appendChild( this.saveElement.saveText );
+        this.saveElement.appendChild( this.saveElement.saveLink );
+        this.saveElement.id = "saveElement";
+        this.saveElement.saveLink.innerHTML = "Save File";
         if ( domParent ) {
-            domParent.appendChild( this.fileInput );
+            domParent.appendChild( this.loadElement );
+            domParent.appendChild( this.saveElement );
+        } else {
+            document.body.appendChild( this.loadElement );
+            document.body.appendChild( this.saveElement );
         }
-        this.saveLink = document.createElement( "a" );
-        this.saveLink.id = "saveLink";
-        document.body.appendChild( this.saveLink );
     },
     openFile: function( callback ) {
-        var file = this.fileInput.files[ 0 ];
+        var file = this.loadElement.files[ 0 ];
         this.reader.onload = ( function( event ) {
             var file = this.makeFile( this.reader.result );
             this.file = file;
@@ -82,9 +93,8 @@ FileManager.prototype = {
             return;
         }
         var url = URL.createObjectURL( file );
-        this.saveLink.innerHTML = "Click to download " + filename;
-        this.saveLink.href = url;
-        this.saveLink.download = filename;
+        this.saveElement.saveLink.href = url;
+        this.saveElement.saveLink.download = filename;
     },
     cacheFile: function( file, cacheID ) {
         this.cache[ cacheID ] = file;

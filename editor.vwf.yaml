@@ -128,5 +128,7 @@ events:
   pointerDown:
   pointerClick:
   objectCreated:
+  objectDeleted:
+  objectModified:
 scripts: 
   - source: editor/scene.js

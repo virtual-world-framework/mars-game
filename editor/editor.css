@@ -1,5 +1,5 @@
 body {
-    font-family: "Arial", Gadget, sans-serif;
+    font-family: sans-serif;
 }
 
 .wrapper {
@@ -19,18 +19,35 @@ body {
 
 .menubutton {
     height: 24px;
-    display: inline-block;
-    padding-left: 8px;
-    padding-right: 8px;
     line-height: 24px;
     text-transform: uppercase;
-    font-variant: small-caps;
     color: rgb( 50, 90, 150 );
     background-color: rgb( 225, 225, 225 );
     border: 1px solid rgb( 200, 200, 200 );
     border-top: 0px;
     font-size: 12px;
-    font-family: "Arial Black", Gadget, sans-serif;
+    text-align: center;
+}
+
+.menuOption {
+    display: inline-block;
+    width: 48px;
+}
+
+.dropDownMenu {
+    float: left;
+    position: relative;
+    background-color: rgb( 255, 255, 255 );
+    border: 1px solid rgb( 50, 90, 150 );
+    z-index: 1;
+    display: none;
+    white-space: nowrap;
+}
+
+.dropDownMenu * {
+    display: block;
+    font-size: 12px;
+    padding: 2px 5px;
 }
 
 .toolbar {
@@ -155,6 +172,7 @@ body {
     width: 200px;
     background-color: rgb( 245, 245, 245 );
     border-right: 1px solid rgb( 225, 225, 225 );
+    z-index: 0;
 }
 
 #assetwrapper {
@@ -192,14 +210,54 @@ body {
     pointer-events: all;
 }
 
-#fileInput {
-    position: absolute;
-    bottom: 32px;
-    right: 16px;
+#fileWrapper {
+    margin-right: auto;
+    margin-left: auto;
+    height: 100%;
+    width: 400px;
 }
 
-#saveLink {
+#fileDialog {
     position: absolute;
-    bottom: 16px;
-    right: 16px;
+    top: 40%;
+    width: 400px;
+    background-color: rgb( 225, 225, 225 );
+    border: 1px solid rgb( 255, 255, 255 );
+    text-align: center;
+    display: none;
+}
+
+#fileCloseButton {
+    height: 22px;
+    width: 22px;
+    float: right;
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    line-height: 22px;
+    font-size: 16px;
+    font-weight: bold;
+    background-color: rgb( 225, 225, 225 );
+    border: 1px solid rgb( 128, 128, 128 );
+    color: rgb( 50, 90, 150 );
+}
+
+#title {
+    height: 32px;
+    text-align: center;
+    background-color: rgb( 50, 90, 150 );
+    color: rgb( 255, 255, 255 );
+    font-size: 16px;
+    line-height: 32px;
+    font-weight: bold;
+}
+
+#loadElement {}
+
+#saveElement {}
+
+#saveElement input {}
+
+#saveElement a {
+    padding: 0px 8px;
 }
