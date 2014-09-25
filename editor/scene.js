@@ -156,6 +156,7 @@ this.deleteObject = function( objectID ) {
         if ( this.selectedObject && object.id === this.selectedObject.id ) {
             this.deselectObject();
         }
+        this.objectDeleted( object.name );
         this.children.delete( object );
     }
 }
@@ -179,11 +180,18 @@ this.createObject = function( objName, path, name, callback ) {
 this.createLevelFromFile = function( levelArray ) {
     var name, obj;
     var callback = function( object ) {
-        this.grid.addToGridFromWorld( object, [ 0, 0, 0 ] );
+        var translation = object.translation;
+        if ( object.currentGridSquare ) {
+            this.grid.addToGrid( object );
+        } else {
+            this.grid.addToGridFromWorld( object, object.translation );
+        }
+        object.translateTo( translation );
     }
     for ( var i = 0; i < levelArray.length; i++ ) {
         name = levelArray[ i ];
         obj = JSON.parse( levelArray[ ++i ] );
+        this.objectCreated( name, JSON.stringify( obj ) );
         if ( name !== "map" ) {
             obj[ "implements" ] = "editor/editable.vwf";
             obj.properties[ "nameString" ] = name;

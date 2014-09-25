@@ -3,6 +3,9 @@ var levelArray = new Array();
 var sceneID;
 var fileManager = new FileManager( document.getElementById( "fileDialog" ) );
 var activeDropDown;
+var compileTotal = 0;
+var compileProgress = 0;
+var levelIds = new Array();
 
 vwf_view.firedEvent = function( nodeID, eventName, args ) {
     if ( nodeID === vwf_view.kernel.application() ) {
@@ -14,6 +17,14 @@ vwf_view.firedEvent = function( nodeID, eventName, args ) {
                 levelArray.push( args[ 0 ] );
                 levelArray.push( args[ 1 ] );
                 break;
+            case "objectDeleted":
+                var name = args[ 0 ];
+                var index = levelArray.indexOf( name );
+                if ( index !== -1 ) {
+                    // Call twice to remove the name and the object
+                    removeArrayElement( levelArray, index );
+                    removeArrayElement( levelArray, index );
+                }
         }
     }
 }
@@ -40,6 +51,21 @@ vwf_view.gotProperty = function( nodeID, propertyName, propertyValue ) {
                 console.log( "vwf_view.gotProperty: " + propertyName +
                              " - Could not find a tool with the ID: " + propertyValue );
             }
+        }
+    }
+}
+
+vwf_view.gotProperties = function( nodeID, properties ) {
+    var index = levelIds.indexOf( nodeID );
+    if ( index !== -1 ) {
+        var def = JSON.parse( levelArray[ index * 2 + 1 ] );
+        if ( def ) {
+            def.properties = properties;
+        }
+        levelArray[ index * 2 + 1 ] = JSON.stringify( def );
+        compileProgress++;
+        if ( compileProgress >= compileTotal ) {
+            levelCompiled();
         }
     }
 }
@@ -174,6 +200,7 @@ function openFileDialog( event ) {
             fileManager.loadElement.style.display = "none";
             fileManager.saveElement.style.display = "block";
             title.innerHTML = "Save Map";
+            compileLevel();
             break;
     }
     fileDialog.style.display = "block";
@@ -333,6 +360,26 @@ function loadLevel( file ) {
             "createLevelFromFile",
             [ fileArray ] );
     } );
+}
+
+function compileLevel() {
+    var i, id, saveLink;
+    saveLink = document.getElementById( "saveLink" );
+    saveLink.innerHTML = "Compiling...";
+    compileTotal = 0;
+    compileProgress = 0;
+    levelIds.length = 0;
+    for ( i = 0; i < levelArray.length; i += 2 ) {
+        id = vwf_view.kernel.find( "", "//" + levelArray[ i ] )[ 0 ];
+        vwf_view.kernel.getProperties( id );
+        levelIds.push( id );
+        compileTotal++;
+    }
+}
+
+function levelCompiled() {
+    saveLink = document.getElementById( "saveLink" );
+    saveLink.innerHTML = "Save File";
 }
 
 //@ sourceURL=editor/editor.js
