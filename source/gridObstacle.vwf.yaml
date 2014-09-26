@@ -39,11 +39,7 @@ properties:
   # gridRotation - The rotation in degrees about the object's origin tile
   # valid values: 0, 90, 180, 270
   # Setting this will rotate the grid size and collision map accordingly
-  gridRotation:
-    set: |
-      this.updateCollisionMap.bind( this )( value );
-      this.gridRotation = value;
-    value: 0
+  gridRotation: 0
 
   # replacesTerrain - This object removes the terrain within its bounds
   replacesTerrain: false
@@ -60,6 +56,7 @@ scripts: |
     direction = direction < 0 ? -1 : 1;
     var rotation = this.gridRotation + ( 90 * direction );
     rotation = rotation < 0 ? 360 + rotation : rotation % 360;
+    this.updateCollisionMap( rotation );
     this.gridRotation = rotation;
   }
 
@@ -105,7 +102,7 @@ scripts: |
             tmp[ x ].push( this.collisionMap[ y ][ this.gridSize[ 0 ] - 1 - x ] );
           }
         }
-        this.collisionMap = tmp.slice();
+        this.collisionMap = tmp;
         break;
       case 180:
         tmp = new Array();
@@ -115,7 +112,7 @@ scripts: |
             tmp[ x ].push( this.collisionMap[ this.gridSize[ 0 ] - 1 - x ][ this.gridSize[ 1 ] - 1 - y ] );
           }
         }
-        this.collisionMap = tmp.slice();
+        this.collisionMap = tmp;
         break;
       case 270:
         this.invertGridSize.bind( this )();
@@ -126,7 +123,7 @@ scripts: |
             tmp[ x ].push( this.collisionMap[ this.gridSize[ 1 ] - 1 - y ][ x ] );
           }
         }
-        this.collisionMap = tmp.slice();
+        this.collisionMap = tmp;
         break;
     }
   }

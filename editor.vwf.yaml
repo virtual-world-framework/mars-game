@@ -102,6 +102,7 @@ children:
         scripts:
           - source: editor/editTool.js
 methods:
+  clearLevel:
   loadMap:
   deleteMap:
   loadObject:

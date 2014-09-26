@@ -169,12 +169,13 @@ function retrieveAssetListItems( listPath ) {
 }
 
 function setupMenus() {
-    var file, edit, help, load, save, close, saveBtn;
+    var file, edit, help, load, save, newLevel, close, saveBtn;
     file = document.getElementById( "fileButton" );
     edit = document.getElementById( "editButton" );
     help = document.getElementById( "helpButton" );
     load = document.getElementById( "loadLevel" );
     save = document.getElementById( "saveLevel" );
+    newLevel = document.getElementById( "newLevel" );
     close = document.getElementById( "fileCloseButton" );
     saveBtn = document.getElementById( "saveLink" );
     file.onclick = openDropDown;
@@ -184,6 +185,10 @@ function setupMenus() {
     save.onclick = openFileDialog;
     close.onclick = closeFileDialog;
     saveBtn.onclick = saveLevel;
+    newLevel.onclick = function( event ) {
+        closeDropDown();
+        clearLevel();
+    };
 }
 
 function openFileDialog( event ) {
@@ -353,6 +358,9 @@ function saveLevel( event ) {
 }
 
 function loadLevel( file ) {
+    if ( levelArray.length > 0 ) {
+        clearLevel();
+    }
     var fileArray;
     fileManager.readFile( file, function( content ) {
         closeFileDialog();
@@ -362,6 +370,13 @@ function loadLevel( file ) {
             "createLevelFromFile",
             [ fileArray ] );
     } );
+    fileManager.loadElement.value = "";
+}
+
+function clearLevel() {
+    vwf_view.kernel.callMethod(
+        vwf_view.kernel.application(),
+        "clearLevel" );
 }
 
 function compileLevel() {

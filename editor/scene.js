@@ -1,5 +1,6 @@
 this.objCount = 0;
 this.selectedObject;
+this.createdObjects = new Array();
 
 var lastPointerPosition, lastPointerDownTime, lastPointerDownID, tileHeight;
 var ORIGIN_COLOR = [ 220, 220, 255 ];
@@ -125,16 +126,28 @@ this.removeGridDisplay = function() {
     }
 }
 
-this.loadMap = function( path ) {
-    if ( this.map ) {
-        this.deleteMap();
+this.clearLevel = function() {
+    this.deleteMap();
+    for ( var i = 0; i < this.createdObjects.length; i++ ) {
+        this.deleteObject( this[ this.createdObjects[ i ] ].id );
     }
+    this.createdObjects.length = 0;
+}
 
+this.loadMap = function( path ) {
+    this.deleteMap();
     this.future( 0 ).createObject( "map", path );
 }
 
 this.deleteMap = function() {
-    this.children.delete( this.map );
+    if ( this.map ) {
+        this.children.delete( this.map );
+        var index = this.createdObjects.indexOf( "map" );
+        if ( index !== -1 ) {
+            removeArrayElement( this.createdObjects, index );
+        }
+        this.objectDeleted( "map" );
+    }
 }
 
 this.loadObject = function( path, name ) {
@@ -200,6 +213,10 @@ this.createLevelFromFile = function( levelArray ) {
             this.children.create( name, obj );
         }
     }
+}
+
+this.objectCreated = function( name, def ) {
+    this.createdObjects.push( name );
 }
 
 this.setActiveTool = function( toolID ) {
