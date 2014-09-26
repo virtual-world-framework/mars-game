@@ -225,6 +225,11 @@ body {
     border: 1px solid rgb( 255, 255, 255 );
     text-align: center;
     display: none;
+    user-select: none;
+    -webkit-user-select: none;  /* Chrome all / Safari all */
+    -moz-user-select: none;     /* Firefox all */
+    -ms-user-select: none;      /* IE 10+ */
+    cursor: default;
 }
 
 #fileCloseButton {
@@ -259,5 +264,9 @@ body {
 #saveElement input {}
 
 #saveElement a {
-    padding: 0px 8px;
+    padding: 2px 8px;
+    font-size: 18px;
+    font-weight: bold;
+    background-color: rgb( 255, 255, 255 );
+    border: 1px solid rgb( 50, 90, 150 );
 }

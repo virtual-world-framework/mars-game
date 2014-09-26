@@ -349,11 +349,13 @@ function saveLevel( event ) {
     }
     var file = fileManager.makeFile( levelStr );
     fileManager.saveFile( file, fileName );
+    closeFileDialog();
 }
 
 function loadLevel( file ) {
     var fileArray;
     fileManager.readFile( file, function( content ) {
+        closeFileDialog();
         fileArray = content.split( "\n" );
         vwf_view.kernel.callMethod(
             vwf_view.kernel.application(),
