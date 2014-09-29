@@ -170,6 +170,7 @@ function retrieveAssetListItems( listPath ) {
 
 function setupMenus() {
     var file, edit, help, load, save, newLevel, close, saveBtn;
+    var ddButtons, hover;
     file = document.getElementById( "fileButton" );
     edit = document.getElementById( "editButton" );
     help = document.getElementById( "helpButton" );
@@ -178,17 +179,37 @@ function setupMenus() {
     newLevel = document.getElementById( "newLevel" );
     close = document.getElementById( "fileCloseButton" );
     saveBtn = document.getElementById( "saveLink" );
-    file.onclick = openDropDown;
-    edit.onclick = openDropDown;
-    help.onclick = openDropDown;
-    load.onclick = openFileDialog;
-    save.onclick = openFileDialog;
-    close.onclick = closeFileDialog;
-    saveBtn.onclick = saveLevel;
-    newLevel.onclick = function( event ) {
+    ddButtons = document.getElementsByClassName( "ddBtn" );
+    file.addEventListener( "click", openDropDown );
+    edit.addEventListener( "click", openDropDown );
+    help.addEventListener( "click", openDropDown );
+    load.addEventListener( "click", openFileDialog );
+    save.addEventListener( "click", openFileDialog );
+    close.addEventListener( "click", closeFileDialog );
+    saveBtn.addEventListener( "click", saveLevel );
+    newLevel.addEventListener( "click", function( event ) {
         closeDropDown();
         clearLevel();
-    };
+    } );
+    hover = function( event ) {
+        switch ( event.type ) {
+            case "mouseover":
+                appendClass( this, "hover" );
+                break;
+            case "mouseout":
+            case "click":
+                removeClass( this, "hover" );
+                break;
+        }
+    }
+    for ( var i = 0; i < ddButtons.length; i++ ) {
+        ddButtons[ i ].addEventListener( "mouseover", hover );
+        ddButtons[ i ].addEventListener( "mouseout", hover );
+        ddButtons[ i ].addEventListener( "click", hover );
+    }
+    document.addEventListener( "click", function( event ) {
+        closeDropDown();
+    } );
 }
 
 function openFileDialog( event ) {
@@ -241,11 +262,14 @@ function openDropDown( event ) {
         activeDropDown = document.getElementById( id );
         activeDropDown.style.display = "inline-block";
     }
+    event.stopPropagation();
 }
 
 function closeDropDown( event ) {
-    activeDropDown.style.display = "none";
-    activeDropDown = undefined;
+    if ( activeDropDown ) {
+        activeDropDown.style.display = "none";
+        activeDropDown = undefined;
+    }
 }
 
 function setupTools() {

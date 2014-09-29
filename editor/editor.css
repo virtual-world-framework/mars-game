@@ -37,17 +37,22 @@ body {
 .dropDownMenu {
     float: left;
     position: relative;
-    background-color: rgb( 255, 255, 255 );
-    border: 1px solid rgb( 50, 90, 150 );
+    background-color: rgb( 245, 245, 245 );
+    border: 1px solid rgb( 225, 225, 225 );
     z-index: 1;
     display: none;
     white-space: nowrap;
 }
 
-.dropDownMenu * {
+.ddBtn {
     display: block;
     font-size: 12px;
-    padding: 2px 5px;
+    padding: 4px 8px;
+}
+
+.ddBtn.hover {
+    background-color: rgb( 50, 90, 150 );
+    color: rgb( 255, 255, 255 );
 }
 
 .toolbar {
