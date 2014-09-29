@@ -6,7 +6,7 @@ var lastPointerPosition, lastPointerDownTime, lastPointerDownID, tileHeight;
 var ORIGIN_COLOR = [ 220, 220, 255 ];
 var PASSABLE_COLOR = [ 220, 255, 220 ];
 var IMPASSABLE_COLOR = [ 255, 220, 220 ];
-var OPACITY = 0.5;
+var OPACITY = 0.25;
 var NORMAL = [ 0, 0, 1 ];
 var ROTATION = 90;
 var RENDERTOP = true;
