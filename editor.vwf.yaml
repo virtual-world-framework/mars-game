@@ -41,11 +41,6 @@ children:
         properties:
           groupVisible: false
           graphObjects: []
-      mapTiles:
-        extends: http://vwf.example.com/graphtool/graphgroup.vwf
-        properties:
-          groupVisible: true
-          graphObjects: []
     methods:
       toggleTileVisibility: |
         this.tileVisible = !this.tileVisible;
@@ -55,9 +50,9 @@ children:
   grid:
     extends: source/grid.vwf
     properties:
-      minX: 0
+      minX: -100
       maxX: 100
-      minY: 0
+      minY: -100
       maxY: 100
       gridOriginInSpace: []
       gridSquareLength: 3
@@ -101,6 +96,14 @@ children:
           gridMoved:
         scripts:
           - source: editor/editTool.js
+  scenarioGenerator:
+    extends: http://vwf.example.com/node.vwf
+    properties:
+      scenarios:
+    methods:
+    events:
+    scripts:
+      - source: editor/scenarioGenerator.js
 methods:
   clearLevel:
   loadMap:
