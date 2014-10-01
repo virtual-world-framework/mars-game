@@ -131,6 +131,10 @@ body {
     display: block;
 }
 
+.inline {
+    display: inline-block;
+}
+
 #vwf-root {
     position: absolute;
     left: 200px;
@@ -291,4 +295,62 @@ body {
 
 #saveElement a:active {
     color: rgb( 0, 0, 0 );
+}
+
+#sliderWrapper {
+    margin-right: auto;
+    margin-left: auto;
+    height: 100%;
+    width: 350px;
+}
+
+#sliderBox {
+    position: absolute;
+    bottom: 16px;
+    background-color: rgb( 255, 255, 255 );
+    border: 1px solid rgb( 50, 90, 150 );
+    padding: 8px;
+    display: none;
+    user-select: none;
+    -webkit-user-select: none;  /* Chrome all / Safari all */
+    -moz-user-select: none;     /* Firefox all */
+    -ms-user-select: none;      /* IE 10+ */
+    cursor: default;
+}
+
+#icon {
+    height: 32px;
+    width: 32px;
+    background-image: url( "../assets/images/editor/timeOfDay.png" );
+}
+
+#slider {
+    height: 32px;
+    width: 318px;
+    background-image: url( "../assets/images/editor/sliderTrack.png" );
+}
+
+#handle {
+    height: 32px;
+    width: 32px;
+    background-image: url( "../assets/images/editor/sliderHandle.png" );
+    pointer-events: none;
+}
+
+#closeSlider {
+    background-color: rgb( 225, 225, 225 );
+    border: 1px solid rgb( 200, 200, 200 );
+    width: 64px;
+    height: 24px;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 24px;
+}
+
+#readout {
+    margin-left: auto;
+    margin-right: auto;
+    width: 256px;
+    text-align: center;
 }

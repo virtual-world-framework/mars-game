@@ -20,6 +20,7 @@ var activeDropDown;
 var compileTotal = 0;
 var compileProgress = 0;
 var levelIds = new Array();
+var timePct = 0;
 
 vwf_view.firedEvent = function( nodeID, eventName, args ) {
     if ( nodeID === vwf_view.kernel.application() ) {
@@ -39,6 +40,10 @@ vwf_view.firedEvent = function( nodeID, eventName, args ) {
                     removeArrayElement( levelArray, index );
                     removeArrayElement( levelArray, index );
                 }
+                break;
+            case "timeSet":
+                timePct = args[ 0 ] / 24;
+                break;
         }
     }
 }
@@ -184,7 +189,7 @@ function retrieveAssetListItems( listPath ) {
 
 function setupMenus() {
     var file, edit, help, load, save, newLevel, close, saveBtn;
-    var ddButtons, hover;
+    var ddButtons, hover, timeOfDay, slider, sliderCloseBtn;
     file = document.getElementById( "fileButton" );
     edit = document.getElementById( "editButton" );
     help = document.getElementById( "helpButton" );
@@ -194,6 +199,9 @@ function setupMenus() {
     close = document.getElementById( "fileCloseButton" );
     saveBtn = document.getElementById( "saveLink" );
     ddButtons = document.getElementsByClassName( "ddBtn" );
+    timeOfDay = document.getElementById( "timeOfDay" );
+    slider = document.getElementById( "slider" );
+    sliderCloseBtn = document.getElementById( "closeSlider" );
     file.addEventListener( "click", openDropDown );
     edit.addEventListener( "click", openDropDown );
     help.addEventListener( "click", openDropDown );
@@ -205,6 +213,11 @@ function setupMenus() {
         closeDropDown();
         clearLevel();
     } );
+    timeOfDay.addEventListener( "click", openSlider );
+    sliderCloseBtn.addEventListener( "click", closeSlider );
+    slider.addEventListener( "mousedown", moveSliderHandle );
+    slider.addEventListener( "mousemove", moveSliderHandle );
+    slider.addEventListener( "mouseout", moveSliderHandle );
     hover = function( event ) {
         switch ( event.type ) {
             case "mouseover":
@@ -224,6 +237,18 @@ function setupMenus() {
     document.addEventListener( "click", function( event ) {
         closeDropDown();
     } );
+}
+
+function openSlider( event ) {
+    closeDropDown();
+    var slider = document.getElementById( "sliderBox" );
+    slider.style.display = "block";
+    setSliderPosition( timePct );
+}
+
+function closeSlider( event ) {
+    var slider = document.getElementById( "sliderBox" );
+    slider.style.display = "none";
 }
 
 function openFileDialog( event ) {
@@ -288,6 +313,7 @@ function closeDropDown( event ) {
 
 function setupTools() {
     addToolsToGroup( "transformtools", [ "camera", "translate", "rotate", "raise_lower", "delete" ] );
+    // addToolsToGroup( "environmenttools", [ "timeOfDay" ] );
 
     var tools = document.getElementsByClassName( "toolbutton" );
     var img;
@@ -439,6 +465,39 @@ function compileLevel() {
 function levelCompiled() {
     saveLink = document.getElementById( "saveLink" );
     saveLink.innerHTML = "Save File";
+}
+
+function setTimeOfDay( pct ) {
+    var value;
+    pct = Math.min( 1, Math.max( 0, pct ) );
+    value = pct * 24;
+    setSliderPosition( pct );
+    vwf_view.kernel.callMethod( vwf_view.kernel.application(), "setTimeOfDay", [ value ] );
+}
+
+function moveSliderHandle( event ) {
+    var pct, handle, deadzone;
+    if ( event.which === 1 ) {
+        handle = document.getElementById( "handle" );
+        deadzone = handle.clientWidth / 2;
+        pct = ( event.offsetX - deadzone ) / ( this.clientWidth - deadzone * 2 );
+        setTimeOfDay( pct );
+    }
+}
+
+function setSliderPosition( pct ) {
+    var handle = document.getElementById( "handle" );
+    var deadzone = handle.clientWidth / 2;
+    var pos = pct * ( handle.parentNode.clientWidth - deadzone * 2 );
+    var readout, h, m;
+    handle.style.marginLeft = pos + "px";
+    readout = document.getElementById( "readout" );
+    h = Math.floor( pct * 24 );
+    h = h === 0 ? 24 : h;
+    h = h < 10 ? "0" + h : h;
+    m = Math.floor( pct * 24 % 1 * 60 );
+    m = m < 10 ? "0" + m : m;
+    readout.innerHTML = "Time (hh:mm) - " + h + ":" + m;
 }
 
 //@ sourceURL=editor/editor.js

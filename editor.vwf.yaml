@@ -149,8 +149,8 @@ methods:
   deselectObject:
   setActiveTool:
   createLevelFromFile:
-  setSunPos:
-  cycleSun:
+  setTimeOfDay:
+  cycleTime:
   # Methods handled by View
   requestDelete:
 events:
@@ -163,5 +163,6 @@ events:
   objectCreated:
   objectDeleted:
   objectModified:
+  timeSet:
 scripts: 
   - source: editor/scene.js

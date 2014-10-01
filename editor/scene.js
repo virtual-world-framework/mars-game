@@ -41,8 +41,8 @@ this.initialize = function() {
 
 this.onSceneReady = function() {
     this.setUpListeners();
-    this.cycleSun();
-    // this.setSunPos( 90 );
+    // this.cycleTime();
+    this.setTimeOfDay( 12 );
 }
 
 this.setUpListeners = function() {
@@ -53,14 +53,16 @@ this.setUpListeners = function() {
     }
 }
 
-var tick = 0;
-this.cycleSun = function() {
-    var angle = tick++;
-    this.setSunPos( angle );
-    this.future( 0.05 ).cycleSun();
+var time = 0;
+this.cycleTime = function() {
+    var minPerSec = 1 / 60 / 20;
+    this.setTimeOfDay( time );
+    time = ( time + ( 12 * minPerSec ) ) % 24;
+    this.future( 0.05 ).cycleTime();
 }
 
-this.setSunPos = function( angle ) {
+this.setTimeOfDay = function( hour ) {
+    var angle = ( hour / 24 * 360 ) - 90;
     angle = ( angle % 360 + 360 ) % 360;
     var radians = angle * Math.PI / 180;
     var x = Math.cos( radians );
@@ -68,18 +70,19 @@ this.setSunPos = function( angle ) {
     var red, green, blue;
     var intensity;
     this.sunLight.translateTo( [ x, 0, z ] );
-    red = 100 + Math.max( z, 0 ) * 155;
-    green = 50 + Math.max( z, 0 ) * 125;
-    blue = Math.max( z, 0 ) * 100 + Math.max( ( x - 1 ) / -2, 0 ) * 100;
+    red = 130 + Math.max( z, 0 ) * 125;
+    green = 80 + Math.max( z, 0 ) * 100;
+    blue = Math.max( z, 0 ) * 90 + Math.max( ( x - 1 ) / -2, 0 ) * 90;
     this.sunLight.color = [ red, green, blue ];
-    intensity = Math.max( z + 0.5 / 1.5, 0 );
-    this.sunLight.intensity = intensity * 0.6;
+    intensity = Math.max( z + 0.75 / 1.75, 0 );
+    this.sunLight.intensity = intensity * 0.7;
     this.envLight.intensity = intensity * 0.25;
     this.ambientColor = [ 
         red * intensity + 75,
         green * intensity + 75,
         blue * intensity + 75 ];
-    this.sunLight.shadowDarkness = intensity / 0.75 * 0.5
+    this.sunLight.shadowDarkness = intensity / 0.7 * 0.3;
+    this.timeSet( hour );
 }
 
 this.updateEditToolTiles = function() {

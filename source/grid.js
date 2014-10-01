@@ -92,10 +92,10 @@ this.getWorldFromGrid = function( x, y, worldVec ) {
 }
 
 this.validCoord = function( gridCoord ) {
-    if ( ( gridCoord[ 0 ] < this.minX ) || 
-         ( gridCoord[ 0 ] > this.maxX ) || 
-         ( gridCoord[ 1 ] < this.minY ) || 
-         ( gridCoord[ 1 ] > this.maxY ) ) {
+    if ( ( gridCoord[ 0 ] < 0 ) || 
+         ( gridCoord[ 0 ] >= this.maxX - this.minX ) || 
+         ( gridCoord[ 1 ] < 0 ) || 
+         ( gridCoord[ 1 ] >= this.maxY - this.minY ) ) {
         this.logger.errorx( "validCoord",
                             "The gridCoord given is not a valid " +
                             "coordinate in the current grid system." );
