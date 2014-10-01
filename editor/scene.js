@@ -41,6 +41,8 @@ this.initialize = function() {
 
 this.onSceneReady = function() {
     this.setUpListeners();
+    this.cycleSun();
+    // this.setSunPos( 90 );
 }
 
 this.setUpListeners = function() {
@@ -49,6 +51,35 @@ this.setUpListeners = function() {
     this.editTool.grid.gridUpdated = function() {
         scene.updateEditToolTiles();
     }
+}
+
+var tick = 0;
+this.cycleSun = function() {
+    var angle = tick++;
+    this.setSunPos( angle );
+    this.future( 0.05 ).cycleSun();
+}
+
+this.setSunPos = function( angle ) {
+    angle = ( angle % 360 + 360 ) % 360;
+    var radians = angle * Math.PI / 180;
+    var x = Math.cos( radians );
+    var z = Math.sin( radians );
+    var red, green, blue;
+    var intensity;
+    this.sunLight.translateTo( [ x, 0, z ] );
+    red = 100 + Math.max( z, 0 ) * 155;
+    green = 50 + Math.max( z, 0 ) * 125;
+    blue = Math.max( z, 0 ) * 100 + Math.max( ( x - 1 ) / -2, 0 ) * 100;
+    this.sunLight.color = [ red, green, blue ];
+    intensity = Math.max( z + 0.5 / 1.5, 0 );
+    this.sunLight.intensity = intensity * 0.6;
+    this.envLight.intensity = intensity * 0.25;
+    this.ambientColor = [ 
+        red * intensity + 75,
+        green * intensity + 75,
+        blue * intensity + 75 ];
+    this.sunLight.shadowDarkness = intensity / 0.75 * 0.5
 }
 
 this.updateEditToolTiles = function() {
@@ -190,7 +221,10 @@ this.deleteObject = function( objectID ) {
 this.createObject = function( objName, path, name, callback ) {
     var objDef = {
         "extends": path,
-        "properties": {}
+        "properties": {
+            "castShadows": true,
+            "receiveShadows": true
+        }
     }
 
     this.objectCreated( objName, JSON.stringify( objDef ) );

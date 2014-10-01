@@ -424,6 +424,10 @@ function compileLevel() {
     compileTotal = 0;
     compileProgress = 0;
     levelIds.length = 0;
+    if ( levelArray.length === 0 ) {
+        saveLink.innerHTML = "Nothing to Save";
+        return;
+    }
     for ( i = 0; i < levelArray.length; i += 2 ) {
         id = vwf_view.kernel.find( "", "//" + levelArray[ i ] )[ 0 ];
         vwf_view.kernel.getProperties( id );

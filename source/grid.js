@@ -50,8 +50,8 @@ this.clearGrid = function() {
 
 this.getTileFromGrid = function( gridCoord ) {
     var x, y, tile;
-    x = gridCoord[ 0 ] - this.minX;
-    y = gridCoord[ 1 ] - this.minY;
+    x = gridCoord[ 0 ];
+    y = gridCoord[ 1 ];
     tile = this.tiles[ x ] && this.tiles[ x ][ y ] ? this.tiles[ x ][ y ] : null;
     return tile;
 }

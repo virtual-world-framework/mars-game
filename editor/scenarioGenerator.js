@@ -12,7 +12,8 @@
 // See the License for the specific language governing permissions and 
 // limitations under the License.
 
-this.createScenario = function( scenarioName, lastScenario ) {
+this.createScenario = function( scenarioName, lastScenarioName ) {
+    var lastScenario = this.scenarios[ lastScenarioName ];
     if ( lastScenario ) {
         lastScenario.nextScenarioPath = scenarioName;
     }
