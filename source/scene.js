@@ -231,9 +231,9 @@ this.loadGame = function( scenarioName ) {
 
 this.logInactivity = function( value ) {
     if ( value === true && this.isIdle === false) {
-        this.instrumentationManager.createRequest("logInactivity", [ 'inactive' ] );
+        this.instrumentationManager.createRequest( "logInactivity", [ 'inactive' ] );
     } else if ( value === false && this.isIdle === true ) {
-    	this.instrumentationManager.createRequest("logInactivity", [ 'active' ] );
+    	this.instrumentationManager.createRequest( "logInactivity", [ 'active' ] );
     }
 }
 

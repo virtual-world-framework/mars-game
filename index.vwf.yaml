@@ -59,7 +59,7 @@ methods:
   attemptLogIn:
   loadGame:
   setAnimationRate:
-  isInactive:
+  logInactivity:
   loadGame:
 events:
   gameStarted:
