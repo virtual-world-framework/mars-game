@@ -1,11 +1,48 @@
+// Copyright 2014 Lockheed Martin Corporation
+//
+// Licensed under the Apache License, Version 2.0 (the "License"); you may 
+// not use this file except in compliance with the License. You may obtain 
+// a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software 
+// distributed under the License is distributed on an "AS IS" BASIS, 
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and 
+// limitations under the License.
+
 var selectedTool = undefined;
+var levelArray = new Array();
 var sceneID;
+var fileManager = new FileManager( document.getElementById( "fileDialog" ) );
+var activeDropDown;
+var compileTotal = 0;
+var compileProgress = 0;
+var levelIds = new Array();
+var timePct = 0;
 
 vwf_view.firedEvent = function( nodeID, eventName, args ) {
     if ( nodeID === vwf_view.kernel.application() ) {
         switch ( eventName ) {
             case "onSceneReady":
                 handleSceneReady( args );
+                break;
+            case "objectCreated":
+                levelArray.push( args[ 0 ] );
+                levelArray.push( args[ 1 ] );
+                break;
+            case "objectDeleted":
+                var name = args[ 0 ];
+                var index = levelArray.indexOf( name );
+                if ( index !== -1 ) {
+                    // Call twice to remove the name and the object
+                    removeArrayElement( levelArray, index );
+                    removeArrayElement( levelArray, index );
+                }
+                break;
+            case "timeSet":
+                timePct = args[ 0 ] / 24;
                 break;
         }
     }
@@ -37,6 +74,21 @@ vwf_view.gotProperty = function( nodeID, propertyName, propertyValue ) {
     }
 }
 
+vwf_view.gotProperties = function( nodeID, properties ) {
+    var index = levelIds.indexOf( nodeID );
+    if ( index !== -1 ) {
+        var def = JSON.parse( levelArray[ index * 2 + 1 ] );
+        if ( def ) {
+            def.properties = properties;
+        }
+        levelArray[ index * 2 + 1 ] = JSON.stringify( def );
+        compileProgress++;
+        if ( compileProgress >= compileTotal ) {
+            levelCompiled();
+        }
+    }
+}
+
 function handleSceneReady( params ) {
     sceneID = vwf_view.kernel.application();
     var assetTypeSelector = document.getElementById( "typeselector" );
@@ -44,7 +96,9 @@ function handleSceneReady( params ) {
             loadAssetList( this.value );
     } ).bind( assetTypeSelector );
     loadAssetList( assetTypeSelector.value );
+    setupMenus();
     setupTools();
+    fileManager.onFileOpened = loadLevel;
 }
 
 function loadAsset( assetType, path, name ) {
@@ -133,8 +187,133 @@ function retrieveAssetListItems( listPath ) {
     return list;
 }
 
+function setupMenus() {
+    var file, edit, help, load, save, newLevel, close, saveBtn;
+    var ddButtons, hover, timeOfDay, slider, sliderCloseBtn;
+    file = document.getElementById( "fileButton" );
+    edit = document.getElementById( "editButton" );
+    help = document.getElementById( "helpButton" );
+    load = document.getElementById( "loadLevel" );
+    save = document.getElementById( "saveLevel" );
+    newLevel = document.getElementById( "newLevel" );
+    close = document.getElementById( "fileCloseButton" );
+    saveBtn = document.getElementById( "saveLink" );
+    ddButtons = document.getElementsByClassName( "ddBtn" );
+    timeOfDay = document.getElementById( "timeOfDay" );
+    slider = document.getElementById( "slider" );
+    sliderCloseBtn = document.getElementById( "closeSlider" );
+    file.addEventListener( "click", openDropDown );
+    edit.addEventListener( "click", openDropDown );
+    help.addEventListener( "click", openDropDown );
+    load.addEventListener( "click", openFileDialog );
+    save.addEventListener( "click", openFileDialog );
+    close.addEventListener( "click", closeFileDialog );
+    saveBtn.addEventListener( "click", saveLevel );
+    newLevel.addEventListener( "click", function( event ) {
+        closeDropDown();
+        clearLevel();
+    } );
+    timeOfDay.addEventListener( "click", openSlider );
+    sliderCloseBtn.addEventListener( "click", closeSlider );
+    slider.addEventListener( "mousedown", moveSliderHandle );
+    slider.addEventListener( "mousemove", moveSliderHandle );
+    slider.addEventListener( "mouseout", moveSliderHandle );
+    hover = function( event ) {
+        switch ( event.type ) {
+            case "mouseover":
+                appendClass( this, "hover" );
+                break;
+            case "mouseout":
+            case "click":
+                removeClass( this, "hover" );
+                break;
+        }
+    }
+    for ( var i = 0; i < ddButtons.length; i++ ) {
+        ddButtons[ i ].addEventListener( "mouseover", hover );
+        ddButtons[ i ].addEventListener( "mouseout", hover );
+        ddButtons[ i ].addEventListener( "click", hover );
+    }
+    document.addEventListener( "click", function( event ) {
+        closeDropDown();
+    } );
+}
+
+function openSlider( event ) {
+    closeDropDown();
+    var slider = document.getElementById( "sliderBox" );
+    slider.style.display = "block";
+    setSliderPosition( timePct );
+}
+
+function closeSlider( event ) {
+    var slider = document.getElementById( "sliderBox" );
+    slider.style.display = "none";
+}
+
+function openFileDialog( event ) {
+    closeDropDown();
+    var fileDialog = document.getElementById( "fileDialog" );
+    var title = document.getElementById( "title" );
+    switch ( this.id ) {
+        case "loadLevel":
+            fileManager.saveElement.style.display = "none";
+            fileManager.loadElement.style.display = "block";
+            title.innerHTML = "Load Map";
+            break;
+        case "saveLevel":
+            fileManager.loadElement.style.display = "none";
+            fileManager.saveElement.style.display = "block";
+            title.innerHTML = "Save Map";
+            compileLevel();
+            break;
+    }
+    fileDialog.style.display = "block";
+}
+
+function closeFileDialog() {
+    var fileDialog = document.getElementById( "fileDialog" );
+    fileDialog.style.display = "none";
+}
+
+function openDropDown( event ) {
+    var id;
+    switch ( this.id ) {
+        case "fileButton":
+            id = "fileMenu";
+            break;
+        case "editButton":
+            id = "editMenu";
+            break;
+        case "helpButton":
+            id = "helpMenu";
+            break;
+    }
+    if ( activeDropDown ) {
+        activeDropDown.style.display = "none";
+        if ( activeDropDown.id !== id ) {
+            activeDropDown = document.getElementById( id );
+            activeDropDown.style.display = "inline-block";
+        } else {
+            activeDropDown = undefined;
+        }
+    } else {
+        activeDropDown = document.getElementById( id );
+        activeDropDown.style.display = "inline-block";
+    }
+    event.stopPropagation();
+}
+
+function closeDropDown( event ) {
+    if ( activeDropDown ) {
+        activeDropDown.style.display = "none";
+        activeDropDown = undefined;
+    }
+}
+
 function setupTools() {
     addToolsToGroup( "transformtools", [ "camera", "translate", "rotate", "raise_lower", "delete" ] );
+    // addToolsToGroup( "environmenttools", [ "timeOfDay" ] );
 
     var tools = document.getElementsByClassName( "toolbutton" );
     var img;
@@ -223,6 +402,102 @@ function createPrompt( message, yesFunc, noFunc ) {
     dialog.appendChild( noBtn );
 
     ui.appendChild( dialog );
+}
+
+function saveLevel( event ) {
+    var fileName = document.getElementById( "saveText" ).value;
+    if ( !fileName || fileName === "" ) {
+        fileName = "level.txt";
+    }
+    var levelStr = "";
+    for( var i = 0; i < levelArray.length; i++ ) {
+        levelStr += levelArray[ i ];
+        if ( i < levelArray.length - 1 ) {
+            levelStr += "\n";
+        }
+    }
+    var file = fileManager.makeFile( levelStr );
+    fileManager.saveFile( file, fileName );
+    closeFileDialog();
+}
+
+function loadLevel( file ) {
+    if ( levelArray.length > 0 ) {
+        clearLevel();
+    }
+    var fileArray;
+    fileManager.readFile( file, function( content ) {
+        closeFileDialog();
+        fileArray = content.split( "\n" );
+        vwf_view.kernel.callMethod(
+            vwf_view.kernel.application(),
+            "createLevelFromFile",
+            [ fileArray ] );
+    } );
+    fileManager.loadElement.value = "";
+}
+
+function clearLevel() {
+    vwf_view.kernel.callMethod(
+        vwf_view.kernel.application(),
+        "clearLevel" );
+}
+
+function compileLevel() {
+    var i, id, saveLink;
+    saveLink = document.getElementById( "saveLink" );
+    saveLink.innerHTML = "Compiling...";
+    compileTotal = 0;
+    compileProgress = 0;
+    levelIds.length = 0;
+    if ( levelArray.length === 0 ) {
+        saveLink.innerHTML = "Nothing to Save";
+        return;
+    }
+    for ( i = 0; i < levelArray.length; i += 2 ) {
+        id = vwf_view.kernel.find( "", "//" + levelArray[ i ] )[ 0 ];
+        vwf_view.kernel.getProperties( id );
+        levelIds.push( id );
+        compileTotal++;
+    }
+}
+
+function levelCompiled() {
+    saveLink = document.getElementById( "saveLink" );
+    saveLink.innerHTML = "Save File";
+}
+
+function setTimeOfDay( pct ) {
+    var value;
+    pct = Math.min( 1, Math.max( 0, pct ) );
+    value = pct * 24;
+    setSliderPosition( pct );
+    vwf_view.kernel.callMethod( vwf_view.kernel.application(), "setTimeOfDay", [ value ] );
+}
+
+function moveSliderHandle( event ) {
+    var pct, handle, deadzone;
+    if ( event.which === 1 ) {
+        handle = document.getElementById( "handle" );
+        deadzone = handle.clientWidth / 2;
+        pct = ( event.offsetX - deadzone ) / ( this.clientWidth - deadzone * 2 );
+        setTimeOfDay( pct );
+    }
+}
+
+function setSliderPosition( pct ) {
+    var handle = document.getElementById( "handle" );
+    var deadzone = handle.clientWidth / 2;
+    var pos = pct * ( handle.parentNode.clientWidth - deadzone * 2 );
+    var readout, h, m;
+    handle.style.marginLeft = pos + "px";
+    readout = document.getElementById( "readout" );
+    h = Math.floor( pct * 24 );
+    h = h === 0 ? 24 : h;
+    h = h < 10 ? "0" + h : h;
+    m = Math.floor( pct * 24 % 1 * 60 );
+    m = m < 10 ? "0" + m : m;
+    readout.innerHTML = "Time (hh:mm) - " + h + ":" + m;
 }
 
 //@ sourceURL=editor/editor.js

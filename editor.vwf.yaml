@@ -17,8 +17,9 @@
 extends: http://vwf.example.com/scene.vwf
 properties:
   backgroundColor: [ 10, 20, 30 ]
-  ambientColor: [ 255, 255, 255 ]
+  ambientColor: [ 150, 140, 140 ]
   activeTool: camera
+  enableShadows: true
 children:
   graph:
     extends: http://vwf.example.com/graphtool/graph.vwf
@@ -50,9 +51,9 @@ children:
   grid:
     extends: source/grid.vwf
     properties:
-      minX: 0
+      minX: -100
       maxX: 100
-      minY: 0
+      minY: -100
       maxY: 100
       gridOriginInSpace: []
       gridSquareLength: 3
@@ -96,7 +97,42 @@ children:
           gridMoved:
         scripts:
           - source: editor/editTool.js
+  scenarioGenerator:
+    extends: http://vwf.example.com/node.vwf
+    properties:
+      scenarios:
+    methods:
+    events:
+    scripts:
+      - source: editor/scenarioGenerator.js
+  sunLight:
+    extends: http://vwf.example.com/light.vwf
+    properties:
+      lightType: "directional"
+      color: [ 255, 245, 230 ]
+      translation: [ 0, 0, 1 ]
+      intensity: 0.5
+      castShadows: true
+      shadowDarkness: 0.5
+      shadowCameraBottom: -64
+      shadowCameraTop: 64
+      shadowCameraLeft: -64
+      shadowCameraRight: 64
+      shadowCameraNear: -32
+      shadowCameraFar: 32
+      shadowMapWidth: 2048
+      shadowMapHeight: 2048
+      shadowBias: 0
+  envLight:
+    extends: http://vwf.example.com/light.vwf
+    properties:
+      lightType: "hemisphere"
+      translation: [ 0, 0, 100 ]
+      color: [ 255, 200, 175 ]
+      groundColor: [ 200, 160, 80 ]
+      intensity: 0.7
 methods:
+  clearLevel:
   loadMap:
   deleteMap:
   loadObject:
@@ -112,6 +148,9 @@ methods:
   selectObject:
   deselectObject:
   setActiveTool:
+  createLevelFromFile:
+  setTimeOfDay:
+  cycleTime:
   # Methods handled by View
   requestDelete:
 events:
@@ -121,5 +160,9 @@ events:
   pointerMove:
   pointerDown:
   pointerClick:
+  objectCreated:
+  objectDeleted:
+  objectModified:
+  timeSet:
 scripts: 
   - source: editor/scene.js

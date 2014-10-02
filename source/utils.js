@@ -32,7 +32,7 @@ function copyArray( a, b ) {
 
 function removeArrayElement( array, index ) {
     for ( var i = index; i < array.length - 1; i++ ) {
-        array[ i ] = array[ i ] + 1;
+        array[ i ] = array[ i + 1 ];
     }
     array.length--;
 }
