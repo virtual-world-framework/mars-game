@@ -94,11 +94,12 @@ function handleSceneReady( params ) {
     var assetTypeSelector = document.getElementById( "typeselector" );
     assetTypeSelector.onchange = ( function() {
             loadAssetList( this.value );
-    } ).bind( assetTypeSelector );
+        } ).bind( assetTypeSelector );
     loadAssetList( assetTypeSelector.value );
     setupMenus();
     setupTools();
     fileManager.onFileOpened = loadLevel;
+    document.addEventListener( "keydown", handleKeyPropagation );
 }
 
 function loadAsset( assetType, path, name ) {
@@ -498,6 +499,12 @@ function setSliderPosition( pct ) {
     m = Math.floor( pct * 24 % 1 * 60 );
     m = m < 10 ? "0" + m : m;
     readout.innerHTML = "Time (hh:mm) - " + h + ":" + m;
+}
+
+function handleKeyPropagation( event ) {
+    if ( event.srcElement.nodeName === "INPUT" ) {
+        event.stopPropagation();
+    }
 }
 
 //@ sourceURL=editor/editor.js
