@@ -14,7 +14,7 @@
 
 this.objCount = 0;
 this.selectedObject;
-this.createdObjects = new Array();
+this.createdObjects = {};
 
 var lastPointerPosition, lastPointerDownTime, lastPointerDownID, tileHeight;
 var ORIGIN_COLOR = [ 220, 220, 255 ];
@@ -41,8 +41,6 @@ this.initialize = function() {
 
 this.onSceneReady = function() {
     this.setUpListeners();
-    // this.cycleTime();
-    this.setTimeOfDay( 12 );
 }
 
 this.setUpListeners = function() {
@@ -53,12 +51,37 @@ this.setUpListeners = function() {
     }
 }
 
-var time = 0;
-this.cycleTime = function() {
-    var minPerSec = 1 / 60 / 20;
-    this.setTimeOfDay( time );
-    time = ( time + ( 12 * minPerSec ) ) % 24;
-    this.future( 0.05 ).cycleTime();
+this.compileLevel = function() {
+    var level = new Array();
+    var keys, node;
+    level.push( "scene" );
+    level.push( JSON.stringify( {
+        "enableShadows": this.enableShadows,
+        "ambientColor": this.ambientColor,
+        "timeOfDay": this.timeOfDay } ) );
+    level.push( "sunLight" );
+    level.push( JSON.stringify(
+        getNodeProperties( this.sunLight ) ) );
+    level.push( "envLight" );
+    level.push( JSON.stringify(
+        getNodeProperties( this.envLight ) ) );
+    keys = Object.keys( this.createdObjects );
+    for ( var i = 0; i < keys.length; i++ ) {
+        level.push( keys[ i ] );
+        node = this.createdObjects[ keys[ i ] ];
+        node.properties = getNodeProperties( this[ keys[ i ] ] );
+        level.push( JSON.stringify( node ) );
+    }
+    this.levelCompiled( level );
+}
+
+function getNodeProperties( node ) {
+    var properties = {};
+    var keys = Object.keys( node.properties );
+    for ( var i = 0; i < keys.length; i++ ) {
+        properties[ keys[ i ] ] = node.properties[ keys[ i ] ];
+    }
+    return properties;
 }
 
 this.setTimeOfDay = function( hour ) {
@@ -175,10 +198,11 @@ this.removeGridDisplay = function() {
 
 this.clearLevel = function() {
     this.deleteMap();
-    for ( var i = 0; i < this.createdObjects.length; i++ ) {
-        this.deleteObject( this[ this.createdObjects[ i ] ].id );
+    var keys = Object.keys( this.createdObjects );
+    for ( var i = 0; i < keys.length; i++ ) {
+        this.deleteObject( this[ keys[ i ] ].id );
     }
-    this.createdObjects.length = 0;
+    this.createdObjects = {};
 }
 
 this.loadMap = function( path ) {
@@ -189,10 +213,7 @@ this.loadMap = function( path ) {
 this.deleteMap = function() {
     if ( this.map ) {
         this.children.delete( this.map );
-        var index = this.createdObjects.indexOf( "map" );
-        if ( index !== -1 ) {
-            removeArrayElement( this.createdObjects, index );
-        }
+        delete this.createdObjects[ "map" ];
         this.objectDeleted( "map" );
     }
 }
@@ -230,7 +251,7 @@ this.createObject = function( objName, path, name, callback ) {
         }
     }
 
-    this.objectCreated( objName, JSON.stringify( objDef ) );
+    this.objectCreated( objName, objDef );
 
     if ( objName !== "map" ) {
         objDef[ "implements" ] = "editor/editable.vwf";
@@ -241,7 +262,7 @@ this.createObject = function( objName, path, name, callback ) {
 }
 
 this.createLevelFromFile = function( levelArray ) {
-    var name, obj;
+    var name, obj, keys;
     var callback = function( object ) {
         var translation = object.translation;
         if ( object.currentGridSquare ) {
@@ -254,19 +275,26 @@ this.createLevelFromFile = function( levelArray ) {
     for ( var i = 0; i < levelArray.length; i++ ) {
         name = levelArray[ i ];
         obj = JSON.parse( levelArray[ ++i ] );
-        this.objectCreated( name, JSON.stringify( obj ) );
-        if ( name !== "map" ) {
+        if ( name === "scene" || name === "sunLight" || name === "envLight" ) {
+            keys = Object.keys( obj );
+            for ( var n = 0; n < keys.length; n++ ) {
+                this[ keys[ n ] ] = obj[ keys[ n ] ];
+            }
+        } else if ( name !== "map" ) {
             obj[ "implements" ] = "editor/editable.vwf";
             obj.properties[ "nameString" ] = name;
             this.children.create( name, obj, callback );
+            this.objectCreated( name, obj );
         } else {
             this.children.create( name, obj );
+            this.objectCreated( name, obj );
         }
     }
 }
 
-this.objectCreated = function( name, def ) {
-    this.createdObjects.push( name );
+this.objectCreated = function( name, obj ) {
+    var objCopy = JSON.parse( JSON.stringify( obj ) );
+    this.createdObjects[ name ] = objCopy;
 }
 
 this.setActiveTool = function( toolID ) {

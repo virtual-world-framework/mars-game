@@ -18,6 +18,11 @@ extends: http://vwf.example.com/scene.vwf
 properties:
   backgroundColor: [ 10, 20, 30 ]
   ambientColor: [ 150, 140, 140 ]
+  timeOfDay:
+    set: |
+      this.setTimeOfDay( value );
+      this.timeOfDay = value;
+    value: 12
   activeTool: camera
   enableShadows: true
 children:
@@ -132,6 +137,7 @@ children:
       groundColor: [ 200, 160, 80 ]
       intensity: 0.7
 methods:
+  compileLevel:
   clearLevel:
   loadMap:
   deleteMap:
@@ -150,7 +156,6 @@ methods:
   setActiveTool:
   createLevelFromFile:
   setTimeOfDay:
-  cycleTime:
   # Methods handled by View
   requestDelete:
 events:
@@ -164,5 +169,6 @@ events:
   objectDeleted:
   objectModified:
   timeSet:
+  levelCompiled:
 scripts: 
   - source: editor/scene.js

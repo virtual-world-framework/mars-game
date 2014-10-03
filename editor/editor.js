@@ -13,7 +13,6 @@
 // limitations under the License.
 
 var selectedTool = undefined;
-var levelArray = new Array();
 var sceneID;
 var fileManager = new FileManager( document.getElementById( "fileDialog" ) );
 var activeDropDown;
@@ -21,6 +20,7 @@ var compileTotal = 0;
 var compileProgress = 0;
 var levelIds = new Array();
 var timePct = 0;
+var levelFile;
 
 vwf_view.firedEvent = function( nodeID, eventName, args ) {
     if ( nodeID === vwf_view.kernel.application() ) {
@@ -29,20 +29,18 @@ vwf_view.firedEvent = function( nodeID, eventName, args ) {
                 handleSceneReady( args );
                 break;
             case "objectCreated":
-                levelArray.push( args[ 0 ] );
-                levelArray.push( args[ 1 ] );
                 break;
             case "objectDeleted":
-                var name = args[ 0 ];
-                var index = levelArray.indexOf( name );
-                if ( index !== -1 ) {
-                    // Call twice to remove the name and the object
-                    removeArrayElement( levelArray, index );
-                    removeArrayElement( levelArray, index );
-                }
                 break;
             case "timeSet":
                 timePct = args[ 0 ] / 24;
+                break;
+            case "levelCompiled":
+                var levelArray = args[ 0 ];
+                var saveLink;
+                createLevelFile( levelArray );
+                saveLink = document.getElementById( "saveLink" );
+                saveLink.innerHTML = "Save Level";
                 break;
         }
     }
@@ -70,21 +68,6 @@ vwf_view.gotProperty = function( nodeID, propertyName, propertyValue ) {
                 console.log( "vwf_view.gotProperty: " + propertyName +
                              " - Could not find a tool with the ID: " + propertyValue );
             }
-        }
-    }
-}
-
-vwf_view.gotProperties = function( nodeID, properties ) {
-    var index = levelIds.indexOf( nodeID );
-    if ( index !== -1 ) {
-        var def = JSON.parse( levelArray[ index * 2 + 1 ] );
-        if ( def ) {
-            def.properties = properties;
-        }
-        levelArray[ index * 2 + 1 ] = JSON.stringify( def );
-        compileProgress++;
-        if ( compileProgress >= compileTotal ) {
-            levelCompiled();
         }
     }
 }
@@ -405,11 +388,7 @@ function createPrompt( message, yesFunc, noFunc ) {
     ui.appendChild( dialog );
 }
 
-function saveLevel( event ) {
-    var fileName = document.getElementById( "saveText" ).value;
-    if ( !fileName || fileName === "" ) {
-        fileName = "level.txt";
-    }
+function createLevelFile( levelArray ) {
     var levelStr = "";
     for( var i = 0; i < levelArray.length; i++ ) {
         levelStr += levelArray[ i ];
@@ -417,16 +396,21 @@ function saveLevel( event ) {
             levelStr += "\n";
         }
     }
-    var file = fileManager.makeFile( levelStr );
-    fileManager.saveFile( file, fileName );
+    levelFile = fileManager.makeFile( levelStr );
+}
+
+function saveLevel( event ) {
+    var fileName = document.getElementById( "saveText" ).value;
+    if ( !fileName || fileName === "" ) {
+        fileName = "level.txt";
+    }
+    fileManager.saveFile( levelFile, fileName );
     closeFileDialog();
 }
 
 function loadLevel( file ) {
-    if ( levelArray.length > 0 ) {
-        clearLevel();
-    }
     var fileArray;
+    clearLevel();
     fileManager.readFile( file, function( content ) {
         closeFileDialog();
         fileArray = content.split( "\n" );
@@ -445,22 +429,10 @@ function clearLevel() {
 }
 
 function compileLevel() {
-    var i, id, saveLink;
+    var saveLink;
     saveLink = document.getElementById( "saveLink" );
     saveLink.innerHTML = "Compiling...";
-    compileTotal = 0;
-    compileProgress = 0;
-    levelIds.length = 0;
-    if ( levelArray.length === 0 ) {
-        saveLink.innerHTML = "Nothing to Save";
-        return;
-    }
-    for ( i = 0; i < levelArray.length; i += 2 ) {
-        id = vwf_view.kernel.find( "", "//" + levelArray[ i ] )[ 0 ];
-        vwf_view.kernel.getProperties( id );
-        levelIds.push( id );
-        compileTotal++;
-    }
+    vwf_view.kernel.callMethod( vwf_view.kernel.application(), "compileLevel" );
 }
 
 function levelCompiled() {
@@ -473,7 +445,7 @@ function setTimeOfDay( pct ) {
     pct = Math.min( 1, Math.max( 0, pct ) );
     value = pct * 24;
     setSliderPosition( pct );
-    vwf_view.kernel.callMethod( vwf_view.kernel.application(), "setTimeOfDay", [ value ] );
+    vwf_view.kernel.setProperty( vwf_view.kernel.application(), "timeOfDay", value );
 }
 
 function moveSliderHandle( event ) {
