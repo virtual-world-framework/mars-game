@@ -280,13 +280,14 @@ this.createLevelFromFile = function( levelArray ) {
             for ( var n = 0; n < keys.length; n++ ) {
                 this[ keys[ n ] ] = obj[ keys[ n ] ];
             }
-        } else if ( name !== "map" ) {
-            obj[ "implements" ] = "editor/editable.vwf";
-            obj.properties[ "nameString" ] = name;
-            this.children.create( name, obj, callback );
-            this.objectCreated( name, obj );
         } else {
-            this.children.create( name, obj );
+            if ( name !== "map" ) {
+                obj[ "implements" ] = "editor/editable.vwf";
+                obj.properties[ "nameString" ] = name;
+                this.children.create( name, obj, callback );
+            } else {
+                this.children.create( name, obj );
+            }
             this.objectCreated( name, obj );
         }
     }
