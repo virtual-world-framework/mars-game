@@ -105,7 +105,7 @@ children:
   scenarioGenerator:
     extends: http://vwf.example.com/node.vwf
     properties:
-      scenarios:
+      scenarios: {}
     methods:
     events:
     scripts:

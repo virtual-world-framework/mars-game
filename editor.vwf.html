@@ -79,3 +79,97 @@ limitations under the License.
         <div id="closeSlider">Close</div>
     </div>
 </div>
+
+<div id="scenarioEditor">
+    <div id="scenarioHeader">Scenario Editor</div>
+    <div id="addScenario">+ Add Scenario</div>
+    <div id="scenarioList"></div>
+</div>
+
+<style type="text/css">
+
+#scenarioEditor {
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
+    height: 800px;
+    width: 450px;
+    background-color: rgb( 245, 245, 245 );
+}
+
+#scenarioHeader {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    height: 24px;
+    background-color: rgb( 50, 90, 150 );
+    color: rgb( 255, 255, 255 );
+    text-align: center;
+    line-height: 24px;
+}
+
+#addScenario {
+    position: absolute;
+    top: 24px;
+    left: 0px;
+    right: 0px;
+    height: 32px;
+    background-color: rgb( 225, 225, 225 );
+    color: rgb( 50, 90, 150 );
+    line-height: 32px;
+    font-size: 18px;
+    font-weight: bold;
+    text-align: center;
+}
+
+#scenarioList {
+    position: absolute;
+    top: 60px;
+    left: 4px;
+    right: 4px;
+    bottom: 4px;
+    padding: 4px;
+    background-color: rgb( 255, 255, 255 );
+    border: 1px dashed rgb( 50, 90, 150 );
+}
+
+</style>
+
+<script type="text/javascript">
+
+function createJsonDom( name, json ) {
+    var root = document.createElement( "div" );
+    root.innerHMTL = name;
+    root.class = "jsonRoot";
+
+    var keys;
+    keys = Object.keys( json );
+    for ( var i = 0; i < keys.length; i++ ) {
+
+    }
+}
+
+function createElement( name, value ) {
+    var type = typeof value;
+    switch ( type ) {
+        case "boolean":
+            break;
+        case "number":
+            break;
+        case "string":
+            break;
+        case "object":
+            break;
+        case "function":
+            console.log( "JSON to DOM: Functions are not handled." );
+            return;
+            break;
+        default:
+            console.log( "JSON to DOM: Unhandled type: " + type );
+            return;
+            break;
+    }
+}
+
+</script>
