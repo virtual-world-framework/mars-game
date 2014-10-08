@@ -502,7 +502,6 @@ function handleKeyPropagation( event ) {
 
 function createJsonDom( name, json ) {
     var element = makeElement( name, json );
-
     var scenarioList = document.getElementById( "scenarioList" );
     scenarioList.appendChild( element );
 }
