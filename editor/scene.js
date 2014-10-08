@@ -41,6 +41,10 @@ this.initialize = function() {
 
 this.onSceneReady = function() {
     this.setUpListeners();
+    this.scenarioGenerator.createScenario( "scenario1" );
+    this.scenarioGenerator.createScenario( "scenario2", "scenario1" );
+    var json = JSON.stringify( this.scenarioGenerator.scenarios );
+    this.scenariosLoaded( json );
 }
 
 this.setUpListeners = function() {
@@ -72,8 +76,6 @@ this.compileLevel = function() {
         node.properties = getNodeProperties( this[ keys[ i ] ] );
         level.push( JSON.stringify( node ) );
     }
-    this.scenarioGenerator.createScenario( "scenario1" );
-    this.scenarioGenerator.createScenario( "scenario2", "scenario1" );
     level.push( "scenarios" );
     node = this.scenarioGenerator.scenarios;
     level.push( JSON.stringify( node ) );

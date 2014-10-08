@@ -170,5 +170,6 @@ events:
   objectModified:
   timeSet:
   levelCompiled:
+  scenariosLoaded:
 scripts: 
   - source: editor/scene.js
