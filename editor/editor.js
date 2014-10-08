@@ -178,6 +178,7 @@ function retrieveAssetListItems( listPath ) {
 function setupMenus() {
     var file, edit, help, load, save, newLevel, close, saveBtn;
     var ddButtons, hover, timeOfDay, slider, sliderCloseBtn;
+    var scenarioButton, scenarioCloseButton;
     file = document.getElementById( "fileButton" );
     edit = document.getElementById( "editButton" );
     help = document.getElementById( "helpButton" );
@@ -188,6 +189,8 @@ function setupMenus() {
     saveBtn = document.getElementById( "saveLink" );
     ddButtons = document.getElementsByClassName( "ddBtn" );
     timeOfDay = document.getElementById( "timeOfDay" );
+    scenarioButton = document.getElementById( "scenarioButton" );
+    scenarioCloseButton = document.getElementById( "scenarioCloseButton" );
     slider = document.getElementById( "slider" );
     sliderCloseBtn = document.getElementById( "closeSlider" );
     file.addEventListener( "click", openDropDown );
@@ -202,6 +205,8 @@ function setupMenus() {
         clearLevel();
     } );
     timeOfDay.addEventListener( "click", openSlider );
+    scenarioButton.addEventListener( "click", openScenarioEditor );
+    scenarioCloseButton.addEventListener( "click", closeScenarioEditor );
     sliderCloseBtn.addEventListener( "click", closeSlider );
     slider.addEventListener( "mousedown", moveSliderHandle );
     slider.addEventListener( "mousemove", moveSliderHandle );
@@ -237,6 +242,16 @@ function openSlider( event ) {
 function closeSlider( event ) {
     var slider = document.getElementById( "sliderBox" );
     slider.style.display = "none";
+}
+
+function openScenarioEditor( event ) {
+    var scenarioEditor = document.getElementById( "scenarioEditor" );
+    scenarioEditor.style.display = "block";
+}
+
+function closeScenarioEditor( event ) {
+    var scenarioEditor = document.getElementById( "scenarioEditor" );
+    scenarioEditor.style.display = "none";
 }
 
 function openFileDialog( event ) {
