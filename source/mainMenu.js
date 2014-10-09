@@ -22,7 +22,7 @@ MainMenu.prototype = {
     scene: undefined,
     camera: undefined,
     overlay: undefined,
-    continueScenario: undefined,
+    // continueScenario: undefined,
     assetCount: undefined,
     assetsLoaded: undefined,
     planet: undefined,
@@ -30,7 +30,6 @@ MainMenu.prototype = {
     lastTime: undefined,
 
     initialize: function() {
-        this.delayMenu = 5;
         this.createScene();
         this.createOverlay();
     },
@@ -97,8 +96,8 @@ MainMenu.prototype = {
     },
 
     createOverlay: function() {
-        var title, playButton, continueButton, settingsButton, backButton, volume;
-        var loginForm, loginTextBox, loginButton, loginHeading, container, logout;
+        var title, playButton, settingsButton, backButton, volume, container;
+        // var loginForm, loginTextBox, loginButton, loginHeading, logout, continueButton;
 
         this.overlay = document.createElement( "div" );
         this.overlay.id = "MainMenu-Wrapper";
@@ -109,7 +108,7 @@ MainMenu.prototype = {
 
         this.overlay.mainMenu = document.createElement( "div" );
         this.overlay.mainMenu.id = "MainMenu-Main";
-        this.overlay.mainMenu.style.display = "none";
+        // this.overlay.mainMenu.style.display = "none";
 
         title = document.createElement( "div" );
         title.id = "MainMenu-Title";
@@ -135,23 +134,23 @@ MainMenu.prototype = {
         }
         playButton.onclick = this.playGame.bind( this );
 
-        continueButton = document.createElement( "div" );
-        continueButton.id = "MainMenu-ContinueButton";
-        continueButton.className = "MainMenu-Button"
-        continueButton.innerHTML = "Continue";
-        continueButton.style.display = "none";
-        continueButton.onmouseover = function( event ) {
-            appendClass( this, "hover" );
-        }
-        continueButton.onmouseout = function( event ) {
-            removeClass( this, "hover" );
-            removeClass( this, "select" );
-        }
-        continueButton.onmousedown = function( event ) {
-            removeClass( this, "hover" );
-            appendClass( this, "select" );
-        }
-        continueButton.onclick = this.resumeGame.bind( this );
+        // continueButton = document.createElement( "div" );
+        // continueButton.id = "MainMenu-ContinueButton";
+        // continueButton.className = "MainMenu-Button"
+        // continueButton.innerHTML = "Continue";
+        // continueButton.style.display = "none";
+        // continueButton.onmouseover = function( event ) {
+        //     appendClass( this, "hover" );
+        // }
+        // continueButton.onmouseout = function( event ) {
+        //     removeClass( this, "hover" );
+        //     removeClass( this, "select" );
+        // }
+        // continueButton.onmousedown = function( event ) {
+        //     removeClass( this, "hover" );
+        //     appendClass( this, "select" );
+        // }
+        // continueButton.onclick = this.resumeGame.bind( this );
 
         settingsButton = document.createElement( "div" );
         settingsButton.id = "MainMenu-SettingsButton";
@@ -211,37 +210,36 @@ MainMenu.prototype = {
         volume.slider.onmousemove = this.moveVolumeSlider.bind( this );
         volume.slider.onmouseout = this.moveVolumeSlider.bind( this );
 
-
-        this.overlay.loginMenu = document.createElement( "div" );
-        this.overlay.loginMenu.id = "loginBox";
-        loginForm = document.createElement( "form" );
-        loginForm.id = "loginForm";
-        loginHeading = document.createElement( "div" );
-        loginHeading.id = "loginHeading";
-        loginHeading.innerHTML = "Please enter a player ID.";
-        loginTextBox = document.createElement( "input" );
-        loginTextBox.id = "idTextBox";
-        loginTextBox.type = "text";
-        loginButton = document.createElement( "input" );
-        loginButton.id = "submitButton";
-        loginButton.type = "button";
-        loginButton.value = "Submit";
-        logout = document.createElement( "div" );
-        logout.id = "logout";
-        loginForm.appendChild( loginHeading );
-        loginForm.appendChild( loginTextBox );
-        loginForm.appendChild( loginButton );
-        this.overlay.loginMenu.appendChild( loginForm );
-        this.overlay.appendChild( this.overlay.loginMenu );
-        loginForm.onsubmit = this.submitUserID.bind( loginTextBox );
-        loginButton.onclick = this.submitUserID.bind( loginTextBox );
-        logout.onclick = this.logoutUser.bind( this );
-        this.overlay.appendChild( logout );
+        // this.overlay.loginMenu = document.createElement( "div" );
+        // this.overlay.loginMenu.id = "loginBox";
+        // loginForm = document.createElement( "form" );
+        // loginForm.id = "loginForm";
+        // loginHeading = document.createElement( "div" );
+        // loginHeading.id = "loginHeading";
+        // loginHeading.innerHTML = "Please enter a player ID.";
+        // loginTextBox = document.createElement( "input" );
+        // loginTextBox.id = "idTextBox";
+        // loginTextBox.type = "text";
+        // loginButton = document.createElement( "input" );
+        // loginButton.id = "submitButton";
+        // loginButton.type = "button";
+        // loginButton.value = "Submit";
+        // logout = document.createElement( "div" );
+        // logout.id = "logout";
+        // loginForm.appendChild( loginHeading );
+        // loginForm.appendChild( loginTextBox );
+        // loginForm.appendChild( loginButton );
+        // this.overlay.loginMenu.appendChild( loginForm );
+        // this.overlay.appendChild( this.overlay.loginMenu );
+        // loginForm.onsubmit = this.submitUserID.bind( loginTextBox );
+        // loginButton.onclick = this.submitUserID.bind( loginTextBox );
+        // logout.onclick = this.logoutUser.bind( this );
+        // this.overlay.appendChild( logout );
 
         title.appendChild( title.main );
         title.appendChild( title.sub );
         this.overlay.mainMenu.appendChild( playButton );
-        this.overlay.mainMenu.appendChild( continueButton );
+        // this.overlay.mainMenu.appendChild( continueButton );
         this.overlay.mainMenu.appendChild( settingsButton );
         this.overlay.settingsMenu.appendChild( backButton );
         this.overlay.settingsMenu.appendChild( volume );
@@ -279,10 +277,10 @@ MainMenu.prototype = {
         vwf_view.kernel.fireEvent( vwf_view.kernel.application(), "gameStarted" );
     },
 
-    resumeGame: function() {
-        this.overlay.style.display = "none";
-        vwf_view.kernel.callMethod( appID, "loadGame", [ this.continueScenario ] );
-    },
+    // resumeGame: function() {
+    //     this.overlay.style.display = "none";
+    //     vwf_view.kernel.callMethod( appID, "loadGame", [ this.continueScenario ] );
+    // },
 
     openSettings: function() {
         this.overlay.loginMenu.style.display = "none";
@@ -347,36 +345,36 @@ MainMenu.prototype = {
         readout.innerHTML = "Volume: " + readoutPct + "%";
     },
 
-    submitUserID: function( event ) {
-        var vwfScene = vwf_view.kernel.application();
-        var logoutDiv = document.getElementById( "logout" );
-        var userID = this.value;
-        vwf_view.kernel.callMethod( vwfScene, "attemptLogin", [ userID ] );
-        logout.innerHTML = userID + " - <a>Log Out</a>";
-        event.preventDefault();
-    },
+    // submitUserID: function( event ) {
+    //     var vwfScene = vwf_view.kernel.application();
+    //     var logoutDiv = document.getElementById( "logout" );
+    //     var userID = this.value;
+    //     vwf_view.kernel.callMethod( vwfScene, "attemptLogin", [ userID ] );
+    //     logout.innerHTML = userID + " - <a>Log Out</a>";
+    //     event.preventDefault();
+    // },
 
-    loggedIn: function( scenarioName ) {
-        this.setContinueScenario( scenarioName );
-        this.openMain();
-    },
+    // loggedIn: function( scenarioName ) {
+    //     this.setContinueScenario( scenarioName );
+    //     this.openMain();
+    // },
 
-    logoutUser: function( event ) {
-        var logoutDiv = document.getElementById( "logout" );
-        logoutDiv.innerHTML = "";
-        this.overlay.loginMenu.style.display = "block";
-        this.overlay.settingsMenu.style.display = "none";
-        this.overlay.mainMenu.style.display = "none";
-    },
+    // logoutUser: function( event ) {
+    //     var logoutDiv = document.getElementById( "logout" );
+    //     logoutDiv.innerHTML = "";
+    //     this.overlay.loginMenu.style.display = "block";
+    //     this.overlay.settingsMenu.style.display = "none";
+    //     this.overlay.mainMenu.style.display = "none";
+    // },
 
-    setContinueScenario: function( scenarioName) {
-        var continueButton;
-        if ( scenarioName ) {
-            continueButton = document.getElementById( "MainMenu-ContinueButton" );
-            continueButton.style.display = "block";
-            this.continueScenario = scenarioName;
-        }
-    }
+    // setContinueScenario: function( scenarioName) {
+    //     var continueButton;
+    //     if ( scenarioName ) {
+    //         continueButton = document.getElementById( "MainMenu-ContinueButton" );
+    //         continueButton.style.display = "block";
+    //         this.continueScenario = scenarioName;
+    //     }
+    // }
 }
 
 //@ sourceURL=source/mainMenu.js
