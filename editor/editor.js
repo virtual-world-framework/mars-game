@@ -42,6 +42,10 @@ vwf_view.firedEvent = function( nodeID, eventName, args ) {
                 saveLink = document.getElementById( "saveLink" );
                 saveLink.innerHTML = "Save Level";
                 break;
+            case "scenariosLoaded":
+                var json = JSON.parse( args[ 0 ] );
+                createJsonDom( "scenarios", json );
+                break;
         }
     }
 }
@@ -174,6 +178,7 @@ function retrieveAssetListItems( listPath ) {
 function setupMenus() {
     var file, edit, help, load, save, newLevel, close, saveBtn;
     var ddButtons, hover, timeOfDay, slider, sliderCloseBtn;
+    var scenarioButton, scenarioCloseButton;
     file = document.getElementById( "fileButton" );
     edit = document.getElementById( "editButton" );
     help = document.getElementById( "helpButton" );
@@ -184,6 +189,8 @@ function setupMenus() {
     saveBtn = document.getElementById( "saveLink" );
     ddButtons = document.getElementsByClassName( "ddBtn" );
     timeOfDay = document.getElementById( "timeOfDay" );
+    scenarioButton = document.getElementById( "scenarioButton" );
+    scenarioCloseButton = document.getElementById( "scenarioCloseButton" );
     slider = document.getElementById( "slider" );
     sliderCloseBtn = document.getElementById( "closeSlider" );
     file.addEventListener( "click", openDropDown );
@@ -198,6 +205,8 @@ function setupMenus() {
         clearLevel();
     } );
     timeOfDay.addEventListener( "click", openSlider );
+    scenarioButton.addEventListener( "click", openScenarioEditor );
+    scenarioCloseButton.addEventListener( "click", closeScenarioEditor );
     sliderCloseBtn.addEventListener( "click", closeSlider );
     slider.addEventListener( "mousedown", moveSliderHandle );
     slider.addEventListener( "mousemove", moveSliderHandle );
@@ -233,6 +242,16 @@ function openSlider( event ) {
 function closeSlider( event ) {
     var slider = document.getElementById( "sliderBox" );
     slider.style.display = "none";
+}
+
+function openScenarioEditor( event ) {
+    var scenarioEditor = document.getElementById( "scenarioEditor" );
+    scenarioEditor.style.display = "block";
+}
+
+function closeScenarioEditor( event ) {
+    var scenarioEditor = document.getElementById( "scenarioEditor" );
+    scenarioEditor.style.display = "none";
 }
 
 function openFileDialog( event ) {
@@ -478,5 +497,118 @@ function handleKeyPropagation( event ) {
         event.stopPropagation();
     }
 }
+
+/* START JSON viewer scripts */
+
+function createJsonDom( name, json ) {
+    var element = makeElement( name, json );
+    var scenarioList = document.getElementById( "scenarioList" );
+    scenarioList.appendChild( element );
+}
+
+function makeElement( name, value ) {
+    var type = typeof value;
+    var element = document.createElement( "div" );
+    switch ( type ) {
+        case "boolean":
+            booleanSelector( element, name, value );
+            break;
+        case "number":
+            numberField( element, name, value );
+            break;
+        case "string":
+            stringField( element, name, value );
+            break;
+        case "object":
+            // This includes arrays
+            objectElement( element, name, value );
+            break;
+        case "function":
+            element.appendChild(
+                document.createTextNode( name + ": Functions are not handled." )
+            );
+            element.className = "entry";
+            break;
+        default:
+            element.appendChild(
+                document.createTextNode( name + ": Unhandled value type (" + type + ")." )
+            );
+            element.className = "entry";
+            break;
+    }
+    return element;
+}
+
+function objectElement( element, name, value ) {
+    var title, contents, keys;
+    title = document.createElement( "div" );
+    contents = document.createElement( "div" );
+    title.appendChild( document.createTextNode( "+ " + name ) );
+    title.className = "category entry";
+    contents.className = "collapsible collapsed";
+    title.onclick = expandObject;
+    keys = Object.keys( value );
+    for ( var i = 0; i < keys.length; i++ ) {
+        contents.appendChild( makeElement( keys[ i ], value[ keys[ i ] ] ) );
+    }
+
+    element.appendChild( title );
+    element.appendChild( contents );
+    return element;
+}
+
+function expandObject( event ) {
+    var contents = this.nextSibling;
+    if ( contents.classList.contains( "collapsed" ) ) {
+        contents.classList.remove( "collapsed" );
+        this.innerHTML = this.innerHTML.replace( "+", "-" );
+    } else {
+        contents.classList.add( "collapsed" );
+        this.innerHTML = this.innerHTML.replace( "-", "+" );
+    }
+}
+
+function booleanSelector( element, name, value ) {
+    var select, option;
+    element.appendChild( document.createTextNode( name + ": " ) );
+    select = document.createElement( "select" );
+    option = document.createElement( "option" );
+    option.value = true;
+    option.text = "True";
+    select.appendChild( option );
+    option = document.createElement( "option" );
+    option.value = false;
+    option.text = "False";
+    select.appendChild( option );
+    for ( var i = 0; i < select.options.length; i++ ) {
+        select.options[ i ].selected = value.toString() === select.options[ i ].value;
+    }
+    element.appendChild( select );
+    element.className = "entry";
+    return element;
+}
+
+function stringField( element, name, value ) {
+    var text;
+    element.appendChild( document.createTextNode( name + ": " ) );
+    text = document.createElement( "input" );
+    text.value = value;
+    element.appendChild( text );
+    element.className = "entry";
+    return element;
+}
+
+function numberField( element, name, value ) {
+    var text;
+    element.appendChild( document.createTextNode( name + ": " ) );
+    text = document.createElement( "input" );
+    text.type = "number";
+    text.value = value;
+    element.appendChild( text );
+    element.className = "entry";
+    return element;
+}
+
+/* END JSON viewer scripts */
 
 //@ sourceURL=editor/editor.js

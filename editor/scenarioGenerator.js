@@ -15,13 +15,14 @@
 this.createScenario = function( scenarioName, lastScenarioName ) {
     var lastScenario = this.scenarios[ lastScenarioName ];
     if ( lastScenario ) {
-        lastScenario.nextScenarioPath = scenarioName;
+        lastScenario.properties.nextScenarioPath = scenarioName;
     }
 
     this.scenarios[ scenarioName ] = {
+        "extends": "source/scenario/scenario.vwf",
         "properties": {
             "scenarioName": scenarioName,
-            "nextScenarioPath": undefined,
+            "nextScenarioPath": "",
             "startState": []
         },
         "children": {

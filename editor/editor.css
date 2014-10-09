@@ -354,3 +354,100 @@ body {
     width: 256px;
     text-align: center;
 }
+
+/* START JSON viewer styles */
+
+#scenarioEditor {
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
+    height: 800px;
+    width: 450px;
+    background-color: rgb( 245, 245, 245 );
+    display: none;
+    user-select: none;
+    -webkit-user-select: none;  /* Chrome all / Safari all */
+    -moz-user-select: none;     /* Firefox all */
+    -ms-user-select: none;      /* IE 10+ */
+    cursor: default;
+}
+
+#scenarioHeader {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    height: 24px;
+    background-color: rgb( 50, 90, 150 );
+    color: rgb( 255, 255, 255 );
+    text-align: center;
+    line-height: 24px;
+}
+
+#scenarioCloseButton {
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    width: 15px;
+    height: 15px;
+    line-height: 15px;
+    background-color: rgb( 225, 225, 225 );
+    color: rgb( 50, 90, 150 );
+    border: 1px solid rgb( 255, 255, 255 );
+    border-radius: 2px;
+    font-weight: bold;
+}
+
+#addScenario {
+    position: absolute;
+    top: 24px;
+    left: 0px;
+    right: 0px;
+    height: 32px;
+    background-color: rgb( 225, 225, 225 );
+    color: rgb( 50, 90, 150 );
+    line-height: 32px;
+    font-size: 18px;
+    font-weight: bold;
+    text-align: center;
+}
+
+#scenarioList {
+    position: absolute;
+    top: 60px;
+    left: 4px;
+    right: 4px;
+    bottom: 4px;
+    padding: 4px;
+    background-color: rgb( 255, 255, 255 );
+    border: 1px dashed rgb( 50, 90, 150 );
+    overflow: scroll;
+}
+
+.entry {
+    background-color: rgb( 225, 225, 225 );
+    border: 1px solid rgb( 200, 200, 200 );
+    height: 22px;
+    line-height: 22px;
+    font-size: 14px;
+    padding-left: 5px;
+}
+
+.entry input {
+    padding: 0px;
+    font-size: inherit;
+}
+
+.category {}
+
+.collapsible {
+    background-color: rgb( 200, 200, 200 );
+    padding-left: 4px;
+    border-left: 1px dotted rgb( 225, 225, 225 );
+}
+
+.collapsed {
+    display: none;
+}
+
+/* END JSON viewer styles */

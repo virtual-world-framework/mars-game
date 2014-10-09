@@ -105,7 +105,7 @@ children:
   scenarioGenerator:
     extends: http://vwf.example.com/node.vwf
     properties:
-      scenarios:
+      scenarios: {}
     methods:
     events:
     scripts:
@@ -170,5 +170,6 @@ events:
   objectModified:
   timeSet:
   levelCompiled:
+  scenariosLoaded:
 scripts: 
   - source: editor/scene.js

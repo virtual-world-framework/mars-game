@@ -41,6 +41,10 @@ this.initialize = function() {
 
 this.onSceneReady = function() {
     this.setUpListeners();
+    this.scenarioGenerator.createScenario( "scenario1" );
+    this.scenarioGenerator.createScenario( "scenario2", "scenario1" );
+    var json = JSON.stringify( this.scenarioGenerator.scenarios );
+    this.scenariosLoaded( json );
 }
 
 this.setUpListeners = function() {
@@ -72,7 +76,44 @@ this.compileLevel = function() {
         node.properties = getNodeProperties( this[ keys[ i ] ] );
         level.push( JSON.stringify( node ) );
     }
+    level.push( "scenarios" );
+    node = this.scenarioGenerator.scenarios;
+    level.push( JSON.stringify( node ) );
     this.levelCompiled( level );
+}
+
+this.createLevelFromFile = function( levelArray ) {
+    var name, obj, keys;
+    var callback = function( object ) {
+        var translation = object.translation;
+        if ( object.currentGridSquare ) {
+            this.grid.addToGrid( object );
+        } else {
+            this.grid.addToGridFromWorld( object, object.translation );
+        }
+        object.translateTo( translation );
+    }
+    for ( var i = 0; i < levelArray.length; i++ ) {
+        name = levelArray[ i ];
+        obj = JSON.parse( levelArray[ ++i ] );
+        if ( name === "scene" || name === "sunLight" || name === "envLight" ) {
+            keys = Object.keys( obj );
+            for ( var n = 0; n < keys.length; n++ ) {
+                this[ keys[ n ] ] = obj[ keys[ n ] ];
+            }
+        } else if ( name === "scenarios" ) {
+            this.scenarioGenerator.scenarios = obj;
+        } else {
+            if ( name !== "map" ) {
+                obj[ "implements" ] = "editor/editable.vwf";
+                obj.properties[ "nameString" ] = name;
+                this.children.create( name, obj, callback );
+            } else {
+                this.children.create( name, obj );
+            }
+            this.objectCreated( name, obj );
+        }
+    }
 }
 
 function getNodeProperties( node ) {
@@ -259,38 +300,6 @@ this.createObject = function( objName, path, name, callback ) {
     }
 
     this.children.create( objName, objDef, callback );
-}
-
-this.createLevelFromFile = function( levelArray ) {
-    var name, obj, keys;
-    var callback = function( object ) {
-        var translation = object.translation;
-        if ( object.currentGridSquare ) {
-            this.grid.addToGrid( object );
-        } else {
-            this.grid.addToGridFromWorld( object, object.translation );
-        }
-        object.translateTo( translation );
-    }
-    for ( var i = 0; i < levelArray.length; i++ ) {
-        name = levelArray[ i ];
-        obj = JSON.parse( levelArray[ ++i ] );
-        if ( name === "scene" || name === "sunLight" || name === "envLight" ) {
-            keys = Object.keys( obj );
-            for ( var n = 0; n < keys.length; n++ ) {
-                this[ keys[ n ] ] = obj[ keys[ n ] ];
-            }
-        } else {
-            if ( name !== "map" ) {
-                obj[ "implements" ] = "editor/editable.vwf";
-                obj.properties[ "nameString" ] = name;
-                this.children.create( name, obj, callback );
-            } else {
-                this.children.create( name, obj );
-            }
-            this.objectCreated( name, obj );
-        }
-    }
 }
 
 this.objectCreated = function( name, obj ) {
