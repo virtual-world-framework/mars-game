@@ -512,7 +512,7 @@ a:active {
     background-image: url( "assets/images/volume_mute_icon.png" );
 }
 
-#MainMenu-Wrapper {
+#mainMenu {
     position: absolute;
     top: 0px;
     left: 0px;
@@ -525,24 +525,24 @@ a:active {
     cursor: default;
 }
 
-#MainMenu-Container {
+#mainMenuWrapper {
     position: absolute;
     top: 10%;
     left: 10%;
 }
 
-#MainMenu-Main, #MainMenu-Settings {
+#startMenu, #settingsMenu {
     margin-left: 32px;
     margin-top: 32px;
 }
 
-#MainMenu-Title {
+#mainMenuTitle {
     text-transform: uppercase;
     margin-left: auto;
     margin-right: auto;
 }
 
-#MainMenu-Title h1 {
+#mainMenuTitle h1 {
     height: 96px;
     line-height: 96px;
     font-size: 96px;
@@ -551,7 +551,7 @@ a:active {
     text-shadow: 0px 0px 12px rgb( 224, 255, 100 );
     margin: 0px;
 }
-#MainMenu-Title h2 {
+#mainMenuTitle h2 {
     height: 40px;
     line-height: 40px;
     font-size: 40px;
@@ -562,7 +562,7 @@ a:active {
     text-align: center;
 }
 
-.MainMenu-Button {
+.mainMenuButton {
     height: 72px;
     text-transform: uppercase;
     font-size: 48px;
@@ -572,17 +572,17 @@ a:active {
     text-shadow: 0px 0px 2px rgb( 224, 255, 100 );
 }
 
-.MainMenu-Button.hover {
+.mainMenuButton.hover {
     color: rgb( 255, 255, 255 );
     text-shadow: 0px 0px 8px rgb( 224, 255, 100 );
 }
 
-.MainMenu-Button.select {
+.mainMenuButton.select {
     color: rgb( 255, 255, 255 );
     text-shadow: 0px 0px 8px rgb( 255, 255, 255 );
 }
 
-#MainMenu-Volume {
+#volumeSetting {
     height: 64;
     user-select: none;
     -webkit-user-select: none;  /* Chrome all / Safari all */
@@ -596,7 +596,7 @@ a:active {
     padding-right: 12px;
 }
 
-#MainMenu-MuteButton {
+#volumeMute {
     height: 64px;
     width: 64px;
     border-radius: 4px;
@@ -606,11 +606,11 @@ a:active {
     background-image: url( "assets/images/volume_icon.png" );
 }
 
-#MainMenu-MuteButton.muted {
+#volumeMute.muted {
     background-image: url( "assets/images/volume_mute_icon.png" );
 }
 
-#MainMenu-Slider {
+#volumeSlider {
     height: 64px;
     width: 256px;
     border-radius: 4px;
@@ -620,7 +620,7 @@ a:active {
     display: table-cell;
 }
 
-#MainMenu-Readout {
+#volumeReadout {
     height: 32px;
     line-height: 32px;
     font-size: 16px;
@@ -629,7 +629,7 @@ a:active {
     pointer-events: none;
 }
 
-#MainMenu-Handle {
+#volumeHandle {
     height: 32px;
     width: 32px;
     background-position: left bottom;
@@ -638,25 +638,26 @@ a:active {
     pointer-events: none;
 }
 
-#loginBox {
+#logInBox {
     margin-left: auto;
     margin-right: auto;
     height: 100%;
     width: 400px;
 }
 
-#loginForm {
+#logInForm {
     position: absolute;
     top: 60%;
-    height: 120px;
     width: 400px;
     background-color: rgba( 0, 0, 0, 0.75);
     color: rgb( 224, 255, 100 );
     border-radius: 8px;
     text-align: center;
+    padding-top: 4px;
+    padding-bottom: 8px;
 }
 
-#loginHeading {
+#logInHeading {
     height: 40px;
     line-height: 40px;
     font-weight: bold;
@@ -671,4 +672,28 @@ a:active {
     font-size: 20px;
     color: rgb( 225, 225, 225 );
     text-shadow: 0px 0px 1px rgb( 0, 0, 0 );
+}
+
+#logInStatus {
+    color: rgb( 255, 0, 0 );
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    padding-top: 2px;
+    padding-bottom: 2px;
+}
+
+input {
+    background-color: rgba( 224, 255, 100, 0.15 );
+    color: rgb( 224, 255, 100 );
+    border: 1px solid rgb( 224, 255, 100 );
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.formGroup {
+    text-align: right;
+    margin-left: auto;
+    margin-right: auto;
+    width: 320px;
 }

@@ -98,21 +98,22 @@ MainMenu.prototype = {
 
     createOverlay: function() {
         var title, playButton, continueButton, settingsButton, backButton, volume;
-        var loginForm, loginTextBox, loginButton, loginHeading, container, logout;
+        var logInForm, logInButton, logInHeading, container, logout, logInStatus;
+        var username, password, buttons, userLabel, passLabel;
 
         this.overlay = document.createElement( "div" );
-        this.overlay.id = "MainMenu-Wrapper";
+        this.overlay.id = "mainMenu";
         this.overlay.style.display = "none";
 
         container = document.createElement( "div" );
-        container.id = "MainMenu-Container";
+        container.id = "mainMenuWrapper";
 
         this.overlay.mainMenu = document.createElement( "div" );
-        this.overlay.mainMenu.id = "MainMenu-Main";
+        this.overlay.mainMenu.id = "startMenu";
         this.overlay.mainMenu.style.display = "none";
 
         title = document.createElement( "div" );
-        title.id = "MainMenu-Title";
+        title.id = "mainMenuTitle";
         title.main = document.createElement( "h1" );
         title.main.innerHTML = "Nomad";
         title.sub = document.createElement( "h2" );
@@ -120,7 +121,7 @@ MainMenu.prototype = {
 
         playButton = document.createElement( "div" );
         playButton.id = "MainMenu-PlayButton";
-        playButton.className = "MainMenu-Button"
+        playButton.className = "mainMenuButton"
         playButton.innerHTML = "New Game";
         playButton.onmouseover = function( event ) {
             appendClass( this, "hover" );
@@ -137,7 +138,7 @@ MainMenu.prototype = {
 
         continueButton = document.createElement( "div" );
         continueButton.id = "MainMenu-ContinueButton";
-        continueButton.className = "MainMenu-Button"
+        continueButton.className = "mainMenuButton"
         continueButton.innerHTML = "Continue";
         continueButton.style.display = "none";
         continueButton.onmouseover = function( event ) {
@@ -154,8 +155,8 @@ MainMenu.prototype = {
         continueButton.onclick = this.resumeGame.bind( this );
 
         settingsButton = document.createElement( "div" );
-        settingsButton.id = "MainMenu-SettingsButton";
-        settingsButton.className = "MainMenu-Button"
+        settingsButton.id = "settingsMenuButton";
+        settingsButton.className = "mainMenuButton"
         settingsButton.innerHTML = "Settings";
         settingsButton.onmouseover = function( event ) {
             appendClass( this, "hover" );
@@ -171,12 +172,12 @@ MainMenu.prototype = {
         settingsButton.onclick = this.openSettings.bind( this );
 
         this.overlay.settingsMenu = document.createElement( "div" );
-        this.overlay.settingsMenu.id = "MainMenu-Settings";
+        this.overlay.settingsMenu.id = "settingsMenu";
         this.overlay.settingsMenu.style.display = "none";
 
         backButton = document.createElement( "div" );
         backButton.id = "MainMenu-BackButton";
-        backButton.className = "MainMenu-Button"
+        backButton.className = "mainMenuButton"
         backButton.innerHTML = "Back";
         backButton.onmouseover = function( event ) {
             appendClass( this, "hover" );
@@ -192,18 +193,18 @@ MainMenu.prototype = {
         backButton.onclick = this.openMain.bind( this );
 
         volume = document.createElement( "div" );
-        volume.id = "MainMenu-Volume";
+        volume.id = "volumeSetting";
         volume.mute = document.createElement( "div" );
-        volume.mute.id = "MainMenu-MuteButton";
+        volume.mute.id = "volumeMute";
         volume.appendChild( volume.mute );
         volume.slider = document.createElement( "div" );
-        volume.slider.id = "MainMenu-Slider";
+        volume.slider.id = "volumeSlider";
         volume.appendChild( volume.slider );
         volume.slider.readout = document.createElement( "div" );
-        volume.slider.readout.id = "MainMenu-Readout";
+        volume.slider.readout.id = "volumeReadout";
         volume.slider.appendChild( volume.slider.readout );
         volume.slider.handle = document.createElement( "div" );
-        volume.slider.handle.id = "MainMenu-Handle";
+        volume.slider.handle.id = "volumeHandle";
         volume.slider.appendChild( volume.slider.handle );
 
         volume.mute.onclick = this.muteVolume.bind( this );
@@ -212,29 +213,50 @@ MainMenu.prototype = {
         volume.slider.onmouseout = this.moveVolumeSlider.bind( this );
 
 
-        this.overlay.loginMenu = document.createElement( "div" );
-        this.overlay.loginMenu.id = "loginBox";
-        loginForm = document.createElement( "form" );
-        loginForm.id = "loginForm";
-        loginHeading = document.createElement( "div" );
-        loginHeading.id = "loginHeading";
-        loginHeading.innerHTML = "Please enter a player ID.";
-        loginTextBox = document.createElement( "input" );
-        loginTextBox.id = "idTextBox";
-        loginTextBox.type = "text";
-        loginButton = document.createElement( "input" );
-        loginButton.id = "submitButton";
-        loginButton.type = "button";
-        loginButton.value = "Submit";
+        this.overlay.logInMenu = document.createElement( "div" );
+        this.overlay.logInMenu.id = "logInBox";
+        logInForm = document.createElement( "form" );
+        logInForm.id = "logInForm";
+        logInHeading = document.createElement( "div" );
+        logInHeading.id = "logInHeading";
+        logInHeading.innerHTML = "Please enter a player ID.";
+        logInForm.userID = document.createElement( "input" );
+        logInForm.userID.id = "idTextBox";
+        logInForm.userID.type = "text";
+        logInForm.userID.autocomplete = "off";
+        logInForm.password = document.createElement( "input" );
+        logInForm.password.id = "passwordTextBox";
+        logInForm.password.type = "password";
+        logInButton = document.createElement( "input" );
+        logInButton.id = "submitButton";
+        logInButton.type = "button";
+        logInButton.value = "Submit";
         logout = document.createElement( "div" );
         logout.id = "logout";
-        loginForm.appendChild( loginHeading );
-        loginForm.appendChild( loginTextBox );
-        loginForm.appendChild( loginButton );
-        this.overlay.loginMenu.appendChild( loginForm );
-        this.overlay.appendChild( this.overlay.loginMenu );
-        loginForm.onsubmit = this.submitUserID.bind( loginTextBox );
-        loginButton.onclick = this.submitUserID.bind( loginTextBox );
+        username = document.createElement( "div" );
+        username.className = "formGroup";
+        password = document.createElement( "div" );
+        password.className = "formGroup";
+        buttons = document.createElement( "div" );
+        buttons.className = "formGroup";
+        logInStatus = document.createElement( "div" );
+        logInStatus.id = "logInStatus";
+        userLabel = document.createTextNode( "Username: " );
+        passLabel = document.createTextNode( "Password: " );
+        logInForm.appendChild( logInHeading );
+        username.appendChild( userLabel );
+        username.appendChild( logInForm.userID );
+        password.appendChild( passLabel );
+        password.appendChild( logInForm.password );
+        buttons.appendChild( logInButton );
+        logInForm.appendChild( username );
+        logInForm.appendChild( password );
+        logInForm.appendChild( logInStatus );
+        logInForm.appendChild( buttons );
+        this.overlay.logInMenu.appendChild( logInForm );
+        this.overlay.appendChild( this.overlay.logInMenu );
+        logInForm.onsubmit = function( event ) { event.preventDefault(); };
+        logInButton.onclick = this.submitUserID.bind( logInForm );
         logout.onclick = this.logoutUser.bind( this );
         this.overlay.appendChild( logout );
 
@@ -276,7 +298,7 @@ MainMenu.prototype = {
 
     playGame: function() {
         this.overlay.style.display = "none";
-        vwf_view.kernel.fireEvent( vwf_view.kernel.application(), "gameStarted" );
+        vwf_view.kernel.fireEvent( appID, "gameStarted" );
     },
 
     resumeGame: function() {
@@ -285,24 +307,24 @@ MainMenu.prototype = {
     },
 
     openSettings: function() {
-        this.overlay.loginMenu.style.display = "none";
+        this.overlay.logInMenu.style.display = "none";
         this.overlay.mainMenu.style.display = "none";
         this.overlay.settingsMenu.style.display = "block";
         this.setVolumeSliderPosition( cachedVolume );
     },
 
     openMain: function() {
-        this.overlay.loginMenu.style.display = "none";
+        this.overlay.logInMenu.style.display = "none";
         this.overlay.settingsMenu.style.display = "none";
         this.overlay.mainMenu.style.display = "block";
     },
 
     setVolume: function( value ) {
         var sm, muteButton;
-        sm = vwf_view.kernel.find( vwf_view.kernel.application(), "/soundManager" )[ 0 ];
+        sm = vwf_view.kernel.find( appID, "/soundManager" )[ 0 ];
         if ( sm ) {
             value = Math.min( 1, Math.max( 0, value ) );
-            muteButton = document.getElementById( "MainMenu-MuteButton" );
+            muteButton = document.getElementById( "volumeMute" );
             if ( value === 0 ) {
                 appendClass( muteButton, "muted" );
                 muted = true;
@@ -319,8 +341,8 @@ MainMenu.prototype = {
     moveVolumeSlider: function( event ) {
         var pct, handle, slider, deadzone;
         if ( event.which === 1 ) {
-            handle = document.getElementById( "MainMenu-Handle" );
-            slider = document.getElementById( "MainMenu-Slider" );
+            handle = document.getElementById( "volumeHandle" );
+            slider = document.getElementById( "volumeSlider" );
             deadzone = handle.clientWidth / 2;
             pct = ( event.offsetX - deadzone ) / ( slider.clientWidth - deadzone * 2 );
             this.setVolume( pct );
@@ -336,35 +358,42 @@ MainMenu.prototype = {
     },
 
     setVolumeSliderPosition: function( volume ) {
-        var volumeHandle = document.getElementById( "MainMenu-Handle" );
+        var volumeHandle = document.getElementById( "volumeHandle" );
         var deadzone = volumeHandle.clientWidth / 2;
         var pos = volume * ( volumeHandle.parentNode.clientWidth - deadzone * 2 );
         var readout, readoutPct;
         volumeHandle.style.marginLeft = pos + "px";
-        readout = document.getElementById( "MainMenu-Readout" );
+        readout = document.getElementById( "volumeReadout" );
         readoutPct = volume * 100;
         readoutPct = Math.round( readoutPct );
         readout.innerHTML = "Volume: " + readoutPct + "%";
     },
 
     submitUserID: function( event ) {
-        var vwfScene = vwf_view.kernel.application();
-        var logoutDiv = document.getElementById( "logout" );
-        var userID = this.value;
-        vwf_view.kernel.callMethod( vwfScene, "attemptLogin", [ userID ] );
-        logout.innerHTML = userID + " - <a>Log Out</a>";
+        var userID = this.userID.value;
+        var password = this.password.value;
+        vwf_view.kernel.callMethod( appID, "attemptLogIn", [ userID, password ] );
         event.preventDefault();
     },
 
-    loggedIn: function( scenarioName ) {
+    loggedIn: function( scenarioName, userID ) {
+        var logoutDiv = document.getElementById( "logout" );
+        var logInStatus = document.getElementById( "logInStatus" );
+        logout.innerHTML = userID + " - <a>Log Out</a>";
+        logInStatus.innerHTML = "";
         this.setContinueScenario( scenarioName );
         this.openMain();
+    },
+
+    failedLogIn: function() {
+        var logInStatus = document.getElementById( "logInStatus" );
+        logInStatus.innerHTML = "Username/Password combination not found.";
     },
 
     logoutUser: function( event ) {
         var logoutDiv = document.getElementById( "logout" );
         logoutDiv.innerHTML = "";
-        this.overlay.loginMenu.style.display = "block";
+        this.overlay.logInMenu.style.display = "block";
         this.overlay.settingsMenu.style.display = "none";
         this.overlay.mainMenu.style.display = "none";
     },

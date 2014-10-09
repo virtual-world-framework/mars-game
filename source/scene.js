@@ -31,6 +31,11 @@ this.initialize = function() {
     // Set the active camera so we can see the 3D scene
     this.initializeActiveCamera( this.player.targetFollower.camera );
     this.setUpCameraListener();
+    this.future( 0 ).setAnimationRate();
+}
+
+this.setAnimationRate = function() {
+    this.find( "doc('http://vwf.example.com/animation.vwf')" )[ 0 ].animationTPS = 30;
 }
 
 this.setScenario = function( path ) {
@@ -208,17 +213,28 @@ this.restartGame = function() {
     this.activeScenarioPath = "mainMenuScenario";
 }
 
-this.attemptLogin = function( userID ) {
-    this.playerId = userID;
-    this.instrumentationManager.getRequest( "getPlayerState" );
+this.attemptLogIn = function( userID, password ) {
+    var params = [ userID, password ];
+    this.instrumentationManager.getRequest( "getPlayerState", params );
 }
 
-this.loginFailed = function( responseText ) {
-    console.log( responseText );
+this.logInFailed = function() {}
+
+this.logInSucceeded = function( playerId, scenarioName ) {
+    this.playerId = playerId;
 }
 
-this.loginSucceeded = function( scenarioName ) {
-    console.log( scenarioName );
+this.loadGame = function( scenarioName ) {
+    this.activeScenarioPath = scenarioName;
+    this.future( 0 ).loadedGame();
+}
+
+this.logInactivity = function( value ) {
+    if ( value === true && this.isIdle === false) {
+        this.instrumentationManager.createRequest( "logInactivity", [ 'inactive' ] );
+    } else if ( value === false && this.isIdle === true ) {
+    	this.instrumentationManager.createRequest( "logInactivity", [ 'active' ] );
+    }
 }
 
 this.loadGame = function( scenarioName ) {

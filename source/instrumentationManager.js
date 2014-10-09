@@ -13,53 +13,58 @@
 // limitations under the License.
 
 var self;
+var scene;
+var camera;
 
 this.initialize = function() {
     
     self = this;
     
     if ( this.enabled === true ) {
-        this.future( 0 ).registerGameStartedListener();
-        this.future( 0 ).registerScenarioStartedListener();
-        this.future( 0 ).registerScenarioSucceededListener();
-        this.future( 0 ).registerScenarioFailedListener();
-        this.future( 0 ).registerScenarioResetListener();
+        this.future( 0 ).onSceneLoaded();
     }
 }
 
-this.registerGameStartedListener = function() {
-    var scene = this.find( "/" )[ 0 ];
+this.onSceneLoaded = function() {
+    scene = this.find( "/" )[ 0 ];
+    camera = scene.player.targetFollower.camera;
+    this.registerEventListeners();
+}
+
+this.registerEventListeners = function() {
+
     scene.gameStarted = ( function( ) {
         this.broadcastEvent( 'gameStarted', '' );
     } ).bind( this );
-}
 
-this.registerScenarioStartedListener = function() {
-    var scene = this.find( "/" )[ 0 ];
     scene.scenarioStarted = ( function( ) {
         this.broadcastEvent( 'scenarioStarted', scene.activeScenarioPath );
     } ).bind( this );
-}
 
-this.registerScenarioSucceededListener = function() {
-    var scene = this.find( "/" )[ 0 ];
     scene.scenarioSucceeded = ( function( ) {
         this.broadcastEvent( 'scenarioSucceeded', scene.activeScenarioPath );
     } ).bind( this );
-}
 
-this.registerScenarioFailedListener = function() {
-    var scene = this.find( "/" )[ 0 ];
     scene.scenarioFailed = ( function( ) {
         this.broadcastEvent( 'scenarioFailed', scene.activeScenarioPath );
     } ).bind( this );
-}
 
-this.registerScenarioResetListener = function() {
-    var scene = this.find( "/" )[ 0 ];
     scene.scenarioReset = ( function( scenarioName ) {
         this.broadcastEvent( 'scenarioReset', scenarioName );
     } ).bind( this );
+
+    scene.playedVO = ( function( soundName ) {
+        this.broadcastEvent( 'playedVO', soundName );
+    } ).bind( this );
+
+    scene.blocklyXmlChanged = ( function( value ) {
+        this.broadcastBlockly( value, scene.activeScenarioPath );
+    } ).bind( this );
+
+    camera.changedPOV = ( function( pov ) {
+        this.broadcastEvent( 'toggledCamera', pov );
+    } ).bind( this );
+
 }
 
 this.broadcastEvent = function( event, value ) {
@@ -67,38 +72,88 @@ this.broadcastEvent = function( event, value ) {
     this.createRequest ( 'logEvent', params );
 }
 
+this.broadcastBlockly = function( xml, scenario ) {
+    var params = [ xml, scenario ];
+    this.createRequest ( 'logBlockly', params );
+}
+
 this.createRequest = function( type, params ) {
-    
-    var scene = this.find( "/" )[ 0 ];
-    
+
     var playerId = scene.playerId;
     var version = scene.version;
+    var activeScenario = scene.activeScenarioPath;
     
     var pathArray = window.location.pathname.split( '/' );
     var vwfSession = pathArray[ pathArray.length-2 ];
-    
-    var xhr = new XMLHttpRequest();
             
     if ( type === 'logEvent' ) {
         if ( !params || ( params.length !== 2 ) ) {
             self.logger.warnx( "createRequest", "The logEvent request takes 2 parameters:" +
                                " an event name and a value associated with the event." );
         }
+        
+        var xhr = new XMLHttpRequest();
+        
         var event = params[ 0 ];
         var value = params[ 1 ];
         
         xhr.open( "POST", this.logEventUrl, true );
         xhr.setRequestHeader( "Content-type", "application/x-www-form-urlencoded" );
         xhr.send("vwf_session=" + vwfSession + "&player_id=" + playerId + "&action=" + 
+                 event + "$&value="+value+"$&version="+version);
+         
+        var xhrBackup = new XMLHttpRequest();
+        xhrBackup.open( "POST", this.logEventUrl2, true );
+        xhrBackup.setRequestHeader( "Content-type", "application/x-www-form-urlencoded" );
+        xhrBackup.send("vwf_session=" + vwfSession + "&player_id=" + playerId + "&action=" + 
                 event + "$&value="+value+"$&version="+version);
+        
+        
+    }
+    if ( type === 'logBlockly' ) {
+        if ( !params || ( params.length !== 2 ) ) {
+            self.logger.warnx( "createRequest", "The logBlockly request takes 2 parameters:" +
+                               " the Blockly XML and the scenario name." );
+        }
+        
+        var xhr = new XMLHttpRequest();
+        
+        var xml = params[ 0 ];
+        var scenario = params[ 1 ];
+        
+        xhr.open( "POST", this.logBlocklyUrl, true );
+        xhr.setRequestHeader( "Content-type", "application/x-www-form-urlencoded" );
+        xhr.send("vwf_session=" + vwfSession + "&player_id=" + playerId + "&xml=" + 
+                xml + "$&scenario="+scenario+"$&version="+version);
+         
+        var xhrBackup = new XMLHttpRequest();
+        
+        xhrBackup.open( "POST", this.logBlocklyUrl2, true );
+        xhrBackup.setRequestHeader( "Content-type", "application/x-www-form-urlencoded" );
+        xhrBackup.send("vwf_session=" + vwfSession + "&player_id=" + playerId + "&xml=" + 
+                xml + "$&scenario="+scenario+"$&version="+version);
+        
+    }
+    if ( type === 'logInactivity' ) {
+        if ( !params || params.length !== 1 ) {
+            self.logger.warnx( "createRequest", "The logInactivity request takes 1 parameter:" +
+                               " the activity value." );
+        }
+        
+        var xhr = new XMLHttpRequest();
+        
+        var activity = params[ 0 ];
+        
+        xhr.open( "POST", this.logInactivityUrl, true );
+        xhr.setRequestHeader( "Content-type", "application/x-www-form-urlencoded" );
+        xhr.send("vwf_session=" + vwfSession + "&player_id=" + playerId + "&action=" + 
+                params +"$&version="+version+"$&scenario="+activeScenario);
         
     }
 }
 
 this.getRequest = function( type, params ) {
-    var scene = this.find( "/" )[ 0 ];
-    
-    var playerId = scene.playerId;
+
     var version = scene.version;
     
     var pathArray = window.location.pathname.split( '/' );
@@ -107,24 +162,35 @@ this.getRequest = function( type, params ) {
     var xhr = new XMLHttpRequest();
     
     if ( type == 'getPlayerState' ) {
-        if ( params && ( params.length > 0 ) ) {
-            self.logger.warnx( "getRequest", "The getPlayerState request takes no parameters." );
+        if ( params && ( params.length !== 2 ) ) {
+            self.logger.warnx( "getRequest", "The getPlayerState request takes two parameters: " +
+                               "the playerId and password." );
         }
+        
+        var playerId = params[ 0 ];
+        var pwd = params[ 1 ];
+    
         var xhr = new XMLHttpRequest();
         xhr.onreadystatechange = function() {
             if ( xhr.readyState === 4 && xhr.status === 200 ) {
-                var scenarioName = xhr.responseText;
-                if ( scenarioName.lastIndexOf( "$" ) === scenarioName.length - 1 ) {
-                    scenarioName = scenarioName.substr( 0, scenarioName.length - 1 );
+                var response = xhr.responseText;
+                var scenarioName;
+                if ( response === "no account" ) {
+                    scene.logInFailed();
+                    return;
+                } else if ( response.lastIndexOf( "$" ) === response.length - 1 ) {
+                    response = response.substr( 0, response.length - 1 );
                 }
-                scene.progressFound( ( scene[ scenarioName ] && scenarioName !== "mainMenuScenario" ), scenarioName );
-                return xhr.responseText;
+                if ( scene[ response ] && response !== "mainMenuScenario" ) {
+                    scenarioName = response;
+                }
+                scene.logInSucceeded( playerId, scenarioName );
             }
         }
         
         xhr.open( "POST", this.getPlayerStateUrl, true );
         xhr.setRequestHeader( "Content-type", "application/x-www-form-urlencoded" );
-        xhr.send( "player_id="+playerId );
+        xhr.send( "player_id="+playerId+ "&pwd=" + pwd );
     }
     
 }
