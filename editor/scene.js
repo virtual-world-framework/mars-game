@@ -1,11 +1,26 @@
+// Copyright 2014 Lockheed Martin Corporation
+//
+// Licensed under the Apache License, Version 2.0 (the "License"); you may 
+// not use this file except in compliance with the License. You may obtain 
+// a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software 
+// distributed under the License is distributed on an "AS IS" BASIS, 
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and 
+// limitations under the License.
+
 this.objCount = 0;
 this.selectedObject;
+this.createdObjects = {};
 
 var lastPointerPosition, lastPointerDownTime, lastPointerDownID, tileHeight;
 var ORIGIN_COLOR = [ 220, 220, 255 ];
 var PASSABLE_COLOR = [ 220, 255, 220 ];
 var IMPASSABLE_COLOR = [ 255, 220, 220 ];
-var OPACITY = 0.5;
+var OPACITY = 0.25;
 var NORMAL = [ 0, 0, 1 ];
 var ROTATION = 90;
 var RENDERTOP = true;
@@ -26,6 +41,10 @@ this.initialize = function() {
 
 this.onSceneReady = function() {
     this.setUpListeners();
+    this.scenarioGenerator.createScenario( "scenario1" );
+    this.scenarioGenerator.createScenario( "scenario2", "scenario1" );
+    var json = JSON.stringify( this.scenarioGenerator.scenarios );
+    this.scenariosLoaded( json );
 }
 
 this.setUpListeners = function() {
@@ -34,6 +53,100 @@ this.setUpListeners = function() {
     this.editTool.grid.gridUpdated = function() {
         scene.updateEditToolTiles();
     }
+}
+
+this.compileLevel = function() {
+    var level = new Array();
+    var keys, node;
+    level.push( "scene" );
+    level.push( JSON.stringify( {
+        "enableShadows": this.enableShadows,
+        "ambientColor": this.ambientColor,
+        "timeOfDay": this.timeOfDay } ) );
+    level.push( "sunLight" );
+    level.push( JSON.stringify(
+        getNodeProperties( this.sunLight ) ) );
+    level.push( "envLight" );
+    level.push( JSON.stringify(
+        getNodeProperties( this.envLight ) ) );
+    keys = Object.keys( this.createdObjects );
+    for ( var i = 0; i < keys.length; i++ ) {
+        level.push( keys[ i ] );
+        node = this.createdObjects[ keys[ i ] ];
+        node.properties = getNodeProperties( this[ keys[ i ] ] );
+        level.push( JSON.stringify( node ) );
+    }
+    level.push( "scenarios" );
+    node = this.scenarioGenerator.scenarios;
+    level.push( JSON.stringify( node ) );
+    this.levelCompiled( level );
+}
+
+this.createLevelFromFile = function( levelArray ) {
+    var name, obj, keys;
+    var callback = function( object ) {
+        var translation = object.translation;
+        if ( object.currentGridSquare ) {
+            this.grid.addToGrid( object );
+        } else {
+            this.grid.addToGridFromWorld( object, object.translation );
+        }
+        object.translateTo( translation );
+    }
+    for ( var i = 0; i < levelArray.length; i++ ) {
+        name = levelArray[ i ];
+        obj = JSON.parse( levelArray[ ++i ] );
+        if ( name === "scene" || name === "sunLight" || name === "envLight" ) {
+            keys = Object.keys( obj );
+            for ( var n = 0; n < keys.length; n++ ) {
+                this[ keys[ n ] ] = obj[ keys[ n ] ];
+            }
+        } else if ( name === "scenarios" ) {
+            this.scenarioGenerator.scenarios = obj;
+        } else {
+            if ( name !== "map" ) {
+                obj[ "implements" ] = "editor/editable.vwf";
+                obj.properties[ "nameString" ] = name;
+                this.children.create( name, obj, callback );
+            } else {
+                this.children.create( name, obj );
+            }
+            this.objectCreated( name, obj );
+        }
+    }
+}
+
+function getNodeProperties( node ) {
+    var properties = {};
+    var keys = Object.keys( node.properties );
+    for ( var i = 0; i < keys.length; i++ ) {
+        properties[ keys[ i ] ] = node.properties[ keys[ i ] ];
+    }
+    return properties;
+}
+
+this.setTimeOfDay = function( hour ) {
+    var angle = ( hour / 24 * 360 ) - 90;
+    angle = ( angle % 360 + 360 ) % 360;
+    var radians = angle * Math.PI / 180;
+    var x = Math.cos( radians );
+    var z = Math.sin( radians );
+    var red, green, blue;
+    var intensity;
+    this.sunLight.translateTo( [ x, 0, z ] );
+    red = 130 + Math.max( z, 0 ) * 125;
+    green = 80 + Math.max( z, 0 ) * 100;
+    blue = Math.max( z, 0 ) * 90 + Math.max( ( x - 1 ) / -2, 0 ) * 90;
+    this.sunLight.color = [ red, green, blue ];
+    intensity = Math.max( z + 0.75 / 1.75, 0 );
+    this.sunLight.intensity = intensity * 0.7;
+    this.envLight.intensity = intensity * 0.25;
+    this.ambientColor = [ 
+        red * intensity + 75,
+        green * intensity + 75,
+        blue * intensity + 75 ];
+    this.sunLight.shadowDarkness = intensity / 0.7 * 0.3;
+    this.timeSet( hour );
 }
 
 this.updateEditToolTiles = function() {
@@ -84,7 +197,7 @@ this.hideEditToolTiles = function() {
 
 this.createGridDisplay = function( grid ) {
     var origin, color;
-    var tiles = new Array;
+    var tiles = new Array();
     var offset = new Array(); 
     offset.push( grid.gridOriginInSpace[ 0 ] / grid.gridSquareLength );
     offset.push( grid.gridOriginInSpace[ 1 ] / grid.gridSquareLength );
@@ -113,10 +226,7 @@ this.createGridDisplay = function( grid ) {
         }
     }
 
-    this.graph.graphGroup(
-        this.graph.tileVisible,
-        tiles
-    );
+    this.graph.mapTiles.graphObjects = tiles;
 }
 
 this.removeGridDisplay = function() {
@@ -127,16 +237,26 @@ this.removeGridDisplay = function() {
     }
 }
 
-this.loadMap = function( path ) {
-    if ( this.map ) {
-        this.deleteMap();
+this.clearLevel = function() {
+    this.deleteMap();
+    var keys = Object.keys( this.createdObjects );
+    for ( var i = 0; i < keys.length; i++ ) {
+        this.deleteObject( this[ keys[ i ] ].id );
     }
+    this.createdObjects = {};
+}
 
+this.loadMap = function( path ) {
+    this.deleteMap();
     this.future( 0 ).createObject( "map", path );
 }
 
 this.deleteMap = function() {
-    this.children.delete( this.map );
+    if ( this.map ) {
+        this.children.delete( this.map );
+        delete this.createdObjects[ "map" ];
+        this.objectDeleted( "map" );
+    }
 }
 
 this.loadObject = function( path, name ) {
@@ -158,6 +278,7 @@ this.deleteObject = function( objectID ) {
         if ( this.selectedObject && object.id === this.selectedObject.id ) {
             this.deselectObject();
         }
+        this.objectDeleted( object.name );
         this.children.delete( object );
     }
 }
@@ -165,8 +286,13 @@ this.deleteObject = function( objectID ) {
 this.createObject = function( objName, path, name, callback ) {
     var objDef = {
         "extends": path,
-        "properties": {}
+        "properties": {
+            "castShadows": true,
+            "receiveShadows": true
+        }
     }
+
+    this.objectCreated( objName, objDef );
 
     if ( objName !== "map" ) {
         objDef[ "implements" ] = "editor/editable.vwf";
@@ -174,6 +300,11 @@ this.createObject = function( objName, path, name, callback ) {
     }
 
     this.children.create( objName, objDef, callback );
+}
+
+this.objectCreated = function( name, obj ) {
+    var objCopy = JSON.parse( JSON.stringify( obj ) );
+    this.createdObjects[ name ] = objCopy;
 }
 
 this.setActiveTool = function( toolID ) {

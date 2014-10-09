@@ -1,5 +1,5 @@
 body {
-    font-family: "Arial", Gadget, sans-serif;
+    font-family: sans-serif;
 }
 
 .wrapper {
@@ -19,18 +19,40 @@ body {
 
 .menubutton {
     height: 24px;
-    display: inline-block;
-    padding-left: 8px;
-    padding-right: 8px;
     line-height: 24px;
     text-transform: uppercase;
-    font-variant: small-caps;
     color: rgb( 50, 90, 150 );
     background-color: rgb( 225, 225, 225 );
     border: 1px solid rgb( 200, 200, 200 );
     border-top: 0px;
     font-size: 12px;
-    font-family: "Arial Black", Gadget, sans-serif;
+    text-align: center;
+}
+
+.menuOption {
+    display: inline-block;
+    width: 48px;
+}
+
+.dropDownMenu {
+    float: left;
+    position: relative;
+    background-color: rgb( 245, 245, 245 );
+    border: 1px solid rgb( 225, 225, 225 );
+    z-index: 1;
+    display: none;
+    white-space: nowrap;
+}
+
+.ddBtn {
+    display: block;
+    font-size: 12px;
+    padding: 4px 8px;
+}
+
+.ddBtn.hover {
+    background-color: rgb( 50, 90, 150 );
+    color: rgb( 255, 255, 255 );
 }
 
 .toolbar {
@@ -109,6 +131,10 @@ body {
     display: block;
 }
 
+.inline {
+    display: inline-block;
+}
+
 #vwf-root {
     position: absolute;
     left: 200px;
@@ -155,6 +181,7 @@ body {
     width: 200px;
     background-color: rgb( 245, 245, 245 );
     border-right: 1px solid rgb( 225, 225, 225 );
+    z-index: 0;
 }
 
 #assetwrapper {
@@ -191,3 +218,236 @@ body {
     padding: 4px;
     pointer-events: all;
 }
+
+#fileWrapper {
+    margin-right: auto;
+    margin-left: auto;
+    height: 100%;
+    width: 400px;
+}
+
+#fileDialog {
+    position: absolute;
+    top: 40%;
+    width: 400px;
+    background-color: rgb( 225, 225, 225 );
+    border: 1px solid rgb( 255, 255, 255 );
+    text-align: center;
+    display: none;
+    user-select: none;
+    -webkit-user-select: none;  /* Chrome all / Safari all */
+    -moz-user-select: none;     /* Firefox all */
+    -ms-user-select: none;      /* IE 10+ */
+    cursor: default;
+}
+
+#fileCloseButton {
+    height: 22px;
+    width: 22px;
+    float: right;
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    line-height: 22px;
+    font-size: 16px;
+    font-weight: bold;
+    background-color: rgb( 225, 225, 225 );
+    border: 1px solid rgb( 128, 128, 128 );
+    color: rgb( 50, 90, 150 );
+}
+
+#title {
+    height: 32px;
+    text-align: center;
+    background-color: rgb( 50, 90, 150 );
+    color: rgb( 255, 255, 255 );
+    font-size: 16px;
+    line-height: 32px;
+    font-weight: bold;
+}
+
+#loadElement {}
+
+#saveElement {}
+
+#saveElement input {}
+
+#saveElement a {
+    padding: 2px 8px;
+    font-size: 18px;
+    font-weight: bold;
+    color: rgb( 0, 0, 0 );
+    background-color: rgb( 255, 255, 255 );
+    border: 1px solid rgb( 50, 90, 150 );
+}
+
+#saveElement a:link {
+    color: rgb( 0, 0, 0 );
+}
+
+#saveElement a:visited {
+    color: rgb( 0, 0, 0 );
+}
+
+#saveElement a:hover {
+    color: rgb( 0, 0, 0 );
+}
+
+#saveElement a:active {
+    color: rgb( 0, 0, 0 );
+}
+
+#sliderWrapper {
+    margin-right: auto;
+    margin-left: auto;
+    height: 100%;
+    width: 350px;
+}
+
+#sliderBox {
+    position: absolute;
+    bottom: 16px;
+    background-color: rgb( 255, 255, 255 );
+    border: 1px solid rgb( 50, 90, 150 );
+    padding: 8px;
+    display: none;
+    user-select: none;
+    -webkit-user-select: none;  /* Chrome all / Safari all */
+    -moz-user-select: none;     /* Firefox all */
+    -ms-user-select: none;      /* IE 10+ */
+    cursor: default;
+}
+
+#icon {
+    height: 32px;
+    width: 32px;
+    background-image: url( "../assets/images/editor/timeOfDay.png" );
+}
+
+#slider {
+    height: 32px;
+    width: 318px;
+    background-image: url( "../assets/images/editor/sliderTrack.png" );
+}
+
+#handle {
+    height: 32px;
+    width: 32px;
+    background-image: url( "../assets/images/editor/sliderHandle.png" );
+    pointer-events: none;
+}
+
+#closeSlider {
+    background-color: rgb( 225, 225, 225 );
+    border: 1px solid rgb( 200, 200, 200 );
+    width: 64px;
+    height: 24px;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 24px;
+}
+
+#readout {
+    margin-left: auto;
+    margin-right: auto;
+    width: 256px;
+    text-align: center;
+}
+
+/* START JSON viewer styles */
+
+#scenarioEditor {
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
+    height: 800px;
+    width: 450px;
+    background-color: rgb( 245, 245, 245 );
+    display: none;
+    user-select: none;
+    -webkit-user-select: none;  /* Chrome all / Safari all */
+    -moz-user-select: none;     /* Firefox all */
+    -ms-user-select: none;      /* IE 10+ */
+    cursor: default;
+}
+
+#scenarioHeader {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    height: 24px;
+    background-color: rgb( 50, 90, 150 );
+    color: rgb( 255, 255, 255 );
+    text-align: center;
+    line-height: 24px;
+}
+
+#scenarioCloseButton {
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    width: 15px;
+    height: 15px;
+    line-height: 15px;
+    background-color: rgb( 225, 225, 225 );
+    color: rgb( 50, 90, 150 );
+    border: 1px solid rgb( 255, 255, 255 );
+    border-radius: 2px;
+    font-weight: bold;
+}
+
+#addScenario {
+    position: absolute;
+    top: 24px;
+    left: 0px;
+    right: 0px;
+    height: 32px;
+    background-color: rgb( 225, 225, 225 );
+    color: rgb( 50, 90, 150 );
+    line-height: 32px;
+    font-size: 18px;
+    font-weight: bold;
+    text-align: center;
+}
+
+#scenarioList {
+    position: absolute;
+    top: 60px;
+    left: 4px;
+    right: 4px;
+    bottom: 4px;
+    padding: 4px;
+    background-color: rgb( 255, 255, 255 );
+    border: 1px dashed rgb( 50, 90, 150 );
+    overflow: scroll;
+}
+
+.entry {
+    background-color: rgb( 225, 225, 225 );
+    border: 1px solid rgb( 200, 200, 200 );
+    height: 22px;
+    line-height: 22px;
+    font-size: 14px;
+    padding-left: 5px;
+}
+
+.entry input {
+    padding: 0px;
+    font-size: inherit;
+}
+
+.category {}
+
+.collapsible {
+    background-color: rgb( 200, 200, 200 );
+    padding-left: 4px;
+    border-left: 1px dotted rgb( 225, 225, 225 );
+}
+
+.collapsed {
+    display: none;
+}
+
+/* END JSON viewer styles */

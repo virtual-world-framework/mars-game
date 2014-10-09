@@ -204,6 +204,7 @@ this.resetView = function() {
 this.restartGame = function() {
     this.sceneBlackboard = {};
     this.soundManager.stopAllSoundInstances();
+    this.storedScenario( this.activeScenarioPath );
     this.activeScenarioPath = "mainMenuScenario";
 }
 
