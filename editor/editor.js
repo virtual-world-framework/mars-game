@@ -44,6 +44,7 @@ vwf_view.firedEvent = function( nodeID, eventName, args ) {
                 break;
             case "scenariosLoaded":
                 var json = JSON.parse( args[ 0 ] );
+                clearJsonDom();
                 createJsonDom( "scenarios", json );
                 break;
         }
@@ -506,52 +507,124 @@ function createJsonDom( name, json ) {
     scenarioList.appendChild( element );
 }
 
-function makeElement( name, value ) {
+function clearJsonDom() {
+    var scenarioList = document.getElementById( "scenarioList" );
+    scenarioList.innerHTML = "";
+}
+
+function getJsonFromDom() {
+    var json = {};
+    var node, path;
+    var scenarioList = document.getElementById( "scenarioList" );
+    var children = scenarioList.getElementsByClassName( "entry" );
+    for ( var i = 0; i < children.length; i++ ) {
+        node = children[ i ];
+        if ( node.parentPath ) {
+            path = "json." + node.parentPath;
+        } else {
+            path = "json";
+        }
+        eval( path )[ node.jsonName ] = getValueFromNode( node );
+    }
+}
+
+function getValueFromNode( node ) {
+    var value;
+    switch ( node.valueType ) {
+        case "boolean":
+            value = node.children[ 0 ].value;
+            value = value === "true" ? true : false;
+            break;
+        case "number":
+            value = parseFloat( node.children[ 0 ].value );
+            break;
+        case "string":
+            value = node.children[ 0 ].value;
+            break;
+        case "object":
+            value = {};
+            break;
+        case "array":
+            value = [];
+            break;
+        case "function":
+            value = "Functions are not handled.";
+            break;
+        default:
+            value = "Unhandled value type (" + node.valueType + ").";
+            break;
+    }
+    return value;
+}
+
+function makeElement( name, value, parent ) {
     var type = typeof value;
     var element = document.createElement( "div" );
     switch ( type ) {
         case "boolean":
             booleanSelector( element, name, value );
+            element.valueType = type;
+            element.jsonName = name;
+            element.parentPath = parent;
             break;
         case "number":
             numberField( element, name, value );
+            element.valueType = type;
+            element.jsonName = name;
+            element.parentPath = parent;
             break;
         case "string":
             stringField( element, name, value );
+            element.valueType = type;
+            element.jsonName = name;
+            element.parentPath = parent;
             break;
         case "object":
             // This includes arrays
-            objectElement( element, name, value );
+            objectElement( element, name, value, parent );
             break;
         case "function":
             element.appendChild(
                 document.createTextNode( name + ": Functions are not handled." )
             );
             element.className = "entry";
+            element.valueType = type;
+            element.jsonName = name;
+            element.parentPath = parent;
             break;
         default:
             element.appendChild(
                 document.createTextNode( name + ": Unhandled value type (" + type + ")." )
             );
             element.className = "entry";
+            element.valueType = type;
+            element.jsonName = name;
+            element.parentPath = parent;
             break;
     }
     return element;
 }
 
-function objectElement( element, name, value ) {
+function objectElement( element, name, value, parent ) {
     var title, contents, keys;
     title = document.createElement( "div" );
     contents = document.createElement( "div" );
     title.appendChild( document.createTextNode( "+ " + name ) );
     title.className = "category entry";
+    if ( value instanceof Array ) {
+        title.valueType = "array";
+    } else {
+        title.valueType = "object";
+    }
+    title.jsonName = name;
+    title.parentPath = parent;
     contents.className = "collapsible collapsed";
     title.onclick = expandObject;
     keys = Object.keys( value );
+    parent = parent ? parent + "." + name : name;
     for ( var i = 0; i < keys.length; i++ ) {
-        contents.appendChild( makeElement( keys[ i ], value[ keys[ i ] ] ) );
+        contents.appendChild( makeElement( keys[ i ], value[ keys[ i ] ], parent ) );
     }
-
     element.appendChild( title );
     element.appendChild( contents );
     return element;
