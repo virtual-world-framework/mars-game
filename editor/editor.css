@@ -424,6 +424,22 @@ body {
     overflow: scroll;
 }
 
+#newElementDialog {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    background-color: rgb( 225, 225, 225 );
+    border: 1px solid rgb( 200, 200, 200 );
+}
+
+#newElementDialog input {}
+
+#newElementDialog select {}
+
+#newElementDialog div {
+    pointer-events: all;
+}
+
 .entry {
     background-color: rgb( 225, 225, 225 );
     border: 1px solid rgb( 200, 200, 200 );
@@ -448,6 +464,24 @@ body {
 
 .collapsed {
     display: none;
+}
+
+.addBtn {
+    display: inline-block;
+    position: absolute;
+    right: 0px;
+    height: 22px;
+    width: 22px;
+    line-height: 22px;
+    margin-right: 4px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 20px;
+    color: rgb( 50, 90, 150 );
+    background-color: rgb( 225, 225, 225 );
+    border-left: 1px solid rgb( 200, 200, 200 );
+    border-right: 1px solid rgb( 200, 200, 200 );
+    pointer-events: all;
 }
 
 /* END JSON viewer styles */

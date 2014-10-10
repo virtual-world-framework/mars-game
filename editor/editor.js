@@ -557,7 +557,7 @@ function getValueFromNode( node ) {
     return value;
 }
 
-function makeElement( name, value, parent ) {
+function makeElement( name, value, parent, parentType ) {
     var type = typeof value;
     var element = document.createElement( "div" );
     switch ( type ) {
@@ -581,7 +581,7 @@ function makeElement( name, value, parent ) {
             break;
         case "object":
             // This includes arrays
-            objectElement( element, name, value, parent );
+            objectElement( element, name, value, parent, parentType );
             break;
         case "function":
             element.appendChild(
@@ -605,11 +605,15 @@ function makeElement( name, value, parent ) {
     return element;
 }
 
-function objectElement( element, name, value, parent ) {
-    var title, contents, keys;
+function objectElement( element, name, value, parent, parentType ) {
+    var title, contents, keys, add;
     title = document.createElement( "div" );
+    add = document.createElement( "div" );
     contents = document.createElement( "div" );
+    add.innerHTML = "+";
+    add.className = "addBtn";
     title.appendChild( document.createTextNode( "+ " + name ) );
+    title.appendChild( add );
     title.className = "category entry";
     if ( value instanceof Array ) {
         title.valueType = "array";
@@ -621,12 +625,20 @@ function objectElement( element, name, value, parent ) {
     contents.className = "collapsible collapsed";
     title.onclick = expandObject;
     keys = Object.keys( value );
-    parent = parent ? parent + "." + name : name;
+    if ( parentType === "array" ) {
+        parent = parent ? parent + "[" + name + "]" : name;
+    } else {
+        parent = parent ? parent + "." + name : name;
+    }
     for ( var i = 0; i < keys.length; i++ ) {
         contents.appendChild( makeElement( keys[ i ], value[ keys[ i ] ], parent ) );
     }
     element.appendChild( title );
     element.appendChild( contents );
+    add.addEventListener( "click", function( event ) {
+        addNewElement( title.valueType, contents, parent );
+        event.stopPropagation();
+    } );
     return element;
 }
 
@@ -639,6 +651,73 @@ function expandObject( event ) {
         contents.classList.add( "collapsed" );
         this.innerHTML = this.innerHTML.replace( "-", "+" );
     }
+}
+
+function addNewElement( parentType, contents, parent ) {
+    var dialog = document.createElement( "div" );
+    var name = document.createElement( "input" );
+    var type = document.createElement( "select" );
+    var submit = document.createElement( "div" );
+    var cancel = document.createElement( "div" );
+    var option;
+    option = document.createElement( "option" );
+    option.value = "boolean";
+    option.text = "Boolean";
+    type.appendChild( option );
+    option = document.createElement( "option" );
+    option.value = "number";
+    option.text = "Number";
+    type.appendChild( option );
+    option = document.createElement( "option" );
+    option.value = "string";
+    option.text = "String";
+    type.appendChild( option );
+    option = document.createElement( "option" );
+    option.value = "object";
+    option.text = "Object";
+    type.appendChild( option );
+    option = document.createElement( "option" );
+    option.value = "array";
+    option.text = "Array";
+    type.appendChild( option );
+    dialog.id = "newElementDialog";
+    submit.innerHTML = "Add";
+    cancel.innerHTML = "Cancel";
+    dialog.appendChild( name );
+    dialog.appendChild( type );
+    dialog.appendChild( submit );
+    dialog.appendChild( cancel );
+    document.body.appendChild( dialog );
+    if ( parentType === "array" ) {
+        name.readOnly = true;
+        name.value = contents.children.length;
+    }
+    var getDefaultValue = function() {
+        switch ( type.value ) {
+            case "boolean":
+                return true;
+                break;
+            case "number":
+                return 0;
+                break;
+            case "string":
+                return "";
+                break;
+            case "object":
+                return {};
+                break;
+            case "array":
+                return [];
+                break;
+        }
+    };
+    submit.addEventListener( "click", function( event ) {
+        contents.appendChild( makeElement( name.value, getDefaultValue(), parent ) );
+        dialog.parentElement.removeChild( dialog );
+    } );
+    cancel.addEventListener( "click", function( event ) {
+        dialog.parentElement.removeChild( dialog );
+    } );
 }
 
 function booleanSelector( element, name, value ) {
