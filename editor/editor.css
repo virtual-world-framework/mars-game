@@ -424,20 +424,56 @@ body {
     overflow: scroll;
 }
 
+#centerNewElementDialog {
+    width: 300px;
+    height: 100%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
 #newElementDialog {
     position: absolute;
     top: 50%;
-    left: 50%;
+    width: 300px;
     background-color: rgb( 225, 225, 225 );
     border: 1px solid rgb( 200, 200, 200 );
+    display: none;
 }
 
-#newElementDialog input {}
+#elementDialogTitle {
+    background-color: rgb( 50, 90, 150 );
+    color: rgb( 255, 255, 255 );
+    text-align: center;
+    height: 24px;
+    font-size: 16px;
+    line-height: 24px;
+}
 
-#newElementDialog select {}
+.inlineElements {
+    text-align: center;
+}
 
-#newElementDialog div {
+.inlineElements * {
+    display: inline-block;
+}
+
+#elementName {
+    font-size: 14px;
+    padding: 2px;
+    margin: 4px;
+}
+
+#elementType {
+    font-size: 14px;
+    padding: 2px;
+    margin: 4px;
+}
+
+#submitElement, #cancelElement {
+    width: 125px;
+    font-size: 14px;
     pointer-events: all;
+    margin: 4px;
 }
 
 .entry {

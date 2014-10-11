@@ -613,7 +613,7 @@ function objectElement( element, name, value, parent, parentType ) {
     add.innerHTML = "+";
     add.className = "addBtn";
     title.appendChild( document.createTextNode( "+ " + name ) );
-    title.appendChild( add );
+    element.appendChild( add );
     title.className = "category entry";
     if ( value instanceof Array ) {
         title.valueType = "array";
@@ -654,40 +654,12 @@ function expandObject( event ) {
 }
 
 function addNewElement( parentType, contents, parent ) {
-    var dialog = document.createElement( "div" );
-    var name = document.createElement( "input" );
-    var type = document.createElement( "select" );
-    var submit = document.createElement( "div" );
-    var cancel = document.createElement( "div" );
-    var option;
-    option = document.createElement( "option" );
-    option.value = "boolean";
-    option.text = "Boolean";
-    type.appendChild( option );
-    option = document.createElement( "option" );
-    option.value = "number";
-    option.text = "Number";
-    type.appendChild( option );
-    option = document.createElement( "option" );
-    option.value = "string";
-    option.text = "String";
-    type.appendChild( option );
-    option = document.createElement( "option" );
-    option.value = "object";
-    option.text = "Object";
-    type.appendChild( option );
-    option = document.createElement( "option" );
-    option.value = "array";
-    option.text = "Array";
-    type.appendChild( option );
-    dialog.id = "newElementDialog";
-    submit.innerHTML = "Add";
-    cancel.innerHTML = "Cancel";
-    dialog.appendChild( name );
-    dialog.appendChild( type );
-    dialog.appendChild( submit );
-    dialog.appendChild( cancel );
-    document.body.appendChild( dialog );
+    var dialog = document.getElementById( "newElementDialog" );
+    var name = document.getElementById( "elementName" );
+    var type = document.getElementById( "elementType" );
+    var submit = document.getElementById( "submitElement" );
+    var cancel = document.getElementById( "cancelElement" );
+    dialog.style.display = "block";
     if ( parentType === "array" ) {
         name.readOnly = true;
         name.value = contents.children.length;
@@ -711,13 +683,13 @@ function addNewElement( parentType, contents, parent ) {
                 break;
         }
     };
-    submit.addEventListener( "click", function( event ) {
+    submit.onclick = function( event ) {
         contents.appendChild( makeElement( name.value, getDefaultValue(), parent ) );
-        dialog.parentElement.removeChild( dialog );
-    } );
-    cancel.addEventListener( "click", function( event ) {
-        dialog.parentElement.removeChild( dialog );
-    } );
+        dialog.style.display = "none";
+    };
+    cancel.onclick = function( event ) {
+        dialog.style.display = "none";
+    };
 }
 
 function booleanSelector( element, name, value ) {
