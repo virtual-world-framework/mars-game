@@ -359,10 +359,10 @@ body {
 
 #scenarioEditor {
     position: absolute;
-    bottom: 0px;
+    top: 72px;
     right: 0px;
-    height: 800px;
-    width: 450px;
+    bottom: 0px;
+    width: 400px;
     background-color: rgb( 245, 245, 245 );
     display: none;
     user-select: none;
