@@ -359,7 +359,7 @@ body {
 
 #scenarioEditor {
     position: absolute;
-    top: 72px;
+    top: 73px;
     right: 0px;
     bottom: 0px;
     width: 400px;
@@ -386,15 +386,15 @@ body {
 
 #scenarioCloseButton {
     position: absolute;
-    top: 4px;
-    right: 4px;
-    width: 15px;
-    height: 15px;
-    line-height: 15px;
+    top: 0px;
+    right: 0px;
+    width: 22px;
+    height: 22px;
+    line-height: 24px;
     background-color: rgb( 225, 225, 225 );
     color: rgb( 50, 90, 150 );
-    border: 1px solid rgb( 255, 255, 255 );
-    border-radius: 2px;
+    border: 1px solid rgb( 50, 90, 150 );
+    font-size: 22px;
     font-weight: bold;
 }
 
