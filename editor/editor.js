@@ -13,7 +13,6 @@
 // limitations under the License.
 
 var selectedTool = undefined;
-var sceneID;
 var fileManager = new FileManager( document.getElementById( "fileDialog" ) );
 var activeDropDown;
 var compileTotal = 0;
@@ -21,9 +20,17 @@ var compileProgress = 0;
 var levelIds = new Array();
 var timePct = 0;
 var levelFile;
+var appID;
+
+function getAppID() {
+    if ( appID === undefined ) {
+        appID = vwf_view.kernel.application();
+    }
+    return appID;
+}
 
 vwf_view.firedEvent = function( nodeID, eventName, args ) {
-    if ( nodeID === vwf_view.kernel.application() ) {
+    if ( nodeID === getAppID() ) {
         switch ( eventName ) {
             case "onSceneReady":
                 handleSceneReady( args );
@@ -52,7 +59,7 @@ vwf_view.firedEvent = function( nodeID, eventName, args ) {
 }
 
 vwf_view.calledMethod = function( nodeID, methodName, args ) {
-    if ( nodeID === vwf_view.kernel.application() ) {
+    if ( nodeID === getAppID() ) {
         switch ( methodName ) {
             case "requestDelete":
                 var objectID = args[ 0 ];
@@ -64,7 +71,7 @@ vwf_view.calledMethod = function( nodeID, methodName, args ) {
 }
 
 vwf_view.gotProperty = function( nodeID, propertyName, propertyValue ) {
-    if ( nodeID === sceneID ) {
+    if ( nodeID === getAppID() ) {
         if ( propertyName === "activeTool" ) {
             var tool = document.getElementById( propertyValue );
             if ( tool ) {
@@ -78,7 +85,6 @@ vwf_view.gotProperty = function( nodeID, propertyName, propertyValue ) {
 }
 
 function handleSceneReady( params ) {
-    sceneID = vwf_view.kernel.application();
     var assetTypeSelector = document.getElementById( "typeselector" );
     assetTypeSelector.onchange = ( function() {
             loadAssetList( this.value );
@@ -93,10 +99,10 @@ function handleSceneReady( params ) {
 function loadAsset( assetType, path, name ) {
     switch ( assetType ) {
         case "maps":
-            vwf_view.kernel.callMethod( sceneID, "loadMap", [ path ] );
+            vwf_view.kernel.callMethod( getAppID(), "loadMap", [ path ] );
             break;
         default:
-            vwf_view.kernel.callMethod( sceneID, "loadObject", [ path, name ] );
+            vwf_view.kernel.callMethod( getAppID(), "loadObject", [ path, name ] );
             break;
     }
 }
@@ -179,7 +185,7 @@ function retrieveAssetListItems( listPath ) {
 function setupMenus() {
     var file, edit, help, load, save, newLevel, close, saveBtn;
     var ddButtons, hover, timeOfDay, slider, sliderCloseBtn;
-    var scenarioButton, scenarioCloseButton;
+    var scenarioButton, scenarioCloseButton, addScenario;
     file = document.getElementById( "fileButton" );
     edit = document.getElementById( "editButton" );
     help = document.getElementById( "helpButton" );
@@ -192,6 +198,7 @@ function setupMenus() {
     timeOfDay = document.getElementById( "timeOfDay" );
     scenarioButton = document.getElementById( "scenarioButton" );
     scenarioCloseButton = document.getElementById( "scenarioCloseButton" );
+    addScenario = document.getElementById( "addScenario" );
     slider = document.getElementById( "slider" );
     sliderCloseBtn = document.getElementById( "closeSlider" );
     file.addEventListener( "click", openDropDown );
@@ -212,6 +219,7 @@ function setupMenus() {
     slider.addEventListener( "mousedown", moveSliderHandle );
     slider.addEventListener( "mousemove", moveSliderHandle );
     slider.addEventListener( "mouseout", moveSliderHandle );
+    addScenario.addEventListener( "click", openNewScenarioDialog );
     hover = function( event ) {
         switch ( event.type ) {
             case "mouseover":
@@ -331,7 +339,7 @@ function setupTools() {
         }
     }
 
-    vwf_view.kernel.getProperty( sceneID, "activeTool" );
+    vwf_view.kernel.getProperty( getAppID(), "activeTool" );
 }
 
 function selectTool( tool ) {
@@ -341,7 +349,7 @@ function selectTool( tool ) {
     tool.className = "toolbutton selected";
     selectedTool = tool;
 
-    vwf_view.kernel.callMethod( sceneID, "setActiveTool", [ tool.id ] );
+    vwf_view.kernel.callMethod( getAppID(), "setActiveTool", [ tool.id ] );
 }
 
 function addToolsToGroup( groupID, toolIDs ) {
@@ -361,7 +369,7 @@ function createToolButton( toolID ) {
 function deletePrompt( id, name ) {
     var message = "Delete " + name + "?";
     var yes = function() {
-        vwf_view.kernel.callMethod( sceneID, "deleteObject", [ id ] );
+        vwf_view.kernel.callMethod( getAppID(), "deleteObject", [ id ] );
     }
     createPrompt( message, yes );
 }
@@ -435,7 +443,7 @@ function loadLevel( file ) {
         closeFileDialog();
         fileArray = content.split( "\n" );
         vwf_view.kernel.callMethod(
-            vwf_view.kernel.application(),
+            getAppID(),
             "createLevelFromFile",
             [ fileArray ] );
     } );
@@ -444,7 +452,7 @@ function loadLevel( file ) {
 
 function clearLevel() {
     vwf_view.kernel.callMethod(
-        vwf_view.kernel.application(),
+        getAppID(),
         "clearLevel" );
 }
 
@@ -452,7 +460,7 @@ function compileLevel() {
     var saveLink;
     saveLink = document.getElementById( "saveLink" );
     saveLink.innerHTML = "Compiling...";
-    vwf_view.kernel.callMethod( vwf_view.kernel.application(), "compileLevel" );
+    vwf_view.kernel.callMethod( getAppID(), "compileLevel" );
 }
 
 function levelCompiled() {
@@ -465,7 +473,7 @@ function setTimeOfDay( pct ) {
     pct = Math.min( 1, Math.max( 0, pct ) );
     value = pct * 24;
     setSliderPosition( pct );
-    vwf_view.kernel.setProperty( vwf_view.kernel.application(), "timeOfDay", value );
+    vwf_view.kernel.setProperty( getAppID(), "timeOfDay", value );
 }
 
 function moveSliderHandle( event ) {
@@ -499,6 +507,22 @@ function handleKeyPropagation( event ) {
     }
 }
 
+function openNewScenarioDialog() {
+    var dialog = document.getElementById( "newScenarioDialog" );
+    var name = document.getElementById( "newScenarioName" );
+    var submit = document.getElementById( "newScenarioSubmit" );
+    var cancel = document.getElementById( "newScenarioCancel" );
+    var scenarios = getJsonFromDom();
+    dialog.style.display = "block";
+    submit.onclick = function() {
+        vwf_view.kernel.callMethod( getAppID(), "addNewScenario", [ scenarios, name.value ] );
+        dialog.style.display = "none";
+    }
+    cancel.onclick = function() {
+        dialog.style.display = "none";
+    }
+}
+
 /* START JSON viewer scripts */
 
 function createJsonDom( name, json ) {
@@ -526,6 +550,7 @@ function getJsonFromDom() {
         }
         eval( path )[ node.jsonName ] = getValueFromNode( node );
     }
+    return json;
 }
 
 function getValueFromNode( node ) {

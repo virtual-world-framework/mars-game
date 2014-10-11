@@ -41,8 +41,6 @@ this.initialize = function() {
 
 this.onSceneReady = function() {
     this.setUpListeners();
-    this.scenarioGenerator.createScenario( "scenario1" );
-    this.scenarioGenerator.createScenario( "scenario2", "scenario1" );
     var json = JSON.stringify( this.scenarioGenerator.scenarios );
     this.scenariosLoaded( json );
 }
@@ -577,4 +575,12 @@ function findNodeID( object ) {
 
     return id;
 }
+
+this.addNewScenario = function( json, name ) {
+    this.scenarioGenerator.scenarios = json.scenarios;
+    this.scenarioGenerator.createScenario( name );
+    var scenarios = JSON.stringify( this.scenarioGenerator.scenarios );
+    this.scenariosLoaded( scenarios );
+}
+
 //@ sourceURL=editor/scene.js

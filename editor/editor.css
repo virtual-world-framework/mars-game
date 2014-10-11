@@ -410,6 +410,7 @@ body {
     font-size: 18px;
     font-weight: bold;
     text-align: center;
+    pointer-events: all;
 }
 
 #scenarioList {
@@ -471,6 +472,44 @@ body {
 
 #submitElement, #cancelElement {
     width: 125px;
+    font-size: 14px;
+    pointer-events: all;
+    margin: 4px;
+}
+
+#centerNewScenarioDialog {
+    width: 200px;
+    height: 100%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#newScenarioDialog {
+    position: absolute;
+    top: 50%;
+    width: 200px;
+    background-color: rgb( 225, 225, 225 );
+    border: 1px solid rgb( 200, 200, 200 );
+    display: none;
+}
+
+#newScenarioTitle {
+    background-color: rgb( 50, 90, 150 );
+    color: rgb( 255, 255, 255 );
+    text-align: center;
+    height: 24px;
+    font-size: 16px;
+    line-height: 24px;
+}
+
+#newScenarioName {
+    font-size: 14px;
+    padding: 2px;
+    margin: 4px;
+}
+
+#newScenarioSubmit, #newScenarioCancel {
+    width: 75px;
     font-size: 14px;
     pointer-events: all;
     margin: 4px;
