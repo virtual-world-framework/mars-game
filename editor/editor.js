@@ -766,7 +766,6 @@ function numberField( element, name, value ) {
 function saveJson() {
     var json = getJsonFromDom();
     vwf_view.kernel.callMethod( getAppID(), "saveScenarios", [ json ] );
-    console.log( "Scenarios Saved." );
 }
 
 /* END JSON viewer scripts */

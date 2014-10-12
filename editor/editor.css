@@ -398,24 +398,30 @@ body {
     font-weight: bold;
 }
 
-#addScenario {
+#scenarioOptions {
     position: absolute;
     top: 24px;
     left: 0px;
     right: 0px;
-    height: 32px;
+    height: 24px;
     background-color: rgb( 225, 225, 225 );
     color: rgb( 50, 90, 150 );
-    line-height: 32px;
-    font-size: 18px;
+    line-height: 24px;
+    font-size: 14px;
     font-weight: bold;
     text-align: center;
     pointer-events: all;
 }
 
+.scenarioOption {
+    display: inline-block;
+    margin: 0px 12px;
+    padding: 0px 12px;
+}
+
 #scenarioList {
     position: absolute;
-    top: 60px;
+    top: 52px;
     left: 4px;
     right: 4px;
     bottom: 4px;
