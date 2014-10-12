@@ -517,6 +517,7 @@ function openNewScenarioDialog() {
     submit.onclick = function() {
         vwf_view.kernel.callMethod( getAppID(), "addNewScenario", [ scenarios, name.value ] );
         dialog.style.display = "none";
+        saveJson();
     }
     cancel.onclick = function() {
         dialog.style.display = "none";
@@ -711,6 +712,7 @@ function addNewElement( parentType, contents, parent ) {
     submit.onclick = function( event ) {
         contents.appendChild( makeElement( name.value, getDefaultValue(), parent ) );
         dialog.style.display = "none";
+        saveJson();
     };
     cancel.onclick = function( event ) {
         dialog.style.display = "none";
@@ -734,6 +736,7 @@ function booleanSelector( element, name, value ) {
     }
     element.appendChild( select );
     element.className = "entry";
+    select.addEventListener( "change", saveJson );
     return element;
 }
 
@@ -744,6 +747,7 @@ function stringField( element, name, value ) {
     text.value = value;
     element.appendChild( text );
     element.className = "entry";
+    text.addEventListener( "blur", saveJson );
     return element;
 }
 
@@ -755,7 +759,14 @@ function numberField( element, name, value ) {
     text.value = value;
     element.appendChild( text );
     element.className = "entry";
+    text.addEventListener( "blur", saveJson );
     return element;
+}
+
+function saveJson() {
+    var json = getJsonFromDom();
+    vwf_view.kernel.callMethod( getAppID(), "saveScenarios", [ json ] );
+    console.log( "Scenarios Saved." );
 }
 
 /* END JSON viewer scripts */

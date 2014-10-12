@@ -583,4 +583,8 @@ this.addNewScenario = function( json, name ) {
     this.scenariosLoaded( scenarios );
 }
 
+this.saveScenarios = function( json ) {
+    this.scenarioGenerator.scenarios = json.scenarios;
+}
+
 //@ sourceURL=editor/scene.js

@@ -157,6 +157,7 @@ methods:
   createLevelFromFile:
   setTimeOfDay:
   addNewScenario:
+  saveScenarios:
   # Methods handled by View
   requestDelete:
 events:
