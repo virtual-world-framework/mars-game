@@ -185,7 +185,7 @@ function retrieveAssetListItems( listPath ) {
 function setupMenus() {
     var file, edit, help, load, save, newLevel, close, saveBtn;
     var ddButtons, hover, timeOfDay, slider, sliderCloseBtn;
-    var scenarioButton, scenarioCloseButton, addScenario;
+    var scenarioButton, scenarioCloseButton, addScenario, deleteEntry;
     file = document.getElementById( "fileButton" );
     edit = document.getElementById( "editButton" );
     help = document.getElementById( "helpButton" );
@@ -199,6 +199,7 @@ function setupMenus() {
     scenarioButton = document.getElementById( "scenarioButton" );
     scenarioCloseButton = document.getElementById( "scenarioCloseButton" );
     addScenario = document.getElementById( "addScenario" );
+    deleteEntry = document.getElementById( "deleteEntry" );
     slider = document.getElementById( "slider" );
     sliderCloseBtn = document.getElementById( "closeSlider" );
     file.addEventListener( "click", openDropDown );
@@ -220,6 +221,7 @@ function setupMenus() {
     slider.addEventListener( "mousemove", moveSliderHandle );
     slider.addEventListener( "mouseout", moveSliderHandle );
     addScenario.addEventListener( "click", openNewScenarioDialog );
+    deleteEntry.addEventListener( "click", scanForDeleteCandidate );
     hover = function( event ) {
         switch ( event.type ) {
             case "mouseover":
@@ -522,6 +524,31 @@ function openNewScenarioDialog() {
     cancel.onclick = function() {
         dialog.style.display = "none";
     }
+}
+
+function scanForDeleteCandidate() {
+    var se = document.getElementById( "scenarioEditor" );
+    se.style.cursor = "pointer";
+    document.addEventListener( "click", deleteSelectedEntry );
+}
+
+function deleteSelectedEntry( event ) {
+    var el = event.target;
+    var se = document.getElementById( "scenarioEditor" );
+    if ( el.id === "deleteEntry" ) {
+        return;
+    }
+    document.removeEventListener( "click", deleteSelectedEntry );
+    se.style.cursor = "default";
+    if ( el.classList.contains( "entry" ) && el.classList.contains( "category" ) ) {
+        if ( el.jsonName === "scenarios" ) {
+            return;
+        }
+        el.parentElement.parentElement.removeChild( el.parentElement );
+    } else if ( el.classList.contains( "entry" ) ) {
+        el.parentElement.removeChild( el );
+    }
+    saveJson();
 }
 
 /* START JSON viewer scripts */
