@@ -322,21 +322,22 @@ this.useTool = function( eventType, pointerInfo, pickInfo ) {
             }
             break;
         case "translate":
-            if ( eventType === "pointerDown" && pointerInfo.buttons.left && this.selectedObject ) {
-                lastPointerPosition = pointerInfo.screenPosition;
+            if ( eventType === "pointerDown" && pointerInfo.buttons.left ) {
+                var object = this.findByID( this, pickInfo.pickID );
+                if ( object && object.isEditable ) {
+                    this.selectObject( object );
+                }
+                if ( this.selectedObject ) {
+                    lastPointerPosition = pointerInfo.screenPosition;
+                }
             } else if ( eventType === "pointerMove" && pointerInfo.buttons.left && this.selectedObject ) {
                 if ( lastPointerPosition[ 0 ] !== pointerInfo.screenPosition[ 0 ] ||
                      lastPointerPosition[ 1 ] !== pointerInfo.screenPosition[ 1 ] ) {
                     this.drag( pickInfo );
                     lastPointerPosition = pointerInfo.screenPosition;
                 }
-            } else if ( eventType === "pointerClick" && pointerInfo.button === "left" ) {
-                var object = this.findByID( this, pickInfo.pickID );
-                if ( object && object.isEditable ) {
-                    this.selectObject( object );
-                } else {
-                    this.deselectObject();
-                }
+            } else if ( eventType === "pointerUp" && this.selectedObject ) {
+                this.deselectObject();
             }
             break;
         case "rotate":
