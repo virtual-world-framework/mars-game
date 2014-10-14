@@ -716,6 +716,9 @@ function addNewElement( parentType, contents, parent ) {
     if ( parentType === "array" ) {
         name.readOnly = true;
         name.value = contents.children.length;
+    } else {
+        name.readOnly = false;
+        name.value = "";
     }
     var getDefaultValue = function() {
         switch ( type.value ) {
