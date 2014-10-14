@@ -134,23 +134,23 @@ MainMenu.prototype = {
         }
         playButton.onclick = this.playGame.bind( this );
 
-        // continueButton = document.createElement( "div" );
-        // continueButton.id = "MainMenu-ContinueButton";
-        // continueButton.className = "MainMenu-Button"
-        // continueButton.innerHTML = "Continue";
-        // continueButton.style.display = "none";
-        // continueButton.onmouseover = function( event ) {
-        //     appendClass( this, "hover" );
-        // }
-        // continueButton.onmouseout = function( event ) {
-        //     removeClass( this, "hover" );
-        //     removeClass( this, "select" );
-        // }
-        // continueButton.onmousedown = function( event ) {
-        //     removeClass( this, "hover" );
-        //     appendClass( this, "select" );
-        // }
-        // continueButton.onclick = this.resumeGame.bind( this );
+        continueButton = document.createElement( "div" );
+        continueButton.id = "MainMenu-ContinueButton";
+        continueButton.className = "MainMenu-Button"
+        continueButton.innerHTML = "Continue";
+        continueButton.style.display = "none";
+        continueButton.onmouseover = function( event ) {
+            appendClass( this, "hover" );
+        }
+        continueButton.onmouseout = function( event ) {
+            removeClass( this, "hover" );
+            removeClass( this, "select" );
+        }
+        continueButton.onmousedown = function( event ) {
+            removeClass( this, "hover" );
+            appendClass( this, "select" );
+        }
+        continueButton.onclick = this.resumeGame.bind( this );
 
         settingsButton = document.createElement( "div" );
         settingsButton.id = "MainMenu-SettingsButton";
@@ -239,7 +239,7 @@ MainMenu.prototype = {
         title.appendChild( title.main );
         title.appendChild( title.sub );
         this.overlay.mainMenu.appendChild( playButton );
-        // this.overlay.mainMenu.appendChild( continueButton );
+        this.overlay.mainMenu.appendChild( continueButton );
         this.overlay.mainMenu.appendChild( settingsButton );
         this.overlay.settingsMenu.appendChild( backButton );
         this.overlay.settingsMenu.appendChild( volume );
@@ -277,10 +277,10 @@ MainMenu.prototype = {
         vwf_view.kernel.fireEvent( vwf_view.kernel.application(), "gameStarted" );
     },
 
-    // resumeGame: function() {
-    //     this.overlay.style.display = "none";
-    //     vwf_view.kernel.callMethod( appID, "loadGame", [ this.continueScenario ] );
-    // },
+    resumeGame: function() {
+        this.overlay.style.display = "none";
+        vwf_view.kernel.callMethod( appID, "loadGame", [ this.continueScenario ] );
+    },
 
     openSettings: function() {
         this.overlay.loginMenu.style.display = "none";
@@ -367,14 +367,14 @@ MainMenu.prototype = {
     //     this.overlay.mainMenu.style.display = "none";
     // },
 
-    // setContinueScenario: function( scenarioName) {
-    //     var continueButton;
-    //     if ( scenarioName ) {
-    //         continueButton = document.getElementById( "MainMenu-ContinueButton" );
-    //         continueButton.style.display = "block";
-    //         this.continueScenario = scenarioName;
-    //     }
-    // }
+    setContinueScenario: function( scenarioName) {
+        var continueButton;
+        if ( scenarioName ) {
+            continueButton = document.getElementById( "MainMenu-ContinueButton" );
+            continueButton.style.display = "block";
+            this.continueScenario = scenarioName;
+        }
+    }
 }
 
 //@ sourceURL=source/mainMenu.js
