@@ -283,14 +283,14 @@ MainMenu.prototype = {
     },
 
     openSettings: function() {
-        this.overlay.loginMenu.style.display = "none";
+        // this.overlay.loginMenu.style.display = "none";
         this.overlay.mainMenu.style.display = "none";
         this.overlay.settingsMenu.style.display = "block";
         this.setVolumeSliderPosition( cachedVolume );
     },
 
     openMain: function() {
-        this.overlay.loginMenu.style.display = "none";
+        // this.overlay.loginMenu.style.display = "none";
         this.overlay.settingsMenu.style.display = "none";
         this.overlay.mainMenu.style.display = "block";
     },
