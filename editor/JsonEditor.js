@@ -6,7 +6,9 @@ JsonEditor = function( containerId, json, name ) {
 JsonEditor.prototype = {
     constructor: JsonEditor,
     parent: undefined,
+    rootObjects: undefined,
     initialize: function( containerId, json, name ) {
+        rootObjects = {};
         if ( containerId ) {
             this.parent = document.getElementById( containerId );
         } else {
@@ -17,11 +19,24 @@ JsonEditor.prototype = {
         }
     },
     loadJson: function( json, name ) {
+        var entry;
         name = name || "Object";
-        this.parent.appendChild( this.createEntry( json, name ) );
+        entry = this.createEntry( json, name );
+        this.rootObjects[ name ] = entry;
+        this.parent.appendChild( entry );
     },
     clearJson: function( name ) {
-        this.parent.innerHTML = "";
+        var keys;
+        if ( this.rootObjects[ name ] ) {
+            this.parent.removeChild( this.rootObjects[ name ] );
+            this.rootObjects.delete( this.rootObjects[ name ] );
+        } else {
+            keys = Object.keys( this.rootObjects );
+            for ( var i = 0; i < keys.length; i++ ) {
+                this.parent.removeChild( this.rootObjects[ keys[ i ] ] );
+                this.rootObjects.delete( this.rootObjects[ keys[ i ] ] );
+            }
+        }
     },
     getJson: function() {
         var json = {};
@@ -160,7 +175,6 @@ JsonEditor.prototype = {
         }
     },
     addNewElement: function( parentType, contents, parent ) {
-        // TODO: Create dialog on initialize
         var dialog = document.getElementById( "newElementDialog" );
         var name = document.getElementById( "elementName" );
         var type = document.getElementById( "elementType" );
@@ -219,7 +233,7 @@ JsonEditor.prototype = {
         }
         element.appendChild( select );
         element.className = "entry";
-        select.addEventListener( "change", this.saveJson );
+        select.addEventListener( "change", this.jsonUpdated );
         return element;
     },
     stringField: function( element, name, value ) {
@@ -229,7 +243,7 @@ JsonEditor.prototype = {
         text.value = value;
         element.appendChild( text );
         element.className = "entry";
-        text.addEventListener( "blur", this.saveJson );
+        text.addEventListener( "blur", this.jsonUpdated );
         return element;
     },
     numberField: function( element, name, value ) {
@@ -240,13 +254,10 @@ JsonEditor.prototype = {
         text.value = value;
         element.appendChild( text );
         element.className = "entry";
-        text.addEventListener( "blur", this.saveJson );
+        text.addEventListener( "blur", this.jsonUpdated );
         return element;
     },
-    saveJson: function() {
-        var json = getJson();
-        vwf_view.kernel.callMethod( getAppID(), "saveScenarios", [ json ] );
-    }
+    jsonUpdated: function( event ) {}
 }
 
 //@ sourceURL=editor/JsonEditor.js
