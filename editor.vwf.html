@@ -16,6 +16,7 @@ limitations under the License.
 
 <script type="text/javascript" src="source/utils.js"></script>
 <script type="text/javascript" src="source/fileManager.js"></script>
+<script type="text/javascript" src="editor/JsonEditor.js"></script>
 <script type="text/javascript" src="editor/editor.js"></script>
 
 <link rel="stylesheet" type="text/css" href="editor/editor.css"></link>
@@ -67,7 +68,7 @@ limitations under the License.
 <div id="fileWrapper">
     <div id="fileDialog">
         <div id="title"></div>
-        <div id="fileCloseButton">X</div>
+        <div id="fileCloseButton">&times</div>
     </div>
 </div>
 <div id="sliderWrapper">
@@ -82,8 +83,42 @@ limitations under the License.
 </div>
 <div id="scenarioEditor">
     <div id="scenarioHeader">Scenario Editor
-        <div id="scenarioCloseButton">X</div>
+        <div id="scenarioCloseButton">&times</div>
     </div>
-    <div id="addScenario">+ Add Scenario</div>
+    <div id="scenarioOptions">
+        <div id="addScenario" class="scenarioOption">+ Add Scenario</div>
+        <div id="deleteEntry" class="scenarioOption">- Delete Entry</div>
+    </div>
     <div id="scenarioList"></div>
+</div>
+<div id="centerNewElementDialog">
+    <div id="newElementDialog">
+        <div id="elementDialogTitle">New Element</div>
+        <div class="inlineElements">
+            <input id="elementName">
+            <select id="elementType">
+                <option value="boolean">Boolean</option>
+                <option value="string">String</option>
+                <option value="number">Number</option>
+                <option value="object">Object</option>
+                <option value="array">Array</option>
+            </select>
+        </div>
+        <div class="inlineElements">
+            <button id="submitElement">Add</button>
+            <button id="cancelElement">Cancel</button>
+        </div>
+    </div>
+</div>
+<div id="centerNewScenarioDialog">
+    <div id="newScenarioDialog">
+        <div id="newScenarioTitle">Add Scenario</div>
+        <div class="inlineElements">
+            <input id="newScenarioName">
+        </div>
+        <div class="inlineElements">
+            <button id="newScenarioSubmit">Add</button>
+            <button id="newScenarioCancel">Cancel</button>
+        </div>
+    </div>
 </div>

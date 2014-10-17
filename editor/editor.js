@@ -13,7 +13,6 @@
 // limitations under the License.
 
 var selectedTool = undefined;
-var sceneID;
 var fileManager = new FileManager( document.getElementById( "fileDialog" ) );
 var activeDropDown;
 var compileTotal = 0;
@@ -21,9 +20,18 @@ var compileProgress = 0;
 var levelIds = new Array();
 var timePct = 0;
 var levelFile;
+var appID;
+var scenarioJson = new JsonEditor( "scenarioList" );
+
+function getAppID() {
+    if ( appID === undefined ) {
+        appID = vwf_view.kernel.application();
+    }
+    return appID;
+}
 
 vwf_view.firedEvent = function( nodeID, eventName, args ) {
-    if ( nodeID === vwf_view.kernel.application() ) {
+    if ( nodeID === getAppID() ) {
         switch ( eventName ) {
             case "onSceneReady":
                 handleSceneReady( args );
@@ -44,14 +52,15 @@ vwf_view.firedEvent = function( nodeID, eventName, args ) {
                 break;
             case "scenariosLoaded":
                 var json = JSON.parse( args[ 0 ] );
-                createJsonDom( "scenarios", json );
+                scenarioJson.clearJson( "scenarios" );
+                scenarioJson.loadJson( json, "scenarios" );
                 break;
         }
     }
 }
 
 vwf_view.calledMethod = function( nodeID, methodName, args ) {
-    if ( nodeID === vwf_view.kernel.application() ) {
+    if ( nodeID === getAppID() ) {
         switch ( methodName ) {
             case "requestDelete":
                 var objectID = args[ 0 ];
@@ -63,7 +72,7 @@ vwf_view.calledMethod = function( nodeID, methodName, args ) {
 }
 
 vwf_view.gotProperty = function( nodeID, propertyName, propertyValue ) {
-    if ( nodeID === sceneID ) {
+    if ( nodeID === getAppID() ) {
         if ( propertyName === "activeTool" ) {
             var tool = document.getElementById( propertyValue );
             if ( tool ) {
@@ -77,7 +86,6 @@ vwf_view.gotProperty = function( nodeID, propertyName, propertyValue ) {
 }
 
 function handleSceneReady( params ) {
-    sceneID = vwf_view.kernel.application();
     var assetTypeSelector = document.getElementById( "typeselector" );
     assetTypeSelector.onchange = ( function() {
             loadAssetList( this.value );
@@ -85,6 +93,7 @@ function handleSceneReady( params ) {
     loadAssetList( assetTypeSelector.value );
     setupMenus();
     setupTools();
+    scenarioJson.jsonUpdated = saveJson;
     fileManager.onFileOpened = loadLevel;
     document.addEventListener( "keydown", handleKeyPropagation );
 }
@@ -92,10 +101,10 @@ function handleSceneReady( params ) {
 function loadAsset( assetType, path, name ) {
     switch ( assetType ) {
         case "maps":
-            vwf_view.kernel.callMethod( sceneID, "loadMap", [ path ] );
+            vwf_view.kernel.callMethod( getAppID(), "loadMap", [ path ] );
             break;
         default:
-            vwf_view.kernel.callMethod( sceneID, "loadObject", [ path, name ] );
+            vwf_view.kernel.callMethod( getAppID(), "loadObject", [ path, name ] );
             break;
     }
 }
@@ -178,7 +187,7 @@ function retrieveAssetListItems( listPath ) {
 function setupMenus() {
     var file, edit, help, load, save, newLevel, close, saveBtn;
     var ddButtons, hover, timeOfDay, slider, sliderCloseBtn;
-    var scenarioButton, scenarioCloseButton;
+    var scenarioButton, scenarioCloseButton, addScenario, deleteEntry;
     file = document.getElementById( "fileButton" );
     edit = document.getElementById( "editButton" );
     help = document.getElementById( "helpButton" );
@@ -191,6 +200,8 @@ function setupMenus() {
     timeOfDay = document.getElementById( "timeOfDay" );
     scenarioButton = document.getElementById( "scenarioButton" );
     scenarioCloseButton = document.getElementById( "scenarioCloseButton" );
+    addScenario = document.getElementById( "addScenario" );
+    deleteEntry = document.getElementById( "deleteEntry" );
     slider = document.getElementById( "slider" );
     sliderCloseBtn = document.getElementById( "closeSlider" );
     file.addEventListener( "click", openDropDown );
@@ -211,6 +222,8 @@ function setupMenus() {
     slider.addEventListener( "mousedown", moveSliderHandle );
     slider.addEventListener( "mousemove", moveSliderHandle );
     slider.addEventListener( "mouseout", moveSliderHandle );
+    addScenario.addEventListener( "click", openNewScenarioDialog );
+    deleteEntry.addEventListener( "click", scanForDeleteCandidate );
     hover = function( event ) {
         switch ( event.type ) {
             case "mouseover":
@@ -330,7 +343,7 @@ function setupTools() {
         }
     }
 
-    vwf_view.kernel.getProperty( sceneID, "activeTool" );
+    vwf_view.kernel.getProperty( getAppID(), "activeTool" );
 }
 
 function selectTool( tool ) {
@@ -340,7 +353,7 @@ function selectTool( tool ) {
     tool.className = "toolbutton selected";
     selectedTool = tool;
 
-    vwf_view.kernel.callMethod( sceneID, "setActiveTool", [ tool.id ] );
+    vwf_view.kernel.callMethod( getAppID(), "setActiveTool", [ tool.id ] );
 }
 
 function addToolsToGroup( groupID, toolIDs ) {
@@ -360,7 +373,7 @@ function createToolButton( toolID ) {
 function deletePrompt( id, name ) {
     var message = "Delete " + name + "?";
     var yes = function() {
-        vwf_view.kernel.callMethod( sceneID, "deleteObject", [ id ] );
+        vwf_view.kernel.callMethod( getAppID(), "deleteObject", [ id ] );
     }
     createPrompt( message, yes );
 }
@@ -434,7 +447,7 @@ function loadLevel( file ) {
         closeFileDialog();
         fileArray = content.split( "\n" );
         vwf_view.kernel.callMethod(
-            vwf_view.kernel.application(),
+            getAppID(),
             "createLevelFromFile",
             [ fileArray ] );
     } );
@@ -443,7 +456,7 @@ function loadLevel( file ) {
 
 function clearLevel() {
     vwf_view.kernel.callMethod(
-        vwf_view.kernel.application(),
+        getAppID(),
         "clearLevel" );
 }
 
@@ -451,7 +464,7 @@ function compileLevel() {
     var saveLink;
     saveLink = document.getElementById( "saveLink" );
     saveLink.innerHTML = "Compiling...";
-    vwf_view.kernel.callMethod( vwf_view.kernel.application(), "compileLevel" );
+    vwf_view.kernel.callMethod( getAppID(), "compileLevel" );
 }
 
 function levelCompiled() {
@@ -464,7 +477,7 @@ function setTimeOfDay( pct ) {
     pct = Math.min( 1, Math.max( 0, pct ) );
     value = pct * 24;
     setSliderPosition( pct );
-    vwf_view.kernel.setProperty( vwf_view.kernel.application(), "timeOfDay", value );
+    vwf_view.kernel.setProperty( getAppID(), "timeOfDay", value );
 }
 
 function moveSliderHandle( event ) {
@@ -498,117 +511,50 @@ function handleKeyPropagation( event ) {
     }
 }
 
-/* START JSON viewer scripts */
-
-function createJsonDom( name, json ) {
-    var element = makeElement( name, json );
-    var scenarioList = document.getElementById( "scenarioList" );
-    scenarioList.appendChild( element );
-}
-
-function makeElement( name, value ) {
-    var type = typeof value;
-    var element = document.createElement( "div" );
-    switch ( type ) {
-        case "boolean":
-            booleanSelector( element, name, value );
-            break;
-        case "number":
-            numberField( element, name, value );
-            break;
-        case "string":
-            stringField( element, name, value );
-            break;
-        case "object":
-            // This includes arrays
-            objectElement( element, name, value );
-            break;
-        case "function":
-            element.appendChild(
-                document.createTextNode( name + ": Functions are not handled." )
-            );
-            element.className = "entry";
-            break;
-        default:
-            element.appendChild(
-                document.createTextNode( name + ": Unhandled value type (" + type + ")." )
-            );
-            element.className = "entry";
-            break;
+function openNewScenarioDialog() {
+    var dialog = document.getElementById( "newScenarioDialog" );
+    var name = document.getElementById( "newScenarioName" );
+    var submit = document.getElementById( "newScenarioSubmit" );
+    var cancel = document.getElementById( "newScenarioCancel" );
+    var scenarios = scenarioJson.getJson();
+    dialog.style.display = "block";
+    submit.onclick = function() {
+        vwf_view.kernel.callMethod( getAppID(), "addNewScenario", [ scenarios, name.value ] );
+        dialog.style.display = "none";
+        saveJson();
     }
-    return element;
-}
-
-function objectElement( element, name, value ) {
-    var title, contents, keys;
-    title = document.createElement( "div" );
-    contents = document.createElement( "div" );
-    title.appendChild( document.createTextNode( "+ " + name ) );
-    title.className = "category entry";
-    contents.className = "collapsible collapsed";
-    title.onclick = expandObject;
-    keys = Object.keys( value );
-    for ( var i = 0; i < keys.length; i++ ) {
-        contents.appendChild( makeElement( keys[ i ], value[ keys[ i ] ] ) );
-    }
-
-    element.appendChild( title );
-    element.appendChild( contents );
-    return element;
-}
-
-function expandObject( event ) {
-    var contents = this.nextSibling;
-    if ( contents.classList.contains( "collapsed" ) ) {
-        contents.classList.remove( "collapsed" );
-        this.innerHTML = this.innerHTML.replace( "+", "-" );
-    } else {
-        contents.classList.add( "collapsed" );
-        this.innerHTML = this.innerHTML.replace( "-", "+" );
+    cancel.onclick = function() {
+        dialog.style.display = "none";
     }
 }
 
-function booleanSelector( element, name, value ) {
-    var select, option;
-    element.appendChild( document.createTextNode( name + ": " ) );
-    select = document.createElement( "select" );
-    option = document.createElement( "option" );
-    option.value = true;
-    option.text = "True";
-    select.appendChild( option );
-    option = document.createElement( "option" );
-    option.value = false;
-    option.text = "False";
-    select.appendChild( option );
-    for ( var i = 0; i < select.options.length; i++ ) {
-        select.options[ i ].selected = value.toString() === select.options[ i ].value;
+function scanForDeleteCandidate() {
+    var scenarioEditor = document.getElementById( "scenarioEditor" );
+    scenarioEditor.style.cursor = "pointer";
+    document.addEventListener( "click", deleteSelectedEntry );
+}
+
+function deleteSelectedEntry( event ) {
+    var el = event.target;
+    var scenarioEditor = document.getElementById( "scenarioEditor" );
+    if ( el.id === "deleteEntry" ) {
+        return;
     }
-    element.appendChild( select );
-    element.className = "entry";
-    return element;
+    document.removeEventListener( "click", deleteSelectedEntry );
+    scenarioEditor.style.cursor = "default";
+    if ( el.classList.contains( "entry" ) && el.classList.contains( "category" ) ) {
+        if ( el.jsonName === "scenarios" ) {
+            return;
+        }
+        el.parentElement.parentElement.removeChild( el.parentElement );
+    } else if ( el.classList.contains( "entry" ) ) {
+        el.parentElement.removeChild( el );
+    }
+    saveJson();
 }
 
-function stringField( element, name, value ) {
-    var text;
-    element.appendChild( document.createTextNode( name + ": " ) );
-    text = document.createElement( "input" );
-    text.value = value;
-    element.appendChild( text );
-    element.className = "entry";
-    return element;
+function saveJson() {
+    vwf_view.kernel.callMethod( getAppID(), "saveScenarios", [ scenarioJson.getJson() ] );
 }
-
-function numberField( element, name, value ) {
-    var text;
-    element.appendChild( document.createTextNode( name + ": " ) );
-    text = document.createElement( "input" );
-    text.type = "number";
-    text.value = value;
-    element.appendChild( text );
-    element.className = "entry";
-    return element;
-}
-
-/* END JSON viewer scripts */
 
 //@ sourceURL=editor/editor.js

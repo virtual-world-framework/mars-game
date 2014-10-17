@@ -248,8 +248,8 @@ body {
     position: absolute;
     top: 4px;
     right: 4px;
-    line-height: 22px;
-    font-size: 16px;
+    line-height: 24px;
+    font-size: 22px;
     font-weight: bold;
     background-color: rgb( 225, 225, 225 );
     border: 1px solid rgb( 128, 128, 128 );
@@ -359,10 +359,10 @@ body {
 
 #scenarioEditor {
     position: absolute;
-    bottom: 0px;
+    top: 73px;
     right: 0px;
-    height: 800px;
-    width: 450px;
+    bottom: 0px;
+    width: 400px;
     background-color: rgb( 245, 245, 245 );
     display: none;
     user-select: none;
@@ -386,35 +386,42 @@ body {
 
 #scenarioCloseButton {
     position: absolute;
-    top: 4px;
-    right: 4px;
-    width: 15px;
-    height: 15px;
-    line-height: 15px;
+    top: 0px;
+    right: 0px;
+    width: 22px;
+    height: 22px;
+    line-height: 24px;
     background-color: rgb( 225, 225, 225 );
     color: rgb( 50, 90, 150 );
-    border: 1px solid rgb( 255, 255, 255 );
-    border-radius: 2px;
+    border: 1px solid rgb( 50, 90, 150 );
+    font-size: 22px;
     font-weight: bold;
 }
 
-#addScenario {
+#scenarioOptions {
     position: absolute;
     top: 24px;
     left: 0px;
     right: 0px;
-    height: 32px;
+    height: 24px;
     background-color: rgb( 225, 225, 225 );
     color: rgb( 50, 90, 150 );
-    line-height: 32px;
-    font-size: 18px;
+    line-height: 24px;
+    font-size: 14px;
     font-weight: bold;
     text-align: center;
+    pointer-events: all;
+}
+
+.scenarioOption {
+    display: inline-block;
+    margin: 0px 12px;
+    padding: 0px 12px;
 }
 
 #scenarioList {
     position: absolute;
-    top: 60px;
+    top: 52px;
     left: 4px;
     right: 4px;
     bottom: 4px;
@@ -422,6 +429,96 @@ body {
     background-color: rgb( 255, 255, 255 );
     border: 1px dashed rgb( 50, 90, 150 );
     overflow: scroll;
+}
+
+#centerNewElementDialog {
+    width: 300px;
+    height: 100%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#newElementDialog {
+    position: absolute;
+    top: 50%;
+    width: 300px;
+    background-color: rgb( 225, 225, 225 );
+    border: 1px solid rgb( 200, 200, 200 );
+    display: none;
+}
+
+#elementDialogTitle {
+    background-color: rgb( 50, 90, 150 );
+    color: rgb( 255, 255, 255 );
+    text-align: center;
+    height: 24px;
+    font-size: 16px;
+    line-height: 24px;
+}
+
+.inlineElements {
+    text-align: center;
+}
+
+.inlineElements * {
+    display: inline-block;
+}
+
+#elementName {
+    font-size: 14px;
+    padding: 2px;
+    margin: 4px;
+}
+
+#elementType {
+    font-size: 14px;
+    padding: 2px;
+    margin: 4px;
+}
+
+#submitElement, #cancelElement {
+    width: 125px;
+    font-size: 14px;
+    pointer-events: all;
+    margin: 4px;
+}
+
+#centerNewScenarioDialog {
+    width: 200px;
+    height: 100%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#newScenarioDialog {
+    position: absolute;
+    top: 50%;
+    width: 200px;
+    background-color: rgb( 225, 225, 225 );
+    border: 1px solid rgb( 200, 200, 200 );
+    display: none;
+}
+
+#newScenarioTitle {
+    background-color: rgb( 50, 90, 150 );
+    color: rgb( 255, 255, 255 );
+    text-align: center;
+    height: 24px;
+    font-size: 16px;
+    line-height: 24px;
+}
+
+#newScenarioName {
+    font-size: 14px;
+    padding: 2px;
+    margin: 4px;
+}
+
+#newScenarioSubmit, #newScenarioCancel {
+    width: 75px;
+    font-size: 14px;
+    pointer-events: all;
+    margin: 4px;
 }
 
 .entry {
@@ -448,6 +545,23 @@ body {
 
 .collapsed {
     display: none;
+}
+
+.addBtn {
+    display: inline-block;
+    position: absolute;
+    right: 0px;
+    height: 22px;
+    width: 22px;
+    line-height: 22px;
+    margin-right: 4px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 20px;
+    color: rgb( 50, 90, 150 );
+    background-color: rgb( 225, 225, 225 );
+    border: 1px solid rgb( 200, 200, 200 );
+    pointer-events: all;
 }
 
 /* END JSON viewer styles */

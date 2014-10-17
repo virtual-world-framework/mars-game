@@ -354,7 +354,7 @@ this.clauseSet.onBlocklyProgramChanged = function( params, context, callback ) {
 
     if ( params ) {
         // Get the objects that can make us fire
-        objectArray = getBlocklyObjects( params, context );
+        objectArray = getBlocklyObjects( params[ 0 ], context );
 
         // Determine whether we should fire when a block is added, removed,
         //   or both.
@@ -690,24 +690,6 @@ this.clauseSet.onTilesToggle = function( params, context, callback ) {
     };
 }
 
-this.clauseSet.doOnce = function( params, context, callback ) {
-    if ( params ) {
-        self.logger.warnx( "doOnce", "This clause doesn't take any arguments." );
-    }
-
-    if ( callback ) {
-        self.logger.warnx( "doOnce", "This clause can't do anything with a callback." );
-    }
-
-    var wasDone = false;
-
-    return function() {
-        var retVal = !wasDone;
-        wasDone = true;
-        return retVal;
-    };
-}
-
 this.clauseSet.blocklyLineEval = function( params, context, callback ) {
     if ( !params || params.length !== 1 || 
          !params[ 0 ].length || !params[ 0 ].length === 2 ) {
@@ -862,40 +844,23 @@ function onClauseCallbackWarning( callback ) {
     }  
 }
 
-function getBlocklyObjects( params, context ) {
-    var objectParam = params ? params[ 0 ] : undefined;
-
-    // if the objectParam is undefined, we return all of the blockly objects
-    if ( !objectParam || ( objectParam.length === 0 ) ) {
-        if (!context) {
+function getBlocklyObjects( nameArray, context ) {
+    // if the nameArray is undefined, we return all of the blockly objects
+    if ( !nameArray || ( nameArray.length === 0 ) ) {
+        if ( !context ) {
             self.logger.errorx( "getBlocklyObjects", "Context is undefined!" );
             return undefined;
         }
-
         return context.find( ".//element(*,'http://vwf.example.com/blockly/controller.vwf')" );
     }
 
-    // if the objectParam is a string, look up that particular blockly object and
-    //   return it in an array
-    if( typeof objectParam === 'string' ) {
-        var object = self.findInContext( context, objectParam );
-        return !!object ? [ self.findInContext( context, objectParam ) ] : undefined;
+    var retVal = [];
+    for ( var i = 0; i < nameArray.length; i++ ) {
+        var object = self.findInContext( context, nameArray[ i ] );
+        retVal.push( object );
     }
 
-    // if the objectParam is an array, look up the blockly object for each entry in
-    //   that array, and return an array of the results.
-    if ( Object.prototype.toString.call( objectParam ) === '[object Array]' ) {
-        var retVal = [];
-        for ( var i = 0; i < objectParam.length; ++i ) {
-            var object = self.findInContext( context, objectParam[ i ] );
-            retVal.push( object );
-        }
-
-        return retVal;
-    }
-
-    self.logger.errorx( "getBlocklyObjects", "Unable to parse objectParam!" );
-    return undefined;
+    return retVal;
 }
 
 
