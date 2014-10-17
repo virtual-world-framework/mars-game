@@ -248,8 +248,8 @@ body {
     position: absolute;
     top: 4px;
     right: 4px;
-    line-height: 22px;
-    font-size: 16px;
+    line-height: 24px;
+    font-size: 22px;
     font-weight: bold;
     background-color: rgb( 225, 225, 225 );
     border: 1px solid rgb( 128, 128, 128 );
