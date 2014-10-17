@@ -61,7 +61,7 @@ JsonEditor.prototype = {
         switch ( entry.valueType ) {
             case "boolean":
                 value = entry.children[ 0 ].value;
-                value = value === "true" ? true : false;
+                value = ( value === "true" );
                 break;
             case "number":
                 value = parseFloat( entry.children[ 0 ].value );
@@ -201,23 +201,25 @@ JsonEditor.prototype = {
         };
     },
     getDefaultValue: function( type ) {
+        var value;
         switch ( type ) {
             case "boolean":
-                return true;
+                value = true;
                 break;
             case "number":
-                return 0;
+                value = 0;
                 break;
             case "string":
-                return "";
+                value = "";
                 break;
             case "object":
-                return {};
+                value = {};
                 break;
             case "array":
-                return [];
+                value = [];
                 break;
         }
+        return value;
     },
     booleanSelector: function( element, name, value ) {
         var select, option;
