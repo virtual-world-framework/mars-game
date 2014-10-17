@@ -1,5 +1,5 @@
 JsonEditor = function( containerId, json, name ) {
-    this.initialize( containerId, json );
+    this.initialize( containerId, json, name );
     return this;
 }
 
@@ -8,7 +8,7 @@ JsonEditor.prototype = {
     parent: undefined,
     rootObjects: undefined,
     initialize: function( containerId, json, name ) {
-        rootObjects = {};
+        this.rootObjects = {};
         if ( containerId ) {
             this.parent = document.getElementById( containerId );
         } else {
@@ -29,16 +29,19 @@ JsonEditor.prototype = {
         var keys;
         if ( this.rootObjects[ name ] ) {
             this.parent.removeChild( this.rootObjects[ name ] );
-            this.rootObjects.delete( this.rootObjects[ name ] );
-        } else {
+            delete this.rootObjects[ name ];
+        } else if ( name === undefined ) {
             keys = Object.keys( this.rootObjects );
             for ( var i = 0; i < keys.length; i++ ) {
                 this.parent.removeChild( this.rootObjects[ keys[ i ] ] );
-                this.rootObjects.delete( this.rootObjects[ keys[ i ] ] );
+                delete this.rootObjects[ keys[ i ] ];
             }
+        } else {
+            console.log( "JSON element \"" + name + "\" not found!" );
         }
     },
     getJson: function() {
+        // TODO: Add get Json by name option
         var json = {};
         var entry, path;
         var children = this.parent.getElementsByClassName( "entry" );

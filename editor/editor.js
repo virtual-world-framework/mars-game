@@ -21,6 +21,7 @@ var levelIds = new Array();
 var timePct = 0;
 var levelFile;
 var appID;
+var je = new JsonEditor( "scenarioList" );
 
 function getAppID() {
     if ( appID === undefined ) {
@@ -51,8 +52,8 @@ vwf_view.firedEvent = function( nodeID, eventName, args ) {
                 break;
             case "scenariosLoaded":
                 var json = JSON.parse( args[ 0 ] );
-                clearJsonDom();
-                createJsonDom( "scenarios", json );
+                je.clearJson( "scenarios" );
+                je.loadJson( json, "scenarios" );
                 break;
         }
     }
@@ -92,6 +93,7 @@ function handleSceneReady( params ) {
     loadAssetList( assetTypeSelector.value );
     setupMenus();
     setupTools();
+    je.jsonUpdated = saveJson;
     fileManager.onFileOpened = loadLevel;
     document.addEventListener( "keydown", handleKeyPropagation );
 }
@@ -514,7 +516,7 @@ function openNewScenarioDialog() {
     var name = document.getElementById( "newScenarioName" );
     var submit = document.getElementById( "newScenarioSubmit" );
     var cancel = document.getElementById( "newScenarioCancel" );
-    var scenarios = getJsonFromDom();
+    var scenarios = je.getJson();
     dialog.style.display = "block";
     submit.onclick = function() {
         vwf_view.kernel.callMethod( getAppID(), "addNewScenario", [ scenarios, name.value ] );
@@ -551,253 +553,8 @@ function deleteSelectedEntry( event ) {
     saveJson();
 }
 
-/* START JSON viewer scripts */
-
-function createJsonDom( name, json ) {
-    var element = makeElement( name, json );
-    var scenarioList = document.getElementById( "scenarioList" );
-    scenarioList.appendChild( element );
-}
-
-function clearJsonDom() {
-    var scenarioList = document.getElementById( "scenarioList" );
-    scenarioList.innerHTML = "";
-}
-
-function getJsonFromDom() {
-    var json = {};
-    var node, path;
-    var scenarioList = document.getElementById( "scenarioList" );
-    var children = scenarioList.getElementsByClassName( "entry" );
-    for ( var i = 0; i < children.length; i++ ) {
-        node = children[ i ];
-        if ( node.parentPath ) {
-            path = "json." + node.parentPath;
-        } else {
-            path = "json";
-        }
-        eval( path )[ node.jsonName ] = getValueFromNode( node );
-    }
-    return json;
-}
-
-function getValueFromNode( node ) {
-    var value;
-    switch ( node.valueType ) {
-        case "boolean":
-            value = node.children[ 0 ].value;
-            value = value === "true" ? true : false;
-            break;
-        case "number":
-            value = parseFloat( node.children[ 0 ].value );
-            break;
-        case "string":
-            value = node.children[ 0 ].value;
-            break;
-        case "object":
-            value = {};
-            break;
-        case "array":
-            value = [];
-            break;
-        case "function":
-            value = "Functions are not handled.";
-            break;
-        default:
-            value = "Unhandled value type (" + node.valueType + ").";
-            break;
-    }
-    return value;
-}
-
-function makeElement( name, value, parent, parentType ) {
-    var type = typeof value;
-    var element = document.createElement( "div" );
-    switch ( type ) {
-        case "boolean":
-            booleanSelector( element, name, value );
-            element.valueType = type;
-            element.jsonName = name;
-            element.parentPath = parent;
-            break;
-        case "number":
-            numberField( element, name, value );
-            element.valueType = type;
-            element.jsonName = name;
-            element.parentPath = parent;
-            break;
-        case "string":
-            stringField( element, name, value );
-            element.valueType = type;
-            element.jsonName = name;
-            element.parentPath = parent;
-            break;
-        case "object":
-            // This includes arrays
-            objectElement( element, name, value, parent, parentType );
-            break;
-        case "function":
-            element.appendChild(
-                document.createTextNode( name + ": Functions are not handled." )
-            );
-            element.className = "entry";
-            element.valueType = type;
-            element.jsonName = name;
-            element.parentPath = parent;
-            break;
-        default:
-            element.appendChild(
-                document.createTextNode( name + ": Unhandled value type (" + type + ")." )
-            );
-            element.className = "entry";
-            element.valueType = type;
-            element.jsonName = name;
-            element.parentPath = parent;
-            break;
-    }
-    return element;
-}
-
-function objectElement( element, name, value, parent, parentType ) {
-    var title, contents, keys, add;
-    title = document.createElement( "div" );
-    add = document.createElement( "div" );
-    contents = document.createElement( "div" );
-    add.innerHTML = "+";
-    add.className = "addBtn";
-    title.appendChild( document.createTextNode( "+ " + name ) );
-    element.appendChild( add );
-    title.className = "category entry";
-    if ( value instanceof Array ) {
-        title.valueType = "array";
-    } else {
-        title.valueType = "object";
-    }
-    title.jsonName = name;
-    title.parentPath = parent;
-    contents.className = "collapsible collapsed";
-    title.onclick = expandObject;
-    keys = Object.keys( value );
-    if ( parentType === "array" ) {
-        parent = parent ? parent + "[" + name + "]" : name;
-    } else {
-        parent = parent ? parent + "." + name : name;
-    }
-    for ( var i = 0; i < keys.length; i++ ) {
-        contents.appendChild( makeElement( keys[ i ], value[ keys[ i ] ], parent ) );
-    }
-    element.appendChild( title );
-    element.appendChild( contents );
-    add.addEventListener( "click", function( event ) {
-        addNewElement( title.valueType, contents, parent );
-        event.stopPropagation();
-    } );
-    return element;
-}
-
-function expandObject( event ) {
-    var contents = this.nextSibling;
-    if ( contents.classList.contains( "collapsed" ) ) {
-        contents.classList.remove( "collapsed" );
-        this.innerHTML = this.innerHTML.replace( "+", "-" );
-    } else {
-        contents.classList.add( "collapsed" );
-        this.innerHTML = this.innerHTML.replace( "-", "+" );
-    }
-}
-
-function addNewElement( parentType, contents, parent ) {
-    var dialog = document.getElementById( "newElementDialog" );
-    var name = document.getElementById( "elementName" );
-    var type = document.getElementById( "elementType" );
-    var submit = document.getElementById( "submitElement" );
-    var cancel = document.getElementById( "cancelElement" );
-    dialog.style.display = "block";
-    if ( parentType === "array" ) {
-        name.readOnly = true;
-        name.value = contents.children.length;
-    } else {
-        name.readOnly = false;
-        name.value = "";
-    }
-    var getDefaultValue = function() {
-        switch ( type.value ) {
-            case "boolean":
-                return true;
-                break;
-            case "number":
-                return 0;
-                break;
-            case "string":
-                return "";
-                break;
-            case "object":
-                return {};
-                break;
-            case "array":
-                return [];
-                break;
-        }
-    };
-    submit.onclick = function( event ) {
-        contents.appendChild( makeElement( name.value, getDefaultValue(), parent ) );
-        dialog.style.display = "none";
-        saveJson();
-    };
-    cancel.onclick = function( event ) {
-        dialog.style.display = "none";
-    };
-}
-
-function booleanSelector( element, name, value ) {
-    var select, option;
-    element.appendChild( document.createTextNode( name + ": " ) );
-    select = document.createElement( "select" );
-    option = document.createElement( "option" );
-    option.value = true;
-    option.text = "True";
-    select.appendChild( option );
-    option = document.createElement( "option" );
-    option.value = false;
-    option.text = "False";
-    select.appendChild( option );
-    for ( var i = 0; i < select.options.length; i++ ) {
-        select.options[ i ].selected = value.toString() === select.options[ i ].value;
-    }
-    element.appendChild( select );
-    element.className = "entry";
-    select.addEventListener( "change", saveJson );
-    return element;
-}
-
-function stringField( element, name, value ) {
-    var text;
-    element.appendChild( document.createTextNode( name + ": " ) );
-    text = document.createElement( "input" );
-    text.value = value;
-    element.appendChild( text );
-    element.className = "entry";
-    text.addEventListener( "blur", saveJson );
-    return element;
-}
-
-function numberField( element, name, value ) {
-    var text;
-    element.appendChild( document.createTextNode( name + ": " ) );
-    text = document.createElement( "input" );
-    text.type = "number";
-    text.value = value;
-    element.appendChild( text );
-    element.className = "entry";
-    text.addEventListener( "blur", saveJson );
-    return element;
-}
-
 function saveJson() {
-    var json = getJsonFromDom();
-    vwf_view.kernel.callMethod( getAppID(), "saveScenarios", [ json ] );
+    vwf_view.kernel.callMethod( getAppID(), "saveScenarios", [ je.getJson() ] );
 }
-
-/* END JSON viewer scripts */
 
 //@ sourceURL=editor/editor.js
