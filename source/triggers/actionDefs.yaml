@@ -1,0 +1,137 @@
+scenarioSuccess:
+  display: "Scenario Success"
+  description: "Completes the current scenario."
+  requiredArgs:
+  optionalArgs:
+    - successType
+  repeatedArgs:
+scenarioFailure:
+  display: "Scenario Failure"
+  description: "Causes scenario failure."
+  requiredArgs:
+  optionalArgs:
+    - failureType
+    - string
+  repeatedArgs:
+# initGameOnLoad:
+#   display: ""
+#   description: ""
+#   requiredArgs:
+#   optionalArgs:
+#   repeatedArgs:
+playSound:
+  display: "Play Sound"
+  description: "Play the specified sound."
+  requiredArgs:
+    - sound
+  optionalArgs:
+  repeatedArgs:
+stopSound:
+  display: "Stop Sound"
+  description: "Stop playing the specified sound."
+  requiredArgs:
+    - sound
+  optionalArgs:
+  repeatedArgs:
+stopSoundGroup:
+  display: "Stop Sound Group"
+  description: "Stop playing the specified sound group."
+  requiredArgs:
+  - soundGroup
+  optionalArgs:
+  repeatedArgs:
+stopAllSounds:
+  display: "Stop All Sounds"
+  description: "Stops all playing sounds."
+  requiredArgs:
+  optionalArgs:
+  repeatedArgs:
+setMasterVolume:
+  display: "Set Volume"
+  description: "Sets the master volume."
+  requiredArgs:
+   - percent
+  optionalArgs:
+  repeatedArgs:
+delay:
+  display: "Delay"
+  description: "Performs an action or set of actions after a specified number of seconds."
+  requiredArgs:
+    - number
+    - action
+  optionalArgs:
+  repeatedArgs:
+    - action
+writeToBlackboard:
+  display: "Write to Blackboard"
+  description: "Writes a value to the Blackboard that can be used later."
+  requiredArgs:
+    - string
+  optionalArgs:
+    - primative
+  repeatedArgs:
+clearBlackboardEntry:
+  display: "Clear Blackboard Entry"
+  description: "Removes specified entry from the Blackboard."
+  requiredArgs:
+    - string
+  optionalArgs:
+  repeatedArgs:
+incrementBlackboardValue:
+  display: "Increment Blackboard Value"
+  description: "Increments a Blackboard entry's value if it is a number."
+  requiredArgs:
+    - string
+  optionalArgs:
+  repeatedArgs:
+blinkHUDElement:
+  display: "Blink HUD Element"
+  description: "Causes the specified HUD element to flash."
+  requiredArgs:
+    - HUDElement
+  optionalArgs:
+  repeatedArgs:
+stopBlinkHUDElement:
+  display: "Stop HUD Element Blinking"
+  description: "Causes a flashing element to stop flashing."
+  requiredArgs:
+    - HUDElement
+  optionalArgs:
+  repeatedArgs:
+blinkBlocklyTab:
+  display: "Blink Blockly Tab"
+  description: "Causes a Blockly tab to flash."
+  requiredArgs:
+    - blocklyNode
+  optionalArgs:
+  repeatedArgs:
+stopBlinkBlocklyTab:
+  display: ""
+  description: ""
+  requiredArgs:
+  optionalArgs:
+  repeatedArgs:
+
+playVideo:
+displayPopup:
+showCommsDisplay:
+hideCommsDisplay:
+hideBlockly:
+clearBlockly:
+panCamera:
+showAlert:
+resetRoverSensors:
+setCinematicCameraView:
+setThirdPersonStartPose:
+resetCameraView:
+callOutObjective:
+cancelCallOut:
+setObjective:
+setHUDProperty:
+
+
+  display: ""
+  description: ""
+  requiredArgs:
+  optionalArgs:
+  repeatedArgs:

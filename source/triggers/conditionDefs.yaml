@@ -61,7 +61,7 @@ moveFailed:
   requiredArgs:
     - node
   optionalArgs:
-    - movementFailureType
+    - moveFailedType
   repeatedArgs:
 isBlocklyExecuting:
   display: "Blockly is Executing"
@@ -69,33 +69,33 @@ isBlocklyExecuting:
   requiredArgs:
   optionalArgs:
   repeatedArgs:
-    - node
+    - blocklyNode
 onBlocklyStarted:
   display: "Blockly has Started"
   description: "Checks if a Blockly program has started running."
   requiredArgs:
   optionalArgs:
   repeatedArgs:
-    - node
+    - blocklyNode
 onBlocklyStopped:
   display: "Blockly has Stopped"
   description: "Checks if a Blockly program has stopped running."
   requiredArgs:
   optionalArgs:
   repeatedArgs:
-    - node
+    - blocklyNode
 onBlocklyWindowOpened:
   display: "Blockly Window Opened"
   description: "Checks if a Blockly window has opened."
   requiredArgs:
   optionalArgs:
   repeatedArgs:
-    - node
+    - blocklyNode
 onBlocklyProgramChanged:
   display: "Blockly Program Changed"
   description: "Checks if a Blockly program has been modified."
   requiredArgs:
-    - nodeArray
+    - blocklyNodeArray
   optionalArgs:
     - blockChangeType
     - blockArray
@@ -108,7 +108,7 @@ onScenarioStart:
     - scenario
   repeatedArgs:
 onScenarioSucceeded:
-  display: "Scenario Success"
+  display: "Scenario Succeeded"
   description: "Checks if the success criteria of a scenario have been met."
   requiredArgs:
   optionalArgs:
@@ -184,7 +184,7 @@ onHUDMouseOver:
   display: "HUD Mouse Over"
   description: "Checks if the client's mouse is over the specified HUD element."
   requiredArgs:
-    - HUDElementName
+    - HUDElement
   optionalArgs:
   repeatedArgs:
 onGameLoaded:
