@@ -88,13 +88,6 @@ properties:
     onGraphToggle:
     onTilesToggle:
 
-    # This is a crappy solution, but better than no solution at all.  It will only
-    #   work if it is the last argument in an and/or clause - basically, the first 
-    #   time it is checked is the only time that it will return true (whether the
-    #   trigger actually fires or not).
-    # arguments: none
-    doOnce:
-
     # Checks to see if the graph passes through a particular x,y point
     # arguments: an x,y array
     blocklyLineEval:
