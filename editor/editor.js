@@ -21,7 +21,7 @@ var levelIds = new Array();
 var timePct = 0;
 var levelFile;
 var appID;
-var je = new JsonEditor( "scenarioList" );
+var scenarioJson = new JsonEditor( "scenarioList" );
 
 function getAppID() {
     if ( appID === undefined ) {
@@ -52,8 +52,8 @@ vwf_view.firedEvent = function( nodeID, eventName, args ) {
                 break;
             case "scenariosLoaded":
                 var json = JSON.parse( args[ 0 ] );
-                je.clearJson( "scenarios" );
-                je.loadJson( json, "scenarios" );
+                scenarioJson.clearJson( "scenarios" );
+                scenarioJson.loadJson( json, "scenarios" );
                 break;
         }
     }
@@ -93,7 +93,7 @@ function handleSceneReady( params ) {
     loadAssetList( assetTypeSelector.value );
     setupMenus();
     setupTools();
-    je.jsonUpdated = saveJson;
+    scenarioJson.jsonUpdated = saveJson;
     fileManager.onFileOpened = loadLevel;
     document.addEventListener( "keydown", handleKeyPropagation );
 }
@@ -516,7 +516,7 @@ function openNewScenarioDialog() {
     var name = document.getElementById( "newScenarioName" );
     var submit = document.getElementById( "newScenarioSubmit" );
     var cancel = document.getElementById( "newScenarioCancel" );
-    var scenarios = je.getJson();
+    var scenarios = scenarioJson.getJson();
     dialog.style.display = "block";
     submit.onclick = function() {
         vwf_view.kernel.callMethod( getAppID(), "addNewScenario", [ scenarios, name.value ] );
@@ -554,7 +554,7 @@ function deleteSelectedEntry( event ) {
 }
 
 function saveJson() {
-    vwf_view.kernel.callMethod( getAppID(), "saveScenarios", [ je.getJson() ] );
+    vwf_view.kernel.callMethod( getAppID(), "saveScenarios", [ scenarioJson.getJson() ] );
 }
 
 //@ sourceURL=editor/editor.js
