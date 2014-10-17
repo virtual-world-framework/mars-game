@@ -65,7 +65,7 @@ properties:
     onBlocklyWindowOpened:
 
     # arguments:
-    #   1: A blockly object (as described above)
+    #   1: An array of blockly objects (as described above)
     #   2: add | remove | either - should it fire when a block is added, when 
     #      one is removed, or either.  Either is the default.
     #   3: the type of block, on array of block types, or nothing (in which 

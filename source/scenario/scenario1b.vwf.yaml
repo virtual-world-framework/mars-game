@@ -154,7 +154,7 @@ children:
         playHint2_1b:
           triggerCondition:
           - onBlocklyProgramChanged:
-            - rover
+            - [ "rover" ]
             - add
             - rover_moveForward
           additionalCondition:
