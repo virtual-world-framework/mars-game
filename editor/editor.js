@@ -529,19 +529,19 @@ function openNewScenarioDialog() {
 }
 
 function scanForDeleteCandidate() {
-    var se = document.getElementById( "scenarioEditor" );
-    se.style.cursor = "pointer";
+    var scenarioEditor = document.getElementById( "scenarioEditor" );
+    scenarioEditor.style.cursor = "pointer";
     document.addEventListener( "click", deleteSelectedEntry );
 }
 
 function deleteSelectedEntry( event ) {
     var el = event.target;
-    var se = document.getElementById( "scenarioEditor" );
+    var scenarioEditor = document.getElementById( "scenarioEditor" );
     if ( el.id === "deleteEntry" ) {
         return;
     }
     document.removeEventListener( "click", deleteSelectedEntry );
-    se.style.cursor = "default";
+    scenarioEditor.style.cursor = "default";
     if ( el.classList.contains( "entry" ) && el.classList.contains( "category" ) ) {
         if ( el.jsonName === "scenarios" ) {
             return;

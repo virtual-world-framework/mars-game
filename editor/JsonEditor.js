@@ -161,10 +161,10 @@ JsonEditor.prototype = {
         }
         element.appendChild( title );
         element.appendChild( contents );
-        add.addEventListener( "click", function( event ) {
+        add.addEventListener( "click", ( function( event ) {
             this.addNewElement( title.valueType, contents, parent );
             event.stopPropagation();
-        } );
+        } ).bind( this ) );
         return element;
     },
     expandObject: function() {
