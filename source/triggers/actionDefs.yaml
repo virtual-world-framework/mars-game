@@ -106,32 +106,104 @@ blinkBlocklyTab:
   optionalArgs:
   repeatedArgs:
 stopBlinkBlocklyTab:
-  display: ""
-  description: ""
+  display: "Stop Blockly Tab Blinking"
+  description: "Causes a flashing Blockly tab to stop flashing."
+  requiredArgs:
+    - blocklyNode
+  optionalArgs:
+  repeatedArgs:
+hideBlockly:
+  display: "Hide Blockly Interface"
+  description: "Closes the Blockly window."
   requiredArgs:
   optionalArgs:
   repeatedArgs:
-
-playVideo:
-displayPopup:
-showCommsDisplay:
-hideCommsDisplay:
-hideBlockly:
-clearBlockly:
-panCamera:
-showAlert:
-resetRoverSensors:
-setCinematicCameraView:
-setThirdPersonStartPose:
-resetCameraView:
-callOutObjective:
-cancelCallOut:
-setObjective:
+# clearBlockly:
+#   display: "Clear Blockly Interface"
+#   description: "Clears out the Blockly workspace and toolboxes."
+#   requiredArgs:
+#   optionalArgs:
+#   repeatedArgs:
 setHUDProperty:
-
-
-  display: ""
-  description: ""
+  display: "Set HUD Property"
+  description: "Sets a property on a HUD element."
   requiredArgs:
+    - HUDElement
+    - string
+    - primative
+  optionalArgs:
+  repeatedArgs:
+panCamera:
+  display: "Pan Camera"
+  description: "Pans the camera to the target object."
+  requiredArgs:
+    - node
+  optionalArgs:
+    - number
+  repeatedArgs:
+showAlert:
+  display: "Alert Player"
+  description: "Displays a message to the player in the HUD."
+  requiredArgs:
+    - string
+  optionalArgs:
+  repeatedArgs:
+# resetRoverSensors:
+#   display: ""
+#   description: ""
+#   requiredArgs:
+#   optionalArgs:
+#   repeatedArgs:
+# resetHUDState:
+#   display: ""
+#   description: ""
+#   requiredArgs:
+#   optionalArgs:
+#   repeatedArgs:
+playVideo:
+  display: "Play Video"
+  description: "Play the specified video."
+  requiredArgs:
+   - video
+  optionalArgs:
+  repeatedArgs:
+setCinematicCameraView:
+  display: "Set Camera View"
+  description: "Sets the camera position and rotation."
+  requiredArgs:
+   - pose
+  optionalArgs:
+  repeatedArgs:
+setThirdPersonStartPose:
+  display: "Set Third-Person View"
+  description: "Sets the default third-person camera view."
+  requiredArgs:
+    - pose
+  optionalArgs:
+  repeatedArgs:
+resetCameraView:
+  display: "Reset Camera View"
+  description: "Resets the camera to the default position."
+  requiredArgs:
+  optionalArgs:
+  repeatedArgs:
+callOutObjective:
+  display: "Call Out Objective Tile"
+  description: "Causes the objective tile to flash."
+  requiredArgs:
+    - point2D
+  optionalArgs:
+  repeatedArgs:
+cancelCallOut:
+  display: "Disable Call Out Tile"
+  description: "Hides the flashing objective tile."
+  requiredArgs:
+  optionalArgs:
+  repeatedArgs:
+setObjective:
+  display: "Set Objective Text"
+  description: "Sets the objective text that is displayed to the user."
+  requiredArgs:
+    - string
   optionalArgs:
   repeatedArgs:

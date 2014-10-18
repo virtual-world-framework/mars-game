@@ -256,7 +256,6 @@ this.actionSet.hideBlockly = function( params, context ) {
         self.logger.errorx( "hideBlockly", "This action takes no parameters.");
         return undefined;
     }
-    
     return function() {
         vwf_view.kernel.setProperty( vwf_view.kernel.application(), "blockly_activeNodeID", undefined );
     }
@@ -267,7 +266,6 @@ this.actionSet.clearBlockly = function( params, context ) {
         self.logger.errorx( "clearBlockly", "This action takes no parameters.");
         return undefined;
     }
-    
     return function() {
         context.clearBlockly();
     }
@@ -280,11 +278,9 @@ this.actionSet.setHUDProperty = function( params, context ) {
                             "value to set the property to.");
         return undefined;
     }
-
     var element = params[ 0 ];
     var property = params[ 1 ];
     var value = params[ 2 ];
-    
     return function() {
         context.setHUDElementProperty( element, property, value );
     }
@@ -298,11 +294,9 @@ this.actionSet.panCamera = function( params, context ) {
                             "its original target.");
         return undefined;        
     }
-
     var targetPath = params[ 0 ];
     var duration = params[ 1 ];
     var targetFollower = context.player.targetFollower;
-
     return function() {
         var lastTargetPath = targetFollower.targetPath;
         targetFollower.camera.pointOfView = "thirdPerson";
@@ -313,43 +307,12 @@ this.actionSet.panCamera = function( params, context ) {
     }
 }
 
-this.actionSet.orbitCamera = function( params, context ) {
-    if ( params && params.length > 2 ) {
-        self.logger.errorx( "orbitCamera", "This action takes one parameter: the " +
-                            "speed at which the camera orbits the target node ( in rads/sec ), " +
-                            "and the time (in seconds) to automatically stop orbiting." );
-        return undefined;        
-    }
-
-    var speed = params[ 0 ];
-    var hardStop = params[ 1 ];
-    var camera = context.player.targetFollower.camera;
-    var hardStopID = setTimeout( setOrbitingFalse( camera ), hardStop * 1000 );
-    camera.orbiting = true;
-
-    var callback = function() {
-        if ( camera.pointOfView !== "thirdPerson" ) {
-            camera.pointOfView = "thirdPerson";
-        }
-        camera.orbitTarget$( speed );
-        if ( camera.orbiting ) {
-            setTimeout( callback, 0.1 );
-        } else {
-            clearTimeout( hardStopID );
-        }
-    }
-
-    return callback;
-}
-
 this.actionSet.showAlert = function( params, context ) {
     if ( !params || params.length > 1 ) {
         self.logger.errorx( "showAlert", "This action takes one parameter: the alert to show." );
         return undefined;
     }
-
     var alert = params[ 0 ];
-
     return function() {
         context.addAlert( alert );
     }
@@ -360,7 +323,6 @@ this.actionSet.resetRoverSensors = function( params, context ) {
         self.logger.errorx( "resetRoverSensors", "This action takes no parameters.");
         return undefined;
     }
-    
     return function() {
         context.resetRoverSensors();
     }
@@ -371,7 +333,6 @@ this.actionSet.resetHUDState = function( params, context ) {
         self.logger.errorx( "resetHUDState", "This action takes no parameters.");
         return undefined;
     }
-
     return function() {
         context.resetHUDState();
     }
@@ -382,9 +343,7 @@ this.actionSet.playVideo = function( params, context ) {
         self.logger.errorx( "playVideo", "This action takes one parameter: the source of the video");
         return undefined;
     }
-
     var src = params[ 0 ];
-
     return function() {
         context.playVideo( src );
     }
@@ -397,9 +356,7 @@ this.actionSet.setCinematicCameraView = function( params, context ) {
                             "of the camera." );
         return undefined;
     }
-
     var pose = params[ 0 ];
-
     return function() {
         context.setCinematicView( pose );
     }
@@ -412,10 +369,8 @@ this.actionSet.setThirdPersonStartPose = function( params, context ) {
                             "of the camera." );
         return undefined;
     }
-
     var pose = params[ 0 ];
     var camera = context.player.targetFollower.camera;
-
     return function() {
         camera.thirdPersonStartPose = pose;
     }
@@ -425,7 +380,6 @@ this.actionSet.resetCameraView = function( params, context ) {
     if ( params && params.length > 0 ) {
         self.logger.warnx( "resetCameraView", "This action does not take parameters." );
     }
-
     return function() {
         context.resetView();
     }
