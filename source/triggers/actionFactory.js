@@ -391,11 +391,9 @@ this.actionSet.callOutObjective = function( params, context ) {
                                                "coordinates of the tile to be called out." );
         return undefined;
     }
-
     var callOutTile = context.gridTileGraph.callOutTile;
     var grid = context[ context.activeScenarioPath ].grid;
     var tileCoords = params[ 0 ];
-
     return function() {
         var coords = grid.getWorldFromGrid( tileCoords[ 0 ], tileCoords[ 1 ] );
         callOutTile.callOut( coords );
@@ -406,9 +404,7 @@ this.actionSet.cancelCallOut = function( params, context ) {
     if ( params && params.length > 0 ) {
         self.logger.warnx( "cancelCallOut", "This action takes no parameters." );
     }
-
     var callOutTile = context.gridTileGraph.callOutTile;
-
     return function() {
         callOutTile.stopBlink();
     }
@@ -420,9 +416,7 @@ this.actionSet.setObjective = function( params, context ) {
                                            "objective text." );
         return undefined;
     }
-
     var text = params[ 0 ];
-
     return function() {
         context.setObjective( text );
     }
