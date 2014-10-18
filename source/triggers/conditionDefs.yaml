@@ -131,7 +131,7 @@ onVideoPlayed:
   display: "Video Ended"
   description: "Checks if the specified video has played."
   requiredArgs:
-    - videoSrc
+    - video
   optionalArgs:
   repeatedArgs:
 onHelicamToggle:

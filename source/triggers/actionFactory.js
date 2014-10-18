@@ -21,6 +21,7 @@ this.initialize = function() {
 }
 
 this.actionSet.scenarioSuccess = function( params, context ) {
+    // TODO: Remove unused success type?
     if ( params && params.length > 1 ) {
         self.logger.warnx( "scenarioSuccess", "This action takes one optional argument: "+
                             "the type of success." );
