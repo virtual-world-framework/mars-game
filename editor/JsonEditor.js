@@ -191,14 +191,14 @@ JsonEditor.prototype = {
             name.readOnly = false;
             name.value = "";
         }
-        submit.onclick = function( event ) {
-            contents.appendChild( this.createElement( this.getDefaultValue( type.value ), name.value, parent ) );
+        submit.onclick = ( function( event ) {
+            contents.appendChild( this.createEntry( this.getDefaultValue( type.value ), name.value, parent ) );
             dialog.style.display = "none";
-            this.saveJson();
-        };
-        cancel.onclick = function( event ) {
+            this.jsonUpdated();
+        } ).bind( this );
+        cancel.onclick = ( function( event ) {
             dialog.style.display = "none";
-        };
+        } ).bind( this );
     },
     getDefaultValue: function( type ) {
         var value;

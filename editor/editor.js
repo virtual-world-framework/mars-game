@@ -94,6 +94,8 @@ function handleSceneReady( params ) {
     setupMenus();
     setupTools();
     scenarioJson.jsonUpdated = saveJson;
+    scenarioJson.newElementDefault = scenarioJson.addNewElement;
+    scenarioJson.addNewElement = addScenarioElement;
     fileManager.onFileOpened = loadLevel;
     document.addEventListener( "keydown", handleKeyPropagation );
 }
@@ -511,23 +513,6 @@ function handleKeyPropagation( event ) {
     }
 }
 
-function openNewScenarioDialog() {
-    var dialog = document.getElementById( "newScenarioDialog" );
-    var name = document.getElementById( "newScenarioName" );
-    var submit = document.getElementById( "newScenarioSubmit" );
-    var cancel = document.getElementById( "newScenarioCancel" );
-    var scenarios = scenarioJson.getJson();
-    dialog.style.display = "block";
-    submit.onclick = function() {
-        vwf_view.kernel.callMethod( getAppID(), "addNewScenario", [ scenarios, name.value ] );
-        dialog.style.display = "none";
-        saveJson();
-    }
-    cancel.onclick = function() {
-        dialog.style.display = "none";
-    }
-}
-
 function scanForDeleteCandidate() {
     var scenarioEditor = document.getElementById( "scenarioEditor" );
     scenarioEditor.style.cursor = "pointer";
@@ -556,5 +541,68 @@ function deleteSelectedEntry( event ) {
 function saveJson() {
     vwf_view.kernel.callMethod( getAppID(), "saveScenarios", [ scenarioJson.getJson() ] );
 }
+
+function addScenarioElement( parentType, contents, parent ) {
+    var parentName = parent.split( "." );
+    parentName = parentName[ parentName.length - 1 ];
+    switch ( parentName ) {
+        case "scenarios":
+            openNewScenarioDialog();
+            break;
+        case "triggers":
+            addTrigger( parentType, contents, parent );
+            break;
+        case "startState":
+        default:
+            this.newElementDefault( parentType, contents, parent );
+    }
+}
+
+function openNewScenarioDialog() {
+    var dialog = document.getElementById( "newScenarioDialog" );
+    var name = document.getElementById( "newScenarioName" );
+    var submit = document.getElementById( "newScenarioSubmit" );
+    var cancel = document.getElementById( "newScenarioCancel" );
+    var scenarioContents = scenarioJson.rootObjects.scenarios.lastChild;
+    dialog.style.display = "block";
+    submit.onclick = function() {
+        var newScenario = { 
+            "extends": "source/scenario/scenario.vwf",
+            "properties": {
+                "scenarioName": name.value,
+                "nextScenarioPath": "",
+                "startState": []
+            },
+            "children": {
+                "triggerManager": {
+                    "extends": "source/triggers/triggerManager.vwf",
+                    "properties": {
+                        "triggers": {}
+                    }
+                },
+                "grid": {
+                    "extends": "source/grid.vwf",
+                    "properties": {
+                        "minX": 0,
+                        "maxX": 1,
+                        "minY": 0,
+                        "maxY": 1,
+                        "gridOriginInSpace": [ 0, 0 ],
+                        "gridSquareLength": 3,
+                        "boundaryValues": [ 0 ]
+                    }
+                }
+            }
+        };
+        scenarioContents.appendChild( scenarioJson.createEntry( newScenario, name.value, "scenarios" ) );
+        dialog.style.display = "none";
+        saveJson();
+    }
+    cancel.onclick = function() {
+        dialog.style.display = "none";
+    }
+}
+
+function addTrigger( parentType, contents, parent ) {}
 
 //@ sourceURL=editor/editor.js
