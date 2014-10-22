@@ -412,16 +412,9 @@ body {
     display: inline-block;
 }
 
-#elementName {
+#elementName, #elementType {
     font-size: 14px;
     padding: 2px;
-    margin: 4px;
-}
-
-#elementType {
-    font-size: 14px;
-    padding: 2px;
-    margin: 4px;
 }
 
 #newScenarioDialog {}
@@ -500,11 +493,14 @@ body {
     height: 24px;
     font-size: 16px;
     line-height: 24px;
+    cursor: default;
 }
 
 .label {
     color: rgb( 50, 90, 150 );
     font-size: 14px;
+    text-align: left;
+    cursor: default;
 }
 
 .dialogGroup {
@@ -512,6 +508,7 @@ body {
     margin: 4px;
     border: 1px dotted rgb( 128, 128, 128 );
     border-radius: 4px;
+    text-align: center;
 }
 
 .dialogButton {
@@ -528,11 +525,18 @@ input {
 
 .dialog {
     position: absolute;
-    top: 50%;
+    top: 30%;
     width: inherit;
     background-color: rgb( 225, 225, 225 );
     border: 1px solid rgb( 200, 200, 200 );
     display: none;
+}
+
+.textButton {
+    font-size: 12px;
+    text-align: left;
+    color: rgb( 128, 128, 128 );
+    cursor: cell;
 }
 
 /* END JSON viewer styles */

@@ -93,15 +93,21 @@ limitations under the License.
     </div>
     <div id="newElementDialog" class="dialog">
         <div id="elementDialogTitle">New Element</div>
-        <div class="inlineElements dialogGroup">
-            <input id="elementName">
-            <select id="elementType">
-                <option value="boolean">Boolean</option>
-                <option value="string">String</option>
-                <option value="number">Number</option>
-                <option value="object">Object</option>
-                <option value="array">Array</option>
-            </select>
+        <div class="dialogGroup">
+            <div style="display: inline-block">
+                <div class="label">Name: </div>
+                <input id="elementName">
+            </div>
+            <div style="display: inline-block">
+                <div class="label">Type: </div>
+                <select id="elementType">
+                    <option value="boolean">Boolean</option>
+                    <option value="string">String</option>
+                    <option value="number">Number</option>
+                    <option value="object">Object</option>
+                    <option value="array">Array</option>
+                </select>
+            </div>
         </div>
         <div class="inlineElements">
             <button id="submitElement" class="dialogButton">Add</button>
@@ -127,10 +133,12 @@ limitations under the License.
         <div class="dialogGroup">
             <div class="label">Conditions:</div>
             <div id="triggerConditions"></div>
+            <div id="addCondition" class="textButton">Add Condition...</div>
         </div>
         <div class="dialogGroup">
             <div class="label">Actions:</div>
             <div id="triggerActions"></div>
+            <div id="addAction" class="textButton">Add Action...</div>
         </div>
         <div class="inlineElements">
             <button id="submitTrigger" class="dialogButton">Add</button>
