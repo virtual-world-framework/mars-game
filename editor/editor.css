@@ -21,9 +21,9 @@ body {
     height: 24px;
     line-height: 24px;
     text-transform: uppercase;
-    color: rgb( 50, 90, 150 );
-    background-color: rgb( 225, 225, 225 );
-    border: 1px solid rgb( 200, 200, 200 );
+    color: rgb( 255, 255, 255 );
+    background-color: rgb( 50, 90, 150 );
+    border-right: 1px solid rgb( 35, 60, 125 );
     border-top: 0px;
     font-size: 12px;
     text-align: center;
@@ -31,14 +31,16 @@ body {
 
 .menuOption {
     display: inline-block;
-    width: 48px;
+    width: 64px;
 }
 
 .dropDownMenu {
     float: left;
     position: relative;
+    top: 1px;
+    left: -1px;
     background-color: rgb( 245, 245, 245 );
-    border: 1px solid rgb( 225, 225, 225 );
+    border: 1px solid rgb( 35, 60, 125 );
     z-index: 1;
     display: none;
     white-space: nowrap;
@@ -166,7 +168,8 @@ body {
 #menubar {
     width: 100%;
     height: 24px;
-    background-color: rgb( 245, 245, 245 );
+    background-color: rgb( 50, 90, 150 );
+    border-bottom: 1px solid rgb( 35, 60, 125 );
 }
 
 #headertoolbar {
@@ -219,21 +222,8 @@ body {
     pointer-events: all;
 }
 
-#fileWrapper {
-    margin-right: auto;
-    margin-left: auto;
-    height: 100%;
-    width: 400px;
-}
-
 #fileDialog {
-    position: absolute;
-    top: 40%;
-    width: 400px;
-    background-color: rgb( 225, 225, 225 );
-    border: 1px solid rgb( 255, 255, 255 );
     text-align: center;
-    display: none;
     user-select: none;
     -webkit-user-select: none;  /* Chrome all / Safari all */
     -moz-user-select: none;     /* Firefox all */
@@ -246,8 +236,8 @@ body {
     width: 22px;
     float: right;
     position: absolute;
-    top: 4px;
-    right: 4px;
+    top: 0px;
+    right: 0px;
     line-height: 24px;
     font-size: 22px;
     font-weight: bold;
@@ -256,52 +246,33 @@ body {
     color: rgb( 50, 90, 150 );
 }
 
-#title {
-    height: 32px;
-    text-align: center;
-    background-color: rgb( 50, 90, 150 );
-    color: rgb( 255, 255, 255 );
-    font-size: 16px;
-    line-height: 32px;
-    font-weight: bold;
-}
+#title {}
 
 #loadElement {}
 
 #saveElement {}
 
-#saveElement input {}
-
 #saveElement a {
     padding: 2px 8px;
-    font-size: 18px;
-    font-weight: bold;
-    color: rgb( 0, 0, 0 );
-    background-color: rgb( 255, 255, 255 );
-    border: 1px solid rgb( 50, 90, 150 );
+    font-size: 14px;
+    color: rgb( 255, 255, 255 );
+    background-color: rgb( 50, 90, 150 );
 }
 
 #saveElement a:link {
-    color: rgb( 0, 0, 0 );
+    color: rgb( 255, 255, 255 );
 }
 
 #saveElement a:visited {
-    color: rgb( 0, 0, 0 );
+    color: rgb( 255, 255, 255 );
 }
 
 #saveElement a:hover {
-    color: rgb( 0, 0, 0 );
+    color: rgb( 100, 180, 255 );
 }
 
 #saveElement a:active {
-    color: rgb( 0, 0, 0 );
-}
-
-#sliderWrapper {
-    margin-right: auto;
-    margin-left: auto;
-    height: 100%;
-    width: 350px;
+    color: rgb( 255, 255, 255 );
 }
 
 #sliderBox {
@@ -337,16 +308,7 @@ body {
     pointer-events: none;
 }
 
-#closeSlider {
-    background-color: rgb( 225, 225, 225 );
-    border: 1px solid rgb( 200, 200, 200 );
-    width: 64px;
-    height: 24px;
-    text-align: center;
-    margin-left: auto;
-    margin-right: auto;
-    line-height: 24px;
-}
+#closeSlider {}
 
 #readout {
     margin-left: auto;
@@ -431,21 +393,7 @@ body {
     overflow: scroll;
 }
 
-#centerNewElementDialog {
-    width: 300px;
-    height: 100%;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-#newElementDialog {
-    position: absolute;
-    top: 50%;
-    width: 300px;
-    background-color: rgb( 225, 225, 225 );
-    border: 1px solid rgb( 200, 200, 200 );
-    display: none;
-}
+#newElementDialog {}
 
 #elementDialogTitle {
     background-color: rgb( 50, 90, 150 );
@@ -476,28 +424,7 @@ body {
     margin: 4px;
 }
 
-#submitElement, #cancelElement {
-    width: 125px;
-    font-size: 14px;
-    pointer-events: all;
-    margin: 4px;
-}
-
-#centerNewScenarioDialog {
-    width: 200px;
-    height: 100%;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-#newScenarioDialog {
-    position: absolute;
-    top: 50%;
-    width: 200px;
-    background-color: rgb( 225, 225, 225 );
-    border: 1px solid rgb( 200, 200, 200 );
-    display: none;
-}
+#newScenarioDialog {}
 
 #newScenarioTitle {
     background-color: rgb( 50, 90, 150 );
@@ -530,11 +457,6 @@ body {
     padding-left: 5px;
 }
 
-.entry input {
-    padding: 0px;
-    font-size: inherit;
-}
-
 .category {}
 
 .collapsible {
@@ -562,6 +484,55 @@ body {
     background-color: rgb( 225, 225, 225 );
     border: 1px solid rgb( 200, 200, 200 );
     pointer-events: all;
+}
+
+.center {
+    width: 300px;
+    height: 100%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.title {
+    background-color: rgb( 50, 90, 150 );
+    color: rgb( 255, 255, 255 );
+    text-align: center;
+    height: 24px;
+    font-size: 16px;
+    line-height: 24px;
+}
+
+.label {
+    color: rgb( 50, 90, 150 );
+    font-size: 14px;
+}
+
+.dialogGroup {
+    padding: 4px;
+    margin: 4px;
+    border: 1px dotted rgb( 128, 128, 128 );
+    border-radius: 4px;
+}
+
+.dialogButton {
+    width: 100px;
+    font-size: 14px;
+    pointer-events: all;
+    margin: 4px;
+}
+
+input {
+    padding: 0px;
+    font-size: 14px;
+}
+
+.dialog {
+    position: absolute;
+    top: 50%;
+    width: inherit;
+    background-color: rgb( 225, 225, 225 );
+    border: 1px solid rgb( 200, 200, 200 );
+    display: none;
 }
 
 /* END JSON viewer styles */

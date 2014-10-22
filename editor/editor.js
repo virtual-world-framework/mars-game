@@ -13,7 +13,7 @@
 // limitations under the License.
 
 var selectedTool = undefined;
-var fileManager = new FileManager( document.getElementById( "fileDialog" ) );
+var fileManager = new FileManager( document.getElementById( "fileWrapper" ) );
 var activeDropDown;
 var compileTotal = 0;
 var compileProgress = 0;
@@ -603,6 +603,9 @@ function openNewScenarioDialog() {
     }
 }
 
-function addTrigger( parentType, contents, parent ) {}
+function addTrigger( parentType, contents, parent ) {
+    var dialog = document.getElementById( "newTriggerDialog" );
+    dialog.style.display = "block";
+}
 
 //@ sourceURL=editor/editor.js

@@ -65,22 +65,6 @@ limitations under the License.
         </div>
     </div>
 </div>
-<div id="fileWrapper">
-    <div id="fileDialog">
-        <div id="title"></div>
-        <div id="fileCloseButton">&times</div>
-    </div>
-</div>
-<div id="sliderWrapper">
-    <div id="sliderBox">
-        <div id="readout"></div>
-        <div id="icon" class="inline"></div>
-        <div id="slider" class="inline">
-            <div id="handle"></div>
-        </div>
-        <div id="closeSlider">Close</div>
-    </div>
-</div>
 <div id="scenarioEditor">
     <div id="scenarioHeader">Scenario Editor
         <div id="scenarioCloseButton">&times</div>
@@ -91,10 +75,25 @@ limitations under the License.
     </div>
     <div id="scenarioList"></div>
 </div>
-<div id="centerNewElementDialog">
-    <div id="newElementDialog">
+<div class="center">
+    <div id="fileDialog" class="dialog">
+        <div id="title" class="title"></div>
+        <div id="fileCloseButton">&times</div>
+        <div id="fileWrapper" class="dialogGroup"></div>
+    </div>
+    <div id="sliderBox">
+        <div id="readout"></div>
+        <div id="icon" class="inline"></div>
+        <div id="slider" class="inline">
+            <div id="handle"></div>
+        </div>
+        <div style="text-align: center">
+            <button id="closeSlider" class="dialogButton">Close</button>
+        </div>
+    </div>
+    <div id="newElementDialog" class="dialog">
         <div id="elementDialogTitle">New Element</div>
-        <div class="inlineElements">
+        <div class="inlineElements dialogGroup">
             <input id="elementName">
             <select id="elementType">
                 <option value="boolean">Boolean</option>
@@ -105,20 +104,37 @@ limitations under the License.
             </select>
         </div>
         <div class="inlineElements">
-            <button id="submitElement">Add</button>
-            <button id="cancelElement">Cancel</button>
+            <button id="submitElement" class="dialogButton">Add</button>
+            <button id="cancelElement" class="dialogButton">Cancel</button>
         </div>
     </div>
-</div>
-<div id="centerNewScenarioDialog">
-    <div id="newScenarioDialog">
+    <div id="newScenarioDialog" class="dialog">
         <div id="newScenarioTitle">Add Scenario</div>
-        <div class="inlineElements">
+        <div class="inlineElements dialogGroup">
+            <div class="label">Name: </div>
             <input id="newScenarioName">
         </div>
         <div class="inlineElements">
-            <button id="newScenarioSubmit">Add</button>
-            <button id="newScenarioCancel">Cancel</button>
+            <button id="newScenarioSubmit" class="dialogButton">Add</button>
+            <button id="newScenarioCancel" class="dialogButton">Cancel</button>
+        </div>
+    </div>
+    <div id="newTriggerDialog" class="dialog">
+        <div class="title">New Trigger</div>
+        <div class="dialogGroup">
+            <div class="label">Trigger Name: <input id="triggerName"></div>
+        </div>
+        <div class="dialogGroup">
+            <div class="label">Conditions:</div>
+            <div id="triggerConditions"></div>
+        </div>
+        <div class="dialogGroup">
+            <div class="label">Actions:</div>
+            <div id="triggerActions"></div>
+        </div>
+        <div class="inlineElements">
+            <button id="submitTrigger" class="dialogButton">Add</button>
+            <button id="cancelTrigger" class="dialogButton">Cancel</button>
         </div>
     </div>
 </div>
