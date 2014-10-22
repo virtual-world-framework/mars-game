@@ -110,8 +110,7 @@ children:
           - and:
             - isAtPosition:
               - rover
-              - 8
-              - 16
+              - [ 8, 16 ]
             - not:
               - readBlackboard:
                 - hasFailed

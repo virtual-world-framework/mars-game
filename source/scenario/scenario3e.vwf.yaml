@@ -98,8 +98,7 @@ children:
           triggerCondition:
           - isAtPosition:
             - rover
-            - 15
-            - 17
+            - [ 15, 17 ]
           additionalCondition:
           - and:
             - not:
@@ -124,8 +123,7 @@ children:
           additionalCondition:
           - isAtPosition:
             - rover
-            - 24
-            - 38
+            - [ 24, 38 ]
           actions:
           - scenarioSuccess:
           - showAlert:

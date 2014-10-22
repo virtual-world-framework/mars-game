@@ -91,16 +91,15 @@ this.clauseSet.not = function( params, context, callback ) {
 }
 
 this.clauseSet.isAtPosition = function( params, context, callback ) {
-    if ( !params || ( params.length !== 3 ) ) {
+    if ( !params || ( params.length !== 2 ) ) {
         self.logger.errorx( "isAtPosition", 
-                            "This clause requires three " +
-                            "arguments: the object, the x, and the y." );
+                            "This clause requires two arguments: the object, " +
+                            "and an array containing the x and y grid positions." );
         return undefined;
     }
 
     var objectName = params[ 0 ];
-    var x = params[ 1 ];
-    var y = params[ 2 ];
+    var pos = params[ 1 ];
 
     var object = self.findInContext( context, objectName );
 
@@ -109,8 +108,8 @@ this.clauseSet.isAtPosition = function( params, context, callback ) {
     } 
 
     return function() {
-        return ( object.currentGridSquare[ 0 ] === x && 
-                 object.currentGridSquare[ 1 ] === y );
+        return ( object.currentGridSquare[ 0 ] === pos[ 0 ] && 
+                 object.currentGridSquare[ 1 ] === pos[ 1 ] );
     };
 }
 

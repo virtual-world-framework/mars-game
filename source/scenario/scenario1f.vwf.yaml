@@ -98,8 +98,7 @@ children:
           - and:
             - isAtPosition:
               - rover
-              - 8
-              - 6
+              - [ 8, 6 ]
             - hasHeading:
               - rover
               - 180

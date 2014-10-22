@@ -190,6 +190,7 @@ function setupMenus() {
     var file, edit, help, load, save, newLevel, close, saveBtn;
     var ddButtons, hover, timeOfDay, slider, sliderCloseBtn;
     var scenarioButton, scenarioCloseButton, addScenario, deleteEntry;
+    var addTriggerButton, cancelTriggerButton, addConditionButton, addActionButton;
     file = document.getElementById( "fileButton" );
     edit = document.getElementById( "editButton" );
     help = document.getElementById( "helpButton" );
@@ -206,6 +207,10 @@ function setupMenus() {
     deleteEntry = document.getElementById( "deleteEntry" );
     slider = document.getElementById( "slider" );
     sliderCloseBtn = document.getElementById( "closeSlider" );
+    addTriggerButton = document.getElementById( "submitTrigger" );
+    cancelTriggerButton = document.getElementById( "cancelTrigger" );
+    addConditionButton = document.getElementById( "addCondition" );
+    addActionButton = document.getElementById( "addAction" );
     file.addEventListener( "click", openDropDown );
     edit.addEventListener( "click", openDropDown );
     help.addEventListener( "click", openDropDown );
@@ -226,6 +231,10 @@ function setupMenus() {
     slider.addEventListener( "mouseout", moveSliderHandle );
     addScenario.addEventListener( "click", openNewScenarioDialog );
     deleteEntry.addEventListener( "click", scanForDeleteCandidate );
+    addTriggerButton.addEventListener( "click", addTrigger );
+    cancelTriggerButton.addEventListener( "click", closeTriggerDialog );
+    addConditionButton.addEventListener( "click", addCondition );
+    addActionButton.addEventListener( "click", addAction );
     hover = function( event ) {
         switch ( event.type ) {
             case "mouseover":
@@ -550,7 +559,7 @@ function addScenarioElement( parentType, contents, parent ) {
             openNewScenarioDialog();
             break;
         case "triggers":
-            addTrigger( parentType, contents, parent );
+            openTriggerDialog( parentType, contents, parent );
             break;
         case "startState":
         default:
@@ -603,9 +612,20 @@ function openNewScenarioDialog() {
     }
 }
 
-function addTrigger( parentType, contents, parent ) {
+function openTriggerDialog( parentType, contents, parent ) {
     var dialog = document.getElementById( "newTriggerDialog" );
     dialog.style.display = "block";
 }
+
+function closeTriggerDialog() {
+    var dialog = document.getElementById( "newTriggerDialog" );
+    dialog.style.display = "none";
+}
+
+function addTrigger() {}
+
+function addCondition() {}
+
+function addAction() {}
 
 //@ sourceURL=editor/editor.js
