@@ -684,6 +684,28 @@ function addCondition() {
 function addAction() {}
 
 function createDataElement( argType ) {
+    // Argument types:
+    // condition - Boolean Conditions
+    // node - game objects (pickups, players, etc.)
+    // number - integer or float
+    // moveFailedType - collision, battery, etc.
+    // blocklyNode - Nodes that implement blocklyController
+    // blocklyNodeArray - Array of blocklyNodes
+    // blockChangeType - add, remove, either
+    // blockArray - Array of Blockly blocks
+    // scenario - scenario nodes
+    // video - src of a video
+    // point2D - 2D vector [x,y]
+    // string - string
+    // HUDElement - HUD element ids
+    // successType - N/A
+    // failureType - battery depleted, collision, lost, etc.
+    // sound - The name of a sound
+    // soundGroup - The name of a soundGroup
+    // percent - number between 0.0 and 1.0
+    // action - action
+    // primative - number, string, boolean
+    // pose - [ radius, yaw, pitch ]
     console.log( argType );
     // TODO: Account for all argTypes
     return document.createElement( "input" );
