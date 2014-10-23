@@ -640,48 +640,73 @@ function addCondition() {
     conditionList.appendChild( select );
     var loadCondition = function() {
         var selected = conditions[ select.value ];
-        subgroup.innerHTML = "";
-        var required, optional, repeated, label;
-        required = selected.requiredArgs;
-        optional = selected.optionalArgs;
-        repeated = selected.repeatedArgs;
-        // Length of 0 is false
-        if ( !required.length && !optional.length && !repeated.length ) {
-            subgroup.style.display = "none";
-        } else {
-            subgroup.style.display = "block";
-            for ( var i = 0; i < required.length; i++ ) {
-                var name = Object.keys( required[ i ] )[ 0 ];
-                label = document.createElement( "div" );
-                label.innerHTML = name + " (Required):";
-                label.className = "label";
-                subgroup.appendChild( label );
-                subgroup.appendChild( createDataElement( required[ i ][ name ] ) );
-            }
-            for ( var i = 0; i < optional.length; i++ ) {
-                var name = Object.keys( optional[ i ] )[ 0 ];
-                label = document.createElement( "div" );
-                label.innerHTML = name + " (Optional):";
-                label.className = "label";
-                subgroup.appendChild( label );
-                subgroup.appendChild( createDataElement( optional[ i ][ name ] ) );
-            }
-            for ( var i = 0; i < repeated.length; i++ ) {
-                var name = Object.keys( repeated[ i ] )[ 0 ];
-                label = document.createElement( "div" );
-                label.innerHTML = name + " (Repeated):";
-                label.className = "label";
-                subgroup.appendChild( label );
-                subgroup.appendChild( createDataElement( repeated[ i ][ name ] ) );
-            }
-        }
+        loadActionOrCondition( selected, subgroup );
     }
     select.addEventListener( "change", loadCondition );
     loadCondition();
     conditionList.appendChild( subgroup );
 }
 
-function addAction() {}
+function addAction() {
+    var keys = Object.keys( actions );
+    var actionList = document.getElementById( "triggerActions" );
+    var select = document.createElement( "select" );
+    var subgroup = document.createElement( "div" );
+    var option;
+    for ( var i = 0; i < keys.length; i++ ) {
+        option = document.createElement( "option" );
+        option.value = keys[ i ];
+        option.innerHTML = actions[ keys[ i ] ].display;
+        select.appendChild( option );
+    }
+    subgroup.className = "subgroup";
+    actionList.appendChild( select );
+    var loadAction = function() {
+        var selected = actions[ select.value ];
+        loadActionOrCondition( selected, subgroup );
+    }
+    select.addEventListener( "change", loadAction );
+    loadAction();
+    actionList.appendChild( subgroup );
+}
+
+function loadActionOrCondition( selected, element ) {
+    element.innerHTML = "";
+    var required, optional, repeated, label;
+    required = selected.requiredArgs;
+    optional = selected.optionalArgs;
+    repeated = selected.repeatedArgs;
+    // Length of 0 is false
+    if ( !required.length && !optional.length && !repeated.length ) {
+        element.style.display = "none";
+    } else {
+        element.style.display = "block";
+        for ( var i = 0; i < required.length; i++ ) {
+            var name = Object.keys( required[ i ] )[ 0 ];
+            label = document.createElement( "div" );
+            label.innerHTML = name + " (Required):";
+            label.className = "label";
+            element.appendChild( label );
+            element.appendChild( createDataElement( required[ i ][ name ] ) );
+        }
+        for ( var i = 0; i < optional.length; i++ ) {
+            var name = Object.keys( optional[ i ] )[ 0 ];
+            label = document.createElement( "div" );
+            label.innerHTML = name + " (Optional):";
+            label.className = "label";
+            element.appendChild( label );
+            element.appendChild( createDataElement( optional[ i ][ name ] ) );
+        }
+        for ( var i = 0; i < repeated.length; i++ ) {
+            var name = Object.keys( repeated[ i ] )[ 0 ];
+            label = document.createElement( "div" );
+            label.innerHTML = name + " (Repeated):";
+            label.className = "label";
+            element.appendChild( label );
+            element.appendChild( createDataElement( repeated[ i ][ name ] ) );
+        }
+    }
+}
 
 function createDataElement( argType ) {
     // Argument types:

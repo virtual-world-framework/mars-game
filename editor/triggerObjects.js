@@ -254,7 +254,7 @@ var actions = {
         "description": "Completes the current scenario.",
         "requiredArgs": [],
         "optionalArgs": [
-            { "": "successType" }
+            { "Success Type": "successType" }
         ],
         "repeatedArgs": []
     },
@@ -263,23 +263,23 @@ var actions = {
         "description": "Causes scenario failure.",
         "requiredArgs": [],
         "optionalArgs": [
-            { "": "failureType" },
-            { "": "string" }
+            { "Failure Type": "failureType" },
+            { "Failure Message": "string" }
         ],
         "repeatedArgs": []
     },
-    "initGameOnLoad": {
-        "display": "",
-        "description": "",
-        "requiredArgs": [],
-        "optionalArgs": [],
-        "repeatedArgs": []
-    },
+    // "initGameOnLoad": {
+    //     "display": "",
+    //     "description": "",
+    //     "requiredArgs": [],
+    //     "optionalArgs": [],
+    //     "repeatedArgs": []
+    // },
     "playSound": {
         "display": "Play Sound",
         "description": "Play the specified sound.",
         "requiredArgs": [
-            { "": "sound" }
+            { "Sound": "sound" }
         ],
         "optionalArgs": [],
         "repeatedArgs": []
@@ -288,7 +288,7 @@ var actions = {
         "display": "Stop Sound",
         "description": "Stop playing the specified sound.",
         "requiredArgs": [
-            { "": "sound" }
+            { "Sound": "sound" }
         ],
         "optionalArgs": [],
         "repeatedArgs": []
@@ -297,7 +297,7 @@ var actions = {
         "display": "Stop Sound Group",
         "description": "Stop playing the specified sound group.",
         "requiredArgs": [
-            { "": "soundGroup" }
+            { "Sound Group": "soundGroup" }
         ],
         "optionalArgs": [],
         "repeatedArgs": []
@@ -313,7 +313,7 @@ var actions = {
         "display": "Set Volume",
         "description": "Sets the master volume.",
         "requiredArgs": [
-            { "": "percent" }
+            { "Volume": "percent" }
         ],
         "optionalArgs": [],
         "repeatedArgs": []
@@ -322,22 +322,22 @@ var actions = {
         "display": "Delay",
         "description": "Performs an action or set of actions after a specified number of seconds.",
         "requiredArgs": [
-            { "": "number" },
-            { "": "action" }
+            { "Seconds": "number" },
+            { "Action": "action" }
         ],
         "optionalArgs": [],
         "repeatedArgs": [
-            { "": "action" }
+            { "Action": "action" }
         ],
     },
     "writeToBlackboard": {
         "display": "Write to Blackboard",
         "description": "Writes a value to the Blackboard that can be used later.",
         "requiredArgs": [
-            { "": "string" }
+            { "Name": "string" }
         ],
         "optionalArgs": [
-            { "": "primative" }
+            { "Value": "primative" }
         ],
         "repeatedArgs": []
     },
@@ -345,7 +345,7 @@ var actions = {
         "display": "Clear Blackboard Entry",
         "description": "Removes specified entry from the Blackboard.",
         "requiredArgs": [
-            { "": "string" }
+            { "Name": "string" }
         ],
         "optionalArgs": [],
         "repeatedArgs": []
@@ -354,7 +354,7 @@ var actions = {
         "display": "Increment Blackboard Value",
         "description": "Increments a Blackboard entry's value if it is a number.",
         "requiredArgs": [
-            { "": "string" }
+            { "Name": "string" }
         ],
         "optionalArgs": [],
         "repeatedArgs": []
@@ -363,7 +363,7 @@ var actions = {
         "display": "Blink HUD Element",
         "description": "Causes the specified HUD element to flash.",
         "requiredArgs": [
-            { "": "HUDElement" }
+            { "HUD Element": "HUDElement" }
         ],
         "optionalArgs": [],
         "repeatedArgs": []
@@ -372,7 +372,7 @@ var actions = {
         "display": "Stop HUD Element Blinking",
         "description": "Causes a flashing element to stop flashing.",
         "requiredArgs": [
-            { "": "HUDElement" }
+            { "HUD Element": "HUDElement" }
         ],
         "optionalArgs": [],
         "repeatedArgs": []
@@ -381,7 +381,7 @@ var actions = {
         "display": "Blink Blockly Tab",
         "description": "Causes a Blockly tab to flash.",
         "requiredArgs": [
-            { "": "blocklyNode" }
+            { "Object": "blocklyNode" }
         ],
         "optionalArgs": [],
         "repeatedArgs": []
@@ -390,7 +390,7 @@ var actions = {
         "display": "Stop Blockly Tab Blinking",
         "description": "Causes a flashing Blockly tab to stop flashing.",
         "requiredArgs": [
-            { "": "blocklyNode" }
+            { "Object": "blocklyNode" }
         ],
         "optionalArgs": [],
         "repeatedArgs": []
@@ -413,9 +413,9 @@ var actions = {
         "display": "Set HUD Property",
         "description": "Sets a property on a HUD element.",
         "requiredArgs": [
-            { "": "HUDElement" },
-            { "": "string" },
-            { "": "primative" }
+            { "HUD Element": "HUDElement" },
+            { "Property": "string" },
+            { "Value": "primative" }
         ],
         "optionalArgs": [],
         "repeatedArgs": []
@@ -424,42 +424,41 @@ var actions = {
         "display": "Pan Camera",
         "description": "Pans the camera to the target object.",
         "requiredArgs": [
-            { "": "node" }
+            { "Object": "node" }
         ],
         "optionalArgs": [
-            { "": "number" }
+            { "Seconds": "number" }
         ],
         "repeatedArgs": []
     },
     "showAlert": {
-        },
-        "display": "Alert Player" {,
-        "description": ""Display"s a message to the player in the HUD.",,
+        "display": "Alert Player",
+        "description": "Displays a message to the player in the HUD.",
         "requiredArgs": [
-            { "": "string" }
+            { "Message": "string" }
         ],
         "optionalArgs": [],
         "repeatedArgs": []
     },
-    "resetRoverSensors": {
-        "display": "",
-        "description": "",
-        "requiredArgs": [],
-        "optionalArgs": [],
-        "repeatedArgs": []
-    },
-    "resetHUDState": {
-        "display": "",
-        "description": "",
-        "requiredArgs": [],
-        "optionalArgs": [],
-        "repeatedArgs": []
-    },
+    // "resetRoverSensors": {
+    //     "display": "",
+    //     "description": "",
+    //     "requiredArgs": [],
+    //     "optionalArgs": [],
+    //     "repeatedArgs": []
+    // },
+    // "resetHUDState": {
+    //     "display": "",
+    //     "description": "",
+    //     "requiredArgs": [],
+    //     "optionalArgs": [],
+    //     "repeatedArgs": []
+    // },
     "playVideo": {
         "display": "Play Video",
         "description": "Play the specified video.",
         "requiredArgs": [
-            { "": "video" }
+            { "Video": "video" }
         ],
         "optionalArgs": [],
         "repeatedArgs": []
@@ -468,7 +467,7 @@ var actions = {
         "display": "Set Camera View",
         "description": "Sets the camera position and rotation.",
         "requiredArgs": [
-            { "": "pose" }
+            { "Pose": "pose" }
         ],
         "optionalArgs": [],
         "repeatedArgs": []
@@ -477,7 +476,7 @@ var actions = {
         "display": "Set Third-Person View",
         "description": "Sets the default third-person camera view.",
         "requiredArgs": [
-            { "": "pose" }
+            { "Pose": "pose" }
         ],
         "optionalArgs": [],
         "repeatedArgs": []
@@ -493,7 +492,7 @@ var actions = {
         "display": "Call Out Objective Tile",
         "description": "Causes the objective tile to flash.",
         "requiredArgs": [
-            { "": "point2D" }
+            { "Coordinates": "point2D" }
         ],
         "optionalArgs": [],
         "repeatedArgs": []
@@ -506,10 +505,10 @@ var actions = {
         "repeatedArgs": []
     },
     "setObjective": {
-        "display": "Set Objective Text" {,
-        "description": "Sets the objective text that is "display"ed to the user.",,
+        "display": "Set Objective Text",
+        "description": "Sets the objective text that is displayed to the user.",
         "requiredArgs": [
-            { "": "string" }
+            { "Text": "string" }
         ],
         "optionalArgs": [],
         "repeatedArgs": []
