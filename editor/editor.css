@@ -539,4 +539,14 @@ input {
     cursor: cell;
 }
 
+#triggerConditions, #triggerActions {
+    text-align: left;
+}
+
+.subgroup {
+    padding: 4px;
+    background-color: rgb( 245, 245, 245 );
+    border: 1px solid rgb( 200, 200, 200 );
+}
+
 /* END JSON viewer styles */
