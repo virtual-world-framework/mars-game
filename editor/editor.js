@@ -733,7 +733,45 @@ function createDataElement( argType ) {
     // pose - [ radius, yaw, pitch ]
     console.log( argType );
     // TODO: Account for all argTypes
-    return document.createElement( "input" );
+    var element;
+    switch ( argType ) {
+        case "condition":
+            element = conditionSelector();
+            break;
+        case "":
+            break;
+        default:
+            element = document.createElement( "input" );
+    }
+    return element;
+}
+
+function conditionSelector() {
+    var element = document.createElement( "div" );
+    var subgroup = document.createElement( "div" );
+    var select = document.createElement( "select" );
+    var option, keys, exclude;
+    exclude = [ "and", "or", "not" ];
+    keys = Object.keys( conditions );
+    for ( var i = 0; i < keys.length; i++ ) {
+        if ( exclude.indexOf( keys[ i ] ) !== -1 ) {
+            continue;
+        }
+        option = document.createElement( "option" );
+        option.value = keys[ i ];
+        option.innerHTML = conditions[ keys[ i ] ].display;
+        select.appendChild( option );
+    }
+    subgroup.className = "subgroup";
+    element.appendChild( select );
+    element.appendChild( subgroup );
+    var loadCondition = function() {
+        var selected = conditions[ select.value ];
+        loadActionOrCondition( selected, subgroup );
+    }
+    select.addEventListener( "change", loadCondition );
+    loadCondition();
+    return element;
 }
 
 //@ sourceURL=editor/editor.js
