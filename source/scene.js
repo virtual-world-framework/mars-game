@@ -31,6 +31,7 @@ this.initialize = function() {
     // Set the active camera so we can see the 3D scene
     this.initializeActiveCamera( this.player.targetFollower.camera );
     this.setUpCameraListener();
+    this.setUpRoverListeners();
 }
 
 this.setScenario = function( path ) {
@@ -164,6 +165,14 @@ this.setUpCameraListener = function() {
             scene.displayGraph( false );
         }
     }
+}
+
+this.setUpRoverListeners = function() {
+    var rover = this.player.rover;
+    this.scenarioChanged = ( function( scenarioName ) {
+        rover.findAndSetCurrentGrid( scenarioName );
+    } ).bind( this );
+    // rover.findAndSetCurrentGrid( this.activeScenarioPath );
 }
 
 this.displayTiles = function( isVisible ) {

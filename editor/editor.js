@@ -175,6 +175,13 @@ function retrieveAssetListItems( listPath ) {
             list.push( { name: "Radio", path: "source/pickups/radio.vwf" } );
             break;
         case "characters":
+            list.push( { name: "Rover Default", path: "source/rovers/rover_default.vwf" } );
+            list.push( { name: "Rover Blue", path: "source/rovers/rover_blue.vwf" } );
+            list.push( { name: "Rover Orange", path: "source/rovers/rover_orange.vwf" } );
+            list.push( { name: "Rover Pink", path: "source/rovers/rover_pink.vwf" } );
+            list.push( { name: "Rover Pink Camo", path: "source/rovers/rover_pink_camo.vwf" } );
+            list.push( { name: "Rover Red", path: "source/rovers/rover_red.vwf" } );
+            list.push( { name: "Rover Retro", path: "source/rovers/rover_retro.vwf" } );
             break;
         default:
             return undefined;
@@ -778,6 +785,9 @@ function createDataElement( argType ) {
         case "node":
             element = nodeSelector();
             break;
+        case "pickup":
+            element = nodeSelector( [ "source/pickup.vwf" ] );
+            break;
         default:
             element = document.createElement( "input" );
     }
@@ -788,7 +798,7 @@ function conditionSelector() {
     var element = document.createElement( "div" );
     var subgroup = document.createElement( "div" );
     var select = document.createElement( "select" );
-    var option, keys, exclude;
+    var option, keys;
     keys = Object.keys( conditions );
     option = document.createElement( "option" );
     option.value = "none";
@@ -814,6 +824,32 @@ function conditionSelector() {
     }
     select.addEventListener( "change", loadCondition );
     loadCondition();
+    element.getOutput = function() {
+        return select.value;
+    }
+    return element;
+}
+
+function nodeSelector( types ) {
+    var nodeList = new Array();
+    var element = document.createElement( "div" );
+    var select = document.createElement( "select" );
+    var option, nodeName;
+    if ( types && types.length ) {
+        for ( var i = 0; i < types.length; i++ ) {
+            nodeList = nodeList.concat( vwf_view.kernel.find( "", "//element(*,'" + types[ i ] + "')" ) );
+        }
+    } else {
+        nodeList = vwf_view.kernel.find( "", "//element(*,'editor/editable.vwf')" );
+    }
+    for ( var i = 0; i < nodeList.length; i++ ) {
+        nodeName = vwf_view.kernel.name( nodeList[ i ] );
+        option = document.createElement( "option" );
+        option.value = nodeName;
+        option.innerHTML = nodeName;
+        select.appendChild( option );
+    }
+    element.appendChild( select );
     element.getOutput = function() {
         return select.value;
     }
