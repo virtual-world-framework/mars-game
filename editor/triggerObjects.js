@@ -33,7 +33,7 @@ var conditions = {
         "repeatedArgs": []
     },
     "isAtPosition": {
-        "display": "Entity is at Position",
+        "display": "Object is at Position",
         "description": "Checks if an object is at grid position ( x, y ).",
         "requiredArgs": [
             { "Object": "node" },
@@ -43,39 +43,39 @@ var conditions = {
         "repeatedArgs": []
     },
     "hasHeading": {
-        "display": "Entity has Heading",
+        "display": "Rover has Heading",
         "description": "Checks if an object is facing the specified heading.",
         "requiredArgs": [
-            { "Object": "node" },
+            { "Object": "rover" },
             { "Heading": "number" }
         ],
         "optionalArgs": [],
         "repeatedArgs": []
     },
     "hasObject": {
-        "display": "Entity has Item",
+        "display": "Rover has Item",
         "description": "Checks if an object is holding the specified object.",
         "requiredArgs": [
-            { "Object": "node" },
-            { "Item": "node" }
+            { "Object": "rover" },
+            { "Item": "pickup" }
         ],
         "optionalArgs": [],
         "repeatedArgs": []
     },
     "onMoved": {
-        "display": "Entity has Moved",
+        "display": "Rover has Moved",
         "description": "Checks if an object has started moving.",
         "requiredArgs": [
-            { "Object": "node" }
+            { "Object": "rover" }
         ],
         "optionalArgs": [],
         "repeatedArgs": []
     },
     "moveFailed": {
-        "display": "Entity Movement has Failed",
+        "display": "Rover Movement has Failed",
         "description": "Checks if an object's movement has failed and optionally what caused it to fail.",
         "requiredArgs": [
-            { "Object": "node" }
+            { "Object": "rover" }
         ],
         "optionalArgs": [
             { "Failure Type": "moveFailedType" }

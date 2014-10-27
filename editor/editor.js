@@ -15,9 +15,6 @@
 var selectedTool = undefined;
 var fileManager = new FileManager( document.getElementById( "fileWrapper" ) );
 var activeDropDown;
-var compileTotal = 0;
-var compileProgress = 0;
-var levelIds = new Array();
 var timePct = 0;
 var levelFile;
 var appID;
@@ -752,6 +749,8 @@ function createDataElement( argType ) {
     // Argument types:
     // condition - Boolean Conditions
     // node - game objects (pickups, players, etc.)
+    // rover - rover nodes
+    // pickup - inventoriable nodes
     // number - integer or float
     // moveFailedType - collision, battery, etc.
     // blocklyNode - Nodes that implement blocklyController
