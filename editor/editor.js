@@ -680,7 +680,7 @@ function addAction() {
 
 function loadActionOrCondition( selected, element, type ) {
     element.innerHTML = "";
-    var required, optional, repeated, label;
+    var required, optional, repeated, label, name, i;
     required = selected.requiredArgs;
     optional = selected.optionalArgs;
     repeated = selected.repeatedArgs;
@@ -690,8 +690,8 @@ function loadActionOrCondition( selected, element, type ) {
     } else {
         element.style.display = "block";
         if ( required.length ) {
-            for ( var i = 0; i < required.length; i++ ) {
-                var name = Object.keys( required[ i ] )[ 0 ];
+            for ( i = 0; i < required.length; i++ ) {
+                name = Object.keys( required[ i ] )[ 0 ];
                 label = document.createElement( "div" );
                 label.innerHTML = name + " (Required):";
                 label.className = "label";
@@ -700,8 +700,8 @@ function loadActionOrCondition( selected, element, type ) {
             }
         }
         if ( optional.length ) {
-            for ( var i = 0; i < optional.length; i++ ) {
-                var name = Object.keys( optional[ i ] )[ 0 ];
+            for ( i = 0; i < optional.length; i++ ) {
+                name = Object.keys( optional[ i ] )[ 0 ];
                 label = document.createElement( "div" );
                 label.innerHTML = name + " (Optional):";
                 label.className = "label";
@@ -710,20 +710,31 @@ function loadActionOrCondition( selected, element, type ) {
             }
         }
         if ( repeated.length ) {
+            var args = document.createElement( "div" );
             var addArg = document.createElement( "div" );
             addArg.id = "addArgument";
             addArg.className = "textButton";
             addArg.innerHTML = "Add Argument...";
             addArg.addEventListener( "click", function() {
-                for ( var i = 0; i < repeated.length; i++ ) {
-                    var name = Object.keys( repeated[ i ] )[ 0 ];
+                for ( i = 0; i < repeated.length; i++ ) {
+                    var argWrapper = document.createElement( "div" );
+                    var removeBtn = document.createElement( "div" );
+                    removeBtn.className = "argRemoveButton";
+                    removeBtn.innerHTML = "Remove";
+                    removeBtn.addEventListener( "click", function() {
+                        argWrapper.parentElement.removeChild( argWrapper );
+                    } );
+                    name = Object.keys( repeated[ i ] )[ 0 ];
                     label = document.createElement( "div" );
-                    label.innerHTML = name + " (Repeated):";
+                    label.innerHTML = name + " (Optional):";
                     label.className = "label";
-                    element.appendChild( label );
-                    element.appendChild( createDataElement( repeated[ i ][ name ] ) );
+                    label.appendChild( removeBtn );
+                    argWrapper.appendChild( label );
+                    argWrapper.appendChild( createDataElement( repeated[ i ][ name ] ) );
+                    args.appendChild( argWrapper );
                 }
             } );
+            element.appendChild( args );
             element.appendChild( addArg );
         }
     }
@@ -752,8 +763,6 @@ function createDataElement( argType ) {
     // action - action
     // primative - number, string, boolean
     // pose - [ radius, yaw, pitch ]
-    console.log( argType );
-    // TODO: Account for all argTypes
     var element;
     switch ( argType ) {
         case "condition":
@@ -772,12 +781,12 @@ function conditionSelector() {
     var subgroup = document.createElement( "div" );
     var select = document.createElement( "select" );
     var option, keys, exclude;
-    exclude = [ "and", "or", "not" ];
     keys = Object.keys( conditions );
+    option = document.createElement( "option" );
+    option.value = "none";
+    option.innerHTML = "--- Select Condition ---";
+    select.appendChild( option );
     for ( var i = 0; i < keys.length; i++ ) {
-        if ( exclude.indexOf( keys[ i ] ) !== -1 ) {
-            continue;
-        }
         option = document.createElement( "option" );
         option.value = keys[ i ];
         option.innerHTML = conditions[ keys[ i ] ].display;
@@ -788,7 +797,12 @@ function conditionSelector() {
     element.appendChild( subgroup );
     var loadCondition = function() {
         var selected = conditions[ select.value ];
-        loadActionOrCondition( selected, subgroup );
+        if ( selected ) {
+            loadActionOrCondition( selected, subgroup );
+        } else {
+            subgroup.innerHTML = "";
+            subgroup.style.display = "none";
+        }
     }
     select.addEventListener( "change", loadCondition );
     loadCondition();

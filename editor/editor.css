@@ -27,6 +27,7 @@ body {
     border-top: 0px;
     font-size: 12px;
     text-align: center;
+    cursor: pointer;
 }
 
 .menuOption {
@@ -78,6 +79,7 @@ body {
     border-radius: 4px;
     margin-right: 2px;
     margin-top: 1px;
+    cursor: pointer;
 }
 
 .toolbutton.selected {
@@ -125,6 +127,7 @@ body {
     background-color: rgb( 50, 90, 150 );
     border: 1px dashed rgb( 200, 200, 200 );
     display: inline-block;
+    cursor: pointer;
 }
 
 .prompttext {
@@ -244,6 +247,7 @@ body {
     background-color: rgb( 225, 225, 225 );
     border: 1px solid rgb( 128, 128, 128 );
     color: rgb( 50, 90, 150 );
+    cursor: pointer;
 }
 
 #title {}
@@ -358,6 +362,7 @@ body {
     border: 1px solid rgb( 50, 90, 150 );
     font-size: 22px;
     font-weight: bold;
+    cursor: pointer;
 }
 
 #scenarioOptions {
@@ -379,6 +384,7 @@ body {
     display: inline-block;
     margin: 0px 12px;
     padding: 0px 12px;
+    cursor: pointer;
 }
 
 #scenarioList {
@@ -477,6 +483,7 @@ body {
     background-color: rgb( 225, 225, 225 );
     border: 1px solid rgb( 200, 200, 200 );
     pointer-events: all;
+    cursor: pointer;
 }
 
 .center {
@@ -516,11 +523,16 @@ body {
     font-size: 14px;
     pointer-events: all;
     margin: 4px;
+    cursor: pointer;
 }
 
 input {
     padding: 0px;
     font-size: 14px;
+}
+
+select {
+    cursor: pointer;
 }
 
 .dialog {
@@ -550,6 +562,14 @@ input {
     padding: 4px;
     background-color: rgb( 245, 245, 245 );
     border: 1px solid rgb( 200, 200, 200 );
+}
+
+.argRemoveButton {
+    display: inline-block;
+    font-size: 12px;
+    float: right;
+    color: rgb( 128, 128, 128 );
+    cursor: pointer;
 }
 
 /* END JSON viewer styles */
