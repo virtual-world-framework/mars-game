@@ -190,7 +190,7 @@ function setupMenus() {
     var file, edit, help, load, save, newLevel, close, saveBtn;
     var ddButtons, hover, timeOfDay, slider, sliderCloseBtn;
     var scenarioButton, scenarioCloseButton, addScenario, deleteEntry;
-    var addTriggerButton, cancelTriggerButton, addConditionButton, addActionButton;
+    var addTriggerButton, cancelTriggerButton, addActionButton;
     file = document.getElementById( "fileButton" );
     edit = document.getElementById( "editButton" );
     help = document.getElementById( "helpButton" );
@@ -209,7 +209,6 @@ function setupMenus() {
     sliderCloseBtn = document.getElementById( "closeSlider" );
     addTriggerButton = document.getElementById( "submitTrigger" );
     cancelTriggerButton = document.getElementById( "cancelTrigger" );
-    addConditionButton = document.getElementById( "addCondition" );
     addActionButton = document.getElementById( "addAction" );
     file.addEventListener( "click", openDropDown );
     edit.addEventListener( "click", openDropDown );
@@ -233,7 +232,6 @@ function setupMenus() {
     deleteEntry.addEventListener( "click", scanForDeleteCandidate );
     addTriggerButton.addEventListener( "click", addTrigger );
     cancelTriggerButton.addEventListener( "click", closeTriggerDialog );
-    addConditionButton.addEventListener( "click", addCondition );
     addActionButton.addEventListener( "click", addAction );
     hover = function( event ) {
         switch ( event.type ) {
@@ -614,12 +612,21 @@ function openNewScenarioDialog() {
 
 function openTriggerDialog( parentType, contents, parent ) {
     var dialog = document.getElementById( "newTriggerDialog" );
+    addCondition();
     dialog.style.display = "block";
 }
 
 function closeTriggerDialog() {
     var dialog = document.getElementById( "newTriggerDialog" );
     dialog.style.display = "none";
+    resetTriggerDialog();
+}
+
+function resetTriggerDialog() {
+    var conditionList = document.getElementById( "triggerConditions" );
+    var actionList = document.getElementById( "triggerActions" );
+    conditionList.innerHTML = "";
+    actionList.innerHTML = "";
 }
 
 function addTrigger() {}
@@ -663,14 +670,15 @@ function addAction() {
     actionList.appendChild( select );
     var loadAction = function() {
         var selected = actions[ select.value ];
-        loadActionOrCondition( selected, subgroup );
+        var type = select.value;
+        loadActionOrCondition( selected, subgroup, type );
     }
     select.addEventListener( "change", loadAction );
     loadAction();
     actionList.appendChild( subgroup );
 }
 
-function loadActionOrCondition( selected, element ) {
+function loadActionOrCondition( selected, element, type ) {
     element.innerHTML = "";
     var required, optional, repeated, label;
     required = selected.requiredArgs;
@@ -681,29 +689,42 @@ function loadActionOrCondition( selected, element ) {
         element.style.display = "none";
     } else {
         element.style.display = "block";
-        for ( var i = 0; i < required.length; i++ ) {
-            var name = Object.keys( required[ i ] )[ 0 ];
-            label = document.createElement( "div" );
-            label.innerHTML = name + " (Required):";
-            label.className = "label";
-            element.appendChild( label );
-            element.appendChild( createDataElement( required[ i ][ name ] ) );
+        if ( required.length ) {
+            for ( var i = 0; i < required.length; i++ ) {
+                var name = Object.keys( required[ i ] )[ 0 ];
+                label = document.createElement( "div" );
+                label.innerHTML = name + " (Required):";
+                label.className = "label";
+                element.appendChild( label );
+                element.appendChild( createDataElement( required[ i ][ name ] ) );
+            }
         }
-        for ( var i = 0; i < optional.length; i++ ) {
-            var name = Object.keys( optional[ i ] )[ 0 ];
-            label = document.createElement( "div" );
-            label.innerHTML = name + " (Optional):";
-            label.className = "label";
-            element.appendChild( label );
-            element.appendChild( createDataElement( optional[ i ][ name ] ) );
+        if ( optional.length ) {
+            for ( var i = 0; i < optional.length; i++ ) {
+                var name = Object.keys( optional[ i ] )[ 0 ];
+                label = document.createElement( "div" );
+                label.innerHTML = name + " (Optional):";
+                label.className = "label";
+                element.appendChild( label );
+                element.appendChild( createDataElement( optional[ i ][ name ] ) );
+            }
         }
-        for ( var i = 0; i < repeated.length; i++ ) {
-            var name = Object.keys( repeated[ i ] )[ 0 ];
-            label = document.createElement( "div" );
-            label.innerHTML = name + " (Repeated):";
-            label.className = "label";
-            element.appendChild( label );
-            element.appendChild( createDataElement( repeated[ i ][ name ] ) );
+        if ( repeated.length ) {
+            var addArg = document.createElement( "div" );
+            addArg.id = "addArgument";
+            addArg.className = "textButton";
+            addArg.innerHTML = "Add Argument...";
+            addArg.addEventListener( "click", function() {
+                for ( var i = 0; i < repeated.length; i++ ) {
+                    var name = Object.keys( repeated[ i ] )[ 0 ];
+                    label = document.createElement( "div" );
+                    label.innerHTML = name + " (Repeated):";
+                    label.className = "label";
+                    element.appendChild( label );
+                    element.appendChild( createDataElement( repeated[ i ][ name ] ) );
+                }
+            } );
+            element.appendChild( addArg );
         }
     }
 }
