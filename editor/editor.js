@@ -788,6 +788,9 @@ function createDataElement( argType ) {
         case "pickup":
             element = nodeSelector( [ "source/pickup.vwf" ] );
             break;
+        case "rover":
+            element = nodeSelector( [ "source/rover.vwf" ] );
+            break;
         default:
             element = document.createElement( "input" );
     }
