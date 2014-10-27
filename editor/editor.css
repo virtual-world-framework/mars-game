@@ -564,7 +564,7 @@ select {
     border: 1px solid rgb( 200, 200, 200 );
 }
 
-.argRemoveButton {
+.inlineTextButton {
     display: inline-block;
     font-size: 12px;
     float: right;

@@ -657,6 +657,8 @@ function addCondition() {
 function addAction() {
     var keys = Object.keys( actions );
     var actionList = document.getElementById( "triggerActions" );
+    var wrapper = document.createElement( "div" );
+    var removeBtn = document.createElement( "div" );
     var select = document.createElement( "select" );
     var subgroup = document.createElement( "div" );
     var option;
@@ -667,18 +669,24 @@ function addAction() {
         select.appendChild( option );
     }
     subgroup.className = "subgroup";
-    actionList.appendChild( select );
+    wrapper.appendChild( select );
+    removeBtn.className = "inlineTextButton";
+    removeBtn.innerHTML = "Remove";
+    wrapper.appendChild( removeBtn );
+    removeBtn.addEventListener( "click", function() {
+        wrapper.parentElement.removeChild( wrapper );
+    } );
     var loadAction = function() {
         var selected = actions[ select.value ];
-        var type = select.value;
-        loadActionOrCondition( selected, subgroup, type );
+        loadActionOrCondition( selected, subgroup );
     }
     select.addEventListener( "change", loadAction );
     loadAction();
-    actionList.appendChild( subgroup );
+    wrapper.appendChild( subgroup );
+    actionList.appendChild( wrapper );
 }
 
-function loadActionOrCondition( selected, element, type ) {
+function loadActionOrCondition( selected, element ) {
     element.innerHTML = "";
     var required, optional, repeated, label, name, i;
     required = selected.requiredArgs;
@@ -719,7 +727,7 @@ function loadActionOrCondition( selected, element, type ) {
                 for ( i = 0; i < repeated.length; i++ ) {
                     var argWrapper = document.createElement( "div" );
                     var removeBtn = document.createElement( "div" );
-                    removeBtn.className = "argRemoveButton";
+                    removeBtn.className = "inlineTextButton";
                     removeBtn.innerHTML = "Remove";
                     removeBtn.addEventListener( "click", function() {
                         argWrapper.parentElement.removeChild( argWrapper );
@@ -768,7 +776,8 @@ function createDataElement( argType ) {
         case "condition":
             element = conditionSelector();
             break;
-        case "":
+        case "node":
+            element = nodeSelector();
             break;
         default:
             element = document.createElement( "input" );
@@ -806,6 +815,9 @@ function conditionSelector() {
     }
     select.addEventListener( "change", loadCondition );
     loadCondition();
+    element.getOutput = function() {
+        return select.value;
+    }
     return element;
 }
 
