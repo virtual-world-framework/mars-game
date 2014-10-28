@@ -771,29 +771,6 @@ function loadActionOrCondition( selected, element ) {
 }
 
 function createDataElement( argType ) {
-    // Argument types:
-    // condition - Boolean Conditions
-    // node - game objects (pickups, players, etc.)
-    // rover - rover nodes
-    // pickup - inventoriable nodes
-    // number - integer or float
-    // moveFailedType - collision, battery, etc.
-    // blocklyNode - Nodes that implement blocklyController
-    // blockChangeType - add, remove, either
-    // block - Array of Blockly blocks
-    // scenario - scenario nodes
-    // video - src of a video
-    // point2D - 2D vector [x,y]
-    // string - string
-    // HUDElement - HUD element ids
-    // successType - N/A
-    // failureType - battery depleted, collision, lost, etc.
-    // sound - The name of a sound
-    // soundGroup - The name of a soundGroup
-    // percent - number between 0.0 and 1.0
-    // action - action
-    // primative - number, string, boolean
-    // pose - [ radius, yaw, pitch ]
     var element, arrayWrapper, addButton, removeButton;
     if ( argType.indexOf( "array:" ) !== -1 ) {
         arrayWrapper = document.createElement( "div" );
@@ -828,6 +805,9 @@ function createDataElement( argType ) {
         }
     } else {
         switch ( argType ) {
+            case "action":
+                element = actionSelector();
+                break;
             case "condition":
                 element = conditionSelector();
                 break;
@@ -841,12 +821,10 @@ function createDataElement( argType ) {
                 element = nodeSelector( [ "source/rover.vwf" ] );
                 break;
             case "number":
-                element = document.createElement( "input" );
-                element.type = "number";
-                element.getOutput = function() {
-                    // TODO: Validate
-                    return parseFloat( this.value );
-                }
+                element = numberField();
+                break;
+            case "percent":
+                element = numberField( 0, 1, 0.01 );
                 break;
             case "moveFailedType":
                 element = customSelector( [ "collision", "battery" ] );
@@ -863,8 +841,31 @@ function createDataElement( argType ) {
             case "scenario":
                 element = scenarioSelector();
                 break;
+            case "point2D":
+                element = vector2Input();
+                break;
+            case "failureType":
+                element = customSelector( [ "battery", "collision", "incomplete", "lost" ] );
+                break;
+            case "primative":
+                element = primativeSelector();
+                break;
+            case "boolean":
+                element = customSelector( [ "true", "false" ] );
+                break;
+            case "pose":
+                element = poseInput();
+                break;
+            case "sound":
+            case "soundGroup":
+            case "HUDElement":
+            case "video":
+            case "string":
             default:
                 element = document.createElement( "input" );
+                element.getOutput = function() {
+                    return element.value;
+                }
         }
     }
     return element;
@@ -900,6 +901,42 @@ function conditionSelector() {
     }
     select.addEventListener( "change", loadCondition );
     loadCondition();
+    element.getOutput = function() {
+        return select.value;
+    }
+    return element;
+}
+
+function actionSelector() {
+    var element = document.createElement( "div" );
+    var subgroup = document.createElement( "div" );
+    var select = document.createElement( "select" );
+    var option, keys;
+    keys = Object.keys( actions );
+    option = document.createElement( "option" );
+    option.value = "none";
+    option.innerHTML = "--- Select Action ---";
+    select.appendChild( option );
+    for ( var i = 0; i < keys.length; i++ ) {
+        option = document.createElement( "option" );
+        option.value = keys[ i ];
+        option.innerHTML = actions[ keys[ i ] ].display;
+        select.appendChild( option );
+    }
+    subgroup.className = "subgroup";
+    element.appendChild( select );
+    element.appendChild( subgroup );
+    var loadAction = function() {
+        var selected = actions[ select.value ];
+        if ( selected ) {
+            loadActionOrCondition( selected, subgroup );
+        } else {
+            subgroup.innerHTML = "";
+            subgroup.style.display = "none";
+        }
+    }
+    select.addEventListener( "change", loadAction );
+    loadAction();
     element.getOutput = function() {
         return select.value;
     }
@@ -974,6 +1011,109 @@ function scenarioSelector() {
     }
     element.getOutput = function() {
         return this.value;
+    }
+    return element;
+}
+
+function vector2Input() {
+    var element = document.createElement( "div" );
+    var x = numberField( undefined, undefined, 1 );
+    var y = numberField( undefined, undefined, 1 );
+    var labelx = document.createElement( "div" );
+    var labely = document.createElement( "div" );
+    x.className = y.className = "vectorElement";
+    labelx.innerHTML = "x:";
+    labely.innerHTML = "y:";
+    labelx.className = labely.className = "inline label";
+    element.appendChild( labelx );
+    labelx.appendChild( x );
+    element.appendChild( labely );
+    labely.appendChild( y );
+    element.getOutput = function() {
+        return [ x.getOutput(), y.getOutput() ];
+    }
+    return element;
+}
+
+function numberField( min, max, step ) {
+    var element = document.createElement( "input" );
+    element.type = "number";
+    if ( min !== undefined ) {
+        element.min = min;
+    }
+    if ( max !== undefined ) {
+        element.max = max;
+    }
+    if ( step !== undefined ) {
+        element.step = step;
+    }
+    element.getOutput = function() {
+        // TODO: Validate
+        return parseFloat( this.value );
+    }
+    return element;
+}
+
+function primativeSelector() {
+    var element = document.createElement( "div" );
+    var selector = customSelector( [ "boolean", "number", "string" ] );
+    var container = document.createElement( "div" );
+    var field;
+    var loadField = function() {
+        container.innerHTML = "";
+        switch ( selector.getOutput() ) {
+            case "boolean":
+                field = customSelector( [ "true", "false" ] );
+                break;
+            case "number":
+                field = numberField();
+                break;
+            case "string":
+                field = document.createElement( "input" );
+                field.getOutput = function() {
+                    return field.value;
+                }
+        }
+        field.className = "inline";
+        container.appendChild( field );
+    }
+    selector.addEventListener( "change", loadField );
+    loadField();
+    selector.className = container.className = "inline";
+    element.appendChild( selector );
+    element.appendChild( container );
+    element.getOutput = function() {
+        return field.getOutput();
+    }
+    return element;
+}
+
+function poseInput() {
+    var element = document.createElement( "div" );
+    var radius, yaw, pitch, radiusLabel, yawLabel, pitchLabel;
+    radius = numberField( 0, 15, 0.1 );
+    yaw = numberField( 0, 360, 1 );
+    pitch = numberField( 0, 90, 1 );
+    radius.className = yaw.className = pitch.className = "vectorElement";
+    radiusLabel = document.createElement( "div" );
+    yawLabel = document.createElement( "div" );
+    pitchLabel = document.createElement( "div" );
+    radiusLabel.innerHTML = "Distance:";
+    yawLabel.innerHTML = "Yaw (x):";
+    pitchLabel.innerHTML = "Pitch (y):";
+    radiusLabel.className = yawLabel.className = pitchLabel.className = "label";
+    radiusLabel.appendChild( radius );
+    yawLabel.appendChild( yaw );
+    pitchLabel.appendChild( pitch );
+    element.appendChild( radiusLabel );
+    element.appendChild( yawLabel );
+    element.appendChild( pitchLabel );
+    element.getOutput = function() {
+        return [
+            radius.getOutput(),
+            yaw.getOutput(),
+            pitch.getOutput()
+        ];
     }
     return element;
 }

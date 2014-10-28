@@ -572,4 +572,10 @@ select {
     cursor: pointer;
 }
 
+.vectorElement {
+    display: inline-block;
+    width: 80px;
+    margin: 0px 4px;
+}
+
 /* END JSON viewer styles */
