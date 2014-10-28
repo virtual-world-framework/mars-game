@@ -20,6 +20,24 @@ var levelFile;
 var appID;
 var scenarioJson = new JsonEditor( "scenarioList" );
 
+var blockTypes = {
+    "Graph: y=": "graph_set_y",
+    "Graph: x": "graph_get_x",
+    "Graph: Number": "math_number_output",
+    "Graph: Add": "graph_add",
+    "Graph: Subtract": "graph_subtract",
+    "Graph: Multiply": "graph_multiply",
+    "Graph: Divide": "graph_divide",
+    "Graph: Right Paren": "graph_right_paren",
+    "Graph: Left Paren": "graph_left_paren",
+    "Rover: Move Forward": "rover_moveForward",
+    "Rover: Turn": "rover_turn",
+    "Rover: Sensor": "controls_sensor_tracks",
+    "Rover: While": "controls_whileUntil",
+    "Rover: Repeat": "controls_repeat_extended",
+    "Rover: Number": "math_number_drop"
+}
+
 function getAppID() {
     if ( appID === undefined ) {
         appID = vwf_view.kernel.application();
@@ -777,22 +795,75 @@ function createDataElement( argType ) {
     // action - action
     // primative - number, string, boolean
     // pose - [ radius, yaw, pitch ]
-    var element;
-    switch ( argType ) {
-        case "condition":
-            element = conditionSelector();
-            break;
-        case "node":
-            element = nodeSelector();
-            break;
-        case "pickup":
-            element = nodeSelector( [ "source/pickup.vwf" ] );
-            break;
-        case "rover":
-            element = nodeSelector( [ "source/rover.vwf" ] );
-            break;
-        default:
-            element = document.createElement( "input" );
+    var element, arrayWrapper, addButton, removeButton;
+    if ( argType.indexOf( "array:" ) !== -1 ) {
+        arrayWrapper = document.createElement( "div" );
+        element = document.createElement( "div" );
+        addButton = document.createElement( "div" );
+        addButton.className = "textButton";
+        addButton.innerHTML = "Add Element...";
+        argType = argType.replace( "array:", "" );
+        addButton.addEventListener( "click", function() {
+            var container = document.createElement( "div" );
+            var arrayElement = createDataElement( argType );
+            arrayElement.className = "arrayElement";
+            removeButton = document.createElement( "div" );
+            removeButton.className = "inlineTextButton";
+            removeButton.innerHTML = "Remove";
+            removeButton.addEventListener( "click", function() {
+                container.parentElement.removeChild( container );
+            } );
+            container.appendChild( arrayElement );
+            container.appendChild( removeButton );
+            arrayWrapper.appendChild( container );
+        } );
+        element.appendChild( arrayWrapper );
+        element.appendChild( addButton );
+        element.getOutput = function() {
+            var children = this.getElementsByClassName( "arrayElement" );
+            var output = new Array();
+            for ( var i = 0; i < children.length; i++ ) {
+                output.push( children[ i ].getOutput() );
+            }
+            return output;
+        }
+    } else {
+        switch ( argType ) {
+            case "condition":
+                element = conditionSelector();
+                break;
+            case "node":
+                element = nodeSelector();
+                break;
+            case "pickup":
+                element = nodeSelector( [ "source/pickup.vwf" ] );
+                break;
+            case "rover":
+                element = nodeSelector( [ "source/rover.vwf" ] );
+                break;
+            case "number":
+                element = document.createElement( "input" );
+                element.type = "number";
+                element.getOutput = function() {
+                    // TODO: Validate
+                    return parseFloat( this.value );
+                }
+                break;
+            case "moveFailedType":
+                element = customSelector( [ "collision", "battery" ] );
+                break;
+            case "blocklyNode":
+                element = nodeSelector( [ "http://vwf.example.com/blockly/controller.vwf" ] );
+                break;
+            case "blockChangeType":
+                element = customSelector( [ "add", "remove", "either" ] );
+                break;
+            case "block":
+                element = blockSelector();
+                break;
+            default:
+                element = document.createElement( "input" );
+        }
     }
     return element;
 }
@@ -835,8 +906,7 @@ function conditionSelector() {
 
 function nodeSelector( types ) {
     var nodeList = new Array();
-    var element = document.createElement( "div" );
-    var select = document.createElement( "select" );
+    var element = document.createElement( "select" );
     var option, nodeName;
     if ( types && types.length ) {
         for ( var i = 0; i < types.length; i++ ) {
@@ -850,11 +920,41 @@ function nodeSelector( types ) {
         option = document.createElement( "option" );
         option.value = nodeName;
         option.innerHTML = nodeName;
-        select.appendChild( option );
+        element.appendChild( option );
     }
-    element.appendChild( select );
     element.getOutput = function() {
-        return select.value;
+        return this.value;
+    }
+    return element;
+}
+
+function customSelector( options ) {
+    var element = document.createElement( "select" );
+    var option;
+    for ( var i = 0; i < options.length; i++ ) {
+        option = document.createElement( "option" );
+        option.value = options[ i ];
+        option.innerHTML = options[ i ];
+        element.appendChild( option );
+    }
+    element.getOutput = function() {
+        return this.value;
+    }
+    return element;
+}
+
+function blockSelector() {
+    var element = document.createElement( "select" );
+    var option, keys;
+    keys = Object.keys( blockTypes );
+    for ( var i = 0; i < keys.length; i++ ) {
+        option = document.createElement( "option" );
+        option.innerHTML = keys[ i ];
+        option.value = blockTypes[ keys[ i ] ];
+        element.appendChild( option );
+    }
+    element.getOutput = function() {
+        return this.value;
     }
     return element;
 }

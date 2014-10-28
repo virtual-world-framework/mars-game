@@ -122,11 +122,11 @@ var conditions = {
         "display": "Blockly Program Changed",
         "description": "Checks if a Blockly program has been modified.",
         "requiredArgs": [
-            { "Objects": "blocklyNodeArray" }
+            { "Objects": "array:blocklyNode" }
         ],
         "optionalArgs": [
             { "Change": "blockChangeType" },
-            { "Blocks": "blockArray" }
+            { "Blocks": "array:block" }
         ],
         "repeatedArgs": []
     },
