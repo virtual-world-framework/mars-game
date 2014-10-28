@@ -779,9 +779,8 @@ function createDataElement( argType ) {
     // number - integer or float
     // moveFailedType - collision, battery, etc.
     // blocklyNode - Nodes that implement blocklyController
-    // blocklyNodeArray - Array of blocklyNodes
     // blockChangeType - add, remove, either
-    // blockArray - Array of Blockly blocks
+    // block - Array of Blockly blocks
     // scenario - scenario nodes
     // video - src of a video
     // point2D - 2D vector [x,y]
@@ -860,6 +859,9 @@ function createDataElement( argType ) {
                 break;
             case "block":
                 element = blockSelector();
+                break;
+            case "scenario":
+                element = scenarioSelector();
                 break;
             default:
                 element = document.createElement( "input" );
@@ -951,6 +953,23 @@ function blockSelector() {
         option = document.createElement( "option" );
         option.innerHTML = keys[ i ];
         option.value = blockTypes[ keys[ i ] ];
+        element.appendChild( option );
+    }
+    element.getOutput = function() {
+        return this.value;
+    }
+    return element;
+}
+
+function scenarioSelector() {
+    var element = document.createElement( "select" );
+    var scenarios = scenarioJson.getJson().scenarios;
+    var keys = Object.keys( scenarios );
+    var option;
+    for ( var i = 0; i < keys.length; i++ ) {
+        option = document.createElement( "option" );
+        option.value = keys[ i ];
+        option.innerHTML = keys[ i ];
         element.appendChild( option );
     }
     element.getOutput = function() {
