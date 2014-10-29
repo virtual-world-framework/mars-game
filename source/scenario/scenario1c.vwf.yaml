@@ -134,10 +134,9 @@ children:
 
         playHint1_1c:
           triggerCondition:
-          - delay:
-            - 10
-          additionalCondition:
           - and:
+            - delay:
+              - 10
             - not:
               - readBlackboard:
                 - Level1cHint1
@@ -155,10 +154,9 @@ children:
 
         playHint2_1c:
           triggerCondition:
-          - delay:
-            - 20
-          additionalCondition:
           - and:
+            - delay:
+              - 20
             - not:
               - readBlackboard:
                 - Level1cHint2
@@ -176,10 +174,9 @@ children:
 
         playHint3_1c:
           triggerCondition:
-          - delay:
-            - 40
-          additionalCondition:
           - and:
+            - delay:
+              - 40
             - not:
               - readBlackboard:
                 - Level1cHint3

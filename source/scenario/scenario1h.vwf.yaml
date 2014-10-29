@@ -84,11 +84,11 @@ children:
 
         playStartingVO_1h:
           triggerCondition:
-          - onScenarioStart:
-          additionalCondition:
-          - not:
-            - readBlackboard:
-              - Level1hStartSounds
+          - and:
+            - onScenarioStart:
+            - not:
+              - readBlackboard:
+                - Level1hStartSounds
           actions:
           - playSound:
             - L1VO16_Rover
@@ -104,10 +104,9 @@ children:
 
         succeedOnSuccess_1h:
           triggerCondition:
-          - onBlocklyStopped:
-            - rover
-          additionalCondition:
           - and:
+            - onBlocklyStopped:
+              - rover
             - isAtPosition:
               - rover
               - [ 8, 16 ]
@@ -124,10 +123,9 @@ children:
 
         playHint1_1h:
           triggerCondition:
-          - delay:
-            - 20
-          additionalCondition:
           - and:
+            - delay:
+              - 20
             - not:
               - readBlackboard:
                 - Level1hHint1
@@ -145,9 +143,8 @@ children:
 
         failOnIncompleteProgram_1h:
           triggerCondition:
-          - onBlocklyStopped:
-          additionalCondition:
           - and:
+            - onBlocklyStopped:
             - not:
               - readBlackboard:
                 - hasFailed

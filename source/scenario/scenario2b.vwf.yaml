@@ -76,11 +76,11 @@ children:
 
         playStartingVO_2b:
           triggerCondition:
-          - onScenarioStart:
-          additionalCondition:
-          - not:
-            - readBlackboard:
-              - Level2bStartSounds
+          - and:
+            - onScenarioStart:
+            - not:
+              - readBlackboard:
+                - Level2bStartSounds
           actions:
           - playSound:
             - SCVO5_Rover
@@ -120,12 +120,12 @@ children:
 
         playGraphOpenedVO_2b:
           triggerCondition:
-          - onBlocklyWindowOpened:
-            - graph
-          additionalCondition:
-          - not:
-            - readBlackboard:
-              - Level2bGraphOpened
+          - and:
+            - onBlocklyWindowOpened:
+              - graph
+            - not:
+              - readBlackboard:
+                - Level2bGraphOpened
           actions:
           - playSound:
             - L2VO3_Rover
@@ -134,10 +134,9 @@ children:
 
         playHint1_2b:
           triggerCondition:
-          - delay:
-            - 20
-          additionalCondition:
           - and:
+            - delay:
+              - 20
             - not:
               - readBlackboard:
                 - Level2bHint1

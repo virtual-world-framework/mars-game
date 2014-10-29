@@ -83,11 +83,11 @@ children:
 
         playStartingVO_3e:
           triggerCondition:
-          - onScenarioStart:
-          additionalCondition:
-          - not:
-            - readBlackboard:
-              - Level3eStartSounds
+          - and:
+            - onScenarioStart:
+            - not:
+              - readBlackboard:
+                - Level3eStartSounds
           actions:
           - playSound:
             - L3VO6_Mission
@@ -96,11 +96,10 @@ children:
 
         playTravelVO_3c:
           triggerCondition:
-          - isAtPosition:
-            - rover
-            - [ 15, 17 ]
-          additionalCondition:
           - and:
+            - isAtPosition:
+              - rover
+              - [ 15, 17 ]
             - not:
               - readBlackboard:
                 - Level3eTravel1
@@ -118,12 +117,12 @@ children:
 
         succeedOnSuccessfulMovement_3e:
           triggerCondition:
-          - onBlocklyStopped:
-            - rover
-          additionalCondition:
-          - isAtPosition:
-            - rover
-            - [ 24, 38 ]
+          - and:
+            - onBlocklyStopped:
+              - rover
+            - isAtPosition:
+              - rover
+              - [ 24, 38 ]
           actions:
           - scenarioSuccess:
           - showAlert:
