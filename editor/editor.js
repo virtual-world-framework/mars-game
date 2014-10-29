@@ -651,29 +651,51 @@ function resetTriggerDialog() {
     actionList.innerHTML = "";
 }
 
-function addTrigger() {}
+function addTrigger() {
+    // ----- YAML -----
+    // triggerName:
+    //   triggerCondition:
+    //   - condition:
+    //     - argument
+    //   actions:
+    //   - action:
+    //     - argument
+    //   - action:
+    //     - argument
+    // ----- JSON -----
+    // { triggerName: {
+    //         triggerCondition: [
+    //             { condition: [
+    //                     argument,
+    //                     argument
+    //                 ]
+    //             }
+    //         ],
+    //         actions: [
+    //             { action: [
+    //                     argument
+    //                 ]
+    //             }
+    //         ]
+    //     }
+    // }
+    var triggerName = document.getElementById( "triggerName" ).value;
+    var triggerConditions = document.getElementById( "triggerConditions" );
+    var triggerActions = document.getElementById( "triggerActions" );
+    var trigger = {};
+    trigger[ "triggerCondition" ] = triggerConditions.getOutput();
+    trigger[ "actions" ] = triggerActions.getOutput();
+    console.log( triggerName, JSON.stringify( trigger ) );
+}
 
 function addCondition() {
     var keys = Object.keys( conditions );
     var conditionList = document.getElementById( "triggerConditions" );
-    var select = document.createElement( "select" );
-    var subgroup = document.createElement( "div" );
-    var option;
-    for ( var i = 0; i < keys.length; i++ ) {
-        option = document.createElement( "option" );
-        option.value = keys[ i ];
-        option.innerHTML = conditions[ keys[ i ] ].display;
-        select.appendChild( option );
-    }
-    subgroup.className = "subgroup";
+    var select = conditionSelector();
     conditionList.appendChild( select );
-    var loadCondition = function() {
-        var selected = conditions[ select.value ];
-        loadActionOrCondition( selected, subgroup );
+    conditionList.getOutput = function() {
+        return [ select.getOutput() ];
     }
-    select.addEventListener( "change", loadCondition );
-    loadCondition();
-    conditionList.appendChild( subgroup );
 }
 
 function addAction() {
@@ -706,47 +728,59 @@ function addAction() {
     loadAction();
     wrapper.appendChild( subgroup );
     actionList.appendChild( wrapper );
+    actionList.getOutput = function() {
+        var output = [];
+        return output;
+    }
 }
 
 function loadActionOrCondition( selected, element ) {
     element.innerHTML = "";
-    var required, optional, repeated, label, name, i;
-    required = selected.requiredArgs;
-    optional = selected.optionalArgs;
-    repeated = selected.repeatedArgs;
+    var reqArgs, optArgs, repArgs, label, name, i;
+    reqArgs = selected.requiredArgs;
+    optArgs = selected.optionalArgs;
+    repArgs = selected.repeatedArgs;
+    var required, optional, repeated;
     // Length of 0 is false
-    if ( !required.length && !optional.length && !repeated.length ) {
+    if ( !reqArgs.length && !optArgs.length && !repArgs.length ) {
         element.style.display = "none";
     } else {
         element.style.display = "block";
-        if ( required.length ) {
-            for ( i = 0; i < required.length; i++ ) {
-                name = Object.keys( required[ i ] )[ 0 ];
+        if ( reqArgs.length ) {
+            required = [];
+            for ( i = 0; i < reqArgs.length; i++ ) {
+                name = Object.keys( reqArgs[ i ] )[ 0 ];
                 label = document.createElement( "div" );
                 label.innerHTML = name + " (Required):";
                 label.className = "label";
                 element.appendChild( label );
-                element.appendChild( createDataElement( required[ i ][ name ] ) );
+                var dataElement = createDataElement( reqArgs[ i ][ name ] );
+                required.push( dataElement );
+                element.appendChild( dataElement );
             }
         }
-        if ( optional.length ) {
-            for ( i = 0; i < optional.length; i++ ) {
-                name = Object.keys( optional[ i ] )[ 0 ];
+        if ( optArgs.length ) {
+            optional = [];
+            for ( i = 0; i < optArgs.length; i++ ) {
+                name = Object.keys( optArgs[ i ] )[ 0 ];
                 label = document.createElement( "div" );
                 label.innerHTML = name + " (Optional):";
                 label.className = "label";
                 element.appendChild( label );
-                element.appendChild( createDataElement( optional[ i ][ name ] ) );
+                var dataElement = createDataElement( optArgs[ i ][ name ] );
+                optional.push( dataElement );
+                element.appendChild( dataElement );
             }
         }
-        if ( repeated.length ) {
+        if ( repArgs.length ) {
+            repeated = [];
             var args = document.createElement( "div" );
             var addArg = document.createElement( "div" );
             addArg.id = "addArgument";
             addArg.className = "textButton";
             addArg.innerHTML = "Add Argument...";
             addArg.addEventListener( "click", function() {
-                for ( i = 0; i < repeated.length; i++ ) {
+                for ( i = 0; i < repArgs.length; i++ ) {
                     var argWrapper = document.createElement( "div" );
                     var removeBtn = document.createElement( "div" );
                     removeBtn.className = "inlineTextButton";
@@ -754,18 +788,39 @@ function loadActionOrCondition( selected, element ) {
                     removeBtn.addEventListener( "click", function() {
                         argWrapper.parentElement.removeChild( argWrapper );
                     } );
-                    name = Object.keys( repeated[ i ] )[ 0 ];
+                    name = Object.keys( repArgs[ i ] )[ 0 ];
                     label = document.createElement( "div" );
                     label.innerHTML = name + " (Optional):";
                     label.className = "label";
                     label.appendChild( removeBtn );
                     argWrapper.appendChild( label );
-                    argWrapper.appendChild( createDataElement( repeated[ i ][ name ] ) );
+                    var dataElement = createDataElement( repArgs[ i ][ name ] );
+                    repeated.push( dataElement );
+                    argWrapper.appendChild( dataElement );
                     args.appendChild( argWrapper );
                 }
             } );
             element.appendChild( args );
             element.appendChild( addArg );
+        }
+        element.getOutput = function() {
+            var output = [];
+            if ( required ) {
+                for ( var i = 0; i < required.length; i++ ) {
+                    output.push( required[ i ].getOutput() );
+                }
+            }
+            if ( optional ) {
+                for ( var i = 0; i < optional.length; i++ ) {
+                    output.push( optional[ i ].getOutput() );
+                }
+            }
+            if ( repeated ) {
+                for ( var i = 0; i < repeated.length; i++ ) {
+                    output.push( repeated[ i ].getOutput() );
+                }
+            }
+            return output;
         }
     }
 }
@@ -897,12 +952,16 @@ function conditionSelector() {
         } else {
             subgroup.innerHTML = "";
             subgroup.style.display = "none";
+            subgroup.getOutput = undefined;
         }
     }
     select.addEventListener( "change", loadCondition );
     loadCondition();
     element.getOutput = function() {
-        return select.value;
+        var output = {};
+        var subOutput = subgroup.getOutput ? subgroup.getOutput() : [];
+        output[ select.value ] = subOutput;
+        return output;
     }
     return element;
 }
@@ -933,12 +992,16 @@ function actionSelector() {
         } else {
             subgroup.innerHTML = "";
             subgroup.style.display = "none";
+            subgroup.getOutput = undefined;
         }
     }
     select.addEventListener( "change", loadAction );
     loadAction();
     element.getOutput = function() {
-        return select.value;
+        var output = {};
+        var subOutput = subgroup.getOutput ? subgroup.getOutput() : [];
+        output[ select.value ] = subOutput;
+        return output;
     }
     return element;
 }
