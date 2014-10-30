@@ -97,7 +97,8 @@ this.createLevelFromFile = function( levelArray ) {
                 this[ keys[ n ] ] = obj[ keys[ n ] ];
             }
         } else if ( name === "scenarios" ) {
-            this.scenarioGenerator.scenarios = obj;
+            this.scenarioGenerator.scenarios = JSON.stringify( obj );
+            this.scenariosLoaded( this.scenarioGenerator.scenarios );
         } else {
             if ( name !== "map" ) {
                 obj[ "implements" ] = "editor/editable.vwf";
