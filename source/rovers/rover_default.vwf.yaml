@@ -19,5 +19,3 @@ source: ../../assets/3d/Rover/rover.dae
 type: model/vnd.collada+xml
 properties:
   displayName: "Rover"
-  castShadows: true
-  receiveShadows: true

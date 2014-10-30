@@ -19,6 +19,9 @@ var timePct = 0;
 var levelFile;
 var appID;
 var scenarioJson = new JsonEditor( "scenarioList" );
+// Calls functions from editor/triggerObjects.js
+var conditions = getConditions();
+var actions = getActions();
 
 var blockTypes = {
     "Graph: y=": "graph_set_y",
@@ -902,8 +905,8 @@ function createDataElement( argType ) {
             case "failureType":
                 element = customSelector( [ "battery", "collision", "incomplete", "lost" ] );
                 break;
-            case "primative":
-                element = primativeSelector();
+            case "primitive":
+                element = primitiveSelector();
                 break;
             case "boolean":
                 element = customSelector( [ "true", "false" ] );
@@ -1117,7 +1120,7 @@ function numberField( min, max, step ) {
     return element;
 }
 
-function primativeSelector() {
+function primitiveSelector() {
     var element = document.createElement( "div" );
     var selector = customSelector( [ "boolean", "number", "string" ] );
     var container = document.createElement( "div" );
