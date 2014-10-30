@@ -215,7 +215,7 @@ function setupMenus() {
     var file, edit, help, load, save, newLevel, close, saveBtn;
     var ddButtons, hover, timeOfDay, slider, sliderCloseBtn;
     var scenarioButton, scenarioCloseButton, addScenario, deleteEntry;
-    var addTriggerButton, cancelTriggerButton, addActionButton;
+    var cancelTriggerButton, addActionButton;
     file = document.getElementById( "fileButton" );
     edit = document.getElementById( "editButton" );
     help = document.getElementById( "helpButton" );
@@ -232,7 +232,6 @@ function setupMenus() {
     deleteEntry = document.getElementById( "deleteEntry" );
     slider = document.getElementById( "slider" );
     sliderCloseBtn = document.getElementById( "closeSlider" );
-    addTriggerButton = document.getElementById( "submitTrigger" );
     cancelTriggerButton = document.getElementById( "cancelTrigger" );
     addActionButton = document.getElementById( "addAction" );
     file.addEventListener( "click", openDropDown );
@@ -255,7 +254,6 @@ function setupMenus() {
     slider.addEventListener( "mouseout", moveSliderHandle );
     addScenario.addEventListener( "click", openNewScenarioDialog );
     deleteEntry.addEventListener( "click", scanForDeleteCandidate );
-    addTriggerButton.addEventListener( "click", addTrigger );
     cancelTriggerButton.addEventListener( "click", closeTriggerDialog );
     addActionButton.addEventListener( "click", addAction );
     hover = function( event ) {
@@ -637,6 +635,14 @@ function openNewScenarioDialog() {
 
 function openTriggerDialog( parentType, contents, parent ) {
     var dialog = document.getElementById( "newTriggerDialog" );
+    var addTriggerButton = document.getElementById( "submitTrigger" );
+    addTriggerButton.addEventListener( "click", function() {
+        var triggerName = document.getElementById( "triggerName" ).value;
+        var trigger = compileTrigger();
+        contents.appendChild( scenarioJson.createEntry( trigger, triggerName, parent ) );
+        closeTriggerDialog();
+        saveJson();
+    } );
     addCondition();
     dialog.style.display = "block";
 }
@@ -654,14 +660,13 @@ function resetTriggerDialog() {
     actionList.innerHTML = "";
 }
 
-function addTrigger() {
-    var triggerName = document.getElementById( "triggerName" ).value;
+function compileTrigger() {
     var triggerConditions = document.getElementById( "triggerConditions" );
     var triggerActions = document.getElementById( "triggerActions" );
     var trigger = {};
     trigger[ "triggerCondition" ] = triggerConditions.getOutput();
     trigger[ "actions" ] = triggerActions.getOutput();
-    console.log( triggerName, JSON.stringify( trigger ) );
+    return trigger;
 }
 
 function addCondition() {

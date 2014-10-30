@@ -132,7 +132,7 @@ JsonEditor.prototype = {
         return element;
     },
     objectElement: function( element, name, value, parent, parentType ) {
-        var title, contents, keys, add;
+        var title, contents, keys, add, type;
         title = document.createElement( "div" );
         add = document.createElement( "div" );
         contents = document.createElement( "div" );
@@ -141,11 +141,8 @@ JsonEditor.prototype = {
         title.appendChild( document.createTextNode( "+ " + name ) );
         element.appendChild( add );
         title.className = "category entry";
-        if ( value instanceof Array ) {
-            title.valueType = "array";
-        } else {
-            title.valueType = "object";
-        }
+        type = value instanceof Array ? "array" : "object";
+        title.valueType = type;
         title.jsonName = name;
         title.parentPath = parent;
         contents.className = "collapsible collapsed";
@@ -157,7 +154,7 @@ JsonEditor.prototype = {
             parent = parent ? parent + "." + name : name;
         }
         for ( var i = 0; i < keys.length; i++ ) {
-            contents.appendChild( this.createEntry( value[ keys[ i ] ], keys[ i ], parent ) );
+            contents.appendChild( this.createEntry( value[ keys[ i ] ], keys[ i ], parent, type ) );
         }
         element.appendChild( title );
         element.appendChild( contents );
