@@ -655,33 +655,6 @@ function resetTriggerDialog() {
 }
 
 function addTrigger() {
-    // ----- YAML -----
-    // triggerName:
-    //   triggerCondition:
-    //   - condition:
-    //     - argument
-    //   actions:
-    //   - action:
-    //     - argument
-    //   - action:
-    //     - argument
-    // ----- JSON -----
-    // { triggerName: {
-    //         triggerCondition: [
-    //             { condition: [
-    //                     argument,
-    //                     argument
-    //                 ]
-    //             }
-    //         ],
-    //         actions: [
-    //             { action: [
-    //                     argument
-    //                 ]
-    //             }
-    //         ]
-    //     }
-    // }
     var triggerName = document.getElementById( "triggerName" ).value;
     var triggerConditions = document.getElementById( "triggerConditions" );
     var triggerActions = document.getElementById( "triggerActions" );
@@ -704,35 +677,15 @@ function addCondition() {
 function addAction() {
     var keys = Object.keys( actions );
     var actionList = document.getElementById( "triggerActions" );
-    var wrapper = document.createElement( "div" );
-    var removeBtn = document.createElement( "div" );
-    var select = document.createElement( "select" );
-    var subgroup = document.createElement( "div" );
-    var option;
-    for ( var i = 0; i < keys.length; i++ ) {
-        option = document.createElement( "option" );
-        option.value = keys[ i ];
-        option.innerHTML = actions[ keys[ i ] ].display;
-        select.appendChild( option );
-    }
-    subgroup.className = "subgroup";
-    wrapper.appendChild( select );
-    removeBtn.className = "inlineTextButton";
-    removeBtn.innerHTML = "Remove";
-    wrapper.appendChild( removeBtn );
-    removeBtn.addEventListener( "click", function() {
-        wrapper.parentElement.removeChild( wrapper );
-    } );
-    var loadAction = function() {
-        var selected = actions[ select.value ];
-        loadActionOrCondition( selected, subgroup );
-    }
-    select.addEventListener( "change", loadAction );
-    loadAction();
-    wrapper.appendChild( subgroup );
+    var wrapper = actionSelector( true );
+    wrapper.classList.add( "action" );
     actionList.appendChild( wrapper );
     actionList.getOutput = function() {
         var output = [];
+        var list = this.getElementsByClassName( "action" );
+        for ( var i = 0; i < list.length; i++ ) {
+            output.push( list[ i ].getOutput() );
+        }
         return output;
     }
 }
@@ -788,9 +741,6 @@ function loadActionOrCondition( selected, element ) {
                     var removeBtn = document.createElement( "div" );
                     removeBtn.className = "inlineTextButton";
                     removeBtn.innerHTML = "Remove";
-                    removeBtn.addEventListener( "click", function() {
-                        argWrapper.parentElement.removeChild( argWrapper );
-                    } );
                     name = Object.keys( repArgs[ i ] )[ 0 ];
                     label = document.createElement( "div" );
                     label.innerHTML = name + " (Optional):";
@@ -801,6 +751,11 @@ function loadActionOrCondition( selected, element ) {
                     repeated.push( dataElement );
                     argWrapper.appendChild( dataElement );
                     args.appendChild( argWrapper );
+                    removeBtn.addEventListener( "click", function() {
+                        argWrapper.parentElement.removeChild( argWrapper );
+                        var index = repeated.indexOf( dataElement );
+                        removeArrayElement( repeated, index );
+                    } );
                 }
             } );
             element.appendChild( args );
@@ -969,7 +924,7 @@ function conditionSelector() {
     return element;
 }
 
-function actionSelector() {
+function actionSelector( optional ) {
     var element = document.createElement( "div" );
     var subgroup = document.createElement( "div" );
     var select = document.createElement( "select" );
@@ -987,6 +942,15 @@ function actionSelector() {
     }
     subgroup.className = "subgroup";
     element.appendChild( select );
+    if ( optional ) {
+        var removeBtn = document.createElement( "div" );
+        removeBtn.className = "inlineTextButton";
+        removeBtn.innerHTML = "Remove";
+        element.appendChild( removeBtn );
+        removeBtn.addEventListener( "click", function() {
+            element.parentElement.removeChild( element );
+        } );
+    }
     element.appendChild( subgroup );
     var loadAction = function() {
         var selected = actions[ select.value ];
