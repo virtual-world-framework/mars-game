@@ -52,6 +52,8 @@ vwf_view.firedEvent = function( nodeID, eventName, args ) {
     if ( nodeID === getAppID() ) {
         switch ( eventName ) {
             case "onSceneReady":
+                // HACK: Reder front faces for shadow depth
+                vwf.views[ 0 ].state.scenes[ getAppID() ].renderer.shadowMapCullFace = 1;
                 handleSceneReady( args );
                 break;
             case "objectCreated":

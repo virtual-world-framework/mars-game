@@ -340,6 +340,8 @@ vwf_view.createdNode = function( nodeID, childID, childExtendsID, childImplement
 vwf_view.initializedNode = function( nodeID, childID, childExtendsID, childImplementsIDs, childSource, childType, childIndex, childName ) {
     if ( childID === vwf_view.kernel.application() ) {
         appID = vwf_view.kernel.application();
+        // HACK: Reder front faces for shadow depth
+        vwf.views[ 0 ].state.scenes[ appID ].renderer.shadowMapCullFace = 1;
         setUpView();
         threejs.render = render;
     } else if ( blocklyNodes[ childID ] !== undefined ) {
