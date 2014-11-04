@@ -129,7 +129,7 @@ this.setTimeOfDay = function( hour ) {
     var z = Math.sin( radians );
     var red, green, blue;
     var intensity;
-    this.sunLight.translateTo( [ x, 0, z ] );
+    this.sunLight.translateTo( [ x * 24, 0, z * 24 ] );
     red = 130 + Math.max( z, 0 ) * 125;
     green = 80 + Math.max( z, 0 ) * 100;
     blue = Math.max( z, 0 ) * 90 + Math.max( ( x - 1 ) / -2, 0 ) * 90;
