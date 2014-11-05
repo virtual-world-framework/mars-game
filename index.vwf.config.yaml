@@ -24,4 +24,5 @@ view:
   vwf/view/blockly: { "blocklyPath": './source/blockly/', "toolbox": 'toolbox' }
   vwf/view/sound:
   # vwf/view/editor:
-  
+configuration:
+  preserve-script-closures: true
