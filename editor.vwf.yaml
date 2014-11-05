@@ -25,6 +25,7 @@ properties:
     value: 12
   activeTool: camera
   enableShadows: true
+  shadowMapCullFace: "back"
 children:
   graph:
     extends: http://vwf.example.com/graphtool/graph.vwf
@@ -124,10 +125,10 @@ children:
       shadowCameraLeft: -48
       shadowCameraRight: 48
       shadowCameraNear: 0
-      shadowCameraFar: 48
+      shadowCameraFar: 128
       shadowMapWidth: 2048
       shadowMapHeight: 2048
-      shadowBias: -0.005
+      shadowBias: -0.002
   envLight:
     extends: http://vwf.example.com/light.vwf
     properties:
