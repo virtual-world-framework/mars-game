@@ -174,7 +174,7 @@ children:
       shadowCameraFar: 24
       shadowMapWidth: 2048
       shadowMapHeight: 2048
-      shadowBias: -0.0025
+      shadowBias: -0.01
       target: [ 0, 0, 0 ]
       offsetFromTarget: [ 2, 1, 16 ]
     methods:
