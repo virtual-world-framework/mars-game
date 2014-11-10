@@ -24,21 +24,6 @@ this.initialize = function() {
     // TODO: Find the current heading (rather than making app developer specify)
 
     this.calcRam();
-
-    this.future( 0 ).registerScenarioListener();
-}
-
-this.registerScenarioListener = function() {
-    var scene = this.sceneNode;
-    scene.scenarioChanged = ( function( scenarioName ) {
-        this.findAndSetCurrentGrid( scenarioName );
-    } ).bind( this );
-
-    // TODO: Find a way to register the listener before the first
-    // scenario is set in order to eliminate the following code.
-    if ( !currentGrid ) {
-        this.findAndSetCurrentGrid( scene.activeScenarioPath );
-    }
 }
 
 this.findAndSetCurrentGrid = function( scenarioName ) {

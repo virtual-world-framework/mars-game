@@ -13,15 +13,33 @@
 // limitations under the License.
 
 var selectedTool = undefined;
-var fileManager = new FileManager( document.getElementById( "fileDialog" ) );
+var fileManager = new FileManager( document.getElementById( "fileWrapper" ) );
 var activeDropDown;
-var compileTotal = 0;
-var compileProgress = 0;
-var levelIds = new Array();
 var timePct = 0;
 var levelFile;
 var appID;
 var scenarioJson = new JsonEditor( "scenarioList" );
+// Calls functions from editor/triggerObjects.js
+var conditions = getConditions();
+var actions = getActions();
+
+var blockTypes = {
+    "Graph: y=": "graph_set_y",
+    "Graph: x": "graph_get_x",
+    "Graph: Number": "math_number_output",
+    "Graph: Add": "graph_add",
+    "Graph: Subtract": "graph_subtract",
+    "Graph: Multiply": "graph_multiply",
+    "Graph: Divide": "graph_divide",
+    "Graph: Right Paren": "graph_right_paren",
+    "Graph: Left Paren": "graph_left_paren",
+    "Rover: Move Forward": "rover_moveForward",
+    "Rover: Turn": "rover_turn",
+    "Rover: Sensor": "controls_sensor_tracks",
+    "Rover: While": "controls_whileUntil",
+    "Rover: Repeat": "controls_repeat_extended",
+    "Rover: Number": "math_number_drop"
+}
 
 function getAppID() {
     if ( appID === undefined ) {
@@ -94,6 +112,8 @@ function handleSceneReady( params ) {
     setupMenus();
     setupTools();
     scenarioJson.jsonUpdated = saveJson;
+    scenarioJson.newElementDefault = scenarioJson.addNewElement;
+    scenarioJson.addNewElement = addScenarioElement;
     fileManager.onFileOpened = loadLevel;
     document.addEventListener( "keydown", handleKeyPropagation );
 }
@@ -176,6 +196,13 @@ function retrieveAssetListItems( listPath ) {
             list.push( { name: "Radio", path: "source/pickups/radio.vwf" } );
             break;
         case "characters":
+            list.push( { name: "Rover Default", path: "source/rovers/rover_default.vwf" } );
+            list.push( { name: "Rover Blue", path: "source/rovers/rover_blue.vwf" } );
+            list.push( { name: "Rover Orange", path: "source/rovers/rover_orange.vwf" } );
+            list.push( { name: "Rover Pink", path: "source/rovers/rover_pink.vwf" } );
+            list.push( { name: "Rover Pink Camo", path: "source/rovers/rover_pink_camo.vwf" } );
+            list.push( { name: "Rover Red", path: "source/rovers/rover_red.vwf" } );
+            list.push( { name: "Rover Retro", path: "source/rovers/rover_retro.vwf" } );
             break;
         default:
             return undefined;
@@ -188,6 +215,7 @@ function setupMenus() {
     var file, edit, help, load, save, newLevel, close, saveBtn;
     var ddButtons, hover, timeOfDay, slider, sliderCloseBtn;
     var scenarioButton, scenarioCloseButton, addScenario, deleteEntry;
+    var cancelTriggerButton, addActionButton;
     file = document.getElementById( "fileButton" );
     edit = document.getElementById( "editButton" );
     help = document.getElementById( "helpButton" );
@@ -204,6 +232,8 @@ function setupMenus() {
     deleteEntry = document.getElementById( "deleteEntry" );
     slider = document.getElementById( "slider" );
     sliderCloseBtn = document.getElementById( "closeSlider" );
+    cancelTriggerButton = document.getElementById( "cancelTrigger" );
+    addActionButton = document.getElementById( "addAction" );
     file.addEventListener( "click", openDropDown );
     edit.addEventListener( "click", openDropDown );
     help.addEventListener( "click", openDropDown );
@@ -224,6 +254,8 @@ function setupMenus() {
     slider.addEventListener( "mouseout", moveSliderHandle );
     addScenario.addEventListener( "click", openNewScenarioDialog );
     deleteEntry.addEventListener( "click", scanForDeleteCandidate );
+    cancelTriggerButton.addEventListener( "click", closeTriggerDialog );
+    addActionButton.addEventListener( "click", addAction );
     hover = function( event ) {
         switch ( event.type ) {
             case "mouseover":
@@ -511,23 +543,6 @@ function handleKeyPropagation( event ) {
     }
 }
 
-function openNewScenarioDialog() {
-    var dialog = document.getElementById( "newScenarioDialog" );
-    var name = document.getElementById( "newScenarioName" );
-    var submit = document.getElementById( "newScenarioSubmit" );
-    var cancel = document.getElementById( "newScenarioCancel" );
-    var scenarios = scenarioJson.getJson();
-    dialog.style.display = "block";
-    submit.onclick = function() {
-        vwf_view.kernel.callMethod( getAppID(), "addNewScenario", [ scenarios, name.value ] );
-        dialog.style.display = "none";
-        saveJson();
-    }
-    cancel.onclick = function() {
-        dialog.style.display = "none";
-    }
-}
-
 function scanForDeleteCandidate() {
     var scenarioEditor = document.getElementById( "scenarioEditor" );
     scenarioEditor.style.cursor = "pointer";
@@ -555,6 +570,587 @@ function deleteSelectedEntry( event ) {
 
 function saveJson() {
     vwf_view.kernel.callMethod( getAppID(), "saveScenarios", [ scenarioJson.getJson() ] );
+}
+
+function addScenarioElement( parentType, contents, parent ) {
+    var parentName = parent.split( "." );
+    parentName = parentName[ parentName.length - 1 ];
+    switch ( parentName ) {
+        case "scenarios":
+            openNewScenarioDialog();
+            break;
+        case "triggers":
+            openTriggerDialog( parentType, contents, parent );
+            break;
+        case "startState":
+        default:
+            this.newElementDefault( parentType, contents, parent );
+    }
+}
+
+function openNewScenarioDialog() {
+    var dialog = document.getElementById( "newScenarioDialog" );
+    var name = document.getElementById( "newScenarioName" );
+    var submit = document.getElementById( "newScenarioSubmit" );
+    var cancel = document.getElementById( "newScenarioCancel" );
+    var scenarioContents = scenarioJson.rootObjects.scenarios.lastChild;
+    dialog.style.display = "block";
+    submit.onclick = function() {
+        var newScenario = { 
+            "extends": "source/scenario/scenario.vwf",
+            "properties": {
+                "scenarioName": name.value,
+                "nextScenarioPath": "",
+                "startState": []
+            },
+            "children": {
+                "triggerManager": {
+                    "extends": "source/triggers/triggerManager.vwf",
+                    "properties": {
+                        "triggers": {}
+                    }
+                },
+                "grid": {
+                    "extends": "source/grid.vwf",
+                    "properties": {
+                        "minX": 0,
+                        "maxX": 1,
+                        "minY": 0,
+                        "maxY": 1,
+                        "gridOriginInSpace": [ 0, 0 ],
+                        "gridSquareLength": 3,
+                        "boundaryValues": [ 0 ]
+                    }
+                }
+            }
+        };
+        scenarioContents.appendChild( scenarioJson.createEntry( newScenario, name.value, "scenarios" ) );
+        dialog.style.display = "none";
+        saveJson();
+    }
+    cancel.onclick = function() {
+        dialog.style.display = "none";
+    }
+}
+
+function openTriggerDialog( parentType, contents, parent ) {
+    var dialog = document.getElementById( "newTriggerDialog" );
+    var addTriggerButton = document.getElementById( "submitTrigger" );
+    addTriggerButton.addEventListener( "click", function() {
+        var triggerName = document.getElementById( "triggerName" ).value;
+        var trigger = compileTrigger();
+        contents.appendChild( scenarioJson.createEntry( trigger, triggerName, parent ) );
+        closeTriggerDialog();
+        saveJson();
+    } );
+    addCondition();
+    dialog.style.display = "block";
+}
+
+function closeTriggerDialog() {
+    var dialog = document.getElementById( "newTriggerDialog" );
+    dialog.style.display = "none";
+    resetTriggerDialog();
+}
+
+function resetTriggerDialog() {
+    var conditionList = document.getElementById( "triggerConditions" );
+    var actionList = document.getElementById( "triggerActions" );
+    conditionList.innerHTML = "";
+    actionList.innerHTML = "";
+}
+
+function compileTrigger() {
+    var triggerConditions = document.getElementById( "triggerConditions" );
+    var triggerActions = document.getElementById( "triggerActions" );
+    var trigger = {};
+    trigger[ "triggerCondition" ] = triggerConditions.getOutput();
+    trigger[ "actions" ] = triggerActions.getOutput();
+    return trigger;
+}
+
+function addCondition() {
+    var keys = Object.keys( conditions );
+    var conditionList = document.getElementById( "triggerConditions" );
+    var select = conditionSelector();
+    conditionList.appendChild( select );
+    conditionList.getOutput = function() {
+        return [ select.getOutput() ];
+    }
+}
+
+function addAction() {
+    var keys = Object.keys( actions );
+    var actionList = document.getElementById( "triggerActions" );
+    var wrapper = actionSelector( true );
+    wrapper.classList.add( "action" );
+    actionList.appendChild( wrapper );
+    actionList.getOutput = function() {
+        var output = [];
+        var list = this.getElementsByClassName( "action" );
+        for ( var i = 0; i < list.length; i++ ) {
+            output.push( list[ i ].getOutput() );
+        }
+        return output;
+    }
+}
+
+function loadActionOrCondition( selected, element ) {
+    element.innerHTML = "";
+    var reqArgs, optArgs, repArgs, label, name, i;
+    reqArgs = selected.requiredArgs;
+    optArgs = selected.optionalArgs;
+    repArgs = selected.repeatedArgs;
+    var required, optional, repeated;
+    // Length of 0 is false
+    if ( !reqArgs.length && !optArgs.length && !repArgs.length ) {
+        element.style.display = "none";
+    } else {
+        element.style.display = "block";
+        if ( reqArgs.length ) {
+            required = [];
+            for ( i = 0; i < reqArgs.length; i++ ) {
+                name = Object.keys( reqArgs[ i ] )[ 0 ];
+                label = document.createElement( "div" );
+                label.innerHTML = name + " (Required):";
+                label.className = "label";
+                element.appendChild( label );
+                var dataElement = createDataElement( reqArgs[ i ][ name ] );
+                required.push( dataElement );
+                element.appendChild( dataElement );
+            }
+        }
+        if ( optArgs.length ) {
+            optional = [];
+            for ( i = 0; i < optArgs.length; i++ ) {
+                name = Object.keys( optArgs[ i ] )[ 0 ];
+                label = document.createElement( "div" );
+                label.innerHTML = name + " (Optional):";
+                label.className = "label";
+                element.appendChild( label );
+                var dataElement = createDataElement( optArgs[ i ][ name ] );
+                optional.push( dataElement );
+                element.appendChild( dataElement );
+            }
+        }
+        if ( repArgs.length ) {
+            repeated = [];
+            var args = document.createElement( "div" );
+            var addArg = document.createElement( "div" );
+            addArg.id = "addArgument";
+            addArg.className = "textButton";
+            addArg.innerHTML = "Add Argument...";
+            addArg.addEventListener( "click", function() {
+                for ( i = 0; i < repArgs.length; i++ ) {
+                    var argWrapper = document.createElement( "div" );
+                    var removeBtn = document.createElement( "div" );
+                    removeBtn.className = "inlineTextButton";
+                    removeBtn.innerHTML = "Remove";
+                    name = Object.keys( repArgs[ i ] )[ 0 ];
+                    label = document.createElement( "div" );
+                    label.innerHTML = name + " (Optional):";
+                    label.className = "label";
+                    label.appendChild( removeBtn );
+                    argWrapper.appendChild( label );
+                    var dataElement = createDataElement( repArgs[ i ][ name ] );
+                    repeated.push( dataElement );
+                    argWrapper.appendChild( dataElement );
+                    args.appendChild( argWrapper );
+                    removeBtn.addEventListener( "click", function() {
+                        argWrapper.parentElement.removeChild( argWrapper );
+                        var index = repeated.indexOf( dataElement );
+                        removeArrayElement( repeated, index );
+                    } );
+                }
+            } );
+            element.appendChild( args );
+            element.appendChild( addArg );
+        }
+        element.getOutput = function() {
+            var output = [];
+            if ( required ) {
+                for ( var i = 0; i < required.length; i++ ) {
+                    output.push( required[ i ].getOutput() );
+                }
+            }
+            if ( optional ) {
+                for ( var i = 0; i < optional.length; i++ ) {
+                    output.push( optional[ i ].getOutput() );
+                }
+            }
+            if ( repeated ) {
+                for ( var i = 0; i < repeated.length; i++ ) {
+                    output.push( repeated[ i ].getOutput() );
+                }
+            }
+            return output;
+        }
+    }
+}
+
+function createDataElement( argType ) {
+    var element, arrayWrapper, addButton, removeButton;
+    if ( argType.indexOf( "array:" ) !== -1 ) {
+        arrayWrapper = document.createElement( "div" );
+        element = document.createElement( "div" );
+        addButton = document.createElement( "div" );
+        addButton.className = "textButton";
+        addButton.innerHTML = "Add Element...";
+        argType = argType.replace( "array:", "" );
+        addButton.addEventListener( "click", function() {
+            var container = document.createElement( "div" );
+            var arrayElement = createDataElement( argType );
+            arrayElement.className = "arrayElement";
+            removeButton = document.createElement( "div" );
+            removeButton.className = "inlineTextButton";
+            removeButton.innerHTML = "Remove";
+            removeButton.addEventListener( "click", function() {
+                container.parentElement.removeChild( container );
+            } );
+            container.appendChild( arrayElement );
+            container.appendChild( removeButton );
+            arrayWrapper.appendChild( container );
+        } );
+        element.appendChild( arrayWrapper );
+        element.appendChild( addButton );
+        element.getOutput = function() {
+            var children = this.getElementsByClassName( "arrayElement" );
+            var output = new Array();
+            for ( var i = 0; i < children.length; i++ ) {
+                output.push( children[ i ].getOutput() );
+            }
+            return output;
+        }
+    } else {
+        switch ( argType ) {
+            case "action":
+                element = actionSelector();
+                break;
+            case "condition":
+                element = conditionSelector();
+                break;
+            case "node":
+                element = nodeSelector();
+                break;
+            case "pickup":
+                element = nodeSelector( [ "source/pickup.vwf" ] );
+                break;
+            case "rover":
+                element = nodeSelector( [ "source/rover.vwf" ] );
+                break;
+            case "number":
+                element = numberField();
+                break;
+            case "percent":
+                element = numberField( 0, 1, 0.01 );
+                break;
+            case "moveFailedType":
+                element = customSelector( [ "collision", "battery" ] );
+                break;
+            case "blocklyNode":
+                element = nodeSelector( [ "http://vwf.example.com/blockly/controller.vwf" ] );
+                break;
+            case "blockChangeType":
+                element = customSelector( [ "add", "remove", "either" ] );
+                break;
+            case "block":
+                element = blockSelector();
+                break;
+            case "scenario":
+                element = scenarioSelector();
+                break;
+            case "point2D":
+                element = vector2Input();
+                break;
+            case "failureType":
+                element = customSelector( [ "battery", "collision", "incomplete", "lost" ] );
+                break;
+            case "primitive":
+                element = primitiveSelector();
+                break;
+            case "boolean":
+                element = customSelector( [ "true", "false" ] );
+                break;
+            case "pose":
+                element = poseInput();
+                break;
+            case "sound":
+            case "soundGroup":
+            case "HUDElement":
+            case "video":
+            case "string":
+            default:
+                element = document.createElement( "input" );
+                element.getOutput = function() {
+                    return element.value;
+                }
+        }
+    }
+    return element;
+}
+
+function conditionSelector() {
+    var element = document.createElement( "div" );
+    var subgroup = document.createElement( "div" );
+    var select = document.createElement( "select" );
+    var option, keys;
+    keys = Object.keys( conditions );
+    option = document.createElement( "option" );
+    option.value = "none";
+    option.innerHTML = "--- Select Condition ---";
+    select.appendChild( option );
+    for ( var i = 0; i < keys.length; i++ ) {
+        option = document.createElement( "option" );
+        option.value = keys[ i ];
+        option.innerHTML = conditions[ keys[ i ] ].display;
+        select.appendChild( option );
+    }
+    subgroup.className = "subgroup";
+    element.appendChild( select );
+    element.appendChild( subgroup );
+    var loadCondition = function() {
+        var selected = conditions[ select.value ];
+        if ( selected ) {
+            loadActionOrCondition( selected, subgroup );
+        } else {
+            subgroup.innerHTML = "";
+            subgroup.style.display = "none";
+            subgroup.getOutput = undefined;
+        }
+    }
+    select.addEventListener( "change", loadCondition );
+    loadCondition();
+    element.getOutput = function() {
+        var output = {};
+        var subOutput = subgroup.getOutput ? subgroup.getOutput() : [];
+        output[ select.value ] = subOutput;
+        return output;
+    }
+    return element;
+}
+
+function actionSelector( optional ) {
+    var element = document.createElement( "div" );
+    var subgroup = document.createElement( "div" );
+    var select = document.createElement( "select" );
+    var option, keys;
+    keys = Object.keys( actions );
+    option = document.createElement( "option" );
+    option.value = "none";
+    option.innerHTML = "--- Select Action ---";
+    select.appendChild( option );
+    for ( var i = 0; i < keys.length; i++ ) {
+        option = document.createElement( "option" );
+        option.value = keys[ i ];
+        option.innerHTML = actions[ keys[ i ] ].display;
+        select.appendChild( option );
+    }
+    subgroup.className = "subgroup";
+    element.appendChild( select );
+    if ( optional ) {
+        var removeBtn = document.createElement( "div" );
+        removeBtn.className = "inlineTextButton";
+        removeBtn.innerHTML = "Remove";
+        element.appendChild( removeBtn );
+        removeBtn.addEventListener( "click", function() {
+            element.parentElement.removeChild( element );
+        } );
+    }
+    element.appendChild( subgroup );
+    var loadAction = function() {
+        var selected = actions[ select.value ];
+        if ( selected ) {
+            loadActionOrCondition( selected, subgroup );
+        } else {
+            subgroup.innerHTML = "";
+            subgroup.style.display = "none";
+            subgroup.getOutput = undefined;
+        }
+    }
+    select.addEventListener( "change", loadAction );
+    loadAction();
+    element.getOutput = function() {
+        var output = {};
+        var subOutput = subgroup.getOutput ? subgroup.getOutput() : [];
+        output[ select.value ] = subOutput;
+        return output;
+    }
+    return element;
+}
+
+function nodeSelector( types ) {
+    var nodeList = new Array();
+    var element = document.createElement( "select" );
+    var option, nodeName;
+    if ( types && types.length ) {
+        for ( var i = 0; i < types.length; i++ ) {
+            nodeList = nodeList.concat( vwf_view.kernel.find( "", "//element(*,'" + types[ i ] + "')" ) );
+        }
+    } else {
+        nodeList = vwf_view.kernel.find( "", "//element(*,'editor/editable.vwf')" );
+    }
+    for ( var i = 0; i < nodeList.length; i++ ) {
+        nodeName = vwf_view.kernel.name( nodeList[ i ] );
+        option = document.createElement( "option" );
+        option.value = nodeName;
+        option.innerHTML = nodeName;
+        element.appendChild( option );
+    }
+    element.getOutput = function() {
+        return this.value;
+    }
+    return element;
+}
+
+function customSelector( options ) {
+    var element = document.createElement( "select" );
+    var option;
+    for ( var i = 0; i < options.length; i++ ) {
+        option = document.createElement( "option" );
+        option.value = options[ i ];
+        option.innerHTML = options[ i ];
+        element.appendChild( option );
+    }
+    element.getOutput = function() {
+        return this.value;
+    }
+    return element;
+}
+
+function blockSelector() {
+    var element = document.createElement( "select" );
+    var option, keys;
+    keys = Object.keys( blockTypes );
+    for ( var i = 0; i < keys.length; i++ ) {
+        option = document.createElement( "option" );
+        option.innerHTML = keys[ i ];
+        option.value = blockTypes[ keys[ i ] ];
+        element.appendChild( option );
+    }
+    element.getOutput = function() {
+        return this.value;
+    }
+    return element;
+}
+
+function scenarioSelector() {
+    var element = document.createElement( "select" );
+    var scenarios = scenarioJson.getJson().scenarios;
+    var keys = Object.keys( scenarios );
+    var option;
+    for ( var i = 0; i < keys.length; i++ ) {
+        option = document.createElement( "option" );
+        option.value = keys[ i ];
+        option.innerHTML = keys[ i ];
+        element.appendChild( option );
+    }
+    element.getOutput = function() {
+        return this.value;
+    }
+    return element;
+}
+
+function vector2Input() {
+    var element = document.createElement( "div" );
+    var x = numberField( undefined, undefined, 1 );
+    var y = numberField( undefined, undefined, 1 );
+    var labelx = document.createElement( "div" );
+    var labely = document.createElement( "div" );
+    x.className = y.className = "vectorElement";
+    labelx.innerHTML = "x:";
+    labely.innerHTML = "y:";
+    labelx.className = labely.className = "inline label";
+    element.appendChild( labelx );
+    labelx.appendChild( x );
+    element.appendChild( labely );
+    labely.appendChild( y );
+    element.getOutput = function() {
+        return [ x.getOutput(), y.getOutput() ];
+    }
+    return element;
+}
+
+function numberField( min, max, step ) {
+    var element = document.createElement( "input" );
+    element.type = "number";
+    if ( min !== undefined ) {
+        element.min = min;
+    }
+    if ( max !== undefined ) {
+        element.max = max;
+    }
+    if ( step !== undefined ) {
+        element.step = step;
+    }
+    element.getOutput = function() {
+        // TODO: Validate
+        return parseFloat( this.value );
+    }
+    return element;
+}
+
+function primitiveSelector() {
+    var element = document.createElement( "div" );
+    var selector = customSelector( [ "boolean", "number", "string" ] );
+    var container = document.createElement( "div" );
+    var field;
+    var loadField = function() {
+        container.innerHTML = "";
+        switch ( selector.getOutput() ) {
+            case "boolean":
+                field = customSelector( [ "true", "false" ] );
+                break;
+            case "number":
+                field = numberField();
+                break;
+            case "string":
+                field = document.createElement( "input" );
+                field.getOutput = function() {
+                    return field.value;
+                }
+        }
+        field.className = "inline";
+        container.appendChild( field );
+    }
+    selector.addEventListener( "change", loadField );
+    loadField();
+    selector.className = container.className = "inline";
+    element.appendChild( selector );
+    element.appendChild( container );
+    element.getOutput = function() {
+        return field.getOutput();
+    }
+    return element;
+}
+
+function poseInput() {
+    var element = document.createElement( "div" );
+    var radius, yaw, pitch, radiusLabel, yawLabel, pitchLabel;
+    radius = numberField( 0, 15, 0.1 );
+    yaw = numberField( 0, 360, 1 );
+    pitch = numberField( 0, 90, 1 );
+    radius.className = yaw.className = pitch.className = "vectorElement";
+    radiusLabel = document.createElement( "div" );
+    yawLabel = document.createElement( "div" );
+    pitchLabel = document.createElement( "div" );
+    radiusLabel.innerHTML = "Distance:";
+    yawLabel.innerHTML = "Yaw (x):";
+    pitchLabel.innerHTML = "Pitch (y):";
+    radiusLabel.className = yawLabel.className = pitchLabel.className = "label";
+    radiusLabel.appendChild( radius );
+    yawLabel.appendChild( yaw );
+    pitchLabel.appendChild( pitch );
+    element.appendChild( radiusLabel );
+    element.appendChild( yawLabel );
+    element.appendChild( pitchLabel );
+    element.getOutput = function() {
+        return [
+            radius.getOutput(),
+            yaw.getOutput(),
+            pitch.getOutput()
+        ];
+    }
+    return element;
 }
 
 //@ sourceURL=editor/editor.js

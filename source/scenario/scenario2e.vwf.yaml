@@ -90,8 +90,7 @@ children:
           additionalCondition:
           - isAtPosition:
             - rover
-            - 13
-            - 2
+            - [ 13, 2 ]
           actions:
           - scenarioSuccess:
           - showAlert:

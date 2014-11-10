@@ -42,7 +42,7 @@ properties:
     # arguments: a single clause
     not:
 
-    # arguments: object, x, y
+    # arguments: object, [ x, y ]
     isAtPosition:
 
     # arguments: object, heading

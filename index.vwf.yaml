@@ -18,6 +18,7 @@ implements:
 - "http://vwf.example.com/blockly/manager.vwf"
 properties:
   enableShadows: true
+  shadowMapCullFace: "back"
   ambientColor: [ 150, 140, 140 ]
   userObject: null
   blockly_autoClose: false
