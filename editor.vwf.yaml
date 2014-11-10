@@ -128,7 +128,7 @@ children:
       shadowCameraFar: 128
       shadowMapWidth: 2048
       shadowMapHeight: 2048
-      shadowBias: -0.002
+      shadowBias: -0.003
   envLight:
     extends: http://vwf.example.com/light.vwf
     properties:
