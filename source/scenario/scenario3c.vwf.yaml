@@ -86,11 +86,11 @@ children:
 
         playStartingVO_3c:
           triggerCondition:
-          - onScenarioStart:
-          additionalCondition:
-          - not:
-            - readBlackboard:
-              - Level3cStartSounds
+          - and:
+            - onScenarioStart:
+            - not:
+              - readBlackboard:
+                - Level3cStartSounds
           actions:
           - playSound:
             - L3VO5_Rover
@@ -99,12 +99,12 @@ children:
 
         succeedOnSuccessfulMovement_3c:
           triggerCondition:
-          - onBlocklyStopped:
-            - rover
-          additionalCondition:
-          - isAtPosition:
-            - rover
-            - [ 12, 10 ]
+          - and:
+            - onBlocklyStopped:
+              - rover
+            - isAtPosition:
+              - rover
+              - [ 12, 10 ]
           actions:
           - scenarioSuccess:
           - showAlert:
@@ -120,10 +120,9 @@ children:
 
         playHint1_3c:
           triggerCondition:
-          - delay:
-            - 15
-          additionalCondition:
           - and:
+            - delay:
+              - 15
             - hasHeading:
               - rover
               - 0
@@ -147,11 +146,10 @@ children:
 
         playTravelVO_3c:
           triggerCondition:
-          - isAtPosition:
-            - rover
-            - [ 32, 14 ]
-          additionalCondition:
           - and:
+            - isAtPosition:
+              - rover
+              - [ 32, 14 ]
             - not:
               - readBlackboard:
                 - Level3cTravel1
@@ -169,9 +167,8 @@ children:
 
         failOnIncompleteProgram_3c:
           triggerCondition:
-          - onBlocklyStopped:
-          additionalCondition:
           - and:
+            - onBlocklyStopped:
             - not:
               - readBlackboard:
                 - hasFailed

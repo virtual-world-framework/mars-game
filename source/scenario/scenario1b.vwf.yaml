@@ -98,11 +98,11 @@ children:
 
         playStartingVO_1b:
           triggerCondition:
-          - onScenarioStart:
-          additionalCondition:
-          - not:
-            - readBlackboard:
-              - Level1bStartSounds
+          - and:
+            - onScenarioStart:
+            - not:
+              - readBlackboard:
+                - Level1bStartSounds
           actions:
           - playSound:
             - L1VO2_Rover
@@ -111,12 +111,12 @@ children:
 
         succeedOnSuccess_1b:
           triggerCondition:
-          - onBlocklyStopped:
-            - rover
-          additionalCondition:
-          - isAtPosition:
-            - rover
-            - [ 8, 3 ]
+          - and:
+            - onBlocklyStopped:
+              - rover
+            - isAtPosition:
+              - rover
+              - [ 8, 3 ]
           actions:
           - scenarioSuccess:
           - showAlert:
@@ -128,10 +128,9 @@ children:
 
         playHint1_1b:
           triggerCondition:
-          - delay:
-            - 13
-          additionalCondition:
           - and:
+            - delay:
+              - 13
             - not:
               - readBlackboard:
                 - Level1bHint1
@@ -152,12 +151,11 @@ children:
 
         playHint2_1b:
           triggerCondition:
-          - onBlocklyProgramChanged:
-            - [ "rover" ]
-            - add
-            - rover_moveForward
-          additionalCondition:
           - and:
+            - onBlocklyProgramChanged:
+              - [ "rover" ]
+              - add
+              - rover_moveForward
             - not:
               - readBlackboard:
                 - Level1bHint2

@@ -104,7 +104,6 @@ Trigger.prototype = {
 
     // The conditions that we check to see if the trigger should fire
     triggerCondition: undefined,
-    additionalCondition: undefined,
 
     // The actions we take when the trigger fires
     actions: undefined,
@@ -127,15 +126,6 @@ Trigger.prototype = {
             return undefined;
         } 
 
-        if ( definition.additionalCondition && 
-             ( definition.additionalCondition.length !== 1 ) ) {
-
-            logger.errorx( triggerName + ".initialize", "There must be at " +
-                           "most one additional condition.  Try using 'and' " +
-                           "or 'or'." );
-            return undefined;
-        }
-
         if ( !definition.actions || ( definition.actions.length < 1 )) {
             logger.errorx( triggerName + ".initialize", "There must be at " +
                            "least one action." );
@@ -151,12 +141,6 @@ Trigger.prototype = {
                                               context, 
                                               this.checkFire.bind( this ) );
 
-        if ( definition.additionalCondition ) {
-            this.additionalCondition = 
-                conditionFactory.executeFunction( definition.additionalCondition[0],
-                                                  context );
-        }
-
         this.actions = [];
         for ( var i = 0; i < definition.actions.length; ++i ) {
             var action = actionFactory.executeFunction( definition.actions[ i ], 
@@ -170,8 +154,7 @@ Trigger.prototype = {
     // Check our conditions, and take action if they're true
     checkFire: function() {
         if ( !this.isDeleted && 
-             this.triggerCondition && this.triggerCondition() &&
-             ( !this.additionalCondition || this.additionalCondition() ) ) {
+             this.triggerCondition && this.triggerCondition() ) {
 
             // this.logger.logx( this.name + ".checkFire", "Firing actions " +
             //                   "for trigger '" + this.name + "'.");

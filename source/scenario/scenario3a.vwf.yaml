@@ -84,11 +84,11 @@ children:
 
         playStartingVO_3a:
           triggerCondition:
-          - onScenarioStart:
-          additionalCondition:
-          - not:
-            - readBlackboard:
-              - Level3aStartSounds
+          - and:
+            - onScenarioStart:
+            - not:
+              - readBlackboard:
+                - Level3aStartSounds
           actions:
           - playSound:
             - SCVO9_Rover
@@ -99,11 +99,10 @@ children:
 
         playTravelVO_1_3a:
           triggerCondition:
-          - isAtPosition:
-            - rover
-            - [ 51, 8 ]
-          additionalCondition:
           - and:
+            - isAtPosition:
+              - rover
+              - [ 51, 8 ]
             - not:
               - readBlackboard:
                 - Level3aTravel1
@@ -121,11 +120,10 @@ children:
 
         playTravelVO_2_3a:
           triggerCondition:
-          - isAtPosition:
-            - rover
-            - [ 41, 13 ]
-          additionalCondition:
           - and:
+            - isAtPosition:
+              - rover
+              - [ 41, 13 ]
             - not:
               - readBlackboard:
                 - Level3aTravel2
@@ -143,12 +141,12 @@ children:
 
         succeedOnSuccessfulMovement_3a:
           triggerCondition:
-          - onBlocklyStopped:
-            - rover
-          additionalCondition:
-          - isAtPosition:
-            - rover
-            - [ 37, 15 ]
+          - and:
+            - onBlocklyStopped:
+              - rover
+            - isAtPosition:
+              - rover
+              - [ 37, 15 ]
           actions:
           - scenarioSuccess:
           - showAlert:
@@ -160,10 +158,9 @@ children:
 
         playHint1_3a:
           triggerCondition:
-          - delay:
-            - 20
-          additionalCondition:
           - and:
+            - delay:
+              - 20
             - not:
               - isBlocklyExecuting:
             - not:
@@ -183,10 +180,9 @@ children:
 
         playHint2_3a:
           triggerCondition:
-          - delay:
-            - 40
-          additionalCondition:
           - and:
+            - delay:
+              - 40
             - not:
               - isBlocklyExecuting:
             - not:

@@ -24,9 +24,8 @@ properties:
   lateLoadTriggers:
     failOnIncompleteProgram:
       triggerCondition:
-      - onBlocklyStopped:
-      additionalCondition:
       - and:
+        - onBlocklyStopped:
         - not:
           - readBlackboard:
             - hasFailed
@@ -44,9 +43,8 @@ properties:
 
     hintOnIncompleteProgram_1:
       triggerCondition:
-      - onBlocklyStopped:
-      additionalCondition:
       - and:
+        - onBlocklyStopped:
         - not:
           - readBlackboard:
             - hasSucceeded
@@ -66,9 +64,8 @@ properties:
 
     hintOnIncompleteProgram_2:
       triggerCondition:
-      - onBlocklyStopped:
-      additionalCondition:
       - and:
+        - onBlocklyStopped:
         - readBlackboard:
           - stepThroughProgramHint
         - not:
@@ -132,13 +129,13 @@ properties:
 
     failOnCollision:
       triggerCondition:
-      - moveFailed:
-        - rover
-        - collision
-      additionalCondition:
-      - not:
-        - readBlackboard:
-          - hasFailed
+      - and:
+        - moveFailed:
+          - rover
+          - collision
+        - not:
+          - readBlackboard:
+            - hasFailed
       actions:
       - scenarioFailure:        
         - collision
@@ -147,13 +144,13 @@ properties:
 
     hintOnCollision_1:
       triggerCondition:
-      - moveFailed:
-        - rover
-        - collision
-      additionalCondition:
-      - not:
-        - readBlackboard:
-          - stepThroughProgramHint
+      - and:
+        - moveFailed:
+          - rover
+          - collision
+        - not:
+          - readBlackboard:
+            - stepThroughProgramHint
       actions:
       - delay:
         - 0.2
@@ -164,11 +161,10 @@ properties:
 
     hintOnCollision_2:
       triggerCondition:
-      - moveFailed:
-        - rover
-        - collision
-      additionalCondition:
       - and:
+        - moveFailed:
+          - rover
+          - collision
         - readBlackboard:
           - stepThroughProgramHint
         - not:
@@ -184,13 +180,13 @@ properties:
 
     failOnBatteryDepleted:
       triggerCondition:
-      - moveFailed:
-        - rover
-        - battery
-      additionalCondition:
-      - not:
-        - readBlackboard:
-          - hasFailed
+      - and:
+        - moveFailed:
+          - rover
+          - battery
+        - not:
+          - readBlackboard:
+            - hasFailed
       actions:
       - scenarioFailure:         
         - battery

@@ -21,10 +21,8 @@ extends: http://vwf.example.com/node.vwf
 properties:
   # Any triggers placed here will be automatically loaded when loadTriggers
   #   is called.
-  # A trigger consists of three pieces:
+  # A trigger consists of two pieces:
   #   triggerCondition: When this condition becomes true, the trigger may fire
-  #   additionalCondition: This condition won't cause the trigger to fire, but it 
-  #     must be true in order for the trigger to fire
   #   actions: Each of these will be run, in order, when the trigger fires
   triggers:
 

@@ -72,11 +72,11 @@ children:
 
         playStartingVO_2c:
           triggerCondition:
-          - onScenarioStart:
-          additionalCondition:
-          - not:
-            - readBlackboard:
-              - Level2cStartSounds
+          - and:
+            - onScenarioStart:
+            - not:
+              - readBlackboard:
+                - Level2cStartSounds
           actions:
           - playSound:
             - SCVO6_Rover
@@ -110,10 +110,9 @@ children:
 
         playHint1_2c:
           triggerCondition:
-          - delay:
-            - 20
-          additionalCondition:
           - and:
+            - delay:
+              - 20
             - not:
               - readBlackboard:
                 - Level2cHint1

@@ -110,11 +110,11 @@ children:
 
         playStartingVO_1a:
           triggerCondition:
-          - onScenarioStart:
-          additionalCondition:
-          - not:
-            - readBlackboard:
-              - Level1aStartSounds
+          - and:
+            - onScenarioStart:
+            - not:
+              - readBlackboard:
+                - Level1aStartSounds
           actions:
           - playSound:
             - L1VO1_Rover
@@ -135,12 +135,12 @@ children:
 
         playHint1_1a:
           triggerCondition:
-          - delay:
-            - 20
-          additionalCondition:
-          - not:
-            - readBlackboard:
-              - Level1aHint1
+          - and:
+            - delay:
+              - 20
+            - not:
+              - readBlackboard:
+                - Level1aHint1
           actions:
           - writeToBlackboard:
             - Level1aHint1

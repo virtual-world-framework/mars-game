@@ -87,11 +87,11 @@ children:
 
         playStartingVO_2a:
           triggerCondition:
-          - onScenarioStart:
-          additionalCondition:
-          - not:
-            - readBlackboard:
-              - Level2aStartSounds
+          - and:
+            - onScenarioStart:
+            - not:
+              - readBlackboard:
+                - Level2aStartSounds
           actions:
           - playSound:
             - L2VO4_Control
@@ -123,10 +123,9 @@ children:
 
         playHint1_2a:
           triggerCondition:
-          - delay:
-            - 20
-          additionalCondition:
           - and:
+            - delay:
+              - 20
             - not:
               - readBlackboard:
                 - Level2aHint1

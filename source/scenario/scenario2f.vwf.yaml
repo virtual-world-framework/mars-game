@@ -72,11 +72,11 @@ children:
 
         playStartingVO_2f:
           triggerCondition:
-          - onScenarioStart:
-          additionalCondition:
-          - not:
-            - readBlackboard:
-              - Level2fStartSounds
+          - and:
+            - onScenarioStart:
+            - not:
+              - readBlackboard:
+                - Level2fStartSounds
           actions:
           - playSound:
             - L2VO9_Control
@@ -85,12 +85,12 @@ children:
 
         succeedOnSuccessfulMovement_2f:
           triggerCondition:
-          - onBlocklyStopped:
-            - rover
-          additionalCondition:
-          - isAtPosition:
-            - rover
-            - [ 7, 5 ]
+          - and:
+            - onBlocklyStopped:
+              - rover
+            - isAtPosition:
+              - rover
+              - [ 7, 5 ]
           actions:
           - scenarioSuccess:
           - showAlert:
@@ -117,10 +117,9 @@ children:
 
         playHint1_2f:
           triggerCondition:
-          - delay:
-            - 15
-          additionalCondition:
           - and:
+            - delay:
+              - 15
             - not:
               - readBlackboard:
                 - Level2fHint1
@@ -141,10 +140,9 @@ children:
 
         playHint2_2f:
           triggerCondition:
-          - delay:
-            - 30
-          additionalCondition:
           - and:
+            - delay:
+              - 30
             - not:
               - readBlackboard:
                 - Level2eHint2
