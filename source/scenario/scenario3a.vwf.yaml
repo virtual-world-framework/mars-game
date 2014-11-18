@@ -146,7 +146,8 @@ children:
               - rover
             - isAtPosition:
               - rover
-              - [ 37, 15 ]          actions:
+              - [ 37, 15 ]
+          actions:
           - scenarioSuccess:
           - showAlert:
             - "Looks like the rover changed course!  Time to plot the new line…"
