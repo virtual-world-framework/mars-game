@@ -19,15 +19,8 @@
 --- 
 extends: http://vwf.example.com/node.vwf
 properties:
-  # Any triggers placed here will be automatically loaded when loadTriggers
-  #   is called.
-  # A trigger consists of two pieces:
-  #   triggerCondition: When this condition becomes true, the trigger may fire
-  #   actions: Each of these will be run, in order, when the trigger fires
+  # The yaml definition for our triggers
   triggers:
-
-  # This holds our triggers.  For internal use only.
-  triggersSet$: undefined
 
 methods:
   # This function loops through our triggers property and creates all the 
@@ -54,6 +47,11 @@ methods:
   #   trigger is actually the same.
   # arguments: triggerList
   clearTriggerList:
+
+  # Delete an actual trigger.  Meant for internal use only - it takes the 
+  #   instantiated trigger from our triggerSet, not the yaml definition that
+  #   it was created from.
+  deleteTrigger:
 
   # Checks whether we have any triggers
   isEmpty:
