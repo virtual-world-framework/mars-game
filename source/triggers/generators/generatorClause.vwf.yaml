@@ -26,7 +26,7 @@
 # function that performs the actual check.
 
 --- 
-extends: source/triggers/declarativeFunctionExecutor.vwf
+extends: source/triggers/generators/generator.vwf
 
 properties:
 
@@ -34,35 +34,34 @@ properties:
   # executor.  It's fine if other function sets are also added, but this 
   # provides the baseline functionality that we need.
   clauseSet:
-
     # arguments: an array of clauses
-    and:
-    or:
+    and: "source/triggers/clauses/clauseAnd.vwf"
+    or: "source/triggers/clauses/clauseOr.vwf"
 
     # arguments: a single clause
-    not:
+    not: "source/triggers/clauses/clauseNot.vwf"
 
     # arguments: object, [ x, y ]
-    isAtPosition:
+    isAtPosition: "source/triggers/clauses/clauseIsAtPosition.vwf"
 
     # arguments: object, heading
-    hasHeading:
+    hasHeading: "source/triggers/clauses/clauseHasHeading.vwf"
 
     # arguments: owner, object
-    hasObject:
+    hasObject: "source/triggers/clauses/clauseHasObject.vwf"
 
-    # arguments: object
-    onMoved:
-    moveFailed:
+    # arguments: object, threshold (optional, default = 0.667 seconds)
+    onMoved: "source/triggers/clauses/clauseOnMoved.vwf"
+    moveFailed: "source/triggers/clauses/clauseMoveFailed.vwf"
 
     # arguments: these blockly clauses can take a single blockly object (e.g.
     #   "rover"), an array of blockly objects (e.g. [ "minirover", "graph" ]),
     #   or nothing (in which case, we fire them if the event occurs on *any*
     #   blockly object).  An empty array counts as "nothing."
-    isBlocklyExecuting:
-    onBlocklyStarted:
-    onBlocklyStopped:
-    onBlocklyWindowOpened:
+    isBlocklyExecuting: "source/triggers/clauses/clauseIsBlocklyExecuting.vwf"
+    onBlocklyStarted: "source/triggers/clauses/clauseOnBlocklyStarted.vwf"
+    onBlocklyStopped: "source/triggers/clauses/clauseOnBlocklyStopped.vwf"
+    onBlocklyWindowOpened: "source/triggers/clauses/clauseOnBlocklyWindowOpened.vwf"
 
     # arguments:
     #   1: An array of blockly objects (as described above)
@@ -71,39 +70,39 @@ properties:
     #   3: the type of block, on array of block types, or nothing (in which 
     #      case any type of block will match). An empty array counts as 
     #      "nothing."
-    onBlocklyProgramChanged:
+    onBlocklyProgramChanged: "source/triggers/clauses/clauseOnBlocklyProgramChanged.vwf"
 
     # arguments: scenarioName (optional)
-    onScenarioStart:
-    onScenarioSucceeded:
-    onScenarioFailed:
+    onScenarioStart: "source/triggers/clauses/clauseOnScenarioStart.vwf"
+    onScenarioSucceeded: "source/triggers/clauses/clauseOnScenarioSucceeded.vwf"
+    onScenarioFailed: "source/triggers/clauses/clauseOnScenarioFailed.vwf"
 
     # Triggers when the specified video ends.
     # arguments: videoSource
-    onVideoPlayed:
+    onVideoPlayed: "source/triggers/clauses/clauseOnVideoPlayed.vwf"
 
     # Triggers when the appropriate UI element is used
     # arguments: (none)
-    onHelicamToggle:
-    onGraphToggle:
-    onTilesToggle:
+    onHelicamToggle: "source/triggers/clauses/clauseOnHelicamToggle.vwf"
+    onGraphToggle: "source/triggers/clauses/clauseOnGraphToggle.vwf"
+    onTilesToggle: "source/triggers/clauses/clauseOnTilesToggle.vwf"
 
     # Checks to see if the graph passes through a particular x,y point
     # arguments: an x,y array
-    blocklyLineEval:
+    blocklyLineEval: "source/triggers/clauses/clauseBlocklyLineEval.vwf"
 
     # Checks the sceneBlackboard for a given key
     # arguments: variableName, optionally check value
-    readBlackboard:
+    readBlackboard: "source/triggers/clauses/clauseReadBlackboard.vwf"
 
     # Checks if a HUD element has fired its onMouseOver event
     # arguments: elementName
-    onHUDMouseOver:
+    onHUDMouseOver: "source/triggers/clauses/clauseOnHUDMouseOver.vwf"
 
     # Triggers when progress is loaded rather than when a new game is started
     #   or normal scenario progress occurs
     # arguments: none
-    onGameLoaded:
+    onGameLoaded: "source/triggers/clauses/clauseOnGameLoaded.vwf"
 
 scripts:
-- source: source/triggers/booleanFunctionFactory.js
+- source: source/triggers/generators/generatorClause.js

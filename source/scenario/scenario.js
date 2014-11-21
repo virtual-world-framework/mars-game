@@ -17,7 +17,7 @@ var scene;
 
 this.initialize = function() {
     this.children.create( "startStateExecutor", 
-                          "source/triggers/declarativeFunctionExecutor.vwf" );
+                          "source/triggers/generators/declarativeFunctionExecutor.vwf" );
 
     this.future( 0 ).onSceneLoaded();
 }
