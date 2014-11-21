@@ -21,97 +21,97 @@ this.initialize = function() {
     self.addFunctionSet(self.clauseSet);
 }
 
-this.clauseSet.and = function( params, context, callback ) {
-    if ( !params || ( params.length < 1 ) ) {
-        self.logger.errorx( "and", "This clause needs to have at " +
-                            " least one (and ideally two or more) clauses " +
-                            " inside of it." );
-        return undefined;
-    } else if ( params.length < 2 ) {
-        self.logger.warnx( "and", "This clause probably ought to " +
-                           "have two or more clauses inside of it." );
-    }
+// this.clauseSet.and = function( params, context, callback ) {
+//     if ( !params || ( params.length < 1 ) ) {
+//         self.logger.errorx( "and", "This clause needs to have at " +
+//                             " least one (and ideally two or more) clauses " +
+//                             " inside of it." );
+//         return undefined;
+//     } else if ( params.length < 2 ) {
+//         self.logger.warnx( "and", "This clause probably ought to " +
+//                            "have two or more clauses inside of it." );
+//     }
 
-    var clauses = [];
-    for ( var i = 0; i < params.length; ++i ) {
-        var clause = self.executeFunction( params[ i ], context, callback );
-        clause && clauses.push( clause );
-    }
+//     var clauses = [];
+//     for ( var i = 0; i < params.length; ++i ) {
+//         var clause = self.executeFunction( params[ i ], context, callback );
+//         clause && clauses.push( clause );
+//     }
 
-    return function() {
-        for ( var i = 0; i < clauses.length; ++i ) {
-            if ( !clauses[ i ]() ) { 
-                return false;
-            }
-        }
-        return true;
-    }
-}
+//     return function() {
+//         for ( var i = 0; i < clauses.length; ++i ) {
+//             if ( !clauses[ i ]() ) { 
+//                 return false;
+//             }
+//         }
+//         return true;
+//     }
+// }
 
-this.clauseSet.or = function( params, context, callback ) {
-    if ( !params || ( params.length < 1 ) ) {
-        self.logger.errorx( "or", "This clause needs to have at " +
-                            "least one (and ideally two or more) clauses " +
-                            "inside of it." );
-        return undefined;
-    } else if ( params.length < 2 ) {
-        self.logger.warnx( "or", "This clause probably ought to " +
-                           "have two or more clauses inside of it." );
-    }
+// this.clauseSet.or = function( params, context, callback ) {
+//     if ( !params || ( params.length < 1 ) ) {
+//         self.logger.errorx( "or", "This clause needs to have at " +
+//                             "least one (and ideally two or more) clauses " +
+//                             "inside of it." );
+//         return undefined;
+//     } else if ( params.length < 2 ) {
+//         self.logger.warnx( "or", "This clause probably ought to " +
+//                            "have two or more clauses inside of it." );
+//     }
 
-    var clauses = [];
-    for ( var i = 0; i < params.length; ++i ) {
-        var clause = self.executeFunction( params[ i ], context, callback );
-        clause && clauses.push( clause );
-    }
+//     var clauses = [];
+//     for ( var i = 0; i < params.length; ++i ) {
+//         var clause = self.executeFunction( params[ i ], context, callback );
+//         clause && clauses.push( clause );
+//     }
 
-   return function() {
-        for ( var i = 0; i < clauses.length; ++i ) {
-            if ( clauses[ i ]() ) { 
-                return true;
-            }
-        }
-        return false;
-    }
-}
+//    return function() {
+//         for ( var i = 0; i < clauses.length; ++i ) {
+//             if ( clauses[ i ]() ) { 
+//                 return true;
+//             }
+//         }
+//         return false;
+//     }
+// }
 
-this.clauseSet.not = function( params, context, callback ) {
-    if ( !params || ( params.length !== 1 ) ) {
-        self.logger.errorx( "not", "This clause needs to have one " +
-                            "clause inside of it." );
-        return undefined;
-    }
+// this.clauseSet.not = function( params, context, callback ) {
+//     if ( !params || ( params.length !== 1 ) ) {
+//         self.logger.errorx( "not", "This clause needs to have one " +
+//                             "clause inside of it." );
+//         return undefined;
+//     }
 
-    var clause = self.executeFunction( params[ 0 ], context, callback );
+//     var clause = self.executeFunction( params[ 0 ], context, callback );
 
-    return function() {
-        var result = clause();
-        return !result;
-    }
-}
+//     return function() {
+//         var result = clause();
+//         return !result;
+//     }
+// }
 
-this.clauseSet.isAtPosition = function( params, context, callback ) {
-    if ( !params || ( params.length !== 2 ) ) {
-        self.logger.errorx( "isAtPosition", 
-                            "This clause requires two arguments: the object, " +
-                            "and an array containing the x and y grid positions." );
-        return undefined;
-    }
+// this.clauseSet.isAtPosition = function( params, context, callback ) {
+//     if ( !params || ( params.length !== 2 ) ) {
+//         self.logger.errorx( "isAtPosition", 
+//                             "This clause requires two arguments: the object, " +
+//                             "and an array containing the x and y grid positions." );
+//         return undefined;
+//     }
 
-    var objectName = params[ 0 ];
-    var pos = params[ 1 ];
+//     var objectName = params[ 0 ];
+//     var pos = params[ 1 ];
 
-    var object = self.findInContext( context, objectName );
+//     var object = self.findInContext( context, objectName );
 
-    if ( callback ) {
-        object.moved = self.events.add( callback );
-    } 
+//     if ( callback ) {
+//         object.moved = self.events.add( callback );
+//     } 
 
-    return function() {
-        return ( object.currentGridSquare[ 0 ] === pos[ 0 ] && 
-                 object.currentGridSquare[ 1 ] === pos[ 1 ] );
-    };
-}
+//     return function() {
+//         return ( object.currentGridSquare[ 0 ] === pos[ 0 ] && 
+//                  object.currentGridSquare[ 1 ] === pos[ 1 ] );
+//     };
+// }
 
 this.clauseSet.hasHeading = function( params, context, callback ) {
     if ( !params || ( params.length !== 2 ) ) {
@@ -159,29 +159,44 @@ this.clauseSet.hasObject = function( params, context, callback ) {
     };
 }
 
-this.clauseSet.onMoved = function( params, context, callback ) {
-    if ( !params || ( params.length !== 1 ) ) {
-        self.logger.errorx( "onMoved", "this clause requires " +
-                            "one argument: the obect." );
-    }
+// this.clauseSet.onMoved = function( params, context, parent, callback ) {
+//     var initClause = function( clause ) {
+//         clause.initClause( params, context, callback );
+//     };
 
-    var object = self.findInContext( context, params[ 0 ] );
-    var hasMoved = false;
+//     uniqueName = parent.name + "_" + parent.uniqueNameCounter;
+//     parent.uniqueNameCounter++;
+//     parent.children.create( uniqueName, "source/triggers/clauses/clauseOnMoved.vwf", 
+//                             initClause );
 
-    onClauseCallbackWarning( callback );
-    if ( callback ) {
-        object.moved = self.events.add( function() {
-                                            hasMoved = true;
-                                            callback();
-                                        } );
-    }
 
-    return function() {
-        var retVal = hasMoved;
-        hasMoved = false;
-        return retVal;
-    };
-}
+
+
+
+//     if ( !params || ( params.length === 0 ) || ( params.length > 2 ) ) {
+//         self.logger.errorx( "onMoved", "this clause requires " +
+//                             "one argument: the object. It also accepts an " +
+//                             "optional timeout threshold." );
+//     }
+
+//     var object = self.findInContext( context, params[ 0 ] );
+//     var threshold = params.length > 0 ? params[ 1 ]  * 1000 : 667;
+//     var lastMovedTime = 0;
+
+//     onClauseCallbackWarning( callback );
+//     if ( callback ) {
+//         object.moved = self.events.add( function() {
+//                                             lastMovedTime = Date.now();
+//                                             callback();
+//                                         } );
+//     }
+
+//     return function() {
+//         var retVal = ( lastMovedTime > 0 ) && 
+//                      ( Date.now() - lastMovedTime <= threshold );
+//         return retVal;
+//     };
+// }
 
 this.clauseSet.moveFailed = function( params, context, callback ) {
     if ( !params || ( params.length < 1 ) || ( params.length > 2 ) ) {
@@ -863,4 +878,4 @@ function getBlocklyObjects( nameArray, context ) {
 }
 
 
-//@ sourceURL=source/triggers/booleanFunctionFactory.js
+//@ sourceURL=source/triggers/generators/generatorClause.js
