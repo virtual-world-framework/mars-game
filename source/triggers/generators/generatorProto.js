@@ -74,4 +74,4 @@ this.generateObject = function( objDefinition, parentObj, payload ) {
     return undefined;
 }
 
-//@ sourceURL=source/triggers/generators/generator.js
+//@ sourceURL=source/triggers/generators/generatorProto.js

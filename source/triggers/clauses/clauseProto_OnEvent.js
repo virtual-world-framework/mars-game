@@ -42,5 +42,5 @@ this.evaluateClause = function() {
     return retVal;
 }
 
-//@ sourceURL=source/triggers/clauses/clausePrototypeOnEvent.js
+//@ sourceURL=source/triggers/clauses/clauseProto_OnEvent.js
 

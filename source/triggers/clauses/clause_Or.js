@@ -37,12 +37,12 @@ this.onGenerated = function( params, generator, payload ) {
 
 this.evaluateClause = function() {
     for ( var i = 0; i < this.clauses.children.length; ++i ) {
-        if ( !this.clauses.children[ i ].evaluateClause() ) { 
-            return false;
+        if ( this.clauses.children[ i ].evaluateClause() ) { 
+            return true;
         }
     }
 
-    return true;
+    return false;
 }
 
-//@ sourceURL=source/triggers/clauses/clauseAnd.js
+//@ sourceURL=source/triggers/clauses/clause_Or.js

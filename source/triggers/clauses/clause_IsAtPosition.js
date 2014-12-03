@@ -16,7 +16,8 @@ this.onGenerated = function( params, generator, payload ) {
     if ( !params || ( params.length !== 2 ) ) {
         this.logger.errorx( "onGenerated", 
                             "This clause requires two arguments: the object " +
-                            "and the heading." );
+                            "and an array containing the x and y grid " +
+                            "positions." );
         return false;
     }
 
@@ -25,15 +26,30 @@ this.onGenerated = function( params, generator, payload ) {
     }
 
     this.object = this.findInScene( params[ 0 ] );
-    this.targetHeading = params[ 1 ];
+    this.targetPos = params[ 1 ];
+
+    if ( !this.object ) {
+        this.logger.errorx( "onGenerated", "Failed to find object named '" +
+                            object + "'." );
+        return false;
+    }
+
+    if ( this.targetPos[ 0 ] === undefined || 
+         this.targetPos[ 1 ] === undefined) {
+        this.logger.errorx( "onGenerated", "The second argument must be a 2D " +
+                            "array specifying the grid position we should " +
+                            "check against." );
+        return false;
+    }
 
     if ( !this.object.moved ) {
         this.logger.errorx( "onGenerated", "'" + params[ 0 ] + "' doesn't " + 
                             "appear to be capable of movement!" );
         return false;
     }
+
     this.object.moved = this.events.add( this.parentTrigger.checkFire(), 
-                                    this.parentTrigger );
+                                         this.parentTrigger );
 
     return true;
 }
@@ -45,4 +61,4 @@ this.evaluateClause = function() {
     return retVal;
 }
 
-//@ sourceURL=source/triggers/clauses/clauseHasHeading.js
+//@ sourceURL=source/triggers/clauses/clause_IsAtPosition.js
