@@ -414,13 +414,13 @@ a:active {
 #previousScenario {
     width: 64px;
     height: 64px;
-    background-image: url( "assets/images/previous_arrow.png" );
+    background-image: url( "../../assets/images/previous_arrow.png" );
 }
 
 #nextScenario {
     width: 64px;
     height: 64px;
-    background-image: url( "assets/images/next_arrow.png" );
+    background-image: url( "../../assets/images/next_arrow.png" );
 }
 
 #scenarioDisplay {
@@ -483,7 +483,7 @@ a:active {
     border-radius: 4px;
     background-position: left bottom;
     background-repeat: repeat-x;
-    background-image: url( "assets/images/slider_track.png" );
+    background-image: url( "../../assets/images/slider_track.png" );
     display: table-cell;
 }
 
@@ -501,15 +501,15 @@ a:active {
     width: 32px;
     background-position: left bottom;
     background-repeat: no-repeat;
-    background-image: url( "assets/images/slider_handle.png" );
+    background-image: url( "../../assets/images/slider_handle.png" );
     pointer-events: none;
 }
 
 #mute {
-    background-image: url( "assets/images/volume_icon.png" );
+    background-image: url( "../../assets/images/volume_icon.png" );
 }
 #mute.muted {
-    background-image: url( "assets/images/volume_mute_icon.png" );
+    background-image: url( "../../assets/images/volume_mute_icon.png" );
 }
 
 #MainMenu-Wrapper {
@@ -603,11 +603,11 @@ a:active {
     background-position: center;
     background-repeat: no-repeat;
     display: table-cell;
-    background-image: url( "assets/images/volume_icon.png" );
+    background-image: url( "../../assets/images/volume_icon.png" );
 }
 
 #MainMenu-MuteButton.muted {
-    background-image: url( "assets/images/volume_mute_icon.png" );
+    background-image: url( "../../assets/images/volume_mute_icon.png" );
 }
 
 #MainMenu-Slider {
@@ -616,7 +616,7 @@ a:active {
     border-radius: 4px;
     background-position: left bottom;
     background-repeat: repeat-x;
-    background-image: url( "assets/images/slider_track.png" );
+    background-image: url( "../../assets/images/slider_track.png" );
     display: table-cell;
 }
 
@@ -634,7 +634,7 @@ a:active {
     width: 32px;
     background-position: left bottom;
     background-repeat: no-repeat;
-    background-image: url( "assets/images/slider_handle.png" );
+    background-image: url( "../../assets/images/slider_handle.png" );
     pointer-events: none;
 }
 
