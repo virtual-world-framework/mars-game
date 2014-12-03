@@ -13,7 +13,7 @@
 # limitations under the License.
 
 --- 
-extends: source/triggers/clauses/clause.vwf
+extends: source/triggers/clauses/clauseProto.vwf
 
 scripts:
-- source: source/triggers/clauses/clauseOr.js
+- source: source/triggers/clauses/clause_Or.js

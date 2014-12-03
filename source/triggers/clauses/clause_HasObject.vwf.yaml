@@ -13,11 +13,11 @@
 # limitations under the License.
 
 --- 
-extends: source/triggers/clauses/clause.vwf
+extends: source/triggers/clauses/clauseProto.vwf
 
 properties:
-  object:
-  targetHeading:
+  owner:
+  objectName:
 
 scripts:
-- source: source/triggers/clauses/clauseHasHeading.js
+- source: source/triggers/clauses/clause_HasObject.js
