@@ -47,10 +47,10 @@ properties:
     - graph
   - loadToolbox:
     - rover
-    - assets/scenario/scenario2b.xml
+    - source/scenario/blockly/scenario2b.xml
   - loadToolbox:
     - graph
-    - assets/scenario/graph2b.xml
+    - source/scenario/blockly/graph2b.xml
 
 children:
   triggerManager:

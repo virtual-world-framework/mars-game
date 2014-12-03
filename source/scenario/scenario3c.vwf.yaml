@@ -53,10 +53,10 @@ properties:
     - graph
   - loadToolbox:
     - rover
-    - assets/scenario/scenario3c.xml
+    - source/scenario/blockly/scenario3c.xml
   - loadToolbox:
     - graph
-    - assets/scenario/graph.xml
+    - source/scenario/blockly/graph.xml
 
 children:
   triggerManager:

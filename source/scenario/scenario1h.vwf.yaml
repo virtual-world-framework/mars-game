@@ -58,7 +58,7 @@ properties:
     - rover
   - loadToolbox:
     - rover
-    - assets/scenario/scenario1h.xml
+    - source/scenario/blockly/scenario1h.xml
 
 children:
   triggerManager:
