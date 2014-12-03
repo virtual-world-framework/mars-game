@@ -15,12 +15,6 @@
 
 'use strict';
 
-var self;
-
-this.initialize = function() {
-    self = this;
-}
-
 var BlocklyApps = {
   getMsg: function( id ) { return ""; }
 }; 

@@ -70,7 +70,7 @@ a:active {
 }
 
 #blocklyIndicator {
-    background-image: url( "assets/images/blockly_ui/blockly_indicator.png" );
+    background-image: url( "../../assets/images/blockly_ui/blockly_indicator.png" );
     width: 40px;
     height: 17px;
     position: absolute;
@@ -78,11 +78,11 @@ a:active {
 }
 
 #blocklyIndicator.stopped {
-    background-image: url( "assets/images/blockly_ui/blockly_indicator_stopped.png" );
+    background-image: url( "../../assets/images/blockly_ui/blockly_indicator_stopped.png" );
 }
 
 #blocklyIndicatorCount {
-    background-image: url( "assets/images/blockly_ui/number_appendix.png" );
+    background-image: url( "../../assets/images/blockly_ui/number_appendix.png" );
     width: 38px;
     height: 15px;
     padding-left: 7px;
@@ -95,7 +95,7 @@ a:active {
 }
 
 #blocklyIndicatorCount.stopped {
-    background-image: url( "assets/images/blockly_ui/number_appendix_stopped.png" );
+    background-image: url( "../../assets/images/blockly_ui/number_appendix_stopped.png" );
 }
 
 #blocklyWrapper {
@@ -155,23 +155,23 @@ a:active {
     position: absolute;
     bottom: 0px;
     right: 0px;
-    background: url( "assets/images/blockly_ui/start_button.png" );
+    background: url( "../../assets/images/blockly_ui/start_button.png" );
     border-bottom-right-radius: 8px;
 }
 
 #startBlockly.disabled {
-    background: url( "assets/images/blockly_ui/start_button_disabled.png" );
+    background: url( "../../assets/images/blockly_ui/start_button_disabled.png" );
     pointer-events: none;
 }
 
 #startBlockly.reset {
-    background: url( "assets/images/blockly_ui/reset_button.png" );
+    background: url( "../../assets/images/blockly_ui/reset_button.png" );
 }
 
 .blocklyTab {
     height: 24px;
     width: 96px;
-    background-image: url( "assets/images/blockly_ui/tab.png" );
+    background-image: url( "../../assets/images/blockly_ui/tab.png" );
     background-position: bottom;
     background-repeat: no-repeat;
     display: inline-block;
@@ -185,7 +185,7 @@ a:active {
 }
 
 .blocklyTab.selected {
-    background-image: url( "assets/images/blockly_ui/tab_selected.png" );
+    background-image: url( "../../assets/images/blockly_ui/tab_selected.png" );
     color: rgba( 224, 255, 100, 0.75 );
 }
 
@@ -256,14 +256,14 @@ a:active {
 #blocklyCloseBtn {
     width: 24px;
     height: 24px;
-    background-image: url( "assets/images/blockly_ui/close_button.png" );
+    background-image: url( "../../assets/images/blockly_ui/close_button.png" );
     position: absolute;
     top: 0px;
     right: 4px;
 }
 
 #blocklyCloseBtn.hover {
-    background-image: url( "assets/images/blockly_ui/close_button_hover.png" );
+    background-image: url( "../../assets/images/blockly_ui/close_button_hover.png" );
 }
 
 .subtitleText {
