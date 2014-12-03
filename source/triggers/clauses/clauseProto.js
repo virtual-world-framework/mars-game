@@ -21,4 +21,4 @@ this.initClause = function( params, generator, payload ) {
     return true;
 }
 
-//@ sourceURL=source/triggers/clauses/clause.js
+//@ sourceURL=source/triggers/clauses/clauseProto.js

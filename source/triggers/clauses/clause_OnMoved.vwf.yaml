@@ -13,11 +13,7 @@
 # limitations under the License.
 
 --- 
-extends: source/triggers/clauses/clause.vwf
-
-properties:
-  object:
-  targetPos:
+extends: source/triggers/clauses/clauseProto_OnEvent.vwf
 
 scripts:
-- source: source/triggers/clauses/clauseIsAtPosition.js
+- source: source/triggers/clauses/clause_OnMoved.js

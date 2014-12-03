@@ -12,13 +12,9 @@
 // See the License for the specific language governing permissions and 
 // limitations under the License.
 
-var self;
-
 this.initialize = function() {
-    self = this;
-
-    self.functionSets = [];
-    self.addFunctionSet(self.clauseSet);
+    this.functionSets = [];
+    this.addFunctionSet(this.clauseSet);
 }
 
 // this.clauseSet.and = function( params, context, callback ) {
@@ -113,51 +109,51 @@ this.initialize = function() {
 //     };
 // }
 
-this.clauseSet.hasHeading = function( params, context, callback ) {
-    if ( !params || ( params.length !== 2 ) ) {
-        self.logger.errorx( "hasHeading", 
-                            "This clause requires two " +
-                            "arguments: the object and the heading." );
-        return undefined;
-    }
+// this.clauseSet.hasHeading = function( params, context, callback ) {
+//     if ( !params || ( params.length !== 2 ) ) {
+//         self.logger.errorx( "hasHeading", 
+//                             "This clause requires two " +
+//                             "arguments: the object and the heading." );
+//         return undefined;
+//     }
 
-    var objectName = params[ 0 ];
-    var heading = params[ 1 ];
+//     var objectName = params[ 0 ];
+//     var heading = params[ 1 ];
 
-    var object = self.findInContext( context, objectName );
+//     var object = self.findInContext( context, objectName );
 
-    if ( callback ) {
-        object.moved = self.events.add( callback );
-    } 
+//     if ( callback ) {
+//         object.moved = self.events.add( callback );
+//     } 
 
-    return function() {
-        return ( object.heading === heading );
-    };
-}
+//     return function() {
+//         return ( object.heading === heading );
+//     };
+// }
 
-this.clauseSet.hasObject = function( params, context, callback ) {
-    if ( !params || ( params.length !== 2 ) ) {
-        self.logger.errorx( "hasObject", 
-                            "This clause requires two arguments: " +
-                            "the owner and the object." );
-        return undefined;
-    }
+// this.clauseSet.hasObject = function( params, context, callback ) {
+//     if ( !params || ( params.length !== 2 ) ) {
+//         self.logger.errorx( "hasObject", 
+//                             "This clause requires two arguments: " +
+//                             "the owner and the object." );
+//         return undefined;
+//     }
 
-    var ownerName = params[ 0 ];
-    var objectName = params[ 1 ];
+//     var ownerName = params[ 0 ];
+//     var objectName = params[ 1 ];
 
-    var owner = self.findInContext( context, ownerName );
-    var object = self.findInContext( context, objectName );
+//     var owner = self.findInContext( context, ownerName );
+//     var object = self.findInContext( context, objectName );
 
-    if ( callback ) {
-        object.pickedUp = self.events.add( callback );
-        object.dropped = self.events.add( callback );
-    } 
+//     if ( callback ) {
+//         object.pickedUp = self.events.add( callback );
+//         object.dropped = self.events.add( callback );
+//     } 
 
-    return function() {
-        return owner.find( "*/" + objectName ).length > 0;
-    };
-}
+//     return function() {
+//         return owner.find( "*/" + objectName ).length > 0;
+//     };
+// }
 
 // this.clauseSet.onMoved = function( params, context, parent, callback ) {
 //     var initClause = function( clause ) {
@@ -166,7 +162,7 @@ this.clauseSet.hasObject = function( params, context, callback ) {
 
 //     uniqueName = parent.name + "_" + parent.uniqueNameCounter;
 //     parent.uniqueNameCounter++;
-//     parent.children.create( uniqueName, "source/triggers/clauses/clauseOnMoved.vwf", 
+//     parent.children.create( uniqueName, "source/triggers/clauses/clause_OnMoved.vwf", 
 //                             initClause );
 
 
@@ -198,33 +194,33 @@ this.clauseSet.hasObject = function( params, context, callback ) {
 //     };
 // }
 
-this.clauseSet.moveFailed = function( params, context, callback ) {
-    if ( !params || ( params.length < 1 ) || ( params.length > 2 ) ) {
-        self.logger.errorx( "moveFailed", "This clause requires " + 
-                            "one argument: the object, and takes " +
-                            "an additional optional argument: the " +
-                            "type of failure. " );
-    }
+// this.clauseSet.moveFailed = function( params, context, callback ) {
+//     if ( !params || ( params.length < 1 ) || ( params.length > 2 ) ) {
+//         self.logger.errorx( "moveFailed", "This clause requires " + 
+//                             "one argument: the object, and takes " +
+//                             "an additional optional argument: the " +
+//                             "type of failure. " );
+//     }
 
-    var objectName = params[ 0 ];
-    var failureType = params[ 1 ];
+//     var objectName = params[ 0 ];
+//     var failureType = params[ 1 ];
 
-    var object = self.findInContext( context, objectName );
-    var moveHasFailed = false;
+//     var object = self.findInContext( context, objectName );
+//     var moveHasFailed = false;
 
-    if ( callback ) {
-        object.moveFailed = self.events.add( function( situation ) {
-                                                moveHasFailed = !failureType || ( failureType === situation );
-                                                if ( moveHasFailed ){
-                                                    callback();
-                                                }
-                                            } );
-    }
+//     if ( callback ) {
+//         object.moveFailed = self.events.add( function( situation ) {
+//                                                 moveHasFailed = !failureType || ( failureType === situation );
+//                                                 if ( moveHasFailed ){
+//                                                     callback();
+//                                                 }
+//                                             } );
+//     }
 
-    return function() {
-        return moveHasFailed;
-    }
-}
+//     return function() {
+//         return moveHasFailed;
+//     }
+// }
 
 this.clauseSet.isBlocklyExecuting = function( params, context, callback ) {
     var objectArray = getBlocklyObjects( params, context );
@@ -878,4 +874,4 @@ function getBlocklyObjects( nameArray, context ) {
 }
 
 
-//@ sourceURL=source/triggers/generators/generatorClause.js
+//@ sourceURL=source/triggers/generators/generator_Clause.js

@@ -13,36 +13,25 @@
 // limitations under the License.
 
 this.onGenerated = function( params, generator, payload ) {
-    if ( !params || ( params.length < 1 ) ) {
-        this.logger.errorx( "onGenerated", "This clause needs to have at " +
-                            " least one (and ideally two or more) clauses " +
-                            " inside of it." );
+    if ( !params || ( params.length !== 1 ) ) {
+        this.logger.errorx( "onGenerated", "This clause needs to have one " +
+                            "clause inside of it." );
         return false;
-    } else if ( params.length < 2 ) {
-        this.logger.warnx( "onGenerated", "This clause probably ought to " +
-                           "have two or more clauses inside of it." );
-    }
+    }    
 
     if ( !this.initClause( params, generator, payload ) ) {
         return false;
     }
 
     this.children.create( "clauses", "http://vwf.example.com/node.vwf" );
-    for ( var i = 0; i < params.length; ++i ) {
-        generator.generateObject( params[ i ], this.clauses, payload );
-    }
+    generator.generateObject( params[ 0 ], this.clauses, payload );
 
     return true;
 }
 
 this.evaluateClause = function() {
-    for ( var i = 0; i < this.clauses.children.length; ++i ) {
-        if ( this.clauses.children[ i ].evaluateClause() ) { 
-            return true;
-        }
-    }
-
-    return false;
+    // TODO: should I safety check this?
+    return !this.clauses.children[ 0 ].evaluateClause();
 }
 
-//@ sourceURL=source/triggers/clauses/clauseOr.js
+//@ sourceURL=source/triggers/clauses/clause_Not.js
