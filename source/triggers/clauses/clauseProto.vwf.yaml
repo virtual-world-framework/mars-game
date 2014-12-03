@@ -26,29 +26,21 @@
 # function that performs the actual check.
 
 --- 
-extends: source/triggers/clauses/clause.vwf
+extends: source/triggers/generators/generatedObject.vwf
 
 properties:
-  # how recent does the event have to have been?
-  threshold$:
-
-  # when did the event last happen?
-  lastEventTime$:
+  # The trigger that this clause belongs to.
+  parentTrigger:
 
 methods:
-  # This function should be called by every child from inside of onGenerated.
+  # This function should be called by every clause from inside of onGenerated.
   #   It handles shared parts of the initialization.  Arguments are the same as
-  #   onGenerated, plus the value for threshold$ (since I don't know which 
-  #   parameter it will be).
-  # NOTE: I call initClause, so you don't have to.
-  initOnEvent:
+  #   onGenerated.
+  initClause:
 
-  # call this when the event occurs, and the magic will happen.
-  onEvent:
-
-  # resets lastEventTime$ when we trigger, so that we won't trigger more than
-  #  once off of a single move.
-  onTrigger:
+  # This is the function that actually gets called to check whether this
+  #   clause is true or false.
+  evaluateClause: 
 
 scripts:
-- source: source/triggers/clauses/clausePrototypeOnEvent.js
+- source: source/triggers/clauses/clauseProto.js

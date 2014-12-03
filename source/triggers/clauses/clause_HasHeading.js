@@ -13,29 +13,34 @@
 // limitations under the License.
 
 this.onGenerated = function( params, generator, payload ) {
-    if ( !params || ( params.length < 1 ) || ( params.length > 2 ) ) {
-        this.logger.errorx( "onMoved", "this clause requires " +
-                            "one argument: the object. It also accepts an " +
-                            "optional timeout threshold." );
+    if ( !params || ( params.length !== 2 ) ) {
+        this.logger.errorx( "onGenerated", 
+                            "This clause requires two arguments: the object " +
+                            "and the heading." );
         return false;
     }
 
-    if ( !this.initOnEvent( params, generator, payload, params[ 1 ] ) ) {
+    if ( !this.initClause( params, generator, payload ) ) {
         return false;
     }
 
-    var object = this.findInScene( params[ 0 ] );
-    if ( !object.moved ) {
-        this.logger.errorx( "onGenerated", "'" + objectName "' doesn't " + 
+    this.object = this.findInScene( params[ 0 ] );
+    this.targetHeading = params[ 1 ];
+
+    if ( !this.object.moved ) {
+        this.logger.errorx( "onGenerated", "'" + params[ 0 ] + "' doesn't " + 
                             "appear to be capable of movement!" );
         return false;
     }
-
-    // TODO: If this doesn't seem to work, I may need to wrap this.onEvent in
-    //  a local function.
-    object.moved = this.events.add( this.onEvent, this );
+    this.object.moved = this.events.add( this.parentTrigger.checkFire(), 
+                                         this.parentTrigger );
 
     return true;
 }
 
-//@ sourceURL=source/triggers/clauses/clauseOnMoved.js
+this.evaluateClause = function() {
+    var retVal = this.object.heading === this.targetHeading;
+    return retVal;
+}
+
+//@ sourceURL=source/triggers/clauses/clause_HasHeading.js

@@ -13,7 +13,14 @@
 # limitations under the License.
 
 --- 
-extends: source/triggers/clauses/clause.vwf
+extends: source/triggers/clauses/clauseProto.vwf
+
+properties:
+  failureType:
+  moveHasFailed: 
+
+methocs:
+  onMoveFailed:
 
 scripts:
-- source: source/triggers/clauses/clauseNot.js
+- source: source/triggers/clauses/clause_IsBlocklyExecuting.js
