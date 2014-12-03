@@ -125,8 +125,6 @@ children:
     type: model/vnd.collada+xml
     properties:
       visible: false
-  blocks:
-    includes: source/blocks.vwf
   airDust:
     includes: source/dustAir.vwf
   smoke1:

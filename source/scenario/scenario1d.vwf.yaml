@@ -61,7 +61,7 @@ properties:
     - rover
   - loadToolbox:
     - rover
-    - assets/scenario/scenario1d.xml
+    - source/scenario/blockly/scenario1d.xml
   - setSceneProperty:
     - blockly_activeNodeID
     - undefined
