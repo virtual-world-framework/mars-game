@@ -41,6 +41,19 @@ properties:
     # arguments: a single clause
     not: "source/triggers/clauses/clause_Not.vwf"
 
+    # Waits some number of seconds after the clause is created (i.e. after the
+    #   start of the scenario).
+    # arguments: how long to delay
+    delay: "source/triggers/clauses/clause_Delay.vwf"
+
+    # Prevents a particular trigger from firing more than once.
+    # arguments: (none)
+    doOnce: "source/triggers/clauses/clause_DoOnce.vwf"
+
+    # Checks the sceneBlackboard for a given key
+    # arguments: variableName, optionally check value
+    readBlackboard: "source/triggers/clauses/clause_ReadBlackboard.vwf"
+
     # arguments: object, [ x, y ]
     # TODO: make this an onEvent trigger?
     isAtPosition: "source/triggers/clauses/clause_IsAtPosition.vwf"
@@ -76,13 +89,16 @@ properties:
     #      "nothing."
     onBlocklyProgramChanged: "source/triggers/clauses/clause_OnBlocklyProgramChanged.vwf"
 
-    # arguments: scenarioName (optional)
+    # arguments: scenarioName(s) (optional)
     onScenarioStart: "source/triggers/clauses/clause_OnScenarioStart.vwf"
     onScenarioSucceeded: "source/triggers/clauses/clause_OnScenarioSucceeded.vwf"
     onScenarioFailed: "source/triggers/clauses/clause_OnScenarioFailed.vwf"
 
+    # arguments: (none)
+    onScenarioChanged: "source/triggers/clauses/clause_OnScenarioChanged.vwf"
+
     # Triggers when the specified video ends.
-    # arguments: videoSource
+    # arguments: videoSource(s)
     onVideoPlayed: "source/triggers/clauses/clause_OnVideoPlayed.vwf"
 
     # Triggers when the appropriate UI element is used
@@ -95,10 +111,6 @@ properties:
     # arguments: an x,y array
     blocklyLineEval: "source/triggers/clauses/clause_BlocklyLineEval.vwf"
 
-    # Checks the sceneBlackboard for a given key
-    # arguments: variableName, optionally check value
-    readBlackboard: "source/triggers/clauses/clause_ReadBlackboard.vwf"
-
     # Checks if a HUD element has fired its onMouseOver event
     # arguments: elementName
     onHUDMouseOver: "source/triggers/clauses/clause_OnHUDMouseOver.vwf"
@@ -107,6 +119,7 @@ properties:
     #   or normal scenario progress occurs
     # arguments: none
     onGameLoaded: "source/triggers/clauses/clause_OnGameLoaded.vwf"
+    onGameStarted: "source/triggers/clauses/clause_OnGameStarted.vwf"
 
 scripts:
 - source: source/triggers/generators/generator_Clause.js

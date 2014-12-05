@@ -14,7 +14,7 @@
 
 this.onGenerated = function( params, generator, payload ) {
     if ( !params || ( params.length < 1 ) || ( params.length > 2 ) ) {
-        this.logger.errorx( "onMoved", "this clause requires " +
+        this.logger.errorx( "onGenerated", "this clause requires " +
                             "one argument: the object. It also accepts an " +
                             "optional timeout threshold." );
         return false;
