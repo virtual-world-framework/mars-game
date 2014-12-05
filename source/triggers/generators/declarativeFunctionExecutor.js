@@ -93,4 +93,4 @@ this.findTypeInContext = function( context, typeName ) {
     return results[ 0 ];
 }
 
-//@ sourceURL=source/triggers/declarativeFunctionExecutor.js
+//@ sourceURL=source/triggers/generators/declarativeFunctionExecutor.js

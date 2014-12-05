@@ -27,7 +27,7 @@ this.generateObject = function( objDefinition, parentObj, payload ) {
         return undefined;
     }
     var typeName = objKeys[ 0 ];
-    var params = objDefinition[ typeName ];
+    var params = objDefinition[ typeName ] || [];
  
     for ( var i = 0; i < this.objSets$.length; ++i ) {
         var objSet = this.objSets$[ i ];
@@ -42,36 +42,34 @@ this.generateObject = function( objDefinition, parentObj, payload ) {
             var onGenerated = function( generatedObj ) {
                 if ( !generatedObj.onGenerated ) {
                     this.logger.errorx( "generateObject", "The prototype " +
-                                        "for objects of type '" + objName +
+                                        "for objects of type '" + typeName +
                                         "' doesn't have an onGenerated " +
                                         "method! You need to define that." );
                     parentObj.children.delete( generatedObj );
                 } else {
-                    var success = generatedObj.onGenerated( params, parentObj,
-                                                            this, payload );
+                    var success = generatedObj.onGenerated( params, this, 
+                                                            payload );
 
                     if ( !success ) {
                         this.logger.errorx( "generateObject", "Failed to " +
                                             "initialize object of type '" +
-                                            objName + "'!");
+                                            typeName + "'!");
                         parentObj.children.delete( generatedObj );
                     }
                 }
             };
-            onGenerated.bind( this );
 
-            uniqueName = typeName + "_" + this.uniqueNameCtr$;
+            var uniqueName = typeName + "_" + this.uniqueNameCtr$;
             this.uniqueNameCtr$++;
-            parentObj.children.create( uniqueName, objFileName, onGenerated );
+            parentObj.children.create( uniqueName, objFileName, 
+                                       onGenerated.bind( this ) );
 
-            break;
+            return;
         }
     }
 
     this.logger.errorx( "generateObject", "Failed to find definition " +
-                        "for object of type '" + objName + "'." );
-
-    return undefined;
+                        "for object of type '" + typeName + "'." );
 }
 
 //@ sourceURL=source/triggers/generators/generatorProto.js

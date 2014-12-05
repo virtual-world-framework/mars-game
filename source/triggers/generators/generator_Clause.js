@@ -13,8 +13,8 @@
 // limitations under the License.
 
 this.initialize = function() {
-    this.functionSets = [];
-    this.addFunctionSet(this.clauseSet);
+    this.objSets$ = [];
+    this.addObjectSet(this.clauseSet);
 }
 
 // this.clauseSet.and = function( params, context, callback ) {
@@ -222,656 +222,656 @@ this.initialize = function() {
 //     }
 // }
 
-this.clauseSet.isBlocklyExecuting = function( params, context, callback ) {
-    var objectArray = getBlocklyObjects( params, context );
-
-    if ( callback ) {
-        for ( var i = 0; i < objectArray.length; ++i ) {
-            var object = objectArray[ i ];
-
-            object.blocklyStarted = self.events.add( callback );
-            object.blocklyStopped = self.events.add( callback );
-            object.blocklyErrored = self.events.add( callback );
-        } 
-    }
-
-    return function() {
-        for ( var i = 0; i < objectArray.length; ++i ) {
-            var object = objectArray[ i ];
-            if ( object.blockly_executing ) {
-                return true;
-            }
-        }
-
-        return false;
-    };
-}
-
-this.clauseSet.onBlocklyStarted = function( params, context, callback ) {
-    // Set this to the object that started when the event occurs, back to null
-    //   in the function that we return (so it only fires once).
-    // TODO: do we need to limit the time for which this is true?  Do we even 
-    //   need this restriction?
-    var triggerObject = null;
-    var objectArray = getBlocklyObjects( params, context );
-
-    onClauseCallbackWarning( callback );
-    if ( callback ) {
-        for ( var i = 0; i < objectArray.length; ++i ) {
-            var object = objectArray[ i ];
-
-            var fullCallback = function() {
-                triggerObject = object;
-                callback();
-            };
-
-            object.blocklyStarted = self.events.add( fullCallback );
-        } 
-    }
-
-    return function() {
-        var retVal = !!triggerObject;
-        triggerObject = null;
-        return retVal;
-    };
-}
-
-this.clauseSet.onBlocklyStopped = function( params, context, callback ) {
-    // Set this to the object that started when the event occurs, back to null
-    //   in the function that we return (so it only fires once).
-    // TODO: do we need to limit the time for which this is true?  Do we even 
-    //   need this restriction?
-    var triggerObject = null;
-    var objectArray = getBlocklyObjects( params, context );
-
-    onClauseCallbackWarning( callback );
-    if ( callback ) {
-        for ( var i = 0; i < objectArray.length; ++i ) {
-            var object = objectArray[ i ];
-
-            var fullCallback = function() {
-                triggerObject = object;
-                callback();
-            };
-
-            object.blocklyStopped = self.events.add( fullCallback );
-            object.blocklyErrored = self.events.add( fullCallback );
-        } 
-    }
-
-    return function() {
-        var retVal = !!triggerObject;
-        triggerObject = null;
-        return retVal;
-    };
-}
-
-this.clauseSet.onBlocklyWindowOpened = function( params, context, callback ) {
-    // Set this to the object that started when the event occurs, back to null
-    //   in the function that we return (so it only fires once).
-    // TODO: do we need to limit the time for which this is true?  Do we even 
-    //   need this restriction?
-    var triggerObject = null;
-
-    onClauseCallbackWarning( callback );
-    if ( callback ) {
-        // HACK HACK HACK
-        // The graph will not exist yet when scenario 2 is setup, but we 
-        //  need a callback on it.  This is an awful way to fix that, but
-        //  it will get us through the formative study.
-        var fullCallback = function( show ) {
-            if ( show ) {
-                triggerObject = true;
-                callback();
-            }
-        };
-
-        setupOnBlocklyWindowOpenedCallbacks( params, context, fullCallback, 2 );
-    }
-
-    return function() {
-        var retVal = !!triggerObject;
-        triggerObject = null;
-        return retVal;
-    };
-}
-
-function setupOnBlocklyWindowOpenedCallbacks( params, context, callback, tryTime ) {
-    var objectArray = getBlocklyObjects( params, context );
-    if ( !objectArray ) {
-        if ( tryTime > 0 ) {
-            setTimeout( function() {
-                            setupOnBlocklyWindowOpenedCallbacks( params, 
-                                                                 context, 
-                                                                 callback, 
-                                                                 tryTime - 0.5 );
-                        }, 
-                        0.5 );
-        }
-        return;
-    }
-    for ( var i = 0; i < objectArray.length; ++i ) {
-        var object = objectArray[ i ];
-
-        object.blocklyVisibleChanged = self.events.add( callback );
-    }
-}
-
-this.clauseSet.onBlocklyProgramChanged = function( params, context, callback ) {
-    var objectArray = [];
-    var addOrRemove = "either";
-    var blockTypes = [];
-
-    if ( params ) {
-        // Get the objects that can make us fire
-        objectArray = getBlocklyObjects( params[ 0 ], context );
-
-        // Determine whether we should fire when a block is added, removed,
-        //   or both.
-        if ( params[ 1 ] ) {
-            addOrRemove = params[ 1 ];
-            if ( ( addOrRemove !== "add" ) && ( addOrRemove !== "remove" ) &&
-                 ( addOrRemove !== "either" ) ) {
-                this.logger.errorx( "onBlocklyProgramChanged", 
-                                    "The second parameter should be 'add', " +
-                                    "'remove', or 'either', indicating when " +
-                                    "this trigger should fire." );
-                addOrRemove = "either";
-            }
-        }
-
-        // Get the list of blocks that can make us fire (an empty list means
-        //   any block will do).
-        var blockTypeParam = params[ 2 ];
-        if( typeof blockTypeParam === 'string' ) {
-            blockTypes = [ blockTypeParam ];
-        } else if ( Object.prototype.toString.call( blockTypeParam ) === '[object Array]' ) {
-            blockTypes = blockTypeParam;
-        } else if ( !!blockTypeParam ) {
-            this.logger.errorx( "onBlocklyProgramChanged", 
-                                "Unable to parse the array of block types." );
-        }
-    }
-
-    // Set this to the object and block type that we get from the event, then 
-    //   clear it if this trigger fires.
-    // TODO: do we need to limit the time for which this is true?  Do we even 
-    //   need this restriction?
-    var triggerObject = null;
-    var triggerBlockType = undefined;
-
-    onClauseCallbackWarning( callback );
-    if ( callback ) {
-        for ( var i = 0; i < objectArray.length; ++i ) {
-            var object = objectArray[ i ];
-
-            var fullCallback = function( ignoreMe, blockType ) {
-                triggerObject = object;
-                triggerBlockType = blockType;
-                callback();
-            };
-
-            // Warning - I'm getting fancy here. The logic is twisted around
-            //   backwards. :)
-            if ( addOrRemove !== "add" ) {
-                object.blocklyBlockRemoved = self.events.add( fullCallback );
-            }
-            if (addOrRemove !== "remove" ) {
-                object.blocklyBlockAdded = self.events.add( fullCallback );
-            }
-        }
-    }
-
-    return function() {
-        var retVal = true;
-        if ( !triggerObject ) {
-            retVal = false;
-        } else if ( blockTypes.length > 0 ) {
-            var blockTypeFound = false;
-            for ( var i = 0; i < blockTypes.length && !blockTypeFound; ++i ) {
-                if ( triggerBlockType === blockTypes[ i ] ) {
-                    blockTypeFound = true;
-                }
-            }
-            retVal = blockTypeFound;
-        }
-
-        triggerObject = null;
-        triggerBlockType = undefined;
-
-        return retVal;
-    };
-}
-
-// arguments: scenarioToCheck (optional)
-this.clauseSet.onScenarioStart = function( params, context, callback ) {
-    if ( params && ( params.length > 1 ) ) {
-        self.logger.errorx( "onScenarioStart", 
-                            "This clause takes at most one argument: " +
-                            "the name of the scenario." );
-        return undefined;
-    }
-
-    var scenarioToCheck = params ? params[ 0 ] : undefined;
-
-    // NOTE: what we want to do is allow this to be true only when the event
-    //   has just happened.  Right now, we do this by setting the scenario name
-    //   when the event occurs, and then setting it back to undefined in the 
-    //   function that we return - but that doesn't enforce the fact that it
-    //   should only be true if the function is called right away.  If that 
-    //   turns out to be a problem, we may need to use future() or a time 
-    //   stamp.
-    var scenarioStarted = undefined;
-
-    onClauseCallbackWarning( callback );
-    if ( callback ) {
-        var localCallback = function( scenario ) {
-            var scenarioName = scenario && scenario.scenarioName 
-                                ? scenario.scenarioName
-                                : "unnamed";
-            scenarioStarted = scenarioName;
-
-            callback();
-        };
-
-        context.scenarioStarted = self.events.add( localCallback );
-    }
-
-    return function() {
-        var retVal = ( scenarioStarted !== undefined ) && 
-                     ( !scenarioToCheck || ( scenarioStarted === scenarioToCheck ) );
-
-        scenarioStarted = undefined;
-
-        return retVal;
-    };
-}
-
-// arguments: scenarioToCheck (optional)
-this.clauseSet.onScenarioSucceeded = function( params, context, callback ) {
-    if ( params && ( params.length > 1 ) ) {
-        self.logger.errorx( "onScenarioStart", 
-                            "This clause takes at most one argument: " +
-                            "the name of the scenario." );
-        return undefined;
-    }
-
-    var scenarioToCheck = params ? params[ 0 ] : undefined;
-
-    // NOTE: what we want to do is allow this to be true only when the event
-    //   has just happened.  Right now, we do this by setting the scenario name
-    //   when the event occurs, and then setting it back to undefined in the 
-    //   function that we return - but that doesn't enforce the fact that it
-    //   should only be true if the function is called right away.  If that 
-    //   turns out to be a problem, we may need to use future() or a time 
-    //   stamp.
-    var scenarioSucceeded = undefined;
-
-    onClauseCallbackWarning( callback );
-    if ( callback ) {
-        var localCallback = function( scenario ) {
-            var scenarioName = scenario && scenario.scenarioName 
-                                ? scenario.scenarioName
-                                : "unnamed";
-            scenarioSucceeded = scenarioName;
-
-            callback();
-        };
-
-        context.scenarioSucceeded = self.events.add( localCallback );
-    }
-
-    return function() {
-        var retVal = ( scenarioSucceeded !== undefined ) && 
-                     ( !scenarioToCheck || ( scenarioSucceeded === scenarioToCheck ) );
-
-        scenarioSucceeded = undefined;
-
-        return retVal;
-    };
-}
-
-// arguments: scenarioToCheck (optional)
-this.clauseSet.onScenarioFailed = function( params, context, callback ) {
-    if ( params && ( params.length > 1 ) ) {
-        self.logger.errorx( "onScenarioStart", 
-                            "This clause takes at most one argument: " +
-                            "the name of the scenario." );
-        return undefined;
-    }
-
-    var scenarioToCheck = params ? params[ 0 ] : undefined;
-
-    // NOTE: what we want to do is allow this to be true only when the event
-    //   has just happened.  Right now, we do this by setting the scenario name
-    //   when the event occurs, and then setting it back to undefined in the 
-    //   function that we return - but that doesn't enforce the fact that it
-    //   should only be true if the function is called right away.  If that 
-    //   turns out to be a problem, we may need to use future() or a time 
-    //   stamp.
-    var scenarioFailed = undefined;
-
-    onClauseCallbackWarning( callback );
-    if ( callback ) {
-        var localCallback = function( scenario ) {
-            var scenarioName = scenario && scenario.scenarioName 
-                                ? scenario.scenarioName
-                                : "unnamed";
-            scenarioFailed = scenarioName;
-
-            callback();
-        };
-
-        context.scenarioFailed = self.events.add( localCallback );
-    }
-
-    return function() {
-        var retVal = ( scenarioFailed !== undefined ) && 
-                     ( !scenarioToCheck || ( scenarioFailed === scenarioToCheck ) );
-
-        scenarioFailed = undefined;
-
-        return retVal;
-    };
-}
-
-this.clauseSet.onScenarioChanged = function( params, context, callback ) {
-    if ( params && ( params.length > 0 ) ) {
-        self.logger.errorx( "onScenarioChanged", 
-                            "This clause takes no arguments." );
-        return undefined;
-    }
-
-    onClauseCallbackWarning( callback );
-    if ( callback ) {
-        context.scenarioChanged = self.events.add( callback );
-    }
-
-    return function() {
-        return true;
-    };
-}
-
-this.clauseSet.onVideoPlayed = function( params, context, callback ) {
-    if ( !params || params.length !== 1 ) {
-        self.logger.warnx( "onVideoPlayed", 
-                           "This clause takes one argument: The video source." );
-        return undefined;
-    }
-
-    var videoPlayed = false;
-    var videoSrc = params[ 0 ];
-
-    onClauseCallbackWarning( callback );
-    if ( callback ) {
-        if ( context && context.videoPlayed ) {
-            context.videoPlayed = self.events.add( function( src ) {
-                                                                if ( src === videoSrc ) {
-                                                                    videoPlayed = true;
-                                                                }
-                                                                callback();
-                                                            } );
-        }
-    }
-
-    return function() {
-        var retVal = videoPlayed;
-        videoPlayed = false;
-        return retVal;
-    };
-}
-
-this.clauseSet.onHelicamToggle = function( params, context, callback ) {
-    if ( params ) {
-        self.logger.warnx( "onHelicamToggle", 
-                           "This clause doesn't take any arguments." );
-    }
-
-    var toggledHelicam = false;
-
-    onClauseCallbackWarning( callback );
-    if ( callback ) {
-        if ( context && context.toggledHelicam ) {
-            context.toggledHelicam = self.events.add( function() {
-                toggledHelicam = true;
-                callback();
-            } );
-        }
-    }
-
-    return function() {
-        var retVal = toggledHelicam;
-        toggledHelicam = false;
-        return retVal;
-    };
-}
-
-this.clauseSet.onGraphToggle = function( params, context, callback ) {
-    if ( params ) {
-        self.logger.warnx( "onGraphToggle", 
-                           "This clause doesn't take any arguments." );
-    }
-
-    var toggledGraph = false;
-
-    onClauseCallbackWarning( callback );
-    if ( callback ) {
-        if ( context && context.toggledGraph ) {
-            context.toggledGraph = self.events.add( function( value ) {
-                if ( value ) {
-                    toggledGraph = true;
-                    callback();
-                }
-            } );
-        }
-    }
-
-    return function() {
-        var retVal = toggledGraph;
-        toggledGraph = false;
-        return retVal;
-    };
-}
-
-this.clauseSet.onTilesToggle = function( params, context, callback ) {
-    if ( params ) {
-        self.logger.warnx( "onTilesToggle", 
-                           "This clause doesn't take any arguments." );
-    }
-
-    var toggledTiles = false;
-
-    onClauseCallbackWarning( callback );
-    if ( callback ) {
-        if ( context && context.toggledTiles ) {
-            context.toggledTiles = self.events.add( function( value ) {
-                if ( value ) {
-                    toggledTiles = true;
-                    callback();
-                }
-            } );
-        }
-    }
-
-    return function() {
-        var retVal = toggledTiles;
-        toggledTiles = false;
-        return retVal;
-    };
-}
-
-this.clauseSet.blocklyLineEval = function( params, context, callback ) {
-    if ( !params || params.length !== 1 || 
-         !params[ 0 ].length || !params[ 0 ].length === 2 ) {
-        self.logger.errorx( "blocklyLineEval", "This clause requires an array " +
-                            "with the x,y position you want to check against.");
-        return undefined;
-    }
-
-    var targetPos = params[ 0 ];
-
-    // TODO: should we not hardcode the name?
-    var blocklyLine = self.findInContext( context, "blocklyLine" );
-    if ( !blocklyLine ) {
-        self.logger.errorx( "blocklyLineEval", "Line not found!" );
-        return undefined;
-    }
-
-    if ( callback ) {
-        blocklyLine.lineGraphed = self.events.add( function() {
-                                                    callback();
-                                                } );
-    }
-
-    return function() {
-        var x = targetPos[ 0 ];
-        var actualPos = blocklyLine.evaluateLineAtPoint( [ x ] );
-
-        return ( targetPos [ 0 ] === actualPos[ 0 ] ) &&
-               ( targetPos [ 1 ] === actualPos[ 1 ] );
-    }
-}
+// this.clauseSet.isBlocklyExecuting = function( params, context, callback ) {
+//     var objectArray = getBlocklyObjects( params, context );
+
+//     if ( callback ) {
+//         for ( var i = 0; i < objectArray.length; ++i ) {
+//             var object = objectArray[ i ];
+
+//             object.blocklyStarted = self.events.add( callback );
+//             object.blocklyStopped = self.events.add( callback );
+//             object.blocklyErrored = self.events.add( callback );
+//         } 
+//     }
+
+//     return function() {
+//         for ( var i = 0; i < objectArray.length; ++i ) {
+//             var object = objectArray[ i ];
+//             if ( object.blockly_executing ) {
+//                 return true;
+//             }
+//         }
+
+//         return false;
+//     };
+// }
+
+// this.clauseSet.onBlocklyStarted = function( params, context, callback ) {
+//     // Set this to the object that started when the event occurs, back to null
+//     //   in the function that we return (so it only fires once).
+//     // TODO: do we need to limit the time for which this is true?  Do we even 
+//     //   need this restriction?
+//     var triggerObject = null;
+//     var objectArray = getBlocklyObjects( params, context );
+
+//     onClauseCallbackWarning( callback );
+//     if ( callback ) {
+//         for ( var i = 0; i < objectArray.length; ++i ) {
+//             var object = objectArray[ i ];
+
+//             var fullCallback = function() {
+//                 triggerObject = object;
+//                 callback();
+//             };
+
+//             object.blocklyStarted = self.events.add( fullCallback );
+//         } 
+//     }
+
+//     return function() {
+//         var retVal = !!triggerObject;
+//         triggerObject = null;
+//         return retVal;
+//     };
+// }
+
+// this.clauseSet.onBlocklyStopped = function( params, context, callback ) {
+//     // Set this to the object that started when the event occurs, back to null
+//     //   in the function that we return (so it only fires once).
+//     // TODO: do we need to limit the time for which this is true?  Do we even 
+//     //   need this restriction?
+//     var triggerObject = null;
+//     var objectArray = getBlocklyObjects( params, context );
+
+//     onClauseCallbackWarning( callback );
+//     if ( callback ) {
+//         for ( var i = 0; i < objectArray.length; ++i ) {
+//             var object = objectArray[ i ];
+
+//             var fullCallback = function() {
+//                 triggerObject = object;
+//                 callback();
+//             };
+
+//             object.blocklyStopped = self.events.add( fullCallback );
+//             object.blocklyErrored = self.events.add( fullCallback );
+//         } 
+//     }
+
+//     return function() {
+//         var retVal = !!triggerObject;
+//         triggerObject = null;
+//         return retVal;
+//     };
+// }
+
+// this.clauseSet.onBlocklyWindowOpened = function( params, context, callback ) {
+//     // Set this to the object that started when the event occurs, back to null
+//     //   in the function that we return (so it only fires once).
+//     // TODO: do we need to limit the time for which this is true?  Do we even 
+//     //   need this restriction?
+//     var triggerObject = null;
+
+//     onClauseCallbackWarning( callback );
+//     if ( callback ) {
+//         // HACK HACK HACK
+//         // The graph will not exist yet when scenario 2 is setup, but we 
+//         //  need a callback on it.  This is an awful way to fix that, but
+//         //  it will get us through the formative study.
+//         var fullCallback = function( show ) {
+//             if ( show ) {
+//                 triggerObject = true;
+//                 callback();
+//             }
+//         };
+
+//         setupOnBlocklyWindowOpenedCallbacks( params, context, fullCallback, 2 );
+//     }
+
+//     return function() {
+//         var retVal = !!triggerObject;
+//         triggerObject = null;
+//         return retVal;
+//     };
+// }
+
+// function setupOnBlocklyWindowOpenedCallbacks( params, context, callback, tryTime ) {
+//     var objectArray = getBlocklyObjects( params, context );
+//     if ( !objectArray ) {
+//         if ( tryTime > 0 ) {
+//             setTimeout( function() {
+//                             setupOnBlocklyWindowOpenedCallbacks( params, 
+//                                                                  context, 
+//                                                                  callback, 
+//                                                                  tryTime - 0.5 );
+//                         }, 
+//                         0.5 );
+//         }
+//         return;
+//     }
+//     for ( var i = 0; i < objectArray.length; ++i ) {
+//         var object = objectArray[ i ];
+
+//         object.blocklyVisibleChanged = self.events.add( callback );
+//     }
+// }
+
+// this.clauseSet.onBlocklyProgramChanged = function( params, context, callback ) {
+//     var objectArray = [];
+//     var addOrRemove = "either";
+//     var blockTypes = [];
+
+//     if ( params ) {
+//         // Get the objects that can make us fire
+//         objectArray = getBlocklyObjects( params[ 0 ], context );
+
+//         // Determine whether we should fire when a block is added, removed,
+//         //   or both.
+//         if ( params[ 1 ] ) {
+//             addOrRemove = params[ 1 ];
+//             if ( ( addOrRemove !== "add" ) && ( addOrRemove !== "remove" ) &&
+//                  ( addOrRemove !== "either" ) ) {
+//                 this.logger.errorx( "onBlocklyProgramChanged", 
+//                                     "The second parameter should be 'add', " +
+//                                     "'remove', or 'either', indicating when " +
+//                                     "this trigger should fire." );
+//                 addOrRemove = "either";
+//             }
+//         }
+
+//         // Get the list of blocks that can make us fire (an empty list means
+//         //   any block will do).
+//         var blockTypeParam = params[ 2 ];
+//         if( typeof blockTypeParam === 'string' ) {
+//             blockTypes = [ blockTypeParam ];
+//         } else if ( Object.prototype.toString.call( blockTypeParam ) === '[object Array]' ) {
+//             blockTypes = blockTypeParam;
+//         } else if ( !!blockTypeParam ) {
+//             this.logger.errorx( "onBlocklyProgramChanged", 
+//                                 "Unable to parse the array of block types." );
+//         }
+//     }
+
+//     // Set this to the object and block type that we get from the event, then 
+//     //   clear it if this trigger fires.
+//     // TODO: do we need to limit the time for which this is true?  Do we even 
+//     //   need this restriction?
+//     var triggerObject = null;
+//     var triggerBlockType = undefined;
+
+//     onClauseCallbackWarning( callback );
+//     if ( callback ) {
+//         for ( var i = 0; i < objectArray.length; ++i ) {
+//             var object = objectArray[ i ];
+
+//             var fullCallback = function( ignoreMe, blockType ) {
+//                 triggerObject = object;
+//                 triggerBlockType = blockType;
+//                 callback();
+//             };
+
+//             // Warning - I'm getting fancy here. The logic is twisted around
+//             //   backwards. :)
+//             if ( addOrRemove !== "add" ) {
+//                 object.blocklyBlockRemoved = self.events.add( fullCallback );
+//             }
+//             if (addOrRemove !== "remove" ) {
+//                 object.blocklyBlockAdded = self.events.add( fullCallback );
+//             }
+//         }
+//     }
+
+//     return function() {
+//         var retVal = true;
+//         if ( !triggerObject ) {
+//             retVal = false;
+//         } else if ( blockTypes.length > 0 ) {
+//             var blockTypeFound = false;
+//             for ( var i = 0; i < blockTypes.length && !blockTypeFound; ++i ) {
+//                 if ( triggerBlockType === blockTypes[ i ] ) {
+//                     blockTypeFound = true;
+//                 }
+//             }
+//             retVal = blockTypeFound;
+//         }
+
+//         triggerObject = null;
+//         triggerBlockType = undefined;
+
+//         return retVal;
+//     };
+// }
+
+// // arguments: scenarioToCheck (optional)
+// this.clauseSet.onScenarioStart = function( params, context, callback ) {
+//     if ( params && ( params.length > 1 ) ) {
+//         self.logger.errorx( "onScenarioStart", 
+//                             "This clause takes at most one argument: " +
+//                             "the name of the scenario." );
+//         return undefined;
+//     }
+
+//     var scenarioToCheck = params ? params[ 0 ] : undefined;
+
+//     // NOTE: what we want to do is allow this to be true only when the event
+//     //   has just happened.  Right now, we do this by setting the scenario name
+//     //   when the event occurs, and then setting it back to undefined in the 
+//     //   function that we return - but that doesn't enforce the fact that it
+//     //   should only be true if the function is called right away.  If that 
+//     //   turns out to be a problem, we may need to use future() or a time 
+//     //   stamp.
+//     var scenarioStarted = undefined;
+
+//     onClauseCallbackWarning( callback );
+//     if ( callback ) {
+//         var localCallback = function( scenario ) {
+//             var scenarioName = scenario && scenario.scenarioName 
+//                                 ? scenario.scenarioName
+//                                 : "unnamed";
+//             scenarioStarted = scenarioName;
+
+//             callback();
+//         };
+
+//         context.scenarioStarted = self.events.add( localCallback );
+//     }
+
+//     return function() {
+//         var retVal = ( scenarioStarted !== undefined ) && 
+//                      ( !scenarioToCheck || ( scenarioStarted === scenarioToCheck ) );
+
+//         scenarioStarted = undefined;
+
+//         return retVal;
+//     };
+// }
+
+// // arguments: scenarioToCheck (optional)
+// this.clauseSet.onScenarioSucceeded = function( params, context, callback ) {
+//     if ( params && ( params.length > 1 ) ) {
+//         self.logger.errorx( "onScenarioStart", 
+//                             "This clause takes at most one argument: " +
+//                             "the name of the scenario." );
+//         return undefined;
+//     }
+
+//     var scenarioToCheck = params ? params[ 0 ] : undefined;
+
+//     // NOTE: what we want to do is allow this to be true only when the event
+//     //   has just happened.  Right now, we do this by setting the scenario name
+//     //   when the event occurs, and then setting it back to undefined in the 
+//     //   function that we return - but that doesn't enforce the fact that it
+//     //   should only be true if the function is called right away.  If that 
+//     //   turns out to be a problem, we may need to use future() or a time 
+//     //   stamp.
+//     var scenarioSucceeded = undefined;
+
+//     onClauseCallbackWarning( callback );
+//     if ( callback ) {
+//         var localCallback = function( scenario ) {
+//             var scenarioName = scenario && scenario.scenarioName 
+//                                 ? scenario.scenarioName
+//                                 : "unnamed";
+//             scenarioSucceeded = scenarioName;
+
+//             callback();
+//         };
+
+//         context.scenarioSucceeded = self.events.add( localCallback );
+//     }
+
+//     return function() {
+//         var retVal = ( scenarioSucceeded !== undefined ) && 
+//                      ( !scenarioToCheck || ( scenarioSucceeded === scenarioToCheck ) );
+
+//         scenarioSucceeded = undefined;
+
+//         return retVal;
+//     };
+// }
+
+// // arguments: scenarioToCheck (optional)
+// this.clauseSet.onScenarioFailed = function( params, context, callback ) {
+//     if ( params && ( params.length > 1 ) ) {
+//         self.logger.errorx( "onScenarioStart", 
+//                             "This clause takes at most one argument: " +
+//                             "the name of the scenario." );
+//         return undefined;
+//     }
+
+//     var scenarioToCheck = params ? params[ 0 ] : undefined;
+
+//     // NOTE: what we want to do is allow this to be true only when the event
+//     //   has just happened.  Right now, we do this by setting the scenario name
+//     //   when the event occurs, and then setting it back to undefined in the 
+//     //   function that we return - but that doesn't enforce the fact that it
+//     //   should only be true if the function is called right away.  If that 
+//     //   turns out to be a problem, we may need to use future() or a time 
+//     //   stamp.
+//     var scenarioFailed = undefined;
+
+//     onClauseCallbackWarning( callback );
+//     if ( callback ) {
+//         var localCallback = function( scenario ) {
+//             var scenarioName = scenario && scenario.scenarioName 
+//                                 ? scenario.scenarioName
+//                                 : "unnamed";
+//             scenarioFailed = scenarioName;
+
+//             callback();
+//         };
+
+//         context.scenarioFailed = self.events.add( localCallback );
+//     }
+
+//     return function() {
+//         var retVal = ( scenarioFailed !== undefined ) && 
+//                      ( !scenarioToCheck || ( scenarioFailed === scenarioToCheck ) );
+
+//         scenarioFailed = undefined;
+
+//         return retVal;
+//     };
+// }
+
+// this.clauseSet.onScenarioChanged = function( params, context, callback ) {
+//     if ( params && ( params.length > 0 ) ) {
+//         self.logger.errorx( "onScenarioChanged", 
+//                             "This clause takes no arguments." );
+//         return undefined;
+//     }
+
+//     onClauseCallbackWarning( callback );
+//     if ( callback ) {
+//         context.scenarioChanged = self.events.add( callback );
+//     }
+
+//     return function() {
+//         return true;
+//     };
+// }
+
+// this.clauseSet.onVideoPlayed = function( params, context, callback ) {
+//     if ( !params || params.length !== 1 ) {
+//         self.logger.warnx( "onVideoPlayed", 
+//                            "This clause takes one argument: The video source." );
+//         return undefined;
+//     }
+
+//     var videoPlayed = false;
+//     var videoSrc = params[ 0 ];
+
+//     onClauseCallbackWarning( callback );
+//     if ( callback ) {
+//         if ( context && context.videoPlayed ) {
+//             context.videoPlayed = self.events.add( function( src ) {
+//                                                                 if ( src === videoSrc ) {
+//                                                                     videoPlayed = true;
+//                                                                 }
+//                                                                 callback();
+//                                                             } );
+//         }
+//     }
+
+//     return function() {
+//         var retVal = videoPlayed;
+//         videoPlayed = false;
+//         return retVal;
+//     };
+// }
+
+// this.clauseSet.onHelicamToggle = function( params, context, callback ) {
+//     if ( params ) {
+//         self.logger.warnx( "onHelicamToggle", 
+//                            "This clause doesn't take any arguments." );
+//     }
+
+//     var toggledHelicam = false;
+
+//     onClauseCallbackWarning( callback );
+//     if ( callback ) {
+//         if ( context && context.toggledHelicam ) {
+//             context.toggledHelicam = self.events.add( function() {
+//                 toggledHelicam = true;
+//                 callback();
+//             } );
+//         }
+//     }
+
+//     return function() {
+//         var retVal = toggledHelicam;
+//         toggledHelicam = false;
+//         return retVal;
+//     };
+// }
+
+// this.clauseSet.onGraphToggle = function( params, context, callback ) {
+//     if ( params ) {
+//         self.logger.warnx( "onGraphToggle", 
+//                            "This clause doesn't take any arguments." );
+//     }
+
+//     var toggledGraph = false;
+
+//     onClauseCallbackWarning( callback );
+//     if ( callback ) {
+//         if ( context && context.toggledGraph ) {
+//             context.toggledGraph = self.events.add( function( value ) {
+//                 if ( value ) {
+//                     toggledGraph = true;
+//                     callback();
+//                 }
+//             } );
+//         }
+//     }
+
+//     return function() {
+//         var retVal = toggledGraph;
+//         toggledGraph = false;
+//         return retVal;
+//     };
+// }
+
+// this.clauseSet.onTilesToggle = function( params, context, callback ) {
+//     if ( params ) {
+//         self.logger.warnx( "onTilesToggle", 
+//                            "This clause doesn't take any arguments." );
+//     }
+
+//     var toggledTiles = false;
+
+//     onClauseCallbackWarning( callback );
+//     if ( callback ) {
+//         if ( context && context.toggledTiles ) {
+//             context.toggledTiles = self.events.add( function( value ) {
+//                 if ( value ) {
+//                     toggledTiles = true;
+//                     callback();
+//                 }
+//             } );
+//         }
+//     }
+
+//     return function() {
+//         var retVal = toggledTiles;
+//         toggledTiles = false;
+//         return retVal;
+//     };
+// }
+
+// this.clauseSet.blocklyLineEval = function( params, context, callback ) {
+//     if ( !params || params.length !== 1 || 
+//          !params[ 0 ].length || !params[ 0 ].length === 2 ) {
+//         self.logger.errorx( "blocklyLineEval", "This clause requires an array " +
+//                             "with the x,y position you want to check against.");
+//         return undefined;
+//     }
+
+//     var targetPos = params[ 0 ];
+
+//     // TODO: should we not hardcode the name?
+//     var blocklyLine = self.findInContext( context, "blocklyLine" );
+//     if ( !blocklyLine ) {
+//         self.logger.errorx( "blocklyLineEval", "Line not found!" );
+//         return undefined;
+//     }
+
+//     if ( callback ) {
+//         blocklyLine.lineGraphed = self.events.add( function() {
+//                                                     callback();
+//                                                 } );
+//     }
+
+//     return function() {
+//         var x = targetPos[ 0 ];
+//         var actualPos = blocklyLine.evaluateLineAtPoint( [ x ] );
+
+//         return ( targetPos [ 0 ] === actualPos[ 0 ] ) &&
+//                ( targetPos [ 1 ] === actualPos[ 1 ] );
+//     }
+// }
 
 // arguments: variableName
-this.clauseSet.readBlackboard = function( params, context ) {
-    if ( ( params.length < 1 ) || ( params.length > 2 ) ) {
-        self.logger.errorx( "readBlackboard", 
-                            "This clause takes one argument: the name of the variable" +
-                            " and optionally a second argument for occurance count if" + 
-                            " using an incrementing blackboard value" );
-        return undefined;
-    }
+// this.clauseSet.readBlackboard = function( params, context ) {
+//     if ( ( params.length < 1 ) || ( params.length > 2 ) ) {
+//         self.logger.errorx( "readBlackboard", 
+//                             "This clause takes one argument: the name of the variable" +
+//                             " and optionally a second argument for occurance count if" + 
+//                             " using an incrementing blackboard value" );
+//         return undefined;
+//     }
 
-    return function() {
+//     return function() {
     
-        var checkedValue = context.sceneBlackboard[ params[ 0 ] ];
+//         var checkedValue = context.sceneBlackboard[ params[ 0 ] ];
 
-        if ( params[ 1 ] !== undefined ) {
-            var retVal = ( checkedValue !== undefined && 
-                           checkedValue < params[ 1 ] );
-        } else {
-            var retVal = ( checkedValue !== undefined );  
-        }
+//         if ( params[ 1 ] !== undefined ) {
+//             var retVal = ( checkedValue !== undefined && 
+//                            checkedValue < params[ 1 ] );
+//         } else {
+//             var retVal = ( checkedValue !== undefined );  
+//         }
 
-        return retVal;
-    };
-}
+//         return retVal;
+//     };
+// }
 
-this.clauseSet.delay = function( params, context, callback ) {
-    if ( params.length !== 1 ) {
-        self.logger.errorx( "delay", "This clause takes exactly one argument: " +
-                            "the amount of time to delay (in seconds).");
-        return undefined;
-    }
+// this.clauseSet.delay = function( params, context, callback ) {
+//     if ( params.length !== 1 ) {
+//         self.logger.errorx( "delay", "This clause takes exactly one argument: " +
+//                             "the amount of time to delay (in seconds).");
+//         return undefined;
+//     }
 
-    var delayTime = params[ 0 ];
+//     var delayTime = params[ 0 ];
 
-    var delayComplete = false;
-    var onDelayComplete = function() {
-        delayComplete = true;
-        callback && callback();
-    }
-    setTimeout( onDelayComplete, delayTime * 1000 )
+//     var delayComplete = false;
+//     var onDelayComplete = function() {
+//         delayComplete = true;
+//         callback && callback();
+//     }
+//     setTimeout( onDelayComplete, delayTime * 1000 )
 
-    return function() {
-        return delayComplete;
-    }
-}
+//     return function() {
+//         return delayComplete;
+//     }
+// }
 
-this.clauseSet.onGameStarted = function( params, context, callback ) {
-    if ( params ) {
-        self.logger.warnx( "onGameStarted", 
-                           "This clause doesn't take any arguments." );
-    }
+// this.clauseSet.onGameStarted = function( params, context, callback ) {
+//     if ( params ) {
+//         self.logger.warnx( "onGameStarted", 
+//                            "This clause doesn't take any arguments." );
+//     }
 
-    var gameStarted = false;
+//     var gameStarted = false;
 
-    onClauseCallbackWarning( callback );
-    if ( callback ) {
-        if ( context && context.gameStarted ) {
-            context.gameStarted = self.events.add( function() {
-                gameStarted = true;
-                callback();
-            } );
-        }
-    }
+//     onClauseCallbackWarning( callback );
+//     if ( callback ) {
+//         if ( context && context.gameStarted ) {
+//             context.gameStarted = self.events.add( function() {
+//                 gameStarted = true;
+//                 callback();
+//             } );
+//         }
+//     }
 
-    return function() {
-        var retVal = gameStarted;
-        gameStarted = false;
-        return retVal;
-    };
-}
+//     return function() {
+//         var retVal = gameStarted;
+//         gameStarted = false;
+//         return retVal;
+//     };
+// }
 
-this.clauseSet.onHUDMouseOver = function( params, context, callback ) {
-    if ( !params || params.length !== 1 ) {
-        self.logger.warnx( "onHUDMouseOver", 
-                           "This clause takes one argument: The HUD element name." );
-    }
+// this.clauseSet.onHUDMouseOver = function( params, context, callback ) {
+//     if ( !params || params.length !== 1 ) {
+//         self.logger.warnx( "onHUDMouseOver", 
+//                            "This clause takes one argument: The HUD element name." );
+//     }
 
-    var elementID;
+//     var elementID;
 
-    onClauseCallbackWarning( callback );
-    if ( callback ) {
-        if ( context && context.mouseOverHUD ) {
-            context.mouseOverHUD = self.events.add( function( id ) {
-                elementID = id;
-                callback();
-            } );
-        }
-    }
+//     onClauseCallbackWarning( callback );
+//     if ( callback ) {
+//         if ( context && context.mouseOverHUD ) {
+//             context.mouseOverHUD = self.events.add( function( id ) {
+//                 elementID = id;
+//                 callback();
+//             } );
+//         }
+//     }
 
-    return function() {
-        var retVal = params[ 0 ] === elementID;
-        return retVal;
-    };
-}
+//     return function() {
+//         var retVal = params[ 0 ] === elementID;
+//         return retVal;
+//     };
+// }
 
-this.clauseSet.onGameLoaded = function( params, context, callback ) {
-    if ( params && params.length !== 0 ) {
-        self.logger.warnx( "onGameLoaded", "This clause takes no arguments.");
-    }
+// this.clauseSet.onGameLoaded = function( params, context, callback ) {
+//     if ( params && params.length !== 0 ) {
+//         self.logger.warnx( "onGameLoaded", "This clause takes no arguments.");
+//     }
 
-    onClauseCallbackWarning( callback );
-    if ( callback ) {
-        if ( context && context.loadedGame ) {
-            context.loadedGame = self.events.add( function( id ) {
-                callback();
-            } );
-        }
-    }
+//     onClauseCallbackWarning( callback );
+//     if ( callback ) {
+//         if ( context && context.loadedGame ) {
+//             context.loadedGame = self.events.add( function( id ) {
+//                 callback();
+//             } );
+//         }
+//     }
 
-    return function() {
-        return true;
-    };
-}
+//     return function() {
+//         return true;
+//     };
+// }
 
-function onClauseCallbackWarning( callback ) {
-      if ( !callback ) {
-        self.logger.warnx( "onClauseCallbackWarning", 
-                           "The on... clauses are meant to be immediate triggers, " +
-                           "but no callback was found.");
-    }  
-}
+// function onClauseCallbackWarning( callback ) {
+//       if ( !callback ) {
+//         self.logger.warnx( "onClauseCallbackWarning", 
+//                            "The on... clauses are meant to be immediate triggers, " +
+//                            "but no callback was found.");
+//     }  
+// }
 
-function getBlocklyObjects( nameArray, context ) {
-    // if the nameArray is undefined, we return all of the blockly objects
-    if ( !nameArray || ( nameArray.length === 0 ) ) {
-        if ( !context ) {
-            self.logger.errorx( "getBlocklyObjects", "Context is undefined!" );
-            return undefined;
-        }
-        return context.find( ".//element(*,'http://vwf.example.com/blockly/controller.vwf')" );
-    }
+// function getBlocklyObjects( nameArray, context ) {
+//     // if the nameArray is undefined, we return all of the blockly objects
+//     if ( !nameArray || ( nameArray.length === 0 ) ) {
+//         if ( !context ) {
+//             self.logger.errorx( "getBlocklyObjects", "Context is undefined!" );
+//             return undefined;
+//         }
+//         return context.find( ".//element(*,'http://vwf.example.com/blockly/controller.vwf')" );
+//     }
 
-    var retVal = [];
-    for ( var i = 0; i < nameArray.length; i++ ) {
-        var object = self.findInContext( context, nameArray[ i ] );
-        retVal.push( object );
-    }
+//     var retVal = [];
+//     for ( var i = 0; i < nameArray.length; i++ ) {
+//         var object = self.findInContext( context, nameArray[ i ] );
+//         retVal.push( object );
+//     }
 
-    return retVal;
-}
+//     return retVal;
+// }
 
 
 //@ sourceURL=source/triggers/generators/generator_Clause.js

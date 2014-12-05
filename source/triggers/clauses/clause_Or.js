@@ -12,6 +12,10 @@
 // See the License for the specific language governing permissions and 
 // limitations under the License.
 
+this.initialize = function() {
+    this.children.create( "clauses", "http://vwf.example.com/node.vwf" );
+}
+
 this.onGenerated = function( params, generator, payload ) {
     if ( !params || ( params.length < 1 ) ) {
         this.logger.errorx( "onGenerated", "This clause needs to have at " +
@@ -27,7 +31,6 @@ this.onGenerated = function( params, generator, payload ) {
         return false;
     }
 
-    this.children.create( "clauses", "http://vwf.example.com/node.vwf" );
     for ( var i = 0; i < params.length; ++i ) {
         generator.generateObject( params[ i ], this.clauses, payload );
     }

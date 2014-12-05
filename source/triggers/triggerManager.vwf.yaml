@@ -17,7 +17,9 @@
 #   to get things started.
 
 --- 
+
 extends: http://vwf.example.com/node.vwf
+
 properties:
   # The yaml definition for our triggers
   triggers:
@@ -57,4 +59,4 @@ methods:
   isEmpty:
 
 scripts:
-- source: source/triggers/triggerManager.js
+  - source: source/triggers/triggerManager.js
