@@ -70,4 +70,4 @@ methods:
   findTypeInContext:
 
 scripts:
-- source: source/triggers/declarativeFunctionExecutor.js
+- source: source/triggers/generators/declarativeFunctionExecutor.js

@@ -48,6 +48,7 @@ this.onGenerated = function( params, generator, payload ) {
 
 this.onMoveFailed = function() {
     this.moveHasFailed = true;
+    this.parentTrigger.checkFire();
 }
 
 this.evaluateClause = function() {

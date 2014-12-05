@@ -53,15 +53,14 @@ this.addTrigger = function( triggerName, definition, context ) {
 
         if ( !success ) {
             this.logger.errorx( "addTrigger", "Failed to initialize " +
-                                "trigger '" triggerName + "'!");
+                                "trigger '" + triggerName + "'!");
             this.triggerSet.children.delete( trigger );
         }
     };
-    initTrigger.bind( this );
 
     this.triggerSet.children.create( triggerName, 
                                      "source/triggers/trigger.vwf",
-                                     initTrigger );
+                                     initTrigger.bind( this ) );
 }
 
 this.clearTriggers = function() {

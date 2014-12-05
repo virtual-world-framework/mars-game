@@ -13,41 +13,61 @@
 // limitations under the License.
 
 this.onGenerated = function( params, generator, payload ) {
-    if ( !params || ( params.length < 1 ) || ( params.length > 2 ) ) {
-        this.logger.errorx( "onGenerated", "This clause requires " + 
-                            "one argument: the object, and takes " +
-                            "an additional optional argument: the " +
-                            "type of failure. " );
+     if ( !params || ( params.length > 1 ) ) {
+        this.logger.warnx( "onGenerated", "this clause only takes a single " +
+                            "argument: the list of blockly objects." );
+    }
+
+   if ( !this.initClause( params, generator, payload ) ) {
         return false;
     }
 
-    if ( !this.initClause( params, generator, payload ) ) {
+    var blocklyObjNames = this.extractStringArray( params[ 0 ] );
+    this.blocklyObjects = this.getBlocklyObjects( blocklyObjNames, this.scene );
+    if ( this.blocklyObjects.length === 0 ) {
+        this.logger.errorx( "onGenerated", "No blockly objects found!" );
         return false;
     }
 
-    var object = this.findInScene( params[ 0 ] );
-    this.failureType = params[ 1 ];
-    this.moveHasFailed = false;
+    for ( var i = 0; i < this.blocklyObjects.length; ++i ) {
+        var object = this.blocklyObjects[ i ];
 
-    if ( !object ) {
-        this.logger.errorx( "onGenerated", "Failed to find object named '" +
-                            params[ 0 ] + "'." );
-        return false;
+        if ( object.blocklyStarted ) {
+            object.blocklyStarted = this.events.add( this.parentTrigger.checkFire(), 
+                                                     this.parentTrigger );
+        } else {
+            this.logger.warnx( "onGenerated", "blocklyStarted event not " +
+                               "found for '" + object.name + "'." );
+        }
+
+        if ( object.blocklyStopped ) {
+            object.blocklyStopped = this.events.add( this.parentTrigger.checkFire(), 
+                                                     this.parentTrigger );
+        } else {
+            this.logger.warnx( "onGenerated", "blocklyStopped event not " +
+                               "found for '" + object.name + "'." );
+        }
+
+        if ( object.blocklyErrored ) {
+            object.blocklyErrored = this.events.add( this.parentTrigger.checkFire(), 
+                                                     this.parentTrigger );
+        } else {
+            this.logger.warnx( "onGenerated", "blocklyErrored event not " +
+                               "found for '" + object.name + "'." );
+        }
     }
-
-    if ( !object.moveFailed ) {
-        this.logger.errorx( "onGenerated", "'" + params[ 0 ] + "' can't " + 
-                            "fail to move!" );
-        return false;
-    }
-
-    object.moveFailed = this.events.add( this.onMoveFailed, this );
 
     return true;
 }
 
 this.evaluateClause = function() {
-    return this.moveHasFailed;
+    for ( var i = 0; i < this.blocklyObjects.length; ++i ) {
+        if ( this.blocklyObjects[ i ].blockly_executing ) {
+            return true;
+        }
+    }
+
+    return false;
 }
 
 //@ sourceURL=source/triggers/clauses/clause_IsBlocklyExecuting.js

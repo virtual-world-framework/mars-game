@@ -175,6 +175,7 @@ this.actionSet.writeToBlackboard = function( params, context ) {
         default:
             return function() {
                 context.sceneBlackboard[ name ] = value;
+                context.blackboardWritten( name );
             }
     }
 }
@@ -187,20 +188,6 @@ this.actionSet.clearBlackboardEntry = function( params, context ) {
     }
     return function() {
         context.sceneBlackboard[ params[ 0 ] ] = undefined;
-    }
-}
-
-this.actionSet.incrementBlackboardValue = function( params, context ) {
-    if ( params && params.length < 1 ) {
-        self.logger.errorx( "incrementBlackboardValue", "This action takes one parameter: variable name.");
-        return undefined;
-    }
-    return function() {
-        if ( context.sceneBlackboard[ params[ 0 ] ] === undefined ){
-            context.sceneBlackboard[ params[ 0 ] ] = 1;
-        } else {
-            ++context.sceneBlackboard[ params[ 0 ] ];
-        }
     }
 }
 
@@ -437,4 +424,4 @@ function setOrbitingFalse( camera ) {
     camera.orbiting && ( camera.orbiting = false );
 }
 
-//@ sourceURL=source/triggers/actionFactory.js
+//@ sourceURL=source/triggers/generators/actionFactory.js

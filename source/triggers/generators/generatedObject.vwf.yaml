@@ -17,9 +17,6 @@
 --- 
 extends: http://vwf.example.com/node.vwf
 
-implements: 
-  - http://vwf.example.com/sceneGetter.vwf
-
 methods:
   # Every generated object must define this function - this is where the actual
   #   generation is done.  
@@ -35,16 +32,14 @@ methods:
   #   otherwise.
   onGenerated:
 
-  # A helper that does basically what Find does, except that it handles some of
-  #   the busywork (and assumes that we'll be looking in the scene).
-  # Arguments: 
-  #   objectName  - the string to search for
-  findInScene:
-
-  # Same as findInScene, except that this looks by type rather than by name.
-  # Arguments: 
-  #   typeName    - the type to search for
-  findTypeInScene:
+  # A helper function for extracting an array of strings from one of the
+  #   parameters. If the parameter is a string, it creates an array with just
+  #   that string.  If the parameter is an array, it returns it.  If the param
+  #   is undefined it returns an empty array.
+  # Arguments:
+  #   param       - the parameter to load
+  # Returns: the array
+  extractStringArray:
 
 scripts:
 - source: source/triggers/generators/generatedObject.js

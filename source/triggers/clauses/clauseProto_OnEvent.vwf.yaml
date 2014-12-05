@@ -46,9 +46,9 @@ methods:
   # call this when the event occurs, and the magic will happen.
   onEvent:
 
-  # resets lastEventTime$ when we trigger, so that we won't trigger more than
-  #  once off of a single move.
-  onTrigger:
+  # resets lastEventTime$ when we trigger (or if somebody else calls it), so 
+  #   that we won't trigger more than once off of a single move.
+  reset:
 
 scripts:
 - source: source/triggers/clauses/clauseProto_OnEvent.js
