@@ -12,11 +12,13 @@
 # See the License for the specific language governing permissions and 
 # limitations under the License.
 
---- 
+---
 extends: http://vwf.example.com/scene.vwf
 implements:
 - "http://vwf.example.com/blockly/manager.vwf"
+- "http://vwf.example.com/eventManager.vwf"
 properties:
+  eventMap: { "changedPOV": "handlePOVChange" }
   enableShadows: true
   shadowMapCullFace: "back"
   ambientColor: [ 150, 140, 140 ]
@@ -49,6 +51,7 @@ methods:
   restartGame:
   attemptLogin:
   loadGame:
+  handlePOVChange:
 events:
   gameStarted:
   scenarioReset:
@@ -212,7 +215,9 @@ children:
         children:
           camera:
             extends: http://vwf.example.com/camera.vwf
-            implements: [ "http://vwf.example.com/navigable.vwf" ]
+            implements:
+              - "http://vwf.example.com/navigable.vwf"
+              - "http://vwf.example.com/eventManager.vwf"
             properties:
               navmode: walk
               translationSpeed: 0
@@ -241,10 +246,14 @@ children:
         - source: "source/targetFollower.js"
       rover:
         extends: source/rover.vwf
-        implements: [ "http://vwf.example.com/blockly/controller.vwf", "source/griddable.vwf" ]
+        implements: 
+          - "http://vwf.example.com/blockly/controller.vwf"
+          - "source/griddable.vwf"
+          - "http://vwf.example.com/eventManager.vwf"
         source: assets/3d/Rover/rover_retro.dae
         type: model/vnd.collada+xml
         properties:
+          eventMap: { "scenarioChanged": "findAndSetCurrentGrid" }
           displayName: "Rover"
           castShadows: true
           receiveShadows: true

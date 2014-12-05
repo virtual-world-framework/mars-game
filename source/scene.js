@@ -28,10 +28,7 @@ var tiles = new Array();
 var lastCameraPOV = "thirdPerson";
 
 this.initialize = function() {
-    // Set the active camera so we can see the 3D scene
     this.initializeActiveCamera( this.player.targetFollower.camera );
-    this.setUpCameraListener();
-    this.setUpRoverListeners();
 }
 
 this.setScenario = function( path ) {
@@ -157,21 +154,11 @@ this.executeBlock = function ( block, action ) {
     }
 }
 
-this.setUpCameraListener = function() {
-    var scene = this;
-    this.player.targetFollower.camera.changedPOV = function( pov ) {
-        if ( pov !== "topDown") {
-            scene.displayTiles( false );
-            scene.displayGraph( false );
-        }
+this.handlePOVChange = function( POV ) {
+    if ( POV !== "topDown") {
+        this.displayTiles( false );
+        this.displayGraph( false );
     }
-}
-
-this.setUpRoverListeners = function() {
-    this.scenarioChanged = ( function( scenarioName ) {
-        this.player.rover.findAndSetCurrentGrid( scenarioName );
-    } ).bind( this );
-    // rover.findAndSetCurrentGrid( this.activeScenarioPath );
 }
 
 this.displayTiles = function( isVisible ) {
