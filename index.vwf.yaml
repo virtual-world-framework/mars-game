@@ -81,6 +81,7 @@ events:
   progressFound:
   loadedGame:
   storedScenario:
+  blackboardWritten:
 children:
   soundManager:
     includes: source/marsGameSound.vwf

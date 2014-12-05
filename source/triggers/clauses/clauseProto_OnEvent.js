@@ -1,4 +1,5 @@
 // Copyright 2014 Lockheed Martin Corporation
+// Copyright 2014 Lockheed Martin Corporation
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may 
 // not use this file except in compliance with the License. You may obtain 
@@ -17,12 +18,10 @@ this.initOnEvent = function( params, generator, payload, threshold ) {
         return false;
     }
 
-    this.threshold$ = threshold != undefined ? threshold * 1000 : 667;
+    this.threshold$ = threshold != undefined ? threshold * 1000 : 100;
     this.lastEventTime$ = 0;
 
-    // TODO: If this doesn't seem to work, I may need to wrap this.onTrigger in
-    //  a local function.
-    this.parentTrigger = this.events.add( this.onTrigger, this );
+    this.parentTrigger.triggered = this.events.add( this.reset, this );
 
     return true;
 }
@@ -32,7 +31,7 @@ this.onEvent = function() {
     this.parentTrigger.checkFire();
 }
 
-this.onTrigger = function() {
+this.reset = function() {
     this.lastEventTime$ = 0;
 }
 

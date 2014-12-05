@@ -15,12 +15,12 @@
 --- 
 extends: source/triggers/clauses/clauseProto.vwf
 
-properties:
-  failureType:
-  moveHasFailed: 
+implements: 
+  - http://vwf.example.com/sceneGetter.vwf
+  - source/blocklyObjectGetter.js
 
-methocs:
-  onMoveFailed:
+properties:
+  blocklyObjects:
 
 scripts:
 - source: source/triggers/clauses/clause_IsBlocklyExecuting.js

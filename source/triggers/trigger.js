@@ -12,6 +12,13 @@
 // See the License for the specific language governing permissions and 
 // limitations under the License.
 
+this.initialize = function() {
+    // We have to create these here because VWF doesn't give our children
+    //   to objects that extend us.
+    this.children.create( "triggerCondition", 
+                          "http://vwf.example.com/node.vwf" );
+}
+
 this.initTrigger = function( clauseGen, actionGen, context, definition ) {
     if ( !definition.triggerCondition || 
          ( definition.triggerCondition.length !== 1 ) ) {
@@ -28,8 +35,6 @@ this.initTrigger = function( clauseGen, actionGen, context, definition ) {
     }
 
     var payload = { trigger: this };
-    this.children.create( "triggerCondition", 
-                          "http://vwf.example.com/node.vwf" );
     clauseGen.generateObject( definition.triggerCondition[0],
                               this.triggerCondition, payload );
 
@@ -66,7 +71,6 @@ this.checkFire = function() {
 
         this.spew( "checkFire", "All actions complete for trigger '" + 
                    this.name + "'.");
-        }
     }
 }
 
@@ -75,3 +79,5 @@ this.spew = function( str1, str2 ) {
         this.logger.logx( str1, str2 );
     }
 }
+
+//@ sourceURL=source/triggers/trigger.js

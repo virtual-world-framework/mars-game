@@ -15,6 +15,9 @@
 --- 
 extends: source/triggers/clauses/clauseProto.vwf
 
+implements: 
+  - http://vwf.example.com/sceneGetter.vwf
+
 properties:
   object:
   targetPos:
