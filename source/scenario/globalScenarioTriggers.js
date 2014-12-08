@@ -23,7 +23,7 @@ this.onSceneLoaded = function() {
     if ( searchArray.length ) {
         scene = searchArray[ 0 ];
     } else {
-        this.logger.errorx( "startScenario", "Failed to find the scene!" );
+        this.logger.errorx( "onSceneLoaded", "Failed to find the scene!" );
     }
 
     this.loadTriggers( scene );
