@@ -39,6 +39,7 @@ this.setScenario = function( path ) {
         }
         scenario.future( 0 ).startScenario();
         calcGridBounds( scenario.grid );
+        this.gridLoaded( scenario.grid );
         this.scenarioChanged( scenario.name, gridBounds );
     } else {
         this.logger.warnx( "setScenario", "Scenario for path '" + path + "' not found." );
@@ -159,6 +160,26 @@ this.handlePOVChange = function( POV ) {
         this.displayTiles( false );
         this.displayGraph( false );
     }
+}
+
+this.alertLowRam = function( rover, ram ) {
+    if ( ram <= 0 ) {
+        this.addAlert( rover.displayName + " is Out of RAM!" );
+    } else {
+        this.addAlert( rover.displayName + " is Low on RAM!" );
+    }
+}
+
+this.alertLowBattery = function( rover, battery ) {
+    if ( battery <= 0 ) {
+        this.addAlert( rover.displayName + " is Out of Battery!" );
+    } else {
+        this.addAlert( rover.displayName + " is Low on Battery!" );
+    }
+}
+
+this.alertCollision = function( rover ) {
+    this.addAlert( rover.displayName + " is blocked!" );
 }
 
 this.displayTiles = function( isVisible ) {

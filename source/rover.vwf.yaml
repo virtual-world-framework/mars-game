@@ -72,7 +72,7 @@ properties:
   wheelBR:
   wheelRadius:
 methods:
-  findAndSetCurrentGrid:
+  setCurrentGrid:
   moveForward:
   turnLeft:
   turnRight:
@@ -93,5 +93,8 @@ events:
   ramMaxChanged:
   blockCountChanged:
   allowedBlocksChanged:
+  detectedLowRam:
+  detectedLowBattery:
+  collided:
 scripts:
  - source: source/rover.js

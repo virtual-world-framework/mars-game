@@ -18,7 +18,11 @@ implements:
 - "http://vwf.example.com/blockly/manager.vwf"
 - "http://vwf.example.com/eventManager.vwf"
 properties:
-  eventMap: { "changedPOV": "handlePOVChange" }
+  eventMap: 
+    changedPOV: handlePOVChange
+    detectedLowRam: alertLowRam
+    detectedLowBattery: alertLowBattery
+    collided: alertCollision
   enableShadows: true
   shadowMapCullFace: "back"
   ambientColor: [ 150, 140, 140 ]
@@ -52,6 +56,9 @@ methods:
   attemptLogin:
   loadGame:
   handlePOVChange:
+  alertLowRam:
+  alertLowBattery:
+  alertCollision:
 events:
   gameStarted:
   scenarioReset:
@@ -84,6 +91,7 @@ events:
   progressFound:
   loadedGame:
   storedScenario:
+  gridLoaded:
 children:
   soundManager:
     includes: source/marsGameSound.vwf
@@ -253,7 +261,8 @@ children:
         source: assets/3d/Rover/rover_retro.dae
         type: model/vnd.collada+xml
         properties:
-          eventMap: { "scenarioChanged": "findAndSetCurrentGrid" }
+          eventMap: 
+            gridLoaded: setCurrentGrid
           displayName: "Rover"
           castShadows: true
           receiveShadows: true
