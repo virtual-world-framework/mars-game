@@ -15,6 +15,7 @@
 ---
 extends: http://vwf.example.com/node3.vwf
 properties:
+  currentGrid: undefined
   castShadows: true
   receiveShadows: true
   blocklyEnabled: true
