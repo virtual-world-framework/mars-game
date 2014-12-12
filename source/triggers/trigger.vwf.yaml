@@ -15,18 +15,34 @@
 --- 
 extends: http://vwf.example.com/node.vwf
 
+implements: 
+  - http://vwf.example.com/assert.vwf
+
 properties:
   # The actions we take when the trigger fires
   actions: 
 
   # This doesn't appear to be getting deleted properly, so redundantly 
   #   disable it if it should be deleted.
-  isDeleted: false
+  isEnabled: 
+    set: |
+      if ( value && !this.isEnabled ) {
+        this.isEnabled = true;
+        this.enabled();
+      } else if ( this.isEnabled ) {
+        this.isEnabled = false;
+        this.disabled();
+      }
+    value: false
 
   # If this is set to true, we'll spew decision-making details to the console.
   spewToLog: false
 
 methods:
+  # Called once the game has been initialized and everything is attached to the
+  #   scene.
+  postInit:
+
   # Called just after the trigger is created, so that it can load itself.
   # Arguments:
   #   clauseGen   - The generator for creating clauses
@@ -44,6 +60,8 @@ methods:
   spew:
 
 events:
+  enabled:
+  disabled:
   triggered:
 
 scripts:

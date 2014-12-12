@@ -28,10 +28,10 @@ this.getBlocklyObjects = function( nameArray, context ) {
 
     // look up the specific objects in the nameArray
     var retVal = allObjects.filter( function( element ) {
-        return nameArray.contains( element.name );
-    });
+        return nameArray.indexOf( element.name ) >= 0;
+    } );
 
-    if ( params[ 0 ] && ( retVal.length !== nameArray.lenth ) {
+    if ( retVal.length !== nameArray.length ) {
         this.logger.warnx( "getBlocklyObjects", "Not all blockly objects " +
                            "were found." );
     }

@@ -17,7 +17,7 @@ extends: source/triggers/clauses/clauseProto_OnEvent.vwf
 
 implements: 
   - http://vwf.example.com/sceneGetter.vwf
-  - source/blocklyObjectGetter.js
+  - source/blocklyObjectGetter.vwf
 
 scripts:
 - source: source/triggers/clauses/clause_OnBlocklyStopped.js

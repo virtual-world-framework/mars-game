@@ -13,70 +13,83 @@
 // limitations under the License.
 
 var activeScenario;
-var scene;
 
 this.initialize = function() {
     this.children.create( "startStateExecutor", 
                           "source/triggers/generators/declarativeFunctionExecutor.vwf" );
 
-    this.future( 0 ).onSceneLoaded();
+    this.future( 0 ).postInit();
 }
 
-this.onSceneLoaded = function() {
-    var searchArray = this.find( this.scenePath );
-    if ( searchArray.length ) {
-        scene = searchArray[ 0 ];
-    } else {
-        this.logger.errorx( "startScenario", "Failed to find the scene!" );
-    }
+this.postInit = function() {
+    this.scene.scenarioChanged = this.events.add( this.onScenarioChanged, this );
+    this.scene.scenarioReset = this.events.add( this.onScenarioReset, this );
+
+    var globalTriggers = this.scene.globalTriggerManager;
+    this.triggerManager.loadTriggers( this.scene );
+    this.triggerManager.loadTriggerList( globalTriggers.lateLoadTriggers, this.scene );
 }
 
 this.startScenario = function() {
-    this.logger.logx( this.scenarioName + ".startScenario", "Scenario started." );
+    this.assert( this.isRunning, "The scenario should be running by now!" );
+}
 
-    if ( activeScenario !== this ) {
+this.failed = function() {
+    // If we need to do anything on failure, it should go in here.
+    this.scene.scenarioFailed( this );
+    this.scene.stopAllExecution();
+}
 
-        // Clear out the triggers from the previous scenario.
-        // NOTE: it might be better to do this inside success/failure, so
-        //   that it doesn't wait until the player clicks forward to happen.
-        var lastScenario = activeScenario;
-        if ( lastScenario && lastScenario.triggerManager && 
-             !lastScenario.triggerManager.isEmpty() ) {
-            this.logger.warnx( "startScenario", "How did the last scenario's " +
-                               "trigger manager not get cleared on success?" );
-            lastScenario.triggerManager.clearTriggers();
-        }
+this.completed = function() {
+    // If we need to do anything on success, it should go in here.
 
-        activeScenario = this;
-
-        this.startStateExecutor.functionSets = [];
-        this.startStateExecutor.addFunctionSet( this.startStateParamSet );
-
-        if ( this.grid ) {
-            scene.createGridDisplay( this.grid );
-        }
-
-        // The global trigger list has late load triggers which need to be 
-        //   loaded last (for order of operations reasons), so we will unload
-        //   them, load this scenarios triggers, and then reload them.
-        // NOTE: we now only clear triggers when we advance the scenario, not
-        //   when we reset it.
-        var globalTriggers = scene.globalTriggerManager;
-        globalTriggers.clearTriggerList( globalTriggers.lateLoadTriggers );
-
-        this.triggerManager.loadTriggers( scene );
-
-        globalTriggers.loadTriggerList( globalTriggers.lateLoadTriggers, scene );
+    // HACK: This is a bit of a hack, but it should solve the problem 
+    //  for now.  We want to always store the heading of the rover on
+    //  success, so look up the rover, and then stuff that value onto 
+    //  the blackboard.
+    var rover = this.scene.find( "//rover" )[ 0 ];
+    if ( rover ) {
+        this.scene.sceneBlackboard[ "lastHeading$" ] = rover.heading;
+    } else {
+        this.logger.warnx( "completed", "Rover not found!!" );
     }
+
+    this.scene.scenarioSucceeded( this );
+}
+
+this.onScenarioChanged = function( scenarioName ) {
+    if ( scenarioName === this.name ) {
+        this.assert( !isRunning, "Scenario is already running!" );
+        this.isRunning = true;
+    } else {
+        this.isRunning = false;
+    }
+}
+
+this.onScenarioReset = function( scenarioName ) {
+    if ( scenarioName === this.name ) {
+        this.assert( isRunning, "How can we reset when we're not running?!" );
+
+        // Stopping and starting again will reset everything.
+        this.isRunning = false;
+        this.isRunning = true;
+    } else {
+        this.assert( !isRunning, "How is a different scenario resetting when " +
+                     "we're running?!" );
+    }
+}
+
+this.start = function() {
+    this.logger.logx( "start", "Scenario started." );
 
     // HACK: This is a bit of a hack, but it should work for now.  We want to
     //  look up the orientation of the rover from the last scenario success
     //  set it back to that.  We do this before loading the start state, so
     //  that the start state can override it.
-    var rover = scene.find( "//rover" )[ 0 ];
+    var rover = this.scene.find( "//rover" )[ 0 ];
     if ( rover ) {
-        if ( scene.sceneBlackboard[ "lastHeading$" ] ) {
-            rover.setHeading( scene.sceneBlackboard[ "lastHeading$" ] );
+        if ( this.scene.sceneBlackboard[ "lastHeading$" ] ) {
+            rover.setHeading( this.scene.sceneBlackboard[ "lastHeading$" ] );
         } else {
             rover.setHeading( 0 );
         }
@@ -84,42 +97,31 @@ this.startScenario = function() {
         this.logger.warnx( "startScenario", "Rover not found!!" );
     }
 
+    // Set the starting state
     if ( this.startState && this.startState.length > 0 ) {
         for ( var i = 0; i < this.startState.length; ++i ) {
             var param = this.startState[ i ];
-            this.startStateExecutor.executeFunction( param, scene );
+            this.startStateExecutor.executeFunction( param, this.scene );
         }
     }
 
+    // Enable the triggers
+    this.assert( !this.triggerManager.isEnabled, "How is the trigger " +
+                 "manager enabled when the scenario isn't?!" );
+    this.triggerManager.isEnabled = true;
+
+    // TODO: remove any real dependency on task.
     this.enter();
-    scene.scenarioStarted( this );
+    this.scene.scenarioStarted( this );
 }
 
-this.failed = function() {
-    // If we need to do anything on failure, it should go in here.
-    if ( scene ) {
-        scene.scenarioFailed( this );
-        scene.stopAllExecution();
-    }
-}
+this.stop = function() {
+    // Disable the triggers
+    this.assert( this.triggerManager.isEnabled, "How is the trigger " +
+                 "manager not enabled when the scenario is?!" );
+    this.triggerManager.isEnabled = false;
 
-this.completed = function() {
-    // If we need to do anything on success, it should go in here.
-    if ( scene ) {
-        scene.scenarioSucceeded( this );
-        this.triggerManager.clearTriggers();
-
-        // HACK: This is a bit of a hack, but it should solve the problem 
-        //  for now.  We want to always store the heading of the rover on
-        //  success, so look up the rover, and then stuff that value onto 
-        //  the blackboard.
-        var rover = scene.find( "//rover" )[ 0 ];
-        if ( rover ) {
-            scene.sceneBlackboard[ "lastHeading$" ] = rover.heading;
-        } else {
-            this.logger.warnx( "completed", "Rover not found!!" );
-        }
-    }
+    this.logger.logx( "start", "Scenario stopped." );
 }
 
 this.startStateParamSet.setProperty = function( params, context ) {
@@ -267,4 +269,4 @@ this.startStateParamSet.loadToolbox = function( params, context ) {
     }
 }
 
-//@ sourceURL=scenario.js
+//@ sourceURL=source/scenario.js
