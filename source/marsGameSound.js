@@ -14,8 +14,6 @@
 
 "use strict";
 
-var setUpOnce = true;
-
 this.initialize = function() {
     //Load sounds defined in yaml file
     for ( var i = 0; i < this.soundSet.length; ++i ) {
@@ -26,8 +24,8 @@ this.initialize = function() {
 
 this.setUpSubtitles = function() {
     var scene = this.find( "/" )[ 0 ];
-    if ( scene && setUpOnce ) {
-        setUpOnce = false;
+    if ( scene && this.setUpOnce ) {
+        this.setUpOnce = false;
         this.soundStarted = this.events.add( startSubtitle.bind( this ) );
         this.soundFinished = this.events.add( stopSubtitle.bind( this ) );
     }
