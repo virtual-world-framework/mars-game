@@ -24,19 +24,15 @@ this.initialize = function() {
     this.calcRam();
 }
 
-this.findAndSetCurrentGrid = function( scenarioName ) {
-    var scenario = this.find( "//" + scenarioName )[ 0 ];
-    this.currentGrid = scenario.grid;
+this.setCurrentGrid = function( grid ) {
+    currentGrid = grid;
 }
 
 this.moveForward = function() {
-
-    var scene = this.sceneNode;
     var headingInRadians = this.heading * Math.PI / 180;
     var dirVector = [ Math.round( -Math.sin( headingInRadians ) ), Math.round( Math.cos( headingInRadians ) ) ];
     var proposedNewGridSquare = [ this.currentGridSquare[ 0 ] + dirVector[ 0 ], 
                                                                 this.currentGridSquare[ 1 ] + dirVector[ 1 ] ];
-
     //First check if the coordinate is valid
     if ( this.currentGrid.validCoord( proposedNewGridSquare ) ) {
 
@@ -270,39 +266,22 @@ this.allowedBlocksChanged = function( value ) {
 }
 
 this.ramChanged = function( value ) {
-    var scene = this.sceneNode;
-    if ( scene !== undefined && scene.alerts ) {
-        if ( value <= this.lowRam ) {
-            if ( value <= 0 ) {
-                scene.addAlert( this.displayName + " is Out of Memory" );
-            } else {
-                scene.addAlert( this.displayName + " is Low on Memory" );
-            }
-        }
+    if ( value <= this.lowRam ) {
+        this.detectedLowRam( this, value );
     }
 }
 
 this.batteryChanged = function( value ) {
-    var scene = this.sceneNode;
-    if ( scene !== undefined && scene.alerts ) {
-        if ( value < this.lowBattery ) {
-            if ( value <= 0 ) {
-                scene.addAlert( this.displayName + " is Out of Power" );
-            } else {
-                scene.addAlert( this.displayName + " is Low on Power" );
-            }
-        }
+    if ( value <= this.lowBattery ) {
+        this.detectedLowBattery( this, value );
     }
 }
 
 this.moveFailed = function( value ) {
-    var scene = this.sceneNode;
-    if ( scene !== undefined && scene.alerts ) {
-        switch( value ) {
-            case 'collision':
-                scene.addAlert( this.displayName + " is Blocked" );
-                break;
-        }
+    switch( value ) {
+        case 'collision':
+            this.collided( this );
+            break;
     }
 }
 

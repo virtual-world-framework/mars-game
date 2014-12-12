@@ -28,10 +28,7 @@ var tiles = new Array();
 var lastCameraPOV = "thirdPerson";
 
 this.initialize = function() {
-    // Set the active camera so we can see the 3D scene
     this.initializeActiveCamera( this.player.targetFollower.camera );
-    this.setUpCameraListener();
-    this.setUpRoverListeners();
 }
 
 this.setScenario = function( path ) {
@@ -42,6 +39,7 @@ this.setScenario = function( path ) {
         }
         scenario.future( 0 ).startScenario();
         calcGridBounds( scenario.grid );
+        this.gridLoaded( scenario.grid );
         this.scenarioChanged( scenario.name, gridBounds );
     } else {
         this.logger.warnx( "setScenario", "Scenario for path '" + path + "' not found." );
@@ -157,21 +155,31 @@ this.executeBlock = function ( block, action ) {
     }
 }
 
-this.setUpCameraListener = function() {
-    var scene = this;
-    this.player.targetFollower.camera.changedPOV = function( pov ) {
-        if ( pov !== "topDown") {
-            scene.displayTiles( false );
-            scene.displayGraph( false );
-        }
+this.handlePOVChange = function( POV ) {
+    if ( POV !== "topDown") {
+        this.displayTiles( false );
+        this.displayGraph( false );
     }
 }
 
-this.setUpRoverListeners = function() {
-    this.scenarioChanged = ( function( scenarioName ) {
-        this.player.rover.findAndSetCurrentGrid( scenarioName );
-    } ).bind( this );
-    // rover.findAndSetCurrentGrid( this.activeScenarioPath );
+this.alertLowRam = function( rover, ram ) {
+    if ( ram <= 0 ) {
+        this.addAlert( rover.displayName + " is Out of RAM!" );
+    } else {
+        this.addAlert( rover.displayName + " is Low on RAM!" );
+    }
+}
+
+this.alertLowBattery = function( rover, battery ) {
+    if ( battery <= 0 ) {
+        this.addAlert( rover.displayName + " is Out of Battery!" );
+    } else {
+        this.addAlert( rover.displayName + " is Low on Battery!" );
+    }
+}
+
+this.alertCollision = function( rover ) {
+    this.addAlert( rover.displayName + " is blocked!" );
 }
 
 this.displayTiles = function( isVisible ) {
