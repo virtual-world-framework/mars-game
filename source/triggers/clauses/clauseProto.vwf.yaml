@@ -39,8 +39,12 @@ methods:
   initClause:
 
   # This is the function that actually gets called to check whether this
-  #   clause is true or false.
+  #   clause is true or false. Must be implemented by the child clause.
   evaluateClause: 
+
+  # This function gets called when the trigger is disabled. Not implemented 
+  #   here, but children can implement it.
+  reset:
 
 scripts:
 - source: source/triggers/clauses/clauseProto.js

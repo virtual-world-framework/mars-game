@@ -21,6 +21,8 @@ this.initOnEvent = function( params, generator, payload, threshold ) {
     this.threshold$ = threshold != undefined ? threshold * 1000 : 100;
     this.lastEventTime$ = 0;
 
+    // If the trigger fires, reset (so that we can't fire more than once off 
+    //  the same event).
     this.parentTrigger.triggered = this.events.add( this.reset, this );
 
     return true;

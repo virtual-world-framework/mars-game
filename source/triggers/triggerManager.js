@@ -23,8 +23,7 @@ this.initialize = function() {
 
     // This one is just an empty node that will hold all of our triggers once
     //  we create them.
-    this.children.create( "triggerSet", 
-                          "http://vwf.example.com/node.vwf" );
+    this.children.create( "triggerSet", "http://vwf.example.com/node.vwf" );
 }
 
 this.loadTriggers = function( context ) {
@@ -61,32 +60,6 @@ this.addTrigger = function( triggerName, definition, context ) {
     this.triggerSet.children.create( triggerName, 
                                      "source/triggers/trigger.vwf",
                                      initTrigger.bind( this ) );
-}
-
-this.clearTriggers = function() {
-    while ( this.triggerSet.children.length > 0 ) {
-        var trigger = this.triggerSet.children[ 0 ];
-        deleteTrigger( trigger );
-    }
-}
-
-// TODO: We're only using this to support the late load triggers.  We shouldn't
-//  need that concept once we get trigger groups working, so consider getting 
-//  rid of this.
-this.clearTriggerList = function( triggerList ) {
-    for ( var triggerName in triggerList ) {
-        var trigger = this.triggerSet.find( triggerName );
-        deleteTrigger( trigger );
-    }
-}
-
-this.deleteTrigger = function( trigger ) {
-    trigger.isDeleted = true;
-    this.triggerSet.children.delete( trigger );
-}
-
-this.isEmpty = function() {
-    return this.triggerSet.children.length === 0;
 }
 
 // function Trigger( conditionFactory, actionFactory, context, definition, 

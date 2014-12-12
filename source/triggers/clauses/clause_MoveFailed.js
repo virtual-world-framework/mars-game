@@ -51,6 +51,10 @@ this.onMoveFailed = function() {
     this.parentTrigger.checkFire();
 }
 
+this.reset() = function() {
+    this.moveHasFailed = false;
+}
+
 this.evaluateClause = function() {
     return this.moveHasFailed;
 }

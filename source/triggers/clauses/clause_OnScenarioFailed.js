@@ -36,7 +36,8 @@ this.onGenerated = function( params, generator, payload ) {
 }
 
 this.onScenarioEvent = function( scenarioName ) {
-    if ( this.scenariosToCheck.contains( scenarioName ) ) {
+    if ( ( this.scenariosToCheck.length === 0 ) ||
+         ( this.scenariosToCheck.indexOf( scenarioName ) >= 0 ) ) {
         this.onEvent();
     }
 }

@@ -41,17 +41,14 @@ this.generateObject = function( objDefinition, parentObj, payload ) {
         if ( objFileName ) {
             var onGenerated = function( generatedObj ) {
                 if ( !generatedObj.onGenerated ) {
-                    this.logger.errorx( "generateObject", "The prototype " +
+                    this.logger.errorx( "onGenerated", "The prototype " +
                                         "for objects of type '" + typeName +
                                         "' doesn't have an onGenerated " +
                                         "method! You need to define that." );
                     parentObj.children.delete( generatedObj );
                 } else {
-                    var success = generatedObj.onGenerated( params, this, 
-                                                            payload );
-
-                    if ( !success ) {
-                        this.logger.errorx( "generateObject", "Failed to " +
+                    if ( !generatedObj.onGenerated( params, this, payload ) ) {
+                        this.logger.errorx( "onGenerated", "Failed to " +
                                             "initialize object of type '" +
                                             typeName + "'!");
                         parentObj.children.delete( generatedObj );
@@ -61,6 +58,7 @@ this.generateObject = function( objDefinition, parentObj, payload ) {
 
             var uniqueName = typeName + "_" + this.uniqueNameCtr$;
             this.uniqueNameCtr$++;
+
             parentObj.children.create( uniqueName, objFileName, 
                                        onGenerated.bind( this ) );
 

@@ -21,3 +21,5 @@ this.extractStringArray = function( param ) {
     	return [];
     }
 }
+
+//@ sourceURL=source/triggers/generators/generatedObject.js

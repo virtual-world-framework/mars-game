@@ -20,9 +20,24 @@
 
 extends: http://vwf.example.com/node.vwf
 
+implements: 
+  - http://vwf.example.com/assert.vwf
+
 properties:
   # The yaml definition for our triggers
   triggers:
+
+  # Enable/disable all of our triggers.
+  isEnabled:
+    set: |
+      this.assert( this.isEnabled !== value, "Redundant set of isEnabled." );
+      it ( this.isEnabled !== value ) {
+        this.isEnabled = value;
+        for ( var i = 0; i < this.triggerSet.children.length; ++i ) {
+          this.triggerSet.children[ i ].isEnabled = value;
+        }
+      }
+    value: false
 
 methods:
   # This function loops through our triggers property and creates all the 
@@ -39,24 +54,6 @@ methods:
   # Adds a single trigger.
   # arguments: triggerName, trigger, context
   addTrigger:
-
-  # This function clears out all of our triggers so that they will stop firing.
-  #   You can still call loadTriggers again if you want to recreate them.
-  clearTriggers:
-
-  # This function clears out only triggers that appear in the specified list.
-  # NOTE: we do matching based solely on the keys - we don't check if the 
-  #   trigger is actually the same.
-  # arguments: triggerList
-  clearTriggerList:
-
-  # Delete an actual trigger.  Meant for internal use only - it takes the 
-  #   instantiated trigger from our triggerSet, not the yaml definition that
-  #   it was created from.
-  deleteTrigger:
-
-  # Checks whether we have any triggers
-  isEmpty:
 
 scripts:
   - source: source/triggers/triggerManager.js
