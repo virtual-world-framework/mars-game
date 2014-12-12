@@ -18,6 +18,11 @@ this.initClause = function( params, generator, payload ) {
 	}
 
     this.parentTrigger = payload.trigger;
+
+    this.parentTrigger.disabled = this.events.add( function() { 
+													this.reset && this.reset(); 
+												}, this );
+
     return true;
 }
 

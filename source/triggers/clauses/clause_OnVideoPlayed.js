@@ -31,7 +31,8 @@ this.onGenerated = function( params, generator, payload ) {
 }
 
 this.onPlayedEvent = function( video ) {
-    if ( this.videosToCheck.contains( video ) ) {
+    if ( ( this.videosToCheck.length === 0 ) ||
+         ( this.videosToCheck.indexOf( video ) >= 0 ) ) {
         this.onEvent();
     }
 }

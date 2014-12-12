@@ -13,7 +13,7 @@
 // limitations under the License.
 
 this.onGenerated = function( params, generator, payload ) {
-    if ( !params || ( params.length > 2 ) ) {
+    if ( !params || ( params.length < 1 ) || ( params.length > 2 ) ) {
         this.logger.warnx( "onGenerated", "this clause takes the name(s) of " +
                             "the HUD element(s), along with an optional " +
                             "timeout threshold." );
@@ -24,6 +24,10 @@ this.onGenerated = function( params, generator, payload ) {
     }
 
     this.hudNames = this.extractStringArray( params[ 0 ] );
+    if ( this.hudNames.length === 0 ) {
+        this.logger.errorx( "onGenerated", "No HUD names found!" );
+        return false;
+    }
 
     this.scene.mouseOverHUD = this.events.add( this.onPlayedEvent, this );
 
@@ -31,7 +35,7 @@ this.onGenerated = function( params, generator, payload ) {
 }
 
 this.onMouseOverEvent = function( hudName ) {
-    if ( this.hudNames.contains( hudName ) ) {
+    if ( this.hudNames.indexOf( hudName ) >= 0 ) {
         this.onEvent();
     }
 }

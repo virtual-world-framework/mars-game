@@ -33,7 +33,7 @@ this.onGenerated = function( params, generator, payload ) {
         var object = this.blocklyObjects[ i ];
 
         if ( object.blocklyStarted ) {
-            object.blocklyStarted = this.events.add( this.parentTrigger.checkFire(), 
+            object.blocklyStarted = this.events.add( this.parentTrigger.checkFire, 
                                                      this.parentTrigger );
         } else {
             this.logger.warnx( "onGenerated", "blocklyStarted event not " +
@@ -41,7 +41,7 @@ this.onGenerated = function( params, generator, payload ) {
         }
 
         if ( object.blocklyStopped ) {
-            object.blocklyStopped = this.events.add( this.parentTrigger.checkFire(), 
+            object.blocklyStopped = this.events.add( this.parentTrigger.checkFire, 
                                                      this.parentTrigger );
         } else {
             this.logger.warnx( "onGenerated", "blocklyStopped event not " +
@@ -49,7 +49,7 @@ this.onGenerated = function( params, generator, payload ) {
         }
 
         if ( object.blocklyErrored ) {
-            object.blocklyErrored = this.events.add( this.parentTrigger.checkFire(), 
+            object.blocklyErrored = this.events.add( this.parentTrigger.checkFire, 
                                                      this.parentTrigger );
         } else {
             this.logger.warnx( "onGenerated", "blocklyErrored event not " +

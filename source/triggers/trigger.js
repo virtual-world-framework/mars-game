@@ -19,18 +19,20 @@ this.initialize = function() {
                           "http://vwf.example.com/node.vwf" );
 }
 
+this.postInit = function() {
+    
+}
+
 this.initTrigger = function( clauseGen, actionGen, context, definition ) {
     if ( !definition.triggerCondition || 
          ( definition.triggerCondition.length !== 1 ) ) {
-
-        this.logger.errorx( "initTrigger", "There must be exactly one " +
-                            "trigger condition.  Try using 'and' or 'or'." );
+        this.assert( false, "There must be exactly one trigger condition. " +
+                            "Try using 'and' or 'or'." );
         return false;
     } 
 
-    if ( !definition.actions || ( definition.actions.length < 1 )) {
-        this.logger.errorx( "initTrigger", "There must be at least one " +
-                            "action." );
+    if ( !definition.actions || ( definition.actions.length < 1 ) ) {
+        this.assert( false, "There must be at least one action." );
         return false;
     }
 
@@ -49,13 +51,11 @@ this.initTrigger = function( clauseGen, actionGen, context, definition ) {
 }
 
 this.checkFire = function() {
-    if ( this.triggerCondition.children.length > 1 ) {
-        this.logger.errorx( "checkFire", "How do we have more than 1 " +
-                            "trigger condition?!" );
-    }
+    this.assert( this.triggerCondition.children.length !== 1, 
+                 "How do we not have exactly 1 trigger condition?!")
 
-    if ( !this.isDeleted && 
-         this.triggerCondition.children.length > 0 && 
+    if ( this.isEnabled && 
+         ( this.triggerCondition.children.length > 0 ) && 
          this.triggerCondition.children[ 0 ].evaluateClause() ) {
 
         this.triggered();
@@ -66,7 +66,7 @@ this.checkFire = function() {
         for ( var i = 0; i < this.actions.length; ++i ) {
             this.spew( "checkFire", "    Action " + i + " starting." );
             this.actions[ i ] && this.actions[ i ]();
-            this.spew( "checkFire", "    Action " + i +  " complete." );
+            this.spew( "checkFire", "    Action " + i + " complete." );
         }
 
         this.spew( "checkFire", "All actions complete for trigger '" + 

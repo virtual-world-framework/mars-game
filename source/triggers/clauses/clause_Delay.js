@@ -15,7 +15,7 @@
 this.onGenerated = function( params, generator, payload ) {
     if ( params.length !== 1 ) {
         this.logger.errorx( "delay", "This clause takes exactly one argument: " +
-                            "the amount of time to delay (in seconds).");
+                            "the amount of time to delay (in seconds)." );
         return false;
     }
 
@@ -23,25 +23,42 @@ this.onGenerated = function( params, generator, payload ) {
         return false;
     }
 
-    var delay = params[ 0 ];
-    this.future( delay ).onDelayComplete();
+    this.duration = params[ 0 ];
+
+    this.assert( !this.delayStarted );
+    this.reset();
+
     return true;
 }
 
 this.onDelayComplete = function() {
-    this.delayComplete = true;
-    this.parentTrigger.checkFire();
+    this.assert( this.cancelDelay >= 0 );
+
+    if ( this.cancelDelay === 0 ) {
+        this.assert( this.delayStarted );
+        this.delayStarted = false;
+
+        this.delayComplete = true;
+
+        this.parentTrigger.checkFire();
+    } else {
+        --this.cancelDelay;
+    }
+}
+
+this.reset = function() {
+    if ( this.delayStarted ) {
+        this.assert( !this.delayComplete );
+        ++this.cancelDelay;
+    }
+
+    this.delayComplete = false;
+    this.future( this.duration ).onDelayComplete();
+    this.delayStarted = true;
 }
 
 this.evaluateClause = function() {
-    var checkedValue = this.scene.sceneBlackboard[ this.variableName ];
-    var retVal = ( checkedValue !== undefined );  
-
-    if ( retVal && ( this.variableValue !== undefined ) ) {
-        retVal = checkedValue === this.variableValue );
-    }
-
-    return retVal;
+    return this.delayComplete;
 }
 
 //@ sourceURL=source/triggers/clauses/clause_Delay.js
