@@ -33,23 +33,18 @@ this.initialize = function() {
         -0.24222907423973083,-0.2294914275407791,0.9426885843276978,0,
         100,100.00012969970703,50.0000114440918,1
     ];
-
     this.camera.far = 10000;
-
     this.future( 0 ).onSceneReady();
 }
 
 this.onSceneReady = function() {
     this.setUpListeners();
-    this.scenarioGenerator.createScenario( "scenario1" );
-    this.scenarioGenerator.createScenario( "scenario2", "scenario1" );
     var json = JSON.stringify( this.scenarioGenerator.scenarios );
     this.scenariosLoaded( json );
 }
 
 this.setUpListeners = function() {
     var scene = this;
-
     this.editTool.grid.gridUpdated = function() {
         scene.updateEditToolTiles();
     }
@@ -102,7 +97,8 @@ this.createLevelFromFile = function( levelArray ) {
                 this[ keys[ n ] ] = obj[ keys[ n ] ];
             }
         } else if ( name === "scenarios" ) {
-            this.scenarioGenerator.scenarios = obj;
+            this.scenarioGenerator.scenarios = JSON.stringify( obj );
+            this.scenariosLoaded( this.scenarioGenerator.scenarios );
         } else {
             if ( name !== "map" ) {
                 obj[ "implements" ] = "editor/editable.vwf";
@@ -133,7 +129,7 @@ this.setTimeOfDay = function( hour ) {
     var z = Math.sin( radians );
     var red, green, blue;
     var intensity;
-    this.sunLight.translateTo( [ x, 0, z ] );
+    this.sunLight.translateTo( [ x * 64, 0, z * 64 ] );
     red = 130 + Math.max( z, 0 ) * 125;
     green = 80 + Math.max( z, 0 ) * 100;
     blue = Math.max( z, 0 ) * 90 + Math.max( ( x - 1 ) / -2, 0 ) * 90;
@@ -153,26 +149,21 @@ this.updateEditToolTiles = function() {
     var grid = this.editTool.grid;
     var origin, color;
     var tiles = new Array;
-
     var offset = new Array(); 
     offset.push( grid.gridOriginInSpace[ 0 ] / grid.gridSquareLength );
     offset.push( grid.gridOriginInSpace[ 1 ] / grid.gridSquareLength );
-
     for ( var x = 0; x < grid.boundaryValues.length; x++ ) {
-
         for ( var y = 0; y < grid.boundaryValues[ x ].length; y++ ) {
             origin = [
                 offset[ 0 ] + ( x ),
                 offset[ 1 ] + ( y ),
                 0
             ];
-
             if ( x === 0 && y === 0 ) {
                 color = ORIGIN_COLOR;
             } else {
                 color = grid.boundaryValues[ x ][ y ] === -1 ? IMPASSABLE_COLOR : PASSABLE_COLOR;
             }
-
             tiles.push( { 
                 "plane": {
                 "origin": origin,
@@ -186,7 +177,6 @@ this.updateEditToolTiles = function() {
             } } );
         }
     }
-
     this.graph.editToolTiles.graphObjects = tiles;
     this.graph.editToolTiles.groupVisible = true;
 }
@@ -201,7 +191,6 @@ this.createGridDisplay = function( grid ) {
     var offset = new Array(); 
     offset.push( grid.gridOriginInSpace[ 0 ] / grid.gridSquareLength );
     offset.push( grid.gridOriginInSpace[ 1 ] / grid.gridSquareLength );
-
     for ( var x = 0; x < grid.boundaryValues.length; x++ ) {
         for ( var y = 0; y < grid.boundaryValues[ x ].length; y++ ) {
             origin = [
@@ -209,9 +198,7 @@ this.createGridDisplay = function( grid ) {
                 offset[ 1 ] + ( y ),
                 0
             ];
-
             color = grid.boundaryValues[ x ][ y ] === -1 ? IMPASSABLE_COLOR : PASSABLE_COLOR;
-
             tiles.push( { 
                 "plane": {
                 "origin": origin,
@@ -225,13 +212,11 @@ this.createGridDisplay = function( grid ) {
             } } );
         }
     }
-
     this.graph.mapTiles.graphObjects = tiles;
 }
 
 this.removeGridDisplay = function() {
     var graph = this.graph;
-
     for ( var obj in graph.children ) {
         graph.children.delete( graph.children[ obj ] );
     }
@@ -263,12 +248,10 @@ this.loadObject = function( path, name ) {
     if ( this.selectedObject !== undefined ) {
         this.deselectObject();
     }
-
     var objectName = "object_" + this.objCount++;
     var callback = function( object ) {
         this.grid.addToGridFromWorld( object, [ 0, 0, 0 ] );
     }
-
     this.future( 0 ).createObject( objectName, path, name, callback );
 }
 
@@ -291,14 +274,11 @@ this.createObject = function( objName, path, name, callback ) {
             "receiveShadows": true
         }
     }
-
     this.objectCreated( objName, objDef );
-
     if ( objName !== "map" ) {
         objDef[ "implements" ] = "editor/editable.vwf";
         objDef.properties[ "nameString" ] = name;
     }
-
     this.children.create( objName, objDef, callback );
 }
 
@@ -324,21 +304,22 @@ this.useTool = function( eventType, pointerInfo, pickInfo ) {
             }
             break;
         case "translate":
-            if ( eventType === "pointerDown" && pointerInfo.buttons.left && this.selectedObject ) {
-                lastPointerPosition = pointerInfo.screenPosition;
+            if ( eventType === "pointerDown" && pointerInfo.buttons.left ) {
+                var object = this.findByID( this, pickInfo.pickID );
+                if ( object && object.isEditable ) {
+                    this.selectObject( object );
+                }
+                if ( this.selectedObject ) {
+                    lastPointerPosition = pointerInfo.screenPosition;
+                }
             } else if ( eventType === "pointerMove" && pointerInfo.buttons.left && this.selectedObject ) {
                 if ( lastPointerPosition[ 0 ] !== pointerInfo.screenPosition[ 0 ] ||
                      lastPointerPosition[ 1 ] !== pointerInfo.screenPosition[ 1 ] ) {
                     this.drag( pickInfo );
                     lastPointerPosition = pointerInfo.screenPosition;
                 }
-            } else if ( eventType === "pointerClick" && pointerInfo.button === "left" ) {
-                var object = this.findByID( this, pickInfo.pickID );
-                if ( object && object.isEditable ) {
-                    this.selectObject( object );
-                } else {
-                    this.deselectObject();
-                }
+            } else if ( eventType === "pointerUp" && this.selectedObject ) {
+                this.deselectObject();
             }
             break;
         case "rotate":
@@ -444,7 +425,6 @@ this.useTool = function( eventType, pointerInfo, pickInfo ) {
 this.drag = function( pickInfo ) {
     this.selectedObject.terrainName = this.map ? this.map.name : undefined;
     var coord, curCoord, origin, normal, intersects, nearest, point, factor;
-
     if ( pickInfo.pickID && pickInfo.pickID !== this.selectedObject.id ) {
         coord = this.grid.getGridFromWorld( pickInfo.globalPosition );
     } else {
@@ -473,19 +453,14 @@ this.drag = function( pickInfo ) {
             }
         }
     }
-
     coord = coord || this.selectedObject.currentGridSquare;
-
     curCoord = this.selectedObject.currentGridSquare;
-
     if ( coord[ 0 ] === curCoord[ 0 ] && coord[ 1 ] === curCoord[ 1 ] ) {
         return;
     }
-
     if ( this.selectedObject.isOnGrid ) {
         this.grid.removeFromGrid( this.selectedObject, this.selectedObject.currentGridSquare );
     }
-
     this.grid.addToGridFromCoord( this.selectedObject, coord );
     this.editTool.grid.moveGridOrigin( coord );
 }
@@ -494,7 +469,6 @@ this.stopDrag = function( pointerInfo, pickInfo ) {
     if ( !this.selectedObject ) {
         return;
     }
-
     this.selectedObject = undefined;
 }
 
@@ -560,13 +534,11 @@ function findNearestOther( dragObj, picks ) {
             return picks[ i ];
         }
     }
-
     return undefined;
 }
 
 function findNodeID( object ) {
     var id = undefined;
-
     while ( !id && object ) {
         if ( object.vwfID ) {
             id = object.vwfID;
@@ -574,7 +546,18 @@ function findNodeID( object ) {
             object = object.parent;
         }
     }
-
     return id;
 }
+
+this.addNewScenario = function( json, name ) {
+    this.scenarioGenerator.scenarios = json.scenarios;
+    this.scenarioGenerator.createScenario( name );
+    var scenarios = JSON.stringify( this.scenarioGenerator.scenarios );
+    this.scenariosLoaded( scenarios );
+}
+
+this.saveScenarios = function( json ) {
+    this.scenarioGenerator.scenarios = json.scenarios;
+}
+
 //@ sourceURL=editor/scene.js

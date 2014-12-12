@@ -25,6 +25,7 @@ properties:
     value: 12
   activeTool: camera
   enableShadows: true
+  shadowMapCullFace: "back"
 children:
   graph:
     extends: http://vwf.example.com/graphtool/graph.vwf
@@ -119,15 +120,15 @@ children:
       intensity: 0.5
       castShadows: true
       shadowDarkness: 0.5
-      shadowCameraBottom: -64
-      shadowCameraTop: 64
-      shadowCameraLeft: -64
-      shadowCameraRight: 64
-      shadowCameraNear: -32
-      shadowCameraFar: 32
+      shadowCameraBottom: -48
+      shadowCameraTop: 48
+      shadowCameraLeft: -48
+      shadowCameraRight: 48
+      shadowCameraNear: 0
+      shadowCameraFar: 128
       shadowMapWidth: 2048
       shadowMapHeight: 2048
-      shadowBias: 0
+      shadowBias: -0.003
   envLight:
     extends: http://vwf.example.com/light.vwf
     properties:
@@ -156,6 +157,8 @@ methods:
   setActiveTool:
   createLevelFromFile:
   setTimeOfDay:
+  addNewScenario:
+  saveScenarios:
   # Methods handled by View
   requestDelete:
 events:

@@ -18,6 +18,7 @@ implements:
 - "http://vwf.example.com/blockly/manager.vwf"
 properties:
   enableShadows: true
+  shadowMapCullFace: "back"
   ambientColor: [ 150, 140, 140 ]
   userObject: null
   blockly_autoClose: false
@@ -124,8 +125,6 @@ children:
     type: model/vnd.collada+xml
     properties:
       visible: false
-  blocks:
-    includes: source/blocks.vwf
   airDust:
     includes: source/dustAir.vwf
   smoke1:
@@ -173,7 +172,7 @@ children:
       shadowCameraFar: 24
       shadowMapWidth: 2048
       shadowMapHeight: 2048
-      shadowBias: -0.0025
+      shadowBias: -0.01
       target: [ 0, 0, 0 ]
       offsetFromTarget: [ 2, 1, 16 ]
     methods:

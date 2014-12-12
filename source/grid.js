@@ -124,7 +124,7 @@ this.addToGridFromCoord = function( object, gridCoord ) {
         this.getTileFromGrid( gridCoord ).addToTile( object );
         object.currentGridSquare = gridCoord;
         var newTranslation = this.getWorldFromGrid( gridCoord[ 0 ], gridCoord[ 1 ] );
-        if ( object.placeOnTerrain ) {
+        if ( object.placeOnTerrain && object.terrainName && object.terrainName !== "undefined" ) {
             object.placeOnTerrain( newTranslation );
         } else {
             object.translation = newTranslation;

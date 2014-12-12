@@ -42,7 +42,7 @@ properties:
     # arguments: a single clause
     not:
 
-    # arguments: object, x, y
+    # arguments: object, [ x, y ]
     isAtPosition:
 
     # arguments: object, heading
@@ -65,7 +65,7 @@ properties:
     onBlocklyWindowOpened:
 
     # arguments:
-    #   1: A blockly object (as described above)
+    #   1: An array of blockly objects (as described above)
     #   2: add | remove | either - should it fire when a block is added, when 
     #      one is removed, or either.  Either is the default.
     #   3: the type of block, on array of block types, or nothing (in which 
@@ -87,13 +87,6 @@ properties:
     onHelicamToggle:
     onGraphToggle:
     onTilesToggle:
-
-    # This is a crappy solution, but better than no solution at all.  It will only
-    #   work if it is the last argument in an and/or clause - basically, the first 
-    #   time it is checked is the only time that it will return true (whether the
-    #   trigger actually fires or not).
-    # arguments: none
-    doOnce:
 
     # Checks to see if the graph passes through a particular x,y point
     # arguments: an x,y array

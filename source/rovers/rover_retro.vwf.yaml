@@ -13,7 +13,9 @@
 # limitations under the License.
 
 ---
-extends: http://vwf.example.com/node.vwf
-
-scripts:
-- source: source/blocks.js
+extends: source/rover.vwf
+implements: [ "http://vwf.example.com/blockly/controller.vwf", "source/griddable.vwf" ]
+source: ../../assets/3d/Rover/rover_retro.dae
+type: model/vnd.collada+xml
+properties:
+  displayName: "Rover"

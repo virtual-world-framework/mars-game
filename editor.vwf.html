@@ -14,8 +14,10 @@ See the License for the specific language governing permissions and
 limitations under the License.
  -->
 
-<script type="text/javascript" src="source/utils.js"></script>
-<script type="text/javascript" src="source/fileManager.js"></script>
+<script type="text/javascript" src="source/view/utils.js"></script>
+<script type="text/javascript" src="source/view/fileManager.js"></script>
+<script type="text/javascript" src="editor/triggerObjects.js"></script>
+<script type="text/javascript" src="editor/JsonEditor.js"></script>
 <script type="text/javascript" src="editor/editor.js"></script>
 
 <link rel="stylesheet" type="text/css" href="editor/editor.css"></link>
@@ -64,26 +66,83 @@ limitations under the License.
         </div>
     </div>
 </div>
-<div id="fileWrapper">
-    <div id="fileDialog">
-        <div id="title"></div>
-        <div id="fileCloseButton">X</div>
+<div id="scenarioEditor">
+    <div id="scenarioHeader">Scenario Editor
+        <div id="scenarioCloseButton">&times</div>
     </div>
+    <div id="scenarioOptions">
+        <div id="addScenario" class="scenarioOption">+ Add Scenario</div>
+        <div id="deleteEntry" class="scenarioOption">- Delete Entry</div>
+    </div>
+    <div id="scenarioList"></div>
 </div>
-<div id="sliderWrapper">
+<div class="center">
+    <div id="fileDialog" class="dialog">
+        <div id="title" class="title"></div>
+        <div id="fileCloseButton">&times</div>
+        <div id="fileWrapper" class="dialogGroup"></div>
+    </div>
     <div id="sliderBox">
         <div id="readout"></div>
         <div id="icon" class="inline"></div>
         <div id="slider" class="inline">
             <div id="handle"></div>
         </div>
-        <div id="closeSlider">Close</div>
+        <div style="text-align: center">
+            <button id="closeSlider" class="dialogButton">Close</button>
+        </div>
     </div>
-</div>
-<div id="scenarioEditor">
-    <div id="scenarioHeader">Scenario Editor
-        <div id="scenarioCloseButton">X</div>
+    <div id="newElementDialog" class="dialog">
+        <div id="elementDialogTitle">New Element</div>
+        <div class="dialogGroup">
+            <div style="display: inline-block">
+                <div class="label">Name: </div>
+                <input id="elementName">
+            </div>
+            <div style="display: inline-block">
+                <div class="label">Type: </div>
+                <select id="elementType">
+                    <option value="boolean">Boolean</option>
+                    <option value="string">String</option>
+                    <option value="number">Number</option>
+                    <option value="object">Object</option>
+                    <option value="array">Array</option>
+                </select>
+            </div>
+        </div>
+        <div class="inlineElements">
+            <button id="submitElement" class="dialogButton">Add</button>
+            <button id="cancelElement" class="dialogButton">Cancel</button>
+        </div>
     </div>
-    <div id="addScenario">+ Add Scenario</div>
-    <div id="scenarioList"></div>
+    <div id="newScenarioDialog" class="dialog">
+        <div id="newScenarioTitle">Add Scenario</div>
+        <div class="inlineElements dialogGroup">
+            <div class="label">Name: </div>
+            <input id="newScenarioName">
+        </div>
+        <div class="inlineElements">
+            <button id="newScenarioSubmit" class="dialogButton">Add</button>
+            <button id="newScenarioCancel" class="dialogButton">Cancel</button>
+        </div>
+    </div>
+    <div id="newTriggerDialog" class="dialog">
+        <div class="title">New Trigger</div>
+        <div class="dialogGroup">
+            <div class="label">Trigger Name: <input id="triggerName"></div>
+        </div>
+        <div class="dialogGroup">
+            <div class="label">Conditions:</div>
+            <div id="triggerConditions"></div>
+        </div>
+        <div class="dialogGroup">
+            <div class="label">Actions:</div>
+            <div id="triggerActions"></div>
+            <div id="addAction" class="textButton">Add Action...</div>
+        </div>
+        <div class="inlineElements">
+            <button id="submitTrigger" class="dialogButton">Add</button>
+            <button id="cancelTrigger" class="dialogButton">Cancel</button>
+        </div>
+    </div>
 </div>

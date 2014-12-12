@@ -29,6 +29,8 @@ properties:
     # arguments: objectName, propertyName, propertyValue
     setProperty:
 
+    callMethod:
+
     setSceneProperty:
 
     emptyInventory:
@@ -37,7 +39,9 @@ properties:
     addToGrid:
     removeFromGrid:
 
-    createGraph:
+    enableBlocklyTabs:
+
+    loadToolbox:
 
   # These are the standard properties that every scenario should define
   scenarioName:

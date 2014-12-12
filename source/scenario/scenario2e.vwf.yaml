@@ -47,10 +47,10 @@ properties:
     - graph
   - loadToolbox:
     - rover
-    - assets/scenario/scenario2e.xml
+    - source/scenario/blockly/scenario2e.xml
   - loadToolbox:
     - graph
-    - assets/scenario/graph2e.xml
+    - source/scenario/blockly/graph2e.xml
 
 children:
   triggerManager:
@@ -72,11 +72,11 @@ children:
 
         playStartingVO_2e:
           triggerCondition:
-          - onScenarioStart:
-          additionalCondition:
-          - not:
-            - readBlackboard:
-              - Level2eStartSounds
+          - and:
+            - onScenarioStart:
+            - not:
+              - readBlackboard:
+                - Level2eStartSounds
           actions:
           - playSound:
             - SCVO8_Control
@@ -85,13 +85,12 @@ children:
 
         succeedOnSuccessfulMovement_2e:
           triggerCondition:
-          - onBlocklyStopped:
-            - rover
-          additionalCondition:
-          - isAtPosition:
-            - rover
-            - 13
-            - 2
+          - and:
+            - onBlocklyStopped:
+              - rover
+            - isAtPosition:
+              - rover
+              - [ 13, 2 ]
           actions:
           - scenarioSuccess:
           - showAlert:
@@ -120,10 +119,9 @@ children:
 
         playHint1_2e:
           triggerCondition:
-          - delay:
-            - 20
-          additionalCondition:
           - and:
+            - delay:
+              - 20
             - not:
               - readBlackboard:
                 - Level2eHint1
@@ -144,10 +142,9 @@ children:
 
         playHint2_2e:
           triggerCondition:
-          - delay:
-            - 40
-          additionalCondition:
           - and:
+            - delay:
+              - 40
             - not:
               - readBlackboard:
                 - Level2eHint2

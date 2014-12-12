@@ -13,16 +13,9 @@
 # limitations under the License.
 
 ---
-model:
-  vwf/model/threejs:
-  vwf/model/blockly:
-  vwf/model/sound:
-  vwf/model/graphtool:
-  vwf/model/heightmap:
-view:
-  vwf/view/threejs: "#vwf-root"
-  vwf/view/blockly: { "blocklyPath": './source/blockly/', "toolbox": 'toolbox' }
-  vwf/view/sound:
-  # vwf/view/editor:
-configuration:
-  preserve-script-closures: true
+extends: source/rover.vwf
+implements: [ "http://vwf.example.com/blockly/controller.vwf", "source/griddable.vwf" ]
+source: ../../assets/3d/Rover/rover_blue.dae
+type: model/vnd.collada+xml
+properties:
+  displayName: "Rover"

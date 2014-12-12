@@ -53,10 +53,10 @@ properties:
     - graph
   - loadToolbox:
     - rover
-    - assets/scenario/scenario3d.xml
+    - source/scenario/blockly/scenario3d.xml
   - loadToolbox:
     - graph
-    - assets/scenario/graph.xml
+    - source/scenario/blockly/graph.xml
 
 children:
   triggerManager:
@@ -79,11 +79,11 @@ children:
 
         playStartingVO_3d:
           triggerCondition:
-          - onScenarioStart:
-          additionalCondition:
-          - not:
-            - readBlackboard:
-              - Level3dStartSounds
+          - and:
+            - onScenarioStart:
+            - not:
+              - readBlackboard:
+                - Level3dStartSounds
           actions:
           - playSound:
             - L3VO6_Rover

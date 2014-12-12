@@ -47,10 +47,10 @@ properties:
     - graph
   - loadToolbox:
     - rover
-    - assets/scenario/scenario2d.xml
+    - source/scenario/blockly/scenario2d.xml
   - loadToolbox:
     - graph
-    - assets/scenario/graph2d.xml
+    - source/scenario/blockly/graph2d.xml
 
 children:
   triggerManager:
@@ -72,11 +72,11 @@ children:
 
         playStartingVO_2d:
           triggerCondition:
-          - onScenarioStart:
-          additionalCondition:
-          - not:
-            - readBlackboard:
-              - Level2dStartSounds
+          - and:
+            - onScenarioStart:
+            - not:
+              - readBlackboard:
+                - Level2dStartSounds
           actions:
           - playSound:
             - ALVO1_Rover
@@ -118,10 +118,9 @@ children:
 
         playHint1_2d:
           triggerCondition:
-          - delay:
-            - 20
-          additionalCondition:
           - and:
+            - delay:
+              - 20
             - not:
               - readBlackboard:
                 - Level2dHint1
@@ -139,10 +138,9 @@ children:
 
         playHint2_2d:
           triggerCondition:
-          - delay:
-            - 40
-          additionalCondition:
           - and:
+            - delay:
+              - 40
             - not:
               - readBlackboard:
                 - Level2dHint2
@@ -160,10 +158,9 @@ children:
 
         playHint3_2d:
           triggerCondition:
-          - delay:
-            - 60
-          additionalCondition:
           - and:
+            - delay:
+              - 60
             - not:
               - readBlackboard:
                 - Level2dHint3
@@ -181,10 +178,9 @@ children:
 
         playHint4_2d:
           triggerCondition:
-          - delay:
-            - 80
-          additionalCondition:
           - and:
+            - delay:
+              - 80
             - not:
               - readBlackboard:
                 - Level2dHint4
@@ -202,10 +198,9 @@ children:
 
         playHint5_2d:
           triggerCondition:
-          - delay:
-            - 100
-          additionalCondition:
           - and:
+            - delay:
+              - 100
             - not:
               - readBlackboard:
                 - Level2dHint5
