@@ -17,7 +17,7 @@ extends: source/triggers/clauses/clauseProto.vwf
 
 implements: 
   - http://vwf.example.com/sceneGetter.vwf
-  - source/blocklyObjectGetter.js
+  - source/blocklyObjectGetter.vwf
 
 properties:
   blocklyObjects:

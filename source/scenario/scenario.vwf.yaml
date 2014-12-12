@@ -13,10 +13,14 @@
 # limitations under the License.
 
 --- 
+# TODO: remove the dependency on task.vwf and just inherit from node.
 extends: http://vwf.example.com/lesson/task.vwf
-properties:
-  scenePath: /
 
+implements: 
+  - http://vwf.example.com/assert.vwf
+  - http://vwf.example.com/sceneGetter.vwf
+
+properties:
  # The state param set contains initialization parameters that we want to be 
   #   able to use for our scenarios.  These will be added to the start state
   #   executor (see children).
@@ -48,12 +52,41 @@ properties:
   startState:
   triggers:
 
+  # Keeps track of whether the scenario is currently running.
+  # NOTE: you should not set this directly!!!  The scene manages it through 
+  #   the scenarioChanged and scenarioReset events.
+  isRunning: 
+    set: |
+      if ( value && !this.isRunning ) {
+        this.isRunning = true;
+        this.start();
+      } else if ( this.isRunning ){
+        this.isRunning = false;
+        this.stop();
+      }
+    value: false
 methods:
-  # This is called using future(0) inside of initialize.
-  onSceneLoaded:
+  # Called once the game has been initialized and everything is attached to the
+  #   scene.
+  postInit:
 
   # These are called from the scene when the scenario starts.
+  # NOTE: Depracated.
+  # TODO: remove
   startScenario:
+
+  # Event handlers that get hit any time *any* scenario (not just this one) gets
+  #   changed or reset.  In both cases, the first argument is the name of the
+  #   scenario that's starting.
+  onScenarioChanged:
+  onScenarioReset:
+
+  # Called when the scenario is started or stopped (which should happen as a 
+  #   result of the above event managers).
+  # NOTE: YOU SHOULD NOT CALL THESE DIRECTLY!  They're called in the setter for
+  #   isRunning, and they need to stay in synch.
+  start:
+  stop:
 
 scripts:
 - source: source/scenario/scenario.js

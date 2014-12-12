@@ -35,12 +35,14 @@ this.onGenerated = function( params, generator, payload ) {
     // Determine whether we should fire when a block is added, removed,
     //   or both.
     if ( params[ 1 ] ) {
-        if ( [ "add", "remove", "either" ].contains( params[ 1 ] ) ) {
+        if ( [ "add", "remove", "either" ].indexOf( params[ 1 ] ) >= 0 ) {
             this.addOrRemove = params[ 1 ];
         } else {
-            this.logger.errorx( "onGenerated", "The second parameter should " +
-                                "be 'add', 'remove', or 'either', indicating " +
-                                "when this trigger should fire." );
+            this.logger.warnx( "onGenerated", "The second parameter should " +
+                               "be 'add', 'remove', or 'either', indicating " +
+                               "when this trigger should fire.  It was '" +
+                               params[ 1 ] + "'.  Changing it to 'either'." );
+            this.addOrRemove = "either";
         }
     }
 
@@ -71,7 +73,8 @@ this.onGenerated = function( params, generator, payload ) {
 }
 
 this.onProgramChangedEvent = function( ignoreMe, blockType ) {
-    if ( this.blockTypes.contains( blockType ) ) {
+    if ( ( this.blockTypes.length === 0 ) || 
+         ( this.blockTypes.indexOf( blockType ) >= 0 ) ) {
         this.onEvent();
     }
 }

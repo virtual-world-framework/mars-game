@@ -15,11 +15,28 @@
 --- 
 extends: source/triggers/clauses/clauseProto.vwf
 
+implements: 
+  - http://vwf.example.com/assert.vwf
+
 properties:
+  # how long should we delay?
+  duration:
+
+  # becomes true after duration seconds, remains true until the next reset
   delayComplete: false
 
+  # If the scenario stops before the delay is completed, we need to do nothing
+  #   when the next callback happens.
+  delayStarted: false
+  delayCancelled: 0
+
 methods:
+  # Cancels any previous delays and starts the delays.
+  reset:
+
+  # The callback for when the delay is complete.
   onDelayComplete:
+
 
 scripts:
 - source: source/triggers/clauses/clause_Delay.js
