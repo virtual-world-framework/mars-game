@@ -42,7 +42,11 @@ this.setScenario = function( path ) {
         }
         scenario.future( 0 ).startScenario();
         calcGridBounds( scenario.grid );
-        this.scenarioChanged( scenario.name, gridBounds );
+        //this.scenarioChanged( scenario.name, gridBounds );
+        var args = [];
+        args.push( scenario.name );
+        args.push( gridBounds );
+        vwf_view.kernel.setProperty( vwf_view.kernel.application(), "scenarioChanged", args );
     } else {
         this.logger.warnx( "setScenario", "Scenario for path '" + path + "' not found." );
     }

@@ -38,7 +38,6 @@ var threejs = findThreejsView();
 var activePauseMenu;
 var cachedVolume = 1;
 var muted = false;
-var currentScenario;
 var scenarioList;
 var startingZoom;
 
@@ -133,15 +132,15 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 }
                 break;
 
-            case "scenarioChanged":
-                currentScenario = eventArgs[ 0 ];
-                if ( currentScenario === "mainMenuScenario" ) {
-                    setRenderMode( RENDER_MENU );
-                } else {
-                    setRenderMode( RENDER_GAME );
-                }
-                lastBlockIDExecuted = undefined;
-                enableAllHUDElements();
+            // case "scenarioChanged":
+            //     this.currentScenario = eventArgs[ 0 ];
+            //     if ( this.currentScenario === "mainMenuScenario" ) {
+            //         setRenderMode( RENDER_MENU );
+            //     } else {
+            //         setRenderMode( RENDER_GAME );
+            //     }
+            //     lastBlockIDExecuted = undefined;
+            //     enableAllHUDElements();
             case "scenarioReset":
                 removePopup();
                 removeFailScreen();
@@ -357,6 +356,18 @@ vwf_view.initializedProperty = function( nodeID, propertyName, propertyValue ) {
 } 
 
 vwf_view.satProperty = function( nodeID, propertyName, propertyValue ) {
+
+    if ( propertyName === "scenarioChanged" ) {
+        this.currentScenario = propertyValue[ 0 ];
+        if ( this.currentScenario === "mainMenuScenario" ) {
+            setRenderMode( RENDER_MENU );
+        } else {
+            setRenderMode( RENDER_GAME );
+        }
+        lastBlockIDExecuted = undefined;
+        enableAllHUDElements();
+    }
+
     if ( nodeID === mainRover ) {
         switch ( propertyName ) {
 
@@ -878,7 +889,7 @@ function exitToMainMenu() {
 
 function loadScenarioData() {
     var display = document.getElementById( "scenarioDisplay" );
-    display.innerHTML = currentScenario;
+    display.innerHTML = this.currentScenario;
 }
 
 function displayPreviousScenario() {

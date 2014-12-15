@@ -30,6 +30,8 @@ properties:
   playerId: "test"
   version: 1.0
   sceneBlackboard: {}
+  scenarioChanged: []
+  currentScenario: undefined
 methods:
   setScenario:
   resetScenario:
