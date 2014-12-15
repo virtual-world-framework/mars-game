@@ -28,10 +28,6 @@ var blocklyGraphID = undefined;
 var alertNodeID = undefined;
 var graphIsVisible = false;
 var tilesAreVisible = false;
-var gridBounds = {
-    bottomLeft: undefined,
-    topRight: undefined
-};
 var orbitTarget = new Array( 3 );
 var lastRenderTime = 0;
 var threejs = findThreejsView();
@@ -146,7 +142,7 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 removeFailScreen();
                 clearBlocklyStatus();
                 indicateBlock( lastBlockIDExecuted );
-                gridBounds = eventArgs[ 1 ] || gridBounds;
+                this.gridBounds = eventArgs[ 1 ] || this.gridBounds;
                 break;
 
             case "gotScenarioPaths":
@@ -357,17 +353,6 @@ vwf_view.initializedProperty = function( nodeID, propertyName, propertyValue ) {
 
 vwf_view.satProperty = function( nodeID, propertyName, propertyValue ) {
 
-    if ( propertyName === "scenarioChanged" ) {
-        this.currentScenario = propertyValue[ 0 ];
-        if ( this.currentScenario === "mainMenuScenario" ) {
-            setRenderMode( RENDER_MENU );
-        } else {
-            setRenderMode( RENDER_GAME );
-        }
-        lastBlockIDExecuted = undefined;
-        enableAllHUDElements();
-    }
-
     if ( nodeID === mainRover ) {
         switch ( propertyName ) {
 
@@ -428,9 +413,24 @@ vwf_view.satProperty = function( nodeID, propertyName, propertyValue ) {
     }
 
     if ( nodeID === appID ) {
-        if ( propertyName === "blockly_activeNodeID" ) {
-            Blockly.SOUNDS_ = {};
-            selectBlocklyTab( propertyValue );
+        switch ( propertyName ) {
+
+            case "blockly_activeNodeID":
+                Blockly.SOUNDS_ = {};
+                selectBlocklyTab( propertyValue );
+                break;
+
+            case "currentScenario":
+                this.currentScenario = propertyValue;
+                if ( this.currentScenario === "mainMenuScenario" ) {
+                    setRenderMode( RENDER_MENU );
+                } else {
+                    setRenderMode( RENDER_GAME );
+                }
+
+                lastBlockIDExecuted = undefined;
+                enableAllHUDElements();
+                break;
         }
     }
 

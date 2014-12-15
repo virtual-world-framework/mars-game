@@ -31,6 +31,9 @@ properties:
   version: 1.0
   sceneBlackboard: {}
   scenarioChanged: []
+  gridBounds: 
+    bottomLeft: undefined
+    topRight: undefined
   currentScenario: undefined
 methods:
   setScenario:

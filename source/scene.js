@@ -41,12 +41,11 @@ this.setScenario = function( path ) {
             scenario.grid.clearGrid();
         }
         scenario.future( 0 ).startScenario();
-        calcGridBounds( scenario.grid );
-        //this.scenarioChanged( scenario.name, gridBounds );
-        var args = [];
-        args.push( scenario.name );
-        args.push( gridBounds );
-        vwf_view.kernel.setProperty( vwf_view.kernel.application(), "scenarioChanged", args );
+
+        var gridBounds = calcGridBounds( scenario.grid );
+        vwf_view.kernel.setProperty( vwf_view.kernel.application(), "currentScenario", scenario.name );
+        vwf_view.kernel.setProperty( vwf_view.kernel.application(), "gridBounds", gridBounds );
+        
     } else {
         this.logger.warnx( "setScenario", "Scenario for path '" + path + "' not found." );
     }
