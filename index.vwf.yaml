@@ -54,7 +54,6 @@ methods:
 events:
   gameStarted:
   scenarioReset:
-  scenarioChanged:
   scenarioStarted:
   scenarioSucceeded:
   scenarioFailed:
