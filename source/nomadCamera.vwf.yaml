@@ -16,6 +16,7 @@
 extends: http://vwf.example.com/camera.vwf
 properties:
   target:
+  mountName:
   lastTargetPosition: [ 0, 0, 0 ]
 methods:
   setCameraTarget:
@@ -23,6 +24,9 @@ methods:
   followTarget:
   attachToTarget:
   detachFromTarget:
+  setCameraPose:
+  convertPoseToTransform:
 events:
+  mounted:
 scripts:
   - source: source/nomadCamera.js

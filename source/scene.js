@@ -29,9 +29,10 @@ var lastCameraPOV = "thirdPerson";
 
 this.initialize = function() {
     // Set the active camera so we can see the 3D scene
-    this.initializeActiveCamera( this.player.targetFollower.camera );
-    this.setUpCameraListener();
+    this.initializeActiveCamera( this.camera );
+    // this.setUpCameraListener();
     this.setUpRoverListeners();
+    this.camera.setCameraTarget( this.player.rover );
 }
 
 this.setScenario = function( path ) {
@@ -159,8 +160,8 @@ this.executeBlock = function ( block, action ) {
 
 this.setUpCameraListener = function() {
     var scene = this;
-    this.player.targetFollower.camera.changedPOV = function( pov ) {
-        if ( pov !== "topDown") {
+    this.camera.mounted = function( mount ) {
+        if ( mount.name !== "topDown") {
             scene.displayTiles( false );
             scene.displayGraph( false );
         }
@@ -176,27 +177,25 @@ this.setUpRoverListeners = function() {
 
 this.displayTiles = function( isVisible ) {
     this.gridTileGraph.mapTiles.groupVisible = isVisible;
-    if ( isVisible && this.player.targetFollower.camera.pointOfView !== "topDown" ) {
-        this.player.targetFollower.camera.pointOfView = "topDown";
+    if ( isVisible && this.camera.mountName !== "topDown" ) {
+        this.camera.setCameraMount( "topDown" );
     }
     this.toggledTiles( isVisible );
 }
 
 this.displayGraph = function( isVisible ) {
     this.blocklyGraph.setGraphVisibility( isVisible );
-    if ( isVisible && this.player.targetFollower.camera.pointOfView !== "topDown" ) {
-        this.player.targetFollower.camera.pointOfView = "topDown";
+    if ( isVisible && this.camera.mountName !== "topDown" ) {
+        this.camera.setCameraMount( "topDown" );
     }
     this.toggledGraph( isVisible );
     this.blocklyGraph.blocklyLine.visible = isVisible;
 }
 
 this.setCinematicView = function( pose ) {
-    var camera = this.player.targetFollower.camera;
-    lastCameraPOV = camera.pointOfView;
-    camera.pointOfView = "thirdPerson";
     if ( pose ) {
-        camera.setCameraPose( pose );
+        this.camera.setCameraMount( "thirdPerson" );
+        this.camera.setCameraPose( pose );
     }
 }
 

@@ -36,10 +36,12 @@ this.setCameraMount = function( mountName ) {
 }
 
 this.followTarget = function( transform ) {
+    var newTransform = this.transform;
     for ( var i = 0; i < 3; i++ ) {
-        this.transform[ i + 12 ] += transform[ i + 12 ] - this.lastTargetPosition[ i ];
+        newTransform[ i + 12 ] += transform[ i + 12 ] - this.lastTargetPosition[ i ];
         this.lastTargetPosition[ i ] = transform[ i + 12 ];
     }
+    this.transform = newTransform;
 }
 
 this.attachToTarget = function() {
@@ -51,6 +53,36 @@ this.attachToTarget = function() {
 
 this.detachFromTarget = function() {
     this.target.transformChanged = this.target.events.remove( this.followTarget );
+}
+
+this.setCameraPose = function( pose ) {
+    var poseTransform = this.convertPoseToTransform( pose );
+    poseTransform[ 12 ] += this.transform[ 12 ];
+    poseTransform[ 13 ] += this.transform[ 13 ];
+    poseTransform[ 14 ] += this.transform[ 14 ];
+    this.transform = poseTransform;
+}
+
+this.convertPoseToTransform = function( pose ) {
+    // A pose is of the form [ radius, yawAngle, pitchAngle ]
+    var degreesToRadians = Math.PI / 180;
+    var radius = pose[ 0 ];
+    var yawRadians = pose[ 1 ] * degreesToRadians;
+    var pitchRadians = pose[ 2 ] * degreesToRadians;
+    var cosYaw = Math.cos( yawRadians );
+    var sinYaw = Math.sin( yawRadians );
+    var cosPitch = Math.cos( pitchRadians );
+    var sinPitch = Math.sin( pitchRadians );
+    return [
+         cosYaw,                      sinYaw,                      0,                 0,
+        -cosPitch * sinYaw,           cosPitch * cosYaw,           sinPitch,          0,
+         sinPitch * sinYaw,          -sinPitch * cosYaw,           cosPitch,          0,
+         radius * cosPitch * sinYaw, -radius * cosPitch * cosYaw, -radius * sinPitch, 1
+    ];
+}
+
+this.mounted = function( mount ) {
+    this.mountName = mount.name;
 }
 
 //@ sourceURL=source/nomadCamera.js

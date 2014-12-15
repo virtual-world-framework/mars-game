@@ -16,6 +16,10 @@
 extends: http://vwf.example.com/node3.vwf
 properties:
   navmode:
+  cameraPose: [ 0, 0, 0 ]
+  cameraSpeed: 100
+  targetVisible: true
+  worldOffset: [ 0, 0, 0 ]
 methods:
   mountCamera:
 events:

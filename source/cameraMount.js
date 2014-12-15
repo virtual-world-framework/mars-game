@@ -13,8 +13,19 @@
 // limitations under the License.
 
 this.mountCamera = function( cameraNode ) {
-	cameraNode.navmode = this.navmode;
-	cameraNode.transformTo( this.worldTransform );
+    var offsetTransform = [];
+    for ( var i = 0; i < this.worldTransform.length; i++ ) {
+        offsetTransform[ i ] = this.worldTransform[ i ];
+        if ( i >= 12 && i <= 14 ) {
+            offsetTransform[ i ] += this.worldOffset[ i - 12 ];
+        }
+    }
+    cameraNode.navmode = this.navmode;
+    cameraNode.transform = offsetTransform;
+    cameraNode.setCameraPose( this.cameraPose );
+    cameraNode.translationSpeed = this.cameraSpeed;
+    cameraNode.target.visible = this.targetVisible;
+    cameraNode.mounted( this );
 }
 
 //@ sourceURL=source/cameraMount.js
