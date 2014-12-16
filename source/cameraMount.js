@@ -21,7 +21,7 @@ this.mountCamera = function( cameraNode ) {
         }
     }
     cameraNode.navmode = this.navmode;
-    cameraNode.transform = offsetTransform;
+    cameraNode.mountOffset = offsetTransform;
     cameraNode.setCameraPose( this.cameraPose );
     cameraNode.translationSpeed = this.cameraSpeed;
     cameraNode.target.visible = this.targetVisible;

@@ -57,9 +57,9 @@ this.detachFromTarget = function() {
 
 this.setCameraPose = function( pose ) {
     var poseTransform = this.convertPoseToTransform( pose );
-    poseTransform[ 12 ] += this.transform[ 12 ];
-    poseTransform[ 13 ] += this.transform[ 13 ];
-    poseTransform[ 14 ] += this.transform[ 14 ];
+    poseTransform[ 12 ] += this.mountOffset[ 12 ];
+    poseTransform[ 13 ] += this.mountOffset[ 13 ];
+    poseTransform[ 14 ] += this.mountOffset[ 14 ];
     this.transform = poseTransform;
 }
 
