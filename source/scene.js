@@ -40,9 +40,10 @@ this.setScenario = function( path ) {
         if ( scenario.grid && scenario.grid.clearGrid ) {
             scenario.grid.clearGrid();
         }
+        var gridBounds = calcGridBounds( scenario.grid );
+        this.gridBounds = gridBounds;
+        this.currentScenario = scenario.name;
         scenario.future( 0 ).startScenario();
-        calcGridBounds( scenario.grid );
-        this.scenarioChanged( scenario.name, gridBounds );
     } else {
         this.logger.warnx( "setScenario", "Scenario for path '" + path + "' not found." );
     }

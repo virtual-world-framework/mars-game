@@ -28,17 +28,12 @@ var blocklyGraphID = undefined;
 var alertNodeID = undefined;
 var graphIsVisible = false;
 var tilesAreVisible = false;
-var gridBounds = {
-    bottomLeft: undefined,
-    topRight: undefined
-};
 var orbitTarget = new Array( 3 );
 var lastRenderTime = 0;
 var threejs = findThreejsView();
 var activePauseMenu;
 var cachedVolume = 1;
 var muted = false;
-var currentScenario;
 var scenarioList;
 var startingZoom;
 
@@ -133,15 +128,15 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 }
                 break;
 
-            case "scenarioChanged":
-                currentScenario = eventArgs[ 0 ];
-                if ( currentScenario === "mainMenuScenario" ) {
-                    setRenderMode( RENDER_MENU );
-                } else {
-                    setRenderMode( RENDER_GAME );
-                }
-                lastBlockIDExecuted = undefined;
-                enableAllHUDElements();
+            // case "scenarioChanged":
+            //     this.currentScenario = eventArgs[ 0 ];
+            //     if ( this.currentScenario === "mainMenuScenario" ) {
+            //         setRenderMode( RENDER_MENU );
+            //     } else {
+            //         setRenderMode( RENDER_GAME );
+            //     }
+            //     lastBlockIDExecuted = undefined;
+            //     enableAllHUDElements();
             case "scenarioReset":
                 removePopup();
                 removeFailScreen();
@@ -357,6 +352,7 @@ vwf_view.initializedProperty = function( nodeID, propertyName, propertyValue ) {
 } 
 
 vwf_view.satProperty = function( nodeID, propertyName, propertyValue ) {
+
     if ( nodeID === mainRover ) {
         switch ( propertyName ) {
 
@@ -417,9 +413,23 @@ vwf_view.satProperty = function( nodeID, propertyName, propertyValue ) {
     }
 
     if ( nodeID === appID ) {
-        if ( propertyName === "blockly_activeNodeID" ) {
-            Blockly.SOUNDS_ = {};
-            selectBlocklyTab( propertyValue );
+        switch ( propertyName ) {
+
+            case "blockly_activeNodeID":
+                Blockly.SOUNDS_ = {};
+                selectBlocklyTab( propertyValue );
+                break;
+
+            case "currentScenario":
+                if ( propertyValue === "mainMenuScenario" ) {
+                    setRenderMode( RENDER_MENU );
+                } else {
+                    setRenderMode( RENDER_GAME );
+                }
+
+                lastBlockIDExecuted = undefined;
+                enableAllHUDElements();
+                break;
         }
     }
 

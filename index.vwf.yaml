@@ -30,6 +30,10 @@ properties:
   playerId: "test"
   version: 1.0
   sceneBlackboard: {}
+  gridBounds: 
+    bottomLeft: undefined
+    topRight: undefined
+  currentScenario: undefined
 methods:
   setScenario:
   resetScenario:
@@ -52,7 +56,6 @@ methods:
 events:
   gameStarted:
   scenarioReset:
-  scenarioChanged:
   scenarioStarted:
   scenarioSucceeded:
   scenarioFailed:
