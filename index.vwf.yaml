@@ -30,7 +30,6 @@ properties:
   playerId: "test"
   version: 1.0
   sceneBlackboard: {}
-  scenarioChanged: []
   gridBounds: 
     bottomLeft: undefined
     topRight: undefined

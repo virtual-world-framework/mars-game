@@ -142,7 +142,7 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 removeFailScreen();
                 clearBlocklyStatus();
                 indicateBlock( lastBlockIDExecuted );
-                this.gridBounds = eventArgs[ 1 ] || this.gridBounds;
+                gridBounds = eventArgs[ 1 ] || gridBounds;
                 break;
 
             case "gotScenarioPaths":
@@ -421,8 +421,7 @@ vwf_view.satProperty = function( nodeID, propertyName, propertyValue ) {
                 break;
 
             case "currentScenario":
-                this.currentScenario = propertyValue;
-                if ( this.currentScenario === "mainMenuScenario" ) {
+                if ( propertyValue === "mainMenuScenario" ) {
                     setRenderMode( RENDER_MENU );
                 } else {
                     setRenderMode( RENDER_GAME );
@@ -889,7 +888,7 @@ function exitToMainMenu() {
 
 function loadScenarioData() {
     var display = document.getElementById( "scenarioDisplay" );
-    display.innerHTML = this.currentScenario;
+    display.innerHTML = currentScenario;
 }
 
 function displayPreviousScenario() {

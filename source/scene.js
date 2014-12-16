@@ -40,12 +40,10 @@ this.setScenario = function( path ) {
         if ( scenario.grid && scenario.grid.clearGrid ) {
             scenario.grid.clearGrid();
         }
-        scenario.future( 0 ).startScenario();
-
         var gridBounds = calcGridBounds( scenario.grid );
-        vwf_view.kernel.setProperty( vwf_view.kernel.application(), "currentScenario", scenario.name );
-        vwf_view.kernel.setProperty( vwf_view.kernel.application(), "gridBounds", gridBounds );
-        
+        this.gridBounds = gridBounds;
+        this.currentScenario = scenario.name;
+        scenario.future( 0 ).startScenario();
     } else {
         this.logger.warnx( "setScenario", "Scenario for path '" + path + "' not found." );
     }
