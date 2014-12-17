@@ -36,7 +36,7 @@ this.postInit = function() {
     this.triggerManager.loadTriggerList( globalTriggers.lateLoadTriggers, this.scene );
 
     if ( this.runOnStartup ) {
-        this.future( 10 ).startInitialScenario$()
+        this.future( 0 ).startInitialScenario$()
     }
 }
 
@@ -131,7 +131,7 @@ this.stop = function() {
                  "manager not enabled when the scenario is?!" );
     this.triggerManager.isEnabled = false;
 
-    this.logger.logx( "start", "Scenario stopped." );
+    this.logger.logx( "stop", "Scenario stopped." );
 }
 
 this.setIsRunning$ = function( value ) {
