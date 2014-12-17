@@ -17,6 +17,7 @@ extends: source/triggers/clauses/clauseProto_OnEvent.vwf
 
 implements: 
   - http://vwf.example.com/sceneGetter.vwf
+  - source/blocklyObjectGetter.vwf
 
 methods:
   # We need our own onEvent method that screens the events and decides which to

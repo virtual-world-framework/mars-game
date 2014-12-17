@@ -26,13 +26,7 @@ properties:
   #   disable it if it should be deleted.
   isEnabled: 
     set: |
-      if ( value && !this.isEnabled ) {
-        this.isEnabled = true;
-        this.enabled();
-      } else if ( this.isEnabled ) {
-        this.isEnabled = false;
-        this.disabled();
-      }
+      this.setIsEnabled$( value );
     value: false
 
   # If this is set to true, we'll spew decision-making details to the console.
@@ -58,6 +52,9 @@ methods:
 
   # A helper function for spewing to the console.
   spew:
+
+  # The setter for isEnabled.  DO NOT CALL DIRECTLY!
+  setIsEnabled$:
 
 events:
   enabled:

@@ -25,10 +25,10 @@ properties:
   # becomes true after duration seconds, remains true until the next reset
   delayComplete: false
 
-  # If the scenario stops before the delay is completed, we need to do nothing
-  #   when the next callback happens.
-  delayStarted: false
-  delayCancelled: 0
+  # keeps track of how many callbacks are underway (because if the delay is
+  #   cancelled before the callback returns, and then restarted, we could have
+  #   more than one).
+  callbackCount: 0
 
 methods:
   # Cancels any previous delays and starts the delays.

@@ -17,6 +17,9 @@
 --- 
 extends: http://vwf.example.com/node.vwf
 
+implements: 
+  - http://vwf.example.com/assert.vwf
+
 methods:
   # Every generated object must define this function - this is where the actual
   #   generation is done.  
