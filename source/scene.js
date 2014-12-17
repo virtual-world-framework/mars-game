@@ -35,21 +35,24 @@ this.initialize = function() {
 }
 
 this.setScenario = function( path ) {
-    var scenario = this.find( path )[ 0 ];
-    if ( scenario ) {
-        // TODO: remove knowledge of inner workings of the scenario; let the
-        //  scenario itself handle bookkeeping in its event handlers.
-        if ( scenario.grid && scenario.grid.clearGrid ) {
-            scenario.grid.clearGrid();
+    if ( path ) {
+        var scenario = this.find( path )[ 0 ];
+        if ( scenario ) {
+            // TODO: remove knowledge of inner workings of the scenario; let 
+            //  the scenario itself handle bookkeeping in its event handlers.
+            if ( scenario.grid && scenario.grid.clearGrid ) {
+                scenario.grid.clearGrid();
+            }
+            calcGridBounds( scenario.grid );
+            // TODO: pass the scenario, not the name.  Or else just send the 
+            //  event without looking the scenario itself up.  Or assert that 
+            //  the scenario exists.  Or something.
+            this.scenarioChanged( scenario.name, gridBounds );
+            scenario.future( 0 ).startScenario();
+        } else {
+            this.logger.warnx( "setScenario", "Scenario for path '" + path + 
+                               "' not found." );
         }
-        scenario.future( 0 ).startScenario();
-        calcGridBounds( scenario.grid );
-        // TODO: pass the scenario, not the name.  Or else just send the event
-        //  without looking the scenario itself up.  Or assert that the scenario
-        //  exists.  Or something.
-        this.scenarioChanged( scenario.name, gridBounds );
-    } else {
-        this.logger.warnx( "setScenario", "Scenario for path '" + path + "' not found." );
     }
 }
 
@@ -61,11 +64,11 @@ this.resetScenario = function() {
         if ( scenario.grid && scenario.grid.clearGrid ) {
             scenario.grid.clearGrid();
         }      
-        scenario.future( 0 ).startScenario();
         // TODO: pass the scenario, not the name.  Or else just send the event
         //  without looking the scenario itself up.  Or assert that the scenario
         //  exists.  Or something.
         this.scenarioReset( scenario.name );
+        scenario.future( 0 ).startScenario();
     } else {
         this.logger.warnx( "resetScenario", "Invalid scenario path: " + this.activeScenarioPath );
     }

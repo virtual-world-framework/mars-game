@@ -20,6 +20,8 @@ properties:
   nextScenarioPath: "introScreenScenario"
   blockly: assets/scenario/scenario1.xml
 
+  runOnStartup: true
+
 children:
   triggerManager:
     extends: source/triggers/triggerManager.vwf

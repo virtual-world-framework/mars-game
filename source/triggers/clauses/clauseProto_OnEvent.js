@@ -33,6 +33,14 @@ this.onEvent = function() {
     this.parentTrigger.checkFire();
 }
 
+this.onEnabled = function() {
+    this.assert( this.lastEventTime$ === 0 );
+}
+
+this.onDisabled = function() {
+    this.lastEventTime$ = 0;
+}
+
 this.reset = function() {
     this.lastEventTime$ = 0;
 }

@@ -13,6 +13,11 @@
 // limitations under the License.
 
 this.executeFunction = function( declarativeFn, context, callback ) {
+    this.assert( this.functionSets, "No function sets were added!" );
+    if ( !this.functionSets ) {
+        return undefined;
+    }
+
     // So this is a little bit ugly (or maybe just Javascript-ey)...
     // The first thing we're going to do is get the name of the function, which 
     //  is done using black magic and the power of the internets, as follows:
@@ -46,6 +51,9 @@ this.executeFunction = function( declarativeFn, context, callback ) {
 }
 
 this.addFunctionSet = function( functionSet ) {
+    if ( !this.functionSets ) {
+        this.functionSets = [];
+    }
     this.functionSets.unshift( functionSet );
 }
 

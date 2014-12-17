@@ -27,7 +27,8 @@ this.initialize = function() {
 }
 
 this.loadTriggers = function( context ) {
-    if ( !this.isEmpty() ) {
+    this.assert( this.triggerSet );
+    if ( this.triggerSet.children.length > 0 ) {
         this.logger.warnx( "loadTriggers", "Loading a new set of triggers, " +
                            "but we still had some there from a previous set!" );
     }
@@ -62,87 +63,19 @@ this.addTrigger = function( triggerName, definition, context ) {
                                      initTrigger.bind( this ) );
 }
 
-// function Trigger( conditionFactory, actionFactory, context, definition, 
-//                   logger, triggerName ) {
+this.setIsEnabled$ = function( value ) {
+    if ( !this.name ) {
+        return; // this is the prototype
+    }
 
-//     this.initialize( conditionFactory, actionFactory, context, definition, 
-//                      logger, triggerName );
-//     return this;
-// }
-
-// Trigger.prototype = {
-//     // Our name - also the key in the trigger list.  Used for debugging.
-//     name: "",
-
-//     // The conditions that we check to see if the trigger should fire
-//     triggerCondition: undefined,
-
-//     // The actions we take when the trigger fires
-//     actions: undefined,
-
-//     // This doesn't appear to be getting deleted properly, so redundantly 
-//     //   disable it if it should be deleted.
-//     isDeleted: undefined,
-
-//     // A logger.  Also used for debugging.
-//     logger: undefined,
-
-//     initialize: function( conditionFactory, actionFactory, context, definition, 
-//                           logger, triggerName ) {
-//         if ( !definition.triggerCondition || 
-//              ( definition.triggerCondition.length !== 1 ) ) {
-
-//             logger.errorx( triggerName + ".initialize", "There must be " +
-//                            "exactly one trigger condition.  Try using 'and' " +
-//                            "or 'or'." );
-//             return undefined;
-//         } 
-
-//         if ( !definition.actions || ( definition.actions.length < 1 )) {
-//             logger.errorx( triggerName + ".initialize", "There must be at " +
-//                            "least one action." );
-//             return undefined;
-//         }
-
-//         this.name = triggerName;
-
-//         this.isDeleted = false;
-
-//         conditionFactory.generateObject( definition.triggerCondition[0],
-//                                          conditionFactory, 
-//                                          { trigger: this } );
-
-//         this.actions = [];
-//         for ( var i = 0; i < definition.actions.length; ++i ) {
-//             var action = actionFactory.executeFunction( definition.actions[ i ], 
-//                                                         context );
-//             action && this.actions.push( action );
-//         }
-
-//         this.logger = logger;
-//     },
-
-//     // Check our conditions, and take action if they're true
-//     checkFire: function() {
-//         if ( !this.isDeleted && 
-//              this.triggerCondition && this.triggerCondition() ) {
-
-//             // this.logger.logx( this.name + ".checkFire", "Firing actions " +
-//             //                   "for trigger '" + this.name + "'.");
-
-//             for ( var i = 0; i < this.actions.length; ++i ) {
-
-//                 // this.logger.logx( this.name + ".checkFire", "    Action " + 
-//                 //                   i + " starting.");
-//                 this.actions[ i ] && this.actions[ i ]();
-//                 // this.logger.logx( this.name + ".checkFire", "    Action " + 
-//                 //                   i + " complete.");
-//             }
-
-//             // this.logger.logx( this.name + ".checkFire", "All actions " +
-//             //                   "complete for trigger '" + this.name + "'.");
-//         }
-//     },
-// }
+    this.assert( this.triggerSet );
+    this.assert( this.isEnabled !== value, "Redundant set of isEnabled." );
+    if ( this.isEnabled !== value ) {
+        this.isEnabled = value;
+        for ( var i = 0; i < this.triggerSet.children.length; ++i ) {
+            this.triggerSet.children[ i ].isEnabled = value;
+        }
+    }
+}
 
 //@ sourceURL=source/triggers/triggerManager.js

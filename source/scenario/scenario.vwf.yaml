@@ -21,7 +21,14 @@ implements:
   - http://vwf.example.com/sceneGetter.vwf
 
 properties:
- # The state param set contains initialization parameters that we want to be 
+  # if true, the scenario will tell the scene to run it once it's been fully
+  #   initialized.
+  # NOTE: we currently only support one scenario at a time, so if this is true
+  #   for more than one then there will be ordering issues and only one will 
+  #   run.
+  runOnStartup: false
+
+  # The state param set contains initialization parameters that we want to be 
   #   able to use for our scenarios.  These will be added to the start state
   #   executor (see children).
   # TODO: should we refactor this into a separate file, as we did with the
@@ -57,14 +64,9 @@ properties:
   #   the scenarioChanged and scenarioReset events.
   isRunning: 
     set: |
-      if ( value && !this.isRunning ) {
-        this.isRunning = true;
-        this.start();
-      } else if ( this.isRunning ){
-        this.isRunning = false;
-        this.stop();
-      }
+      this.setIsRunning$( value );
     value: false
+
 methods:
   # Called once the game has been initialized and everything is attached to the
   #   scene.
@@ -87,6 +89,14 @@ methods:
   #   isRunning, and they need to stay in synch.
   start:
   stop:
+
+  # The setter for isRunning.  DO NOT CALL DIRECTLY!
+  setIsRunning$:
+
+  # A callback that allows us to set oursevles as the current scenario on the
+  #   scene.
+  # NOTE: Again, DO NOT CALL DIRECTLY!
+  startInitialScenario$:
 
 scripts:
 - source: source/scenario/scenario.js
