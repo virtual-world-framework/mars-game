@@ -51,7 +51,7 @@ this.initTrigger = function( clauseGen, actionGen, context, definition ) {
 }
 
 this.checkFire = function() {
-    this.assert( this.triggerCondition.children.length !== 1, 
+    this.assert( this.triggerCondition.children.length === 1, 
                  "How do we not have exactly 1 trigger condition?!")
 
     if ( this.isEnabled && 
@@ -77,6 +77,17 @@ this.checkFire = function() {
 this.spew = function( str1, str2 ) {
     if (this.spewToLog) {
         this.logger.logx( str1, str2 );
+    }
+}
+
+this.setIsEnabled$ = function( value ) {
+    this.assert( this.isEnabled !== value, "Redundant set of isEnabled." );
+    if ( value && !this.isEnabled ) {
+        this.isEnabled = true;
+        this.enabled();
+    } else if ( this.isEnabled ) {
+        this.isEnabled = false;
+        this.disabled();
     }
 }
 

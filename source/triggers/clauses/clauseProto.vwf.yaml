@@ -42,9 +42,10 @@ methods:
   #   clause is true or false. Must be implemented by the child clause.
   evaluateClause: 
 
-  # This function gets called when the trigger is disabled. Not implemented 
+  # These get called when the trigger is enabled/disabled. Not implemented 
   #   here, but children can implement it.
-  reset:
+  onEnabled:
+  onDisabled:
 
 scripts:
 - source: source/triggers/clauses/clauseProto.js

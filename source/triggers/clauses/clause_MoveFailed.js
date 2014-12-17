@@ -51,7 +51,11 @@ this.onMoveFailed = function() {
     this.parentTrigger.checkFire();
 }
 
-this.reset() = function() {
+this.onEnabled = function() {
+    this.assert( this.moveHasFailed === false );
+}
+
+this.onDisabled = function() {
     this.moveHasFailed = false;
 }
 

@@ -26,14 +26,14 @@ this.onGenerated = function( params, generator, payload ) {
 
     var object = this.findInScene( params[ 0 ] );
 
-    if ( !this.object ) {
+    if ( !object ) {
         this.logger.errorx( "onGenerated", "Failed to find object named '" +
                             object + "'." );
         return false;
     }
 
     if ( !object.moved ) {
-        this.logger.errorx( "onGenerated", "'" + objectName "' doesn't " + 
+        this.logger.errorx( "onGenerated", "'" + objectName + "' doesn't " + 
                             "appear to be capable of movement!" );
         return false;
     }

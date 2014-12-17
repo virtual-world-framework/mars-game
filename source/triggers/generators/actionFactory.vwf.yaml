@@ -21,6 +21,9 @@
 --- 
 extends: source/triggers/generators/declarativeFunctionExecutor.vwf
 
+implements: 
+  - http://vwf.example.com/assert.vwf
+
 properties:
 
   # The action set contains the functions that  we pass into the function

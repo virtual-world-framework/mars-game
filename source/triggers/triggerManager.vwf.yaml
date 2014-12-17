@@ -30,13 +30,7 @@ properties:
   # Enable/disable all of our triggers.
   isEnabled:
     set: |
-      this.assert( this.isEnabled !== value, "Redundant set of isEnabled." );
-      it ( this.isEnabled !== value ) {
-        this.isEnabled = value;
-        for ( var i = 0; i < this.triggerSet.children.length; ++i ) {
-          this.triggerSet.children[ i ].isEnabled = value;
-        }
-      }
+      this.setIsEnabled$( value );
     value: false
 
 methods:
@@ -54,6 +48,9 @@ methods:
   # Adds a single trigger.
   # arguments: triggerName, trigger, context
   addTrigger:
+
+  # The setter for isEnabled.  DO NOT CALL DIRECTLY!
+  setIsEnabled$:
 
 scripts:
   - source: source/triggers/triggerManager.js

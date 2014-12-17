@@ -24,6 +24,10 @@
 
 --- 
 extends: http://vwf.example.com/node.vwf
+
+implements: 
+  - http://vwf.example.com/assert.vwf
+
 properties:
 
   # This needs to be a property in order to allow each function executor to 

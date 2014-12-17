@@ -22,12 +22,22 @@ this.initialize = function() {
 }
 
 this.postInit = function() {
+    if ( !this.name ) {
+        return; // we're the prototype, not an actual scenario.
+    }
+
+    this.assert( this.scene && this.triggerManager );
+
     this.scene.scenarioChanged = this.events.add( this.onScenarioChanged, this );
     this.scene.scenarioReset = this.events.add( this.onScenarioReset, this );
 
     var globalTriggers = this.scene.globalTriggerManager;
     this.triggerManager.loadTriggers( this.scene );
     this.triggerManager.loadTriggerList( globalTriggers.lateLoadTriggers, this.scene );
+
+    if ( this.runOnStartup ) {
+        this.future( 10 ).startInitialScenario$()
+    }
 }
 
 this.startScenario = function() {
@@ -59,7 +69,7 @@ this.completed = function() {
 
 this.onScenarioChanged = function( scenarioName ) {
     if ( scenarioName === this.name ) {
-        this.assert( !isRunning, "Scenario is already running!" );
+        this.assert( !this.isRunning, "Scenario is already running!" );
         this.isRunning = true;
     } else {
         this.isRunning = false;
@@ -68,13 +78,13 @@ this.onScenarioChanged = function( scenarioName ) {
 
 this.onScenarioReset = function( scenarioName ) {
     if ( scenarioName === this.name ) {
-        this.assert( isRunning, "How can we reset when we're not running?!" );
+        this.assert( this.isRunning, "How can we reset when we're not running?!" );
 
         // Stopping and starting again will reset everything.
         this.isRunning = false;
         this.isRunning = true;
     } else {
-        this.assert( !isRunning, "How is a different scenario resetting when " +
+        this.assert( !this.isRunning, "How is a different scenario resetting when " +
                      "we're running?!" );
     }
 }
@@ -122,6 +132,20 @@ this.stop = function() {
     this.triggerManager.isEnabled = false;
 
     this.logger.logx( "start", "Scenario stopped." );
+}
+
+this.setIsRunning$ = function( value ) {
+    if ( value && !this.isRunning ) {
+        this.isRunning = true;
+        this.start();
+    } else if ( !value && this.isRunning ) {
+        this.isRunning = false;
+        this.stop();
+    }
+}
+
+this.startInitialScenario$ = function() {
+    this.scene.activeScenarioPath = this.scenarioName;
 }
 
 this.startStateParamSet.setProperty = function( params, context ) {

@@ -24,37 +24,27 @@ this.onGenerated = function( params, generator, payload ) {
     }
 
     this.duration = params[ 0 ];
-
-    this.assert( !this.delayStarted );
-    this.reset();
-
     return true;
 }
 
 this.onDelayComplete = function() {
-    this.assert( this.cancelDelay >= 0 );
+    this.assert( !this.delayComplete );
+    this.assert( this.callbackCount > 0 );
+    --this.callbackCount;
 
-    if ( this.cancelDelay === 0 ) {
-        this.assert( this.delayStarted );
-        this.delayStarted = false;
-
+    if ( ( this.callbackCount === 0 ) && this.parentTrigger.isEnabled ) {
         this.delayComplete = true;
-
-        this.parentTrigger.checkFire();
-    } else {
-        --this.cancelDelay;
     }
 }
 
-this.reset = function() {
-    if ( this.delayStarted ) {
-        this.assert( !this.delayComplete );
-        ++this.cancelDelay;
-    }
-
-    this.delayComplete = false;
+this.onEnabled = function() {
+    this.assert( !this.delayComplete );
     this.future( this.duration ).onDelayComplete();
-    this.delayStarted = true;
+    ++this.callbackCount;
+}
+
+this.onDisabled = function() {
+    this.delayComplete = false;
 }
 
 this.evaluateClause = function() {

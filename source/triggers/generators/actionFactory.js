@@ -105,7 +105,7 @@ this.actionSet.stopSoundGroup = function( params, context ) {
 }
 
 this.actionSet.stopAllSounds = function( params, context ) {
-    if ( !params || params.length !== 0 ) {
+    if ( params && params.length !== 0 ) {
         self.logger.warnx( "stopAllSounds", "stopAllSounds doesn't take any parameters!" );
     }
     var soundMgr = getSoundMgr( context );
@@ -376,9 +376,11 @@ this.actionSet.callOutObjective = function( params, context ) {
         return undefined;
     }
     var callOutTile = context.gridTileGraph.callOutTile;
-    var grid = context[ context.activeScenarioPath ].grid;
     var tileCoords = params[ 0 ];
     return function() {
+        var scenario = context[ context.activeScenarioPath ];
+        self.assert( scenario );
+        var grid = scenario.grid;
         var coords = grid.getWorldFromGrid( tileCoords[ 0 ], tileCoords[ 1 ] );
         callOutTile.callOut( coords );
     }
