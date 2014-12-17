@@ -13,6 +13,11 @@
 // limitations under the License.
 
 this.executeFunction = function( declarativeFn, context, callback ) {
+
+    if ( !this.name ) {
+        return; // this is the prototype
+    }
+    
     this.assert( this.functionSets, "No function sets were added!" );
     if ( !this.functionSets ) {
         return undefined;
