@@ -13,15 +13,19 @@
 // limitations under the License.
 
 this.initClause = function( params, generator, payload ) {
-	if ( !payload || !payload.trigger ) {
-		return false;
-	}
+    if ( !payload || !payload.trigger ) {
+        return false;
+    }
 
     this.parentTrigger = payload.trigger;
 
+    this.parentTrigger.enabled = this.events.add( function() { 
+                                        this.onEnabled && this.onEnabled(); 
+                                    }, this );
+
     this.parentTrigger.disabled = this.events.add( function() { 
-													this.reset && this.reset(); 
-												}, this );
+                                        this.onDisabled && this.onDisabled(); 
+                                    }, this );
 
     return true;
 }

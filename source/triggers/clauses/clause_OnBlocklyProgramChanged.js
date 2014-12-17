@@ -59,11 +59,11 @@ this.onGenerated = function( params, generator, payload ) {
                                "' is missing events!" );
         }
 
-        if ( addOrRemove !== "add" && object.blocklyBlockRemoved ) {
+        if ( this.addOrRemove !== "add" && object.blocklyBlockRemoved ) {
             object.blocklyBlockRemoved = this.events.add( this.onProgramChangedEvent, 
                                                           this );
         }
-        if (addOrRemove !== "remove" && object.blocklyBlockAdded ) {
+        if ( this.addOrRemove !== "remove" && object.blocklyBlockAdded ) {
             object.blocklyBlockAdded = this.events.add( this.onProgramChangedEvent, 
                                                         this );
         }

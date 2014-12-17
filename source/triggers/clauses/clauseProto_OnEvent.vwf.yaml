@@ -46,5 +46,8 @@ methods:
   # call this when the event occurs, and the magic will happen.
   onEvent:
 
+  # call when you want to reset the last event time
+  reset:
+
 scripts:
 - source: source/triggers/clauses/clauseProto_OnEvent.js

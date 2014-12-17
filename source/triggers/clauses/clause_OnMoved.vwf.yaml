@@ -19,4 +19,4 @@ implements:
   - http://vwf.example.com/sceneGetter.vwf
 
 scripts:
-- source: source/triggers/clauses/clause_OnMoved.js
+  - source: source/triggers/clauses/clause_OnMoved.js
