@@ -18,6 +18,10 @@ this.initOnEvent = function( params, generator, payload, threshold ) {
         return false;
     }
 
+    if ( !this.name ) {
+        return; // this is the prototype
+    }
+
     this.threshold$ = threshold != undefined ? threshold * 1000 : 100;
     this.lastEventTime$ = 0;
 
@@ -29,12 +33,14 @@ this.initOnEvent = function( params, generator, payload, threshold ) {
 }
 
 this.onEvent = function() {
-    this.lastEventTime$ = Date.now();
-    this.parentTrigger.checkFire();
+    if ( this.parentTrigger.isEnabled === true ) {
+        this.lastEventTime$ = Date.now();
+        this.parentTrigger.checkFire();
+    }
 }
 
 this.onEnabled = function() {
-    this.assert( this.lastEventTime$ === 0 );
+    this.assert( this.lastEventTime$ === 0, "Last event time not reset. This trigger's parent is: " + this.parent.triggerName );
 }
 
 this.onDisabled = function() {
