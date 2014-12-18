@@ -142,6 +142,7 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                     setRenderMode( RENDER_GAME );
                 }
                 lastBlockIDExecuted = undefined;
+                gridBounds = eventArgs[ 1 ] || gridBounds;
                 enableAllHUDElements();
             case "scenarioReset":
                 removePopup();
