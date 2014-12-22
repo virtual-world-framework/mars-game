@@ -400,20 +400,10 @@ vwf_view.satProperty = function( nodeID, propertyName, propertyValue ) {
         }
     }
 
-    if ( nodeID === vwf_view.kernel.find( "", "/camera" )[ 0 ] ) {
+    if ( nodeID === vwf_view.kernel.find( "", "/nomadCam" )[ 0 ] ) {
         if ( propertyName === "target" ) {
             targetID = propertyValue.id;
-        }
-    }
-
-    if ( nodeID === vwf_view.kernel.find( "", "/player/targetFollower" )[ 0 ] ) {
-        if ( propertyName === "targetPath" ) {
-            if ( targetPath !== propertyValue ) {
-                targetPath = propertyValue;
-            }
-        }
-
-        if ( propertyName === "pointOfView" ) {
+        } else if ( propertyName === "mountName" ) {
             if ( hud ) {
                 var selector = hud.elements.cameraSelector;
                 var pov = hud.elements[ "camera_" + propertyValue ];

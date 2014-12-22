@@ -48,15 +48,15 @@ this.actionSet.scenarioFailure = function( params, context ) {
     }
 }
 
-this.actionSet.initGameOnLoad = function( params, context ) {
-    if ( params && params.length !== 0 ) {
-        self.logger.warnx( "initGameOnLoad", "This action takes no arguments." )
-    }
-    var camera = context.player.targetFollower.camera;
-    return function() {
-        camera.resetCameraPose();
-    }
-}
+// this.actionSet.initGameOnLoad = function( params, context ) {
+//     if ( params && params.length !== 0 ) {
+//         self.logger.warnx( "initGameOnLoad", "This action takes no arguments." )
+//     }
+//     var camera = context.player.targetFollower.camera;
+//     return function() {
+//         camera.resetCameraPose();
+//     }
+// }
 
 this.actionSet.playSound = function( params, context ) {
     if ( !params || params.length !== 1 ) {
@@ -286,7 +286,7 @@ this.actionSet.setHUDProperty = function( params, context ) {
         context.setHUDElementProperty( element, property, value );
     }
 }
-
+// TODO: Rewrite camera pan
 this.actionSet.panCamera = function( params, context ) {
     if ( params && params.length > 2 ) {
         self.logger.errorx( "panCamera", "This action takes two parameters: the " +
@@ -371,9 +371,9 @@ this.actionSet.setThirdPersonStartPose = function( params, context ) {
         return undefined;
     }
     var pose = params[ 0 ];
-    var camera = context.player.targetFollower.camera;
+    var thirdPersonMount = context.player.rover.thirdPerson;
     return function() {
-        camera.thirdPersonStartPose = pose;
+        thirdPersonMount.cameraPose = pose;
     }
 }
 
