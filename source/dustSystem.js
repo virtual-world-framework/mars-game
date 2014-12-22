@@ -21,7 +21,7 @@ this.setUpEvents = function() {
     if ( !scene || scene.name !== "application" ) {
         return;
     }
-    scene.camera.transformChanged = scene.camera.events.add( this.followCamera, this );
+    scene.nomadCam.transformChanged = scene.nomadCam.events.add( this.followCamera, this );
 }
 
 this.followCamera = function( transform ) {
