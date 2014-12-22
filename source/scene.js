@@ -29,10 +29,10 @@ var lastCameraPOV = "thirdPerson";
 
 this.initialize = function() {
     // Set the active camera so we can see the 3D scene
-    this.initializeActiveCamera( this.camera );
+    this.initializeActiveCamera( this.nomadCam.camera );
     // this.setUpCameraListener();
     this.setUpRoverListeners();
-    this.camera.setCameraTarget( this.player.rover );
+    this.nomadCam.setCameraTarget( this.player.rover );
 }
 
 this.setScenario = function( path ) {
@@ -160,7 +160,7 @@ this.executeBlock = function ( block, action ) {
 
 this.setUpCameraListener = function() {
     var scene = this;
-    this.camera.mounted = function( mount ) {
+    this.nomadCam.mounted = function( mount ) {
         if ( mount.name !== "topDown") {
             scene.displayTiles( false );
             scene.displayGraph( false );
@@ -177,16 +177,16 @@ this.setUpRoverListeners = function() {
 
 this.displayTiles = function( isVisible ) {
     this.gridTileGraph.mapTiles.groupVisible = isVisible;
-    if ( isVisible && this.camera.mountName !== "topDown" ) {
-        this.camera.setCameraMount( "topDown" );
+    if ( isVisible && this.nomadCam.mountName !== "topDown" ) {
+        this.nomadCam.setCameraMount( "topDown" );
     }
     this.toggledTiles( isVisible );
 }
 
 this.displayGraph = function( isVisible ) {
     this.blocklyGraph.setGraphVisibility( isVisible );
-    if ( isVisible && this.camera.mountName !== "topDown" ) {
-        this.camera.setCameraMount( "topDown" );
+    if ( isVisible && this.nomadCam.mountName !== "topDown" ) {
+        this.nomadCam.setCameraMount( "topDown" );
     }
     this.toggledGraph( isVisible );
     this.blocklyGraph.blocklyLine.visible = isVisible;
@@ -194,8 +194,8 @@ this.displayGraph = function( isVisible ) {
 
 this.setCinematicView = function( pose ) {
     if ( pose ) {
-        this.camera.setCameraMount( "thirdPerson" );
-        this.camera.setCameraPose( pose );
+        this.nomadCam.setCameraMount( "thirdPerson" );
+        this.nomadCam.setCameraPose( pose );
     }
 }
 

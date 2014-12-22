@@ -20,6 +20,8 @@ properties:
   cameraSpeed: 100
   targetVisible: true
   worldOffset: [ 0, 0, 0 ]
+  useTargetRotation: false
+  cameraLock: true
 methods:
   mountCamera:
 events:

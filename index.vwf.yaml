@@ -82,10 +82,8 @@ events:
   loadedGame:
   storedScenario:
 children:
-  camera:
-    extends: source/nomadCamera.vwf
-    implements:
-      - http://vwf.example.com/navigable.vwf
+  nomadCam:
+    includes: source/nomadCamera.vwf
   soundManager:
     includes: source/marsGameSound.vwf
   # instrumentationManager:
@@ -311,6 +309,7 @@ children:
               cameraPose: [ 0, 0, 0 ]
               cameraSpeed: 0
               targetVisible: false
+              useTargetRotation: true
           thirdPerson:
             extends: source/cameraMount.vwf
             properties:
@@ -324,6 +323,7 @@ children:
               worldOffset: [ 0, 0, 40 ]
               cameraPose: [ 0, 0, -90 ]
               cameraSpeed: 10
+              cameraLock: false
           Cylinder014:
             extends: http://vwf.example.com/node3.vwf
             children: 

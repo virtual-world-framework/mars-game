@@ -13,12 +13,13 @@
 # limitations under the License.
 
 ---
-extends: http://vwf.example.com/camera.vwf
+extends: http://vwf.example.com/node3.vwf
 properties:
   target:
   mountName:
-  mountOffset:
   lastTargetPosition: [ 0, 0, 0 ]
+  followingTarget: true
+  followRotation: false
 methods:
   setCameraTarget:
   setCameraMount:
@@ -29,5 +30,10 @@ methods:
   convertPoseToTransform:
 events:
   mounted:
+children:
+  camera:
+    extends: http://vwf.example.com/camera.vwf
+    implements:
+      - http://vwf.example.com/navigable.vwf
 scripts:
   - source: source/nomadCamera.js

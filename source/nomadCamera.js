@@ -36,12 +36,23 @@ this.setCameraMount = function( mountName ) {
 }
 
 this.followTarget = function( transform ) {
-    var newTransform = this.transform;
-    for ( var i = 0; i < 3; i++ ) {
-        newTransform[ i + 12 ] += transform[ i + 12 ] - this.lastTargetPosition[ i ];
-        this.lastTargetPosition[ i ] = transform[ i + 12 ];
+    var newTransform = this.transform.slice();
+    if ( this.followingTarget ) {
+        if ( this.followRotation ) {
+            for ( var i = 0; i < 12; i++ ) {
+                newTransform[ i ] = transform[ i ];
+            }
+        }
+        newTransform[ 12 ] += transform[ 12 ] - this.lastTargetPosition[ 0 ];
+        newTransform[ 13 ] += transform[ 13 ] - this.lastTargetPosition[ 1 ];
+        newTransform[ 14 ] += transform[ 14 ] - this.lastTargetPosition[ 2 ];
+        this.lastTargetPosition = [
+            transform[ 12 ],
+            transform[ 13 ],
+            transform[ 14 ]
+        ];
+        this.transform = newTransform;
     }
-    this.transform = newTransform;
 }
 
 this.attachToTarget = function() {
@@ -57,10 +68,7 @@ this.detachFromTarget = function() {
 
 this.setCameraPose = function( pose ) {
     var poseTransform = this.convertPoseToTransform( pose );
-    poseTransform[ 12 ] += this.mountOffset[ 12 ];
-    poseTransform[ 13 ] += this.mountOffset[ 13 ];
-    poseTransform[ 14 ] += this.mountOffset[ 14 ];
-    this.transform = poseTransform;
+    this.camera.transform = poseTransform;
 }
 
 this.convertPoseToTransform = function( pose ) {

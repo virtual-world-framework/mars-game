@@ -14,17 +14,29 @@
 
 this.mountCamera = function( cameraNode ) {
     var offsetTransform = [];
-    for ( var i = 0; i < this.worldTransform.length; i++ ) {
-        offsetTransform[ i ] = this.worldTransform[ i ];
-        if ( i >= 12 && i <= 14 ) {
-            offsetTransform[ i ] += this.worldOffset[ i - 12 ];
-        }
+    if ( this.useTargetRotation ) {
+        offsetTransform = goog.vec.Mat4.clone( this.worldTransform );
+    } else {
+        offsetTransform = [
+            1, 0, 0, 0,
+            0, 1, 0, 0,
+            0, 0, 1, 0,
+            0, 0, 0, 1
+        ];
+        offsetTransform[ 12 ] = this.worldTransform[ 12 ];
+        offsetTransform[ 13 ] = this.worldTransform[ 13 ];
+        offsetTransform[ 14 ] = this.worldTransform[ 14 ];
     }
-    cameraNode.navmode = this.navmode;
-    cameraNode.mountOffset = offsetTransform;
+    offsetTransform[ 12 ] += this.worldOffset[ 0 ];
+    offsetTransform[ 13 ] += this.worldOffset[ 1 ];
+    offsetTransform[ 14 ] += this.worldOffset[ 2 ];
+    cameraNode.followRotation = this.useTargetRotation;
+    cameraNode.camera.navmode = this.navmode;
+    cameraNode.transform = offsetTransform;
     cameraNode.setCameraPose( this.cameraPose );
-    cameraNode.translationSpeed = this.cameraSpeed;
+    cameraNode.camera.translationSpeed = this.cameraSpeed;
     cameraNode.target.visible = this.targetVisible;
+    cameraNode.followingTarget = this.cameraLock;
     cameraNode.mounted( this );
 }
 

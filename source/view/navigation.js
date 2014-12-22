@@ -77,49 +77,27 @@ function handleMouseNavigation( deltaX, deltaY, navObject, navMode, rotationSpee
 
         case "thirdPerson":
             if ( mouseDown.right ) {
-                var navThreeObject = navObject.threeObject;
-                var degreesToRadians = Math.PI / 180;
-                var rotationSpeedRadians = degreesToRadians * rotationSpeed;
-
-                navThreeObject.matrixWorld.elements[ 12 ] -= orbitTarget[ 0 ];
-                navThreeObject.matrixWorld.elements[ 13 ] -= orbitTarget[ 1 ];
-                navThreeObject.matrixWorld.elements[ 14 ] -= orbitTarget[ 2 ];
-
-                // Find the pitch and constrain it to 0 - ~90 degrees
-                var pitchAxis = new THREE.Vector3( navThreeObject.matrixWorld.elements[ 0 ],
-                                                   navThreeObject.matrixWorld.elements[ 1 ],
-                                                   0 );
-                var pitchRadians = deltaY * rotationSpeedRadians;
-                var currentPitch = Math.acos( navThreeObject.matrixWorld.elements[ 10 ] );
-                var resultingPitch = currentPitch + pitchRadians;
+                var obj = navObject.threeObject;
+                var matrix = obj.matrix.elements;
+                var matrixWorld = obj.matrixWorld.elements;
+                var rotSpd = rotationSpeed * Math.PI / 180;
+                var pitchDelta = deltaY * rotSpd;
+                var yawDelta = deltaX * rotSpd;
+                var curPitch = Math.acos( matrix[ 10 ] );
+                var yawSign = Math.asin( matrix[ 1 ] ) < 0 ? -1 : 1;
+                var curYaw = yawSign * Math.acos( matrix[ 0 ] );
+                var newPitch = curPitch + pitchDelta;
+                var newYaw = curYaw + yawDelta;
+                var radius = matrix[ 14 ] / matrix[ 10 ];
                 var upperBound = thirdPerson_MaxAngle * Math.PI / 180;
                 var lowerBound = thirdPerson_MinAngle * Math.PI / 180;
-
-                if ( resultingPitch > upperBound ) {
-                    pitchRadians = upperBound - currentPitch;
-                } else if ( resultingPitch < lowerBound ) {
-                    pitchRadians = lowerBound - currentPitch;
-                } else if ( isNaN( currentPitch ) && pitchRadians < 0 ) {
-                    pitchRadians = 0;
+                if ( isNaN( curPitch ) && pitchDelta < 0 ) {
+                    newPitch = 0;
                 }
-
-                var pitchQuat = new THREE.Quaternion();
-                pitchQuat.setFromAxisAngle( pitchAxis, pitchRadians );
-                var pitchDeltaMatrix = new THREE.Matrix4();
-                pitchDeltaMatrix.makeRotationFromQuaternion( pitchQuat );
-                navThreeObject.matrixWorld.multiplyMatrices( pitchDeltaMatrix, navThreeObject.matrixWorld );
-
-                // Then find the yaw and apply it
-                var yawRadians = deltaX * rotationSpeedRadians;
-                var yawQuat = new THREE.Quaternion();
-                yawQuat.setFromAxisAngle( new THREE.Vector3( 0, 0, 1 ), yawRadians );
-                var yawDeltaMatrix = new THREE.Matrix4();
-                yawDeltaMatrix.makeRotationFromQuaternion( yawQuat );
-                navThreeObject.matrixWorld.multiplyMatrices( yawDeltaMatrix, navThreeObject.matrixWorld );
-
-                navThreeObject.matrixWorld.elements[ 12 ] += orbitTarget[ 0 ];
-                navThreeObject.matrixWorld.elements[ 13 ] += orbitTarget[ 1 ];
-                navThreeObject.matrixWorld.elements[ 14 ] += orbitTarget[ 2 ];
+                newPitch = Math.max( Math.min( newPitch, upperBound ), lowerBound );
+                var newMatrix = getNewTransformMatrix( radius, newYaw, newPitch );
+                obj.matrix.copy( newMatrix );
+                obj.updateMatrixWorld( true );
             }
             break;
     }
@@ -145,43 +123,22 @@ function handleScroll( wheelDelta, navObject, navMode, rotationSpeed, translatio
             break;
 
         case "thirdPerson":
-            var navWorldMat = navObject.threeObject.matrixWorld;
-            var numClicks = -wheelDelta / 3;
-            var origin = new THREE.Vector3( orbitTarget[ 0 ],
-                                            orbitTarget[ 1 ],
-                                            orbitTarget[ 2 ] );
-            var cameraLoc = new THREE.Vector3( navWorldMat.elements[ 12 ],
-                                               navWorldMat.elements[ 13 ],
-                                               navWorldMat.elements[ 14 ] );
-            var newCameraLoc = new THREE.Vector3( ( navWorldMat.elements[ 12 ] - orbitTarget[ 0 ] ) * 0.1,
-                           ( navWorldMat.elements[ 13 ] - orbitTarget[ 1 ] ) * 0.1,
-                           ( navWorldMat.elements[ 14 ] - orbitTarget[ 2 ] ) * 0.1 );
-            newCameraLoc.multiplyScalar( numClicks ).add( cameraLoc );
-
-            var dist = origin.distanceTo( newCameraLoc );
-            if ( wheelDelta > 0 && cameraLoc.distanceTo( newCameraLoc ) > cameraLoc.distanceTo( origin ) ) {
-                return;
-            }
-
-            if ( dist < thirdPerson_MinZoom ) {
-                var heading = new THREE.Vector3();
-                heading.subVectors( cameraLoc, origin ).normalize();
-                newCameraLoc.addVectors( origin, heading.multiplyScalar( thirdPerson_MinZoom ) );
-            } else if ( dist > thirdPerson_MaxZoom ) {
-                var heading = new THREE.Vector3();
-                heading.subVectors( cameraLoc, origin ).normalize();
-                newCameraLoc.addVectors( origin, heading.multiplyScalar( thirdPerson_MaxZoom ) );
-            }
-
-            navWorldMat.elements[ 12 ] = newCameraLoc.x;
-            navWorldMat.elements[ 13 ] = newCameraLoc.y;
-            navWorldMat.elements[ 14 ] = newCameraLoc.z;
-
+            var obj = navObject.threeObject;
+            var matrix = obj.matrix.elements;
+            var curPitch = Math.acos( matrix[ 10 ] );
+            var yawSign = Math.asin( matrix[ 1 ] ) < 0 ? -1 : 1;
+            var curYaw = yawSign * Math.acos( matrix[ 0 ] );
+            var radius = matrix[ 14 ] / matrix[ 10 ];
+            radius += -wheelDelta / 3;
+            radius = Math.max( Math.min( radius, thirdPerson_MaxZoom ), thirdPerson_MinZoom );
+            var newMatrix = getNewTransformMatrix( radius, curYaw, curPitch );
+            obj.matrix.copy( newMatrix );
+            obj.updateMatrixWorld( true );
             break;
     }
 }
 
-function moveNavObject( dx, dy, navObject, navMode, rotationSpeed, translationSpeed, msSinceLastFrame ) {
+function moveNavObject( deltaX, deltaY, navObject, navMode, rotationSpeed, translationSpeed, msSinceLastFrame ) {
 
     switch ( navMode ) {
 
@@ -209,52 +166,27 @@ function moveNavObject( dx, dy, navObject, navMode, rotationSpeed, translationSp
             break;
 
         case "thirdPerson":
-
-            var navThreeObject = navObject.threeObject;
-            var degreesToRadians = Math.PI / 180;
-            var rotationSpeedRadians = degreesToRadians * rotationSpeed * 
-                                        Math.min( msSinceLastFrame * 0.001, 0.5 );
-
-            navThreeObject.matrixWorld.elements[ 12 ] -= orbitTarget[ 0 ];
-            navThreeObject.matrixWorld.elements[ 13 ] -= orbitTarget[ 1 ];
-            navThreeObject.matrixWorld.elements[ 14 ] -= orbitTarget[ 2 ];
-
-            // Find the pitch and constrain it to 0 - ~90 degrees
-            var pitchAxis = new THREE.Vector3( navThreeObject.matrixWorld.elements[ 0 ],
-                                               navThreeObject.matrixWorld.elements[ 1 ],
-                                               0 );
-            var pitchRadians = -dy * rotationSpeedRadians;
-
-            var currentPitch = Math.acos( navThreeObject.matrixWorld.elements[ 10 ] );
-            var resultingPitch = currentPitch + pitchRadians;
+            var obj = navObject.threeObject;
+            var matrix = obj.matrix.elements;
+            var matrixWorld = obj.matrixWorld.elements;
+            var rotSpd = rotationSpeed * Math.min( msSinceLastFrame * 0.001, 0.5 ) * Math.PI / 180;
+            var pitchDelta = deltaY * rotSpd;
+            var yawDelta = deltaX * rotSpd;
+            var curPitch = Math.acos( matrix[ 10 ] );
+            var yawSign = Math.asin( matrix[ 1 ] ) < 0 ? -1 : 1;
+            var curYaw = yawSign * Math.acos( matrix[ 0 ] );
+            var newPitch = curPitch + pitchDelta;
+            var newYaw = curYaw + yawDelta;
+            var radius = matrix[ 14 ] / matrix[ 10 ];
             var upperBound = thirdPerson_MaxAngle * Math.PI / 180;
             var lowerBound = thirdPerson_MinAngle * Math.PI / 180;
-
-            if ( resultingPitch > upperBound ) {
-                pitchRadians = upperBound - currentPitch;
-            } else if ( resultingPitch < lowerBound ) {
-                pitchRadians = lowerBound - currentPitch;
-            } else if ( isNaN( currentPitch ) && pitchRadians < 0 ) {
-                pitchRadians = 0;
+            if ( isNaN( curPitch ) && pitchDelta < 0 ) {
+                newPitch = 0;
             }
-
-            var pitchQuat = new THREE.Quaternion();
-            pitchQuat.setFromAxisAngle( pitchAxis, pitchRadians );
-            var pitchDeltaMatrix = new THREE.Matrix4();
-            pitchDeltaMatrix.makeRotationFromQuaternion( pitchQuat );
-            navThreeObject.matrixWorld.multiplyMatrices( pitchDeltaMatrix, navThreeObject.matrixWorld );
-
-            // Then find the yaw and apply it
-            var yawRadians = dx * rotationSpeedRadians;
-            var yawQuat = new THREE.Quaternion();
-            yawQuat.setFromAxisAngle( new THREE.Vector3( 0, 0, 1 ), yawRadians );
-            var yawDeltaMatrix = new THREE.Matrix4();
-            yawDeltaMatrix.makeRotationFromQuaternion( yawQuat );
-            navThreeObject.matrixWorld.multiplyMatrices( yawDeltaMatrix, navThreeObject.matrixWorld );
-
-            navThreeObject.matrixWorld.elements[ 12 ] += orbitTarget[ 0 ];
-            navThreeObject.matrixWorld.elements[ 13 ] += orbitTarget[ 1 ];
-            navThreeObject.matrixWorld.elements[ 14 ] += orbitTarget[ 2 ];
+            newPitch = Math.max( Math.min( newPitch, upperBound ), lowerBound );
+            var newMatrix = getNewTransformMatrix( radius, newYaw, newPitch );
+            obj.matrix.copy( newMatrix );
+            obj.updateMatrixWorld( true );
             break;
     }
 
@@ -281,6 +213,24 @@ function requestPointerLock( navMode, mouseDown ) {
         return true;
     }
     return false;
+}
+
+function getNewTransformMatrix( radius, yaw, pitch ) {
+    var sy = Math.sin( yaw );
+    var cy = Math.cos( yaw );
+    var sp = Math.sin( pitch );
+    var cp = Math.cos( pitch );
+    var x = sp * sy * radius;
+    var y = -sp * cy * radius;
+    var z = cp * radius;
+    var matrix = new THREE.Matrix4();
+    matrix.elements = [
+         cy,       sy,      0,  0,
+        -cp * sy,  cp * cy, sp, 0,
+         sp * sy, -sp * cy, cp, 0,
+         x,        y,       z,  1
+    ];
+    return matrix;
 }
 
 //@ sourceURL=source/navigation.js
