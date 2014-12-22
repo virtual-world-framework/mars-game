@@ -286,7 +286,7 @@ this.actionSet.setHUDProperty = function( params, context ) {
         context.setHUDElementProperty( element, property, value );
     }
 }
-// TODO: Rewrite camera pan
+
 this.actionSet.panCamera = function( params, context ) {
     if ( params && params.length > 2 ) {
         self.logger.errorx( "panCamera", "This action takes two parameters: the " +
@@ -296,15 +296,11 @@ this.actionSet.panCamera = function( params, context ) {
         return undefined;        
     }
     var targetPath = params[ 0 ];
-    var duration = params[ 1 ];
-    var targetFollower = context.player.targetFollower;
+    var targetNode = context.find( targetPath )[ 0 ];
+    var duration = 2;
+    var delay = params[ 1 ];
     return function() {
-        var lastTargetPath = targetFollower.targetPath;
-        targetFollower.camera.pointOfView = "thirdPerson";
-        targetFollower.setTargetPath$( targetPath );
-        if ( !isNaN( duration ) ) {
-            targetFollower.future( duration ).setTargetPath$( lastTargetPath );
-        }
+        context.cinematicCameraController.panToNode( targetNode, duration, delay );
     }
 }
 
