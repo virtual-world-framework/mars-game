@@ -35,13 +35,6 @@ this.followCamera = function( transform ) {
         camPos[ 1 ] + this.offsetFromTarget[ 1 ],
         camPos[ 2 ] + this.offsetFromTarget[ 2 ]
     ];
-    // cameraPos[ 0 ] = Math.round( tf.transform[ 12 ] + cam.transform[ 12 ] );
-    // cameraPos[ 1 ] = Math.round( tf.transform[ 13 ] + cam.transform[ 13 ] );
-    // cameraPos[ 2 ] = 0;
-    // var offset = this.offsetFromTarget;
-    // newPos[ 0 ] = cameraPos[ 0 ] + offset[ 0 ];
-    // newPos[ 1 ] = cameraPos[ 1 ] + offset[ 1 ];
-    // newPos[ 2 ] = cameraPos[ 2 ] + offset[ 2 ];
     this.target = camPos;
     this.translateTo( newPos );
 }
