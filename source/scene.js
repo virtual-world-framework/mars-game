@@ -30,7 +30,7 @@ var lastCameraPOV = "thirdPerson";
 this.initialize = function() {
     // Set the active camera so we can see the 3D scene
     this.initializeActiveCamera( this.nomadCam.camera );
-    // this.setUpCameraListener();
+    this.setUpCameraListener();
     this.setUpRoverListeners();
     this.nomadCam.setCameraTarget( this.player.rover );
 }
