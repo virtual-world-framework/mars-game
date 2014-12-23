@@ -57,21 +57,23 @@ function handleMouseNavigation( deltaX, deltaY, navObject, navMode, rotationSpee
 
         case "topDown":
             if ( mouseDown.right ) {
-                var navThreeObject = navObject.threeObject;
-                var navX = navThreeObject.matrixWorld.elements[ 12 ];
-                var navY = navThreeObject.matrixWorld.elements[ 13 ];
-                var heightModifier = navThreeObject.matrixWorld.elements[ 14 ] / 10;
-                navX += -deltaX * translationSpeed * heightModifier;
-                navY += deltaY * translationSpeed * heightModifier;
-
-                // Keep the view within grid boundaries
-                navX = navX < gridBounds.bottomLeft[ 0 ] ? gridBounds.bottomLeft[ 0 ] : navX;
-                navX = navX > gridBounds.topRight[ 0 ] ? gridBounds.topRight[ 0 ] : navX;       
-                navY = navY < gridBounds.bottomLeft[ 1 ] ? gridBounds.bottomLeft[ 1 ] : navY;
-                navY = navY > gridBounds.topRight[ 1 ] ? gridBounds.topRight[ 1 ] : navY;
-
-                navThreeObject.matrixWorld.elements[ 12 ] = navX;
-                navThreeObject.matrixWorld.elements[ 13 ] = navY;
+                var obj = navObject.threeObject;
+                var worldX = obj.matrixWorld.elements[ 12 ];
+                var worldY = obj.matrixWorld.elements[ 13 ];
+                var heightMod = obj.matrixWorld.elements[ 14 ] * 0.1;
+                var panSpeed = translationSpeed * heightMod;
+                var xMax, xMin, yMax, yMin;
+                deltaX = -deltaX * panSpeed;
+                deltaY = deltaY * panSpeed;
+                xMax = gridBounds.topRight[ 0 ];
+                xMin = gridBounds.bottomLeft[ 0 ];
+                yMax = gridBounds.topRight[ 1 ];
+                yMin = gridBounds.bottomLeft[ 1 ];
+                deltaX = Math.max( Math.min( deltaX + worldX, xMax ), xMin ) - worldX;
+                deltaY = Math.max( Math.min( deltaY + worldY, yMax ), yMin ) - worldY;
+                obj.matrix.elements[ 12 ] += deltaX;
+                obj.matrix.elements[ 13 ] += deltaY;
+                obj.updateMatrixWorld( true );
             }
             break;
 
@@ -114,12 +116,12 @@ function handleScroll( wheelDelta, navObject, navMode, rotationSpeed, translatio
             break;
 
         case "topDown":
-            var numClicks = wheelDelta / 3;
-            var navZ = navObject.threeObject.matrixWorld.elements[ 14 ];
-            navZ -= numClicks;
-            navZ = navZ > topDown_MaxAltitude ? topDown_MaxAltitude : navZ;
-            navZ = navZ < topDown_MinAltitude ? topDown_MinAltitude : navZ;
-            navObject.threeObject.matrixWorld.elements[ 14 ] = navZ;
+            var obj = navObject.threeObject;
+            var deltaZ = -wheelDelta / 3;
+            var worldZ = obj.matrixWorld.elements[ 14 ];
+            deltaZ = Math.max( Math.min( deltaZ + worldZ, topDown_MaxAltitude ), topDown_MinAltitude ) - worldZ;
+            obj.matrix.elements[ 14 ] += deltaZ;
+            obj.updateMatrixWorld( true );
             break;
 
         case "thirdPerson":
@@ -149,20 +151,23 @@ function moveNavObject( deltaX, deltaY, navObject, navMode, rotationSpeed, trans
             break;
 
         case "topDown":
-            var dist = translationSpeed * Math.min( msSinceLastFrame * 0.001, 0.5 );
-            var navX = navObject.threeObject.matrixWorld.elements[ 12 ];
-            var navY = navObject.threeObject.matrixWorld.elements[ 13 ];
-            navX += dx * dist;
-            navY += dy * dist;
-
-            // Keep the view within grid boundaries
-            navX = navX < gridBounds.bottomLeft[ 0 ] ? gridBounds.bottomLeft[ 0 ] : navX;
-            navX = navX > gridBounds.topRight[ 0 ] ? gridBounds.topRight[ 0 ] : navX;       
-            navY = navY < gridBounds.bottomLeft[ 1 ] ? gridBounds.bottomLeft[ 1 ] : navY;
-            navY = navY > gridBounds.topRight[ 1 ] ? gridBounds.topRight[ 1 ] : navY;
-
-            navObject.threeObject.matrixWorld.elements[ 12 ] = navX;
-            navObject.threeObject.matrixWorld.elements[ 13 ] = navY;
+            var obj = navObject.threeObject;
+            var worldX = obj.matrixWorld.elements[ 12 ];
+            var worldY = obj.matrixWorld.elements[ 13 ];
+            var heightMod = obj.matrixWorld.elements[ 14 ] * 0.1;
+            var panSpeed = translationSpeed * heightMod * Math.min( msSinceLastFrame * 0.001, 0.5 );
+            var xMax, xMin, yMax, yMin;
+            deltaX = deltaX * panSpeed;
+            deltaY = deltaY * panSpeed;
+            xMax = gridBounds.topRight[ 0 ];
+            xMin = gridBounds.bottomLeft[ 0 ];
+            yMax = gridBounds.topRight[ 1 ];
+            yMin = gridBounds.bottomLeft[ 1 ];
+            deltaX = Math.max( Math.min( deltaX + worldX, xMax ), xMin ) - worldX;
+            deltaY = Math.max( Math.min( deltaY + worldY, yMax ), yMin ) - worldY;
+            obj.matrix.elements[ 12 ] += deltaX;
+            obj.matrix.elements[ 13 ] += deltaY;
+            obj.updateMatrixWorld( true );
             break;
 
         case "thirdPerson":
