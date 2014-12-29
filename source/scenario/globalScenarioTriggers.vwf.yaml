@@ -96,7 +96,6 @@ properties:
         - hasFailed
       - clearBlackboardEntry:
         - disableFailOnIncompleteProgram
-      - resetHUDState:
 
     recordKeepingOnSuccess:
       triggerCondition:

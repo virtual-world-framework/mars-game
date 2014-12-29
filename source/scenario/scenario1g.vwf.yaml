@@ -84,15 +84,11 @@ children:
         playStartingVO_1g:
           triggerCondition:
           - and:
+            - doOnce:
             - onScenarioStart:
-            - not:
-              - readBlackboard:
-                - Level1gStartSounds
           actions:
           - playSound:
             - ALVO42_Rover
-          - writeToBlackboard:
-            - Level1gStartSounds
 
         succeedOnSuccess_1g:
           triggerCondition:

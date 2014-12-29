@@ -87,15 +87,11 @@ children:
         playStartingVO_3c:
           triggerCondition:
           - and:
+            - doOnce:
             - onScenarioStart:
-            - not:
-              - readBlackboard:
-                - Level3cStartSounds
           actions:
           - playSound:
             - L3VO5_Rover
-          - writeToBlackboard:
-            - Level3cStartSounds
 
         succeedOnSuccessfulMovement_3c:
           triggerCondition:
@@ -168,6 +164,7 @@ children:
         failOnIncompleteProgram_3c:
           triggerCondition:
           - and:
+            - doOnce:
             - onBlocklyStopped:
             - not:
               - readBlackboard:
@@ -175,9 +172,6 @@ children:
             - not:
               - readBlackboard:
                 - hasSucceeded
-            - not:
-              - readBlackboard:
-                - Level1hHint2
           actions:
           - scenarioFailure:
             - incomplete
@@ -185,8 +179,6 @@ children:
             - FCVO2_Rover
           - playSound:
             - ALVO38_Rover
-          - writeToBlackboard:
-            - Level1hHint2
           - writeToBlackboard:
             - disableFailOnIncompleteProgram
 

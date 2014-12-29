@@ -82,15 +82,11 @@ children:
         playStartingVO_3b:
           triggerCondition:
           - and:
+            - doOnce:
             - onScenarioStart:
-            - not:
-              - readBlackboard:
-                - Level3bStartSounds
           actions:
           - playSound:
             - L3VO3_Rover_S
-          - writeToBlackboard:
-            - Level3bStartSounds
 
         failOnMove_2d:
           triggerCondition:

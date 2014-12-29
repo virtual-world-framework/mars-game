@@ -80,15 +80,11 @@ children:
         playStartingVO_3d:
           triggerCondition:
           - and:
+            - doOnce:
             - onScenarioStart:
-            - not:
-              - readBlackboard:
-                - Level3dStartSounds
           actions:
           - playSound:
             - L3VO6_Rover
-          - writeToBlackboard:
-            - Level3dStartSounds
 
         failOnMove_3d:
           triggerCondition:

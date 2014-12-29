@@ -85,15 +85,11 @@ children:
         playStartingVO_1h:
           triggerCondition:
           - and:
+            - doOnce:
             - onScenarioStart:
-            - not:
-              - readBlackboard:
-                - Level1hStartSounds
           actions:
           - playSound:
             - L1VO16_Rover
-          - writeToBlackboard:
-            - Level1hStartSounds
 
         highlightEndTile:
           triggerCondition:
@@ -124,11 +120,9 @@ children:
         playHint1_1h:
           triggerCondition:
           - and:
+            - doOnce:
             - delay:
               - 20
-            - not:
-              - readBlackboard:
-                - Level1hHint1
             - not:
               - readBlackboard:
                 - hasSucceeded
@@ -138,12 +132,11 @@ children:
           actions:
           - playSound:
             - ALVO36_Rover
-          - writeToBlackboard:
-            - Level1hHint1
 
         failOnIncompleteProgram_1h:
           triggerCondition:
           - and:
+            - doOnce:
             - onBlocklyStopped:
             - not:
               - readBlackboard:
@@ -151,9 +144,6 @@ children:
             - not:
               - readBlackboard:
                 - hasSucceeded
-            - not:
-              - readBlackboard:
-                - Level1hHint2
           actions:
           - scenarioFailure:
             - incomplete
@@ -161,8 +151,6 @@ children:
             - FCVO2_Rover
           - playSound:
             - ALVO22_Rover
-          - writeToBlackboard:
-            - Level1hHint2
           - writeToBlackboard:
             - disableFailOnIncompleteProgram
 
