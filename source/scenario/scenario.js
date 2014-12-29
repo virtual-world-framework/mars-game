@@ -34,9 +34,7 @@ this.postInit = function() {
     this.scene.scenarioChanged = this.events.add( this.onScenarioChanged, this );
     this.scene.scenarioReset = this.events.add( this.onScenarioReset, this );
 
-    var globalTriggers = this.scene.globalTriggerManager;
     this.triggerManager.loadTriggers( this.scene );
-    this.triggerManager.loadTriggerList( globalTriggers.lateLoadTriggers, this.scene );
 
     if ( this.runOnStartup ) {
         this.future( 0 ).startInitialScenario$()
@@ -95,6 +93,11 @@ this.onScenarioReset = function( scenarioName ) {
 this.start = function() {
     this.logger.logx( "start", "Scenario started." );
 
+    // This resets any blinking GUI elements or other special HUD effects from
+    //  previous scenarios.  We need to do it before the scenarioStarted event,
+    //  which may set some of those effects going.
+    this.scene.resetHUDState();
+
     // HACK: This is a bit of a hack, but it should work for now.  We want to
     //  look up the orientation of the rover from the last scenario success
     //  set it back to that.  We do this before loading the start state, so
@@ -118,6 +121,11 @@ this.start = function() {
         }
     }
 
+    // Reset the global triggers
+    var globalTriggers = this.scene.globalTriggerManager;
+    globalTriggers.isEnabled = false;
+    globalTriggers.isEnabled = true;
+
     // Enable the triggers
     this.assert( !this.triggerManager.isEnabled, "How is the trigger " +
                  "manager enabled when the scenario isn't?!" );
@@ -125,6 +133,8 @@ this.start = function() {
 
     // TODO: remove any real dependency on task.
     this.enter();
+
+    // Let the world know that the scenario just started.
     this.scene.scenarioStarted( this );
 }
 

@@ -98,15 +98,11 @@ children:
         playStartingVO_1e:
           triggerCondition:
           - and:
+            - doOnce:
             - onScenarioStart:
-            - not:
-              - readBlackboard:
-                - Level1eStartSounds
           actions:
           - playSound:
             - L1VO12_Rover
-          - writeToBlackboard:
-            - Level1eStartSounds
 
         stopBlinkingBlockly_1e:
           triggerCondition:
@@ -142,11 +138,9 @@ children:
         playHint1_1e:
           triggerCondition:
           - and:
+            - doOnce:
             - delay:
               - 20
-            - not:
-              - readBlackboard:
-                - Level1eHint1
             - not:
               - readBlackboard:
                 - hasSucceeded
@@ -156,8 +150,6 @@ children:
           actions:
           - playSound:
             - ALVO19_Rover
-          - writeToBlackboard:
-            - Level1eHint1
 
         setCameraView:
           triggerCondition:

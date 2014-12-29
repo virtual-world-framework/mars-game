@@ -69,7 +69,6 @@ this.setIsEnabled$ = function( value ) {
     }
 
     this.assert( this.triggerSet );
-    this.assert( this.isEnabled !== value, "Redundant set of isEnabled." );
     if ( this.isEnabled !== value ) {
         this.isEnabled = value;
         for ( var i = 0; i < this.triggerSet.children.length; ++i ) {

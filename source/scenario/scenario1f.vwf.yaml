@@ -88,15 +88,11 @@ children:
         playStartingVO_1f:
           triggerCondition:
           - and:
+            - doOnce:
             - onScenarioStart:
-            - not:
-              - readBlackboard:
-                - Level1fStartSounds
           actions:
           - playSound:
             - L1VO14_Rover
-          - writeToBlackboard:
-            - Level1fStartSounds
 
         succeedOnSuccess_1f:
           triggerCondition:
@@ -121,11 +117,9 @@ children:
         playHint1_1f:
           triggerCondition:
           - and:
+            - doOnce:
             - delay:
               - 18
-            - not:
-              - readBlackboard:
-                - Level1fHint1
             - not:
               - readBlackboard:
                 - hasSucceeded
@@ -135,8 +129,6 @@ children:
           actions:
           - playSound:
             - ALVO35_Rover
-          - writeToBlackboard:
-            - Level1fHint1
 
         setCameraView:
           triggerCondition:

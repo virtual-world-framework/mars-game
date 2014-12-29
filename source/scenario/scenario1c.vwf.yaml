@@ -143,11 +143,9 @@ children:
         playHint1_1c:
           triggerCondition:
           - and:
+            - doOnce:
             - delay:
               - 10
-            - not:
-              - readBlackboard:
-                - Level1cHint1
             - not:
               - readBlackboard:
                 - hasSucceeded
@@ -157,17 +155,13 @@ children:
           actions:
           - playSound:
             - ALVO17_Rover
-          - writeToBlackboard:
-            - Level1cHint1
 
         playHint2_1c:
           triggerCondition:
           - and:
+            - doOnce:
             - delay:
               - 20
-            - not:
-              - readBlackboard:
-                - Level1cHint2
             - not:
               - readBlackboard:
                 - hasSucceeded
@@ -177,17 +171,13 @@ children:
           actions:
           - playSound:
             - ALVO34_Rover
-          - writeToBlackboard:
-            - Level1cHint2
 
         playHint3_1c:
           triggerCondition:
           - and:
+            - doOnce:
             - delay:
               - 40
-            - not:
-              - readBlackboard:
-                - Level1cHint3
             - not:
               - readBlackboard:
                 - hasSucceeded
@@ -197,8 +187,6 @@ children:
           actions:
           - playSound:
             - ALVO41_Rover
-          - writeToBlackboard:
-            - Level1cHint3
 
         setCameraView:
           triggerCondition:
