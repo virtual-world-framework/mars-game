@@ -81,15 +81,11 @@ children:
         playStartingVO_2c:
           triggerCondition:
           - and:
+            - doOnce:
             - onScenarioStart:
-            - not:
-              - readBlackboard:
-                - Level2cStartSounds
           actions:
           - playSound:
             - SCVO6_Rover
-          - writeToBlackboard:
-            - Level2cStartSounds
 
         failOnMove_2c:
           triggerCondition:
@@ -119,11 +115,9 @@ children:
         playHint1_2c:
           triggerCondition:
           - and:
+            - doOnce:
             - delay:
               - 20
-            - not:
-              - readBlackboard:
-                - Level2cHint1
             - not:
               - readBlackboard:
                 - hasSucceeded
@@ -133,8 +127,6 @@ children:
           actions:
           - playSound:
             - ALVO24_Rover
-          - writeToBlackboard:
-            - Level2cHint1
 
   grid:
     includes: source/grid.vwf

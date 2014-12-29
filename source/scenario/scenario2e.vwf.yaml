@@ -81,15 +81,11 @@ children:
         playStartingVO_2e:
           triggerCondition:
           - and:
+            - doOnce:
             - onScenarioStart:
-            - not:
-              - readBlackboard:
-                - Level2eStartSounds
           actions:
           - playSound:
             - SCVO8_Control
-          - writeToBlackboard:
-            - Level2eStartSounds
 
         succeedOnSuccessfulMovement_2e:
           triggerCondition:
@@ -128,14 +124,9 @@ children:
         playHint1_2e:
           triggerCondition:
           - and:
+            - doOnce:
             - delay:
               - 20
-            - not:
-              - readBlackboard:
-                - Level2eHint1
-            - not:
-              - readBlackboard:
-                - Level2eHint2
             - not:
               - readBlackboard:
                 - hasSucceeded
@@ -145,17 +136,13 @@ children:
           actions:
           - playSound:
             - ALVO25_Rover
-          - writeToBlackboard:
-            - Level2eHint1
 
         playHint2_2e:
           triggerCondition:
           - and:
+            - doOnce:
             - delay:
               - 40
-            - not:
-              - readBlackboard:
-                - Level2eHint2
             - not:
               - readBlackboard:
                 - hasSucceeded
@@ -165,8 +152,6 @@ children:
           actions:
           - playSound:
             - ALVO26_Rover
-          - writeToBlackboard:
-            - Level2eHint2
 
   grid:
     includes: source/grid.vwf

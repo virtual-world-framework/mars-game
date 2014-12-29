@@ -442,13 +442,6 @@ function getActions() {
         //     "optionalArgs": [],
         //     "repeatedArgs": []
         // },
-        // "resetHUDState": {
-        //     "display": "",
-        //     "description": "",
-        //     "requiredArgs": [],
-        //     "optionalArgs": [],
-        //     "repeatedArgs": []
-        // },
         "playVideo": {
             "display": "Play Video",
             "description": "Play the specified video.",

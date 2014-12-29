@@ -52,7 +52,7 @@ this.initTrigger = function( clauseGen, actionGen, context, definition ) {
 
 this.checkFire = function() {
     this.assert( this.triggerCondition.children.length === 1, 
-                 "How do we not have exactly 1 trigger condition?!")
+                 "How do we not have exactly 1 trigger condition?!" )
 
     if ( this.isEnabled && 
          ( this.triggerCondition.children.length > 0 ) && 
@@ -75,7 +75,7 @@ this.checkFire = function() {
 }
 
 this.spew = function( str1, str2 ) {
-    if (this.spewToLog) {
+    if ( this.spewToLog ) {
         this.logger.logx( str1, str2 );
     }
 }

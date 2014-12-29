@@ -92,15 +92,11 @@ children:
         playStartingVO_3e:
           triggerCondition:
           - and:
+            - doOnce:
             - onScenarioStart:
-            - not:
-              - readBlackboard:
-                - Level3eStartSounds
           actions:
           - playSound:
             - L3VO6_Mission
-          - writeToBlackboard:
-            - Level3eStartSounds
 
         playTravelVO_3c:
           triggerCondition:

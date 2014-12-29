@@ -175,7 +175,9 @@ this.actionSet.writeToBlackboard = function( params, context ) {
         default:
             return function() {
                 context.sceneBlackboard[ name ] = value;
-                context.blackboardWritten( name );
+                // TODO: think about the best (safe) way to do this.  Maybe 
+                //  bring the idea of additional conditions back?
+//                context.blackboardWritten( name );
             }
     }
 }
@@ -309,16 +311,6 @@ this.actionSet.resetRoverSensors = function( params, context ) {
     }
     return function() {
         context.resetRoverSensors();
-    }
-}
-
-this.actionSet.resetHUDState = function( params, context ) {
-    if ( params && params.length > 0 ) {
-        self.logger.errorx( "resetHUDState", "This action takes no parameters.");
-        return undefined;
-    }
-    return function() {
-        context.resetHUDState();
     }
 }
 
