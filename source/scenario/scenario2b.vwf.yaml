@@ -77,15 +77,11 @@ children:
         playStartingVO_2b:
           triggerCondition:
           - and:
+            - doOnce:
             - onScenarioStart:
-            - not:
-              - readBlackboard:
-                - Level2bStartSounds
           actions:
           - playSound:
             - SCVO5_Rover
-          - writeToBlackboard:
-            - Level2bStartSounds
 
         failOnMove_2b:
           triggerCondition:
@@ -121,25 +117,19 @@ children:
         playGraphOpenedVO_2b:
           triggerCondition:
           - and:
+            - doOnce:
             - onBlocklyWindowOpened:
               - graph
-            - not:
-              - readBlackboard:
-                - Level2bGraphOpened
           actions:
           - playSound:
             - L2VO3_Rover
-          - writeToBlackboard:
-            - Level2bGraphOpened
 
         playHint1_2b:
           triggerCondition:
           - and:
+            - doOnce:
             - delay:
               - 20
-            - not:
-              - readBlackboard:
-                - Level2bHint1
             - not:
               - readBlackboard:
                 - hasSucceeded
@@ -149,8 +139,6 @@ children:
           actions:
           - playSound:
             - ALVO17_Rover
-          - writeToBlackboard:
-            - Level2bHint1
 
   grid:
     includes: source/grid.vwf
