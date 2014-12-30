@@ -23,6 +23,7 @@ var blocklyExecuting = false;
 var lastBlockIDExecuted = undefined;
 var currentBlockIDSelected = undefined;
 var targetPath = undefined;
+var targetID;
 var mainRover = undefined;
 var blocklyGraphID = undefined;
 var alertNodeID = undefined;
@@ -99,7 +100,7 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 break;
 
             case "transformChanged":
-                if ( nodeID === vwf_view.kernel.find( "", targetPath )[ 0 ] ) {
+                if ( nodeID === targetID ) {
                     var targetTransform = eventArgs[ 0 ];
                     if ( targetTransform ) {
                         orbitTarget[ 0 ] = targetTransform[ 12 ];
@@ -397,16 +398,12 @@ vwf_view.satProperty = function( nodeID, propertyName, propertyValue ) {
                 break;
 
         }
-    } 
+    }
 
-    if ( nodeID === vwf_view.kernel.find( "", "/player/targetFollower" )[ 0 ] ) {
-        if ( propertyName === "targetPath" ) {
-            if ( targetPath !== propertyValue ) {
-                targetPath = propertyValue;
-            }
-        }
-
-        if ( propertyName === "pointOfView" ) {
+    if ( nodeID === vwf_view.kernel.find( "", "/gameCam" )[ 0 ] ) {
+        if ( propertyName === "target" ) {
+            targetID = propertyValue.id;
+        } else if ( propertyName === "mountName" ) {
             if ( hud ) {
                 var selector = hud.elements.cameraSelector;
                 var pov = hud.elements[ "camera_" + propertyValue ];
