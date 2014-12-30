@@ -12,6 +12,13 @@
 # See the License for the specific language governing permissions and 
 # limitations under the License.
 
+# A component that extends or implements this component can be set as a
+# target for the game camera. A camera component has at least one camera
+# mount and can have multiple. When the camera is targeting this target,
+# a mount name can be passed to the setCameraMount method of the game
+# camera and it will search the target for a mount of that name and set
+# the camera mount to it.
+
 ---
 extends: http://vwf.example.com/node3.vwf
 properties:

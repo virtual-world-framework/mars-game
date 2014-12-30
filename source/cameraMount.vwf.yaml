@@ -12,6 +12,11 @@
 # See the License for the specific language governing permissions and 
 # limitations under the License.
 
+# The camera mount is used to set properties on the camera to place it in
+# the world and determine how it follows the target. useTargetRotation
+# determines whether the camera will rotate with the target and cameraLock
+# determines whether the camera will follow the target's position.
+
 ---
 extends: http://vwf.example.com/node3.vwf
 properties:
