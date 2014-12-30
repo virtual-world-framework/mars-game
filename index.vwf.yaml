@@ -82,8 +82,8 @@ events:
   loadedGame:
   storedScenario:
 children:
-  nomadCam:
-    includes: source/nomadCamera.vwf
+  gameCam:
+    includes: source/gameCamera.vwf
   cinematicCameraController:
     extends: source/cameraTarget.vwf
     implements:
