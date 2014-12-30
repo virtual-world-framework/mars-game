@@ -93,4 +93,4 @@ this.mounted = function( mount ) {
     this.mountName = mount.name;
 }
 
-//@ sourceURL=source/nomadCamera.js
+//@ sourceURL=source/gameCamera.js

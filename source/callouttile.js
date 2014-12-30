@@ -21,7 +21,7 @@ this.initialize = function() {
 }
 
 this.callOut = function( coords ) {
-    camera = this.find( "/nomadCam" )[ 0 ];
+    camera = this.find( "/gameCam" )[ 0 ];
     coords[ 0 ] /= this.parent.graphScale;
     coords[ 1 ] /= this.parent.graphScale;
     coords[ 2 ] /= this.parent.graphScale;

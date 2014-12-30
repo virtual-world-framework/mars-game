@@ -36,4 +36,4 @@ children:
     implements:
       - http://vwf.example.com/navigable.vwf
 scripts:
-  - source: source/nomadCamera.js
+  - source: source/gameCamera.js

@@ -400,7 +400,7 @@ vwf_view.satProperty = function( nodeID, propertyName, propertyValue ) {
         }
     }
 
-    if ( nodeID === vwf_view.kernel.find( "", "/nomadCam" )[ 0 ] ) {
+    if ( nodeID === vwf_view.kernel.find( "", "/gameCam" )[ 0 ] ) {
         if ( propertyName === "target" ) {
             targetID = propertyValue.id;
         } else if ( propertyName === "mountName" ) {

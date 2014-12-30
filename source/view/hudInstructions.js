@@ -484,7 +484,7 @@ function clickBlockly( event ) {
 }
 
 function selectCameraMode( event ) {
-    var cameraNode = vwf_view.kernel.find( "", "//nomadCam" )[ 0 ];
+    var cameraNode = vwf_view.kernel.find( "", "//gameCam" )[ 0 ];
     vwf_view.kernel.callMethod( cameraNode, "setCameraMount", [ this.mode ] );
 
     if ( this.mode === "topDown" ){

@@ -13,7 +13,7 @@
 // limitations under the License.
 
 this.panToNode = function( node, duration, delay ) {
-    var camera = this.scene.nomadCam;
+    var camera = this.scene.gameCam;
     var cameraPosition = this.getCameraPosition();
     var nodePosition = [
         node.worldTransform[ 12 ],
@@ -30,7 +30,7 @@ this.panToNode = function( node, duration, delay ) {
 
 this.getCameraPosition = function() {
     var position, transform;
-    transform = this.scene.nomadCam.worldTransform;
+    transform = this.scene.gameCam.worldTransform;
     position = [
         transform[ 12 ],
         transform[ 13 ],
@@ -40,12 +40,12 @@ this.getCameraPosition = function() {
 }
 
 this.copyCameraState = function() {
-    this.cameraState.target = this.scene.nomadCam.target;
-    this.cameraState.mountName = this.scene.nomadCam.mountName;
+    this.cameraState.target = this.scene.gameCam.target;
+    this.cameraState.mountName = this.scene.gameCam.mountName;
 }
 
 this.restoreCameraState = function() {
-    this.scene.nomadCam.setCameraTarget( this.cameraState.target, this.cameraState.mountName );
+    this.scene.gameCam.setCameraTarget( this.cameraState.target, this.cameraState.mountName );
 }
 
 //@ sourceURL=source/cinematicCameraController.js
