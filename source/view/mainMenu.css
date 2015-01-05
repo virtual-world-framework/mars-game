@@ -1,0 +1,126 @@
+#mainMenuWrapper {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+    user-select: none;
+    -webkit-user-select: none;  /* Chrome all / Safari all */
+    -moz-user-select: none;     /* Firefox all */
+    -ms-user-select: none;      /* IE 10+ */
+    cursor: default;
+}
+
+#mainMenuContainer {
+    position: absolute;
+    top: 10%;
+    left: 10%;
+}
+
+#mainMenu, #settingsMenu {
+    margin-left: 32px;
+    margin-top: 32px;
+}
+
+#mainMenuTitle {
+    text-transform: uppercase;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#mainMenuTitle h1 {
+    height: 96px;
+    line-height: 96px;
+    font-size: 96px;
+    font-weight: bold;
+    color: rgb( 255, 255, 255 );
+    text-shadow: 0px 0px 12px rgb( 224, 255, 100 );
+    margin: 0px;
+}
+#mainMenuTitle h2 {
+    height: 40px;
+    line-height: 40px;
+    font-size: 40px;
+    font-weight: normal;
+    color: rgb( 255, 255, 255 );
+    text-shadow: 0px 0px 4px rgb( 224, 255, 100 );
+    margin: 0px;
+    text-align: center;
+}
+
+.mainMenuButton {
+    height: 72px;
+    text-transform: uppercase;
+    font-size: 48px;
+    font-weight: bold;
+    line-height: 72px;
+    color: rgb( 224, 255, 100 );
+    text-shadow: 0px 0px 2px rgb( 224, 255, 100 );
+    pointer-events: all;
+}
+
+.mainMenuButton.hover {
+    color: rgb( 255, 255, 255 );
+    text-shadow: 0px 0px 8px rgb( 224, 255, 100 );
+}
+
+.mainMenuButton.select {
+    color: rgb( 255, 255, 255 );
+    text-shadow: 0px 0px 8px rgb( 255, 255, 255 );
+}
+
+#mm_volume {
+    height: 64;
+    user-select: none;
+    -webkit-user-select: none;  /* Chrome all / Safari all */
+    -moz-user-select: none;     /* Firefox all */
+    -ms-user-select: none;      /* IE 10+ */
+    cursor: default;
+    border-radius: 4px;
+    display: table;
+    background-color: rgb( 64, 64, 64 );
+    padding: 4px;
+    padding-right: 12px;
+}
+
+#mm_mute {
+    height: 64px;
+    width: 64px;
+    border-radius: 4px;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: table-cell;
+    background-image: url( "../../assets/images/volume_icon.png" );
+}
+
+#mm_mute.muted {
+    background-image: url( "../../assets/images/volume_mute_icon.png" );
+}
+
+#mm_volumeSlider {
+    height: 64px;
+    width: 256px;
+    border-radius: 4px;
+    background-position: left bottom;
+    background-repeat: repeat-x;
+    background-image: url( "../../assets/images/slider_track.png" );
+    display: table-cell;
+}
+
+#mm_volumeDisplay {
+    height: 32px;
+    line-height: 32px;
+    font-size: 16px;
+    font-weight: bold;
+    color: rgb( 255, 255, 255 );
+    pointer-events: none;
+}
+
+#mm_volumeHandle {
+    height: 32px;
+    width: 32px;
+    background-position: left bottom;
+    background-repeat: no-repeat;
+    background-image: url( "../../assets/images/slider_handle.png" );
+    pointer-events: none;
+}
