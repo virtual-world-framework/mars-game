@@ -29,7 +29,7 @@ this.onGenerated = function( params, generator, payload ) {
         return false;
     }
 
-    this.scene.mouseOverHUD = this.events.add( this.onPlayedEvent, this );
+    this.scene.mouseOverHUD = this.events.add( this.onEvent, this );
 
     return true;
 }
