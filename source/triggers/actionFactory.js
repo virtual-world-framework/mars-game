@@ -296,15 +296,11 @@ this.actionSet.panCamera = function( params, context ) {
         return undefined;        
     }
     var targetPath = params[ 0 ];
-    var duration = params[ 1 ];
-    var targetFollower = context.player.targetFollower;
+    var targetNode = context.find( targetPath )[ 0 ];
+    var duration = 2;
+    var delay = params[ 1 ];
     return function() {
-        var lastTargetPath = targetFollower.targetPath;
-        targetFollower.camera.pointOfView = "thirdPerson";
-        targetFollower.setTargetPath$( targetPath );
-        if ( !isNaN( duration ) ) {
-            targetFollower.future( duration ).setTargetPath$( lastTargetPath );
-        }
+        context.cinematicCameraController.panToNode( targetNode, duration, delay );
     }
 }
 
@@ -371,9 +367,9 @@ this.actionSet.setThirdPersonStartPose = function( params, context ) {
         return undefined;
     }
     var pose = params[ 0 ];
-    var camera = context.player.targetFollower.camera;
+    var thirdPersonMount = context.player.rover.thirdPerson;
     return function() {
-        camera.thirdPersonStartPose = pose;
+        thirdPersonMount.cameraPose = pose;
     }
 }
 
