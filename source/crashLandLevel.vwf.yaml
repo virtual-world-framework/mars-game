@@ -16,6 +16,7 @@
 extends: source/levelNode.vwf
 properties:
   ambientColor: [ 150, 140, 140 ]
+  backgroundColor: [ 196, 158, 112 ]
   visible: false
 children:
   environment:

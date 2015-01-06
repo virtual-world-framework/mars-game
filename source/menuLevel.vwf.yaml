@@ -16,6 +16,7 @@
 extends: source/levelNode.vwf
 properties:
   ambientColor: [ 128, 128, 128 ]
+  backgroundColor: [ 0, 0, 0 ]
 children:
   target:
     extends: source/cameraTarget.vwf
