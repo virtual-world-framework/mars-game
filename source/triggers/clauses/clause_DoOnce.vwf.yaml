@@ -18,8 +18,5 @@ extends: source/triggers/clauses/clauseProto.vwf
 properties:
   hasTriggered: false
 
-methods:
-  onTriggered:
-
 scripts:
 - source: source/triggers/clauses/clause_DoOnce.js

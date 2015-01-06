@@ -47,5 +47,15 @@ methods:
   onEnabled:
   onDisabled:
 
+  # This gets called when the trigger is successfully evaluated by its trigger 
+  #   group (if any) - that is, when it could was ready to fire, whether or not
+  #   it was actually triggered.
+  # TODO: should this default to calling onTriggered (or vice versa)?
+  onEvaluated:
+
+  # This gets called when the trigger fires.  As with the above methods, it's 
+  #   not implemented here.
+  onTriggered:
+
 scripts:
 - source: source/triggers/clauses/clauseProto.js

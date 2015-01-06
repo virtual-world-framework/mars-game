@@ -22,7 +22,6 @@ this.onGenerated = function( params, generator, payload ) {
         return false;
     }
 
-    this.parentTrigger.triggered = this.events.add( this.onTriggered, this );
     return true;
 }
 

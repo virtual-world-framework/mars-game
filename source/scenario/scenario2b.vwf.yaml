@@ -84,6 +84,8 @@ children:
             - SCVO5_Rover
 
         failOnMove_2b:
+          group: successOrFailure
+          priority: 1
           triggerCondition:
           - onMoved:
             - rover
@@ -95,6 +97,8 @@ children:
             - FCVO4_Rover
 
         succeedOnGraphOpenPlot_2b:
+          group: successOrFailure
+          priority: 0
           triggerCondition:
           - onBlocklyWindowOpened:
               - graph
@@ -130,12 +134,6 @@ children:
             - doOnce:
             - delay:
               - 20
-            - not:
-              - readBlackboard:
-                - hasSucceeded
-            - not:
-              - readBlackboard:
-                - hasFailed
           actions:
           - playSound:
             - ALVO17_Rover

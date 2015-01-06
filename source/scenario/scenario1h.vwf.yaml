@@ -99,6 +99,8 @@ children:
             - [ 8, 16 ]
 
         succeedOnSuccess_1h:
+          group: successOrFailure
+          priority: 0
           triggerCondition:
           - and:
             - onBlocklyStopped:
@@ -106,9 +108,6 @@ children:
             - isAtPosition:
               - rover
               - [ 8, 16 ]
-            - not:
-              - readBlackboard:
-                - hasFailed
           actions:
           - scenarioSuccess:
           - showAlert:
@@ -123,27 +122,17 @@ children:
             - doOnce:
             - delay:
               - 20
-            - not:
-              - readBlackboard:
-                - hasSucceeded
-            - not:
-              - readBlackboard:
-                - hasFailed
           actions:
           - playSound:
             - ALVO36_Rover
 
         failOnIncompleteProgram_1h:
+          group: successOrFailure
+          priority: -0.5
           triggerCondition:
           - and:
             - doOnce:
             - onBlocklyStopped:
-            - not:
-              - readBlackboard:
-                - hasFailed
-            - not:
-              - readBlackboard:
-                - hasSucceeded
           actions:
           - scenarioFailure:
             - incomplete

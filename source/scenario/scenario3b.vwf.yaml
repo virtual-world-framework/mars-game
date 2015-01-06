@@ -89,6 +89,8 @@ children:
             - L3VO3_Rover_S
 
         failOnMove_2d:
+          group: successOrFailure
+          priority: 1
           triggerCondition:
           - onMoved:
             - rover
@@ -100,6 +102,8 @@ children:
             - FCVO4_Rover
 
         succeedOnSuccessfulCoursePlot_3b:
+          group: successOrFailure
+          priority: 0
           triggerCondition:
           - and:
             - blocklyLineEval:
