@@ -26,6 +26,7 @@ MainMenu.prototype = {
     controls: undefined,
     settings: undefined,
     soundManager: undefined,
+    currentScenario: undefined,
 
     initialize: function() {
         this.menus = {};
@@ -85,11 +86,12 @@ MainMenu.prototype = {
     playGame: function() {
         var ts = document.getElementById( "transitionScreen" );
         ts.style.display = "block";
-        vwf_view.kernel.setProperty( vwf_view.kernel.application(), "activeLevel", "crashLanding" );
+        vwf_view.kernel.callMethod( vwf_view.kernel.application(), "startLevel", [ "crashLanding" ] );
     },
 
     resumeGame: function() {
         this.overlay.style.display = "none";
+        vwf_view.kernel.callMethod( vwf_view.kernel.application(), "continueLevel", [ "crashLanding", this.currentScenario ] );
     },
 
     openSettings: function() {
@@ -160,6 +162,11 @@ MainMenu.prototype = {
     setVisible: function( value ) {
         var display = value ? "block" : "none";
         this.overlay.style.display = display;
+    },
+
+    setContinueScenario: function( scenarioName ) {
+        this.currentScenario = scenarioName;
+        this.buttons.continue.style.display = "block";
     }
 }
 

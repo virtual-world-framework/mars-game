@@ -19,8 +19,12 @@ this.initialize = function() {
 
 this.entered = function() {
 	this.scene.gameCam.setCameraTarget( this.target );
+	this.scene.soundManager.playSound( "musicMenuIntro" );
+	this.scene.soundManager.playSound( "musicMenuLoop" );
 }
 
-this.exited = function() {}
+this.exited = function() {
+	this.scene.soundManager.stopSoundGroup( "music" );
+}
 
 //@ sourceURL=source/menuLevel.js

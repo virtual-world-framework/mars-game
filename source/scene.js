@@ -216,7 +216,7 @@ this.restartGame = function() {
     this.sceneBlackboard = {};
     this.soundManager.stopAllSoundInstances();
     this.storedScenario( this.activeScenarioPath );
-    this.activeScenarioPath = "mainMenuScenario";
+    this.activeLevel = "mainMenu";
 }
 
 this.attemptLogin = function( userID ) {
@@ -235,6 +235,16 @@ this.loginSucceeded = function( scenarioName ) {
 this.loadGame = function( scenarioName ) {
     this.activeScenarioPath = scenarioName;
     this.future( 0 ).loadedGame();
+}
+
+this.startLevel = function( levelName ) {
+    this.activeLevel = levelName;
+    this.activeScenarioPath = "introScreenScenario";
+}
+
+this.continueLevel = function( levelName, scenarioName ) {
+    this.activeLevel = levelName;
+    this.activeScenarioPath = scenarioName;
 }
 
 //@ sourceURL=source/scene.js

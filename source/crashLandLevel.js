@@ -14,7 +14,6 @@
 
 this.entered = function() {
 	this.scene.gameCam.setCameraTarget( this.player.rover );
-	this.scene.activeScenarioPath = "introScreenScenario"
 }
 
 this.exited = function() {

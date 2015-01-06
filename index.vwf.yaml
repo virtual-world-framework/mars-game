@@ -51,6 +51,8 @@ methods:
   attemptLogin:
   loadGame:
   startGame:
+  startLevel:
+  continueLevel:
 events:
   gameStarted:
   scenarioReset:
