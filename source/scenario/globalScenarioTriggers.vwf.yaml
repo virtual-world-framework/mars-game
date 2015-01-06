@@ -121,10 +121,9 @@ properties:
       group: successOrFailure
       priority: 2
       triggerCondition:
-      - and:
-        - moveFailed:
-          - rover
-          - collision
+      - moveFailed:
+        - rover
+        - collision
       actions:
       - scenarioFailure:        
         - collision
@@ -171,10 +170,9 @@ properties:
       group: successOrFailure
       priority: -2
       triggerCondition:
-      - and:
-        - moveFailed:
-          - rover
-          - battery
+      - moveFailed:
+        - rover
+        - battery
       actions:
       - scenarioFailure:         
         - battery
