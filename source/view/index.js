@@ -43,15 +43,8 @@ var currentScenario;
 var scenarioList;
 var startingZoom;
 
-var menuLevel, crashLevel;
-
-// var renderTransition = true;
-// var playingVideo = false;
-// // Render modes
-// var RENDER_NONE = 0;
-// var RENDER_MENU = 1;
-// var RENDER_GAME = 2;
-// var renderMode = RENDER_NONE;
+var menuLevel;
+var crashLevel;
 
 vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
     if ( blocklyNodes[ nodeID ] !== undefined ) {
@@ -138,11 +131,6 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
 
             case "scenarioChanged":
                 currentScenario = eventArgs[ 0 ];
-                // if ( currentScenario === "mainMenuScenario" ) {
-                //     setRenderMode( RENDER_MENU );
-                // } else {
-                //     setRenderMode( RENDER_GAME );
-                // }
                 lastBlockIDExecuted = undefined;
                 enableAllHUDElements();
             case "scenarioReset":
@@ -222,7 +210,6 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 break;
 
             case "playVideo":
-                // setRenderMode( RENDER_NONE );
                 var src = eventArgs[ 0 ];
                 var id = getVideoIdFromSrc( src );
                 if ( isNaN( id ) || id < 0 || id >= videos.length ) {
@@ -236,7 +223,6 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
 
             case "videoPlayed":
                 $( "#transitionScreen" ).fadeOut();
-                // setRenderMode( RENDER_GAME );
                 break;
 
             case "setObjective":
@@ -496,52 +482,7 @@ function setUpView() {
     loadVideo( "end_cinematic.mp4", undefined, true );
 }
 
-// function setRenderMode( sceneID ) {
-//     renderTransition = true;
-//     renderMode = sceneID;
-// }
-
 function render( renderer, scene, camera ) {
-    // var versionElem;
-    // switch ( renderMode ) {
-
-    //     case RENDER_NONE:
-    //         if ( renderTransition ) {
-    //             versionElem = document.getElementById( "version" );
-    //             versionElem.style.display = "none";
-    //             renderer.clear();
-    //             loggerBox.style.display = "none";
-    //             hud.visible = false;
-    //             renderTransition = false;
-    //         }
-    //         return;
-
-    //     case RENDER_MENU:
-    //         if ( renderTransition ) {
-    //             versionElem = document.getElementById( "version" );
-    //             versionElem.style.display = "block";
-    //             loggerBox.style.display = "none";
-    //             mainMenu.setupRenderer( renderer );
-    //             checkPageZoom();
-    //             hud.visible = false;
-    //             renderTransition = false;
-    //         }
-    //         mainMenu.render( renderer );
-    //         break;
-
-    //     case RENDER_GAME:
-    //         if ( renderTransition ) {
-    //             versionElem = document.getElementById( "version" );
-    //             versionElem.style.display = "none";
-    //             loggerBox.style.display = "block";
-    //             scene.fog = new THREE.FogExp2( 0xC49E70, 0.0035 );
-    //             renderer.setClearColor( scene.fog.color );
-    //             hud.visible = true;
-    //             renderTransition = false;
-    //         }
-            
-    //         break;
-    // }
     blinkTabs();
     renderer.render( scene, camera );
     lastRenderTime = vwf_view.kernel.time();
