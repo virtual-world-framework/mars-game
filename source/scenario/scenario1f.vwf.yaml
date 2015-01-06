@@ -95,6 +95,8 @@ children:
             - L1VO14_Rover
 
         succeedOnSuccess_1f:
+          group: successOrFailure
+          priority: 0
           triggerCondition:
           - and:
             - onBlocklyStopped:
@@ -120,12 +122,6 @@ children:
             - doOnce:
             - delay:
               - 18
-            - not:
-              - readBlackboard:
-                - hasSucceeded
-            - not:
-              - readBlackboard:
-                - hasFailed
           actions:
           - playSound:
             - ALVO35_Rover

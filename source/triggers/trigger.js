@@ -36,6 +36,17 @@ this.initTrigger = function( clauseGen, actionGen, context, definition ) {
         return false;
     }
 
+    if ( definition.group ) {
+        this.assert( definition.priority !== undefined,
+                     "Triggers in groups must have a priority defined!",
+                     true );
+
+        this.groupName = definition.group;
+        this.priority = definition.priority;
+
+        this.scene.triggerGroupManager.addTrigger( this );
+    }
+
     var payload = { trigger: this };
     clauseGen.generateObject( definition.triggerCondition[0],
                               this.triggerCondition, payload );
@@ -43,7 +54,7 @@ this.initTrigger = function( clauseGen, actionGen, context, definition ) {
     this.actions = [];
     for ( var i = 0; i < definition.actions.length; ++i ) {
         var action = actionGen.executeFunction( definition.actions[ i ], 
-                                                    context );
+                                                context );
         action && this.actions.push( action );
     }
 
@@ -51,27 +62,49 @@ this.initTrigger = function( clauseGen, actionGen, context, definition ) {
 }
 
 this.checkFire = function() {
-    this.assert( this.triggerCondition.children.length === 1, 
-                 "How do we not have exactly 1 trigger condition?!" )
-
-    if ( this.isEnabled && 
-         ( this.triggerCondition.children.length > 0 ) && 
-         this.triggerCondition.children[ 0 ].evaluateClause() ) {
-
-        this.triggered();
-
-        this.spew( "checkFire", "Firing actions for trigger '" + this.name + 
-                   "'." );
-
-        for ( var i = 0; i < this.actions.length; ++i ) {
-            this.spew( "checkFire", "    Action " + i + " starting." );
-            this.actions[ i ] && this.actions[ i ]();
-            this.spew( "checkFire", "    Action " + i + " complete." );
-        }
-
-        this.spew( "checkFire", "All actions complete for trigger '" + 
-                   this.name + "'.");
+    if ( this.check() ) {
+        this.fire();
     }
+}
+
+this.check = function() {
+    // If we're nto enable, bail
+    if ( !this.isEnabled ) {
+        return false;
+    }
+
+    // If we have a group, and that group isn't the one asking for the check 
+    //  then bail (only the group is allowed to fire group triggers - that's 
+    //  the whole point of having a group).  
+    this.assert( !this.groupName || this.group, 
+                 "How do we have a group name but no group?!" );
+
+    if ( this.group && !this.group.isEvaluating ) {
+        return false;
+    }
+
+    // Otherwise, evaluate our trigger condition and return the result.
+    this.assert( this.triggerCondition.children.length === 1, 
+                 "How do we not have exactly 1 trigger condition?!" );
+
+    return ( this.triggerCondition.children.length > 0 ) && 
+           this.triggerCondition.children[ 0 ].evaluateClause();
+}
+
+this.fire = function() {
+    this.triggered();
+
+    this.spew( "checkFire", "Firing actions for trigger '" + this.name + 
+               "'." );
+
+    for ( var i = 0; i < this.actions.length; ++i ) {
+        this.spew( "checkFire", "    Action " + i + " starting." );
+        this.actions[ i ] && this.actions[ i ]();
+        this.spew( "checkFire", "    Action " + i + " complete." );
+    }
+
+    this.spew( "checkFire", "All actions complete for trigger '" + 
+               this.name + "'.");
 }
 
 this.spew = function( str1, str2 ) {

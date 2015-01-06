@@ -126,6 +126,8 @@ children:
             - L1VO1_Rover
 
         succeedOnSuccess_1a:
+          group: successOrFailure
+          priority: 0
           triggerCondition:
           - onBlocklyWindowOpened:
           actions:
