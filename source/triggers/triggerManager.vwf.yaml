@@ -12,11 +12,14 @@
 # See the License for the specific language governing permissions and 
 # limitations under the License.
 
-# The trigger factory creates triggers from yaml declarations.
-# NOTE: you are responsible for calling loadTriggers with the context in order
-#   to get things started.
-
 --- 
+
+# The trigger factory creates triggers from yaml declarations.
+# NOTE: You are responsible for calling loadTriggers with the context in order
+#   to get things started, as well as for enabling the manager when you want
+#   the triggers to start working.
+# NOTE: Despite being called a "manager," this is not a singleton.  Each 
+#   scenario has its own trigger manager.
 
 extends: http://vwf.example.com/node.vwf
 

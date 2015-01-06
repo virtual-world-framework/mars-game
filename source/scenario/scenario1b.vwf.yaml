@@ -115,6 +115,8 @@ children:
             - L1VO2_Rover
 
         succeedOnSuccess_1b:
+          group: successOrFailure
+          priority: 0
           triggerCondition:
           - and:
             - onBlocklyStopped:
@@ -140,12 +142,6 @@ children:
             - not:
               - readBlackboard:
                 - Level1bHint2
-            - not:
-              - readBlackboard:
-                - hasSucceeded
-            - not:
-              - readBlackboard:
-                - hasFailed
           actions:
           - playSound:
             - ALVO15_Rover
@@ -158,12 +154,6 @@ children:
               - [ "rover" ]
               - add
               - rover_moveForward
-            - not:
-              - readBlackboard:
-                - hasSucceeded
-            - not:
-              - readBlackboard:
-                - hasFailed
           actions:
           - playSound:
             - ALVO16_Rover

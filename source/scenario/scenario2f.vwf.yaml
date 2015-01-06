@@ -88,6 +88,8 @@ children:
             - L2VO9_Control
 
         succeedOnSuccessfulMovement_2f:
+          group: successOrFailure
+          priority: 0
           triggerCondition:
           - and:
             - onBlocklyStopped:
@@ -125,12 +127,6 @@ children:
             - doOnce:
             - delay:
               - 15
-            - not:
-              - readBlackboard:
-                - hasSucceeded
-            - not:
-              - readBlackboard:
-                - hasFailed
           actions:
           - playSound:
             - L3VO2_Rover_H
@@ -141,12 +137,6 @@ children:
             - doOnce:
             - delay:
               - 30
-            - not:
-              - readBlackboard:
-                - hasSucceeded
-            - not:
-              - readBlackboard:
-                - hasFailed
           actions:
           - playSound:
             - L3VO2_Rover_H2

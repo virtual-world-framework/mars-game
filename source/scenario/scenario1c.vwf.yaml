@@ -125,6 +125,8 @@ children:
             - cameraSelector
 
         succeedOnSuccess_1c:
+          group: successOrFailure
+          priority: 0
           triggerCondition:
           - onHelicamToggle:
           actions:
@@ -146,12 +148,6 @@ children:
             - doOnce:
             - delay:
               - 10
-            - not:
-              - readBlackboard:
-                - hasSucceeded
-            - not:
-              - readBlackboard:
-                - hasFailed
           actions:
           - playSound:
             - ALVO17_Rover
@@ -162,12 +158,6 @@ children:
             - doOnce:
             - delay:
               - 20
-            - not:
-              - readBlackboard:
-                - hasSucceeded
-            - not:
-              - readBlackboard:
-                - hasFailed
           actions:
           - playSound:
             - ALVO34_Rover
@@ -178,12 +168,6 @@ children:
             - doOnce:
             - delay:
               - 40
-            - not:
-              - readBlackboard:
-                - hasSucceeded
-            - not:
-              - readBlackboard:
-                - hasFailed
           actions:
           - playSound:
             - ALVO41_Rover

@@ -103,6 +103,8 @@ children:
             - L2VO4_Control
 
         failOnMove_2a:
+          group: successOrFailure
+          priority: 1
           triggerCondition:
           - onMoved:
             - rover
@@ -114,6 +116,8 @@ children:
             - FCVO4_Rover
 
         succeedOnSuccessfulGridDisplay_2a:
+          group: successOrFailure
+          priority: 0
           triggerCondition:
           - onGraphToggle:
           actions:
@@ -131,12 +135,6 @@ children:
             - doOnce:
             - delay:
               - 20
-            - not:
-              - readBlackboard:
-                - hasSucceeded
-            - not:
-              - readBlackboard:
-                - hasFailed
           actions:
           - playSound:
             - ALVO18_Rover

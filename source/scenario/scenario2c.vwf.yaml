@@ -88,6 +88,8 @@ children:
             - SCVO6_Rover
 
         failOnMove_2c:
+          group: successOrFailure
+          priority: 1
           triggerCondition:
           - onMoved:
             - rover
@@ -99,6 +101,8 @@ children:
             - FCVO4_Rover
 
         succeedOnSuccessfulCoursePlot_2c:
+          group: successOrFailure
+          priority: 0
           triggerCondition:
           - and:
             - blocklyLineEval:
@@ -118,12 +122,6 @@ children:
             - doOnce:
             - delay:
               - 20
-            - not:
-              - readBlackboard:
-                - hasSucceeded
-            - not:
-              - readBlackboard:
-                - hasFailed
           actions:
           - playSound:
             - ALVO24_Rover

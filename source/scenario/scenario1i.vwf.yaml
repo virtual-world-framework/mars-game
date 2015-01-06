@@ -20,6 +20,8 @@ children:
             - success_cinematic.mp4
 
         succeedOnIntroDone:
+          group: successOrFailure
+          priority: 0
           triggerCondition:
           - onVideoPlayed:
             - success_cinematic.mp4
