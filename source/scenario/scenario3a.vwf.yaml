@@ -100,12 +100,6 @@ children:
             - isAtPosition:
               - rover
               - [ 51, 8 ]
-            - not:
-              - readBlackboard:
-                - hasSucceeded
-            - not:
-              - readBlackboard:
-                - hasFailed
           actions:
           - playSound:
             - CTVO1_Rover
@@ -117,17 +111,13 @@ children:
             - isAtPosition:
               - rover
               - [ 41, 13 ]
-            - not:
-              - readBlackboard:
-                - hasSucceeded
-            - not:
-              - readBlackboard:
-                - hasFailed
           actions:
           - playSound:
             - CTVO2_Control
 
         succeedOnSuccessfulMovement_3a:
+          group: successOrFailure
+          priority: 0
           triggerCondition:
           - and:
             - onBlocklyStopped:
@@ -152,12 +142,6 @@ children:
               - 20
             - not:
               - isBlocklyExecuting:
-            - not:
-              - readBlackboard:
-                - hasSucceeded
-            - not:
-              - readBlackboard:
-                - hasFailed
           actions:
           - playSound:
             - ALVO27_Rover
@@ -170,12 +154,6 @@ children:
               - 40
             - not:
               - isBlocklyExecuting:
-            - not:
-              - readBlackboard:
-                - hasSucceeded
-            - not:
-              - readBlackboard:
-                - hasFailed
           actions:
           - playSound:
             - ALVO28_Rover

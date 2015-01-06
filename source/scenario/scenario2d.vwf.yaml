@@ -82,6 +82,8 @@ children:
             - L2VO7_Control
 
         failOnMove_2d:
+          group: successOrFailure
+          priority: 1
           triggerCondition:
           - onMoved:
             - rover
@@ -93,6 +95,8 @@ children:
             - FCVO4_Rover
 
         succeedOnSuccessfulCoursePlot_2d:
+          group: successOrFailure
+          priority: 0
           triggerCondition:
           - and:
             - blocklyLineEval:
@@ -118,12 +122,6 @@ children:
             - doOnce:
             - delay:
               - 20
-            - not:
-              - readBlackboard:
-                - hasSucceeded
-            - not:
-              - readBlackboard:
-                - hasFailed
           actions:
           - playSound:
             - L2VO3_Rover_H
@@ -134,12 +132,6 @@ children:
             - doOnce:
             - delay:
               - 40
-            - not:
-              - readBlackboard:
-                - hasSucceeded
-            - not:
-              - readBlackboard:
-                - hasFailed
           actions:
           - playSound:
             - L2VO3_Rover_H2
@@ -150,12 +142,6 @@ children:
             - doOnce:
             - delay:
               - 60
-            - not:
-              - readBlackboard:
-                - hasSucceeded
-            - not:
-              - readBlackboard:
-                - hasFailed
           actions:
           - playSound:
             - ALVO30_Rover
@@ -166,12 +152,6 @@ children:
             - doOnce:
             - delay:
               - 80
-            - not:
-              - readBlackboard:
-                - hasSucceeded
-            - not:
-              - readBlackboard:
-                - hasFailed
           actions:
           - playSound:
             - ALVO29_Rover
@@ -182,12 +162,6 @@ children:
             - doOnce:
             - delay:
               - 100
-            - not:
-              - readBlackboard:
-                - hasSucceeded
-            - not:
-              - readBlackboard:
-                - hasFailed
           actions:
           - playSound:
             - ALVO31_Rover

@@ -22,12 +22,8 @@ this.initOnEvent = function( params, generator, payload, threshold ) {
         return; // this is the prototype
     }
 
-    this.threshold$ = threshold != undefined ? threshold * 1000 : 100;
+    this.threshold$ = threshold != undefined ? threshold * 1000 : 250;
     this.lastEventTime$ = 0;
-
-    // If the trigger fires, reset (so that we can't fire more than once off 
-    //  the same event).
-    this.parentTrigger.triggered = this.events.add( this.reset, this );
 
     return true;
 }
@@ -44,7 +40,15 @@ this.onEnabled = function() {
 }
 
 this.onDisabled = function() {
-    this.lastEventTime$ = 0;
+    this.reset();
+}
+
+this.onEvaluated = function() {
+    this.reset();
+}
+
+this.onTriggered = function() {
+    this.reset();
 }
 
 this.reset = function() {

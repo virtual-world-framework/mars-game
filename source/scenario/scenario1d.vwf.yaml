@@ -104,6 +104,8 @@ children:
             - L1VO10_Rover
 
         succeedOnSuccess_1d:
+          group: successOrFailure
+          priority: 0
           triggerCondition:
           - onTilesToggle:
           actions:
@@ -123,12 +125,6 @@ children:
             - doOnce:
             - delay:
               - 13
-            - not:
-              - readBlackboard:
-                - hasSucceeded
-            - not:
-              - readBlackboard:
-                - hasFailed
           actions:
           - playSound:
             - ALVO18_Rover

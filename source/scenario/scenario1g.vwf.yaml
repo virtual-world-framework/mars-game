@@ -91,6 +91,8 @@ children:
             - ALVO42_Rover
 
         succeedOnSuccess_1g:
+          group: successOrFailure
+          priority: 0
           triggerCondition:
           - and:
             - onBlocklyStopped:
@@ -98,9 +100,6 @@ children:
             - isAtPosition:
               - rover
               - [ 8, 2 ]
-            - not:
-              - readBlackboard:
-                - hasFailed
           actions:
           - scenarioSuccess:
           - showAlert:

@@ -27,6 +27,14 @@ this.initClause = function( params, generator, payload ) {
                                         this.onDisabled && this.onDisabled(); 
                                     }, this );
 
+    this.parentTrigger.evaluated = this.events.add( function() { 
+                                        this.onEvaluated && this.onEvaluated(); 
+                                    }, this );
+
+    this.parentTrigger.triggered = this.events.add( function() { 
+                                        this.onTriggered && this.onTriggered(); 
+                                    }, this );
+
     return true;
 }
 

@@ -80,6 +80,8 @@ children:
             - SCVO8_Control
 
         succeedOnSuccessfulMovement_2e:
+          group: successOrFailure
+          priority: 0
           triggerCondition:
           - and:
             - onBlocklyStopped:
@@ -119,12 +121,6 @@ children:
             - doOnce:
             - delay:
               - 20
-            - not:
-              - readBlackboard:
-                - hasSucceeded
-            - not:
-              - readBlackboard:
-                - hasFailed
           actions:
           - playSound:
             - ALVO25_Rover
@@ -135,12 +131,6 @@ children:
             - doOnce:
             - delay:
               - 40
-            - not:
-              - readBlackboard:
-                - hasSucceeded
-            - not:
-              - readBlackboard:
-                - hasFailed
           actions:
           - playSound:
             - ALVO26_Rover

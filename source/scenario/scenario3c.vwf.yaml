@@ -94,6 +94,8 @@ children:
             - L3VO5_Rover
 
         succeedOnSuccessfulMovement_3c:
+          group: successOrFailure
+          priority: 0
           triggerCondition:
           - and:
             - onBlocklyStopped:
@@ -117,6 +119,7 @@ children:
         playHint1_3c:
           triggerCondition:
           - and:
+            - doOnce:
             - delay:
               - 15
             - hasHeading:
@@ -124,37 +127,18 @@ children:
               - 0
             - not:
               - readBlackboard:
-                - Level3cHint1
-            - not:
-              - readBlackboard:
                 - Level3cTravel1
-            - not:
-              - readBlackboard:
-                - hasSucceeded
-            - not:
-              - readBlackboard:
-                - hasFailed
           actions:
           - playSound:
             - ALVO37_Rover
-          - writeToBlackboard:
-            - Level3cHint1
 
         playTravelVO_3c:
           triggerCondition:
           - and:
+            - doOnce:
             - isAtPosition:
               - rover
               - [ 32, 14 ]
-            - not:
-              - readBlackboard:
-                - Level3cTravel1
-            - not:
-              - readBlackboard:
-                - hasSucceeded
-            - not:
-              - readBlackboard:
-                - hasFailed
           actions:
           - playSound:
             - CTVO3
@@ -162,16 +146,12 @@ children:
             - Level3cTravel1
 
         failOnIncompleteProgram_3c:
+          group: successOrFailure
+          priority: -0.5
           triggerCondition:
           - and:
             - doOnce:
             - onBlocklyStopped:
-            - not:
-              - readBlackboard:
-                - hasFailed
-            - not:
-              - readBlackboard:
-                - hasSucceeded
           actions:
           - scenarioFailure:
             - incomplete

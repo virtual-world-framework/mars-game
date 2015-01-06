@@ -88,6 +88,8 @@ children:
   #   includes: source/instrumentationManager.vwf
   globalTriggerManager:
     includes: source/scenario/globalScenarioTriggers.vwf
+  triggerGroupManager:
+    includes: source/triggers/groups/triggerGroupManager.vwf
   environment:
     extends: http://vwf.example.com/node3.vwf
     source: assets/3d/Terrain/scene.dae

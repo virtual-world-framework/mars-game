@@ -99,12 +99,6 @@ children:
             - not:
               - readBlackboard:
                 - Level3eTravel1
-            - not:
-              - readBlackboard:
-                - hasSucceeded
-            - not:
-              - readBlackboard:
-                - hasFailed
           actions:
           - playSound:
             - CTVO4
@@ -112,6 +106,8 @@ children:
             - Level3eTravel1
 
         succeedOnSuccessfulMovement_3e:
+          group: successOrFailure
+          priority: 0
           triggerCondition:
           - and:
             - onBlocklyStopped:

@@ -16,6 +16,7 @@
 extends: http://vwf.example.com/node.vwf
 
 implements: 
+  - http://vwf.example.com/sceneGetter.vwf
   - http://vwf.example.com/assert.vwf
 
 properties:
@@ -31,6 +32,24 @@ properties:
 
   # If this is set to true, we'll spew decision-making details to the console.
   spewToLog: false
+
+  # If triggers are in a trigger group together, only one of them will execute
+  #   at a time.  If more than one triggers at the same time, the one with the
+  #   highest priority will be picked.  If more than one has the same priority,
+  #   we pick at random.  See the triggerGroup and triggerGroupManager 
+  #   prototypes for more details.
+  groupName:
+  priority:
+
+  # The actual trigger group, looked up using the name.
+  group:
+    get: |
+      if ( !this.group ) {
+        this.group = this.groupName && this.scene && this.scene.triggerGroupManager ?
+          this.scene.triggerGroupManager.getGroup( this.groupName ) :
+          undefined;
+      }
+      return this.group;
 
 methods:
   # Called once the game has been initialized and everything is attached to the
@@ -50,6 +69,11 @@ methods:
   #   if the trigger should fire, and executes the actions if it should.
   checkFire:
 
+  # Trigger groups need to be able to do the checking and firing separately.
+  #   checkFire() just calls these for you (it's just a shortcut).
+  check:
+  fire:
+
   # A helper function for spewing to the console.
   spew:
 
@@ -59,6 +83,7 @@ methods:
 events:
   enabled:
   disabled:
+  evaluated:
   triggered:
 
 scripts:

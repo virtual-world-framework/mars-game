@@ -38,6 +38,8 @@ children:
             - musicMenuLoop
 
         succeedOnIntroDone:
+          group: successOrFailure
+          priority: 0
           triggerCondition:
           - onGameStarted:
           actions:
