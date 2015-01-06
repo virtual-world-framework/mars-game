@@ -17,7 +17,7 @@
     left: 10%;
 }
 
-#mainMenu, #settingsMenu {
+#mainMenu, #mm_settingsMenu {
     margin-left: 32px;
     margin-top: 32px;
 }

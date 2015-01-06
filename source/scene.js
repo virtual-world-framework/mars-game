@@ -32,7 +32,11 @@ this.initialize = function() {
     this.initializeActiveCamera( this.gameCam.camera );
     this.setUpCameraListener();
     this.setUpRoverListeners();
-    this.gameCam.setCameraTarget( this.player.rover );
+    this.future( 0 ).startGame();
+}
+
+this.startGame = function() {
+    this.activeLevel = "mainMenu";
 }
 
 this.setScenario = function( path ) {
@@ -170,7 +174,7 @@ this.setUpCameraListener = function() {
 
 this.setUpRoverListeners = function() {
     this.scenarioChanged = ( function( scenarioName ) {
-        this.player.rover.findAndSetCurrentGrid( scenarioName );
+        this.crashLanding.player.rover.findAndSetCurrentGrid( scenarioName );
     } ).bind( this );
     // rover.findAndSetCurrentGrid( this.activeScenarioPath );
 }
@@ -200,7 +204,7 @@ this.setCinematicView = function( pose ) {
 }
 
 this.resetView = function() {
-    var camera = this.player.targetFollower.camera;
+    var camera = this.crashLanding.player.targetFollower.camera;
     if ( lastCameraPOV === camera.pointOfView ) {
         camera.setNavigationFromPOV( lastCameraPOV );
     } else {

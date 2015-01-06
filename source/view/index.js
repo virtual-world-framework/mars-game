@@ -43,13 +43,15 @@ var currentScenario;
 var scenarioList;
 var startingZoom;
 
-var renderTransition = true;
-var playingVideo = false;
-// Render modes
-var RENDER_NONE = 0;
-var RENDER_MENU = 1;
-var RENDER_GAME = 2;
-var renderMode = RENDER_NONE;
+var menuLevel, crashLevel;
+
+// var renderTransition = true;
+// var playingVideo = false;
+// // Render modes
+// var RENDER_NONE = 0;
+// var RENDER_MENU = 1;
+// var RENDER_GAME = 2;
+// var renderMode = RENDER_NONE;
 
 vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
     if ( blocklyNodes[ nodeID ] !== undefined ) {
@@ -136,11 +138,11 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
 
             case "scenarioChanged":
                 currentScenario = eventArgs[ 0 ];
-                if ( currentScenario === "mainMenuScenario" ) {
-                    setRenderMode( RENDER_MENU );
-                } else {
-                    setRenderMode( RENDER_GAME );
-                }
+                // if ( currentScenario === "mainMenuScenario" ) {
+                //     setRenderMode( RENDER_MENU );
+                // } else {
+                //     setRenderMode( RENDER_GAME );
+                // }
                 lastBlockIDExecuted = undefined;
                 enableAllHUDElements();
             case "scenarioReset":
@@ -220,7 +222,7 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 break;
 
             case "playVideo":
-                setRenderMode( RENDER_NONE );
+                // setRenderMode( RENDER_NONE );
                 var src = eventArgs[ 0 ];
                 var id = getVideoIdFromSrc( src );
                 if ( isNaN( id ) || id < 0 || id >= videos.length ) {
@@ -234,7 +236,7 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
 
             case "videoPlayed":
                 $( "#transitionScreen" ).fadeOut();
-                setRenderMode( RENDER_GAME );
+                // setRenderMode( RENDER_GAME );
                 break;
 
             case "setObjective":
@@ -280,6 +282,27 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 break;            
             
         }
+    } else if ( nodeID === menuLevel || nodeID === crashLevel ) {
+        var versionElem = document.getElementById( "version" );
+        if ( eventName === "entered" ) {
+            $( "#transitionScreen" ).fadeOut();
+            if ( nodeID === menuLevel ) {
+                mainMenu.setVisible( true );
+                versionElem.style.display = "block";
+                checkPageZoom();
+            } else if ( nodeID === crashLevel ) {
+                loggerBox.style.display = "block";
+                hud.visible = true;
+            }
+        } else if ( eventName === "exited" ) {
+            if ( nodeID === menuLevel ) {
+                mainMenu.setVisible( false );
+                versionElem.style.display = "none";
+            } else if ( nodeID === crashLevel ) {
+                loggerBox.style.display = "none";
+                hud.visible = false;
+            }
+        }
     } else {
         // scenario events
         if ( eventName === "completed" ) {
@@ -301,6 +324,12 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
 }
 
 vwf_view.createdNode = function( nodeID, childID, childExtendsID, childImplementsIDs, childSource, childType, childIndex, childName ) {
+
+    if ( childName === "mainMenu" ) {
+        menuLevel = childID;
+    } else if ( childName === "crashLanding" ) {
+        crashLevel = childID;
+    }
 
     if ( childName === "rover" ) {
         mainRover = childID;
@@ -407,8 +436,10 @@ vwf_view.satProperty = function( nodeID, propertyName, propertyValue ) {
             if ( hud ) {
                 var selector = hud.elements.cameraSelector;
                 var pov = hud.elements[ "camera_" + propertyValue ];
-                selector.activeMode.icon = pov.icon;
-                selector.activeMode.type = pov.mode;
+                if ( pov && pov.icon && pov.mode ) {
+                    selector.activeMode.icon = pov.icon;
+                    selector.activeMode.type = pov.mode;
+                }
             }
         }
     }
@@ -453,6 +484,7 @@ function setUpView() {
     vwf_view.kernel.getProperty( appID, "version" );
     mainMenu = new MainMenu();
     hud = new HUD();
+    hud.visible = false;
     createHUD();
     initializePauseMenu();
     setUpNavigation();
@@ -464,55 +496,55 @@ function setUpView() {
     loadVideo( "end_cinematic.mp4", undefined, true );
 }
 
-function setRenderMode( sceneID ) {
-    renderTransition = true;
-    renderMode = sceneID;
-}
+// function setRenderMode( sceneID ) {
+//     renderTransition = true;
+//     renderMode = sceneID;
+// }
 
 function render( renderer, scene, camera ) {
-    var versionElem;
-    switch ( renderMode ) {
+    // var versionElem;
+    // switch ( renderMode ) {
 
-        case RENDER_NONE:
-            if ( renderTransition ) {
-                versionElem = document.getElementById( "version" );
-                versionElem.style.display = "none";
-                renderer.clear();
-                loggerBox.style.display = "none";
-                hud.visible = false;
-                renderTransition = false;
-            }
-            return;
+    //     case RENDER_NONE:
+    //         if ( renderTransition ) {
+    //             versionElem = document.getElementById( "version" );
+    //             versionElem.style.display = "none";
+    //             renderer.clear();
+    //             loggerBox.style.display = "none";
+    //             hud.visible = false;
+    //             renderTransition = false;
+    //         }
+    //         return;
 
-        case RENDER_MENU:
-            if ( renderTransition ) {
-                versionElem = document.getElementById( "version" );
-                versionElem.style.display = "block";
-                loggerBox.style.display = "none";
-                mainMenu.setupRenderer( renderer );
-                checkPageZoom();
-                hud.visible = false;
-                renderTransition = false;
-            }
-            mainMenu.render( renderer );
-            break;
+    //     case RENDER_MENU:
+    //         if ( renderTransition ) {
+    //             versionElem = document.getElementById( "version" );
+    //             versionElem.style.display = "block";
+    //             loggerBox.style.display = "none";
+    //             mainMenu.setupRenderer( renderer );
+    //             checkPageZoom();
+    //             hud.visible = false;
+    //             renderTransition = false;
+    //         }
+    //         mainMenu.render( renderer );
+    //         break;
 
-        case RENDER_GAME:
-            if ( renderTransition ) {
-                versionElem = document.getElementById( "version" );
-                versionElem.style.display = "none";
-                loggerBox.style.display = "block";
-                scene.fog = new THREE.FogExp2( 0xC49E70, 0.0035 );
-                renderer.setClearColor( scene.fog.color );
-                hud.visible = true;
-                renderTransition = false;
-            }
-            blinkTabs();
-            renderer.render( scene, camera );
-            lastRenderTime = vwf_view.kernel.time();
-            break;
-    }
-
+    //     case RENDER_GAME:
+    //         if ( renderTransition ) {
+    //             versionElem = document.getElementById( "version" );
+    //             versionElem.style.display = "none";
+    //             loggerBox.style.display = "block";
+    //             scene.fog = new THREE.FogExp2( 0xC49E70, 0.0035 );
+    //             renderer.setClearColor( scene.fog.color );
+    //             hud.visible = true;
+    //             renderTransition = false;
+    //         }
+            
+    //         break;
+    // }
+    blinkTabs();
+    renderer.render( scene, camera );
+    lastRenderTime = vwf_view.kernel.time();
     hud.update();
 }
 
@@ -738,7 +770,7 @@ window.onkeypress = function( event ) {
         pauseScreen = document.getElementById( "pauseScreen" );
         if ( pauseScreen.isOpen ){
             closePauseMenu();
-        } else if ( renderMode === RENDER_GAME ) {
+        } else {// if ( renderMode === RENDER_GAME ) {
             openPauseMenu();
         }
     }

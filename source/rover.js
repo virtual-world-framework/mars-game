@@ -236,7 +236,7 @@ this.getTerrainHeight = function( x, y ) {
 
     var height;
     var scene = this.find("/")[0];
-    height = scene.environment.heightmap.getHeight( x, y );
+    height = scene.crashLanding.environment.heightmap.getHeight( x, y );
     return height;
 }
 

@@ -25,7 +25,9 @@ this.setActiveLevel = function( value ) {
         return;
     }
     this.activeLevel = nextLevel;
-    previousLevel.exit();
+    if ( previousLevel ) {
+        previousLevel.exit();
+    }
     nextLevel.enter();
     this.levelChanged( previousLevel, nextLevel );
 }

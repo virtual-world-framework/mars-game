@@ -52,7 +52,7 @@ this.actionSet.initGameOnLoad = function( params, context ) {
     if ( params && params.length !== 0 ) {
         self.logger.warnx( "initGameOnLoad", "This action takes no arguments." )
     }
-    var camera = context.player.targetFollower.camera;
+    var camera = context.crashLanding.player.targetFollower.camera;
     return function() {
         camera.resetCameraPose();
     }
@@ -367,7 +367,7 @@ this.actionSet.setThirdPersonStartPose = function( params, context ) {
         return undefined;
     }
     var pose = params[ 0 ];
-    var thirdPersonMount = context.player.rover.thirdPerson;
+    var thirdPersonMount = context.crashLanding.player.rover.thirdPerson;
     return function() {
         thirdPersonMount.cameraPose = pose;
     }

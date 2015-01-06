@@ -172,7 +172,7 @@ children:
             - 17
           actions:
           - panCamera:
-            - /pickups/radio
+            - /crashLanding/pickups/radio
             - 3
 
         setCameraView:

@@ -477,7 +477,7 @@ function drawLoggerAnimating( context, position ) {
 
 function clickBlockly( event ) {
     var sceneID = vwf_view.kernel.application();
-    var nodeID = currentBlocklyNodeID || vwf_view.kernel.find( "", "/player/rover" )[ 0 ];
+    var nodeID = currentBlocklyNodeID || vwf_view.kernel.find( "", "/crashLanding/player/rover" )[ 0 ];
     if ( sceneID !== undefined && nodeID !== undefined ) {
         vwf_view.kernel.setProperty( sceneID, "blockly_activeNodeID", nodeID );
     }

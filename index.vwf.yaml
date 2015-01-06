@@ -15,7 +15,8 @@
 --- 
 extends: http://vwf.example.com/scene.vwf
 implements:
-- "http://vwf.example.com/blockly/manager.vwf"
+  - http://vwf.example.com/blockly/manager.vwf
+  - source/levelManager.vwf
 properties:
   enableShadows: true
   shadowMapCullFace: "back"
@@ -26,7 +27,7 @@ properties:
     set: |
       this.setScenario( value );
       this.activeScenarioPath = value;
-    value: "mainMenuScenario"
+    # value: "mainMenuScenario"
   playerId: "test"
   version: 1.0
   sceneBlackboard: {}
@@ -49,6 +50,7 @@ methods:
   restartGame:
   attemptLogin:
   loadGame:
+  startGame:
 events:
   gameStarted:
   scenarioReset:
@@ -107,252 +109,18 @@ children:
           cameraSpeed: 0
     scripts:
       - source: source/cinematicCameraController.js
+  mainMenu:
+    includes: source/menuLevel.vwf
+  crashLanding:
+    includes: source/crashLandLevel.vwf
   soundManager:
     includes: source/marsGameSound.vwf
   # instrumentationManager:
   #   includes: source/instrumentationManager.vwf
   globalTriggerManager:
     includes: source/scenario/globalScenarioTriggers.vwf
-  environment:
-    extends: http://vwf.example.com/node3.vwf
-    source: assets/3d/Terrain/scene.dae
-    type: model/vnd.collada+xml
-    properties:
-      castShadows: true
-      receiveShadows: true
-    children:
-      heightmap:
-        extends: http://vwf.example.com/heightmap.vwf
-        source: assets/3d/Terrain/heightmap.png
-        type: image/png
-        properties:
-          minWorldX: -275 
-          maxWorldX: 25
-          minWorldY: -45
-          maxWorldY: 255
-          minWorldZ: -2.5
-          maxWorldZ: 15
-      crashPod:
-        extends: http://vwf.example.com/node3.vwf
-        source: assets/3d/crash_pod/crash_pod.dae
-        type: model/vnd.collada+xml
-        properties:
-          castShadows: true
-          receiveShadows: true
-          translation: [ 0, -1.5, 0 ]
-      roverTracks:
-        extends: http://vwf.example.com/node3.vwf
-        source: assets/3d/Terrain/rover_tracks_straight.dae
-        type: model/vnd.collada+xml
-  collisionTerrain:
-    extends: http://vwf.example.com/node3.vwf
-    source: assets/3d/Terrain/collision_terrain.dae
-    type: model/vnd.collada+xml
-    properties:
-      visible: false
-  airDust:
-    includes: source/dustAir.vwf
-  smoke1:
-    extends: source/smokeParticle.vwf
-    properties:
-      translation: [ -5, 34.75, 3 ]
-  smoke2:
-    extends: source/smokeParticle.vwf
-    properties:
-      translation: [ 4.5, 26, 0 ]
-  smoke3:
-    extends: source/smokeParticle.vwf
-    properties:
-      translation: [ 13.5, 16.5, 2 ]
-  backdrop:
-    extends: http://vwf.example.com/node3.vwf
-    source: assets/3d/Terrain/backdrop.dae
-    type: model/vnd.collada+xml
-    children:
-      Group023:
-        extends: http://vwf.example.com/node3.vwf
-        children:
-          hills: 
-            extends: http://vwf.example.com/node3.vwf
-            children:
-              material:
-                extends: http://vwf.example.com/material.vwf
-                properties:
-                  alphaTest: 0.85
-          mountains:
-            extends: http://vwf.example.com/node3.vwf
-  sunLight:
-    extends: http://vwf.example.com/light.vwf
-    properties:
-      lightType: "directional"
-      color: [ 255, 245, 230 ]
-      translation: [ 2, 1, 16 ]
-      intensity: 0.5
-      castShadows: true
-      shadowDarkness: 0.5
-      shadowCameraBottom: -64
-      shadowCameraTop: 64
-      shadowCameraLeft: -64
-      shadowCameraRight: 64
-      shadowCameraFar: 24
-      shadowMapWidth: 2048
-      shadowMapHeight: 2048
-      shadowBias: -0.01
-      target: [ 0, 0, 0 ]
-      offsetFromTarget: [ 2, 1, 16 ]
-    methods:
-      setUpEvents:
-      followCamera:
-    scripts:
-      - source: source/lights.js
-  envLight:
-    extends: http://vwf.example.com/light.vwf
-    properties:
-      lightType: "hemisphere"
-      translation: [ 0, 0, 100 ]
-      color: [ 255, 200, 175 ]
-      groundColor: [ 200, 160, 80 ]
-      intensity: 0.7
-  player:
-    extends: http://vwf.example.com/node3.vwf
-    children:
-      rover:
-        extends: source/rover.vwf
-        implements: 
-          - http://vwf.example.com/blockly/controller.vwf
-          - source/griddable.vwf
-          - source/cameraTarget.vwf
-        source: assets/3d/Rover/rover_retro.dae
-        type: model/vnd.collada+xml
-        properties:
-          defaultMount: firstPerson
-          displayName: "Rover"
-          castShadows: true
-          receiveShadows: true
-          sceneNode:
-            get: |
-              if ( !this.sceneNode ) {
-                this.sceneNode = this.find( "/" )[ 0 ];
-              }
-              return this.sceneNode;
-          terrainName:
-            set: |
-              this.terrainName = value;
-              this.terrain = this.find( "//" + value )[ 0 ];
-              //@ sourceURL=index.vwf.player.rover.terrainName.set
-            value: collisionTerrain
-          terrain:
-            get: |
-              if ( !this.terrain ) {
-                this.terrain = this.find( "//" + this.terrainName )[ 0 ];
-              }
-              return this.terrain;
-              //@ sourceURL=index.vwf.player.rover.terrain.get
-          currentGridSquare: [ 0, 0 ]
-          sensorValue: false
-          wheelFL:
-            get: |
-              if ( !this.wheelFL ) {
-                this.wheelFL = this.find( "Cylinder014/Cylinder058/wheel" )[ 0 ];
-              }
-              return this.wheelFL;
-          wheelBL:
-            get: |
-              if ( !this.wheelBL ) {
-                this.wheelBL = this.find( "Cylinder014/Cylinder059/wheel001" )[ 0 ];
-              }
-              return this.wheelBL;
-          wheelFR:
-            get: |
-              if ( !this.wheelFR ) {
-                this.wheelFR = this.find( "Cylinder014/Cylinder050/wheel002" )[ 0 ];
-              }
-              return this.wheelFR;
-          wheelBR:
-            get: |
-              if ( !this.wheelBR ) {
-                this.wheelBR = this.find( "Cylinder014/Cylinder060/wheel003" )[ 0 ];
-              }
-              return this.wheelBR;
-          wheelRadius: 0.3304
-        children:
-          firstPerson:
-            extends: source/cameraMount.vwf
-            properties:
-              navmode: walk
-              translation: [ 0, 0, 1 ]
-              cameraPose: [ 0, 0, 0 ]
-              cameraSpeed: 0
-              targetVisible: false
-              useTargetRotation: true
-          thirdPerson:
-            extends: source/cameraMount.vwf
-            properties:
-              navmode: thirdPerson
-              cameraPose: [ 16, 0, -15 ]
-              cameraSpeed: 0
-          topDown:
-            extends: source/cameraMount.vwf
-            properties:
-              navmode: topDown
-              worldOffset: [ 0, 0, 40 ]
-              cameraPose: [ 0, 0, -90 ]
-              cameraSpeed: 10
-              cameraLock: false
-          Cylinder014:
-            extends: http://vwf.example.com/node3.vwf
-            children: 
-              Cylinder058:
-                extends: http://vwf.example.com/node3.vwf
-                children: 
-                  wheel:
-                    extends: http://vwf.example.com/node3.vwf
-              Cylinder059:
-                extends: http://vwf.example.com/node3.vwf
-                children: 
-                  wheel001:
-                    extends: http://vwf.example.com/node3.vwf
-              Cylinder050:
-                extends: http://vwf.example.com/node3.vwf
-                children: 
-                  wheel002:
-                    extends: http://vwf.example.com/node3.vwf
-                    children: 
-                      material:
-                        extends: http://vwf.example.com/material.vwf
-              Cylinder060:
-                extends: http://vwf.example.com/node3.vwf
-                children: 
-                  wheel003:
-                    extends: http://vwf.example.com/node3.vwf
-                    children: 
-                      material:
-                        extends: http://vwf.example.com/material.vwf
-          cargo:
-            extends: source/inventory.vwf
-            properties:
-              capacity: 4
-              inventoryIsVisible: false
-  pickups:
-    extends: http://vwf.example.com/node3.vwf
-    children:
-      radio:
-        extends: source/pickups/radio.vwf
-        properties:
-          animationPlaying: true
-          animationLoop: true
-      battery:
-        extends: source/pickups/battery_1.vwf
-      supplies_1:
-        extends: source/pickups/supplies.vwf
-      supplies_2:
-        extends: source/pickups/supplies.vwf
-      helicam:
-        extends: source/pickups/helicam.vwf
-      minirover:
-        extends: source/pickups/minirover.vwf
-  mainMenuScenario:
-    includes: source/scenario/mainMenu.vwf
+  # mainMenuScenario:
+  #   includes: source/scenario/mainMenu.vwf
   introScreenScenario:
     includes: source/scenario/introScreenScenario.vwf
   scenario1a:

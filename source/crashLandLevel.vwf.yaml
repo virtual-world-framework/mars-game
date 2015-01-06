@@ -16,6 +16,7 @@
 extends: source/levelNode.vwf
 properties:
   ambientColor: [ 150, 140, 140 ]
+  visible: false
 children:
   environment:
     extends: http://vwf.example.com/node3.vwf
@@ -48,12 +49,6 @@ children:
         extends: http://vwf.example.com/node3.vwf
         source: assets/3d/Terrain/rover_tracks_straight.dae
         type: model/vnd.collada+xml
-  collisionTerrain:
-    extends: http://vwf.example.com/node3.vwf
-    source: assets/3d/Terrain/collision_terrain.dae
-    type: model/vnd.collada+xml
-    properties:
-      visible: false
   airDust:
     includes: source/dustAir.vwf
   smoke1:
@@ -144,7 +139,7 @@ children:
               this.terrainName = value;
               this.terrain = this.find( "//" + value )[ 0 ];
               //@ sourceURL=index.vwf.player.rover.terrainName.set
-            value: collisionTerrain
+            value: environment
           terrain:
             get: |
               if ( !this.terrain ) {
@@ -255,151 +250,5 @@ children:
         extends: source/pickups/helicam.vwf
       minirover:
         extends: source/pickups/minirover.vwf
-  mainMenuScenario:
-    includes: source/scenario/mainMenu.vwf
-  introScreenScenario:
-    includes: source/scenario/introScreenScenario.vwf
-  scenario1a:
-    includes: source/scenario/scenario1a.vwf
-  scenario1b:
-    includes: source/scenario/scenario1b.vwf
-  scenario1c:
-    includes: source/scenario/scenario1c.vwf
-  scenario1d:
-    includes: source/scenario/scenario1d.vwf
-  scenario1e:
-    includes: source/scenario/scenario1e.vwf
-  scenario1f:
-    includes: source/scenario/scenario1f.vwf
-  scenario1g:
-    includes: source/scenario/scenario1g.vwf
-  scenario1h:
-    includes: source/scenario/scenario1h.vwf
-  scenario1i:
-    includes: source/scenario/scenario1i.vwf
-  scenario2a:
-    includes: source/scenario/scenario2a.vwf
-  scenario2b:
-    includes: source/scenario/scenario2b.vwf
-  scenario2c:
-    includes: source/scenario/scenario2c.vwf
-  scenario2d:
-    includes: source/scenario/scenario2d.vwf
-  scenario2e:
-    includes: source/scenario/scenario2e.vwf
-  scenario2f:
-    includes: source/scenario/scenario2f.vwf
-  scenario3a:
-    includes: source/scenario/scenario3a.vwf
-  scenario3b:
-    includes: source/scenario/scenario3b.vwf
-  scenario3c:
-    includes: source/scenario/scenario3c.vwf
-  scenario3d:
-    includes: source/scenario/scenario3d.vwf
-  scenario3e:
-    includes: source/scenario/scenario3e.vwf
-  scenario3f:
-    includes: source/scenario/scenario3f.vwf
-  blocklyGraph:
-    extends: http://vwf.example.com/graphtool/graph.vwf
-    implements: "source/griddable.vwf"
-    properties:
-      graphScale: 3
-      gridInterval: 1
-      gridLineInterval: 4
-      gridLength: 64
-      xAxisVisible: true
-      yAxisVisible: true
-      zAxisVisible: false
-      gridVisible: true
-      axisOpacity: 1
-      gridOpacity: 0.75
-      renderTop: true
-    children:
-      blocklyLine:
-        extends: http://vwf.example.com/graphtool/graphlinefunction.vwf
-        properties:
-          lineFunction:
-            set: |
-              this.lineFunction = value;
-              this.lineGraphed();
-            value: undefined
-          startValue: -64
-          endValue: 64
-          pointCount: 400
-          color: [ 100, 255, 100 ]
-          opacity: 1
-          lineThickness: 0.15
-          renderTop: true
-          visible: false
-        events:
-          lineGraphed:
-    scripts: |
-      this.initialize = function() {
-        this.future( 0 ).setGraphVisibility( false );
-      }
-  gridTileGraph:
-    extends: http://vwf.example.com/graphtool/graph.vwf
-    properties:
-      graphScale: 3
-      gridInterval: 1
-      gridLineInterval: 4
-      gridLength: 1
-      xAxisVisible: false
-      yAxisVisible: false
-      zAxisVisible: false
-      gridVisible: false
-      axisOpacity: 1
-      gridOpacity: 1
-      renderTop: false
-      tileVisible: false
-    children:
-      mapTiles:
-        extends: http://vwf.example.com/graphtool/graphgroup.vwf
-        properties:
-          groupVisible: false
-          graphObjects: []
-      callOutTile:
-        extends: http://vwf.example.com/graphtool/graphplane.vwf
-        properties:
-          origin: [ 0, 0, 0 ]
-          normal: [ 0, 0, 1 ]
-          rotationAngle: 90
-          size: 1
-          color: [ 255, 255, 255 ]
-          opacity: 0.5
-          doubleSided: false
-          renderTop: true
-          visible: false
-        methods:
-          callOut:
-          blink:
-          stopBlink:
-        scripts:
-          - source: source/callouttile.js
-  graph:
-    extends: http://vwf.example.com/node3.vwf
-    implements: http://vwf.example.com/blockly/controller.vwf
-    properties:
-      blockly_toolbox: assets/scenario/graph.xml
-  alerts:
-    extends: http://vwf.example.com/logger.vwf
-    properties:
-      logger_maxLogs: 1
-      logger_lifeTime: 10000
-      logger_logs: []
-    scripts:
-    - source: source/loggerHelper.js
-  subtitles:
-    extends: http://vwf.example.com/logger.vwf
-    properties:
-      logger_maxLogs: 10
-      logger_lifeTime: 10000
-      logger_logs: []
-    events:
-      addSubtitle:
-    scripts:
-    - source: source/loggerHelper.js
 scripts:
   - source: source/crashLandLevel.js
