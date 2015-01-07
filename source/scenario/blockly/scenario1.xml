@@ -1,3 +1,7 @@
 <xml id="rover" style="display: none">
   <block type="rover_moveForward"></block>
+  <block type="procedures_defreturn"></block>
+  <block type="procedures_callreturn"></block>
+  <block type="variables_set"></block>
+  <block type="variables_get"></block>
 </xml>
