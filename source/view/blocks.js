@@ -21,7 +21,6 @@ var BlocklyApps = {
 
 // Extensions to Blockly's language and JavaScript generator.
 
-
 Blockly.Blocks['controls_whileUntil'] = {
   /**
    * Block for 'do while/until' loop.
