@@ -12,8 +12,6 @@
 // See the License for the specific language governing permissions and 
 // limitations under the License.
 
-var activeScenario;
-
 this.initialize = function() {
     this.children.create( "startStateExecutor", 
                           "source/triggers/generators/declarativeFunctionExecutor.vwf" );
@@ -159,12 +157,11 @@ this.setIsRunning$ = function( value ) {
 
 this.startInitialScenario$ = function() {
     this.scene.activeScenarioPath = this.scenarioName;
-    activeScenario = this;
 }
 
 this.startStateParamSet.setProperty = function( params, context ) {
     if ( !params || ( params.length !== 3 ) ) {
-        activeScenario.logger.errorx( "setProperty", 
+        context.logger.errorx( "setProperty", 
                             "The setProperty condition requires three " +
                             "arguments: the object name, the property name, " +
                             "and the property value." );
@@ -175,13 +172,13 @@ this.startStateParamSet.setProperty = function( params, context ) {
     var propertyName = params[ 1 ];
     var value = params[ 2 ];
 
-    var object = activeScenario.startStateExecutor.findInContext( context, objectName );
+    var object = context.find( "//" + objectName )[ 0 ];
     object[ propertyName ] = value;
 }
 
 this.startStateParamSet.callMethod = function( params, context ) {
     if ( !params || ( params.length < 2 ) ) {
-        activeScenario.logger.errorx( "callMethod", 
+        context.logger.errorx( "callMethod", 
                             "The callMethod condition requires at least two ",
                             "arguments: the object name and the method name." );
         return undefined;
@@ -191,13 +188,13 @@ this.startStateParamSet.callMethod = function( params, context ) {
     var methodName = params[ 1 ];
     var args = params.slice( 2 );
 
-    var object = activeScenario.startStateExecutor.findInContext( context, objectName );
+    var object = context.find( "//" + objectName )[ 0 ];
     object[ methodName ].apply( object, args );
 }
 
 this.startStateParamSet.setSceneProperty = function( params, context ) {
     if ( !params || ( params.length !== 2 ) ) {
-        activeScenario.logger.errorx( "setSceneProperty", 
+        context.logger.errorx( "setSceneProperty", 
                             "The setSceneProperty condition requires two " +
                             "arguments: the property name and the property " +
                             "value." );
@@ -212,38 +209,38 @@ this.startStateParamSet.setSceneProperty = function( params, context ) {
 
 this.startStateParamSet.emptyInventory = function( params, context ) { 
     if ( !params || ( params.length !== 1 ) ) {
-        activeScenario.logger.errorx( "emptyInventory", 
+        context.logger.errorx( "emptyInventory", 
                             "The emptyInventory condition requires the path " +
                             "of the inventory object." );
         return undefined;
     }
 
     var inventoryPath = params[ 0 ];
-    var inventory = activeScenario.startStateExecutor.findInContext( context, inventoryPath );
+    var inventory = context.find( "//" + inventoryPath )[ 0 ];
     inventory.empty();
 }
 
 this.startStateParamSet.addToInventory = function( params, context ) {
     if ( !params || ( params.length !== 2 ) ) {
-        activeScenario.logger.errorx( "addToInventory", "The addToInventory condition " +
+        context.logger.errorx( "addToInventory", "The addToInventory condition " +
                             "requires 2 parameters: The path of the inventory object " +
                             "and an array of names of the objects to be added." );
         return undefined;
     }
 
-    var inventory = activeScenario.startStateExecutor.findInContext( context, params[0] );
+    var inventory = context.find( "//" + params[0] )[ 0 ];
 
     var objects = params[1];
     var object;
     for ( var i = 0; i < objects.length; i++ ) {
-        object = activeScenario.startStateExecutor.findInContext( context, objects[ i ] );
+        object = context.find( "//" + objects[ i ] )[ 0 ];
         inventory.add( object );
     }
 }
 
 this.startStateParamSet.addToGrid = function( params, context ) {
     if ( !params || ( params.length !== 2 ) ) {
-        activeScenario.logger.errorx( "addToGrid",
+        context.logger.errorx( "addToGrid",
                             "The addToGrid condition requires 2 arguments: " +
                             "the object to be added, and the coordinates of " +
                             "the grid tile." );
@@ -253,13 +250,14 @@ this.startStateParamSet.addToGrid = function( params, context ) {
     var objectName = params[ 0 ];
     var gridCoord = params[ 1 ];
 
-    var object = activeScenario.startStateExecutor.findInContext( context, objectName );
+    var object = context.find( "//" + objectName )[ 0 ];
+    var activeScenario = context.getCurrentScenario();
     activeScenario.grid.addToGridFromCoord( object, gridCoord );
 }
 
 this.startStateParamSet.removeFromGrid = function( params, context ) {
     if ( !params || ( params.length !== 2 ) ) {
-        activeScenario.logger.errorx( "removeFromGrid",
+        context.logger.errorx( "removeFromGrid",
                             "The removeFromGrid condition requires 2 arguments: " +
                             "the object to be added, and the coordinates of " +
                             "the grid tile." );
@@ -269,7 +267,8 @@ this.startStateParamSet.removeFromGrid = function( params, context ) {
     var objectName = params[ 0 ];
     var gridCoord = params[ 1 ];
 
-    var object = activeScenario.startStateExecutor.findInContext( context, objectName );
+    var object = context.find( "//" + objectName )[ 0 ];
+    var activeScenario = context.getCurrentScenario();
     activeScenario.grid.removeFromGrid( object, gridCoord );
 }
 
@@ -284,7 +283,7 @@ this.startStateParamSet.enableBlocklyTabs = function( params, context ) {
     var object;
     context.clearBlocklyTabs();
     for ( var i = 0; i < params.length; i++ ) {
-        object = activeScenario.startStateExecutor.findInContext( context, params[ i ] );
+        object = context.find( "//" + params[ i ] )[ 0 ];
         if ( object ) {
             context.enableBlocklyTab( object.id );
         }
@@ -300,7 +299,7 @@ this.startStateParamSet.loadToolbox = function( params, context ) {
         return undefined;
     }
 
-    var node = activeScenario.startStateExecutor.findInContext( context, params[ 0 ] );
+    var node = context.find( "//" + params[ 0 ] )[ 0 ];
     var toolbox = params[ 1 ];
     node.blockly_toolbox = toolbox;
     if ( context.blockly_activeNodeID === node.id ) {
