@@ -45,6 +45,7 @@ this.setScenario = function( path ) {
                  scenario.grid.clearGrid();
              }
             calcGridBounds( scenario.grid );
+            this.createGridDisplay( scenario.grid );
             // TODO: pass the scenario, not the name.  Or else just send the 
             //  event without looking the scenario itself up.  Or assert that 
             //  the scenario exists.  Or something.
