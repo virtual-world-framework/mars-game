@@ -187,11 +187,12 @@ this.startStateParamSet.callMethod = function( params, context ) {
         return undefined;
     }
 
-    var objectName = params.shift();
-    var methodName = params.shift();
+    var objectName = params[ 0 ];
+    var methodName = params[ 1 ];
+    var args = params.slice( 2 );
 
     var object = activeScenario.startStateExecutor.findInContext( context, objectName );
-    object[ methodName ].apply( object, params );
+    object[ methodName ].apply( object, args );
 }
 
 this.startStateParamSet.setSceneProperty = function( params, context ) {
