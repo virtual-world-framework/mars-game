@@ -39,6 +39,7 @@ this.setScenario = function( path ) {
     if ( path ) {
         var scenario = this.find( path )[ 0 ];
         if ( scenario ) {
+            this.activeScenarioPath = path;
             // TODO: remove knowledge of inner workings of the scenario; let 
             //  the scenario itself handle bookkeeping in its event handlers.
              if ( scenario.grid && scenario.grid.clearGrid ) {
