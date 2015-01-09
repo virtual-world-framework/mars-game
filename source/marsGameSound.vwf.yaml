@@ -258,10 +258,10 @@ properties:
       soundURL: "assets/sounds/vo/L2VO4_Control.ogg"
       useTextToSpeech: true
       ttsAmplitude: 100
-      ttsVariant: "m1"
+      ttsVariant: "f1"
       ttsWordGap: 0
       ttsSpeed: 175
-      ttsPitch: 50
+      ttsPitch: 70
       initialVolume: 1.0
       subtitle: "[MC]: My satellite view shows that the Mini Rover's tracks are right next to you. The first thing that you'll need to do is to plot a course to match its tracks. I've beamed a software update which includes a graphing tool and makes your engines more efficient, but takes some of your available RAM."
       soundGroup: vo
@@ -270,10 +270,10 @@ properties:
       soundURL: "assets/sounds/vo/L2VO7_Control.ogg"
       useTextToSpeech: true
       ttsAmplitude: 100
-      ttsVariant: "m1"
+      ttsVariant: "f1"
       ttsWordGap: 0
       ttsSpeed: 175
-      ttsPitch: 50
+      ttsPitch: 70
       initialVolume: 1.0
       subtitle: "[MC]: Now you have your first graph plotted, why don't you try changing it? We see the track of your lost Mini Rover from our satellite view. Can you match it?"
       soundGroup: vo
@@ -282,10 +282,10 @@ properties:
       soundURL: "assets/sounds/vo/L2VO9_Control.ogg"
       useTextToSpeech: true
       ttsAmplitude: 100
-      ttsVariant: "m1"
+      ttsVariant: "f1"
       ttsWordGap: 0
       ttsSpeed: 175
-      ttsPitch: 50
+      ttsPitch: 70
       initialVolume: 1.0
       subtitle: "[MC]: You don't want to keep having to do this all the way up the line. Remember you can repeat this small movement program, and save yourself some work. Try repeating it three times to start."
       soundGroup: vo
@@ -330,10 +330,10 @@ properties:
       soundURL: "assets/sounds/vo/L3VO2_Mission_S.ogg"
       useTextToSpeech: true
       ttsAmplitude: 100
-      ttsVariant: "m1"
+      ttsVariant: "f1"
       ttsWordGap: 0
       ttsSpeed: 175
-      ttsPitch: 50
+      ttsPitch: 70
       initialVolume: 0.65
       subtitle: "[MC]: Yes you are... you need to check if you can actually see the Mini Rover! For this you will need two new Blocks: the Conditional Loop Block, and the Scan Block. The Conditional Loop will repeat programs until something happens. The Scan Block detects nearby objects."
       soundGroup: vo
@@ -402,10 +402,10 @@ properties:
       soundURL: "assets/sounds/vo/L3VO6_Mission.ogg"
       useTextToSpeech: true
       ttsAmplitude: 100
-      ttsVariant: "m1"
+      ttsVariant: "f1"
       ttsWordGap: 0
       ttsSpeed: 175
-      ttsPitch: 50
+      ttsPitch: 70
       initialVolume: 0.65
       subtitle: "[MC]: Our satellite data shows that you are getting close! Keep it up!"
       soundGroup: vo
@@ -800,10 +800,10 @@ properties:
       soundURL: "assets/sounds/vo/SCVO8_Control.ogg"
       useTextToSpeech: true
       ttsAmplitude: 100
-      ttsVariant: "m1"
+      ttsVariant: "f1"
       ttsWordGap: 0
       ttsSpeed: 175
-      ttsPitch: 50
+      ttsPitch: 70
       initialVolume: 1.0
       subtitle: "[MC]: Now you are on the right track! This graph is going to help you overcome your next challenge: Find the slope of the line, and use that to make a navigation program that will follow that track.  Let’s start by moving to that blinking tile just to your left."
       soundGroup: vo
@@ -872,10 +872,10 @@ properties:
       soundURL: "assets/sounds/vo/CTVO2_Control.ogg"
       useTextToSpeech: true
       ttsAmplitude: 100
-      ttsVariant: "m1"
+      ttsVariant: "f1"
       ttsWordGap: 0
       ttsSpeed: 175
-      ttsPitch: 50
+      ttsPitch: 70
       initialVolume: 1.0
       subtitle: "[MC]: Looks like you're headed into the Cartesian Plain, so named because it's big, wide, and flat."
       soundGroup: vo
