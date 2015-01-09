@@ -79,7 +79,7 @@ properties:
       allowMultiplay: false
     - soundName: "L1VO1_Rover"
       soundURL: "assets/sounds/vo/L1VO1_Rover_m.ogg"
-      useTextToSpeech: false
+      useTextToSpeech: true
       initialVolume: 0.65
       subtitle: "[ROVER]: Where am I? Who am I? I appear to be on Mars. I have wheels, a computer for a brain, and a battery. Hmm...if I had to guess I would say that I'm a rover!"
       soundGroup: vo
