@@ -44,13 +44,24 @@ this.startScenario = function() {
 }
 
 this.failed = function() {
+    // NOTE: we may need to set this.isRunning here like we do on success - if
+    //  we run into a situation where a trigger causes multiple failures before
+    //  the player gets a chance to click (or something like that) then we may
+    //  want to try that - but for now, it's not happening, so I'm loathe to 
+    //  make the change.
+
     // If we need to do anything on failure, it should go in here.
     this.scene.scenarioFailed( this );
     this.scene.stopAllExecution();
 }
 
 this.completed = function() {
-    // If we need to do anything on success, it should go in here.
+    // We set isRunning to false when we succeed (and it can also be set other
+    //  ways).  This prevents us from succeeding on the same scenarion more than
+    //  once (which confuses the snot out of the scene).
+    if ( !this.isRunning ) {
+        return;
+    }
 
     // HACK: This is a bit of a hack, but it should solve the problem 
     //  for now.  We want to always store the heading of the rover on
@@ -63,6 +74,7 @@ this.completed = function() {
         this.logger.warnx( "completed", "Rover not found!!" );
     }
 
+    this.isRunning = false;
     this.scene.scenarioSucceeded( this );
 }
 
