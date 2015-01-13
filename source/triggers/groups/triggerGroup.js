@@ -22,11 +22,13 @@ this.initialize = function() {
 this.addTrigger = function( trigger ) {
     this.assert( trigger.groupName === this.name );
 
-    this.triggers.push( trigger );
-    this.triggers = this.triggers;
+    var triggers = this.triggers;
+    triggers.push( trigger );
+    this.triggers = triggers;
 
-    this.canFire$.push( false );
-    this.canFire$ = this.canFire$;
+    var canFire$ = this.canFire$;
+    canFire$.push( false );
+    this.canFire$ = canFire$;
 
     this.assert( this.triggers.length === this.canFire$.length );
 }
