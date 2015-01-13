@@ -69,7 +69,9 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 if ( !blocklyExecuting ) {
                     if ( Blockly.mainWorkspace ) {
                         var topBlockCount = Number( eventArgs[ 0 ] );
-                        startBlocklyButton.className = topBlockCount !== 1 ? "disabled" : "" ;
+                        // HACK: Reenable to allow procedures
+                         startBlocklyButton.className = topBlockCount == 0 ? "disabled" : "" ;
+                        // startBlocklyButton.className = topBlockCount !== 1 ? "disabled" : "" ;
                         // if disabled then need to set the tooltip
                         // There must be only one program for each blockly object
                     }

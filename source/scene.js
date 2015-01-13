@@ -167,7 +167,8 @@ function calcGridBounds( grid ) {
 this.executeBlock = function ( block, action ) {
     var blockName = block[ 0 ];
     var blockID = block[ 1 ];
-    this.blockExecuted( blockName, blockID );
+    //SJF: Was breaking procedures
+    //this.blockExecuted( blockName, blockID );
 
     var nodeID = action[ 0 ];
     var methodName = action[ 1 ];
