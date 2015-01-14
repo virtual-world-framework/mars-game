@@ -17,19 +17,18 @@ extends: http://vwf.example.com/sound/soundManager.vwf
 properties:
   allSoundsLoaded: false
   setUpOnce: true
-  voices:
+  voiceSet:
     roverVoice:
-      useTextToSpeech: true
       ttsAmplitude: 100
       ttsVariant: "m1"
       ttsWordGap: 0
-      ttsSpeed: 175
+      ttsSpeed: 162
       ttsPitch: 50
     mcVoice:
       ttsAmplitude: 100
       ttsVariant: "f1"
       ttsWordGap: 0
-      ttsSpeed: 175
+      ttsSpeed: 162
       ttsPitch: 70
 
   soundSet:
@@ -88,7 +87,7 @@ properties:
       useTextToSpeech: true
       initialVolume: 0.65
       subtitle: "[ROVER]: Where am I? Who am I? I appear to be on Mars. I have wheels, a computer for a brain, and a battery. Hmm...if I had to guess I would say that I'm a rover!"
-      textToSpeechInput: "Trololo! Where am I? Who am I? I appear to be on Mars. I have wheels, a computer for a brain, and a battery. Hmm...if I had to guess I would say that I'm a rover!"
+      textToSpeechInput: "Where am I? Who am I? I appear to be on Mars. I have wheels, a computer for a brain, and a battery. Hmm...if I had to guess I would say that I'm a rover!"
       voice: roverVoice
       soundGroup: vo
       groupReplacementMethod: queue

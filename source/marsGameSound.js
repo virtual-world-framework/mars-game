@@ -16,7 +16,7 @@
 
 this.initialize = function() {
     //Load sounds defined in yaml file
-    this.setVoices( this.voices );
+    this.setVoiceSet( this.voiceSet );
     for ( var i = 0; i < this.soundSet.length; ++i ) {
             this.loadSound( this.soundSet[i] );
     }
