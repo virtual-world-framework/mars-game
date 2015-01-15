@@ -32,7 +32,64 @@ this.initialize = function() {
     this.initializeActiveCamera( this.gameCam.camera );
     this.setUpCameraListener();
     this.setUpRoverListeners();
-    this.gameCam.setCameraTarget( this.player.rover );
+    this.future( 3 ).applicationLoaded();
+}
+
+this.applicationLoaded = function() {
+    this.applicationState = "menu";
+}
+
+this.setApplicationState = function( state ) {
+    switch ( state ) {
+        case "loading":
+            break;
+        case "menu":
+            this.mainMenu.visible = true;
+            this.mainMenu.future( 0 ).animate();
+            // TODO: Consolidate game nodes
+            this.environment.visible = false;
+            this.player.visible = false;
+            this.airDust.visible = false;
+            this.smoke1.visible = false;
+            this.smoke2.visible = false;
+            this.smoke3.visible = false;
+            this.backdrop.visible = false;
+            this.sunLight.visible = false;
+            this.envLight.visible = false;
+            this.pickups.visible = false;
+            break;
+        case "playing":
+            this.mainMenu.visible = false;
+            this.soundManager.stopSoundGroup( "music" );
+            this.gameCam.setCameraTarget( this.player.rover );
+            // TODO: Consolidate game nodes
+            this.environment.visible = true;
+            this.player.visible = true;
+            this.airDust.visible = true;
+            this.smoke1.visible = true;
+            this.smoke2.visible = true;
+            this.smoke3.visible = true;
+            this.backdrop.visible = true;
+            this.sunLight.visible = true;
+            this.envLight.visible = true;
+            this.pickups.visible = true;
+            break;
+        default:
+            this.logger.errorx( "setApplicationState", "Invalid application "
+                + "state: \'" + state + "\'" );
+            return;
+    }
+    this.applicationState = state;
+}
+
+this.newGame = function() {
+    this.applicationState = "playing";
+    this.activeScenarioPath = "introScreenScenario";
+}
+
+this.continueGame = function( scenario ) {
+    this.applicationState = "playing";
+    this.activeScenarioPath = scenario;
 }
 
 this.setScenario = function( path ) {
@@ -234,7 +291,7 @@ this.restartGame = function() {
     this.sceneBlackboard = {};
     this.soundManager.stopAllSoundInstances();
     this.storedScenario( this.activeScenarioPath );
-    this.activeScenarioPath = "mainMenuScenario";
+    this.applicationState = "menu";
 }
 
 this.attemptLogin = function( userID ) {
