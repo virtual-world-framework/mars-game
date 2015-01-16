@@ -1,7 +1,9 @@
 <xml id="rover" style="display: none">
   <block type="rover_moveForward"></block>
-  <block type="procedures_defnoreturn" inline="true"><mutation></mutation><title name="NAME">test procedure</title></block>
-  <block type="math_number_output"></block>
+  <block type="procedures_defnoreturn" inline="true"><mutation></mutation><title name="NAME">drive</title></block>
+  <block type="rover_turn"><field name="DIR">Turn: Left</field></block>
+  <block type="controls_repeat_extended"></block>
+  <block type="math_number_drop"></block>
   <block type="logic_boolean"></block>
   <block type="controls_if">
         <mutation else="1"></mutation>
