@@ -69,7 +69,9 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 if ( !blocklyExecuting ) {
                     if ( Blockly.mainWorkspace ) {
                         var topBlockCount = Number( eventArgs[ 0 ] );
-                        startBlocklyButton.className = topBlockCount !== 1 ? "disabled" : "" ;
+                        // HACK: Allow multiple top blocks to allow procedures
+                         startBlocklyButton.className = topBlockCount == 0 ? "disabled" : "" ;
+                        // startBlocklyButton.className = topBlockCount !== 1 ? "disabled" : "" ;
                         // if disabled then need to set the tooltip
                         // There must be only one program for each blockly object
                     }
@@ -77,6 +79,9 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 break;
 
             case "blocklyStarted":
+                //SJF: Getting the XML to convert to a predefined blockly procedure for 1h
+                var xml = Blockly.Xml.workspaceToDom( Blockly.getMainWorkspace() );
+                console.log(xml);
                 startBlocklyButton.className = "reset";
                 var indicator = document.getElementById( "blocklyIndicator" );
                 indicator.className = "";
@@ -142,6 +147,7 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                     setRenderMode( RENDER_GAME );
                 }
                 lastBlockIDExecuted = undefined;
+                gridBounds = eventArgs[ 1 ] || gridBounds;
                 enableAllHUDElements();
             case "scenarioReset":
                 removePopup();

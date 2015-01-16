@@ -1,0 +1,66 @@
+# Copyright 2014 Lockheed Martin Corporation
+#
+# Licensed under the Apache License, Version 2.0 (the "License"); you may 
+# not use this file except in compliance with the License. You may obtain 
+# a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software 
+# distributed under the License is distributed on an "AS IS" BASIS, 
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and 
+# limitations under the License.
+
+# The big idea here is that we can create implementations for objects from
+#   a concise data definition contained in yaml (or similar).  This is more-
+#   or-less what VWF already does... but ours is hopefully a bit more concise
+#   and less arcane.  The generator keeps an array of objectSets.  Each entry
+#   in the array is a hashtable that matches a (unique) name to a .vwf.yaml
+#   file.  That file contains the object the prototype of our object.  See
+#   the trigger system for two examples (both the actions and the boolean 
+#   clauses are constructed in this way).
+# NOTE: Generated objects should extend source/triggers/generators/generatedObject.vwf, 
+#   which extends http://vwf.example.com/node.vwf.  See that file for other
+#   requirements as well as some useful helpers.
+
+--- 
+extends: http://vwf.example.com/node.vwf
+
+implements: 
+  - http://vwf.example.com/sceneGetter.vwf
+
+properties:
+
+  # An array of hashtables, where the hashtables match from object type names 
+  #   tothe .vwf.yaml files with the correspondign object prototypes.
+  objSets$:
+
+  # A counter we use to ensure that all names are unique.
+  uniqueNameCtr$: 0
+
+methods:
+
+  # Add another object set. This allows specific applications to add their 
+  #   own functions.
+  # Arguments: 
+  #   objSet - the object set to add to the top of the stack
+  addObjectSet:
+
+  # This goes through our object sets in the reverse order from the one 
+  #   they were added in (in other words, we look in the most recently added 
+  #   object set first) until it finds the object type name that we're looking
+  #   for.  It then creates an object of that type, and attaches it to the 
+  #   parent object.
+  # Arguments: 
+  #   objDefinition - the data definition (really a JS object) that we're
+  #                   generating an object from.
+  #   parentObj     - the parent that we should attach the generated object to.
+  #   payload       - Some instances of generators use this, others may not.  
+  #                   Allows you to pass any additional data you need along
+  #                   to the generated object (for example, some trigger
+  #                   clauses need access to the trigger itself).
+  generateObject:
+
+scripts:
+- source: source/triggers/generators/generatorProto.js

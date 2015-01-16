@@ -82,17 +82,15 @@ children:
         playStartingVO_3b:
           triggerCondition:
           - and:
+            - doOnce:
             - onScenarioStart:
-            - not:
-              - readBlackboard:
-                - Level3bStartSounds
           actions:
           - playSound:
             - L3VO3_Rover_S
-          - writeToBlackboard:
-            - Level3bStartSounds
 
         failOnMove_2d:
+          group: successOrFailure
+          priority: 1
           triggerCondition:
           - onMoved:
             - rover
@@ -104,6 +102,8 @@ children:
             - FCVO4_Rover
 
         succeedOnSuccessfulCoursePlot_3b:
+          group: successOrFailure
+          priority: 0
           triggerCondition:
           - and:
             - blocklyLineEval:

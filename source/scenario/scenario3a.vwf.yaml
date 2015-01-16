@@ -85,61 +85,39 @@ children:
         playStartingVO_3a:
           triggerCondition:
           - and:
+            - doOnce:
             - onScenarioStart:
-            - not:
-              - readBlackboard:
-                - Level3aStartSounds
           actions:
           - playSound:
             - SCVO9_Rover
           - playSound:
             - L3VO2_Mission_S
-          - writeToBlackboard:
-            - Level3aStartSounds
 
         playTravelVO_1_3a:
           triggerCondition:
           - and:
+            - doOnce:
             - isAtPosition:
               - rover
               - [ 51, 8 ]
-            - not:
-              - readBlackboard:
-                - Level3aTravel1
-            - not:
-              - readBlackboard:
-                - hasSucceeded
-            - not:
-              - readBlackboard:
-                - hasFailed
           actions:
           - playSound:
             - CTVO1_Rover
-          - writeToBlackboard:
-            - Level3aTravel1
 
         playTravelVO_2_3a:
           triggerCondition:
           - and:
+            - doOnce:
             - isAtPosition:
               - rover
               - [ 41, 13 ]
-            - not:
-              - readBlackboard:
-                - Level3aTravel2
-            - not:
-              - readBlackboard:
-                - hasSucceeded
-            - not:
-              - readBlackboard:
-                - hasFailed
           actions:
           - playSound:
             - CTVO2_Control
-          - writeToBlackboard:
-            - Level3aTravel2
 
         succeedOnSuccessfulMovement_3a:
+          group: successOrFailure
+          priority: 0
           triggerCondition:
           - and:
             - onBlocklyStopped:
@@ -159,46 +137,26 @@ children:
         playHint1_3a:
           triggerCondition:
           - and:
+            - doOnce:
             - delay:
               - 20
             - not:
               - isBlocklyExecuting:
-            - not:
-              - readBlackboard:
-                - Level3aHint1
-            - not:
-              - readBlackboard:
-                - hasSucceeded
-            - not:
-              - readBlackboard:
-                - hasFailed
           actions:
           - playSound:
             - ALVO27_Rover
-          - writeToBlackboard:
-            - Level3aHint1
 
         playHint2_3a:
           triggerCondition:
           - and:
+            - doOnce:
             - delay:
               - 40
             - not:
               - isBlocklyExecuting:
-            - not:
-              - readBlackboard:
-                - Level3aHint2
-            - not:
-              - readBlackboard:
-                - hasSucceeded
-            - not:
-              - readBlackboard:
-                - hasFailed
           actions:
           - playSound:
             - ALVO28_Rover
-          - writeToBlackboard:
-            - Level3aHint2
 
   grid:
     includes: source/grid.vwf

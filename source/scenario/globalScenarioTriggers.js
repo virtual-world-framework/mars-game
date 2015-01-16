@@ -12,21 +12,17 @@
 // See the License for the specific language governing permissions and 
 // limitations under the License.
 
-var scene;
-
 this.initialize = function() {
     this.future( 0 ).onSceneLoaded();
 }
 
 this.onSceneLoaded = function() {
-    var searchArray = this.find( this.scenePath );
-    if ( searchArray.length ) {
-        scene = searchArray[ 0 ];
-    } else {
-        this.logger.errorx( "startScenario", "Failed to find the scene!" );
-    }
+    this.loadTriggers( this.scene );
 
-    this.loadTriggers( scene );
+    // TODO: This doesn't belong here (and the game won't work right until we
+    //  fix it), but it can live here for now, at least until we settle the 
+    //  ordering problems that make these necessary once and for all.
+    this.loadTriggerList( this.lateLoadTriggers, this.scene );
 }
 
 //@ sourceURL=source/scenario/globalScenarioTriggers.js

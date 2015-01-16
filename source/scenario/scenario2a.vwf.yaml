@@ -88,17 +88,15 @@ children:
         playStartingVO_2a:
           triggerCondition:
           - and:
+            - doOnce:
             - onScenarioStart:
-            - not:
-              - readBlackboard:
-                - Level2aStartSounds
           actions:
           - playSound:
             - L2VO4_Control
-          - writeToBlackboard:
-            - Level2aStartSounds
 
         failOnMove_2a:
+          group: successOrFailure
+          priority: 1
           triggerCondition:
           - onMoved:
             - rover
@@ -110,6 +108,8 @@ children:
             - FCVO4_Rover
 
         succeedOnSuccessfulGridDisplay_2a:
+          group: successOrFailure
+          priority: 0
           triggerCondition:
           - onGraphToggle:
           actions:
@@ -124,22 +124,12 @@ children:
         playHint1_2a:
           triggerCondition:
           - and:
+            - doOnce:
             - delay:
               - 20
-            - not:
-              - readBlackboard:
-                - Level2aHint1
-            - not:
-              - readBlackboard:
-                - hasSucceeded
-            - not:
-              - readBlackboard:
-                - hasFailed
           actions:
           - playSound:
             - ALVO18_Rover
-          - writeToBlackboard:
-            - Level2aHint1
 
   grid:
     includes: source/grid.vwf

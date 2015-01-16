@@ -31,7 +31,7 @@ properties:
   - setProperty:
     - rover
     - blockly_allowedBlocks
-    - 2
+    - 20
   - setProperty:
     - rover
     - lowRam
@@ -80,17 +80,15 @@ children:
         playStartingVO_1f:
           triggerCondition:
           - and:
+            - doOnce:
             - onScenarioStart:
-            - not:
-              - readBlackboard:
-                - Level1fStartSounds
           actions:
           - playSound:
             - L1VO14_Rover
-          - writeToBlackboard:
-            - Level1fStartSounds
 
         succeedOnSuccess_1f:
+          group: successOrFailure
+          priority: 0
           triggerCondition:
           - and:
             - onBlocklyStopped:
@@ -113,22 +111,12 @@ children:
         playHint1_1f:
           triggerCondition:
           - and:
+            - doOnce:
             - delay:
               - 18
-            - not:
-              - readBlackboard:
-                - Level1fHint1
-            - not:
-              - readBlackboard:
-                - hasSucceeded
-            - not:
-              - readBlackboard:
-                - hasFailed
           actions:
           - playSound:
             - ALVO35_Rover
-          - writeToBlackboard:
-            - Level1fHint1
 
         setCameraView:
           triggerCondition:

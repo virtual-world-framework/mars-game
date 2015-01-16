@@ -25,8 +25,6 @@ properties:
   activeScenarioPath:
     set: |
       this.setScenario( value );
-      this.activeScenarioPath = value;
-    value: "mainMenuScenario"
   playerId: "test"
   version: 1.0
   sceneBlackboard: {}
@@ -81,6 +79,7 @@ events:
   progressFound:
   loadedGame:
   storedScenario:
+  blackboardWritten:
 children:
   gameCam:
     includes: source/gameCamera.vwf
@@ -113,6 +112,8 @@ children:
   #   includes: source/instrumentationManager.vwf
   globalTriggerManager:
     includes: source/scenario/globalScenarioTriggers.vwf
+  triggerGroupManager:
+    includes: source/triggers/groups/triggerGroupManager.vwf
   environment:
     extends: http://vwf.example.com/node3.vwf
     source: assets/3d/Terrain/scene.dae

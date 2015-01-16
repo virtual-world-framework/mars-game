@@ -354,15 +354,6 @@ function getActions() {
             "optionalArgs": [],
             "repeatedArgs": []
         },
-        "incrementBlackboardValue": {
-            "display": "Increment Blackboard Value",
-            "description": "Increments a Blackboard entry's value if it is a number.",
-            "requiredArgs": [
-                { "Name": "string" }
-            ],
-            "optionalArgs": [],
-            "repeatedArgs": []
-        },
         "blinkHUDElement": {
             "display": "Blink HUD Element",
             "description": "Causes the specified HUD element to flash.",
@@ -445,13 +436,6 @@ function getActions() {
             "repeatedArgs": []
         },
         // "resetRoverSensors": {
-        //     "display": "",
-        //     "description": "",
-        //     "requiredArgs": [],
-        //     "optionalArgs": [],
-        //     "repeatedArgs": []
-        // },
-        // "resetHUDState": {
         //     "display": "",
         //     "description": "",
         //     "requiredArgs": [],

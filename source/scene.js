@@ -36,34 +36,52 @@ this.initialize = function() {
 }
 
 this.setScenario = function( path ) {
-    var scenario = this.find( path )[ 0 ];
-    if ( scenario ) {
-        if ( scenario.grid && scenario.grid.clearGrid ) {
-            scenario.grid.clearGrid();
+    if ( path ) {
+        var scenario = this.find( path )[ 0 ];
+        if ( scenario ) {
+            this.activeScenarioPath = path;
+            // TODO: remove knowledge of inner workings of the scenario; let 
+            //  the scenario itself handle bookkeeping in its event handlers.
+             if ( scenario.grid && scenario.grid.clearGrid ) {
+                 scenario.grid.clearGrid();
+             }
+            calcGridBounds( scenario.grid );
+            this.createGridDisplay( scenario.grid );
+            // TODO: pass the scenario, not the name.  Or else just send the 
+            //  event without looking the scenario itself up.  Or assert that 
+            //  the scenario exists.  Or something.
+            this.scenarioChanged( scenario.name, gridBounds );
+            scenario.future( 0 ).startScenario();
+        } else {
+            this.logger.warnx( "setScenario", "Scenario for path '" + path + 
+                               "' not found." );
         }
-        scenario.future( 0 ).startScenario();
-        calcGridBounds( scenario.grid );
-        this.scenarioChanged( scenario.name, gridBounds );
-    } else {
-        this.logger.warnx( "setScenario", "Scenario for path '" + path + "' not found." );
     }
 }
 
 this.resetScenario = function() {
     var scenario = this.getCurrentScenario();
     if ( scenario ) {
+        // TODO: remove knowledge of inner workings of the scenario; let the
+        //  scenario itself handle bookkeeping in its event handlers.
         if ( scenario.grid && scenario.grid.clearGrid ) {
             scenario.grid.clearGrid();
         }      
-        scenario.future( 0 ).startScenario();
+        // TODO: pass the scenario, not the name.  Or else just send the event
+        //  without looking the scenario itself up.  Or assert that the scenario
+        //  exists.  Or something.
         this.scenarioReset( scenario.name );
+        scenario.future( 0 ).startScenario();
     } else {
         this.logger.warnx( "resetScenario", "Invalid scenario path: " + this.activeScenarioPath );
     }
 }
 
 this.advanceScenario = function() {
+    // TODO: handle this in the scenario.  Let it depend on us rather than vice
+    //  versa (we shouldn't have to know the inner workings of the scenario)
     var scenario = this.getCurrentScenario();
+    calcGridBounds( scenario.grid );
     if ( scenario.nextScenarioPath ) {
         this.activeScenarioPath = scenario.nextScenarioPath;
     } else {
@@ -71,6 +89,7 @@ this.advanceScenario = function() {
     }
 }
 
+// TODO: can we eliminate this?
 this.getScenarioPaths = function() {
     var scenarios = this.getScenarios();
     var paths = new Array();
@@ -80,11 +99,13 @@ this.getScenarioPaths = function() {
     this.gotScenarioPaths( paths );
 }
 
+// TODO: can we eliminate this?
 this.getScenarios = function() {
     var scenarios = this.find( ".//element(*,'source/scenario/scenario.vwf')" );
     return scenarios;
 }
 
+// TODO: can we eliminate this?
 this.getCurrentScenario = function() {
     // TODO: make this handle more than one scenario
     return this.find( this.activeScenarioPath )[ 0 ];
@@ -146,7 +167,8 @@ function calcGridBounds( grid ) {
 this.executeBlock = function ( block, action ) {
     var blockName = block[ 0 ];
     var blockID = block[ 1 ];
-    this.blockExecuted( blockName, blockID );
+    //SJF: Was breaking procedures
+    //this.blockExecuted( blockName, blockID );
 
     var nodeID = action[ 0 ];
     var methodName = action[ 1 ];
@@ -171,8 +193,9 @@ this.setUpCameraListener = function() {
 this.setUpRoverListeners = function() {
     this.scenarioChanged = ( function( scenarioName ) {
         this.player.rover.findAndSetCurrentGrid( scenarioName );
+        //this.player.rover.findAndSetCurrentGrid( this.activeScenarioPath );
     } ).bind( this );
-    // rover.findAndSetCurrentGrid( this.activeScenarioPath );
+     //rover.findAndSetCurrentGrid( this.activeScenarioPath );
 }
 
 this.displayTiles = function( isVisible ) {

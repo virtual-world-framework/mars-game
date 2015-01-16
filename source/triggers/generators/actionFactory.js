@@ -105,7 +105,7 @@ this.actionSet.stopSoundGroup = function( params, context ) {
 }
 
 this.actionSet.stopAllSounds = function( params, context ) {
-    if ( !params || params.length !== 0 ) {
+    if ( params && params.length !== 0 ) {
         self.logger.warnx( "stopAllSounds", "stopAllSounds doesn't take any parameters!" );
     }
     var soundMgr = getSoundMgr( context );
@@ -175,6 +175,9 @@ this.actionSet.writeToBlackboard = function( params, context ) {
         default:
             return function() {
                 context.sceneBlackboard[ name ] = value;
+                // TODO: think about the best (safe) way to do this.  Maybe 
+                //  bring the idea of additional conditions back?
+//                context.blackboardWritten( name );
             }
     }
 }
@@ -187,20 +190,6 @@ this.actionSet.clearBlackboardEntry = function( params, context ) {
     }
     return function() {
         context.sceneBlackboard[ params[ 0 ] ] = undefined;
-    }
-}
-
-this.actionSet.incrementBlackboardValue = function( params, context ) {
-    if ( params && params.length < 1 ) {
-        self.logger.errorx( "incrementBlackboardValue", "This action takes one parameter: variable name.");
-        return undefined;
-    }
-    return function() {
-        if ( context.sceneBlackboard[ params[ 0 ] ] === undefined ){
-            context.sceneBlackboard[ params[ 0 ] ] = 1;
-        } else {
-            ++context.sceneBlackboard[ params[ 0 ] ];
-        }
     }
 }
 
@@ -325,16 +314,6 @@ this.actionSet.resetRoverSensors = function( params, context ) {
     }
 }
 
-this.actionSet.resetHUDState = function( params, context ) {
-    if ( params && params.length > 0 ) {
-        self.logger.errorx( "resetHUDState", "This action takes no parameters.");
-        return undefined;
-    }
-    return function() {
-        context.resetHUDState();
-    }
-}
-
 this.actionSet.playVideo = function( params, context ) {
     if ( !params || params.length > 1 ) {
         self.logger.errorx( "playVideo", "This action takes one parameter: the source of the video");
@@ -389,9 +368,11 @@ this.actionSet.callOutObjective = function( params, context ) {
         return undefined;
     }
     var callOutTile = context.gridTileGraph.callOutTile;
-    var grid = context[ context.activeScenarioPath ].grid;
     var tileCoords = params[ 0 ];
     return function() {
+        var scenario = context[ context.activeScenarioPath ];
+        self.assert( scenario );
+        var grid = scenario.grid;
         var coords = grid.getWorldFromGrid( tileCoords[ 0 ], tileCoords[ 1 ] );
         callOutTile.callOut( coords );
     }
@@ -437,4 +418,4 @@ function setOrbitingFalse( camera ) {
     camera.orbiting && ( camera.orbiting = false );
 }
 
-//@ sourceURL=source/triggers/actionFactory.js
+//@ sourceURL=source/triggers/generators/actionFactory.js

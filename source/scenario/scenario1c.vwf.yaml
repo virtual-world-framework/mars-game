@@ -31,7 +31,7 @@ properties:
   - setProperty:
     - rover
     - blockly_allowedBlocks
-    - 3
+    - 20
   - setProperty:
     - rover
     - lowRam
@@ -117,6 +117,8 @@ children:
             - cameraSelector
 
         succeedOnSuccess_1c:
+          group: successOrFailure
+          priority: 0
           triggerCondition:
           - onHelicamToggle:
           actions:
@@ -135,62 +137,32 @@ children:
         playHint1_1c:
           triggerCondition:
           - and:
+            - doOnce:
             - delay:
               - 10
-            - not:
-              - readBlackboard:
-                - Level1cHint1
-            - not:
-              - readBlackboard:
-                - hasSucceeded
-            - not:
-              - readBlackboard:
-                - hasFailed
           actions:
           - playSound:
             - ALVO17_Rover
-          - writeToBlackboard:
-            - Level1cHint1
 
         playHint2_1c:
           triggerCondition:
           - and:
+            - doOnce:
             - delay:
               - 20
-            - not:
-              - readBlackboard:
-                - Level1cHint2
-            - not:
-              - readBlackboard:
-                - hasSucceeded
-            - not:
-              - readBlackboard:
-                - hasFailed
           actions:
           - playSound:
             - ALVO34_Rover
-          - writeToBlackboard:
-            - Level1cHint2
 
         playHint3_1c:
           triggerCondition:
           - and:
+            - doOnce:
             - delay:
               - 40
-            - not:
-              - readBlackboard:
-                - Level1cHint3
-            - not:
-              - readBlackboard:
-                - hasSucceeded
-            - not:
-              - readBlackboard:
-                - hasFailed
           actions:
           - playSound:
             - ALVO41_Rover
-          - writeToBlackboard:
-            - Level1cHint3
 
         setCameraView:
           triggerCondition:

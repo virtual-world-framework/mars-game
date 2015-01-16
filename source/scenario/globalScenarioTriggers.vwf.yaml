@@ -13,6 +13,15 @@
 # limitations under the License.
 
 ---
+
+# This is as good a place as any to coordinate trigger group priorities, so...
+#   successOrFailure:
+#     failure (out of power): -2
+#     failure (incomplete program, generic): -1
+#     failure (incomplete program, scenario specific): -0.5
+#     success: 0
+#     failure (collision): 1
+
 extends: source/triggers/triggerManager.vwf
 properties: 
   scenePath: /
@@ -23,15 +32,11 @@ properties:
   #   which they fire.
   lateLoadTriggers:
     failOnIncompleteProgram:
+      group: successOrFailure
+      priority: -1
       triggerCondition:
       - and:
         - onBlocklyStopped:
-        - not:
-          - readBlackboard:
-            - hasFailed
-        - not:
-          - readBlackboard:
-            - hasSucceeded
         - not:
           - readBlackboard:
             - disableFailOnIncompleteProgram
@@ -45,9 +50,6 @@ properties:
       triggerCondition:
       - and:
         - onBlocklyStopped:
-        - not:
-          - readBlackboard:
-            - hasSucceeded
         - not:
           - readBlackboard:
             - disableFailOnIncompleteProgram
@@ -70,9 +72,6 @@ properties:
           - stepThroughProgramHint
         - not:
           - readBlackboard:
-            - hasSucceeded
-        - not:
-          - readBlackboard:
             - disableFailOnIncompleteProgram
         - not:
           - readBlackboard:
@@ -91,12 +90,7 @@ properties:
       - onScenarioStart:
       actions:
       - clearBlackboardEntry:
-        - hasSucceeded
-      - clearBlackboardEntry:
-        - hasFailed
-      - clearBlackboardEntry:
         - disableFailOnIncompleteProgram
-      - resetHUDState:
 
     recordKeepingOnSuccess:
       triggerCondition:
@@ -106,16 +100,12 @@ properties:
         - musicSuccess
       - stopSound:
         - musicFailure
-      - writeToBlackboard:
-        - hasSucceeded
       - cancelCallOut:
 
     recordKeepingOnFailure:
       triggerCondition:
       - onScenarioFailed:
       actions:
-      - writeToBlackboard:
-        - hasFailed
       - stopSound:
         - musicStandardGameplay
       - stopSound:
@@ -128,14 +118,12 @@ properties:
         - musicFailure
 
     failOnCollision:
+      group: successOrFailure
+      priority: 2
       triggerCondition:
-      - and:
-        - moveFailed:
-          - rover
-          - collision
-        - not:
-          - readBlackboard:
-            - hasFailed
+      - moveFailed:
+        - rover
+        - collision
       actions:
       - scenarioFailure:        
         - collision
@@ -179,14 +167,12 @@ properties:
           - ALVO32_Rover
 
     failOnBatteryDepleted:
+      group: successOrFailure
+      priority: -2
       triggerCondition:
-      - and:
-        - moveFailed:
-          - rover
-          - battery
-        - not:
-          - readBlackboard:
-            - hasFailed
+      - moveFailed:
+        - rover
+        - battery
       actions:
       - scenarioFailure:         
         - battery
