@@ -611,6 +611,8 @@ properties:
 methods:
   setUpSubtitles:
   startSubtitle:
+  transmogrify:
+
 children:
 scripts:
 - source: source/marsGameSound.js
