@@ -17,20 +17,10 @@
 this.initialize = function() {
     //Load sounds defined in yaml file
     this.setVoiceSet( this.voiceSet );
-    // for ( var i = 0; i < this.soundSet.length; ++i ) {
-    //         this.loadSound( this.soundSet[i] );
-    // }
-
-    // for( var j = 0; j < this.soundSet.length; ++j  ){
-
-    // }
-
     var currSound;
     for( currSound in this.soundSet ) {
          this.loadSound( this.soundSet[currSound] );
     }
-
-    // for ( currSound in this.nathanSet ){
 
     this.future( 0 ).setUpSubtitles();
 }
@@ -45,7 +35,15 @@ this.setUpSubtitles = function() {
 }
 
 this.playSoundWrapper = function( soundName, exitCallback ){
-    this.playSound( soundName, exitCallback );
+    var currSound = this.soundSet[soundName];
+    if( currSound.voice && currSound.textToSpeechInput ){
+        console.log("Playing TTS sound");
+        this.playSound( soundName, exitCallback );
+    } else {
+        console.log("Playing normal sound");
+        this.playSound( soundName, exitCallback );
+    }
+    
 }
 
 function startSubtitle( instanceHandle ) {
