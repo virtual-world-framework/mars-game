@@ -32,6 +32,10 @@ this.setUpSubtitles = function() {
     }
 }
 
+this.playSoundWrapper = function( soundName, exitCallback ){
+    this.playSound( soundName, exitCallback );
+}
+
 function startSubtitle( instanceHandle ) {
     var scene = this.find( "/" )[ 0 ];
     if ( this.hasSubtitle( instanceHandle ) ) {
