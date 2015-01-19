@@ -32,9 +32,11 @@ this.setUpSubtitles = function() {
     }
 }
 
+/*
 this.transmogrify = function() {
     console.log("Not the transmogrify you were looking for!");
 }
+*/
 
 function startSubtitle( instanceHandle ) {
     var scene = this.find( "/" )[ 0 ];

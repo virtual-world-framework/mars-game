@@ -130,5 +130,7 @@ properties:
     # arguments: none
     initGameOnLoad:
 
+    transmogrify:
+
 scripts:
 - source: source/triggers/actionFactory.js
