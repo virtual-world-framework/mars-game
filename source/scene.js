@@ -45,7 +45,7 @@ this.setApplicationState = function( state ) {
             break;
         case "menu":
             this.mainMenu.visible = true;
-            this.mainMenu.future( 0 ).animate();
+            this.mainMenu.future( 0 ).setup();
             // TODO: Consolidate game nodes
             this.environment.visible = false;
             this.player.visible = false;
