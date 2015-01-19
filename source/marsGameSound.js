@@ -17,14 +17,21 @@
 this.initialize = function() {
     //Load sounds defined in yaml file
     this.setVoiceSet( this.voiceSet );
-    for ( var i = 0; i < this.soundSet.length; ++i ) {
-            this.loadSound( this.soundSet[i] );
-    }
-    // var soundName;
-    // for ( soundName in this.nathanSet ){
-    //     int leet = 1337;
-    //     //this.loadSound( soundName );
+    // for ( var i = 0; i < this.soundSet.length; ++i ) {
+    //         this.loadSound( this.soundSet[i] );
     // }
+
+    // for( var j = 0; j < this.soundSet.length; ++j  ){
+
+    // }
+
+    var currSound;
+    for( currSound in this.soundSet ) {
+         this.loadSound( this.soundSet[currSound] );
+    }
+
+    // for ( currSound in this.nathanSet ){
+
     this.future( 0 ).setUpSubtitles();
 }
 
