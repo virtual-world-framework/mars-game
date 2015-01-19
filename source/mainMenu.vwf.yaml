@@ -17,6 +17,7 @@ extends: http://vwf.example.com/node3.vwf
 implements:
   - http://vwf.example.com/sceneGetter.vwf
 methods:
+  setup:
   animate:
 children:
   target:
@@ -38,34 +39,12 @@ children:
     properties:
       axis: [ 0.25, 0, 0.9 ]
       rotationRate: 0.05
-    methods:
-      rotatePlanet:
-    scripts: |
-      this.rotatePlanet = function() {
-        if ( this.parent.scene.applicationState !== "menu" ) {
-          return;
-        }
-        this.rotateBy( [ this.axis[0], this.axis[1], this.axis[2], this.rotationRate, 0 ] );
-        this.future( 0.05 ).rotatePlanet();
-      }
   satellite:
     extends: http://vwf.example.com/node3.vwf
     source: assets/3d/Start/satellite.dae
     type: model/vnd.collada+xml
     properties:
       scale: 0.5
-    methods:
-      moveSatellite:
-    scripts: |
-      this.moveSatellite = function() {
-        if ( this.parent.scene.applicationState !== "menu" ) {
-          return;
-        }
-        var theta = ( this.time * 0.25 ) % ( 2 * Math.PI );
-        this.translateTo( [ -2.5 + Math.sin( theta ) * 0.1, -7.5, 0.5 + Math.cos( theta ) * 0.075 - 0.25 ] );
-        this.rotateBy( [ 0, 0.5, 0.5, Math.sin( theta ) * 0.1 ] );
-        this.future( 0.05 ).moveSatellite();
-      }
   stars:
     extends: http://vwf.example.com/node3.vwf
     source: assets/3d/Start/stars.dae
@@ -80,7 +59,6 @@ children:
               tex.wrapS = tex.wrapT = THREE.RepeatWrapping;
               this.uniforms.tex.value = tex;
               this.texture = value;
-              this.uniforms = this.uniforms;
             value: "assets/3d/Start/stars.jpg"
           uniforms:
             tex:
