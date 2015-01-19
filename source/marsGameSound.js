@@ -20,6 +20,11 @@ this.initialize = function() {
     for ( var i = 0; i < this.soundSet.length; ++i ) {
             this.loadSound( this.soundSet[i] );
     }
+    // var soundName;
+    // for ( soundName in this.nathanSet ){
+    //     int leet = 1337;
+    //     //this.loadSound( soundName );
+    // }
     this.future( 0 ).setUpSubtitles();
 }
 
