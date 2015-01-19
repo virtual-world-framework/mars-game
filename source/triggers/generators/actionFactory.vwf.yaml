@@ -19,7 +19,10 @@
 # functions from the yaml.
 
 --- 
-extends: source/triggers/declarativeFunctionExecutor.vwf
+extends: source/triggers/generators/declarativeFunctionExecutor.vwf
+
+implements: 
+  - http://vwf.example.com/assert.vwf
 
 properties:
 
@@ -62,11 +65,6 @@ properties:
     # to determine whether an action has occurred.
     # arguments: variableName, value (optional, default = 1)
     writeToBlackboard:
-
-    # increments a value to the sceneBlackboard which can be referenced later
-    # to determine whether an action has occurred.
-    # arguments: variableName
-    incrementBlackboardValue:
 
     # clears the value at the specified blackboard variableName
     # arguments: variableName
@@ -131,4 +129,4 @@ properties:
     initGameOnLoad:
 
 scripts:
-- source: source/triggers/actionFactory.js
+- source: source/triggers/generators/actionFactory.js

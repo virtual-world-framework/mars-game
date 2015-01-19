@@ -84,17 +84,15 @@ children:
         playStartingVO_1g:
           triggerCondition:
           - and:
+            - doOnce:
             - onScenarioStart:
-            - not:
-              - readBlackboard:
-                - Level1gStartSounds
           actions:
           - playSound:
             - ALVO42_Rover
-          - writeToBlackboard:
-            - Level1gStartSounds
 
         succeedOnSuccess_1g:
+          group: successOrFailure
+          priority: 0
           triggerCondition:
           - and:
             - onBlocklyStopped:
@@ -102,9 +100,6 @@ children:
             - isAtPosition:
               - rover
               - [ 8, 2 ]
-            - not:
-              - readBlackboard:
-                - hasFailed
           actions:
           - scenarioSuccess:
           - showAlert:

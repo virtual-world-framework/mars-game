@@ -97,17 +97,15 @@ children:
         playStartingVO_1d:
           triggerCondition:
           - and:
+            - doOnce:
             - onScenarioStart:
-            - not:
-              - readBlackboard:
-                - Level1dStartSounds
           actions:
           - playSound:
             - L1VO10_Rover
-          - writeToBlackboard:
-            - Level1dStartSounds
 
         succeedOnSuccess_1d:
+          group: successOrFailure
+          priority: 0
           triggerCondition:
           - onTilesToggle:
           actions:
@@ -124,22 +122,12 @@ children:
         playHint1_1d:
           triggerCondition:
           - and:
+            - doOnce:
             - delay:
               - 13
-            - not:
-              - readBlackboard:
-                - Level1dHint1
-            - not:
-              - readBlackboard:
-                - hasSucceeded
-            - not:
-              - readBlackboard:
-                - hasFailed
           actions:
           - playSound:
             - ALVO18_Rover
-          - writeToBlackboard:
-            - Level1dHint1
 
         setCameraView:
           triggerCondition:

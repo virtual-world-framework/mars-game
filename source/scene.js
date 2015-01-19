@@ -32,38 +32,113 @@ this.initialize = function() {
     this.initializeActiveCamera( this.gameCam.camera );
     this.setUpCameraListener();
     this.setUpRoverListeners();
-    this.gameCam.setCameraTarget( this.player.rover );
+    this.future( 3 ).applicationLoaded();
+}
+
+this.applicationLoaded = function() {
+    this.applicationState = "menu";
+}
+
+this.setApplicationState = function( state ) {
+    switch ( state ) {
+        case "loading":
+            break;
+        case "menu":
+            this.mainMenu.visible = true;
+            this.mainMenu.future( 0 ).setup();
+            // TODO: Consolidate game nodes
+            this.environment.visible = false;
+            this.player.visible = false;
+            this.airDust.visible = false;
+            this.smoke1.visible = false;
+            this.smoke2.visible = false;
+            this.smoke3.visible = false;
+            this.backdrop.visible = false;
+            this.sunLight.visible = false;
+            this.envLight.visible = false;
+            this.pickups.visible = false;
+            break;
+        case "playing":
+            this.mainMenu.visible = false;
+            this.soundManager.stopSoundGroup( "music" );
+            this.gameCam.setCameraTarget( this.player.rover );
+            // TODO: Consolidate game nodes
+            this.environment.visible = true;
+            this.player.visible = true;
+            this.airDust.visible = true;
+            this.smoke1.visible = true;
+            this.smoke2.visible = true;
+            this.smoke3.visible = true;
+            this.backdrop.visible = true;
+            this.sunLight.visible = true;
+            this.envLight.visible = true;
+            this.pickups.visible = true;
+            break;
+        default:
+            this.logger.errorx( "setApplicationState", "Invalid application "
+                + "state: \'" + state + "\'" );
+            return;
+    }
+    this.applicationState = state;
+}
+
+this.newGame = function() {
+    this.applicationState = "playing";
+    this.activeScenarioPath = "introScreenScenario";
+}
+
+this.continueGame = function( scenario ) {
+    this.applicationState = "playing";
+    this.activeScenarioPath = scenario;
 }
 
 this.setScenario = function( path ) {
-    var scenario = this.find( path )[ 0 ];
-    if ( scenario ) {
-        if ( scenario.grid && scenario.grid.clearGrid ) {
-            scenario.grid.clearGrid();
+    if ( path ) {
+        var scenario = this.find( path )[ 0 ];
+        if ( scenario ) {
+            this.activeScenarioPath = path;
+            // TODO: remove knowledge of inner workings of the scenario; let 
+            //  the scenario itself handle bookkeeping in its event handlers.
+             if ( scenario.grid && scenario.grid.clearGrid ) {
+                 scenario.grid.clearGrid();
+             }
+            calcGridBounds( scenario.grid );
+            this.createGridDisplay( scenario.grid );
+            // TODO: pass the scenario, not the name.  Or else just send the 
+            //  event without looking the scenario itself up.  Or assert that 
+            //  the scenario exists.  Or something.
+            this.scenarioChanged( scenario.name, gridBounds );
+            scenario.future( 0 ).startScenario();
+        } else {
+            this.logger.warnx( "setScenario", "Scenario for path '" + path + 
+                               "' not found." );
         }
-        scenario.future( 0 ).startScenario();
-        calcGridBounds( scenario.grid );
-        this.scenarioChanged( scenario.name, gridBounds );
-    } else {
-        this.logger.warnx( "setScenario", "Scenario for path '" + path + "' not found." );
     }
 }
 
 this.resetScenario = function() {
     var scenario = this.getCurrentScenario();
     if ( scenario ) {
+        // TODO: remove knowledge of inner workings of the scenario; let the
+        //  scenario itself handle bookkeeping in its event handlers.
         if ( scenario.grid && scenario.grid.clearGrid ) {
             scenario.grid.clearGrid();
         }      
-        scenario.future( 0 ).startScenario();
+        // TODO: pass the scenario, not the name.  Or else just send the event
+        //  without looking the scenario itself up.  Or assert that the scenario
+        //  exists.  Or something.
         this.scenarioReset( scenario.name );
+        scenario.future( 0 ).startScenario();
     } else {
         this.logger.warnx( "resetScenario", "Invalid scenario path: " + this.activeScenarioPath );
     }
 }
 
 this.advanceScenario = function() {
+    // TODO: handle this in the scenario.  Let it depend on us rather than vice
+    //  versa (we shouldn't have to know the inner workings of the scenario)
     var scenario = this.getCurrentScenario();
+    calcGridBounds( scenario.grid );
     if ( scenario.nextScenarioPath ) {
         this.activeScenarioPath = scenario.nextScenarioPath;
     } else {
@@ -71,6 +146,7 @@ this.advanceScenario = function() {
     }
 }
 
+// TODO: can we eliminate this?
 this.getScenarioPaths = function() {
     var scenarios = this.getScenarios();
     var paths = new Array();
@@ -80,11 +156,13 @@ this.getScenarioPaths = function() {
     this.gotScenarioPaths( paths );
 }
 
+// TODO: can we eliminate this?
 this.getScenarios = function() {
     var scenarios = this.find( ".//element(*,'source/scenario/scenario.vwf')" );
     return scenarios;
 }
 
+// TODO: can we eliminate this?
 this.getCurrentScenario = function() {
     // TODO: make this handle more than one scenario
     return this.find( this.activeScenarioPath )[ 0 ];
@@ -171,8 +249,9 @@ this.setUpCameraListener = function() {
 this.setUpRoverListeners = function() {
     this.scenarioChanged = ( function( scenarioName ) {
         this.player.rover.findAndSetCurrentGrid( scenarioName );
+        //this.player.rover.findAndSetCurrentGrid( this.activeScenarioPath );
     } ).bind( this );
-    // rover.findAndSetCurrentGrid( this.activeScenarioPath );
+     //rover.findAndSetCurrentGrid( this.activeScenarioPath );
 }
 
 this.displayTiles = function( isVisible ) {
@@ -212,7 +291,7 @@ this.restartGame = function() {
     this.sceneBlackboard = {};
     this.soundManager.stopAllSoundInstances();
     this.storedScenario( this.activeScenarioPath );
-    this.activeScenarioPath = "mainMenuScenario";
+    this.applicationState = "menu";
 }
 
 this.attemptLogin = function( userID ) {

@@ -25,11 +25,18 @@ properties:
   activeScenarioPath:
     set: |
       this.setScenario( value );
-      this.activeScenarioPath = value;
-    value: "mainMenuScenario"
   playerId: "test"
   version: 1.0
   sceneBlackboard: {}
+  # applicationState tracks what the application is currently doing
+  #   in its execution process.
+  #   Valid states are: loading, menu, playing
+  # TODO: Potential app states: paused, video, syncing (allowing all
+  #   clients to reach the same state before continuing)
+  applicationState:
+    set: |
+      this.setApplicationState( value );
+    value: loading
 methods:
   setScenario:
   resetScenario:
@@ -49,6 +56,10 @@ methods:
   restartGame:
   attemptLogin:
   loadGame:
+  setApplicationState:
+  newGame:
+  continueGame:
+  applicationLoaded:
 events:
   gameStarted:
   scenarioReset:
@@ -81,7 +92,10 @@ events:
   progressFound:
   loadedGame:
   storedScenario:
+  blackboardWritten:
 children:
+  mainMenu:
+    includes: source/mainMenu.vwf
   gameCam:
     includes: source/gameCamera.vwf
   cinematicCameraController:
@@ -113,6 +127,8 @@ children:
   #   includes: source/instrumentationManager.vwf
   globalTriggerManager:
     includes: source/scenario/globalScenarioTriggers.vwf
+  triggerGroupManager:
+    includes: source/triggers/groups/triggerGroupManager.vwf
   environment:
     extends: http://vwf.example.com/node3.vwf
     source: assets/3d/Terrain/scene.dae
@@ -144,12 +160,6 @@ children:
         extends: http://vwf.example.com/node3.vwf
         source: assets/3d/Terrain/rover_tracks_straight.dae
         type: model/vnd.collada+xml
-  collisionTerrain:
-    extends: http://vwf.example.com/node3.vwf
-    source: assets/3d/Terrain/collision_terrain.dae
-    type: model/vnd.collada+xml
-    properties:
-      visible: false
   airDust:
     includes: source/dustAir.vwf
   smoke1:
@@ -240,7 +250,7 @@ children:
               this.terrainName = value;
               this.terrain = this.find( "//" + value )[ 0 ];
               //@ sourceURL=index.vwf.player.rover.terrainName.set
-            value: collisionTerrain
+            value: environment
           terrain:
             get: |
               if ( !this.terrain ) {
@@ -351,8 +361,6 @@ children:
         extends: source/pickups/helicam.vwf
       minirover:
         extends: source/pickups/minirover.vwf
-  mainMenuScenario:
-    includes: source/scenario/mainMenu.vwf
   introScreenScenario:
     includes: source/scenario/introScreenScenario.vwf
   scenario1a:
