@@ -75,6 +75,7 @@ this.playSoundWrapper = function( soundName, exitCallback ){
             var meSpeakBuf = meSpeak.speak( speechStr, meSpeakOpts );
 
             currSound.playOnLoad = true; //no need to call playSound()
+            currSound.deleteAfterPlay = true;
             this.loadSound( currSound, undefined, undefined, meSpeakBuf ); 
         } else {
             //TODO: Um... throw a warning? We aren't supposed to be in this state...
