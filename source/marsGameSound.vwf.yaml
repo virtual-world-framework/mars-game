@@ -20,16 +20,16 @@ properties:
   voiceSet:
     roverVoice:
       ttsAmplitude: 100
-      ttsVariant: "m1"
+      ttsVariant: "m7"
       ttsWordGap: 0
-      ttsSpeed: 162
-      ttsPitch: 50
+      ttsSpeed: 148
+      ttsPitch: 45
     mcVoice:
       ttsAmplitude: 100
-      ttsVariant: "f1"
+      ttsVariant: "f2"
       ttsWordGap: 0
-      ttsSpeed: 162
-      ttsPitch: 70
+      ttsSpeed: 180
+      ttsPitch: 90
 
   soundSet:
     musicStandardGameplay:
@@ -97,7 +97,7 @@ properties:
       useTextToSpeech: true
       initialVolume: 0.65
       subtitle: "[ROVER]: Where am I? Who am I? I appear to be on Mars. I have wheels, a computer for a brain, and a battery. Hmm...if I had to guess I would say that I'm a rover!"
-      textToSpeechInput: "Where am I? Who am I? I appear to be on Mars. I have wheels, a computer for a brain, and a battery. Hmm...if I had to guess I would say that I'm a rover!"
+      textToSpeechInput: "Where amm I? Who amm I? I appear to be on Mars. I have wheels, a computer for a brain, and a battery. Hmm...if I had to guess I would say that I'm a rover!"
       voice: roverVoice
       soundGroup: vo
       groupReplacementMethod: queue
