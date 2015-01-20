@@ -176,7 +176,7 @@ this.setHeightFromTerrain = function ( object ) {
     var terrain = this.find( "//" + object.terrainName )[ 0 ];
     if ( scene && origin && terrain ) {
         var intersects = scene.raycast( origin, [ 0, 0, -1 ], 0, Infinity, true, terrain.id );
-        var terrainHeight = intersects.length > 0 ? intersects[ 0 ].point.z : object.translation[ 2 ];
+        var terrainHeight = intersects.length > 0 ? intersects[ 0 ].point[ 2 ] : object.translation[ 2 ];
         object.translation = [ origin[ 0 ], origin[ 1 ], terrainHeight ];
     }
 }
