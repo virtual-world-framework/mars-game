@@ -55,23 +55,25 @@ this.playSoundWrapper = function( soundName, exitCallback ){
 
             //TODO: there might be a way to assign this.voiceSet[currVoice] directly to meSpeakOpts, which would
             //make the code cleaner.
-            if ( this.voiceSet[currVoice].ttsAmplitude !== undefined ) {
-                meSpeakOpts.amplitude = this.voiceSet[currVoice].ttsAmplitude;
-            } 
-            if ( this.voiceSet[currVoice].ttsVariant !== undefined ) {
-                meSpeakOpts.variant = this.voiceSet[currVoice].ttsVariant;
-            } 
-            if ( this.voiceSet[currVoice].ttsWordGap !== undefined ) {
-                meSpeakOpts.wordgap = this.voiceSet[currVoice].ttsWordGap;
-            } 
-            if ( this.voiceSet[currVoice].ttsSpeed !== undefined ) {
-                meSpeakOpts.speed = this.voiceSet[currVoice].ttsSpeed;
-            } 
-            if ( this.voiceSet[currVoice].ttsPitch !== undefined ) {
-                meSpeakOpts.pitch = this.voiceSet[currVoice].ttsPitch;
-            } 
-            
-            meSpeakOpts.rawdata = 'default';
+            // if ( this.voiceSet[currVoice].ttsAmplitude !== undefined ) {
+            //     meSpeakOpts.amplitude = this.voiceSet[currVoice].ttsAmplitude;
+            // } 
+            // if ( this.voiceSet[currVoice].ttsVariant !== undefined ) {
+            //     meSpeakOpts.variant = this.voiceSet[currVoice].ttsVariant;
+            // } 
+            // if ( this.voiceSet[currVoice].ttsWordGap !== undefined ) {
+            //     meSpeakOpts.wordgap = this.voiceSet[currVoice].ttsWordGap;
+            // } 
+            // if ( this.voiceSet[currVoice].ttsSpeed !== undefined ) {
+            //     meSpeakOpts.speed = this.voiceSet[currVoice].ttsSpeed;
+            // } 
+            // if ( this.voiceSet[currVoice].ttsPitch !== undefined ) {
+            //     meSpeakOpts.pitch = this.voiceSet[currVoice].ttsPitch;
+            // } 
+
+            meSpeakOpts = this.voiceSet[currVoice];
+            //rawdata option must be set to something in order for meSpeak to give us a buffer
+            meSpeakOpts.rawdata = 'default'; 
             var meSpeakBuf = this.speak( speechStr, meSpeakOpts );
 
             currSound.playOnLoad = true; //no need to call playSound()

@@ -19,19 +19,37 @@ implements:
 properties:
   allSoundsLoaded: false
   setUpOnce: true
+
+  #See http://www.masswerk.at/mespeak/, usage section for 
+  #more information on voice parameters.
+
+  #See the following for SSML:
+  #http://en.wikipedia.org/wiki/Speech_Synthesis_Markup_Language
   voiceSet:
     roverVoice:
-      ttsAmplitude: 100
-      ttsVariant: "m7"
-      ttsWordGap: 0
-      ttsSpeed: 148
-      ttsPitch: 45
+      amplitude: 100
+      variant: "m7"
+      wordgap: 0
+      speed: 148
+      pitch: 45
+      linebreak: 3
+      capitals: 0
+      punct: false
+      nostop: false
+      utf16: false
+      ssml: true
     mcVoice:
-      ttsAmplitude: 100
-      ttsVariant: "f2"
-      ttsWordGap: 0
-      ttsSpeed: 180
-      ttsPitch: 90
+      amplitude: 100
+      variant: "f2"
+      wordgap: 0
+      speed: 180
+      pitch: 90
+      linebreak: 0
+      captials: 0
+      punct: false
+      nostop: false
+      utf16: false
+      ssml: true
 
   soundSet:
     musicStandardGameplay:
@@ -98,8 +116,8 @@ properties:
       soundURL: "assets/sounds/vo/L1VO1_Rover_m.ogg"
       useTextToSpeech: true
       initialVolume: 0.65
-      subtitle: "[ROVER]: Where am I? Who am I? I appear to be on Mars. I have wheels, a computer for a brain, and a battery. Hmm...if I had to guess I would say that I'm a rover!"
-      textToSpeechInput: "Where amm I? Who amm I? I appear to be on Mars. I have wheels, a computer for a brain, and a battery. Hmm...if I had to guess I would say that I'm a rover!"
+      subtitle: "[ROVER]: Where am I? Who am I? I appear to be on Mars. \n I have wheels, a computer for a brain, and a battery. Hmm...if I had to guess I would say that I'm a rover!"
+      textToSpeechInput: "Where am I? Who am I? I appear to be on Mars. \n I have wheels, a <emphasis>computer</emphasis> for a brain, and a battery. Hmm... <break strength='strong' time='1s'/> if I had to guess I would say that I'm a rover!"
       voice: roverVoice
       soundGroup: vo
       groupReplacementMethod: queue
