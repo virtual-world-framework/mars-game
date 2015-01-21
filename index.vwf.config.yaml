@@ -16,9 +16,11 @@
 model:
   vwf/model/threejs:
   vwf/model/blockly:
+  vwf/model/mespeak:
   vwf/model/sound:
   vwf/model/graphtool:
   vwf/model/heightmap:
+
 view:
   vwf/view/threejs: "#vwf-root"
   vwf/view/blockly: { "blocklyPath": './source/blockly/', "toolbox": 'toolbox' }

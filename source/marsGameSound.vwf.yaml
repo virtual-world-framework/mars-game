@@ -14,32 +14,70 @@
 
 --- 
 extends: http://vwf.example.com/sound/soundManager.vwf
+implements:
+- "http://vwf.example.com/mespeak.vwf"
 properties:
   allSoundsLoaded: false
   setUpOnce: true
+
+  #See http://www.masswerk.at/mespeak/, usage section for 
+  #more information on voice parameters.
+
+  #See the following for SSML:
+  #http://en.wikipedia.org/wiki/Speech_Synthesis_Markup_Language
+  voiceSet:
+    roverVoice:
+      amplitude: 100
+      variant: "m7"
+      wordgap: 0
+      speed: 148
+      pitch: 45
+      linebreak: 3
+      capitals: 0
+      punct: false
+      nostop: false
+      utf16: false
+      ssml: true
+    mcVoice:
+      amplitude: 100
+      variant: "f2"
+      wordgap: 0
+      speed: 180
+      pitch: 90
+      linebreak: 0
+      captials: 0
+      punct: false
+      nostop: false
+      utf16: false
+      ssml: true
+
   soundSet:
-    - soundName: "musicStandardGameplay"
+    musicStandardGameplay:
+      soundName: "musicStandardGameplay"
       soundURL: "assets/sounds/music/musicStandardGameplayLoopFullMix.ogg"
       initialVolume: 0.8
       isLooping: true
       allowMultiplay: false
       soundGroup: music
       groupReplacementMethod: replace
-    - soundName: "musicLevel2"
+    musicLevel2:
+      soundName: "musicLevel2"
       soundURL: "assets/sounds/music/musicLevel2Loop.ogg"
       initialVolume: 1
       isLooping: true
       allowMultiplay: false
       soundGroup: music
       groupReplacementMethod: replace
-    - soundName: "musicMenuIntro"
+    musicMenuIntro:
+      soundName: "musicMenuIntro"
       soundURL: "assets/sounds/music/musicMenuIntro.ogg"
       initialVolume: 0.3
       isLooping: false
       allowMultiplay: false
       soundGroup: music
       groupReplacementMethod: replace
-    - soundName: "musicMenuLoop"
+    musicMenuLoop:
+      soundName: "musicMenuLoop"
       soundURL: "assets/sounds/music/musicMenuLoop.ogg"
       initialVolume: 0.3
       isLooping: true
@@ -47,425 +85,626 @@ properties:
       soundGroup: music
       groupReplacementMethod: queue
       queueDelayTime: 0.0
-    - soundName: "musicFailure"
+    musicFailure:
+      soundName: "musicFailure"
       soundURL: "assets/sounds/music/musicFailure_01.ogg"
       initialVolume: 1.0
       allowMultiplay: false
-    - soundName: "musicSuccess"
+    musicSuccess:
+      soundName: "musicSuccess"
       soundURL: "assets/sounds/music/musicSuccess_01.ogg"
       initialVolume: 1.0
       allowMultiplay: false
-    - soundName: "musicSuccessShort"
+    musicSuccessShort:
+      soundName: "musicSuccessShort"
       soundURL: "assets/sounds/music/musicSuccessShort08.ogg"
       initialVolume: 1.0
       allowMultiplay: false
-    - soundName: "roverSounds"
+    roverSounds:
+      soundName: "roverSounds"
       soundURL: "assets/sounds/sfx/objectRoverMotorGroundCrunch_01.ogg"
       initialVolume: 0.6
       isLooping: true
-    - soundName: "environmentWind"
+    environmentWind:
+      soundName: "environmentWind"
       soundURL: "assets/sounds/sfx/environmentWind_04.ogg"
       initialVolume: 0.8
       isLooping: true
       allowMultiplay: false
-    - soundName: "L1VO1_Rover"
+    L1VO1_Rover:
+      soundName: "L1VO1_Rover"
       soundURL: "assets/sounds/vo/L1VO1_Rover_m.ogg"
+      useTextToSpeech: true
       initialVolume: 0.65
-      subtitle: "[ROVER]: Where am I? Who am I? I appear to be on Mars. I have wheels, a computer for a brain, and a battery. Hmm...if I had to guess I would say that I'm a rover!"
+      subtitle: "[ROVER]: Where am I? Who am I? I appear to be on Mars. \n I have wheels, a computer for a brain, and a battery. Hmm...if I had to guess I would say that I'm a rover!"
+      textToSpeechInput: "Where am I? Who am I? I appear to be on Mars. \n I have wheels, a <emphasis>computer</emphasis> for a brain, and a battery. Hmm... <break strength='strong' time='1s'/> if I had to guess I would say that I'm a rover!"
+      voice: roverVoice
       soundGroup: vo
       groupReplacementMethod: queue
-    - soundName: "L1VO2_Rover"
+    L1VO2_Rover:
+      soundName: "L1VO2_Rover"
       soundURL: "assets/sounds/vo/L1VO2_Rover_m.ogg"
       initialVolume: 0.65
       subtitle: "[ROVER]: I need to relearn the basics. I remember this is my internal interface to my programming..."
+      textToSpeechInput: "I need to relearn the basics. I remember this is my internal interface to my programming..."
+      voice: roverVoice
       soundGroup: vo
       groupReplacementMethod: replace
-    - soundName: "L1VO10_Rover"
+    L1VO10_Rover:
+      soundName: "L1VO10_Rover"
       soundURL: "assets/sounds/vo/L1VO10_Rover_m.ogg"
       initialVolume: 0.65
       subtitle: "[ROVER]: I can display an overlay that will help me navigate."
+      textToSpeechInput: "I can display an overlay that will help me navigate."
+      voice: roverVoice
       soundGroup: vo
       groupReplacementMethod: queue
-    - soundName: "L1VO11_Rover"
+    L1VO11_Rover:
+      soundName: "L1VO11_Rover"
       soundURL: "assets/sounds/vo/L1VO11_Rover_m.ogg"
       initialVolume: 0.65
       subtitle: "[ROVER]: Ah that's better...now I can see where I can drive."
+      textToSpeechInput: "Ah that's better...now I can see where I can drive."
+      voice: roverVoice
       soundGroup: vo
       groupReplacementMethod: replace
-    - soundName: "L1VO12_Rover"
+    L1VO12_Rover:
+      soundName: "L1VO12_Rover"
       soundURL: "assets/sounds/vo/L1VO12_Rover_m.ogg"
       initialVolume: 0.65
       subtitle: "[ROVER]: I can connect blocks to make a program, and then Run it. I see a spare battery up ahead. Why don't I go and get it?"
+      textToSpeechInput: "I can connect blocks to make a program, and then Run it. I see a spare battery up ahead. Why don't I go and get it?"
+      voice: roverVoice
       soundGroup: vo
       groupReplacementMethod: queue
-    - soundName: "L1VO13_Rover"
+    L1VO13_Rover:
+      soundName: "L1VO13_Rover"
       soundURL: "assets/sounds/vo/L1VO13_Rover_m.ogg"
       initialVolume: 0.65
       subtitle: "[ROVER]: Connecting Blocks is fundamental to making Programs. A program is a sequence of Blocks."
+      textToSpeechInput: "Connecting Blocks is fundamental to making Programs. A program is a sequence of Blocks."
+      voice: roverVoice
       soundGroup: vo
       groupReplacementMethod: replace
-    - soundName: "L1VO14_Rover"
+    L1VO14_Rover:
+      soundName: "L1VO14_Rover"
       soundURL: "assets/sounds/vo/L1VO14_Rover_m.ogg"
       initialVolume: 0.65
       subtitle: "[ROVER]: Hmm. I seem to be headed into a dead end.  I’ve done a lot of going forward.  Maybe I should see if I can turn around."
+      textToSpeechInput: "Hmm. I seem to be headed into a dead end.  I’ve done a lot of going forward.  Maybe I should see if I can turn around."
+      voice: roverVoice
       soundGroup: vo
       groupReplacementMethod: queue
-    - soundName: "L1VO16_Rover"
+    L1VO16_Rover:
+      soundName: "L1VO16_Rover"
       soundURL: "assets/sounds/vo/L1VO16_Rover_m.ogg"
       initialVolume: 0.65
       subtitle: "[ROVER]: OK. Now I can move around, it's time to go pick up that Radio Module out there. Then I can call home and find out who is going to rescue me!"
+      textToSpeechInput: "OK. Now I can move around, it's time to go pick up that Radio Module out there. Then I can call home and find out who is going to rescue me!"
+      voice: roverVoice
       soundGroup: vo
       groupReplacementMethod: queue
-    - soundName: "L2VO3_Rover"
+    L2VO3_Rover:
+      soundName: "L2VO3_Rover"
       soundURL: "assets/sounds/vo/L2VO3_Rover_m.ogg"
       initialVolume: 0.65
       subtitle: "[ROVER]: I need to match course, got to find a function that matches these tracks."
+      textToSpeechInput: "I need to match course, got to find a function that matches these tracks."
+      voice: roverVoice
       soundGroup: vo
       groupReplacementMethod: queue
-    - soundName: "L2VO3_Rover_H"
+    L2VO3_Rover_H:
+      soundName: "L2VO3_Rover_H"
       soundURL: "assets/sounds/vo/L2VO3_Rover_H.ogg"
       initialVolume: 0.65
       subtitle: "[ROVER]: Hmm. I'm not quite sure what to do. Time to get scientific! I should experiment by doing different things to x and take note about what happens."
+      textToSpeechInput: "Hmm. I'm not quite sure what to do. Time to get scientific! I should experiment by doing different things to x and take note about what happens."
+      voice: roverVoice
       soundGroup: vo
       groupReplacementMethod: queue
-    - soundName: "L2VO3_Rover_H2"
+    L2VO3_Rover_H2:
+      soundName: "L2VO3_Rover_H2"
       soundURL: "assets/sounds/vo/L2VO3_Rover_H2.ogg"
       initialVolume: 0.65
       subtitle: "[ROVER]: I remember I can put a number in front of X... that will multiply them together. I wonder what will happen if I make the number bigger or smaller."
+      textToSpeechInput: "I remember I can put a number in front of X... that will multiply them together. I wonder what will happen if I make the number bigger or smaller."
+      voice: roverVoice
       soundGroup: vo
       groupReplacementMethod: queue
-    - soundName: "L2VO4_Control"
+    L2VO4_Control:
+      soundName: "L2VO4_Control"
       soundURL: "assets/sounds/vo/L2VO4_Control.ogg"
       initialVolume: 1.0
       subtitle: "[MC]: My satellite view shows that the Mini Rover's tracks are right next to you. The first thing that you'll need to do is to plot a course to match its tracks. I've beamed a software update which includes a graphing tool and makes your engines more efficient, but takes some of your available RAM."
+      textToSpeechInput: "My satellite view shows that the Mini Rover's tracks are right next to you. The first thing that you'll need to do is to plot a course to match its tracks. I've beamed a software update which includes a graphing tool and makes your engines more efficient, but takes some of your available RAM."
+      voice: mcVoice
       soundGroup: vo
       groupReplacementMethod: queue
-    - soundName: "L2VO7_Control"
+    L2VO7_Control:
+      soundName: "L2VO7_Control"
       soundURL: "assets/sounds/vo/L2VO7_Control.ogg"
       initialVolume: 1.0
       subtitle: "[MC]: Now you have your first graph plotted, why don't you try changing it? We see the track of your lost Mini Rover from our satellite view. Can you match it?"
+      textToSpeechInput: "Now you have your first graph plotted, why don't you try changing it? We see the track of your lost Mini Rover from our satellite view. Can you match it?"
+      voice: mcVoice
       soundGroup: vo
       groupReplacementMethod: queue
-    - soundName: "L2VO9_Control"
+    L2VO9_Control:
+      soundName: "L2VO9_Control"
       soundURL: "assets/sounds/vo/L2VO9_Control.ogg"
       initialVolume: 1.0
       subtitle: "[MC]: You don't want to keep having to do this all the way up the line. Remember you can repeat this small movement program, and save yourself some work. Try repeating it three times to start."
+      textToSpeechInput: "You don't want to keep having to do this all the way up the line. Remember you can repeat this small movement program, and save yourself some work. Try repeating it three times to start."
+      voice: mcVoice
       soundGroup: vo
       groupReplacementMethod: queue
-    - soundName: "L3VO1_Rover_S"
+    L3VO1_Rover_S:
+      soundName: "L3VO1_Rover_S"
       soundURL: "assets/sounds/vo/L3VO1_Rover_S.ogg"
       initialVolume: 0.65
       subtitle: "[ROVER]: OK! So now I know I need to go up one and over two to get to the next point on the line."
+      textToSpeechInput: "OK! So now I know I need to go up one and over two to get to the next point on the line."
+      voice: roverVoice
       soundGroup: vo
       groupReplacementMethod: replace
-    - soundName: "L3VO2_Rover_H"
+    L3VO2_Rover_H:
+      soundName: "L3VO2_Rover_H"
       soundURL: "assets/sounds/vo/L3VO2_Rover_H.ogg"
       initialVolume: 0.65
       subtitle: "[ROVER]: Loop blocks repeat actions and save RAM. I remember I used loops to get out of the crash site."
+      textToSpeechInput: "Loop blocks repeat actions and save RAM. I remember I used loops to get out of the crash site."
+      voice: roverVoice
       soundGroup: vo
       groupReplacementMethod: queue
-    - soundName: "L3VO2_Rover_H2"
+    L3VO2_Rover_H2:
+      soundName: "L3VO2_Rover_H2"
       soundURL: "assets/sounds/vo/L3VO2_Rover_H2.ogg"
       initialVolume: 0.65
       subtitle: "[ROVER]: I need to face the same direction at the beginning and end of the loop. Otherwise, it will take me in a different direction each time it starts."
+      textToSpeechInput: "I need to face the same direction at the beginning and end of the loop. Otherwise, it will take me in a different direction each time it starts."
+      voice: roverVoice
       soundGroup: vo
       groupReplacementMethod: queue
-    - soundName: "L3VO2_Mission_S"
+    L3VO2_Mission_S:
+      soundName: "L3VO2_Mission_S"
       soundURL: "assets/sounds/vo/L3VO2_Mission_S.ogg"
       initialVolume: 0.65
       subtitle: "[MC]: Yes you are... you need to check if you can actually see the Mini Rover! For this you will need two new Blocks: the Conditional Loop Block, and the Scan Block. The Conditional Loop will repeat programs until something happens. The Scan Block detects nearby objects."
+      textToSpeechInput: "Yes you are... you need to check if you can actually see the Mini Rover! For this you will need two new Blocks: the Conditional Loop Block, and the Scan Block. The Conditional Loop will repeat programs until something happens. The Scan Block detects nearby objects."
+      voice: mcVoice
       soundGroup: vo
       groupReplacementMethod: queue
-    - soundName: "L3VO3_Rover_S"
+    L3VO3_Rover_S:
+      soundName: "L3VO3_Rover_S"
       soundURL: "assets/sounds/vo/L3VO3_Rover_S.ogg"
       initialVolume: 0.65
       subtitle: "[ROVER]: I've found something! Looks like the Mini Rover dropped some supplies and changed direction. I'll need to update my Grapher to match its new course."
+      textToSpeechInput: "I've found something! Looks like the Mini Rover dropped some supplies and changed direction. I'll need to update my Grapher to match its new course."
+      voice: roverVoice
       soundGroup: vo
       groupReplacementMethod: replace
-    - soundName: "L3VO4_Rover_S"
+    L3VO4_Rover_S:
+      soundName: "L3VO4_Rover_S"
       soundURL: "assets/sounds/vo/L3VO4_Rover_S.ogg"
       initialVolume: 0.65
       subtitle: "[ROVER]: That works! Course plotted."
+      textToSpeechInput: "That works! Course plotted."
+      voice: roverVoice
       soundGroup: vo
       groupReplacementMethod: replace
-    - soundName: "L3VO5_Rover"
+    L3VO5_Rover:
+      soundName: "L3VO5_Rover"
       soundURL: "assets/sounds/vo/L3VO5_Rover.ogg"
       initialVolume: 0.65
       subtitle: "[ROVER]: Now to update my movement program to match the new slope of the line..."
+      textToSpeechInput: "Now to update my movement program to match the new slope of the line..."
+      voice: roverVoice
       soundGroup: vo
       groupReplacementMethod: queue
-    - soundName: "L3VO5_Rover_S"
+    L3VO5_Rover_S:
+      soundName: "L3VO5_Rover_S"
       soundURL: "assets/sounds/vo/L3VO5_Rover_S.ogg"
       initialVolume: 0.65
       subtitle: "[ROVER]: Some more dropped supplies, and the  Rover has changed direction again! I wonder why it is driving so erratically."
+      textToSpeechInput: "Some more dropped supplies, and the  Rover has changed direction again! I wonder why it is driving so erratically."
+      voice: roverVoice
       soundGroup: vo
       groupReplacementMethod: queue
-    - soundName: "L3VO6_Rover"
+    L3VO6_Rover:
+      soundName: "L3VO6_Rover"
       soundURL: "assets/sounds/vo/L3VO6_Rover.ogg"
       initialVolume: 0.65
       subtitle: "[ROVER]: Time to plot a course to match the tracks..."
+      textToSpeechInput: "Time to plot a course to match the tracks..."
+      voice: roverVoice
       soundGroup: vo
       groupReplacementMethod: queue
-    - soundName: "L3VO6_Mission"
+    L3VO6_Mission:
+      soundName: "L3VO6_Mission"
       soundURL: "assets/sounds/vo/L3VO6_Mission.ogg"
       initialVolume: 0.65
       subtitle: "[MC]: Our satellite data shows that you are getting close! Keep it up!"
+      textToSpeechInput: "Our satellite data shows that you are getting close! Keep it up!"
+      voice: mcVoice
       soundGroup: vo
       groupReplacementMethod: queue
-    - soundName: "ALVO1_Rover"
+    ALVO1_Rover:
+      soundName: "ALVO1_Rover"
       soundURL: "assets/sounds/vo/ALVO1_Rover_m.ogg"
       initialVolume: 0.65
       subtitle: "[ROVER]: The red and blue lines look like my axes, so the green line must be the line I'm plotting."
+      textToSpeechInput: "The red and blue lines look like my axes, so the green line must be the line I'm plotting."
+      voice: roverVoice
       soundGroup: vo
       groupReplacementMethod: queue
-    - soundName: "ALVO14_Rover"
+    ALVO14_Rover:
+      soundName: "ALVO14_Rover"
       soundURL: "assets/sounds/vo/ALVO14_Rover_m.ogg"
       initialVolume: 0.65
       subtitle: "[ROVER]: What's the blinking thing in the corner? I should probably activate it."
+      textToSpeechInput: "What's the blinking thing in the corner? I should probably activate it."
+      voice: roverVoice
       soundGroup: vo
       groupReplacementMethod: queue
-    - soundName: "ALVO15_Rover"
+    ALVO15_Rover:
+      soundName: "ALVO15_Rover"
       soundURL: "assets/sounds/vo/ALVO15_Rover_m.ogg"
       initialVolume: 0.65
       subtitle: "[ROVER]: Maybe if I drag a block over, something will happen."
+      textToSpeechInput: "Maybe if I drag a block over, something will happen."
+      voice: roverVoice
       soundGroup: vo
       groupReplacementMethod: queue
-    - soundName: "ALVO16_Rover"
+    ALVO16_Rover:
+      soundName: "ALVO16_Rover"
       soundURL: "assets/sounds/vo/ALVO16_Rover_m.ogg"
       initialVolume: 0.65
       subtitle: "[ROVER]: I remember now! I need to Start my program."
+      textToSpeechInput: "I remember now! I need to Start my program."
+      voice: roverVoice
       soundGroup: vo
       groupReplacementMethod: queue
-    - soundName: "ALVO17_Rover"
+    ALVO17_Rover:
+      soundName: "ALVO17_Rover"
       soundURL: "assets/sounds/vo/ALVO17_Rover_m.ogg"
       initialVolume: 0.65
       subtitle: "[ROVER]: Another blinking thing. I should probably open that."
+      textToSpeechInput: "Another blinking thing. I should probably open that."
+      voice: roverVoice
       soundGroup: vo
       groupReplacementMethod: queue
-    - soundName: "ALVO18_Rover"
+    ALVO18_Rover:
+      soundName: "ALVO18_Rover"
       soundURL: "assets/sounds/vo/ALVO18_Rover_m.ogg"
       initialVolume: 0.65
       subtitle: "[ROVER]: Yet another blinking thing that needs a click."
+      textToSpeechInput: "Yet another blinking thing that needs a click."
+      voice: roverVoice
       soundGroup: vo
       groupReplacementMethod: queue
-    - soundName: "ALVO19_Rover"
+    ALVO19_Rover:
+      soundName: "ALVO19_Rover"
       soundURL: "assets/sounds/vo/ALVO19_Rover_m.ogg"
       initialVolume: 0.65
       subtitle: "[ROVER]: If I drag a block next to another block, they will connect."
+      textToSpeechInput: "If I drag a block next to another block, they will connect."
+      voice: roverVoice
       soundGroup: vo
       groupReplacementMethod: queue
-    - soundName: "ALVO20_Rover"
+    ALVO20_Rover:
+      soundName: "ALVO20_Rover"
       soundURL: "assets/sounds/vo/ALVO20_Rover_m.ogg"
       initialVolume: 0.65
       subtitle: "[ROVER]: That did it! I can set the direction of the turn by clicking Left or Right on the Block."
+      textToSpeechInput: "That did it! I can set the direction of the turn by clicking Left or Right on the Block."
+      voice: roverVoice
       soundGroup: vo
       groupReplacementMethod: replace
-    - soundName: "ALVO22_Rover"
+    ALVO22_Rover:
+      soundName: "ALVO22_Rover"
       soundURL: "assets/sounds/vo/ALVO22_Rover_m.ogg"
       initialVolume: 0.65
       subtitle: "[ROVER]: I'm going to need to work out the moves all the way to the Radio Module and turn that into a Program."
+      textToSpeechInput: "I'm going to need to work out the moves all the way to the Radio Module and turn that into a Program."
+      voice: roverVoice
       soundGroup: vo
       groupReplacementMethod: queue
-    - soundName: "ALVO24_Rover"
+    ALVO24_Rover:
+      soundName: "ALVO24_Rover"
       soundURL: "assets/sounds/vo/ALVO24_Rover_m.ogg"
       initialVolume: 0.65
       subtitle: "[ROVER]: I wonder what happens if I connect a Y block to an X block?"
+      textToSpeechInput: "I wonder what happens if I connect a Y block to an X block?"
+      voice: roverVoice
       soundGroup: vo
       groupReplacementMethod: queue
-    - soundName: "ALVO25_Rover"
+    ALVO25_Rover:
+      soundName: "ALVO25_Rover"
       soundURL: "assets/sounds/vo/ALVO25_Rover_m.ogg"
       initialVolume: 0.65
       subtitle: "[ROVER]: If I know the slope, I can use that to determine my course."
+      textToSpeechInput: "If I know the slope, I can use that to determine my course."
+      voice: roverVoice
       soundGroup: vo
       groupReplacementMethod: queue
-    - soundName: "ALVO26_Rover"
+    ALVO26_Rover:
+      soundName: "ALVO26_Rover"
       soundURL: "assets/sounds/vo/ALVO26_Rover_m.ogg"
       initialVolume: 0.65
       subtitle: "[ROVER]: Slope is the number of grid squares up the Y axis divided by the number of grid squares to the right on the X axis."
+      textToSpeechInput: "Slope is the number of grid squares up the Y axis divided by the number of grid squares to the right on the X axis."
+      voice: roverVoice
       soundGroup: vo
       groupReplacementMethod: queue
-    - soundName: "ALVO27_Rover"
+    ALVO27_Rover:
+      soundName: "ALVO27_Rover"
       soundURL: "assets/sounds/vo/ALVO27_Rover_m.ogg"
       initialVolume: 0.65
       subtitle: "[ROVER]: Try using the Scanblock to detect the Mini Rover."
+      textToSpeechInput: "Try using the Scanblock to detect the Mini Rover."
+      voice: roverVoice
       soundGroup: vo
       groupReplacementMethod: queue
-    - soundName: "ALVO28_Rover"
+    ALVO28_Rover:
+      soundName: "ALVO28_Rover"
       soundURL: "assets/sounds/vo/ALVO28_Rover_m.ogg"
       initialVolume: 0.65
       subtitle: "[ROVER]: Try using the Conditional Block to decide what to do after you scan."
+      textToSpeechInput: "Try using the Conditional Block to decide what to do after you scan."
+      voice: roverVoice
       soundGroup: vo
       groupReplacementMethod: queue
-    - soundName: "ALVO29_Rover"
+    ALVO29_Rover:
+      soundName: "ALVO29_Rover"
       soundURL: "assets/sounds/vo/ALVO29_Rover.ogg"
       initialVolume: 0.65
       subtitle: "[ROVER]: When I change the sign of the number in front of X, what happens?"
+      textToSpeechInput: "When I change the sign of the number in front of X, what happens?"
+      voice: roverVoice
       soundGroup: vo
       groupReplacementMethod: queue
-    - soundName: "ALVO30_Rover"
+    ALVO30_Rover:
+      soundName: "ALVO30_Rover"
       soundURL: "assets/sounds/vo/ALVO30_Rover.ogg"
       initialVolume: 0.65
       subtitle: "[ROVER]: How does the line move as I change the size of the number in front of X?"
+      textToSpeechInput: "How does the line move as I change the size of the number in front of X?"
+      voice: roverVoice
       soundGroup: vo
       groupReplacementMethod: queue
-    - soundName: "ALVO31_Rover"
+    ALVO31_Rover:
+      soundName: "ALVO31_Rover"
       soundURL: "assets/sounds/vo/ALVO31_Rover.ogg"
       initialVolume: 0.65
       subtitle: "[ROVER]: Can I put a number that's between 0 and 1 in front of X?  What happens then?"
+      textToSpeechInput: "Can I put a number that's between 0 and 1 in front of X?  What happens then?"
+      voice: roverVoice
       soundGroup: vo
       groupReplacementMethod: queue
-    - soundName: "ALVO32_Rover"
+    ALVO32_Rover:
+      soundName: "ALVO32_Rover"
       soundURL: "assets/sounds/vo/ALVO32_Rover.ogg"
       initialVolume: 0.65
       subtitle: "[ROVER]: If I open the programming window while I move, I can watch the program execute to see where the mistake is."
+      textToSpeechInput: "If I open the programming window while I move, I can watch the program execute to see where the mistake is."
+      voice: roverVoice
       soundGroup: vo
       groupReplacementMethod: queue
       queueDelayTime: 2.0
-    - soundName: "ALVO33_Rover"
+    ALVO33_Rover:
+      soundName: "ALVO33_Rover"
       soundURL: "assets/sounds/vo/ALVO33_Rover.ogg"
       initialVolume: 0.65
       subtitle: "[ROVER]: Hmmm.  Maybe I should step through the program in my head to make sure it is going to do what I think it should do."
+      textToSpeechInput: "Hmmm.  Maybe I should step through the program in my head to make sure it is going to do what I think it should do."
+      voice: roverVoice
       soundGroup: vo
       groupReplacementMethod: queue
       queueDelayTime: 2.0
-    - soundName: "ALVO34_Rover"
+    ALVO34_Rover:
+      soundName: "ALVO34_Rover"
       soundURL: "assets/sounds/vo/ALVO34_Rover.ogg"
       initialVolume: 0.65
       subtitle: "[ROVER]: Up there, in the top right corner.  What's that blinking thing?"
+      textToSpeechInput: "Up there, in the top right corner.  What's that blinking thing?"
+      voice: roverVoice
       soundGroup: vo
       groupReplacementMethod: queue
-    - soundName: "ALVO35_Rover"
+    ALVO35_Rover:
+      soundName: "ALVO35_Rover"
       soundURL: "assets/sounds/vo/ALVO35_Rover.ogg"
       initialVolume: 0.65
       subtitle: "[ROVER]: I can get rid of blocks by dragging them back over to the left hand side."
+      textToSpeechInput: "I can get rid of blocks by dragging them back over to the left hand side."
+      voice: roverVoice
       soundGroup: vo
       groupReplacementMethod: queue
-    - soundName: "ALVO36_Rover"
+    ALVO36_Rover:
+      soundName: "ALVO36_Rover"
       soundURL: "assets/sounds/vo/ALVO36_Rover.ogg"
       initialVolume: 0.65
       subtitle: "[ROVER]: I can move my helicam around using the arrow keys or the right mouse button."
+      textToSpeechInput: "I can move my helicam around using the arrow keys or the right mouse button."
+      voice: roverVoice
       soundGroup: vo
       groupReplacementMethod: queue
-    - soundName: "ALVO37_Rover"
+    ALVO37_Rover:
+      soundName: "ALVO37_Rover"
       soundURL: "assets/sounds/vo/ALVO37_Rover.ogg"
       initialVolume: 0.65
       subtitle: "[ROVER]: This one is tricky.  I may need to do some of the work before I enter my loop."
+      textToSpeechInput: "This one is tricky.  I may need to do some of the work before I enter my loop."
+      voice: roverVoice
       soundGroup: vo
       groupReplacementMethod: queue
-    - soundName: "ALVO38_Rover"
+    ALVO38_Rover:
+      soundName: "ALVO38_Rover"
       soundURL: "assets/sounds/vo/ALVO38_Rover.ogg"
       initialVolume: 0.65
       subtitle: "[ROVER]: I need to remember to make sure that I end my loop facing the same direction as I started, or else I'm going to go in circles."
+      textToSpeechInput: "I need to remember to make sure that I end my loop facing the same direction as I started, or else I'm going to go in circles."
+      voice: roverVoice
       soundGroup: vo
       groupReplacementMethod: queue
-    - soundName: "ALVO40_Rover"
+    ALVO40_Rover:
+      soundName: "ALVO40_Rover"
       soundURL: "assets/sounds/vo/ALVO40_Rover.ogg"
       initialVolume: 0.65
       subtitle: "[ROVER]: There's my helicam. I should get it reactivated, so that I can take a look around."
+      textToSpeechInput: "There's my helicam. I should get it reactivated, so that I can take a look around."
+      voice: roverVoice
       soundGroup: vo
       groupReplacementMethod: replace
-    - soundName: "ALVO41_Rover"
+    ALVO41_Rover:
+      soundName: "ALVO41_Rover"
       soundURL: "assets/sounds/vo/ALVO41_Rover.ogg"
       initialVolume: 0.65
       subtitle: "[ROVER]: Up there, in the top right corner.  Click the blinky thing."
+      textToSpeechInput: "Up there, in the top right corner.  Click the blinky thing."
+      voice: roverVoice
       soundGroup: vo
       groupReplacementMethod: queue
-    - soundName: "ALVO42_Rover"
+    ALVO42_Rover:
+      soundName: "ALVO42_Rover"
       soundURL: "assets/sounds/vo/ALVO42_Rover.ogg"
       initialVolume: 0.65
       subtitle: "[ROVER]: Now that I've got this spare battery, I need to go back to the ramp to get it charged up - but I don't have enough RAM to do that with forward blocks. I can use a loop block to repeat blocks. Doing this saves me time and RAM. I can specify the number of times it repeats by putting a number block in it."
+      textToSpeechInput: "Now that I've got this spare battery, I need to go back to the ramp to get it charged up - but I don't have enough RAM to do that with forward blocks. I can use a loop block to repeat blocks. Doing this saves me time and RAM. I can specify the number of times it repeats by putting a number block in it."
+      voice: roverVoice
       soundGroup: vo
       groupReplacementMethod: queue
-    - soundName: "SCVO1_Rover"
+    SCVO1_Rover:
+      soundName: "SCVO1_Rover"
       soundURL: "assets/sounds/vo/SCVO1_Rover_m.ogg"
       initialVolume: 0.65
       subtitle: "[ROVER]: Whoa! What a view! It's a good thing I'm not afraid of heights."
+      textToSpeechInput: "Whoa! What a view! It's a good thing I'm not afraid of heights."
+      voice: roverVoice
       soundGroup: vo
       groupReplacementMethod: replace
-    - soundName: "SCVO3_Rover"
+    SCVO3_Rover:
+      soundName: "SCVO3_Rover"
       soundURL: "assets/sounds/vo/SCVO3_Rover_m.ogg"
       initialVolume: 0.65
       subtitle: "[ROVER]: Phew! Made it back to the ramp. I need to remember to watch my power level. Turning doesn't take any power, but moving forward on this rough terrain drains my battery."
+      textToSpeechInput: "Phew! Made it back to the ramp. I need to remember to watch my power level. Turning doesn't take any power, but moving forward on this rough terrain drains my battery."
+      voice: roverVoice
       soundGroup: vo
-      groupReplacementMethod: replace
-    - soundName: "SCVO2_Rover"
+      groupReplacementMethod: replaceCheck if we are using text to speech in the app, and then load accordingly. Get the code down and start testing. 
+    SCVO2_Rover:
+      soundName: "SCVO2_Rover"
       soundURL: "assets/sounds/vo/SCVO2_Rover_m.ogg"
       initialVolume: 0.65
       subtitle: "[ROVER]: Ah that's better...now I can see where I can drive."
+      textToSpeechInput: "Ah that's better...now I can see where I can drive."
+      voice: roverVoice
       soundGroup: vo
       groupReplacementMethod: replace
-    - soundName: "SCVO5_Rover"
+    SCVO5_Rover:
+      soundName: "SCVO5_Rover"
       soundURL: "assets/sounds/vo/SCVO5_Rover_m.ogg"
       initialVolume: 0.65
       subtitle: "[ROVER]: This grid will help me work things out, but I need some way to make a graph appear. I recall it has something to do with my Blockly programming..."
+      textToSpeechInput: "This grid will help me work things out, but I need some way to make a graph appear. I recall it has something to do with my Blockly programming..."
+      voice: roverVoice
       soundGroup: vo
       groupReplacementMethod: replace
-    - soundName: "SCVO6_Rover"
+    SCVO6_Rover:
+      soundName: "SCVO6_Rover"
       soundURL: "assets/sounds/vo/SCVO6_Rover_m.ogg"
       initialVolume: 0.65
       subtitle: "[ROVER]: Now I need to plot a graph. I recall it starts with the Y Block."
+      textToSpeechInput: "Now I need to plot a graph. I recall it starts with the Y Block."
+      voice: roverVoice
       soundGroup: vo
       groupReplacementMethod: replace
-    - soundName: "SCVO8_Control"
+    SCVO8_Control:
+      soundName: "SCVO8_Control"
       soundURL: "assets/sounds/vo/SCVO8_Control.ogg"
       initialVolume: 1.0
       subtitle: "[MC]: Now you are on the right track! This graph is going to help you overcome your next challenge: Find the slope of the line, and use that to make a navigation program that will follow that track.  Let’s start by moving to that blinking tile just to your left."
+      textToSpeechInput: "Now you are on the right track! This graph is going to help you overcome your next challenge: Find the slope of the line, and use that to make a navigation program that will follow that track.  Let’s start by moving to that blinking tile just to your left."
+      voice: mcVoice
       soundGroup: vo
       groupReplacementMethod: replace
-    - soundName: "SCVO9_Rover"
+    SCVO9_Rover:
+      soundName: "SCVO9_Rover"
       soundURL: "assets/sounds/vo/SCVO9_Rover_m.ogg"
       initialVolume: 0.65
       subtitle: "[ROVER]: Yay! That will save some time and memory. But I think I'm forgetting something..."
+      textToSpeechInput: "Yay! That will save some time and memory. But I think I'm forgetting something..."
+      voice: roverVoice
       soundGroup: vo
       groupReplacementMethod: replace
-    - soundName: "FCVO1_Rover"
+    FCVO1_Rover:
+      soundName: "FCVO1_Rover"
       soundURL: "assets/sounds/vo/FCVO1_Rover_m.ogg"
       initialVolume: 0.65
       subtitle: "[ROVER]: I swear I feel dizzy, but I can't be — I'm a Robot. Hmm."
+      textToSpeechInput: "I swear I feel dizzy, but I can't be — I'm a Robot. Hmm."
+      voice: roverVoice
       soundGroup: vo
       groupReplacementMethod: replace
-    - soundName: "FCVO2_Rover"
+    FCVO2_Rover:
+      soundName: "FCVO2_Rover"
       soundURL: "assets/sounds/vo/FCVO2_Rover_m.ogg"
       initialVolume: 0.65
       subtitle: "[ROVER]: I didn't make it. I need to rethink my Program."
+      textToSpeechInput: "I didn't make it. I need to rethink my Program."
+      voice: roverVoice
       soundGroup: vo
       groupReplacementMethod: replace
-    - soundName: "FCVO4_Rover"
+    FCVO4_Rover:
+      soundName: "FCVO4_Rover"
       soundURL: "assets/sounds/vo/FCVO4_Rover_m.ogg"
       initialVolume: 0.65
       subtitle: "[ROVER]: I need to plot the course before I try to follow it."
+      textToSpeechInput: "I need to plot the course before I try to follow it."
+      voice: roverVoice
       soundGroup: vo
       groupReplacementMethod: replace
-    - soundName: "CTVO1_Rover"
+    CTVO1_Rover:
+      soundName: "CTVO1_Rover"
       soundURL: "assets/sounds/vo/CTVO1_Rover.ogg"
       initialVolume: 0.65
       subtitle: "[ROVER]: What's up with all this turning? They can send a rover to Mars, but I can't drive in reverse and can only make right angle turns?! Hopefully it's just damage from the crash..."
+      textToSpeechInput: "What's up with all this turning? They can send a rover to Mars, but I can't drive in reverse and can only make right angle turns?! Hopefully it's just damage from the crash..."
+      voice: roverVoice
       soundGroup: vo
       groupReplacementMethod: queue
-    - soundName: "CTVO2_Control"
+    CTVO2_Control:
+      soundName: "CTVO2_Control"
       soundURL: "assets/sounds/vo/CTVO2_Control.ogg"
       initialVolume: 1.0
       subtitle: "[MC]: Looks like you're headed into the Cartesian Plain, so named because it's big, wide, and flat."
+      textToSpeechInput: "Looks like you're headed into the Cartesian Plain, so named because it's big, wide, and flat."
+      voice: mcVoice
       soundGroup: vo
       groupReplacementMethod: queue
-    - soundName: "CTVO3"
+    CTVO3:
+      soundName: "CTVO3"
       soundURL: "assets/sounds/vo/CTVO3.ogg"
       isLooping: true
       initialVolume: 0.85
       subtitle: "[ROVER]: ... whistles ..."
+      textToSpeechInput: "... whistles ..."
+      voice: roverVoice
       soundGroup: vo
       groupReplacementMethod: queue
-    - soundName: "CTVO4"
+    CTVO4:
+      soundName: "CTVO4"
       soundURL: "assets/sounds/vo/CTVO4.ogg"
       isLooping: true
       initialVolume: 0.85
       subtitle: "[ROVER]: ... whistles ..."
+      textToSpeechInput: "... whistles ..."
+      voice: roverVoice
       soundGroup: vo
       groupReplacementMethod: queue
-
 methods:
   setUpSubtitles:
   startSubtitle:
+
 children:
 scripts:
 - source: source/marsGameSound.js
