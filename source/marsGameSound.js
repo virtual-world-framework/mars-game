@@ -26,8 +26,8 @@ this.initialize = function() {
     }
 
     //TODO: intialize meSpeak... 
-    meSpeak.loadConfig("mespeak/mespeak_config.json");
-    meSpeak.loadVoice("mespeak/en.json");
+    // meSpeak.loadConfig("mespeak/mespeak_config.json");
+    // meSpeak.loadVoice("mespeak/en.json");
 
     this.future( 0 ).setUpSubtitles();
 }
@@ -72,7 +72,7 @@ this.playSoundWrapper = function( soundName, exitCallback ){
             } 
             
             meSpeakOpts.rawdata = 'default';
-            var meSpeakBuf = meSpeak.speak( speechStr, meSpeakOpts );
+            var meSpeakBuf = this.speak( speechStr, meSpeakOpts );
 
             currSound.playOnLoad = true; //no need to call playSound()
             currSound.deleteAfterPlay = true;
