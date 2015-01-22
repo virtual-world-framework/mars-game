@@ -81,6 +81,7 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
             case "blocklyStarted":
                 //SJF: Getting the XML to convert to a predefined blockly procedure for 1h
                 var xml = Blockly.Xml.workspaceToDom( Blockly.getMainWorkspace() );
+                clearBlocklyStatus();
                 console.log(xml);
                 startBlocklyButton.className = "reset";
                 var indicator = document.getElementById( "blocklyIndicator" );
@@ -132,9 +133,10 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 var blockName = eventArgs[ 0 ];
                 var blockID = eventArgs[ 1 ];
                 if ( blockID ) {
-                    selectBlock( blockID );
-                    indicateBlock( blockID );
-                    pushNextBlocklyStatus( blockID );
+                    //SJF:Breaking trace functionality
+                    //selectBlock( blockID );
+                    //indicateBlock( blockID );
+                    //pushNextBlocklyStatus( blockID );
                     lastBlockIDExecuted = blockID;
                 }
                 break;
@@ -202,7 +204,7 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 break;
 
             case "selectLastBlock":
-                selectBlock( lastBlockIDExecuted );
+                //selectBlock( lastBlockIDExecuted );
                 break;
 
             case "resetHUDState":
