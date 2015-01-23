@@ -206,6 +206,9 @@ this.displayTiles = function( isVisible ) {
 }
 
 this.displayGraph = function( isVisible ) {
+    if ( isVisible === this.blocklyGraph.graphIsVisible$ ) {
+        return;
+    }
     this.blocklyGraph.setGraphVisibility( isVisible );
     if ( isVisible && this.gameCam.mountName !== "topDown" ) {
         this.gameCam.setCameraMount( "topDown" );
