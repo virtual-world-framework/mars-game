@@ -198,23 +198,24 @@ this.setUpRoverListeners = function() {
 }
 
 this.displayTiles = function( isVisible ) {
-    this.gridTileGraph.mapTiles.groupVisible = isVisible;
-    if ( isVisible && this.gameCam.mountName !== "topDown" ) {
-        this.gameCam.setCameraMount( "topDown" );
+    if ( isVisible !== this.gridTileGraph.mapTiles.groupVisible ) {
+        this.gridTileGraph.mapTiles.groupVisible = isVisible;
+        if ( isVisible && this.gameCam.mountName !== "topDown" ) {
+            this.gameCam.setCameraMount( "topDown" );
+        }
+        this.toggledTiles( isVisible );
     }
-    this.toggledTiles( isVisible );
 }
 
 this.displayGraph = function( isVisible ) {
-    if ( isVisible === this.blocklyGraph.graphIsVisible$ ) {
-        return;
+    if ( isVisible !== this.blocklyGraph.graphIsVisible$ ) {
+        this.blocklyGraph.setGraphVisibility( isVisible );
+        if ( isVisible && this.gameCam.mountName !== "topDown" ) {
+            this.gameCam.setCameraMount( "topDown" );
+        }
+        this.toggledGraph( isVisible );
+        this.blocklyGraph.blocklyLine.visible = isVisible;
     }
-    this.blocklyGraph.setGraphVisibility( isVisible );
-    if ( isVisible && this.gameCam.mountName !== "topDown" ) {
-        this.gameCam.setCameraMount( "topDown" );
-    }
-    this.toggledGraph( isVisible );
-    this.blocklyGraph.blocklyLine.visible = isVisible;
 }
 
 this.setCinematicView = function( pose ) {
