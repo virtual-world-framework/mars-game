@@ -316,4 +316,78 @@ this.loadGame = function( scenarioName ) {
     this.future( 0 ).loadedGame();
 }
 
+this.blinkHUD = function( elementID ) {
+    switch ( elementID ) {
+        case "blocklyButton":
+            this.blocklyBlinking = true;
+            break;
+        case "graphButton":
+            this.graphBlinking = true;
+            break;
+        case "tilesButton":
+            this.tilesBlinking = true;
+            break;
+        case "objective":
+            this.objectiveBlinking = true;
+            break;
+        default:
+            blinkElement( elementID );
+            break;
+    }
+}
+
+this.stopBlinkHUD = function( elementID ) {
+    switch ( elementID ) {
+        case "blocklyButton":
+            this.blocklyBlinking = false;
+            break;
+        case "graphButton":
+            this.graphBlinking = false;
+            break;
+        case "tilesButton":
+            this.tilesBlinking = false;
+            break;
+        case "objective":
+            this.objectiveBlinking = false;
+            break;
+        default:
+            stopElementBlinking( elementID );
+            break;
+    }
+}
+
+this.blinkTab = function( nodeID ) {
+    switch ( nodeID ) {
+        case "rover":
+            this.roverTabBlinking = true;
+            break;
+        case "graph":
+            this.graphTabBlinking = true;
+            break;
+        default:
+            blinkTabHUD( elementID );
+            break;
+    }
+}
+
+this.stopBlinkTab = function( nodeID ) {
+    switch ( nodeID ) {
+        case "rover":
+            this.roverTabBlinking = false;
+            break;
+        case "graph":
+            this.graphTabBlinking = false;
+            break;
+        case "tilesButton":
+            this.tilesBlinking = false;
+            break;
+        case "objective":
+            this.objectiveBlinking = false;
+            break;
+        default:
+            stopBlinkTabHUD( nodeID );
+            break;
+    }
+}
+
 //@ sourceURL=source/scene.js
