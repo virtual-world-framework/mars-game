@@ -502,7 +502,21 @@ function setUpView() {
 
 function render( renderer, scene, camera ) {
     blinkTabs();
-    renderer.render( scene, camera );
+    //renderer.render( scene, camera );
+    //Eliminate frustrum culling to hide faulty webGL overflow errors
+    scene.traverse(function(o){
+        if(o instanceof THREE.Mesh && o.frustumCulled){
+            o.frustumCulled = false;
+            o.hadCullingEnabled = true;
+        }
+    });
+    renderer.render(scene, camera);
+    scene.traverse(function(o){
+        if(o instanceof THREE.Mesh && o.hadCullingEnabled){
+            o.frustumCulled = true;
+            delete o.hadCullingEnabled;
+        }
+    });
     lastRenderTime = vwf_view.kernel.time();
     hud.update();
 }
