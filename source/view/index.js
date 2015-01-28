@@ -191,17 +191,16 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 addBlocklyTab( eventArgs[ 0 ], eventArgs[ 1 ] );
                 break;
 
-            case "playVideo":
-                var src = eventArgs[ 0 ];
-                var id = getVideoIdFromSrc( src );
-                if ( isNaN( id ) || id < 0 || id >= videos.length ) {
-                    id = loadVideo( src );
-                }
-                $( "#transitionScreen" ).fadeIn( function() {
-                    playVideo( id );
-                } );
+            // case "playVideo":
+            //     var src = eventArgs[ 0 ];
+            //     var id = getVideoIdFromSrc( src );
+            //     if ( isNaN( id ) || id < 0 || id >= videos.length ) {
+            //         id = loadVideo( src );
+            //     }
+            //     $( "#transitionScreen" ).fadeIn();
+            //     playVideo( id );
                 
-                break;
+            //     break;
 
             case "videoPlayed":
                 $( "#transitionScreen" ).fadeOut();
@@ -491,9 +490,15 @@ function setUpView() {
 }
 
 function render( renderer, scene, camera ) {
+
     blinkTabs();
+
     //renderer.render( scene, camera );
-    //Eliminate frustrum culling to hide faulty webGL overflow errors
+
+    //HACK: Eliminate frustum culling to hide faulty webGL glDrawElements overflow errors.
+    // Frustum culling causes some buffer regeneration to be deferred until later, 
+    // while meshes are still trying to be rendered before their buffers regen 
+
     scene.traverse(function(o){
         if(o instanceof THREE.Mesh && o.frustumCulled){
             o.frustumCulled = false;
