@@ -28,6 +28,15 @@ properties:
   playerId: "test"
   version: 1.0
   sceneBlackboard: {}
+  blocklyBlinking: false
+  graphBlinking: false
+  gridBlinking: false
+  tilesBlinking: false
+  objectiveBlinking: false
+  cameraConsoleBlinking: false
+  overheadCameraBlinking: false
+  roverTabBlinking: false
+  graphTabBlinking: false
   # applicationState tracks what the application is currently doing
   #   in its execution process.
   #   Valid states are: loading, menu, playing
@@ -60,6 +69,10 @@ methods:
   newGame:
   continueGame:
   applicationLoaded:
+  blinkHUD:
+  stopBlinkHUD:
+  blinkTab:
+  stopBlinkTab:
 events:
   gameStarted:
   scenarioReset:
@@ -68,10 +81,6 @@ events:
   scenarioSucceeded:
   scenarioFailed:
   gotScenarioPaths:
-  blinkHUD:
-  stopBlinkHUD:
-  blinkTab:
-  stopBlinkTab:
   clearBlockly:
   selectLastBlock:
   showCommsImage:
@@ -160,6 +169,9 @@ children:
         extends: http://vwf.example.com/node3.vwf
         source: assets/3d/Terrain/rover_tracks_straight.dae
         type: model/vnd.collada+xml
+        properties:
+          castShadows: false
+          receiveShadows: false
   airDust:
     includes: source/dustAir.vwf
   smoke1:
@@ -409,6 +421,7 @@ children:
     extends: http://vwf.example.com/graphtool/graph.vwf
     implements: "source/griddable.vwf"
     properties:
+      visible: false
       graphScale: 3
       gridInterval: 1
       gridLineInterval: 4

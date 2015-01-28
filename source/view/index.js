@@ -152,22 +152,6 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 scenarioList = eventArgs[ 0 ];
                 break;
 
-            case "blinkHUD":
-                blinkElement( eventArgs[ 0 ] );
-                break;
-
-            case "stopBlinkHUD":
-                stopElementBlinking( eventArgs[ 0 ] );
-                break;
-
-            case "blinkTab":
-                blinkTab( eventArgs[ 0 ] );
-                break;
-
-            case "stopBlinkTab":
-                stopBlinkTab( eventArgs[ 0 ] );
-                break;
-
             case "setHUDElementProperty":
                 var element, property, value;
                 element = eventArgs[ 0 ];
@@ -439,6 +423,36 @@ vwf_view.satProperty = function( nodeID, propertyName, propertyValue ) {
                     $( "#transitionScreen" ).fadeOut();
                     break;
             }
+        } else if ( propertyName === "blocklyBlinking" ) {
+            if ( propertyValue === true ) {
+                blinkElement( "blocklyButton" );
+            } else {
+                stopElementBlinking( "blocklyButton" );
+            }
+        } else if ( propertyName === "tilesBlinking" ) {
+            if ( propertyValue === true ) {
+                blinkElement( "tilesButton" );
+            } else {
+                stopElementBlinking( "tilesButton" );
+            }
+        } else if ( propertyName === "graphBlinking" ) {
+            if ( propertyValue === true ) {
+                blinkElement( "graphButton" );
+            } else {
+                stopElementBlinking( "graphButton" );
+            }
+        } else if ( propertyName === "roverTabBlinking" ) {
+            if ( propertyValue === true ) {
+                blinkTabHUD( "rover" );
+            } else {
+                stopBlinkTabHUD( "rover" );
+            }
+        } else if ( propertyName === "graphTabBlinking" ) {
+            if ( propertyValue === true ) {
+                blinkTabHUD( "graph" );
+            } else {
+                stopBlinkTabHUD( "graph" );
+            }
         }
     }
 
@@ -629,38 +643,18 @@ function blinkTabs() {
     }
 }
 
-function blinkTab( nodeID ) {
-    var tab = document.getElementById( nodeID );
-    if ( tab && tab.className.indexOf( "blinking" ) !== -1 ) {
-        return;
-    }
-    if ( tab && tab.className.indexOf( "blocklyTab" ) !== -1 ) {
-        tab.blink = blink;
-        tab.stopBlink = stopBlink;
-        tab.lastBlinkTime = lastRenderTime;
-        tab.isBlinking = true;
-    }
-}
+// function blink() {
+//     var blinkInterval = 0.25;
+//     if ( lastRenderTime > this.lastBlinkTime + blinkInterval ) {
+//         this.style.opacity = this.style.opacity === "1" ? "0.5" : "1";
+//         this.lastBlinkTime = lastRenderTime;
+//     }
+// }
 
-function blink() {
-    var blinkInterval = 0.25;
-    if ( lastRenderTime > this.lastBlinkTime + blinkInterval ) {
-        this.style.opacity = this.style.opacity === "1" ? "0.5" : "1";
-        this.lastBlinkTime = lastRenderTime;
-    }
-}
-
-function stopBlink() {
-    this.style.opacity = "1";
-    this.isBlinking = false;
-}
-
-function stopBlinkTab( nodeID ) {
-    var tab = document.getElementById( nodeID );
-    if ( tab && tab.isBlinking ) {
-        tab.stopBlink();
-    }
-}
+// function stopBlink() {
+//     this.style.opacity = "1";
+//     this.isBlinking = false;
+// }
 
 function clearBlockly() {
     if ( Blockly.mainWorkspace ){
