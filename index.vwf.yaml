@@ -73,6 +73,7 @@ methods:
   stopBlinkHUD:
   blinkTab:
   stopBlinkTab:
+  playVideo:
 events:
   gameStarted:
   scenarioReset:
@@ -93,7 +94,6 @@ events:
   resetHUDState:
   enableBlocklyTab:
   clearBlocklyTabs:
-  playVideo:
   videoPlayed:
   setObjective:
   setHUDElementProperty:
