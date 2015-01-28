@@ -13,7 +13,7 @@
 // limitations under the License.
 
 this.initialize = function() {
-    this.future( 0 ).onSceneLoaded();
+    this.future( 0.01 ).onSceneLoaded();
 }
 
 this.onSceneLoaded = function() {

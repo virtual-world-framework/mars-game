@@ -390,4 +390,13 @@ this.stopBlinkTab = function( nodeID ) {
     }
 }
 
+this.playVideo = function( src ) {
+    var id = getVideoIdFromSrc( src );
+    if ( isNaN( id ) || id < 0 || id >= videos.length ) {
+        id = loadVideo( src );
+    }
+    $( "#transitionScreen" ).fadeIn();
+    playVideo( id );
+}
+
 //@ sourceURL=source/scene.js
