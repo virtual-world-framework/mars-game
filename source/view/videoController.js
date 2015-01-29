@@ -16,7 +16,8 @@ var videos = new Array();
 var videoID = 0;
 var playingVideo;
 
-function loadVideo( src, type, dontRemoveWhenEnded ) {
+// function loadVideo( src, type, dontRemoveWhenEnded ) {
+function loadVideo( src, type ) {
     var video = {
         "id" : videoID,
         "elem" : document.createElement( "video" ),
@@ -34,22 +35,37 @@ function loadVideo( src, type, dontRemoveWhenEnded ) {
 
     document.onkeypress = removeVideoOnEvent;
 
-    if ( !dontRemoveWhenEnded ) {
+    //Right now the code seems to depend on the removeVideoOnEvent... otherwise
+    //we don't advance when a video finishes, unless the user presses a key.
+    // if ( !dontRemoveWhenEnded ) {
         video.elem.onended = removeVideoOnEvent;
-    }
+    // }
 
     videos.push( video );
     videoID++;
     return videoID - 1;
+
+    var rover = vwf_view.kernel.find( "", "//rover" )[ 0 ];
 }
 
 function playVideo( id ) {
-    var video = videos[ id ];
-    if ( video ) {
-        document.body.appendChild( video.wrapper );
-        playingVideo = video;
-        video.elem.play();
-    }
+    // var video = videos[ id ];
+    // if ( video ) {
+    //     document.body.appendChild( video.wrapper );
+    //     playingVideo = video;
+    //      video.elem.play();
+    // }
+
+    //TODO: 
+    //a) Find the mediaManager.
+    //b) Find the videoManager
+    //c) Identify the video source from above (video.source.src)
+    //d) use vwf_view_kernel.setProperty( videoManagerID, "url", <insert_url_here>) to set the URL for the video manager.
+    //e) vwf_view.kernel.callMethod( videoManagerID, "play" );
+
+    var fooRover = vwf_view.kernel.find( "", "//rover" )[ 0 ];
+    var fooGameCam = vwf_view.kernel.find( "", "//gameCam" )[ 0 ];
+    console.log("Playing video: " + id);
 }
 
 function removeVideoOnEvent( event ) {
@@ -57,12 +73,14 @@ function removeVideoOnEvent( event ) {
     if ( event.type === "keypress" && event.which !== 32 ) {
         return;
     }
-    var videoElem = playingVideo.elem || event.srcElement;
-    var id = parseInt( videoElem.id.split( "video" )[ 1 ] );
-    var fileName = getVideoFileName( videos[ id ] );
-    vwf_view.kernel.fireEvent( vwf_view.kernel.application(), "videoPlayed", [ fileName ] );
-    removeVideo( id );
-    playingVideo = undefined;
+    // var videoElem = playingVideo.elem || event.srcElement;
+    // var id = parseInt( videoElem.id.split( "video" )[ 1 ] );
+    // var fileName = getVideoFileName( videos[ id ] );
+    // vwf_view.kernel.fireEvent( vwf_view.kernel.application(), "videoPlayed", [ fileName ] );
+    // removeVideo( id );
+    // playingVideo = undefined;
+
+    vwf_view.kernel.fireEvent( vwf_view.kernel.application(), "videoPlayed", undefined );
 }
 
 function removeVideo( id ) {

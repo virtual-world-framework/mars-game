@@ -82,6 +82,35 @@ events:
   loadedGame:
   storedScenario:
 children:
+  mediaManager:
+      extends: http://vwf.example.com/node.vwf
+      # properties:
+      #   buttons: {}
+      #   uniqueNameCounter: 0
+      #   imageUrlInMediaWindow:
+      #     set: |
+      #       this.imageUrlInMediaWindow = value;
+      #       if ( value.search( "data:image" ) !== 0 ) {
+      #         this.logger.errorx( "imageUrlInMediaWindow.set", "Invalid image url:", value );
+      #       }
+      #   selectedSoundName:
+      #   mediaWindowVisible:
+      #   mediaContents:
+      # methods:
+      #   addButton:
+      #   deleteButton:
+      # events:
+      #   addedButton:
+      #   deletedButton:
+      children:
+        audioManager:
+          extends: http://vwf.example.com/jplayer/audioManager.vwf
+        videoManager:
+          extends: http://vwf.example.com/jplayer/videoManager.vwf
+          # properties:
+          #   posterImageUrl: "multimedia/pictures/ThickForestCanopy001.jpg"
+      # scripts:
+      # - source: "mediaManager.js"
   gameCam:
     includes: source/gameCamera.vwf
   cinematicCameraController:

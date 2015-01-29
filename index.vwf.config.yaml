@@ -17,6 +17,7 @@ model:
   vwf/model/threejs:
   vwf/model/blockly:
   vwf/model/sound:
+  vwf/model/jPlayer:
   vwf/model/graphtool:
   vwf/model/heightmap:
 view:
