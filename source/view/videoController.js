@@ -63,16 +63,28 @@ function playVideo( id ) {
     //d) use vwf_view_kernel.setProperty( videoManagerID, "url", <insert_url_here>) to set the URL for the video manager.
     //e) vwf_view.kernel.callMethod( videoManagerID, "play" );
 
-    var fooRover = vwf_view.kernel.find( "", "//rover" )[ 0 ];
-    var fooGameCam = vwf_view.kernel.find( "", "//gameCam" )[ 0 ];
-    console.log("Playing video: " + id);
+    var video = videos[ id ];
+    if ( video ) {
+        var mediaManagerID = vwf_view.kernel.find( undefined, "/mediaManager" )[ 0 ];
+        var videoManagerID = vwf_view.kernel.find( mediaManagerID, "videoManager" ) [ 0 ];
+
+        //TODO: Is there a better way to do this than to put "/mars-game/" in front of video.source.src ??? 
+        // vwf_view.kernel.setProperty( videoManagerID, "url", '/mars-game/' + video.source.src );
+        // vwf_view.kernel.setProperty( videoManagerID, "url", '/mars-game/assets/video/intro_cinematic.mp4' );
+        vwf_view.kernel.setProperty( videoManagerID, "url", video.source.src );
+        vwf_view.kernel.callMethod( videoManagerID, "play" );
+    }
+
+    // var fooRover = vwf_view.kernel.find( "", "//rover" )[ 0 ];
+    // var fooGameCam = vwf_view.kernel.find( "", "//gameCam" )[ 0 ];
+    // console.log("Playing video: " + id);
 }
 
 function removeVideoOnEvent( event ) {
     // 32 = space bar character code
-    if ( event.type === "keypress" && event.which !== 32 ) {
-        return;
-    }
+    // if ( event.type === "keypress" && event.which !== 32 ) {
+    //     return;
+    // }
     // var videoElem = playingVideo.elem || event.srcElement;
     // var id = parseInt( videoElem.id.split( "video" )[ 1 ] );
     // var fileName = getVideoFileName( videos[ id ] );
