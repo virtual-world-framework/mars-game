@@ -1,0 +1,45 @@
+# Copyright 2014 Lockheed Martin Corporation
+#
+# Licensed under the Apache License, Version 2.0 (the "License"); you may 
+# not use this file except in compliance with the License. You may obtain 
+# a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software 
+# distributed under the License is distributed on an "AS IS" BASIS, 
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and 
+# limitations under the License.
+
+# This component serves as the player camera. The parent interacts with the
+# camera targets and mounts set up in the scene and sets properties on the
+# camera child component. The two-part component allows the threejs driver
+# to interpolate transforms while the child camera node is completely user
+# controlled.
+
+---
+extends: http://vwf.example.com/node3.vwf
+properties:
+  target:
+  mountName:
+  lastTargetPosition: [ 0, 0, 0 ]
+  followingTarget: true
+  followRotation: false
+methods:
+  setCameraTarget:
+  setCameraMount:
+  followTarget:
+  attachToTarget:
+  detachFromTarget:
+  setCameraPose:
+  convertPoseToTransform:
+events:
+  mounted:
+children:
+  camera:
+    extends: http://vwf.example.com/camera.vwf
+    implements:
+      - http://vwf.example.com/navigable.vwf
+scripts:
+  - source: source/gameCamera.js

@@ -21,7 +21,7 @@ this.initialize = function() {
 }
 
 this.callOut = function( coords ) {
-    camera = this.find( "/player/targetFollower/camera" )[ 0 ];
+    camera = this.find( "/gameCam" )[ 0 ];
     coords[ 0 ] /= this.parent.graphScale;
     coords[ 1 ] /= this.parent.graphScale;
     coords[ 2 ] /= this.parent.graphScale;
@@ -31,7 +31,7 @@ this.callOut = function( coords ) {
 
 this.blink = function() {
     if ( this.isBlinking ) {
-        if ( camera.pointOfView === "topDown" ) {
+        if ( camera.mountName === "topDown" ) {
             this.visible = !this.visible;
         } else {
             this.visible = false;

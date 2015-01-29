@@ -82,6 +82,31 @@ events:
   loadedGame:
   storedScenario:
 children:
+  gameCam:
+    includes: source/gameCamera.vwf
+  cinematicCameraController:
+    extends: source/cameraTarget.vwf
+    implements:
+      - http://vwf.example.com/sceneGetter.vwf
+    properties:
+      defaultMount: default
+      cameraState:
+        target:
+        mountName:
+    methods:
+      panToNode:
+      getCameraPosition:
+      copyCameraState:
+      restoreCameraState:
+    children:
+      default:
+        extends: source/cameraMount.vwf
+        properties:
+          navmode: none
+          cameraPose: [ 12, 0, -25 ]
+          cameraSpeed: 0
+    scripts:
+      - source: source/cinematicCameraController.js
   soundManager:
     includes: source/marsGameSound.vwf
   # instrumentationManager:
@@ -190,61 +215,17 @@ children:
       intensity: 0.7
   player:
     extends: http://vwf.example.com/node3.vwf
-    methods:
-      initializeEventHandlers:
-      togglePerspective:
-      setRoverVisible:
     children:
-      targetFollower:
-        extends: http://vwf.example.com/node3.vwf
-        properties:
-          targetPath:
-            set: |
-              this.setTargetPath$( value );
-            value: "/player/rover"
-          needToSetupEventHandler$: false
-          firstPersonOffset: [ 0, 0, 1 ]
-          topDownOffset: [ 0, 0, 40 ]
-        methods:
-          onSceneReady$:
-          setTargetPath$:
-          followTarget$:
-        children:
-          camera:
-            extends: http://vwf.example.com/camera.vwf
-            implements: [ "http://vwf.example.com/navigable.vwf" ]
-            properties:
-              navmode: walk
-              translationSpeed: 0
-              translation: [ 0, 0, 1 ]
-              rotation: [ 0, 0, 1, 270 ]
-              far: 100000
-              pointOfView:
-                set: |
-                  this.changePointOfView$( value );
-                value: thirdPerson
-              orbiting: false
-
-              # The start poses are given as [ radius, yawAngle, pitchAngle ]
-              firstPersonStartPose: [ 0, 0, 0 ]
-              thirdPersonStartPose: [ 16.316, 0, -15 ]
-              topDownStartPose: [ 0, 0, -90 ]
-            methods:
-              changePointOfView$:
-              setCameraPose:
-              setNavigationFromPOV:
-            events:
-              changedPOV:
-            scripts:
-            - source: "source/camera.js"
-        scripts:
-        - source: "source/targetFollower.js"
       rover:
         extends: source/rover.vwf
-        implements: [ "http://vwf.example.com/blockly/controller.vwf", "source/griddable.vwf" ]
+        implements: 
+          - http://vwf.example.com/blockly/controller.vwf
+          - source/griddable.vwf
+          - source/cameraTarget.vwf
         source: assets/3d/Rover/rover_retro.dae
         type: model/vnd.collada+xml
         properties:
+          defaultMount: firstPerson
           displayName: "Rover"
           castShadows: true
           receiveShadows: true
@@ -295,6 +276,29 @@ children:
               return this.wheelBR;
           wheelRadius: 0.3304
         children:
+          firstPerson:
+            extends: source/cameraMount.vwf
+            properties:
+              navmode: walk
+              translation: [ 0, 0, 1 ]
+              cameraPose: [ 0, 0, 0 ]
+              cameraSpeed: 0
+              targetVisible: false
+              useTargetRotation: true
+          thirdPerson:
+            extends: source/cameraMount.vwf
+            properties:
+              navmode: thirdPerson
+              cameraPose: [ 16, 0, -15 ]
+              cameraSpeed: 0
+          topDown:
+            extends: source/cameraMount.vwf
+            properties:
+              navmode: topDown
+              worldOffset: [ 0, 0, 40 ]
+              cameraPose: [ 0, 0, -90 ]
+              cameraSpeed: 10
+              cameraLock: false
           Cylinder014:
             extends: http://vwf.example.com/node3.vwf
             children: 
@@ -329,8 +333,6 @@ children:
             properties:
               capacity: 4
               inventoryIsVisible: false
-    scripts:
-     - source: source/player.js
   pickups:
     extends: http://vwf.example.com/node3.vwf
     children:
