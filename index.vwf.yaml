@@ -15,7 +15,7 @@
 --- 
 extends: http://vwf.example.com/scene.vwf
 implements:
-- "http://vwf.example.com/blockly/manager.vwf"
+  - "http://vwf.example.com/blockly/manager.vwf"
 properties:
   enableShadows: true
   shadowMapCullFace: "back"
@@ -226,7 +226,7 @@ children:
       setUpEvents:
       followCamera:
     scripts:
-      - source: source/lights.js
+    - source: source/lights.js
   envLight:
     extends: http://vwf.example.com/light.vwf
     properties:
@@ -241,9 +241,9 @@ children:
       rover:
         extends: source/rover.vwf
         implements: 
-          - http://vwf.example.com/blockly/controller.vwf
-          - source/griddable.vwf
-          - source/cameraTarget.vwf
+        - http://vwf.example.com/blockly/controller.vwf
+        - source/griddable.vwf
+        - source/cameraTarget.vwf
         source: assets/3d/Rover/rover_retro.dae
         type: model/vnd.collada+xml
         properties:
@@ -489,6 +489,7 @@ children:
           doubleSided: false
           renderTop: true
           visible: false
+          isBlinking: false
         methods:
           callOut:
           blink:
@@ -507,7 +508,7 @@ children:
       logger_lifeTime: 10000
       logger_logs: []
     scripts:
-    - source: source/loggerHelper.js
+      - source: source/loggerHelper.js
   subtitles:
     extends: http://vwf.example.com/logger.vwf
     properties:

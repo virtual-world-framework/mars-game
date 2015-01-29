@@ -12,24 +12,22 @@
 // See the License for the specific language governing permissions and 
 // limitations under the License.
 
-var camera;
-
-this.isBlinking = false;
-
 this.initialize = function() {
-    this.blink();
+    //this.blink();
 }
 
 this.callOut = function( coords ) {
-    camera = this.find( "/gameCam" )[ 0 ];
+    var camera = this.find( "/gameCam" )[ 0 ];
     coords[ 0 ] /= this.parent.graphScale;
     coords[ 1 ] /= this.parent.graphScale;
     coords[ 2 ] /= this.parent.graphScale;
     this.origin = coords;
     this.isBlinking = true;
+    this.blink();
 }
 
 this.blink = function() {
+    var camera = this.find( "/gameCam" )[ 0 ];
     if ( this.isBlinking ) {
         if ( camera.mountName === "topDown" ) {
             this.visible = !this.visible;
