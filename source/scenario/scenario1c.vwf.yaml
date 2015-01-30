@@ -54,6 +54,10 @@ properties:
     - [ 8, 3 ]
 
   - addToGrid:
+    - rover2
+    - [ 8, 4 ]
+
+  - addToGrid:
     - battery
     - [ 8, 6 ]
 
@@ -62,8 +66,14 @@ properties:
     - [ 8, 16 ]
   - enableBlocklyTabs:
     - rover
+    - rover2
+
   - loadToolbox:
     - rover
+    - source/scenario/blockly/scenario1c.xml
+
+  - loadToolbox:
+    - rover2
     - source/scenario/blockly/scenario1c.xml
 
 children:

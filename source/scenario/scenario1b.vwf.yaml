@@ -50,6 +50,10 @@ properties:
     - [ 8, 2 ]
 
   - addToGrid:
+    - rover2
+    - [ 8, 4 ]
+
+  - addToGrid:
     - helicam
     - [ 8, 3 ]
 
@@ -60,10 +64,17 @@ properties:
   - addToGrid:
     - radio
     - [ 8, 16 ]
+
   - enableBlocklyTabs:
     - rover
+    - rover2
+
   - loadToolbox:
     - rover
+    - source/scenario/blockly/scenario1b.xml
+
+  - loadToolbox:
+    - rover2
     - source/scenario/blockly/scenario1b.xml
 
 children:

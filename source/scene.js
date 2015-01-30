@@ -171,6 +171,8 @@ this.setUpCameraListener = function() {
 this.setUpRoverListeners = function() {
     this.scenarioChanged = ( function( scenarioName ) {
         this.player.rover.findAndSetCurrentGrid( scenarioName );
+        //HACK: this should be generalizable to n rovers.
+        this.player.rover2.findAndSetCurrentGrid( scenarioName );
     } ).bind( this );
     // rover.findAndSetCurrentGrid( this.activeScenarioPath );
 }
