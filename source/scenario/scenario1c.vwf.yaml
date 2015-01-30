@@ -55,7 +55,7 @@ properties:
 
   - addToGrid:
     - rover2
-    - [ 8, 4 ]
+    - [ 6, 2 ]
 
   - addToGrid:
     - battery

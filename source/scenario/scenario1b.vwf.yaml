@@ -51,7 +51,7 @@ properties:
 
   - addToGrid:
     - rover2
-    - [ 8, 4 ]
+    - [ 7, 2 ]
 
   - addToGrid:
     - helicam
@@ -75,7 +75,7 @@ properties:
 
   - loadToolbox:
     - rover2
-    - source/scenario/blockly/scenario1b.xml
+    - source/scenario/blockly/scenario1f.xml
 
 children:
   triggerManager:
@@ -106,6 +106,8 @@ children:
             - false
           - setThirdPersonStartPose:
             - [ 13, 15, -15 ]
+          - writeToBlackboard:
+            - disableFailOnIncompleteProgram
 
         playStartingVO_1b:
           triggerCondition:

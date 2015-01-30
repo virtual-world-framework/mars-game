@@ -59,7 +59,7 @@ properties:
 
   - addToGrid:
     - rover2
-    - [ 8, 4 ]
+    - [ 7, 2 ]
 
   - addToGrid:
     - helicam
@@ -79,6 +79,10 @@ properties:
   - loadToolbox:
     - rover
     - source/scenario/blockly/scenario1.xml
+
+  - loadToolbox:
+    - rover2
+    - source/scenario/blockly/scenario1f.xml
 
 children:
   triggerManager:
