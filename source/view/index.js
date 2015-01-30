@@ -431,15 +431,15 @@ vwf_view.satProperty = function( nodeID, propertyName, propertyValue ) {
             }
         } else if ( propertyName === "roverTabBlinking" ) {
             if ( propertyValue === true ) {
-                blinkTabHUD( "rover" );
+                blinkTab( getBlocklyNodeIDByName( "rover" ) );
             } else {
-                stopBlinkTabHUD( "rover" );
+                stopBlinkTab( getBlocklyNodeIDByName( "rover" ) );
             }
         } else if ( propertyName === "graphTabBlinking" ) {
             if ( propertyValue === true ) {
-                blinkTabHUD( "graph" );
+                blinkTab( getBlocklyNodeIDByName( "graph" ) );
             } else {
-                stopBlinkTabHUD( "graph" );
+                stopBlinkTab( getBlocklyNodeIDByName( "graph" ) );
             }
         }
     }
@@ -637,9 +637,41 @@ function selectBlocklyTab( nodeID ) {
     }
 }
 
+function getBlocklyNodeIDByName( name ) {
+    var result;
+    var keys = Object.keys( blocklyNodes );
+    for ( var i = 0; i < keys.length; i++ ) {
+        if ( name === blocklyNodes[ keys[ i ] ].name ) {
+            result = keys[ i ];
+            break;
+        }
+    }
+    return result;
+}
+
 function updateBlocklyUI( blocklyNode ) {
     if ( Blockly.mainWorkspace ) {
         Blockly.mainWorkspace.maxBlocks = blocklyNode.ramMax;
+    }
+}
+
+function blinkTab( nodeID ) {
+    var tab = document.getElementById( nodeID );
+    if ( tab && tab.className.indexOf( "blinking" ) !== -1 ) {
+        return;
+    }
+    if ( tab && tab.className.indexOf( "blocklyTab" ) !== -1 ) {
+        tab.blink = blink;
+        tab.stopBlink = stopBlink;
+        tab.lastBlinkTime = lastRenderTime;
+        tab.isBlinking = true;
+    }
+}
+
+function stopBlinkTab( nodeID ) {
+    var tab = document.getElementById( nodeID );
+    if ( tab && tab.isBlinking ) {
+        tab.stopBlink();
     }
 }
 
@@ -651,18 +683,18 @@ function blinkTabs() {
     }
 }
 
-// function blink() {
-//     var blinkInterval = 0.25;
-//     if ( lastRenderTime > this.lastBlinkTime + blinkInterval ) {
-//         this.style.opacity = this.style.opacity === "1" ? "0.5" : "1";
-//         this.lastBlinkTime = lastRenderTime;
-//     }
-// }
+function blink() {
+    var blinkInterval = 0.25;
+    if ( lastRenderTime > this.lastBlinkTime + blinkInterval ) {
+        this.style.opacity = this.style.opacity === "1" ? "0.5" : "1";
+        this.lastBlinkTime = lastRenderTime;
+    }
+}
 
-// function stopBlink() {
-//     this.style.opacity = "1";
-//     this.isBlinking = false;
-// }
+function stopBlink() {
+    this.style.opacity = "1";
+    this.isBlinking = false;
+}
 
 function clearBlockly() {
     if ( Blockly.mainWorkspace ){

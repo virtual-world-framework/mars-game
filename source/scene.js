@@ -331,7 +331,7 @@ this.blinkHUD = function( elementID ) {
             this.objectiveBlinking = true;
             break;
         default:
-            blinkElement( elementID );
+            this.logger.warnx( "blinkHUD", "Element " + elementID + " not handled." );
             break;
     }
 }
@@ -351,13 +351,13 @@ this.stopBlinkHUD = function( elementID ) {
             this.objectiveBlinking = false;
             break;
         default:
-            stopElementBlinking( elementID );
+            this.logger.warnx( "stopBlinkHUD", "Element " + elementID + " not handled." );
             break;
     }
 }
 
-this.blinkTab = function( nodeID ) {
-    switch ( nodeID ) {
+this.blinkTab = function( nodeName ) {
+    switch ( nodeName ) {
         case "rover":
             this.roverTabBlinking = true;
             break;
@@ -365,27 +365,21 @@ this.blinkTab = function( nodeID ) {
             this.graphTabBlinking = true;
             break;
         default:
-            blinkTabHUD( elementID );
+            this.logger.warnx( "blinkTab", "Node " + nodeName + " not handled." );
             break;
     }
 }
 
-this.stopBlinkTab = function( nodeID ) {
-    switch ( nodeID ) {
+this.stopBlinkTab = function( nodeName ) {
+    switch ( nodeName ) {
         case "rover":
             this.roverTabBlinking = false;
             break;
         case "graph":
             this.graphTabBlinking = false;
             break;
-        case "tilesButton":
-            this.tilesBlinking = false;
-            break;
-        case "objective":
-            this.objectiveBlinking = false;
-            break;
         default:
-            stopBlinkTabHUD( nodeID );
+            this.logger.warnx( "stopBlinkTab", "Node " + nodeName + " not handled." );
             break;
     }
 }
