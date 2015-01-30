@@ -516,26 +516,6 @@ function blinkElement( elementID ) {
     }
 }
 
-function blinkTabHUD( nodeID ) {
-    var tab = document.getElementById( nodeID );
-    if ( tab && tab.className.indexOf( "blinking" ) !== -1 ) {
-        return;
-    }
-    if ( tab && tab.className.indexOf( "blocklyTab" ) !== -1 ) {
-        tab.blink = blink;
-        tab.stopBlink = stopBlink;
-        tab.lastBlinkTime = lastRenderTime;
-        tab.isBlinking = true;
-    }
-}
-
-function stopBlinkTabHUD( nodeID ) {
-    var tab = document.getElementById( nodeID );
-    if ( tab && tab.isBlinking ) {
-        tab.stopBlink();
-    }
-}
-
 function drawBlink( context, position ) {
     var time = vwf_view.kernel.time();
     if ( time  - this.lastBlinkTime > this.blinkInterval ) {
