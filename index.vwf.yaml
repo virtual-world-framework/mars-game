@@ -169,9 +169,6 @@ children:
         extends: http://vwf.example.com/node3.vwf
         source: assets/3d/Terrain/rover_tracks_straight.dae
         type: model/vnd.collada+xml
-        properties:
-          castShadows: false
-          receiveShadows: false
   airDust:
     includes: source/dustAir.vwf
   smoke1:
@@ -421,7 +418,6 @@ children:
     extends: http://vwf.example.com/graphtool/graph.vwf
     implements: "source/griddable.vwf"
     properties:
-      visible: false
       graphScale: 3
       gridInterval: 1
       gridLineInterval: 4

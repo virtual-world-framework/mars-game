@@ -223,8 +223,7 @@ this.actionSet.blinkBlocklyTab = function( params, context ) {
     }
     var objectName = params[ 0 ];
     return function() {
-        var object = context.find( "//" + objectName  )[ 0 ];
-        context.blinkTab( object.id );
+        context.blinkTab( objectName );
     }
 }
 
@@ -236,8 +235,7 @@ this.actionSet.stopBlinkBlocklyTab = function( params, context ) {
     }
     var objectName = params[ 0 ];
     return function() {
-        var object = context.find( "//" + objectName  )[ 0 ];
-        context.stopBlinkTab( object.id );
+        context.stopBlinkTab( objectName );
     }
 }
 
