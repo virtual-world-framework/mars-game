@@ -20,6 +20,7 @@ model:
   vwf/model/jPlayer:
   vwf/model/graphtool:
   vwf/model/heightmap:
+  vwf/model/test:
 view:
   vwf/view/threejs: "#vwf-root"
   vwf/view/blockly: { "blocklyPath": './source/blockly/', "toolbox": 'toolbox' }
