@@ -21,6 +21,14 @@ properties:
 
   startState:
   - setProperty:
+    - rover3
+    - visible
+    - false
+  - setProperty:
+    - rover2
+    - visible
+    - false
+  - setProperty:
     - rover
     - battery
     - 8
@@ -58,10 +66,6 @@ properties:
     - [ 8, 2 ]
 
   - addToGrid:
-    - rover2
-    - [ 7, 2 ]
-
-  - addToGrid:
     - helicam
     - [ 8, 3 ]
 
@@ -74,15 +78,9 @@ properties:
     - [ 8, 16 ]
   - enableBlocklyTabs:
     - rover
-    - rover2
-
   - loadToolbox:
     - rover
     - source/scenario/blockly/scenario1.xml
-
-  - loadToolbox:
-    - rover2
-    - source/scenario/blockly/scenario1f.xml
 
 children:
   triggerManager:

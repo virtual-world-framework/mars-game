@@ -15,27 +15,27 @@
 ---
 extends: source/scenario/scenario.vwf
 properties:
-  scenarioName: scenario1g
+  scenarioName: scenario_dummy
 
-  nextScenarioPath: "scenario1h"
+  # nextScenarioPath: "scenario1c"
 
   startState:
   - setProperty:
     - rover3
     - visible
-    - false
+    - true
   - setProperty:
     - rover2
     - visible
-    - false
+    - true
   - setProperty:
     - rover
     - battery
-    - 4
+    - 8
   - setProperty:
     - rover
     - batteryMax
-    - 25
+    - 8
   - setProperty:
     - rover
     - blockly_allowedBlocks
@@ -43,36 +43,63 @@ properties:
   - setProperty:
     - rover
     - lowRam
-    - 1
+    - 1    
 
   - callMethod:
     - rover
     - setHeading
-    - 180
+    - 0
 
-  - addToInventory:
+  - emptyInventory:
     - rover/cargo
-    - [ "helicam", "battery" ]
 
   - addToGrid:
     - rover
+    - [ 8, 2 ]
+
+  - addToGrid:
+    - rover3
+    - [ 6, 5 ]
+
+  - addToGrid:
+    - rover2
+    - [ 7, 2 ]
+
+  - addToGrid:
+    - helicam
+    - [ 8, 3 ]
+
+  - addToGrid:
+    - battery
     - [ 8, 6 ]
 
   - addToGrid:
     - radio
     - [ 8, 16 ]
+
   - enableBlocklyTabs:
     - rover
+    - rover2
+    - rover3
+
   - loadToolbox:
     - rover
-    - source/scenario/blockly/scenario1g.xml
+    - source/scenario/blockly/scenario1b.xml
+
+  - loadToolbox:
+    - rover2
+    - source/scenario/blockly/scenario1f.xml
+
+  - loadToolbox:
+    - rover3
+    - source/scenario/blockly/scenario1f.xml
 
 children:
   triggerManager:
     extends: source/triggers/triggerManager.vwf
     properties: 
       triggers:
-        beginScenario_1g:
+        beginScenario_1b:
           triggerCondition:
           - onScenarioStart:
           actions:
@@ -81,53 +108,98 @@ children:
           - playSound:
             - environmentWind
           - setObjective:
-            - "Move back to the top of the ramp."
+            - "Move forward to pick up your Helicam."
+          - setHUDProperty:
+            - camera_topDown
+            - enabled
+            - false
           - setHUDProperty:
             - graphButton
             - enabled
             - false
+          - setHUDProperty:
+            - tilesButton
+            - enabled
+            - false
           - setThirdPersonStartPose:
             - [ 13, 15, -15 ]
+          - writeToBlackboard:
+            - disableFailOnIncompleteProgram
 
-        playStartingVO_1g:
+        playStartingVO_1b:
           triggerCondition:
           - and:
             - onScenarioStart:
             - not:
               - readBlackboard:
-                - Level1gStartSounds
+                - Level1bStartSounds
           actions:
           - playSound:
-            - ALVO42_Rover
+            - L1VO2_Rover
           - writeToBlackboard:
-            - Level1gStartSounds
+            - Level1bStartSounds
 
-        succeedOnSuccess_1g:
+        succeedOnSuccess_1b:
           triggerCondition:
           - and:
             - onBlocklyStopped:
               - rover
             - isAtPosition:
               - rover
-              - [ 8, 2 ]
+              - [ 8, 3 ]
+          actions:
+          - scenarioSuccess:
+          - showAlert:
+            - "You have executed a movement command and picked up your helicam!"
+          - playSound:
+            - musicSuccessShort
+          - playSound:
+            - ALVO40_Rover
+
+        playHint1_1b:
+          triggerCondition:
+          - and:
+            - delay:
+              - 13
+            - not:
+              - readBlackboard:
+                - Level1bHint1
+            - not:
+              - readBlackboard:
+                - Level1bHint2
+            - not:
+              - readBlackboard:
+                - hasSucceeded
             - not:
               - readBlackboard:
                 - hasFailed
           actions:
-          - scenarioSuccess:
-          - showAlert:
-            - "Now I can get out of this ditch and find the radio!"
+          - writeToBlackboard:
+            - Level1bHint1
           - playSound:
-            - SCVO3_Rover
-          - playSound:
-            - musicSuccessShort
+            - ALVO15_Rover
 
-        highlightEndTile:
+        playHint2_1b:
           triggerCondition:
-          - onScenarioStart:
+          - and:
+            - onBlocklyProgramChanged:
+              - [ "rover" ]
+              - add
+              - rover_moveForward
+            - not:
+              - readBlackboard:
+                - Level1bHint2
+            - not:
+              - readBlackboard:
+                - hasSucceeded
+            - not:
+              - readBlackboard:
+                - hasFailed
           actions:
-          - callOutObjective:
-            - [ 8, 2 ]
+          - playSound:
+            - ALVO16_Rover
+          - writeToBlackboard:
+            - Level1bHint2
 
         setCameraView:
           triggerCondition:

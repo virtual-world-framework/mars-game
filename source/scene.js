@@ -173,6 +173,7 @@ this.setUpRoverListeners = function() {
         this.player.rover.findAndSetCurrentGrid( scenarioName );
         //HACK: this should be generalizable to n rovers.
         this.player.rover2.findAndSetCurrentGrid( scenarioName );
+        this.player.rover3.findAndSetCurrentGrid( scenarioName );
     } ).bind( this );
     // rover.findAndSetCurrentGrid( this.activeScenarioPath );
 }
