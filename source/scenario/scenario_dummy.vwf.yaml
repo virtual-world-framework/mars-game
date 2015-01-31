@@ -88,11 +88,11 @@ properties:
 
   - loadToolbox:
     - rover2
-    - source/scenario/blockly/scenario1f.xml
+    - source/scenario/blockly/scenario_dummy.xml
 
   - loadToolbox:
     - rover3
-    - source/scenario/blockly/scenario1f.xml
+    - source/scenario/blockly/scenario_dummy.xml
 
 children:
   triggerManager:
