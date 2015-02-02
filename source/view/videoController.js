@@ -71,7 +71,9 @@ function playVideo( id ) {
         //TODO: Is there a better way to do this than to put "/mars-game/" in front of video.source.src ??? 
         // vwf_view.kernel.setProperty( videoManagerID, "url", '/mars-game/' + video.source.src );
         // vwf_view.kernel.setProperty( videoManagerID, "url", '/mars-game/assets/video/intro_cinematic.mp4' );
-        vwf_view.kernel.setProperty( videoManagerID, "url", video.source.src );
+        var appName = "mars-game";
+        var redactedURL = ( video.source.src ).replace( new RegExp(appName + "/.*/assets"), appName + "/assets");
+        vwf_view.kernel.setProperty( videoManagerID, "url", redactedURL );
         vwf_view.kernel.callMethod( videoManagerID, "play" );
     }
 
