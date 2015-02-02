@@ -247,10 +247,10 @@ this.setUpCameraListener = function() {
 }
 
 this.setUpRoverListeners = function() {
-    this.scenarioChanged = ( function( scenarioName ) {
+    this.scenarioChanged = this.events.add( function( scenarioName ) {
         this.player.rover.findAndSetCurrentGrid( scenarioName );
         //this.player.rover.findAndSetCurrentGrid( this.activeScenarioPath );
-    } ).bind( this );
+    }, this );
      //rover.findAndSetCurrentGrid( this.activeScenarioPath );
 }
 
