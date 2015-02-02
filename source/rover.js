@@ -22,8 +22,6 @@ this.initialize = function() {
     // TODO: Find the current heading (rather than making app developer specify)
 
     this.calcRam();
-    var foo = this.bar();
-    console.log(this.name + " Foo: " + foo);
 }
 
 this.findAndSetCurrentGrid = function( scenarioName ) {

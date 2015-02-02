@@ -84,7 +84,6 @@ methods:
   activateSensor:
   deactivateSensor:
   setHeading:
-  bar:
 events:
   moved:
   moveFailed:
