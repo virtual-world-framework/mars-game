@@ -46,7 +46,6 @@ properties:
     set: |
       this.setApplicationState( value );
     value: loading
-  loggerHTML: " "
 methods:
   setScenario:
   resetScenario:
@@ -512,7 +511,8 @@ children:
       logger_maxLogs: 10
       logger_lifeTime: 10000
       logger_logs: []
-    events:
+      strings: []
+    methods:
       addSubtitle:
     scripts:
     - source: source/loggerHelper.js
