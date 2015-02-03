@@ -469,7 +469,7 @@ vwf_view.gotProperty = function( nodeID, propertyName, propertyValue ) {
                 "Licensed using " + 
                 "<a target='_blank' href='../LICENSE.txt'>Apache 2</a>. " +
                 "Version: " + version;
-        }
+        } 
     }
 }
 
