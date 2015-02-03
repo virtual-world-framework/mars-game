@@ -251,14 +251,7 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 var index = eventArgs[ 0 ];
                 // not sure this is needed, will always remove the first 
                 // log in the list
-                break;
-
-            case "addSubtitle":
-                var msg = eventArgs[ 0 ];
-                var time = eventArgs[ 1 ] ? eventArgs[ 1 ] : 1;
-                pushSubtitle( msg, time );
-                break;            
-            
+                break;        
         }
     } else {
         // scenario events
@@ -466,6 +459,18 @@ vwf_view.satProperty = function( nodeID, propertyName, propertyValue ) {
             case "logger_lifeTime":
                 loggerNode[ propertyName ] = parseFloat( propertyValue );
                 break;
+
+            case "strings":
+                var strings = propertyValue;
+                var lb = document.getElementById( "loggerBox" );
+                if ( strings.length !== lb.counter ) {
+                    var arrayLength = strings.length;
+                    for (var i = 0; i < arrayLength; i++) {
+                        pushSubtitle( strings[ i ] );
+                    }
+                } else {
+                    pushSubtitle( strings[ strings.length - 1 ] );
+                }
         }
     }
 }
