@@ -29,19 +29,15 @@ properties:
   - setProperty:
     - rover
     - battery
-    - 8
+    - 20
   - setProperty:
     - rover
     - batteryMax
-    - 8
+    - 20
   - setProperty:
     - rover
     - blockly_allowedBlocks
-    - 3
-  - setProperty:
-    - rover
-    - lowRam
-    - 1    
+    - 20
 
   - callMethod:
     - rover
@@ -82,7 +78,7 @@ properties:
 
   - loadToolbox:
     - rover
-    - source/scenario/blockly/scenario1b.xml
+    - source/scenario/blockly/scenario_dummy.xml
 
   - loadToolbox:
     - rover2
