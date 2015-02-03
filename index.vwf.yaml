@@ -46,6 +46,7 @@ properties:
     set: |
       this.setApplicationState( value );
     value: loading
+  loggerHTML: " "
 methods:
   setScenario:
   resetScenario:

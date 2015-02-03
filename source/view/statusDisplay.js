@@ -18,18 +18,33 @@ var subtitleDisplayWrapper = document.getElementById( "subtitleDisplayWrapper" )
 function setUpStatusDisplay() {
     document.body.appendChild( loggerBox );
     var subtitleText = document.createElement( "div" );
+
+    var sceneID = vwf_view.kernel.application();
+    if ( sceneID !== undefined ) {
+        var message = vwf_view.kernel.getProperty( sceneID, "loggerHTML" );
+        subtitleText.innerHTML = message;
+    }
+
     subtitleText.id = "subtitleText";
     subtitleDisplayWrapper.appendChild( subtitleText );
 }
 
 function resetSubtitles() {
     subtitleDisplayWrapper.innerHTML = "";
+    var sceneID = vwf_view.kernel.application();
+    var message = vwf_view.kernel.setProperty( sceneID, "loggerHTML", " " );
 }
 
 function pushSubtitle( message, subtitleTime ) {
     var text = document.createElement( "div" );
     text.className = "subtitleText";
     text.innerHTML = message;
+
+    var sceneID = vwf_view.kernel.application();
+    var oldMessages = vwf_view.kernel.getProperty( sceneID, "loggerHTML" );
+    var newMessages = oldMessages + '<div>' + message + '</div>';
+    vwf_view.kernel.setProperty( sceneID, "loggerHTML", newMessages );
+
     subtitleDisplayWrapper.appendChild( text );
     loggerBox.scrollTop = loggerBox.scrollHeight;
 }
