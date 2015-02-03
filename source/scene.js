@@ -178,9 +178,10 @@ this.addAlert = function( log ) {
 }
 
 this.addSubtitle = function( log, time ) {
-
-    if ( this.subtitles !== undefined ) {    
-        this.subtitles.addSubtitle( log, time );
+    if ( this.subtitles !== undefined ) {
+        var currentStrings = this.subtitles.strings;
+        currentStrings.push( log );
+        this.subtitles.strings = currentStrings;
     }
 }
 
