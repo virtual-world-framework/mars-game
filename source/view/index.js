@@ -97,7 +97,7 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 indicator.className = "stopped";
                 count.className = "stopped";
 
-                clearBlocklyStatus();
+                // clearBlocklyStatus();
 
             case "blocklyErrored":
                 startBlocklyButton.className = "";
@@ -131,9 +131,10 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 var blockName = eventArgs[ 0 ];
                 var blockID = eventArgs[ 1 ];
                 if ( blockID ) {
-                    selectBlock( blockID );
-                    indicateBlock( blockID );
-                    pushNextBlocklyStatus( blockID );
+                    //SJF:Breaking trace functionality
+                    // selectBlock( blockID );
+                    // indicateBlock( blockID );
+                    // pushNextBlocklyStatus( blockID );
                     lastBlockIDExecuted = blockID;
                 }
                 break;
@@ -200,7 +201,7 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 break;
 
             case "selectLastBlock":
-                selectBlock( lastBlockIDExecuted );
+                // selectBlock( lastBlockIDExecuted );
                 break;
 
             case "resetHUDState":

@@ -189,19 +189,19 @@ function hideBlocklyIndicator() {
 }
 
 function moveBlocklyIndicator( x, y ) {
-    var blocklyDiv = document.getElementById( "blocklyScrollDiv" );
-    var toolbox = document.getElementsByClassName( "blocklyFlyoutBackground" )[ 0 ];
-    var yOffset = parseInt( $( "#blocklyWrapper-top" ).css( "height" ) ) - blocklyDiv.scrollTop;
-    var xOffset = toolbox.getBBox().width;
-    if ( x > blocklyDiv.offsetWidth || y + yOffset - 20 > blocklyDiv.offsetHeight || y + yOffset < 0 ) {
-        hideBlocklyIndicator();
-    } else {
-        showBlocklyIndicator();
-    }
-    $( "#blocklyIndicator" ).stop().animate( { 
-        "top" : ( y + yOffset ) + "px",
-        "left": ( x + xOffset ) + "px"
-    } );
+    // var blocklyDiv = document.getElementById( "blocklyScrollDiv" );
+    // var toolbox = document.getElementsByClassName( "blocklyFlyoutBackground" )[ 0 ];
+    // var yOffset = parseInt( $( "#blocklyWrapper-top" ).css( "height" ) ) - blocklyDiv.scrollTop;
+    // var xOffset = toolbox.getBBox().width;
+    // if ( x > blocklyDiv.offsetWidth || y + yOffset - 20 > blocklyDiv.offsetHeight || y + yOffset < 0 ) {
+    //     hideBlocklyIndicator();
+    // } else {
+    //     showBlocklyIndicator();
+    // }
+    // $( "#blocklyIndicator" ).stop().animate( { 
+    //     "top" : ( y + yOffset ) + "px",
+    //     "left": ( x + xOffset ) + "px"
+    // } );
 }
 
 function showBlocklyLoopCount( count, maxCount ) {
