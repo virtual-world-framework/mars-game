@@ -133,8 +133,8 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 var blockName = eventArgs[ 0 ];
                 var blockID = eventArgs[ 1 ];
                 if ( blockID ) {
-                    //HACK: disabling tracing for dummyScenario, in order for Blockly procs to work
-                    if( currentScenario !== dummyScenarioName ){ 
+                    //SJF:Breaking trace functionality
+                    if( currentScenario !== dummyScenarioName ){
                         selectBlock( blockID );
                         indicateBlock( blockID );
                         pushNextBlocklyStatus( blockID );
@@ -205,7 +205,7 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 break;
 
             case "selectLastBlock":
-                if( currentScenario !== dummyScenarioName ){
+                if( scenarioName !== dummyScenarioName ){
                     selectBlock( lastBlockIDExecuted );
                 }
                 break;
