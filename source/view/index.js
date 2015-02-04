@@ -51,8 +51,6 @@ var RENDER_MENU = 1;
 var RENDER_GAME = 2;
 var renderMode = RENDER_NONE;
 
-var dummyScenarioName = "scenario_dummy";
-
 vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
     if ( blocklyNodes[ nodeID ] !== undefined ) {
         var blocklyNode = blocklyNodes[ nodeID ];
@@ -134,11 +132,9 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 var blockID = eventArgs[ 1 ];
                 if ( blockID ) {
                     //SJF:Breaking trace functionality
-                    if( currentScenario !== dummyScenarioName ){
-                        selectBlock( blockID );
-                        indicateBlock( blockID );
-                        pushNextBlocklyStatus( blockID );
-                    }
+                    // selectBlock( blockID );
+                    // indicateBlock( blockID );
+                    // pushNextBlocklyStatus( blockID );
                     lastBlockIDExecuted = blockID;
                 }
                 break;
@@ -205,9 +201,7 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 break;
 
             case "selectLastBlock":
-                if( scenarioName !== dummyScenarioName ){
-                    selectBlock( lastBlockIDExecuted );
-                }
+                // selectBlock( lastBlockIDExecuted );
                 break;
 
             case "resetHUDState":
@@ -737,9 +731,7 @@ function indicateBlock( blockID ) {
     }
     if ( block ) {
         var pos = block.getRelativeToSurfaceXY();
-        if( currentScenario !== dummyScenarioName){
-            moveBlocklyIndicator( pos.x, pos.y );
-        }   
+        moveBlocklyIndicator( pos.x, pos.y );
     } else {
         hideBlocklyIndicator();
     }
