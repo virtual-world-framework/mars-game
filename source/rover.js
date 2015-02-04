@@ -17,6 +17,15 @@ this.initialize = function() {
     if ( this.id === "source/rover.vwf" ) {
         return;
     }
+
+    //TODO: Set this properly (we shouldn't have to set this explicity in here...
+    // this.transform gets set automatically for ONE of the rovers, but not the other one)
+    this.transform = [
+        1,  0,  0,  0,
+        0,  1,  0,  0,
+        0,  0,  1,  0,
+        0,  0,  0,  1
+    ];
     
     // TODO: Find current grid square (rather than making app developer specify)
     // TODO: Find the current heading (rather than making app developer specify)

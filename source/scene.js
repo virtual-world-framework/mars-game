@@ -146,7 +146,8 @@ function calcGridBounds( grid ) {
 this.executeBlock = function ( block, action ) {
     var blockName = block[ 0 ];
     var blockID = block[ 1 ];
-    this.blockExecuted( blockName, blockID );
+    //SJF: Was breaking procedures
+    // this.blockExecuted( blockName, blockID );
 
     var nodeID = action[ 0 ];
     var methodName = action[ 1 ];
@@ -171,6 +172,9 @@ this.setUpCameraListener = function() {
 this.setUpRoverListeners = function() {
     this.scenarioChanged = ( function( scenarioName ) {
         this.player.rover.findAndSetCurrentGrid( scenarioName );
+        //HACK: this should be generalizable to n rovers.
+        this.player.rover2.findAndSetCurrentGrid( scenarioName );
+        this.player.rover3.findAndSetCurrentGrid( scenarioName );
     } ).bind( this );
     // rover.findAndSetCurrentGrid( this.activeScenarioPath );
 }
