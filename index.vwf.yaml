@@ -426,6 +426,7 @@ children:
       yAxisVisible: true
       zAxisVisible: false
       gridVisible: true
+      graphVisible: false
       axisOpacity: 1
       gridOpacity: 0.75
       renderTop: true
@@ -448,10 +449,6 @@ children:
           visible: false
         events:
           lineGraphed:
-    scripts: |
-      this.initialize = function() {
-        this.future( 0 ).setGraphVisibility( false );
-      }
   gridTileGraph:
     extends: http://vwf.example.com/graphtool/graph.vwf
     properties:
@@ -463,6 +460,7 @@ children:
       yAxisVisible: false
       zAxisVisible: false
       gridVisible: false
+      graphVisible: false
       axisOpacity: 1
       gridOpacity: 1
       renderTop: false
