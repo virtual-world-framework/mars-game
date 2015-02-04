@@ -555,62 +555,62 @@ function setBlocklyAlphas() {
 }
 
 function pushNextBlocklyStatus( id ) {
-    // var statusElem = hud.elements.blocklyStatus;
-    // if ( statusElem ) {
-    //     statusElem.index++;
-    //     var index = getBlockDataSlotFromId( id );
-    //     var blockData = statusElem.blockStack[ index ];
-    //     var blockName = blockData.name;
-    //     var block = statusElem.blockImages[ blockName ];
-    //     if ( block ) {
+    var statusElem = hud.elements.blocklyStatus;
+    if ( statusElem ) {
+        statusElem.index++;
+        var index = getBlockDataSlotFromId( id );
+        var blockData = statusElem.blockStack[ index ];
+        var blockName = blockData.name;
+        var block = statusElem.blockImages[ blockName ];
+        if ( block ) {
 
-    //         // If the index doesn't match, then we're looping back
-    //         if ( index !== statusElem.index ) {             
-    //             statusElem.index = index;
-    //             statusElem.topOffset = blockData.topOffset;
-    //             setBlocklyAlphas();
-    //             statusElem.draw = statusElem.defaultDraw;                
+            // If the index doesn't match, then we're looping back
+            if ( index !== statusElem.index ) {             
+                statusElem.index = index;
+                statusElem.topOffset = blockData.topOffset;
+                setBlocklyAlphas();
+                statusElem.draw = statusElem.defaultDraw;                
 
-    //         } else {
+            } else {
 
-    //             // Check if block pushes are outrunning the animation
-    //             if ( statusElem.draw === statusElem.defaultDraw ) {
-    //                 statusElem.nextTopOffset = statusElem.topOffset + block.height;
-    //                 statusElem.offsetIncrement = block.height / statusElem.range
-    //                 statusElem.draw = drawBlocklyStatusAnimating;
-    //                 blockData.topOffset = statusElem.nextTopOffset;
+                // Check if block pushes are outrunning the animation
+                if ( statusElem.draw === statusElem.defaultDraw ) {
+                    statusElem.nextTopOffset = statusElem.topOffset + block.height;
+                    statusElem.offsetIncrement = block.height / statusElem.range
+                    statusElem.draw = drawBlocklyStatusAnimating;
+                    blockData.topOffset = statusElem.nextTopOffset;
 
-    //             // If they are, set the top right away and don't animate
-    //             } else {
-    //                 setBlocklyAlphas();
-    //                 statusElem.draw = statusElem.defaultDraw;
-    //                 statusElem.topOffset = statusElem.nextTopOffset + block.height;
-    //                 blockData.topOffset = statusElem.topOffset;
-    //             }
-    //         }
+                // If they are, set the top right away and don't animate
+                } else {
+                    setBlocklyAlphas();
+                    statusElem.draw = statusElem.defaultDraw;
+                    statusElem.topOffset = statusElem.nextTopOffset + block.height;
+                    blockData.topOffset = statusElem.topOffset;
+                }
+            }
 
-    //         // Check if the block is associated with a loop count
-    //         // and send to the ui display
-    //         if ( blockData.maxLoopIndex ) {
-    //             blockData.loopIndex++;
-    //             if ( blockData.loopIndex > blockData.maxLoopIndex ) {
-    //                 blockData.loopIndex = 1;
-    //             }  
-    //             var loopIndex = blockData.loopIndex;          
-    //             if ( !isNaN( loopIndex ) && loopIndex >= 1 ) {
-    //                 showBlocklyLoopCount( loopIndex, blockData.maxLoopIndex );
-    //             } else {
-    //                 hideBlocklyLoopCount();
-    //             }
-    //         } else {
-    //             hideBlocklyLoopCount();
-    //         }
+            // Check if the block is associated with a loop count
+            // and send to the ui display
+            if ( blockData.maxLoopIndex ) {
+                blockData.loopIndex++;
+                if ( blockData.loopIndex > blockData.maxLoopIndex ) {
+                    blockData.loopIndex = 1;
+                }  
+                var loopIndex = blockData.loopIndex;          
+                if ( !isNaN( loopIndex ) && loopIndex >= 1 ) {
+                    showBlocklyLoopCount( loopIndex, blockData.maxLoopIndex );
+                } else {
+                    hideBlocklyLoopCount();
+                }
+            } else {
+                hideBlocklyLoopCount();
+            }
 
-    //     } else {
-    //         statusElem.index--;
-    //     }
+        } else {
+            statusElem.index--;
+        }
         
-    // }
+    }
 }
 
 function clearBlocklyStatus() {
