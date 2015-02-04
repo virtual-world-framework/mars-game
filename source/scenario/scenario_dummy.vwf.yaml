@@ -97,103 +97,83 @@ children:
           triggerCondition:
           - onScenarioStart:
           actions:
-          - playSound:
-            - musicStandardGameplay
-          - playSound:
-            - environmentWind
-          - setObjective:
-            - "Move forward to pick up your Helicam."
-          - setHUDProperty:
-            - camera_topDown
-            - enabled
-            - false
-          - setHUDProperty:
-            - graphButton
-            - enabled
-            - false
-          - setHUDProperty:
-            - tilesButton
-            - enabled
-            - false
-          - setThirdPersonStartPose:
-            - [ 13, 15, -15 ]
           - writeToBlackboard:
             - disableFailOnIncompleteProgram
 
-        playStartingVO_1b:
-          triggerCondition:
-          - and:
-            - onScenarioStart:
-            - not:
-              - readBlackboard:
-                - Level1bStartSounds
-          actions:
-          - playSound:
-            - L1VO2_Rover
-          - writeToBlackboard:
-            - Level1bStartSounds
+        # playStartingVO_1b:
+        #   triggerCondition:
+        #   - and:
+        #     - onScenarioStart:
+        #     - not:
+        #       - readBlackboard:
+        #         - Level1bStartSounds
+        #   actions:
+        #   - playSound:
+        #     - L1VO2_Rover
+        #   - writeToBlackboard:
+        #     - Level1bStartSounds
 
-        succeedOnSuccess_1b:
-          triggerCondition:
-          - and:
-            - onBlocklyStopped:
-              - rover
-            - isAtPosition:
-              - rover
-              - [ 8, 3 ]
-          actions:
-          - scenarioSuccess:
-          - showAlert:
-            - "You have executed a movement command and picked up your helicam!"
-          - playSound:
-            - musicSuccessShort
-          - playSound:
-            - ALVO40_Rover
+        # succeedOnSuccess_1b:
+        #   triggerCondition:
+        #   - and:
+        #     - onBlocklyStopped:
+        #       - rover
+        #     - isAtPosition:
+        #       - rover
+        #       - [ 8, 3 ]
+        #   actions:
+        #   - scenarioSuccess:
+        #   - showAlert:
+        #     - "You have executed a movement command and picked up your helicam!"
+        #   - playSound:
+        #     - musicSuccessShort
+        #   - playSound:
+        #     - ALVO40_Rover
 
-        playHint1_1b:
-          triggerCondition:
-          - and:
-            - delay:
-              - 13
-            - not:
-              - readBlackboard:
-                - Level1bHint1
-            - not:
-              - readBlackboard:
-                - Level1bHint2
-            - not:
-              - readBlackboard:
-                - hasSucceeded
-            - not:
-              - readBlackboard:
-                - hasFailed
-          actions:
-          - writeToBlackboard:
-            - Level1bHint1
-          - playSound:
-            - ALVO15_Rover
+        # playHint1_1b:
+        #   triggerCondition:
+        #   - and:
+        #     - delay:
+        #       - 13
+        #     - not:
+        #       - readBlackboard:
+        #         - Level1bHint1
+        #     - not:
+        #       - readBlackboard:
+        #         - Level1bHint2
+        #     - not:
+        #       - readBlackboard:
+        #         - hasSucceeded
+        #     - not:
+        #       - readBlackboard:
+        #         - hasFailed
+        #   actions:
+        #   - writeToBlackboard:
+        #     - Level1bHint1
+        #   - playSound:
+        #     - ALVO15_Rover
 
-        playHint2_1b:
-          triggerCondition:
-          - and:
-            - onBlocklyProgramChanged:
-              - [ "rover" ]
-              - add
-              - rover_moveForward
-            - not:
-              - readBlackboard:
-                - Level1bHint2
-            - not:
-              - readBlackboard:
-                - hasSucceeded
-            - not:
-              - readBlackboard:
-                - hasFailed
-          actions:
-          - playSound:
-            - ALVO16_Rover
-          - writeToBlackboard:
-            - Level1bHint2
+        # playHint2_1b:
+        #   triggerCondition:
+        #   - and:
+        #     - onBlocklyProgramChanged:
+        #       - [ "rover" ]
+        #       - add
+        #       - rover_moveForward
+        #     - not:
+        #       - readBlackboard:
+        #         - Level1bHint2
+        #     - not:
+        #       - readBlackboard:
+        #         - hasSucceeded
+        #     - not:
+        #       - readBlackboard:
+        #         - hasFailed
+        #   actions:
+        #   - playSound:
+        #     - ALVO16_Rover
+        #   - writeToBlackboard:
+        #     - Level1bHint2
 
         setCameraView:
           triggerCondition:
