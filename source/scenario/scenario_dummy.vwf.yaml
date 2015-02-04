@@ -29,15 +29,39 @@ properties:
   - setProperty:
     - rover
     - battery
-    - 20
+    - 9001
   - setProperty:
     - rover
     - batteryMax
-    - 20
+    - 9001
   - setProperty:
     - rover
     - blockly_allowedBlocks
-    - 20
+    - 9001
+  - setProperty:
+    - rover2
+    - battery
+    - 9001
+  - setProperty:
+    - rover2
+    - batteryMax
+    - 9001
+  - setProperty:
+    - rover2
+    - blockly_allowedBlocks
+    - 9001
+  - setProperty:
+    - rover3
+    - battery
+    - 9001
+  - setProperty:
+    - rover3
+    - batteryMax
+    - 9001
+  - setProperty:
+    - rover3
+    - blockly_allowedBlocks
+    - 9001
 
   - callMethod:
     - rover
@@ -93,87 +117,12 @@ children:
     extends: source/triggers/triggerManager.vwf
     properties: 
       triggers:
-        beginScenario_1b:
+        beginScenario_dummy:
           triggerCondition:
           - onScenarioStart:
           actions:
           - writeToBlackboard:
             - disableFailOnIncompleteProgram
-
-        # playStartingVO_1b:
-        #   triggerCondition:
-        #   - and:
-        #     - onScenarioStart:
-        #     - not:
-        #       - readBlackboard:
-        #         - Level1bStartSounds
-        #   actions:
-        #   - playSound:
-        #     - L1VO2_Rover
-        #   - writeToBlackboard:
-        #     - Level1bStartSounds
-
-        # succeedOnSuccess_1b:
-        #   triggerCondition:
-        #   - and:
-        #     - onBlocklyStopped:
-        #       - rover
-        #     - isAtPosition:
-        #       - rover
-        #       - [ 8, 3 ]
-        #   actions:
-        #   - scenarioSuccess:
-        #   - showAlert:
-        #     - "You have executed a movement command and picked up your helicam!"
-        #   - playSound:
-        #     - musicSuccessShort
-        #   - playSound:
-        #     - ALVO40_Rover
-
-        # playHint1_1b:
-        #   triggerCondition:
-        #   - and:
-        #     - delay:
-        #       - 13
-        #     - not:
-        #       - readBlackboard:
-        #         - Level1bHint1
-        #     - not:
-        #       - readBlackboard:
-        #         - Level1bHint2
-        #     - not:
-        #       - readBlackboard:
-        #         - hasSucceeded
-        #     - not:
-        #       - readBlackboard:
-        #         - hasFailed
-        #   actions:
-        #   - writeToBlackboard:
-        #     - Level1bHint1
-        #   - playSound:
-        #     - ALVO15_Rover
-
-        # playHint2_1b:
-        #   triggerCondition:
-        #   - and:
-        #     - onBlocklyProgramChanged:
-        #       - [ "rover" ]
-        #       - add
-        #       - rover_moveForward
-        #     - not:
-        #       - readBlackboard:
-        #         - Level1bHint2
-        #     - not:
-        #       - readBlackboard:
-        #         - hasSucceeded
-        #     - not:
-        #       - readBlackboard:
-        #         - hasFailed
-        #   actions:
-        #   - playSound:
-        #     - ALVO16_Rover
-        #   - writeToBlackboard:
-        #     - Level1bHint2
 
         setCameraView:
           triggerCondition:
