@@ -113,9 +113,7 @@ MainMenu.prototype = {
         title = document.createElement( "div" );
         title.id = "MainMenu-Title";
         title.main = document.createElement( "h1" );
-        title.main.innerHTML = "Nomad";
-        title.sub = document.createElement( "h2" );
-        title.sub.innerHTML = "Crash Landing";
+        title.main.innerHTML = "Mars Game";
 
         playButton = document.createElement( "div" );
         playButton.id = "MainMenu-PlayButton";
@@ -237,7 +235,6 @@ MainMenu.prototype = {
         // this.overlay.appendChild( logout );
 
         title.appendChild( title.main );
-        title.appendChild( title.sub );
         this.overlay.mainMenu.appendChild( playButton );
         this.overlay.mainMenu.appendChild( continueButton );
         this.overlay.mainMenu.appendChild( settingsButton );
