@@ -27,8 +27,8 @@ this.setUpSubtitles = function() {
     var scene = this.find( "/" )[ 0 ];
     if ( scene && this.setUpOnce ) {
         this.setUpOnce = false;
-        this.soundStarted = this.events.add( function() { startSubtitle.call( this ); }, this );
-        this.soundFinished = this.events.add( function() { stopSubtitle.call( this ); }, this );
+        this.soundStarted = this.events.add( function( instanceHandle ) { startSubtitle.call( this, instanceHandle ); }, this );
+        this.soundFinished = this.events.add( function( instanceHandle ) { stopSubtitle.call( this, instanceHandle ); }, this );
     }
 }
 
