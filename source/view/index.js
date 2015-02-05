@@ -187,9 +187,9 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 graphIsVisible = eventArgs[ 0 ];
                 break;
             
-            case "enableBlocklyTab":
-                addBlocklyTab( eventArgs[ 0 ], eventArgs[ 1 ] );
-                break;
+            // case "enableBlocklyTab":
+            //     addBlocklyTab( eventArgs[ 0 ], eventArgs[ 1 ] );
+            //     break;
 
             // case "playVideo":
             //     var src = eventArgs[ 0 ];
@@ -279,12 +279,14 @@ vwf_view.createdNode = function( nodeID, childID, childExtendsID, childImplement
             "ID": childID, 
             "name": childName,
             "ram": 15, 
-            "ramMax": 15
+            "ramMax": 15,
+            "UIEnabled": false
         };
     } else if ( isGraphObject( protos ) && childName === "blocklyLine" ) {
         graphLines[ childName ] = { 
             "ID": childID, 
-            "name": childName
+            "name": childName,
+            "UIEnabled": false
         } 
     } else if ( isLoggerNode( protos ) ) {
         loggerNodes[ childID ] = {
@@ -351,6 +353,20 @@ vwf_view.satProperty = function( nodeID, propertyName, propertyValue ) {
                     }
                 }
                 updateBlocklyRamBar();
+                break;
+
+            case "UIEnabled":
+                blocklyNode[ propertyName ] = Boolean( propertyValue );
+                blocklyNode.tab = document.createElement( "div" );
+                blocklyNode.tab.id = nodeID;
+                blocklyNode.tab.className = "blocklyTab";
+                blocklyNode.tab.onclick = setActiveBlocklyTab;
+                if ( nodeID === mainRover ) {
+                    blocklyNode.tab.innerHTML = "Rover";
+                } else {
+                    blocklyNode.tab.innerHTML = "Graph";
+                }
+                
                 break;
 
             case "blockly_executing":

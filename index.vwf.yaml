@@ -46,7 +46,6 @@ properties:
     set: |
       this.setApplicationState( value );
     value: loading
-  blocklyTabs: []
 methods:
   setScenario:
   resetScenario:
@@ -249,6 +248,7 @@ children:
           displayName: "Rover"
           castShadows: true
           receiveShadows: true
+          UIEnabled: false
           sceneNode:
             get: |
               if ( !this.sceneNode ) {
