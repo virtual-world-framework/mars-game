@@ -48,7 +48,7 @@ this.onGenerated = function( params, generator, payload ) {
         return false;
     }
 
-    this.object.moved = this.events.add( this.parentTrigger.checkFire, 
+    this.object.moved = this.events.add( function() { this.parentTrigger.checkFire(); }, 
                                          this.parentTrigger );
 
     return true;

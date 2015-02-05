@@ -46,9 +46,9 @@ this.onGenerated = function( params, generator, payload ) {
         return false;
     }
 
-    object.pickedUp = this.events.add( this.parentTrigger.checkFire, 
+    object.pickedUp = this.events.add( function() { this.parentTrigger.checkFire(); }, 
                                        this.parentTrigger );
-    object.dropped = this.events.add( this.parentTrigger.checkFire, 
+    object.dropped = this.events.add( function() { this.parentTrigger.checkFire(); }, 
                                       this.parentTrigger );
 
     return true;
