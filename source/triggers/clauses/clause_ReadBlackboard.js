@@ -28,7 +28,7 @@ this.onGenerated = function( params, generator, payload ) {
 
     this.scene.blackboardWritten = this.events.add( function() {
         this.parentTrigger.checkFire();
-        }, this.parentTrigger );
+        }, this );
 
 
     return true;

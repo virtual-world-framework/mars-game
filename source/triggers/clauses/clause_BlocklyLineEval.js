@@ -38,7 +38,7 @@ this.onGenerated = function( params, generator, payload ) {
     }
 
     this.blocklyLine.lineGraphed = this.events.add( function() { this.parentTrigger.checkFire(); }, 
-                                                    this.parentTrigger );
+                                                    this );
 
     return true;
 }
