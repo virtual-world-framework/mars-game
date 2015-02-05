@@ -118,7 +118,7 @@ properties:
 
   - loadToolbox:
     - graph
-    - source/scenario/blockly/graph3b.xml
+    - source/scenario/blockly/graph_dummy.xml
 
 children:
   triggerManager:
