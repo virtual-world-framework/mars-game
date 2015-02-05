@@ -22,7 +22,7 @@ this.onGenerated = function( params, generator, payload ) {
         return false;
     }
 
-    this.scene.loadedGame = this.events.add( this.onEvent, this );
+    this.scene.loadedGame = this.events.add( function() { this.onEvent(); }, this );
     return true;
 }
 

@@ -26,11 +26,11 @@ this.onGenerated = function( params, generator, payload ) {
     this.scenariosToCheck = this.extractStringArray( params[ 0 ] );
 
     // Setup the callbacks that should trigger us
-    this.scene.scenarioStarted = this.events.add( this.onScenarioEvent, this );
+    this.scene.scenarioStarted = this.events.add( function() { this.onScenarioEvent(); }, this );
 
     // Setup the callbacks that should prevent us from triggering
-    this.scene.scenarioSucceeded = this.events.add( this.reset, this );
-    this.scene.scenarioFailed = this.events.add( this.reset, this );
+    this.scene.scenarioSucceeded = this.events.add( function() { this.reset(); }, this );
+    this.scene.scenarioFailed = this.events.add( function() { this.reset(); }, this );
 
     return true;
 }

@@ -29,8 +29,14 @@ this.postInit = function() {
 
     this.assert( this.scene && this.triggerManager );
 
-    this.scene.scenarioChanged = this.events.add( this.onScenarioChanged, this );
-    this.scene.scenarioReset = this.events.add( this.onScenarioReset, this );
+    this.scene.scenarioChanged = this.events.add( function( scenarioName ) {
+        this.onScenarioChanged( scenarioName );
+    }, this );
+
+    this.scene.scenarioReset = this.events.add( function( scenarioName ) {
+        this.onScenarioReset( scenarioName );
+    }, this );
+
 
     this.triggerManager.loadTriggers( this.scene );
 

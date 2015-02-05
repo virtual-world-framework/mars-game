@@ -60,11 +60,11 @@ this.onGenerated = function( params, generator, payload ) {
         }
 
         if ( this.addOrRemove !== "add" && object.blocklyBlockRemoved ) {
-            object.blocklyBlockRemoved = this.events.add( this.onProgramChangedEvent, 
+            object.blocklyBlockRemoved = this.events.add( function() { this.onProgramChangedEvent(); }, 
                                                           this );
         }
         if ( this.addOrRemove !== "remove" && object.blocklyBlockAdded ) {
-            object.blocklyBlockAdded = this.events.add( this.onProgramChangedEvent, 
+            object.blocklyBlockAdded = this.events.add( function() { this.onProgramChangedEvent(); }, 
                                                         this );
         }
     }
