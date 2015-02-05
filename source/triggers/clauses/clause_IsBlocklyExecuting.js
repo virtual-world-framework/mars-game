@@ -34,7 +34,7 @@ this.onGenerated = function( params, generator, payload ) {
 
         if ( object.blocklyStarted ) {
             object.blocklyStarted = this.events.add( function() { this.parentTrigger.checkFire(); }, 
-                                                     this.parentTrigger );
+                                                     this );
         } else {
             this.logger.warnx( "onGenerated", "blocklyStarted event not " +
                                "found for '" + object.name + "'." );
@@ -42,7 +42,7 @@ this.onGenerated = function( params, generator, payload ) {
 
         if ( object.blocklyStopped ) {
             object.blocklyStopped = this.events.add( function() { this.parentTrigger.checkFire(); }, 
-                                                     this.parentTrigger );
+                                                     this );
         } else {
             this.logger.warnx( "onGenerated", "blocklyStopped event not " +
                                "found for '" + object.name + "'." );
@@ -50,7 +50,7 @@ this.onGenerated = function( params, generator, payload ) {
 
         if ( object.blocklyErrored ) {
             object.blocklyErrored = this.events.add( function() { this.parentTrigger.checkFire(); }, 
-                                                     this.parentTrigger );
+                                                     this );
         } else {
             this.logger.warnx( "onGenerated", "blocklyErrored event not " +
                                "found for '" + object.name + "'." );
