@@ -20,15 +20,15 @@ this.initialize = function() {
     for ( var i = 0; i < soundSet.length; ++i ) {
         this.loadSound( soundSet[i] );
     }
-    this.future( 0 ).setUpSubtitles();
+    this.future( 0.01 ).setUpSubtitles();
 }
 
 this.setUpSubtitles = function() {
     var scene = this.find( "/" )[ 0 ];
     if ( scene && this.setUpOnce ) {
         this.setUpOnce = false;
-        this.soundStarted = this.events.add( startSubtitle, this );
-        this.soundFinished = this.events.add( stopSubtitle, this );
+        this.soundStarted = this.events.add( function( scene ) { startSubtitle(); }, scene );
+        this.soundFinished = this.events.add( function( scene ) { stopSubtitle(); }, scene );
     }
 }
 

@@ -41,7 +41,7 @@ this.onGenerated = function( params, generator, payload ) {
         return false;
     }
 
-    object.moveFailed = this.events.add( this.onMoveFailed, this );
+    object.moveFailed = this.events.add( function() { this.onMoveFailed(); }, this );
 
     return true;
 }
