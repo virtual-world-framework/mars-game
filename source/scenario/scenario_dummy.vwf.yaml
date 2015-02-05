@@ -80,32 +80,29 @@ properties:
 
   - addToGrid:
     - rover
-    - [ 37, 13 ]
-
-  - addToGrid:
-    - rover3
-    - [ 37, 14 ]
-
-  - addToGrid:
-    - rover2
     - [ 37, 15 ]
 
   - addToGrid:
-    - helicam
-    - [ 8, 3 ]
+    - rover3
+    - [ 37, 13 ]
 
   - addToGrid:
-    - battery
-    - [ 8, 6 ]
+    - rover2
+    - [ 37, 14 ]
 
   - addToGrid:
-    - radio
-    - [ 8, 16 ]
+    - supplies_2
+    - [ 12, 10 ]
+
+  - addToGrid:
+    - blocklyGraph
+    - [ 37, 15 ]
 
   - enableBlocklyTabs:
     - rover
     - rover2
     - rover3
+    - graph
 
   - loadToolbox:
     - rover
@@ -118,6 +115,10 @@ properties:
   - loadToolbox:
     - rover3
     - source/scenario/blockly/scenario_dummy.xml
+
+    - loadToolbox:
+    - graph
+    - source/scenario/blockly/graph3b.xml
 
 children:
   triggerManager:
@@ -130,6 +131,9 @@ children:
           actions:
           - writeToBlackboard:
             - disableFailOnIncompleteProgram
+          # - writeToBlackboard:
+          #   - anomalyPosition
+          #   - [ 12, 10 ]
 
         setCameraView:
           triggerCondition:
