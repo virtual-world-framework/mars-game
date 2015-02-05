@@ -131,9 +131,9 @@ children:
           actions:
           - writeToBlackboard:
             - disableFailOnIncompleteProgram
-          # - writeToBlackboard:
-          #   - anomalyPosition
-          #   - [ 12, 10 ]
+          - writeToBlackboard:
+            - anomalyPosition
+            - [ 12, 10 ]
 
         setCameraView:
           triggerCondition:
