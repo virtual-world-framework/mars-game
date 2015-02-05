@@ -116,7 +116,7 @@ properties:
     - rover3
     - source/scenario/blockly/scenario_dummy.xml
 
-    - loadToolbox:
+  - loadToolbox:
     - graph
     - source/scenario/blockly/graph3b.xml
 
