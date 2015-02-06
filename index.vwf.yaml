@@ -216,7 +216,7 @@ children:
   player:
     extends: http://vwf.example.com/node3.vwf
     children:
-      rover3:
+      rover:
         extends: source/rover.vwf
         implements: 
           - http://vwf.example.com/blockly/controller.vwf
@@ -225,9 +225,8 @@ children:
         source: assets/3d/Rover/rover_retro.dae
         type: model/vnd.collada+xml
         properties:
-          visible: false
           defaultMount: firstPerson
-          displayName: "Rover3"
+          displayName: "Rover"
           castShadows: true
           receiveShadows: true
           sceneNode:
@@ -452,7 +451,7 @@ children:
             properties:
               capacity: 4
               inventoryIsVisible: false
-      rover:
+      rover3:
         extends: source/rover.vwf
         implements: 
           - http://vwf.example.com/blockly/controller.vwf
@@ -461,8 +460,9 @@ children:
         source: assets/3d/Rover/rover_retro.dae
         type: model/vnd.collada+xml
         properties:
+          visible: false
           defaultMount: firstPerson
-          displayName: "Rover"
+          displayName: "Rover3"
           castShadows: true
           receiveShadows: true
           sceneNode:
@@ -569,8 +569,6 @@ children:
             properties:
               capacity: 4
               inventoryIsVisible: false
-
-
 
   pickups:
     extends: http://vwf.example.com/node3.vwf
