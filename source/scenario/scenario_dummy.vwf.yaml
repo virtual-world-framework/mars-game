@@ -34,9 +34,6 @@ properties:
     - rover
     - batteryMax
     - 9001
-  - callMethod:
-    - rover
-    - allowedBlocksChanged
   - setProperty:
     - rover
     - blockly_allowedBlocks
