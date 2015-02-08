@@ -91,15 +91,13 @@ function playVideo( id ) {
 function removeVideoOnEvent( event ) {
 
     // 32 = space bar character code
-    if ( event.type === "keypress" ) {
-        if( event.which !== 32 )
+    if ( event.type === "keypress" && event.which !== 32 ) {
             return;
-        vwf_view.kernel.callMethod( videoManagerID, "stop" ); 
     }
     var mediaManagerID = vwf_view.kernel.find( undefined, "/mediaManager" )[ 0 ];
     var videoManagerID = vwf_view.kernel.find( mediaManagerID, "videoManager" ) [ 0 ];
 
-    
+    vwf_view.kernel.callMethod( videoManagerID, "stop" ); 
     $("#jquery_jplayer_1").hide();
     // var videoElem = playingVideo.elem || event.srcElement;
     if( playingVideo ){ //TODO: Figure out why this check is necessary. 
