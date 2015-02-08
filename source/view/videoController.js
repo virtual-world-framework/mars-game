@@ -20,25 +20,25 @@ var playingVideo;
 function loadVideo( src, type ) {
     var video = {
         "id" : videoID,
-        "elem" : document.createElement( "video" ),
-        "source" : document.createElement( "source" ),
-        "wrapper" : document.createElement( "div" )
+        // "elem" : document.createElement( "video" ),
+        // "source" : document.createElement( "source" ),
+        // "wrapper" : document.createElement( "div" )
     };
-    video.elem.appendChild( video.source );
-    video.wrapper.appendChild( video.elem );
-    video.source.src = "assets/video/" + src;
-    video.source.type = type || 'video/mp4;codecs="avc1.42E01E,mp4a.40.2"';
-    video.elem.id = "video" + video.id;
-    video.elem.className = "video";
-    video.wrapper.className = "videoWrapper";
-    video.elem.load();
+    // video.elem.appendChild( video.source );
+    // video.wrapper.appendChild( video.elem );
+    video.source = "assets/video/" + src;
+    // video.source.type = type || 'video/mp4;codecs="avc1.42E01E,mp4a.40.2"';
+    // video.elem.id = "video" + video.id;
+    // video.elem.className = "video";
+    // video.wrapper.className = "videoWrapper";
+    // video.elem.load();
 
     document.onkeypress = removeVideoOnEvent;
 
     //Right now the code seems to depend on the removeVideoOnEvent... otherwise
     //we don't advance when a video finishes, unless the user presses a key.
     // if ( !dontRemoveWhenEnded ) {
-        video.elem.onended = removeVideoOnEvent;
+        // video.elem.onended = removeVideoOnEvent;
     // }
 
     videos.push( video );
@@ -72,7 +72,7 @@ function playVideo( id ) {
         // vwf_view.kernel.setProperty( videoManagerID, "url", '/mars-game/' + video.source.src );
         // vwf_view.kernel.setProperty( videoManagerID, "url", '/mars-game/assets/video/intro_cinematic.mp4' );
         var appName = "mars-game";
-        var redactedURL = ( video.source.src ).replace( new RegExp(appName + "/.*/assets"), appName + "/assets");
+        var redactedURL = ( video.source ).replace( new RegExp(appName + "/.*/assets"), appName + "/assets");
         vwf_view.kernel.setProperty( videoManagerID, "url", redactedURL );
         vwf_view.kernel.callMethod( videoManagerID, "play" );
     }
@@ -115,7 +115,7 @@ function getVideoIdFromSrc( src ) {
 }
 
 function getVideoFileName( video ) {
-    var fileName = video.source.src.split( "/" ).pop();
+    var fileName = video.source.split( "/" ).pop();
     return fileName;
 }
 //@ sourceURL=source/videoController.js
