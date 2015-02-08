@@ -42,6 +42,9 @@ function loadVideo( src, type ) {
         // video.elem.onended = removeVideoOnEvent;
     // }
 
+    // $("#jquery_jplayer_1").ended = removeVideoOnEvent;
+    $("#jquery_jplayer_1").bind($.jPlayer.event.ended, removeVideoOnEvent );
+
     videos.push( video );
     videoID++;
     return videoID - 1;
