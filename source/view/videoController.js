@@ -67,6 +67,7 @@ function playVideo( id ) {
     var video = videos[ id ];
     if ( video ) {
         playingVideo = video;
+        $("#jquery_jplayer_1").show();
         var mediaManagerID = vwf_view.kernel.find( undefined, "/mediaManager" )[ 0 ];
         var videoManagerID = vwf_view.kernel.find( mediaManagerID, "videoManager" ) [ 0 ];
 
@@ -90,6 +91,10 @@ function removeVideoOnEvent( event ) {
     if ( event.type === "keypress" && event.which !== 32 ) {
         return;
     }
+    var mediaManagerID = vwf_view.kernel.find( undefined, "/mediaManager" )[ 0 ];
+    var videoManagerID = vwf_view.kernel.find( mediaManagerID, "videoManager" ) [ 0 ];
+
+    vwf_view.kernel.callMethod( videoManagerID, "stop" );
     $("#jquery_jplayer_1").hide();
     // var videoElem = playingVideo.elem || event.srcElement;
     var id = playingVideo.id;
