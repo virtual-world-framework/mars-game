@@ -94,14 +94,17 @@ function removeVideoOnEvent( event ) {
     // removeVideo( id );
     // playingVideo = undefined;
 
+    $("#jquery_jplayer_1").hide();
     vwf_view.kernel.fireEvent( vwf_view.kernel.application(), "videoPlayed", undefined );
 }
 
 function removeVideo( id ) {
-    var video = videos[ id ];
-    if ( video && video.wrapper.parentNode === document.body ) {
-        document.body.removeChild( video.wrapper );
-    }
+    // $("#jp_container_1").hide();
+    // $("#jquery_jplayer_1").hide();
+    // var video = videos[ id ];
+    // if ( video && video.wrapper.parentNode === document.body ) {
+    //     document.body.removeChild( video.wrapper );
+    // }
 }
 
 function getVideoIdFromSrc( src ) {

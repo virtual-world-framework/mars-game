@@ -103,8 +103,8 @@ children:
       #   addedButton:
       #   deletedButton:
       children:
-        audioManager:
-          extends: http://vwf.example.com/jplayer/audioManager.vwf
+        # audioManager:
+        #   extends: http://vwf.example.com/jplayer/audioManager.vwf
         videoManager:
           extends: http://vwf.example.com/jplayer/videoManager.vwf
           # properties:
@@ -362,124 +362,6 @@ children:
             properties:
               capacity: 4
               inventoryIsVisible: false
-      rover2:
-        extends: source/rover.vwf
-        implements: 
-          - http://vwf.example.com/blockly/controller.vwf
-          - source/griddable.vwf
-          - source/cameraTarget.vwf
-        source: assets/3d/Rover/rover_retro.dae
-        type: model/vnd.collada+xml
-        properties:
-          defaultMount: firstPerson
-          displayName: "Rover2"
-          castShadows: true
-          receiveShadows: true
-          sceneNode:
-            get: |
-              if ( !this.sceneNode ) {
-                this.sceneNode = this.find( "/" )[ 0 ];
-              }
-              return this.sceneNode;
-          terrainName:
-            set: |
-              this.terrainName = value;
-              this.terrain = this.find( "//" + value )[ 0 ];
-              //@ sourceURL=index.vwf.player.rover.terrainName.set
-            value: collisionTerrain
-          terrain:
-            get: |
-              if ( !this.terrain ) {
-                this.terrain = this.find( "//" + this.terrainName )[ 0 ];
-              }
-              return this.terrain;
-              //@ sourceURL=index.vwf.player.rover.terrain.get
-          currentGridSquare: [ 0, 0 ]
-          sensorValue: false
-          wheelFL:
-            get: |
-              if ( !this.wheelFL ) {
-                this.wheelFL = this.find( "Cylinder014/Cylinder058/wheel" )[ 0 ];
-              }
-              return this.wheelFL;
-          wheelBL:
-            get: |
-              if ( !this.wheelBL ) {
-                this.wheelBL = this.find( "Cylinder014/Cylinder059/wheel001" )[ 0 ];
-              }
-              return this.wheelBL;
-          wheelFR:
-            get: |
-              if ( !this.wheelFR ) {
-                this.wheelFR = this.find( "Cylinder014/Cylinder050/wheel002" )[ 0 ];
-              }
-              return this.wheelFR;
-          wheelBR:
-            get: |
-              if ( !this.wheelBR ) {
-                this.wheelBR = this.find( "Cylinder014/Cylinder060/wheel003" )[ 0 ];
-              }
-              return this.wheelBR;
-          wheelRadius: 0.3304
-        children:
-          firstPerson:
-            extends: source/cameraMount.vwf
-            properties:
-              navmode: walk
-              translation: [ 0, 0, 1 ]
-              cameraPose: [ 0, 0, 0 ]
-              cameraSpeed: 0
-              targetVisible: false
-              useTargetRotation: true
-          thirdPerson:
-            extends: source/cameraMount.vwf
-            properties:
-              navmode: thirdPerson
-              cameraPose: [ 16, 0, -15 ]
-              cameraSpeed: 0
-          topDown:
-            extends: source/cameraMount.vwf
-            properties:
-              navmode: topDown
-              worldOffset: [ 0, 0, 40 ]
-              cameraPose: [ 0, 0, -90 ]
-              cameraSpeed: 10
-              cameraLock: false
-          Cylinder014:
-            extends: http://vwf.example.com/node3.vwf
-            children: 
-              Cylinder058:
-                extends: http://vwf.example.com/node3.vwf
-                children: 
-                  wheel:
-                    extends: http://vwf.example.com/node3.vwf
-              Cylinder059:
-                extends: http://vwf.example.com/node3.vwf
-                children: 
-                  wheel001:
-                    extends: http://vwf.example.com/node3.vwf
-              Cylinder050:
-                extends: http://vwf.example.com/node3.vwf
-                children: 
-                  wheel002:
-                    extends: http://vwf.example.com/node3.vwf
-                    children: 
-                      material:
-                        extends: http://vwf.example.com/material.vwf
-              Cylinder060:
-                extends: http://vwf.example.com/node3.vwf
-                children: 
-                  wheel003:
-                    extends: http://vwf.example.com/node3.vwf
-                    children: 
-                      material:
-                        extends: http://vwf.example.com/material.vwf
-          cargo:
-            extends: source/inventory.vwf
-            properties:
-              capacity: 4
-              inventoryIsVisible: false
-
 
   pickups:
     extends: http://vwf.example.com/node3.vwf
