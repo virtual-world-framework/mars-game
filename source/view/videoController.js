@@ -20,10 +20,28 @@ var playingVideo;
 function loadVideo( src, type ) {
     var video = {
         "id" : videoID,
+        "jp_container" : document.createElement( "div" ),
+        "jplayer_handle" : document.createElement("div"),
+        "jplayer_gui" : document.createElement("div"),
+        "jplayer_interface" : document.createElement("div"),
         // "elem" : document.createElement( "video" ),
         // "source" : document.createElement( "source" ),
         // "wrapper" : document.createElement( "div" )
     };
+    video.jp_container.id = "jp_container_1";
+    video.jp_container.className = "jp-video jp-video-360p";
+    video.jplayer_handle.id = "jquery_jplayer_1";
+    video.jplayer_handle.className = "jp-jplayer";
+    video.jplayer_gui.className = "jp-gui";
+    video.jplayer_interface.className = "jp-interface";
+
+    video.jp_container.appendChild(video.jplayer_handle);
+    video.jp_container.appendChild(video.jplayer_gui);
+    video.jplayer_gui.appendChild(video.jplayer_interface);
+
+    // var insertionPoint = document.getElementById("jplayer_stuff");
+    // document.body.insertBefore(video.jp_container, insertionPoint);
+
     // video.elem.appendChild( video.source );
     // video.wrapper.appendChild( video.elem );
     video.source = "assets/video/" + src;
@@ -49,22 +67,15 @@ function loadVideo( src, type ) {
 }
 
 function playVideo( id ) {
-    // var video = videos[ id ];
+
+    var video = videos[ id ];
     // if ( video ) {
     //     document.body.appendChild( video.wrapper );
     //     playingVideo = video;
-    //      video.elem.play();
+    //     video.elem.play();
     // }
-
-    //TODO: 
-    //a) Find the mediaManager.
-    //b) Find the videoManager
-    //c) Identify the video source from above (video.source.src)
-    //d) use vwf_view_kernel.setProperty( videoManagerID, "url", <insert_url_here>) to set the URL for the video manager.
-    //e) vwf_view.kernel.callMethod( videoManagerID, "play" );
-
-    var video = videos[ id ];
     if ( video ) {
+        document.body.appendChild( video.jp_container );
         var mediaManagerID = vwf_view.kernel.find( undefined, "/mediaManager" )[ 0 ];
         var videoManagerID = vwf_view.kernel.find( mediaManagerID, "videoManager" ) [ 0 ];
 
