@@ -91,22 +91,26 @@ function playVideo( id ) {
 function removeVideoOnEvent( event ) {
 
     // 32 = space bar character code
-    if ( event.type === "keypress" && event.which !== 32 ) {
-        return;
+    if ( event.type === "keypress" ) {
+        if( event.which !== 32 )
+            return;
+        vwf_view.kernel.callMethod( videoManagerID, "stop" ); 
     }
     var mediaManagerID = vwf_view.kernel.find( undefined, "/mediaManager" )[ 0 ];
     var videoManagerID = vwf_view.kernel.find( mediaManagerID, "videoManager" ) [ 0 ];
 
-    vwf_view.kernel.callMethod( videoManagerID, "stop" );
+    
     $("#jquery_jplayer_1").hide();
     // var videoElem = playingVideo.elem || event.srcElement;
-    var id = playingVideo.id;
-    // var id = parseInt( videoElem.id.split( "video" )[ 1 ] );
-    // var fileName = getVideoFileName( videos[ id ] );
-    var fileName = videos[id].vidName;
-    vwf_view.kernel.fireEvent( vwf_view.kernel.application(), "videoPlayed", [ fileName ] );
-    removeVideo( id );
-    playingVideo = undefined;
+    if( playingVideo ){ //TODO: Figure out why this check is necessary. 
+        var id = playingVideo.id;
+        // var id = parseInt( videoElem.id.split( "video" )[ 1 ] );
+        // var fileName = getVideoFileName( videos[ id ] );
+        var fileName = videos[id].vidName;
+        vwf_view.kernel.fireEvent( vwf_view.kernel.application(), "videoPlayed", [ fileName ] );
+        removeVideo( id );
+        playingVideo = undefined;
+    }
 
     // vwf_view.kernel.fireEvent( vwf_view.kernel.application(), "videoPlayed", undefined );
 }
