@@ -103,8 +103,8 @@ children:
       #   addedButton:
       #   deletedButton:
       children:
-        audioManager:
-          extends: http://vwf.example.com/jplayer/audioManager.vwf
+        # audioManager:
+        #   extends: http://vwf.example.com/jplayer/audioManager.vwf
         videoManager:
           extends: http://vwf.example.com/jplayer/videoManager.vwf
           # properties:

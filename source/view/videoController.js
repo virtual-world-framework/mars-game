@@ -75,6 +75,7 @@ function playVideo( id ) {
     //     video.elem.play();
     // }
     if ( video ) {
+        playingVideo = video;
         document.body.appendChild( video.jp_container );
         var mediaManagerID = vwf_view.kernel.find( undefined, "/mediaManager" )[ 0 ];
         var videoManagerID = vwf_view.kernel.find( mediaManagerID, "videoManager" ) [ 0 ];
@@ -95,23 +96,29 @@ function playVideo( id ) {
 
 function removeVideoOnEvent( event ) {
     // 32 = space bar character code
-    // if ( event.type === "keypress" && event.which !== 32 ) {
-    //     return;
-    // }
-    // var videoElem = playingVideo.elem || event.srcElement;
-    // var id = parseInt( videoElem.id.split( "video" )[ 1 ] );
-    // var fileName = getVideoFileName( videos[ id ] );
-    // vwf_view.kernel.fireEvent( vwf_view.kernel.application(), "videoPlayed", [ fileName ] );
-    // removeVideo( id );
-    // playingVideo = undefined;
+    if ( event.type === "keypress" && event.which !== 32 ) {
+        return;
+    }
+    var videoElem = playingVideo.elem || event.srcElement;
+    var id = parseInt( videoElem.id.split( "video" )[ 1 ] );
+    var id = playingVideo.id;
+    var fileName = getVideoFileName( videos[ id ] );
+    vwf_view.kernel.fireEvent( vwf_view.kernel.application(), "videoPlayed", [ fileName ] );
+    removeVideo( id );
+    playingVideo = undefined;
 
-    vwf_view.kernel.fireEvent( vwf_view.kernel.application(), "videoPlayed", undefined );
+    // vwf_view.kernel.fireEvent( vwf_view.kernel.application(), "videoPlayed", undefined );
 }
 
 function removeVideo( id ) {
     var video = videos[ id ];
-    if ( video && video.wrapper.parentNode === document.body ) {
-        document.body.removeChild( video.wrapper );
+    // if ( video && video.wrapper.parentNode === document.body ) {
+        if ( video && video.jp_container.parentNode === document.body ) {
+            var currentDiv = document.getElementById("jquery_jplayer_1"); 
+            document.body.removeChild( currentDiv );
+            // video.jp_container.removeChild( video.jplayer_handle );
+            // document.body.removeChild( video.jplayer_handle );
+        // document.body.removeChild( video.wrapper );
     }
 }
 
