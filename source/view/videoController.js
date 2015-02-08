@@ -27,6 +27,7 @@ function loadVideo( src, type ) {
     // video.elem.appendChild( video.source );
     // video.wrapper.appendChild( video.elem );
     video.source = "assets/video/" + src;
+    video.vidName = src;
     // video.source.type = type || 'video/mp4;codecs="avc1.42E01E,mp4a.40.2"';
     // video.elem.id = "video" + video.id;
     // video.elem.className = "video";
@@ -53,7 +54,7 @@ function playVideo( id ) {
     // if ( video ) {
     //     document.body.appendChild( video.wrapper );
     //     playingVideo = video;
-    //      video.elem.play();
+    //     video.elem.play();
     // }
 
     //TODO: 
@@ -65,6 +66,7 @@ function playVideo( id ) {
 
     var video = videos[ id ];
     if ( video ) {
+        playingVideo = video;
         var mediaManagerID = vwf_view.kernel.find( undefined, "/mediaManager" )[ 0 ];
         var videoManagerID = vwf_view.kernel.find( mediaManagerID, "videoManager" ) [ 0 ];
 
@@ -83,19 +85,22 @@ function playVideo( id ) {
 }
 
 function removeVideoOnEvent( event ) {
+
     // 32 = space bar character code
-    // if ( event.type === "keypress" && event.which !== 32 ) {
-    //     return;
-    // }
+    if ( event.type === "keypress" && event.which !== 32 ) {
+        return;
+    }
+    $("#jquery_jplayer_1").hide();
     // var videoElem = playingVideo.elem || event.srcElement;
+    var id = playingVideo.id;
     // var id = parseInt( videoElem.id.split( "video" )[ 1 ] );
     // var fileName = getVideoFileName( videos[ id ] );
-    // vwf_view.kernel.fireEvent( vwf_view.kernel.application(), "videoPlayed", [ fileName ] );
-    // removeVideo( id );
-    // playingVideo = undefined;
+    var fileName = videos[id].vidName;
+    vwf_view.kernel.fireEvent( vwf_view.kernel.application(), "videoPlayed", [ fileName ] );
+    removeVideo( id );
+    playingVideo = undefined;
 
-    $("#jquery_jplayer_1").hide();
-    vwf_view.kernel.fireEvent( vwf_view.kernel.application(), "videoPlayed", undefined );
+    // vwf_view.kernel.fireEvent( vwf_view.kernel.application(), "videoPlayed", undefined );
 }
 
 function removeVideo( id ) {
