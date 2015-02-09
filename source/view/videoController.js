@@ -70,8 +70,10 @@ function playVideo( id ) {
     var video = videos[ id ];
     if ( video ) {
         playingVideo = video;
-        $("#jp_container_1").css('z-index', 103); //HACK: We really shouldn't depend on a z-index adjustment to make this work.
+       //$("#jp_container_1").css('z-index', $("#jp_container_1").css('z-index') + 1); 
+        // $("#jp_container_1").css('z-index', $("#transitionScreen").css('z-index') + 1); //HACK: We really shouldn't depend on a z-index adjustment to make this work.
         $("#jquery_jplayer_1").show();
+        $("#jp_container_1").css('z-index', 103); 
         var mediaManagerID = vwf_view.kernel.find( undefined, "/mediaManager" )[ 0 ];
         var videoManagerID = vwf_view.kernel.find( mediaManagerID, "videoManager" ) [ 0 ];
 
@@ -98,9 +100,10 @@ function removeVideoOnEvent( event ) {
     var mediaManagerID = vwf_view.kernel.find( undefined, "/mediaManager" )[ 0 ];
     var videoManagerID = vwf_view.kernel.find( mediaManagerID, "videoManager" ) [ 0 ];
 
-    vwf_view.kernel.callMethod( videoManagerID, "stop" ); 
+    // vwf_view.kernel.callMethod( videoManagerID, "stop" ); 
+    vwf_view.kernel.callMethod( videoManagerID, "clearMedia" );
     $("#jquery_jplayer_1").hide();
-    $("#jp_container_1").css('z-index', -2);
+    $("#jp_container_1").css('z-index', -2); //HACK: We really shouldn't depend on a z-index adjustment to make this work.
     // var videoElem = playingVideo.elem || event.srcElement;
     if( playingVideo ){ //TODO: Figure out why this check is necessary. 
         var id = playingVideo.id;
