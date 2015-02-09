@@ -46,7 +46,6 @@ properties:
     set: |
       this.setApplicationState( value );
     value: loading
-  blocklyTabs: []
 methods:
   setScenario:
   resetScenario:
@@ -75,7 +74,6 @@ methods:
   blinkTab:
   stopBlinkTab:
   playVideo:
-  enableBlocklyTab:
 events:
   gameStarted:
   scenarioReset:
@@ -94,6 +92,7 @@ events:
   toggledTiles:
   resetRoverSensors:
   resetHUDState:
+  enableBlocklyTab:
   clearBlocklyTabs:
   videoPlayed:
   setObjective:
