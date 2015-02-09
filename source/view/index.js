@@ -226,7 +226,6 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 if ( isNaN( id ) || id < 0 || id >= videos.length ) {
                     id = loadVideo( src );
                 }
-                // playVideo(id);
                 $( "#transitionScreen" ).fadeIn( function() {
                     playVideo( id );
                 } );

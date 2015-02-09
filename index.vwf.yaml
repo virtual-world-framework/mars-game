@@ -107,8 +107,6 @@ children:
         #   extends: http://vwf.example.com/jplayer/audioManager.vwf
         videoManager:
           extends: http://vwf.example.com/jplayer/videoManager.vwf
-          # properties:
-          #   posterImageUrl: "multimedia/pictures/ThickForestCanopy001.jpg"
       # scripts:
       # - source: "mediaManager.js"
   gameCam:
