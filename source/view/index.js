@@ -279,14 +279,12 @@ vwf_view.createdNode = function( nodeID, childID, childExtendsID, childImplement
             "ID": childID, 
             "name": childName,
             "ram": 15, 
-            "ramMax": 15,
-            "UIEnabled": false
+            "ramMax": 15
         };
     } else if ( isGraphObject( protos ) && childName === "blocklyLine" ) {
         graphLines[ childName ] = { 
             "ID": childID, 
-            "name": childName,
-            "UIEnabled": false
+            "name": childName
         } 
     } else if ( isLoggerNode( protos ) ) {
         loggerNodes[ childID ] = {
@@ -356,17 +354,10 @@ vwf_view.satProperty = function( nodeID, propertyName, propertyValue ) {
                 break;
 
             case "UIEnabled":
-                blocklyNode[ propertyName ] = Boolean( propertyValue );
-                blocklyNode.tab = document.createElement( "div" );
-                blocklyNode.tab.id = nodeID;
-                blocklyNode.tab.className = "blocklyTab";
-                blocklyNode.tab.onclick = setActiveBlocklyTab;
-                if ( nodeID === mainRover ) {
-                    blocklyNode.tab.innerHTML = "Rover";
-                } else {
-                    blocklyNode.tab.innerHTML = "Graph";
+                var enabled = Boolean( propertyValue );
+                if ( enabled ) {
+                    addBlocklyTab( nodeID );
                 }
-                
                 break;
 
             case "blockly_executing":
@@ -397,14 +388,6 @@ vwf_view.satProperty = function( nodeID, propertyName, propertyValue ) {
         if ( propertyName === "blockly_activeNodeID" ) {
             Blockly.SOUNDS_ = {};
             selectBlocklyTab( propertyValue );
-        }
-        else if ( propertyName === "blocklyTabs" ) {
-            clearBlocklyTabs();
-            var tabs = propertyValue;
-            var arrayLength = tabs.length;
-            for (var i = 0; i < arrayLength; i++) {
-                addBlocklyTab( tabs[ i ] );
-            }
         } else if ( propertyName === "applicationState" ) {
             var state = propertyValue;
             var versionElem = document.getElementById( "version" );

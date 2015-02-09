@@ -292,12 +292,12 @@ this.startStateParamSet.enableBlocklyTabs = function( params, context ) {
         return undefined;
     }
 
-    var object;
+    var node;
     context.clearBlocklyTabs();
     for ( var i = 0; i < params.length; i++ ) {
-        object = context.find( "//" + params[ i ] )[ 0 ];
-        if ( object ) {
-            context.enableBlocklyTab( object.id );
+        node = context.find( "//" + params[ i ] )[ 0 ];
+        if ( node ) {
+            node.UIEnabled = true;
         }
     }
 }
