@@ -381,14 +381,6 @@ vwf_view.satProperty = function( nodeID, propertyName, propertyValue ) {
         if ( propertyName === "blockly_activeNodeID" ) {
             Blockly.SOUNDS_ = {};
             selectBlocklyTab( propertyValue );
-        }
-        else if ( propertyName === "blocklyTabs" ) {
-            clearBlocklyTabs();
-            var tabs = propertyValue;
-            var arrayLength = tabs.length;
-            for (var i = 0; i < arrayLength; i++) {
-                addBlocklyTab( tabs[ i ] );
-            }
         } else if ( propertyName === "applicationState" ) {
             var state = propertyValue;
             var versionElem = document.getElementById( "version" );

@@ -394,10 +394,4 @@ this.playVideo = function( src ) {
     playVideo( id );
 }
 
-this.enableBlocklyTab = function ( objectID ) {
-    var tabs = this.blocklyTabs;
-    tabs.push( objectID );
-    this.blocklyTabs = tabs;
-}
-
 //@ sourceURL=source/scene.js
