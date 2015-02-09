@@ -187,9 +187,9 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 graphIsVisible = eventArgs[ 0 ];
                 break;
             
-            case "enableBlocklyTab":
-                addBlocklyTab( eventArgs[ 0 ], eventArgs[ 1 ] );
-                break;
+            // case "enableBlocklyTab":
+            //     addBlocklyTab( eventArgs[ 0 ], eventArgs[ 1 ] );
+            //     break;
 
             // case "playVideo":
             //     var src = eventArgs[ 0 ];
@@ -351,6 +351,13 @@ vwf_view.satProperty = function( nodeID, propertyName, propertyValue ) {
                     }
                 }
                 updateBlocklyRamBar();
+                break;
+
+            case "UIEnabled":
+                var enabled = Boolean( propertyValue );
+                if ( enabled ) {
+                    addBlocklyTab( nodeID );
+                }
                 break;
 
             case "blockly_executing":
