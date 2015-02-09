@@ -22,7 +22,7 @@ this.onGenerated = function( params, generator, payload ) {
         return false;
     }
 
-    this.scene.toggledGraph = this.events.add( this.onEvent, this );
+    this.scene.toggledGraph = this.events.add( function() { this.onEvent(); }, this );
 
     return true;
 }

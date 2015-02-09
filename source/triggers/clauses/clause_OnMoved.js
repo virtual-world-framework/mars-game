@@ -38,7 +38,7 @@ this.onGenerated = function( params, generator, payload ) {
         return false;
     }
 
-    object.moved = this.events.add( this.onEvent, this );
+    object.moved = this.events.add( function() { this.onEvent(); }, this );
 
     return true;
 }

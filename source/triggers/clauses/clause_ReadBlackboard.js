@@ -26,8 +26,10 @@ this.onGenerated = function( params, generator, payload ) {
     this.variableName = params[ 0 ];
     this.variableValue = params[ 1 ];
 
-    this.scene.blackboardWritten = this.events.add( this.parentTrigger.checkFire, 
-                                                    this.parentTrigger );
+    this.scene.blackboardWritten = this.events.add( function() {
+        this.parentTrigger.checkFire();
+        }, this );
+
 
     return true;
 }

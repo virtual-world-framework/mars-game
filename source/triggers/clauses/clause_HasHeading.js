@@ -32,8 +32,7 @@ this.onGenerated = function( params, generator, payload ) {
                             "appear to be capable of movement!" );
         return false;
     }
-    this.object.moved = this.events.add( this.parentTrigger.checkFire, 
-                                         this.parentTrigger );
+    this.object.moved = this.events.add( function() { this.parentTrigger.checkFire(); }, this );
 
     return true;
 }

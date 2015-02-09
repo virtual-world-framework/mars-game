@@ -34,7 +34,7 @@ this.onGenerated = function( params, generator, payload ) {
         var object = blocklyObjects[ i ];
 
         if ( object.blocklyVisibleChanged ) {
-            object.blocklyVisibleChanged = this.events.add( this.onBlocklyEvent, 
+            object.blocklyVisibleChanged = this.events.add( function( visible ) { this.onBlocklyEvent( visible ); }, 
                                                             this );
         } else {
             this.logger.warnx( "onGenerated", "blocklyVisibleChanged event " +
