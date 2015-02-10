@@ -27,12 +27,12 @@ this.setUpSubtitles = function() {
     var scene = this.find( "/" )[ 0 ];
     if ( scene && this.setUpOnce ) {
         this.setUpOnce = false;
-        this.soundStarted = this.events.add( function( instanceHandle ) { startSubtitle.call( this, instanceHandle ); }, this );
-        this.soundFinished = this.events.add( function( instanceHandle ) { stopSubtitle.call( this, instanceHandle ); }, this );
+        this.soundStarted = this.events.add( function( instanceHandle ) { this.startSubtitle.call( this, instanceHandle ); }, this );
+        this.soundFinished = this.events.add( function( instanceHandle ) { this.stopSubtitle.call( this, instanceHandle ); }, this );
     }
 }
 
-function startSubtitle( instanceHandle ) {
+this.startSubtitle = function( instanceHandle ) {
     var scene = this.find( "/" )[ 0 ];
     if ( this.hasSubtitle( instanceHandle ) ) {
         var subtitle = this.getSubtitle( instanceHandle );
@@ -54,7 +54,7 @@ function startSubtitle( instanceHandle ) {
     }
 }
 
-function stopSubtitle( instanceHandle ) {
+this.stopSubtitle = function( instanceHandle ) {
     var scene = this.find( "/" )[ 0 ];
     if ( this.hasSubtitle( instanceHandle ) ) {
         scene.hideCommsImage();
