@@ -69,15 +69,18 @@ function playVideo( id ) {
 
     var video = videos[ id ];
     if ( video ) {
+        var mediaManagerID = vwf_view.kernel.find( undefined, "/mediaManager" )[ 0 ];
+        var videoManagerID = vwf_view.kernel.find( mediaManagerID, "videoManager" ) [ 0 ];
+
         playingVideo = video;
-        $("#jp_container_1").css('z-index', 103); 
+        // $("#jp_container_1").css('z-index', 103); 
+        vwf_view.kernel.setProperty( videoManagerID, "z_index", 103 );
         $("#jp_container_1").css('width', 1024);
         $("#jp_container_1").css('height', 768);
         $("#jquery_jplayer_1").css('width', 1024);
         $("#jquery_jplayer_1").css('height', 768);
 
-        var mediaManagerID = vwf_view.kernel.find( undefined, "/mediaManager" )[ 0 ];
-        var videoManagerID = vwf_view.kernel.find( mediaManagerID, "videoManager" ) [ 0 ];
+        
 
         //TODO: Is there a better way to do this than to put "/mars-game/" in front of video.source.src ??? 
         // vwf_view.kernel.setProperty( videoManagerID, "url", '/mars-game/' + video.source.src );
