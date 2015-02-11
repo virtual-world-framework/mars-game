@@ -37,8 +37,7 @@ this.postInit = function() {
         this.onScenarioReset( scenarioName );
     }, this );
 
-
-    this.triggerManager.loadTriggers( this.scene );
+    this.triggerManager.loadTriggers( this );
 
     if ( this.runOnStartup ) {
         this.future( 0 ).startInitialScenario$()

@@ -33,6 +33,8 @@ methods:
   #                 clauses need access to the trigger itself).
   # Returns: true if the data is valid and the object can be used, false 
   #   otherwise.
+  # TODO: move the generator into the payload, instead of having it be a 
+  #   required argument.
   onGenerated:
 
   # A helper function for extracting an array of strings from one of the
