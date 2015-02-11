@@ -15,11 +15,12 @@
 # The big idea here is that we can create implementations for objects from
 #   a concise data definition contained in yaml (or similar).  This is more-
 #   or-less what VWF already does... but ours is hopefully a bit more concise
-#   and less arcane.  The generator keeps an array of objectSets.  Each entry
-#   in the array is a hashtable that matches a (unique) name to a .vwf.yaml
-#   file.  That file contains the object the prototype of our object.  See
-#   the trigger system for two examples (both the actions and the boolean 
-#   clauses are constructed in this way).
+#   and less arcane.  Or maybe just more simplistic. :)  
+#   The generator keeps an array of objectSets.  Each entry in the array is a 
+#   hashtable that matches a (unique) name to a .vwf.yaml file.  That file 
+#   contains the object the prototype of our object.  See the trigger system 
+#   for two examples (both the actions and the boolean clauses are constructed 
+#   in this way).
 # NOTE: Generated objects should extend source/triggers/generators/generatedObject.vwf, 
 #   which extends http://vwf.example.com/node.vwf.  See that file for other
 #   requirements as well as some useful helpers.
