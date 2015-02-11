@@ -42,7 +42,6 @@ function loadVideo( src, type ) {
         // video.elem.onended = removeVideoOnEvent;
     // }
 
-    // $("#jquery_jplayer_1").ended = removeVideoOnEvent;
     $("#jquery_jplayer_1").bind($.jPlayer.event.ended, removeVideoOnEvent );
 
     videos.push( video );
@@ -75,10 +74,11 @@ function playVideo( id ) {
         playingVideo = video;
         // $("#jp_container_1").css('z-index', 103); 
         vwf_view.kernel.setProperty( videoManagerID, "z_index", 103 );
-        $("#jp_container_1").css('width', 1024);
-        $("#jp_container_1").css('height', 768);
-        $("#jquery_jplayer_1").css('width', 1024);
-        $("#jquery_jplayer_1").css('height', 768);
+        vwf_view.kernel.callMethod( videoManagerID, "show" );
+        // $("#jp_container_1").css('width', 1024);
+        // $("#jp_container_1").css('height', 768);
+        // $("#jquery_jplayer_1").css('width', 1024);
+        // $("#jquery_jplayer_1").css('height', 768);
 
         //TODO: Is there a better way to do this than to put "/mars-game/" in front of video.source.src ??? 
         // vwf_view.kernel.setProperty( videoManagerID, "url", '/mars-game/' + video.source.src );
@@ -117,10 +117,13 @@ function removeVideoOnEvent( event ) {
 }
 
 function removeVideo( id ) {
-    $("#jquery_jplayer_1").css('width', 0);
-    $("#jquery_jplayer_1").css('height', 0);
-    $("#jp_container_1").css('width', 0);
-    $("#jp_container_1").css('height', 0);
+    var mediaManagerID = vwf_view.kernel.find( undefined, "/mediaManager" )[ 0 ];
+    var videoManagerID = vwf_view.kernel.find( mediaManagerID, "videoManager" ) [ 0 ];
+    vwf_view.kernel.callMethod( videoManagerID, "hide" );
+    // $("#jquery_jplayer_1").css('width', 0);
+    // $("#jquery_jplayer_1").css('height', 0);
+    // $("#jp_container_1").css('width', 0);
+    // $("#jp_container_1").css('height', 0);
     // $("#jp_container_1").hide();
     // $("#jquery_jplayer_1").hide();
     // var video = videos[ id ];
