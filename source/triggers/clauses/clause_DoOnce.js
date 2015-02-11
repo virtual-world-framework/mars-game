@@ -18,7 +18,7 @@ this.onGenerated = function( params, generator, payload ) {
                             "arguments." );
     }
 
-    if ( !this.initClause( params, generator, payload ) ) {
+    if ( !this.initTriggerObject( params, generator, payload ) ) {
         return false;
     }
 

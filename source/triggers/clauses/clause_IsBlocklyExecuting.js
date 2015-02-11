@@ -18,7 +18,7 @@ this.onGenerated = function( params, generator, payload ) {
                             "argument: the list of blockly objects." );
     }
 
-   if ( !this.initClause( params, generator, payload ) ) {
+   if ( !this.initTriggerObject( params, generator, payload ) ) {
         return false;
     }
 

@@ -12,18 +12,10 @@
 # See the License for the specific language governing permissions and 
 # limitations under the License.
 
-# The boolean function factory creates boolean function from yaml declarations.
-# It also sets up the callbacks necessary to know when the boolean function 
-# needs to be reevaluated. This is used to create the checks for triggers.
-#
-# A boolean function contains a single "clause," which is something we want to
-# check (for example, an isAtPosition clause, or a hasObject clause).  The 
-# clause can be an and, or, or not clause, and these clauses contain sub-
-# clauses.
-#
-# This all leans on the declarative function executor, which treats the clauses
-# as declarative functions that set up the necessary callbacks and return the
-# function that performs the actual check.
+# A generated object for OnEvent clauses (i.e. clauses that are true when some
+#   event has just occurred).  Automatically handles tracking how long since 
+#   the event occurred, and can be customized as to how recent the event needs
+#   to have been.
 
 --- 
 extends: source/triggers/clauses/clauseProto.vwf
@@ -40,7 +32,7 @@ methods:
   #   It handles shared parts of the initialization.  Arguments are the same as
   #   onGenerated, plus the value for threshold$ (since I don't know which 
   #   parameter it will be).
-  # NOTE: I call initClause, so you don't have to.
+  # NOTE: I call initTriggerObject, so you don't have to.
   initOnEvent:
 
   # call this when the event occurs, and the magic will happen.
