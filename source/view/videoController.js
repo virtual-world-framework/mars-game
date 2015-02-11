@@ -80,8 +80,6 @@ function playVideo( id ) {
         $("#jquery_jplayer_1").css('width', 1024);
         $("#jquery_jplayer_1").css('height', 768);
 
-        
-
         //TODO: Is there a better way to do this than to put "/mars-game/" in front of video.source.src ??? 
         // vwf_view.kernel.setProperty( videoManagerID, "url", '/mars-game/' + video.source.src );
         // vwf_view.kernel.setProperty( videoManagerID, "url", '/mars-game/assets/video/intro_cinematic.mp4' );
