@@ -27,6 +27,8 @@ var tiles = new Array();
 
 var lastCameraPOV = "thirdPerson";
 
+var scenario;
+
 this.initialize = function() {
     // Set the active camera so we can see the 3D scene
     this.initializeActiveCamera( this.gameCam.camera );
@@ -36,7 +38,7 @@ this.initialize = function() {
 }
 
 this.setScenario = function( path ) {
-    var scenario = this.find( path )[ 0 ];
+    scenario = this.find( path )[ 0 ];
     if ( scenario ) {
         if ( scenario.grid && scenario.grid.clearGrid ) {
             scenario.grid.clearGrid();
@@ -146,8 +148,11 @@ function calcGridBounds( grid ) {
 this.executeBlock = function ( block, action ) {
     var blockName = block[ 0 ];
     var blockID = block[ 1 ];
-    //SJF: Was breaking procedures
-    // this.blockExecuted( blockName, blockID );
+    
+    if(scenario.name !== "scenario_dummy"){
+        //SJF: Was breaking procedures
+        this.blockExecuted( blockName, blockID );
+    }
 
     var nodeID = action[ 0 ];
     var methodName = action[ 1 ];
