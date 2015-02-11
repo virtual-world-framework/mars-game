@@ -110,6 +110,7 @@ children:
           properties:
             containerDivId: "jp_container_1"
             playerDivId: "jquery_jplayer_1"
+            # z_index: 103
       # scripts:
       # - source: "mediaManager.js"
   gameCam:

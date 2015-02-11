@@ -108,11 +108,8 @@ function removeVideoOnEvent( event ) {
     // var videoElem = playingVideo.elem || event.srcElement;
     if( playingVideo ){ //TODO: Figure out why this check is necessary. 
         var id = playingVideo.id;
-        // var id = parseInt( videoElem.id.split( "video" )[ 1 ] );
-        // var fileName = getVideoFileName( videos[ id ] );
         var fileName = videos[id].vidName;
         vwf_view.kernel.fireEvent( vwf_view.kernel.application(), "videoPlayed", [ fileName ] );
-        // removeVideo( id );
         playingVideo = undefined;
     }
 
