@@ -15,9 +15,9 @@
 --- 
 
 # The trigger factory creates triggers from yaml declarations.
-# NOTE: You are responsible for calling loadTriggers with the context in order
-#   to get things started, as well as for enabling the manager when you want
-#   the triggers to start working.
+# NOTE: You are responsible for calling loadTriggers in order to get things 
+#   started, as well as for enabling the manager when you want the triggers to 
+#   start working.
 # NOTE: Despite being called a "manager," this is not a singleton.  Each 
 #   scenario has its own trigger manager.
 
@@ -38,19 +38,22 @@ properties:
     value: false
 
 methods:
+  # TODO: combine trigger loading back into a single function now that we don't
+  #   have late loading triggers.
+
   # This function loops through our triggers property and creates all the 
   #   triggers, including setting up callbacks to make them fire.  From 
   #   there on out, the magic should just happen.
-  # arguments: context
+  # arguments: scenario
   loadTriggers:
 
   # This function takes a trigger list (like our triggers property) and loads
   #   the contents.
-  # arguments: triggerList, context
+  # arguments: triggerList, scenario
   loadTriggerList:
 
   # Adds a single trigger.
-  # arguments: triggerName, trigger, context
+  # arguments: triggerName, trigger, scenario
   addTrigger:
 
   # The setter for isEnabled.  DO NOT CALL DIRECTLY!

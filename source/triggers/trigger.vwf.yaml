@@ -20,9 +20,6 @@ implements:
   - http://vwf.example.com/assert.vwf
 
 properties:
-  # The actions we take when the trigger fires
-  actions: 
-
   # This doesn't appear to be getting deleted properly, so redundantly 
   #   disable it if it should be deleted.
   isEnabled: 
@@ -60,8 +57,8 @@ methods:
   # Arguments:
   #   clauseGen   - The generator for creating clauses
   #   actionGen   - The generator for creating actions
-  #   context     - The scene (soon to be depracated)
   #   definition  - The definition object for the trigger
+  #   scenario    - The scenario that this trigger belongs to
   # Returns: true if initialization succeeded, false otherwise
   initTrigger:
 
