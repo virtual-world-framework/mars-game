@@ -18,10 +18,6 @@ this.initialize = function() {
 
 this.onSceneLoaded = function() {
     this.loadTriggers();
-
-    // TODO: Get rid of the notion of late load triggers now that we have 
-    // trigger groups.
-    this.loadTriggerList( this.lateLoadTriggers );
 }
 
 //@ sourceURL=source/scenario/globalScenarioTriggers.js
