@@ -13,7 +13,7 @@
 // limitations under the License.
 
 this.onGenerated = function( params, generator, payload ) {
-    if ( !this.initTriggerObject( params, generator, payload ) ) {
+    if ( !this.initAction( params, generator, payload ) ) {
         return false;
     }
 
@@ -24,31 +24,26 @@ this.onGenerated = function( params, generator, payload ) {
         return false;
     }
 
-    var scenario = payload.scenario;
-    if ( !scenario ) {
-        this.logger.errorx( "onGenerated", "Scenario missing!" );
-        return false;
-    }
-
-    var tileCoords = params[ 0 ];
-    if ( !tileCoords || !tileCoords.length || ( tileCoords.length !== 2 ) ) {
+    this.tileCoords = params[ 0 ];
+    if ( !this.tileCoords || !this.tileCoords.length || 
+         ( this.tileCoords.length !== 2 ) ) {
         this.logger.errorx( "onGenerated", "Invalid coordinates!" );
         return false;
     }
-
-    if ( !scenario.grid.validCoord( tileCoords) ) {
-        this.logger.errorx( "onGenerated", "Coordinates out of bounds!");
-        return false;
-    }
-
-    this.coords = scenario.grid.getWorldFromGrid( tileCoords[ 0 ], 
-                                                  tileCoords[ 1 ] );
 
     return true;
 }
 
 this.executeAction = function() {
-    this.scene.gridTileGraph.callOutTile.callOut( this.coords );
+    this.assert( this.scenario );
+    this.assert( this.isInScenario(), "No longer in our scenario!" );
+    this.assert( this.scenario.grid.validCoord( this.tileCoords ), 
+                 "Coordinates out of bounds!" );
+
+    var coords = this.scenario.grid.getWorldFromGrid( this.tileCoords[ 0 ], 
+                                                      this.tileCoords[ 1 ] );
+
+    this.scene.gridTileGraph.callOutTile.callOut( coords );
 }
 
 //@ sourceURL=source/triggers/actions/action_callOutObjective.js

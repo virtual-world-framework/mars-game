@@ -24,5 +24,3 @@ methods:
   #   clause is true or false. Must be implemented by the child clause.
   evaluateClause: 
 
-scripts:
-- source: source/triggers/clauses/clauseProto.js

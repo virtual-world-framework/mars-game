@@ -15,12 +15,12 @@
 --- 
 extends: source/triggers/actions/actionProto.vwf
 
-implements: 
-  - http://vwf.example.com/sceneGetter.vwf
-  - http://vwf.example.com/assert.vwf
-
 properties:
-  scenario:
+  # the scenario we were in when the delay started, so we don't execute actions
+  #  past the end of the scenario
+  scenarioOnDelay:
+
+  # how long to delay
   delay:
 
 methods:

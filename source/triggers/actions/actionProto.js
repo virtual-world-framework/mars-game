@@ -12,16 +12,17 @@
 // See the License for the specific language governing permissions and 
 // limitations under the License.
 
-this.initialize = function() {
-    this.future( 0 ).onSceneLoaded();
+this.initAction = function( params, generator, payload ) {
+    if ( !this.initTriggerObject( params, generator, payload ) ) {
+        return false;
+    }
+
+    this.scenario = payload.scenario;
+    return true;
 }
 
-this.onSceneLoaded = function() {
-    this.loadTriggers();
-
-    // TODO: Get rid of the notion of late load triggers now that we have 
-    // trigger groups.
-    this.loadTriggerList( this.lateLoadTriggers );
+this.isInScenario = function() {
+    return this.scenario === this.scene.getCurrentScenario();
 }
 
-//@ sourceURL=source/scenario/globalScenarioTriggers.js
+//@ sourceURL=source/triggers/actions/actionProto.js
