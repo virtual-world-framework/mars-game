@@ -16,6 +16,12 @@ var videos = new Array();
 var videoID = 0;
 var playingVideo;
 
+// vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
+//     switch ( eventName ) {
+        
+//     }
+// }
+
 // function loadVideo( src, type, dontRemoveWhenEnded ) {
 function loadVideo( src, type ) {
     var video = {
@@ -45,7 +51,6 @@ function loadVideo( src, type ) {
     // $("#jquery_jplayer_1").bind($.jPlayer.event.ended, removeVideoOnEvent );
     var mediaManagerID = vwf_view.kernel.find( undefined, "/mediaManager" )[ 0 ];
     var videoManagerID = vwf_view.kernel.find( mediaManagerID, "videoManager" ) [ 0 ];
-    // vwf_view.kernel.callMethod( videoManagerID, "setEndedCallback", removeVideoOnEvent );
     var setEndedCallbackInput = [removeVideoOnEvent];
     vwf_view.kernel.callMethod( videoManagerID, "setEndedCallback", setEndedCallbackInput );
     videos.push( video );
@@ -79,6 +84,7 @@ function playVideo( id ) {
         // $("#jp_container_1").css('z-index', 103); 
         vwf_view.kernel.setProperty( videoManagerID, "z_index", 103 );
         vwf_view.kernel.callMethod( videoManagerID, "show" );
+        vwf_view.kernel.callMethod( videoManagerID, "testFireEvent" );
         // $("#jp_container_1").css('width', 1024);
         // $("#jp_container_1").css('height', 768);
         // $("#jquery_jplayer_1").css('width', 1024);
@@ -150,4 +156,12 @@ function getVideoFileName( video ) {
     var fileName = video.source.split( "/" ).pop();
     return fileName;
 }
+
+// vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
+//     switch ( eventName ) {
+//         case "videoEnded":
+//             console.log("Video Ended zomg!");
+//             break;
+//     }
+// }
 //@ sourceURL=source/videoController.js

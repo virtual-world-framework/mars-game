@@ -52,6 +52,13 @@ var RENDER_GAME = 2;
 var renderMode = RENDER_NONE;
 
 vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
+
+    // switch ( eventName ) {
+    //     case "videoEnded":
+    //         console.log("Video Ended zomg!");
+    //         break;
+    // }
+
     if ( blocklyNodes[ nodeID ] !== undefined ) {
         var blocklyNode = blocklyNodes[ nodeID ];
         switch ( eventName ) {
@@ -298,6 +305,11 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
             } else {
                 resetScenario();
             }
+        }
+
+        // NXM - TODO: this isn't a scenario event.
+        if( eventName === "videoEnded"){
+            console.log("Video end triggered!");
         }
     }
 }
