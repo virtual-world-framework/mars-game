@@ -113,7 +113,7 @@ children:
             containerDivSize: [1024, 768]
             playerDivSize: [1024, 768]
             foo: "bar"
-            # z_index: 103
+
       # scripts:
       # - source: "mediaManager.js"
   gameCam:

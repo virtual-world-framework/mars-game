@@ -42,8 +42,12 @@ function loadVideo( src, type ) {
         // video.elem.onended = removeVideoOnEvent;
     // }
 
-    $("#jquery_jplayer_1").bind($.jPlayer.event.ended, removeVideoOnEvent );
-
+    // $("#jquery_jplayer_1").bind($.jPlayer.event.ended, removeVideoOnEvent );
+    var mediaManagerID = vwf_view.kernel.find( undefined, "/mediaManager" )[ 0 ];
+    var videoManagerID = vwf_view.kernel.find( mediaManagerID, "videoManager" ) [ 0 ];
+    // vwf_view.kernel.callMethod( videoManagerID, "setEndedCallback", removeVideoOnEvent );
+    var setEndedCallbackInput = [removeVideoOnEvent];
+    vwf_view.kernel.callMethod( videoManagerID, "setEndedCallback", setEndedCallbackInput );
     videos.push( video );
     videoID++;
     return videoID - 1;
