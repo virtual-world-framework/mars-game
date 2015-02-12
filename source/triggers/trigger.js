@@ -51,6 +51,8 @@ this.initTrigger = function( clauseGen, actionGen, definition, scenario ) {
                               this.triggerCondition, payload );
 
     for ( var i = 0; i < definition.actions.length; ++i ) {
+        this.assert( !!actionGen );
+        this.assert( !!actionGen.actionSet );
         actionGen.generateObject( definition.actions[ i ], this.actions, 
                                   payload );
     }

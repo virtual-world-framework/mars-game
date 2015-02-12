@@ -13,14 +13,42 @@
 # limitations under the License.
 
 # A generated object prototype for actions. 
-# TODO: this doesn't actually do anything.  What are the performance 
-#   implications of having it here?
 
 --- 
 
 extends: source/triggers/generators/triggerElementProto.vwf
 
+implements: 
+  - http://vwf.example.com/sceneGetter.vwf
+  - http://vwf.example.com/assert.vwf
+
+properties:
+  # If this trigger belongs to a particular scenario, this will be that 
+  #   scenario. If it's a global trigger, it will be the current scenario.
+  # NOTE: initialized in initAction.
+  scenario:
+    get: |
+      // this.assert( this.scene && this.scene.getCurrentScenario );
+      if ( this.scenario ) {
+        return this.scenario;
+      } else if ( this.scene && this.scene.getCurrentScenario ) {
+        return this.scene.getCurrentScenario();
+      } else {
+        return undefined;
+      }
+      //@ sourceURL=source/triggers/actions/actionProto/scenario/get
+
 methods:
+  # This function should be called by every trigger object from inside of 
+  #   onGenerated.  It handles shared parts of the initialization.  Arguments 
+  #   are the same as onGenerated.
+  # NOTE: this handles calling initAction for you.
+  initAction:
+
+  # Checks whether we're still in the scenario that owns this trigger.  For 
+  #   global scenarios, this will always be true.
+  isInScenario:
+
   # This is the function that actually gets called when the trigger fires. 
   #   Must be implemented by the child action.
   executeAction: 
