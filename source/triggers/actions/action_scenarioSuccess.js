@@ -13,7 +13,7 @@
 // limitations under the License.
 
 this.onGenerated = function( params, generator, payload ) {
-    if ( !this.initTriggerObject( params, generator, payload ) ) {
+    if ( !this.initAction( params, generator, payload ) ) {
         return false;
     }
 
@@ -25,20 +25,19 @@ this.onGenerated = function( params, generator, payload ) {
         return false;
     }
 
-    this.scenario = payload.scenario;
     this.successType = params ? params[ 0 ] : undefined;
 
-    return !!this.scenario;
+    return true;
 }
 
 this.executeAction = function() {
-    this.assert( this.scenario === this.scene.getCurrentScenario() );
-    this.assert( this.scenario.isRunning() );
+    this.assert( this.scenario );
+    this.assert( this.isInScenario() );
+    this.assert( this.scenario.isRunning );
 
     this.scenario.completed( this.successType );
 
-    this.assert( this.scenario !== this.scene.getCurrentScenario() );
-    this.assert( !this.scenario.isRunning() );
+    this.assert( !this.scenario.isRunning );
 }
 
 //@ sourceURL=source/triggers/actions/action_scenarioSuccess.js

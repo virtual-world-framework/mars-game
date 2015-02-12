@@ -19,6 +19,7 @@
 # functions from the yaml.
 
 --- 
+
 extends: source/triggers/generators/declarativeFunctionExecutor.vwf
 
 implements: 

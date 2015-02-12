@@ -14,6 +14,7 @@
 
 this.initTriggerObject = function( params, generator, payload ) {
     if ( !payload || !payload.trigger ) {
+        this.logger.errorx( "initTriggerObject", "Failed to find trigger!" );
         return false;
     }
 

@@ -17,7 +17,7 @@ this.initialize = function() {
 }
 
 this.onGenerated = function( params, generator, payload ) {
-    if ( !this.initTriggerObject( params, generator, payload ) ) {
+    if ( !this.initAction( params, generator, payload ) ) {
         return false;
     }
 
@@ -29,13 +29,8 @@ this.onGenerated = function( params, generator, payload ) {
         return false;
     }
 
-    this.scenario = payload.scenario;
-    if ( !this.scenario ) {
-        return false;
-    }
-
     this.delay = params[ 0 ];
-    if ( delay <= 0 ) {
+    if ( this.delay <= 0 ) {
         this.logger.errorx( "onGenerated", "The delay must be greater than 0.");
         return false;
     }
@@ -48,21 +43,26 @@ this.onGenerated = function( params, generator, payload ) {
 }
 
 this.executeAction = function() {
+    this.assert( this.isInScenario() );
+    this.scenarioOnDelay = this.scenario;    
+
     this.future( this.delay ).executeDelayedActions();
 }
 
 this.executeDelayedActions = function() {
-    if ( this.scenario === this.scene.getCurrentScenario() ) {
+    // Only actually fire the actions if we're still in the same scenario that
+    //  we were in when the delay started.
+    if ( this.scenarioOnDelay === this.scene.getCurrentScenario() ) {
         for ( var i = 0; i < this.actions.children.length; ++i ) {
-            this.parentTrigger.spew( "fire", "Starting delayed action " + i + 
-                                     " ('" + this.actions.children[ i ].name + 
-                                     "')." );
+            this.parentTrigger.spew( "executeDelayedActions", 
+                                     "Starting delayed action " + i + " ('" + 
+                                     this.actions.children[ i ].name + "')." );
 
             this.actions.children[ i ].executeAction();
 
-            this.parentTrigger.spew( "fire", "Finished delayed action " + i + 
-                                     " ('" + this.actions.children[ i ].name + 
-                                     "')." );
+            this.parentTrigger.spew( "executeDelayedActions", 
+                                     "Finished delayed action " + i + " ('" + 
+                                     this.actions.children[ i ].name + "')." );
         }
     } else {
         // TODO: is an assert overkill here?

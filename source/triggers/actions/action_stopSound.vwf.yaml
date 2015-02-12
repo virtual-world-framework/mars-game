@@ -15,10 +15,6 @@
 --- 
 extends: source/triggers/actions/actionProto.vwf
 
-implements: 
-  - http://vwf.example.com/sceneGetter.vwf
-  - http://vwf.example.com/assert.vwf
-
 properties:
   soundName:
   soundMgr:

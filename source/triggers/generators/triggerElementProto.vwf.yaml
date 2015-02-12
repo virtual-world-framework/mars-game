@@ -23,9 +23,9 @@ properties:
   parentTrigger:
 
 methods:
-  # This function should be called by every clause from inside of onGenerated.
-  #   It handles shared parts of the initialization.  Arguments are the same as
-  #   onGenerated.
+  # This function should be called by every trigger object from inside of 
+  #   onGenerated.  It handles shared parts of the initialization.  Arguments 
+  #   are the same as onGenerated.
   initTriggerObject:
 
   # This is the function that actually gets called to check whether this
