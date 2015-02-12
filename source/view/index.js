@@ -310,6 +310,7 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
         // NXM - TODO: this isn't a scenario event.
         if( eventName === "videoEnded"){
             console.log("Video end event FIRED!");
+            removeVideoOnEvent();
         }
     }
 }

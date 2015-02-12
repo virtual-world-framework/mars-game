@@ -51,8 +51,8 @@ function loadVideo( src, type ) {
     // $("#jquery_jplayer_1").bind($.jPlayer.event.ended, removeVideoOnEvent );
     var mediaManagerID = vwf_view.kernel.find( undefined, "/mediaManager" )[ 0 ];
     var videoManagerID = vwf_view.kernel.find( mediaManagerID, "videoManager" ) [ 0 ];
-    var setEndedCallbackInput = [removeVideoOnEvent];
-    vwf_view.kernel.callMethod( videoManagerID, "setEndedCallback", setEndedCallbackInput );
+    // var setEndedCallbackInput = [removeVideoOnEvent];
+    // vwf_view.kernel.callMethod( videoManagerID, "setEndedCallback", setEndedCallbackInput );
     videos.push( video );
     videoID++;
     return videoID - 1;
@@ -107,7 +107,7 @@ function playVideo( id ) {
 function removeVideoOnEvent( event ) {
 
     // 32 = space bar character code
-    if ( event.type === "keypress" && event.which !== 32 ) {
+    if ( event && event.type === "keypress" && event.which !== 32 ) {
             return;
     }
     var mediaManagerID = vwf_view.kernel.find( undefined, "/mediaManager" )[ 0 ];
