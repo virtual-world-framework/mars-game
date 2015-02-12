@@ -84,7 +84,7 @@ function playVideo( id ) {
         // $("#jp_container_1").css('z-index', 103); 
         vwf_view.kernel.setProperty( videoManagerID, "z_index", 103 );
         vwf_view.kernel.callMethod( videoManagerID, "show" );
-        vwf_view.kernel.callMethod( videoManagerID, "testFireEvent" );
+        // vwf_view.kernel.callMethod( videoManagerID, "testFireEvent" );
         // $("#jp_container_1").css('width', 1024);
         // $("#jp_container_1").css('height', 768);
         // $("#jquery_jplayer_1").css('width', 1024);
