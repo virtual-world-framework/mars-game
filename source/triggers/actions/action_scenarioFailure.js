@@ -35,7 +35,7 @@ this.executeAction = function() {
     this.assert( this.isInScenario() );
     this.assert( this.scenario.isRunning );
 
-    this.scenario.completed( this.failureType, this.message );
+    this.scenario.failed( this.failureType, this.message );
 }
 
 //@ sourceURL=source/triggers/actions/action_scenarioFailure.js

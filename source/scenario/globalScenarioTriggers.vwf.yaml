@@ -30,60 +30,6 @@ properties:
   #   after every other scenario trigger has been loaded (and reload them for
   #   each scenario).  Needed for triggers that are sensitive to the order in
   #   which they fire.
-  lateLoadTriggers:
-    failOnIncompleteProgram:
-      group: successOrFailure
-      priority: -1
-      triggerCondition:
-      - and:
-        - onBlocklyStopped:
-        - not:
-          - readBlackboard:
-            - disableFailOnIncompleteProgram
-      actions:
-      - scenarioFailure:
-        - incomplete
-      - playSound:
-        - FCVO2_Rover
-
-    hintOnIncompleteProgram_1:
-      triggerCondition:
-      - and:
-        - onBlocklyStopped:
-        - not:
-          - readBlackboard:
-            - disableFailOnIncompleteProgram
-        - not:
-          - readBlackboard:
-            - stepThroughProgramHint
-      actions:
-      - delay:
-        - 0.2
-        - writeToBlackboard:
-          - stepThroughProgramHint
-        - playSound:
-          - ALVO33_Rover
-
-    hintOnIncompleteProgram_2:
-      triggerCondition:
-      - and:
-        - onBlocklyStopped:
-        - readBlackboard:
-          - stepThroughProgramHint
-        - not:
-          - readBlackboard:
-            - disableFailOnIncompleteProgram
-        - not:
-          - readBlackboard:
-            - blocklyTraceHint
-      actions:
-      - delay:
-        - 0.2
-        - writeToBlackboard:
-          - blocklyTraceHint
-        - playSound:
-          - ALVO32_Rover
-
   triggers:
     recordKeepingOnBegin:
       triggerCondition:
@@ -117,20 +63,76 @@ properties:
       - playSound:
         - musicFailure
 
-    failOnCollision:
+    failOnIncompleteProgram_1:
+      group: successOrFailure
+      priority: -1
+      triggerCondition:
+      - and:
+        - onBlocklyStopped:
+        - not:
+          - readBlackboard:
+            - disableFailOnIncompleteProgram
+        - not:
+          - readBlackboard:
+            - stepThroughProgramHint
+      actions:
+      - scenarioFailure:
+        - incomplete
+      - delay:
+        - 0.2
+        - writeToBlackboard:
+          - stepThroughProgramHint
+        - playSound:
+          - ALVO33_Rover
+
+    failOnIncompleteProgram_2:
+      group: successOrFailure
+      priority: -1
+      triggerCondition:
+      - and:
+        - onBlocklyStopped:
+        - not:
+          - readBlackboard:
+            - disableFailOnIncompleteProgram
+        - readBlackboard:
+          - stepThroughProgramHint
+        - not:
+          - readBlackboard:
+            - blocklyTraceHint
+      actions:
+      - scenarioFailure:
+        - incomplete
+      - delay:
+        - 0.2
+        - writeToBlackboard:
+          - blocklyTraceHint
+        - playSound:
+          - ALVO32_Rover
+
+    failOnIncompleteProgram_3:
+      group: successOrFailure
+      priority: -1
+      triggerCondition:
+      - and:
+        - onBlocklyStopped:
+        - not:
+          - readBlackboard:
+            - disableFailOnIncompleteProgram
+        - readBlackboard:
+          - stepThroughProgramHint
+        - readBlackboard:
+          - blocklyTraceHint
+      actions:
+      - scenarioFailure:
+        - incomplete
+      - delay:
+        - 0.2
+        - playSound:
+          - FCVO2_Rover
+
+    failOnCollision_1:
       group: successOrFailure
       priority: 2
-      triggerCondition:
-      - moveFailed:
-        - rover
-        - collision
-      actions:
-      - scenarioFailure:        
-        - collision
-      - playSound:
-        - FCVO1_Rover
-
-    hintOnCollision_1:
       triggerCondition:
       - and:
         - moveFailed:
@@ -140,6 +142,8 @@ properties:
           - readBlackboard:
             - stepThroughProgramHint
       actions:
+      - scenarioFailure:        
+        - collision
       - delay:
         - 0.2
         - writeToBlackboard:
@@ -147,7 +151,9 @@ properties:
         - playSound:
           - ALVO33_Rover
 
-    hintOnCollision_2:
+    failOnCollision_2:
+      group: successOrFailure
+      priority: 2
       triggerCondition:
       - and:
         - moveFailed:
@@ -159,12 +165,36 @@ properties:
           - readBlackboard:
             - blocklyTraceHint
       actions:
+      - scenarioFailure:        
+        - collision
       - delay:
         - 0.2
         - writeToBlackboard:
           - blocklyTraceHint
         - playSound:
           - ALVO32_Rover
+
+    failOnCollision_3:
+      group: successOrFailure
+      priority: 2
+      triggerCondition:
+      - and:
+        - moveFailed:
+          - rover
+          - collision
+        - readBlackboard:
+          - stepThroughProgramHint
+        - readBlackboard:
+          - blocklyTraceHint
+      actions:
+      - scenarioFailure:        
+        - collision
+      - playSound:
+        - FCVO1_Rover
+      - delay:
+        - 0.2
+        - playSound:
+          - FCVO1_Rover
 
     failOnBatteryDepleted:
       group: successOrFailure
@@ -176,6 +206,10 @@ properties:
       actions:
       - scenarioFailure:         
         - battery
+      - delay:
+        - 0.2
+        - playSound:
+          - FCVO2_Rover
 
     startRoverSounds:
       triggerCondition:
@@ -192,12 +226,6 @@ properties:
       actions:
       - stopSound:
         - roverSounds
-
-    # initScenarioOnLoadedGame:
-    #   triggerCondition:
-    #   - onGameLoaded:
-    #   actions:
-    #   - initGameOnLoad:
 
 methods:
   # This is called using future(0) inside of initialize.
