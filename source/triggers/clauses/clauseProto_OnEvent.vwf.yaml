@@ -22,6 +22,11 @@ extends: source/triggers/clauses/clauseProto.vwf
 
 properties:
   # how recent does the event have to have been?
+  # NOTE: if the trigger is in a trigger group, it could be as much as
+  #   0.12 seconds (two trigger group updates) before the trigger group is 
+  #   ready to fire (plus any frame delay).  I wouldn't set this to less 
+  #   than 0.5 seconds to be safe (especially given that some machines have
+  #   better performance than others).
   threshold$:
 
   # when did the event last happen?
