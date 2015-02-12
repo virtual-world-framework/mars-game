@@ -15,133 +15,130 @@
 ---
 extends: source/scenario/scenario.vwf
 properties:
-  scenarioName: scenario3e
-
-  scenePath: /
-  nextScenarioPath: "scenario3f"
+  scenarioName: scenario_dummy
 
   startState:
   - setProperty:
     - rover3
     - visible
-    - false
+    - true
   - setProperty:
     - rover2
     - visible
-    - false
+    - true
   - setProperty:
     - rover
     - battery
-    - 40
+    - 9001
   - setProperty:
     - rover
     - batteryMax
-    - 40
+    - 9001
   - setProperty:
     - rover
     - blockly_allowedBlocks
-    - 12
-  - addToInventory:
+    - 9001
+  - setProperty:
+    - rover
+    - lowRam
+    - 0
+  - setProperty:
+    - rover2
+    - battery
+    - 9001
+  - setProperty:
+    - rover2
+    - batteryMax
+    - 9001
+  - setProperty:
+    - rover2
+    - blockly_allowedBlocks
+    - 9001
+  - setProperty:
+    - rover3
+    - battery
+    - 9001
+  - setProperty:
+    - rover3
+    - batteryMax
+    - 9001
+  - setProperty:
+    - rover3
+    - blockly_allowedBlocks
+    - 9001
+
+  - callMethod:
+    - rover
+    - setHeading
+    - 0
+
+  - emptyInventory:
     - rover/cargo
-    - [ "helicam", "battery", "radio" ]
+
   - addToGrid:
     - rover
+    - [ 37, 15 ]
+
+  - addToGrid:
+    - rover3
+    - [ 37, 13 ]
+
+  - addToGrid:
+    - rover2
+    - [ 37, 14 ]
+
+  - addToGrid:
+    - supplies_2
     - [ 12, 10 ]
+
   - addToGrid:
     - blocklyGraph
-    - [ 12, 10 ]
-  - addToGrid:
-    - minirover
-    - [ 24, 39 ]
+    - [ 37, 15 ]
+
   - enableBlocklyTabs:
     - rover
+    - rover2
+    - rover3
     - graph
+
   - loadToolbox:
     - rover
-    - source/scenario/blockly/scenario3e.xml
+    - source/scenario/blockly/scenario_dummy.xml
+
+  - loadToolbox:
+    - rover2
+    - source/scenario/blockly/scenario_dummy.xml
+
+  - loadToolbox:
+    - rover3
+    - source/scenario/blockly/scenario_dummy.xml
+
   - loadToolbox:
     - graph
-    - source/scenario/blockly/graph.xml
+    - source/scenario/blockly/graph_dummy.xml
 
 children:
   triggerManager:
     extends: source/triggers/triggerManager.vwf
     properties: 
       triggers:
-        beginScenario_3e:
+        beginScenario_dummy:
           triggerCondition:
           - onScenarioStart:
           actions:
-          - playSound:
-            - musicLevel2
-          - playSound:
-            - environmentWind
-          - resetRoverSensors:
-          - setObjective:
-            - "Build a program to follow the tracks until your scanner finds something."
+          - writeToBlackboard:
+            - disableFailOnIncompleteProgram
           - writeToBlackboard:
             - anomalyPosition
-            - [ 24, 38 ]
-          - clearBlackboardEntry:
-            - Level3eTravel1
-          - stopSound:
-            - CTVO4
-          - setThirdPersonStartPose:
+            - [ 12, 10 ]
+
+        setCameraView:
+          triggerCondition:
+          - onBlocklyStarted:
+            - rover
+          actions:
+          - setCinematicCameraView:
             - [ 13, 15, -15 ]
-
-        playStartingVO_3e:
-          triggerCondition:
-          - and:
-            - onScenarioStart:
-            - not:
-              - readBlackboard:
-                - Level3eStartSounds
-          actions:
-          - playSound:
-            - L3VO6_Mission
-          - writeToBlackboard:
-            - Level3eStartSounds
-
-        playTravelVO_3c:
-          triggerCondition:
-          - and:
-            - isAtPosition:
-              - rover
-              - [ 15, 17 ]
-            - not:
-              - readBlackboard:
-                - Level3eTravel1
-            - not:
-              - readBlackboard:
-                - hasSucceeded
-            - not:
-              - readBlackboard:
-                - hasFailed
-          actions:
-          - playSound:
-            - CTVO4
-          - writeToBlackboard:
-            - Level3eTravel1
-
-        succeedOnSuccessfulMovement_3e:
-          triggerCondition:
-          - and:
-            - onBlocklyStopped:
-              - rover
-            - isAtPosition:
-              - rover
-              - [ 24, 38 ]
-          actions:
-          - scenarioSuccess:
-          - showAlert:
-            - "I found the minirover!"
-          - hideBlockly:
-          - stopSound:
-            - musicLevel2
-          - clearBlackboardEntry:
-            - anomalyPosition
-          - stopSound:
-            - CTVO4
 
   grid:
     includes: source/grid.vwf
