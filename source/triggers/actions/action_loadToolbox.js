@@ -17,22 +17,31 @@ this.onGenerated = function( params, generator, payload ) {
         return false;
     }
 
-    if ( !params || ( params.length !== 1 ) ) {
+    if ( !params || ( params.length !== 2 ) ) {
         this.logger.errorx( "onGenerated", 
-                            "This action requires one argument: " +
-                            "the source of the video." );
+                            "This action takes two arguments: " +
+                            "the blockly node name and the path to the xml " +
+                            "blockly toolbox." );
         return false;
     }
 
-    this.videoSource = params[ 0 ];
-
-    // TODO: can we validate the source?  Nathan?
+    this.nodeName = params[ 0 ];
+    this.toolbox = params[ 1 ];
 
     return true;
 }
 
 this.executeAction = function() {
-    this.scene.playVideo( this.videoSource );
+    var node = this.findInScene( this.nodeName );
+    if ( !node ) {
+        this.assert( false, "Node '" + this.nodeName + "' not found!" );
+        return;
+    }
+
+    node.blockly_toolbox = this.toolbox;
+    if ( this.scene.blockly_activeNodeID === node.id ) {
+        this.scene.blockly_toolbox = this.toolbox;
+    }
 }
 
-//@ sourceURL=source/triggers/actions/action_playVideo.js
+//@ sourceURL=source/triggers/actions/action_loadToolbox.js

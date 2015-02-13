@@ -17,22 +17,29 @@ this.onGenerated = function( params, generator, payload ) {
         return false;
     }
 
-    if ( !params || ( params.length !== 1 ) ) {
+    if ( !params || ( params.length !== 3 ) ) {
         this.logger.errorx( "onGenerated", 
-                            "This action requires one argument: " +
-                            "the source of the video." );
+                            "This action takes three required arguments: " +
+                            "the object name, the property name, and the " +
+                            "property value." );
         return false;
     }
 
-    this.videoSource = params[ 0 ];
-
-    // TODO: can we validate the source?  Nathan?
+    this.objectName = params[ 0 ];
+    this.propertyName = params[ 1 ];
+    this.propertyValue = params[ 2 ];
 
     return true;
 }
 
 this.executeAction = function() {
-    this.scene.playVideo( this.videoSource );
+    var object = this.findInScene( this.objectName );
+    if ( !object ) {
+        this.assert( false, "Object not found!" );
+        return;
+    }
+
+    object[ this.propertyName ] = this.propertyValue;
 }
 
-//@ sourceURL=source/triggers/actions/action_playVideo.js
+//@ sourceURL=source/triggers/actions/action_setProperty.js

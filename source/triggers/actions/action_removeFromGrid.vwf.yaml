@@ -16,7 +16,8 @@
 extends: source/triggers/actions/actionProto.vwf
 
 properties:
-  videoSource:
+  objectName:
+  gridCoord:
 
 scripts:
-- source: source/triggers/actions/action_playVideo.js
+- source: source/triggers/actions/action_removeFromGrid.js

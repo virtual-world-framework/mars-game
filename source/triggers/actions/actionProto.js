@@ -13,10 +13,6 @@
 // limitations under the License.
 
 this.initAction = function( params, generator, payload ) {
-    if ( !this.initTriggerObject( params, generator, payload ) ) {
-        return false;
-    }
-
     this.scenario = payload.scenario;
     return true;
 }

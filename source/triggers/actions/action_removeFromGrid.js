@@ -17,22 +17,28 @@ this.onGenerated = function( params, generator, payload ) {
         return false;
     }
 
-    if ( !params || ( params.length !== 1 ) ) {
+    if ( !params || ( params.length !== 2 ) ) {
         this.logger.errorx( "onGenerated", 
-                            "This action requires one argument: " +
-                            "the source of the video." );
+                            "This action takes two arguments: the path of " +
+                            "the object to be removed, and the coordinates " +
+                            "of the grid tile." );
         return false;
     }
 
-    this.videoSource = params[ 0 ];
-
-    // TODO: can we validate the source?  Nathan?
+    this.objectName = params[ 0 ];
+    this.gridCoord = params[1];
 
     return true;
 }
 
 this.executeAction = function() {
-    this.scene.playVideo( this.videoSource );
+    var object = this.findInScene( this.objectName );
+    var scenario = this.scenario;
+    this.assert( object, "Object not found!" );
+    this.assert( scenario, "Scenario not found!" );
+    // TODO: Check that the coordinate is valid?
+    object && scenario && scenario.grid.removeFromGrid( object, 
+                                                        this.gridCoord );
 }
 
-//@ sourceURL=source/triggers/actions/action_playVideo.js
+//@ sourceURL=source/triggers/actions/action_removeFromGrid.js

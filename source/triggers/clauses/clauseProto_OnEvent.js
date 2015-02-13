@@ -14,7 +14,7 @@
 // limitations under the License.
 
 this.initOnEvent = function( params, generator, payload, threshold ) {
-    if ( !this.initTriggerObject( params, generator, payload ) ) {
+    if ( !this.initClause( params, generator, payload ) ) {
         return false;
     }
 

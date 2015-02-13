@@ -13,24 +13,26 @@
 // limitations under the License.
 
 this.onGenerated = function( params, generator, payload ) {
-    if ( params.length !== 0 ) {
-        this.logger.warnx( "delay", "This clause does not take any " +
-                            "arguments." );
-    }
-
-    if ( !this.initClause( params, generator, payload ) ) {
+    if ( !this.initAction( params, generator, payload ) ) {
         return false;
     }
+
+    if ( !params || ( params.length !== 1 ) ) {
+        this.logger.errorx( "onGenerated", 
+                            "This action takes one argument: " +
+                            "the path of the inventory object." );
+        return false;
+    }
+
+    this.inventoryPath = params[ 0 ];
 
     return true;
 }
 
-this.onTriggered = function() {
-    this.hasTriggered = true;
+this.executeAction = function() {
+    var inventory = this.findInScene( this.inventoryPath );
+    this.assert( inventory, "Inventory not found!" );
+    inventory && inventory.empty();
 }
 
-this.evaluateClause = function() {
-    return !this.hasTriggered;
-}
-
-//@ sourceURL=source/triggers/clauses/clause_DoOnce.js
+//@ sourceURL=source/triggers/actions/action_emptyInventory.js
