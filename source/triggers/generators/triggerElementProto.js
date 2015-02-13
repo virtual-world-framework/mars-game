@@ -21,19 +21,27 @@ this.initTriggerObject = function( params, generator, payload ) {
     this.parentTrigger = payload.trigger;
 
     if ( this.onEnabled ) {
-        this.parentTrigger.enabled = this.events.add( this.onEnabled, this );
+        this.parentTrigger.enabled = this.events.add( 
+                                            function() { this.onEnabled() }, 
+                                            this );
     }
 
     if ( this.onDisabled ) {
-        this.parentTrigger.disabled = this.events.add( this.onDisabled, this );
+        this.parentTrigger.disabled = this.events.add( 
+                                            function() { this.onDisabled() }, 
+                                            this );
     }
 
     if ( this.onEvaluated ) {
-        this.parentTrigger.evaluated = this.events.add( this.onEvaluated, this );
+        this.parentTrigger.evaluated = this.events.add( 
+                                            function() { this.onEvaluated() }, 
+                                            this );
     }
 
     if ( this.onTriggered ) {
-        this.parentTrigger.triggered = this.events.add( this.onTriggered, this );
+        this.parentTrigger.triggered = this.events.add( 
+                                            function() { this.onTriggered() }, 
+                                            this );
     }
 
     return true;
