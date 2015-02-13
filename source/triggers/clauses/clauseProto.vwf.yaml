@@ -13,14 +13,41 @@
 # limitations under the License.
 
 # A generated object prototype for clauses. 
-# TODO: this doesn't actually do anything.  What are the performance 
-#   implications of having it here?
 
 --- 
-extends: source/triggers/generators/triggerElementProto.vwf
+extends: source/triggers/generators/generatedObject.vwf
+
+properties:
+  # The trigger that this clause belongs to.
+  parentTrigger:
 
 methods:
   # This is the function that actually gets called to check whether this
   #   clause is true or false. Must be implemented by the child clause.
   evaluateClause: 
 
+  # This function should be called by every clause from inside of onGenerated.  
+  #   It handles shared parts of the initialization.  Arguments are the same as 
+  #   onGenerated.
+  initClause:
+
+  # This is the function that actually gets called to check whether this
+  #   clause is true or false. Must be implemented by the child clause.
+  evaluateClause: 
+
+  # These get called when the trigger is enabled/disabled. Not implemented 
+  #   here, but children can implement it.
+  onEnabled:
+  onDisabled:
+
+  # This gets called when the trigger is successfully evaluated by its trigger 
+  #   group (if any) - that is, when it could was ready to fire, whether or not
+  #   it was actually triggered.
+  onEvaluated:
+
+  # This gets called when the trigger fires.  As with the above methods, it's 
+  #   not implemented here.
+  onTriggered:
+
+scripts:
+- source: source/triggers/clauses/clauseProto.js

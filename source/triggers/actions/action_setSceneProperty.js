@@ -13,24 +13,25 @@
 // limitations under the License.
 
 this.onGenerated = function( params, generator, payload ) {
-    if ( params.length !== 0 ) {
-        this.logger.warnx( "delay", "This clause does not take any " +
-                            "arguments." );
-    }
-
-    if ( !this.initClause( params, generator, payload ) ) {
+    if ( !this.initAction( params, generator, payload ) ) {
         return false;
     }
+
+    if ( !params || ( params.length !== 2 ) ) {
+        this.logger.errorx( "onGenerated", 
+                            "This action takes at two arguments: " +
+                            "the property name and the property value." );
+        return false;
+    }
+
+    this.propertyName = params[ 0 ];
+    this.propertyValue = params[ 1 ];
 
     return true;
 }
 
-this.onTriggered = function() {
-    this.hasTriggered = true;
+this.executeAction = function() {
+    this.scene[ this.propertyName ] = this.propertyValue;
 }
 
-this.evaluateClause = function() {
-    return !this.hasTriggered;
-}
-
-//@ sourceURL=source/triggers/clauses/clause_DoOnce.js
+//@ sourceURL=source/triggers/actions/action_setSceneProperty.js

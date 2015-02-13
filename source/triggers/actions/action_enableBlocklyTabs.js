@@ -12,29 +12,29 @@
 // See the License for the specific language governing permissions and 
 // limitations under the License.
 
-this.initialize = function() {
-    this.children.create( "clauses", "http://vwf.example.com/node.vwf" );
-}
-
 this.onGenerated = function( params, generator, payload ) {
-    if ( !params || ( params.length !== 1 ) ) {
-        this.logger.errorx( "onGenerated", "This clause needs to have one " +
-                            "clause inside of it." );
-        return false;
-    }    
-
-    if ( !this.initClause( params, generator, payload ) ) {
+    if ( !this.initAction( params, generator, payload ) ) {
         return false;
     }
 
-    generator.generateObject( params[ 0 ], this.clauses, payload );
+    if ( !params || ( params.length < 1 ) ) {
+        this.logger.errorx( "onGenerated", 
+                            "This action takes one or more arguments: " +
+                            "the name(s) of the tab(s) to be enabled." );
+        return false;
+    }
 
+    this.tabNames = params;
     return true;
 }
 
-this.evaluateClause = function() {
-    // TODO: should I safety check this?
-    return !this.clauses.children[ 0 ].evaluateClause();
+this.executeAction = function() {
+    this.scene.clearBlocklyTabs();
+    for ( var i = 0; i < this.tabNames.length; i++ ) {
+        var tab = this.findInScene( this.tabNames[ i ] )[ 0 ];
+        this.assert( tab, "Tab '" + this.tabNames[ i ] + "' not found!", true );
+        tab && this.scene.enableBlocklyTab( tab.id );
+    }
 }
 
-//@ sourceURL=source/triggers/clauses/clause_Not.js
+//@ sourceURL=source/triggers/actions/action_enableBlocklyTabs.js

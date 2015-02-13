@@ -12,29 +12,30 @@
 // See the License for the specific language governing permissions and 
 // limitations under the License.
 
-this.initialize = function() {
-    this.children.create( "clauses", "http://vwf.example.com/node.vwf" );
-}
-
 this.onGenerated = function( params, generator, payload ) {
-    if ( !params || ( params.length !== 1 ) ) {
-        this.logger.errorx( "onGenerated", "This clause needs to have one " +
-                            "clause inside of it." );
-        return false;
-    }    
-
-    if ( !this.initClause( params, generator, payload ) ) {
+    if ( !this.initAction( params, generator, payload ) ) {
         return false;
     }
 
-    generator.generateObject( params[ 0 ], this.clauses, payload );
+    if ( !params || ( params.length < 2 ) ) {
+        this.logger.errorx( "onGenerated", 
+                            "This action takes at least two arguments: " +
+                            "the object name, the method name, and the " +
+                            "method arguments." );
+        return false;
+    }
+
+    this.objectName = params[ 0 ];
+    this.methodName = params[ 1 ];
+    this.args = params.slice( 2 );
 
     return true;
 }
 
-this.evaluateClause = function() {
-    // TODO: should I safety check this?
-    return !this.clauses.children[ 0 ].evaluateClause();
+this.executeAction = function() {
+    var object = this.findInScene( this.objectName );
+    this.assert( object, "Object not found!" );
+    object && object[ this.methodName ].apply( object, this.args );
 }
 
-//@ sourceURL=source/triggers/clauses/clause_Not.js
+//@ sourceURL=source/triggers/actions/action_callMethod.js

@@ -16,7 +16,7 @@
 
 --- 
 
-extends: source/triggers/generators/triggerElementProto.vwf
+extends: source/triggers/generators/generatedObject.vwf
 
 implements: 
   - http://vwf.example.com/sceneGetter.vwf
