@@ -16,6 +16,9 @@
 extends: source/triggers/actions/actionProto.vwf
 
 properties:
+  # Saved so that we can spew log messages.  May not exist.
+  parentTrigger:
+
   # the scenario we were in when the delay started, so we don't execute actions
   #  past the end of the scenario
   scenarioOnDelay:

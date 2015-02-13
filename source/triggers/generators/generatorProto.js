@@ -31,13 +31,11 @@ this.generateObject = function( objDefinition, parentObj, payload ) {
  
     for ( var i = 0; i < this.objSets$.length; ++i ) {
         var objSet = this.objSets$[ i ];
-
-        // This gray magic looks on this particular function set to see if it 
-        //  has the required constructor function.
         var objFileName = objSet[ typeName ];
+        this.assert( objFileName, "Object file not found - this may not be " +
+                                  "an error if you have more than one object " +
+                                  "set.");
 
-        // If we found it, call it.  They all take the same arguments - 
-        //  params is an array which contains the arguments from the yaml.
         if ( objFileName ) {
             var onGenerated = function( generatedObj ) {
                 if ( !generatedObj.onGenerated ) {

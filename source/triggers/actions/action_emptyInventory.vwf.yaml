@@ -16,7 +16,7 @@
 extends: source/triggers/actions/actionProto.vwf
 
 properties:
-  videoSource:
+  inventoryPath:
 
 scripts:
-- source: source/triggers/actions/action_playVideo.js
+- source: source/triggers/actions/action_emptyInventory.js
