@@ -12,9 +12,9 @@
 // See the License for the specific language governing permissions and 
 // limitations under the License.
 
-this.initTriggerObject = function( params, generator, payload ) {
+this.initClause = function( params, generator, payload ) {
     if ( !payload || !payload.trigger ) {
-        this.logger.errorx( "initTriggerObject", "Failed to find trigger!" );
+        this.assert( false, "Parent trigger not found!" );
         return false;
     }
 
@@ -47,4 +47,4 @@ this.initTriggerObject = function( params, generator, payload ) {
     return true;
 }
 
-//@ sourceURL=source/triggers/generators/triggerElementProto.js
+//@ sourceURL=source/triggers/generators/clauseProto.js

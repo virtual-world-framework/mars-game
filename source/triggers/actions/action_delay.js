@@ -29,6 +29,9 @@ this.onGenerated = function( params, generator, payload ) {
         return false;
     }
 
+    // Saved so that we can spew log messages - though it doesn't always exist.
+    this.parentTrigger = payload.parentTrigger;
+
     this.delay = params[ 0 ];
     if ( this.delay <= 0 ) {
         this.logger.errorx( "onGenerated", "The delay must be greater than 0.");
@@ -53,14 +56,15 @@ this.executeDelayedActions = function() {
     // Only actually fire the actions if we're still in the same scenario that
     //  we were in when the delay started.
     if ( this.scenarioOnDelay === this.scene.getCurrentScenario() ) {
+        var trigger = this.parentTrigger;
         for ( var i = 0; i < this.actions.children.length; ++i ) {
-            this.parentTrigger.spew( "executeDelayedActions", 
+            trigger && trigger.spew( "executeDelayedActions", 
                                      "Starting delayed action " + i + " ('" + 
                                      this.actions.children[ i ].name + "')." );
 
             this.actions.children[ i ].executeAction();
 
-            this.parentTrigger.spew( "executeDelayedActions", 
+            trigger && trigger.spew( "executeDelayedActions", 
                                      "Finished delayed action " + i + " ('" + 
                                      this.actions.children[ i ].name + "')." );
         }

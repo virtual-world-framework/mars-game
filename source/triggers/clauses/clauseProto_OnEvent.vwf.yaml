@@ -37,7 +37,7 @@ methods:
   #   It handles shared parts of the initialization.  Arguments are the same as
   #   onGenerated, plus the value for threshold$ (since I don't know which 
   #   parameter it will be).
-  # NOTE: I call initTriggerObject, so you don't have to.
+  # NOTE: I call initClause, so you don't have to.
   initOnEvent:
 
   # call this when the event occurs, and the magic will happen.

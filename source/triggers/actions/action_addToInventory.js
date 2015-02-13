@@ -17,22 +17,33 @@ this.onGenerated = function( params, generator, payload ) {
         return false;
     }
 
-    if ( !params || ( params.length !== 1 ) ) {
+    if ( !params || ( params.length !== 2 ) ) {
         this.logger.errorx( "onGenerated", 
-                            "This action requires one argument: " +
-                            "the source of the video." );
+                            "This action takes two arguments: the path of " +
+                            "the inventory object and an array of names of " +
+                            "the objects to be added." );
         return false;
     }
 
-    this.videoSource = params[ 0 ];
-
-    // TODO: can we validate the source?  Nathan?
+    this.inventoryPath = params[ 0 ];
+    this.objects = params[1];
 
     return true;
 }
 
 this.executeAction = function() {
-    this.scene.playVideo( this.videoSource );
+    var inventory = this.findInScene( this.inventoryPath );
+    if ( !inventory ) {
+        this.assert( false, "Inventory not found!" );
+        return;
+    }
+
+    var object;
+    for ( var i = 0; i < this.objects.length; i++ ) {
+        object = this.findInScene( this.objects[ i ] );
+        this.assert( object, "Object not found!" );
+        object && inventory.add( object );
+    }
 }
 
-//@ sourceURL=source/triggers/actions/action_playVideo.js
+//@ sourceURL=source/triggers/actions/action_addToInventory.js
