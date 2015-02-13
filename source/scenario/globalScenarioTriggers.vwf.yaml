@@ -26,10 +26,6 @@ extends: source/triggers/triggerManager.vwf
 properties: 
   scenePath: /
 
-  # These triggers work just like any other trigger, except that we load them
-  #   after every other scenario trigger has been loaded (and reload them for
-  #   each scenario).  Needed for triggers that are sensitive to the order in
-  #   which they fire.
   triggers:
     recordKeepingOnBegin:
       triggerCondition:
