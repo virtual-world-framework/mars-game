@@ -53,10 +53,15 @@ function playVideo( id ) {
 }
 
 function removeVideoOnEvent( event ) {
+    if ( !playingVideo ) {
+        return;
+    }
+    
     // 32 = space bar character code
     if ( event.type === "keypress" && event.which !== 32 ) {
         return;
     }
+
     var videoElem = playingVideo.elem || event.srcElement;
     var id = parseInt( videoElem.id.split( "video" )[ 1 ] );
     var fileName = getVideoFileName( videos[ id ] );
