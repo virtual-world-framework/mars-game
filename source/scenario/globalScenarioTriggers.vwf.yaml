@@ -131,7 +131,7 @@ properties:
       priority: 2
       triggerCondition:
       - and:
-        - moveFailed:
+        - onMoveFailed:
           - rover
           - collision
         - not:
@@ -152,7 +152,7 @@ properties:
       priority: 2
       triggerCondition:
       - and:
-        - moveFailed:
+        - onMoveFailed:
           - rover
           - collision
         - readBlackboard:
@@ -175,7 +175,7 @@ properties:
       priority: 2
       triggerCondition:
       - and:
-        - moveFailed:
+        - onMoveFailed:
           - rover
           - collision
         - readBlackboard:
@@ -196,7 +196,7 @@ properties:
       group: successOrFailure
       priority: -2
       triggerCondition:
-      - moveFailed:
+      - onMoveFailed:
         - rover
         - battery
       actions:
