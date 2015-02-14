@@ -20,7 +20,9 @@ properties:
   nextScenarioPath: "introScreenScenario"
   blockly: source/scenario/blockly/scenario1.xml
 
-  runOnStartup: true
+  # TODO: double check that we don't need this, and perhaps even get rid of the
+  #  whole scenario.
+  # runOnStartup: true
 
 children:
   triggerManager:

@@ -34,6 +34,8 @@ this.initTrigger = function( clauseGen, actionGen, definition, scenario ) {
         return false;
     }
 
+    this.spewToLog = this.spewToLog || definition.spewToLog;
+
     if ( definition.group ) {
         this.assert( definition.priority !== undefined,
                      "Triggers in groups must have a priority defined!",

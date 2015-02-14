@@ -58,10 +58,10 @@ this.checkTriggers$ = function() {
     //  this, do another check after a future(0).
     if ( haveTriggerToFire ) {
         this.future( 0.01 ).checkTriggersCallback$();
+    } else  {
+        // schedule the next check
+        this.future( this.checkFrequency$ ).checkTriggers$();
     }
-
-    // schedule the next check
-    this.future( this.checkFrequency$ ).checkTriggers$();
 }
 
 this.checkTriggersCallback$ = function() {
@@ -114,6 +114,9 @@ this.checkTriggersCallback$ = function() {
         if ( this.canFire$[ i ] ) {
             if ( trigger.priority === bestPriority ) {
                 if ( selectionValue === 0 ) {
+                    // this.logger.logx( "checkTriggersCallback$",
+                    //                   "Firing trigger '" + trigger.name +
+                    //                   "'." );
                     trigger.fire();
                     continue;
                 }
@@ -123,8 +126,15 @@ this.checkTriggersCallback$ = function() {
 
         // If we get here, we didn't fire (because there's a continue when we
         //  fire).
+        // this.logger.logx( "checkTriggersCallback$",
+        //                   "   Evaluated trigger '" + trigger.name +
+        //                   "'." );
         trigger.evaluated();
     }
+
+    // schedule the next check - this wasn't done inside checkTriggers$ because
+    //  we scheduled this check instead.
+    this.future( this.checkFrequency$ ).checkTriggers$();
 }
 
 //@ sourceURL=source/triggers/groups/triggerGroup.js
