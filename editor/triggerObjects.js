@@ -72,7 +72,7 @@ function getConditions() {
             "optionalArgs": [],
             "repeatedArgs": []
         },
-        "moveFailed": {
+        "onMoveFailed": {
             "display": "Rover Movement has Failed",
             "description": "Checks if an object's movement has failed and optionally what caused it to fail.",
             "requiredArgs": [

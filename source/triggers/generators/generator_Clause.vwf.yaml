@@ -58,7 +58,7 @@ properties:
     # arguments: object, threshold (optional, default = 0.667 seconds)
     # TODO: make MoveFailed an onEvent trigger?
     onMoved: "source/triggers/clauses/clause_OnMoved.vwf"
-    moveFailed: "source/triggers/clauses/clause_MoveFailed.vwf"
+    onMoveFailed: "source/triggers/clauses/clause_OnMoveFailed.vwf"
 
     # arguments: these blockly clauses can take a single blockly object (e.g.
     #   "rover"), an array of blockly objects (e.g. [ "minirover", "graph" ]),
