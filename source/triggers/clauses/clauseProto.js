@@ -14,28 +14,37 @@
 
 this.initClause = function( params, generator, payload ) {
     if ( !payload || !payload.trigger ) {
+        this.assert( false, "Parent trigger not found!" );
         return false;
     }
 
     this.parentTrigger = payload.trigger;
 
-    this.parentTrigger.enabled = this.events.add( function() { 
-                                        this.onEnabled && this.onEnabled(); 
-                                    }, this );
+    if ( this.onEnabled ) {
+        this.parentTrigger.enabled = this.events.add( 
+                                            function() { this.onEnabled() }, 
+                                            this );
+    }
 
-    this.parentTrigger.disabled = this.events.add( function() { 
-                                        this.onDisabled && this.onDisabled(); 
-                                    }, this );
+    if ( this.onDisabled ) {
+        this.parentTrigger.disabled = this.events.add( 
+                                            function() { this.onDisabled() }, 
+                                            this );
+    }
 
-    this.parentTrigger.evaluated = this.events.add( function() { 
-                                        this.onEvaluated && this.onEvaluated(); 
-                                    }, this );
+    if ( this.onEvaluated ) {
+        this.parentTrigger.evaluated = this.events.add( 
+                                            function() { this.onEvaluated() }, 
+                                            this );
+    }
 
-    this.parentTrigger.triggered = this.events.add( function() { 
-                                        this.onTriggered && this.onTriggered(); 
-                                    }, this );
+    if ( this.onTriggered ) {
+        this.parentTrigger.triggered = this.events.add( 
+                                            function() { this.onTriggered() }, 
+                                            this );
+    }
 
     return true;
 }
 
-//@ sourceURL=source/triggers/clauses/clauseProto.js
+//@ sourceURL=source/triggers/generators/clauseProto.js

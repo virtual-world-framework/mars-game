@@ -12,18 +12,7 @@
 # See the License for the specific language governing permissions and 
 # limitations under the License.
 
-# The boolean function factory creates boolean function from yaml declarations.
-# It also sets up the callbacks necessary to know when the boolean function 
-# needs to be reevaluated. This is used to create the checks for triggers.
-#
-# A boolean function contains a single "clause," which is something we want to
-# check (for example, an isAtPosition clause, or a hasObject clause).  The 
-# clause can be an and, or, or not clause, and these clauses contain sub-
-# clauses.
-#
-# This all leans on the declarative function executor, which treats the clauses
-# as declarative functions that set up the necessary callbacks and return the
-# function that performs the actual check.
+# A generated object prototype for clauses. 
 
 --- 
 extends: source/triggers/generators/generatedObject.vwf
@@ -33,8 +22,12 @@ properties:
   parentTrigger:
 
 methods:
-  # This function should be called by every clause from inside of onGenerated.
-  #   It handles shared parts of the initialization.  Arguments are the same as
+  # This is the function that actually gets called to check whether this
+  #   clause is true or false. Must be implemented by the child clause.
+  evaluateClause: 
+
+  # This function should be called by every clause from inside of onGenerated.  
+  #   It handles shared parts of the initialization.  Arguments are the same as 
   #   onGenerated.
   initClause:
 
@@ -50,7 +43,6 @@ methods:
   # This gets called when the trigger is successfully evaluated by its trigger 
   #   group (if any) - that is, when it could was ready to fire, whether or not
   #   it was actually triggered.
-  # TODO: should this default to calling onTriggered (or vice versa)?
   onEvaluated:
 
   # This gets called when the trigger fires.  As with the above methods, it's 

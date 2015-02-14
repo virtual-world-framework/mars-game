@@ -22,7 +22,12 @@ this.initOnEvent = function( params, generator, payload, threshold ) {
         return; // this is the prototype
     }
 
-    this.threshold$ = threshold != undefined ? threshold * 1000 : 250;
+    // NOTE: if the trigger is in a trigger group, it could be as much as
+    //  0.12 seconds (two trigger group updates) before the trigger group is 
+    //  ready to fire (plus any frame delay).  I wouldn't set this to less 
+    //  than 0.5 seconds to be safe (especially given that some machines have
+    //  better performance than others).
+    this.threshold$ = threshold != undefined ? threshold * 1000 : 667;
     this.lastEventTime$ = 0;
 
     return true;

@@ -38,7 +38,9 @@ this.evaluateClause = function() {
     var checkedValue = this.scene.sceneBlackboard[ this.variableName ];
     var retVal = ( checkedValue !== undefined );  
 
-    if ( retVal && ( this.variableValue !== undefined ) ) {
+    if ( retVal && 
+         ( this.variableValue !== null ) &&
+         ( this.variableValue !== undefined ) ) {
         retVal = ( checkedValue === this.variableValue );
     }
 

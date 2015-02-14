@@ -15,7 +15,7 @@
 this.initialize = function() {
     this.triggers = [];
     this.canFire$ = [];
-    this.checkFrequency$ = 0.08 + ( Math.random() * 0.04 );
+    this.checkFrequency$ = 0.04 + ( Math.random() * 0.02 );
     this.future( this.checkFrequency$ ).checkTriggers$();
 }
 
@@ -109,27 +109,22 @@ this.checkTriggersCallback$ = function() {
     //  in the range [0, numAtPriority).
     var selectionValue = Math.floor( Math.random() * numAtPriority );
 
-    var numFired = 0;   // TODO: remove once we've sanity checked.
     for ( var i = 0; i < this.triggers.length; ++i ) {
+        var trigger = this.triggers[ i ];
         if ( this.canFire$[ i ] ) {
-            var trigger = this.triggers[ i ];
-
-            // If this is the selected trigger, fire it.  Otherwise, let it
-            //  know that it was evaluated.
             if ( trigger.priority === bestPriority ) {
-                if ( !selectionValue ) {
+                if ( selectionValue === 0 ) {
                     trigger.fire();
-                    ++numFired;
-                } else {
-                    trigger.evaluated();
+                    continue;
                 }
                 --selectionValue;
-            } else {
-                trigger.evaluated()
             }
-        }
+        } 
+
+        // If we get here, we didn't fire (because there's a continue when we
+        //  fire).
+        trigger.evaluated();
     }
-    this.assert( numFired === 1 );
 }
 
 //@ sourceURL=source/triggers/groups/triggerGroup.js
