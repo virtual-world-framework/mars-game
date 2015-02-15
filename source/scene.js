@@ -250,6 +250,8 @@ this.setUpCameraListener = function() {
 this.setUpRoverListeners = function() {
     this.scenarioChanged = this.events.add( function( scenarioName ) {
         this.player.rover.findAndSetCurrentGrid( scenarioName );
+        this.player.rover2.findAndSetCurrentGrid( scenarioName );
+        this.player.rover3.findAndSetCurrentGrid( scenarioName );
         //this.player.rover.findAndSetCurrentGrid( this.activeScenarioPath );
     }, this );
      //rover.findAndSetCurrentGrid( this.activeScenarioPath );
