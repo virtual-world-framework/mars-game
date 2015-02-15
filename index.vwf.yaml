@@ -606,6 +606,8 @@ children:
         extends: source/pickups/helicam.vwf
       minirover:
         extends: source/pickups/minirover.vwf
+  scenario_dummy:
+    includes: source/scenario/scenario_dummy.vwf
   introScreenScenario:
     includes: source/scenario/introScreenScenario.vwf
   scenario1a:
