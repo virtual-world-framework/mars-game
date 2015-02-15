@@ -85,15 +85,12 @@ properties:
           - ALVO32_Rover
 
   triggers:
-    # NXM: In order for disableFailOnIncomplete program to be useful at all,
-    # we can't clear it when the scenario starts.
-
-    # recordKeepingOnBegin:
-    #   triggerCondition:
-    #   - onScenarioStart:
-    #   actions:
-    #   - clearBlackboardEntry:
-    #     - disableFailOnIncompleteProgram
+    recordKeepingOnBegin:
+      triggerCondition:
+      - onScenarioStart:
+      actions:
+      - clearBlackboardEntry:
+        - disableFailOnIncompleteProgram
 
     recordKeepingOnSuccess:
       triggerCondition:

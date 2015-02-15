@@ -127,8 +127,6 @@ children:
           - onScenarioStart:
           actions:
           - writeToBlackboard:
-            - disableFailOnIncompleteProgram
-          - writeToBlackboard:
             - anomalyPosition
             - [ 12, 10 ]
 
@@ -139,6 +137,19 @@ children:
           actions:
           - setCinematicCameraView:
             - [ 13, 15, -15 ]
+
+        disableFailOnIncomplete:
+          triggerCondition:
+          - or:
+            - onBlocklyStarted:
+              - rover
+            - onBlocklyStarted:
+              - rover2
+            - onBlocklyStarted:
+              - rover3
+          actions:
+          - writeToBlackboard:
+            - disableFailOnIncompleteProgram
 
   grid:
     includes: source/grid.vwf
