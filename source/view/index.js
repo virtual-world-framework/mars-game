@@ -61,8 +61,13 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 if ( !blocklyExecuting ) {
                     if ( Blockly.mainWorkspace ) {
                         var topBlockCount = Number( eventArgs[ 0 ] );
-                        startBlocklyButton.className = topBlockCount == 0 ? "disabled" : "" ;
-                        // startBlocklyButton.className = topBlockCount !== 1 ? "disabled" : "" ;
+                        
+                        if(currentScenario === "scenario_dummy"){
+                            // SJF - HACK: Allow multiple top blocks to allow procedures
+                            startBlocklyButton.className = topBlockCount == 0 ? "disabled" : "" ;
+                        } else {
+                            startBlocklyButton.className = topBlockCount !== 1 ? "disabled" : "" ;
+                        }
                         // if disabled then need to set the tooltip
                         // There must be only one program for each blockly object
                     }
@@ -70,9 +75,6 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 break;
 
             case "blocklyStarted":
-                //SJF: Getting the XML to convert to a predefined blockly procedure for 1h
-                var xml = Blockly.Xml.workspaceToDom( Blockly.getMainWorkspace() );
-                console.log(xml);
                 startBlocklyButton.className = "reset";
                 var indicator = document.getElementById( "blocklyIndicator" );
                 indicator.className = "";
@@ -88,8 +90,8 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 var count = document.getElementById( "blocklyIndicatorCount" );
                 indicator.className = "stopped";
                 count.className = "stopped";
-                
-                if( currentScenario != "scenario_dummy" ){
+
+                if( currentScenario !== "scenario_dummy" ){
                     clearBlocklyStatus();
                 }
 
@@ -125,7 +127,6 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 var blockName = eventArgs[ 0 ];
                 var blockID = eventArgs[ 1 ];
                 if ( blockID ) {
-                    //SJF:Breaking trace functionality
                     if( currentScenario !== "scenario_dummy" ){
                         selectBlock( blockID );
                         indicateBlock( blockID );
