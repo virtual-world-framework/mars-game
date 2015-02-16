@@ -219,6 +219,10 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 resetScenario();
             }
         }
+
+        if( eventName === "videoEnded"){
+            removeVideoOnEvent();
+        }
     }
 }
 

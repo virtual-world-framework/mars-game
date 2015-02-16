@@ -15,40 +15,40 @@
 var videos = new Array();
 var videoID = 0;
 var playingVideo;
+var mediaManagerID;
+var videoManagerID;
 
-function loadVideo( src, type, dontRemoveWhenEnded ) {
+function loadVideo( src, type ) {
     var video = {
         "id" : videoID,
-        "elem" : document.createElement( "video" ),
-        "source" : document.createElement( "source" ),
-        "wrapper" : document.createElement( "div" )
     };
-    video.elem.appendChild( video.source );
-    video.wrapper.appendChild( video.elem );
-    video.source.src = "assets/video/" + src;
-    video.source.type = type || 'video/mp4;codecs="avc1.42E01E,mp4a.40.2"';
-    video.elem.id = "video" + video.id;
-    video.elem.className = "video";
-    video.wrapper.className = "videoWrapper";
-    video.elem.load();
+    video.source = "assets/video/" + src;
+    video.vidName = src;
 
     document.onkeypress = removeVideoOnEvent;
 
-    if ( !dontRemoveWhenEnded ) {
-        video.elem.onended = removeVideoOnEvent;
-    }
-
+    mediaManagerID = vwf_view.kernel.find( undefined, "/mediaManager" )[ 0 ];
+    videoManagerID = vwf_view.kernel.find( mediaManagerID, "videoManager" ) [ 0 ];
     videos.push( video );
     videoID++;
     return videoID - 1;
+
+    var rover = vwf_view.kernel.find( "", "//rover" )[ 0 ];
 }
 
 function playVideo( id ) {
     var video = videos[ id ];
     if ( video ) {
-        document.body.appendChild( video.wrapper );
+
         playingVideo = video;
-        video.elem.play();
+        vwf_view.kernel.setProperty( videoManagerID, "z_index", 103 );
+        vwf_view.kernel.callMethod( videoManagerID, "show" );
+
+        //TODO: Is there a better way to do this than to put "/mars-game/" in front of video.source.src ?
+        var appName = "mars-game";
+        var redactedURL = ( video.source ).replace( new RegExp(appName + "/.*/assets"), appName + "/assets");
+        vwf_view.kernel.setProperty( videoManagerID, "url", redactedURL );
+        vwf_view.kernel.callMethod( videoManagerID, "play" );
     }
 }
 
@@ -58,23 +58,23 @@ function removeVideoOnEvent( event ) {
     }
     
     // 32 = space bar character code
-    if ( event.type === "keypress" && event.which !== 32 ) {
-        return;
+    if ( event && event.type === "keypress" && event.which !== 32 ) {
+            return;
     }
+    var mediaManagerID = vwf_view.kernel.find( undefined, "/mediaManager" )[ 0 ];
+    var videoManagerID = vwf_view.kernel.find( mediaManagerID, "videoManager" ) [ 0 ];
 
-    var videoElem = playingVideo.elem || event.srcElement;
-    var id = parseInt( videoElem.id.split( "video" )[ 1 ] );
-    var fileName = getVideoFileName( videos[ id ] );
-    vwf_view.kernel.fireEvent( vwf_view.kernel.application(), "videoPlayed", [ fileName ] );
-    removeVideo( id );
-    playingVideo = undefined;
+    vwf_view.kernel.callMethod( videoManagerID, "clearMedia" );
+    if( playingVideo ){
+        var id = playingVideo.id;
+        var fileName = videos[id].vidName;
+        vwf_view.kernel.fireEvent( vwf_view.kernel.application(), "videoPlayed", [ fileName ] );
+        playingVideo = undefined;
+    }
 }
 
 function removeVideo( id ) {
-    var video = videos[ id ];
-    if ( video && video.wrapper.parentNode === document.body ) {
-        document.body.removeChild( video.wrapper );
-    }
+    vwf_view.kernel.callMethod( videoManagerID, "hide" );
 }
 
 function getVideoIdFromSrc( src ) {
@@ -88,7 +88,7 @@ function getVideoIdFromSrc( src ) {
 }
 
 function getVideoFileName( video ) {
-    var fileName = video.source.src.split( "/" ).pop();
+    var fileName = video.source.split( "/" ).pop();
     return fileName;
 }
 //@ sourceURL=source/videoController.js
