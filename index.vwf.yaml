@@ -96,15 +96,15 @@ events:
   unpaused:
 children:
   mediaManager:
-      extends: http://vwf.example.com/node.vwf
-      children:
-        videoManager:
-          extends: http://vwf.example.com/jplayer/videoManager.vwf
-          properties:
-            containerDivId: "jp_container_1"
-            playerDivId: "jquery_jplayer_1"
-            containerSize: [1024, 768]
-            playerSize: [1024, 768]
+    extends: http://vwf.example.com/node.vwf
+    children:
+      videoManager:
+        extends: http://vwf.example.com/jplayer/videoManager.vwf
+        properties:
+          containerDivId: "jp_container_1"
+          playerDivId: "jquery_jplayer_1"
+          containerSize: [1024, 768]
+          playerSize: [1024, 768]
   hud:
     includes: source/hud/marsGameHud.vwf
   mainMenu:
