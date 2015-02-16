@@ -3,7 +3,7 @@ extends: source/scenario/scenario.vwf
 properties:
   scenarioName: scenario1h
   scenePath: /
-  nextScenarioPath: mainMenuScenario
+  nextScenarioPath: "scenario1a"
 
 children:
   triggerManager:
