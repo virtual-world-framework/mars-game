@@ -236,12 +236,14 @@ children:
     extends: http://vwf.example.com/node3.vwf
     children:
       rover:
-        extends: source/rover.vwf
+        # extends: source/rover.vwf
+        extends: source/fourWheeledRover.vwf
         implements: 
         - http://vwf.example.com/blockly/controller.vwf
         - source/griddable.vwf
         - source/cameraTarget.vwf
         source: assets/3d/Rover/rover_retro.dae
+        # source: assets/3d/Rover/scout_rover.dae
         type: model/vnd.collada+xml
         properties:
           defaultMount: firstPerson
