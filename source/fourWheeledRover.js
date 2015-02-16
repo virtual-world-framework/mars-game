@@ -5,6 +5,7 @@ this.placeOnTerrain = function( pos ) {
         pos[ 1 ] - this.transform[ 13 ], 
         pos[ 2 ] - this.transform[ 14 ] 
     ];
+    var terrainPosCentroid = this.getTerrainPosUnderNode( this, deltaPos );
     var terrainPosFL = this.getTerrainPosUnderNode( this.wheelFL, deltaPos );
     var terrainPosBL = this.getTerrainPosUnderNode( this.wheelBL, deltaPos );
     var terrainPosFR = this.getTerrainPosUnderNode( this.wheelFR, deltaPos );
@@ -39,7 +40,8 @@ this.placeOnTerrain = function( pos ) {
     // Step 4: Find the point on the terrain below the rover
     pos[ 2 ] = ( terrainPosFL[ 2 ] + terrainPosBL[ 2 ] + terrainPosFR[ 2 ] + terrainPosBR[ 2 ] ) * 0.25
 
-    // Step 5: Assign the new transform to the rover
+
+    // // Step 5: Assign the new transform to the rover
     this.transform = [
         xAxis[ 0 ],  xAxis[ 1 ],  xAxis[ 2 ],  0,
         yAxis[ 0 ],  yAxis[ 1 ],  yAxis[ 2 ],  0,
