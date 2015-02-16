@@ -59,7 +59,7 @@ function removeVideoOnEvent( event ) {
     
     // 32 = space bar character code
     if ( event && event.type === "keypress" && event.which !== 32 ) {
-            return;
+        return;
     }
     var mediaManagerID = vwf_view.kernel.find( undefined, "/mediaManager" )[ 0 ];
     var videoManagerID = vwf_view.kernel.find( mediaManagerID, "videoManager" ) [ 0 ];
