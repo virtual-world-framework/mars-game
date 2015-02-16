@@ -241,7 +241,8 @@ children:
         - http://vwf.example.com/blockly/controller.vwf
         - source/griddable.vwf
         - source/cameraTarget.vwf
-        source: assets/3d/Rover/rover_retro.dae
+        # source: assets/3d/Rover/rover_grey_orange.dae
+        source: assets/3d/Rover/scout_rover.dae
         type: model/vnd.collada+xml
         properties:
           defaultMount: firstPerson
@@ -269,30 +270,30 @@ children:
               //@ sourceURL=index.vwf.player.rover.terrain.get
           currentGridSquare: [ 0, 0 ]
           sensorValue: false
-          wheelFL:
-            get: |
-              if ( !this.wheelFL ) {
-                this.wheelFL = this.find( "Cylinder014/Cylinder058/wheel" )[ 0 ];
-              }
-              return this.wheelFL;
-          wheelBL:
-            get: |
-              if ( !this.wheelBL ) {
-                this.wheelBL = this.find( "Cylinder014/Cylinder059/wheel001" )[ 0 ];
-              }
-              return this.wheelBL;
-          wheelFR:
-            get: |
-              if ( !this.wheelFR ) {
-                this.wheelFR = this.find( "Cylinder014/Cylinder050/wheel002" )[ 0 ];
-              }
-              return this.wheelFR;
-          wheelBR:
-            get: |
-              if ( !this.wheelBR ) {
-                this.wheelBR = this.find( "Cylinder014/Cylinder060/wheel003" )[ 0 ];
-              }
-              return this.wheelBR;
+          # wheelFL:
+          #   get: |
+          #     if ( !this.wheelFL ) {
+          #       this.wheelFL = this.find( "Cylinder014/Cylinder058/wheel" )[ 0 ];
+          #     }
+          #     return this.wheelFL;
+          # wheelBL:
+          #   get: |
+          #     if ( !this.wheelBL ) {
+          #       this.wheelBL = this.find( "Cylinder014/Cylinder059/wheel001" )[ 0 ];
+          #     }
+          #     return this.wheelBL;
+          # wheelFR:
+          #   get: |
+          #     if ( !this.wheelFR ) {
+          #       this.wheelFR = this.find( "Cylinder014/Cylinder050/wheel002" )[ 0 ];
+          #     }
+          #     return this.wheelFR;
+          # wheelBR:
+          #   get: |
+          #     if ( !this.wheelBR ) {
+          #       this.wheelBR = this.find( "Cylinder014/Cylinder060/wheel003" )[ 0 ];
+          #     }
+          #     return this.wheelBR;
           wheelRadius: 0.3304
         children:
           firstPerson:
