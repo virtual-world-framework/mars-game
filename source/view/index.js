@@ -182,7 +182,10 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 break;
 
             case "videoPlayed":
-                $( "#transitionScreen" ).fadeOut();
+                // $( "#transitionScreen" ).fadeOut();
+                $( "#transitionScreen" ).fadeOut( function() {
+                    removeVideo( id );
+                } );
                 break;
 
             case "progressFound":
