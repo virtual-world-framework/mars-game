@@ -73,7 +73,7 @@ function removeVideoOnEvent( event ) {
     }
 }
 
-function removeVideo( id ) {
+function removeVideo() {
     vwf_view.kernel.callMethod( videoManagerID, "hide" );
 }
 
