@@ -153,12 +153,23 @@ this.placeOnTerrain = function( pos ) {
     //     normal[ 0 ], normal[ 1 ], normal[ 2 ], 0,
     //     pos[ 0 ],    pos[ 1 ],    pos[ 2 ],    1
     // ];
+    // this.transform = [
+    //     1,  0,  0,  0,
+    //     0,  1,  0,  0,
+    //     0, 0, 1, 0,
+    //     pos[ 0 ],    pos[ 1 ],    pos[ 2 ],    1
+    // ];
     this.transform = [
-        1,  0,  0,  0,
-        0,  1,  0,  0,
-        0, 0, 1, 0,
+        this.transform[0],  this.transform[1],  this.transform[2],  0,
+        this.transform[4],  this.transform[5],  this.transform[6],  0,
+        this.transform[8], this.transform[9], this.transform[10], 0,
         pos[ 0 ],    pos[ 1 ],    pos[ 2 ],    1
     ];
+    
+    // this.transform[12] = pos[0];
+    // this.transform[13] = pos[1];
+    // this.transform[14] = pos[2];
+    // this.transform[15] = 1;
 }
 
 this.translateOnTerrain = function( translation, duration, boundaryValue ) {
