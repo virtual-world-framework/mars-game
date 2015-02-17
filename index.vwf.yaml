@@ -103,6 +103,8 @@ events:
   storedScenario:
   blackboardWritten:
 children:
+  hud:
+    includes: source/marsGameHud.vwf
   mainMenu:
     includes: source/mainMenu.vwf
   gameCam:
