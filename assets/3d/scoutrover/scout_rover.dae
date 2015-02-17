@@ -473,15 +473,6 @@
       </mesh>
     </geometry>
   </library_geometries>
-  <library_lights>
-    <light id="EnvironmentAmbientLight" name="EnvironmentAmbientLight">
-      <technique_common>
-        <ambient>
-          <color>0.894118 0.894118 0.894118</color>
-        </ambient>
-      </technique_common>
-    </light>
-  </library_lights>
   <library_images>
     <image id="scout_512_png">
       <init_from>./scout_512.png</init_from>
@@ -489,9 +480,6 @@
   </library_images>
   <library_visual_scenes>
     <visual_scene id="MaxScene">
-      <node name="EnvironmentAmbientLight">
-        <instance_light url="#EnvironmentAmbientLight"/>
-      </node>
       <node id="node-scout_body" name="scout_body">
         <translate>0 0.01522431 0.3079571</translate>
         <instance_geometry url="#geom-scout_body">
