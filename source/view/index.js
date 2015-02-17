@@ -182,7 +182,6 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 break;
 
             case "videoPlayed":
-                // $( "#transitionScreen" ).fadeOut();
                 $( "#transitionScreen" ).fadeOut( function() {
                     removeVideo();
                 } );
@@ -220,7 +219,7 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
             }
         }
 
-        if( eventName === "videoEnded"){
+        if( eventName === "videoEnded" ){
             removeVideoOnEvent();
         }
     }

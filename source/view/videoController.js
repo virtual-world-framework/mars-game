@@ -41,9 +41,6 @@ function playVideo( id ) {
         var videoManagerID = vwf_view.kernel.find( "", "//videoManager" )[ 0 ];
         vwf_view.kernel.callMethod( videoManagerID, "show" );
 
-        //TODO: Is there a better way to do this than to put "/mars-game/" in front of video.source.src ?
-        // var appName = "mars-game";
-        // var redactedURL = ( video.source ).replace( new RegExp(appName + "/.*/assets"), appName + "/assets");
         var redactedURL = ( video.source ).replace( new RegExp("/(.*)/.*/assets"), 
             function( str, group1 ){ 
                 return group1 + "/assets" 
