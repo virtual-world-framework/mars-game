@@ -15,20 +15,17 @@
 var videos = new Array();
 var videoID = 0;
 var playingVideo;
-var mediaManagerID;
-var videoManagerID;
 
 function loadVideo( src, type ) {
     var video = {
         "id" : videoID,
     };
     video.source = "assets/video/" + src;
-    video.vidName = src;
+    video.videoName = src;
 
     document.onkeypress = removeVideoOnEvent;
 
-    mediaManagerID = vwf_view.kernel.find( undefined, "/mediaManager" )[ 0 ];
-    videoManagerID = vwf_view.kernel.find( mediaManagerID, "videoManager" ) [ 0 ];
+    
     videos.push( video );
     videoID++;
     return videoID - 1;
@@ -41,12 +38,16 @@ function playVideo( id ) {
     if ( video ) {
 
         playingVideo = video;
-        vwf_view.kernel.setProperty( videoManagerID, "z_index", 103 );
+        var videoManagerID = vwf_view.kernel.find( "", "//videoManager" )[ 0 ];
         vwf_view.kernel.callMethod( videoManagerID, "show" );
 
         //TODO: Is there a better way to do this than to put "/mars-game/" in front of video.source.src ?
-        var appName = "mars-game";
-        var redactedURL = ( video.source ).replace( new RegExp(appName + "/.*/assets"), appName + "/assets");
+        // var appName = "mars-game";
+        // var redactedURL = ( video.source ).replace( new RegExp(appName + "/.*/assets"), appName + "/assets");
+        var redactedURL = ( video.source ).replace( new RegExp("/(.*)/.*/assets"), 
+            function(str, group1){ 
+                return group1 + "/assets" 
+            } );
         vwf_view.kernel.setProperty( videoManagerID, "url", redactedURL );
         vwf_view.kernel.callMethod( videoManagerID, "play" );
     }
@@ -61,19 +62,19 @@ function removeVideoOnEvent( event ) {
     if ( event && event.type === "keypress" && event.which !== 32 ) {
         return;
     }
-    var mediaManagerID = vwf_view.kernel.find( undefined, "/mediaManager" )[ 0 ];
-    var videoManagerID = vwf_view.kernel.find( mediaManagerID, "videoManager" ) [ 0 ];
+    var videoManagerID = vwf_view.kernel.find( "", "//videoManager" )[ 0 ];
 
     vwf_view.kernel.callMethod( videoManagerID, "clearMedia" );
     if( playingVideo ){
         var id = playingVideo.id;
-        var fileName = videos[id].vidName;
+        var fileName = videos[id].videoName;
         vwf_view.kernel.fireEvent( vwf_view.kernel.application(), "videoPlayed", [ fileName ] );
         playingVideo = undefined;
     }
 }
 
 function removeVideo() {
+    var videoManagerID = vwf_view.kernel.find( "", "//videoManager" )[ 0 ];
     vwf_view.kernel.callMethod( videoManagerID, "hide" );
 }
 
