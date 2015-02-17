@@ -1,7 +1,10 @@
 ---
 extends: http://vwf.example.com/hud/overlay.vwf
+implements:
+  - http://vwf.example.com/sceneGetter.vwf
 properties:
   visible: true
+  lastBlocklyNodeID:
 methods:
 events:
 children:
@@ -101,3 +104,5 @@ children:
           if ( this.icon ) {
             context.drawImage( this.icon, position.x, position.y );
           }
+scripts:
+  source: source/marsGameHud.js
