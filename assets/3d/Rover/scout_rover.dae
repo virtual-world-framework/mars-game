@@ -6,8 +6,8 @@
       <authoring_tool>OpenCOLLADA for 3ds Max;  Version: 1.4.1;  Revision: exported;  Platform: x64;  Configuration: Release_Max2012_static</authoring_tool>
       <source_data>file:///C:/Users/mcclurek/Desktop/MARS/PHASE2/New%20Rovers/Scout_Rover.max</source_data>
     </contributor>
-    <created>2015-02-17T13:49:02</created>
-    <modified>2015-02-17T13:49:02</modified>
+    <created>2015-02-17T16:44:40</created>
+    <modified>2015-02-17T16:44:40</modified>
     <unit name="meter" meter="1"/>
     <up_axis>Z_UP</up_axis>
   </asset>
@@ -473,6 +473,15 @@
       </mesh>
     </geometry>
   </library_geometries>
+  <library_lights>
+    <light id="EnvironmentAmbientLight" name="EnvironmentAmbientLight">
+      <technique_common>
+        <ambient>
+          <color>0.894118 0.894118 0.894118</color>
+        </ambient>
+      </technique_common>
+    </light>
+  </library_lights>
   <library_images>
     <image id="scout_512_png">
       <init_from>./scout_512.png</init_from>
@@ -480,8 +489,11 @@
   </library_images>
   <library_visual_scenes>
     <visual_scene id="MaxScene">
+      <node name="EnvironmentAmbientLight">
+        <instance_light url="#EnvironmentAmbientLight"/>
+      </node>
       <node id="node-scout_body" name="scout_body">
-        <translate>0 0.01522432 0.2941761</translate>
+        <translate>0 0.01522431 0.3079571</translate>
         <instance_geometry url="#geom-scout_body">
           <bind_material>
             <technique_common>
@@ -492,7 +504,7 @@
           </bind_material>
         </instance_geometry>
         <node id="node-Cylinder156" name="Cylinder156">
-          <translate>0 0.05560914 0.2118402</translate>
+          <translate>0 0.05560914 0.2118403</translate>
           <instance_geometry url="#geom-Cylinder156">
             <bind_material>
               <technique_common>
