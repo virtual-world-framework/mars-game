@@ -1,0 +1,4 @@
+---
+extends: source/rover.vwf
+scripts:
+ - source: source/fourWheeledRover.js
