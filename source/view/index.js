@@ -113,6 +113,12 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
         }
     } else if ( nodeID === this.kernel.application() ) {
         switch ( eventName ) {
+
+            case "paused":
+                openPauseMenu();
+                break;
+            case "unpaused":
+                break;
             
             case "blocklyContentChanged":
                 if ( currentBlocklyNodeID === blocklyGraphID ) {
