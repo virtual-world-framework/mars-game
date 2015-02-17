@@ -45,11 +45,10 @@ function playVideo( id ) {
         // var appName = "mars-game";
         // var redactedURL = ( video.source ).replace( new RegExp(appName + "/.*/assets"), appName + "/assets");
         var redactedURL = ( video.source ).replace( new RegExp("/(.*)/.*/assets"), 
-            function(str, group1){ 
+            function( str, group1 ){ 
                 return group1 + "/assets" 
             } );
-        vwf_view.kernel.setProperty( videoManagerID, "url", redactedURL );
-        vwf_view.kernel.callMethod( videoManagerID, "play" );
+        vwf_view.kernel.callMethod( videoManagerID, "play", redactedURL );
     }
 }
 
