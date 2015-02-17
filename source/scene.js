@@ -399,4 +399,12 @@ this.playVideo = function( src ) {
     playVideo( id );
 }
 
+this.pauseGame = function() {
+    this.paused();
+}
+
+this.unpauseGame = function() {
+    this.unpaused();
+}
+
 //@ sourceURL=source/scene.js

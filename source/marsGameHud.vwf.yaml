@@ -14,7 +14,7 @@ children:
       images:
         icon:
           src: "assets/images/hud/blockly_large.png"
-          value: undefined
+          value:
       width: 64
       height: 64
       visible: true
@@ -38,7 +38,7 @@ children:
       images:
         icon:
           src: "assets/images/hud/graph_display.png"
-          value: undefined
+          value:
       width: 64
       height: 64
       visible: true
@@ -62,7 +62,7 @@ children:
       images:
         icon:
           src: "assets/images/hud/tiles_button.png"
-          value: undefined
+          value:
       width: 64
       height: 64
       visible: true
@@ -86,7 +86,7 @@ children:
       images:
         icon:
           src: "assets/images/hud/options_button.png"
-          value: undefined
+          value:
       width: 64
       height: 64
       visible: true
@@ -104,5 +104,160 @@ children:
           if ( this.icon ) {
             context.drawImage( this.icon, position.x, position.y );
           }
+  objective:
+    extends: http://vwf.example.com/hud/element.vwf
+    properties:
+      images:
+        icon:
+          src: "assets/images/hud/objective_indicator.png"
+          value:
+      width: 32
+      height: 32
+      visible: true
+      enabled: true
+      alignH: left
+      alignV: bottom
+      offsetH: 30
+      offsetV: -172
+      text: ""
+      blinkTicks: 0
+      blinkInterval: 0.5
+      lastBlinkTime: 0
+      opacity: 1
+    methods:
+      draw:
+        parameters:
+          - context
+          - position
+        body: |
+          var time = vwf_view.kernel.time();
+          var timeSinceLastBlink = time - this.lastBlinkTime;
+          if ( this.text && this.text.length > 0 ) {
+              if ( this.icon ) {
+                  if ( this.blinkTicks > 0 && timeSinceLastBlink >= this.blinkInterval ) {
+                      this.opacity = this.blinkTicks % 2 ? 1 : 0.5;
+                      this.blinkTicks--;
+                      this.lastBlinkTime = time;
+                  }
+                  context.globalAlpha = this.opacity;
+                  context.drawImage( this.icon, position.x, position.y );
+                  context.globalAlpha = 1;
+              }
+              context.font = '16px Arial';
+              context.fillStyle = "rgb( 224, 255, 100 )";
+              context.strokeStyle = "rgb( 0, 0, 0 )";
+              context.lineWidth = 3;
+              context.textAlign = "left";
+              context.textBaseline = "top";
+              context.strokeText( this.text, position.x + 40, position.y + 6 );
+              context.fillText( this.text, position.x + 40, position.y + 6 );
+          }
+  batteryMeter:
+    extends: http://vwf.example.com/hud/element.vwf
+    properties:
+      images:
+        frame:
+          src: "assets/images/hud/rover_frame.png"
+          value:
+        portrait:
+          src: "assets/images/hud/rover_portrait.png"
+          value:
+      width: 128
+      height: 128
+      visible: true
+      enabled: true
+      alignH: left
+      alignV: top
+      offsetH: 30
+      offsetV: 30
+      battery: 100
+      maxBattery: 100
+    methods:
+      draw:
+        parameters:
+          - context
+          - position
+        body: |
+          var battery = this.battery;
+          var maxBattery = this.maxBattery;
+          var arcWidth = ( this.height + this.width ) / 4 ;
+          var centerX = position.x + this.width / 2;
+          var centerY = position.y + this.height / 2;
+          var radius = ( this.width + this.height ) / 4 - arcWidth;
+          var start = Math.PI * 1.5;
+          var end = start - battery / maxBattery * Math.PI * 2;
+          context.beginPath();
+          context.arc( centerX, centerY, arcWidth, 0, 2 * Math.PI, false );
+          context.fillStyle = "rgba(50,90,150,0.5)";
+          context.fill();
+          context.beginPath();
+          context.arc( centerX, centerY, arcWidth / 2, start, end, true );
+          context.lineWidth = arcWidth - 1;
+          context.strokeStyle = "rgb(50,130,255)";
+          context.stroke();
+          if ( this.portrait ) {
+              context.drawImage( this.portrait, centerX - this.portrait.width / 2, centerY - this.portrait.height / 2 );
+          }
+          if ( this.frame ) {
+              context.drawImage( this.frame, position.x, position.y );
+          }
+          context.textBaseline = "top";
+          context.font = 'bold 24px Arial';
+          context.fillStyle = "rgb(255,255,255)";
+          context.textAlign = "left";
+          context.fillText( Math.round(battery), position.x + this.width + 3, position.y - 1 );
+  comms:
+    extends: http://vwf.example.com/hud/element.vwf
+    properties:
+      images:
+        background:
+          src: "assets/images/hud/communication_bg.png"
+          value:
+        frame:
+          src: "assets/images/hud/communication_frame.png"
+          value:
+        characterImage:
+          src:
+          value:
+      width: 100
+      height: 150
+      visible: true
+      enabled: true
+      alignH: left
+      alignV: bottom
+      offsetH: 10
+      offsetV: -10
+      interval: 0
+      direction: 0
+    methods:
+      draw:
+        parameters:
+          - context
+          - position
+        body: |
+          if ( this.background ) {
+              context.drawImage( this.background, position.x, position.y );
+          }
+          if ( this.characterImage && this.characterImage.src ) {
+              context.save();
+              var opening = this.height * this.interval;
+              context.beginPath();
+              context.rect( position.x, position.y + ( ( this.height - opening ) / 2 ), this.width, opening );
+              context.clip();
+              context.drawImage( this.characterImage, position.x, position.y );
+              context.restore();
+              this.interval += 0.1 * this.direction;
+              if ( this.interval > 1 ) {
+                  this.interval = 1;
+              } else if ( this.interval <= 0 && this.direction === -1 ) {
+                  this.interval = 0;
+                  this.characterImage.src = "";
+              }
+          }
+          if ( this.frame ) {
+              context.drawImage( this.frame, position.x, position.y );
+          }
+      addCharacterImage:
+      removeCharacterImage:
 scripts:
   source: source/marsGameHud.js

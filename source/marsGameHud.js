@@ -6,4 +6,19 @@ this.blocklyButton.onClick = function() {
     }
 }
 
+this.graphButton.onClick = function() {
+    var hud = this.parent;
+    hud.scene.displayGraph( !hud.blocklyGraph.graphVisible );
+}
+
+this.tilesButton.onClick = function() {
+    var hud = this.parent;
+    hud.scene.displayTiles( !hud.gridTileGraph.mapTiles.groupVisible );
+}
+
+this.optionsButton.onClick = function() {
+    var hud = this.parent;
+    hud.scene.pauseGame();
+}
+
 //@ sourceURL=source/marsGameHud.js
