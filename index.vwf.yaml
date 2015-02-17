@@ -74,6 +74,8 @@ methods:
   blinkTab:
   stopBlinkTab:
   playVideo:
+  pauseGame:
+  unpauseGame:
 events:
   gameStarted:
   scenarioReset:
@@ -102,6 +104,8 @@ events:
   loadedGame:
   storedScenario:
   blackboardWritten:
+  paused:
+  unpaused:
 children:
   hud:
     includes: source/marsGameHud.vwf
