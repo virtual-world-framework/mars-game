@@ -61,7 +61,13 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 if ( !blocklyExecuting ) {
                     if ( Blockly.mainWorkspace ) {
                         var topBlockCount = Number( eventArgs[ 0 ] );
-                        startBlocklyButton.className = topBlockCount !== 1 ? "disabled" : "" ;
+                        
+                        if(currentScenario === "scenario_dummy"){
+                            // SJF - HACK: Allow multiple top blocks to allow procedures
+                            startBlocklyButton.className = topBlockCount == 0 ? "disabled" : "" ;
+                        } else {
+                            startBlocklyButton.className = topBlockCount !== 1 ? "disabled" : "" ;
+                        }
                         // if disabled then need to set the tooltip
                         // There must be only one program for each blockly object
                     }
@@ -85,7 +91,9 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 indicator.className = "stopped";
                 count.className = "stopped";
 
-                clearBlocklyStatus();
+                if( currentScenario !== "scenario_dummy" ){
+                    clearBlocklyStatus();
+                }
 
             case "blocklyErrored":
                 startBlocklyButton.className = "";
@@ -119,9 +127,11 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 var blockName = eventArgs[ 0 ];
                 var blockID = eventArgs[ 1 ];
                 if ( blockID ) {
-                    selectBlock( blockID );
-                    indicateBlock( blockID );
-                    pushNextBlocklyStatus( blockID );
+                    if( currentScenario !== "scenario_dummy" ){
+                        selectBlock( blockID );
+                        indicateBlock( blockID );
+                        pushNextBlocklyStatus( blockID );
+                    }
                     lastBlockIDExecuted = blockID;
                 }
                 break;
@@ -168,7 +178,9 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 break;
 
             case "selectLastBlock":
-                selectBlock( lastBlockIDExecuted );
+                if( currentScenario !== "scenario_dummy" ){
+                    selectBlock( lastBlockIDExecuted );
+                }
                 break;
 
             case "resetHUDState":

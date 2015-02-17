@@ -225,7 +225,10 @@ function calcGridBounds( grid ) {
 this.executeBlock = function ( block, action ) {
     var blockName = block[ 0 ];
     var blockID = block[ 1 ];
-    this.blockExecuted( blockName, blockID );
+
+    if( scenario.name !== "scenario_dummy" ){
+        this.blockExecuted( blockName, blockID );
+    }
 
     var nodeID = action[ 0 ];
     var methodName = action[ 1 ];
@@ -250,6 +253,8 @@ this.setUpCameraListener = function() {
 this.setUpRoverListeners = function() {
     this.scenarioChanged = this.events.add( function( scenarioName ) {
         this.player.rover.findAndSetCurrentGrid( scenarioName );
+        this.player.rover2.findAndSetCurrentGrid( scenarioName );
+        this.player.rover3.findAndSetCurrentGrid( scenarioName );
         //this.player.rover.findAndSetCurrentGrid( this.activeScenarioPath );
     }, this );
      //rover.findAndSetCurrentGrid( this.activeScenarioPath );

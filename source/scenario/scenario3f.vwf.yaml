@@ -2,7 +2,6 @@
 extends: source/scenario/scenario.vwf
 properties:
   scenarioName: scenario1h
-
   scenePath: /
   nextScenarioPath: mainMenuScenario
 

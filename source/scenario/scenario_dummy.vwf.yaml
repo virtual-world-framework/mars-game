@@ -15,164 +15,182 @@
 ---
 extends: source/scenario/scenario.vwf
 properties:
-  scenarioName: scenario3a
-
-  scenePath: /
-  nextScenarioPath: "scenario3b"
+  scenarioName: scenario_dummy
 
   startState:
   - setProperty:
     - rover3
     - visible
-    - false
+    - true
   - setProperty:
     - rover2
     - visible
-    - false
+    - true
   - setProperty:
     - rover
     - battery
-    - 40
+    - 9001
   - setProperty:
     - rover
     - batteryMax
-    - 40
+    - 9001
   - setProperty:
     - rover
     - blockly_allowedBlocks
-    - 12
+    - 9001
+  - setProperty:
+    - rover
+    - lowRam
+    - 0
+  - setProperty:
+    - rover2
+    - battery
+    - 9001
+  - setProperty:
+    - rover2
+    - batteryMax
+    - 9001
+  - setProperty:
+    - rover2
+    - blockly_allowedBlocks
+    - 9001
+  - setProperty:
+    - rover3
+    - battery
+    - 9001
+  - setProperty:
+    - rover3
+    - batteryMax
+    - 9001
+  - setProperty:
+    - rover3
+    - blockly_allowedBlocks
+    - 9001
 
-  - addToInventory:
+  - callMethod:
+    - rover
+    - setHeading
+    - 0
+
+  - emptyInventory:
     - rover/cargo
-    - [ "helicam", "battery", "radio" ]
+
   - addToGrid:
     - rover
-    - [ 27, 5 ]
+    - [ 37, 15 ]
+
+  - addToGrid:
+    - rover3
+    - [ 37, 13 ]
+
+  - addToGrid:
+    - rover2
+    - [ 37, 14 ]
+
+  - addToGrid:
+    - supplies_2
+    - [ 12, 10 ]
+
   - addToGrid:
     - blocklyGraph
-    - [ 27, 5 ]
+    - [ 37, 15 ]
 
-  - addToGrid:
-    - supplies_1
-    - [ 7, 15 ]
   - enableBlocklyTabs:
     - rover
+    - rover2
+    - rover3
     - graph
+
   - loadToolbox:
     - rover
-    - source/scenario/blockly/scenario3a.xml
+    - source/scenario/blockly/scenario_dummy.xml
+
+  - loadToolbox:
+    - rover2
+    - source/scenario/blockly/scenario_dummy.xml
+
+  - loadToolbox:
+    - rover3
+    - source/scenario/blockly/scenario_dummy.xml
+
   - loadToolbox:
     - graph
-    - source/scenario/blockly/graph3a.xml
+    - source/scenario/blockly/graph_dummy.xml
 
 children:
   triggerManager:
     extends: source/triggers/triggerManager.vwf
     properties: 
       triggers:
-        beginScenario_3a:
+        beginScenario_dummy:
           triggerCondition:
           - onScenarioStart:
           actions:
-          - playSound:
-            - musicLevel2
-          - playSound:
-            - environmentWind
-          - resetRoverSensors:
-          - setObjective:
-            - "Build a program to follow the tracks until your scanner finds something."
           - writeToBlackboard:
             - anomalyPosition
-            - [ 7, 15 ]
-          - setThirdPersonStartPose:
-            - [ 16.316, 65, -15 ]
+            - [ 12, 10 ]
 
-        playStartingVO_3a:
+        setCameraView:
           triggerCondition:
-          - and:
-            - doOnce:
-            - onScenarioStart:
+          - onBlocklyStarted:
+            - rover
           actions:
-          - playSound:
-            - SCVO9_Rover
-          - playSound:
-            - L3VO2_Mission_S
+          - setCinematicCameraView:
+            - [ 13, 15, -15 ]
 
-        playTravelVO_1_3a:
+        disableFailOnIncomplete:
           triggerCondition:
-          - and:
-            - doOnce:
-            - isAtPosition:
+          - or:
+            - onBlocklyStarted:
               - rover
-              - [ 21, 8 ]
+            - onBlocklyStarted:
+              - rover2
+            - onBlocklyStarted:
+              - rover3
           actions:
-          - playSound:
-            - CTVO1_Rover
-
-        playTravelVO_2_3a:
-          triggerCondition:
-          - and:
-            - doOnce:
-            - isAtPosition:
-              - rover
-              - [ 11, 13 ]
-          actions:
-          - playSound:
-            - CTVO2_Control
-
-        succeedOnSuccessfulMovement_3a:
-          group: successOrFailure
-          priority: 0
-          triggerCondition:
-          - and:
-            - onBlocklyStopped:
-              - rover
-            - isAtPosition:
-              - rover
-              - [ 7, 15 ]
-          actions:
-          - scenarioSuccess:
-          - showAlert:
-            - "Looks like the rover changed course!  Time to plot the new line…"
-          - playSound:
-            - musicSuccessShort
-          - clearBlackboardEntry:
-            - anomalyPosition
-
-        playHint1_3a:
-          triggerCondition:
-          - and:
-            - doOnce:
-            - delay:
-              - 20
-            - not:
-              - isBlocklyExecuting:
-          actions:
-          - playSound:
-            - ALVO27_Rover
-
-        playHint2_3a:
-          triggerCondition:
-          - and:
-            - doOnce:
-            - delay:
-              - 40
-            - not:
-              - isBlocklyExecuting:
-          actions:
-          - playSound:
-            - ALVO28_Rover
+          - writeToBlackboard:
+            - disableFailOnIncompleteProgram
 
   grid:
     includes: source/grid.vwf
     properties:
       minX: 0
-      maxX: 36
+      maxX: 66
       minY: 0
       maxY: 44
-      gridOriginInSpace: [ -105, 39 ]
+      gridOriginInSpace: [ -195, 39 ]
       gridSquareLength: 3
       boundaryValues:
+      - [  1,  1,  1, -1, -1, -1, -1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1, -1, -1, -1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1 ]
+      - [  1,  1,  1, -1, -1, -1, -1,  1,  1,  1,  1, -1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1 ]
+      - [  1,  1,  1, -1, -1, -1, -1,  1,  1,  1, -1, -1, -1, -1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1 ]
+      - [  1,  1,  1, -1, -1, -1,  1,  1,  1,  1, -1, -1, -1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1 ]
+      - [  1,  1,  1,  1,  1,  1,  1,  1,  1,  1, -1, -1, -1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1, -1,  1,  1,  1,  1,  1 ]
+      - [ -1, -1, -1, -1,  1,  1, -1,  1,  1,  1,  1, -1, -1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1 ]
+      - [ -1, -1, -1, -1,  1,  1, -1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1, -1, -1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1 ]
+      - [ -1, -1, -1, -1,  1, -1,  1,  1,  1,  1,  1,  1,  1,  1,  1, -1, -1, -1, -1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1 ]
+      - [ -1, -1, -1, -1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1, -1, -1, -1, -1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1 ]
+      - [ -1, -1, -1, -1, -1, -1,  1,  1,  1,  1,  1,  1,  1,  1,  1, -1, -1, -1, -1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1, -1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1 ]
+      - [ -1, -1, -1, -1, -1, -1,  1, -1, -1,  1,  1, -1,  1,  1,  1, -1, -1, -1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1, -1,  1,  1,  1,  1 ]
+      - [ -1, -1, -1, -1, -1, -1,  1, -1, -1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1, -1, -1, -1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1 ]
+      - [ -1, -1, -1, -1, -1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1, -1, -1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1, -1, -1 ]
+      - [ -1, -1, -1, -1, -1, -1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1, -1, -1 ]
+      - [ -1, -1, -1, -1, -1, -1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1, -1, -1 ]
+      - [ -1, -1, -1, -1, -1,  1,  1,  1, -1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1, -1, -1, -1 ]
+      - [ -1, -1, -1, -1, -1, -1,  1,  1, -1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1, -1, -1, -1, -1 ]
+      - [ -1, -1, -1, -1, -1, -1, -1,  1,  1, -1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1, -1, -1 ]
+      - [ -1, -1, -1, -1, -1, -1, -1,  1,  1,  1,  1,  1,  1,  1, -1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1 ]
+      - [ -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,  1,  1,  1,  1,  1, -1, -1,  1, -1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1 ]
+      - [ -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1 ]
+      - [ -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1 ]
+      - [ -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,  1,  1,  1,  1,  1,  1,  1, -1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1, -1,  1 ]
+      - [ -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,  1,  1,  1,  1,  1,  1,  1,  1,  1, -1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1, -1,  1 ]
+      - [ -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1 ]
+      - [ -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1, -1, -1, -1,  1,  1,  1,  1,  1, -1,  1,  1,  1,  1,  1 ]
+      - [ -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1, -1, -1, -1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1 ]
+      - [ -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,  1,  1,  1,  1,  1,  1,  1,  1, -1, -1, -1, -1,  1,  1,  1,  1, -1, -1, -1,  1, -1,  1,  1,  1,  1,  1,  1,  1,  1,  1 ]
+      - [ -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,  1,  1,  1,  1,  1,  1,  1,  1, -1, -1, -1, -1, -1,  1,  1,  1,  1, -1, -1, -1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1 ]
+      - [ -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,  1,  1,  1,  1,  1,  1,  1,  1, -1, -1, -1, -1, -1,  1,  1,  1,  1,  1, -1, -1,  1,  1,  1, -1, -1,  1,  1,  1,  1,  1, -1 ]
       - [ -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1, -1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1, -1, -1, -1 ]
       - [ -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1, -1, -1,  1, -1,  1,  1,  1, -1,  1,  1,  1,  1, -1, -1, -1, -1 ]
       - [ -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1, -1, -1, -1, -1,  1,  1, -1, -1, -1, -1,  1,  1,  1, -1, -1, -1, -1 ]

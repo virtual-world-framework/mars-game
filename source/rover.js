@@ -17,9 +17,6 @@ this.initialize = function() {
     if ( this.id === "source/rover.vwf" ) {
         return;
     }
-    
-    // TODO: Find current grid square (rather than making app developer specify)
-    // TODO: Find the current heading (rather than making app developer specify)
 
     this.calcRam();
 }
