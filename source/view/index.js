@@ -14,7 +14,7 @@
 
 var appID;
 var mainMenu;
-var hud;
+// var hud;
 var blocklyNodes = {};
 var graphLines = {};
 var loggerNodes = {};
@@ -336,11 +336,11 @@ vwf_view.satProperty = function( nodeID, propertyName, propertyValue ) {
         switch ( propertyName ) {
 
             case "battery":
-                hud.elements.batteryMeter.battery = parseFloat( propertyValue );
+                // hud.elements.batteryMeter.battery = parseFloat( propertyValue );
                 break;
 
             case "batteryMax":
-                hud.elements.batteryMeter.maxBattery = parseFloat( propertyValue );
+                // hud.elements.batteryMeter.maxBattery = parseFloat( propertyValue );
                 break;
 
         }
@@ -378,14 +378,14 @@ vwf_view.satProperty = function( nodeID, propertyName, propertyValue ) {
         if ( propertyName === "target" ) {
             targetID = propertyValue.id;
         } else if ( propertyName === "mountName" ) {
-            if ( hud ) {
-                var selector = hud.elements.cameraSelector;
-                var pov = hud.elements[ "camera_" + propertyValue ];
-                if ( pov && pov.icon && pov.mode ) {
-                    selector.activeMode.icon = pov.icon;
-                    selector.activeMode.type = pov.mode;
-                }
-            }
+            // if ( hud ) {
+            //     var selector = hud.elements.cameraSelector;
+            //     var pov = hud.elements[ "camera_" + propertyValue ];
+            //     if ( pov && pov.icon && pov.mode ) {
+            //         selector.activeMode.icon = pov.icon;
+            //         selector.activeMode.type = pov.mode;
+            //     }
+            // }
         }
     }
 
@@ -402,7 +402,7 @@ vwf_view.satProperty = function( nodeID, propertyName, propertyValue ) {
                     break;
                 case "menu":
                     loggerBox.style.display = "none";
-                    hud.visible = false;
+                    // hud.visible = false;
                     mainMenu.setVisible( true );
                     versionElem.style.display = "block";
                     checkPageZoom();
@@ -412,7 +412,7 @@ vwf_view.satProperty = function( nodeID, propertyName, propertyValue ) {
                     mainMenu.setVisible( false );
                     versionElem.style.display = "none";
                     loggerBox.style.display = "block";
-                    hud.visible = true;
+                    // hud.visible = true;
                     $( "#transitionScreen" ).fadeOut();
                     break;
             }
@@ -492,9 +492,9 @@ vwf_view.gotProperty = function( nodeID, propertyName, propertyValue ) {
 function setUpView() {
     vwf_view.kernel.getProperty( appID, "version" );
     mainMenu = new MainMenu();
-    hud = new HUD();
-    hud.visible = false;
-    createHUD();
+    // hud = new HUD();
+    // hud.visible = false;
+    // createHUD();
     initializePauseMenu();
     setUpNavigation();
     setUpBlocklyPeripherals();
@@ -529,7 +529,7 @@ function render( renderer, scene, camera ) {
         }
     });
     lastRenderTime = vwf_view.kernel.time();
-    hud.update();
+    // hud.update();
 }
 
 function findThreejsView() {
