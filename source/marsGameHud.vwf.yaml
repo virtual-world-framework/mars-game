@@ -82,7 +82,7 @@ children:
     properties:
       images:
         icon:
-          src: "assets/images/hud/options_button.png";
+          src: "assets/images/hud/options_button.png"
           value: undefined
       width: 64
       height: 64
