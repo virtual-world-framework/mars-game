@@ -1,0 +1,103 @@
+---
+extends: http://vwf.example.com/hud/overlay.vwf
+properties:
+  visible: true
+methods:
+events:
+children:
+  blocklyButton:
+    extends: http://vwf.example.com/hud/element.vwf
+    properties:
+      images:
+        icon:
+          src: "assets/images/hud/blockly_large.png"
+          value: undefined
+      width: 64
+      height: 64
+      visible: true
+      enabled: true
+      alignH: right
+      alignV: bottom
+      offsetH: -32
+      offsetV: -30
+    methods:
+      draw:
+        parameters:
+          - context
+          - position
+        body: |
+          if ( this.icon ) {
+            context.drawImage( this.icon, position.x, position.y );
+          }
+  graphButton:
+    extends: http://vwf.example.com/hud/element.vwf
+    properties:
+      images:
+        icon:
+          src: "assets/images/hud/graph_display.png"
+          value: undefined
+      width: 64
+      height: 64
+      visible: true
+      enabled: true
+      alignH: right
+      alignV: bottom
+      offsetH: -104
+      offsetV: -30
+    methods:
+      draw:
+        parameters:
+          - context
+          - position
+        body: |
+          if ( this.icon ) {
+            context.drawImage( this.icon, position.x, position.y );
+          }
+  tilesButton:
+    extends: http://vwf.example.com/hud/element.vwf
+    properties:
+      images:
+        icon:
+          src: "assets/images/hud/tiles_button.png"
+          value: undefined
+      width: 64
+      height: 64
+      visible: true
+      enabled: true
+      alignH: right
+      alignV: bottom
+      offsetH: -176
+      offsetV: -30
+    methods:
+      draw:
+        parameters:
+          - context
+          - position
+        body: |
+          if ( this.icon ) {
+            context.drawImage( this.icon, position.x, position.y );
+          }
+  optionsButton:
+    extends: http://vwf.example.com/hud/element.vwf
+    properties:
+      images:
+        icon:
+          src: "assets/images/hud/options_button.png";
+          value: undefined
+      width: 64
+      height: 64
+      visible: true
+      enabled: true
+      alignH: right
+      alignV: bottom
+      offsetH: -248
+      offsetV: -30
+    methods:
+      draw:
+        parameters:
+          - context
+          - position
+        body: |
+          if ( this.icon ) {
+            context.drawImage( this.icon, position.x, position.y );
+          }
