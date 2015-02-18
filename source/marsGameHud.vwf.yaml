@@ -6,7 +6,30 @@ properties:
   visible: true
   lastBlocklyNodeID:
 methods:
-events:
+  elementPreDraw:
+    parameters:
+      - context
+      - element
+    body: |
+      var alpha = 1;
+      var time = Date.now() / 1000;
+      if ( !element.enabled ) {
+        alpha = 0.5;
+      } else if ( element.isBlinking ) {
+        if ( time  - element.lastBlinkTime > element.blinkInterval ) {
+          alpha = 0.5;
+          if ( time - element.lastBlinkTime > element.blinkInterval + element.blinkDuration ) {
+            element.lastBlinkTime = time;
+          }
+        }
+      }
+      context.globalAlpha = alpha;
+  elementPostDraw:
+    parameters:
+      - context
+      - element
+    body: |
+      context.globalAlpha = 1;
 children:
   blocklyButton:
     extends: http://vwf.example.com/hud/element.vwf
@@ -22,6 +45,10 @@ children:
       alignV: bottom
       offsetH: -32
       offsetV: -30
+      isBlinking: true
+      lastBlinkTime: 0
+      blinkInterval: 0.25
+      blinkDuration: 0.25
     methods:
       draw:
         parameters:
@@ -45,6 +72,10 @@ children:
       alignV: bottom
       offsetH: -104
       offsetV: -30
+      isBlinking: false
+      lastBlinkTime: 0
+      blinkInterval: 0.25
+      blinkDuration: 0.25
     methods:
       draw:
         parameters:
@@ -68,6 +99,10 @@ children:
       alignV: bottom
       offsetH: -176
       offsetV: -30
+      isBlinking: false
+      lastBlinkTime: 0
+      blinkInterval: 0.25
+      blinkDuration: 0.25
     methods:
       draw:
         parameters:
@@ -91,6 +126,10 @@ children:
       alignV: bottom
       offsetH: -248
       offsetV: -30
+      isBlinking: false
+      lastBlinkTime: 0
+      blinkInterval: 0.25
+      blinkDuration: 0.25
     methods:
       draw:
         parameters:
@@ -114,6 +153,10 @@ children:
       alignV: bottom
       offsetH: 30
       offsetV: -172
+      isBlinking: false
+      lastBlinkTime: 0
+      blinkInterval: 0.25
+      blinkDuration: 0.25
       text:
         set: |
           this.text = value;
@@ -167,6 +210,10 @@ children:
       alignV: top
       offsetH: 30
       offsetV: 30
+      isBlinking: false
+      lastBlinkTime: 0
+      blinkInterval: 0.25
+      blinkDuration: 0.25
       battery: 100
       maxBattery: 100
     methods:
@@ -220,6 +267,10 @@ children:
       alignV: bottom
       offsetH: 10
       offsetV: -10
+      isBlinking: false
+      lastBlinkTime: 0
+      blinkInterval: 0.25
+      blinkDuration: 0.25
       interval: 0
       direction: 0
     methods:
@@ -267,11 +318,14 @@ children:
       alignV: top
       offsetH: -30
       offsetV: 30
+      isBlinking: false
+      lastBlinkTime: 0
+      blinkInterval: 0.25
+      blinkDuration: 0.25
       activeMode:
         set: |
           var src = "assets/images/hud/camera_" + value + ".png";
           this.images.activeModeIcon.src = src;
-        value: thirdPerson
     methods:
       draw:
         parameters:
@@ -300,6 +354,10 @@ children:
       alignV: top
       offsetH: -53
       offsetV: 32
+      isBlinking: false
+      lastBlinkTime: 0
+      blinkInterval: 0.25
+      blinkDuration: 0.25
       mode: firstPerson
     methods:
       draw:
@@ -324,6 +382,10 @@ children:
       alignV: top
       offsetH: -34
       offsetV: 54
+      isBlinking: false
+      lastBlinkTime: 0
+      blinkInterval: 0.25
+      blinkDuration: 0.25
       mode: thirdPerson
     methods:
       draw:
@@ -348,6 +410,10 @@ children:
       alignV: top
       offsetH: -35
       offsetV: 80
+      isBlinking: false
+      lastBlinkTime: 0
+      blinkInterval: 0.25
+      blinkDuration: 0.25
       mode: topDown
     methods:
       draw:
