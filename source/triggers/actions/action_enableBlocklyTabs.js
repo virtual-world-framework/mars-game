@@ -31,9 +31,13 @@ this.onGenerated = function( params, generator, payload ) {
 this.executeAction = function() {
     this.scene.clearBlocklyTabs();
     for ( var i = 0; i < this.tabNames.length; i++ ) {
-        var tab = this.findInScene( this.tabNames[ i ] )[ 0 ];
-        this.assert( tab, "Tab '" + this.tabNames[ i ] + "' not found!", true );
-        tab && this.scene.enableBlocklyTab( tab.id );
+        var object = this.findInScene( this.tabNames[ i ] );
+        if ( object ) {
+            this.scene.enableBlocklyTab( object.id );
+        } else {
+            this.logger.warnx( "executeAction", "Tab '" + this.tabNames[ i ] + 
+                                                "' not found!" );
+        }
     }
 }
 
