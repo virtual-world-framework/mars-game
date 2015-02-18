@@ -31,26 +31,23 @@ this.generateObject = function( objDefinition, parentObj, payload ) {
  
     for ( var i = 0; i < this.objSets$.length; ++i ) {
         var objSet = this.objSets$[ i ];
-
-        // This gray magic looks on this particular function set to see if it 
-        //  has the required constructor function.
         var objFileName = objSet[ typeName ];
+        this.assert( objFileName, "Object file not found - this may not be " +
+                                  "an error if you have more than one object " +
+                                  "set.");
 
-        // If we found it, call it.  They all take the same arguments - 
-        //  params is an array which contains the arguments from the yaml.
         if ( objFileName ) {
             var onGenerated = function( generatedObj ) {
                 if ( !generatedObj.onGenerated ) {
-                    this.logger.errorx( "onGenerated", "The prototype " +
-                                        "for objects of type '" + typeName +
-                                        "' doesn't have an onGenerated " +
-                                        "method! You need to define that." );
+                    this.assert( false, "The prototype for objects of type '" +
+                                        typeName + "' doesn't have an " +
+                                        "onGenerated method! You need to " +
+                                        "define that." );
                     parentObj.children.delete( generatedObj );
                 } else {
                     if ( !generatedObj.onGenerated( params, this, payload ) ) {
-                        this.logger.errorx( "onGenerated", "Failed to " +
-                                            "initialize object of type '" +
-                                            typeName + "'!");
+                        this.assert( false, "Failed to initialize object of " +
+                                            "type '" + typeName + "'!");
                         parentObj.children.delete( generatedObj );
                     }
                 }

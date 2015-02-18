@@ -12,18 +12,7 @@
 # See the License for the specific language governing permissions and 
 # limitations under the License.
 
-# The boolean function factory creates boolean function from yaml declarations.
-# It also sets up the callbacks necessary to know when the boolean function 
-# needs to be reevaluated. This is used to create the checks for triggers.
-#
-# A boolean function contains a single "clause," which is something we want to
-# check (for example, an isAtPosition clause, or a hasObject clause).  The 
-# clause can be an and, or, or not clause, and these clauses contain sub-
-# clauses.
-#
-# This all leans on the declarative function executor, which treats the clauses
-# as declarative functions that set up the necessary callbacks and return the
-# function that performs the actual check.
+# The clause factory creates clauses from yaml declarations. 
 
 --- 
 extends: source/triggers/generators/generatorProto.vwf
@@ -69,7 +58,7 @@ properties:
     # arguments: object, threshold (optional, default = 0.667 seconds)
     # TODO: make MoveFailed an onEvent trigger?
     onMoved: "source/triggers/clauses/clause_OnMoved.vwf"
-    moveFailed: "source/triggers/clauses/clause_MoveFailed.vwf"
+    onMoveFailed: "source/triggers/clauses/clause_OnMoveFailed.vwf"
 
     # arguments: these blockly clauses can take a single blockly object (e.g.
     #   "rover"), an array of blockly objects (e.g. [ "minirover", "graph" ]),

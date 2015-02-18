@@ -72,7 +72,7 @@ function getConditions() {
             "optionalArgs": [],
             "repeatedArgs": []
         },
-        "moveFailed": {
+        "onMoveFailed": {
             "display": "Rover Movement has Failed",
             "description": "Checks if an object's movement has failed and optionally what caused it to fail.",
             "requiredArgs": [
@@ -272,13 +272,6 @@ function getActions() {
             ],
             "repeatedArgs": []
         },
-        // "initGameOnLoad": {
-        //     "display": "",
-        //     "description": "",
-        //     "requiredArgs": [],
-        //     "optionalArgs": [],
-        //     "repeatedArgs": []
-        // },
         "playSound": {
             "display": "Play Sound",
             "description": "Play the specified sound.",
@@ -310,15 +303,6 @@ function getActions() {
             "display": "Stop All Sounds",
             "description": "Stops all playing sounds.",
             "requiredArgs": [],
-            "optionalArgs": [],
-            "repeatedArgs": []
-        },
-        "setMasterVolume": {
-            "display": "Set Volume",
-            "description": "Sets the master volume.",
-            "requiredArgs": [
-                { "Volume": "percent" }
-            ],
             "optionalArgs": [],
             "repeatedArgs": []
         },

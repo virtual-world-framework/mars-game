@@ -13,16 +13,11 @@
 // limitations under the License.
 
 this.initialize = function() {
-    this.future( 0.01 ).onSceneLoaded();
+    this.future( 0 ).onSceneLoaded();
 }
 
 this.onSceneLoaded = function() {
-    this.loadTriggers( this.scene );
-
-    // TODO: This doesn't belong here (and the game won't work right until we
-    //  fix it), but it can live here for now, at least until we settle the 
-    //  ordering problems that make these necessary once and for all.
-    this.loadTriggerList( this.lateLoadTriggers, this.scene );
+    this.loadTriggers();
 }
 
 //@ sourceURL=source/scenario/globalScenarioTriggers.js
