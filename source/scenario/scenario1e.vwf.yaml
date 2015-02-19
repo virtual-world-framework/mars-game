@@ -88,7 +88,7 @@ children:
             - blocklyButton
           - setObjective:
             - "Move forward three spaces to pick up the battery pack."
-          - setHUDProperty:
+          - setProperty:
             - graphButton
             - enabled
             - false

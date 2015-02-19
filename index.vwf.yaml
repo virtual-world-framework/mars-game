@@ -28,13 +28,6 @@ properties:
   playerId: "test"
   version: "Release"
   sceneBlackboard: {}
-  blocklyBlinking: false
-  graphBlinking: false
-  gridBlinking: false
-  tilesBlinking: false
-  objectiveBlinking: false
-  cameraConsoleBlinking: false
-  overheadCameraBlinking: false
   roverTabBlinking: false
   graphTabBlinking: false
   # applicationState tracks what the application is currently doing
@@ -69,13 +62,12 @@ methods:
   newGame:
   continueGame:
   applicationLoaded:
-  blinkHUD:
-  stopBlinkHUD:
   blinkTab:
   stopBlinkTab:
   playVideo:
   pauseGame:
   unpauseGame:
+  resetHUDState:
 events:
   gameStarted:
   scenarioReset:
@@ -93,13 +85,9 @@ events:
   toggledGraph:
   toggledTiles:
   resetRoverSensors:
-  resetHUDState:
   enableBlocklyTab:
   clearBlocklyTabs:
   videoPlayed:
-  setObjective:
-  setHUDElementProperty:
-  mouseOverHUD:
   progressFound:
   loadedGame:
   storedScenario:

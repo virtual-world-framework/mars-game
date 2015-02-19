@@ -49,7 +49,7 @@ this.startSubtitle = function( instanceHandle ) {
             } else if ( character === "MC" ) {
                 var imagePath = "assets/images/hud/comms_missioncontrol.png";
             }
-            scene.showCommsImage( imagePath );
+            scene.hud.comms.addCharacterImage( imagePath );
         }                
     }
 }
@@ -57,7 +57,7 @@ this.startSubtitle = function( instanceHandle ) {
 this.stopSubtitle = function( instanceHandle ) {
     var scene = this.find( "/" )[ 0 ];
     if ( this.hasSubtitle( instanceHandle ) ) {
-        scene.hideCommsImage();
+        scene.hud.comms.removeCharacterImage();
     }
 }
 
