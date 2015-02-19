@@ -84,7 +84,7 @@ children:
             - graphButton
           - setObjective:
             - "Click the GRAPH button to display the coordinate axes."
-          - setHUDProperty:
+          - setProperty:
             - blocklyButton
             - enabled
             - false

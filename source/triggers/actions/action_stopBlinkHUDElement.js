@@ -24,14 +24,15 @@ this.onGenerated = function( params, generator, payload ) {
         return false;
     }
 
-    this.elementID = params[ 0 ];
+    var elementName = params[ 0 ];
+    this.element = this.scene.hud[ elementName ];
 
     // TODO: can we validate that the HUD element exists?  Brett?
     return true;
 }
 
 this.executeAction = function() {
-    this.scene.stopBlinkHUD( this.elementID );
+    this.element.isBlinking = false;
 }
 
 //@ sourceURL=source/triggers/actions/action_stopBlinkHUDElement.js
