@@ -30,13 +30,14 @@ methods:
       - element
     body: |
       context.globalAlpha = 1;
+  setAllBlinking:
+  setAllEnabled:
 children:
   blocklyButton:
     extends: http://vwf.example.com/hud/element.vwf
     properties:
       images:
-        icon:
-          src: "assets/images/hud/blockly_large.png"
+        icon: "assets/images/hud/blockly_large.png"
       width: 64
       height: 64
       visible: true
@@ -45,7 +46,7 @@ children:
       alignV: bottom
       offsetH: -32
       offsetV: -30
-      isBlinking: true
+      isBlinking: false
       lastBlinkTime: 0
       blinkInterval: 0.25
       blinkDuration: 0.25
@@ -62,8 +63,7 @@ children:
     extends: http://vwf.example.com/hud/element.vwf
     properties:
       images:
-        icon:
-          src: "assets/images/hud/graph_display.png"
+        icon: "assets/images/hud/graph_display.png"
       width: 64
       height: 64
       visible: true
@@ -89,8 +89,7 @@ children:
     extends: http://vwf.example.com/hud/element.vwf
     properties:
       images:
-        icon:
-          src: "assets/images/hud/tiles_button.png"
+        icon: "assets/images/hud/tiles_button.png"
       width: 64
       height: 64
       visible: true
@@ -116,8 +115,7 @@ children:
     extends: http://vwf.example.com/hud/element.vwf
     properties:
       images:
-        icon:
-          src: "assets/images/hud/options_button.png"
+        icon: "assets/images/hud/options_button.png"
       width: 64
       height: 64
       visible: true
@@ -143,8 +141,7 @@ children:
     extends: http://vwf.example.com/hud/element.vwf
     properties:
       images:
-        icon:
-          src: "assets/images/hud/objective_indicator.png"
+        icon: "assets/images/hud/objective_indicator.png"
       width: 32
       height: 32
       visible: true
@@ -172,7 +169,7 @@ children:
           - context
           - position
         body: |
-          var time = vwf_view.kernel.time();
+          var time = Date.now() / 1000;
           var timeSinceLastBlink = time - this.lastBlinkTime;
           if ( this.text && this.text.length > 0 ) {
             if ( this.icon ) {
@@ -198,10 +195,8 @@ children:
     extends: http://vwf.example.com/hud/element.vwf
     properties:
       images:
-        frame:
-          src: "assets/images/hud/rover_frame.png"
-        portrait:
-          src: "assets/images/hud/rover_portrait.png"
+        frame: "assets/images/hud/rover_frame.png"
+        portrait: "assets/images/hud/rover_portrait.png"
       width: 128
       height: 128
       visible: true
@@ -250,14 +245,13 @@ children:
           context.fillStyle = "rgb(255,255,255)";
           context.textAlign = "left";
           context.fillText( Math.round(battery), position.x + this.width + 3, position.y - 1 );
+      setUpListeners:
   comms:
     extends: http://vwf.example.com/hud/element.vwf
     properties:
       images:
-        background:
-          src: "assets/images/hud/communication_bg.png"
-        frame:
-          src: "assets/images/hud/communication_frame.png"
+        background: "assets/images/hud/communication_bg.png"
+        frame: "assets/images/hud/communication_frame.png"
         characterImage:
       width: 100
       height: 150
@@ -282,7 +276,7 @@ children:
           if ( this.background ) {
             context.drawImage( this.background, position.x, position.y );
           }
-          if ( this.characterImage && this.characterImage.src ) {
+          if ( this.characterImage ) {
             context.save();
             var opening = this.height * this.interval;
             context.beginPath();
@@ -307,8 +301,7 @@ children:
     extends: http://vwf.example.com/hud/element.vwf
     properties:
       images:
-        frame:
-          src: "assets/images/hud/camera_selector_frame.png"
+        frame: "assets/images/hud/camera_selector_frame.png"
         activeModeIcon:
       width: 96
       height: 96
@@ -324,8 +317,20 @@ children:
       blinkDuration: 0.25
       activeMode:
         set: |
-          var src = "assets/images/hud/camera_" + value + ".png";
-          this.images.activeModeIcon.src = src;
+          var src;
+          switch ( value ) {
+            case "firstPerson":
+            case "thirdPerson":
+            case "topDown":
+              src = "assets/images/hud/camera_" + value + ".png";
+              break;
+            default:
+              src = "";
+              break;
+          }
+          var images = this.images;
+          images.activeModeIcon = src;
+          this.images = images;
     methods:
       draw:
         parameters:
@@ -340,12 +345,12 @@ children:
             var posy = ( position.y + this.height / 2 ) - ( this.activeModeIcon.height / 2 );
             context.drawImage( this.activeModeIcon, posx, posy );
           }
+      setUpListeners:
   firstPersonButton:
     extends: http://vwf.example.com/hud/element.vwf
     properties:
       images:
-        icon:
-          src: "assets/images/hud/camera_firstperson.png"
+        icon: "assets/images/hud/camera_firstperson.png"
       width: 22
       height: 22
       visible: true
@@ -372,8 +377,7 @@ children:
     extends: http://vwf.example.com/hud/element.vwf
     properties:
       images:
-        icon:
-          src: "assets/images/hud/camera_thirdperson.png"
+        icon: "assets/images/hud/camera_thirdperson.png"
       width: 22
       height: 22
       visible: true
@@ -400,8 +404,7 @@ children:
     extends: http://vwf.example.com/hud/element.vwf
     properties:
       images:
-        icon:
-          src: "assets/images/hud/camera_topdown.png"
+        icon: "assets/images/hud/camera_topdown.png"
       width: 22
       height: 22
       visible: true

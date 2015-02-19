@@ -14,7 +14,6 @@
 
 var appID;
 var mainMenu;
-// var hud;
 var blocklyNodes = {};
 var graphLines = {};
 var loggerNodes = {};
@@ -91,10 +90,6 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 indicator.className = "stopped";
                 count.className = "stopped";
 
-                if( currentScenario !== "scenario_dummy" ){
-                    clearBlocklyStatus();
-                }
-
             case "blocklyErrored":
                 startBlocklyButton.className = "";
                 break;
@@ -136,7 +131,6 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                     if( currentScenario !== "scenario_dummy" ){
                         selectBlock( blockID );
                         indicateBlock( blockID );
-                        pushNextBlocklyStatus( blockID );
                     }
                     lastBlockIDExecuted = blockID;
                 }
@@ -146,33 +140,15 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 currentScenario = eventArgs[ 0 ];
                 lastBlockIDExecuted = undefined;
                 gridBounds = eventArgs[ 1 ] || gridBounds;
-                enableAllHUDElements();
             case "scenarioReset":
                 removePopup();
                 removeFailScreen();
-                clearBlocklyStatus();
                 indicateBlock( lastBlockIDExecuted );
                 gridBounds = eventArgs[ 1 ] || gridBounds;
                 break;
 
             case "gotScenarioPaths":
                 scenarioList = eventArgs[ 0 ];
-                break;
-
-            case "setHUDElementProperty":
-                var element, property, value;
-                element = eventArgs[ 0 ];
-                property = eventArgs[ 1 ];
-                value = eventArgs[ 2 ]
-                setHUDElementProperty( element, property, value );
-                break;
-
-            case "showCommsImage":
-                addImageToCommsDisplay( eventArgs[ 0 ] );
-                break;
-
-            case "hideCommsImage":
-                removeImageFromCommsDisplay();
                 break;
 
             case "clearBlockly":
@@ -187,10 +163,6 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 if( currentScenario !== "scenario_dummy" ){
                     selectBlock( lastBlockIDExecuted );
                 }
-                break;
-
-            case "resetHUDState":
-                clearHUDEffects();
                 break;
 
             case "clearBlocklyTabs":
@@ -209,24 +181,8 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 addBlocklyTab( eventArgs[ 0 ], eventArgs[ 1 ] );
                 break;
 
-            // case "playVideo":
-            //     var src = eventArgs[ 0 ];
-            //     var id = getVideoIdFromSrc( src );
-            //     if ( isNaN( id ) || id < 0 || id >= videos.length ) {
-            //         id = loadVideo( src );
-            //     }
-            //     $( "#transitionScreen" ).fadeIn();
-            //     playVideo( id );
-                
-            //     break;
-
             case "videoPlayed":
                 $( "#transitionScreen" ).fadeOut();
-                break;
-
-            case "setObjective":
-                var objectiveText = eventArgs[ 0 ];
-                setNewObjective( objectiveText );
                 break;
 
             case "progressFound":
@@ -243,23 +199,6 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 break;
 
         } 
-    } else if ( loggerNodes[ nodeID ] !== undefined ) { 
-        switch ( eventName ) {
-            
-            case "logAdded":
-                var msg = eventArgs[ 0 ];
-                var msgType = loggerNodes[ nodeID ].name;
-                if ( msgType === "alerts" ) {
-                    pushAlert( msg.log );
-                }
-                break;
-
-            case "logRemoved":
-                var index = eventArgs[ 0 ];
-                // not sure this is needed, will always remove the first 
-                // log in the list
-                break;        
-        }
     } else {
         // scenario events
         if ( eventName === "completed" ) {
@@ -338,20 +277,6 @@ vwf_view.initializedProperty = function( nodeID, propertyName, propertyValue ) {
 } 
 
 vwf_view.satProperty = function( nodeID, propertyName, propertyValue ) {
-    if ( nodeID === mainRover ) {
-        switch ( propertyName ) {
-
-            case "battery":
-                // hud.elements.batteryMeter.battery = parseFloat( propertyValue );
-                break;
-
-            case "batteryMax":
-                // hud.elements.batteryMeter.maxBattery = parseFloat( propertyValue );
-                break;
-
-        }
-    }
-
     var blocklyNode = blocklyNodes[ nodeID ];
     if ( blocklyNode ) {
         switch ( propertyName ) {
@@ -383,15 +308,6 @@ vwf_view.satProperty = function( nodeID, propertyName, propertyValue ) {
     if ( nodeID === vwf_view.kernel.find( "", "/gameCam" )[ 0 ] ) {
         if ( propertyName === "target" ) {
             targetID = propertyValue.id;
-        } else if ( propertyName === "mountName" ) {
-            // if ( hud ) {
-            //     var selector = hud.elements.cameraSelector;
-            //     var pov = hud.elements[ "camera_" + propertyValue ];
-            //     if ( pov && pov.icon && pov.mode ) {
-            //         selector.activeMode.icon = pov.icon;
-            //         selector.activeMode.type = pov.mode;
-            //     }
-            // }
         }
     }
 
@@ -408,7 +324,6 @@ vwf_view.satProperty = function( nodeID, propertyName, propertyValue ) {
                     break;
                 case "menu":
                     loggerBox.style.display = "none";
-                    // hud.visible = false;
                     mainMenu.setVisible( true );
                     versionElem.style.display = "block";
                     checkPageZoom();
@@ -418,27 +333,8 @@ vwf_view.satProperty = function( nodeID, propertyName, propertyValue ) {
                     mainMenu.setVisible( false );
                     versionElem.style.display = "none";
                     loggerBox.style.display = "block";
-                    // hud.visible = true;
                     $( "#transitionScreen" ).fadeOut();
                     break;
-            }
-        } else if ( propertyName === "blocklyBlinking" ) {
-            if ( propertyValue === true ) {
-                blinkElement( "blocklyButton" );
-            } else {
-                stopElementBlinking( "blocklyButton" );
-            }
-        } else if ( propertyName === "tilesBlinking" ) {
-            if ( propertyValue === true ) {
-                blinkElement( "tilesButton" );
-            } else {
-                stopElementBlinking( "tilesButton" );
-            }
-        } else if ( propertyName === "graphBlinking" ) {
-            if ( propertyValue === true ) {
-                blinkElement( "graphButton" );
-            } else {
-                stopElementBlinking( "graphButton" );
             }
         } else if ( propertyName === "roverTabBlinking" ) {
             if ( propertyValue === true ) {
@@ -499,9 +395,6 @@ vwf_view.gotProperty = function( nodeID, propertyName, propertyValue ) {
 function setUpView() {
     vwf_view.kernel.getProperty( appID, "version" );
     mainMenu = new MainMenu();
-    // hud = new HUD();
-    // hud.visible = false;
-    // createHUD();
     initializePauseMenu();
     setUpNavigation();
     setUpBlocklyPeripherals();
@@ -536,7 +429,6 @@ function render( renderer, scene, camera ) {
         }
     });
     lastRenderTime = vwf_view.kernel.time();
-    // hud.update();
 }
 
 function findThreejsView() {
@@ -625,16 +517,15 @@ function loadScenarioList() {
 
 function runBlockly() {
     vwf_view.kernel.setProperty( currentBlocklyNodeID, "blockly_executing", true );
-    populateBlockStack();
 }
 
 function setActiveBlocklyTab() {
     if ( currentBlocklyNodeID !== this.id ) {
         vwf_view.kernel.setProperty( appID, "blockly_activeNodeID", this.id );
         if ( blocklyGraphID && blocklyGraphID === this.id ) {
-            var cam = vwf_view.kernel.find( "", "//camera" )[ 0 ];
+            var cam = vwf_view.kernel.find( "", "//gameCam" )[ 0 ];
             if ( cam ) {
-                vwf_view.kernel.setProperty( cam, "pointOfView", "topDown" );
+                vwf_view.kernel.callMethod( cam, "setCameraMount", [ "topDown" ] );
             }
             hideBlocklyIndicator();
         } else {
