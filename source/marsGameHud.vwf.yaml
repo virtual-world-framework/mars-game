@@ -150,10 +150,6 @@ children:
       alignV: bottom
       offsetH: 30
       offsetV: -172
-      isBlinking: false
-      lastBlinkTime: 0
-      blinkInterval: 0.25
-      blinkDuration: 0.25
       text:
         set: |
           this.text = value;
@@ -205,10 +201,6 @@ children:
       alignV: top
       offsetH: 30
       offsetV: 30
-      isBlinking: false
-      lastBlinkTime: 0
-      blinkInterval: 0.25
-      blinkDuration: 0.25
       battery: 100
       maxBattery: 100
     methods:
@@ -261,10 +253,6 @@ children:
       alignV: bottom
       offsetH: 10
       offsetV: -10
-      isBlinking: false
-      lastBlinkTime: 0
-      blinkInterval: 0.25
-      blinkDuration: 0.25
       interval: 0
       direction: 0
     methods:
