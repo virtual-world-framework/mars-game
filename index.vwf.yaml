@@ -96,7 +96,7 @@ events:
   unpaused:
 children:
   hud:
-    includes: source/marsGameHud.vwf
+    includes: source/hud/marsGameHud.vwf
   mainMenu:
     includes: source/mainMenu.vwf
   gameCam:
