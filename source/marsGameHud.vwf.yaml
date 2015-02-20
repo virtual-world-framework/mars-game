@@ -427,5 +427,54 @@ children:
           if ( this.icon ) {
             context.drawImage( this.icon, position.x, position.y );
           }
+  alertDisplay:
+    extends: http://vwf.example.com/hud/element.vwf
+    properties:
+      width: 0
+      height: 50
+      visible: true
+      enabled: true
+      alignH: center
+      alignV: top
+      offsetH: 0
+      offsetV: 100
+      text: ""
+      newLog: false
+      timeOfAlert: 0
+      opaqueTime: 3
+      fadeTime: 1
+      timeElapsed: 0
+    methods:
+      draw:
+        parameters:
+          - context
+          - position
+        body: |
+          var time = Date.now() / 1000;
+          var fadeAmount;
+          if ( this.newLog ) {
+            this.timeElapsed = 0;
+            this.timeOfAlert = time;
+            this.newLog = false;
+          }
+          if ( this.timeElapsed <= this.opaqueTime + this.fadeTime ) {
+            context.font = "24px Arial Black";
+            context.fillStyle = "rgb( 255, 255, 255 )";
+            context.strokeStyle = "rgb( 0, 0, 0 )";
+            context.textAlign = "center";
+            context.lineWidth = 4;
+            context.miterLimit = 2;
+            this.timeElapsed = time - this.timeOfAlert;
+            fadeAmount = this.timeElapsed - this.opaqueTime;
+            if ( fadeAmount >= 0 ) {
+              context.globalAlpha = Math.max( 1 - fadeAmount, 0 );
+            } else {
+              context.globalAlpha = 1;
+            }
+            context.strokeText( this.text, position.x, position.y );
+            context.fillText( this.text, position.x, position.y );
+          }
+      addAlert:
+      setUpListeners:
 scripts:
   source: source/marsGameHud.js
