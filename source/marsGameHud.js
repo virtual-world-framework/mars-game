@@ -1,6 +1,7 @@
 this.initialize = function() {
     this.batteryMeter.future( 0 ).setUpListeners();
     this.cameraSelector.future( 0 ).setUpListeners();
+    this.alertDisplay.future( 0 ).setUpListeners();
 }
 
 this.setAllBlinking = function( value ) {
@@ -34,6 +35,13 @@ this.cameraSelector.setUpListeners = function() {
     this.activeMode = "thirdPerson";
     camera.mounted = this.events.add( function( mount ) {
         this.activeMode = mount.name;
+    }, this );
+}
+
+this.alertDisplay.setUpListeners = function() {
+    var alertLogger = this.parent.scene.alerts;
+    alertLogger.logAdded = this.events.add( function( text ) {
+        this.addAlert( text );
     }, this );
 }
 
@@ -90,6 +98,11 @@ this.topDownButton.onClick = function() {
     var camera = hud.scene.gameCam;
     camera.setCameraMount( this.mode );
     hud.scene.toggledHelicam();
+}
+
+this.alertDisplay.addAlert = function( alert ) {
+    this.text = alert.log;
+    this.newLog = true;
 }
 
 //@ sourceURL=source/marsGameHud.js
