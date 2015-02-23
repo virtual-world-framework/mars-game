@@ -29,23 +29,13 @@
 }
 
 #mainMenuTitle h1 {
-    height: 96px;
-    line-height: 96px;
-    font-size: 96px;
+    height: 80px;
+    line-height: 80px;
+    font-size: 80px;
     font-weight: bold;
     color: rgb( 255, 255, 255 );
     text-shadow: 0px 0px 12px rgb( 224, 255, 100 );
     margin: 0px;
-}
-#mainMenuTitle h2 {
-    height: 40px;
-    line-height: 40px;
-    font-size: 40px;
-    font-weight: normal;
-    color: rgb( 255, 255, 255 );
-    text-shadow: 0px 0px 4px rgb( 224, 255, 100 );
-    margin: 0px;
-    text-align: center;
 }
 
 .mainMenuButton {
