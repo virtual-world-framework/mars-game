@@ -22,7 +22,12 @@ this.initOnEvent = function( params, generator, payload, threshold ) {
         return; // this is the prototype
     }
 
-    this.threshold$ = threshold != undefined ? threshold * 1000 : 250;
+    // NOTE: if the trigger is in a trigger group, it could be as much as
+    //  0.12 seconds (two trigger group updates) before the trigger group is 
+    //  ready to fire (plus any frame delay).  I wouldn't set this to less 
+    //  than 0.5 seconds to be safe (especially given that some machines have
+    //  better performance than others).
+    this.threshold$ = threshold != undefined ? threshold * 1000 : 667;
     this.lastEventTime$ = 0;
 
     return true;
@@ -30,13 +35,17 @@ this.initOnEvent = function( params, generator, payload, threshold ) {
 
 this.onEvent = function() {
     if ( this.parentTrigger.isEnabled === true ) {
+        // this.logger.logx( "onEvent", "Trigger: '" + this.parentTrigger.name +
+        //                              "', Name: '" + this.name + "'." );
         this.lastEventTime$ = Date.now();
         this.parentTrigger.checkFire();
     }
 }
 
 this.onEnabled = function() {
-    this.assert( this.lastEventTime$ === 0, "Last event time not reset. This trigger's parent is: " + this.parent.triggerName );
+    this.assert( this.lastEventTime$ === 0, "Last event time not reset. " +
+                                            "The parent trigger is: " + 
+                                            this.parentTrigger.name );
 }
 
 this.onDisabled = function() {
@@ -52,6 +61,11 @@ this.onTriggered = function() {
 }
 
 this.reset = function() {
+    // if ( this.evaluateClause() ) {
+    //     this.logger.logx( "reset", "Trigger: '" + this.parentTrigger.name +
+    //                                "', Name: '" + this.name + "'." );
+    // }
+
     this.lastEventTime$ = 0;
 }
 

@@ -21,6 +21,14 @@ properties:
 
   startState:
   - setProperty:
+    - rover3
+    - visible
+    - false
+  - setProperty:
+    - rover2
+    - visible
+    - false
+  - setProperty:
     - rover
     - battery
     - 4
@@ -74,7 +82,7 @@ children:
             - environmentWind
           - setObjective:
             - "Move back to the top of the ramp."
-          - setHUDProperty:
+          - setProperty:
             - graphButton
             - enabled
             - false

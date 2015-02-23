@@ -14,7 +14,6 @@
 
 var appID;
 var mainMenu;
-var hud;
 var blocklyNodes = {};
 var graphLines = {};
 var loggerNodes = {};
@@ -43,14 +42,6 @@ var currentScenario;
 var scenarioList;
 var startingZoom;
 
-var renderTransition = true;
-var playingVideo = false;
-// Render modes
-var RENDER_NONE = 0;
-var RENDER_MENU = 1;
-var RENDER_GAME = 2;
-var renderMode = RENDER_NONE;
-
 vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
     if ( blocklyNodes[ nodeID ] !== undefined ) {
         var blocklyNode = blocklyNodes[ nodeID ];
@@ -69,7 +60,13 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 if ( !blocklyExecuting ) {
                     if ( Blockly.mainWorkspace ) {
                         var topBlockCount = Number( eventArgs[ 0 ] );
-                        startBlocklyButton.className = topBlockCount !== 1 ? "disabled" : "" ;
+                        
+                        if(currentScenario === "scenario_dummy"){
+                            // SJF - HACK: Allow multiple top blocks to allow procedures
+                            startBlocklyButton.className = topBlockCount == 0 ? "disabled" : "" ;
+                        } else {
+                            startBlocklyButton.className = topBlockCount !== 1 ? "disabled" : "" ;
+                        }
                         // if disabled then need to set the tooltip
                         // There must be only one program for each blockly object
                     }
@@ -93,8 +90,6 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 indicator.className = "stopped";
                 count.className = "stopped";
 
-                clearBlocklyStatus();
-
             case "blocklyErrored":
                 startBlocklyButton.className = "";
                 break;
@@ -113,6 +108,12 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
         }
     } else if ( nodeID === this.kernel.application() ) {
         switch ( eventName ) {
+
+            case "paused":
+                openPauseMenu();
+                break;
+            case "unpaused":
+                break;
             
             case "blocklyContentChanged":
                 if ( currentBlocklyNodeID === blocklyGraphID ) {
@@ -127,65 +128,27 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 var blockName = eventArgs[ 0 ];
                 var blockID = eventArgs[ 1 ];
                 if ( blockID ) {
-                    selectBlock( blockID );
-                    indicateBlock( blockID );
-                    pushNextBlocklyStatus( blockID );
+                    if( currentScenario !== "scenario_dummy" ){
+                        selectBlock( blockID );
+                        indicateBlock( blockID );
+                    }
                     lastBlockIDExecuted = blockID;
                 }
                 break;
 
             case "scenarioChanged":
                 currentScenario = eventArgs[ 0 ];
-                if ( currentScenario === "mainMenuScenario" ) {
-                    setRenderMode( RENDER_MENU );
-                } else {
-                    setRenderMode( RENDER_GAME );
-                }
                 lastBlockIDExecuted = undefined;
                 gridBounds = eventArgs[ 1 ] || gridBounds;
-                enableAllHUDElements();
             case "scenarioReset":
                 removePopup();
                 removeFailScreen();
-                clearBlocklyStatus();
                 indicateBlock( lastBlockIDExecuted );
                 gridBounds = eventArgs[ 1 ] || gridBounds;
                 break;
 
             case "gotScenarioPaths":
                 scenarioList = eventArgs[ 0 ];
-                break;
-
-            case "blinkHUD":
-                blinkElement( eventArgs[ 0 ] );
-                break;
-
-            case "stopBlinkHUD":
-                stopElementBlinking( eventArgs[ 0 ] );
-                break;
-
-            case "blinkTab":
-                blinkTab( eventArgs[ 0 ] );
-                break;
-
-            case "stopBlinkTab":
-                stopBlinkTab( eventArgs[ 0 ] );
-                break;
-
-            case "setHUDElementProperty":
-                var element, property, value;
-                element = eventArgs[ 0 ];
-                property = eventArgs[ 1 ];
-                value = eventArgs[ 2 ]
-                setHUDElementProperty( element, property, value );
-                break;
-
-            case "showCommsImage":
-                addImageToCommsDisplay( eventArgs[ 0 ] );
-                break;
-
-            case "hideCommsImage":
-                removeImageFromCommsDisplay();
                 break;
 
             case "clearBlockly":
@@ -197,11 +160,9 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 break;
 
             case "selectLastBlock":
-                selectBlock( lastBlockIDExecuted );
-                break;
-
-            case "resetHUDState":
-                clearHUDEffects();
+                if( currentScenario !== "scenario_dummy" ){
+                    selectBlock( lastBlockIDExecuted );
+                }
                 break;
 
             case "clearBlocklyTabs":
@@ -220,27 +181,10 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 addBlocklyTab( eventArgs[ 0 ], eventArgs[ 1 ] );
                 break;
 
-            case "playVideo":
-                setRenderMode( RENDER_NONE );
-                var src = eventArgs[ 0 ];
-                var id = getVideoIdFromSrc( src );
-                if ( isNaN( id ) || id < 0 || id >= videos.length ) {
-                    id = loadVideo( src );
-                }
-                $( "#transitionScreen" ).fadeIn( function() {
-                    playVideo( id );
-                } );
-                
-                break;
-
             case "videoPlayed":
-                $( "#transitionScreen" ).fadeOut();
-                setRenderMode( RENDER_GAME );
-                break;
-
-            case "setObjective":
-                var objectiveText = eventArgs[ 0 ];
-                setNewObjective( objectiveText );
+                $( "#transitionScreen" ).fadeOut( function() {
+                    removeVideo();
+                } );
                 break;
 
             case "progressFound":
@@ -257,30 +201,6 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 break;
 
         } 
-    } else if ( loggerNodes[ nodeID ] !== undefined ) { 
-        switch ( eventName ) {
-            
-            case "logAdded":
-                var msg = eventArgs[ 0 ];
-                var msgType = loggerNodes[ nodeID ].name;
-                if ( msgType === "alerts" ) {
-                    pushAlert( msg.log );
-                }
-                break;
-
-            case "logRemoved":
-                var index = eventArgs[ 0 ];
-                // not sure this is needed, will always remove the first 
-                // log in the list
-                break;
-
-            case "addSubtitle":
-                var msg = eventArgs[ 0 ];
-                var time = eventArgs[ 1 ] ? eventArgs[ 1 ] : 1;
-                pushSubtitle( msg, time );
-                break;            
-            
-        }
     } else {
         // scenario events
         if ( eventName === "completed" ) {
@@ -297,6 +217,10 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
             } else {
                 resetScenario();
             }
+        }
+
+        if( eventName === "videoEnded" ){
+            removeVideoOnEvent();
         }
     }
 }
@@ -359,20 +283,6 @@ vwf_view.initializedProperty = function( nodeID, propertyName, propertyValue ) {
 } 
 
 vwf_view.satProperty = function( nodeID, propertyName, propertyValue ) {
-    if ( nodeID === mainRover ) {
-        switch ( propertyName ) {
-
-            case "battery":
-                hud.elements.batteryMeter.battery = parseFloat( propertyValue );
-                break;
-
-            case "batteryMax":
-                hud.elements.batteryMeter.maxBattery = parseFloat( propertyValue );
-                break;
-
-        }
-    }
-
     var blocklyNode = blocklyNodes[ nodeID ];
     if ( blocklyNode ) {
         switch ( propertyName ) {
@@ -404,13 +314,6 @@ vwf_view.satProperty = function( nodeID, propertyName, propertyValue ) {
     if ( nodeID === vwf_view.kernel.find( "", "/gameCam" )[ 0 ] ) {
         if ( propertyName === "target" ) {
             targetID = propertyValue.id;
-        } else if ( propertyName === "mountName" ) {
-            if ( hud ) {
-                var selector = hud.elements.cameraSelector;
-                var pov = hud.elements[ "camera_" + propertyValue ];
-                selector.activeMode.icon = pov.icon;
-                selector.activeMode.type = pov.mode;
-            }
         }
     }
 
@@ -418,6 +321,39 @@ vwf_view.satProperty = function( nodeID, propertyName, propertyValue ) {
         if ( propertyName === "blockly_activeNodeID" ) {
             Blockly.SOUNDS_ = {};
             selectBlocklyTab( propertyValue );
+        } else if ( propertyName === "applicationState" ) {
+            var state = propertyValue;
+            var versionElem = document.getElementById( "version" );
+            switch ( state ) {
+                case "loading":
+                    $( "#transitionScreen" ).fadeIn( 0 );
+                    break;
+                case "menu":
+                    loggerBox.style.display = "none";
+                    mainMenu.setVisible( true );
+                    versionElem.style.display = "block";
+                    checkPageZoom();
+                    $( "#transitionScreen" ).fadeOut();
+                    break;
+                case "playing":
+                    mainMenu.setVisible( false );
+                    versionElem.style.display = "none";
+                    loggerBox.style.display = "block";
+                    $( "#transitionScreen" ).fadeOut();
+                    break;
+            }
+        } else if ( propertyName === "roverTabBlinking" ) {
+            if ( propertyValue === true ) {
+                blinkTab( getBlocklyNodeIDByName( "rover" ) );
+            } else {
+                stopBlinkTab( getBlocklyNodeIDByName( "rover" ) );
+            }
+        } else if ( propertyName === "graphTabBlinking" ) {
+            if ( propertyValue === true ) {
+                blinkTab( getBlocklyNodeIDByName( "graph" ) );
+            } else {
+                stopBlinkTab( getBlocklyNodeIDByName( "graph" ) );
+            }
         }
     }
 
@@ -432,6 +368,18 @@ vwf_view.satProperty = function( nodeID, propertyName, propertyValue ) {
             case "logger_lifeTime":
                 loggerNode[ propertyName ] = parseFloat( propertyValue );
                 break;
+
+            case "strings":
+                var strings = propertyValue;
+                var lb = document.getElementById( "loggerBox" );
+                if ( strings.length !== lb.counter ) {
+                    var arrayLength = strings.length;
+                    for (var i = 0; i < arrayLength; i++) {
+                        pushSubtitle( strings[ i ] );
+                    }
+                } else {
+                    pushSubtitle( strings[ strings.length - 1 ] );
+                }
         }
     }
 }
@@ -446,15 +394,13 @@ vwf_view.gotProperty = function( nodeID, propertyName, propertyValue ) {
                 "Licensed using " + 
                 "<a target='_blank' href='../LICENSE.txt'>Apache 2</a>. " +
                 "Version: " + version;
-        }
+        } 
     }
 }
 
 function setUpView() {
     vwf_view.kernel.getProperty( appID, "version" );
     mainMenu = new MainMenu();
-    hud = new HUD();
-    createHUD();
     initializePauseMenu();
     setUpNavigation();
     setUpBlocklyPeripherals();
@@ -465,56 +411,30 @@ function setUpView() {
     loadVideo( "end_cinematic.mp4", undefined, true );
 }
 
-function setRenderMode( sceneID ) {
-    renderTransition = true;
-    renderMode = sceneID;
-}
-
 function render( renderer, scene, camera ) {
-    var versionElem;
-    switch ( renderMode ) {
 
-        case RENDER_NONE:
-            if ( renderTransition ) {
-                versionElem = document.getElementById( "version" );
-                versionElem.style.display = "none";
-                renderer.clear();
-                loggerBox.style.display = "none";
-                hud.visible = false;
-                renderTransition = false;
-            }
-            return;
+    blinkTabs();
 
-        case RENDER_MENU:
-            if ( renderTransition ) {
-                versionElem = document.getElementById( "version" );
-                versionElem.style.display = "block";
-                loggerBox.style.display = "none";
-                mainMenu.setupRenderer( renderer );
-                checkPageZoom();
-                hud.visible = false;
-                renderTransition = false;
-            }
-            mainMenu.render( renderer );
-            break;
+    //renderer.render( scene, camera );
 
-        case RENDER_GAME:
-            if ( renderTransition ) {
-                versionElem = document.getElementById( "version" );
-                versionElem.style.display = "none";
-                loggerBox.style.display = "block";
-                scene.fog = new THREE.FogExp2( 0xC49E70, 0.0035 );
-                renderer.setClearColor( scene.fog.color );
-                hud.visible = true;
-                renderTransition = false;
-            }
-            blinkTabs();
-            renderer.render( scene, camera );
-            lastRenderTime = vwf_view.kernel.time();
-            break;
-    }
+    //HACK: Eliminate frustum culling to hide faulty webGL glDrawElements overflow errors.
+    // Frustum culling causes some buffer regeneration to be deferred until later, 
+    // while meshes are still trying to be rendered before their buffers regen 
 
-    hud.update();
+    scene.traverse(function(o){
+        if(o instanceof THREE.Mesh && o.frustumCulled){
+            o.frustumCulled = false;
+            o.hadCullingEnabled = true;
+        }
+    });
+    renderer.render(scene, camera);
+    scene.traverse(function(o){
+        if(o instanceof THREE.Mesh && o.hadCullingEnabled){
+            o.frustumCulled = true;
+            delete o.hadCullingEnabled;
+        }
+    });
+    lastRenderTime = vwf_view.kernel.time();
 }
 
 function findThreejsView() {
@@ -603,16 +523,15 @@ function loadScenarioList() {
 
 function runBlockly() {
     vwf_view.kernel.setProperty( currentBlocklyNodeID, "blockly_executing", true );
-    populateBlockStack();
 }
 
 function setActiveBlocklyTab() {
     if ( currentBlocklyNodeID !== this.id ) {
         vwf_view.kernel.setProperty( appID, "blockly_activeNodeID", this.id );
         if ( blocklyGraphID && blocklyGraphID === this.id ) {
-            var cam = vwf_view.kernel.find( "", "//camera" )[ 0 ];
+            var cam = vwf_view.kernel.find( "", "//gameCam" )[ 0 ];
             if ( cam ) {
-                vwf_view.kernel.setProperty( cam, "pointOfView", "topDown" );
+                vwf_view.kernel.callMethod( cam, "setCameraMount", [ "topDown" ] );
             }
             hideBlocklyIndicator();
         } else {
@@ -638,17 +557,21 @@ function selectBlocklyTab( nodeID ) {
     }
 }
 
+function getBlocklyNodeIDByName( name ) {
+    var result;
+    var keys = Object.keys( blocklyNodes );
+    for ( var i = 0; i < keys.length; i++ ) {
+        if ( name === blocklyNodes[ keys[ i ] ].name ) {
+            result = keys[ i ];
+            break;
+        }
+    }
+    return result;
+}
+
 function updateBlocklyUI( blocklyNode ) {
     if ( Blockly.mainWorkspace ) {
         Blockly.mainWorkspace.maxBlocks = blocklyNode.ramMax;
-    }
-}
-
-function blinkTabs() {
-    var tabs = document.getElementsByClassName( "blocklyTab" );
-    for ( var i = 0; i < tabs.length; i++ ) {
-        if ( tabs[ i ].isBlinking )
-        tabs[ i ].blink();
     }
 }
 
@@ -665,6 +588,21 @@ function blinkTab( nodeID ) {
     }
 }
 
+function stopBlinkTab( nodeID ) {
+    var tab = document.getElementById( nodeID );
+    if ( tab && tab.isBlinking ) {
+        tab.stopBlink();
+    }
+}
+
+function blinkTabs() {
+    var tabs = document.getElementsByClassName( "blocklyTab" );
+    for ( var i = 0; i < tabs.length; i++ ) {
+        if ( tabs[ i ].isBlinking )
+        tabs[ i ].blink();
+    }
+}
+
 function blink() {
     var blinkInterval = 0.25;
     if ( lastRenderTime > this.lastBlinkTime + blinkInterval ) {
@@ -676,13 +614,6 @@ function blink() {
 function stopBlink() {
     this.style.opacity = "1";
     this.isBlinking = false;
-}
-
-function stopBlinkTab( nodeID ) {
-    var tab = document.getElementById( nodeID );
-    if ( tab && tab.isBlinking ) {
-        tab.stopBlink();
-    }
 }
 
 function clearBlockly() {
@@ -739,7 +670,7 @@ window.onkeypress = function( event ) {
         pauseScreen = document.getElementById( "pauseScreen" );
         if ( pauseScreen.isOpen ){
             closePauseMenu();
-        } else if ( renderMode === RENDER_GAME ) {
+        } else {// if ( renderMode === RENDER_GAME ) {
             openPauseMenu();
         }
     }

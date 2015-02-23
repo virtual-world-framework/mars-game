@@ -19,7 +19,7 @@ implements:
   - http://vwf.example.com/sceneGetter.vwf
 
 properties:
-  hudNames:
+  hudElement:
 
 methods:
   # We need our own onEvent method that screens the events and decides which to

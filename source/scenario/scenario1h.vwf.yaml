@@ -22,6 +22,14 @@ properties:
 
   startState:
   - setProperty:
+    - rover3
+    - visible
+    - false
+  - setProperty:
+    - rover2
+    - visible
+    - false
+  - setProperty:
     - rover
     - battery
     - 25
@@ -75,7 +83,7 @@ children:
             - environmentWind
           - setObjective:
             - "Move to the far end of the crash site and pick up the radio module."
-          - setHUDProperty:
+          - setProperty:
             - graphButton
             - enabled
             - false

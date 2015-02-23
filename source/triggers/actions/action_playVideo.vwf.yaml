@@ -13,17 +13,10 @@
 # limitations under the License.
 
 --- 
-extends: source/triggers/clauses/clauseProto.vwf
-
-implements: 
-  - http://vwf.example.com/sceneGetter.vwf
+extends: source/triggers/actions/actionProto.vwf
 
 properties:
-  failureType:
-  moveHasFailed: 
-
-methods:
-  onMoveFailed:
+  videoSource:
 
 scripts:
-- source: source/triggers/clauses/clause_MoveFailed.js
+- source: source/triggers/actions/action_playVideo.js

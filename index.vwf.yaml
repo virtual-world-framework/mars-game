@@ -15,7 +15,7 @@
 --- 
 extends: http://vwf.example.com/scene.vwf
 implements:
-- "http://vwf.example.com/blockly/manager.vwf"
+  - "http://vwf.example.com/blockly/manager.vwf"
 properties:
   enableShadows: true
   shadowMapCullFace: "back"
@@ -28,6 +28,17 @@ properties:
   playerId: "test"
   version: 1.0
   sceneBlackboard: {}
+  roverTabBlinking: false
+  graphTabBlinking: false
+  # applicationState tracks what the application is currently doing
+  #   in its execution process.
+  #   Valid states are: loading, menu, playing
+  # TODO: Potential app states: paused, video, syncing (allowing all
+  #   clients to reach the same state before continuing)
+  applicationState:
+    set: |
+      this.setApplicationState( value );
+    value: loading
 methods:
   setScenario:
   resetScenario:
@@ -47,6 +58,16 @@ methods:
   restartGame:
   attemptLogin:
   loadGame:
+  setApplicationState:
+  newGame:
+  continueGame:
+  applicationLoaded:
+  blinkTab:
+  stopBlinkTab:
+  playVideo:
+  pauseGame:
+  unpauseGame:
+  resetHUDState:
 events:
   gameStarted:
   scenarioReset:
@@ -55,10 +76,6 @@ events:
   scenarioSucceeded:
   scenarioFailed:
   gotScenarioPaths:
-  blinkHUD:
-  stopBlinkHUD:
-  blinkTab:
-  stopBlinkTab:
   clearBlockly:
   selectLastBlock:
   showCommsImage:
@@ -68,19 +85,30 @@ events:
   toggledGraph:
   toggledTiles:
   resetRoverSensors:
-  resetHUDState:
   enableBlocklyTab:
   clearBlocklyTabs:
-  playVideo:
   videoPlayed:
-  setObjective:
-  setHUDElementProperty:
-  mouseOverHUD:
   progressFound:
   loadedGame:
   storedScenario:
   blackboardWritten:
+  paused:
+  unpaused:
 children:
+  mediaManager:
+    extends: http://vwf.example.com/node.vwf
+    children:
+      videoManager:
+        extends: http://vwf.example.com/jplayer/videoManager.vwf
+        properties:
+          containerDivId: "jp_container_1"
+          playerDivId: "jquery_jplayer_1"
+          containerSize: [1024, 768]
+          playerSize: [1024, 768]
+  hud:
+    includes: source/hud/marsGameHud.vwf
+  mainMenu:
+    includes: source/mainMenu.vwf
   gameCam:
     includes: source/gameCamera.vwf
   cinematicCameraController:
@@ -145,12 +173,6 @@ children:
         extends: http://vwf.example.com/node3.vwf
         source: assets/3d/Terrain/rover_tracks_straight.dae
         type: model/vnd.collada+xml
-  collisionTerrain:
-    extends: http://vwf.example.com/node3.vwf
-    source: assets/3d/Terrain/collision_terrain.dae
-    type: model/vnd.collada+xml
-    properties:
-      visible: false
   airDust:
     includes: source/dustAir.vwf
   smoke1:
@@ -205,7 +227,7 @@ children:
       setUpEvents:
       followCamera:
     scripts:
-      - source: source/lights.js
+    - source: source/lights.js
   envLight:
     extends: http://vwf.example.com/light.vwf
     properties:
@@ -218,11 +240,11 @@ children:
     extends: http://vwf.example.com/node3.vwf
     children:
       rover:
-        extends: source/rover.vwf
+        extends: source/fourWheeledRover.vwf
         implements: 
-          - http://vwf.example.com/blockly/controller.vwf
-          - source/griddable.vwf
-          - source/cameraTarget.vwf
+        - http://vwf.example.com/blockly/controller.vwf
+        - source/griddable.vwf
+        - source/cameraTarget.vwf
         source: assets/3d/Rover/rover_retro.dae
         type: model/vnd.collada+xml
         properties:
@@ -241,7 +263,7 @@ children:
               this.terrainName = value;
               this.terrain = this.find( "//" + value )[ 0 ];
               //@ sourceURL=index.vwf.player.rover.terrainName.set
-            value: collisionTerrain
+            value: environment
           terrain:
             get: |
               if ( !this.terrain ) {
@@ -334,6 +356,242 @@ children:
             properties:
               capacity: 4
               inventoryIsVisible: false
+      rover2:
+        visible: false
+        extends: source/rover.vwf
+        implements: 
+        - http://vwf.example.com/blockly/controller.vwf
+        - source/griddable.vwf
+        - source/cameraTarget.vwf
+        source: assets/3d/scoutrover/scout_rover.dae
+        type: model/vnd.collada+xml
+        properties:
+          defaultMount: firstPerson
+          displayName: "Rover2"
+          castShadows: true
+          receiveShadows: true
+          sceneNode:
+            get: |
+              if ( !this.sceneNode ) {
+                this.sceneNode = this.find( "/" )[ 0 ];
+              }
+              return this.sceneNode;
+          terrainName:
+            set: |
+              this.terrainName = value;
+              this.terrain = this.find( "//" + value )[ 0 ];
+              //@ sourceURL=index.vwf.player.rover.terrainName.set
+            value: environment
+          terrain:
+            get: |
+              if ( !this.terrain ) {
+                this.terrain = this.find( "//" + this.terrainName )[ 0 ];
+              }
+              return this.terrain;
+              //@ sourceURL=index.vwf.player.rover.terrain.get
+          currentGridSquare: [ 0, 0 ]
+          sensorValue: false
+          wheelFL:
+            get: |
+              if ( !this.wheelFL ) {
+                this.wheelFL = this.find( "Cylinder014/Cylinder058/wheel" )[ 0 ];
+              }
+              return this.wheelFL;
+          wheelBL:
+            get: |
+              if ( !this.wheelBL ) {
+                this.wheelBL = this.find( "Cylinder014/Cylinder059/wheel001" )[ 0 ];
+              }
+              return this.wheelBL;
+          wheelFR:
+            get: |
+              if ( !this.wheelFR ) {
+                this.wheelFR = this.find( "Cylinder014/Cylinder050/wheel002" )[ 0 ];
+              }
+              return this.wheelFR;
+          wheelBR:
+            get: |
+              if ( !this.wheelBR ) {
+                this.wheelBR = this.find( "Cylinder014/Cylinder060/wheel003" )[ 0 ];
+              }
+              return this.wheelBR;
+          wheelRadius: 0.3304
+        children:
+          firstPerson:
+            extends: source/cameraMount.vwf
+            properties:
+              navmode: walk
+              translation: [ 0, 0, 1 ]
+              cameraPose: [ 0, 0, 0 ]
+              cameraSpeed: 0
+              targetVisible: false
+              useTargetRotation: true
+          thirdPerson:
+            extends: source/cameraMount.vwf
+            properties:
+              navmode: thirdPerson
+              cameraPose: [ 16, 0, -15 ]
+              cameraSpeed: 0
+          topDown:
+            extends: source/cameraMount.vwf
+            properties:
+              navmode: topDown
+              worldOffset: [ 0, 0, 40 ]
+              cameraPose: [ 0, 0, -90 ]
+              cameraSpeed: 10
+              cameraLock: false
+          Cylinder014:
+            extends: http://vwf.example.com/node3.vwf
+            children: 
+              Cylinder058:
+                extends: http://vwf.example.com/node3.vwf
+                children: 
+                  wheel:
+                    extends: http://vwf.example.com/node3.vwf
+              Cylinder059:
+                extends: http://vwf.example.com/node3.vwf
+                children: 
+                  wheel001:
+                    extends: http://vwf.example.com/node3.vwf
+              Cylinder050:
+                extends: http://vwf.example.com/node3.vwf
+                children: 
+                  wheel002:
+                    extends: http://vwf.example.com/node3.vwf
+                    children: 
+                      material:
+                        extends: http://vwf.example.com/material.vwf
+              Cylinder060:
+                extends: http://vwf.example.com/node3.vwf
+                children: 
+                  wheel003:
+                    extends: http://vwf.example.com/node3.vwf
+                    children: 
+                      material:
+                        extends: http://vwf.example.com/material.vwf
+          cargo:
+            extends: source/inventory.vwf
+            properties:
+              capacity: 4
+              inventoryIsVisible: false       
+      rover3:
+        visible: false
+        extends: source/fourWheeledRover.vwf
+        implements: 
+        - http://vwf.example.com/blockly/controller.vwf
+        - source/griddable.vwf
+        - source/cameraTarget.vwf
+        source: assets/3d/Rover/rover_retro.dae
+        type: model/vnd.collada+xml
+        properties:
+          defaultMount: firstPerson
+          displayName: "Rover3"
+          castShadows: true
+          receiveShadows: true
+          sceneNode:
+            get: |
+              if ( !this.sceneNode ) {
+                this.sceneNode = this.find( "/" )[ 0 ];
+              }
+              return this.sceneNode;
+          terrainName:
+            set: |
+              this.terrainName = value;
+              this.terrain = this.find( "//" + value )[ 0 ];
+              //@ sourceURL=index.vwf.player.rover.terrainName.set
+            value: environment
+          terrain:
+            get: |
+              if ( !this.terrain ) {
+                this.terrain = this.find( "//" + this.terrainName )[ 0 ];
+              }
+              return this.terrain;
+              //@ sourceURL=index.vwf.player.rover.terrain.get
+          currentGridSquare: [ 0, 0 ]
+          sensorValue: false
+          wheelFL:
+            get: |
+              if ( !this.wheelFL ) {
+                this.wheelFL = this.find( "Cylinder014/Cylinder058/wheel" )[ 0 ];
+              }
+              return this.wheelFL;
+          wheelBL:
+            get: |
+              if ( !this.wheelBL ) {
+                this.wheelBL = this.find( "Cylinder014/Cylinder059/wheel001" )[ 0 ];
+              }
+              return this.wheelBL;
+          wheelFR:
+            get: |
+              if ( !this.wheelFR ) {
+                this.wheelFR = this.find( "Cylinder014/Cylinder050/wheel002" )[ 0 ];
+              }
+              return this.wheelFR;
+          wheelBR:
+            get: |
+              if ( !this.wheelBR ) {
+                this.wheelBR = this.find( "Cylinder014/Cylinder060/wheel003" )[ 0 ];
+              }
+              return this.wheelBR;
+          wheelRadius: 0.3304
+        children:
+          firstPerson:
+            extends: source/cameraMount.vwf
+            properties:
+              navmode: walk
+              translation: [ 0, 0, 1 ]
+              cameraPose: [ 0, 0, 0 ]
+              cameraSpeed: 0
+              targetVisible: false
+              useTargetRotation: true
+          thirdPerson:
+            extends: source/cameraMount.vwf
+            properties:
+              navmode: thirdPerson
+              cameraPose: [ 16, 0, -15 ]
+              cameraSpeed: 0
+          topDown:
+            extends: source/cameraMount.vwf
+            properties:
+              navmode: topDown
+              worldOffset: [ 0, 0, 40 ]
+              cameraPose: [ 0, 0, -90 ]
+              cameraSpeed: 10
+              cameraLock: false
+          Cylinder014:
+            extends: http://vwf.example.com/node3.vwf
+            children: 
+              Cylinder058:
+                extends: http://vwf.example.com/node3.vwf
+                children: 
+                  wheel:
+                    extends: http://vwf.example.com/node3.vwf
+              Cylinder059:
+                extends: http://vwf.example.com/node3.vwf
+                children: 
+                  wheel001:
+                    extends: http://vwf.example.com/node3.vwf
+              Cylinder050:
+                extends: http://vwf.example.com/node3.vwf
+                children: 
+                  wheel002:
+                    extends: http://vwf.example.com/node3.vwf
+                    children: 
+                      material:
+                        extends: http://vwf.example.com/material.vwf
+              Cylinder060:
+                extends: http://vwf.example.com/node3.vwf
+                children: 
+                  wheel003:
+                    extends: http://vwf.example.com/node3.vwf
+                    children: 
+                      material:
+                        extends: http://vwf.example.com/material.vwf
+          cargo:
+            extends: source/inventory.vwf
+            properties:
+              capacity: 4
+              inventoryIsVisible: false               
   pickups:
     extends: http://vwf.example.com/node3.vwf
     children:
@@ -352,8 +610,8 @@ children:
         extends: source/pickups/helicam.vwf
       minirover:
         extends: source/pickups/minirover.vwf
-  mainMenuScenario:
-    includes: source/scenario/mainMenu.vwf
+  scenario_dummy:
+    includes: source/scenario/scenario_dummy.vwf
   introScreenScenario:
     includes: source/scenario/introScreenScenario.vwf
   scenario1a:
@@ -410,6 +668,7 @@ children:
       yAxisVisible: true
       zAxisVisible: false
       gridVisible: true
+      graphVisible: false
       axisOpacity: 1
       gridOpacity: 0.75
       renderTop: true
@@ -432,10 +691,6 @@ children:
           visible: false
         events:
           lineGraphed:
-    scripts: |
-      this.initialize = function() {
-        this.future( 0 ).setGraphVisibility( false );
-      }
   gridTileGraph:
     extends: http://vwf.example.com/graphtool/graph.vwf
     properties:
@@ -447,6 +702,7 @@ children:
       yAxisVisible: false
       zAxisVisible: false
       gridVisible: false
+      graphVisible: false
       axisOpacity: 1
       gridOpacity: 1
       renderTop: false
@@ -469,6 +725,7 @@ children:
           doubleSided: false
           renderTop: true
           visible: false
+          isBlinking: false
         methods:
           callOut:
           blink:
@@ -487,14 +744,15 @@ children:
       logger_lifeTime: 10000
       logger_logs: []
     scripts:
-    - source: source/loggerHelper.js
+      - source: source/loggerHelper.js
   subtitles:
     extends: http://vwf.example.com/logger.vwf
     properties:
       logger_maxLogs: 10
       logger_lifeTime: 10000
       logger_logs: []
-    events:
+      strings: []
+    methods:
       addSubtitle:
     scripts:
     - source: source/loggerHelper.js

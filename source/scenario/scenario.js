@@ -13,8 +13,14 @@
 // limitations under the License.
 
 this.initialize = function() {
-    this.children.create( "startStateExecutor", 
-                          "source/triggers/generators/declarativeFunctionExecutor.vwf" );
+    // An action generator for creating the starting actions (which fire every
+    //  time the scenario starts)/
+    this.children.create( "actionGen",
+                          "source/triggers/generators/generator_Action.vwf" );
+
+    // A child that will hold the starting actions once they've been generated
+    this.children.create( "startingActionSet", 
+                          "http://vwf.example.com/node.vwf" );
 
     this.future( 0 ).postInit();
 }
@@ -24,15 +30,27 @@ this.postInit = function() {
         return; // we're the prototype, not an actual scenario.
     }
 
-    this.startStateExecutor.addFunctionSet( this.startStateParamSet );
+    // NOTE: unlike every other action, we don't have a parent trigger.  
+    //  Hopefully that won't break anything...
+    var payload = { trigger: undefined, scenario: this };
 
+    if ( this.startState ) {
+        for ( var i = 0; i < this.startState.length; ++i ) {
+            this.actionGen.generateObject( this.startState[ i ], 
+                                           this.startingActionSet, 
+                                           payload );
+        }
+    }
 
-    this.assert( this.scene && this.triggerManager );
+    this.scene.scenarioChanged = this.events.add( function( scenarioName ) {
+        this.onScenarioChanged( scenarioName );
+    }, this );
 
-    this.scene.scenarioChanged = this.events.add( this.onScenarioChanged, this );
-    this.scene.scenarioReset = this.events.add( this.onScenarioReset, this );
+    this.scene.scenarioReset = this.events.add( function( scenarioName ) {
+        this.onScenarioReset( scenarioName );
+    }, this );
 
-    this.triggerManager.loadTriggers( this.scene );
+    this.triggerManager.loadTriggers( this );
 
     if ( this.runOnStartup ) {
         this.future( 0 ).startInitialScenario$()
@@ -124,11 +142,8 @@ this.start = function() {
     }
 
     // Set the starting state
-    if ( this.startState && this.startState.length > 0 ) {
-        for ( var i = 0; i < this.startState.length; ++i ) {
-            var param = this.startState[ i ];
-            this.startStateExecutor.executeFunction( param, this.scene );
-        }
+    for ( var i = 0; i < this.startingActionSet.children.length; ++i ) {
+        this.startingActionSet.children[ i ].executeAction();
     }
 
     // Reset the global triggers
@@ -171,152 +186,4 @@ this.startInitialScenario$ = function() {
     this.scene.activeScenarioPath = this.scenarioName;
 }
 
-this.startStateParamSet.setProperty = function( params, context ) {
-    if ( !params || ( params.length !== 3 ) ) {
-        context.logger.errorx( "setProperty", 
-                            "The setProperty condition requires three " +
-                            "arguments: the object name, the property name, " +
-                            "and the property value." );
-        return undefined;
-    }
-
-    var objectName = params[ 0 ];
-    var propertyName = params[ 1 ];
-    var value = params[ 2 ];
-
-    var object = context.find( "//" + objectName )[ 0 ];
-    object[ propertyName ] = value;
-}
-
-this.startStateParamSet.callMethod = function( params, context ) {
-    if ( !params || ( params.length < 2 ) ) {
-        context.logger.errorx( "callMethod", 
-                            "The callMethod condition requires at least two ",
-                            "arguments: the object name and the method name." );
-        return undefined;
-    }
-
-    var objectName = params[ 0 ];
-    var methodName = params[ 1 ];
-    var args = params.slice( 2 );
-
-    var object = context.find( "//" + objectName )[ 0 ];
-    object[ methodName ].apply( object, args );
-}
-
-this.startStateParamSet.setSceneProperty = function( params, context ) {
-    if ( !params || ( params.length !== 2 ) ) {
-        context.logger.errorx( "setSceneProperty", 
-                            "The setSceneProperty condition requires two " +
-                            "arguments: the property name and the property " +
-                            "value." );
-        return undefined;
-    }
-
-    var propertyName = params[ 0 ];
-    var value = params[ 1 ];
-    
-    context[ propertyName ] = value;
-}
-
-this.startStateParamSet.emptyInventory = function( params, context ) { 
-    if ( !params || ( params.length !== 1 ) ) {
-        context.logger.errorx( "emptyInventory", 
-                            "The emptyInventory condition requires the path " +
-                            "of the inventory object." );
-        return undefined;
-    }
-
-    var inventoryPath = params[ 0 ];
-    var inventory = context.find( "//" + inventoryPath )[ 0 ];
-    inventory.empty();
-}
-
-this.startStateParamSet.addToInventory = function( params, context ) {
-    if ( !params || ( params.length !== 2 ) ) {
-        context.logger.errorx( "addToInventory", "The addToInventory condition " +
-                            "requires 2 parameters: The path of the inventory object " +
-                            "and an array of names of the objects to be added." );
-        return undefined;
-    }
-
-    var inventory = context.find( "//" + params[0] )[ 0 ];
-
-    var objects = params[1];
-    var object;
-    for ( var i = 0; i < objects.length; i++ ) {
-        object = context.find( "//" + objects[ i ] )[ 0 ];
-        inventory.add( object );
-    }
-}
-
-this.startStateParamSet.addToGrid = function( params, context ) {
-    if ( !params || ( params.length !== 2 ) ) {
-        context.logger.errorx( "addToGrid",
-                            "The addToGrid condition requires 2 arguments: " +
-                            "the object to be added, and the coordinates of " +
-                            "the grid tile." );
-        return undefined;
-    }
-
-    var objectName = params[ 0 ];
-    var gridCoord = params[ 1 ];
-
-    var object = context.find( "//" + objectName )[ 0 ];
-    var activeScenario = context.getCurrentScenario();
-    activeScenario.grid.addToGridFromCoord( object, gridCoord );
-}
-
-this.startStateParamSet.removeFromGrid = function( params, context ) {
-    if ( !params || ( params.length !== 2 ) ) {
-        context.logger.errorx( "removeFromGrid",
-                            "The removeFromGrid condition requires 2 arguments: " +
-                            "the object to be added, and the coordinates of " +
-                            "the grid tile." );
-        return undefined;
-    }
-
-    var objectName = params[ 0 ];
-    var gridCoord = params[ 1 ];
-
-    var object = context.find( "//" + objectName )[ 0 ];
-    var activeScenario = context.getCurrentScenario();
-    activeScenario.grid.removeFromGrid( object, gridCoord );
-}
-
-this.startStateParamSet.enableBlocklyTabs = function( params, context ) {
-    if ( !params || params.length < 1 ) {
-        self.logger.errorx( "enableBlocklyTabs",
-                            "The enableBlocklyTabs condition requires at least" +
-                            " one parameter: the name of a blockly tab to be enabled." );
-        return undefined;
-    }
-
-    var object;
-    context.clearBlocklyTabs();
-    for ( var i = 0; i < params.length; i++ ) {
-        object = context.find( "//" + params[ i ] )[ 0 ];
-        if ( object ) {
-            context.enableBlocklyTab( object.id );
-        }
-    }
-}
-
-this.startStateParamSet.loadToolbox = function( params, context ) {
-    if ( params && params.length !== 2 ) {
-        self.logger.errorx( "loadToolbox",
-                            "The loadToolbox condition takes two parameters:" +
-                            " The blockly node name and the path to the xml" +
-                            " blockly toolbox." );
-        return undefined;
-    }
-
-    var node = context.find( "//" + params[ 0 ] )[ 0 ];
-    var toolbox = params[ 1 ];
-    node.blockly_toolbox = toolbox;
-    if ( context.blockly_activeNodeID === node.id ) {
-        context.blockly_toolbox = toolbox;
-    }
-}
-
-//@ sourceURL=source/scenario.js
+//@ sourceURL=source/scenario/scenario.js

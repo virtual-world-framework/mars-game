@@ -17,13 +17,11 @@ this.initialize = function() {
     //   to objects that extend us.
     this.children.create( "triggerCondition", 
                           "http://vwf.example.com/node.vwf" );
+    this.children.create( "actions", 
+                          "http://vwf.example.com/node.vwf" );
 }
 
-this.postInit = function() {
-    
-}
-
-this.initTrigger = function( clauseGen, actionGen, context, definition ) {
+this.initTrigger = function( clauseGen, actionGen, definition, scenario ) {
     if ( !definition.triggerCondition || 
          ( definition.triggerCondition.length !== 1 ) ) {
         this.assert( false, "There must be exactly one trigger condition. " +
@@ -36,6 +34,8 @@ this.initTrigger = function( clauseGen, actionGen, context, definition ) {
         return false;
     }
 
+    this.spewToLog = this.spewToLog || definition.spewToLog;
+
     if ( definition.group ) {
         this.assert( definition.priority !== undefined,
                      "Triggers in groups must have a priority defined!",
@@ -47,15 +47,14 @@ this.initTrigger = function( clauseGen, actionGen, context, definition ) {
         this.scene.triggerGroupManager.addTrigger( this );
     }
 
-    var payload = { trigger: this };
-    clauseGen.generateObject( definition.triggerCondition[0],
+    var payload = { trigger: this, scenario: scenario };
+
+    clauseGen.generateObject( definition.triggerCondition[ 0 ],
                               this.triggerCondition, payload );
 
-    this.actions = [];
     for ( var i = 0; i < definition.actions.length; ++i ) {
-        var action = actionGen.executeFunction( definition.actions[ i ], 
-                                                context );
-        action && this.actions.push( action );
+        actionGen.generateObject( definition.actions[ i ], this.actions, 
+                                  payload );
     }
 
     return true;
@@ -94,17 +93,17 @@ this.check = function() {
 this.fire = function() {
     this.triggered();
 
-    this.spew( "checkFire", "Firing actions for trigger '" + this.name + 
-               "'." );
+    this.spew( "fire", "Firing actions for trigger '" + this.name + "'." );
 
-    for ( var i = 0; i < this.actions.length; ++i ) {
-        this.spew( "checkFire", "    Action " + i + " starting." );
-        this.actions[ i ] && this.actions[ i ]();
-        this.spew( "checkFire", "    Action " + i + " complete." );
+    for ( var i = 0; i < this.actions.children.length; ++i ) {
+        this.spew( "fire", "    Starting action " + i + " ('" + 
+                   this.actions.children[ i ].name + "')." );
+        this.actions.children[ i ].executeAction();
+        this.spew( "fire", "    Finished action " + i + " ('" + 
+                   this.actions.children[ i ].name + "')." );
     }
 
-    this.spew( "checkFire", "All actions complete for trigger '" + 
-               this.name + "'.");
+    this.spew( "fire", "All actions complete for trigger '" + this.name + "'.");
 }
 
 this.spew = function( str1, str2 ) {

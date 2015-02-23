@@ -13,21 +13,21 @@
 // limitations under the License.
 
 this.onGenerated = function( params, generator, payload ) {
-    if ( !params || ( params.length < 1 ) || ( params.length > 2 ) ) {
+    if ( !params || ( params.length < 1 ) || ( params.length > 3 ) ) {
         this.logger.errorx( "onGenerated", "This clause requires " + 
                             "one argument: the object, and takes " +
                             "an additional optional argument: the " +
-                            "type of failure. " );
+                            "type of failure. Finally, you can specify " +
+                            "the timeout threshold." );
         return false;
     }
 
-    if ( !this.initClause( params, generator, payload ) ) {
+    if ( !this.initOnEvent( params, generator, payload, params[ 2 ] ) ) {
         return false;
     }
 
     var object = this.findInScene( params[ 0 ] );
     this.failureType = params[ 1 ];
-    this.moveHasFailed = false;
 
     if ( !object ) {
         this.logger.errorx( "onGenerated", "Failed to find object named '" +
@@ -41,26 +41,17 @@ this.onGenerated = function( params, generator, payload ) {
         return false;
     }
 
-    object.moveFailed = this.events.add( this.onMoveFailed, this );
+    object.moveFailed = this.events.add( function( failureType ) { 
+                                            this.onMoveFailed( failureType ); 
+                                        }, this );
 
     return true;
 }
 
-this.onMoveFailed = function() {
-    this.moveHasFailed = true;
-    this.parentTrigger.checkFire();
+this.onMoveFailed = function( failureType ) {
+    if ( !this.failureType || ( this.failureType === failureType) ) {
+        this.onEvent(); 
+    } 
 }
 
-this.onEnabled = function() {
-    this.assert( this.moveHasFailed === false );
-}
-
-this.onDisabled = function() {
-    this.moveHasFailed = false;
-}
-
-this.evaluateClause = function() {
-    return this.moveHasFailed;
-}
-
-//@ sourceURL=source/triggers/clauses/clause_MoveFailed.js
+//@ sourceURL=source/triggers/clauses/clause_OnMoveFailed.js

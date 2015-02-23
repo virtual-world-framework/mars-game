@@ -21,6 +21,14 @@ properties:
 
   startState:
   - setProperty:
+    - rover3
+    - visible
+    - false
+  - setProperty:
+    - rover2
+    - visible
+    - false
+  - setProperty:
     - rover
     - battery
     - 8
@@ -81,15 +89,15 @@ children:
             - environmentWind
           - setObjective:
             - "Move forward to pick up your Helicam."
-          - setHUDProperty:
-            - camera_topDown
+          - setProperty:
+            - topDownButton
             - enabled
             - false
-          - setHUDProperty:
+          - setProperty:
             - graphButton
             - enabled
             - false
-          - setHUDProperty:
+          - setProperty:
             - tilesButton
             - enabled
             - false

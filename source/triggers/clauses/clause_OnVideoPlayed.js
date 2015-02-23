@@ -25,7 +25,7 @@ this.onGenerated = function( params, generator, payload ) {
 
     this.videosToCheck = this.extractStringArray( params[ 0 ] );
 
-    this.scene.videoPlayed = this.events.add( this.onPlayedEvent, this );
+    this.scene.videoPlayed = this.events.add( function( video ) { this.onPlayedEvent( video ); }, this );
 
     return true;
 }

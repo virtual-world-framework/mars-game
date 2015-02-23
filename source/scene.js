@@ -32,7 +32,66 @@ this.initialize = function() {
     this.initializeActiveCamera( this.gameCam.camera );
     this.setUpCameraListener();
     this.setUpRoverListeners();
-    this.gameCam.setCameraTarget( this.player.rover );
+    this.future( 3 ).applicationLoaded();
+}
+
+this.applicationLoaded = function() {
+    this.applicationState = "menu";
+}
+
+this.setApplicationState = function( state ) {
+    switch ( state ) {
+        case "loading":
+            break;
+        case "menu":
+            this.mainMenu.visible = true;
+            this.mainMenu.future( 0 ).setup();
+            // TODO: Consolidate game nodes
+            this.environment.visible = false;
+            this.player.visible = false;
+            this.airDust.visible = false;
+            this.smoke1.visible = false;
+            this.smoke2.visible = false;
+            this.smoke3.visible = false;
+            this.backdrop.visible = false;
+            this.sunLight.visible = false;
+            this.envLight.visible = false;
+            this.pickups.visible = false;
+            this.hud.visible = false;
+            break;
+        case "playing":
+            this.mainMenu.visible = false;
+            this.soundManager.stopSoundGroup( "music" );
+            this.gameCam.setCameraTarget( this.player.rover );
+            // TODO: Consolidate game nodes
+            this.environment.visible = true;
+            this.player.visible = true;
+            this.airDust.visible = true;
+            this.smoke1.visible = true;
+            this.smoke2.visible = true;
+            this.smoke3.visible = true;
+            this.backdrop.visible = true;
+            this.sunLight.visible = true;
+            this.envLight.visible = true;
+            this.pickups.visible = true;
+            this.hud.visible = true;
+            break;
+        default:
+            this.logger.errorx( "setApplicationState", "Invalid application "
+                + "state: \'" + state + "\'" );
+            return;
+    }
+    this.applicationState = state;
+}
+
+this.newGame = function() {
+    this.applicationState = "playing";
+    this.activeScenarioPath = "introScreenScenario";
+}
+
+this.continueGame = function( scenario ) {
+    this.applicationState = "playing";
+    this.activeScenarioPath = scenario;
 }
 
 this.setScenario = function( path ) {
@@ -111,6 +170,11 @@ this.getCurrentScenario = function() {
     return this.find( this.activeScenarioPath )[ 0 ];
 }
 
+this.resetHUDState = function() {
+    this.hud.setAllBlinking( false );
+    this.hud.setAllEnabled( true );
+}
+
 this.addAlert = function( log ) {
     if ( this.alerts !== undefined ) {
         var fontSize = parseInt( $( ".alertText").css( "font-size" ) );
@@ -121,9 +185,10 @@ this.addAlert = function( log ) {
 }
 
 this.addSubtitle = function( log, time ) {
-
-    if ( this.subtitles !== undefined ) {    
-        this.subtitles.addSubtitle( log, time );
+    if ( this.subtitles !== undefined ) {
+        var currentStrings = this.subtitles.strings;
+        currentStrings.push( log );
+        this.subtitles.strings = currentStrings;
     }
 }
 
@@ -167,7 +232,10 @@ function calcGridBounds( grid ) {
 this.executeBlock = function ( block, action ) {
     var blockName = block[ 0 ];
     var blockID = block[ 1 ];
-    this.blockExecuted( blockName, blockID );
+
+    if( scenario.name !== "scenario_dummy" ){
+        this.blockExecuted( blockName, blockID );
+    }
 
     var nodeID = action[ 0 ];
     var methodName = action[ 1 ];
@@ -190,28 +258,34 @@ this.setUpCameraListener = function() {
 }
 
 this.setUpRoverListeners = function() {
-    this.scenarioChanged = ( function( scenarioName ) {
+    this.scenarioChanged = this.events.add( function( scenarioName ) {
         this.player.rover.findAndSetCurrentGrid( scenarioName );
+        this.player.rover2.findAndSetCurrentGrid( scenarioName );
+        this.player.rover3.findAndSetCurrentGrid( scenarioName );
         //this.player.rover.findAndSetCurrentGrid( this.activeScenarioPath );
-    } ).bind( this );
+    }, this );
      //rover.findAndSetCurrentGrid( this.activeScenarioPath );
 }
 
 this.displayTiles = function( isVisible ) {
-    this.gridTileGraph.mapTiles.groupVisible = isVisible;
-    if ( isVisible && this.gameCam.mountName !== "topDown" ) {
-        this.gameCam.setCameraMount( "topDown" );
+    if ( isVisible !== this.gridTileGraph.mapTiles.groupVisible ) {
+        this.gridTileGraph.mapTiles.groupVisible = isVisible;
+        if ( isVisible && this.gameCam.mountName !== "topDown" ) {
+            this.gameCam.setCameraMount( "topDown" );
+        }
+        this.toggledTiles( isVisible );
     }
-    this.toggledTiles( isVisible );
 }
 
 this.displayGraph = function( isVisible ) {
-    this.blocklyGraph.setGraphVisibility( isVisible );
-    if ( isVisible && this.gameCam.mountName !== "topDown" ) {
-        this.gameCam.setCameraMount( "topDown" );
+    if ( isVisible !== this.blocklyGraph.graphVisible ) {
+        this.blocklyGraph.graphVisible = isVisible;
+        if ( isVisible && this.gameCam.mountName !== "topDown" ) {
+            this.gameCam.setCameraMount( "topDown" );
+        }
+        this.toggledGraph( isVisible );
+        this.blocklyGraph.blocklyLine.visible = isVisible;
     }
-    this.toggledGraph( isVisible );
-    this.blocklyGraph.blocklyLine.visible = isVisible;
 }
 
 this.setCinematicView = function( pose ) {
@@ -234,7 +308,7 @@ this.restartGame = function() {
     this.sceneBlackboard = {};
     this.soundManager.stopAllSoundInstances();
     this.storedScenario( this.activeScenarioPath );
-    this.activeScenarioPath = "mainMenuScenario";
+    this.applicationState = "menu";
 }
 
 this.attemptLogin = function( userID ) {
@@ -253,6 +327,51 @@ this.loginSucceeded = function( scenarioName ) {
 this.loadGame = function( scenarioName ) {
     this.activeScenarioPath = scenarioName;
     this.future( 0 ).loadedGame();
+}
+
+this.blinkTab = function( nodeName ) {
+    switch ( nodeName ) {
+        case "rover":
+            this.roverTabBlinking = true;
+            break;
+        case "graph":
+            this.graphTabBlinking = true;
+            break;
+        default:
+            this.logger.warnx( "blinkTab", "Node " + nodeName + " not handled." );
+            break;
+    }
+}
+
+this.stopBlinkTab = function( nodeName ) {
+    switch ( nodeName ) {
+        case "rover":
+            this.roverTabBlinking = false;
+            break;
+        case "graph":
+            this.graphTabBlinking = false;
+            break;
+        default:
+            this.logger.warnx( "stopBlinkTab", "Node " + nodeName + " not handled." );
+            break;
+    }
+}
+
+this.playVideo = function( src ) {
+    var id = getVideoIdFromSrc( src );
+    if ( isNaN( id ) || id < 0 || id >= videos.length ) {
+        id = loadVideo( src );
+    }
+    $( "#transitionScreen" ).fadeIn();
+    playVideo( id );
+}
+
+this.pauseGame = function() {
+    this.paused();
+}
+
+this.unpauseGame = function() {
+    this.unpaused();
 }
 
 //@ sourceURL=source/scene.js

@@ -14,8 +14,8 @@
 
 this.onGenerated = function( params, generator, payload ) {
     if ( !params || ( params.length < 1 ) || ( params.length > 2 ) ) {
-        this.logger.warnx( "onGenerated", "this clause takes the name(s) of " +
-                            "the HUD element(s), along with an optional " +
+        this.logger.warnx( "onGenerated", "this clause takes the name of " +
+                            "the HUD element, along with an optional " +
                             "timeout threshold." );
     }
 
@@ -23,21 +23,20 @@ this.onGenerated = function( params, generator, payload ) {
         return false;
     }
 
-    this.hudNames = this.extractStringArray( params[ 0 ] );
-    if ( this.hudNames.length === 0 ) {
-        this.logger.errorx( "onGenerated", "No HUD names found!" );
+    var name = params[ 0 ];
+    this.hudElement = this.scene.hud[ name ];
+    if ( !this.hudElement ) {
+        this.logger.errorx( "onGenerated", "No HUD element found!" );
         return false;
     }
 
-    this.scene.mouseOverHUD = this.events.add( this.onEvent, this );
+    this.hudElement.onMouseOver = this.events.add( function() { this.onEvent(); }, this );
 
     return true;
 }
 
 this.onMouseOverEvent = function( hudName ) {
-    if ( this.hudNames.indexOf( hudName ) >= 0 ) {
-        this.onEvent();
-    }
+    this.onEvent();
 }
 
 //@ sourceURL=source/triggers/clauses/clause_OnHUDMouseOver.js

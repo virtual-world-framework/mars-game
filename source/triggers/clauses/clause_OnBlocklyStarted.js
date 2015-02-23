@@ -35,7 +35,7 @@ this.onGenerated = function( params, generator, payload ) {
         var object = blocklyObjects[ i ];
 
         if ( object.blocklyStarted ) {
-            object.blocklyStarted = this.events.add( this.onEvent, this );
+            object.blocklyStarted = this.events.add( function() { this.onEvent(); }, this );
         } else {
             this.logger.warnx( "onGenerated", "blocklyStarted event not " +
                                "found for '" + object.name + "'." );
@@ -47,14 +47,14 @@ this.onGenerated = function( params, generator, payload ) {
         var object = blocklyObjects[ i ];
 
         if ( object.blocklyStopped ) {
-            object.blocklyStopped = this.events.add( this.reset, this );
+            object.blocklyStopped = this.events.add( function() { this.reset(); }, this );
         } else {
             this.logger.warnx( "onGenerated", "blocklyStopped event not " +
                                "found for '" + object.name + "'." );
         }
 
         if ( object.blocklyErrored ) {
-            object.blocklyErrored = this.events.add( this.reset, this );
+            object.blocklyErrored = this.events.add( function() { this.reset(); }, this );
         } else {
             this.logger.warnx( "onGenerated", "blocklyErrored event not " +
                                "found for '" + object.name + "'." );
