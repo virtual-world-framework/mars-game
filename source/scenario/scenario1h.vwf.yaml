@@ -83,7 +83,7 @@ children:
             - environmentWind
           - setObjective:
             - "Move to the far end of the crash site and pick up the radio module."
-          - setHUDProperty:
+          - setProperty:
             - graphButton
             - enabled
             - false

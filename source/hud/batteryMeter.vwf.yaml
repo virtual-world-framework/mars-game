@@ -12,19 +12,24 @@
 # See the License for the specific language governing permissions and 
 # limitations under the License.
 
---- 
-extends: source/triggers/clauses/clauseProto_OnEvent.vwf
-
-implements: 
-  - http://vwf.example.com/sceneGetter.vwf
-
+---
+extends: http://vwf.example.com/hud/element.vwf
 properties:
-  hudElement:
-
+  images:
+    frame: "assets/images/hud/rover_frame.png"
+    portrait: "assets/images/hud/rover_portrait.png"
+  width: 128
+  height: 128
+  visible: true
+  enabled: true
+  alignH: left
+  alignV: top
+  offsetH: 30
+  offsetV: 30
+  battery: 100
+  maxBattery: 100
 methods:
-  # We need our own onEvent method that screens the events and decides which to
-  #   track and which to ignore.
-  onMouseOverEvent:
-
+  draw:
+  setUpListeners:
 scripts:
-- source: source/triggers/clauses/clause_OnHUDMouseOver.js
+  - source: source/hud/batteryMeter.js

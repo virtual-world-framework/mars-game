@@ -90,27 +90,27 @@ children:
           - blinkHUDElement:
             - cameraSelector
           - blinkHUDElement:
-            - camera_topDown
+            - topDownButton
           - setObjective:
             - "Activate Helicam view to inspect the crash site."
-          - setHUDProperty:
+          - setProperty:
             - graphButton
             - enabled
             - false
-          - setHUDProperty:
+          - setProperty:
             - tilesButton
             - enabled
             - false
-          - setHUDProperty:
+          - setProperty:
             - blocklyButton
             - enabled
             - false
-          - setHUDProperty:
-            - camera_thirdPerson
+          - setProperty:
+            - thirdPersonButton
             - enabled
             - false
-          - setHUDProperty:
-            - camera_firstPerson
+          - setProperty:
+            - firstPersonButton
             - enabled
             - false
           - setThirdPersonStartPose:
@@ -136,7 +136,7 @@ children:
           - showAlert:
             - "Right click to move camera!"
           - stopBlinkHUDElement:
-            - camera_topDown
+            - topDownButton
           - playSound:
             - musicSuccessShort
           - playSound:

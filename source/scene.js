@@ -57,6 +57,7 @@ this.setApplicationState = function( state ) {
             this.sunLight.visible = false;
             this.envLight.visible = false;
             this.pickups.visible = false;
+            this.hud.visible = false;
             break;
         case "playing":
             this.mainMenu.visible = false;
@@ -73,6 +74,7 @@ this.setApplicationState = function( state ) {
             this.sunLight.visible = true;
             this.envLight.visible = true;
             this.pickups.visible = true;
+            this.hud.visible = true;
             break;
         default:
             this.logger.errorx( "setApplicationState", "Invalid application "
@@ -166,6 +168,11 @@ this.getScenarios = function() {
 this.getCurrentScenario = function() {
     // TODO: make this handle more than one scenario
     return this.find( this.activeScenarioPath )[ 0 ];
+}
+
+this.resetHUDState = function() {
+    this.hud.setAllBlinking( false );
+    this.hud.setAllEnabled( true );
 }
 
 this.addAlert = function( log ) {
@@ -322,46 +329,6 @@ this.loadGame = function( scenarioName ) {
     this.future( 0 ).loadedGame();
 }
 
-this.blinkHUD = function( elementID ) {
-    switch ( elementID ) {
-        case "blocklyButton":
-            this.blocklyBlinking = true;
-            break;
-        case "graphButton":
-            this.graphBlinking = true;
-            break;
-        case "tilesButton":
-            this.tilesBlinking = true;
-            break;
-        case "objective":
-            this.objectiveBlinking = true;
-            break;
-        default:
-            this.logger.warnx( "blinkHUD", "Element " + elementID + " not handled." );
-            break;
-    }
-}
-
-this.stopBlinkHUD = function( elementID ) {
-    switch ( elementID ) {
-        case "blocklyButton":
-            this.blocklyBlinking = false;
-            break;
-        case "graphButton":
-            this.graphBlinking = false;
-            break;
-        case "tilesButton":
-            this.tilesBlinking = false;
-            break;
-        case "objective":
-            this.objectiveBlinking = false;
-            break;
-        default:
-            this.logger.warnx( "stopBlinkHUD", "Element " + elementID + " not handled." );
-            break;
-    }
-}
-
 this.blinkTab = function( nodeName ) {
     switch ( nodeName ) {
         case "rover":
@@ -397,6 +364,14 @@ this.playVideo = function( src ) {
     }
     $( "#transitionScreen" ).fadeIn();
     playVideo( id );
+}
+
+this.pauseGame = function() {
+    this.paused();
+}
+
+this.unpauseGame = function() {
+    this.unpaused();
 }
 
 //@ sourceURL=source/scene.js

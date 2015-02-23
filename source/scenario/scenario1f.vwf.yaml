@@ -78,7 +78,7 @@ children:
             - environmentWind
           - setObjective:
             - "Turn around to face back toward the crash pod."
-          - setHUDProperty:
+          - setProperty:
             - graphButton
             - enabled
             - false

@@ -34,7 +34,7 @@ this.onGenerated = function( params, generator, payload ) {
 }
 
 this.executeAction = function() {
-    this.scene.setObjective( this.text );
+    this.scene.hud.objective.text = this.text;
 }
 
 //@ sourceURL=source/triggers/actions/action_setObjective.js

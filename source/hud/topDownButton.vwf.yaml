@@ -12,19 +12,29 @@
 # See the License for the specific language governing permissions and 
 # limitations under the License.
 
---- 
-extends: source/triggers/clauses/clauseProto_OnEvent.vwf
-
-implements: 
+---
+extends: http://vwf.example.com/hud/element.vwf
+implements:
   - http://vwf.example.com/sceneGetter.vwf
-
 properties:
-  hudElement:
-
+  images:
+    icon: "assets/images/hud/camera_topdown.png"
+  width: 22
+  height: 22
+  visible: true
+  enabled: true
+  alignH: right
+  alignV: top
+  offsetH: -35
+  offsetV: 80
+  isBlinking: false
+  lastBlinkTime: 0
+  blinkInterval: 0.25
+  blinkDuration: 0.25
+  mode: topDown
 methods:
-  # We need our own onEvent method that screens the events and decides which to
-  #   track and which to ignore.
-  onMouseOverEvent:
-
+  draw:
+events:
+  onClick:
 scripts:
-- source: source/triggers/clauses/clause_OnHUDMouseOver.js
+  - source: source/hud/topDownButton.js

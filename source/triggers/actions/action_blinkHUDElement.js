@@ -20,18 +20,19 @@ this.onGenerated = function( params, generator, payload ) {
     if ( !params || ( params.length !== 1 ) ) {
         this.logger.errorx( "onGenerated", 
                             "This action requires one argument: " +
-                            "the HUD element ID." );
+                            "the HUD element name." );
         return false;
     }
 
-    this.elementID = params[ 0 ];
+    var elementName = params[ 0 ];
+    this.element = this.scene.hud[ elementName ];
 
     // TODO: can we validate that the HUD element exists?  Brett?
     return true;
 }
 
 this.executeAction = function() {
-    this.scene.blinkHUD( this.elementID );
+    this.element.isBlinking = true;
 }
 
 //@ sourceURL=source/triggers/actions/action_blinkHUDElement.js

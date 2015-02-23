@@ -12,13 +12,26 @@
 # See the License for the specific language governing permissions and 
 # limitations under the License.
 
---- 
-extends: source/triggers/actions/actionProto.vwf
-
+---
+extends: http://vwf.example.com/hud/element.vwf
 properties:
-  elementID:
-  propertyName:
-  value:
-
+  width: 0
+  height: 50
+  visible: true
+  enabled: true
+  alignH: center
+  alignV: top
+  offsetH: 0
+  offsetV: 100
+  text: ""
+  newAlert: false
+  timeOfAlert: 0
+  opaqueTime: 3
+  fadeTime: 1
+  timeElapsed: 0
+methods:
+  draw:
+  addAlert:
+  setUpListeners:
 scripts:
-- source: source/triggers/actions/action_setHUDProperty.js
+  source: source/hud/alertDisplay.js

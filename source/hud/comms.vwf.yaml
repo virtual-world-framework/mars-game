@@ -12,19 +12,26 @@
 # See the License for the specific language governing permissions and 
 # limitations under the License.
 
---- 
-extends: source/triggers/clauses/clauseProto_OnEvent.vwf
-
-implements: 
-  - http://vwf.example.com/sceneGetter.vwf
-
+---
+extends: http://vwf.example.com/hud/element.vwf
 properties:
-  hudElement:
-
+  images:
+    background: "assets/images/hud/communication_bg.png"
+    frame: "assets/images/hud/communication_frame.png"
+    characterImage:
+  width: 100
+  height: 150
+  visible: true
+  enabled: true
+  alignH: left
+  alignV: bottom
+  offsetH: 10
+  offsetV: -10
+  interval: 0
+  direction: 0
 methods:
-  # We need our own onEvent method that screens the events and decides which to
-  #   track and which to ignore.
-  onMouseOverEvent:
-
+  draw:
+  addCharacterImage:
+  removeCharacterImage:
 scripts:
-- source: source/triggers/clauses/clause_OnHUDMouseOver.js
+  - source: source/hud/comms.js

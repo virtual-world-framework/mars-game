@@ -12,19 +12,28 @@
 # See the License for the specific language governing permissions and 
 # limitations under the License.
 
---- 
-extends: source/triggers/clauses/clauseProto_OnEvent.vwf
-
-implements: 
-  - http://vwf.example.com/sceneGetter.vwf
-
+---
+extends: http://vwf.example.com/hud/element.vwf
+implements:
+ - http://vwf.example.com/sceneGetter.vwf
 properties:
-  hudElement:
-
+  images:
+    icon: "assets/images/hud/options_button.png"
+  width: 64
+  height: 64
+  visible: true
+  enabled: true
+  alignH: right
+  alignV: bottom
+  offsetH: -248
+  offsetV: -30
+  isBlinking: false
+  lastBlinkTime: 0
+  blinkInterval: 0.25
+  blinkDuration: 0.25
 methods:
-  # We need our own onEvent method that screens the events and decides which to
-  #   track and which to ignore.
-  onMouseOverEvent:
-
+  draw:
+events:
+  onClick:
 scripts:
-- source: source/triggers/clauses/clause_OnHUDMouseOver.js
+  - source: source/hud/optionsButton.js
