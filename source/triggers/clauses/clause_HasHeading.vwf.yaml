@@ -13,7 +13,7 @@
 # limitations under the License.
 
 --- 
-extends: source/triggers/clauses/clauseProto.vwf
+extends: clauseProto.vwf
 
 implements: 
   - http://vwf.example.com/sceneGetter.vwf
@@ -23,4 +23,4 @@ properties:
   targetHeading:
 
 scripts:
-- source: source/triggers/clauses/clause_HasHeading.js
+- source: clause_HasHeading.js

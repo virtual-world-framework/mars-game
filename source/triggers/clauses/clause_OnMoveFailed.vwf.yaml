@@ -13,7 +13,7 @@
 # limitations under the License.
 
 --- 
-extends: source/triggers/clauses/clauseProto_OnEvent.vwf
+extends: clauseProto_OnEvent.vwf
 
 implements: 
   - http://vwf.example.com/sceneGetter.vwf
@@ -22,4 +22,4 @@ properties:
   failureType:
 
 scripts:
-- source: source/triggers/clauses/clause_OnMoveFailed.js
+- source: clause_OnMoveFailed.js

@@ -13,10 +13,10 @@
 # limitations under the License.
 
 --- 
-extends: source/triggers/actions/actionProto.vwf
+extends: actionProto.vwf
 
 properties:
   pose:
 
 scripts:
-- source: source/triggers/actions/action_setCinematicCameraView.js
+- source: action_setCinematicCameraView.js

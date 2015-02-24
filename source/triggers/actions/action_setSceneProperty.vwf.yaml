@@ -13,11 +13,11 @@
 # limitations under the License.
 
 --- 
-extends: source/triggers/actions/actionProto.vwf
+extends: actionProto.vwf
 
 properties:
   propertyName:
   propertyValue:
 
 scripts:
-- source: source/triggers/actions/action_setSceneProperty.js
+- source: action_setSceneProperty.js

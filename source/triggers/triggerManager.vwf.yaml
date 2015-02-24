@@ -60,4 +60,4 @@ methods:
   setIsEnabled$:
 
 scripts:
-  - source: source/triggers/triggerManager.js
+  - source: triggerManager.js

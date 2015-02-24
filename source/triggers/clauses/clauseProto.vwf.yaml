@@ -15,7 +15,7 @@
 # A generated object prototype for clauses. 
 
 --- 
-extends: source/triggers/generators/generatedObject.vwf
+extends: ../generators/generatedObject.vwf
 
 properties:
   # The trigger that this clause belongs to.
@@ -50,4 +50,4 @@ methods:
   onTriggered:
 
 scripts:
-- source: source/triggers/clauses/clauseProto.js
+- source: clauseProto.js

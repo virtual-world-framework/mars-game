@@ -36,4 +36,4 @@ methods:
 events:
   onClick:
 scripts:
-  - source: source/hud/optionsButton.js
+  - source: optionsButton.js

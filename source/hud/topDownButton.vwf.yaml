@@ -37,4 +37,4 @@ methods:
 events:
   onClick:
 scripts:
-  - source: source/hud/topDownButton.js
+  - source: topDownButton.js

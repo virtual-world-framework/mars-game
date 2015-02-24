@@ -38,4 +38,4 @@ methods:
   setUpListeners:
   setActiveMode:
 scripts:
-  - source: source/hud/cameraSelector.js
+  - source: cameraSelector.js

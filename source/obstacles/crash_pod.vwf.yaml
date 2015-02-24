@@ -13,7 +13,7 @@
 # limitations under the License.
 
 ---
-extends: source/gridObstacle.vwf
+extends: ../gridObstacle.vwf
 source: ../../assets/3d/crash_pod/crash_pod.dae
 type: model/vnd.collada+xml
 properties:

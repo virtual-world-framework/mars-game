@@ -13,7 +13,7 @@
 # limitations under the License.
 
 --- 
-extends: source/triggers/actions/actionProto.vwf
+extends: actionProto.vwf
 
 properties:
   targetNode:
@@ -21,4 +21,4 @@ properties:
   panTime:
 
 scripts:
-- source: source/triggers/actions/action_panCamera.js
+- source: action_panCamera.js

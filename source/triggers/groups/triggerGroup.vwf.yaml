@@ -36,6 +36,14 @@ properties:
   #   and .12 seconds), so that all the checks won't happen at the same time.
   checkFrequency$:
 
+  isChecking$:
+    set: |
+      if ( value ) {
+        this.checkTriggers$();
+      }
+      this.isChecking$ = value;
+    value: false
+
 methods:
   # Add a trigger to its group, creating the group if necessary
   # Arguments:
@@ -57,4 +65,4 @@ children:
     extends: http://vwf.example.com/node.vwf
 
 scripts:
-  - source: source/triggers/groups/triggerGroup.js
+  - source: triggerGroup.js

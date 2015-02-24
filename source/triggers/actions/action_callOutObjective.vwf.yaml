@@ -13,10 +13,10 @@
 # limitations under the License.
 
 --- 
-extends: source/triggers/actions/actionProto.vwf
+extends: actionProto.vwf
 
 properties:
   tileCoords:
 
 scripts:
-- source: source/triggers/actions/action_callOutObjective.js
+- source: action_callOutObjective.js

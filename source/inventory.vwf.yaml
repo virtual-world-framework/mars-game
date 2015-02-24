@@ -32,4 +32,4 @@ methods:
   empty:
 children: 
 scripts: 
-- source: source/inventory.js
+- source: inventory.js

@@ -43,4 +43,13 @@ this.insertTrigger$ = function( trigger ) {
     group.addTrigger( trigger );
 }
 
+this.setCheckingGroups$ = function( value ) {
+    var i, names, group;
+    names = this.groupNames;
+    for ( i = 0; i < names.length; i++ ) {
+        group = this.groups.find( names[ i ] )[ 0 ];
+        group.isChecking$ = value;
+    }
+}
+
 //@ sourceURL=source/triggers/groups/triggerGroupManager.js

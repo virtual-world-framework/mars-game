@@ -15,7 +15,7 @@
 ---
 extends: http://vwf.example.com/node3.vwf
 implements:
-  - source/griddable.vwf
+  - griddable.vwf
 properties:
 
   # gridSize - How many grid squares the object extends from its origin

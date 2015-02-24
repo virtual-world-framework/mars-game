@@ -13,10 +13,10 @@
 # limitations under the License.
 
 --- 
-extends: source/triggers/actions/actionProto.vwf
+extends: actionProto.vwf
 
 properties:
   objectName:
 
 scripts:
-- source: source/triggers/actions/action_blinkBlocklyTab.js
+- source: action_blinkBlocklyTab.js

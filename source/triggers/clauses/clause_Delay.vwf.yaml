@@ -13,7 +13,7 @@
 # limitations under the License.
 
 --- 
-extends: source/triggers/clauses/clauseProto.vwf
+extends: clauseProto.vwf
 
 implements: 
   - http://vwf.example.com/assert.vwf
@@ -39,4 +39,4 @@ methods:
 
 
 scripts:
-- source: source/triggers/clauses/clause_Delay.js
+- source: clause_Delay.js

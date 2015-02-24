@@ -15,7 +15,7 @@
 # The clause factory creates clauses from yaml declarations. 
 
 --- 
-extends: source/triggers/generators/generatorProto.vwf
+extends: generatorProto.vwf
 
 properties:
 
@@ -111,4 +111,4 @@ properties:
     onGameStarted: "source/triggers/clauses/clause_OnGameStarted.vwf"
 
 scripts:
-- source: source/triggers/generators/generator_Clause.js
+- source: generator_Clause.js

@@ -13,11 +13,11 @@
 # limitations under the License.
 
 --- 
-extends: source/triggers/actions/actionProto.vwf
+extends: actionProto.vwf
 
 properties:
   objectName:
   gridCoord:
 
 scripts:
-- source: source/triggers/actions/action_removeFromGrid.js
+- source: action_removeFromGrid.js

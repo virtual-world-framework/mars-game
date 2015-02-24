@@ -1,5 +1,5 @@
 ---
-extends: source/scenario/scenario.vwf
+extends: ../scenario/scenario.vwf
 properties:
   scenarioName: scenario1h
   scenePath: /
@@ -7,7 +7,7 @@ properties:
 
 children:
   triggerManager:
-    extends: source/triggers/triggerManager.vwf
+    extends: ../triggers/triggerManager.vwf
     properties: 
       triggers:
         beginScenario_Intro:

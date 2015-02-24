@@ -13,11 +13,11 @@
 # limitations under the License.
 
 --- 
-extends: source/triggers/actions/actionProto.vwf
+extends: actionProto.vwf
 
 properties:
   failureType:
   message:
 
 scripts:
-- source: source/triggers/actions/action_scenarioFailure.js
+- source: action_scenarioFailure.js

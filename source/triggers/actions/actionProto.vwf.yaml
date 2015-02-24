@@ -16,7 +16,7 @@
 
 --- 
 
-extends: source/triggers/generators/generatedObject.vwf
+extends: ../generators/generatedObject.vwf
 
 implements: 
   - http://vwf.example.com/sceneGetter.vwf
@@ -54,4 +54,4 @@ methods:
   executeAction: 
 
 scripts:
-- source: source/triggers/actions/actionProto.js
+- source: actionProto.js

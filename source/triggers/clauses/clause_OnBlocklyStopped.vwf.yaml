@@ -13,11 +13,11 @@
 # limitations under the License.
 
 --- 
-extends: source/triggers/clauses/clauseProto_OnEvent.vwf
+extends: clauseProto_OnEvent.vwf
 
 implements: 
   - http://vwf.example.com/sceneGetter.vwf
-  - source/blocklyObjectGetter.vwf
+  - ../../blocklyObjectGetter.vwf
 
 scripts:
-- source: source/triggers/clauses/clause_OnBlocklyStopped.js
+- source: clause_OnBlocklyStopped.js

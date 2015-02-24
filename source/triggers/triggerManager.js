@@ -15,6 +15,9 @@
 this.initialize = function() {
     // We have to create these here because VWF doesn't give our children
     //   to objects that extend us.
+    if ( this.uri ) {
+        return;
+    }
     this.children.create( "clauseGen", 
                           "source/triggers/generators/generator_Clause.vwf" );
 
