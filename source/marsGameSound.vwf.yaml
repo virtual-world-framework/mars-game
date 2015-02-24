@@ -468,4 +468,4 @@ methods:
   startSubtitle:
   stopSubtitle:
 scripts:
-- source: source/marsGameSound.js
+- source: marsGameSound.js

@@ -16,7 +16,7 @@
 
 --- 
 
-extends: source/triggers/generators/generatorProto.vwf
+extends: generatorProto.vwf
 
 properties:
 
@@ -123,4 +123,4 @@ properties:
     loadToolbox: "source/triggers/actions/action_loadToolbox.vwf"
 
 scripts:
-- source: source/triggers/generators/generator_Action.js
+- source: generator_Action.js

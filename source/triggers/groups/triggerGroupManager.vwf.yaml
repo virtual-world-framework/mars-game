@@ -29,6 +29,12 @@ properties:
   #   be attached.
   groupNames: []
 
+  checkingGroups:
+    set: |
+      this.setCheckingGroups$( value );
+      this.checkingGroups = value;
+    value: false
+
 methods:
   # Add a trigger to its group, creating the group if necessary
   # NOTE: this should only be called with triggers that belong to a group
@@ -44,10 +50,12 @@ methods:
   # called on a future(0) from addTrigger.  Should not be called externally.
   insertTrigger$:
 
+  setCheckingGroups$:
+
 children:
   # This will hold all of the trigger groups
   groups:
     extends: http://vwf.example.com/node.vwf
 
 scripts:
-  - source: source/triggers/groups/triggerGroupManager.js
+  - source: triggerGroupManager.js

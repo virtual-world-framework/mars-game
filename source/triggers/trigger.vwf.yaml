@@ -84,4 +84,4 @@ events:
   triggered:
 
 scripts:
-- source: source/triggers/trigger.js
+- source: trigger.js

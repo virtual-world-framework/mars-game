@@ -13,14 +13,14 @@
 # limitations under the License.
 
 --- 
-extends: source/triggers/clauses/clauseProto.vwf
+extends: clauseProto.vwf
 
 implements: 
   - http://vwf.example.com/sceneGetter.vwf
-  - source/blocklyObjectGetter.vwf
+  - ../../blocklyObjectGetter.vwf
 
 properties:
   blocklyObjects:
 
 scripts:
-- source: source/triggers/clauses/clause_IsBlocklyExecuting.js
+- source: clause_IsBlocklyExecuting.js

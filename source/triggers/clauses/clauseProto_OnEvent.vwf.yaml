@@ -18,7 +18,7 @@
 #   to have been.
 
 --- 
-extends: source/triggers/clauses/clauseProto.vwf
+extends: clauseProto.vwf
 
 properties:
   # how recent does the event have to have been?
@@ -47,4 +47,4 @@ methods:
   reset:
 
 scripts:
-- source: source/triggers/clauses/clauseProto_OnEvent.js
+- source: clauseProto_OnEvent.js

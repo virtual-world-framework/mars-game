@@ -14,7 +14,10 @@
 
 this.initialize = function() {
     // An action generator for creating the starting actions (which fire every
-    //  time the scenario starts)/
+    //  time the scenario starts)
+    if ( this.uri ) {
+        return;
+    }
     this.children.create( "actionGen",
                           "source/triggers/generators/generator_Action.vwf" );
 

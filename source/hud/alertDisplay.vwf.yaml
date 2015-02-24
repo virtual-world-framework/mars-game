@@ -34,4 +34,4 @@ methods:
   addAlert:
   setUpListeners:
 scripts:
-  source: source/hud/alertDisplay.js
+  - source: alertDisplay.js

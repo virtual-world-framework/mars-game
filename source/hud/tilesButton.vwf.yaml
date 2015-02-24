@@ -36,4 +36,4 @@ methods:
 events:
   onClick:
 scripts:
-  - source: source/hud/tilesButton.js
+  - source: tilesButton.js

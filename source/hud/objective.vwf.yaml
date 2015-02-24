@@ -37,4 +37,4 @@ properties:
 methods:
   draw:
 scripts:
-  - source: source/hud/objective.js
+  - source: objective.js

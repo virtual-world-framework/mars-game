@@ -25,5 +25,5 @@ methods:
   getBlocklyObjects:
 
 scripts:
-- source: source/blocklyObjectGetter.js
+- source: blocklyObjectGetter.js
 

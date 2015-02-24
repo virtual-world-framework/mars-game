@@ -13,7 +13,7 @@
 # limitations under the License.
 
 ---
-extends: source/scenario/scenario.vwf
+extends: ../scenario/scenario.vwf
 properties:
   scenarioName: scenario2e
 
@@ -62,7 +62,7 @@ properties:
 
 children:
   triggerManager:
-    extends: source/triggers/triggerManager.vwf
+    extends: ../triggers/triggerManager.vwf
     properties: 
       triggers:
         beginScenario_2e:

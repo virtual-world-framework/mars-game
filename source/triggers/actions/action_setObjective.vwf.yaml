@@ -13,10 +13,10 @@
 # limitations under the License.
 
 --- 
-extends: source/triggers/actions/actionProto.vwf
+extends: actionProto.vwf
 
 properties:
   text:
 
 scripts:
-- source: source/triggers/actions/action_setObjective.js
+- source: action_setObjective.js

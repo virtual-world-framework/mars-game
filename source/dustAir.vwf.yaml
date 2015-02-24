@@ -35,4 +35,4 @@ methods:
   setUpEvents:
   followCamera:
 scripts:
-  - source: source/dustSystem.js
+  - source: dustSystem.js

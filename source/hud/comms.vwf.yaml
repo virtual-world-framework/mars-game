@@ -34,4 +34,4 @@ methods:
   addCharacterImage:
   removeCharacterImage:
 scripts:
-  - source: source/hud/comms.js
+  - source: comms.js

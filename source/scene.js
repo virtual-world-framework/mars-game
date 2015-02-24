@@ -58,6 +58,7 @@ this.setApplicationState = function( state ) {
             this.envLight.visible = false;
             this.pickups.visible = false;
             this.hud.visible = false;
+            this.triggerGroupManager.checkingGroups = false;
             break;
         case "playing":
             this.mainMenu.visible = false;
@@ -75,6 +76,7 @@ this.setApplicationState = function( state ) {
             this.envLight.visible = true;
             this.pickups.visible = true;
             this.hud.visible = true;
+            this.triggerGroupManager.checkingGroups = true;
             break;
         default:
             this.logger.errorx( "setApplicationState", "Invalid application "

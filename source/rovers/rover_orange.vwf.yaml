@@ -13,8 +13,8 @@
 # limitations under the License.
 
 ---
-extends: source/rover.vwf
-implements: [ "http://vwf.example.com/blockly/controller.vwf", "source/griddable.vwf" ]
+extends: ../rover.vwf
+implements: [ "http://vwf.example.com/blockly/controller.vwf", "griddable.vwf" ]
 source: ../../assets/3d/Rover/rover_grey_orange.dae
 type: model/vnd.collada+xml
 properties:
