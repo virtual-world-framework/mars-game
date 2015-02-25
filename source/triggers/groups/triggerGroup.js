@@ -42,7 +42,7 @@ this.checkTriggers$ = function() {
     var haveTriggerToFire = false;
     for ( var i = 0; i < this.triggers.length; ++i ) {
         var trigger = this.triggers[ i ];
-        this.canFire$[ i ] = trigger.isEnabled && trigger.check();
+        this.canFire$[ i ] = trigger.check();
         haveTriggerToFire = haveTriggerToFire || this.canFire$[ i ];
     }
 
