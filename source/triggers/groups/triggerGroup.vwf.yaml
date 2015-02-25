@@ -38,10 +38,10 @@ properties:
 
   isChecking$:
     set: |
+      this.isChecking$ = value;
       if ( value ) {
         this.checkTriggers$();
       }
-      this.isChecking$ = value;
     value: false
 
 methods:

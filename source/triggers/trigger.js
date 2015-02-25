@@ -67,7 +67,7 @@ this.checkFire = function() {
 }
 
 this.check = function() {
-    // If we're nto enable, bail
+    // If we're not enabled, bail
     if ( !this.isEnabled ) {
         return false;
     }
