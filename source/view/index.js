@@ -449,7 +449,7 @@ function isBlocklyNode( implementsIDs ) {
     var found = false;
     if ( implementsIDs ) {
         for ( var i = 0; i < implementsIDs.length && !found; i++ ) {
-            found = ( implementsIDs[i] == "http-vwf-example-com-blockly-controller-vwf" ); 
+            found = ( implementsIDs[i] == "http://vwf.example.com/blockly/controller.vwf" ); 
         }
     }
    return found;
@@ -469,7 +469,7 @@ function isLoggerNode( prototypes ) {
     var foundLogger = false;
     if ( prototypes ) {
         for ( var i = 0; i < prototypes.length && !foundLogger; i++ ) {
-            foundLogger = ( prototypes[i] == "http-vwf-example-com-logger-vwf" );    
+            foundLogger = ( prototypes[i] == "http://vwf.example.com/logger.vwf" );    
         }
     }
     return foundLogger;
@@ -479,10 +479,10 @@ function isGraphObject( prototypes ) {
     var foundObject = false;
     if ( prototypes ) {
         for ( var i = 0; i < prototypes.length && !foundObject; i++ ) {
-            foundObject = prototypes[i] === "http-vwf-example-com-graphtool-graphline-vwf" ||
-                          prototypes[i] === "http-vwf-example-com-graphtool-graphlinefunction-vwf" ||
-                          prototypes[i] === "http-vwf-example-com-graphtool-graphplane-vwf" ||
-                          prototypes[i] === "http-vwf-example-com-graphtool-graphgroup-vwf";
+            foundObject = prototypes[i] === "http://vwf.example.com/graphtool/graphline.vwf" ||
+                          prototypes[i] === "http://vwf.example.com/graphtool/graphlinefunction.vwf" ||
+                          prototypes[i] === "http://vwf.example.com/graphtool/graphplane.vwf" ||
+                          prototypes[i] === "http://vwf.example.com/graphtool/graphgroup.vwf";
         }
     }
     return foundObject;
