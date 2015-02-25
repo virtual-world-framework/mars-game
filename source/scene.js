@@ -162,7 +162,7 @@ this.getScenarioPaths = function() {
 
 // TODO: can we eliminate this?
 this.getScenarios = function() {
-    var scenarios = this.find( ".//element(*,'source/scenario/scenario.vwf')" );
+    var scenarios = this.find( "*[@scenarioName]" );
     return scenarios;
 }
 
