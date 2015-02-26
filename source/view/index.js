@@ -711,6 +711,16 @@ function indicateBlock( blockID ) {
             }
         }
 
+        // If the the parent block is the procedure block we were just in, we must have completed
+        // that block's execution so we should hide the procedure tracer
+
+        if ( block.parentBlock_ !== undefined ) {
+            if ( block.parentBlock_.id === currentProcedureBlockID ) {
+                currentProcedureBlockID = undefined;
+                hideBlocklyProcedureIndicator();
+            }
+        }
+
         var pos = block.getRelativeToSurfaceXY();
         moveBlocklyIndicator( pos.x, pos.y );
     } else {
