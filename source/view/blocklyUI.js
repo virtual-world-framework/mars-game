@@ -105,6 +105,7 @@ function setUpBlocklyPeripherals() {
 
     $( "#blocklyScrollDiv" ).on( "scroll", function() {
         indicateBlock( currentBlockIDSelected );
+        indicateProcedureBlock( currentProcedureBlockID );
     });    
 
     // Ensure that the blockly ui is accessible on smaller screens
@@ -150,6 +151,7 @@ function keepBlocklyWithinBounds() {
 function updateOnBlocklyResize( event ) {
     keepBlocklyWithinBounds();
     indicateBlock( currentBlockIDSelected );
+    indicateProcedureBlock( currentProcedureBlockID );
 }
 
 function updateBlocklyRamBar() {
