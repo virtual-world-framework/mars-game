@@ -61,12 +61,9 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                     if ( Blockly.mainWorkspace ) {
                         var topBlockCount = Number( eventArgs[ 0 ] );
                         
-                        if(currentScenario === "scenario_dummy"){
-                            // SJF - HACK: Allow multiple top blocks to allow procedures
-                            startBlocklyButton.className = topBlockCount == 0 ? "disabled" : "" ;
-                        } else {
-                            startBlocklyButton.className = topBlockCount !== 1 ? "disabled" : "" ;
-                        }
+                        // SJF: We must allow multiple top blocks to allow procedures
+                         startBlocklyButton.className = topBlockCount === 0 ? "disabled" : "" ;
+                        // startBlocklyButton.className = topBlockCount !== 1 ? "disabled" : "" ;
                         // if disabled then need to set the tooltip
                         // There must be only one program for each blockly object
                     }
