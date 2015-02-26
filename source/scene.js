@@ -360,12 +360,12 @@ this.stopBlinkTab = function( nodeName ) {
 }
 
 this.playVideo = function( src ) {
-    var id = getVideoIdFromSrc( src );
-    if ( isNaN( id ) || id < 0 || id >= videos.length ) {
-        id = loadVideo( src );
-    }
+    // var id = getVideoIdFromSrc( src );
+    // if ( isNaN( id ) || id < 0 || id >= videos.length ) {
+    //     id = loadVideo( src );
+    // }
     $( "#transitionScreen" ).fadeIn();
-    playVideo( id );
+    playVideo( src );
 }
 
 this.pauseGame = function() {

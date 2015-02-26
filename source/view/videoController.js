@@ -12,35 +12,53 @@
 // See the License for the specific language governing permissions and 
 // limitations under the License.
 
-var videos = new Array();
-var videoID = 0;
+// var videos = new Array();
+// var videoID = 0;
 var playingVideo;
+document.onkeypress = removeVideoOnEvent;
 
-function loadVideo( src, type ) {
-    var video = {
-        "id" : videoID,
-    };
-    video.source = "assets/video/" + src;
-    video.videoName = src;
+// function loadVideo( src, type ) {
+//     var video = {
+//         "id" : videoID,
+//     };
+//     video.source = "assets/video/" + src;
+//     video.videoName = src;
 
-    document.onkeypress = removeVideoOnEvent;
+//     document.onkeypress = removeVideoOnEvent;
 
-    videos.push( video );
-    videoID++;
-    return videoID - 1;
+//     videos.push( video );
+//     videoID++;
+//     return videoID - 1;
 
-    var rover = vwf_view.kernel.find( "", "//rover" )[ 0 ];
-}
+//     var rover = vwf_view.kernel.find( "", "//rover" )[ 0 ];
+// }
 
-function playVideo( id ) {
-    var video = videos[ id ];
-    if ( video ) {
+// function playVideo( id ) {
+//     var video = videos[ id ];
+//     if ( video ) {
 
-        playingVideo = video;
+//         playingVideo = video;
+//         var videoManagerID = vwf_view.kernel.find( "", "//videoManager" )[ 0 ];
+//         vwf_view.kernel.callMethod( videoManagerID, "show" );
+
+//         var redactedURL = ( video.source ).replace( new RegExp("/(.*)/.*/assets"), 
+//             function( str, group1 ){ 
+//                 return group1 + "/assets" 
+//             } );
+//         vwf_view.kernel.callMethod( videoManagerID, "play", redactedURL );
+//     }
+// }
+
+function playVideo( src ) {
+    // var video = videos[ id ];
+    if ( src ) {
+        playingVideo = src;
         var videoManagerID = vwf_view.kernel.find( "", "//videoManager" )[ 0 ];
         vwf_view.kernel.callMethod( videoManagerID, "show" );
 
-        var redactedURL = ( video.source ).replace( new RegExp("/(.*)/.*/assets"), 
+        var videoURL = "assets/video/" + src;
+
+        var redactedURL = ( videoURL ).replace( new RegExp("/(.*)/.*/assets" ), 
             function( str, group1 ){ 
                 return group1 + "/assets" 
             } );
@@ -61,9 +79,10 @@ function removeVideoOnEvent( event ) {
 
     vwf_view.kernel.callMethod( videoManagerID, "clearMedia" );
     if( playingVideo ){
-        var id = playingVideo.id;
-        var fileName = videos[id].videoName;
-        vwf_view.kernel.fireEvent( vwf_view.kernel.application(), "videoPlayed", [ fileName ] );
+        // var id = playingVideo.id;
+        // var fileName = videos[id].videoName;
+        // vwf_view.kernel.fireEvent( vwf_view.kernel.application(), "videoPlayed", [ fileName ] );
+        vwf_view.kernel.fireEvent( vwf_view.kernel.application(), "videoPlayed", [ playingVideo ] );
         playingVideo = undefined;
     }
 }
@@ -73,18 +92,18 @@ function removeVideo() {
     vwf_view.kernel.callMethod( videoManagerID, "hide" );
 }
 
-function getVideoIdFromSrc( src ) {
-    for ( var i = 0; i < videos.length; i++ ) {
-        var compareSrc = getVideoFileName( videos[ i ] );
-        if ( src === compareSrc ) {
-            return videos[ i ].id;
-        }
-    }
-    return undefined;
-}
+// function getVideoIdFromSrc( src ) {
+//     for ( var i = 0; i < videos.length; i++ ) {
+//         var compareSrc = getVideoFileName( videos[ i ] );
+//         if ( src === compareSrc ) {
+//             return videos[ i ].id;
+//         }
+//     }
+//     return undefined;
+// }
 
-function getVideoFileName( video ) {
-    var fileName = video.source.split( "/" ).pop();
-    return fileName;
-}
+// function getVideoFileName( video ) {
+//     var fileName = video.source.split( "/" ).pop();
+//     return fileName;
+// }
 //@ sourceURL=source/videoController.js
