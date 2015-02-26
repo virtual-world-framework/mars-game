@@ -25,7 +25,6 @@ function loadVideo( src, type ) {
 
     document.onkeypress = removeVideoOnEvent;
 
-    
     videos.push( video );
     videoID++;
     return videoID - 1;
