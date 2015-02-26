@@ -664,52 +664,53 @@ function indicateBlock( blockID ) {
     }
     if ( block ) {
         if ( block.parentBlock_ !== undefined ) {
-            console.log('has a parent block - new procedure');
             if ( block.parentBlock_.callType_ === "procedures_callnoreturn" || 
                 block.parentBlock_.callType_ === "procedures_callreturn" ) {
-                console.log('has the right kind of parent');
                 
                 for ( var i = 0; i < workspace.topBlocks_.length; i++ ) {
                     //Loop through top blocks and find the stack who's first block isnt a procedure def
                     if ( workspace.topBlocks_[i].type !== "procedures_defnoreturn" && workspace.topBlocks_[i].type !== "procedures_defreturn" ) {
-                        //Loop through this stack starting at the latest procedure index ( initialized at 0 )
-                        console.log( workspace.topBlocks_[i]);
-                        console.log('found right stack');
-
+                        
                         var originBlock = workspace.topBlocks_[i];
+
+                        // Have we already ducked into a procedure? If so, lets start there to save some time!
 
                         if ( currentProcedureBlockID !== undefined ) {
                             originBlock = workspace.getBlockById( currentProcedureBlockID );
+                        } else {
+                            // Is this first block a procedure block?
+                            if ( originBlock.type === "procedures_callnoreturn" || 
+                                originBlock.type === "procedures_callreturn" ) {
+                                currentProcedureBlockID = originBlock.id;
+                                var procpos = originBlock.getRelativeToSurfaceXY();
+                                moveBlocklyProcedureIndicator( procpos.x, procpos.y );
+                                break;
+                            } 
                         }
                         
+                        // Dive down the block stack and look for the next procedure call
+                        // SJF Note: I couldn't find a way to match the procedure names for validation.
 
                         while ( true ) {
                             if ( originBlock.nextConnection.targetConnection.sourceBlock_ !== undefined ) {
                                 var nextBlock = originBlock.nextConnection.targetConnection.sourceBlock_;
                                 if ( nextBlock.type === "procedures_callnoreturn" || 
                                     nextBlock.type === "procedures_callreturn" ) {
-                                    console.log('should be success here');
                                     currentProcedureBlockID = nextBlock.id;
                                     var procpos = nextBlock.getRelativeToSurfaceXY();
-                                    console.log(procpos);
                                     moveBlocklyProcedureIndicator( procpos.x, procpos.y );
                                     break;
                                 } else {
-                                    console.log('not a proc block - looking at the next block');
                                     originBlock = nextBlock;
                                 }
                             } else {
                                 break;
                             }
-                            
-          
                         }
 
                         break;
                     }
-                   
                 }
-                
             }
         }
         
