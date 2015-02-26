@@ -132,10 +132,7 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 var blockName = eventArgs[ 0 ];
                 var blockID = eventArgs[ 1 ];
 
-                console.log(blockName);
-                console.log(blockID);
                 if ( blockID ) {
-                    
                     selectBlock( blockID );
                     indicateBlock( blockID );
                     lastBlockIDExecuted = blockID;
