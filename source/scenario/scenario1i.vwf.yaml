@@ -17,14 +17,14 @@ children:
           actions:
           - stopAllSounds:
           - playVideo:
-            - success_cinematic.mp4
+            - success_cinematic
 
         succeedOnIntroDone:
           group: successOrFailure
           priority: 0
           triggerCondition:
           - onVideoPlayed:
-            - success_cinematic.mp4
+            - success_cinematic
           actions:
           - scenarioSuccess:
 
