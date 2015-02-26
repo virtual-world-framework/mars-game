@@ -30,14 +30,14 @@ children:
           - onScenarioStart:
           actions:
           - playVideo:
-            - intro_cinematic.mp4
+            - intro_cinematic
 
         succeedOnIntroDone:
           group: successOrFailure
           priority: 0
           triggerCondition:
           - onVideoPlayed:
-            - intro_cinematic.mp4
+            - intro_cinematic
           actions:
           - scenarioSuccess:
 
