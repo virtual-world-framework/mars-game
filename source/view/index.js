@@ -709,13 +709,11 @@ function indicateBlock( blockID ) {
                 }
             }
         }
-        
-        console.log(block);
+
         var pos = block.getRelativeToSurfaceXY();
         moveBlocklyIndicator( pos.x, pos.y );
     } else {
         hideBlocklyIndicator();
-        //hideBlocklyProcedureIndicator();
     }
 }
 
