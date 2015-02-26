@@ -235,9 +235,9 @@ this.executeBlock = function ( block, action ) {
     var blockName = block[ 0 ];
     var blockID = block[ 1 ];
 
-    if( scenario.name !== "scenario_dummy" ){
-        this.blockExecuted( blockName, blockID );
-    }
+    
+    this.blockExecuted( blockName, blockID );
+    
 
     var nodeID = action[ 0 ];
     var methodName = action[ 1 ];
