@@ -54,6 +54,7 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                     updateBlocklyRamBar();
                     updateBlocklyUI( blocklyNode );
                     selectBlock( lastBlockIDExecuted );
+                    indicateProcedureBlock( currentProcedureBlockID );
                 }
                 break;
 
@@ -125,6 +126,7 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                     this.kernel.setProperty( graphLines[ "blocklyLine" ].ID, "lineFunction", currentCode );
                 } else {
                     indicateBlock( lastBlockIDExecuted );
+                    indicateProcedureBlock( currentProcedureBlockID );
                 }
                 break;
 
@@ -142,11 +144,13 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
             case "scenarioChanged":
                 currentScenario = eventArgs[ 0 ];
                 lastBlockIDExecuted = undefined;
+                currentProcedureBlockID = undefined;
                 gridBounds = eventArgs[ 1 ] || gridBounds;
             case "scenarioReset":
                 removePopup();
                 removeFailScreen();
                 indicateBlock( lastBlockIDExecuted );
+                indicateProcedureBlock( currentProcedureBlockID );
                 gridBounds = eventArgs[ 1 ] || gridBounds;
                 break;
 
@@ -163,9 +167,7 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 break;
 
             case "selectLastBlock":
-                
                 selectBlock( lastBlockIDExecuted );
-                
                 break;
 
             case "clearBlocklyTabs":
@@ -716,7 +718,6 @@ function indicateBlock( blockID ) {
 
         if ( block.parentBlock_ !== undefined ) {
             if ( block.parentBlock_.id === currentProcedureBlockID ) {
-                currentProcedureBlockID = undefined;
                 hideBlocklyProcedureIndicator();
             }
         }
@@ -727,6 +728,22 @@ function indicateBlock( blockID ) {
         hideBlocklyIndicator();
     }
 }
+
+
+function indicateProcedureBlock( blockID ) {
+    var workspace, block;
+    workspace = Blockly.getMainWorkspace();
+    if ( workspace ) {
+        block = workspace.getBlockById( blockID );
+    }
+    if ( block ) {
+        var pos = block.getRelativeToSurfaceXY();
+        moveBlocklyProcedureIndicator( pos.x, pos.y );
+    } else {
+        hideBlocklyProcedureIndicator();
+    }
+}
+
 
 window.onkeypress = function( event ) {
     var pauseScreen;
