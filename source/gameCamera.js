@@ -65,6 +65,7 @@ this.attachToTarget = function() {
 }
 
 this.detachFromTarget = function() {
+    this.target.visible = true;
     this.target.transformChanged = this.target.events.remove( function( transform ) {
         this.followTarget( transform );
     }, this );

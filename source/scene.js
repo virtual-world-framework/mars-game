@@ -377,4 +377,16 @@ this.unpauseGame = function() {
     this.unpaused();
 }
 
+this.selectBlocklyNode = function( nodeName ) {
+    var node = this.find( "//" + nodeName )[ 0 ];
+    if ( this.blockly_activeNodeID !== node.id ) {
+        this.blockly_activeNodeID = node.id;
+    }
+    if ( node.defaultMount && this.gameCam.target !== node ) {
+        this.gameCam.setCameraTarget( node );
+    } else if ( node === this.graph ) {
+        this.gameCam.setCameraMount( "topDown" );
+    }
+}
+
 //@ sourceURL=source/scene.js

@@ -279,6 +279,7 @@ vwf_view.initializedNode = function( nodeID, childID, childExtendsID, childImple
         node.tab.id = childID;
         node.tab.className = "blocklyTab";
         node.tab.onclick = setActiveBlocklyTab;
+        node.tab.vwfNodeName = childName;
         node.tab.innerHTML = childName;
     }
 }
@@ -529,12 +530,8 @@ function runBlockly() {
 
 function setActiveBlocklyTab() {
     if ( currentBlocklyNodeID !== this.id ) {
-        vwf_view.kernel.setProperty( appID, "blockly_activeNodeID", this.id );
+        vwf_view.kernel.callMethod( appID, "selectBlocklyNode", [ this.vwfNodeName ] );
         if ( blocklyGraphID && blocklyGraphID === this.id ) {
-            var cam = vwf_view.kernel.find( "", "//gameCam" )[ 0 ];
-            if ( cam ) {
-                vwf_view.kernel.callMethod( cam, "setCameraMount", [ "topDown" ] );
-            }
             hideBlocklyIndicator();
         } else {
             indicateBlock( lastBlockIDExecuted );
