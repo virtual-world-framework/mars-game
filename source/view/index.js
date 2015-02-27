@@ -661,7 +661,7 @@ function indicateBlock( blockID ) {
         block = workspace.getBlockById( blockID );
     }
     if ( block ) {
-        if ( block.parentBlock_ !== undefined ) {
+        if ( block.parentBlock_ ) {
             if ( block.parentBlock_.callType_ === "procedures_callnoreturn" || 
                 block.parentBlock_.callType_ === "procedures_callreturn" ) {
                 
@@ -715,7 +715,7 @@ function indicateBlock( blockID ) {
         // If the the parent block is the procedure block we were just in, we must have completed
         // that block's execution so we should hide the procedure tracer
 
-        if ( block.parentBlock_ !== undefined ) {
+        if ( block.parentBlock_ ) {
             if ( block.parentBlock_.id === currentProcedureBlockID ) {
                 hideBlocklyProcedureIndicator();
             }
