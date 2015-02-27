@@ -16,7 +16,6 @@ var playingVideo;
 document.onkeypress = removeVideoOnEvent;
 
 function playVideo( src ) {
-    // var video = videos[ id ];
     if ( src ) {
         playingVideo = src;
         var videoManagerID = vwf_view.kernel.find( "", "//videoManager" )[ 0 ];
@@ -28,7 +27,9 @@ function playVideo( src ) {
             function( str, group1 ){ 
                 return group1 + "/assets" 
             } );
-        vwf_view.kernel.callMethod( videoManagerID, "play", redactedURLBase + ".mp4" );
+        
+        var fileList = [ redactedURLBase + ".mp4", "blah" ]
+        vwf_view.kernel.callMethod( videoManagerID, "play", fileList );
     }
 }
 
