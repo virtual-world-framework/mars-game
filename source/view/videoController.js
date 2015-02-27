@@ -13,6 +13,7 @@
 // limitations under the License.
 
 var playingVideo;
+var supportedFormats = [".webm", ".mp4"];
 document.onkeypress = removeVideoOnEvent;
 
 function playVideo( src ) {
@@ -28,7 +29,11 @@ function playVideo( src ) {
                 return group1 + "/assets" 
             } );
         
-        var fileList = [ redactedURLBase + ".mp4", "blah" ]
+        //var fileList = [ redactedURLBase + ".webm", redactedURLBase + ".mp4" ]
+        var fileList = [];
+        for( var i = 0; i < supportedFormats.length; i++ ){
+            fileList.push( redactedURLBase + supportedFormats[i] );
+        }
         vwf_view.kernel.callMethod( videoManagerID, "play", fileList );
     }
 }
