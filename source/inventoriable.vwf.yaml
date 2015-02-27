@@ -25,4 +25,4 @@ events:
   pointerDown:
   grabbed:
 scripts: 
-- source: source/inventoriable.js
+- source: inventoriable.js

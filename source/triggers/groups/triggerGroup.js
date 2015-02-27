@@ -15,8 +15,8 @@
 this.initialize = function() {
     this.triggers = [];
     this.canFire$ = [];
-    this.checkFrequency$ = 0.04 + ( Math.random() * 0.02 );
-    this.future( this.checkFrequency$ ).checkTriggers$();
+    this.checkFrequency$ = 0.08 + ( Math.random() * 0.02 );
+    // this.future( this.checkFrequency$ ).checkTriggers$();
 }
 
 this.addTrigger = function( trigger ) {
@@ -42,7 +42,7 @@ this.checkTriggers$ = function() {
     var haveTriggerToFire = false;
     for ( var i = 0; i < this.triggers.length; ++i ) {
         var trigger = this.triggers[ i ];
-        this.canFire$[ i ] = trigger.isEnabled && trigger.check();
+        this.canFire$[ i ] = trigger.check();
         haveTriggerToFire = haveTriggerToFire || this.canFire$[ i ];
     }
 
@@ -58,7 +58,7 @@ this.checkTriggers$ = function() {
     //  this, do another check after a future(0).
     if ( haveTriggerToFire ) {
         this.future( 0.01 ).checkTriggersCallback$();
-    } else  {
+    } else if ( this.isChecking$ ) {
         // schedule the next check
         this.future( this.checkFrequency$ ).checkTriggers$();
     }

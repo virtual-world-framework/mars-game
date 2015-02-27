@@ -35,4 +35,4 @@ methods:
 events:
   onClick:
 scripts:
-  - source: source/hud/firstPersonButton.js
+  - source: firstPersonButton.js

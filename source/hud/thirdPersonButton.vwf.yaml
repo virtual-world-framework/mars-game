@@ -35,4 +35,4 @@ methods:
 events:
   onClick:
 scripts:
-  - source: source/hud/thirdPersonButton.js
+  - source: thirdPersonButton.js

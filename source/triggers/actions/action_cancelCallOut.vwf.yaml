@@ -13,7 +13,7 @@
 # limitations under the License.
 
 --- 
-extends: source/triggers/actions/actionProto.vwf
+extends: actionProto.vwf
 
 scripts:
-- source: source/triggers/actions/action_cancelCallOut.js
+- source: action_cancelCallOut.js

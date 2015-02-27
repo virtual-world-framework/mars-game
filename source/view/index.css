@@ -98,6 +98,18 @@ a:active {
     background-image: url( "../../assets/images/blockly_ui/number_appendix_stopped.png" );
 }
 
+#blocklyProcedureIndicator {
+    background-image: url( "../../assets/images/blockly_ui/blockly_indicator.png" );
+    width: 40px;
+    height: 17px;
+    position: absolute;
+    visibility: hidden;
+}
+
+#blocklyProcedureIndicator.stopped {
+    background-image: url( "../../assets/images/blockly_ui/blockly_indicator_stopped.png" );
+}
+
 #blocklyWrapper {
     width: 580px;
     height: 812px;

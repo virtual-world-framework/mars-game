@@ -32,4 +32,4 @@ methods:
   draw:
   setUpListeners:
 scripts:
-  - source: source/hud/batteryMeter.js
+  - source: batteryMeter.js

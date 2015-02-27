@@ -13,11 +13,11 @@
 # limitations under the License.
 
 --- 
-extends: source/triggers/actions/actionProto.vwf
+extends: actionProto.vwf
 
 properties:
   soundName:
   soundMgr:
 
 scripts:
-- source: source/triggers/actions/action_stopSound.js
+- source: action_stopSound.js

@@ -27,6 +27,7 @@ function setUpBlocklyPeripherals() {
     var blocklyScrollDiv = document.createElement( "div" );
     var indicator = document.createElement( "div" );
     var indicatorCount = document.createElement( "div" );
+    var procedureIndicator = document.createElement( "div" );
 
     blocklyFooter.id = "blocklyFooter";
     blocklyHandle.id = "blocklyHandle";
@@ -34,11 +35,13 @@ function setUpBlocklyPeripherals() {
     indicator.id = "blocklyIndicator";
     indicatorCount.id = "blocklyIndicatorCount";
     indicatorCount.innerHTML = "";
+    procedureIndicator.id = "blocklyProcedureIndicator";
     startBlocklyButton.id = "startBlockly";
 
     indicator.appendChild( indicatorCount );
     $( "#blocklyWrapper-top" ).append( blocklyHandle )
     $( "#blocklyWrapper" ).append( indicator );
+    $( "#blocklyWrapper" ).append( procedureIndicator );
     $( "#blocklyWrapper" ).draggable( {
         handle: "div#blocklyHandle",
         scroll: false,
@@ -102,6 +105,7 @@ function setUpBlocklyPeripherals() {
 
     $( "#blocklyScrollDiv" ).on( "scroll", function() {
         indicateBlock( currentBlockIDSelected );
+        indicateProcedureBlock( currentProcedureBlockID );
     });    
 
     // Ensure that the blockly ui is accessible on smaller screens
@@ -147,6 +151,7 @@ function keepBlocklyWithinBounds() {
 function updateOnBlocklyResize( event ) {
     keepBlocklyWithinBounds();
     indicateBlock( currentBlockIDSelected );
+    indicateProcedureBlock( currentProcedureBlockID );
 }
 
 function updateBlocklyRamBar() {
@@ -172,6 +177,11 @@ function resetBlocklyIndicator() {
         "top" : 0,
         "visibility" : "hidden"
     } );
+    $( "#blocklyProcedureIndicator" ).css( {
+        "left" : 0,
+        "top" : 0,
+        "visibility" : "hidden"
+    } );
 }
 
 function showBlocklyIndicator() {
@@ -188,6 +198,20 @@ function hideBlocklyIndicator() {
     }
 }
 
+function showBlocklyProcedureIndicator() {
+    var indicator = document.getElementById( "blocklyProcedureIndicator" );
+    if ( indicator ) {
+        indicator.style.visibility = "inherit";
+    }
+}
+
+function hideBlocklyProcedureIndicator() {
+    var indicator = document.getElementById( "blocklyProcedureIndicator" );
+    if ( indicator ) {
+        indicator.style.visibility = "hidden";
+    }
+}
+
 function moveBlocklyIndicator( x, y ) {
     var blocklyDiv = document.getElementById( "blocklyScrollDiv" );
     var toolbox = document.getElementsByClassName( "blocklyFlyoutBackground" )[ 0 ];
@@ -199,6 +223,22 @@ function moveBlocklyIndicator( x, y ) {
         showBlocklyIndicator();
     }
     $( "#blocklyIndicator" ).stop().animate( { 
+        "top" : ( y + yOffset ) + "px",
+        "left": ( x + xOffset ) + "px"
+    } );
+}
+
+function moveBlocklyProcedureIndicator( x, y ) {
+    var blocklyDiv = document.getElementById( "blocklyScrollDiv" );
+    var toolbox = document.getElementsByClassName( "blocklyFlyoutBackground" )[ 0 ];
+    var yOffset = parseInt( $( "#blocklyWrapper-top" ).css( "height" ) ) - blocklyDiv.scrollTop;
+    var xOffset = toolbox.getBBox().width;
+    if ( x > blocklyDiv.offsetWidth || y + yOffset - 20 > blocklyDiv.offsetHeight || y + yOffset < 0 ) {
+        hideBlocklyProcedureIndicator();
+    } else {
+        showBlocklyProcedureIndicator();
+    }
+    $( "#blocklyProcedureIndicator" ).stop().animate( { 
         "top" : ( y + yOffset ) + "px",
         "left": ( x + xOffset ) + "px"
     } );

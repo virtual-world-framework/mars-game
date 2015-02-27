@@ -58,6 +58,7 @@ this.setApplicationState = function( state ) {
             this.envLight.visible = false;
             this.pickups.visible = false;
             this.hud.visible = false;
+            this.triggerGroupManager.checkingGroups = false;
             break;
         case "playing":
             this.mainMenu.visible = false;
@@ -75,6 +76,7 @@ this.setApplicationState = function( state ) {
             this.envLight.visible = true;
             this.pickups.visible = true;
             this.hud.visible = true;
+            this.triggerGroupManager.checkingGroups = true;
             break;
         default:
             this.logger.errorx( "setApplicationState", "Invalid application "
@@ -160,7 +162,7 @@ this.getScenarioPaths = function() {
 
 // TODO: can we eliminate this?
 this.getScenarios = function() {
-    var scenarios = this.find( ".//element(*,'source/scenario/scenario.vwf')" );
+    var scenarios = this.find( "*[@scenarioName]" );
     return scenarios;
 }
 
@@ -233,9 +235,9 @@ this.executeBlock = function ( block, action ) {
     var blockName = block[ 0 ];
     var blockID = block[ 1 ];
 
-    if( scenario.name !== "scenario_dummy" ){
-        this.blockExecuted( blockName, blockID );
-    }
+    
+    this.blockExecuted( blockName, blockID );
+    
 
     var nodeID = action[ 0 ];
     var methodName = action[ 1 ];

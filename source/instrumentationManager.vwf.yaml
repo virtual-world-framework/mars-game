@@ -30,4 +30,4 @@ methods:
   getRequest:
 
 scripts:
- - source: source/instrumentationManager.js
+ - source: instrumentationManager.js

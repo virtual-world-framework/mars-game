@@ -50,4 +50,4 @@ children:
   alertDisplay:
     includes: source/hud/alertDisplay.vwf
 scripts:
-  source: source/hud/marsGameHud.js
+  - source: marsGameHud.js

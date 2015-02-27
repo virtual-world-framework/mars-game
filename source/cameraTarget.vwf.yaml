@@ -30,4 +30,4 @@ methods:
   setDefaultMount:
 events:
 scripts:
-  - source: source/cameraTarget.js
+  - source: cameraTarget.js

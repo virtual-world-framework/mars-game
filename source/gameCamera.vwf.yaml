@@ -42,4 +42,4 @@ children:
     implements:
       - http://vwf.example.com/navigable.vwf
 scripts:
-  - source: source/gameCamera.js
+  - source: gameCamera.js

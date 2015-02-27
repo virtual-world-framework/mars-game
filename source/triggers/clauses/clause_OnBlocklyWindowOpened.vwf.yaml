@@ -13,11 +13,11 @@
 # limitations under the License.
 
 --- 
-extends: source/triggers/clauses/clauseProto_OnEvent.vwf
+extends: clauseProto_OnEvent.vwf
 
 implements: 
   - http://vwf.example.com/sceneGetter.vwf
-  - source/blocklyObjectGetter.vwf
+  - ../../blocklyObjectGetter.vwf
 
 methods:
   # We need our own onEvent method that screens the events and decides which to
@@ -25,4 +25,4 @@ methods:
   onBlocklyEvent:
 
 scripts:
-- source: source/triggers/clauses/clause_OnBlocklyWindowOpened.js
+- source: clause_OnBlocklyWindowOpened.js

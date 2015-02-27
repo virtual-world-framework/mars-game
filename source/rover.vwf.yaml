@@ -94,4 +94,4 @@ events:
   blockCountChanged:
   allowedBlocksChanged:
 scripts:
- - source: source/rover.js
+ - source: rover.js

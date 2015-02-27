@@ -13,7 +13,7 @@
 # limitations under the License.
 
 ---
-extends: source/gridObstacle.vwf
+extends: ../gridObstacle.vwf
 source: ../../assets/3d/Terrain/rubble_container_3x4.dae
 type: model/vnd.collada+xml
 properties:

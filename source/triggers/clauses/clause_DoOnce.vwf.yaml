@@ -13,10 +13,10 @@
 # limitations under the License.
 
 --- 
-extends: source/triggers/clauses/clauseProto.vwf
+extends: clauseProto.vwf
 
 properties:
   hasTriggered: false
 
 scripts:
-- source: source/triggers/clauses/clause_DoOnce.js
+- source: clause_DoOnce.js

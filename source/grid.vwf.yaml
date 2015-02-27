@@ -44,4 +44,4 @@ methods:
   getEnergy:
 
 scripts:
-- source: source/grid.js
+- source: grid.js

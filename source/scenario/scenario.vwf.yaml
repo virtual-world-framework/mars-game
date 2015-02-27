@@ -73,4 +73,4 @@ methods:
   startInitialScenario$:
 
 scripts:
-- source: source/scenario/scenario.js
+- source: scenario.js

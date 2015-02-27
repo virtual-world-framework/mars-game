@@ -22,7 +22,7 @@
 #     success: 0
 #     failure (collision): 1
 
-extends: source/triggers/triggerManager.vwf
+extends: ../triggers/triggerManager.vwf
 properties: 
   scenePath: /
 
@@ -228,4 +228,4 @@ methods:
   onSceneLoaded:
 
 scripts:
-- source: source/scenario/globalScenarioTriggers.js
+- source: globalScenarioTriggers.js

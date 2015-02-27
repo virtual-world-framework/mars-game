@@ -65,4 +65,4 @@ methods:
   generateObject:
 
 scripts:
-- source: source/triggers/generators/generatorProto.js
+- source: generatorProto.js

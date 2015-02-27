@@ -13,10 +13,10 @@
 # limitations under the License.
 
 --- 
-extends: source/triggers/actions/actionProto.vwf
+extends: actionProto.vwf
 
 properties:
   variableName:
 
 scripts:
-- source: source/triggers/actions/action_clearBlackboardEntry.js
+- source: action_clearBlackboardEntry.js
