@@ -68,6 +68,7 @@ methods:
   pauseGame:
   unpauseGame:
   resetHUDState:
+  selectBlocklyNode:
 events:
   gameStarted:
   scenarioReset:
