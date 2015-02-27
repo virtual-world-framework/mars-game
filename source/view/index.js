@@ -111,7 +111,7 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 break;
 
         }
-    } else if ( nodeID === this.kernel.application() ) {
+    } else if ( nodeID === vwf_view.kernel.application() ) {
         switch ( eventName ) {
 
             case "paused":
@@ -123,7 +123,7 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
             case "blocklyContentChanged":
                 if ( currentBlocklyNodeID === blocklyGraphID ) {
                     var currentCode = getBlocklyFunction();
-                    this.kernel.setProperty( graphLines[ "blocklyLine" ].ID, "lineFunction", currentCode );
+                    vwf_view.kernel.setProperty( graphLines[ "blocklyLine" ].ID, "lineFunction", currentCode );
                 } else {
                     indicateBlock( lastBlockIDExecuted );
                     indicateProcedureBlock( currentProcedureBlockID );
