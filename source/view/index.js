@@ -19,6 +19,7 @@ var graphLines = {};
 var loggerNodes = {};
 var currentBlocklyNodeID = undefined;
 var blocklyExecuting = false;
+var currentProcedureBlockID = undefined;
 var lastBlockIDExecuted = undefined;
 var currentBlockIDSelected = undefined;
 var targetPath = undefined;
@@ -53,6 +54,7 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                     updateBlocklyRamBar();
                     updateBlocklyUI( blocklyNode );
                     selectBlock( lastBlockIDExecuted );
+                    indicateProcedureBlock( currentProcedureBlockID );
                 }
                 break;
 
@@ -61,12 +63,9 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                     if ( Blockly.mainWorkspace ) {
                         var topBlockCount = Number( eventArgs[ 0 ] );
                         
-                        if(currentScenario === "scenario_dummy"){
-                            // SJF - HACK: Allow multiple top blocks to allow procedures
-                            startBlocklyButton.className = topBlockCount == 0 ? "disabled" : "" ;
-                        } else {
-                            startBlocklyButton.className = topBlockCount !== 1 ? "disabled" : "" ;
-                        }
+                        // SJF: We must allow multiple top blocks to allow procedures
+                         startBlocklyButton.className = topBlockCount === 0 ? "disabled" : "" ;
+                        // startBlocklyButton.className = topBlockCount !== 1 ? "disabled" : "" ;
                         // if disabled then need to set the tooltip
                         // There must be only one program for each blockly object
                     }
@@ -81,6 +80,10 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 var indicatorCount = document.getElementById( "blocklyIndicatorCount" );
                 indicatorCount.className = "";
                 indicatorCount.style.visibility = "inherit";
+                var procedureIndicator = document.getElementById( "blocklyProcedureIndicator" );
+                procedureIndicator.className = "";
+                procedureIndicator.style.visibility = "inherit";
+                currentProcedureBlockID = undefined;
                 break;
 
             case "blocklyStopped":
@@ -89,6 +92,8 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 var count = document.getElementById( "blocklyIndicatorCount" );
                 indicator.className = "stopped";
                 count.className = "stopped";
+                var procedureIndicator = document.getElementById( "blocklyProcedureIndicator" );
+                procedureIndicator.className = "stopped";
 
             case "blocklyErrored":
                 startBlocklyButton.className = "";
@@ -121,17 +126,17 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                     this.kernel.setProperty( graphLines[ "blocklyLine" ].ID, "lineFunction", currentCode );
                 } else {
                     indicateBlock( lastBlockIDExecuted );
+                    indicateProcedureBlock( currentProcedureBlockID );
                 }
                 break;
 
             case "blockExecuted":
                 var blockName = eventArgs[ 0 ];
                 var blockID = eventArgs[ 1 ];
+
                 if ( blockID ) {
-                    if( currentScenario !== "scenario_dummy" ){
-                        selectBlock( blockID );
-                        indicateBlock( blockID );
-                    }
+                    selectBlock( blockID );
+                    indicateBlock( blockID );
                     lastBlockIDExecuted = blockID;
                 }
                 break;
@@ -139,11 +144,13 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
             case "scenarioChanged":
                 currentScenario = eventArgs[ 0 ];
                 lastBlockIDExecuted = undefined;
+                currentProcedureBlockID = undefined;
                 gridBounds = eventArgs[ 1 ] || gridBounds;
             case "scenarioReset":
                 removePopup();
                 removeFailScreen();
                 indicateBlock( lastBlockIDExecuted );
+                indicateProcedureBlock( currentProcedureBlockID );
                 gridBounds = eventArgs[ 1 ] || gridBounds;
                 break;
 
@@ -160,9 +167,7 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 break;
 
             case "selectLastBlock":
-                if( currentScenario !== "scenario_dummy" ){
-                    selectBlock( lastBlockIDExecuted );
-                }
+                selectBlock( lastBlockIDExecuted );
                 break;
 
             case "clearBlocklyTabs":
@@ -657,12 +662,88 @@ function indicateBlock( blockID ) {
         block = workspace.getBlockById( blockID );
     }
     if ( block ) {
+        if ( block.parentBlock_ !== undefined ) {
+            if ( block.parentBlock_.callType_ === "procedures_callnoreturn" || 
+                block.parentBlock_.callType_ === "procedures_callreturn" ) {
+                
+                for ( var i = 0; i < workspace.topBlocks_.length; i++ ) {
+                    //Loop through top blocks and find the stack who's first block isnt a procedure def
+                    if ( workspace.topBlocks_[i].type !== "procedures_defnoreturn" && workspace.topBlocks_[i].type !== "procedures_defreturn" ) {
+                        
+                        var originBlock = workspace.topBlocks_[i];
+
+                        // Have we already ducked into a procedure? If so, lets start there to save some time!
+
+                        if ( currentProcedureBlockID !== undefined ) {
+                            originBlock = workspace.getBlockById( currentProcedureBlockID );
+                        } else {
+                            // Is this first block a procedure block?
+                            if ( originBlock.type === "procedures_callnoreturn" || 
+                                originBlock.type === "procedures_callreturn" ) {
+                                currentProcedureBlockID = originBlock.id;
+                                var procpos = originBlock.getRelativeToSurfaceXY();
+                                moveBlocklyProcedureIndicator( procpos.x, procpos.y );
+                                break;
+                            } 
+                        }
+                        
+                        // Dive down the block stack and look for the next procedure call
+                        // SJF Note: I couldn't find a way to match the procedure names for validation.
+
+                        while ( true ) {
+                            if ( originBlock.nextConnection.targetConnection.sourceBlock_ !== undefined ) {
+                                var nextBlock = originBlock.nextConnection.targetConnection.sourceBlock_;
+                                if ( nextBlock.type === "procedures_callnoreturn" || 
+                                    nextBlock.type === "procedures_callreturn" ) {
+                                    currentProcedureBlockID = nextBlock.id;
+                                    var procpos = nextBlock.getRelativeToSurfaceXY();
+                                    moveBlocklyProcedureIndicator( procpos.x, procpos.y );
+                                    break;
+                                } else {
+                                    originBlock = nextBlock;
+                                }
+                            } else {
+                                break;
+                            }
+                        }
+
+                        break;
+                    }
+                }
+            }
+        }
+
+        // If the the parent block is the procedure block we were just in, we must have completed
+        // that block's execution so we should hide the procedure tracer
+
+        if ( block.parentBlock_ !== undefined ) {
+            if ( block.parentBlock_.id === currentProcedureBlockID ) {
+                hideBlocklyProcedureIndicator();
+            }
+        }
+
         var pos = block.getRelativeToSurfaceXY();
         moveBlocklyIndicator( pos.x, pos.y );
     } else {
         hideBlocklyIndicator();
     }
 }
+
+
+function indicateProcedureBlock( blockID ) {
+    var workspace, block;
+    workspace = Blockly.getMainWorkspace();
+    if ( workspace ) {
+        block = workspace.getBlockById( blockID );
+    }
+    if ( block ) {
+        var pos = block.getRelativeToSurfaceXY();
+        moveBlocklyProcedureIndicator( pos.x, pos.y );
+    } else {
+        hideBlocklyProcedureIndicator();
+    }
+}
+
 
 window.onkeypress = function( event ) {
     var pauseScreen;
