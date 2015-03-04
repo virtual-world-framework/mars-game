@@ -6,22 +6,52 @@
       <authoring_tool>OpenCOLLADA for 3ds Max;  Version: 1.4.1;  Revision: exported;  Platform: x64;  Configuration: Release_Max2012_static</authoring_tool>
       <source_data>file:///C:/Users/mcclurek/Desktop/MARS/PHASE2/New%20Rovers/Scout_Rover.max</source_data>
     </contributor>
-    <created>2015-02-17T16:44:40</created>
-    <modified>2015-02-17T16:44:40</modified>
+    <created>2015-03-04T14:17:25</created>
+    <modified>2015-03-04T14:17:25</modified>
     <unit name="meter" meter="1"/>
     <up_axis>Z_UP</up_axis>
   </asset>
   <library_effects>
     <effect id="scout_rover">
       <profile_COMMON>
-        <newparam sid="scout_512_png-surface">
+        <newparam sid="scout_512_midnight_png-surface">
           <surface type="2D">
-            <init_from>scout_512_png</init_from>
+            <init_from>scout_512_midnight_png</init_from>
           </surface>
         </newparam>
-        <newparam sid="scout_512_png-sampler">
+        <newparam sid="scout_512_midnight_png-sampler">
           <sampler2D>
-            <source>scout_512_png-surface</source>
+            <source>scout_512_midnight_png-surface</source>
+          </sampler2D>
+        </newparam>
+        <newparam sid="scout_spec_png-surface">
+          <surface type="2D">
+            <init_from>scout_spec_png</init_from>
+          </surface>
+        </newparam>
+        <newparam sid="scout_spec_png-sampler">
+          <sampler2D>
+            <source>scout_spec_png-surface</source>
+          </sampler2D>
+        </newparam>
+        <newparam sid="scout_512_gloss_png-surface">
+          <surface type="2D">
+            <init_from>scout_512_gloss_png</init_from>
+          </surface>
+        </newparam>
+        <newparam sid="scout_512_gloss_png-sampler">
+          <sampler2D>
+            <source>scout_512_gloss_png-surface</source>
+          </sampler2D>
+        </newparam>
+        <newparam sid="scout_512_nrm_png-surface">
+          <surface type="2D">
+            <init_from>scout_512_nrm_png</init_from>
+          </surface>
+        </newparam>
+        <newparam sid="scout_512_nrm_png-sampler">
+          <sampler2D>
+            <source>scout_512_nrm_png-surface</source>
           </sampler2D>
         </newparam>
         <technique sid="common">
@@ -33,7 +63,7 @@
               <color>0.5882353 0.5882353 0.5882353 1</color>
             </ambient>
             <diffuse>
-              <texture texture="scout_512_png-sampler" texcoord="CHANNEL1"/>
+              <texture texture="scout_512_midnight_png-sampler" texcoord="CHANNEL1"/>
             </diffuse>
             <specular>
               <color>0.9 0.9 0.9 1</color>
@@ -51,6 +81,19 @@
               <float>1</float>
             </transparency>
           </blinn>
+          <extra>
+            <technique profile="OpenCOLLADA3dsMax">
+              <specularLevel>
+                <texture texture="scout_spec_png-sampler" texcoord="CHANNEL1"/>
+              </specularLevel>
+              <gloss>
+                <texture texture="scout_512_gloss_png-sampler" texcoord="CHANNEL1"/>
+              </gloss>
+              <bump bumptype="NORMALMAP">
+                <texture texture="scout_512_nrm_png-sampler" texcoord="CHANNEL1"/>
+              </bump>
+            </technique>
+          </extra>
         </technique>
       </profile_COMMON>
       <extra>
@@ -474,8 +517,17 @@
     </geometry>
   </library_geometries>
   <library_images>
-    <image id="scout_512_png">
-      <init_from>./scout_512.png</init_from>
+    <image id="scout_512_gloss_png">
+      <init_from>./scout_512_gloss.png</init_from>
+    </image>
+    <image id="scout_512_midnight_png">
+      <init_from>./scout_512_midnight.png</init_from>
+    </image>
+    <image id="scout_512_nrm_png">
+      <init_from>./scout_512_nrm.png</init_from>
+    </image>
+    <image id="scout_spec_png">
+      <init_from>./scout_spec.png</init_from>
     </image>
   </library_images>
   <library_visual_scenes>
@@ -486,6 +538,9 @@
           <bind_material>
             <technique_common>
               <instance_material symbol="scout_rover" target="#scout_rover-material">
+                <bind_vertex_input semantic="CHANNEL1" input_semantic="TEXCOORD" input_set="0"/>
+                <bind_vertex_input semantic="CHANNEL1" input_semantic="TEXCOORD" input_set="0"/>
+                <bind_vertex_input semantic="CHANNEL1" input_semantic="TEXCOORD" input_set="0"/>
                 <bind_vertex_input semantic="CHANNEL1" input_semantic="TEXCOORD" input_set="0"/>
               </instance_material>
             </technique_common>
@@ -498,6 +553,9 @@
               <technique_common>
                 <instance_material symbol="scout_rover" target="#scout_rover-material">
                   <bind_vertex_input semantic="CHANNEL1" input_semantic="TEXCOORD" input_set="0"/>
+                  <bind_vertex_input semantic="CHANNEL1" input_semantic="TEXCOORD" input_set="0"/>
+                  <bind_vertex_input semantic="CHANNEL1" input_semantic="TEXCOORD" input_set="0"/>
+                  <bind_vertex_input semantic="CHANNEL1" input_semantic="TEXCOORD" input_set="0"/>
                 </instance_material>
               </technique_common>
             </bind_material>
@@ -508,6 +566,9 @@
               <bind_material>
                 <technique_common>
                   <instance_material symbol="scout_rover" target="#scout_rover-material">
+                    <bind_vertex_input semantic="CHANNEL1" input_semantic="TEXCOORD" input_set="0"/>
+                    <bind_vertex_input semantic="CHANNEL1" input_semantic="TEXCOORD" input_set="0"/>
+                    <bind_vertex_input semantic="CHANNEL1" input_semantic="TEXCOORD" input_set="0"/>
                     <bind_vertex_input semantic="CHANNEL1" input_semantic="TEXCOORD" input_set="0"/>
                   </instance_material>
                 </technique_common>
@@ -520,6 +581,9 @@
                   <technique_common>
                     <instance_material symbol="scout_rover" target="#scout_rover-material">
                       <bind_vertex_input semantic="CHANNEL1" input_semantic="TEXCOORD" input_set="0"/>
+                      <bind_vertex_input semantic="CHANNEL1" input_semantic="TEXCOORD" input_set="0"/>
+                      <bind_vertex_input semantic="CHANNEL1" input_semantic="TEXCOORD" input_set="0"/>
+                      <bind_vertex_input semantic="CHANNEL1" input_semantic="TEXCOORD" input_set="0"/>
                     </instance_material>
                   </technique_common>
                 </bind_material>
@@ -531,6 +595,9 @@
                   <bind_material>
                     <technique_common>
                       <instance_material symbol="scout_rover" target="#scout_rover-material">
+                        <bind_vertex_input semantic="CHANNEL1" input_semantic="TEXCOORD" input_set="0"/>
+                        <bind_vertex_input semantic="CHANNEL1" input_semantic="TEXCOORD" input_set="0"/>
+                        <bind_vertex_input semantic="CHANNEL1" input_semantic="TEXCOORD" input_set="0"/>
                         <bind_vertex_input semantic="CHANNEL1" input_semantic="TEXCOORD" input_set="0"/>
                       </instance_material>
                     </technique_common>
@@ -584,6 +651,9 @@
             <bind_material>
               <technique_common>
                 <instance_material symbol="scout_rover" target="#scout_rover-material">
+                  <bind_vertex_input semantic="CHANNEL1" input_semantic="TEXCOORD" input_set="0"/>
+                  <bind_vertex_input semantic="CHANNEL1" input_semantic="TEXCOORD" input_set="0"/>
+                  <bind_vertex_input semantic="CHANNEL1" input_semantic="TEXCOORD" input_set="0"/>
                   <bind_vertex_input semantic="CHANNEL1" input_semantic="TEXCOORD" input_set="0"/>
                 </instance_material>
               </technique_common>
