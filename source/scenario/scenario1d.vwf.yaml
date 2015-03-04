@@ -13,7 +13,7 @@
 # limitations under the License.
 
 ---
-extends: source/scenario/scenario.vwf
+extends: ../scenario/scenario.vwf
 properties:
   scenarioName: scenario1d
 
@@ -76,7 +76,7 @@ properties:
 
 children:
   triggerManager:
-    extends: source/triggers/triggerManager.vwf
+    extends: ../triggers/triggerManager.vwf
     properties: 
       triggers:
         beginScenario_1d:
@@ -91,11 +91,11 @@ children:
             - tilesButton
           - setObjective:
             - "Click the TILES button to see where you can safely move."
-          - setHUDProperty:
+          - setProperty:
             - graphButton
             - enabled
             - false
-          - setHUDProperty:
+          - setProperty:
             - blocklyButton
             - enabled
             - false
@@ -105,17 +105,15 @@ children:
         playStartingVO_1d:
           triggerCondition:
           - and:
+            - doOnce:
             - onScenarioStart:
-            - not:
-              - readBlackboard:
-                - Level1dStartSounds
           actions:
           - playSound:
             - L1VO10_Rover
-          - writeToBlackboard:
-            - Level1dStartSounds
 
         succeedOnSuccess_1d:
+          group: successOrFailure
+          priority: 0
           triggerCondition:
           - onTilesToggle:
           actions:
@@ -132,22 +130,12 @@ children:
         playHint1_1d:
           triggerCondition:
           - and:
+            - doOnce:
             - delay:
               - 13
-            - not:
-              - readBlackboard:
-                - Level1dHint1
-            - not:
-              - readBlackboard:
-                - hasSucceeded
-            - not:
-              - readBlackboard:
-                - hasFailed
           actions:
           - playSound:
             - ALVO18_Rover
-          - writeToBlackboard:
-            - Level1dHint1
 
         setCameraView:
           triggerCondition:

@@ -13,16 +13,20 @@
 # limitations under the License.
 
 ---
-extends: source/scenario/scenario.vwf
+extends: ../scenario/scenario.vwf
 properties:
   scenarioName: mainMenuScenario
 
   nextScenarioPath: "introScreenScenario"
   blockly: source/scenario/blockly/scenario1.xml
 
+  # TODO: double check that we don't need this, and perhaps even get rid of the
+  #  whole scenario.
+  # runOnStartup: true
+
 children:
   triggerManager:
-    extends: source/triggers/triggerManager.vwf
+    extends: ../triggers/triggerManager.vwf
     properties: 
       triggers:
         beginMainMenu:
@@ -36,6 +40,8 @@ children:
             - musicMenuLoop
 
         succeedOnIntroDone:
+          group: successOrFailure
+          priority: 0
           triggerCondition:
           - onGameStarted:
           actions:
@@ -47,10 +53,25 @@ children:
     includes: source/grid.vwf
     properties:
       minX: 0
-      maxX: 1
+      maxX: 16
       minY: 0
-      maxY: 1
-      gridOriginInSpace: [ -45, 39 ]
+      maxY: 18
+      gridOriginInSpace: [ -24, -6 ]
       gridSquareLength: 3
       boundaryValues:
-      - [ 1 ]
+      - [ -1, -1, -1,  1,  1, -1, -1, -1, -1, -1,  1, -1, -1, -1, -1, -1, -1, -1 ]
+      - [  1, -1, -1,  1,  1,  1, -1, -1, -1, -1,  1, -1, -1, -1, -1, -1, -1, -1 ]
+      - [  1, -1, -1,  1,  1,  1,  1,  1,  1,  1,  1, -1,  1,  1, -1,  1,  1,  1 ]
+      - [  1, -1,  1,  1,  1,  1,  1,  1,  1,  1, -1,  1,  1,  1, -1,  1,  1,  1 ]
+      - [  1,  1,  1,  1, -1, -1, -1, -1,  1,  1,  1,  1, -1,  1,  1,  1,  1,  1 ]
+      - [  1,  1,  1,  1, -1, -1, -1, -1,  1,  1,  1, -1, -1, -1, -1, -1,  1,  1 ]
+      - [  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1, -1, -1, -1, -1, -1,  1,  1 ]
+      - [ -1, -1,  1, -1, -1, -1, -1, -1, -1,  1,  1, -1, -1, -1, -1, -1,  1,  1 ]
+      - [ -1,  1,  1,  1,  1,  1,  1,  1, -1,  1,  1,  1,  1,  1,  1,  1,  1,  1 ]
+      - [ -1, -1,  1, -1, -1, -1, -1, -1, -1,  1, -1, -1, -1,  1,  1,  1,  1,  1 ]
+      - [  1, -1,  1, -1, -1,  1,  1,  1,  1,  1, -1, -1, -1,  1,  1,  1,  1, -1 ]
+      - [  1, -1,  1, -1, -1,  1,  1, -1, -1,  1,  1, -1,  1,  1,  1,  1, -1, -1 ]
+      - [  1,  1,  1,  1,  1,  1, -1, -1, -1,  1,  1,  1,  1,  1,  1, -1, -1, -1 ]
+      - [ -1, -1,  1,  1,  1,  1, -1, -1, -1, -1,  1,  1,  1, -1, -1, -1, -1, -1 ]
+      - [ -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,  1,  1, -1, -1, -1, -1, -1 ]
+      - [ -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,  1,  1,  1, -1, -1, -1 ]

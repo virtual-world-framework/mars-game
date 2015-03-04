@@ -13,8 +13,8 @@
 # limitations under the License.
 
 ---
-extends: source/gridObstacle.vwf
-implements: [ "source/inventoriable.vwf", "source/griddable.vwf" ]
+extends: gridObstacle.vwf
+implements: [ "inventoriable.vwf", "griddable.vwf" ]
 properties:
   castShadows: true
   receiveShadows: true
@@ -27,4 +27,4 @@ properties:
 methods:
   setPickupVisibility:
 scripts:
-  - source: source/pickup.js
+  - source: pickup.js

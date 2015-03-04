@@ -1,0 +1,53 @@
+# Copyright 2014 Lockheed Martin Corporation
+#
+# Licensed under the Apache License, Version 2.0 (the "License"); you may 
+# not use this file except in compliance with the License. You may obtain 
+# a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software 
+# distributed under the License is distributed on an "AS IS" BASIS, 
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and 
+# limitations under the License.
+
+---
+extends: http://vwf.example.com/hud/overlay.vwf
+implements:
+  - http://vwf.example.com/sceneGetter.vwf
+properties:
+  visible: true
+  lastBlocklyNodeID:
+methods:
+  elementPreDraw:
+  elementPostDraw:
+  setAllBlinking:
+  setAllEnabled:
+children:
+  blocklyButton:
+    includes: source/hud/blocklyButton.vwf
+  graphButton:
+    includes: source/hud/graphButton.vwf
+  tilesButton:
+    includes: source/hud/tilesButton.vwf
+  optionsButton:
+    includes: source/hud/optionsButton.vwf
+  objective:
+    includes: source/hud/objective.vwf
+  batteryMeter:
+    includes: source/hud/batteryMeter.vwf
+  comms:
+    includes: source/hud/comms.vwf
+  cameraSelector:
+    includes: source/hud/cameraSelector.vwf
+  firstPersonButton:
+    includes: source/hud/firstPersonButton.vwf
+  thirdPersonButton:
+    includes: source/hud/thirdPersonButton.vwf
+  topDownButton:
+    includes: source/hud/topDownButton.vwf
+  alertDisplay:
+    includes: source/hud/alertDisplay.vwf
+scripts:
+  - source: marsGameHud.js

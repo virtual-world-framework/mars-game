@@ -1,0 +1,114 @@
+# Copyright 2014 Lockheed Martin Corporation
+#
+# Licensed under the Apache License, Version 2.0 (the "License"); you may 
+# not use this file except in compliance with the License. You may obtain 
+# a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software 
+# distributed under the License is distributed on an "AS IS" BASIS, 
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and 
+# limitations under the License.
+
+# The clause factory creates clauses from yaml declarations. 
+
+--- 
+extends: generatorProto.vwf
+
+properties:
+
+  # The clause set contains the clauses that  we pass into the function
+  # executor.  It's fine if other function sets are also added, but this 
+  # provides the baseline functionality that we need.
+  clauseSet:
+    # arguments: an array of clauses
+    and: "source/triggers/clauses/clause_And.vwf"
+    or: "source/triggers/clauses/clause_Or.vwf"
+
+    # arguments: a single clause
+    not: "source/triggers/clauses/clause_Not.vwf"
+
+    # Waits some number of seconds after the clause is created (i.e. after the
+    #   start of the scenario).
+    # arguments: how long to delay
+    delay: "source/triggers/clauses/clause_Delay.vwf"
+
+    # Prevents a particular trigger from firing more than once.
+    # arguments: (none)
+    doOnce: "source/triggers/clauses/clause_DoOnce.vwf"
+
+    # Checks the sceneBlackboard for a given key
+    # arguments: variableName, optionally check value
+    readBlackboard: "source/triggers/clauses/clause_ReadBlackboard.vwf"
+
+    # arguments: object, [ x, y ]
+    # TODO: make this an onEvent trigger?
+    isAtPosition: "source/triggers/clauses/clause_IsAtPosition.vwf"
+
+    # arguments: object, heading
+    # TODO: make this an onEvent trigger?
+    hasHeading: "source/triggers/clauses/clause_HasHeading.vwf"
+
+    # arguments: owner, object
+    # TODO: make this an onEvent trigger?
+    hasObject: "source/triggers/clauses/clause_HasObject.vwf"
+
+    # arguments: object, threshold (optional, default = 0.667 seconds)
+    # TODO: make MoveFailed an onEvent trigger?
+    onMoved: "source/triggers/clauses/clause_OnMoved.vwf"
+    onMoveFailed: "source/triggers/clauses/clause_OnMoveFailed.vwf"
+
+    # arguments: these blockly clauses can take a single blockly object (e.g.
+    #   "rover"), an array of blockly objects (e.g. [ "minirover", "graph" ]),
+    #   or nothing (in which case, we fire them if the event occurs on *any*
+    #   blockly object).  An empty array counts as "nothing."
+    isBlocklyExecuting: "source/triggers/clauses/clause_IsBlocklyExecuting.vwf"
+    onBlocklyStarted: "source/triggers/clauses/clause_OnBlocklyStarted.vwf"
+    onBlocklyStopped: "source/triggers/clauses/clause_OnBlocklyStopped.vwf"
+    onBlocklyWindowOpened: "source/triggers/clauses/clause_OnBlocklyWindowOpened.vwf"
+
+    # arguments:
+    #   1: An array of blockly objects (as described above)
+    #   2: add | remove | either - should it fire when a block is added, when 
+    #      one is removed, or either.  Either is the default.
+    #   3: the type of block, on array of block types, or nothing (in which 
+    #      case any type of block will match). An empty array counts as 
+    #      "nothing."
+    onBlocklyProgramChanged: "source/triggers/clauses/clause_OnBlocklyProgramChanged.vwf"
+
+    # arguments: scenarioName(s) (optional)
+    onScenarioStart: "source/triggers/clauses/clause_OnScenarioStart.vwf"
+    onScenarioSucceeded: "source/triggers/clauses/clause_OnScenarioSucceeded.vwf"
+    onScenarioFailed: "source/triggers/clauses/clause_OnScenarioFailed.vwf"
+
+    # arguments: (none)
+    onScenarioChanged: "source/triggers/clauses/clause_OnScenarioChanged.vwf"
+
+    # Triggers when the specified video ends.
+    # arguments: videoSource(s)
+    onVideoPlayed: "source/triggers/clauses/clause_OnVideoPlayed.vwf"
+
+    # Triggers when the appropriate UI element is used
+    # arguments: (none)
+    onHelicamToggle: "source/triggers/clauses/clause_OnHelicamToggle.vwf"
+    onGraphToggle: "source/triggers/clauses/clause_OnGraphToggle.vwf"
+    onTilesToggle: "source/triggers/clauses/clause_OnTilesToggle.vwf"
+
+    # Checks to see if the graph passes through a particular x,y point
+    # arguments: an x,y array
+    blocklyLineEval: "source/triggers/clauses/clause_BlocklyLineEval.vwf"
+
+    # Checks if a HUD element has fired its onMouseOver event
+    # arguments: elementName
+    onHUDMouseOver: "source/triggers/clauses/clause_OnHUDMouseOver.vwf"
+
+    # Triggers when progress is loaded rather than when a new game is started
+    #   or normal scenario progress occurs
+    # arguments: none
+    onGameLoaded: "source/triggers/clauses/clause_OnGameLoaded.vwf"
+    onGameStarted: "source/triggers/clauses/clause_OnGameStarted.vwf"
+
+scripts:
+- source: generator_Clause.js

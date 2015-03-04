@@ -13,7 +13,7 @@
 # limitations under the License.
 
 ---
-extends: source/scenario/scenario.vwf
+extends: ../scenario/scenario.vwf
 properties:
   scenarioName: scenario2c
 
@@ -62,7 +62,7 @@ properties:
 
 children:
   triggerManager:
-    extends: source/triggers/triggerManager.vwf
+    extends: ../triggers/triggerManager.vwf
     properties: 
       triggers:
         beginScenario_2c:
@@ -81,17 +81,15 @@ children:
         playStartingVO_2c:
           triggerCondition:
           - and:
+            - doOnce:
             - onScenarioStart:
-            - not:
-              - readBlackboard:
-                - Level2cStartSounds
           actions:
           - playSound:
             - SCVO6_Rover
-          - writeToBlackboard:
-            - Level2cStartSounds
 
         failOnMove_2c:
+          group: successOrFailure
+          priority: 1
           triggerCondition:
           - onMoved:
             - rover
@@ -103,6 +101,8 @@ children:
             - FCVO4_Rover
 
         succeedOnSuccessfulCoursePlot_2c:
+          group: successOrFailure
+          priority: 0
           triggerCondition:
           - and:
             - blocklyLineEval:
@@ -119,22 +119,12 @@ children:
         playHint1_2c:
           triggerCondition:
           - and:
+            - doOnce:
             - delay:
               - 20
-            - not:
-              - readBlackboard:
-                - Level2cHint1
-            - not:
-              - readBlackboard:
-                - hasSucceeded
-            - not:
-              - readBlackboard:
-                - hasFailed
           actions:
           - playSound:
             - ALVO24_Rover
-          - writeToBlackboard:
-            - Level2cHint1
 
   grid:
     includes: source/grid.vwf

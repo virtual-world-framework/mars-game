@@ -31,4 +31,4 @@ methods:
   mountCamera:
 events:
 scripts:
-  - source: source/cameraMount.js
+  - source: cameraMount.js

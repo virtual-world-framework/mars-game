@@ -1,14 +1,13 @@
 ---
-extends: source/scenario/scenario.vwf
+extends: ../scenario/scenario.vwf
 properties:
   scenarioName: scenario1h
-
   scenePath: /
-  nextScenarioPath: mainMenuScenario
+  nextScenarioPath: "scenario1a"
 
 children:
   triggerManager:
-    extends: source/triggers/triggerManager.vwf
+    extends: ../triggers/triggerManager.vwf
     properties: 
       triggers:
         beginScenario_Intro:
@@ -20,6 +19,8 @@ children:
             - end_cinematic.mp4
 
         succeedOnIntroDone:
+          group: successOrFailure
+          priority: 0
           triggerCondition:
           - onVideoPlayed:
             - end_cinematic.mp4

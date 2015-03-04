@@ -13,165 +13,71 @@
 // limitations under the License.
 
 this.initialize = function() {
-    this.triggerSet$ = {};
-
     // We have to create these here because VWF doesn't give our children
     //   to objects that extend us.
-    this.children.create( "conditionFactory", 
-                          "source/triggers/booleanFunctionFactory.vwf" );
+    if ( this.uri ) {
+        return;
+    }
+    this.children.create( "clauseGen", 
+                          "source/triggers/generators/generator_Clause.vwf" );
 
-    this.children.create( "actionFactory",
-                          "source/triggers/actionFactory.vwf" );
+    this.children.create( "actionGen",
+                          "source/triggers/generators/generator_Action.vwf" );
+
+    // This one is just an empty node that will hold all of our triggers once
+    //  we create them.
+    this.children.create( "triggerSet", "http://vwf.example.com/node.vwf" );
 }
 
-this.loadTriggers = function( context ) {
-    if ( !this.isEmpty() ) {
+this.loadTriggers = function( scenario ) {
+    this.assert( this.triggerSet );
+    if ( this.triggerSet.children.length > 0 ) {
         this.logger.warnx( "loadTriggers", "Loading a new set of triggers, " +
                            "but we still had some there from a previous set!" );
     }
 
-    this.loadTriggerList( this.triggers, context );
+    this.loadTriggerList( this.triggers, scenario );
 }
 
-this.loadTriggerList = function( triggerList, context ) {
+this.loadTriggerList = function( triggerList, scenario ) {
     for ( var key in triggerList ) {
         if ( !triggerList.hasOwnProperty( key ) ) {
             continue;
         }
 
-        this.addTrigger( key, triggerList[ key ], context );
+        this.addTrigger( key, triggerList[ key ], scenario );
     }
 }
 
-this.addTrigger = function( triggerName, trigger, context ) {
-    this.triggerSet$[ triggerName ] = new Trigger( this.conditionFactory, 
-                                                   this.actionFactory, 
-                                                   context, 
-                                                   trigger, 
-                                                   this.logger,
-                                                   triggerName );
+this.addTrigger = function( triggerName, definition, scenario ) {
+    var initTrigger = function( trigger ) {
+        var success = trigger.initTrigger( this.clauseGen, this.actionGen,
+                                           definition, scenario );
+
+        if ( !success ) {
+            this.logger.errorx( "addTrigger", "Failed to initialize " +
+                                "trigger '" + triggerName + "'!");
+            this.triggerSet.children.delete( trigger );
+        }
+    };
+
+    this.triggerSet.children.create( triggerName, 
+                                     "source/triggers/trigger.vwf",
+                                     initTrigger.bind( this ) );
 }
 
-this.clearTriggers = function() {
-    for ( var key in this.triggerSet$ ) {
-        if ( !this.triggerSet$.hasOwnProperty( key ) ) {
-            continue;
-        }
-
-        this.triggerSet$[ key ].isDeleted = true;
-        delete this.triggerSet$[ key ];
+this.setIsEnabled$ = function( value ) {
+    if ( !this.name ) {
+        return; // this is the prototype
     }
 
-    if ( !this.isEmpty() ) {
-        this.logger.errorx( "clearTriggers", "How do we still have triggers?!" );
-    }
-}
-
-this.clearTriggerList = function( triggerList ) {
-    for ( var key in triggerList ) {
-        if ( !triggerList.hasOwnProperty( key ) ) {
-            continue;
-        }
-
-        if ( this.triggerSet$[ key ] !== undefined ) {
-            this.triggerSet$[ key ].isDeleted = true;
-            delete this.triggerSet$[ key ];
-        } 
-    }
-}
-
-this.isEmpty = function() {
-    for ( var key in this.triggerSet$ ) {
-        if ( this.triggerSet$.hasOwnProperty( key ) ) {
-            return false;
+    this.assert( this.triggerSet );
+    if ( this.isEnabled !== value ) {
+        this.isEnabled = value;
+        for ( var i = 0; i < this.triggerSet.children.length; ++i ) {
+            this.triggerSet.children[ i ].isEnabled = value;
         }
     }
-
-    return true;
-}
-
-function Trigger( conditionFactory, actionFactory, context, definition, 
-                  logger, triggerName ) {
-
-    this.initialize( conditionFactory, actionFactory, context, definition, 
-                     logger, triggerName );
-    return this;
-}
-
-Trigger.prototype = {
-    // Our name - also the key in the trigger list.  Used for debugging.
-    name: "",
-
-    // The conditions that we check to see if the trigger should fire
-    triggerCondition: undefined,
-
-    // The actions we take when the trigger fires
-    actions: undefined,
-
-    // This doesn't appear to be getting deleted properly, so redundantly 
-    //   disable it if it should be deleted.
-    isDeleted: undefined,
-
-    // A logger.  Also used for debugging.
-    logger: undefined,
-
-    initialize: function( conditionFactory, actionFactory, context, definition, 
-                          logger, triggerName ) {
-        if ( !definition.triggerCondition || 
-             ( definition.triggerCondition.length !== 1 ) ) {
-
-            logger.errorx( triggerName + ".initialize", "There must be " +
-                           "exactly one trigger condition.  Try using 'and' " +
-                           "or 'or'." );
-            return undefined;
-        } 
-
-        if ( !definition.actions || ( definition.actions.length < 1 )) {
-            logger.errorx( triggerName + ".initialize", "There must be at " +
-                           "least one action." );
-            return undefined;
-        }
-
-        this.name = triggerName;
-
-        this.isDeleted = false;
-
-        this.triggerCondition = 
-            conditionFactory.executeFunction( definition.triggerCondition[0],
-                                              context, 
-                                              this.checkFire.bind( this ) );
-
-        this.actions = [];
-        for ( var i = 0; i < definition.actions.length; ++i ) {
-            var action = actionFactory.executeFunction( definition.actions[ i ], 
-                                                        context );
-            action && this.actions.push( action );
-        }
-
-        this.logger = logger;
-    },
-
-    // Check our conditions, and take action if they're true
-    checkFire: function() {
-        if ( !this.isDeleted && 
-             this.triggerCondition && this.triggerCondition() ) {
-
-            // this.logger.logx( this.name + ".checkFire", "Firing actions " +
-            //                   "for trigger '" + this.name + "'.");
-
-            for ( var i = 0; i < this.actions.length; ++i ) {
-
-                // this.logger.logx( this.name + ".checkFire", "    Action " + 
-                //                   i + " starting.");
-                this.actions[ i ] && this.actions[ i ]();
-                // this.logger.logx( this.name + ".checkFire", "    Action " + 
-                //                   i + " complete.");
-            }
-
-            // this.logger.logx( this.name + ".checkFire", "All actions " +
-            //                   "complete for trigger '" + this.name + "'.");
-        }
-    },
 }
 
 //@ sourceURL=source/triggers/triggerManager.js

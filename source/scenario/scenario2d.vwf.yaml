@@ -13,7 +13,7 @@
 # limitations under the License.
 
 ---
-extends: source/scenario/scenario.vwf
+extends: ../scenario/scenario.vwf
 properties:
   scenarioName: scenario2d
 
@@ -62,7 +62,7 @@ properties:
 
 children:
   triggerManager:
-    extends: source/triggers/triggerManager.vwf
+    extends: ../triggers/triggerManager.vwf
     properties: 
       triggers:
         beginScenario_2d:
@@ -81,19 +81,17 @@ children:
         playStartingVO_2d:
           triggerCondition:
           - and:
+            - doOnce:
             - onScenarioStart:
-            - not:
-              - readBlackboard:
-                - Level2dStartSounds
           actions:
           - playSound:
             - ALVO1_Rover
           - playSound:
             - L2VO7_Control
-          - writeToBlackboard:
-            - Level2dStartSounds
 
         failOnMove_2d:
+          group: successOrFailure
+          priority: 1
           triggerCondition:
           - onMoved:
             - rover
@@ -105,6 +103,8 @@ children:
             - FCVO4_Rover
 
         succeedOnSuccessfulCoursePlot_2d:
+          group: successOrFailure
+          priority: 0
           triggerCondition:
           - and:
             - blocklyLineEval:
@@ -127,100 +127,50 @@ children:
         playHint1_2d:
           triggerCondition:
           - and:
+            - doOnce:
             - delay:
               - 20
-            - not:
-              - readBlackboard:
-                - Level2dHint1
-            - not:
-              - readBlackboard:
-                - hasSucceeded
-            - not:
-              - readBlackboard:
-                - hasFailed
           actions:
-          - writeToBlackboard:
-            - Level2dHint1
           - playSound:
             - L2VO3_Rover_H
 
         playHint2_2d:
           triggerCondition:
           - and:
+            - doOnce:
             - delay:
               - 40
-            - not:
-              - readBlackboard:
-                - Level2dHint2
-            - not:
-              - readBlackboard:
-                - hasSucceeded
-            - not:
-              - readBlackboard:
-                - hasFailed
           actions:
-          - writeToBlackboard:
-            - Level2dHint2
           - playSound:
             - L2VO3_Rover_H2
 
         playHint3_2d:
           triggerCondition:
           - and:
+            - doOnce:
             - delay:
               - 60
-            - not:
-              - readBlackboard:
-                - Level2dHint3
-            - not:
-              - readBlackboard:
-                - hasSucceeded
-            - not:
-              - readBlackboard:
-                - hasFailed
           actions:
-          - writeToBlackboard:
-            - Level2dHint3
           - playSound:
             - ALVO30_Rover
 
         playHint4_2d:
           triggerCondition:
           - and:
+            - doOnce:
             - delay:
               - 80
-            - not:
-              - readBlackboard:
-                - Level2dHint4
-            - not:
-              - readBlackboard:
-                - hasSucceeded
-            - not:
-              - readBlackboard:
-                - hasFailed
           actions:
-          - writeToBlackboard:
-            - Level2dHint4
           - playSound:
             - ALVO29_Rover
 
         playHint5_2d:
           triggerCondition:
           - and:
+            - doOnce:
             - delay:
               - 100
-            - not:
-              - readBlackboard:
-                - Level2dHint5
-            - not:
-              - readBlackboard:
-                - hasSucceeded
-            - not:
-              - readBlackboard:
-                - hasFailed
           actions:
-          - writeToBlackboard:
-            - Level2dHint5
           - playSound:
             - ALVO31_Rover
 

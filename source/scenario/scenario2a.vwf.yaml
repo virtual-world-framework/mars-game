@@ -13,7 +13,7 @@
 # limitations under the License.
 
 ---
-extends: source/scenario/scenario.vwf
+extends: ../scenario/scenario.vwf
 properties:
   scenarioName: scenario2a
 
@@ -69,7 +69,7 @@ properties:
 
 children:
   triggerManager:
-    extends: source/triggers/triggerManager.vwf
+    extends: ../triggers/triggerManager.vwf
     properties: 
       triggers:
         beginScenario_2a:
@@ -84,7 +84,7 @@ children:
             - graphButton
           - setObjective:
             - "Click the GRAPH button to display the coordinate axes."
-          - setHUDProperty:
+          - setProperty:
             - blocklyButton
             - enabled
             - false
@@ -96,17 +96,15 @@ children:
         playStartingVO_2a:
           triggerCondition:
           - and:
+            - doOnce:
             - onScenarioStart:
-            - not:
-              - readBlackboard:
-                - Level2aStartSounds
           actions:
           - playSound:
             - L2VO4_Control
-          - writeToBlackboard:
-            - Level2aStartSounds
 
         failOnMove_2a:
+          group: successOrFailure
+          priority: 1
           triggerCondition:
           - onMoved:
             - rover
@@ -118,6 +116,8 @@ children:
             - FCVO4_Rover
 
         succeedOnSuccessfulGridDisplay_2a:
+          group: successOrFailure
+          priority: 0
           triggerCondition:
           - onGraphToggle:
           actions:
@@ -132,22 +132,12 @@ children:
         playHint1_2a:
           triggerCondition:
           - and:
+            - doOnce:
             - delay:
               - 20
-            - not:
-              - readBlackboard:
-                - Level2aHint1
-            - not:
-              - readBlackboard:
-                - hasSucceeded
-            - not:
-              - readBlackboard:
-                - hasFailed
           actions:
           - playSound:
             - ALVO18_Rover
-          - writeToBlackboard:
-            - Level2aHint1
 
   grid:
     includes: source/grid.vwf

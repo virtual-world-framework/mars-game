@@ -13,7 +13,7 @@
 # limitations under the License.
 
 ---
-extends: source/scenario/scenario.vwf
+extends: ../scenario/scenario.vwf
 properties:
   scenarioName: scenario1h
 
@@ -70,7 +70,7 @@ properties:
 
 children:
   triggerManager:
-    extends: source/triggers/triggerManager.vwf
+    extends: ../triggers/triggerManager.vwf
     properties: 
       triggers:
         beginScenario_1h:
@@ -83,7 +83,7 @@ children:
             - environmentWind
           - setObjective:
             - "Move to the far end of the crash site and pick up the radio module."
-          - setHUDProperty:
+          - setProperty:
             - graphButton
             - enabled
             - false
@@ -93,15 +93,11 @@ children:
         playStartingVO_1h:
           triggerCondition:
           - and:
+            - doOnce:
             - onScenarioStart:
-            - not:
-              - readBlackboard:
-                - Level1hStartSounds
           actions:
           - playSound:
             - L1VO16_Rover
-          - writeToBlackboard:
-            - Level1hStartSounds
 
         highlightEndTile:
           triggerCondition:
@@ -111,6 +107,8 @@ children:
             - [ 8, 16 ]
 
         succeedOnSuccess_1h:
+          group: successOrFailure
+          priority: 0
           triggerCondition:
           - and:
             - onBlocklyStopped:
@@ -118,9 +116,6 @@ children:
             - isAtPosition:
               - rover
               - [ 8, 16 ]
-            - not:
-              - readBlackboard:
-                - hasFailed
           actions:
           - scenarioSuccess:
           - showAlert:
@@ -132,36 +127,20 @@ children:
         playHint1_1h:
           triggerCondition:
           - and:
+            - doOnce:
             - delay:
               - 20
-            - not:
-              - readBlackboard:
-                - Level1hHint1
-            - not:
-              - readBlackboard:
-                - hasSucceeded
-            - not:
-              - readBlackboard:
-                - hasFailed
           actions:
           - playSound:
             - ALVO36_Rover
-          - writeToBlackboard:
-            - Level1hHint1
 
         failOnIncompleteProgram_1h:
+          group: successOrFailure
+          priority: -0.5
           triggerCondition:
           - and:
+            - doOnce:
             - onBlocklyStopped:
-            - not:
-              - readBlackboard:
-                - hasFailed
-            - not:
-              - readBlackboard:
-                - hasSucceeded
-            - not:
-              - readBlackboard:
-                - Level1hHint2
           actions:
           - scenarioFailure:
             - incomplete
@@ -169,8 +148,6 @@ children:
             - FCVO2_Rover
           - playSound:
             - ALVO22_Rover
-          - writeToBlackboard:
-            - Level1hHint2
           - writeToBlackboard:
             - disableFailOnIncompleteProgram
 

@@ -12,51 +12,52 @@
 # See the License for the specific language governing permissions and 
 # limitations under the License.
 
-# The trigger factory creates triggers from yaml declarations.
-# NOTE: you are responsible for calling loadTriggers with the context in order
-#   to get things started.
-
 --- 
+
+# The trigger factory creates triggers from yaml declarations.
+# NOTE: You are responsible for calling loadTriggers in order to get things 
+#   started, as well as for enabling the manager when you want the triggers to 
+#   start working.
+# NOTE: Despite being called a "manager," this is not a singleton.  Each 
+#   scenario has its own trigger manager.
+
 extends: http://vwf.example.com/node.vwf
+
+implements: 
+  - http://vwf.example.com/sceneGetter.vwf
+  - http://vwf.example.com/assert.vwf
+
 properties:
-  # Any triggers placed here will be automatically loaded when loadTriggers
-  #   is called.
-  # A trigger consists of two pieces:
-  #   triggerCondition: When this condition becomes true, the trigger may fire
-  #   actions: Each of these will be run, in order, when the trigger fires
+  # The yaml definition for our triggers
   triggers:
 
-  # This holds our triggers.  For internal use only.
-  triggersSet$: undefined
+  # Enable/disable all of our triggers.
+  isEnabled:
+    set: |
+      this.setIsEnabled$( value );
+    value: false
 
 methods:
+  # TODO: combine trigger loading back into a single function now that we don't
+  #   have late loading triggers.
+
   # This function loops through our triggers property and creates all the 
   #   triggers, including setting up callbacks to make them fire.  From 
   #   there on out, the magic should just happen.
-  # arguments: context
+  # arguments: scenario
   loadTriggers:
 
   # This function takes a trigger list (like our triggers property) and loads
   #   the contents.
-  # arguments: triggerList, context
+  # arguments: triggerList, scenario
   loadTriggerList:
 
   # Adds a single trigger.
-  # arguments: triggerName, trigger, context
+  # arguments: triggerName, trigger, scenario
   addTrigger:
 
-  # This function clears out all of our triggers so that they will stop firing.
-  #   You can still call loadTriggers again if you want to recreate them.
-  clearTriggers:
-
-  # This function clears out only triggers that appear in the specified list.
-  # NOTE: we do matching based solely on the keys - we don't check if the 
-  #   trigger is actually the same.
-  # arguments: triggerList
-  clearTriggerList:
-
-  # Checks whether we have any triggers
-  isEmpty:
+  # The setter for isEnabled.  DO NOT CALL DIRECTLY!
+  setIsEnabled$:
 
 scripts:
-- source: source/triggers/triggerManager.js
+  - source: triggerManager.js

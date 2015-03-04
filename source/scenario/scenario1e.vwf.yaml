@@ -13,7 +13,7 @@
 # limitations under the License.
 
 ---
-extends: source/scenario/scenario.vwf
+extends: ../scenario/scenario.vwf
 properties:
   scenarioName: scenario1e
 
@@ -73,7 +73,7 @@ properties:
 
 children:
   triggerManager:
-    extends: source/triggers/triggerManager.vwf
+    extends: ../triggers/triggerManager.vwf
     properties: 
       triggers:
         beginScenario_1e:
@@ -88,7 +88,7 @@ children:
             - blocklyButton
           - setObjective:
             - "Move forward three spaces to pick up the battery pack."
-          - setHUDProperty:
+          - setProperty:
             - graphButton
             - enabled
             - false
@@ -98,15 +98,11 @@ children:
         playStartingVO_1e:
           triggerCondition:
           - and:
+            - doOnce:
             - onScenarioStart:
-            - not:
-              - readBlackboard:
-                - Level1eStartSounds
           actions:
           - playSound:
             - L1VO12_Rover
-          - writeToBlackboard:
-            - Level1eStartSounds
 
         stopBlinkingBlockly_1e:
           triggerCondition:
@@ -116,6 +112,8 @@ children:
             - blocklyButton
 
         succeedOnSuccess_1e:
+          group: successOrFailure
+          priority: 0
           triggerCondition:
           - and:
             - onBlocklyStopped:
@@ -142,22 +140,12 @@ children:
         playHint1_1e:
           triggerCondition:
           - and:
+            - doOnce:
             - delay:
               - 20
-            - not:
-              - readBlackboard:
-                - Level1eHint1
-            - not:
-              - readBlackboard:
-                - hasSucceeded
-            - not:
-              - readBlackboard:
-                - hasFailed
           actions:
           - playSound:
             - ALVO19_Rover
-          - writeToBlackboard:
-            - Level1eHint1
 
         setCameraView:
           triggerCondition:

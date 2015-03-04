@@ -18,22 +18,24 @@
 
 this.initialize = function() {
     //Set up the grid map as a 2D array
-    this.tiles = [];
-    for ( var i = 0; i < this.maxX - this.minX; i++ ) {
-        this.tiles[ i ] = [];
-        for ( var j = 0; j < this.maxY - this.minY; j++ ) {
-            this.tiles[ i ][ j ] = new GridTile();
+    var tiles = this.tiles = new Array( this.maxX - this.minX );
+    for ( var i = 0; i < tiles.length; i++ ) {
+        tiles[ i ] = new Array( this.maxY - this.minY );
+        for ( var j = 0; j < tiles[ i ].length; j++ ) {
+            tiles[ i ][ j ] = new GridTile();
         }
     }
     this.future( 0 ).setBoundaryValues();
 }
 
 this.setBoundaryValues = function() {
-    if ( this.boundaryValues ) {
+    var boundaryValues = this.boundaryValues;
+    var tiles = this.tiles;
+    if ( boundaryValues ) {
         for ( var i = 0; i < this.maxX - this.minX; i++ ) {
-            if ( this.boundaryValues[i] ) {
+            if ( boundaryValues[i] ) {
                 for (var j = 0; j < this.maxY - this.minY; j++) {
-                        this.tiles[ i ][ j ].energyRequired = this.boundaryValues[ i ][ j ];
+                        tiles[ i ][ j ].energyRequired = boundaryValues[ i ][ j ];
                 }
             }
         }
@@ -41,9 +43,10 @@ this.setBoundaryValues = function() {
 }
 
 this.clearGrid = function() {
-    for ( var i = 0; i < this.maxX - this.minX; i++ ) {
-        for ( var j = 0; j < this.maxY - this.minY; j++ ) {
-            this.tiles[ i ][ j ].objects.length = 0;
+    var tiles = this.tiles;
+    for ( var i = 0; i < tiles.length; i++ ) {
+        for ( var j = 0; j < tiles[ i ].length; j++ ) {
+            tiles[ i ][ j ].objects.length = 0;
         }
     }
 }
@@ -52,7 +55,8 @@ this.getTileFromGrid = function( gridCoord ) {
     var x, y, tile;
     x = gridCoord[ 0 ];
     y = gridCoord[ 1 ];
-    tile = this.tiles[ x ] && this.tiles[ x ][ y ] ? this.tiles[ x ][ y ] : null;
+    var tiles = this.tiles;
+    tile = tiles[ x ] && tiles[ x ][ y ] ? tiles[ x ][ y ] : null;
     return tile;
 }
 
@@ -60,7 +64,8 @@ this.getTileFromWorld = function( worldCoord ) {
     var x, y, tile;
     x = Math.round( ( worldCoord[ 0 ] - this.gridOriginInSpace[ 0 ] ) / this.gridSquareLength );
     y = Math.round( ( worldCoord[ 1 ] - this.gridOriginInSpace[ 1 ] ) / this.gridSquareLength );
-    tile = this.tiles[ x ] && this.tiles[ x ][ y ] ? this.tiles[ x ][ y ] : null;
+    var tiles = this.tiles;
+    tile = tiles[ x ] && tiles[ x ][ y ] ? tiles[ x ][ y ] : null;
     return tile;
 }
 
@@ -171,7 +176,7 @@ this.setHeightFromTerrain = function ( object ) {
     var terrain = this.find( "//" + object.terrainName )[ 0 ];
     if ( scene && origin && terrain ) {
         var intersects = scene.raycast( origin, [ 0, 0, -1 ], 0, Infinity, true, terrain.id );
-        var terrainHeight = intersects.length > 0 ? intersects[ 0 ].point.z : object.translation[ 2 ];
+        var terrainHeight = intersects.length > 0 ? intersects[ 0 ].point[ 2 ] : object.translation[ 2 ];
         object.translation = [ origin[ 0 ], origin[ 1 ], terrainHeight ];
     }
 }

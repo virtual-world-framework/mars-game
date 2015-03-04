@@ -20,5 +20,5 @@ properties:
 events:
   addedToGrid:
 scripts:
-  - source: source/griddable.js
+  - source: griddable.js
   

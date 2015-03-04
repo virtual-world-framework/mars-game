@@ -13,7 +13,7 @@
 # limitations under the License.
 
 ---
-extends: source/scenario/scenario.vwf
+extends: ../scenario/scenario.vwf
 properties:
   scenarioName: scenario2e
 
@@ -62,7 +62,7 @@ properties:
 
 children:
   triggerManager:
-    extends: source/triggers/triggerManager.vwf
+    extends: ../triggers/triggerManager.vwf
     properties: 
       triggers:
         beginScenario_2e:
@@ -81,17 +81,15 @@ children:
         playStartingVO_2e:
           triggerCondition:
           - and:
+            - doOnce:
             - onScenarioStart:
-            - not:
-              - readBlackboard:
-                - Level2eStartSounds
           actions:
           - playSound:
             - SCVO8_Control
-          - writeToBlackboard:
-            - Level2eStartSounds
 
         succeedOnSuccessfulMovement_2e:
+          group: successOrFailure
+          priority: 0
           triggerCondition:
           - and:
             - onBlocklyStopped:
@@ -128,45 +126,22 @@ children:
         playHint1_2e:
           triggerCondition:
           - and:
+            - doOnce:
             - delay:
               - 20
-            - not:
-              - readBlackboard:
-                - Level2eHint1
-            - not:
-              - readBlackboard:
-                - Level2eHint2
-            - not:
-              - readBlackboard:
-                - hasSucceeded
-            - not:
-              - readBlackboard:
-                - hasFailed
           actions:
           - playSound:
             - ALVO25_Rover
-          - writeToBlackboard:
-            - Level2eHint1
 
         playHint2_2e:
           triggerCondition:
           - and:
+            - doOnce:
             - delay:
               - 40
-            - not:
-              - readBlackboard:
-                - Level2eHint2
-            - not:
-              - readBlackboard:
-                - hasSucceeded
-            - not:
-              - readBlackboard:
-                - hasFailed
           actions:
           - playSound:
             - ALVO26_Rover
-          - writeToBlackboard:
-            - Level2eHint2
 
   grid:
     includes: source/grid.vwf
