@@ -411,9 +411,6 @@ function setUpView() {
     setUpBlocklyPeripherals();
     setUpStatusDisplay();
     loadScenarioList();
-    loadVideo( "intro_cinematic.mp4" );
-    loadVideo( "success_cinematic.mp4" );
-    loadVideo( "end_cinematic.mp4", undefined, true );
 }
 
 function render( renderer, scene, camera ) {
