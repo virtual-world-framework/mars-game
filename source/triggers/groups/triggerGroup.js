@@ -15,7 +15,7 @@
 this.initialize = function() {
     this.triggers = [];
     this.canFire$ = [];
-    this.checkFrequency$ = 0.08 + ( Math.random() * 0.02 );
+    this.checkFrequency$ = 0.08 + ( this.random * 0.02 );
     // this.future( this.checkFrequency$ ).checkTriggers$();
 }
 
@@ -105,9 +105,9 @@ this.checkTriggersCallback$ = function() {
     //  ready to fire that they were evaluated, so they can record keep 
     //  accordingly.
 
-    // Math.random() returns [0, 1), so this will get us a random integer 
+    // this.random returns [0, 1), so this will get us a random integer 
     //  in the range [0, numAtPriority).
-    var selectionValue = Math.floor( Math.random() * numAtPriority );
+    var selectionValue = Math.floor( this.random * numAtPriority );
 
     for ( var i = 0; i < this.triggers.length; ++i ) {
         var trigger = this.triggers[ i ];
