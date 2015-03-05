@@ -73,7 +73,7 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 break;
 
             case "blocklyStarted":
-                //startBlocklyButton.className = "reset";
+                startBlocklyButton.className = "reset";
                 var indicator = document.getElementById( "blocklyIndicator" );
                 indicator.className = "";
                 indicator.style.visibility = "inherit";
@@ -309,8 +309,7 @@ vwf_view.satProperty = function( nodeID, propertyName, propertyValue ) {
 
             case "blockly_executing":
                 var isExecuting = Boolean( propertyValue );
-                //startBlocklyButton.className = isExecuting ? "reset" : "";
-                startBlocklyButton.className = "";
+                startBlocklyButton.className = isExecuting ? "reset" : "";
                 blocklyExecuting = isExecuting;
                 break;
 
