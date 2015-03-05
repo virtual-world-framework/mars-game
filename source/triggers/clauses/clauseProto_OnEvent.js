@@ -37,7 +37,7 @@ this.onEvent = function() {
     if ( this.parentTrigger.isEnabled === true ) {
         // this.logger.logx( "onEvent", "Trigger: '" + this.parentTrigger.name +
         //                              "', Name: '" + this.name + "'." );
-        this.lastEventTime$ = this.time;
+        this.lastEventTime$ = Date.now();
         this.parentTrigger.checkFire();
     }
 }
@@ -71,7 +71,7 @@ this.reset = function() {
 
 this.evaluateClause = function() {
     var retVal = ( this.lastEventTime$ > 0 ) && 
-                 ( this.time - this.lastEventTime$ <= this.threshold$ );
+                 ( Date.now() - this.lastEventTime$ <= this.threshold$ );
     return retVal;
 }
 
