@@ -23,15 +23,15 @@ properties:
   visible: true
   enabled: true
   alignH: left
-  alignV: middle
+  alignV: top
   offsetH: 30
-  offsetV: 0
+  offsetV: 200
   isBlinking: false
   lastBlinkTime: 0
   blinkInterval: 0.25
   blinkDuration: 0.25
-  iconHeight$: 80
-  verticalSpacing$: 10
+  iconHeight$: 64
+  verticalSpacing$: 16
   rovers: []
 methods:
   draw:
