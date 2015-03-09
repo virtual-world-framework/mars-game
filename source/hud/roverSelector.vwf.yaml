@@ -18,7 +18,7 @@ implements:
  - http://vwf.example.com/sceneGetter.vwf
 properties:
   images: {}
-  width: 64
+  width: 80
   height: 0
   visible: true
   enabled: true
@@ -30,8 +30,9 @@ properties:
   lastBlinkTime: 0
   blinkInterval: 0.25
   blinkDuration: 0.25
-  verticalSpacing: 10
-  rovers: {}
+  iconHeight$: 80
+  verticalSpacing$: 10
+  rovers: []
 methods:
   draw:
   addRoverIcon:
