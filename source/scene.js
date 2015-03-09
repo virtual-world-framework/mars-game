@@ -271,17 +271,17 @@ this.setUpRoverListeners = function() {
     this.hud.roverSelector.addRoverIcon(
         "rover",
         this.player.rover,
-        "assets/images/hud/minirover_portrait.png",
+        "assets/images/hud/scout_rover_icon.png",
         true );
     this.hud.roverSelector.addRoverIcon(
         "rover2",
         this.player.rover2,
-        "assets/images/hud/minirover_portrait.png",
+        "assets/images/hud/scout_rover_icon.png",
         true );
     this.hud.roverSelector.addRoverIcon(
         "rover3",
         this.player.rover3,
-        "assets/images/hud/minirover_portrait.png",
+        "assets/images/hud/scout_rover_icon.png",
         true );
 }
 
