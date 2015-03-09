@@ -49,5 +49,7 @@ children:
     includes: source/hud/topDownButton.vwf
   alertDisplay:
     includes: source/hud/alertDisplay.vwf
+  roverSelector:
+    includes: source/hud/roverSelector.vwf
 scripts:
   - source: marsGameHud.js
