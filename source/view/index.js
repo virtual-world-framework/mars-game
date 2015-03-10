@@ -18,7 +18,7 @@ var blocklyNodes = {};
 var graphLines = {};
 var loggerNodes = {};
 var currentBlocklyNodeID = undefined;
-var blocklyExecuting = false;
+//var blocklyExecuting = false;
 var currentProcedureBlockID = undefined;
 var lastBlockIDExecuted = undefined;
 var currentBlockIDSelected = undefined;
@@ -59,7 +59,7 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 break;
 
             case "topBlockCountChanged":
-                if ( !blocklyExecuting ) {
+                if ( !blocklyNode.blocklyExecuting ) {
                     if ( Blockly.mainWorkspace ) {
                         var topBlockCount = Number( eventArgs[ 0 ] );
                         
@@ -73,7 +73,7 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 break;
 
             case "blocklyStarted":
-                startBlocklyButton.className = "reset";
+                //startBlocklyButton.className = "reset";
                 var indicator = document.getElementById( "blocklyIndicator" );
                 indicator.className = "";
                 indicator.style.visibility = "inherit";
@@ -247,7 +247,8 @@ vwf_view.createdNode = function( nodeID, childID, childExtendsID, childImplement
             "ID": childID, 
             "name": childName,
             "ram": 15, 
-            "ramMax": 15
+            "ramMax": 15,
+            "blocklyExecuting": false
         };
     } else if ( isGraphObject( protos ) && childName === "blocklyLine" ) {
         graphLines[ childName ] = { 
@@ -310,7 +311,9 @@ vwf_view.satProperty = function( nodeID, propertyName, propertyValue ) {
             case "blockly_executing":
                 var isExecuting = Boolean( propertyValue );
                 startBlocklyButton.className = isExecuting ? "reset" : "";
-                blocklyExecuting = isExecuting;
+                //startBlocklyButton.className = "";
+                //blocklyExecuting = isExecuting;
+                blocklyNode.blocklyExecuting = isExecuting;
                 break;
 
         }
@@ -411,6 +414,9 @@ function setUpView() {
     setUpBlocklyPeripherals();
     setUpStatusDisplay();
     loadScenarioList();
+    loadVideo( "intro_cinematic.mp4" );
+    loadVideo( "success_cinematic.mp4" );
+    loadVideo( "end_cinematic.mp4", undefined, true );
 }
 
 function render( renderer, scene, camera ) {
