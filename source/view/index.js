@@ -310,7 +310,7 @@ vwf_view.satProperty = function( nodeID, propertyName, propertyValue ) {
 
             case "blockly_executing":
                 var isExecuting = Boolean( propertyValue );
-                startBlocklyButton.className = isExecuting ? "reset" : "";
+                //startBlocklyButton.className = isExecuting ? "reset" : "";
                 //startBlocklyButton.className = "";
                 //blocklyExecuting = isExecuting;
                 blocklyNode.blocklyExecuting = isExecuting;
@@ -553,6 +553,11 @@ function selectBlocklyTab( nodeID ) {
         tabs[ i ].className = "blocklyTab";
         if ( tabs[ i ].id === nodeID ) {
             tabs[ i ].className += " selected";
+            if( blocklyNodes[ nodeID ].blocklyExecuting ) {
+                startBlocklyButton.className = "reset";
+            } else {
+                startBlocklyButton.className = "";
+            }
         }
     }
     
