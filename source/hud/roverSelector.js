@@ -21,6 +21,10 @@ this.draw = function( context, position ) {
             if ( icon ) {
                 posx = position.x + rover.position.x;
                 posy = position.y + rover.position.y;
+                context.drawImage( this.frame, posx, posy );
+                if( rover.active ) {
+                    context.drawImage( this.selectedBG, posx, posy );
+                }
                 context.drawImage( icon, posx, posy );
             }
         }
