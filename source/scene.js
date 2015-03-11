@@ -268,21 +268,21 @@ this.setUpRoverListeners = function() {
     }, this );
     // rover.findAndSetCurrentGrid( this.activeScenarioPath );
     // TODO: Find a more appropriate location for the following
-    this.hud.roverSelector.addRoverIcon(
+    this.hud.roverSelector.future( 0 ).addRoverIcon(
         "rover",
         this.player.rover,
-        "assets/images/hud/scout_rover_icon.png",
-        true );
-    this.hud.roverSelector.addRoverIcon(
+        "assets/images/hud/main_rover_icon.png",
+        false );
+    this.hud.roverSelector.future( 0 ).addRoverIcon(
         "rover2",
         this.player.rover2,
         "assets/images/hud/scout_rover_icon.png",
-        true );
-    this.hud.roverSelector.addRoverIcon(
+        false );
+    this.hud.roverSelector.future( 0 ).addRoverIcon(
         "rover3",
         this.player.rover3,
-        "assets/images/hud/scout_rover_icon.png",
-        true );
+        "assets/images/hud/main_rover_icon.png",
+        false );
 }
 
 this.displayTiles = function( isVisible ) {
@@ -402,6 +402,24 @@ this.selectBlocklyNode = function( nodeName ) {
         this.gameCam.setCameraTarget( node );
     } else if ( node === this.graph ) {
         this.gameCam.setCameraMount( "topDown" );
+    }
+}
+
+// TODO: Do this in a better place and/or rewrite
+//   enableBlocklyTabs action as enableBlocklyNodes
+this.clearBlocklyTabs = function() {
+    var rovers = this.hud.roverSelector.rovers;
+    for ( var i = 0; i < rovers.length; i++ ) {
+        this.hud.roverSelector.hideRoverIcon( rovers[ i ].name );
+    }
+}
+
+this.enableBlocklyTab = function( nodeID ) {
+    var rovers = this.hud.roverSelector.rovers;
+    for ( var i = 0; i < rovers.length; i++ ) {
+        if ( nodeID === rovers[ i ].node.id ) {
+            this.hud.roverSelector.showRoverIcon( rovers[ i ].name );
+        }
     }
 }
 
