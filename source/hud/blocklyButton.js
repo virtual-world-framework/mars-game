@@ -22,6 +22,14 @@ this.onClick = function() {
     var hud = this.parent;
     hud.lastBlocklyNodeID = hud.lastBlocklyNodeID || this.scene.player.rover.id;
     if ( hud.lastBlocklyNodeID !== undefined ) {
+        
+        var blocklyNode = blocklyNodes[ hud.lastBlocklyNodeID ];
+
+        if ( blocklyNode && Blockly.mainWorkspace ) {
+            Blockly.mainWorkspace.maxBlocks = blocklyNode.ramMax;
+        } else {
+            console.log("Either blocklyNode or Blockly.mainWorkspace are missing!");
+        }
         this.scene.blockly_activeNodeID = hud.lastBlocklyNodeID;
     }
 }
