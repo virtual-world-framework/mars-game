@@ -17,7 +17,9 @@ extends: http://vwf.example.com/hud/element.vwf
 implements:
  - http://vwf.example.com/sceneGetter.vwf
 properties:
-  images: {}
+  images:
+    frame: assets/images/hud/rover_selector_frame.png
+    selectedBG: assets/images/hud/rover_selector_bg.png
   width: 80
   height: 0
   visible: true
