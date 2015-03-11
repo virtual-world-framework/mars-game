@@ -259,7 +259,8 @@ function clickStartButton() {
     if ( this.className === "" ) {
         runBlockly();
     } else if ( this.className === "reset" ) {
-        vwf_view.kernel.callMethod( vwf_view.kernel.application(), "stopAllExecution" );
+        vwf_view.kernel.callMethod( vwf_view.kernel.application(), "stopExecutionForNode", 
+           currentBlocklyNodeID  );
     }
 }
 

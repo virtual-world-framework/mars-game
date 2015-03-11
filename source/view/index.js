@@ -18,7 +18,6 @@ var blocklyNodes = {};
 var graphLines = {};
 var loggerNodes = {};
 var currentBlocklyNodeID = undefined;
-//var blocklyExecuting = false;
 var currentProcedureBlockID = undefined;
 var lastBlockIDExecuted = undefined;
 var currentBlockIDSelected = undefined;
@@ -183,7 +182,7 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 break;
             
             case "enableBlocklyTab":
-                addBlocklyTab( eventArgs[ 0 ], eventArgs[ 1 ] );
+                addBlocklyTab( eventArgs[ 0 ] );
                 break;
 
             case "videoPlayed":
