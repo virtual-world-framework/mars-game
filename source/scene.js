@@ -63,7 +63,7 @@ this.setApplicationState = function( state ) {
         case "playing":
             this.mainMenu.visible = false;
             this.soundManager.stopSoundGroup( "music" );
-            this.gameCam.setCameraTarget( this.player.rover );
+            this.selectBlocklyNode( "rover" );
             // TODO: Consolidate game nodes
             this.environment.visible = true;
             this.player.visible = true;
@@ -326,6 +326,8 @@ this.restartGame = function() {
     this.sceneBlackboard = {};
     this.soundManager.stopAllSoundInstances();
     this.storedScenario( this.activeScenarioPath );
+    this.blockly_activeNodeID = undefined;
+    this.blockly_interfaceVisible = false;
     this.applicationState = "menu";
 }
 
@@ -400,6 +402,7 @@ this.selectBlocklyNode = function( nodeName ) {
     }
     if ( node.defaultMount && this.gameCam.target !== node ) {
         this.gameCam.setCameraTarget( node );
+        this.hud.roverSelector.selectRover( nodeName );
     } else if ( node === this.graph ) {
         this.gameCam.setCameraMount( "topDown" );
     }

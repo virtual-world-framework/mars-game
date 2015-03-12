@@ -875,7 +875,6 @@ function exitToMainMenu() {
     resetSubtitles();
     clearBlockly();
     currentBlocklyNodeID = undefined;
-    vwf_view.kernel.setProperty( sceneID, "blockly_activeNodeID", undefined );
     vwf_view.kernel.callMethod( sceneID, "restartGame" );
     closePauseMenu();
 }
@@ -909,6 +908,7 @@ function switchToDisplayedScenario() {
     var displayedScenario = display.innerHTML;
     currentBlocklyNodeID = undefined;
     clearBlockly();
+    vwf_view.kernel.setProperty( sceneID, "blockly_interfaceVisible", false );
     vwf_view.kernel.setProperty( sceneID, "blockly_activeNodeID", undefined );
     vwf_view.kernel.setProperty( sceneID, "activeScenarioPath", displayedScenario );
     closePauseMenu();

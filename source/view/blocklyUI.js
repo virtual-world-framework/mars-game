@@ -88,7 +88,7 @@ function setUpBlocklyPeripherals() {
     } ).bind( blocklyCloseBtn );
 
     blocklyCloseBtn.onclick = ( function() {
-        vwf_view.kernel.setProperty( vwf_view.kernel.application(), "blockly_activeNodeID", undefined );
+        vwf_view.kernel.setProperty( vwf_view.kernel.application(), "blockly_interfaceVisible", false );
     } );
 
     startBlocklyButton.innerHTML = "";
