@@ -43,18 +43,26 @@ this.onClick = function( elementPos ) {
         for ( i = 0, enabledIndex = 0; i < this.rovers.length; i++ ) {
             if ( this.rovers[ i ].enabled ) {
                 if ( iconIndex === enabledIndex ) {
-                    selectedRover = this.rovers[ i ];
-                } else {
-                    // Set other icons to inactive
-                    this.rovers[ i ].active = false;
+                    selectedRover = this.rovers[ i ].name;
+                    break;
                 }
                 enabledIndex++;
             }
         }
-        // Activate the selected rover
-        selectedRover.active = true;
-        this.scene.blockly_activeNodeID = selectedRover.node.id;
-        this.scene.gameCam.setCameraTarget( selectedRover.node );
+        this.scene.selectBlocklyNode( selectedRover );
+        this.selectRover( selectedRover );
+    }
+}
+
+this.selectRover = function( name ) {
+    var rover;
+    for ( var i = 0; i < this.rovers.length; i++ ) {
+        rover = this.rovers[ i ];
+        if ( rover.name === name ) {
+            rover.active = true;
+        } else {
+            rover.active = false;
+        }
     }
 }
 

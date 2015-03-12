@@ -71,8 +71,8 @@ properties:
     - rover
     - source/scenario/blockly/scenario1d.xml
   - setSceneProperty:
-    - blockly_activeNodeID
-    - undefined
+    - blockly_interfaceVisible
+    - false
 
 children:
   triggerManager:
