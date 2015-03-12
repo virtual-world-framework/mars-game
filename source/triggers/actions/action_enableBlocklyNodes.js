@@ -20,25 +20,27 @@ this.onGenerated = function( params, generator, payload ) {
     if ( !params || ( params.length < 1 ) ) {
         this.logger.errorx( "onGenerated", 
                             "This action takes one or more arguments: " +
-                            "the name(s) of the tab(s) to be enabled." );
+                            "the name(s) of the node(s) to be enabled." );
         return false;
     }
 
-    this.tabNames = params;
+    this.nodeNames = params;
     return true;
 }
 
 this.executeAction = function() {
-    this.scene.clearBlocklyTabs();
-    for ( var i = 0; i < this.tabNames.length; i++ ) {
-        var object = this.findInScene( this.tabNames[ i ] );
+    this.scene.disableBlocklyNodes();
+    var nodeIDs = [];
+    for ( var i = 0; i < this.nodeNames.length; i++ ) {
+        var object = this.findInScene( this.nodeNames[ i ] );
         if ( object ) {
-            this.scene.enableBlocklyTab( object.id );
+            nodeIDs.push( object.id );
         } else {
-            this.logger.warnx( "executeAction", "Tab '" + this.tabNames[ i ] + 
-                                                "' not found!" );
+            this.logger.warnx( "executeAction", "Blockly node '" +
+                                this.nodeNames[ i ] + "' not found!" );
         }
     }
+    this.scene.enableBlocklyNodes( nodeIDs );
 }
 
-//@ sourceURL=source/triggers/actions/action_enableBlocklyTabs.js
+//@ sourceURL=source/triggers/actions/action_enableBlocklyNodes.js

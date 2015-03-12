@@ -50,7 +50,7 @@ properties:
   - addToGrid:
     - blocklyGraph
     - [ 13, 2 ]
-  - enableBlocklyTabs:
+  - enableBlocklyNodes:
     - rover
     - graph
   - loadToolbox:

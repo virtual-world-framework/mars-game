@@ -169,7 +169,14 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 break;
 
             case "clearBlocklyTabs":
-                clearBlocklyTabs();
+                var tabs = eventArgs[ 0 ];
+                if ( tabs !== undefined ) {
+                    for ( var i = 0; i < tabs.length; i++ ) {
+                        removeBlocklyTab( tabs[ i ] );
+                    }
+                } else {
+                    clearBlocklyTabs( eventArgs[ 0 ] );
+                }
                 break;
 
             case "toggledTiles":
@@ -180,8 +187,11 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 graphIsVisible = eventArgs[ 0 ];
                 break;
             
-            case "enableBlocklyTab":
-                addBlocklyTab( eventArgs[ 0 ] );
+            case "enableBlocklyTabs":
+                var tabs = eventArgs[ 0 ];
+                for ( var i = 0; i < tabs.length; i++ ) {
+                    addBlocklyTab( tabs[ i ] );
+                }
                 break;
 
             case "videoPlayed":
@@ -278,7 +288,6 @@ vwf_view.initializedNode = function( nodeID, childID, childExtendsID, childImple
         node.tab.id = childID;
         node.tab.className = "blocklyTab";
         node.tab.onclick = setActiveBlocklyTab;
-        node.tab.vwfNodeName = childName;
         node.tab.innerHTML = childName;
     }
 }
@@ -533,7 +542,7 @@ function runBlockly() {
 
 function setActiveBlocklyTab() {
     if ( currentBlocklyNodeID !== this.id ) {
-        vwf_view.kernel.callMethod( appID, "selectBlocklyNode", [ this.vwfNodeName ] );
+        vwf_view.kernel.callMethod( appID, "selectBlocklyNode", [ this.id ] );
         if ( blocklyGraphID && blocklyGraphID === this.id ) {
             hideBlocklyIndicator();
         } else {

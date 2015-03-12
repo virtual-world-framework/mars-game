@@ -16,7 +16,7 @@
 extends: actionProto.vwf
 
 properties:
-  tabNames:
+  nodeNames:
 
 scripts:
-- source: action_enableBlocklyTabs.js
+- source: action_enableBlocklyNodes.js

@@ -69,6 +69,8 @@ methods:
   unpauseGame:
   resetHUDState:
   selectBlocklyNode:
+  enableBlocklyNodes:
+  disableBlocklyNodes:
 events:
   gameStarted:
   scenarioReset:
@@ -86,7 +88,7 @@ events:
   toggledGraph:
   toggledTiles:
   resetRoverSensors:
-  enableBlocklyTab:
+  enableBlocklyTabs:
   clearBlocklyTabs:
   videoPlayed:
   progressFound:
