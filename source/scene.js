@@ -63,7 +63,7 @@ this.setApplicationState = function( state ) {
         case "playing":
             this.mainMenu.visible = false;
             this.soundManager.stopSoundGroup( "music" );
-            this.selectBlocklyNode( "rover" );
+            this.selectBlocklyNode( this.player.rover.id );
             // TODO: Consolidate game nodes
             this.environment.visible = true;
             this.player.visible = true;
@@ -269,17 +269,14 @@ this.setUpRoverListeners = function() {
     // rover.findAndSetCurrentGrid( this.activeScenarioPath );
     // TODO: Find a more appropriate location for the following
     this.hud.roverSelector.future( 0 ).addRoverIcon(
-        "rover",
         this.player.rover,
         "assets/images/hud/main_rover_icon.png",
         false );
     this.hud.roverSelector.future( 0 ).addRoverIcon(
-        "rover2",
         this.player.rover2,
         "assets/images/hud/scout_rover_icon.png",
         false );
     this.hud.roverSelector.future( 0 ).addRoverIcon(
-        "rover3",
         this.player.rover3,
         "assets/images/hud/main_rover_icon.png",
         false );
@@ -395,35 +392,32 @@ this.unpauseGame = function() {
     this.unpaused();
 }
 
-this.selectBlocklyNode = function( nodeName ) {
-    var node = this.find( "//" + nodeName )[ 0 ];
-    if ( this.blockly_activeNodeID !== node.id ) {
-        this.blockly_activeNodeID = node.id;
-    }
-    if ( node.defaultMount && this.gameCam.target !== node ) {
-        this.gameCam.setCameraTarget( node );
-        this.hud.roverSelector.selectRover( nodeName );
-    } else if ( node === this.graph ) {
-        this.gameCam.setCameraMount( "topDown" );
-    }
-}
-
-// TODO: Do this in a better place and/or rewrite
-//   enableBlocklyTabs action as enableBlocklyNodes
-this.clearBlocklyTabs = function() {
-    var rovers = this.hud.roverSelector.rovers;
-    for ( var i = 0; i < rovers.length; i++ ) {
-        this.hud.roverSelector.hideRoverIcon( rovers[ i ].name );
-    }
-}
-
-this.enableBlocklyTab = function( nodeID ) {
-    var rovers = this.hud.roverSelector.rovers;
-    for ( var i = 0; i < rovers.length; i++ ) {
-        if ( nodeID === rovers[ i ].node.id ) {
-            this.hud.roverSelector.showRoverIcon( rovers[ i ].name );
+this.selectBlocklyNode = function( nodeID ) {
+    var node = this.findByID( this, nodeID );
+    if ( node ) {
+        if ( this.blockly_activeNodeID !== nodeID ) {
+            this.blockly_activeNodeID = nodeID;
         }
+        if ( node.defaultMount && this.gameCam.target !== node ) {
+            this.gameCam.setCameraTarget( node );
+            this.hud.roverSelector.selectRover( nodeID );
+        } else if ( node === this.graph ) {
+            this.gameCam.setCameraMount( "topDown" );
+        }
+    } else {
+        this.logger.errorx( "selectBlocklyNode", "Could not find " +
+            "node with ID: " + nodeID );
     }
+}
+
+this.enableBlocklyNodes = function( nodes ) {
+    this.enableBlocklyTabs( nodes );
+    this.hud.roverSelector.showRoverIcons( true, nodes )
+}
+
+this.disableBlocklyNodes = function( nodes ) {
+    this.clearBlocklyTabs( nodes );
+    this.hud.roverSelector.showRoverIcons( false, nodes );
 }
 
 //@ sourceURL=source/scene.js
