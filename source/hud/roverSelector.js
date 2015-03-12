@@ -71,7 +71,8 @@ this.addRoverIcon = function( node, src, enabled ) {
     var images = this.images;
     images[ nodeID ] = src;
     this.images = images;
-    this.rovers.push( {
+    var rovers = this.rovers;
+    rovers.push( {
         "id": nodeID,
         "enabled": enabled,
         "active": false,
@@ -80,6 +81,7 @@ this.addRoverIcon = function( node, src, enabled ) {
             "y": 0
         }
     } );
+    this.rovers = rovers;
     this.updateIconOrder();
 }
 
