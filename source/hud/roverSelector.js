@@ -72,7 +72,6 @@ this.addRoverIcon = function( node, src, enabled ) {
     images[ nodeID ] = src;
     this.images = images;
     this.rovers.push( {
-        "node": node,
         "id": nodeID,
         "enabled": enabled,
         "active": false,
