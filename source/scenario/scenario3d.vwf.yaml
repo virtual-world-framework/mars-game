@@ -56,7 +56,7 @@ properties:
   - removeFromGrid:
     - supplies_2
     - [ 12, 10 ]
-  - enableBlocklyTabs:
+  - enableBlocklyNodes:
     - rover
     - graph
   - loadToolbox:

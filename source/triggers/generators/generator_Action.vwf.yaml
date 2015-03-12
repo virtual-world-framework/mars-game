@@ -119,7 +119,7 @@ properties:
     addToInventory: "source/triggers/actions/action_addToInventory.vwf"
     addToGrid: "source/triggers/actions/action_addToGrid.vwf"
     removeFromGrid: "source/triggers/actions/action_removeFromGrid.vwf"
-    enableBlocklyTabs: "source/triggers/actions/action_enableBlocklyTabs.vwf"
+    enableBlocklyNodes: "source/triggers/actions/action_enableBlocklyNodes.vwf"
     loadToolbox: "source/triggers/actions/action_loadToolbox.vwf"
 
 scripts:

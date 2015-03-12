@@ -55,7 +55,7 @@ properties:
   - addToGrid:
     - supplies_1
     - [ 7, 15 ]
-  - enableBlocklyTabs:
+  - enableBlocklyNodes:
     - rover
     - graph
   - loadToolbox:

@@ -54,7 +54,7 @@ properties:
   - addToGrid:
     - blocklyGraph
     - [ 15, 1 ]
-  - enableBlocklyTabs:
+  - enableBlocklyNodes:
     - rover
     - graph
   - loadToolbox:

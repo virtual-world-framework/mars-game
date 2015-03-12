@@ -95,7 +95,7 @@ properties:
     - blocklyGraph
     - [ 37, 15 ]
 
-  - enableBlocklyTabs:
+  - enableBlocklyNodes:
     - rover
     - rover2
     - rover3
