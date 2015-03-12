@@ -17,7 +17,7 @@ this.draw = function( context, position ) {
     for ( var i = 0; i < this.rovers.length; i++ ) {
         if ( this.rovers[ i ].enabled ) {
             rover = this.rovers[ i ];
-            icon = this[ rover.name ];
+            icon = this[ rover.id ];
             if ( icon ) {
                 posx = position.x + rover.position.x;
                 posy = position.y + rover.position.y;
@@ -43,7 +43,7 @@ this.onClick = function( elementPos ) {
         for ( i = 0, enabledIndex = 0; i < this.rovers.length; i++ ) {
             if ( this.rovers[ i ].enabled ) {
                 if ( iconIndex === enabledIndex ) {
-                    selectedRover = this.rovers[ i ].name;
+                    selectedRover = this.rovers[ i ].id;
                     break;
                 }
                 enabledIndex++;
@@ -54,11 +54,11 @@ this.onClick = function( elementPos ) {
     }
 }
 
-this.selectRover = function( name ) {
+this.selectRover = function( nodeID ) {
     var rover;
     for ( var i = 0; i < this.rovers.length; i++ ) {
         rover = this.rovers[ i ];
-        if ( rover.name === name ) {
+        if ( rover.id === nodeID ) {
             rover.active = true;
         } else {
             rover.active = false;
@@ -66,13 +66,13 @@ this.selectRover = function( name ) {
     }
 }
 
-this.addRoverIcon = function( name, node, src, enabled ) {
+this.addRoverIcon = function( node, src, enabled ) {
+    var nodeID = node.id;
     var images = this.images;
-    images[ name ] = src;
+    images[ nodeID ] = src;
     this.images = images;
     this.rovers.push( {
-        "node": node,
-        "name": name,
+        "id": nodeID,
         "enabled": enabled,
         "active": false,
         "position": {
@@ -83,20 +83,14 @@ this.addRoverIcon = function( name, node, src, enabled ) {
     this.updateIconOrder();
 }
 
-this.showRoverIcon = function( name ) {
+// Pass a boolean to show (true) or hide (false) icons
+// Pass in an array of nodeIDs to display specific icons
+// Pass nothing in to display all icons
+this.showRoverIcons = function( show, nodeIDs ) {
     for ( var i = 0; i < this.rovers.length; i++ ) {
-        if ( this.rovers[ i ].name === name ) {
-            this.rovers[ i ].enabled = true;
-            break;
-        }
-    }
-    this.updateIconOrder();
-}
-
-this.hideRoverIcon = function( name ) {
-    for ( var i = 0; i < this.rovers.length; i++ ) {
-        if ( this.rovers[ i ].name === name ) {
-            this.rovers[ i ].enabled = false;
+        var rover = this.rovers[ i ];
+        if ( !nodeIDs || nodeIDs.indexOf( rover.id ) !== -1 ) {
+            rover.enabled = show;
             break;
         }
     }

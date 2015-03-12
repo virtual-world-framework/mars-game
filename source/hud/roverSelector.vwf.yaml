@@ -38,8 +38,7 @@ properties:
 methods:
   draw:
   addRoverIcon:
-  showRoverIcon:
-  hideRoverIcon:
+  showRoverIcons:
   selectRover:
 events:
   onClick:
