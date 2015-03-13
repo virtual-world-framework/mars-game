@@ -327,8 +327,17 @@ vwf_view.satProperty = function( nodeID, propertyName, propertyValue ) {
 
     if ( nodeID === appID ) {
         if ( propertyName === "blockly_activeNodeID" ) {
+
+            var currNode = blocklyNodes[ propertyValue ];
+            if ( currNode && Blockly.mainWorkspace ) {
+                Blockly.mainWorkspace.maxBlocks = currNode.ramMax;
+            } else {
+                console.log("Either blocklyNode or Blockly.mainWorkspace are missing!");
+            }
+
             Blockly.SOUNDS_ = {};
             selectBlocklyTab( propertyValue );
+        
         } else if ( propertyName === "applicationState" ) {
             var state = propertyValue;
             var versionElem = document.getElementById( "version" );
@@ -532,6 +541,9 @@ function runBlockly() {
 
 function setActiveBlocklyTab() {
     if ( currentBlocklyNodeID !== this.id ) {
+        
+        var blocklyNode = blocklyNodes[ this.id ];
+
         vwf_view.kernel.setProperty( appID, "blockly_activeNodeID", this.id );
         if ( blocklyGraphID && blocklyGraphID === this.id ) {
             var cam = vwf_view.kernel.find( "", "//gameCam" )[ 0 ];
