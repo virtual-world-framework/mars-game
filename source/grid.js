@@ -17,14 +17,18 @@
 //         reuse unnecessary arrays.
 
 this.initialize = function() {
+    if ( this.uri ) {
+        return;
+    }
     //Set up the grid map as a 2D array
-    var tiles = this.tiles = new Array( this.maxX - this.minX );
+    var tiles = new Array( this.maxX - this.minX );
     for ( var i = 0; i < tiles.length; i++ ) {
         tiles[ i ] = new Array( this.maxY - this.minY );
         for ( var j = 0; j < tiles[ i ].length; j++ ) {
-            tiles[ i ][ j ] = new GridTile();
+            tiles[ i ][ j ] = this.createTile();
         }
     }
+    this.tiles = tiles;
     this.future( 0 ).setBoundaryValues();
 }
 
@@ -126,7 +130,7 @@ this.addToGrid = function( object ) {
 //Assign an object a coordinate and add it to the grid
 this.addToGridFromCoord = function( object, gridCoord ) {
     if ( this.validCoord( gridCoord ) ) {
-        this.getTileFromGrid( gridCoord ).addToTile( object );
+        this.getTileFromGrid( gridCoord ).addToTile( object.id );
         object.currentGridSquare = gridCoord;
         var newTranslation = this.getWorldFromGrid( gridCoord[ 0 ], gridCoord[ 1 ] );
         if ( object.placeOnTerrain && object.terrainName && object.terrainName !== "undefined" ) {
@@ -148,24 +152,23 @@ this.addToGridFromWorld = function( object, worldCoord ) {
     }
 }
 
-this.removeFromGrid = function( object, gridCoord ) {
-    var objects = this.getTileFromGrid( gridCoord ).objects;
-    var index = objects.indexOf( object );
+this.removeFromGrid = function( nodeID, gridCoord ) {
+    var objects = this.getObjectsAtCoord( gridCoord );
+    var index = objects.indexOf( nodeID );
     if ( index !== -1 ) {
-        var object = objects[ index ];
         for ( var i = index; i < objects.length - 1; i++ ) {
-            objects[ i ] = objects[ i ] + 1;
+            objects[ i ] = objects[ i + 1 ];
         }
         objects.length--;
-        return object;
+        return true;
     }
-    return null;
+    return false;
 }
 
-this.moveObjectOnGrid = function( object, srcCoord, destCoord ) {
-    var removed = this.removeFromGrid( object, srcCoord );
+this.moveObjectOnGrid = function( nodeID, srcCoord, destCoord ) {
+    var removed = this.removeFromGrid( nodeID, srcCoord );
     if ( removed ) {
-        this.getTileFromGrid( destCoord ).addToTile( removed );
+        this.getTileFromGrid( destCoord ).addToTile( nodeID );
     }
 }
 
@@ -184,11 +187,16 @@ this.setHeightFromTerrain = function ( object ) {
 //Returns the first instance of an inventoriable object on the specified grid tile
 this.getInventoriables = function( gridCoord ) {
     var inventoriables = [];
-    if ( this.validCoord( gridCoord ) ) {    
-        var list = this.getObjectsAtCoord( gridCoord );
-        for ( var i = 0; i < list.length; i++ ) {
-            if ( list[ i ].isInventoriable ) {
-                inventoriables.push( list[i] );
+    if ( this.validCoord( gridCoord ) ) {
+        var tile = this.getTileFromGrid( gridCoord );
+        for ( var i = 0; i < tile.objects.length; i++ ) {
+            var node = tile.getNodeAtIndex( i );
+            if ( node === undefined ) {
+                this.logger.errorx( "getInventoriables", "Unable to find node with " +
+                    "ID: " + tile.objects[ i ] );
+                return null;
+            } else if ( node.isInventoriable ) {
+                inventoriables.push( tile.objects[ i ] );
             }
         }
     }
@@ -199,14 +207,40 @@ this.getInventoriables = function( gridCoord ) {
 this.getCollidables = function( gridCoord ) {
     var collidables = [];
     if ( this.validCoord( gridCoord ) ) {
-        var list = this.getObjectsAtCoord( gridCoord );
-        for ( var i = 0; i < list.length; i++ ) {
-            if ( list[ i ].isCollidable ) {
-                collidables.push( list[ i ] );
+        var tile = this.getTileFromGrid( gridCoord );
+        for ( var i = 0; i < tile.objects.length; i++ ) {
+            var node = tile.getNodeAtIndex( i );
+            if ( node === undefined ) {
+                this.logger.errorx( "getCollidables", "Unable to find node with " +
+                    "ID: " + tile.objects[ i ] );
+                return null;
+            } else if ( node.isCollidable ) {
+                collidables.push( tile.objects[ i ] );
             }
         }
     }
     return collidables;
+}
+
+this.checkCollision = function( gridCoord ) {
+    var collide = false;
+    if ( this.validCoord( gridCoord ) ) {
+        var tile = this.getTileFromGrid( gridCoord );
+        for ( var i = 0; i < tile.objects.length; i++ ) {
+            var node = tile.getNodeAtIndex( i );
+            if ( node === undefined ) {
+                this.logger.errorx( "checkCollision", "Unable to find node with " +
+                    "ID: " + tile.objects[ i ] );
+                return null;
+            } else if ( node.isCollidable ) {
+                collide = true;
+                break;
+            }
+        }
+    } else {
+        collide = true;
+    }
+    return collide;
 }
 
 this.getEnergy = function ( gridCoord ) {
@@ -216,12 +250,21 @@ this.getEnergy = function ( gridCoord ) {
     return null;
 }
 
-function GridTile() {
-    this.energyRequired = 0;
-    this.objects = [];
-
-    this.addToTile = function( object ) {
-        this.objects.push( object );
+this.createTile = function() {
+    var self = this;
+    var tile = {
+        "energyRequired": 0,
+        "objects": [],
+        "addToTile": function( nodeID ) {
+            this.objects.push( nodeID );
+        },
+        "getNodeAtIndex": function ( index ) {
+            var nodeID = this.objects[ index ];
+            var node = self.scene.findByID( self.scene, nodeID );
+            return node;
+        }
     }
+    return tile;
 }
+
 //@ sourceURL=source/grid.js
