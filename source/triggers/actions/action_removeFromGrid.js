@@ -37,7 +37,7 @@ this.executeAction = function() {
     this.assert( object, "Object not found!" );
     this.assert( scenario, "Scenario not found!" );
     // TODO: Check that the coordinate is valid?
-    object && scenario && scenario.grid.removeFromGrid( object, 
+    object && scenario && scenario.grid.removeFromGrid( object.id, 
                                                         this.gridCoord );
 }
 

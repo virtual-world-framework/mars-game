@@ -658,7 +658,8 @@ children:
     includes: source/scenario/scenario3f.vwf
   blocklyGraph:
     extends: http://vwf.example.com/graphtool/graph.vwf
-    implements: "source/griddable.vwf"
+    implements: 
+      - source/griddable.vwf
     properties:
       graphScale: 3
       gridInterval: 1
@@ -672,6 +673,7 @@ children:
       axisOpacity: 1
       gridOpacity: 0.75
       renderTop: true
+      isCollidable: false
     children:
       blocklyLine:
         extends: http://vwf.example.com/graphtool/graphlinefunction.vwf
