@@ -324,8 +324,17 @@ vwf_view.satProperty = function( nodeID, propertyName, propertyValue ) {
 
     if ( nodeID === appID ) {
         if ( propertyName === "blockly_activeNodeID" ) {
+
+            var currNode = blocklyNodes[ propertyValue ];
+            if ( currNode && Blockly.mainWorkspace ) {
+                Blockly.mainWorkspace.maxBlocks = currNode.ramMax;
+            } else {
+                console.log("Either blocklyNode or Blockly.mainWorkspace are missing!");
+            }
+
             Blockly.SOUNDS_ = {};
             selectBlocklyTab( propertyValue );
+        
         } else if ( propertyName === "applicationState" ) {
             var state = propertyValue;
             var versionElem = document.getElementById( "version" );
