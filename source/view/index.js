@@ -310,6 +310,11 @@ vwf_view.satProperty = function( nodeID, propertyName, propertyValue ) {
             case "blockly_executing":
                 var isExecuting = Boolean( propertyValue );
                 blocklyNode.blocklyExecuting = isExecuting;
+                if( isExecuting ) {
+                    startBlocklyButton.className = "reset";
+                } else {
+                    startBlocklyButton.className = "";
+                }
                 break;
 
         }
@@ -410,9 +415,6 @@ function setUpView() {
     setUpBlocklyPeripherals();
     setUpStatusDisplay();
     loadScenarioList();
-    loadVideo( "intro_cinematic.mp4" );
-    loadVideo( "success_cinematic.mp4" );
-    loadVideo( "end_cinematic.mp4", undefined, true );
 }
 
 function render( renderer, scene, camera ) {
