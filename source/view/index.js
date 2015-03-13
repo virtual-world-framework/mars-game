@@ -541,12 +541,6 @@ function setActiveBlocklyTab() {
         
         var blocklyNode = blocklyNodes[ this.id ];
 
-        if ( Blockly.mainWorkspace ) {
-            Blockly.mainWorkspace.maxBlocks = blocklyNode.ramMax;
-        } else {
-            console.log("Blockly.mainWorkspace not found!");
-        }
-
         vwf_view.kernel.setProperty( appID, "blockly_activeNodeID", this.id );
         if ( blocklyGraphID && blocklyGraphID === this.id ) {
             var cam = vwf_view.kernel.find( "", "//gameCam" )[ 0 ];
