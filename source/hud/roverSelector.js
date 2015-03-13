@@ -93,7 +93,6 @@ this.showRoverIcons = function( show, nodeIDs ) {
         var rover = this.rovers[ i ];
         if ( !nodeIDs || nodeIDs.indexOf( rover.id ) !== -1 ) {
             rover.enabled = show;
-            break;
         }
     }
     this.updateIconOrder();
