@@ -45,8 +45,8 @@ properties:
     - lowRam
     - 1
   - setSceneProperty:
-    - blockly_activeNodeID
-    - undefined
+    - blockly_interfaceVisible
+    - false
 
   - callMethod:
     - rover
@@ -68,7 +68,7 @@ properties:
   - addToGrid:
     - radio
     - [ 8, 16 ]
-  - enableBlocklyTabs:
+  - enableBlocklyNodes:
     - rover
   - loadToolbox:
     - rover

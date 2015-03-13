@@ -19,11 +19,11 @@ this.draw = function( context, position ) {
 }
 
 this.onClick = function() {
-    var hud = this.parent;
-    hud.lastBlocklyNodeID = hud.lastBlocklyNodeID || this.scene.player.rover.id;
-    if ( hud.lastBlocklyNodeID !== undefined ) {
-        this.scene.blockly_activeNodeID = hud.lastBlocklyNodeID;
+    var visible = this.scene.blockly_interfaceVisible;
+    if ( !this.scene.blockly_activeNodeID ) {
+        this.scene.blockly_activeNodeID = this.scene.player.rover.id;
     }
+    this.scene.blockly_interfaceVisible = !visible;
 }
 
 //@ sourceURL=source/hud/blocklyButton.js

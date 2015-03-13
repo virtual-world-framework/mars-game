@@ -54,7 +54,7 @@ properties:
   - addToGrid:
     - blocklyGraph
     - [ 15, 1 ]
-  - enableBlocklyTabs:
+  - enableBlocklyNodes:
     - rover
     - graph
   - loadToolbox:
@@ -64,8 +64,8 @@ properties:
     - graph
     - source/scenario/blockly/graph2a.xml
   - setSceneProperty:
-    - blockly_activeNodeID
-    - undefined
+    - blockly_interfaceVisible
+    - false
 
 children:
   triggerManager:

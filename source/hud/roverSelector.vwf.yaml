@@ -1,0 +1,46 @@
+# Copyright 2014 Lockheed Martin Corporation
+#
+# Licensed under the Apache License, Version 2.0 (the "License"); you may 
+# not use this file except in compliance with the License. You may obtain 
+# a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software 
+# distributed under the License is distributed on an "AS IS" BASIS, 
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and 
+# limitations under the License.
+
+---
+extends: http://vwf.example.com/hud/element.vwf
+implements:
+ - http://vwf.example.com/sceneGetter.vwf
+properties:
+  images:
+    frame: assets/images/hud/rover_selector_frame.png
+    selectedBG: assets/images/hud/rover_selector_bg.png
+  width: 80
+  height: 0
+  visible: true
+  enabled: true
+  alignH: left
+  alignV: top
+  offsetH: 30
+  offsetV: 200
+  isBlinking: false
+  lastBlinkTime: 0
+  blinkInterval: 0.25
+  blinkDuration: 0.25
+  iconHeight$: 64
+  verticalSpacing$: 16
+  rovers: []
+methods:
+  draw:
+  addRoverIcon:
+  showRoverIcons:
+  selectRover:
+events:
+  onClick:
+scripts:
+  - source: roverSelector.js

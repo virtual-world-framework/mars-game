@@ -68,6 +68,9 @@ methods:
   pauseGame:
   unpauseGame:
   resetHUDState:
+  selectBlocklyNode:
+  enableBlocklyNodes:
+  disableBlocklyNodes:
 events:
   gameStarted:
   scenarioReset:
@@ -85,7 +88,7 @@ events:
   toggledGraph:
   toggledTiles:
   resetRoverSensors:
-  enableBlocklyTab:
+  enableBlocklyTabs:
   clearBlocklyTabs:
   videoPlayed:
   progressFound:
@@ -248,7 +251,7 @@ children:
         source: assets/3d/Rover/rover_retro.dae
         type: model/vnd.collada+xml
         properties:
-          defaultMount: firstPerson
+          defaultMount: thirdPerson
           displayName: "Rover"
           castShadows: true
           receiveShadows: true
@@ -366,7 +369,7 @@ children:
         source: assets/3d/scoutrover/scout_rover.dae
         type: model/vnd.collada+xml
         properties:
-          defaultMount: firstPerson
+          defaultMount: thirdPerson
           displayName: "Rover2"
           castShadows: true
           receiveShadows: true
@@ -484,7 +487,7 @@ children:
         source: assets/3d/Rover/rover_retro.dae
         type: model/vnd.collada+xml
         properties:
-          defaultMount: firstPerson
+          defaultMount: thirdPerson
           displayName: "Rover3"
           castShadows: true
           receiveShadows: true

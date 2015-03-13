@@ -57,7 +57,7 @@ properties:
   - addToGrid:
     - radio
     - [ 8, 16 ]
-  - enableBlocklyTabs:
+  - enableBlocklyNodes:
     - rover
   - loadToolbox:
     - rover

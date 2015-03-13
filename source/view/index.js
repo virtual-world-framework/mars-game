@@ -109,7 +109,7 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 break;
 
         }
-    } else if ( nodeID === this.kernel.application() ) {
+    } else if ( nodeID === vwf_view.kernel.application() ) {
         switch ( eventName ) {
 
             case "paused":
@@ -121,7 +121,7 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
             case "blocklyContentChanged":
                 if ( currentBlocklyNodeID === blocklyGraphID ) {
                     var currentCode = getBlocklyFunction();
-                    this.kernel.setProperty( graphLines[ "blocklyLine" ].ID, "lineFunction", currentCode );
+                    vwf_view.kernel.setProperty( graphLines[ "blocklyLine" ].ID, "lineFunction", currentCode );
                 } else {
                     indicateBlock( lastBlockIDExecuted );
                     indicateProcedureBlock( currentProcedureBlockID );
@@ -169,7 +169,14 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 break;
 
             case "clearBlocklyTabs":
-                clearBlocklyTabs();
+                var tabs = eventArgs[ 0 ];
+                if ( tabs !== undefined ) {
+                    for ( var i = 0; i < tabs.length; i++ ) {
+                        removeBlocklyTab( tabs[ i ] );
+                    }
+                } else {
+                    clearBlocklyTabs( eventArgs[ 0 ] );
+                }
                 break;
 
             case "toggledTiles":
@@ -180,8 +187,11 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 graphIsVisible = eventArgs[ 0 ];
                 break;
             
-            case "enableBlocklyTab":
-                addBlocklyTab( eventArgs[ 0 ] );
+            case "enableBlocklyTabs":
+                var tabs = eventArgs[ 0 ];
+                for ( var i = 0; i < tabs.length; i++ ) {
+                    addBlocklyTab( tabs[ i ] );
+                }
                 break;
 
             case "videoPlayed":
@@ -532,12 +542,8 @@ function runBlockly() {
 
 function setActiveBlocklyTab() {
     if ( currentBlocklyNodeID !== this.id ) {
-        vwf_view.kernel.setProperty( appID, "blockly_activeNodeID", this.id );
+        vwf_view.kernel.callMethod( appID, "selectBlocklyNode", [ this.id ] );
         if ( blocklyGraphID && blocklyGraphID === this.id ) {
-            var cam = vwf_view.kernel.find( "", "//gameCam" )[ 0 ];
-            if ( cam ) {
-                vwf_view.kernel.callMethod( cam, "setCameraMount", [ "topDown" ] );
-            }
             hideBlocklyIndicator();
         } else {
             indicateBlock( lastBlockIDExecuted );
@@ -582,6 +588,7 @@ function getBlocklyNodeIDByName( name ) {
 function updateBlocklyUI( blocklyNode ) {
     if ( Blockly.mainWorkspace ) {
         Blockly.mainWorkspace.maxBlocks = blocklyNode.ramMax;
+        Blockly.mainWorkspace.fireChangeEvent();
     }
 }
 
@@ -886,7 +893,6 @@ function exitToMainMenu() {
     resetSubtitles();
     clearBlockly();
     currentBlocklyNodeID = undefined;
-    vwf_view.kernel.setProperty( sceneID, "blockly_activeNodeID", undefined );
     vwf_view.kernel.callMethod( sceneID, "restartGame" );
     closePauseMenu();
 }
@@ -920,6 +926,7 @@ function switchToDisplayedScenario() {
     var displayedScenario = display.innerHTML;
     currentBlocklyNodeID = undefined;
     clearBlockly();
+    vwf_view.kernel.setProperty( sceneID, "blockly_interfaceVisible", false );
     vwf_view.kernel.setProperty( sceneID, "blockly_activeNodeID", undefined );
     vwf_view.kernel.setProperty( sceneID, "activeScenarioPath", displayedScenario );
     closePauseMenu();

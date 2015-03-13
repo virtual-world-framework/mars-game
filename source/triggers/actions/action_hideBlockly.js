@@ -27,8 +27,7 @@ this.onGenerated = function( params, generator, payload ) {
 }
 
 this.executeAction = function() {
-    vwf_view.kernel.setProperty( vwf_view.kernel.application(), 
-                                 "blockly_activeNodeID", undefined );
+    this.scene.blockly_interfaceVisible = false;
 }
 
 //@ sourceURL=source/triggers/actions/action_hideBlockly.js
