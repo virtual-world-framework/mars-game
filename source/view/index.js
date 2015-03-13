@@ -72,7 +72,6 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 break;
 
             case "blocklyStarted":
-                //startBlocklyButton.className = "reset";
                 var indicator = document.getElementById( "blocklyIndicator" );
                 indicator.className = "";
                 indicator.style.visibility = "inherit";
