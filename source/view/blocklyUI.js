@@ -263,8 +263,7 @@ function clickStartButton() {
         //but for now we stop the rover that corresponds to the current active tab, since
         //this is the more inutitive behavior. (At least to me it makes more sense).
         //vwf_view.kernel.callMethod( vwf_view.kernel.application(), "stopAllExecution" );
-        vwf_view.kernel.callMethod( vwf_view.kernel.application(), "stopExecutionForNode", 
-           currentBlocklyNodeID  );
+        vwf_view.kernel.callMethod( currentBlocklyNodeID, "stopExecution");
     }
 }
 
