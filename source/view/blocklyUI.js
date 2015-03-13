@@ -259,7 +259,11 @@ function clickStartButton() {
     if ( this.className === "" ) {
         runBlockly();
     } else if ( this.className === "reset" ) {
-        vwf_view.kernel.callMethod( vwf_view.kernel.application(), "stopAllExecution" );
+        //NXM: We could make the "reset" button stop ALL the rovers using stopAllExecution, 
+        //but for now we stop the rover that corresponds to the current active tab, since
+        //this is the more inutitive behavior. (At least to me it makes more sense).
+        //vwf_view.kernel.callMethod( vwf_view.kernel.application(), "stopAllExecution" );
+        vwf_view.kernel.callMethod( currentBlocklyNodeID, "stopExecution");
     }
 }
 
