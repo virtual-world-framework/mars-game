@@ -50,8 +50,8 @@ this.moveForward = function() {
         } else {
 
             //Otherwise, check if the space is occupied
-            if ( this.currentGrid.getCollidables( proposedNewGridSquare ).length === 0 ){
-                this.currentGrid.moveObjectOnGrid( this, this.currentGridSquare, proposedNewGridSquare );
+            if ( !this.currentGrid.checkCollision( proposedNewGridSquare ) ){
+                this.currentGrid.moveObjectOnGrid( this.id, this.currentGridSquare, proposedNewGridSquare );
                 this.currentGridSquare = proposedNewGridSquare;
                 var displacement = [ dirVector[ 0 ] * this.currentGrid.gridSquareLength, 
                                      dirVector[ 1 ] * this.currentGrid.gridSquareLength, 0 ];
@@ -69,7 +69,7 @@ this.moveForward = function() {
                 if ( inventoriableObjects ){
                     for ( var i = 0; i < inventoriableObjects.length; i++ ) {
                         this.currentGrid.removeFromGrid( inventoriableObjects[ i ], proposedNewGridSquare );
-                        this.cargo.add( inventoriableObjects[ i ].id );
+                        this.cargo.add( inventoriableObjects[ i ] );
                     }
                 }
                 this.moved();

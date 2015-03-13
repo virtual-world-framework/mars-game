@@ -14,6 +14,8 @@
 
 ---
 extends: http://vwf.example.com/node.vwf
+implements:
+  - http://vwf.example.com/sceneGetter.vwf
 properties:
   tiles: []
   boundaryValues: []
@@ -23,25 +25,25 @@ properties:
   minY: 0
   maxX: 32
   maxY: 32
-
 methods:
+  setBoundaryValues:
+  clearGrid:
+  getTileFromGrid:
+  getTileFromWorld:
+  getGridFromWorld:
+  getWorldFromGrid:
+  validCoord:
+  getObjectsAtCoord:
   addToGrid:
   addToGridFromCoord:
   addToGridFromWorld:
   removeFromGrid:
   moveObjectOnGrid:
-  checkCoord:
-  validCoord:
-  isOccupied:
-  getTileFromGrid:
-  getTileFromWorld:
-  getWorldFromGrid:
-  getGridFromWorld:
-  setBoundaryValues:
-  clearGrid:
-  hasInventoriable:
-  hasCollidable:
+  setHeightFromTerrain:
+  getInventoriables:
+  getCollidables:
   getEnergy:
-
+  checkCollision:
+  createTile:
 scripts:
 - source: grid.js
