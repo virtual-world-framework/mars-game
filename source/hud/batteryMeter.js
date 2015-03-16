@@ -40,7 +40,7 @@ this.draw = function( context, position ) {
         context.drawImage( this.frame, position.x, position.y );
     }
     context.textBaseline = "top";
-    context.font = 'bold 10px Arial';
+    context.font = 'bold 8pt Arial';
     context.fillStyle = "rgb(215,248,255)";
     context.textAlign = "center";
     readoutString = "BATTERY: " + Math.round( battery ) + " / " + this.maxBattery;
