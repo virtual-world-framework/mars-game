@@ -22,18 +22,17 @@ this.draw = function( context, position ) {
     var arcWidth = ( this.height + this.width ) / 4 ;
     var centerX = position.x + this.width / 2;
     var centerY = position.y + this.height / 2;
-    var radius = ( this.width + this.height ) / 4 - arcWidth;
     var start = Math.PI * 1.5;
     var end = start - battery / maxBattery * Math.PI * 2;
-    context.beginPath();
-    context.arc( centerX, centerY, arcWidth, 0, 2 * Math.PI, false );
-    context.fillStyle = "rgba(50,90,150,0.5)";
-    context.fill();
+    var readoutString;
     context.beginPath();
     context.arc( centerX, centerY, arcWidth / 2, start, end, true );
     context.lineWidth = arcWidth - 1;
-    context.strokeStyle = "rgb(50,130,255)";
+    context.strokeStyle = "rgb(0,0,0)";
     context.stroke();
+    context.globalCompositeOperation = "source-in";
+    context.drawImage( this.ring, centerX - this.ring.width / 2, centerY - this.ring.height / 2 );
+    context.globalCompositeOperation = "source-over";
     if ( this.portrait ) {
         context.drawImage( this.portrait, centerX - this.portrait.width / 2, centerY - this.portrait.height / 2 );
     }
@@ -41,10 +40,11 @@ this.draw = function( context, position ) {
         context.drawImage( this.frame, position.x, position.y );
     }
     context.textBaseline = "top";
-    context.font = 'bold 24px Arial';
-    context.fillStyle = "rgb(255,255,255)";
-    context.textAlign = "left";
-    context.fillText( Math.round( battery ), position.x + this.width + 3, position.y - 1 );
+    context.font = 'bold 10px Arial';
+    context.fillStyle = "rgb(215,248,255)";
+    context.textAlign = "center";
+    readoutString = "BATTERY: " + Math.round( battery ) + " / " + this.maxBattery;
+    context.fillText( readoutString, position.x + this.width / 2, position.y + this.height );
 }
 
 this.setUpListeners = function() {

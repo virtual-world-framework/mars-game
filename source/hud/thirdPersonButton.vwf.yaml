@@ -16,15 +16,15 @@
 extends: http://vwf.example.com/hud/element.vwf
 properties:
   images:
-    icon: "assets/images/hud/camera_thirdperson.png"
-  width: 22
-  height: 22
+    icon: "assets/images/hud/hud_2/camera_third_person.png"
+  width: 48
+  height: 48
   visible: true
   enabled: true
   alignH: right
   alignV: top
-  offsetH: -34
-  offsetV: 54
+  offsetH: -82
+  offsetV: 30
   isBlinking: false
   lastBlinkTime: 0
   blinkInterval: 0.25

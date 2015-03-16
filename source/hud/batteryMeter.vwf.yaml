@@ -16,10 +16,11 @@
 extends: http://vwf.example.com/hud/element.vwf
 properties:
   images:
-    frame: "assets/images/hud/rover_frame.png"
+    frame: "assets/images/hud/hud_2/active_rover_frame.png"
     portrait: "assets/images/hud/rover_portrait.png"
-  width: 128
-  height: 128
+    ring: "assets/images/hud/hud_2/active_rover_energy_ring.png"
+  width: 150
+  height: 150
   visible: true
   enabled: true
   alignH: left
