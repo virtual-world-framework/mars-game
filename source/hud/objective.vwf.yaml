@@ -24,7 +24,7 @@ properties:
   alignH: left
   alignV: bottom
   offsetH: 30
-  offsetV: -172
+  offsetV: -180
   text:
     set: |
       this.text = value;

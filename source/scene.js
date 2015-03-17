@@ -404,7 +404,7 @@ this.selectBlocklyNode = function( nodeID ) {
         }
         if ( node.defaultMount && this.gameCam.target !== node ) {
             this.gameCam.setCameraTarget( node );
-            this.hud.roverSelector.selectRover( nodeID );
+            this.hud.selectRover( nodeID );
         } else if ( node === this.graph ) {
             this.gameCam.setCameraMount( "topDown" );
         }

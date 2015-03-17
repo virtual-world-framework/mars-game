@@ -46,4 +46,10 @@ this.elementPostDraw = function( context, element ) {
     context.globalAlpha = 1;
 }
 
+this.selectRover = function( nodeID ) {
+    var node = this.scene.findByID( this.scene, nodeID );
+    this.roverSelector.selectRover( nodeID );
+    this.batteryMeter.setActiveRover( node.name );
+}
+
 //@ sourceURL=source/hud/marsGameHud.js

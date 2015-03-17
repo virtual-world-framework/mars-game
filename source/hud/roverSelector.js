@@ -13,20 +13,38 @@
 // limitations under the License.
 
 this.draw = function( context, position ) {
-    var rover, icon, posx, posy;
+    var rover, icon, posx, posy, batteryPct, ramPct, meterWidth, readout;
     for ( var i = 0; i < this.rovers.length; i++ ) {
-        if ( this.rovers[ i ].enabled ) {
-            rover = this.rovers[ i ];
+        rover = this.rovers[ i ];
+        if ( rover.enabled && !rover.active ) {
             icon = this[ rover.id ];
             if ( icon ) {
                 posx = position.x + rover.position.x;
                 posy = position.y + rover.position.y;
                 context.drawImage( this.frame, posx, posy );
-                if( rover.active ) {
-                    context.drawImage( this.selectedBG, posx, posy );
-                }
                 context.drawImage( icon, posx, posy );
             }
+            batteryPct = rover.battery / rover.maxBattery;
+            ramPct = rover.ram / rover.maxRam;
+            meterWidth = this.width - this.frame.width - this.meterSpacing;
+            context.textBaseline = "top";
+            context.font = "7pt Arial";
+            context.fillStyle = "rgb(215,248,255)";
+            context.textAlign = "left";
+            readout = "BATTERY: " + rover.battery + " / " + rover.maxBattery;
+            posx += this.frame.width + this.meterSpacing;
+            posy += 12;
+            context.fillText( readout, posx, posy );
+            context.fillStyle = "rgb(1,211,255)";
+            posy += 12;
+            context.fillRect( posx, posy, meterWidth * batteryPct, this.meterThickness );
+            posy += 24;
+            context.fillStyle = "rgb(215,248,255)";
+            readout = "RAM: " + rover.ram + " / " + rover.maxRam;
+            context.fillText( readout, posx, posy );
+            context.fillStyle = "rgb(235,0,0)";
+            posy += 12;
+            context.fillRect( posx, posy, meterWidth * ramPct, this.meterThickness );
         }
     }
 }
@@ -41,7 +59,7 @@ this.onClick = function( elementPos ) {
     if ( iconPosition <= this.iconHeight$ ) {
         // Loop through the icons, finding the one at the mouse position
         for ( i = 0, enabledIndex = 0; i < this.rovers.length; i++ ) {
-            if ( this.rovers[ i ].enabled ) {
+            if ( this.rovers[ i ].enabled && !this.rovers[ i ].active ) {
                 if ( iconIndex === enabledIndex ) {
                     selectedRover = this.rovers[ i ].id;
                     break;
@@ -64,6 +82,7 @@ this.selectRover = function( nodeID ) {
             rover.active = false;
         }
     }
+    this.updateIconOrder();
 }
 
 this.addRoverIcon = function( node, src, enabled ) {
@@ -72,15 +91,21 @@ this.addRoverIcon = function( node, src, enabled ) {
     images[ nodeID ] = src;
     this.images = images;
     var rovers = this.rovers;
-    rovers.push( {
+    var newRover = {
         "id": nodeID,
         "enabled": enabled,
         "active": false,
         "position": {
             "x": 0,
             "y": 0
-        }
-    } );
+        },
+        "battery": 0,
+        "maxBattery": 0,
+        "ram": 0,
+        "maxRam": 0
+    };
+    rovers.push( newRover );
+    this.setUpListeners( newRover );
     this.rovers = rovers;
     this.updateIconOrder();
 }
@@ -101,13 +126,33 @@ this.showRoverIcons = function( show, nodeIDs ) {
 this.updateIconOrder = function() {
     var iconIndex = 0;
     for ( var i = 0; i < this.rovers.length; i++ ) {
-        if ( this.rovers[ i ].enabled ) {
+        if ( this.rovers[ i ].enabled && !this.rovers[ i ].active ) {
             this.rovers[ i ].position.y = iconIndex * ( this.iconHeight$ + this.verticalSpacing$ );
             iconIndex++;
         }
     }
     // Update element height for event handling
     this.height = iconIndex * this.iconHeight$ + ( iconIndex - 1 ) * this.verticalSpacing$;
+}
+
+this.setUpListeners = function( rover ) {
+    var node = this.scene.findByID( this.scene, rover.id );
+    rover.battery = node.battery;
+    rover.maxBattery = node.batteryMax;
+    rover.ram = node.ram;
+    rover.maxRam = node.ramMax;
+    node.batteryChanged = this.events.add( function( value ) {
+        rover.battery = value;
+    }, this );
+    node.batteryMaxChanged = this.events.add( function( value ) {
+        rover.maxBattery = value;
+    }, this );
+    node.ramChanged = this.events.add( function( value ) {
+        rover.ram = value;
+    }, this );
+    node.ramMaxChanged = this.events.add( function( value ) {
+        rover.maxRam = value;
+    }, this );
 }
 
 //@ sourceURL=source/hud/roverSelector.js

@@ -13,28 +13,27 @@
 // limitations under the License.
 
 this.draw = function( context, position ) {
-	if ( this.background ) {
-		context.drawImage( this.background, position.x, position.y );
-	}
-	if ( this.characterImage ) {
-		context.save();
-		var opening = this.height * this.interval;
-		context.beginPath();
-		context.rect( position.x, position.y + ( ( this.height - opening ) / 2 ), this.width, opening );
-		context.clip();
-		context.drawImage( this.characterImage, position.x, position.y );
-		context.restore();
-		this.interval += 0.1 * this.direction;
-		if ( this.interval > 1 ) {
-			this.interval = 1;
-		} else if ( this.interval <= 0 && this.direction === -1 ) {
-			this.interval = 0;
-			this.characterImage.src = "";
-		}
-	}
-	if ( this.frame ) {
-		context.drawImage( this.frame, position.x, position.y );
-	}
+    // TODO: Use circular character images.
+    if ( this.characterImage ) {
+        context.save();
+        var opening = this.height * this.interval;
+        context.beginPath();
+        context.rect( position.x, position.y + ( ( this.height - opening ) / 2 ), this.width, opening );
+        context.clip();
+        context.drawImage( this.characterImage, position.x, position.y );
+        context.restore();
+        this.interval += 0.1 * this.direction;
+        if ( this.interval > 1 ) {
+            this.interval = 1;
+        } else if ( this.interval <= 0 && this.direction === -1 ) {
+            this.interval = 0;
+            this.characterImage.src = "";
+        }
+    }
+    if ( this.frame && this.meter ) {
+        context.drawImage( this.frame, position.x, position.y );
+        context.drawImage( this.meter, position.x, position.y );
+    }
 }
 
 this.addCharacterImage = function( path ) {

@@ -23,6 +23,7 @@ methods:
   elementPostDraw:
   setAllBlinking:
   setAllEnabled:
+  selectRover:
 children:
   # For now, the battery meter has to be drawn first, because
   # it uses a mask for the battery ring. Drawing it later will

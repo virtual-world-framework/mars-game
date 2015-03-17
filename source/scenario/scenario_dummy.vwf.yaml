@@ -29,43 +29,43 @@ properties:
   - setProperty:
     - rover
     - battery
-    - 9001
+    - 500
   - setProperty:
     - rover
     - batteryMax
-    - 9001
+    - 500
   - setProperty:
     - rover
     - blockly_allowedBlocks
-    - 9001
+    - 500
   - setProperty:
     - rover
     - lowRam
-    - 0
+    - 5
   - setProperty:
     - rover2
     - battery
-    - 9001
+    - 500
   - setProperty:
     - rover2
     - batteryMax
-    - 9001
+    - 500
   - setProperty:
     - rover2
     - blockly_allowedBlocks
-    - 9001
+    - 500
   - setProperty:
     - rover3
     - battery
-    - 9001
+    - 500
   - setProperty:
     - rover3
     - batteryMax
-    - 9001
+    - 500
   - setProperty:
     - rover3
     - blockly_allowedBlocks
-    - 9001
+    - 500
 
   - callMethod:
     - rover

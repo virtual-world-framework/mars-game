@@ -17,8 +17,8 @@ this.initialize = function() {
 }
 
 this.draw = function( context, position ) {
-    var battery = this.battery;
-    var maxBattery = this.maxBattery;
+    var battery = this.rovers[ this.activeRover ].battery;
+    var maxBattery = this.rovers[ this.activeRover ].maxBattery;
     var arcWidth = ( this.height + this.width ) / 4 ;
     var centerX = position.x + this.width / 2;
     var centerY = position.y + this.height / 2;
@@ -43,20 +43,46 @@ this.draw = function( context, position ) {
     context.font = 'bold 8pt Arial';
     context.fillStyle = "rgb(215,248,255)";
     context.textAlign = "center";
-    readoutString = "BATTERY: " + Math.round( battery ) + " / " + this.maxBattery;
+    readoutString = "BATTERY: " + Math.round( battery ) + " / " + maxBattery;
     context.fillText( readoutString, position.x + this.width / 2, position.y + this.height );
 }
 
 this.setUpListeners = function() {
     var rover = this.find( "//rover" )[ 0 ];
-    this.battery = rover.battery;
-    this.maxBattery = rover.batterMax;
+    var rover2 = this.find( "//rover2" )[ 0 ];
+    var rover3 = this.find( "//rover3" )[ 0 ];
+    this.rovers.rover.battery = rover.battery;
+    this.rovers.rover.maxBattery = rover.batteryMax;
+    this.rovers.rover2.battery = rover2.battery;
+    this.rovers.rover2.maxBattery = rover2.batteryMax;
+    this.rovers.rover3.battery = rover3.battery;
+    this.rovers.rover3.maxBattery = rover3.batteryMax;
     rover.batteryChanged = this.events.add( function( value ) {
-        this.battery = value;
+        this.rovers.rover.battery = value;
     }, this );
     rover.batteryMaxChanged = this.events.add( function( value ) {
-        this.maxBattery = value;
+        this.rovers.rover.maxBattery = value;
     }, this );
+    rover2.batteryChanged = this.events.add( function( value ) {
+        this.rovers.rover2.battery = value;
+    }, this );
+    rover2.batteryMaxChanged = this.events.add( function( value ) {
+        this.rovers.rover2.maxBattery = value;
+    }, this );
+    rover3.batteryChanged = this.events.add( function( value ) {
+        this.rovers.rover3.battery = value;
+    }, this );
+    rover3.batteryMaxChanged = this.events.add( function( value ) {
+        this.rovers.rover3.maxBattery = value;
+    }, this );
+}
+
+this.setActiveRover = function( roverName ) {
+    var rover = this.rovers[ roverName ];
+    if ( rover ) {
+        this.images.portrait = rover;
+        this.activeRover = roverName;
+    }
 }
 
 //@ sourceURL=source/hud/batteryMeter.js

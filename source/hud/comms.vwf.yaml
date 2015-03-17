@@ -16,17 +16,17 @@
 extends: http://vwf.example.com/hud/element.vwf
 properties:
   images:
-    background: "assets/images/hud/communication_bg.png"
-    frame: "assets/images/hud/communication_frame.png"
+    frame: "assets/images/hud/hud_2/communicator_frame.png"
+    meter: "assets/images/hud/hud_2/communicator_sound_meter.png"
     characterImage:
-  width: 100
+  width: 150
   height: 150
   visible: true
   enabled: true
   alignH: left
   alignV: bottom
-  offsetH: 10
-  offsetV: -10
+  offsetH: 30
+  offsetV: -30
   interval: 0
   direction: 0
 methods:

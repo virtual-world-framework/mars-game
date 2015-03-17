@@ -27,10 +27,25 @@ properties:
   alignV: top
   offsetH: 30
   offsetV: 30
-  battery: 100
-  maxBattery: 100
+  rovers:
+    rover:
+      portrait: "assets/images/hud/rover_portrait.png"
+      battery: 0
+      maxBattery: 0
+    rover2:
+      portrait: "assets/images/hud/rover_portrait.png"
+      battery: 0
+      maxBattery: 0
+    rover3:
+      portrait: "assets/images/hud/rover_portrait.png"
+      battery: 0
+      maxBattery: 0
+  activeRover:
+    set: |
+      this.setActiveRover( value );
 methods:
   draw:
   setUpListeners:
+  setActiveRover:
 scripts:
   - source: batteryMeter.js
