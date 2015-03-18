@@ -65,12 +65,12 @@ methods:
   stop:
 
   # The setter for isRunning.  DO NOT CALL DIRECTLY!
-  setIsRunning$:
+  setIsRunning:
 
   # A callback that allows us to set oursevles as the current scenario on the
   #   scene.
   # NOTE: Again, DO NOT CALL DIRECTLY!
-  startInitialScenario$:
+  startInitialScenario:
 
 scripts:
 - source: scenario.js

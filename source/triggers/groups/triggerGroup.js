@@ -22,9 +22,9 @@ this.initialize = function() {
 this.addTrigger = function( trigger ) {
     this.assert( trigger.groupName === this.name );
 
-    var triggers = this.triggers$;
+    var triggers$ = this.triggers$;
     triggers$.push( trigger );
-    this.triggers$ = triggers;
+    this.triggers$ = triggers$;
 
     var canFire$ = this.canFire$;
     canFire$.push( false );

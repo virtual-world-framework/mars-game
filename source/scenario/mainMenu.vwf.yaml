@@ -17,7 +17,7 @@ extends: ../scenario/scenario.vwf
 properties:
   scenarioName: mainMenuScenario
 
-  nextScenarioPath: "introScreenScenario"
+  nextScenarioPath: "scenario1a"
   blockly: source/scenario/blockly/scenario1.xml
 
   # TODO: double check that we don't need this, and perhaps even get rid of the

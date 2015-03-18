@@ -61,9 +61,11 @@ this.setApplicationState = function( state ) {
             this.triggerGroupManager.checkingGroups = false;
             break;
         case "playing":
+            console.log('setting application state to play');
             this.mainMenu.visible = false;
             this.soundManager.stopSoundGroup( "music" );
             this.selectBlocklyNode( this.player.rover.id );
+            this.hud.setAllEnabled( true );
             // TODO: Consolidate game nodes
             this.environment.visible = true;
             this.player.visible = true;
@@ -87,8 +89,9 @@ this.setApplicationState = function( state ) {
 }
 
 this.newGame = function() {
+    console.log('starting new game');
     this.applicationState = "playing";
-    this.activeScenarioPath = "introScreenScenario";
+    this.activeScenarioPath = "scenario1a";
 }
 
 this.continueGame = function( scenario ) {
@@ -141,6 +144,7 @@ this.resetScenario = function() {
 this.advanceScenario = function() {
     // TODO: handle this in the scenario.  Let it depend on us rather than vice
     //  versa (we shouldn't have to know the inner workings of the scenario)
+    this.hud.setAllEnabled( true );
     var scenario = this.getCurrentScenario();
     calcGridBounds( scenario.grid );
     if ( scenario.nextScenarioPath ) {
