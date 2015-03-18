@@ -26,7 +26,7 @@ properties:
     set: |
       this.setScenario( value );
   playerId: "test"
-  version: "Release"
+  version: "Development"
   sceneBlackboard: {}
   roverTabBlinking: false
   graphTabBlinking: false
