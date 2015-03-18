@@ -28,7 +28,7 @@ children:
   triggerManager:
     extends: ../triggers/triggerManager.vwf
     properties: 
-      triggers:
+      triggers$:
         beginMainMenu:
           triggerCondition:
           - delay:

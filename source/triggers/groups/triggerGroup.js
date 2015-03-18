@@ -13,41 +13,41 @@
 // limitations under the License.
 
 this.initialize = function() {
-    this.triggers = [];
+    this.triggers$ = [];
     this.canFire$ = [];
-    this.checkFrequency$ = 0.08 + ( Math.random() * 0.02 );
-    // this.future( this.checkFrequency$ ).checkTriggers$();
+    this.checkFrequency$ = 0.04 + ( Math.random() * 0.02 );
+    this.future( this.checkFrequency$ ).checkTriggers$();
 }
 
 this.addTrigger = function( trigger ) {
     this.assert( trigger.groupName === this.name );
 
-    var triggers = this.triggers;
-    triggers.push( trigger );
-    this.triggers = triggers;
+    var triggers = this.triggers$;
+    triggers$.push( trigger );
+    this.triggers$ = triggers;
 
     var canFire$ = this.canFire$;
     canFire$.push( false );
     this.canFire$ = canFire$;
 
-    this.assert( this.triggers.length === this.canFire$.length );
+    this.assert( this.triggers$.length === this.canFire$.length );
 }
 
 this.checkTriggers$ = function() {
     // We need to keep track of whether we're currently evaluating, so that
     //  triggers know they're allowed to fire!
-    this.isEvaluating = true;
+    this.isEvaluating$ = true;
 
     // First, check if each trigger is ready to fire.
     var haveTriggerToFire = false;
-    for ( var i = 0; i < this.triggers.length; ++i ) {
-        var trigger = this.triggers[ i ];
+    for ( var i = 0; i < this.triggers$.length; ++i ) {
+        var trigger = this.triggers$[ i ];
         this.canFire$[ i ] = trigger.check();
         haveTriggerToFire = haveTriggerToFire || this.canFire$[ i ];
     }
 
     // done evaluating (for now)
-    this.isEvaluating = false;
+    this.isEvaluating$ = false;
 
     // We can't control where we are in the evaluation.  It may be that two 
     //  triggers are going to fire during the same frame, but one actually
@@ -58,7 +58,7 @@ this.checkTriggers$ = function() {
     //  this, do another check after a future(0).
     if ( haveTriggerToFire ) {
         this.future( 0.01 ).checkTriggersCallback$();
-    } else if ( this.isChecking$ ) {
+    } else if ( this.isChecking ) {
         // schedule the next check
         this.future( this.checkFrequency$ ).checkTriggers$();
     }
@@ -67,14 +67,14 @@ this.checkTriggers$ = function() {
 this.checkTriggersCallback$ = function() {
     // We need to keep track of whether we're currently evaluating, so that
     //  triggers know they're allowed to fire!
-    this.isEvaluating = true;
+    this.isEvaluating$ = true;
 
     // First, check each trigger that wasn't ready in checkTriggers$ to see if
     //  it's ready now.
     var haveTriggerToFire = false;
-    for ( var i = 0; i < this.triggers.length; ++i ) {
+    for ( var i = 0; i < this.triggers$.length; ++i ) {
         if ( !this.canFire$[ i ] ) {
-            var trigger = this.triggers[ i ];
+            var trigger = this.triggers$[ i ];
             this.canFire$[ i ] = trigger.isEnabled && trigger.check();
             haveTriggerToFire = haveTriggerToFire || this.canFire$[ i ];
         } else {
@@ -86,9 +86,9 @@ this.checkTriggersCallback$ = function() {
     // Next, find the best priority and the number of triggers at that priority.
     var bestPriority = Number.NEGATIVE_INFINITY;
     var numAtPriority = 0;
-    for ( var i = 0; i < this.triggers.length; ++i ) {
+    for ( var i = 0; i < this.triggers$.length; ++i ) {
         if ( this.canFire$[ i ] ) {
-            var triggerPriority = this.triggers[ i ].priority;
+            var triggerPriority = this.triggers$[ i ].priority;
 
             if ( triggerPriority > bestPriority ) {
                 bestPriority = triggerPriority;
@@ -109,8 +109,8 @@ this.checkTriggersCallback$ = function() {
     //  in the range [0, numAtPriority).
     var selectionValue = Math.floor( Math.random() * numAtPriority );
 
-    for ( var i = 0; i < this.triggers.length; ++i ) {
-        var trigger = this.triggers[ i ];
+    for ( var i = 0; i < this.triggers$.length; ++i ) {
+        var trigger = this.triggers$[ i ];
         if ( this.canFire$[ i ] ) {
             if ( trigger.priority === bestPriority ) {
                 if ( selectionValue === 0 ) {

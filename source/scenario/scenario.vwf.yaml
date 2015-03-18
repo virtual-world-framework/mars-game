@@ -31,7 +31,7 @@ properties:
   # These are the standard properties that every scenario should define
   scenarioName:
   startState:
-  triggers:
+  triggers$:
 
   # Keeps track of whether the scenario is currently running.
   # NOTE: you should not set this directly!!!  The scene manages it through 

@@ -70,7 +70,7 @@ children:
   triggerManager:
     extends: ../triggers/triggerManager.vwf
     properties: 
-      triggers:
+      triggers$:
         beginScenario_3d:
           triggerCondition:
           - onScenarioStart:

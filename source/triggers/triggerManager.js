@@ -36,7 +36,7 @@ this.loadTriggers = function( scenario ) {
                            "but we still had some there from a previous set!" );
     }
 
-    this.loadTriggerList( this.triggers, scenario );
+    this.loadTriggerList( this.triggers$, scenario );
 }
 
 this.loadTriggerList = function( triggerList, scenario ) {
