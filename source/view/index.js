@@ -416,6 +416,10 @@ vwf_view.gotProperty = function( nodeID, propertyName, propertyValue ) {
 }
 
 function setUpView() {
+    // HACK: right now, the JPlayer div is always in the way unless we get rid 
+    //  of it, so...
+    removeVideo();
+    
     vwf_view.kernel.getProperty( appID, "version" );
     mainMenu = new MainMenu();
     initializePauseMenu();

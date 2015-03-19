@@ -26,19 +26,19 @@ implements:
 properties:
   # We keep an array of triggers, as well as an internal array used to keep 
   #  track of whether each trigger is ready to fire
-  triggers:
+  triggers$:
   canFire$:
 
   # True if we're in the process of checking our triggers, false otherwise.
-  isEvaluating: false
+  isEvaluating$: false
 
   # How frequently we check our triggers.  This is a bit random (between .08 
   #   and .12 seconds), so that all the checks won't happen at the same time.
   checkFrequency$:
 
-  isChecking$:
+  isChecking:
     set: |
-      this.isChecking$ = value;
+      this.isChecking = value;
       if ( value ) {
         this.checkTriggers$();
       }

@@ -48,7 +48,7 @@ this.setCheckingGroups$ = function( value ) {
     names = this.groupNames;
     for ( i = 0; i < names.length; i++ ) {
         group = this.groups.find( names[ i ] )[ 0 ];
-        group.isChecking$ = value;
+        group.isChecking = value;
     }
 }
 

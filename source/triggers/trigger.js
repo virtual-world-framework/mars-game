@@ -78,7 +78,7 @@ this.check = function() {
     this.assert( !this.groupName || this.group, 
                  "How do we have a group name but no group?!" );
 
-    if ( this.group && !this.group.isEvaluating ) {
+    if ( this.group && !this.group.isEvaluating$ ) {
         return false;
     }
 

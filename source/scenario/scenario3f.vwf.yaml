@@ -3,13 +3,13 @@ extends: ../scenario/scenario.vwf
 properties:
   scenarioName: scenario1h
   scenePath: /
-  nextScenarioPath: "scenario1a"
+  nextScenarioPath: "scenario_dummy"
 
 children:
   triggerManager:
     extends: ../triggers/triggerManager.vwf
     properties: 
-      triggers:
+      triggers$:
         beginScenario_Intro:
           triggerCondition:
           - onScenarioStart:

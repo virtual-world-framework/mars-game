@@ -121,11 +121,15 @@ children:
   triggerManager:
     extends: ../triggers/triggerManager.vwf
     properties: 
-      triggers:
+      triggers$:
         beginScenario_dummy:
           triggerCondition:
           - onScenarioStart:
           actions:
+          - playSound:
+            - musicStandardGameplay
+          - playSound:
+            - environmentWind
           - writeToBlackboard:
             - anomalyPosition
             - [ 12, 10 ]
