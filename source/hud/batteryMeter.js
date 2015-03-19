@@ -31,10 +31,10 @@ this.draw = function( context, position ) {
     context.strokeStyle = "rgb(0,0,0)";
     context.stroke();
     context.globalCompositeOperation = "source-in";
-    context.drawImage( this.ring, centerX - this.ring.width / 2, centerY - this.ring.height / 2 );
+    context.drawImage( this.ring, position.x, position.y );
     context.globalCompositeOperation = "source-over";
-    if ( this.portrait ) {
-        context.drawImage( this.portrait, centerX - this.portrait.width / 2, centerY - this.portrait.height / 2 );
+    if ( this[ this.activeRover ] ) {
+        context.drawImage( this[ this.activeRover ], position.x, position.y );
     }
     if ( this.frame ) {
         context.drawImage( this.frame, position.x, position.y );
@@ -80,7 +80,6 @@ this.setUpListeners = function() {
 this.setActiveRover = function( roverName ) {
     var rover = this.rovers[ roverName ];
     if ( rover ) {
-        this.images.portrait = rover;
         this.activeRover = roverName;
     }
 }

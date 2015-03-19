@@ -12,6 +12,26 @@
 // See the License for the specific language governing permissions and 
 // limitations under the License.
 
+this.initialize = function() {
+    this.future( 0 ).initializeRovers();
+}
+
+this.initializeRovers = function() {
+    var scene = this.scene;
+    scene.hud.roverSelector.addRoverIcon(
+        scene.player.rover,
+        "assets/images/hud/hud_2/portrait_rover_small.png",
+        false );
+    scene.hud.roverSelector.addRoverIcon(
+        scene.player.rover2,
+        "assets/images/hud/hud_2/portrait_scout_small.png",
+        false );
+    scene.hud.roverSelector.addRoverIcon(
+        scene.player.rover3,
+        "assets/images/hud/hud_2/portrait_heavy_small.png",
+        false );
+}
+
 this.draw = function( context, position ) {
     var rover, icon, posx, posy, batteryPct, ramPct, meterWidth, readout;
     for ( var i = 0; i < this.rovers.length; i++ ) {
@@ -21,8 +41,8 @@ this.draw = function( context, position ) {
             if ( icon ) {
                 posx = position.x + rover.position.x;
                 posy = position.y + rover.position.y;
-                context.drawImage( this.frame, posx, posy );
                 context.drawImage( icon, posx, posy );
+                context.drawImage( this.frame, posx, posy );
             }
             batteryPct = rover.battery / rover.maxBattery;
             ramPct = rover.ram / rover.maxRam;

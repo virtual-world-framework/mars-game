@@ -268,22 +268,7 @@ this.setUpRoverListeners = function() {
         this.player.rover.findAndSetCurrentGrid( scenarioName );
         this.player.rover2.findAndSetCurrentGrid( scenarioName );
         this.player.rover3.findAndSetCurrentGrid( scenarioName );
-        // this.player.rover.findAndSetCurrentGrid( this.activeScenarioPath );
     }, this );
-    // rover.findAndSetCurrentGrid( this.activeScenarioPath );
-    // TODO: Find a more appropriate location for the following
-    this.hud.roverSelector.future( 0 ).addRoverIcon(
-        this.player.rover,
-        "assets/images/hud/main_rover_icon.png",
-        false );
-    this.hud.roverSelector.future( 0 ).addRoverIcon(
-        this.player.rover2,
-        "assets/images/hud/scout_rover_icon.png",
-        false );
-    this.hud.roverSelector.future( 0 ).addRoverIcon(
-        this.player.rover3,
-        "assets/images/hud/main_rover_icon.png",
-        false );
 }
 
 this.displayTiles = function( isVisible ) {

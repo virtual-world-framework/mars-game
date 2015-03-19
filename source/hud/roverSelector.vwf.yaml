@@ -42,6 +42,7 @@ methods:
   showRoverIcons:
   selectRover:
   setUpListeners:
+  initializeRovers:
 events:
   onClick:
 scripts:

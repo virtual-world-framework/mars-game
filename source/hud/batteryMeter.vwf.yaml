@@ -17,7 +17,9 @@ extends: http://vwf.example.com/hud/element.vwf
 properties:
   images:
     frame: "assets/images/hud/hud_2/active_rover_frame.png"
-    portrait: "assets/images/hud/rover_portrait.png"
+    rover: "assets/images/hud/hud_2/portrait_rover_large.png"
+    rover2: "assets/images/hud/hud_2/portrait_scout_large.png"
+    rover3: "assets/images/hud/hud_2/portrait_heavy_large.png"
     ring: "assets/images/hud/hud_2/active_rover_energy_ring.png"
   width: 150
   height: 150
@@ -29,15 +31,12 @@ properties:
   offsetV: 30
   rovers:
     rover:
-      portrait: "assets/images/hud/rover_portrait.png"
       battery: 0
       maxBattery: 0
     rover2:
-      portrait: "assets/images/hud/rover_portrait.png"
       battery: 0
       maxBattery: 0
     rover3:
-      portrait: "assets/images/hud/rover_portrait.png"
       battery: 0
       maxBattery: 0
   activeRover:
