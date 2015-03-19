@@ -21,6 +21,145 @@ var BlocklyApps = {
 
 // Extensions to Blockly's language and JavaScript generator.
 
+Blockly.Blocks['check'] = {
+  init: function() {
+    this.setHelpUrl('http://www.example.com/');
+    this.setColour(290);
+    this.appendDummyInput()
+        .appendField("Check:");
+    this.appendValueInput("check")
+        .setCheck(['Number','Boolean','Variable','LeftParenthesis']);
+    this.setInputsInline(true);
+    this.setOutput(true, "Boolean");
+    this.setTooltip('');
+  }
+
+}
+
+Blockly.JavaScript['check'] = function(block) {
+  var argument0 = Blockly.JavaScript.valueToCode(block, 'check',
+      Blockly.JavaScript.ORDER_CONDITIONAL) || false;
+
+  if(argument0.split('(').length == argument0.split(')').length) {
+    return [ argument0, Blockly.JavaScript.ORDER_CONDITIONAL ];
+  } else {
+    return [ false, Blockly.JavaScript.ORDER_CONDITIONAL ];
+  }
+}
+
+Blockly.Blocks['solve'] = {
+  init: function() {
+    this.setHelpUrl('http://www.google.com/');
+    this.setColour(290);
+    this.appendDummyInput()
+        .appendField("Solve:");
+    this.appendValueInput("check")
+        .setCheck(['Number','Variable','LeftParenthesis']);
+    this.setInputsInline(true);
+    this.setOutput(true, "Number");
+    this.setTooltip('');
+  }
+};
+
+Blockly.JavaScript['solve'] = function(block) {
+  var value_check = Blockly.JavaScript.valueToCode(block, 'check', Blockly.JavaScript.ORDER_ASSIGNMENT);
+  // TODO: Assemble JavaScript into code variable.
+
+  var argument0 = Blockly.JavaScript.valueToCode(block, 'check',
+      Blockly.JavaScript.ORDER_ASSIGNMENT) || 0;
+
+  if(argument0.split('(').length == argument0.split(')').length) {
+    return [ argument0, Blockly.JavaScript.ORDER_ASSIGNMENT ];
+  } else {
+    return [0, Blockly.JavaScript.ORDER_ASSIGNMENT];
+  }
+
+};
+
+Blockly.Blocks[ 'logic_cond_out' ] = {
+  init: function() {
+    this.setColour( 60 );
+    this.appendValueInput( "INPUT" )
+        .appendField(new Blockly.FieldDropdown([["==", "==="],["!=", "!=="],[">", ">"],
+          ["<", "<"],[">=", ">="],["<=", "<="]]), "VALUE")
+        .setCheck( [ 'Boolean','Variable','Number','LeftParenthesis','RightParenthesis' ] );
+    this.setOutput( true, "Conditional" );
+    var thisBlock = this;
+    this.setTooltip( function() {
+      var content = {
+        text: "A block for selecting and/or operators"
+      }
+      return showTooltipInBlockly( thisBlock, content );
+    } );
+  }
+};
+
+Blockly.JavaScript['logic_cond_out' ] = function( block ) {
+  
+  var dropdown_value = block.getFieldValue('VALUE');
+
+  var argument0 = Blockly.JavaScript.valueToCode(block, 'INPUT',
+      Blockly.JavaScript.ORDER_ATOMIC) || '';
+
+  return [ dropdown_value + argument0 , Blockly.JavaScript.ORDER_ATOMIC ];
+
+};
+
+Blockly.Blocks[ 'logic_andor_out' ] = {
+  init: function() {
+    this.setColour( 60 );
+    this.appendValueInput( "INPUT" )
+        .appendField(new Blockly.FieldDropdown([["&&", "&&"],["||", "||"]]), "VALUE")
+        .setCheck( [ 'Boolean','Variable','LeftParenthesis','RightParenthesis' ] );
+    this.setOutput( true, "ANDOR" );
+    var thisBlock = this;
+    this.setTooltip( function() {
+      var content = {
+        text: "A block for selecting and/or operators"
+      }
+      return showTooltipInBlockly( thisBlock, content );
+    } );
+  }
+};
+
+Blockly.JavaScript['logic_andor_out' ] = function( block ) {
+  
+  var dropdown_value = block.getFieldValue('VALUE');
+
+  var argument0 = Blockly.JavaScript.valueToCode(block, 'INPUT',
+      Blockly.JavaScript.ORDER_ATOMIC) || '';
+
+  return [ dropdown_value + argument0 , Blockly.JavaScript.ORDER_ATOMIC ];
+
+};
+
+Blockly.Blocks[ 'logic_boolean_out' ] = {
+  init: function() {
+    this.setColour( 60 );
+    this.appendValueInput( "INPUT" )
+        .appendField(new Blockly.FieldDropdown([["false", "false"],["true", "true"]]), "VALUE")
+        .setCheck( [ 'ANDOR','Variable','LeftParenthesis','RightParenthesis' ] );
+    this.setOutput( true, "Boolean" );
+    var thisBlock = this;
+    this.setTooltip( function() {
+      var content = {
+        text: "A block for selecting boolean values"
+      }
+      return showTooltipInBlockly( thisBlock, content );
+    } );
+  }
+};
+
+Blockly.JavaScript['logic_boolean_out' ] = function( block ) {
+  
+  var dropdown_value = block.getFieldValue('VALUE');
+
+  var argument0 = Blockly.JavaScript.valueToCode(block, 'INPUT',
+      Blockly.JavaScript.ORDER_ATOMIC) || '';
+
+  return [ dropdown_value + argument0 , Blockly.JavaScript.ORDER_ATOMIC ];
+
+};
 
 Blockly.Blocks['controls_whileUntil'] = {
   /**
@@ -560,7 +699,7 @@ Blockly.Blocks[ 'math_number_drop_output' ] = {
          ["3", "3"], ["4", "4"], ["5", "5"], ["6", "6"], ["7", "7"],
          ["8", "8"], ["9", "9"], ["10", "10"], ["11", "11"], ["12", "12"],
          ["13", "13"], ["14", "14"], ["15","15"]]), "VALUE")
-        .setCheck(['OperatorAddSubtract','OperatorMultiplyDivide','Variable']);
+        .setCheck(['OperatorAddSubtract','OperatorMultiplyDivide','Variable','Conditional']);
     this.setOutput( true, "Number" );
     var thisBlock = this;
     this.setTooltip( function() {
@@ -595,7 +734,7 @@ Blockly.Blocks[ 'math_number_output' ] = {
          ["1", "1"],["0", "0"],["-1", "-1"], ["-2", "-2"], ["-3", "-3"], 
          ["-4", "-4"], ["-5", "-5"], ["-6", "-6"], ["-7", "-7"], ["-8", "-8"], 
          ["-9", "-9"], ["-10", "-10"]]), "VALUE")
-        .setCheck( [ 'OperatorAddSubtract','OperatorMultiplyDivide','Variable','LeftParenthesis','RightParenthesis' ] );
+        .setCheck( [ 'OperatorAddSubtract','OperatorMultiplyDivide','Variable','LeftParenthesis','RightParenthesis','Conditional' ] );
     this.setOutput( true, "Number" );
     var thisBlock = this;
     this.setTooltip( function() {
@@ -825,7 +964,7 @@ Blockly.Blocks['graph_left_paren'] = {
     this.setColour(280);
     this.appendValueInput('INPUT')
         .appendField('(')
-        .setCheck(['Number','Variable','OperatorAddSubtract','RightParenthesis']);
+        .setCheck(['Number','Boolean','Variable','OperatorAddSubtract','RightParenthesis']);
     this.setOutput(true, 'LeftParenthesis');
     var thisBlock = this;
     this.setTooltip( function() {
