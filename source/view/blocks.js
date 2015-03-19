@@ -28,7 +28,7 @@ Blockly.Blocks['check'] = {
     this.appendDummyInput()
         .appendField("Check:");
     this.appendValueInput("check")
-        .setCheck(['Boolean','Variable','LeftParenthesis']);
+        .setCheck(['Number','Boolean','Variable','LeftParenthesis']);
     this.setInputsInline(true);
     this.setOutput(true, "Boolean");
     this.setTooltip('');
@@ -76,6 +76,34 @@ Blockly.JavaScript['solve'] = function(block) {
 
 };
 
+Blockly.Blocks[ 'logic_cond_out' ] = {
+  init: function() {
+    this.setColour( 60 );
+    this.appendValueInput( "INPUT" )
+        .appendField(new Blockly.FieldDropdown([["==", "==="],["!=", "!=="],[">", ">"],
+          ["<", "<"],[">=", ">="],["<=", "<="]]), "VALUE")
+        .setCheck( [ 'Boolean','Variable','Number','LeftParenthesis','RightParenthesis' ] );
+    this.setOutput( true, "Conditional" );
+    var thisBlock = this;
+    this.setTooltip( function() {
+      var content = {
+        text: "A block for selecting and/or operators"
+      }
+      return showTooltipInBlockly( thisBlock, content );
+    } );
+  }
+};
+
+Blockly.JavaScript['logic_cond_out' ] = function( block ) {
+  
+  var dropdown_value = block.getFieldValue('VALUE');
+
+  var argument0 = Blockly.JavaScript.valueToCode(block, 'INPUT',
+      Blockly.JavaScript.ORDER_ATOMIC) || '';
+
+  return [ dropdown_value + argument0 , Blockly.JavaScript.ORDER_ATOMIC ];
+
+};
 
 Blockly.Blocks[ 'logic_andor_out' ] = {
   init: function() {
@@ -671,7 +699,7 @@ Blockly.Blocks[ 'math_number_drop_output' ] = {
          ["3", "3"], ["4", "4"], ["5", "5"], ["6", "6"], ["7", "7"],
          ["8", "8"], ["9", "9"], ["10", "10"], ["11", "11"], ["12", "12"],
          ["13", "13"], ["14", "14"], ["15","15"]]), "VALUE")
-        .setCheck(['OperatorAddSubtract','OperatorMultiplyDivide','Variable']);
+        .setCheck(['OperatorAddSubtract','OperatorMultiplyDivide','Variable','Conditional']);
     this.setOutput( true, "Number" );
     var thisBlock = this;
     this.setTooltip( function() {
@@ -706,7 +734,7 @@ Blockly.Blocks[ 'math_number_output' ] = {
          ["1", "1"],["0", "0"],["-1", "-1"], ["-2", "-2"], ["-3", "-3"], 
          ["-4", "-4"], ["-5", "-5"], ["-6", "-6"], ["-7", "-7"], ["-8", "-8"], 
          ["-9", "-9"], ["-10", "-10"]]), "VALUE")
-        .setCheck( [ 'OperatorAddSubtract','OperatorMultiplyDivide','Variable','LeftParenthesis','RightParenthesis' ] );
+        .setCheck( [ 'OperatorAddSubtract','OperatorMultiplyDivide','Variable','LeftParenthesis','RightParenthesis','Conditional' ] );
     this.setOutput( true, "Number" );
     var thisBlock = this;
     this.setTooltip( function() {

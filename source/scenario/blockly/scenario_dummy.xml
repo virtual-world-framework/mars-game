@@ -7,7 +7,7 @@
   <block type="math_number_drop"></block>
   <block type="variables_set"></block>
   <block type="variables_get"></block>
-  <block type="logic_compare"></block>
+  <block type="logic_cond_out"></block>
   <block type="logic_andor_out"></block>
   <block type="logic_boolean_out"></block>
   <block type="check"></block>
