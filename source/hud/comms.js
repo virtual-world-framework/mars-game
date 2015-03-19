@@ -13,7 +13,6 @@
 // limitations under the License.
 
 this.draw = function( context, position ) {
-    // TODO: Use circular character images.
     if ( this.characterImage ) {
         context.save();
         var opening = this.height * this.interval;
