@@ -41,7 +41,7 @@ this.setActiveMode = function( mode ) {
         case "firstPerson":
         case "thirdPerson":
         case "topDown":
-            src = "assets/images/hud/camera_" + mode + ".png";
+            src = "assets/images/hud/camera_" + mode.toLowerCase() + ".png";
             break;
         default:
             src = "";
