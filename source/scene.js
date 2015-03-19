@@ -91,7 +91,7 @@ this.setApplicationState = function( state ) {
 this.newGame = function() {
     console.log('starting new game');
     this.applicationState = "playing";
-    this.activeScenarioPath = "scenario1a";
+    this.activeScenarioPath = "scenario_dummy";
 }
 
 this.continueGame = function( scenario ) {

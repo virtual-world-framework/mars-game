@@ -126,6 +126,10 @@ children:
           triggerCondition:
           - onScenarioStart:
           actions:
+          - playSound:
+            - musicStandardGameplay
+          - playSound:
+            - environmentWind
           - writeToBlackboard:
             - anomalyPosition
             - [ 12, 10 ]
