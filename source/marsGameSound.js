@@ -50,7 +50,7 @@ this.startSubtitle = function( instanceHandle ) {
                 var imagePath = "assets/images/hud/comms_missioncontrol.png";
             }
             scene.hud.comms.addCharacterImage( imagePath );
-        }                
+        }
     }
 }
 
