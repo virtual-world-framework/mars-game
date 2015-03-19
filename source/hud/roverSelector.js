@@ -20,15 +20,15 @@ this.initializeRovers = function() {
     var scene = this.scene;
     scene.hud.roverSelector.addRoverIcon(
         scene.player.rover,
-        "assets/images/hud/hud_2/portrait_rover_small.png",
+        "assets/images/hud/portrait_rover_small.png",
         false );
     scene.hud.roverSelector.addRoverIcon(
         scene.player.rover2,
-        "assets/images/hud/hud_2/portrait_scout_small.png",
+        "assets/images/hud/portrait_scout_small.png",
         false );
     scene.hud.roverSelector.addRoverIcon(
         scene.player.rover3,
-        "assets/images/hud/hud_2/portrait_heavy_small.png",
+        "assets/images/hud/portrait_heavy_small.png",
         false );
 }
 

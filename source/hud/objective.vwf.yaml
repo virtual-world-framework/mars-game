@@ -16,7 +16,7 @@
 extends: http://vwf.example.com/hud/element.vwf
 properties:
   images:
-    icon: "assets/images/hud/hud_2/objective_alert.png"
+    icon: "assets/images/hud/objective_alert.png"
   width: 32
   height: 32
   visible: true

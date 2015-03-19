@@ -18,7 +18,7 @@ implements:
   - http://vwf.example.com/sceneGetter.vwf
 properties:
   images:
-    icon: "assets/images/hud/hud_2/camera_quadcopter.png"
+    icon: "assets/images/hud/camera_quadcopter.png"
   width: 48
   height: 48
   visible: true

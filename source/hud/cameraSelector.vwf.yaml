@@ -16,8 +16,8 @@
 extends: http://vwf.example.com/hud/element.vwf
 properties:
   images:
-    frame: "assets/images/hud/hud_2/camera_frame.png"
-    selected: "assets/images/hud/hud_2/camera_selected.png"
+    frame: "assets/images/hud/camera_frame.png"
+    selected: "assets/images/hud/camera_selected.png"
   width: 152
   height: 48
   visible: true

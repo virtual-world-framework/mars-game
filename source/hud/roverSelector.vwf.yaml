@@ -18,7 +18,7 @@ implements:
  - http://vwf.example.com/sceneGetter.vwf
 properties:
   images:
-    frame: assets/images/hud/hud_2/rover_selector_frame.png
+    frame: assets/images/hud/rover_selector_frame.png
   width: 180
   height: 0
   visible: true
