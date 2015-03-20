@@ -39,12 +39,17 @@ this.checkTriggers$ = function() {
     this.isEvaluating$ = true;
 
     // First, check if each trigger is ready to fire.
+    var triggers = this.triggers$;
+    var numTriggers = triggers.length;
     var haveTriggerToFire = false;
-    for ( var i = 0; i < this.triggers$.length; ++i ) {
-        var trigger = this.triggers$[ i ];
-        this.canFire$[ i ] = trigger.check();
-        haveTriggerToFire = haveTriggerToFire || this.canFire$[ i ];
+    var canFire = this.canFire$;
+    for ( var i = 0; i < numTriggers; ++i ) {
+        canFire[ i ] = triggers[ i ].check();
+        haveTriggerToFire = haveTriggerToFire || canFire[ i ];
     }
+
+    this.canFire$ = canFire;
+    this.triggers$ = triggers;
 
     // done evaluating (for now)
     this.isEvaluating$ = false;
@@ -57,7 +62,7 @@ this.checkTriggers$ = function() {
     //  impossible - especially with a low frame rate.  In order to address 
     //  this, do another check after a future(0).
     if ( haveTriggerToFire ) {
-        this.future( 0.01 ).checkTriggersCallback$();
+        this.future( 0 ).checkTriggersCallback$();
     } else if ( this.isChecking ) {
         // schedule the next check
         this.future( this.checkFrequency$ ).checkTriggers$();
