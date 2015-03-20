@@ -40,16 +40,15 @@ this.checkTriggers$ = function() {
 
     // First, check if each trigger is ready to fire.
     var triggers = this.triggers$;
-    var numTriggers = triggers.length;
-    var haveTriggerToFire = false;
     var canFire = this.canFire$;
-    for ( var i = 0; i < numTriggers; ++i ) {
+
+    var haveTriggerToFire = false;
+    for ( var i = 0; i < triggers.length; ++i ) {
         canFire[ i ] = triggers[ i ].check();
         haveTriggerToFire = haveTriggerToFire || canFire[ i ];
     }
 
     this.canFire$ = canFire;
-    this.triggers$ = triggers;
 
     // done evaluating (for now)
     this.isEvaluating$ = false;
