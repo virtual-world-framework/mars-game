@@ -15,7 +15,7 @@
 this.initialize = function() {
     this.triggers$ = [];
     this.canFire$ = [];
-    this.checkFrequency$ = 0.04 + ( Math.random() * 0.02 );
+    this.checkFrequency$ = 0.08 + ( Math.random() * 0.04 );
     this.future( this.checkFrequency$ ).checkTriggers$();
 }
 

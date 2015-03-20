@@ -71,7 +71,7 @@ this.reset = function() {
 
 this.evaluateClause = function() {
     var retVal = ( this.lastEventTime$ > 0 ) && 
-                 ( Date.now() - this.lastEventTime$ <= this.threshold$ );
+                 ( this.time - this.lastEventTime$ <= this.threshold$ );
     return retVal;
 }
 
