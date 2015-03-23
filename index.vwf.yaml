@@ -481,12 +481,14 @@ children:
               inventoryIsVisible: false       
       rover3:
         visible: false
-        extends: source/fourWheeledRover.vwf
+        #extends: source/fourWheeledRover.vwf
+        extends: source/rover.vwf
         implements: 
         - http://vwf.example.com/blockly/controller.vwf
         - source/griddable.vwf
         - source/cameraTarget.vwf
-        source: assets/3d/Rover/rover_retro.dae
+        #source: assets/3d/Rover/rover_retro.dae
+        source: assets/3d/heavyrover/heavy_rover.dae
         type: model/vnd.collada+xml
         properties:
           defaultMount: thirdPerson
