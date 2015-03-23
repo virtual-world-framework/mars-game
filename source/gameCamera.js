@@ -59,16 +59,12 @@ this.attachToTarget = function() {
     for ( var i = 0; i < 3; i++ ) {
         this.lastTargetPosition[ i ] = this.target.transform[ i + 12 ];
     }
-    this.target.transformChanged = this.target.events.add( function( transform ) {
-        this.followTarget( transform );
-    }, this );
+    this.target.transformChanged = this.events.add( this.followTarget, this );
 }
 
 this.detachFromTarget = function() {
     this.target.visible = true;
-    this.target.transformChanged = this.target.events.remove( function( transform ) {
-        this.followTarget( transform );
-    }, this );
+    this.target.transformChanged = this.events.remove( this.followTarget, this );
 }
 
 this.setCameraPose = function( pose ) {
