@@ -133,6 +133,8 @@ children:
           - writeToBlackboard:
             - anomalyPosition
             - [ 12, 10 ]
+          - setObjective:
+            - "Explore the Cartesian Plane!"
 
         setCameraView:
           triggerCondition:
