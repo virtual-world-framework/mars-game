@@ -35,20 +35,20 @@ body {
     margin-right: auto;
     text-align: center;
     background-color: rgba( 0, 0, 0, 0.8 );
-    color: rgb( 162, 225, 238 );
+    color: rgb( 129, 232, 255 );
 }
 
 a {
     pointer-events: all;
-    color: rgb( 162, 225, 238 );
+    color: rgb( 129, 232, 255 );
 }
 
 a:link {
-    color: rgb( 162, 225, 238 );
+    color: rgb( 129, 232, 255 );
 }
 
 a:visited {
-    color: rgb( 162, 225, 238 );
+    color: rgb( 129, 232, 255 );
 }
 
 a:hover {
@@ -56,7 +56,7 @@ a:hover {
 }
 
 a:active {
-    color: rgb( 255, 0, 0 );
+    color: rgb( 1, 211, 255 );
 }
 
 .blocklySvg {
@@ -279,7 +279,7 @@ a:active {
 }
 
 .subtitleText {
-    color: rgb( 215, 248, 255 );
+    color: rgb( 193, 244, 255 );
     font-size: 10pt;
     width: 100%;
     margin-bottom: 5px;
@@ -301,7 +301,7 @@ a:active {
 #loggerBox {
     width: 26%;
     height: 140px;
-    background-color: rgba( 1, 211, 255, 0.5 );
+    background-color: rgba( 193, 244, 255, 0.2 );
     position: absolute;
     bottom: 30px;
     left: 180px;
@@ -378,8 +378,8 @@ a:active {
     width: 400px;
     padding-top: 16px;
     padding-bottom: 16px;
-    background-color: rgba( 1, 211, 255, 0.5 );
-    border: 1px solid rgb( 215, 248, 255 );
+    background-color: rgba( 193, 244, 255, 0.2 );
+    border: 1px solid rgb( 129, 232, 255 );
     border-radius: 8px;
 }
 
@@ -390,8 +390,8 @@ a:active {
     text-align: center;
     text-transform: uppercase;
     font-weight: bold;
-    color: rgb( 162, 225, 238 );
-    text-shadow: 0px 0px 2px rgb( 215, 248, 255 );
+    color: rgb( 129, 232, 255 );
+    text-shadow: 0px 0px 2px rgb( 193, 244, 255 );
     user-select: none;
     -webkit-user-select: none;  /* Chrome all / Safari all */
     -moz-user-select: none;     /* Firefox all */
@@ -403,12 +403,12 @@ a:active {
 }
 
 .pauseMenuButton.hover {
-    color: rgb( 1, 211, 255 );
+    color: rgb( 255, 255, 255 );
     text-shadow: 0px 0px 2px rgb( 1, 211, 255 );
 }
 
 .pauseMenuButton.select {
-    color: rgb( 255, 255, 255 );
+    color: rgb( 1, 211, 255 );
 }
 
 #scenarioSelector {
@@ -440,20 +440,20 @@ a:active {
     line-height: 24px;
     font-size: 24px;
     text-align: center;
-    text-shadow: 0px 0px 4px rgb( 162, 225, 238 );
+    text-shadow: 0px 0px 4px rgb( 129, 232, 255 );
 }
 
 .inlineButton {
-    color: rgb( 162, 225, 238 );
+    color: rgb( 129, 232, 255 );
     display: table-cell;
     vertical-align: middle;
     border-radius: 4px;
 }
 .inlineButton.hover {
-    color: rgb( 1, 211, 255 );
+    color: rgb( 255, 255, 255 );
 }
 .inlineButton.select {
-    color: rgb( 255, 255, 255 );
+    color: rgb( 1, 211, 255 );
 }
 
 .slider {
@@ -534,7 +534,7 @@ a:active {
     height: 120px;
     width: 400px;
     background-color: rgba( 0, 0, 0, 0.75);
-    color: rgb( 162, 225, 238 );
+    color: rgb( 129, 232, 255 );
     border-radius: 8px;
     text-align: center;
 }
