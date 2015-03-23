@@ -32,7 +32,7 @@ this.mountCamera = function( cameraNode ) {
     offsetTransform[ 14 ] += this.worldOffset[ 2 ];
     cameraNode.followRotation = this.useTargetRotation;
     cameraNode.camera.navmode = this.navmode;
-    cameraNode.transform = offsetTransform;
+    cameraNode.transformTo( offsetTransform );
     cameraNode.setCameraPose( this.cameraPose );
     cameraNode.camera.translationSpeed = this.cameraSpeed;
     cameraNode.target.visible = this.targetVisible;
