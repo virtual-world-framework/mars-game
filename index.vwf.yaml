@@ -489,6 +489,7 @@ children:
         source: assets/3d/heavyrover/heavy_rover.dae
         type: model/vnd.collada+xml
         properties:
+          boundingAreaSize: [ 2, 2 ]
           defaultMount: thirdPerson
           displayName: "Rover3"
           castShadows: true
