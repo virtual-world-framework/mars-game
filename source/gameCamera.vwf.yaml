@@ -26,6 +26,7 @@ properties:
   lastTargetPosition: [ 0, 0, 0 ]
   followingTarget: true
   followRotation: false
+  listenerID$:
 methods:
   setCameraTarget:
   setCameraMount:
