@@ -46,13 +46,13 @@ this.followTarget = function( transform ) {
         newTransform[ 12 ] += transform[ 12 ] - this.lastTargetPosition[ 0 ];
         newTransform[ 13 ] += transform[ 13 ] - this.lastTargetPosition[ 1 ];
         newTransform[ 14 ] += transform[ 14 ] - this.lastTargetPosition[ 2 ];
-        this.lastTargetPosition = [
-            transform[ 12 ],
-            transform[ 13 ],
-            transform[ 14 ]
-        ];
-        this.transform = newTransform;
+        this.transformTo( newTransform );
     }
+    this.lastTargetPosition = [
+        transform[ 12 ],
+        transform[ 13 ],
+        transform[ 14 ]
+    ];
 }
 
 this.attachToTarget = function() {
