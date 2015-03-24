@@ -4,14 +4,11 @@
   <block type="controls_repeat_extended"></block>
   <block type="controls_sensor_tracks"><field name="MODE">SCAN: NEGATIVE</field></block>
   <block type="controls_whileUntil"><field name="MODE">WHILE</field></block>
-  <block type="math_number_drop"></block>
   <block type="variables_set"></block>
   <block type="variables_get"></block>
   <block type="logic_cond_out"></block>
   <block type="logic_andor_out"></block>
   <block type="logic_boolean_out"></block>
-  <block type="check"></block>
-  <block type="solve"></block>
   <block type="math_number_output"></block>
   <block type="graph_add"></block>
   <block type="graph_subtract"></block>

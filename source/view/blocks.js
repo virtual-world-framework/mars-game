@@ -21,61 +21,6 @@ var BlocklyApps = {
 
 // Extensions to Blockly's language and JavaScript generator.
 
-Blockly.Blocks['check'] = {
-  init: function() {
-    this.setHelpUrl('http://www.example.com/');
-    this.setColour(290);
-    this.appendDummyInput()
-        .appendField("Check:");
-    this.appendValueInput("check")
-        .setCheck(['Number','Boolean','Variable','LeftParenthesis']);
-    this.setInputsInline(true);
-    this.setOutput(true, "Boolean");
-    this.setTooltip('');
-  }
-
-}
-
-Blockly.JavaScript['check'] = function(block) {
-  var argument0 = Blockly.JavaScript.valueToCode(block, 'check',
-      Blockly.JavaScript.ORDER_CONDITIONAL) || false;
-
-  if(argument0.split('(').length == argument0.split(')').length) {
-    return [ argument0, Blockly.JavaScript.ORDER_CONDITIONAL ];
-  } else {
-    return [ false, Blockly.JavaScript.ORDER_CONDITIONAL ];
-  }
-}
-
-Blockly.Blocks['solve'] = {
-  init: function() {
-    this.setHelpUrl('http://www.google.com/');
-    this.setColour(290);
-    this.appendDummyInput()
-        .appendField("Solve:");
-    this.appendValueInput("check")
-        .setCheck(['Number','Variable','LeftParenthesis']);
-    this.setInputsInline(true);
-    this.setOutput(true, "Number");
-    this.setTooltip('');
-  }
-};
-
-Blockly.JavaScript['solve'] = function(block) {
-  var value_check = Blockly.JavaScript.valueToCode(block, 'check', Blockly.JavaScript.ORDER_ASSIGNMENT);
-  // TODO: Assemble JavaScript into code variable.
-
-  var argument0 = Blockly.JavaScript.valueToCode(block, 'check',
-      Blockly.JavaScript.ORDER_ASSIGNMENT) || 0;
-
-  if(argument0.split('(').length == argument0.split(')').length) {
-    return [ argument0, Blockly.JavaScript.ORDER_ASSIGNMENT ];
-  } else {
-    return [0, Blockly.JavaScript.ORDER_ASSIGNMENT];
-  }
-
-};
-
 Blockly.Blocks[ 'logic_cond_out' ] = {
   init: function() {
     this.setColour( 60 );
@@ -743,7 +688,23 @@ Blockly.Blocks[ 'math_number_output' ] = {
       }
       return showTooltipInBlockly( thisBlock, content );
     } );
-  }
+    
+  },
+  onchange: function() {
+      console.log('test');
+      if (this.getFieldValue('VALUE') === '4') {
+        this.setFieldValue('0', 'VALUE');
+        this.setParent(null);
+        this.moveBy(10,10)
+        this.setWarningText('Four not allowed.');
+        return;
+      } else if (this.getFieldValue('VALUE') === '0') {
+        return;
+      } else {
+        this.setWarningText(null);
+        return;
+      }
+    }
 };
 
 Blockly.JavaScript['math_number_output' ] = function( block ) {
