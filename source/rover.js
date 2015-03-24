@@ -50,7 +50,14 @@ this.moveForward = function() {
         } else {
 
             //Otherwise, check if the space is occupied
-            if ( !this.currentGrid.checkCollision( proposedNewGridSquare ) ){
+            var bArea = this.boundingAreaSize;
+            if( bArea[ 0 ] > 1 || bArea[ 1 ] > 1 ) {
+                var collided = this.currentGrid.checkCollisionArea( proposedNewGridSquare, bArea );
+            } else {
+                var collided = this.currentGrid.checkCollision( proposedNewGridSquare );
+            } 
+            
+            if ( !collided ){
                 this.currentGrid.moveObjectOnGrid( this.id, this.currentGridSquare, proposedNewGridSquare );
                 this.currentGridSquare = proposedNewGridSquare;
                 var displacement = [ dirVector[ 0 ] * this.currentGrid.gridSquareLength, 
