@@ -134,15 +134,15 @@ this.addToGridFromCoord = function( object, gridCoord ) {
         object.currentGridSquare = gridCoord;
         var newTranslation = this.getWorldFromGrid( gridCoord[ 0 ], gridCoord[ 1 ] );
         var baSize = object.boundingAreaSize;
-        if( baSize[0] > 1 ) { 
-            newTranslation[0] = newTranslation[0] + 
+        if( baSize[ 0 ] > 1 ) { 
+            newTranslation[ 0 ] = newTranslation[ 0 ] + 
             //move to middle of bounding area, correct so that we are in middle of tile
-            ( 0.5 * baSize[0] - 0.5 ) * this.gridSquareLength;
+            ( 0.5 * baSize[ 0 ] - 0.5 ) * this.gridSquareLength;
         }
-        if( baSize[1] > 1 ) { 
-            newTranslation[1] = newTranslation[1] - 
+        if( baSize[ 1 ] > 1 ) { 
+            newTranslation[ 1 ] = newTranslation[ 1 ] - 
             //move to middle of bounding area, correct so that we are in middle of tile
-            ( 0.5 * baSize[1] - 0.5 ) * this.gridSquareLength;
+            ( 0.5 * baSize[ 1 ] - 0.5 ) * this.gridSquareLength;
         }
         if ( object.placeOnTerrain && object.terrainName && object.terrainName !== "undefined" ) {
             object.placeOnTerrain( newTranslation );
@@ -233,18 +233,10 @@ this.getCollidables = function( gridCoord ) {
     return collidables;
 }
 
+
 this.checkCollision = function( gridCoord ) {
     var collide = false;
     if ( this.validCoord( gridCoord ) ) {
-        //TODO: nest for loops like we do below.
-        //
-        //for( x = 0 --> boundingArea.width )
-        //  for ( y = 0 --> bundingArea.height )  
-                //TODO: Check for out-of-bounds case. It counts as a collision if we're
-                // out of bounds. 
-
-                //TODO: Make the below check boundingArea tiles, where the boundingArea's
-                //upper left tile has coordinates "gridCoord". 
                 var tile = this.getTileFromGrid( gridCoord ); //TODO: don't input gridCoord
                 for ( var i = 0; i < tile.objects.length; i++ ) {
                     var node = tile.getNodeAtIndex( i );
@@ -261,6 +253,21 @@ this.checkCollision = function( gridCoord ) {
         collide = true;
     }
     return collide;
+}
+
+this.checkCollisionArea = function( gridCoord, boundingArea ) {
+
+    for( var x = 0; x < boundingArea[ 0 ]; x++ ) { 
+        for( var y = 0; y < boundingArea[ 1 ]; y++ ) { 
+            var currTileCoord = [ gridCoord[ 0 ] + x , gridCoord[ 1 ] - y ]; 
+            var collided = this.checkCollision( currTileCoord );
+            if ( collided || collided === null ) {
+               return collided;
+            }
+        }
+    }
+
+    return false;
 }
 
 this.getEnergy = function ( gridCoord ) {
