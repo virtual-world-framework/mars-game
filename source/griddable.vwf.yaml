@@ -19,6 +19,8 @@ properties:
   #currentGridSquare is the upper-left tile of the bounding area.
   boundingAreaSize: [ 1, 1 ]
   isCollidable: true
+methods:
+  checkCollision:   
 events:
   addedToGrid:
 scripts:
