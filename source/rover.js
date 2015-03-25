@@ -48,11 +48,12 @@ this.moveForward = function() {
             this.battery = 0;
             this.moveFailed( "battery" );
         } else {
-
             //Otherwise, check if the space is occupied
             var bArea = this.boundingAreaSize;
             if( bArea[ 0 ] > 1 || bArea[ 1 ] > 1 ) {
-                var collided = this.currentGrid.checkCollisionArea( proposedNewGridSquare, bArea );
+                var ignoreSet = { };
+                ignoreSet[ this.name ] = true;
+                var collided = this.currentGrid.checkCollisionArea( proposedNewGridSquare, bArea, ignoreSet );
             } else {
                 var collided = this.currentGrid.checkCollision( proposedNewGridSquare );
             } 
