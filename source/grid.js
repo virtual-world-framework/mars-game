@@ -246,7 +246,7 @@ this.checkCollision = function( gridCoord, ignoreSet ) {
             //               ...
             //               objectZname : true 
             // }  
-            if( ignoreSet.hasOwnProperty( node.name ) ) {
+            if( ignoreSet && ignoreSet.hasOwnProperty( node.name ) ) {
                 return false;
             }
             if ( node === undefined ) {
