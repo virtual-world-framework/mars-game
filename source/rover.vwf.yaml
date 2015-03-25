@@ -62,7 +62,6 @@ properties:
       }
     value: 5
   currentGrid: undefined
-  currentGridSquare: [ 0, 0 ]
   tracksSensorValue: false
   heading: 0
   terrainName: undefined
