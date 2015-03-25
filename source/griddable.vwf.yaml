@@ -21,7 +21,7 @@ properties:
   boundingAreaSize: [ 1, 1 ]
   isCollidable: true
 methods:
-  checkCollision:   
+  checkCollisionWrapper:   
 events:
   addedToGrid:
 scripts:

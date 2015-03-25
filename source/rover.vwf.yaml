@@ -60,7 +60,6 @@ properties:
         this.lowRam = value;
       }
     value: 5
-  currentGrid: undefined
   tracksSensorValue: false
   heading: 0
   terrainName: undefined
