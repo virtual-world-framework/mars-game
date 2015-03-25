@@ -49,15 +49,7 @@ this.moveForward = function() {
             this.moveFailed( "battery" );
         } else {
             //Otherwise, check if the space is occupied
-            var bArea = this.boundingAreaSize;
-            if( bArea[ 0 ] > 1 || bArea[ 1 ] > 1 ) {
-                var ignoreSet = { };
-                ignoreSet[ this.name ] = true;
-                var collided = this.currentGrid.checkCollisionArea( proposedNewGridSquare, bArea, ignoreSet );
-            } else {
-                var collided = this.currentGrid.checkCollision( proposedNewGridSquare );
-            } 
-            
+            var collided = this.checkCollisionWrapper( proposedNewGridSquare );
             if ( !collided ){
                 this.currentGrid.moveObjectOnGrid( this.id, this.currentGridSquare, proposedNewGridSquare );
                 this.currentGridSquare = proposedNewGridSquare;
