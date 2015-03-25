@@ -32,7 +32,6 @@ var gridBounds = {
     bottomLeft: undefined,
     topRight: undefined
 };
-var orbitTarget = new Array( 3 );
 var lastRenderTime = 0;
 var threejs = findThreejsView();
 var activePauseMenu;
@@ -95,17 +94,6 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
 
             case "blocklyErrored":
                 startBlocklyButton.className = "";
-                break;
-
-            case "transformChanged":
-                if ( nodeID === targetID ) {
-                    var targetTransform = eventArgs[ 0 ];
-                    if ( targetTransform ) {
-                        orbitTarget[ 0 ] = targetTransform[ 12 ];
-                        orbitTarget[ 1 ] = targetTransform[ 13 ];
-                        orbitTarget[ 2 ] = targetTransform[ 14 ];
-                    }
-                }
                 break;
 
         }
