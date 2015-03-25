@@ -16,10 +16,10 @@
 extends: http://vwf.example.com/hud/element.vwf
 properties:
   images:
-    frame: "assets/images/hud/camera_selector_frame.png"
-    activeModeIcon:
-  width: 96
-  height: 96
+    frame: "assets/images/hud/camera_frame.png"
+    selected: "assets/images/hud/camera_selected.png"
+  width: 152
+  height: 48
   visible: true
   enabled: true
   alignH: right
@@ -30,12 +30,15 @@ properties:
   lastBlinkTime: 0
   blinkInterval: 0.25
   blinkDuration: 0.25
-  activeMode:
-    set: |
-      this.setActiveMode( value );
+  buttonSize: 48
+  buttonSpacing: 4
+  modes:
+    - firstPerson
+    - thirdPerson
+    - topDown
+  activeMode: thirdPerson
 methods:
   draw:
   setUpListeners:
-  setActiveMode:
 scripts:
   - source: cameraSelector.js

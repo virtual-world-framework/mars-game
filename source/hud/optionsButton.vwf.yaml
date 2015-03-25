@@ -18,7 +18,7 @@ implements:
  - http://vwf.example.com/sceneGetter.vwf
 properties:
   images:
-    icon: "assets/images/hud/options_button.png"
+    icon: "assets/images/hud/menu_options.png"
   width: 64
   height: 64
   visible: true

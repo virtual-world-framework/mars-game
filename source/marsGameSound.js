@@ -45,12 +45,12 @@ this.startSubtitle = function( instanceHandle ) {
             character = character.slice( 1, character.length - 1 );
             var imagePath = "";
             if ( character === "ROVER" ) {
-                var imagePath = "assets/images/hud/comms_rover.png";
+                var imagePath = "assets/images/hud/portrait_rover_communicator.png";
             } else if ( character === "MC" ) {
                 var imagePath = "assets/images/hud/comms_missioncontrol.png";
             }
             scene.hud.comms.addCharacterImage( imagePath );
-        }                
+        }
     }
 }
 

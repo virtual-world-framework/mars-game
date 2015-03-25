@@ -27,12 +27,9 @@ this.draw = function( context, position ) {
             context.globalAlpha = 1;
         }
         context.font = '16px Arial';
-        context.fillStyle = "rgb( 224, 255, 100 )";
-        context.strokeStyle = "rgb( 0, 0, 0 )";
-        context.lineWidth = 3;
+        context.fillStyle = "rgb( 215, 248, 255 )";
         context.textAlign = "left";
         context.textBaseline = "top";
-        context.strokeText( this.text, position.x + 40, position.y + 6 );
         context.fillText( this.text, position.x + 40, position.y + 6 );
     }
 }

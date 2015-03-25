@@ -23,7 +23,15 @@ methods:
   elementPostDraw:
   setAllBlinking:
   setAllEnabled:
+  selectRover:
 children:
+  # For now, the battery meter has to be drawn first, because
+  # it uses a mask for the battery ring. Drawing it later will
+  # cause previously drawn elements to disappear. No other elements
+  # can use the mask feature.
+  # TODO: Find a clever way to do this without being order restricted.
+  batteryMeter:
+    includes: source/hud/batteryMeter.vwf
   blocklyButton:
     includes: source/hud/blocklyButton.vwf
   graphButton:
@@ -34,8 +42,6 @@ children:
     includes: source/hud/optionsButton.vwf
   objective:
     includes: source/hud/objective.vwf
-  batteryMeter:
-    includes: source/hud/batteryMeter.vwf
   comms:
     includes: source/hud/comms.vwf
   cameraSelector:
