@@ -234,33 +234,42 @@ this.getCollidables = function( gridCoord ) {
 }
 
 
-this.checkCollision = function( gridCoord ) {
+this.checkCollision = function( gridCoord, ignoreSet ) {
     var collide = false;
     if ( this.validCoord( gridCoord ) ) {
-                var tile = this.getTileFromGrid( gridCoord ); //TODO: don't input gridCoord
-                for ( var i = 0; i < tile.objects.length; i++ ) {
-                    var node = tile.getNodeAtIndex( i );
-                    if ( node === undefined ) {
-                        this.logger.errorx( "checkCollision", "Unable to find node with " +
-                            "ID: " + tile.objects[ i ] );
-                        return null;
-                    } else if ( node.isCollidable ) {
-                        collide = true;
-                        break;
-                    }
-                }
+        var tile = this.getTileFromGrid( gridCoord ); //TODO: don't input gridCoord
+        for ( var i = 0; i < tile.objects.length; i++ ) {
+            var node = tile.getNodeAtIndex( i );
+            // ignoreSet is of format:
+            // ignoreSet = { objectAname : true,
+            //               objectBname : true, 
+            //               ...
+            //               objectZname : true 
+            // }  
+            if( ignoreSet.hasOwnProperty( node.name ) ) {
+                return false;
+            }
+            if ( node === undefined ) {
+                this.logger.errorx( "checkCollision", "Unable to find node with " +
+                    "ID: " + tile.objects[ i ] );
+                return null;
+            } else if ( node.isCollidable ) {
+                collide = true;
+                break;
+            }
+        }
     } else {
         collide = true;
     }
     return collide;
 }
 
-this.checkCollisionArea = function( gridCoord, boundingArea ) {
+this.checkCollisionArea = function( gridCoord, boundingArea, ignoreSet ) {
 
     for( var x = 0; x < boundingArea[ 0 ]; x++ ) { 
         for( var y = 0; y < boundingArea[ 1 ]; y++ ) { 
             var currTileCoord = [ gridCoord[ 0 ] + x , gridCoord[ 1 ] - y ]; 
-            var collided = this.checkCollision( currTileCoord );
+            var collided = this.checkCollision( currTileCoord, ignoreSet );
             if ( collided || collided === null ) {
                return collided;
             }
