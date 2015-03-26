@@ -82,6 +82,7 @@ properties:
 
   - addToGrid:
     - rover2
+    #- [ 37, 12 ]
     - [ 37, 14 ]
 
   - addToGrid:
