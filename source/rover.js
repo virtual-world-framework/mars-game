@@ -29,6 +29,20 @@ this.findAndSetCurrentGrid = function( scenarioName ) {
     this.currentGrid = scenario.grid;
 }
 
+this.meetsBoundaryConditions = function( proposedNewGridSquare, energyRequired ) {
+
+    if ( energyRequired < 0 ) {
+        this.moveFailed( "collision" );
+        return false;
+    } else if ( energyRequired > this.battery ) {
+        this.battery = 0;
+        this.moveFailed( "battery" );
+        return false;
+    } 
+
+    return true;
+}
+
 this.moveForward = function() {
 
     var scene = this.sceneNode;
@@ -40,15 +54,11 @@ this.moveForward = function() {
     //First check if the coordinate is valid
     if ( this.currentGrid.validCoord( proposedNewGridSquare ) ) {
 
-        //Then check if the boundary value allows for movement:
         var energyRequired = this.currentGrid.getEnergy( proposedNewGridSquare );
-        if ( energyRequired < 0 ) {
-            this.moveFailed( "collision" );
-        } else if ( energyRequired > this.battery ) {
-            this.battery = 0;
-            this.moveFailed( "battery" );
-        } else {
-            //Otherwise, check if the space is occupied
+
+        //Then check if the boundary value allows for movement:
+        if( this.meetsBoundaryConditions( proposedNewGridSquare, energyRequired ) ) {
+            //Check if the space is occupied
             var collided = this.checkCollisionWrapper( proposedNewGridSquare );
             if ( !collided ){
                 this.currentGrid.moveObjectOnGrid( this.id, this.currentGridSquare, proposedNewGridSquare );
