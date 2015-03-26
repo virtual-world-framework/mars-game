@@ -1,14 +1,27 @@
 <xml id="rover" style="display: none">
+  <category name="Movement">
   <block type="rover_moveForward"></block>
   <block type="rover_turn"><field name="DIR">Turn: Left</field></block>
+  </category>
+  <category name="Control">
   <block type="controls_repeat_extended"></block>
   <block type="controls_sensor_tracks"><field name="MODE">SCAN: NEGATIVE</field></block>
   <block type="controls_whileUntil"><field name="MODE">WHILE</field></block>
+  <block type="math_number_output"></block>
+  <block type="logic_boolean_out"></block>
+  </category>
+  <category name="Variables">
   <block type="variables_set"></block>
-  <block type="variables_get"></block>
+  <block type="variables_get_out"></block>
+  </category>
+  <category name="Logic">
   <block type="logic_cond_out"></block>
   <block type="logic_andor_out"></block>
   <block type="logic_boolean_out"></block>
+  <block type="graph_left_paren"></block>
+  <block type="graph_right_paren"></block>
+  </category>
+  <category name="Math">
   <block type="math_number_output"></block>
   <block type="graph_add"></block>
   <block type="graph_subtract"></block>
@@ -16,6 +29,8 @@
   <block type="graph_divide"></block>
   <block type="graph_left_paren"></block>
   <block type="graph_right_paren"></block>
-  <block type="logic_boolean"></block>
+  </category>
+  <category name="Procedures">
     <block type="procedures_defnoreturn" id="25" x="2" y="45"><mutation><arg name="boolean"></arg></mutation><field name="NAME">drive</field><statement name="STACK"><block type="rover_turn" id="38"><field name="DIR">Turn: Right</field><next><block type="rover_moveForward" id="39"><next><block type="rover_moveForward" id="40"><next><block type="controls_if" id="30" inline="false"><mutation else="1"></mutation><value name="IF0"><block type="variables_get" id="31"><field name="VAR">boolean</field></block></value><statement name="DO0"><block type="rover_turn" id="32"><field name="DIR">Turn: Left</field></block></statement><statement name="ELSE"><block type="rover_turn" id="33"><field name="DIR">Turn: Right</field></block></statement><next><block type="controls_repeat_extended" id="34" inline="true"><value name="TIMES"><block type="math_number_drop" id="36"><field name="VALUE">7</field></block></value><statement name="DO"><block type="rover_moveForward" id="37"></block></statement></block></next></block></next></block></next></block></next></block></statement></block><block type="procedures_callnoreturn" id="41" inline="false"><mutation name="drive"><arg name="boolean"></arg></mutation><value name="ARG0"><block type="logic_boolean" id="43"><field name="BOOL">FALSE</field></block></value><next><block type="procedures_callnoreturn" id="42" inline="false"><mutation name="drive"><arg name="boolean"></arg></mutation><value name="ARG0"><block type="logic_boolean" id="44"><field name="BOOL">TRUE</field></block></value></block></next></block></next></block></next></block>
+  </category>
 </xml>

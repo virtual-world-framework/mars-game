@@ -21,6 +21,73 @@ var BlocklyApps = {
 
 // Extensions to Blockly's language and JavaScript generator.
 
+Blockly.Blocks[ 'variables_get_out' ] = {
+  /**
+   * Block for variable getter.
+   * @this Blockly.Block
+   */
+  init: function() {
+    this.setHelpUrl( 'http://google.com' );
+    this.setColour( 330 );
+    this.appendValueInput( 'INPUT' )
+        .appendField( Blockly.Msg.VARIABLES_GET_TITLE )
+        .appendField( new Blockly.FieldVariable(
+        Blockly.Msg.VARIABLES_GET_ITEM ), 'VAR' )
+        .appendField( Blockly.Msg.VARIABLES_GET_TAIL );
+        .setCheck( [ 'Number','Boolean','Variable','LeftParenthesis','RightParenthesis' ] );
+    this.setOutput( true );
+    this.setTooltip( Blockly.Msg.VARIABLES_GET_TOOLTIP );
+    this.contextMenuMsg_ = Blockly.Msg.VARIABLES_GET_CREATE_SET;
+    this.contextMenuType_ = 'variables_set';
+  },
+  /**
+   * Return all variables referenced by this block.
+   * @return {!Array.<string>} List of variable names.
+   * @this Blockly.Block
+   */
+  getVars: function() {
+    return [ this.getFieldValue( 'VAR' ) ];
+  },
+  /**
+   * Notification that a variable is renaming.
+   * If the name matches one of this block's variables, rename it.
+   * @param {string} oldName Previous name of variable.
+   * @param {string} newName Renamed variable.
+   * @this Blockly.Block
+   */
+  renameVar: function( oldName, newName ) {
+    if ( Blockly.Names.equals( oldName, this.getFieldValue( 'VAR' ) ) ) {
+      this.setFieldValue( newName, 'VAR' );
+    }
+  },
+  /**
+   * Add menu option to create getter/setter block for this setter/getter.
+   * @param {!Array} options List of menu options to add to.
+   * @this Blockly.Block
+   */
+  customContextMenu: function( options ) {
+    var option = { enabled: true };
+    var name = this.getFieldValue( 'VAR' );
+    option.text = this.contextMenuMsg_.replace( '%1', name );
+    var xmlField = goog.dom.createDom( 'field', null, name );
+    xmlField.setAttribute( 'name', 'VAR' );
+    var xmlBlock = goog.dom.createDom( 'block', null, xmlField );
+    xmlBlock.setAttribute( 'type', this.contextMenuType_ );
+    option.callback = Blockly.ContextMenu.callbackFactory( this, xmlBlock );
+    options.push( option );
+  }
+};
+
+Blockly.JavaScript[ 'variables_get_out' ] = function( block ) {
+  // Variable getter.
+  var argument0 = Blockly.JavaScript.valueToCode( block, 'INPUT',
+      Blockly.JavaScript.ORDER_ATOMIC) || '';
+
+  var code = Blockly.JavaScript.variableDB_.getName( block.getFieldValue( 'VAR' ),
+      Blockly.Variables.NAME_TYPE );
+  return [ code + argument0 , Blockly.JavaScript.ORDER_ATOMIC ];
+};
+
 Blockly.Blocks[ 'logic_cond_out' ] = {
   init: function() {
     this.setColour( 60 );
@@ -926,7 +993,7 @@ Blockly.Blocks['graph_left_paren'] = {
     this.appendValueInput('INPUT')
         .appendField('(')
         .setCheck(['Number','Boolean','Variable','OperatorAddSubtract','RightParenthesis']);
-    this.setOutput(true, 'LeftParenthesis');
+    this.setOutput(true, null);
     var thisBlock = this;
     this.setTooltip( function() {
       var content = {
