@@ -31,9 +31,8 @@ Blockly.Blocks[ 'variables_get_out' ] = {
     this.setColour( 330 );
     this.appendValueInput( 'INPUT' )
         .appendField( Blockly.Msg.VARIABLES_GET_TITLE )
-        .appendField( new Blockly.FieldVariable(
-        Blockly.Msg.VARIABLES_GET_ITEM ), 'VAR' )
-        .appendField( Blockly.Msg.VARIABLES_GET_TAIL );
+        .appendField( new Blockly.FieldVariable( Blockly.Msg.VARIABLES_GET_ITEM ), 'VAR' )
+        .appendField( Blockly.Msg.VARIABLES_GET_TAIL )
         .setCheck( [ 'Number','Boolean','Variable','LeftParenthesis','RightParenthesis' ] );
     this.setOutput( true );
     this.setTooltip( Blockly.Msg.VARIABLES_GET_TOOLTIP );
@@ -92,7 +91,7 @@ Blockly.Blocks[ 'logic_cond_out' ] = {
   init: function() {
     this.setColour( 60 );
     this.appendValueInput( "INPUT" )
-        .appendField(new Blockly.FieldDropdown([["==", "==="],["!=", "!=="],[">", ">"],
+        .appendField(new Blockly.FieldDropdown([["=", "==="],["!=", "!=="],[">", ">"],
           ["<", "<"],[">=", ">="],["<=", "<="]]), "VALUE")
         .setCheck( [ 'Boolean','Variable','Number','LeftParenthesis','RightParenthesis' ] );
     this.setOutput( true, "Conditional" );
@@ -121,7 +120,7 @@ Blockly.Blocks[ 'logic_andor_out' ] = {
   init: function() {
     this.setColour( 60 );
     this.appendValueInput( "INPUT" )
-        .appendField(new Blockly.FieldDropdown([["&&", "&&"],["||", "||"]]), "VALUE")
+        .appendField(new Blockly.FieldDropdown([["AND", "&&"],["OR", "||"]]), "VALUE")
         .setCheck( [ 'Boolean','Variable','LeftParenthesis','RightParenthesis' ] );
     this.setOutput( true, "ANDOR" );
     var thisBlock = this;
@@ -149,7 +148,7 @@ Blockly.Blocks[ 'logic_boolean_out' ] = {
   init: function() {
     this.setColour( 60 );
     this.appendValueInput( "INPUT" )
-        .appendField(new Blockly.FieldDropdown([["false", "false"],["true", "true"]]), "VALUE")
+        .appendField(new Blockly.FieldDropdown([["false", "false"],["true", "true"]]), "BOOL")
         .setCheck( [ 'ANDOR','Variable','LeftParenthesis','RightParenthesis' ] );
     this.setOutput( true, "Boolean" );
     var thisBlock = this;
@@ -164,7 +163,7 @@ Blockly.Blocks[ 'logic_boolean_out' ] = {
 
 Blockly.JavaScript['logic_boolean_out' ] = function( block ) {
   
-  var dropdown_value = block.getFieldValue('VALUE');
+  var dropdown_value = block.getFieldValue('BOOL');
 
   var argument0 = Blockly.JavaScript.valueToCode(block, 'INPUT',
       Blockly.JavaScript.ORDER_ATOMIC) || '';
@@ -673,71 +672,7 @@ Blockly.JavaScript[ 'controls_repeat_extended' ] = function( block ) {
   return constructBlockExeEventCall( block ) + code;
 };
 
-
-Blockly.Blocks[ 'math_number_drop' ] = {
-  init: function() {
-    //this.setHelpUrl('http://www.example.com/');
-    this.setColour(225);
-    this.appendDummyInput()
-        .appendField(new Blockly.FieldDropdown([["0", "0"],["1", "1"], ["2", "2"],
-         ["3", "3"], ["4", "4"], ["5", "5"], ["6", "6"], ["7", "7"],
-         ["8", "8"], ["9", "9"], ["10", "10"], ["11", "11"], ["12", "12"],
-         ["13", "13"], ["14", "14"], ["15","15"]]), "VALUE");
-    this.setOutput( true, "Number" );
-
-    var thisBlock = this;
-    this.setTooltip( function() {
-      var content = {
-        text: "A dropdown selector for number values."
-      }
-      return showTooltipInBlockly( thisBlock, content );
-    } );
-  }
-};
-
-Blockly.JavaScript[ 'math_number_drop' ] = function( block ) {
-  
-  var dropdown_value = block.getFieldValue('VALUE');
-
-  return [ dropdown_value , Blockly.JavaScript.ORDER_ATOMIC ];
-};
-
-Blockly.Blocks[ 'math_number_drop_output' ] = {
-  init: function() {
-    this.setHelpUrl('http://www.google.com/');
-    this.setColour( 225 );
-    this.appendValueInput( "INPUT" )
-        .appendField(new Blockly.FieldDropdown([["0", "0"],["1", "1"], ["2", "2"],
-         ["3", "3"], ["4", "4"], ["5", "5"], ["6", "6"], ["7", "7"],
-         ["8", "8"], ["9", "9"], ["10", "10"], ["11", "11"], ["12", "12"],
-         ["13", "13"], ["14", "14"], ["15","15"]]), "VALUE")
-        .setCheck(['OperatorAddSubtract','OperatorMultiplyDivide','Variable','Conditional']);
-    this.setOutput( true, "Number" );
-    var thisBlock = this;
-    this.setTooltip( function() {
-      var content = {
-        text: "A dropdown selector for number values."
-      }
-      return showTooltipInBlockly( thisBlock, content );
-    } );
-  }
-};
-
-Blockly.JavaScript['math_number_drop_output' ] = function( block ) {
-  
-  var dropdown_value = block.getFieldValue('VALUE');
-  
-  var argument0 = Blockly.JavaScript.valueToCode(block, 'INPUT',
-      Blockly.JavaScript.ORDER_ATOMIC) || '';
-
-  if (argument0[0] === 'x'){
-    return [ dropdown_value + '*' + argument0, Blockly.JavaScript.ORDER_ATOMIC ];
-  } else {
-    return [ dropdown_value + argument0, Blockly.JavaScript.ORDER_ATOMIC ];
-  }
-};
-
-Blockly.Blocks[ 'math_number_output' ] = {
+Blockly.Blocks[ 'math_number_out' ] = {
   init: function() {
     this.setColour( 60 );
     this.appendValueInput( "INPUT" )
@@ -756,25 +691,10 @@ Blockly.Blocks[ 'math_number_output' ] = {
       return showTooltipInBlockly( thisBlock, content );
     } );
     
-  },
-  onchange: function() {
-      console.log('test');
-      if (this.getFieldValue('VALUE') === '4') {
-        this.setFieldValue('0', 'VALUE');
-        this.setParent(null);
-        this.moveBy(10,10)
-        this.setWarningText('Four not allowed.');
-        return;
-      } else if (this.getFieldValue('VALUE') === '0') {
-        return;
-      } else {
-        this.setWarningText(null);
-        return;
-      }
-    }
+  }
 };
 
-Blockly.JavaScript['math_number_output' ] = function( block ) {
+Blockly.JavaScript['math_number_out' ] = function( block ) {
   
   var dropdown_value = block.getFieldValue('VALUE');
   
