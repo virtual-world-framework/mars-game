@@ -2,5 +2,5 @@
   <block type="rover_moveForward"></block>
   <block type="rover_turn"><field name="DIR">Turn: Left</field></block>
   <block type="controls_repeat_extended"></block>
-  <block type="math_number_drop"></block>
+  <block type="math_number_out"></block>
 </xml>
