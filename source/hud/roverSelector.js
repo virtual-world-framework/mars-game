@@ -161,18 +161,41 @@ this.setUpListeners = function( rover ) {
     rover.maxBattery = node.batteryMax;
     rover.ram = node.ram;
     rover.maxRam = node.ramMax;
-    node.batteryChanged = this.events.add( function( value ) {
+    node.batteryChanged = this.events.add( function( value, id ) {
+        var rovers = this.rovers;
+        var rover = this.getRoverByID( id );
         rover.battery = value;
+        this.rovers = rovers;
     }, this );
-    node.batteryMaxChanged = this.events.add( function( value ) {
+    node.batteryMaxChanged = this.events.add( function( value, id ) {
+        var rovers = this.rovers;
+        var rover = this.getRoverByID( id );
         rover.maxBattery = value;
+        this.rovers = rovers;
     }, this );
-    node.ramChanged = this.events.add( function( value ) {
+    node.ramChanged = this.events.add( function( value, id ) {
+        var rovers = this.rovers;
+        var rover = this.getRoverByID( id );
         rover.ram = value;
+        this.rovers = rovers;
     }, this );
-    node.ramMaxChanged = this.events.add( function( value ) {
+    node.ramMaxChanged = this.events.add( function( value, id ) {
+        var rovers = this.rovers;
+        var rover = this.getRoverByID( id );
         rover.maxRam = value;
+        this.rovers = rovers;
     }, this );
+}
+
+this.getRoverByID = function( nodeID ) {
+    var rover, i;
+    for ( i = 0; i < this.rovers.length; i++ ) {
+        if ( this.rovers[ i ].id === nodeID ) {
+            rover = this.rovers[ i ];
+            break;
+        }
+    }
+    return rover;
 }
 
 //@ sourceURL=source/hud/roverSelector.js

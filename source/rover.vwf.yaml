@@ -22,35 +22,34 @@ properties:
     set: |
       if ( this.battery != value ) {
         this.battery = value;
-        this.batteryChanged( value );
+        this.batteryChanged( value, this.id );
       }
     value: 100 
   batteryMax:
     set: |
       if ( this.batteryMax != value ) {
         this.batteryMax = value;
-        this.batteryMaxChanged( value );
+        this.batteryMaxChanged( value, this.id );
       }
     value: 100 
   lowBattery:
     set: |
       if ( this.lowBattery != value ) {
         this.lowBattery = value;
-        this.batteryChanged( this.battery );
       }
     value: 5
   ram:
     set: |
       if ( this.ram != value ) {
         this.ram = value;
-        this.ramChanged( value );
+        this.ramChanged( value, this.id );
       }
     value: 100 
   ramMax:
     set: |
       if ( this.ramMax != value ) {
         this.ramMax = value;
-        this.ramMaxChanged( value );
+        this.ramMaxChanged( value, this.id );
       }
     value: 100 
   lowRam: 
