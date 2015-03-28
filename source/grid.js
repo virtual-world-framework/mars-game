@@ -201,9 +201,14 @@ this.removeFromGrid = function( nodeID, gridCoord ) {
 this.moveObjectOnGrid = function( nodeID, srcCoord, destCoord ) {
     var removed = this.removeFromGrid( nodeID, srcCoord );
     if ( removed ) {
-        //TODO: iterate over the boundingArea here.
-        this.getTileFromGrid( destCoord ).addToTile( nodeID );
-
+        var node = this.scene.findByID( this.scene, nodeID ); 
+        var bArea = node.boundingAreaSize; 
+        for( var x = 0; x < bArea[ 0 ]; x++ ) {
+            for( var y = 0; y < bArea[ 1 ]; y++ ) {
+                var currTileCoord = [ destCoord[ 0 ] + x , destCoord[ 1 ] - y ]; 
+                this.getTileFromGrid( currTileCoord ).addToTile( nodeID );
+            }
+        }
     }
 }
 
