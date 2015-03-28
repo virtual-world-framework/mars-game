@@ -130,21 +130,29 @@ this.addToGrid = function( object ) {
 //Assign an object a coordinate and add it to the grid
 this.addToGridFromCoord = function( object, gridCoord ) {
     if ( this.validCoord( gridCoord ) ) {
-        this.getTileFromGrid( gridCoord ).addToTile( object.id );
+        var bArea = object.boundingAreaSize;
+
+        for( var x = 0; x < bArea[ 0 ]; x++ ){
+            for( var y = 0; y < bArea[ 1 ]; y++ ){
+                var currTileCoord = [ gridCoord[ 0 ] + x , gridCoord[ 1 ] - y ]; 
+                this.getTileFromGrid( currTileCoord ).addToTile( object.id );
+            }
+        }
+        
         object.currentGridSquare = gridCoord;
         var newTranslation = this.getWorldFromGrid( gridCoord[ 0 ], gridCoord[ 1 ] );
-        var baSize = object.boundingAreaSize;
-        if( baSize[ 0 ] > 1 ) { 
+        if( bArea[ 0 ] > 1 ) { 
             newTranslation[ 0 ] = newTranslation[ 0 ] + 
             //move to middle of bounding area, correct so that we are in middle of tile
-            ( 0.5 * baSize[ 0 ] - 0.5 ) * this.gridSquareLength;
+            ( 0.5 * bArea[ 0 ] - 0.5 ) * this.gridSquareLength;
         }
-        if( baSize[ 1 ] > 1 ) { 
+        if( bArea[ 1 ] > 1 ) { 
             newTranslation[ 1 ] = newTranslation[ 1 ] - 
             //move to middle of bounding area, correct so that we are in middle of tile
-            ( 0.5 * baSize[ 1 ] - 0.5 ) * this.gridSquareLength;
+            ( 0.5 * bArea[ 1 ] - 0.5 ) * this.gridSquareLength;
         }
-        if ( object.placeOnTerrain && object.terrainName && object.terrainName !== "undefined" ) {
+        if ( object.placeOnTerrain && object.terrainName && 
+                object.terrainName !== "undefined" ) {
             object.placeOnTerrain( newTranslation );
         } else {
             object.translation = newTranslation;
