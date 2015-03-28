@@ -164,22 +164,38 @@ this.addToGridFromWorld = function( object, worldCoord ) {
 }
 
 this.removeFromGrid = function( nodeID, gridCoord ) {
-    var objects = this.getObjectsAtCoord( gridCoord );
-    var index = objects.indexOf( nodeID );
-    if ( index !== -1 ) {
-        for ( var i = index; i < objects.length - 1; i++ ) {
-            objects[ i ] = objects[ i + 1 ];
+
+    var node = this.scene.findByID( this.scene, nodeID ); 
+    var bArea = node.boundingAreaSize; 
+
+    for( var x = 0; x < bArea[ 0 ]; x++ ){
+        for( var y = 0; y < bArea[ 1 ]; y++ ){
+            var currTileCoord = [ gridCoord[ 0 ] + x , gridCoord[ 1 ] - y ]; 
+            var objects = this.getObjectsAtCoord( currTileCoord );
+            var index = objects.indexOf( nodeID );
+
+            if ( index !== -1 ) {
+                for ( var i = index; i < objects.length - 1; i++ ) {
+                    objects[ i ] = objects[ i + 1 ];
+                }
+                objects.length--;
+            } else {
+                this.logger.errorx( "removeFromGrid", "Unable to find tile with " +
+                    "ID: " + nodeID );
+                return false;
+            }
         }
-        objects.length--;
-        return true;
     }
-    return false;
+
+    return true; 
 }
 
 this.moveObjectOnGrid = function( nodeID, srcCoord, destCoord ) {
     var removed = this.removeFromGrid( nodeID, srcCoord );
     if ( removed ) {
+        //TODO: iterate over the boundingArea here.
         this.getTileFromGrid( destCoord ).addToTile( nodeID );
+
     }
 }
 
