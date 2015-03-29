@@ -29,7 +29,7 @@ this.findAndSetCurrentGrid = function( scenarioName ) {
     this.currentGrid = scenario.grid;
 }
 
-this.meetsBoundaryConditions = function( proposedNewGridSquare, energyRequired ) {
+this.meetsBoundaryConditions = function( energyRequired ) {
 
     if ( energyRequired < 0 ) {
         this.moveFailed( "collision" );
@@ -43,6 +43,23 @@ this.meetsBoundaryConditions = function( proposedNewGridSquare, energyRequired )
     return true;
 }
 
+this.getMinEnergyRequired = function( gridCoord ){
+    var minEnergyRequired = Infinity; 
+    var bArea = this.boundingAreaSize; 
+
+    for( var x = 0; x < bArea[ 0 ]; x++ ) { 
+        for( var y = 0; y < bArea[ 1 ]; y++ ) { 
+            var currCoord = [ gridCoord[ 0 ] + x , gridCoord[ 1 ] - y ]; 
+            var currEnergy = this.currentGrid.getEnergy( currCoord );
+            if ( currEnergy < minEnergyRequired ) {
+                minEnergyRequired = currEnergy;
+            }
+        }
+    }
+
+    return minEnergyRequired;
+} 
+
 this.moveForward = function() {
 
     var scene = this.sceneNode;
@@ -54,10 +71,10 @@ this.moveForward = function() {
     //First check if the coordinate is valid
     if ( this.currentGrid.validCoord( proposedNewGridSquare ) ) {
 
-        var energyRequired = this.currentGrid.getEnergy( proposedNewGridSquare );
+        var energyRequired = this.getMinEnergyRequired( proposedNewGridSquare );
 
         //Then check if the boundary value allows for movement:
-        if( this.meetsBoundaryConditions( proposedNewGridSquare, energyRequired ) ) {
+        if( this.meetsBoundaryConditions( energyRequired ) ) {
             //Check if the space is occupied
             var collided = this.checkCollisionWrapper( proposedNewGridSquare );
             if ( !collided ){
