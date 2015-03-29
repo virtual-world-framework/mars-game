@@ -79,13 +79,16 @@ properties:
     - rover
     - [ 37, 15 ]
 
-  - addToGrid:
-    - rover3
-    - [ 37, 13 ]
 
   - addToGrid:
     - rover2
-    - [ 37, 14 ]
+    #- [ 37, 14 ]
+    - [ 37, 12 ]
+
+  - addToGrid:
+    - rover3
+    #- [ 36, 13 ]
+    - [ 36, 14 ]
 
   - addToGrid:
     - supplies_2
