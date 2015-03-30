@@ -33,7 +33,7 @@ Blockly.Blocks[ 'variables_get_out' ] = {
         .appendField( Blockly.Msg.VARIABLES_GET_TITLE )
         .appendField( new Blockly.FieldVariable( Blockly.Msg.VARIABLES_GET_ITEM ), 'VAR' )
         .appendField( Blockly.Msg.VARIABLES_GET_TAIL )
-        .setCheck( [ 'Number','Boolean','Variable','LeftParenthesis','RightParenthesis','Conditional','ANDOR' ] );
+        .setCheck( [ 'Number','Boolean','Variable','OperatorAddSubtract','OperatorMultiplyDivide','LeftParenthesis','RightParenthesis','Conditional','ANDOR' ] );
     this.setOutput( true );
     this.setTooltip( Blockly.Msg.VARIABLES_GET_TOOLTIP );
     this.contextMenuMsg_ = Blockly.Msg.VARIABLES_GET_CREATE_SET;
@@ -84,7 +84,7 @@ Blockly.JavaScript[ 'variables_get_out' ] = function( block ) {
 
   var code = Blockly.JavaScript.variableDB_.getName( block.getFieldValue( 'VAR' ),
       Blockly.Variables.NAME_TYPE );
-  return [ code + argument0 , Blockly.JavaScript.ORDER_ATOMIC ];
+  return [ ( code + argument0 ) , Blockly.JavaScript.ORDER_ATOMIC ];
 };
 
 Blockly.Blocks[ 'logic_cond_out' ] = {
@@ -218,10 +218,11 @@ Blockly.JavaScript['controls_whileUntil'] = function(block) {
   // }
 
   if (until) {
-     argument0 = '!' + argument0;
+     argument0 = '! (' + argument0 + ')';
   }
 
   var code = 'while ('+ argument0 +') {\n' + branch + '}\n';
+  console.log(code);
   return constructBlockExeEventCall( block ) + code;
 
   // Do while/until loop.
