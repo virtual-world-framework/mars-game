@@ -59,12 +59,15 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 if ( eventArgs[ 0 ] ) {
                     var procedureIndicator = document.getElementById( "blocklyProcedureIndicator" );
                     var indicator = document.getElementById( "blocklyIndicator" );
+                    var count = document.getElementById( "blocklyIndicatorCount" );
                     if( blocklyNode.blocklyExecuting ) {
                         procedureIndicator.className = "";
                         indicator.className = "";
+                        count.className = "";
                     } else { 
                         procedureIndicator.className = "stopped";
                         indicator.className = "stopped";
+                        count.className = "stopped";
                     }
 
                     currentBlocklyNodeID = nodeID;
