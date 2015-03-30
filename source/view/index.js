@@ -554,13 +554,13 @@ function runBlockly() {
 function setActiveBlocklyTab() {
     if ( currentBlocklyNodeID !== this.id ) {
         vwf_view.kernel.callMethod( appID, "selectBlocklyNode", [ this.id ] );
-        if ( blocklyGraphID && blocklyGraphID === this.id ) {
+        //if ( blocklyGraphID && blocklyGraphID === this.id ) {
             hideBlocklyIndicator();
-        } else {
-            if( blockToControllerMap[ blockID ] === currentBlocklyNodeID ) {
-                indicateBlock( lastBlockIDExecuted );
-            }
-        }
+        //} else {
+            //if( blockToControllerMap[ blockID ] === currentBlocklyNodeID ) {
+                //indicateBlock( lastBlockIDExecuted );
+            //}
+        //}
     }
 }
 
