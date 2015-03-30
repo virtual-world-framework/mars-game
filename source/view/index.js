@@ -17,6 +17,7 @@ var mainMenu;
 var blocklyNodes = {};
 var graphLines = {};
 var loggerNodes = {};
+var blockToControllerMap = {}
 var currentBlocklyNodeID = undefined;
 var currentProcedureBlockID = undefined;
 var lastBlockIDExecuted = undefined;
@@ -47,11 +48,11 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
         switch ( eventName ) {
 
             case "blocklyBlockAdded":
-                console.log("Poi poi poi poi poi poi"); 
+                blockToControllerMap[ eventArgs[ 0 ] ] = currentBlocklyNodeID; 
                 break;
             
             case "blocklyBlockRemoved":
-                console.log("Block removed event tripped!");
+                delete blockToControllerMap[ eventArgs[ 0 ] ];
                 break;
 
             case "blocklyVisibleChanged":
@@ -131,10 +132,10 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 var blockID = eventArgs[ 1 ];
 
                 if ( blockID ) {
-                    //if( nodeID === currentBlocklyNodeID ) {
+                    if( blockToControllerMap[ blockID ] === currentBlocklyNodeID ){
                         selectBlock( blockID );
                         indicateBlock( blockID );
-                    //}
+                    }
                     lastBlockIDExecuted = blockID;
                 }
                 break;
