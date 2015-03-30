@@ -60,8 +60,10 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                     currentBlocklyNodeID = nodeID;
                     updateBlocklyRamBar();
                     updateBlocklyUI( blocklyNode );
-                    selectBlock( lastBlockIDExecuted );
-                    indicateProcedureBlock( currentProcedureBlockID );
+                    if( blockToControllerMap[ blockID ] === currentBlocklyNodeID ) {
+                        selectBlock( lastBlockIDExecuted );
+                        indicateProcedureBlock( currentProcedureBlockID );
+                    }
                 }
                 break;
 
@@ -120,10 +122,10 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                     var currentCode = getBlocklyFunction();
                     vwf_view.kernel.setProperty( graphLines[ "blocklyLine" ].ID, "lineFunction", currentCode );
                 } else { 
-                    //if( nodeID === currentBlocklyNodeID ) {
+                    if( blockToControllerMap[ blockID ] === currentBlocklyNodeID ) {
                         indicateBlock( lastBlockIDExecuted );
                         indicateProcedureBlock( currentProcedureBlockID );
-                    //}
+                    }
                 }
                 break;
 
@@ -132,7 +134,7 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 var blockID = eventArgs[ 1 ];
 
                 if ( blockID ) {
-                    if( blockToControllerMap[ blockID ] === currentBlocklyNodeID ){
+                    if( blockToControllerMap[ blockID ] === currentBlocklyNodeID ) {
                         selectBlock( blockID );
                         indicateBlock( blockID );
                     }
@@ -148,10 +150,10 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
             case "scenarioReset":
                 removePopup();
                 removeFailScreen();
-                //if( nodeID === currentBlocklyNodeID ) {
+                if( blockToControllerMap[ blockID ] === currentBlocklyNodeID ) {
                     indicateBlock( lastBlockIDExecuted );
                     indicateProcedureBlock( currentProcedureBlockID );
-                //}
+                }
                 gridBounds = eventArgs[ 1 ] || gridBounds;
                 break;
 
@@ -555,9 +557,9 @@ function setActiveBlocklyTab() {
         if ( blocklyGraphID && blocklyGraphID === this.id ) {
             hideBlocklyIndicator();
         } else {
-            //NXM TODO: lastBlockIDExecuted should be the last block executed
-            //for the current tab, not the "global" lastBlockIDExecuted! 
-            indicateBlock( lastBlockIDExecuted );
+            if( blockToControllerMap[ blockID ] === currentBlocklyNodeID ) {
+                indicateBlock( lastBlockIDExecuted );
+            }
         }
     }
 }
