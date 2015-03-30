@@ -760,7 +760,7 @@ Blockly.Blocks[ 'graph_add' ] = {
   init: function() {
     this.setColour(120);
     this.appendValueInput('INPUT')
-        .appendField(new Blockly.FieldDropdown([["+", "+"]]), "VALUE")
+        .appendField('+')
 
         .setCheck(['Number','Variable','LeftParenthesis']);
 
@@ -784,11 +784,7 @@ Blockly.JavaScript[ 'graph_add' ] = function( block ) {
   var argument0 = Blockly.JavaScript.valueToCode(block, 'INPUT',
       Blockly.JavaScript.ORDER_ATOMIC) || '0';
 
-  if ( block.getFieldValue('VALUE') === '-' && argument0[0] === '-' ){
-    return [ "+" + argument0.slice( 1 ), Blockly.JavaScript.ORDER_ATOMIC ];
-  } else {
-    return [ block.getFieldValue('VALUE') + argument0 , Blockly.JavaScript.ORDER_ATOMIC ];
-  }
+  return [ '+' + argument0 , Blockly.JavaScript.ORDER_ATOMIC ];
 
 };
 
@@ -800,7 +796,7 @@ Blockly.Blocks['graph_subtract'] = {
   init: function() {
     this.setColour(120);
     this.appendValueInput('INPUT')
-        .appendField(new Blockly.FieldDropdown([["-", "-"]]), "VALUE")
+        .appendField('-')
         .setCheck(['Number','Variable','LeftParenthesis']);
     this.setOutput(true, 'OperatorAddSubtract');
     var thisBlock = this;
@@ -821,10 +817,10 @@ Blockly.JavaScript['graph_subtract'] = function( block ) {
   var argument0 = Blockly.JavaScript.valueToCode(block, 'INPUT',
       Blockly.JavaScript.ORDER_ATOMIC) || '0';
 
-  if ( block.getFieldValue('VALUE') === '-' && argument0[0] === '-' ){
+  if ( argument0[0] === '-' ){
     return [ "+" + argument0.slice( 1 ), Blockly.JavaScript.ORDER_ATOMIC ];
   } else {
-    return [ block.getFieldValue('VALUE') + argument0 , Blockly.JavaScript.ORDER_ATOMIC ];
+    return [ '-' + argument0 , Blockly.JavaScript.ORDER_ATOMIC ];
   }
 
 };
@@ -838,7 +834,7 @@ Blockly.Blocks[ 'graph_multiply' ] = {
   init: function() {
     this.setColour(120);
     this.appendValueInput('INPUT')
-        .appendField(new Blockly.FieldDropdown([["×", "*"]]), "VALUE")
+        .appendField('×')
         .setCheck(['Number','Variable','LeftParenthesis','OperatorAddSubtract']);
     this.setOutput(true, 'OperatorMultiplyDivide');
     var thisBlock = this;
@@ -861,9 +857,9 @@ Blockly.JavaScript[ 'graph_multiply' ] = function( block ) {
   var argument0 = Blockly.JavaScript.valueToCode(block, 'INPUT',
       Blockly.JavaScript.ORDER_ATOMIC) || '0';
   if ( argument0[0] === '+' ){
-    return [block.getFieldValue('VALUE') + argument0.substring(1), Blockly.JavaScript.ORDER_ATOMIC];
+    return ['*' + argument0.substring(1), Blockly.JavaScript.ORDER_ATOMIC];
   } else {
-    return [block.getFieldValue('VALUE') + argument0, Blockly.JavaScript.ORDER_ATOMIC];
+    return ['*' + argument0, Blockly.JavaScript.ORDER_ATOMIC];
   }
 };
 
@@ -876,7 +872,7 @@ Blockly.Blocks[ 'graph_divide' ] = {
   init: function() {
     this.setColour(120);
     this.appendValueInput('INPUT')
-        .appendField(new Blockly.FieldDropdown([["/", "/"]]), "VALUE")
+        .appendField('/')
         .setCheck(['Number','Variable','LeftParenthesis','OperatorAddSubtract']);
     this.setOutput(true, 'OperatorMultiplyDivide');
     var thisBlock = this;
@@ -898,9 +894,9 @@ Blockly.JavaScript['graph_divide'] = function( block ) {
   var argument0 = Blockly.JavaScript.valueToCode(block, 'INPUT',
       Blockly.JavaScript.ORDER_ATOMIC) || '0';
   if ( argument0[0] === '+' ){
-    return [block.getFieldValue('VALUE') + argument0.substring(1), Blockly.JavaScript.ORDER_ATOMIC];
+    return ['/' + argument0.substring(1), Blockly.JavaScript.ORDER_ATOMIC];
   } else {
-    return [block.getFieldValue('VALUE') + argument0, Blockly.JavaScript.ORDER_ATOMIC];
+    return ['/' + argument0, Blockly.JavaScript.ORDER_ATOMIC];
   }
 };
 
