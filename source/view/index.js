@@ -57,6 +57,16 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
 
             case "blocklyVisibleChanged":
                 if ( eventArgs[ 0 ] ) {
+                    var procedureIndicator = document.getElementById( "blocklyProcedureIndicator" );
+                    var indicator = document.getElementById( "blocklyIndicator" );
+                    if( blocklyNode.blocklyExecuting ) {
+                        procedureIndicator.className = "";
+                        indicator.className = "";
+                    } else { 
+                        procedureIndicator.className = "stopped";
+                        indicator.className = "stopped";
+                    }
+
                     currentBlocklyNodeID = nodeID;
                     updateBlocklyRamBar();
                     updateBlocklyUI( blocklyNode );
@@ -82,26 +92,30 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 break;
 
             case "blocklyStarted":
-                var indicator = document.getElementById( "blocklyIndicator" );
-                indicator.className = "";
-                indicator.style.visibility = "inherit";
-                var indicatorCount = document.getElementById( "blocklyIndicatorCount" );
-                indicatorCount.className = "";
-                indicatorCount.style.visibility = "inherit";
-                var procedureIndicator = document.getElementById( "blocklyProcedureIndicator" );
-                procedureIndicator.className = "";
-                procedureIndicator.style.visibility = "inherit";
-                currentProcedureBlockID = undefined;
+                if( nodeID === currentBlocklyNodeID ) {
+                    var indicator = document.getElementById( "blocklyIndicator" );
+                    indicator.className = "";
+                    indicator.style.visibility = "inherit";
+                    var indicatorCount = document.getElementById( "blocklyIndicatorCount" );
+                    indicatorCount.className = "";
+                    indicatorCount.style.visibility = "inherit";
+                    var procedureIndicator = document.getElementById( "blocklyProcedureIndicator" );
+                    procedureIndicator.className = "";
+                    procedureIndicator.style.visibility = "inherit";
+                    currentProcedureBlockID = undefined;
+                }
                 break;
 
             case "blocklyStopped":
-                startBlocklyButton.className = "";
-                var indicator = document.getElementById( "blocklyIndicator" );
-                var count = document.getElementById( "blocklyIndicatorCount" );
-                indicator.className = "stopped";
-                count.className = "stopped";
-                var procedureIndicator = document.getElementById( "blocklyProcedureIndicator" );
-                procedureIndicator.className = "stopped";
+                if( nodeID === currentBlocklyNodeID ) {
+                    startBlocklyButton.className = "";
+                    var indicator = document.getElementById( "blocklyIndicator" );
+                    var count = document.getElementById( "blocklyIndicatorCount" );
+                    indicator.className = "stopped";
+                    count.className = "stopped";
+                    var procedureIndicator = document.getElementById( "blocklyProcedureIndicator" );
+                    procedureIndicator.className = "stopped";
+                }
 
             case "blocklyErrored":
                 startBlocklyButton.className = "";
