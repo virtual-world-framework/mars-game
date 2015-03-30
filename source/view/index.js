@@ -46,6 +46,14 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
         var blocklyNode = blocklyNodes[ nodeID ];
         switch ( eventName ) {
 
+            case "blocklyBlockAdded":
+                console.log("Poi poi poi poi poi poi"); 
+                break;
+            
+            case "blocklyBlockRemoved":
+                console.log("Block removed event tripped!");
+                break;
+
             case "blocklyVisibleChanged":
                 if ( eventArgs[ 0 ] ) {
                     currentBlocklyNodeID = nodeID;
@@ -110,9 +118,11 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 if ( currentBlocklyNodeID === blocklyGraphID ) {
                     var currentCode = getBlocklyFunction();
                     vwf_view.kernel.setProperty( graphLines[ "blocklyLine" ].ID, "lineFunction", currentCode );
-                } else {
-                    indicateBlock( lastBlockIDExecuted );
-                    indicateProcedureBlock( currentProcedureBlockID );
+                } else { 
+                    //if( nodeID === currentBlocklyNodeID ) {
+                        indicateBlock( lastBlockIDExecuted );
+                        indicateProcedureBlock( currentProcedureBlockID );
+                    //}
                 }
                 break;
 
@@ -121,8 +131,10 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 var blockID = eventArgs[ 1 ];
 
                 if ( blockID ) {
-                    selectBlock( blockID );
-                    indicateBlock( blockID );
+                    //if( nodeID === currentBlocklyNodeID ) {
+                        selectBlock( blockID );
+                        indicateBlock( blockID );
+                    //}
                     lastBlockIDExecuted = blockID;
                 }
                 break;
@@ -135,8 +147,10 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
             case "scenarioReset":
                 removePopup();
                 removeFailScreen();
-                indicateBlock( lastBlockIDExecuted );
-                indicateProcedureBlock( currentProcedureBlockID );
+                //if( nodeID === currentBlocklyNodeID ) {
+                    indicateBlock( lastBlockIDExecuted );
+                    indicateProcedureBlock( currentProcedureBlockID );
+                //}
                 gridBounds = eventArgs[ 1 ] || gridBounds;
                 break;
 
@@ -153,7 +167,9 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 break;
 
             case "selectLastBlock":
-                selectBlock( lastBlockIDExecuted );
+                //if( nodeID === currentBlocklyNodeID ) {
+                    selectBlock( lastBlockIDExecuted );
+                //}
                 break;
 
             case "clearBlocklyTabs":
@@ -204,6 +220,7 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
         } 
     } else {
         // scenario events
+
         if ( eventName === "completed" ) {
             advanceScenario();
         }
@@ -537,6 +554,8 @@ function setActiveBlocklyTab() {
         if ( blocklyGraphID && blocklyGraphID === this.id ) {
             hideBlocklyIndicator();
         } else {
+            //NXM TODO: lastBlockIDExecuted should be the last block executed
+            //for the current tab, not the "global" lastBlockIDExecuted! 
             indicateBlock( lastBlockIDExecuted );
         }
     }
