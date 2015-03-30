@@ -33,7 +33,7 @@ Blockly.Blocks[ 'variables_get_out' ] = {
         .appendField( Blockly.Msg.VARIABLES_GET_TITLE )
         .appendField( new Blockly.FieldVariable( Blockly.Msg.VARIABLES_GET_ITEM ), 'VAR' )
         .appendField( Blockly.Msg.VARIABLES_GET_TAIL )
-        .setCheck( [ 'Number','Boolean','Variable','LeftParenthesis','RightParenthesis' ] );
+        .setCheck( [ 'Number','Boolean','Variable','LeftParenthesis','RightParenthesis','Conditional','ANDOR' ] );
     this.setOutput( true );
     this.setTooltip( Blockly.Msg.VARIABLES_GET_TOOLTIP );
     this.contextMenuMsg_ = Blockly.Msg.VARIABLES_GET_CREATE_SET;
@@ -682,7 +682,7 @@ Blockly.Blocks[ 'math_number_out' ] = {
          ["-4", "-4"], ["-5", "-5"], ["-6", "-6"], ["-7", "-7"], ["-8", "-8"], 
          ["-9", "-9"], ["-10", "-10"]]), "VALUE")
         .setCheck( [ 'OperatorAddSubtract','OperatorMultiplyDivide','Variable','LeftParenthesis','RightParenthesis','Conditional' ] );
-    this.setOutput( true, "Number" );
+    this.setOutput( true, null );
     var thisBlock = this;
     this.setTooltip( function() {
       var content = {
@@ -759,7 +759,7 @@ Blockly.Blocks[ 'graph_add' ] = {
   init: function() {
     this.setColour(120);
     this.appendValueInput('INPUT')
-        .appendField(new Blockly.FieldDropdown([["+", "+"], ["-", "-"]]), "VALUE")
+        .appendField(new Blockly.FieldDropdown([["+", "+"]]), "VALUE")
 
         .setCheck(['Number','Variable','LeftParenthesis']);
 
@@ -799,7 +799,7 @@ Blockly.Blocks['graph_subtract'] = {
   init: function() {
     this.setColour(120);
     this.appendValueInput('INPUT')
-        .appendField(new Blockly.FieldDropdown([["-", "-"], ["+", "+"]]), "VALUE")
+        .appendField(new Blockly.FieldDropdown([["-", "-"]]), "VALUE")
         .setCheck(['Number','Variable','LeftParenthesis']);
     this.setOutput(true, 'OperatorAddSubtract');
     var thisBlock = this;
@@ -837,7 +837,7 @@ Blockly.Blocks[ 'graph_multiply' ] = {
   init: function() {
     this.setColour(120);
     this.appendValueInput('INPUT')
-        .appendField(new Blockly.FieldDropdown([["×", "*"],["/", "/"]]), "VALUE")
+        .appendField(new Blockly.FieldDropdown([["×", "*"]]), "VALUE")
         .setCheck(['Number','Variable','LeftParenthesis','OperatorAddSubtract']);
     this.setOutput(true, 'OperatorMultiplyDivide');
     var thisBlock = this;
@@ -875,7 +875,7 @@ Blockly.Blocks[ 'graph_divide' ] = {
   init: function() {
     this.setColour(120);
     this.appendValueInput('INPUT')
-        .appendField(new Blockly.FieldDropdown([["/", "/"],["×", "*"]]), "VALUE")
+        .appendField(new Blockly.FieldDropdown([["/", "/"]]), "VALUE")
         .setCheck(['Number','Variable','LeftParenthesis','OperatorAddSubtract']);
     this.setOutput(true, 'OperatorMultiplyDivide');
     var thisBlock = this;
