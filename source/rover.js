@@ -104,12 +104,12 @@ this.placeOnTerrain = function( pos ) {
 
     pos[ 2 ] = terrainPosCentroid[ 2 ];
 
-    this.transform = [
+    this.transformTo( [
         this.transform[ 0 ],  this.transform[ 1 ],  this.transform[ 2 ],  0,
         this.transform[ 4 ],  this.transform[ 5 ],  this.transform[ 6 ],  0,
         this.transform[ 8 ], this.transform[ 9 ], this.transform[ 10 ], 0,
         pos[ 0 ],    pos[ 1 ],    pos[ 2 ],    1
-    ];
+    ] );
 }
 
 this.translateOnTerrain = function( translation, duration, boundaryValue ) {

@@ -35,20 +35,20 @@ body {
     margin-right: auto;
     text-align: center;
     background-color: rgba( 0, 0, 0, 0.8 );
-    color: rgb( 224, 255, 100 );
+    color: rgb( 129, 232, 255 );
 }
 
 a {
     pointer-events: all;
-    color: rgb( 224, 255, 100 );
+    color: rgb( 129, 232, 255 );
 }
 
 a:link {
-    color: rgb( 224, 255, 100 );
+    color: rgb( 129, 232, 255 );
 }
 
 a:visited {
-    color: rgb( 224, 255, 100 );
+    color: rgb( 129, 232, 255 );
 }
 
 a:hover {
@@ -56,7 +56,7 @@ a:hover {
 }
 
 a:active {
-    color: rgb( 255, 0, 0 );
+    color: rgb( 1, 211, 255 );
 }
 
 .blocklySvg {
@@ -198,7 +198,7 @@ a:active {
 
 .blocklyTab.selected {
     background-image: url( "../../assets/images/blockly_ui/tab_selected.png" );
-    color: rgba( 224, 255, 100, 0.75 );
+    color: rgba( 162, 225, 238, 0.75 );
 }
 
 #toolbox {
@@ -279,8 +279,8 @@ a:active {
 }
 
 .subtitleText {
-    color: rgb( 255, 255, 255 );
-    font-size: 14px;
+    color: rgb( 193, 244, 255 );
+    font-size: 10pt;
     width: 100%;
     margin-bottom: 5px;
 }
@@ -301,10 +301,10 @@ a:active {
 #loggerBox {
     width: 26%;
     height: 140px;
-    background-color: rgba( 0, 0, 0, 0.5 );
+    background-color: rgba( 193, 244, 255, 0.2 );
     position: absolute;
-    bottom: 10px;
-    left: 110px;
+    bottom: 30px;
+    left: 180px;
     overflow-y: scroll;
     padding: 5px;
     z-index: 0;
@@ -378,8 +378,8 @@ a:active {
     width: 400px;
     padding-top: 16px;
     padding-bottom: 16px;
-    background-color: rgba( 0, 0, 0, 0.5 );
-    border: 1px solid rgb( 224, 255, 100 );
+    background-color: rgba( 193, 244, 255, 0.2 );
+    border: 1px solid rgb( 129, 232, 255 );
     border-radius: 8px;
 }
 
@@ -390,8 +390,8 @@ a:active {
     text-align: center;
     text-transform: uppercase;
     font-weight: bold;
-    color: rgb( 224, 255, 100 );
-    text-shadow: 0px 0px 4px rgb( 224, 255, 100 );
+    color: rgb( 129, 232, 255 );
+    text-shadow: 0px 0px 2px rgb( 193, 244, 255 );
     user-select: none;
     -webkit-user-select: none;  /* Chrome all / Safari all */
     -moz-user-select: none;     /* Firefox all */
@@ -404,12 +404,11 @@ a:active {
 
 .pauseMenuButton.hover {
     color: rgb( 255, 255, 255 );
-    background-color: rgba( 255, 255, 255, 0.25 );
+    text-shadow: 0px 0px 2px rgb( 1, 211, 255 );
 }
 
 .pauseMenuButton.select {
-    color: rgb( 255, 255, 255 );
-    background-color: rgba( 224, 255, 100, 0.25 );
+    color: rgb( 1, 211, 255 );
 }
 
 #scenarioSelector {
@@ -441,22 +440,20 @@ a:active {
     line-height: 24px;
     font-size: 24px;
     text-align: center;
-    text-shadow: 0px 0px 4px rgb( 224, 255, 100 );
+    text-shadow: 0px 0px 4px rgb( 129, 232, 255 );
 }
 
 .inlineButton {
-    color: rgb( 224, 255, 100 );
+    color: rgb( 129, 232, 255 );
     display: table-cell;
     vertical-align: middle;
     border-radius: 4px;
 }
 .inlineButton.hover {
     color: rgb( 255, 255, 255 );
-    background-color: rgba( 255, 255, 255, 0.25 );
 }
 .inlineButton.select {
-    color: rgb( 255, 255, 255 );
-    background-color: rgba( 224, 255, 100, 0.25 );
+    color: rgb( 1, 211, 255 );
 }
 
 .slider {
@@ -486,7 +483,7 @@ a:active {
 }
 
 .sliderToggle.select {
-    background-color: rgba( 224, 255, 100, 0.25 );
+    background-color: rgba( 162, 225, 238, 0.25 );
 }
 
 .sliderTrack {
@@ -537,7 +534,7 @@ a:active {
     height: 120px;
     width: 400px;
     background-color: rgba( 0, 0, 0, 0.75);
-    color: rgb( 224, 255, 100 );
+    color: rgb( 129, 232, 255 );
     border-radius: 8px;
     text-align: center;
 }

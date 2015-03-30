@@ -17,39 +17,23 @@ this.initialize = function() {
 }
 
 this.draw = function( context, position ) {
-    if ( this.frame ) {
-        context.drawImage( this.frame, position.x, position.y );
-    }
-    if ( this.activeModeIcon ) {
-        var posx = ( position.x + this.width / 2 ) - ( this.activeModeIcon.width / 2 );
-        var posy = ( position.y + this.height / 2 ) - ( this.activeModeIcon.height / 2 );
-        context.drawImage( this.activeModeIcon, posx, posy );
+    var i, offset, mode;
+    for ( i = 0; i < this.modes.length; i++ ) {
+        mode = this.modes[ i ];
+        offset = i * this.buttonSize + i * this.buttonSpacing;
+        if ( mode === this.activeMode ) {
+            context.drawImage( this.selected, position.x + offset, position.y );
+        } else {
+            context.drawImage( this.frame, position.x + offset, position.y );
+        }
     }
 }
 
 this.setUpListeners = function() {
     var camera = this.find( "//gameCam" )[ 0 ];
-    this.activeMode = "thirdPerson";
     camera.mounted = this.events.add( function( mount ) {
         this.activeMode = mount.name;
     }, this );
-}
-
-this.setActiveMode = function( mode ) {
-    var src;
-    switch ( mode ) {
-        case "firstPerson":
-        case "thirdPerson":
-        case "topDown":
-            src = "assets/images/hud/camera_" + mode.toLowerCase() + ".png";
-            break;
-        default:
-            src = "";
-            break;
-    }
-    var images = this.images;
-    images.activeModeIcon = src;
-    this.images = images;
 }
 
 //@ sourceURL=source/hud/cameraSelector.js

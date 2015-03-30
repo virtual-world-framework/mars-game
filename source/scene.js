@@ -268,22 +268,7 @@ this.setUpRoverListeners = function() {
         this.player.rover.findAndSetCurrentGrid( scenarioName );
         this.player.rover2.findAndSetCurrentGrid( scenarioName );
         this.player.rover3.findAndSetCurrentGrid( scenarioName );
-        // this.player.rover.findAndSetCurrentGrid( this.activeScenarioPath );
     }, this );
-    // rover.findAndSetCurrentGrid( this.activeScenarioPath );
-    // TODO: Find a more appropriate location for the following
-    this.hud.roverSelector.future( 0 ).addRoverIcon(
-        this.player.rover,
-        "assets/images/hud/main_rover_icon.png",
-        false );
-    this.hud.roverSelector.future( 0 ).addRoverIcon(
-        this.player.rover2,
-        "assets/images/hud/scout_rover_icon.png",
-        false );
-    this.hud.roverSelector.future( 0 ).addRoverIcon(
-        this.player.rover3,
-        "assets/images/hud/main_rover_icon.png",
-        false );
 }
 
 this.displayTiles = function( isVisible ) {
@@ -398,13 +383,17 @@ this.unpauseGame = function() {
 
 this.selectBlocklyNode = function( nodeID ) {
     var node = this.findByID( this, nodeID );
+    var mountName;
     if ( node ) {
         if ( this.blockly_activeNodeID !== nodeID ) {
             this.blockly_activeNodeID = nodeID;
         }
         if ( node.defaultMount && this.gameCam.target !== node ) {
-            this.gameCam.setCameraTarget( node );
-            this.hud.roverSelector.selectRover( nodeID );
+            if ( node.hasMount( this.gameCam.mountName ) ) {
+                mountName = this.gameCam.mountName;
+            }
+            this.gameCam.setCameraTarget( node, mountName );
+            this.hud.selectRover( nodeID );
         } else if ( node === this.graph ) {
             this.gameCam.setCameraMount( "topDown" );
         }

@@ -57,7 +57,6 @@ properties:
     set: |
       if ( this.lowRam != value ) {
         this.lowRam = value;
-        this.ramChanged( this.ram );
       }
     value: 5
   currentGrid: undefined

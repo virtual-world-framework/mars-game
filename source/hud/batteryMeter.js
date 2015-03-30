@@ -17,46 +17,71 @@ this.initialize = function() {
 }
 
 this.draw = function( context, position ) {
-    var battery = this.battery;
-    var maxBattery = this.maxBattery;
+    var battery = this.rovers[ this.activeRover ].battery;
+    var maxBattery = this.rovers[ this.activeRover ].maxBattery;
     var arcWidth = ( this.height + this.width ) / 4 ;
     var centerX = position.x + this.width / 2;
     var centerY = position.y + this.height / 2;
-    var radius = ( this.width + this.height ) / 4 - arcWidth;
     var start = Math.PI * 1.5;
     var end = start - battery / maxBattery * Math.PI * 2;
-    context.beginPath();
-    context.arc( centerX, centerY, arcWidth, 0, 2 * Math.PI, false );
-    context.fillStyle = "rgba(50,90,150,0.5)";
-    context.fill();
+    var readoutString;
     context.beginPath();
     context.arc( centerX, centerY, arcWidth / 2, start, end, true );
     context.lineWidth = arcWidth - 1;
-    context.strokeStyle = "rgb(50,130,255)";
+    context.strokeStyle = "rgb(0,0,0)";
     context.stroke();
-    if ( this.portrait ) {
-        context.drawImage( this.portrait, centerX - this.portrait.width / 2, centerY - this.portrait.height / 2 );
+    context.globalCompositeOperation = "source-in";
+    context.drawImage( this.ring, position.x, position.y );
+    context.globalCompositeOperation = "source-over";
+    if ( this[ this.activeRover ] ) {
+        context.drawImage( this[ this.activeRover ], position.x, position.y );
     }
     if ( this.frame ) {
         context.drawImage( this.frame, position.x, position.y );
     }
     context.textBaseline = "top";
-    context.font = 'bold 24px Arial';
-    context.fillStyle = "rgb(255,255,255)";
-    context.textAlign = "left";
-    context.fillText( Math.round( battery ), position.x + this.width + 3, position.y - 1 );
+    context.font = 'bold 8pt Arial';
+    context.fillStyle = "rgb(215,248,255)";
+    context.textAlign = "center";
+    readoutString = "BATTERY: " + Math.round( battery ) + " / " + maxBattery;
+    context.fillText( readoutString, position.x + this.width / 2, position.y + this.height );
 }
 
 this.setUpListeners = function() {
     var rover = this.find( "//rover" )[ 0 ];
-    this.battery = rover.battery;
-    this.maxBattery = rover.batterMax;
+    var rover2 = this.find( "//rover2" )[ 0 ];
+    var rover3 = this.find( "//rover3" )[ 0 ];
+    this.rovers.rover.battery = rover.battery;
+    this.rovers.rover.maxBattery = rover.batteryMax;
+    this.rovers.rover2.battery = rover2.battery;
+    this.rovers.rover2.maxBattery = rover2.batteryMax;
+    this.rovers.rover3.battery = rover3.battery;
+    this.rovers.rover3.maxBattery = rover3.batteryMax;
     rover.batteryChanged = this.events.add( function( value ) {
-        this.battery = value;
+        this.rovers.rover.battery = value;
     }, this );
     rover.batteryMaxChanged = this.events.add( function( value ) {
-        this.maxBattery = value;
+        this.rovers.rover.maxBattery = value;
     }, this );
+    rover2.batteryChanged = this.events.add( function( value ) {
+        this.rovers.rover2.battery = value;
+    }, this );
+    rover2.batteryMaxChanged = this.events.add( function( value ) {
+        this.rovers.rover2.maxBattery = value;
+    }, this );
+    rover3.batteryChanged = this.events.add( function( value ) {
+        this.rovers.rover3.battery = value;
+    }, this );
+    rover3.batteryMaxChanged = this.events.add( function( value ) {
+        this.rovers.rover3.maxBattery = value;
+    }, this );
+}
+
+this.setActiveRover = function( roverName ) {
+    var rover = this.rovers[ roverName ];
+    if ( rover ) {
+        this.activeRover = roverName;
+    }
 }
 
 //@ sourceURL=source/hud/batteryMeter.js

@@ -19,27 +19,30 @@ implements:
 properties:
   images:
     frame: assets/images/hud/rover_selector_frame.png
-    selectedBG: assets/images/hud/rover_selector_bg.png
-  width: 80
+  width: 180
   height: 0
   visible: true
   enabled: true
   alignH: left
   alignV: top
-  offsetH: 30
-  offsetV: 200
+  offsetH: 45
+  offsetV: 220
   isBlinking: false
   lastBlinkTime: 0
   blinkInterval: 0.25
   blinkDuration: 0.25
   iconHeight$: 64
-  verticalSpacing$: 16
+  verticalSpacing$: 24
+  meterSpacing: 10
+  meterThickness: 3
   rovers: []
 methods:
   draw:
   addRoverIcon:
   showRoverIcons:
   selectRover:
+  setUpListeners:
+  initializeRovers:
 events:
   onClick:
 scripts:

@@ -28,6 +28,7 @@ properties:
 methods:
   getMount:
   setDefaultMount:
+  hasMount:
 events:
 scripts:
   - source: cameraTarget.js

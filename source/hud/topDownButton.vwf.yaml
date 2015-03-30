@@ -18,15 +18,15 @@ implements:
   - http://vwf.example.com/sceneGetter.vwf
 properties:
   images:
-    icon: "assets/images/hud/camera_topdown.png"
-  width: 22
-  height: 22
+    icon: "assets/images/hud/camera_quadcopter.png"
+  width: 48
+  height: 48
   visible: true
   enabled: true
   alignH: right
   alignV: top
-  offsetH: -35
-  offsetV: 80
+  offsetH: -30
+  offsetV: 30
   isBlinking: false
   lastBlinkTime: 0
   blinkInterval: 0.25

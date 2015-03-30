@@ -16,20 +16,35 @@
 extends: http://vwf.example.com/hud/element.vwf
 properties:
   images:
-    frame: "assets/images/hud/rover_frame.png"
-    portrait: "assets/images/hud/rover_portrait.png"
-  width: 128
-  height: 128
+    frame: "assets/images/hud/active_rover_frame.png"
+    rover: "assets/images/hud/portrait_rover_large.png"
+    rover2: "assets/images/hud/portrait_scout_large.png"
+    rover3: "assets/images/hud/portrait_heavy_large.png"
+    ring: "assets/images/hud/active_rover_energy_ring.png"
+  width: 150
+  height: 150
   visible: true
   enabled: true
   alignH: left
   alignV: top
   offsetH: 30
   offsetV: 30
-  battery: 100
-  maxBattery: 100
+  rovers:
+    rover:
+      battery: 0
+      maxBattery: 0
+    rover2:
+      battery: 0
+      maxBattery: 0
+    rover3:
+      battery: 0
+      maxBattery: 0
+  activeRover:
+    set: |
+      this.setActiveRover( value );
 methods:
   draw:
   setUpListeners:
+  setActiveRover:
 scripts:
   - source: batteryMeter.js
