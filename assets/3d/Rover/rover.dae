@@ -6,42 +6,42 @@
       <authoring_tool>OpenCOLLADA for 3ds Max;  Version: 1.4.1;  Revision: exported;  Platform: x64;  Configuration: Release_Max2012_static</authoring_tool>
       <source_data>file:///C:/Users/mcclurek/Desktop/rover/rover_teal.max</source_data>
     </contributor>
-    <created>2015-03-23T13:33:24</created>
-    <modified>2015-03-23T13:33:24</modified>
+    <created>2015-03-31T16:13:47</created>
+    <modified>2015-03-31T16:13:47</modified>
     <unit name="meter" meter="1"/>
     <up_axis>Z_UP</up_axis>
   </asset>
   <library_effects>
     <effect id="rover_teal">
       <profile_COMMON>
-        <newparam sid="rover_teal_dds-surface">
+        <newparam sid="rover_teal_png-surface">
           <surface type="2D">
-            <init_from>rover_teal_dds</init_from>
+            <init_from>rover_teal_png</init_from>
           </surface>
         </newparam>
-        <newparam sid="rover_teal_dds-sampler">
+        <newparam sid="rover_teal_png-sampler">
           <sampler2D>
-            <source>rover_teal_dds-surface</source>
+            <source>rover_teal_png-surface</source>
           </sampler2D>
         </newparam>
-        <newparam sid="rover_teal_s_dds-surface">
+        <newparam sid="rover_teal_s_png-surface">
           <surface type="2D">
-            <init_from>rover_teal_s_dds</init_from>
+            <init_from>rover_teal_s_png</init_from>
           </surface>
         </newparam>
-        <newparam sid="rover_teal_s_dds-sampler">
+        <newparam sid="rover_teal_s_png-sampler">
           <sampler2D>
-            <source>rover_teal_s_dds-surface</source>
+            <source>rover_teal_s_png-surface</source>
           </sampler2D>
         </newparam>
-        <newparam sid="rover_teal_n_dds-surface">
+        <newparam sid="rover_teal_n_png-surface">
           <surface type="2D">
-            <init_from>rover_teal_n_dds</init_from>
+            <init_from>rover_teal_n_png</init_from>
           </surface>
         </newparam>
-        <newparam sid="rover_teal_n_dds-sampler">
+        <newparam sid="rover_teal_n_png-sampler">
           <sampler2D>
-            <source>rover_teal_n_dds-surface</source>
+            <source>rover_teal_n_png-surface</source>
           </sampler2D>
         </newparam>
         <technique sid="common">
@@ -53,7 +53,7 @@
               <color>0.5882353 0.5882353 0.5882353 1</color>
             </ambient>
             <diffuse>
-              <texture texture="rover_teal_dds-sampler" texcoord="CHANNEL1"/>
+              <texture texture="rover_teal_png-sampler" texcoord="CHANNEL1"/>
             </diffuse>
             <specular>
               <color>0.9 0.9 0.9 1</color>
@@ -74,10 +74,10 @@
           <extra>
             <technique profile="OpenCOLLADA3dsMax">
               <specularLevel>
-                <texture texture="rover_teal_s_dds-sampler" texcoord="CHANNEL1"/>
+                <texture texture="rover_teal_s_png-sampler" texcoord="CHANNEL1"/>
               </specularLevel>
               <bump bumptype="NORMALMAP">
-                <texture texture="rover_teal_n_dds-sampler" texcoord="CHANNEL1"/>
+                <texture texture="rover_teal_n_png-sampler" texcoord="CHANNEL1"/>
               </bump>
             </technique>
           </extra>
@@ -1358,14 +1358,14 @@
     </light>
   </library_lights>
   <library_images>
-    <image id="rover_teal_dds">
-      <init_from>./rover_teal.dds</init_from>
+    <image id="rover_teal_png">
+      <init_from>./rover_teal.png</init_from>
     </image>
-    <image id="rover_teal_n_dds">
-      <init_from>./rover_teal_n.dds</init_from>
+    <image id="rover_teal_n_png">
+      <init_from>./rover_teal_n.png</init_from>
     </image>
-    <image id="rover_teal_s_dds">
-      <init_from>./rover_teal_s.dds</init_from>
+    <image id="rover_teal_s_png">
+      <init_from>./rover_teal_s.png</init_from>
     </image>
   </library_images>
   <library_visual_scenes>
