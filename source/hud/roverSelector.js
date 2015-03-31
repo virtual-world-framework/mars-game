@@ -51,7 +51,7 @@ this.draw = function( context, position ) {
             context.font = "7pt Arial";
             context.fillStyle = "rgb(215,248,255)";
             context.textAlign = "left";
-            readout = "BATTERY: " + rover.battery + " / " + rover.maxBattery;
+            readout = "BATTERY: " + Math.round( rover.battery ) + " / " + rover.maxBattery;
             posx += this.frame.width + this.meterSpacing;
             posy += 12;
             context.fillText( readout, posx, posy );
