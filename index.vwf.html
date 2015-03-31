@@ -113,16 +113,18 @@ limitations under the License.
 
 <!-- BLOCKLY TOOLBOX -->
 <xml id="toolbox" style="display: none">
-  <block type="rover_moveForward"></block>
-  <block type="rover_turn"><field name="DIR">turnLeft</field></block>
-  <block type="rover_turn"><field name="DIR">turnRight</field></block>
-  <block type="controls_repeat_ext">
-    <value name="TIMES">
-      <block type="math_number">
-        <field name="NUM">10</field>
-      </block>
-    </value>
-  </block>
+  <category name="">
+    <block type="rover_moveForward"></block>
+    <block type="rover_turn"><field name="DIR">turnLeft</field></block>
+    <block type="rover_turn"><field name="DIR">turnRight</field></block>
+    <block type="controls_repeat_ext">
+      <value name="TIMES">
+        <block type="math_number">
+          <field name="NUM">10</field>
+        </block>
+      </value>
+    </block>
+  </category>
 </xml>
 
 <xml id="graph" style="display: none">

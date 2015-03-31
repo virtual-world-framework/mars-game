@@ -21,7 +21,7 @@ var BlocklyApps = {
 
 // Extensions to Blockly's language and JavaScript generator.
 
-Blockly.Blocks[ 'variables_get_out' ] = {
+Blockly.Blocks[ 'variables_get' ] = {
   /**
    * Block for variable getter.
    * @this Blockly.Block
@@ -77,7 +77,7 @@ Blockly.Blocks[ 'variables_get_out' ] = {
   }
 };
 
-Blockly.JavaScript[ 'variables_get_out' ] = function( block ) {
+Blockly.JavaScript[ 'variables_get' ] = function( block ) {
   // Variable getter.
   var argument0 = Blockly.JavaScript.valueToCode( block, 'INPUT',
       Blockly.JavaScript.ORDER_ATOMIC) || '';

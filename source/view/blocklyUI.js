@@ -103,10 +103,10 @@ function setUpBlocklyPeripherals() {
     ramBar.appendChild( currentRam );
     ramBar.appendChild( ramBarCount );
 
-    $( "#blocklyScrollDiv" ).on( "scroll", function() {
-        indicateBlock( currentBlockIDSelected );
-        indicateProcedureBlock( currentProcedureBlockID );
-    });    
+    // $( "#blocklyScrollDiv" ).on( "scroll", function() {
+    //     indicateBlock( currentBlockIDSelected );
+    //     indicateProcedureBlock( currentProcedureBlockID );
+    // });    
 
     // Ensure that the blockly ui is accessible on smaller screens
     resizeBlockly();
