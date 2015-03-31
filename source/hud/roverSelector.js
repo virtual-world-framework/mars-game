@@ -163,35 +163,35 @@ this.setUpListeners = function( rover ) {
     rover.maxRam = node.ramMax;
     node.batteryChanged = this.events.add( function( value, id ) {
         var rovers = this.rovers;
-        var rover = this.getRoverByID( id );
+        var rover = this.getRoverByID( id, rovers );
         rover.battery = value;
         this.rovers = rovers;
     }, this );
     node.batteryMaxChanged = this.events.add( function( value, id ) {
         var rovers = this.rovers;
-        var rover = this.getRoverByID( id );
+        var rover = this.getRoverByID( id, rovers );
         rover.maxBattery = value;
         this.rovers = rovers;
     }, this );
     node.ramChanged = this.events.add( function( value, id ) {
         var rovers = this.rovers;
-        var rover = this.getRoverByID( id );
+        var rover = this.getRoverByID( id, rovers );
         rover.ram = value;
         this.rovers = rovers;
     }, this );
     node.ramMaxChanged = this.events.add( function( value, id ) {
         var rovers = this.rovers;
-        var rover = this.getRoverByID( id );
+        var rover = this.getRoverByID( id, rovers );
         rover.maxRam = value;
         this.rovers = rovers;
     }, this );
 }
 
-this.getRoverByID = function( nodeID ) {
+this.getRoverByID = function( nodeID, rovers ) {
     var rover, i;
-    for ( i = 0; i < this.rovers.length; i++ ) {
-        if ( this.rovers[ i ].id === nodeID ) {
-            rover = this.rovers[ i ];
+    for ( i = 0; i < rovers.length; i++ ) {
+        if ( rovers[ i ].id === nodeID ) {
+            rover = rovers[ i ];
             break;
         }
     }
