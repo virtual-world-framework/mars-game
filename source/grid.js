@@ -266,7 +266,7 @@ this.getCollidables = function( gridCoord ) {
 this.checkCollision = function( gridCoord, ignoreSet ) {
     var collide = false;
     if ( this.validCoord( gridCoord ) ) {
-        var tile = this.getTileFromGrid( gridCoord ); //TODO: don't input gridCoord
+        var tile = this.getTileFromGrid( gridCoord ); 
         for ( var i = 0; i < tile.objects.length; i++ ) {
             var node = tile.getNodeAtIndex( i );
             // ignoreSet is of format:
