@@ -13,7 +13,7 @@
 # limitations under the License.
 
 ---
-extends: source/scenario/scenario.vwf
+extends: ../scenario/scenario.vwf
 properties:
   scenarioName: scenario1b
 
@@ -69,7 +69,7 @@ properties:
     - radio
     - [ 8, 16 ]
 
-  - enableBlocklyTabs:
+  - enableBlocklyNodes:
     - rover
   - loadToolbox:
     - rover
@@ -77,9 +77,9 @@ properties:
 
 children:
   triggerManager:
-    extends: source/triggers/triggerManager.vwf
+    extends: ../triggers/triggerManager.vwf
     properties: 
-      triggers:
+      triggers$:
         beginScenario_1b:
           triggerCondition:
           - onScenarioStart:
@@ -90,15 +90,15 @@ children:
             - environmentWind
           - setObjective:
             - "Move forward to pick up your Helicam."
-          - setHUDProperty:
-            - camera_topDown
+          - setProperty:
+            - topDownButton
             - enabled
             - false
-          - setHUDProperty:
+          - setProperty:
             - graphButton
             - enabled
             - false
-          - setHUDProperty:
+          - setProperty:
             - tilesButton
             - enabled
             - false
@@ -108,17 +108,15 @@ children:
         playStartingVO_1b:
           triggerCondition:
           - and:
+            - doOnce:
             - onScenarioStart:
-            - not:
-              - readBlackboard:
-                - Level1bStartSounds
           actions:
           - playSound:
             - L1VO2_Rover
-          - writeToBlackboard:
-            - Level1bStartSounds
 
         succeedOnSuccess_1b:
+          group: successOrFailure
+          priority: 0
           triggerCondition:
           - and:
             - onBlocklyStopped:
@@ -138,42 +136,24 @@ children:
         playHint1_1b:
           triggerCondition:
           - and:
+            - doOnce:
             - delay:
               - 13
             - not:
               - readBlackboard:
-                - Level1bHint1
-            - not:
-              - readBlackboard:
                 - Level1bHint2
-            - not:
-              - readBlackboard:
-                - hasSucceeded
-            - not:
-              - readBlackboard:
-                - hasFailed
           actions:
-          - writeToBlackboard:
-            - Level1bHint1
           - playSound:
             - ALVO15_Rover
 
         playHint2_1b:
           triggerCondition:
           - and:
+            - doOnce:
             - onBlocklyProgramChanged:
               - [ "rover" ]
               - add
               - rover_moveForward
-            - not:
-              - readBlackboard:
-                - Level1bHint2
-            - not:
-              - readBlackboard:
-                - hasSucceeded
-            - not:
-              - readBlackboard:
-                - hasFailed
           actions:
           - playSound:
             - ALVO16_Rover

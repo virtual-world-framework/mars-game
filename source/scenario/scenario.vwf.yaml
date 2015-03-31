@@ -13,47 +13,64 @@
 # limitations under the License.
 
 --- 
+# TODO: remove the dependency on task.vwf and just inherit from node.
 extends: http://vwf.example.com/lesson/task.vwf
+
+implements: 
+  - http://vwf.example.com/assert.vwf
+  - http://vwf.example.com/sceneGetter.vwf
+
 properties:
-  scenePath: /
-
- # The state param set contains initialization parameters that we want to be 
-  #   able to use for our scenarios.  These will be added to the start state
-  #   executor (see children).
-  # TODO: should we refactor this into a separate file, as we did with the
-  #   boolean clauses for the success and failure criteria?  That would make
-  #   them easier to reuse...
-  startStateParamSet:
-
-    # Set a property of an object to the specified value
-    # arguments: objectName, propertyName, propertyValue
-    setProperty:
-
-    callMethod:
-
-    setSceneProperty:
-
-    emptyInventory:
-    addToInventory:
-
-    addToGrid:
-    removeFromGrid:
-
-    enableBlocklyTabs:
-
-    loadToolbox:
+  # if true, the scenario will tell the scene to run it once it's been fully
+  #   initialized.
+  # NOTE: we currently only support one scenario at a time, so if this is true
+  #   for more than one then there will be ordering issues and only one will 
+  #   run.
+  runOnStartup: false
 
   # These are the standard properties that every scenario should define
   scenarioName:
   startState:
-  triggers:
+  triggers$:
+
+  # Keeps track of whether the scenario is currently running.
+  # NOTE: you should not set this directly!!!  The scene manages it through 
+  #   the scenarioChanged and scenarioReset events.
+  isRunning: 
+    set: |
+      this.setIsRunning$( value );
+    value: false
 
 methods:
-  # This is called using future(0) inside of initialize.
-  onSceneLoaded:
+  # Called once the game has been initialized and everything is attached to the
+  #   scene.
+  postInit:
 
   # These are called from the scene when the scenario starts.
+  # NOTE: Depracated.
+  # TODO: remove
   startScenario:
 
+  # Event handlers that get hit any time *any* scenario (not just this one) gets
+  #   changed or reset.  In both cases, the first argument is the name of the
+  #   scenario that's starting.
+  onScenarioChanged:
+  onScenarioReset:
+
+  # Called when the scenario is started or stopped (which should happen as a 
+  #   result of the above event managers).
+  # NOTE: YOU SHOULD NOT CALL THESE DIRECTLY!  They're called in the setter for
+  #   isRunning, and they need to stay in synch.
+  start:
+  stop:
+
+  # The setter for isRunning.  DO NOT CALL DIRECTLY!
+  setIsRunning:
+
+  # A callback that allows us to set oursevles as the current scenario on the
+  #   scene.
+  # NOTE: Again, DO NOT CALL DIRECTLY!
+  startInitialScenario:
+
 scripts:
-- source: source/scenario/scenario.js
+- source: scenario.js

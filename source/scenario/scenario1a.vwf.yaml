@@ -13,7 +13,7 @@
 # limitations under the License.
 
 ---
-extends: source/scenario/scenario.vwf
+extends: ../scenario/scenario.vwf
 properties:
   scenarioName: scenario1a
 
@@ -45,8 +45,8 @@ properties:
     - lowRam
     - 1
   - setSceneProperty:
-    - blockly_activeNodeID
-    - undefined
+    - blockly_interfaceVisible
+    - false
 
   - callMethod:
     - rover
@@ -76,7 +76,7 @@ properties:
   - addToGrid:
     - radio
     - [ 8, 16 ]
-  - enableBlocklyTabs:
+  - enableBlocklyNodes:
     - rover
   - loadToolbox:
     - rover
@@ -84,9 +84,9 @@ properties:
 
 children:
   triggerManager:
-    extends: source/triggers/triggerManager.vwf
+    extends: ../triggers/triggerManager.vwf
     properties: 
-      triggers:
+      triggers$:
         beginScenario_1a:
           triggerCondition:
           - onScenarioStart:
@@ -103,15 +103,15 @@ children:
             - [ 13, 15, -15 ]
           - setObjective:
             - "Click the PROGRAM button to open your control processor."
-          - setHUDProperty:
-            - camera_topDown
+          - setProperty:
+            - topDownButton
             - enabled
             - false
-          - setHUDProperty:
+          - setProperty:
             - graphButton
             - enabled
             - false
-          - setHUDProperty:
+          - setProperty:
             - tilesButton
             - enabled
             - false
@@ -119,17 +119,15 @@ children:
         playStartingVO_1a:
           triggerCondition:
           - and:
+            - doOnce:
             - onScenarioStart:
-            - not:
-              - readBlackboard:
-                - Level1aStartSounds
           actions:
           - playSound:
             - L1VO1_Rover
-          - writeToBlackboard:
-            - Level1aStartSounds
 
         succeedOnSuccess_1a:
+          group: successOrFailure
+          priority: 0
           triggerCondition:
           - onBlocklyWindowOpened:
           actions:
@@ -144,14 +142,10 @@ children:
         playHint1_1a:
           triggerCondition:
           - and:
+            - doOnce:
             - delay:
               - 20
-            - not:
-              - readBlackboard:
-                - Level1aHint1
           actions:
-          - writeToBlackboard:
-            - Level1aHint1
           - playSound:
             - ALVO14_Rover
 

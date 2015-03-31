@@ -13,7 +13,7 @@
 # limitations under the License.
 
 ---
-extends: source/scenario/scenario.vwf
+extends: ../scenario/scenario.vwf
 properties:
   scenarioName: scenario1c
 
@@ -45,8 +45,8 @@ properties:
     - lowRam
     - 1
   - setSceneProperty:
-    - blockly_activeNodeID
-    - undefined
+    - blockly_interfaceVisible
+    - false
 
   - callMethod:
     - rover
@@ -68,7 +68,7 @@ properties:
   - addToGrid:
     - radio
     - [ 8, 16 ]
-  - enableBlocklyTabs:
+  - enableBlocklyNodes:
     - rover
   - loadToolbox:
     - rover
@@ -76,9 +76,9 @@ properties:
 
 children:
   triggerManager:
-    extends: source/triggers/triggerManager.vwf
+    extends: ../triggers/triggerManager.vwf
     properties: 
-      triggers:
+      triggers$:
         beginScenario_1c:
           triggerCondition:
           - onScenarioStart:
@@ -90,27 +90,27 @@ children:
           - blinkHUDElement:
             - cameraSelector
           - blinkHUDElement:
-            - camera_topDown
+            - topDownButton
           - setObjective:
             - "Activate Helicam view to inspect the crash site."
-          - setHUDProperty:
+          - setProperty:
             - graphButton
             - enabled
             - false
-          - setHUDProperty:
+          - setProperty:
             - tilesButton
             - enabled
             - false
-          - setHUDProperty:
+          - setProperty:
             - blocklyButton
             - enabled
             - false
-          - setHUDProperty:
-            - camera_thirdPerson
+          - setProperty:
+            - thirdPersonButton
             - enabled
             - false
-          - setHUDProperty:
-            - camera_firstPerson
+          - setProperty:
+            - firstPersonButton
             - enabled
             - false
           - setThirdPersonStartPose:
@@ -125,6 +125,8 @@ children:
             - cameraSelector
 
         succeedOnSuccess_1c:
+          group: successOrFailure
+          priority: 0
           triggerCondition:
           - onHelicamToggle:
           actions:
@@ -134,7 +136,7 @@ children:
           - showAlert:
             - "Right click to move camera!"
           - stopBlinkHUDElement:
-            - camera_topDown
+            - topDownButton
           - playSound:
             - musicSuccessShort
           - playSound:
@@ -143,62 +145,32 @@ children:
         playHint1_1c:
           triggerCondition:
           - and:
+            - doOnce:
             - delay:
               - 10
-            - not:
-              - readBlackboard:
-                - Level1cHint1
-            - not:
-              - readBlackboard:
-                - hasSucceeded
-            - not:
-              - readBlackboard:
-                - hasFailed
           actions:
           - playSound:
             - ALVO17_Rover
-          - writeToBlackboard:
-            - Level1cHint1
 
         playHint2_1c:
           triggerCondition:
           - and:
+            - doOnce:
             - delay:
               - 20
-            - not:
-              - readBlackboard:
-                - Level1cHint2
-            - not:
-              - readBlackboard:
-                - hasSucceeded
-            - not:
-              - readBlackboard:
-                - hasFailed
           actions:
           - playSound:
             - ALVO34_Rover
-          - writeToBlackboard:
-            - Level1cHint2
 
         playHint3_1c:
           triggerCondition:
           - and:
+            - doOnce:
             - delay:
               - 40
-            - not:
-              - readBlackboard:
-                - Level1cHint3
-            - not:
-              - readBlackboard:
-                - hasSucceeded
-            - not:
-              - readBlackboard:
-                - hasFailed
           actions:
           - playSound:
             - ALVO41_Rover
-          - writeToBlackboard:
-            - Level1cHint3
 
         setCameraView:
           triggerCondition:

@@ -46,29 +46,34 @@ this.followTarget = function( transform ) {
         newTransform[ 12 ] += transform[ 12 ] - this.lastTargetPosition[ 0 ];
         newTransform[ 13 ] += transform[ 13 ] - this.lastTargetPosition[ 1 ];
         newTransform[ 14 ] += transform[ 14 ] - this.lastTargetPosition[ 2 ];
-        this.lastTargetPosition = [
-            transform[ 12 ],
-            transform[ 13 ],
-            transform[ 14 ]
-        ];
-        this.transform = newTransform;
+        this.transformTo( newTransform );
     }
+    this.lastTargetPosition = [
+        transform[ 12 ],
+        transform[ 13 ],
+        transform[ 14 ]
+    ];
 }
 
 this.attachToTarget = function() {
     for ( var i = 0; i < 3; i++ ) {
         this.lastTargetPosition[ i ] = this.target.transform[ i + 12 ];
     }
-    this.target.transformChanged = this.target.events.add( this.followTarget );
+    var self = this;
+    this.target.transformChanged = this.events.add( this.followTarget, this,
+        function( id ) {
+            self.listenerID$ = id;
+        } );
 }
 
 this.detachFromTarget = function() {
-    this.target.transformChanged = this.target.events.remove( this.followTarget );
+    this.target.visible = true;
+    this.target.transformChanged = this.events.remove( this.listenerID$ );
 }
 
 this.setCameraPose = function( pose ) {
     var poseTransform = this.convertPoseToTransform( pose );
-    this.camera.transform = poseTransform;
+    this.camera.transformTo( poseTransform );
 }
 
 this.convertPoseToTransform = function( pose ) {

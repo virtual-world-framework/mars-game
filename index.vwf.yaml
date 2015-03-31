@@ -15,7 +15,7 @@
 --- 
 extends: http://vwf.example.com/scene.vwf
 implements:
-- "http://vwf.example.com/blockly/manager.vwf"
+  - "http://vwf.example.com/blockly/manager.vwf"
 properties:
   enableShadows: true
   shadowMapCullFace: "back"
@@ -25,11 +25,20 @@ properties:
   activeScenarioPath:
     set: |
       this.setScenario( value );
-      this.activeScenarioPath = value;
-    value: "mainMenuScenario"
   playerId: "test"
-  version: "Release"
+  version: "Development"
   sceneBlackboard: {}
+  roverTabBlinking: false
+  graphTabBlinking: false
+  # applicationState tracks what the application is currently doing
+  #   in its execution process.
+  #   Valid states are: loading, menu, playing
+  # TODO: Potential app states: paused, video, syncing (allowing all
+  #   clients to reach the same state before continuing)
+  applicationState:
+    set: |
+      this.setApplicationState( value );
+    value: loading
 methods:
   setScenario:
   resetScenario:
@@ -49,6 +58,19 @@ methods:
   restartGame:
   attemptLogin:
   loadGame:
+  setApplicationState:
+  newGame:
+  continueGame:
+  applicationLoaded:
+  blinkTab:
+  stopBlinkTab:
+  playVideo:
+  pauseGame:
+  unpauseGame:
+  resetHUDState:
+  selectBlocklyNode:
+  enableBlocklyNodes:
+  disableBlocklyNodes:
 events:
   gameStarted:
   scenarioReset:
@@ -57,10 +79,6 @@ events:
   scenarioSucceeded:
   scenarioFailed:
   gotScenarioPaths:
-  blinkHUD:
-  stopBlinkHUD:
-  blinkTab:
-  stopBlinkTab:
   clearBlockly:
   selectLastBlock:
   showCommsImage:
@@ -70,18 +88,30 @@ events:
   toggledGraph:
   toggledTiles:
   resetRoverSensors:
-  resetHUDState:
-  enableBlocklyTab:
+  enableBlocklyTabs:
   clearBlocklyTabs:
-  playVideo:
   videoPlayed:
-  setObjective:
-  setHUDElementProperty:
-  mouseOverHUD:
   progressFound:
   loadedGame:
   storedScenario:
+  blackboardWritten:
+  paused:
+  unpaused:
 children:
+  mediaManager:
+    extends: http://vwf.example.com/node.vwf
+    children:
+      videoManager:
+        extends: http://vwf.example.com/jplayer/videoManager.vwf
+        properties:
+          containerDivId: "jp_container_1"
+          playerDivId: "jquery_jplayer_1"
+          containerSize: [1024, 768]
+          playerSize: [1024, 768]
+  hud:
+    includes: source/hud/marsGameHud.vwf
+  mainMenu:
+    includes: source/mainMenu.vwf
   gameCam:
     includes: source/gameCamera.vwf
   cinematicCameraController:
@@ -113,6 +143,8 @@ children:
   #   includes: source/instrumentationManager.vwf
   globalTriggerManager:
     includes: source/scenario/globalScenarioTriggers.vwf
+  triggerGroupManager:
+    includes: source/triggers/groups/triggerGroupManager.vwf
   environment:
     extends: http://vwf.example.com/node3.vwf
     source: assets/3d/Terrain/scene.dae
@@ -144,12 +176,6 @@ children:
         extends: http://vwf.example.com/node3.vwf
         source: assets/3d/Terrain/rover_tracks_straight.dae
         type: model/vnd.collada+xml
-  collisionTerrain:
-    extends: http://vwf.example.com/node3.vwf
-    source: assets/3d/Terrain/collision_terrain.dae
-    type: model/vnd.collada+xml
-    properties:
-      visible: false
   airDust:
     includes: source/dustAir.vwf
   smoke1:
@@ -204,7 +230,7 @@ children:
       setUpEvents:
       followCamera:
     scripts:
-      - source: source/lights.js
+    - source: source/lights.js
   envLight:
     extends: http://vwf.example.com/light.vwf
     properties:
@@ -217,15 +243,14 @@ children:
     extends: http://vwf.example.com/node3.vwf
     children:
       rover:
-        extends: source/rover.vwf
+        extends: source/fourWheeledRover.vwf
         implements: 
-          - http://vwf.example.com/blockly/controller.vwf
-          - source/griddable.vwf
-          - source/cameraTarget.vwf
+        - http://vwf.example.com/blockly/controller.vwf
+        - source/cameraTarget.vwf
         source: assets/3d/Rover/rover_retro.dae
         type: model/vnd.collada+xml
         properties:
-          defaultMount: firstPerson
+          defaultMount: thirdPerson
           displayName: "Rover"
           castShadows: true
           receiveShadows: true
@@ -240,7 +265,7 @@ children:
               this.terrainName = value;
               this.terrain = this.find( "//" + value )[ 0 ];
               //@ sourceURL=index.vwf.player.rover.terrainName.set
-            value: collisionTerrain
+            value: environment
           terrain:
             get: |
               if ( !this.terrain ) {
@@ -334,16 +359,15 @@ children:
               capacity: 4
               inventoryIsVisible: false
       rover2:
+        visible: false
         extends: source/rover.vwf
         implements: 
-          - http://vwf.example.com/blockly/controller.vwf
-          - source/griddable.vwf
-          - source/cameraTarget.vwf
-        source: assets/3d/Rover/rover_retro.dae
+        - http://vwf.example.com/blockly/controller.vwf
+        - source/cameraTarget.vwf
+        source: assets/3d/scoutrover/scout_rover.dae
         type: model/vnd.collada+xml
         properties:
-          visible: false
-          defaultMount: firstPerson
+          defaultMount: thirdPerson
           displayName: "Rover2"
           castShadows: true
           receiveShadows: true
@@ -358,7 +382,7 @@ children:
               this.terrainName = value;
               this.terrain = this.find( "//" + value )[ 0 ];
               //@ sourceURL=index.vwf.player.rover.terrainName.set
-            value: collisionTerrain
+            value: environment
           terrain:
             get: |
               if ( !this.terrain ) {
@@ -450,18 +474,18 @@ children:
             extends: source/inventory.vwf
             properties:
               capacity: 4
-              inventoryIsVisible: false
+              inventoryIsVisible: false       
       rover3:
+        visible: false
         extends: source/rover.vwf
         implements: 
-          - http://vwf.example.com/blockly/controller.vwf
-          - source/griddable.vwf
-          - source/cameraTarget.vwf
-        source: assets/3d/Rover/rover_retro.dae
+        - http://vwf.example.com/blockly/controller.vwf
+        - source/cameraTarget.vwf
+        source: assets/3d/heavyrover/heavy_rover.dae
         type: model/vnd.collada+xml
         properties:
-          visible: false
-          defaultMount: firstPerson
+          boundingAreaSize: [ 2, 2 ]
+          defaultMount: thirdPerson
           displayName: "Rover3"
           castShadows: true
           receiveShadows: true
@@ -476,7 +500,7 @@ children:
               this.terrainName = value;
               this.terrain = this.find( "//" + value )[ 0 ];
               //@ sourceURL=index.vwf.player.rover.terrainName.set
-            value: collisionTerrain
+            value: environment
           terrain:
             get: |
               if ( !this.terrain ) {
@@ -569,7 +593,6 @@ children:
             properties:
               capacity: 4
               inventoryIsVisible: false
-
   pickups:
     extends: http://vwf.example.com/node3.vwf
     children:
@@ -590,8 +613,6 @@ children:
         extends: source/pickups/minirover.vwf
   scenario_dummy:
     includes: source/scenario/scenario_dummy.vwf
-  mainMenuScenario:
-    includes: source/scenario/mainMenu.vwf
   introScreenScenario:
     includes: source/scenario/introScreenScenario.vwf
   scenario1a:
@@ -638,7 +659,8 @@ children:
     includes: source/scenario/scenario3f.vwf
   blocklyGraph:
     extends: http://vwf.example.com/graphtool/graph.vwf
-    implements: "source/griddable.vwf"
+    implements: 
+      - source/griddable.vwf
     properties:
       graphScale: 3
       gridInterval: 1
@@ -648,9 +670,11 @@ children:
       yAxisVisible: true
       zAxisVisible: false
       gridVisible: true
+      graphVisible: false
       axisOpacity: 1
       gridOpacity: 0.75
       renderTop: true
+      isCollidable: false
     children:
       blocklyLine:
         extends: http://vwf.example.com/graphtool/graphlinefunction.vwf
@@ -670,10 +694,6 @@ children:
           visible: false
         events:
           lineGraphed:
-    scripts: |
-      this.initialize = function() {
-        this.future( 0 ).setGraphVisibility( false );
-      }
   gridTileGraph:
     extends: http://vwf.example.com/graphtool/graph.vwf
     properties:
@@ -685,6 +705,7 @@ children:
       yAxisVisible: false
       zAxisVisible: false
       gridVisible: false
+      graphVisible: false
       axisOpacity: 1
       gridOpacity: 1
       renderTop: false
@@ -707,6 +728,7 @@ children:
           doubleSided: false
           renderTop: true
           visible: false
+          isBlinking: false
         methods:
           callOut:
           blink:
@@ -725,14 +747,15 @@ children:
       logger_lifeTime: 10000
       logger_logs: []
     scripts:
-    - source: source/loggerHelper.js
+      - source: source/loggerHelper.js
   subtitles:
     extends: http://vwf.example.com/logger.vwf
     properties:
       logger_maxLogs: 10
       logger_lifeTime: 10000
       logger_logs: []
-    events:
+      strings: []
+    methods:
       addSubtitle:
     scripts:
     - source: source/loggerHelper.js

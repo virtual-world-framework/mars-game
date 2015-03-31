@@ -13,7 +13,7 @@
 # limitations under the License.
 
 ---
-extends: source/scenario/scenario.vwf
+extends: ../scenario/scenario.vwf
 properties:
   scenarioName: scenario2b
 
@@ -50,7 +50,7 @@ properties:
   - addToGrid:
     - blocklyGraph
     - [ 15, 1 ]
-  - enableBlocklyTabs:
+  - enableBlocklyNodes:
     - rover
     - graph
   - loadToolbox:
@@ -62,9 +62,9 @@ properties:
 
 children:
   triggerManager:
-    extends: source/triggers/triggerManager.vwf
+    extends: ../triggers/triggerManager.vwf
     properties: 
-      triggers:
+      triggers$:
         beginScenario_2b:
           triggerCondition:
           - onScenarioStart:
@@ -85,17 +85,15 @@ children:
         playStartingVO_2b:
           triggerCondition:
           - and:
+            - doOnce:
             - onScenarioStart:
-            - not:
-              - readBlackboard:
-                - Level2bStartSounds
           actions:
           - playSound:
             - SCVO5_Rover
-          - writeToBlackboard:
-            - Level2bStartSounds
 
         failOnMove_2b:
+          group: successOrFailure
+          priority: 1
           triggerCondition:
           - onMoved:
             - rover
@@ -107,6 +105,8 @@ children:
             - FCVO4_Rover
 
         succeedOnGraphOpenPlot_2b:
+          group: successOrFailure
+          priority: 0
           triggerCondition:
           - onBlocklyWindowOpened:
               - graph
@@ -129,36 +129,22 @@ children:
         playGraphOpenedVO_2b:
           triggerCondition:
           - and:
+            - doOnce:
             - onBlocklyWindowOpened:
               - graph
-            - not:
-              - readBlackboard:
-                - Level2bGraphOpened
           actions:
           - playSound:
             - L2VO3_Rover
-          - writeToBlackboard:
-            - Level2bGraphOpened
 
         playHint1_2b:
           triggerCondition:
           - and:
+            - doOnce:
             - delay:
               - 20
-            - not:
-              - readBlackboard:
-                - Level2bHint1
-            - not:
-              - readBlackboard:
-                - hasSucceeded
-            - not:
-              - readBlackboard:
-                - hasFailed
           actions:
           - playSound:
             - ALVO17_Rover
-          - writeToBlackboard:
-            - Level2bHint1
 
   grid:
     includes: source/grid.vwf

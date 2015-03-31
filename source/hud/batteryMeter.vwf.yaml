@@ -1,0 +1,50 @@
+# Copyright 2014 Lockheed Martin Corporation
+#
+# Licensed under the Apache License, Version 2.0 (the "License"); you may 
+# not use this file except in compliance with the License. You may obtain 
+# a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software 
+# distributed under the License is distributed on an "AS IS" BASIS, 
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and 
+# limitations under the License.
+
+---
+extends: http://vwf.example.com/hud/element.vwf
+properties:
+  images:
+    frame: "assets/images/hud/active_rover_frame.png"
+    rover: "assets/images/hud/portrait_rover_large.png"
+    rover2: "assets/images/hud/portrait_scout_large.png"
+    rover3: "assets/images/hud/portrait_heavy_large.png"
+    ring: "assets/images/hud/active_rover_energy_ring.png"
+  width: 150
+  height: 150
+  visible: true
+  enabled: true
+  alignH: left
+  alignV: top
+  offsetH: 30
+  offsetV: 30
+  rovers:
+    rover:
+      battery: 0
+      maxBattery: 0
+    rover2:
+      battery: 0
+      maxBattery: 0
+    rover3:
+      battery: 0
+      maxBattery: 0
+  activeRover:
+    set: |
+      this.setActiveRover( value );
+methods:
+  draw:
+  setUpListeners:
+  setActiveRover:
+scripts:
+  - source: batteryMeter.js

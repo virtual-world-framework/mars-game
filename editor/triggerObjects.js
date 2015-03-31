@@ -72,7 +72,7 @@ function getConditions() {
             "optionalArgs": [],
             "repeatedArgs": []
         },
-        "moveFailed": {
+        "onMoveFailed": {
             "display": "Rover Movement has Failed",
             "description": "Checks if an object's movement has failed and optionally what caused it to fail.",
             "requiredArgs": [
@@ -272,13 +272,6 @@ function getActions() {
             ],
             "repeatedArgs": []
         },
-        // "initGameOnLoad": {
-        //     "display": "",
-        //     "description": "",
-        //     "requiredArgs": [],
-        //     "optionalArgs": [],
-        //     "repeatedArgs": []
-        // },
         "playSound": {
             "display": "Play Sound",
             "description": "Play the specified sound.",
@@ -313,15 +306,6 @@ function getActions() {
             "optionalArgs": [],
             "repeatedArgs": []
         },
-        "setMasterVolume": {
-            "display": "Set Volume",
-            "description": "Sets the master volume.",
-            "requiredArgs": [
-                { "Volume": "percent" }
-            ],
-            "optionalArgs": [],
-            "repeatedArgs": []
-        },
         "delay": {
             "display": "Delay",
             "description": "Performs an action or set of actions after a specified number of seconds.",
@@ -348,15 +332,6 @@ function getActions() {
         "clearBlackboardEntry": {
             "display": "Clear Blackboard Entry",
             "description": "Removes specified entry from the Blackboard.",
-            "requiredArgs": [
-                { "Name": "string" }
-            ],
-            "optionalArgs": [],
-            "repeatedArgs": []
-        },
-        "incrementBlackboardValue": {
-            "display": "Increment Blackboard Value",
-            "description": "Increments a Blackboard entry's value if it is a number.",
             "requiredArgs": [
                 { "Name": "string" }
             ],
@@ -445,13 +420,6 @@ function getActions() {
             "repeatedArgs": []
         },
         // "resetRoverSensors": {
-        //     "display": "",
-        //     "description": "",
-        //     "requiredArgs": [],
-        //     "optionalArgs": [],
-        //     "repeatedArgs": []
-        // },
-        // "resetHUDState": {
         //     "display": "",
         //     "description": "",
         //     "requiredArgs": [],

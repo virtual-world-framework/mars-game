@@ -18,15 +18,6 @@ this.initialize = function() {
         return;
     }
 
-    //TODO: Set this properly (we shouldn't have to set this explicity in here...
-    // this.transform gets set automatically for ONE of the rovers, but not the other one)
-    this.transform = [
-        1,  0,  0,  0,
-        0,  1,  0,  0,
-        0,  0,  1,  0,
-        0,  0,  0,  1
-    ];
-    
     // TODO: Find current grid square (rather than making app developer specify)
     // TODO: Find the current heading (rather than making app developer specify)
 
@@ -37,6 +28,37 @@ this.findAndSetCurrentGrid = function( scenarioName ) {
     var scenario = this.find( "//" + scenarioName )[ 0 ];
     this.currentGrid = scenario.grid;
 }
+
+this.meetsBoundaryConditions = function( energyRequired ) {
+
+    if ( energyRequired < 0 ) {
+        this.moveFailed( "collision" );
+        return false;
+    } else if ( energyRequired > this.battery ) {
+        this.battery = 0;
+        this.moveFailed( "battery" );
+        return false;
+    } 
+
+    return true;
+}
+
+this.getMinEnergyRequired = function( gridCoord ){
+    var minEnergyRequired = Infinity; 
+    var bArea = this.boundingAreaSize; 
+
+    for( var x = 0; x < bArea[ 0 ]; x++ ) { 
+        for( var y = 0; y < bArea[ 1 ]; y++ ) { 
+            var currCoord = [ gridCoord[ 0 ] + x , gridCoord[ 1 ] - y ]; 
+            var currEnergy = this.currentGrid.getEnergy( currCoord );
+            if ( currEnergy < minEnergyRequired ) {
+                minEnergyRequired = currEnergy;
+            }
+        }
+    }
+
+    return minEnergyRequired;
+} 
 
 this.moveForward = function() {
 
@@ -49,18 +71,14 @@ this.moveForward = function() {
     //First check if the coordinate is valid
     if ( this.currentGrid.validCoord( proposedNewGridSquare ) ) {
 
-        //Then check if the boundary value allows for movement:
-        var energyRequired = this.currentGrid.getEnergy( proposedNewGridSquare );
-        if ( energyRequired < 0 ) {
-            this.moveFailed( "collision" );
-        } else if ( energyRequired > this.battery ) {
-            this.battery = 0;
-            this.moveFailed( "battery" );
-        } else {
+        var energyRequired = this.getMinEnergyRequired( proposedNewGridSquare );
 
-            //Otherwise, check if the space is occupied
-            if ( this.currentGrid.getCollidables( proposedNewGridSquare ).length === 0 ){
-                this.currentGrid.moveObjectOnGrid( this, this.currentGridSquare, proposedNewGridSquare );
+        //Then check if the boundary value allows for movement:
+        if( this.meetsBoundaryConditions( energyRequired ) ) {
+            //Check if the space is occupied
+            var collided = this.checkCollisionWrapper( proposedNewGridSquare );
+            if ( !collided ){
+                this.currentGrid.moveObjectOnGrid( this.id, this.currentGridSquare, proposedNewGridSquare );
                 this.currentGridSquare = proposedNewGridSquare;
                 var displacement = [ dirVector[ 0 ] * this.currentGrid.gridSquareLength, 
                                      dirVector[ 1 ] * this.currentGrid.gridSquareLength, 0 ];
@@ -78,7 +96,7 @@ this.moveForward = function() {
                 if ( inventoriableObjects ){
                     for ( var i = 0; i < inventoriableObjects.length; i++ ) {
                         this.currentGrid.removeFromGrid( inventoriableObjects[ i ], proposedNewGridSquare );
-                        this.cargo.add( inventoriableObjects[ i ].id );
+                        this.cargo.add( inventoriableObjects[ i ] );
                     }
                 }
                 this.moved();
@@ -109,47 +127,16 @@ this.placeOnTerrain = function( pos ) {
         pos[ 1 ] - this.transform[ 13 ], 
         pos[ 2 ] - this.transform[ 14 ] 
     ];
-    var terrainPosFL = this.getTerrainPosUnderNode( this.wheelFL, deltaPos );
-    var terrainPosBL = this.getTerrainPosUnderNode( this.wheelBL, deltaPos );
-    var terrainPosFR = this.getTerrainPosUnderNode( this.wheelFR, deltaPos );
-    var terrainPosBR = this.getTerrainPosUnderNode( this.wheelBR, deltaPos );
+    var terrainPosCentroid = this.getTerrainPosUnderNode( this, deltaPos );
 
-    // Step 2: Find the normal of the plane on which the rover will sit
-    var vecFLtoFR = goog.vec.Vec3.subtract( terrainPosFR, terrainPosFL, goog.vec.Vec3.create() );
-    var vecFLtoBL = goog.vec.Vec3.subtract( terrainPosBL, terrainPosFL, goog.vec.Vec3.create() );
-    var vecBRtoFR = goog.vec.Vec3.subtract( terrainPosFR, terrainPosBR, goog.vec.Vec3.create() );
-    var vecBRtoBL = goog.vec.Vec3.subtract( terrainPosBL, terrainPosBR, goog.vec.Vec3.create() );
-    var normal = this.calcUpwardNormalizedPlaneNormal( vecFLtoBL, vecFLtoFR );
-    var normalEstimate2 = this.calcUpwardNormalizedPlaneNormal( vecBRtoFR, vecBRtoBL );
-    normal[ 0 ] = ( normal[ 0 ] + normalEstimate2[ 0 ] ) * 0.5;
-    normal[ 1 ] = ( normal[ 1 ] + normalEstimate2[ 1 ] ) * 0.5;
-    normal[ 2 ] = ( normal[ 2 ] + normalEstimate2[ 2 ] ) * 0.5;
+    pos[ 2 ] = terrainPosCentroid[ 2 ];
 
-    // Step 3: Calculate the x and y axes of the rover in its parent's frame of reference
-    
-    // Calculate xAxis as y cross z
-    var yAxis = [ this.transform[ 4 ], this.transform[ 5 ], this.transform[ 6 ] ];
-    var xAxis = goog.vec.Vec3.cross( yAxis, normal, goog.vec.Vec3.create() );
-
-    // Normalize x and z axes
-    // (we do this now so their cross product will be unit length and we'll only have to do it 
-    // twice instead of three times)
-    goog.vec.Vec3.normalize( xAxis, xAxis );
-    goog.vec.Vec3.normalize( normal, normal );
-
-    // Calculate yAxis as z cross x
-    goog.vec.Vec3.cross( normal, xAxis, yAxis );
-
-    // Step 4: Find the point on the terrain below the rover
-    pos[ 2 ] = ( terrainPosFL[ 2 ] + terrainPosBL[ 2 ] + terrainPosFR[ 2 ] + terrainPosBR[ 2 ] ) * 0.25
-
-    // Step 5: Assign the new transform to the rover
-    this.transform = [
-        xAxis[ 0 ],  xAxis[ 1 ],  xAxis[ 2 ],  0,
-        yAxis[ 0 ],  yAxis[ 1 ],  yAxis[ 2 ],  0,
-        normal[ 0 ], normal[ 1 ], normal[ 2 ], 0,
+    this.transformTo( [
+        this.transform[ 0 ],  this.transform[ 1 ],  this.transform[ 2 ],  0,
+        this.transform[ 4 ],  this.transform[ 5 ],  this.transform[ 6 ],  0,
+        this.transform[ 8 ], this.transform[ 9 ], this.transform[ 10 ], 0,
         pos[ 0 ],    pos[ 1 ],    pos[ 2 ],    1
-    ];
+    ] );
 }
 
 this.translateOnTerrain = function( translation, duration, boundaryValue ) {

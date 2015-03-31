@@ -44,4 +44,13 @@ this.setDefaultMount = function( mountName ) {
 	this.defaultMount = mount;
 }
 
+this.hasMount = function( mountName ) {
+	var mount = this[ mountName ];
+	if ( mount && mount.mountCamera ) {
+		return true;
+	} else {
+		return false;
+	}
+}
+
 //@ sourceURL=source/cameraTarget.js

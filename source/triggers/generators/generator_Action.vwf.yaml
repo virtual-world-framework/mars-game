@@ -1,0 +1,126 @@
+# Copyright 2014 Lockheed Martin Corporation
+#
+# Licensed under the Apache License, Version 2.0 (the "License"); you may 
+# not use this file except in compliance with the License. You may obtain 
+# a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software 
+# distributed under the License is distributed on an "AS IS" BASIS, 
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and 
+# limitations under the License.
+
+# The action factory creates actions from yaml declarations. 
+
+--- 
+
+extends: generatorProto.vwf
+
+properties:
+
+  # The action set contains the actions that  we pass into the function
+  # executor.  It's fine if other function sets are also added, but this 
+  # provides the baseline functionality that we need.
+  actionSet:
+    # cause scenario success/failure
+    # arguments: none
+    scenarioSuccess: "source/triggers/actions/action_scenarioSuccess.vwf"
+    scenarioFailure: "source/triggers/actions/action_scenarioFailure.vwf"
+
+    # play/stops a sound
+    # arguments: the sound name
+    playSound: "source/triggers/actions/action_playSound.vwf"
+    stopSound: "source/triggers/actions/action_stopSound.vwf"
+
+    # stop all sounds in a group (and clear the queue)
+    # arguments: the name of the sound group
+    stopSoundGroup: "source/triggers/actions/action_stopSoundGroup.vwf"
+
+    # stop every sound
+    # arguments: none
+    stopAllSounds: "source/triggers/actions/action_stopAllSounds.vwf"
+
+    # play a video
+    # arguments: the source of the video
+    playVideo: "source/triggers/actions/action_playVideo.vwf"
+
+    # writes a value to the sceneBlackboard which can be referenced later
+    # to determine whether an action has occurred.
+    # arguments: variableName, value (optional, default = 1)
+    writeToBlackboard: "source/triggers/actions/action_writeToBlackboard.vwf"
+
+    # clears the value at the specified blackboard variableName
+    # arguments: variableName
+    clearBlackboardEntry: "source/triggers/actions/action_clearBlackboardEntry.vwf"
+
+    # delays for a fixed time, and then plays one or more actions
+    # arguments: delay, action(s)
+    delay: "source/triggers/actions/action_delay.vwf"
+
+    # TODO: Get Brett to add comments for these.
+    blinkHUDElement: "source/triggers/actions/action_blinkHUDElement.vwf"
+    stopBlinkHUDElement: "source/triggers/actions/action_stopBlinkHUDElement.vwf"
+    blinkBlocklyTab: "source/triggers/actions/action_blinkBlocklyTab.vwf"
+    stopBlinkBlocklyTab: "source/triggers/actions/action_stopBlinkBlocklyTab.vwf"
+
+    # Sets a property of a HUD element to the specified value
+    # arguments: elementName, propertyName, propertyValue
+    setHUDProperty: "source/triggers/actions/action_setHUDProperty.vwf"
+
+    # hides the blockly UI
+    # arguments: none
+    hideBlockly: "source/triggers/actions/action_hideBlockly.vwf"
+
+    # clears the blocklyui of all blocks
+    # arguments: none
+    clearBlockly: "source/triggers/actions/action_clearBlockly.vwf"
+
+    # pans the camera to the node of the targetpath
+    # If duration is specified, the camera will pan back to its original
+    # target after the duration in seconds
+    # arguments: targetPath, (optional) duration
+    panCamera: "source/triggers/actions/action_panCamera.vwf"
+
+    # shows text in alert area
+    # arguments: message
+    showAlert: "source/triggers/actions/action_showAlert.vwf"
+
+    # resets sensors on the rover
+    # arguments: none
+    resetRoverSensors: "source/triggers/actions/action_resetRoverSensors.vwf"
+
+    # Puts the camera in third-person with the specified orientation
+    # arguments: pose[ radius, yaw, pitch ]
+    setCinematicCameraView: "source/triggers/actions/action_setCinematicCameraView.vwf"
+
+    # Sets the default orientation of the camera in third person
+    # arguments: pose[ radius, yaw, pitch ]
+    setThirdPersonStartPose: "source/triggers/actions/action_setThirdPersonStartPose.vwf"
+
+    # Adds a blinking tile to the objective grid space
+    # arguments: coordinates
+    callOutObjective: "source/triggers/actions/action_callOutObjective.vwf"
+
+    # Removes callout tile
+    # arguments: none
+    cancelCallOut: "source/triggers/actions/action_cancelCallOut.vwf"
+
+    # Sets the objective HUD text
+    # arguments: objectiveText
+    setObjective: "source/triggers/actions/action_setObjective.vwf"
+
+    # TODO: These are the old start state functions - add comments for them.
+    setProperty: "source/triggers/actions/action_setProperty.vwf"
+    callMethod: "source/triggers/actions/action_callMethod.vwf"
+    setSceneProperty: "source/triggers/actions/action_setSceneProperty.vwf"
+    emptyInventory: "source/triggers/actions/action_emptyInventory.vwf"
+    addToInventory: "source/triggers/actions/action_addToInventory.vwf"
+    addToGrid: "source/triggers/actions/action_addToGrid.vwf"
+    removeFromGrid: "source/triggers/actions/action_removeFromGrid.vwf"
+    enableBlocklyNodes: "source/triggers/actions/action_enableBlocklyNodes.vwf"
+    loadToolbox: "source/triggers/actions/action_loadToolbox.vwf"
+
+scripts:
+- source: generator_Action.js

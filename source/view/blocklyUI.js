@@ -27,6 +27,7 @@ function setUpBlocklyPeripherals() {
     var blocklyScrollDiv = document.createElement( "div" );
     var indicator = document.createElement( "div" );
     var indicatorCount = document.createElement( "div" );
+    var procedureIndicator = document.createElement( "div" );
 
     blocklyFooter.id = "blocklyFooter";
     blocklyHandle.id = "blocklyHandle";
@@ -34,11 +35,13 @@ function setUpBlocklyPeripherals() {
     indicator.id = "blocklyIndicator";
     indicatorCount.id = "blocklyIndicatorCount";
     indicatorCount.innerHTML = "";
+    procedureIndicator.id = "blocklyProcedureIndicator";
     startBlocklyButton.id = "startBlockly";
 
     indicator.appendChild( indicatorCount );
     $( "#blocklyWrapper-top" ).append( blocklyHandle )
     $( "#blocklyWrapper" ).append( indicator );
+    $( "#blocklyWrapper" ).append( procedureIndicator );
     $( "#blocklyWrapper" ).draggable( {
         handle: "div#blocklyHandle",
         scroll: false,
@@ -85,7 +88,7 @@ function setUpBlocklyPeripherals() {
     } ).bind( blocklyCloseBtn );
 
     blocklyCloseBtn.onclick = ( function() {
-        vwf_view.kernel.setProperty( vwf_view.kernel.application(), "blockly_activeNodeID", undefined );
+        vwf_view.kernel.setProperty( vwf_view.kernel.application(), "blockly_interfaceVisible", false );
     } );
 
     startBlocklyButton.innerHTML = "";
@@ -102,6 +105,7 @@ function setUpBlocklyPeripherals() {
 
     $( "#blocklyScrollDiv" ).on( "scroll", function() {
         indicateBlock( currentBlockIDSelected );
+        indicateProcedureBlock( currentProcedureBlockID );
     });    
 
     // Ensure that the blockly ui is accessible on smaller screens
@@ -147,6 +151,7 @@ function keepBlocklyWithinBounds() {
 function updateOnBlocklyResize( event ) {
     keepBlocklyWithinBounds();
     indicateBlock( currentBlockIDSelected );
+    indicateProcedureBlock( currentProcedureBlockID );
 }
 
 function updateBlocklyRamBar() {
@@ -172,6 +177,11 @@ function resetBlocklyIndicator() {
         "top" : 0,
         "visibility" : "hidden"
     } );
+    $( "#blocklyProcedureIndicator" ).css( {
+        "left" : 0,
+        "top" : 0,
+        "visibility" : "hidden"
+    } );
 }
 
 function showBlocklyIndicator() {
@@ -183,6 +193,20 @@ function showBlocklyIndicator() {
 
 function hideBlocklyIndicator() {
     var indicator = document.getElementById( "blocklyIndicator" );
+    if ( indicator ) {
+        indicator.style.visibility = "hidden";
+    }
+}
+
+function showBlocklyProcedureIndicator() {
+    var indicator = document.getElementById( "blocklyProcedureIndicator" );
+    if ( indicator ) {
+        indicator.style.visibility = "inherit";
+    }
+}
+
+function hideBlocklyProcedureIndicator() {
+    var indicator = document.getElementById( "blocklyProcedureIndicator" );
     if ( indicator ) {
         indicator.style.visibility = "hidden";
     }
@@ -204,6 +228,22 @@ function moveBlocklyIndicator( x, y ) {
     } );
 }
 
+function moveBlocklyProcedureIndicator( x, y ) {
+    var blocklyDiv = document.getElementById( "blocklyScrollDiv" );
+    var toolbox = document.getElementsByClassName( "blocklyFlyoutBackground" )[ 0 ];
+    var yOffset = parseInt( $( "#blocklyWrapper-top" ).css( "height" ) ) - blocklyDiv.scrollTop;
+    var xOffset = toolbox.getBBox().width;
+    if ( x > blocklyDiv.offsetWidth || y + yOffset - 20 > blocklyDiv.offsetHeight || y + yOffset < 0 ) {
+        hideBlocklyProcedureIndicator();
+    } else {
+        showBlocklyProcedureIndicator();
+    }
+    $( "#blocklyProcedureIndicator" ).stop().animate( { 
+        "top" : ( y + yOffset ) + "px",
+        "left": ( x + xOffset ) + "px"
+    } );
+}
+
 function showBlocklyLoopCount( count, maxCount ) {
     var indicatorCount = document.getElementById( "blocklyIndicatorCount" );
     indicatorCount.style.visibility = "inherit";
@@ -219,7 +259,11 @@ function clickStartButton() {
     if ( this.className === "" ) {
         runBlockly();
     } else if ( this.className === "reset" ) {
-        vwf_view.kernel.callMethod( vwf_view.kernel.application(), "stopAllExecution" );
+        //NXM: We could make the "reset" button stop ALL the rovers using stopAllExecution, 
+        //but for now we stop the rover that corresponds to the current active tab, since
+        //this is the more inutitive behavior. (At least to me it makes more sense).
+        //vwf_view.kernel.callMethod( vwf_view.kernel.application(), "stopAllExecution" );
+        vwf_view.kernel.callMethod( currentBlocklyNodeID, "stopExecution");
     }
 }
 

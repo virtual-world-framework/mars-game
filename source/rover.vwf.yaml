@@ -14,6 +14,8 @@
 
 ---
 extends: http://vwf.example.com/node3.vwf
+implements:
+  - griddable.vwf
 properties:
   castShadows: true
   receiveShadows: true
@@ -22,46 +24,42 @@ properties:
     set: |
       if ( this.battery != value ) {
         this.battery = value;
-        this.batteryChanged( value );
+        this.batteryChanged( value, this.id );
       }
     value: 100 
   batteryMax:
     set: |
       if ( this.batteryMax != value ) {
         this.batteryMax = value;
-        this.batteryMaxChanged( value );
+        this.batteryMaxChanged( value, this.id );
       }
     value: 100 
   lowBattery:
     set: |
       if ( this.lowBattery != value ) {
         this.lowBattery = value;
-        this.batteryChanged( this.battery );
       }
     value: 5
   ram:
     set: |
       if ( this.ram != value ) {
         this.ram = value;
-        this.ramChanged( value );
+        this.ramChanged( value, this.id );
       }
     value: 100 
   ramMax:
     set: |
       if ( this.ramMax != value ) {
         this.ramMax = value;
-        this.ramMaxChanged( value );
+        this.ramMaxChanged( value, this.id );
       }
     value: 100 
   lowRam: 
     set: |
       if ( this.lowRam != value ) {
         this.lowRam = value;
-        this.ramChanged( this.ram );
       }
     value: 5
-  currentGrid: undefined
-  currentGridSquare: [ 0, 0 ]
   tracksSensorValue: false
   heading: 0
   terrainName: undefined
@@ -94,4 +92,4 @@ events:
   blockCountChanged:
   allowedBlocksChanged:
 scripts:
- - source: source/rover.js
+ - source: rover.js

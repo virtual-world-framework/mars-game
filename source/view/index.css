@@ -35,20 +35,20 @@ body {
     margin-right: auto;
     text-align: center;
     background-color: rgba( 0, 0, 0, 0.8 );
-    color: rgb( 224, 255, 100 );
+    color: rgb( 129, 232, 255 );
 }
 
 a {
     pointer-events: all;
-    color: rgb( 224, 255, 100 );
+    color: rgb( 129, 232, 255 );
 }
 
 a:link {
-    color: rgb( 224, 255, 100 );
+    color: rgb( 129, 232, 255 );
 }
 
 a:visited {
-    color: rgb( 224, 255, 100 );
+    color: rgb( 129, 232, 255 );
 }
 
 a:hover {
@@ -56,7 +56,7 @@ a:hover {
 }
 
 a:active {
-    color: rgb( 255, 0, 0 );
+    color: rgb( 1, 211, 255 );
 }
 
 .blocklySvg {
@@ -96,6 +96,18 @@ a:active {
 
 #blocklyIndicatorCount.stopped {
     background-image: url( "../../assets/images/blockly_ui/number_appendix_stopped.png" );
+}
+
+#blocklyProcedureIndicator {
+    background-image: url( "../../assets/images/blockly_ui/blockly_indicator.png" );
+    width: 40px;
+    height: 17px;
+    position: absolute;
+    visibility: hidden;
+}
+
+#blocklyProcedureIndicator.stopped {
+    background-image: url( "../../assets/images/blockly_ui/blockly_indicator_stopped.png" );
 }
 
 #blocklyWrapper {
@@ -186,7 +198,7 @@ a:active {
 
 .blocklyTab.selected {
     background-image: url( "../../assets/images/blockly_ui/tab_selected.png" );
-    color: rgba( 224, 255, 100, 0.75 );
+    color: rgba( 162, 225, 238, 0.75 );
 }
 
 #toolbox {
@@ -267,8 +279,8 @@ a:active {
 }
 
 .subtitleText {
-    color: rgb( 255, 255, 255 );
-    font-size: 14px;
+    color: rgb( 193, 244, 255 );
+    font-size: 10pt;
     width: 100%;
     margin-bottom: 5px;
 }
@@ -289,10 +301,10 @@ a:active {
 #loggerBox {
     width: 26%;
     height: 140px;
-    background-color: rgba( 0, 0, 0, 0.5 );
+    background-color: rgba( 193, 244, 255, 0.2 );
     position: absolute;
-    bottom: 10px;
-    left: 110px;
+    bottom: 30px;
+    left: 180px;
     overflow-y: scroll;
     padding: 5px;
     z-index: 0;
@@ -366,8 +378,8 @@ a:active {
     width: 400px;
     padding-top: 16px;
     padding-bottom: 16px;
-    background-color: rgba( 0, 0, 0, 0.5 );
-    border: 1px solid rgb( 224, 255, 100 );
+    background-color: rgba( 193, 244, 255, 0.2 );
+    border: 1px solid rgb( 129, 232, 255 );
     border-radius: 8px;
 }
 
@@ -378,8 +390,8 @@ a:active {
     text-align: center;
     text-transform: uppercase;
     font-weight: bold;
-    color: rgb( 224, 255, 100 );
-    text-shadow: 0px 0px 4px rgb( 224, 255, 100 );
+    color: rgb( 129, 232, 255 );
+    text-shadow: 0px 0px 2px rgb( 193, 244, 255 );
     user-select: none;
     -webkit-user-select: none;  /* Chrome all / Safari all */
     -moz-user-select: none;     /* Firefox all */
@@ -392,12 +404,11 @@ a:active {
 
 .pauseMenuButton.hover {
     color: rgb( 255, 255, 255 );
-    background-color: rgba( 255, 255, 255, 0.25 );
+    text-shadow: 0px 0px 2px rgb( 1, 211, 255 );
 }
 
 .pauseMenuButton.select {
-    color: rgb( 255, 255, 255 );
-    background-color: rgba( 224, 255, 100, 0.25 );
+    color: rgb( 1, 211, 255 );
 }
 
 #scenarioSelector {
@@ -429,22 +440,20 @@ a:active {
     line-height: 24px;
     font-size: 24px;
     text-align: center;
-    text-shadow: 0px 0px 4px rgb( 224, 255, 100 );
+    text-shadow: 0px 0px 4px rgb( 129, 232, 255 );
 }
 
 .inlineButton {
-    color: rgb( 224, 255, 100 );
+    color: rgb( 129, 232, 255 );
     display: table-cell;
     vertical-align: middle;
     border-radius: 4px;
 }
 .inlineButton.hover {
     color: rgb( 255, 255, 255 );
-    background-color: rgba( 255, 255, 255, 0.25 );
 }
 .inlineButton.select {
-    color: rgb( 255, 255, 255 );
-    background-color: rgba( 224, 255, 100, 0.25 );
+    color: rgb( 1, 211, 255 );
 }
 
 .slider {
@@ -474,7 +483,7 @@ a:active {
 }
 
 .sliderToggle.select {
-    background-color: rgba( 224, 255, 100, 0.25 );
+    background-color: rgba( 162, 225, 238, 0.25 );
 }
 
 .sliderTrack {
@@ -512,132 +521,6 @@ a:active {
     background-image: url( "../../assets/images/volume_mute_icon.png" );
 }
 
-#MainMenu-Wrapper {
-    position: absolute;
-    top: 0px;
-    left: 0px;
-    right: 0px;
-    bottom: 0px;
-    user-select: none;
-    -webkit-user-select: none;  /* Chrome all / Safari all */
-    -moz-user-select: none;     /* Firefox all */
-    -ms-user-select: none;      /* IE 10+ */
-    cursor: default;
-}
-
-#MainMenu-Container {
-    position: absolute;
-    top: 10%;
-    left: 10%;
-}
-
-#MainMenu-Main, #MainMenu-Settings {
-    margin-left: 32px;
-    margin-top: 32px;
-}
-
-#MainMenu-Title {
-    text-transform: uppercase;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-#MainMenu-Title h1 {
-    height: 80px;
-    line-height: 80px;
-    font-size: 80px;
-    font-weight: bold;
-    color: rgb( 255, 255, 255 );
-    text-shadow: 0px 0px 12px rgb( 224, 255, 100 );
-    margin: 0px;
-}
-#MainMenu-Title h2 {
-    height: 40px;
-    line-height: 40px;
-    font-size: 40px;
-    font-weight: normal;
-    color: rgb( 255, 255, 255 );
-    text-shadow: 0px 0px 4px rgb( 224, 255, 100 );
-    margin: 0px;
-    text-align: center;
-}
-
-.MainMenu-Button {
-    height: 72px;
-    text-transform: uppercase;
-    font-size: 48px;
-    font-weight: bold;
-    line-height: 72px;
-    color: rgb( 224, 255, 100 );
-    text-shadow: 0px 0px 2px rgb( 224, 255, 100 );
-}
-
-.MainMenu-Button.hover {
-    color: rgb( 255, 255, 255 );
-    text-shadow: 0px 0px 8px rgb( 224, 255, 100 );
-}
-
-.MainMenu-Button.select {
-    color: rgb( 255, 255, 255 );
-    text-shadow: 0px 0px 8px rgb( 255, 255, 255 );
-}
-
-#MainMenu-Volume {
-    height: 64;
-    user-select: none;
-    -webkit-user-select: none;  /* Chrome all / Safari all */
-    -moz-user-select: none;     /* Firefox all */
-    -ms-user-select: none;      /* IE 10+ */
-    cursor: default;
-    border-radius: 4px;
-    display: table;
-    background-color: rgb( 64, 64, 64 );
-    padding: 4px;
-    padding-right: 12px;
-}
-
-#MainMenu-MuteButton {
-    height: 64px;
-    width: 64px;
-    border-radius: 4px;
-    background-position: center;
-    background-repeat: no-repeat;
-    display: table-cell;
-    background-image: url( "../../assets/images/volume_icon.png" );
-}
-
-#MainMenu-MuteButton.muted {
-    background-image: url( "../../assets/images/volume_mute_icon.png" );
-}
-
-#MainMenu-Slider {
-    height: 64px;
-    width: 256px;
-    border-radius: 4px;
-    background-position: left bottom;
-    background-repeat: repeat-x;
-    background-image: url( "../../assets/images/slider_track.png" );
-    display: table-cell;
-}
-
-#MainMenu-Readout {
-    height: 32px;
-    line-height: 32px;
-    font-size: 16px;
-    font-weight: bold;
-    color: rgb( 255, 255, 255 );
-    pointer-events: none;
-}
-
-#MainMenu-Handle {
-    height: 32px;
-    width: 32px;
-    background-position: left bottom;
-    background-repeat: no-repeat;
-    background-image: url( "../../assets/images/slider_handle.png" );
-    pointer-events: none;
-}
-
 #loginBox {
     margin-left: auto;
     margin-right: auto;
@@ -651,7 +534,7 @@ a:active {
     height: 120px;
     width: 400px;
     background-color: rgba( 0, 0, 0, 0.75);
-    color: rgb( 224, 255, 100 );
+    color: rgb( 129, 232, 255 );
     border-radius: 8px;
     text-align: center;
 }

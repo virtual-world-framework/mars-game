@@ -32,38 +32,121 @@ this.initialize = function() {
     this.initializeActiveCamera( this.gameCam.camera );
     this.setUpCameraListener();
     this.setUpRoverListeners();
-    this.gameCam.setCameraTarget( this.player.rover );
+    this.future( 3 ).applicationLoaded();
+}
+
+this.applicationLoaded = function() {
+    this.applicationState = "menu";
+}
+
+this.setApplicationState = function( state ) {
+    switch ( state ) {
+        case "loading":
+            break;
+        case "menu":
+            this.mainMenu.visible = true;
+            this.mainMenu.future( 0 ).setup();
+            // TODO: Consolidate game nodes
+            this.environment.visible = false;
+            this.player.visible = false;
+            this.airDust.visible = false;
+            this.smoke1.visible = false;
+            this.smoke2.visible = false;
+            this.smoke3.visible = false;
+            this.backdrop.visible = false;
+            this.sunLight.visible = false;
+            this.envLight.visible = false;
+            this.pickups.visible = false;
+            this.hud.visible = false;
+            this.triggerGroupManager.checkingGroups = false;
+            break;
+        case "playing":
+            console.log('setting application state to play');
+            this.mainMenu.visible = false;
+            this.soundManager.stopSoundGroup( "music" );
+            this.selectBlocklyNode( this.player.rover.id );
+            this.hud.setAllEnabled( true );
+            // TODO: Consolidate game nodes
+            this.environment.visible = true;
+            this.player.visible = true;
+            this.airDust.visible = true;
+            this.smoke1.visible = true;
+            this.smoke2.visible = true;
+            this.smoke3.visible = true;
+            this.backdrop.visible = true;
+            this.sunLight.visible = true;
+            this.envLight.visible = true;
+            this.pickups.visible = true;
+            this.hud.visible = true;
+            this.triggerGroupManager.checkingGroups = true;
+            break;
+        default:
+            this.logger.errorx( "setApplicationState", "Invalid application "
+                + "state: \'" + state + "\'" );
+            return;
+    }
+    this.applicationState = state;
+}
+
+this.newGame = function() {
+    console.log('starting new game');
+    this.applicationState = "playing";
+    this.activeScenarioPath = "scenario_dummy";
+}
+
+this.continueGame = function( scenario ) {
+    this.applicationState = "playing";
+    this.activeScenarioPath = scenario;
 }
 
 this.setScenario = function( path ) {
-    var scenario = this.find( path )[ 0 ];
-    if ( scenario ) {
-        if ( scenario.grid && scenario.grid.clearGrid ) {
-            scenario.grid.clearGrid();
+    if ( path ) {
+        var scenario = this.find( path )[ 0 ];
+        if ( scenario ) {
+            this.activeScenarioPath = path;
+            // TODO: remove knowledge of inner workings of the scenario; let 
+            //  the scenario itself handle bookkeeping in its event handlers.
+             if ( scenario.grid && scenario.grid.clearGrid ) {
+                 scenario.grid.clearGrid();
+             }
+            calcGridBounds( scenario.grid );
+            this.createGridDisplay( scenario.grid );
+            // TODO: pass the scenario, not the name.  Or else just send the 
+            //  event without looking the scenario itself up.  Or assert that 
+            //  the scenario exists.  Or something.
+            this.scenarioChanged( scenario.name, gridBounds );
+            scenario.future( 0 ).startScenario();
+        } else {
+            this.logger.warnx( "setScenario", "Scenario for path '" + path + 
+                               "' not found." );
         }
-        scenario.future( 0 ).startScenario();
-        calcGridBounds( scenario.grid );
-        this.scenarioChanged( scenario.name, gridBounds );
-    } else {
-        this.logger.warnx( "setScenario", "Scenario for path '" + path + "' not found." );
     }
 }
 
 this.resetScenario = function() {
     var scenario = this.getCurrentScenario();
     if ( scenario ) {
+        // TODO: remove knowledge of inner workings of the scenario; let the
+        //  scenario itself handle bookkeeping in its event handlers.
         if ( scenario.grid && scenario.grid.clearGrid ) {
             scenario.grid.clearGrid();
         }      
-        scenario.future( 0 ).startScenario();
+        // TODO: pass the scenario, not the name.  Or else just send the event
+        //  without looking the scenario itself up.  Or assert that the scenario
+        //  exists.  Or something.
         this.scenarioReset( scenario.name );
+        scenario.future( 0 ).startScenario();
     } else {
         this.logger.warnx( "resetScenario", "Invalid scenario path: " + this.activeScenarioPath );
     }
 }
 
 this.advanceScenario = function() {
+    // TODO: handle this in the scenario.  Let it depend on us rather than vice
+    //  versa (we shouldn't have to know the inner workings of the scenario)
+    this.hud.setAllEnabled( true );
     var scenario = this.getCurrentScenario();
+    calcGridBounds( scenario.grid );
     if ( scenario.nextScenarioPath ) {
         this.activeScenarioPath = scenario.nextScenarioPath;
     } else {
@@ -71,6 +154,7 @@ this.advanceScenario = function() {
     }
 }
 
+// TODO: can we eliminate this?
 this.getScenarioPaths = function() {
     var scenarios = this.getScenarios();
     var paths = new Array();
@@ -80,14 +164,21 @@ this.getScenarioPaths = function() {
     this.gotScenarioPaths( paths );
 }
 
+// TODO: can we eliminate this?
 this.getScenarios = function() {
-    var scenarios = this.find( ".//element(*,'source/scenario/scenario.vwf')" );
+    var scenarios = this.find( "*[@scenarioName]" );
     return scenarios;
 }
 
+// TODO: can we eliminate this?
 this.getCurrentScenario = function() {
     // TODO: make this handle more than one scenario
     return this.find( this.activeScenarioPath )[ 0 ];
+}
+
+this.resetHUDState = function() {
+    this.hud.setAllBlinking( false );
+    this.hud.setAllEnabled( true );
 }
 
 this.addAlert = function( log ) {
@@ -100,9 +191,10 @@ this.addAlert = function( log ) {
 }
 
 this.addSubtitle = function( log, time ) {
-
-    if ( this.subtitles !== undefined ) {    
-        this.subtitles.addSubtitle( log, time );
+    if ( this.subtitles !== undefined ) {
+        var currentStrings = this.subtitles.strings;
+        currentStrings.push( log );
+        this.subtitles.strings = currentStrings;
     }
 }
 
@@ -147,12 +239,9 @@ this.executeBlock = function ( block, action ) {
     var blockName = block[ 0 ];
     var blockID = block[ 1 ];
 
-    var scenario = this.getCurrentScenario();
     
-    //Disabling on the dummy scenario in order for procedures to work.
-    if( scenario.name !== "scenario_dummy" ){
-        this.blockExecuted( blockName, blockID );
-    }
+    this.blockExecuted( blockName, blockID );
+    
 
     var nodeID = action[ 0 ];
     var methodName = action[ 1 ];
@@ -165,40 +254,42 @@ this.executeBlock = function ( block, action ) {
 }
 
 this.setUpCameraListener = function() {
-    var scene = this;
-    this.gameCam.mounted = function( mount ) {
+    var handler = function( mount ) {
         if ( mount.name !== "topDown") {
-            scene.displayTiles( false );
-            scene.displayGraph( false );
+            this.displayTiles( false );
+            this.displayGraph( false );
         }
-    }
+    };
+    this.gameCam.mounted = this.events.add( handler, this );
 }
 
 this.setUpRoverListeners = function() {
-    this.scenarioChanged = ( function( scenarioName ) {
+    this.scenarioChanged = this.events.add( function( scenarioName ) {
         this.player.rover.findAndSetCurrentGrid( scenarioName );
-        //HACK: this should be generalizable to n rovers.
         this.player.rover2.findAndSetCurrentGrid( scenarioName );
         this.player.rover3.findAndSetCurrentGrid( scenarioName );
-    } ).bind( this );
-    // rover.findAndSetCurrentGrid( this.activeScenarioPath );
+    }, this );
 }
 
 this.displayTiles = function( isVisible ) {
-    this.gridTileGraph.mapTiles.groupVisible = isVisible;
-    if ( isVisible && this.gameCam.mountName !== "topDown" ) {
-        this.gameCam.setCameraMount( "topDown" );
+    if ( isVisible !== this.gridTileGraph.mapTiles.groupVisible ) {
+        this.gridTileGraph.mapTiles.groupVisible = isVisible;
+        if ( isVisible && this.gameCam.mountName !== "topDown" ) {
+            this.gameCam.setCameraMount( "topDown" );
+        }
+        this.toggledTiles( isVisible );
     }
-    this.toggledTiles( isVisible );
 }
 
 this.displayGraph = function( isVisible ) {
-    this.blocklyGraph.setGraphVisibility( isVisible );
-    if ( isVisible && this.gameCam.mountName !== "topDown" ) {
-        this.gameCam.setCameraMount( "topDown" );
+    if ( isVisible !== this.blocklyGraph.graphVisible ) {
+        this.blocklyGraph.graphVisible = isVisible;
+        if ( isVisible && this.gameCam.mountName !== "topDown" ) {
+            this.gameCam.setCameraMount( "topDown" );
+        }
+        this.toggledGraph( isVisible );
+        this.blocklyGraph.blocklyLine.visible = isVisible;
     }
-    this.toggledGraph( isVisible );
-    this.blocklyGraph.blocklyLine.visible = isVisible;
 }
 
 this.setCinematicView = function( pose ) {
@@ -221,7 +312,9 @@ this.restartGame = function() {
     this.sceneBlackboard = {};
     this.soundManager.stopAllSoundInstances();
     this.storedScenario( this.activeScenarioPath );
-    this.activeScenarioPath = "mainMenuScenario";
+    this.blockly_activeNodeID = undefined;
+    this.blockly_interfaceVisible = false;
+    this.applicationState = "menu";
 }
 
 this.attemptLogin = function( userID ) {
@@ -240,6 +333,84 @@ this.loginSucceeded = function( scenarioName ) {
 this.loadGame = function( scenarioName ) {
     this.activeScenarioPath = scenarioName;
     this.future( 0 ).loadedGame();
+}
+
+this.blinkTab = function( nodeName ) {
+    switch ( nodeName ) {
+        case "rover":
+            this.roverTabBlinking = true;
+            break;
+        case "graph":
+            this.graphTabBlinking = true;
+            break;
+        default:
+            this.logger.warnx( "blinkTab", "Node " + nodeName + " not handled." );
+            break;
+    }
+}
+
+this.stopBlinkTab = function( nodeName ) {
+    switch ( nodeName ) {
+        case "rover":
+            this.roverTabBlinking = false;
+            break;
+        case "graph":
+            this.graphTabBlinking = false;
+            break;
+        default:
+            this.logger.warnx( "stopBlinkTab", "Node " + nodeName + " not handled." );
+            break;
+    }
+}
+
+this.playVideo = function( src ) {
+    // var id = getVideoIdFromSrc( src );
+    // if ( isNaN( id ) || id < 0 || id >= videos.length ) {
+    //     id = loadVideo( src );
+    // }
+    $( "#transitionScreen" ).fadeIn( function(){ 
+        playVideo( src );
+    });
+}
+
+this.pauseGame = function() {
+    this.paused();
+}
+
+this.unpauseGame = function() {
+    this.unpaused();
+}
+
+this.selectBlocklyNode = function( nodeID ) {
+    var node = this.findByID( this, nodeID );
+    var mountName;
+    if ( node ) {
+        if ( this.blockly_activeNodeID !== nodeID ) {
+            this.blockly_activeNodeID = nodeID;
+        }
+        if ( node.defaultMount && this.gameCam.target !== node ) {
+            if ( node.hasMount( this.gameCam.mountName ) ) {
+                mountName = this.gameCam.mountName;
+            }
+            this.gameCam.setCameraTarget( node, mountName );
+            this.hud.selectRover( nodeID );
+        } else if ( node === this.graph ) {
+            this.gameCam.setCameraMount( "topDown" );
+        }
+    } else {
+        this.logger.errorx( "selectBlocklyNode", "Could not find " +
+            "node with ID: " + nodeID );
+    }
+}
+
+this.enableBlocklyNodes = function( nodes ) {
+    this.enableBlocklyTabs( nodes );
+    this.hud.roverSelector.showRoverIcons( true, nodes )
+}
+
+this.disableBlocklyNodes = function( nodes ) {
+    this.clearBlocklyTabs( nodes );
+    this.hud.roverSelector.showRoverIcons( false, nodes );
 }
 
 //@ sourceURL=source/scene.js

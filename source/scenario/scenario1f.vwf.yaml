@@ -13,7 +13,7 @@
 # limitations under the License.
 
 ---
-extends: source/scenario/scenario.vwf
+extends: ../scenario/scenario.vwf
 properties:
   scenarioName: scenario1f
 
@@ -57,7 +57,7 @@ properties:
   - addToGrid:
     - radio
     - [ 8, 16 ]
-  - enableBlocklyTabs:
+  - enableBlocklyNodes:
     - rover
   - loadToolbox:
     - rover
@@ -65,9 +65,9 @@ properties:
 
 children:
   triggerManager:
-    extends: source/triggers/triggerManager.vwf
+    extends: ../triggers/triggerManager.vwf
     properties: 
-      triggers:
+      triggers$:
         beginScenario_1f:
           triggerCondition:
           - onScenarioStart:
@@ -78,7 +78,7 @@ children:
             - environmentWind
           - setObjective:
             - "Turn around to face back toward the crash pod."
-          - setHUDProperty:
+          - setProperty:
             - graphButton
             - enabled
             - false
@@ -88,17 +88,15 @@ children:
         playStartingVO_1f:
           triggerCondition:
           - and:
+            - doOnce:
             - onScenarioStart:
-            - not:
-              - readBlackboard:
-                - Level1fStartSounds
           actions:
           - playSound:
             - L1VO14_Rover
-          - writeToBlackboard:
-            - Level1fStartSounds
 
         succeedOnSuccess_1f:
+          group: successOrFailure
+          priority: 0
           triggerCondition:
           - and:
             - onBlocklyStopped:
@@ -121,22 +119,12 @@ children:
         playHint1_1f:
           triggerCondition:
           - and:
+            - doOnce:
             - delay:
               - 18
-            - not:
-              - readBlackboard:
-                - Level1fHint1
-            - not:
-              - readBlackboard:
-                - hasSucceeded
-            - not:
-              - readBlackboard:
-                - hasFailed
           actions:
           - playSound:
             - ALVO35_Rover
-          - writeToBlackboard:
-            - Level1fHint1
 
         setCameraView:
           triggerCondition:

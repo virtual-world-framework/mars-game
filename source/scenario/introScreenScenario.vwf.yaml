@@ -13,7 +13,7 @@
 # limitations under the License.
 
 ---
-extends: source/scenario/scenario.vwf
+extends: ../scenario/scenario.vwf
 properties:
   scenarioName: introScreenScenario
 
@@ -22,20 +22,22 @@ properties:
 
 children:
   triggerManager:
-    extends: source/triggers/triggerManager.vwf
+    extends: ../triggers/triggerManager.vwf
     properties: 
-      triggers:
+      triggers$:
         beginScenario_Intro:
           triggerCondition:
           - onScenarioStart:
           actions:
           - playVideo:
-            - intro_cinematic.mp4
+            - intro_cinematic
 
         succeedOnIntroDone:
+          group: successOrFailure
+          priority: 0
           triggerCondition:
           - onVideoPlayed:
-            - intro_cinematic.mp4
+            - intro_cinematic
           actions:
           - scenarioSuccess:
 

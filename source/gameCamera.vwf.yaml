@@ -26,6 +26,7 @@ properties:
   lastTargetPosition: [ 0, 0, 0 ]
   followingTarget: true
   followRotation: false
+  listenerID$:
 methods:
   setCameraTarget:
   setCameraMount:
@@ -42,4 +43,4 @@ children:
     implements:
       - http://vwf.example.com/navigable.vwf
 scripts:
-  - source: source/gameCamera.js
+  - source: gameCamera.js

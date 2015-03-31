@@ -466,6 +466,6 @@ properties:
 methods:
   setUpSubtitles:
   startSubtitle:
-children:
+  stopSubtitle:
 scripts:
-- source: source/marsGameSound.js
+- source: marsGameSound.js
