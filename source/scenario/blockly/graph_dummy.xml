@@ -1,7 +1,7 @@
 <xml id="graph" style="display: none">
   <block type="graph_set_y"></block>
   <block type="graph_get_x"></block>
-  <block type="math_number_output"></block>
+  <block type="math_number_out"></block>
   <block type="graph_add"></block>
   <block type="graph_subtract"></block>
   <block type="graph_multiply"></block>

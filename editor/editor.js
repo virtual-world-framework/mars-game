@@ -26,7 +26,7 @@ var actions = getActions();
 var blockTypes = {
     "Graph: y=": "graph_set_y",
     "Graph: x": "graph_get_x",
-    "Graph: Number": "math_number_output",
+    "Graph: Number": "math_number_out",
     "Graph: Add": "graph_add",
     "Graph: Subtract": "graph_subtract",
     "Graph: Multiply": "graph_multiply",
@@ -38,7 +38,7 @@ var blockTypes = {
     "Rover: Sensor": "controls_sensor_tracks",
     "Rover: While": "controls_whileUntil",
     "Rover: Repeat": "controls_repeat_extended",
-    "Rover: Number": "math_number_drop"
+    "Rover: Number": "math_number_out"
 }
 
 function getAppID() {
