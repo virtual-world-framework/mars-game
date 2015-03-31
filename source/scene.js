@@ -254,13 +254,13 @@ this.executeBlock = function ( block, action ) {
 }
 
 this.setUpCameraListener = function() {
-    var scene = this;
-    this.gameCam.mounted = function( mount ) {
+    var handler = function( mount ) {
         if ( mount.name !== "topDown") {
-            scene.displayTiles( false );
-            scene.displayGraph( false );
+            this.displayTiles( false );
+            this.displayGraph( false );
         }
-    }
+    };
+    this.gameCam.mounted = this.events.add( handler, this );
 }
 
 this.setUpRoverListeners = function() {
