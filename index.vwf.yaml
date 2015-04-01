@@ -302,6 +302,11 @@ children:
               }
               return this.wheelBR;
           wheelRadius: 0.3304
+          wheels:
+            - "wheelFL"
+            - "wheelBL"
+            - "wheelFR"
+            - "wheelBR"
         children:
           firstPerson:
             extends: source/cameraMount.vwf
@@ -394,36 +399,16 @@ children:
               //@ sourceURL=index.vwf.player.rover.terrain.get
           currentGridSquare: [ 0, 0 ]
           sensorValue: false
-          wheelFL:
+          scoutWheel:
             get: |
-              if ( !this.wheelFL ) {
-                this.wheelFL = this.find( "Cylinder014/Cylinder058/wheel" )[ 0 ];
+              if ( !this.scoutWheel ) {
+                this.scoutWheel = this.find( "scout_body/scout_wheel" )[ 0 ];
               }
-              return this.wheelFL;
-          wheelBL:
-            get: |
-              if ( !this.wheelBL ) {
-                this.wheelBL = this.find( "Cylinder014/Cylinder059/wheel001" )[ 0 ];
-              }
-              return this.wheelBL;
-          wheelFR:
-            get: |
-              if ( !this.wheelFR ) {
-                this.wheelFR = this.find( "Cylinder014/Cylinder050/wheel002" )[ 0 ];
-              }
-              return this.wheelFR;
-          wheelBR:
-            get: |
-              if ( !this.wheelBR ) {
-                this.wheelBR = this.find( "Cylinder014/Cylinder060/wheel003" )[ 0 ];
-              }
-              return this.wheelBR;
-          wheelRadius: 0.3304
+              return this.scoutWheel;
+          #TODO: Change this to reflect the ACTUAL wheel radius.
+          wheelRadius: 0.3304 
           wheels:
-            - "wheelFL"
-            - "wheelBL"
-            - "wheelFR"
-            - "wheelBR"
+            - "scoutWheel"
         children:
           firstPerson:
             extends: source/cameraMount.vwf
@@ -448,35 +433,11 @@ children:
               cameraPose: [ 0, 0, -90 ]
               cameraSpeed: 10
               cameraLock: false
-          Cylinder014:
+          scout_body:
             extends: http://vwf.example.com/node3.vwf
-            children: 
-              Cylinder058:
+            children:
+              scout_wheel:
                 extends: http://vwf.example.com/node3.vwf
-                children: 
-                  wheel:
-                    extends: http://vwf.example.com/node3.vwf
-              Cylinder059:
-                extends: http://vwf.example.com/node3.vwf
-                children: 
-                  wheel001:
-                    extends: http://vwf.example.com/node3.vwf
-              Cylinder050:
-                extends: http://vwf.example.com/node3.vwf
-                children: 
-                  wheel002:
-                    extends: http://vwf.example.com/node3.vwf
-                    children: 
-                      material:
-                        extends: http://vwf.example.com/material.vwf
-              Cylinder060:
-                extends: http://vwf.example.com/node3.vwf
-                children: 
-                  wheel003:
-                    extends: http://vwf.example.com/node3.vwf
-                    children: 
-                      material:
-                        extends: http://vwf.example.com/material.vwf
           cargo:
             extends: source/inventory.vwf
             properties:
