@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and 
 # limitations under the License.
 
----
+--- 
 extends: http://vwf.example.com/scene.vwf
 implements:
   - "http://vwf.example.com/blockly/manager.vwf"
@@ -455,7 +455,7 @@ children:
               inventoryIsVisible: false       
       rover3:
         visible: false
-        extends: source/rover.vwf
+        extends: source/fourWheeledRover.vwf
         implements: 
         - http://vwf.example.com/blockly/controller.vwf
         - source/cameraTarget.vwf
@@ -491,25 +491,25 @@ children:
           wheelFL:
             get: |
               if ( !this.wheelFL ) {
-                this.wheelFL = this.find( "Cylinder014/Cylinder058/wheel" )[ 0 ];
+                this.wheelFL = this.find( "wheel_l1" )[ 0 ];
               }
               return this.wheelFL;
           wheelBL:
             get: |
               if ( !this.wheelBL ) {
-                this.wheelBL = this.find( "Cylinder014/Cylinder059/wheel001" )[ 0 ];
+                this.wheelBL = this.find( "wheel_l3" )[ 0 ];
               }
               return this.wheelBL;
           wheelFR:
             get: |
               if ( !this.wheelFR ) {
-                this.wheelFR = this.find( "Cylinder014/Cylinder050/wheel002" )[ 0 ];
+                this.wheelFR = this.find( "wheel_r1" )[ 0 ];
               }
               return this.wheelFR;
           wheelBR:
             get: |
               if ( !this.wheelBR ) {
-                this.wheelBR = this.find( "Cylinder014/Cylinder060/wheel003" )[ 0 ];
+                this.wheelBR = this.find( "wheel_r3" )[ 0 ];
               }
               return this.wheelBR;
           wheelRadius: 0.3304
@@ -537,35 +537,14 @@ children:
               cameraPose: [ 0, 0, -90 ]
               cameraSpeed: 10
               cameraLock: false
-          Cylinder014:
+          wheel_l1:
             extends: http://vwf.example.com/node3.vwf
-            children: 
-              Cylinder058:
-                extends: http://vwf.example.com/node3.vwf
-                children: 
-                  wheel:
-                    extends: http://vwf.example.com/node3.vwf
-              Cylinder059:
-                extends: http://vwf.example.com/node3.vwf
-                children: 
-                  wheel001:
-                    extends: http://vwf.example.com/node3.vwf
-              Cylinder050:
-                extends: http://vwf.example.com/node3.vwf
-                children: 
-                  wheel002:
-                    extends: http://vwf.example.com/node3.vwf
-                    children: 
-                      material:
-                        extends: http://vwf.example.com/material.vwf
-              Cylinder060:
-                extends: http://vwf.example.com/node3.vwf
-                children: 
-                  wheel003:
-                    extends: http://vwf.example.com/node3.vwf
-                    children: 
-                      material:
-                        extends: http://vwf.example.com/material.vwf
+          wheel_r1:
+            extends: http://vwf.example.com/node3.vwf
+          wheel_l3:
+            extends: http://vwf.example.com/node3.vwf
+          wheel_r3:
+            extends: http://vwf.example.com/node3.vwf
           cargo:
             extends: source/inventory.vwf
             properties:
