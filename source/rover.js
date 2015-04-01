@@ -191,10 +191,10 @@ this.translateOnTerrain = function( translation, duration, boundaryValue ) {
                 // they will roll forward
                 var angle = ( dist / this.wheelRadius ) * ( 180 / Math.PI );
                 var axisAngle = [ -1, 0, 0, angle ];
-                this.wheelFL.rotateBy( axisAngle );
-                this.wheelBL.rotateBy( axisAngle );
-                this.wheelFR.rotateBy( axisAngle );
-                this.wheelBR.rotateBy( axisAngle );
+                for( var i = 0; i < this.wheels.length; i++ ){
+                    var currWheel = this[ this.wheels[ i ] ];
+                    currWheel.rotateBy( axisAngle );
+                }
 
                 // Deplete the battery by the appropriate amount
                 this.battery = currentBattery - ( time / duration ) * boundaryValue;

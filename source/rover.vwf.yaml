@@ -64,11 +64,8 @@ properties:
   heading: 0
   terrainName: undefined
   displayName: undefined
-  wheelFL:
-  wheelBL:
-  wheelFR:
-  wheelBR:
   wheelRadius:
+  wheels:
 methods:
   findAndSetCurrentGrid:
   moveForward:

@@ -394,7 +394,36 @@ children:
               //@ sourceURL=index.vwf.player.rover.terrain.get
           currentGridSquare: [ 0, 0 ]
           sensorValue: false
+          wheelFL:
+            get: |
+              if ( !this.wheelFL ) {
+                this.wheelFL = this.find( "Cylinder014/Cylinder058/wheel" )[ 0 ];
+              }
+              return this.wheelFL;
+          wheelBL:
+            get: |
+              if ( !this.wheelBL ) {
+                this.wheelBL = this.find( "Cylinder014/Cylinder059/wheel001" )[ 0 ];
+              }
+              return this.wheelBL;
+          wheelFR:
+            get: |
+              if ( !this.wheelFR ) {
+                this.wheelFR = this.find( "Cylinder014/Cylinder050/wheel002" )[ 0 ];
+              }
+              return this.wheelFR;
+          wheelBR:
+            get: |
+              if ( !this.wheelBR ) {
+                this.wheelBR = this.find( "Cylinder014/Cylinder060/wheel003" )[ 0 ];
+              }
+              return this.wheelBR;
           wheelRadius: 0.3304
+          wheels:
+            - "wheelFL"
+            - "wheelBL"
+            - "wheelFR"
+            - "wheelBR"
         children:
           firstPerson:
             extends: source/cameraMount.vwf
@@ -494,6 +523,12 @@ children:
                 this.wheelFL = this.find( "wheel_l1" )[ 0 ];
               }
               return this.wheelFL;
+          wheelML:
+            get: |
+              if ( !this.wheelML ) {
+                this.wheelML = this.find( "wheel_l2" )[ 0 ];
+              }
+              return this.wheelML;
           wheelBL:
             get: |
               if ( !this.wheelBL ) {
@@ -506,6 +541,12 @@ children:
                 this.wheelFR = this.find( "wheel_r1" )[ 0 ];
               }
               return this.wheelFR;
+          wheelMR:
+            get: |
+              if ( !this.wheelMR ) {
+                this.wheelMR = this.find( "wheel_r2" )[ 0 ];
+              }
+              return this.wheelMR;
           wheelBR:
             get: |
               if ( !this.wheelBR ) {
@@ -513,6 +554,13 @@ children:
               }
               return this.wheelBR;
           wheelRadius: 0.3304
+          wheels:
+            - "wheelFL"
+            - "wheelML"
+            - "wheelBL"
+            - "wheelFR"
+            - "wheelMR"
+            - "wheelBR"
         children:
           firstPerson:
             extends: source/cameraMount.vwf
@@ -540,6 +588,10 @@ children:
           wheel_l1:
             extends: http://vwf.example.com/node3.vwf
           wheel_r1:
+            extends: http://vwf.example.com/node3.vwf
+          wheel_l2:
+            extends: http://vwf.example.com/node3.vwf
+          wheel_r2:
             extends: http://vwf.example.com/node3.vwf
           wheel_l3:
             extends: http://vwf.example.com/node3.vwf
