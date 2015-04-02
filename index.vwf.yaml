@@ -327,6 +327,7 @@ children:
               navmode: thirdPerson
               cameraPose: [ 16, 0, -15 ]
               cameraSpeed: 0
+              usePoseFromCamera: true
           topDown:
             extends: source/cameraMount.vwf
             properties:
@@ -428,6 +429,7 @@ children:
               navmode: thirdPerson
               cameraPose: [ 16, 0, -15 ]
               cameraSpeed: 0
+              usePoseFromCamera: true
           topDown:
             extends: source/cameraMount.vwf
             properties:
@@ -541,6 +543,7 @@ children:
               navmode: thirdPerson
               cameraPose: [ 16, 0, -15 ]
               cameraSpeed: 0
+              usePoseFromCamera: true
           topDown:
             extends: source/cameraMount.vwf
             properties:

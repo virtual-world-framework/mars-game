@@ -41,7 +41,7 @@ this.getCameraPosition = function() {
 
 this.copyCameraState = function() {
     this.cameraState.target = this.scene.gameCam.target;
-    this.cameraState.mountName = this.scene.gameCam.mountName;
+    this.cameraState.mountName = this.scene.gameCam.mount.name;
 }
 
 this.restoreCameraState = function() {

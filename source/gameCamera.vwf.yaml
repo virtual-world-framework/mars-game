@@ -24,7 +24,7 @@ implements:
   - http://vwf.example.com/sceneGetter.vwf
 properties:
   target:
-  mountName:
+  mount:
   lastTargetPosition: [ 0, 0, 0 ]
   followingTarget: true
   followRotation: false

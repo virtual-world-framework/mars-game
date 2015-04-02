@@ -13,44 +13,44 @@
 // limitations under the License.
 
 this.getMount = function( mountName ) {
-	var mount;
-	if ( mountName ) {
-		mount = this[ mountName ];
-		if ( !mount ) {
-			this.logger.errorx( "getMount", this.name + "." + mountName + " could not be found!" );
-			return undefined;
-		} else if ( !mount.mountCamera ) {
-			this.logger.errorx( "getMount", this.name + "." + mountName + " is not a cameraMount!" );
-			return undefined;
-		}
-	} else {
-		mount = this.defaultMount;
-	}
-	return mount;
+    var mount;
+    if ( mountName ) {
+        mount = this[ mountName ];
+        if ( !mount ) {
+            this.logger.errorx( "getMount", this.name + "." + mountName + " could not be found!" );
+            return undefined;
+        } else if ( !mount.mountCamera ) {
+            this.logger.errorx( "getMount", this.name + "." + mountName + " is not a cameraMount!" );
+            return undefined;
+        }
+    } else {
+        mount = this.defaultMount;
+    }
+    return mount;
 }
 
 this.setDefaultMount = function( mountName ) {
-	var mount;
-	if ( mountName ) {
-		mount = this[ mountName ];
-		if ( !mount ) {
-			this.logger.errorx( "setDefaultMount", this.name + "." + mountName + " could not be found!" );
-		} else if ( !mount.mountCamera ) {
-			this.logger.errorx( "setDefaultMount", this.name + "." + mountName + " is not a cameraMount!" );
-		}
-	} else {
-		this.logger.errorx( "setDefaultMount", "No mount name found!" );
-	}
-	this.defaultMount = mount;
+    var mount;
+    if ( mountName ) {
+        mount = this[ mountName ];
+        if ( !mount ) {
+            this.logger.errorx( "setDefaultMount", this.name + "." + mountName + " could not be found!" );
+        } else if ( !mount.mountCamera ) {
+            this.logger.errorx( "setDefaultMount", this.name + "." + mountName + " is not a cameraMount!" );
+        }
+    } else {
+        this.logger.errorx( "setDefaultMount", "No mount name found!" );
+    }
+    this.defaultMount = mount;
 }
 
 this.hasMount = function( mountName ) {
-	var mount = this[ mountName ];
-	if ( mount && mount.mountCamera ) {
-		return true;
-	} else {
-		return false;
-	}
+    var mount = this[ mountName ];
+    if ( mount && mount.mountCamera ) {
+        return true;
+    } else {
+        return false;
+    }
 }
 
 //@ sourceURL=source/cameraTarget.js

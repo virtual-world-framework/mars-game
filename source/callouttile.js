@@ -29,7 +29,7 @@ this.callOut = function( coords ) {
 this.blink = function() {
     var camera = this.find( "/gameCam" )[ 0 ];
     if ( this.isBlinking ) {
-        if ( camera.mountName === "topDown" ) {
+        if ( camera.mount.name === "topDown" ) {
             this.visible = !this.visible;
         } else {
             this.visible = false;

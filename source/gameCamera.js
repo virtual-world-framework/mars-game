@@ -26,11 +26,15 @@ this.setCameraTarget = function( node, mountName ) {
 }
 
 this.setCameraMount = function( mountName ) {
-    var mount;
+    var mount, cameraPose;
     mount = this.target.getMount( mountName );
     if ( !mount ) {
         this.logger.errorx( "setCameraMount", "No camera mount could be found!" );
     } else {
+        if ( this.mount && this.mount.usePoseFromCamera ) {
+            cameraPose = this.getPoseFromTransform();
+            this.mount.cameraPose = cameraPose;
+        }
         mount.mountCamera( this );
     }
 }
@@ -106,8 +110,21 @@ this.convertPoseToTransform = function( pose ) {
     ];
 }
 
+this.getPoseFromTransform = function() {
+    var transform = this.camera.transform;
+    var radiansToDegrees = 180 / Math.PI;
+    var radius, yaw, pitch;
+    var cosPitch, sinYaw;
+    cosPitch = transform[ 10 ];
+    sinYaw = transform[ 1 ];
+    radius = transform[ 12 ] / cosPitch / sinYaw;
+    yaw = Math.asin( sinYaw ) * radiansToDegrees;
+    pitch = Math.acos( cosPitch ) * radiansToDegrees;
+    return [ radius, yaw, pitch ];
+}
+
 this.mounted = function( mount ) {
-    this.mountName = mount.name;
+    this.mount = mount;
 }
 
 this.getPoseFromTransform = function() {
