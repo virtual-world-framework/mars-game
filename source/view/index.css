@@ -3,6 +3,60 @@ body {
     font-family: sans-serif;
 }
 
+#timerWindow {
+    position: absolute;
+    top: 150px;
+    right: 0px;
+    width: 250px;
+    background-color: rgba( 0, 0, 0, 0.5 );
+    color: white;
+    text-align: center;
+    padding: 6px
+    user-select: none;
+    -webkit-user-select: none;  /* Chrome all / Safari all */
+    -moz-user-select: none;     /* Firefox all */
+    -ms-user-select: none;      /* IE 10+ */
+    cursor: default;
+    pointer-events: none;
+    display: none;
+}
+
+#timerScenarioName {
+    font-size: 24px;
+    font-weight: bold;
+    text-transform: capitalize;
+}
+
+#elapsedTime {
+    font-size: 14px;
+}
+
+#timerScenarioElapsedTime {
+    font-size: 22px;
+}
+
+#timerDetailButton {
+    pointer-events: all;
+    font-size: 14px;
+    color: rgb( 224, 255, 100 );
+    cursor: pointer;
+}
+
+#timerDetailList {
+    display: none;
+}
+
+.timerListItem {
+    text-transform: capitalize;
+    font-size: 14px;
+}
+
+#timerTotal {
+    font-size: 16px;
+    font-weight: bold;
+    padding-top: 10px;
+}
+
 #HUDCanvas {
     position: absolute;
     top: 0px;
