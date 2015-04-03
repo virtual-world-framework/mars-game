@@ -61,7 +61,6 @@ this.setApplicationState = function( state ) {
             this.triggerGroupManager.checkingGroups = false;
             break;
         case "playing":
-            console.log('setting application state to play');
             this.mainMenu.visible = false;
             this.soundManager.stopSoundGroup( "music" );
             this.selectBlocklyNode( this.player.rover.id );

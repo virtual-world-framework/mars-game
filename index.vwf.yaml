@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and 
 # limitations under the License.
 
---- 
+---
 extends: http://vwf.example.com/scene.vwf
 implements:
   - "http://vwf.example.com/blockly/manager.vwf"
@@ -112,6 +112,8 @@ children:
     includes: source/hud/marsGameHud.vwf
   mainMenu:
     includes: source/mainMenu.vwf
+  timer:
+    includes: source/timer.vwf
   gameCam:
     includes: source/gameCamera.vwf
   cinematicCameraController:
