@@ -41,6 +41,18 @@ var currentScenario;
 var scenarioList;
 var startingZoom;
 
+var scenarioTimes = {};
+var totalTime = 0;
+var clockTickTime;
+var clockElapsedTime;
+var clockScenario;
+var timerWindow = document.getElementById( "timerWindow" );
+var timerScenarioName = document.getElementById( "timerScenarioName" );
+var timerScenarioElapsedTime = document.getElementById( "timerScenarioElapsedTime" );
+var timerDetailButton = document.getElementById( "timerDetailButton" );
+timerDetailButton.onclick = toggleTimerDetailList;
+var timerDetailList = document.getElementById( "timerDetailList" );
+
 vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
     if ( blocklyNodes[ nodeID ] !== undefined ) {
         var blocklyNode = blocklyNodes[ nodeID ];
@@ -223,6 +235,21 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
         if( eventName === "videoEnded" ){
             removeVideoOnEvent();
         }
+
+        if ( eventName === "startedTimer" ) {
+            var name, time;
+            name = eventArgs[ 0 ];
+            time = eventArgs[ 1 ];
+            scenarioTimes[ name ] = time;
+            startClock( name, time );
+        } else if ( eventName === "stoppedTimer" ) {
+            var name, time;
+            name = eventArgs[ 0 ];
+            time = eventArgs[ 1 ];
+            scenarioTimes[ name ] = time;
+        } else if ( eventName === "updatedAggregateTime" ) {
+            totalTime = eventArgs[ 0 ];
+        }
     }
 }
 
@@ -339,12 +366,14 @@ vwf_view.satProperty = function( nodeID, propertyName, propertyValue ) {
                     mainMenu.setVisible( true );
                     versionElem.style.display = "block";
                     checkPageZoom();
+                    timerWindow.style.display = "none";
                     $( "#transitionScreen" ).fadeOut();
                     break;
                 case "playing":
                     mainMenu.setVisible( false );
                     versionElem.style.display = "none";
                     loggerBox.style.display = "block";
+                    timerWindow.style.display = "block";
                     $( "#transitionScreen" ).fadeOut();
                     break;
             }
@@ -1042,6 +1071,68 @@ function checkPageZoom() {
         }
         alertDiv.innerHTML = alertStr;
     }
+}
+
+function startClock( scenarioName, startTime ) {
+    clockTickTime = Date.now() / 1000;
+    clockElapsedTime = startTime;
+    clockScenario = scenarioName;
+    requestAnimationFrame( tickClock );
+}
+
+function tickClock() {
+    var tickTime = Date.now() / 1000;
+    clockElapsedTime += tickTime - clockTickTime;
+    clockTickTime = tickTime;
+    updateTimerWindow();
+    requestAnimationFrame( tickClock );
+}
+
+function updateTimerWindow() {
+    timerScenarioName.innerHTML = clockScenario;
+    scenarioTimes[ clockScenario ] = clockElapsedTime;
+    timerScenarioElapsedTime.innerHTML = formatTime( clockElapsedTime );
+    if ( timerDetailButton.className === "open" ) {
+        updateTimerDetailList();
+    }
+}
+
+function updateTimerDetailList() {
+    var keys = Object.keys( scenarioTimes );
+    var name, time, itemString, htmlString;
+    htmlString = "";
+    for ( var i = 0; i < keys.length; i++ ) {
+        name = keys[ i ];
+        time = scenarioTimes[ name ];
+        itemString = name + ": " + formatTime( time );
+        htmlString += "<div class='timerListItem'>" + itemString + "</div>";
+    }
+    htmlString += "<div id='timerTotal'>Total: "
+        + formatTime( totalTime + clockElapsedTime ) + "</div>";
+    timerDetailList.innerHTML = htmlString;
+}
+
+function toggleTimerDetailList() {
+    if ( timerDetailButton.className === "open" ) {
+        timerDetailButton.className = "closed";
+        timerDetailButton.innerHTML = "Expand";
+        timerDetailList.style.display = "none";
+    } else {
+        timerDetailButton.className = "open";
+        timerDetailButton.innerHTML = "Collapse";
+        timerDetailList.style.display = "block";
+    }
+}
+
+function formatTime( time ) {
+    var h, m, s, formattedTime;
+    s = time % 60;
+    m = Math.floor( ( time - s ) / 60 % 60 );
+    h = Math.floor( ( time - m * 60 - s ) / 3600 );
+    formattedTime = h > 0 ? h + "h " : "";
+    formattedTime += m > 0 ? m + "m " : "";
+    formattedTime += s.toFixed( 1 ) + "s";
+    return formattedTime;
 }
 
 window.addEventListener( "resize", checkPageZoom );
