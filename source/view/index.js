@@ -762,8 +762,9 @@ function indicateBlock( blockID ) {
         var flyout = document.getElementsByClassName( "blocklySvg" ); 
         var flyoutDescriptor = flyout[ 0 ].childNodes[ 2 ].childNodes[ 0 ].getAttribute( 'd' );
         var flyoutDimensions = flyoutDescriptor.substring( 8, 11 );
-        console.log( flyoutDimensions );
-        var flyoutOffset = Number( flyoutDimensions ) - 125; //125 is category width
+
+        var categoryWidth = document.getElementsByClassName( "blocklyToolboxDiv" )[0].offsetWidth;
+        var flyoutOffset = Number( flyoutDimensions ) - categoryWidth + 50;
 
         moveBlocklyIndicator( pos.x + xScrollOffset - flyoutOffset, pos.y + yScrollOffset + 3 );
     } else {
@@ -788,9 +789,9 @@ function indicateProcedureBlock( blockID ) {
         var flyout = document.getElementsByClassName( "blocklySvg" ); 
         var flyoutDescriptor = flyout[ 0 ].childNodes[ 2 ].childNodes[ 0 ].getAttribute( 'd' );
         var flyoutDimensions = flyoutDescriptor.substring( 8, 11 );
-        console.log( flyoutDimensions );
 
-        var flyoutOffset = Number( flyoutDimensions ) - 125; //125 is category width
+        var categoryWidth = document.getElementsByClassName( "blocklyToolboxDiv" )[0].offsetWidth;
+        var flyoutOffset = Number( flyoutDimensions ) - categoryWidth + 50;
 
         moveBlocklyProcedureIndicator( pos.x + xScrollOffset - flyoutOffset, pos.y + yScrollOffset + 3 );
     } else {
