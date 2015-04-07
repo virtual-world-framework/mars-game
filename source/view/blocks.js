@@ -21,7 +21,7 @@ var BlocklyApps = {
 
 // Extensions to Blockly's language and JavaScript generator.
 
-Blockly.Blocks[ 'variables_get_out' ] = {
+Blockly.Blocks[ 'variables_get' ] = {
   /**
    * Block for variable getter.
    * @this Blockly.Block
@@ -65,7 +65,7 @@ Blockly.Blocks[ 'variables_get_out' ] = {
    * @this Blockly.Block
    */
   customContextMenu: function( options ) {
-    var option = { enabled: true };
+    var option = { enabled: false };
     var name = this.getFieldValue( 'VAR' );
     option.text = this.contextMenuMsg_.replace( '%1', name );
     var xmlField = goog.dom.createDom( 'field', null, name );
@@ -77,7 +77,7 @@ Blockly.Blocks[ 'variables_get_out' ] = {
   }
 };
 
-Blockly.JavaScript[ 'variables_get_out' ] = function( block ) {
+Blockly.JavaScript[ 'variables_get' ] = function( block ) {
   // Variable getter.
   var argument0 = Blockly.JavaScript.valueToCode( block, 'INPUT',
       Blockly.JavaScript.ORDER_ATOMIC) || '';
@@ -85,6 +85,59 @@ Blockly.JavaScript[ 'variables_get_out' ] = function( block ) {
   var code = Blockly.JavaScript.variableDB_.getName( block.getFieldValue( 'VAR' ),
       Blockly.Variables.NAME_TYPE );
   return [ ( code + argument0 ) , Blockly.JavaScript.ORDER_ATOMIC ];
+};
+
+Blockly.Blocks['variables_set'] = {
+  /**
+   * Block for variable setter.
+   * @this Blockly.Block
+   */
+  init: function() {
+    this.setHelpUrl(Blockly.Msg.VARIABLES_SET_HELPURL);
+    this.setColour( 330 );
+    this.interpolateMsg(
+        // TODO: Combine these messages instead of using concatenation.
+        Blockly.Msg.VARIABLES_SET_TITLE + ' %1 ' +
+        Blockly.Msg.VARIABLES_SET_TAIL + ' %2',
+        ['VAR', new Blockly.FieldVariable(Blockly.Msg.VARIABLES_SET_ITEM)],
+        ['VALUE', [ 'Boolean','Number','Variable','LeftParenthesis' ], Blockly.ALIGN_RIGHT],
+        Blockly.ALIGN_RIGHT);
+    this.setPreviousStatement(true);
+    this.setNextStatement(true);
+    this.setTooltip(Blockly.Msg.VARIABLES_SET_TOOLTIP);
+    this.contextMenuMsg_ = Blockly.Msg.VARIABLES_SET_CREATE_GET;
+    this.contextMenuType_ = 'variables_get';
+  },
+  /**
+   * Return all variables referenced by this block.
+   * @return {!Array.<string>} List of variable names.
+   * @this Blockly.Block
+   */
+  getVars: function() {
+    return [this.getFieldValue('VAR')];
+  },
+  /**
+   * Notification that a variable is renaming.
+   * If the name matches one of this block's variables, rename it.
+   * @param {string} oldName Previous name of variable.
+   * @param {string} newName Renamed variable.
+   * @this Blockly.Block
+   */
+  renameVar: function(oldName, newName) {
+    if (Blockly.Names.equals(oldName, this.getFieldValue('VAR'))) {
+      this.setFieldValue(newName, 'VAR');
+    }
+  },
+  customContextMenu: Blockly.Blocks['variables_get'].customContextMenu
+};
+
+Blockly.JavaScript['variables_set'] = function(block) {
+  // Variable setter.
+  var argument0 = Blockly.JavaScript.valueToCode(block, 'VALUE',
+      Blockly.JavaScript.ORDER_ASSIGNMENT) || '0';
+  var varName = Blockly.JavaScript.variableDB_.getName(
+      block.getFieldValue('VAR'), Blockly.Variables.NAME_TYPE);
+  return varName + ' = ' + argument0 + ';\n';
 };
 
 Blockly.Blocks[ 'logic_cond_out' ] = {
@@ -144,11 +197,11 @@ Blockly.JavaScript['logic_andor_out' ] = function( block ) {
 
 };
 
-Blockly.Blocks[ 'logic_boolean_out' ] = {
+Blockly.Blocks[ 'logic_boolean' ] = {
   init: function() {
     this.setColour( 60 );
     this.appendValueInput( "INPUT" )
-        .appendField(new Blockly.FieldDropdown([["false", "false"],["true", "true"]]), "BOOL")
+        .appendField( new Blockly.FieldDropdown([["false", "false"],["true", "true"]] ), "BOOL" )
         .setCheck( [ 'ANDOR','Variable','LeftParenthesis','RightParenthesis' ] );
     this.setOutput( true, "Boolean" );
     var thisBlock = this;
@@ -161,7 +214,7 @@ Blockly.Blocks[ 'logic_boolean_out' ] = {
   }
 };
 
-Blockly.JavaScript['logic_boolean_out' ] = function( block ) {
+Blockly.JavaScript['logic_boolean' ] = function( block ) {
   
   var dropdown_value = block.getFieldValue('BOOL');
 
@@ -184,7 +237,7 @@ Blockly.Blocks['controls_whileUntil'] = {
     this.setHelpUrl(Blockly.Msg.CONTROLS_WHILEUNTIL_HELPURL);
     this.setColour(120);
     this.appendValueInput('BOOL')
-        .setCheck('Boolean')
+        .setCheck(['Boolean','LeftParenthesis','Variable'])
         .appendField(new Blockly.FieldDropdown(OPERATORS), 'MODE');
     this.appendStatementInput('DO')
         .appendField(Blockly.Msg.CONTROLS_WHILEUNTIL_INPUT_DO);
@@ -221,8 +274,13 @@ Blockly.JavaScript['controls_whileUntil'] = function(block) {
      argument0 = '! (' + argument0 + ')';
   }
 
-  var code = 'while ('+ argument0 +') {\n' + branch + '}\n';
-  console.log(code);
+  
+  if(argument0.split('(').length == argument0.split(')').length) {
+    var code = 'while ('+ argument0 +') {\n' + branch + '}\n';
+  } else {
+    var code = 'while ('+ false +') {\n' + branch + '}\n';
+  }
+
   return constructBlockExeEventCall( block ) + code;
 
   // Do while/until loop.
@@ -238,20 +296,18 @@ Blockly.JavaScript['controls_whileUntil'] = function(block) {
   // return 'while (' + argument0 + ') {\n' + branch + '}\n';
 };
 
-Blockly.Blocks['controls_if'] = {
+Blockly.Blocks['controls_if_nomut'] = {
   // If/elseif/else condition.
   init: function() {
     this.setHelpUrl(Blockly.Msg.CONTROLS_IF_HELPURL);
     this.setColour(20);
     this.appendValueInput('IF0')
-        .setCheck('Boolean')
+        .setCheck(['Boolean','LeftParenthesis','Variable'])
         .appendField(Blockly.Msg.CONTROLS_IF_MSG_IF);
     this.appendStatementInput('DO0')
         .appendField(Blockly.Msg.CONTROLS_IF_MSG_THEN);
     this.setPreviousStatement(true);
     this.setNextStatement(true);
-    this.setMutator(new Blockly.Mutator(['controls_if_elseif',
-                                         'controls_if_else']));
     // Assign 'this' to a variable for use in the tooltip closure below.
     var thisBlock = this;
     this.setTooltip(function() {
@@ -287,7 +343,7 @@ Blockly.Blocks['controls_if'] = {
     this.elseCount_ = parseInt(xmlElement.getAttribute('else'), 10);
     for (var x = 1; x <= this.elseifCount_; x++) {
       this.appendValueInput('IF' + x)
-          .setCheck('Boolean')
+          .setCheck(['Boolean','LeftParenthesis','Variable'])
           .appendField(Blockly.Msg.CONTROLS_IF_MSG_ELSEIF);
       this.appendStatementInput('DO' + x)
           .appendField(Blockly.Msg.CONTROLS_IF_MSG_THEN);
@@ -333,7 +389,7 @@ Blockly.Blocks['controls_if'] = {
         case 'controls_if_elseif':
           this.elseifCount_++;
           var ifInput = this.appendValueInput('IF' + this.elseifCount_)
-              .setCheck('Boolean')
+              .setCheck(['Boolean','LeftParenthesis','Variable'])
               .appendField(Blockly.Msg.CONTROLS_IF_MSG_ELSEIF);
           var doInput = this.appendStatementInput('DO' + this.elseifCount_);
           doInput.appendField(Blockly.Msg.CONTROLS_IF_MSG_THEN);
@@ -390,62 +446,180 @@ Blockly.Blocks['controls_if'] = {
   }
 };
 
-Blockly.Blocks['controls_if_if'] = {
-  // If condition.
+Blockly.Blocks['controls_if_else_nomut'] = {
+  // If/elseif/else condition.
   init: function() {
+    this.setHelpUrl(Blockly.Msg.CONTROLS_IF_HELPURL);
     this.setColour(20);
-    this.appendDummyInput()
-        .appendField(Blockly.Msg.CONTROLS_IF_IF_TITLE_IF);
-    this.appendStatementInput('STACK');
-    this.setTooltip(Blockly.Msg.CONTROLS_IF_IF_TOOLTIP);
-    this.contextMenu = false;
-  }
-};
-
-Blockly.Blocks['controls_if_elseif'] = {
-  // Else-If condition.
-  init: function() {
-    this.setColour(20);
-    this.appendDummyInput()
-        .appendField(Blockly.Msg.CONTROLS_IF_ELSEIF_TITLE_ELSEIF);
+    this.appendValueInput('IF0')
+        .setCheck(['Boolean','LeftParenthesis','Variable'])
+        .appendField(Blockly.Msg.CONTROLS_IF_MSG_IF);
+    this.appendStatementInput('DO0')
+        .appendField(Blockly.Msg.CONTROLS_IF_MSG_THEN);
     this.setPreviousStatement(true);
     this.setNextStatement(true);
-    this.setTooltip(Blockly.Msg.CONTROLS_IF_ELSEIF_TOOLTIP);
-    this.contextMenu = false;
+    this.appendStatementInput('ELSE')
+          .appendField(Blockly.Msg.CONTROLS_IF_MSG_ELSE);
+    //this.setMutator(new Blockly.Mutator(['controls_if_elseif',
+       //                                  'controls_if_else']));
+    // Assign 'this' to a variable for use in the tooltip closure below.
+    var thisBlock = this;
+    this.setTooltip(function() {
+      if (!thisBlock.elseifCount_ && !thisBlock.elseCount_) {
+        return Blockly.Msg.CONTROLS_IF_TOOLTIP_1;
+      } else if (!thisBlock.elseifCount_ && thisBlock.elseCount_) {
+        return Blockly.Msg.CONTROLS_IF_TOOLTIP_2;
+      } else if (thisBlock.elseifCount_ && !thisBlock.elseCount_) {
+        return Blockly.Msg.CONTROLS_IF_TOOLTIP_3;
+      } else if (thisBlock.elseifCount_ && thisBlock.elseCount_) {
+        return Blockly.Msg.CONTROLS_IF_TOOLTIP_4;
+      }
+      return '';
+    });
+    this.elseifCount_ = 0;
+    this.elseCount_ = 1;
+  },
+  mutationToDom: function() {
+    if (!this.elseifCount_ && !this.elseCount_) {
+      return null;
+    }
+    var container = document.createElement('mutation');
+
+    container.setAttribute('else', 1);
+    
+    return container;
+  },
+  domToMutation: function(xmlElement) {
+    //this.elseifCount_ = parseInt(xmlElement.getAttribute('elseif'), 10);
+    this.elseCount_ = 1
+    for (var x = 1; x <= this.elseifCount_; x++) {
+      this.appendValueInput('IF' + x)
+          .setCheck(['Boolean','LeftParenthesis','Variable'])
+          .appendField(Blockly.Msg.CONTROLS_IF_MSG_ELSEIF);
+      this.appendStatementInput('DO' + x)
+          .appendField(Blockly.Msg.CONTROLS_IF_MSG_THEN);
+    }
+    if (this.elseCount_) {
+      
+    }
+  },
+  decompose: function(workspace) {
+    var containerBlock = Blockly.Block.obtain(workspace, 'controls_if_if');
+    containerBlock.initSvg();
+    var connection = containerBlock.getInput('STACK').connection;
+    for (var x = 1; x <= this.elseifCount_; x++) {
+      var elseifBlock = Blockly.Block.obtain(workspace, 'controls_if_elseif');
+      elseifBlock.initSvg();
+      connection.connect(elseifBlock.previousConnection);
+      connection = elseifBlock.nextConnection;
+    }
+    if (this.elseCount_) {
+      var elseBlock = Blockly.Block.obtain(workspace, 'controls_if_else');
+      elseBlock.initSvg();
+      connection.connect(elseBlock.previousConnection);
+    }
+    return containerBlock;
+  },
+  compose: function(containerBlock) {
+    // Disconnect the else input blocks and remove the inputs.
+    if (this.elseCount_) {
+      this.removeInput('ELSE');
+    }
+    this.elseCount_ = 0;
+    // Disconnect all the elseif input blocks and remove the inputs.
+    for (var x = this.elseifCount_; x > 0; x--) {
+      this.removeInput('IF' + x);
+      this.removeInput('DO' + x);
+    }
+    this.elseifCount_ = 0;
+    // Rebuild the block's optional inputs.
+    var clauseBlock = containerBlock.getInputTargetBlock('STACK');
+    while (clauseBlock) {
+      switch (clauseBlock.type) {
+        case 'controls_if_elseif':
+          this.elseifCount_++;
+          var ifInput = this.appendValueInput('IF' + this.elseifCount_)
+              .setCheck(['Boolean','LeftParenthesis','Variable'])
+              .appendField(Blockly.Msg.CONTROLS_IF_MSG_ELSEIF);
+          var doInput = this.appendStatementInput('DO' + this.elseifCount_);
+          doInput.appendField(Blockly.Msg.CONTROLS_IF_MSG_THEN);
+          // Reconnect any child blocks.
+          if (clauseBlock.valueConnection_) {
+            ifInput.connection.connect(clauseBlock.valueConnection_);
+          }
+          if (clauseBlock.statementConnection_) {
+            doInput.connection.connect(clauseBlock.statementConnection_);
+          }
+          break;
+        case 'controls_if_else':
+          this.elseCount_++;
+          var elseInput = this.appendStatementInput('ELSE');
+          elseInput.appendField(Blockly.Msg.CONTROLS_IF_MSG_ELSE);
+          // Reconnect any child blocks.
+          if (clauseBlock.statementConnection_) {
+            elseInput.connection.connect(clauseBlock.statementConnection_);
+          }
+          break;
+        default:
+          throw 'Unknown block type.';
+      }
+      clauseBlock = clauseBlock.nextConnection &&
+          clauseBlock.nextConnection.targetBlock();
+    }
+  },
+  saveConnections: function(containerBlock) {
+    // Store a pointer to any connected child blocks.
+    var clauseBlock = containerBlock.getInputTargetBlock('STACK');
+    var x = 1;
+    while (clauseBlock) {
+      switch (clauseBlock.type) {
+        case 'controls_if_elseif':
+          var inputIf = this.getInput('IF' + x);
+          var inputDo = this.getInput('DO' + x);
+          clauseBlock.valueConnection_ =
+              inputIf && inputIf.connection.targetConnection;
+          clauseBlock.statementConnection_ =
+              inputDo && inputDo.connection.targetConnection;
+          x++;
+          break;
+        case 'controls_if_else':
+          var inputDo = this.getInput('ELSE');
+          clauseBlock.statementConnection_ =
+              inputDo && inputDo.connection.targetConnection;
+          break;
+        default:
+          throw 'Unknown block type.';
+      }
+      clauseBlock = clauseBlock.nextConnection &&
+          clauseBlock.nextConnection.targetBlock();
+    }
   }
 };
 
-Blockly.Blocks['controls_if_else'] = {
-  // Else condition.
-  init: function() {
-    this.setColour(20);
-    this.appendDummyInput()
-        .appendField(Blockly.Msg.CONTROLS_IF_ELSE_TITLE_ELSE);
-    this.setPreviousStatement(true);
-    this.setTooltip(Blockly.Msg.CONTROLS_IF_ELSE_TOOLTIP);
-    this.contextMenu = false;
-  }
-};
-
-Blockly.JavaScript['controls_if'] = function(block) {
+Blockly.JavaScript['controls_if_nomut'] = function(block) {
   // If/elseif/else condition.
   var n = 0;
   var argument = Blockly.JavaScript.valueToCode(block, 'IF' + n,
       Blockly.JavaScript.ORDER_NONE) || 'false';
   var branch = Blockly.JavaScript.statementToCode(block, 'DO' + n);
   var code = 'if (' + argument + ') {\n' + branch + '}';
-  for (n = 1; n <= block.elseifCount_; n++) {
-    argument = Blockly.JavaScript.valueToCode(block, 'IF' + n,
-        Blockly.JavaScript.ORDER_NONE) || 'false';
-    branch = Blockly.JavaScript.statementToCode(block, 'DO' + n);
-    code += ' else if (' + argument + ') {\n' + branch + '}';
-  }
+  return code + '\n';
+};
+
+Blockly.JavaScript['controls_if_else_nomut'] = function(block) {
+  // If/elseif/else condition.
+  var n = 0;
+  var argument = Blockly.JavaScript.valueToCode(block, 'IF' + n,
+      Blockly.JavaScript.ORDER_NONE) || 'false';
+  var branch = Blockly.JavaScript.statementToCode(block, 'DO' + n);
+  var code = 'if (' + argument + ') {\n' + branch + '}';
   if (block.elseCount_) {
     branch = Blockly.JavaScript.statementToCode(block, 'ELSE');
     code += ' else {\n' + branch + '}';
   }
   return code + '\n';
 };
+
 
 Blockly.JavaScript[ 'controls_sensor_tracks' ] = function( block ) {
   
@@ -512,32 +686,6 @@ Blockly.JavaScript['rover_moveForward'] = function( block ) {
   return constructBlockExeFuncCall( block, action );
 };
 
-Blockly.Blocks['rover_forward_ext'] = {
-  init: function() {
-    
-    //this.setHelpUrl('http://www.example.com/');
-    
-    this.setColour(290);
-    this.appendDummyInput()
-        .appendField("forward");
-    this.appendValueInput("UNITS")
-        .setCheck("Number")
-        .appendField("units");
-    this.appendValueInput("TIME")
-        .setCheck("Number")
-        .appendField("time");
-    this.setInputsInline(true);
-    this.setPreviousStatement(true);
-    this.setNextStatement(true);
-    this.setTooltip('');
-  }
-};
-
-Blockly.JavaScript['rover_forward_ext'] = function( block ) {
-  var value_units = Blockly.JavaScript.valueToCode(block, 'UNITS', Blockly.JavaScript.ORDER_ATOMIC) || '1';
-  var value_time = Blockly.JavaScript.valueToCode(block, 'TIME', Blockly.JavaScript.ORDER_ATOMIC) || '1';
-  return "vwf.callMethod( '"+Blockly.JavaScript.vwfID+"', 'moveForward', [ "+value_units+", "+value_time+" ] );\n";
-};
 
 Blockly.Blocks['rover_turn'] = {
   // Block for turning left or right.
@@ -592,39 +740,6 @@ Blockly.JavaScript['rover_turn'] = function( block ) {
   return constructBlockExeFuncCall( block, action );
 };
 
-Blockly.Blocks['rover_forever'] = {
-  // Block for forever loop.
-  init: function() {
-    
-    //this.setHelpUrl('http://code.google.com/p/blockly/wiki/Repeat');
-    
-    this.setColour(120);
-    this.appendDummyInput()
-        .appendField( 'repeat until' )
-        .appendField( new Blockly.FieldImage('source/blockly/media/marker.png', 12, 16) );
-    this.appendStatementInput('DO')
-        .appendField( 'do' );
-    this.setPreviousStatement(true);
-    var thisBlock = this;
-    this.setTooltip( function() {
-      var content = {
-        text: "Moves the rover until the next goal is reached."
-      }
-      return showTooltipInBlockly( thisBlock, content );
-    } );
-  }
-};
-
-Blockly.JavaScript['rover_forever'] = function( block ) {
-  // Generate JavaScript for forever loop.
-  var branch = Blockly.JavaScript.statementToCode(block, 'DO');
-  if (Blockly.JavaScript.INFINITE_LOOP_TRAP) {
-    branch = Blockly.JavaScript.INFINITE_LOOP_TRAP.replace(/%1/g,
-        '\'block_id_' + block.id + '\'') + branch;
-  }
-  return 'while (true) {\n' + branch + '}\n';
-};
-
 Blockly.Blocks[ 'controls_repeat_extended' ] = {
   /**
    * Block for repeat n times (external number).
@@ -634,7 +749,7 @@ Blockly.Blocks[ 'controls_repeat_extended' ] = {
     this.setHelpUrl( Blockly.Msg.CONTROLS_REPEAT_HELPURL );
     this.setColour( 120 );
     this.interpolateMsg( Blockly.Msg.CONTROLS_REPEAT_TITLE,
-                        ['TIMES', 'Number', Blockly.ALIGN_RIGHT ],
+                        ['TIMES', ['Number', 'Variable', 'LeftParenthesis'], Blockly.ALIGN_RIGHT ],
                         Blockly.ALIGN_RIGHT );
     this.appendStatementInput( 'DO' )
         .appendField( Blockly.Msg.CONTROLS_REPEAT_INPUT_DO );
@@ -658,19 +773,30 @@ Blockly.JavaScript[ 'controls_repeat_extended' ] = function( block ) {
       Blockly.JavaScript.ORDER_ASSIGNMENT ) || '0';
   var branch = Blockly.JavaScript.statementToCode( block, 'DO' );
   var code = '';
+
   var loopVar = Blockly.JavaScript.variableDB_.getDistinctName(
       'count', Blockly.Variables.NAME_TYPE);
   var endVar = repeats;
-  if ( !repeats.match(/^\w+$/) && !Blockly.isNumber( repeats ) ) {
-    var endVar = Blockly.JavaScript.variableDB_.getDistinctName(
+  if( endVar.split('(').length == endVar.split(')').length ) {
+      
+      if ( !repeats.match(/^\w+$/) && !Blockly.isNumber( repeats ) ) {
+          var endVar = Blockly.JavaScript.variableDB_.getDistinctName(
         'repeat_end', Blockly.Variables.NAME_TYPE );
-    code += 'var ' + endVar + ' = ' + repeats + ';\n';
-  }
-  code += 'for (var ' + loopVar + ' = 0; ' +
+         code += 'var ' + endVar + ' = ' + repeats + ';\n';
+       }
+  
+      code += 'for (var ' + loopVar + ' = 0; ' +
       loopVar + ' < ' + endVar + '; ' +
       loopVar + '++) {\n' +
       branch + '}\n';
-  return constructBlockExeEventCall( block ) + code;
+      return constructBlockExeEventCall( block ) + code;
+  }
+  else {
+    code += 'for (var xrepeat = 0; xrepeat < 0; xrepeat++) {\n' +
+      branch + '}\n';
+      return constructBlockExeEventCall( block ) + code;
+  }
+  
 };
 
 Blockly.Blocks[ 'math_number_out' ] = {

@@ -65,12 +65,12 @@ function setUpBlocklyPeripherals() {
             }
         }
     } );
-    $( "#blocklyWrapper" ).resizable( {
-        alsoResize: "#blocklyScrollDiv",
-        handles: 'n, s',
-        resize: updateOnBlocklyResize,
-        stop: keepBlocklyWithinBounds
-    } );
+    // $( "#blocklyWrapper" ).resizable( {
+    //     alsoResize: "#blocklyScrollDiv",
+    //     handles: 'n, s',
+    //     resize: updateOnBlocklyResize,
+    //     stop: keepBlocklyWithinBounds
+    // } );
 
     ramBar.id = "ramBar";
     ramBarCount.id = "ramBarCount";
@@ -112,6 +112,12 @@ function setUpBlocklyPeripherals() {
     resizeBlockly();
 
     window.addEventListener( 'resize', keepBlocklyWithinBounds );
+    document.addEventListener( 'mouseup', scrollIndicators );
+}
+
+function scrollIndicators() {
+    indicateBlock( currentBlockIDSelected ); 
+    indicateProcedureBlock( currentProcedureBlockID );
 }
 
 function resizeBlockly() {
@@ -217,7 +223,7 @@ function moveBlocklyIndicator( x, y ) {
     var toolbox = document.getElementsByClassName( "blocklyFlyoutBackground" )[ 0 ];
     var yOffset = parseInt( $( "#blocklyWrapper-top" ).css( "height" ) ) - blocklyDiv.scrollTop;
     var xOffset = toolbox.getBBox().width;
-    if ( x > blocklyDiv.offsetWidth || y + yOffset - 20 > blocklyDiv.offsetHeight || y + yOffset < 0 ) {
+    if ( x > blocklyDiv.offsetWidth || y + yOffset > blocklyDiv.offsetHeight || y + yOffset < 0 ) {
         hideBlocklyIndicator();
     } else {
         showBlocklyIndicator();
@@ -233,7 +239,7 @@ function moveBlocklyProcedureIndicator( x, y ) {
     var toolbox = document.getElementsByClassName( "blocklyFlyoutBackground" )[ 0 ];
     var yOffset = parseInt( $( "#blocklyWrapper-top" ).css( "height" ) ) - blocklyDiv.scrollTop;
     var xOffset = toolbox.getBBox().width;
-    if ( x > blocklyDiv.offsetWidth || y + yOffset - 20 > blocklyDiv.offsetHeight || y + yOffset < 0 ) {
+    if ( x > blocklyDiv.offsetWidth || y + yOffset > blocklyDiv.offsetHeight || y + yOffset < 0 ) {
         hideBlocklyProcedureIndicator();
     } else {
         showBlocklyProcedureIndicator();
