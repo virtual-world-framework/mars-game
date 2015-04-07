@@ -760,10 +760,10 @@ function indicateBlock( blockID ) {
 
         //When the flyout width changes with block sizes in categories we shift
         var flyout = document.getElementsByClassName( "blocklySvg" ); 
-        var flyoutDescriptor = flyout[0].childNodes[2].childNodes[0].getAttribute('d');
-        var flyoutDimensions = flyoutDescriptor.substring(8,11);
-        console.log(flyoutDimensions);
-        var flyoutOffset = Number(flyoutDimensions) - 125; //125 is category width
+        var flyoutDescriptor = flyout[ 0 ].childNodes[ 2 ].childNodes[ 0 ].getAttribute( 'd' );
+        var flyoutDimensions = flyoutDescriptor.substring( 8, 11 );
+        console.log( flyoutDimensions );
+        var flyoutOffset = Number( flyoutDimensions ) - 125; //125 is category width
 
         moveBlocklyIndicator( pos.x + xScrollOffset - flyoutOffset, pos.y + yScrollOffset + 3 );
     } else {
@@ -786,11 +786,11 @@ function indicateProcedureBlock( blockID ) {
         //When the flyout width changes with block sizes in categories we shift
 
         var flyout = document.getElementsByClassName( "blocklySvg" ); 
-        var flyoutDescriptor = flyout[0].childNodes[2].childNodes[0].getAttribute('d');
-        var flyoutDimensions = flyoutDescriptor.substring(8,11);
-        console.log(flyoutDimensions);
+        var flyoutDescriptor = flyout[ 0 ].childNodes[ 2 ].childNodes[ 0 ].getAttribute( 'd' );
+        var flyoutDimensions = flyoutDescriptor.substring( 8, 11 );
+        console.log( flyoutDimensions );
 
-        var flyoutOffset = Number(flyoutDimensions) - 125; //125 is category width
+        var flyoutOffset = Number( flyoutDimensions ) - 125; //125 is category width
 
         moveBlocklyProcedureIndicator( pos.x + xScrollOffset - flyoutOffset, pos.y + yScrollOffset + 3 );
     } else {

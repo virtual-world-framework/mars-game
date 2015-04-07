@@ -201,7 +201,7 @@ Blockly.Blocks[ 'logic_boolean' ] = {
   init: function() {
     this.setColour( 60 );
     this.appendValueInput( "INPUT" )
-        .appendField(new Blockly.FieldDropdown([["false", "false"],["true", "true"]]), "BOOL")
+        .appendField( new Blockly.FieldDropdown([["false", "false"],["true", "true"]] ), "BOOL" )
         .setCheck( [ 'ANDOR','Variable','LeftParenthesis','RightParenthesis' ] );
     this.setOutput( true, "Boolean" );
     var thisBlock = this;
