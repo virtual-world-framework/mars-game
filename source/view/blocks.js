@@ -65,7 +65,7 @@ Blockly.Blocks[ 'variables_get' ] = {
    * @this Blockly.Block
    */
   customContextMenu: function( options ) {
-    var option = { enabled: true };
+    var option = { enabled: false };
     var name = this.getFieldValue( 'VAR' );
     option.text = this.contextMenuMsg_.replace( '%1', name );
     var xmlField = goog.dom.createDom( 'field', null, name );
@@ -85,6 +85,59 @@ Blockly.JavaScript[ 'variables_get' ] = function( block ) {
   var code = Blockly.JavaScript.variableDB_.getName( block.getFieldValue( 'VAR' ),
       Blockly.Variables.NAME_TYPE );
   return [ ( code + argument0 ) , Blockly.JavaScript.ORDER_ATOMIC ];
+};
+
+Blockly.Blocks['variables_set'] = {
+  /**
+   * Block for variable setter.
+   * @this Blockly.Block
+   */
+  init: function() {
+    this.setHelpUrl(Blockly.Msg.VARIABLES_SET_HELPURL);
+    this.setColour(Blockly.Blocks.variables.HUE);
+    this.interpolateMsg(
+        // TODO: Combine these messages instead of using concatenation.
+        Blockly.Msg.VARIABLES_SET_TITLE + ' %1 ' +
+        Blockly.Msg.VARIABLES_SET_TAIL + ' %2',
+        ['VAR', new Blockly.FieldVariable(Blockly.Msg.VARIABLES_SET_ITEM)],
+        ['VALUE', [ 'Boolean','Number','Variable','LeftParenthesis' ], Blockly.ALIGN_RIGHT],
+        Blockly.ALIGN_RIGHT);
+    this.setPreviousStatement(true);
+    this.setNextStatement(true);
+    this.setTooltip(Blockly.Msg.VARIABLES_SET_TOOLTIP);
+    this.contextMenuMsg_ = Blockly.Msg.VARIABLES_SET_CREATE_GET;
+    this.contextMenuType_ = 'variables_get';
+  },
+  /**
+   * Return all variables referenced by this block.
+   * @return {!Array.<string>} List of variable names.
+   * @this Blockly.Block
+   */
+  getVars: function() {
+    return [this.getFieldValue('VAR')];
+  },
+  /**
+   * Notification that a variable is renaming.
+   * If the name matches one of this block's variables, rename it.
+   * @param {string} oldName Previous name of variable.
+   * @param {string} newName Renamed variable.
+   * @this Blockly.Block
+   */
+  renameVar: function(oldName, newName) {
+    if (Blockly.Names.equals(oldName, this.getFieldValue('VAR'))) {
+      this.setFieldValue(newName, 'VAR');
+    }
+  },
+  customContextMenu: Blockly.Blocks['variables_get'].customContextMenu
+};
+
+Blockly.JavaScript['variables_set'] = function(block) {
+  // Variable setter.
+  var argument0 = Blockly.JavaScript.valueToCode(block, 'VALUE',
+      Blockly.JavaScript.ORDER_ASSIGNMENT) || '0';
+  var varName = Blockly.JavaScript.variableDB_.getName(
+      block.getFieldValue('VAR'), Blockly.Variables.NAME_TYPE);
+  return varName + ' = ' + argument0 + ';\n';
 };
 
 Blockly.Blocks[ 'logic_cond_out' ] = {
@@ -184,7 +237,7 @@ Blockly.Blocks['controls_whileUntil'] = {
     this.setHelpUrl(Blockly.Msg.CONTROLS_WHILEUNTIL_HELPURL);
     this.setColour(120);
     this.appendValueInput('BOOL')
-        .setCheck('Boolean')
+        .setCheck(['Boolean','LeftParenthesis','Variable'])
         .appendField(new Blockly.FieldDropdown(OPERATORS), 'MODE');
     this.appendStatementInput('DO')
         .appendField(Blockly.Msg.CONTROLS_WHILEUNTIL_INPUT_DO);
@@ -633,32 +686,6 @@ Blockly.JavaScript['rover_moveForward'] = function( block ) {
   return constructBlockExeFuncCall( block, action );
 };
 
-Blockly.Blocks['rover_forward_ext'] = {
-  init: function() {
-    
-    //this.setHelpUrl('http://www.example.com/');
-    
-    this.setColour(290);
-    this.appendDummyInput()
-        .appendField("forward");
-    this.appendValueInput("UNITS")
-        .setCheck("Number")
-        .appendField("units");
-    this.appendValueInput("TIME")
-        .setCheck("Number")
-        .appendField("time");
-    this.setInputsInline(true);
-    this.setPreviousStatement(true);
-    this.setNextStatement(true);
-    this.setTooltip('');
-  }
-};
-
-Blockly.JavaScript['rover_forward_ext'] = function( block ) {
-  var value_units = Blockly.JavaScript.valueToCode(block, 'UNITS', Blockly.JavaScript.ORDER_ATOMIC) || '1';
-  var value_time = Blockly.JavaScript.valueToCode(block, 'TIME', Blockly.JavaScript.ORDER_ATOMIC) || '1';
-  return "vwf.callMethod( '"+Blockly.JavaScript.vwfID+"', 'moveForward', [ "+value_units+", "+value_time+" ] );\n";
-};
 
 Blockly.Blocks['rover_turn'] = {
   // Block for turning left or right.
@@ -713,39 +740,6 @@ Blockly.JavaScript['rover_turn'] = function( block ) {
   return constructBlockExeFuncCall( block, action );
 };
 
-Blockly.Blocks['rover_forever'] = {
-  // Block for forever loop.
-  init: function() {
-    
-    //this.setHelpUrl('http://code.google.com/p/blockly/wiki/Repeat');
-    
-    this.setColour(120);
-    this.appendDummyInput()
-        .appendField( 'repeat until' )
-        .appendField( new Blockly.FieldImage('source/blockly/media/marker.png', 12, 16) );
-    this.appendStatementInput('DO')
-        .appendField( 'do' );
-    this.setPreviousStatement(true);
-    var thisBlock = this;
-    this.setTooltip( function() {
-      var content = {
-        text: "Moves the rover until the next goal is reached."
-      }
-      return showTooltipInBlockly( thisBlock, content );
-    } );
-  }
-};
-
-Blockly.JavaScript['rover_forever'] = function( block ) {
-  // Generate JavaScript for forever loop.
-  var branch = Blockly.JavaScript.statementToCode(block, 'DO');
-  if (Blockly.JavaScript.INFINITE_LOOP_TRAP) {
-    branch = Blockly.JavaScript.INFINITE_LOOP_TRAP.replace(/%1/g,
-        '\'block_id_' + block.id + '\'') + branch;
-  }
-  return 'while (true) {\n' + branch + '}\n';
-};
-
 Blockly.Blocks[ 'controls_repeat_extended' ] = {
   /**
    * Block for repeat n times (external number).
@@ -755,7 +749,7 @@ Blockly.Blocks[ 'controls_repeat_extended' ] = {
     this.setHelpUrl( Blockly.Msg.CONTROLS_REPEAT_HELPURL );
     this.setColour( 120 );
     this.interpolateMsg( Blockly.Msg.CONTROLS_REPEAT_TITLE,
-                        ['TIMES', 'Number', Blockly.ALIGN_RIGHT ],
+                        ['TIMES', ['Number', 'Variable', 'LeftParenthesis'], Blockly.ALIGN_RIGHT ],
                         Blockly.ALIGN_RIGHT );
     this.appendStatementInput( 'DO' )
         .appendField( Blockly.Msg.CONTROLS_REPEAT_INPUT_DO );

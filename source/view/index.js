@@ -128,6 +128,11 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 }
                 break;
 
+            case "blocklyScrolled":
+                indicateBlock( lastBlockIDExecuted );
+                indicateProcedureBlock( currentProcedureBlockID );
+                break;
+
             case "blockExecuted":
                 var blockName = eventArgs[ 0 ];
                 var blockID = eventArgs[ 1 ];

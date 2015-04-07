@@ -8,13 +8,15 @@
   <block type="math_number_out"></block>
   </category>
   <category name="Variables" custom="VARIABLE">
+    <block type="variables_get"><field name="VAR">test1</field></block>
+    <block type="variables_set"><field name="VAR">test1</field></block>
     <!-- <block type="variables_set"></block>
     <block type="variables_get"></block> -->
   </category>
   <category name="Logic / Conditionals">
     <block type="logic_cond_out"></block>
     <block type="logic_andor_out"></block>
-    <block type="logic_boolean_out"></block>
+    <block type="logic_boolean"></block>
     <block type="controls_if_nomut"></block>
     <block type="controls_if_else_nomut"></block>
     <block type="controls_whileUntil"><field name="MODE">WHILE</field></block>
