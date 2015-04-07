@@ -21,7 +21,7 @@
     <block type="controls_if_else_nomut"></block>
     <block type="controls_whileUntil"><field name="MODE">WHILE</field></block>
   </category>
-  <category name="Math">
+  <category name="Numbers / Math">
     <block type="math_number_out"></block>
     <block type="graph_add"></block>
     <block type="graph_subtract"></block>

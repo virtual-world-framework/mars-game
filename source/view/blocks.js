@@ -94,7 +94,7 @@ Blockly.Blocks['variables_set'] = {
    */
   init: function() {
     this.setHelpUrl(Blockly.Msg.VARIABLES_SET_HELPURL);
-    this.setColour(Blockly.Blocks.variables.HUE);
+    this.setColour( 330 );
     this.interpolateMsg(
         // TODO: Combine these messages instead of using concatenation.
         Blockly.Msg.VARIABLES_SET_TITLE + ' %1 ' +
@@ -302,7 +302,7 @@ Blockly.Blocks['controls_if_nomut'] = {
     this.setHelpUrl(Blockly.Msg.CONTROLS_IF_HELPURL);
     this.setColour(20);
     this.appendValueInput('IF0')
-        .setCheck('Boolean')
+        .setCheck(['Boolean','LeftParenthesis','Variable'])
         .appendField(Blockly.Msg.CONTROLS_IF_MSG_IF);
     this.appendStatementInput('DO0')
         .appendField(Blockly.Msg.CONTROLS_IF_MSG_THEN);
@@ -343,7 +343,7 @@ Blockly.Blocks['controls_if_nomut'] = {
     this.elseCount_ = parseInt(xmlElement.getAttribute('else'), 10);
     for (var x = 1; x <= this.elseifCount_; x++) {
       this.appendValueInput('IF' + x)
-          .setCheck('Boolean')
+          .setCheck(['Boolean','LeftParenthesis','Variable'])
           .appendField(Blockly.Msg.CONTROLS_IF_MSG_ELSEIF);
       this.appendStatementInput('DO' + x)
           .appendField(Blockly.Msg.CONTROLS_IF_MSG_THEN);
@@ -389,7 +389,7 @@ Blockly.Blocks['controls_if_nomut'] = {
         case 'controls_if_elseif':
           this.elseifCount_++;
           var ifInput = this.appendValueInput('IF' + this.elseifCount_)
-              .setCheck('Boolean')
+              .setCheck(['Boolean','LeftParenthesis','Variable'])
               .appendField(Blockly.Msg.CONTROLS_IF_MSG_ELSEIF);
           var doInput = this.appendStatementInput('DO' + this.elseifCount_);
           doInput.appendField(Blockly.Msg.CONTROLS_IF_MSG_THEN);
@@ -452,7 +452,7 @@ Blockly.Blocks['controls_if_else_nomut'] = {
     this.setHelpUrl(Blockly.Msg.CONTROLS_IF_HELPURL);
     this.setColour(20);
     this.appendValueInput('IF0')
-        .setCheck('Boolean')
+        .setCheck(['Boolean','LeftParenthesis','Variable'])
         .appendField(Blockly.Msg.CONTROLS_IF_MSG_IF);
     this.appendStatementInput('DO0')
         .appendField(Blockly.Msg.CONTROLS_IF_MSG_THEN);
@@ -494,7 +494,7 @@ Blockly.Blocks['controls_if_else_nomut'] = {
     this.elseCount_ = 1
     for (var x = 1; x <= this.elseifCount_; x++) {
       this.appendValueInput('IF' + x)
-          .setCheck('Boolean')
+          .setCheck(['Boolean','LeftParenthesis','Variable'])
           .appendField(Blockly.Msg.CONTROLS_IF_MSG_ELSEIF);
       this.appendStatementInput('DO' + x)
           .appendField(Blockly.Msg.CONTROLS_IF_MSG_THEN);
@@ -539,7 +539,7 @@ Blockly.Blocks['controls_if_else_nomut'] = {
         case 'controls_if_elseif':
           this.elseifCount_++;
           var ifInput = this.appendValueInput('IF' + this.elseifCount_)
-              .setCheck('Boolean')
+              .setCheck(['Boolean','LeftParenthesis','Variable'])
               .appendField(Blockly.Msg.CONTROLS_IF_MSG_ELSEIF);
           var doInput = this.appendStatementInput('DO' + this.elseifCount_);
           doInput.appendField(Blockly.Msg.CONTROLS_IF_MSG_THEN);
