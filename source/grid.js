@@ -130,10 +130,29 @@ this.addToGrid = function( object ) {
 //Assign an object a coordinate and add it to the grid
 this.addToGridFromCoord = function( object, gridCoord ) {
     if ( this.validCoord( gridCoord ) ) {
-        this.getTileFromGrid( gridCoord ).addToTile( object.id );
+        var bArea = object.boundingAreaSize;
+
+        for( var x = 0; x < bArea[ 0 ]; x++ ){
+            for( var y = 0; y < bArea[ 1 ]; y++ ){
+                var currTileCoord = [ gridCoord[ 0 ] + x , gridCoord[ 1 ] - y ]; 
+                this.getTileFromGrid( currTileCoord ).addToTile( object.id );
+            }
+        }
+        
         object.currentGridSquare = gridCoord;
         var newTranslation = this.getWorldFromGrid( gridCoord[ 0 ], gridCoord[ 1 ] );
-        if ( object.placeOnTerrain && object.terrainName && object.terrainName !== "undefined" ) {
+        if( bArea[ 0 ] > 1 ) { 
+            newTranslation[ 0 ] = newTranslation[ 0 ] + 
+            //move to middle of bounding area, correct so that we are in middle of tile
+            ( 0.5 * bArea[ 0 ] - 0.5 ) * this.gridSquareLength;
+        }
+        if( bArea[ 1 ] > 1 ) { 
+            newTranslation[ 1 ] = newTranslation[ 1 ] - 
+            //move to middle of bounding area, correct so that we are in middle of tile
+            ( 0.5 * bArea[ 1 ] - 0.5 ) * this.gridSquareLength;
+        }
+        if ( object.placeOnTerrain && object.terrainName && 
+                object.terrainName !== "undefined" ) {
             object.placeOnTerrain( newTranslation );
         } else {
             object.translation = newTranslation;
@@ -153,22 +172,43 @@ this.addToGridFromWorld = function( object, worldCoord ) {
 }
 
 this.removeFromGrid = function( nodeID, gridCoord ) {
-    var objects = this.getObjectsAtCoord( gridCoord );
-    var index = objects.indexOf( nodeID );
-    if ( index !== -1 ) {
-        for ( var i = index; i < objects.length - 1; i++ ) {
-            objects[ i ] = objects[ i + 1 ];
+
+    var node = this.scene.findByID( this.scene, nodeID ); 
+    var bArea = node.boundingAreaSize; 
+
+    for( var x = 0; x < bArea[ 0 ]; x++ ){
+        for( var y = 0; y < bArea[ 1 ]; y++ ){
+            var currTileCoord = [ gridCoord[ 0 ] + x , gridCoord[ 1 ] - y ]; 
+            var objects = this.getObjectsAtCoord( currTileCoord );
+            var index = objects.indexOf( nodeID );
+
+            if ( index !== -1 ) {
+                for ( var i = index; i < objects.length - 1; i++ ) {
+                    objects[ i ] = objects[ i + 1 ];
+                }
+                objects.length--;
+            } else {
+                this.logger.errorx( "removeFromGrid", "Unable to find tile with " +
+                    "ID: " + nodeID );
+                return false;
+            }
         }
-        objects.length--;
-        return true;
     }
-    return false;
+
+    return true; 
 }
 
 this.moveObjectOnGrid = function( nodeID, srcCoord, destCoord ) {
     var removed = this.removeFromGrid( nodeID, srcCoord );
     if ( removed ) {
-        this.getTileFromGrid( destCoord ).addToTile( nodeID );
+        var node = this.scene.findByID( this.scene, nodeID ); 
+        var bArea = node.boundingAreaSize; 
+        for( var x = 0; x < bArea[ 0 ]; x++ ) {
+            for( var y = 0; y < bArea[ 1 ]; y++ ) {
+                var currTileCoord = [ destCoord[ 0 ] + x , destCoord[ 1 ] - y ]; 
+                this.getTileFromGrid( currTileCoord ).addToTile( nodeID );
+            }
+        }
     }
 }
 
@@ -222,12 +262,22 @@ this.getCollidables = function( gridCoord ) {
     return collidables;
 }
 
-this.checkCollision = function( gridCoord ) {
+
+this.checkCollision = function( gridCoord, ignoreSet ) {
     var collide = false;
     if ( this.validCoord( gridCoord ) ) {
-        var tile = this.getTileFromGrid( gridCoord );
+        var tile = this.getTileFromGrid( gridCoord ); 
         for ( var i = 0; i < tile.objects.length; i++ ) {
             var node = tile.getNodeAtIndex( i );
+            // ignoreSet is of format:
+            // ignoreSet = { objectAname : true,
+            //               objectBname : true, 
+            //               ...
+            //               objectZname : true 
+            // }  
+            if( ignoreSet && ignoreSet.hasOwnProperty( node.name ) ) {
+                return false;
+            }
             if ( node === undefined ) {
                 this.logger.errorx( "checkCollision", "Unable to find node with " +
                     "ID: " + tile.objects[ i ] );
@@ -241,6 +291,21 @@ this.checkCollision = function( gridCoord ) {
         collide = true;
     }
     return collide;
+}
+
+this.checkCollisionArea = function( gridCoord, boundingArea, ignoreSet ) {
+
+    for( var x = 0; x < boundingArea[ 0 ]; x++ ) { 
+        for( var y = 0; y < boundingArea[ 1 ]; y++ ) { 
+            var currTileCoord = [ gridCoord[ 0 ] + x , gridCoord[ 1 ] - y ]; 
+            var collided = this.checkCollision( currTileCoord, ignoreSet );
+            if ( collided || collided === null ) {
+               return collided;
+            }
+        }
+    }
+
+    return false;
 }
 
 this.getEnergy = function ( gridCoord ) {

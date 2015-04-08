@@ -43,6 +43,7 @@ methods:
   getInventoriables:
   getCollidables:
   getEnergy:
+  checkCollisionArea:
   checkCollision:
   createTile:
 scripts:

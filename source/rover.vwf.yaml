@@ -14,6 +14,8 @@
 
 ---
 extends: http://vwf.example.com/node3.vwf
+implements:
+  - griddable.vwf
 properties:
   castShadows: true
   receiveShadows: true
@@ -58,8 +60,6 @@ properties:
         this.lowRam = value;
       }
     value: 5
-  currentGrid: undefined
-  currentGridSquare: [ 0, 0 ]
   tracksSensorValue: false
   heading: 0
   terrainName: undefined
