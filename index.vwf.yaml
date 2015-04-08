@@ -405,8 +405,7 @@ children:
                 this.scoutWheel = this.find( "scout_body/scout_wheel" )[ 0 ];
               }
               return this.scoutWheel;
-          #TODO: Change this to reflect the ACTUAL wheel radius.
-          wheelRadius: 0.3304 
+          wheelRadius: 0.179 
           wheels:
             - "scoutWheel"
         children:
@@ -514,7 +513,7 @@ children:
                 this.wheelBR = this.find( "wheel_r3" )[ 0 ];
               }
               return this.wheelBR;
-          wheelRadius: 0.3304
+          wheelRadius: 0.635
           wheels:
             - "wheelFL"
             - "wheelML"
