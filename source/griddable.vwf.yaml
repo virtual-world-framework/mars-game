@@ -16,9 +16,13 @@
 extends: http://vwf.example.com/node.vwf
 properties:
   currentGridSquare: [ 0, 0 ]
+  currentGrid: undefined
+  #currentGridSquare is the upper-left tile of the bounding area.
+  boundingAreaSize: [ 1, 1 ]
   isCollidable: true
+methods:
+  checkCollisionWrapper:   
 events:
   addedToGrid:
 scripts:
   - source: griddable.js
-  
