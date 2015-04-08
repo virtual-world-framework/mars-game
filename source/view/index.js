@@ -755,7 +755,18 @@ function indicateBlock( blockID ) {
         }
 
         var pos = block.getRelativeToSurfaceXY();
-        moveBlocklyIndicator( pos.x, pos.y );
+        var xScrollOffset = workspace.scrollX;
+        var yScrollOffset = workspace.scrollY;
+
+        //When the flyout width changes with block sizes in categories we shift
+        var flyout = document.getElementsByClassName( "blocklySvg" ); 
+        var flyoutDescriptor = flyout[ 0 ].childNodes[ 2 ].childNodes[ 0 ].getAttribute( 'd' );
+        var flyoutDimensions = flyoutDescriptor.substring( 8, 11 );
+
+        var categoryWidth = document.getElementsByClassName( "blocklyToolboxDiv" )[0].offsetWidth;
+        var flyoutOffset = Number( flyoutDimensions ) - categoryWidth + 50;
+
+        moveBlocklyIndicator( pos.x + xScrollOffset - flyoutOffset, pos.y + yScrollOffset + 3 );
     } else {
         hideBlocklyIndicator();
     }
@@ -770,7 +781,19 @@ function indicateProcedureBlock( blockID ) {
     }
     if ( block ) {
         var pos = block.getRelativeToSurfaceXY();
-        moveBlocklyProcedureIndicator( pos.x, pos.y );
+        var xScrollOffset = workspace.scrollX;
+        var yScrollOffset = workspace.scrollY;
+
+        //When the flyout width changes with block sizes in categories we shift
+
+        var flyout = document.getElementsByClassName( "blocklySvg" ); 
+        var flyoutDescriptor = flyout[ 0 ].childNodes[ 2 ].childNodes[ 0 ].getAttribute( 'd' );
+        var flyoutDimensions = flyoutDescriptor.substring( 8, 11 );
+
+        var categoryWidth = document.getElementsByClassName( "blocklyToolboxDiv" )[0].offsetWidth;
+        var flyoutOffset = Number( flyoutDimensions ) - categoryWidth + 50;
+
+        moveBlocklyProcedureIndicator( pos.x + xScrollOffset - flyoutOffset, pos.y + yScrollOffset + 3 );
     } else {
         hideBlocklyProcedureIndicator();
     }
