@@ -1,4 +1,9 @@
 ---
 extends: rover.vwf
+properties:
+  wheelFL:
+  wheelBL:
+  wheelFR:
+  wheelBR: 
 scripts:
  - source: fourWheeledRover.js
