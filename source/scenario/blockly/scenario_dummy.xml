@@ -2,6 +2,7 @@
   
   <category name="Control">
   <block type="rover_moveForward"></block>
+   <block type="rover_moveRadial"></block>
   <block type="rover_turn"><field name="DIR">Turn: Left</field></block>
   <block type="controls_repeat_extended"></block>
   <block type="controls_sensor_tracks"><field name="MODE">SCAN: NEGATIVE</field></block>

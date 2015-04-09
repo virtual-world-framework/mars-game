@@ -110,6 +110,74 @@ this.moveForward = function() {
     }
 }
 
+this.moveRadial = function( xValue, yValue ) {
+
+    var scene = this.sceneNode;
+
+    var radians = Math.atan2(yValue, xValue); // In radians 
+    var heading = radians * ( 180 / Math.PI );
+
+    if ( heading < 90 && heading > 0 ) {  // 'north' is rotated 90 degrees
+        this.setHeading( 360 + ( heading - 90 ) );
+    } else {
+        this.setHeading( heading - 90, 0 );
+    }
+
+    var dirVector = [ Math.round( -Math.sin( radians ) ), Math.round( Math.cos( radians ) ) ];
+
+    var proposedNewGridSquare = [ this.currentGridSquare[ 0 ] + xValue, 
+                                                                this.currentGridSquare[ 1 ] + yValue ];
+
+    //First check if the coordinate is valid
+    if ( this.currentGrid.validCoord( proposedNewGridSquare ) ) {
+
+        //Then check if the boundary value allows for movement:
+        var energyRequired = this.currentGrid.getEnergy( proposedNewGridSquare );
+        if ( energyRequired < 0 ) {
+            this.moveFailed( "collision" );
+        } else if ( energyRequired > this.battery ) {
+            this.battery = 0;
+            this.moveFailed( "battery" );
+        } else {
+
+            //Otherwise, check if the space is occupied
+            if ( !this.currentGrid.checkCollision( proposedNewGridSquare ) ){
+                this.currentGrid.moveObjectOnGrid( this.id, this.currentGridSquare, proposedNewGridSquare );
+                this.currentGridSquare = proposedNewGridSquare;
+                var displacement = [  xValue * this.currentGrid.gridSquareLength,  yValue * this.currentGrid.gridSquareLength, 0 ];
+                // TODO: This should use worldTransformBy, but we are getting a bug where the rover's transform isn't set
+                //       yet when this method is called.  Until we can debug that, we are assuming that the rover's 
+                //       parent's frame of reference is the world frame of reference
+
+                //Calculate the time to displace based on the hypotenuse
+                var hypot = Math.sqrt(xValue*xValue + yValue*yValue);
+
+                this.translateOnTerrain( displacement, hypot, energyRequired );
+                // this.worldTransformBy( [
+                //   1, 0, 0, 0,
+                //   0, 1, 0, 0,
+                //   0, 0, 1, 0,
+                //   dirVector[ 0 ] * this.gridSquareLength, dirVector[ 1 ] * this.gridSquareLength, 0, 0 ], 1 );
+
+                var inventoriableObjects = this.currentGrid.getInventoriables( proposedNewGridSquare );
+                if ( inventoriableObjects ){
+                    for ( var i = 0; i < inventoriableObjects.length; i++ ) {
+                        this.currentGrid.removeFromGrid( inventoriableObjects[ i ], proposedNewGridSquare );
+                        this.cargo.add( inventoriableObjects[ i ] );
+                    }
+                }
+                this.moved();
+                this.activateSensor( 'forward' );
+            } else {
+                this.moveFailed( "collision" );
+            }
+        }
+    } else {
+        this.moveFailed( "collision" );
+    }
+}
+
+
 this.turnLeft = function() {
     this.setHeading( this.heading + 90, 1 );
     this.activateSensor( 'forward' );

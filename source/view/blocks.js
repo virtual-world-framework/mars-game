@@ -21,6 +21,49 @@ var BlocklyApps = {
 
 // Extensions to Blockly's language and JavaScript generator.
 
+
+Blockly.Blocks['rover_moveRadial'] = {
+  init: function() {
+    this.setHelpUrl('http://www.example.com/');
+    this.setColour(20);
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("Move:");
+     this.appendDummyInput()
+         .setAlign(Blockly.ALIGN_CENTRE)
+         .appendField("Δx");
+    this.appendValueInput("x");
+     this.appendDummyInput()
+         .setAlign(Blockly.ALIGN_CENTRE)
+         .appendField("Δy");
+    this.appendValueInput("y");
+    this.setInputsInline(true);
+    this.setPreviousStatement(true, "null");
+    this.setNextStatement(true, "null");
+    var thisBlock = this;
+    this.setTooltip( function() {
+      var content = {
+        text: "Moves the rover x spaces by y spaces.",
+        imagePath: ""
+      }
+      return showTooltipInBlockly( thisBlock, content );
+    } );
+  }
+};
+
+Blockly.JavaScript['rover_moveRadial'] = function(block) {
+  var value_x = Blockly.JavaScript.valueToCode(block, 'x', Blockly.JavaScript.ORDER_ATOMIC) || 0;
+  var value_y = Blockly.JavaScript.valueToCode(block, 'y', Blockly.JavaScript.ORDER_ATOMIC) || 0;
+
+  var action = {
+    nodeID: Blockly.JavaScript.vwfID,
+    methodName: 'moveRadial',
+    args: [ value_x, value_y ]
+
+  };
+  return constructBlockExeFuncCall( block, action );
+};
+
 Blockly.Blocks[ 'variables_get' ] = {
   /**
    * Block for variable getter.
@@ -1138,9 +1181,10 @@ function constructBlockExeEventCall( block ) {
 }
 
 function constructBlockExeFuncCall( block, action ) {
+
   var blockCode = " { 'blockName': '" + block + "', 'id': " + block.id + "}";
   var actionCode = "{ 'nodeID': '" + action.nodeID + "', 'methodName': '" + action.methodName + "', ";
-  actionCode += ( action.args.length > 0 ) ? "'args': " + action.args + " } ] );\n" : "'args': [] }";
+  actionCode += ( action.args.length > 0 ) ? "'args': [" + action.args + "]}" : "'args': [] }";
   var returnCode = "vwf.callMethod( '" + vwf_view.kernel.application() + "', 'executeBlock', [ " + blockCode + "," +
                     actionCode + "] );\n";  
   return returnCode; 
