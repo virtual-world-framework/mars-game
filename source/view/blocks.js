@@ -55,11 +55,14 @@ Blockly.JavaScript['rover_moveRadial'] = function(block) {
   var value_x = Blockly.JavaScript.valueToCode(block, 'x', Blockly.JavaScript.ORDER_ATOMIC) || 0;
   var value_y = Blockly.JavaScript.valueToCode(block, 'y', Blockly.JavaScript.ORDER_ATOMIC) || 0;
 
+  // How long should we take to execute this block?
+  var exeTime = Math.round( Math.sqrt(value_x*value_x + value_y*value_y) );
+
   var action = {
     nodeID: Blockly.JavaScript.vwfID,
     methodName: 'moveRadial',
+    exeTime: exeTime,
     args: [ value_x, value_y ]
-
   };
   return constructBlockExeFuncCall( block, action );
 };
@@ -1182,11 +1185,13 @@ function constructBlockExeEventCall( block ) {
 
 function constructBlockExeFuncCall( block, action ) {
 
-  var blockCode = " { 'blockName': '" + block + "', 'id': " + block.id + "}";
+  var blockCode = " { 'blockName': '" + block + "', 'id': " + block.id + ", ";
+  blockCode += ( action.exeTime ) ? "'exeTime': " + action.exeTime + "}" : "'exeTime': 1 }";
   var actionCode = "{ 'nodeID': '" + action.nodeID + "', 'methodName': '" + action.methodName + "', ";
   actionCode += ( action.args.length > 0 ) ? "'args': [" + action.args + "]}" : "'args': [] }";
   var returnCode = "vwf.callMethod( '" + vwf_view.kernel.application() + "', 'executeBlock', [ " + blockCode + "," +
-                    actionCode + "] );\n";  
+                    actionCode + "] );\n"; 
+
   return returnCode; 
 }
 

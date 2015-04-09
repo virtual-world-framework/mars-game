@@ -83,6 +83,7 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 break;
 
             case "blocklyStarted":
+                console.log( 'bs'+ blocklyNode.timeBetweenLines );
                 var indicator = document.getElementById( "blocklyIndicator" );
                 indicator.className = "";
                 indicator.style.visibility = "inherit";
@@ -93,6 +94,7 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 procedureIndicator.className = "";
                 procedureIndicator.style.visibility = "inherit";
                 currentProcedureBlockID = undefined;
+
                 break;
 
             case "blocklyStopped":
@@ -131,12 +133,19 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
             case "blockExecuted":
                 var blockName = eventArgs[ 0 ];
                 var blockID = eventArgs[ 1 ];
+                var blockTime = eventArgs[ 2 ];
+
+                console.log(eventArgs[2]);
+                console.log(blockName);
+
+                vwf_view.kernel.setProperty( currentBlocklyNodeID, "blockly_timeBetweenLines", blockTime );
 
                 if ( blockID ) {
                     selectBlock( blockID );
                     indicateBlock( blockID );
                     lastBlockIDExecuted = blockID;
                 }
+
                 break;
 
             case "scenarioChanged":
