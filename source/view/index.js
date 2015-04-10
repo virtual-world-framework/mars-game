@@ -83,7 +83,6 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 break;
 
             case "blocklyStarted":
-                console.log( 'bs'+ blocklyNode.timeBetweenLines );
                 var indicator = document.getElementById( "blocklyIndicator" );
                 indicator.className = "";
                 indicator.style.visibility = "inherit";
@@ -98,6 +97,9 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 break;
 
             case "blocklyStopped":
+
+                vwf_view.kernel.setProperty( nodeID, "blockly_timeBetweenLines", 1 );
+
                 startBlocklyButton.className = "";
                 var indicator = document.getElementById( "blocklyIndicator" );
                 var count = document.getElementById( "blocklyIndicatorCount" );
