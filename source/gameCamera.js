@@ -53,6 +53,8 @@ this.followTarget = function( transform ) {
         transform[ 13 ],
         transform[ 14 ]
     ];
+    var cameraPose = this.getPoseFromTransform( this.camera.transform );
+    this.setCameraPose( cameraPose );
 }
 
 this.attachToTarget = function() {
@@ -73,6 +75,7 @@ this.detachFromTarget = function() {
 
 this.setCameraPose = function( pose ) {
     var poseTransform = this.convertPoseToTransform( pose );
+    this.getNearestCollisionDistance( pose[ 1 ], pose[ 2 ], 3, 1000);
     this.camera.transformTo( poseTransform );
 }
 
@@ -97,5 +100,36 @@ this.convertPoseToTransform = function( pose ) {
 this.mounted = function( mount ) {
     this.mountName = mount.name;
 }
+
+this.getPoseFromTransform = function( transform ) {
+    var pitch = Math.acos( transform[ 10 ] );
+    var yawSign = Math.asin( transform[ 1 ] ) < 0 ? -1 : 1;
+    var yaw = yawSign * Math.acos( transform[ 0 ] );
+    var radius = transform[ 12 ] / transform[ 10 ] / transform[ 1 ];
+    return [ radius, yaw, pitch ];
+}
+
+this.getNearestCollisionDistance = function( yaw, pitch, near, far ) {
+    var sy = Math.sin( yaw );
+    var cy = Math.cos( yaw );
+    var sp = Math.sin( pitch );
+    var cp = Math.cos( pitch );
+    var direction = [
+        sp * sy,
+        -sp * cy,
+        cp
+    ];
+    var objectsToCheck = [
+        this.scene.environment.id,
+        this.scene.player.id,
+        this.scene.pickups.id
+    ];
+    var origin = [
+        this.target.worldTransform[ 12 ],
+        this.target.worldTransform[ 13 ],
+        this.target.worldTransform[ 14 ]
+    ];
+    var results = this.scene.raycast( origin, direction, near, far, true, objectsToCheck );
+    console.log( results );
 
 //@ sourceURL=source/gameCamera.js

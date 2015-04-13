@@ -105,8 +105,7 @@ function handleMouseNavigation( deltaX, deltaY, navObject, navMode, rotationSpee
                     matrixWorld[ 13 ] - matrix[ 13 ],
                     matrixWorld[ 14 ] - matrix[ 14 ]
                 ];
-                var direction = [ matrix[ 12 ], matrix[ 13 ], matrix[ 14 ] ];
-                var distance = getNearestCollisionDistance( origin, direction, thirdPerson_MinZoom, thirdPerson_MaxZoom );
+                var distance = getNearestCollisionDistance( origin, newYaw, newPitch, thirdPerson_MinZoom, thirdPerson_MaxZoom );
                 if ( !thirdPerson_ZoomLevel ) {
                     thirdPerson_ZoomLevel = radius;
                 }
@@ -158,8 +157,7 @@ function handleScroll( wheelDelta, navObject, navMode, rotationSpeed, translatio
                 matrixWorld[ 13 ] - matrix[ 13 ],
                 matrixWorld[ 14 ] - matrix[ 14 ]
             ];
-            var direction = [ matrix[ 12 ], matrix[ 13 ], matrix[ 14 ] ];
-            var distance = getNearestCollisionDistance( origin, direction, thirdPerson_MinZoom, thirdPerson_MaxZoom );
+            var distance = getNearestCollisionDistance( origin, curYaw, curPitch, thirdPerson_MinZoom, thirdPerson_MaxZoom );
             if ( distance ) {
                 radius = Math.min( radius, distance * 0.8 );
             }
@@ -227,8 +225,7 @@ function moveNavObject( deltaX, deltaY, navObject, navMode, rotationSpeed, trans
                 matrixWorld[ 13 ] - matrix[ 13 ],
                 matrixWorld[ 14 ] - matrix[ 14 ]
             ];
-            var direction = [ matrix[ 12 ], matrix[ 13 ], matrix[ 14 ] ];
-            var distance = getNearestCollisionDistance( origin, direction, thirdPerson_MinZoom, thirdPerson_MaxZoom );
+            var distance = getNearestCollisionDistance( origin, newYaw, newPitch, thirdPerson_MinZoom, thirdPerson_MaxZoom );
             if ( !thirdPerson_ZoomLevel ) {
                 thirdPerson_ZoomLevel = radius;
             }
@@ -287,7 +284,16 @@ function getNewTransformMatrix( radius, yaw, pitch ) {
     return matrix;
 }
 
-function getNearestCollisionDistance( origin, direction, near, far ) {
+function getNearestCollisionDistance( origin, yaw, pitch, near, far ) {
+    var sy = Math.sin( yaw );
+    var cy = Math.cos( yaw );
+    var sp = Math.sin( pitch );
+    var cp = Math.cos( pitch );
+    var direction = [
+        sp * sy,
+        -sp * cy,
+        cp
+    ];
     origin = new THREE.Vector3( origin[ 0 ], origin[ 1 ], origin[ 2 ] );
     direction = new THREE.Vector3( direction[ 0 ], direction[ 1 ], direction[ 2 ] );
     direction.normalize();
