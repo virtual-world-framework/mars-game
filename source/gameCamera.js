@@ -74,8 +74,14 @@ this.detachFromTarget = function() {
 }
 
 this.setCameraPose = function( pose ) {
-    var poseTransform = this.convertPoseToTransform( pose );
-    this.getNearestCollisionDistance( pose[ 1 ], pose[ 2 ], 3, 1000);
+    var adjustedPose = pose.slice();
+    if ( this.mountName === "thirdPerson" ) {
+        var radius = this.getNearestCollisionDistance( adjustedPose[ 1 ], adjustedPose[ 2 ], 6, 21 );
+        if ( !isNaN( radius ) && radius * 0.8 < adjustedPose[ 0 ] ) {
+            adjustedPose[ 0 ] = radius * 0.8;
+        }
+    }
+    var poseTransform = this.convertPoseToTransform( adjustedPose );
     this.camera.transformTo( poseTransform );
 }
 
@@ -101,23 +107,35 @@ this.mounted = function( mount ) {
     this.mountName = mount.name;
 }
 
-this.getPoseFromTransform = function( transform ) {
-    var pitch = Math.acos( transform[ 10 ] );
-    var yawSign = Math.asin( transform[ 1 ] ) < 0 ? -1 : 1;
-    var yaw = yawSign * Math.acos( transform[ 0 ] );
-    var radius = transform[ 12 ] / transform[ 10 ] / transform[ 1 ];
+this.getPoseFromTransform = function() {
+    var cameraTransform = this.camera.worldTransform;
+    var transform = this.worldTransform;
+    var radiansToDegrees = 180 / Math.PI;
+    var pitch = Math.asin( cameraTransform[ 6 ] );
+    var yawSign = Math.asin( cameraTransform[ 1 ] ) < 0 ? -1 : 1;
+    var yaw = yawSign * Math.acos( cameraTransform[ 0 ] );
+    var radius = Math.sqrt(
+        Math.pow( cameraTransform[ 12 ] - transform[ 12 ], 2 ) +
+        Math.pow( cameraTransform[ 13 ] - transform[ 13 ], 2 ) +
+        Math.pow( cameraTransform[ 14 ] - transform[ 14 ], 2 )
+    );
+    yaw *= radiansToDegrees;
+    pitch *= radiansToDegrees;
     return [ radius, yaw, pitch ];
 }
 
 this.getNearestCollisionDistance = function( yaw, pitch, near, far ) {
+    var degreesToRadians = Math.PI / 180;
+    yaw *= degreesToRadians;
+    pitch *= degreesToRadians;
     var sy = Math.sin( yaw );
     var cy = Math.cos( yaw );
     var sp = Math.sin( pitch );
     var cp = Math.cos( pitch );
     var direction = [
-        sp * sy,
-        -sp * cy,
-        cp
+        cp * sy,
+        -cp * cy,
+        -sp
     ];
     var objectsToCheck = [
         this.scene.environment.id,
@@ -125,11 +143,16 @@ this.getNearestCollisionDistance = function( yaw, pitch, near, far ) {
         this.scene.pickups.id
     ];
     var origin = [
-        this.target.worldTransform[ 12 ],
-        this.target.worldTransform[ 13 ],
-        this.target.worldTransform[ 14 ]
+        this.camera.worldTransform[ 12 ] - this.camera.transform[ 12 ],
+        this.camera.worldTransform[ 13 ] - this.camera.transform[ 13 ],
+        this.camera.worldTransform[ 14 ] - this.camera.transform[ 14 ]
     ];
     var results = this.scene.raycast( origin, direction, near, far, true, objectsToCheck );
-    console.log( results );
+    if ( results[ 0 ] ) {
+        return results[ 0 ].distance;
+    } else {
+        return undefined;
+    }
+}
 
 //@ sourceURL=source/gameCamera.js
