@@ -141,7 +141,7 @@ this.moveRadial = function( xValue, yValue ) {
         } else {
 
             //Otherwise, check if the space is occupied
-            if ( !this.currentGrid.checkCollision( proposedNewGridSquare ) ){
+            if ( !this.checkRadialCollision( this.currentGridSquare, proposedNewGridSquare, heading ) ){
                 this.currentGrid.moveObjectOnGrid( this.id, this.currentGridSquare, proposedNewGridSquare );
                 this.currentGridSquare = proposedNewGridSquare;
                 var displacement = [  xValue * this.currentGrid.gridSquareLength,  yValue * this.currentGrid.gridSquareLength, 0 ];
@@ -186,6 +186,36 @@ this.turnLeft = function() {
 this.turnRight = function() {
     this.setHeading( this.heading - 90, 1 );
     this.activateSensor( 'forward' );
+}
+
+this.checkRadialCollision = function( currentPosition, futurePosition, direction ) {
+    //origin: rover position
+    //direction: direction of movement
+    //near: far enough away from the rover
+    //far: grid square
+    //recursive : true
+    //objectIDs : playerID, environmentID, pickupsID
+
+    var currentTranslation = this.currentGrid.getWorldFromGrid( currentPosition[ 0 ], currentPosition[ 1 ] );
+    var futureTranslation = this.currentGrid.getWorldFromGrid( currentPosition[ 0 ], currentPosition[ 1 ] );
+
+    var dist = goog.vec.Vec3.distance( currentTranslation, futureTranslation );
+    var sizeOfRover = this.currentGrid.gridSquareLength * 0.5;
+    var scene = this.sceneNode;
+
+    var environment = this.find( "//environment" )[ 0 ];
+    var pickups = this.find( "//pickups" )[ 0 ];
+
+    var raycastResult = scene.raycast( currentTranslation, direction, sizeOfRover, dist, true, [this.id, environment.id, pickups.id ] );
+
+    if ( raycastResult !== undefined ) {
+        if ( raycastResult.length > 0 ) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
 }
 
 this.placeOnTerrain = function( pos ) {
