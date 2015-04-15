@@ -137,9 +137,6 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 var blockID = eventArgs[ 1 ];
                 var blockTime = eventArgs[ 2 ];
 
-                console.log(eventArgs[2]);
-                console.log(blockName);
-
                 vwf_view.kernel.setProperty( currentBlocklyNodeID, "blockly_timeBetweenLines", blockTime );
 
                 if ( blockID ) {

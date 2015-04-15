@@ -188,31 +188,41 @@ this.turnRight = function() {
     this.activateSensor( 'forward' );
 }
 
-this.checkRadialCollision = function( currentPosition, futurePosition, direction ) {
-    //origin: rover position
-    //direction: direction of movement
-    //near: far enough away from the rover
-    //far: grid square
-    //recursive : true
-    //objectIDs : playerID, environmentID, pickupsID
+this.checkRadialCollision = function( currentPosition, futurePosition ) {
 
     var currentTranslation = this.currentGrid.getWorldFromGrid( currentPosition[ 0 ], currentPosition[ 1 ] );
-    var futureTranslation = this.currentGrid.getWorldFromGrid( currentPosition[ 0 ], currentPosition[ 1 ] );
+    var futureTranslation = this.currentGrid.getWorldFromGrid( futurePosition[ 0 ], futurePosition[ 1 ] );
 
     var dist = goog.vec.Vec3.distance( currentTranslation, futureTranslation );
     var sizeOfRover = this.currentGrid.gridSquareLength * 0.5;
     var scene = this.sceneNode;
 
+    var player = this.find( "//player" )[ 0 ];
     var environment = this.find( "//environment" )[ 0 ];
     var pickups = this.find( "//pickups" )[ 0 ];
+    var backdrop = this.find( "//backdrop" )[ 0 ];
 
-    var raycastResult = scene.raycast( currentTranslation, direction, sizeOfRover, dist, true, [this.id, environment.id, pickups.id ] );
+    var directionVector = [ 
+        futureTranslation[ 0 ] - currentTranslation[ 0 ],
+        futureTranslation[ 1 ] - currentTranslation[ 1 ],
+        futureTranslation[ 2 ] - currentTranslation[ 2 ]
+    ];
+
+    var vectorLength = Math.sqrt( ( directionVector[0]*directionVector[0] ) + ( directionVector[1]*directionVector[1] ) + ( directionVector[2]*directionVector[2] ) );
+
+    var normalizedVector = [ 
+        directionVector[ 0 ] / vectorLength,
+        directionVector[ 1 ] / vectorLength,
+        directionVector[ 2 ] / vectorLength
+    ];
+
+    var raycastResult = scene.raycast( currentTranslation, normalizedVector, sizeOfRover, dist, true, [ player.id, environment.id, pickups.id, backdrop.id] );
 
     if ( raycastResult !== undefined ) {
         if ( raycastResult.length > 0 ) {
-            return false;
-        } else {
             return true;
+        } else {
+            return false;
         }
     }
 
