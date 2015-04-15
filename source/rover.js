@@ -193,6 +193,8 @@ this.checkRadialCollision = function( currentPosition, futurePosition ) {
     var currentTranslation = this.currentGrid.getWorldFromGrid( currentPosition[ 0 ], currentPosition[ 1 ] );
     var futureTranslation = this.currentGrid.getWorldFromGrid( futurePosition[ 0 ], futurePosition[ 1 ] );
 
+    currentTranslation[2] = this.getTerrainHeight( currentPosition[ 0 ] , currentPosition[ 1 ]) + 0.5;
+    futureTranslation[2] = this.getTerrainHeight( currentPosition[ 0 ] , currentPosition[ 1 ]) + 0.5;
     var dist = goog.vec.Vec3.distance( currentTranslation, futureTranslation );
     var sizeOfRover = this.currentGrid.gridSquareLength * 0.5;
     var scene = this.sceneNode;
