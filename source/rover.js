@@ -141,9 +141,7 @@ this.placeOnTerrain = function( pos ) {
         this.transform[ 8 ], this.transform[ 9 ], this.transform[ 10 ], 0,
         pos[ 0 ],    pos[ 1 ],    pos[ 2 ],    1
     ] );
-
-    this.activateSensor( 'forward' );
-    this.activateSensor( 'signal' );
+    
 }
 
 this.translateOnTerrain = function( translation, duration, boundaryValue ) {
@@ -267,6 +265,8 @@ this.calcRam = function() {
 
 this.blockCountChanged = function( value ) {
     this.calcRam();
+    this.activateSensor( 'forward' );
+    this.activateSensor( 'signal' );
 }
 this.allowedBlocksChanged = function( value ) {
     this.calcRam();

@@ -237,7 +237,7 @@ Blockly.Blocks['controls_whileUntil'] = {
     this.setHelpUrl(Blockly.Msg.CONTROLS_WHILEUNTIL_HELPURL);
     this.setColour(120);
     this.appendValueInput('BOOL')
-        .setCheck(['Boolean','LeftParenthesis','Variable'])
+        .setCheck(['Boolean','Number','LeftParenthesis','Variable'])
         .appendField(new Blockly.FieldDropdown(OPERATORS), 'MODE');
     this.appendStatementInput('DO')
         .appendField(Blockly.Msg.CONTROLS_WHILEUNTIL_INPUT_DO);
@@ -662,10 +662,11 @@ Blockly.JavaScript[ 'controls_sensor_signal' ] = function( block ) {
 Blockly.Blocks[ 'controls_sensor_signal' ] = {
   init: function() {
     this.setColour( 30 );
-    this.appendValueInput("INPUT")
-        .appendField('Base Signal °');
-        .setCheck( [ 'OperatorAddSubtract','OperatorMultiplyDivide','LeftParenthesis','RightParenthesis','Conditional' ] );
-    this.setOutput( true, "Number" );
+    this.appendValueInput('INPUT')
+        .appendField('Base Signal °')
+        .setCheck(['OperatorAddSubtract','OperatorMultiplyDivide','LeftParenthesis','RightParenthesis','Conditional']);
+    this.setOutput(true, 'Number');
+
     var thisBlock = this;
     this.setTooltip( function() {
       var content = {
