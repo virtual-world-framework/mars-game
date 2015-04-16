@@ -144,7 +144,7 @@ Blockly.Blocks[ 'logic_cond_out' ] = {
   init: function() {
     this.setColour( 60 );
     this.appendValueInput( "INPUT" )
-        .appendField(new Blockly.FieldDropdown([["=", "==="],["!=", "!=="],[">", ">"],
+        .appendField(new Blockly.FieldDropdown([["=", "==="],["≠", "!=="],[">", ">"],
           ["<", "<"],[">=", ">="],["<=", "<="]]), "VALUE")
         .setCheck( [ 'Boolean','Variable','Number','LeftParenthesis','RightParenthesis' ] );
     this.setOutput( true, "Conditional" );
@@ -281,6 +281,7 @@ Blockly.JavaScript['controls_whileUntil'] = function(block) {
     var code = 'while ('+ false +') {\n' + branch + '}\n';
   }
 
+  console.log(code);
   return constructBlockExeEventCall( block ) + code;
 
   // Do while/until loop.
@@ -655,7 +656,12 @@ Blockly.JavaScript[ 'controls_sensor_signal' ] = function( block ) {
   
   var rover = vwf_view.kernel.find( "", "//rover" )[ 0 ];
 
-  return [ "vwf.getProperty( '" + rover + "', 'signalSensorValue' )", Blockly.JavaScript.ORDER_ATOMIC ];
+  var signalValue = rover.signalSensorValue;
+
+  var argument0 = Blockly.JavaScript.valueToCode(block, 'INPUT',
+      Blockly.JavaScript.ORDER_ATOMIC) || '';
+
+  return [ signalValue + argument0, Blockly.JavaScript.ORDER_ATOMIC ];
   
 };
 
@@ -1048,7 +1054,7 @@ Blockly.Blocks[ 'graph_divide' ] = {
   init: function() {
     this.setColour(120);
     this.appendValueInput('INPUT')
-        .appendField('/')
+        .appendField('÷')
         .setCheck(['Number','Variable','LeftParenthesis','OperatorAddSubtract']);
     this.setOutput(true, 'OperatorMultiplyDivide');
     var thisBlock = this;
