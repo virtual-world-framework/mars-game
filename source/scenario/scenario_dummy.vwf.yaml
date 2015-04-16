@@ -77,7 +77,7 @@ properties:
 
   - addToGrid:
     - signal
-    - [ 15, 5 ]
+    - [ 12, 10 ]
 
   - addToGrid:
     - rover
@@ -141,7 +141,7 @@ children:
             - [ 12, 10 ]
           - writeToBlackboard:
             - signalPosition
-            - [ 15, 5 ]
+            - [ 12, 10 ]
           - setObjective:
             - "Explore the Cartesian Plane!"
 

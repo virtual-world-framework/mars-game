@@ -28,8 +28,6 @@ this.initialize = function() {
 this.findAndSetCurrentGrid = function( scenarioName ) {
     var scenario = this.find( "//" + scenarioName )[ 0 ];
     this.currentGrid = scenario.grid;
-    this.activateSensor( 'forward' );
-    this.activateSensor( 'signal' );
 }
 
 this.meetsBoundaryConditions = function( energyRequired ) {
@@ -143,6 +141,9 @@ this.placeOnTerrain = function( pos ) {
         this.transform[ 8 ], this.transform[ 9 ], this.transform[ 10 ], 0,
         pos[ 0 ],    pos[ 1 ],    pos[ 2 ],    1
     ] );
+
+    this.activateSensor( 'forward' );
+    this.activateSensor( 'signal' );
 }
 
 this.translateOnTerrain = function( translation, duration, boundaryValue ) {
@@ -332,13 +333,13 @@ this.activateSensor = function( sensor ) {
         var radians = Math.atan2( deltaY, deltaX ); // In radians 
         var heading = radians * ( 180 / Math.PI );
 
-        if ( heading < 90 && heading > 0 ) {  // 'north' is rotated 90 degrees
-            heading = 360 + ( heading - 90 );
+        // Convert to 0 to 360 
+        if ( heading >= 0 ) {
+            heading = 180 - heading;
         } else {
-            heading = heading - 90;
+            heading = 360 + heading;
         }
 
-        console.log(heading);
         this.signalSensorValue = heading;
     }
 

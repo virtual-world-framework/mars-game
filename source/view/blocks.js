@@ -662,8 +662,9 @@ Blockly.JavaScript[ 'controls_sensor_signal' ] = function( block ) {
 Blockly.Blocks[ 'controls_sensor_signal' ] = {
   init: function() {
     this.setColour( 30 );
-    this.appendDummyInput("INPUT")
+    this.appendValueInput("INPUT")
         .appendField('Base Signal °');
+        .setCheck( [ 'OperatorAddSubtract','OperatorMultiplyDivide','LeftParenthesis','RightParenthesis','Conditional' ] );
     this.setOutput( true, "Number" );
     var thisBlock = this;
     this.setTooltip( function() {
