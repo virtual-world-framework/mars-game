@@ -320,11 +320,22 @@ this.activateSensor = function( sensor ) {
     if ( sensor === 'signal' ) {
         // This sensor just checks the current position against the 
         //  "anomalyPosition" on the blackboard (if any).
-        var anomalyPos = this.sceneNode.sceneBlackboard[ "signalPosition" ];
+        var signalPos = this.sceneNode.sceneBlackboard[ "signalPosition" ];
         var currentPos = this.currentGridSquare;
-        this.tracksSensorValue = anomalyPos && 
-                                 anomalyPos[ 0 ] === currentPos [ 0 ] && 
-                                 anomalyPos[ 1 ] === currentPos [ 1 ];
+
+        var deltaX = signalPos[ 0 ] - currentPos[ 0 ];
+        var deltaY = signalPos[ 1 ] - currentPos[ 1 ];
+
+        var radians = Math.atan2( deltaY, deltaX ); // In radians 
+        var heading = radians * ( 180 / Math.PI );
+
+        if ( heading < 90 && heading > 0 ) {  // 'north' is rotated 90 degrees
+            heading = 360 + ( heading - 90 );
+        } else {
+            heading = heading - 90;
+        }
+
+        this.signalSensorValue = heading;
     }
 
 }
