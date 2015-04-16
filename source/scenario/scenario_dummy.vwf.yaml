@@ -109,7 +109,7 @@ properties:
 
   - loadToolbox:
     - rover2
-    - source/scenario/blockly/scenario_dummy.xml
+    - source/scenario/blockly/scenario_dummy_perry.xml
 
   - loadToolbox:
     - rover3
