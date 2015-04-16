@@ -101,6 +101,7 @@ this.moveForward = function() {
                 }
                 this.moved();
                 this.activateSensor( 'forward' );
+                this.activateSensor( 'signal' );
             } else {
                 this.moveFailed( "collision" );
             }
@@ -113,11 +114,13 @@ this.moveForward = function() {
 this.turnLeft = function() {
     this.setHeading( this.heading + 90, 1 );
     this.activateSensor( 'forward' );
+    this.activateSensor( 'signal' );
 }
 
 this.turnRight = function() {
     this.setHeading( this.heading - 90, 1 );
     this.activateSensor( 'forward' );
+    this.activateSensor( 'signal' );
 }
 
 this.placeOnTerrain = function( pos ) {
@@ -308,6 +311,16 @@ this.activateSensor = function( sensor ) {
         // This sensor just checks the current position against the 
         //  "anomalyPosition" on the blackboard (if any).
         var anomalyPos = this.sceneNode.sceneBlackboard[ "anomalyPosition" ];
+        var currentPos = this.currentGridSquare;
+        this.tracksSensorValue = anomalyPos && 
+                                 anomalyPos[ 0 ] === currentPos [ 0 ] && 
+                                 anomalyPos[ 1 ] === currentPos [ 1 ];
+    }
+
+    if ( sensor === 'signal' ) {
+        // This sensor just checks the current position against the 
+        //  "anomalyPosition" on the blackboard (if any).
+        var anomalyPos = this.sceneNode.sceneBlackboard[ "signalPosition" ];
         var currentPos = this.currentGridSquare;
         this.tracksSensorValue = anomalyPos && 
                                  anomalyPos[ 0 ] === currentPos [ 0 ] && 

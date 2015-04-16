@@ -572,6 +572,8 @@ children:
           animationLoop: true
       battery:
         extends: source/pickups/battery_1.vwf
+      signal:
+        extends: source/pickups/signal.vwf
       supplies_1:
         extends: source/pickups/supplies.vwf
       supplies_2:
