@@ -22,11 +22,14 @@ this.initialize = function() {
     // TODO: Find the current heading (rather than making app developer specify)
 
     this.calcRam();
+
 }
 
 this.findAndSetCurrentGrid = function( scenarioName ) {
     var scenario = this.find( "//" + scenarioName )[ 0 ];
     this.currentGrid = scenario.grid;
+    this.activateSensor( 'forward' );
+    this.activateSensor( 'signal' );
 }
 
 this.meetsBoundaryConditions = function( energyRequired ) {
@@ -319,7 +322,7 @@ this.activateSensor = function( sensor ) {
 
     if ( sensor === 'signal' ) {
         // This sensor just checks the current position against the 
-        //  "anomalyPosition" on the blackboard (if any).
+        //  "signalPosition" on the blackboard (if any).
         var signalPos = this.sceneNode.sceneBlackboard[ "signalPosition" ];
         var currentPos = this.currentGridSquare;
 
@@ -335,6 +338,7 @@ this.activateSensor = function( sensor ) {
             heading = heading - 90;
         }
 
+        console.log(heading);
         this.signalSensorValue = heading;
     }
 

@@ -7,7 +7,6 @@
   <block type="controls_sensor_tracks"><field name="MODE">SCAN: NEGATIVE</field></block>
   <block type="controls_sensor_signal"></block>
   <block type="math_number_out"></block>
-  <block type="text_prompt"></block>
   </category>
   <category name="Variables" custom="VARIABLE">
     <block type="variables_get"><field name="VAR">test1</field></block>

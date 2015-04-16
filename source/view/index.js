@@ -137,6 +137,7 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                     indicateBlock( blockID );
                     lastBlockIDExecuted = blockID;
                 }
+
                 break;
 
             case "scenarioChanged":

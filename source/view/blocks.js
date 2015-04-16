@@ -653,8 +653,6 @@ Blockly.Blocks[ 'controls_sensor_tracks' ] = {
 
 Blockly.JavaScript[ 'controls_sensor_signal' ] = function( block ) {
   
-  var dropdown_value = block.getFieldValue('MODE');
-  var retVal = false;
   var rover = vwf_view.kernel.find( "", "//rover" )[ 0 ];
 
   return [ "vwf.getProperty( '" + rover + "', 'signalSensorValue' )", Blockly.JavaScript.ORDER_ATOMIC ];
@@ -666,7 +664,7 @@ Blockly.Blocks[ 'controls_sensor_signal' ] = {
     this.setColour( 30 );
     this.appendDummyInput("INPUT")
         .appendField('Base Signal °');
-    this.setOutput( true, "Boolean" );
+    this.setOutput( true, "Number" );
     var thisBlock = this;
     this.setTooltip( function() {
       var content = {
@@ -677,53 +675,29 @@ Blockly.Blocks[ 'controls_sensor_signal' ] = {
   }
 };
 
-Blockly.Blocks['text_prompt'] = {
-  /**
-   * Block for prompt function (internal message).
-   * @this Blockly.Block
-   */
-  init: function() {
-    var TYPES =
-        [[Blockly.Msg.TEXT_PROMPT_TYPE_TEXT, 'TEXT'],
-         [Blockly.Msg.TEXT_PROMPT_TYPE_NUMBER, 'NUMBER']];
-    // Assign 'this' to a variable for use in the closure below.
-    var thisBlock = this;
-    this.setHelpUrl(Blockly.Msg.TEXT_PROMPT_HELPURL);
-    this.setColour(Blockly.Blocks.texts.HUE);
-    var dropdown = new Blockly.FieldDropdown(TYPES, function(newOp) {
-      if (newOp == 'NUMBER') {
-        thisBlock.changeOutput('Number');
-      } else {
-        thisBlock.changeOutput('String');
-      }
-    });
-    this.appendDummyInput()
-        .appendField(dropdown, 'TYPE')
-        .appendField(this.newQuote_(true))
-        .appendField(new Blockly.FieldTextInput(''), 'TEXT')
-        .appendField(this.newQuote_(false));
-    this.setOutput(true, 'String');
-    // Assign 'this' to a variable for use in the tooltip closure below.
-    var thisBlock = this;
-    this.setTooltip(function() {
-      return (thisBlock.getFieldValue('TYPE') == 'TEXT') ?
-          Blockly.Msg.TEXT_PROMPT_TOOLTIP_TEXT :
-          Blockly.Msg.TEXT_PROMPT_TOOLTIP_NUMBER;
-    });
-  },
-  newQuote_: Blockly.Blocks['text'].newQuote_
-};
+// Blockly.Blocks['text_print'] = {
+//   /**
+//    * Block for print statement.
+//    * @this Blockly.Block
+//    */
+//   init: function() {
+//     this.setHelpUrl(Blockly.Msg.TEXT_PRINT_HELPURL);
+//     this.setColour(20);
+//     this.appendValueInput('INPUT')
+//         .appendField('Print: ')
+//     this.setPreviousStatement(true);
+//     this.setNextStatement(true);
+//     this.setTooltip(' Print the text or code attached to the block. ');
+//   }
+// };
 
-Blockly.JavaScript['text_prompt'] = function(block) {
-  // Prompt function (internal message).
-  var msg = Blockly.JavaScript.quote_(block.getFieldValue('TEXT'));
-  var code = 'window.prompt(' + msg + ')';
-  var toNumber = block.getFieldValue('TYPE') == 'NUMBER';
-  if (toNumber) {
-    code = 'parseFloat(' + code + ')';
-  }
-  return [code, Blockly.JavaScript.ORDER_FUNCTION_CALL];
-};
+// Blockly.JavaScript['text_print'] = function(block) {
+//   // Print statement.
+//   var argument0 = Blockly.JavaScript.valueToCode(block, 'INPUT',
+//       Blockly.JavaScript.ORDER_ATOMIC) || 'null';
+
+//   return constructBlockExeEventCall( block ) + 'window.alert(' + argument0 + ');';
+// };
 
 Blockly.Blocks['rover_moveForward'] = {
   // Block for moving forward.

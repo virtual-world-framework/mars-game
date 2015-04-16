@@ -61,7 +61,7 @@ properties:
       }
     value: 5
   tracksSensorValue: false
-  signalSensorvalue: -1
+  signalSensorvalue: 0
   heading: 0
   terrainName: undefined
   displayName: undefined
