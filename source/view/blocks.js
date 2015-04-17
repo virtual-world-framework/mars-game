@@ -653,15 +653,15 @@ Blockly.Blocks[ 'controls_sensor_tracks' ] = {
 };
 
 Blockly.JavaScript[ 'controls_sensor_signal' ] = function( block ) {
-  
-  var rover = vwf_view.kernel.find( "", "//rover" )[ 0 ];
 
-  var signalValue = rover.signalSensorValue;
+  var argument0 = Blockly.JavaScript.valueToCode(block, 'INPUT', Blockly.JavaScript.ORDER_ATOMIC) || '';
 
-  var argument0 = Blockly.JavaScript.valueToCode(block, 'INPUT',
-      Blockly.JavaScript.ORDER_ATOMIC) || '';
-
-  return [ signalValue + argument0, Blockly.JavaScript.ORDER_ATOMIC ];
+  if ( roverSignalValue !== undefined ) {
+      return [ roverSignalValue + argument0, Blockly.JavaScript.ORDER_ATOMIC ];
+  } else {
+      return [ ' 0 ' + argument0, Blockly.JavaScript.ORDER_ATOMIC ];
+  }
+ 
   
 };
 
@@ -671,7 +671,7 @@ Blockly.Blocks[ 'controls_sensor_signal' ] = {
     this.appendValueInput('INPUT')
         .appendField('Base Signal °')
         .setCheck(['OperatorAddSubtract','OperatorMultiplyDivide','LeftParenthesis','RightParenthesis','Conditional']);
-    this.setOutput(true, 'Number');
+    this.setOutput(true, null);
 
     var thisBlock = this;
     this.setTooltip( function() {
@@ -859,7 +859,7 @@ Blockly.Blocks[ 'math_number_out' ] = {
   init: function() {
     this.setColour( 60 );
     this.appendValueInput( "INPUT" )
-        .appendField(new Blockly.FieldDropdown([["10", "10"],["9", "9"],["8", "8"],
+        .appendField(new Blockly.FieldDropdown([["180", "180"],["90", "90"],["45", "45"],["10", "10"],["9", "9"],["8", "8"],
          ["7", "7"],["6", "6"],["5", "5"],["4", "4"],["3", "3"],["2", "2"],
          ["1", "1"],["0", "0"],["-1", "-1"], ["-2", "-2"], ["-3", "-3"], 
          ["-4", "-4"], ["-5", "-5"], ["-6", "-6"], ["-7", "-7"], ["-8", "-8"], 

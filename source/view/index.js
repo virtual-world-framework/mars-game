@@ -24,6 +24,7 @@ var currentBlockIDSelected = undefined;
 var targetPath = undefined;
 var targetID;
 var mainRover = undefined;
+var roverSignalValue = 0;
 var blocklyGraphID = undefined;
 var alertNodeID = undefined;
 var graphIsVisible = false;
@@ -355,6 +356,8 @@ vwf_view.satProperty = function( nodeID, propertyName, propertyValue ) {
         if ( propertyName === "blockly_activeNodeID" ) {
             Blockly.SOUNDS_ = {};
             selectBlocklyTab( propertyValue );
+        } else if ( propertyName === "roverSignalValue" ) {
+            roverSignalValue = parseFloat( propertyValue );
         } else if ( propertyName === "applicationState" ) {
             var state = propertyValue;
             var versionElem = document.getElementById( "version" );

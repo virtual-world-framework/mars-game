@@ -311,6 +311,8 @@ this.moveFailed = function( value ) {
 
 this.activateSensor = function( sensor ) {
 
+    var scene = this.sceneNode;
+
     if ( sensor === 'forward' ) {
         // This sensor just checks the current position against the 
         //  "anomalyPosition" on the blackboard (if any).
@@ -341,6 +343,7 @@ this.activateSensor = function( sensor ) {
         }
 
         this.signalSensorValue = heading;
+        scene.roverSignalValue = heading;
     }
 
 }
