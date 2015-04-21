@@ -34,7 +34,8 @@ function playVideo( src ) {
         for( var i = 0; i < supportedFormats.length; i++ ){
             fileList.push( redactedURLBase + supportedFormats[i] );
         }
-        vwf_view.kernel.callMethod( videoManagerID, "play", fileList );
+        vwf_view.kernel.setProperty( videoManagerID, "url", fileList );
+        vwf_view.kernel.callMethod( videoManagerID, "play" );
     }
 }
 

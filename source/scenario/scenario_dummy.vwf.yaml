@@ -67,10 +67,23 @@ properties:
     - blockly_allowedBlocks
     - 500
 
+  # NXM: Used to test preloading. Verify with network monitor. 
+  # We also need to call the "load" method on videoManager (see below).
+  #- setProperty:
+    #- videoManager  
+    #- url 
+    #- [ "assets/video/success_cinematic.webm", "assets/video/success_cinematic.mp4" ]
+
   - callMethod:
     - rover
     - setHeading
     - 0
+
+  # NXM: Used to test preloading. Verify with network monitor. 
+  # We also need to set the url property on videoManager (see above).
+  #- callMethod:
+    #- videoManager 
+    #- load
 
   - emptyInventory:
     - rover/cargo

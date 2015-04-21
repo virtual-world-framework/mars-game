@@ -50,6 +50,15 @@ properties:
     - setHeading
     - 0
 
+  - callMethod:
+    - rover2
+    - setHeading
+    - 0
+
+  #- callMethod:
+    #- videoManager
+    #- load       
+
   - emptyInventory:
     - rover/cargo
 
