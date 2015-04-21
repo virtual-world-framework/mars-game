@@ -72,6 +72,15 @@ properties:
     - setHeading
     - 0
 
+  - callMethod:
+    - rover2
+    - setHeading
+    - 90
+
+  - callMethod:
+    - videoManager 
+    - load
+
   - emptyInventory:
     - rover/cargo
 
