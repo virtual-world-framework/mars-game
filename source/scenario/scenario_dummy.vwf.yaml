@@ -79,11 +79,6 @@ properties:
     - setHeading
     - 0
 
-  - callMethod:
-    - rover2
-    - setHeading
-    - 90
-
   # NXM: Used to test preloading. Verify with network monitor. 
   # We also need to set the url property on videoManager (see above).
   #- callMethod:
