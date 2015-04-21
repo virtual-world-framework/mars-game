@@ -41,13 +41,7 @@ Blockly.Blocks['rover_moveRadial'] = {
     this.setPreviousStatement(true, "null");
     this.setNextStatement(true, "null");
     var thisBlock = this;
-    this.setTooltip( function() {
-      var content = {
-        text: "Moves the rover x spaces by y spaces.",
-        imagePath: ""
-      }
-      return showTooltipInBlockly( thisBlock, content );
-    } );
+    this.setTooltip("Moves the specified number of spaces along the X and Y axes");
   }
 };
 

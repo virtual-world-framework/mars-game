@@ -141,7 +141,7 @@ this.moveRadial = function( xValue, yValue ) {
         } else {
 
             //Otherwise, check if the space is occupied
-            if ( !this.checkRadialCollision( this.currentGridSquare, proposedNewGridSquare, heading ) ){
+            if ( !this.checkRadialCollision( this.currentGridSquare, proposedNewGridSquare ) ){
                 this.currentGrid.moveObjectOnGrid( this.id, this.currentGridSquare, proposedNewGridSquare );
                 this.currentGridSquare = proposedNewGridSquare;
                 var displacement = [  xValue * this.currentGrid.gridSquareLength,  yValue * this.currentGrid.gridSquareLength, 0 ];
@@ -190,12 +190,20 @@ this.turnRight = function() {
 
 this.checkRadialCollision = function( currentPosition, futurePosition ) {
 
-    var currentTranslation = this.currentGrid.getWorldFromGrid( currentPosition[ 0 ], currentPosition[ 1 ] );
-    var futureTranslation = this.currentGrid.getWorldFromGrid( futurePosition[ 0 ], futurePosition[ 1 ] );
 
-    currentTranslation[2] = this.getTerrainHeight( currentPosition[ 0 ] , currentPosition[ 1 ]) + 0.5;
-    futureTranslation[2] = this.getTerrainHeight( currentPosition[ 0 ] , currentPosition[ 1 ]) + 0.5;
+    var currentTranslation = this.currentGrid.getWorldFromGrid( currentPosition[ 0 ], currentPosition[ 1 ] );
+    console.log( currentTranslation );
+    var futureTranslation = this.currentGrid.getWorldFromGrid( futurePosition[ 0 ], futurePosition[ 1 ] );
+    console.log( futureTranslation );
+
+    currentTranslation[2] = this.translation[2] + 1.0;
+    futureTranslation[2] = this.translation[2] + 1.0;
+
+    console.log( currentTranslation );
+    console.log( futureTranslation );
+
     var dist = goog.vec.Vec3.distance( currentTranslation, futureTranslation );
+    console.log( dist );
     var sizeOfRover = this.currentGrid.gridSquareLength * 0.5;
     var scene = this.sceneNode;
 
@@ -218,10 +226,11 @@ this.checkRadialCollision = function( currentPosition, futurePosition ) {
         directionVector[ 2 ] / vectorLength
     ];
 
-    var raycastResult = scene.raycast( currentTranslation, normalizedVector, sizeOfRover, dist, true, [ player.id, environment.id, pickups.id, backdrop.id] );
+    var raycastResult = scene.raycast( currentTranslation, normalizedVector, 1.0, dist, true, [ player.id, environment.id, backdrop.id] );
 
     if ( raycastResult !== undefined ) {
         if ( raycastResult.length > 0 ) {
+            console.log(raycastResult);
             return true;
         } else {
             return false;
