@@ -237,10 +237,9 @@ function calcGridBounds( grid ) {
 this.executeBlock = function ( block, action ) {
     var blockName = block[ 0 ];
     var blockID = block[ 1 ];
-
+    var blockExeTime = block[ 2 ];
     
-    this.blockExecuted( blockName, blockID );
-    
+    this.blockExecuted( blockName, blockID, blockExeTime );
 
     var nodeID = action[ 0 ];
     var methodName = action[ 1 ];

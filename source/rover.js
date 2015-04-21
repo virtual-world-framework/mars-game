@@ -110,6 +110,74 @@ this.moveForward = function() {
     }
 }
 
+this.moveRadial = function( xValue, yValue ) {
+
+    var scene = this.sceneNode;
+
+    var radians = Math.atan2(yValue, xValue); // In radians 
+    var heading = radians * ( 180 / Math.PI );
+
+    if ( heading < 90 && heading > 0 ) {  // 'north' is rotated 90 degrees
+        this.setHeading( 360 + ( heading - 90 ) );
+    } else {
+        this.setHeading( heading - 90, 0 );
+    }
+
+    var dirVector = [ Math.round( -Math.sin( radians ) ), Math.round( Math.cos( radians ) ) ];
+
+    var proposedNewGridSquare = [ this.currentGridSquare[ 0 ] + xValue, 
+                                                                this.currentGridSquare[ 1 ] + yValue ];
+
+    //First check if the coordinate is valid
+    if ( this.currentGrid.validCoord( proposedNewGridSquare ) ) {
+
+        //Then check if the boundary value allows for movement:
+        var energyRequired = this.currentGrid.getEnergy( proposedNewGridSquare );
+        if ( energyRequired < 0 ) {
+            this.moveFailed( "collision" );
+        } else if ( energyRequired > this.battery ) {
+            this.battery = 0;
+            this.moveFailed( "battery" );
+        } else {
+
+            //Otherwise, check if the space is occupied
+            if ( !this.checkRadialCollision( this.currentGridSquare, proposedNewGridSquare ) ){
+                this.currentGrid.moveObjectOnGrid( this.id, this.currentGridSquare, proposedNewGridSquare );
+                this.currentGridSquare = proposedNewGridSquare;
+                var displacement = [  xValue * this.currentGrid.gridSquareLength,  yValue * this.currentGrid.gridSquareLength, 0 ];
+                // TODO: This should use worldTransformBy, but we are getting a bug where the rover's transform isn't set
+                //       yet when this method is called.  Until we can debug that, we are assuming that the rover's 
+                //       parent's frame of reference is the world frame of reference
+
+                //Calculate the time to displace based on the hypotenuse
+                var hypot = Math.sqrt(xValue*xValue + yValue*yValue);
+
+                this.translateOnTerrain( displacement, hypot, energyRequired );
+                // this.worldTransformBy( [
+                //   1, 0, 0, 0,
+                //   0, 1, 0, 0,
+                //   0, 0, 1, 0,
+                //   dirVector[ 0 ] * this.gridSquareLength, dirVector[ 1 ] * this.gridSquareLength, 0, 0 ], 1 );
+
+                var inventoriableObjects = this.currentGrid.getInventoriables( proposedNewGridSquare );
+                if ( inventoriableObjects ){
+                    for ( var i = 0; i < inventoriableObjects.length; i++ ) {
+                        this.currentGrid.removeFromGrid( inventoriableObjects[ i ], proposedNewGridSquare );
+                        this.cargo.add( inventoriableObjects[ i ] );
+                    }
+                }
+                this.moved();
+                this.activateSensor( 'forward' );
+            } else {
+                this.moveFailed( "collision" );
+            }
+        }
+    } else {
+        this.moveFailed( "collision" );
+    }
+}
+
+
 this.turnLeft = function() {
     this.setHeading( this.heading + 90, 1 );
     this.activateSensor( 'forward' );
@@ -118,6 +186,57 @@ this.turnLeft = function() {
 this.turnRight = function() {
     this.setHeading( this.heading - 90, 1 );
     this.activateSensor( 'forward' );
+}
+
+this.checkRadialCollision = function( currentPosition, futurePosition ) {
+
+
+    var currentTranslation = this.currentGrid.getWorldFromGrid( currentPosition[ 0 ], currentPosition[ 1 ] );
+    console.log( currentTranslation );
+    var futureTranslation = this.currentGrid.getWorldFromGrid( futurePosition[ 0 ], futurePosition[ 1 ] );
+    console.log( futureTranslation );
+
+    currentTranslation[2] = this.translation[2] + 1.0;
+    futureTranslation[2] = this.translation[2] + 1.0;
+
+    console.log( currentTranslation );
+    console.log( futureTranslation );
+
+    var dist = goog.vec.Vec3.distance( currentTranslation, futureTranslation );
+    console.log( dist );
+    var sizeOfRover = this.currentGrid.gridSquareLength * 0.5;
+    var scene = this.sceneNode;
+
+    var player = this.find( "//player" )[ 0 ];
+    var environment = this.find( "//environment" )[ 0 ];
+    var pickups = this.find( "//pickups" )[ 0 ];
+    var backdrop = this.find( "//backdrop" )[ 0 ];
+
+    var directionVector = [ 
+        futureTranslation[ 0 ] - currentTranslation[ 0 ],
+        futureTranslation[ 1 ] - currentTranslation[ 1 ],
+        futureTranslation[ 2 ] - currentTranslation[ 2 ]
+    ];
+
+    var vectorLength = Math.sqrt( ( directionVector[0]*directionVector[0] ) + ( directionVector[1]*directionVector[1] ) + ( directionVector[2]*directionVector[2] ) );
+
+    var normalizedVector = [ 
+        directionVector[ 0 ] / vectorLength,
+        directionVector[ 1 ] / vectorLength,
+        directionVector[ 2 ] / vectorLength
+    ];
+
+    var raycastResult = scene.raycast( currentTranslation, normalizedVector, 1.0, dist, true, [ player.id, environment.id, backdrop.id] );
+
+    if ( raycastResult !== undefined ) {
+        if ( raycastResult.length > 0 ) {
+            console.log(raycastResult);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
 }
 
 this.placeOnTerrain = function( pos ) {
