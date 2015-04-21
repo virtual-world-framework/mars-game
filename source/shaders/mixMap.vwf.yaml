@@ -1,0 +1,274 @@
+---
+extends: http://vwf.example.com/shaderMaterial.vwf
+properties:
+  lights: true
+  mixMap:
+    set: |
+      this.uniforms.mixMap.value = this.newTexture( value );
+      this.mixMap = value;
+  diffuseMaps:
+    set: |
+      this.uniforms.diffuseMaps.value = [
+        this.newTexture( value[ 0 ] ),
+        this.newTexture( value[ 1 ] ),
+        this.newTexture( value[ 2 ] ),
+        this.newTexture( value[ 3 ] )
+      ];
+      this.diffuseMaps = value;
+  normalMaps:
+    set: |
+      this.uniforms.normalMaps.value = [
+        this.newTexture( value[ 0 ] ),
+        this.newTexture( value[ 1 ] ),
+        this.newTexture( value[ 2 ] ),
+        this.newTexture( value[ 3 ] )
+      ];
+      this.normalMaps = value;
+  specularMaps:
+    set: |
+      this.uniforms.specularMaps.value = [
+        this.newTexture( value[ 0 ] ),
+        this.newTexture( value[ 1 ] ),
+        this.newTexture( value[ 2 ] ),
+        this.newTexture( value[ 3 ] )
+      ];
+      this.specularMaps = value;
+  textureResolution:
+    set: |
+      this.uniforms.texRes.value = value;
+      this.textureResolution = value;
+    value: 1
+  diffuse:
+    set: |
+      this.uniforms.diffuse.value = this.newColor( value );
+      this.diffuse = value;
+    value: [ 255, 255, 255 ]
+  ambient:
+    set: |
+      this.uniforms.ambient.value = this.newColor( value );
+      this.ambient = value;
+    value: [ 255, 255, 255 ]
+  emissive:
+    set: |
+      this.uniforms.emissive.value = this.newColor( value );
+      this.emissive = value;
+    value: [ 0, 0, 0 ]
+  specular:
+    set: |
+      this.uniforms.specular.value = this.newColor( value );
+      this.specular = value;
+    value: [ 255, 255, 255 ]
+  normalScale:
+    set: |
+      this.uniforms.normalScale.value = new THREE.Vector2( value[ 0 ], value[ 1 ] );
+      this.normalScale = value;
+    value: [ 1, 1 ]
+  opacity:
+    set: |
+      this.uniforms.opacity.value = value;
+      this.opacity = value;
+    value: 1
+  shininess:
+    set: |
+      this.uniforms.shininess.value = Math.max( value, 1 );
+      this.shininess = value;
+    value: 30
+  uniforms:
+    mixMap:
+      type: "t"
+      value: 0
+    diffuseMaps:
+      type: "tv"
+      value: []
+    normalMaps:
+      type: "tv"
+      value: []
+    specularMaps:
+      type: "tv"
+      value: []
+    texRes:
+      type: "f"
+      value: 0
+    diffuse:
+      type: "c"
+      value: 0
+    ambient:
+      type: "c"
+      value: 0
+    emissive:
+      type: "c"
+      value: 0
+    specular:
+      type: "c"
+      value: 0
+    opacity:
+      type: "f"
+      value: 1
+    shininess:
+      type: "f"
+      value: 50
+    normalScale:
+      type: "v2"
+      value: 0
+    ambientLightColor:
+      type: "fv"
+      value: []
+    directionalLightColor:
+      type: "fv"
+      value: []
+    directionalLightDirection:
+      type: "fv"
+      value: []
+    pointLightColor:
+      type: "fv"
+      value: []
+    pointLightPosition:
+      type: "fv"
+      value: []
+    pointLightDistance:
+      type: "fv1"
+      value: []
+    spotLightColor:
+      type: "fv"
+      value: []
+    spotLightPosition:
+      type: "fv"
+      value: []
+    spotLightDistance:
+      type: "fv1"
+      value: []
+    spotLightDirection:
+      type: "fv"
+      value: []
+    spotLightAngleCos:
+      type: "fv1"
+      value: []
+    spotLightExponent:
+      type: "fv1"
+      value: []
+    hemisphereLightSkyColor:
+      type: "fv"
+      value: []
+    hemisphereLightGroundColor:
+      type: "fv"
+      value: []
+    hemisphereLightDirection:
+      type: "fv1"
+      value: []
+  vertexShader: |
+    varying vec2 vUv;
+    varying vec3 vWorldPosition;
+    varying vec3 vViewPosition;
+    varying vec3 vNormal;
+    void main() {
+      vec3 objectNormal;
+      objectNormal = normal;
+      vec3 transformedNormal = normalMatrix * objectNormal;
+      vec4 worldPosition = modelMatrix * vec4( position, 1.0 );
+      vWorldPosition = worldPosition.xyz;
+      vNormal = normalize( transformedNormal );
+      vUv = uv;
+      vec4 mvPosition = modelViewMatrix * vec4( position, 1.0 );
+      vViewPosition = -mvPosition.xyz;
+      gl_Position = projectionMatrix * mvPosition;
+    }
+  fragmentShader: |
+    #extension GL_OES_standard_derivatives : enable
+    uniform vec3 diffuse;
+    uniform float opacity;
+    uniform vec3 ambient;
+    uniform vec3 emissive;
+    uniform vec3 specular;
+    uniform float shininess;
+    uniform vec2 normalScale;
+    uniform sampler2D mixMap;
+    uniform sampler2D diffuseMaps[ 4 ];
+    uniform sampler2D normalMaps[ 4 ];
+    uniform sampler2D specularMaps[ 4 ];
+    uniform float texRes;
+    uniform vec3 ambientLightColor;
+    uniform vec3 directionalLightColor[ MAX_DIR_LIGHTS ];
+    uniform vec3 directionalLightDirection[ MAX_DIR_LIGHTS ];
+    varying vec2 vUv;
+    varying vec3 vWorldPosition;
+    varying vec3 vViewPosition;
+    varying vec3 vNormal;
+    vec3 perturbNormal2Arb( vec3 eye_pos, vec3 surf_norm, vec3 mapNormal ) {
+      vec3 q0 = dFdx( eye_pos.xyz );
+      vec3 q1 = dFdy( eye_pos.xyz );
+      vec2 st0 = dFdx( vUv.st );
+      vec2 st1 = dFdy( vUv.st );
+      vec3 S = normalize( q0 * st1.t - q1 * st0.t );
+      vec3 T = normalize( -q0 * st1.s + q1 * st0.s );
+      vec3 N = normalize( surf_norm );
+      vec3 mapN = mapNormal * 2.0 - 1.0;
+      mapN.xy = normalScale * mapN.xy;
+      mat3 tsn = mat3( S, T, N );
+      return normalize( tsn * mapN );
+    }
+    vec3 getMixValue( vec4 mixWeights, sampler2D map[ 4 ], vec2 uvs ) {
+      vec3 black = texture2D( map[ 0 ], uvs ).rgb * mixWeights.x;
+      vec3 red = texture2D( map[ 1 ], uvs ).rgb * mixWeights.y;
+      vec3 green = texture2D( map[ 2 ], uvs ).rgb * mixWeights.z;
+      vec3 blue = texture2D( map[ 3 ], uvs ).rgb * mixWeights.w;
+      vec3 result = black + red + green + blue;
+      return result;
+    }
+    void main() {
+        gl_FragColor = vec4( vec3( 1.0 ), opacity );
+        vec3 mixMapTexel = texture2D( mixMap, vUv ).rgb;
+        vec2 texUv = vUv * texRes;
+        float rgbWeight = max( max( mixMapTexel.r, mixMapTexel.g), mixMapTexel.b );
+        float rgbLength = length( mixMapTexel );
+        vec4 mixWeights = vec4(
+            1.0 - rgbWeight,
+            mixMapTexel.r / max( rgbLength, 1.0 ),
+            mixMapTexel.g / max( rgbLength, 1.0 ),
+            mixMapTexel.b / max( rgbLength, 1.0 )
+          );
+        vec3 finalColor = getMixValue( mixWeights, diffuseMaps, texUv );
+        float specularStrength = getMixValue( mixWeights, specularMaps, texUv ).r / 4.0;
+        vec3 normal = normalize( vNormal );
+        vec3 viewPosition = normalize( vViewPosition );
+        vec3 mapNormal = getMixValue( mixWeights, normalMaps, texUv );
+        normal = perturbNormal2Arb( -vViewPosition, normal, mapNormal );
+        vec3 dirDiffuse = vec3( 0.0 );
+        vec3 dirSpecular = vec3( 0.0 );
+        for( int i = 0; i < MAX_DIR_LIGHTS; i ++ ) {
+          vec4 lDirection = viewMatrix * vec4( directionalLightDirection[ i ], 0.0 );
+          vec3 dirVector = normalize( lDirection.xyz );
+          float dotProduct = dot( normal, dirVector );
+          float dirDiffuseWeight = max( dotProduct, 0.0 );
+          dirDiffuse += diffuse * directionalLightColor[ i ] * dirDiffuseWeight;
+          vec3 dirHalfVector = normalize( dirVector + viewPosition );
+          float dirDotNormalHalf = max( dot( normal, dirHalfVector ), 0.0 );
+          float dirSpecularWeight = specularStrength * max( pow( dirDotNormalHalf, shininess ), 0.0 );
+          float specularNormalization = ( shininess + 2.0 ) / 8.0;
+          vec3 schlick = specular + vec3( 1.0 - specular ) * pow( max( 1.0 - dot( dirVector, dirHalfVector ), 0.0 ), 5.0 );
+          dirSpecular += schlick * directionalLightColor[ i ] * dirSpecularWeight * dirDiffuseWeight * specularNormalization;
+        }
+        vec3 totalDiffuse = vec3( 0.0 );
+        vec3 totalSpecular = vec3( 0.0 );
+        totalDiffuse += dirDiffuse;
+        totalSpecular += dirSpecular;
+        gl_FragColor.rgb = finalColor.rgb;
+        gl_FragColor.xyz = gl_FragColor.xyz * ( emissive + totalDiffuse + ambientLightColor * ambient ) + totalSpecular;
+    }
+methods:
+  newTexture:
+    parameters:
+      - value
+    body: |
+      var tex = THREE.ImageUtils.loadTexture( value );
+      tex.wrapS = tex.wrapT = THREE.RepeatWrapping;
+      return tex;
+  newColor:
+    parameters:
+      - value
+    body: |
+      var r, g, b, color;
+      r = value[ 0 ] / 255;
+      g = value[ 1 ] / 255;
+      b = value[ 2 ] / 255;
+      color = new THREE.Color( r, g, b );
+      return color;
