@@ -5,6 +5,6 @@
   <block type="controls_sensor_tracks"><field name="MODE">SCAN: NEGATIVE</field></block>
   <block type="controls_whileUntil"><field name="MODE">WHILE</field></block>
   <block type="controls_repeat_extended"></block>
-  <block type="math_number_out"></block>
+  <block type="math_number_out"><field name="VALUE">1</field></block>
   </category>
 </xml>

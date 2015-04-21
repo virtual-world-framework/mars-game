@@ -82,8 +82,10 @@ Blockly.JavaScript[ 'variables_get' ] = function( block ) {
   var argument0 = Blockly.JavaScript.valueToCode( block, 'INPUT',
       Blockly.JavaScript.ORDER_ATOMIC) || '';
 
+
   var code = Blockly.JavaScript.variableDB_.getName( block.getFieldValue( 'VAR' ),
       Blockly.Variables.NAME_TYPE );
+    console.log(code);
   return [ ( code + argument0 ) , Blockly.JavaScript.ORDER_ATOMIC ];
 };
 
@@ -258,30 +260,29 @@ Blockly.Blocks['controls_whileUntil'] = {
 
 Blockly.JavaScript['controls_whileUntil'] = function(block) {
 
-  var until = block.getFieldValue('MODE') == 'UNTIL';
+  var until = block.getFieldValue( 'MODE' ) == 'UNTIL';
 
-  var argument0 = Blockly.JavaScript.valueToCode(block, 'BOOL',
+  var argument0 = Blockly.JavaScript.valueToCode( block, 'BOOL',
       until ? Blockly.JavaScript.ORDER_LOGICAL_NOT :
-      Blockly.JavaScript.ORDER_NONE) || 'false';
+      Blockly.JavaScript.ORDER_NONE ) || 'false';
 
-  var branch = Blockly.JavaScript.statementToCode(block, 'DO');
+  var branch = Blockly.JavaScript.statementToCode( block, 'DO' );
   // if (Blockly.JavaScript.INFINITE_LOOP_TRAP) {
   //   branch = Blockly.JavaScript.INFINITE_LOOP_TRAP.replace(/%1/g,
   //       '\'block_id_' + block.id + '\'') + branch;
   // }
 
-  if (until) {
+  if ( until ) {
      argument0 = '! (' + argument0 + ')';
   }
 
   
-  if(argument0.split('(').length == argument0.split(')').length) {
+  if( argument0.split('(').length == argument0.split(')').length ) {
     var code = 'while ('+ argument0 +') {\n' + branch + '}\n';
   } else {
     var code = 'while ('+ false +') {\n' + branch + '}\n';
   }
 
-  console.log(code);
   return constructBlockExeEventCall( block ) + code;
 
   // Do while/until loop.
@@ -656,8 +657,10 @@ Blockly.JavaScript[ 'controls_sensor_signal' ] = function( block ) {
 
   var argument0 = Blockly.JavaScript.valueToCode(block, 'INPUT', Blockly.JavaScript.ORDER_ATOMIC) || '';
 
-  if ( roverSignalValue !== undefined ) {
-      return [ roverSignalValue + argument0, Blockly.JavaScript.ORDER_ATOMIC ];
+  var rover = vwf_view.kernel.find( "", "//rover" )[ 0 ];
+
+  if ( rover !== undefined ) {
+      return [ "vwf.getProperty( '" + rover + "', 'signalSensorValue' )" + argument0, Blockly.JavaScript.ORDER_ATOMIC ];
   } else {
       return [ ' 0 ' + argument0, Blockly.JavaScript.ORDER_ATOMIC ];
   }
@@ -669,20 +672,53 @@ Blockly.Blocks[ 'controls_sensor_signal' ] = {
   init: function() {
     this.setColour( 30 );
     this.appendValueInput('INPUT')
-        .appendField('Base Signal °')
+        .appendField('Signal °')
         .setCheck(['OperatorAddSubtract','OperatorMultiplyDivide','LeftParenthesis','RightParenthesis','Conditional']);
     this.setOutput(true, null);
 
     var thisBlock = this;
     this.setTooltip( function() {
       var content = {
-        text: "Checks our scanner for base location in a 360° arc that starts on the X-axis. Not yet available on Perry!"
+        text: "Checks our scanner for base location in a 360° arc that starts on the X-axis. Returns a value between 0 and 360"
       }
       return showTooltipInBlockly( thisBlock, content );
     } );
   }
 };
 
+
+Blockly.JavaScript[ 'controls_sensor_heading' ] = function( block ) {
+
+  var argument0 = Blockly.JavaScript.valueToCode(block, 'INPUT', Blockly.JavaScript.ORDER_ATOMIC) || '';
+
+  var rover = vwf_view.kernel.find( "", "//rover" )[ 0 ];
+
+  if ( rover !== undefined ) {
+      return [ "vwf.getProperty( '" + rover + "', 'heading' )" + argument0, Blockly.JavaScript.ORDER_ATOMIC ];
+  } else {
+      return [ ' 0 ' + argument0, Blockly.JavaScript.ORDER_ATOMIC ];
+  }
+ 
+  
+};
+
+Blockly.Blocks[ 'controls_sensor_heading' ] = {
+  init: function() {
+    this.setColour( 30 );
+    this.appendValueInput('INPUT')
+        .appendField('Heading °')
+        .setCheck(['OperatorAddSubtract','OperatorMultiplyDivide','LeftParenthesis','RightParenthesis','Conditional']);
+    this.setOutput(true, null);
+
+    var thisBlock = this;
+    this.setTooltip( function() {
+      var content = {
+        text: "Checks our rover for its heading in a 360° arc that starts on the X-axis. Returns a value between 0 and 360"
+      }
+      return showTooltipInBlockly( thisBlock, content );
+    } );
+  }
+};
 // Blockly.Blocks['text_print'] = {
 //   /**
 //    * Block for print statement.
@@ -859,7 +895,7 @@ Blockly.Blocks[ 'math_number_out' ] = {
   init: function() {
     this.setColour( 60 );
     this.appendValueInput( "INPUT" )
-        .appendField(new Blockly.FieldDropdown([["180", "180"],["90", "90"],["45", "45"],["10", "10"],["9", "9"],["8", "8"],
+        .appendField(new Blockly.FieldDropdown([["270", "270"],["180", "180"],["90", "90"],["45", "45"],["10", "10"],["9", "9"],["8", "8"],
          ["7", "7"],["6", "6"],["5", "5"],["4", "4"],["3", "3"],["2", "2"],
          ["1", "1"],["0", "0"],["-1", "-1"], ["-2", "-2"], ["-3", "-3"], 
          ["-4", "-4"], ["-5", "-5"], ["-6", "-6"], ["-7", "-7"], ["-8", "-8"], 

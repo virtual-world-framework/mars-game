@@ -267,6 +267,7 @@ this.blockCountChanged = function( value ) {
     this.calcRam();
     this.activateSensor( 'forward' );
     this.activateSensor( 'signal' );
+    this.activateSensor( 'heading', this.heading );
 }
 this.allowedBlocksChanged = function( value ) {
     this.calcRam();
@@ -309,7 +310,7 @@ this.moveFailed = function( value ) {
     }
 }
 
-this.activateSensor = function( sensor ) {
+this.activateSensor = function( sensor, value ) {
 
     var scene = this.sceneNode;
 
@@ -346,6 +347,13 @@ this.activateSensor = function( sensor ) {
         scene.roverSignalValue = heading;
     }
 
+    if ( sensor === 'heading' ) {
+        // This sensor records the heading of the rover
+        scene.roverHeadingValue = value;
+
+    }
+
+
 }
 
 this.deactivateSensor = function() {
@@ -355,6 +363,7 @@ this.deactivateSensor = function() {
 this.setHeading = function( newHeading, duration ) {
     if ( this.heading !== undefined ) {
         // Find the delta in heading and rotateBy that amount via the optional duration
+        this.activateSensor( 'heading', newHeading );
         var headingDelta = newHeading - this.heading;
         var axisAngle = [
             this.transform[ 8 ], 
@@ -400,6 +409,7 @@ this.setHeading = function( newHeading, duration ) {
 
     // Set the heading value, constraining the value to be between 0 and 359
     this.heading = ( newHeading % 360 + 360 ) % 360;
+    
 }
 
 //@ sourceURL=source/rover.js

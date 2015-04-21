@@ -29,6 +29,7 @@ properties:
   version: "Development"
   sceneBlackboard: {}
   roverSignalValue: 0
+  roverHeadingValue: 0
   roverTabBlinking: false
   graphTabBlinking: false
   # applicationState tracks what the application is currently doing

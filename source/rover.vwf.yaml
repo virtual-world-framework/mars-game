@@ -61,7 +61,7 @@ properties:
       }
     value: 5
   tracksSensorValue: false
-  signalSensorvalue:
+  signalSensorValue:
     set: |
       if ( this.signalSensorValue != value ) {
         this.signalSensorValue = value;
