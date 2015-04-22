@@ -49,22 +49,35 @@ properties:
       this.uniforms.shininess.value = Math.max( value, 1 );
       this.shininess = value;
     value: 30
+  lightTrailHeight:
+    set: |
+      this.uniforms.lightTrailHeight.value = value;
+      this.lightTrailHeight = value;
+    value: 5
   updateFunction: |
     var time = Date.now() / 1000;
-    this.time += time - this.lastTime;
-    this.lastTime = time;
-    if ( this.time > this.duration + 1 ) {
-      this.time = 0;
+    if ( this.animating ) {
+      this.elapsedTime += time - this.lastTickTime;
     }
-    var heightPct = this.time / this.duration;
-    this.uniforms.ceiling.value = this.bottom + this.height * heightPct;
-  time: 0
-  lastTime: 0
-  duration: 10
-  bottom: -100
-  height: 200
+    this.lastTickTime = time;
+    if ( this.elapsedTime >= this.duration ) {
+      this.elapsedTime = this.duration;
+      this.animating = false;
+    }
+    var heightPct = this.elapsedTime / this.duration;
+    var adjustedHeight = this.height + this.uniforms.lightTrailHeight.value;
+    this.uniforms.ceiling.value = this.bottom + adjustedHeight * heightPct;
+  elapsedTime: 0
+  lastTickTime: 0
+  duration: 5
+  bottom: 0
+  height: 1
+  animating: false
   uniforms:
     ceiling:
+      type: "f"
+      value: 0
+    lightTrailHeight:
       type: "f"
       value: 0
     diffuseMap:
@@ -170,17 +183,18 @@ properties:
       objectNormal = normal;
       vec3 transformedNormal = normalMatrix * objectNormal;
       vec4 worldPosition = modelMatrix * vec4( position, 1.0 );
-      vWorldPosition = worldPosition.xyz;
+      vWorldPosition = worldPosition.xyz / worldPosition.w;
       for( int i = 0; i < MAX_SHADOWS; i ++ ) {
         vShadowCoord[ i ] = shadowMatrix[ i ] * worldPosition;
       }
       vNormal = normalize( transformedNormal );
       vUv = uv;
-      vec4 mvPosition = modelViewMatrix * vec4( position, 1.0 );
-      vViewPosition = -mvPosition.xyz;
-      if ( mvPosition.y > ceiling ) {
-        mvPosition.y = ceiling;
+      vec4 mvPosition = worldPosition;
+      if ( mvPosition.z > ceiling ) {
+        mvPosition.z = ceiling;
       }
+      mvPosition = viewMatrix * mvPosition;
+      vViewPosition = -mvPosition.xyz;
       gl_Position = projectionMatrix * mvPosition;
     }
   fragmentShader: |
@@ -204,6 +218,7 @@ properties:
     uniform float shadowBias[ MAX_SHADOWS ];
     varying vec4 vShadowCoord[ MAX_SHADOWS ];
     uniform float ceiling;
+    uniform float lightTrailHeight;
     varying vec2 vUv;
     varying vec3 vWorldPosition;
     varying vec3 vViewPosition;
@@ -304,9 +319,9 @@ properties:
       }
       gl_FragColor.xyz = gl_FragColor.xyz * ( emissive + totalDiffuse + ambientLightColor * ambient ) + totalSpecular;
       gl_FragColor.xyz = gl_FragColor.xyz * shadowColor;
-      float cBot = ceiling - 10.0;
+      float cBot = ceiling - lightTrailHeight;
       if ( vWorldPosition.z > cBot ) {
-        float light = ( vWorldPosition.z - cBot ) / 10.0;
+        float light = ( vWorldPosition.z - cBot ) / lightTrailHeight;
         gl_FragColor.rgb += vec3( light );
       }
 
@@ -329,3 +344,6 @@ methods:
       b = value[ 2 ] / 255;
       color = new THREE.Color( r, g, b );
       return color;
+  animate: |
+    this.elapsedTime = 0;
+    this.animating = true;
