@@ -19,6 +19,10 @@ var graphLines = {};
 var loggerNodes = {};
 var currentBlocklyNodeID = undefined;
 var currentProcedureBlockID = undefined;
+var currentLoopCheckBlockID = undefined;
+var currentLoopingBlockID = undefined;
+var currentLoopIndex = 0;
+var maxLoopIndex = 0;
 var lastBlockIDExecuted = undefined;
 var currentBlockIDSelected = undefined;
 var targetPath = undefined;
@@ -364,9 +368,7 @@ vwf_view.satProperty = function( nodeID, propertyName, propertyValue ) {
         if ( propertyName === "blockly_activeNodeID" ) {
             Blockly.SOUNDS_ = {};
             selectBlocklyTab( propertyValue );
-   currentBlocklyNodeID = propertyValue;
-            hideBlocklyIndicator();
-            hideBlocklyProcedureIndicator();
+            hideBlocklyIndicator();            hideBlocklyProcedureIndicator();
 
  } else if ( propertyName === "roverSignalValue" ) {
             roverSignalValue = parseFloat( propertyValue );
@@ -788,6 +790,25 @@ function indicateBlock( blockID ) {
         }
 
         showBlocklyIndicator();
+
+        // This code handles loop counting
+        // TODO: Hide the loop counter AFTER the last block in the loop stack
+        if ( block.type === "controls_repeat_extended" && block.id !== currentLoopingBlockID ) {
+            currentLoopingBlockID = block.id;
+            maxLoopIndex = parseInt( Blockly.JavaScript.valueToCode( block, 'TIMES', Blockly.JavaScript.ORDER_ASSIGNMENT ) || '0' );
+            var loopConnection = block.getInput( "DO" ).connection.targetConnection;
+            if ( loopConnection ) {
+                currentLoopCheckBlockID = loopConnection.sourceBlock_;
+            }
+            showBlocklyLoopCount( currentLoopIndex, maxLoopIndex );
+        }
+        if ( block.id === currentLoopCheckBlockID ) {
+            currentLoopIndex++;
+            showBlocklyLoopCount( currentLoopIndex, maxLoopIndex );
+            if ( currentLoopIndex === maxLoopIndex ) {
+                hideBlocklyLoopCount();
+            }
+        }
 
         var pos = block.getRelativeToSurfaceXY();
         var xScrollOffset = workspace.scrollX;
