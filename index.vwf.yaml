@@ -104,6 +104,7 @@ children:
       videoManager:
         extends: http://vwf.example.com/jplayer/videoManager.vwf
         properties:
+          preload: "auto" 
           containerDivId: "jp_container_1"
           playerDivId: "jquery_jplayer_1"
           containerSize: [1024, 768]
