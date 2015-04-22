@@ -22,11 +22,13 @@ var currentProcedureBlockID = undefined;
 
 var currentLoopCheckBlockID = undefined;
 var currentLoopingBlockID = undefined;
+var currentLoopIndexes = {};
 var currentLoopIndex = 0;
 var maxLoopIndex = 0;
 var lastBlockInLoopID = undefined;
 var currentBlockIndicatedID = undefined;
 var hasLooped = false;
+var tabSwitched = false;
 
 var lastBlockIDExecuted = undefined;
 var currentBlockIDSelected = undefined;
@@ -109,7 +111,9 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 currentProcedureBlockID = undefined;                currentLoopingBlockID = 0;
                 currentLoopIndex = 0;
                 blocklyStopped = false;
-                hideBlocklyLoopCount();                break;
+                tabSwitched = false;
+                hideBlocklyLoopCount();
+                break;
 
             case "blocklyStopped":
                 if ( currentBlocklyNodeID === nodeID ) {
@@ -378,12 +382,17 @@ vwf_view.satProperty = function( nodeID, propertyName, propertyValue ) {
         if ( propertyName === "blockly_activeNodeID" ) {
             Blockly.SOUNDS_ = {};
             selectBlocklyTab( propertyValue );
-            hideBlocklyIndicator();            hideBlocklyProcedureIndicator();
+            currentBlocklyNodeID = propertyValue;
 
- } else if ( propertyName === "roverSignalValue" ) {
+            tabSwitched = true;
+            hideBlocklyLoopCount(); //Hide the loop count for now if we switch tabs since it is broken for multiple rovers
+            hideBlocklyIndicator();            
+           hideBlocklyProcedureIndicator();
+        } else if ( propertyName === "roverSignalValue" ) {
             roverSignalValue = parseFloat( propertyValue );
         } else if ( propertyName === "roverHeadingValue" ) {
-            roverHeadingValue = parseFloat( propertyValue );        } else if ( propertyName === "applicationState" ) {
+            roverHeadingValue = parseFloat( propertyValue );        
+        } else if ( propertyName === "applicationState" ) {
             var state = propertyValue;
             var versionElem = document.getElementById( "version" );
             switch ( state ) {
@@ -730,10 +739,21 @@ function indicateBlock( blockID ) {
     if ( block ) {
         if ( block.data !== currentBlocklyNodeID ) {
             return;
-        } 
+        } else {
+            if ( blocklyNodes[ currentBlocklyNodeID ].isExecuting ) {
+                var indicator = document.getElementById( "blocklyIndicator" );
+                indicator.className = "";
+                indicator.style.visibility = "inherit";
+                var indicatorCount = document.getElementById( "blocklyIndicatorCount" );
+                indicatorCount.className = "";
+                indicatorCount.style.visibility = "inherit";
+                var procedureIndicator = document.getElementById( "blocklyProcedureIndicator" );
+                procedureIndicator.className = "";
+                procedureIndicator.style.visibility = "inherit";
+            }
+        }
     }
     
-
     if ( block ) {
         if ( block.parentBlock_ ) {
             if ( block.parentBlock_.callType_ === "procedures_callnoreturn" || 
@@ -811,7 +831,7 @@ function indicateBlock( blockID ) {
             }
             showBlocklyLoopCount( currentLoopIndex, maxLoopIndex );
         }
-        if ( block.id === currentLoopCheckBlockID && blocklyStopped === false) {
+        if ( block.id === currentLoopCheckBlockID && blocklyStopped === false && tabSwitched === false ) {
             if ( hasLooped === true ) {
                 lastBlockInLoopID = lastBlockIDExecuted;
             } else {
