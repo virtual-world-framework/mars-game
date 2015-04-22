@@ -324,7 +324,6 @@ properties:
         float light = ( vWorldPosition.z - cBot ) / lightTrailHeight;
         gl_FragColor.rgb += vec3( light );
       }
-
     }
 methods:
   newTexture:
