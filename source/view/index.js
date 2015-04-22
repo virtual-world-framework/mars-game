@@ -19,12 +19,18 @@ var graphLines = {};
 var loggerNodes = {};
 var currentBlocklyNodeID = undefined;
 var currentProcedureBlockID = undefined;
+
 var currentLoopCheckBlockID = undefined;
 var currentLoopingBlockID = undefined;
 var currentLoopIndex = 0;
 var maxLoopIndex = 0;
+var lastBlockInLoopID = undefined;
+var currentBlockIndicatedID = undefined;
+var hasLooped = false;
+
 var lastBlockIDExecuted = undefined;
 var currentBlockIDSelected = undefined;
+var blocklyStopped = true;
 var targetPath = undefined;
 var targetID;
 var mainRover = undefined;
@@ -84,6 +90,8 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                         // startBlocklyButton.className = topBlockCount !== 1 ? "disabled" : "" ;
                         // if disabled then need to set the tooltip
                         // There must be only one program for each blockly object
+                        hideBlocklyIndicator();
+                        hideBlocklyProcedureIndicator();
                     }
                 }
                 break;
@@ -98,22 +106,24 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 var procedureIndicator = document.getElementById( "blocklyProcedureIndicator" );
                 procedureIndicator.className = "";
                 procedureIndicator.style.visibility = "inherit";
-                currentProcedureBlockID = undefined;
-
-                break;
+                currentProcedureBlockID = undefined;                currentLoopingBlockID = 0;
+                currentLoopIndex = 0;
+                blocklyStopped = false;
+                hideBlocklyLoopCount();                break;
 
             case "blocklyStopped":
+                if ( currentBlocklyNodeID === nodeID ) {
 
-                vwf_view.kernel.setProperty( nodeID, "blockly_timeBetweenLines", 1 );
-
-                startBlocklyButton.className = "";
-                var indicator = document.getElementById( "blocklyIndicator" );
-                var count = document.getElementById( "blocklyIndicatorCount" );
-                indicator.className = "stopped";
-                count.className = "stopped";
-                var procedureIndicator = document.getElementById( "blocklyProcedureIndicator" );
-                procedureIndicator.className = "stopped";
-
+                    vwf_view.kernel.setProperty( nodeID, "blockly_timeBetweenLines", 1 );
+                    startBlocklyButton.className = "";
+                    var indicator = document.getElementById( "blocklyIndicator" );
+                    var count = document.getElementById( "blocklyIndicatorCount" );
+                    indicator.className = "stopped";
+                    count.className = "stopped";
+                    var procedureIndicator = document.getElementById( "blocklyProcedureIndicator" );
+                    procedureIndicator.className = "stopped";
+                    blocklyStopped = true;
+                }
             case "blocklyErrored":
                 startBlocklyButton.className = "";
                 break;
@@ -718,11 +728,9 @@ function indicateBlock( blockID ) {
     // Check the appended nodeID data which we attach when the block is being put into the workspace (in blocks.js)
 
     if ( block ) {
-        console.log( block.data + currentBlocklyNodeID);
         if ( block.data !== currentBlocklyNodeID ) {
             return;
-        } else {
-        }
+        } 
     }
     
 
@@ -792,23 +800,42 @@ function indicateBlock( blockID ) {
         showBlocklyIndicator();
 
         // This code handles loop counting
-        // TODO: Hide the loop counter AFTER the last block in the loop stack
+
         if ( block.type === "controls_repeat_extended" && block.id !== currentLoopingBlockID ) {
             currentLoopingBlockID = block.id;
+            currentLoopIndex = 0;
             maxLoopIndex = parseInt( Blockly.JavaScript.valueToCode( block, 'TIMES', Blockly.JavaScript.ORDER_ASSIGNMENT ) || '0' );
             var loopConnection = block.getInput( "DO" ).connection.targetConnection;
             if ( loopConnection ) {
-                currentLoopCheckBlockID = loopConnection.sourceBlock_;
+                currentLoopCheckBlockID = loopConnection.sourceBlock_.id;
             }
             showBlocklyLoopCount( currentLoopIndex, maxLoopIndex );
         }
-        if ( block.id === currentLoopCheckBlockID ) {
+        if ( block.id === currentLoopCheckBlockID && blocklyStopped === false) {
+            if ( hasLooped === true ) {
+                lastBlockInLoopID = lastBlockIDExecuted;
+            } else {
+                hasLooped = true;
+            }
             currentLoopIndex++;
             showBlocklyLoopCount( currentLoopIndex, maxLoopIndex );
-            if ( currentLoopIndex === maxLoopIndex ) {
-                hideBlocklyLoopCount();
-            }
+            
         }
+
+        // If we are at the last block in the loop stack and we're maxed out - hide everything
+
+        if ( currentLoopIndex === maxLoopIndex ) {
+            currentLoopingBlockID = undefined;
+            maxLoopIndex = 0;
+            currentLoopIndex = 0;
+            hasLooped = false;
+            lastBlockInLoopID = undefined;
+            hideBlocklyLoopCount();
+        }
+
+        // Important for checking where we are in the loop stack
+
+        lastBlockIDExecuted = block.id;
 
         var pos = block.getRelativeToSurfaceXY();
         var xScrollOffset = workspace.scrollX;
@@ -839,7 +866,6 @@ function indicateProcedureBlock( blockID ) {
     // Check the appended nodeID data which we attach when the block is being put into the workspace (in blocks.js)
 
     if ( block ) {
-        console.log( block.data + currentBlocklyNodeID);
         if ( block.data !== currentBlocklyNodeID ) {
             return;
         }
