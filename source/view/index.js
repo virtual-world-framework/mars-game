@@ -93,6 +93,9 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 procedureIndicator.className = "";
                 procedureIndicator.style.visibility = "inherit";
                 currentProcedureBlockID = undefined;
+
+                blocklyPreExecute();
+
                 break;
 
             case "blocklyStopped":
@@ -671,6 +674,23 @@ function resetRoverSensors() {
     }
 }
 
+function blocklyPreExecute() {
+    console.log('preexecuting');
+    var code = Blockly.JavaScript.workspaceToCode();
+    console.log( code );
+    //get current rover grid coordinates
+    //get current grid
+    //get current power
+    //array variable to push 
+    //pass these in as variables (prepend to code)
+    //replace relevant block code with dummy code ( turning changes heading - moving changes current grid and decrements power )
+    //when you change grid, check if its a collision... 
+    //when you change brid, check if we have power to do so...
+    //if not, push the new grid to the array and continue executing
+    //if so, return
+    //if at the end, return [ 'done', tiles ] (append to code)
+    //fire an event, blocklyPreExecuted with the args result and tile array
+}
 function selectBlock( blockID ) {
     var workspace, block, lastBlock;
     workspace = Blockly.getMainWorkspace();
