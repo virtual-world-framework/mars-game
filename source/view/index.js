@@ -685,7 +685,9 @@ function blocklyPreExecute() {
 
     //Evaluate each newline and replace according to the type of block/contents
     //Rejoin code
+
     //TODO: Should probably have some sort of check for an infinite loop like while(true): turnLeft
+    //TODO: Need some sort of check for # of top blocks - if more than 1 sequence, ignore
 
     for ( var i = 0; i < splitArray.length; i++ ) {
         var currentCode = splitArray[ i ];
@@ -702,7 +704,9 @@ function blocklyPreExecute() {
                     'var headingInRadians = heading * Math.PI / 180;\n' +
                     'var dirVector = [ Math.round( -Math.sin( headingInRadians ) ), Math.round( Math.cos( headingInRadians ) ) ];\n' +
                     'var proposedNewGridSquare = [ currentPosition[ 0 ] + dirVector[ 0 ], currentPosition[ 1 ] + dirVector[ 1 ] ];\n' +
-                    'result.sequence.push( proposedNewGridSquare );\n' +
+                    'var resultArray = result.sequence;\n'+
+                    'resultArray.push( proposedNewGridSquare );\n' +
+                    'result.sequence = resultArray;\n' +
                     'currentPosition = proposedNewGridSquare;\n';
 
             } else if ( currentCode.indexOf( 'turnLeft' ) > -1 ) {
@@ -727,26 +731,47 @@ function blocklyPreExecute() {
     var headingString = 'var heading = '+heading+';\n';
     var positionString = 'var currentPosition = ['+ currentPosition[0]+','+currentPosition[1]+'];\n';
 
-    reconstitutedCode = arrayString + batteryString + headingString + positionString + reconstitutedCode;
+    reconstitutedCode = batteryString + headingString + positionString + reconstitutedCode;
 
     //eval the code
 
     var result = eval( '( function() {' + reconstitutedCode + '}() )' );
 
+    var ignoreSet = { 'rover' : true };
+
     if ( result.condition === 'done' ) {
         var collided = false;
         var tileArray = result.sequence;
         for ( var t = 0; t < tileArray.length; t++ ) {
-            if ( grid.checkCollision( tileArray[ t ], { 'rover' : true } ) ) {
-                result.condition = 'collision';
-                result.finalTile = tileArray[ t ];
-                collided = true;
-            } else {
-
+            console.log('loop');
+            var tiles = vwf.getProperty( grid.id, "tiles" );
+            console.log(hmm);
+            var tile = tiles[ tileArray[t][0], tileArray[t][1] ];
+            for ( var i = 0; i < tile.objects.length; i++ ) {
+                var node = tile.getNodeAtIndex( i );
+                if( ignoreSet && ignoreSet.hasOwnProperty( node.name ) ) {
+                    break;
+                }
+                if ( node === undefined ) {
+                    this.logger.errorx( "checkCollision", "Unable to find node with " +
+                        "ID: " + tile.objects[ i ] );
+                    return null;
+                } else if ( node.isCollidable ) {
+                    collided = true;
+                    result.condition = 'collided';
+                    break;
+                }
             }
+
         }
         if ( collided === false ) {
-            result.finalTile = tileArray[ tileArray.length - 1];
+           var last = tileArray[ tileArray.length - 1];
+           if ( last === undefined ) {
+                //no movement
+                result.finalTile = currentPosition;
+           } else {
+                result.finalTile = last;
+           }
         }
     }
 

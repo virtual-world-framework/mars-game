@@ -293,6 +293,38 @@ this.checkCollision = function( gridCoord, ignoreSet ) {
     return collide;
 }
 
+this.checkCollisionPreExecutor = function( args ) {
+    var gridCoord = args[ 0 ];
+    var ignoreSet = args[ 1 ];
+    var collide = false;
+    if ( this.validCoord( gridCoord ) ) {
+        var tile = this.getTileFromGrid( gridCoord ); 
+        for ( var i = 0; i < tile.objects.length; i++ ) {
+            var node = tile.getNodeAtIndex( i );
+            // ignoreSet is of format:
+            // ignoreSet = { objectAname : true,
+            //               objectBname : true, 
+            //               ...
+            //               objectZname : true 
+            // }  
+            if( ignoreSet && ignoreSet.hasOwnProperty( node.name ) ) {
+                return false;
+            }
+            if ( node === undefined ) {
+                this.logger.errorx( "checkCollision", "Unable to find node with " +
+                    "ID: " + tile.objects[ i ] );
+                return null;
+            } else if ( node.isCollidable ) {
+                collide = true;
+                break;
+            }
+        }
+    } else {
+        collide = true;
+    }
+    return collide;
+}
+
 this.checkCollisionArea = function( gridCoord, boundingArea, ignoreSet ) {
 
     for( var x = 0; x < boundingArea[ 0 ]; x++ ) { 

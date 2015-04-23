@@ -45,6 +45,7 @@ methods:
   getEnergy:
   checkCollisionArea:
   checkCollision:
+  checkCollisionPreExecutor:
   createTile:
 scripts:
 - source: grid.js
