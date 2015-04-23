@@ -5,11 +5,13 @@
   <block type="rover_turn"><field name="DIR">Turn: Left</field></block>
   <block type="controls_repeat_extended"></block>
   <block type="controls_sensor_tracks"><field name="MODE">SCAN: NEGATIVE</field></block>
-  <block type="math_number_out"></block>
+  <block type="controls_sensor_signal"></block>
+  <block type="controls_sensor_heading"></block>
+  <block type="math_number_out"><field name="VALUE">1</field></block>
   </category>
   <category name="Variables" custom="VARIABLE">
-    <block type="variables_get"><field name="VAR">test1</field></block>
-    <block type="variables_set"><field name="VAR">test1</field></block>
+    <block type="variables_get"></block>
+    <block type="variables_set"></block>
     <!-- <block type="variables_set"></block>
     <block type="variables_get"></block> -->
   </category>
@@ -22,7 +24,7 @@
     <block type="controls_whileUntil"><field name="MODE">WHILE</field></block>
   </category>
   <category name="Numbers / Math">
-    <block type="math_number_out"></block>
+    <block type="math_number_out"><field name="VALUE">1</field></block>
     <block type="graph_add"></block>
     <block type="graph_subtract"></block>
     <block type="graph_multiply"></block>

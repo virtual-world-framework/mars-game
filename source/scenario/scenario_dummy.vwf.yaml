@@ -89,6 +89,10 @@ properties:
     - rover/cargo
 
   - addToGrid:
+    - signal
+    - [ 12, 10 ]
+
+  - addToGrid:
     - rover
     - [ 21, 15 ]
 
@@ -147,6 +151,9 @@ children:
             - environmentWind
           - writeToBlackboard:
             - anomalyPosition
+            - [ 12, 10 ]
+          - writeToBlackboard:
+            - signalPosition
             - [ 12, 10 ]
           - setObjective:
             - "Explore the Cartesian Plane!"

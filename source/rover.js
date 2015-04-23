@@ -22,6 +22,7 @@ this.initialize = function() {
     // TODO: Find the current heading (rather than making app developer specify)
 
     this.calcRam();
+
 }
 
 this.findAndSetCurrentGrid = function( scenarioName ) {
@@ -101,6 +102,7 @@ this.moveForward = function() {
                 }
                 this.moved();
                 this.activateSensor( 'forward' );
+                this.activateSensor( 'signal' );
             } else {
                 this.moveFailed( "collision" );
             }
@@ -181,11 +183,13 @@ this.moveRadial = function( xValue, yValue ) {
 this.turnLeft = function() {
     this.setHeading( this.heading + 90, 1 );
     this.activateSensor( 'forward' );
+    this.activateSensor( 'signal' );
 }
 
 this.turnRight = function() {
     this.setHeading( this.heading - 90, 1 );
     this.activateSensor( 'forward' );
+    this.activateSensor( 'signal' );
 }
 
 this.checkRadialCollision = function( currentPosition, futurePosition ) {
@@ -256,6 +260,7 @@ this.placeOnTerrain = function( pos ) {
         this.transform[ 8 ], this.transform[ 9 ], this.transform[ 10 ], 0,
         pos[ 0 ],    pos[ 1 ],    pos[ 2 ],    1
     ] );
+    
 }
 
 this.translateOnTerrain = function( translation, duration, boundaryValue ) {
@@ -379,6 +384,9 @@ this.calcRam = function() {
 
 this.blockCountChanged = function( value ) {
     this.calcRam();
+    this.activateSensor( 'forward' );
+    this.activateSensor( 'signal' );
+    this.activateSensor( 'heading', this.heading );
 }
 this.allowedBlocksChanged = function( value ) {
     this.calcRam();
@@ -421,7 +429,9 @@ this.moveFailed = function( value ) {
     }
 }
 
-this.activateSensor = function( sensor ) {
+this.activateSensor = function( sensor, value ) {
+
+    var scene = this.sceneNode;
 
     if ( sensor === 'forward' ) {
         // This sensor just checks the current position against the 
@@ -433,6 +443,36 @@ this.activateSensor = function( sensor ) {
                                  anomalyPos[ 1 ] === currentPos [ 1 ];
     }
 
+    if ( sensor === 'signal' ) {
+        // This sensor just checks the current position against the 
+        //  "signalPosition" on the blackboard (if any).
+        var signalPos = this.sceneNode.sceneBlackboard[ "signalPosition" ];
+        var currentPos = this.currentGridSquare;
+
+        var deltaX = signalPos[ 0 ] - currentPos[ 0 ];
+        var deltaY = signalPos[ 1 ] - currentPos[ 1 ];
+
+        var radians = Math.atan2( deltaY, deltaX ); // In radians 
+        var heading = radians * ( 180 / Math.PI );
+
+        // Convert to 0 to 360 
+        if ( heading >= 0 ) {
+            heading = 180 - heading;
+        } else {
+            heading = 360 + heading;
+        }
+
+        this.signalSensorValue = heading;
+        scene.roverSignalValue = heading;
+    }
+
+    if ( sensor === 'heading' ) {
+        // This sensor records the heading of the rover
+        scene.roverHeadingValue = value;
+
+    }
+
+
 }
 
 this.deactivateSensor = function() {
@@ -442,6 +482,7 @@ this.deactivateSensor = function() {
 this.setHeading = function( newHeading, duration ) {
     if ( this.heading !== undefined ) {
         // Find the delta in heading and rotateBy that amount via the optional duration
+        this.activateSensor( 'heading', newHeading );
         var headingDelta = newHeading - this.heading;
         var axisAngle = [
             this.transform[ 8 ], 
@@ -487,6 +528,7 @@ this.setHeading = function( newHeading, duration ) {
 
     // Set the heading value, constraining the value to be between 0 and 359
     this.heading = ( newHeading % 360 + 360 ) % 360;
+    
 }
 
 //@ sourceURL=source/rover.js

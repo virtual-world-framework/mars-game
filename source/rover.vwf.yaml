@@ -61,6 +61,13 @@ properties:
       }
     value: 5
   tracksSensorValue: false
+  signalSensorValue:
+    set: |
+      if ( this.signalSensorValue != value ) {
+        this.signalSensorValue = value;
+        this.signalSensorValueChanged( value, this.id );
+      }
+    value: 0
   heading: 0
   terrainName: undefined
   displayName: undefined
@@ -86,6 +93,7 @@ events:
   batteryMaxChanged:
   ramChanged:
   ramMaxChanged:
+  signalSensorValueChanged:
   blockCountChanged:
   allowedBlocksChanged:
 scripts:
