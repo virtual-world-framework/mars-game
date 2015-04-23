@@ -36,6 +36,7 @@ this.executeAction = function() {
     var scenario = this.scenario;
     this.assert( object, "Object not found!" );
     this.assert( scenario, "Scenario not found!" );
+
     // TODO: Check that the coordinate is valid?
     object && scenario && scenario.grid.addToGridFromCoord( object, 
                                                             this.gridCoord );

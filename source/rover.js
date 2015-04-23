@@ -22,6 +22,7 @@ this.initialize = function() {
     // TODO: Find the current heading (rather than making app developer specify)
 
     this.calcRam();
+    this.position = this.currentGridSquare;
 }
 
 this.findAndSetCurrentGrid = function( scenarioName ) {
@@ -59,6 +60,21 @@ this.getMinEnergyRequired = function( gridCoord ){
 
     return minEnergyRequired;
 } 
+
+this.addedToGrid = function() {
+    // TODO: Find a better way to determine if the object's parent
+    //   is an inventory and if the object is a pickup
+
+    console.log('added to grid');
+    this.position = this.currentGridSquare;
+
+    if ( this.parent.remove ) {
+        this.parent.remove( this );
+    }
+    if ( this.setPickupVisibility ) {
+        this.visible = true;
+    }
+}
 
 this.moveForward = function() {
 

@@ -675,22 +675,84 @@ function resetRoverSensors() {
 }
 
 function blocklyPreExecute() {
-    console.log('preexecuting');
+
     var code = Blockly.JavaScript.workspaceToCode();
-    console.log( code );
-    //get current rover grid coordinates
-    //get current grid
-    //get current power
-    //array variable to push 
-    //pass these in as variables (prepend to code)
-    //replace relevant block code with dummy code ( turning changes heading - moving changes current grid and decrements power )
-    //when you change grid, check if its a collision... 
-    //when you change brid, check if we have power to do so...
-    //if not, push the new grid to the array and continue executing
-    //if so, return
-    //if at the end, return [ 'done', tiles ] (append to code)
-    //fire an event, blocklyPreExecuted with the args result and tile array
+
+    //Split code by newlines
+    var splitArray = code.split(/\n/g);
+
+    var reconstitutedCode = "var result = { 'sequence':[], 'condition':'unknown', 'finalTile':[]};\n";
+
+    //Evaluate each newline and replace according to the type of block/contents
+    //Rejoin code
+    //TODO: Should probably have some sort of check for an infinite loop like while(true): turnLeft
+
+    for ( var i = 0; i < splitArray.length; i++ ) {
+        var currentCode = splitArray[ i ];
+        var replaceCode = '';
+        if ( currentCode.indexOf( 'fireEvent' ) > -1 ){
+            reconstitutedCode += '\n';
+        } else if ( currentCode.indexOf( 'callMethod' ) > -1 ) {
+            if ( currentCode.indexOf( 'moveForward' ) > -1 ) {
+
+                //for forward moves, push the new grid to the array
+                //but if we're out of battery, stop
+                reconstitutedCode += 'battery--;\n' +
+                    'if ( battery < 0 ) { result.condition = \'battery\';\n result.finalTile = currentPosition;\n return result; }\n' +
+                    'var headingInRadians = heading * Math.PI / 180;\n' +
+                    'var dirVector = [ Math.round( -Math.sin( headingInRadians ) ), Math.round( Math.cos( headingInRadians ) ) ];\n' +
+                    'var proposedNewGridSquare = [ currentPosition[ 0 ] + dirVector[ 0 ], currentPosition[ 1 ] + dirVector[ 1 ] ];\n' +
+                    'result.sequence.push( proposedNewGridSquare );\n' +
+                    'currentPosition = proposedNewGridSquare;\n';
+
+            } else if ( currentCode.indexOf( 'turnLeft' ) > -1 ) {
+                reconstitutedCode += 'var newHeading = heading - 90; heading = ( newHeading % 360 + 360 ) % 360;' + '\n';
+            } else if ( currentCode.indexOf( 'turnRight' ) > -1 ) {
+                reconstitutedCode += 'var newHeading = heading + 90; heading = ( newHeading % 360 + 360 ) % 360;' + '\n';
+            }
+        } else {
+            reconstitutedCode += currentCode + '\n';;
+        }
+        
+    }
+    
+    reconstitutedCode += 'result.condition = \'done\'; return result;';
+
+    var heading = vwf.getProperty( getBlocklyNodeIDByName( "rover" ), "heading" );
+    var grid = vwf.getProperty( getBlocklyNodeIDByName( "rover" ), "currentGrid" );
+    var currentPosition = vwf.getProperty( getBlocklyNodeIDByName( "rover" ), "currentGridSquare" );
+    var battery = vwf.getProperty( getBlocklyNodeIDByName( "rover" ), "battery" );
+
+    var batteryString = 'var battery = '+battery+';\n';
+    var headingString = 'var heading = '+heading+';\n';
+    var positionString = 'var currentPosition = ['+ currentPosition[0]+','+currentPosition[1]+'];\n';
+
+    reconstitutedCode = arrayString + batteryString + headingString + positionString + reconstitutedCode;
+
+    //eval the code
+
+    var result = eval( '( function() {' + reconstitutedCode + '}() )' );
+
+    if ( result.condition === 'done' ) {
+        var collided = false;
+        var tileArray = result.sequence;
+        for ( var t = 0; t < tileArray.length; t++ ) {
+            if ( grid.checkCollision( tileArray[ t ], { 'rover' : true } ) ) {
+                result.condition = 'collision';
+                result.finalTile = tileArray[ t ];
+                collided = true;
+            } else {
+
+            }
+        }
+        if ( collided === false ) {
+            result.finalTile = tileArray[ tileArray.length - 1];
+        }
+    }
+
+    console.log( result );
 }
+
 function selectBlock( blockID ) {
     var workspace, block, lastBlock;
     workspace = Blockly.getMainWorkspace();
