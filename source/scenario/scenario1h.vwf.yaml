@@ -22,6 +22,10 @@ properties:
 
   startState:
   - setProperty:
+    - videoManager  
+    - url 
+    - [ "assets/video/success_cinematic.webm", "assets/video/success_cinematic.mp4" ]
+  - setProperty:
     - rover3
     - visible
     - false
