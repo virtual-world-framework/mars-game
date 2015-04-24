@@ -2,84 +2,19 @@
 extends: http://vwf.example.com/shaderMaterial.vwf
 properties:
   lights: true
-  diffuseMap:
-    set: |
-      this.uniforms.diffuseMap.value = this.newTexture( value );
-      this.diffuseMap = value;
-  normalMap:
-    set: |
-      this.uniforms.normalMap.value = this.newTexture( value );
-      this.normalMap = value;
-  specularMap:
-    set: |
-      this.uniforms.specularMap.value = this.newTexture( value );
-      this.specularMap = value;
-  diffuse:
-    set: |
-      this.uniforms.diffuse.value = this.newColor( value );
-      this.diffuse = value;
-    value: [ 255, 255, 255 ]
-  ambient:
-    set: |
-      this.uniforms.ambient.value = this.newColor( value );
-      this.ambient = value;
-    value: [ 255, 255, 255 ]
-  emissive:
-    set: |
-      this.uniforms.emissive.value = this.newColor( value );
-      this.emissive = value;
-    value: [ 0, 0, 0 ]
-  specular:
-    set: |
-      this.uniforms.specular.value = this.newColor( value );
-      this.specular = value;
-    value: [ 255, 255, 255 ]
-  normalScale:
-    set: |
-      this.uniforms.normalScale.value = new THREE.Vector2( value[ 0 ], value[ 1 ] );
-      this.normalScale = value;
-    value: [ 1, 1 ]
-  opacity:
-    set: |
-      this.uniforms.opacity.value = value;
-      this.opacity = value;
-    value: 1
-  shininess:
-    set: |
-      this.uniforms.shininess.value = Math.max( value, 1 );
-      this.shininess = value;
-    value: 30
-  lightTrailHeight:
-    set: |
-      this.uniforms.lightTrailHeight.value = value;
-      this.lightTrailHeight = value;
-    value: 5
-  updateFunction: |
-    var time = Date.now() / 1000;
-    if ( this.animating ) {
-      this.elapsedTime += time - this.lastTickTime;
-    }
-    this.lastTickTime = time;
-    if ( this.elapsedTime >= this.duration ) {
-      this.elapsedTime = this.duration;
-      this.animating = false;
-    }
-    var heightPct = this.elapsedTime / this.duration;
-    var adjustedHeight = this.height + this.uniforms.lightTrailHeight.value;
-    this.uniforms.ceiling.value = this.bottom + adjustedHeight * heightPct;
-  elapsedTime: 0
-  lastTickTime: 0
-  duration: 5
-  bottom: 0
-  height: 1
-  animating: false
+  _elapsedTime: 0
+  _lastTickTime: 0
+  _duration: 5
+  _bottom: 0
+  _height: 1
+  _animating: false
   uniforms:
     ceiling:
       type: "f"
       value: 0
     lightTrailHeight:
       type: "f"
-      value: 0
+      value: 1
     diffuseMap:
       type: "t"
       value: 0
@@ -91,19 +26,19 @@ properties:
       value: 0
     diffuse:
       type: "c"
-      value: 0
+      value: 0xFFFFFF
     ambient:
       type: "c"
-      value: 0
+      value: 0xFFFFFF
     emissive:
       type: "c"
-      value: 0
+      value: 0x000000
     specular:
       type: "c"
-      value: 0
+      value: 0xFFFFFF
     normalScale:
       type: "v2"
-      value: 0
+      value: [ 1, 1 ]
     opacity:
       type: "f"
       value: 1
@@ -170,6 +105,19 @@ properties:
     shadowMatrix:
       type: "m4v"
       value: []
+  updateFunction: |
+    var time = Date.now() / 1000;
+    if ( this._animating ) {
+      this._elapsedTime += time - this._lastTickTime;
+    }
+    this._lastTickTime = time;
+    if ( this._elapsedTime >= this._duration ) {
+      this._elapsedTime = this._duration;
+      this._animating = false;
+    }
+    var heightPct = this._elapsedTime / this._duration;
+    var adjustedHeight = this._height + this.uniforms.lightTrailHeight.value;
+    this.uniforms.ceiling.value = this._bottom + adjustedHeight * heightPct;
   vertexShader: |
     uniform float ceiling;
     uniform mat4 shadowMatrix[ MAX_SHADOWS ];
@@ -326,23 +274,6 @@ properties:
       }
     }
 methods:
-  newTexture:
-    parameters:
-      - value
-    body: |
-      var tex = THREE.ImageUtils.loadTexture( value );
-      tex.wrapS = tex.wrapT = THREE.RepeatWrapping;
-      return tex;
-  newColor:
-    parameters:
-      - value
-    body: |
-      var r, g, b, color;
-      r = value[ 0 ] / 255;
-      g = value[ 1 ] / 255;
-      b = value[ 2 ] / 255;
-      color = new THREE.Color( r, g, b );
-      return color;
   animate: |
-    this.elapsedTime = 0;
-    this.animating = true;
+    this._elapsedTime = 0;
+    this._animating = true;

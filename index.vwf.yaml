@@ -19,7 +19,8 @@ implements:
 properties:
   enableShadows: true
   shadowMapCullFace: "back"
-  ambientColor: [ 150, 140, 140 ]
+  ambientColor: [ 120, 110, 110 ]
+  backgroundColor: [ 225, 145, 75 ]
   userObject: null
   blockly_autoClose: false
   activeScenarioPath:
@@ -585,6 +586,42 @@ children:
         extends: source/pickups/helicam.vwf
       minirover:
         extends: source/pickups/minirover.vwf
+  tent:
+    extends: source/buildings/tent.vwf
+    properties:
+      castShadows: true
+      receiveShadows: true
+    children:
+      material:
+        extends: source/shaders/animatedShader.vwf
+        properties:
+          diffuseMap: "../assets/3d/mars_tent/mars_tent.png"
+          normalMap: "../assets/3d/mars_tent/mars_tent_n.png"
+          specularMap: "../assets/3d/mars_tent/mars_tent_s.png"
+          lightTrailHeight: 0.2
+          normalScale: [ 0.75, 0.75 ]
+          shininess: 10
+          _bottom: -1
+          _height: 12
+          _duration: 10
+  solarPanel:
+    extends: source/buildings/solarPanel.vwf
+    properties:
+      castShadows: true
+      receiveShadows: true
+    children:
+      material:
+        extends: source/shaders/animatedShader.vwf
+        properties:
+          diffuseMap: "../assets/3d/solar_panel/solar_panel.png"
+          normalMap: "../assets/3d/solar_panel/solar_panel_n.png"
+          specularMap: "../assets/3d/solar_panel/solar_panel_s.png"
+          lightTrailHeight: 0.2
+          normalScale: [ 0.5, 0.5 ]
+          shininess: 20
+          _bottom: -1
+          _height: 3
+          _duration: 10
   scenario_dummy:
     includes: source/scenario/scenario_dummy.vwf
   introScreenScenario:

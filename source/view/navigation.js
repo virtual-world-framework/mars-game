@@ -147,7 +147,7 @@ function moveNavObject( deltaX, deltaY, navObject, navMode, rotationSpeed, trans
         case "walk":
         case "fly":
         case "none":
-            defaultNav.move( dx, dy, navObject, navMode, rotationSpeed, translationSpeed, msSinceLastFrame );
+            defaultNav.move( deltaX, deltaY, navObject, navMode, rotationSpeed, translationSpeed, msSinceLastFrame );
             break;
 
         case "topDown":
