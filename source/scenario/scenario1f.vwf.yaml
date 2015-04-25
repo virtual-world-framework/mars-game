@@ -130,14 +130,6 @@ children:
           - playSound:
             - ALVO35_Rover
 
-        setCameraView:
-          triggerCondition:
-          - onBlocklyStarted:
-            - rover
-          actions:
-          - setCinematicCameraView:
-            - [ 13, 15, -15 ]
-
   grid:
     includes: source/grid.vwf
     properties:
