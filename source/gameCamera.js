@@ -53,8 +53,11 @@ this.followTarget = function( transform ) {
         transform[ 13 ],
         transform[ 14 ]
     ];
-    var cameraPose = this.getPoseFromTransform( this.camera.transform );
-    this.setCameraPose( cameraPose );
+    // The following code is for checking camera collisions as the target object
+    //   is moving. It currently is slow and fights with the collision handling
+    //   in view/navigation.js.
+    // var cameraPose = this.getPoseFromTransform( this.camera.transform );
+    // this.setCameraPose( cameraPose );
 }
 
 this.attachToTarget = function() {
