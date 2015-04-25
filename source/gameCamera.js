@@ -110,19 +110,6 @@ this.convertPoseToTransform = function( pose ) {
     ];
 }
 
-this.getPoseFromTransform = function() {
-    var transform = this.camera.transform;
-    var radiansToDegrees = 180 / Math.PI;
-    var radius, yaw, pitch;
-    var cosPitch, sinYaw;
-    cosPitch = transform[ 10 ];
-    sinYaw = transform[ 1 ];
-    radius = transform[ 12 ] / cosPitch / sinYaw;
-    yaw = Math.asin( sinYaw ) * radiansToDegrees;
-    pitch = Math.acos( cosPitch ) * radiansToDegrees;
-    return [ radius, yaw, pitch ];
-}
-
 this.mounted = function( mount ) {
     this.mount = mount;
 }
