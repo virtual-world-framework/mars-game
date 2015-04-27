@@ -78,6 +78,7 @@ Blockly.Blocks[ 'variables_get' ] = {
     this.setTooltip( Blockly.Msg.VARIABLES_GET_TOOLTIP );
     this.contextMenuMsg_ = Blockly.Msg.VARIABLES_GET_CREATE_SET;
     this.contextMenuType_ = 'variables_set';
+    this.data = currentBlocklyNodeID;
   },
   /**
    * Return all variables referenced by this block.
@@ -149,6 +150,7 @@ Blockly.Blocks['variables_set'] = {
     this.setTooltip(Blockly.Msg.VARIABLES_SET_TOOLTIP);
     this.contextMenuMsg_ = Blockly.Msg.VARIABLES_SET_CREATE_GET;
     this.contextMenuType_ = 'variables_get';
+    this.data = currentBlocklyNodeID;
   },
   /**
    * Return all variables referenced by this block.
@@ -191,6 +193,7 @@ Blockly.Blocks[ 'logic_cond_out' ] = {
         .setCheck( [ 'Boolean','Variable','Number','LeftParenthesis','RightParenthesis' ] );
     this.setOutput( true, "Conditional" );
     var thisBlock = this;
+    this.data = currentBlocklyNodeID;
     this.setTooltip( function() {
       var content = {
         text: "A block for selecting and/or operators"
@@ -219,6 +222,7 @@ Blockly.Blocks[ 'logic_andor_out' ] = {
         .setCheck( [ 'Boolean','Variable','LeftParenthesis','RightParenthesis' ] );
     this.setOutput( true, "ANDOR" );
     var thisBlock = this;
+    this.data = currentBlocklyNodeID;
     this.setTooltip( function() {
       var content = {
         text: "A block for selecting and/or operators"
@@ -247,6 +251,7 @@ Blockly.Blocks[ 'logic_boolean' ] = {
         .setCheck( [ 'ANDOR','Variable','LeftParenthesis','RightParenthesis' ] );
     this.setOutput( true, "Boolean" );
     var thisBlock = this;
+    this.data = currentBlocklyNodeID;
     this.setTooltip( function() {
       var content = {
         text: "A block for selecting boolean values"
@@ -285,6 +290,7 @@ Blockly.Blocks['controls_whileUntil'] = {
         .appendField(Blockly.Msg.CONTROLS_WHILEUNTIL_INPUT_DO);
     this.setPreviousStatement(true);
     this.setNextStatement(true);
+    this.data = currentBlocklyNodeID;
     // Assign 'this' to a variable for use in the tooltip closure below.
     var thisBlock = this;
     this.setTooltip(function() {
@@ -350,6 +356,7 @@ Blockly.Blocks['controls_if_nomut'] = {
         .appendField(Blockly.Msg.CONTROLS_IF_MSG_THEN);
     this.setPreviousStatement(true);
     this.setNextStatement(true);
+    this.data = currentBlocklyNodeID;
     // Assign 'this' to a variable for use in the tooltip closure below.
     var thisBlock = this;
     this.setTooltip(function() {
@@ -502,6 +509,7 @@ Blockly.Blocks['controls_if_else_nomut'] = {
     this.setNextStatement(true);
     this.appendStatementInput('ELSE')
           .appendField(Blockly.Msg.CONTROLS_IF_MSG_ELSE);
+    this.data = currentBlocklyNodeID;
     //this.setMutator(new Blockly.Mutator(['controls_if_elseif',
        //                                  'controls_if_else']));
     // Assign 'this' to a variable for use in the tooltip closure below.
@@ -683,6 +691,7 @@ Blockly.Blocks[ 'controls_sensor_tracks' ] = {
     this.appendDummyInput("INPUT")
         .appendField(new Blockly.FieldDropdown([["scan: positive", "SCAN: POSITIVE"],["scan: negative", "SCAN: NEGATIVE"]]), "MODE");
     this.setOutput( true, "Boolean" );
+    this.data = currentBlocklyNodeID;
     var thisBlock = this;
     this.setTooltip( function() {
       var content = {
@@ -795,7 +804,7 @@ Blockly.Blocks['rover_moveForward'] = {
     this.setInputsInline(true);
     this.setPreviousStatement(true);
     this.setNextStatement(true);
-
+    this.data = currentBlocklyNodeID;
     var thisBlock = this;
     this.setTooltip( function() {
       var content = {
@@ -835,6 +844,7 @@ Blockly.Blocks['rover_turn'] = {
     this.setInputsInline(true);
     this.setPreviousStatement(true);
     this.setNextStatement(true);
+    this.data = currentBlocklyNodeID;
     var thisBlock = this;
     this.setTooltip( function() {
       var content = {
@@ -888,6 +898,7 @@ Blockly.Blocks[ 'controls_repeat_extended' ] = {
     this.setPreviousStatement( true );
     this.setNextStatement( true );
     this.setInputsInline( true );
+    this.data = currentBlocklyNodeID;
     var thisBlock = this;
     this.setTooltip( function() {
       var content = {
@@ -942,6 +953,7 @@ Blockly.Blocks[ 'math_number_out' ] = {
          ["-9", "-9"], ["-10", "-10"]]), "VALUE")
         .setCheck( [ 'OperatorAddSubtract','OperatorMultiplyDivide','Variable','LeftParenthesis','RightParenthesis','Conditional' ] );
     this.setOutput( true, null );
+    this.data = currentBlocklyNodeID;
     var thisBlock = this;
     this.setTooltip( function() {
       var content = {
@@ -984,6 +996,7 @@ Blockly.Blocks[ 'graph_get_x' ] = {
         .setCheck( ['OperatorAddSubtract','OperatorMultiplyDivide','LeftParenthesis','RightParenthesis'] );
     this.setOutput( true, 'Variable' );
     var thisBlock = this;
+    this.data = currentBlocklyNodeID;
     this.setTooltip( function() {
       var content = {
         text: "This is the X variable, also known as the independent variable."
@@ -1023,7 +1036,7 @@ Blockly.Blocks[ 'graph_add' ] = {
         .setCheck(['Number','Variable','LeftParenthesis']);
 
     this.setOutput(true, 'OperatorAddSubtract');
-
+    this.data = currentBlocklyNodeID;
     var thisBlock = this;
     this.setTooltip( function() {
       var content = {
@@ -1057,6 +1070,7 @@ Blockly.Blocks['graph_subtract'] = {
         .appendField('-')
         .setCheck(['Number','Variable','LeftParenthesis']);
     this.setOutput(true, 'OperatorAddSubtract');
+    this.data = currentBlocklyNodeID;
     var thisBlock = this;
     this.setTooltip( function() {
       var content = {
@@ -1095,6 +1109,7 @@ Blockly.Blocks[ 'graph_multiply' ] = {
         .appendField('×')
         .setCheck(['Number','Variable','LeftParenthesis','OperatorAddSubtract']);
     this.setOutput(true, 'OperatorMultiplyDivide');
+    this.data = currentBlocklyNodeID;
     var thisBlock = this;
     this.setTooltip( function() {
       var content = {
@@ -1133,6 +1148,7 @@ Blockly.Blocks[ 'graph_divide' ] = {
         .appendField('÷')
         .setCheck(['Number','Variable','LeftParenthesis','OperatorAddSubtract']);
     this.setOutput(true, 'OperatorMultiplyDivide');
+    this.data = currentBlocklyNodeID;
     var thisBlock = this;
     this.setTooltip( function() {
       var content = {
@@ -1169,6 +1185,7 @@ Blockly.Blocks['graph_left_paren'] = {
         .appendField('(')
         .setCheck(['Number','Boolean','Variable','OperatorAddSubtract','RightParenthesis']);
     this.setOutput(true, null);
+    this.data = currentBlocklyNodeID;
     var thisBlock = this;
     this.setTooltip( function() {
       var content = {
@@ -1205,6 +1222,7 @@ Blockly.Blocks['graph_right_paren'] = {
     this.appendValueInput('INPUT')
         .appendField(')');
     this.setOutput(true, 'RightParenthesis');
+    this.data = currentBlocklyNodeID;
     var thisBlock = this;
     this.setTooltip( function() {
       var content = {
@@ -1241,6 +1259,7 @@ Blockly.Blocks['graph_set_y'] = {
     this.appendValueInput('INPUT')
         .appendField('y=')
         .setCheck(['Number','Variable','OperatorAddSubtract','LeftParenthesis']);
+        this.data = currentBlocklyNodeID;
     var thisBlock = this;
     this.setTooltip( function() {
       var content = {

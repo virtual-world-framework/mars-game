@@ -253,11 +253,13 @@ function moveBlocklyProcedureIndicator( x, y ) {
 function showBlocklyLoopCount( count, maxCount ) {
     var indicatorCount = document.getElementById( "blocklyIndicatorCount" );
     indicatorCount.style.visibility = "inherit";
+    indicatorCount.style.fontSize = '9px';
     indicatorCount.innerHTML = count + " of " + maxCount;
 }
 
 function hideBlocklyLoopCount() {
     var indicatorCount = document.getElementById( "blocklyIndicatorCount" );
+    indicatorCount.innerHTML = '';
     indicatorCount.style.visibility = "hidden";
 }
 
