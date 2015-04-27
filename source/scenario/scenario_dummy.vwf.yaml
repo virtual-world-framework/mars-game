@@ -107,6 +107,14 @@ properties:
     - [ 20, 14 ]
 
   - addToGrid:
+    - tent
+    - [ 10, 15 ]
+
+  - addToGrid:
+    - solarPanel
+    - [ 16, 14 ]
+
+  - addToGrid:
     - supplies_2
     - [ 12, 10 ]
 
