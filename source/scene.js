@@ -274,7 +274,7 @@ this.setUpRoverListeners = function() {
 this.displayTiles = function( isVisible ) {
     if ( isVisible !== this.gridTileGraph.mapTiles.groupVisible ) {
         this.gridTileGraph.mapTiles.groupVisible = isVisible;
-        if ( isVisible && this.gameCam.mountName !== "topDown" ) {
+        if ( isVisible && this.gameCam.mount.name !== "topDown" ) {
             this.gameCam.setCameraMount( "topDown" );
         }
         this.toggledTiles( isVisible );
@@ -284,7 +284,7 @@ this.displayTiles = function( isVisible ) {
 this.displayGraph = function( isVisible ) {
     if ( isVisible !== this.blocklyGraph.graphVisible ) {
         this.blocklyGraph.graphVisible = isVisible;
-        if ( isVisible && this.gameCam.mountName !== "topDown" ) {
+        if ( isVisible && this.gameCam.mount.name !== "topDown" ) {
             this.gameCam.setCameraMount( "topDown" );
         }
         this.toggledGraph( isVisible );
@@ -389,8 +389,8 @@ this.selectBlocklyNode = function( nodeID ) {
             this.blockly_activeNodeID = nodeID;
         }
         if ( node.defaultMount && this.gameCam.target !== node ) {
-            if ( node.hasMount( this.gameCam.mountName ) ) {
-                mountName = this.gameCam.mountName;
+            if ( node.hasMount( this.gameCam.mount.name ) ) {
+                mountName = this.gameCam.mount.name;
             }
             this.gameCam.setCameraTarget( node, mountName );
             this.hud.selectRover( nodeID );

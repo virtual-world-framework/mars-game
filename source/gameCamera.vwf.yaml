@@ -20,9 +20,11 @@
 
 ---
 extends: http://vwf.example.com/node3.vwf
+implements:
+  - http://vwf.example.com/sceneGetter.vwf
 properties:
   target:
-  mountName:
+  mount:
   lastTargetPosition: [ 0, 0, 0 ]
   followingTarget: true
   followRotation: false
@@ -35,6 +37,7 @@ methods:
   detachFromTarget:
   setCameraPose:
   convertPoseToTransform:
+  getPoseFromTransform:
 events:
   mounted:
 children:

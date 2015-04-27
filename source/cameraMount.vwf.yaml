@@ -27,8 +27,8 @@ properties:
   worldOffset: [ 0, 0, 0 ]
   useTargetRotation: false
   cameraLock: true
+  usePoseFromCamera: false
 methods:
   mountCamera:
-events:
 scripts:
   - source: cameraMount.js
