@@ -260,7 +260,9 @@ this.translateOnTerrain = function( translation, duration, boundaryValue ) {
 
     var scene = this.sceneNode;
 
-    duration = duration * scene.blockly_baseExecutionSpeed;
+    var duration = duration * this.executionSpeed;
+
+    console.log(duration);
 
     if ( this.terrain === undefined ) {
 
@@ -508,8 +510,12 @@ this.deactivateSensor = function() {
 
 this.setHeading = function( newHeading, duration ) {
 
-    duration = duration * scene.blockly_baseExecutionSpeed;
-    
+    var scene = this.sceneNode;
+
+    var duration = duration * this.executionSpeed;
+
+    console.log(duration);
+
     if ( this.heading !== undefined ) {
         // Find the delta in heading and rotateBy that amount via the optional duration
         this.activateSensor( 'heading', newHeading );

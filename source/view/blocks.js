@@ -72,6 +72,7 @@ Blockly.Blocks[ 'variables_get' ] = {
     this.appendValueInput( 'INPUT' )
         .appendField( Blockly.Msg.VARIABLES_GET_TITLE )
         .appendField( new Blockly.FieldVariable( Blockly.Msg.VARIABLES_GET_ITEM ), 'VAR' )
+        .appendField( new Blockly.FieldTextInput("?"), "VALUE" )
         .appendField( Blockly.Msg.VARIABLES_GET_TAIL )
         .setCheck( [ 'Number','Boolean','Variable','OperatorAddSubtract','OperatorMultiplyDivide','LeftParenthesis','RightParenthesis','Conditional','ANDOR' ] );
     this.setOutput( true );
@@ -673,14 +674,7 @@ Blockly.JavaScript['controls_if_else_nomut'] = function(block) {
 
 Blockly.JavaScript[ 'controls_sensor_tracks' ] = function( block ) {
   
-  var dropdown_value = block.getFieldValue('MODE');
-  var rover = vwf_view.kernel.find( "", "//rover" )[ 0 ];
-
-  if ( dropdown_value === 'SCAN: NEGATIVE' ) {
-      return [ "!vwf.getProperty( '" + rover + "', 'tracksSensorValue' )", Blockly.JavaScript.ORDER_ATOMIC ];
-  } else {
-      return [ "vwf.getProperty( '" + rover + "', 'tracksSensorValue' )", Blockly.JavaScript.ORDER_ATOMIC ];
-  }
+  return [ "vwf.getProperty( '" + block.data + "', 'tracksSensorValue' )", Blockly.JavaScript.ORDER_ATOMIC ];
   
 };
 
@@ -688,23 +682,31 @@ Blockly.Blocks[ 'controls_sensor_tracks' ] = {
   init: function() {
     this.setColour( 30 );
     this.appendDummyInput("INPUT")
-        .appendField(new Blockly.FieldDropdown([["scan: positive", "SCAN: POSITIVE"],["scan: negative", "SCAN: NEGATIVE"]]), "MODE");
+        .appendField('Object Ahead: ')
+        .appendField(new Blockly.FieldTextInput("?"), "VALUE");
     this.setOutput( true, "Boolean" );
     this.data = currentBlocklyNodeID;
     var thisBlock = this;
     this.setTooltip( function() {
       var content = {
-        text: "Checks our scanner for man-made objects and other anomalies immediately (one square) in front of the rover. Not available on Perry!"
+        text: "Checks our scanner for man-made objects and other anomalies immediately (one square) in front of the rover."
       }
       return showTooltipInBlockly( thisBlock, content );
     } );
+  },
+  onchange: function() {
+    if (!this.workspace) {
+      // Block has been deleted.
+      return;
+    }
+    var tracksValue = vwf_view.kernel.getProperty( block.data, "tracksSensorvalue" );
+    this.setFieldValue( tracksValue,'VALUE' );
   }
 };
 
 Blockly.JavaScript[ 'controls_sensor_collision' ] = function( block ) {
   
-  var rover = vwf_view.kernel.find( "", "//rover" )[ 0 ];
-  return [ "!vwf.getProperty( '" + rover + "', 'collisionSensorValue' )", Blockly.JavaScript.ORDER_ATOMIC ];
+  return [ "vwf.getProperty( '" + block.data + "', 'collisionSensorValue' )", Blockly.JavaScript.ORDER_ATOMIC ];
   
 };
 
@@ -713,20 +715,24 @@ Blockly.Blocks[ 'controls_sensor_collision' ] = {
     this.setColour( 30 );
     this.appendDummyInput("INPUT")
         .appendField('Collision: ')
-        .appendField(new Blockly.FieldTextInput("FALSE"), "VALUE");
+        .appendField(new Blockly.FieldTextInput("?"), "VALUE");
     this.setOutput( true, "Boolean" );
     this.data = currentBlocklyNodeID;
     var thisBlock = this;
     this.setTooltip( function() {
       var content = {
-        text: "Checks our scanner for man-made objects and other anomalies immediately (one square) in front of the rover. Not available on Perry!"
+        text: "Checks our scanner to see if there is a collision immediately (one square) ahead."
       }
       return showTooltipInBlockly( thisBlock, content );
     } );
-  }
+  },
   onchange: function() {
-    console.log('change');
-    this.setFieldValue( vwf_view.kernel.getProperty( this.data, 'collisionSensorValue' ) ,'VALUE' );
+    if (!this.workspace) {
+      // Block has been deleted.
+      return;
+    }
+    var collisionValue = vwf_view.kernel.getProperty( block.data, "collisionSensorValue" );
+    this.setFieldValue( collisionValue,'VALUE' );
   }
 };
 
@@ -737,7 +743,7 @@ Blockly.JavaScript[ 'controls_sensor_signal' ] = function( block ) {
   var rover = vwf_view.kernel.find( "", "//rover" )[ 0 ];
 
   if ( rover !== undefined ) {
-      return [ "vwf.getProperty( '" + rover + "', 'signalSensorValue' )" + argument0, Blockly.JavaScript.ORDER_ATOMIC ];
+      return [ "vwf.getProperty( '" + block.data + "', 'signalSensorValue' )" + argument0, Blockly.JavaScript.ORDER_ATOMIC ];
   } else {
       return [ ' 0 ' + argument0, Blockly.JavaScript.ORDER_ATOMIC ];
   }
@@ -749,10 +755,11 @@ Blockly.Blocks[ 'controls_sensor_signal' ] = {
   init: function() {
     this.setColour( 30 );
     this.appendValueInput('INPUT')
-        .appendField('Signal °')
+        .appendField('Signal: ')
+        .appendField(new Blockly.FieldTextInput("?"), "VALUE")
         .setCheck(['OperatorAddSubtract','OperatorMultiplyDivide','LeftParenthesis','RightParenthesis','Conditional']);
     this.setOutput(true, null);
-
+    this.data = currentBlocklyNodeID;
     var thisBlock = this;
     this.setTooltip( function() {
       var content = {
@@ -760,6 +767,14 @@ Blockly.Blocks[ 'controls_sensor_signal' ] = {
       }
       return showTooltipInBlockly( thisBlock, content );
     } );
+  },
+  onchange: function() {
+    if (!this.workspace) {
+      // Block has been deleted.
+      return;
+    }
+    var signalValue = vwf_view.kernel.getProperty( block.data, "signalSensorValue" );
+    this.setFieldValue( signalValue,'VALUE' );
   }
 };
 
@@ -771,7 +786,7 @@ Blockly.JavaScript[ 'controls_sensor_heading' ] = function( block ) {
   var rover = vwf_view.kernel.find( "", "//rover" )[ 0 ];
 
   if ( rover !== undefined ) {
-      return [ "vwf.getProperty( '" + rover + "', 'heading' )" + argument0, Blockly.JavaScript.ORDER_ATOMIC ];
+      return [ "vwf.getProperty( '" + block.data + "', 'heading' )" + argument0, Blockly.JavaScript.ORDER_ATOMIC ];
   } else {
       return [ ' 0 ' + argument0, Blockly.JavaScript.ORDER_ATOMIC ];
   }
@@ -783,10 +798,11 @@ Blockly.Blocks[ 'controls_sensor_heading' ] = {
   init: function() {
     this.setColour( 30 );
     this.appendValueInput('INPUT')
-        .appendField('Heading °')
+        .appendField('Heading: ')
+        .appendField(new Blockly.FieldTextInput("?"), "VALUE");
         .setCheck(['OperatorAddSubtract','OperatorMultiplyDivide','LeftParenthesis','RightParenthesis','Conditional']);
     this.setOutput(true, null);
-
+    this.data = currentBlocklyNodeID;
     var thisBlock = this;
     this.setTooltip( function() {
       var content = {
@@ -794,6 +810,14 @@ Blockly.Blocks[ 'controls_sensor_heading' ] = {
       }
       return showTooltipInBlockly( thisBlock, content );
     } );
+  },
+  onchange: function() {
+    if (!this.workspace) {
+      // Block has been deleted.
+      return;
+    }
+    var headingValue = vwf_view.kernel.getProperty( block.data, "heading" );
+    this.setFieldValue( headingValue,'VALUE' );
   }
 };
 // Blockly.Blocks['text_print'] = {
@@ -1017,7 +1041,7 @@ Blockly.Blocks['math_number_field'] = {
     this.setColour( 60 );
     this.setHelpUrl('http://www.example.com/');
     this.appendValueInput("INPUT")
-        .setCheck( [ 'OperatorAddSubtract','OperatorMultiplyDivide','Variable','LeftParenthesis','RightParenthesis','Conditional' ] );
+        .setCheck( [ 'OperatorAddSubtract','OperatorMultiplyDivide','Variable','LeftParenthesis','RightParenthesis','Conditional' ] )
         .appendField(new Blockly.FieldTextInput("1"), "VALUE");
     this.setOutput( true, null );
     this.data = currentBlocklyNodeID;
@@ -1039,17 +1063,16 @@ Blockly.JavaScript['math_number_field'] = function( block ) {
     text_value = 0;
     block.setFieldValue( '0','VALUE' );
   } else {
-    if ( text_value % 1 === 0 ){
-      text_value = text_value % 1;
-      block.setFieldValue( text_value,'VALUE' );
-      this.setWarningText( 'Decimals not allowed.' );
+    if ( text_value % 1 !== 0 ){
+      block.setFieldValue( '0','VALUE' );
+      block.setWarningText( 'Decimals not allowed.' );
     }
     else if ( text_value > 999 || text_value < -999){
-      text_value = (text_value % text_value) * text_value;
-      block.setFieldValue( text_value ,'VALUE' );
-      this.setWarningText( 'Must be between -999 and 999' );
+      block.setFieldValue( '0' ,'VALUE' );
+      block.setWarningText( 'Must be between -999 and 999' );
     } else {
-      this.setWarningText( null );
+      block.setWarningText( null );
+      block.setFieldValue( text_value ,'VALUE' );
     }
   }
 

@@ -6,6 +6,7 @@
   <block type="controls_repeat_extended"></block>
   <block type="controls_sensor_tracks"><field name="MODE">SCAN: NEGATIVE</field></block>
   <block type="controls_sensor_signal"></block>
+  <block type="controls_sensor_collision"></block>
   <block type="controls_sensor_heading"></block>
   <block type="math_number_out"><field name="VALUE">1</field></block>
   <block type="math_number_field"><field name="VALUE">1</field></block>

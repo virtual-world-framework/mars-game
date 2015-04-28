@@ -70,6 +70,7 @@ properties:
       }
     value: 0
   heading: 0
+  executionSpeed: 1
   terrainName: undefined
   displayName: undefined
   wheelRadius:

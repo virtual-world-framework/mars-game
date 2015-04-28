@@ -244,8 +244,8 @@ a:active {
     width: 64px;
     position: absolute;
     bottom: 0px;
-    right: 0px;
-    background: url( "../../assets/images/blockly_ui/speed_button_normal.png" );
+    right: 72px;
+    background: url( "../../assets/images/blockly_ui/speed_button_slow.png" );
     border-bottom-right-radius: 8px;
 }
 
@@ -322,7 +322,7 @@ a:active {
     position: absolute;
     bottom: 0px;
     left: 0px;
-    right: 72px;
+    right: 144px;
     display: inline-block;
 }
 
