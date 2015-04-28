@@ -16,6 +16,7 @@ var ramBarCount = document.createElement( "div" );
 var ramBar = document.createElement( "div" );
 var currentRam = document.createElement( "div" );
 var startBlocklyButton = document.getElementById( "runButton" );
+var blocklySpeedButton = document.getElementById( "blocklySpeedButton" );
 
 function setUpBlocklyPeripherals() {
 
@@ -37,6 +38,7 @@ function setUpBlocklyPeripherals() {
     indicatorCount.innerHTML = "";
     procedureIndicator.id = "blocklyProcedureIndicator";
     startBlocklyButton.id = "startBlockly";
+    startBlocklyButton.id = "blocklySpeedButton";
 
     indicator.appendChild( indicatorCount );
     $( "#blocklyWrapper-top" ).append( blocklyHandle )
@@ -95,9 +97,14 @@ function setUpBlocklyPeripherals() {
     startBlocklyButton.className = "disabled";
     startBlocklyButton.onclick = clickStartButton;
 
+    blocklySpeedButton.innerHTML = "";
+    blocklySpeedButton.className = "normal";
+    blocklySpeedButton.onclick = clickSpeedButton;
+
     $( "#blocklyDiv" ).wrap( blocklyScrollDiv );
     $( "#blocklyWrapper-top" ).append( blocklyCloseBtn );
     $( blocklyFooter ).append( ramBar );
+    $( blocklyFooter ).append( blocklySpeedButton );
     $( blocklyFooter ).append( startBlocklyButton );
     $( "#blocklyWrapper" ).append( blocklyFooter );
     ramBar.appendChild( currentRam );
@@ -272,6 +279,22 @@ function clickStartButton() {
         //this is the more inutitive behavior. (At least to me it makes more sense).
         //vwf_view.kernel.callMethod( vwf_view.kernel.application(), "stopAllExecution" );
         vwf_view.kernel.callMethod( currentBlocklyNodeID, "stopExecution");
+    }
+}
+
+function clickSpeedButton() {
+    if ( this.className === "normal" ) {
+        vwf_view.kernel.callMethod( currentBlocklyNodeID, "changeExecutionSpeed", 0.5 );
+        vwf_view.kernel.setProperty( vwf_view.kernel.application(), "blockly_baseExecutionSpeed", 0.5 );
+        blocklySpeedButton.className = "fast";
+    } else if ( this.className === "fast" ) {
+        vwf_view.kernel.callMethod( currentBlocklyNodeID, "changeExecutionSpeed", 3.0 );
+        vwf_view.kernel.setProperty( vwf_view.kernel.application(), "blockly_baseExecutionSpeed", 3.0 );
+        blocklySpeedButton.className = "slow";
+    } else if ( this.className === "slow" ) {
+        vwf_view.kernel.callMethod( currentBlocklyNodeID, "changeExecutionSpeed", 1.0 );
+        vwf_view.kernel.setProperty( vwf_view.kernel.application(), "blockly_baseExecutionSpeed", 1.0 );
+        blocklySpeedButton.className = "normal";
     }
 }
 

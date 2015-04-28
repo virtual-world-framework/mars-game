@@ -239,6 +239,28 @@ a:active {
     background: url( "../../assets/images/blockly_ui/reset_button.png" );
 }
 
+#blocklySpeedButton {
+    height: 24px;
+    width: 64px;
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
+    background: url( "../../assets/images/blockly_ui/speed_button_normal.png" );
+    border-bottom-right-radius: 8px;
+}
+
+#blocklySpeedButton.normal {
+    background: url( "../../assets/images/blockly_ui/speed_button_normal.png" );
+}
+
+#blocklySpeedButton.fast {
+    background: url( "../../assets/images/blockly_ui/speed_button_fast.png" );
+}
+
+#blocklySpeedButton.slow {
+    background: url( "../../assets/images/blockly_ui/speed_button_slow.png" );
+}
+
 .blocklyTab {
     height: 24px;
     width: 96px;

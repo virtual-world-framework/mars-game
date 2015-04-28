@@ -23,6 +23,7 @@ properties:
   backgroundColor: [ 225, 145, 75 ]
   userObject: null
   blockly_autoClose: false
+  blockly_baseExecutionSpeed: 1
   activeScenarioPath:
     set: |
       this.setScenario( value );

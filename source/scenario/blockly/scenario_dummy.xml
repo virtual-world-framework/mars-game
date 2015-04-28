@@ -8,6 +8,7 @@
   <block type="controls_sensor_signal"></block>
   <block type="controls_sensor_heading"></block>
   <block type="math_number_out"><field name="VALUE">1</field></block>
+  <block type="math_number_field"><field name="VALUE">1</field></block>
   </category>
   <category name="Variables" custom="VARIABLE">
     <block type="variables_get"></block>

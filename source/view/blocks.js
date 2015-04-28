@@ -190,7 +190,7 @@ Blockly.Blocks[ 'logic_cond_out' ] = {
     this.appendValueInput( "INPUT" )
         .appendField(new Blockly.FieldDropdown([["=", "==="],["≠", "!=="],[">", ">"],
           ["<", "<"],[">=", ">="],["<=", "<="]]), "VALUE")
-        .setCheck( [ 'Boolean','Variable','Number','LeftParenthesis','RightParenthesis' ] );
+        .setCheck( [ 'Boolean','Variable','Number','OperatorAddSubtract','LeftParenthesis','RightParenthesis' ] );
     this.setOutput( true, "Conditional" );
     var thisBlock = this;
     this.data = currentBlocklyNodeID;
@@ -982,6 +982,58 @@ Blockly.JavaScript['math_number_out' ] = function( block ) {
   } else {
     return [ dropdown_value + argument0 , Blockly.JavaScript.ORDER_ATOMIC ];
   }
+};
+
+Blockly.Blocks['math_number_field'] = {
+  init: function() {
+    this.setColour( 60 );
+    this.setHelpUrl('http://www.example.com/');
+    this.appendValueInput("INPUT")
+        .setCheck( [ 'OperatorAddSubtract','OperatorMultiplyDivide','Variable','LeftParenthesis','RightParenthesis','Conditional' ] );
+        .appendField(new Blockly.FieldTextInput("1"), "VALUE");
+    this.setOutput( true, null );
+    this.data = currentBlocklyNodeID;
+    var thisBlock = this;
+    this.setTooltip( function() {
+      var content = {
+        text: "A block for entering number values -999 through 999."
+      }
+      return showTooltipInBlockly( thisBlock, content );
+    } );
+  }
+};
+
+Blockly.JavaScript['math_number_field'] = function( block ) {
+  var value_input = Blockly.JavaScript.valueToCode(block, 'INPUT', Blockly.JavaScript.ORDER_ATOMIC);
+  var text_value = block.getFieldValue('VALUE');
+
+  if ( isNaN( text_value ) || text_value === "" ){
+    text_value = 0;
+    block.setFieldValue( '0','VALUE' );
+  } else {
+    if ( text_value % 1 === 0 ){
+      text_value = text_value % 1;
+      block.setFieldValue( text_value,'VALUE' );
+      this.setWarningText( 'Decimals not allowed.' );
+    }
+    else if ( text_value > 999 || text_value < -999){
+      text_value = (text_value % text_value) * text_value;
+      block.setFieldValue( text_value ,'VALUE' );
+      this.setWarningText( 'Must be between -999 and 999' );
+    } else {
+      this.setWarningText( null );
+    }
+  }
+
+  var argument0 = Blockly.JavaScript.valueToCode(block, 'INPUT',
+      Blockly.JavaScript.ORDER_ATOMIC) || '';
+
+  if ( argument0[0] === 'x' || argument0[0] === '(' ){
+    return [ text_value + '*' + argument0 , Blockly.JavaScript.ORDER_ATOMIC ];
+  } else {
+    return [ text_value + argument0 , Blockly.JavaScript.ORDER_ATOMIC ];
+  }
+
 };
 
 Blockly.Blocks[ 'graph_get_x' ] = {

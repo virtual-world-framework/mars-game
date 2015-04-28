@@ -388,6 +388,8 @@ vwf_view.satProperty = function( nodeID, propertyName, propertyValue ) {
             hideBlocklyLoopCount(); //Hide the loop count for now if we switch tabs since it is broken for multiple rovers
             hideBlocklyIndicator();            
            hideBlocklyProcedureIndicator();
+        } else if ( propertyName === "blockly_baseExecutionSpeed" ) {
+            //Shouldnt need anything here? Optionally stop if we want to reset on a speed change
         } else if ( propertyName === "roverSignalValue" ) {
             roverSignalValue = parseFloat( propertyValue );
         } else if ( propertyName === "roverHeadingValue" ) {

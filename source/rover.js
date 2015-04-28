@@ -194,9 +194,8 @@ this.turnRight = function() {
 
 this.checkRadialCollision = function( currentPosition, futurePosition ) {
 
-
     var currentTranslation = this.currentGrid.getWorldFromGrid( currentPosition[ 0 ], currentPosition[ 1 ] );
-    console.log( currentTranslation );
+
     var futureTranslation = this.currentGrid.getWorldFromGrid( futurePosition[ 0 ], futurePosition[ 1 ] );
     
     currentTranslation[2] = this.translation[2] + 1.0;
@@ -258,6 +257,10 @@ this.placeOnTerrain = function( pos ) {
 }
 
 this.translateOnTerrain = function( translation, duration, boundaryValue ) {
+
+    var scene = this.sceneNode;
+
+    duration = duration * scene.blockly_baseExecutionSpeed;
 
     if ( this.terrain === undefined ) {
 
@@ -456,13 +459,13 @@ this.activateSensor = function( sensor, value ) {
             heading = 360 + heading;
         }
 
-        this.signalSensorValue = heading;
-        scene.roverSignalValue = heading;
+        this.signalSensorValue = Math.round( heading );
+        scene.roverSignalValue = Math.round( heading );
     }
 
     if ( sensor === 'heading' ) {
         // This sensor records the heading of the rover
-        scene.roverHeadingValue = value;
+        scene.roverHeadingValue = Math.round( value );
 
     }
 
@@ -474,6 +477,9 @@ this.deactivateSensor = function() {
 }
 
 this.setHeading = function( newHeading, duration ) {
+
+    duration = duration * scene.blockly_baseExecutionSpeed;
+    
     if ( this.heading !== undefined ) {
         // Find the delta in heading and rotateBy that amount via the optional duration
         this.activateSensor( 'heading', newHeading );
