@@ -116,7 +116,27 @@ Blockly.Blocks[ 'variables_get' ] = {
     xmlBlock.setAttribute( 'type', this.contextMenuType_ );
     option.callback = Blockly.ContextMenu.callbackFactory( this, xmlBlock );
     options.push( option );
+  },
+
+  /**
+   * Fires when the workspace changes or Blockly.mainWorkspace.fireChangeEvent() is called
+   */
+  onchange: function() {
+    if (!this.workspace) {
+      // Block has been deleted.
+      return;
+    } 
+    //Evaluate and return the code stored in the block.
+    var code = Blockly.JavaScript.variableDB_.getName( this.getFieldValue( 'VAR' ),
+      Blockly.Variables.NAME_TYPE );
+
+    var expression = 'return ' + code + ';'
+    console.log(expression);
+    var result = new Function( expression )();
+
+    this.setFieldValue( '' + result + '','VALUE' );
   }
+
 };
 
 Blockly.JavaScript[ 'variables_get' ] = function( block ) {
@@ -127,7 +147,6 @@ Blockly.JavaScript[ 'variables_get' ] = function( block ) {
 
   var code = Blockly.JavaScript.variableDB_.getName( block.getFieldValue( 'VAR' ),
       Blockly.Variables.NAME_TYPE );
-    console.log(code);
   return [ ( code + argument0 ) , Blockly.JavaScript.ORDER_ATOMIC ];
 };
 
@@ -695,12 +714,17 @@ Blockly.Blocks[ 'controls_sensor_tracks' ] = {
     } );
   },
   onchange: function() {
-    if (!this.workspace) {
+    if (!this.workspace || this.data === undefined) {
       // Block has been deleted.
       return;
     }
-    var tracksValue = vwf_view.kernel.getProperty( block.data, "tracksSensorvalue" );
-    this.setFieldValue( tracksValue,'VALUE' );
+    var tracksValue = vwf_view.kernel.getProperty( this.data, "tracksSensorValue" );
+
+    if ( tracksValue === true ) {
+      this.setFieldValue( "true",'VALUE' );
+    } else {
+      this.setFieldValue( "false",'VALUE' );
+    }
   }
 };
 
@@ -727,12 +751,18 @@ Blockly.Blocks[ 'controls_sensor_collision' ] = {
     } );
   },
   onchange: function() {
-    if (!this.workspace) {
+    if (!this.workspace || this.data === undefined) {
       // Block has been deleted.
       return;
     }
-    var collisionValue = vwf_view.kernel.getProperty( block.data, "collisionSensorValue" );
-    this.setFieldValue( collisionValue,'VALUE' );
+    var collisionValue = vwf_view.kernel.getProperty( this.data, "collisionSensorValue" );
+
+    if ( collisionValue === true ) {
+      this.setFieldValue( "true",'VALUE' );
+    } else {
+      this.setFieldValue( "false",'VALUE' );
+    }
+    
   }
 };
 
@@ -769,12 +799,12 @@ Blockly.Blocks[ 'controls_sensor_signal' ] = {
     } );
   },
   onchange: function() {
-    if (!this.workspace) {
+    if (!this.workspace || this.data === undefined) {
       // Block has been deleted.
       return;
     }
-    var signalValue = vwf_view.kernel.getProperty( block.data, "signalSensorValue" );
-    this.setFieldValue( signalValue,'VALUE' );
+    var signalValue = vwf.getProperty( this.data, "signalSensorValue" );
+    this.setFieldValue( '' + signalValue + '','VALUE' );
   }
 };
 
@@ -799,7 +829,7 @@ Blockly.Blocks[ 'controls_sensor_heading' ] = {
     this.setColour( 30 );
     this.appendValueInput('INPUT')
         .appendField('Heading: ')
-        .appendField(new Blockly.FieldTextInput("?"), "VALUE");
+        .appendField(new Blockly.FieldTextInput("?"), "VALUE")
         .setCheck(['OperatorAddSubtract','OperatorMultiplyDivide','LeftParenthesis','RightParenthesis','Conditional']);
     this.setOutput(true, null);
     this.data = currentBlocklyNodeID;
@@ -812,37 +842,14 @@ Blockly.Blocks[ 'controls_sensor_heading' ] = {
     } );
   },
   onchange: function() {
-    if (!this.workspace) {
+    if (!this.workspace || this.data === undefined) {
       // Block has been deleted.
       return;
     }
-    var headingValue = vwf_view.kernel.getProperty( block.data, "heading" );
-    this.setFieldValue( headingValue,'VALUE' );
+    var headingValue = vwf.getProperty( this.data, "heading" );
+    this.setFieldValue( '' + headingValue + '','VALUE' );
   }
 };
-// Blockly.Blocks['text_print'] = {
-//   /**
-//    * Block for print statement.
-//    * @this Blockly.Block
-//    */
-//   init: function() {
-//     this.setHelpUrl(Blockly.Msg.TEXT_PRINT_HELPURL);
-//     this.setColour(20);
-//     this.appendValueInput('INPUT')
-//         .appendField('Print: ')
-//     this.setPreviousStatement(true);
-//     this.setNextStatement(true);
-//     this.setTooltip(' Print the text or code attached to the block. ');
-//   }
-// };
-
-// Blockly.JavaScript['text_print'] = function(block) {
-//   // Print statement.
-//   var argument0 = Blockly.JavaScript.valueToCode(block, 'INPUT',
-//       Blockly.JavaScript.ORDER_ATOMIC) || 'null';
-
-//   return constructBlockExeEventCall( block ) + 'window.alert(' + argument0 + ');';
-// };
 
 Blockly.Blocks['rover_moveForward'] = {
   // Block for moving forward.

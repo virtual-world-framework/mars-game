@@ -389,7 +389,6 @@ vwf_view.satProperty = function( nodeID, propertyName, propertyValue ) {
 
             case "tracksSensorValue":
                 Blockly.mainWorkspace.fireChangeEvent();
-                //var variables = Blockly.Variables.allVariables(workspace);
                 break;
             case "signalSensorValue":
                 Blockly.mainWorkspace.fireChangeEvent();

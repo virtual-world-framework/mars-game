@@ -262,8 +262,6 @@ this.translateOnTerrain = function( translation, duration, boundaryValue ) {
 
     var duration = duration * this.executionSpeed;
 
-    console.log(duration);
-
     if ( this.terrain === undefined ) {
 
         this.translateBy( translation, duration );
@@ -386,7 +384,9 @@ this.blockCountChanged = function( value ) {
     this.activateSensor( 'forward' );
     this.activateSensor( 'signal' );
     this.activateSensor( 'heading', this.heading );
+    this.activateSensor( 'collision' );
 }
+
 this.allowedBlocksChanged = function( value ) {
     this.calcRam();
 }
@@ -437,9 +437,15 @@ this.activateSensor = function( sensor, value ) {
         //  "anomalyPosition" on the blackboard (if any).
         var anomalyPos = this.sceneNode.sceneBlackboard[ "anomalyPosition" ];
         var currentPos = this.currentGridSquare;
-        this.tracksSensorValue = anomalyPos && 
+
+        if ( anomalyPos ) {
+            this.tracksSensorValue = anomalyPos && 
                                  anomalyPos[ 0 ] === currentPos [ 0 ] && 
                                  anomalyPos[ 1 ] === currentPos [ 1 ];
+        } else {
+            this.tracksSensorValue = false;
+        }
+        
     }
 
     if ( sensor === 'collision' ) {
@@ -513,8 +519,6 @@ this.setHeading = function( newHeading, duration ) {
     var scene = this.sceneNode;
 
     var duration = duration * this.executionSpeed;
-
-    console.log(duration);
 
     if ( this.heading !== undefined ) {
         // Find the delta in heading and rotateBy that amount via the optional duration
