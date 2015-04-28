@@ -38,7 +38,7 @@ function setUpBlocklyPeripherals() {
     indicatorCount.innerHTML = "";
     procedureIndicator.id = "blocklyProcedureIndicator";
     startBlocklyButton.id = "startBlockly";
-    startBlocklyButton.id = "blocklySpeedButton";
+    blocklySpeedButton.id = "blocklySpeedButton";
 
     indicator.appendChild( indicatorCount );
     $( "#blocklyWrapper-top" ).append( blocklyHandle )

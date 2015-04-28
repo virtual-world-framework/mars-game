@@ -674,7 +674,6 @@ Blockly.JavaScript['controls_if_else_nomut'] = function(block) {
 Blockly.JavaScript[ 'controls_sensor_tracks' ] = function( block ) {
   
   var dropdown_value = block.getFieldValue('MODE');
-  var retVal = false;
   var rover = vwf_view.kernel.find( "", "//rover" )[ 0 ];
 
   if ( dropdown_value === 'SCAN: NEGATIVE' ) {
@@ -699,6 +698,35 @@ Blockly.Blocks[ 'controls_sensor_tracks' ] = {
       }
       return showTooltipInBlockly( thisBlock, content );
     } );
+  }
+};
+
+Blockly.JavaScript[ 'controls_sensor_collision' ] = function( block ) {
+  
+  var rover = vwf_view.kernel.find( "", "//rover" )[ 0 ];
+  return [ "!vwf.getProperty( '" + rover + "', 'collisionSensorValue' )", Blockly.JavaScript.ORDER_ATOMIC ];
+  
+};
+
+Blockly.Blocks[ 'controls_sensor_collision' ] = {
+  init: function() {
+    this.setColour( 30 );
+    this.appendDummyInput("INPUT")
+        .appendField('Collision: ')
+        .appendField(new Blockly.FieldTextInput("FALSE"), "VALUE");
+    this.setOutput( true, "Boolean" );
+    this.data = currentBlocklyNodeID;
+    var thisBlock = this;
+    this.setTooltip( function() {
+      var content = {
+        text: "Checks our scanner for man-made objects and other anomalies immediately (one square) in front of the rover. Not available on Perry!"
+      }
+      return showTooltipInBlockly( thisBlock, content );
+    } );
+  }
+  onchange: function() {
+    console.log('change');
+    this.setFieldValue( vwf_view.kernel.getProperty( this.data, 'collisionSensorValue' ) ,'VALUE' );
   }
 };
 

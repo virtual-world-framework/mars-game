@@ -440,6 +440,36 @@ this.activateSensor = function( sensor, value ) {
                                  anomalyPos[ 1 ] === currentPos [ 1 ];
     }
 
+    if ( sensor === 'collision' ) {
+        // This sensor just checks the current position against the 
+        //  "anomalyPosition" on the blackboard (if any).
+        var headingInRadians = this.heading * Math.PI / 180;
+        var dirVector = [ Math.round( -Math.sin( headingInRadians ) ), Math.round( Math.cos( headingInRadians ) ) ];
+        var proposedNewGridSquare = [ this.currentGridSquare[ 0 ] + dirVector[ 0 ], 
+                                                                this.currentGridSquare[ 1 ] + dirVector[ 1 ] ];
+
+        //First check if the coordinate is valid
+        if ( this.currentGrid.validCoord( proposedNewGridSquare ) ) {
+
+            var energyRequired = this.getMinEnergyRequired( proposedNewGridSquare );
+
+            //Then check if the boundary value allows for movement:
+             if( this.meetsBoundaryConditions( energyRequired ) ) {
+                //Check if the space is occupied
+                var collided = this.checkCollisionWrapper( proposedNewGridSquare );
+                if ( !collided ){
+                    this.collisionSensorValue = false;
+                } else {
+                    this.collisionSensorValue = true;
+                }
+            } else {
+                this.collisionSensorValue = true;
+            }
+        } else {
+            this.collisionSensorValue = true;
+        }
+    }
+
     if ( sensor === 'signal' ) {
         // This sensor just checks the current position against the 
         //  "signalPosition" on the blackboard (if any).

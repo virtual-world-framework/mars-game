@@ -61,6 +61,7 @@ properties:
       }
     value: 5
   tracksSensorValue: false
+  collisionSensorValue: false
   signalSensorValue:
     set: |
       if ( this.signalSensorValue != value ) {
