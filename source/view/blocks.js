@@ -693,22 +693,26 @@ Blockly.JavaScript['controls_if_else_nomut'] = function(block) {
 
 Blockly.JavaScript[ 'controls_sensor_tracks' ] = function( block ) {
   
-  return [ "vwf.getProperty( '" + block.data + "', 'tracksSensorValue' )", Blockly.JavaScript.ORDER_ATOMIC ];
+    var argument0 = Blockly.JavaScript.valueToCode(block, 'INPUT', Blockly.JavaScript.ORDER_ATOMIC) || '';
+
+  return [ "vwf.getProperty( '" + block.data + "', 'tracksSensorValue' )" + argument0, Blockly.JavaScript.ORDER_ATOMIC ];
+
   
 };
 
 Blockly.Blocks[ 'controls_sensor_tracks' ] = {
   init: function() {
     this.setColour( 30 );
-    this.appendDummyInput("INPUT")
-        .appendField('Object Ahead: ')
+    this.appendValueInput('INPUT')
+        .appendField('Anomaly Ahead: ')
         .appendField(new Blockly.FieldTextInput("?"), "VALUE");
     this.setOutput( true, "Boolean" );
     this.data = currentBlocklyNodeID;
+    this.setEditable(false);
     var thisBlock = this;
     this.setTooltip( function() {
       var content = {
-        text: "Checks our scanner for man-made objects and other anomalies immediately (one square) in front of the rover."
+        text: "Checks our scanner for anomalies immediately (one square) in front of the rover."
       }
       return showTooltipInBlockly( thisBlock, content );
     } );
@@ -730,18 +734,22 @@ Blockly.Blocks[ 'controls_sensor_tracks' ] = {
 
 Blockly.JavaScript[ 'controls_sensor_collision' ] = function( block ) {
   
-  return [ "vwf.getProperty( '" + block.data + "', 'collisionSensorValue' )", Blockly.JavaScript.ORDER_ATOMIC ];
+    var argument0 = Blockly.JavaScript.valueToCode(block, 'INPUT', Blockly.JavaScript.ORDER_ATOMIC) || '';
+
+  return [ "vwf.getProperty( '" + block.data + "', 'collisionSensorValue' )" + argument0, Blockly.JavaScript.ORDER_ATOMIC ];
+
   
 };
 
 Blockly.Blocks[ 'controls_sensor_collision' ] = {
   init: function() {
     this.setColour( 30 );
-    this.appendDummyInput("INPUT")
+    this.appendValueInput('INPUT')
         .appendField('Collision: ')
         .appendField(new Blockly.FieldTextInput("?"), "VALUE");
     this.setOutput( true, "Boolean" );
     this.data = currentBlocklyNodeID;
+    this.setEditable(false);
     var thisBlock = this;
     this.setTooltip( function() {
       var content = {
@@ -756,7 +764,7 @@ Blockly.Blocks[ 'controls_sensor_collision' ] = {
       return;
     }
     var collisionValue = vwf.getProperty( this.data, "collisionSensorValue" );
-    console.log(collisionValue);
+
     if ( collisionValue === true ) {
       this.setFieldValue( "true",'VALUE' );
     } else {
@@ -770,15 +778,8 @@ Blockly.JavaScript[ 'controls_sensor_signal' ] = function( block ) {
 
   var argument0 = Blockly.JavaScript.valueToCode(block, 'INPUT', Blockly.JavaScript.ORDER_ATOMIC) || '';
 
-  var rover = vwf_view.kernel.find( "", "//rover" )[ 0 ];
+  return [ "vwf.getProperty( '" + block.data + "', 'signalSensorValue' )" + argument0, Blockly.JavaScript.ORDER_ATOMIC ];
 
-  if ( rover !== undefined ) {
-      return [ "vwf.getProperty( '" + block.data + "', 'signalSensorValue' )" + argument0, Blockly.JavaScript.ORDER_ATOMIC ];
-  } else {
-      return [ ' 0 ' + argument0, Blockly.JavaScript.ORDER_ATOMIC ];
-  }
- 
-  
 };
 
 Blockly.Blocks[ 'controls_sensor_signal' ] = {
@@ -790,10 +791,11 @@ Blockly.Blocks[ 'controls_sensor_signal' ] = {
         .setCheck(['OperatorAddSubtract','OperatorMultiplyDivide','LeftParenthesis','RightParenthesis','Conditional']);
     this.setOutput(true, null);
     this.data = currentBlocklyNodeID;
+    this.setEditable(false);
     var thisBlock = this;
     this.setTooltip( function() {
       var content = {
-        text: "Checks our scanner for base location in a 360° arc that starts on the X-axis. Returns a value between 0 and 360"
+        text: "Checks our scanner for base location in a 360° arc that starts on the X-axis. Returns a value between 0 and 360. Returns -1 if you are at the signal location."
       }
       return showTooltipInBlockly( thisBlock, content );
     } );
@@ -813,15 +815,8 @@ Blockly.JavaScript[ 'controls_sensor_heading' ] = function( block ) {
 
   var argument0 = Blockly.JavaScript.valueToCode(block, 'INPUT', Blockly.JavaScript.ORDER_ATOMIC) || '';
 
-  var rover = vwf_view.kernel.find( "", "//rover" )[ 0 ];
-
-  if ( rover !== undefined ) {
-      return [ "vwf.getProperty( '" + block.data + "', 'headingSensorValue' )" + argument0, Blockly.JavaScript.ORDER_ATOMIC ];
-  } else {
-      return [ ' 0 ' + argument0, Blockly.JavaScript.ORDER_ATOMIC ];
-  }
+  return [ "vwf.getProperty( '" + block.data + "', 'headingSensorValue' )" + argument0, Blockly.JavaScript.ORDER_ATOMIC ];
  
-  
 };
 
 Blockly.Blocks[ 'controls_sensor_heading' ] = {
@@ -833,6 +828,7 @@ Blockly.Blocks[ 'controls_sensor_heading' ] = {
         .setCheck(['OperatorAddSubtract','OperatorMultiplyDivide','LeftParenthesis','RightParenthesis','Conditional']);
     this.setOutput(true, null);
     this.data = currentBlocklyNodeID;
+    this.setEditable(false);
     var thisBlock = this;
     this.setTooltip( function() {
       var content = {
@@ -848,6 +844,45 @@ Blockly.Blocks[ 'controls_sensor_heading' ] = {
     }
     var headingValue = vwf.getProperty( this.data, "headingSensorValue" );
     this.setFieldValue( '' + headingValue + '','VALUE' );
+  }
+};
+
+Blockly.JavaScript[ 'controls_sensor_proximity' ] = function( block ) {
+
+  var argument0 = Blockly.JavaScript.valueToCode(block, 'INPUT', Blockly.JavaScript.ORDER_ATOMIC) || '';
+  var mode = block.getFieldValue( 'MODE' );
+
+  return [ "vwf.getProperty( '" + block.data + "', 'proximitySensorValue' )["+ mode +"]" + argument0, Blockly.JavaScript.ORDER_ATOMIC ];
+ 
+};
+
+Blockly.Blocks[ 'controls_sensor_proximity' ] = {
+  init: function() {
+    this.setColour( 30 );
+    this.appendValueInput('INPUT')
+        .appendField(new Blockly.FieldDropdown([["rover", "rover"],["pickup", "pickup"]]), "MODE")
+        .appendField(' Ahead: ')
+        .appendField(new Blockly.FieldTextInput("?"), "VALUE")
+        .setCheck(['OperatorAddSubtract','OperatorMultiplyDivide','LeftParenthesis','RightParenthesis','Conditional']);
+    this.setOutput(true, null);
+    this.data = currentBlocklyNodeID;
+    this.setEditable(false);
+    var thisBlock = this;
+    this.setTooltip( function() {
+      var content = {
+        text: "Checks to see if the specified object is directly ahead of the rover. Returns true or false."
+      }
+      return showTooltipInBlockly( thisBlock, content );
+    } );
+  },
+  onchange: function() {
+    if (!this.workspace || this.data === undefined) {
+      // Block has been deleted.
+      return;
+    }
+    var headingValue = vwf.getProperty( this.data, "proximitySensorValue" );
+    var mode = this.getFieldValue( 'MODE' );
+    this.setFieldValue( '' + headingValue[ mode ] + '','VALUE' );
   }
 };
 

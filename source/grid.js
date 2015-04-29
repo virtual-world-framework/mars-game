@@ -243,6 +243,25 @@ this.getInventoriables = function( gridCoord ) {
     return inventoriables;
 }
 
+//Returns the first instance of an inventoriable object on the specified grid tile
+this.getNonInventoriables = function( gridCoord ) {
+    var nonInventoriables = [];
+    if ( this.validCoord( gridCoord ) ) {
+        var tile = this.getTileFromGrid( gridCoord );
+        for ( var i = 0; i < tile.objects.length; i++ ) {
+            var node = tile.getNodeAtIndex( i );
+            if ( node === undefined ) {
+                this.logger.errorx( "getNonInventoriables", "Unable to find node with " +
+                    "ID: " + tile.objects[ i ] );
+                return null;
+            } else if ( !node.isInventoriable ) {
+                nonInventoriables.push( tile.objects[ i ] );
+            }
+        }
+    }
+    return nonInventoriables;
+}
+
 //Returns the first instance of a collidable object on the specified grid tile
 this.getCollidables = function( gridCoord ) {
     var collidables = [];

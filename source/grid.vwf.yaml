@@ -41,6 +41,7 @@ methods:
   moveObjectOnGrid:
   setHeightFromTerrain:
   getInventoriables:
+  getNonInventoriables:
   getCollidables:
   getEnergy:
   checkCollisionArea:

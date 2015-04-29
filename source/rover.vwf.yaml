@@ -63,6 +63,7 @@ properties:
   tracksSensorValue: false
   collisionSensorValue: false
   headingSensorValue: 0
+  proximitySensorValue: {}
   signalSensorValue:
     set: |
       if ( this.signalSensorValue != value ) {
