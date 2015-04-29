@@ -22,6 +22,7 @@ this.initialize = function() {
     // TODO: Find the current heading (rather than making app developer specify)
 
     this.calcRam();
+    this.proximitySensorValue = { "Rover": false, "Pickup": false};
 
 }
 
@@ -405,6 +406,7 @@ this.blockCountChanged = function( value ) {
     this.activateSensor( 'signal' );
     this.activateSensor( 'heading', this.heading );
     this.activateSensor( 'collision' );
+    this.activateSensor( 'proximity' );
 }
 
 this.allowedBlocksChanged = function( value ) {
@@ -479,17 +481,22 @@ this.activateSensor = function( sensor, value ) {
         var items = this.currentGrid.getInventoriables( proposedNewGridSquare );
         var rovers = this.currentGrid.getNonInventoriables( proposedNewGridSquare );
 
-        if ( items.length !== 0 ) {
-            this.proximitySensorValue[ 'pickups' ] = true;
-        } else {
-            this.proximitySensorValue[ 'pickups' ] = false;
+        if ( items ) {
+            if ( items.length !== 0 ) {
+                this.proximitySensorValue[ 'Pickup' ] = 'true';
+            } else {
+                this.proximitySensorValue[ 'Pickup' ] = 'false';
+            }
         }
-
-        if ( rovers.length !== 0 ) {
-            this.proximitySensorValue[ 'rovers' ] = true;
-        } else {
-            this.proximitySensorValue[ 'rovers' ] = false;
+        
+        if ( rovers ) {
+           if ( rovers.length !== 0 ) {
+                this.proximitySensorValue[ 'Rover' ] = 'true';
+            } else {
+                this.proximitySensorValue[ 'Rover' ] = 'false';
+            } 
         }
+        
     }
 
     if ( sensor === 'collision' ) {
@@ -553,7 +560,7 @@ this.activateSensor = function( sensor, value ) {
             scene.roverSignalValue = -1;
             return;
         }
-        
+
         var radians = Math.atan2( deltaY, deltaX ); // In radians 
         var heading = radians * ( 180 / Math.PI );
 

@@ -285,7 +285,7 @@ function clickStartButton() {
 function clickSpeedButton() {
     if ( this.className === "normal" ) {
         for ( var nodeID in blocklyNodes ) {
-            vwf_view.kernel.setProperty( blocklyNodes[ nodeID ], "blockly_baseExecutionSpeed", 0.25 );
+            vwf_view.kernel.setProperty( nodeID, "blockly_baseExecutionSpeed", 0.25 );
         }
         vwf_view.kernel.setProperty( mainRover, "executionSpeed", 0.25 );
         vwf_view.kernel.setProperty( perryRover, "executionSpeed", 0.25 );
@@ -293,7 +293,7 @@ function clickSpeedButton() {
         blocklySpeedButton.className = "fast";
     } else if ( this.className === "fast" ) {
         for ( var nodeID in blocklyNodes ) {
-            vwf_view.kernel.setProperty( blocklyNodes[ nodeID ], "blockly_baseExecutionSpeed", 1.0 );
+            vwf_view.kernel.setProperty( nodeID, "blockly_baseExecutionSpeed", 1.0 );
         }
         vwf_view.kernel.setProperty( mainRover, "executionSpeed", 1.0 );
         vwf_view.kernel.setProperty( perryRover, "executionSpeed", 1.0 );
@@ -301,7 +301,7 @@ function clickSpeedButton() {
         blocklySpeedButton.className = "slow";
     } else if ( this.className === "slow" ) {
         for ( var nodeID in blocklyNodes ) {
-            vwf_view.kernel.setProperty( blocklyNodes[ nodeID ], "blockly_baseExecutionSpeed", 0.5 );
+            vwf_view.kernel.setProperty( nodeID, "blockly_baseExecutionSpeed", 0.5 );
         }
         vwf_view.kernel.setProperty( mainRover, "executionSpeed", 0.5 );
         vwf_view.kernel.setProperty( perryRover, "executionSpeed", 0.5 );

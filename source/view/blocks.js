@@ -40,6 +40,7 @@ Blockly.Blocks['rover_moveRadial'] = {
     this.setInputsInline(true);
     this.setPreviousStatement(true, "null");
     this.setNextStatement(true, "null");
+    this.data = currentBlocklyNodeID;
     var thisBlock = this;
     this.setTooltip("Moves the specified number of spaces along the X and Y axes");
   }
@@ -122,19 +123,19 @@ Blockly.Blocks[ 'variables_get' ] = {
    * Fires when the workspace changes or Blockly.mainWorkspace.fireChangeEvent() is called
    */
   onchange: function() {
-    if (!this.workspace) {
+    if (!this.workspace || this.data === undefined) {
       // Block has been deleted.
       return;
-    } 
+    }
     //Evaluate and return the code stored in the block.
     var code = Blockly.JavaScript.variableDB_.getName( this.getFieldValue( 'VAR' ),
       Blockly.Variables.NAME_TYPE );
+    var val = blocklyVariables[ code ]
 
-    var expression = 'return ' + code + ';'
-    console.log(expression);
-    var result = new Function( expression )();
-
-    this.setFieldValue( '' + result + '','VALUE' );
+    if ( val === undefined ) {
+      val = '?';
+    }
+    this.setFieldValue( '' + val + '','VALUE' );
   }
 
 };
@@ -201,7 +202,12 @@ Blockly.JavaScript['variables_set'] = function(block) {
       Blockly.JavaScript.ORDER_ASSIGNMENT) || '0';
   var varName = Blockly.JavaScript.variableDB_.getName(
       block.getFieldValue('VAR'), Blockly.Variables.NAME_TYPE);
-  return varName + ' = ' + argument0 + ';\n';
+
+  var extraCode = "vwf.fireEvent( '" + vwf_view.kernel.application() + 
+                  "', 'updatedBlocklyVariable', " + " [ '" + varName + "', " + argument0 + " ] );\n";
+
+  return varName + ' = ' + argument0 + ';\n' + extraCode;
+
 };
 
 Blockly.Blocks[ 'logic_cond_out' ] = {
@@ -708,7 +714,7 @@ Blockly.Blocks[ 'controls_sensor_tracks' ] = {
         .appendField(new Blockly.FieldTextInput("?"), "VALUE");
     this.setOutput( true, "Boolean" );
     this.data = currentBlocklyNodeID;
-    this.setEditable(false);
+    //this.setEditable(false);
     var thisBlock = this;
     this.setTooltip( function() {
       var content = {
@@ -723,18 +729,19 @@ Blockly.Blocks[ 'controls_sensor_tracks' ] = {
       return;
     }
     var tracksValue = vwf.getProperty( this.data, "tracksSensorValue" );
-
+    this.setEditable(true);
     if ( tracksValue === true ) {
       this.setFieldValue( "true",'VALUE' );
     } else {
       this.setFieldValue( "false",'VALUE' );
     }
+    this.setEditable(false);
   }
 };
 
 Blockly.JavaScript[ 'controls_sensor_collision' ] = function( block ) {
   
-    var argument0 = Blockly.JavaScript.valueToCode(block, 'INPUT', Blockly.JavaScript.ORDER_ATOMIC) || '';
+  var argument0 = Blockly.JavaScript.valueToCode(block, 'INPUT', Blockly.JavaScript.ORDER_ATOMIC) || '';
 
   return [ "vwf.getProperty( '" + block.data + "', 'collisionSensorValue' )" + argument0, Blockly.JavaScript.ORDER_ATOMIC ];
 
@@ -749,7 +756,7 @@ Blockly.Blocks[ 'controls_sensor_collision' ] = {
         .appendField(new Blockly.FieldTextInput("?"), "VALUE");
     this.setOutput( true, "Boolean" );
     this.data = currentBlocklyNodeID;
-    this.setEditable(false);
+    //this.setEditable(false);
     var thisBlock = this;
     this.setTooltip( function() {
       var content = {
@@ -765,12 +772,13 @@ Blockly.Blocks[ 'controls_sensor_collision' ] = {
     }
     var collisionValue = vwf.getProperty( this.data, "collisionSensorValue" );
 
+    this.setEditable(true);
     if ( collisionValue === true ) {
       this.setFieldValue( "true",'VALUE' );
     } else {
       this.setFieldValue( "false",'VALUE' );
     }
-    
+    this.setEditable(false);
   }
 };
 
@@ -791,7 +799,7 @@ Blockly.Blocks[ 'controls_sensor_signal' ] = {
         .setCheck(['OperatorAddSubtract','OperatorMultiplyDivide','LeftParenthesis','RightParenthesis','Conditional']);
     this.setOutput(true, null);
     this.data = currentBlocklyNodeID;
-    this.setEditable(false);
+    
     var thisBlock = this;
     this.setTooltip( function() {
       var content = {
@@ -805,8 +813,10 @@ Blockly.Blocks[ 'controls_sensor_signal' ] = {
       // Block has been deleted.
       return;
     }
+    this.setEditable(true);
     var signalValue = vwf.getProperty( this.data, "signalSensorValue" );
     this.setFieldValue( '' + signalValue + '','VALUE' );
+    this.setEditable(false);
   }
 };
 
@@ -828,7 +838,7 @@ Blockly.Blocks[ 'controls_sensor_heading' ] = {
         .setCheck(['OperatorAddSubtract','OperatorMultiplyDivide','LeftParenthesis','RightParenthesis','Conditional']);
     this.setOutput(true, null);
     this.data = currentBlocklyNodeID;
-    this.setEditable(false);
+    //this.setEditable(false);
     var thisBlock = this;
     this.setTooltip( function() {
       var content = {
@@ -842,8 +852,10 @@ Blockly.Blocks[ 'controls_sensor_heading' ] = {
       // Block has been deleted.
       return;
     }
+    this.setEditable(true);
     var headingValue = vwf.getProperty( this.data, "headingSensorValue" );
     this.setFieldValue( '' + headingValue + '','VALUE' );
+    this.setEditable(false);
   }
 };
 
@@ -860,13 +872,13 @@ Blockly.Blocks[ 'controls_sensor_proximity' ] = {
   init: function() {
     this.setColour( 30 );
     this.appendValueInput('INPUT')
-        .appendField(new Blockly.FieldDropdown([["rover", "rover"],["pickup", "pickup"]]), "MODE")
+        .appendField(new Blockly.FieldDropdown([["Rover", "Rover"],["Pickup", "Pickup"]]), "MODE")
         .appendField(' Ahead: ')
         .appendField(new Blockly.FieldTextInput("?"), "VALUE")
         .setCheck(['OperatorAddSubtract','OperatorMultiplyDivide','LeftParenthesis','RightParenthesis','Conditional']);
     this.setOutput(true, null);
     this.data = currentBlocklyNodeID;
-    this.setEditable(false);
+    //this.setEditable(false);
     var thisBlock = this;
     this.setTooltip( function() {
       var content = {
@@ -880,9 +892,11 @@ Blockly.Blocks[ 'controls_sensor_proximity' ] = {
       // Block has been deleted.
       return;
     }
-    var headingValue = vwf.getProperty( this.data, "proximitySensorValue" );
+    this.setEditable(true);
+    var proxValue = vwf.getProperty( this.data, "proximitySensorValue" );
     var mode = this.getFieldValue( 'MODE' );
-    this.setFieldValue( '' + headingValue[ mode ] + '','VALUE' );
+    this.setFieldValue( '' + proxValue[ mode ] + '','VALUE' );
+    this.setEditable(false);
   }
 };
 

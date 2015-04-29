@@ -43,6 +43,7 @@ var rosieRover = undefined;
 var roverSignalValue = 0;
 var roverHeadingValue = 0;
 var blocklyGraphID = undefined;
+var blocklyVariables = {};
 var alertNodeID = undefined;
 var graphIsVisible = false;
 var tilesAreVisible = false;
@@ -112,7 +113,8 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 var procedureIndicator = document.getElementById( "blocklyProcedureIndicator" );
                 procedureIndicator.className = "";
                 procedureIndicator.style.visibility = "inherit";
-                currentProcedureBlockID = undefined;                currentLoopingBlockID = 0;
+                currentProcedureBlockID = undefined;                
+                currentLoopingBlockID = 0;
                 currentLoopIndex = 0;
                 blocklyStopped = false;
                 tabSwitched = false;
@@ -167,6 +169,7 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 var blockID = eventArgs[ 1 ];
                 var blockTime = eventArgs[ 2 ];
 
+                Blockly.mainWorkspace.fireChangeEvent();
                 vwf_view.kernel.setProperty( currentBlocklyNodeID, "blockly_timeBetweenLines", blockTime );
 
                 if ( blockID ) {
@@ -176,7 +179,15 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 }
 
                 break;
+            case "updatedBlocklyVariable":
 
+                var variableName = eventArgs[ 0 ];
+                var variableValue = eventArgs[ 1 ];
+
+                blocklyVariables[ variableName ] = variableValue;
+                Blockly.mainWorkspace.fireChangeEvent();
+
+                break;
             case "scenarioChanged":
                 currentScenario = eventArgs[ 0 ];
                 lastBlockIDExecuted = undefined;
@@ -418,7 +429,8 @@ vwf_view.satProperty = function( nodeID, propertyName, propertyValue ) {
             tabSwitched = true;
             hideBlocklyLoopCount(); //Hide the loop count for now if we switch tabs since it is broken for multiple rovers
             hideBlocklyIndicator();            
-           hideBlocklyProcedureIndicator();
+            hideBlocklyProcedureIndicator();
+            Blockly.mainWorkspace.fireChangeEvent();
         } else if ( propertyName === "roverSignalValue" ) {
             roverSignalValue = parseFloat( propertyValue );
         } else if ( propertyName === "roverHeadingValue" ) {
