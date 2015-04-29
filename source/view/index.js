@@ -393,7 +393,7 @@ vwf_view.satProperty = function( nodeID, propertyName, propertyValue ) {
             case "signalSensorValue":
                 Blockly.mainWorkspace.fireChangeEvent();
                 break;
-            case "heading":
+            case "headingSensorValue":
                 Blockly.mainWorkspace.fireChangeEvent();
                 break;
             case "collisionSensorValue":

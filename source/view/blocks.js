@@ -718,7 +718,7 @@ Blockly.Blocks[ 'controls_sensor_tracks' ] = {
       // Block has been deleted.
       return;
     }
-    var tracksValue = vwf_view.kernel.getProperty( this.data, "tracksSensorValue" );
+    var tracksValue = vwf.getProperty( this.data, "tracksSensorValue" );
 
     if ( tracksValue === true ) {
       this.setFieldValue( "true",'VALUE' );
@@ -755,8 +755,8 @@ Blockly.Blocks[ 'controls_sensor_collision' ] = {
       // Block has been deleted.
       return;
     }
-    var collisionValue = vwf_view.kernel.getProperty( this.data, "collisionSensorValue" );
-
+    var collisionValue = vwf.getProperty( this.data, "collisionSensorValue" );
+    console.log(collisionValue);
     if ( collisionValue === true ) {
       this.setFieldValue( "true",'VALUE' );
     } else {
@@ -816,7 +816,7 @@ Blockly.JavaScript[ 'controls_sensor_heading' ] = function( block ) {
   var rover = vwf_view.kernel.find( "", "//rover" )[ 0 ];
 
   if ( rover !== undefined ) {
-      return [ "vwf.getProperty( '" + block.data + "', 'heading' )" + argument0, Blockly.JavaScript.ORDER_ATOMIC ];
+      return [ "vwf.getProperty( '" + block.data + "', 'headingSensorValue' )" + argument0, Blockly.JavaScript.ORDER_ATOMIC ];
   } else {
       return [ ' 0 ' + argument0, Blockly.JavaScript.ORDER_ATOMIC ];
   }
@@ -846,7 +846,7 @@ Blockly.Blocks[ 'controls_sensor_heading' ] = {
       // Block has been deleted.
       return;
     }
-    var headingValue = vwf.getProperty( this.data, "heading" );
+    var headingValue = vwf.getProperty( this.data, "headingSensorValue" );
     this.setFieldValue( '' + headingValue + '','VALUE' );
   }
 };
