@@ -60,10 +60,9 @@ properties:
         this.lowRam = value;
       }
     value: 5
-  tracksSensorValue: false
+  anomalySensorValue: false
   collisionSensorValue: false
   headingSensorValue: 0
-  proximitySensorValue: {}
   signalSensorValue:
     set: |
       if ( this.signalSensorValue != value ) {

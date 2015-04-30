@@ -397,7 +397,7 @@ vwf_view.satProperty = function( nodeID, propertyName, propertyValue ) {
                 }
                 break;
 
-            case "tracksSensorValue":
+            case "anomalySensorValue":
                 Blockly.mainWorkspace.fireChangeEvent();
                 break;
             case "signalSensorValue":

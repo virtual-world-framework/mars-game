@@ -262,6 +262,69 @@ this.getNonInventoriables = function( gridCoord ) {
     return nonInventoriables;
 }
 
+this.getSurroundingInventoriables = function( gridCoord ) {
+    var inventoriables = [];
+    if ( this.validCoord( gridCoord ) ) {
+        var left = this.getTileFromGrid( [ gridCoord[ 0 ] - 1, gridCoord[ 1 ] ] );
+        var right = this.getTileFromGrid( [ gridCoord[ 0 ] + 1, gridCoord[ 1 ] ] );
+        var forward = this.getTileFromGrid( [ gridCoord[ 0 ], gridCoord[ 1 ] + 1 ] );
+        var back = this.getTileFromGrid( [ gridCoord[ 0 ], gridCoord[ 1 ] - 1 ] );
+        var ul = this.getTileFromGrid( [ gridCoord[ 0 ] - 1, gridCoord[ 1 ] + 1 ] );
+        var ur = this.getTileFromGrid( [ gridCoord[ 0 ] + 1, gridCoord[ 1 ] + 1 ] );
+        var ll = this.getTileFromGrid( [ gridCoord[ 0 ] - 1, gridCoord[ 1 ] - 1 ] );
+        var lr = this.getTileFromGrid( [ gridCoord[ 0 ] + 1, gridCoord[ 1 ] - 1 ] );
+
+        var surroundingTiles = [ left, right, forward, back, ul, ur, ll, lr ];
+
+        for ( var s = 0; s < surroundingTiles.length; s++ ) {
+            if ( surroundingTiles[ 0 ] !== undefined ) {
+                for ( var i = 0; i < tile.objects.length; i++ ) {
+                    var node = tile.getNodeAtIndex( i );
+                    if ( node === undefined ) {
+                        this.logger.errorx( "getInventoriables", "Unable to find node with " +
+                            "ID: " + tile.objects[ i ] );
+                    } else if ( node.isInventoriable ) {
+                        inventoriables.push( tile.objects[ i ] );
+                    }
+                }
+            }
+        }
+    }
+    return inventoriables;
+}
+
+//Returns the first instance of an inventoriable object on the specified grid tile
+this.getSurroundingNonInventoriables = function( gridCoord ) {
+    var nonInventoriables = [];
+    if ( this.validCoord( gridCoord ) ) {
+        var left = this.getTileFromGrid( [ gridCoord[ 0 ] - 1, gridCoord[ 1 ] ] );
+        var right = this.getTileFromGrid( [ gridCoord[ 0 ] + 1, gridCoord[ 1 ] ] );
+        var forward = this.getTileFromGrid( [ gridCoord[ 0 ], gridCoord[ 1 ] + 1 ] );
+        var back = this.getTileFromGrid( [ gridCoord[ 0 ], gridCoord[ 1 ] - 1 ] );
+        var ul = this.getTileFromGrid( [ gridCoord[ 0 ] - 1, gridCoord[ 1 ] + 1 ] );
+        var ur = this.getTileFromGrid( [ gridCoord[ 0 ] + 1, gridCoord[ 1 ] + 1 ] );
+        var ll = this.getTileFromGrid( [ gridCoord[ 0 ] - 1, gridCoord[ 1 ] - 1 ] );
+        var lr = this.getTileFromGrid( [ gridCoord[ 0 ] + 1, gridCoord[ 1 ] - 1 ] );
+
+        var surroundingTiles = [ left, right, forward, back, ul, ur, ll, lr ];
+
+        for ( var s = 0; s < surroundingTiles.length; s++ ) {
+            if ( surroundingTiles[ 0 ] !== undefined ) {
+                for ( var i = 0; i < tile.objects.length; i++ ) {
+                    var node = tile.getNodeAtIndex( i );
+                    if ( node === undefined ) {
+                        this.logger.errorx( "getInventoriables", "Unable to find node with " +
+                            "ID: " + tile.objects[ i ] );
+                    } else if ( !node.isInventoriable ) {
+                        nonInventoriables.push( tile.objects[ i ] );
+                    }
+                }
+            }
+        }
+    }
+    return nonInventoriables;
+}
+
 //Returns the first instance of a collidable object on the specified grid tile
 this.getCollidables = function( gridCoord ) {
     var collidables = [];

@@ -25,10 +25,13 @@ Blockly.Blocks['ordered_pair'] = {
   init: function() {
     this.setHelpUrl('http://www.example.com/');
     this.setColour(75);
-    this.appendDummyInput()
+    this.appendValueInput("INPUT")
+        .setCheck(['OrderedGet'])
+        .appendField("(")
         .appendField(new Blockly.FieldTextInput("0"), "x")
         .appendField(",")
-        .appendField(new Blockly.FieldTextInput("0"), "y");
+        .appendField(new Blockly.FieldTextInput("0"), "y")
+        .appendField(")");
     this.setOutput(true, 'OrderedPair');
     this.data = currentBlocklyNodeID;
     var thisBlock = this;
@@ -46,8 +49,8 @@ Blockly.Blocks['ordered_pair'] = {
   }
 };
 
-Blockly.JavaScript['ordered_pair'] = function(block) {
-  var inputVars = Blockly.JavaScript.valueToCode(block, 'NAME', Blockly.JavaScript.ORDER_ATOMIC);
+Blockly.JavaScript['ordered_pair'] = function( block ) {
+  var input = Blockly.JavaScript.valueToCode(block, 'INPUT', Blockly.JavaScript.ORDER_ATOMIC) || '';
   var xValue = block.getFieldValue('x');
   var yValue = block.getFieldValue('y');
 
@@ -84,9 +87,21 @@ Blockly.JavaScript['ordered_pair'] = function(block) {
     }
   }
 
-  var code = [ xValue , yValue ];
-
-  return [ code, Blockly.JavaScript.ORDER_ATOMIC ];
+  var inputCheck = input[0] + input[1];
+  if ( inputCheck === '.x') {
+    var code =  xValue + input.slice( 2 );
+    block.setOutput(true, 'Number');
+    return [ code, Blockly.JavaScript.ORDER_ATOMIC ];
+  } else if ( inputCheck === '.y') {
+    var code =  yValue + input.slice( 2 );
+    this.setOutput(true, 'Number');
+    return [ code, Blockly.JavaScript.ORDER_ATOMIC ];
+  } else {
+    var code = [ xValue , yValue ] + input;
+    this.setOutput(true, 'OrderedPair');
+    return [ code, Blockly.JavaScript.ORDER_ATOMIC ];
+  }
+  
 };
 
 Blockly.Blocks['ordered_get'] = {
@@ -94,69 +109,28 @@ Blockly.Blocks['ordered_get'] = {
     this.setHelpUrl('http://www.example.com/');
     this.setColour(75);
     this.appendValueInput("INPUT")
-        .setCheck(['OrderedPair','Variable'])
-        .appendField(new Blockly.FieldDropdown([["getX", "getX"], ["getY", "getY"]]), "OPTION");
-    this.setInputsInline(true);
-    this.setOutput(true, "Number");
+        .setCheck(['OperatorAddSubtract','OperatorMultiplyDivide','LeftParenthesis','RightParenthesis','Conditional','ANDOR' ])
+        .appendField(new Blockly.FieldDropdown([[".x", ".x"], [".y", ".y"]]), "OPTION");
+    this.setOutput(true, "OrderedGet");
     this.data = currentBlocklyNodeID;
     this.setTooltip('Retrieves X or Y values from ordered pair blocks');
   }
 };
 
 Blockly.JavaScript['ordered_get'] = function(block) {
-  var input = Blockly.JavaScript.valueToCode(block, 'INPUT', Blockly.JavaScript.ORDER_ATOMIC);
+  var input = Blockly.JavaScript.valueToCode(block, 'INPUT', Blockly.JavaScript.ORDER_ATOMIC) || '';
   var dropdown = block.getFieldValue('OPTION');
 
   var code = '';
 
   //Todo - check for 
-  if ( dropdown === 'getX' ) {
+  if ( dropdown === '.x' ) {
     code = input[ 0 ];
   } else {
     code = input[ 1 ];
   }
 
   return [ code, Blockly.JavaScript.ORDER_ATOMIC ];
-};
-
-Blockly.Blocks['rover_moveRadial'] = {
-  init: function() {
-    this.setHelpUrl('http://www.example.com/');
-    this.setColour(20);
-    this.appendDummyInput()
-        .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField("Move:");
-     this.appendDummyInput()
-         .setAlign(Blockly.ALIGN_CENTRE)
-         .appendField("Δx");
-    this.appendValueInput("x");
-     this.appendDummyInput()
-         .setAlign(Blockly.ALIGN_CENTRE)
-         .appendField("Δy");
-    this.appendValueInput("y");
-    this.setInputsInline(true);
-    this.setPreviousStatement(true, "null");
-    this.setNextStatement(true, "null");
-    this.data = currentBlocklyNodeID;
-    var thisBlock = this;
-    this.setTooltip("Moves the specified number of spaces along the X and Y axes");
-  }
-};
-
-Blockly.JavaScript['rover_moveRadial'] = function(block) {
-  var value_x = Blockly.JavaScript.valueToCode(block, 'x', Blockly.JavaScript.ORDER_ATOMIC) || 0;
-  var value_y = Blockly.JavaScript.valueToCode(block, 'y', Blockly.JavaScript.ORDER_ATOMIC) || 0;
-
-  // How long should we take to execute this block?
-  var exeTime = Math.round( Math.sqrt(value_x*value_x + value_y*value_y) );
-
-  var action = {
-    nodeID: Blockly.JavaScript.vwfID,
-    methodName: 'moveRadial',
-    exeTime: exeTime,
-    args: [ value_x, value_y ]
-  };
-  return constructBlockExeFuncCall( block, action );
 };
 
 Blockly.Blocks[ 'variables_get' ] = {
@@ -170,7 +144,7 @@ Blockly.Blocks[ 'variables_get' ] = {
     this.appendValueInput( 'INPUT' )
         .appendField( Blockly.Msg.VARIABLES_GET_TITLE )
         .appendField( new Blockly.FieldVariable( Blockly.Msg.VARIABLES_GET_ITEM ), 'VAR' )
-        .appendField( new Blockly.FieldTextInput("?"), "VALUE" )
+        .appendField( "?", "VALUE" )
         .appendField( Blockly.Msg.VARIABLES_GET_TAIL )
         .setCheck( [ 'Number','Boolean','Variable','OperatorAddSubtract','OperatorMultiplyDivide','LeftParenthesis','RightParenthesis','Conditional','ANDOR' ] );
     this.setOutput( true );
@@ -232,7 +206,7 @@ Blockly.Blocks[ 'variables_get' ] = {
     if ( val === undefined ) {
       val = '?';
     }
-    this.setFieldValue( '' + val + '','VALUE' );
+    this.setFieldValue( '(' + val + ')','VALUE' );
   }
 
 };
@@ -794,28 +768,27 @@ Blockly.JavaScript['controls_if_else_nomut'] = function(block) {
 };
 
 
-Blockly.JavaScript[ 'controls_sensor_tracks' ] = function( block ) {
+Blockly.JavaScript[ 'controls_sensor_anomaly' ] = function( block ) {
   
-    var argument0 = Blockly.JavaScript.valueToCode(block, 'INPUT', Blockly.JavaScript.ORDER_ATOMIC) || '';
+  var argument0 = Blockly.JavaScript.valueToCode(block, 'INPUT', Blockly.JavaScript.ORDER_ATOMIC) || '';
 
-  return [ "vwf.getProperty( '" + block.data + "', 'tracksSensorValue' )" + argument0, Blockly.JavaScript.ORDER_ATOMIC ];
+  return [ "vwf.getProperty( '" + block.data + "', 'anomalySensorValue' )" + argument0, Blockly.JavaScript.ORDER_ATOMIC ];
 
-  
 };
 
-Blockly.Blocks[ 'controls_sensor_tracks' ] = {
+Blockly.Blocks[ 'controls_sensor_anomaly' ] = {
   init: function() {
     this.setColour( 30 );
     this.appendValueInput('INPUT')
-        .appendField('Anomaly Ahead: ')
-        .appendField(new Blockly.FieldTextInput("?"), "VALUE");
+        .appendField('Anomaly Adjacent: ')
+        .appendField("?", "VALUE");
     this.setOutput( true, "Boolean" );
     this.data = currentBlocklyNodeID;
     //this.setEditable(false);
     var thisBlock = this;
     this.setTooltip( function() {
       var content = {
-        text: "Checks our scanner for anomalies immediately (one square) in front of the rover."
+        text: "Checks our scanner for anomalies (items/rovers/other) in all 8 squares around the rover."
       }
       return showTooltipInBlockly( thisBlock, content );
     } );
@@ -825,12 +798,12 @@ Blockly.Blocks[ 'controls_sensor_tracks' ] = {
       // Block has been deleted.
       return;
     }
-    var tracksValue = vwf.getProperty( this.data, "tracksSensorValue" );
+    var anomalyValue = vwf.getProperty( this.data, "anomalySensorValue" );
     this.setEditable(true);
-    if ( tracksValue === true ) {
-      this.setFieldValue( "true",'VALUE' );
+    if ( anomalyValue === true ) {
+      this.setFieldValue( "(TRUE)",'VALUE' );
     } else {
-      this.setFieldValue( "false",'VALUE' );
+      this.setFieldValue( "(FALSE)",'VALUE' );
     }
     this.setEditable(false);
   }
@@ -850,7 +823,7 @@ Blockly.Blocks[ 'controls_sensor_collision' ] = {
     this.setColour( 30 );
     this.appendValueInput('INPUT')
         .appendField('Collision: ')
-        .appendField(new Blockly.FieldTextInput("?"), "VALUE");
+        .appendField("?", "VALUE");
     this.setOutput( true, "Boolean" );
     this.data = currentBlocklyNodeID;
     //this.setEditable(false);
@@ -871,9 +844,9 @@ Blockly.Blocks[ 'controls_sensor_collision' ] = {
 
     this.setEditable(true);
     if ( collisionValue === true ) {
-      this.setFieldValue( "true",'VALUE' );
+      this.setFieldValue( "(TRUE)",'VALUE' );
     } else {
-      this.setFieldValue( "false",'VALUE' );
+      this.setFieldValue( "(FALSE)",'VALUE' );
     }
     this.setEditable(false);
   }
@@ -892,7 +865,7 @@ Blockly.Blocks[ 'controls_sensor_signal' ] = {
     this.setColour( 30 );
     this.appendValueInput('INPUT')
         .appendField('Signal: ')
-        .appendField(new Blockly.FieldTextInput("?"), "VALUE")
+        .appendField("?", "VALUE")
         .setCheck(['OperatorAddSubtract','OperatorMultiplyDivide','LeftParenthesis','RightParenthesis','Conditional']);
     this.setOutput(true, null);
     this.data = currentBlocklyNodeID;
@@ -912,7 +885,7 @@ Blockly.Blocks[ 'controls_sensor_signal' ] = {
     }
     this.setEditable(true);
     var signalValue = vwf.getProperty( this.data, "signalSensorValue" );
-    this.setFieldValue( '' + signalValue + '','VALUE' );
+    this.setFieldValue( '(' + signalValue + '°)','VALUE' );
     this.setEditable(false);
   }
 };
@@ -931,7 +904,7 @@ Blockly.Blocks[ 'controls_sensor_heading' ] = {
     this.setColour( 30 );
     this.appendValueInput('INPUT')
         .appendField('Heading: ')
-        .appendField(new Blockly.FieldTextInput("?"), "VALUE")
+        .appendField("?", "VALUE")
         .setCheck(['OperatorAddSubtract','OperatorMultiplyDivide','LeftParenthesis','RightParenthesis','Conditional']);
     this.setOutput(true, null);
     this.data = currentBlocklyNodeID;
@@ -951,48 +924,7 @@ Blockly.Blocks[ 'controls_sensor_heading' ] = {
     }
     this.setEditable(true);
     var headingValue = vwf.getProperty( this.data, "headingSensorValue" );
-    this.setFieldValue( '' + headingValue + '','VALUE' );
-    this.setEditable(false);
-  }
-};
-
-Blockly.JavaScript[ 'controls_sensor_proximity' ] = function( block ) {
-
-  var argument0 = Blockly.JavaScript.valueToCode(block, 'INPUT', Blockly.JavaScript.ORDER_ATOMIC) || '';
-  var mode = block.getFieldValue( 'MODE' );
-
-  return [ "vwf.getProperty( '" + block.data + "', 'proximitySensorValue' )["+ mode +"]" + argument0, Blockly.JavaScript.ORDER_ATOMIC ];
- 
-};
-
-Blockly.Blocks[ 'controls_sensor_proximity' ] = {
-  init: function() {
-    this.setColour( 30 );
-    this.appendValueInput('INPUT')
-        .appendField(new Blockly.FieldDropdown([["Rover", "Rover"],["Pickup", "Pickup"]]), "MODE")
-        .appendField(' Ahead: ')
-        .appendField(new Blockly.FieldTextInput("?"), "VALUE")
-        .setCheck(['OperatorAddSubtract','OperatorMultiplyDivide','LeftParenthesis','RightParenthesis','Conditional']);
-    this.setOutput(true, null);
-    this.data = currentBlocklyNodeID;
-    //this.setEditable(false);
-    var thisBlock = this;
-    this.setTooltip( function() {
-      var content = {
-        text: "Checks to see if the specified object is directly ahead of the rover. Returns true or false."
-      }
-      return showTooltipInBlockly( thisBlock, content );
-    } );
-  },
-  onchange: function() {
-    if (!this.workspace || this.data === undefined) {
-      // Block has been deleted.
-      return;
-    }
-    this.setEditable(true);
-    var proxValue = vwf.getProperty( this.data, "proximitySensorValue" );
-    var mode = this.getFieldValue( 'MODE' );
-    this.setFieldValue( '' + proxValue[ mode ] + '','VALUE' );
+    this.setFieldValue( '(' + headingValue + '°)','VALUE' );
     this.setEditable(false);
   }
 };
@@ -1032,6 +964,45 @@ Blockly.JavaScript['rover_moveForward'] = function( block ) {
   return constructBlockExeFuncCall( block, action );
 };
 
+Blockly.Blocks['rover_moveRadial'] = {
+  init: function() {
+    this.setHelpUrl('http://www.example.com/');
+    this.setColour(20);
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("Move:");
+     this.appendDummyInput()
+         .setAlign(Blockly.ALIGN_CENTRE)
+         .appendField("Δx");
+    this.appendValueInput("x");
+     this.appendDummyInput()
+         .setAlign(Blockly.ALIGN_CENTRE)
+         .appendField("Δy");
+    this.appendValueInput("y");
+    this.setInputsInline(true);
+    this.setPreviousStatement(true, "null");
+    this.setNextStatement(true, "null");
+    this.data = currentBlocklyNodeID;
+    var thisBlock = this;
+    this.setTooltip("Moves the specified number of spaces along the X and Y axes");
+  }
+};
+
+Blockly.JavaScript['rover_moveRadial'] = function(block) {
+  var value_x = Blockly.JavaScript.valueToCode(block, 'x', Blockly.JavaScript.ORDER_ATOMIC) || 0;
+  var value_y = Blockly.JavaScript.valueToCode(block, 'y', Blockly.JavaScript.ORDER_ATOMIC) || 0;
+
+  // How long should we take to execute this block?
+  var exeTime = Math.round( Math.sqrt(value_x*value_x + value_y*value_y) );
+
+  var action = {
+    nodeID: Blockly.JavaScript.vwfID,
+    methodName: 'moveRadial',
+    exeTime: exeTime,
+    args: [ value_x, value_y ]
+  };
+  return constructBlockExeFuncCall( block, action );
+};
 
 Blockly.Blocks['rover_turn'] = {
   // Block for turning left or right.

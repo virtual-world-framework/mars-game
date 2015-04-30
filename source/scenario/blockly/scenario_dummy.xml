@@ -10,10 +10,9 @@
     <block type="ordered_get"></block>
   </category>
   <category name="Sensors">
-    <block type="controls_sensor_tracks"></block>
+    <block type="controls_sensor_anomaly"></block>
     <block type="controls_sensor_signal"></block>
     <block type="controls_sensor_collision"></block>
-    <block type="controls_sensor_proximity"></block>
     <block type="controls_sensor_heading"></block>
   </category>
   <category name="Variables" custom="VARIABLE">

@@ -116,10 +116,9 @@ this.moveForward = function() {
                     }
                 }
                 this.moved();
-                this.activateSensor( 'forward' );
+                this.activateSensor( 'anomaly' );
                 this.activateSensor( 'signal' );
                 this.activateSensor( 'collision' );
-                this.activateSensor( 'proximity' );
             } else {
                 this.moveFailed( "collision" );
             }
@@ -186,7 +185,7 @@ this.moveRadial = function( xValue, yValue ) {
                     }
                 }
                 this.moved();
-                this.activateSensor( 'forward' );
+                this.activateSensor( 'anomaly' );
             } else {
                 this.moveFailed( "collision" );
             }
@@ -199,18 +198,14 @@ this.moveRadial = function( xValue, yValue ) {
 
 this.turnLeft = function() {
     this.setHeading( this.heading + 90, 1 );
-    this.activateSensor( 'forward' );
     this.activateSensor( 'signal' );
     this.activateSensor( 'collision' );
-    this.activateSensor( 'proximity' );
 }
 
 this.turnRight = function() {
     this.setHeading( this.heading - 90, 1 );
-    this.activateSensor( 'forward' );
     this.activateSensor( 'signal' );
     this.activateSensor( 'collision' );
-    this.activateSensor( 'proximity' );
 }
 
 this.checkRadialCollision = function( currentPosition, futurePosition ) {
@@ -402,7 +397,7 @@ this.calcRam = function() {
 
 this.blockCountChanged = function( value ) {
     this.calcRam();
-    this.activateSensor( 'forward' );
+    this.activateSensor( 'anomaly' );
     this.activateSensor( 'signal' );
     this.activateSensor( 'heading', this.heading );
     this.activateSensor( 'collision' );
@@ -454,47 +449,52 @@ this.activateSensor = function( sensor, value ) {
 
     var scene = this.sceneNode;
 
-    if ( sensor === 'forward' ) {
-        // This sensor just checks the current position against the 
-        //  "anomalyPosition" on the blackboard (if any).
+    if ( sensor === 'anomaly' ) {
+        // This sensor checks if the rover is on or near an anomaly, whether that is
+        // defined in the blackboard or an object like a rover/item
         var anomalyPos = this.sceneNode.sceneBlackboard[ "anomalyPosition" ];
         var currentPos = this.currentGridSquare;
 
+        this.anomalySensorValue = false;
+
         if ( anomalyPos ) {
-            this.tracksSensorValue = anomalyPos && 
-                                 anomalyPos[ 0 ] === currentPos [ 0 ] && 
-                                 anomalyPos[ 1 ] === currentPos [ 1 ];
-        } else {
-            this.tracksSensorValue = false;
-        }
-        
-    }
+            this.anomalySensorValue = anomalyPos && (
+                                 ( anomalyPos[ 0 ] === currentPos [ 0 ] && 
+                                 anomalyPos[ 1 ] === currentPos [ 1 ] ) ||
+                                 ( anomalyPos[ 0 ] === currentPos [ 0 ] + 1 && 
+                                 anomalyPos[ 1 ] === currentPos [ 1 ] ) ||
+                                 ( anomalyPos[ 0 ] === currentPos [ 0 ] - 1 && 
+                                 anomalyPos[ 1 ] === currentPos [ 1 ] ) ||
+                                 ( anomalyPos[ 0 ] === currentPos [ 0 ] && 
+                                 anomalyPos[ 1 ] === currentPos [ 1 ]  + 1 ) ||
+                                 ( anomalyPos[ 0 ] === currentPos [ 0 ] && 
+                                 anomalyPos[ 1 ] === currentPos [ 1 ] - 1 ) ||
+                                 ( anomalyPos[ 0 ] === currentPos [ 0 ] - 1 && 
+                                 anomalyPos[ 1 ] === currentPos [ 1 ] - 1 ) || //LL
+                                 ( anomalyPos[ 0 ] === currentPos [ 0 ] + 1 && 
+                                 anomalyPos[ 1 ] === currentPos [ 1 ] + 1 ) || //UR
+                                 ( anomalyPos[ 0 ] === currentPos [ 0 ] - 1 && 
+                                 anomalyPos[ 1 ] === currentPos [ 1 ] + 1) || //UL
+                                 ( anomalyPos[ 0 ] === currentPos [ 0 ] + 1 && 
+                                 anomalyPos[ 1 ] === currentPos [ 1 ] - 1) //LR
+                                                    );
+        } 
 
-    if ( sensor === 'proximity' ) {
-        // This sensor just checks the current position against the 
-        //  "anomalyPosition" on the blackboard (if any).
-        var headingInRadians = this.heading * Math.PI / 180;
-        var dirVector = [ Math.round( -Math.sin( headingInRadians ) ), Math.round( Math.cos( headingInRadians ) ) ];
-
-        var proposedNewGridSquare = [ this.currentGridSquare[ 0 ] + dirVector[ 0 ], 
-                                                                this.currentGridSquare[ 1 ] + dirVector[ 1 ] ];
-        var items = this.currentGrid.getInventoriables( proposedNewGridSquare );
-        var rovers = this.currentGrid.getNonInventoriables( proposedNewGridSquare );
+        var items = this.currentGrid.getSurroundingInventoriables( this.currentGridSquare );
+        var rovers = this.currentGrid.getSurroundingNonInventoriables( this.currentGridSquare );
 
         if ( items ) {
             if ( items.length !== 0 ) {
-                this.proximitySensorValue[ 'Pickup' ] = 'true';
+                this.anomalySensorValue = true;
             } else {
-                this.proximitySensorValue[ 'Pickup' ] = 'false';
+                
             }
         }
         
         if ( rovers ) {
            if ( rovers.length !== 0 ) {
-                this.proximitySensorValue[ 'Rover' ] = 'true';
-            } else {
-                this.proximitySensorValue[ 'Rover' ] = 'false';
-            } 
+                this.anomalySensorValue = true;
+            }
         }
         
     }
@@ -564,14 +564,11 @@ this.activateSensor = function( sensor, value ) {
         var heading = ( 180 / Math.PI ) * Math.atan2( -deltaY, -deltaX ) + 180;
         
         //Math is getting flipped for 0 and 180 for some reason.
-        if ( heading === 0 ) {
-            heading = 180;
-        } else if ( heading === 180 ){
-            heading = 0;
-        }
-
+        
         this.signalSensorValue = Math.round( heading );
         scene.roverSignalValue = Math.round( heading );
+        return;
+        
     }
 
     if ( sensor === 'heading' ) {
