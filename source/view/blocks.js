@@ -88,17 +88,15 @@ Blockly.JavaScript['ordered_pair'] = function( block ) {
   }
 
   var inputCheck = input[0] + input[1];
+
   if ( inputCheck === '.x') {
     var code =  xValue + input.slice( 2 );
-    block.setOutput(true, 'Number');
     return [ code, Blockly.JavaScript.ORDER_ATOMIC ];
   } else if ( inputCheck === '.y') {
     var code =  yValue + input.slice( 2 );
-    block.setOutput(true, 'Number');
     return [ code, Blockly.JavaScript.ORDER_ATOMIC ];
   } else {
     var code = [ xValue , yValue ] + input;
-    block.setOutput(true, 'OrderedPair');
     return [ code, Blockly.JavaScript.ORDER_ATOMIC ];
   }
   
@@ -123,14 +121,13 @@ Blockly.JavaScript['ordered_get'] = function(block) {
 
   var code = '';
 
-  //Todo - check for 
   if ( dropdown === '.x' ) {
-    code = input[ 0 ];
+    code = '.x';
   } else {
-    code = input[ 1 ];
+    code = '.y';
   }
 
-  return [ code, Blockly.JavaScript.ORDER_ATOMIC ];
+  return [ code + input, Blockly.JavaScript.ORDER_ATOMIC ];
 };
 
 Blockly.Blocks[ 'variables_get' ] = {
