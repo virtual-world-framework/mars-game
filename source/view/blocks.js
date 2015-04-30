@@ -32,7 +32,7 @@ Blockly.Blocks['ordered_pair'] = {
         .appendField(",")
         .appendField(new Blockly.FieldTextInput("0"), "y")
         .appendField(")");
-    this.setOutput(true, 'OrderedPair');
+    this.setOutput(true, null);
     this.data = currentBlocklyNodeID;
     var thisBlock = this;
     this.setTooltip('Represents an array of values or grid coordinates');
@@ -94,11 +94,11 @@ Blockly.JavaScript['ordered_pair'] = function( block ) {
     return [ code, Blockly.JavaScript.ORDER_ATOMIC ];
   } else if ( inputCheck === '.y') {
     var code =  yValue + input.slice( 2 );
-    this.setOutput(true, 'Number');
+    block.setOutput(true, 'Number');
     return [ code, Blockly.JavaScript.ORDER_ATOMIC ];
   } else {
     var code = [ xValue , yValue ] + input;
-    this.setOutput(true, 'OrderedPair');
+    block.setOutput(true, 'OrderedPair');
     return [ code, Blockly.JavaScript.ORDER_ATOMIC ];
   }
   

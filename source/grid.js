@@ -277,14 +277,14 @@ this.getSurroundingInventoriables = function( gridCoord ) {
         var surroundingTiles = [ left, right, forward, back, ul, ur, ll, lr ];
 
         for ( var s = 0; s < surroundingTiles.length; s++ ) {
-            if ( surroundingTiles[ 0 ] !== undefined ) {
-                for ( var i = 0; i < tile.objects.length; i++ ) {
-                    var node = tile.getNodeAtIndex( i );
+            if ( surroundingTiles[ s ] !== undefined ) {
+                for ( var i = 0; i < surroundingTiles[ s ].objects.length; i++ ) {
+                    var node = surroundingTiles[ s ].getNodeAtIndex( i );
                     if ( node === undefined ) {
                         this.logger.errorx( "getInventoriables", "Unable to find node with " +
-                            "ID: " + tile.objects[ i ] );
+                            "ID: " + surroundingTiles[ s ].objects[ i ] );
                     } else if ( node.isInventoriable ) {
-                        inventoriables.push( tile.objects[ i ] );
+                        inventoriables.push( surroundingTiles[ s ].objects[ i ] );
                     }
                 }
             }
@@ -309,14 +309,14 @@ this.getSurroundingNonInventoriables = function( gridCoord ) {
         var surroundingTiles = [ left, right, forward, back, ul, ur, ll, lr ];
 
         for ( var s = 0; s < surroundingTiles.length; s++ ) {
-            if ( surroundingTiles[ 0 ] !== undefined ) {
-                for ( var i = 0; i < tile.objects.length; i++ ) {
-                    var node = tile.getNodeAtIndex( i );
+            if ( surroundingTiles[ s ] !== undefined ) {
+                for ( var i = 0; i < surroundingTiles[ s ].objects.length; i++ ) {
+                    var node = surroundingTiles[ s ].getNodeAtIndex( i );
                     if ( node === undefined ) {
-                        this.logger.errorx( "getInventoriables", "Unable to find node with " +
-                            "ID: " + tile.objects[ i ] );
+                        this.logger.errorx( "getNonInventoriables", "Unable to find node with " +
+                            "ID: " + surroundingTiles[ s ].objects[ i ] );
                     } else if ( !node.isInventoriable ) {
-                        nonInventoriables.push( tile.objects[ i ] );
+                        nonInventoriables.push( surroundingTiles[ s ].objects[ i ] );
                     }
                 }
             }
