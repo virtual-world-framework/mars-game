@@ -21,6 +21,103 @@ var BlocklyApps = {
 
 // Extensions to Blockly's language and JavaScript generator.
 
+Blockly.Blocks['ordered_pair'] = {
+  init: function() {
+    this.setHelpUrl('http://www.example.com/');
+    this.setColour(75);
+    this.appendDummyInput()
+        .appendField(new Blockly.FieldTextInput("0"), "x")
+        .appendField(",")
+        .appendField(new Blockly.FieldTextInput("0"), "y");
+    this.setOutput(true, 'OrderedPair');
+    this.data = currentBlocklyNodeID;
+    var thisBlock = this;
+    this.setTooltip('Represents an array of values or grid coordinates');
+  },
+
+  /**
+   * Fires when the workspace changes or Blockly.mainWorkspace.fireChangeEvent() is called
+   */
+  onchange: function() {
+    if (!this.workspace || this.data === undefined) {
+      // Block has been deleted.
+      return;
+    }
+  }
+};
+
+Blockly.JavaScript['ordered_pair'] = function(block) {
+  var inputVars = Blockly.JavaScript.valueToCode(block, 'NAME', Blockly.JavaScript.ORDER_ATOMIC);
+  var xValue = block.getFieldValue('x');
+  var yValue = block.getFieldValue('y');
+
+  if ( isNaN( xValue ) || xValue === "" ){
+    xValue = 0;
+    block.setFieldValue( '0','x' );
+  } else if ( isNaN( yValue ) || yValue === "" ){
+    yValue = 0;
+    block.setFieldValue( '0','y' );
+  } else {
+
+    if ( xValue % 1 !== 0 ){
+      block.setFieldValue( '0','x' );
+      block.setWarningText( 'Decimals not allowed.' );
+    }
+    else if ( xValue > 99 || xValue < -99){
+      block.setFieldValue( '0' ,'x' );
+      block.setWarningText( 'Must be between -99 and 99' );
+    } else {
+      block.setWarningText( null );
+      block.setFieldValue( xValue ,'x' );
+    }
+
+    if ( yValue % 1 !== 0 ){
+      block.setFieldValue( '0','y' );
+      block.setWarningText( 'Decimals not allowed.' );
+    }
+    else if ( yValue > 99 || yValue < -99){
+      block.setFieldValue( '0' ,'y' );
+      block.setWarningText( 'Must be between -99 and 99' );
+    } else {
+      block.setWarningText( null );
+      block.setFieldValue( yValue ,'y' );
+    }
+  }
+
+  var code = [ xValue , yValue ];
+
+  return [ code, Blockly.JavaScript.ORDER_ATOMIC ];
+};
+
+Blockly.Blocks['ordered_get'] = {
+  init: function() {
+    this.setHelpUrl('http://www.example.com/');
+    this.setColour(75);
+    this.appendValueInput("INPUT")
+        .setCheck(['OrderedPair','Variable'])
+        .appendField(new Blockly.FieldDropdown([["getX", "getX"], ["getY", "getY"]]), "OPTION");
+    this.setInputsInline(true);
+    this.setOutput(true, "Number");
+    this.data = currentBlocklyNodeID;
+    this.setTooltip('Retrieves X or Y values from ordered pair blocks');
+  }
+};
+
+Blockly.JavaScript['ordered_get'] = function(block) {
+  var input = Blockly.JavaScript.valueToCode(block, 'INPUT', Blockly.JavaScript.ORDER_ATOMIC);
+  var dropdown = block.getFieldValue('OPTION');
+
+  var code = '';
+
+  //Todo - check for 
+  if ( dropdown === 'getX' ) {
+    code = input[ 0 ];
+  } else {
+    code = input[ 1 ];
+  }
+
+  return [ code, Blockly.JavaScript.ORDER_ATOMIC ];
+};
 
 Blockly.Blocks['rover_moveRadial'] = {
   init: function() {
@@ -1060,7 +1157,7 @@ Blockly.Blocks[ 'math_number_out' ] = {
          ["-4", "-4"], ["-5", "-5"], ["-6", "-6"], ["-7", "-7"], ["-8", "-8"], 
          ["-9", "-9"], ["-10", "-10"]]), "VALUE")
         .setCheck( [ 'OperatorAddSubtract','OperatorMultiplyDivide','Variable','LeftParenthesis','RightParenthesis','Conditional' ] );
-    this.setOutput( true, null );
+    this.setOutput( true, 'Number' );
     this.data = currentBlocklyNodeID;
     var thisBlock = this;
     this.setTooltip( function() {
@@ -1099,7 +1196,7 @@ Blockly.Blocks['math_number_field'] = {
     this.appendValueInput("INPUT")
         .setCheck( [ 'OperatorAddSubtract','OperatorMultiplyDivide','Variable','LeftParenthesis','RightParenthesis','Conditional' ] )
         .appendField(new Blockly.FieldTextInput("1"), "VALUE");
-    this.setOutput( true, null );
+    this.setOutput( true, 'Number' );
     this.data = currentBlocklyNodeID;
     var thisBlock = this;
     this.setTooltip( function() {

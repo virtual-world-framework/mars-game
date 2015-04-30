@@ -565,14 +565,15 @@ this.activateSensor = function( sensor, value ) {
         var heading = radians * ( 180 / Math.PI );
 
         // Convert to 0 to 360 
-        if ( heading >= 0 ) {
-            heading = 180 - heading;
-        } else {
-            heading = 360 + heading;
-        }
+        var newHeading = value + 90;
 
-        this.signalSensorValue = Math.round( heading );
-        scene.roverSignalValue = Math.round( heading );
+        var trueHeading = ( newHeading % 360 + 360 ) % 360;
+
+        console.log( newHeading );
+        console.log( trueHeading );
+
+        this.signalSensorValue = Math.round( trueHeading );
+        scene.roverSignalValue = Math.round( trueHeading );
     }
 
     if ( sensor === 'heading' ) {

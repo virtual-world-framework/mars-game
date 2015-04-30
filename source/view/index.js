@@ -160,7 +160,6 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                     vwf_view.kernel.setProperty( graphLines[ "blocklyLine" ].ID, "lineFunction", currentCode );
                 } else {
                     //indicateBlock( lastBlockIDExecuted );
-                    //indicateProcedureBlock( currentProcedureBlockID );
                 }
                 break;
 
