@@ -561,19 +561,17 @@ this.activateSensor = function( sensor, value ) {
             return;
         }
 
-        var radians = Math.atan2( deltaY, deltaX ); // In radians 
-        var heading = radians * ( 180 / Math.PI );
+        var heading = ( 180 / Math.PI ) * Math.atan2( -deltaY, -deltaX ) + 180;
+        
+        //Math is getting flipped for 0 and 180 for some reason.
+        if ( heading === 0 ) {
+            heading = 180;
+        } else if ( heading === 180 ){
+            heading = 0;
+        }
 
-        // Convert to 0 to 360 
-        var newHeading = value + 90;
-
-        var trueHeading = ( newHeading % 360 + 360 ) % 360;
-
-        console.log( newHeading );
-        console.log( trueHeading );
-
-        this.signalSensorValue = Math.round( trueHeading );
-        scene.roverSignalValue = Math.round( trueHeading );
+        this.signalSensorValue = Math.round( heading );
+        scene.roverSignalValue = Math.round( heading );
     }
 
     if ( sensor === 'heading' ) {
