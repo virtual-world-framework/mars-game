@@ -2,7 +2,7 @@
   <category name="Control">
   <block type="rover_moveForward"></block>
   <block type="rover_turn"><field name="DIR">Turn: Left</field></block>
-  <block type="controls_sensor_tracks"></block>
+  <block type="controls_sensor_anomaly"></block>
   <block type="controls_whileUntil"><field name="MODE">WHILE</field></block>
   <block type="controls_repeat_extended"></block>
   <block type="math_number_out"><field name="VALUE">1</field></block>
