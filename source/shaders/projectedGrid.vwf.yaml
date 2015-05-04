@@ -3,6 +3,24 @@ extends: http://vwf.example.com/shaderMaterial.vwf
 properties:
   lights: true
   uniforms:
+    gridVisible:
+      type: "i"
+      value: 1
+    gridOffset:
+      type: "f"
+      value: 0
+    gridInterval:
+      type: "f"
+      value: 10
+    gridLineThickness:
+      type: "f"
+      value: 2
+    gridColor:
+      type: "c"
+      value: 0xFF4411
+    laserFocus:
+      type: "f"
+      value: 5
     diffuseMap:
       type: "t"
       value: 0
@@ -110,6 +128,14 @@ properties:
     uniform vec3 ambientLightColor;
     uniform vec3 directionalLightColor[ MAX_DIR_LIGHTS ];
     uniform vec3 directionalLightDirection[ MAX_DIR_LIGHTS ];
+    // PROJECTED GRID SHADER UNIFORMS START
+    uniform int gridVisible;
+    uniform float gridOffset;
+    uniform float gridInterval;
+    uniform float gridLineThickness;
+    uniform vec3 gridColor;
+    uniform float laserFocus;
+    // PROJECTED GRID SHADER UNIFORMS END
     varying vec2 vUv;
     varying vec3 vWorldPosition;
     varying vec3 vViewPosition;
@@ -154,22 +180,21 @@ properties:
         totalDiffuse += dirDiffuse;
         totalSpecular += dirSpecular;
         gl_FragColor.xyz = gl_FragColor.xyz * ( emissive + totalDiffuse + ambientLightColor * ambient ) + totalSpecular;
+        // PROJECTED GRID SHADER START
+        if ( gridVisible == 1 ) {
+          float intervalHalf = gridInterval / 2.0;
+          float lineBuffer = gridInterval - gridLineThickness;
+          vec2 gridLine = vec2( intervalHalf - mod( vWorldPosition.xy + gridOffset, gridInterval ) );
+          gridLine = max( gridLine, -1.0 * gridLine ) + lineBuffer / ( lineBuffer + intervalHalf );
+          vec3 laserColor = max( ( 1.0 - gridColor ) * laserFocus, 1.0 );
+          float laserFactor = 0.0;
+          if ( gridLine.x < 1.0 ) {
+            laserFactor = min( 1.0 - pow( gridLine.x, 4.0 ), 1.0 );
+          }
+          if ( gridLine.y < 1.0 ) {
+            laserFactor = max( laserFactor, min( 1.0 - pow( gridLine.y, 4.0 ), 1.0 ) );
+          }
+          gl_FragColor.xyz += ( pow( vec3( laserFactor ), laserColor ) );
+        }
+        // PROJECTED GRID SHADER END
     }
-methods:
-  newTexture:
-    parameters:
-      - value
-    body: |
-      var tex = THREE.ImageUtils.loadTexture( value );
-      tex.wrapS = tex.wrapT = THREE.RepeatWrapping;
-      return tex;
-  newColor:
-    parameters:
-      - value
-    body: |
-      var r, g, b, color;
-      r = value[ 0 ] / 255;
-      g = value[ 1 ] / 255;
-      b = value[ 2 ] / 255;
-      color = new THREE.Color( r, g, b );
-      return color;
