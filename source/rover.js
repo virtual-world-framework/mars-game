@@ -185,7 +185,7 @@ this.moveRadial = function( xValue, yValue ) {
                     }
                 }
                 this.moved();
-                this.activateSensor( 'anomaly' );
+                //this.activateSensor( 'anomaly' );
             } else {
                 this.moveFailed( "collision" );
             }

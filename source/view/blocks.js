@@ -143,7 +143,7 @@ Blockly.Blocks[ 'variables_get' ] = {
         .appendField( new Blockly.FieldVariable( Blockly.Msg.VARIABLES_GET_ITEM ), 'VAR' )
         .appendField( "?", "VALUE" )
         .appendField( Blockly.Msg.VARIABLES_GET_TAIL )
-        .setCheck( [ 'Number','Boolean','Variable','OperatorAddSubtract','OperatorMultiplyDivide','LeftParenthesis','RightParenthesis','Conditional','ANDOR' ] );
+        .setCheck( [ 'Number','Boolean','Variable','OrderedGet','OperatorAddSubtract','OperatorMultiplyDivide','LeftParenthesis','RightParenthesis','Conditional','ANDOR' ] );
     this.setOutput( true );
     this.setTooltip( Blockly.Msg.VARIABLES_GET_TOOLTIP );
     this.contextMenuMsg_ = Blockly.Msg.VARIABLES_GET_CREATE_SET;
@@ -210,13 +210,26 @@ Blockly.Blocks[ 'variables_get' ] = {
 
 Blockly.JavaScript[ 'variables_get' ] = function( block ) {
   // Variable getter.
-  var argument0 = Blockly.JavaScript.valueToCode( block, 'INPUT',
+  var input = Blockly.JavaScript.valueToCode( block, 'INPUT',
       Blockly.JavaScript.ORDER_ATOMIC) || '';
 
+  var inputCheck = input[0] + input[1];
 
   var code = Blockly.JavaScript.variableDB_.getName( block.getFieldValue( 'VAR' ),
       Blockly.Variables.NAME_TYPE );
-  return [ ( code + argument0 ) , Blockly.JavaScript.ORDER_ATOMIC ];
+
+  var val = blocklyVariables[ code ];
+  if ( inputCheck === '.x') {
+     code =  code + '[0];' + input.slice( 2 );
+    return [ code, Blockly.JavaScript.ORDER_ATOMIC ];
+  } else if ( inputCheck === '.y') {
+     code =  code + '[1];' + input.slice( 2 );
+    return [ code, Blockly.JavaScript.ORDER_ATOMIC ];
+  } else {
+     code = code + input;
+    return [ code, Blockly.JavaScript.ORDER_ATOMIC ];
+  }
+
 };
 
 Blockly.Blocks['variables_set'] = {
@@ -267,14 +280,16 @@ Blockly.Blocks['variables_set'] = {
 Blockly.JavaScript['variables_set'] = function(block) {
   // Variable setter.
   var argument0 = Blockly.JavaScript.valueToCode(block, 'VALUE',
-      Blockly.JavaScript.ORDER_ASSIGNMENT) || '0';
+      Blockly.JavaScript.ORDER_ATOMIC) || '0';
   var varName = Blockly.JavaScript.variableDB_.getName(
       block.getFieldValue('VAR'), Blockly.Variables.NAME_TYPE);
 
   var extraCode = "vwf.fireEvent( '" + vwf_view.kernel.application() + 
                   "', 'updatedBlocklyVariable', " + " [ '" + varName + "', " + argument0 + " ] );\n";
 
-  return varName + ' = ' + argument0 + ';\n' + extraCode;
+  var toReturn = varName + ' = ' + argument0 + ';\n' + extraCode;
+  console.log( toReturn );
+  return toReturn;
 
 };
 

@@ -104,6 +104,15 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 break;
 
             case "blocklyStarted":
+
+                var xml = Blockly.Xml.workspaceToDom( Blockly.getMainWorkspace() );
+        
+                Blockly.JavaScript.vwfID = node.ID;
+
+                if ( xml ) { 
+                     console.log(xml);
+                }
+
                 var indicator = document.getElementById( "blocklyIndicator" );
                 indicator.className = "";
                 indicator.style.visibility = "inherit";
@@ -183,6 +192,8 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 var variableName = eventArgs[ 0 ];
                 var variableValue = eventArgs[ 1 ];
 
+                console.log( variableValue );
+                
                 blocklyVariables[ variableName ] = variableValue;
                 Blockly.mainWorkspace.fireChangeEvent();
 
