@@ -1,13 +1,19 @@
 <xml id="rover" style="display: none">
   
   <category name="Control">
-  <block type="rover_moveForward"></block>
-  <block type="rover_turn"><field name="DIR">Turn: Left</field></block>
-  <block type="controls_repeat_extended"></block>
-  <block type="controls_sensor_tracks"><field name="MODE">SCAN: NEGATIVE</field></block>
-  <block type="controls_sensor_signal"></block>
-  <block type="controls_sensor_heading"></block>
-  <block type="math_number_out"><field name="VALUE">1</field></block>
+    <block type="rover_moveForward"></block>
+    <block type="rover_turn"><field name="DIR">Turn: Left</field></block>
+    <block type="controls_repeat_extended"></block>
+    <block type="math_number_out"><field name="VALUE">1</field></block>
+    <block type="math_number_field"><field name="VALUE">1</field></block>
+    <block type="ordered_pair"></block>
+    <block type="ordered_get"></block>
+  </category>
+  <category name="Sensors">
+    <block type="controls_sensor_anomaly"></block>
+    <block type="controls_sensor_signal"></block>
+    <block type="controls_sensor_collision"></block>
+    <block type="controls_sensor_heading"></block>
   </category>
   <category name="Variables" custom="VARIABLE">
     <block type="variables_get"></block>

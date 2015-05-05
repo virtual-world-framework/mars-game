@@ -60,7 +60,9 @@ properties:
         this.lowRam = value;
       }
     value: 5
-  tracksSensorValue: false
+  anomalySensorValue: false
+  collisionSensorValue: false
+  headingSensorValue: 0
   signalSensorValue:
     set: |
       if ( this.signalSensorValue != value ) {
@@ -69,6 +71,7 @@ properties:
       }
     value: 0
   heading: 0
+  executionSpeed: 1
   terrainName: undefined
   displayName: undefined
   wheelRadius:

@@ -84,6 +84,7 @@ events:
   gotScenarioPaths:
   clearBlockly:
   selectLastBlock:
+  updatedBlocklyVariable:
   showCommsImage:
   hideCommsImage:
   blockExecuted:

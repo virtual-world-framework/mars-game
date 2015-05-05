@@ -4,6 +4,9 @@
    <block type="rover_moveRadial"></block>
   <block type="controls_repeat_extended"></block>
   <block type="math_number_out"><field name="VALUE">1</field></block>
+  <block type="math_number_field"><field name="VALUE">1</field></block>
+  <block type="ordered_pair"></block>
+  <block type="ordered_get"></block>
   </category>
   <category name="Variables" custom="VARIABLE">
     <block type="variables_get"><field name="VAR">test1</field></block>

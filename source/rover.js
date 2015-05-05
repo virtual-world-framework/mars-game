@@ -22,6 +22,7 @@ this.initialize = function() {
     // TODO: Find the current heading (rather than making app developer specify)
 
     this.calcRam();
+    this.proximitySensorValue = { "Rover": false, "Pickup": false};
 
 }
 
@@ -38,6 +39,20 @@ this.meetsBoundaryConditions = function( energyRequired ) {
     } else if ( energyRequired > this.battery ) {
         this.battery = 0;
         this.moveFailed( "battery" );
+        return false;
+    } 
+
+    return true;
+}
+
+this.meetsBoundaryConditionsSensor = function( energyRequired ) {
+
+    if ( energyRequired < 0 ) {
+        //this.moveFailed( "collision" );
+        return false;
+    } else if ( energyRequired > this.battery ) {
+        this.battery = 0;
+        //this.moveFailed( "battery" );
         return false;
     } 
 
@@ -101,8 +116,9 @@ this.moveForward = function() {
                     }
                 }
                 this.moved();
-                this.activateSensor( 'forward' );
+                this.activateSensor( 'anomaly' );
                 this.activateSensor( 'signal' );
+                this.activateSensor( 'collision' );
             } else {
                 this.moveFailed( "collision" );
             }
@@ -169,7 +185,7 @@ this.moveRadial = function( xValue, yValue ) {
                     }
                 }
                 this.moved();
-                this.activateSensor( 'forward' );
+                this.activateSensor( 'anomaly' );
             } else {
                 this.moveFailed( "collision" );
             }
@@ -182,21 +198,20 @@ this.moveRadial = function( xValue, yValue ) {
 
 this.turnLeft = function() {
     this.setHeading( this.heading + 90, 1 );
-    this.activateSensor( 'forward' );
     this.activateSensor( 'signal' );
+    this.activateSensor( 'collision' );
 }
 
 this.turnRight = function() {
     this.setHeading( this.heading - 90, 1 );
-    this.activateSensor( 'forward' );
     this.activateSensor( 'signal' );
+    this.activateSensor( 'collision' );
 }
 
 this.checkRadialCollision = function( currentPosition, futurePosition ) {
 
-
     var currentTranslation = this.currentGrid.getWorldFromGrid( currentPosition[ 0 ], currentPosition[ 1 ] );
-    console.log( currentTranslation );
+
     var futureTranslation = this.currentGrid.getWorldFromGrid( futurePosition[ 0 ], futurePosition[ 1 ] );
     
     currentTranslation[2] = this.translation[2] + 1.0;
@@ -258,6 +273,10 @@ this.placeOnTerrain = function( pos ) {
 }
 
 this.translateOnTerrain = function( translation, duration, boundaryValue ) {
+
+    var scene = this.sceneNode;
+
+    var duration = duration * this.executionSpeed;
 
     if ( this.terrain === undefined ) {
 
@@ -378,10 +397,13 @@ this.calcRam = function() {
 
 this.blockCountChanged = function( value ) {
     this.calcRam();
-    this.activateSensor( 'forward' );
+    this.activateSensor( 'anomaly' );
     this.activateSensor( 'signal' );
     this.activateSensor( 'heading', this.heading );
+    this.activateSensor( 'collision' );
+    this.activateSensor( 'proximity' );
 }
+
 this.allowedBlocksChanged = function( value ) {
     this.calcRam();
 }
@@ -427,14 +449,101 @@ this.activateSensor = function( sensor, value ) {
 
     var scene = this.sceneNode;
 
-    if ( sensor === 'forward' ) {
-        // This sensor just checks the current position against the 
-        //  "anomalyPosition" on the blackboard (if any).
+    if ( sensor === 'anomaly' ) {
+        // This sensor checks if the rover is on or near an anomaly, whether that is
+        // defined in the blackboard or an object like a rover/item
         var anomalyPos = this.sceneNode.sceneBlackboard[ "anomalyPosition" ];
         var currentPos = this.currentGridSquare;
-        this.tracksSensorValue = anomalyPos && 
-                                 anomalyPos[ 0 ] === currentPos [ 0 ] && 
-                                 anomalyPos[ 1 ] === currentPos [ 1 ];
+
+        this.anomalySensorValue = false;
+
+        if ( anomalyPos ) {
+            this.anomalySensorValue = anomalyPos && (
+                                 ( anomalyPos[ 0 ] === currentPos [ 0 ] && 
+                                 anomalyPos[ 1 ] === currentPos [ 1 ] ) ||
+                                 ( anomalyPos[ 0 ] === currentPos [ 0 ] + 1 && 
+                                 anomalyPos[ 1 ] === currentPos [ 1 ] ) ||
+                                 ( anomalyPos[ 0 ] === currentPos [ 0 ] - 1 && 
+                                 anomalyPos[ 1 ] === currentPos [ 1 ] ) ||
+                                 ( anomalyPos[ 0 ] === currentPos [ 0 ] && 
+                                 anomalyPos[ 1 ] === currentPos [ 1 ]  + 1 ) ||
+                                 ( anomalyPos[ 0 ] === currentPos [ 0 ] && 
+                                 anomalyPos[ 1 ] === currentPos [ 1 ] - 1 ) ||
+                                 ( anomalyPos[ 0 ] === currentPos [ 0 ] - 1 && 
+                                 anomalyPos[ 1 ] === currentPos [ 1 ] - 1 ) || //LL
+                                 ( anomalyPos[ 0 ] === currentPos [ 0 ] + 1 && 
+                                 anomalyPos[ 1 ] === currentPos [ 1 ] + 1 ) || //UR
+                                 ( anomalyPos[ 0 ] === currentPos [ 0 ] - 1 && 
+                                 anomalyPos[ 1 ] === currentPos [ 1 ] + 1) || //UL
+                                 ( anomalyPos[ 0 ] === currentPos [ 0 ] + 1 && 
+                                 anomalyPos[ 1 ] === currentPos [ 1 ] - 1) //LR
+                                                    );
+        } 
+
+        var items = this.currentGrid.getSurroundingInventoriables( this.currentGridSquare );
+        var rovers = this.currentGrid.getSurroundingNonInventoriables( this.currentGridSquare );
+
+        if ( items ) {
+            if ( items.length !== 0 ) {
+                this.anomalySensorValue = true;
+            } else {
+                
+            }
+        }
+        
+        if ( rovers ) {
+           if ( rovers.length !== 0 ) {
+                this.anomalySensorValue = true;
+            }
+        }
+        
+    }
+
+    if ( sensor === 'collision' ) {
+        // This sensor just checks if the grid space ahead would cause a collision
+        var headingInRadians = this.heading * Math.PI / 180;
+        var dirVector = [ Math.round( -Math.sin( headingInRadians ) ), Math.round( Math.cos( headingInRadians ) ) ];
+
+        var arrayToCheck = [];
+
+        var proposedNewGridSquare = [ this.currentGridSquare[ 0 ] + dirVector[ 0 ], 
+                                                                this.currentGridSquare[ 1 ] + dirVector[ 1 ] ];
+        arrayToCheck.push( proposedNewGridSquare );
+        if ( this.name === 'rover2' ) {
+            var proposedSecondGridSquare = [ this.currentGridSquare[ 0 ] + dirVector[ 0 ], 
+                                                                this.currentGridSquare[ 1 ] + dirVector[ 1 ] ];
+            arrayToCheck.push( proposedSecondGridSquare );
+        }
+        
+        //First check if the coordinate is valid
+        for ( var i = 0; i< arrayToCheck.length; i++ ) {
+
+            if ( this.currentGrid.validCoord( arrayToCheck[ i ] ) ) {
+
+                var energyRequired = this.getMinEnergyRequired( arrayToCheck[ i ] );
+
+                //Then check if the boundary value allows for movement:
+                 if( this.meetsBoundaryConditionsSensor( energyRequired ) ) {
+                    //Check if the space is occupied
+                    var collided = this.checkCollisionWrapper( arrayToCheck[ i ] );
+                    if ( !collided ){
+                        this.collisionSensorValue = false;
+                    } else {
+                        this.collisionSensorValue = true;
+                        return;
+                    }
+                } else {
+                    this.collisionSensorValue = true;
+                    return;
+                }
+            } else {
+                this.collisionSensorValue = true;
+                return;
+            }
+        }
+
+        return;
+        
     }
 
     if ( sensor === 'signal' ) {
@@ -446,23 +555,30 @@ this.activateSensor = function( sensor, value ) {
         var deltaX = signalPos[ 0 ] - currentPos[ 0 ];
         var deltaY = signalPos[ 1 ] - currentPos[ 1 ];
 
-        var radians = Math.atan2( deltaY, deltaX ); // In radians 
-        var heading = radians * ( 180 / Math.PI );
-
-        // Convert to 0 to 360 
-        if ( heading >= 0 ) {
-            heading = 180 - heading;
-        } else {
-            heading = 360 + heading;
+        if ( deltaX === 0 && deltaY === 0 ) {
+            this.signalSensorValue = -1;
+            scene.roverSignalValue = -1;
+            return;
         }
 
-        this.signalSensorValue = heading;
-        scene.roverSignalValue = heading;
+        var heading = ( 180 / Math.PI ) * Math.atan2( -deltaY, -deltaX ) + 180;
+        
+        //Math is getting flipped for 0 and 180 for some reason.
+        
+        this.signalSensorValue = Math.round( heading );
+        scene.roverSignalValue = Math.round( heading );
+        return;
+        
     }
 
     if ( sensor === 'heading' ) {
         // This sensor records the heading of the rover
-        scene.roverHeadingValue = value;
+
+        var newHeading = value + 90;
+
+        var trueHeading = ( newHeading % 360 + 360 ) % 360;
+        this.headingSensorValue = Math.round( trueHeading );
+        scene.roverHeadingValue = Math.round( trueHeading );
 
     }
 
@@ -474,9 +590,14 @@ this.deactivateSensor = function() {
 }
 
 this.setHeading = function( newHeading, duration ) {
+
+    var scene = this.sceneNode;
+
+    var duration = duration * this.executionSpeed;
+
     if ( this.heading !== undefined ) {
         // Find the delta in heading and rotateBy that amount via the optional duration
-        this.activateSensor( 'heading', newHeading );
+        
         var headingDelta = newHeading - this.heading;
         var axisAngle = [
             this.transform[ 8 ], 
@@ -522,6 +643,7 @@ this.setHeading = function( newHeading, duration ) {
 
     // Set the heading value, constraining the value to be between 0 and 359
     this.heading = ( newHeading % 360 + 360 ) % 360;
+    this.activateSensor( 'heading', this.heading );
     
 }
 

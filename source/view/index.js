@@ -35,10 +35,15 @@ var currentBlockIDSelected = undefined;
 var blocklyStopped = true;
 var targetPath = undefined;
 var targetID;
+
 var mainRover = undefined;
+var perryRover = undefined;
+var rosieRover = undefined;
+
 var roverSignalValue = 0;
 var roverHeadingValue = 0;
 var blocklyGraphID = undefined;
+var blocklyVariables = {};
 var alertNodeID = undefined;
 var graphIsVisible = false;
 var tilesAreVisible = false;
@@ -108,11 +113,15 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 var procedureIndicator = document.getElementById( "blocklyProcedureIndicator" );
                 procedureIndicator.className = "";
                 procedureIndicator.style.visibility = "inherit";
-                currentProcedureBlockID = undefined;                currentLoopingBlockID = 0;
+                currentProcedureBlockID = undefined;                
+                currentLoopingBlockID = 0;
                 currentLoopIndex = 0;
                 blocklyStopped = false;
                 tabSwitched = false;
                 hideBlocklyLoopCount();
+                var speedButton = document.getElementById( "blocklySpeedButton" );
+                speedButton.style.opacity = 0.4;
+                speedButton.style.pointerEvents = "none";
                 break;
 
             case "blocklyStopped":
@@ -127,6 +136,9 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                     var procedureIndicator = document.getElementById( "blocklyProcedureIndicator" );
                     procedureIndicator.className = "stopped";
                     blocklyStopped = true;
+                    var speedButton = document.getElementById( "blocklySpeedButton" );
+                    speedButton.style.opacity = 1.0;
+                    speedButton.style.pointerEvents = "inherit";
                 }
             case "blocklyErrored":
                 startBlocklyButton.className = "";
@@ -148,7 +160,6 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                     vwf_view.kernel.setProperty( graphLines[ "blocklyLine" ].ID, "lineFunction", currentCode );
                 } else {
                     //indicateBlock( lastBlockIDExecuted );
-                    //indicateProcedureBlock( currentProcedureBlockID );
                 }
                 break;
 
@@ -157,6 +168,7 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 var blockID = eventArgs[ 1 ];
                 var blockTime = eventArgs[ 2 ];
 
+                Blockly.mainWorkspace.fireChangeEvent();
                 vwf_view.kernel.setProperty( currentBlocklyNodeID, "blockly_timeBetweenLines", blockTime );
 
                 if ( blockID ) {
@@ -166,7 +178,15 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 }
 
                 break;
+            case "updatedBlocklyVariable":
 
+                var variableName = eventArgs[ 0 ];
+                var variableValue = eventArgs[ 1 ];
+
+                blocklyVariables[ variableName ] = variableValue;
+                Blockly.mainWorkspace.fireChangeEvent();
+
+                break;
             case "scenarioChanged":
                 currentScenario = eventArgs[ 0 ];
                 lastBlockIDExecuted = undefined;
@@ -286,6 +306,14 @@ vwf_view.createdNode = function( nodeID, childID, childExtendsID, childImplement
     if ( childName === "rover" ) {
         mainRover = childID;
     }
+
+    if ( childName === "rover2" ) {
+        perryRover = childID;
+    }
+
+    if ( childName === "rover3" ) {
+        rosieRover = childID;
+    }
   
     if ( childName === "graph" ) {
         blocklyGraphID = childID;
@@ -369,6 +397,19 @@ vwf_view.satProperty = function( nodeID, propertyName, propertyValue ) {
                 }
                 break;
 
+            case "anomalySensorValue":
+                Blockly.mainWorkspace.fireChangeEvent();
+                break;
+            case "signalSensorValue":
+                Blockly.mainWorkspace.fireChangeEvent();
+                break;
+            case "headingSensorValue":
+                Blockly.mainWorkspace.fireChangeEvent();
+                break;
+            case "collisionSensorValue":
+                Blockly.mainWorkspace.fireChangeEvent();
+                break;
+
         }
     }
 
@@ -387,7 +428,8 @@ vwf_view.satProperty = function( nodeID, propertyName, propertyValue ) {
             tabSwitched = true;
             hideBlocklyLoopCount(); //Hide the loop count for now if we switch tabs since it is broken for multiple rovers
             hideBlocklyIndicator();            
-           hideBlocklyProcedureIndicator();
+            hideBlocklyProcedureIndicator();
+            Blockly.mainWorkspace.fireChangeEvent();
         } else if ( propertyName === "roverSignalValue" ) {
             roverSignalValue = parseFloat( propertyValue );
         } else if ( propertyName === "roverHeadingValue" ) {
