@@ -78,6 +78,9 @@ properties:
     #      "nothing."
     onBlocklyProgramChanged: "source/triggers/clauses/clause_OnBlocklyProgramChanged.vwf"
 
+    # arguments: blockly node and block name
+    onBlocklyBlock: "source/triggers/clauses/clause_OnBlocklyBlock.vwf"
+
     # arguments: scenarioName(s) (optional)
     onScenarioStart: "source/triggers/clauses/clause_OnScenarioStart.vwf"
     onScenarioSucceeded: "source/triggers/clauses/clause_OnScenarioSucceeded.vwf"
