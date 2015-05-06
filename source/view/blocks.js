@@ -27,11 +27,11 @@ Blockly.Blocks['ordered_pair'] = {
     this.setColour(75);
     this.appendValueInput("INPUT")
         .setCheck(['OrderedGet'])
-        .appendField("(")
+        .appendField("[")
         .appendField(new Blockly.FieldTextInput("0"), "x")
         .appendField(",")
         .appendField(new Blockly.FieldTextInput("0"), "y")
-        .appendField(")");
+        .appendField("]");
     this.setOutput(true, null);
     this.data = currentBlocklyNodeID;
     var thisBlock = this;
@@ -315,7 +315,7 @@ Blockly.Blocks[ 'logic_cond_out' ] = {
     this.data = currentBlocklyNodeID;
     this.setTooltip( function() {
       var content = {
-        text: "A block for selecting and/or operators"
+        text: "A block for selecting conditional operators"
       }
       return showTooltipInBlockly( thisBlock, content );
     } );
@@ -337,7 +337,7 @@ Blockly.Blocks[ 'logic_andor_out' ] = {
   init: function() {
     this.setColour( 60 );
     this.appendValueInput( "INPUT" )
-        .appendField(new Blockly.FieldDropdown([["AND", "&&"],["OR", "||"]]), "VALUE")
+        .appendField(new Blockly.FieldDropdown([["AND", "&&"],["OR", "||"],["NOT", "!"]]), "VALUE")
         .setCheck( [ 'Boolean','Variable','LeftParenthesis','RightParenthesis' ] );
     this.setOutput( true, "ANDOR" );
     var thisBlock = this;
@@ -1461,7 +1461,7 @@ Blockly.Blocks['graph_left_paren'] = {
     this.setColour(280);
     this.appendValueInput('INPUT')
         .appendField('(')
-        .setCheck(['Number','Boolean','Variable','OperatorAddSubtract','RightParenthesis']);
+        .setCheck(['Number','Boolean','Variable','ANDOR','OperatorAddSubtract','RightParenthesis']);
     this.setOutput(true, null);
     this.data = currentBlocklyNodeID;
     var thisBlock = this;

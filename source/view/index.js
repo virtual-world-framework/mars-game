@@ -360,7 +360,16 @@ vwf_view.initializedNode = function( nodeID, childID, childExtendsID, childImple
         node.tab.id = childID;
         node.tab.className = "blocklyTab";
         node.tab.onclick = setActiveBlocklyTab;
-        node.tab.innerHTML = childName;
+        if ( childName === 'rover' ) {
+            node.tab.innerHTML = 'Manny';
+        } else if ( childName === 'rover2' ) {
+            node.tab.innerHTML = 'Rosie';
+        } else if ( childName === 'rover3' ) {
+            node.tab.innerHTML = 'Peregrine';
+        } else {
+            node.tab.innerHTML = childName;  
+        }
+        
     }
 }
 

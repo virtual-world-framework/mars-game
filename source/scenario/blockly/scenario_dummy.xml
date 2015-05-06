@@ -4,7 +4,6 @@
     <block type="rover_moveForward"></block>
     <block type="rover_turn"><field name="DIR">Turn: Left</field></block>
     <block type="controls_repeat_extended"></block>
-    <block type="math_number_out"><field name="VALUE">1</field></block>
     <block type="math_number_field"><field name="VALUE">1</field></block>
     <block type="ordered_pair"></block>
     <block type="ordered_get"></block>
@@ -30,7 +29,7 @@
     <block type="controls_whileUntil"><field name="MODE">WHILE</field></block>
   </category>
   <category name="Numbers / Math">
-    <block type="math_number_out"><field name="VALUE">1</field></block>
+    <block type="math_number_field"><field name="VALUE">1</field></block>
     <block type="graph_add"></block>
     <block type="graph_subtract"></block>
     <block type="graph_multiply"></block>
