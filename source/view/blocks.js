@@ -97,7 +97,7 @@ Blockly.JavaScript['ordered_pair'] = function( block ) {
     return [ code, Blockly.JavaScript.ORDER_ATOMIC ];
   } else {
     var code = [ xValue , yValue ] + input;
-    return [ code, Blockly.JavaScript.ORDER_ATOMIC ];
+    return [ code, Blockly.JavaScript.ORDER_MEMBER ];
   }
   
 };
@@ -198,12 +198,14 @@ Blockly.Blocks[ 'variables_get' ] = {
     //Evaluate and return the code stored in the block.
     var code = Blockly.JavaScript.variableDB_.getName( this.getFieldValue( 'VAR' ),
       Blockly.Variables.NAME_TYPE );
-    var val = blocklyVariables[ code ]
+    var val = blocklyVariables[ code ];
 
     if ( val === undefined ) {
       val = '?';
     }
-    this.setFieldValue( '(' + val + ')','VALUE' );
+    
+    this.setFieldValue( '' + val + '','VALUE' );
+    
   }
 
 };
@@ -220,14 +222,14 @@ Blockly.JavaScript[ 'variables_get' ] = function( block ) {
 
   var val = blocklyVariables[ code ];
   if ( inputCheck === '.x') {
-     code =  code + '[0];' + input.slice( 2 );
-    return [ code, Blockly.JavaScript.ORDER_ATOMIC ];
+     code =  code + '[0]' + input.slice( 2 );
+    return [ code, Blockly.JavaScript.ORDER_MEMBER ];
   } else if ( inputCheck === '.y') {
-     code =  code + '[1];' + input.slice( 2 );
-    return [ code, Blockly.JavaScript.ORDER_ATOMIC ];
+     code =  code + '[1]' + input.slice( 2 );
+    return [ code, Blockly.JavaScript.ORDER_MEMBER ];
   } else {
      code = code + input;
-    return [ code, Blockly.JavaScript.ORDER_ATOMIC ];
+    return [ code, Blockly.JavaScript.ORDER_MEMBER ];
   }
 
 };
@@ -284,10 +286,18 @@ Blockly.JavaScript['variables_set'] = function(block) {
   var varName = Blockly.JavaScript.variableDB_.getName(
       block.getFieldValue('VAR'), Blockly.Variables.NAME_TYPE);
 
-  var extraCode = "vwf.fireEvent( '" + vwf_view.kernel.application() + 
-                  "', 'updatedBlocklyVariable', " + " [ '" + varName + "', " + argument0 + " ] );\n";
 
-  var toReturn = varName + ' = ' + argument0 + ';\n' + extraCode;
+
+  if ( argument0.indexOf(',') !== -1 ) {
+    var extraCode = "vwf.fireEvent( '" + vwf_view.kernel.application() + 
+                  "', 'updatedBlocklyVariable', " + " [ '" + varName + "', [" + argument0 + "] ] );\n";
+    var toReturn = varName + ' = [' +  argument0  + '];\n' + extraCode;
+
+  } else {
+    var extraCode = "vwf.fireEvent( '" + vwf_view.kernel.application() + 
+                  "', 'updatedBlocklyVariable', " + " [ '" + varName + "', " + argument0 + " ] );\n";
+    var toReturn = varName + ' = ' + argument0 + ';\n' + extraCode;
+  }
   console.log( toReturn );
   return toReturn;
 
@@ -1188,6 +1198,35 @@ Blockly.Blocks['math_number_field'] = {
       }
       return showTooltipInBlockly( thisBlock, content );
     } );
+  },
+
+  /**
+   * Fires when the workspace changes or Blockly.mainWorkspace.fireChangeEvent() is called
+   */
+  onchange: function() {
+    if (!this.workspace || this.data === undefined) {
+      // Block has been deleted.
+      return;
+    }
+
+  var text_value = this.getFieldValue('VALUE');
+
+  if ( isNaN( text_value ) || text_value === "" ){
+    text_value = 0;
+    this.setFieldValue( '0','VALUE' );
+  } else {
+      if ( text_value % 1 !== 0 ){
+        this.setFieldValue( '0','VALUE' );
+        this.setWarningText( 'Decimals not allowed.' );
+      }
+      else if ( text_value > 999 || text_value < -999){
+        this.setFieldValue( '0' ,'VALUE' );
+        this.setWarningText( 'Must be between -999 and 999' );
+      } else {
+        this.setWarningText( null );
+        this.setFieldValue( text_value ,'VALUE' );
+      }
+   }
   }
 };
 

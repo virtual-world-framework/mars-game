@@ -192,8 +192,6 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 var variableName = eventArgs[ 0 ];
                 var variableValue = eventArgs[ 1 ];
 
-                console.log( variableValue );
-                
                 blocklyVariables[ variableName ] = variableValue;
                 Blockly.mainWorkspace.fireChangeEvent();
 
