@@ -104,6 +104,12 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 break;
 
             case "blocklyStarted":
+
+            var xml = Blockly.Xml.workspaceToDom( Blockly.getMainWorkspace() );
+        if ( xml ) { 
+            console.log (xml);
+        }
+        
                 var indicator = document.getElementById( "blocklyIndicator" );
                 indicator.className = "";
                 indicator.style.visibility = "inherit";
@@ -184,9 +190,11 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 var variableName = eventArgs[ 0 ];
                 var variableValue = eventArgs[ 1 ];
 
-                blocklyVariables[ variableName ] = variableValue;
-                Blockly.mainWorkspace.fireChangeEvent();
-
+                if ( variableValue !== undefined ) {
+                    blocklyVariables[ variableName ] = variableValue;
+                    Blockly.mainWorkspace.fireChangeEvent();
+                }
+                
                 break;
             case "scenarioChanged":
                 currentScenario = eventArgs[ 0 ];
@@ -363,9 +371,9 @@ vwf_view.initializedNode = function( nodeID, childID, childExtendsID, childImple
         if ( childName === 'rover' ) {
             node.tab.innerHTML = 'Manny';
         } else if ( childName === 'rover2' ) {
-            node.tab.innerHTML = 'Rosie';
-        } else if ( childName === 'rover3' ) {
             node.tab.innerHTML = 'Peregrine';
+        } else if ( childName === 'rover3' ) {
+            node.tab.innerHTML = 'Rosie';
         } else {
             node.tab.innerHTML = childName;  
         }

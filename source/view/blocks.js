@@ -279,27 +279,45 @@ Blockly.Blocks['variables_set'] = {
   customContextMenu: Blockly.Blocks['variables_get'].customContextMenu
 };
 
-Blockly.JavaScript['variables_set'] = function(block) {
+Blockly.JavaScript['variables_set'] = function( block ) {
   // Variable setter.
   var argument0 = Blockly.JavaScript.valueToCode(block, 'VALUE',
       Blockly.JavaScript.ORDER_ATOMIC) || '0';
   var varName = Blockly.JavaScript.variableDB_.getName(
       block.getFieldValue('VAR'), Blockly.Variables.NAME_TYPE);
 
-
-
   if ( argument0.indexOf(',') !== -1 ) {
     var extraCode = "vwf.fireEvent( '" + vwf_view.kernel.application() + 
                   "', 'updatedBlocklyVariable', " + " [ '" + varName + "', [" + argument0 + "] ] );\n";
     var toReturn = varName + ' = [' +  argument0  + '];\n' + extraCode;
+    return toReturn;
+  } else if ( argument0.indexOf( '[0]' ) !== -1 && argument0.indexOf( varName ) !== -1 && blocklyStopped === false ) {
+      
+      var varOP = blocklyVariables[ varName ];
+
+      if ( varOP !== undefined ) {
+        var val = varOP[ 0 ];
+        vwf.fireEvent( vwf_view.kernel.application(), 'updatedBlocklyVariable',  [ varName, val ] );
+      }
+      return '';
+
+  } else if ( argument0.indexOf( '[1]' ) !== -1 && argument0.indexOf( varName ) !== -1 && blocklyStopped === false ) {
+      
+      var varOP = blocklyVariables[ varName ];
+
+      if ( varOP !== undefined ) {
+        var val = varOP[ 1 ];
+        vwf.fireEvent( vwf_view.kernel.application(), 'updatedBlocklyVariable',  [ varName, val ] );
+      }
+      return '';
 
   } else {
     var extraCode = "vwf.fireEvent( '" + vwf_view.kernel.application() + 
                   "', 'updatedBlocklyVariable', " + " [ '" + varName + "', " + argument0 + " ] );\n";
     var toReturn = varName + ' = ' + argument0 + ';\n' + extraCode;
+    return toReturn;
   }
-  console.log( toReturn );
-  return toReturn;
+
 
 };
 
