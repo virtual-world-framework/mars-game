@@ -104,12 +104,6 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 break;
 
             case "blocklyStarted":
-
-            var xml = Blockly.Xml.workspaceToDom( Blockly.getMainWorkspace() );
-        if ( xml ) { 
-            console.log (xml);
-        }
-        
                 var indicator = document.getElementById( "blocklyIndicator" );
                 indicator.className = "";
                 indicator.style.visibility = "inherit";
@@ -792,6 +786,13 @@ function indicateBlock( blockID ) {
     workspace = Blockly.getMainWorkspace();
     if ( workspace ) {
         block = workspace.getBlockById( blockID );
+    }
+
+    //HACK: Disable procedure tracing for now.
+    for ( var i = 0; i < workspace.topBlocks_.length; i++ ) {
+        if ( workspace.topBlocks_[i].type === "procedures_defnoreturn" || workspace.topBlocks_[i].type === "procedures_defreturn" ) {
+            return;
+        }
     }
 
     // Check the appended nodeID data which we attach when the block is being put into the workspace (in blocks.js)
