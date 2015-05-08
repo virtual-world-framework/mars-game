@@ -273,6 +273,7 @@ properties:
           totalDiffuse += hemiDiffuse;
           totalSpecular += hemiSpecular;
         #endif
+        gl_FragColor.xyz = gl_FragColor.xyz * ( emissive + totalDiffuse + ambientLightColor * ambient ) + totalSpecular;
         #ifdef USE_SHADOWMAP
           #ifdef SHADOWMAP_DEBUG
             vec3 frustumColors[3];
@@ -380,9 +381,8 @@ properties:
           #ifdef GAMMA_OUTPUT
             shadowColor *= shadowColor;
           #endif
+          gl_FragColor.xyz = gl_FragColor.xyz * shadowColor;
         #endif
-        gl_FragColor.xyz = gl_FragColor.xyz * ( emissive + totalDiffuse + ambientLightColor * ambient ) + totalSpecular;
-        gl_FragColor.xyz = gl_FragColor.xyz * shadowColor;
     }
 methods:
   newTexture:
