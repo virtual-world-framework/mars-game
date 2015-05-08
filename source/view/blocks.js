@@ -21,6 +21,67 @@ var BlocklyApps = {
 
 // Extensions to Blockly's language and JavaScript generator.
 
+Blockly.Blocks['start_triangle'] = {
+  init: function() {
+    this.setHelpUrl('http://www.example.com/');
+    this.setColour(90);
+    this.appendDummyInput()
+        .appendField("startTriangle");
+    this.setPreviousStatement(true);
+    this.setNextStatement(true);
+    this.setTooltip('');
+    this.data = currentBlocklyNodeID;
+  }
+};
+
+Blockly.JavaScript['start_triangle'] = function(block) {
+  return constructBlockExeEventCall( block );
+};
+
+Blockly.Blocks['end_triangle'] = {
+  init: function() {
+    this.setHelpUrl('http://www.example.com/');
+    this.setColour(0);
+    this.appendDummyInput()
+        .appendField("endTriangle");
+    this.setPreviousStatement(true);
+    this.setNextStatement(true);
+    this.setTooltip('');
+    this.data = currentBlocklyNodeID;
+  }
+};
+
+Blockly.JavaScript['end_triangle'] = function( block ) {
+  return constructBlockExeEventCall( block );
+};
+
+Blockly.Blocks['mark_point'] = {
+  init: function() {
+    this.setHelpUrl('http://www.example.com/');
+    this.setColour(180);
+    this.appendDummyInput()
+        .appendField("markPoint:")
+        .appendField("[0,0]",'VALUE');
+    this.setPreviousStatement(true);
+    this.setNextStatement(true);
+    this.setTooltip('');
+  },
+  onchange: function() {
+    if (!this.workspace || this.data === undefined) {
+      // Block has been deleted.
+      return;
+    }
+    this.setEditable(true);
+    var location = vwf.getProperty( this.data, "currentGridSquare" );
+    this.setFieldValue( '[' + location + ']','VALUE' );
+    this.setEditable(false);
+  }
+};
+
+Blockly.JavaScript['mark_point'] = function(block) {
+  return constructBlockExeEventCall( block );
+};
+
 Blockly.Blocks['ordered_pair'] = {
   init: function() {
     this.setHelpUrl('http://www.example.com/');

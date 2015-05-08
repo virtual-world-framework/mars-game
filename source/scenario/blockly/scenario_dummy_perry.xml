@@ -30,6 +30,11 @@
     <block type="graph_left_paren"></block>
     <block type="graph_right_paren"></block>
   </category>
+  <category name="Survey / Drawing">
+   <block type="start_triangle"></block>
+   <block type="end_triangle"></block>
+   <block type="mark_point"></block>
+  </category>
   <category name="Procedures" custom="PROCEDURE">
   </category>
   <category name="Preset Procedures">

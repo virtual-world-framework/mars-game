@@ -44,6 +44,7 @@ var roverSignalValue = 0;
 var roverHeadingValue = 0;
 var blocklyGraphID = undefined;
 var blocklyVariables = {};
+var blocklyDrawnPoints = [];
 var alertNodeID = undefined;
 var graphIsVisible = false;
 var tilesAreVisible = false;
@@ -104,6 +105,10 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 break;
 
             case "blocklyStarted":
+            var xml = Blockly.Xml.workspaceToDom( Blockly.getMainWorkspace() );
+        if ( xml ) { 
+            console.log(xml);
+        }
                 var indicator = document.getElementById( "blocklyIndicator" );
                 indicator.className = "";
                 indicator.style.visibility = "inherit";
@@ -176,6 +181,7 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                     selectBlock( blockID );
                     indicateBlock( blockID );
                     lastBlockIDExecuted = blockID;
+                    handleDrawingBlocks( blockName );
                 }
 
                 break;
@@ -762,6 +768,25 @@ function clearBlockly() {
 function resetRoverSensors() {
     if ( mainRover ){
         vwf_view.kernel.setProperty( mainRover, "tracksSensorValue", false );
+    }
+}
+
+function handleDrawingBlocks( blockName ) {
+    //TODO: Account for other rovers ( need blockly parent nodeID passthrough from other PR )
+    var sceneID = appID;
+    if ( blockName === 'startTriangle' ) {
+        blocklyDrawnPoints = [];
+        var curPos = vwf_view.kernel.getProperty( perryRover, "currentGridSquare" );
+        blocklyDrawnPoints.push( curPos );
+    } else if ( blockName === 'endTriangle' ) {
+        var curPos = vwf_view.kernel.getProperty( perryRover, "currentGridSquare" );
+        blocklyDrawnPoints.push( curPos );
+        vwf_view.kernel.callMethod( appID, "blocklyDrawingEnded", blocklyDrawnPoints );
+    } else if ( blockName === 'markPoint' ) {
+        var curPos = vwf_view.kernel.getProperty( perryRover, "currentGridSquare" );
+        blocklyDrawnPoints.push( curPos );
+    } else {
+        //Nothing - not a drawing block.
     }
 }
 

@@ -74,6 +74,7 @@ methods:
   selectBlocklyNode:
   enableBlocklyNodes:
   disableBlocklyNodes:
+  blocklyDrawingEnded:
 events:
   gameStarted:
   scenarioReset:
