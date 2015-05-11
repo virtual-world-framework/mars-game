@@ -105,10 +105,6 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 break;
 
             case "blocklyStarted":
-                 var xml = Blockly.Xml.workspaceToDom( Blockly.getMainWorkspace() );
-                if ( xml ) { 
-                    console.log(xml);
-                }
                 var indicator = document.getElementById( "blocklyIndicator" );
                 indicator.className = "";
                 indicator.style.visibility = "inherit";
@@ -174,6 +170,8 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 var blockNode = eventArgs[ 2 ];
                 var blockTime = eventArgs[ 3 ];
 
+                handleDrawingBlocks( blockName, blockNode );
+
                 Blockly.mainWorkspace.fireChangeEvent();
                 vwf_view.kernel.setProperty( blockNode, "blockly_timeBetweenLines", blockTime );
 
@@ -181,7 +179,6 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                     selectBlock( blockID );
                     indicateBlock( blockID );
                     lastBlockIDExecuted = blockID;
-                    handleDrawingBlocks( blockName );
                 }
 
                 break;
@@ -782,22 +779,32 @@ function resetRoverSensors() {
     }
 }
 
-function handleDrawingBlocks( blockName ) {
-    //TODO: Account for other rovers ( need blockly parent nodeID passthrough from other PR )
+function handleDrawingBlocks( blockName, blockNode ) {
     var sceneID = appID;
-    if ( blockName === 'startTriangle' ) {
-        blocklyDrawnPoints = [];
-        var curPos = vwf_view.kernel.getProperty( perryRover, "currentGridSquare" );
-        blocklyDrawnPoints.push( curPos );
-    } else if ( blockName === 'endTriangle' ) {
-        var curPos = vwf_view.kernel.getProperty( perryRover, "currentGridSquare" );
-        blocklyDrawnPoints.push( curPos );
-        vwf_view.kernel.callMethod( appID, "blocklyDrawingEnded", blocklyDrawnPoints );
-    } else if ( blockName === 'markPoint' ) {
-        var curPos = vwf_view.kernel.getProperty( perryRover, "currentGridSquare" );
-        blocklyDrawnPoints.push( curPos );
-    } else {
-        //Nothing - not a drawing block.
+    if ( blockName === 'startTriangle' && blockNode !== undefined ) {
+        vwf.setProperty( blockNode, "surveyArray", [] );
+        var blocklyNodeValues = blocklyNodes[ blockNode ];
+        var currentPosition = blocklyNodeValues[ 'positionSensorValue' ];
+        var currentArray = [];
+        currentArray.push( currentPosition );
+        vwf.setProperty( blockNode, "surveyArray", currentArray );
+    } else if ( blockName === 'endTriangle' && blockNode !== undefined ) {
+        var blocklyNodeValues = blocklyNodes[ blockNode ];
+        var currentPosition = blocklyNodeValues[ 'positionSensorValue' ];
+        var currentArray = vwf.getProperty( blockNode, "surveyArray" );
+        currentArray.push( currentPosition );
+        console.log('endingTriangle:');
+        console.log(currentArray);
+        vwf.setProperty( blockNode, "surveyArray", currentArray );
+        vwf.fireEvent( blockNode, "completedSurveyDrawing", currentArray );
+    } else if ( blockName === 'markPoint' && blockNode !== undefined ) {
+        var blocklyNodeValues = blocklyNodes[ blockNode ];
+        var currentPosition = blocklyNodeValues[ 'positionSensorValue' ];
+        var currentArray = vwf.getProperty( blockNode, "surveyArray" );
+        currentArray.push( currentPosition );
+        vwf.setProperty( blockNode, "surveyArray", currentArray );
+        console.log('markingPoint:');
+        console.log(currentArray);
     }
 }
 

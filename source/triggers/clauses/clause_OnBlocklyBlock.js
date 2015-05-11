@@ -21,8 +21,10 @@ this.onGenerated = function( params, generator, payload ) {
 
     this.blockNode = params[ 0 ];
     this.blockName = params[ 1 ];
+    this.blockNode = params[ 2 ];
+    this.blockTime = params[ 3 ];
 
-    if ( !this.initOnEvent( params, generator, payload, params[ 1 ] ) ) {
+    if ( !this.initOnEvent( params, generator, payload, params[ 3 ] ) ) {
         return false;
     }
 

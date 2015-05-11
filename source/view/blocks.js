@@ -60,8 +60,7 @@ Blockly.Blocks['mark_point'] = {
     this.setHelpUrl('http://www.example.com/');
     this.setColour(180);
     this.appendDummyInput()
-        .appendField("markPoint: ")
-        .appendField("[0,0]",'VALUE');
+        .appendField("markPoint")
     this.setPreviousStatement(true);
     this.setNextStatement(true);
     this.setTooltip('Adds a point to our triangle drawing nanomatrix generator.');
@@ -72,11 +71,13 @@ Blockly.Blocks['mark_point'] = {
       // Block has been deleted.
       return;
     }
-    this.setEditable(true);
-    var blocklyNode = blocklyNodes[ this.data ];
-    var position = blocklyNode[ 'positionSensorValue' ];
-    this.setFieldValue( '[' + position[ 0 ]+ ','+ position[ 1 ] + ']','VALUE' );
-    this.setEditable(false);
+    // this.setEditable(true);
+    // var blocklyNode = blocklyNodes[ this.data ];
+    // var position = blocklyNode[ 'positionSensorValue' ];
+    // if ( position !== undefined ) {
+    //   this.setFieldValue( '[' + position[ 0 ]+ ','+ position[ 1 ] + ']','VALUE' );
+    // }
+    // this.setEditable(false);
   }
 };
 
@@ -968,7 +969,7 @@ Blockly.JavaScript[ 'controls_sensor_signal' ] = function( block ) {
 Blockly.Blocks[ 'controls_sensor_signal' ] = {
   init: function() {
     this.setColour( 30 );
-    this.appendDummyInput('')
+    this.appendValueInput('INPUT')
         .appendField('Signal: ')
         .appendField("?", "VALUE")
         .setCheck(['OperatorAddSubtract','OperatorMultiplyDivide','LeftParenthesis','RightParenthesis','Conditional']);
@@ -999,17 +1000,17 @@ Blockly.JavaScript[ 'controls_sensor_position' ] = function( block ) {
 
   //var argument0 = Blockly.JavaScript.valueToCode(block, 'INPUT', Blockly.JavaScript.ORDER_ATOMIC) || '';
 
-  return [ "vwf.getProperty( '" + block.data + "', 'positionSensorValue' )" + argument0, Blockly.JavaScript.ORDER_ATOMIC ];
+  return [ "vwf.getProperty( '" + block.data + "', 'positionSensorValue' )", Blockly.JavaScript.ORDER_ATOMIC ];
 
 };
 
 Blockly.Blocks[ 'controls_sensor_position' ] = {
   init: function() {
     this.setColour( 30 );
-    this.appendValueInput('INPUT')
+    this.appendDummyInput('')
         .appendField('Position: ')
-        .appendField("?", "VALUE")
-        .setCheck(['OperatorAddSubtract','OperatorMultiplyDivide','LeftParenthesis','RightParenthesis','Conditional']);
+        .appendField("[?,?]", "VALUE");
+        //.setCheck(['OperatorAddSubtract','OperatorMultiplyDivide','LeftParenthesis','RightParenthesis','Conditional']);
     this.setOutput(true, null);
     this.data = currentBlocklyNodeID;
     
@@ -1029,7 +1030,9 @@ Blockly.Blocks[ 'controls_sensor_position' ] = {
     this.setEditable(true);
     var blocklyNode = blocklyNodes[ this.data ];
     var position = blocklyNode[ 'positionSensorValue' ];
-    this.setFieldValue( '[' + position[ 0 ]+ ','+ position[ 1 ] + ']','VALUE' );
+    if ( position !== undefined ) {
+      this.setFieldValue( '[' + position[ 0 ]+ ','+ position[ 1 ] + ']','VALUE' );
+    }
     this.setEditable(false);
   }
 };
@@ -1682,6 +1685,7 @@ Blockly.JavaScript[ 'graph_set_y' ] = function( block ) {
 };
 
 function constructBlockExeEventCall( block ) {
+
   var eventCall = "vwf.fireEvent( '" + vwf_view.kernel.application() + 
                   "', 'blockExecuted', " + " [ '" + block + "', " + block.id + ", '" + block.data + "', " + 1 + " ] );\n";
   return eventCall;  
@@ -1689,7 +1693,7 @@ function constructBlockExeEventCall( block ) {
 
 function constructBlockExeFuncCall( block, action ) {
 
-  var blockCode = " { 'blockName': '" + block + "', 'id': " + block.id + ",'node': '" + block.data + "', ";
+  var blockCode = " { 'blockName': '" + block + "', 'id': " + block.id + ", 'node': '" + block.data + "', ";
   blockCode += ( action.exeTime ) ? "'exeTime': " + action.exeTime + "}" : "'exeTime': 1 }";
   var actionCode = "{ 'nodeID': '" + action.nodeID + "', 'methodName': '" + action.methodName + "', ";
   actionCode += ( action.args.length > 0 ) ? "'args': [" + action.args + "]}" : "'args': [] }";

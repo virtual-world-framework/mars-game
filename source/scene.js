@@ -241,6 +241,8 @@ this.executeBlock = function ( block, action ) {
     var blockNode = block[ 2 ];
     var blockExeTime = block[ 3 ];    
     
+    console.log( 'executeBlock' );
+    console.log( action );
 
     this.blockExecuted( blockName, blockID, blockNode, blockExeTime );
 
