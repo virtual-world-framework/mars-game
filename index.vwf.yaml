@@ -25,7 +25,7 @@ properties:
     set: |
       this.setScenario( value );
       this.activeScenarioPath = value;
-    value: "mainMenuScenario"
+    value: "scenario1a"
   isIdle:
     set: |
       this.logInactivity( value );
