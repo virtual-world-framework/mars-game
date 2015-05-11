@@ -793,8 +793,6 @@ function handleDrawingBlocks( blockName, blockNode ) {
         var currentPosition = blocklyNodeValues[ 'positionSensorValue' ];
         var currentArray = vwf.getProperty( blockNode, "surveyArray" );
         currentArray.push( currentPosition );
-        console.log('endingTriangle:');
-        console.log(currentArray);
         vwf.setProperty( blockNode, "surveyArray", currentArray );
         vwf.fireEvent( blockNode, "completedSurveyDrawing", currentArray );
     } else if ( blockName === 'markPoint' && blockNode !== undefined ) {
@@ -803,8 +801,6 @@ function handleDrawingBlocks( blockName, blockNode ) {
         var currentArray = vwf.getProperty( blockNode, "surveyArray" );
         currentArray.push( currentPosition );
         vwf.setProperty( blockNode, "surveyArray", currentArray );
-        console.log('markingPoint:');
-        console.log(currentArray);
     }
 }
 
