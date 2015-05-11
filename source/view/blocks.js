@@ -1562,13 +1562,13 @@ Blockly.JavaScript[ 'graph_set_y' ] = function( block ) {
 
 function constructBlockExeEventCall( block ) {
   var eventCall = "vwf.fireEvent( '" + vwf_view.kernel.application() + 
-                  "', 'blockExecuted', " + " [ '" + block + "', " + block.id + " ] );\n";
+                  "', 'blockExecuted', " + " [ '" + block + "', " + block.id + ", '" + block.data + "', " + 1 + " ] );\n";
   return eventCall;  
 }
 
 function constructBlockExeFuncCall( block, action ) {
 
-  var blockCode = " { 'blockName': '" + block + "', 'id': " + block.id + ", ";
+  var blockCode = " { 'blockName': '" + block + "', 'id': " + block.id + ",'node': '" + block.data + "', ";
   blockCode += ( action.exeTime ) ? "'exeTime': " + action.exeTime + "}" : "'exeTime': 1 }";
   var actionCode = "{ 'nodeID': '" + action.nodeID + "', 'methodName': '" + action.methodName + "', ";
   actionCode += ( action.args.length > 0 ) ? "'args': [" + action.args + "]}" : "'args': [] }";

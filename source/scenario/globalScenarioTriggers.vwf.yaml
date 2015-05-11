@@ -222,6 +222,80 @@ properties:
       actions:
       - stopSound:
         - roverSounds
+      - playSound:
+        - roverEndSounds
+
+    startRover2Sounds:
+      triggerCondition:
+      - onBlocklyStarted:
+        - rover2
+      actions:
+      - playSound:
+        - rover2Sounds
+
+    stopRover2Sounds:
+      triggerCondition:
+      - onBlocklyStopped:
+        - rover2
+      actions:
+      - stopSound:
+        - rover2Sounds
+      - playSound:
+        - rover2EndSounds
+
+    startRover3Sounds:
+      triggerCondition:
+      - onBlocklyStarted:
+        - rover3
+      actions:
+      - playSound:
+        - rover3Sounds
+
+    stopRover3Sounds:
+      triggerCondition:
+      - onBlocklyStopped:
+        - rover3
+      actions:
+      - stopSound:
+        - rover3Sounds
+      - playSound:
+        - rover3EndSounds
+
+    roverIdle:
+      triggerCondition:
+      - onBlocklyBlock:
+        - rover
+        - rover_turn
+      actions:
+      - stopSound:
+        - roverSounds
+
+    rover3Idle:
+      triggerCondition:
+      - onBlocklyBlock:
+        - rover3
+        - rover_turn
+      actions:
+      - stopSound:
+        - rover3Sounds
+
+    roverDeIdle:
+      triggerCondition:
+      - onBlocklyBlock:
+        - rover
+        - rover_moveForward
+      actions:
+      - playSound:
+        - roverSounds
+
+    rover3DeIdle:
+      triggerCondition:
+      - onBlocklyBlock:
+        - rover3
+        - rover_moveForward
+      actions:
+      - playSound:
+        - rover3Sounds
 
 methods:
   # This is called using future(0) inside of initialize.

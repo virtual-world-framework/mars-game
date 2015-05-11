@@ -63,6 +63,26 @@ properties:
       soundURL: "assets/sounds/sfx/objectRoverMotorGroundCrunch_01.ogg"
       initialVolume: 0.6
       isLooping: true
+    - soundName: "rover2Sounds"
+      soundURL: "assets/sounds/sfx/scoutRoverMovementLoop01.ogg"
+      initialVolume: 0.6
+      isLooping: true
+    - soundName: "rover3Sounds"
+      soundURL: "assets/sounds/sfx/heavyRoverIdle01.ogg"
+      initialVolume: 0.6
+      isLooping: true
+    - soundName: "roverEndSounds"
+      soundURL: "assets/sounds/sfx/heavyRoverMovementOutro01.ogg"
+      initialVolume: 0.6
+      isLooping: false
+    - soundName: "rover2EndSounds"
+      soundURL: "assets/sounds/sfx/scoutRoverMovementOutro01.ogg"
+      initialVolume: 0.6
+      isLooping: false
+    - soundName: "rover3EndSounds"
+      soundURL: "assets/sounds/sfx/heavyRoverMovementOutro01.ogg"
+      initialVolume: 0.6
+      isLooping: false
     - soundName: "environmentWind"
       soundURL: "assets/sounds/sfx/environmentWind_04.ogg"
       initialVolume: 0.8

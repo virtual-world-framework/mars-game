@@ -166,10 +166,11 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
             case "blockExecuted":
                 var blockName = eventArgs[ 0 ];
                 var blockID = eventArgs[ 1 ];
-                var blockTime = eventArgs[ 2 ];
+                var blockNode = eventArgs[ 2 ];
+                var blockTime = eventArgs[ 3 ];
 
                 Blockly.mainWorkspace.fireChangeEvent();
-                vwf_view.kernel.setProperty( currentBlocklyNodeID, "blockly_timeBetweenLines", blockTime );
+                vwf_view.kernel.setProperty( blockNode, "blockly_timeBetweenLines", blockTime );
 
                 if ( blockID ) {
                     selectBlock( blockID );
