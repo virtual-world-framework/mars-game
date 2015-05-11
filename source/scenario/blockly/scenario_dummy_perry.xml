@@ -34,6 +34,7 @@
    <block type="start_triangle"></block>
    <block type="end_triangle"></block>
    <block type="mark_point"></block>
+   <block type="controls_sensor_position"></block>
   </category>
   <category name="Procedures" custom="PROCEDURE">
   </category>

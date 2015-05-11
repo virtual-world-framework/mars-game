@@ -60,11 +60,12 @@ Blockly.Blocks['mark_point'] = {
     this.setHelpUrl('http://www.example.com/');
     this.setColour(180);
     this.appendDummyInput()
-        .appendField("markPoint:")
+        .appendField("markPoint: ")
         .appendField("[0,0]",'VALUE');
     this.setPreviousStatement(true);
     this.setNextStatement(true);
-    this.setTooltip('');
+    this.setTooltip('Adds a point to our triangle drawing nanomatrix generator.');
+    this.data = currentBlocklyNodeID;
   },
   onchange: function() {
     if (!this.workspace || this.data === undefined) {
@@ -72,8 +73,9 @@ Blockly.Blocks['mark_point'] = {
       return;
     }
     this.setEditable(true);
-    var location = vwf.getProperty( this.data, "currentGridSquare" );
-    this.setFieldValue( '[' + location + ']','VALUE' );
+    var blocklyNode = blocklyNodes[ this.data ];
+    var position = blocklyNode[ 'positionSensorValue' ];
+    this.setFieldValue( '[' + position[ 0 ]+ ','+ position[ 1 ] + ']','VALUE' );
     this.setEditable(false);
   }
 };
@@ -407,9 +409,11 @@ Blockly.JavaScript['logic_cond_out' ] = function( block ) {
 
   var argument0 = Blockly.JavaScript.valueToCode(block, 'INPUT',
       Blockly.JavaScript.ORDER_ATOMIC) || '';
-
-  return [ dropdown_value + argument0 , Blockly.JavaScript.ORDER_ATOMIC ];
-
+  if ( argument0[0] === '[' ) {
+    return [ dropdown_value + '.equals(' + argument0 + ')' , Blockly.JavaScript.ORDER_ATOMIC ];
+  } else {
+    return [ dropdown_value + argument0, Blockly.JavaScript.ORDER_ATOMIC ];
+  }
 };
 
 Blockly.Blocks[ 'logic_andor_out' ] = {
@@ -964,7 +968,7 @@ Blockly.JavaScript[ 'controls_sensor_signal' ] = function( block ) {
 Blockly.Blocks[ 'controls_sensor_signal' ] = {
   init: function() {
     this.setColour( 30 );
-    this.appendValueInput('INPUT')
+    this.appendDummyInput('')
         .appendField('Signal: ')
         .appendField("?", "VALUE")
         .setCheck(['OperatorAddSubtract','OperatorMultiplyDivide','LeftParenthesis','RightParenthesis','Conditional']);
@@ -991,6 +995,44 @@ Blockly.Blocks[ 'controls_sensor_signal' ] = {
   }
 };
 
+Blockly.JavaScript[ 'controls_sensor_position' ] = function( block ) {
+
+  //var argument0 = Blockly.JavaScript.valueToCode(block, 'INPUT', Blockly.JavaScript.ORDER_ATOMIC) || '';
+
+  return [ "vwf.getProperty( '" + block.data + "', 'positionSensorValue' )" + argument0, Blockly.JavaScript.ORDER_ATOMIC ];
+
+};
+
+Blockly.Blocks[ 'controls_sensor_position' ] = {
+  init: function() {
+    this.setColour( 30 );
+    this.appendValueInput('INPUT')
+        .appendField('Position: ')
+        .appendField("?", "VALUE")
+        .setCheck(['OperatorAddSubtract','OperatorMultiplyDivide','LeftParenthesis','RightParenthesis','Conditional']);
+    this.setOutput(true, null);
+    this.data = currentBlocklyNodeID;
+    
+    var thisBlock = this;
+    this.setTooltip( function() {
+      var content = {
+        text: "Checks our scanner for our current location in the coordinate plane."
+      }
+      return showTooltipInBlockly( thisBlock, content );
+    } );
+  },
+  onchange: function() {
+    if (!this.workspace || this.data === undefined) {
+      // Block has been deleted.
+      return;
+    }
+    this.setEditable(true);
+    var blocklyNode = blocklyNodes[ this.data ];
+    var position = blocklyNode[ 'positionSensorValue' ];
+    this.setFieldValue( '[' + position[ 0 ]+ ','+ position[ 1 ] + ']','VALUE' );
+    this.setEditable(false);
+  }
+};
 
 Blockly.JavaScript[ 'controls_sensor_heading' ] = function( block ) {
 

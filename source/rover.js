@@ -22,7 +22,11 @@ this.initialize = function() {
     // TODO: Find the current heading (rather than making app developer specify)
 
     this.calcRam();
-    this.proximitySensorValue = { "Rover": false, "Pickup": false};
+    // this.activateSensor( 'anomaly' );
+    // this.activateSensor( 'signal' );
+    // this.activateSensor( 'heading', this.heading );
+    // this.activateSensor( 'collision' );
+    // this.activateSensor( 'position' );
 
 }
 
@@ -119,6 +123,7 @@ this.moveForward = function() {
                 this.activateSensor( 'anomaly' );
                 this.activateSensor( 'signal' );
                 this.activateSensor( 'collision' );
+                this.activateSensor( 'position' );
             } else {
                 this.moveFailed( "collision" );
             }
@@ -185,6 +190,8 @@ this.moveRadial = function( xValue, yValue ) {
                     }
                 }
                 this.moved();
+                this.activateSensor( 'position' );
+                this.activateSensor( 'heading', this.heading );
                 //this.activateSensor( 'anomaly' );
             } else {
                 this.moveFailed( "collision" );
@@ -200,12 +207,14 @@ this.turnLeft = function() {
     this.setHeading( this.heading + 90, 1 );
     this.activateSensor( 'signal' );
     this.activateSensor( 'collision' );
+    this.activateSensor( 'anomaly' );
 }
 
 this.turnRight = function() {
     this.setHeading( this.heading - 90, 1 );
     this.activateSensor( 'signal' );
     this.activateSensor( 'collision' );
+    this.activateSensor( 'anomaly' );
 }
 
 this.checkRadialCollision = function( currentPosition, futurePosition ) {
@@ -401,7 +410,7 @@ this.blockCountChanged = function( value ) {
     this.activateSensor( 'signal' );
     this.activateSensor( 'heading', this.heading );
     this.activateSensor( 'collision' );
-    this.activateSensor( 'proximity' );
+    this.activateSensor( 'position' );
 }
 
 this.allowedBlocksChanged = function( value ) {
@@ -509,7 +518,7 @@ this.activateSensor = function( sensor, value ) {
         var proposedNewGridSquare = [ this.currentGridSquare[ 0 ] + dirVector[ 0 ], 
                                                                 this.currentGridSquare[ 1 ] + dirVector[ 1 ] ];
         arrayToCheck.push( proposedNewGridSquare );
-        if ( this.name === 'rover2' ) {
+        if ( this.name === 'rover3' ) {
             var proposedSecondGridSquare = [ this.currentGridSquare[ 0 ] + dirVector[ 0 ], 
                                                                 this.currentGridSquare[ 1 ] + dirVector[ 1 ] ];
             arrayToCheck.push( proposedSecondGridSquare );
@@ -544,6 +553,11 @@ this.activateSensor = function( sensor, value ) {
 
         return;
         
+    }
+
+    if ( sensor === 'position' ) {
+        this.positionSensorValue = this.currentGridSquare;
+        return;
     }
 
     if ( sensor === 'signal' ) {

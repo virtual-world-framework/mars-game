@@ -63,6 +63,7 @@ properties:
   anomalySensorValue: false
   collisionSensorValue: false
   headingSensorValue: 0
+  positionSensorValue: []
   signalSensorValue:
     set: |
       if ( this.signalSensorValue != value ) {

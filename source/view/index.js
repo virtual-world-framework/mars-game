@@ -105,10 +105,10 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 break;
 
             case "blocklyStarted":
-            var xml = Blockly.Xml.workspaceToDom( Blockly.getMainWorkspace() );
-        if ( xml ) { 
-            console.log(xml);
-        }
+                 var xml = Blockly.Xml.workspaceToDom( Blockly.getMainWorkspace() );
+                if ( xml ) { 
+                    console.log(xml);
+                }
                 var indicator = document.getElementById( "blocklyIndicator" );
                 indicator.className = "";
                 indicator.style.visibility = "inherit";
@@ -131,7 +131,6 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
 
             case "blocklyStopped":
                 if ( currentBlocklyNodeID === nodeID ) {
-
                     vwf_view.kernel.setProperty( nodeID, "blockly_timeBetweenLines", 1 );
                     startBlocklyButton.className = "";
                     var indicator = document.getElementById( "blocklyIndicator" );
@@ -166,6 +165,7 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 } else {
                     //indicateBlock( lastBlockIDExecuted );
                 }
+                Blockly.mainWorkspace.fireChangeEvent();
                 break;
 
             case "blockExecuted":
@@ -395,6 +395,10 @@ vwf_view.satProperty = function( nodeID, propertyName, propertyValue ) {
                 updateBlocklyRamBar();
                 break;
 
+            case "currentGridSquare":
+                blocklyNode[ propertyName ] = parseFloat( propertyValue );
+                break;
+
             case "ramMax":
                 blocklyNode[ propertyName ] = parseFloat( propertyValue );
                 if ( nodeID === currentBlocklyNodeID ) {
@@ -414,17 +418,24 @@ vwf_view.satProperty = function( nodeID, propertyName, propertyValue ) {
                     startBlocklyButton.className = "";
                 }
                 break;
-
+            case "positionSensorValue":
+                blocklyNode[ propertyName ] = propertyValue;
+                Blockly.mainWorkspace.fireChangeEvent();
+                break;
             case "anomalySensorValue":
+                blocklyNode[ propertyName ] = propertyValue;
                 Blockly.mainWorkspace.fireChangeEvent();
                 break;
             case "signalSensorValue":
+                blocklyNode[ propertyName ] = propertyValue;
                 Blockly.mainWorkspace.fireChangeEvent();
                 break;
             case "headingSensorValue":
+                blocklyNode[ propertyName ] = propertyValue;
                 Blockly.mainWorkspace.fireChangeEvent();
                 break;
             case "collisionSensorValue":
+                blocklyNode[ propertyName ] = propertyValue;
                 Blockly.mainWorkspace.fireChangeEvent();
                 break;
 
