@@ -794,7 +794,7 @@ function handleDrawingBlocks( blockName, blockNode ) {
         var currentArray = vwf.getProperty( blockNode, "surveyArray" );
         currentArray.push( currentPosition );
         vwf.setProperty( blockNode, "surveyArray", currentArray );
-        vwf.fireEvent( blockNode, "completedSurveyDrawing", currentArray );
+        vwf.fireEvent( appID, "blocklyCompletedPolygon", [ blockNode, currentArray ] );
     } else if ( blockName === 'markPoint' && blockNode !== undefined ) {
         var blocklyNodeValues = blocklyNodes[ blockNode ];
         var currentPosition = blocklyNodeValues[ 'positionSensorValue' ];

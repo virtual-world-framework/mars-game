@@ -13,24 +13,24 @@
 // limitations under the License.
 
 this.onGenerated = function( params, generator, payload ) {
-    if ( !params || !( params.length === 2 ) ) {
-        this.logger.warnx( "onGenerated", "this clause has two " +
-                            "arguments: a blockly object and a " +
-                            "blockName" );
+    if ( params && ( params.length >= 2 ) && ( params.length <= 3 ) ) {
+        this.logger.warnx( "onGenerated", "this clause has two or three " +
+        "arguments: a blockly object, a " +
+        "blockName, and an optional threshold" );
     }
 
-    this.blockNode = params[ 0 ];
-    this.blockName = params[ 1 ];
-    this.blockNode = params[ 2 ];
-    this.blockTime = params[ 3 ];
+    this.blockName = params[ 0 ];
+    this.blockID = params[ 1 ];
+    this.blockTime = params[ 2 ];
+    this.blockNode = params[ 3 ];
 
-    if ( !this.initOnEvent( params, generator, payload, params[ 3 ] ) ) {
+    if ( !this.initOnEvent( params, generator, payload, params[ 2 ] ) ) {
         return false;
     }
 
-    this.scene.blockExecuted = this.events.add( function( blockName, blockID, blockTime, blockNode ) {  
-                                        this.onBlockExecuted( blockName, blockID, blockTime, blockNode );  
-                                        }, this );
+    this.scene.blockExecuted = this.events.add( function( blockName, blockID, blockTime, blockNode ) { 
+        this.onBlockExecuted( blockName, blockID, blockTime, blockNode ); 
+    }, this );
 
     return true;
 }

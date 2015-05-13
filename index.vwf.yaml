@@ -89,6 +89,7 @@ events:
   showCommsImage:
   hideCommsImage:
   blockExecuted:
+  blocklyCompletedPolygon:
   toggledHelicam:
   toggledGraph:
   toggledTiles:
