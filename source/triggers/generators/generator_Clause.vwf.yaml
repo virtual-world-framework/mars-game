@@ -81,7 +81,7 @@ properties:
     # arguments: blockly node and block name
     onBlocklyBlock: "source/triggers/clauses/clause_OnBlocklyBlock.vwf"
 
-    # arguments: blockly node and block name
+    # arguments: blockly node and point array ( of ordered pairs )
     onBlocklyPolygon: "source/triggers/clauses/clause_OnBlocklyPolygon.vwf"
 
     # arguments: scenarioName(s) (optional)

@@ -44,7 +44,6 @@ var roverSignalValue = 0;
 var roverHeadingValue = 0;
 var blocklyGraphID = undefined;
 var blocklyVariables = {};
-var blocklyDrawnPoints = [];
 var alertNodeID = undefined;
 var graphIsVisible = false;
 var tilesAreVisible = false;

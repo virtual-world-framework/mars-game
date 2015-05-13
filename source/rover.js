@@ -22,11 +22,6 @@ this.initialize = function() {
     // TODO: Find the current heading (rather than making app developer specify)
 
     this.calcRam();
-    // this.activateSensor( 'anomaly' );
-    // this.activateSensor( 'signal' );
-    // this.activateSensor( 'heading', this.heading );
-    // this.activateSensor( 'collision' );
-    // this.activateSensor( 'position' );
 
 }
 
