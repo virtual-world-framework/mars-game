@@ -810,6 +810,13 @@ function indicateBlock( blockID ) {
         block = workspace.getBlockById( blockID );
     }
 
+    // Disable indication with procedures for now.
+    for ( var i = 0; i < workspace.topBlocks_.length; i++ ) {
+        if ( workspace.topBlocks_[i].type === "procedures_defnoreturn" || workspace.topBlocks_[i].type === "procedures_defreturn"
+        || workspace.topBlocks_[i].type === "procedures_callreturn" || workspace.topBlocks_[i].type === "procedures_callnoreturn" ) {
+            return;
+        }
+    }
     // Check the appended nodeID data which we attach when the block is being put into the workspace (in blocks.js)
 
     if ( block ) {
