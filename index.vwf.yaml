@@ -673,8 +673,10 @@ children:
     includes: source/scenario/scenario3e.vwf
   scenario3f:
     includes: source/scenario/scenario3f.vwf
-  mission3_1:
-    includes: source/scenario/mission3_1.vwf
+  mission3task1:
+    includes: source/scenario/mission3task1.vwf
+  mission5task1:
+    includes: source/scenario/mission5task1.vwf
   blocklyGraph:
     extends: http://vwf.example.com/graphtool/graph.vwf
     implements: 
