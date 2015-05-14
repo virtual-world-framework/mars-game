@@ -154,6 +154,9 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
             case "unpaused":
                 break;
             
+            case "blocklyCompletedPolygon":
+                break;
+
             case "blocklyContentChanged":
                 if ( currentBlocklyNodeID === blocklyGraphID ) {
                     var currentCode = getBlocklyFunction();
@@ -405,15 +408,23 @@ vwf_view.satProperty = function( nodeID, propertyName, propertyValue ) {
                 break;
 
             case "anomalySensorValue":
+                blocklyNode[ propertyName ] = propertyValue;
                 Blockly.mainWorkspace.fireChangeEvent();
                 break;
             case "signalSensorValue":
+                blocklyNode[ propertyName ] = propertyValue;
                 Blockly.mainWorkspace.fireChangeEvent();
                 break;
             case "headingSensorValue":
+                blocklyNode[ propertyName ] = propertyValue;
                 Blockly.mainWorkspace.fireChangeEvent();
                 break;
             case "collisionSensorValue":
+                blocklyNode[ propertyName ] = propertyValue;
+                Blockly.mainWorkspace.fireChangeEvent();
+                break;
+            case "positionSensorValue":
+                blocklyNode[ propertyName ] = propertyValue;
                 Blockly.mainWorkspace.fireChangeEvent();
                 break;
 
