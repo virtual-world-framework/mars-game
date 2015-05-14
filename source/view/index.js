@@ -153,6 +153,9 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
             case "unpaused":
                 break;
             
+            case "blocklyCompletedPolygon":
+                break;
+
             case "blocklyContentChanged":
                 if ( currentBlocklyNodeID === blocklyGraphID ) {
                     var currentCode = getBlocklyFunction();
@@ -793,7 +796,9 @@ function handleDrawingBlocks( blockName, blockNode ) {
         var currentArray = vwf.getProperty( blockNode, "surveyArray" );
         currentArray.push( currentPosition );
         vwf.setProperty( blockNode, "surveyArray", currentArray );
-        vwf.fireEvent( appID, "blocklyCompletedPolygon", [ blockNode, currentArray ] );
+        if ( blockNode === perryRover ) {
+            vwf.fireEvent( appID, "blocklyCompletedPolygon", [ 'rover2', currentArray ] );
+        }
     } else if ( blockName === 'markPoint' && blockNode !== undefined ) {
         var blocklyNodeValues = blocklyNodes[ blockNode ];
         var currentPosition = blocklyNodeValues[ 'positionSensorValue' ];

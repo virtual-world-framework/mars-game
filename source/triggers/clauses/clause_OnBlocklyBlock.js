@@ -13,7 +13,7 @@
 // limitations under the License.
 
 this.onGenerated = function( params, generator, payload ) {
-    if ( params && ( params.length >= 2 ) && ( params.length <= 3 ) ) {
+    if ( params && ( params.length < 2 ) && ( params.length > 3 ) ) {
         this.logger.warnx( "onGenerated", "this clause has two or three " +
         "arguments: a blockly object, a " +
         "blockName, and an optional threshold" );

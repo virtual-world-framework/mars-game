@@ -13,7 +13,7 @@
 // limitations under the License.
 
 this.onGenerated = function( params, generator, payload ) {
-    if ( !params || ( params.length > 2 ) ) {
+    if ( params && ( params.length < 2 ) && ( params.length > 3 ) ) {
         this.logger.warnx( "onGenerated", "this clause has two required and one optional " +
                             "argument: a blockly object, the intended" +
                             "array of points that should be drawn and optionally a " +
@@ -29,7 +29,7 @@ this.onGenerated = function( params, generator, payload ) {
 
     // Setup the callbacks that should trigger us
     
-    this.scene.blocklyFinishedPolygon = this.events.add( function( blockNode, pointArray ) { 
+    this.scene.blocklyCompletedPolygon = this.events.add( function( blockNode, pointArray ) { 
         this.onPolygonFinished( blockNode, pointArray ); 
     }, this );
 
@@ -37,22 +37,37 @@ this.onGenerated = function( params, generator, payload ) {
 }
 
 this.onPolygonFinished = function( blockNode, pointArray ) {
+
     if ( this.blockNode === blockNode ) {
+
         var equal = true;
+        var forward = true;
+        var backward = true;
+
+        for ( var i = 0; i < this.pointArray.length; i++ ) {
+
+                var thisPoint = this.pointArray[ i ];
+                var thatPoint = pointArray[ i ];
+
+                if ( thisPoint[ 0 ] !== thatPoint[ 0 ] || thisPoint[ 1 ] !== thatPoint[ 1 ] ) { 
+                    forward = false;   
+                }           
+
+                thisPoint = this.pointArray[ i ];
+                thatPoint = pointArray[ pointArray.length - 1 - i ];
+
+                if ( thisPoint[ 0 ] !== thatPoint[ 0 ] || thisPoint[ 1 ] !== thatPoint[ 1 ] ) { 
+                    backward = false;   
+                }           
+
+        }
 
         if ( this.pointArray.length !== pointArray.length ) {
             equal = false;
             return;
         }
-            
-        for (var i = 0, var l = this.pointArray.length; i < l; i++) {
-            // Check if we have nested arrays
-            if ( this.pointArray[i] !== pointArray[i]) { 
-                equal = false;   
-            }           
-        }       
 
-        if ( equal === true ) {
+        if ( equal === true && ( backward === true || forward === true ) ) {
             this.onEvent();
         }
     } 
