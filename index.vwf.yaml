@@ -196,14 +196,14 @@ children:
           receiveShadows: true
       heightmap:
         extends: http://vwf.example.com/heightmap.vwf
-        source: assets/3d/Terrain/heightmap.png
+        source: assets/3d/environment/heightmap.png
         type: image/png
         properties:
-          minWorldX: -275 
-          maxWorldX: 25
-          minWorldY: -45
-          maxWorldY: 255
-          minWorldZ: -2.5
+          minWorldX: -302
+          maxWorldX: 722
+          minWorldY: -312
+          maxWorldY: 712
+          minWorldZ: -3
           maxWorldZ: 15
       # crashPod:
       #   extends: http://vwf.example.com/node3.vwf
