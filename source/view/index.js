@@ -126,7 +126,6 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
 
             case "blocklyStopped":
                 if ( currentBlocklyNodeID === nodeID ) {
-
                     vwf_view.kernel.setProperty( nodeID, "blockly_timeBetweenLines", 1 );
                     startBlocklyButton.className = "";
                     var indicator = document.getElementById( "blocklyIndicator" );
@@ -154,6 +153,9 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
             case "unpaused":
                 break;
             
+            case "blocklyCompletedPolygon":
+                break;
+
             case "blocklyContentChanged":
                 if ( currentBlocklyNodeID === blocklyGraphID ) {
                     var currentCode = getBlocklyFunction();
@@ -161,6 +163,7 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 } else {
                     //indicateBlock( lastBlockIDExecuted );
                 }
+                Blockly.mainWorkspace.fireChangeEvent();
                 break;
 
             case "blockExecuted":
@@ -170,13 +173,18 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 var blockTime = eventArgs[ 3 ];
 
                 Blockly.mainWorkspace.fireChangeEvent();
-                vwf_view.kernel.setProperty( blockNode, "blockly_timeBetweenLines", blockTime );
 
+                if ( blockTime !== undefined ) {
+                    vwf_view.kernel.setProperty( blockNode, "blockly_timeBetweenLines", blockTime );
+                }
+                
                 if ( blockID ) {
                     selectBlock( blockID );
                     indicateBlock( blockID );
                     lastBlockIDExecuted = blockID;
                 }
+
+                handleDrawingBlocks( blockName, blockNode );
 
                 break;
             case "updatedBlocklyVariable":
@@ -184,9 +192,11 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 var variableName = eventArgs[ 0 ];
                 var variableValue = eventArgs[ 1 ];
 
-                blocklyVariables[ variableName ] = variableValue;
-                Blockly.mainWorkspace.fireChangeEvent();
-
+                if ( variableValue !== undefined ) {
+                    blocklyVariables[ variableName ] = variableValue;
+                    Blockly.mainWorkspace.fireChangeEvent();
+                }
+                
                 break;
             case "scenarioChanged":
                 currentScenario = eventArgs[ 0 ];
@@ -360,7 +370,16 @@ vwf_view.initializedNode = function( nodeID, childID, childExtendsID, childImple
         node.tab.id = childID;
         node.tab.className = "blocklyTab";
         node.tab.onclick = setActiveBlocklyTab;
-        node.tab.innerHTML = childName;
+        if ( childName === 'rover' ) {
+            node.tab.innerHTML = 'Manny';
+        } else if ( childName === 'rover2' ) {
+            node.tab.innerHTML = 'Peregrine';
+        } else if ( childName === 'rover3' ) {
+            node.tab.innerHTML = 'Rosie';
+        } else {
+            node.tab.innerHTML = childName;  
+        }
+        
     }
 }
 
@@ -376,6 +395,10 @@ vwf_view.satProperty = function( nodeID, propertyName, propertyValue ) {
             case "ram":
                 blocklyNode[ propertyName ] = parseFloat( propertyValue );
                 updateBlocklyRamBar();
+                break;
+
+            case "currentGridSquare":
+                blocklyNode[ propertyName ] = parseFloat( propertyValue );
                 break;
 
             case "ramMax":
@@ -397,17 +420,24 @@ vwf_view.satProperty = function( nodeID, propertyName, propertyValue ) {
                     startBlocklyButton.className = "";
                 }
                 break;
-
+            case "positionSensorValue":
+                blocklyNode[ propertyName ] = propertyValue;
+                Blockly.mainWorkspace.fireChangeEvent();
+                break;
             case "anomalySensorValue":
+                blocklyNode[ propertyName ] = propertyValue;
                 Blockly.mainWorkspace.fireChangeEvent();
                 break;
             case "signalSensorValue":
+                blocklyNode[ propertyName ] = propertyValue;
                 Blockly.mainWorkspace.fireChangeEvent();
                 break;
             case "headingSensorValue":
+                blocklyNode[ propertyName ] = propertyValue;
                 Blockly.mainWorkspace.fireChangeEvent();
                 break;
             case "collisionSensorValue":
+                blocklyNode[ propertyName ] = propertyValue;
                 Blockly.mainWorkspace.fireChangeEvent();
                 break;
 
@@ -754,6 +784,33 @@ function resetRoverSensors() {
     }
 }
 
+function handleDrawingBlocks( blockName, blockNode ) {
+    var sceneID = appID;
+    if ( blockName === 'startTriangle' && blockNode !== undefined ) {
+        vwf.setProperty( blockNode, "surveyArray", [] );
+        var blocklyNodeValues = blocklyNodes[ blockNode ];
+        var currentPosition = blocklyNodeValues[ 'positionSensorValue' ];
+        var currentArray = [];
+        currentArray.push( currentPosition );
+        vwf.setProperty( blockNode, "surveyArray", currentArray );
+    } else if ( blockName === 'endTriangle' && blockNode !== undefined ) {
+        var blocklyNodeValues = blocklyNodes[ blockNode ];
+        var currentPosition = blocklyNodeValues[ 'positionSensorValue' ];
+        var currentArray = vwf.getProperty( blockNode, "surveyArray" );
+        currentArray.push( currentPosition );
+        vwf.setProperty( blockNode, "surveyArray", currentArray );
+        if ( blockNode === perryRover ) {
+            vwf.fireEvent( appID, "blocklyCompletedPolygon", [ 'rover2', currentArray ] );
+        }
+    } else if ( blockName === 'markPoint' && blockNode !== undefined ) {
+        var blocklyNodeValues = blocklyNodes[ blockNode ];
+        var currentPosition = blocklyNodeValues[ 'positionSensorValue' ];
+        var currentArray = vwf.getProperty( blockNode, "surveyArray" );
+        currentArray.push( currentPosition );
+        vwf.setProperty( blockNode, "surveyArray", currentArray );
+    }
+}
+
 function selectBlock( blockID ) {
     var workspace, block, lastBlock;
     workspace = Blockly.getMainWorkspace();
@@ -775,6 +832,13 @@ function indicateBlock( blockID ) {
     workspace = Blockly.getMainWorkspace();
     if ( workspace ) {
         block = workspace.getBlockById( blockID );
+    }
+
+    //HACK: Disable procedure tracing for now.
+    for ( var i = 0; i < workspace.topBlocks_.length; i++ ) {
+        if ( workspace.topBlocks_[i].type === "procedures_defnoreturn" || workspace.topBlocks_[i].type === "procedures_defreturn" ) {
+            return;
+        }
     }
 
     // Check the appended nodeID data which we attach when the block is being put into the workspace (in blocks.js)

@@ -265,7 +265,7 @@ properties:
       triggerCondition:
       - onBlocklyBlock:
         - rover
-        - rover_turn
+        - 'Turn: Left'
       actions:
       - stopSound:
         - roverSounds
@@ -274,7 +274,7 @@ properties:
       triggerCondition:
       - onBlocklyBlock:
         - rover3
-        - rover_turn
+        - 'Turn: Left'
       actions:
       - stopSound:
         - rover3Sounds
@@ -283,7 +283,7 @@ properties:
       triggerCondition:
       - onBlocklyBlock:
         - rover
-        - rover_moveForward
+        - Forward
       actions:
       - playSound:
         - roverSounds
@@ -292,7 +292,7 @@ properties:
       triggerCondition:
       - onBlocklyBlock:
         - rover3
-        - rover_moveForward
+        - Forward
       actions:
       - playSound:
         - rover3Sounds

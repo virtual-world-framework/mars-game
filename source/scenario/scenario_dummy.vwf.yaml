@@ -166,6 +166,15 @@ children:
           - setObjective:
             - "Explore the Cartesian Plane!"
 
+        onTriangle:
+          triggerCondition:
+            - onBlocklyPolygon:
+              - rover2
+              - [ [21,12] , [22,13] , [22,12] , [21,12] ]
+          actions:
+            - showAlert:
+              - "I created the correct triangle!"
+
         disableFailOnIncomplete:
           triggerCondition:
           - or:
