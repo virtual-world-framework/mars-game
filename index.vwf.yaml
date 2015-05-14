@@ -19,7 +19,7 @@ implements:
 properties:
   enableShadows: true
   shadowMapCullFace: "back"
-  ambientColor: [ 120, 110, 110 ]
+  ambientColor: [ 70, 65, 65 ]
   backgroundColor: [ 225, 145, 75 ]
   userObject: null
   blockly_autoClose: false
@@ -155,12 +155,45 @@ children:
     includes: source/triggers/groups/triggerGroupManager.vwf
   environment:
     extends: http://vwf.example.com/node3.vwf
-    source: assets/3d/Terrain/scene.dae
-    type: model/vnd.collada+xml
-    properties:
-      castShadows: true
-      receiveShadows: true
     children:
+      terrain:
+        extends: http://vwf.example.com/node3.vwf
+        source: assets/3d/environment/terrain_mix.dae
+        type: model/vnd.collada+xml
+        properties:
+          castShadows: true
+          receiveShadows: true
+        children:
+          material:
+            extends: source/shaders/mixMap.vwf
+            properties:
+              mixMap: "assets/3d/environment/mars_game_mix1.png"
+              diffuseMaps:
+                - { "url": "assets/3d/environment/scorch.jpg", "wrapTexture": true }
+                - { "url": "assets/3d/environment/dirt1.jpg", "wrapTexture": true }
+                - { "url": "assets/3d/environment/dirt.png", "wrapTexture": true }
+                - { "url": "assets/3d/environment/level2_ground1_d.png", "wrapTexture": true }
+              normalMaps: 
+                - { "url": "assets/3d/environment/scorch_n.jpg", "wrapTexture": true }
+                - { "url": "assets/3d/environment/dirt1_n.jpg", "wrapTexture": true }
+                - { "url": "assets/3d/environment/dirt_n.png", "wrapTexture": true }
+                - { "url": "assets/3d/environment/level2_ground1_n.png", "wrapTexture": true }
+              specularMaps:
+                - { "url": "assets/3d/environment/scorch_s.jpg", "wrapTexture": true }
+                - { "url": "assets/3d/environment/dirt1_s.jpg", "wrapTexture": true }
+                - { "url": "assets/3d/environment/dirt_s.png", "wrapTexture": true }
+                - { "url": "assets/3d/environment/level2_ground1_s.png", "wrapTexture": true }
+              textureResolution: 128
+              gridInterval: 3
+              shininess: 5
+              normalScale: [ 0.5, 0.5 ]
+      environmentObjects:
+        extends: http://vwf.example.com/node3.vwf
+        source: assets/3d/environment/mars_levels.dae
+        type: model/vnd.collada+xml
+        properties:
+          castShadows: true
+          receiveShadows: true
       heightmap:
         extends: http://vwf.example.com/heightmap.vwf
         source: assets/3d/Terrain/heightmap.png
@@ -172,14 +205,14 @@ children:
           maxWorldY: 255
           minWorldZ: -2.5
           maxWorldZ: 15
-      crashPod:
-        extends: http://vwf.example.com/node3.vwf
-        source: assets/3d/crash_pod/crash_pod.dae
-        type: model/vnd.collada+xml
-        properties:
-          castShadows: true
-          receiveShadows: true
-          translation: [ 0, -1.5, 0 ]
+      # crashPod:
+      #   extends: http://vwf.example.com/node3.vwf
+      #   source: assets/3d/crash_pod/crash_pod.dae
+      #   type: model/vnd.collada+xml
+      #   properties:
+      #     castShadows: true
+      #     receiveShadows: true
+      #     translation: [ 0, -1.5, 0 ]
       roverTracks:
         extends: http://vwf.example.com/node3.vwf
         source: assets/3d/Terrain/rover_tracks_straight.dae
@@ -221,9 +254,9 @@ children:
       lightType: "directional"
       color: [ 255, 245, 230 ]
       translation: [ 2, 1, 16 ]
-      intensity: 0.5
+      intensity: 0.7
       castShadows: true
-      shadowDarkness: 0.5
+      shadowDarkness: 0.6
       shadowCameraBottom: -64
       shadowCameraTop: 64
       shadowCameraLeft: -64
@@ -246,7 +279,7 @@ children:
       translation: [ 0, 0, 100 ]
       color: [ 255, 200, 175 ]
       groundColor: [ 200, 160, 80 ]
-      intensity: 0.7
+      intensity: 0.8
   player:
     extends: http://vwf.example.com/node3.vwf
     children:
