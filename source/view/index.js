@@ -172,16 +172,19 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 var blockNode = eventArgs[ 2 ];
                 var blockTime = eventArgs[ 3 ];
 
-                handleDrawingBlocks( blockName, blockNode );
-
                 Blockly.mainWorkspace.fireChangeEvent();
-                vwf_view.kernel.setProperty( blockNode, "blockly_timeBetweenLines", blockTime );
 
+                if ( blockTime !== undefined ) {
+                    vwf_view.kernel.setProperty( blockNode, "blockly_timeBetweenLines", blockTime );
+                }
+                
                 if ( blockID ) {
                     selectBlock( blockID );
                     indicateBlock( blockID );
                     lastBlockIDExecuted = blockID;
                 }
+
+                handleDrawingBlocks( blockName, blockNode );
 
                 break;
             case "updatedBlocklyVariable":
