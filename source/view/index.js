@@ -170,15 +170,21 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 var blockTime = eventArgs[ 3 ];
 
                 Blockly.mainWorkspace.fireChangeEvent();
-                vwf_view.kernel.setProperty( blockNode, "blockly_timeBetweenLines", blockTime );
 
+                if ( blockTime !== undefined ) {
+                    vwf_view.kernel.setProperty( blockNode, "blockly_timeBetweenLines", blockTime );
+                }
+                
                 if ( blockID ) {
                     selectBlock( blockID );
                     indicateBlock( blockID );
                     lastBlockIDExecuted = blockID;
                 }
 
+                handleDrawingBlocks( blockName, blockNode );
+
                 break;
+                
             case "updatedBlocklyVariable":
 
                 var variableName = eventArgs[ 0 ];
@@ -767,6 +773,33 @@ function selectBlock( blockID ) {
             Blockly.addClass_( block.svg_.svgGroup_, "blocklySelected" );
             currentBlockIDSelected = blockID;
         }
+    }
+}
+
+function handleDrawingBlocks( blockName, blockNode ) {
+    var sceneID = appID;
+    if ( blockName === 'startTriangle' && blockNode !== undefined ) {
+        vwf.setProperty( blockNode, "surveyArray", [] );
+        var blocklyNodeValues = blocklyNodes[ blockNode ];
+        var currentPosition = blocklyNodeValues[ 'positionSensorValue' ];
+        var currentArray = [];
+        currentArray.push( currentPosition );
+        vwf.setProperty( blockNode, "surveyArray", currentArray );
+    } else if ( blockName === 'endTriangle' && blockNode !== undefined ) {
+        var blocklyNodeValues = blocklyNodes[ blockNode ];
+        var currentPosition = blocklyNodeValues[ 'positionSensorValue' ];
+        var currentArray = vwf.getProperty( blockNode, "surveyArray" );
+        currentArray.push( currentPosition );
+        vwf.setProperty( blockNode, "surveyArray", currentArray );
+        if ( blockNode === perryRover ) {
+            vwf.fireEvent( appID, "blocklyCompletedPolygon", [ 'rover2', currentArray ] );
+        }
+    } else if ( blockName === 'markPoint' && blockNode !== undefined ) {
+        var blocklyNodeValues = blocklyNodes[ blockNode ];
+        var currentPosition = blocklyNodeValues[ 'positionSensorValue' ];
+        var currentArray = vwf.getProperty( blockNode, "surveyArray" );
+        currentArray.push( currentPosition );
+        vwf.setProperty( blockNode, "surveyArray", currentArray );
     }
 }
 

@@ -21,17 +21,81 @@ var BlocklyApps = {
 
 // Extensions to Blockly's language and JavaScript generator.
 
+Blockly.Blocks['start_triangle'] = {
+  init: function() {
+    this.setHelpUrl('http://www.example.com/');
+    this.setColour(90);
+    this.appendDummyInput()
+        .appendField("startTriangle");
+    this.setPreviousStatement(true);
+    this.setNextStatement(true);
+    this.setTooltip('');
+    this.data = currentBlocklyNodeID;
+  }
+};
+
+Blockly.JavaScript['start_triangle'] = function(block) {
+  return constructBlockExeEventCall( block );
+};
+
+Blockly.Blocks['end_triangle'] = {
+  init: function() {
+    this.setHelpUrl('http://www.example.com/');
+    this.setColour(0);
+    this.appendDummyInput()
+        .appendField("endTriangle");
+    this.setPreviousStatement(true);
+    this.setNextStatement(true);
+    this.setTooltip('');
+    this.data = currentBlocklyNodeID;
+  }
+};
+
+Blockly.JavaScript['end_triangle'] = function( block ) {
+  return constructBlockExeEventCall( block );
+};
+
+Blockly.Blocks['mark_point'] = {
+  init: function() {
+    this.setHelpUrl('http://www.example.com/');
+    this.setColour(180);
+    this.appendDummyInput()
+        .appendField("markPoint")
+    this.setPreviousStatement(true);
+    this.setNextStatement(true);
+    this.setTooltip('Adds a point to our triangle drawing nanomatrix generator.');
+    this.data = currentBlocklyNodeID;
+  },
+  onchange: function() {
+    if (!this.workspace || this.data === undefined) {
+      // Block has been deleted.
+      return;
+    }
+    // this.setEditable(true);
+    // var blocklyNode = blocklyNodes[ this.data ];
+    // var position = blocklyNode[ 'positionSensorValue' ];
+    // if ( position !== undefined ) {
+    //   this.setFieldValue( '[' + position[ 0 ]+ ','+ position[ 1 ] + ']','VALUE' );
+    // }
+    // this.setEditable(false);
+  }
+};
+
+Blockly.JavaScript['mark_point'] = function(block) {
+  return constructBlockExeEventCall( block );
+};
+
 Blockly.Blocks['ordered_pair'] = {
   init: function() {
     this.setHelpUrl('http://www.example.com/');
     this.setColour(75);
     this.appendValueInput("INPUT")
         .setCheck(['OrderedGet'])
-        .appendField("(")
+        .appendField("[")
         .appendField(new Blockly.FieldTextInput("0"), "x")
         .appendField(",")
         .appendField(new Blockly.FieldTextInput("0"), "y")
-        .appendField(")");
+        .appendField("]");
     this.setOutput(true, null);
     this.data = currentBlocklyNodeID;
     var thisBlock = this;
@@ -279,27 +343,45 @@ Blockly.Blocks['variables_set'] = {
   customContextMenu: Blockly.Blocks['variables_get'].customContextMenu
 };
 
-Blockly.JavaScript['variables_set'] = function(block) {
+Blockly.JavaScript['variables_set'] = function( block ) {
   // Variable setter.
   var argument0 = Blockly.JavaScript.valueToCode(block, 'VALUE',
       Blockly.JavaScript.ORDER_ATOMIC) || '0';
   var varName = Blockly.JavaScript.variableDB_.getName(
       block.getFieldValue('VAR'), Blockly.Variables.NAME_TYPE);
 
-
-
   if ( argument0.indexOf(',') !== -1 ) {
     var extraCode = "vwf.fireEvent( '" + vwf_view.kernel.application() + 
                   "', 'updatedBlocklyVariable', " + " [ '" + varName + "', [" + argument0 + "] ] );\n";
     var toReturn = varName + ' = [' +  argument0  + '];\n' + extraCode;
+    return toReturn;
+  } else if ( argument0.indexOf( '[0]' ) !== -1 && argument0.indexOf( varName ) !== -1 && blocklyStopped === false ) {
+      
+      var varOP = blocklyVariables[ varName ];
+
+      if ( varOP !== undefined ) {
+        var val = varOP[ 0 ];
+        vwf.fireEvent( vwf_view.kernel.application(), 'updatedBlocklyVariable',  [ varName, val ] );
+      }
+      return '';
+
+  } else if ( argument0.indexOf( '[1]' ) !== -1 && argument0.indexOf( varName ) !== -1 && blocklyStopped === false ) {
+      
+      var varOP = blocklyVariables[ varName ];
+
+      if ( varOP !== undefined ) {
+        var val = varOP[ 1 ];
+        vwf.fireEvent( vwf_view.kernel.application(), 'updatedBlocklyVariable',  [ varName, val ] );
+      }
+      return '';
 
   } else {
     var extraCode = "vwf.fireEvent( '" + vwf_view.kernel.application() + 
                   "', 'updatedBlocklyVariable', " + " [ '" + varName + "', " + argument0 + " ] );\n";
     var toReturn = varName + ' = ' + argument0 + ';\n' + extraCode;
+    return toReturn;
   }
-  console.log( toReturn );
-  return toReturn;
+
 
 };
 
@@ -315,7 +397,7 @@ Blockly.Blocks[ 'logic_cond_out' ] = {
     this.data = currentBlocklyNodeID;
     this.setTooltip( function() {
       var content = {
-        text: "A block for selecting and/or operators"
+        text: "A block for selecting conditional operators"
       }
       return showTooltipInBlockly( thisBlock, content );
     } );
@@ -328,16 +410,18 @@ Blockly.JavaScript['logic_cond_out' ] = function( block ) {
 
   var argument0 = Blockly.JavaScript.valueToCode(block, 'INPUT',
       Blockly.JavaScript.ORDER_ATOMIC) || '';
-
-  return [ dropdown_value + argument0 , Blockly.JavaScript.ORDER_ATOMIC ];
-
+  if ( argument0[0] === '[' ) {
+    return [ dropdown_value + '.equals(' + argument0 + ')' , Blockly.JavaScript.ORDER_ATOMIC ];
+  } else {
+    return [ dropdown_value + argument0, Blockly.JavaScript.ORDER_ATOMIC ];
+  }
 };
 
 Blockly.Blocks[ 'logic_andor_out' ] = {
   init: function() {
     this.setColour( 60 );
     this.appendValueInput( "INPUT" )
-        .appendField(new Blockly.FieldDropdown([["AND", "&&"],["OR", "||"]]), "VALUE")
+        .appendField(new Blockly.FieldDropdown([["AND", "&&"],["OR", "||"],["NOT", "!"]]), "VALUE")
         .setCheck( [ 'Boolean','Variable','LeftParenthesis','RightParenthesis' ] );
     this.setOutput( true, "ANDOR" );
     var thisBlock = this;
@@ -912,6 +996,46 @@ Blockly.Blocks[ 'controls_sensor_signal' ] = {
   }
 };
 
+Blockly.JavaScript[ 'controls_sensor_position' ] = function( block ) {
+
+  //var argument0 = Blockly.JavaScript.valueToCode(block, 'INPUT', Blockly.JavaScript.ORDER_ATOMIC) || '';
+
+  return [ "vwf.getProperty( '" + block.data + "', 'positionSensorValue' )", Blockly.JavaScript.ORDER_ATOMIC ];
+
+};
+
+Blockly.Blocks[ 'controls_sensor_position' ] = {
+  init: function() {
+    this.setColour( 30 );
+    this.appendDummyInput('')
+        .appendField('Position: ')
+        .appendField("[?,?]", "VALUE");
+        //.setCheck(['OperatorAddSubtract','OperatorMultiplyDivide','LeftParenthesis','RightParenthesis','Conditional']);
+    this.setOutput(true, null);
+    this.data = currentBlocklyNodeID;
+    
+    var thisBlock = this;
+    this.setTooltip( function() {
+      var content = {
+        text: "Checks our scanner for our current location in the coordinate plane."
+      }
+      return showTooltipInBlockly( thisBlock, content );
+    } );
+  },
+  onchange: function() {
+    if (!this.workspace || this.data === undefined) {
+      // Block has been deleted.
+      return;
+    }
+    this.setEditable(true);
+    var blocklyNode = blocklyNodes[ this.data ];
+    var position = blocklyNode[ 'positionSensorValue' ];
+    if ( position !== undefined ) {
+      this.setFieldValue( '[' + position[ 0 ]+ ','+ position[ 1 ] + ']','VALUE' );
+    }
+    this.setEditable(false);
+  }
+};
 
 Blockly.JavaScript[ 'controls_sensor_heading' ] = function( block ) {
 
@@ -1461,7 +1585,7 @@ Blockly.Blocks['graph_left_paren'] = {
     this.setColour(280);
     this.appendValueInput('INPUT')
         .appendField('(')
-        .setCheck(['Number','Boolean','Variable','OperatorAddSubtract','RightParenthesis']);
+        .setCheck(['Number','Boolean','Variable','ANDOR','OperatorAddSubtract','RightParenthesis']);
     this.setOutput(true, null);
     this.data = currentBlocklyNodeID;
     var thisBlock = this;
@@ -1561,6 +1685,7 @@ Blockly.JavaScript[ 'graph_set_y' ] = function( block ) {
 };
 
 function constructBlockExeEventCall( block ) {
+
   var eventCall = "vwf.fireEvent( '" + vwf_view.kernel.application() + 
                   "', 'blockExecuted', " + " [ '" + block + "', " + block.id + ", '" + block.data + "', " + 1 + " ] );\n";
   return eventCall;  
@@ -1568,7 +1693,7 @@ function constructBlockExeEventCall( block ) {
 
 function constructBlockExeFuncCall( block, action ) {
 
-  var blockCode = " { 'blockName': '" + block + "', 'id': " + block.id + ",'node': '" + block.data + "', ";
+  var blockCode = " { 'blockName': '" + block + "', 'id': " + block.id + ", 'node': '" + block.data + "', ";
   blockCode += ( action.exeTime ) ? "'exeTime': " + action.exeTime + "}" : "'exeTime': 1 }";
   var actionCode = "{ 'nodeID': '" + action.nodeID + "', 'methodName': '" + action.methodName + "', ";
   actionCode += ( action.args.length > 0 ) ? "'args': [" + action.args + "]}" : "'args': [] }";
