@@ -15,14 +15,14 @@
 ---
 extends: ../scenario/scenario.vwf
 properties:
-  scenarioName: mission3_1
-  nextScenarioPath: "scenario3f"
+  scenarioName: mission5task1
+  nextScenarioPath: scenario3f
 
   startState:
 
   # objective
   - setObjective:
-    - "Use the signal sensor to find the base pod."
+    - "Move to position (3,18), using the collision sensor to rocks and debris."
 
   # sounds/music
   - playSound:
@@ -47,7 +47,7 @@ properties:
   # Manny
   - addToGrid:
     - rover
-    - [ 21, 15 ]
+    - [ 10, 9 ]
   - callMethod:
     - rover
     - setHeading
@@ -84,13 +84,13 @@ properties:
   # signal & anomaly
   - addToGrid:
     - supplies_2
-    - [ 12, 10 ]
+    - [ 3, 18 ]
   - writeToBlackboard:
     - anomalyPosition
-    - [ 12, 10 ]
-  - writeToBlackboard:
-    - signalPosition
-    - [ 12, 10 ]
+    - [ 3, 18 ]
+  # - writeToBlackboard:
+  #   - signalPosition
+  #   - [ 3, 18 ]
 
 children:
   triggerManager:
@@ -106,11 +106,11 @@ children:
               - rover
             - isAtPosition:
               - rover
-              - [ 12, 10 ]
+              - [ 3, 18 ]
           actions:
           - scenarioSuccess:
           - showAlert:
-            - "I found the base pod!"
+            - "I made it to Rosie in time!"
           - hideBlockly:
           - stopSound:
             - musicStandardGameplay
@@ -141,7 +141,7 @@ children:
       - [  1,  1,  1, -1, -1, -1, -1,  1,  1,  1, -1, -1, -1, -1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1 ]
       - [  1,  1,  1, -1, -1, -1,  1,  1,  1,  1, -1, -1, -1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1 ]
       - [  1,  1,  1,  1,  1,  1,  1,  1,  1,  1, -1, -1, -1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1, -1,  1,  1,  1,  1,  1 ]
-      - [ -1, -1, -1, -1,  1,  1, -1,  1,  1,  1,  1, -1, -1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1 ]
+      - [ -1, -1, -1, -1,  1,  1, -1,  1,  1,  1, -1, -1, -1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1 ]
       - [ -1, -1, -1, -1,  1,  1, -1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1, -1, -1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1 ]
       - [ -1, -1, -1, -1,  1, -1,  1,  1,  1,  1,  1,  1,  1,  1,  1, -1, -1, -1, -1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1 ]
       - [ -1, -1, -1, -1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1, -1, -1, -1, -1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1 ]
