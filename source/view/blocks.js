@@ -268,7 +268,7 @@ Blockly.Blocks[ 'variables_get' ] = {
       val = '?';
     }
     
-    this.setFieldValue( '' + val + '','VALUE' );
+    this.setFieldValue( '(' + val + ')','VALUE' );
     
   }
 
