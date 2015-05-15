@@ -551,8 +551,6 @@ this.activateSensor = function( sensor, value ) {
     }
 
     if ( sensor === 'position' ) {
-        console.log('sensing position');
-        console.log(this.currentGridSquare[ 0 ]);
         this.positionSensorValue = this.currentGridSquare;
         this.positionSensorValueX = this.currentGridSquare[ 0 ];
         this.positionSensorValueY = this.currentGridSquare[ 1 ];
