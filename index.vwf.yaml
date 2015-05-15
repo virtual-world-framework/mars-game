@@ -254,7 +254,7 @@ children:
       lightType: "directional"
       color: [ 255, 245, 230 ]
       translation: [ 2, 1, 16 ]
-      intensity: 0.7
+      intensity: 0.6
       castShadows: true
       shadowDarkness: 0.6
       shadowCameraBottom: -64
@@ -279,7 +279,7 @@ children:
       translation: [ 0, 0, 100 ]
       color: [ 255, 200, 175 ]
       groundColor: [ 200, 160, 80 ]
-      intensity: 0.8
+      intensity: 0.7
   player:
     extends: http://vwf.example.com/node3.vwf
     children:
