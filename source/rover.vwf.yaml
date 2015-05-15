@@ -64,6 +64,8 @@ properties:
   collisionSensorValue: false
   headingSensorValue: 0
   positionSensorValue: []
+  positionSensorValueX: 2
+  positionSensorValueY: 2
   signalSensorValue:
     set: |
       if ( this.signalSensorValue != value ) {

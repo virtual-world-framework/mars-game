@@ -27,6 +27,21 @@ this.onGenerated = function( params, generator, payload ) {
     this.blockNode = params[ 0 ];
     this.pointArray = params[ 1 ];
 
+    // Check if arrays are cyclic permutations of each other
+    // Concatenate the search array and try to find the playerPoints in that array
+    // Also check for the reverse
+
+    var forwardArray = this.pointArray;
+    var reversedArray = forwardArray.slice( 0 );
+
+    reversedArray.reverse();
+
+    var concatenatedForward = forwardArray.concat( forwardArray );
+    var concatenatedReverse = reversedArray.concat( reversedArray );
+
+    this.forwardString = concatenatedForward.toString();
+    this.reverseString = concatenatedReverse.toString();
+
     // Setup the callbacks that should trigger us
     
     this.scene.blocklyCompletedPolygon = this.events.add( function( blockNode, pointArray ) { 
@@ -58,28 +73,13 @@ this.onPolygonFinished = function( blockNode, playerPoints ) {
             return;
         }
 
-        // Check if arrays are cyclic permutations of each other
-        // Concatenate the search array and try to find the playerPoints in that array
-        // Also check for the reverse
-
-        var forwardArray = this.pointArray;
-        var reversedArray = forwardArray.slice( 0 );
-
-        reversedArray.reverse();
-
-        var concatenatedForward = forwardArray.concat( forwardArray );
-        var concatenatedReverse = reversedArray.concat( reversedArray );
-
-        var forwardString = concatenatedForward.toString();
-        var reverseString = concatenatedReverse.toString();
-
         // Remove last point in the player array since it should be a duplicate
 
         playerPoints.pop();
 
         var playerString = playerPoints.toString();
 
-        if ( forwardString.indexOf( playerString ) !== -1 || reverseString.indexOf( playerString ) !== -1 ) {
+        if ( this.forwardString.indexOf( playerString ) !== -1 || this.reverseString.indexOf( playerString ) !== -1 ) {
             this.onEvent();
         }
     } 

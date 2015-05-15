@@ -427,6 +427,14 @@ vwf_view.satProperty = function( nodeID, propertyName, propertyValue ) {
                 blocklyNode[ propertyName ] = propertyValue;
                 Blockly.mainWorkspace.fireChangeEvent();
                 break;
+            case "positionSensorValueX":
+                blocklyNode[ propertyName ] = propertyValue;
+                Blockly.mainWorkspace.fireChangeEvent();
+                break;
+            case "positionSensorValueY":
+                blocklyNode[ propertyName ] = propertyValue;
+                Blockly.mainWorkspace.fireChangeEvent();
+                break;
 
         }
     }

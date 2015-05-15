@@ -91,11 +91,11 @@ Blockly.Blocks['ordered_pair'] = {
     this.setColour(75);
     this.appendValueInput("INPUT")
         .setCheck(['OrderedGet'])
-        .appendField("[")
+        .appendField("(")
         .appendField(new Blockly.FieldTextInput("0"), "x")
         .appendField(",")
         .appendField(new Blockly.FieldTextInput("0"), "y")
-        .appendField("]");
+        .appendField(")");
     this.setOutput(true, null);
     this.data = currentBlocklyNodeID;
     var thisBlock = this;
@@ -350,37 +350,42 @@ Blockly.JavaScript['variables_set'] = function( block ) {
   var varName = Blockly.JavaScript.variableDB_.getName(
       block.getFieldValue('VAR'), Blockly.Variables.NAME_TYPE);
 
-  if ( argument0.indexOf(',') !== -1 ) {
-    var extraCode = "vwf.fireEvent( '" + vwf_view.kernel.application() + 
-                  "', 'updatedBlocklyVariable', " + " [ '" + varName + "', [" + argument0 + "] ] );\n";
-    var toReturn = varName + ' = [' +  argument0  + '];\n' + extraCode;
-    return toReturn;
-  } else if ( argument0.indexOf( '[0]' ) !== -1 && argument0.indexOf( varName ) !== -1 && blocklyStopped === false ) {
+  var extraCode = "vwf.fireEvent( '" + vwf_view.kernel.application() + 
+                  "', 'updatedBlocklyVariable', " + " [ '" + varName + "', " + varName + " ] );\n";
+  var toReturn = varName + ' = ' + argument0 + ';\n' + extraCode;
+  return toReturn;
+
+  // if ( argument0.indexOf(',') !== -1 ) {
+  //   var extraCode = "vwf.fireEvent( '" + vwf_view.kernel.application() + 
+  //                 "', 'updatedBlocklyVariable', " + " [ '" + varName + "', [" + argument0 + "] ] );\n";
+  //   var toReturn = varName + ' = [' +  argument0  + '];\n' + extraCode;
+  //   return toReturn;
+  // } else if ( argument0.indexOf( '[0]' ) !== -1 && argument0.indexOf( varName ) !== -1 && blocklyStopped === false ) {
       
-      var varOP = blocklyVariables[ varName ];
+  //     var varOP = blocklyVariables[ varName ];
 
-      if ( varOP !== undefined ) {
-        var val = varOP[ 0 ];
-        vwf.fireEvent( vwf_view.kernel.application(), 'updatedBlocklyVariable',  [ varName, val ] );
-      }
-      return '';
+  //     if ( varOP !== undefined ) {
+  //       var val = varOP[ 0 ];
+  //       vwf.fireEvent( vwf_view.kernel.application(), 'updatedBlocklyVariable',  [ varName, val ] );
+  //     }
+  //     return '';
 
-  } else if ( argument0.indexOf( '[1]' ) !== -1 && argument0.indexOf( varName ) !== -1 && blocklyStopped === false ) {
+  // } else if ( argument0.indexOf( '[1]' ) !== -1 && argument0.indexOf( varName ) !== -1 && blocklyStopped === false ) {
       
-      var varOP = blocklyVariables[ varName ];
+  //     var varOP = blocklyVariables[ varName ];
 
-      if ( varOP !== undefined ) {
-        var val = varOP[ 1 ];
-        vwf.fireEvent( vwf_view.kernel.application(), 'updatedBlocklyVariable',  [ varName, val ] );
-      }
-      return '';
+  //     if ( varOP !== undefined ) {
+  //       var val = varOP[ 1 ];
+  //       vwf.fireEvent( vwf_view.kernel.application(), 'updatedBlocklyVariable',  [ varName, val ] );
+  //     }
+  //     return '';
 
-  } else {
-    var extraCode = "vwf.fireEvent( '" + vwf_view.kernel.application() + 
-                  "', 'updatedBlocklyVariable', " + " [ '" + varName + "', " + argument0 + " ] );\n";
-    var toReturn = varName + ' = ' + argument0 + ';\n' + extraCode;
-    return toReturn;
-  }
+  // } else {
+  //   var extraCode = "vwf.fireEvent( '" + vwf_view.kernel.application() + 
+  //                 "', 'updatedBlocklyVariable', " + " [ '" + varName + "', " + argument0 + " ] );\n";
+  //   var toReturn = varName + ' = ' + argument0 + ';\n' + extraCode;
+  //   return toReturn;
+  // }
 
 
 };
@@ -998,18 +1003,31 @@ Blockly.Blocks[ 'controls_sensor_signal' ] = {
 
 Blockly.JavaScript[ 'controls_sensor_position' ] = function( block ) {
 
-  //var argument0 = Blockly.JavaScript.valueToCode(block, 'INPUT', Blockly.JavaScript.ORDER_ATOMIC) || '';
+  var input = Blockly.JavaScript.valueToCode(block, 'INPUT', Blockly.JavaScript.ORDER_ATOMIC) || '';
 
-  return [ "vwf.getProperty( '" + block.data + "', 'positionSensorValue' )", Blockly.JavaScript.ORDER_ATOMIC ];
+  var inputCheck = input[0] + input[1];
+
+  if ( inputCheck === '.x') {
+    var code =  "vwf.getProperty( '" + block.data + "', 'positionSensorValueX' );" + input.slice( 2 );
+    return [ code, Blockly.JavaScript.ORDER_ATOMIC ];
+  } else if ( inputCheck === '.y') {
+    var code =  "vwf.getProperty( '" + block.data + "', 'positionSensorValueY' );" + input.slice( 2 );
+    return [ code, Blockly.JavaScript.ORDER_ATOMIC ];
+  } else {
+    var code = "vwf.getProperty( '" + block.data + "', 'positionSensorValue' )" + input;
+    return [ code, Blockly.JavaScript.ORDER_MEMBER ];
+  }
+
+ // return [ "vwf.getProperty( '" + block.data + "', 'positionSensorValue' )", Blockly.JavaScript.ORDER_ATOMIC ];
 
 };
 
 Blockly.Blocks[ 'controls_sensor_position' ] = {
   init: function() {
     this.setColour( 30 );
-    this.appendDummyInput('')
+    this.appendValueInput('INPUT')
         .appendField('Position: ')
-        .appendField("[?,?]", "VALUE");
+        .appendField("(?,?)", "VALUE");
         //.setCheck(['OperatorAddSubtract','OperatorMultiplyDivide','LeftParenthesis','RightParenthesis','Conditional']);
     this.setOutput(true, null);
     this.data = currentBlocklyNodeID;
@@ -1031,7 +1049,7 @@ Blockly.Blocks[ 'controls_sensor_position' ] = {
     var blocklyNode = blocklyNodes[ this.data ];
     var position = blocklyNode[ 'positionSensorValue' ];
     if ( position !== undefined ) {
-      this.setFieldValue( '[' + position[ 0 ]+ ','+ position[ 1 ] + ']','VALUE' );
+      this.setFieldValue( '(' + position[ 0 ]+ ','+ position[ 1 ] + ')','VALUE' );
     }
     this.setEditable(false);
   }
