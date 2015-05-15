@@ -27,6 +27,21 @@ this.onGenerated = function( params, generator, payload ) {
     this.blockNode = params[ 0 ];
     this.pointArray = params[ 1 ];
 
+    // Check if arrays are cyclic permutations of each other
+    // Concatenate the search array and try to find the playerPoints in that array
+    // Also check for the reverse
+
+    var forwardArray = this.pointArray;
+    var reversedArray = forwardArray.slice( 0 );
+
+    reversedArray.reverse();
+
+    var concatenatedForward = forwardArray.concat( forwardArray );
+    var concatenatedReverse = reversedArray.concat( reversedArray );
+
+    this.forwardString = concatenatedForward.toString();
+    this.reverseString = concatenatedReverse.toString();
+
     // Setup the callbacks that should trigger us
     
     this.scene.blocklyCompletedPolygon = this.events.add( function( blockNode, pointArray ) { 
@@ -36,38 +51,35 @@ this.onGenerated = function( params, generator, payload ) {
     return true;
 }
 
-this.onPolygonFinished = function( blockNode, pointArray ) {
+this.onPolygonFinished = function( blockNode, playerPoints ) {
+
+    // Note: The playerPoints array should have length v+1 for the correct polygon. This is because we mark
+    // the point where the polygon is started and where it finishes to determine if it is closed.
 
     if ( this.blockNode === blockNode ) {
 
-        var equal = true;
-        var forward = true;
-        var backward = true;
+        // Does the player end up where they started? ( Closed Polygon )
 
-        for ( var i = 0; i < this.pointArray.length; i++ ) {
+        var startPoint = playerPoints[ 0 ];
+        var endPoint = playerPoints[ playerPoints.length - 1 ];
 
-                var thisPoint = this.pointArray[ i ];
-                var thatPoint = pointArray[ i ];
-
-                if ( thisPoint[ 0 ] !== thatPoint[ 0 ] || thisPoint[ 1 ] !== thatPoint[ 1 ] ) { 
-                    forward = false;   
-                }           
-
-                thisPoint = this.pointArray[ i ];
-                thatPoint = pointArray[ pointArray.length - 1 - i ];
-
-                if ( thisPoint[ 0 ] !== thatPoint[ 0 ] || thisPoint[ 1 ] !== thatPoint[ 1 ] ) { 
-                    backward = false;   
-                }           
-
-        }
-
-        if ( this.pointArray.length !== pointArray.length ) {
-            equal = false;
+        if ( startPoint[ 0 ] !== endPoint[ 0 ] || startPoint[ 1 ] !== endPoint[ 1 ] ) {
             return;
         }
 
-        if ( equal === true && ( backward === true || forward === true ) ) {
+        // Are they the same length?
+
+        if ( this.pointArray.length !== ( playerPoints.length - 1 )  ) {
+            return;
+        }
+
+        // Remove last point in the player array since it should be a duplicate
+
+        playerPoints.pop();
+
+        var playerString = playerPoints.toString();
+
+        if ( this.forwardString.indexOf( playerString ) !== -1 || this.reverseString.indexOf( playerString ) !== -1 ) {
             this.onEvent();
         }
     } 
