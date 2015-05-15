@@ -205,12 +205,11 @@ properties:
         vec3 mixMapTexel = texture2D( mixMap, vUv ).rgb;
         vec2 texUv = vUv * textureResolution;
         float rgbWeight = max( max( mixMapTexel.r, mixMapTexel.g), mixMapTexel.b );
-        float rgbLength = length( mixMapTexel );
         vec4 mixWeights = vec4(
             1.0 - rgbWeight,
-            mixMapTexel.r / max( rgbLength, 1.0 ),
-            mixMapTexel.g / max( rgbLength, 1.0 ),
-            mixMapTexel.b / max( rgbLength, 1.0 )
+            mixMapTexel.r,
+            mixMapTexel.g,
+            mixMapTexel.b
           );
         vec3 finalColor = getMixValue( mixWeights, diffuseMaps, texUv );
         float specularStrength = getMixValue( mixWeights, specularMaps, texUv ).r / 4.0;
