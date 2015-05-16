@@ -13,7 +13,6 @@
 # limitations under the License.
 
 # TODO:
-#   Grid axis lines
 #   Tile map
 #   Tile origin
 
@@ -43,6 +42,9 @@ properties:
     gridColor:
       type: "c"
       value: 0xFF4411
+    gridAxes:
+      type: "v2"
+      value: [ 0, 0 ]
     laserWidth:
       type: "f"
       value: 2
@@ -205,6 +207,7 @@ properties:
     uniform float gridInterval;
     uniform float laserWidth;
     uniform vec3 gridColor;
+    uniform vec2 gridAxes;
     uniform float laserStrength;
     uniform float laserIntensity;
     uniform int tilesVisible;
@@ -517,7 +520,7 @@ properties:
       if ( gridVisible == 1 ) {
         // TODO: Restrict grid to boundaries
         float intervalHalf = gridInterval / 2.0;
-        vec2 gridLine = vec2( intervalHalf - mod( vWorldPosition.xy + gridOffset, gridInterval ) );
+        vec2 gridLine = vec2( intervalHalf - mod( vWorldPosition.xy + gridOffset + intervalHalf, gridInterval ) );
         gridLine = max( gridLine, -1.0 * gridLine );
         float laserFactor = 0.0;
         if ( gridLine.x < laserWidth ) {
@@ -530,7 +533,12 @@ properties:
           laserFactor = min( pow( laserFactor, 1.0 - laserStrength + 1.0 ), 1.0 );
           float avgColor = ( gridColor.r + gridColor.b + gridColor.g ) / 3.0;
           float intensity = ( avgColor * pow( laserIntensity, laserStrength + 1.0 ) ) * laserStrength;
-          gl_FragColor.xyz += laserFactor * ( gridColor + intensity );
+          vec2 axisColorFactor = max( 1.0 - abs( vWorldPosition.xy - gridAxes.yx * gridInterval ), 0.0 );
+          vec3 gridFinalColor = 
+            ( axisColorFactor.x * vec3( 0.0, 0.0, 1.0 ) ) +
+            ( axisColorFactor.y * vec3( 1.0, 0.0, 0.0 ) ) +
+            ( ( 1.0 - max( axisColorFactor.x, axisColorFactor.y ) ) * gridColor );
+          gl_FragColor.xyz += laserFactor * ( gridFinalColor + intensity );
         }
       }
       if ( tilesVisible == 1 ) {
