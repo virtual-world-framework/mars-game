@@ -155,19 +155,17 @@ Blockly.JavaScript['ordered_pair'] = function( block ) {
 
 
   if ( input[0] === '-' ){
-    var otherOP = [ input.slice( 1 ) ];
-
+    var otherOP = input.slice( 1 );
+    otherOP = otherOP.split(',');
     if ( otherOP.constructor === Array ) {
-      var code = [ xValue - otherOP[0], yValue - otherOP[1] ];
-      console.log(code);
+      var code = [ Number(xValue) - Number(otherOP[0]), Number(yValue) - Number(otherOP[1]) ];
       return [ code, Blockly.JavaScript.ORDER_MEMBER ];
     }
   } else if ( input[0] === '+' ){
-    var otherOP = [ input.slice( 1 ) ];
-
+    var otherOP = input.slice( 1 );
+    otherOP = otherOP.split(',');
     if ( otherOP.constructor === Array ) {
-      var code = [ xValue + otherOP[0], yValue + otherOP[1] ];
-      console.log(code);
+      var code = [ Number(xValue) + Number(otherOP[0]), Number(yValue) + Number(otherOP[1]) ];
       return [ code, Blockly.JavaScript.ORDER_MEMBER ];
     }
   } else if ( inputCheck === '.x') {
@@ -1168,7 +1166,7 @@ Blockly.Blocks['rover_moveRadial_ordered'] = {
     this.setColour(20);
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField("move:");
+        .appendField("moveTo:");
     this.appendValueInput("op");
     this.setInputsInline(true);
     this.setPreviousStatement(true, "null");
