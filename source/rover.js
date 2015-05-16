@@ -128,23 +128,58 @@ this.moveForward = function() {
     }
 }
 
-this.moveRadial = function( xValue, yValue ) {
+this.moveRadial = function( xValue, yValue, offset ) {
 
     var scene = this.sceneNode;
 
-    var radians = Math.atan2(yValue, xValue); // In radians 
-    var heading = radians * ( 180 / Math.PI );
+    if ( offset === true ) {
+        var radians = Math.atan2(yValue, xValue); // In radians 
+        var heading = radians * ( 180 / Math.PI );
 
-    if ( heading < 90 && heading > 0 ) {  // 'north' is rotated 90 degrees
-        this.setHeading( 360 + ( heading - 90 ) );
+        if ( heading < 90 && heading > 0 ) {  // 'north' is rotated 90 degrees
+            this.setHeading( 360 + ( heading - 90 ) );
+        } else {
+            this.setHeading( heading - 90, 0 );
+        }
+
+        var dirVector = [ Math.round( -Math.sin( radians ) ), Math.round( Math.cos( radians ) ) ];
+
+        var proposedNewGridSquare = [ this.currentGridSquare[ 0 ] + xValue, 
+                                                                    this.currentGridSquare[ 1 ] + yValue ]; 
+
+        //Calculate the time to displace based on the hypotenuse
+        var hypot = Math.sqrt(xValue*xValue + yValue*yValue);
+
+        var displacement = [  xValue * this.currentGrid.gridSquareLength,  yValue * this.currentGrid.gridSquareLength, 0 ];
+
     } else {
-        this.setHeading( heading - 90, 0 );
+
+        var xOffset = xValue - this.currentGridSquare[ 0 ];
+        var yOffset = yValue - this.currentGridSquare[ 1 ];
+
+        var radians = Math.atan2( yOffset, xOffset ); // In radians 
+        var heading = radians * ( 180 / Math.PI );
+
+        if ( heading < 90 && heading > 0 ) {  // 'north' is rotated 90 degrees
+            this.setHeading( 360 + ( heading - 90 ) );
+        } else {
+            this.setHeading( heading - 90, 0 );
+        }
+
+        var dirVector = [ Math.round( -Math.sin( radians ) ), Math.round( Math.cos( radians ) ) ];
+
+        var proposedNewGridSquare = [ this.currentGridSquare[ 0 ] + xOffset, 
+                                                                    this.currentGridSquare[ 1 ] + yOffset ]; 
+
+        //Calculate the time to displace based on the hypotenuse
+        var hypot = Math.sqrt( ( xOffset * xOffset ) + ( yOffset * yOffset ) );
+
+        var displacement = [  xOffset * this.currentGrid.gridSquareLength,  yOffset * this.currentGrid.gridSquareLength, 0 ];
+
+
+        vwf_view.kernel.setProperty( blockNode, "blockly_timeBetweenLines", hypot );
     }
-
-    var dirVector = [ Math.round( -Math.sin( radians ) ), Math.round( Math.cos( radians ) ) ];
-
-    var proposedNewGridSquare = [ this.currentGridSquare[ 0 ] + xValue, 
-                                                                this.currentGridSquare[ 1 ] + yValue ];
+    
 
     //First check if the coordinate is valid
     if ( this.currentGrid.validCoord( proposedNewGridSquare ) ) {
@@ -162,13 +197,11 @@ this.moveRadial = function( xValue, yValue ) {
             if ( !this.checkRadialCollision( this.currentGridSquare, proposedNewGridSquare ) ){
                 this.currentGrid.moveObjectOnGrid( this.id, this.currentGridSquare, proposedNewGridSquare );
                 this.currentGridSquare = proposedNewGridSquare;
-                var displacement = [  xValue * this.currentGrid.gridSquareLength,  yValue * this.currentGrid.gridSquareLength, 0 ];
+                
                 // TODO: This should use worldTransformBy, but we are getting a bug where the rover's transform isn't set
                 //       yet when this method is called.  Until we can debug that, we are assuming that the rover's 
                 //       parent's frame of reference is the world frame of reference
 
-                //Calculate the time to displace based on the hypotenuse
-                var hypot = Math.sqrt(xValue*xValue + yValue*yValue);
 
                 this.translateOnTerrain( displacement, hypot, energyRequired );
                 // this.worldTransformBy( [

@@ -44,6 +44,7 @@ var roverSignalValue = 0;
 var roverHeadingValue = 0;
 var blocklyGraphID = undefined;
 var blocklyVariables = {};
+var triangleStarted = false;
 var alertNodeID = undefined;
 var graphIsVisible = false;
 var tilesAreVisible = false;
@@ -104,6 +105,13 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 break;
 
             case "blocklyStarted":
+            var xml = Blockly.Xml.workspaceToDom( Blockly.getMainWorkspace() );
+        
+            Blockly.JavaScript.vwfID = node.ID;
+
+            if ( xml ) { 
+                console.log(xml);
+            }
                 var indicator = document.getElementById( "blocklyIndicator" );
                 indicator.className = "";
                 indicator.style.visibility = "inherit";
@@ -174,7 +182,7 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
 
                 Blockly.mainWorkspace.fireChangeEvent();
 
-                if ( blockTime !== undefined ) {
+                if ( blockTime !== undefined && blockName !== 'radialMove' ) {
                     vwf_view.kernel.setProperty( blockNode, "blockly_timeBetweenLines", blockTime );
                 }
                 

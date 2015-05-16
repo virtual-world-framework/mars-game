@@ -90,7 +90,7 @@ Blockly.Blocks['ordered_pair'] = {
     this.setHelpUrl('http://www.example.com/');
     this.setColour(75);
     this.appendValueInput("INPUT")
-        .setCheck(['OrderedGet'])
+        .setCheck(['OperatorAddSubtract','OrderedGet'])
         .appendField("(")
         .appendField(new Blockly.FieldTextInput("0"), "x")
         .appendField(",")
@@ -99,7 +99,7 @@ Blockly.Blocks['ordered_pair'] = {
     this.setOutput(true, null);
     this.data = currentBlocklyNodeID;
     var thisBlock = this;
-    this.setTooltip('Represents an array of values or grid coordinates');
+    this.setTooltip('An ordered pair block.');
   },
 
   /**
@@ -153,7 +153,24 @@ Blockly.JavaScript['ordered_pair'] = function( block ) {
 
   var inputCheck = input[0] + input[1];
 
-  if ( inputCheck === '.x') {
+
+  if ( input[0] === '-' ){
+    var otherOP = argument0.slice( 1 );
+
+    if ( otherOP.constructor === Array ) {
+      var code = [ xValue - otherOP[0], yValue - otherOP[1] ];
+      console.log(code);
+      return [ code, Blockly.JavaScript.ORDER_MEMBER ];
+    }
+  } else if ( input[0] === '+' ){
+    var otherOP = argument0.slice( 1 );
+
+    if ( otherOP.constructor === Array ) {
+      var code = [ xValue + otherOP[0], yValue + otherOP[1] ];
+      console.log(code);
+      return [ code, Blockly.JavaScript.ORDER_MEMBER ];
+    }
+  } else if ( inputCheck === '.x') {
     var code =  xValue + input.slice( 2 );
     return [ code, Blockly.JavaScript.ORDER_ATOMIC ];
   } else if ( inputCheck === '.y') {
@@ -285,7 +302,23 @@ Blockly.JavaScript[ 'variables_get' ] = function( block ) {
       Blockly.Variables.NAME_TYPE );
 
   var val = blocklyVariables[ code ];
-  if ( inputCheck === '.x') {
+  if ( input[0] === '-' ){
+    var otherOP = argument0.slice( 1 );
+
+    if ( otherOP.constructor === Array ) {
+      code = [ code + '[0] -=' + otherOP[0], code + '[1] -=' + otherOP[1] ];
+      console.log(code);
+      return [ code, Blockly.JavaScript.ORDER_MEMBER ];
+    }
+  } else if ( input[0] === '+' ){
+    var otherOP = argument0.slice( 1 );
+
+    if ( otherOP.constructor === Array ) {
+      code = [ code + '[0] +=' + otherOP[0], code + '[1] +=' + otherOP[1] ];
+      console.log(code);
+      return [ code, Blockly.JavaScript.ORDER_MEMBER ];
+    }
+  } else if ( inputCheck === '.x') {
      code =  code + '[0]' + input.slice( 2 );
     return [ code, Blockly.JavaScript.ORDER_MEMBER ];
   } else if ( inputCheck === '.y') {
@@ -1028,6 +1061,7 @@ Blockly.Blocks[ 'controls_sensor_position' ] = {
     this.appendValueInput('INPUT')
         .appendField('Position: ')
         .appendField("(?,?)", "VALUE");
+        .setCheck(['OperatorAddSubtract','OrderedGet'])
         //.setCheck(['OperatorAddSubtract','OperatorMultiplyDivide','LeftParenthesis','RightParenthesis','Conditional']);
     this.setOutput(true, null);
     this.data = currentBlocklyNodeID;
@@ -1128,13 +1162,58 @@ Blockly.JavaScript['rover_moveForward'] = function( block ) {
   return constructBlockExeFuncCall( block, action );
 };
 
+Blockly.Blocks['rover_moveRadial_ordered'] = {
+  init: function() {
+    this.setHelpUrl('http://www.example.com/');
+    this.setColour(20);
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("move:");
+    this.appendValueInput("op");
+    this.setInputsInline(true);
+    this.setPreviousStatement(true, "null");
+    this.setNextStatement(true, "null");
+    this.data = currentBlocklyNodeID;
+    var thisBlock = this;
+    this.setTooltip("Moves to the coordinate specified by a connected ordered pair block.");
+  }
+};
+
+Blockly.JavaScript['rover_moveRadial_ordered'] = function(block) {
+  var value = Blockly.JavaScript.valueToCode(block, 'op', Blockly.JavaScript.ORDER_ATOMIC) || 0;
+
+  var value_x = value[ 0 ] || 0;
+  var value_y = value[ 1 ] || 0;
+
+  // Need to set EXE time with an event
+  // How long should we take to execute this block?
+  var exeTime = Math.round( Math.sqrt(value_x*value_x + value_y*value_y) );
+
+  var action = {
+    nodeID: Blockly.JavaScript.vwfID,
+    methodName: 'moveRadialOrdered',
+    exeTime: exeTime,
+    args: [ value_x, value_y, false ]
+  };
+
+  var blockCode = " { 'blockName': 'radialMove', 'id': " + block.id + ", 'node': '" + block.data + "', ";
+  blockCode += ( action.exeTime ) ? "'exeTime': " + action.exeTime + "}" : "'exeTime': 1 }";
+  var actionCode = "{ 'nodeID': '" + action.nodeID + "', 'methodName': '" + action.methodName + "', ";
+  actionCode += ( action.args.length > 0 ) ? "'args': [" + action.args + "]}" : "'args': [] }";
+  var returnCode = "vwf.callMethod( '" + vwf_view.kernel.application() + "', 'executeBlock', [ " + blockCode + "," +
+                    actionCode + "] );\n"; 
+
+  return returnCode; 
+
+};
+
 Blockly.Blocks['rover_moveRadial'] = {
   init: function() {
     this.setHelpUrl('http://www.example.com/');
     this.setColour(20);
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField("Move:");
+        .appendField("move:");
      this.appendDummyInput()
          .setAlign(Blockly.ALIGN_CENTRE)
          .appendField("Δx");
@@ -1163,7 +1242,7 @@ Blockly.JavaScript['rover_moveRadial'] = function(block) {
     nodeID: Blockly.JavaScript.vwfID,
     methodName: 'moveRadial',
     exeTime: exeTime,
-    args: [ value_x, value_y ]
+    args: [ value_x, value_y, true ]
   };
   return constructBlockExeFuncCall( block, action );
 };

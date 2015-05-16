@@ -2,7 +2,15 @@
   
   <category name="Movement">
    <block type="rover_moveRadial"></block>
-  <block type="math_number_field"><field name="VALUE">1</field></block>
+  <block type="math_number_field"><field name="VALUE">0</field></block>
+  <block type="ordered_pair"></block>
+  </category>
+  <category name="Sensors">
+    <block type="controls_sensor_anomaly"></block>
+    <block type="controls_sensor_signal"></block>
+    <block type="controls_sensor_collision"></block>
+    <block type="controls_sensor_heading"></block>
+    <block type="controls_sensor_position"></block>
   </category>
   <category name="Variables" custom="VARIABLE">
     <block type="variables_get"><field name="VAR">test1</field></block>
@@ -20,7 +28,7 @@
     <block type="controls_whileUntil"><field name="MODE">WHILE</field></block>
   </category>
   <category name="Numbers / Math">
-    <block type="math_number_field"><field name="VALUE">1</field></block>
+    <block type="math_number_field"><field name="VALUE">0</field></block>
     <block type="ordered_pair"></block>
     <block type="ordered_get"></block>
     <block type="graph_add"></block>
