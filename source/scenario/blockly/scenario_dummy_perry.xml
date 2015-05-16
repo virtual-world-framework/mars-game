@@ -2,6 +2,7 @@
   
   <category name="Movement">
    <block type="rover_moveRadial"></block>
+   <block type="rover_moveRadial_ordered"></block>
   <block type="math_number_field"><field name="VALUE">0</field></block>
   <block type="ordered_pair"></block>
   </category>

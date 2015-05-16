@@ -154,6 +154,9 @@ this.moveRadial = function( xValue, yValue, offset ) {
 
     } else {
 
+        console.log( xValue );
+        console.log( yValue );
+        
         var xOffset = xValue - this.currentGridSquare[ 0 ];
         var yOffset = yValue - this.currentGridSquare[ 1 ];
 
@@ -177,7 +180,7 @@ this.moveRadial = function( xValue, yValue, offset ) {
         var displacement = [  xOffset * this.currentGrid.gridSquareLength,  yOffset * this.currentGrid.gridSquareLength, 0 ];
 
 
-        vwf_view.kernel.setProperty( blockNode, "blockly_timeBetweenLines", hypot );
+        vwf.setProperty( this.id, "blockly_timeBetweenLines", hypot );
     }
     
 
