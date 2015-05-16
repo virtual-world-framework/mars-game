@@ -128,8 +128,98 @@ this.moveForward = function() {
     }
 }
 
+this.moveRadialAbsolute = function( valueX, valueY ) {
+
+    console.log('moving radial absolute!!');
+    console.log( valueX );
+    console.log( valueY );
+    if ( valueX.constructor === Array ) {
+        var temp = valueX.slice(0);
+        valueX = temp[0];
+        valueY = temp[1];
+    }
+
+    var scene = this.sceneNode;
+
+        var xOffset = valueX - this.currentGridSquare[ 0 ];
+        var yOffset = valueY - this.currentGridSquare[ 1 ];
+
+        var radians = Math.atan2( yOffset, xOffset ); // In radians 
+        var heading = radians * ( 180 / Math.PI );
+
+        if ( heading < 90 && heading > 0 ) {  // 'north' is rotated 90 degrees
+            this.setHeading( 360 + ( heading - 90 ) );
+        } else {
+            this.setHeading( heading - 90, 0 );
+        }
+
+        var dirVector = [ Math.round( -Math.sin( radians ) ), Math.round( Math.cos( radians ) ) ];
+
+        var proposedNewGridSquare = [ this.currentGridSquare[ 0 ] + xOffset, 
+                                                                    this.currentGridSquare[ 1 ] + yOffset ]; 
+
+        //Calculate the time to displace based on the hypotenuse
+        var hypot = Math.sqrt( ( xOffset * xOffset ) + ( yOffset * yOffset ) );
+
+        var displacement = [  xOffset * this.currentGrid.gridSquareLength,  yOffset * this.currentGrid.gridSquareLength, 0 ];
+
+
+        vwf.setProperty( this.id, "blockly_timeBetweenLines", hypot );
+
+    //First check if the coordinate is valid
+    if ( this.currentGrid.validCoord( proposedNewGridSquare ) ) {
+
+        //Then check if the boundary value allows for movement:
+        var energyRequired = this.currentGrid.getEnergy( proposedNewGridSquare );
+        if ( energyRequired < 0 ) {
+            this.moveFailed( "collision" );
+        } else if ( energyRequired > this.battery ) {
+            this.battery = 0;
+            this.moveFailed( "battery" );
+        } else {
+
+            //Otherwise, check if the space is occupied
+            if ( !this.checkRadialCollision( this.currentGridSquare, proposedNewGridSquare ) ){
+                this.currentGrid.moveObjectOnGrid( this.id, this.currentGridSquare, proposedNewGridSquare );
+                this.currentGridSquare = proposedNewGridSquare;
+                
+                // TODO: This should use worldTransformBy, but we are getting a bug where the rover's transform isn't set
+                //       yet when this method is called.  Until we can debug that, we are assuming that the rover's 
+                //       parent's frame of reference is the world frame of reference
+
+
+                this.translateOnTerrain( displacement, hypot, energyRequired );
+                // this.worldTransformBy( [
+                //   1, 0, 0, 0,
+                //   0, 1, 0, 0,
+                //   0, 0, 1, 0,
+                //   dirVector[ 0 ] * this.gridSquareLength, dirVector[ 1 ] * this.gridSquareLength, 0, 0 ], 1 );
+
+                var inventoriableObjects = this.currentGrid.getInventoriables( proposedNewGridSquare );
+                if ( inventoriableObjects ){
+                    for ( var i = 0; i < inventoriableObjects.length; i++ ) {
+                        this.currentGrid.removeFromGrid( inventoriableObjects[ i ], proposedNewGridSquare );
+                        this.cargo.add( inventoriableObjects[ i ] );
+                    }
+                }
+                this.moved();
+                this.activateSensor( 'position' );
+                this.activateSensor( 'heading', this.heading );
+                //this.activateSensor( 'anomaly' );
+            } else {
+                this.moveFailed( "collision" );
+            }
+        }
+    } else {
+        this.moveFailed( "collision" );
+    }
+}
+
 this.moveRadial = function( xValue, yValue, offset ) {
 
+    console.log('moving radial!!');
+    console.log(xValue);
+    console.log(yValue);
     var scene = this.sceneNode;
 
     if ( offset === true ) {
@@ -154,9 +244,6 @@ this.moveRadial = function( xValue, yValue, offset ) {
 
     } else {
 
-        console.log( xValue );
-        console.log( yValue );
-        
         var xOffset = xValue - this.currentGridSquare[ 0 ];
         var yOffset = yValue - this.currentGridSquare[ 1 ];
 

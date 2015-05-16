@@ -305,7 +305,6 @@ Blockly.JavaScript[ 'variables_get' ] = function( block ) {
 
     if ( otherOP.constructor === Array ) {
       code = [ code + '[0] -=' + otherOP[0], code + '[1] -=' + otherOP[1] ];
-      console.log(code);
       return [ code, Blockly.JavaScript.ORDER_MEMBER ];
     }
   } else if ( input[0] === '+' && input.indexOf( ',' ) !== -1 ){
@@ -313,7 +312,6 @@ Blockly.JavaScript[ 'variables_get' ] = function( block ) {
 
     if ( otherOP.constructor === Array ) {
       code = [ code + '[0] +=' + otherOP[0], code + '[1] +=' + otherOP[1] ];
-      console.log(code);
       return [ code, Blockly.JavaScript.ORDER_MEMBER ];
     }
   } else if ( inputCheck === '.x') {
@@ -377,46 +375,49 @@ Blockly.Blocks['variables_set'] = {
 Blockly.JavaScript['variables_set'] = function( block ) {
   // Variable setter.
   var argument0 = Blockly.JavaScript.valueToCode(block, 'VALUE',
-      Blockly.JavaScript.ORDER_ATOMIC) || '0';
+      Blockly.JavaScript.ORDER_NONE) || '0';
   var varName = Blockly.JavaScript.variableDB_.getName(
       block.getFieldValue('VAR'), Blockly.Variables.NAME_TYPE);
 
-  var extraCode = "vwf.fireEvent( '" + vwf_view.kernel.application() + 
-                  "', 'updatedBlocklyVariable', " + " [ '" + varName + "', " + varName + " ] );\n";
-  var toReturn = varName + ' = ' + argument0 + ';\n' + extraCode;
-  return toReturn;
+  // var extraCode = "vwf.fireEvent( '" + vwf_view.kernel.application() + 
+  //                 "', 'updatedBlocklyVariable', " + " [ '" + varName + "', " + varName + " ] );\n";
+  // var toReturn = varName + ' = ' + argument0 + ';\n' + extraCode;
+  // return toReturn;
 
-  // if ( argument0.indexOf(',') !== -1 ) {
-  //   var extraCode = "vwf.fireEvent( '" + vwf_view.kernel.application() + 
-  //                 "', 'updatedBlocklyVariable', " + " [ '" + varName + "', [" + argument0 + "] ] );\n";
-  //   var toReturn = varName + ' = [' +  argument0  + '];\n' + extraCode;
-  //   return toReturn;
-  // } else if ( argument0.indexOf( '[0]' ) !== -1 && argument0.indexOf( varName ) !== -1 && blocklyStopped === false ) {
+  if ( argument0.indexOf(',') !== -1 ) {
+    var extraCode = "vwf.fireEvent( '" + vwf_view.kernel.application() + 
+                  "', 'updatedBlocklyVariable', " + " [ '" + varName + "', [" + argument0 + "] ] );\n";
+    var toReturn = varName + ' = [' +  argument0  + '];\n' + extraCode;
+    return toReturn;
+  } else if ( argument0.indexOf( '[0]' ) !== -1 && argument0.indexOf( varName ) !== -1 && blocklyStopped === false ) {
       
-  //     var varOP = blocklyVariables[ varName ];
+      var varOP = blocklyVariables[ varName ];
 
-  //     if ( varOP !== undefined ) {
-  //       var val = varOP[ 0 ];
-  //       vwf.fireEvent( vwf_view.kernel.application(), 'updatedBlocklyVariable',  [ varName, val ] );
-  //     }
-  //     return '';
+      if ( varOP !== undefined ) {
+        console.log('updating [0]');
+        var val = varOP[ 0 ];
+        vwf.fireEvent( vwf_view.kernel.application(), 'updatedBlocklyVariable',  [ varName, val ] );
+      }
+      return '';
 
-  // } else if ( argument0.indexOf( '[1]' ) !== -1 && argument0.indexOf( varName ) !== -1 && blocklyStopped === false ) {
+  } else if ( argument0.indexOf( '[1]' ) !== -1 && argument0.indexOf( varName ) !== -1 && blocklyStopped === false ) {
       
-  //     var varOP = blocklyVariables[ varName ];
+      var varOP = blocklyVariables[ varName ];
 
-  //     if ( varOP !== undefined ) {
-  //       var val = varOP[ 1 ];
-  //       vwf.fireEvent( vwf_view.kernel.application(), 'updatedBlocklyVariable',  [ varName, val ] );
-  //     }
-  //     return '';
+      if ( varOP !== undefined ) {
+        console.log('updating [1]');
+        var val = varOP[ 1 ];
+        vwf.fireEvent( vwf_view.kernel.application(), 'updatedBlocklyVariable',  [ varName, val ] );
+      }
+      return '';
 
-  // } else {
-  //   var extraCode = "vwf.fireEvent( '" + vwf_view.kernel.application() + 
-  //                 "', 'updatedBlocklyVariable', " + " [ '" + varName + "', " + argument0 + " ] );\n";
-  //   var toReturn = varName + ' = ' + argument0 + ';\n' + extraCode;
-  //   return toReturn;
-  // }
+  } else {
+    console.log( 'updating variable:'+ argument0 );
+    var extraCode = "vwf.fireEvent( '" + vwf_view.kernel.application() + 
+                  "', 'updatedBlocklyVariable', " + " [ '" + varName + "', " + argument0 + " ] );\n";
+    var toReturn = varName + ' = ' + argument0 + ';\n' + extraCode;
+    return toReturn;
+  }
 
 
 };
@@ -1180,34 +1181,39 @@ Blockly.Blocks['rover_moveRadial_ordered'] = {
 Blockly.JavaScript['rover_moveRadial_ordered'] = function(block) {
   var value = Blockly.JavaScript.valueToCode(block, 'op', Blockly.JavaScript.ORDER_MEMBER) || 0;
 
-  console.log( value );
 
-  var valueArray = [ value ];
+  console.log( 'radialval'+value );
 
-  var value_x = valueArray[ 0 ] || 0;
-  var value_y = valueArray[ 1 ] || 0;
+  if (value.indexOf(',') !== -1) {
+    value = [ value ];
+  }
 
-  console.log( value_x );
-  console.log( value_y );
+  var value_x = value[ 0 ] || 0;
+  var value_y = value[ 1 ] || 0;
+
+  if ( isNaN( value_x ) || isNaN( value_y )) {
+    console.log('nan');
+    var extractedVal = blocklyVariables[ value ];
+    if ( extractedVal !== undefined ) {
+      console.log(extractedVal);
+      value_x = extractedVal[ 0 ][0];
+      console.log(extractedVal[ 0 ]);
+      value_y = extractedVal[ 0 ][1];
+      console.log(extractedVal[ 1 ]);
+    }
+  }
 
   // How long should we take to execute this block?
   var exeTime = Math.round( Math.sqrt(value_x*value_x + value_y*value_y) );
 
   var action = {
-    nodeID: Blockly.JavaScript.vwfID,
-    methodName: 'moveRadial',
+    nodeID: block.data,
+    methodName: 'moveRadialAbsolute',
     exeTime: exeTime,
-    args: [ value_x, value_y, false ]
+    args: [ value_x, value_y ]
   };
 
-  var blockCode = " { 'blockName': 'radialMove', 'id': " + block.id + ", 'node': '" + block.data + "', ";
-  blockCode += ( action.exeTime ) ? "'exeTime': " + action.exeTime + "}" : "'exeTime': 1 }";
-  var actionCode = "{ 'nodeID': '" + action.nodeID + "', 'methodName': '" + action.methodName + "', ";
-  actionCode += ( action.args.length > 0 ) ? "'args': [" + action.args + "]}" : "'args': [] }";
-  var returnCode = "vwf.callMethod( '" + vwf_view.kernel.application() + "', 'executeBlock', [ " + blockCode + "," +
-                    actionCode + "] );\n"; 
-
-  return returnCode; 
+  return constructBlockExeFuncCall( block, action );
 
 };
 
@@ -1243,7 +1249,7 @@ Blockly.JavaScript['rover_moveRadial'] = function(block) {
   var exeTime = Math.round( Math.sqrt(value_x*value_x + value_y*value_y) );
 
   var action = {
-    nodeID: Blockly.JavaScript.vwfID,
+    nodeID: block.data,
     methodName: 'moveRadial',
     exeTime: exeTime,
     args: [ value_x, value_y, true ]
@@ -1800,7 +1806,6 @@ function constructBlockExeFuncCall( block, action ) {
   actionCode += ( action.args.length > 0 ) ? "'args': [" + action.args + "]}" : "'args': [] }";
   var returnCode = "vwf.callMethod( '" + vwf_view.kernel.application() + "', 'executeBlock', [ " + blockCode + "," +
                     actionCode + "] );\n"; 
-
   return returnCode; 
 }
 

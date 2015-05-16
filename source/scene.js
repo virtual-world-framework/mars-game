@@ -236,6 +236,9 @@ function calcGridBounds( grid ) {
 }
 
 this.executeBlock = function ( block, action ) {
+
+    console.log('executing block');
+
     var blockName = block[ 0 ];
     var blockID = block[ 1 ];
     var blockNode = block[ 2 ];
@@ -247,6 +250,8 @@ this.executeBlock = function ( block, action ) {
     var methodName = action[ 1 ];
     var args = action[ 2 ];
     var node = this.findByID( this, nodeID );
+
+    console.log(node);
     if ( node ) {
         args = args instanceof Array ? args : [ args ];
         node[ methodName ].apply( node, args );
