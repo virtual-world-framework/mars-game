@@ -22,7 +22,7 @@ var defaultNav = {
 var thirdPerson_ZoomLevel;
 
 // Zoom bounds in meters
-var topDown_MaxAltitude = 200;
+var topDown_MaxAltitude = 100;
 var topDown_MinAltitude = 9;
 var thirdPerson_MaxZoom = 21;
 var thirdPerson_MinZoom = 3;
