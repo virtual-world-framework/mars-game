@@ -108,12 +108,11 @@ children:
               - rover
               - [ 16, 26 ]
           actions:
-          - scenarioSuccess:
           - showAlert:
             - "I found the base pod!"
-          - hideBlockly:
-          - stopSound:
-            - musicStandardGameplay
+          - scenarioSuccess:
+          - playSound:
+            - musicSuccessShort
 
         scenarioEnded:
           triggerCondition:
@@ -125,6 +124,19 @@ children:
             - anomalyPosition
           - clearBlackboardEntry:
             - signalPosition
+
+        disableFailOnIncomplete:
+          triggerCondition:
+          - or:
+            - onBlocklyStarted:
+              - rover
+            - onBlocklyStarted:
+              - rover2
+            - onBlocklyStarted:
+              - rover3
+          actions:
+          - writeToBlackboard:
+            - disableFailOnIncompleteProgram
 
   grid:
     includes: source/grid.vwf
