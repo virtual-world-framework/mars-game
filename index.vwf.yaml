@@ -231,23 +231,23 @@ children:
     extends: source/smokeParticle.vwf
     properties:
       translation: [ 13.5, 16.5, 2 ]
-  backdrop:
-    extends: http://vwf.example.com/node3.vwf
-    source: assets/3d/Terrain/backdrop.dae
-    type: model/vnd.collada+xml
-    children:
-      Group023:
-        extends: http://vwf.example.com/node3.vwf
-        children:
-          hills: 
-            extends: http://vwf.example.com/node3.vwf
-            children:
-              material:
-                extends: http://vwf.example.com/material.vwf
-                properties:
-                  alphaTest: 0.85
-          mountains:
-            extends: http://vwf.example.com/node3.vwf
+  # backdrop:
+  #   extends: http://vwf.example.com/node3.vwf
+  #   source: assets/3d/Terrain/backdrop.dae
+  #   type: model/vnd.collada+xml
+  #   children:
+  #     Group023:
+  #       extends: http://vwf.example.com/node3.vwf
+  #       children:
+  #         hills: 
+  #           extends: http://vwf.example.com/node3.vwf
+  #           children:
+  #             material:
+  #               extends: http://vwf.example.com/material.vwf
+  #               properties:
+  #                 alphaTest: 0.85
+  #         mountains:
+  #           extends: http://vwf.example.com/node3.vwf
   sunLight:
     extends: http://vwf.example.com/light.vwf
     properties:
@@ -708,6 +708,8 @@ children:
     includes: source/scenario/scenario3f.vwf
   mission3task1:
     includes: source/scenario/mission3task1.vwf
+  mission4task1:
+    includes: source/scenario/mission4task1.vwf
   mission5task1:
     includes: source/scenario/mission5task1.vwf
   blocklyGraph:
