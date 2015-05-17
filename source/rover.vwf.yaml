@@ -66,6 +66,7 @@ properties:
   positionSensorValue: []
   positionSensorValueX: 2
   positionSensorValueY: 2
+  currentlySurveying: false
   signalSensorValue:
     set: |
       if ( this.signalSensorValue != value ) {

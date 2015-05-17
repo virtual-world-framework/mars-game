@@ -133,21 +133,19 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 break;
 
             case "blocklyStopped":
-                if ( currentBlocklyNodeID === nodeID ) {
-
-                    vwf_view.kernel.setProperty( nodeID, "blockly_timeBetweenLines", 1 );
-                    startBlocklyButton.className = "";
-                    var indicator = document.getElementById( "blocklyIndicator" );
-                    var count = document.getElementById( "blocklyIndicatorCount" );
-                    indicator.className = "stopped";
-                    count.className = "stopped";
-                    var procedureIndicator = document.getElementById( "blocklyProcedureIndicator" );
-                    procedureIndicator.className = "stopped";
-                    blocklyStopped = true;
-                    var speedButton = document.getElementById( "blocklySpeedButton" );
-                    speedButton.style.opacity = 1.0;
-                    speedButton.style.pointerEvents = "inherit";
-                }
+                vwf_view.kernel.setProperty( nodeID, "blockly_timeBetweenLines", 1 );
+                startBlocklyButton.className = "";
+                var indicator = document.getElementById( "blocklyIndicator" );
+                var count = document.getElementById( "blocklyIndicatorCount" );
+                indicator.className = "stopped";
+                count.className = "stopped";
+                var procedureIndicator = document.getElementById( "blocklyProcedureIndicator" );
+                procedureIndicator.className = "stopped";
+                blocklyStopped = true;
+                var speedButton = document.getElementById( "blocklySpeedButton" );
+                speedButton.style.opacity = 1.0;
+                speedButton.style.pointerEvents = "inherit";
+            
             case "blocklyErrored":
                 startBlocklyButton.className = "";
                 break;
@@ -183,7 +181,18 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
 
                 Blockly.mainWorkspace.fireChangeEvent();
 
-                if ( blockTime !== undefined && blockName !== 'radialMove' ) {
+                if ( blockName === 'moveRadial' ) {
+                    var blocklyNodeValues = blocklyNodes[ blockNode ];
+                    var currentPosition = blocklyNodeValues[ 'positionSensorValue' ];
+
+                    var xOffset = blockArgs[ 0 ] - currentPosition[ 0 ];
+                    var yOffset = blockArgs[ 1 ] - currentPosition[ 1 ];
+
+                    var hypot = Math.sqrt( ( xOffset * xOffset ) + ( yOffset * yOffset ) );
+                    console.log('setting time:'+hypot);
+                    
+                    vwf_view.kernel.setProperty( blockNode, "blockly_timeBetweenLines", hypot );
+                } else {
                     vwf_view.kernel.setProperty( blockNode, "blockly_timeBetweenLines", blockTime );
                 }
                 
@@ -812,41 +821,22 @@ function selectBlock( blockID ) {
 
 function handleDrawingBlocks( blockName, blockNode, args ) {
     var sceneID = appID;
-    var status = vwf.getProperty( blockNode, "currentlySurveying" );
 
     if ( blockName === 'startTriangle' && blockNode !== undefined ) {
+        vwf.setProperty( blockNode, "surveyArray", [] );
         var blocklyNodeValues = blocklyNodes[ blockNode ];
         var currentPosition = blocklyNodeValues[ 'positionSensorValue' ];
         var currentArray = [];
-        currentArray.push( currentPosition );
         vwf.setProperty( blockNode, "surveyArray", currentArray );
-        vwf.setProperty( blockNode, "currentlySurveying", true );
     } else if ( blockName === 'endTriangle' && blockNode !== undefined ) {
         var blocklyNodeValues = blocklyNodes[ blockNode ];
         var currentPosition = blocklyNodeValues[ 'positionSensorValue' ];
         var currentArray = vwf.getProperty( blockNode, "surveyArray" );
-        currentArray.push( currentPosition );
-        //vwf.setProperty( blockNode, "surveyArray", currentArray );
-        if ( blockNode === perryRover ) {
-            var firstPos = currentArray[ 0 ];
-            var lastPos = currentArray[ currentArray.length - 1];
-            if ( firstPos[ 0 ] === lastPos[ 0 ] && firstPos[ 1 ] === lastPos[ 1 ] ) {
-                vwf.fireEvent( appID, "blocklyCompletedPolygon", [ 'rover2', currentArray ] );
-            } else {
-                vwf.fireEvent( appID, "blocklyFailedPolygon", [ 'rover2', currentArray ] );
-            }
-        }
-        vwf.setProperty( blockNode, "surveyArray", [] );
-        vwf.setProperty( blockNode, "currentlySurveying", false );
+        console.log(currentArray);
+        vwf.fireEvent( appID, "blocklyCompletedPolygon", [ 'rover2', currentArray ] );
     } else if ( blockName === 'markPoint' && blockNode !== undefined ) {
         var blocklyNodeValues = blocklyNodes[ blockNode ];
         var currentPosition = blocklyNodeValues[ 'positionSensorValue' ];
-        var currentArray = vwf.getProperty( blockNode, "surveyArray" );
-        currentArray.push( currentPosition );
-        vwf.setProperty( blockNode, "surveyArray", currentArray );
-    } else if ( blockName === 'moveRadial' && status === true && blockNode !== undefined ) {
-        var blocklyNodeValues = blocklyNodes[ blockNode ];
-        var currentPosition = [ args[ 0 ], args[ 1 ] ];
         var currentArray = vwf.getProperty( blockNode, "surveyArray" );
         currentArray.push( currentPosition );
         vwf.setProperty( blockNode, "surveyArray", currentArray );
@@ -859,6 +849,10 @@ function indicateBlock( blockID ) {
     if ( workspace ) {
         block = workspace.getBlockById( blockID );
     }
+
+    // HACK: New blocks break tracing... disabling all for now.
+
+    return;
 
     // Disable indication with procedures for now.
     for ( var i = 0; i < workspace.topBlocks_.length; i++ ) {
@@ -991,18 +985,19 @@ function indicateBlock( blockID ) {
         lastBlockIDExecuted = block.id;
 
         var pos = block.getRelativeToSurfaceXY();
-        var xScrollOffset = workspace.scrollX;
-        var yScrollOffset = workspace.scrollY;
+        // var xScrollOffset = workspace.scrollX;
+        // var yScrollOffset = workspace.scrollY;
 
-        //When the flyout width changes with block sizes in categories we shift
-        var flyout = document.getElementsByClassName( "blocklySvg" ); 
-        var flyoutDescriptor = flyout[ 0 ].childNodes[ 2 ].childNodes[ 0 ].getAttribute( 'd' );
-        var flyoutDimensions = flyoutDescriptor.substring( 8, 11 );
+        // //When the flyout width changes with block sizes in categories we shift
+        // var flyout = document.getElementsByClassName( "blocklySvg" ); 
+        // var flyoutDescriptor = flyout[ 0 ].childNodes[ 2 ].childNodes[ 0 ].getAttribute( 'd' );
+        // var flyoutDimensions = flyoutDescriptor.substring( 8, 11 );
 
-        var categoryWidth = document.getElementsByClassName( "blocklyToolboxDiv" )[0].offsetWidth;
-        var flyoutOffset = Number( flyoutDimensions ) - categoryWidth + 50;
+        // var categoryWidth = document.getElementsByClassName( "blocklyToolboxDiv" )[0].offsetWidth;
+        // var flyoutOffset = Number( flyoutDimensions ) - categoryWidth + 50;
 
-        moveBlocklyIndicator( pos.x + xScrollOffset - flyoutOffset, pos.y + yScrollOffset + 3 );
+        // moveBlocklyIndicator( pos.x + xScrollOffset - flyoutOffset, pos.y + yScrollOffset + 3 );
+        moveBlocklyIndicator( pos.x , pos.y );
     } else {
         //hideBlocklyIndicator();
     }

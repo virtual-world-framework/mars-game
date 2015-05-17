@@ -23,6 +23,7 @@ this.generateObject = function( objDefinition, parentObj, payload ) {
     var objKeys = Object.keys( objDefinition );
     if ( objKeys.length != 1 )
     {
+        console.log('malformed data');
         this.logger.errorx( "generateObject", "Malformed data definition." );
         return undefined;
     }

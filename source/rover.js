@@ -136,10 +136,12 @@ this.moveRadialAbsolute = function( valueX, valueY ) {
         valueY = temp[1];
     }
 
+    var gridCoords = this.currentGrid.getGridFromGamePos( [ valueX, valueY ] );
+
     var scene = this.sceneNode;
 
-    var xOffset = valueX - this.currentGridSquare[ 0 ];
-    var yOffset = valueY - this.currentGridSquare[ 1 ];
+    var xOffset = gridCoords[ 0 ] - this.currentGridSquare[ 0 ];
+    var yOffset = gridCoords[ 1 ] - this.currentGridSquare[ 1 ];
 
     var radians = Math.atan2( yOffset, xOffset ); // In radians 
     var heading = radians * ( 180 / Math.PI );
@@ -160,52 +162,41 @@ this.moveRadialAbsolute = function( valueX, valueY ) {
 
     var displacement = [  xOffset * this.currentGrid.gridSquareLength,  yOffset * this.currentGrid.gridSquareLength, 0 ];
 
-
-    vwf.setProperty( this.id, "blockly_timeBetweenLines", hypot );
-
     //First check if the coordinate is valid
     if ( this.currentGrid.validCoord( proposedNewGridSquare ) ) {
 
-        //Then check if the boundary value allows for movement:
         var energyRequired = this.currentGrid.getEnergy( proposedNewGridSquare );
-        if ( energyRequired < 0 ) {
-            this.moveFailed( "collision" );
-        } else if ( energyRequired > this.battery ) {
-            this.battery = 0;
-            this.moveFailed( "battery" );
-        } else {
 
-            //Otherwise, check if the space is occupied
-            if ( !this.checkRadialCollision( this.currentGridSquare, proposedNewGridSquare ) ){
-                this.currentGrid.moveObjectOnGrid( this.id, this.currentGridSquare, proposedNewGridSquare );
-                this.currentGridSquare = proposedNewGridSquare;
-                
-                // TODO: This should use worldTransformBy, but we are getting a bug where the rover's transform isn't set
-                //       yet when this method is called.  Until we can debug that, we are assuming that the rover's 
-                //       parent's frame of reference is the world frame of reference
+        //Otherwise, check if the space is occupied
+        if ( !this.checkRadialCollision( this.currentGridSquare, proposedNewGridSquare ) ){
+            this.currentGrid.moveObjectOnGrid( this.id, this.currentGridSquare, proposedNewGridSquare );
+            this.currentGridSquare = proposedNewGridSquare;
+            
+            // TODO: This should use worldTransformBy, but we are getting a bug where the rover's transform isn't set
+            //       yet when this method is called.  Until we can debug that, we are assuming that the rover's 
+            //       parent's frame of reference is the world frame of reference
 
 
-                this.translateOnTerrain( displacement, hypot, energyRequired );
-                // this.worldTransformBy( [
-                //   1, 0, 0, 0,
-                //   0, 1, 0, 0,
-                //   0, 0, 1, 0,
-                //   dirVector[ 0 ] * this.gridSquareLength, dirVector[ 1 ] * this.gridSquareLength, 0, 0 ], 1 );
+            this.translateOnTerrain( displacement, hypot, energyRequired );
+            // this.worldTransformBy( [
+            //   1, 0, 0, 0,
+            //   0, 1, 0, 0,
+            //   0, 0, 1, 0,
+            //   dirVector[ 0 ] * this.gridSquareLength, dirVector[ 1 ] * this.gridSquareLength, 0, 0 ], 1 );
 
-                var inventoriableObjects = this.currentGrid.getInventoriables( proposedNewGridSquare );
-                if ( inventoriableObjects ){
-                    for ( var i = 0; i < inventoriableObjects.length; i++ ) {
-                        this.currentGrid.removeFromGrid( inventoriableObjects[ i ], proposedNewGridSquare );
-                        this.cargo.add( inventoriableObjects[ i ] );
-                    }
+            var inventoriableObjects = this.currentGrid.getInventoriables( proposedNewGridSquare );
+            if ( inventoriableObjects ){
+                for ( var i = 0; i < inventoriableObjects.length; i++ ) {
+                    this.currentGrid.removeFromGrid( inventoriableObjects[ i ], proposedNewGridSquare );
+                    this.cargo.add( inventoriableObjects[ i ] );
                 }
-                this.moved();
-                this.activateSensor( 'position' );
-                this.activateSensor( 'heading', this.heading );
-                //this.activateSensor( 'anomaly' );
-            } else {
-                this.moveFailed( "collision" );
             }
+            this.moved();
+            this.activateSensor( 'position' );
+            this.activateSensor( 'heading', this.heading );
+            //this.activateSensor( 'anomaly' );
+        } else {
+            this.moveFailed( "collision" );
         }
     } else {
         this.moveFailed( "collision" );
@@ -260,8 +251,6 @@ this.moveRadial = function( xValue, yValue, offset ) {
 
         var displacement = [  xOffset * this.currentGrid.gridSquareLength,  yOffset * this.currentGrid.gridSquareLength, 0 ];
 
-
-        vwf.setProperty( this.id, "blockly_timeBetweenLines", hypot );
     }
     
 
@@ -668,9 +657,10 @@ this.activateSensor = function( sensor, value ) {
     }
 
     if ( sensor === 'position' ) {
-        this.positionSensorValue = this.currentGridSquare;
-        this.positionSensorValueX = this.currentGridSquare[ 0 ];
-        this.positionSensorValueY = this.currentGridSquare[ 1 ];
+        var currentLocation = this.currentGrid.getGamePosFromGrid( this.currentGridSquare );
+        this.positionSensorValue = currentLocation;
+        this.positionSensorValueX = currentLocation[ 0 ];
+        this.positionSensorValueY = currentLocation[ 1 ];
         return;
     }
 
@@ -678,24 +668,32 @@ this.activateSensor = function( sensor, value ) {
         // This sensor just checks the current position against the 
         //  "signalPosition" on the blackboard (if any).
         var signalPos = this.sceneNode.sceneBlackboard[ "signalPosition" ];
-        var currentPos = this.currentGridSquare;
 
-        var deltaX = signalPos[ 0 ] - currentPos[ 0 ];
-        var deltaY = signalPos[ 1 ] - currentPos[ 1 ];
+        if ( signalPos !== undefined ) {
+            var currentPos = this.currentGridSquare;
 
-        if ( deltaX === 0 && deltaY === 0 ) {
-            this.signalSensorValue = -1;
-            scene.roverSignalValue = -1;
+            var deltaX = signalPos[ 0 ] - currentPos[ 0 ];
+            var deltaY = signalPos[ 1 ] - currentPos[ 1 ];
+
+            if ( deltaX === 0 && deltaY === 0 ) {
+                this.signalSensorValue = -1;
+                scene.roverSignalValue = -1;
+                return;
+            }
+
+            var heading = ( 180 / Math.PI ) * Math.atan2( -deltaY, -deltaX ) + 180;
+            
+            //Math is getting flipped for 0 and 180 for some reason.
+            
+            this.signalSensorValue = Math.round( heading );
+            scene.roverSignalValue = Math.round( heading );
+            return; 
+        } else {
+            this.signalSensorValue = -99;
+            scene.roverSignalValue = -99;
             return;
         }
-
-        var heading = ( 180 / Math.PI ) * Math.atan2( -deltaY, -deltaX ) + 180;
         
-        //Math is getting flipped for 0 and 180 for some reason.
-        
-        this.signalSensorValue = Math.round( heading );
-        scene.roverSignalValue = Math.round( heading );
-        return;
         
     }
 
