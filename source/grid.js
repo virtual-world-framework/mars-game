@@ -100,6 +100,15 @@ this.getWorldFromGrid = function( x, y, worldVec ) {
     return worldVec;
 }
 
+this.getGridFromGamePos = function( gamePos ) {
+    var gridVec = gamePos;
+
+    gridVec[ 0 ] -= this.minX;
+    gridVec[ 1 ] -= this.minY;
+
+    return gridVec;
+}
+
 this.validCoord = function( gridCoord ) {
     if ( ( gridCoord[ 0 ] < 0 ) || 
          ( gridCoord[ 0 ] >= this.maxX - this.minX ) || 

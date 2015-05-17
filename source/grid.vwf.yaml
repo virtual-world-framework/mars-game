@@ -32,6 +32,7 @@ methods:
   getTileFromWorld:
   getGridFromWorld:
   getWorldFromGrid:
+  getGridFromGamePos:
   validCoord:
   getObjectsAtCoord:
   addToGrid:
