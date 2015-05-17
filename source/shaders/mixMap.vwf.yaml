@@ -259,6 +259,9 @@ properties:
       float alpha = 0.0;
       float beta = 0.0;
       float gamma = 0.0;
+      p1 *= gridInterval;
+      p2 *= gridInterval;
+      p3 *= gridInterval;
       alpha = ( ( p2.y - p3.y ) * ( point.x - p3.x ) + ( p3.x - p2.x ) * ( point.y - p3.y ) )
         / ( ( p2.y - p3.y ) * ( p1.x - p3.x ) + ( p3.x - p2.x ) * ( p1.y - p3.y ) );
       beta = ( ( p3.y - p1.y ) * ( point.x - p3.x ) + ( p1.x - p3.x ) * ( point.y - p3.y ) )
