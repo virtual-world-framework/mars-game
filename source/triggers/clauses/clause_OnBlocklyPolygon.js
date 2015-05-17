@@ -13,7 +13,6 @@
 // limitations under the License.
 
 this.onGenerated = function( params, generator, payload ) {
-    console.log('generating polygon');
     if ( params && ( params.length < 2 ) && ( params.length > 3 ) ) {
         this.logger.warnx( "onGenerated", "this clause has two required and one optional " +
                             "argument: a blockly object, the intended" +
@@ -59,16 +58,12 @@ this.onPolygonFinished = function( blockNode, playerPoints ) {
 
     var points = playerPoints.slice( 0 );
 
-    console.log('polygon finished!');
     if ( this.blockNode === blockNode ) {
 
         // Does the player end up where they started? ( Closed Polygon )
 
         var startPoint = points[ 0 ];
         var endPoint = points[ points.length - 1 ];
-
-        console.log( 'start'+points[ 0 ] );
-        console.log( 'end'+points[ points.length - 1 ] );
 
         if ( startPoint[ 0 ] !== endPoint[ 0 ] || startPoint[ 1 ] !== endPoint[ 1 ] ) {
             console.log('start not end');

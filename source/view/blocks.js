@@ -412,7 +412,6 @@ Blockly.JavaScript['variables_set'] = function( block ) {
       return '';
 
   } else {
-    console.log( 'updating variable:'+ argument0 );
     var extraCode = "vwf.fireEvent( '" + vwf_view.kernel.application() + 
                   "', 'updatedBlocklyVariable', " + " [ '" + varName + "', " + argument0 + " ] );\n";
     var toReturn = varName + ' = ' + argument0 + ';\n' + extraCode;
@@ -1386,30 +1385,33 @@ Blockly.JavaScript['rover_moveRadial_absolute'] = function(block) {
 
   // How long should we take to execute this block?
 
-  if ( isNaN( value_x ) ) {
-    var extractedVal = blocklyVariables[ value_x ];
-    if ( extractedVal !== undefined ) {
-      value_x = extractedVal;
-    } else {
-      value_x = 0;
-    }
-  }
+  // if ( isNaN( value_x ) ) {
+  //   var extractedVal = blocklyVariables[ value_x ];
+  //   if ( extractedVal !== undefined ) {
+  //     console.log('extracting');
+  //     value_x = extractedVal;
+  //   } else {
+  //     value_x = 0;
+  //   }
+  // }
 
-  if ( isNaN( value_y ) ) {
-    var extractedVal = blocklyVariables[ value_y ];
-    if ( extractedVal !== undefined ) {
-      value_y = extractedVal;
-    } else {
-      value_y = 0;
-    }
-  }
+  // if ( isNaN( value_y ) ) {
+  //   var extractedVal = blocklyVariables[ value_y ];
 
-  var exeTime = Math.round( Math.sqrt(value_x*value_x + value_y*value_y) );
+  //   if ( extractedVal !== undefined ) {
+  //     console.log('extracting');
+  //     value_y = extractedVal;
+  //   } else {
+  //     value_y = 0;
+  //   }
+  // }
+
+  // var exeTime = Math.round( Math.sqrt(value_x*value_x + value_y*value_y) );
 
   var action = {
     nodeID: block.data,
     methodName: 'moveRadialAbsolute',
-    exeTime: exeTime,
+    exeTime: 1,
     args: [ value_x, value_y ]
   };
 
