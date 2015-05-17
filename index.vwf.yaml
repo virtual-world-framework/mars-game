@@ -660,6 +660,22 @@ children:
           _bottom: -1
           _height: 3
           _duration: 10
+  cargoPod2: 
+    extends: source/buildings/basePod.vwf
+    properties:
+      gridRotation: 270
+  cargoPod3: 
+    extends: source/buildings/basePod.vwf
+  cargoPod4: 
+    extends: source/buildings/basePod.vwf
+  solarPanel1: 
+    extends: source/buildings/solarPanel.vwf
+  solarPanel2: 
+    extends: source/buildings/solarPanel.vwf
+  solarPanel3: 
+    extends: source/buildings/solarPanel.vwf
+  solarPanel4: 
+    extends: source/buildings/solarPanel.vwf
   scenario_dummy:
     includes: source/scenario/scenario_dummy.vwf
   introScreenScenario:

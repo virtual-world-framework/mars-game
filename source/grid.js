@@ -111,6 +111,8 @@ this.getGridFromGamePos = function( gamePos ) {
     return gridCoord;
 }
 
+// The grid position is zero-indexed.  The game position takes into account the
+//  minX and minY values to give the position we display to the player
 this.getGamePosFromGrid = function( gridCoord ) {
     var gamePos = gridCoord;
 
