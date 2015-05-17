@@ -74,6 +74,7 @@ methods:
   selectBlocklyNode:
   enableBlocklyNodes:
   disableBlocklyNodes:
+  drawSchematicTriangle:
 events:
   gameStarted:
   scenarioReset:
@@ -193,8 +194,8 @@ children:
               gridColor: 0xFFAA00
               gridVisible: 0
               tilesVisible: 0
-              tileColor: 0x004411
-              triangle: [ [ 0, 0 ], [ 0, 9 ], [ 9, 0 ] ]
+              tileColor: 0x8888AA
+              triangle: []
       environmentObjects:
         extends: http://vwf.example.com/node3.vwf
         source: assets/3d/environment/mars_levels.dae
