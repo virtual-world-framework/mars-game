@@ -243,8 +243,9 @@ this.executeBlock = function ( block, action ) {
     var blockID = block[ 1 ];
     var blockNode = block[ 2 ];
     var blockExeTime = block[ 3 ];    
+    var blockArgs = action[ 2 ];
 
-    this.blockExecuted( blockName, blockID, blockNode, blockExeTime );
+    this.blockExecuted( blockName, blockID, blockNode, blockExeTime, blockArgs );
 
     var nodeID = action[ 0 ];
     var methodName = action[ 1 ];

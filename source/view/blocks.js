@@ -1353,7 +1353,47 @@ Blockly.JavaScript['rover_moveRadial'] = function(block) {
     exeTime: exeTime,
     args: [ value_x, value_y, true ]
   };
-  return constructBlockExeFuncCall( block, action );
+  return constructBlockExeFuncCall( block, action, 'moveRadial' );
+};
+
+Blockly.Blocks['rover_moveRadial_absolute'] = {
+  init: function() {
+    this.setHelpUrl('http://www.example.com/');
+    this.setColour(20);
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("moveTo:");
+     this.appendDummyInput()
+         .setAlign(Blockly.ALIGN_CENTRE)
+         .appendField("");
+    this.appendValueInput("x");
+     this.appendDummyInput()
+         .setAlign(Blockly.ALIGN_CENTRE)
+         .appendField("");
+    this.appendValueInput("y");
+    this.setInputsInline(true);
+    this.setPreviousStatement(true, "null");
+    this.setNextStatement(true, "null");
+    this.data = currentBlocklyNodeID;
+    var thisBlock = this;
+    this.setTooltip("Moves to the specified coordinate");
+  }
+};
+
+Blockly.JavaScript['rover_moveRadial_absolute'] = function(block) {
+  var value_x = Blockly.JavaScript.valueToCode(block, 'x', Blockly.JavaScript.ORDER_ATOMIC) || 0;
+  var value_y = Blockly.JavaScript.valueToCode(block, 'y', Blockly.JavaScript.ORDER_ATOMIC) || 0;
+
+  // How long should we take to execute this block?
+  var exeTime = Math.round( Math.sqrt(value_x*value_x + value_y*value_y) );
+
+  var action = {
+    nodeID: block.data,
+    methodName: 'moveRadialAbsolute',
+    exeTime: exeTime,
+    args: [ value_x, value_y ]
+  };
+  return constructBlockExeFuncCall( block, action, 'moveRadial' );
 };
 
 Blockly.Blocks['rover_turn'] = {
@@ -1897,9 +1937,13 @@ function constructBlockExeEventCall( block ) {
   return eventCall;  
 }
 
-function constructBlockExeFuncCall( block, action ) {
+function constructBlockExeFuncCall( block, action, name ) {
 
-  var blockCode = " { 'blockName': '" + block + "', 'id': " + block.id + ", 'node': '" + block.data + "', ";
+  if ( name !== undefined ) {
+    var blockCode = " { 'blockName': '" + name + "', 'id': " + block.id + ", 'node': '" + block.data + "', ";
+  } else {
+    var blockCode = " { 'blockName': '" + block + "', 'id': " + block.id + ", 'node': '" + block.data + "', ";
+  }
   blockCode += ( action.exeTime ) ? "'exeTime': " + action.exeTime + "}" : "'exeTime': 1 }";
   var actionCode = "{ 'nodeID': '" + action.nodeID + "', 'methodName': '" + action.methodName + "', ";
   actionCode += ( action.args.length > 0 ) ? "'args': [" + action.args + "]}" : "'args': [] }";

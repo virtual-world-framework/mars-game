@@ -179,6 +179,7 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 var blockID = eventArgs[ 1 ];
                 var blockNode = eventArgs[ 2 ];
                 var blockTime = eventArgs[ 3 ];
+                var blockArgs = eventArgs[ 4 ];
 
                 Blockly.mainWorkspace.fireChangeEvent();
 
@@ -192,7 +193,7 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                     lastBlockIDExecuted = blockID;
                 }
 
-                handleDrawingBlocks( blockName, blockNode );
+                handleDrawingBlocks( blockName, blockNode, blockArgs );
 
                 break;
                 
@@ -809,27 +810,43 @@ function selectBlock( blockID ) {
     }
 }
 
-function handleDrawingBlocks( blockName, blockNode ) {
+function handleDrawingBlocks( blockName, blockNode, args ) {
     var sceneID = appID;
+    var status = vwf.getProperty( blockNode, "currentlySurveying" );
+
     if ( blockName === 'startTriangle' && blockNode !== undefined ) {
-        vwf.setProperty( blockNode, "surveyArray", [] );
         var blocklyNodeValues = blocklyNodes[ blockNode ];
         var currentPosition = blocklyNodeValues[ 'positionSensorValue' ];
         var currentArray = [];
         currentArray.push( currentPosition );
         vwf.setProperty( blockNode, "surveyArray", currentArray );
+        vwf.setProperty( blockNode, "currentlySurveying", true );
     } else if ( blockName === 'endTriangle' && blockNode !== undefined ) {
         var blocklyNodeValues = blocklyNodes[ blockNode ];
         var currentPosition = blocklyNodeValues[ 'positionSensorValue' ];
         var currentArray = vwf.getProperty( blockNode, "surveyArray" );
         currentArray.push( currentPosition );
-        vwf.setProperty( blockNode, "surveyArray", currentArray );
+        //vwf.setProperty( blockNode, "surveyArray", currentArray );
         if ( blockNode === perryRover ) {
-            vwf.fireEvent( appID, "blocklyCompletedPolygon", [ 'rover2', currentArray ] );
+            var firstPos = currentArray[ 0 ];
+            var lastPos = currentArray[ currentArray.length - 1];
+            if ( firstPos[ 0 ] === lastPos[ 0 ] && firstPos[ 1 ] === lastPos[ 1 ] ) {
+                vwf.fireEvent( appID, "blocklyCompletedPolygon", [ 'rover2', currentArray ] );
+            } else {
+                vwf.fireEvent( appID, "blocklyFailedPolygon", [ 'rover2', currentArray ] );
+            }
         }
+        vwf.setProperty( blockNode, "surveyArray", [] );
+        vwf.setProperty( blockNode, "currentlySurveying", false );
     } else if ( blockName === 'markPoint' && blockNode !== undefined ) {
         var blocklyNodeValues = blocklyNodes[ blockNode ];
         var currentPosition = blocklyNodeValues[ 'positionSensorValue' ];
+        var currentArray = vwf.getProperty( blockNode, "surveyArray" );
+        currentArray.push( currentPosition );
+        vwf.setProperty( blockNode, "surveyArray", currentArray );
+    } else if ( blockName === 'moveRadial' && status === true && blockNode !== undefined ) {
+        var blocklyNodeValues = blocklyNodes[ blockNode ];
+        var currentPosition = [ args[ 0 ], args[ 1 ] ];
         var currentArray = vwf.getProperty( blockNode, "surveyArray" );
         currentArray.push( currentPosition );
         vwf.setProperty( blockNode, "surveyArray", currentArray );
