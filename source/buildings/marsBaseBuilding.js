@@ -13,7 +13,7 @@
 // limitations under the License.
 
 this.construct = function() {
-	this.built = true;
+    this.built = false;
     if ( this.material && this.material.animate ) {
         this.material.animate();
     }

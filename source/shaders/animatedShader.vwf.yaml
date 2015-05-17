@@ -22,6 +22,7 @@ properties:
   _bottom: 0
   _height: 1
   _animating: false
+  _built: false
   uniforms:
     ceiling:
       type: "f"
@@ -128,10 +129,15 @@ properties:
     if ( this._elapsedTime >= this._duration ) {
       this._elapsedTime = this._duration;
       this._animating = false;
+      this._built = true;
     }
     var heightPct = this._elapsedTime / this._duration;
     var adjustedHeight = this._height + this.uniforms.lightTrailHeight.value;
-    this.uniforms.ceiling.value = this._bottom + adjustedHeight * heightPct;
+    if ( this._built ) {
+      this.uniforms.ceiling.value = this._bottom + adjustedHeight;
+    } else {
+      this.uniforms.ceiling.value = this._bottom + adjustedHeight * heightPct;
+    }
   vertexShader: |
     uniform float ceiling;
     #ifdef USE_SHADOWMAP

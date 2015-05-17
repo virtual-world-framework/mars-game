@@ -19,7 +19,9 @@ implements:
 properties:
   built:
     set: |
-      this.visible = value;
+      if ( this.material ) {
+        this.material._built = value;
+      }
       this.built = value;
     value: false
 methods:
