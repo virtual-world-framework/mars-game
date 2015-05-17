@@ -17,14 +17,16 @@ extends: ../gridObstacle.vwf
 implements:
   - ../griddable.vwf
 properties:
-  built:
-    set: |
-      if ( this.material ) {
-        this.material._built = value;
-      }
-      this.built = value;
-    value: false
+  useAnimatedShader: false
+  diffuseSrc: ""
+  normalSrc: ""
+  specularSrc: ""
+  glowLength: 0.1
+  buildDuration: 5
+  buildingHeight: 5
+  built: true
 methods:
   construct:
+  setUpShader:
 scripts:
   - source: marsBaseBuilding.js

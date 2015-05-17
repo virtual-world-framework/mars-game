@@ -23,3 +23,11 @@ properties:
     - [ 0, 0, 0 ]
     - [ 0, 1, 0 ]
   gridRotation: 0
+  useAnimatedShader: true
+  diffuseSrc: "assets/3d/mars_tent/mars_tent.png"
+  normalSrc: "assets/3d/mars_tent/mars_tent_n.png"
+  specularSrc: "assets/3d/mars_tent/mars_tent_s.png"
+  glowLength: 0.1
+  buildDuration: 5
+  buildingHeight: 11
+  built: false

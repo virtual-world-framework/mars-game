@@ -232,30 +232,12 @@ children:
     extends: source/smokeParticle.vwf
     properties:
       translation: [ 13.5, 16.5, 2 ]
-  # backdrop:
-  #   extends: http://vwf.example.com/node3.vwf
-  #   source: assets/3d/Terrain/backdrop.dae
-  #   type: model/vnd.collada+xml
-  #   children:
-  #     Group023:
-  #       extends: http://vwf.example.com/node3.vwf
-  #       children:
-  #         hills: 
-  #           extends: http://vwf.example.com/node3.vwf
-  #           children:
-  #             material:
-  #               extends: http://vwf.example.com/material.vwf
-  #               properties:
-  #                 alphaTest: 0.85
-  #         mountains:
-  #           extends: http://vwf.example.com/node3.vwf
   sunLight:
-    extends: http://vwf.example.com/light.vwf
+    extends: http://vwf.example.com/directionallight.vwf
     properties:
-      lightType: "directional"
       color: [ 255, 245, 230 ]
       translation: [ 2, 1, 16 ]
-      intensity: 0.6
+      intensity: 0.55
       castShadows: true
       shadowDarkness: 0.6
       shadowCameraBottom: -64
@@ -274,13 +256,12 @@ children:
     scripts:
     - source: source/lights.js
   envLight:
-    extends: http://vwf.example.com/light.vwf
+    extends: http://vwf.example.com/hemispherelight.vwf
     properties:
-      lightType: "hemisphere"
       translation: [ 0, 0, 100 ]
       color: [ 255, 200, 175 ]
       groundColor: [ 200, 160, 80 ]
-      intensity: 0.7
+      intensity: 0.5
   player:
     extends: http://vwf.example.com/node3.vwf
     children:
@@ -625,62 +606,26 @@ children:
         extends: source/pickups/helicam.vwf
       minirover:
         extends: source/pickups/minirover.vwf
-  marsBase:
-    extends: http://vwf.example.com/node3.vwf
-    children:
-      tent:
-        extends: source/buildings/tent.vwf
-        properties:
-          castShadows: true
-          receiveShadows: true
-          built: true
-        children:
-          material:
-            extends: source/shaders/animatedShader.vwf
-            properties:
-              diffuseMap: "../assets/3d/mars_tent/mars_tent.png"
-              normalMap: "../assets/3d/mars_tent/mars_tent_n.png"
-              specularMap: "../assets/3d/mars_tent/mars_tent_s.png"
-              lightTrailHeight: 0.2
-              normalScale: [ 0.75, 0.75 ]
-              shininess: 10
-              _bottom: -1
-              _height: 12
-              _duration: 10
-      solarPanel:
-        extends: source/buildings/solarPanel.vwf
-        properties:
-          castShadows: true
-          receiveShadows: true
-        children:
-          material:
-            extends: source/shaders/animatedShader.vwf
-            properties:
-              diffuseMap: "../assets/3d/solar_panel/solar_panel.png"
-              normalMap: "../assets/3d/solar_panel/solar_panel_n.png"
-              specularMap: "../assets/3d/solar_panel/solar_panel_s.png"
-              lightTrailHeight: 0.2
-              normalScale: [ 0.5, 0.5 ]
-              shininess: 20
-              _bottom: 0
-              _height: 3
-              _duration: 10
-      cargoPod2: 
-        extends: source/buildings/basePod.vwf
-        properties:
-          gridRotation: 270
-      cargoPod3: 
-        extends: source/buildings/basePod.vwf
-      cargoPod4: 
-        extends: source/buildings/basePod.vwf
-      solarPanel1: 
-        extends: source/buildings/solarPanel.vwf
-      solarPanel2: 
-        extends: source/buildings/solarPanel.vwf
-      solarPanel3: 
-        extends: source/buildings/solarPanel.vwf
-      solarPanel4: 
-        extends: source/buildings/solarPanel.vwf
+  tent:
+    extends: source/buildings/tent.vwf
+  solarPanel:
+    extends: source/buildings/solarPanel.vwf
+  cargoPod2: 
+    extends: source/buildings/basePod.vwf
+    properties:
+      gridRotation: 270
+  cargoPod3: 
+    extends: source/buildings/basePod.vwf
+  cargoPod4: 
+    extends: source/buildings/basePod.vwf
+  solarPanel1: 
+    extends: source/buildings/solarPanel.vwf
+  solarPanel2: 
+    extends: source/buildings/solarPanel.vwf
+  solarPanel3: 
+    extends: source/buildings/solarPanel.vwf
+  solarPanel4: 
+    extends: source/buildings/solarPanel.vwf
   scenario_dummy:
     includes: source/scenario/scenario_dummy.vwf
   introScreenScenario:
