@@ -10,6 +10,8 @@
     <block type="controls_sensor_collision"></block>
     <block type="controls_sensor_heading"></block>
     <block type="controls_sensor_position"></block>
+    <block type="controls_sensor_position_x"></block>
+    <block type="controls_sensor_position_y"></block>
   </category>
   <category name="Variables" custom="VARIABLE">
     <block type="variables_get"></block>

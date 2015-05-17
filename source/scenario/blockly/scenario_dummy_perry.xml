@@ -12,6 +12,8 @@
     <block type="controls_sensor_collision"></block>
     <block type="controls_sensor_heading"></block>
     <block type="controls_sensor_position"></block>
+    <block type="controls_sensor_position_x"></block>
+    <block type="controls_sensor_position_y"></block>
   </category>
   <category name="Variables" custom="VARIABLE">
     <block type="variables_get"><field name="VAR">test1</field></block>
@@ -44,6 +46,8 @@
    <block type="end_triangle"></block>
    <block type="mark_point"></block>
    <block type="controls_sensor_position"></block>
+   <block type="controls_sensor_position_x"></block>
+   <block type="controls_sensor_position_y"></block>
   </category>
   <category name="Procedures" custom="PROCEDURE">
   </category>

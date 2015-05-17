@@ -159,14 +159,14 @@ Blockly.JavaScript['ordered_pair'] = function( block ) {
     otherOP = otherOP.split(',');
     if ( otherOP.constructor === Array ) {
       var code = [ Number(xValue) - Number(otherOP[0]), Number(yValue) - Number(otherOP[1]) ];
-      return [ code, Blockly.JavaScript.ORDER_MEMBER ];
+      return [ code, Blockly.JavaScript.ORDER_ATOMIC ];
     }
   } else if ( input[0] === '+' ){
     var otherOP = input.slice( 1 );
     otherOP = otherOP.split(',');
     if ( otherOP.constructor === Array ) {
       var code = [ Number(xValue) + Number(otherOP[0]), Number(yValue) + Number(otherOP[1]) ];
-      return [ code, Blockly.JavaScript.ORDER_MEMBER ];
+      return [ code, Blockly.JavaScript.ORDER_ATOMIC ];
     }
   } else if ( inputCheck === '.x') {
     var code =  xValue + input.slice( 2 );
@@ -301,28 +301,28 @@ Blockly.JavaScript[ 'variables_get' ] = function( block ) {
 
   var val = blocklyVariables[ code ];
   if ( input[0] === '-' && input.indexOf( ',' ) !== -1 ){
-    var otherOP = [ input.slice( 1 ) ];
+    var otherOP = input.slice( 1 );
 
     if ( otherOP.constructor === Array ) {
       code = [ code + '[0] -=' + otherOP[0], code + '[1] -=' + otherOP[1] ];
-      return [ code, Blockly.JavaScript.ORDER_MEMBER ];
+      return [ code, Blockly.JavaScript.ORDER_ATOMIC ];
     }
   } else if ( input[0] === '+' && input.indexOf( ',' ) !== -1 ){
-    var otherOP = [ input.slice( 1 ) ];
+    var otherOP =  input.slice( 1 );
 
     if ( otherOP.constructor === Array ) {
       code = [ code + '[0] +=' + otherOP[0], code + '[1] +=' + otherOP[1] ];
-      return [ code, Blockly.JavaScript.ORDER_MEMBER ];
+      return [ code, Blockly.JavaScript.ORDER_ATOMIC ];
     }
   } else if ( inputCheck === '.x') {
      code =  code + '[0]' + input.slice( 2 );
-    return [ code, Blockly.JavaScript.ORDER_MEMBER ];
+    return [ code, Blockly.JavaScript.ORDER_ATOMIC ];
   } else if ( inputCheck === '.y') {
      code =  code + '[1]' + input.slice( 2 );
-    return [ code, Blockly.JavaScript.ORDER_MEMBER ];
+    return [ code, Blockly.JavaScript.ORDER_ATOMIC ];
   } else {
      code = code + input;
-    return [ code, Blockly.JavaScript.ORDER_MEMBER ];
+    return [ code, Blockly.JavaScript.ORDER_ATOMIC ];
   }
 
 };
@@ -1047,7 +1047,7 @@ Blockly.JavaScript[ 'controls_sensor_position' ] = function( block ) {
     return [ code, Blockly.JavaScript.ORDER_ATOMIC ];
   } else {
     var code = "vwf.getProperty( '" + block.data + "', 'positionSensorValue' )" + input;
-    return [ code, Blockly.JavaScript.ORDER_MEMBER ];
+    return [ code, Blockly.JavaScript.ORDER_ATOMIC ];
   }
 
  // return [ "vwf.getProperty( '" + block.data + "', 'positionSensorValue' )", Blockly.JavaScript.ORDER_ATOMIC ];
@@ -1083,6 +1083,98 @@ Blockly.Blocks[ 'controls_sensor_position' ] = {
     var position = blocklyNode[ 'positionSensorValue' ];
     if ( position !== undefined ) {
       this.setFieldValue( '(' + position[ 0 ]+ ','+ position[ 1 ] + ')','VALUE' );
+    }
+    this.setEditable(false);
+  }
+};
+
+Blockly.JavaScript[ 'controls_sensor_position_x' ] = function( block ) {
+
+  var input = Blockly.JavaScript.valueToCode(block, 'INPUT', Blockly.JavaScript.ORDER_ATOMIC) || '';
+  
+  var code = "vwf.getProperty( '" + block.data + "', 'positionSensorValueX' )" + input;
+  
+  return [ code, Blockly.JavaScript.ORDER_ATOMIC ];
+
+ // return [ "vwf.getProperty( '" + block.data + "', 'positionSensorValue' )", Blockly.JavaScript.ORDER_ATOMIC ];
+
+};
+
+Blockly.Blocks[ 'controls_sensor_position_x' ] = {
+  init: function() {
+    this.setColour( 30 );
+    this.appendValueInput('INPUT')
+        .appendField('Position X: ')
+        .appendField("(?)", "VALUE")
+        .setCheck(['OperatorAddSubtract','OperatorMultiplyDivide','OrderedGet']);
+        //.setCheck(['OperatorAddSubtract','OperatorMultiplyDivide','LeftParenthesis','RightParenthesis','Conditional']);
+    this.setOutput(true, null);
+    this.data = currentBlocklyNodeID;
+    
+    var thisBlock = this;
+    this.setTooltip( function() {
+      var content = {
+        text: "Checks our scanner for our current location in the coordinate plane."
+      }
+      return showTooltipInBlockly( thisBlock, content );
+    } );
+  },
+  onchange: function() {
+    if (!this.workspace || this.data === undefined) {
+      // Block has been deleted.
+      return;
+    }
+    this.setEditable(true);
+    var blocklyNode = blocklyNodes[ this.data ];
+    var position = blocklyNode[ 'positionSensorValueX' ];
+    if ( position !== undefined ) {
+      this.setFieldValue( '(' + position + ')','VALUE' );
+    }
+    this.setEditable(false);
+  }
+};
+
+Blockly.JavaScript[ 'controls_sensor_position_y' ] = function( block ) {
+
+  var input = Blockly.JavaScript.valueToCode(block, 'INPUT', Blockly.JavaScript.ORDER_ATOMIC) || '';
+
+  var code = "vwf.getProperty( '" + block.data + "', 'positionSensorValueY' )" + input;
+
+  return [ code, Blockly.JavaScript.ORDER_ATOMIC ];
+
+ // return [ "vwf.getProperty( '" + block.data + "', 'positionSensorValue' )", Blockly.JavaScript.ORDER_ATOMIC ];
+
+};
+
+Blockly.Blocks[ 'controls_sensor_position_y' ] = {
+  init: function() {
+    this.setColour( 30 );
+    this.appendValueInput('INPUT')
+        .appendField('Position Y: ')
+        .appendField("(?)", "VALUE")
+        .setCheck(['OperatorAddSubtract','OperatorMultiplyDivide','OrderedGet']);
+        //.setCheck(['OperatorAddSubtract','OperatorMultiplyDivide','LeftParenthesis','RightParenthesis','Conditional']);
+    this.setOutput(true, null);
+    this.data = currentBlocklyNodeID;
+    
+    var thisBlock = this;
+    this.setTooltip( function() {
+      var content = {
+        text: "Checks our scanner for our current location in the coordinate plane."
+      }
+      return showTooltipInBlockly( thisBlock, content );
+    } );
+  },
+  onchange: function() {
+    if (!this.workspace || this.data === undefined) {
+      // Block has been deleted.
+      return;
+    }
+    this.setEditable(true);
+    var blocklyNode = blocklyNodes[ this.data ];
+    var position = blocklyNode[ 'positionSensorValueY' ];
+    if ( position !== undefined ) {
+      this.setFieldValue( '(' + position + ')','VALUE' );
     }
     this.setEditable(false);
   }
@@ -1168,7 +1260,7 @@ Blockly.Blocks['rover_moveRadial_ordered'] = {
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
         .appendField("moveTo:");
-    this.appendValueInput("op");
+    this.appendValueInput("THEOP");
     this.setInputsInline(true);
     this.setPreviousStatement(true, "null");
     this.setNextStatement(true, "null");
@@ -1179,37 +1271,44 @@ Blockly.Blocks['rover_moveRadial_ordered'] = {
 };
 
 Blockly.JavaScript['rover_moveRadial_ordered'] = function(block) {
-  var value = Blockly.JavaScript.valueToCode(block, 'op', Blockly.JavaScript.ORDER_MEMBER) || 0;
+  var value = Blockly.JavaScript.valueToCode(block, 'THEOP', Blockly.JavaScript.ORDER_ATOMIC) || 0;
 
-
-  console.log( 'radialval'+value );
-
-  if (value.indexOf(',') !== -1) {
-    value = [ value ];
+  console.log(value );
+  if ( !Array.isArray(value)) {
+   value = [ value ]; 
   }
-
-  var value_x = value[ 0 ] || 0;
-  var value_y = value[ 1 ] || 0;
+  
+  console.log(value);
+  var value_x = value[ 0 ];
+  var value_y = value[ 1 ];
 
   if ( isNaN( value_x ) || isNaN( value_y )) {
-    console.log('nan');
+    console.log('detecting nan');
+    if ( Array.isArray(value)) {
+      value = value[ 0 ];
+    }
     var extractedVal = blocklyVariables[ value ];
+    console.log('extracted:'+extractedVal);
     if ( extractedVal !== undefined ) {
-      console.log(extractedVal);
-      value_x = extractedVal[ 0 ][0];
-      console.log(extractedVal[ 0 ]);
-      value_y = extractedVal[ 0 ][1];
-      console.log(extractedVal[ 1 ]);
+      if ( Array.isArray(extractedVal[ 0 ])) {
+        console.log('isArray');
+        value_x = extractedVal[ 0 ][0];
+        value_y = extractedVal[ 0 ][1];
+      } else {
+        value_x = extractedVal[0];
+        value_y = extractedVal[1];
+      }
+      
     }
   }
 
   // How long should we take to execute this block?
-  var exeTime = Math.round( Math.sqrt(value_x*value_x + value_y*value_y) );
+  // var exeTime = Math.round( Math.sqrt(value_x*value_x + value_y*value_y) );
 
   var action = {
     nodeID: block.data,
     methodName: 'moveRadialAbsolute',
-    exeTime: exeTime,
+    exeTime: 1,
     args: [ value_x, value_y ]
   };
 

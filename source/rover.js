@@ -130,9 +130,6 @@ this.moveForward = function() {
 
 this.moveRadialAbsolute = function( valueX, valueY ) {
 
-    console.log('moving radial absolute!!');
-    console.log( valueX );
-    console.log( valueY );
     if ( valueX.constructor === Array ) {
         var temp = valueX.slice(0);
         valueX = temp[0];
@@ -141,30 +138,30 @@ this.moveRadialAbsolute = function( valueX, valueY ) {
 
     var scene = this.sceneNode;
 
-        var xOffset = valueX - this.currentGridSquare[ 0 ];
-        var yOffset = valueY - this.currentGridSquare[ 1 ];
+    var xOffset = valueX - this.currentGridSquare[ 0 ];
+    var yOffset = valueY - this.currentGridSquare[ 1 ];
 
-        var radians = Math.atan2( yOffset, xOffset ); // In radians 
-        var heading = radians * ( 180 / Math.PI );
+    var radians = Math.atan2( yOffset, xOffset ); // In radians 
+    var heading = radians * ( 180 / Math.PI );
 
-        if ( heading < 90 && heading > 0 ) {  // 'north' is rotated 90 degrees
-            this.setHeading( 360 + ( heading - 90 ) );
-        } else {
-            this.setHeading( heading - 90, 0 );
-        }
+    if ( heading < 90 && heading > 0 ) {  // 'north' is rotated 90 degrees
+        this.setHeading( 360 + ( heading - 90 ) );
+    } else {
+        this.setHeading( heading - 90, 0 );
+    }
 
-        var dirVector = [ Math.round( -Math.sin( radians ) ), Math.round( Math.cos( radians ) ) ];
+    var dirVector = [ Math.round( -Math.sin( radians ) ), Math.round( Math.cos( radians ) ) ];
 
-        var proposedNewGridSquare = [ this.currentGridSquare[ 0 ] + xOffset, 
-                                                                    this.currentGridSquare[ 1 ] + yOffset ]; 
+    var proposedNewGridSquare = [ this.currentGridSquare[ 0 ] + xOffset, 
+                                                                this.currentGridSquare[ 1 ] + yOffset ]; 
 
-        //Calculate the time to displace based on the hypotenuse
-        var hypot = Math.sqrt( ( xOffset * xOffset ) + ( yOffset * yOffset ) );
+    //Calculate the time to displace based on the hypotenuse
+    var hypot = Math.sqrt( ( xOffset * xOffset ) + ( yOffset * yOffset ) );
 
-        var displacement = [  xOffset * this.currentGrid.gridSquareLength,  yOffset * this.currentGrid.gridSquareLength, 0 ];
+    var displacement = [  xOffset * this.currentGrid.gridSquareLength,  yOffset * this.currentGrid.gridSquareLength, 0 ];
 
 
-        vwf.setProperty( this.id, "blockly_timeBetweenLines", hypot );
+    vwf.setProperty( this.id, "blockly_timeBetweenLines", hypot );
 
     //First check if the coordinate is valid
     if ( this.currentGrid.validCoord( proposedNewGridSquare ) ) {
@@ -217,9 +214,6 @@ this.moveRadialAbsolute = function( valueX, valueY ) {
 
 this.moveRadial = function( xValue, yValue, offset ) {
 
-    console.log('moving radial!!');
-    console.log(xValue);
-    console.log(yValue);
     var scene = this.sceneNode;
 
     if ( offset === true ) {
