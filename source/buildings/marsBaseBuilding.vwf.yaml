@@ -17,6 +17,8 @@ extends: ../gridObstacle.vwf
 implements:
   - ../griddable.vwf
 properties:
+  castShadows: true
+  receiveShadows: true
   useAnimatedShader: false
   diffuseSrc: ""
   normalSrc: ""
@@ -27,6 +29,7 @@ properties:
   built: true
 methods:
   construct:
+  setConstructed:
   setUpShader:
 scripts:
   - source: marsBaseBuilding.js

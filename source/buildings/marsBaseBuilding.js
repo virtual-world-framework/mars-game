@@ -25,6 +25,14 @@ this.construct = function() {
     }
 }
 
+this.setConstructed = function( value ) {
+    this.visible = value;
+    this.built = value;
+    if ( this.useAnimatedShader ) {
+        this.material._elapsedTime = Number( value ) * this.buildDuration;
+    }
+}
+
 this.setUpShader = function() {
     var materialDef = {
         "extends": "source/shaders/animatedShader.vwf",
