@@ -184,9 +184,17 @@ children:
                 - { "url": "assets/3d/environment/dirt_s.png", "wrapTexture": true }
                 - { "url": "assets/3d/environment/level2_ground1_s.png", "wrapTexture": true }
               textureResolution: 128
-              gridInterval: 3
               shininess: 5
               normalScale: [ 0.5, 0.5 ]
+              gridInterval: 3
+              laserWidth: 0.15
+              laserStrength: 0.25
+              laserIntensity: 4
+              gridColor: 0xFFAA00
+              gridVisible: 0
+              tilesVisible: 0
+              tileColor: 0x004411
+              triangle: [ [ 0, 0 ], [ 0, 9 ], [ 9, 0 ] ]
       environmentObjects:
         extends: http://vwf.example.com/node3.vwf
         source: assets/3d/environment/mars_levels.dae
@@ -205,14 +213,6 @@ children:
           maxWorldY: 712
           minWorldZ: -3
           maxWorldZ: 15
-      # crashPod:
-      #   extends: http://vwf.example.com/node3.vwf
-      #   source: assets/3d/crash_pod/crash_pod.dae
-      #   type: model/vnd.collada+xml
-      #   properties:
-      #     castShadows: true
-      #     receiveShadows: true
-      #     translation: [ 0, -1.5, 0 ]
       roverTracks:
         extends: http://vwf.example.com/node3.vwf
         source: assets/3d/Terrain/rover_tracks_straight.dae
