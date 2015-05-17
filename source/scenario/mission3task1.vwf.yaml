@@ -108,6 +108,7 @@ children:
     extends: ../triggers/triggerManager.vwf
     properties: 
       triggers$:
+
         succeedOnSuccessfulMovement_3_1:
           group: successOrFailure
           priority: 0

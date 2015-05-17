@@ -18,20 +18,6 @@ properties:
   allSoundsLoaded: false
   setUpOnce: true
   soundSet:
-    - soundName: "musicStandardGameplay"
-      soundURL: "assets/sounds/music/musicStandardGameplayLoopFullMix.ogg"
-      initialVolume: 0.8
-      isLooping: true
-      allowMultiplay: false
-      soundGroup: music
-      groupReplacementMethod: replace
-    - soundName: "musicLevel2"
-      soundURL: "assets/sounds/music/musicLevel2Loop.ogg"
-      initialVolume: 1
-      isLooping: true
-      allowMultiplay: false
-      soundGroup: music
-      groupReplacementMethod: replace
     - soundName: "musicMenuIntro"
       soundURL: "assets/sounds/music/musicMenuIntro.ogg"
       initialVolume: 0.3
@@ -47,6 +33,43 @@ properties:
       soundGroup: music
       groupReplacementMethod: queue
       queueDelayTime: 0.0
+    - soundName: "musicMission4Intro"
+      soundURL: "assets/sounds/music/musicMission4_Intro.ogg"
+      initialVolume: 0.3
+      isLooping: false
+      allowMultiplay: false
+      soundGroup: music
+      groupReplacementMethod: replace
+    - soundName: "musicMission4Loop_AfterIntro"
+      soundURL: "assets/sounds/music/musicMission4_Loop.ogg"
+      initialVolume: 0.3
+      isLooping: true
+      allowMultiplay: false
+      soundGroup: music
+      groupReplacementMethod: queue
+      queueDelayTime: 0.0
+    - soundName: "musicMission4Loop"
+      soundURL: "assets/sounds/music/musicMission4_Loop.ogg"
+      initialVolume: 0.3
+      isLooping: true
+      allowMultiplay: false
+      soundGroup: music
+      groupReplacementMethod: replace
+      queueDelayTime: 0.0
+    - soundName: "musicStandardGameplay"
+      soundURL: "assets/sounds/music/musicStandardGameplayLoopFullMix.ogg"
+      initialVolume: 0.8
+      isLooping: true
+      allowMultiplay: false
+      soundGroup: music
+      groupReplacementMethod: replace
+    - soundName: "musicLevel2"
+      soundURL: "assets/sounds/music/musicLevel2Loop.ogg"
+      initialVolume: 1
+      isLooping: true
+      allowMultiplay: false
+      soundGroup: music
+      groupReplacementMethod: replace
     - soundName: "musicFailure"
       soundURL: "assets/sounds/music/musicFailure_01.ogg"
       initialVolume: 1.0

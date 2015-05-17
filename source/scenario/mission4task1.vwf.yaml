@@ -26,7 +26,9 @@ properties:
 
   # sounds/music
   - playSound:
-    - musicStandardGameplay
+    - musicMission4Intro
+  - playSound:
+    - musicMission4Loop_AfterIntro
   - playSound:
     - environmentWind
 
@@ -134,7 +136,9 @@ children:
     properties: 
       triggers$:
 
-        SuccessOnTriangle_4_1:
+        succeedOnTriangle_4_1:
+          group: successOrFailure
+          priority: 0
           triggerCondition:
           - onBlocklyPolygon:
             - rover2
