@@ -84,6 +84,9 @@ properties:
     # arguments: blockly node and point array ( of ordered pairs )
     onBlocklyPolygon: "source/triggers/clauses/clause_OnBlocklyPolygon.vwf"
     
+    # arguments: blockly node
+    onBlocklyPolygonFailed: "source/triggers/clauses/clause_OnBlocklyPolygonFailed.vwf"
+    
     # arguments: scenarioName(s) (optional)
     onScenarioStart: "source/triggers/clauses/clause_OnScenarioStart.vwf"
     onScenarioSucceeded: "source/triggers/clauses/clause_OnScenarioSucceeded.vwf"

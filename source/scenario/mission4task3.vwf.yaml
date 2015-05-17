@@ -131,6 +131,19 @@ children:
           - playSound:
             - musicSuccessShort
 
+        disableFailOnIncomplete43:
+          triggerCondition:
+          - or:
+            - onBlocklyStarted:
+              - rover
+            - onBlocklyStarted:
+              - rover2
+            - onBlocklyStarted:
+              - rover3
+          actions:
+          - writeToBlackboard:
+            - disableFailOnIncompleteProgram
+
   grid:
     includes: source/grid.vwf
     properties:

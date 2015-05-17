@@ -105,13 +105,6 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 break;
 
             case "blocklyStarted":
-            var xml = Blockly.Xml.workspaceToDom( Blockly.getMainWorkspace() );
-        
-            Blockly.JavaScript.vwfID = node.ID;
-
-            if ( xml ) { 
-                console.log(xml);
-            }
                 var indicator = document.getElementById( "blocklyIndicator" );
                 indicator.className = "";
                 indicator.style.visibility = "inherit";
@@ -234,13 +227,11 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
 
                 var variableName = eventArgs[ 0 ];
                 var variableValue = eventArgs[ 1 ];
-                console.log( variableValue );
                 if ( eventArgs[ 2 ] !== undefined ) {
                     blocklyVariables[ variableName ] = [ variableValue , eventArgs[ 2 ] ];
                 } else {
                     blocklyVariables[ variableName ] = variableValue;
                 }
-
                 
                 Blockly.mainWorkspace.fireChangeEvent();
 
@@ -856,7 +847,10 @@ function handleDrawingBlocks( blockName, blockNode, args ) {
         var blocklyNodeValues = blocklyNodes[ blockNode ];
         var currentPosition = blocklyNodeValues[ 'positionSensorValue' ];
         var currentArray = vwf.getProperty( blockNode, "surveyArray" );
-        console.log(currentArray);
+        if ( currentArray[ 0 ][ 0 ] !== currentArray[ currentArray.length - 1 ][ 0 ] 
+            || currentArray[ 0 ][ 1 ] !== currentArray[ currentArray.length - 1 ][ 1 ] ) {
+          vwf.fireEvent( appID, "blocklyFailedPolygon", [ 'rover2', currentArray ] );  
+        }
         vwf.fireEvent( appID, "blocklyCompletedPolygon", [ 'rover2', currentArray ] );
     } else if ( blockName === 'markPoint' && blockNode !== undefined ) {
         var blocklyNodeValues = blocklyNodes[ blockNode ];
