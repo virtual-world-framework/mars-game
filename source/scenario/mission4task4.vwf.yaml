@@ -15,14 +15,14 @@
 ---
 extends: ../scenario/scenario.vwf
 properties:
-  scenarioName: mission4task1
-  nextScenarioPath: mission4task2
+  scenarioName: mission4task4
+  nextScenarioPath: mission4task5
 
   startState:
 
   # objective
   - setObjective:
-    - "Lay down nanobuilders in a triangle with vertices at (-10,0), (-10,3), and (-13,0)."
+    - "Reflect your triangle across the Y axis."
 
   # sounds/music
   - playSound:
@@ -80,9 +80,10 @@ properties:
     - rover2
     - visible
     - true
-  - addToGrid:
-    - rover2
-    - [ -10, -10 ]
+  # TODO: handle adding him if we jump to this task from elsewhere  
+  # - addToGrid:
+  #   - rover2
+  #   - [ -10, -10 ]
   - setProperty:
     - rover2
     - battery
@@ -116,7 +117,7 @@ children:
           triggerCondition:
           - onBlocklyPolygon:
             - rover2
-            - [ [ -10, 0 ], [ -10, 3 ], [ -13, 0 ] ]
+            - [ [ 0, 0 ], [ 0, 6 ], [ 6, 0 ] ]
           actions:
           - showAlert:
             - "I created the correct triangle!"

@@ -710,6 +710,16 @@ children:
     includes: source/scenario/mission3task1.vwf
   mission4task1:
     includes: source/scenario/mission4task1.vwf
+  mission4task2:
+    includes: source/scenario/mission4task2.vwf
+  mission4task3:
+    includes: source/scenario/mission4task3.vwf
+  mission4task4:
+    includes: source/scenario/mission4task4.vwf
+  mission4task5:
+    includes: source/scenario/mission4task5.vwf
+  mission4task6:
+    includes: source/scenario/mission4task6.vwf
   mission5task1:
     includes: source/scenario/mission5task1.vwf
   blocklyGraph:
