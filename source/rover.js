@@ -228,7 +228,7 @@ this.checkRadialCollision = function( currentPosition, futurePosition ) {
     var player = this.find( "//player" )[ 0 ];
     var environment = this.find( "//environment" )[ 0 ];
     var pickups = this.find( "//pickups" )[ 0 ];
-    var backdrop = this.find( "//backdrop" )[ 0 ];
+//    var backdrop = this.find( "//backdrop" )[ 0 ];
 
     var directionVector = [ 
         futureTranslation[ 0 ] - currentTranslation[ 0 ],
@@ -244,7 +244,7 @@ this.checkRadialCollision = function( currentPosition, futurePosition ) {
         directionVector[ 2 ] / vectorLength
     ];
 
-    var raycastResult = scene.raycast( currentTranslation, normalizedVector, 1.0, dist, true, [ player.id, environment.id, backdrop.id] );
+    var raycastResult = scene.raycast( currentTranslation, normalizedVector, 1.0, dist, true, [ player.id, environment.id /*, backdrop.id */] );
 
     if ( raycastResult !== undefined ) {
         if ( raycastResult.length > 0 ) {

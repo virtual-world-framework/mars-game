@@ -26,7 +26,7 @@ this.onGenerated = function( params, generator, payload ) {
     }
 
     this.objectName = params[ 0 ];
-    this.gridCoord = params[1];
+    this.worldPos = params[1];
 
     return true;
 }
@@ -36,9 +36,11 @@ this.executeAction = function() {
     var scenario = this.scenario;
     this.assert( object, "Object not found!" );
     this.assert( scenario, "Scenario not found!" );
-    // TODO: Check that the coordinate is valid?
-    object && scenario && scenario.grid.addToGridFromCoord( object, 
-                                                            this.gridCoord );
+
+    if ( object && scenario && scenario.grid ) {
+        var grid = scenario.grid.getGridFromGamePos( this.worldPos );
+        scenario.grid.addToGridFromCoord( object, grid );
+    }
 }
 
 //@ sourceURL=source/triggers/actions/action_addToGrid.js

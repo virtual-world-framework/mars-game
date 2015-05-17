@@ -55,7 +55,7 @@ this.setApplicationState = function( state ) {
             this.smoke1.visible = false;
             this.smoke2.visible = false;
             this.smoke3.visible = false;
-            this.backdrop.visible = false;
+            // this.backdrop.visible = false;
             this.sunLight.visible = false;
             this.envLight.visible = false;
             this.pickups.visible = false;
@@ -74,7 +74,7 @@ this.setApplicationState = function( state ) {
             this.smoke1.visible = true;
             this.smoke2.visible = true;
             this.smoke3.visible = true;
-            this.backdrop.visible = true;
+            // this.backdrop.visible = true;
             this.sunLight.visible = true;
             this.envLight.visible = true;
             this.pickups.visible = true;
@@ -91,7 +91,7 @@ this.setApplicationState = function( state ) {
 
 this.newGame = function() {
     this.applicationState = "playing";
-    this.activeScenarioPath = "mission3task1";
+    this.activeScenarioPath = "mission4task1";
 }
 
 this.continueGame = function( scenario ) {
