@@ -103,10 +103,10 @@ this.getWorldFromGrid = function( x, y, worldVec ) {
 // The grid position is zero-indexed.  The game position takes into account the
 //  minX and minY values to give the position we display to the player
 this.getGridFromGamePos = function( gamePos ) {
-    var gridCoord = gamePos;
+    var gridCoord = [];
 
-    gridCoord[ 0 ] -= this.minX;
-    gridCoord[ 1 ] -= this.minY;
+    gridCoord[ 0 ] = gamePos[ 0 ] - this.minX;
+    gridCoord[ 1 ] = gamePos[ 1] - this.minY;
 
     return gridCoord;
 }
@@ -114,10 +114,10 @@ this.getGridFromGamePos = function( gamePos ) {
 // The grid position is zero-indexed.  The game position takes into account the
 //  minX and minY values to give the position we display to the player
 this.getGamePosFromGrid = function( gridCoord ) {
-    var gamePos = gridCoord;
+    var gamePos = [];
 
-    gamePos[ 0 ] += this.minX;
-    gamePos[ 1 ] += this.minY;
+    gamePos[ 0 ] = gridCoord[ 0 ] + this.minX;
+    gamePos[ 1 ] = gridCoord[ 1 ] + this.minY;
 
     return gamePos;
 }

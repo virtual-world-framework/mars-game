@@ -415,8 +415,7 @@ this.disableBlocklyNodes = function( nodes ) {
 
 this.drawSchematicTriangle = function( pointA, pointB, pointC ) {
     // pointA, pointB, and pointC are in the format: [ x, y ]
-    // x and y are in game space ( 1 = 3 meters in world space )
-    // thus, [ 1, 2 ] is the point ( 3, 6 ) in world space
+    // x and y are in world space ( not grid coordinate space )
     var material = this.environment.terrain.material;
     material.triangle = [ pointA, pointB, pointC ];
 }

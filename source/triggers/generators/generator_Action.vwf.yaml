@@ -111,6 +111,9 @@ properties:
     # arguments: objectiveText
     setObjective: "source/triggers/actions/action_setObjective.vwf"
 
+    # Draws a triangle using our spiffy new shader
+    drawTriangle: "source/triggers/actions/action_drawTriangle.vwf"
+
     # TODO: These are the old start state functions - add comments for them.
     setProperty: "source/triggers/actions/action_setProperty.vwf"
     callMethod: "source/triggers/actions/action_callMethod.vwf"
@@ -121,6 +124,7 @@ properties:
     removeFromGrid: "source/triggers/actions/action_removeFromGrid.vwf"
     enableBlocklyNodes: "source/triggers/actions/action_enableBlocklyNodes.vwf"
     loadToolbox: "source/triggers/actions/action_loadToolbox.vwf"
+
 
 scripts:
 - source: generator_Action.js
