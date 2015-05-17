@@ -419,4 +419,9 @@ this.drawSchematicTriangle = function( pointA, pointB, pointC ) {
     material.triangle = [ pointA, pointB, pointC ];
 }
 
+this.hideSchematicTriangle = function() {
+    var material = this.environment.terrain.material;
+    material.triangle = [];
+}
+
 //@ sourceURL=source/scene.js

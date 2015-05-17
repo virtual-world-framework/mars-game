@@ -75,6 +75,7 @@ methods:
   enableBlocklyNodes:
   disableBlocklyNodes:
   drawSchematicTriangle:
+  hideSchematicTriangle:
 events:
   gameStarted:
   scenarioReset:
