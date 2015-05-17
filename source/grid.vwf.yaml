@@ -32,7 +32,10 @@ methods:
   getTileFromWorld:
   getGridFromWorld:
   getWorldFromGrid:
+  # The grid position is zero-indexed.  The game position takes into account the
+  # minX and minY values to give the position we display to the player
   getGridFromGamePos:
+  getGamePosFromGrid:
   validCoord:
   getObjectsAtCoord:
   addToGrid:

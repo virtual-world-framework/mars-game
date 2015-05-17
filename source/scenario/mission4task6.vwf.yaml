@@ -15,14 +15,14 @@
 ---
 extends: ../scenario/scenario.vwf
 properties:
-  scenarioName: mission4task5
-  nextScenarioPath: mission4task6
+  scenarioName: mission4task6
+  nextScenarioPath: mission5task1
 
   startState:
 
   # objective
   - setObjective:
-    - "Reflect your previous triangle across the X axis."
+    - "Reflect your previous triangle across both axes."
 
   # sounds/music
   - playSound:
@@ -117,7 +117,7 @@ children:
           triggerCondition:
           - onBlocklyPolygon:
             - rover2
-            - [ [ 0, 0 ], [ 0, -6 ], [ -6, 0 ] ]
+            - [ [ 0, 0 ], [ 0, -6 ], [ 6, 0 ] ]
           actions:
           - showAlert:
             - "I created the correct triangle!"
