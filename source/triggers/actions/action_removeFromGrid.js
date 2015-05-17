@@ -25,8 +25,10 @@ this.onGenerated = function( params, generator, payload ) {
         return false;
     }
 
+    // TODO: Why does this require you specify the position?  Shouldn't we just
+    //  get it from the object?
     this.objectName = params[ 0 ];
-    this.gridCoord = params[1];
+    this.worldPos = params[1];
 
     return true;
 }
@@ -36,9 +38,11 @@ this.executeAction = function() {
     var scenario = this.scenario;
     this.assert( object, "Object not found!" );
     this.assert( scenario, "Scenario not found!" );
-    // TODO: Check that the coordinate is valid?
-    object && scenario && scenario.grid.removeFromGrid( object.id, 
-                                                        this.gridCoord );
+
+    if ( object && scenario && scenario.grid ) {
+        var grid = scenario.grid.getGridFromGamePos( this.worldPos );
+        scenario.grid.removeFromGrid( object.id, grid );
+    }
 }
 
 //@ sourceURL=source/triggers/actions/action_removeFromGrid.js

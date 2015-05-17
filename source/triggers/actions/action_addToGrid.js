@@ -36,10 +36,11 @@ this.executeAction = function() {
     var scenario = this.scenario;
     this.assert( object, "Object not found!" );
     this.assert( scenario, "Scenario not found!" );
-    
-    var grid = scenario.grid.getGridFromGamePos( this.worldPos );
-    object && scenario && scenario.grid.addToGridFromCoord( object, 
-                                                            grid );
+
+    if ( object && scenario && scenario.grid ) {
+        var grid = scenario.grid.getGridFromGamePos( this.worldPos );
+        scenario.grid.addToGridFromCoord( object, grid );
+    }
 }
 
 //@ sourceURL=source/triggers/actions/action_addToGrid.js
