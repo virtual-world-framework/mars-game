@@ -12,9 +12,50 @@
 // See the License for the specific language governing permissions and 
 // limitations under the License.
 
+this.initialize = function() {
+    if ( this.useAnimatedShader && !this.uri ) {
+        this.future( 0 ).setUpShader();
+    }
+}
+
 this.construct = function() {
-	this.built = true;
+    this.visible = true;
     if ( this.material && this.material.animate ) {
         this.material.animate();
+    }
+}
+
+this.setConstructed = function( value ) {
+    this.visible = value;
+    this.built = value;
+    if ( this.useAnimatedShader ) {
+        this.material._elapsedTime = Number( value ) * this.buildDuration;
+    }
+}
+
+this.setUpShader = function() {
+    var materialDef = {
+        "extends": "source/shaders/animatedShader.vwf",
+        "properties": {
+            "diffuseMap": this.diffuseSrc,
+            "normalMap": this.normalSrc,
+            "specularMap": this.specularSrc,
+            "lightTrailHeight": this.glowLength,
+            "normalScale": [ 0.75, 0.75 ],
+            "shininess": 1,
+            "_duration": this.buildDuration,
+            "_bottom": this.translation[ 2 ],
+            "_height": this.buildingHeight, // Derive from bounding sphere?
+            "_elapsedTime": Number( this.built ) * this.buildDuration
+        }
+    }
+    this.visible = this.built;
+    this.children.create( "material", materialDef );
+}
+
+this.transformChanged = function( transform ) {
+    var z = transform[ 14 ];
+    if ( this.material ) {
+        this.material._bottom = z;
     }
 }

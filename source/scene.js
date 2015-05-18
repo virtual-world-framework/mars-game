@@ -55,7 +55,6 @@ this.setApplicationState = function( state ) {
             this.smoke1.visible = false;
             this.smoke2.visible = false;
             this.smoke3.visible = false;
-            // this.backdrop.visible = false;
             this.sunLight.visible = false;
             this.envLight.visible = false;
             this.pickups.visible = false;
@@ -74,7 +73,6 @@ this.setApplicationState = function( state ) {
             this.smoke1.visible = true;
             this.smoke2.visible = true;
             this.smoke3.visible = true;
-            // this.backdrop.visible = true;
             this.sunLight.visible = true;
             this.envLight.visible = true;
             this.pickups.visible = true;
@@ -421,6 +419,11 @@ this.drawSchematicTriangle = function( pointA, pointB, pointC ) {
     // x and y are in world space ( not grid coordinate space )
     var material = this.environment.terrain.material;
     material.triangle = [ pointA, pointB, pointC ];
+}
+
+this.hideSchematicTriangle = function() {
+    var material = this.environment.terrain.material;
+    material.triangle = [];
 }
 
 //@ sourceURL=source/scene.js
