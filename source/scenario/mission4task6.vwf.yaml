@@ -147,6 +147,8 @@ children:
           - scenarioSuccess:
           - playSound:
             - musicSuccessShort
+          - playSound:
+            - PerryDusty
 
   grid:
     includes: source/grid.vwf

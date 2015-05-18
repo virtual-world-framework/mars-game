@@ -90,6 +90,10 @@ properties:
       soundURL: "assets/sounds/sfx/scoutRoverMovementLoop01.ogg"
       initialVolume: 0.6
       isLooping: true
+    - soundName: "rover2GravelSounds"
+      soundURL: "assets/sounds/sfx/scoutRoverGravel03.ogg"
+      initialVolume: 0.6
+      isLooping: true
     - soundName: "rover3Sounds"
       soundURL: "assets/sounds/sfx/heavyRoverIdle01.ogg"
       initialVolume: 0.6
@@ -255,152 +259,320 @@ properties:
       subtitle: "[MC]: Our satellite data shows that you are getting close! Keep it up!"
       soundGroup: vo
       groupReplacementMethod: queue
-    - soundName: "M3IntroVO1_Rover"
-      soundURL: "assets/sounds/vo/M3Intro_Manny1.mp3"
+    - soundName: "M3VO1_Rover"
+      soundURL: "assets/sounds/vo/m1t1VO01Manny.ogg"
       initialVolume: 0.65
       subtitle: "[ROVER]: ???"
       soundGroup: vo
       groupReplacementMethod: queue
-    - soundName: "M3IntroVO2_Rover"
-      soundURL: "assets/sounds/vo/M3Intro_Manny2.mp3"
+    - soundName: "M3VO2_MC"
+      soundURL: "assets/sounds/vo/m1t1VO02MissionControl.ogg"
+      initialVolume: 0.65
+      subtitle: "[MC]: ???"
+      soundGroup: vo
+      groupReplacementMethod: queue
+    - soundName: "M3VO3_Rover"
+      soundURL: "assets/sounds/vo/m1t1VO03Manny.ogg"
       initialVolume: 0.65
       subtitle: "[ROVER]: ???"
       soundGroup: vo
       groupReplacementMethod: queue
-    - soundName: "M3IntroVO3_Rover"
-      soundURL: "assets/sounds/vo/M3Intro_Manny3.mp3"
+    - soundName: "M3VO4_MC"
+      soundURL: "assets/sounds/vo/m1t1VO04MissionControl.ogg"
+      initialVolume: 0.65
+      subtitle: "[MC]: ???"
+      soundGroup: vo
+      groupReplacementMethod: queue
+    - soundName: "M3VO5_Rover"
+      soundURL: "assets/sounds/vo/m1t1VO05Manny.ogg"
       initialVolume: 0.65
       subtitle: "[ROVER]: ???"
       soundGroup: vo
       groupReplacementMethod: queue
-    - soundName: "M3IntroVO5_Rover"
-      soundURL: "assets/sounds/vo/M3Intro_Manny5.mp3"
+    - soundName: "M3VO6_MC"
+      soundURL: "assets/sounds/vo/m1t1VO06MissionControl.ogg"
+      initialVolume: 0.65
+      subtitle: "[MC]: ???"
+      soundGroup: vo
+      groupReplacementMethod: queue
+    - soundName: "M3VO7_Rover"
+      soundURL: "assets/sounds/vo/m1t1VO07Manny.ogg"
       initialVolume: 0.65
       subtitle: "[ROVER]: ???"
       soundGroup: vo
       groupReplacementMethod: queue
-    - soundName: "M3IntroVO6_Rover"
-      soundURL: "assets/sounds/vo/M3Intro_Manny6.mp3"
+    - soundName: "M3VO8_MC"
+      soundURL: "assets/sounds/vo/m1t1VO08MissionControl.ogg"
+      initialVolume: 0.65
+      subtitle: "[MC]: ???"
+      soundGroup: vo
+      groupReplacementMethod: queue
+    - soundName: "M3VO9_Rover"
+      soundURL: "assets/sounds/vo/m1t1VO09Manny.ogg"
       initialVolume: 0.65
       subtitle: "[ROVER]: ???"
       soundGroup: vo
       groupReplacementMethod: queue
-    - soundName: "M3IntroVO1_MC"
-      soundURL: "assets/sounds/vo/M3Intro_MC.mp3"
+    - soundName: "M3VO10_MC"
+      soundURL: "assets/sounds/vo/m1t1VO10MissionControl.ogg"
+      initialVolume: 0.65
+      subtitle: "[ROVER]: ???"
+      soundGroup: vo
+      groupReplacementMethod: queue
+    - soundName: "M3VO11_Rover"
+      soundURL: "assets/sounds/vo/m1t1VO11Manny.ogg"
+      initialVolume: 0.65
+      subtitle: "[ROVER]: ???"
+      soundGroup: vo
+      groupReplacementMethod: queue
+    - soundName: "M3VO12_MC"
+      soundURL: "assets/sounds/vo/m1t1VO12MissionControl.ogg"
       initialVolume: 0.65
       subtitle: "[MC]: ???"
       soundGroup: vo
       groupReplacementMethod: queue
-    - soundName: "M3IntroVO2_MC"
-      soundURL: "assets/sounds/vo/M3Intro_MC2.mp3"
+    - soundName: "M3VO13_Rover"
+      soundURL: "assets/sounds/vo/m1t1VO13Manny.ogg"
+      initialVolume: 0.65
+      subtitle: "[ROVER]: ???"
+      soundGroup: vo
+      groupReplacementMethod: queue
+    - soundName: "M3VO14_Rover"
+      soundURL: "assets/sounds/vo/m1t1VO14Manny.ogg"
+      initialVolume: 0.65
+      subtitle: "[ROVER]: ???"
+      soundGroup: vo
+      groupReplacementMethod: queue
+    - soundName: "M3VO15_Rover"
+      soundURL: "assets/sounds/vo/m1t1VO15Manny.ogg"
+      initialVolume: 0.65
+      subtitle: "[ROVER]: ???"
+      soundGroup: vo
+      groupReplacementMethod: queue
+    - soundName: "M3VO16_MC"
+      soundURL: "assets/sounds/vo/m1t1VO16MissionControl.ogg"
       initialVolume: 0.65
       subtitle: "[MC]: ???"
       soundGroup: vo
       groupReplacementMethod: queue
-    - soundName: "M3IntroVO3_MC"
-      soundURL: "assets/sounds/vo/M3Intro_MC3.mp3"
+    - soundName: "M3VO17_Rover"
+      soundURL: "assets/sounds/vo/m1t1VO17Manny.ogg"
+      initialVolume: 0.65
+      subtitle: "[ROVER]: ???"
+      soundGroup: vo
+      groupReplacementMethod: queue
+    - soundName: "M3VO18_MC"
+      soundURL: "assets/sounds/vo/m1t1VO18MissionControl.ogg"
       initialVolume: 0.65
       subtitle: "[MC]: ???"
       soundGroup: vo
       groupReplacementMethod: queue
-    - soundName: "M3IntroVO4_MC"
-      soundURL: "assets/sounds/vo/M3Intro_MC4 1.mp3"
+    - soundName: "M3VO19_MC"
+      soundURL: "assets/sounds/vo/m1t1VO19MissionControl.ogg"
       initialVolume: 0.65
       subtitle: "[MC]: ???"
       soundGroup: vo
       groupReplacementMethod: queue
-    - soundName: "M3IntroVO5_MC"
-      soundURL: "assets/sounds/vo/M3Intro_MC5.mp3"
+    - soundName: "M3VO20_Rover"
+      soundURL: "assets/sounds/vo/m1t1VO20Manny.ogg"
+      initialVolume: 0.65
+      subtitle: "[ROVER]: ???"
+      soundGroup: vo
+      groupReplacementMethod: queue
+    - soundName: "M3VO21_MC"
+      soundURL: "assets/sounds/vo/m1t1VO21MissionControl.ogg"
       initialVolume: 0.65
       subtitle: "[MC]: ???"
       soundGroup: vo
       groupReplacementMethod: queue
-    - soundName: "M3IntroVO6_MC"
-      soundURL: "assets/sounds/vo/M3Intro_MC6.mp3"
+    - soundName: "M3VO22_Rover"
+      soundURL: "assets/sounds/vo/m1t1VO22Manny.ogg"
+      initialVolume: 0.65
+      subtitle: "[ROVER]: ???"
+      soundGroup: vo
+      groupReplacementMethod: queue
+    - soundName: "M3VO23_MC"
+      soundURL: "assets/sounds/vo/m1t1VO23MissionControl.ogg"
       initialVolume: 0.65
       subtitle: "[MC]: ???"
       soundGroup: vo
       groupReplacementMethod: queue
-    - soundName: "M3IntroVO7_MC"
-      soundURL: "assets/sounds/vo/M3Intro_MC7.mp3"
+    - soundName: "M3VO24_Rover"
+      soundURL: "assets/sounds/vo/m1t1VO24Manny.ogg"
+      initialVolume: 0.65
+      subtitle: "[ROVER]: ???"
+      soundGroup: vo
+      groupReplacementMethod: queue
+    - soundName: "M3VO25_Rover"
+      soundURL: "assets/sounds/vo/m1t1VO25Manny.ogg"
+      initialVolume: 0.65
+      subtitle: "[ROVER]: ???"
+      soundGroup: vo
+      groupReplacementMethod: queue
+    - soundName: "M3VO26_MC"
+      soundURL: "assets/sounds/vo/m1t1VO26MissionControl.ogg"
       initialVolume: 0.65
       subtitle: "[MC]: ???"
       soundGroup: vo
       groupReplacementMethod: queue
-    - soundName: "M3T1_Success"
-      soundURL: "assets/sounds/vo/M3T1_MC_Success.mp3"
+    - soundName: "M3VO27_MC"
+      soundURL: "assets/sounds/vo/m1t1VO27MissionControl.ogg"
+      initialVolume: 0.65
+      subtitle: "[MC]: ???"
+      soundGroup: vo
+      groupReplacementMethod: queue
+    - soundName: "M3VO28_MC"
+      soundURL: "assets/sounds/vo/m1t1VO28MissionControl.ogg"
+      initialVolume: 0.65
+      subtitle: "[MC]: ???"
+      soundGroup: vo
+      groupReplacementMethod: queue
+    - soundName: "M5IntroVO1_Rover"
+      soundURL: "assets/sounds/vo/M5Intro_Manny1.mp3"
+      initialVolume: 0.65
+      subtitle: "[ROVER]: ???"
+      soundGroup: vo
+      groupReplacementMethod: queue
+    - soundName: "M5IntroVO2_Rover"
+      soundURL: "assets/sounds/vo/M5Intro_Manny2.mp3"
+      initialVolume: 0.65
+      subtitle: "[ROVER]: ???"
+      soundGroup: vo
+      groupReplacementMethod: queue
+    - soundName: "M5IntroVO3_Rover"
+      soundURL: "assets/sounds/vo/M5Intro_Manny3.mp3"
+      initialVolume: 0.65
+      subtitle: "[ROVER]: ???"
+      soundGroup: vo
+      groupReplacementMethod: queue
+    - soundName: "M5IntroVO5_Rover"
+      soundURL: "assets/sounds/vo/M5Intro_Manny5.mp3"
+      initialVolume: 0.65
+      subtitle: "[ROVER]: ???"
+      soundGroup: vo
+      groupReplacementMethod: queue
+    - soundName: "M5IntroVO6_Rover"
+      soundURL: "assets/sounds/vo/M5Intro_Manny6.mp3"
+      initialVolume: 0.65
+      subtitle: "[ROVER]: ???"
+      soundGroup: vo
+      groupReplacementMethod: queue
+    - soundName: "M5IntroVO1_MC"
+      soundURL: "assets/sounds/vo/M5Intro_MC.mp3"
+      initialVolume: 0.65
+      subtitle: "[MC]: ???"
+      soundGroup: vo
+      groupReplacementMethod: queue
+    - soundName: "M5IntroVO2_MC"
+      soundURL: "assets/sounds/vo/M5Intro_MC2.mp3"
+      initialVolume: 0.65
+      subtitle: "[MC]: ???"
+      soundGroup: vo
+      groupReplacementMethod: queue
+    - soundName: "M5IntroVO3_MC"
+      soundURL: "assets/sounds/vo/M5Intro_MC3.mp3"
+      initialVolume: 0.65
+      subtitle: "[MC]: ???"
+      soundGroup: vo
+      groupReplacementMethod: queue
+    - soundName: "M5IntroVO4_MC"
+      soundURL: "assets/sounds/vo/M5Intro_MC4 1.mp3"
+      initialVolume: 0.65
+      subtitle: "[MC]: ???"
+      soundGroup: vo
+      groupReplacementMethod: queue
+    - soundName: "M5IntroVO5_MC"
+      soundURL: "assets/sounds/vo/M5Intro_MC5.mp3"
+      initialVolume: 0.65
+      subtitle: "[MC]: ???"
+      soundGroup: vo
+      groupReplacementMethod: queue
+    - soundName: "M5IntroVO6_MC"
+      soundURL: "assets/sounds/vo/M5Intro_MC6.mp3"
+      initialVolume: 0.65
+      subtitle: "[MC]: ???"
+      soundGroup: vo
+      groupReplacementMethod: queue
+    - soundName: "M5IntroVO7_MC"
+      soundURL: "assets/sounds/vo/M5Intro_MC7.mp3"
+      initialVolume: 0.65
+      subtitle: "[MC]: ???"
+      soundGroup: vo
+      groupReplacementMethod: queue
+    - soundName: "M5T1_Success"
+      soundURL: "assets/sounds/vo/M5T1_MC_Success.mp3"
       initialVolume: 0.65
       subtitle: "[MC]: ???"
       soundGroup: vo
       groupReplacementMethod: replace
-    - soundName: "M3T1_Failure"
-      soundURL: "assets/sounds/vo/M3T1_MC_Failure.mp3"
+    - soundName: "M5T1_Failure"
+      soundURL: "assets/sounds/vo/M5T1_MC_Failure.mp3"
       initialVolume: 0.65
       subtitle: "[MC]: ???"
       soundGroup: vo
       groupReplacementMethod: replace
-    - soundName: "M4IntroVO1_MC"
-      soundURL: "assets/sounds/vo/M4Intro_MC.mp3"
+    - soundName: "M6IntroVO1_MC"
+      soundURL: "assets/sounds/vo/M6Intro_MC.mp3"
       initialVolume: 0.65
       subtitle: "[MC]: ???"
       soundGroup: vo
       groupReplacementMethod: queue
-    - soundName: "M4IntroVO2_MC"
-      soundURL: "assets/sounds/vo/M4Intro_MC1.mp3"
+    - soundName: "M6IntroVO2_MC"
+      soundURL: "assets/sounds/vo/M6Intro_MC1.mp3"
       initialVolume: 0.65
       subtitle: "[MC]: ???"
       soundGroup: vo
       groupReplacementMethod: queue
-    - soundName: "M4IntroVO3_MC"
-      soundURL: "assets/sounds/vo/M4Intro_MC2.mp3"
+    - soundName: "M6IntroVO3_MC"
+      soundURL: "assets/sounds/vo/M6Intro_MC2.mp3"
       initialVolume: 0.65
       subtitle: "[MC]: ???"
       soundGroup: vo
       groupReplacementMethod: queue
-    - soundName: "M4IntroVO4_MC"
-      soundURL: "assets/sounds/vo/M4Intro_MC3.mp3"
+    - soundName: "M6IntroVO4_MC"
+      soundURL: "assets/sounds/vo/M6Intro_MC3.mp3"
       initialVolume: 0.65
       subtitle: "[MC]: ???"
       soundGroup: vo
       groupReplacementMethod: queue
-    - soundName: "M4IntroVO1_Rosie"
-      soundURL: "assets/sounds/vo/M4Intro_Rosie.mp3"
+    - soundName: "M6IntroVO1_Rosie"
+      soundURL: "assets/sounds/vo/M6Intro_Rosie.mp3"
       initialVolume: 0.65
       subtitle: "[ROVER]: Need rosie portrait"
       soundGroup: vo
       groupReplacementMethod: queue
-    - soundName: "M4IntroVO2_Rosie"
-      soundURL: "assets/sounds/vo/M4Intro_Rosie1.mp3"
+    - soundName: "M6IntroVO2_Rosie"
+      soundURL: "assets/sounds/vo/M6Intro_Rosie1.mp3"
       initialVolume: 0.65
       subtitle: "[ROVER]: Need rosie portrait"
       soundGroup: vo
       groupReplacementMethod: queue
-    - soundName: "M4IntroVO3_Rosie"
-      soundURL: "assets/sounds/vo/M4Intro_Rosie2.mp3"
+    - soundName: "M6IntroVO3_Rosie"
+      soundURL: "assets/sounds/vo/M6Intro_Rosie2.mp3"
       initialVolume: 0.65
       subtitle: "[ROVER]: Need rosie portrait"
       soundGroup: vo
       groupReplacementMethod: queue
-    - soundName: "M4IntroVO4_Rosie"
-      soundURL: "assets/sounds/vo/M4Intro_Rosie3.mp3"
+    - soundName: "M6IntroVO4_Rosie"
+      soundURL: "assets/sounds/vo/M6Intro_Rosie3.mp3"
       initialVolume: 0.65
       subtitle: "[ROVER]: Need rosie portrait"
       soundGroup: vo
       groupReplacementMethod: queue
-    - soundName: "M4IntroVO5_Rosie"
-      soundURL: "assets/sounds/vo/M4Intro_Rosie4.mp3"
+    - soundName: "M6IntroVO5_Rosie"
+      soundURL: "assets/sounds/vo/M6Intro_Rosie4.mp3"
       initialVolume: 0.65
       subtitle: "[ROVER]: Need rosie portrait"
       soundGroup: vo
       groupReplacementMethod: queue
-    - soundName: "M4T1_Success"
-      soundURL: "assets/sounds/vo/M4T1_MC_Success.mp3"
+    - soundName: "M6T1_Success"
+      soundURL: "assets/sounds/vo/M6T1_MC_Success.mp3"
       initialVolume: 0.65
       subtitle: "[MC]: ???"
       soundGroup: vo
       groupReplacementMethod: replace
-    - soundName: "M4T1_Failure"
-      soundURL: "assets/sounds/vo/M4T1_MC_Failure.mp3"
+    - soundName: "M6T1_Failure"
+      soundURL: "assets/sounds/vo/M6T1_MC_Failure.mp3"
       initialVolume: 0.65
       subtitle: "[MC]: ???"
       soundGroup: vo
@@ -653,6 +825,48 @@ properties:
       isLooping: true
       initialVolume: 0.85
       subtitle: "[ROVER]: ... whistles ..."
+      soundGroup: vo
+      groupReplacementMethod: queue
+    - soundName: "PerryThanks"
+      soundURL: "assets/sounds/vo/perryThanksALot01.ogg"
+      isLooping: false
+      initialVolume: 0.85
+      subtitle: "[ROVER]: need perry portrait"
+      soundGroup: vo
+      groupReplacementMethod: queue
+    - soundName: "PerryWhatsAClown"
+      soundURL: "assets/sounds/vo/perryWhatAClown01.ogg"
+      isLooping: false
+      initialVolume: 0.85
+      subtitle: "[ROVER]: need perry portrait"
+      soundGroup: vo
+      groupReplacementMethod: queue
+    - soundName: "PerryIDidIt"
+      soundURL: "assets/sounds/vo/perryIDidIt03.ogg"
+      isLooping: false
+      initialVolume: 0.85
+      subtitle: "[ROVER]: need perry portrait"
+      soundGroup: vo
+      groupReplacementMethod: queue
+    - soundName: "PerryDusty"
+      soundURL: "assets/sounds/vo/perryDidItButImDusty01.ogg"
+      isLooping: false
+      initialVolume: 0.85
+      subtitle: "[ROVER]: need perry portrait"
+      soundGroup: vo
+      groupReplacementMethod: queue
+    - soundName: "PerryAcknowledge"
+      soundURL: "assets/sounds/vo/perryAcknowledge01.ogg"
+      isLooping: false
+      initialVolume: 0.85
+      subtitle: "[ROVER]: need perry portrait"
+      soundGroup: vo
+      groupReplacementMethod: queue
+    - soundName: "PerryNotDoneGroan"
+      soundURL: "assets/sounds/vo/perryNotDoneGroan01.ogg"
+      isLooping: false
+      initialVolume: 0.85
+      subtitle: "[ROVER]: need perry portrait"
       soundGroup: vo
       groupReplacementMethod: queue
 

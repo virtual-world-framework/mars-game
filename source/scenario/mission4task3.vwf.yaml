@@ -151,6 +151,12 @@ children:
           - scenarioSuccess:
           - playSound:
             - musicSuccessShort
+          - playSound:
+            - PerryIDidIt
+          - playSound:
+            - M4VO28_MC
+          - playSound:
+            - PerryNotDoneGroan
 
   grid:
     includes: source/grid.vwf

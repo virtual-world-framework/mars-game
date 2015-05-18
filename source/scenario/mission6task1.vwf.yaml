@@ -153,6 +153,31 @@ children:
           - writeToBlackboard:
             - disableFailOnIncompleteProgram
 
+        playStartingVO_6_1_1:
+          triggerCondition:
+          - and:
+            - doOnce:
+            - onScenarioStart:
+          actions:
+          - playSound:
+            - M6IntroVO1_MC
+          - playSound:
+            - M6IntroVO1_Rosie
+          - playSound:
+            - M6IntroVO2_MC
+          - playSound:
+            - M6IntroVO2_Rosie
+          - playSound:
+            - M6IntroVO3_MC
+          - playSound:
+            - M6IntroVO3_Rosie
+          - playSound:
+            - M6IntroVO4_MC
+          - playSound:
+            - M6IntroVO4_Rosie
+          - playSound:
+            - M6IntroVO5_Rosie
+
   grid:
     includes: source/grid.vwf
     properties:

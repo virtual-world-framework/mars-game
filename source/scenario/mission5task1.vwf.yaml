@@ -148,6 +148,37 @@ children:
           - writeToBlackboard:
             - disableFailOnIncompleteProgram
 
+        playStartingVO_5_1_1:
+          triggerCondition:
+          - and:
+            - doOnce:
+            - onScenarioStart:
+          actions:
+          - playSound:
+            - M5IntroVO1_MC
+          - playSound:
+            - M5IntroVO2_MC
+          - playSound:
+            - M5IntroVO3_MC
+          - playSound:
+            - M5IntroVO1_Rover
+          - playSound:
+            - M5IntroVO4_MC
+          - playSound:
+            - M5IntroVO2_Rover
+          - playSound:
+            - M5IntroVO5_MC
+          - playSound:
+            - M5IntroVO3_Rover
+          - playSound:
+            - M5IntroVO6_MC
+          - playSound:
+            - M5IntroVO5_Rover
+          - playSound:
+            - M5IntroVO7_MC
+          - playSound:
+            - M5IntroVO6_Rover
+
   grid:
     includes: source/grid.vwf
     properties:

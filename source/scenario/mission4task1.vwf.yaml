@@ -145,38 +145,6 @@ children:
     extends: ../triggers/triggerManager.vwf
     properties: 
       triggers$:
-
-        playStartingVO_3_1_1:
-          triggerCondition:
-          - and:
-            - doOnce:
-            - onScenarioStart:
-          actions:
-          - playSound:
-            - M3VO1_MC
-          - playSound:
-            - M3VO2_MC
-          - playSound:
-            - M3VO3_MC
-          - playSound:
-            - M3VO1_Rover
-          - playSound:
-            - M3VO4_MC
-          - playSound:
-            - M3VO2_Rover
-          - playSound:
-            - M3VO5_MC
-          - playSound:
-            - M3VO3_Rover
-          - playSound:
-            - M3VO6_MC
-          - playSound:
-            - M3VO5_Rover
-          - playSound:
-            - M3VO7_MC
-          - playSound:
-            - M3VO6_Rover
-
         succeedOnTriangle_4_1:
           group: successOrFailure
           priority: 0
@@ -189,9 +157,54 @@ children:
             - "I created the correct triangle!"
           - scenarioSuccess:
           - playSound:
-            - M4T1_su
-          - playSound:
             - musicSuccessShort
+          - playSound:
+            - M4VO26_MC
+
+        playStartingVO_4_1_1:
+          triggerCondition:
+          - and:
+            - doOnce:
+            - onScenarioStart:
+          actions:
+          - playSound:
+            - M3VO19_MC
+          - playSound:
+            - M3VO20_Rover
+          - playSound:
+            - M3VO21_MC
+          - playSound:
+            - M3VO22_Rover
+          - playSound:
+            - PerryThanks
+          - playSound:
+            - M3VO23_MC
+          - playSound:
+            - M3VO24_Rover
+          - playSound:
+            - PerryWhatsAClown
+          - playSound:
+            - M3VO25_Rover
+
+        playPerrySounds_4_1_1:
+          triggerCondition:
+          - onBlocklyBlock:
+            - rover2
+            - moveRadial
+            - true
+          actions:
+            - playSound:
+              - rover2GravelSounds
+
+        stopPerrySounds_4_1_1:
+          triggerCondition:
+          - onBlocklyBlock:
+            - rover2
+            - moveRadial
+            - false
+          actions:
+            - stopSound:
+              - rover2GravelSounds
 
   grid:
     includes: source/grid.vwf
