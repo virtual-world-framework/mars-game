@@ -168,23 +168,23 @@ children:
             - onScenarioStart:
           actions:
           - playSound:
-            - M3VO19_MC
+            - M4VO19_MC
           - playSound:
-            - M3VO20_Rover
+            - M4VO20_Rover
           - playSound:
-            - M3VO21_MC
+            - M4VO21_MC
           - playSound:
-            - M3VO22_Rover
+            - M4VO22_Rover
           - playSound:
             - PerryThanks
           - playSound:
-            - M3VO23_MC
+            - M4VO23_MC
           - playSound:
-            - M3VO24_Rover
+            - M4VO24_Rover
           - playSound:
             - PerryWhatsAClown
           - playSound:
-            - M3VO25_Rover
+            - M4VO25_Rover
 
         playPerrySounds_4_1_1:
           triggerCondition:

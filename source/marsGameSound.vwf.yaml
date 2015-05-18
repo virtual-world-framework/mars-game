@@ -262,73 +262,73 @@ properties:
     - soundName: "M3VO1_Rover"
       soundURL: "assets/sounds/vo/m1t1VO01Manny.ogg"
       initialVolume: 0.65
-      subtitle: "[ROVER]: ???"
+      subtitle: "[ROVER]: Another day on Mars…the wondrous vistas, the amazing science opportunities, the crushing sense of loneliness…"
       soundGroup: vo
       groupReplacementMethod: queue
     - soundName: "M3VO2_MC"
       soundURL: "assets/sounds/vo/m1t1VO02MissionControl.ogg"
       initialVolume: 0.65
-      subtitle: "[MC]: ???"
+      subtitle: "[MC]: This is Mission Control. At least you have me to support you."
       soundGroup: vo
       groupReplacementMethod: queue
     - soundName: "M3VO3_Rover"
       soundURL: "assets/sounds/vo/m1t1VO03Manny.ogg"
       initialVolume: 0.65
-      subtitle: "[ROVER]: ???"
+      subtitle: "[ROVER]: As I said, the crushing sense of loneliness…"
       soundGroup: vo
       groupReplacementMethod: queue
     - soundName: "M3VO4_MC"
       soundURL: "assets/sounds/vo/m1t1VO04MissionControl.ogg"
       initialVolume: 0.65
-      subtitle: "[MC]: ???"
+      subtitle: "[MC]: Very funny. Let’s focus on today’s mission. We are receiving a very weak signal that we believe is coming from the Base Pod, the main piece of equipment you need to start building the Mars Base before the Human Explorers arrive in Mars Orbit."
       soundGroup: vo
       groupReplacementMethod: queue
     - soundName: "M3VO5_Rover"
       soundURL: "assets/sounds/vo/m1t1VO05Manny.ogg"
       initialVolume: 0.65
-      subtitle: "[ROVER]: ???"
+      subtitle: "[ROVER]: The who? I think some of my Flash Memory has failed…perhaps a particularly strong solar flare has damaged it?"
       soundGroup: vo
       groupReplacementMethod: queue
     - soundName: "M3VO6_MC"
       soundURL: "assets/sounds/vo/m1t1VO06MissionControl.ogg"
       initialVolume: 0.65
-      subtitle: "[MC]: ???"
+      subtitle: "[MC]: The Human Explorers! The people coming to live on Mars? The very reason for our mission? We aren’t detecting any fault with your memory on our end."
       soundGroup: vo
       groupReplacementMethod: queue
     - soundName: "M3VO7_Rover"
       soundURL: "assets/sounds/vo/m1t1VO07Manny.ogg"
       initialVolume: 0.65
-      subtitle: "[ROVER]: ???"
+      subtitle: "[ROVER]: You aren’t detecting a joke either."
       soundGroup: vo
       groupReplacementMethod: queue
     - soundName: "M3VO8_MC"
       soundURL: "assets/sounds/vo/m1t1VO08MissionControl.ogg"
       initialVolume: 0.65
-      subtitle: "[MC]: ???"
+      subtitle: "[MC]: Remind me to wipe your memory when we are done with our mission. It seems a programmer has slipped an unauthorized humor subroutine into your Main Loop."
       soundGroup: vo
       groupReplacementMethod: queue
     - soundName: "M3VO9_Rover"
       soundURL: "assets/sounds/vo/m1t1VO09Manny.ogg"
       initialVolume: 0.65
-      subtitle: "[ROVER]: ???"
+      subtitle: "[ROVER]: Mission Control…did you just make a joke?"
       soundGroup: vo
       groupReplacementMethod: queue
     - soundName: "M3VO10_MC"
       soundURL: "assets/sounds/vo/m1t1VO10MissionControl.ogg"
       initialVolume: 0.65
-      subtitle: "[ROVER]: ???"
+      subtitle: "[ROVER]: The Base Pod is in your vicinity. If you do not retrieve it and begin construction of the Mars Base, the Human Explorers will arrive without the resources and shelter to survive. Doe that sound like a joke?"
       soundGroup: vo
       groupReplacementMethod: queue
     - soundName: "M3VO11_Rover"
       soundURL: "assets/sounds/vo/m1t1VO11Manny.ogg"
       initialVolume: 0.65
-      subtitle: "[ROVER]: ???"
+      subtitle: "[ROVER]: No maam! Just point me in the right direction!"
       soundGroup: vo
       groupReplacementMethod: queue
     - soundName: "M3VO12_MC"
       soundURL: "assets/sounds/vo/m1t1VO12MissionControl.ogg"
       initialVolume: 0.65
-      subtitle: "[MC]: ???"
+      subtitle: "[MC]: Indeed. We do not know the exact direction of the Base Pod, but you can home in on it with your Sensor. You will need to incorporate it into a navigation program that will move you closer to the Base Pod with each reading of the Sensor."
       soundGroup: vo
       groupReplacementMethod: queue
     - soundName: "M3VO13_Rover"
@@ -355,76 +355,76 @@ properties:
       subtitle: "[MC]: ???"
       soundGroup: vo
       groupReplacementMethod: queue
-    - soundName: "M3VO17_Rover"
+    - soundName: "M4VO17_Rover"
       soundURL: "assets/sounds/vo/m1t1VO17Manny.ogg"
       initialVolume: 0.65
       subtitle: "[ROVER]: ???"
       soundGroup: vo
       groupReplacementMethod: queue
-    - soundName: "M3VO18_MC"
+    - soundName: "M4VO18_MC"
       soundURL: "assets/sounds/vo/m1t1VO18MissionControl.ogg"
       initialVolume: 0.65
       subtitle: "[MC]: ???"
       soundGroup: vo
       groupReplacementMethod: queue
-    - soundName: "M3VO19_MC"
+    - soundName: "M4VO19_MC"
       soundURL: "assets/sounds/vo/m1t1VO19MissionControl.ogg"
       initialVolume: 0.65
-      subtitle: "[MC]: ???"
+      subtitle: "[MC]: Congratulations on the activating the Base Pod. It contains vital equipment you will need to construct the Mars Base, including a NanoStrate Sprayer. This very versatile tool will apply a layer of nanites on the ground in any shape you outline, and they use the environment itself for materials to build each base item. It’s very efficient!"
       soundGroup: vo
       groupReplacementMethod: queue
-    - soundName: "M3VO20_Rover"
+    - soundName: "M4VO20_Rover"
       soundURL: "assets/sounds/vo/m1t1VO20Manny.ogg"
       initialVolume: 0.65
-      subtitle: "[ROVER]: ???"
+      subtitle: "[ROVER]: You mean I am going to poop smaller robots on the ground to build the base?"
       soundGroup: vo
       groupReplacementMethod: queue
-    - soundName: "M3VO21_MC"
+    - soundName: "M4VO21_MC"
       soundURL: "assets/sounds/vo/m1t1VO21MissionControl.ogg"
       initialVolume: 0.65
-      subtitle: "[MC]: ???"
+      subtitle: "[MC]: Not at all! Peregrine is equipped with item in question. You will need to program him to construct the Base."
       soundGroup: vo
       groupReplacementMethod: queue
-    - soundName: "M3VO22_Rover"
+    - soundName: "M4VO22_Rover"
       soundURL: "assets/sounds/vo/m1t1VO22Manny.ogg"
       initialVolume: 0.65
-      subtitle: "[ROVER]: ???"
+      subtitle: "[ROVER]: Great. You mean all I have to save the Human Explorers is a bunch of nanite goo and a clown’s unicycle?"
       soundGroup: vo
       groupReplacementMethod: queue
-    - soundName: "M3VO23_MC"
+    - soundName: "M4VO23_MC"
       soundURL: "assets/sounds/vo/m1t1VO23MissionControl.ogg"
       initialVolume: 0.65
-      subtitle: "[MC]: ???"
+      subtitle: "[MC]: The Base Pod is running on batteries that will soon run out unless you can supply it with a renewable power source. Therefore, the first set of objects you will need to build are Solar Panels."
       soundGroup: vo
       groupReplacementMethod: queue
-    - soundName: "M3VO24_Rover"
+    - soundName: "M4VO24_Rover"
       soundURL: "assets/sounds/vo/m1t1VO24Manny.ogg"
       initialVolume: 0.65
-      subtitle: "[ROVER]: ???"
+      subtitle: "[ROVER]: Well, little buddy, let’s see what’s inside your head. Doesn’t look like we have much time, so we better hurry."
       soundGroup: vo
       groupReplacementMethod: queue
-    - soundName: "M3VO25_Rover"
+    - soundName: "M4VO25_Rover"
       soundURL: "assets/sounds/vo/m1t1VO25Manny.ogg"
       initialVolume: 0.65
-      subtitle: "[ROVER]: ???"
+      subtitle: "[ROVER]: You said it buddy….whatever it is you said…."
       soundGroup: vo
       groupReplacementMethod: queue
-    - soundName: "M3VO26_MC"
+    - soundName: "M4VO26_MC"
       soundURL: "assets/sounds/vo/m1t1VO26MissionControl.ogg"
       initialVolume: 0.65
-      subtitle: "[MC]: ???"
+      subtitle: "[MC]: That’s it, but we need to move the panel out of the shadow for it to draw power."
       soundGroup: vo
       groupReplacementMethod: queue
-    - soundName: "M3VO27_MC"
+    - soundName: "M4VO27_MC"
       soundURL: "assets/sounds/vo/m1t1VO27MissionControl.ogg"
       initialVolume: 0.65
-      subtitle: "[MC]: ???"
+      subtitle: "[MC]: That’s better…but the solar panel segment needs to be bigger or it won’t draw enough electricity from the weak Martian sunlight."
       soundGroup: vo
       groupReplacementMethod: queue
-    - soundName: "M3VO28_MC"
+    - soundName: "M4VO28_MC"
       soundURL: "assets/sounds/vo/m1t1VO28MissionControl.ogg"
       initialVolume: 0.65
-      subtitle: "[MC]: ???"
+      subtitle: "[MC]: Very good. I will be temporarily unavailable while I perform a routine update. Keep calm and carry on!"
       soundGroup: vo
       groupReplacementMethod: queue
     - soundName: "M5IntroVO1_Rover"
