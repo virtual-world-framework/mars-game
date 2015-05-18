@@ -126,7 +126,7 @@ children:
   triggerManager:
     extends: ../triggers/triggerManager.vwf
     properties: 
-      triggers:
+      triggers$:
         succeedOnTriangle_4_1_a:
           group: successOrFailure
           priority: 0
@@ -137,6 +137,10 @@ children:
           actions:
           - showAlert:
             - "I created the correct triangle!"
+          - callMethod:
+            - rover2
+            - stopExecution
+          - clearBlockly:
           - scenarioSuccess:
           - playSound:
             - musicSuccessShort

@@ -85,6 +85,8 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                     updateBlocklyUI( blocklyNode );
                     selectBlock( lastBlockIDExecuted );
                     indicateProcedureBlock( currentProcedureBlockID );
+                } else {
+                    currentBlocklyNodeID = undefined;
                 }
                 break;
 
@@ -801,11 +803,20 @@ function stopBlink() {
 }
 
 function clearBlockly() {
+
+    vwf_view.kernel.setProperty( appID, "blockly_interfaceVisible", false );
+    vwf_view.kernel.setProperty( appID, "blockly_activeNodeID", undefined );
     if ( Blockly.mainWorkspace ){
         Blockly.mainWorkspace.clear();
     }
     if ( mainRover ){
         vwf_view.kernel.setProperty( mainRover, "blockly_xml", '<xml></xml>' );
+    }
+    if ( perryRover ){
+        vwf_view.kernel.setProperty( perryRover, "blockly_xml", '<xml></xml>' );
+    }
+    if ( rosieRover ){
+        vwf_view.kernel.setProperty( rosieRover, "blockly_xml", '<xml></xml>' );
     }
     if ( blocklyGraphID ){
         vwf_view.kernel.setProperty( blocklyGraphID, "blockly_xml", '<xml></xml>' );
@@ -1228,8 +1239,6 @@ function switchToDisplayedScenario() {
     var displayedScenario = display.innerHTML;
     currentBlocklyNodeID = undefined;
     clearBlockly();
-    vwf_view.kernel.setProperty( sceneID, "blockly_interfaceVisible", false );
-    vwf_view.kernel.setProperty( sceneID, "blockly_activeNodeID", undefined );
     vwf_view.kernel.setProperty( sceneID, "activeScenarioPath", displayedScenario );
     closePauseMenu();
 }

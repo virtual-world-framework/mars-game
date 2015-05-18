@@ -20,7 +20,7 @@ this.onGenerated = function( params, generator, payload ) {
                             "timeout threshold." );
     }
 
-    if ( !this.initOnEvent( params, generator, payload, params[ 2 ] ) ) {
+    if ( !this.initOnEvent( params, generator, payload ) ) {
         return false;
     }
 
@@ -67,6 +67,7 @@ this.onPolygonFinished = function( blockNode, playerPoints ) {
 
         if ( startPoint[ 0 ] !== endPoint[ 0 ] || startPoint[ 1 ] !== endPoint[ 1 ] ) {
             console.log('start not end');
+            this.reset();
             return;
         }
 
@@ -76,6 +77,7 @@ this.onPolygonFinished = function( blockNode, playerPoints ) {
 
         if ( this.pointArray.length !== ( points.length )  ) {
             console.log('lengths arent the same');
+            this.reset();
             return;
         }
 
@@ -85,8 +87,12 @@ this.onPolygonFinished = function( blockNode, playerPoints ) {
 
         if ( this.forwardString.indexOf( playerString ) !== -1 || this.reverseString.indexOf( playerString ) !== -1 ) {
             this.onEvent();
+        } else {
+            this.reset();
         }
-    } 
+    } else {
+        this.reset();
+    }
 }
 
 //@ sourceURL=source/triggers/clauses/clause_OnBlocklyPolygon.js
