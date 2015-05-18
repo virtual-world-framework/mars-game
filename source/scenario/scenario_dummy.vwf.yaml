@@ -163,7 +163,7 @@ children:
           - playSound:
             - environmentWind
           - writeToBlackboard:
-            - anomalyPosition
+            - metalPosition
             - [ 12, 10 ]
           - writeToBlackboard:
             - signalPosition

@@ -60,7 +60,7 @@ this.draw = function( context, position ) {
             context.fillRect( posx, posy, meterWidth * batteryPct, this.meterThickness );
             posy += 24;
             context.fillStyle = "rgb(215,248,255)";
-            readout = "RAM: " + rover.ram + " / " + rover.maxRam;
+            readout = "BLOCKS REMAINING: " + rover.ram + " / " + rover.maxRam;
             context.fillText( readout, posx, posy );
             context.fillStyle = "rgb(235,0,0)";
             posy += 12;

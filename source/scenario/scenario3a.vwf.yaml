@@ -86,7 +86,7 @@ children:
           - setObjective:
             - "Build a program to follow the tracks until your scanner finds something."
           - writeToBlackboard:
-            - anomalyPosition
+            - metalPosition
             - [ 7, 15 ]
           - setThirdPersonStartPose:
             - [ 16.316, 65, -15 ]
@@ -141,7 +141,7 @@ children:
           - playSound:
             - musicSuccessShort
           - clearBlackboardEntry:
-            - anomalyPosition
+            - metalPosition
 
         playHint1_3a:
           triggerCondition:

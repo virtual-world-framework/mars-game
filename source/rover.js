@@ -115,7 +115,7 @@ this.moveForward = function() {
                     }
                 }
                 this.moved();
-                this.activateSensor( 'anomaly' );
+                this.activateSensor( 'metal' );
                 this.activateSensor( 'signal' );
                 this.activateSensor( 'collision' );
                 this.activateSensor( 'position' );
@@ -194,7 +194,7 @@ this.moveRadialAbsolute = function( valueX, valueY ) {
             this.moved();
             this.activateSensor( 'position' );
             this.activateSensor( 'heading', this.heading );
-            //this.activateSensor( 'anomaly' );
+            //this.activateSensor( 'metal' );
         } else {
             this.moveFailed( "collision" );
         }
@@ -293,7 +293,7 @@ this.moveRadial = function( xValue, yValue, offset ) {
                 this.moved();
                 this.activateSensor( 'position' );
                 this.activateSensor( 'heading', this.heading );
-                //this.activateSensor( 'anomaly' );
+                //this.activateSensor( 'metal' );
             } else {
                 this.moveFailed( "collision" );
             }
@@ -308,14 +308,14 @@ this.turnLeft = function() {
     this.setHeading( this.heading + 90, 1 );
     this.activateSensor( 'signal' );
     this.activateSensor( 'collision' );
-    this.activateSensor( 'anomaly' );
+    this.activateSensor( 'metal' );
 }
 
 this.turnRight = function() {
     this.setHeading( this.heading - 90, 1 );
     this.activateSensor( 'signal' );
     this.activateSensor( 'collision' );
-    this.activateSensor( 'anomaly' );
+    this.activateSensor( 'metal' );
 }
 
 this.checkRadialCollision = function( currentPosition, futurePosition ) {
@@ -507,7 +507,7 @@ this.calcRam = function() {
 
 this.blockCountChanged = function( value ) {
     this.calcRam();
-    this.activateSensor( 'anomaly' );
+    this.activateSensor( 'metal' );
     this.activateSensor( 'signal' );
     this.activateSensor( 'heading', this.heading );
     this.activateSensor( 'collision' );
@@ -559,34 +559,34 @@ this.activateSensor = function( sensor, value ) {
 
     var scene = this.sceneNode;
 
-    if ( sensor === 'anomaly' ) {
-        // This sensor checks if the rover is on or near an anomaly, whether that is
+    if ( sensor === 'metal' ) {
+        // This sensor checks if the rover is on or near an metal, whether that is
         // defined in the blackboard or an object like a rover/item
-        var anomalyPos = this.sceneNode.sceneBlackboard[ "anomalyPosition" ];
+        var metalPos = this.sceneNode.sceneBlackboard[ "metalPosition" ];
         var currentPos = this.currentGridSquare;
 
-        this.anomalySensorValue = false;
+        this.metalSensorValue = false;
 
-        if ( anomalyPos ) {
-            this.anomalySensorValue = anomalyPos && (
-                                 ( anomalyPos[ 0 ] === currentPos [ 0 ] && 
-                                 anomalyPos[ 1 ] === currentPos [ 1 ] ) ||
-                                 ( anomalyPos[ 0 ] === currentPos [ 0 ] + 1 && 
-                                 anomalyPos[ 1 ] === currentPos [ 1 ] ) ||
-                                 ( anomalyPos[ 0 ] === currentPos [ 0 ] - 1 && 
-                                 anomalyPos[ 1 ] === currentPos [ 1 ] ) ||
-                                 ( anomalyPos[ 0 ] === currentPos [ 0 ] && 
-                                 anomalyPos[ 1 ] === currentPos [ 1 ]  + 1 ) ||
-                                 ( anomalyPos[ 0 ] === currentPos [ 0 ] && 
-                                 anomalyPos[ 1 ] === currentPos [ 1 ] - 1 ) ||
-                                 ( anomalyPos[ 0 ] === currentPos [ 0 ] - 1 && 
-                                 anomalyPos[ 1 ] === currentPos [ 1 ] - 1 ) || //LL
-                                 ( anomalyPos[ 0 ] === currentPos [ 0 ] + 1 && 
-                                 anomalyPos[ 1 ] === currentPos [ 1 ] + 1 ) || //UR
-                                 ( anomalyPos[ 0 ] === currentPos [ 0 ] - 1 && 
-                                 anomalyPos[ 1 ] === currentPos [ 1 ] + 1) || //UL
-                                 ( anomalyPos[ 0 ] === currentPos [ 0 ] + 1 && 
-                                 anomalyPos[ 1 ] === currentPos [ 1 ] - 1) //LR
+        if ( metalPos ) {
+            this.metalSensorValue = metalPos && (
+                                 ( metalPos[ 0 ] === currentPos [ 0 ] && 
+                                 metalPos[ 1 ] === currentPos [ 1 ] ) ||
+                                 ( metalPos[ 0 ] === currentPos [ 0 ] + 1 && 
+                                 metalPos[ 1 ] === currentPos [ 1 ] ) ||
+                                 ( metalPos[ 0 ] === currentPos [ 0 ] - 1 && 
+                                 metalPos[ 1 ] === currentPos [ 1 ] ) ||
+                                 ( metalPos[ 0 ] === currentPos [ 0 ] && 
+                                 metalPos[ 1 ] === currentPos [ 1 ]  + 1 ) ||
+                                 ( metalPos[ 0 ] === currentPos [ 0 ] && 
+                                 metalPos[ 1 ] === currentPos [ 1 ] - 1 ) ||
+                                 ( metalPos[ 0 ] === currentPos [ 0 ] - 1 && 
+                                 metalPos[ 1 ] === currentPos [ 1 ] - 1 ) || //LL
+                                 ( metalPos[ 0 ] === currentPos [ 0 ] + 1 && 
+                                 metalPos[ 1 ] === currentPos [ 1 ] + 1 ) || //UR
+                                 ( metalPos[ 0 ] === currentPos [ 0 ] - 1 && 
+                                 metalPos[ 1 ] === currentPos [ 1 ] + 1) || //UL
+                                 ( metalPos[ 0 ] === currentPos [ 0 ] + 1 && 
+                                 metalPos[ 1 ] === currentPos [ 1 ] - 1) //LR
                                                     );
         } 
 
@@ -595,7 +595,7 @@ this.activateSensor = function( sensor, value ) {
 
         if ( items ) {
             if ( items.length !== 0 ) {
-                this.anomalySensorValue = true;
+                this.metalSensorValue = true;
             } else {
                 
             }
@@ -603,7 +603,7 @@ this.activateSensor = function( sensor, value ) {
         
         if ( rovers ) {
            if ( rovers.length !== 0 ) {
-                this.anomalySensorValue = true;
+                this.metalSensorValue = true;
             }
         }
         
