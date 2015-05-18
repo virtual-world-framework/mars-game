@@ -36,4 +36,4 @@ this.onFailedPolygonFinished = function( blockNode, playerPoints ) {
     this.onEvent();
 }
 
-//@ sourceURL=source/triggers/clauses/clause_OnBlocklyPolygon.js
+//@ sourceURL=source/triggers/clauses/clause_OnBlocklyPolygonFailed.js
