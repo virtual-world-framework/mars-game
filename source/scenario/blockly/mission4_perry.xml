@@ -1,0 +1,37 @@
+<xml id="rover" style="display: none">
+  
+  <category name="Rover">
+    <block type="rover_moveRadial_absolute"></block>
+    <block type="math_number_field"><field name="VALUE">0</field></block>
+    <block type="controls_sensor_position_x"></block>
+    <block type="controls_sensor_position_y"></block>
+  </category>
+  <category name="Variables" custom="VARIABLE">
+    <block type="variables_get"><field name="VAR">test1</field></block>
+    <block type="variables_set"><field name="VAR">test1</field></block>
+  </category>
+  <category name="Logic / Conditionals">
+    <block type="logic_cond_out"></block>
+    <block type="logic_andor_out"></block>
+    <block type="logic_boolean"></block>
+    <block type="controls_if_nomut"></block>
+    <block type="controls_if_else_nomut"></block>
+    <block type="controls_whileUntil"><field name="MODE">WHILE</field></block>
+  </category>
+  <category name="Numbers / Math">
+    <block type="math_number_field"><field name="VALUE">0</field></block>
+    <block type="graph_add"></block>
+    <block type="graph_subtract"></block>
+    <block type="graph_multiply"></block>
+    <block type="graph_divide"></block>
+    <block type="graph_left_paren"></block>
+    <block type="graph_right_paren"></block>
+  </category>
+  <category name="Nano-Builders">
+    <block type="start_triangle"></block>
+    <block type="end_triangle"></block>
+    <block type="mark_point"></block>
+  </category>
+  <category name="Procedures" custom="PROCEDURE">
+  </category>
+</xml>

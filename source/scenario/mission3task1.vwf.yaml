@@ -42,7 +42,7 @@ properties:
     - rover
   - loadToolbox:
     - rover
-    - source/scenario/blockly/scenario_dummy.xml
+    - source/scenario/blockly/mission3.xml
 
   # Manny
   - addToGrid:
