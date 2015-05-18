@@ -170,7 +170,7 @@ function updateOnBlocklyResize( event ) {
 function updateBlocklyRamBar() {
     if ( currentBlocklyNodeID ) {
         currentRam.style.width = ramBar.clientWidth * ( blocklyNodes[ currentBlocklyNodeID ].ram / blocklyNodes[ currentBlocklyNodeID ].ramMax ) + "px";
-        ramBarCount.innerHTML = "RAM: " + blocklyNodes[ currentBlocklyNodeID ].ram;
+        ramBarCount.innerHTML = "Blocks Remaining: " + blocklyNodes[ currentBlocklyNodeID ].ram;
     }
 }
 

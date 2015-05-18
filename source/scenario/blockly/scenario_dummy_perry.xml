@@ -6,7 +6,7 @@
   <block type="ordered_pair"></block>
   </category>
   <category name="Sensors">
-    <block type="controls_sensor_anomaly"></block>
+    <block type="controls_sensor_metal"></block>
     <block type="controls_sensor_signal"></block>
     <block type="controls_sensor_collision"></block>
     <block type="controls_sensor_heading"></block>

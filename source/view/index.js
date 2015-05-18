@@ -446,7 +446,7 @@ vwf_view.satProperty = function( nodeID, propertyName, propertyValue ) {
                 }
                 break;
 
-            case "anomalySensorValue":
+            case "metalSensorValue":
                 blocklyNode[ propertyName ] = propertyValue;
                 Blockly.mainWorkspace.fireChangeEvent();
                 break;

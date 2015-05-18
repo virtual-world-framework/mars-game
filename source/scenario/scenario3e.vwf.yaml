@@ -84,7 +84,7 @@ children:
           - setObjective:
             - "Build a program to follow the tracks until your scanner finds something."
           - writeToBlackboard:
-            - anomalyPosition
+            - metalPosition
             - [ 24, 38 ]
           - clearBlackboardEntry:
             - Level3eTravel1
@@ -135,7 +135,7 @@ children:
           - stopSound:
             - musicLevel2
           - clearBlackboardEntry:
-            - anomalyPosition
+            - metalPosition
           - stopSound:
             - CTVO4
 

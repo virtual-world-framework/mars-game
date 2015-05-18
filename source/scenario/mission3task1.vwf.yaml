@@ -22,7 +22,7 @@ properties:
 
   # objective
   - setObjective:
-    - "Use the signal sensor and the anomaly sensor to find the base pod."
+    - "Use the signal sensor and the metal sensor to find the base pod."
 
   # sounds/music
   - playSound:
@@ -81,9 +81,9 @@ properties:
     - visible
     - false
 
-  # signal & anomaly
+  # signal & metal
   - writeToBlackboard:
-    - anomalyPosition
+    - metalPosition
     - [ 17, 26 ]
   - writeToBlackboard:
     - signalPosition
@@ -130,7 +130,7 @@ children:
             - onScenarioFailed:
           actions:
           - clearBlackboardEntry:
-            - anomalyPosition
+            - metalPosition
           - clearBlackboardEntry:
             - signalPosition
 

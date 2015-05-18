@@ -60,7 +60,7 @@ properties:
         this.lowRam = value;
       }
     value: 5
-  anomalySensorValue: false
+  metalSensorValue: false
   collisionSensorValue: false
   headingSensorValue: 0
   positionSensorValue: []

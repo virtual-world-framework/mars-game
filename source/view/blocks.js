@@ -999,19 +999,19 @@ Blockly.JavaScript['controls_if_else_nomut'] = function(block) {
 };
 
 
-Blockly.JavaScript[ 'controls_sensor_anomaly' ] = function( block ) {
+Blockly.JavaScript[ 'controls_sensor_metal' ] = function( block ) {
   
   var argument0 = Blockly.JavaScript.valueToCode(block, 'INPUT', Blockly.JavaScript.ORDER_ATOMIC) || '';
 
-  return [ "vwf.getProperty( '" + block.data + "', 'anomalySensorValue' )" + argument0, Blockly.JavaScript.ORDER_ATOMIC ];
+  return [ "vwf.getProperty( '" + block.data + "', 'metalSensorValue' )" + argument0, Blockly.JavaScript.ORDER_ATOMIC ];
 
 };
 
-Blockly.Blocks[ 'controls_sensor_anomaly' ] = {
+Blockly.Blocks[ 'controls_sensor_metal' ] = {
   init: function() {
     this.setColour( 30 );
     this.appendValueInput('INPUT')
-        .appendField('Anomaly Adjacent: ')
+        .appendField('Metal Detected: ')
         .appendField("?", "VALUE");
     this.setOutput( true, "Boolean" );
     this.data = currentBlocklyNodeID;
@@ -1019,7 +1019,7 @@ Blockly.Blocks[ 'controls_sensor_anomaly' ] = {
     var thisBlock = this;
     this.setTooltip( function() {
       var content = {
-        text: "Checks our scanner for anomalies (items/rovers/other) in all 8 squares around the rover."
+        text: "Checks our scanner for metal (items/rovers/other) in all 8 squares around the rover."
       }
       return showTooltipInBlockly( thisBlock, content );
     } );
@@ -1029,9 +1029,9 @@ Blockly.Blocks[ 'controls_sensor_anomaly' ] = {
       // Block has been deleted.
       return;
     }
-    var anomalyValue = vwf.getProperty( this.data, "anomalySensorValue" );
+    var metalValue = vwf.getProperty( this.data, "metalSensorValue" );
     this.setEditable(true);
-    if ( anomalyValue === true ) {
+    if ( metalValue === true ) {
       this.setFieldValue( "(TRUE)",'VALUE' );
     } else {
       this.setFieldValue( "(FALSE)",'VALUE' );

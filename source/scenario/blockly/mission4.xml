@@ -3,7 +3,7 @@
   <category name="Rover">
     <block type="rover_moveForward"></block>
     <block type="rover_turn"><field name="DIR">Turn: Left</field></block>
-    <block type="controls_sensor_anomaly"></block>
+    <block type="controls_sensor_metal"></block>
     <block type="controls_sensor_signal"></block>
     <block type="controls_sensor_heading"></block>
   </category>
