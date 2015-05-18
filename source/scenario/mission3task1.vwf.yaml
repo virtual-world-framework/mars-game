@@ -147,6 +147,24 @@ children:
           - writeToBlackboard:
             - disableFailOnIncompleteProgram
 
+        playStartingVO_3_1_1:
+          triggerCondition:
+          - and:
+            - doOnce:
+            - onScenarioStart:
+          actions:
+          - playSound:
+            - L1VO1_Rover
+
+        playStartingVO_3_1_1:
+          triggerCondition:
+          - and:
+            - doOnce:
+            - delay:
+              - 20
+          actions:
+          - playSound:
+            - ALVO14_Rover
   grid:
     includes: source/grid.vwf
     properties:
