@@ -19,7 +19,7 @@ this.onGenerated = function( params, generator, payload ) {
                             "optional threshold val" );
     }
 
-    if ( !this.initOnEvent( params, generator, payload, params[ 1 ] ) ) {
+    if ( !this.initOnEvent( params, generator, payload ) ) {
         return false;
     }
 

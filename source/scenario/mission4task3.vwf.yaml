@@ -17,27 +17,17 @@ extends: ../scenario/scenario.vwf
 properties:
   scenarioName: mission4task3
   nextScenarioPath: mission4task4
-
   startState:
 
   # objective
   - setObjective:
     - "Dilate your triangle so that it is twice as big."
 
-  # sounds/music
-  - playSound:
-    - musicMission4Loop
-  - playSound:
-    - environmentWind
-
-  # movie preload
-  # TODO: switch to the appropriate success movie
-  - setProperty:
-    - videoManager  
-    - url 
-    - [ "assets/video/end_cinematic.webm", "assets/video/end_cinematic.mp4" ]
-
   # blockly
+  - setProperty:
+    - rover2
+    - blockly_xml
+    - <xml><block type="variables_set" deletable="false" movable="false" editable="false" inline="true" x="119" y="-7"><field name="VAR">vertex1_x</field><value name="VALUE"><block type="math_number_field" deletable="false" movable="false" editable="false" inline="false"><field name="VALUE">0</field></block></value><next><block type="variables_set" deletable="false" movable="false" editable="false" inline="true"><field name="VAR">vertex1_y</field><value name="VALUE"><block type="math_number_field" deletable="false" movable="false" editable="false" inline="false"><field name="VALUE">0</field></block></value><next><block type="variables_set" deletable="false" movable="false" editable="false" inline="true"><field name="VAR">vertex2_x</field><value name="VALUE"><block type="math_number_field" deletable="false" movable="false" editable="false" inline="false"><field name="VALUE">0</field></block></value><next><block type="variables_set" deletable="false" movable="false" editable="false" inline="true"><field name="VAR">vertex2_y</field><value name="VALUE"><block type="math_number_field" deletable="false" movable="false" editable="false" inline="false"><field name="VALUE">3</field></block></value><next><block type="variables_set" deletable="false" movable="false" editable="false" inline="true"><field name="VAR">vertex3_x</field><value name="VALUE"><block type="math_number_field" deletable="false" movable="false" editable="false" inline="false"><field name="VALUE">-3</field></block></value><next><block type="variables_set" deletable="false" movable="false" editable="false" inline="true"><field name="VAR">vertex3_y</field><value name="VALUE"><block type="math_number_field" deletable="false" movable="false" editable="false" inline="false"><field name="VALUE">0</field></block></value><next><block type="rover_moveRadial_absolute" deletable="false" movable="false" editable="false" inline="true"><value name="x"><block type="variables_get_noin" deletable="false" movable="false" editable="false" inline="false"><field name="VAR">vertex1_x</field></block></value><value name="y"><block type="variables_get_noin" deletable="false" movable="false" editable="false" inline="false"><field name="VAR">vertex1_y</field></block></value><next><block type="start_triangle" deletable="false" movable="false" editable="false"><next><block type="mark_point" deletable="false" movable="false" editable="false"><next><block type="rover_moveRadial_absolute" deletable="false" movable="false" editable="false" inline="true"><value name="x"><block type="variables_get_noin" deletable="false" movable="false" editable="false" inline="false"><field name="VAR">vertex2_x</field></block></value><value name="y"><block type="variables_get_noin" deletable="false" movable="false" editable="false" inline="false"><field name="VAR">vertex2_y</field></block></value><next><block type="mark_point" deletable="false" movable="false" editable="false"><next><block type="rover_moveRadial_absolute" deletable="false" movable="false" editable="false" inline="true"><value name="x"><block type="variables_get_noin" deletable="false" movable="false" editable="false" inline="false"><field name="VAR">vertex3_x</field></block></value><value name="y"><block type="variables_get_noin" deletable="false" movable="false" editable="false" inline="false"><field name="VAR">vertex3_y</field></block></value><next><block type="mark_point" deletable="false" movable="false" editable="false"><next><block type="rover_moveRadial_absolute" deletable="false" movable="false" editable="false" inline="true"><value name="x"><block type="variables_get_noin" deletable="false" movable="false" editable="false" inline="false"><field name="VAR">vertex1_x</field></block></value><value name="y"><block type="variables_get_noin" deletable="false" movable="false" editable="false" inline="false"><field name="VAR">vertex1_y</field></block></value><next><block type="mark_point" deletable="false" movable="false" editable="false"><next><block type="end_triangle" deletable="false" movable="false" editable="false"></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block></xml>
   - enableBlocklyNodes:
     - rover
     - rover2
@@ -47,16 +37,13 @@ properties:
   - loadToolbox:
     - rover2
     - source/scenario/blockly/mission4_perry.xml
-  - setProperty:
-    - rover2
-    - blockly_xml
-    - <xml></xml>
-  - setProperty:
-    - rover2
-    - blockly_xml
-    - <xml><block type="variables_set" deletable="false" movable="false" editable="false" inline="true" x="119" y="-7"><field name="VAR">vertex1_x</field><value name="VALUE"><block type="math_number_field" deletable="false" movable="false" editable="false" inline="false"><field name="VALUE">0</field></block></value><next><block type="variables_set" deletable="false" movable="false" editable="false" inline="true"><field name="VAR">vertex1_y</field><value name="VALUE"><block type="math_number_field" deletable="false" movable="false" editable="false" inline="false"><field name="VALUE">0</field></block></value><next><block type="variables_set" deletable="false" movable="false" editable="false" inline="true"><field name="VAR">vertex2_x</field><value name="VALUE"><block type="math_number_field" deletable="false" movable="false" editable="false" inline="false"><field name="VALUE">0</field></block></value><next><block type="variables_set" deletable="false" movable="false" editable="false" inline="true"><field name="VAR">vertex2_y</field><value name="VALUE"><block type="math_number_field" deletable="false" movable="false" editable="false" inline="false"><field name="VALUE">3</field></block></value><next><block type="variables_set" deletable="false" movable="false" editable="false" inline="true"><field name="VAR">vertex3_x</field><value name="VALUE"><block type="math_number_field" deletable="false" movable="false" editable="false" inline="false"><field name="VALUE">-3</field></block></value><next><block type="variables_set" deletable="false" movable="false" editable="false" inline="true"><field name="VAR">vertex3_y</field><value name="VALUE"><block type="math_number_field" deletable="false" movable="false" editable="false" inline="false"><field name="VALUE">0</field></block></value><next><block type="rover_moveRadial_absolute" deletable="false" movable="false" editable="false" inline="true"><value name="x"><block type="variables_get_noin" deletable="false" movable="false" editable="false" inline="false"><field name="VAR">vertex1_x</field></block></value><value name="y"><block type="variables_get_noin" deletable="false" movable="false" editable="false" inline="false"><field name="VAR">vertex1_y</field></block></value><next><block type="start_triangle" deletable="false" movable="false" editable="false"><next><block type="mark_point" deletable="false" movable="false" editable="false"><next><block type="rover_moveRadial_absolute" deletable="false" movable="false" editable="false" inline="true"><value name="x"><block type="variables_get_noin" deletable="false" movable="false" editable="false" inline="false"><field name="VAR">vertex2_x</field></block></value><value name="y"><block type="variables_get_noin" deletable="false" movable="false" editable="false" inline="false"><field name="VAR">vertex2_y</field></block></value><next><block type="mark_point" deletable="false" movable="false" editable="false"><next><block type="rover_moveRadial_absolute" deletable="false" movable="false" editable="false" inline="true"><value name="x"><block type="variables_get_noin" deletable="false" movable="false" editable="false" inline="false"><field name="VAR">vertex3_x</field></block></value><value name="y"><block type="variables_get_noin" deletable="false" movable="false" editable="false" inline="false"><field name="VAR">vertex3_y</field></block></value><next><block type="mark_point" deletable="false" movable="false" editable="false"><next><block type="rover_moveRadial_absolute" deletable="false" movable="false" editable="false" inline="true"><value name="x"><block type="variables_get_noin" deletable="false" movable="false" editable="false" inline="false"><field name="VAR">vertex1_x</field></block></value><value name="y"><block type="variables_get_noin" deletable="false" movable="false" editable="false" inline="false"><field name="VAR">vertex1_y</field></block></value><next><block type="mark_point" deletable="false" movable="false" editable="false"><next><block type="end_triangle" deletable="false" movable="false" editable="false"></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block></xml>
-    
-  # Manny
+
+  # sounds/music
+  - playSound:
+    - musicMission4Loop
+  - playSound:
+    - environmentWind
+
   - addToGrid:
     - rover
     - [ -13, -11 ]
@@ -82,16 +69,10 @@ properties:
     - 3
   - emptyInventory:
     - rover/cargo
-
-  # Perry
   - setProperty:
     - rover2
     - visible
     - true
-  # TODO: handle adding him if we jump to this task from elsewhere  
-  # - addToGrid:
-  #   - rover2
-  #   - [ -10, -10 ]
   - setProperty:
     - rover2
     - battery
@@ -108,16 +89,10 @@ properties:
     - rover2
     - lowRam
     - 5
-
-  # Rosie disabled
   - setProperty:
     - rover3
     - visible
     - false
-
-  # objects
-  # TODO: can we place these in the world without having to put them in every
-  #  scenario?  They never change (and should be visible off-grid)
   - addToGrid:
     - cargoPod2
     - [ -10, -13 ]
@@ -125,8 +100,6 @@ properties:
     - cargoPod2
     - visible
     - true
-
-  # Draw the desired triangle
   - drawTriangle:
     - [ 0, 0 ]
     - [ 0, 6 ]
@@ -148,9 +121,37 @@ children:
           actions:
           - showAlert:
             - "I created the correct triangle!"
+          - callMethod:
+            - rover2
+            - stopExecution
+          - clearBlockly:
           - scenarioSuccess:
           - playSound:
             - musicSuccessShort
+
+        scenarioEnded4_3:
+          triggerCondition:
+          - or: 
+            - onScenarioSucceeded:
+            - onScenarioFailed:
+          actions:
+          - setProperty:
+            - rover2
+            - surveyArray
+            - []
+
+        disableFailOnIncomplete4_3:
+          triggerCondition:
+          - or:
+            - onBlocklyStarted:
+              - rover
+            - onBlocklyStarted:
+              - rover2
+            - onBlocklyStarted:
+              - rover3
+          actions:
+          - writeToBlackboard:
+            - disableFailOnIncompleteProgram
 
   grid:
     includes: source/grid.vwf
