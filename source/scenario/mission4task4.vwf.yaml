@@ -19,8 +19,12 @@ properties:
   nextScenarioPath: mission4task5
 
   startState:
+
+  # objective
   - setObjective:
     - "Reflect your triangle across the Y axis."
+
+  # blockly
   - setProperty:
     - rover2
     - blockly_xml
@@ -141,7 +145,7 @@ children:
           - playSound:
             - musicSuccessShort
 
-        scenarioEnded44:
+        scenarioEnded4_4:
           triggerCondition:
           - or: 
             - onScenarioSucceeded:
@@ -152,7 +156,7 @@ children:
             - surveyArray
             - []
 
-        disableFailOnIncomplete44:
+        disableFailOnIncomplete4_4:
           triggerCondition:
           - or:
             - onBlocklyStarted:

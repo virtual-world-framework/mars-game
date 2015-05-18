@@ -145,7 +145,7 @@ children:
           - playSound:
             - musicSuccessShort
 
-        scenarioEnded46:
+        scenarioEnded4_6:
           triggerCondition:
           - or: 
             - onScenarioSucceeded:
@@ -156,7 +156,7 @@ children:
             - surveyArray
             - []
 
-        disableFailOnIncomplete46:
+        disableFailOnIncomplete4_6:
           triggerCondition:
           - or:
             - onBlocklyStarted:

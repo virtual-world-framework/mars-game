@@ -19,8 +19,12 @@ properties:
   nextScenarioPath: mission4task3
 
   startState:
+
+  # objectives
   - setObjective:
     - "Translate your triangle so that it is 10 spaces farther to the right."
+
+  # blockly
   - setProperty:
     - rover2
     - blockly_xml
@@ -40,7 +44,7 @@ properties:
     - musicMission4Loop
   - playSound:
     - environmentWind
-    
+
   # Manny
   - addToGrid:
     - rover
@@ -140,7 +144,7 @@ children:
           - playSound:
             - musicSuccessShort
 
-        scenarioEnded42:
+        scenarioEnded4_2:
           triggerCondition:
           - or: 
             - onScenarioSucceeded:
@@ -151,7 +155,7 @@ children:
             - surveyArray
             - []
 
-        disableFailOnIncomplete42:
+        disableFailOnIncomplete4_2:
           triggerCondition:
           - or:
             - onBlocklyStarted:

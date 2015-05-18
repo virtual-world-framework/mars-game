@@ -18,8 +18,12 @@ properties:
   scenarioName: mission4task3
   nextScenarioPath: mission4task4
   startState:
+
+  # objective
   - setObjective:
     - "Dilate your triangle so that it is twice as big."
+
+  # blockly
   - setProperty:
     - rover2
     - blockly_xml
@@ -125,7 +129,7 @@ children:
           - playSound:
             - musicSuccessShort
 
-        scenarioEnded43:
+        scenarioEnded4_3:
           triggerCondition:
           - or: 
             - onScenarioSucceeded:
@@ -136,7 +140,7 @@ children:
             - surveyArray
             - []
 
-        disableFailOnIncomplete43:
+        disableFailOnIncomplete4_3:
           triggerCondition:
           - or:
             - onBlocklyStarted:
