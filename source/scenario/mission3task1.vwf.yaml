@@ -123,7 +123,7 @@ children:
           - playSound:
             - musicSuccessShort
 
-        scenarioEnded:
+        scenarioEnded31:
           triggerCondition:
           - or: 
             - onScenarioSucceeded:
@@ -134,7 +134,7 @@ children:
           - clearBlackboardEntry:
             - signalPosition
 
-        disableFailOnIncomplete:
+        disableFailOnIncomplete31:
           triggerCondition:
           - or:
             - onBlocklyStarted:
