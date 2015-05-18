@@ -146,6 +146,37 @@ children:
     properties: 
       triggers$:
 
+        playStartingVO_3_1_1:
+          triggerCondition:
+          - and:
+            - doOnce:
+            - onScenarioStart:
+          actions:
+          - playSound:
+            - M3VO1_MC
+          - playSound:
+            - M3VO2_MC
+          - playSound:
+            - M3VO3_MC
+          - playSound:
+            - M3VO1_Rover
+          - playSound:
+            - M3VO4_MC
+          - playSound:
+            - M3VO2_Rover
+          - playSound:
+            - M3VO5_MC
+          - playSound:
+            - M3VO3_Rover
+          - playSound:
+            - M3VO6_MC
+          - playSound:
+            - M3VO5_Rover
+          - playSound:
+            - M3VO7_MC
+          - playSound:
+            - M3VO6_Rover
+
         succeedOnTriangle_4_1:
           group: successOrFailure
           priority: 0
@@ -157,6 +188,8 @@ children:
           - showAlert:
             - "I created the correct triangle!"
           - scenarioSuccess:
+          - playSound:
+            - M4T1_su
           - playSound:
             - musicSuccessShort
 
