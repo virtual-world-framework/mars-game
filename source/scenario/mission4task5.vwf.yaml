@@ -26,7 +26,7 @@ properties:
 
   # sounds/music
   - playSound:
-    - musicStandardGameplay
+    - musicMission4Loop
   - playSound:
     - environmentWind
 
@@ -52,7 +52,6 @@ properties:
     - blockly_xml
     - <xml><block type="variables_set" deletable="false" movable="false" editable="false" inline="true" x="119" y="-7"><field name="VAR">vertex1_x</field><value name="VALUE"><block type="math_number_field" deletable="false" movable="false" editable="false" inline="false"><field name="VALUE">-10</field></block></value><next><block type="variables_set" deletable="false" movable="false" editable="false" inline="true"><field name="VAR">vertex1_y</field><value name="VALUE"><block type="math_number_field" deletable="false" movable="false" editable="false" inline="false"><field name="VALUE">0</field></block></value><next><block type="variables_set" deletable="false" movable="false" editable="false" inline="true"><field name="VAR">vertex2_x</field><value name="VALUE"><block type="math_number_field" deletable="false" movable="false" editable="false" inline="false"><field name="VALUE">-10</field></block></value><next><block type="variables_set" deletable="false" movable="false" editable="false" inline="true"><field name="VAR">vertex2_y</field><value name="VALUE"><block type="math_number_field" deletable="false" movable="false" editable="false" inline="false"><field name="VALUE">3</field></block></value><next><block type="variables_set" deletable="false" movable="false" editable="false" inline="true"><field name="VAR">vertex3_x</field><value name="VALUE"><block type="math_number_field" deletable="false" movable="false" editable="false" inline="false"><field name="VALUE">-13</field></block></value><next><block type="variables_set" deletable="false" movable="false" editable="false" inline="true"><field name="VAR">vertex3_y</field><value name="VALUE"><block type="math_number_field" deletable="false" movable="false" editable="false" inline="false"><field name="VALUE">0</field></block></value><next><block type="rover_moveRadial_absolute" deletable="false" movable="false" editable="false" inline="true"><value name="x"><block type="variables_get" deletable="false" movable="false" editable="false" inline="false"><field name="VAR">vertex1_x</field></block></value><value name="y"><block type="variables_get" deletable="false" movable="false" editable="false" inline="false"><field name="VAR">vertex1_y</field></block></value><next><block type="start_triangle" deletable="false" movable="false" editable="false"><next><block type="mark_point" deletable="false" movable="false" editable="false"><next><block type="rover_moveRadial_absolute" deletable="false" movable="false" editable="false" inline="true"><value name="x"><block type="variables_get" deletable="false" movable="false" editable="false" inline="false"><field name="VAR">vertex2_x</field></block></value><value name="y"><block type="variables_get" deletable="false" movable="false" editable="false" inline="false"><field name="VAR">vertex2_y</field></block></value><next><block type="mark_point" deletable="false" movable="false" editable="false"><next><block type="rover_moveRadial_absolute" deletable="false" movable="false" editable="false" inline="true"><value name="x"><block type="variables_get" deletable="false" movable="false" editable="false" inline="false"><field name="VAR">vertex3_x</field></block></value><value name="y"><block type="variables_get" deletable="false" movable="false" editable="false" inline="false"><field name="VAR">vertex3_y</field></block></value><next><block type="mark_point" deletable="false" movable="false" editable="false"><next><block type="rover_moveRadial_absolute" deletable="false" movable="false" editable="false" inline="true"><value name="x"><block type="variables_get" deletable="false" movable="false" editable="false" inline="false"><field name="VAR">vertex1_x</field></block></value><value name="y"><block type="variables_get" deletable="false" movable="false" editable="false" inline="false"><field name="VAR">vertex1_y</field></block></value><next><block type="mark_point" deletable="false" movable="false" editable="false"><next><block type="end_triangle" deletable="false" movable="false" editable="false"></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block></xml>
     
-
   # Manny
   - addToGrid:
     - rover
@@ -112,13 +111,32 @@ properties:
     - visible
     - false
 
+  # objects
+  # TODO: can we place these in the world without having to put them in every
+  #  scenario?  They never change (and should be visible off-grid)
+  - addToGrid:
+    - cargoPod2
+    - [ -10, -13 ]
+  - setProperty:
+    - cargoPod2
+    - visible
+    - true
+
+  # Draw the desired triangle
+  - drawTriangle:
+    - [ 0, 0 ]
+    - [ 0, -6 ]
+    - [ -6, 0 ]
+
 children:
   triggerManager:
     extends: ../triggers/triggerManager.vwf
     properties: 
       triggers$:
 
-        SuccessOnTriangle_4_5:
+        succeedOnTriangle_4_5:
+          group: successOrFailure
+          priority: 0
           triggerCondition:
           - onBlocklyPolygon:
             - rover2
@@ -129,19 +147,6 @@ children:
           - scenarioSuccess:
           - playSound:
             - musicSuccessShort
-
-        disableFailOnIncomplete45:
-          triggerCondition:
-          - or:
-            - onBlocklyStarted:
-              - rover
-            - onBlocklyStarted:
-              - rover2
-            - onBlocklyStarted:
-              - rover3
-          actions:
-          - writeToBlackboard:
-            - disableFailOnIncompleteProgram
 
   grid:
     includes: source/grid.vwf
@@ -162,24 +167,24 @@ children:
       - [ -1, -1, -1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1 ]
       - [ -1, -1, -1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1 ]
       - [ -1, -1, -1, -1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1 ]
-      - [ -1, -1, -1, -1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1, -1,  1,  1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1 ]
-      - [ -1, -1, -1, -1,  1,  1,  1, -1, -1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1, -1, -1,  1,  1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1 ]
-      - [ -1, -1, -1, -1, -1,  1,  1, -1, -1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1, -1, -1, -1,  1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1 ]
+      - [ -1, -1, -1, -1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1 ]
+      - [ -1, -1, -1, -1,  1,  1,  1, -1, -1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1 ]
+      - [ -1, -1, -1, -1, -1,  1,  1, -1, -1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1 ]
       - [ -1, -1, -1, -1, -1,  1,  1, -1, -1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1 ]
       - [ -1, -1, -1, -1, -1,  1,  1, -1, -1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1 ]
       - [ -1, -1, -1, -1, -1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1 ]
       - [ -1, -1, -1, -1, -1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1 ]
-      - [ -1, -1, -1, -1, -1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1, -1,  1,  1,  1,  1,  1,  1,  1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1 ]
-      - [ -1, -1, -1, -1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1, -1, -1, -1,  1,  1,  1,  1,  1,  1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1 ]
-      - [ -1, -1, -1, -1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1, -1, -1, -1, -1, -1,  1,  1,  1,  1,  1,  1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1 ]
-      - [ -1, -1, -1, -1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1, -1, -1, -1, -1, -1, -1, -1,  1,  1,  1,  1,  1,  1, -1, -1, -1, -1, -1, -1, -1, -1, -1 ]
-      - [ -1, -1, -1, -1, -1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1, -1, -1, -1, -1, -1, -1, -1, -1, -1,  1,  1,  1,  1,  1, -1, -1, -1, -1, -1, -1, -1, -1, -1 ]
-      - [ -1, -1, -1, -1, -1,  1,  1,  1,  1,  1,  1,  1,  1,  1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,  1,  1,  1,  1,  1, -1, -1, -1, -1, -1, -1, -1, -1 ]
-      - [ -1, -1, -1, -1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1, -1, -1, -1, -1, -1, -1, -1, -1, -1,  1,  1,  1,  1,  1,  1,  1, -1, -1, -1, -1, -1, -1, -1 ]
-      - [ -1, -1, -1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1, -1, -1, -1, -1, -1, -1, -1,  1,  1,  1,  1,  1,  1,  1,  1, -1, -1, -1, -1, -1, -1, -1 ]
-      - [ -1, -1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1, -1, -1, -1, -1, -1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1, -1, -1, -1, -1, -1, -1 ]
-      - [ -1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1, -1, -1, -1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1, -1, -1, -1, -1, -1 ]
-      - [ -1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1, -1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1, -1, -1, -1, -1, -1 ]
+      - [ -1, -1, -1, -1, -1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1 ]
+      - [ -1, -1, -1, -1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1 ]
+      - [ -1, -1, -1, -1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1 ]
+      - [ -1, -1, -1, -1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1, -1, -1, -1, -1, -1, -1, -1, -1, -1 ]
+      - [ -1, -1, -1, -1, -1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1, -1, -1, -1, -1, -1, -1, -1, -1, -1 ]
+      - [ -1, -1, -1, -1, -1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1, -1, -1, -1, -1, -1, -1, -1, -1 ]
+      - [ -1, -1, -1, -1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1, -1, -1, -1, -1, -1, -1, -1 ]
+      - [ -1, -1, -1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1, -1, -1, -1, -1, -1, -1, -1 ]
+      - [ -1, -1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1, -1, -1, -1, -1, -1, -1 ]
+      - [ -1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1, -1, -1, -1, -1, -1 ]
+      - [ -1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1, -1, -1, -1, -1, -1 ]
       - [ -1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1, -1, -1, -1, -1 ]
       - [ -1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1, -1, -1, -1 ]
       - [ -1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1, -1, -1, -1 ]
