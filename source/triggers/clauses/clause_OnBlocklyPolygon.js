@@ -57,7 +57,7 @@ this.onPolygonFinished = function( blockNode, playerPoints ) {
     // the point where the polygon is started and where it finishes to determine if it is closed.
 
     var points = playerPoints.slice( 0 );
-
+    console.log('evaling');
     if ( this.blockNode === blockNode ) {
 
         // Does the player end up where they started? ( Closed Polygon )

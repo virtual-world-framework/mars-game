@@ -327,6 +327,94 @@ Blockly.JavaScript[ 'variables_get' ] = function( block ) {
 
 };
 
+Blockly.Blocks[ 'variables_get_noin' ] = {
+  /**
+   * Block for variable getter.
+   * @this Blockly.Block
+   */
+  init: function() {
+    this.setHelpUrl( 'http://google.com' );
+    this.setColour( 330 );
+    this.appendDummyInput('')
+        .appendField( Blockly.Msg.VARIABLES_GET_TITLE )
+        .appendField( new Blockly.FieldVariable( Blockly.Msg.VARIABLES_GET_ITEM ), 'VAR' )
+        .appendField( "?", "VALUE" )
+        .appendField( Blockly.Msg.VARIABLES_GET_TAIL )
+    this.setOutput( true );
+    this.setTooltip( Blockly.Msg.VARIABLES_GET_TOOLTIP );
+    this.contextMenuMsg_ = Blockly.Msg.VARIABLES_GET_CREATE_SET;
+    this.contextMenuType_ = 'variables_set';
+    this.data = currentBlocklyNodeID;
+  },
+  /**
+   * Return all variables referenced by this block.
+   * @return {!Array.<string>} List of variable names.
+   * @this Blockly.Block
+   */
+  getVars: function() {
+    return [ this.getFieldValue( 'VAR' ) ];
+  },
+  /**
+   * Notification that a variable is renaming.
+   * If the name matches one of this block's variables, rename it.
+   * @param {string} oldName Previous name of variable.
+   * @param {string} newName Renamed variable.
+   * @this Blockly.Block
+   */
+  renameVar: function( oldName, newName ) {
+    if ( Blockly.Names.equals( oldName, this.getFieldValue( 'VAR' ) ) ) {
+      this.setFieldValue( newName, 'VAR' );
+    }
+  },
+  /**
+   * Add menu option to create getter/setter block for this setter/getter.
+   * @param {!Array} options List of menu options to add to.
+   * @this Blockly.Block
+   */
+  customContextMenu: function( options ) {
+    var option = { enabled: false };
+    var name = this.getFieldValue( 'VAR' );
+    option.text = this.contextMenuMsg_.replace( '%1', name );
+    var xmlField = goog.dom.createDom( 'field', null, name );
+    xmlField.setAttribute( 'name', 'VAR' );
+    var xmlBlock = goog.dom.createDom( 'block', null, xmlField );
+    xmlBlock.setAttribute( 'type', this.contextMenuType_ );
+    option.callback = Blockly.ContextMenu.callbackFactory( this, xmlBlock );
+    options.push( option );
+  },
+
+  /**
+   * Fires when the workspace changes or Blockly.mainWorkspace.fireChangeEvent() is called
+   */
+  onchange: function() {
+    if (!this.workspace || this.data === undefined) {
+      // Block has been deleted.
+      return;
+    }
+    //Evaluate and return the code stored in the block.
+    var code = Blockly.JavaScript.variableDB_.getName( this.getFieldValue( 'VAR' ),
+      Blockly.Variables.NAME_TYPE );
+    var val = blocklyVariables[ code ];
+
+    if ( val === undefined ) {
+      val = '?';
+    }
+    
+    this.setFieldValue( '(' + val + ')','VALUE' );
+    
+  }
+
+};
+
+Blockly.JavaScript[ 'variables_get_noin' ] = function( block ) {
+  // Variable getter.
+  var code = Blockly.JavaScript.variableDB_.getName( block.getFieldValue( 'VAR' ),
+      Blockly.Variables.NAME_TYPE );
+
+    return [ code, Blockly.JavaScript.ORDER_ATOMIC ];
+
+};
+
 Blockly.Blocks['variables_set'] = {
   /**
    * Block for variable setter.
@@ -420,6 +508,7 @@ Blockly.JavaScript['variables_set'] = function( block ) {
 
 
 };
+
 
 Blockly.Blocks[ 'logic_cond_out' ] = {
   init: function() {
