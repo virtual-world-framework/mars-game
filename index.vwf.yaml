@@ -90,6 +90,7 @@ events:
   hideCommsImage:
   blockExecuted:
   blocklyCompletedPolygon:
+  blocklyFailedPolygon:
   toggledHelicam:
   toggledGraph:
   toggledTiles:

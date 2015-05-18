@@ -128,11 +128,22 @@ this.moveForward = function() {
     }
 }
 
-this.moveRadial = function( xValue, yValue ) {
+this.moveRadialAbsolute = function( valueX, valueY ) {
+
+    if ( valueX.constructor === Array ) {
+        var temp = valueX.slice(0);
+        valueX = temp[0];
+        valueY = temp[1];
+    }
+
+    var gridCoords = this.currentGrid.getGridFromGamePos( [ valueX, valueY ] );
 
     var scene = this.sceneNode;
 
-    var radians = Math.atan2(yValue, xValue); // In radians 
+    var xOffset = gridCoords[ 0 ] - this.currentGridSquare[ 0 ];
+    var yOffset = gridCoords[ 1 ] - this.currentGridSquare[ 1 ];
+
+    var radians = Math.atan2( yOffset, xOffset ); // In radians 
     var heading = radians * ( 180 / Math.PI );
 
     if ( heading < 90 && heading > 0 ) {  // 'north' is rotated 90 degrees
@@ -143,8 +154,105 @@ this.moveRadial = function( xValue, yValue ) {
 
     var dirVector = [ Math.round( -Math.sin( radians ) ), Math.round( Math.cos( radians ) ) ];
 
-    var proposedNewGridSquare = [ this.currentGridSquare[ 0 ] + xValue, 
-                                                                this.currentGridSquare[ 1 ] + yValue ];
+    var proposedNewGridSquare = [ this.currentGridSquare[ 0 ] + xOffset, 
+                                                                this.currentGridSquare[ 1 ] + yOffset ]; 
+
+    //Calculate the time to displace based on the hypotenuse
+    var hypot = Math.sqrt( ( xOffset * xOffset ) + ( yOffset * yOffset ) );
+
+    var displacement = [  xOffset * this.currentGrid.gridSquareLength,  yOffset * this.currentGrid.gridSquareLength, 0 ];
+
+    //First check if the coordinate is valid
+    if ( this.currentGrid.validCoord( proposedNewGridSquare ) ) {
+
+        var energyRequired = this.currentGrid.getEnergy( proposedNewGridSquare );
+
+        //Otherwise, check if the space is occupied
+        if ( !this.checkRadialCollision( this.currentGridSquare, proposedNewGridSquare ) ){
+            this.currentGrid.moveObjectOnGrid( this.id, this.currentGridSquare, proposedNewGridSquare );
+            this.currentGridSquare = proposedNewGridSquare;
+            
+            // TODO: This should use worldTransformBy, but we are getting a bug where the rover's transform isn't set
+            //       yet when this method is called.  Until we can debug that, we are assuming that the rover's 
+            //       parent's frame of reference is the world frame of reference
+
+
+            this.translateOnTerrain( displacement, hypot, energyRequired );
+            // this.worldTransformBy( [
+            //   1, 0, 0, 0,
+            //   0, 1, 0, 0,
+            //   0, 0, 1, 0,
+            //   dirVector[ 0 ] * this.gridSquareLength, dirVector[ 1 ] * this.gridSquareLength, 0, 0 ], 1 );
+
+            var inventoriableObjects = this.currentGrid.getInventoriables( proposedNewGridSquare );
+            if ( inventoriableObjects ){
+                for ( var i = 0; i < inventoriableObjects.length; i++ ) {
+                    this.currentGrid.removeFromGrid( inventoriableObjects[ i ], proposedNewGridSquare );
+                    this.cargo.add( inventoriableObjects[ i ] );
+                }
+            }
+            this.moved();
+            this.activateSensor( 'position' );
+            this.activateSensor( 'heading', this.heading );
+            //this.activateSensor( 'anomaly' );
+        } else {
+            this.moveFailed( "collision" );
+        }
+    } else {
+        this.moveFailed( "collision" );
+    }
+}
+
+this.moveRadial = function( xValue, yValue, offset ) {
+
+    var scene = this.sceneNode;
+
+    if ( offset === true ) {
+        var radians = Math.atan2(yValue, xValue); // In radians 
+        var heading = radians * ( 180 / Math.PI );
+
+        if ( heading < 90 && heading > 0 ) {  // 'north' is rotated 90 degrees
+            this.setHeading( 360 + ( heading - 90 ) );
+        } else {
+            this.setHeading( heading - 90, 0 );
+        }
+
+        var dirVector = [ Math.round( -Math.sin( radians ) ), Math.round( Math.cos( radians ) ) ];
+
+        var proposedNewGridSquare = [ this.currentGridSquare[ 0 ] + xValue, 
+                                                                    this.currentGridSquare[ 1 ] + yValue ]; 
+
+        //Calculate the time to displace based on the hypotenuse
+        var hypot = Math.sqrt(xValue*xValue + yValue*yValue);
+
+        var displacement = [  xValue * this.currentGrid.gridSquareLength,  yValue * this.currentGrid.gridSquareLength, 0 ];
+
+    } else {
+
+        var xOffset = xValue - this.currentGridSquare[ 0 ];
+        var yOffset = yValue - this.currentGridSquare[ 1 ];
+
+        var radians = Math.atan2( yOffset, xOffset ); // In radians 
+        var heading = radians * ( 180 / Math.PI );
+
+        if ( heading < 90 && heading > 0 ) {  // 'north' is rotated 90 degrees
+            this.setHeading( 360 + ( heading - 90 ) );
+        } else {
+            this.setHeading( heading - 90, 0 );
+        }
+
+        var dirVector = [ Math.round( -Math.sin( radians ) ), Math.round( Math.cos( radians ) ) ];
+
+        var proposedNewGridSquare = [ this.currentGridSquare[ 0 ] + xOffset, 
+                                                                    this.currentGridSquare[ 1 ] + yOffset ]; 
+
+        //Calculate the time to displace based on the hypotenuse
+        var hypot = Math.sqrt( ( xOffset * xOffset ) + ( yOffset * yOffset ) );
+
+        var displacement = [  xOffset * this.currentGrid.gridSquareLength,  yOffset * this.currentGrid.gridSquareLength, 0 ];
+
+    }
+    
 
     //First check if the coordinate is valid
     if ( this.currentGrid.validCoord( proposedNewGridSquare ) ) {
@@ -162,13 +270,11 @@ this.moveRadial = function( xValue, yValue ) {
             if ( !this.checkRadialCollision( this.currentGridSquare, proposedNewGridSquare ) ){
                 this.currentGrid.moveObjectOnGrid( this.id, this.currentGridSquare, proposedNewGridSquare );
                 this.currentGridSquare = proposedNewGridSquare;
-                var displacement = [  xValue * this.currentGrid.gridSquareLength,  yValue * this.currentGrid.gridSquareLength, 0 ];
+                
                 // TODO: This should use worldTransformBy, but we are getting a bug where the rover's transform isn't set
                 //       yet when this method is called.  Until we can debug that, we are assuming that the rover's 
                 //       parent's frame of reference is the world frame of reference
 
-                //Calculate the time to displace based on the hypotenuse
-                var hypot = Math.sqrt(xValue*xValue + yValue*yValue);
 
                 this.translateOnTerrain( displacement, hypot, energyRequired );
                 // this.worldTransformBy( [
@@ -551,9 +657,10 @@ this.activateSensor = function( sensor, value ) {
     }
 
     if ( sensor === 'position' ) {
-        this.positionSensorValue = this.currentGridSquare;
-        this.positionSensorValueX = this.currentGridSquare[ 0 ];
-        this.positionSensorValueY = this.currentGridSquare[ 1 ];
+        var currentLocation = this.currentGrid.getGamePosFromGrid( this.currentGridSquare );
+        this.positionSensorValue = currentLocation;
+        this.positionSensorValueX = currentLocation[ 0 ];
+        this.positionSensorValueY = currentLocation[ 1 ];
         return;
     }
 
@@ -561,24 +668,32 @@ this.activateSensor = function( sensor, value ) {
         // This sensor just checks the current position against the 
         //  "signalPosition" on the blackboard (if any).
         var signalPos = this.sceneNode.sceneBlackboard[ "signalPosition" ];
-        var currentPos = this.currentGridSquare;
 
-        var deltaX = signalPos[ 0 ] - currentPos[ 0 ];
-        var deltaY = signalPos[ 1 ] - currentPos[ 1 ];
+        if ( signalPos !== undefined ) {
+            var currentPos = this.currentGridSquare;
 
-        if ( deltaX === 0 && deltaY === 0 ) {
-            this.signalSensorValue = -1;
-            scene.roverSignalValue = -1;
+            var deltaX = signalPos[ 0 ] - currentPos[ 0 ];
+            var deltaY = signalPos[ 1 ] - currentPos[ 1 ];
+
+            if ( deltaX === 0 && deltaY === 0 ) {
+                this.signalSensorValue = -1;
+                scene.roverSignalValue = -1;
+                return;
+            }
+
+            var heading = ( 180 / Math.PI ) * Math.atan2( -deltaY, -deltaX ) + 180;
+            
+            //Math is getting flipped for 0 and 180 for some reason.
+            
+            this.signalSensorValue = Math.round( heading );
+            scene.roverSignalValue = Math.round( heading );
+            return; 
+        } else {
+            this.signalSensorValue = -99;
+            scene.roverSignalValue = -99;
             return;
         }
-
-        var heading = ( 180 / Math.PI ) * Math.atan2( -deltaY, -deltaX ) + 180;
         
-        //Math is getting flipped for 0 and 180 for some reason.
-        
-        this.signalSensorValue = Math.round( heading );
-        scene.roverSignalValue = Math.round( heading );
-        return;
         
     }
 

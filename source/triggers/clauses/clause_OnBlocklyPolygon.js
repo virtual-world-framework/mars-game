@@ -56,28 +56,32 @@ this.onPolygonFinished = function( blockNode, playerPoints ) {
     // Note: The playerPoints array should have length v+1 for the correct polygon. This is because we mark
     // the point where the polygon is started and where it finishes to determine if it is closed.
 
+    var points = playerPoints.slice( 0 );
+
     if ( this.blockNode === blockNode ) {
 
         // Does the player end up where they started? ( Closed Polygon )
 
-        var startPoint = playerPoints[ 0 ];
-        var endPoint = playerPoints[ playerPoints.length - 1 ];
+        var startPoint = points[ 0 ];
+        var endPoint = points[ points.length - 1 ];
 
         if ( startPoint[ 0 ] !== endPoint[ 0 ] || startPoint[ 1 ] !== endPoint[ 1 ] ) {
+            console.log('start not end');
             return;
         }
 
         // Are they the same length?
 
-        if ( this.pointArray.length !== ( playerPoints.length - 1 )  ) {
+        points.pop();
+
+        if ( this.pointArray.length !== ( points.length )  ) {
+            console.log('lengths arent the same');
             return;
         }
 
         // Remove last point in the player array since it should be a duplicate
 
-        playerPoints.pop();
-
-        var playerString = playerPoints.toString();
+        var playerString = points.toString();
 
         if ( this.forwardString.indexOf( playerString ) !== -1 || this.reverseString.indexOf( playerString ) !== -1 ) {
             this.onEvent();
