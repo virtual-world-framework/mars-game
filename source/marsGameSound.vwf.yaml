@@ -316,7 +316,7 @@ properties:
     - soundName: "M3VO10_MC"
       soundURL: "assets/sounds/vo/m1t1VO10MissionControl.ogg"
       initialVolume: 0.65
-      subtitle: "[ROVER]: The Base Pod is in your vicinity. If you do not retrieve it and begin construction of the Mars Base, the Human Explorers will arrive without the resources and shelter to survive. Doe that sound like a joke?"
+      subtitle: "[MC]: The Base Pod is in your vicinity. If you do not retrieve it and begin construction of the Mars Base, the Human Explorers will arrive without the resources and shelter to survive. Does that sound like a joke?"
       soundGroup: vo
       groupReplacementMethod: queue
     - soundName: "M3VO11_Rover"
@@ -831,42 +831,42 @@ properties:
       soundURL: "assets/sounds/vo/perryThanksALot01.ogg"
       isLooping: false
       initialVolume: 0.85
-      subtitle: "[ROVER]: need perry portrait"
+      subtitle: "[PERRY]: ???"
       soundGroup: vo
       groupReplacementMethod: queue
     - soundName: "PerryWhatsAClown"
       soundURL: "assets/sounds/vo/perryWhatAClown01.ogg"
       isLooping: false
       initialVolume: 0.85
-      subtitle: "[ROVER]: need perry portrait"
+      subtitle: "[PERRY]: ???"
       soundGroup: vo
       groupReplacementMethod: queue
     - soundName: "PerryIDidIt"
       soundURL: "assets/sounds/vo/perryIDidIt03.ogg"
       isLooping: false
       initialVolume: 0.85
-      subtitle: "[ROVER]: need perry portrait"
+      subtitle: "[PERRY]: ???"
       soundGroup: vo
       groupReplacementMethod: queue
     - soundName: "PerryDusty"
       soundURL: "assets/sounds/vo/perryDidItButImDusty01.ogg"
       isLooping: false
       initialVolume: 0.85
-      subtitle: "[ROVER]: need perry portrait"
+      subtitle: "[PERRY]: ???"
       soundGroup: vo
       groupReplacementMethod: queue
     - soundName: "PerryAcknowledge"
       soundURL: "assets/sounds/vo/perryAcknowledge01.ogg"
       isLooping: false
       initialVolume: 0.85
-      subtitle: "[ROVER]: need perry portrait"
+      subtitle: "[PERRY]: ???"
       soundGroup: vo
       groupReplacementMethod: queue
     - soundName: "PerryNotDoneGroan"
       soundURL: "assets/sounds/vo/perryNotDoneGroan01.ogg"
       isLooping: false
       initialVolume: 0.85
-      subtitle: "[ROVER]: need perry portrait"
+      subtitle: "[PERRY]: ???"
       soundGroup: vo
       groupReplacementMethod: queue
 

@@ -1280,7 +1280,7 @@ Blockly.Blocks[ 'controls_sensor_heading' ] = {
   init: function() {
     this.setColour( 30 );
     this.appendValueInput('INPUT')
-        .appendField('Heading: ')
+        .appendField('Direction of Travel: ')
         .appendField("?", "VALUE")
         .setCheck(['OperatorAddSubtract','OperatorMultiplyDivide','LeftParenthesis','RightParenthesis','Conditional']);
     this.setOutput(true, null);
@@ -1289,7 +1289,7 @@ Blockly.Blocks[ 'controls_sensor_heading' ] = {
     var thisBlock = this;
     this.setTooltip( function() {
       var content = {
-        text: "Checks our rover for its heading in a 360° arc that starts on the X-axis. Returns a value between 0 and 360"
+        text: "Checks our rover for its direction of travel (heading) in a 360° arc that starts on the X-axis. Returns a value between 0 and 360"
       }
       return showTooltipInBlockly( thisBlock, content );
     } );

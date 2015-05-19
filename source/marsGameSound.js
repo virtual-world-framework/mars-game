@@ -48,6 +48,8 @@ this.startSubtitle = function( instanceHandle ) {
                 var imagePath = "assets/images/hud/portrait_rover_communicator.png";
             } else if ( character === "MC" ) {
                 var imagePath = "assets/images/hud/comms_missioncontrol.png";
+            } else if ( character === "PERRY" ) {
+                var imagePath = "assets/images/hud/portrait_scout_large.png";
             }
             scene.hud.comms.addCharacterImage( imagePath );
         }
