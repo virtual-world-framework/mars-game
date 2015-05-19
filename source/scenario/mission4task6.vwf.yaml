@@ -129,8 +129,8 @@ children:
 
         setStartPosition_4_6:
           triggerCondition:
-          - onScenarioStart:
           - and:
+            - onScenarioStart:
             - not:
               - isAtPosition:
                 - rover2
