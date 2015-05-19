@@ -107,6 +107,10 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 break;
 
             case "blocklyStarted":
+            var xml = Blockly.Xml.workspaceToDom( Blockly.getMainWorkspace() );
+        if ( xml ) { 
+            console.log( xml );
+        }
                 var indicator = document.getElementById( "blocklyIndicator" );
                 indicator.className = "";
                 indicator.style.visibility = "inherit";
@@ -201,8 +205,12 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                         var value_y = blockArgs[ 1 ];
                     }
 
-
                     var blocklyNodeValues = blocklyNodes[ blockNode ];
+
+                    if ( blocklyNodeValues === undefined ) {
+                        var blocklyNodeValues = blocklyNodes[ currentBlocklyNodeID ];
+                    }
+
                     var currentPosition = blocklyNodeValues[ 'positionSensorValue' ];
 
                     var xOffset = value_x - currentPosition[ 0 ];
@@ -215,11 +223,12 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                     vwf_view.kernel.setProperty( blockNode, "blockly_timeBetweenLines", blockTime );
                 }
                 
-                if ( blockID ) {
-                    selectBlock( blockID );
-                    indicateBlock( blockID );
-                    lastBlockIDExecuted = blockID;
-                }
+                // Now broken with blockly update...
+                // if ( blockID ) {
+                //     selectBlock( blockID );
+                //     indicateBlock( blockID );
+                //     lastBlockIDExecuted = blockID;
+                // }
 
                 handleDrawingBlocks( blockName, blockNode, blockArgs );
 

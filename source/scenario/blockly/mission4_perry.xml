@@ -20,6 +20,7 @@
   </category>
   <category name="Numbers and Math">
     <block type="math_number_field"><field name="VALUE">0</field></block>
+    <block type="ordered_pair_config"></block>
     <block type="graph_add"></block>
     <block type="graph_subtract"></block>
     <block type="graph_multiply"></block>
@@ -31,5 +32,7 @@
     <block type="start_triangle"></block>
     <block type="end_triangle"></block>
     <block type="mark_point"></block>
+  </category>
+  <category name="Procedures" custom="PROCEDURE">
   </category>
 </xml>
