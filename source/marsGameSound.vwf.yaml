@@ -264,7 +264,7 @@ properties:
       initialVolume: 0.65
       subtitle: "[ROVER]: Another day on Mars…the wondrous vistas, the amazing science opportunities, the crushing sense of loneliness…"
       soundGroup: vo
-      groupReplacementMethod: queue
+      groupReplacementMethod: replace
     - soundName: "M3VO2_MC"
       soundURL: "assets/sounds/vo/m1t1VO02MissionControl.ogg"
       initialVolume: 0.65
@@ -372,7 +372,7 @@ properties:
       initialVolume: 0.65
       subtitle: "[MC]: Congratulations on the activating the Base Pod. It contains vital equipment you will need to construct the Mars Base, including a NanoStrate Sprayer. This very versatile tool will apply a layer of nanites on the ground in any shape you outline, and they use the environment itself for materials to build each base item. It’s very efficient!"
       soundGroup: vo
-      groupReplacementMethod: queue
+      groupReplacementMethod: replace
     - soundName: "M4VO20_Rover"
       soundURL: "assets/sounds/vo/m1t1VO20Manny.ogg"
       initialVolume: 0.65
@@ -414,25 +414,25 @@ properties:
       initialVolume: 0.65
       subtitle: "[MC]: That’s it, but we need to move the panel out of the shadow for it to draw power."
       soundGroup: vo
-      groupReplacementMethod: queue
+      groupReplacementMethod: replace
     - soundName: "M4VO27_MC"
       soundURL: "assets/sounds/vo/m1t1VO27MissionControl.ogg"
       initialVolume: 0.65
       subtitle: "[MC]: That’s better…but the solar panel segment needs to be bigger or it won’t draw enough electricity from the weak Martian sunlight."
       soundGroup: vo
-      groupReplacementMethod: queue
+      groupReplacementMethod: replace
     - soundName: "M4VO28_MC"
       soundURL: "assets/sounds/vo/m1t1VO28MissionControl.ogg"
       initialVolume: 0.65
       subtitle: "[MC]: Very good. I will be temporarily unavailable while I perform a routine update. Keep calm and carry on!"
       soundGroup: vo
-      groupReplacementMethod: queue
+      groupReplacementMethod: replace
     - soundName: "M5IntroVO1_Rover"
       soundURL: "assets/sounds/vo/M5Intro_Manny1.mp3"
       initialVolume: 0.65
       subtitle: "[ROVER]: ???"
       soundGroup: vo
-      groupReplacementMethod: queue
+      groupReplacementMethod: replace
     - soundName: "M5IntroVO2_Rover"
       soundURL: "assets/sounds/vo/M5Intro_Manny2.mp3"
       initialVolume: 0.65
@@ -516,7 +516,7 @@ properties:
       initialVolume: 0.65
       subtitle: "[MC]: ???"
       soundGroup: vo
-      groupReplacementMethod: queue
+      groupReplacementMethod: replace
     - soundName: "M6IntroVO2_MC"
       soundURL: "assets/sounds/vo/M6Intro_MC1.mp3"
       initialVolume: 0.65
