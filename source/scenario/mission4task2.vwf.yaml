@@ -126,6 +126,28 @@ children:
     extends: ../triggers/triggerManager.vwf
     properties: 
       triggers$:
+
+        setStartPosition_4_2:
+          triggerCondition:
+          - onScenarioStart:
+          - and:
+            - not:
+              - isAtPosition:
+                - rover2
+                - [ -10, 0 ]
+            - not:
+              - isAtPosition:
+                - rover2
+                - [ -10, 3 ]
+            - not:
+              - isAtPosition:
+                - rover2
+                - [ -13, 0 ]
+          actions:
+            - addToGrid:
+              - rover2
+              - [ -10, 0 ]
+
         succeedOnTriangle_4_2:
           group: successOrFailure
           priority: 0
@@ -156,19 +178,6 @@ children:
             - rover2
             - surveyArray
             - []
-
-        disableFailOnIncomplete4_2:
-          triggerCondition:
-          - or:
-            - onBlocklyStarted:
-              - rover
-            - onBlocklyStarted:
-              - rover2
-            - onBlocklyStarted:
-              - rover3
-          actions:
-          - writeToBlackboard:
-            - disableFailOnIncompleteProgram
 
   grid:
     includes: source/grid.vwf

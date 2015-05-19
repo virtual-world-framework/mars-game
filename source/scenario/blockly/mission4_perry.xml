@@ -10,7 +10,7 @@
     <block type="variables_get"><field name="VAR">test1</field></block>
     <block type="variables_set"><field name="VAR">test1</field></block>
   </category>
-  <category name="Logic / Conditionals">
+  <category name="Conditionals and Loops">
     <block type="logic_cond_out"></block>
     <block type="logic_andor_out"></block>
     <block type="logic_boolean"></block>
@@ -18,7 +18,7 @@
     <block type="controls_if_else_nomut"></block>
     <block type="controls_whileUntil"><field name="MODE">WHILE</field></block>
   </category>
-  <category name="Numbers / Math">
+  <category name="Numbers and Math">
     <block type="math_number_field"><field name="VALUE">0</field></block>
     <block type="graph_add"></block>
     <block type="graph_subtract"></block>
@@ -31,7 +31,5 @@
     <block type="start_triangle"></block>
     <block type="end_triangle"></block>
     <block type="mark_point"></block>
-  </category>
-  <category name="Procedures" custom="PROCEDURE">
   </category>
 </xml>

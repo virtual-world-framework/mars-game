@@ -133,19 +133,6 @@ children:
           - clearBlackboardEntry:
             - signalPosition
 
-        disableFailOnIncomplete3_1:
-          triggerCondition:
-          - or:
-            - onBlocklyStarted:
-              - rover
-            - onBlocklyStarted:
-              - rover2
-            - onBlocklyStarted:
-              - rover3
-          actions:
-          - writeToBlackboard:
-            - disableFailOnIncompleteProgram
-
         playStartingVO_3_1_1:
           triggerCondition:
           - and:

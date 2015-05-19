@@ -7,15 +7,13 @@
     <block type="controls_sensor_signal"></block>
     <block type="controls_sensor_heading"></block>
   </category>
-  <category name="Logic / Conditionals">
+  <category name="Conditionals and Loops">
     <block type="logic_cond_out"></block>
     <block type="logic_andor_out"></block>
     <block type="logic_boolean"></block>
-    <block type="controls_if_nomut"></block>
-    <block type="controls_if_else_nomut"></block>
     <block type="controls_whileUntil"><field name="MODE">WHILE</field></block>
   </category>
-  <category name="Numbers / Math">
+  <category name="Numbers and Math">
     <block type="math_number_field"><field name="VALUE">0</field></block>
     <block type="graph_add"></block>
     <block type="graph_subtract"></block>

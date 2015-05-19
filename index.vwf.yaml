@@ -608,26 +608,24 @@ children:
         extends: source/pickups/helicam.vwf
       minirover:
         extends: source/pickups/minirover.vwf
-  tent:
-    extends: source/buildings/tent.vwf
-  solarPanel:
-    extends: source/buildings/solarPanel.vwf
   cargoPod2: 
     extends: source/buildings/basePod.vwf
     properties:
+      translation: [ 0, 0, -9999999 ]
       gridRotation: 270
-  cargoPod3: 
-    extends: source/buildings/basePod.vwf
-  cargoPod4: 
-    extends: source/buildings/basePod.vwf
-  solarPanel1: 
-    extends: source/buildings/solarPanel.vwf
-  solarPanel2: 
-    extends: source/buildings/solarPanel.vwf
-  solarPanel3: 
-    extends: source/buildings/solarPanel.vwf
-  solarPanel4: 
-    extends: source/buildings/solarPanel.vwf
+      visible: false
+  # cargoPod3: 
+  #   extends: source/buildings/basePod.vwf
+  # cargoPod4: 
+  #   extends: source/buildings/basePod.vwf
+  # solarPanel1: 
+  #   extends: source/buildings/solarPanel.vwf
+  # solarPanel2: 
+  #   extends: source/buildings/solarPanel.vwf
+  # solarPanel3: 
+  #   extends: source/buildings/solarPanel.vwf
+  # solarPanel4: 
+  #   extends: source/buildings/solarPanel.vwf
   scenario_dummy:
     includes: source/scenario/scenario_dummy.vwf
   introScreenScenario:

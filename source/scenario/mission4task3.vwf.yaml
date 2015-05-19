@@ -111,6 +111,27 @@ children:
     properties: 
       triggers$:
 
+        setStartPosition_4_3:
+          triggerCondition:
+          - onScenarioStart:
+          - and:
+            - not:
+              - isAtPosition:
+                - rover2
+                - [ 0, 0 ]
+            - not:
+              - isAtPosition:
+                - rover2
+                - [ 0, 3 ]
+            - not:
+              - isAtPosition:
+                - rover2
+                - [ -3, 0 ]
+          actions:
+            - addToGrid:
+              - rover2
+              - [ 0, 0 ]
+
         succeedOnTriangle_4_3:
           group: successOrFailure
           priority: 0
@@ -145,19 +166,6 @@ children:
             - rover2
             - surveyArray
             - []
-
-        disableFailOnIncomplete4_3:
-          triggerCondition:
-          - or:
-            - onBlocklyStarted:
-              - rover
-            - onBlocklyStarted:
-              - rover2
-            - onBlocklyStarted:
-              - rover3
-          actions:
-          - writeToBlackboard:
-            - disableFailOnIncompleteProgram
 
   grid:
     includes: source/grid.vwf
