@@ -171,7 +171,7 @@ children:
           - playSound:
             - M4VO22_Rover
           - playSound:
-            - PerryThanks
+            - PerryThanksALot
           - playSound:
             - M4VO23_MC
           - playSound:
