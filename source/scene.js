@@ -426,4 +426,8 @@ this.hideSchematicTriangle = function() {
     material.triangle = [];
 }
 
+this.openMissionBrief = function( missionName ) {
+    this.missionBriefOpened( missionName );
+}
+
 //@ sourceURL=source/scene.js
