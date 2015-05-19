@@ -243,6 +243,7 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 lastBlockIDExecuted = undefined;
                 currentProcedureBlockID = undefined;
                 gridBounds = eventArgs[ 1 ] || gridBounds;
+                showMissionBrief( currentScenario );
             case "scenarioReset":
                 removePopup();
                 removeFailScreen();

@@ -11,7 +11,7 @@ body {
     background-color: rgba( 0, 0, 0, 0.5 );
     color: white;
     text-align: center;
-    padding: 6px
+    padding: 6px;
     user-select: none;
     -webkit-user-select: none;  /* Chrome all / Safari all */
     -moz-user-select: none;     /* Firefox all */
@@ -382,7 +382,7 @@ a:active {
 #loggerBox {
     width: 26%;
     height: 140px;
-    background-color: rgba( 193, 244, 255, 0.2 );
+    background-color: rgba( 48, 64, 76, 0.5 );
     position: absolute;
     bottom: 30px;
     left: 180px;

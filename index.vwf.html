@@ -19,6 +19,7 @@ limitations under the License.
 <script type="text/javascript" src="source/view/utils.js"></script>
 <script type="text/javascript" src="source/view/blocks.js"></script>
 <script type="text/javascript" src="source/view/index.js"></script>
+<script type="text/javascript" src="source/view/missionBriefs.js"></script>
 <script type="text/javascript" src="source/view/mainMenu.js"></script>
 <script type="text/javascript" src="source/view/navigation.js"></script>
 <script type="text/javascript" src="source/view/popupManager.js"></script>
@@ -31,6 +32,7 @@ limitations under the License.
 <!-- CSS -->
 <link rel="stylesheet" href="source/view/index.css"></link>
 <link rel="stylesheet" href="source/view/mainMenu.css"></link>
+<link rel="stylesheet" href="source/view/missionBrief.css"></link>
 <link rel="stylesheet" href="source/view/jquery-resizable.css"></link>
 <link type="text/css" href="minimal_jplayer_style.css" rel="stylesheet" />
 
@@ -64,7 +66,19 @@ limitations under the License.
     <!--container in which our video will be played-->
     <div id="jquery_jplayer_1" class="jp-jplayer"></div>
  
-</div>     
+</div>
+
+<!-- Mission Brief Window -->
+<div id="missionBriefWrapper" style="display: none;">
+  <div id="missionBriefOpen">Show Mission Info</div>
+  <div id="missionBriefBackground">
+    <div id="missionBriefContainer">
+      <div id="missionBriefTitle">Mission 3, Task 1</div>
+      <div id="missionBriefContent">Your next mission is to find the Base Pod, which contains the supplies you’ll need to start building a base for the human explorers.  Although we don’t know where the pod landed, we do have a weak radio signal that will guide you to its location.  You can use your Signal Sensor to get the direction of the signal, which is output as an angle.  0 degrees points out to the right, 90 degrees up toward the top of the screen, 180 degrees is to the left, and so forth.  Using the signal sensor, you can move forward until the signal is directly to your right, then turn right and continue forward until your Metal Detector tells you that you’ve arrived.</div>
+      <div id="missionBriefContinue">Click here to continue!</div>
+    </div>
+  </div>
+</div>
 
 <div id="version"></div>
 <div id="zoomAlert"></div>
