@@ -828,42 +828,42 @@ properties:
       soundGroup: vo
       groupReplacementMethod: queue
     - soundName: "PerryThanks"
-      soundURL: "assets/sounds/vo/perryThanksALot01.ogg"
+      soundURL: "assets/sounds/vo/perryThanksALot02.ogg"
       isLooping: false
       initialVolume: 0.85
       subtitle: "[ROVER]: need perry portrait"
       soundGroup: vo
       groupReplacementMethod: queue
     - soundName: "PerryWhatsAClown"
-      soundURL: "assets/sounds/vo/perryWhatAClown01.ogg"
+      soundURL: "assets/sounds/vo/perryWhatAClown02.ogg"
       isLooping: false
       initialVolume: 0.85
       subtitle: "[ROVER]: need perry portrait"
       soundGroup: vo
       groupReplacementMethod: queue
     - soundName: "PerryIDidIt"
-      soundURL: "assets/sounds/vo/perryIDidIt03.ogg"
+      soundURL: "assets/sounds/vo/perryIDidIt05.ogg"
       isLooping: false
       initialVolume: 0.85
       subtitle: "[ROVER]: need perry portrait"
       soundGroup: vo
       groupReplacementMethod: queue
     - soundName: "PerryDusty"
-      soundURL: "assets/sounds/vo/perryDidItButImDusty01.ogg"
+      soundURL: "assets/sounds/vo/perryDidItButImDusty03.ogg"
       isLooping: false
       initialVolume: 0.85
       subtitle: "[ROVER]: need perry portrait"
       soundGroup: vo
       groupReplacementMethod: queue
     - soundName: "PerryAcknowledge"
-      soundURL: "assets/sounds/vo/perryAcknowledge01.ogg"
+      soundURL: "assets/sounds/vo/perryAcknowledge04.ogg"
       isLooping: false
       initialVolume: 0.85
       subtitle: "[ROVER]: need perry portrait"
       soundGroup: vo
       groupReplacementMethod: queue
     - soundName: "PerryNotDoneGroan"
-      soundURL: "assets/sounds/vo/perryNotDoneGroan01.ogg"
+      soundURL: "assets/sounds/vo/perryNotDoneGroan04.ogg"
       isLooping: false
       initialVolume: 0.85
       subtitle: "[ROVER]: need perry portrait"
