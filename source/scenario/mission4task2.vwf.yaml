@@ -143,6 +143,8 @@ children:
           - scenarioSuccess:
           - playSound:
             - musicSuccessShort
+          - playSound:
+            - M4VO27_MC
 
         scenarioEnded4_2:
           triggerCondition:

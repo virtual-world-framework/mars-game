@@ -144,6 +144,8 @@ children:
           - scenarioSuccess:
           - playSound:
             - musicSuccessShort
+          - playSound:
+            - PerryIDidIt
 
         scenarioEnded4_5:
           triggerCondition:

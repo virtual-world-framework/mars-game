@@ -153,6 +153,53 @@ children:
           - scenarioSuccess:
           - playSound:
             - musicSuccessShort
+          - playSound:
+            - M4VO26_MC
+
+        playStartingVO_4_1_1:
+          triggerCondition:
+          - and:
+            - doOnce:
+            - onScenarioStart:
+          actions:
+          - playSound:
+            - M4VO19_MC
+          - playSound:
+            - M4VO20_Rover
+          - playSound:
+            - M4VO21_MC
+          - playSound:
+            - M4VO22_Rover
+          - playSound:
+            - PerryThanks
+          - playSound:
+            - M4VO23_MC
+          - playSound:
+            - M4VO24_Rover
+          - playSound:
+            - PerryWhatsAClown
+          - playSound:
+            - M4VO25_Rover
+
+        playPerrySounds_4_1_1:
+          triggerCondition:
+          - onBlocklyBlock:
+            - rover2
+            - moveRadial
+            - true
+          actions:
+            - playSound:
+              - rover2GravelSounds
+
+        stopPerrySounds_4_1_1:
+          triggerCondition:
+          - onBlocklyBlock:
+            - rover2
+            - moveRadial
+            - false
+          actions:
+            - stopSound:
+              - rover2GravelSounds
 
         scenarioEnded4_1:
           triggerCondition:

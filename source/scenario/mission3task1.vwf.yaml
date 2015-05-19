@@ -146,6 +146,37 @@ children:
           - writeToBlackboard:
             - disableFailOnIncompleteProgram
 
+        playStartingVO_3_1_1:
+          triggerCondition:
+          - and:
+            - doOnce:
+            - onScenarioStart:
+          actions:
+          - playSound:
+            - M3VO1_Rover
+          - playSound:
+            - M3VO2_MC
+          - playSound:
+            - M3VO3_Rover
+          - playSound:
+            - M3VO4_MC
+          - playSound:
+            - M3VO5_Rover
+          - playSound:
+            - M3VO6_MC
+          - playSound:
+            - M3VO7_Rover
+          - playSound:
+            - M3VO8_MC
+          - playSound:
+            - M3VO9_Rover
+          - playSound:
+            - M3VO10_MC
+          - playSound:
+            - M3VO11_Rover
+          - playSound:
+            - M3VO12_MC
+
   grid:
     includes: source/grid.vwf
     properties:

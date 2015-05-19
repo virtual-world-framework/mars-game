@@ -13,16 +13,21 @@
 // limitations under the License.
 
 this.onGenerated = function( params, generator, payload ) {
-    if ( params && ( params.length < 2 ) && ( params.length > 3 ) ) {
-        this.logger.warnx( "onGenerated", "this clause has two or three " +
-        "arguments: a blockly object, a " +
-        "blockName, and an optional threshold" );
+    if ( params && ( params.length !== 3 ) ) {
+        this.logger.warnx( "onGenerated", "this clause has  three " +
+        "arguments: a blockly object, a blockName, and an truth value " +
+        "to check for firing on all blocks but the one provided" );
     }
 
-    this.blockName = params[ 0 ];
-    this.blockID = params[ 1 ];
-    this.blockTime = params[ 2 ];
-    this.blockNode = params[ 3 ];
+    this.blockName = params[ 1 ];
+    this.truthValue = params[ 2 ];
+
+    var blocklyObjNames = this.extractStringArray( params[ 0 ] );
+    this.blocklyObjects = this.getBlocklyObjects( blocklyObjNames, this.scene );
+    if ( this.blocklyObjects.length === 0 ) {
+        this.logger.errorx( "onGenerated", "No blockly objects found!" );
+        return false;
+    }
 
     if ( !this.initOnEvent( params, generator, payload, params[ 2 ] ) ) {
         return false;
@@ -36,9 +41,15 @@ this.onGenerated = function( params, generator, payload ) {
 }
 
 this.onBlockExecuted = function( blockName, blockID, blockTime, blockNode ) {
-    if ( ( this.blockName === blockName ) && ( this.blockNode === blockNode ) ) {
-        this.onEvent(); 
-    } 
+    for ( var i = 0; i < this.blocklyObjects.length; ++i ) {
+        var object = this.blocklyObjects[ i ];
+        if ( ( this.blockName === blockName ) && ( object.id === blockNode ) && this.truthValue !== true ) {
+            this.onEvent(); 
+        } else if ( ( this.blockName !== blockName ) && ( object.id === blockNode ) && this.truthValue === false ) {
+            this.onEvent();
+        }
+    }
+    
 }
 
 //@ sourceURL=source/triggers/clauses/clause_OnBlocklyBlock.js
