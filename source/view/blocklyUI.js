@@ -207,10 +207,10 @@ function resetBlocklyIndicator() {
 
 function showBlocklyIndicator() {
     var indicator = document.getElementById( "blocklyIndicator" );
-    var highlighter = document.getElementById( "blocklyHighlighter" );
+    //var highlighter = document.getElementById( "blocklyHighlighter" );
 
     if ( indicator ) {
-        highlighter.style.visibility = "inherit";
+        //highlighter.style.visibility = "inherit";
         indicator.style.visibility = "inherit";
     }
 }
@@ -257,7 +257,7 @@ function moveBlocklyIndicator( x, y, blockHeight ) {
     $( "#blocklyHighlighter" ).stop().animate( { 
         "backgroundColor" : '#FFFF00',
         "top" : ( y + yOffset ) + "px",
-        "left" : xOffset + "px",
+        "left" :( x + xOffset ) + "px",
         "height" : ( blockHeight ) + "px"
     } );
 }

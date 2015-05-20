@@ -140,7 +140,6 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 procedureIndicator.className = "stopped";
                 blocklyStopped = true;
                 var speedButton = document.getElementById( "blocklySpeedButton" );
-                changeHighlighterColor( 'stopped', 0 );
                 speedButton.style.opacity = 1.0;
                 speedButton.style.pointerEvents = "inherit";
                 
@@ -218,10 +217,8 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                     var hypot = Math.sqrt( ( xOffset * xOffset ) + ( yOffset * yOffset ) );
 
                     vwf_view.kernel.setProperty( blockNode, "blockly_timeBetweenLines", hypot );
-                    changeHighlighterColor( 'executed', hypot );
                 } else {
                     vwf_view.kernel.setProperty( blockNode, "blockly_timeBetweenLines", blockTime );
-                    changeHighlighterColor( 'executed', blockTime );
                 }
 
                 
@@ -263,8 +260,6 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 removePopup();
                 removeFailScreen();
                 indicateBlock( lastBlockIDExecuted );
-                //indicateProcedureBlock( currentProcedureBlockID );
-                changeHighlighterColor( 'stopped', 0 );
                 gridBounds = eventArgs[ 1 ] || gridBounds;
                 break;
 
@@ -897,14 +892,14 @@ function indicateBlock( blockID ) {
         if ( block && block.data === currentBlocklyNodeID ) {
 
             //returns an object with height and width properties
-            var bBox = block.getSvgRoot().getBBox();
-            var dim = block.getHeightWidth();
+            // var bBox = block.svg_.getBBox();
+            // var dim = block.getHeightWidth();
 
-            var xScrollOffset = workspace.scrollX;
-            var yScrollOffset = workspace.scrollY;
+            // var xScrollOffset = workspace.scrollX;
+            // var yScrollOffset = workspace.scrollY;
 
-            var pos = block.getRelativeToSurfaceXY();
-            moveBlocklyIndicator( pos.x - xScrollOffset - dim.width, pos.y - yScrollOffset, bBox.height );
+            // var pos = block.getRelativeToSurfaceXY();
+            // moveBlocklyIndicator( pos.x + xScrollOffset - dim.width, pos.y, bBox.height );
         }
     }
 
