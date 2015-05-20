@@ -1812,6 +1812,32 @@ Blockly.JavaScript['math_number_field'] = function( block ) {
 
 };
 
+Blockly.Blocks['math_number_angle_select'] = {
+  init: function() {
+    this.setHelpUrl('http://www.example.com/');
+    this.setColour(120);
+    this.appendValueInput("NAME")
+        .setCheck(['Number','Variable','LeftParenthesis','OperatorAddSubtract','OperatorMultiplyDivide'])
+        .appendField("")
+        .appendField(new Blockly.FieldAngle("90"), "VALUE");
+    this.setOutput(true, "Number");
+    this.setTooltip('This is a number block that lets you select a number and preview angle directions.');
+  }
+};
+
+Blockly.JavaScript['math_number_angle_select'] = function(block) {
+  var argument0 = Blockly.JavaScript.valueToCode(block, 'INPUT', Blockly.JavaScript.ORDER_ATOMIC);
+  var angle_value = block.getFieldValue('VALUE');
+  // TODO: Assemble JavaScript into code variable.
+
+  if ( argument0[0] === 'x' || argument0[0] === '(' ){
+    return [ angle_value + '*' + argument0 , Blockly.JavaScript.ORDER_ATOMIC ];
+  } else {
+    return [ angle_value + argument0 , Blockly.JavaScript.ORDER_ATOMIC ];
+  }
+};
+
+
 Blockly.Blocks[ 'math_number_frozen' ] = {
   /**
    * Code for basic frozen number block.
@@ -1821,7 +1847,7 @@ Blockly.Blocks[ 'math_number_frozen' ] = {
     this.setColour(0);
     this.appendValueInput('INPUT')
         .appendField('0', "VALUE")
-        .setCheck(['Number','Variable','LeftParenthesis','OperatorAddSubtract']);
+        .setCheck(['Number','Variable','LeftParenthesis','OperatorAddSubtract','OperatorMultiplyDivide']);
     this.setOutput(true, 'Number');
     this.data = currentBlocklyNodeID;
     var thisBlock = this;
@@ -1845,7 +1871,11 @@ Blockly.JavaScript[ 'math_number_frozen' ] = function( block ) {
 
   var argument0 = Blockly.JavaScript.valueToCode(block, 'INPUT', Blockly.JavaScript.ORDER_ATOMIC) || '';
 
-  return [num + argument0, Blockly.JavaScript.ORDER_ATOMIC];
+  if ( argument0[0] === 'x' || argument0[0] === '(' ){
+    return [ num + '*' + argument0 , Blockly.JavaScript.ORDER_ATOMIC ];
+  } else {
+    return [ num + argument0 , Blockly.JavaScript.ORDER_ATOMIC ];
+  }
   
 };
 

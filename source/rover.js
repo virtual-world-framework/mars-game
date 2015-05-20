@@ -667,32 +667,38 @@ this.activateSensor = function( sensor, value ) {
     if ( sensor === 'signal' ) {
         // This sensor just checks the current position against the 
         //  "signalPosition" on the blackboard (if any).
-        var signalPos = this.sceneNode.sceneBlackboard[ "signalPosition" ];
 
-        if ( signalPos !== undefined ) {
-            var currentPos = this.currentGridSquare;
+        if ( this.sceneNode ) {
+            var signalPos = this.sceneNode.sceneBlackboard[ "signalPosition" ];
 
-            var deltaX = signalPos[ 0 ] - currentPos[ 0 ];
-            var deltaY = signalPos[ 1 ] - currentPos[ 1 ];
+            if ( signalPos !== undefined ) {
+                var currentPos = this.currentGridSquare;
 
-            if ( deltaX === 0 && deltaY === 0 ) {
-                this.signalSensorValue = -1;
-                scene.roverSignalValue = -1;
+                var deltaX = signalPos[ 0 ] - currentPos[ 0 ];
+                var deltaY = signalPos[ 1 ] - currentPos[ 1 ];
+
+                if ( deltaX === 0 && deltaY === 0 ) {
+                    this.signalSensorValue = -1;
+                    scene.roverSignalValue = -1;
+                    return;
+                }
+
+                var heading = ( 180 / Math.PI ) * Math.atan2( -deltaY, -deltaX ) + 180;
+                
+                //Math is getting flipped for 0 and 180 for some reason.
+                
+                this.signalSensorValue = Math.round( heading );
+                scene.roverSignalValue = Math.round( heading );
+                return; 
+            } else {
+                this.signalSensorValue = -99;
+                scene.roverSignalValue = -99;
                 return;
-            }
-
-            var heading = ( 180 / Math.PI ) * Math.atan2( -deltaY, -deltaX ) + 180;
-            
-            //Math is getting flipped for 0 and 180 for some reason.
-            
-            this.signalSensorValue = Math.round( heading );
-            scene.roverSignalValue = Math.round( heading );
-            return; 
+            } 
         } else {
-            this.signalSensorValue = -99;
-            scene.roverSignalValue = -99;
-            return;
+            this.signalSensorValue = -999;
         }
+        
         
         
     }
