@@ -167,9 +167,8 @@ children:
         openMissionBrief_3_1:
           triggerCondition:
           - and:
-          #   - delay:
-          #     - 1
-            - onScenarioStart:
+            - delay:
+              - 84
             - doOnce:
           actions:
           - openMissionBrief:

@@ -34,6 +34,7 @@ this.onDelayComplete = function() {
 
     if ( ( this.callbackCount === 0 ) && this.parentTrigger.isEnabled ) {
         this.delayComplete = true;
+        this.parentTrigger.checkFire();
     }
 }
 
