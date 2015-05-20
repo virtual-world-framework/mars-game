@@ -106,13 +106,19 @@ properties:
     - [ 0, 6 ]
     - [ -6, 0 ]
 
-  - openMissionBrief:
-
 children:
   triggerManager:
     extends: ../triggers/triggerManager.vwf
     properties: 
       triggers$:
+
+        openMissionBrief_4_3:
+          triggerCondition:
+          - and:
+            - onScenarioStart:
+            - doOnce:
+          actions:
+          - openMissionBrief:
 
         setStartPosition_4_3:
           triggerCondition:

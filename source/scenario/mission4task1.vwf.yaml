@@ -182,8 +182,11 @@ children:
 
         openMissionBrief_4_1:
           triggerCondition:
-          - onSoundEnded:
-            - M4VO25_Rover
+          # - onSoundEnded:
+          #   - M4VO25_Rover
+          - and:
+            - onScenarioStart:
+            - doOnce:
           actions:
           - openMissionBrief:
 
