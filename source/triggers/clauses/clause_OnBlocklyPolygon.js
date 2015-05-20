@@ -20,11 +20,11 @@ this.onGenerated = function( params, generator, payload ) {
                             "timeout threshold." );
     }
 
-    if ( !this.initOnEvent( params, generator, payload ) ) {
+    if ( !this.initOnEvent( params, generator, payload, params[ 2 ] ) ) {
         return false;
     }
 
-    this.blockNode = params[ 0 ];
+    this.blockNodeName = params[ 0 ];
     this.pointArray = params[ 1 ];
 
     // Check if arrays are cyclic permutations of each other
@@ -44,21 +44,21 @@ this.onGenerated = function( params, generator, payload ) {
 
     // Setup the callbacks that should trigger us
     
-    this.scene.blocklyCompletedPolygon = this.events.add( function( blockNode, pointArray ) { 
-        this.onPolygonFinished( blockNode, pointArray ); 
+    this.scene.blocklyCompletedPolygon = this.events.add( function( blockNodeName, pointArray ) { 
+        this.onPolygonFinished( blockNodeName, pointArray ); 
     }, this );
 
     return true;
 }
 
-this.onPolygonFinished = function( blockNode, playerPoints ) {
+this.onPolygonFinished = function( blockNodeName, playerPoints ) {
 
     // Note: The playerPoints array should have length v+1 for the correct polygon. This is because we mark
     // the point where the polygon is started and where it finishes to determine if it is closed.
 
     var points = playerPoints.slice( 0 );
-    console.log('evaling');
-    if ( this.blockNode === blockNode ) {
+
+    if ( this.blockNodeName === blockNodeName ) {
 
         // Does the player end up where they started? ( Closed Polygon )
 
@@ -67,7 +67,7 @@ this.onPolygonFinished = function( blockNode, playerPoints ) {
 
         if ( startPoint[ 0 ] !== endPoint[ 0 ] || startPoint[ 1 ] !== endPoint[ 1 ] ) {
             console.log('start not end');
-            this.reset();
+            this.clearPolygonAndReset( blockNodeName );
             return;
         }
 
@@ -77,7 +77,7 @@ this.onPolygonFinished = function( blockNode, playerPoints ) {
 
         if ( this.pointArray.length !== ( points.length )  ) {
             console.log('lengths arent the same');
-            this.reset();
+            this.clearPolygonAndReset( blockNodeName );
             return;
         }
 
@@ -86,11 +86,23 @@ this.onPolygonFinished = function( blockNode, playerPoints ) {
         var playerString = points.toString();
 
         if ( this.forwardString.indexOf( playerString ) !== -1 || this.reverseString.indexOf( playerString ) !== -1 ) {
+            console.log('firing event');
             this.onEvent();
         } else {
-            this.reset();
+            console.log('resetting');
+            this.clearPolygonAndReset( blockNodeName );
         }
     }
+}
+
+this.clearPolygonAndReset = function( blockNodeName ) {
+    var blocklyObjects = this.getBlocklyObjects( [ blocklyNodeName ], this.scene );
+    if ( blocklyObjects ) {
+        var node = blocklyObjects[ 0 ];
+        node.surveyArray = [];
+        this.reset();
+    }
+    
 }
 
 //@ sourceURL=source/triggers/clauses/clause_OnBlocklyPolygon.js
