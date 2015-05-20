@@ -28,11 +28,11 @@ Blockly.Blocks['ordered_pair_config'] = {
     this.appendDummyInput()
         .appendField("(");
     this.appendValueInput("XFIELD")
-        .setCheck("Number");
+        .setCheck(['LeftParenthesis','Number']);
     this.appendDummyInput()
         .appendField(",");
     this.appendValueInput("YFIELD")
-        .setCheck("Number")
+        .setCheck(['LeftParenthesis','Number'])
         .setAlign(Blockly.ALIGN_RIGHT);
     this.appendDummyInput()
         .appendField(")");
@@ -43,8 +43,8 @@ Blockly.Blocks['ordered_pair_config'] = {
 };
 
 Blockly.JavaScript['ordered_pair_config'] = function(block) {
-  var value_x = Blockly.JavaScript.valueToCode(block, 'XFIELD', Blockly.JavaScript.ORDER_ATOMIC);
-  var value_y = Blockly.JavaScript.valueToCode(block, 'YFIELD', Blockly.JavaScript.ORDER_ATOMIC);
+  var value_x = Blockly.JavaScript.valueToCode(block, 'XFIELD', Blockly.JavaScript.ORDER_ATOMIC) || 0;
+  var value_y = Blockly.JavaScript.valueToCode(block, 'YFIELD', Blockly.JavaScript.ORDER_ATOMIC) || 0;
 
   var code = [ value_x, value_y ];
 

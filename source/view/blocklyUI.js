@@ -29,6 +29,7 @@ function setUpBlocklyPeripherals() {
     var indicator = document.createElement( "div" );
     var indicatorCount = document.createElement( "div" );
     var procedureIndicator = document.createElement( "div" );
+    var indicatorHighlighter = document.createElement( "div" );
 
     blocklyFooter.id = "blocklyFooter";
     blocklyHandle.id = "blocklyHandle";
@@ -39,9 +40,11 @@ function setUpBlocklyPeripherals() {
     procedureIndicator.id = "blocklyProcedureIndicator";
     startBlocklyButton.id = "startBlockly";
     blocklySpeedButton.id = "blocklySpeedButton";
+    indicatorHighlighter.id = "blocklyHighlighter";
 
     indicator.appendChild( indicatorCount );
     $( "#blocklyWrapper-top" ).append( blocklyHandle )
+    $( "#blocklyWrapper" ).append( indicatorHighlighter );
     $( "#blocklyWrapper" ).append( indicator );
     $( "#blocklyWrapper" ).append( procedureIndicator );
     $( "#blocklyWrapper" ).draggable( {
@@ -112,7 +115,7 @@ function setUpBlocklyPeripherals() {
 
     $( "#blocklyScrollDiv" ).on( "scroll", function() {
         indicateBlock( currentBlockIDSelected );
-        indicateProcedureBlock( currentProcedureBlockID );
+        //indicateProcedureBlock( currentProcedureBlockID );
     });    
 
     // Ensure that the blockly ui is accessible on smaller screens
@@ -124,7 +127,7 @@ function setUpBlocklyPeripherals() {
 
 function scrollIndicators() {
     indicateBlock( currentBlockIDSelected ); 
-    indicateProcedureBlock( currentProcedureBlockID );
+    //indicateProcedureBlock( currentProcedureBlockID );
 }
 
 function resizeBlockly() {
@@ -164,7 +167,7 @@ function keepBlocklyWithinBounds() {
 function updateOnBlocklyResize( event ) {
     keepBlocklyWithinBounds();
     indicateBlock( currentBlockIDSelected );
-    indicateProcedureBlock( currentProcedureBlockID );
+    //indicateProcedureBlock( currentProcedureBlockID );
 }
 
 function updateBlocklyRamBar() {
@@ -190,6 +193,11 @@ function resetBlocklyIndicator() {
         "top" : 0,
         "visibility" : "hidden"
     } );
+    $( "#blocklyHighlighter" ).css( {
+        "left" : 0,
+        "top" : 0,
+        "visibility" : "hidden"
+    } );
     $( "#blocklyProcedureIndicator" ).css( {
         "left" : 0,
         "top" : 0,
@@ -199,14 +207,20 @@ function resetBlocklyIndicator() {
 
 function showBlocklyIndicator() {
     var indicator = document.getElementById( "blocklyIndicator" );
+    var highlighter = document.getElementById( "blocklyHighlighter" );
+
     if ( indicator ) {
+        highlighter.style.visibility = "inherit";
         indicator.style.visibility = "inherit";
     }
 }
 
 function hideBlocklyIndicator() {
     var indicator = document.getElementById( "blocklyIndicator" );
+    var highlighter = document.getElementById( "blocklyHighlighter" );
+
     if ( indicator ) {
+        highlighter.style.visibility = "hidden";
         indicator.style.visibility = "hidden";
     }
 }
@@ -225,7 +239,7 @@ function hideBlocklyProcedureIndicator() {
     }
 }
 
-function moveBlocklyIndicator( x, y ) {
+function moveBlocklyIndicator( x, y, blockHeight ) {
     var blocklyDiv = document.getElementById( "blocklyScrollDiv" );
     var toolbox = document.getElementsByClassName( "blocklyFlyoutBackground" )[ 0 ];
     var yOffset = parseInt( $( "#blocklyWrapper-top" ).css( "height" ) ) - blocklyDiv.scrollTop;
@@ -238,7 +252,32 @@ function moveBlocklyIndicator( x, y ) {
     $( "#blocklyIndicator" ).stop().animate( { 
         "top" : ( y + yOffset ) + "px",
         "left": ( x + xOffset ) + "px"
+    }, "fast" );
+
+    $( "#blocklyHighlighter" ).stop( changeHighlighterColor( 'executing' ) ).animate( { 
+        "top" : ( y + yOffset ) + "px",
+        "left" : xOffset + "px",
+        "height" : ( blockHeight ) + "px"
     } );
+}
+
+function changeHighlighterColor( status, speed ) {
+    if ( status && speed ) {
+        if ( status === 'executing' ) {
+            $( "#blocklyHighlighter" ).stop().animate( { 
+            "backgroundColor" : '#FFFF00'
+            }, speed * 1000 );
+        } else if ( status === 'executed' ) {
+            $( "#blocklyHighlighter" ).stop().animate( { 
+            "backgroundColor" : '#008000'
+            }, speed * 1000 );
+        } else if ( status === 'stopped' ) {
+            $( "#blocklyHighlighter" ).stop().animate( { 
+            "backgroundColor" : '#FF0000'
+            }, speed * 1000 );
+        }
+    }  
+    
 }
 
 function moveBlocklyProcedureIndicator( x, y ) {
@@ -254,7 +293,7 @@ function moveBlocklyProcedureIndicator( x, y ) {
     $( "#blocklyProcedureIndicator" ).stop().animate( { 
         "top" : ( y + yOffset ) + "px",
         "left": ( x + xOffset ) + "px"
-    } );
+    }, "fast" );
 }
 
 function showBlocklyLoopCount( count, maxCount ) {

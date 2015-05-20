@@ -185,6 +185,17 @@ a:active {
     z-index: 50;
 }
 
+#blocklyHighlighter {
+    width: 780px;
+    height: 100px;
+    opacity: 0.4;
+    background-color: rgba( 255, 255, 0, 0.5 );
+    position: absolute;
+    visibility: hidden;
+    pointer-events: none;
+    overflow: hidden;
+}
+
 #blocklyWrapper-top {
     height: 24px;
     user-select: none;
