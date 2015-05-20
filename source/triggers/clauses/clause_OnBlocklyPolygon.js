@@ -90,8 +90,6 @@ this.onPolygonFinished = function( blockNode, playerPoints ) {
         } else {
             this.reset();
         }
-    } else {
-        this.reset();
     }
 }
 

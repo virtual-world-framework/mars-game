@@ -74,7 +74,13 @@ properties:
         this.signalSensorValueChanged( value, this.id );
       }
     value: 0
-  heading: 0
+  heading:
+    set: |
+      if ( this.heading != value ) {
+        this.heading = value;
+        this.activateSensor( 'signal' );
+      }
+    value: 0
   executionSpeed: 1
   surveyArray: []
   terrainName: undefined
