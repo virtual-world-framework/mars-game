@@ -66,7 +66,6 @@ this.onPolygonFinished = function( blockNodeName, playerPoints ) {
         var endPoint = points[ points.length - 1 ];
 
         if ( startPoint[ 0 ] !== endPoint[ 0 ] || startPoint[ 1 ] !== endPoint[ 1 ] ) {
-            console.log('start not end');
             this.clearPolygonAndReset( blockNodeName );
             return;
         }
@@ -76,7 +75,6 @@ this.onPolygonFinished = function( blockNodeName, playerPoints ) {
         points.pop();
 
         if ( this.pointArray.length !== ( points.length )  ) {
-            console.log('lengths arent the same');
             this.clearPolygonAndReset( blockNodeName );
             return;
         }
@@ -86,10 +84,8 @@ this.onPolygonFinished = function( blockNodeName, playerPoints ) {
         var playerString = points.toString();
 
         if ( this.forwardString.indexOf( playerString ) !== -1 || this.reverseString.indexOf( playerString ) !== -1 ) {
-            console.log('firing event');
             this.onEvent();
         } else {
-            console.log('resetting');
             this.clearPolygonAndReset( blockNodeName );
         }
     }
