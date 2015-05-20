@@ -254,7 +254,8 @@ function moveBlocklyIndicator( x, y, blockHeight ) {
         "left": ( x + xOffset ) + "px"
     }, "fast" );
 
-    $( "#blocklyHighlighter" ).stop( changeHighlighterColor( 'executing' ) ).animate( { 
+    $( "#blocklyHighlighter" ).stop().animate( { 
+        "backgroundColor" : '#FFFF00',
         "top" : ( y + yOffset ) + "px",
         "left" : xOffset + "px",
         "height" : ( blockHeight ) + "px"

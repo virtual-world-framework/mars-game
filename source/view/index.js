@@ -904,7 +904,7 @@ function indicateBlock( blockID ) {
             var yScrollOffset = workspace.scrollY;
 
             var pos = block.getRelativeToSurfaceXY();
-            moveBlocklyIndicator( pos.x + xScrollOffset - dim.width, pos.y + yScrollOffset, bBox.height );
+            moveBlocklyIndicator( pos.x - xScrollOffset - dim.width, pos.y - yScrollOffset, bBox.height );
         }
     }
 
