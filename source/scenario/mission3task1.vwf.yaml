@@ -52,6 +52,9 @@ properties:
     - rover
     - setHeading
     - 0
+  - callMethod:
+    - rover
+    - resetSensors
   - setProperty:
     - rover
     - battery

@@ -72,6 +72,9 @@ properties:
     - rover
     - lowRam
     - 5
+  - callMethod:
+    - rover
+    - resetSensors
   - emptyInventory:
     - rover/cargo
 
@@ -99,6 +102,9 @@ properties:
     - rover2
     - lowRam
     - 5
+  - callMethod:
+    - rover2
+    - resetSensors
 
   # Rosie 
   - setProperty:
@@ -124,6 +130,9 @@ properties:
     - rover3
     - lowRam
     - 5
+  - callMethod:
+    - rover3
+    - resetSensors
 
   - addToGrid:
     - supplies_2

@@ -773,4 +773,12 @@ this.setHeading = function( newHeading, duration ) {
     
 }
 
+this.resetSensors = function() {
+    this.activateSensor( 'metal' );
+    this.activateSensor( 'signal' );
+    this.activateSensor( 'collision' );
+    this.activateSensor( 'position' );
+    this.activateSensor( 'heading', this.heading );
+}
+
 //@ sourceURL=source/rover.js

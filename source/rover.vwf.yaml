@@ -102,6 +102,7 @@ methods:
   activateSensor:
   deactivateSensor:
   setHeading:
+  resetSensors:
 events:
   moved:
   moveFailed:
