@@ -112,10 +112,11 @@ properties:
     setObjective: "source/triggers/actions/action_setObjective.vwf"
 
     # Draws a triangle using our spiffy new shader
-    # arguments: none
+    # arguments: vertex1, vertex2, vertex3
     drawTriangle: "source/triggers/actions/action_drawTriangle.vwf"
 
     # open the mission brief for the current scenario
+    # arguments: none
     openMissionBrief: "source/triggers/actions/action_openMissionBrief.vwf"
 
     # TODO: These are the old start state functions - add comments for them.
