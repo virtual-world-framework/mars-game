@@ -214,7 +214,7 @@ Blockly.JavaScript['ordered_pair'] = function( block ) {
 Blockly.Blocks['ordered_get'] = {
   init: function() {
     this.setHelpUrl('http://www.example.com/');
-    this.setColour(75);
+    this.setColour(105);
     this.appendValueInput("INPUT")
         .setCheck(['OperatorAddSubtract','OperatorMultiplyDivide','LeftParenthesis','RightParenthesis','Conditional','ANDOR' ])
         .appendField(new Blockly.FieldDropdown([[".x", ".x"], [".y", ".y"]]), "OPTION");
@@ -1734,7 +1734,7 @@ Blockly.JavaScript['math_number_out' ] = function( block ) {
 
 Blockly.Blocks['math_number_field'] = {
   init: function() {
-    this.setColour( 60 );
+    this.setColour( 105 );
     this.setHelpUrl('http://www.example.com/');
     this.appendValueInput("INPUT")
         .setCheck( [ 'OperatorAddSubtract','OperatorMultiplyDivide','Variable','LeftParenthesis','RightParenthesis','Conditional' ] )
@@ -1818,12 +1818,11 @@ Blockly.Blocks[ 'math_number_frozen' ] = {
    * @this Blockly.Block
    */
   init: function() {
-    this.setColour(105);
+    this.setColour(0);
     this.appendValueInput('INPUT')
-        .appendField('0', 'VALUE')
+        .appendField('0', "VALUE")
         .setCheck(['Number','Variable','LeftParenthesis','OperatorAddSubtract']);
     this.setOutput(true, 'Number');
-    this.setEditable(false);
     this.data = currentBlocklyNodeID;
     var thisBlock = this;
     this.setTooltip( function() {
@@ -1842,14 +1841,12 @@ Blockly.JavaScript[ 'math_number_frozen' ] = function( block ) {
    * @this Blockly.Block
    */
 
-  var num = block.getFieldValue('VALUE') || 0;
+  var num = block.getFieldValue('VALUE');
+
   var argument0 = Blockly.JavaScript.valueToCode(block, 'INPUT', Blockly.JavaScript.ORDER_ATOMIC) || '';
 
-  if ( argument0[0] === '+' ){
-    return [Number(num) + argument0.substring(1), Blockly.JavaScript.ORDER_ATOMIC];
-  } else {
-    return [Number(num) + argument0, Blockly.JavaScript.ORDER_ATOMIC];
-  }
+  return [num + argument0, Blockly.JavaScript.ORDER_ATOMIC];
+  
 };
 
 Blockly.Blocks[ 'graph_get_x' ] = {
