@@ -13,13 +13,7 @@
 # limitations under the License.
 
 --- 
-extends: clauseProto_OnEvent.vwf
-
-implements: 
-  - http://vwf.example.com/sceneGetter.vwf
-
-properties:
-  hudElement:
+extends: actionProto.vwf
 
 scripts:
-- source: clause_OnHUDMouseOver.js
+- source: action_openMissionBrief.js

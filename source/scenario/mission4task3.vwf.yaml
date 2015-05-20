@@ -112,10 +112,18 @@ children:
     properties: 
       triggers$:
 
+        openMissionBrief_4_3:
+          triggerCondition:
+          - and:
+            - onScenarioStart:
+            - doOnce:
+          actions:
+          - openMissionBrief:
+
         setStartPosition_4_3:
           triggerCondition:
-          - onScenarioStart:
           - and:
+            - onScenarioStart:
             - not:
               - isAtPosition:
                 - rover2
