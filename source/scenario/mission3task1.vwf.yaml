@@ -164,6 +164,15 @@ children:
           - playSound:
             - M3VO12_MC
 
+        openMissionBrief_3_1:
+          triggerCondition:
+          - and:
+            - delay:
+              - 1
+            - doOnce:
+          actions:
+          - openMissionBrief:
+
   grid:
     includes: source/grid.vwf
     properties:

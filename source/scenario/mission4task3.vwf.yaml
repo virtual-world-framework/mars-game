@@ -106,6 +106,8 @@ properties:
     - [ 0, 6 ]
     - [ -6, 0 ]
 
+  - openMissionBrief:
+
 children:
   triggerManager:
     extends: ../triggers/triggerManager.vwf

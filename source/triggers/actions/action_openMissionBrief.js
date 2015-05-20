@@ -13,27 +13,21 @@
 // limitations under the License.
 
 this.onGenerated = function( params, generator, payload ) {
-    if ( !params || ( params.length < 1 ) || ( params.length > 2 ) ) {
-        this.logger.warnx( "onGenerated", "this clause takes the name of " +
-                            "the HUD element, along with an optional " +
-                            "timeout threshold." );
-    }
-
-    if ( !this.initOnEvent( params, generator, payload, params[ 1 ] ) ) {
+    if ( !this.initAction( params, generator, payload ) ) {
         return false;
     }
 
-    var name = params[ 0 ];
-    this.hudElement = this.scene.hud[ name ];
-    if ( !this.hudElement ) {
-        this.logger.errorx( "onGenerated", "No HUD element found!" );
+    if ( params && ( params.length !== 0 ) ) {
+        this.logger.errorx( "onGenerated", 
+                            "This action doesn't take any arguments." );
         return false;
     }
-
-    this.hudElement.onMouseOver = this.events.add( function() { this.onEvent(); }, this );
 
     return true;
 }
 
+this.executeAction = function() {
+    this.scene.openMissionBrief( this.scenario.scenarioName );
+}
 
-//@ sourceURL=source/triggers/clauses/clause_OnHUDMouseOver.js
+//@ sourceURL=source/triggers/actions/action_openMissionBrief.js

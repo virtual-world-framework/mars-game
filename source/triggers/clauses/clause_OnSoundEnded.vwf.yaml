@@ -19,7 +19,12 @@ implements:
   - http://vwf.example.com/sceneGetter.vwf
 
 properties:
-  hudElement:
+  soundName:
+
+methods:
+  # We need our own onEvent method that screens the events and decides which to
+  #   track and which to ignore.
+  onEndedEvent:
 
 scripts:
-- source: clause_OnHUDMouseOver.js
+- source: clause_OnSoundEnded.js

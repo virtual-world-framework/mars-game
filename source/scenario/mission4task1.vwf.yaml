@@ -118,17 +118,17 @@ properties:
     - cargoPod2
     - visible
     - true
-  - addToGrid:
-    - solarPanel1
-    - [ -10, -0 ]
-  - setProperty:
-    - solarPanel1
-    - visible
-    - true
-  - setProperty:
-    - solarPanel1
-    - built
-    - true
+  # - addToGrid:
+  #   - solarPanel1
+  #   - [ -10, -0 ]
+  # - setProperty:
+  #   - solarPanel1
+  #   - visible
+  #   - true
+  # - setProperty:
+  #   - solarPanel1
+  #   - built
+  #   - true
 
 children:
   triggerManager:
@@ -179,6 +179,13 @@ children:
             - PerryWhatsAClown
           - playSound:
             - M4VO25_Rover
+
+        openMissionBrief_4_1:
+          triggerCondition:
+          - onSoundEnded:
+            - M4VO25_Rover
+          actions:
+          - openMissionBrief:
 
         playPerrySounds_4_1_1:
           triggerCondition:

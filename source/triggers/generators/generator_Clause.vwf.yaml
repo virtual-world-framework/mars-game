@@ -83,10 +83,10 @@ properties:
 
     # arguments: blockly node and point array ( of ordered pairs )
     onBlocklyPolygon: "source/triggers/clauses/clause_OnBlocklyPolygon.vwf"
-    
+
     # arguments: blockly node
     onBlocklyPolygonFailed: "source/triggers/clauses/clause_OnBlocklyPolygonFailed.vwf"
-    
+
     # arguments: scenarioName(s) (optional)
     onScenarioStart: "source/triggers/clauses/clause_OnScenarioStart.vwf"
     onScenarioSucceeded: "source/triggers/clauses/clause_OnScenarioSucceeded.vwf"
@@ -98,6 +98,10 @@ properties:
     # Triggers when the specified video ends.
     # arguments: videoSource(s)
     onVideoPlayed: "source/triggers/clauses/clause_OnVideoPlayed.vwf"
+
+    # Triggers when the specified sound ends.
+    # arguments: soundName
+    onSoundEnded: "source/triggers/clauses/clause_OnSoundEnded.vwf"
 
     # Triggers when the appropriate UI element is used
     # arguments: (none)
