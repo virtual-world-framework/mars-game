@@ -96,7 +96,7 @@ this.onPolygonFinished = function( blockNodeName, playerPoints ) {
 }
 
 this.clearPolygonAndReset = function( blockNodeName ) {
-    var blocklyObjects = this.getBlocklyObjects( [ blocklyNodeName ], this.scene );
+    var blocklyObjects = this.getBlocklyObjects( [ blockNodeName ], this.scene );
     if ( blocklyObjects ) {
         var node = blocklyObjects[ 0 ];
         node.surveyArray = [];
