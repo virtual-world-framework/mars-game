@@ -6,16 +6,10 @@
     <block type="controls_sensor_position_x"></block>
     <block type="controls_sensor_position_y"></block>
   </category>
-  <category name="Variables" custom="VARIABLE">
-    <block type="variables_get"><field name="VAR">test1</field></block>
-    <block type="variables_set"><field name="VAR">test1</field></block>
-  </category>
   <category name="Conditionals and Loops">
     <block type="logic_cond_out"></block>
     <block type="logic_andor_out"></block>
     <block type="logic_boolean"></block>
-    <block type="controls_if_nomut"></block>
-    <block type="controls_if_else_nomut"></block>
     <block type="controls_whileUntil"><field name="MODE">WHILE</field></block>
   </category>
   <category name="Numbers and Math">
@@ -26,11 +20,6 @@
     <block type="graph_divide"></block>
     <block type="graph_left_paren"></block>
     <block type="graph_right_paren"></block>
-  </category>
-  <category name="Nano-Builders">
-    <block type="start_triangle"></block>
-    <block type="end_triangle"></block>
-    <block type="mark_point"></block>
   </category>
   <category name="Procedures" custom="PROCEDURE">
   </category>
