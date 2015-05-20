@@ -20,7 +20,7 @@ implements:
   - ../../blocklyObjectGetter.vwf
 
 properties:
-  blockNode:
+  blockNodeName:
   pointArray:
   forwardString:
   reverseString:
@@ -29,6 +29,7 @@ methods:
   # We need our own onEvent method that screens the events and decides which to
   #   track and which to ignore.
   onPolygonFinished:
+  clearPolygonAndReset:
 
 scripts:
 - source: clause_OnBlocklyPolygon.js
