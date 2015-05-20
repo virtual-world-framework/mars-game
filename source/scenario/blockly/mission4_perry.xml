@@ -32,4 +32,6 @@
     <block type="end_triangle"></block>
     <block type="mark_point"></block>
   </category>
+  <category name="Procedures" custom="PROCEDURE">
+  </category>
 </xml>

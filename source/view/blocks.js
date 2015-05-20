@@ -21,6 +21,36 @@ var BlocklyApps = {
 
 // Extensions to Blockly's language and JavaScript generator.
 
+Blockly.Blocks['ordered_pair_config'] = {
+  init: function() {
+    this.setHelpUrl('http://www.example.com/');
+    this.setColour(105);
+    this.appendDummyInput()
+        .appendField("(");
+    this.appendValueInput("XFIELD")
+        .setCheck(['LeftParenthesis','Number']);
+    this.appendDummyInput()
+        .appendField(",");
+    this.appendValueInput("YFIELD")
+        .setCheck(['LeftParenthesis','Number'])
+        .setAlign(Blockly.ALIGN_RIGHT);
+    this.appendDummyInput()
+        .appendField(")");
+    this.setInputsInline(true);
+    this.setOutput(true);
+    this.setTooltip('');
+  }
+};
+
+Blockly.JavaScript['ordered_pair_config'] = function(block) {
+  var value_x = Blockly.JavaScript.valueToCode(block, 'XFIELD', Blockly.JavaScript.ORDER_ATOMIC);
+  var value_y = Blockly.JavaScript.valueToCode(block, 'YFIELD', Blockly.JavaScript.ORDER_ATOMIC);
+
+  var code = [ value_x, value_y ];
+
+  return [ code, Blockly.JavaScript.ORDER_ATOMIC ];
+};
+
 Blockly.Blocks['start_triangle'] = {
   init: function() {
     this.setHelpUrl('http://www.example.com/');
@@ -184,7 +214,7 @@ Blockly.JavaScript['ordered_pair'] = function( block ) {
 Blockly.Blocks['ordered_get'] = {
   init: function() {
     this.setHelpUrl('http://www.example.com/');
-    this.setColour(75);
+    this.setColour(105);
     this.appendValueInput("INPUT")
         .setCheck(['OperatorAddSubtract','OperatorMultiplyDivide','LeftParenthesis','RightParenthesis','Conditional','ANDOR' ])
         .appendField(new Blockly.FieldDropdown([[".x", ".x"], [".y", ".y"]]), "OPTION");
@@ -207,6 +237,33 @@ Blockly.JavaScript['ordered_get'] = function(block) {
   }
 
   return [ code + input, Blockly.JavaScript.ORDER_ATOMIC ];
+};
+
+Blockly.Blocks['ordered_get_noin'] = {
+  init: function() {
+    this.setHelpUrl('http://www.example.com/');
+    this.setColour(75);
+    this.appendDummyInput("")
+        .appendField(new Blockly.FieldDropdown([[".x", ".x"], [".y", ".y"]]), "OPTION");
+    this.setOutput(true, "OrderedGet");
+    this.data = currentBlocklyNodeID;
+    this.setTooltip('Retrieves X or Y values from ordered pair blocks');
+  }
+};
+
+Blockly.JavaScript['ordered_get_noin'] = function(block) {
+
+  var dropdown = block.getFieldValue('OPTION');
+
+  var code = '';
+
+  if ( dropdown === '.x' ) {
+    code = '.x';
+  } else {
+    code = '.y';
+  }
+
+  return [ code, Blockly.JavaScript.ORDER_ATOMIC ];
 };
 
 Blockly.Blocks[ 'variables_get' ] = {
@@ -299,31 +356,43 @@ Blockly.JavaScript[ 'variables_get' ] = function( block ) {
   var code = Blockly.JavaScript.variableDB_.getName( block.getFieldValue( 'VAR' ),
       Blockly.Variables.NAME_TYPE );
 
-  var val = blocklyVariables[ code ];
-  if ( input[0] === '-' && input.indexOf( ',' ) !== -1 ){
-    var otherOP = input.slice( 1 );
+  // var val = blocklyVariables[ code ];
+  // if ( input[0] === '-' && input.indexOf( ',' ) !== -1 ){
+  //   var otherOP = input.slice( 1 );
 
-    if ( otherOP.constructor === Array ) {
-      code = [ code + '[0] -=' + otherOP[0], code + '[1] -=' + otherOP[1] ];
+  //   if ( otherOP.constructor === Array ) {
+  //     code = [ code + '[0] -=' + otherOP[0], code + '[1] -=' + otherOP[1] ];
+  //     return [ code, Blockly.JavaScript.ORDER_ATOMIC ];
+  //   }
+  // } else if ( input[0] === '+' && input.indexOf( ',' ) !== -1 ){
+  //   var otherOP =  input.slice( 1 );
+
+  //   if ( otherOP.constructor === Array ) {
+  //     code = [ code + '[0] +=' + otherOP[0], code + '[1] +=' + otherOP[1] ];
+  //     return [ code, Blockly.JavaScript.ORDER_ATOMIC ];
+  //   }
+  // } else if ( inputCheck === '.x') {
+  //    code =  code + '[0]' + input.slice( 2 );
+  //   return [ code, Blockly.JavaScript.ORDER_ATOMIC ];
+  // } else if ( inputCheck === '.y') {
+  //    code =  code + '[1]' + input.slice( 2 );
+  //   return [ code, Blockly.JavaScript.ORDER_ATOMIC ];
+  // } else {
+  //    code = code + input;
+  //   return [ code, Blockly.JavaScript.ORDER_ATOMIC ];
+  // }
+    var val = blocklyVariables[ code ];
+   
+    if ( inputCheck === '.x') {
+       code =  code + '[0]' + input.slice( 2 );
+      return [ code, Blockly.JavaScript.ORDER_ATOMIC ];
+    } else if ( inputCheck === '.y') {
+       code =  code + '[1]' + input.slice( 2 );
+      return [ code, Blockly.JavaScript.ORDER_ATOMIC ];
+    } else {
+       code = code + input;
       return [ code, Blockly.JavaScript.ORDER_ATOMIC ];
     }
-  } else if ( input[0] === '+' && input.indexOf( ',' ) !== -1 ){
-    var otherOP =  input.slice( 1 );
-
-    if ( otherOP.constructor === Array ) {
-      code = [ code + '[0] +=' + otherOP[0], code + '[1] +=' + otherOP[1] ];
-      return [ code, Blockly.JavaScript.ORDER_ATOMIC ];
-    }
-  } else if ( inputCheck === '.x') {
-     code =  code + '[0]' + input.slice( 2 );
-    return [ code, Blockly.JavaScript.ORDER_ATOMIC ];
-  } else if ( inputCheck === '.y') {
-     code =  code + '[1]' + input.slice( 2 );
-    return [ code, Blockly.JavaScript.ORDER_ATOMIC ];
-  } else {
-     code = code + input;
-    return [ code, Blockly.JavaScript.ORDER_ATOMIC ];
-  }
 
 };
 
@@ -1665,7 +1734,7 @@ Blockly.JavaScript['math_number_out' ] = function( block ) {
 
 Blockly.Blocks['math_number_field'] = {
   init: function() {
-    this.setColour( 60 );
+    this.setColour( 105 );
     this.setHelpUrl('http://www.example.com/');
     this.appendValueInput("INPUT")
         .setCheck( [ 'OperatorAddSubtract','OperatorMultiplyDivide','Variable','LeftParenthesis','RightParenthesis','Conditional' ] )
@@ -1741,6 +1810,43 @@ Blockly.JavaScript['math_number_field'] = function( block ) {
     return [ text_value + argument0 , Blockly.JavaScript.ORDER_ATOMIC ];
   }
 
+};
+
+Blockly.Blocks[ 'math_number_frozen' ] = {
+  /**
+   * Code for basic frozen number block.
+   * @this Blockly.Block
+   */
+  init: function() {
+    this.setColour(0);
+    this.appendValueInput('INPUT')
+        .appendField('0', "VALUE")
+        .setCheck(['Number','Variable','LeftParenthesis','OperatorAddSubtract']);
+    this.setOutput(true, 'Number');
+    this.data = currentBlocklyNodeID;
+    var thisBlock = this;
+    this.setTooltip( function() {
+      var content = {
+        text: "This is an unchangeable number block."
+      }
+      return showTooltipInBlockly( thisBlock, content );
+    } ); 
+  }
+};
+
+
+Blockly.JavaScript[ 'math_number_frozen' ] = function( block ) {
+  /**
+   * Code for basic frozen number block.
+   * @this Blockly.Block
+   */
+
+  var num = block.getFieldValue('VALUE');
+
+  var argument0 = Blockly.JavaScript.valueToCode(block, 'INPUT', Blockly.JavaScript.ORDER_ATOMIC) || '';
+
+  return [num + argument0, Blockly.JavaScript.ORDER_ATOMIC];
+  
 };
 
 Blockly.Blocks[ 'graph_get_x' ] = {
@@ -2061,7 +2167,7 @@ function constructBlockExeFuncCall( block, action, name ) {
   var returnCode = "vwf.callMethod( '" + vwf_view.kernel.application() + "', 'executeBlock', [ " + blockCode + "," +
                     actionCode + "] );\n"; 
 
-  return returnCode; 
+  return returnCode;
 }
 
 // Blockly.JavaScript['procedures_defreturn'] = function(block) {
@@ -2108,6 +2214,10 @@ function constructBlockExeFuncCall( block, action, name ) {
 //   for (var x = 0; x < block.arguments_.length; x++) {
 //     args[x] = Blockly.JavaScript.valueToCode(block, 'ARG' + x,
 //         Blockly.JavaScript.ORDER_COMMA) || 'null';
+//     // var val = Blockly.JavaScript.valueToCode(block, 'ARG' + x,
+//     //     Blockly.JavaScript.ORDER_COMMA) || 'null';
+//     // console.log( args[x] +'='+ val);
+//     // blocklyVariables[ args[x] ] = val;
 //   }
 //   var code = funcName + '(' + args.join(', ') + ')';
 //   return [code, Blockly.JavaScript.ORDER_FUNCTION_CALL];
@@ -2122,6 +2232,23 @@ function constructBlockExeFuncCall( block, action, name ) {
 //     args[x] = Blockly.JavaScript.valueToCode(block, 'ARG' + x,
 //         Blockly.JavaScript.ORDER_COMMA) || 'null';
 //   }
+//   if ( funcName === 'drawTriangle' ) {
+//       var val1 = Blockly.JavaScript.valueToCode(block, 'ARG' + 0,
+//         Blockly.JavaScript.ORDER_COMMA) || 'null';
+//       var val2 = Blockly.JavaScript.valueToCode(block, 'ARG' + 1,
+//         Blockly.JavaScript.ORDER_COMMA) || 'null';
+//       var val3 = Blockly.JavaScript.valueToCode(block, 'ARG' + 2,
+//         Blockly.JavaScript.ORDER_COMMA) || 'null';
+
+//       console.log( 'vertex1' +'='+ val1);
+//       console.log( 'vertex2' +'='+ val2);
+//       console.log( 'vertex3' +'='+ val3);
+
+//       blocklyVariables[ 'vertex1' ] = val1;
+//       blocklyVariables[ 'vertex2' ] = val2;
+//       blocklyVariables[ 'vertex3' ] = val3;
+//     }
+
 //   var code = funcName + '(' + args.join(', ') + ');\n';
 //   return code;
 // };
@@ -2863,4 +2990,4 @@ function constructBlockExeFuncCall( block, action, name ) {
 //   }
 // };
 
-// //@ sourceURL=blocks.js
+//@ sourceURL=blocks.js

@@ -83,8 +83,6 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                     currentBlocklyNodeID = nodeID;
                     updateBlocklyRamBar();
                     updateBlocklyUI( blocklyNode );
-                    selectBlock( lastBlockIDExecuted );
-                    indicateProcedureBlock( currentProcedureBlockID );
                 } else {
                     currentBlocklyNodeID = undefined;
                 }
@@ -107,6 +105,10 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 break;
 
             case "blocklyStarted":
+            var xml = Blockly.Xml.workspaceToDom( Blockly.getMainWorkspace() );
+        if ( xml ) { 
+            console.log( xml );
+        }
                 var indicator = document.getElementById( "blocklyIndicator" );
                 indicator.className = "";
                 indicator.style.visibility = "inherit";
@@ -140,7 +142,7 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 var speedButton = document.getElementById( "blocklySpeedButton" );
                 speedButton.style.opacity = 1.0;
                 speedButton.style.pointerEvents = "inherit";
-            
+                
             case "blocklyErrored":
                 startBlocklyButton.className = "";
                 break;
@@ -163,7 +165,7 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                     var currentCode = getBlocklyFunction();
                     vwf_view.kernel.setProperty( graphLines[ "blocklyLine" ].ID, "lineFunction", currentCode );
                 } else {
-                    //indicateBlock( lastBlockIDExecuted );
+                    indicateBlock( lastBlockIDExecuted );
                 }
                 break;
 
@@ -201,8 +203,12 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                         var value_y = blockArgs[ 1 ];
                     }
 
-
                     var blocklyNodeValues = blocklyNodes[ blockNode ];
+
+                    if ( blocklyNodeValues === undefined ) {
+                        var blocklyNodeValues = blocklyNodes[ currentBlocklyNodeID ];
+                    }
+
                     var currentPosition = blocklyNodeValues[ 'positionSensorValue' ];
 
                     var xOffset = value_x - currentPosition[ 0 ];
@@ -214,12 +220,18 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 } else {
                     vwf_view.kernel.setProperty( blockNode, "blockly_timeBetweenLines", blockTime );
                 }
+
                 
-                if ( blockID ) {
-                    selectBlock( blockID );
-                    indicateBlock( blockID );
-                    lastBlockIDExecuted = blockID;
-                }
+                
+                // Now broken with blockly update...
+                // if ( blockID ) {
+                //     selectBlock( blockID );
+                //     indicateBlock( blockID );
+                     
+                // }
+
+                indicateBlock( blockID );
+                lastBlockIDExecuted = blockID;
 
                 handleDrawingBlocks( blockName, blockNode, blockArgs );
 
@@ -246,8 +258,7 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
             case "scenarioReset":
                 removePopup();
                 removeFailScreen();
-                //indicateBlock( lastBlockIDExecuted );
-                //indicateProcedureBlock( currentProcedureBlockID );
+                indicateBlock( lastBlockIDExecuted );
                 gridBounds = eventArgs[ 1 ] || gridBounds;
                 break;
 
@@ -882,197 +893,218 @@ function indicateBlock( blockID ) {
     workspace = Blockly.getMainWorkspace();
     if ( workspace ) {
         block = workspace.getBlockById( blockID );
-    }
+        if ( block && block.data === currentBlocklyNodeID ) {
 
-    // HACK: New blocks break tracing... disabling all for now.
+            //returns an object with height and width properties
+            // var bBox = block.svg_.getBBox();
+            // var dim = block.getHeightWidth();
 
-    return;
+            // var xScrollOffset = workspace.scrollX;
+            // var yScrollOffset = workspace.scrollY;
 
-    // Disable indication with procedures for now.
-    for ( var i = 0; i < workspace.topBlocks_.length; i++ ) {
-        if ( workspace.topBlocks_[i].type === "procedures_defnoreturn" || workspace.topBlocks_[i].type === "procedures_defreturn"
-        || workspace.topBlocks_[i].type === "procedures_callreturn" || workspace.topBlocks_[i].type === "procedures_callnoreturn" ) {
-            return;
+            // var pos = block.getRelativeToSurfaceXY();
+            // moveBlocklyIndicator( pos.x + xScrollOffset - dim.width, pos.y, bBox.height );
         }
     }
-    // Check the appended nodeID data which we attach when the block is being put into the workspace (in blocks.js)
 
-    if ( block ) {
-        if ( block.data !== currentBlocklyNodeID ) {
-            return;
-        } else {
-            if ( blocklyNodes[ currentBlocklyNodeID ].isExecuting ) {
-                var indicator = document.getElementById( "blocklyIndicator" );
-                indicator.className = "";
-                indicator.style.visibility = "inherit";
-                var indicatorCount = document.getElementById( "blocklyIndicatorCount" );
-                indicatorCount.className = "";
-                indicatorCount.style.visibility = "inherit";
-                var procedureIndicator = document.getElementById( "blocklyProcedureIndicator" );
-                procedureIndicator.className = "";
-                procedureIndicator.style.visibility = "inherit";
-            }
-        }
-    }
+}
+
+// function indicateBlock( blockID ) {
+//     var workspace, block;
+//     workspace = Blockly.getMainWorkspace();
+//     if ( workspace ) {
+//         block = workspace.getBlockById( blockID );
+//     }
+
+//     // HACK: New blocks break tracing... disabling all for now.
+
+//     return;
+
+//     // Disable indication with procedures for now.
+//     for ( var i = 0; i < workspace.topBlocks_.length; i++ ) {
+//         if ( workspace.topBlocks_[i].type === "procedures_defnoreturn" || workspace.topBlocks_[i].type === "procedures_defreturn"
+//         || workspace.topBlocks_[i].type === "procedures_callreturn" || workspace.topBlocks_[i].type === "procedures_callnoreturn" ) {
+//             return;
+//         }
+//     }
+//     // Check the appended nodeID data which we attach when the block is being put into the workspace (in blocks.js)
+
+//     if ( block ) {
+//         if ( block.data !== currentBlocklyNodeID ) {
+//             return;
+//         } else {
+//             if ( blocklyNodes[ currentBlocklyNodeID ].isExecuting ) {
+//                 var indicator = document.getElementById( "blocklyIndicator" );
+//                 indicator.className = "";
+//                 indicator.style.visibility = "inherit";
+//                 var indicatorCount = document.getElementById( "blocklyIndicatorCount" );
+//                 indicatorCount.className = "";
+//                 indicatorCount.style.visibility = "inherit";
+//                 var procedureIndicator = document.getElementById( "blocklyProcedureIndicator" );
+//                 procedureIndicator.className = "";
+//                 procedureIndicator.style.visibility = "inherit";
+//             }
+//         }
+//     }
     
-    if ( block ) {
-        if ( block.parentBlock_ ) {
-            if ( block.parentBlock_.callType_ === "procedures_callnoreturn" || 
-                block.parentBlock_.callType_ === "procedures_callreturn" ) {
+//     if ( block ) {
+//         if ( block.parentBlock_ ) {
+//             if ( block.parentBlock_.callType_ === "procedures_callnoreturn" || 
+//                 block.parentBlock_.callType_ === "procedures_callreturn" ) {
                 
-                for ( var i = 0; i < workspace.topBlocks_.length; i++ ) {
-                    //Loop through top blocks and find the stack who's first block isnt a procedure def
-                    if ( workspace.topBlocks_[i].type !== "procedures_defnoreturn" && workspace.topBlocks_[i].type !== "procedures_defreturn" ) {
+//                 for ( var i = 0; i < workspace.topBlocks_.length; i++ ) {
+//                     //Loop through top blocks and find the stack who's first block isnt a procedure def
+//                     if ( workspace.topBlocks_[i].type !== "procedures_defnoreturn" && workspace.topBlocks_[i].type !== "procedures_defreturn" ) {
                         
-                        var originBlock = workspace.topBlocks_[i];
+//                         var originBlock = workspace.topBlocks_[i];
 
-                        // Have we already ducked into a procedure? If so, lets start there to save some time!
+//                         // Have we already ducked into a procedure? If so, lets start there to save some time!
 
-                        if ( currentProcedureBlockID !== undefined ) {
-                            originBlock = workspace.getBlockById( currentProcedureBlockID );
-                        } else {
-                            // Is this first block a procedure block?
-                            if ( originBlock.type === "procedures_callnoreturn" || 
-                                originBlock.type === "procedures_callreturn" ) {
-                                currentProcedureBlockID = originBlock.id;
-                                var procpos = originBlock.getRelativeToSurfaceXY();
-                                showBlocklyProcedureIndicator();
-                                moveBlocklyProcedureIndicator( procpos.x, procpos.y );
-                                break;
-                            } 
-                        }
+//                         if ( currentProcedureBlockID !== undefined ) {
+//                             originBlock = workspace.getBlockById( currentProcedureBlockID );
+//                         } else {
+//                             // Is this first block a procedure block?
+//                             if ( originBlock.type === "procedures_callnoreturn" || 
+//                                 originBlock.type === "procedures_callreturn" ) {
+//                                 currentProcedureBlockID = originBlock.id;
+//                                 var procpos = originBlock.getRelativeToSurfaceXY();
+//                                 showBlocklyProcedureIndicator();
+//                                 moveBlocklyProcedureIndicator( procpos.x, procpos.y );
+//                                 break;
+//                             } 
+//                         }
                         
-                        // Dive down the block stack and look for the next procedure call
-                        // SJF Note: I couldn't find a way to match the procedure names for validation.
+//                         // Dive down the block stack and look for the next procedure call
+//                         // SJF Note: I couldn't find a way to match the procedure names for validation.
 
-                        while ( true ) {
-                            if ( originBlock.nextConnection.targetConnection.sourceBlock_ !== undefined ) {
-                                var nextBlock = originBlock.nextConnection.targetConnection.sourceBlock_;
-                                if ( nextBlock.type === "procedures_callnoreturn" || 
-                                    nextBlock.type === "procedures_callreturn" ) {
-                                    currentProcedureBlockID = nextBlock.id;
-                                    var procpos = nextBlock.getRelativeToSurfaceXY();
-                                    showBlocklyProcedureIndicator();
-                                    moveBlocklyProcedureIndicator( procpos.x, procpos.y );
-                                    break;
-                                } else {
-                                    originBlock = nextBlock;
-                                }
-                            } else {
-                                break;
-                            }
-                        }
+//                         while ( true ) {
+//                             if ( originBlock.nextConnection.targetConnection.sourceBlock_ !== undefined ) {
+//                                 var nextBlock = originBlock.nextConnection.targetConnection.sourceBlock_;
+//                                 if ( nextBlock.type === "procedures_callnoreturn" || 
+//                                     nextBlock.type === "procedures_callreturn" ) {
+//                                     currentProcedureBlockID = nextBlock.id;
+//                                     var procpos = nextBlock.getRelativeToSurfaceXY();
+//                                     showBlocklyProcedureIndicator();
+//                                     moveBlocklyProcedureIndicator( procpos.x, procpos.y );
+//                                     break;
+//                                 } else {
+//                                     originBlock = nextBlock;
+//                                 }
+//                             } else {
+//                                 break;
+//                             }
+//                         }
 
-                        break;
-                    }
-                }
-            }
-        }
+//                         break;
+//                     }
+//                 }
+//             }
+//         }
 
-        // If the the parent block is the procedure block we were just in, we must have completed
-        // that block's execution so we should hide the procedure tracer
+//         // If the the parent block is the procedure block we were just in, we must have completed
+//         // that block's execution so we should hide the procedure tracer
 
-        if ( block.parentBlock_ ) {
-            if ( block.parentBlock_.id === currentProcedureBlockID ) {
-                hideBlocklyProcedureIndicator();
-            }
-        }
+//         if ( block.parentBlock_ ) {
+//             if ( block.parentBlock_.id === currentProcedureBlockID ) {
+//                 hideBlocklyProcedureIndicator();
+//             }
+//         }
 
-        showBlocklyIndicator();
+//         showBlocklyIndicator();
 
-        // This code handles loop counting
+//         // This code handles loop counting
 
-        if ( block.type === "controls_repeat_extended" && block.id !== currentLoopingBlockID ) {
-            currentLoopingBlockID = block.id;
-            currentLoopIndex = 0;
-            maxLoopIndex = parseInt( Blockly.JavaScript.valueToCode( block, 'TIMES', Blockly.JavaScript.ORDER_ASSIGNMENT ) || '0' );
-            var loopConnection = block.getInput( "DO" ).connection.targetConnection;
-            if ( loopConnection ) {
-                currentLoopCheckBlockID = loopConnection.sourceBlock_.id;
-            }
-            showBlocklyLoopCount( currentLoopIndex, maxLoopIndex );
-        }
-        if ( block.id === currentLoopCheckBlockID && blocklyStopped === false && tabSwitched === false ) {
-            if ( hasLooped === true ) {
-                lastBlockInLoopID = lastBlockIDExecuted;
-            } else {
-                hasLooped = true;
-            }
-            currentLoopIndex++;
-            showBlocklyLoopCount( currentLoopIndex, maxLoopIndex );
+//         if ( block.type === "controls_repeat_extended" && block.id !== currentLoopingBlockID ) {
+//             currentLoopingBlockID = block.id;
+//             currentLoopIndex = 0;
+//             maxLoopIndex = parseInt( Blockly.JavaScript.valueToCode( block, 'TIMES', Blockly.JavaScript.ORDER_ASSIGNMENT ) || '0' );
+//             var loopConnection = block.getInput( "DO" ).connection.targetConnection;
+//             if ( loopConnection ) {
+//                 currentLoopCheckBlockID = loopConnection.sourceBlock_.id;
+//             }
+//             showBlocklyLoopCount( currentLoopIndex, maxLoopIndex );
+//         }
+//         if ( block.id === currentLoopCheckBlockID && blocklyStopped === false && tabSwitched === false ) {
+//             if ( hasLooped === true ) {
+//                 lastBlockInLoopID = lastBlockIDExecuted;
+//             } else {
+//                 hasLooped = true;
+//             }
+//             currentLoopIndex++;
+//             showBlocklyLoopCount( currentLoopIndex, maxLoopIndex );
             
-        }
+//         }
 
-        // If we are at the last block in the loop stack and we're maxed out - hide everything
+//         // If we are at the last block in the loop stack and we're maxed out - hide everything
 
-        if ( currentLoopIndex === maxLoopIndex ) {
-            currentLoopingBlockID = undefined;
-            maxLoopIndex = 0;
-            currentLoopIndex = 0;
-            hasLooped = false;
-            lastBlockInLoopID = undefined;
-            hideBlocklyLoopCount();
-        }
+//         if ( currentLoopIndex === maxLoopIndex ) {
+//             currentLoopingBlockID = undefined;
+//             maxLoopIndex = 0;
+//             currentLoopIndex = 0;
+//             hasLooped = false;
+//             lastBlockInLoopID = undefined;
+//             hideBlocklyLoopCount();
+//         }
 
-        // Important for checking where we are in the loop stack
+//         // Important for checking where we are in the loop stack
 
-        lastBlockIDExecuted = block.id;
+//         lastBlockIDExecuted = block.id;
 
-        var pos = block.getRelativeToSurfaceXY();
-        // var xScrollOffset = workspace.scrollX;
-        // var yScrollOffset = workspace.scrollY;
+//         var pos = block.getRelativeToSurfaceXY();
+//         // var xScrollOffset = workspace.scrollX;
+//         // var yScrollOffset = workspace.scrollY;
 
-        // //When the flyout width changes with block sizes in categories we shift
-        // var flyout = document.getElementsByClassName( "blocklySvg" ); 
-        // var flyoutDescriptor = flyout[ 0 ].childNodes[ 2 ].childNodes[ 0 ].getAttribute( 'd' );
-        // var flyoutDimensions = flyoutDescriptor.substring( 8, 11 );
+//         // //When the flyout width changes with block sizes in categories we shift
+//         // var flyout = document.getElementsByClassName( "blocklySvg" ); 
+//         // var flyoutDescriptor = flyout[ 0 ].childNodes[ 2 ].childNodes[ 0 ].getAttribute( 'd' );
+//         // var flyoutDimensions = flyoutDescriptor.substring( 8, 11 );
 
-        // var categoryWidth = document.getElementsByClassName( "blocklyToolboxDiv" )[0].offsetWidth;
-        // var flyoutOffset = Number( flyoutDimensions ) - categoryWidth + 50;
+//         // var categoryWidth = document.getElementsByClassName( "blocklyToolboxDiv" )[0].offsetWidth;
+//         // var flyoutOffset = Number( flyoutDimensions ) - categoryWidth + 50;
 
-        // moveBlocklyIndicator( pos.x + xScrollOffset - flyoutOffset, pos.y + yScrollOffset + 3 );
-        moveBlocklyIndicator( pos.x , pos.y );
-    } else {
-        //hideBlocklyIndicator();
-    }
-}
+//         // moveBlocklyIndicator( pos.x + xScrollOffset - flyoutOffset, pos.y + yScrollOffset + 3 );
+//         moveBlocklyIndicator( pos.x , pos.y );
+//     } else {
+//         //hideBlocklyIndicator();
+//     }
+// }
 
 
-function indicateProcedureBlock( blockID ) {
-    var workspace, block;
-    workspace = Blockly.getMainWorkspace();
-    if ( workspace ) {
-        block = workspace.getBlockById( blockID );
-    }
+// function indicateProcedureBlock( blockID ) {
+//     var workspace, block;
+//     workspace = Blockly.getMainWorkspace();
+//     if ( workspace ) {
+//         block = workspace.getBlockById( blockID );
+//     }
 
-    // Check the appended nodeID data which we attach when the block is being put into the workspace (in blocks.js)
+//     // Check the appended nodeID data which we attach when the block is being put into the workspace (in blocks.js)
 
-    if ( block ) {
-        if ( block.data !== currentBlocklyNodeID ) {
-            return;
-        }
-    }
+//     if ( block ) {
+//         if ( block.data !== currentBlocklyNodeID ) {
+//             return;
+//         }
+//     }
 
-    if ( block ) {
-        showBlocklyProcedureIndicator();
-        var pos = block.getRelativeToSurfaceXY();
-        var xScrollOffset = workspace.scrollX;
-        var yScrollOffset = workspace.scrollY;
+//     if ( block ) {
+//         showBlocklyProcedureIndicator();
+//         var pos = block.getRelativeToSurfaceXY();
+//         var xScrollOffset = workspace.scrollX;
+//         var yScrollOffset = workspace.scrollY;
 
-        //When the flyout width changes with block sizes in categories we shift
+//         //When the flyout width changes with block sizes in categories we shift
 
-        var flyout = document.getElementsByClassName( "blocklySvg" ); 
-        var flyoutDescriptor = flyout[ 0 ].childNodes[ 2 ].childNodes[ 0 ].getAttribute( 'd' );
-        var flyoutDimensions = flyoutDescriptor.substring( 8, 11 );
+//         var flyout = document.getElementsByClassName( "blocklySvg" ); 
+//         var flyoutDescriptor = flyout[ 0 ].childNodes[ 2 ].childNodes[ 0 ].getAttribute( 'd' );
+//         var flyoutDimensions = flyoutDescriptor.substring( 8, 11 );
 
-        var categoryWidth = document.getElementsByClassName( "blocklyToolboxDiv" )[0].offsetWidth;
-        var flyoutOffset = Number( flyoutDimensions ) - categoryWidth + 50;
+//         var categoryWidth = document.getElementsByClassName( "blocklyToolboxDiv" )[0].offsetWidth;
+//         var flyoutOffset = Number( flyoutDimensions ) - categoryWidth + 50;
 
-        moveBlocklyProcedureIndicator( pos.x + xScrollOffset - flyoutOffset, pos.y + yScrollOffset + 3 );
-    } else {
-        //hideBlocklyProcedureIndicator();
-    }
-}
+//         moveBlocklyProcedureIndicator( pos.x + xScrollOffset - flyoutOffset, pos.y + yScrollOffset + 3 );
+//     } else {
+//         //hideBlocklyProcedureIndicator();
+//     }
+// }
 
 
 window.onkeypress = function( event ) {
