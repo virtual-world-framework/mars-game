@@ -32,3 +32,4 @@ properties:
   buildDuration: 5
   buildingHeight: 2.5
   built: false
+  soundOnComplete: solarPanelActive

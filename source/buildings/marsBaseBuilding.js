@@ -26,10 +26,19 @@ this.construct = function() {
 }
 
 this.setConstructed = function( value ) {
+
     this.visible = value;
     this.built = value;
     if ( this.useAnimatedShader ) {
         this.material._elapsedTime = Number( value ) * this.buildDuration;
+    }
+
+    if ( value === true ) {
+        if ( this.soundOnComplete ) {
+            this.buildingCompleted();
+            var soundMgr = this.findTypeInScene( "http://vwf.example.com/sound/soundManager.vwf" );
+            soundMgr.playSound( this.soundOnComplete );
+        }
     }
 }
 
