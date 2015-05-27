@@ -17,6 +17,7 @@ extends: marsBaseBuilding.vwf
 source: ../../assets/3d/hydropon_dome/hydropon_dome.dae
 type: model/vnd.collada+xml
 properties:
+  buildingType: 'waterManagement'
   gridSize: [ 3, 3 ]
   collisionMap: 
     - [ 1, 1, 1 ]

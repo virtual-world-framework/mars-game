@@ -17,6 +17,7 @@ extends: marsBaseBuilding.vwf
 source: ../../assets/3d/mars_tent/mars_tent.dae
 type: model/vnd.collada+xml
 properties:
+  buildingType: 'tent'
   gridSize: [ 3, 3 ]
   collisionMap: 
     - [ 1, 1, 1 ]

@@ -12,23 +12,11 @@
 # See the License for the specific language governing permissions and 
 # limitations under the License.
 
----
-extends: marsBaseBuilding.vwf
-source: ../../assets/3d/solar_panel/solar_panel.dae
-type: model/vnd.collada+xml
+--- 
+extends: actionProto.vwf
+
 properties:
-  buildingType: 'solarPanel'
-  gridSize: [ 3, 3 ]
-  collisionMap: 
-    - [ 1, 1, 1 ]
-    - [ 0, 0, 0 ]
-    - [ 0, 1, 0 ]
-  gridRotation: 0
-  useAnimatedShader: true
-  diffuseSrc: "assets/3d/solar_panel/solar_panel.png"
-  normalSrc: "assets/3d/solar_panel/solar_panel_n.png"
-  specularSrc: "assets/3d/solar_panel/solar_panel_s.png"
-  glowLength: 0.1
-  buildDuration: 5
-  buildingHeight: 2.5
-  built: false
+  objectName:
+
+scripts:
+- source: action_buildBaseComponent.js
