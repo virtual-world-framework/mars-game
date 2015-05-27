@@ -33,7 +33,7 @@ this.executeAction = function() {
     var object = this.findInScene( this.objectName );
     var scenario = this.scenario;
     var soundMgr = this.findTypeInScene( "http://vwf.example.com/sound/soundManager.vwf" );
-    
+
     this.assert( object, "Object not found!" );
     this.assert( scenario, "Scenario not found!" );
     this.assert( soundMgr, "Sound manager not found!" );
@@ -46,4 +46,4 @@ this.executeAction = function() {
     }
 }
 
-//@ sourceURL=source/triggers/actions/action_addToGrid.js
+//@ sourceURL=source/triggers/actions/action_buildBaseComponent.js
