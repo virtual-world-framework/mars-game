@@ -30,11 +30,11 @@ limitations under the License.
 <script type="text/javascript" src="source/view/fileManager.js"></script>
 
 <!-- CSS -->
-<link rel="stylesheet" href="source/view/index.css"></link>
-<link rel="stylesheet" href="source/view/mainMenu.css"></link>
-<link rel="stylesheet" href="source/view/missionBrief.css"></link>
-<link rel="stylesheet" href="source/view/jquery-resizable.css"></link>
-<link type="text/css" href="minimal_jplayer_style.css" rel="stylesheet" />
+<link type="text/css" rel="stylesheet" href="source/view/index.css"></link>
+<link type="text/css" rel="stylesheet" href="source/view/mainMenu.css"></link>
+<link type="text/css" rel="stylesheet" href="source/view/missionBrief.css"></link>
+<link type="text/css" rel="stylesheet" href="source/view/jquery-resizable.css"></link>
+<link type="text/css" rel="stylesheet" href="minimal_jplayer_style.css"></link>
 
 <!-- Main Menu -->
 <div id="mainMenuWrapper">
@@ -69,13 +69,15 @@ limitations under the License.
 </div>
 
 <!-- Mission Brief Window -->
-<div id="missionBriefWrapper" style="display: none;">
-  <div id="missionBriefOpen">Show Mission Info</div>
-  <div id="missionBriefBackground">
-    <div id="missionBriefContainer">
-      <div id="missionBriefTitle">Mission 3, Task 1</div>
-      <div id="missionBriefContent">Your next mission is to find the Base Pod, which contains the supplies you’ll need to start building a base for the human explorers.  Although we don’t know where the pod landed, we do have a weak radio signal that will guide you to its location.  You can use your Signal Sensor to get the direction of the signal, which is output as an angle.  0 degrees points out to the right, 90 degrees up toward the top of the screen, 180 degrees is to the left, and so forth.  Using the signal sensor, you can move forward until the signal is directly to your right, then turn right and continue forward until your Metal Detector tells you that you’ve arrived.</div>
-      <div id="missionBriefContinue">Click here to continue!</div>
+<div id="mb_screen" style="display: none;">
+  <div id="mb_align">
+    <div id="mb_wrapper">
+      <div id="mb_image" class="inline"></div>
+      <div id="mb_main" class="inline">
+        <div id="mb_title"></div>
+        <div id="mb_content"></div>
+        <div id="mb_continue">Click Anywhere to Continue.</div>
+      </div>
     </div>
   </div>
 </div>

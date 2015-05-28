@@ -13,27 +13,8 @@
 # limitations under the License.
 
 ---
-extends: http://vwf.example.com/hud/element.vwf
-implements:
- - http://vwf.example.com/sceneGetter.vwf
+extends: http://vwf.example.com/node.vwf
 properties:
-  images:
-    icon: "assets/images/hud/menu_options.png"
-  width: 64
-  height: 64
-  visible: true
-  enabled: true
-  alignH: right
-  alignV: bottom
-  offsetH: -320
-  offsetV: -30
-  isBlinking: false
-  lastBlinkTime: 0
-  blinkInterval: 0.25
-  blinkDuration: 0.25
-methods:
-  draw:
-events:
-  onClick:
-scripts:
-  - source: optionsButton.js
+  title: ""
+  content: ""
+  backgroundImage: ""

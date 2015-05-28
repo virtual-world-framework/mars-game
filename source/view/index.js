@@ -324,8 +324,15 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 break;
 
             case "missionBriefOpened":
-                var missionName = eventArgs[ 0 ];
-                showMissionBrief( missionName );
+                showMissionBrief();
+                break;
+
+            case "loadedMissionBrief":
+                var title, content, imageSrc;
+                title = eventArgs[ 0 ];
+                content = eventArgs[ 1 ];
+                imageSrc = eventArgs[ 2 ];
+                setBriefInfo( title, content, imageSrc );
                 break;
 
         } 

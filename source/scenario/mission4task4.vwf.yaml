@@ -188,6 +188,19 @@ children:
             - surveyArray
             - []
 
+  brief:
+    extends: ../missionBrief.vwf
+    properties:
+      title: "Mission 4, Task 4"
+      content: >
+        Excellent! That triangle is perfect for a solar panel! 
+        Let's add some more so we can generate more power. For the next triangle, 
+        we can reflect the last triangle so we don't have to make new vertices from 
+        scratch! <br><br>To reflect, or flip the triangle across the y axis, you multiply 
+        the x values of the vertices by -1. You can do the same across 
+        the x axis by multiplying the y values by -1. Try multiplying the x values 
+        to reflect the triangle across the y axis.
+
   grid:
     includes: source/grid.vwf
     properties:

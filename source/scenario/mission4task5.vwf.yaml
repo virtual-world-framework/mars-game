@@ -187,6 +187,16 @@ children:
             - surveyArray
             - []
 
+  brief:
+    extends: ../missionBrief.vwf
+    properties:
+      title: "Mission 4, Task 5"
+      content: >
+        Well done! Let's do that again, but this time reflect 
+        the triangle across the x axis. <br><br>Remember that to reflect the triangle 
+        across the x axis, you multiply the y values of the vertices by -1. 
+        Try multiplying your y values to reflect the triangle across the x axis.
+
   grid:
     includes: source/grid.vwf
     properties:

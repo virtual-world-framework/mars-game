@@ -1,60 +1,94 @@
-#missionBriefWrapper {
-    margin-left: auto;
-    margin-right: auto;
-    height: 100%;
-    width: 600px;
+.inline {
+    display: inline-block;
+    vertical-align: bottom;
+}
+
+#mb_screen {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+    background-color: rgba( 0, 0, 0, 0.5 );
     user-select: none;
     -webkit-user-select: none;  /* Chrome all / Safari all */
     -moz-user-select: none;     /* Firefox all */
     -ms-user-select: none;      /* IE 10+ */
     cursor: default;
-    pointer-events: none;
-}
-
-#missionBriefBackground {
-    position: absolute;
-    top: 20%;
-    width: 600px;
-    height: 480px;
-    background-image: url( "../../assets/images/briefBG.png" );
-    background-position: center;
-    background-repeat: no-repeat;
-    border: 1px solid rgb( 0, 0, 0 );
-}
-
-#missionBriefContainer {
-    margin: 16px;
-    background-color: rgba( 255, 255, 255, 0.85 );
-    border-radius: 16px;
-}
-
-#missionBriefTitle {
-    padding: 8px;
-    text-align: center;
-    font-weight: bold;
-    color: rgb( 64, 64, 196 );
-}
-
-#missionBriefContent {
-    text-align: justify;
-    padding: 8px;
-    color: rgb( 64, 64, 64 );
-}
-
-#missionBriefContinue {
-    text-align: center;
-    font-style: italic;
-    font-weight: bold;
-    padding: 8px;
-    color: rgb( 64, 64, 196 );
     pointer-events: all;
+    z-index: 90;
 }
 
-#missionBriefOpen {
-    text-align: center;
-    padding-top: 8px;
+#mb_align {
     margin-left: auto;
     margin-right: auto;
-    color: rgb( 196, 225, 255 );
-    pointer-events: all;
+    height: 100%;
+    width: 750px;
+}
+
+#mb_wrapper {
+    position: absolute;
+    top: 15%;
+    width: 750px;
+    height: 600px;
+    font-size: 0px; /* Remove spacing between divs */
+    border: 2px solid rgb( 210, 235, 255 );
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 32px;
+    border-top-left-radius: 32px;
+    border-bottom-left-radius: 8px;
+}
+
+#mb_image {
+    background-image: url( "../../assets/images/briefBG.png" );
+    background-color: rgb( 0, 0, 0 );
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 150px;
+    height: 600px;
+    border-top-left-radius: 32px;
+    border-bottom-left-radius: 8px;
+}
+
+#mb_main {
+    background-color: rgb( 25, 25, 25 );
+    width: 600px;
+    height: 600px;
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 32px;
+}
+
+#mb_title {
+    font-variant: small-caps;
+    font-weight: bold;
+    font-size: 24px;
+    text-align: center;
+    width: 600px;
+    height: 40px;
+    line-height: 40px;
+    color: rgb( 210, 235, 255 );
+    background-color: rgba( 255, 255, 255, 0.1 );
+    border-top-right-radius: 8px;
+}
+
+#mb_content {
+    font-size: 14px;
+    text-align: justify;
+    color: rgb( 255, 245, 175 );
+    width: 576px;
+    height: 496px;
+    padding: 12px;
+}
+
+#mb_continue {
+    font-variant: small-caps;
+    font-weight: bold;
+    font-size: 24px;
+    text-align: center;
+    width: 600px;
+    height: 40px;
+    line-height: 40px;
+    color: rgb( 210, 235, 255 );
+    background-color: rgba( 255, 255, 255, 0.1 );
+    border-bottom-right-radius: 32px;
 }

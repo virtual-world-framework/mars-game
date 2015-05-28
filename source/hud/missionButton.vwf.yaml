@@ -18,14 +18,14 @@ implements:
  - http://vwf.example.com/sceneGetter.vwf
 properties:
   images:
-    icon: "assets/images/hud/menu_options.png"
+    icon: "assets/images/hud/menu_mission.png"
   width: 64
   height: 64
   visible: true
   enabled: true
   alignH: right
   alignV: bottom
-  offsetH: -320
+  offsetH: -248
   offsetV: -30
   isBlinking: false
   lastBlinkTime: 0
@@ -36,4 +36,4 @@ methods:
 events:
   onClick:
 scripts:
-  - source: optionsButton.js
+  - source: missionButton.js

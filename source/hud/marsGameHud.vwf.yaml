@@ -38,6 +38,8 @@ children:
     includes: source/hud/graphButton.vwf
   tilesButton:
     includes: source/hud/tilesButton.vwf
+  missionButton:
+    includes: source/hud/missionButton.vwf
   optionsButton:
     includes: source/hud/optionsButton.vwf
   objective:
