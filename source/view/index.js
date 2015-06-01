@@ -704,7 +704,7 @@ function getBlocklyFunction() {
     if ( yBlock === undefined ) {
         return undefined;
     }
-    Blockly.JavaScript.init();
+    Blockly.JavaScript.init( Blockly.mainWorkspace );
     var code = Blockly.JavaScript.blockToCode( yBlock );
     var defs = Blockly.JavaScript.finish( '' );
     if ( code !== ";" ) {
@@ -1472,4 +1472,4 @@ function formatTime( time ) {
 
 window.addEventListener( "resize", checkPageZoom );
 
-//@ sourceURL=source/index.js
+//@ sourceURL=source/view/index.js
