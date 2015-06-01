@@ -165,7 +165,7 @@ children:
     children:
       terrain:
         extends: http://vwf.example.com/node3.vwf
-        source: assets/3d/environment/terrain_mix.dae
+        source: assets/3d/environment/mars_level.dae
         type: model/vnd.collada+xml
         properties:
           castShadows: true
@@ -174,22 +174,22 @@ children:
           material:
             extends: source/shaders/mixMap.vwf
             properties:
-              mixMap: "assets/3d/environment/mars_game_mix1.png"
+              mixMap: "assets/3d/environment/mix_map.png"
               diffuseMaps:
-                - { "url": "assets/3d/environment/scorch.jpg", "wrapTexture": true }
-                - { "url": "assets/3d/environment/dirt1.jpg", "wrapTexture": true }
-                - { "url": "assets/3d/environment/dirt.png", "wrapTexture": true }
                 - { "url": "assets/3d/environment/level2_ground1_d.png", "wrapTexture": true }
+                - { "url": "assets/3d/environment/dirt.png", "wrapTexture": true }
+                - { "url": "assets/3d/environment/dirt1.jpg", "wrapTexture": true }
+                - { "url": "assets/3d/environment/dark_dirt.png", "wrapTexture": true }
               normalMaps: 
-                - { "url": "assets/3d/environment/scorch_n.jpg", "wrapTexture": true }
-                - { "url": "assets/3d/environment/dirt1_n.jpg", "wrapTexture": true }
-                - { "url": "assets/3d/environment/dirt_n.png", "wrapTexture": true }
                 - { "url": "assets/3d/environment/level2_ground1_n.png", "wrapTexture": true }
+                - { "url": "assets/3d/environment/dirt_n.png", "wrapTexture": true }
+                - { "url": "assets/3d/environment/dirt1_n.jpg", "wrapTexture": true }
+                - { "url": "assets/3d/environment/dark_dirt_n.png", "wrapTexture": true }
               specularMaps:
-                - { "url": "assets/3d/environment/scorch_s.jpg", "wrapTexture": true }
-                - { "url": "assets/3d/environment/dirt1_s.jpg", "wrapTexture": true }
-                - { "url": "assets/3d/environment/dirt_s.png", "wrapTexture": true }
                 - { "url": "assets/3d/environment/level2_ground1_s.png", "wrapTexture": true }
+                - { "url": "assets/3d/environment/dirt_s.png", "wrapTexture": true }
+                - { "url": "assets/3d/environment/dirt1_s.jpg", "wrapTexture": true }
+                - { "url": "assets/3d/environment/dark_dirt_s.png", "wrapTexture": true }
               textureResolution: 128
               shininess: 5
               normalScale: [ 0.5, 0.5 ]
@@ -204,7 +204,7 @@ children:
               triangle: []
       environmentObjects:
         extends: http://vwf.example.com/node3.vwf
-        source: assets/3d/environment/mars_levels.dae
+        source: assets/3d/environment/mars_assets.dae
         type: model/vnd.collada+xml
         properties:
           castShadows: true
@@ -218,8 +218,8 @@ children:
           maxWorldX: 722
           minWorldY: -312
           maxWorldY: 712
-          minWorldZ: -3
-          maxWorldZ: 15
+          minWorldZ: -5
+          maxWorldZ: 25
       roverTracks:
         extends: http://vwf.example.com/node3.vwf
         source: assets/3d/Terrain/rover_tracks_straight.dae
