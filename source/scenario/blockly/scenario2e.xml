@@ -1,4 +1,6 @@
 <xml id="rover" style="display: none">
-  <block type="rover_moveForward"></block>
-  <block type="rover_turn"><field name="DIR">Turn: Left</field></block>
+  <category id="Control">
+  	<block type="rover_moveForward"></block>
+  	<block type="rover_turn"><field name="DIR">Turn: Left</field></block>
+  </category>
 </xml>

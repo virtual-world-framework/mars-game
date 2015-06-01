@@ -299,7 +299,7 @@ this.getSurroundingInventoriables = function( gridCoord ) {
         var surroundingTiles = [ left, right, forward, back, ul, ur, ll, lr ];
 
         for ( var s = 0; s < surroundingTiles.length; s++ ) {
-            if ( surroundingTiles[ s ] !== undefined ) {
+            if ( Boolean( surroundingTiles[ s ] ) ) {
                 for ( var i = 0; i < surroundingTiles[ s ].objects.length; i++ ) {
                     var node = surroundingTiles[ s ].getNodeAtIndex( i );
                     if ( node === undefined ) {
