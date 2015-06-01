@@ -108,6 +108,7 @@ events:
   unpaused:
   missionBriefOpened:
   missionBriefClosed:
+  loadedMissionBrief:
 children:
   mediaManager:
     extends: http://vwf.example.com/node.vwf

@@ -176,6 +176,17 @@ children:
             - surveyArray
             - []
 
+  brief:
+    extends: ../missionBrief.vwf
+    properties:
+      title: "Mission 4, Task 3"
+      content: >
+        Good work! Now that you’ve placed the triangle in 
+        a good spot, we should dilate it to make it bigger. <br><br>To dilate, or change the 
+        size of the triangle, you can multiply the x and y values of the vertices by 
+        a number to make them further apart. Let's make the triangle 2 times the "
+        size it was. Try multiplying your vertices to make the triangle twice as large.
+
   grid:
     includes: source/grid.vwf
     properties:

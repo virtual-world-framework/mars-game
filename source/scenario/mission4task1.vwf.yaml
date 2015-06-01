@@ -220,6 +220,26 @@ children:
             - surveyArray
             - []
 
+  brief:
+    extends: ../missionBrief.vwf
+    properties:
+      title: "Mission 4, Task 1"
+      content: >
+        Congratulations! You’ve found the cargo pod! 
+        <br><br>The pod you've found contains a large amount of nanites! 
+        Nanites are microscopic robots that can construct materials using 
+        nothing but the air and soil of Mars. The pod also contained your 
+        newest rover, Peregrine, who is designed to transport the nanites 
+        and place them on the ground to build the base for the humans. 
+        <br><br>You seem to be running low on battery! Let's get Peregrine 
+        working on building some solar panels. Your helicam will illuminate 
+        a triangle on the ground where you can build a solar panel. All you 
+        have to do is put in the vertices of the triangle for Peregrine to 
+        follow and his built-in program will do the rest. <br><br>Remember, 
+        a vertex is an ordered pair of coordinates: ( x, y ). Set the x and 
+        y values in the program to match the ordered pairs in your objective 
+        indicator.
+
   grid:
     includes: source/grid.vwf
     properties:

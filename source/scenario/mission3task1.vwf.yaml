@@ -176,6 +176,21 @@ children:
           actions:
           - openMissionBrief:
 
+  brief:
+    extends: ../missionBrief.vwf
+    properties:
+      title: "Mission 3, Task 1"
+      content: >
+        Your sensors have detected that one of the 
+        cargo pods has landed nearby. The exact location of the pod is 
+        unknown, but your Signal Sensor will show you the angle to the pod 
+        from your current position. Your rover can only face 4 directions: 
+        <br><img src='assets/images/tooltips/heading.png' /><br> As you can 
+        see, to the right is 0 degrees, up is 90 degrees, left is 180 degrees 
+        and down is 270 degrees. <br><br>Try moving until the signal matches 
+        one of those directions. Once you are facing the direction of the signal, 
+        you can move forward until your Metal Detector finds the pod.
+
   grid:
     includes: source/grid.vwf
     properties:

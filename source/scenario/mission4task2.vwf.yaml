@@ -188,6 +188,22 @@ children:
             - surveyArray
             - []
 
+  brief:
+    extends: ../missionBrief.vwf
+    properties:
+      title: "Mission 4, Task 2"
+      content: >
+        Well done! You have successfully placed the nanites! 
+        <br><br>Unfortunately, the spot where we had you place the nanites is too 
+        close to the cliff, so it will be in the shade for much of the day. <br><br>
+        Let's translate the vertices of the last triangle to move them further from 
+        the cliff wall. To translate, or move the triangle, you need to add or 
+        subtract from the x and y values of the vertices. Try translating the 
+        triangle 10 spaces along the positive x axis. <br><br>Remember, the x axis 
+        goes from the left (negative x) to the right (positive x). So you will have to 
+        add to the x values of your triangle vertices in order to move them along the 
+        positive x axis. Try adding 10 to the x values of your triangle's vertices.
+
   grid:
     includes: source/grid.vwf
     properties:

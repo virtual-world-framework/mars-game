@@ -187,6 +187,19 @@ children:
             - surveyArray
             - []
 
+  brief:
+    extends: ../missionBrief.vwf
+    properties:
+      title: "Mission 4, Task 6"
+      content: >
+        You're almost done! Let’s add one more triangle by 
+        reflecting the triangle across both the x and y axes. <br><br>Remember 
+        that you can reflect across the x axis by multiplying the y values by 
+        -1 and reflect across the y axis by multiplying the x values by 
+        -1. So, to do both, you will have to multiply both the x and y 
+        values by -1. Try multiplying your vertices to reflect over the 
+        x and y axes.
+
   grid:
     includes: source/grid.vwf
     properties:

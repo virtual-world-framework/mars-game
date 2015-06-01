@@ -113,6 +113,13 @@ this.setScenario = function( path ) {
             //  event without looking the scenario itself up.  Or assert that 
             //  the scenario exists.  Or something.
             this.scenarioChanged( scenario.name, gridBounds );
+            if ( scenario.brief ) {
+                this.loadedMissionBrief(
+                    scenario.brief.title,
+                    scenario.brief.content,
+                    scenario.brief.backgroundImage
+                );
+            }
             scenario.future( 0 ).startScenario();
         } else {
             this.logger.warnx( "setScenario", "Scenario for path '" + path + 
@@ -426,8 +433,8 @@ this.hideSchematicTriangle = function() {
     material.triangle = [];
 }
 
-this.openMissionBrief = function( missionName ) {
-    this.missionBriefOpened( missionName );
+this.openMissionBrief = function() {
+    this.missionBriefOpened();
 }
 
 //@ sourceURL=source/scene.js
