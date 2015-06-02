@@ -22,23 +22,18 @@ this.construct = function() {
     this.visible = true;
     if ( this.material && this.material.animate ) {
         this.material.animate();
+        if ( this.soundOnComplete ) {
+            var soundMgr = this.findTypeInScene( "http://vwf.example.com/sound/soundManager.vwf" );
+            soundMgr.future( this.buildDuration ).playSound( this.soundOnComplete );
+        }
     }
 }
 
 this.setConstructed = function( value ) {
-
     this.visible = value;
     this.built = value;
     if ( this.useAnimatedShader ) {
         this.material._elapsedTime = Number( value ) * this.buildDuration;
-    }
-
-    if ( value === true ) {
-        if ( this.soundOnComplete ) {
-            this.buildingCompleted();
-            var soundMgr = this.findTypeInScene( "http://vwf.example.com/sound/soundManager.vwf" );
-            soundMgr.playSound( this.soundOnComplete );
-        }
     }
 }
 
