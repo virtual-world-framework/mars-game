@@ -32,11 +32,24 @@ this.setUpListeners = function() {
 }
 
 this.drawTileToTexture = function( pointerData, nodeData ) {
+    if ( pointerData.button !== "left" ) {
+        return;
+    }
     var worldPosition, x, y;
     worldPosition = nodeData.globalPosition.slice();
     x = Math.round( worldPosition[ 0 ] / 3 );
     y = Math.round( worldPosition[ 1 ] / 3 );
     this.tileMapped( x, y );
+}
+
+this.setTileMapUniforms = function( canvasID, origin, size ) {
+    this.terrain.material.tileMap = { "canvasID": canvasID, "magFilter": "nearest", "minFilter": "nearest" };
+    this.terrain.material.tileMapOrigin = origin;
+    this.terrain.material.tileMapSize = size;
+}
+
+this.updateTexture = function() {
+    this.terrain.material.updateTexture( "tileMap" );
 }
 
 //@ sourceURL=tileGenerator.js

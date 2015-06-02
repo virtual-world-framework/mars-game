@@ -18,7 +18,7 @@ properties:
 children:
   terrain:
     extends: http://vwf.example.com/node3.vwf
-    source: art/terrain_mix.DAE
+    source: art/mars_level.dae
     type: model/vnd.collada+xml
     properties:
       castShadows: true
@@ -27,36 +27,48 @@ children:
       material:
         extends: mixMap.vwf
         properties:
-          mixMap: "art/mars_game_mix1.png"
+          mixMap: "art/mix_map.png"
           diffuseMaps:
-            - { "url": "art/scorch.jpg", "wrapTexture": true }
+            - { "url": "art/level2_ground1_d.png", "wrapTexture": true }
+            - { "url": "art/dirt.png", "wrapTexture": true }
             - { "url": "art/dirt1.jpg", "wrapTexture": true }
-            - { "url": "art/dirt.jpg", "wrapTexture": true }
-            - { "url": "art/level2_ground1_d.jpg", "wrapTexture": true }
+            - { "url": "art/dark_dirt.png", "wrapTexture": true }
           normalMaps: 
-            - { "url": "art/scorch_n.jpg", "wrapTexture": true }
+            - { "url": "art/level2_ground1_n.png", "wrapTexture": true }
+            - { "url": "art/dirt_n.png", "wrapTexture": true }
             - { "url": "art/dirt1_n.jpg", "wrapTexture": true }
-            - { "url": "art/dirt_nrm.jpg", "wrapTexture": true }
-            - { "url": "art/level2_ground1_n.jpg", "wrapTexture": true }
+            - { "url": "art/dark_dirt_n.png", "wrapTexture": true }
           specularMaps:
-            - { "url": "art/scorch_s.jpg", "wrapTexture": true }
+            - { "url": "art/level2_ground1_s.png", "wrapTexture": true }
+            - { "url": "art/dirt_s.png", "wrapTexture": true }
             - { "url": "art/dirt1_s.jpg", "wrapTexture": true }
-            - { "url": "art/dirt_spec.jpg", "wrapTexture": true }
-            - { "url": "art/level2_ground1_s.jpg", "wrapTexture": true }
+            - { "url": "art/dark_dirt_s.png", "wrapTexture": true }
           textureResolution: 128
           gridInterval: 3
           laserWidth: 0.25
           laserStrength: 0.25
           laserIntensity: 4
           gridColor: 0xFFAA00
-          gridVisible: 0
+          gridVisible: 1
           tilesVisible: 1
           tileColor: 0x555555
+          tileMap:
+          tileMapOrigin:
+          tileMapSize:
     events:
       pointerClick:
+  environmentObjects:
+    extends: http://vwf.example.com/node3.vwf
+    source: art/mars_assets.dae
+    type: model/vnd.collada+xml
+    properties:
+      castShadows: true
+      receiveShadows: true
 methods:
   setUpListeners:
   drawTileToTexture:
+  setTileMapUniforms:
+  updateTexture:
 events:
   tileMapped:
 scripts: 

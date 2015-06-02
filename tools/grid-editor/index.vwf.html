@@ -12,23 +12,42 @@ distributed under the License is distributed on an "AS IS" BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and 
 limitations under the License.
- -->
+-->
+
+<style type="text/css">
+
+body {
+    pointer-events: none;
+}
+
+#vwf-root {
+    pointer-events: all;
+}
+
+</style>
 
 <script type="text/javascript">
 
 //TODO: Select grid area
 var gridArea = {
     "min": {
-        "x": -30,
-        "y": -30
+        "x": -96,
+        "y": -96
     },
     "max": {
-        "x": 150,
-        "y": 150
+        "x": 160,
+        "y": 160
     }
 };
 
-var canvas, width, height;
+var canvas, width, height, appID;
+
+vwf_view.initializedNode = function( nodeID, childID, childExtendsID, childImplementsIDs, childSource, childType, childIndex, childName ) {
+    if ( childID === vwf_view.kernel.application() ) {
+        appID = vwf_view.kernel.application();
+        createGridCanvas();
+    }
+}
 
 vwf_view.firedEvent = function( nodeID, eventName, eventArguments ) {
     if ( eventName === "tileMapped" ) {
@@ -53,11 +72,13 @@ function createGridCanvas() {
         imageData.data[ i ] = 255;
     }
     context.putImageData( imageData, 0, 0 );
+    vwf_view.kernel.callMethod( appID, "setTileMapUniforms",
+        [ canvas.id, [ gridArea.min.x, gridArea.min.y ], [ width, height ] ] );
 }
 
 function toggleGridPixel( x, y ) {
     var mapX = x - gridArea.min.x;
-    var mapY = gridArea.max.y - y;
+    var mapY = gridArea.max.y - 1 - y;
     if ( mapX >= 0 && mapX < width && mapY >= 0 && mapY < height ) {
         var context = canvas.getContext( "2d" );
         var imageData = context.getImageData( mapX, mapY, 1, 1 );
@@ -69,6 +90,12 @@ function toggleGridPixel( x, y ) {
         console.log( "Grid Coordinate ( " + x + ", " + y + " ) is "
             + "outside the grid area." );
     }
+    vwf_view.kernel.callMethod( appID, "updateTexture" );
+}
+
+function saveTileMap() {
+    var imageData = canvas.toDataURL( "image/png" );
+    document.location.href = imageData.replace( "image/png", "image/octet-stream" );
 }
 
 //@ sourceURL=index.vwf.html
