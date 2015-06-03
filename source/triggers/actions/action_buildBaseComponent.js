@@ -40,8 +40,8 @@ this.executeAction = function() {
 
     if ( object && scenario && soundMgr ) {
         object.construct();
-        if ( object.buildingType === 'solarPanel') {
-            soundMgr.playSound( 'solarPanelDeploy' );
+        if ( object.deploySound ) {
+            soundMgr.playSound( object.deploySound );
         }
     }
 }
