@@ -239,11 +239,21 @@ this.setHeightFromTerrain = function ( object ) {
     var scene = this.find( "/" )[ 0 ];
     var origin = [ object.translation[ 0 ], object.translation[ 1 ], object.translation[ 2 ] + 15 ];
     var terrain = this.find( "//" + object.terrainName )[ 0 ];
-    if ( scene && origin && terrain ) {
-        var intersects = scene.raycast( origin, [ 0, 0, -1 ], 0, Infinity, true, terrain.id );
-        var terrainHeight = intersects.length > 0 ? intersects[ 0 ].point[ 2 ] : object.translation[ 2 ];
+    var gridCoord = object.currentGridSquare;
+    if ( scene && origin && terrain && gridCoord ) {
+        //var intersects = scene.raycast( origin, [ 0, 0, -1 ], 0, Infinity, true, terrain.id );
+        //var terrainHeight = intersects.length > 0 ? intersects[ 0 ].point[ 2 ] : object.translation[ 2 ];
+        var terrainHeight = this.getTerrainHeight( gridCoord[ 0 ], gridCoord[ 1 ] );
         object.translation = [ origin[ 0 ], origin[ 1 ], terrainHeight ];
     }
+}
+
+this.getTerrainHeight = function( x, y ) {
+
+    var height;
+    var scene = this.find("/")[0];
+    height = scene.environment.heightmap.getHeight( x, y );
+    return height;
 }
 
 //Returns the first instance of an inventoriable object on the specified grid tile

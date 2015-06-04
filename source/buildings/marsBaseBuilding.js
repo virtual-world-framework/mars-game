@@ -23,8 +23,8 @@ this.construct = function() {
     if ( this.material && this.material.animate ) {
         this.material.animate();
         if ( this.soundOnComplete ) {
-            var soundMgr = this.findTypeInScene( "http://vwf.example.com/sound/soundManager.vwf" );
-            soundMgr.future( this.buildDuration ).playSound( this.soundOnComplete );
+            // var soundMgr = this.findTypeInScene( "http://vwf.example.com/sound/soundManager.vwf" );
+            // soundMgr.future( this.buildDuration ).playSound( this.soundOnComplete );
         }
     }
 }
