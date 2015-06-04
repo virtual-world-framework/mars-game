@@ -43,6 +43,9 @@ this.executeAction = function() {
         if ( object.deploySound ) {
             soundMgr.playSound( object.deploySound );
         }
+        if ( object.soundOnComplete ) {
+            soundMgr.future( object.buildDuration ).playSound( object.soundOnComplete );
+        }
     }
 }
 

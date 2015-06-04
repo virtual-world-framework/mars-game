@@ -324,7 +324,7 @@ this.checkRadialCollision = function( currentPosition, futurePosition ) {
     var currentHeight = this.getTerrainHeight( currentPosition[ 0 ], currentPosition[ 1 ] );
 
     var futureTranslation = this.currentGrid.getWorldFromGrid( futurePosition[ 0 ], futurePosition[ 1 ] );
-    var futureHeight = this.getTerrainHeight( currentPosition[ 0 ], currentPosition[ 1 ] );
+    var futureHeight = this.getTerrainHeight( futurePosition[ 0 ], futurePosition[ 1 ] );
 
     currentTranslation[2] = currentHeight + 1.0;
     futureTranslation[2] = futureHeight + 1.0;
