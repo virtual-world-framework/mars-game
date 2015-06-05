@@ -190,6 +190,12 @@ children:
                 - { "url": "assets/3d/environment/dirt_s.png", "wrapTexture": true }
                 - { "url": "assets/3d/environment/dirt1_s.jpg", "wrapTexture": true }
                 - { "url": "assets/3d/environment/dark_dirt_s.png", "wrapTexture": true }
+              tileMap:
+                url: "assets/3d/environment/tileMap.png"
+                magFilter: "nearest"
+                minFilter: "nearest"
+              tileMapOrigin: [ -96, -96 ]
+              tileMapSize: [ 256, 256 ]
               textureResolution: 128
               shininess: 5
               normalScale: [ 0.5, 0.5 ]
@@ -197,10 +203,10 @@ children:
               laserWidth: 0.15
               laserStrength: 0.25
               laserIntensity: 4
-              gridColor: 0xFFAA00
-              gridVisible: 0
-              tilesVisible: 0
-              tileColor: 0x8888AA
+              gridColor: 0x554422
+              gridVisible: 1
+              tilesVisible: 1
+              tileColor: 0x224433
               triangle: []
       environmentObjects:
         extends: http://vwf.example.com/node3.vwf

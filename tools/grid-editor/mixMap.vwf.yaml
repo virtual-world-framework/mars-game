@@ -12,10 +12,6 @@
 # See the License for the specific language governing permissions and 
 # limitations under the License.
 
-# TODO:
-#   Tile map
-#   Tile origin
-
 ---
 extends: http://vwf.example.com/shaderMaterial.vwf
 properties:
