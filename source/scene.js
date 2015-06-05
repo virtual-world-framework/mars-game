@@ -16,21 +16,12 @@ var gridBounds = {
     bottomLeft: [],
     topRight: []
 }
-var PASSABLE_COLOR = [ 220, 255, 220 ];
-var IMPASSABLE_COLOR = [ 255, 220, 220 ];
-var OPACITY = 0.3;
-var NORMAL = [ 0, 0, 1 ];
-var ROTATION = 90;
-var RENDERTOP = true;
-var SIZE = 0.9;
-var tiles = new Array();
 
 var lastCameraPOV = "thirdPerson";
 
 this.initialize = function() {
     // Set the active camera so we can see the 3D scene
     this.initializeActiveCamera( this.gameCam.camera );
-    this.setUpCameraListener();
     this.setUpRoverListeners();
     this.future( 3 ).applicationLoaded();
 }
@@ -108,7 +99,6 @@ this.setScenario = function( path ) {
                  scenario.grid.clearGrid();
              }
             calcGridBounds( scenario.grid );
-            this.createGridDisplay( scenario.grid );
             // TODO: pass the scenario, not the name.  Or else just send the 
             //  event without looking the scenario itself up.  Or assert that 
             //  the scenario exists.  Or something.
@@ -203,38 +193,6 @@ this.addSubtitle = function( log, time ) {
     }
 }
 
-this.createGridDisplay = function( grid ) {
-    var origin, color;
-    var offset = new Array();
-    offset.push( grid.gridOriginInSpace[ 0 ] / grid.gridSquareLength );
-    offset.push( grid.gridOriginInSpace[ 1 ] / grid.gridSquareLength );
-    tiles.length = 0;
-    for ( var x = 0; x < grid.boundaryValues.length; x++ ) {
-        for ( var y = 0; y < grid.boundaryValues[ x ].length; y++ ) {
-            if ( grid.boundaryValues[ x ][ y ] === -1 ) {
-                continue;
-            }
-            origin = [
-                offset[ 0 ] + ( x ),
-                offset[ 1 ] + ( y ),
-                0
-            ];
-            color = PASSABLE_COLOR;
-            tiles.push( { "plane": {
-                "origin": origin,
-                "normal": NORMAL,
-                "rotationAngle": ROTATION,
-                "size": SIZE,
-                "color": color,
-                "opacity": OPACITY,
-                "doubleSided": false,
-                "renderTop": RENDERTOP
-            } } );
-        }
-    }
-    this.gridTileGraph.mapTiles.graphObjects = tiles;
-}
-
 function calcGridBounds( grid ) {
     grid.getWorldFromGrid( grid.minX, grid.minY, gridBounds.bottomLeft );
     grid.getWorldFromGrid( grid.maxX, grid.maxY, gridBounds.topRight );
@@ -261,16 +219,6 @@ this.executeBlock = function ( block, action ) {
     }
 }
 
-this.setUpCameraListener = function() {
-    var handler = function( mount ) {
-        if ( mount.name !== "topDown") {
-            this.displayTiles( false );
-            this.displayGraph( false );
-        }
-    };
-    this.gameCam.mounted = this.events.add( handler, this );
-}
-
 this.setUpRoverListeners = function() {
     this.scenarioChanged = this.events.add( function( scenarioName ) {
         this.player.rover.findAndSetCurrentGrid( scenarioName );
@@ -280,21 +228,19 @@ this.setUpRoverListeners = function() {
 }
 
 this.displayTiles = function( isVisible ) {
-    if ( isVisible !== this.gridTileGraph.mapTiles.groupVisible ) {
-        this.gridTileGraph.mapTiles.groupVisible = isVisible;
-        if ( isVisible && this.gameCam.mount.name !== "topDown" ) {
-            this.gameCam.setCameraMount( "topDown" );
-        }
+    var material = this.environment.terrain.material;
+    var tilesVisible = Boolean( material.tilesVisible );
+    if ( isVisible !== tilesVisible ) {
+        material.tilesVisible = isVisible ? 1 : 0;
         this.toggledTiles( isVisible );
     }
 }
 
 this.displayGraph = function( isVisible ) {
-    if ( isVisible !== this.blocklyGraph.graphVisible ) {
-        this.blocklyGraph.graphVisible = isVisible;
-        if ( isVisible && this.gameCam.mount.name !== "topDown" ) {
-            this.gameCam.setCameraMount( "topDown" );
-        }
+    var material = this.environment.terrain.material;
+    var gridVisible = Boolean( material.gridVisible );
+    if ( isVisible !== gridVisible ) {
+        material.gridVisible = isVisible ? 1 : 0;
         this.toggledGraph( isVisible );
         this.blocklyGraph.blocklyLine.visible = isVisible;
     }

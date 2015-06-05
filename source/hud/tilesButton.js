@@ -19,7 +19,7 @@ this.draw = function( context, position ) {
 }
 
 this.onClick = function() {
-    this.scene.displayTiles( !this.scene.gridTileGraph.mapTiles.groupVisible );
+    this.scene.displayTiles( !Boolean( this.scene.environment.terrain.material.tilesVisible ) );
 }
 
 //@ sourceURL=source/hud/tilesButton.js

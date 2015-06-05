@@ -19,7 +19,7 @@ this.draw = function( context, position ) {
 }
 
 this.onClick = function() {
-    this.scene.displayGraph( !this.scene.blocklyGraph.graphVisible );
+    this.scene.displayGraph( !Boolean( this.scene.environment.terrain.material.gridVisible ) );
 }
 
 //@ sourceURL=source/hud/graphButton.js

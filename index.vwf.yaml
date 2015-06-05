@@ -49,7 +49,6 @@ methods:
   getCurrentScenario:
   getScenarios:
   getScenarioPaths:
-  createGridDisplay:
   addStatus:
   addAlert:
   addSubtitle:
@@ -204,9 +203,9 @@ children:
               laserStrength: 0.25
               laserIntensity: 4
               gridColor: 0x554422
-              gridVisible: 1
-              tilesVisible: 1
-              tileColor: 0x224433
+              gridVisible: 0
+              tilesVisible: 0
+              tileColor: 0x3A4A40
               triangle: []
       environmentObjects:
         extends: http://vwf.example.com/node3.vwf
@@ -748,11 +747,6 @@ children:
       renderTop: false
       tileVisible: false
     children:
-      mapTiles:
-        extends: http://vwf.example.com/graphtool/graphgroup.vwf
-        properties:
-          groupVisible: false
-          graphObjects: []
       callOutTile:
         extends: http://vwf.example.com/graphtool/graphplane.vwf
         properties:
