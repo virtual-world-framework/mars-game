@@ -25,7 +25,7 @@ var thirdPerson_ZoomLevel;
 var topDown_MaxAltitude = 100;
 var topDown_MinAltitude = 9;
 var thirdPerson_MaxZoom = 21;
-var thirdPerson_MinZoom = 3;
+var thirdPerson_MinZoom = 4;
 
 // Angle bounds in degrees
 var thirdPerson_MaxAngle = 85;
