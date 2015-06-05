@@ -58,6 +58,9 @@ properties:
   - addToGrid:
     - blocklyGraph
     - [ 15, 1 ]
+  - setGridAxes:
+    - 14
+    - 0
   - enableBlocklyNodes:
     - rover
     - graph

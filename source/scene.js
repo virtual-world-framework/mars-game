@@ -383,4 +383,9 @@ this.openMissionBrief = function() {
     this.missionBriefOpened();
 }
 
+this.setGridAxes = function( x, y ) {
+    var material = this.environment.terrain.material;
+    material.gridAxes = [ x, y ];
+}
+
 //@ sourceURL=source/scene.js

@@ -76,6 +76,7 @@ methods:
   drawSchematicTriangle:
   hideSchematicTriangle:
   openMissionBrief:
+  setGridAxes:
 events:
   gameStarted:
   scenarioReset:
@@ -202,6 +203,7 @@ children:
               laserWidth: 0.15
               laserStrength: 0.25
               laserIntensity: 4
+              gridAxes: [ 0, 0 ]
               gridColor: 0x554422
               gridVisible: 0
               tilesVisible: 0

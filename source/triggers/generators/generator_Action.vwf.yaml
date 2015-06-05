@@ -123,6 +123,10 @@ properties:
     # arguments: none
     openMissionBrief: "source/triggers/actions/action_openMissionBrief.vwf"
 
+    # Set the axis lines of the grid to some value in grid space
+    # arguments: x, y
+    setGridAxes: "source/triggers/actions/action_setGridAxes.vwf"
+
     # TODO: These are the old start state functions - add comments for them.
     setProperty: "source/triggers/actions/action_setProperty.vwf"
     callMethod: "source/triggers/actions/action_callMethod.vwf"
