@@ -231,6 +231,14 @@ children:
         extends: http://vwf.example.com/node3.vwf
         source: assets/3d/Terrain/rover_tracks_straight.dae
         type: model/vnd.collada+xml
+  tileMap:
+    extends: source/tileMap.vwf
+    source: assets/3d/environment/tileMap.png
+    type: image/png
+    properties:
+      mapOrigin: [ -96, -96 ]
+      mapSize: [ 256, 256 ]
+      tileSize: 3
   airDust:
     includes: source/dustAir.vwf
   smoke1:
