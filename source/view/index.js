@@ -105,10 +105,6 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 break;
 
             case "blocklyStarted":
-            var xml = Blockly.Xml.workspaceToDom( Blockly.getMainWorkspace() );
-        if ( xml ) { 
-            console.log( xml );
-        }
                 var indicator = document.getElementById( "blocklyIndicator" );
                 indicator.className = "";
                 indicator.style.visibility = "inherit";

@@ -71,5 +71,7 @@ methods:
   construct:
   setConstructed:
   setUpShader:
+events:
+  buildingCompleted:
 scripts:
   - source: marsBaseBuilding.js

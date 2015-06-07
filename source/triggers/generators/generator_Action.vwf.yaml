@@ -115,6 +115,10 @@ properties:
     # arguments: vertex1, vertex2, vertex3
     drawTriangle: "source/triggers/actions/action_drawTriangle.vwf"
 
+    # build a base component using our spiffy new shader
+    # arguments: component name ( defined in index.vwf.yaml - must be added to scenario grid)
+    buildBaseComponent: "source/triggers/actions/action_buildBaseComponent.vwf"
+
     # open the mission brief for the current scenario
     # arguments: none
     openMissionBrief: "source/triggers/actions/action_openMissionBrief.vwf"

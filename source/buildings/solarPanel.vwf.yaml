@@ -17,6 +17,7 @@ extends: marsBaseBuilding.vwf
 source: ../../assets/3d/solar_panel/solar_panel.dae
 type: model/vnd.collada+xml
 properties:
+  buildingType: 'solarPanel'
   gridSize: [ 3, 3 ]
   collisionMap: 
     - [ 1, 1, 1 ]
@@ -31,3 +32,5 @@ properties:
   buildDuration: 5
   buildingHeight: 2.5
   built: false
+  deploySound: solarPanelDeploy
+  soundOnComplete: solarPanelActive

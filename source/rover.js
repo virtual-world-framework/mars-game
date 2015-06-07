@@ -321,11 +321,13 @@ this.turnRight = function() {
 this.checkRadialCollision = function( currentPosition, futurePosition ) {
 
     var currentTranslation = this.currentGrid.getWorldFromGrid( currentPosition[ 0 ], currentPosition[ 1 ] );
+    var currentHeight = this.getTerrainHeight( currentPosition[ 0 ], currentPosition[ 1 ] );
 
     var futureTranslation = this.currentGrid.getWorldFromGrid( futurePosition[ 0 ], futurePosition[ 1 ] );
-    
-    currentTranslation[2] = this.translation[2] + 1.0;
-    futureTranslation[2] = this.translation[2] + 1.0;
+    var futureHeight = this.getTerrainHeight( futurePosition[ 0 ], futurePosition[ 1 ] );
+
+    currentTranslation[2] = currentHeight + 1.0;
+    futureTranslation[2] = futureHeight + 1.0;
 
     var dist = goog.vec.Vec3.distance( currentTranslation, futureTranslation );
     var sizeOfRover = this.currentGrid.gridSquareLength * 0.5;

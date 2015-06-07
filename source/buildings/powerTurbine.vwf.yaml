@@ -17,6 +17,7 @@ extends: marsBaseBuilding.vwf
 source: ../../assets/3d/power_turbine/power_turbine.dae
 type: model/vnd.collada+xml
 properties:
+  buildingType: 'powerManagement'
   gridSize: [ 3, 3 ]
   collisionMap: 
     - [ 1, 1, 1 ]

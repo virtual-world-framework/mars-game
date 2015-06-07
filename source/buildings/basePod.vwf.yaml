@@ -17,6 +17,7 @@ extends: marsBaseBuilding.vwf
 source: ../../assets/3d/base_pod/base_pod.dae
 type: model/vnd.collada+xml
 properties:
+  buildingType: 'basePod'
   gridSize: [ 2, 4 ]
   collisionMap: 
     - [ -1, -1, -1, -1 ]
