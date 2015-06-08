@@ -12,12 +12,29 @@
 # See the License for the specific language governing permissions and 
 # limitations under the License.
 
---- 
-extends: actionProto.vwf
-
+---
+extends: http://vwf.example.com/node3.vwf
+implements:
+  - http://vwf.example.com/sceneGetter.vwf
 properties:
-  objectName:
+  castShadows: true
+  receiveShadows: true
   tilePosition:
-
+    set: |
+      this.placeAtTileCoord( value[ 0 ], value[ 1 ] );
+    get: |
+      return this.getTileCoord();
+methods:
+  placeAtTileCoord:
+    parameters:
+      - x
+      - y
+      - duration
+  placeAtWorldCoord:
+    parameters:
+      - x
+      - y
+      - duration
+  getTileCoord:
 scripts:
-- source: action_addToGrid.js
+  - source: marsGameNode.js

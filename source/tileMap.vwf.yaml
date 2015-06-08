@@ -31,5 +31,13 @@ methods:
     parameters:
       - x
       - y
+  getTileCoordFromWorld:
+    parameters:
+      - x
+      - y
+  getWorldCoordFromTile:
+    parameters:
+      - x
+      - y
 scripts:
-- source: tileMap.js
+ - source: tileMap.js

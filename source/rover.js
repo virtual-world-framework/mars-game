@@ -13,25 +13,125 @@
 // limitations under the License.
 
 this.initialize = function() {
-    // HACK: Prevent component from initializing
-    if ( this.id === "source/rover.vwf" ) {
+    if ( this.uri ) {
         return;
     }
-
-    // TODO: Find current grid square (rather than making app developer specify)
-    // TODO: Find the current heading (rather than making app developer specify)
-
     this.calcRam();
-
 }
 
-this.findAndSetCurrentGrid = function( scenarioName ) {
-    var scenario = this.find( "//" + scenarioName )[ 0 ];
-    this.currentGrid = scenario.grid;
+this.moveForward = function() {
+    var tileMap = this.scene.tileMap;
+    var headingRadians = ( this.heading + 90 ) * Math.PI / 180; // TODO: Fix heading
+    var currentTile = tileMap.getTileCoordFromWorld( this.worldTransform[ 12 ], this.worldTransform[ 13 ] );
+    var proposedTile = {
+        "x": currentTile.x + Math.round( Math.cos( headingRadians ) ),
+        "y": currentTile.y + Math.round( Math.sin( headingRadians ) )
+    };
+    var tileValue = tileMap.getDataAtTileCoord( proposedTile.x, proposedTile.y );
+
+    // tileValue will be null if the tile does not exist on the tile map.
+    // We will count this as a collision for now.
+    if ( tileValue !== null ) {
+        var tilePassable = Boolean( tileValue.r );
+        if ( tilePassable ) {
+            if ( this.battery >= 1 ) { // Subject to change if movement cost changes
+                var obstructionOnTile = this.scene.checkWatchList( proposedTile, "obstruction" );
+                if ( !obstructionOnTile ) {
+                    var distance = [
+                        ( proposedTile.x - currentTile.x ) * tileMap.tileSize,
+                        ( proposedTile.y - currentTile.y ) * tileMap.tileSize,
+                        0
+                    ];
+                    this.translateOnTerrain( distance, 1, 1 );
+                    var pickupsOnTile = this.scene.getWatchListNodes( proposedTile, "pickup" );
+                    for ( var i = 0; i < pickupsOnTile.length; i++ ) {
+                        pickupsOnTile[ i ].pickUp( this );
+                    }
+                    this.moved();
+                    // this.activateSensor( 'metal' );
+                    // this.activateSensor( 'signal' );
+                    // this.activateSensor( 'collision' );
+                    // this.activateSensor( 'position' );
+                } else { // obstructionOnTile is true
+                    // TODO: Move forward to show the collision.
+                    //   - Play alarm sound to alert the player?
+                    //   - Play cartoonesque animation of wheels falling off and then body drops to ground?
+                    //   - Rattle the object that the rover collids with?
+                    this.moveFailed( "collision" );
+                }
+            } else { // this.battery is less than 1
+                // TODO: Play battery depleted movement?
+                //   - Move half way to next tile.
+                //   - Rover slumps down.
+                //   - Play powering down sound effect.
+                this.battery = 0;
+                this.moveFailed( "battery" );
+            }
+        } else { // tilePassable is false
+            // TODO: Move forward to show the collision.
+            //   - Play alarm sound to alert the player?
+            this.moveFailed( "collision" );
+        }
+    } else { // tileValue is null
+        //  TODO: Find another failure type?
+        this.moveFailed( "collision" );
+    }
 }
+
+// this.moveForward = function() {
+
+//     var scene = this.sceneNode;
+//     var headingInRadians = this.heading * Math.PI / 180;
+//     var dirVector = [ Math.round( -Math.sin( headingInRadians ) ), Math.round( Math.cos( headingInRadians ) ) ];
+//     var proposedNewGridSquare = [ this.currentGridSquare[ 0 ] + dirVector[ 0 ], 
+//                                                                 this.currentGridSquare[ 1 ] + dirVector[ 1 ] ];
+
+//     //First check if the coordinate is valid
+//     if ( this.currentGrid.validCoord( proposedNewGridSquare ) ) {
+
+//         var energyRequired = this.getMinEnergyRequired( proposedNewGridSquare );
+
+//         //Then check if the boundary value allows for movement:
+//         if( this.meetsBoundaryConditions( energyRequired ) ) {
+//             //Check if the space is occupied
+//             var collided = this.checkCollisionWrapper( proposedNewGridSquare );
+//             if ( !collided ){
+//                 this.currentGrid.moveObjectOnGrid( this.id, this.currentGridSquare, proposedNewGridSquare );
+//                 this.currentGridSquare = proposedNewGridSquare;
+//                 var displacement = [ dirVector[ 0 ] * this.currentGrid.gridSquareLength, 
+//                                      dirVector[ 1 ] * this.currentGrid.gridSquareLength, 0 ];
+//                 // TODO: This should use worldTransformBy, but we are getting a bug where the rover's transform isn't set
+//                 //       yet when this method is called.  Until we can debug that, we are assuming that the rover's 
+//                 //       parent's frame of reference is the world frame of reference
+//                 this.translateOnTerrain( displacement, 1, energyRequired );
+//                 // this.worldTransformBy( [
+//                 //   1, 0, 0, 0,
+//                 //   0, 1, 0, 0,
+//                 //   0, 0, 1, 0,
+//                 //   dirVector[ 0 ] * this.gridSquareLength, dirVector[ 1 ] * this.gridSquareLength, 0, 0 ], 1 );
+
+//                 var inventoriableObjects = this.currentGrid.getInventoriables( proposedNewGridSquare );
+//                 if ( inventoriableObjects ){
+//                     for ( var i = 0; i < inventoriableObjects.length; i++ ) {
+//                         this.currentGrid.removeFromGrid( inventoriableObjects[ i ], proposedNewGridSquare );
+//                         this.cargo.add( inventoriableObjects[ i ] );
+//                     }
+//                 }
+//                 this.moved();
+//                 this.activateSensor( 'metal' );
+//                 this.activateSensor( 'signal' );
+//                 this.activateSensor( 'collision' );
+//                 this.activateSensor( 'position' );
+//             } else {
+//                 this.moveFailed( "collision" );
+//             }
+//         }
+//     } else {
+//         this.moveFailed( "collision" );
+//     }
+// }
 
 this.meetsBoundaryConditions = function( energyRequired ) {
-
     if ( energyRequired < 0 ) {
         this.moveFailed( "collision" );
         return false;
@@ -39,13 +139,11 @@ this.meetsBoundaryConditions = function( energyRequired ) {
         this.battery = 0;
         this.moveFailed( "battery" );
         return false;
-    } 
-
+    }
     return true;
 }
 
 this.meetsBoundaryConditionsSensor = function( energyRequired ) {
-
     if ( energyRequired < 0 ) {
         //this.moveFailed( "collision" );
         return false;
@@ -53,8 +151,7 @@ this.meetsBoundaryConditionsSensor = function( energyRequired ) {
         this.battery = 0;
         //this.moveFailed( "battery" );
         return false;
-    } 
-
+    }
     return true;
 }
 
@@ -73,59 +170,6 @@ this.getMinEnergyRequired = function( gridCoord ){
     }
 
     return minEnergyRequired;
-} 
-
-this.moveForward = function() {
-
-    var scene = this.sceneNode;
-    var headingInRadians = this.heading * Math.PI / 180;
-    var dirVector = [ Math.round( -Math.sin( headingInRadians ) ), Math.round( Math.cos( headingInRadians ) ) ];
-    var proposedNewGridSquare = [ this.currentGridSquare[ 0 ] + dirVector[ 0 ], 
-                                                                this.currentGridSquare[ 1 ] + dirVector[ 1 ] ];
-
-    //First check if the coordinate is valid
-    if ( this.currentGrid.validCoord( proposedNewGridSquare ) ) {
-
-        var energyRequired = this.getMinEnergyRequired( proposedNewGridSquare );
-
-        //Then check if the boundary value allows for movement:
-        if( this.meetsBoundaryConditions( energyRequired ) ) {
-            //Check if the space is occupied
-            var collided = this.checkCollisionWrapper( proposedNewGridSquare );
-            if ( !collided ){
-                this.currentGrid.moveObjectOnGrid( this.id, this.currentGridSquare, proposedNewGridSquare );
-                this.currentGridSquare = proposedNewGridSquare;
-                var displacement = [ dirVector[ 0 ] * this.currentGrid.gridSquareLength, 
-                                     dirVector[ 1 ] * this.currentGrid.gridSquareLength, 0 ];
-                // TODO: This should use worldTransformBy, but we are getting a bug where the rover's transform isn't set
-                //       yet when this method is called.  Until we can debug that, we are assuming that the rover's 
-                //       parent's frame of reference is the world frame of reference
-                this.translateOnTerrain( displacement, 1, energyRequired );
-                // this.worldTransformBy( [
-                //   1, 0, 0, 0,
-                //   0, 1, 0, 0,
-                //   0, 0, 1, 0,
-                //   dirVector[ 0 ] * this.gridSquareLength, dirVector[ 1 ] * this.gridSquareLength, 0, 0 ], 1 );
-
-                var inventoriableObjects = this.currentGrid.getInventoriables( proposedNewGridSquare );
-                if ( inventoriableObjects ){
-                    for ( var i = 0; i < inventoriableObjects.length; i++ ) {
-                        this.currentGrid.removeFromGrid( inventoriableObjects[ i ], proposedNewGridSquare );
-                        this.cargo.add( inventoriableObjects[ i ] );
-                    }
-                }
-                this.moved();
-                this.activateSensor( 'metal' );
-                this.activateSensor( 'signal' );
-                this.activateSensor( 'collision' );
-                this.activateSensor( 'position' );
-            } else {
-                this.moveFailed( "collision" );
-            }
-        }
-    } else {
-        this.moveFailed( "collision" );
-    }
 }
 
 this.moveRadialAbsolute = function( valueX, valueY ) {
@@ -558,6 +602,8 @@ this.moveFailed = function( value ) {
 }
 
 this.activateSensor = function( sensor, value ) {
+
+    return;
 
     var scene = this.sceneNode;
 

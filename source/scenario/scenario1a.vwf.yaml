@@ -67,19 +67,19 @@ properties:
 
   - addToGrid:
     - rover
-    - [ 8, 2 ]
+    - [ 0, 0 ]
 
   - addToGrid:
     - helicam
-    - [ 8, 3 ]
+    - [ 0, 1 ]
 
   - addToGrid:
     - battery
-    - [ 8, 6 ]
+    - [ 0, 4 ]
 
   - addToGrid:
     - radio
-    - [ 8, 16 ]
+    - [ 0, 14 ]
   - enableBlocklyNodes:
     - rover
   - loadToolbox:

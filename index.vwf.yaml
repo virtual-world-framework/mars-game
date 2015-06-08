@@ -42,6 +42,7 @@ properties:
     set: |
       this.setApplicationState( value );
     value: loading
+  watchList: []
 methods:
   setScenario:
   resetScenario:
@@ -77,6 +78,10 @@ methods:
   hideSchematicTriangle:
   openMissionBrief:
   setGridAxes:
+  addToWatchList:
+  clearWatchList:
+  checkWatchList:
+  getWatchListNodes:
 events:
   gameStarted:
   scenarioReset:

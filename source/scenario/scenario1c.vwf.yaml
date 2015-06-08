@@ -57,21 +57,21 @@ properties:
     - setHeading
     - 0
 
-  - addToInventory:
-    - rover/cargo
-    - [ "helicam" ]
+  # - addToInventory:
+  #   - rover/cargo
+  #   - [ "helicam" ]
 
   - addToGrid:
     - rover
-    - [ 8, 3 ]
+    - [ 0, 1 ]
 
   - addToGrid:
     - battery
-    - [ 8, 6 ]
+    - [ 0, 4 ]
 
   - addToGrid:
     - radio
-    - [ 8, 16 ]
+    - [ 0, 14 ]
   - enableBlocklyNodes:
     - rover
   - loadToolbox:

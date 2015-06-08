@@ -43,3 +43,21 @@ this.getDataAtTileCoord = function( x, y ) {
     mapY = ( this.mapOrigin[ 1 ] + this.mapSize[ 1 ] ) - 1 - y;
     return this.getData( mapX, mapY );
 }
+
+this.getTileCoordFromWorld = function( x, y ) {
+    var tileX, tileY, coord;
+    tileX = Math.round( x / this.tileSize );
+    tileY = Math.round( y / this.tileSize );
+    coord = { "x": tileX, "y": tileY };
+    return coord;
+}
+
+this.getWorldCoordFromTile = function( x, y ) {
+    var worldX, worldY, coord;
+    worldX = Math.round( x * this.tileSize );
+    worldY = Math.round( y * this.tileSize );
+    coord = { "x": worldX, "y": worldY };
+    return coord;
+}
+
+//@ sourceURL=source/tileMap.js

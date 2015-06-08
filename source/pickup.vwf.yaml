@@ -13,18 +13,34 @@
 # limitations under the License.
 
 ---
-extends: gridObstacle.vwf
-implements: [ "inventoriable.vwf", "griddable.vwf" ]
+extends: marsGameNode.vwf
 properties:
   castShadows: true
   receiveShadows: true
-  isCollidable: false
-  terrainName: undefined
-  visible:
+  isActive:
     set: |
-      this.setPickupVisibility( value );
-    value: false
+      this.activatePickup( value );
+    value: true
 methods:
-  setPickupVisibility:
+  # The pickUp function deactivates the pickup and fires the pickedUp
+  # event, which determines what effect the pickup has on the interacting
+  # node.
+  pickUp:
+    parameters:
+      - interactingNode
+
+  # A pickup is an item in the world that has an effect on the node
+  # that interacts with it. Thus, an active pickup is one that has
+  # not yet been picked up. Activating the pickup makes it visible on
+  # the ground and allows it to be picked up.
+  activatePickup:
+    parameters:
+      - pickupActive
+events:
+  # The pickedUp event defines the effect of the pickup on the node that
+  # interacted with it. This should be defined on specific pickup nodes.
+  pickedUp:
+    parameters:
+      - interactingNode
 scripts:
   - source: pickup.js

@@ -17,7 +17,7 @@ extends: actionProto.vwf
 
 properties:
   objectName:
-  tilePosition:
+  objectType:
 
 scripts:
-- source: action_addToGrid.js
+- source: action_addToWatchList.js

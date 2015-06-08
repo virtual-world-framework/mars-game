@@ -80,7 +80,7 @@ this.setApplicationState = function( state ) {
 
 this.newGame = function() {
     this.applicationState = "playing";
-    this.activeScenarioPath = "mission3task1";
+    this.activeScenarioPath = "introScreenScenario";
 }
 
 this.continueGame = function( scenario ) {
@@ -93,6 +93,7 @@ this.setScenario = function( path ) {
         var scenario = this.find( path )[ 0 ];
         if ( scenario ) {
             this.activeScenarioPath = path;
+            this.clearWatchList();
             // TODO: remove knowledge of inner workings of the scenario; let 
             //  the scenario itself handle bookkeeping in its event handlers.
              if ( scenario.grid && scenario.grid.clearGrid ) {
@@ -386,6 +387,48 @@ this.openMissionBrief = function() {
 this.setGridAxes = function( x, y ) {
     var material = this.environment.terrain.material;
     material.gridAxes = [ x, y ];
+}
+
+this.addToWatchList = function( node, tile, type ) {
+    var wlItem = {
+        "name": node.name,
+        "id": node.id,
+        "tile": tile,
+        "type": type
+    }
+    this.watchList.push( wlItem );
+}
+
+this.clearWatchList = function() {
+    this.watchList.length = 0;
+}
+
+this.checkWatchList = function( tile, type ) {
+    var watchList = this.watchList;
+    var item;
+    for ( var i = 0; i < watchList.length; i++ ) {
+        item = watchList[ i ];
+        if ( item.tile.x === tile.x && item.tile.y === tile.y &&
+             ( item.type === type || type === undefined ) ) {
+            return true;
+        }
+    }
+    return false;
+}
+
+this.getWatchListNodes = function( tile, type ) {
+    var watchList = this.watchList;
+    var nodes = [];
+    var item, node;
+    for ( var i = 0; i < watchList.length; i++ ) {
+        item = watchList[ i ];
+        if ( item.tile.x === tile.x && item.tile.y === tile.y &&
+             ( item.type === type || type === undefined ) ) {
+            node = this.findByID( this, item.id );
+            nodes.push( node );
+        }
+    }
+    return nodes;
 }
 
 //@ sourceURL=source/scene.js

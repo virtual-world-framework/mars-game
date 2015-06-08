@@ -20,24 +20,25 @@ this.onGenerated = function( params, generator, payload ) {
     if ( !params || ( params.length !== 2 ) ) {
         this.logger.errorx( "onGenerated", 
                             "This action takes two arguments: the path of " +
-                            "the object to be added, and the coordinates of " +
-                            "the grid tile." );
+                            "the node to add to the watch list and the type " +
+                            "of object it is." );
         return false;
     }
 
     this.objectName = params[ 0 ];
-    this.tilePosition = params[ 1 ];
+    this.objectType = params[ 1 ];
 
     return true;
 }
 
 this.executeAction = function() {
     var object = this.findInScene( this.objectName );
+    var objectTile = { "x": object.tilePosition[ 0 ], "y": object.tilePosition[ 1 ] };
     this.assert( object, "Object not found!" );
 
     if ( object ) {
-        object.placeAtTileCoord( this.tilePosition[ 0 ], this.tilePosition[ 1 ] );
+        this.scene.addToWatchList( object, objectTile, this.objectType );
     }
 }
 
-//@ sourceURL=source/triggers/actions/action_addToGrid.js
+//@ sourceURL=source/triggers/actions/action_addToWatchList.js
