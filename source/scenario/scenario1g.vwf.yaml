@@ -111,7 +111,7 @@ children:
               - rover
             - isAtPosition:
               - rover
-              - [ 8, 2 ]
+              - [ 0, 0 ]
           actions:
           - scenarioSuccess:
           - showAlert:

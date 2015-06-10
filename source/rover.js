@@ -78,6 +78,10 @@ this.moveForward = function() {
     }
 }
 
+this.place = function( translation, duration ) {
+    this.placeOnTerrain( translation );
+}
+
 // this.moveForward = function() {
 
 //     var scene = this.sceneNode;

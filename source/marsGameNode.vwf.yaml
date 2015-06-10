@@ -35,6 +35,10 @@ methods:
       - x
       - y
       - duration
+  place:
+    parameters:
+      - translation
+      - duration
   getTileCoord:
 scripts:
   - source: marsGameNode.js

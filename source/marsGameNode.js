@@ -23,7 +23,11 @@ this.placeAtWorldCoord = function( x, y, duration ) {
     var heightMap, z;
     heightMap = this.scene.environment.heightmap;
     z = heightMap.getHeight( x, y );
-    this.translateTo( [ x, y, z ], duration );
+    this.place( [ x, y, z ], duration );
+}
+
+this.place = function( translation, duration ) {
+    this.translateTo( translation, duration );
 }
 
 this.getTileCoord = function() {

@@ -55,8 +55,8 @@ this.onGenerated = function( params, generator, payload ) {
 }
 
 this.evaluateClause = function() {
-    var retVal = this.object.currentGridSquare[ 0 ] === this.targetPos[ 0 ] && 
-                 this.object.currentGridSquare[ 1 ] === this.targetPos[ 1 ];
+    var retVal = this.object.tilePosition[ 0 ] === this.targetPos[ 0 ] && 
+                 this.object.tilePosition[ 1 ] === this.targetPos[ 1 ];
 
     return retVal;
 }
