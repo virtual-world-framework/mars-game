@@ -85,6 +85,15 @@ properties:
   - addToGrid:
     - radio
     - [ 0, 14 ]
+  - setPickupActive:
+    - helicam
+    - true
+  - setPickupActive:
+    - battery
+    - true
+  - setPickupActive:
+    - radio
+    - true
 
   - enableBlocklyNodes:
     - rover

@@ -131,6 +131,10 @@ properties:
     # arguments: objectName, objectType
     addToWatchList: "source/triggers/actions/action_addToWatchList.vwf"
 
+    # Set a pickup to active or inactive
+    # arguments: objectName, active
+    setPickupActive: "source/triggers/actions/action_setPickupActive.vwf"
+
     # TODO: These are the old start state functions - add comments for them.
     setProperty: "source/triggers/actions/action_setProperty.vwf"
     callMethod: "source/triggers/actions/action_callMethod.vwf"

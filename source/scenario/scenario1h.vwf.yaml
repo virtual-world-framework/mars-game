@@ -66,6 +66,15 @@ properties:
   - addToGrid:
     - radio
     - [ 0, 14 ]
+  - setPickupActive:
+    - helicam
+    - false
+  - setPickupActive:
+    - battery
+    - false
+  - setPickupActive:
+    - radio
+    - true
   - addToWatchList:
     - radio
     - pickup
@@ -122,7 +131,7 @@ children:
               - rover
             - isAtPosition:
               - rover
-              - [ 8, 16 ]
+              - [ 0, 14 ]
           actions:
           - scenarioSuccess:
           - showAlert:
