@@ -620,8 +620,11 @@ children:
         properties:
           animationPlaying: true
           animationLoop: true
+          tilePosition: [ 0, 14 ]
       battery:
         extends: source/pickups/battery_1.vwf
+        properties:
+          tilePosition: [ 0, 4 ]
       signal:
         extends: source/pickups/signal.vwf
       supplies_1:
@@ -630,6 +633,8 @@ children:
         extends: source/pickups/supplies.vwf
       helicam:
         extends: source/pickups/helicam.vwf
+        properties:
+          tilePosition: [ 0, 1 ]
       minirover:
         extends: source/pickups/minirover.vwf
   cargoPod2: 

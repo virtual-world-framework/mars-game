@@ -30,6 +30,14 @@ this.place = function( translation, duration ) {
     this.translateTo( translation, duration );
 }
 
+this.setTilePosition = function( x, y ) {
+    if ( this.scene ) {
+        this.placeAtTileCoord( x, y );
+    } else {
+        this.future( 0.3 ).setTilePosition( x, y );
+    }
+}
+
 this.getTileCoord = function() {
     var tileMap, transform, tileCoord;
     if ( this.scene ) {

@@ -431,4 +431,16 @@ this.getWatchListNodes = function( tile, type ) {
     return nodes;
 }
 
+this.getAxisOffsetTileCoord = function( x, y ) {
+    var tileX, tileY, gridAxes, tileCoord;
+    gridAxes = this.environment.terrain.material.gridAxes;
+    tileX = x + gridAxes[ 0 ];
+    tileY = y + gridAxes[ 1 ];
+    tileCoord = {
+        "x": tileX,
+        "y": tileY
+    };
+    return tileCoord;
+}
+
 //@ sourceURL=source/scene.js

@@ -21,7 +21,7 @@ properties:
   receiveShadows: true
   tilePosition:
     set: |
-      this.placeAtTileCoord( value[ 0 ], value[ 1 ] );
+      this.setTilePosition( value[ 0 ], value[ 1 ] );
     get: |
       return this.getTileCoord();
 methods:
@@ -40,5 +40,6 @@ methods:
       - translation
       - duration
   getTileCoord:
+  setTilePosition:
 scripts:
   - source: marsGameNode.js
