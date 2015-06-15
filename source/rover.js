@@ -109,16 +109,15 @@ this.moveRadialAbsolute = function( valueX, valueY ) {
                         deltaY * tileMap.tileSize,
                         0
                     ];
-                    this.translateOnTerrain( distance, 1, 1 );
+                    var hypotenuse = Math.sqrt( ( deltaX * deltaX ) + ( deltaY * deltaY ) );
+                    this.translateOnTerrain( distance, hypotenuse, 1 );
                     var pickupsOnTile = this.scene.getWatchListNodes( proposedTile, "pickup" );
                     for ( var i = 0; i < pickupsOnTile.length; i++ ) {
                         pickupsOnTile[ i ].pickUp( this );
                     }
                     this.moved();
-                    this.activateSensor( 'metal' );
-                    this.activateSensor( 'signal' );
-                    this.activateSensor( 'collision' );
                     this.activateSensor( 'position' );
+                    this.activateSensor( 'heading', this.heading );
                 } else { // obstructionOnPath is true
                     // TODO: Move forward to show the collision.
                     //   - Play alarm sound to alert the player?
@@ -141,48 +140,6 @@ this.moveRadialAbsolute = function( valueX, valueY ) {
         }
     } else { // tileValue is null
         //  TODO: Find another failure type?
-        this.moveFailed( "collision" );
-    }
-
-
-    
-    var dirVector = [ Math.round( -Math.sin( radians ) ), Math.round( Math.cos( radians ) ) ];
-    var proposedNewGridSquare = [ this.currentGridSquare[ 0 ] + xOffset, 
-                                                                this.currentGridSquare[ 1 ] + yOffset ]; 
-    //Calculate the time to displace based on the hypotenuse
-    var hypot = Math.sqrt( ( xOffset * xOffset ) + ( yOffset * yOffset ) );
-    var displacement = [  xOffset * this.currentGrid.gridSquareLength,  yOffset * this.currentGrid.gridSquareLength, 0 ];
-    //First check if the coordinate is valid
-    if ( this.currentGrid.validCoord( proposedNewGridSquare ) ) {
-        var energyRequired = this.currentGrid.getEnergy( proposedNewGridSquare );
-        //Otherwise, check if the space is occupied
-        if ( !this.checkRadialCollision( this.currentGridSquare, proposedNewGridSquare ) ){
-            this.currentGrid.moveObjectOnGrid( this.id, this.currentGridSquare, proposedNewGridSquare );
-            this.currentGridSquare = proposedNewGridSquare;
-            // TODO: This should use worldTransformBy, but we are getting a bug where the rover's transform isn't set
-            //       yet when this method is called.  Until we can debug that, we are assuming that the rover's 
-            //       parent's frame of reference is the world frame of reference
-            this.translateOnTerrain( displacement, hypot, energyRequired );
-            // this.worldTransformBy( [
-            //   1, 0, 0, 0,
-            //   0, 1, 0, 0,
-            //   0, 0, 1, 0,
-            //   dirVector[ 0 ] * this.gridSquareLength, dirVector[ 1 ] * this.gridSquareLength, 0, 0 ], 1 );
-            var inventoriableObjects = this.currentGrid.getInventoriables( proposedNewGridSquare );
-            if ( inventoriableObjects ){
-                for ( var i = 0; i < inventoriableObjects.length; i++ ) {
-                    this.currentGrid.removeFromGrid( inventoriableObjects[ i ], proposedNewGridSquare );
-                    this.cargo.add( inventoriableObjects[ i ] );
-                }
-            }
-            this.moved();
-            this.activateSensor( 'position' );
-            this.activateSensor( 'heading', this.heading );
-            //this.activateSensor( 'metal' );
-        } else {
-            this.moveFailed( "collision" );
-        }
-    } else {
         this.moveFailed( "collision" );
     }
 }
@@ -283,9 +240,11 @@ this.checkRadialCollision = function( currentPosition, futurePosition ) {
     var futureTranslation = tileMap.getWorldCoordFromTile( futurePosition.x, futurePosition.y );
     currentTranslation.z = this.getTerrainHeight( currentTranslation.x, currentTranslation.y ) + 1;
     futureTranslation.z = this.getTerrainHeight( futureTranslation.x, futureTranslation.x ) + 1;
-    var dist = goog.vec.Vec3.distance( currentTranslation, futureTranslation );
+    var dist = goog.vec.Vec3.distance(
+        [ currentTranslation.x, currentTranslation.y, currentTranslation.z ],
+        [ futureTranslation.x, futureTranslation.y, futureTranslation.z ]
+    );
     var sizeOfRover = 1.5;
-    var scene = this.scene;
     var player = this.find( "//player" )[ 0 ];
     var environment = this.find( "//environment" )[ 0 ];
     var pickups = this.find( "//pickups" )[ 0 ];
@@ -295,13 +254,20 @@ this.checkRadialCollision = function( currentPosition, futurePosition ) {
         futureTranslation[ 1 ] - currentTranslation[ 1 ],
         futureTranslation[ 2 ] - currentTranslation[ 2 ]
     ];
-    var vectorLength = Math.sqrt( ( directionVector[0]*directionVector[0] ) + ( directionVector[1]*directionVector[1] ) + ( directionVector[2]*directionVector[2] ) );
+    var vectorLength = Math.sqrt(
+        ( directionVector[ 0 ] * directionVector[ 0 ] ) +
+        ( directionVector[ 1 ] * directionVector[ 1 ] ) +
+        ( directionVector[ 2 ] * directionVector[ 2 ] )
+    );
     var normalizedVector = [ 
         directionVector[ 0 ] / vectorLength,
         directionVector[ 1 ] / vectorLength,
         directionVector[ 2 ] / vectorLength
     ];
-    var raycastResult = scene.raycast( currentTranslation, normalizedVector, 1.0, dist, true, [ player.id, environment.id /*, backdrop.id */] );
+    var raycastResult = this.scene.raycast(
+        currentTranslation, normalizedVector, 1.0, dist,
+        true, [ player.id, environment.id /*, backdrop.id */]
+    );
     if ( raycastResult !== undefined ) {
         if ( raycastResult.length > 0 ) {
             return true;
