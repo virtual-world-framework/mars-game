@@ -3,6 +3,6 @@
   <block type="rover_moveForward"></block>
   <block type="rover_turn"><field name="DIR">Turn: Left</field></block>
   <block type="controls_repeat_extended"></block>
-  <block type="math_number_out"><field name="VALUE">1</field></block>
+  <block type="math_number_field"><field name="VALUE">0</field></block>
   </category>
 </xml>
