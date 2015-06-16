@@ -713,7 +713,8 @@ children:
   blocklyGraph:
     extends: http://vwf.example.com/graphtool/graph.vwf
     implements: 
-      - source/griddable.vwf
+      - source/marsGameNode.vwf
+      - http://vwf.example.com/sceneGetter.vwf
     properties:
       graphScale: 3
       gridInterval: 1
