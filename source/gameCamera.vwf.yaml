@@ -40,6 +40,7 @@ methods:
   getPoseFromTransform:
 events:
   mounted:
+  targetMoved:
 children:
   camera:
     extends: http://vwf.example.com/camera.vwf

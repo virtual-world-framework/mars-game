@@ -378,7 +378,6 @@ children:
               worldOffset: [ 0, 0, 40 ]
               cameraPose: [ 0, 0, -90 ]
               cameraSpeed: 10
-              cameraLock: false
           rover_base:
             extends: http://vwf.example.com/node3.vwf
             children: 
@@ -480,7 +479,6 @@ children:
               worldOffset: [ 0, 0, 40 ]
               cameraPose: [ 0, 0, -90 ]
               cameraSpeed: 10
-              cameraLock: false
           scout_body:
             extends: http://vwf.example.com/node3.vwf
             children:
@@ -594,7 +592,6 @@ children:
               worldOffset: [ 0, 0, 40 ]
               cameraPose: [ 0, 0, -90 ]
               cameraSpeed: 10
-              cameraLock: false
           wheel_l1:
             extends: http://vwf.example.com/node3.vwf
           wheel_r1:

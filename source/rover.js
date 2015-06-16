@@ -92,7 +92,7 @@ this.moveRadialAbsolute = function( valueX, valueY ) {
     var deltaX = proposedTile[ 0 ] - currentTile[ 0 ];
     var deltaY = proposedTile[ 1 ] - currentTile[ 1 ];
     var directionRadians = Math.atan2( deltaX, deltaY );
-    var heading = ( radians - Math.PI / 2 ) * ( 180 / Math.PI );
+    var heading = ( directionRadians - Math.PI / 2 ) * ( 180 / Math.PI );
     this.setHeading( heading );
     var tileMap = this.scene.tileMap;
     var tileValue = this.getDataAtTileCoord( proposedTile[ 0 ], proposedTile[ 1 ] );

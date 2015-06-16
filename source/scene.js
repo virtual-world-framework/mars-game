@@ -12,17 +12,11 @@
 // See the License for the specific language governing permissions and 
 // limitations under the License.
 
-var gridBounds = {
-    bottomLeft: [],
-    topRight: []
-}
-
 var lastCameraPOV = "thirdPerson";
 
 this.initialize = function() {
     // Set the active camera so we can see the 3D scene
     this.initializeActiveCamera( this.gameCam.camera );
-    this.setUpRoverListeners();
     this.future( 3 ).applicationLoaded();
 }
 
@@ -94,16 +88,10 @@ this.setScenario = function( path ) {
         if ( scenario ) {
             this.activeScenarioPath = path;
             this.clearWatchList();
-            // TODO: remove knowledge of inner workings of the scenario; let 
-            //  the scenario itself handle bookkeeping in its event handlers.
-             if ( scenario.grid && scenario.grid.clearGrid ) {
-                 scenario.grid.clearGrid();
-             }
-            calcGridBounds( scenario.grid );
             // TODO: pass the scenario, not the name.  Or else just send the 
             //  event without looking the scenario itself up.  Or assert that 
             //  the scenario exists.  Or something.
-            this.scenarioChanged( scenario.name, gridBounds );
+            this.scenarioChanged( scenario.name );
             if ( scenario.brief ) {
                 this.loadedMissionBrief(
                     scenario.brief.title,
@@ -122,11 +110,7 @@ this.setScenario = function( path ) {
 this.resetScenario = function() {
     var scenario = this.getCurrentScenario();
     if ( scenario ) {
-        // TODO: remove knowledge of inner workings of the scenario; let the
-        //  scenario itself handle bookkeeping in its event handlers.
-        if ( scenario.grid && scenario.grid.clearGrid ) {
-            scenario.grid.clearGrid();
-        }      
+        this.clearWatchList();
         // TODO: pass the scenario, not the name.  Or else just send the event
         //  without looking the scenario itself up.  Or assert that the scenario
         //  exists.  Or something.
@@ -142,7 +126,6 @@ this.advanceScenario = function() {
     //  versa (we shouldn't have to know the inner workings of the scenario)
     this.hud.setAllEnabled( true );
     var scenario = this.getCurrentScenario();
-    calcGridBounds( scenario.grid );
     if ( scenario.nextScenarioPath ) {
         this.activeScenarioPath = scenario.nextScenarioPath;
     } else {
@@ -194,11 +177,6 @@ this.addSubtitle = function( log, time ) {
     }
 }
 
-function calcGridBounds( grid ) {
-    grid.getWorldFromGrid( grid.minX, grid.minY, gridBounds.bottomLeft );
-    grid.getWorldFromGrid( grid.maxX, grid.maxY, gridBounds.topRight );
-}
-
 this.executeBlock = function ( block, action ) {
 
     var blockName = block[ 0 ];
@@ -218,14 +196,6 @@ this.executeBlock = function ( block, action ) {
         args = args instanceof Array ? args : [ args ];
         node[ methodName ].apply( node, args );
     }
-}
-
-this.setUpRoverListeners = function() {
-    this.scenarioChanged = this.events.add( function( scenarioName ) {
-        this.player.rover.findAndSetCurrentGrid( scenarioName );
-        this.player.rover2.findAndSetCurrentGrid( scenarioName );
-        this.player.rover3.findAndSetCurrentGrid( scenarioName );
-    }, this );
 }
 
 this.displayTiles = function( isVisible ) {
