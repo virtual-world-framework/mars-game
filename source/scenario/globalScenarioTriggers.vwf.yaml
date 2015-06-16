@@ -213,7 +213,8 @@ properties:
         - rover
       actions:
       - playSound:
-        - roverSounds
+        - roverStartSound
+        - roverEngineSound
 
     stopRoverSounds:
       triggerCondition:
@@ -221,9 +222,31 @@ properties:
         - rover
       actions:
       - stopSound:
-        - roverSounds
+        - roverStartSound
+        - roverEngineSound
+        - roverGravelSound
       - playSound:
-        - roverEndSounds
+        - roverEndSound
+
+    roverIdle:
+      triggerCondition:
+      - onBlocklyBlock:
+        - rover
+        - rover_moveForward
+        - false
+      actions:
+      - stopSound:
+        - roverGravelSound
+
+    roverDeIdle:
+      triggerCondition:
+      - onBlocklyBlock:
+        - rover
+        - rover_moveForward
+        - true
+      actions:
+      - playSound:
+        - roverGravelSound
 
     startRover2Sounds:
       triggerCondition:
@@ -261,16 +284,6 @@ properties:
       - playSound:
         - rover3EndSounds
 
-    roverIdle:
-      triggerCondition:
-      - onBlocklyBlock:
-        - rover
-        - rover_moveForward
-        - false
-      actions:
-      - stopSound:
-        - roverSounds
-
     rover3Idle:
       triggerCondition:
       - onBlocklyBlock:
@@ -281,15 +294,7 @@ properties:
       - stopSound:
         - rover3Sounds
 
-    roverDeIdle:
-      triggerCondition:
-      - onBlocklyBlock:
-        - rover
-        - rover_moveForward
-        - true
-      actions:
-      - playSound:
-        - roverSounds
+
 
     rover3DeIdle:
       triggerCondition:

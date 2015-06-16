@@ -82,10 +82,22 @@ properties:
       soundURL: "assets/sounds/music/musicSuccessShort08.ogg"
       initialVolume: 1.0
       allowMultiplay: false
-    - soundName: "roverSounds"
-      soundURL: "assets/sounds/sfx/objectRoverMotorGroundCrunch_01.ogg"
+    - soundName: "roverEngineSound"
+      soundURL: "assets/sounds/sfx/relicRoverMovementILoop03.ogg"
       initialVolume: 0.6
       isLooping: true
+    - soundName: "roverGravelSound"
+      soundURL: "assets/sounds/sfx/objectRoverMovementGroundCrunch_01.ogg"
+      initialVolume: 0.6
+      isLooping: true
+    - soundName: "roverStartSound"
+      soundURL: "assets/sounds/sfx/relicRoverMovementIntro01.ogg"
+      initialVolume: 0.6
+      isLooping: false
+    - soundName: "roverEndSound"
+      soundURL: "assets/sounds/sfx/relicRoverMovementOutro02.ogg"
+      initialVolume: 0.6
+      isLooping: false
     - soundName: "rover2Sounds"
       soundURL: "assets/sounds/sfx/scoutRoverMovementLoop01.ogg"
       initialVolume: 0.6
@@ -110,6 +122,10 @@ properties:
       soundURL: "assets/sounds/sfx/heavyRoverMovementOutro01.ogg"
       initialVolume: 0.6
       isLooping: false
+    - soundName: "rover3EndSounds"
+      soundURL: "assets/sounds/sfx/heavyRoverMovementOutro01.ogg"
+      initialVolume: 0.6
+      isLooping: false   
     - soundName: "environmentWind"
       soundURL: "assets/sounds/sfx/environmentWind_04.ogg"
       initialVolume: 0.8
