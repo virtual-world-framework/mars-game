@@ -170,6 +170,7 @@ a:active {
     position:absolute;
     background-color: rgba( 128, 128, 128, 0.5 );
     border-radius: 8px;
+    float: right;
     border: 1px solid rgba( 255, 255, 255, 0.25 );
     visibility: hidden;
     pointer-events: none;
