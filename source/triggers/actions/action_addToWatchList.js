@@ -33,7 +33,7 @@ this.onGenerated = function( params, generator, payload ) {
 
 this.executeAction = function() {
     var object = this.findInScene( this.objectName );
-    var objectTile = { "x": object.tilePosition[ 0 ], "y": object.tilePosition[ 1 ] };
+    var objectTile = object.tilePosition;
     this.assert( object, "Object not found!" );
 
     if ( object ) {

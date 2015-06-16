@@ -470,8 +470,8 @@ this.activateSensor = function( sensor, value ) {
                                  );
         }
         var surroundingTiles = [];
-        for ( var x = -1; x < 2, !this.metalSensorValue; x++ ) {
-            for ( var y = -1; y < 2, !this.metalSensorValue; y++ ) {
+        for ( var x = -1; x < 2 && !this.metalSensorValue; x++ ) {
+            for ( var y = -1; y < 2 && !this.metalSensorValue; y++ ) {
                 if ( x === 0 && y === 0 ) {
                     continue;
                 }

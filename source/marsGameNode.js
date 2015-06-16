@@ -44,7 +44,7 @@ this.getTileCoord = function() {
         tileMap = this.scene.tileMap;
         transform = this.worldTransform;
         tileCoord = tileMap.getTileCoordFromWorld( transform[ 12 ], transform[ 13 ] );
-        return [ tileCoord.x, tileCoord.y ];
+        return tileCoord;
     }
 }
 
