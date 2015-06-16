@@ -33,6 +33,7 @@ properties:
   roverHeadingValue: 0
   roverTabBlinking: false
   graphTabBlinking: false
+  blockly_baseExecutionSpeed: 0.5
   # applicationState tracks what the application is currently doing
   #   in its execution process.
   #   Valid states are: loading, menu, playing
@@ -305,6 +306,7 @@ children:
           displayName: "Rover"
           castShadows: true
           receiveShadows: true
+          executionSpeed: 0.5
           sceneNode:
             get: |
               if ( !this.sceneNode ) {
@@ -421,6 +423,7 @@ children:
           displayName: "Rover2"
           castShadows: true
           receiveShadows: true
+          executionSpeed: 0.5
           sceneNode:
             get: |
               if ( !this.sceneNode ) {
@@ -493,6 +496,7 @@ children:
           displayName: "Rover3"
           castShadows: true
           receiveShadows: true
+          executionSpeed: 0.5
           sceneNode:
             get: |
               if ( !this.sceneNode ) {
