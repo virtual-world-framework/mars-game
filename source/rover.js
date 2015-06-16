@@ -23,11 +23,11 @@ this.moveForward = function() {
     var tileMap = this.scene.tileMap;
     var headingRadians = ( this.heading + 90 ) * Math.PI / 180; // TODO: Fix heading
     var currentTile = this.tilePosition;
-    var proposedTile = {
-        "x": currentTile.x + Math.round( Math.cos( headingRadians ) ),
-        "y": currentTile.y + Math.round( Math.sin( headingRadians ) )
-    };
-    var tileValue = tileMap.getDataAtTileCoord( proposedTile.x, proposedTile.y );
+    var proposedTile = [
+        currentTile[ 0 ] + Math.round( Math.cos( headingRadians ) ),
+        currentTile[ 1 ] + Math.round( Math.sin( headingRadians ) )
+    ];
+    var tileValue = tileMap.getDataAtTileCoord( proposedTile[ 0 ], proposedTile[ 1 ] );
 
     // tileValue will be null if the tile does not exist on the tile map.
     // We will count this as a collision for now.
@@ -38,8 +38,8 @@ this.moveForward = function() {
                 var obstructionOnTile = this.scene.checkWatchList( proposedTile, "obstruction" );
                 if ( !obstructionOnTile ) {
                     var distance = [
-                        ( proposedTile.x - currentTile.x ) * tileMap.tileSize,
-                        ( proposedTile.y - currentTile.y ) * tileMap.tileSize,
+                        ( proposedTile[ 0 ] - currentTile[ 0 ] ) * tileMap.tileSize,
+                        ( proposedTile[ 1 ] - currentTile[ 1 ] ) * tileMap.tileSize,
                         0
                     ];
                     this.translateOnTerrain( distance, 1, 1 );
@@ -89,13 +89,13 @@ this.moveRadialAbsolute = function( valueX, valueY ) {
     }
     var proposedTile = this.scene.getAxisOffsetTileCoord( valueX, valueY );
     var currentTile = this.tilePosition;
-    var deltaX = proposedTile.x - currentTile.x;
-    var deltaY = proposedTile.y - currentTile.y;
+    var deltaX = proposedTile[ 0 ] - currentTile[ 0 ];
+    var deltaY = proposedTile[ 1 ] - currentTile[ 1 ];
     var directionRadians = Math.atan2( deltaX, deltaY );
     var heading = ( radians - Math.PI / 2 ) * ( 180 / Math.PI );
     this.setHeading( heading );
     var tileMap = this.scene.tileMap;
-    var tileValue = this.getDataAtTileCoord( proposedTile.x, proposedTile.y );
+    var tileValue = this.getDataAtTileCoord( proposedTile[ 0 ], proposedTile[ 1 ] );
     // tileValue will be null if the tile does not exist on the tile map.
     // We will count this as a collision for now.
     if ( tileValue !== null ) {
@@ -236,14 +236,11 @@ this.turnRight = function() {
 
 this.checkRadialCollision = function( currentPosition, futurePosition ) {
     var tileMap = this.scene.tileMap;
-    var currentTranslation = tileMap.getWorldCoordFromTile( currentPosition.x, currentPosition.y );
-    var futureTranslation = tileMap.getWorldCoordFromTile( futurePosition.x, futurePosition.y );
-    currentTranslation.z = this.getTerrainHeight( currentTranslation.x, currentTranslation.y ) + 1;
-    futureTranslation.z = this.getTerrainHeight( futureTranslation.x, futureTranslation.x ) + 1;
-    var dist = goog.vec.Vec3.distance(
-        [ currentTranslation.x, currentTranslation.y, currentTranslation.z ],
-        [ futureTranslation.x, futureTranslation.y, futureTranslation.z ]
-    );
+    var currentTranslation = tileMap.getWorldCoordFromTile( currentPosition[ 0 ], currentPosition[ 1 ] );
+    var futureTranslation = tileMap.getWorldCoordFromTile( futurePosition[ 0 ], futurePosition[ 1 ] );
+    currentTranslation[ 2 ] = this.getTerrainHeight( currentTranslation[ 0 ], currentTranslation[ 1 ] ) + 1;
+    futureTranslation[ 2 ] = this.getTerrainHeight( futureTranslation[ 0 ], futureTranslation[ 0 ] ) + 1;
+    var dist = goog.vec.Vec3.distance( currentTranslation, futureTranslation );
     var sizeOfRover = 1.5;
     var player = this.find( "//player" )[ 0 ];
     var environment = this.find( "//environment" )[ 0 ];
@@ -449,24 +446,24 @@ this.activateSensor = function( sensor, value ) {
         this.metalSensorValue = false;
         if ( metalPos ) {
             this.metalSensorValue = metalPos && (
-                                 ( metalPos[ 0 ] === currentPos.x && 
-                                 metalPos[ 1 ] === currentPos.y ) ||
-                                 ( metalPos[ 0 ] === currentPos.x + 1 && 
-                                 metalPos[ 1 ] === currentPos.y ) ||
-                                 ( metalPos[ 0 ] === currentPos.x - 1 && 
-                                 metalPos[ 1 ] === currentPos.y ) ||
-                                 ( metalPos[ 0 ] === currentPos.x && 
-                                 metalPos[ 1 ] === currentPos.y  + 1 ) ||
-                                 ( metalPos[ 0 ] === currentPos.x && 
-                                 metalPos[ 1 ] === currentPos.y - 1 ) ||
-                                 ( metalPos[ 0 ] === currentPos.x - 1 && 
-                                 metalPos[ 1 ] === currentPos.y - 1 ) || //LL
-                                 ( metalPos[ 0 ] === currentPos.x + 1 && 
-                                 metalPos[ 1 ] === currentPos.y + 1 ) || //UR
-                                 ( metalPos[ 0 ] === currentPos.x - 1 && 
-                                 metalPos[ 1 ] === currentPos.y + 1) || //UL
-                                 ( metalPos[ 0 ] === currentPos.x + 1 && 
-                                 metalPos[ 1 ] === currentPos.y - 1) //LR
+                                 ( metalPos[ 0 ] === currentPos[ 0 ] && 
+                                 metalPos[ 1 ] === currentPos[ 1 ] ) ||
+                                 ( metalPos[ 0 ] === currentPos[ 0 ] + 1 && 
+                                 metalPos[ 1 ] === currentPos[ 1 ] ) ||
+                                 ( metalPos[ 0 ] === currentPos[ 0 ] - 1 && 
+                                 metalPos[ 1 ] === currentPos[ 1 ] ) ||
+                                 ( metalPos[ 0 ] === currentPos[ 0 ] && 
+                                 metalPos[ 1 ] === currentPos[ 1 ]  + 1 ) ||
+                                 ( metalPos[ 0 ] === currentPos[ 0 ] && 
+                                 metalPos[ 1 ] === currentPos[ 1 ] - 1 ) ||
+                                 ( metalPos[ 0 ] === currentPos[ 0 ] - 1 && 
+                                 metalPos[ 1 ] === currentPos[ 1 ] - 1 ) || //LL
+                                 ( metalPos[ 0 ] === currentPos[ 0 ] + 1 && 
+                                 metalPos[ 1 ] === currentPos[ 1 ] + 1 ) || //UR
+                                 ( metalPos[ 0 ] === currentPos[ 0 ] - 1 && 
+                                 metalPos[ 1 ] === currentPos[ 1 ] + 1) || //UL
+                                 ( metalPos[ 0 ] === currentPos[ 0 ] + 1 && 
+                                 metalPos[ 1 ] === currentPos[ 1 ] - 1) //LR
                                  );
         }
         var surroundingTiles = [];
@@ -476,8 +473,8 @@ this.activateSensor = function( sensor, value ) {
                     continue;
                 }
                 var adjacentTile = {
-                    "x": currentPos.x + x,
-                    "y": currentPos.y + y
+                    "x": currentPos[ 0 ] + x,
+                    "y": currentPos[ 1 ] + y
                 };
                 if ( this.scene.checkWatchList( adjacentTile ) ) {
                     this.metalSensorValue = true;
@@ -492,10 +489,10 @@ this.activateSensor = function( sensor, value ) {
         var headingRadians = ( this.heading + 90 ) * Math.PI / 180; // TODO: Fix heading
         var currentTile = this.tilePosition;
         var proposedTile = {
-            "x": currentTile.x + Math.round( Math.cos( headingRadians ) ),
-            "y": currentTile.y + Math.round( Math.sin( headingRadians ) )
+            "x": currentTile[ 0 ] + Math.round( Math.cos( headingRadians ) ),
+            "y": currentTile[ 1 ] + Math.round( Math.sin( headingRadians ) )
         };
-        var tileValue = tileMap.getDataAtTileCoord( proposedTile.x, proposedTile.y );
+        var tileValue = tileMap.getDataAtTileCoord( proposedTile[ 0 ], proposedTile[ 1 ] );
 
         if ( Boolean( tileValue ) && Boolean( tileValue.r ) ) {
             this.collisionSensorValue = this.scene.checkWatchList( proposedTile, "obstruction" );
@@ -506,9 +503,9 @@ this.activateSensor = function( sensor, value ) {
 
     if ( sensor === 'position' ) {
         var currentLocation = this.tilePosition;
-        this.positionSensorValue = [ currentLocation.x, currentLocation.y ];
-        this.positionSensorValueX = currentLocation.x;
-        this.positionSensorValueY = currentLocation.y;
+        this.positionSensorValue = currentLocation;
+        this.positionSensorValueX = currentLocation[ 0 ];
+        this.positionSensorValueY = currentLocation[ 1 ];
         return;
     }
 
@@ -519,8 +516,8 @@ this.activateSensor = function( sensor, value ) {
             var signalPos = this.scene.sceneBlackboard[ "signalPosition" ];
             if ( signalPos !== undefined ) {
                 var currentPos = this.tilePosition;
-                var deltaX = signalPos[ 0 ] - currentPos.x;
-                var deltaY = signalPos[ 1 ] - currentPos.y;
+                var deltaX = signalPos[ 0 ] - currentPos[ 0 ];
+                var deltaY = signalPos[ 1 ] - currentPos[ 1 ];
                 if ( deltaX === 0 && deltaY === 0 ) {
                     this.signalSensorValue = -1;
                     scene.roverSignalValue = -1;

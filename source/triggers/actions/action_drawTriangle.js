@@ -40,17 +40,16 @@ this.onGenerated = function( params, generator, payload ) {
 }
 
 this.executeAction = function() {
-    var scenario = this.scenario;
-    this.assert( scenario, "Scenario not found!" );
+    var scene = this.scene;
+    var tileMap = scene.tileMap;
 
-    if ( scenario && scenario.grid ) {
-        var gridVert1 = scenario.grid.getGridFromGamePos( this.vertex1 );
-        var worldVert1 = scenario.grid.getWorldFromGrid( gridVert1[ 0 ], gridVert1[ 1 ] );
-        var gridVert2 = scenario.grid.getGridFromGamePos( this.vertex2 );
-        var worldVert2 = scenario.grid.getWorldFromGrid( gridVert2[ 0 ], gridVert2[ 1 ] );
-        var gridVert3 = scenario.grid.getGridFromGamePos( this.vertex3 );
-        var worldVert3 = scenario.grid.getWorldFromGrid( gridVert3[ 0 ], gridVert3[ 1 ] );
-
+    if ( scene && tileMap ) {
+        var gridVert1 = scene.getAxisOffsetTileCoord( this.vertex1[ 0 ], this.vertex1[ 1 ] );
+        var worldVert1 = tileMap.getWorldCoordFromTile( gridVert1[ 0 ], gridVert1[ 1 ] );
+        var gridVert2 = scene.getAxisOffsetTileCoord( this.vertex2[ 0 ], this.vertex2[ 1 ] );
+        var worldVert2 = tileMap.getWorldCoordFromTile( gridVert2[ 0 ], gridVert2[ 1 ] );
+        var gridVert3 = scene.getAxisOffsetTileCoord( this.vertex3[ 0 ], this.vertex3[ 1 ] );
+        var worldVert3 = tileMap.getWorldCoordFromTile( gridVert3[ 0 ], gridVert3[ 1 ] );
         this.scene.drawSchematicTriangle( worldVert1, worldVert2, worldVert3 );
     }
 }

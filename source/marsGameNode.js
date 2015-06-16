@@ -16,7 +16,7 @@ this.placeAtTileCoord = function( x, y, duration ) {
     var tileMap, worldPosition;
     tileMap = this.scene.tileMap;
     worldPosition = tileMap.getWorldCoordFromTile( x, y );
-    this.placeAtWorldCoord( worldPosition.x, worldPosition.y, duration );
+    this.placeAtWorldCoord( worldPosition[ 0 ], worldPosition[ 1 ], duration );
 }
 
 this.placeAtWorldCoord = function( x, y, duration ) {

@@ -408,7 +408,7 @@ this.checkWatchList = function( tile, type ) {
     var item;
     for ( var i = 0; i < watchList.length; i++ ) {
         item = watchList[ i ];
-        if ( item.tile.x === tile.x && item.tile.y === tile.y &&
+        if ( item.tile[ 0 ] === tile[ 0 ] && item.tile[ 1 ] === tile[ 1 ] &&
              ( item.type === type || type === undefined ) ) {
             return true;
         }
@@ -422,7 +422,7 @@ this.getWatchListNodes = function( tile, type ) {
     var item, node;
     for ( var i = 0; i < watchList.length; i++ ) {
         item = watchList[ i ];
-        if ( item.tile.x === tile.x && item.tile.y === tile.y &&
+        if ( item.tile[ 0 ] === tile[ 0 ] && item.tile[ 1 ] === tile[ 1 ] &&
              ( item.type === type || type === undefined ) ) {
             node = this.findByID( this, item.id );
             nodes.push( node );
@@ -436,10 +436,7 @@ this.getAxisOffsetTileCoord = function( x, y ) {
     gridAxes = this.environment.terrain.material.gridAxes;
     tileX = x + gridAxes[ 0 ];
     tileY = y + gridAxes[ 1 ];
-    tileCoord = {
-        "x": tileX,
-        "y": tileY
-    };
+    tileCoord = [ tileX, tileY ];
     return tileCoord;
 }
 

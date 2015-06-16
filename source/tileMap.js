@@ -48,7 +48,7 @@ this.getTileCoordFromWorld = function( x, y ) {
     var tileX, tileY, coord;
     tileX = Math.round( x / this.tileSize );
     tileY = Math.round( y / this.tileSize );
-    coord = { "x": tileX, "y": tileY };
+    coord = [ tileX, tileY ];
     return coord;
 }
 
@@ -56,7 +56,7 @@ this.getWorldCoordFromTile = function( x, y ) {
     var worldX, worldY, coord;
     worldX = Math.round( x * this.tileSize );
     worldY = Math.round( y * this.tileSize );
-    coord = { "x": worldX, "y": worldY };
+    coord = [ worldX, worldY ];
     return coord;
 }
 
