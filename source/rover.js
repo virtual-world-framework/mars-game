@@ -42,16 +42,19 @@ this.moveForward = function() {
                         ( proposedTile[ 1 ] - currentTile[ 1 ] ) * tileMap.tileSize,
                         0
                     ];
-                    this.translateOnTerrain( distance, 1, 1 );
+                    var checkSensors = function() {
+                        this.activateSensor( 'metal' );
+                        this.activateSensor( 'signal' );
+                        this.activateSensor( 'collision' );
+                        this.activateSensor( 'position' );
+                    }
+                    this.translateOnTerrain( distance, 1, 1, checkSensors.bind( this ) );
                     var pickupsOnTile = this.scene.getWatchListNodes( proposedTile, "pickup" );
                     for ( var i = 0; i < pickupsOnTile.length; i++ ) {
                         pickupsOnTile[ i ].pickUp( this );
                     }
                     this.moved();
-                    this.activateSensor( 'metal' );
-                    this.activateSensor( 'signal' );
-                    this.activateSensor( 'collision' );
-                    this.activateSensor( 'position' );
+                    
                 } else { // obstructionOnTile is true
                     // TODO: Move forward to show the collision.
                     //   - Play alarm sound to alert the player?
@@ -95,7 +98,7 @@ this.moveRadialAbsolute = function( valueX, valueY ) {
     var heading = ( directionRadians - Math.PI / 2 ) * ( 180 / Math.PI );
     this.setHeading( heading );
     var tileMap = this.scene.tileMap;
-    var tileValue = this.getDataAtTileCoord( proposedTile[ 0 ], proposedTile[ 1 ] );
+    var tileValue = tileMap.getDataAtTileCoord( proposedTile[ 0 ], proposedTile[ 1 ] );
     // tileValue will be null if the tile does not exist on the tile map.
     // We will count this as a collision for now.
     if ( tileValue !== null ) {
@@ -110,14 +113,16 @@ this.moveRadialAbsolute = function( valueX, valueY ) {
                         0
                     ];
                     var hypotenuse = Math.sqrt( ( deltaX * deltaX ) + ( deltaY * deltaY ) );
-                    this.translateOnTerrain( distance, hypotenuse, 1 );
+                    var checkSensors = function() {
+                        this.activateSensor( 'position' );
+                        this.activateSensor( 'heading', this.heading );
+                    }
+                    this.translateOnTerrain( distance, hypotenuse, 1, checkSensors.bind( this ) );
                     var pickupsOnTile = this.scene.getWatchListNodes( proposedTile, "pickup" );
                     for ( var i = 0; i < pickupsOnTile.length; i++ ) {
                         pickupsOnTile[ i ].pickUp( this );
                     }
                     this.moved();
-                    this.activateSensor( 'position' );
-                    this.activateSensor( 'heading', this.heading );
                 } else { // obstructionOnPath is true
                     // TODO: Move forward to show the collision.
                     //   - Play alarm sound to alert the player?
@@ -144,78 +149,68 @@ this.moveRadialAbsolute = function( valueX, valueY ) {
     }
 }
 
-this.moveRadial = function( xValue, yValue, offset ) {
+this.moveRadial = function( deltaX, deltaY, offset ) {
     var scene = this.scene;
+    var tileMap = this.scene.tileMap;
     if ( offset === true ) {
-        var radians = Math.atan2(yValue, xValue); // In radians 
-        var heading = radians * ( 180 / Math.PI );
-        if ( heading < 90 && heading > 0 ) {  // 'north' is rotated 90 degrees
-            this.setHeading( 360 + ( heading - 90 ) );
-        } else {
-            this.setHeading( heading - 90, 0 );
-        }
-        var dirVector = [ Math.round( -Math.sin( radians ) ), Math.round( Math.cos( radians ) ) ];
-        var proposedNewGridSquare = [ this.currentGridSquare[ 0 ] + xValue, 
-                                                                    this.currentGridSquare[ 1 ] + yValue ]; 
+        var directionRadians = Math.atan2( deltaX, deltaY );
+        var heading = ( directionRadians - Math.PI / 2 ) * ( 180 / Math.PI );
+        this.setHeading( heading );
+        var proposedTile = [ this.tilePosition[ 0 ] + deltaX, this.tilePosition[ 1 ] + deltaY ]; 
         //Calculate the time to displace based on the hypotenuse
-        var hypot = Math.sqrt(xValue*xValue + yValue*yValue);
-        var displacement = [  xValue * this.currentGrid.gridSquareLength,  yValue * this.currentGrid.gridSquareLength, 0 ];
+        var hypotenuse = Math.sqrt( deltaX * deltaX + deltaY * deltaY );
+        var distance = [ deltaX * tileMap.tileSize, deltaY * tileMap.tileSize, 0 ];
     } else {
-        var xOffset = xValue - this.currentGridSquare[ 0 ];
-        var yOffset = yValue - this.currentGridSquare[ 1 ];
-        var radians = Math.atan2( yOffset, xOffset ); // In radians 
-        var heading = radians * ( 180 / Math.PI );
-        if ( heading < 90 && heading > 0 ) {  // 'north' is rotated 90 degrees
-            this.setHeading( 360 + ( heading - 90 ) );
-        } else {
-            this.setHeading( heading - 90, 0 );
-        }
-        var dirVector = [ Math.round( -Math.sin( radians ) ), Math.round( Math.cos( radians ) ) ];
-        var proposedNewGridSquare = [ this.currentGridSquare[ 0 ] + xOffset, 
-                                                                    this.currentGridSquare[ 1 ] + yOffset ]; 
+        var xOffset = deltaX - this.tilePosition[ 0 ];
+        var yOffset = deltaY - this.tilePosition[ 1 ];
+        var directionRadians = Math.atan2( yOffset, xOffset ); // In radians 
+        var heading = ( directionRadians - Math.PI / 2 ) * ( 180 / Math.PI );
+        this.setHeading( heading );
+        var proposedTile = [ this.tilePosition[ 0 ] + xOffset, this.tilePosition[ 1 ] + yOffset ]; 
         //Calculate the time to displace based on the hypotenuse
-        var hypot = Math.sqrt( ( xOffset * xOffset ) + ( yOffset * yOffset ) );
-        var displacement = [  xOffset * this.currentGrid.gridSquareLength,  yOffset * this.currentGrid.gridSquareLength, 0 ];
+        var hypotenuse = Math.sqrt( ( xOffset * xOffset ) + ( yOffset * yOffset ) );
+        var distance = [ xOffset * tileMap.tileSize, yOffset * tileMap.tileSize, 0 ];
     }
     //First check if the coordinate is valid
-    if ( this.currentGrid.validCoord( proposedNewGridSquare ) ) {
-        //Then check if the boundary value allows for movement:
-        var energyRequired = this.currentGrid.getEnergy( proposedNewGridSquare );
-        if ( energyRequired < 0 ) {
-            this.moveFailed( "collision" );
-        } else if ( energyRequired > this.battery ) {
-            this.battery = 0;
-            this.moveFailed( "battery" );
-        } else {
-            //Otherwise, check if the space is occupied
-            if ( !this.checkRadialCollision( this.currentGridSquare, proposedNewGridSquare ) ){
-                this.currentGrid.moveObjectOnGrid( this.id, this.currentGridSquare, proposedNewGridSquare );
-                this.currentGridSquare = proposedNewGridSquare;
-                // TODO: This should use worldTransformBy, but we are getting a bug where the rover's transform isn't set
-                //       yet when this method is called.  Until we can debug that, we are assuming that the rover's 
-                //       parent's frame of reference is the world frame of reference
-                this.translateOnTerrain( displacement, hypot, energyRequired );
-                // this.worldTransformBy( [
-                //   1, 0, 0, 0,
-                //   0, 1, 0, 0,
-                //   0, 0, 1, 0,
-                //   dirVector[ 0 ] * this.gridSquareLength, dirVector[ 1 ] * this.gridSquareLength, 0, 0 ], 1 );
-                var inventoriableObjects = this.currentGrid.getInventoriables( proposedNewGridSquare );
-                if ( inventoriableObjects ){
-                    for ( var i = 0; i < inventoriableObjects.length; i++ ) {
-                        this.currentGrid.removeFromGrid( inventoriableObjects[ i ], proposedNewGridSquare );
-                        this.cargo.add( inventoriableObjects[ i ] );
+    var tileValue = tileMap.getDataAtTileCoord( proposedTile[ 0 ], proposedTile[ 1 ] );
+    if ( tileValue !== null ) {
+        var tilePassable = Boolean( tileValue.r );
+        if ( tilePassable ) {
+            if ( this.battery >= 1 ) { // Calculate battery cost based on distance?
+                var obstructionOnPath = this.checkRadialCollision( currentTile, proposedTile );
+                if ( !obstructionOnPath ) {
+                    var checkSensors = function() {
+                        this.activateSensor( 'position' );
+                        this.activateSensor( 'heading', this.heading );
                     }
+                    this.translateOnTerrain( distance, hypotenuse, 1, checkSensors.bind( this ) );
+                    var pickupsOnTile = this.scene.getWatchListNodes( proposedTile, "pickup" );
+                    for ( var i = 0; i < pickupsOnTile.length; i++ ) {
+                        pickupsOnTile[ i ].pickUp( this );
+                    }
+                    this.moved();
+                } else { // obstructionOnPath is true
+                    // TODO: Move forward to show the collision.
+                    //   - Play alarm sound to alert the player?
+                    //   - Play cartoonesque animation of wheels falling off and then body drops to ground?
+                    //   - Rattle the object that the rover collids with?
+                    this.moveFailed( "collision" );
                 }
-                this.moved();
-                this.activateSensor( 'position' );
-                this.activateSensor( 'heading', this.heading );
-                //this.activateSensor( 'metal' );
-            } else {
-                this.moveFailed( "collision" );
+            } else { // this.battery is less than 1
+                // TODO: Play battery depleted movement?
+                //   - Move half way to next tile.
+                //   - Rover slumps down.
+                //   - Play powering down sound effect.
+                this.battery = 0;
+                this.moveFailed( "battery" );
             }
+        } else { // tilePassable is false
+            // TODO: Move forward to show the collision.
+            //   - Play alarm sound to alert the player?
+            this.moveFailed( "collision" );
         }
-    } else {
+    } else { // tileValue is null
+        //  TODO: Find another failure type?
         this.moveFailed( "collision" );
     }
 }
@@ -291,7 +286,7 @@ this.placeOnTerrain = function( pos ) {
     ] );
 }
 
-this.translateOnTerrain = function( translation, duration, boundaryValue ) {
+this.translateOnTerrain = function( translation, duration, boundardeltaY, callback ) {
     var scene = this.scene;
     var duration = duration * this.executionSpeed;
     if ( this.terrain === undefined ) {
@@ -337,9 +332,10 @@ this.translateOnTerrain = function( translation, duration, boundaryValue ) {
                     currWheel.rotateBy( axisAngle );
                 }
                 // Deplete the battery by the appropriate amount
-                this.battery = currentBattery - ( time / duration ) * boundaryValue;
+                this.battery = currentBattery - ( time / duration ) * boundardeltaY;
             }
-            this.animationPlay(0, duration);
+            this.animationStopped = callback || function(){};
+            this.animationPlay( 0, duration );
         } else {
             this.placeOnTerrain( stopTranslation );
         }

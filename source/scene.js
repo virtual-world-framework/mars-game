@@ -45,6 +45,7 @@ this.setApplicationState = function( state ) {
             this.pickups.visible = false;
             this.hud.visible = false;
             this.triggerGroupManager.checkingGroups = false;
+            this.cargoPod2.visible = false;
             break;
         case "playing":
             this.mainMenu.visible = false;
@@ -63,6 +64,7 @@ this.setApplicationState = function( state ) {
             this.pickups.visible = true;
             this.hud.visible = true;
             this.triggerGroupManager.checkingGroups = true;
+            this.cargoPod2.visible = true;
             break;
         default:
             this.logger.errorx( "setApplicationState", "Invalid application "
@@ -182,7 +184,7 @@ this.executeBlock = function ( block, action ) {
     var blockName = block[ 0 ];
     var blockID = block[ 1 ];
     var blockNode = block[ 2 ];
-    var blockExeTime = block[ 3 ];    
+    var blockExeTime = block[ 3 ];
     var blockArgs = action[ 2 ];
 
     this.blockExecuted( blockName, blockID, blockNode, blockExeTime, blockArgs );
@@ -404,8 +406,8 @@ this.getWatchListNodes = function( tile, type ) {
 this.getAxisOffsetTileCoord = function( x, y ) {
     var tileX, tileY, gridAxes, tileCoord;
     gridAxes = this.environment.terrain.material.gridAxes;
-    tileX = x + gridAxes[ 0 ];
-    tileY = y + gridAxes[ 1 ];
+    tileX = x + gridAxes[ 1 ];
+    tileY = y + gridAxes[ 0 ];
     tileCoord = [ tileX, tileY ];
     return tileCoord;
 }

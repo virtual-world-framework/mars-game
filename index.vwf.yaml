@@ -634,11 +634,11 @@ children:
           tilePosition: [ 0, 1 ]
       minirover:
         extends: source/pickups/minirover.vwf
-  cargoPod2: 
+  cargoPod2:
     extends: source/buildings/basePod.vwf
     properties:
-      translation: [ 0, 0, -9999999 ]
-      gridRotation: 270
+      tilePosition: [ -24, 75 ]
+      rotation: [ 0, 0, 1, 270 ]
       visible: false
   solarPanel1: 
     extends: source/buildings/solarPanel.vwf
