@@ -62,9 +62,6 @@ properties:
     - pointOfView
     - thirdPerson
 
-  - emptyInventory:
-    - rover/cargo
-
   - addToGrid:
     - rover
     - [ 0, 0 ]

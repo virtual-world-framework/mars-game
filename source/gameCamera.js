@@ -73,7 +73,9 @@ this.attachToTarget = function() {
     this.target.transformChanged = this.events.add( this.followTarget, this,
         function( id ) {
             self.listenerID$ = id;
-        } );
+        }
+    );
+    this.targetMoved( this.lastTargetPosition.slice() );
 }
 
 this.detachFromTarget = function() {

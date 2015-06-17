@@ -322,7 +322,6 @@ children:
               }
               return this.terrain;
               //@ sourceURL=index.vwf.player.rover.terrain.get
-          currentGridSquare: [ 0, 0 ]
           sensorValue: false
           wheelFL:
             get: |
@@ -407,11 +406,6 @@ children:
                     children: 
                       material:
                         extends: http://vwf.example.com/material.vwf
-          cargo:
-            extends: source/inventory.vwf
-            properties:
-              capacity: 4
-              inventoryIsVisible: false
       rover2:
         visible: false
         extends: source/rover.vwf
@@ -444,7 +438,6 @@ children:
               }
               return this.terrain;
               //@ sourceURL=index.vwf.player.rover.terrain.get
-          currentGridSquare: [ 0, 0 ]
           sensorValue: false
           scoutWheel:
             get: |
@@ -484,11 +477,6 @@ children:
             children:
               scout_wheel:
                 extends: http://vwf.example.com/node3.vwf
-          cargo:
-            extends: source/inventory.vwf
-            properties:
-              capacity: 4
-              inventoryIsVisible: false       
       rover3:
         visible: false
         extends: source/fourWheeledRover.vwf
@@ -522,7 +510,6 @@ children:
               }
               return this.terrain;
               //@ sourceURL=index.vwf.player.rover.terrain.get
-          currentGridSquare: [ 0, 0 ]
           sensorValue: false
           wheelFL:
             get: |
@@ -604,11 +591,6 @@ children:
             extends: http://vwf.example.com/node3.vwf
           wheel_r3:
             extends: http://vwf.example.com/node3.vwf
-          cargo:
-            extends: source/inventory.vwf
-            properties:
-              capacity: 4
-              inventoryIsVisible: false
   pickups:
     extends: http://vwf.example.com/node3.vwf
     children:
@@ -710,6 +692,7 @@ children:
     includes: source/scenario/mission4task6.vwf
   mission5task1:
     includes: source/scenario/mission5task1.vwf
+  # TODO: Use only one graph object. No need for two.
   blocklyGraph:
     extends: http://vwf.example.com/graphtool/graph.vwf
     implements: 

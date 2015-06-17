@@ -57,10 +57,6 @@ properties:
     - setHeading
     - 0
 
-  # - addToInventory:
-  #   - rover/cargo
-  #   - [ "helicam" ]
-
   - addToGrid:
     - rover
     - [ 0, 1 ]

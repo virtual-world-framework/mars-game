@@ -61,10 +61,7 @@ properties:
 
   #- callMethod:
     #- videoManager
-    #- load       
-
-  - emptyInventory:
-    - rover/cargo
+    #- load
 
   - addToGrid:
     - rover
