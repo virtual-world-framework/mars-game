@@ -91,7 +91,7 @@ properties:
       initialVolume: 0.6
       isLooping: true
     - soundName: "rover1StartSound"
-      soundURL: "assets/sounds/sfx/heavyRoverMovementIntro01"
+      soundURL: "assets/sounds/sfx/heavyRoverMovementIntro01.ogg"
       initialVolume: 0.6
       isLooping: false
     - soundName: "rover1EndSound"
@@ -103,7 +103,7 @@ properties:
       initialVolume: 0.6
       isLooping: true
     - soundName: "rover2GravelSound"
-      soundURL: "assets/sounds/sfx/scoutRoverGravel03.ogg
+      soundURL: "assets/sounds/sfx/scoutRoverGravel03.ogg"
       initialVolume: 0.6
       isLooping: true
     - soundName: "rover2StartSound"
@@ -115,11 +115,11 @@ properties:
       initialVolume: 0.6
       isLooping: false
     - soundName: "rover3EngineSound"
-      soundURL: "assets/sounds/sfx/relicRoverMovementLoop01"
+      soundURL: "assets/sounds/sfx/relicRoverMovementLoop01.ogg"
       initialVolume: 0.6
       isLooping: true
     - soundName: "rover3GravelSound"
-      soundURL: "assets/sounds/sfx/heavyRoverGravel01.ogg
+      soundURL: "assets/sounds/sfx/heavyRoverGravel01.ogg"
       initialVolume: 0.6
       isLooping: true
     - soundName: "rover3StartSound"
@@ -129,7 +129,7 @@ properties:
     - soundName: "rover3EndSound"
       soundURL: "assets/sounds/sfx/relicRoverMovementOutro01.ogg"
       initialVolume: 0.6
-      isLooping: false  
+      isLooping: false
     - soundName: "environmentWind"
       soundURL: "assets/sounds/sfx/environmentWind_04.ogg"
       initialVolume: 0.8

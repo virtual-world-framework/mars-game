@@ -207,28 +207,31 @@ properties:
         - playSound:
           - FCVO2_Rover
 
-    startRover1Sounds:
+    startRoverSounds:
       triggerCondition:
       - onBlocklyStarted:
         - rover
       actions:
       - playSound:
         - rover1StartSound
+      - playSound:
         - rover1EngineSound
 
-    stopRover1Sounds:
+    stopRoverSounds:
       triggerCondition:
       - onBlocklyStopped:
         - rover
       actions:
       - stopSound:
-        #- rover1StartSound
+        - rover1StartSound
+      - stopSound:
         - rover1EngineSound
+      - stopSound:
         - rover1GravelSound
       - playSound:
         - rover1EndSound
 
-    rover1Idle:
+    roverIdle:
       triggerCondition:
       - onBlocklyBlock:
         - rover
@@ -238,7 +241,7 @@ properties:
       - stopSound:
         - rover1GravelSound
 
-    rover1DeIdle:
+    roverDeIdle:
       triggerCondition:
       - onBlocklyBlock:
         - rover
@@ -255,6 +258,7 @@ properties:
       actions:
       - playSound:
         - rover2StartSound
+      - playSound:
         - rover2EngineSound
 
     stopRover2Sounds:
@@ -263,11 +267,13 @@ properties:
         - rover2
       actions:
       - stopSound:
-        #- rover2StartSound
-        - rover2EngineSound
-        - rover2GravelSound
+        - rover1StartSound
+      - stopSound:
+        - rover1EngineSound
+      - stopSound:
+        - rover1GravelSound
       - playSound:
-        - rover2EndSound
+        - rover1EndSound
 
     rover2Idle:
       triggerCondition:
@@ -287,7 +293,7 @@ properties:
         - true
       actions:
       - playSound:
-        - rover2GravelSound
+        - rover2GravelSound    
 
     startRover3Sounds:
       triggerCondition:
@@ -296,6 +302,7 @@ properties:
       actions:
       - playSound:
         - rover3StartSound
+      - playSound:
         - rover3EngineSound
 
     stopRover3Sounds:
@@ -304,8 +311,10 @@ properties:
         - rover3
       actions:
       - stopSound:
-        #- rover3StartSound
+        - rover3StartSound
+      - stopSound:
         - rover3EngineSound
+      - stopSound:
         - rover3GravelSound
       - playSound:
         - rover3EndSound
