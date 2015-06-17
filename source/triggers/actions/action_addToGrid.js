@@ -26,20 +26,17 @@ this.onGenerated = function( params, generator, payload ) {
     }
 
     this.objectName = params[ 0 ];
-    this.worldPos = params[1];
+    this.tilePosition = params[ 1 ];
 
     return true;
 }
 
 this.executeAction = function() {
     var object = this.findInScene( this.objectName );
-    var scenario = this.scenario;
     this.assert( object, "Object not found!" );
-    this.assert( scenario, "Scenario not found!" );
 
-    if ( object && scenario && scenario.grid ) {
-        var grid = scenario.grid.getGridFromGamePos( this.worldPos );
-        scenario.grid.addToGridFromCoord( object, grid );
+    if ( object ) {
+        object.placeAtTileCoord( this.tilePosition[ 0 ], this.tilePosition[ 1 ] );
     }
 }
 

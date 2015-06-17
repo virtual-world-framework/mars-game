@@ -17,7 +17,7 @@ extends: actionProto.vwf
 
 properties:
   objectName:
-  worldPos:
+  tilePosition:
 
 scripts:
 - source: action_addToGrid.js

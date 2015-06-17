@@ -12,17 +12,12 @@
 # See the License for the specific language governing permissions and 
 # limitations under the License.
 
----
+--- 
+extends: actionProto.vwf
+
 properties:
-  isInventoriable: true
-  iconSrc: ""
-  isPickedUp: false
-methods:
-  grab:
-events:
-  pickedUp:
-  dropped:
-  pointerDown:
-  grabbed:
-scripts: 
-- source: inventoriable.js
+  objectName:
+  objectType:
+
+scripts:
+- source: action_addToWatchList.js

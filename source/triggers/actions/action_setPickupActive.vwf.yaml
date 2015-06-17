@@ -17,7 +17,7 @@ extends: actionProto.vwf
 
 properties:
   objectName:
-  worldPos:
+  active:
 
 scripts:
-- source: action_removeFromGrid.js
+- source: action_setPickupActive.js

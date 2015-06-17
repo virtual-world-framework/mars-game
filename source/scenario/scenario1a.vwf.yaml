@@ -21,8 +21,8 @@ properties:
 
   startState:
   - setProperty:
-    - videoManager  
-    - url 
+    - videoManager
+    - url
     - [ "assets/video/success_cinematic.webm", "assets/video/success_cinematic.mp4" ]
   - setProperty:
     - rover3
@@ -62,24 +62,19 @@ properties:
     - pointOfView
     - thirdPerson
 
-  - emptyInventory:
-    - rover/cargo
-
   - addToGrid:
     - rover
-    - [ 8, 2 ]
+    - [ 0, 0 ]
 
-  - addToGrid:
+  - setPickupActive:
     - helicam
-    - [ 8, 3 ]
-
-  - addToGrid:
+    - true
+  - setPickupActive:
     - battery
-    - [ 8, 6 ]
-
-  - addToGrid:
+    - true
+  - setPickupActive:
     - radio
-    - [ 8, 16 ]
+    - true
   - enableBlocklyNodes:
     - rover
   - loadToolbox:
@@ -152,30 +147,3 @@ children:
           actions:
           - playSound:
             - ALVO14_Rover
-
-  grid:
-    includes: source/grid.vwf
-    properties:
-      minX: 0
-      maxX: 16
-      minY: 0
-      maxY: 18
-      gridOriginInSpace: [ -24, -6 ]
-      gridSquareLength: 3
-      boundaryValues:
-      - [ -1, -1, -1,  1,  1, -1, -1, -1, -1, -1,  1, -1, -1, -1, -1, -1, -1, -1 ]
-      - [  1, -1, -1,  1,  1,  1, -1, -1, -1, -1,  1, -1, -1, -1, -1, -1, -1, -1 ]
-      - [  1, -1, -1,  1,  1,  1,  1,  1,  1,  1,  1, -1,  1,  1, -1,  1,  1,  1 ]
-      - [  1, -1,  1,  1,  1,  1,  1,  1,  1,  1, -1,  1,  1,  1, -1,  1,  1,  1 ]
-      - [  1,  1,  1,  1, -1, -1, -1, -1,  1,  1,  1,  1, -1,  1,  1,  1,  1,  1 ]
-      - [  1,  1,  1,  1, -1, -1, -1, -1,  1,  1,  1, -1, -1, -1, -1, -1,  1,  1 ]
-      - [  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1, -1, -1, -1, -1, -1,  1,  1 ]
-      - [ -1, -1,  1, -1, -1, -1, -1, -1, -1,  1,  1, -1, -1, -1, -1, -1,  1,  1 ]
-      - [ -1,  1,  1,  1,  1,  1,  1,  1, -1,  1,  1,  1,  1,  1,  1,  1,  1,  1 ]
-      - [ -1, -1,  1, -1, -1, -1, -1, -1, -1,  1, -1, -1, -1,  1,  1,  1,  1,  1 ]
-      - [  1, -1,  1, -1, -1,  1,  1,  1,  1,  1, -1, -1, -1,  1,  1,  1,  1, -1 ]
-      - [  1, -1,  1, -1, -1,  1,  1, -1, -1,  1,  1, -1,  1,  1,  1,  1, -1, -1 ]
-      - [  1,  1,  1,  1,  1,  1, -1, -1, -1,  1,  1,  1,  1,  1,  1, -1, -1, -1 ]
-      - [ -1, -1,  1,  1,  1,  1, -1, -1, -1, -1,  1,  1,  1, -1, -1, -1, -1, -1 ]
-      - [ -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,  1,  1, -1, -1, -1, -1, -1 ]
-      - [ -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,  1,  1,  1, -1, -1, -1 ]

@@ -48,10 +48,6 @@ var triangleStarted = false;
 var alertNodeID = undefined;
 var graphIsVisible = false;
 var tilesAreVisible = false;
-var gridBounds = {
-    bottomLeft: undefined,
-    topRight: undefined
-};
 var lastRenderTime = 0;
 var threejs = findThreejsView();
 var activePauseMenu;
@@ -72,6 +68,8 @@ var timerScenarioElapsedTime = document.getElementById( "timerScenarioElapsedTim
 var timerDetailButton = document.getElementById( "timerDetailButton" );
 timerDetailButton.onclick = toggleTimerDetailList;
 var timerDetailList = document.getElementById( "timerDetailList" );
+
+var cameraTargetPosition = [ 0, 0, 0 ];
 
 vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
     if ( blocklyNodes[ nodeID ] !== undefined ) {
@@ -250,12 +248,10 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 currentScenario = eventArgs[ 0 ];
                 lastBlockIDExecuted = undefined;
                 currentProcedureBlockID = undefined;
-                gridBounds = eventArgs[ 1 ] || gridBounds;
             case "scenarioReset":
                 removePopup();
                 removeFailScreen();
                 indicateBlock( lastBlockIDExecuted );
-                gridBounds = eventArgs[ 1 ] || gridBounds;
                 break;
 
             case "gotScenarioPaths":
@@ -367,6 +363,10 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
             scenarioTimes[ name ] = time;
         } else if ( eventName === "updatedAggregateTime" ) {
             totalTime = eventArgs[ 0 ];
+        }
+
+        if ( eventName === "targetMoved" ) {
+            cameraTargetPosition = eventArgs[ 0 ];
         }
     }
 }

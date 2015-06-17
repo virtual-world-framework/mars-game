@@ -42,6 +42,7 @@ properties:
     set: |
       this.setApplicationState( value );
     value: loading
+  watchList: []
 methods:
   setScenario:
   resetScenario:
@@ -77,6 +78,10 @@ methods:
   hideSchematicTriangle:
   openMissionBrief:
   setGridAxes:
+  addToWatchList:
+  clearWatchList:
+  checkWatchList:
+  getWatchListNodes:
 events:
   gameStarted:
   scenarioReset:
@@ -317,7 +322,6 @@ children:
               }
               return this.terrain;
               //@ sourceURL=index.vwf.player.rover.terrain.get
-          currentGridSquare: [ 0, 0 ]
           sensorValue: false
           wheelFL:
             get: |
@@ -373,7 +377,6 @@ children:
               worldOffset: [ 0, 0, 40 ]
               cameraPose: [ 0, 0, -90 ]
               cameraSpeed: 10
-              cameraLock: false
           rover_base:
             extends: http://vwf.example.com/node3.vwf
             children: 
@@ -403,11 +406,6 @@ children:
                     children: 
                       material:
                         extends: http://vwf.example.com/material.vwf
-          cargo:
-            extends: source/inventory.vwf
-            properties:
-              capacity: 4
-              inventoryIsVisible: false
       rover2:
         visible: false
         extends: source/rover.vwf
@@ -440,7 +438,6 @@ children:
               }
               return this.terrain;
               //@ sourceURL=index.vwf.player.rover.terrain.get
-          currentGridSquare: [ 0, 0 ]
           sensorValue: false
           scoutWheel:
             get: |
@@ -475,17 +472,11 @@ children:
               worldOffset: [ 0, 0, 40 ]
               cameraPose: [ 0, 0, -90 ]
               cameraSpeed: 10
-              cameraLock: false
           scout_body:
             extends: http://vwf.example.com/node3.vwf
             children:
               scout_wheel:
                 extends: http://vwf.example.com/node3.vwf
-          cargo:
-            extends: source/inventory.vwf
-            properties:
-              capacity: 4
-              inventoryIsVisible: false       
       rover3:
         visible: false
         extends: source/fourWheeledRover.vwf
@@ -519,7 +510,6 @@ children:
               }
               return this.terrain;
               //@ sourceURL=index.vwf.player.rover.terrain.get
-          currentGridSquare: [ 0, 0 ]
           sensorValue: false
           wheelFL:
             get: |
@@ -589,7 +579,6 @@ children:
               worldOffset: [ 0, 0, 40 ]
               cameraPose: [ 0, 0, -90 ]
               cameraSpeed: 10
-              cameraLock: false
           wheel_l1:
             extends: http://vwf.example.com/node3.vwf
           wheel_r1:
@@ -602,11 +591,6 @@ children:
             extends: http://vwf.example.com/node3.vwf
           wheel_r3:
             extends: http://vwf.example.com/node3.vwf
-          cargo:
-            extends: source/inventory.vwf
-            properties:
-              capacity: 4
-              inventoryIsVisible: false
   pickups:
     extends: http://vwf.example.com/node3.vwf
     children:
@@ -615,8 +599,11 @@ children:
         properties:
           animationPlaying: true
           animationLoop: true
+          tilePosition: [ 0, 14 ]
       battery:
         extends: source/pickups/battery_1.vwf
+        properties:
+          tilePosition: [ 0, 4 ]
       signal:
         extends: source/pickups/signal.vwf
       supplies_1:
@@ -625,13 +612,15 @@ children:
         extends: source/pickups/supplies.vwf
       helicam:
         extends: source/pickups/helicam.vwf
+        properties:
+          tilePosition: [ 0, 1 ]
       minirover:
         extends: source/pickups/minirover.vwf
-  cargoPod2: 
+  cargoPod2:
     extends: source/buildings/basePod.vwf
     properties:
-      translation: [ 0, 0, -9999999 ]
-      gridRotation: 270
+      tilePosition: [ -24, 75 ]
+      rotation: [ 0, 0, 1, 270 ]
       visible: false
   solarPanel1: 
     extends: source/buildings/solarPanel.vwf
@@ -703,10 +692,12 @@ children:
     includes: source/scenario/mission4task6.vwf
   mission5task1:
     includes: source/scenario/mission5task1.vwf
+  # TODO: Use only one graph object. No need for two.
   blocklyGraph:
     extends: http://vwf.example.com/graphtool/graph.vwf
     implements: 
-      - source/griddable.vwf
+      - source/marsGameNode.vwf
+      - http://vwf.example.com/sceneGetter.vwf
     properties:
       graphScale: 3
       gridInterval: 1

@@ -17,22 +17,28 @@ this.onGenerated = function( params, generator, payload ) {
         return false;
     }
 
-    if ( !params || ( params.length !== 1 ) ) {
+    if ( !params || ( params.length !== 2 ) ) {
         this.logger.errorx( "onGenerated", 
-                            "This action takes one argument: " +
-                            "the path of the inventory object." );
+                            "This action takes two arguments: the path of " +
+                            "the node to add to the watch list and the type " +
+                            "of object it is." );
         return false;
     }
 
-    this.inventoryPath = params[ 0 ];
+    this.objectName = params[ 0 ];
+    this.objectType = params[ 1 ];
 
     return true;
 }
 
 this.executeAction = function() {
-    var inventory = this.findInScene( this.inventoryPath );
-    this.assert( inventory, "Inventory not found!" );
-    inventory && inventory.empty();
+    var object = this.findInScene( this.objectName );
+    var objectTile = object.tilePosition;
+    this.assert( object, "Object not found!" );
+
+    if ( object ) {
+        this.scene.addToWatchList( object, objectTile, this.objectType );
+    }
 }
 
-//@ sourceURL=source/triggers/actions/action_emptyInventory.js
+//@ sourceURL=source/triggers/actions/action_addToWatchList.js

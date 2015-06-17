@@ -20,6 +20,7 @@ var defaultNav = {
 }
 
 var thirdPerson_ZoomLevel;
+var topDown_controlRadius = 24;
 
 // Zoom bounds in meters
 var topDown_MaxAltitude = 100;
@@ -64,17 +65,13 @@ function handleMouseNavigation( deltaX, deltaY, navObject, navMode, rotationSpee
                 var worldY = obj.matrixWorld.elements[ 13 ];
                 var heightMod = obj.matrixWorld.elements[ 14 ] * 0.1;
                 var panSpeed = translationSpeed * heightMod;
-                var xMax, xMin, yMax, yMin;
-                deltaX = -deltaX * panSpeed;
-                deltaY = deltaY * panSpeed;
-                xMax = gridBounds.topRight[ 0 ];
-                xMin = gridBounds.bottomLeft[ 0 ];
-                yMax = gridBounds.topRight[ 1 ];
-                yMin = gridBounds.bottomLeft[ 1 ];
-                deltaX = Math.max( Math.min( deltaX + worldX, xMax ), xMin ) - worldX;
-                deltaY = Math.max( Math.min( deltaY + worldY, yMax ), yMin ) - worldY;
-                obj.matrix.elements[ 12 ] += deltaX;
-                obj.matrix.elements[ 13 ] += deltaY;
+                deltaX = ( -deltaX * panSpeed + worldX ) - cameraTargetPosition[ 0 ];
+                deltaY = ( deltaY * panSpeed + worldY ) - cameraTargetPosition[ 1 ];
+                var dir = Math.atan2( deltaX, deltaY );
+                var dist = Math.sqrt( Math.pow( deltaX, 2 ) + Math.pow( deltaY, 2 ) );
+                dist = Math.min( dist, topDown_controlRadius );
+                obj.matrix.elements[ 12 ] = Math.sin( dir ) * dist;
+                obj.matrix.elements[ 13 ] = Math.cos( dir ) * dist;
                 obj.updateMatrixWorld( true );
             }
             break;
@@ -186,17 +183,13 @@ function moveNavObject( deltaX, deltaY, navObject, navMode, rotationSpeed, trans
             var worldY = obj.matrixWorld.elements[ 13 ];
             var heightMod = obj.matrixWorld.elements[ 14 ] * 0.1;
             var panSpeed = translationSpeed * heightMod * Math.min( msSinceLastFrame * 0.001, 0.5 );
-            var xMax, xMin, yMax, yMin;
-            deltaX = deltaX * panSpeed;
-            deltaY = deltaY * panSpeed;
-            xMax = gridBounds.topRight[ 0 ];
-            xMin = gridBounds.bottomLeft[ 0 ];
-            yMax = gridBounds.topRight[ 1 ];
-            yMin = gridBounds.bottomLeft[ 1 ];
-            deltaX = Math.max( Math.min( deltaX + worldX, xMax ), xMin ) - worldX;
-            deltaY = Math.max( Math.min( deltaY + worldY, yMax ), yMin ) - worldY;
-            obj.matrix.elements[ 12 ] += deltaX;
-            obj.matrix.elements[ 13 ] += deltaY;
+            deltaX = ( deltaX * panSpeed + worldX ) - cameraTargetPosition[ 0 ];
+            deltaY = ( deltaY * panSpeed + worldY ) - cameraTargetPosition[ 1 ];
+            var dir = Math.atan2( deltaX, deltaY );
+            var dist = Math.sqrt( Math.pow( deltaX, 2 ) + Math.pow( deltaY, 2 ) );
+            dist = Math.min( dist, topDown_controlRadius );
+            obj.matrix.elements[ 12 ] = Math.sin( dir ) * dist;
+            obj.matrix.elements[ 13 ] = Math.cos( dir ) * dist;
             obj.updateMatrixWorld( true );
             break;
 

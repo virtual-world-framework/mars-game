@@ -35,13 +35,11 @@ this.onGenerated = function( params, generator, payload ) {
 }
 
 this.executeAction = function() {
-    this.assert( this.scenario );
-    this.assert( this.isInScenario(), "No longer in our scenario!" );
-    this.assert( this.scenario.grid.validCoord( this.tileCoords ), 
-                 "Coordinates out of bounds!" );
-
-    var coords = this.scenario.grid.getWorldFromGrid( this.tileCoords[ 0 ], 
-                                                      this.tileCoords[ 1 ] );
+    var tileMap = this.scene.tileMap;
+    var coords = tileMap.getWorldCoordFromTile(
+        this.tileCoords[ 0 ],
+        this.tileCoords[ 1 ]
+    );
 
     this.scene.gridTileGraph.callOutTile.callOut( coords );
 }
