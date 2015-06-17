@@ -267,13 +267,13 @@ properties:
         - rover2
       actions:
       - stopSound:
-        - rover1StartSound
+        - rover2StartSound
       - stopSound:
-        - rover1EngineSound
+        - rover2EngineSound
       - stopSound:
-        - rover1GravelSound
+        - rover2GravelSound
       - playSound:
-        - rover1EndSound
+        - rover2EndSound
 
     rover2Idle:
       triggerCondition:
