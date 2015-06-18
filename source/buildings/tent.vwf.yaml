@@ -18,12 +18,6 @@ source: ../../assets/3d/mars_tent/mars_tent.dae
 type: model/vnd.collada+xml
 properties:
   buildingType: 'tent'
-  gridSize: [ 3, 3 ]
-  collisionMap: 
-    - [ 1, 1, 1 ]
-    - [ 0, 0, 0 ]
-    - [ 0, 1, 0 ]
-  gridRotation: 0
   useAnimatedShader: true
   diffuseSrc: "assets/3d/mars_tent/mars_tent.png"
   normalSrc: "assets/3d/mars_tent/mars_tent_n.png"

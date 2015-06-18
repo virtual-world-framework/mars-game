@@ -12,9 +12,6 @@
 # See the License for the specific language governing permissions and 
 # limitations under the License.
 
----
-
-
 # This has all of the changes we need to manage the constructed state of the 
 # buildings.
 #
@@ -49,13 +46,9 @@
 #   will make the object invisible and the animation at its beginning. Note: I
 #   did not use a setter on the built property here because of where we were
 #   using that property and its negative effects if set on initialize.
-#
-# Edit: Also added the hideSchematicTriangle method on the scene to remove the
-# triangle.
 
-extends: ../gridObstacle.vwf
-implements:
-  - ../griddable.vwf
+---
+extends: ../marsGameNode.vwf
 properties:
   castShadows: true
   receiveShadows: true

@@ -51,10 +51,6 @@ properties:
     # TODO: make this an onEvent trigger?
     hasHeading: "source/triggers/clauses/clause_HasHeading.vwf"
 
-    # arguments: owner, object
-    # TODO: make this an onEvent trigger?
-    hasObject: "source/triggers/clauses/clause_HasObject.vwf"
-
     # arguments: object, threshold (optional, default = 0.667 seconds)
     # TODO: make MoveFailed an onEvent trigger?
     onMoved: "source/triggers/clauses/clause_OnMoved.vwf"

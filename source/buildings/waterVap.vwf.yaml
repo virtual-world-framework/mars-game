@@ -18,9 +18,3 @@ source: ../../assets/3d/water_vap/water_vap.dae
 type: model/vnd.collada+xml
 properties:
   buildingType: 'waterManagement'
-  gridSize: [ 3, 3 ]
-  collisionMap: 
-    - [ 1, 1, 1 ]
-    - [ 0, 0, 0 ]
-    - [ 0, 1, 0 ]
-  gridRotation: 0

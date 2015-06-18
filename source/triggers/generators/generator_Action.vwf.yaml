@@ -123,14 +123,23 @@ properties:
     # arguments: none
     openMissionBrief: "source/triggers/actions/action_openMissionBrief.vwf"
 
+    # Set the axis lines of the grid to some value in grid space
+    # arguments: x, y
+    setGridAxes: "source/triggers/actions/action_setGridAxes.vwf"
+
+    # Add an item to the scene watch list
+    # arguments: objectName, objectType
+    addToWatchList: "source/triggers/actions/action_addToWatchList.vwf"
+
+    # Set a pickup to active or inactive
+    # arguments: objectName, active
+    setPickupActive: "source/triggers/actions/action_setPickupActive.vwf"
+
     # TODO: These are the old start state functions - add comments for them.
     setProperty: "source/triggers/actions/action_setProperty.vwf"
     callMethod: "source/triggers/actions/action_callMethod.vwf"
     setSceneProperty: "source/triggers/actions/action_setSceneProperty.vwf"
-    emptyInventory: "source/triggers/actions/action_emptyInventory.vwf"
-    addToInventory: "source/triggers/actions/action_addToInventory.vwf"
     addToGrid: "source/triggers/actions/action_addToGrid.vwf"
-    removeFromGrid: "source/triggers/actions/action_removeFromGrid.vwf"
     enableBlocklyNodes: "source/triggers/actions/action_enableBlocklyNodes.vwf"
     loadToolbox: "source/triggers/actions/action_loadToolbox.vwf"
 

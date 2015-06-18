@@ -12,10 +12,6 @@
 # See the License for the specific language governing permissions and 
 # limitations under the License.
 
-# TODO:
-#   Tile map
-#   Tile origin
-
 ---
 extends: http://vwf.example.com/shaderMaterial.vwf
 properties:
@@ -63,6 +59,15 @@ properties:
     tileColor:
       type: "c"
       value: 0x00AA22
+    tileMap:
+      type: "t"
+      value: 0
+    tileMapOrigin:
+      type: "v2"
+      value: [ 0, 0 ]
+    tileMapSize:
+      type: "v2"
+      value: [ 0, 0 ]
     mixMap:
       type: "t"
       value: 0
@@ -213,6 +218,9 @@ properties:
     uniform int tilesVisible;
     uniform float tilePadding;
     uniform vec3 tileColor;
+    uniform sampler2D tileMap;
+    uniform vec2 tileMapOrigin;
+    uniform vec2 tileMapSize;
     #if MAX_TRIS > 0
       uniform vec2 triangle[ MAX_TRIS ];
     #endif
@@ -269,6 +277,16 @@ properties:
       } else {
         return false;
       }
+    }
+    vec3 extractTileValue( vec2 wp ) {
+      vec2 gridCoord = floor( ( wp / gridInterval ) + 0.5 ) - tileMapOrigin;
+      vec2 tileUV = vec2( 0.0 );
+      vec3 tileValue = vec3( 0.0 );
+      if ( gridCoord.x >= 0.0 && gridCoord.x < tileMapSize.x && gridCoord.y >= 0.0 && gridCoord.y < tileMapSize.y ) {
+        tileUV = gridCoord / tileMapSize;
+        tileValue = texture2D( tileMap, tileUV ).rgb;
+      }
+      return tileValue;
     }
     vec3 perturbNormal2Arb( vec3 eye_pos, vec3 surf_norm, vec3 mapNormal ) {
       vec3 q0 = dFdx( eye_pos.xyz );
@@ -542,10 +560,10 @@ properties:
         }
       }
       if ( tilesVisible == 1 ) {
-        // TODO: Only display select tiles
+        vec3 tileValue = extractTileValue( vWorldPosition.xy );
         vec2 gridLine = vec2( gridInterval / 2.0 - mod( vWorldPosition.xy + gridOffset, gridInterval ) );
         gridLine = max( gridLine, -1.0 * gridLine );
-        if ( gridLine.x > tilePadding && gridLine.y > tilePadding ) {
+        if ( gridLine.x > tilePadding && gridLine.y > tilePadding && tileValue.r > 0.0 ) {
           gl_FragColor.xyz += tileColor * 0.8;
         }
       }

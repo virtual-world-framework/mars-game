@@ -12,26 +12,11 @@
 // See the License for the specific language governing permissions and 
 // limitations under the License.
 
-var gridBounds = {
-    bottomLeft: [],
-    topRight: []
-}
-var PASSABLE_COLOR = [ 220, 255, 220 ];
-var IMPASSABLE_COLOR = [ 255, 220, 220 ];
-var OPACITY = 0.3;
-var NORMAL = [ 0, 0, 1 ];
-var ROTATION = 90;
-var RENDERTOP = true;
-var SIZE = 0.9;
-var tiles = new Array();
-
 var lastCameraPOV = "thirdPerson";
 
 this.initialize = function() {
     // Set the active camera so we can see the 3D scene
     this.initializeActiveCamera( this.gameCam.camera );
-    this.setUpCameraListener();
-    this.setUpRoverListeners();
     this.future( 3 ).applicationLoaded();
 }
 
@@ -60,6 +45,7 @@ this.setApplicationState = function( state ) {
             this.pickups.visible = false;
             this.hud.visible = false;
             this.triggerGroupManager.checkingGroups = false;
+            this.cargoPod2.visible = false;
             break;
         case "playing":
             this.mainMenu.visible = false;
@@ -78,6 +64,7 @@ this.setApplicationState = function( state ) {
             this.pickups.visible = true;
             this.hud.visible = true;
             this.triggerGroupManager.checkingGroups = true;
+            this.cargoPod2.visible = true;
             break;
         default:
             this.logger.errorx( "setApplicationState", "Invalid application "
@@ -89,7 +76,7 @@ this.setApplicationState = function( state ) {
 
 this.newGame = function() {
     this.applicationState = "playing";
-    this.activeScenarioPath = "mission3task1";
+    this.activeScenarioPath = "introScreenScenario";
 }
 
 this.continueGame = function( scenario ) {
@@ -102,17 +89,11 @@ this.setScenario = function( path ) {
         var scenario = this.find( path )[ 0 ];
         if ( scenario ) {
             this.activeScenarioPath = path;
-            // TODO: remove knowledge of inner workings of the scenario; let 
-            //  the scenario itself handle bookkeeping in its event handlers.
-             if ( scenario.grid && scenario.grid.clearGrid ) {
-                 scenario.grid.clearGrid();
-             }
-            calcGridBounds( scenario.grid );
-            this.createGridDisplay( scenario.grid );
+            this.clearWatchList();
             // TODO: pass the scenario, not the name.  Or else just send the 
             //  event without looking the scenario itself up.  Or assert that 
             //  the scenario exists.  Or something.
-            this.scenarioChanged( scenario.name, gridBounds );
+            this.scenarioChanged( scenario.name );
             if ( scenario.brief ) {
                 this.loadedMissionBrief(
                     scenario.brief.title,
@@ -131,11 +112,7 @@ this.setScenario = function( path ) {
 this.resetScenario = function() {
     var scenario = this.getCurrentScenario();
     if ( scenario ) {
-        // TODO: remove knowledge of inner workings of the scenario; let the
-        //  scenario itself handle bookkeeping in its event handlers.
-        if ( scenario.grid && scenario.grid.clearGrid ) {
-            scenario.grid.clearGrid();
-        }      
+        this.clearWatchList();
         // TODO: pass the scenario, not the name.  Or else just send the event
         //  without looking the scenario itself up.  Or assert that the scenario
         //  exists.  Or something.
@@ -151,7 +128,6 @@ this.advanceScenario = function() {
     //  versa (we shouldn't have to know the inner workings of the scenario)
     this.hud.setAllEnabled( true );
     var scenario = this.getCurrentScenario();
-    calcGridBounds( scenario.grid );
     if ( scenario.nextScenarioPath ) {
         this.activeScenarioPath = scenario.nextScenarioPath;
     } else {
@@ -203,49 +179,12 @@ this.addSubtitle = function( log, time ) {
     }
 }
 
-this.createGridDisplay = function( grid ) {
-    var origin, color;
-    var offset = new Array();
-    offset.push( grid.gridOriginInSpace[ 0 ] / grid.gridSquareLength );
-    offset.push( grid.gridOriginInSpace[ 1 ] / grid.gridSquareLength );
-    tiles.length = 0;
-    for ( var x = 0; x < grid.boundaryValues.length; x++ ) {
-        for ( var y = 0; y < grid.boundaryValues[ x ].length; y++ ) {
-            if ( grid.boundaryValues[ x ][ y ] === -1 ) {
-                continue;
-            }
-            origin = [
-                offset[ 0 ] + ( x ),
-                offset[ 1 ] + ( y ),
-                0
-            ];
-            color = PASSABLE_COLOR;
-            tiles.push( { "plane": {
-                "origin": origin,
-                "normal": NORMAL,
-                "rotationAngle": ROTATION,
-                "size": SIZE,
-                "color": color,
-                "opacity": OPACITY,
-                "doubleSided": false,
-                "renderTop": RENDERTOP
-            } } );
-        }
-    }
-    this.gridTileGraph.mapTiles.graphObjects = tiles;
-}
-
-function calcGridBounds( grid ) {
-    grid.getWorldFromGrid( grid.minX, grid.minY, gridBounds.bottomLeft );
-    grid.getWorldFromGrid( grid.maxX, grid.maxY, gridBounds.topRight );
-}
-
 this.executeBlock = function ( block, action ) {
 
     var blockName = block[ 0 ];
     var blockID = block[ 1 ];
     var blockNode = block[ 2 ];
-    var blockExeTime = block[ 3 ];    
+    var blockExeTime = block[ 3 ];
     var blockArgs = action[ 2 ];
 
     this.blockExecuted( blockName, blockID, blockNode, blockExeTime, blockArgs );
@@ -261,40 +200,20 @@ this.executeBlock = function ( block, action ) {
     }
 }
 
-this.setUpCameraListener = function() {
-    var handler = function( mount ) {
-        if ( mount.name !== "topDown") {
-            this.displayTiles( false );
-            this.displayGraph( false );
-        }
-    };
-    this.gameCam.mounted = this.events.add( handler, this );
-}
-
-this.setUpRoverListeners = function() {
-    this.scenarioChanged = this.events.add( function( scenarioName ) {
-        this.player.rover.findAndSetCurrentGrid( scenarioName );
-        this.player.rover2.findAndSetCurrentGrid( scenarioName );
-        this.player.rover3.findAndSetCurrentGrid( scenarioName );
-    }, this );
-}
-
 this.displayTiles = function( isVisible ) {
-    if ( isVisible !== this.gridTileGraph.mapTiles.groupVisible ) {
-        this.gridTileGraph.mapTiles.groupVisible = isVisible;
-        if ( isVisible && this.gameCam.mount.name !== "topDown" ) {
-            this.gameCam.setCameraMount( "topDown" );
-        }
+    var material = this.environment.terrain.material;
+    var tilesVisible = Boolean( material.tilesVisible );
+    if ( isVisible !== tilesVisible ) {
+        material.tilesVisible = isVisible ? 1 : 0;
         this.toggledTiles( isVisible );
     }
 }
 
 this.displayGraph = function( isVisible ) {
-    if ( isVisible !== this.blocklyGraph.graphVisible ) {
-        this.blocklyGraph.graphVisible = isVisible;
-        if ( isVisible && this.gameCam.mount.name !== "topDown" ) {
-            this.gameCam.setCameraMount( "topDown" );
-        }
+    var material = this.environment.terrain.material;
+    var gridVisible = Boolean( material.gridVisible );
+    if ( isVisible !== gridVisible ) {
+        material.gridVisible = isVisible ? 1 : 0;
         this.toggledGraph( isVisible );
         this.blocklyGraph.blocklyLine.visible = isVisible;
     }
@@ -435,6 +354,62 @@ this.hideSchematicTriangle = function() {
 
 this.openMissionBrief = function() {
     this.missionBriefOpened();
+}
+
+this.setGridAxes = function( x, y ) {
+    var material = this.environment.terrain.material;
+    material.gridAxes = [ x, y ];
+}
+
+this.addToWatchList = function( node, tile, type ) {
+    var wlItem = {
+        "name": node.name,
+        "id": node.id,
+        "tile": tile,
+        "type": type
+    }
+    this.watchList.push( wlItem );
+}
+
+this.clearWatchList = function() {
+    this.watchList.length = 0;
+}
+
+this.checkWatchList = function( tile, type ) {
+    var watchList = this.watchList;
+    var item;
+    for ( var i = 0; i < watchList.length; i++ ) {
+        item = watchList[ i ];
+        if ( item.tile[ 0 ] === tile[ 0 ] && item.tile[ 1 ] === tile[ 1 ] &&
+             ( item.type === type || type === undefined ) ) {
+            return true;
+        }
+    }
+    return false;
+}
+
+this.getWatchListNodes = function( tile, type ) {
+    var watchList = this.watchList;
+    var nodes = [];
+    var item, node;
+    for ( var i = 0; i < watchList.length; i++ ) {
+        item = watchList[ i ];
+        if ( item.tile[ 0 ] === tile[ 0 ] && item.tile[ 1 ] === tile[ 1 ] &&
+             ( item.type === type || type === undefined ) ) {
+            node = this.findByID( this, item.id );
+            nodes.push( node );
+        }
+    }
+    return nodes;
+}
+
+this.getAxisOffsetTileCoord = function( x, y ) {
+    var tileX, tileY, gridAxes, tileCoord;
+    gridAxes = this.environment.terrain.material.gridAxes;
+    tileX = x + gridAxes[ 1 ];
+    tileY = y + gridAxes[ 0 ];
+    tileCoord = [ tileX, tileY ];
+    return tileCoord;
 }
 
 //@ sourceURL=source/scene.js

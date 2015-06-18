@@ -57,6 +57,7 @@ this.followTarget = function( transform ) {
         transform[ 13 ],
         transform[ 14 ]
     ];
+    this.targetMoved( this.lastTargetPosition.slice() );
     // The following code is for checking camera collisions as the target object
     //   is moving. It currently is slow and fights with the collision handling
     //   in view/navigation.js.
@@ -72,7 +73,9 @@ this.attachToTarget = function() {
     this.target.transformChanged = this.events.add( this.followTarget, this,
         function( id ) {
             self.listenerID$ = id;
-        } );
+        }
+    );
+    this.targetMoved( this.lastTargetPosition.slice() );
 }
 
 this.detachFromTarget = function() {

@@ -12,18 +12,16 @@
 // See the License for the specific language governing permissions and 
 // limitations under the License.
 
-this.setPickupVisibility = function( value ) {
-    var scene = this.find( "/" )[ 0 ];
-    if ( scene && scene.name === "application" ) {
-        if ( this.parent && ( this.parent.inventoryIsVisible || 
-            !this.parent.hasOwnProperty( "inventoryIsVisible" ) ) ) {
-            this.visible = value;
-        } else {
-            this.visible = false;
-        }
-    } else {
-        this.visible = value;
+this.pickUp = function( node ) {
+    if ( this.isActive ) {
+        this.activatePickup( false );
+        this.pickedUp( node );
     }
+}
+
+this.activatePickup = function( pickupActive ) {
+    this.visible = pickupActive;
+    this.isActive = pickupActive;
 }
 
 //@ sourceURL=source/pickup.js

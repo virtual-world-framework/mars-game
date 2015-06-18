@@ -13,9 +13,9 @@
 # limitations under the License.
 
 ---
-extends: http://vwf.example.com/node3.vwf
+extends: marsGameNode.vwf
 implements:
-  - griddable.vwf
+  - http://vwf.example.com/sceneGetter.vwf
 properties:
   castShadows: true
   receiveShadows: true
