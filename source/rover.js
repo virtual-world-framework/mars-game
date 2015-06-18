@@ -95,7 +95,7 @@ this.moveRadialAbsolute = function( valueX, valueY ) {
     var deltaX = proposedTile[ 0 ] - currentTile[ 0 ];
     var deltaY = proposedTile[ 1 ] - currentTile[ 1 ];
     var directionRadians = Math.atan2( deltaX, deltaY );
-    var heading = ( directionRadians - Math.PI / 2 ) * ( 180 / Math.PI );
+    var heading = directionRadians * ( 180 / Math.PI );
     this.setHeading( heading );
     var tileMap = this.scene.tileMap;
     var tileValue = tileMap.getDataAtTileCoord( proposedTile[ 0 ], proposedTile[ 1 ] );
@@ -154,7 +154,7 @@ this.moveRadial = function( deltaX, deltaY, offset ) {
     var tileMap = this.scene.tileMap;
     if ( offset === true ) {
         var directionRadians = Math.atan2( deltaX, deltaY );
-        var heading = ( directionRadians - Math.PI / 2 ) * ( 180 / Math.PI );
+        var heading = directionRadians * ( 180 / Math.PI );
         this.setHeading( heading );
         var proposedTile = [ this.tilePosition[ 0 ] + deltaX, this.tilePosition[ 1 ] + deltaY ]; 
         //Calculate the time to displace based on the hypotenuse
@@ -164,7 +164,7 @@ this.moveRadial = function( deltaX, deltaY, offset ) {
         var xOffset = deltaX - this.tilePosition[ 0 ];
         var yOffset = deltaY - this.tilePosition[ 1 ];
         var directionRadians = Math.atan2( yOffset, xOffset ); // In radians 
-        var heading = ( directionRadians - Math.PI / 2 ) * ( 180 / Math.PI );
+        var heading = directionRadians * ( 180 / Math.PI );
         this.setHeading( heading );
         var proposedTile = [ this.tilePosition[ 0 ] + xOffset, this.tilePosition[ 1 ] + yOffset ]; 
         //Calculate the time to displace based on the hypotenuse
@@ -234,7 +234,7 @@ this.checkRadialCollision = function( currentPosition, futurePosition ) {
     var currentTranslation = tileMap.getWorldCoordFromTile( currentPosition[ 0 ], currentPosition[ 1 ] );
     var futureTranslation = tileMap.getWorldCoordFromTile( futurePosition[ 0 ], futurePosition[ 1 ] );
     currentTranslation[ 2 ] = this.getTerrainHeight( currentTranslation[ 0 ], currentTranslation[ 1 ] ) + 1;
-    futureTranslation[ 2 ] = this.getTerrainHeight( futureTranslation[ 0 ], futureTranslation[ 0 ] ) + 1;
+    futureTranslation[ 2 ] = this.getTerrainHeight( futureTranslation[ 0 ], futureTranslation[ 1 ] ) + 1;
     var dist = goog.vec.Vec3.distance( currentTranslation, futureTranslation );
     var sizeOfRover = 1.5;
     var player = this.find( "//player" )[ 0 ];
