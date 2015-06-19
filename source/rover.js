@@ -95,7 +95,8 @@ this.moveRadialAbsolute = function( valueX, valueY ) {
     var deltaX = proposedTile[ 0 ] - currentTile[ 0 ];
     var deltaY = proposedTile[ 1 ] - currentTile[ 1 ];
     var directionRadians = Math.atan2( deltaX, deltaY );
-    var heading = directionRadians * ( 180 / Math.PI );
+    var heading = -directionRadians * 180 / Math.PI;
+    console.log( heading );
     this.setHeading( heading );
     var tileMap = this.scene.tileMap;
     var tileValue = tileMap.getDataAtTileCoord( proposedTile[ 0 ], proposedTile[ 1 ] );
@@ -154,7 +155,7 @@ this.moveRadial = function( deltaX, deltaY, offset ) {
     var tileMap = this.scene.tileMap;
     if ( offset === true ) {
         var directionRadians = Math.atan2( deltaX, deltaY );
-        var heading = directionRadians * ( 180 / Math.PI );
+        var heading = -directionRadians * 180 / Math.PI;
         this.setHeading( heading );
         var proposedTile = [ this.tilePosition[ 0 ] + deltaX, this.tilePosition[ 1 ] + deltaY ]; 
         //Calculate the time to displace based on the hypotenuse
@@ -164,7 +165,7 @@ this.moveRadial = function( deltaX, deltaY, offset ) {
         var xOffset = deltaX - this.tilePosition[ 0 ];
         var yOffset = deltaY - this.tilePosition[ 1 ];
         var directionRadians = Math.atan2( yOffset, xOffset ); // In radians 
-        var heading = directionRadians * ( 180 / Math.PI );
+        var heading = -directionRadians * 180 / Math.PI;
         this.setHeading( heading );
         var proposedTile = [ this.tilePosition[ 0 ] + xOffset, this.tilePosition[ 1 ] + yOffset ]; 
         //Calculate the time to displace based on the hypotenuse
@@ -549,6 +550,7 @@ this.deactivateSensor = function() {}
 this.setHeading = function( newHeading, duration ) {
     var scene = this.scene;
     var duration = duration * this.executionSpeed;
+    newHeading = ( newHeading % 360 + 360 ) % 360;
     if ( this.heading !== undefined ) {
         // Find the delta in heading and rotateBy that amount via the optional duration
         var headingDelta = newHeading - this.heading;
@@ -590,8 +592,7 @@ this.setHeading = function( newHeading, duration ) {
             this.placeOnTerrain( this.translation );
         }
     }
-    // Set the heading value, constraining the value to be between 0 and 359
-    this.heading = ( newHeading % 360 + 360 ) % 360;
+    this.heading = newHeading;
     this.activateSensor( 'heading', this.heading );
 }
 
