@@ -114,13 +114,8 @@ a:active {
 }
 
 .blocklySvg {
-    height: 100%;
-    background-color: rgba( 0, 0, 0, 0.25 );
+    background-color: rgba( 0, 0, 0, 0.5 );
     border-color: rgba( 255, 255, 255, 0.25 );
-}
-
-.blocklyToolboxDiv {
-    overflow: hidden;
 }
 
 .blocklyFlyoutBackground {
@@ -170,13 +165,9 @@ a:active {
 }
 
 #blocklyWrapper {
-    width: 780px;
-    height: 812px;
-    min-height: 304px;
-    max-height: 812px;
-    min-width: 470px;
-    max-width: 812px;
-    position: absolute;
+    width: 500px;
+    height: 612px;
+    position:absolute;
     background-color: rgba( 128, 128, 128, 0.5 );
     border-radius: 8px;
     border: 1px solid rgba( 255, 255, 255, 0.25 );
@@ -217,18 +208,9 @@ a:active {
     background-color: rgba( 128, 128, 128, 0.5 );
 }
 
-#blocklyScrollDiv {
-    height: 100%;
-    min-height: 256px;
-    max-height: 764px;
-    overflow-y: hidden;
-    overflow-x: hidden;
-}
-
 #blocklyDiv {
-    height: 100%;
-    width: 100%;
-    overflow: hidden;
+    position: absolute;
+    zoom: 80%;
 }
 
 #startBlockly {
@@ -291,10 +273,6 @@ a:active {
 .blocklyTab.selected {
     background-image: url( "../../assets/images/blockly_ui/tab_selected.png" );
     color: rgba( 162, 225, 238, 0.75 );
-}
-
-#toolbox {
-    display: none;
 }
 
 #transitionScreen {
@@ -412,6 +390,8 @@ a:active {
 }
 
 .tooltip {
+    width: 300px; 
+    height: 200px; 
     background-color: rgb( 255, 255, 255 );
     text-align: center;
     border-radius: 5px;

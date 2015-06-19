@@ -16,8 +16,9 @@ function showTooltip( x, y, content ) {
     var tooltip = document.createElement( "div" );
     tooltip.className = "tooltip";
     tooltip.innerHTML = tooltipContentToHTML( content );
-    tooltip.style.left = x + "px";
-    tooltip.style.top = y + "px";
+    tooltip.style.position = "absolute";
+    tooltip.style.bottom = "110px";
+    tooltip.style.right = "10px";
     document.body.appendChild( tooltip );
 
     document.addEventListener( "mousemove", removeTooltip );
@@ -28,12 +29,14 @@ function showTooltip( x, y, content ) {
 
 function showTooltipInBlockly( block, content ) {
     if ( block && block.isInFlyout ) {
-        var pos = block.getRelativeToSurfaceXY();
-        var dim = block.getHeightWidth();        
-        var offsetX = parseInt( $( "#blocklyWrapper" ).css( "left" ) ) + dim.width;
-        var offsetY = parseInt( $( "#blocklyWrapper" ).css( "top" ) ) + parseInt( $( "#blocklyWrapper-top" ).css( "height" ));
-        return showTooltip( pos.x + offsetX, pos.y + offsetY, content );
-    }
+
+        //var pos = block.getRelativeToSurfaceXY();
+        //var dim = block.getHeightWidth();        
+        //var offsetX = parseInt( $( "#blocklyWrapper" ).css( "right" ) );
+        //var offsetY = parseInt( $( "#blocklyWrapper" ).css( "bottom" ) ); 
+        //return showTooltip( pos.x + offsetX, pos.y + offsetY, content );
+        return showTooltip(0,0,content);
+   }
     return "";
 }
 
