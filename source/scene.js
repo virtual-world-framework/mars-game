@@ -186,9 +186,6 @@ this.executeBlock = function ( block, action ) {
     var blockNode = block[ 2 ];
     var blockExeTime = block[ 3 ];
     var blockArgs = action[ 2 ];
-
-    this.blockExecuted( blockName, blockID, blockNode, blockExeTime, blockArgs );
-
     var nodeID = action[ 0 ];
     var methodName = action[ 1 ];
     var args = action[ 2 ];
@@ -198,6 +195,8 @@ this.executeBlock = function ( block, action ) {
         args = args instanceof Array ? args : [ args ];
         node[ methodName ].apply( node, args );
     }
+    
+    this.blockExecuted( blockName, blockID, blockNode, blockExeTime, blockArgs );
 }
 
 this.displayTiles = function( isVisible ) {
@@ -403,13 +402,20 @@ this.getWatchListNodes = function( tile, type ) {
     return nodes;
 }
 
-this.getAxisOffsetTileCoord = function( x, y ) {
-    var tileX, tileY, gridAxes, tileCoord;
-    gridAxes = this.environment.terrain.material.gridAxes;
-    tileX = x + gridAxes[ 1 ];
-    tileY = y + gridAxes[ 0 ];
-    tileCoord = [ tileX, tileY ];
-    return tileCoord;
+this.addAxisOffset = function( coordinate ) {
+    var tilePosition = coordinate.slice();
+    var gridAxes = this.environment.terrain.material.gridAxes;
+    tilePosition[ 0 ] += gridAxes[ 1 ];
+    tilePosition[ 1 ] += gridAxes[ 0 ];
+    return tilePosition;
+}
+
+this.removeAxisOffset = function( coordinate ) {
+    var tilePosition = coordinate.slice();
+    var gridAxes = this.environment.terrain.material.gridAxes;
+    tilePosition[ 0 ] -= gridAxes[ 1 ];
+    tilePosition[ 1 ] -= gridAxes[ 0 ];
+    return tilePosition;
 }
 
 //@ sourceURL=source/scene.js

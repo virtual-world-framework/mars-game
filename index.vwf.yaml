@@ -82,6 +82,8 @@ methods:
   clearWatchList:
   checkWatchList:
   getWatchListNodes:
+  addAxisOffset:
+  removeAxisOffset:
 events:
   gameStarted:
   scenarioReset:

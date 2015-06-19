@@ -90,7 +90,7 @@ this.moveRadialAbsolute = function( valueX, valueY ) {
         valueY = valueX[ 1 ];
         valueX = valueX[ 0 ];
     }
-    var proposedTile = this.scene.getAxisOffsetTileCoord( valueX, valueY );
+    var proposedTile = this.scene.addAxisOffset( [ valueX, valueY ] );
     var currentTile = this.tilePosition;
     var deltaX = proposedTile[ 0 ] - currentTile[ 0 ];
     var deltaY = proposedTile[ 1 ] - currentTile[ 1 ];
@@ -499,6 +499,7 @@ this.activateSensor = function( sensor, value ) {
 
     if ( sensor === 'position' ) {
         var currentLocation = this.tilePosition;
+        currentLocation = this.scene.removeAxisOffset( currentLocation );
         this.positionSensorValue = currentLocation;
         this.positionSensorValueX = currentLocation[ 0 ];
         this.positionSensorValueY = currentLocation[ 1 ];
