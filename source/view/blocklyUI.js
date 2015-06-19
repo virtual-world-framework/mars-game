@@ -20,7 +20,7 @@ var blocklySpeedButton = document.createElement( "div" );
 
 function setUpBlocklyPeripherals() {
 
-    centerBlocklyWindow();
+    //centerBlocklyWindow();
 
     var blocklyFooter = document.createElement( "div" );
     var blocklyCloseBtn = document.createElement( "div" );
@@ -74,16 +74,16 @@ function setUpBlocklyPeripherals() {
         handle: "div#blocklyHandle",
         scroll: false,
     } );
-    $( "#blocklyWrapper" ).resizable({
-        resize: function( event, ui ) {
-            console.log('resize');
-            blocklyResized();
-        },
-        stop: function( event, ui ) {
-            console.log('resizeend');
-            blocklyResized();
-        }
-    });
+    // $( "#blocklyWrapper" ).resizable({
+    //     resize: function( event, ui ) {
+    //         console.log('resize');
+    //         blocklyResized();
+    //     },
+    //     stop: function( event, ui ) {
+    //         console.log('resizeend');
+    //         blocklyResized();
+    //     }
+    // });
 
     ramBar.id = "ramBar";
     ramBarCount.id = "ramBarCount";
@@ -153,9 +153,9 @@ var blocklyResized = function(e) {
         // Position blocklyDiv over blocklyArea.
         blocklyDiv.style.left = '0px';
         blocklyDiv.style.top = blocklyHandle.height + 'px';
-        blocklyDiv.style.width = ( blocklyArea.offsetWidth * 1.25 ) + 'px';
+        blocklyDiv.style.width = ( blocklyArea.offsetWidth - 5) + 'px';
 
-        var newHeight = ( blocklyArea.offsetHeight - blocklyHandle.offsetHeight - blocklyFooter.offsetHeight ) * 1.25;
+        var newHeight = ( blocklyArea.offsetHeight - blocklyHandle.offsetHeight - blocklyFooter.offsetHeight ) - 5;
         blocklyDiv.style.height = newHeight + 'px';
     }
     

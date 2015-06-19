@@ -5,8 +5,8 @@ body {
 
 #timerWindow {
     position: absolute;
-    top: 150px;
-    right: 0px;
+    left: 20px;
+    bottom: 225px;
     width: 250px;
     background-color: rgba( 0, 0, 0, 0.5 );
     color: white;
@@ -165,12 +165,15 @@ a:active {
 }
 
 #blocklyWrapper {
-    width: 500px;
-    height: 612px;
-    position:absolute;
+    width: 40%;
+    height: 70%;
+    min-height: 400px;
+    min-width: 600px;
+    position: absolute;
+    right: 10px;
+    top: 15%;
     background-color: rgba( 128, 128, 128, 0.5 );
     border-radius: 8px;
-    float: right;
     border: 1px solid rgba( 255, 255, 255, 0.25 );
     visibility: hidden;
     pointer-events: none;
@@ -211,7 +214,7 @@ a:active {
 
 #blocklyDiv {
     position: absolute;
-    zoom: 80%;
+    zoom: 100%;
 }
 
 #startBlockly {
