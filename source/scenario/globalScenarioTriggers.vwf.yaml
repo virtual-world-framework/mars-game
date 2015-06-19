@@ -216,6 +216,8 @@ properties:
         - rover1StartSound
       - playSound:
         - rover1EngineSound
+      - playSound:
+        - rover1GravelSound  
 
     stopRoverSounds:
       triggerCondition:
@@ -231,25 +233,25 @@ properties:
       - playSound:
         - rover1EndSound
 
-    roverIdle:
-      triggerCondition:
-      - onBlocklyBlock:
-        - rover
-        - rover_moveForward
-        - false
-      actions:
-      - stopSound:
-        - rover1GravelSound
+  #  roverIdle:              //Code depending on onBlocklyBlock is currently commented out
+  #    triggerCondition:
+  #    - onBlocklyBlock:
+  #      - rover
+  #      - rover_moveForward
+  #      - false
+  #    actions:
+  #    - stopSound:
+  #      - rover1GravelSound
 
-    roverDeIdle:
-      triggerCondition:
-      - onBlocklyBlock:
-        - rover
-        - rover_moveForward
-        - true
-      actions:
-      - playSound:
-        - rover1GravelSound
+  #  roverDeIdle:
+  #    triggerCondition:
+  #    - onBlocklyBlock:
+  #      - rover
+  #      - rover_moveForward
+  #      - true
+  #    actions:
+  #    - playSound:
+  #      - rover1GravelSound
 
     startRover2Sounds:
       triggerCondition:
@@ -260,6 +262,8 @@ properties:
         - rover2StartSound
       - playSound:
         - rover2EngineSound
+      - playSound:
+        - rover2GravelSound  
 
     stopRover2Sounds:
       triggerCondition:
@@ -275,25 +279,25 @@ properties:
       - playSound:
         - rover2EndSound
 
-    rover2Idle:
-      triggerCondition:
-      - onBlocklyBlock:
-        - rover
-        - rover_moveForward
-        - false
-      actions:
-      - stopSound:
-        - rover2GravelSound
+  #  rover2Idle:
+  #    triggerCondition:
+  #    - onBlocklyBlock:
+  #      - rover2
+  #      - rover_moveForward
+  #      - false
+  #    actions:
+  #    - stopSound:
+  #      - rover2GravelSound
 
-    rover2DeIdle:
-      triggerCondition:
-      - onBlocklyBlock:
-        - rover
-        - rover_moveForward
-        - true
-      actions:
-      - playSound:
-        - rover2GravelSound    
+  #  rover2DeIdle:
+  #    triggerCondition:
+  #    - onBlocklyBlock:
+  #      - rover2
+  #      - rover_moveForward
+  #      - true
+  #    actions:
+  #    - playSound:
+  #      - rover2GravelSound    
 
     startRover3Sounds:
       triggerCondition:
@@ -304,6 +308,8 @@ properties:
         - rover3StartSound
       - playSound:
         - rover3EngineSound
+      -playSound:
+        - rover3GravelSound
 
     stopRover3Sounds:
       triggerCondition:
@@ -319,25 +325,47 @@ properties:
       - playSound:
         - rover3EndSound
 
-    rover3Idle:
-      triggerCondition:
-      - onBlocklyBlock:
-        - rover3
-        - rover_moveForward
-        - false
-      actions:
-      - stopSound:
-        - rover3GravelSound
+  #  rover3Idle:
+  #    triggerCondition:
+  #    - onBlocklyBlock:
+  #      - rover3
+  #      - rover_moveForward
+  #      - false
+  #    actions:
+  #    - stopSound:
+  #      - rover3GravelSound
 
-    rover3DeIdle:
-      triggerCondition:
-      - onBlocklyBlock:
-        - rover3
-        - rover_moveForward
-        - true
-      actions:
-      - playSound:
-        - rover3GravelSound
+  #  rover3DeIdle:
+  #    triggerCondition:
+  #    - onBlocklyBlock:
+  #      - rover3
+  #      - rover_moveForward
+  #      - true
+  #    actions:
+  #    - playSound:
+  #      - rover3GravelSound
+
+  #  roverSprayCanOn:
+  #    triggerCondition:
+  #    - onBlocklyBlock: 
+  #      - rover2
+  #      - start_triangle
+  #      - true
+  #    actions:
+  #    - playSound:
+  #      - nanoSpraySound
+
+  #  roverSprayCanOff:
+  #    triggerCondition:
+  #    - onBlocklyBlock:
+  #      - rover2
+  #      - end_triangle
+  #      - true
+  #    actions:
+  #    - stopSound:
+  #      - nanoSpraySound
+
+
 
 methods:
   # This is called using future(0) inside of initialize.

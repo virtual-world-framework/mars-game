@@ -130,6 +130,10 @@ properties:
       soundURL: "assets/sounds/sfx/relicRoverMovementOutro01.ogg"
       initialVolume: 0.6
       isLooping: false
+    - soundName: "nanoSpraySound"
+      soundURL: "assets/sounds/sfx/genericConstructionSpray01.ogg"
+      initialVolume: 0.6
+      isLooping: true
     - soundName: "environmentWind"
       soundURL: "assets/sounds/sfx/environmentWind_04.ogg"
       initialVolume: 0.8
@@ -150,7 +154,7 @@ properties:
       initialVolume: 0.65
       subtitle: "[ROVER]: Where am I? Who am I? I appear to be on Mars. I have wheels, a computer for a brain, and a battery. Hmm...if I had to guess I would say that I'm a rover!"
       soundGroup: vo
-      groupReplacementMethod: queue
+      groupReplacementMethod: replace
     - soundName: "L1VO2_Rover"
       soundURL: "assets/sounds/vo/L1VO2_Rover_m.ogg"
       initialVolume: 0.65
