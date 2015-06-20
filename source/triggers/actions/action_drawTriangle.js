@@ -44,11 +44,11 @@ this.executeAction = function() {
     var tileMap = scene.tileMap;
 
     if ( scene && tileMap ) {
-        var gridVert1 = scene.getAxisOffsetTileCoord( this.vertex1[ 0 ], this.vertex1[ 1 ] );
+        var gridVert1 = scene.addAxisOffset( this.vertex1 );
         var worldVert1 = tileMap.getWorldCoordFromTile( gridVert1[ 0 ], gridVert1[ 1 ] );
-        var gridVert2 = scene.getAxisOffsetTileCoord( this.vertex2[ 0 ], this.vertex2[ 1 ] );
+        var gridVert2 = scene.addAxisOffset( this.vertex2 );
         var worldVert2 = tileMap.getWorldCoordFromTile( gridVert2[ 0 ], gridVert2[ 1 ] );
-        var gridVert3 = scene.getAxisOffsetTileCoord( this.vertex3[ 0 ], this.vertex3[ 1 ] );
+        var gridVert3 = scene.addAxisOffset( this.vertex3 );
         var worldVert3 = tileMap.getWorldCoordFromTile( gridVert3[ 0 ], gridVert3[ 1 ] );
         this.scene.drawSchematicTriangle( worldVert1, worldVert2, worldVert3 );
     }
