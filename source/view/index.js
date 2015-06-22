@@ -68,6 +68,8 @@ var timerScenarioElapsedTime = document.getElementById( "timerScenarioElapsedTim
 var timerDetailButton = document.getElementById( "timerDetailButton" );
 timerDetailButton.onclick = toggleTimerDetailList;
 var timerDetailList = document.getElementById( "timerDetailList" );
+var blocklyArea = document.getElementById('blocklyWrapper');
+var blocklyDiv = document.getElementById('blocklyDiv');
 
 var cameraTargetPosition = [ 0, 0, 0 ];
 

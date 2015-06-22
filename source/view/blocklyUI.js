@@ -20,7 +20,7 @@ var blocklySpeedButton = document.createElement( "div" );
 
 function setUpBlocklyPeripherals() {
 
-    centerBlocklyWindow();
+    //centerBlocklyWindow();
 
     var blocklyFooter = document.createElement( "div" );
     var blocklyCloseBtn = document.createElement( "div" );
@@ -47,35 +47,43 @@ function setUpBlocklyPeripherals() {
     $( "#blocklyWrapper" ).append( indicatorHighlighter );
     $( "#blocklyWrapper" ).append( indicator );
     $( "#blocklyWrapper" ).append( procedureIndicator );
+    // $( "#blocklyWrapper" ).draggable( {
+    //     handle: "div#blocklyHandle",
+    //     scroll: false,
+    //     drag: function( event, element ) {
+    //         $( ".blocklyWidgetDiv" ).css( "display", "none" );
+    //         var width = element.helper.context.offsetWidth;
+    //         var top = 0;
+    //         var bottom = window.innerHeight - blocklyHandle.offsetHeight;
+    //         var left = width * -0.5;
+    //         var right = window.innerWidth - width * 0.5;
+
+    //         if ( element.position.left < left ) {
+    //             element.position.left = left;
+    //         } else if ( element.position.left > right ) {
+    //             element.position.left = right;
+    //         }
+    //         if ( element.position.top < top ) {
+    //             element.position.top = top;
+    //         } else if ( element.position.top > bottom ) {
+    //             element.position.top = bottom;
+    //         }
+    //     }
+    // } );
     $( "#blocklyWrapper" ).draggable( {
         handle: "div#blocklyHandle",
         scroll: false,
-        drag: function( event, element ) {
-            $( ".blocklyWidgetDiv" ).css( "display", "none" );
-            var width = element.helper.context.offsetWidth;
-            var top = 0;
-            var bottom = window.innerHeight - blocklyHandle.offsetHeight;
-            var left = width * -0.5;
-            var right = window.innerWidth - width * 0.5;
-
-            if ( element.position.left < left ) {
-                element.position.left = left;
-            } else if ( element.position.left > right ) {
-                element.position.left = right;
-            }
-            if ( element.position.top < top ) {
-                element.position.top = top;
-            } else if ( element.position.top > bottom ) {
-                element.position.top = bottom;
-            }
-        }
     } );
-    // $( "#blocklyWrapper" ).resizable( {
-    //     alsoResize: "#blocklyScrollDiv",
-    //     handles: 'n, s',
-    //     resize: updateOnBlocklyResize,
-    //     stop: keepBlocklyWithinBounds
-    // } );
+    // $( "#blocklyWrapper" ).resizable({
+    //     resize: function( event, ui ) {
+    //         console.log('resize');
+    //         blocklyResized();
+    //     },
+    //     stop: function( event, ui ) {
+    //         console.log('resizeend');
+    //         blocklyResized();
+    //     }
+    // });
 
     ramBar.id = "ramBar";
     ramBarCount.id = "ramBarCount";
@@ -101,7 +109,7 @@ function setUpBlocklyPeripherals() {
     startBlocklyButton.onclick = clickStartButton;
 
     blocklySpeedButton.innerHTML = "";
-    blocklySpeedButton.className = "slow";
+    blocklySpeedButton.className = "normal";
     blocklySpeedButton.onclick = clickSpeedButton;
 
     $( "#blocklyDiv" ).wrap( blocklyScrollDiv );
@@ -113,15 +121,10 @@ function setUpBlocklyPeripherals() {
     ramBar.appendChild( currentRam );
     ramBar.appendChild( ramBarCount );
 
-    $( "#blocklyScrollDiv" ).on( "scroll", function() {
-        indicateBlock( currentBlockIDSelected );
-        //indicateProcedureBlock( currentProcedureBlockID );
-    });    
+    // // Ensure that the blockly ui is accessible on smaller screens
+    blocklyResized();
 
-    // Ensure that the blockly ui is accessible on smaller screens
-    resizeBlockly();
-
-    window.addEventListener( 'resize', keepBlocklyWithinBounds );
+    window.addEventListener( 'resize', blocklyResized );
     document.addEventListener( 'mouseup', scrollIndicators );
 }
 
@@ -130,43 +133,72 @@ function scrollIndicators() {
     //indicateProcedureBlock( currentProcedureBlockID );
 }
 
-function resizeBlockly() {
-    var maxBlocklyHeight = parseInt( $( "#blocklyWrapper" ).css( "max-height") );
-    var currentHeight = parseInt( $( "#blocklyWrapper" ).css( "height") );
-    var height = window.innerHeight * 0.8 <= maxBlocklyHeight ? Math.floor( window.innerHeight * 0.8 ) : maxBlocklyHeight;
+var blocklyResized = function(e) {
+    // Compute the absolute coordinates and dimensions of blocklyArea.
+    var blocklyArea = document.getElementById('blocklyWrapper');
+    var blocklyDiv = document.getElementById('blocklyDiv');
+    var blocklyHandle = document.getElementById('blocklyHandle');
+    var blocklyFooter = document.getElementById('blocklyFooter');
 
-    if ( height !== currentHeight ) {
-        var wrapperDifference = parseInt( $( "#blocklyWrapper-top" ).css( "height") ) + parseInt( $( "#blocklyFooter" ).css( "height") );        
-        $( "#blocklyWrapper" ).css( "height", height + "px" );
-        $( "#blocklyScrollDiv" ).css( "height", ( height - wrapperDifference ) + "px" );
-        centerBlocklyWindow();
-    }
-}
+    if ( blocklyArea && blocklyDiv && blocklyHandle && blocklyFooter ) {
+        
+        var element = blocklyArea;
+        var x = 0;
+        var y = 0;
+        do {
+          x += element.offsetLeft;
+          y += element.offsetTop;
+          element = element.offsetParent;
+        } while ( element );
+        // Position blocklyDiv over blocklyArea.
+        blocklyDiv.style.left = '0px';
+        blocklyDiv.style.top = blocklyHandle.height + 'px';
+        blocklyDiv.style.width = ( blocklyArea.offsetWidth - 5) + 'px';
 
-function keepBlocklyWithinBounds() {
-    var handle = document.getElementById( "blocklyHandle" );
-    var wrapper = document.getElementById( "blocklyWrapper" );
-    if ( handle && wrapper ) {
-        var width = wrapper.offsetWidth;
-        var bottom = window.innerHeight - handle.offsetHeight;
-        var left = width * -0.5;
-        var right = window.innerWidth - width * 0.5;        
-        if ( parseInt( wrapper.style.top ) > bottom ) {
-            wrapper.style.top = bottom + "px";
-        } else if ( parseInt( wrapper.style.top ) < 0 ) {
-            wrapper.style.top = 0 + "px";
-        }
-        if ( parseInt( wrapper.style.left ) < left ) {
-            wrapper.style.left = left + "px";
-        } else if ( parseInt ( wrapper.style.left ) > right ) {
-            wrapper.style.left = right + "px";
-        }
+        var newHeight = ( blocklyArea.offsetHeight - blocklyHandle.offsetHeight - blocklyFooter.offsetHeight ) - 5;
+        blocklyDiv.style.height = newHeight + 'px';
     }
-}
+    
+};
+
+// function resizeBlockly() {
+//     var maxBlocklyHeight = parseInt( $( "#blocklyWrapper" ).css( "max-height") );
+//     var currentHeight = parseInt( $( "#blocklyWrapper" ).css( "height") );
+//     var height = window.innerHeight * 0.8 <= maxBlocklyHeight ? Math.floor( window.innerHeight * 0.8 ) : maxBlocklyHeight;
+
+//     if ( height !== currentHeight ) {
+//         var wrapperDifference = parseInt( $( "#blocklyWrapper-top" ).css( "height") ) + parseInt( $( "#blocklyFooter" ).css( "height") );        
+//         $( "#blocklyWrapper" ).css( "height", height + "px" );
+//         $( "#blocklyScrollDiv" ).css( "height", ( height - wrapperDifference ) + "px" );
+//         centerBlocklyWindow();
+//     }
+// }
+
+// function keepBlocklyWithinBounds() {
+//     var handle = document.getElementById( "blocklyHandle" );
+//     var wrapper = document.getElementById( "blocklyWrapper" );
+//     if ( handle && wrapper ) {
+//         var width = wrapper.offsetWidth;
+//         var bottom = window.innerHeight - handle.offsetHeight;
+//         var left = width * -0.5;
+//         var right = window.innerWidth - width * 0.5;        
+//         if ( parseInt( wrapper.style.top ) > bottom ) {
+//             wrapper.style.top = bottom + "px";
+//         } else if ( parseInt( wrapper.style.top ) < 0 ) {
+//             wrapper.style.top = 0 + "px";
+//         }
+//         if ( parseInt( wrapper.style.left ) < left ) {
+//             wrapper.style.left = left + "px";
+//         } else if ( parseInt ( wrapper.style.left ) > right ) {
+//             wrapper.style.left = right + "px";
+//         }
+//     }
+// }
 
 function updateOnBlocklyResize( event ) {
-    keepBlocklyWithinBounds();
-    indicateBlock( currentBlockIDSelected );
+    //blocklyResized();
+    //keepBlocklyWithinBounds();
+    //indicateBlock( currentBlockIDSelected );
     //indicateProcedureBlock( currentProcedureBlockID );
 }
 
