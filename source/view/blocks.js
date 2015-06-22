@@ -93,7 +93,13 @@ Blockly.Blocks['mark_point'] = {
         .appendField("markPoint")
     this.setPreviousStatement(true);
     this.setNextStatement(true);
-    this.setTooltip('Adds a point to our triangle drawing nanomatrix generator.');
+    this.setTooltip( function() {
+      var content = {
+        text: 'Adds a point to our triangle drawing nanomatrix generator.'
+      }
+      return showTooltipInBlockly( thisBlock, content );
+    } );
+
     this.data = currentBlocklyNodeID;
   },
   onchange: function() {
@@ -129,7 +135,12 @@ Blockly.Blocks['ordered_pair'] = {
     this.setOutput(true, null);
     this.data = currentBlocklyNodeID;
     var thisBlock = this;
-    this.setTooltip('An ordered pair block.');
+    this.setTooltip( function() {
+      var content = {
+        text: "An ordered pair block."
+      }
+      return showTooltipInBlockly( thisBlock, content );
+    } );
   },
 
   /**
@@ -220,7 +231,12 @@ Blockly.Blocks['ordered_get'] = {
         .appendField(new Blockly.FieldDropdown([[".x", ".x"], [".y", ".y"]]), "OPTION");
     this.setOutput(true, "OrderedGet");
     this.data = currentBlocklyNodeID;
-    this.setTooltip('Retrieves X or Y values from ordered pair blocks');
+    this.setTooltip( function() {
+      var content = {
+        text: "Retrieves X or Y values from ordered pair blocks."
+      }
+      return showTooltipInBlockly( thisBlock, content );
+    } );
   }
 };
 
@@ -247,7 +263,13 @@ Blockly.Blocks['ordered_get_noin'] = {
         .appendField(new Blockly.FieldDropdown([[".x", ".x"], [".y", ".y"]]), "OPTION");
     this.setOutput(true, "OrderedGet");
     this.data = currentBlocklyNodeID;
-    this.setTooltip('Retrieves X or Y values from ordered pair blocks');
+    this.setTooltip( function() {
+      var content = {
+        text: 'Retrieves X or Y values from ordered pair blocks.'
+      }
+      return showTooltipInBlockly( thisBlock, content );
+    } );
+
   }
 };
 
@@ -591,7 +613,7 @@ Blockly.Blocks[ 'logic_cond_out' ] = {
     this.data = currentBlocklyNodeID;
     this.setTooltip( function() {
       var content = {
-        text: "A block for selecting conditional operators"
+        text: "A block for selecting conditional operators."
       }
       return showTooltipInBlockly( thisBlock, content );
     } );
@@ -622,7 +644,7 @@ Blockly.Blocks[ 'logic_andor_out' ] = {
     this.data = currentBlocklyNodeID;
     this.setTooltip( function() {
       var content = {
-        text: "A block for selecting and/or operators"
+        text: "A block for selecting and/or operators."
       }
       return showTooltipInBlockly( thisBlock, content );
     } );
@@ -651,7 +673,7 @@ Blockly.Blocks[ 'logic_boolean' ] = {
     this.data = currentBlocklyNodeID;
     this.setTooltip( function() {
       var content = {
-        text: "A block for selecting boolean values"
+        text: "A block for selecting boolean values."
       }
       return showTooltipInBlockly( thisBlock, content );
     } );
@@ -1358,7 +1380,7 @@ Blockly.Blocks[ 'controls_sensor_heading' ] = {
     var thisBlock = this;
     this.setTooltip( function() {
       var content = {
-        text: "Checks our rover for its direction of travel (heading) in a 360° arc that starts on the X-axis. Returns a value between 0 and 360"
+        text: "Checks our rover for its direction of travel (heading) in a 360° arc that starts on the X-axis. Returns a value between 0 and 360."
       }
       return showTooltipInBlockly( thisBlock, content );
     } );
@@ -1392,7 +1414,7 @@ Blockly.Blocks['rover_moveForward'] = {
     this.setTooltip( function() {
       var content = {
         text: "Moves the rover one space forward.",
-        imagePath: "assets/images/tooltips/move_forward.png"
+        imagePath: "assets/images/tooltips/move_forward_smaller.png"
       }
       return showTooltipInBlockly( thisBlock, content );
     } );
@@ -1423,7 +1445,12 @@ Blockly.Blocks['rover_moveRadial_ordered'] = {
     this.setNextStatement(true, "null");
     this.data = currentBlocklyNodeID;
     var thisBlock = this;
-    this.setTooltip("Moves to the coordinate specified by a connected ordered pair block.");
+    this.setTooltip( function(){
+      var content = {
+        text: "Moves to the coordinate specified by a connected ordered pair block."
+      }
+      return showTooltipInBlockly(thisBlock, content);
+    });
   }
 };
 
@@ -1493,7 +1520,12 @@ Blockly.Blocks['rover_moveRadial'] = {
     this.setNextStatement(true, "null");
     this.data = currentBlocklyNodeID;
     var thisBlock = this;
-    this.setTooltip("Moves the specified number of spaces along the X and Y axes");
+    this.setTooltip( function(){
+      var content = {
+        text: "Moves the specified number of spaces along the X and Y axes."
+      }
+      return showTooltipInBlockly( thisBlock, content);
+    });
   }
 };
 
@@ -1533,7 +1565,12 @@ Blockly.Blocks['rover_moveRadial_absolute'] = {
     this.setNextStatement(true, "null");
     this.data = currentBlocklyNodeID;
     var thisBlock = this;
-    this.setTooltip("Moves to the specified coordinate");
+    this.setTooltip( function(){
+      var content = {
+        text: "Moves to the specified coordinate."
+      }
+      return showTooltipInBlockly( thisBlock, content);
+    });
   }
 };
 
@@ -1597,7 +1634,7 @@ Blockly.Blocks['rover_turn'] = {
     this.setTooltip( function() {
       var content = {
         text: "Turns the rover 90 degrees counter-clockwise (left) or clockwise (right).",
-        imagePath: "assets/images/tooltips/turn.png"
+        imagePath: "assets/images/tooltips/turn_smaller.png"
       }
       return showTooltipInBlockly( thisBlock, content );
     } ); 
@@ -1651,7 +1688,7 @@ Blockly.Blocks[ 'controls_repeat_extended' ] = {
     this.setTooltip( function() {
       var content = {
         text: "Repeats the contained blocks a certain number of times.",
-        imagePath: "assets/images/tooltips/while.png"
+        imagePath: "assets/images/tooltips/while_smaller.png"
       }
       return showTooltipInBlockly( thisBlock, content );
     } );    
@@ -1771,7 +1808,7 @@ Blockly.Blocks['math_number_field'] = {
       }
       else if ( text_value > 999 || text_value < -999){
         this.setFieldValue( '0' ,'VALUE' );
-        this.setWarningText( 'Must be between -999 and 999' );
+        this.setWarningText( 'Must be between -999 and 999.' );
       } else {
         this.setWarningText( null );
         this.setFieldValue( text_value ,'VALUE' );
@@ -1794,7 +1831,7 @@ Blockly.JavaScript['math_number_field'] = function( block ) {
     }
     else if ( text_value > 999 || text_value < -999){
       block.setFieldValue( '0' ,'VALUE' );
-      block.setWarningText( 'Must be between -999 and 999' );
+      block.setWarningText( 'Must be between -999 and 999.' );
     } else {
       block.setWarningText( null );
       block.setFieldValue( text_value ,'VALUE' );
@@ -1822,8 +1859,15 @@ Blockly.Blocks['math_number_angle_select'] = {
         .appendField(new Blockly.FieldAngle("90"), "VALUE");
     this.setOutput(true, "Number");
     this.setTooltip('This is a number block that lets you select a number and preview angle directions.');
+    //this.setTooltip( function() {
+    //  var content = {
+    //    text: "This is a number block that lets you select a number and preview angle directions."
+    //  }
+    //  return showTooltipInBlockly( thisBlock, content );
+    //});  
   }
 };
+
 
 Blockly.JavaScript['math_number_angle_select'] = function(block) {
   var argument0 = Blockly.JavaScript.valueToCode(block, 'INPUT', Blockly.JavaScript.ORDER_ATOMIC);
