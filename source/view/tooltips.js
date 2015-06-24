@@ -24,12 +24,15 @@ function showTooltip( x, y, content ) {
     blocklyBlocks = document.getElementsByClassName("blocklyPath");
 
     for (var i=0;i<blocklyBlocks.length;i++){
-        blocklyBlocks[i].addEventListener("mouseout", removeTooltip, true);
+        blocklyBlocks[i].addEventListener("mouseout", removeTooltipMouseout, true);
     }
+    
+    document.addEventListener("click", removeTooltipClick);
 
     // Return an empty string because blockly gets mad if we don't
     return "";
 }
+
 
 function showTooltipInBlockly( block, content ) {
     if ( block && block.isInFlyout ) {
@@ -44,7 +47,7 @@ function showTooltipInBlockly( block, content ) {
     return "";
 }
 
-function removeTooltip(event) {
+function removeTooltipMouseout(event) {
 
     var removeTip = true;
 
@@ -59,9 +62,14 @@ function removeTooltip(event) {
     if(removeTip){
         $(".tooltip").remove();
         for (var i=0;i<blocklyBlocks.length;i++){
-            blocklyBlocks[i].removeEventListener("mouseout", removeTooltip);
+            blocklyBlocks[i].removeEventListener("mouseout", removeTooltipMouseout);
         }
     }
+}
+
+function removeTooltipClick(event){
+    $(".tooltip").remove();
+    document.removeEventListener("click",removeTooltipClick);
 }
 
 function tooltipContentToHTML( content ) {
