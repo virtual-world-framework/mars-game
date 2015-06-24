@@ -21,18 +21,11 @@ function showTooltip( x, y, content ) {
     tooltip.style.right = "10px";
     document.body.appendChild( tooltip );
 
-    blocklyBlocks = document.getElementsByClassName("blocklyPath");
-
-    for (var i=0;i<blocklyBlocks.length;i++){
-        blocklyBlocks[i].addEventListener("mouseout", removeTooltipMouseout, true);
-    }
-    
     document.addEventListener("click", removeTooltipClick);
-
+    document.addEventListener("mousemove", removeTooltipHoverout);
     // Return an empty string because blockly gets mad if we don't
     return "";
 }
-
 
 function showTooltipInBlockly( block, content ) {
     if ( block && block.isInFlyout ) {
@@ -47,23 +40,15 @@ function showTooltipInBlockly( block, content ) {
     return "";
 }
 
-function removeTooltipMouseout(event) {
+function removeTooltipHoverout(event){
 
-    var removeTip = true;
-
-    if(event.relatedTarget.getAttribute("class") == "blocklyText"){
-        removeTip = false;
-    }
-    
-    if( event.relatedTarget.parentNode.getAttribute("class") == "blocklyEditableText"){
-        removeTip = false;
-    }
-
-    if(removeTip){
+    if(!(event.target.getAttribute("class") == "blocklyPath" || 
+        event.target.getAttribute("class") == "blocklyText" || 
+        event.target.parentNode.getAttribute("class") == "blocklyEditableText" ||
+        event.target.parentNode.getAttribute("class"))){
         $(".tooltip").remove();
-        for (var i=0;i<blocklyBlocks.length;i++){
-            blocklyBlocks[i].removeEventListener("mouseout", removeTooltipMouseout);
-        }
+        document.removeEventListener("mousemove",removeTooltipHoverout);
+        
     }
 }
 
