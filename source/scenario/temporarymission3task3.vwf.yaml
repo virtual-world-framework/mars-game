@@ -1,0 +1,27 @@
+---
+extends: ../scenario/scenario.vwf
+properties:
+  scenarioName: mission3task3
+  scenePath: /
+  nextScenarioPath: "mission4task1"
+
+children:
+  triggerManager:
+    extends: ../triggers/triggerManager.vwf
+    properties: 
+      triggers$:
+        beginScenario_Intro:
+          triggerCondition:
+          - onScenarioStart:
+          actions:
+          - stopAllSounds:
+          - playVideo:
+            - successCutscene02_newAudio
+        succeedOnIntroDone:
+          group: successOrFailure
+          priority: 0
+          triggerCondition:
+          - onVideoPlayed:
+            - successCutscene02_newAudio
+          actions:
+          - scenarioSuccess:

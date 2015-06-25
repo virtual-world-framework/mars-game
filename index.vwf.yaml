@@ -682,10 +682,14 @@ children:
     includes: source/scenario/scenario3e.vwf
   scenario3f:
     includes: source/scenario/scenario3f.vwf
-  temporarymission3task1:
-    includes: source/scenario/temporarymission3task1.vwf
   mission3task1:
-    includes: source/scenario/mission3task1.vwf
+    includes: source/scenario/temporarymission3task1.vwf
+  mission3task2:
+    includes: source/scenario/temporarymission3task2.vwf
+  mission3task3:
+    includes: source/scenario/temporarymission3task3.vwf
+#  mission3task1:
+#    includes: source/scenario/mission3task1.vwf
   mission4task1:
     includes: source/scenario/mission4task1.vwf
   mission4task2:
