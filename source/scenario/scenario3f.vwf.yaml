@@ -1,9 +1,9 @@
 ---
 extends: ../scenario/scenario.vwf
 properties:
-  scenarioName: scenario1h
+  scenarioName: scenario3f
   scenePath: /
-  nextScenarioPath: mission3task1
+  nextScenarioPath: "temporarymission3task1"
 
 children:
   triggerManager:
