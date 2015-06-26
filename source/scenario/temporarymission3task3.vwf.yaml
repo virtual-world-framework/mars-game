@@ -25,4 +25,4 @@ children:
             - successCutscene02_newAudio
           actions:
           - scenarioSuccess:
-         # - clearBlockly:
+          - clearBlockly:

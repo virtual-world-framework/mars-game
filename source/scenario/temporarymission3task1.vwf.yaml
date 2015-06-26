@@ -43,6 +43,10 @@ properties:
     - visible
     - false
   - setProperty:
+    - minirover
+    - visible
+    - false
+  - setProperty:
     - rover
     - battery
     - 40
@@ -88,6 +92,8 @@ children:
             - doOnce:
             - onScenarioStart:
           actions:
+          - playSound:
+            - TM3VO1_MC
           - playSound:
             - L3VO6_Rover
 
