@@ -124,6 +124,8 @@ children:
           - showAlert:
             - "Course Plotted: Navigation Program Update Required"
           - playSound:
+            - L3_VO4S
+          - playSound:
             - musicSuccessShort
   brief:
     extends: ../missionBrief.vwf

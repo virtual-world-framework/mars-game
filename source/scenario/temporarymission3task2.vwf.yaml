@@ -91,7 +91,7 @@ children:
             - onScenarioStart:
           actions:
           - playSound:
-            - L3VO6_Mission
+            - L3VO5_Rover
 
         playTravelVO_3c:
           triggerCondition:

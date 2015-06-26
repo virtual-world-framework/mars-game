@@ -272,7 +272,7 @@ properties:
     - soundName: "TM3VO1_MC"
       soundURL: "assets/sounds/vo/m3t1VO00MissionControl.ogg"
       initialVolume: 0.65
-      subtitle: "MC: Well then… The bad news is, that rover appears to be out of control. The good news is, we found where our base pod landed. The other bad news is, the base pod appears to have been dragged away by its parachute. You’ll need to follow the drag marks and recover the base pod, as it contains essential supplies for building a base for the human explorers."
+      subtitle: "[MC]: Well then… The bad news is, that rover appears to be out of control. The good news is, we found where our base pod landed. The other bad news is, the base pod appears to have been dragged away by its parachute. You’ll need to follow the drag marks and recover the base pod, as it contains essential supplies for building a base for the human explorers."
       soundGroup: vo
       groupReplacementMethod: queue
     - soundName: "M3VO1_Rover"
