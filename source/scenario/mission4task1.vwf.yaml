@@ -55,7 +55,7 @@ properties:
   # Manny
   - addToGrid:
     - rover
-    - [ -27, 75 ]
+    - [ -35, 66 ]
   - callMethod:
     - rover
     - setHeading
@@ -84,7 +84,7 @@ properties:
     - true
   - addToGrid:
     - rover2
-    - [ -24, 77 ]
+    - [ -32, 68 ]
   - setProperty:
     - rover2
     - battery
@@ -106,23 +106,23 @@ properties:
     - visible
     - false
   - setGridAxes:
-    - 86
-    - -14
+    - 77
+    - -22
   - drawTriangle:
     - [ -10, 0 ]
     - [ -10, 3 ]
     - [ -13, 0 ]
-  - addToGrid:
-    - solarPanel1
-    - [ -24, 86 ]
-  # - setProperty:
-  #   - solarPanel1
-  #   - visible
-  #   - true
-  # - setProperty:
-  #   - solarPanel1
-  #   - built
-  #   - true
+#  - addToGrid:
+#    - solarPanel1
+#    - [ -32, 77 ]
+#  - setProperty:
+#    - solarPanel1
+#    - visible
+#    - true
+#  - setProperty:
+#    - solarPanel1
+#    - built
+#    - true
 
 children:
   triggerManager:
@@ -148,8 +148,8 @@ children:
             - musicSuccessShort
           - playSound:
             - M4VO26_MC
-          - buildBaseComponent:
-            - solarPanel1
+    #      - buildBaseComponent:
+    #        - solarPanel1
 
         playStartingVO_4_1_1:
           triggerCondition:

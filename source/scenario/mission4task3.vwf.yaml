@@ -47,7 +47,7 @@ properties:
 
   - addToGrid:
     - rover
-    - [ -27, 75 ]
+    - [ -35, 66 ]
   - callMethod:
     - rover
     - setHeading
@@ -93,12 +93,15 @@ properties:
     - visible
     - false
   - setGridAxes:
-    - 86
-    - -14
+    - 77
+    - -22
   - drawTriangle:
     - [ 0, 0 ]
     - [ 0, 6 ]
     - [ -6, 0 ]
+#   - addToGrid:
+#    - solarPanel1
+#    - [ -22, 77 ]
 children:
   triggerManager:
     extends: ../triggers/triggerManager.vwf
@@ -120,19 +123,19 @@ children:
             - not:
               - isAtPosition:
                 - rover2
-                - [ -14, 86 ]
+                - [ -22, 77 ]
             - not:
               - isAtPosition:
                 - rover2
-                - [ -14, 89 ]
+                - [ -22, 80 ]
             - not:
               - isAtPosition:
                 - rover2
-                - [ -17, 86 ]
+                - [ -25, 77 ]
           actions:
             - addToGrid:
               - rover2
-              - [ -14, 86 ]
+              - [ -22, 77 ]
 
         succeedOnTriangle_4_3:
           group: successOrFailure

@@ -49,7 +49,7 @@ properties:
   # Manny
   - addToGrid:
     - rover
-    - [ -27, 75 ]
+    - [ -35, 66 ]
   - callMethod:
     - rover
     - setHeading
@@ -103,8 +103,8 @@ properties:
     - visible
     - false
   - setGridAxes:
-    - 86
-    - -14
+    - 77
+    - -22
   # Draw the desired triangle
   - drawTriangle:
     - [ 0, 0 ]
@@ -132,19 +132,19 @@ children:
             - not:
               - isAtPosition:
                 - rover2
-                - [ -24, 86 ]
+                - [ -32, 77 ]
             - not:
               - isAtPosition:
                 - rover2
-                - [ -24, 89 ]
+                - [ -32, 80 ]
             - not:
               - isAtPosition:
                 - rover2
-                - [ -27, 86 ]
+                - [ -35, 77 ]
           actions:
             - addToGrid:
               - rover2
-              - [ -24, 86 ]
+              - [ -32, 77 ]
 
         succeedOnTriangle_4_2:
           group: successOrFailure
