@@ -49,7 +49,7 @@ properties:
   # Manny
   - addToGrid:
     - rover
-    - [ -27, 75 ]
+    - [ -35, 66 ]
   - callMethod:
     - rover
     - setHeading
@@ -103,13 +103,17 @@ properties:
     - visible
     - false
   - setGridAxes:
-    - 86
-    - -14
+    - 77
+    - -22
   # Draw the desired triangle
   - drawTriangle:
     - [ 0, 0 ]
     - [ 0, 6 ]
     - [ 6, 0 ]
+
+  - addToGrid:
+    - solarPanel2
+    - [ -19.5, 79.5 ]
 
 children:
   triggerManager:
@@ -132,19 +136,19 @@ children:
             - not:
               - isAtPosition:
                 - rover2
-                - [ -14, 86 ]
+                - [ -22, 77 ]
             - not:
               - isAtPosition:
                 - rover2
-                - [ -14, 92 ]
+                - [ -22, 83 ]
             - not:
               - isAtPosition:
                 - rover2
-                - [ -20, 86 ]
+                - [ -28, 77 ]
           actions:
             - addToGrid:
               - rover2
-              - [ -14, 86 ]
+              - [ -22, 77 ]
 
         succeedOnTriangle_4_4:
           group: successOrFailure
@@ -165,6 +169,8 @@ children:
             - musicSuccessShort
           - playSound:
             - PerryIDidIt
+          - buildBaseComponent:
+            - solarPanel2
 
         scenarioEnded4_4:
           triggerCondition:

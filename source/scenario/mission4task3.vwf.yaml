@@ -99,9 +99,13 @@ properties:
     - [ 0, 0 ]
     - [ 0, 6 ]
     - [ -6, 0 ]
-#   - addToGrid:
-#    - solarPanel1
-#    - [ -22, 77 ]
+  - addToGrid:
+    - solarPanel1
+    - [ -24.5, 79.5 ]
+  - setProperty:
+    - solarPanel1
+    - rotation
+    - [0 ,0 ,1 , 90 ]
 children:
   triggerManager:
     extends: ../triggers/triggerManager.vwf
@@ -160,6 +164,8 @@ children:
             - M4VO28_MC
           - playSound:
             - PerryNotDoneGroan
+          - buildBaseComponent:
+            - solarPanel1
 
         scenarioEnded4_3:
           triggerCondition:
