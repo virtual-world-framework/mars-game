@@ -394,16 +394,16 @@ a:active {
 }
 
 .tooltip {
-    width: 300px; 
-    height: 200px; 
-    background-color: rgb( 255, 255, 255 );
+    width: 300px;
+    background-color: rgba( 48, 64, 76, 0.5 );
+    color: rgb( 193, 244, 255 );
     text-align: center;
     border-radius: 5px;
-    padding: 5px;
+    padding: 16px;
     position: absolute;
     overflow: hidden;
     display: inline-block;
-    border: 1px solid rgb( 0, 30, 60 );
+    border: 2px solid rgb( 193, 244, 255 );
     user-select: none;
     -webkit-user-select: none;  /* Chrome all / Safari all */
     -moz-user-select: none;     /* Firefox all */
