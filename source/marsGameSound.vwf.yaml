@@ -712,7 +712,7 @@ properties:
     - soundName: "ALVO35_Rover"
       soundURL: "assets/sounds/vo/ALVO35_Rover.ogg"
       initialVolume: 0.65
-      subtitle: "[ROVER]: I can get rid of blocks by dragging them back over to the left hand side."
+      subtitle: "[ROVER]: I can get rid of blocks by dragging them back over to the trash can."
       soundGroup: vo
       groupReplacementMethod: queue
     - soundName: "ALVO36_Rover"
