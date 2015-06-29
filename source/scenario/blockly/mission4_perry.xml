@@ -1,17 +1,20 @@
 <xml id="rover" style="display: none">
   
   <category name="Rover">
-    <block type="rover_moveRadial_absolute"></block>
+
+<!--    <block type="rover_moveRadial_absolute"></block> -->
     <block type="math_number_field"><field name="VALUE">0</field></block>
     <block type="controls_sensor_position_x"></block>
     <block type="controls_sensor_position_y"></block>
   </category>
+<!--
   <category name="Conditionals and Loops">
     <block type="logic_cond_out"></block>
     <block type="logic_andor_out"></block>
     <block type="logic_boolean"></block>
     <block type="controls_whileUntil"><field name="MODE">WHILE</field></block>
   </category>
+-->
   <category name="Numbers and Math">
     <block type="math_number_field"><field name="VALUE">0</field></block>
     <block type="graph_add"></block>
@@ -21,6 +24,8 @@
     <block type="graph_left_paren"></block>
     <block type="graph_right_paren"></block>
   </category>
+<!--
   <category name="Procedures" custom="PROCEDURE">
   </category>
+-->
 </xml>
