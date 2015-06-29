@@ -112,11 +112,15 @@ properties:
     - [ -6, 0 ]
   - addToGrid:
     - solarPanel3
-    - [ -24.5, 74.5 ]
+    - [ -25, 74 ]
   - setProperty:
     - solarPanel3
     - rotation
     - [0 ,0 ,1 , 180 ]
+  - setProperty:
+    - solarPanel3
+    - scale
+    - [1.2, 1.2, 1.2]
 
 children:
   triggerManager:

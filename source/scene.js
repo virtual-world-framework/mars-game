@@ -64,7 +64,7 @@ this.setApplicationState = function( state ) {
             this.pickups.visible = true;
             this.hud.visible = true;
             this.triggerGroupManager.checkingGroups = true;
-            this.cargoPod2.visible = true;
+            this.cargoPod2.visible = false; //making it invisible temporarily
             break;
         default:
             this.logger.errorx( "setApplicationState", "Invalid application "

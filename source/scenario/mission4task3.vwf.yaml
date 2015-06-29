@@ -101,7 +101,11 @@ properties:
     - [ -6, 0 ]
   - addToGrid:
     - solarPanel1
-    - [ -24.5, 79.5 ]
+    - [ -25, 80 ]
+  - setProperty:
+    - solarPanel1
+    - scale
+    - [1.2, 1.2, 1.2]
   - setProperty:
     - solarPanel1
     - rotation

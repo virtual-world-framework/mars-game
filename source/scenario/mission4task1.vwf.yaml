@@ -37,7 +37,6 @@ properties:
     - videoManager  
     - url 
     - [ "assets/video/end_cinematic.webm", "assets/video/end_cinematic.mp4" ]
-
   # blockly
   - enableBlocklyNodes:
     - rover
@@ -112,6 +111,8 @@ properties:
     - [ -10, 0 ]
     - [ -10, 3 ]
     - [ -13, 0 ]
+  - setCinematicCameraView:
+    - [ 16.316, 65, -15 ]
 #  - addToGrid:
 #    - solarPanel1
 #    - [ -32, 77 ]

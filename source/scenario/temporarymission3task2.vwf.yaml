@@ -122,7 +122,8 @@ children:
           - scenarioSuccess:
           - showAlert:
             - "I found the base pod!"
-          - hideBlockly:
+          - clearBlockly:
+          #- hideBlockly:
           - stopSound:
             - musicLevel2
           - clearBlackboardEntry:

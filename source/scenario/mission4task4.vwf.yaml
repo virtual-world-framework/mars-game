@@ -113,7 +113,11 @@ properties:
 
   - addToGrid:
     - solarPanel2
-    - [ -19.5, 79.5 ]
+    - [ -19, 80 ]
+  - setProperty:
+    - solarPanel2
+    - scale
+    - [1.2, 1.2, 1.2]
 
 children:
   triggerManager:
