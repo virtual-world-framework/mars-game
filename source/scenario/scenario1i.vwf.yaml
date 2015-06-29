@@ -1,9 +1,9 @@
 ---
 extends: ../scenario/scenario.vwf
 properties:
-  scenarioName: scenario1i
+  scenarioName: Mission1Task9
 
-  nextScenarioPath: scenario2a
+  nextScenarioPath: Mission2Task1
   blockly: source/scenario/blockly/scenario1.xml
 
 children:

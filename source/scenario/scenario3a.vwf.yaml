@@ -15,10 +15,10 @@
 ---
 extends: ../scenario/scenario.vwf
 properties:
-  scenarioName: scenario3a
+  scenarioName: Mission2Task7
 
   scenePath: /
-  nextScenarioPath: "scenario3b"
+  nextScenarioPath: "Mission2Task8"
 
   startState:
   - setProperty:
