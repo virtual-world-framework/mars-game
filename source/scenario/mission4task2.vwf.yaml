@@ -53,7 +53,7 @@ properties:
   - callMethod:
     - rover
     - setHeading
-    - 270
+    - 0
   - setProperty:
     - rover
     - battery
