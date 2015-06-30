@@ -73,6 +73,7 @@ function setUpBlocklyPeripherals() {
     $( "#blocklyWrapper" ).draggable( {
         handle: "div#blocklyHandle",
         scroll: false,
+        containment: "window"
     } );
     // $( "#blocklyWrapper" ).resizable({
     //     resize: function( event, ui ) {
@@ -174,26 +175,26 @@ var blocklyResized = function(e) {
 //     }
 // }
 
-// function keepBlocklyWithinBounds() {
-//     var handle = document.getElementById( "blocklyHandle" );
-//     var wrapper = document.getElementById( "blocklyWrapper" );
-//     if ( handle && wrapper ) {
-//         var width = wrapper.offsetWidth;
-//         var bottom = window.innerHeight - handle.offsetHeight;
-//         var left = width * -0.5;
-//         var right = window.innerWidth - width * 0.5;        
-//         if ( parseInt( wrapper.style.top ) > bottom ) {
-//             wrapper.style.top = bottom + "px";
-//         } else if ( parseInt( wrapper.style.top ) < 0 ) {
-//             wrapper.style.top = 0 + "px";
-//         }
-//         if ( parseInt( wrapper.style.left ) < left ) {
-//             wrapper.style.left = left + "px";
-//         } else if ( parseInt ( wrapper.style.left ) > right ) {
-//             wrapper.style.left = right + "px";
-//         }
-//     }
-// }
+function keepBlocklyWithinBounds() {
+    var handle = document.getElementById( "blocklyHandle" );
+    var wrapper = document.getElementById( "blocklyWrapper" );
+    if ( handle && wrapper ) {
+        var width = wrapper.offsetWidth;
+        var bottom = window.innerHeight - handle.offsetHeight;
+        var left = width * -0.5;
+        var right = window.innerWidth - width * 0.5;        
+        if ( parseInt( wrapper.style.top ) > bottom ) {
+            wrapper.style.top = bottom + "px";
+        } else if ( parseInt( wrapper.style.top ) < 0 ) {
+            wrapper.style.top = 0 + "px";
+        }
+        if ( parseInt( wrapper.style.left ) < left ) {
+            wrapper.style.left = left + "px";
+        } else if ( parseInt ( wrapper.style.left ) > right ) {
+            wrapper.style.left = right + "px";
+        }
+    }
+}
 
 function updateOnBlocklyResize( event ) {
     //blocklyResized();
