@@ -79,12 +79,11 @@ properties:
     - blocklyLine
     - visible
     - false
-
   - setProperty:
     - blocklyLine
     - opacity
     - 0
-  
+
 
 children:
   triggerManager:

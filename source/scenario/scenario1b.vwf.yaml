@@ -59,10 +59,6 @@ properties:
     - setHeading
     - 0
 
-  #- callMethod:
-    #- videoManager
-    #- load
-
   - addToGrid:
     - rover
     - [ 0, 0 ]
@@ -84,6 +80,7 @@ properties:
   - loadToolbox:
     - rover
     - source/scenario/blockly/scenario1b.xml
+    
   - setProperty:
     - blocklyLine
     - visible
