@@ -105,18 +105,18 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 break;
 
             case "blocklyStarted":
-                var indicator = document.getElementById( "blocklyIndicator" );
-                indicator.className = "";
-                indicator.style.visibility = "inherit";
-                var indicatorCount = document.getElementById( "blocklyIndicatorCount" );
-                indicatorCount.className = "";
-                indicatorCount.style.visibility = "inherit";
-                var procedureIndicator = document.getElementById( "blocklyProcedureIndicator" );
-                procedureIndicator.className = "";
-                procedureIndicator.style.visibility = "inherit";
-                currentProcedureBlockID = undefined;                
-                currentLoopingBlockID = 0;
-                currentLoopIndex = 0;
+                // var indicator = document.getElementById( "blocklyIndicator" );
+                // indicator.className = "";
+                // indicator.style.visibility = "inherit";
+                // var indicatorCount = document.getElementById( "blocklyIndicatorCount" );
+                // indicatorCount.className = "";
+                // indicatorCount.style.visibility = "inherit";
+                // var procedureIndicator = document.getElementById( "blocklyProcedureIndicator" );
+                // procedureIndicator.className = "";
+                // procedureIndicator.style.visibility = "inherit";
+                // currentProcedureBlockID = undefined;                
+                // currentLoopingBlockID = 0;
+                // currentLoopIndex = 0;
                 blocklyStopped = false;
                 tabSwitched = false;
                 hideBlocklyLoopCount();
@@ -127,13 +127,13 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
 
             case "blocklyStopped":
                 vwf_view.kernel.setProperty( nodeID, "blockly_timeBetweenLines", 1 );
-                startBlocklyButton.className = "";
-                var indicator = document.getElementById( "blocklyIndicator" );
-                var count = document.getElementById( "blocklyIndicatorCount" );
-                indicator.className = "stopped";
-                count.className = "stopped";
-                var procedureIndicator = document.getElementById( "blocklyProcedureIndicator" );
-                procedureIndicator.className = "stopped";
+                // startBlocklyButton.className = "";
+                // var indicator = document.getElementById( "blocklyIndicator" );
+                // var count = document.getElementById( "blocklyIndicatorCount" );
+                // indicator.className = "stopped";
+                // count.className = "stopped";
+                // var procedureIndicator = document.getElementById( "blocklyProcedureIndicator" );
+                // procedureIndicator.className = "stopped";
                 blocklyStopped = true;
                 var speedButton = document.getElementById( "blocklySpeedButton" );
                 speedButton.style.opacity = 1.0;
