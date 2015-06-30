@@ -124,6 +124,15 @@ properties:
 #    - solarPanel1
 #    - built
 #    - true
+  - setProperty:
+    - blocklyLine
+    - visible
+    - false
+
+  - setProperty:
+    - blocklyLine
+    - opacity
+    - 0
 
 children:
   triggerManager:

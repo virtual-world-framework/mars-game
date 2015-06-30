@@ -69,6 +69,10 @@ properties:
   - loadToolbox:
     - graph
     - source/scenario/blockly/graph.xml
+  - setProperty:
+    - blocklyLine
+    - opacity
+    - 1
 
 children:
   triggerManager:

@@ -75,6 +75,16 @@ properties:
   - loadToolbox:
     - rover
     - source/scenario/blockly/scenario1h.xml
+  - setProperty:
+    - blocklyLine
+    - visible
+    - false
+
+  - setProperty:
+    - blocklyLine
+    - opacity
+    - 0
+  
 
 children:
   triggerManager:

@@ -682,27 +682,27 @@ children:
     includes: source/scenario/scenario3e.vwf
   Mission2Task12:
     includes: source/scenario/scenario3f.vwf
-  Mission3task1:
+  Mission3Task1:
     includes: source/scenario/temporarymission3task1.vwf
-  Mission3task2:
+  Mission3Task2:
     includes: source/scenario/temporarymission3task2.vwf
-  Mission3task3:
+  Mission3Task3:
     includes: source/scenario/temporarymission3task3.vwf
 #  mission3task1:
 #    includes: source/scenario/mission3task1.vwf
-  Mission4task1:
+  Mission4Task1:
     includes: source/scenario/mission4task1.vwf
-  Mission4task2:
+  Mission4Task2:
     includes: source/scenario/mission4task2.vwf
-  Mission4task3:
+  Mission4Task3:
     includes: source/scenario/mission4task3.vwf
-  Mission4task4:
+  Mission4Task4:
     includes: source/scenario/mission4task4.vwf
-  Mission4task5:
+  Mission4Task5:
     includes: source/scenario/mission4task5.vwf
-  Mission4task6:
+  Mission4Task6:
     includes: source/scenario/mission4task6.vwf
-  Mission5task1:
+  Mission5Task1:
     includes: source/scenario/mission5task1.vwf
   # TODO: Use only one graph object. No need for two.
   blocklyGraph:

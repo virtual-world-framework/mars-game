@@ -68,6 +68,10 @@ properties:
   - loadToolbox:
     - graph
     - source/scenario/blockly/graph2f.xml
+  - setProperty:
+    - blocklyLine
+    - opacity
+    - 1
 
 children:
   triggerManager:

@@ -110,6 +110,15 @@ properties:
     - solarPanel1
     - rotation
     - [0 ,0 ,1 , 90 ]
+  - setProperty:
+    - blocklyLine
+    - visible
+    - false
+
+  - setProperty:
+    - blocklyLine
+    - opacity
+    - 0
 children:
   triggerManager:
     extends: ../triggers/triggerManager.vwf

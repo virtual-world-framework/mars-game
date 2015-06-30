@@ -118,6 +118,15 @@ properties:
     - solarPanel2
     - scale
     - [1.2, 1.2, 1.2]
+  - setProperty:
+    - blocklyLine
+    - visible
+    - false
+
+  - setProperty:
+    - blocklyLine
+    - opacity
+    - 0
 
 children:
   triggerManager:

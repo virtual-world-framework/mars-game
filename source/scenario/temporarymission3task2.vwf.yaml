@@ -78,6 +78,15 @@ properties:
     - Level3eTravel1
   - stopSound:
     - CTVO4
+#  - setProperty:
+#    - blocklyLine
+#    - visible
+#    - true
+
+  - setProperty:
+    - blocklyLine
+    - opacity
+    - 1
 
 children:
   triggerManager:

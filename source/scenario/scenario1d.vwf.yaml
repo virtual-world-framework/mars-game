@@ -74,7 +74,15 @@ properties:
   - setSceneProperty:
     - blockly_interfaceVisible
     - false
+  - setProperty:
+    - blocklyLine
+    - visible
+    - false
 
+  - setProperty:
+    - blocklyLine
+    - opacity
+    - 0
 children:
   triggerManager:
     extends: ../triggers/triggerManager.vwf

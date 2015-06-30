@@ -79,6 +79,10 @@ properties:
   - setPickupActive:
     - radio
     - false
+  - setProperty:
+    - blocklyLine
+    - opacity
+    - 1
 
 children:
   triggerManager:

@@ -111,6 +111,16 @@ properties:
     - [ 0, 3 ]
     - [ -3, 0 ]
 
+  - setProperty:
+    - blocklyLine
+    - visible
+    - false
+
+  - setProperty:
+    - blocklyLine
+    - opacity
+    - 0
+
 children:
   triggerManager:
     extends: ../triggers/triggerManager.vwf
