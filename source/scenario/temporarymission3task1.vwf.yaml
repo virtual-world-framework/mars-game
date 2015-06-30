@@ -18,7 +18,7 @@ properties:
   scenarioName: Mission3Task1
 
   scenePath: /
-  nextScenarioPath: "Mission3task2"
+  nextScenarioPath: "Mission3Task2"
 
   startState:
   - setProperty:
