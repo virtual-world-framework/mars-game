@@ -1626,18 +1626,26 @@ Blockly.Blocks['draw_triangle'] = {
     this.appendValueInput("pointC")
         .setCheck(null)
         .appendField("coordinateC");
+    this.setPreviousStatement(true);
     this.setNextStatement(true);
     this.setColour(315);
+    this.data = currentBlocklyNodeID;
     this.setTooltip('');
     this.setHelpUrl('http://www.example.com/');
   }
 };
 
 Blockly.JavaScript['draw_triangle'] = function(block) {
-  var op_a = Blockly.JavaScript.valueToCode(block, 'pointA', Blockly.JavaScript.ORDER_ATOMIC);
-  var op_b = Blockly.JavaScript.valueToCode(block, 'pointB', Blockly.JavaScript.ORDER_ATOMIC);
-  var op_c = Blockly.JavaScript.valueToCode(block, 'pointC', Blockly.JavaScript.ORDER_ATOMIC);
+  var op_a_str = Blockly.JavaScript.valueToCode(block, 'pointA', Blockly.JavaScript.ORDER_ATOMIC);
+  var op_b_str = Blockly.JavaScript.valueToCode(block, 'pointB', Blockly.JavaScript.ORDER_ATOMIC);
+  var op_c_str = Blockly.JavaScript.valueToCode(block, 'pointC', Blockly.JavaScript.ORDER_ATOMIC);
   
+  var op_a = op_a_str.split(",");
+  var op_b = op_b_str.split(",");
+  var op_c = op_c_str.split(",");
+
+  console.log(op_a);
+
   var actionA = {
     nodeID: block.data,
     methodName: 'moveRadialAbsolute',
@@ -1681,7 +1689,9 @@ Blockly.JavaScript['draw_triangle'] = function(block) {
   //moveA
   //end
 
-  var overallCode = moveA + start + moveB + mark + moveC + mark + moveA + end;
+  var overallCode = moveA + start + mark + moveB + mark + moveC + mark + moveA + mark + end;
+  
+  console.log(overallCode);
   return overallCode;
 };
 

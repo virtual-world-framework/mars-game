@@ -31,11 +31,14 @@ this.onGenerated = function( params, generator, payload ) {
 }
 
 this.executeAction = function() {
-    this.assert( this.scenario );
-    this.assert( this.isInScenario() );
-    this.assert( this.scenario.isRunning );
+    //this.assert( this.scenario );
+    //this.assert( this.isInScenario() );
+    //this.assert( this.scenario.isRunning );
 
-    this.scenario.failed( this.failureType, this.message );
+    if ( this.scenario && this.isInScenario() && this.scenario.isRunning ) {
+        this.scenario.failed( this.failureType, this.message );
+    }
+    
 }
 
 //@ sourceURL=source/triggers/actions/action_scenarioFailure.js
