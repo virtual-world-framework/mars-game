@@ -1616,16 +1616,16 @@ Blockly.JavaScript['rover_moveRadial_absolute'] = function(block) {
 Blockly.Blocks['draw_triangle'] = {
   init: function() {
     this.appendDummyInput()
-        .appendField("drawTriangle");
+        .appendField("Draw Triangle");
     this.appendValueInput("pointA")
         .setCheck(null)
-        .appendField("coordinateA");
+        .appendField("Corner #1");
     this.appendValueInput("pointB")
         .setCheck(null)
-        .appendField("coordinateB");
+        .appendField("Corner #2");
     this.appendValueInput("pointC")
         .setCheck(null)
-        .appendField("coordinateC");
+        .appendField("Corner #3");
     this.setPreviousStatement(true);
     this.setNextStatement(true);
     this.setColour(315);
