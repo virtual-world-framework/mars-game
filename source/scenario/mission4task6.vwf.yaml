@@ -15,8 +15,8 @@
 ---
 extends: ../scenario/scenario.vwf
 properties:
-  scenarioName: mission4task6
-  nextScenarioPath: mission5task1
+  scenarioName: Mission4Task6
+  nextScenarioPath: Mission5Task1
 
   startState:
 
@@ -48,11 +48,11 @@ properties:
   # Manny
   - addToGrid:
     - rover
-    - [ -27, 75 ]
+    - [ -35, 66 ]
   - callMethod:
     - rover
     - setHeading
-    - 270
+    - 0
   - setProperty:
     - rover
     - battery
@@ -103,13 +103,34 @@ properties:
     - false
 
   - setGridAxes:
-    - 86
-    - -14
+    - 77
+    - -22
   # Draw the desired triangle
   - drawTriangle:
     - [ 0, 0 ]
     - [ 0, -6 ]
     - [ 6, 0 ]
+
+  - addToGrid:
+    - solarPanel4
+    - [ -19, 74 ]
+  - setProperty:
+    - solarPanel4
+    - rotation
+    - [0 ,0 ,1 , 270 ]
+  - setProperty:
+    - solarPanel4
+    - scale
+    - [1.2, 1.2, 1.2]
+  - setProperty:
+    - blocklyLine
+    - visible
+    - false
+
+  - setProperty:
+    - blocklyLine
+    - opacity
+    - 0
 
 children:
   triggerManager:
@@ -132,19 +153,19 @@ children:
             - not:
               - isAtPosition:
                 - rover2
-                - [ -14, 86 ]
+                - [ -22, 77 ]
             - not:
               - isAtPosition:
                 - rover2
-                - [ -14, 80 ]
+                - [ -22, 71 ]
             - not:
               - isAtPosition:
                 - rover2
-                - [ -20, 86 ]
+                - [ -28, 77 ]
           actions:
             - addToGrid:
               - rover2
-              - [ -14, 86 ]
+              - [ -22, 77 ]
 
         succeedOnTriangle_4_6:
           group: successOrFailure
@@ -165,6 +186,8 @@ children:
             - musicSuccessShort
           - playSound:
             - PerryDusty
+          - buildBaseComponent:
+            - solarPanel4
 
         scenarioEnded4_6:
           triggerCondition:

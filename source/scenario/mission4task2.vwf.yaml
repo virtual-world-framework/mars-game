@@ -15,8 +15,8 @@
 ---
 extends: ../scenario/scenario.vwf
 properties:
-  scenarioName: mission4task2
-  nextScenarioPath: mission4task3
+  scenarioName: Mission4Task2
+  nextScenarioPath: Mission4Task3
 
   startState:
 
@@ -49,11 +49,11 @@ properties:
   # Manny
   - addToGrid:
     - rover
-    - [ -27, 75 ]
+    - [ -35, 66 ]
   - callMethod:
     - rover
     - setHeading
-    - 270
+    - 0
   - setProperty:
     - rover
     - battery
@@ -103,13 +103,23 @@ properties:
     - visible
     - false
   - setGridAxes:
-    - 86
-    - -14
+    - 77
+    - -22
   # Draw the desired triangle
   - drawTriangle:
     - [ 0, 0 ]
     - [ 0, 3 ]
     - [ -3, 0 ]
+
+  - setProperty:
+    - blocklyLine
+    - visible
+    - false
+
+  - setProperty:
+    - blocklyLine
+    - opacity
+    - 0
 
 children:
   triggerManager:
@@ -132,19 +142,19 @@ children:
             - not:
               - isAtPosition:
                 - rover2
-                - [ -24, 86 ]
+                - [ -32, 77 ]
             - not:
               - isAtPosition:
                 - rover2
-                - [ -24, 89 ]
+                - [ -32, 80 ]
             - not:
               - isAtPosition:
                 - rover2
-                - [ -27, 86 ]
+                - [ -35, 77 ]
           actions:
             - addToGrid:
               - rover2
-              - [ -24, 86 ]
+              - [ -32, 77 ]
 
         succeedOnTriangle_4_2:
           group: successOrFailure

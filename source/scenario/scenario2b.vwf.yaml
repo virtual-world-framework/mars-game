@@ -15,10 +15,10 @@
 ---
 extends: ../scenario/scenario.vwf
 properties:
-  scenarioName: scenario2b
+  scenarioName: Mission2Task2
 
   scenePath: /
-  nextScenarioPath: "scenario2c"
+  nextScenarioPath: "Mission2Task3"
 
   startState:
   - setProperty:
@@ -72,6 +72,10 @@ properties:
   - setPickupActive:
     - radio
     - false
+  - setProperty:
+    - blocklyLine
+    - opacity
+    - 1
 
 children:
   triggerManager:

@@ -15,9 +15,9 @@
 ---
 extends: ../scenario/scenario.vwf
 properties:
-  scenarioName: scenario1d
+  scenarioName: Mission1Task4
 
-  nextScenarioPath: "scenario1e"
+  nextScenarioPath: "Mission1Task5"
 
   startState:
   - setProperty:
@@ -74,7 +74,15 @@ properties:
   - setSceneProperty:
     - blockly_interfaceVisible
     - false
+  - setProperty:
+    - blocklyLine
+    - visible
+    - false
 
+  - setProperty:
+    - blocklyLine
+    - opacity
+    - 0
 children:
   triggerManager:
     extends: ../triggers/triggerManager.vwf

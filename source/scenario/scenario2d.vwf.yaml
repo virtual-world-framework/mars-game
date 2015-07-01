@@ -15,10 +15,10 @@
 ---
 extends: ../scenario/scenario.vwf
 properties:
-  scenarioName: scenario2d
+  scenarioName: Mission2Task4
 
   scenePath: /
-  nextScenarioPath: "scenario2e"
+  nextScenarioPath: "Mission2Task5"
 
   startState:
   - setProperty:
@@ -72,7 +72,10 @@ properties:
   - loadToolbox:
     - graph
     - source/scenario/blockly/graph2d.xml
-
+  - setProperty:
+    - blocklyLine
+    - opacity
+    - 1
 children:
   triggerManager:
     extends: ../triggers/triggerManager.vwf

@@ -15,15 +15,23 @@
 ---
 extends: ../scenario/scenario.vwf
 properties:
-  scenarioName: Mission1Task6
+  scenarioName: Mission3Task2
 
-  nextScenarioPath: "Mission1Task7"
-
+  scenePath: /
+  nextScenarioPath: "Mission3Task3"
   startState:
+   # objective
+  - setObjective:
+    - "Build a program to follow the tracks until your scanner finds something."
+  # sounds/music
+  - playSound:
+    - musicStandardGameplay
+  - playSound:
+    - environmentWind
   - setProperty:
     - videoManager  
     - url 
-    - [ "assets/video/success_cinematic.webm", "assets/video/success_cinematic.mp4" ]
+    - [ "assets/video/successCutscene02_newAudio.mp4" ]
   - setProperty:
     - rover3
     - visible
@@ -35,82 +43,81 @@ properties:
   - setProperty:
     - rover
     - battery
-    - 4
+    - 40
   - setProperty:
     - rover
     - batteryMax
-    - 25
+    - 40
   - setProperty:
     - rover
     - blockly_allowedBlocks
-    - 2
-  - setProperty:
+    - 12
+  - addToGrid:
     - rover
-    - lowRam
-    - 1
+    - [ -41, 51 ]
   - callMethod:
     - rover
     - setHeading
     - 0
   - addToGrid:
-    - rover
-    - [ 0, 4 ]
-  - setPickupActive:
-    - helicam
-    - false
-  - setPickupActive:
-    - battery
-    - false
-  - setPickupActive:
-    - radio
-    - true
+    - blocklyGraph
+    - [ -41, 51 ]
   - enableBlocklyNodes:
     - rover
+    - graph
   - loadToolbox:
     - rover
-    - source/scenario/blockly/scenario1f.xml
-  - setProperty:
-    - blocklyLine
-    - visible
-    - false
+    - source/scenario/blockly/scenario3e.xml
+  - loadToolbox:
+    - graph
+    - source/scenario/blockly/graph.xml
+  - writeToBlackboard:
+    - metalPosition
+    - [ -35, 66 ]
+  - clearBlackboardEntry:
+    - Level3eTravel1
+  - stopSound:
+    - CTVO4
+#  - setProperty:
+#    - blocklyLine
+#    - visible
+#    - true
 
   - setProperty:
     - blocklyLine
     - opacity
-    - 0
+    - 1
 
 children:
   triggerManager:
     extends: ../triggers/triggerManager.vwf
     properties: 
       triggers$:
-        beginScenario_1f:
-          triggerCondition:
-          - onScenarioStart:
-          actions:
-          - playSound:
-            - musicStandardGameplay
-          - playSound:
-            - environmentWind
-          - setObjective:
-            - "Turn around to face back toward the crash pod."
-          - setProperty:
-            - graphButton
-            - enabled
-            - false
-          - setThirdPersonStartPose:
-            - [ 13, 15, -15 ]
-
-        playStartingVO_1f:
+        playStartingVO_3e:
           triggerCondition:
           - and:
             - doOnce:
             - onScenarioStart:
           actions:
           - playSound:
-            - L1VO14_Rover
+            - L3VO5_Rover
 
-        succeedOnSuccess_1f:
+        playTravelVO_3c:
+          triggerCondition:
+          - and:
+            - isAtPosition:
+              - rover
+              - [ -39, 56 ]
+            - not:
+              - readBlackboard:
+                - Level3eTravel1
+          actions:
+          - playSound:
+            - CTVO4
+          - writeToBlackboard:
+            - Level3eTravel1
+
+        succeedOnSuccessfulMovement_3e:
           group: successOrFailure
           priority: 0
           triggerCondition:
@@ -119,25 +126,16 @@ children:
               - rover
             - isAtPosition:
               - rover
-              - [ 0, 4 ]
-            - hasHeading:
-              - rover
-              - 180
+              - [ -35, 66 ]
           actions:
           - scenarioSuccess:
           - showAlert:
-            - "Turning motors are good to go!"
-          - playSound:
-            - musicSuccessShort
-          - playSound:
-            - ALVO20_Rover
-
-        playHint1_1f:
-          triggerCondition:
-          - and:
-            - doOnce:
-            - delay:
-              - 18
-          actions:
-          - playSound:
-            - ALVO35_Rover
+            - "I found the base pod!"
+          - clearBlockly:
+          #- hideBlockly:
+          - stopSound:
+            - musicLevel2
+          - clearBlackboardEntry:
+            - metalPosition
+          - stopSound:
+            - CTVO4

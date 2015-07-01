@@ -15,21 +15,35 @@
 ---
 extends: ../scenario/scenario.vwf
 properties:
-  scenarioName: Mission2Task3
+  scenarioName: Mission3Task1
+
   scenePath: /
-  nextScenarioPath: "Mission2Task4"
+  nextScenarioPath: "Mission3Task2"
 
   startState:
   - setProperty:
     - videoManager  
     - url 
-    - [ "assets/video/end_cinematic.webm", "assets/video/end_cinematic.mp4" ]
+    - [ "assets/video/successCutscene02_newAudio.mp4" ]
+  # objective
+  - setObjective:
+    - "Graph a line that matches the slope of the tracks."
+  # sounds/music
+  - playSound:
+    - musicStandardGameplay
+  - playSound:
+    - environmentWind
+  # Perry, Rosie disabled
+  - setProperty:
+    - rover2
+    - visible
+    - false
   - setProperty:
     - rover3
     - visible
     - false
   - setProperty:
-    - rover2
+    - minirover
     - visible
     - false
   - setProperty:
@@ -46,31 +60,26 @@ properties:
     - 12
   - addToGrid:
     - rover
-    - [ 0, 14 ]
+    - [ -41, 51 ]
+  - callMethod:
+    - rover
+    - setHeading
+    - 0
   - addToGrid:
     - blocklyGraph
-    - [ 0, 14 ]
+    - [ -41, 51 ]
   - setGridAxes:
-    - 14
-    - 0
-  - setPickupActive:
-    - helicam
-    - false
-  - setPickupActive:
-    - battery
-    - false
-  - setPickupActive:
-    - radio
-    - false
+    - 51
+    - -41
   - enableBlocklyNodes:
     - rover
     - graph
   - loadToolbox:
     - rover
-    - source/scenario/blockly/scenario2c.xml
+    - source/scenario/blockly/scenario3d.xml
   - loadToolbox:
     - graph
-    - source/scenario/blockly/graph2c.xml
+    - source/scenario/blockly/graph.xml
   - setProperty:
     - blocklyLine
     - opacity
@@ -81,29 +90,18 @@ children:
     extends: ../triggers/triggerManager.vwf
     properties: 
       triggers$:
-        beginScenario_2c:
-          triggerCondition:
-          - onScenarioStart:
-          actions:
-          - playSound:
-            - musicLevel2
-          - playSound:
-            - environmentWind
-          - setObjective:
-            - "Build an equation in the GRAPH tab to graph a line."
-          - setThirdPersonStartPose:
-            - [ 16.316, 65, -15 ]
-
-        playStartingVO_2c:
+        playStartingVO_3d:
           triggerCondition:
           - and:
             - doOnce:
             - onScenarioStart:
           actions:
           - playSound:
-            - SCVO6_Rover
+            - TM3VO1_MC
+          - playSound:
+            - L3VO6_Rover
 
-        failOnMove_2c:
+        failOnMove_3d:
           group: successOrFailure
           priority: 1
           triggerCondition:
@@ -116,28 +114,29 @@ children:
           - playSound:
             - FCVO4_Rover
 
-        succeedOnSuccessfulCoursePlot_2c:
+        succeedOnSuccessfulCoursePlot_3d:
           group: successOrFailure
           priority: 0
           triggerCondition:
           - and:
             - blocklyLineEval:
-              - [ 1, 1 ]
+              - [ 2, 5 ]
             - blocklyLineEval:
-              - [ -1, -1 ]
+              - [ -2, -5 ]
           actions:
           - scenarioSuccess:
           - showAlert:
-            - "Now I can plot course... can I plot the course to match those tracks?"
+            - "Course Plotted: Navigation Program Update Required"
+          - playSound:
+            - L3_VO4S
           - playSound:
             - musicSuccessShort
-
-        playHint1_2c:
-          triggerCondition:
-          - and:
-            - doOnce:
-            - delay:
-              - 20
-          actions:
-          - playSound:
-            - ALVO24_Rover
+  brief:
+    extends: ../missionBrief.vwf
+    properties:
+      title: "Mission 3, Task 1"
+      content: >
+        Your minirover has gone off! You need to find
+        him in order to make contact with the humans once again.
+        It appears he's gone off in the direction of the base pod, follow 
+        his tracks and see what you might find.

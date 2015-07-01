@@ -15,8 +15,8 @@
 ---
 extends: ../scenario/scenario.vwf
 properties:
-  scenarioName: mission4task3
-  nextScenarioPath: mission4task4
+  scenarioName: Mission4Task3
+  nextScenarioPath: Mission4Task4
   startState:
 
   # objective
@@ -47,11 +47,11 @@ properties:
 
   - addToGrid:
     - rover
-    - [ -27, 75 ]
+    - [ -35, 66 ]
   - callMethod:
     - rover
     - setHeading
-    - 270
+    - 0
   - setProperty:
     - rover
     - battery
@@ -93,12 +93,32 @@ properties:
     - visible
     - false
   - setGridAxes:
-    - 86
-    - -14
+    - 77
+    - -22
   - drawTriangle:
     - [ 0, 0 ]
     - [ 0, 6 ]
     - [ -6, 0 ]
+  - addToGrid:
+    - solarPanel1
+    - [ -25, 80 ]
+  - setProperty:
+    - solarPanel1
+    - scale
+    - [1.2, 1.2, 1.2]
+  - setProperty:
+    - solarPanel1
+    - rotation
+    - [0 ,0 ,1 , 90 ]
+  - setProperty:
+    - blocklyLine
+    - visible
+    - false
+
+  - setProperty:
+    - blocklyLine
+    - opacity
+    - 0
 children:
   triggerManager:
     extends: ../triggers/triggerManager.vwf
@@ -120,19 +140,19 @@ children:
             - not:
               - isAtPosition:
                 - rover2
-                - [ -14, 86 ]
+                - [ -22, 77 ]
             - not:
               - isAtPosition:
                 - rover2
-                - [ -14, 89 ]
+                - [ -22, 80 ]
             - not:
               - isAtPosition:
                 - rover2
-                - [ -17, 86 ]
+                - [ -25, 77 ]
           actions:
             - addToGrid:
               - rover2
-              - [ -14, 86 ]
+              - [ -22, 77 ]
 
         succeedOnTriangle_4_3:
           group: successOrFailure
@@ -157,6 +177,8 @@ children:
             - M4VO28_MC
           - playSound:
             - PerryNotDoneGroan
+          - buildBaseComponent:
+            - solarPanel1
 
         scenarioEnded4_3:
           triggerCondition:

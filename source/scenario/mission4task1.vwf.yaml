@@ -15,8 +15,8 @@
 ---
 extends: ../scenario/scenario.vwf
 properties:
-  scenarioName: mission4task1
-  nextScenarioPath: 'mission4task2'
+  scenarioName: Mission4Task1
+  nextScenarioPath: 'Mission4Task2'
   scenePath: /
 
   startState:
@@ -37,7 +37,6 @@ properties:
     - videoManager  
     - url 
     - [ "assets/video/end_cinematic.webm", "assets/video/end_cinematic.mp4" ]
-
   # blockly
   - enableBlocklyNodes:
     - rover
@@ -55,11 +54,11 @@ properties:
   # Manny
   - addToGrid:
     - rover
-    - [ -27, 75 ]
+    - [ -35, 66 ]
   - callMethod:
     - rover
     - setHeading
-    - 270
+    - 0
   - setProperty:
     - rover
     - battery
@@ -84,7 +83,7 @@ properties:
     - true
   - addToGrid:
     - rover2
-    - [ -24, 77 ]
+    - [ -32, 68 ]
   - setProperty:
     - rover2
     - battery
@@ -106,23 +105,34 @@ properties:
     - visible
     - false
   - setGridAxes:
-    - 86
-    - -14
+    - 77
+    - -22
   - drawTriangle:
     - [ -10, 0 ]
     - [ -10, 3 ]
     - [ -13, 0 ]
-  - addToGrid:
-    - solarPanel1
-    - [ -24, 86 ]
-  # - setProperty:
-  #   - solarPanel1
-  #   - visible
-  #   - true
-  # - setProperty:
-  #   - solarPanel1
-  #   - built
-  #   - true
+  - setCinematicCameraView:
+    - [ 16.316, 65, -15 ]
+#  - addToGrid:
+#    - solarPanel1
+#    - [ -32, 77 ]
+#  - setProperty:
+#    - solarPanel1
+#    - visible
+#    - true
+#  - setProperty:
+#    - solarPanel1
+#    - built
+#    - true
+  - setProperty:
+    - blocklyLine
+    - visible
+    - false
+
+  - setProperty:
+    - blocklyLine
+    - opacity
+    - 0
 
 children:
   triggerManager:
@@ -148,8 +158,8 @@ children:
             - musicSuccessShort
           - playSound:
             - M4VO26_MC
-          - buildBaseComponent:
-            - solarPanel1
+    #      - buildBaseComponent:
+    #        - solarPanel1
 
         playStartingVO_4_1_1:
           triggerCondition:

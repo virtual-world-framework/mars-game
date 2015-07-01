@@ -15,9 +15,9 @@
 ---
 extends: ../scenario/scenario.vwf
 properties:
-  scenarioName: scenario1e
+  scenarioName: Mission1Task5
 
-  nextScenarioPath: "scenario1f"
+  nextScenarioPath: "Mission1Task6"
 
   startState:
   - setProperty:
@@ -74,6 +74,15 @@ properties:
   - loadToolbox:
     - rover
     - source/scenario/blockly/scenario1e.xml
+  - setProperty:
+    - blocklyLine
+    - visible
+    - false
+
+  - setProperty:
+    - blocklyLine
+    - opacity
+    - 0
 
 children:
   triggerManager:
