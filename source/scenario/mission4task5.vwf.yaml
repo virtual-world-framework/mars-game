@@ -174,19 +174,23 @@ children:
             - rover2
             - [ [ 0, 0 ], [ 0, -6 ], [ -6, 0 ] ]
           actions:
-          - showAlert:
-            - "I created the correct triangle!"
-          - callMethod:
-            - rover2
-            - stopExecution
-          - clearBlockly:
-          - scenarioSuccess:
-          - playSound:
-            - musicSuccessShort
-          - playSound:
-            - PerryIDidIt
-          - buildBaseComponent:
-            - solarPanel3
+          - writeToBlackboard:
+            - disableFailOnIncompleteProgram
+          - delay:
+            - 1
+            - showAlert:
+              - "I created the correct triangle!"
+            - callMethod:
+              - rover2
+              - stopExecution
+            - clearBlockly:
+            - scenarioSuccess:
+            - playSound:
+              - musicSuccessShort
+            - playSound:
+              - PerryIDidIt
+            - buildBaseComponent:
+              - solarPanel3
 
         scenarioEnded4_5:
           triggerCondition:

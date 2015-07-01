@@ -162,23 +162,27 @@ children:
             - rover2
             - [ [ 0, 0 ], [ 0, 6 ], [ -6, 0 ] ]
           actions:
-          - showAlert:
-            - "I created the correct triangle!"
-          - callMethod:
-            - rover2
-            - stopExecution
-          - clearBlockly:
-          - scenarioSuccess:
-          - playSound:
-            - musicSuccessShort
-          - playSound:
-            - PerryIDidIt
-          - playSound:
-            - M4VO28_MC
-          - playSound:
-            - PerryNotDoneGroan
-          - buildBaseComponent:
-            - solarPanel1
+          - writeToBlackboard:
+            - disableFailOnIncompleteProgram
+          - delay:
+            - 1
+            - showAlert:
+              - "I created the correct triangle!"
+            - callMethod:
+              - rover2
+              - stopExecution
+            - clearBlockly:
+            - scenarioSuccess:
+            - playSound:
+              - musicSuccessShort
+            - playSound:
+              - PerryIDidIt
+            - playSound:
+              - M4VO28_MC
+            - playSound:
+              - PerryNotDoneGroan
+            - buildBaseComponent:
+              - solarPanel1
 
         scenarioEnded4_3:
           triggerCondition:
