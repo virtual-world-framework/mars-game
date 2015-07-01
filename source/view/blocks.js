@@ -1613,6 +1613,78 @@ Blockly.JavaScript['rover_moveRadial_absolute'] = function(block) {
   return constructBlockExeFuncCall( block, action, 'moveRadial' );
 };
 
+Blockly.Blocks['draw_triangle'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("drawTriangle");
+    this.appendValueInput("pointA")
+        .setCheck(null)
+        .appendField("coordinateA");
+    this.appendValueInput("pointB")
+        .setCheck(null)
+        .appendField("coordinateB");
+    this.appendValueInput("pointC")
+        .setCheck(null)
+        .appendField("coordinateC");
+    this.setNextStatement(true);
+    this.setColour(315);
+    this.setTooltip('');
+    this.setHelpUrl('http://www.example.com/');
+  }
+};
+
+Blockly.JavaScript['draw_triangle'] = function(block) {
+  var op_a = Blockly.JavaScript.valueToCode(block, 'pointA', Blockly.JavaScript.ORDER_ATOMIC);
+  var op_b = Blockly.JavaScript.valueToCode(block, 'pointB', Blockly.JavaScript.ORDER_ATOMIC);
+  var op_c = Blockly.JavaScript.valueToCode(block, 'pointC', Blockly.JavaScript.ORDER_ATOMIC);
+  
+  var actionA = {
+    nodeID: block.data,
+    methodName: 'moveRadialAbsolute',
+    exeTime: 1,
+    args: [ op_a[ 0 ], op_a[ 1 ] ]
+  };
+
+  var moveA = constructBlockExeFuncCall( block, actionA, 'moveRadial' );
+
+  var actionB = {
+    nodeID: block.data,
+    methodName: 'moveRadialAbsolute',
+    exeTime: 1,
+    args: [ op_b[ 0 ], op_b[ 1 ] ]
+  };
+
+  var moveB = constructBlockExeFuncCall( block, actionB, 'moveRadial' );
+
+  var actionC = {
+    nodeID: block.data,
+    methodName: 'moveRadialAbsolute',
+    exeTime: 1,
+    args: [ op_c[ 0 ], op_c[ 1 ] ]
+  };
+
+  var moveC = constructBlockExeFuncCall( block, actionC, 'moveRadial' );
+
+  var start = "vwf.fireEvent( '" + vwf_view.kernel.application() + 
+                  "', 'blockExecuted', " + " [ 'startTriangle', '" + block.id + "', '" + block.data + "', " + 1 + " ] );\n";
+  var end = "vwf.fireEvent( '" + vwf_view.kernel.application() + 
+                  "', 'blockExecuted', " + " [ 'endTriangle', '" + block.id + "', '" + block.data + "', " + 1 + " ] );\n";
+  var mark = "vwf.fireEvent( '" + vwf_view.kernel.application() + 
+                  "', 'blockExecuted', " + " [ 'markPoint', '" + block.id + "', '" + block.data + "', " + 1 + " ] );\n";
+
+  //moveA
+  //start
+  //moveB
+  //mark
+  //moveC
+  //mark
+  //moveA
+  //end
+
+  var overallCode = moveA + start + moveB + mark + moveC + mark + moveA + end;
+  return overallCode;
+};
+
 Blockly.Blocks['rover_turn'] = {
   // Block for turning left or right.
   init: function() {
