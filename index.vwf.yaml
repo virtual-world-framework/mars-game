@@ -629,8 +629,7 @@ children:
   cargoPod2:
     extends: source/buildings/basePod.vwf
     properties:
-      tilePosition: [ -24, 75 ]
-      rotation: [ 0, 0, 1, 270 ]
+      tilePosition: [ -32, 66 ]
       visible: true
   solarPanel1: 
     extends: source/buildings/solarPanel.vwf
