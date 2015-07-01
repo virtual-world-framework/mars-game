@@ -21,8 +21,8 @@ function showTooltip( x, y, content ) {
     tooltip.style.right = "10px";
     document.body.appendChild( tooltip );
 
-    document.addEventListener( "mousemove", removeTooltip );
-
+    document.addEventListener("click", removeTooltipClick);
+    document.addEventListener("mousemove", removeTooltipHoverout);
     // Return an empty string because blockly gets mad if we don't
     return "";
 }
@@ -40,11 +40,21 @@ function showTooltipInBlockly( block, content ) {
     return "";
 }
 
-function removeTooltip() {
-    $( ".tooltip" ).fadeOut( function() {
-        $( ".tooltip" ).remove();
-        document.removeEventListener( "mousemove", removeTooltip );
-    } );
+function removeTooltipHoverout(event){
+
+    if(!(event.target.getAttribute("class") == "blocklyPath" || 
+        event.target.getAttribute("class") == "blocklyText" || 
+        event.target.parentNode.getAttribute("class") == "blocklyEditableText" ||
+        event.target.parentNode.getAttribute("class"))){
+        $(".tooltip").remove();
+        document.removeEventListener("mousemove",removeTooltipHoverout);
+        
+    }
+}
+
+function removeTooltipClick(event){
+    $(".tooltip").remove();
+    document.removeEventListener("click",removeTooltipClick);
 }
 
 function tooltipContentToHTML( content ) {
