@@ -164,8 +164,10 @@ children:
           actions:
           - writeToBlackboard:
             - disableFailOnIncompleteProgram
+          - buildBaseComponent:
+              - solarPanel1
           - delay:
-            - 1
+            - 6
             - showAlert:
               - "I created the correct triangle!"
             - callMethod:
@@ -181,8 +183,6 @@ children:
               - M4VO28_MC
             - playSound:
               - PerryNotDoneGroan
-            - buildBaseComponent:
-              - solarPanel1
 
         scenarioEnded4_3:
           triggerCondition:
