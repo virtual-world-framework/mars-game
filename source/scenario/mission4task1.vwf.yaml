@@ -83,7 +83,7 @@ properties:
     - true
   - addToGrid:
     - rover2
-    - [ -32, 68 ]
+    - [ -34, 70 ]
   - setProperty:
     - rover2
     - battery
@@ -111,19 +111,7 @@ properties:
     - [ -10, 0 ]
     - [ -10, 3 ]
     - [ -13, 0 ]
-  - setCinematicCameraView:
-    - [ 16.316, 65, -15 ]
-#  - addToGrid:
-#    - solarPanel1
-#    - [ -32, 77 ]
-#  - setProperty:
-#    - solarPanel1
-#    - visible
-#    - true
-#  - setProperty:
-#    - solarPanel1
-#    - built
-#    - true
+
   - setProperty:
     - blocklyLine
     - visible
@@ -136,6 +124,9 @@ properties:
 
   - selectRover:
     - rover2
+
+  - setCinematicCameraView:
+    - [ 21, -18, -10 ]
 
 children:
   triggerManager:
