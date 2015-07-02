@@ -16,7 +16,7 @@
 extends: actionProto.vwf
 
 properties:
-  hope:
+  chosenRover:
 
 scripts:
 - source: action_selectRover.js

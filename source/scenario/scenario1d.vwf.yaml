@@ -24,14 +24,7 @@ properties:
     - videoManager  
     - url 
     - [ "assets/video/success_cinematic.webm", "assets/video/success_cinematic.mp4" ]
-  - setProperty:
-    - rover3
-    - visible
-    - false
-  - setProperty:
-    - rover2
-    - visible
-    - false
+
   - setProperty:
     - rover
     - battery
@@ -57,6 +50,16 @@ properties:
   - addToGrid:
     - rover
     - [ 0, 1 ]
+  - selectRover:
+    - rover
+  - setProperty:
+    - rover3
+    - visible
+    - false
+  - setProperty:
+    - rover2
+    - visible
+    - false
   - setPickupActive:
     - helicam
     - false
@@ -83,6 +86,7 @@ properties:
     - blocklyLine
     - opacity
     - 0
+    
 children:
   triggerManager:
     extends: ../triggers/triggerManager.vwf

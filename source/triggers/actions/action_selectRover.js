@@ -20,14 +20,13 @@ this.onGenerated = function( params, generator, payload ) {
     if ( !params || ( params.length !== 1 ) ) {
         this.logger.errorx( "onGenerated", 
                             "This action requires one argument: " +
-                            "an array containing the radius (meters), yaw " +
-                            "(degrees), and pitch (degrees) of the camera." );
+                            "the name of a rover in the scene." );
         return false;
     }
 
-    this.hope = params[ 0 ];
-    if ( !this.pose ) {
-        this.logger.errorx( "onGenerated", "Invalid rover!" );
+    this.chosenRover = params[ 0 ];
+    if ( !this.chosenRover || !this.findInScene(this.chosenRover)) {
+        this.logger.errorx( "onGenerated", "Invalid rover input!" );
         return false;
     }
 
@@ -35,7 +34,8 @@ this.onGenerated = function( params, generator, payload ) {
 }
 
 this.executeAction = function() {
-    this.scene.setCinematicView( this.pose );
+    var chosenRoverID = this.findInScene(this.chosenRover).id;
+    this.scene.selectBlocklyNode(chosenRoverID);
 }
 
-//@ sourceURL=source/triggers/actions/action_setCinematicCameraView.js
+//@ sourceURL=source/triggers/actions/action_selectRover.js
