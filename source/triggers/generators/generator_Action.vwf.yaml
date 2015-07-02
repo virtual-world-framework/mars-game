@@ -143,6 +143,10 @@ properties:
     enableBlocklyNodes: "source/triggers/actions/action_enableBlocklyNodes.vwf"
     loadToolbox: "source/triggers/actions/action_loadToolbox.vwf"
 
+    # Allows you to choose which rover is currently active in Blockly/The HUD
+    # arguments: The rover's name (rover, rover2, rover3)
+    selectRover: "source/triggers/actions/action_selectRover.vwf"
+
 
 scripts:
 - source: generator_Action.js
