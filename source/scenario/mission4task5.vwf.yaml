@@ -133,6 +133,37 @@ properties:
 
   - selectRover:
     - rover2
+  - addToGrid:
+    - solarPanel1
+    - [ -25, 80 ]
+  - addToGrid:
+    - solarPanel2
+    - [ -19, 80 ]
+  - setProperty:
+    - solarPanel1
+    - visible
+    - true
+  - setProperty:
+    - solarPanel1
+    - built
+    - false
+  - setProperty:
+    - solarPanel2
+    - visible
+    - true
+  - setProperty:
+    - solarPanel2
+    - built
+    - false
+  - setProperty:
+    - solarPanel3
+    - visible
+    - false
+
+  - setProperty:
+    - solarPanel4
+    - visible
+    - false
 
 children:
   triggerManager:
