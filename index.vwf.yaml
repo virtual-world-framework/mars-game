@@ -118,6 +118,11 @@ events:
   missionBriefClosed:
   loadedMissionBrief:
 children:
+  # naniteTest:
+  #   extends: source/naniteParticle.vwf
+  #   properties:
+  #     start: [ 0, 6, 2 ]
+  #     stop: [ 0, 12, 2 ]
   mediaManager:
     extends: http://vwf.example.com/node.vwf
     children:
