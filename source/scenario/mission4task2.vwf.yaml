@@ -95,7 +95,7 @@ properties:
   - setProperty:
     - rover2
     - blockly_allowedBlocks
-    - 50
+    - 16
   - setProperty:
     - rover2
     - lowRam
@@ -210,4 +210,5 @@ children:
         triangle 10 spaces along the positive x axis. <br><br>Remember, the x axis 
         goes from the left (negative x) to the right (positive x). So you will have to 
         add to the x values of your triangle vertices in order to move them along the 
-        positive x axis. Try adding 10 to the x values of your triangle's vertices.
+        positive x axis. Try adding 10 to the x values of your triangle's vertices. The 
+        addition operation block may come in handy!
