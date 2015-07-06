@@ -78,7 +78,9 @@ properties:
     - blocklyLine
     - opacity
     - 0
-
+  - selectRover:
+    - rover
+    
 children:
   triggerManager:
     extends: ../triggers/triggerManager.vwf

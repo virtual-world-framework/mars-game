@@ -121,6 +121,28 @@ properties:
     - opacity
     - 0
 
+  - selectRover:
+    - rover2
+
+  - setProperty:
+    - solarPanel1
+    - visible
+    - false
+
+  - setProperty:
+    - solarPanel2
+    - visible
+    - false
+
+  - setProperty:
+    - solarPanel3
+    - visible
+    - false
+
+  - setProperty:
+    - solarPanel4
+    - visible
+    - false
 children:
   triggerManager:
     extends: ../triggers/triggerManager.vwf
@@ -134,27 +156,6 @@ children:
             - doOnce:
           actions:
           - openMissionBrief:
-
-        setStartPosition_4_2:
-          triggerCondition:
-          - and:
-            - onScenarioStart:
-            - not:
-              - isAtPosition:
-                - rover2
-                - [ -32, 77 ]
-            - not:
-              - isAtPosition:
-                - rover2
-                - [ -32, 80 ]
-            - not:
-              - isAtPosition:
-                - rover2
-                - [ -35, 77 ]
-          actions:
-            - addToGrid:
-              - rover2
-              - [ -32, 77 ]
 
         succeedOnTriangle_4_2:
           group: successOrFailure

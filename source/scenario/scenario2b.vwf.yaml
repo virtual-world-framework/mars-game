@@ -77,6 +77,9 @@ properties:
     - opacity
     - 1
 
+  - selectRover:
+    - rover
+
 children:
   triggerManager:
     extends: ../triggers/triggerManager.vwf

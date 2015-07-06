@@ -132,6 +132,60 @@ properties:
     - opacity
     - 0
 
+  - selectRover:
+    - rover2
+  - addToGrid:
+    - solarPanel1
+    - [ -25, 80 ]
+  - setProperty:
+    - solarPanel1
+    - scale
+    - [1.2, 1.2, 1.2]
+  - setProperty:
+    - solarPanel1
+    - rotation
+    - [0 ,0 ,1 , 90 ]
+  - addToGrid:
+    - solarPanel2
+    - [ -19, 80 ]
+  - setProperty:
+    - solarPanel2
+    - scale
+    - [1.2, 1.2, 1.2]
+  - addToGrid:
+    - solarPanel3
+    - [ -25, 74 ]
+  - setProperty:
+    - solarPanel3
+    - rotation
+    - [0 ,0 ,1 , 180 ]
+  - setProperty:
+    - solarPanel3
+    - scale
+    - [1.2, 1.2, 1.2]
+  - setProperty:
+    - solarPanel1
+    - visible
+    - true
+  - buildBaseComponent:
+    - solarPanel1
+  - setProperty:
+    - solarPanel2
+    - visible
+    - true
+  - buildBaseComponent:
+    - solarPanel2
+  - setProperty:
+    - solarPanel3
+    - visible
+    - true
+  - buildBaseComponent:
+    - solarPanel3
+  - setProperty:
+    - solarPanel4
+    - visible
+    - false
+
 children:
   triggerManager:
     extends: ../triggers/triggerManager.vwf

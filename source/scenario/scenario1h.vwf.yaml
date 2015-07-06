@@ -83,7 +83,8 @@ properties:
     - blocklyLine
     - opacity
     - 0
-
+  - selectRover:
+    - rover
 
 children:
   triggerManager:
