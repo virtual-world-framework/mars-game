@@ -196,7 +196,7 @@ this.executeBlock = function ( block, action ) {
         node[ methodName ].apply( node, args );
     }
 
-    handleDrawingBlocks( blockName, nodeID, blockNode, blockArgs );
+    this.handleDrawingBlocks( blockName, nodeID, blockNode, blockArgs );
     this.blockExecuted( blockName, blockID, blockNode, blockExeTime, blockArgs );
 }
 

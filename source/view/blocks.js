@@ -1644,8 +1644,6 @@ Blockly.JavaScript['draw_triangle'] = function(block) {
   var op_b = op_b_str.split(",");
   var op_c = op_c_str.split(",");
 
-  console.log(op_a);
-
   var actionA = {
     nodeID: block.data,
     methodName: 'moveRadialAbsolute',
@@ -1691,7 +1689,6 @@ Blockly.JavaScript['draw_triangle'] = function(block) {
 
   var overallCode = moveA + start + mark + moveB + mark + moveC + mark + moveA + mark + end;
   
-  console.log(overallCode);
   return overallCode;
 };
 

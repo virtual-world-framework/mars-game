@@ -124,16 +124,6 @@ children:
           - setThirdPersonStartPose:
             - [ 13, 15, -15 ]
 
-        testonblocklyblock:
-          triggerCondition:
-          - onBlocklyBlock:
-            - rover
-            - rover_moveForward
-            - true
-          actions:
-          - showAlert:
-            - "You moved"
-
         playStartingVO_1b:
           triggerCondition:
           - and:
