@@ -55,6 +55,7 @@ methods:
   addAlert:
   addSubtitle:
   executeBlock:
+  handleDrawingBlocks:
   displayTiles:
   displayGraph:
   setCinematicView:

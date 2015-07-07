@@ -196,17 +196,21 @@ this.executeBlock = function ( block, action ) {
         node[ methodName ].apply( node, args );
     }
 
-    this.handleDrawingBlocks( blockName, nodeID, blockNode, blockArgs );
+
     this.blockExecuted( blockName, blockID, blockNode, blockExeTime, blockArgs );
 }
 
-this.handleDrawingBlocks = function ( blockName, blockID, blockNode, args ) {
+this.handleDrawingBlocks = function ( blockName, blockID, blockNode, blockExeTime ) {
 
-    var node = this.findByID( this, nodeID );
+    var nodeObject = this.findByID( this, blockNode );
 
+    console.log(blockName);
+    console.log(blockNode);
     if ( blockName === 'startTriangle' && blockNode !== undefined ) {
         
-        node.surveyArray = [];
+        console.log('starting');
+        console.log( nodeObject );
+        nodeObject.surveyArray = [];
         //vwf.setProperty( blockNode, "surveyArray", [] );
         //var blocklyNodeValues = blocklyNodes[ blockNode ];
         //var currentPosition = blocklyNodeValues[ 'positionSensorValue' ];
@@ -214,8 +218,8 @@ this.handleDrawingBlocks = function ( blockName, blockID, blockNode, args ) {
         //vwf.setProperty( blockNode, "surveyArray", currentArray );
     } else if ( blockName === 'endTriangle' && blockNode !== undefined ) {
 
-        var currentPosition = node.positionSensorValue;
-        var currentArray = node.surveyArray;
+        var currentPosition = nodeObjecte.positionSensorValue;
+        var currentArray = nodeObject.surveyArray;
         //var blocklyNodeValues = blocklyNodes[ blockNode ];
         //var currentPosition = blocklyNodeValues[ 'positionSensorValue' ];
 
@@ -231,11 +235,11 @@ this.handleDrawingBlocks = function ( blockName, blockID, blockNode, args ) {
         //var blocklyNodeValues = blocklyNodes[ blockNode ];
         //var currentPosition = blocklyNodeValues[ 'positionSensorValue' ];
         //var currentArray = vwf.getProperty( blockNode, "surveyArray" );
-        var currentPosition = node.positionSensorValue;
-        var currentArray = node.surveyArray;
+        var currentPosition = nodeObject.positionSensorValue;
+        var currentArray = nodeObject.surveyArray;
         currentArray.push( currentPosition );
 
-        node.surveyArray = currentArray;
+        nodeObject.surveyArray = currentArray;
         //vwf.setProperty( blockNode, "surveyArray", currentArray );
     }
 }

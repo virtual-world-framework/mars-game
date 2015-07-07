@@ -1644,6 +1644,10 @@ Blockly.JavaScript['draw_triangle'] = function(block) {
   var op_b = op_b_str.split(",");
   var op_c = op_c_str.split(",");
 
+  if ( op_a.length < 2 || op_b.length < 2 || op_c.length < 2 ) {
+    return '';
+  }
+
   var actionA = {
     nodeID: block.data,
     methodName: 'moveRadialAbsolute',
@@ -1671,12 +1675,12 @@ Blockly.JavaScript['draw_triangle'] = function(block) {
 
   var moveC = constructBlockExeFuncCall( block, actionC, 'moveRadial' );
 
-  var start = "vwf.fireEvent( '" + vwf_view.kernel.application() + 
-                  "', 'blockExecuted', " + " [ 'startTriangle', '" + block.id + "', '" + block.data + "', " + 1 + " ] );\n";
-  var end = "vwf.fireEvent( '" + vwf_view.kernel.application() + 
-                  "', 'blockExecuted', " + " [ 'endTriangle', '" + block.id + "', '" + block.data + "', " + 1 + " ] );\n";
-  var mark = "vwf.fireEvent( '" + vwf_view.kernel.application() + 
-                  "', 'blockExecuted', " + " [ 'markPoint', '" + block.id + "', '" + block.data + "', " + 1 + " ] );\n";
+  var start = "vwf.callMethod( '" + vwf_view.kernel.application() + 
+                  "', 'handleDrawingBlocks', " + " [ 'startTriangle', '" + block.id + "', '" + block.data + "', " + 1 + " ] );\n";
+  var end = "vwf.callMethod( '" + vwf_view.kernel.application() + 
+                  "', 'handleDrawingBlocks', " + " [ 'endTriangle', '" + block.id + "', '" + block.data + "', " + 1 + " ] );\n";
+  var mark = "vwf.callMethod( '" + vwf_view.kernel.application() + 
+                  "', 'handleDrawingBlocks', " + " [ 'markPoint', '" + block.id + "', '" + block.data + "', " + 1 + " ] );\n";
 
   //moveA
   //start
