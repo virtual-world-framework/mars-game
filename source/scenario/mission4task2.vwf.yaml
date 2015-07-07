@@ -153,6 +153,27 @@ children:
     properties: 
       triggers$:
 
+        setStartPosition_4_3:
+          triggerCondition:
+          - and:
+            - onScenarioStart:
+            - not:
+              - isAtPosition:
+                - rover2
+                - [ -32, 77 ]
+            - not:
+              - isAtPosition:
+                - rover2
+                - [ -35, 80 ]
+            - not:
+              - isAtPosition:
+                - rover2
+                - [ -35, 77 ]
+          actions:
+            - addToGrid:
+              - rover2
+              - [ -32, 77 ]
+
         openMissionBrief_4_2:
           triggerCondition:
           - and:
