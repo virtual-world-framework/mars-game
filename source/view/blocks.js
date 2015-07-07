@@ -1619,13 +1619,13 @@ Blockly.Blocks['draw_triangle'] = {
         .appendField("Draw Triangle");
     this.appendValueInput("pointA")
         .setCheck(null)
-        .appendField("Corner #1");
+        .appendField("Vertex #1");
     this.appendValueInput("pointB")
         .setCheck(null)
-        .appendField("Corner #2");
+        .appendField("Vertex #2");
     this.appendValueInput("pointC")
         .setCheck(null)
-        .appendField("Corner #3");
+        .appendField("Vertex #3");
     this.setPreviousStatement(true);
     this.setNextStatement(true);
     this.setColour(315);

@@ -195,8 +195,49 @@ this.executeBlock = function ( block, action ) {
         args = args instanceof Array ? args : [ args ];
         node[ methodName ].apply( node, args );
     }
-    
+
+    handleDrawingBlocks( blockName, nodeID, blockNode, blockArgs );
     this.blockExecuted( blockName, blockID, blockNode, blockExeTime, blockArgs );
+}
+
+this.handleDrawingBlocks = function ( blockName, blockID, blockNode, args ) {
+
+    var node = this.findByID( this, nodeID );
+
+    if ( blockName === 'startTriangle' && blockNode !== undefined ) {
+        
+        node.surveyArray = [];
+        //vwf.setProperty( blockNode, "surveyArray", [] );
+        //var blocklyNodeValues = blocklyNodes[ blockNode ];
+        //var currentPosition = blocklyNodeValues[ 'positionSensorValue' ];
+        //var currentArray = [];
+        //vwf.setProperty( blockNode, "surveyArray", currentArray );
+    } else if ( blockName === 'endTriangle' && blockNode !== undefined ) {
+
+        var currentPosition = node.positionSensorValue;
+        var currentArray = node.surveyArray;
+        //var blocklyNodeValues = blocklyNodes[ blockNode ];
+        //var currentPosition = blocklyNodeValues[ 'positionSensorValue' ];
+
+        //var currentArray = vwf.getProperty( blockNode, "surveyArray" );
+        if ( currentArray[ 0 ][ 0 ] !== currentArray[ currentArray.length - 1 ][ 0 ] 
+            || currentArray[ 0 ][ 1 ] !== currentArray[ currentArray.length - 1 ][ 1 ] ) {
+          //vwf.fireEvent( appID, "blocklyFailedPolygon", [ 'rover2', currentArray ] );
+          this.blocklyFailedPolygon( [ 'rover2', currentArray ] );
+        }
+        this.blocklyCompletedPolygon( [ 'rover2', currentArray ] );
+        //vwf.fireEvent( appID, "blocklyCompletedPolygon", [ 'rover2', currentArray ] );
+    } else if ( blockName === 'markPoint' && blockNode !== undefined ) {
+        //var blocklyNodeValues = blocklyNodes[ blockNode ];
+        //var currentPosition = blocklyNodeValues[ 'positionSensorValue' ];
+        //var currentArray = vwf.getProperty( blockNode, "surveyArray" );
+        var currentPosition = node.positionSensorValue;
+        var currentArray = node.surveyArray;
+        currentArray.push( currentPosition );
+
+        node.surveyArray = currentArray;
+        //vwf.setProperty( blockNode, "surveyArray", currentArray );
+    }
 }
 
 this.displayTiles = function( isVisible ) {
