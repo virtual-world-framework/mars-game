@@ -2,7 +2,7 @@
   <category name="Control">
   <block type="rover_moveForward"></block>
   <block type="rover_turn"><field name="DIR">Turn: Left</field></block>
-  <block type="controls_repeat_extended"></block>
+  <block type="controls_repeat_extended" id="69" inline="true" x="60" y="100"><value name="TIMES"><block type="math_number_field" id="74" inline="false"><field name="VALUE">0</field></block></value></block>
   <block type="math_number_field"><field name="VALUE">0</field></block>
   </category>
 </xml>
