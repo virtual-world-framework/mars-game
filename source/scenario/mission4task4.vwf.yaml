@@ -24,11 +24,7 @@ properties:
   - setObjective:
     - "Reflect your triangle across the Y axis."
 
-  # blockly
-  #- setProperty:
-    # - rover2
-    # - blockly_xml
-    # - <xml><block type="variables_set" id="137" inline="true" deletable="false" movable="false" editable="false" x="60" y="0"><field name="VAR">vertex1</field><value name="VALUE"><block type="ordered_pair_config" id="80" inline="true" deletable="false" movable="false" editable="false"><value name="XFIELD"><block type="math_number_frozen" id="83" inline="false" deletable="false" movable="false" editable="false"><field name="VALUE">0</field></block></value><value name="YFIELD"><block type="math_number_frozen" id="84" inline="false" deletable="false" movable="false" editable="false"><field name="VALUE">0</field></block></value></block></value><next><block type="variables_set" id="173" inline="true" deletable="false" movable="false" editable="false"><field name="VAR">vertex2</field><value name="VALUE"><block type="ordered_pair_config" id="81" inline="true" deletable="false" movable="false" editable="false"><value name="XFIELD"><block type="math_number_frozen" id="85" inline="false" deletable="false" movable="false" editable="false"><field name="VALUE">0</field></block></value><value name="YFIELD"><block type="math_number_frozen" id="103" inline="false" deletable="false" movable="false" editable="false"><field name="VALUE">6</field></block></value></block></value><next><block type="variables_set" id="175" inline="true" deletable="false" movable="false" editable="false"><field name="VAR">vertex3</field><value name="VALUE"><block type="ordered_pair_config" id="82" inline="true" deletable="false" movable="false" editable="false"><value name="XFIELD"><block type="math_number_frozen" id="112" inline="false" deletable="false" movable="false" editable="false"><field name="VALUE">-6</field></block></value><value name="YFIELD"><block type="math_number_frozen" id="86" inline="false" deletable="false" movable="false" editable="false"><field name="VALUE">0</field></block></value></block></value><next><block type="rover_moveRadial_absolute" id="83" inline="true" deletable="false" movable="false" editable="false"><value name="x"><block type="variables_get" id="84" inline="false" deletable="false" movable="false" editable="false"><field name="VAR">vertex1</field><value name="INPUT"><block type="ordered_get_noin" id="85" deletable="false" movable="false" editable="false"><field name="OPTION">.x</field></block></value></block></value><value name="y"><block type="variables_get" id="86" inline="false" deletable="false" movable="false" editable="false"><field name="VAR">vertex1</field><value name="INPUT"><block type="ordered_get_noin" id="87" deletable="false" movable="false" editable="false"><field name="OPTION">.y</field></block></value></block></value><next><block type="start_triangle" id="225" deletable="false" movable="false" editable="false"><next><block type="mark_point" id="241" deletable="false" movable="false" editable="false"><next><block type="rover_moveRadial_absolute" id="181" inline="true" deletable="false" movable="false" editable="false"><value name="x"><block type="variables_get" id="182" inline="false" deletable="false" movable="false" editable="false"><field name="VAR">vertex2</field><value name="INPUT"><block type="ordered_get_noin" id="199" deletable="false" movable="false" editable="false"><field name="OPTION">.x</field></block></value></block></value><value name="y"><block type="variables_get" id="200" inline="false" deletable="false" movable="false" editable="false"><field name="VAR">vertex2</field><value name="INPUT"><block type="ordered_get_noin" id="201" deletable="false" movable="false" editable="false"><field name="OPTION">.y</field></block></value></block></value><next><block type="mark_point" id="233" deletable="false" movable="false" editable="false"><next><block type="rover_moveRadial_absolute" id="202" inline="true" deletable="false" movable="false" editable="false"><value name="x"><block type="variables_get" id="203" inline="false" deletable="false" movable="false" editable="false"><field name="VAR">vertex3</field><value name="INPUT"><block type="ordered_get_noin" id="204" deletable="false" movable="false" editable="false"><field name="OPTION">.x</field></block></value></block></value><value name="y"><block type="variables_get" id="205" inline="false" deletable="false" movable="false" editable="false"><field name="VAR">vertex3</field><value name="INPUT"><block type="ordered_get_noin" id="206" deletable="false" movable="false" editable="false"><field name="OPTION">.y</field></block></value></block></value><next><block type="mark_point" id="237" deletable="false" movable="false" editable="false"><next><block type="rover_moveRadial_absolute" id="207" inline="true" deletable="false" movable="false" editable="false"><value name="x"><block type="variables_get" id="208" inline="false" deletable="false" movable="false" editable="false"><field name="VAR">vertex1</field><value name="INPUT"><block type="ordered_get_noin" id="209" deletable="false" movable="false" editable="false"><field name="OPTION">.x</field></block></value></block></value><value name="y"><block type="variables_get" id="210" inline="false" deletable="false" movable="false" editable="false"><field name="VAR">vertex1</field><value name="INPUT"><block type="ordered_get_noin" id="211" deletable="false" movable="false" editable="false"><field name="OPTION">.y</field></block></value></block></value><next><block type="mark_point" id="245" deletable="false" movable="false" editable="false"><next><block type="end_triangle" id="229" deletable="false" movable="false" editable="false"></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block></xml>
+  # Blockly
   - setProperty:
     - rover2
     - blockly_xml
@@ -99,20 +95,19 @@ properties:
     - rover2
     - lowRam
     - 5
+  - selectRover:
+    - rover2
 
   # Rosie disabled
   - setProperty:
     - rover3
     - visible
     - false
+
+  # Grid and disable blocklyLine
   - setGridAxes:
     - 77
     - -22
-  # Draw the desired triangle
-  - drawTriangle:
-    - [ 0, 0 ]
-    - [ 0, 6 ]
-    - [ 6, 0 ]
 
   - setProperty:
     - blocklyLine
@@ -124,12 +119,22 @@ properties:
     - opacity
     - 0
 
-  - selectRover:
-    - rover2
+
+  # Solar panel construction
+  
+  - drawTriangle:
+    - [ 0, 0 ]
+    - [ 0, 6 ]
+    - [ 6, 0 ]
 
   - addToGrid:
     - solarPanel1
     - [ -25, 80 ]
+
+  - addToGrid:
+    - solarPanel2
+    - [ -19, 80 ]
+
   - setProperty:
     - solarPanel1
     - scale
@@ -138,35 +143,34 @@ properties:
     - solarPanel1
     - rotation
     - [0 ,0 ,1 , 90 ]
-  - addToGrid:
-    - solarPanel2
-    - [ -19, 80 ]
+  - setProperty:
+    - solarPanel1
+    - visible
+    - true
+  - setProperty:
+    - solarPanel1
+    - built
+    - false
+
   - setProperty:
     - solarPanel2
     - scale
     - [1.2, 1.2, 1.2]
   - setProperty:
-    - solarPanel1
-    - visible
-    - true
- # - buildBaseComponent:
- #   - solarPanel1
-  - setProperty:
     - solarPanel2
     - visible
     - false
+
   - setProperty:
     - solarPanel3
     - visible
     - false
+
   - setProperty:
     - solarPanel4
     - visible
     - false
-  - setProperty:
-    - solarPanel1
-    - built
-    - false
+  
 children:
   triggerManager:
     extends: ../triggers/triggerManager.vwf
