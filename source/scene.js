@@ -190,7 +190,7 @@ this.executeBlock = function ( block, action ) {
     var methodName = action[ 1 ];
     var args = action[ 2 ];
     var node = this.findByID( this, nodeID );
-
+ 
     if ( node ) {
         args = args instanceof Array ? args : [ args ];
         node[ methodName ].apply( node, args );
@@ -199,53 +199,33 @@ this.executeBlock = function ( block, action ) {
     this.blockExecuted( blockName, blockID, blockNode, blockExeTime, blockArgs );
 }
 
-this.handleDrawingBlocks = function ( blockName, blockID, blockNode, blockExeTime ) {
+this.handleDrawingBlocks = function ( blockName, blockID, blockNode, blockExeTime, blockArgs ) {
 
     var nodeObject = this.findByID( this, blockNode );
 
-    nodeObject.blockly_timeBetweenLines = blockExeTime;
-
-    console.log( 'control' );
-    console.log( nodeObject );
-
     if ( blockName === 'startTriangle' && blockNode !== undefined ) {
-        
         nodeObject.surveyArray = [];
-        //vwf.setProperty( blockNode, "surveyArray", [] );
-        //var blocklyNodeValues = blocklyNodes[ blockNode ];
-        //var currentPosition = blocklyNodeValues[ 'positionSensorValue' ];
-        //var currentArray = [];
-        //vwf.setProperty( blockNode, "surveyArray", currentArray );
     } else if ( blockName === 'endTriangle' && blockNode !== undefined ) {
 
         var currentPosition = nodeObject.positionSensorValue;
         var currentArray = nodeObject.surveyArray.slice( 0 );
-        //var blocklyNodeValues = blocklyNodes[ blockNode ];
-        //var currentPosition = blocklyNodeValues[ 'positionSensorValue' ];
 
-        //var currentArray = vwf.getProperty( blockNode, "surveyArray" );
         if ( currentArray[ 0 ][ 0 ] !== currentArray[ currentArray.length - 1 ][ 0 ] 
             || currentArray[ 0 ][ 1 ] !== currentArray[ currentArray.length - 1 ][ 1 ] ) {
-          //vwf.fireEvent( appID, "blocklyFailedPolygon", [ 'rover2', currentArray ] );
-          this.blocklyFailedPolygon( [ 'rover2', currentArray ] );
+          this.blocklyFailedPolygon( 'rover2', currentArray );
         }
-        this.blocklyCompletedPolygon( [ 'rover2', currentArray ] );
-        //vwf.fireEvent( appID, "blocklyCompletedPolygon", [ 'rover2', currentArray ] );
+        this.blocklyCompletedPolygon( 'rover2', currentArray );
+
     } else if ( blockName === 'markPoint' && blockNode !== undefined ) {
-        //var blocklyNodeValues = blocklyNodes[ blockNode ];
-        //var currentPosition = blocklyNodeValues[ 'positionSensorValue' ];
-        //var currentArray = vwf.getProperty( blockNode, "surveyArray" );
         var currentPosition = nodeObject.positionSensorValue;
         var currentArray = nodeObject.surveyArray.slice( 0 );
 
-        console.log('pushing');
-        console.log(currentPosition);
-        console.log(currentArray);
         currentArray.push( currentPosition );
 
         nodeObject.surveyArray = currentArray;
-        //vwf.setProperty( blockNode, "surveyArray", currentArray );
     }
+
+    this.blockExecuted( blockName, blockID, blockNode, blockExeTime, blockArgs );
 }
 
 this.displayTiles = function( isVisible ) {
