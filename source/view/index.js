@@ -152,9 +152,6 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 break;
             case "unpaused":
                 break;
-            
-            case "blocklyCompletedPolygon":
-                break;
 
             case "blocklyContentChanged":
                 if ( currentBlocklyNodeID === blocklyGraphID ) {

@@ -56,6 +56,9 @@ this.onPolygonFinished = function( blockNodeName, playerPoints ) {
     // Note: The playerPoints array should have length v+1 for the correct polygon. This is because we mark
     // the point where the polygon is started and where it finishes to determine if it is closed.
 
+    console.log('checking');
+    console.log( blockNodeName );
+    console.log( playerPoints );
     var points = playerPoints.slice( 0 );
 
     if ( this.blockNodeName === blockNodeName ) {

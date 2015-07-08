@@ -82,7 +82,6 @@ properties:
       }
     value: 0
   executionSpeed: 1
-  surveyArray: []
   terrainName: undefined
   displayName: undefined
   wheelRadius:

@@ -196,7 +196,6 @@ this.executeBlock = function ( block, action ) {
         node[ methodName ].apply( node, args );
     }
 
-
     this.blockExecuted( blockName, blockID, blockNode, blockExeTime, blockArgs );
 }
 
@@ -204,12 +203,13 @@ this.handleDrawingBlocks = function ( blockName, blockID, blockNode, blockExeTim
 
     var nodeObject = this.findByID( this, blockNode );
 
-    console.log(blockName);
-    console.log(blockNode);
+    nodeObject.blockly_timeBetweenLines = blockExeTime;
+
+    console.log( 'control' );
+    console.log( nodeObject );
+
     if ( blockName === 'startTriangle' && blockNode !== undefined ) {
         
-        console.log('starting');
-        console.log( nodeObject );
         nodeObject.surveyArray = [];
         //vwf.setProperty( blockNode, "surveyArray", [] );
         //var blocklyNodeValues = blocklyNodes[ blockNode ];
@@ -218,8 +218,8 @@ this.handleDrawingBlocks = function ( blockName, blockID, blockNode, blockExeTim
         //vwf.setProperty( blockNode, "surveyArray", currentArray );
     } else if ( blockName === 'endTriangle' && blockNode !== undefined ) {
 
-        var currentPosition = nodeObjecte.positionSensorValue;
-        var currentArray = nodeObject.surveyArray;
+        var currentPosition = nodeObject.positionSensorValue;
+        var currentArray = nodeObject.surveyArray.slice( 0 );
         //var blocklyNodeValues = blocklyNodes[ blockNode ];
         //var currentPosition = blocklyNodeValues[ 'positionSensorValue' ];
 
@@ -236,7 +236,11 @@ this.handleDrawingBlocks = function ( blockName, blockID, blockNode, blockExeTim
         //var currentPosition = blocklyNodeValues[ 'positionSensorValue' ];
         //var currentArray = vwf.getProperty( blockNode, "surveyArray" );
         var currentPosition = nodeObject.positionSensorValue;
-        var currentArray = nodeObject.surveyArray;
+        var currentArray = nodeObject.surveyArray.slice( 0 );
+
+        console.log('pushing');
+        console.log(currentPosition);
+        console.log(currentArray);
         currentArray.push( currentPosition );
 
         nodeObject.surveyArray = currentArray;

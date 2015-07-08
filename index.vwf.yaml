@@ -434,6 +434,7 @@ children:
           castShadows: true
           receiveShadows: true
           executionSpeed: 0.5
+          surveyArray: []
           sceneNode:
             get: |
               if ( !this.sceneNode ) {
