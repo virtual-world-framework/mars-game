@@ -16,6 +16,7 @@ var ramBarCount = document.createElement( "div" );
 var ramBar = document.createElement( "div" );
 var currentRam = document.createElement( "div" );
 var startBlocklyButton = document.getElementById( "runButton" );
+var blocklyToolboxDiv = document.getElementById( "blocklyToolboxDiv" );
 var blocklySpeedButton = document.createElement( "div" );
 
 function setUpBlocklyPeripherals() {
@@ -45,6 +46,7 @@ function setUpBlocklyPeripherals() {
     indicator.appendChild( indicatorCount );
     $( "#blocklyWrapper-top" ).append( blocklyHandle )
     $( "#blocklyWrapper" ).append( indicatorHighlighter );
+    $( "#blocklyWrapper" ).append( blocklyToolboxDiv );
     $( "#blocklyWrapper" ).append( indicator );
     $( "#blocklyWrapper" ).append( procedureIndicator );
     // $( "#blocklyWrapper" ).draggable( {
@@ -73,7 +75,11 @@ function setUpBlocklyPeripherals() {
     $( "#blocklyWrapper" ).draggable( {
         handle: "div#blocklyHandle",
         scroll: false,
-        containment: "window"
+        containment: "window",
+        drag: function( event, element ) {
+             $( ".blocklyWidgetDiv" ).css( "display", "none" );
+             blocklyResized();
+        }
     } );
     // $( "#blocklyWrapper" ).resizable({
     //     resize: function( event, ui ) {

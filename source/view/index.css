@@ -114,7 +114,7 @@ a:active {
 }
 
 .blocklySvg {
-    background-color: rgba( 0, 0, 0, 0.5 );
+    background-color: rgba( 0, 0, 0, 0.75 );
     border-color: rgba( 255, 255, 255, 0.25 );
 }
 
@@ -221,6 +221,12 @@ a:active {
 
 #blocklyDiv {
     position: absolute;
+    zoom: 100%;
+}
+
+#blocklyToolboxDiv {
+    position: absolute;
+    visibility: hidden;
     zoom: 100%;
 }
 
