@@ -170,23 +170,35 @@ properties:
     - solarPanel1
     - visible
     - true
-  - buildBaseComponent:
-    - solarPanel1
+#  - buildBaseComponent:
+#    - solarPanel1
   - setProperty:
     - solarPanel2
     - visible
     - true
-  - buildBaseComponent:
-    - solarPanel2
+#  - buildBaseComponent:
+#    - solarPanel2
   - setProperty:
     - solarPanel3
     - visible
     - true
-  - buildBaseComponent:
-    - solarPanel3
+ # - buildBaseComponent:
+ #   - solarPanel3
   - setProperty:
     - solarPanel4
     - visible
+    - false
+  - setProperty:
+    - solarPanel1
+    - built
+    - false
+  - setProperty:
+    - solarPanel2
+    - built
+    - false
+  - setProperty:
+    - solarPanel3
+    - built
     - false
 
 children:

@@ -149,8 +149,8 @@ properties:
     - solarPanel1
     - visible
     - true
-  - buildBaseComponent:
-    - solarPanel1
+ # - buildBaseComponent:
+ #   - solarPanel1
   - setProperty:
     - solarPanel2
     - visible
@@ -162,6 +162,10 @@ properties:
   - setProperty:
     - solarPanel4
     - visible
+    - false
+  - setProperty:
+    - solarPanel1
+    - built
     - false
 children:
   triggerManager:
