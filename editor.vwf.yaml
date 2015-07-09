@@ -85,8 +85,8 @@ children:
           textureResolution: 128
           gridInterval: 3
           laserWidth: 0.1
-          laserStrength: 0.25
-          laserIntensity: 4
+          laserStrength: 0.1
+          laserIntensity: 2
           gridColor: 0xFFDDAA
           gridVisible: 1
           tilesVisible: 1
