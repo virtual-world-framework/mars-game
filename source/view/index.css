@@ -224,9 +224,9 @@ a:active {
     zoom: 100%;
 }
 
-#blocklyToolboxDiv {
+.blocklyToolboxDiv {
     position: absolute;
-    visibility: hidden;
+    visibility: inherit;
     zoom: 100%;
 }
 

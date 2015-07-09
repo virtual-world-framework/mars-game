@@ -514,19 +514,27 @@ Blockly.Blocks['variables_set'] = {
   init: function() {
     this.setHelpUrl(Blockly.Msg.VARIABLES_SET_HELPURL);
     this.setColour( 330 );
-    this.interpolateMsg(
-        // TODO: Combine these messages instead of using concatenation.
-        Blockly.Msg.VARIABLES_SET_TITLE + ' %1 ' +
-        Blockly.Msg.VARIABLES_SET_TAIL + ' %2',
-        ['VAR', new Blockly.FieldVariable(Blockly.Msg.VARIABLES_SET_ITEM)],
-        ['VALUE', [ 'Boolean','Number','Variable','LeftParenthesis' ], Blockly.ALIGN_RIGHT],
-        Blockly.ALIGN_RIGHT);
-    this.setPreviousStatement(true);
-    this.setNextStatement(true);
-    this.setTooltip(Blockly.Msg.VARIABLES_SET_TOOLTIP);
-    this.contextMenuMsg_ = Blockly.Msg.VARIABLES_SET_CREATE_GET;
-    this.contextMenuType_ = 'variables_get';
-    this.data = currentBlocklyNodeID;
+    this.jsonInit({
+      "message": Blockly.Msg.VARIABLES_SET,
+      "args": [
+        {
+          "type": "field_variable",
+          "name": "VAR",
+          "variable": Blockly.Msg.VARIABLES_DEFAULT_NAME
+        },
+        {
+          "type": "input_value",
+          "name": "VALUE"
+        }
+      ],
+      "inputsInline": true,
+      "previousStatement": null,
+      "nextStatement": null,
+      "colour": Blockly.Blocks.variables.HUE,
+      "tooltip": Blockly.Msg.VARIABLES_SET_TOOLTIP,
+      "helpUrl": Blockly.Msg.VARIABLES_SET_HELPURL,
+      "data": currentBlocklyNodeID
+    });
   },
   /**
    * Return all variables referenced by this block.
@@ -1749,65 +1757,85 @@ Blockly.JavaScript['rover_turn'] = function( block ) {
   return constructBlockExeFuncCall( block, action );
 };
 
-Blockly.Blocks[ 'controls_repeat_extended' ] = {
-  /**
-   * Block for repeat n times (external number).
-   * @this Blockly.Block
-   */
-  init: function() {
-    this.setHelpUrl( Blockly.Msg.CONTROLS_REPEAT_HELPURL );
-    this.setColour( 120 );
-    this.interpolateMsg( Blockly.Msg.CONTROLS_REPEAT_TITLE,
-                        ['TIMES', ['Number', 'Variable', 'LeftParenthesis'], Blockly.ALIGN_RIGHT ],
-                        Blockly.ALIGN_RIGHT );
-    this.appendStatementInput( 'DO' )
-        .appendField( Blockly.Msg.CONTROLS_REPEAT_INPUT_DO );
-    this.setPreviousStatement( true );
-    this.setNextStatement( true );
-    this.setInputsInline( true );
-    this.data = currentBlocklyNodeID;
-    var thisBlock = this;
-    this.setTooltip( function() {
-      var content = {
-        text: "Repeats the contained blocks a certain number of times.",
-        imagePath: "assets/images/tooltips/while_smaller.png"
-      }
-      return showTooltipInBlockly( thisBlock, content );
-    } );    
-  }
-};
+// Blockly.Blocks[ 'controls_repeat_extended' ] = {
+//   /**
+//    * Block for repeat n times (external number).
+//    * @this Blockly.Block
+//    */
+//   init: function() {
+//     this.setColour(120);
+//     this.appendValueInput("Repeat ")
+//         .setCheck(null)
+//         .appendField("TIMES");
+//     this.appendDummyInput("Times")
+//         .appendField(new Blockly.FieldDropdown(DIRECTIONS), 'DIR');
+//     this.jsonInit({
+//       "message": Blockly.Msg.CONTROLS_REPEAT_TITLE + " %2 " +
+//           Blockly.Msg.CONTROLS_REPEAT_INPUT_DO + " %3",
+//       "args": [
+//         {
+//           "type": "value_input",
+//           "name": "TIMES",
+//           "check": "Number"
+//         },
+//         {
+//           "type": "input_dummy"
+//         },
+//         {
+//           "type": "input_statement",
+//           "name": "DO"
+//         }
+//       ],
+//       "inputsInline": true,
+//       "previousStatement": null,
+//       "nextStatement": null,
+//       "colour": 120,
+//       "tooltip": Blockly.Msg.CONTROLS_REPEAT_TOOLTIP,
+//       "helpUrl": Blockly.Msg.CONTROLS_REPEAT_HELPURL
+//     });
+//     this.data = currentBlocklyNodeID;
+//     var thisBlock = this;
+//     this.setTooltip( function() {
+//       var content = {
+//         text: "Repeats the contained blocks a certain number of times.",
+//         imagePath: "assets/images/tooltips/while_smaller.png"
+//       }
+//       return showTooltipInBlockly( thisBlock, content );
+//     } );    
+//   }
+// };
 
-Blockly.JavaScript[ 'controls_repeat_extended' ] = function( block ) {
-  // Repeat n times (external number).
-  var repeats = Blockly.JavaScript.valueToCode( block, 'TIMES',
-      Blockly.JavaScript.ORDER_ASSIGNMENT ) || '0';
-  var branch = Blockly.JavaScript.statementToCode( block, 'DO' );
-  var code = '';
+// Blockly.JavaScript[ 'controls_repeat_extended' ] = function( block ) {
+//   // Repeat n times (external number).
+//   var repeats = Blockly.JavaScript.valueToCode( block, 'TIMES',
+//       Blockly.JavaScript.ORDER_ASSIGNMENT ) || '0';
+//   var branch = Blockly.JavaScript.statementToCode( block, 'DO' );
+//   var code = '';
 
-  var loopVar = Blockly.JavaScript.variableDB_.getDistinctName(
-      'count', Blockly.Variables.NAME_TYPE);
-  var endVar = repeats;
-  if( endVar.split('(').length == endVar.split(')').length ) {
+//   var loopVar = Blockly.JavaScript.variableDB_.getDistinctName(
+//       'count', Blockly.Variables.NAME_TYPE);
+//   var endVar = repeats;
+//   if( endVar.split('(').length == endVar.split(')').length ) {
       
-      if ( !repeats.match(/^\w+$/) && !Blockly.isNumber( repeats ) ) {
-          var endVar = Blockly.JavaScript.variableDB_.getDistinctName(
-        'repeat_end', Blockly.Variables.NAME_TYPE );
-         code += 'var ' + endVar + ' = ' + repeats + ';\n';
-       }
+//       if ( !repeats.match(/^\w+$/) && !Blockly.isNumber( repeats ) ) {
+//           var endVar = Blockly.JavaScript.variableDB_.getDistinctName(
+//         'repeat_end', Blockly.Variables.NAME_TYPE );
+//          code += 'var ' + endVar + ' = ' + repeats + ';\n';
+//        }
   
-      code += 'for (var ' + loopVar + ' = 0; ' +
-      loopVar + ' < ' + endVar + '; ' +
-      loopVar + '++) {\n' +
-      branch + '}\n';
-      return constructBlockExeEventCall( block ) + code;
-  }
-  else {
-    code += 'for (var xrepeat = 0; xrepeat < 0; xrepeat++) {\n' +
-      branch + '}\n';
-      return constructBlockExeEventCall( block ) + code;
-  }
+//       code += 'for (var ' + loopVar + ' = 0; ' +
+//       loopVar + ' < ' + endVar + '; ' +
+//       loopVar + '++) {\n' +
+//       branch + '}\n';
+//       return constructBlockExeEventCall( block ) + code;
+//   }
+//   else {
+//     code += 'for (var xrepeat = 0; xrepeat < 0; xrepeat++) {\n' +
+//       branch + '}\n';
+//       return constructBlockExeEventCall( block ) + code;
+//   }
   
-};
+// };
 
 Blockly.Blocks[ 'math_number_out' ] = {
   init: function() {

@@ -16,7 +16,6 @@ var ramBarCount = document.createElement( "div" );
 var ramBar = document.createElement( "div" );
 var currentRam = document.createElement( "div" );
 var startBlocklyButton = document.getElementById( "runButton" );
-var blocklyToolboxDiv = document.getElementById( "blocklyToolboxDiv" );
 var blocklySpeedButton = document.createElement( "div" );
 
 function setUpBlocklyPeripherals() {
@@ -31,6 +30,9 @@ function setUpBlocklyPeripherals() {
     var indicatorCount = document.createElement( "div" );
     var procedureIndicator = document.createElement( "div" );
     var indicatorHighlighter = document.createElement( "div" );
+
+    var toolboxDivs =  document.getElementsByClassName( "blocklyToolboxDiv" );
+    var blocklyToolboxDiv = toolboxDivs[0];
 
     blocklyFooter.id = "blocklyFooter";
     blocklyHandle.id = "blocklyHandle";
@@ -164,6 +166,8 @@ var blocklyResized = function(e) {
 
         var newHeight = ( blocklyArea.offsetHeight - blocklyHandle.offsetHeight - blocklyFooter.offsetHeight ) - 5;
         blocklyDiv.style.height = newHeight + 'px';
+        blocklyDiv.style.zIndex = "1";
+
     }
     
 };
