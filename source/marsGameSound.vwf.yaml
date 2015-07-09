@@ -847,42 +847,42 @@ properties:
       soundURL: "assets/sounds/vo/perryThanksALot.ogg"
       isLooping: false
       initialVolume: 0.85
-      subtitle: "[PERRY]: ???"
+      subtitle: "[PERRY]: [whistles]"
       soundGroup: vo
       groupReplacementMethod: queue
     - soundName: "PerryWhatsAClown"
       soundURL: "assets/sounds/vo/perryWhatsAClown.ogg"
       isLooping: false
       initialVolume: 0.85
-      subtitle: "[PERRY]: ???"
+      subtitle: "[PERRY]: [whistles]"
       soundGroup: vo
       groupReplacementMethod: queue
     - soundName: "PerryIDidIt"
       soundURL: "assets/sounds/vo/perryIDidIt05.ogg"
       isLooping: false
       initialVolume: 0.85
-      subtitle: "[PERRY]: ???"
+      subtitle: "[PERRY]: [whistles]"
       soundGroup: vo
       groupReplacementMethod: queue
     - soundName: "PerryDusty"
       soundURL: "assets/sounds/vo/perryDidItButImDusty03.ogg"
       isLooping: false
       initialVolume: 0.85
-      subtitle: "[PERRY]: ???"
+      subtitle: "[PERRY]: [whistles]"
       soundGroup: vo
       groupReplacementMethod: queue
     - soundName: "PerryAcknowledge"
       soundURL: "assets/sounds/vo/perryAcknowledge04.ogg"
       isLooping: false
       initialVolume: 0.85
-      subtitle: "[PERRY]: ???"
+      subtitle: "[PERRY]: [whistles]"
       soundGroup: vo
       groupReplacementMethod: queue
     - soundName: "PerryNotDoneGroan"
       soundURL: "assets/sounds/vo/perryNotDoneGroan04.ogg"
       isLooping: false
       initialVolume: 0.85
-      subtitle: "[PERRY]: ???"
+      subtitle: "[PERRY]: [whistles]"
       soundGroup: vo
       groupReplacementMethod: queue
 
