@@ -1,0 +1,115 @@
+# Copyright 2014 Lockheed Martin Corporation
+#
+# Licensed under the Apache License, Version 2.0 (the "License"); you may 
+# not use this file except in compliance with the License. You may obtain 
+# a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software 
+# distributed under the License is distributed on an "AS IS" BASIS, 
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and 
+# limitations under the License.
+
+--- 
+extends: http://vwf.example.com/scene.vwf
+properties:
+  backgroundColor: [ 10, 20, 30 ]
+  ambientColor: [ 70, 65, 65 ]
+  enableShadows: true
+  shadowMapCullFace: "back"
+  activeTool:
+methods:
+  setActiveTool:
+events:
+  onSceneReady:
+  pointerClick:
+  pointerDown:
+  pointerMove:
+  pointerUp:
+  pointerOver:
+  pointerOut:
+  pointerWheel:
+children:
+  sunLight:
+    extends: http://vwf.example.com/directionallight.vwf
+    properties:
+      color: [ 255, 245, 230 ]
+      translation: [ 2, 1, 16 ]
+      intensity: 0.55
+      castShadows: true
+      shadowDarkness: 0.6
+      shadowCameraBottom: -64
+      shadowCameraTop: 64
+      shadowCameraLeft: -64
+      shadowCameraRight: 64
+      shadowCameraFar: 24
+      shadowMapWidth: 2048
+      shadowMapHeight: 2048
+      shadowBias: -0.01
+  envLight:
+    extends: http://vwf.example.com/hemispherelight.vwf
+    properties:
+      translation: [ 0, 0, 100 ]
+      color: [ 255, 200, 175 ]
+      groundColor: [ 200, 160, 80 ]
+      intensity: 0.5
+  terrain:
+    extends: http://vwf.example.com/node3.vwf
+    source: assets/3d/environment/mars_level.dae
+    type: model/vnd.collada+xml
+    properties:
+      castShadows: true
+      receiveShadows: true
+    children:
+      material:
+        extends: source/shaders/mixMap.vwf
+        properties:
+          mixMap: "assets/3d/environment/mix_map.png"
+          diffuseMaps:
+            - { "url": "assets/3d/environment/level2_ground1_d.png", "wrapTexture": true }
+            - { "url": "assets/3d/environment/dirt.png", "wrapTexture": true }
+            - { "url": "assets/3d/environment/dirt1.jpg", "wrapTexture": true }
+            - { "url": "assets/3d/environment/dark_dirt.png", "wrapTexture": true }
+          normalMaps: 
+            - { "url": "assets/3d/environment/level2_ground1_n.png", "wrapTexture": true }
+            - { "url": "assets/3d/environment/dirt_n.png", "wrapTexture": true }
+            - { "url": "assets/3d/environment/dirt1_n.jpg", "wrapTexture": true }
+            - { "url": "assets/3d/environment/dark_dirt_n.png", "wrapTexture": true }
+          specularMaps:
+            - { "url": "assets/3d/environment/level2_ground1_s.png", "wrapTexture": true }
+            - { "url": "assets/3d/environment/dirt_s.png", "wrapTexture": true }
+            - { "url": "assets/3d/environment/dirt1_s.jpg", "wrapTexture": true }
+            - { "url": "assets/3d/environment/dark_dirt_s.png", "wrapTexture": true }
+          textureResolution: 128
+          gridInterval: 3
+          laserWidth: 0.1
+          laserStrength: 0.25
+          laserIntensity: 4
+          gridColor: 0xFFDDAA
+          gridVisible: 1
+          tilesVisible: 1
+          tileColor: 0x555555
+          tileMap:
+          tileMapOrigin:
+          tileMapSize:
+  environmentObjects:
+    extends: http://vwf.example.com/node3.vwf
+    source: assets/3d/environment/mars_assets.dae
+    type: model/vnd.collada+xml
+    properties:
+      castShadows: true
+      receiveShadows: true
+  tilemapTool:
+    extends: editor/model/editorTool.vwf
+    methods:
+      drawTileToTexture:
+      setTileMapUniforms:
+      updateTexture:
+    events:
+      tileMapped:
+    scripts: 
+      - source: editor/model/tilemapTool.js
+scripts: 
+  - source: editor/model/newEditor.js
