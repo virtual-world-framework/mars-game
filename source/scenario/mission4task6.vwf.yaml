@@ -256,7 +256,6 @@ children:
               - musicSuccessShort
             - playSound:
               - PerryDusty
-            
 
         scenarioEnded4_6:
           triggerCondition:
