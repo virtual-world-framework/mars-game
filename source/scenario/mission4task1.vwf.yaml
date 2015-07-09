@@ -185,6 +185,7 @@ children:
               - stopExecution
             - showAlert:
               - "I created the correct triangle!"
+            - clearBlockly:
             - scenarioSuccess:
             - playSound:
               - musicSuccessShort

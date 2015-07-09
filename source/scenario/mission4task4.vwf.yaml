@@ -183,7 +183,9 @@ children:
             - onScenarioStart:
             - doOnce:
           actions:
-          - openMissionBrief:
+          - delay:
+            - 9
+            - openMissionBrief:
 
         setStartPosition_4_4:
           triggerCondition:
