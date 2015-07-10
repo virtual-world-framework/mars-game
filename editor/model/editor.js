@@ -72,4 +72,4 @@ this.pointerWheel = function( pointerInfo, pickInfo ) {
     }
 }
 
-//@ sourceURL=editor/model/newEditor.js
+//@ sourceURL=editor/model/editor.js

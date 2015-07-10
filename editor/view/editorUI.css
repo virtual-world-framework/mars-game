@@ -79,3 +79,108 @@ body {
     color: rgb( 255, 255, 255 );
     background-color: rgba( 16, 32, 48, 0.8 );
 }
+
+.titleBar {
+    color: rgb( 196, 196, 196 );
+    background-color: rgba( 24, 64, 100, 0.8 );
+    text-align: center;
+    font-size: 16px;
+    line-height: 24px;
+}
+
+.inline {
+    display: inline-block;
+    margin: 4px 0px;
+}
+
+.label {
+    display: inline-block;
+    margin: 4px 4px;
+    color: rgb( 196, 196, 196 );
+}
+
+input {
+    font-size: 14px;
+    padding: 0px;
+    background-color: rgba( 24, 64, 100, 0.8 );
+    color: rgb( 255, 255, 255 );
+    border: 1px solid rgb( 32, 72, 108 );
+    width: 48px;
+}
+
+select {
+    font-size: 14px;
+    padding: 0px;
+    background-color: rgba( 24, 64, 100, 0.8 );
+    color: rgb( 255, 255, 255 );
+    border: 1px solid rgb( 32, 72, 108 );
+}
+
+#tilemapWrapper {
+    position: absolute;
+    top: 40px;
+    right: 8px;
+}
+
+#tilemapInput {
+    width: 256px;
+    pointer-events: all;
+    font-size: 14px;
+    display: none;
+}
+
+#tilemapInputBody {
+    background-color: rgba( 16, 32, 48, 0.8 );
+    text-align: center;
+    padding: 8px;
+}
+
+#tilemapCloseButton {
+    color: rgb( 196, 196, 196 );
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    width: 24px;
+    height: 24px;
+    line-height: 24px;
+    text-align: center;
+    font-size: 24px;
+}
+
+#tilemapCloseButton.hover {
+    color: rgb( 255, 255, 255 );
+    background-color: rgba( 16, 32, 48, 0.8 );
+}
+
+#tilemapUpdateButton {
+    height: 20px;
+    line-height: 20px;
+    color: rgb( 196, 196, 196 );
+    background-color: rgba( 24, 64, 100, 0.8 );
+    font-size: 14px;
+    padding: 4px 8px;
+    width: 64px;
+    text-align: center;
+    margin-right: auto;
+    margin-left: auto;
+    margin-top: 4px;
+}
+
+#tilemapUpdateButton.hover {
+    color: rgb( 255, 255, 255 );
+    background-color: rgba( 0, 0, 0, 0.8 );
+}
+
+#tilemapPreview {
+    position: relative;
+    top: 8px;
+    width: 256px;
+    pointer-events: none;
+    display: none;
+}
+
+#tilemapCanvasWrapper {
+    width: 256px;
+    background-color: rgba( 16, 32, 48, 0.5 );
+    text-align: center;
+}

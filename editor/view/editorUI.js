@@ -108,7 +108,9 @@ function openObjectBrowser() {}
 function openTimeOfDayEditor() {}
 function openScenarioEditor() {}
 function openHeightmapEditor() {}
+
 function openTilemapEditor() {
+    tilemap.open();
     vwf_view.kernel.callMethod( appID, "setActiveTool", [ "tilemapTool" ] );
 }
 

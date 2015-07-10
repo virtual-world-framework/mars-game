@@ -112,4 +112,4 @@ children:
     scripts: 
       - source: editor/model/tilemapTool.js
 scripts: 
-  - source: editor/model/newEditor.js
+  - source: editor/model/editor.js

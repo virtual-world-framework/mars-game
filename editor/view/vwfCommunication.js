@@ -17,7 +17,7 @@
 // to functions in other view scripts.
 
 var appID;
-var tilemapToolID;
+// TODO: Replace with tool object properties, i.e. tilemap.vwfID
 var heightmapToolID;
 var scenarioToolID;
 
@@ -31,8 +31,8 @@ function getAppID() {
 vwf_view.initializedNode = function( nodeID, childID, childExtendsID, childImplementsIDs, childSource, childType, childIndex, childName ) {
     switch ( childName ) {
         case "tilemapTool":
-            tilemapToolID = childID;
-            createGridCanvas();
+            tilemap.vwfID = childID;
+            tilemap.initialize();
             break;
         case "heightmapTool":
             heightmapToolID = childID;
@@ -50,15 +50,8 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArguments ) {
                 initialize();
                 break;
         }
-    } else if ( nodeID === tilemapToolID ) {
-        switch ( eventName ) {
-            case "tileMapped":
-                var gridX, gridY;
-                gridX = eventArguments[ 0 ];
-                gridY = eventArguments[ 1 ];
-                toggleGridPixel( gridX, gridY );
-                break;
-        }
+    } else if ( nodeID === tilemap.vwfID ) {
+        tilemap.handleEvent( eventName, eventArguments );
     }
 }
 

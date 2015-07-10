@@ -26,6 +26,7 @@ limitations under the License.
 
 <!-- HTML -->
 
+<!-- Menu Strip -->
 <div id="menu" class="menuStrip">
 	<div id="file" class="dropWrapper">
         <div id="fileButton" class="button">File</div>
@@ -48,6 +49,37 @@ limitations under the License.
             <div id="scenarioButton" class="button">Scenario</div>
             <div id="heightmapButton" class="button">Heightmap</div>
             <div id="tilemapButton" class="button">Tilemap</div>
+        </div>
+    </div>
+</div>
+
+<!-- Tilemap UI -->
+<div id="tilemapWrapper">
+    <div id="tilemapInput">
+        <div class="titleBar">Tilemap Editor</div>
+        <div id="tilemapCloseButton" class="button">&times</div>
+        <div id="tilemapInputBody">
+            <div id="tilemapSizeSelector">
+                <div class="label">Tilemap Size: </div>
+                <select id="tilemapSize" class="inline">
+                    <option value="64">64 x 64</option>
+                    <option value="128">128 x 128</option>
+                    <option value="256">256 x 256</option>
+                </select> 
+            </div>
+            <div id="tilemapOriginInput">
+                <div class="label">Origin X: </div>
+                <input id="tilemapOriginX" type="text" maxlength="4" class="inline"></input>
+                <div class="label">Y: </div>
+                <input id="tilemapOriginY" type="text" maxlength="4" class="inline"></input>
+            </div>
+            <div id="tilemapUpdateButton" class="button">Update</div>
+        </div>
+    </div>
+    <div id="tilemapPreview">
+        <div id="tilemapPreviewTitle" class="titleBar">Tilemap Preview</div>
+        <div id="tilemapCanvasWrapper">
+            <canvas id="tilemapCanvas"></canvas>
         </div>
     </div>
 </div>
