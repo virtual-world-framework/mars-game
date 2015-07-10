@@ -300,79 +300,79 @@ properties:
       soundGroup: vo
       groupReplacementMethod: queue
     - soundName: "TM3VO5_Rover"
-      soundURL: "assets/sounds/vo/perryIDidIt05.ogg"
+      soundURL: "assets/sounds/vo/newmission3vo5.ogg"
       initialVolume: 0.65
-      subtitle: "[ROVER]: I did it!"
+      subtitle: "[ROVER]: Hooray, I did it!"
       soundGroup: vo
       groupReplacementMethod: queue
-    - soundName: "TM3VO5_MC"
-      soundURL: "assets/sounds/vo/perryIDidIt05.ogg"
+    - soundName: "TM3VO6_MC"
+      soundURL: "assets/sounds/vo/newmission3vo6.ogg"
       initialVolume: 0.65
       subtitle: "[MC]: Good work. Of course, that will only work if you're already facing up the Y axis. You need to change your Navigate Procedure so that it uses another while loop to turn and face up the Y axis. Your Heading Sensor will tell you what direction you're facing. 0 degrees is to the north, or up the Y axis. 90 degrees is to the east, or to the right along the X axis. 180 degrees is to the south, or down the Y axis. 270 degrees is to the west, or left along the X axis. I've provided a new test program to check your procedure is correct."
       soundGroup: vo
       groupReplacementMethod: queue
-    - soundName: "TM3VO6_Rover"
-      soundURL: "assets/sounds/vo/perryIDidIt05.ogg"
+    - soundName: "TM3VO7_Rover"
+      soundURL: "assets/sounds/vo/newmission3vo7.ogg"
       initialVolume: 0.65
       subtitle: "[ROVER]: I did it again!"
       soundGroup: vo
       groupReplacementMethod: queue
-    - soundName: "TM3VO7_MC"
-      soundURL: "assets/sounds/vo/perryIDidIt05.ogg"
+    - soundName: "TM3VO8_MC"
+      soundURL: "assets/sounds/vo/newmission3vo8.ogg"
       initialVolume: 0.65
       subtitle: "[MC]: Nicely done. Of course, there's no sense in turning to face up the Y axis if you don't need to move in that direction. Let's make a conditional which checks whether a Y value of your position is less than that of your destination. A conditional is an 'if' block - you can find it in the Conditionals category of the Blockly palette. Once again, update your procedure and I'll provide the test program."
       soundGroup: vo
       groupReplacementMethod: queue
-    - soundName: "TM3VO8_Rover"
-      soundURL: "assets/sounds/vo/perryIDidIt05.ogg"
+    - soundName: "TM3VO9_Rover"
+      soundURL: "assets/sounds/vo/newmission3vo9.ogg"
       initialVolume: 0.65
       subtitle: "[ROVER]: Hooray!"
       soundGroup: vo
       groupReplacementMethod: queue
-    - soundName: "TM3VO9_MC"
-      soundURL: "assets/sounds/vo/perryIDidIt05.ogg"
+    - soundName: "TM3V10_MC"
+      soundURL: "assets/sounds/vo/newmission3vo10.ogg"
       initialVolume: 0.65
       subtitle: "[MC]: Of course, this only helps if you want to go straight up the Y axis. For the next step, let's travel *down* the Y axis. Don't change what you already have, but duplicate it and then change the copy to handle travel in the -Y direction. You can duplicate it by right-clicking on the If block, and selecting 'Duplicate'."
       soundGroup: vo
       groupReplacementMethod: queue
-    - soundName: "TM3V10_Rover"
-      soundURL: "assets/sounds/vo/perryIDidIt05.ogg"
+    - soundName: "TM3V11_Rover"
+      soundURL: "assets/sounds/vo/newmission3vo11.ogg"
       initialVolume: 0.65
       subtitle: "[ROVER]: I...!"
       soundGroup: vo
       groupReplacementMethod: queue
-    - soundName: "TM3V11_MC"
-      soundURL: "assets/sounds/vo/perryIDidIt05.ogg"
+    - soundName: "TM3V12_MC"
+      soundURL: "assets/sounds/vo/newmission3vo12.ogg"
       initialVolume: 0.65
       subtitle: "[MC]: Of course..."
       soundGroup: vo
       groupReplacementMethod: queue
-    - soundName: "TM3V12_Rover"
-      soundURL: "assets/sounds/vo/perryIDidIt05.ogg"
+    - soundName: "TM3V13_Rover"
+      soundURL: "assets/sounds/vo/newmission3vo13.ogg"
       initialVolume: 0.65
       subtitle: "[ROVER]: *sigh*"
       soundGroup: vo
       groupReplacementMethod: queue
-    - soundName: "TM3V13_MC"
-      soundURL: "assets/sounds/vo/perryIDidIt05.ogg"
+    - soundName: "TM3V14_MC"
+      soundURL: "assets/sounds/vo/newmission3vo14.ogg"
       initialVolume: 0.65
       subtitle: "[MC]: Of course, sometimes you need to move to the left and right as well. Let's try going to the right. Make another duplicate of your original If block, and modify it to travel in the +X direction."
       soundGroup: vo
       groupReplacementMethod: queue
-    - soundName: "TM3V14_Rover"
-      soundURL: "assets/sounds/vo/perryIDidIt05.ogg"
+    - soundName: "TM3V15_Rover"
+      soundURL: "assets/sounds/vo/newmission3vo15.ogg"
       initialVolume: 0.65
       subtitle: "[ROVER]: Are we done going in circles *yet*?"
       soundGroup: vo
       groupReplacementMethod: queue
-    - soundName: "TM3V15_MC"
-      soundURL: "assets/sounds/vo/perryIDidIt05.ogg"
+    - soundName: "TM3V16_MC"
+      soundURL: "assets/sounds/vo/newmission3vo16.ogg"
       initialVolume: 0.65
       subtitle: "[MC]: Almost. You just need to handle travel in the -X direction."
       soundGroup: vo
       groupReplacementMethod: queue
-    - soundName: "TM3V16_MC"
-      soundURL: "assets/sounds/vo/perryIDidIt05.ogg"
+    - soundName: "TM3V17_MC"
+      soundURL: "assets/sounds/vo/newmission3vo17.ogg"
       initialVolume: 0.65
       subtitle: "[MC]: Well done! Now that your Navigate Procedure is working again, let's go get the base pod! As I said before, our satellite imagery shows that it landed at position [-35,66]."
       soundGroup: vo

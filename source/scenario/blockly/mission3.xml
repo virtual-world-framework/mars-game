@@ -23,4 +23,6 @@
     <block type="graph_left_paren"></block>
     <block type="graph_right_paren"></block>
   </category>
+  <category name="Procedures" custom="PROCEDURE">
+  </category>
 </xml>

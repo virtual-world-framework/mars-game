@@ -693,7 +693,7 @@ children:
   Mission3Task1:
     includes: source/scenario/newmission3task1.vwf
   Mission3Task2:
-    includes: source/scenario/temporarymission3task2.vwf
+    includes: source/scenario/newmission3task2.vwf
   Mission3Task3:
     includes: source/scenario/temporarymission3task3.vwf
   Mission4Task1:
