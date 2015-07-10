@@ -1102,15 +1102,15 @@ Blockly.Blocks[ 'controls_sensor_metal' ] = {
   init: function() {
     this.setColour( 30 );
     this.appendValueInput('INPUT')
-        .appendField('Metal Detected: ')
-        .appendField("?", "VALUE");
+        .appendField('Metal Detected', "VALUE")
+        //.appendField("?", "VALUE");
     this.setOutput( true, "Boolean" );
     this.data = currentBlocklyNodeID;
     //this.setEditable(false);
     var thisBlock = this;
     this.setTooltip( function() {
       var content = {
-        text: "Checks our scanner for metal (items/rovers/other) in all 8 squares around the rover."
+        text: "Checks our scanner for metal (items/rovers/other) in all 8 squares around the rover and provides a boolean value."
       }
       return showTooltipInBlockly( thisBlock, content );
     } );
@@ -1120,14 +1120,14 @@ Blockly.Blocks[ 'controls_sensor_metal' ] = {
       // Block has been deleted.
       return;
     }
-    var metalValue = vwf.getProperty( this.data, "metalSensorValue" );
-    this.setEditable(true);
-    if ( metalValue === true ) {
-      this.setFieldValue( "(TRUE)",'VALUE' );
-    } else {
-      this.setFieldValue( "(FALSE)",'VALUE' );
-    }
-    this.setEditable(false);
+    // var metalValue = vwf.getProperty( this.data, "metalSensorValue" );
+    // this.setEditable(true);
+    // if ( metalValue === true ) {
+    //   this.setFieldValue( "Metal Detected",'VALUE' );
+    // } else {
+    //   this.setFieldValue( "Metal Not Detected",'VALUE' );
+    // }
+    // this.setEditable(false);
   }
 };
 
@@ -1144,8 +1144,8 @@ Blockly.Blocks[ 'controls_sensor_collision' ] = {
   init: function() {
     this.setColour( 30 );
     this.appendValueInput('INPUT')
-        .appendField('Collision: ')
-        .appendField("?", "VALUE");
+        .appendField('Collision')
+        //.appendField("?", "VALUE");
     this.setOutput( true, "Boolean" );
     this.data = currentBlocklyNodeID;
     //this.setEditable(false);
@@ -1162,15 +1162,15 @@ Blockly.Blocks[ 'controls_sensor_collision' ] = {
       // Block has been deleted.
       return;
     }
-    var collisionValue = vwf.getProperty( this.data, "collisionSensorValue" );
+    // var collisionValue = vwf.getProperty( this.data, "collisionSensorValue" );
 
-    this.setEditable(true);
-    if ( collisionValue === true ) {
-      this.setFieldValue( "(TRUE)",'VALUE' );
-    } else {
-      this.setFieldValue( "(FALSE)",'VALUE' );
-    }
-    this.setEditable(false);
+    // this.setEditable(true);
+    // if ( collisionValue === true ) {
+    //   this.setFieldValue( "(TRUE)",'VALUE' );
+    // } else {
+    //   this.setFieldValue( "(FALSE)",'VALUE' );
+    // }
+    // this.setEditable(false);
   }
 };
 
@@ -1186,8 +1186,8 @@ Blockly.Blocks[ 'controls_sensor_signal' ] = {
   init: function() {
     this.setColour( 30 );
     this.appendValueInput('INPUT')
-        .appendField('Signal: ')
-        .appendField("?", "VALUE")
+        .appendField('Signal')
+        //.appendField("?", "VALUE")
         .setCheck(['OperatorAddSubtract','OperatorMultiplyDivide','LeftParenthesis','RightParenthesis','Conditional']);
     this.setOutput(true, null);
     this.data = currentBlocklyNodeID;
@@ -1205,10 +1205,10 @@ Blockly.Blocks[ 'controls_sensor_signal' ] = {
       // Block has been deleted.
       return;
     }
-    this.setEditable(true);
-    var signalValue = vwf.getProperty( this.data, "signalSensorValue" );
-    this.setFieldValue( '(' + signalValue + '°)','VALUE' );
-    this.setEditable(false);
+    // this.setEditable(true);
+    // var signalValue = vwf.getProperty( this.data, "signalSensorValue" );
+    // this.setFieldValue( '(' + signalValue + '°)','VALUE' );
+    // this.setEditable(false);
   }
 };
 
@@ -1237,8 +1237,8 @@ Blockly.Blocks[ 'controls_sensor_position' ] = {
   init: function() {
     this.setColour( 30 );
     this.appendValueInput('INPUT')
-        .appendField('Position: ')
-        .appendField("(?,?)", "VALUE")
+        .appendField('Position')
+        //.appendField("(?,?)", "VALUE")
         .setCheck(['OperatorAddSubtract','OrderedGet']);
         //.setCheck(['OperatorAddSubtract','OperatorMultiplyDivide','LeftParenthesis','RightParenthesis','Conditional']);
     this.setOutput(true, null);
@@ -1257,13 +1257,13 @@ Blockly.Blocks[ 'controls_sensor_position' ] = {
       // Block has been deleted.
       return;
     }
-    this.setEditable(true);
-    var blocklyNode = blocklyNodes[ this.data ];
-    var position = blocklyNode[ 'positionSensorValue' ];
-    if ( position !== undefined ) {
-      this.setFieldValue( '(' + position[ 0 ]+ ','+ position[ 1 ] + ')','VALUE' );
-    }
-    this.setEditable(false);
+    // this.setEditable(true);
+    // var blocklyNode = blocklyNodes[ this.data ];
+    // var position = blocklyNode[ 'positionSensorValue' ];
+    // if ( position !== undefined ) {
+    //   this.setFieldValue( '(' + position[ 0 ]+ ','+ position[ 1 ] + ')','VALUE' );
+    // }
+    // this.setEditable(false);
   }
 };
 
@@ -1283,8 +1283,8 @@ Blockly.Blocks[ 'controls_sensor_position_x' ] = {
   init: function() {
     this.setColour( 30 );
     this.appendValueInput('INPUT')
-        .appendField('Position X: ')
-        .appendField("(?)", "VALUE")
+        .appendField('Position X')
+        //.appendField("(?)", "VALUE")
         .setCheck(['OperatorAddSubtract','OperatorMultiplyDivide','OrderedGet']);
         //.setCheck(['OperatorAddSubtract','OperatorMultiplyDivide','LeftParenthesis','RightParenthesis','Conditional']);
     this.setOutput(true, null);
@@ -1303,13 +1303,13 @@ Blockly.Blocks[ 'controls_sensor_position_x' ] = {
       // Block has been deleted.
       return;
     }
-    this.setEditable(true);
-    var blocklyNode = blocklyNodes[ this.data ];
-    var position = blocklyNode[ 'positionSensorValueX' ];
-    if ( position !== undefined ) {
-      this.setFieldValue( '(' + position + ')','VALUE' );
-    }
-    this.setEditable(false);
+    // this.setEditable(true);
+    // var blocklyNode = blocklyNodes[ this.data ];
+    // var position = blocklyNode[ 'positionSensorValueX' ];
+    // if ( position !== undefined ) {
+    //   this.setFieldValue( '(' + position + ')','VALUE' );
+    // }
+    // this.setEditable(false);
   }
 };
 
@@ -1329,8 +1329,8 @@ Blockly.Blocks[ 'controls_sensor_position_y' ] = {
   init: function() {
     this.setColour( 30 );
     this.appendValueInput('INPUT')
-        .appendField('Position Y: ')
-        .appendField("(?)", "VALUE")
+        .appendField('Position Y')
+        //.appendField("(?)", "VALUE")
         .setCheck(['OperatorAddSubtract','OperatorMultiplyDivide','OrderedGet']);
         //.setCheck(['OperatorAddSubtract','OperatorMultiplyDivide','LeftParenthesis','RightParenthesis','Conditional']);
     this.setOutput(true, null);
@@ -1349,13 +1349,13 @@ Blockly.Blocks[ 'controls_sensor_position_y' ] = {
       // Block has been deleted.
       return;
     }
-    this.setEditable(true);
-    var blocklyNode = blocklyNodes[ this.data ];
-    var position = blocklyNode[ 'positionSensorValueY' ];
-    if ( position !== undefined ) {
-      this.setFieldValue( '(' + position + ')','VALUE' );
-    }
-    this.setEditable(false);
+    // this.setEditable(true);
+    // var blocklyNode = blocklyNodes[ this.data ];
+    // var position = blocklyNode[ 'positionSensorValueY' ];
+    // if ( position !== undefined ) {
+    //   this.setFieldValue( '(' + position + ')','VALUE' );
+    // }
+    // this.setEditable(false);
   }
 };
 
@@ -1372,7 +1372,7 @@ Blockly.Blocks[ 'controls_sensor_heading' ] = {
     this.setColour( 30 );
     this.appendValueInput('INPUT')
         .appendField('Direction of Travel: ')
-        .appendField("?", "VALUE")
+        //.appendField("?", "VALUE")
         .setCheck(['OperatorAddSubtract','OperatorMultiplyDivide','LeftParenthesis','RightParenthesis','Conditional']);
     this.setOutput(true, null);
     this.data = currentBlocklyNodeID;
@@ -1390,10 +1390,10 @@ Blockly.Blocks[ 'controls_sensor_heading' ] = {
       // Block has been deleted.
       return;
     }
-    this.setEditable(true);
-    var headingValue = vwf.getProperty( this.data, "headingSensorValue" );
-    this.setFieldValue( '(' + headingValue + '°)','VALUE' );
-    this.setEditable(false);
+    // this.setEditable(true);
+    // var headingValue = vwf.getProperty( this.data, "headingSensorValue" );
+    // this.setFieldValue( '(' + headingValue + '°)','VALUE' );
+    // this.setEditable(false);
   }
 };
 
@@ -2166,7 +2166,7 @@ Blockly.Blocks[ 'graph_divide' ] = {
   init: function() {
     this.setColour(120);
     this.appendValueInput('INPUT')
-        .appendField('÷')
+        .appendField('/')
         .setCheck(['Number','Variable','LeftParenthesis','OperatorAddSubtract']);
     this.setOutput(true, 'OperatorMultiplyDivide');
     this.data = currentBlocklyNodeID;
