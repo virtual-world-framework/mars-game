@@ -342,8 +342,6 @@ this.translateOnTerrain = function( translation, duration, boundardeltaY, callba
             this.animationPlay( 0, duration );
         } else {
             this.placeOnTerrain( stopTranslation );
-            //this.placeOnTerrain( futurePosition );
-            
         }
     }
 }
