@@ -224,12 +224,6 @@ a:active {
     zoom: 100%;
 }
 
-.blocklyToolboxDiv {
-    position: absolute;
-    visibility: inherit;
-    zoom: 100%;
-}
-
 #startBlockly {
     height: 24px;
     width: 64px;

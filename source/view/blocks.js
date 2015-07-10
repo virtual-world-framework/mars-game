@@ -506,59 +506,6 @@ Blockly.JavaScript[ 'variables_get_noin' ] = function( block ) {
 
 };
 
-Blockly.Blocks['variables_set'] = {
-  /**
-   * Block for variable setter.
-   * @this Blockly.Block
-   */
-  init: function() {
-    this.setHelpUrl(Blockly.Msg.VARIABLES_SET_HELPURL);
-    this.setColour( 330 );
-    this.jsonInit({
-      "message": Blockly.Msg.VARIABLES_SET,
-      "args": [
-        {
-          "type": "field_variable",
-          "name": "VAR",
-          "variable": Blockly.Msg.VARIABLES_DEFAULT_NAME
-        },
-        {
-          "type": "input_value",
-          "name": "VALUE"
-        }
-      ],
-      "inputsInline": true,
-      "previousStatement": null,
-      "nextStatement": null,
-      "colour": Blockly.Blocks.variables.HUE,
-      "tooltip": Blockly.Msg.VARIABLES_SET_TOOLTIP,
-      "helpUrl": Blockly.Msg.VARIABLES_SET_HELPURL,
-      "data": currentBlocklyNodeID
-    });
-  },
-  /**
-   * Return all variables referenced by this block.
-   * @return {!Array.<string>} List of variable names.
-   * @this Blockly.Block
-   */
-  getVars: function() {
-    return [this.getFieldValue('VAR')];
-  },
-  /**
-   * Notification that a variable is renaming.
-   * If the name matches one of this block's variables, rename it.
-   * @param {string} oldName Previous name of variable.
-   * @param {string} newName Renamed variable.
-   * @this Blockly.Block
-   */
-  renameVar: function(oldName, newName) {
-    if (Blockly.Names.equals(oldName, this.getFieldValue('VAR'))) {
-      this.setFieldValue(newName, 'VAR');
-    }
-  },
-  customContextMenu: Blockly.Blocks['variables_get'].customContextMenu
-};
-
 Blockly.JavaScript['variables_set'] = function( block ) {
   // Variable setter.
   var argument0 = Blockly.JavaScript.valueToCode(block, 'VALUE',

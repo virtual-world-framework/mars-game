@@ -123,7 +123,7 @@ this.moveRadialAbsolute = function( valueX, valueY ) {
                     for ( var i = 0; i < pickupsOnTile.length; i++ ) {
                         pickupsOnTile[ i ].pickUp( this );
                     }
-                    this.moved();
+                    this.movedRadial();
                 } else { // obstructionOnPath is true
                     // TODO: Move forward to show the collision.
                     //   - Play alarm sound to alert the player?
