@@ -213,11 +213,11 @@ children:
               shininess: 5
               normalScale: [ 0.5, 0.5 ]
               gridInterval: 3
-              laserWidth: 0.15
-              laserStrength: 0.25
-              laserIntensity: 4
+              laserWidth: 0.1
+              laserStrength: 0.1
+              laserIntensity: 2
+              gridColor: 0xFFDDAA
               gridAxes: [ 0, 0 ]
-              gridColor: 0x554422
               gridVisible: 0
               tilesVisible: 0
               tileColor: 0x3A4A40
