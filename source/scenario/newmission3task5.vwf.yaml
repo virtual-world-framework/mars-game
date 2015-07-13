@@ -114,13 +114,13 @@ children:
             - onScenarioStart:
           actions:
           - playSound:
-            - TM3VO1B_MC
+            - TM3V11_Rover
           - playSound:
-            - TM3VO2_Rover
+            - TM3V12_MC
           - playSound:
-            - TM3VO3_MC
+            - TM3V13_Rover
           - playSound:
-            - TM3VO4_MC
+            - TM3V14_MC
 
 
  #       failOnMove_3d:                                 //Perhaps have something like this but for procedures instead.
