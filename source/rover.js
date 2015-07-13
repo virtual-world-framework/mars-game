@@ -42,13 +42,14 @@ this.moveForward = function() {
                         ( proposedTile[ 1 ] - currentTile[ 1 ] ) * tileMap.tileSize,
                         0
                     ];
-                    var checkSensors = function() {
+                    var checkSensorsAndSnap = function() {
+                        this.placeAtTileCoord( proposedTile[ 0 ], proposedTile[ 1 ] );
                         this.activateSensor( 'metal' );
                         this.activateSensor( 'signal' );
                         this.activateSensor( 'collision' );
                         this.activateSensor( 'position' );
                     }
-                    this.translateOnTerrain( distance, 1, 1, checkSensors.bind( this ) );
+                    this.translateOnTerrain( distance, 1, 1, checkSensorsAndSnap.bind( this ) );
                     var pickupsOnTile = this.scene.getWatchListNodes( proposedTile, "pickup" );
                     for ( var i = 0; i < pickupsOnTile.length; i++ ) {
                         pickupsOnTile[ i ].pickUp( this );
@@ -114,11 +115,12 @@ this.moveRadialAbsolute = function( valueX, valueY ) {
                         0
                     ];
                     var hypotenuse = Math.sqrt( ( deltaX * deltaX ) + ( deltaY * deltaY ) );
-                    var checkSensors = function() {
+                    var checkSensorsAndSnap = function() {
+                        this.placeAtTileCoord( proposedTile[ 0 ], proposedTile[ 1 ] );
                         this.activateSensor( 'position' );
                         this.activateSensor( 'heading', this.heading );
                     }
-                    this.translateOnTerrain( distance, hypotenuse, 1, checkSensors.bind( this ) );
+                    this.translateOnTerrain( distance, hypotenuse, 1, checkSensorsAndSnap.bind( this ) );
                     var pickupsOnTile = this.scene.getWatchListNodes( proposedTile, "pickup" );
                     for ( var i = 0; i < pickupsOnTile.length; i++ ) {
                         pickupsOnTile[ i ].pickUp( this );
@@ -181,6 +183,7 @@ this.moveRadial = function( deltaX, deltaY, offset ) {
                 var obstructionOnPath = this.checkRadialCollision( currentTile, proposedTile );
                 if ( !obstructionOnPath ) {
                     var checkSensors = function() {
+                        this.placeAtTileCoord( proposedTile[ 0 ], proposedTile[ 1 ] );
                         this.activateSensor( 'position' );
                         this.activateSensor( 'heading', this.heading );
                     }
