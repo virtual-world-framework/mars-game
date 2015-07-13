@@ -15,15 +15,15 @@
 ---
 extends: ../scenario/scenario.vwf
 properties:
-  scenarioName: Mission3Task2
+  scenarioName: Mission3Task6
 
   scenePath: /
-  nextScenarioPath: "Mission3Task3"
+  nextScenarioPath: "Mission3Task7"
 
   startState:
   # objective
   - setObjective:
-    - "Edit your navigate procedure."
+    - "Test out the basic procedure."
 
   # sounds/video
   - playSound:
@@ -41,7 +41,7 @@ properties:
   - setProperty:
     - rover
     - blockly_xml
-    - <xml><block type="controls_whileUntil" id="21" inline="false" x="11" y="-179"><field name="MODE">WHILE</field><value name="BOOL"><block type="controls_sensor_heading" id="42" inline="false" editable="false"><value name="INPUT"><block type="logic_cond_out" id="55" inline="false"><field name="VALUE">===</field><value name="INPUT"><block type="math_number_field" id="67" inline="false"><field name="VALUE">90</field></block></value></block></value></block></value><statement name="DO"><block type="rover_turn" id="73"><field name="DIR">Turn: Left</field></block></statement></block></xml>
+    - <xml><block type="procedures_defnoreturn" id="21" x="-20" y="-340"><mutation><arg name="y-coordinate"></arg></mutation><field name="NAME">navigate</field><statement name="STACK"><block type="controls_whileUntil" id="43" inline="false"><field name="MODE">WHILE</field><value name="BOOL"><block type="variables_get" id="102" inline="false"><field name="VAR">y-coordinate</field><value name="INPUT"><block type="logic_cond_out" id="64" inline="false"><field name="VALUE">&gt;</field><value name="INPUT"><block type="controls_sensor_position_y" id="51" inline="false" editable="false"></block></value></block></value></block></value><statement name="DO"><block type="rover_moveForward" id="114"></block></statement></block></statement></block><block type="procedures_callnoreturn" id="119" inline="false" x="-20" y="-180"><mutation name="navigate"><arg name="y-coordinate"></arg></mutation><value name="ARG0"><block type="math_number_field" id="129" inline="false"><field name="VALUE">3</field></block></value></block></xml>
   - loadToolbox:
     - rover
     - source/scenario/blockly/mission3.xml
@@ -49,7 +49,7 @@ properties:
   #Manny
   - addToGrid:
     - rover
-    - [ -41, 54 ]
+    - [ -41, 51 ]
   - selectRover:
     - rover
   - callMethod:
@@ -114,11 +114,13 @@ children:
             - onScenarioStart:
           actions:
           - playSound:
-            - TM3VO5_Rover
+            - TM3VO1B_MC
           - playSound:
-            - TM3VO6_MC
+            - TM3VO2_Rover
           - playSound:
-            - TM3VO7_Rover
+            - TM3VO3_MC
+          - playSound:
+            - TM3VO4_MC
 
 
  #       failOnMove_3d:                                 //Perhaps have something like this but for procedures instead.
@@ -143,10 +145,11 @@ children:
               - rover
             - isAtPosition:
               - rover
-              - [ -41, 57 ]
+              - [ -41, 54 ]
           actions:
           - scenarioSuccess:
           - showAlert:
             - "Test program completed!"
           - playSound:
             - musicSuccessShort
+
