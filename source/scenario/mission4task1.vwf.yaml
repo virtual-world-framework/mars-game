@@ -68,10 +68,7 @@ properties:
     - rover
     - blockly_allowedBlocks
     - 15
-  - setProperty:
-    - rover
-    - lowRam
-    - 3
+  
 
   # Perry
   - setProperty:
