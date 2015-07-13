@@ -29,12 +29,13 @@ this.panToNode = function( node, duration, delay ) {
 }
 
 this.getCameraPosition = function() {
-    var position, transform;
+    var position, transform, offset;
+    offset = this.scene.gameCam.mount.worldOffset.slice();
     transform = this.scene.gameCam.worldTransform;
     position = [
-        transform[ 12 ],
-        transform[ 13 ],
-        transform[ 14 ]
+        transform[ 12 ] - offset[ 0 ],
+        transform[ 13 ] - offset[ 1 ],
+        transform[ 14 ] - offset[ 2 ]
     ];
     return position;
 }
@@ -42,6 +43,8 @@ this.getCameraPosition = function() {
 this.copyCameraState = function() {
     this.cameraState.target = this.scene.gameCam.target;
     this.cameraState.mountName = this.scene.gameCam.mount.name;
+    this.default.cameraPose = this.scene.gameCam.getPoseFromTransform();
+    this.default.worldOffset = this.scene.gameCam.mount.worldOffset.slice();
 }
 
 this.restoreCameraState = function() {
