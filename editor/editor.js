@@ -37,7 +37,7 @@ var blockTypes = {
     "Rover: Turn": "rover_turn",
     "Rover: Sensor": "controls_sensor_tracks",
     "Rover: While": "controls_whileUntil",
-    "Rover: Repeat": "controls_repeat_extended",
+    "Rover: Repeat": "controls_repeat_ext",
     "Rover: Number": "math_number_out"
 }
 

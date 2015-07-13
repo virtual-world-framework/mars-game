@@ -31,6 +31,9 @@ function setUpBlocklyPeripherals() {
     var procedureIndicator = document.createElement( "div" );
     var indicatorHighlighter = document.createElement( "div" );
 
+    var toolboxDivs =  document.getElementsByClassName( "blocklyToolboxDiv" );
+    var blocklyToolboxDiv = toolboxDivs[0];
+
     blocklyFooter.id = "blocklyFooter";
     blocklyHandle.id = "blocklyHandle";
     blocklyScrollDiv.id = "blocklyScrollDiv";
@@ -45,6 +48,7 @@ function setUpBlocklyPeripherals() {
     indicator.appendChild( indicatorCount );
     $( "#blocklyWrapper-top" ).append( blocklyHandle )
     $( "#blocklyWrapper" ).append( indicatorHighlighter );
+    $( "#blocklyWrapper" ).append( blocklyToolboxDiv );
     $( "#blocklyWrapper" ).append( indicator );
     $( "#blocklyWrapper" ).append( procedureIndicator );
     // $( "#blocklyWrapper" ).draggable( {
@@ -73,7 +77,11 @@ function setUpBlocklyPeripherals() {
     $( "#blocklyWrapper" ).draggable( {
         handle: "div#blocklyHandle",
         scroll: false,
-        containment: "window"
+        containment: "window",
+        drag: function( event, element ) {
+             $( ".blocklyWidgetDiv" ).css( "display", "none" );
+             blocklyResized();
+        }
     } );
     // $( "#blocklyWrapper" ).resizable({
     //     resize: function( event, ui ) {
@@ -158,6 +166,8 @@ var blocklyResized = function(e) {
 
         var newHeight = ( blocklyArea.offsetHeight - blocklyHandle.offsetHeight - blocklyFooter.offsetHeight ) - 5;
         blocklyDiv.style.height = newHeight + 'px';
+        blocklyDiv.style.zIndex = "1";
+
     }
     
 };

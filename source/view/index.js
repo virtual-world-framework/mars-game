@@ -614,6 +614,7 @@ function setUpView() {
     setUpBlocklyPeripherals();
     setUpStatusDisplay();
     loadScenarioList();
+
 }
 
 function render( renderer, scene, camera ) {
