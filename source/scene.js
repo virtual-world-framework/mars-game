@@ -190,7 +190,7 @@ this.executeBlock = function ( block, action ) {
     var methodName = action[ 1 ];
     var args = action[ 2 ];
     var node = this.findByID( this, nodeID );
- 
+
     if ( node ) {
         args = args instanceof Array ? args : [ args ];
         node[ methodName ].apply( node, args );
