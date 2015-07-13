@@ -120,12 +120,12 @@ this.moveRadialAbsolute = function( valueX, valueY ) {
                         this.activateSensor( 'position' );
                         this.activateSensor( 'heading', this.heading );
                     }
-                    this.translateOnTerrain( distance, hypotenuse, 1, checkSensorsAndSnap.bind( this ) );
+                    this.translateOnTerrain( distance, 1, 1, checkSensorsAndSnap.bind( this ) );
                     var pickupsOnTile = this.scene.getWatchListNodes( proposedTile, "pickup" );
                     for ( var i = 0; i < pickupsOnTile.length; i++ ) {
                         pickupsOnTile[ i ].pickUp( this );
                     }
-                    this.movedRadial();
+                    this.moved();
                 } else { // obstructionOnPath is true
                     // TODO: Move forward to show the collision.
                     //   - Play alarm sound to alert the player?
@@ -187,7 +187,7 @@ this.moveRadial = function( deltaX, deltaY, offset ) {
                         this.activateSensor( 'position' );
                         this.activateSensor( 'heading', this.heading );
                     }
-                    this.translateOnTerrain( distance, hypotenuse, 1, checkSensors.bind( this ) );
+                    this.translateOnTerrain( distance, 1, 1, checkSensors.bind( this ) );
                     var pickupsOnTile = this.scene.getWatchListNodes( proposedTile, "pickup" );
                     for ( var i = 0; i < pickupsOnTile.length; i++ ) {
                         pickupsOnTile[ i ].pickUp( this );
