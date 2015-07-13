@@ -41,7 +41,7 @@ properties:
   - setProperty:
     - rover
     - blockly_xml
-    - <xml><block type="controls_whileUntil" id="21" inline="false" x="11" y="-179"><field name="MODE">WHILE</field><value name="BOOL"><block type="controls_sensor_heading" id="42" inline="false" editable="false"><value name="INPUT"><block type="logic_cond_out" id="55" inline="false"><field name="VALUE">===</field><value name="INPUT"><block type="math_number_field" id="67" inline="false"><field name="VALUE">90</field></block></value></block></value></block></value><statement name="DO"><block type="rover_turn" id="73"><field name="DIR">Turn: Left</field></block></statement></block></xml>
+    - <xml><block type="controls_whileUntil" id="22" inline="false" x="20" y="-140"><field name="MODE">WHILE</field><data>/mars-game/index.vwf:18-21-player:1-64-rover</data><value name="BOOL"><block type="controls_sensor_heading" id="14" inline="false" editable="false"><data>/mars-game/index.vwf:18-21-player:1-64-rover</data></block></value><statement name="DO"><block type="rover_turn" id="40"><field name="DIR">Turn: Left</field><data>/mars-game/index.vwf:18-21-player:1-64-rover</data></block></statement></block></xml>
   - loadToolbox:
     - rover
     - source/scenario/blockly/mission3.xml
