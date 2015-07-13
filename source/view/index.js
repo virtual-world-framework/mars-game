@@ -152,9 +152,6 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 break;
             case "unpaused":
                 break;
-            
-            case "blocklyCompletedPolygon":
-                break;
 
             case "blocklyContentChanged":
                 if ( currentBlocklyNodeID === blocklyGraphID ) {
@@ -228,8 +225,6 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
 
                 indicateBlock( blockID );
                 lastBlockIDExecuted = blockID;
-
-                handleDrawingBlocks( blockName, blockNode, blockArgs );
 
                 break;
                 
@@ -870,33 +865,6 @@ function selectBlock( blockID ) {
             Blockly.addClass_( block.svg_.svgGroup_, "blocklySelected" );
             currentBlockIDSelected = blockID;
         }
-    }
-}
-
-function handleDrawingBlocks( blockName, blockNode, args ) {
-    var sceneID = appID;
-
-    if ( blockName === 'startTriangle' && blockNode !== undefined ) {
-        vwf.setProperty( blockNode, "surveyArray", [] );
-        var blocklyNodeValues = blocklyNodes[ blockNode ];
-        var currentPosition = blocklyNodeValues[ 'positionSensorValue' ];
-        var currentArray = [];
-        vwf.setProperty( blockNode, "surveyArray", currentArray );
-    } else if ( blockName === 'endTriangle' && blockNode !== undefined ) {
-        var blocklyNodeValues = blocklyNodes[ blockNode ];
-        var currentPosition = blocklyNodeValues[ 'positionSensorValue' ];
-        var currentArray = vwf.getProperty( blockNode, "surveyArray" );
-        if ( currentArray[ 0 ][ 0 ] !== currentArray[ currentArray.length - 1 ][ 0 ] 
-            || currentArray[ 0 ][ 1 ] !== currentArray[ currentArray.length - 1 ][ 1 ] ) {
-          vwf.fireEvent( appID, "blocklyFailedPolygon", [ 'rover2', currentArray ] );  
-        }
-        vwf.fireEvent( appID, "blocklyCompletedPolygon", [ 'rover2', currentArray ] );
-    } else if ( blockName === 'markPoint' && blockNode !== undefined ) {
-        var blocklyNodeValues = blocklyNodes[ blockNode ];
-        var currentPosition = blocklyNodeValues[ 'positionSensorValue' ];
-        var currentArray = vwf.getProperty( blockNode, "surveyArray" );
-        currentArray.push( currentPosition );
-        vwf.setProperty( blockNode, "surveyArray", currentArray );
     }
 }
 

@@ -190,12 +190,41 @@ this.executeBlock = function ( block, action ) {
     var methodName = action[ 1 ];
     var args = action[ 2 ];
     var node = this.findByID( this, nodeID );
-
+ 
     if ( node ) {
         args = args instanceof Array ? args : [ args ];
         node[ methodName ].apply( node, args );
     }
-    
+
+    this.blockExecuted( blockName, blockID, blockNode, blockExeTime, blockArgs );
+}
+
+this.handleDrawingBlocks = function ( blockName, blockID, blockNode, blockExeTime, blockArgs ) {
+
+    var nodeObject = this.findByID( this, blockNode );
+
+    if ( blockName === 'startTriangle' && blockNode !== undefined ) {
+        nodeObject.surveyArray = [];
+    } else if ( blockName === 'endTriangle' && blockNode !== undefined ) {
+
+        var currentPosition = nodeObject.positionSensorValue;
+        var currentArray = nodeObject.surveyArray.slice( 0 );
+
+        if ( currentArray[ 0 ][ 0 ] !== currentArray[ currentArray.length - 1 ][ 0 ] 
+            || currentArray[ 0 ][ 1 ] !== currentArray[ currentArray.length - 1 ][ 1 ] ) {
+          this.blocklyFailedPolygon( 'rover2', currentArray );
+        }
+        this.blocklyCompletedPolygon( 'rover2', currentArray );
+
+    } else if ( blockName === 'markPoint' && blockNode !== undefined ) {
+        var currentPosition = nodeObject.positionSensorValue;
+        var currentArray = nodeObject.surveyArray.slice( 0 );
+
+        currentArray.push( currentPosition );
+
+        nodeObject.surveyArray = currentArray;
+    }
+
     this.blockExecuted( blockName, blockID, blockNode, blockExeTime, blockArgs );
 }
 

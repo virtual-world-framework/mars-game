@@ -33,17 +33,17 @@ this.onGenerated = function( params, generator, payload ) {
         return false;
     }
 
-    this.scene.blockExecuted = this.events.add( function( blockName, blockID, blockTime, blockNode ) { 
-        this.onBlockExecuted( blockName, blockID, blockTime, blockNode ); 
+    this.scene.blockExecuted = this.events.add( function( blockName, blockID, blockNode, blockTime, blockArgs ) { 
+        this.onBlockExecuted( blockName, blockID, blockNode, blockTime, blockArgs ); 
     }, this );
 
     return true;
 }
 
-this.onBlockExecuted = function( blockName, blockID, blockTime, blockNode ) {
+this.onBlockExecuted = function( blockName, blockID, blockNode, blockTime, blockArgs ) {
     for ( var i = 0; i < this.blocklyObjects.length; ++i ) {
         var object = this.blocklyObjects[ i ];
-        if ( ( this.blockName === blockName ) && ( object.id === blockNode ) && this.truthValue !== true ) {
+        if ( ( this.blockName === blockName ) && ( object.id === blockNode ) && this.truthValue === true ) {
             this.onEvent(); 
         } else if ( ( this.blockName !== blockName ) && ( object.id === blockNode ) && this.truthValue === false ) {
             this.onEvent();

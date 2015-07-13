@@ -55,6 +55,7 @@ methods:
   addAlert:
   addSubtitle:
   executeBlock:
+  handleDrawingBlocks:
   displayTiles:
   displayGraph:
   setCinematicView:
@@ -433,6 +434,7 @@ children:
           castShadows: true
           receiveShadows: true
           executionSpeed: 0.5
+          surveyArray: []
           sceneNode:
             get: |
               if ( !this.sceneNode ) {
