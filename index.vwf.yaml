@@ -162,7 +162,6 @@ children:
         extends: source/cameraMount.vwf
         properties:
           navmode: none
-          cameraPose: [ 12, 0, -25 ]
           cameraSpeed: 0
     scripts:
       - source: source/cinematicCameraController.js
