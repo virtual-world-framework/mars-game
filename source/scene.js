@@ -76,7 +76,7 @@ this.setApplicationState = function( state ) {
 
 this.newGame = function() {
     this.applicationState = "playing";
-    this.activeScenarioPath = "introScreenScenario";
+    this.activeScenarioPath = "Mission1Task1";
 }
 
 this.continueGame = function( scenario ) {

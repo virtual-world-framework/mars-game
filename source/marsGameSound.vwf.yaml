@@ -277,7 +277,7 @@ properties:
       groupReplacementMethod: queue
     - soundName: "TM3VO1B_MC"
       soundURL: "assets/sounds/vo/newmission3vo1.ogg"
-      initialVolume: 0.65
+      initialVolume: 1.0
       subtitle: "[MC]: Well, that was unexpected. He seems to be badly malfunctioning. Hopefully your scout rover will be able to perform his tasks, at least for now...In any case, your next task is to recover the Base Pod, which constains essential supplies for your mission. I am tracking the pod from my satellite view...Its coordinates are [6,15]. "
       soundGroup: vo
       groupReplacementMethod: queue
@@ -289,7 +289,7 @@ properties:
       groupReplacementMethod: queue
     - soundName: "TM3VO3_MC"
       soundURL: "assets/sounds/vo/newmission3vo3.ogg"
-      initialVolume: 0.65
+      initialVolume: 1.0
       subtitle: "[MC]: So I see. You'll need to rebuild it. I am downloading a basic procedure to get you started, but you'll need to modify it from there. Note that his procedure uses your Position Sensor, which is a block that tells you what your current coordinates are. If you know the coordinates you want to reach, you can use the position sensor to help you figure out which way to travel."
       soundGroup: vo
       groupReplacementMethod: queue
