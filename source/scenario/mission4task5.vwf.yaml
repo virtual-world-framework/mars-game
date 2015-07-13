@@ -198,7 +198,9 @@ children:
             - onScenarioStart:
             - doOnce:
           actions:
-          - openMissionBrief:
+          - delay:
+            - 2
+            - openMissionBrief:
 
         setStartPosition_4_5:
           triggerCondition:
@@ -240,7 +242,6 @@ children:
             - callMethod:
               - rover2
               - stopExecution
-            - clearBlockly:
             - scenarioSuccess:
             - playSound:
               - musicSuccessShort

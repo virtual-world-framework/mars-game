@@ -208,7 +208,9 @@ children:
             - onScenarioStart:
             - doOnce:
           actions:
-          - openMissionBrief:
+          - delay:
+            - 2
+            - openMissionBrief:
 
         setStartPosition_4_6:
           triggerCondition:
@@ -256,7 +258,6 @@ children:
               - musicSuccessShort
             - playSound:
               - PerryDusty
-            
 
         scenarioEnded4_6:
           triggerCondition:

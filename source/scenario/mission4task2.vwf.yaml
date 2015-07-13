@@ -177,7 +177,9 @@ children:
             - onScenarioStart:
             - doOnce:
           actions:
-          - openMissionBrief:
+          - delay:
+            - 4
+            - openMissionBrief:
 
         succeedOnTriangle_4_2:
           group: successOrFailure

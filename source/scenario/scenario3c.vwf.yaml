@@ -155,7 +155,7 @@ children:
             - doOnce:
             - isAtPosition:
               - rover
-              - [ -23, 27 ]
+              - [ -33, 27 ]
           actions:
           - playSound:
             - CTVO3
