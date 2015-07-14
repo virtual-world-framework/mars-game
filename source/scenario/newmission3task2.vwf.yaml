@@ -119,21 +119,17 @@ children:
           - playSound:
             - TM3VO6_MC
 
+        openMissionBrief_3_2:
+          triggerCondition:
+          - and:
+            - onScenarioStart:
+            - doOnce:
+          actions:
+          - delay:
+            - 32
+            - openMissionBrief:
 
- #       failOnMove_3d:                                 //Perhaps have something like this but for procedures instead.
- #         group: successOrFailure
- #         priority: 1
- #         triggerCondition:
- #         - onMoved:
- #           - rover
- #         actions:
- #         - scenarioFailure:
- #           - lost
- #           - "You need to plot the course of the wayward rover before going to find it."
- #         - playSound:
- #           - FCVO4_Rover
- 
-        succeedOnSuccessfulMovement_3a:
+        succeedOnSuccessfulMovement_3_2:
           group: successOrFailure
           priority: 0
           triggerCondition:
@@ -150,3 +146,22 @@ children:
             - "Test program completed!"
           - playSound:
             - musicSuccessShort
+
+  brief:
+    extends: ../missionBrief.vwf
+    properties:
+      title: "Mission 3, Task 2"
+      content: >
+        The basic navigation procedure appears to be working!
+        <br><br>However, this procedure will only work properly if you're already facing 
+        North. You'll need to edit the procedure definition so that you turn to face the
+        right direction before you begin moving forward.
+        <br><br>To do this you'll need to use the while block, and you'll need to turn until something
+        is no longer true about the direction you're facing. This will requirw a comparison block,
+        block which is found in the "Conditionals and Loops" tab, along with a Direction of Travel
+        block, which is found in the Rover tab. The Direction of Travel block updates to hold the 
+        degree value of the direction you're currently facing. 
+        <br><br>The test program turns you left if you're facing the right direction originally,
+        so that you're forced to turn back to the correct direction way somehow. Look at the way it uses a while loop
+        as a hint on how to edit your procedure definition, you might need to change something regarding
+        the kind of comparison that is being done!

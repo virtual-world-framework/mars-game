@@ -123,21 +123,17 @@ children:
           - playSound:
             - TM3VO4_MC
 
+        openMissionBrief_3_1:
+          triggerCondition:
+          - and:
+            - onScenarioStart:
+            - doOnce:
+          actions:
+          - delay:
+            - 54
+            - openMissionBrief:
 
- #       failOnMove_3d:                                 //Perhaps have something like this but for procedures instead.
- #         group: successOrFailure
- #         priority: 1
- #         triggerCondition:
- #         - onMoved:
- #           - rover
- #         actions:
- #         - scenarioFailure:
- #           - lost
- #           - "You need to plot the course of the wayward rover before going to find it."
- #         - playSound:
- #           - FCVO4_Rover
-
-        succeedOnSuccessfulMovement_3a:
+        succeedOnSuccessfulMovement_3_1:
           group: successOrFailure
           priority: 0
           triggerCondition:
@@ -156,3 +152,32 @@ children:
             - musicSuccessShort
 
 
+  brief:
+    extends: ../missionBrief.vwf
+    properties:
+      title: "Mission 3, Task 1"
+      content: >
+        Oh no, your mini rover has gone off!
+        <br><br>Luckily, you've also learned the location of the base pod,
+        which contains materials essential to your mission. Your navigate
+        procedure appears to be damaged, you'll need to reconstruct it 
+        step-by-step in order to be able to travel somewhere just by knowing
+        its coordinates.
+        <br><br>In order to use procedures you'll need two things: the procedure 
+        definition and the procedure call. The procedure definition is the sequence 
+        of blocks starting with a purple block containing a gear in the top left. 
+        It defines the sequence of actions that the procedure block will do. On top
+        of defining the procedure's steps, you can also define the name and variables
+        that the procedure uses.
+        <br><br>The procedure call happens when you use a procedure block with appropriate
+        inputs for the variables. Once a procedure definition is created, a procedure
+        block can be obtained by going into the "Procedures" tab in the toolbox, or by
+        right clicking the procedure definition and choosing "Create [procedure name]".
+        When a procedure block is used it will execute all of the steps defined in the
+        procedure definition through the use of a single block! Isn't that handy?
+        <br><br>Mission Control has downloaded a simple procedure definition for you
+        which moves forward if your destination location is further in the positive-Y
+        direction than your current position. She has also provided a test program 
+        through a procedure call, which attempts to navigate three spots up the positive-Y
+        direction. Start the program and see if it works!
+        
