@@ -103,8 +103,10 @@ children:
       receiveShadows: true
   tilemapTool:
     extends: editor/model/editorTool.vwf
+    properties:
+      lastDragTile$:
+      isDragging$: false
     methods:
-      drawTileToTexture:
       setTileMapUniforms:
       updateTexture:
     events:
