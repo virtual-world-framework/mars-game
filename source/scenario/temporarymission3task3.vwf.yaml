@@ -1,7 +1,7 @@
 ---
 extends: ../scenario/scenario.vwf
 properties:
-  scenarioName: Mission3Task3
+  scenarioName: Mission3Task8
   scenePath: /
   nextScenarioPath: "Mission4Task1"
 
