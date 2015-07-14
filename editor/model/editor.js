@@ -22,6 +22,10 @@ this.setActiveTool = function( toolName ) {
     }
 }
 
+this.closeActiveTool = function() {
+    this.activeTool = undefined;
+}
+
 this.pointerClick = function( pointerInfo, pickInfo ) {
     var tool;
     if ( this.activeTool && this[ this.activeTool ] ) {

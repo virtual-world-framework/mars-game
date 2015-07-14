@@ -22,6 +22,7 @@ properties:
   activeTool:
 methods:
   setActiveTool:
+  closeActiveTool:
 events:
   onSceneReady:
   pointerClick:
