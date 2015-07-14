@@ -45,6 +45,7 @@ properties:
   - loadToolbox:
     - rover
     - source/scenario/blockly/mission3.xml
+  - resetRoverSensors:
 
   #Manny
   - addToGrid:

@@ -41,21 +41,21 @@ properties:
   - setProperty:
     - rover
     - blockly_xml
-    - <xml><block type="procedures_defnoreturn" id="21" x="-20" y="-340"><mutation><arg name="y-coordinate"></arg></mutation><field name="NAME">navigate</field><statement name="STACK"><block type="controls_whileUntil" id="43" inline="false"><field name="MODE">WHILE</field><value name="BOOL"><block type="variables_get" id="102" inline="false"><field name="VAR">y-coordinate</field><value name="INPUT"><block type="logic_cond_out" id="64" inline="false"><field name="VALUE">&gt;</field><value name="INPUT"><block type="controls_sensor_position_y" id="51" inline="false" editable="false"></block></value></block></value></block></value><statement name="DO"><block type="rover_moveForward" id="114"></block></statement></block></statement></block><block type="procedures_callnoreturn" id="119" inline="false" x="-20" y="-180"><mutation name="navigate"><arg name="y-coordinate"></arg></mutation><value name="ARG0"><block type="math_number_field" id="129" inline="false"><field name="VALUE">3</field></block></value></block></xml>
+    - <xml><block type="procedures_defnoreturn" id="21" x="-20" y="-420"><mutation><arg name="x-coordinate"></arg><arg name="y-coordinate"></arg></mutation><field name="NAME">navigate</field><statement name="STACK"><block type="controls_if_nomut" id="91" inline="false"><value name="IF0"><block type="variables_get" id="116" inline="false"><field name="VAR">y-coordinate</field><value name="INPUT"><block type="logic_cond_out" id="130" inline="false"><field name="VALUE">&gt;</field><value name="INPUT"><block type="controls_sensor_position_y" id="151" inline="false" editable="false"></block></value></block></value></block></value><statement name="DO0"><block type="controls_whileUntil" id="35" inline="false"><value name="BOOL"><block type="controls_sensor_heading" id="62" inline="false" editable="false"><value name="INPUT"><block type="logic_cond_out" id="68" inline="false"><field name="VALUE">!==</field><value name="INPUT"><block type="math_number_angle_select" id="77" inline="false"><field name="VALUE">90</field></block></value></block></value></block></value><statement name="DO"><block type="rover_turn" id="96"></block></statement><next><block type="controls_whileUntil" id="43" inline="false"><value name="BOOL"><block type="variables_get" id="102" inline="false"><field name="VAR">y-coordinate</field><value name="INPUT"><block type="logic_cond_out" id="64" inline="false"><field name="VALUE">&gt;</field><value name="INPUT"><block type="controls_sensor_position_y" id="51" inline="false" editable="false"></block></value></block></value></block></value><statement name="DO"><block type="rover_moveForward" id="114"></block></statement></block></next></block></statement><next><block type="controls_if_nomut" id="189" inline="false"><value name="IF0"><block type="variables_get" id="190" inline="false"><field name="VAR">y-coordinate</field><value name="INPUT"><block type="logic_cond_out" id="191" inline="false"><field name="VALUE">&lt;</field><value name="INPUT"><block type="controls_sensor_position_y" id="192" inline="false" editable="false"></block></value></block></value></block></value><statement name="DO0"><block type="controls_whileUntil" id="193" inline="false"><value name="BOOL"><block type="controls_sensor_heading" id="194" inline="false" editable="false"><value name="INPUT"><block type="logic_cond_out" id="195" inline="false"><field name="VALUE">!==</field><value name="INPUT"><block type="math_number_angle_select" id="196" inline="false"><field name="VALUE">270</field></block></value></block></value></block></value><statement name="DO"><block type="rover_turn" id="197"></block></statement><next><block type="controls_whileUntil" id="198" inline="false"><value name="BOOL"><block type="variables_get" id="199" inline="false"><field name="VAR">y-coordinate</field><value name="INPUT"><block type="logic_cond_out" id="200" inline="false"><field name="VALUE">&lt;</field><value name="INPUT"><block type="controls_sensor_position_y" id="201" inline="false" editable="false"></block></value></block></value></block></value><statement name="DO"><block type="rover_moveForward" id="202"></block></statement></block></next></block></statement></block></next></block></statement></block><block type="controls_whileUntil" id="31" inline="false" x="-20" y="20"><value name="BOOL"><block type="controls_sensor_heading" id="49" inline="false" editable="false"><value name="INPUT"><block type="logic_cond_out" id="54" inline="false"><field name="VALUE">===</field><value name="INPUT"><block type="math_number_angle_select" id="63" inline="false"><field name="VALUE">90</field></block></value></block></value></block></value><statement name="DO"><block type="rover_turn" id="85"></block></statement><next><block type="procedures_callnoreturn" id="119" inline="false"><mutation name="navigate"><arg name="x-coordinate"></arg><arg name="y-coordinate"></arg></mutation><value name="ARG0"><block type="math_number_field" id="215" inline="false"><field name="VALUE">3</field></block></value><value name="ARG1"><block type="math_number_field" id="129" inline="false"><field name="VALUE">6</field></block></value></block></next></block></xml>
   - loadToolbox:
     - rover
     - source/scenario/blockly/mission3.xml
-
+  - resetRoverSensors:
   #Manny
   - addToGrid:
     - rover
-    - [ -41, 51 ]
+    - [ -41, 54 ]
   - selectRover:
     - rover
   - callMethod:
     - rover
     - setHeading
-    - 0
+    - 180
   - setProperty:
     - rover
     - battery
@@ -145,8 +145,9 @@ children:
               - rover
             - isAtPosition:
               - rover
-              - [ -41, 54 ]
+              - [ -38, 57 ]
           actions:
+          - clearBlockly:
           - scenarioSuccess:
           - showAlert:
             - "Test program completed!"
