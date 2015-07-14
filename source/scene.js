@@ -200,32 +200,45 @@ this.executeBlock = function ( block, action ) {
 }
 
 this.handleDrawingBlocks = function ( blockName, blockID, blockNode, blockExeTime, blockArgs ) {
-
     var nodeObject = this.findByID( this, blockNode );
-
     if ( blockName === 'startTriangle' && blockNode !== undefined ) {
         nodeObject.surveyArray = [];
     } else if ( blockName === 'endTriangle' && blockNode !== undefined ) {
-
         var currentPosition = nodeObject.positionSensorValue;
         var currentArray = nodeObject.surveyArray.slice( 0 );
-
         if ( currentArray[ 0 ][ 0 ] !== currentArray[ currentArray.length - 1 ][ 0 ] 
             || currentArray[ 0 ][ 1 ] !== currentArray[ currentArray.length - 1 ][ 1 ] ) {
           this.blocklyFailedPolygon( 'rover2', currentArray );
         }
         this.blocklyCompletedPolygon( 'rover2', currentArray );
-
     } else if ( blockName === 'markPoint' && blockNode !== undefined ) {
         var currentPosition = nodeObject.positionSensorValue;
         var currentArray = nodeObject.surveyArray.slice( 0 );
-
         currentArray.push( currentPosition );
-
         nodeObject.surveyArray = currentArray;
+        if ( currentArray.length >= 2 ) {
+            var lastTwoPoints = currentArray.slice( currentArray.length - 2 );
+            this.createNaniteSystem( lastTwoPoints[ 0 ], lastTwoPoints[ 1 ] );
+        }
     }
-
     this.blockExecuted( blockName, blockID, blockNode, blockExeTime, blockArgs );
+}
+
+this.createNaniteSystem = function( startVertex, stopVertex ) {
+    startVertex = this.addAxisOffset( startVertex );
+    stopVertex = this.addAxisOffset( stopVertex );
+    startVertex = this.tileMap.getWorldCoordFromTile( startVertex[ 0 ], startVertex[ 1 ] );
+    stopVertex = this.tileMap.getWorldCoordFromTile( stopVertex[ 0 ], stopVertex[ 1 ] );
+    startVertex.push( this.environment.heightmap.getHeight( startVertex[ 0 ], startVertex[ 1 ] ) + 1 );
+    stopVertex.push( this.environment.heightmap.getHeight( stopVertex[ 0 ], stopVertex[ 1 ] ) + 1 );
+    var naniteSystem = {
+        "extends": "source/naniteParticle.vwf",
+        "properties": {
+            "start": startVertex,
+            "stop": stopVertex
+        }
+    }
+    this.naniteSystems.children.create( "nanites" + this.time, naniteSystem );
 }
 
 this.displayTiles = function( isVisible ) {

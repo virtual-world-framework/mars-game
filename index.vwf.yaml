@@ -86,6 +86,7 @@ methods:
   getWatchListNodes:
   addAxisOffset:
   removeAxisOffset:
+  createNaniteSystem:
 events:
   gameStarted:
   scenarioReset:
@@ -119,6 +120,8 @@ events:
   missionBriefClosed:
   loadedMissionBrief:
 children:
+  naniteSystems:
+    extends: http://vwf.example.com/node3.vwf
   # naniteTest:
   #   extends: source/naniteParticle.vwf
   #   properties:
