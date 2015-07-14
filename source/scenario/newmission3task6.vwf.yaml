@@ -115,21 +115,17 @@ children:
           - playSound:
             - TM3V16_MC
 
+        openMissionBrief_3_6:
+          triggerCondition:
+          - and:
+            - onScenarioStart:
+            - doOnce:
+          actions:
+          - delay:
+            - 10
+            - openMissionBrief:
 
- #       failOnMove_3d:                                 //Perhaps have something like this but for procedures instead.
- #         group: successOrFailure
- #         priority: 1
- #         triggerCondition:
- #         - onMoved:
- #           - rover
- #         actions:
- #         - scenarioFailure:
- #           - lost
- #           - "You need to plot the course of the wayward rover before going to find it."
- #         - playSound:
- #           - FCVO4_Rover
- 
-        succeedOnSuccessfulMovement_3a:
+        succeedOnSuccessfulMovement_3_6:
           group: successOrFailure
           priority: 0
           triggerCondition:
@@ -146,4 +142,13 @@ children:
             - "Test program completed!"
           - playSound:
             - musicSuccessShort
+
+  brief:
+    extends: ../missionBrief.vwf
+    properties:
+      title: "Mission 3, Task 6"
+      content: >
+        You're almost done!
+        <br><br>Now the last thing you need to do is West-movement functionality. This is done
+        in a manner similar to the one you used in the last task to add East-movement functionality. 
 

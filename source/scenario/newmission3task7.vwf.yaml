@@ -113,20 +113,17 @@ children:
           - playSound:
             - TM3V17_MC
 
- #       failOnMove_3d:                                 //Perhaps have something like this but for procedures instead.
- #         group: successOrFailure
- #         priority: 1
- #         triggerCondition:
- #         - onMoved:
- #           - rover
- #         actions:
- #         - scenarioFailure:
- #           - lost
- #           - "You need to plot the course of the wayward rover before going to find it."
- #         - playSound:
- #           - FCVO4_Rover
- 
-        succeedOnSuccessfulMovement_3a:
+        openMissionBrief_3_7:
+          triggerCondition:
+          - and:
+            - onScenarioStart:
+            - doOnce:
+          actions:
+          - delay:
+            - 11
+            - openMissionBrief:
+
+        succeedOnSuccessfulMovement_3_7:
           group: successOrFailure
           priority: 0
           triggerCondition:
@@ -144,3 +141,12 @@ children:
           - playSound:
             - musicSuccessShort
 
+  brief:
+    extends: ../missionBrief.vwf
+    properties:
+      title: "Mission 3, Task 7"
+      content: >
+        You've successfully recreated the navigate procedure!
+        <br><br>Now that the program is complete make your own procedure call
+        to reach the base pod at coordinates [6,15]. There is no test programs anymore,
+        this is the real thing!

@@ -119,23 +119,17 @@ children:
           - playSound:
             - TM3V10_MC
 
-
-
-
- #       failOnMove_3d:                                 //Perhaps have something like this but for procedures instead.
- #         group: successOrFailure
- #         priority: 1
- #         triggerCondition:
- #         - onMoved:
- #           - rover
- #         actions:
- #         - scenarioFailure:
- #           - lost
- #           - "You need to plot the course of the wayward rover before going to find it."
- #         - playSound:
- #           - FCVO4_Rover
+        openMissionBrief_3_4:
+          triggerCondition:
+          - and:
+            - onScenarioStart:
+            - doOnce:
+          actions:
+          - delay:
+            - 19
+            - openMissionBrief:
  
-        succeedOnSuccessfulMovement_3a:
+        succeedOnSuccessfulMovement_3_4:
           group: successOrFailure
           priority: 0
           triggerCondition:
@@ -153,3 +147,19 @@ children:
           - playSound:
             - musicSuccessShort
 
+  brief:
+    extends: ../missionBrief.vwf
+    properties:
+      title: "Mission 3, Task 4"
+      content: >
+        You're getting closer to recreating the whole procedure!
+        <br><br>Currently you can only move North, you'll want to add functionality 
+        that lets you navigate to other directions as well. We'll begin by navigating
+        South.
+        <br><br>The code for navigating South should be very similar to the code
+        you currently use to navigate North. You can duplicate this code by right-clicking
+        the "if" block, attaching this new block to the end of the old "if" block, and making
+        some changes that will allow it to move South instead of North. Perhaps you'll want to pay 
+        attention to the comparison between your current y-position and your destination's y-position.
+        Which one should be larger if you're planning on moving South? Also, you'll need to change the 
+        direction that you're comparing your current direction of travel to.

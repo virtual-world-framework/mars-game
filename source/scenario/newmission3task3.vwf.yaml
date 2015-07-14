@@ -23,7 +23,7 @@ properties:
   startState:
   # objective
   - setObjective:
-    - "Edit your navigate procedure: Only turn North if you need to.
+    - "Edit your navigate procedure: Only turn North if you need to."
 
   # sounds/video
   - playSound:
@@ -119,20 +119,17 @@ children:
           - playSound:
             - TM3VO8_MC
 
- #       failOnMove_3d:                                 //Perhaps have something like this but for procedures instead.
- #         group: successOrFailure
- #         priority: 1
- #         triggerCondition:
- #         - onMoved:
- #           - rover
- #         actions:
- #         - scenarioFailure:
- #           - lost
- #           - "You need to plot the course of the wayward rover before going to find it."
- #         - playSound:
- #           - FCVO4_Rover
- 
-        succeedOnSuccessfulMovement_3a:
+        openMissionBrief_3_3:
+          triggerCondition:
+          - and:
+            - onScenarioStart:
+            - doOnce:
+          actions:
+          - delay:
+            - 24
+            - openMissionBrief:
+
+        succeedOnSuccessfulMovement_3_3:
           group: successOrFailure
           priority: 0
           triggerCondition:
@@ -153,3 +150,21 @@ children:
             - "Test program completed!"
           - playSound:
             - musicSuccessShort
+
+  brief:
+    extends: ../missionBrief.vwf
+    properties:
+      title: "Mission 3, Task 3"
+      content: >
+        Good job on editing the procedure navigation!
+        <br><br>You should only need to turn if you're going to move. You'll need
+        to further edit your navigate procedure to reflect this.
+        <br><br>This will require the use of an "if" block, which can be found in
+        the "Conditionals" tab. If blocks will only execute the actions in their "do" 
+        section if their "if" section evaluates to true. In this case, the "do" section should
+        contain the rest of the actions currently in your procedure definition. The "if"
+        section should be a check of whether your current y-position is greater than that 
+        of your destination's. Your code should only execute if this is true.
+        <br><br>In order to use the value of your destination's y-position in the procedure
+        definition you'll need to right click the procedure definition, and chooose "Create get [variable name]".
+        You'll spawn a block representing the y-position of your destination location.
