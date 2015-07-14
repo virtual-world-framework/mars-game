@@ -18,7 +18,7 @@ properties:
   scenarioName: Mission3Task7
 
   scenePath: /
-  nextScenarioPath: "Mission4Task1"
+  nextScenarioPath: "Mission3Task8"
 
   startState:
   # objective
@@ -53,10 +53,6 @@ properties:
     - [ -41, 51 ]
   - selectRover:
     - rover
-  - callMethod:
-    - rover
-    - setHeading
-    - 0
   - setProperty:
     - rover
     - battery
