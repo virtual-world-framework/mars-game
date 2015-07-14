@@ -705,6 +705,8 @@ children:
     includes: source/scenario/newmission3task6.vwf
   Mission3Task7:
     includes: source/scenario/newmission3task7.vwf
+  Mission3Task8:
+    includes: source/scenario/temporarymission3task3.vwf
   Mission4Task1:
     includes: source/scenario/mission4task1.vwf
   Mission4Task2:

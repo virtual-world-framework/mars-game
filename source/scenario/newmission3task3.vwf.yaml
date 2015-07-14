@@ -23,7 +23,7 @@ properties:
   startState:
   # objective
   - setObjective:
-    - "Edit your navigate procedure."
+    - "Edit your navigate procedure: Only turn North if you need to.
 
   # sounds/video
   - playSound:

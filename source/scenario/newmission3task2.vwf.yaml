@@ -23,7 +23,7 @@ properties:
   startState:
   # objective
   - setObjective:
-    - "Edit your navigate procedure."
+    - "Edit your navigate procedure: Turn north before moving forward."
 
   # sounds/video
   - playSound:
@@ -46,7 +46,7 @@ properties:
     - blockly_xml
     - <xml><block type="procedures_defnoreturn" id="21" x="-20" y="-340"><mutation><arg name="y-coordinate"></arg></mutation><field name="NAME">navigate</field><statement name="STACK"><block type="controls_whileUntil" id="43" inline="false"><field name="MODE">WHILE</field><value name="BOOL"><block type="variables_get" id="102" inline="false"><field name="VAR">y-coordinate</field><value name="INPUT"><block type="logic_cond_out" id="64" inline="false"><field name="VALUE">&gt;</field><value name="INPUT"><block type="controls_sensor_position_y" id="51" inline="false" editable="false"></block></value></block></value></block></value><statement name="DO"><block type="rover_moveForward" id="114"></block></statement></block></statement></block><block type="controls_whileUntil" id="31" inline="false" x="-20" y="-220"><value name="BOOL"><block type="controls_sensor_heading" id="49" inline="false" editable="false"><value name="INPUT"><block type="logic_cond_out" id="54" inline="false"><field name="VALUE">===</field><value name="INPUT"><block type="math_number_angle_select" id="63" inline="false"><field name="VALUE">90</field></block></value></block></value></block></value><statement name="DO"><block type="rover_turn" id="85"></block></statement><next><block type="procedures_callnoreturn" id="119" inline="false"><mutation name="navigate"><arg name="y-coordinate"></arg></mutation><value name="ARG0"><block type="math_number_field" id="129" inline="false"><field name="VALUE">6</field></block></value></block></next></block></xml>
   - resetRoverSensors:
-  
+
   #Manny
   - addToGrid:
     - rover

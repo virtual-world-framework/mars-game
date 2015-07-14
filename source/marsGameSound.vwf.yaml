@@ -280,7 +280,7 @@ properties:
       initialVolume: 1.0
       subtitle: "[MC]: Well, that was unexpected. He seems to be badly malfunctioning. Hopefully your scout rover will be able to perform his tasks, at least for now...In any case, your next task is to recover the Base Pod, which constains essential supplies for your mission. I am tracking the pod from my satellite view...Its coordinates are [6,15]. "
       soundGroup: vo
-      groupReplacementMethod: queue
+      groupReplacementMethod: replace
     - soundName: "TM3VO2_Rover"
       soundURL: "assets/sounds/vo/newmission3vo2.ogg"
       initialVolume: 0.65
@@ -290,7 +290,7 @@ properties:
     - soundName: "TM3VO3_MC"
       soundURL: "assets/sounds/vo/newmission3vo3.ogg"
       initialVolume: 1.0
-      subtitle: "[MC]: So I see. You'll need to rebuild it. I am downloading a basic procedure to get you started, but you'll need to modify it from there. Note that his procedure uses your Position Sensor, which is a block that tells you what your current coordinates are. If you know the coordinates you want to reach, you can use the position sensor to help you figure out which way to travel."
+      subtitle: "[MC]: So I see. You'll need to rebuild it. I am downloading a basic procedure to get you started, but you'll need to modify it from there. Note that his procedure uses your Position Sensor, which is a block that tells you what your current coordinates are. If you know the coordinates you want to reach, you can use the Position Sensor to help you figure out which way to travel."
       soundGroup: vo
       groupReplacementMethod: queue
     - soundName: "TM3VO4_MC"
@@ -304,7 +304,7 @@ properties:
       initialVolume: 0.65
       subtitle: "[ROVER]: Hooray, I did it!"
       soundGroup: vo
-      groupReplacementMethod: queue
+      groupReplacementMethod: replace
     - soundName: "TM3VO6_MC"
       soundURL: "assets/sounds/vo/newmission3vo6.ogg"
       initialVolume: 0.65
@@ -316,7 +316,7 @@ properties:
       initialVolume: 0.65
       subtitle: "[ROVER]: I did it again!"
       soundGroup: vo
-      groupReplacementMethod: queue
+      groupReplacementMethod: replace
     - soundName: "TM3VO8_MC"
       soundURL: "assets/sounds/vo/newmission3vo8.ogg"
       initialVolume: 0.65
@@ -328,7 +328,7 @@ properties:
       initialVolume: 0.65
       subtitle: "[ROVER]: Hooray!"
       soundGroup: vo
-      groupReplacementMethod: queue
+      groupReplacementMethod: replace
     - soundName: "TM3V10_MC"
       soundURL: "assets/sounds/vo/newmission3vo10.ogg"
       initialVolume: 0.65
@@ -339,7 +339,7 @@ properties:
       soundURL: "assets/sounds/vo/newmission3vo11.ogg"
       initialVolume: 0.65
       subtitle: "[ROVER]: I...!"
-      soundGroup: vo
+      soundGroup: replace
       groupReplacementMethod: queue
     - soundName: "TM3V12_MC"
       soundURL: "assets/sounds/vo/newmission3vo12.ogg"
@@ -363,7 +363,7 @@ properties:
       soundURL: "assets/sounds/vo/newmission3vo15.ogg"
       initialVolume: 0.65
       subtitle: "[ROVER]: Are we done going in circles *yet*?"
-      soundGroup: vo
+      soundGroup: replace
       groupReplacementMethod: queue
     - soundName: "TM3V16_MC"
       soundURL: "assets/sounds/vo/newmission3vo16.ogg"
@@ -374,9 +374,9 @@ properties:
     - soundName: "TM3V17_MC"
       soundURL: "assets/sounds/vo/newmission3vo17.ogg"
       initialVolume: 0.65
-      subtitle: "[MC]: Well done! Now that your Navigate Procedure is working again, let's go get the base pod! As I said before, our satellite imagery shows that it landed at position [-35,66]."
+      subtitle: "[MC]: Well done! Now that your Navigate Procedure is working again, let's go get the base pod! As I said before, our satellite imagery shows that it landed at position [6,15]."
       soundGroup: vo
-      groupReplacementMethod: queue
+      groupReplacementMethod: replace
     - soundName: "M3VO1_Rover"
       soundURL: "assets/sounds/vo/m3t1VO01Manny.ogg"
       initialVolume: 0.65

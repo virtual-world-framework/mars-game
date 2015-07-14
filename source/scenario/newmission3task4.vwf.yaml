@@ -23,7 +23,7 @@ properties:
   startState:
   # objective
   - setObjective:
-    - "Test out the basic procedure."
+    - "Edit the navigate procedure: Duplicate the if block and change the values to move South."
 
   # sounds/video
   - playSound:
