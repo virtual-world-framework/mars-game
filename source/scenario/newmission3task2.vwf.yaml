@@ -157,11 +157,11 @@ children:
         North. You'll need to edit the procedure definition so that you turn to face the
         right direction before you begin moving forward.
         <br><br>To do this you'll need to use the while block, and you'll need to turn until something
-        is no longer true about the direction you're facing. This will requirw a comparison block,
-        block which is found in the "Conditionals and Loops" tab, along with a Direction of Travel
+        is no longer true about the direction you're facing. This will require a comparison block,
+        which is found in the "Conditionals and Loops" tab, along with a Direction of Travel
         block, which is found in the Rover tab. The Direction of Travel block updates to hold the 
         degree value of the direction you're currently facing. 
         <br><br>The test program turns you left if you're facing the right direction originally,
-        so that you're forced to turn back to the correct direction way somehow. Look at the way it uses a while loop
+        so that you're forced to turn back to the correct direction somehow. Look at the way it uses a while loop
         as a hint on how to edit your procedure definition, you might need to change something regarding
         the kind of comparison that is being done!

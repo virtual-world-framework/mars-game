@@ -308,7 +308,7 @@ properties:
     - soundName: "TM3VO6_MC"
       soundURL: "assets/sounds/vo/newmission3vo6.ogg"
       initialVolume: 0.65
-      subtitle: "[MC]: Good work. Of course, that will only work if you're already facing up the Y axis. You need to change your Navigate Procedure so that it uses another while loop to turn and face up the Y axis. Your Heading Sensor will tell you what direction you're facing. 0 degrees is to the north, or up the Y axis. 90 degrees is to the east, or to the right along the X axis. 180 degrees is to the south, or down the Y axis. 270 degrees is to the west, or left along the X axis. I've provided a new test program to check your procedure is correct."
+      subtitle: "[MC]: Good work. Of course, that will only work if you're already facing up the Y axis. You need to change your Navigate Procedure so that it uses another while loop to turn and face up the Y axis. Your Direction Sensor will tell you what direction you're facing. 0 degrees is to the east, or right along the X axis. 90 degrees is to the north, or up the Y axis. 180 degrees is to the west, or left along the X axis. 270 degrees is to the south, or down the Y axis. I've provided a new test program to check your procedure is correct."
       soundGroup: vo
       groupReplacementMethod: queue
     - soundName: "TM3VO7_Rover"
@@ -363,8 +363,8 @@ properties:
       soundURL: "assets/sounds/vo/newmission3vo15.ogg"
       initialVolume: 0.65
       subtitle: "[ROVER]: Are we done going in circles *yet*?"
-      soundGroup: replace
-      groupReplacementMethod: queue
+      soundGroup: vo
+      groupReplacementMethod: replace
     - soundName: "TM3V16_MC"
       soundURL: "assets/sounds/vo/newmission3vo16.ogg"
       initialVolume: 0.65
