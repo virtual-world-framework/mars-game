@@ -5,9 +5,9 @@ var far = 30;
 window.onload = function() {
 
     // Set up camera for the scene
-    var offsetX = 210;
-    var offsetY = 200;
-    var halfSize = 512;
+    var offsetX = 0;
+    var offsetY = 64;
+    var halfSize = 256;
     camera = new THREE.OrthographicCamera(
         offsetX - halfSize, offsetX + halfSize,
         offsetY + halfSize, offsetY - halfSize,
@@ -24,14 +24,14 @@ window.onload = function() {
         preserveDrawingBuffer: true
     } );
     // renderer.setClearColor( 0x000099 );
-    renderer.setSize( 4096, 4096 );
+    renderer.setSize( 2048, 2048 );
 
     // Create the three.js scene
     scene = new THREE.Scene();
 
     // Load the 3D model
     loader = new THREE.ColladaLoader();
-    loader.load( "scene_height.dae", function( object ) {
+    loader.load( "terrain_mix.dae", function( object ) {
         env = object.scene;
         setHeightMapType( "exp" );
         // env.rotateX( Math.PI );
