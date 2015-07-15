@@ -178,7 +178,7 @@ children:
     children:
       terrain:
         extends: http://vwf.example.com/node3.vwf
-        source: assets/3d/environment/mars_level.dae
+        source: assets/3d/Mars_Assets/terrain_mix.dae
         type: model/vnd.collada+xml
         properties:
           castShadows: true
@@ -187,27 +187,27 @@ children:
           material:
             extends: source/shaders/mixMap.vwf
             properties:
-              mixMap: "assets/3d/environment/mix_map.png"
+              mixMap: "assets/3d/Mars_Assets/terrain_mixmap.png"
               diffuseMaps:
-                - { "url": "assets/3d/environment/level2_ground1_d.png", "wrapTexture": true }
-                - { "url": "assets/3d/environment/dirt.png", "wrapTexture": true }
-                - { "url": "assets/3d/environment/dirt1.jpg", "wrapTexture": true }
-                - { "url": "assets/3d/environment/dark_dirt.png", "wrapTexture": true }
+                - { "url": "assets/3d/Mars_Assets/level2_ground3_d.png", "wrapTexture": true }
+                - { "url": "assets/3d/Mars_Assets/dirt.png", "wrapTexture": true }
+                - { "url": "assets/3d/Mars_Assets/level2_ground1_d.png", "wrapTexture": true }
+                - { "url": "assets/3d/Mars_Assets/dark_dirt.png", "wrapTexture": true }
               normalMaps: 
-                - { "url": "assets/3d/environment/level2_ground1_n.png", "wrapTexture": true }
-                - { "url": "assets/3d/environment/dirt_n.png", "wrapTexture": true }
-                - { "url": "assets/3d/environment/dirt1_n.jpg", "wrapTexture": true }
-                - { "url": "assets/3d/environment/dark_dirt_n.png", "wrapTexture": true }
+                - { "url": "assets/3d/Mars_Assets/level2_ground3_n.png", "wrapTexture": true }
+                - { "url": "assets/3d/Mars_Assets/dirt_n.png", "wrapTexture": true }
+                - { "url": "assets/3d/Mars_Assets/level2_ground1_n.png", "wrapTexture": true }
+                - { "url": "assets/3d/Mars_Assets/dark_dirt_n.png", "wrapTexture": true }
               specularMaps:
-                - { "url": "assets/3d/environment/level2_ground1_s.png", "wrapTexture": true }
-                - { "url": "assets/3d/environment/dirt_s.png", "wrapTexture": true }
-                - { "url": "assets/3d/environment/dirt1_s.jpg", "wrapTexture": true }
-                - { "url": "assets/3d/environment/dark_dirt_s.png", "wrapTexture": true }
+                - { "url": "assets/3d/Mars_Assets/level2_ground3_s.png", "wrapTexture": true }
+                - { "url": "assets/3d/Mars_Assets/dirt_s.png", "wrapTexture": true }
+                - { "url": "assets/3d/Mars_Assets/level2_ground1_s.png", "wrapTexture": true }
+                - { "url": "assets/3d/Mars_Assets/dark_dirt_s.png", "wrapTexture": true }
               tileMap:
-                url: "assets/3d/environment/tileMap.png"
+                url: "assets/3d/Mars_Assets/tilemap.png"
                 magFilter: "nearest"
                 minFilter: "nearest"
-              tileMapOrigin: [ -96, -96 ]
+              tileMapOrigin: [ -128, -128 ]
               tileMapSize: [ 256, 256 ]
               textureResolution: 128
               shininess: 5
@@ -224,20 +224,20 @@ children:
               triangle: []
       environmentObjects:
         extends: http://vwf.example.com/node3.vwf
-        source: assets/3d/environment/mars_assets.dae
+        source: assets/3d/Mars_Assets/mars_assets.dae
         type: model/vnd.collada+xml
         properties:
           castShadows: true
           receiveShadows: true
       heightmap:
         extends: http://vwf.example.com/heightmap.vwf
-        source: assets/3d/environment/heightmap.png
+        source: assets/3d/Mars_Assets/heightmap.png
         type: image/png
         properties:
-          minWorldX: -302
-          maxWorldX: 722
-          minWorldY: -312
-          maxWorldY: 712
+          minWorldX: -128
+          maxWorldX: 128
+          minWorldY: -64
+          maxWorldY: 192
           minWorldZ: -5
           maxWorldZ: 25
       roverTracks:
@@ -250,7 +250,7 @@ children:
         type: model/vnd.collada+xml
   tileMap:
     extends: source/tileMap.vwf
-    source: assets/3d/environment/tileMap.png
+    source: assets/3d/Mars_Assets/tilemap.png
     type: image/png
     properties:
       mapOrigin: [ -96, -96 ]
