@@ -234,10 +234,10 @@ children:
         source: assets/3d/Mars_Assets/heightmap.png
         type: image/png
         properties:
-          minWorldX: -128
-          maxWorldX: 128
-          minWorldY: -64
-          maxWorldY: 192
+          minWorldX: -256
+          maxWorldX: 256
+          minWorldY: -192
+          maxWorldY: 320
           minWorldZ: -5
           maxWorldZ: 25
       roverTracks:
