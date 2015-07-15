@@ -21,6 +21,7 @@ function initButtons() {
     var buttons = document.getElementsByClassName( "button" );
     var button, clickFunction;
     for ( var i = 0; i < buttons.length; i++ ) {
+        clickFunction = undefined;
         button = buttons[ i ];
         button.onmouseover = hoverButton.bind( button );
         button.onmouseout = hoverButton.bind( button );

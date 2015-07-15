@@ -17,23 +17,51 @@ var tilemap = {
     "inputWindow": undefined,
     "preview": undefined,
     "canvas": undefined,
-    "size": 128,
+    "size": 256,
     "origin": {
-        "x": -96,
-        "y": -96
-    }
+        "x": -128,
+        "y": -128
+    },
+    "sizeSelector": undefined,
+    "originXField": undefined,
+    "originYField": undefined,
+    "updateButton": undefined,
+    "closeButton": undefined
 }
 
 tilemap.initialize = function() {
     this.inputWindow = document.getElementById( "tilemapInput" );
     this.preview = document.getElementById( "tilemapPreview" );
     this.canvas = document.getElementById( "tilemapCanvas" );
+    this.sizeSelector = document.getElementById( "tilemapSize" );
+    this.originXField = document.getElementById( "tilemapOriginX" );
+    this.originYField = document.getElementById( "tilemapOriginY" );
+    this.updateButton = document.getElementById( "tilemapUpdateButton" );
+    this.closeButton = document.getElementById( "tilemapCloseButton" );
+    this.sizeSelector.value = this.size;
+    this.originXField.value = this.origin.x;
+    this.originYField.value = this.origin.y;
+    this.closeButton.addEventListener( "click", this.close.bind( this ) );
+    this.updateButton.addEventListener( "click", this.updateValues.bind( this ) );
     this.updateCanvas();
 }
 
 tilemap.open = function() {
     this.inputWindow.style.display = "block";
     this.preview.style.display = "block";
+}
+
+tilemap.close = function() {
+    this.inputWindow.style.display = "none";
+    this.preview.style.display = "none";
+    vwf_view.kernel.callMethod( appID, "closeActiveTool" );
+}
+
+tilemap.updateValues = function() {
+    this.size = Number( this.sizeSelector.value );
+    this.origin.x = Number( this.originXField.value );
+    this.origin.y = Number( this.originYField.value );
+    this.updateCanvas();
 }
 
 tilemap.updateCanvas = function() {
@@ -68,7 +96,7 @@ tilemap.toggleTile = function( x, y ) {
 }
 
 tilemap.save = function() {
-    var imageData = canvas.toDataURL( "image/png" );
+    var imageData = this.toDataURL( "image/png" );
     document.location.href = imageData.replace( "image/png", "image/octet-stream" );
 }
 
