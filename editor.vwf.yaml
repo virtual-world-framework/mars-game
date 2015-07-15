@@ -12,167 +12,107 @@
 # See the License for the specific language governing permissions and 
 # limitations under the License.
 
-# The Mars educational game content Editor created for ADL's True Game-based learning project
 --- 
 extends: http://vwf.example.com/scene.vwf
 properties:
   backgroundColor: [ 10, 20, 30 ]
-  ambientColor: [ 150, 140, 140 ]
-  timeOfDay:
-    set: |
-      this.setTimeOfDay( value );
-      this.timeOfDay = value;
-    value: 12
-  activeTool: camera
+  ambientColor: [ 70, 65, 65 ]
   enableShadows: true
   shadowMapCullFace: "back"
+  activeTool:
+methods:
+  setActiveTool:
+  closeActiveTool:
+events:
+  onSceneReady:
+  pointerClick:
+  pointerDown:
+  pointerMove:
+  pointerUp:
+  pointerOver:
+  pointerOut:
+  pointerWheel:
 children:
-  graph:
-    extends: http://vwf.example.com/graphtool/graph.vwf
-    properties:
-      graphScale: 3
-      gridInterval: 1
-      gridLineInterval: 10
-      gridLength: 100
-      xAxisVisible: true
-      yAxisVisible: true
-      zAxisVisible: true
-      gridVisible: true
-      axisOpacity: 1
-      gridOpacity: 0.5
-      renderTop: false
-      tileVisible: true
-    children:
-      editToolTiles:
-        extends: http://vwf.example.com/graphtool/graphgroup.vwf
-        properties:
-          groupVisible: false
-          graphObjects: []
-    methods:
-      toggleTileVisibility: |
-        this.tileVisible = !this.tileVisible;
-        for ( var tile in this.children ) {
-          this.children[ tile ].visible = this.tileVisible;
-        }
-  grid:
-    extends: source/grid.vwf
-    properties:
-      minX: -100
-      maxX: 100
-      minY: -100
-      maxY: 100
-      gridOriginInSpace: []
-      gridSquareLength: 3
-      boundaryValues: []
-    scripts: |
-      this.initialize = function() {
-        var xlen = this.maxX - this.minX;
-        var ylen = this.maxY - this.minY;
-        this.gridOriginInSpace = [
-          Math.floor( -xlen / 2 * this.gridSquareLength ),
-          Math.floor( -ylen / 2 * this.gridSquareLength )
-        ];
-        for ( var x = 0; x < this.maxX - this.minX; x++ ) {
-          this.boundaryValues.push( new Array() );
-          for ( var y = 0; y < this.maxY - this.minY; y++ ) {
-            this.boundaryValues[ x ].push( 0 );
-          }
-        }
-      }
-  editTool:
-    extends: http://vwf.example.com/node3.vwf
-    implements: source/griddable.vwf
-    properties:
-      selectedObjectId: undefined
-    children:
-      grid:
-        extends: source/grid.vwf
-        properties:
-          minX: 0
-          maxX: 1
-          minY: 0
-          maxY: 1
-          gridOriginInSpace: [ 0, 0 ]
-          gridSquareLength: 3
-          boundaryValues: []
-        methods:
-          updateGrid:
-          moveGridOrigin:
-        events:
-          gridUpdated:
-          gridMoved:
-        scripts:
-          - source: editor/editTool.js
-  scenarioGenerator:
-    extends: http://vwf.example.com/node.vwf
-    properties:
-      scenarios: {}
-    methods:
-    events:
-    scripts:
-      - source: editor/scenarioGenerator.js
   sunLight:
-    extends: http://vwf.example.com/light.vwf
+    extends: http://vwf.example.com/directionallight.vwf
     properties:
-      lightType: "directional"
       color: [ 255, 245, 230 ]
-      translation: [ 0, 0, 1 ]
-      intensity: 0.5
+      translation: [ 2, 1, 16 ]
+      intensity: 0.55
       castShadows: true
-      shadowDarkness: 0.5
-      shadowCameraBottom: -48
-      shadowCameraTop: 48
-      shadowCameraLeft: -48
-      shadowCameraRight: 48
-      shadowCameraNear: 0
-      shadowCameraFar: 128
+      shadowDarkness: 0.6
+      shadowCameraBottom: -64
+      shadowCameraTop: 64
+      shadowCameraLeft: -64
+      shadowCameraRight: 64
+      shadowCameraFar: 24
       shadowMapWidth: 2048
       shadowMapHeight: 2048
-      shadowBias: -0.003
+      shadowBias: -0.01
   envLight:
-    extends: http://vwf.example.com/light.vwf
+    extends: http://vwf.example.com/hemispherelight.vwf
     properties:
-      lightType: "hemisphere"
       translation: [ 0, 0, 100 ]
       color: [ 255, 200, 175 ]
       groundColor: [ 200, 160, 80 ]
-      intensity: 0.7
-methods:
-  compileLevel:
-  clearLevel:
-  loadMap:
-  deleteMap:
-  loadObject:
-  deleteObject:
-  createObject:
-  createGridDisplay:
-  removeGridDisplay:
-  createEditToolGrid:
-  removeEditToolGrid:
-  drag:
-  stopDrag:
-  setUpListeners:
-  selectObject:
-  deselectObject:
-  setActiveTool:
-  createLevelFromFile:
-  setTimeOfDay:
-  addNewScenario:
-  saveScenarios:
-  # Methods handled by View
-  requestDelete:
-events:
-  onSceneReady:
-  pointerOver:
-  pointerOut:
-  pointerMove:
-  pointerDown:
-  pointerClick:
-  objectCreated:
-  objectDeleted:
-  objectModified:
-  timeSet:
-  levelCompiled:
-  scenariosLoaded:
+      intensity: 0.5
+  terrain:
+    extends: http://vwf.example.com/node3.vwf
+    source: assets/3d/environment/mars_level.dae
+    type: model/vnd.collada+xml
+    properties:
+      castShadows: true
+      receiveShadows: true
+    children:
+      material:
+        extends: source/shaders/mixMap.vwf
+        properties:
+          mixMap: "assets/3d/environment/mix_map.png"
+          diffuseMaps:
+            - { "url": "assets/3d/environment/level2_ground1_d.png", "wrapTexture": true }
+            - { "url": "assets/3d/environment/dirt.png", "wrapTexture": true }
+            - { "url": "assets/3d/environment/dirt1.jpg", "wrapTexture": true }
+            - { "url": "assets/3d/environment/dark_dirt.png", "wrapTexture": true }
+          normalMaps: 
+            - { "url": "assets/3d/environment/level2_ground1_n.png", "wrapTexture": true }
+            - { "url": "assets/3d/environment/dirt_n.png", "wrapTexture": true }
+            - { "url": "assets/3d/environment/dirt1_n.jpg", "wrapTexture": true }
+            - { "url": "assets/3d/environment/dark_dirt_n.png", "wrapTexture": true }
+          specularMaps:
+            - { "url": "assets/3d/environment/level2_ground1_s.png", "wrapTexture": true }
+            - { "url": "assets/3d/environment/dirt_s.png", "wrapTexture": true }
+            - { "url": "assets/3d/environment/dirt1_s.jpg", "wrapTexture": true }
+            - { "url": "assets/3d/environment/dark_dirt_s.png", "wrapTexture": true }
+          textureResolution: 128
+          gridInterval: 3
+          laserWidth: 0.1
+          laserStrength: 0.1
+          laserIntensity: 2
+          gridColor: 0xFFDDAA
+          gridVisible: 1
+          tilesVisible: 1
+          tileColor: 0x555555
+          tileMap:
+          tileMapOrigin:
+          tileMapSize:
+  environmentObjects:
+    extends: http://vwf.example.com/node3.vwf
+    source: assets/3d/environment/mars_assets.dae
+    type: model/vnd.collada+xml
+    properties:
+      castShadows: true
+      receiveShadows: true
+  tilemapTool:
+    extends: editor/model/editorTool.vwf
+    properties:
+      lastDragTile$:
+      isDragging$: false
+    methods:
+      setTileMapUniforms:
+      updateTexture:
+    events:
+      tileMapped:
+    scripts: 
+      - source: editor/model/tilemapTool.js
 scripts: 
-  - source: editor/scene.js
+  - source: editor/model/editor.js
