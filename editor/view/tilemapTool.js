@@ -96,7 +96,7 @@ tilemap.toggleTile = function( x, y ) {
 }
 
 tilemap.save = function() {
-    var imageData = this.toDataURL( "image/png" );
+    var imageData = this.canvas.toDataURL( "image/png" );
     document.location.href = imageData.replace( "image/png", "image/octet-stream" );
 }
 
