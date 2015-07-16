@@ -48,7 +48,7 @@ properties:
   # Manny
   - addToGrid:
     - rover
-    - [ -35, 66 ]
+    - [ -27, 31 ]
   - callMethod:
     - rover
     - setHeading
@@ -107,7 +107,7 @@ properties:
 
   # Grid and disable blocklyLine  
   - setGridAxes:
-    - 77
+    - 16
     - -22
 
   - setProperty:
@@ -129,13 +129,13 @@ properties:
 
   - addToGrid:
     - solarPanel1
-    - [ -25, 80 ]
+    - [ -27, 19 ]
   - addToGrid:
     - solarPanel2
-    - [ -19, 80 ]
+    - [ -21, 19 ]
   - addToGrid:
     - solarPanel3
-    - [ -25, 74 ]
+    - [ -27, 13 ]
 
   - setProperty:
     - solarPanel1
@@ -209,19 +209,19 @@ children:
             - not:
               - isAtPosition:
                 - rover2
-                - [ -22, 77 ]
+                - [ -24, 16 ]
             - not:
               - isAtPosition:
                 - rover2
-                - [ -22, 83 ]
+                - [ -24, 22 ]
             - not:
               - isAtPosition:
                 - rover2
-                - [ -16, 77 ]
+                - [ -18, 16 ]
           actions:
             - addToGrid:
               - rover2
-              - [ -22, 77 ]
+              - [ -24, 16 ]
 
         succeedOnTriangle_4_5:
           group: successOrFailure

@@ -51,7 +51,7 @@ properties:
   # Manny
   - addToGrid:
     - rover
-    - [ -35, 66 ]
+    - [ -27, 31 ]
   - callMethod:
     - rover
     - setHeading
@@ -71,13 +71,17 @@ properties:
   
 
   # Perry
+  - addToGrid:
+    - rover2
+    - [ -25, 31 ]
   - setProperty:
     - rover2
     - visible
     - true
-  - addToGrid:
-    - rover2
-    - [ -34, 70 ]
+  - callMethod:
+    - rover
+    - setHeading
+    - 180
   - setProperty:
     - rover2
     - battery
@@ -103,7 +107,7 @@ properties:
     - visible
     - false
   - setGridAxes:
-    - 77
+    - 16
     - -22
   - drawTriangle:
     - [ -10, 0 ]
@@ -159,11 +163,11 @@ children:
             - not:
               - isAtPosition:
                 - rover2
-                - [ -34, 70 ]
+                - [ -25, 31 ]
           actions:
             - addToGrid:
               - rover2
-              - [ -34, 70 ]
+              - [ -25, 31 ]
 
         succeedOnTriangle_4_1:
           group: successOrFailure
