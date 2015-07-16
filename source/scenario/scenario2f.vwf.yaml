@@ -55,7 +55,7 @@ properties:
     - false
   - addToGrid:
     - rover
-    - [ -2, 15 ]
+    - [ 1, 16 ]
   - addToGrid:
     - blocklyGraph
     - [ 0, 14 ]
@@ -110,7 +110,7 @@ children:
               - rover
             - isAtPosition:
               - rover
-              - [ -8, 18 ]
+              - [ 3, 20 ]
           actions:
           - scenarioSuccess:
           - showAlert:
@@ -123,7 +123,7 @@ children:
           - onScenarioStart:
           actions:
           - callOutObjective:
-            - [ -8, 18 ]
+            - [ 4, 22 ]
 
         stopBlinkRoverTab_2f:
           triggerCondition:

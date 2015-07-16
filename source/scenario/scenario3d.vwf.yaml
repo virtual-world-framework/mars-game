@@ -47,16 +47,16 @@ properties:
     - 12
   - addToGrid:
     - rover
-    - [ -53, 23 ]
+    - [ 4, 46 ]
   - addToGrid:
     - minirover
     - [ -41, 52 ]
   - addToGrid:
     - blocklyGraph
-    - [ -53, 23 ]
+    - [ 4, 46 ]
   - setGridAxes:
-    - 23
-    - -53
+    - 46
+    - 4
   - enableBlocklyNodes:
     - rover
     - graph
@@ -119,9 +119,9 @@ children:
           triggerCondition:
           - and:
             - blocklyLineEval:
-              - [ 3, 7 ]
+              - [ 3, 2 ]
             - blocklyLineEval:
-              - [ -3, -7 ]
+              - [ -3, -2 ]
           actions:
           - scenarioSuccess:
           - showAlert:

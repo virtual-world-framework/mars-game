@@ -79,6 +79,7 @@ properties:
 
   - selectRover:
     - rover
+
 children:
   triggerManager:
     extends: ../triggers/triggerManager.vwf
@@ -88,6 +89,9 @@ children:
           triggerCondition:
           - onScenarioStart:
           actions:
+          - addToGrid:
+            - rover
+            - [ 0, 14 ]
           - playSound:
             - musicLevel2
           - playSound:
@@ -115,7 +119,7 @@ children:
               - rover
             - isAtPosition:
               - rover
-              - [ -2, 15 ]
+              - [ 1, 16 ]
           actions:
           - scenarioSuccess:
           - showAlert:
@@ -130,7 +134,7 @@ children:
           - onScenarioStart:
           actions:
           - callOutObjective:
-            - [ -2, 15 ]
+            - [ 1, 16 ]
 
         stopBlinkRoverTab_2e:
           triggerCondition:
