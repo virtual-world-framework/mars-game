@@ -127,9 +127,9 @@ children:
           triggerCondition:
           - and:
             - blocklyLineEval:
-              - [ 10, -5 ]
+              - [ 10, 20 ]
             - blocklyLineEval:
-              - [ -16, 8 ]
+              - [ -16, -32 ]
           actions:
           # - delay:
           #   - 9.5

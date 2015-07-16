@@ -48,17 +48,17 @@ properties:
 
   - addToGrid:
     - rover
-    - [ -8, 18 ]
+    - [ 3, 20 ]
   - addToGrid:
     - blocklyGraph
-    - [ -8, 18 ]
+    - [ 3, 20 ]
   - setGridAxes:
-    - 18
-    - -8
+    - 22
+    - 4
 
   - addToGrid:
     - supplies_1
-    - [ -28, 28 ]
+    - [ 8, 30 ]
   - enableBlocklyNodes:
     - rover
     - graph
@@ -94,7 +94,7 @@ children:
             - "Build a program to follow the tracks until your scanner finds something."
           - writeToBlackboard:
             - metalPosition
-            - [ -28, 28 ]
+            - [ 8, 30 ]
           - setThirdPersonStartPose:
             - [ 16.316, 65, -15 ]
 
@@ -115,7 +115,7 @@ children:
             - doOnce:
             - isAtPosition:
               - rover
-              - [ -14, 21 ]
+              - [ 4, 22 ]
           actions:
           - playSound:
             - CTVO1_Rover
@@ -126,7 +126,7 @@ children:
             - doOnce:
             - isAtPosition:
               - rover
-              - [ -24, 26 ]
+              - [ 6, 26 ]
           actions:
           - playSound:
             - CTVO2_Control
@@ -140,7 +140,7 @@ children:
               - rover
             - isAtPosition:
               - rover
-              - [ -28, 28 ]
+              - [ 8, 30 ]
           actions:
           - scenarioSuccess:
           - showAlert:
