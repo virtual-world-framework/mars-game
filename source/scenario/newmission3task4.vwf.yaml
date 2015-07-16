@@ -41,7 +41,7 @@ properties:
   - setProperty:
     - rover
     - blockly_xml
-    - <xml><block type="procedures_defnoreturn" deletable="false" editable="false" id="21" x="-20" y="-340"><mutation><arg name="y-coordinate"></arg></mutation><field name="NAME">navigate</field><statement name="STACK"><block type="controls_if_nomut" id="91" inline="false"><value name="IF0"><block type="variables_get" deletable="false" movable="false" id="116" inline="false"><field name="VAR">y-coordinate</field><value name="INPUT"><block type="logic_cond_out" deletable="false" movable="false" id="130" inline="false"><field name="VALUE">&gt;</field><value name="INPUT"><block type="controls_sensor_position_y" id="151" inline="false" deletable="false" movable="false" editable="false"></block></value></block></value></block></value><statement name="DO0"><block type="controls_whileUntil" id="35" deletable="false" movable="false" inline="false"><value name="BOOL"><block type="controls_sensor_heading" id="62" inline="false" deletable="false" movable="false" editable="false"><value name="INPUT"><block type="logic_cond_out" id="68" inline="false" deletable="false" movable="false"><field name="VALUE">!==</field><value name="INPUT"><block type="math_number_angle_select" id="77" deletable="false" movable="false" inline="false"><field name="VALUE">90</field></block></value></block></value></block></value><statement name="DO"><block type="rover_turn" deletable="false" movable="false" id="96"></block></statement><next><block type="controls_whileUntil" id="43" inline="false" deletable="false" movable="false"><value name="BOOL"><block type="variables_get" id="102" inline="false" deletable="false" movable="false"><field name="VAR">y-coordinate</field><value name="INPUT"><block type="logic_cond_out" id="64" inline="false" deletable="false" movable="false"><field name="VALUE">&gt;</field><value name="INPUT"><block type="controls_sensor_position_y" id="51" inline="false" deletable="false" movable="false"></block></value></block></value></block></value><statement name="DO"><block type="rover_moveForward" deletable="false" movable="false" id="114"></block></statement></block></next></block></statement></block></statement></block><block type="controls_whileUntil" id="31" deletable="false" editable="false" inline="false" x="-20" y="-100"><value name="BOOL"><block type="controls_sensor_heading" id="49" inline="false" deletable="false" movable="false" editable="false"><value name="INPUT"><block type="logic_cond_out" id="54" deletable="false" movable="false" editable="false" inline="false"><field name="VALUE">===</field><value name="INPUT"><block type="math_number_angle_select" deletable="false" movable="false" editable="false" id="63" inline="false"><field name="VALUE">90</field></block></value></block></value></block></value><statement name="DO"><block type="rover_turn" deletable="false" movable="false" editable="false" id="85"></block></statement><next><block type="procedures_callnoreturn" id="119" deletable="false" movable="false" editable="false" inline="false"><mutation name="navigate"><arg name="y-coordinate"></arg></mutation><value name="ARG0"><block type="math_number_field" id="129" deletable="false" movable="false" editable="false" inline="false"><field name="VALUE">3</field></block></value></block></next></block></xml>
+    - <xml><block type="procedures_defnoreturn" deletable="false" editable="false" id="21" x="-20" y="-340"><mutation><arg name="y-coordinate"></arg></mutation><field name="NAME">navigate</field><statement name="STACK"><block type="controls_if_nomut" id="91" inline="false"><value name="IF0"><block type="variables_get" deletable="false" movable="false" id="116" inline="false"><field name="VAR">y-coordinate</field><value name="INPUT"><block type="logic_cond_out" deletable="false" movable="false" id="130" inline="false"><field name="VALUE">&lt;</field><value name="INPUT"><block type="controls_sensor_position_y" id="151" inline="false" deletable="false" movable="false" editable="false"></block></value></block></value></block></value><statement name="DO0"><block type="controls_whileUntil" id="35" deletable="false" movable="false" inline="false"><value name="BOOL"><block type="controls_sensor_heading" id="62" inline="false" deletable="false" movable="false" editable="false"><value name="INPUT"><block type="logic_cond_out" id="68" inline="false" deletable="false" movable="false"><field name="VALUE">!==</field><value name="INPUT"><block type="math_number_angle_select" id="77" deletable="false" movable="false" inline="false"><field name="VALUE">270</field></block></value></block></value></block></value><statement name="DO"><block type="rover_turn" deletable="false" movable="false" id="96"></block></statement><next><block type="controls_whileUntil" id="43" inline="false" deletable="false" movable="false"><value name="BOOL"><block type="variables_get" id="102" inline="false" deletable="false" movable="false"><field name="VAR">y-coordinate</field><value name="INPUT"><block type="logic_cond_out" id="64" inline="false" deletable="false" movable="false"><field name="VALUE">&lt;</field><value name="INPUT"><block type="controls_sensor_position_y" id="51" inline="false" deletable="false" movable="false"></block></value></block></value></block></value><statement name="DO"><block type="rover_moveForward" deletable="false" movable="false" id="114"></block></statement></block></next></block></statement></block></statement></block><block type="controls_whileUntil" id="31" deletable="false" editable="false" inline="false" x="-20" y="-100"><value name="BOOL"><block type="controls_sensor_heading" id="49" inline="false" deletable="false" movable="false" editable="false"><value name="INPUT"><block type="logic_cond_out" id="54" deletable="false" movable="false" editable="false" inline="false"><field name="VALUE">===</field><value name="INPUT"><block type="math_number_angle_select" deletable="false" movable="false" editable="false" id="63" inline="false"><field name="VALUE">270</field></block></value></block></value></block></value><statement name="DO"><block type="rover_turn" deletable="false" movable="false" editable="false" id="85"></block></statement><next><block type="procedures_callnoreturn" id="119" deletable="false" movable="false" editable="false" inline="false"><mutation name="navigate"><arg name="y-coordinate"></arg></mutation><value name="ARG0"><block type="math_number_field" id="129" deletable="false" movable="false" editable="false" inline="false"><field name="VALUE">-3</field></block></value></block></next></block></xml>
   - loadToolbox:
     - rover
     - source/scenario/blockly/mission3.xml
@@ -50,13 +50,13 @@ properties:
   #Manny
   - addToGrid:
     - rover
-    - [ -41, 57 ]
+    - [-17, 26]
   - selectRover:
     - rover
   - callMethod:
     - rover
     - setHeading
-    - 90
+    - 270
   - setProperty:
     - rover
     - battery
@@ -98,10 +98,10 @@ properties:
 
   - addToGrid:
     - blocklyGraph
-    - [ -41, 51 ]
+    - [ -17, 32 ]
   - setGridAxes:
-    - 51
-    - -41
+    - 32
+    - -17
 
 children:
   triggerManager:
@@ -138,7 +138,7 @@ children:
               - rover
             - isAtPosition:
               - rover
-              - [ -41, 54 ]
+              - [ -17, 29 ]
           actions:
           - clearBlockly:
           - scenarioSuccess:
