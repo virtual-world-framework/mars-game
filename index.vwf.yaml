@@ -87,6 +87,7 @@ methods:
   addAxisOffset:
   removeAxisOffset:
   createNaniteSystem:
+  deleteNaniteSystem:
 events:
   gameStarted:
   scenarioReset:

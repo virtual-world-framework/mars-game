@@ -191,6 +191,8 @@ children:
           actions:
           - writeToBlackboard:
             - disableFailOnIncompleteProgram
+          - deleteNanites:
+            - nanites_Mission4Task2
           - delay:
             - 1
             - showAlert:
@@ -215,6 +217,8 @@ children:
             - rover2
             - surveyArray
             - []
+          - deleteNanites:
+            - nanites_Mission4Task2
 
   brief:
     extends: ../missionBrief.vwf

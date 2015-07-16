@@ -268,6 +268,15 @@ this.createNaniteSystem = function( vertices ) {
     }
 }
 
+this.deleteNaniteSystem = function( systemName ) {
+    var system = this.naniteSystems[ systemName ];
+    if ( system ) {
+        this.naniteSystems.children.delete( system );
+    } else {
+        this.logger.warnx( "Nanite system (" + systemName + ") not found!" );
+    }
+}
+
 this.displayTiles = function( isVisible ) {
     var material = this.environment.terrain.material;
     var tilesVisible = Boolean( material.tilesVisible );
