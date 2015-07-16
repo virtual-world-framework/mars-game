@@ -257,7 +257,7 @@ children:
     source: assets/3d/Mars_Assets/tilemap.png
     type: image/png
     properties:
-      mapOrigin: [ -96, -96 ]
+      mapOrigin: [ -128, -128 ]
       mapSize: [ 256, 256 ]
       tileSize: 3
   airDust:
