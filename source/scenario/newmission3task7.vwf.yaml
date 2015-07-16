@@ -1,0 +1,152 @@
+# Copyright 2014 Lockheed Martin Corporation
+#
+# Licensed under the Apache License, Version 2.0 (the "License"); you may 
+# not use this file except in compliance with the License. You may obtain 
+# a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software 
+# distributed under the License is distributed on an "AS IS" BASIS, 
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and 
+# limitations under the License.
+
+---
+extends: ../scenario/scenario.vwf
+properties:
+  scenarioName: Mission3Task7
+
+  scenePath: /
+  nextScenarioPath: "Mission3Task8"
+
+  startState:
+  # objective
+  - setObjective:
+    - "Use the navigate procedure to go to [6,15]."
+
+  # sounds/video
+  - playSound:
+    - musicStandardGameplay
+  - playSound:
+    - environmentWind
+  - setProperty:
+    - videoManager  
+    - url 
+    - [ "assets/video/successCutscene02_newAudio.mp4" ]
+
+  #blockly
+  - enableBlocklyNodes:
+    - rover
+  - setProperty:
+    - rover
+    - blockly_xml
+    - <xml><block type="procedures_defnoreturn" id="21" deletable="false" editable="false" x="-1" y="-427"><mutation><arg name="x-coordinate"></arg><arg name="y-coordinate"></arg></mutation><field name="NAME">navigate</field><statement name="STACK"><block type="controls_if_nomut" id="91" movable = "false" inline="false"><value name="IF0"><block type="variables_get" deletable="false" movable="false" editable="false" id="116" inline="false"><field name="VAR">y-coordinate</field><value name="INPUT"><block type="logic_cond_out" deletable="false" movable="false" editable="false" id="130" inline="false"><field name="VALUE">&gt;</field><value name="INPUT"><block type="controls_sensor_position_y" id="151" inline="false" editable="false"></block></value></block></value></block></value><statement name="DO0"><block type="controls_whileUntil" id="35" deletable="false" movable="false" editable="false" inline="false"><value name="BOOL"><block type="controls_sensor_heading" id="62" inline="false" deletable="false" movable="false" editable="false" ><value name="INPUT"><block type="logic_cond_out" id="68" inline="false" deletable="false" movable="false" editable="false"><field name="VALUE">!==</field><value name="INPUT"><block type="math_number_angle_select" id="77" deletable="false" movable="false" editable="false" inline="false"><field name="VALUE">90</field></block></value></block></value></block></value><statement name="DO"><block type="rover_turn" deletable="false" movable="false" editable="false" id="96"></block></statement><next><block type="controls_whileUntil" id="43" deletable="false" movable="false" editable="false" inline="false"><value name="BOOL"><block type="variables_get" id="102" inline="false" deletable="false" movable="false" editable="false"><field name="VAR">y-coordinate</field><value name="INPUT"><block type="logic_cond_out" id="64" inline="false" deletable="false" movable="false" editable="false"><field name="VALUE">&gt;</field><value name="INPUT"><block type="controls_sensor_position_y" id="51" inline="false" editable="false"></block></value></block></value></block></value><statement name="DO"><block type="rover_moveForward" deletable="false" movable="false" editable="false" id="114"></block></statement></block></next></block></statement><next><block type="controls_if_nomut" id="189" movable = "false" inline="false"><value name="IF0"><block type="variables_get" deletable="false" movable="false" editable="false" id="190" inline="false"><field name="VAR">y-coordinate</field><value name="INPUT"><block type="logic_cond_out" deletable="false" movable="false" editable="false" id="191" inline="false"><field name="VALUE">&lt;</field><value name="INPUT"><block type="controls_sensor_position_y" id="192" inline="false" editable="false"></block></value></block></value></block></value><statement name="DO0"><block type="controls_whileUntil" deletable="false" movable="false" editable="false" id="193" inline="false"><value name="BOOL"><block type="controls_sensor_heading" id="194" inline="false" editable="false" deletable="false" movable="false"><value name="INPUT"><block type="logic_cond_out" id="195" inline="false" deletable="false" movable="false" editable="false"><field name="VALUE">!==</field><value name="INPUT"><block type="math_number_angle_select" id="196" inline="false" deletable="false" movable="false" editable="false"><field name="VALUE">270</field></block></value></block></value></block></value><statement name="DO"><block type="rover_turn" deletable="false" movable="false" editable="false" id="197"></block></statement><next><block type="controls_whileUntil" id="198" inline="false" deletable="false" movable="false" editable="false"><value name="BOOL"><block type="variables_get" id="199" inline="false" deletable="false" movable="false" editable="false"><field name="VAR">y-coordinate</field><value name="INPUT"><block type="logic_cond_out" id="200" inline="false" deletable="false" movable="false" editable="false"><field name="VALUE">&lt;</field><value name="INPUT"><block type="controls_sensor_position_y" id="201" inline="false" editable="false"></block></value></block></value></block></value><statement name="DO"><block type="rover_moveForward" id="202" deletable="false" movable="false" editable="false"></block></statement></block></next></block></statement><next><block type="controls_if_nomut" id="239" movable = "false" inline="false"><value name="IF0"><block type="variables_get" deletable="false" movable="false" editable="false" id="240" inline="false"><field name="VAR">x-coordinate</field><value name="INPUT"><block type="logic_cond_out" id="241" deletable="false" movable="false" editable="false" inline="false"><field name="VALUE">&gt;</field><value name="INPUT"><block type="controls_sensor_position_x" id="242" inline="false" editable="false"></block></value></block></value></block></value><statement name="DO0"><block type="controls_whileUntil" id="243" deletable="false" movable="false" editable="false" inline="false"><value name="BOOL"><block type="controls_sensor_heading" id="244" inline="false" deletable="false" movable="false" editable="false"><value name="INPUT"><block type="logic_cond_out" id="245" inline="false" deletable="false" movable="false" editable="false"><field name="VALUE">!==</field><value name="INPUT"><block type="math_number_angle_select" id="246" inline="false" deletable="false" movable="false" editable="false"><field name="VALUE">0</field></block></value></block></value></block></value><statement name="DO"><block type="rover_turn" id="247" deletable="false" movable="false" editable="false"></block></statement><next><block type="controls_whileUntil" id="248" inline="false" deletable="false" movable="false" editable="false"><value name="BOOL"><block type="variables_get" id="249" inline="false" deletable="false" movable="false" editable="false"><field name="VAR">x-coordinate</field><value name="INPUT"><block type="logic_cond_out" id="250" deletable="false" movable="false" editable="false" inline="false"><field name="VALUE">&gt;</field><value name="INPUT"><block type="controls_sensor_position_x" id="251" inline="false" editable="false"></block></value></block></value></block></value><statement name="DO"><block type="rover_moveForward" id="252" deletable="false" movable="false" editable="false"></block></statement></block></next></block></statement><next><block type="controls_if_nomut" id="216" movable = "false" inline="false"><value name="IF0"><block type="variables_get" id="217" inline="false" deletable="false" movable="false" editable="false"><field name="VAR">x-coordinate</field><value name="INPUT"><block type="logic_cond_out" id="218" inline="false" deletable="false" movable="false" editable="false"><field name="VALUE">&lt;</field><value name="INPUT"><block type="controls_sensor_position_x" id="238" inline="false" editable="false"></block></value></block></value></block></value><statement name="DO0"><block type="controls_whileUntil" id="220" inline="false" deletable="false" movable="false" editable="false"><value name="BOOL"><block type="controls_sensor_heading" id="221" inline="false" editable="false" deletable="false" movable="false"><value name="INPUT"><block type="logic_cond_out" id="222" inline="false" deletable="false" movable="false" editable="false"><field name="VALUE">!==</field><value name="INPUT"><block type="math_number_angle_select" id="223" deletable="false" movable="false" editable="false" inline="false"><field name="VALUE">180</field></block></value></block></value></block></value><statement name="DO"><block type="rover_turn" id="224" deletable="false" movable="false" editable="false"></block></statement><next><block type="controls_whileUntil" id="225" inline="false" deletable="false" movable="false" editable="false"><value name="BOOL"><block type="variables_get" id="226" inline="false" deletable="false" movable="false" editable="false"><field name="VAR">x-coordinate</field><value name="INPUT"><block type="logic_cond_out" id="227" inline="false" deletable="false" movable="false" editable="false"><field name="VALUE">&lt;</field><value name="INPUT"><block type="controls_sensor_position_x" id="237" inline="false" editable="false"></block></value></block></value></block></value><statement name="DO"><block type="rover_moveForward" id="229" deletable="false" movable="false" editable="false"></block></statement></block></next></block></statement></block></next></block></next></block></next></block></statement></block></xml>
+  - loadToolbox:
+    - rover
+    - source/scenario/blockly/mission3.xml
+  - resetRoverSensors:
+
+  #Manny
+  - addToGrid:
+    - rover
+    - [ -41, 51 ]
+  - selectRover:
+    - rover
+  - setProperty:
+    - rover
+    - battery
+    - 40
+  - setProperty:
+    - rover
+    - batteryMax
+    - 40
+  - setProperty:
+    - rover
+    - blockly_allowedBlocks
+    - 70
+
+  # Perry, Rosie disabled
+  - setProperty:
+    - rover2
+    - visible
+    - false
+  - setProperty:
+    - rover3
+    - visible
+    - false
+  - setProperty:
+    - minirover
+    - visible
+    - false
+
+  # Disable Blockly line
+  - setProperty:
+    - blocklyLine
+    - visible
+    - false
+  - setProperty:
+    - blocklyLine
+    - opacity
+    - 0
+
+  # Graph
+
+  - addToGrid:
+    - blocklyGraph
+    - [ -41, 51 ]
+  - setGridAxes:
+    - 51
+    - -41
+
+children:
+  triggerManager:
+    extends: ../triggers/triggerManager.vwf
+    properties: 
+      triggers$:
+        playStartingVO_3d:
+          triggerCondition:
+          - and:
+            - doOnce:
+            - onScenarioStart:
+          actions:
+          - playSound:
+            - TM3V17_MC
+
+        openMissionBrief_3_7:
+          triggerCondition:
+          - and:
+            - onScenarioStart:
+            - doOnce:
+          actions:
+          - delay:
+            - 11
+            - openMissionBrief:
+
+        succeedOnSuccessfulMovement_3_7:
+          group: successOrFailure
+          priority: 0
+          triggerCondition:
+          - and:
+            - onBlocklyStopped:
+              - rover
+            - isAtPosition:
+              - rover
+              - [ -35, 66 ]
+          actions:
+          - clearBlockly:
+          - scenarioSuccess:
+          - showAlert:
+            - "Test program completed!"
+          - playSound:
+            - musicSuccessShort
+
+  brief:
+    extends: ../missionBrief.vwf
+    properties:
+      title: "Mission 3, Task 7"
+      content: >
+        You've successfully recreated the navigate procedure!
+        <br><br>Now that the program is complete make your own procedure call
+        to reach the base pod at coordinates [6,15]. There is no test programs anymore,
+        this is the real thing!

@@ -1,0 +1,167 @@
+# Copyright 2014 Lockheed Martin Corporation
+#
+# Licensed under the Apache License, Version 2.0 (the "License"); you may 
+# not use this file except in compliance with the License. You may obtain 
+# a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software 
+# distributed under the License is distributed on an "AS IS" BASIS, 
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and 
+# limitations under the License.
+
+---
+extends: ../scenario/scenario.vwf
+properties:
+  scenarioName: Mission3Task2
+
+  scenePath: /
+  nextScenarioPath: "Mission3Task3"
+
+  startState:
+  # objective
+  - setObjective:
+    - "Edit your navigate procedure: Turn north before moving forward."
+
+  # sounds/video
+  - playSound:
+    - musicStandardGameplay
+  - playSound:
+    - environmentWind
+  - setProperty:
+    - videoManager  
+    - url 
+    - [ "assets/video/successCutscene02_newAudio.mp4" ]
+
+  #blockly
+  - enableBlocklyNodes:
+    - rover
+  - loadToolbox:
+    - rover
+    - source/scenario/blockly/mission3.xml
+  - setProperty:
+    - rover
+    - blockly_xml
+    - <xml><block type="procedures_defnoreturn" deletable="false" editable="false" id="21" x="-20" y="-340"><mutation><arg name="y-coordinate"></arg></mutation><field name="NAME">navigate</field><statement name="STACK"><block type="controls_whileUntil" deletable="false" editable="false" id="43" inline="false"><field name="MODE">WHILE</field><value name="BOOL"><block type="variables_get" id="102" deletable="false" movable="false" editable="false" inline="false"><field name="VAR">y-coordinate</field><value name="INPUT"><block type="logic_cond_out" deletable="false" movable="false" editable="false" id="64" inline="false"><field name="VALUE">&gt;</field><value name="INPUT"><block type="controls_sensor_position_y" id="51" inline="false" deletable="false" movable="false" editable="false"></block></value></block></value></block></value><statement name="DO"><block type="rover_moveForward" deletable="false" movable="false" editable="false" id="114"></block></statement></block></statement></block><block type="controls_whileUntil" id="31" inline="false" deletable="false" editable="false" x="-20" y="-220"><value name="BOOL"><block type="controls_sensor_heading" id="49" inline="false" deletable="false" movable="false" editable="false"><value name="INPUT"><block type="logic_cond_out" id="54" inline="false" deletable="false" movable="false" editable="false"><field name="VALUE">===</field><value name="INPUT"><block type="math_number_angle_select" deletable="false" movable="false" editable="false" id="63" inline="false"><field name="VALUE">90</field></block></value></block></value></block></value><statement name="DO"><block type="rover_turn" id="85" deletable="false" movable="false" editable="false"></block></statement><next><block type="procedures_callnoreturn" id="119" deletable="false" movable="false" editable="false" inline="false"><mutation name="navigate"><arg name="y-coordinate"></arg></mutation><value name="ARG0"><block type="math_number_field" deletable="false" movable="false" editable="false" id="129" inline="false"><field name="VALUE">6</field></block></value></block></next></block></xml>
+  - resetRoverSensors:
+
+  #Manny
+  - addToGrid:
+    - rover
+    - [ -41, 54 ]
+  - selectRover:
+    - rover
+  - callMethod:
+    - rover
+    - setHeading
+    - 0
+  - setProperty:
+    - rover
+    - battery
+    - 40
+  - setProperty:
+    - rover
+    - batteryMax
+    - 40
+  - setProperty:
+    - rover
+    - blockly_allowedBlocks
+    - 70
+
+  # Perry, Rosie disabled
+  - setProperty:
+    - rover2
+    - visible
+    - false
+  - setProperty:
+    - rover3
+    - visible
+    - false
+  - setProperty:
+    - minirover
+    - visible
+    - false
+
+  # Disable Blockly line
+  - setProperty:
+    - blocklyLine
+    - visible
+    - false
+  - setProperty:
+    - blocklyLine
+    - opacity
+    - 0
+
+  # Graph
+
+  - addToGrid:
+    - blocklyGraph
+    - [ -41, 51 ]
+  - setGridAxes:
+    - 51
+    - -41
+
+children:
+  triggerManager:
+    extends: ../triggers/triggerManager.vwf
+    properties: 
+      triggers$:
+        playStartingVO_3d:
+          triggerCondition:
+          - and:
+            - doOnce:
+            - onScenarioStart:
+          actions:
+          - playSound:
+            - TM3VO5_Rover
+          - playSound:
+            - TM3VO6_MC
+
+        openMissionBrief_3_2:
+          triggerCondition:
+          - and:
+            - onScenarioStart:
+            - doOnce:
+          actions:
+          - delay:
+            - 32
+            - openMissionBrief:
+
+        succeedOnSuccessfulMovement_3_2:
+          group: successOrFailure
+          priority: 0
+          triggerCondition:
+          - and:
+            - onBlocklyStopped:
+              - rover
+            - isAtPosition:
+              - rover
+              - [ -41, 57 ]
+          actions:
+          - clearBlockly:
+          - scenarioSuccess:
+          - showAlert:
+            - "Test program completed!"
+          - playSound:
+            - musicSuccessShort
+
+  brief:
+    extends: ../missionBrief.vwf
+    properties:
+      title: "Mission 3, Task 2"
+      content: >
+        The basic navigation procedure appears to be working!
+        <br><br>However, this procedure will only work properly if you're already facing 
+        North. You'll need to edit the procedure definition so that you turn to face the
+        right direction before you begin moving forward.
+        <br><br>To do this you'll need to use the while block, and you'll need to turn until something
+        is no longer true about the direction you're facing. This will require a comparison block,
+        which is found in the "Conditionals and Loops" tab, along with a Direction of Travel
+        block, which is found in the Rover tab. The Direction of Travel block updates to hold the 
+        degree value of the direction you're currently facing. 
+        <br><br>The test program turns you left if you're facing the right direction originally,
+        so that you're forced to turn back to the correct direction somehow. Look at the way it uses a while loop
+        as a hint on how to edit your procedure definition, you might need to change something regarding
+        the kind of comparison that is being done!

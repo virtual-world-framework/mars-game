@@ -1,0 +1,183 @@
+# Copyright 2014 Lockheed Martin Corporation
+#
+# Licensed under the Apache License, Version 2.0 (the "License"); you may 
+# not use this file except in compliance with the License. You may obtain 
+# a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software 
+# distributed under the License is distributed on an "AS IS" BASIS, 
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and 
+# limitations under the License.
+
+---
+extends: ../scenario/scenario.vwf
+properties:
+  scenarioName: Mission3Task1
+
+  scenePath: /
+  nextScenarioPath: "Mission3Task2"
+
+  startState:
+  # objective
+  - setObjective:
+    - "Test out the basic procedure."
+
+  # sounds/video
+  - playSound:
+    - musicStandardGameplay
+  - playSound:
+    - environmentWind
+  - setProperty:
+    - videoManager  
+    - url 
+    - [ "assets/video/successCutscene02_newAudio.mp4" ]
+
+  #blockly
+  - enableBlocklyNodes:
+    - rover
+  - setProperty:
+    - rover
+    - blockly_xml
+    - <xml><block type="procedures_defnoreturn" deletable="false" editable="false" id="21" x="-20" y="-340"><mutation><arg name="y-coordinate"></arg></mutation><field name="NAME">navigate</field><statement name="STACK"><block type="controls_whileUntil" id="43" inline="false" deletable="false" movable="false" editable="false"><field name="MODE">WHILE</field><value name="BOOL"><block type="variables_get" deletable="false" movable="false" editable="false" id="102" inline="false"><field name="VAR">y-coordinate</field><value name="INPUT"><block type="logic_cond_out" deletable="false" movable="false" editable="false" id="64" inline="false"><field name="VALUE">&gt;</field><value name="INPUT"><block type="controls_sensor_position_y" id="51" inline="false" deletable="false" movable="false" editable="false" ></block></value></block></value></block></value><statement name="DO"><block type="rover_moveForward" deletable="false" movable="false" editable="false" id="114"></block></statement></block></statement></block><block type="procedures_callnoreturn" deletable="false" id="119" inline="false" x="-20" y="-180"><mutation name="navigate"><arg name="y-coordinate"></arg></mutation><value name="ARG0"><block type="math_number_field" deletable="false" movable="false" editable="false" id="129" inline="false"><field name="VALUE">3</field></block></value></block></xml>
+  - loadToolbox:
+    - rover
+    - source/scenario/blockly/mission3.xml
+  - resetRoverSensors:
+
+  #Manny
+  - addToGrid:
+    - rover
+    - [ -41, 51 ]
+  - selectRover:
+    - rover
+  - callMethod:
+    - rover
+    - setHeading
+    - 0
+  - setProperty:
+    - rover
+    - battery
+    - 40
+  - setProperty:
+    - rover
+    - batteryMax
+    - 40
+  - setProperty:
+    - rover
+    - blockly_allowedBlocks
+    - 70
+
+  # Perry, Rosie disabled
+  - setProperty:
+    - rover2
+    - visible
+    - false
+  - setProperty:
+    - rover3
+    - visible
+    - false
+  - setProperty:
+    - minirover
+    - visible
+    - false
+
+  # Disable Blockly line
+  - setProperty:
+    - blocklyLine
+    - visible
+    - false
+  - setProperty:
+    - blocklyLine
+    - opacity
+    - 0
+
+  # Graph
+
+  - addToGrid:
+    - blocklyGraph
+    - [ -41, 51 ]
+  - setGridAxes:
+    - 51
+    - -41
+
+children:
+  triggerManager:
+    extends: ../triggers/triggerManager.vwf
+    properties: 
+      triggers$:
+        playStartingVO_3d:
+          triggerCondition:
+          - and:
+            - doOnce:
+            - onScenarioStart:
+          actions:
+          - playSound:
+            - TM3VO1B_MC
+          - playSound:
+            - TM3VO2_Rover
+          - playSound:
+            - TM3VO3_MC
+          - playSound:
+            - TM3VO4_MC
+
+        openMissionBrief_3_1:
+          triggerCondition:
+          - and:
+            - onScenarioStart:
+            - doOnce:
+          actions:
+          - delay:
+            - 54
+            - openMissionBrief:
+
+        succeedOnSuccessfulMovement_3_1:
+          group: successOrFailure
+          priority: 0
+          triggerCondition:
+          - and:
+            - onBlocklyStopped:
+              - rover
+            - isAtPosition:
+              - rover
+              - [ -41, 54 ]
+          actions:
+          - clearBlockly:
+          - scenarioSuccess:
+          - showAlert:
+            - "Test program completed!"
+          - playSound:
+            - musicSuccessShort
+
+
+  brief:
+    extends: ../missionBrief.vwf
+    properties:
+      title: "Mission 3, Task 1"
+      content: >
+        Oh no, your mini rover has gone off!
+        <br><br>Luckily, you've also learned the location of the base pod,
+        which contains materials essential to your mission. Your navigate
+        procedure appears to be damaged, you'll need to reconstruct it 
+        step-by-step in order to be able to travel somewhere just by knowing
+        its coordinates.
+        <br><br>In order to use procedures you'll need two things: the procedure 
+        definition and the procedure call. The procedure definition is the sequence 
+        of blocks starting with a purple block containing a gear in the top left. 
+        It defines the sequence of actions that the procedure block will do. On top
+        of defining the procedure's steps, you can also define the name and variables
+        that the procedure uses.
+        <br><br>The procedure call happens when you use a procedure block with appropriate
+        inputs for the variables. Once a procedure definition is created, a procedure
+        block can be obtained by going into the "Procedures" tab in the toolbox, or by
+        right clicking the procedure definition and choosing "Create [procedure name]".
+        When a procedure block is used it will execute all of the steps defined in the
+        procedure definition through the use of a single block! Isn't that handy?
+        <br><br>Mission Control has downloaded a simple procedure definition for you
+        which moves you forward if your destination location is further in the positive-Y
+        direction than your current position. She has also provided a test program 
+        through a procedure call, which attempts to navigate three spots up the positive-Y
+        direction. Start the program and see if it works!
+        
