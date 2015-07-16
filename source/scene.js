@@ -203,6 +203,10 @@ this.handleDrawingBlocks = function ( blockName, blockID, blockNode, blockExeTim
     var nodeObject = this.findByID( this, blockNode );
     if ( blockName === 'startTriangle' && blockNode !== undefined ) {
         nodeObject.surveyArray = [];
+        var scenarioNanites = {
+            "extends": "http://vwf.example.com/node3.vwf"
+        }
+        this.naniteSystems.children.create( "nanites_" + this.activeScenarioPath, scenarioNanites );
     } else if ( blockName === 'endTriangle' && blockNode !== undefined ) {
         var currentPosition = nodeObject.positionSensorValue;
         var currentArray = nodeObject.surveyArray.slice( 0 );
@@ -216,29 +220,52 @@ this.handleDrawingBlocks = function ( blockName, blockID, blockNode, blockExeTim
         var currentArray = nodeObject.surveyArray.slice( 0 );
         currentArray.push( currentPosition );
         nodeObject.surveyArray = currentArray;
-        if ( currentArray.length >= 2 ) {
-            var lastTwoPoints = currentArray.slice( currentArray.length - 2 );
-            this.createNaniteSystem( lastTwoPoints[ 0 ], lastTwoPoints[ 1 ] );
-        }
+        this.createNaniteSystem( currentArray.slice(), nodeObject );
     }
     this.blockExecuted( blockName, blockID, blockNode, blockExeTime, blockArgs );
 }
 
-this.createNaniteSystem = function( startVertex, stopVertex ) {
-    startVertex = this.addAxisOffset( startVertex );
-    stopVertex = this.addAxisOffset( stopVertex );
-    startVertex = this.tileMap.getWorldCoordFromTile( startVertex[ 0 ], startVertex[ 1 ] );
-    stopVertex = this.tileMap.getWorldCoordFromTile( stopVertex[ 0 ], stopVertex[ 1 ] );
-    startVertex.push( this.environment.heightmap.getHeight( startVertex[ 0 ], startVertex[ 1 ] ) + 1 );
-    stopVertex.push( this.environment.heightmap.getHeight( stopVertex[ 0 ], stopVertex[ 1 ] ) + 1 );
-    var naniteSystem = {
-        "extends": "source/naniteParticle.vwf",
-        "properties": {
-            "start": startVertex,
-            "stop": stopVertex
+this.createNaniteSystem = function( vertices ) {
+    var naniteDef, scenarioNanites, index, vertex, callback, lastEdge, rover;
+    scenarioNanites = this.naniteSystems[ "nanites_" + this.activeScenarioPath ];
+    index = vertices.length - 1;
+    vertex = vertices[ index ].slice();
+    vertex = this.addAxisOffset( vertex );
+    vertex = this.tileMap.getWorldCoordFromTile( vertex[ 0 ], vertex[ 1 ] );
+    vertex.push( this.environment.heightmap.getHeight( vertex[ 0 ], vertex[ 1 ] ) );
+    // create nanite particles on first 3 points
+    if ( index < 3 ) {
+        naniteDef = {
+            "extends": "source/naniteParticle.vwf",
+            "properties": {
+                "start": vertex,
+                "stop": vertex,
+                "listenerID$": undefined
+            }
         }
+        callback = function( edge ) {
+            var rover = this.find( "//rover2" )[ 0 ];
+            rover.transformChanged = edge.events.add(
+                function( transform ) {
+                    edge.stop = [
+                        transform[ 12 ],
+                        transform[ 13 ],
+                        transform[ 14 ]
+                    ];
+                },
+                edge,
+                function( id ) {
+                    edge.listenerID$ = id;
+                }
+            );
+        };
+        scenarioNanites.children.create( "edge_" + index, naniteDef, callback );
     }
-    this.naniteSystems.children.create( "nanites" + this.time, naniteSystem );
+    lastEdge = scenarioNanites[ "edge_" + ( index - 1 ) ];
+    if ( lastEdge ) {
+        rover = this.find( "//rover2" )[ 0 ];
+        rover.transformChanged = lastEdge.events.remove( lastEdge.listenerID$ );
+    }
 }
 
 this.displayTiles = function( isVisible ) {

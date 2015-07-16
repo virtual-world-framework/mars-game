@@ -17,25 +17,25 @@ properties:
   start: [ 0, 0, 0 ]
   stop: [ 0, 0, 0 ]
   # particle properties
-  maxVelocity: [ 0.075, 0.075, 0.075 ]
-  minVelocity: [ -0.075, -0.075, -0.075 ]
-  maxAcceleration: [ 0.075, 0.075, 0.075 ]
-  minAcceleration: [ -0.075, -0.075, -0.075 ]
-  startSize: 0.3
+  maxVelocity: [ 0, 0, 0.2 ]
+  minVelocity: [ 0, 0, 0.1 ]
+  maxAcceleration: [ 0.1, 0.1, 0.15 ]
+  minAcceleration: [ -0.1, -0.1, 0.05 ]
+  startSize: 0.5
   endSize: 0
   sizeRange: 0
   maxSpin: 3
   minSpin: -3
   maxLifeTime: 3
-  minLifeTime: 3
+  minLifeTime: 2
   startColor: [ 1, 1, 1, 1 ]
   endColor: [ 0, 0, 0, 0 ]
   image: ../assets/images/nanite.png
   additive: true
   depthWrite: false
   solver: 'Analytic'
-  maxRate: 50
-  particleCount: 150
+  maxRate: 75
+  particleCount: 250
 methods:
   move:
 scripts:
