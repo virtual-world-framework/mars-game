@@ -147,6 +147,9 @@ properties:
     # arguments: chosenRover (the rover's name as declared in the scenario i.e. rover, rover2, rover3)
     selectRover: "source/triggers/actions/action_selectRover.vwf"
 
+    # Delete one or multiple nanite systems by name
+    # arguments: nodeName (add additional names to delete multiple systems)
+    deleteNanites: "source/triggers/actions/action_deleteNanites.vwf"
 
 scripts:
 - source: generator_Action.js
