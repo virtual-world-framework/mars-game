@@ -103,9 +103,10 @@ properties:
     - rover3
     - visible
     - false
+
   - setGridAxes:
-    - 16
-    - -22
+    - 19
+    - -21
 
   # Draw the desired triangle
   - drawTriangle:
@@ -157,19 +158,19 @@ children:
             - not:
               - isAtPosition:
                 - rover2
-                - [ -32, 19 ]
+                - [ -31, 19 ]
             - not:
               - isAtPosition:
                 - rover2
-                - [ -32, 16 ]
+                - [ -31, 22 ]
             - not:
               - isAtPosition:
                 - rover2
-                - [ -35, 16 ]
+                - [ -34, 19 ]
           actions:
             - addToGrid:
               - rover2
-              - [ -32, 16 ]
+              - [ -31, 19 ]
 
         openMissionBrief_4_2:
           triggerCondition:
