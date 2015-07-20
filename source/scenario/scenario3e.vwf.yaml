@@ -130,6 +130,7 @@ children:
               - rover
               - [ -17, 32 ]
           actions:
+          - clearBlockly:
           - scenarioSuccess:
           - showAlert:
             - "I found the minirover!"
