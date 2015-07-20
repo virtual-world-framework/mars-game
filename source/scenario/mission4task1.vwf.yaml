@@ -106,9 +106,11 @@ properties:
     - rover3
     - visible
     - false
+
   - setGridAxes:
-    - 16
-    - -22
+    - 19
+    - -21
+
   - drawTriangle:
     - [ -10, 0 ]
     - [ -10, 3 ]

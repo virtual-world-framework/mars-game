@@ -106,8 +106,8 @@ properties:
 
   # Grid and disable blocklyLine
   - setGridAxes:
-    - 16
-    - -22
+    - 19
+    - -21
   - setProperty:
     - blocklyLine
     - visible
@@ -125,16 +125,16 @@ properties:
 
   - addToGrid:
     - solarPanel1
-    - [ -27, 19 ]
+    - [ -24, 22 ]
   - addToGrid:
     - solarPanel2
-    - [ -21, 19 ]
+    - [ -18, 22 ]
   - addToGrid:
     - solarPanel3
-    - [ -27, 13 ]
+    - [ -24, 16 ]
   - addToGrid:
     - solarPanel4
-    - [ -21, 13 ]
+    - [ -18, 16 ]
 
   - setProperty:
     - solarPanel1
@@ -219,19 +219,19 @@ children:
             - not:
               - isAtPosition:
                 - rover2
-                - [ -24, 16 ]
+                - [ -21, 19 ]
             - not:
               - isAtPosition:
                 - rover2
-                - [ -24, 10 ]
+                - [ -21, 13 ]
             - not:
               - isAtPosition:
                 - rover2
-                - [ -30, 16 ]
+                - [ -15, 19 ]
           actions:
             - addToGrid:
               - rover2
-              - [ -24, 16 ]
+              - [ -21, 19 ]
 
         succeedOnTriangle_4_6:
           group: successOrFailure
