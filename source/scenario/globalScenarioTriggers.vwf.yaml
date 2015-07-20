@@ -261,45 +261,45 @@ properties:
       - playSound:
         - rover3EndSounds
 
-    roverIdle:
-      triggerCondition:
-      - onBlocklyBlock:
-        - rover
-        - rover_moveForward
-        - false
-      actions:
-      - stopSound:
-        - roverSounds
+  #  roverIdle:
+  #    triggerCondition:
+  #    - onBlocklyBlock:
+  #      - rover
+  #      - rover_moveForward
+  #      - false
+  #    actions:
+  #    - stopSound:
+  #      - roverSounds
 
-    rover3Idle:
-      triggerCondition:
-      - onBlocklyBlock:
-        - rover3
-        - rover_moveForward
-        - false
-      actions:
-      - stopSound:
-        - rover3Sounds
+  #  rover3Idle:
+  #    triggerCondition:
+  #    - onBlocklyBlock:
+  #      - rover3
+  #      - rover_moveForward
+  #      - false
+  #    actions:
+  #    - stopSound:
+  #      - rover3Sounds
+  #
+  #  roverDeIdle:
+  #    triggerCondition:
+  #    - onBlocklyBlock:
+  #      - rover
+  #      - rover_moveForward
+  #      - true
+  #    actions:
+  #    - playSound:
+  #      - roverSounds
 
-    roverDeIdle:
-      triggerCondition:
-      - onBlocklyBlock:
-        - rover
-        - rover_moveForward
-        - true
-      actions:
-      - playSound:
-        - roverSounds
-
-    rover3DeIdle:
-      triggerCondition:
-      - onBlocklyBlock:
-        - rover3
-        - rover_moveForward
-        - true
-      actions:
-      - playSound:
-        - rover3Sounds
+  #  rover3DeIdle:
+  #    triggerCondition:
+  #    - onBlocklyBlock:
+  #      - rover3
+  #      - rover_moveForward
+  #      - true
+  #    actions:
+  #    - playSound:
+  #      - rover3Sounds
 
 methods:
   # This is called using future(0) inside of initialize.
