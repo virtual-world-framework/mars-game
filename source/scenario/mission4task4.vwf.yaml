@@ -90,7 +90,7 @@ properties:
   - setProperty:
     - rover2
     - blockly_allowedBlocks
-    - 16
+    - 30
   - setProperty:
     - rover2
     - lowRam
