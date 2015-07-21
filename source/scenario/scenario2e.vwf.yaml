@@ -63,6 +63,9 @@ properties:
   - addToGrid:
     - blocklyGraph
     - [ 0, 14 ]
+  - addToGrid:
+    - supplies_1
+    - [ 8, 30 ]
   - enableBlocklyNodes:
     - rover
     - graph
