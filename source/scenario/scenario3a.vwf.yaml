@@ -59,6 +59,9 @@ properties:
   - addToGrid:
     - supplies_1
     - [ 8, 30 ]
+  - addToGrid:
+    - supplies_2
+    - [ 4, 46 ]
   - enableBlocklyNodes:
     - rover
     - graph
