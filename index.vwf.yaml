@@ -242,11 +242,7 @@ children:
           maxWorldZ: 25
       roverTracks:
         extends: http://vwf.example.com/node3.vwf
-        source: assets/3d/Terrain/rover_tracks_straight.dae
-        type: model/vnd.collada+xml
-      dragMarks: 
-        extends: http://vwf.example.com/node3.vwf
-        source: assets/3d/Terrain/drag_marks.dae
+        source: assets/3d/Mars_Assets/mini_rover_tracks.dae
         type: model/vnd.collada+xml
   tileMap:
     extends: source/tileMap.vwf
