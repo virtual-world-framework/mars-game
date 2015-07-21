@@ -93,7 +93,7 @@ properties:
   - setProperty:
     - rover2
     - blockly_allowedBlocks
-    - 50
+    - 30
   - setProperty:
     - rover2
     - lowRam
@@ -230,26 +230,6 @@ children:
             - doOnce:
           actions:
           - openMissionBrief:
-
-        playPerrySounds_4_1_1:
-          triggerCondition:
-          - onBlocklyBlock:
-            - rover2
-            - moveRadial
-            - true
-          actions:
-            - playSound:
-              - rover2GravelSounds
-
-        stopPerrySounds_4_1_1:
-          triggerCondition:
-          - onBlocklyBlock:
-            - rover2
-            - moveRadial
-            - false
-          actions:
-            - stopSound:
-              - rover2GravelSounds
 
         scenarioEnded4_1:
           triggerCondition:
