@@ -301,6 +301,26 @@ properties:
       - playSound:
         - rover3Sounds
 
+    sprayCanOn:
+      triggerCondition:
+      - onBlocklyBlock:
+        - rover2
+        - startTriangle
+        - true
+      actions:
+      - playSound:
+        - gooSprayCan
+
+    sprayCanOff:
+      triggerCondition:
+      - onBlocklyBlock:
+        - rover2
+        - endTriangle
+        - true
+      actions:
+      - stopSound:
+        - gooSprayCan
+
 methods:
   # This is called using future(0) inside of initialize.
   onSceneLoaded:

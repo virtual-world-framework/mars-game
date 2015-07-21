@@ -125,6 +125,10 @@ properties:
       initialVolume: 0.5
       isLooping: false
       allowMultiplay: false
+    - soundName: "gooSprayCan"
+      soundURL: "assets/sounds/sfx/scoutRoverSprayShake01.ogg"
+      initialVolume: 0.7
+      isLooping: true
     - soundName: "L1VO1_Rover"
       soundURL: "assets/sounds/vo/L1VO1_Rover_m.ogg"
       initialVolume: 0.65
