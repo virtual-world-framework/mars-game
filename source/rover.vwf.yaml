@@ -64,8 +64,8 @@ properties:
   collisionSensorValue: false
   headingSensorValue: 0
   positionSensorValue: []
-  positionSensorValueX: 2
-  positionSensorValueY: 2
+  positionSensorValueX: 0
+  positionSensorValueY: 0
   currentlySurveying: false
   signalSensorValue:
     set: |
