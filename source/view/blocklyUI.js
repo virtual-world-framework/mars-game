@@ -138,7 +138,7 @@ function setUpBlocklyPeripherals() {
 }
 
 function scrollIndicators() {
-    indicateBlock( currentBlockIDSelected ); 
+    //indicateBlock( currentBlockIDSelected ); 
     //indicateProcedureBlock( currentProcedureBlockID );
 }
 

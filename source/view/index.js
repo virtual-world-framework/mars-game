@@ -139,6 +139,16 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 // count.className = "stopped";
                 // var procedureIndicator = document.getElementById( "blocklyProcedureIndicator" );
                 // procedureIndicator.className = "stopped";
+
+                var workspace, block;
+                workspace = Blockly.getMainWorkspace();
+                if ( workspace ) {
+                    block = workspace.getBlockById( lastBlockIDExecuted );
+                    if ( block && block.data === currentBlocklyNodeID ) {
+                        block.selectStop();
+                    }
+                }
+
                 blocklyStopped = true;
                 var speedButton = document.getElementById( "blocklySpeedButton" );
                 speedButton.style.opacity = 1.0;
@@ -163,7 +173,7 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                     var currentCode = getBlocklyFunction();
                     vwf_view.kernel.setProperty( graphLines[ "blocklyLine" ].ID, "lineFunction", currentCode );
                 } else {
-                    indicateBlock( lastBlockIDExecuted );
+                    //indicateBlock( lastBlockIDExecuted );
                 }
                 break;
 
@@ -219,18 +229,13 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                     //vwf_view.kernel.setProperty( blockNode, "blockly_timeBetweenLines", blockTime );
                 }
 
-                
-                
-                // Now broken with blockly update...
-                // if ( blockID ) {
-                //     selectBlock( blockID );
-                //     indicateBlock( blockID );
+                if ( blockID ) {
+                    selectBlock( blockID );
+                    indicateBlock( blockID );
+                    lastBlockIDExecuted = blockID;
                      
-                // }
-
-                indicateBlock( blockID );
-                lastBlockIDExecuted = blockID;
-
+                }
+                
                 break;
                 
             case "updatedBlocklyVariable":
@@ -250,10 +255,11 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 currentScenario = eventArgs[ 0 ];
                 lastBlockIDExecuted = undefined;
                 currentProcedureBlockID = undefined;
+                lastBlockIDExecuted = undefined;
             case "scenarioReset":
                 removePopup();
                 removeFailScreen();
-                indicateBlock( lastBlockIDExecuted );
+                //indicateBlock( lastBlockIDExecuted );
                 break;
 
             case "gotScenarioPaths":
@@ -266,10 +272,6 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
 
             case "resetRoverSensors":
                 resetRoverSensors();
-                break;
-
-            case "selectLastBlock":
-                selectBlock( lastBlockIDExecuted );
                 break;
 
             case "clearBlocklyTabs":
@@ -863,12 +865,8 @@ function selectBlock( blockID ) {
     workspace = Blockly.getMainWorkspace();
     if ( workspace ) {
         block = workspace.getBlockById( blockID );
-        lastBlock = workspace.getBlockById( currentBlockIDSelected );
-        if ( lastBlock ) {
-            Blockly.removeClass_( lastBlock.svg_.svgGroup_, "blocklySelected" );
-        }
         if ( block ) {
-            Blockly.addClass_( block.svg_.svgGroup_, "blocklySelected" );
+            block.select();
             currentBlockIDSelected = blockID;
         }
     }
@@ -880,7 +878,7 @@ function indicateBlock( blockID ) {
     if ( workspace ) {
         block = workspace.getBlockById( blockID );
         if ( block && block.data === currentBlocklyNodeID ) {
-
+            block.selectRun();
             //returns an object with height and width properties
             // var bBox = block.svg_.getBBox();
             // var dim = block.getHeightWidth();

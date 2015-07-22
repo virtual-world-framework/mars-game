@@ -26,7 +26,7 @@
     <block type="logic_boolean"></block>
     <block type="controls_if_nomut"></block>
     <block type="controls_if_else_nomut"></block>
-    <block type="controls_repeat_ext"><value name="TIMES"><block type="math_number_field" id="74" inline="false"><field name="VALUE">0</field></block></value></block>
+    <block type="controls_repeat_ext"><value name="TIMES"><block type="math_number_field" inline="false"><field name="VALUE">0</field></block></value></block>
     <block type="controls_whileUntil"><field name="MODE">WHILE</field></block>
   </category>
   <category name="Numbers / Math">
