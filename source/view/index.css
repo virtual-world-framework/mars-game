@@ -114,7 +114,7 @@ a:active {
 }
 
 .blocklySvg {
-    background-color: rgba( 0, 0, 0, 0.75 );
+    background-color: rgba( 100, 100, 100, 0.50 );
     border-color: rgba( 255, 255, 255, 0.25 );
 }
 
