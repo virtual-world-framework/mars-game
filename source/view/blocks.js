@@ -1194,7 +1194,7 @@ Blockly.Blocks[ 'controls_sensor_position' ] = {
     this.appendValueInput('INPUT')
         .appendField('Position')
         //.appendField("(?,?)", "VALUE")
-        .setCheck(['OperatorAddSubtract','OrderedGet']);
+        .setCheck(['OrderedGet']);
         //.setCheck(['OperatorAddSubtract','OperatorMultiplyDivide','LeftParenthesis','RightParenthesis','Conditional']);
     this.setOutput(true, null);
     this.data = currentBlocklyNodeID;
@@ -1240,7 +1240,7 @@ Blockly.Blocks[ 'controls_sensor_position_x' ] = {
     this.appendValueInput('INPUT')
         .appendField('Position X')
         //.appendField("(?)", "VALUE")
-        .setCheck(['OperatorAddSubtract','OperatorMultiplyDivide','OrderedGet']);
+        .setCheck(['OperatorAddSubtract','OperatorMultiplyDivide','Conditional']);
         //.setCheck(['OperatorAddSubtract','OperatorMultiplyDivide','LeftParenthesis','RightParenthesis','Conditional']);
     this.setOutput(true, null);
     this.data = currentBlocklyNodeID;
@@ -1286,7 +1286,7 @@ Blockly.Blocks[ 'controls_sensor_position_y' ] = {
     this.appendValueInput('INPUT')
         .appendField('Position Y')
         //.appendField("(?)", "VALUE")
-        .setCheck(['OperatorAddSubtract','OperatorMultiplyDivide','OrderedGet']);
+        .setCheck(['OperatorAddSubtract','OperatorMultiplyDivide','Conditional']);
         //.setCheck(['OperatorAddSubtract','OperatorMultiplyDivide','LeftParenthesis','RightParenthesis','Conditional']);
     this.setOutput(true, null);
     this.data = currentBlocklyNodeID;
@@ -1789,7 +1789,7 @@ Blockly.Blocks[ 'math_number_out' ] = {
   init: function() {
     this.setColour( 60 );
     this.appendValueInput( "INPUT" )
-        .appendField(new Blockly.FieldDropdown([["270", "270"],["180", "180"],["90", "90"],["45", "45"],["10", "10"],["9", "9"],["8", "8"],
+        .appendField(new Blockly.FieldDropdown([["10", "10"],["9", "9"],["8", "8"],
          ["7", "7"],["6", "6"],["5", "5"],["4", "4"],["3", "3"],["2", "2"],
          ["1", "1"],["0", "0"],["-1", "-1"], ["-2", "-2"], ["-3", "-3"], 
          ["-4", "-4"], ["-5", "-5"], ["-6", "-6"], ["-7", "-7"], ["-8", "-8"], 
