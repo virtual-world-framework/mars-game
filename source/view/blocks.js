@@ -2103,7 +2103,7 @@ Blockly.Blocks[ 'graph_multiply' ] = {
   init: function() {
     this.setColour(120);
     this.appendValueInput('INPUT')
-        .appendField('×')
+        .appendField('·')
         .setCheck(['Number','Variable','LeftParenthesis','OperatorAddSubtract']);
     this.setOutput(true, 'OperatorMultiplyDivide');
     this.data = currentBlocklyNodeID;
