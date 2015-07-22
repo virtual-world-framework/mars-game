@@ -45,6 +45,10 @@ properties:
     - rover
     - blockly_allowedBlocks
     - 12
+  - setProperty:
+    - supplies_1
+    - visible
+    - false
   - addToGrid:
     - rover
     - [ 8, 30 ]

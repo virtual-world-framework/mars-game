@@ -2,7 +2,7 @@
   
   <category name="Movement">
    <block type="rover_moveRadial_absolute"></block>
-  <block type="math_number_field"><field name="VALUE">0</field></block>
+  <block type="math_number_out" id="184" inline="false" x="20" y="-220"><field name="VALUE">0</field></block>
   <block type="ordered_pair"></block>
   </category>
   <category name="Sensors">
@@ -26,11 +26,11 @@
     <block type="logic_boolean"></block>
     <block type="controls_if_nomut"></block>
     <block type="controls_if_else_nomut"></block>
-    <block type="controls_repeat_ext"><value name="TIMES"><block type="math_number_field" id="74" inline="false"><field name="VALUE">0</field></block></value></block>
+    <block type="controls_repeat_ext"><value name="TIMES"><block type="math_number_out" id="184" inline="false" x="20" y="-220"><field name="VALUE">0</field></block></value></block>
     <block type="controls_whileUntil"><field name="MODE">WHILE</field></block>
   </category>
   <category name="Numbers / Math">
-    <block type="math_number_field"><field name="VALUE">0</field></block>
+    <block type="math_number_out" id="184" inline="false" x="20" y="-220"><field name="VALUE">0</field></block>
     <block type="ordered_pair"></block>
     <block type="ordered_get"></block>
     <block type="graph_add"></block>

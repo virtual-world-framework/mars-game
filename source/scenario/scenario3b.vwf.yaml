@@ -42,6 +42,11 @@ properties:
     - batteryMax
     - 40
   - setProperty:
+    - supplies_1
+    - visible
+    - false
+
+  - setProperty:
     - rover
     - blockly_allowedBlocks
     - 12
@@ -54,6 +59,9 @@ properties:
   - addToGrid:
     - blocklyGraph
     - [ 8, 30 ]
+  - addToGrid:
+    - supplies_2
+    - [ 4, 46 ]
   - setGridAxes:
     - 30
     - 8
@@ -72,6 +80,9 @@ properties:
     - 1
   - selectRover:
     - rover
+  - selectRover:
+    - graph
+    
 children:
   triggerManager:
     extends: ../triggers/triggerManager.vwf
