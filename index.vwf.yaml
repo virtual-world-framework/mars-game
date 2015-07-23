@@ -193,20 +193,20 @@ children:
             properties:
               mixMap: "assets/3d/Mars_Assets/terrain_mixmap.png"
               diffuseMaps:
+                - { "url": "assets/3d/Mars_Assets/level2_ground2_d.png", "wrapTexture": true }
                 - { "url": "assets/3d/Mars_Assets/level2_ground3_d.png", "wrapTexture": true }
-                - { "url": "assets/3d/Mars_Assets/dirt.png", "wrapTexture": true }
                 - { "url": "assets/3d/Mars_Assets/level2_ground1_d.png", "wrapTexture": true }
-                - { "url": "assets/3d/Mars_Assets/dark_dirt.png", "wrapTexture": true }
+                - { "url": "assets/3d/Mars_Assets/level2_rock1_d.png", "wrapTexture": true }
               normalMaps: 
+                - { "url": "assets/3d/Mars_Assets/level2_ground2_n.png", "wrapTexture": true }
                 - { "url": "assets/3d/Mars_Assets/level2_ground3_n.png", "wrapTexture": true }
-                - { "url": "assets/3d/Mars_Assets/dirt_n.png", "wrapTexture": true }
                 - { "url": "assets/3d/Mars_Assets/level2_ground1_n.png", "wrapTexture": true }
-                - { "url": "assets/3d/Mars_Assets/dark_dirt_n.png", "wrapTexture": true }
+                - { "url": "assets/3d/Mars_Assets/level2_rock1_n.png", "wrapTexture": true }
               specularMaps:
                 - { "url": "assets/3d/Mars_Assets/level2_ground3_s.png", "wrapTexture": true }
-                - { "url": "assets/3d/Mars_Assets/dirt_s.png", "wrapTexture": true }
+                - { "url": "assets/3d/Mars_Assets/level2_ground2_s.png", "wrapTexture": true }
                 - { "url": "assets/3d/Mars_Assets/level2_ground1_s.png", "wrapTexture": true }
-                - { "url": "assets/3d/Mars_Assets/dark_dirt_s.png", "wrapTexture": true }
+                - { "url": "assets/3d/Mars_Assets/level2_rock1_s.png", "wrapTexture": true }
               tileMap:
                 url: "assets/3d/Mars_Assets/tilemap.png"
                 magFilter: "nearest"
@@ -273,7 +273,7 @@ children:
   sunLight:
     extends: http://vwf.example.com/directionallight.vwf
     properties:
-      color: [ 255, 255, 255 ]
+      color: [ 200, 200, 200 ]
       translation: [ 2, 1, 16 ]
       intensity: 0.6
       castShadows: true
@@ -498,7 +498,7 @@ children:
         implements: 
         - http://vwf.example.com/blockly/controller.vwf
         - source/cameraTarget.vwf
-        source: assets/3d/heavyrover/heavy_rover.dae
+        source: assets/3d/Rosie/heavy_rover.dae
         type: model/vnd.collada+xml
         properties:
           boundingAreaSize: [ 2, 2 ]
