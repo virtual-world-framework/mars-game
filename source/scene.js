@@ -283,6 +283,8 @@ this.displayTiles = function( isVisible ) {
     if ( isVisible !== tilesVisible ) {
         material.tilesVisible = isVisible ? 1 : 0;
         this.toggledTiles( isVisible );
+        // Should we switch to helicam view for the tiles as well?
+        // this.switchToHelicamView( isVisible );
     }
 }
 
@@ -293,6 +295,18 @@ this.displayGraph = function( isVisible ) {
         material.gridVisible = isVisible ? 1 : 0;
         this.toggledGraph( isVisible );
         this.blocklyGraph.blocklyLine.visible = isVisible;
+        this.switchToHelicamView( isVisible );
+    }
+}
+
+this.switchToHelicamView = function( bSwitch ) {
+    var targetNode, camera;
+    if ( bSwitch ) {
+        camera = this.gameCam;
+        targetNode = camera.target;
+        if ( targetNode.hasMount( "topDown" ) ) {
+            camera.setCameraMount( "topDown" );
+        }
     }
 }
 
