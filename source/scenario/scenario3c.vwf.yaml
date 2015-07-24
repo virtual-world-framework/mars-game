@@ -45,21 +45,25 @@ properties:
     - rover
     - blockly_allowedBlocks
     - 12
+  - setProperty:
+    - supplies_1
+    - visible
+    - false
   - addToGrid:
     - rover
-    - [ -28, 28 ]
+    - [ 8, 30 ]
   - addToGrid:
     - blocklyGraph
-    - [ -28, 28 ]
+    - [ 8, 30 ]
   - setGridAxes:
-    - 28
-    - -28
+    - 30
+    - 8
   - addToGrid:
     - minirover
     - [ -41, 52 ]
   - addToGrid:
     - supplies_2
-    - [ -53, 23 ]
+    - [ 4, 46 ]
   - enableBlocklyNodes:
     - rover
     - graph
@@ -93,7 +97,7 @@ children:
             - "Build a program to follow the tracks until your scanner finds something."
           - writeToBlackboard:
             - metalPosition
-            - [ -53, 23 ]
+            - [ 4, 46 ]
           - clearBlackboardEntry:
             - Level3cTravel1
           - stopSound:
@@ -119,7 +123,7 @@ children:
               - rover
             - isAtPosition:
               - rover
-              - [ -53, 23 ]
+              - [ 4, 46 ]
           actions:
           - scenarioSuccess:
           - showAlert:
@@ -155,7 +159,7 @@ children:
             - doOnce:
             - isAtPosition:
               - rover
-              - [ -33, 27 ]
+              - [ 6, 38 ]
           actions:
           - playSound:
             - CTVO3

@@ -55,10 +55,13 @@ properties:
     - false
   - addToGrid:
     - rover
-    - [ -2, 15 ]
+    - [ 1, 16 ]
   - addToGrid:
     - blocklyGraph
     - [ 0, 14 ]
+  - addToGrid:
+    - supplies_1
+    - [ 8, 30 ]
   - enableBlocklyNodes:
     - rover
     - graph
@@ -88,7 +91,7 @@ children:
           - playSound:
             - environmentWind
           - setObjective:
-            - "Use a loop to move along the slope of the tracks three more times."
+            - "Use a loop to move along the slope of the tracks two more times."
           - setThirdPersonStartPose:
             - [ 16.316, 65, -15 ]
 
@@ -110,7 +113,7 @@ children:
               - rover
             - isAtPosition:
               - rover
-              - [ -8, 18 ]
+              - [ 3, 20 ]
           actions:
           - scenarioSuccess:
           - showAlert:
@@ -123,7 +126,7 @@ children:
           - onScenarioStart:
           actions:
           - callOutObjective:
-            - [ -8, 18 ]
+            - [ 3, 20 ]
 
         stopBlinkRoverTab_2f:
           triggerCondition:

@@ -55,6 +55,9 @@ properties:
   - addToGrid:
     - blocklyGraph
     - [ 0, 14 ]
+  - addToGrid:
+    - supplies_1
+    - [ 8, 30 ]
   - setGridAxes:
     - 14
     - 0
@@ -83,9 +86,9 @@ properties:
     - blocklyLine
     - opacity
     - 1
-
   - selectRover:
     - rover
+
 
 children:
   triggerManager:

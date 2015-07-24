@@ -42,21 +42,29 @@ properties:
     - batteryMax
     - 40
   - setProperty:
+    - supplies_1
+    - visible
+    - false
+
+  - setProperty:
     - rover
     - blockly_allowedBlocks
     - 12
   - addToGrid:
     - rover
-    - [ -28, 28 ]
+    - [ 8, 30 ]
   - addToGrid:
     - minirover
     - [ -41, 52 ]
   - addToGrid:
     - blocklyGraph
-    - [ -28, 28 ]
+    - [ 8, 30 ]
+  - addToGrid:
+    - supplies_2
+    - [ 4, 46 ]
   - setGridAxes:
-    - 28
-    - -28
+    - 30
+    - 8
   - enableBlocklyNodes:
     - rover
     - graph
@@ -72,6 +80,9 @@ properties:
     - 1
   - selectRover:
     - rover
+  - selectRover:
+    - graph
+    
 children:
   triggerManager:
     extends: ../triggers/triggerManager.vwf
@@ -121,9 +132,9 @@ children:
           triggerCondition:
           - and:
             - blocklyLineEval:
-              - [ -5, -1 ]
+              - [ -1, 4 ]
             - blocklyLineEval:
-              - [ 5, 1 ]
+              - [ -1, 4 ]
           actions:
           - scenarioSuccess:
           - showAlert:

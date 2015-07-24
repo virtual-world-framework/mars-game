@@ -51,7 +51,7 @@ properties:
   # Manny
   - addToGrid:
     - rover
-    - [ -35, 66 ]
+    - [ -27, 31 ]
   - callMethod:
     - rover
     - setHeading
@@ -71,13 +71,17 @@ properties:
   
 
   # Perry
+  - addToGrid:
+    - rover2
+    - [ -25, 31 ]
   - setProperty:
     - rover2
     - visible
     - true
-  - addToGrid:
-    - rover2
-    - [ -34, 70 ]
+  - callMethod:
+    - rover
+    - setHeading
+    - 180
   - setProperty:
     - rover2
     - battery
@@ -89,7 +93,7 @@ properties:
   - setProperty:
     - rover2
     - blockly_allowedBlocks
-    - 50
+    - 30
   - setProperty:
     - rover2
     - lowRam
@@ -102,9 +106,11 @@ properties:
     - rover3
     - visible
     - false
+
   - setGridAxes:
-    - 77
-    - -22
+    - 19
+    - -21
+
   - drawTriangle:
     - [ -10, 0 ]
     - [ -10, 3 ]
@@ -159,11 +165,11 @@ children:
             - not:
               - isAtPosition:
                 - rover2
-                - [ -34, 70 ]
+                - [ -25, 31 ]
           actions:
             - addToGrid:
               - rover2
-              - [ -34, 70 ]
+              - [ -25, 31 ]
 
         succeedOnTriangle_4_1:
           group: successOrFailure
@@ -224,26 +230,6 @@ children:
             - doOnce:
           actions:
           - openMissionBrief:
-
-        playPerrySounds_4_1_1:
-          triggerCondition:
-          - onBlocklyBlock:
-            - rover2
-            - moveRadial
-            - true
-          actions:
-            - playSound:
-              - rover2GravelSounds
-
-        stopPerrySounds_4_1_1:
-          triggerCondition:
-          - onBlocklyBlock:
-            - rover2
-            - moveRadial
-            - false
-          actions:
-            - stopSound:
-              - rover2GravelSounds
 
         scenarioEnded4_1:
           triggerCondition:

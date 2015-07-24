@@ -50,7 +50,7 @@ properties:
   #Manny
   - addToGrid:
     - rover
-    - [ -41, 51 ]
+    - [ -17, 32 ]
   - selectRover:
     - rover
   - setProperty:
@@ -94,10 +94,10 @@ properties:
 
   - addToGrid:
     - blocklyGraph
-    - [ -41, 51 ]
+    - [ -17, 32 ]
   - setGridAxes:
-    - 51
-    - -41
+    - 32
+    - -17
 
 children:
   triggerManager:
@@ -132,7 +132,7 @@ children:
               - rover
             - isAtPosition:
               - rover
-              - [ -35, 66 ]
+              - [ -19, 19 ]
           actions:
           - clearBlockly:
           - scenarioSuccess:

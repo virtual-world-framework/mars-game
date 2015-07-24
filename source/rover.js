@@ -43,12 +43,12 @@ this.moveForward = function() {
                         0
                     ];
                     var checkSensorsAndSnap = function() {
-                        this.placeAtTileCoord( proposedTile[ 0 ], proposedTile[ 1 ] );
+                //        this.placeAtTileCoord( proposedTile[ 0 ], proposedTile[ 1 ] );
                         this.activateSensor( 'metal' );
                         this.activateSensor( 'signal' );
                         this.activateSensor( 'collision' );
                         this.activateSensor( 'position' );
-                    }
+                    } 
                     this.translateOnTerrain( distance, 1, 1, checkSensorsAndSnap.bind( this ) );
                     var pickupsOnTile = this.scene.getWatchListNodes( proposedTile, "pickup" );
                     for ( var i = 0; i < pickupsOnTile.length; i++ ) {
