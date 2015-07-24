@@ -331,6 +331,10 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 setBriefInfo( title, content, imageSrc );
                 break;
 
+            case "selectedRover":
+                updateCameraDistance( eventArgs[ 0 ] );
+                break;
+
         } 
     } else {
         // scenario events

@@ -88,6 +88,7 @@ methods:
   removeAxisOffset:
   createNaniteSystem:
   deleteNaniteSystem:
+  switchToHelicamView:
 events:
   gameStarted:
   scenarioReset:
@@ -99,6 +100,7 @@ events:
   clearBlockly:
   selectLastBlock:
   updatedBlocklyVariable:
+  selectedRover:
   showCommsImage:
   hideCommsImage:
   blockExecuted:
@@ -316,6 +318,7 @@ children:
           castShadows: true
           receiveShadows: true
           executionSpeed: 0.5
+          roverRadius: 4
           sceneNode:
             get: |
               if ( !this.sceneNode ) {
@@ -381,6 +384,7 @@ children:
             properties:
               navmode: thirdPerson
               cameraPose: [ 16, 0, -15 ]
+              worldOffset: [ 0, 0, 1 ]
               cameraSpeed: 0
               usePoseFromCamera: true
           topDown:
@@ -433,6 +437,7 @@ children:
           castShadows: true
           receiveShadows: true
           executionSpeed: 0.5
+          roverRadius: 2
           surveyArray: []
           sceneNode:
             get: |
@@ -478,6 +483,7 @@ children:
             properties:
               navmode: thirdPerson
               cameraPose: [ 16, 0, -15 ]
+              worldOffset: [ 0, 0, 0.5 ]
               cameraSpeed: 0
               usePoseFromCamera: true
           topDown:
@@ -507,6 +513,7 @@ children:
           castShadows: true
           receiveShadows: true
           executionSpeed: 0.5
+          roverRadius: 7
           sceneNode:
             get: |
               if ( !this.sceneNode ) {
@@ -586,6 +593,7 @@ children:
             properties:
               navmode: thirdPerson
               cameraPose: [ 16, 0, -15 ]
+              worldOffset: [ 0, 0, 2 ]
               cameraSpeed: 0
               usePoseFromCamera: true
           topDown:

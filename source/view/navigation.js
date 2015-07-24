@@ -326,4 +326,10 @@ function getFirstMesh( list ) {
     }
 }
 
+function updateCameraDistance( radius ) {
+    if ( !isNaN( radius ) ) {
+        thirdPerson_MinZoom = radius;
+    }
+}
+
 //@ sourceURL=source/navigation.js
