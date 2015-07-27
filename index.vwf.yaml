@@ -643,7 +643,7 @@ children:
   cargoPod2:
     extends: source/buildings/basePod.vwf
     properties:
-      tilePosition: [ -32, 66 ]
+      tilePosition: [ -32, 23 ]
       visible: true
   solarPanel1: 
     extends: source/buildings/solarPanel.vwf

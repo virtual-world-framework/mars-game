@@ -23,7 +23,7 @@ properties:
   startState:
   # objective
   - setObjective:
-    - "Edit your navigate procedure: Turn north before moving forward."
+    - "Edit your navigate procedure: Turn the right direction before moving to [0,-6]."
 
   # sounds/video
   - playSound:
@@ -103,6 +103,11 @@ properties:
     - 32
     - -17
 
+  - setProperty:
+    - cargoPod2
+    - rotation
+    - [0 ,0 ,1 , -45 ]
+
 children:
   triggerManager:
     extends: ../triggers/triggerManager.vwf
@@ -129,6 +134,13 @@ children:
             - 32
             - openMissionBrief:
 
+        highlightEndTile:
+          triggerCondition:
+          - onScenarioStart:
+          actions:
+          - callOutObjective:
+            - [ -17, 26 ]
+
         succeedOnSuccessfulMovement_3_2:
           group: successOrFailure
           priority: 0
@@ -154,7 +166,7 @@ children:
       content: >
         The basic navigation procedure appears to be working!
         <br><br>However, this procedure will only work properly if you're already facing 
-        North. You'll need to edit the procedure definition so that you turn to face the
+        South. You'll need to edit the procedure definition so that you turn to face the
         right direction before you begin moving forward.
         <br><br>To do this you'll need to use the while block, and you'll need to turn until something
         is no longer true about the direction you're facing. This will require a comparison block,
