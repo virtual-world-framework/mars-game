@@ -134,7 +134,7 @@ children:
           - onScenarioStart:
           actions:
           - callOutObjective:
-            - [ -17, 32 
+            - [ -17, 32 ]
 
         succeedOnSuccessfulMovement_3_6:
           group: successOrFailure
