@@ -230,7 +230,7 @@ properties:
     - soundName: "L2VO9_Control"
       soundURL: "assets/sounds/vo/L2VO9_Control.ogg"
       initialVolume: 1.0
-      subtitle: "[MC]: You don't want to keep having to do this all the way up the line. Remember you can repeat this small movement program, and save yourself some work. Try repeating it three times to start."
+      subtitle: "[MC]: You don't want to keep having to do this all the way up the line. Remember you can repeat this small movement program, and save yourself some work. Try repeating it two times to start."
       soundGroup: vo
       groupReplacementMethod: queue
     - soundName: "L3VO1_Rover_S"
@@ -916,7 +916,7 @@ properties:
     - soundName: "SCVO8_Control"
       soundURL: "assets/sounds/vo/SCVO8_Control.ogg"
       initialVolume: 1.0
-      subtitle: "[MC]: Now you are on the right track! This graph is going to help you overcome your next challenge: Find the slope of the line, and use that to make a navigation program that will follow that track.  Let’s start by moving to that blinking tile just to your left."
+      subtitle: "[MC]: Now you are on the right track! This graph is going to help you overcome your next challenge: Find the slope of the line, and use that to make a navigation program that will follow that track.  Let’s start by moving to that blinking tile just to your right."
       soundGroup: vo
       groupReplacementMethod: replace
     - soundName: "SCVO9_Rover"
