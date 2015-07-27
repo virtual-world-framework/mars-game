@@ -48,11 +48,7 @@ properties:
   # Manny
   - addToGrid:
     - rover
-    - [ -27, 31 ]
-  - callMethod:
-    - rover
-    - setHeading
-    - 0
+    - [ -30, 23 ]
   - setProperty:
     - rover
     - battery
@@ -106,7 +102,7 @@ properties:
 
   - setGridAxes:
     - 19
-    - -21
+    - -24
 
   # Draw the desired triangle
   - drawTriangle:
@@ -145,6 +141,11 @@ properties:
     - visible
     - false
 
+  - setProperty:
+    - cargoPod2
+    - rotation
+    - [0 ,0 ,1 , -45]
+
 children:
   triggerManager:
     extends: ../triggers/triggerManager.vwf
@@ -170,7 +171,7 @@ children:
           actions:
             - addToGrid:
               - rover2
-              - [ -31, 19 ]
+              - [ -31, 22 ]
 
         openMissionBrief_4_2:
           triggerCondition:

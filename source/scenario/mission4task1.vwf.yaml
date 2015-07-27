@@ -23,7 +23,7 @@ properties:
 
   # objective
   - setObjective:
-    - "Lay down nanobuilders in a triangle with vertices at (-10,0), (-10,3), and (-13,0)."
+    - "Lay down nanobuilders in a triangle with vertices at (-7,0), (-7,3), and (-10,0)."
 
   # sound/video
   - playSound:
@@ -51,11 +51,7 @@ properties:
   # Manny
   - addToGrid:
     - rover
-    - [ -27, 31 ]
-  - callMethod:
-    - rover
-    - setHeading
-    - 0
+    - [ -30, 23 ]
   - setProperty:
     - rover
     - battery
@@ -73,7 +69,7 @@ properties:
   # Perry
   - addToGrid:
     - rover2
-    - [ -25, 31 ]
+    - [ -31, 22 ]
   - setProperty:
     - rover2
     - visible
@@ -109,12 +105,12 @@ properties:
 
   - setGridAxes:
     - 19
-    - -21
+    - -24
 
   - drawTriangle:
+    - [ -7, 0 ]
+    - [ -7, 3 ]
     - [ -10, 0 ]
-    - [ -10, 3 ]
-    - [ -13, 0 ]
 
   #Disable blocklyLine
   - setProperty:
@@ -165,11 +161,11 @@ children:
             - not:
               - isAtPosition:
                 - rover2
-                - [ -25, 31 ]
+                - [ -31, 22 ]
           actions:
             - addToGrid:
               - rover2
-              - [ -25, 31 ]
+              - [ -31, 22 ]
 
         succeedOnTriangle_4_1:
           group: successOrFailure
@@ -177,7 +173,7 @@ children:
           triggerCondition:
           - onBlocklyPolygon:
             - rover2
-            - [ [ -10, 0 ], [ -10, 3 ], [ -13, 0 ] ]
+            - [ [ -7, 0 ], [ -7, 3 ], [ -10, 0 ] ]
           actions:
           - writeToBlackboard:
             - disableFailOnIncompleteProgram

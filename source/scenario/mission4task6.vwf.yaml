@@ -48,11 +48,7 @@ properties:
   # Manny
   - addToGrid:
     - rover
-    - [ -27, 31 ]
-  - callMethod:
-    - rover
-    - setHeading
-    - 0
+    - [ -30, 23 ]
   - setProperty:
     - rover
     - battery
@@ -107,7 +103,7 @@ properties:
   # Grid and disable blocklyLine
   - setGridAxes:
     - 19
-    - -21
+    - -24
   - setProperty:
     - blocklyLine
     - visible
@@ -125,16 +121,16 @@ properties:
 
   - addToGrid:
     - solarPanel1
-    - [ -24, 22 ]
+    - [ -27, 22 ]
   - addToGrid:
     - solarPanel2
-    - [ -18, 22 ]
+    - [ -21, 22 ]
   - addToGrid:
     - solarPanel3
-    - [ -24, 16 ]
+    - [ -27, 16 ]
   - addToGrid:
     - solarPanel4
-    - [ -18, 16 ]
+    - [ -21, 16 ]
 
   - setProperty:
     - solarPanel1
@@ -196,6 +192,11 @@ properties:
     - visible
     - false
 
+  - setProperty:
+    - cargoPod2
+    - rotation
+    - [0 ,0 ,1 , -45]
+
 children:
   triggerManager:
     extends: ../triggers/triggerManager.vwf
@@ -219,19 +220,19 @@ children:
             - not:
               - isAtPosition:
                 - rover2
-                - [ -21, 19 ]
+                - [ -24, 19 ]
             - not:
               - isAtPosition:
                 - rover2
-                - [ -21, 13 ]
+                - [ -24, 13 ]
             - not:
               - isAtPosition:
                 - rover2
-                - [ -15, 19 ]
+                - [ -18, 19 ]
           actions:
             - addToGrid:
               - rover2
-              - [ -21, 19 ]
+              - [ -24, 19 ]
 
         succeedOnTriangle_4_6:
           group: successOrFailure

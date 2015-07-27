@@ -302,7 +302,7 @@ properties:
     - soundName: "TM3VO1B_MC"
       soundURL: "assets/sounds/vo/newmission3vo1.ogg"
       initialVolume: 0.65
-      subtitle: "[MC]: Well, that was unexpected. He seems to be badly malfunctioning. Hopefully your scout rover will be able to perform his tasks, at least for now...In any case, your next task is to recover the Base Pod, which constains essential supplies for your mission. I am tracking the pod from my satellite view...Its coordinates are [6,15]. "
+      subtitle: "[MC]: Well, that was unexpected. He seems to be badly malfunctioning. Hopefully your scout rover will be able to perform his tasks, at least for now...In any case, your next task is to recover the Base Pod, which constains essential supplies for your mission. I am tracking the pod from my satellite view...Its coordinates are [-13,-9]."
       soundGroup: vo
       groupReplacementMethod: replace
     - soundName: "TM3VO2_Rover"
@@ -332,7 +332,7 @@ properties:
     - soundName: "TM3VO6_MC"
       soundURL: "assets/sounds/vo/newmission3vo6.ogg"
       initialVolume: 0.65
-      subtitle: "[MC]: Good work. Of course, that will only work if you're already facing up the Y axis. You need to change your Navigate Procedure so that it uses another while loop to turn and face up the Y axis. Your Direction Sensor will tell you what direction you're facing. 0 degrees is to the east, or right along the X axis. 90 degrees is to the north, or up the Y axis. 180 degrees is to the west, or left along the X axis. 270 degrees is to the south, or down the Y axis. I've provided a new test program to check your procedure is correct."
+      subtitle: "[MC]: Good work. Of course, that will only work if you're already facing down the Y axis. You need to change your Navigate Procedure so that it uses another while loop to turn and face down the Y axis. Your Direction Sensor will tell you what direction you're facing. 0 degrees is to the east, or right along the X axis. 90 degrees is to the north, or up the Y axis. 180 degrees is to the west, or left along the X axis. 270 degrees is to the south, or down the Y axis. I've provided a new test program to check your procedure is correct."
       soundGroup: vo
       groupReplacementMethod: queue
     - soundName: "TM3VO7_Rover"
@@ -344,7 +344,7 @@ properties:
     - soundName: "TM3VO8_MC"
       soundURL: "assets/sounds/vo/newmission3vo8.ogg"
       initialVolume: 0.65
-      subtitle: "[MC]: Nicely done. Of course, there's no sense in turning to face up the Y axis if you don't need to move in that direction. Let's make a conditional which checks whether a Y value of your position is less than that of your destination. A conditional is an 'if' block - you can find it in the Conditionals category of the Blockly palette. Once again, update your procedure and I'll provide the test program."
+      subtitle: "[MC]: Nicely done. Of course, there's no sense in turning to face down the Y axis if you don't need to move in that direction. Let's make a conditional which checks whether a Y value of your position is greater than that of your destination. A conditional is an 'if' block - you can find it in the Conditionals category of the Blockly palette. Once again, update your procedure and I'll provide the test program."
       soundGroup: vo
       groupReplacementMethod: queue
     - soundName: "TM3VO9_Rover"
@@ -356,7 +356,7 @@ properties:
     - soundName: "TM3V10_MC"
       soundURL: "assets/sounds/vo/newmission3vo10.ogg"
       initialVolume: 0.65
-      subtitle: "[MC]: Of course, this only helps if you want to go straight up the Y axis. For the next step, let's travel *down* the Y axis. Don't change what you already have, but duplicate it and then change the copy to handle travel in the -Y direction. You can duplicate it by right-clicking on the If block, and selecting 'Duplicate'."
+      subtitle: "[MC]: Of course, this only helps if you want to go straight down the Y axis. For the next step, let's travel *up* the Y axis. Don't change what you already have, but duplicate it and then change the copy to handle travel in the +Y direction. You can duplicate it by right-clicking on the If block, and selecting 'Duplicate'."
       soundGroup: vo
       groupReplacementMethod: queue
     - soundName: "TM3V11_Rover"
@@ -380,7 +380,7 @@ properties:
     - soundName: "TM3V14_MC"
       soundURL: "assets/sounds/vo/newmission3vo14.ogg"
       initialVolume: 0.65
-      subtitle: "[MC]: Of course, sometimes you need to move to the left and right as well. Let's try going to the right. Make another duplicate of your original If block, and modify it to travel in the +X direction."
+      subtitle: "[MC]: Of course, sometimes you need to move to the left and right as well. Let's try going to the left. Make another duplicate of your original If block, and modify it to travel in the -X direction."
       soundGroup: vo
       groupReplacementMethod: queue
     - soundName: "TM3V15_Rover"
@@ -392,13 +392,13 @@ properties:
     - soundName: "TM3V16_MC"
       soundURL: "assets/sounds/vo/newmission3vo16.ogg"
       initialVolume: 0.65
-      subtitle: "[MC]: Almost. You just need to handle travel in the -X direction."
+      subtitle: "[MC]: Almost. You just need to handle travel in the +X direction."
       soundGroup: vo
       groupReplacementMethod: queue
     - soundName: "TM3V17_MC"
       soundURL: "assets/sounds/vo/newmission3vo17.ogg"
       initialVolume: 0.65
-      subtitle: "[MC]: Well done! Now that your Navigate Procedure is working again, let's go get the base pod! As I said before, our satellite imagery shows that it landed at position [6,15]."
+      subtitle: "[MC]: Well done! Now that your Navigate Procedure is working again, let's go get the base pod! As I said before, our satellite imagery shows that it landed at position [-13,9]."
       soundGroup: vo
       groupReplacementMethod: replace
     - soundName: "M3VO1_Rover"

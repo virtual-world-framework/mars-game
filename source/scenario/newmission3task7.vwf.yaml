@@ -50,7 +50,7 @@ properties:
   #Manny
   - addToGrid:
     - rover
-    - [ -17, 32 ]
+    - [ -30, 23 ]
   - selectRover:
     - rover
   - setProperty:
