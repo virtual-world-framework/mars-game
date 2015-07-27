@@ -50,7 +50,11 @@ properties:
   #Manny
   - addToGrid:
     - rover
-    - [ -30, 23 ]
+    - [ -17, 32 ]
+  - callMethod:
+    - rover
+    - setHeading
+    - 180
   - selectRover:
     - rover
   - setProperty:
@@ -126,7 +130,7 @@ children:
           - delay:
             - 11
             - openMissionBrief:
-            
+
         highlightEndTile:
           triggerCondition:
           - onScenarioStart:
@@ -143,7 +147,7 @@ children:
               - rover
             - isAtPosition:
               - rover
-              - [ -19, 19 ]
+              - [ -30, 23 ]
           actions:
           - clearBlockly:
           - scenarioSuccess:

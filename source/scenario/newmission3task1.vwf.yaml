@@ -188,8 +188,8 @@ children:
         When a procedure block is used it will execute all of the steps defined in the
         procedure definition through the use of a single block! Isn't that handy?
         <br><br>Mission Control has downloaded a simple procedure definition for you
-        which moves you forward if your destination location is further in the positive-Y
+        which moves you forward if your destination location is further in the negative-Y
         direction than your current position. She has also provided a test program 
-        through a procedure call, which attempts to navigate three spots up the positive-Y
-        direction. Start the program and see if it works!
+        through a procedure call, which attempts to navigate three spots down in the Y-direction. 
+        Start the program and see if it works!
         

@@ -398,7 +398,7 @@ properties:
     - soundName: "TM3V17_MC"
       soundURL: "assets/sounds/vo/newmission3vo17.ogg"
       initialVolume: 0.65
-      subtitle: "[MC]: Well done! Now that your Navigate Procedure is working again, let's go get the base pod! As I said before, our satellite imagery shows that it landed at position [-13,9]."
+      subtitle: "[MC]: Well done! Now that your Navigate Procedure is working again, let's go get the base pod! As I said before, our satellite imagery shows that it landed at position [-13,-9]."
       soundGroup: vo
       groupReplacementMethod: replace
     - soundName: "M3VO1_Rover"
