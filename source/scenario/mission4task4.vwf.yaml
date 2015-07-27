@@ -49,6 +49,10 @@ properties:
   - addToGrid:
     - rover
     - [ -30, 23 ]
+  - callMethod:
+    - rover
+    - setHeading
+    - 180
   - setProperty:
     - rover
     - battery

@@ -52,6 +52,10 @@ properties:
   - callMethod:
     - rover
     - setHeading
+    - 180
+  - callMethod:
+    - rover
+    - setHeading
     - 0
   - setProperty:
     - rover

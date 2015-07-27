@@ -23,7 +23,7 @@ properties:
   startState:
   # objective
   - setObjective:
-    - "Edit the navigate procedure: Duplicate an if block and change the values to move East."
+    - "Edit the navigate procedure: Duplicate an if block and change the values to move South-West towards [-3,-6]."
 
   # sounds/video
   - playSound:
@@ -102,6 +102,11 @@ properties:
     - 32
     - -17
 
+  - setProperty:
+    - cargoPod2
+    - rotation
+    - [0 ,0 ,1 , -45 ]
+
 children:
   triggerManager:
     extends: ../triggers/triggerManager.vwf
@@ -157,8 +162,8 @@ children:
       content: >
         Keep it up!
         <br><br>You'll also want to add the ability to move East and West. We'll start by 
-        adding East-movement functionality.
+        adding West-movement functionality.
         <br><br>Duplicate one of your "if" blocks again, and do similar changes to the ones 
-        you did to add South-movement funcationality in the previous task. Some further changes
+        you did to add North-movement funcationality in the previous task. Some further changes
         may be required. For instance, you will need to do comparisons using your current and desired
         x-coordinates as opposed to your y-coordinates. 

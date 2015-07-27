@@ -23,7 +23,7 @@ properties:
   startState:
   # objective
   - setObjective:
-    - "Edit the navigate procedure: Duplicate the if block and change the values to move South."
+    - "Edit the navigate procedure: Duplicate the if block and change the values to move up to [0,-3]."
 
   # sounds/video
   - playSound:
@@ -102,6 +102,10 @@ properties:
   - setGridAxes:
     - 32
     - -17
+  - setProperty:
+    - cargoPod2
+    - rotation
+    - [0 ,0 ,1 , -45 ]
 
 children:
   triggerManager:
@@ -153,13 +157,13 @@ children:
       title: "Mission 3, Task 4"
       content: >
         You're getting closer to recreating the whole procedure!
-        <br><br>Currently you can only move North, you'll want to add functionality 
+        <br><br>Currently you can only move South, you'll want to add functionality 
         that lets you navigate to other directions as well. We'll begin by navigating
-        South.
-        <br><br>The code for navigating South should be very similar to the code
-        you currently use to navigate North. You can duplicate this code by right-clicking
+        North.
+        <br><br>The code for navigating North should be very similar to the code
+        you currently use to navigate South. You can duplicate this code by right-clicking
         the "if" block, attaching this new block to the end of the old "if" block, and making
-        some changes that will allow it to move South instead of North. Perhaps you'll want to pay 
+        some changes that will allow it to move North instead of South. Perhaps you'll want to pay 
         attention to the comparison between your current y-position and your destination's y-position.
-        Which one should be larger if you're planning on moving South? Also, you'll need to change the 
+        Which one should be larger if you're planning on moving North? Also, you'll need to change the 
         direction that you're comparing your current direction of travel to.
