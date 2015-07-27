@@ -136,6 +136,13 @@ children:
           - delay:
             - 15
             - openMissionBrief:
+            
+        highlightEndTile:
+          triggerCondition:
+          - onScenarioStart:
+          actions:
+          - callOutObjective:
+            - [ -20, 26 ]
  
         succeedOnSuccessfulMovement_3_5:
           group: successOrFailure

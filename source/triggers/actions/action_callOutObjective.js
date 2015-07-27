@@ -40,7 +40,7 @@ this.executeAction = function() {
         this.tileCoords[ 0 ],
         this.tileCoords[ 1 ]
     );
-
+    coords[2] = this.scene.environment.heightmap.getHeight( coords[0], coords[1] );
     this.scene.gridTileGraph.callOutTile.callOut( coords );
 }
 

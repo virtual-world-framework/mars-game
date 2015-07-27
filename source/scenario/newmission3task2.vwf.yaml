@@ -134,6 +134,13 @@ children:
             - 32
             - openMissionBrief:
 
+        highlightEndTile:
+          triggerCondition:
+          - onScenarioStart:
+          actions:
+          - callOutObjective:
+            - [ -17, 26 ]
+
         succeedOnSuccessfulMovement_3_2:
           group: successOrFailure
           priority: 0
