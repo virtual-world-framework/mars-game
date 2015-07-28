@@ -1,23 +1,10 @@
 <xml id="rover" style="display: none">
   
-  <category name="Rover">
-
-<!--    <block type="rover_moveRadial_absolute"></block> -->
+  <category name="NanoStrate Sprayer">
     <block type="math_number_out" id="184" inline="false" x="20" y="-220"><field name="VALUE">0</field></block>
     <block type="ordered_pair_config"></block>
-    <!--<block type="draw_triangle"></block>-->
     <block type="draw_triangle" id="10" inline="false" x="60" y="140"><value name="pointA"><block type="ordered_pair_config" id="16" movable="false" inline="true"><value name="XFIELD"><block type="math_number_out" id="184" inline="false" x="20" y="-220"><field name="VALUE">0</field></block></value><value name="YFIELD"><block type="math_number_out" id="184" inline="false" x="20" y="-220"><field name="VALUE">0</field></block></value></block></value><value name="pointB"><block type="ordered_pair_config" id="22" movable="false" inline="true"><value name="XFIELD"><block type="math_number_out" id="184" inline="false" x="20" y="-220"><field name="VALUE">0</field></block></value><value name="YFIELD"><block type="math_number_out" id="184" inline="false" x="20" y="-220"><field name="VALUE">0</field></block></value></block></value><value name="pointC"><block type="ordered_pair_config" id="28" movable="false" inline="true"><value name="XFIELD"><block type="math_number_out" id="184" inline="false" x="20" y="-220"><field name="VALUE">0</field></block></value><value name="YFIELD"><block type="math_number_out" id="184" inline="false" x="20" y="-220"><field name="VALUE">0</field></block></value></block></value></block>
-    <block type="controls_sensor_position_x"></block>
-    <block type="controls_sensor_position_y"></block>
   </category>
-<!--
-  <category name="Conditionals and Loops">
-    <block type="logic_cond_out"></block>
-    <block type="logic_andor_out"></block>
-    <block type="logic_boolean"></block>
-    <block type="controls_whileUntil"><field name="MODE">WHILE</field></block>
-  </category>
--->
   <category name="Numbers and Math">
     <block type="math_number_out" id="184" inline="false" x="20" y="-220"><field name="VALUE">0</field></block>
     <block type="ordered_pair_config"></block>
@@ -28,8 +15,5 @@
     <block type="graph_left_paren"></block>
     <block type="graph_right_paren"></block>
   </category>
-<!--
-  <category name="Procedures" custom="PROCEDURE">
-  </category>
--->
+
 </xml>

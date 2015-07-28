@@ -1,4 +1,4 @@
 <xml id="rover" style="display: none">
-  <category name="Control">
+  <category name="Movement">
   </category>
 </xml>
