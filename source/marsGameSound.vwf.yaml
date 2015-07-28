@@ -257,7 +257,7 @@ properties:
     - soundName: "L3VO2_Mission_S"
       soundURL: "assets/sounds/vo/L3VO2_Mission_S.ogg"
       initialVolume: 0.65
-      subtitle: "[MC]: Yes you are... you need to check if you can actually see the Mini Rover! For this you will need two new Blocks: the Conditional Loop Block, and the Metal Detected Block. The Conditional Loop will repeat programs until something happens. The Metal Detected Block detects nearby objects."
+      subtitle: "[MC]: Yes you are... you need to check if you can actually see the Mini Rover! For this you will need two new Blocks: the Conditional Loop Block, and the Metal Detected Block. The Conditional Loop Block will repeat programs until something happens. The Metal Detected Block detects nearby objects."
       soundGroup: vo
       groupReplacementMethod: queue
     - soundName: "L3VO3_Rover_S"
@@ -803,7 +803,7 @@ properties:
     - soundName: "ALVO28_Rover"
       soundURL: "assets/sounds/vo/ALVO28_Rover_m.ogg"
       initialVolume: 0.65
-      subtitle: "[ROVER]: Try using the Conditional Block to decide what to do after you scan."
+      subtitle: "[ROVER]: Try using the Conditional Loop Block to decide what to do after you scan."
       soundGroup: vo
       groupReplacementMethod: queue
     - soundName: "ALVO29_Rover"
