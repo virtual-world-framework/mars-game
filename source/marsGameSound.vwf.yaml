@@ -254,7 +254,7 @@ properties:
     - soundName: "L3VO2_Mission_S"
       soundURL: "assets/sounds/vo/L3VO2_Mission_S.ogg"
       initialVolume: 0.65
-      subtitle: "[MC]: Yes you are... you need to check if you can actually see the Mini Rover! For this you will need two new Blocks: the Conditional Loop Block, and the Scan Block. The Conditional Loop will repeat programs until something happens. The Scan Block detects nearby objects."
+      subtitle: "[MC]: Yes you are... you need to check if you can actually see the Mini Rover! For this you will need two new Blocks: the Conditional Loop Block, and the Metal Detected Block. The Conditional Loop will repeat programs until something happens. The Metal Detected Block detects nearby objects."
       soundGroup: vo
       groupReplacementMethod: queue
     - soundName: "L3VO3_Rover_S"
@@ -332,7 +332,7 @@ properties:
     - soundName: "TM3VO6_MC"
       soundURL: "assets/sounds/vo/newmission3vo6.ogg"
       initialVolume: 0.65
-      subtitle: "[MC]: Good work. Of course, that will only work if you're already facing down the Y axis. You need to change your Navigate Procedure so that it uses another while loop to turn and face down the Y axis. Your Direction Sensor will tell you what direction you're facing. 0 degrees is to the east, or right along the X axis. 90 degrees is to the north, or up the Y axis. 180 degrees is to the west, or left along the X axis. 270 degrees is to the south, or down the Y axis. I've provided a new test program to check your procedure is correct."
+      subtitle: "[MC]: Good work. Of course, that will only work if you're already facing down the Y axis. You need to change your Navigate Procedure so that it uses another while loop to turn and face down the Y axis. Your Direction Sensor will tell you what direction you're facing. 0 degrees is to the east, or right along the X axis. 90 degrees is to the north, or up the Y axis. 180 degrees is to the west, or left along the X axis. 270 degrees is to the south, or down the Y axis. I've provided a new test program that alters your initial heading so that we can test that your procedure is correct."
       soundGroup: vo
       groupReplacementMethod: queue
     - soundName: "TM3VO7_Rover"
@@ -794,7 +794,7 @@ properties:
     - soundName: "ALVO27_Rover"
       soundURL: "assets/sounds/vo/ALVO27_Rover_m.ogg"
       initialVolume: 0.65
-      subtitle: "[ROVER]: Try using the Scanblock to detect the Mini Rover."
+      subtitle: "[ROVER]: Try using the Metal Detected Block to detect the Mini Rover."
       soundGroup: vo
       groupReplacementMethod: queue
     - soundName: "ALVO28_Rover"
