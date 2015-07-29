@@ -40,7 +40,7 @@ properties:
     - rover
   - loadToolbox:
     - rover
-    - source/scenario/blockly/mission3.xml
+    - source/scenario/blockly/mission3b.xml
   - setProperty:
     - rover
     - blockly_xml

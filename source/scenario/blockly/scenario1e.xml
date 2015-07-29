@@ -1,5 +1,5 @@
 <xml id="rover" style="display: none">
-  <category name="Control">
+  <category name="Movement">
   <block type="rover_moveForward"></block>
   </category>
 </xml>

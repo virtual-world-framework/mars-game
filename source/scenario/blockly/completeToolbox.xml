@@ -5,7 +5,7 @@
 	  <block type="rover_turn"><field name="DIR">Turn: Right</field></block>
 	  <block type="rover_forever"></block>
   </category>
-  <category name="Graph">
+  <category name="Numbers and Math">
     <block type="graph_get_x"></block>
     <block type="graph_set_y"></block>
   </category>    

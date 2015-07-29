@@ -41,7 +41,7 @@ this.executeAction = function() {
     if ( object && scenario && soundMgr ) {
         object.construct();
         if ( object.deploySound ) {
-            soundMgr.playSound( object.deploySound );
+            soundMgr.future(1).playSound( object.deploySound );
         }
         if ( object.soundOnComplete ) {
             soundMgr.future( object.buildDuration ).playSound( object.soundOnComplete );
