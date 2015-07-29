@@ -617,6 +617,87 @@ Blockly.JavaScript['logic_andor_out' ] = function( block ) {
 
 };
 
+Blockly.Blocks[ 'logic_and' ] = {
+  init: function() {
+    this.setColour( 60 );
+    this.appendValueInput( "INPUT" )
+        .appendField("AND", "VALUE")
+        .setCheck( [ 'Boolean','Variable','LeftParenthesis','RightParenthesis' ] );
+    this.setOutput( true, "ANDOR" );
+    var thisBlock = this;
+    this.data = currentBlocklyNodeID;
+    this.setTooltip( function() {
+      var content = {
+        text: "A binary, logical AND block."
+      }
+      return showTooltipInBlockly( thisBlock, content );
+    } );
+  }
+};
+
+Blockly.JavaScript['logic_and' ] = function( block ) {
+  
+  var argument0 = Blockly.JavaScript.valueToCode(block, 'INPUT',
+      Blockly.JavaScript.ORDER_ATOMIC) || '';
+
+  return [ '&&' + argument0 , Blockly.JavaScript.ORDER_ATOMIC ];
+
+};
+
+Blockly.Blocks[ 'logic_or' ] = {
+  init: function() {
+    this.setColour( 60 );
+    this.appendValueInput( "INPUT" )
+        .appendField("OR", "VALUE")
+        .setCheck( [ 'Boolean','Variable','LeftParenthesis','RightParenthesis' ] );
+    this.setOutput( true, "ANDOR" );
+    var thisBlock = this;
+    this.data = currentBlocklyNodeID;
+    this.setTooltip( function() {
+      var content = {
+        text: "A binary, logical OR block."
+      }
+      return showTooltipInBlockly( thisBlock, content );
+    } );
+  }
+};
+
+Blockly.JavaScript['logic_or' ] = function( block ) {
+  
+  var argument0 = Blockly.JavaScript.valueToCode(block, 'INPUT',
+      Blockly.JavaScript.ORDER_ATOMIC) || '';
+
+  return [ '||' + argument0 , Blockly.JavaScript.ORDER_ATOMIC ];
+
+};
+
+Blockly.Blocks[ 'logic_not' ] = {
+  init: function() {
+    this.setColour( 60 );
+    this.appendValueInput( "INPUT" )
+        .appendField("NOT", "VALUE")
+        .setCheck( [ 'Boolean','Variable','LeftParenthesis','RightParenthesis' ] );
+    this.setOutput( true, "ANDOR" );
+    var thisBlock = this;
+    this.data = currentBlocklyNodeID;
+    this.setTooltip( function() {
+      var content = {
+        text: "A unary, logical NOT block."
+      }
+      return showTooltipInBlockly( thisBlock, content );
+    } );
+  }
+};
+
+Blockly.JavaScript['logic_not' ] = function( block ) {
+  
+  var argument0 = Blockly.JavaScript.valueToCode(block, 'INPUT',
+      Blockly.JavaScript.ORDER_ATOMIC) || '';
+
+  return [ '!' + argument0 , Blockly.JavaScript.ORDER_ATOMIC ];
+
+};
+
 Blockly.Blocks[ 'logic_boolean' ] = {
   init: function() {
     this.setColour( 60 );
