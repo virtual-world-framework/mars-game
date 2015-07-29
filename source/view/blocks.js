@@ -23,7 +23,6 @@ var BlocklyApps = {
 
 Blockly.Blocks['ordered_pair_config'] = {
   init: function() {
-    this.setHelpUrl('http://www.example.com/');
     this.setColour(105);
     this.appendDummyInput()
         .appendField("(");
@@ -53,7 +52,6 @@ Blockly.JavaScript['ordered_pair_config'] = function(block) {
 
 Blockly.Blocks['start_triangle'] = {
   init: function() {
-    this.setHelpUrl('http://www.example.com/');
     this.setColour(90);
     this.appendDummyInput()
         .appendField("startTriangle");
@@ -70,7 +68,6 @@ Blockly.JavaScript['start_triangle'] = function(block) {
 
 Blockly.Blocks['end_triangle'] = {
   init: function() {
-    this.setHelpUrl('http://www.example.com/');
     this.setColour(0);
     this.appendDummyInput()
         .appendField("endTriangle");
@@ -87,7 +84,6 @@ Blockly.JavaScript['end_triangle'] = function( block ) {
 
 Blockly.Blocks['mark_point'] = {
   init: function() {
-    this.setHelpUrl('http://www.example.com/');
     this.setColour(180);
     this.appendDummyInput()
         .appendField("markPoint")
@@ -123,7 +119,6 @@ Blockly.JavaScript['mark_point'] = function(block) {
 
 Blockly.Blocks['ordered_pair'] = {
   init: function() {
-    this.setHelpUrl('http://www.example.com/');
     this.setColour(75);
     this.appendValueInput("INPUT")
         .setCheck(['OperatorAddSubtract','OrderedGet'])
@@ -224,7 +219,6 @@ Blockly.JavaScript['ordered_pair'] = function( block ) {
 
 Blockly.Blocks['ordered_get'] = {
   init: function() {
-    this.setHelpUrl('http://www.example.com/');
     this.setColour(105);
     this.appendValueInput("INPUT")
         .setCheck(['OperatorAddSubtract','OperatorMultiplyDivide','LeftParenthesis','RightParenthesis','Conditional','ANDOR' ])
@@ -257,7 +251,6 @@ Blockly.JavaScript['ordered_get'] = function(block) {
 
 Blockly.Blocks['ordered_get_noin'] = {
   init: function() {
-    this.setHelpUrl('http://www.example.com/');
     this.setColour(75);
     this.appendDummyInput("")
         .appendField(new Blockly.FieldDropdown([[".x", ".x"], [".y", ".y"]]), "OPTION");
@@ -294,7 +287,6 @@ Blockly.Blocks[ 'variables_get' ] = {
    * @this Blockly.Block
    */
   init: function() {
-    this.setHelpUrl( 'http://google.com' );
     this.setColour( 330 );
     this.appendValueInput( 'INPUT' )
         .appendField( Blockly.Msg.VARIABLES_GET_TITLE )
@@ -424,7 +416,6 @@ Blockly.Blocks[ 'variables_get_noin' ] = {
    * @this Blockly.Block
    */
   init: function() {
-    this.setHelpUrl( 'http://google.com' );
     this.setColour( 330 );
     this.appendDummyInput('')
         .appendField( Blockly.Msg.VARIABLES_GET_TITLE )
@@ -736,7 +727,6 @@ Blockly.Blocks['controls_whileUntil'] = {
     var OPERATORS =
         [[Blockly.Msg.CONTROLS_WHILEUNTIL_OPERATOR_WHILE, 'WHILE'],
          [Blockly.Msg.CONTROLS_WHILEUNTIL_OPERATOR_UNTIL, 'UNTIL']];
-    this.setHelpUrl(Blockly.Msg.CONTROLS_WHILEUNTIL_HELPURL);
     this.setColour(120);
     this.appendValueInput('BOOL')
         .setCheck(['Boolean','Number','LeftParenthesis','Variable'])
@@ -802,7 +792,6 @@ Blockly.JavaScript['controls_whileUntil'] = function(block) {
 Blockly.Blocks['controls_if_nomut'] = {
   // If/elseif/else condition.
   init: function() {
-    this.setHelpUrl(Blockly.Msg.CONTROLS_IF_HELPURL);
     this.setColour(20);
     this.appendValueInput('IF0')
         .setCheck(['Boolean','LeftParenthesis','Variable'])
@@ -953,7 +942,6 @@ Blockly.Blocks['controls_if_nomut'] = {
 Blockly.Blocks['controls_if_else_nomut'] = {
   // If/elseif/else condition.
   init: function() {
-    this.setHelpUrl(Blockly.Msg.CONTROLS_IF_HELPURL);
     this.setColour(20);
     this.appendValueInput('IF0')
         .setCheck(['Boolean','LeftParenthesis','Variable'])
@@ -1470,7 +1458,6 @@ Blockly.JavaScript['rover_moveForward'] = function( block ) {
 
 Blockly.Blocks['rover_moveRadial_ordered'] = {
   init: function() {
-    this.setHelpUrl('http://www.example.com/');
     this.setColour(20);
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
@@ -1538,7 +1525,6 @@ Blockly.JavaScript['rover_moveRadial_ordered'] = function(block) {
 
 Blockly.Blocks['rover_moveRadial'] = {
   init: function() {
-    this.setHelpUrl('http://www.example.com/');
     this.setColour(20);
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
@@ -1583,7 +1569,6 @@ Blockly.JavaScript['rover_moveRadial'] = function(block) {
 
 Blockly.Blocks['rover_moveRadial_absolute'] = {
   init: function() {
-    this.setHelpUrl('http://www.example.com/');
     this.setColour(20);
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
@@ -1667,7 +1652,6 @@ Blockly.Blocks['draw_triangle'] = {
     this.setColour(315);
     this.data = currentBlocklyNodeID;
     this.setTooltip('');
-    this.setHelpUrl('http://www.example.com/');
   }
 };
 
@@ -2025,7 +2009,6 @@ Blockly.JavaScript['math_number_out_minus_one_limited' ] = function( block ) {
 Blockly.Blocks['math_number_field'] = {
   init: function() {
     this.setColour( 105 );
-    this.setHelpUrl('http://www.example.com/');
     this.appendValueInput("INPUT")
         .setCheck( [ 'OperatorAddSubtract','OperatorMultiplyDivide','Variable','LeftParenthesis','RightParenthesis','Conditional' ] )
         .appendField(new Blockly.FieldTextInput("1"), "VALUE");
@@ -2104,7 +2087,6 @@ Blockly.JavaScript['math_number_field'] = function( block ) {
 
 Blockly.Blocks['math_number_angle_select'] = {
   init: function() {
-    this.setHelpUrl('http://www.example.com/');
     this.setColour(120);
     this.appendValueInput("NAME")
         .setCheck(['Number','Variable','LeftParenthesis','OperatorAddSubtract','OperatorMultiplyDivide'])

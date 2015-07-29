@@ -1,20 +1,23 @@
-<xml id="rover" style="display: none">
-  
-  <category name="Rover">
+<xml id="rover">
+  <category name="Movement">
     <block type="rover_moveForward"></block>
     <block type="rover_turn"><field name="DIR">Turn: Left</field></block>
+  </category>
+  <category name="Sensors">
     <block type="controls_sensor_metal"></block>
     <block type="controls_sensor_signal"></block>
     <block type="controls_sensor_heading"></block>
   </category>
-  <category name="Conditionals and Loops">
+  <category name="Conditionals">
     <block type="logic_cond_out"></block>
     <block type="logic_andor_out"></block>
     <block type="logic_boolean"></block>
+  </category>
+  <category name="Loops">
     <block type="controls_whileUntil"><field name="MODE">WHILE</field></block>
   </category>
-  <category name="Numbers and Math">
-    <block type="math_number_out" inline="false" x="20" y="-220"><field name="VALUE">0</field></block>
+  <category name="Math">
+    <block type="math_number_out" id="184" inline="false" x="20" y="-220"><field name="VALUE">0</field></block>
     <block type="graph_add"></block>
     <block type="graph_subtract"></block>
     <block type="graph_multiply"></block>
@@ -22,4 +25,7 @@
     <block type="graph_left_paren"></block>
     <block type="graph_right_paren"></block>
   </category>
+  <category name="Procedures" custom="PROCEDURE">
+  </category>
+
 </xml>
