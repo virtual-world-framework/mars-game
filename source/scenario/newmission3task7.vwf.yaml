@@ -45,7 +45,11 @@ properties:
   - loadToolbox:
     - rover
     - source/scenario/blockly/mission3c.xml
-  - resetRoverSensors:
+  - delay:
+    - .5  
+    - callMethod:
+      - rover
+      - resetSensors
 
   #Manny
   - addToGrid:
