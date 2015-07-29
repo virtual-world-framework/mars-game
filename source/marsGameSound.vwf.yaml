@@ -305,7 +305,7 @@ properties:
     - soundName: "TM3VO1B_MC"
       soundURL: "assets/sounds/vo/newmission3vo1.ogg"
       initialVolume: 0.65
-      subtitle: "[MC]: Well, that was unexpected. He seems to be badly malfunctioning. Hopefully your scout rover will be able to perform his tasks, at least for now...In any case, your next task is to recover the Base Pod, which constains essential supplies for your mission. I am tracking the pod from my satellite view...Its coordinates are [-13,-9]."
+      subtitle: "[MC]: Well, that was unexpected. He seems to be badly malfunctioning. Hopefully your scout rover will be able to perform his tasks, at least for now...In any case, your next task is to recover the Base Pod, which contains essential supplies for your mission. I am tracking the pod from my satellite view...Its coordinates are [-13,-9]."
       soundGroup: vo
       groupReplacementMethod: replace
     - soundName: "TM3VO2_Rover"
