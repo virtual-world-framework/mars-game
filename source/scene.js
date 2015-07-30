@@ -329,7 +329,15 @@ this.resetView = function() {
 this.restartGame = function() {
     this.sceneBlackboard = {};
     this.soundManager.stopAllSoundInstances();
-    this.storedScenario( this.activeScenarioPath );
+    this.storedScenario(this.activeScenarioPath);
+    this.blockly_activeNodeID = undefined;
+    this.blockly_interfaceVisible = false;
+    this.applicationState = "menu";
+}
+
+this.returnToMenu = function() {
+    this.sceneBlackboard = {};
+    this.soundManager.stopAllSoundInstances();
     this.blockly_activeNodeID = undefined;
     this.blockly_interfaceVisible = false;
     this.applicationState = "menu";

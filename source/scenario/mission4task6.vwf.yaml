@@ -16,7 +16,7 @@
 extends: ../scenario/scenario.vwf
 properties:
   scenarioName: Mission4Task6
-  nextScenarioPath: Mission5Task1
+  nextScenarioPath: "scenario_dummy"
 
   startState:
 
@@ -260,12 +260,15 @@ children:
               - rover2
               - stopExecution
             - clearBlockly:
-            - scenarioSuccess:
             - playSound:
               - musicSuccessShort
             - playSound:
               - PerryDusty
-
+          - delay:
+            - 8
+            - scenarioSuccess:
+            - returnToMenu:
+         
         scenarioEnded4_6:
           triggerCondition:
           - or: 
