@@ -952,12 +952,12 @@ properties:
       subtitle: "[ROVER]: What's up with all this turning? They can send a rover to Mars, but I can't drive in reverse and can only make right angle turns?! Hopefully it's just damage from the crash..."
       soundGroup: vo
       groupReplacementMethod: queue
-    - soundName: "CTVO2_Control"
-      soundURL: "assets/sounds/vo/CTVO2_Control.ogg"
-      initialVolume: 1.0
-      subtitle: "[MC]: Looks like you're headed into the Cartesian Plain, so named because it's big, wide, and flat."
-      soundGroup: vo
-      groupReplacementMethod: queue
+  #  - soundName: "CTVO2_Control"
+  #    soundURL: "assets/sounds/vo/CTVO2_Control.ogg"
+  #    initialVolume: 1.0
+  #    subtitle: "[MC]: Looks like you're headed into the Cartesian Plain, so named because it's big, wide, and flat."
+  #    soundGroup: vo
+  #    groupReplacementMethod: queue
     - soundName: "CTVO3"
       soundURL: "assets/sounds/vo/CTVO3.ogg"
       isLooping: true
