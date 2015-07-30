@@ -147,6 +147,9 @@ properties:
     # arguments: chosenRover (the rover's name as declared in the scenario i.e. rover, rover2, rover3)
     selectRover: "source/triggers/actions/action_selectRover.vwf"
 
+    # Returns the player to the menu, without the option to continue the game at a specific scenario (they can still start a new game).
+    returnToMenu: "source/triggers/actions/action_returnToMenu.vwf"
+
     # Delete one or multiple nanite systems by name
     # arguments: nodeName (add additional names to delete multiple systems)
     deleteNanites: "source/triggers/actions/action_deleteNanites.vwf"
