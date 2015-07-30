@@ -55,13 +55,15 @@ properties:
   - setGridAxes:
     - 22
     - 4
-
-  - addToGrid:
+  - addToWatchList:
     - supplies_1
-    - [ 8, 30 ]
-  - addToGrid:
+    - pickup
+  - setPickupActive:
+    - supplies_1
+    - true
+  - setPickupActive:
     - supplies_2
-    - [ 4, 46 ]
+    - true
   - enableBlocklyNodes:
     - rover
     - graph

@@ -82,6 +82,12 @@ properties:
   - setPickupActive:
     - radio
     - false
+  - setPickupActive:
+    - supplies_1
+    - true
+  - setPickupActive:
+    - supplies_2
+    - true
   - setProperty:
     - blocklyLine
     - opacity
