@@ -125,17 +125,6 @@ children:
           - playSound:
             - CTVO1_Rover
 
-        playTravelVO_2_3a:
-          triggerCondition:
-          - and:
-            - doOnce:
-            - isAtPosition:
-              - rover
-              - [ 6, 26 ]
-          actions:
-          - playSound:
-            - CTVO2_Control
-
         succeedOnSuccessfulMovement_3a:
           group: successOrFailure
           priority: 0
