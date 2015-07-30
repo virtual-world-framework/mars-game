@@ -37,7 +37,7 @@ properties:
     - source/scenario/blockly/mission4.xml
   - loadToolbox:
     - rover2
-    - source/scenario/blockly/mission4_perry.xml
+    - source/scenario/blockly/mission4_perry3.xml
 
   # sounds/music
   - playSound:
@@ -90,7 +90,7 @@ properties:
   - setProperty:
     - rover2
     - blockly_allowedBlocks
-    - 30
+    - 14
   - setProperty:
     - rover2
     - lowRam

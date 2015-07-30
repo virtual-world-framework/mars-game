@@ -46,7 +46,7 @@ properties:
     - source/scenario/blockly/mission4.xml
   - loadToolbox:
     - rover2
-    - source/scenario/blockly/mission4_perry.xml
+    - source/scenario/blockly/mission4_perry1.xml
  
   # Manny
   - addToGrid:
@@ -93,7 +93,7 @@ properties:
   - setProperty:
     - rover2
     - blockly_allowedBlocks
-    - 30
+    - 10
   - setProperty:
     - rover2
     - lowRam
