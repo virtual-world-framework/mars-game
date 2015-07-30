@@ -51,9 +51,6 @@ properties:
   - addToGrid:
     - blocklyGraph
     - [ 0, 14 ]
-  - addToGrid:
-    - supplies_1
-    - [ 8, 30 ]
   - setGridAxes:
     - 14
     - 0
@@ -66,6 +63,12 @@ properties:
   - setPickupActive:
     - radio
     - false
+  - setPickupActive:
+    - supplies_1
+    - true
+  - setPickupActive:
+    - supplies_2
+    - true
   - enableBlocklyNodes:
     - rover
     - graph

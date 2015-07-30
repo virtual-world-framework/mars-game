@@ -55,13 +55,15 @@ properties:
   - setGridAxes:
     - 22
     - 4
-
-  - addToGrid:
+  - addToWatchList:
     - supplies_1
-    - [ 8, 30 ]
-  - addToGrid:
+    - pickup
+  - setPickupActive:
+    - supplies_1
+    - true
+  - setPickupActive:
     - supplies_2
-    - [ 4, 46 ]
+    - true
   - enableBlocklyNodes:
     - rover
     - graph
@@ -122,17 +124,6 @@ children:
           actions:
           - playSound:
             - CTVO1_Rover
-
-        playTravelVO_2_3a:
-          triggerCondition:
-          - and:
-            - doOnce:
-            - isAtPosition:
-              - rover
-              - [ 6, 26 ]
-          actions:
-          - playSound:
-            - CTVO2_Control
 
         succeedOnSuccessfulMovement_3a:
           group: successOrFailure

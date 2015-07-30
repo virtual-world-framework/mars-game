@@ -41,10 +41,6 @@ properties:
     - rover
     - batteryMax
     - 40
-  - setProperty:
-    - supplies_1
-    - visible
-    - false
 
   - setProperty:
     - rover
@@ -59,9 +55,12 @@ properties:
   - addToGrid:
     - blocklyGraph
     - [ 8, 30 ]
-  - addToGrid:
+  - setPickupActive:
+    - supplies_1
+    - false
+  - setPickupActive:
     - supplies_2
-    - [ 4, 46 ]
+    - true
   - setGridAxes:
     - 30
     - 8

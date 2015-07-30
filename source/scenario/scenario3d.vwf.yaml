@@ -45,14 +45,6 @@ properties:
     - rover
     - blockly_allowedBlocks
     - 12
-  - setProperty:
-    - supplies_1
-    - visible
-    - false
-  - setProperty:
-    - supplies_2
-    - visible
-    - false
   - addToGrid:
     - rover
     - [ 4, 46 ]
@@ -62,6 +54,12 @@ properties:
   - addToGrid:
     - blocklyGraph
     - [ 4, 46 ]
+  - setPickupActive:
+    - supplies_1
+    - false
+  - setPickupActive:
+    - supplies_2
+    - false
   - setGridAxes:
     - 46
     - 4

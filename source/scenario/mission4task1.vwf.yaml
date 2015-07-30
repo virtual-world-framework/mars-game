@@ -39,11 +39,7 @@ properties:
 
   # blockly
   - enableBlocklyNodes:
-    - rover
     - rover2
-  - loadToolbox:
-    - rover
-    - source/scenario/blockly/mission4.xml
   - loadToolbox:
     - rover2
     - source/scenario/blockly/mission4_perry.xml

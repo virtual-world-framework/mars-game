@@ -632,8 +632,12 @@ children:
         extends: source/pickups/signal.vwf
       supplies_1:
         extends: source/pickups/supplies.vwf
+        properties:
+          tilePosition: [ 8, 30 ]
       supplies_2:
         extends: source/pickups/supplies.vwf
+        properties:
+          tilePosition: [ 4, 46 ]
       helicam:
         extends: source/pickups/helicam.vwf
         properties:
