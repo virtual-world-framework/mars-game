@@ -1,0 +1,8 @@
+<xml id="rover" style="display: none">
+  
+  <category name="Numbers and Math">
+    <block type="math_number_out_seven_limited" inline="false" edtiable="false" x="20" y="-220"><field name="VALUE">7</field></block>
+    <block type="graph_add"></block>
+  </category>
+
+</xml>
