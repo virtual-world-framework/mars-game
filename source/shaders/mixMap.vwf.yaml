@@ -16,6 +16,7 @@
 extends: http://vwf.example.com/shaderMaterial.vwf
 properties:
   lights: true
+  fog: true
   triangle:
     set: |
       this.setDefine( "MAX_TRIS", value.length );
@@ -164,6 +165,18 @@ properties:
     shadowMatrix:
       type: "m4v"
       value: []
+    fogColor:
+      type: "c"
+      value: 0x000000
+    fogDensity:
+      type: "f"
+      value: 0.05
+    fogNear:
+      type: "f"
+      value: 1
+    fogFar:
+      type: "f"
+      value: 1000
   vertexShader: |
     #ifdef USE_SHADOWMAP
       varying vec4 vShadowCoord[ MAX_SHADOWS ];
@@ -258,6 +271,15 @@ properties:
         float depth = dot( rgba_depth, bit_shift );
         return depth;
       }
+    #endif
+    #ifdef USE_FOG
+      uniform vec3 fogColor;
+      #ifdef FOG_EXP2
+        uniform float fogDensity;
+      #else
+        uniform float fogNear;
+        uniform float fogFar;
+      #endif
     #endif
     varying vec2 vUv;
     varying vec3 vWorldPosition;
@@ -573,4 +595,15 @@ properties:
         }
       #endif
       // PROJECTED GRID SHADER END
+      #ifdef USE_FOG
+        float depth = gl_FragCoord.z / gl_FragCoord.w;
+        #ifdef FOG_EXP2
+          const float LOG2 = 1.442695;
+          float fogFactor = exp2( - fogDensity * fogDensity * depth * depth * LOG2 );
+          fogFactor = 1.0 - clamp( fogFactor, 0.0, 1.0 );
+        #else
+          float fogFactor = smoothstep( fogNear, fogFar, depth );
+        #endif
+        gl_FragColor = mix( gl_FragColor, vec4( fogColor, gl_FragColor.w ), fogFactor );
+      #endif
     }

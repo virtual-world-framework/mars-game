@@ -16,6 +16,7 @@
 extends: http://vwf.example.com/shaderMaterial.vwf
 properties:
   lights: true
+  fog: true
   _elapsedTime: 0
   _lastTickTime: 0
   _duration: 5
@@ -119,6 +120,18 @@ properties:
     shadowMatrix:
       type: "m4v"
       value: []
+    fogColor:
+      type: "c"
+      value: 0x000000
+    fogDensity:
+      type: "f"
+      value: 0.05
+    fogNear:
+      type: "f"
+      value: 1
+    fogFar:
+      type: "f"
+      value: 1000
   updateFunction: |
     var time = Date.now() / 1000;
     if ( this._animating ) {
@@ -209,6 +222,15 @@ properties:
         float depth = dot( rgba_depth, bit_shift );
         return depth;
       }
+    #endif
+    #ifdef USE_FOG
+      uniform vec3 fogColor;
+      #ifdef FOG_EXP2
+        uniform float fogDensity;
+      #else
+        uniform float fogNear;
+        uniform float fogFar;
+      #endif
     #endif
     uniform float ceiling;
     uniform float lightTrailHeight;
@@ -448,6 +470,17 @@ properties:
         float light = ( vWorldPosition.z - cBot ) / lightTrailHeight;
         gl_FragColor.rgb += vec3( light );
       }
+      #ifdef USE_FOG
+        float depth = gl_FragCoord.z / gl_FragCoord.w;
+        #ifdef FOG_EXP2
+          const float LOG2 = 1.442695;
+          float fogFactor = exp2( - fogDensity * fogDensity * depth * depth * LOG2 );
+          fogFactor = 1.0 - clamp( fogFactor, 0.0, 1.0 );
+        #else
+          float fogFactor = smoothstep( fogNear, fogFar, depth );
+        #endif
+        gl_FragColor = mix( gl_FragColor, vec4( fogColor, gl_FragColor.w ), fogFactor );
+      #endif
     }
 methods:
   animate: |
