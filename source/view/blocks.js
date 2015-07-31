@@ -579,6 +579,114 @@ Blockly.JavaScript['logic_cond_out' ] = function( block ) {
   }
 };
 
+Blockly.Blocks[ 'logic_cond_eq_out' ] = {
+  init: function() {
+    this.setColour( 60 );
+    this.appendValueInput( "INPUT" )
+        .appendField("=" "VALUE")
+        .setCheck( [ 'Boolean','Variable','Number','OperatorAddSubtract','LeftParenthesis','RightParenthesis' ] );
+    this.setOutput( true, "Conditional" );
+    var thisBlock = this;
+    this.data = currentBlocklyNodeID;
+    this.setTooltip( function() {
+      var content = {
+        text: "An equal-to conditional operator block."
+      }
+      return showTooltipInBlockly( thisBlock, content );
+    } );
+  }
+};
+
+Blockly.JavaScript['logic_cond_eq_out' ] = function( block ) {
+  
+  var argument0 = Blockly.JavaScript.valueToCode(block, 'INPUT',
+      Blockly.JavaScript.ORDER_ATOMIC) || '';
+
+    return [ '===' + argument0, Blockly.JavaScript.ORDER_ATOMIC ];
+
+};
+
+Blockly.Blocks[ 'logic_cond_neq_out' ] = {
+  init: function() {
+    this.setColour( 60 );
+    this.appendValueInput( "INPUT" )
+        .appendField("≠" "VALUE")
+        .setCheck( [ 'Boolean','Variable','Number','OperatorAddSubtract','LeftParenthesis','RightParenthesis' ] );
+    this.setOutput( true, "Conditional" );
+    var thisBlock = this;
+    this.data = currentBlocklyNodeID;
+    this.setTooltip( function() {
+      var content = {
+        text: "A not-equal-to conditional operator block."
+      }
+      return showTooltipInBlockly( thisBlock, content );
+    } );
+  }
+};
+
+Blockly.JavaScript['logic_cond_neq_out' ] = function( block ) {
+  
+  var argument0 = Blockly.JavaScript.valueToCode(block, 'INPUT',
+      Blockly.JavaScript.ORDER_ATOMIC) || '';
+
+    return [ '!==' + argument0, Blockly.JavaScript.ORDER_ATOMIC ];
+
+};
+
+Blockly.Blocks[ 'logic_cond_gt_out' ] = {
+  init: function() {
+    this.setColour( 60 );
+    this.appendValueInput( "INPUT" )
+        .appendField(">" "VALUE")
+        .setCheck( [ 'Boolean','Variable','Number','OperatorAddSubtract','LeftParenthesis','RightParenthesis' ] );
+    this.setOutput( true, "Conditional" );
+    var thisBlock = this;
+    this.data = currentBlocklyNodeID;
+    this.setTooltip( function() {
+      var content = {
+        text: "A greater-than conditional operator block."
+      }
+      return showTooltipInBlockly( thisBlock, content );
+    } );
+  }
+};
+
+Blockly.JavaScript['logic_cond_gt_out' ] = function( block ) {
+  
+  var argument0 = Blockly.JavaScript.valueToCode(block, 'INPUT',
+      Blockly.JavaScript.ORDER_ATOMIC) || '';
+
+    return [ '>' + argument0, Blockly.JavaScript.ORDER_ATOMIC ];
+
+};
+
+Blockly.Blocks[ 'logic_cond_lt_out' ] = {
+  init: function() {
+    this.setColour( 60 );
+    this.appendValueInput( "INPUT" )
+        .appendField("<" "VALUE")
+        .setCheck( [ 'Boolean','Variable','Number','OperatorAddSubtract','LeftParenthesis','RightParenthesis' ] );
+    this.setOutput( true, "Conditional" );
+    var thisBlock = this;
+    this.data = currentBlocklyNodeID;
+    this.setTooltip( function() {
+      var content = {
+        text: "A less-than conditional operator block."
+      }
+      return showTooltipInBlockly( thisBlock, content );
+    } );
+  }
+};
+
+Blockly.JavaScript['logic_cond_lt_out' ] = function( block ) {
+  
+  var argument0 = Blockly.JavaScript.valueToCode(block, 'INPUT',
+      Blockly.JavaScript.ORDER_ATOMIC) || '';
+
+    return [ '<' + argument0, Blockly.JavaScript.ORDER_ATOMIC ];
+
+};
+
 Blockly.Blocks[ 'logic_andor_out' ] = {
   init: function() {
     this.setColour( 60 );
