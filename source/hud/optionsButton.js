@@ -15,6 +15,8 @@
 this.draw = function( context, position ) {
     if ( this.icon ) {
         context.drawImage( this.icon, position.x, position.y );
+    } else {
+        this.icon.onload = function () { context.drawImage( this.icon, position.x, position.y ); };
     }
 }
 
