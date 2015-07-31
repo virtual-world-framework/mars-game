@@ -583,7 +583,7 @@ Blockly.Blocks[ 'logic_cond_eq_out' ] = {
   init: function() {
     this.setColour( 60 );
     this.appendValueInput( "INPUT" )
-        .appendField("=" "VALUE")
+        .appendField("=", "VALUE")
         .setCheck( [ 'Boolean','Variable','Number','OperatorAddSubtract','LeftParenthesis','RightParenthesis' ] );
     this.setOutput( true, "Conditional" );
     var thisBlock = this;
@@ -610,7 +610,7 @@ Blockly.Blocks[ 'logic_cond_neq_out' ] = {
   init: function() {
     this.setColour( 60 );
     this.appendValueInput( "INPUT" )
-        .appendField("≠" "VALUE")
+        .appendField("≠", "VALUE")
         .setCheck( [ 'Boolean','Variable','Number','OperatorAddSubtract','LeftParenthesis','RightParenthesis' ] );
     this.setOutput( true, "Conditional" );
     var thisBlock = this;
@@ -637,7 +637,7 @@ Blockly.Blocks[ 'logic_cond_gt_out' ] = {
   init: function() {
     this.setColour( 60 );
     this.appendValueInput( "INPUT" )
-        .appendField(">" "VALUE")
+        .appendField(">", "VALUE")
         .setCheck( [ 'Boolean','Variable','Number','OperatorAddSubtract','LeftParenthesis','RightParenthesis' ] );
     this.setOutput( true, "Conditional" );
     var thisBlock = this;
@@ -664,7 +664,7 @@ Blockly.Blocks[ 'logic_cond_lt_out' ] = {
   init: function() {
     this.setColour( 60 );
     this.appendValueInput( "INPUT" )
-        .appendField("<" "VALUE")
+        .appendField("<", "VALUE")
         .setCheck( [ 'Boolean','Variable','Number','OperatorAddSubtract','LeftParenthesis','RightParenthesis' ] );
     this.setOutput( true, "Conditional" );
     var thisBlock = this;
