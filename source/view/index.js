@@ -791,7 +791,7 @@ function getBlocklyNodeIDByName( name ) {
 
 function updateBlocklyUI( blocklyNode ) {
     if ( Blockly.mainWorkspace ) {
-        Blockly.mainWorkspace.maxBlocks = blocklyNode.ramMax;a
+        Blockly.mainWorkspace.maxBlocks = blocklyNode.ramMax;
         Blockly.mainWorkspace.fireChangeEvent();
     }
 }
