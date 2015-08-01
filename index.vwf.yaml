@@ -16,11 +16,14 @@
 extends: http://vwf.example.com/scene.vwf
 implements:
   - "http://vwf.example.com/blockly/manager.vwf"
+  - "http://vwf.example.com/threejs/fogExp2.vwf"
 properties:
   enableShadows: true
   shadowMapCullFace: "back"
   ambientColor: [ 70, 65, 65 ]
-  backgroundColor: [ 225, 145, 75 ]
+  backgroundColor: [ 200, 160, 170 ]
+  fogexp_color: [ 200, 160, 170 ]
+  fogexp_density: 0.0075
   userObject: null
   blockly_autoClose: false
   activeScenarioPath:
