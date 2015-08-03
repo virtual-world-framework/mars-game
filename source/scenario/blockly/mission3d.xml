@@ -1,6 +1,6 @@
 <xml id="rover" style="display: none">
   <category name="Numbers and Math">
-    <block type="math_number_out" inline="false" x="20" y="-220"><field name="VALUE">0</field></block>
+    <block type="math_number_out" inline="false"><field name="VALUE">0</field></block>
     <block type="math_number_angle_select"><field name="VALUE">0</field></block>
     <block type="graph_add"></block>
     <block type="graph_subtract"></block>
