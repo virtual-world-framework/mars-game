@@ -44,8 +44,11 @@ properties:
   - setProperty:
     - rover
     - blockly_allowedBlocks
-    - 12
-
+    - 10
+  - setProperty:
+    - rover
+    - lowRam
+    - 1
   - addToGrid:
     - rover
     - [ 3, 20 ]

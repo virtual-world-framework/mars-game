@@ -44,7 +44,11 @@ properties:
   - setProperty:
     - rover
     - blockly_allowedBlocks
-    - 12
+    - 11
+  - setProperty:
+    - rover
+    - lowRam
+    - 1
   - setPickupActive:
     - supplies_1
     - false
