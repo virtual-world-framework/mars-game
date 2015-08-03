@@ -1,5 +1,5 @@
 <xml id="graph" style="display: none">
-  <category name="Numbers and Math">
+  <category name="Math">
       <block type="graph_set_y"></block>
       <block type="graph_get_x"></block>
   </category>

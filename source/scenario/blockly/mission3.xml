@@ -5,12 +5,11 @@
     <block type="rover_turn"><field name="DIR">Turn: Left</field></block>
   </category>
   <category name="Sensors">
+    <block type="controls_sensor_metal"></block>
+    <block type="controls_sensor_signal"></block>
     <block type="controls_sensor_heading"></block>
     <block type="controls_sensor_position_x"></block>
     <block type="controls_sensor_position_y"></block>
-  </category>
-  <category name="Loops">
-    <block type="controls_whileUntil"><field name="MODE">WHILE</field></block>
   </category>
   <category name="Conditionals">
     <block type="logic_cond_out"></block>
@@ -18,8 +17,11 @@
     <block type="logic_boolean"></block>
     <block type="controls_if_nomut"></block>
   </category>
-  <category name="Numbers and Math">
-    <block type="math_number_out" inline="false" x="20" y="-220"><field name="VALUE">0</field></block>
+  <category name="Loops">
+    <block type="controls_whileUntil"><field name="MODE">WHILE</field></block>
+  </category>
+  <category name="Math">
+    <block type="math_number_out" inline="false"><field name="VALUE">0</field></block>
     <block type="math_number_angle_select"><field name="VALUE">0</field></block>
     <block type="graph_add"></block>
     <block type="graph_subtract"></block>
