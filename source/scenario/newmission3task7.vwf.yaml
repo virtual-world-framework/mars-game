@@ -120,6 +120,10 @@ children:
           actions:
           - playSound:
             - TM3V17_MC
+          - setProperty:
+            - hud
+            - enabled
+            - false
 
         openMissionBrief_3_7:
           triggerCondition:
@@ -130,6 +134,10 @@ children:
           - delay:
             - 11
             - openMissionBrief:
+            - setProperty:
+              - hud
+              - enabled
+              - true
 
         highlightEndTile:
           triggerCondition:
