@@ -18,6 +18,7 @@ implements:
   - http://vwf.example.com/sceneGetter.vwf
 properties:
   visible: true
+  enabled: true
 methods:
   elementPreDraw:
   elementPostDraw:

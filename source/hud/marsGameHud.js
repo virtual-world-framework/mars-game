@@ -29,7 +29,7 @@ this.setAllEnabled = function( value ) {
 this.elementPreDraw = function( context, element ) {
     var alpha = 1;
     var time = Date.now() / 1000;
-    if ( !element.enabled ) {
+    if ( !element.enabled || !this.enabled ) {
         alpha = 0.5;
     } else if ( element.isBlinking ) {
         if ( time  - element.lastBlinkTime > element.blinkInterval ) {

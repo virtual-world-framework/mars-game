@@ -126,6 +126,10 @@ children:
             - TM3VO9_Rover
           - playSound:
             - TM3V10_MC
+          - setProperty:
+            - hud
+            - enabled
+            - false
 
         openMissionBrief_3_4:
           triggerCondition:
@@ -136,6 +140,10 @@ children:
           - delay:
             - 19
             - openMissionBrief:
+            - setProperty:
+              - hud
+              - enabled
+              - true
 
         highlightEndTile:
           triggerCondition:
