@@ -120,6 +120,28 @@ children:
           - playSound:
             - L3VO5_Rover
 
+        failOnMissingBlock_3c:
+          group: successOrFailure
+          priority: 1
+          triggerCondition:
+          - and:
+            - or:
+              - isBlockMissing:
+                - rover
+                - controls_repeat_ext
+              - isBlockMissing:
+                - rover
+                - controls_whileUntil
+              - isBlockMissing:
+                - rover
+                - controls_sensor_metal
+            - onBlocklyStarted:
+              - rover
+          actions:
+          - scenarioFailure:
+            - incomplete
+            - "You must next the loop block inside the conditional loop block."
+
         succeedOnSuccessfulMovement_3c:
           group: successOrFailure
           priority: 0

@@ -128,6 +128,25 @@ children:
           - playSound:
             - CTVO1_Rover
 
+        failOnMissingBlock_3a:
+          group: successOrFailure
+          priority: 1
+          triggerCondition:
+          - and:
+            - or:
+              - isBlockMissing:
+                - rover
+                - controls_whileUntil
+              - isBlockMissing:
+                - rover
+                - controls_sensor_metal
+            - onBlocklyStarted:
+              - rover
+          actions:
+          - scenarioFailure:
+            - incomplete
+            - "You must use the conditional loop block and the metal detected block."
+
         succeedOnSuccessfulMovement_3a:
           group: successOrFailure
           priority: 0

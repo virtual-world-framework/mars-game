@@ -119,5 +119,9 @@ properties:
     onGameLoaded: "source/triggers/clauses/clause_OnGameLoaded.vwf"
     onGameStarted: "source/triggers/clauses/clause_OnGameStarted.vwf"
 
+    # Checks if a certain kind of blockly block is currently being used in the workspace
+    # Arguments: rover type, blockly block type
+    isBlockMissing: "source/triggers/clauses/clause_IsBlockMissing.vwf"
+
 scripts:
 - source: generator_Clause.js
