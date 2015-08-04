@@ -33,31 +33,59 @@ children:
   # TODO: Find a clever way to do this without being order restricted.
   batteryMeter:
     includes: source/hud/batteryMeter.vwf
+    properties:
+      drawOrder: 1
   blocklyButton:
     includes: source/hud/blocklyButton.vwf
+    properties:
+      drawOrder: 2
   graphButton:
     includes: source/hud/graphButton.vwf
+    properties:
+      drawOrder: 3
   tilesButton:
     includes: source/hud/tilesButton.vwf
+    properties:
+      drawOrder: 4
   missionButton:
     includes: source/hud/missionButton.vwf
+    properties:
+      drawOrder: 5
   optionsButton:
     includes: source/hud/optionsButton.vwf
+    properties:
+      drawOrder: 6
   objective:
     includes: source/hud/objective.vwf
+    properties:
+      drawOrder: 7
   comms:
     includes: source/hud/comms.vwf
+    properties:
+      drawOrder: 8
   cameraSelector:
     includes: source/hud/cameraSelector.vwf
+    properties:
+      drawOrder: 9
   firstPersonButton:
     includes: source/hud/firstPersonButton.vwf
+    properties:
+      drawOrder: 10
   thirdPersonButton:
     includes: source/hud/thirdPersonButton.vwf
+    properties:
+      drawOrder: 11
   topDownButton:
     includes: source/hud/topDownButton.vwf
+    properties:
+      drawOrder: 12
   alertDisplay:
     includes: source/hud/alertDisplay.vwf
+    properties:
+      drawOrder: 13
   roverSelector:
     includes: source/hud/roverSelector.vwf
+    properties:
+      drawOrder: 14
 scripts:
   - source: marsGameHud.js
