@@ -792,7 +792,12 @@ function getBlocklyNodeIDByName( name ) {
 function updateBlocklyUI( blocklyNode ) {
     if ( Blockly.mainWorkspace ) {
         Blockly.mainWorkspace.maxBlocks = blocklyNode.ramMax;
-        Blockly.mainWorkspace.fireChangeEvent();
+
+        if ( Blockly.mainWorkspace.toolbox_.tree_.firstChild_ !== undefined ) {
+            setTimeout( function() { 
+                Blockly.mainWorkspace.toolbox_.tree_.setSelectedItem( Blockly.mainWorkspace.toolbox_.tree_.firstChild_ ); 
+                                }, 1000);
+        }
     }
 }
 
