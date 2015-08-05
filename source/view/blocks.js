@@ -291,7 +291,7 @@ Blockly.Blocks[ 'variables_get' ] = {
     this.appendValueInput( 'INPUT' )
         .appendField( Blockly.Msg.VARIABLES_GET_TITLE )
         .appendField( new Blockly.FieldVariable( Blockly.Msg.VARIABLES_GET_ITEM ), 'VAR' )
-        .appendField( "?", "VALUE" )
+        // .appendField( "?", "VALUE" )
         .appendField( Blockly.Msg.VARIABLES_GET_TAIL )
         .setCheck( [ 'Number','Boolean','Variable','OrderedGet','OperatorAddSubtract','OperatorMultiplyDivide','LeftParenthesis','RightParenthesis','Conditional','ANDOR' ] );
     this.setOutput( true );
@@ -346,15 +346,15 @@ Blockly.Blocks[ 'variables_get' ] = {
       return;
     }
     //Evaluate and return the code stored in the block.
-    var code = Blockly.JavaScript.variableDB_.getName( this.getFieldValue( 'VAR' ),
-      Blockly.Variables.NAME_TYPE );
-    var val = blocklyVariables[ code ];
+    // var code = Blockly.JavaScript.variableDB_.getName( this.getFieldValue( 'VAR' ),
+    //   Blockly.Variables.NAME_TYPE );
+    // var val = blocklyVariables[ code ];
 
-    if ( val === undefined ) {
-      val = '?';
-    }
+    // if ( val === undefined ) {
+    //   val = '?';
+    // }
     
-    this.setFieldValue( '(' + val + ')','VALUE' );
+    // this.setFieldValue( '(' + val + ')','VALUE' );
     
   }
 

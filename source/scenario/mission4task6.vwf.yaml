@@ -263,6 +263,7 @@ children:
           - delay:
             - 8
             - scenarioSuccess:
+            - clearEntireBlackboard:
             - returnToMenu:
          
         scenarioEnded4_6:

@@ -55,6 +55,10 @@ properties:
     # arguments: variableName
     clearBlackboardEntry: "source/triggers/actions/action_clearBlackboardEntry.vwf"
 
+    # clears all blackboard entries
+    # arguments: none
+    clearEntireBlackboard: "source/triggers/actions/action_clearEntireBlackboard.vwf"
+
     # delays for a fixed time, and then plays one or more actions
     # arguments: delay, action(s)
     delay: "source/triggers/actions/action_delay.vwf"
