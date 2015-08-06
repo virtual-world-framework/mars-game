@@ -16,12 +16,12 @@ children:
           actions:
           - stopAllSounds:
           - playVideo:
-            - successCutscene02_newAudio
+            - Success3
         succeedOnIntroDone:
           group: successOrFailure
           priority: 0
           triggerCondition:
           - onVideoPlayed:
-            - successCutscene02_newAudio
+            - Success3
           actions:
           - scenarioSuccess:
