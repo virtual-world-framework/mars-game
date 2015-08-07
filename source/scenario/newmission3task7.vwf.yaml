@@ -146,6 +146,15 @@ children:
           - callOutObjective:
             - [ -30, 23 ]
 
+        playTravelVO_m3t7:
+          triggerCondition:
+          - isAtPosition:
+            - rover
+            - [ -17, 28 ]
+          actions:
+          - playSound:
+            - CTVO4
+
         succeedOnSuccessfulMovement_3_7:
           group: successOrFailure
           priority: 0
