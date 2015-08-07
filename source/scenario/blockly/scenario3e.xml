@@ -8,7 +8,7 @@
   </category>
   <category name="Loops">
   <block type="controls_whileUntil"><field name="MODE">WHILE</field></block>
-  <block type="controls_repeat_ext"><value name="TIMES"><block type="math_number_out" inline="false" x="20" y="-220"><field name="VALUE">0</field></block></value></block>
+  <block type="controls_repeat_ext"><value name="TIMES"><block type="math_number_out" inline="false"><field name="VALUE">0</field></block></value></block>
   <block type="math_number_out" inline="false"><field name="VALUE">0</field></block>
   </category>
 </xml>

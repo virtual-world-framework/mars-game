@@ -552,7 +552,7 @@ Blockly.Blocks[ 'logic_cond_out' ] = {
     this.setColour( 60 );
     this.appendValueInput( "INPUT" )
         .appendField(new Blockly.FieldDropdown([["=", "==="],["≠", "!=="],[">", ">"],
-          ["<", "<"],[">=", ">="],["<=", "<="]]), "VALUE")
+          ["<", "<"],["≥", ">="],["≤", "<="]]), "VALUE")
         .setCheck( [ 'Boolean','Variable','Number','OperatorAddSubtract','LeftParenthesis','RightParenthesis' ] );
     this.setOutput( true, "Conditional" );
     var thisBlock = this;

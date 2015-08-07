@@ -74,15 +74,15 @@ function setUpBlocklyPeripherals() {
     //         }
     //     }
     // } );
-    $( "#blocklyWrapper" ).draggable( {
-        handle: "div#blocklyHandle",
-        scroll: false,
-        containment: "window",
-        drag: function( event, element ) {
-             $( ".blocklyWidgetDiv" ).css( "display", "none" );
-             blocklyResized();
-        }
-    } );
+    // $( "#blocklyWrapper" ).draggable( {
+    //     handle: "div#blocklyHandle",
+    //     scroll: false,
+    //     containment: "window",
+    //     drag: function( event, element ) {
+    //          $( ".blocklyWidgetDiv" ).css( "display", "none" );
+    //          blocklyResized();
+    //     }
+    // } );
     // $( "#blocklyWrapper" ).resizable({
     //     resize: function( event, ui ) {
     //         console.log('resize');
