@@ -1,15 +1,24 @@
 <xml id="rover" style="display: none">
+  
+  <category name="Movement">
+    <block type="rover_moveForward"></block>
+    <block type="rover_turn"><field name="DIR">Turn: Left</field></block>
+  </category>
+  <category name="Sensors">
+    <block type="controls_sensor_heading"></block>
+    <block type="controls_sensor_position_y"></block>
+  </category>
+  <category name="Loops">
+    <block type="controls_whileUntil"><field name="MODE">WHILE</field></block>
+  </category>
+  <category name="Conditionals">
+    <block type="logic_cond_out"></block>
+    <block type="controls_if_nomut"></block>
+  </category>
   <category name="Math">
-    <block type="math_number_out" inline="false"><field name="VALUE">0</field></block>
     <block type="math_number_angle_select"><field name="VALUE">0</field></block>
-    <block type="graph_add"></block>
-    <block type="graph_subtract"></block>
-    <block type="graph_multiply"></block>
-    <block type="graph_divide"></block>
-    <block type="graph_left_paren"></block>
-    <block type="graph_right_paren"></block>
   </category>
   <category name="Procedures">
-    <block type="procedures_callnoreturn" inline="false"><mutation name="navigate"><arg name="x-coordinate"></arg><arg name="y-coordinate"></arg></mutation><value name="ARG0"><block type="math_number_out" inline="false"><field name="VALUE">0</field></block></value><value name="ARG1"><block type="math_number_out" inline="false"><field name="VALUE">0</field></block></value></block>
+    <block type="variables_get" inline="false"><field name="VAR">y-coordinate</field></block>
   </category>
 </xml>

@@ -2,8 +2,11 @@
   <category name="Movement">
   <block type="rover_moveForward"></block>
   <block type="rover_turn"><field name="DIR">Turn: Left</field></block>
+  </category>
+  <category name="Loops">
   <block type="controls_repeat_ext"><value name="TIMES"><block type="math_number_out" inline="false"><field name="VALUE">2</field></block></value></block>
+  </category>
+  <category name="Math">
   <block type="math_number_out"><field name="VALUE">2</field></block>
   </category>
 </xml>
-
