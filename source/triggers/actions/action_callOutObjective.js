@@ -35,13 +35,14 @@ this.onGenerated = function( params, generator, payload ) {
 }
 
 this.executeAction = function() {
-    var tileMap = this.scene.tileMap;
-    var coords = tileMap.getWorldCoordFromTile(
-        this.tileCoords[ 0 ],
-        this.tileCoords[ 1 ]
-    );
-    coords[2] = this.scene.environment.heightmap.getHeight( coords[0], coords[1] );
-    this.scene.gridTileGraph.callOutTile.callOut( coords );
+    // var tileMap = this.scene.tileMap;
+    // var coords = tileMap.getWorldCoordFromTile(
+    //     this.tileCoords[ 0 ],
+    //     this.tileCoords[ 1 ]
+    // );
+    // coords[2] = this.scene.environment.heightmap.getHeight( coords[0], coords[1] );
+    // this.scene.gridTileGraph.callOutTile.callOut( coords );
+    this.scene.calloutTile( this.tileCoords.slice() );
 }
 
 //@ sourceURL=source/triggers/actions/action_callOutObjective.js

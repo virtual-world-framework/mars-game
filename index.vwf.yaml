@@ -92,6 +92,8 @@ methods:
   createNaniteSystem:
   deleteNaniteSystem:
   switchToHelicamView:
+  calloutTile:
+  removeCalloutTile:
 events:
   gameStarted:
   scenarioReset:
@@ -230,6 +232,8 @@ children:
               gridVisible: 0
               tilesVisible: 0
               tileColor: 0x3A4A40
+              calloutTile: [ 0, 0 ]
+              calloutHighlight: 0
               triangle: []
       environmentObjects:
         extends: http://vwf.example.com/node3.vwf

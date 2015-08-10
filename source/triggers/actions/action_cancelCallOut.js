@@ -27,7 +27,8 @@ this.onGenerated = function( params, generator, payload ) {
 }
 
 this.executeAction = function() {
-    this.scene.gridTileGraph.callOutTile.stopBlink();
+    // this.scene.gridTileGraph.callOutTile.stopBlink();
+    this.scene.removeCalloutTile();
 }
 
 //@ sourceURL=source/triggers/actions/action_cancelCallOut.js
