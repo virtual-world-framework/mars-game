@@ -138,6 +138,8 @@ properties:
           - readBlackboard:
             - stepThroughProgramHint
       actions:
+      - writeToBlackboard:
+        - disableFailOnIncompleteProgram
       - scenarioFailure:        
         - collision
       - delay:
@@ -161,6 +163,8 @@ properties:
           - readBlackboard:
             - blocklyTraceHint
       actions:
+      - writeToBlackboard:
+        - disableFailOnIncompleteProgram
       - scenarioFailure:        
         - collision
       - delay:
@@ -183,6 +187,8 @@ properties:
         - readBlackboard:
           - blocklyTraceHint
       actions:
+      - writeToBlackboard:
+        - disableFailOnIncompleteProgram
       - scenarioFailure:        
         - collision
       - playSound:

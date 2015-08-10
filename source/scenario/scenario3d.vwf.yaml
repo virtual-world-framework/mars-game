@@ -116,6 +116,8 @@ children:
           - onMoved:
             - rover
           actions:
+          - writeToBlackboard:
+            - disableFailOnIncompleteProgram
           - scenarioFailure:
             - lost
             - "You need to plot the course of the wayward rover before going to find it."
