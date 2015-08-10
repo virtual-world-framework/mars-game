@@ -114,7 +114,7 @@ a:active {
 }
 
 .blocklySvg {
-    background-color: rgba( 100, 100, 100, 0.50 );
+    background-color: rgba( 100, 100, 100, 1.0 );
     border-color: rgba( 255, 255, 255, 0.25 );
 }
 
@@ -402,6 +402,8 @@ a:active {
 
 .tooltip {
     width: 300px;
+    right: 10px;
+    bottom: 10px;
     background-color: rgba( 48, 64, 76, 0.75 );
     color: rgb( 193, 244, 255 );
     text-align: center;

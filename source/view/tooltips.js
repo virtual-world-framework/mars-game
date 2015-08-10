@@ -17,9 +17,9 @@ function showTooltip( x, y, content ) {
     tooltip.className = "tooltip";
     tooltip.innerHTML = tooltipContentToHTML( content );
     tooltip.style.position = "absolute";
-    tooltip.style.bottom = "110px";
-    tooltip.style.right = "10px";
-    document.body.appendChild( tooltip );
+
+    $( "#blocklyWrapper" ).append( tooltip );
+    //document.body.appendChild( tooltip );
 
     document.addEventListener("click", removeTooltipClick);
     document.addEventListener("mousemove", removeTooltipHoverout);
