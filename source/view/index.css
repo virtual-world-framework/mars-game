@@ -402,6 +402,8 @@ a:active {
 
 .tooltip {
     width: 300px;
+    right: 10px;
+    bottom: 10px;
     background-color: rgba( 48, 64, 76, 0.75 );
     color: rgb( 193, 244, 255 );
     text-align: center;
