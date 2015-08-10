@@ -13,7 +13,10 @@
     <block type="controls_whileUntil"><field name="MODE">WHILE</field></block>
   </category>
   <category name="Conditionals">
-    <block type="logic_cond_out"></block>
+    <block type="logic_cond_eq_out"></block>
+    <block type="logic_cond_neq_out"></block>
+    <block type="logic_cond_lt_out"></block>
+    <block type="logic_cond_gt_out"></block>
     <block type="logic_andor_out"></block>
     <block type="logic_boolean"></block>
     <block type="controls_if_nomut"></block>
