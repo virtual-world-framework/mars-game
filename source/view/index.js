@@ -224,9 +224,9 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
 
                     var hypot = Math.sqrt( ( xOffset * xOffset ) + ( yOffset * yOffset ) );
 
-                    //vwf_view.kernel.setProperty( blockNode, "blockly_timeBetweenLines", hypot );
+                    vwf_view.kernel.setProperty( blockNode, "blockly_timeBetweenLines", hypot );
                 } else {
-                    //vwf_view.kernel.setProperty( blockNode, "blockly_timeBetweenLines", blockTime );
+                    vwf_view.kernel.setProperty( blockNode, "blockly_timeBetweenLines", blockTime );
                 }
 
                 if ( blockID ) {
