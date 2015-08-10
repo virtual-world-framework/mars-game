@@ -779,42 +779,6 @@ children:
           visible: false
         events:
           lineGraphed:
-  gridTileGraph:
-    extends: http://vwf.example.com/graphtool/graph.vwf
-    properties:
-      graphScale: 3
-      gridInterval: 1
-      gridLineInterval: 4
-      gridLength: 1
-      xAxisVisible: false
-      yAxisVisible: false
-      zAxisVisible: false
-      gridVisible: false
-      graphVisible: false
-      axisOpacity: 1
-      gridOpacity: 1
-      renderTop: false
-      tileVisible: false
-    children:
-      callOutTile:
-        extends: http://vwf.example.com/graphtool/graphplane.vwf
-        properties:
-          origin: [ 0, 0, 0 ]
-          normal: [ 0, 0, 1 ]
-          rotationAngle: 90
-          size: 1
-          color: [ 255, 255, 255 ]
-          opacity: 0.5
-          doubleSided: false
-          renderTop: true
-          visible: false
-          isBlinking: false
-        methods:
-          callOut:
-          blink:
-          stopBlink:
-        scripts:
-          - source: source/callouttile.js
   graph:
     extends: http://vwf.example.com/node3.vwf
     implements: http://vwf.example.com/blockly/controller.vwf
