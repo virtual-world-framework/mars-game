@@ -179,14 +179,9 @@ children:
     properties:
       title: "Mission 3, Task 3"
       content: >
-        Good job on editing the procedure navigation!
-        <br><br>You should only need to turn if you're going to move. You'll need
-        to further edit your navigate procedure to reflect this.
-        <br><br>This will require the use of an "If" block, which can be found in
-        the "Conditionals" tab. The "do" section of the "If" block should
-        contain the rest of the actions currently in your procedure definition. The "If"
-        section should be a check of whether your current y-position is greater than that 
-        of your destination's. Your code should only execute if this is true.
-        <br><br>In order to use the value of your destination's y-position in the procedure
-        definition you'll need to right click the procedure definition, and chooose "Create get [variable name]".
-        You'll spawn a block representing the y-position of your destination location.
+        Good job editing your Navigation procedure!
+        <br><br> Let's ensure that you don't waste energy spinning in place when
+        you don't need to. You can do that by using an If block to check
+        whether the value reported by your Position Y sensor is greater than 
+        the y-coordinate that you're trying to move to. The If block is a new
+        block that only executes its contents if its condition is true.

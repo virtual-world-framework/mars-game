@@ -177,15 +177,9 @@ children:
       title: "Mission 3, Task 2"
       content: >
         The basic navigation procedure appears to be working!
-        <br><br>However, this procedure will only work properly if you're already facing 
-        South. You'll need to edit the procedure definition so that you turn to face the
-        right direction before you begin moving forward.
-        <br><br>To do this you'll need to use the while block, and you'll need to turn until something
-        is no longer true about the direction you're facing. This will require a comparison block,
-        which is found in the "Conditionals and Loops" tab, along with a Direction of Travel
-        block, which is found in the Rover tab. The Direction of Travel block updates to hold the 
-        degree value of the direction you're currently facing. 
-        <br><br>The test program turns you left if you're facing the right direction originally,
-        so that you're forced to turn back to the correct direction somehow. Look at the way it uses a while loop
-        as a hint on how to edit your procedure definition, you might need to change something regarding
-        the kind of comparison that is being done!
+        <br><br>Unfortunately, it will only work if you're already facing south. 
+        The next step is to edit the procedure so that it turns you to face 
+        south. You'll need to use a conditional loop block (like you used to
+        follow the minirover's tracks), along with your Direction of Travel 
+        sensor, to ensure that you turn the right amount.
+
