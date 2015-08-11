@@ -87,9 +87,9 @@ children:
     includes: source/hud/roverSelector.vwf
     properties:
       drawOrder: 14
-  roverPosition:
-    includes: source/hud/roverPosition.vwf
-    properties:
-      drawOrder: 15
+  # roverPosition:
+  #   includes: source/hud/roverPosition.vwf
+  #   properties:
+  #     drawOrder: 15
 scripts:
   - source: marsGameHud.js
