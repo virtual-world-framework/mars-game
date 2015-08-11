@@ -792,8 +792,7 @@ function getBlocklyNodeIDByName( name ) {
 function updateBlocklyUI( blocklyNode ) {
     if ( Blockly.mainWorkspace ) {
         Blockly.mainWorkspace.maxBlocks = blocklyNode.ramMax;
-
-        if ( Blockly.mainWorkspace.toolbox_.tree_.firstChild_ !== undefined && ( currentScenario === 'scenario1a' || currentScenario === 'scenario1b' || currentScenario === 'scenario1c' || currentScenario === 'scenario1d' || currentScenario === 'scenario1e' || currentScenario === 'scenario1f' || currentScenario === 'scenario1g' || currentScenario === 'scenario1h' || currentScenario === 'scenario2a' || currentScenario === 'scenario2b' || currentScenario === 'scenario2c' ) ) {
+        if ( Blockly.mainWorkspace.toolbox_.tree_.firstChild_ !== undefined && ( currentScenario === 'Mission1Task1' || currentScenario === 'Mission1Task2' || currentScenario === 'Mission1Task3' || currentScenario === 'Mission1Task4' || currentScenario === 'Mission1Task5' || currentScenario === 'Mission1Task6' || currentScenario === 'Mission1Task7' || currentScenario === 'Mission1Task8' || currentScenario === 'Mission2Task1' || currentScenario === 'Mission2Task2' || currentScenario === 'Mission2Task3' ) ) {
             setTimeout( function() { 
                 Blockly.mainWorkspace.toolbox_.tree_.setSelectedItem( Blockly.mainWorkspace.toolbox_.tree_.firstChild_ ); 
                                 }, 1000);
