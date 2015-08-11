@@ -21,6 +21,7 @@ properties:
     set: |
       this.setDefine( "MAX_TRIS", value.length );
       this.triangle = value;
+  bCallout$: false
   defines:
     MAX_TRIS: 0
   uniforms:
@@ -69,6 +70,12 @@ properties:
     tileMapSize:
       type: "v2"
       value: [ 0, 0 ]
+    calloutTile:
+      type: "v2"
+      value: [ 0, 0 ]
+    calloutHighlight:
+      type: "f"
+      value: 0
     mixMap:
       type: "t"
       value: 0
@@ -234,6 +241,8 @@ properties:
     uniform sampler2D tileMap;
     uniform vec2 tileMapOrigin;
     uniform vec2 tileMapSize;
+    uniform vec2 calloutTile;
+    uniform float calloutHighlight;
     #if MAX_TRIS > 0
       uniform vec2 triangle[ MAX_TRIS ];
     #endif
@@ -583,10 +592,16 @@ properties:
       }
       if ( tilesVisible == 1 ) {
         vec3 tileValue = extractTileValue( vWorldPosition.xy );
-        vec2 gridLine = vec2( gridInterval / 2.0 - mod( vWorldPosition.xy + gridOffset, gridInterval ) );
+        float intervalHalf = gridInterval / 2.0;
+        vec2 gridLine = vec2( intervalHalf - mod( vWorldPosition.xy + gridOffset, gridInterval ) );
         gridLine = max( gridLine, -1.0 * gridLine );
+        vec2 tilePosition = vec2( floor( ( vWorldPosition / gridInterval ) + 0.5 ) );
         if ( gridLine.x > tilePadding && gridLine.y > tilePadding && tileValue.r > 0.0 ) {
-          gl_FragColor.xyz += tileColor * 0.8;
+          if ( tilePosition.x == calloutTile.x && tilePosition.y == calloutTile.y ) {
+            gl_FragColor.xyz += tileColor * ( 0.8 + 1.0 * calloutHighlight );
+          } else {
+            gl_FragColor.xyz += tileColor * 0.8;
+          }
         }
       }
       #if MAX_TRIS > 0
@@ -607,3 +622,13 @@ properties:
         gl_FragColor = mix( gl_FragColor, vec4( fogColor, gl_FragColor.w ), fogFactor );
       #endif
     }
+methods:
+  callout: |
+    var highlight = this.calloutHighlight;
+    this.calloutHighlight = highlight === 0 ? 1 : 0;
+    if ( this.bCallout$ ) {
+      this.future( 0.25 ).callout();
+    }
+  stopCallout: |
+    this.bCallout$ = false;
+    this.calloutHighlight = 0;

@@ -24,7 +24,7 @@ properties:
   - setProperty:
     - videoManager  
     - url 
-    - [ "assets/video/successCutscene02_newAudio.mp4" ]
+    - [ "assets/video/Success3.mp4" ]
   # objective
   - setObjective:
     - "Graph a line that matches the slope of the tracks."

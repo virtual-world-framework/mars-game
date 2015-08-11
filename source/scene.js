@@ -519,4 +519,16 @@ this.removeAxisOffset = function( coordinate ) {
     return tilePosition;
 }
 
+this.calloutTile = function( coordinate ) {
+    var material = this.environment.terrain.material;
+    material.bCallout$ = true;
+    material.calloutTile = coordinate.slice();
+    material.callout();
+}
+
+this.removeCalloutTile = function() {
+    var material = this.environment.terrain.material;
+    material.stopCallout();
+}
+
 //@ sourceURL=source/scene.js

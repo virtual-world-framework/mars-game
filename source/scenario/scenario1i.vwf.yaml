@@ -17,13 +17,13 @@ children:
           actions:
           - stopAllSounds:
           - playVideo:
-            - success_cinematic
+            - Success1
 
         succeedOnIntroDone:
           group: successOrFailure
           priority: 0
           triggerCondition:
           - onVideoPlayed:
-            - success_cinematic
+            - Success1
           actions:
           - scenarioSuccess:

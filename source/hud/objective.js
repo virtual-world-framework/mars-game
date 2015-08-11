@@ -27,7 +27,11 @@ this.draw = function( context, position ) {
             context.globalAlpha = 1;
         }
         context.font = '16px Arial';
-        context.fillStyle = "rgb( 255, 255, 255 )";
+        context.fillStyle = "rgb( 0, 0, 0 )";
+        context.textAlign = "left";
+        context.textBaseline = "top";
+        context.fillText( this.text, position.x + 42, position.y + 8 );
+        context.fillStyle = "rgb( 210, 235, 255 )";
         context.textAlign = "left";
         context.textBaseline = "top";
         context.fillText( this.text, position.x + 40, position.y + 6 );
