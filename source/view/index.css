@@ -179,9 +179,9 @@ a:active {
     position: absolute;
     right: 10px;
     top: 15%;
-    background-color: rgba( 128, 128, 128, 0.5 );
+    background-color: rgb( 40, 40, 40 );
     border-radius: 8px;
-    border: 1px solid rgba( 255, 255, 255, 0.25 );
+    border: 1px solid rgb( 0, 0, 0 );
     visibility: hidden;
     pointer-events: none;
     z-index: 50;
@@ -205,7 +205,6 @@ a:active {
     -moz-user-select: none;     /* Firefox all */
     -ms-user-select: none;      /* IE 10+ */
     cursor: default;
-    background-color: rgba( 128, 128, 128, 0.5 );
 }
 
 #blocklyFooter {
@@ -272,7 +271,7 @@ a:active {
     background-position: bottom;
     background-repeat: no-repeat;
     display: inline-block;
-    color: rgba( 0, 0, 0, 0.75 );
+    color: rgba( 192, 192, 192, 0.75 );
     text-transform: uppercase;
     font-weight: bold;
     text-align: center;
