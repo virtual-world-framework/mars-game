@@ -6,6 +6,7 @@
   </category>
   <category name="Sensors">
     <block type="controls_sensor_heading"></block>
+    <block type="controls_sensor_position_x"></block>
     <block type="controls_sensor_position_y"></block>
   </category>
   <category name="Loops">
@@ -22,5 +23,6 @@
   </category>
   <category name="Procedures">
     <block type="variables_get" inline="false"><field name="VAR">y-coordinate</field></block>
+    <block type="variables_get" inline="false"><field name="VAR">x-coordinate</field></block>
   </category>
 </xml>
