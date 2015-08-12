@@ -13,13 +13,14 @@
 # limitations under the License.
 
 --- 
-extends: clauseProto.vwf
+extends: clauseProto_OnEvent.vwf
 
 implements: 
   - http://vwf.example.com/sceneGetter.vwf
+  - ../../blocklyObjectGetter.vwf
 
 properties:
   blockType:
 
 scripts:
-- source: clause_IsBlockMissing.js
+- source: clause_OnBlockMissing.js

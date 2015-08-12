@@ -122,21 +122,18 @@ children:
 
         failOnMissingBlock_3c:
           group: successOrFailure
-          priority: 1
+          priority: 3
           triggerCondition:
-          - and:
-            - or:
-              - isBlockMissing:
-                - rover
-                - controls_repeat_ext
-              - isBlockMissing:
-                - rover
-                - controls_whileUntil
-              - isBlockMissing:
-                - rover
-                - controls_sensor_metal
-            - onBlocklyStarted:
+          - or:
+            - onBlockMissing:
               - rover
+              - controls_repeat_ext
+            - onBlockMissing:
+              - rover
+              - controls_whileUntil
+            - onBlockMissing:
+              - rover
+              - controls_sensor_metal
           actions:
           - scenarioFailure:
             - incomplete

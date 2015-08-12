@@ -113,14 +113,11 @@ children:
 
         failOnMissingBlock_2f:
           group: successOrFailure
-          priority: 1
+          priority: 3
           triggerCondition:
-          - and:
-            - isBlockMissing:
-              - rover
-              - controls_repeat_ext
-            - onBlocklyStarted:
-              - rover
+          - onBlockMissing:
+            - rover
+            - controls_repeat_ext
           actions:
           - scenarioFailure:
             - incomplete

@@ -121,7 +121,7 @@ properties:
 
     # Checks if a certain kind of blockly block is currently being used in the workspace
     # Arguments: rover type, blockly block type
-    isBlockMissing: "source/triggers/clauses/clause_IsBlockMissing.vwf"
+    onBlockMissing: "source/triggers/clauses/clause_OnBlockMissing.vwf"
 
 scripts:
 - source: generator_Clause.js
