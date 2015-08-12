@@ -125,9 +125,9 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 blocklyStopped = false;
                 tabSwitched = false;
                 hideBlocklyLoopCount();
-                var speedButton = document.getElementById( "blocklySpeedButton" );
-                speedButton.style.opacity = 0.4;
-                speedButton.style.pointerEvents = "none";
+                //var speedButton = document.getElementById( "blocklySpeedButton" );
+                //speedButton.style.opacity = 0.4;
+                //speedButton.style.pointerEvents = "none";
                 break;
 
             case "blocklyStopped":
