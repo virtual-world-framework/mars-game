@@ -173,6 +173,6 @@ children:
       title: "Mission 3, Task 6"
       content: >
         You're almost done!
-        <br><br>Now the last thing you need to do is East-movement functionality. This is done
-        in a manner similar to the one you used in the last task to add West-movement functionality. 
+        <br><br>The last thing you need to do is add a clause which will move 
+        you to the East. 
 

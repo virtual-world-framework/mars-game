@@ -179,6 +179,6 @@ children:
       title: "Mission 3, Task 7"
       content: >
         You've successfully recreated the navigate procedure!
-        <br><br>Now that the program is complete make your own procedure call
-        to reach the base pod at coordinates [-13,-9]. There is no test programs anymore,
-        this is the real thing!
+        <br><br>Now that the procedure is complete, you can use it in programs
+        of your own. Do that now, and move to the base pod at coordinates 
+        (-13,-9).

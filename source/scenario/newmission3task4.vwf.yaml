@@ -176,13 +176,6 @@ children:
       title: "Mission 3, Task 4"
       content: >
         You're getting closer to recreating the whole procedure!
-        <br><br>Currently you can only move South, you'll want to add functionality 
-        that lets you navigate to other directions as well. We'll begin by navigating
-        North.
-        <br><br>The code for navigating North should be very similar to the code
-        you currently use to navigate South. You can duplicate this code by right-clicking
-        the "if" block, attaching this new block to the end of the old "if" block, and making
-        some changes that will allow it to move North instead of South. Perhaps you'll want to pay 
-        attention to the comparison between your current y-position and your destination's y-position.
-        Which one should be larger if you're planning on moving North? Also, you'll need to change the 
-        direction that you're comparing your current direction of travel to.
+        <br><br>Currently the procedure can only move South, but it needs to
+        be able to take you in any direction. As the next step, let's add  
+        another clause to your procedure that will move you to the North. 
