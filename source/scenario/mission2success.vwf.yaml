@@ -1,10 +1,9 @@
 ---
 extends: ../scenario/scenario.vwf
 properties:
-  scenarioName: Mission1Task9
-
-  nextScenarioPath: Mission2Task1
-  blockly: source/scenario/blockly/scenario1.xml
+  scenarioName: Mission2Success
+  scenePath: /
+  nextScenarioPath: "Mission3Task1"
 
 children:
   triggerManager:
@@ -17,13 +16,13 @@ children:
           actions:
           - stopAllSounds:
           - playVideo:
-            - Success1
+            - end_cinematic
 
         succeedOnIntroDone:
           group: successOrFailure
           priority: 0
           triggerCondition:
           - onVideoPlayed:
-            - Success1
+            - end_cinematic
           actions:
           - scenarioSuccess:

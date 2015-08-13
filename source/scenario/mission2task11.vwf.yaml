@@ -15,16 +15,16 @@
 ---
 extends: ../scenario/scenario.vwf
 properties:
-  scenarioName: Mission1Task8
+  scenarioName: Mission2Task11
 
   scenePath: /
-  nextScenarioPath: Mission1Task9
+  nextScenarioPath: "Mission2Success"
 
   startState:
   - setProperty:
     - videoManager  
     - url 
-    - [ "assets/video/Success1.webm", "assets/video/Success1.mp4" ]
+    - [ "assets/video/end_cinematic.webm", "assets/video/end_cinematic.mp4" ]
   - setProperty:
     - rover3
     - visible
@@ -36,95 +36,100 @@ properties:
   - setProperty:
     - rover
     - battery
-    - 25
+    - 40
   - setProperty:
     - rover
     - batteryMax
-    - 25
+    - 40
   - setProperty:
     - rover
     - blockly_allowedBlocks
-    - 25
+    - 11
   - setProperty:
     - rover
     - lowRam
-    - 5    
-
-  - callMethod:
-    - rover
-    - setHeading
-    - 180
-
+    - 1
+  - setPickupActive:
+    - supplies_1
+    - false
+  - setPickupActive:
+    - supplies_2
+    - false
   - addToGrid:
     - rover
-    - [ 0, 0 ]
-  - setPickupActive:
-    - helicam
-    - false
-  - setPickupActive:
-    - battery
-    - false
-  - setPickupActive:
-    - radio
-    - true
-  - addToWatchList:
-    - radio
-    - pickup
+    - [ 4, 46 ]
+  - addToGrid:
+    - blocklyGraph
+    - [ 4, 46 ]
+  - addToGrid:
+    - minirover
+    - [ -17, 32 ]
   - enableBlocklyNodes:
     - rover
+    - graph
   - loadToolbox:
     - rover
-    - source/scenario/blockly/scenario1h.xml
-  - setProperty:
-    - blocklyLine
-    - visible
-    - false
+    - source/scenario/blockly/scenario3e.xml
+  - loadToolbox:
+    - graph
+    - source/scenario/blockly/graph.xml
   - setProperty:
     - blocklyLine
     - opacity
-    - 0
+    - 1
   - selectRover:
     - rover
-
 children:
   triggerManager:
     extends: ../triggers/triggerManager.vwf
     properties: 
       triggers$:
-        beginScenario_1h:
+        beginScenario_3e:
           triggerCondition:
           - onScenarioStart:
           actions:
           - playSound:
-            - musicStandardGameplay
+            - musicLevel2
           - playSound:
             - environmentWind
+          - resetRoverSensors:
           - setObjective:
-            - "Move to the far end of the crash site and pick up the radio module."
-          - setProperty:
-            - graphButton
-            - enabled
-            - false
+            - "Build a program to follow the tracks until your scanner finds something."
+          - writeToBlackboard:
+            - metalPosition
+            - [ -17, 32 ]
+          - clearBlackboardEntry:
+            - Level3eTravel1
+          - stopSound:
+            - CTVO4
           - setThirdPersonStartPose:
             - [ 13, 15, -15 ]
 
-        playStartingVO_1h:
+        playStartingVO_3e:
           triggerCondition:
           - and:
             - doOnce:
             - onScenarioStart:
           actions:
           - playSound:
-            - L1VO16_Rover
+            - L3VO6_Mission
 
-        highlightEndTile:
+        playTravelVO_3c:
           triggerCondition:
-          - onScenarioStart:
+          - and:
+            - isAtPosition:
+              - rover
+              - [ -2, 42 ]
+            - not:
+              - readBlackboard:
+                - Level3eTravel1
           actions:
-          - callOutObjective:
-            - [ 0, 14 ]
+          - playSound:
+            - CTVO4
+          - writeToBlackboard:
+            - Level3eTravel1
 
-        succeedOnSuccess_1h:
+        succeedOnSuccessfulMovement_3e:
           group: successOrFailure
           priority: 0
           triggerCondition:
@@ -133,49 +138,16 @@ children:
               - rover
             - isAtPosition:
               - rover
-              - [ 0, 14 ]
+              - [ -17, 32 ]
           actions:
+          - clearBlockly:
           - scenarioSuccess:
           - showAlert:
-            - "You have picked up the radio!"
-          - clearBlockly:      
+            - "I found the minirover!"
+          - hideBlockly:
           - stopSound:
-            - musicStandardGameplay
-
-        playHint1_1h:
-          triggerCondition:
-          - and:
-            - doOnce:
-            - delay:
-              - 20
-          actions:
-          - playSound:
-            - ALVO36_Rover
-
-        failOnIncompleteProgram_1h:
-          group: successOrFailure
-          priority: -0.5
-          triggerCondition:
-          - and:
-            - doOnce:
-            - onBlocklyStopped:
-          actions:
-          - scenarioFailure:
-            - incomplete
-          - playSound:
-            - FCVO2_Rover
-          - playSound:
-            - ALVO22_Rover
-          - writeToBlackboard:
-            - disableFailOnIncompleteProgram
-
-        panToRadio_1h:
-          triggerCondition:
-          - and:
-            - delay:
-              - 17
-            - doOnce:
-          actions:
-          - panCamera:
-            - /pickups/radio
-            - 3
+            - musicLevel2
+          - clearBlackboardEntry:
+            - metalPosition
+          - stopSound:
+            - CTVO4
