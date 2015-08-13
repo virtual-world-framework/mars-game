@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and 
 # limitations under the License.
 
---- 
+---
 extends: http://vwf.example.com/scene.vwf
 implements:
   - "http://vwf.example.com/blockly/manager.vwf"
@@ -130,11 +130,6 @@ events:
 children:
   naniteSystems:
     extends: http://vwf.example.com/node3.vwf
-  # naniteTest:
-  #   extends: source/naniteParticle.vwf
-  #   properties:
-  #     start: [ 0, 6, 2 ]
-  #     stop: [ 0, 12, 2 ]
   mediaManager:
     extends: http://vwf.example.com/node.vwf
     children:
