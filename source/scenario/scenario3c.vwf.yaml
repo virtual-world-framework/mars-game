@@ -137,7 +137,7 @@ children:
           actions:
           - scenarioFailure:
             - incomplete
-            - "You must next the loop block inside the conditional loop block."
+            - "You must nest the loop block inside the conditional loop block."
 
         succeedOnSuccessfulMovement_3c:
           group: successOrFailure

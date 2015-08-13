@@ -121,7 +121,7 @@ children:
           actions:
           - scenarioFailure:
             - incomplete
-            - "You must a loop block."
+            - "You must use a loop block."
 
         succeedOnSuccessfulMovement_2f:
           group: successOrFailure

@@ -131,7 +131,7 @@ children:
 
         failOnMissingBlock_3e:
           group: successOrFailure
-          priority: 1
+          priority: 3
           triggerCondition:
           - or:
             - onBlockMissing:
