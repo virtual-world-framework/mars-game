@@ -25,7 +25,7 @@ properties:
     - "Reflect your previous triangle across the X axis."
 
   # blockly
-  - enableBlocklyNodes:
+  - setBlocklyContext:
     - rover2
   - loadToolbox:
     - rover2

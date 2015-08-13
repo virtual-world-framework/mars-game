@@ -67,9 +67,8 @@ properties:
   - setPickupActive:
     - supplies_2
     - true
-  - enableBlocklyNodes:
+  - setBlocklyContext:
     - rover
-    - graph
   - loadToolbox:
     - rover
     - source/scenario/blockly/scenario3a.xml

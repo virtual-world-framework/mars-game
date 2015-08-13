@@ -33,12 +33,15 @@ properties:
     rover:
       battery: 0
       maxBattery: 0
+      position: [ 0, 0 ]
     rover2:
       battery: 0
       maxBattery: 0
+      position: [ 0, 0 ]
     rover3:
       battery: 0
       maxBattery: 0
+      position: [ 0, 0 ]
   activeRover:
     set: |
       this.setActiveRover( value );

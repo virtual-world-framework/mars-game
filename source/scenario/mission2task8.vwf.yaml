@@ -67,8 +67,7 @@ properties:
   - setGridAxes:
     - 30
     - 8
-  - enableBlocklyNodes:
-    - rover
+  - setBlocklyContext:
     - graph
   - loadToolbox:
     - rover

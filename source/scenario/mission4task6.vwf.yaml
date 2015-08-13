@@ -16,7 +16,7 @@
 extends: ../scenario/scenario.vwf
 properties:
   scenarioName: Mission4Task6
-  nextScenarioPath: "scenario_dummy"
+  nextScenarioPath: ""
 
   startState:
 
@@ -25,7 +25,7 @@ properties:
     - "Reflect your previous triangle across both axes."
 
   # blockly
-  - enableBlocklyNodes:
+  - setBlocklyContext:
     - rover2
   - loadToolbox:
     - rover2

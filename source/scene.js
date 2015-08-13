@@ -430,14 +430,13 @@ this.selectBlocklyNode = function( nodeID ) {
     }
 }
 
-this.enableBlocklyNodes = function( nodes ) {
-    this.enableBlocklyTabs( nodes );
-    this.hud.roverSelector.showRoverIcons( true, nodes )
+this.setBlocklyContext = function( nodeID ) {
+    this.enableBlocklyTabs( [ nodeID ] );
+    this.future( 0.25 ).selectBlocklyNode( nodeID );
 }
 
-this.disableBlocklyNodes = function( nodes ) {
-    this.clearBlocklyTabs( nodes );
-    this.hud.roverSelector.showRoverIcons( false, nodes );
+this.clearBlocklyContext = function() {
+    this.clearBlocklyTabs();
 }
 
 this.drawSchematicTriangle = function( pointA, pointB, pointC ) {

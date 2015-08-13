@@ -62,7 +62,7 @@ properties:
   - addToGrid:
     - blocklyGraph
     - [ -41, 51 ]
-  - enableBlocklyNodes:
+  - setBlocklyContext:
     - rover
     - graph
   - loadToolbox:

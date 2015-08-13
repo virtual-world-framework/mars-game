@@ -73,8 +73,7 @@ properties:
   - setPickupActive:
     - supplies_2
     - true
-  - enableBlocklyNodes:
-    - rover
+  - setBlocklyContext:
     - graph
   - loadToolbox:
     - rover
