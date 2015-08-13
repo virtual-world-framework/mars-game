@@ -432,7 +432,7 @@ this.selectBlocklyNode = function( nodeID ) {
 
 this.setBlocklyContext = function( nodeID ) {
     this.enableBlocklyTabs( [ nodeID ] );
-    this.selectBlocklyNode( nodeID );
+    this.future( 0.25 ).selectBlocklyNode( nodeID );
 }
 
 this.clearBlocklyContext = function() {

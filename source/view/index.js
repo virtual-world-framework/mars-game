@@ -150,9 +150,9 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 }
 
                 blocklyStopped = true;
-                var speedButton = document.getElementById( "blocklySpeedButton" );
-                speedButton.style.opacity = 1.0;
-                speedButton.style.pointerEvents = "inherit";
+                // var speedButton = document.getElementById( "blocklySpeedButton" );
+                // speedButton.style.opacity = 1.0;
+                // speedButton.style.pointerEvents = "inherit";
                 
             case "blocklyErrored":
                 startBlocklyButton.className = "";
