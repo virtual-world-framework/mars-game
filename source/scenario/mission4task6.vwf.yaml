@@ -16,7 +16,7 @@
 extends: ../scenario/scenario.vwf
 properties:
   scenarioName: Mission4Task6
-  nextScenarioPath: "scenario_dummy"
+  nextScenarioPath: ""
 
   startState:
 

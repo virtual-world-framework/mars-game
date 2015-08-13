@@ -24,7 +24,7 @@ this.draw = function( context, position ) {
     var centerY = position.y + this.height / 2;
     var start = Math.PI * 1.5;
     var end = start - battery / maxBattery * Math.PI * 2;
-    var position = this.rovers[ this.activeRover ].position;
+    var tilePosition = this.rovers[ this.activeRover ].position;
     var readoutString, positionString;
     context.beginPath();
     context.arc( centerX, centerY, arcWidth / 2, start, end, true );
@@ -45,7 +45,7 @@ this.draw = function( context, position ) {
     context.fillStyle = "rgb(215,248,255)";
     context.textAlign = "center";
     readoutString = "BATTERY: " + Math.round( battery ) + " / " + maxBattery;
-    positionString = "POSITION: ( " + position[ 0 ] + ", " + position[ 1 ] + " )";
+    positionString = "POSITION: ( " + tilePosition[ 0 ] + ", " + tilePosition[ 1 ] + " )";
     context.fillText( readoutString, position.x + this.width / 2, position.y + this.height );
     context.fillText( positionString, position.x + this.width / 2, position.y + this.height + 12 );
 }

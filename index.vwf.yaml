@@ -661,8 +661,6 @@ children:
   ########################
   ###   Mission List   ###
   ########################
-  scenario_dummy:
-    includes: source/scenario/scenario_dummy.vwf
   introCinematic:
     includes: source/scenario/introCinematic.vwf
   Mission1Task1:
@@ -735,8 +733,6 @@ children:
     includes: source/scenario/mission4task5.vwf
   Mission4Task6:
     includes: source/scenario/mission4task6.vwf
-  Mission5Task1:
-    includes: source/scenario/mission5task1.vwf
   # TODO: Use only one graph object. No need for two.
   blocklyGraph:
     extends: http://vwf.example.com/graphtool/graph.vwf

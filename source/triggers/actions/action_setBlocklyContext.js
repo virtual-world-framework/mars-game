@@ -24,7 +24,7 @@ this.onGenerated = function( params, generator, payload ) {
         return false;
     }
 
-    this.nodeName = param[ 0 ];
+    this.nodeName = params[ 0 ];
     return true;
 }
 
