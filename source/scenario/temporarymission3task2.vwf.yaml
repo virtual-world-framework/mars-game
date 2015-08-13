@@ -74,8 +74,6 @@ properties:
   - writeToBlackboard:
     - metalPosition
     - [ -35, 66 ]
-  - clearBlackboardEntry:
-    - Level3eTravel1
   - stopSound:
     - CTVO4
 #  - setProperty:
@@ -109,14 +107,9 @@ children:
             - isAtPosition:
               - rover
               - [ -39, 56 ]
-            - not:
-              - readBlackboard:
-                - Level3eTravel1
           actions:
           - playSound:
             - CTVO4
-          - writeToBlackboard:
-            - Level3eTravel1
 
         succeedOnSuccessfulMovement_3e:
           group: successOrFailure

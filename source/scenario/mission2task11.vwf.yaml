@@ -98,8 +98,6 @@ children:
           - writeToBlackboard:
             - metalPosition
             - [ -17, 32 ]
-          - clearBlackboardEntry:
-            - Level3eTravel1
           - stopSound:
             - CTVO4
           - setThirdPersonStartPose:
@@ -114,20 +112,36 @@ children:
           - playSound:
             - L3VO6_Mission
 
-        playTravelVO_3c:
+        playHint1_3e:
+          triggerCondition:
+          - and:
+            - not:
+              - readBlackboard:
+                - thisOneIsTrickyHint
+            - delay:
+              - 15
+            - or:
+              - hasHeading:
+                - rover
+                - 180
+              - hasHeading:
+                - rover
+                - 270
+          actions:
+          - writeToBlackboard:
+            - thisOneIsTrickyHint
+          - playSound:
+            - ALVO37_Rover
+
+        playTravelVO_3e:
           triggerCondition:
           - and:
             - isAtPosition:
               - rover
               - [ -2, 42 ]
-            - not:
-              - readBlackboard:
-                - Level3eTravel1
           actions:
           - playSound:
             - CTVO4
-          - writeToBlackboard:
-            - Level3eTravel1
 
         succeedOnSuccessfulMovement_3e:
           group: successOrFailure

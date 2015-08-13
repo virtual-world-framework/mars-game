@@ -104,8 +104,6 @@ children:
           - writeToBlackboard:
             - metalPosition
             - [ 4, 46 ]
-          - clearBlackboardEntry:
-            - Level3cTravel1
           - stopSound:
             - CTVO3
           - setThirdPersonStartPose:
@@ -146,31 +144,33 @@ children:
         playHint1_3c:
           triggerCondition:
           - and:
-            - doOnce:
-            - delay:
-              - 15
-            - hasHeading:
-              - rover
-              - 0
             - not:
               - readBlackboard:
-                - Level3cTravel1
+                - thisOneIsTrickyHint
+            - delay:
+              - 15
+            - or:
+              - hasHeading:
+                - rover
+                - 180
+              - hasHeading:
+                - rover
+                - 270
           actions:
+          - writeToBlackboard:
+            - thisOneIsTrickyHint
           - playSound:
             - ALVO37_Rover
 
         playTravelVO_3c:
           triggerCondition:
           - and:
-            - doOnce:
             - isAtPosition:
               - rover
               - [ 6, 38 ]
           actions:
           - playSound:
             - CTVO3
-          - writeToBlackboard:
-            - Level3cTravel1
 
         failOnIncompleteProgram_3c:
           group: successOrFailure
