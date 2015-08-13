@@ -115,6 +115,25 @@ children:
           - playSound:
             - L2VO9_Control
 
+        failOnMissingBlock_2_6:
+          group: successOrFailure
+          priority: 0.5
+          triggerCondition:
+          - and:
+            - onBlocklyStopped:
+              - rover
+            - isAtPosition:
+              - rover
+              - [ 3, 20 ]
+            - isBlockMissing:
+              - controls_repeat_ext
+          actions:
+          - showAlert:
+            - "The scenairo specific trigger fired!"
+          - scenarioFailure:
+            - incomplete
+            - "You should use the repeat block."
+
         succeedOnSuccessfulMovement_2f:
           group: successOrFailure
           priority: 0
