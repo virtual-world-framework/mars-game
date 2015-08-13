@@ -6,8 +6,8 @@
       <authoring_tool>OpenCOLLADA for 3ds Max;  Version: 1.4.1;  Revision: exported;  Platform: x64;  Configuration: Release_Max2012_static</authoring_tool>
       <source_data>file:///C:/Users/mcclurek/Desktop/MARS/PHASE1/Terrain_Models/MarsLevels_NewTerrain_SCENE_ANIMATIONS.max</source_data>
     </contributor>
-    <created>2015-08-05T07:57:32</created>
-    <modified>2015-08-05T07:57:32</modified>
+    <created>2015-08-13T08:34:39</created>
+    <modified>2015-08-13T08:34:39</modified>
     <unit name="meter" meter="1"/>
     <up_axis>Z_UP</up_axis>
   </asset>
@@ -59,7 +59,7 @@
               <color>0.9 0.9 0.9 1</color>
             </specular>
             <shininess>
-              <float>0</float>
+              <float>1</float>
             </shininess>
             <reflective>
               <color>0 0 0 1</color>

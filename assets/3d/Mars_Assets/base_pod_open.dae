@@ -6,8 +6,8 @@
       <authoring_tool>OpenCOLLADA for 3ds Max;  Version: 1.4.1;  Revision: exported;  Platform: x64;  Configuration: Release_Max2012_static</authoring_tool>
       <source_data>file:///C:/Users/mcclurek/Desktop/MARS/PHASE1/Terrain_Models/MarsLevels_NewTerrain_SCENE_ANIMATIONS.max</source_data>
     </contributor>
-    <created>2015-08-05T07:59:37</created>
-    <modified>2015-08-05T07:59:37</modified>
+    <created>2015-08-13T08:34:10</created>
+    <modified>2015-08-13T08:34:10</modified>
     <unit name="meter" meter="1"/>
     <up_axis>Z_UP</up_axis>
   </asset>
@@ -59,7 +59,7 @@
               <color>0.9 0.9 0.9 1</color>
             </specular>
             <shininess>
-              <float>0</float>
+              <float>1</float>
             </shininess>
             <reflective>
               <color>0 0 0 1</color>
@@ -269,20 +269,23 @@
         <instance_light url="#EnvironmentAmbientLight"/>
       </node>
       <node id="node-base_pod_open001" name="base_pod_open001">
-        <translate>-1.066757 1.417648 -1.858877</translate>
-        <instance_geometry url="#geom-base_pod_open001">
-          <bind_material>
-            <technique_common>
-              <instance_material symbol="base_pod" target="#base_pod-material">
-                <bind_vertex_input semantic="CHANNEL1" input_semantic="TEXCOORD" input_set="0"/>
-                <bind_vertex_input semantic="CHANNEL1" input_semantic="TEXCOORD" input_set="0"/>
-                <bind_vertex_input semantic="CHANNEL1" input_semantic="TEXCOORD" input_set="0"/>
-              </instance_material>
-            </technique_common>
-          </bind_material>
-        </instance_geometry>
+        <translate>0 0 2.54633</translate>
+        <node>
+          <matrix>1 0 0 0 0 1 0 8.67342e-9 0 0 1 -2.569656 0 0 0 1</matrix>
+          <instance_geometry url="#geom-base_pod_open001">
+            <bind_material>
+              <technique_common>
+                <instance_material symbol="base_pod" target="#base_pod-material">
+                  <bind_vertex_input semantic="CHANNEL1" input_semantic="TEXCOORD" input_set="0"/>
+                  <bind_vertex_input semantic="CHANNEL1" input_semantic="TEXCOORD" input_set="0"/>
+                  <bind_vertex_input semantic="CHANNEL1" input_semantic="TEXCOORD" input_set="0"/>
+                </instance_material>
+              </technique_common>
+            </bind_material>
+          </instance_geometry>
+        </node>
         <node id="node-base_pod_open_1" name="base_pod_open">
-          <translate>-2.583183 2.659184 2.54528</translate>
+          <translate>-2.583183 2.659184 -0.02437615</translate>
           <node>
             <matrix>1 0 0 2.546331 0 1 0 -2.613861 0 0 1 -2.65659 0 0 0 1</matrix>
             <instance_geometry url="#geom-base_pod_open_1">
