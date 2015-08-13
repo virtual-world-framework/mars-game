@@ -26,10 +26,22 @@ this.setAllEnabled = function( value ) {
     }
 }
 
+this.setAllVisible = function( value ) {
+    var elements = this.children;
+    for ( var i = 0; i < elements.length; i++ ) {
+        elements[ i ].visible = value;
+    }
+}
+
+this.isolateComms = function() {
+    this.setAllVisible( false );
+    this.comms.visible = true;
+}
+
 this.elementPreDraw = function( context, element ) {
     var alpha = 1;
     var time = Date.now() / 1000;
-    if ( !element.enabled || !this.enabled ) {
+    if ( !element.enabled ) {
         alpha = 0.5;
     } else if ( element.isBlinking ) {
         if ( time  - element.lastBlinkTime > element.blinkInterval ) {

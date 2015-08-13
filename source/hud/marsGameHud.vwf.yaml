@@ -18,12 +18,22 @@ implements:
   - http://vwf.example.com/sceneGetter.vwf
 properties:
   visible: true
-  enabled: true
+  enabled:
+    set: |
+      if ( value ) {
+        this.setAllVisible( value );
+      } else {
+        this.isolateComms();
+      }
+      this.enabled = value;
+    value: true
 methods:
   elementPreDraw:
   elementPostDraw:
   setAllBlinking:
   setAllEnabled:
+  setAllVisible:
+  isolateComms:
   selectRover:
 children:
   # For now, the battery meter has to be drawn first, because
