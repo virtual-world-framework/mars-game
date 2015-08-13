@@ -60,7 +60,7 @@ this.elementPostDraw = function( context, element ) {
 
 this.selectRover = function( nodeID ) {
     var node = this.scene.findByID( this.scene, nodeID );
-    this.roverSelector.selectRover( nodeID );
+    // this.roverSelector.selectRover( nodeID );
     this.batteryMeter.setActiveRover( node.name );
 }
 

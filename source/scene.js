@@ -432,12 +432,12 @@ this.selectBlocklyNode = function( nodeID ) {
 
 this.enableBlocklyNodes = function( nodes ) {
     this.enableBlocklyTabs( nodes );
-    this.hud.roverSelector.showRoverIcons( true, nodes )
+    // this.hud.roverSelector.showRoverIcons( true, nodes )
 }
 
 this.disableBlocklyNodes = function( nodes ) {
     this.clearBlocklyTabs( nodes );
-    this.hud.roverSelector.showRoverIcons( false, nodes );
+    // this.hud.roverSelector.showRoverIcons( false, nodes );
 }
 
 this.drawSchematicTriangle = function( pointA, pointB, pointC ) {
