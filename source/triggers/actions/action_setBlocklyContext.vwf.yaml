@@ -16,7 +16,7 @@
 extends: actionProto.vwf
 
 properties:
-  nodeNames:
+  nodeName:
 
 scripts:
-- source: action_enableBlocklyNodes.js
+- source: action_setBlocklyContext.js

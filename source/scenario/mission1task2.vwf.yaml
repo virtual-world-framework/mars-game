@@ -75,7 +75,7 @@ properties:
     - radio
     - true
 
-  - enableBlocklyNodes:
+  - setBlocklyContext:
     - rover
   - loadToolbox:
     - rover

@@ -144,7 +144,7 @@ properties:
     callMethod: "source/triggers/actions/action_callMethod.vwf"
     setSceneProperty: "source/triggers/actions/action_setSceneProperty.vwf"
     addToGrid: "source/triggers/actions/action_addToGrid.vwf"
-    enableBlocklyNodes: "source/triggers/actions/action_enableBlocklyNodes.vwf"
+    setBlocklyContext: "source/triggers/actions/action_setBlocklyContext.vwf"
     loadToolbox: "source/triggers/actions/action_loadToolbox.vwf"
 
     # Allows you to choose which rover is currently active in Blockly/the HUD

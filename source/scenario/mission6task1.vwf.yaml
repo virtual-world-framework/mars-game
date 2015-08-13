@@ -38,7 +38,7 @@ properties:
     - [ "assets/video/end_cinematic.webm", "assets/video/end_cinematic.mp4" ]
 
   # blockly
-  - enableBlocklyNodes:
+  - setBlocklyContext:
     - rover
     - rover2
     - rover3

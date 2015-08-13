@@ -64,9 +64,8 @@ properties:
   - addToGrid:
     - minirover
     - [ -17, 32 ]
-  - enableBlocklyNodes:
+  - setBlocklyContext:
     - rover
-    - graph
   - loadToolbox:
     - rover
     - source/scenario/blockly/scenario3e.xml

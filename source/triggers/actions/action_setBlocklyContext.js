@@ -17,30 +17,28 @@ this.onGenerated = function( params, generator, payload ) {
         return false;
     }
 
-    if ( !params || ( params.length < 1 ) ) {
+    if ( !params || ( params.length !== 1 ) ) {
         this.logger.errorx( "onGenerated", 
-                            "This action takes one or more arguments: " +
-                            "the name(s) of the node(s) to be enabled." );
+                            "This action takes one argument: " +
+                            "the name of the node to use for Blockly." );
         return false;
     }
 
-    this.nodeNames = params;
+    this.nodeName = param[ 0 ];
     return true;
 }
 
 this.executeAction = function() {
-    this.scene.disableBlocklyNodes();
-    var nodeIDs = [];
-    for ( var i = 0; i < this.nodeNames.length; i++ ) {
-        var object = this.findInScene( this.nodeNames[ i ] );
-        if ( object ) {
-            nodeIDs.push( object.id );
-        } else {
-            this.logger.warnx( "executeAction", "Blockly node '" +
-                                this.nodeNames[ i ] + "' not found!" );
-        }
+    this.scene.clearBlocklyContext();
+    var nodeID;
+    var object = this.findInScene( this.nodeName );
+    if ( object ) {
+        nodeID = object.id;
+        this.scene.setBlocklyContext( nodeID );
+    } else {
+        this.logger.errorx( "executeAction", "Blockly node '" +
+                            this.nodeName + "' not found!" );
     }
-    this.scene.enableBlocklyNodes( nodeIDs );
 }
 
-//@ sourceURL=source/triggers/actions/action_enableBlocklyNodes.js
+//@ sourceURL=source/triggers/actions/action_setBlocklyContext.js

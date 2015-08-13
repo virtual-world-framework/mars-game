@@ -109,7 +109,7 @@ properties:
     - 28
     - -28
 
-  - enableBlocklyNodes:
+  - setBlocklyContext:
     - rover
     - rover2
     - rover3

@@ -29,7 +29,7 @@ properties:
     - rover2
     - blockly_xml
     - <xml><block type="draw_triangle" id="10"  movable="false" deletable="false" inline="false" x="60" y="140"><value name="pointA"><block type="ordered_pair_config" movable="false" inline="true"><value name="XFIELD"><block type="math_number_frozen" inline="false" deletable="false" movable="false" editable="false"><field name="VALUE">-7</field></block></value><value name="YFIELD"><block type="math_number_frozen" inline="false" deletable="false" movable="false" editable="false"><field name="VALUE">0</field></block></value></block></value><value name="pointB"><block type="ordered_pair_config" movable="false" inline="true"><value name="XFIELD"><block type="math_number_frozen" inline="false" deletable="false" movable="false" editable="false"><field name="VALUE">-7</field></block></value><value name="YFIELD"><block type="math_number_frozen" inline="false" deletable="false" movable="false" editable="false"><field name="VALUE">3</field></block></value></block></value><value name="pointC"><block type="ordered_pair_config" movable="false" inline="true"><value name="XFIELD"><block type="math_number_frozen" inline="false" deletable="false" movable="false" editable="false"><field name="VALUE">-10</field></block></value><value name="YFIELD"><block type="math_number_frozen" id="41" inline="false" deletable="false" movable="false" editable="false"><field name="VALUE">0</field></block></value></block></value></block></xml>
-  - enableBlocklyNodes:
+  - setBlocklyContext:
     - rover2
   - loadToolbox:
     - rover2

@@ -36,7 +36,7 @@ properties:
     - [ "assets/video/Success3.mp4" ]
 
   #blockly
-  - enableBlocklyNodes:
+  - setBlocklyContext:
     - rover
   - loadToolbox:
     - rover

@@ -64,7 +64,7 @@ properties:
   - setPickupActive:
     - radio
     - true
-  - enableBlocklyNodes:
+  - setBlocklyContext:
     - rover
   - loadToolbox:
     - rover

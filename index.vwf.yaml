@@ -77,8 +77,8 @@ methods:
   unpauseGame:
   resetHUDState:
   selectBlocklyNode:
-  enableBlocklyNodes:
-  disableBlocklyNodes:
+  setBlocklyContext:
+  clearBlocklyContext:
   drawSchematicTriangle:
   hideSchematicTriangle:
   openMissionBrief:
