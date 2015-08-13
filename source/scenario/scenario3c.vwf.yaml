@@ -120,6 +120,25 @@ children:
           - playSound:
             - L3VO5_Rover
 
+        failOnMissingBlock_3c:
+          group: successOrFailure
+          priority: 3
+          triggerCondition:
+          - or:
+            - onBlockMissing:
+              - rover
+              - controls_repeat_ext
+            - onBlockMissing:
+              - rover
+              - controls_whileUntil
+            - onBlockMissing:
+              - rover
+              - controls_sensor_metal
+          actions:
+          - scenarioFailure:
+            - incomplete
+            - "You must nest the loop block inside the conditional loop block."
+
         succeedOnSuccessfulMovement_3c:
           group: successOrFailure
           priority: 0

@@ -84,7 +84,7 @@ properties:
     - rover
   - selectRover:
     - graph
-    
+
 children:
   triggerManager:
     extends: ../triggers/triggerManager.vwf
@@ -115,13 +115,15 @@ children:
           - playSound:
             - L3VO3_Rover_S
 
-        failOnMove_2d:
+        failOnMove_3b:
           group: successOrFailure
           priority: 1
           triggerCondition:
           - onMoved:
             - rover
           actions:
+          - writeToBlackboard:
+            - disableFailOnIncompleteProgram
           - scenarioFailure:
             - lost
             - "You need to plot the course of the wayward rover before going to find it."

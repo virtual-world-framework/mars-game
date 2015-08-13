@@ -129,6 +129,25 @@ children:
           - writeToBlackboard:
             - Level3eTravel1
 
+        failOnMissingBlock_3e:
+          group: successOrFailure
+          priority: 3
+          triggerCondition:
+          - or:
+            - onBlockMissing:
+              - rover
+              - controls_repeat_ext
+            - onBlockMissing:
+              - rover
+              - controls_whileUntil
+            - onBlockMissing:
+              - rover
+              - controls_sensor_metal
+          actions:
+          - scenarioFailure:
+            - incomplete
+            - "You must next the loop block inside the conditional loop block."
+
         succeedOnSuccessfulMovement_3e:
           group: successOrFailure
           priority: 0

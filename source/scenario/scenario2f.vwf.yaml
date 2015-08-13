@@ -111,6 +111,18 @@ children:
           - playSound:
             - L2VO9_Control
 
+        failOnMissingBlock_2f:
+          group: successOrFailure
+          priority: 3
+          triggerCondition:
+          - onBlockMissing:
+            - rover
+            - controls_repeat_ext
+          actions:
+          - scenarioFailure:
+            - incomplete
+            - "You must use a loop block."
+
         succeedOnSuccessfulMovement_2f:
           group: successOrFailure
           priority: 0
