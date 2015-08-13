@@ -647,10 +647,9 @@ children:
       minirover:
         extends: source/pickups/minirover.vwf
   cargoPod2:
-    extends: source/buildings/basePod.vwf
+    includes: source/buildings/basePod.vwf
     properties:
       tilePosition: [ -32, 23 ]
-      visible: true
   solarPanel1: 
     extends: source/buildings/solarPanel.vwf
   solarPanel2: 

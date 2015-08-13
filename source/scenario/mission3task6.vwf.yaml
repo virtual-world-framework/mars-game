@@ -107,6 +107,10 @@ properties:
     - cargoPod2
     - rotation
     - [0 ,0 ,1 , -45 ]
+  - setProperty:
+    - cargoPod2
+    - isClosed
+    - true
 
 children:
   triggerManager:

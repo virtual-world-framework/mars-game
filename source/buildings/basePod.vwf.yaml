@@ -13,10 +13,31 @@
 # limitations under the License.
 
 ---
-extends: marsBaseBuilding.vwf
-source: ../../assets/3d/base_pod/base_pod.dae
-type: model/vnd.collada+xml
+extends: ../marsGameNode.vwf
 properties:
-  buildingType: 'basePod'
   castShadows: true
   receiveShadows: true
+  visible:
+    set: |
+      var closedState = this.isClosed;
+      this.isClosed = closedState;
+      this.visible = value;
+  isClosed:
+    set: |
+      this.closed.visible = value;
+      this.open.visible = !value;
+      this.isClosed = value;
+    value: true
+children:
+  closed:
+    extends: http://vwf.example.com/node3.vwf
+    source: ../../assets/3d/Mars_Assets/base_pod_closed.dae
+    type: model/vnd.collada+xml
+    properties:
+      visible: false
+  open:
+    extends: http://vwf.example.com/node3.vwf
+    source: ../../assets/3d/Mars_Assets/base_pod_open.dae
+    type: model/vnd.collada+xml
+    properties:
+      visible: false
