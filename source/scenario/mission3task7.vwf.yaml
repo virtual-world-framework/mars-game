@@ -18,7 +18,7 @@ properties:
   scenarioName: Mission3Task7
 
   scenePath: /
-  nextScenarioPath: "Mission3Task8"
+  nextScenarioPath: "Mission3Success"
 
   startState:
   # objective

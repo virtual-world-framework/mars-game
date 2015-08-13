@@ -1,9 +1,9 @@
 ---
 extends: ../scenario/scenario.vwf
 properties:
-  scenarioName: Mission2Task12
+  scenarioName: Mission3Success
   scenePath: /
-  nextScenarioPath: "Mission3Task1"
+  nextScenarioPath: "Mission4Task1"
 
 children:
   triggerManager:
@@ -16,13 +16,12 @@ children:
           actions:
           - stopAllSounds:
           - playVideo:
-            - end_cinematic
-
+            - Success3
         succeedOnIntroDone:
           group: successOrFailure
           priority: 0
           triggerCondition:
           - onVideoPlayed:
-            - end_cinematic
+            - Success3
           actions:
           - scenarioSuccess:
