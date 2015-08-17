@@ -18,3 +18,11 @@ source: ../../assets/3d/hydropon_dome/hydropon_dome.dae
 type: model/vnd.collada+xml
 properties:
   buildingType: 'waterManagement'
+  useAnimatedShader: true
+  diffuseSrc: "assets/3d/hydropon_dome/hydropon_dome.png"
+  normalSrc: "assets/3d/hydropon_dome/hydropon_dome_n.png"
+  specularSrc: "assets/3d/hydropon_dome/hydropon_dome_s.png"
+  glowLength: 0.1
+  buildDuration: 5
+  buildingHeight: 16
+  built: false
