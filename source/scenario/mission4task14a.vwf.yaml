@@ -16,13 +16,13 @@
 extends: ../scenario/scenario.vwf
 properties:
   scenarioName: Mission4Task14a
-  nextScenarioPath: "scenario_dummy"
+  nextScenarioPath: "Mission4Task14b"
 
   startState:
 
   # objective
   - setObjective:
-    - "Translate your triangle and reflect it across both axis to get [-7,-9], [-4,-9], [-7,-12]."
+    - "Translate your triangle and reflect it across both axis to get [-7,-15], [-7,-19], [-3,-19]."
 
   # blockly
   - setBlocklyContext:
@@ -30,7 +30,7 @@ properties:
   - loadToolbox:
     - rover2
     - source/scenario/blockly/mission4_perry10a.xml
-    
+
   # sounds/music
   - playSound:
     - musicMission4Loop
@@ -111,9 +111,9 @@ properties:
 
   # Solar panel construction
   - drawTriangle:
-    - [ -7, -9 ]
-    - [ -4, -9 ]
-    - [ -7, -12 ]
+    - [ -7, -15 ]
+    - [ -7, -19 ]
+    - [ -3, -19 ]
 
   - addToGrid:
     - solarPanel1
@@ -198,7 +198,7 @@ properties:
   - setProperty:
     - marsTent1
     - visible
-    - false
+    - true
 
   - setProperty:
     - cargoPod2
@@ -228,19 +228,19 @@ children:
             - not:
               - isAtPosition:
                 - rover2
-                - [ -31, 10 ]
+                - [ -33, 10 ]
             - not:
               - isAtPosition:
                 - rover2
-                - [ -31, 7 ]
+                - [ -33, 7 ]
             - not:
               - isAtPosition:
                 - rover2
-                - [ -28, 10 ]
+                - [ -36, 7 ]
           actions:
             - addToGrid:
               - rover2
-              - [ -31, 10 ]
+              - [ -33, 10 ]
 
         succeedOnTriangle_4_14a:
           group: successOrFailure
@@ -248,15 +248,10 @@ children:
           triggerCondition:
           - onBlocklyPolygon:
             - rover2
-            - [ [ -7, -9 ], [ -7, -12 ], [ -4, -9 ] ]
+            - [ [ -7, -15 ], [ -7, -19 ], [ -3, -19 ] ]
           actions:
           - writeToBlackboard:
             - disableFailOnIncompleteProgram
-          - buildBaseComponent:
-            - marsTent1
-          - deleteNanites:
-            - nanites_Mission4Task13
-
           - delay:
             - 3
             - showAlert:
@@ -264,9 +259,9 @@ children:
             - callMethod:
               - rover2
               - stopExecution
-            - clearBlockly:
             - playSound:
               - musicSuccessShort
+            - scenarioSuccess:
          # - delay:
          #   - 8
          #   - scenarioSuccess:
@@ -293,6 +288,6 @@ children:
   brief:
     extends: ../missionBrief.vwf
     properties:
-      title: "Mission 4, Task 13"
+      title: "Mission 4, Task 14a"
       content: >
         Placeholder

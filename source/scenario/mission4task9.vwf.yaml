@@ -256,23 +256,25 @@ children:
             - callMethod:
               - rover2
               - stopExecution
-            - clearBlockly:
             - playSound:
               - musicSuccessShort
+            - deleteNanites:
+              - nanites_Mission4Task9
             - scenarioSuccess:
 
-        scenarioEnded4_9:
-          triggerCondition:
-          - or: 
-            - onScenarioSucceeded:
-            - onScenarioFailed:
-          actions:
-          - setProperty:
-            - rover2
-            - surveyArray
-            - []
-          - deleteNanites:
-            - nanites_Mission4Task9
+
+  #      scenarioEnded4_9:
+  #        triggerCondition:
+  #        - or: 
+  #          - onScenarioSucceeded:
+  #          - onScenarioFailed:
+  #        actions:
+  #        - setProperty:
+  #          - rover2
+  #          - surveyArray
+  #          - []
+  #        - deleteNanites:
+  #          - nanites_Mission4Task9
 
         onScenarioFailed4_9:
           triggerCondition:

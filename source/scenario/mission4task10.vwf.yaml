@@ -256,7 +256,6 @@ children:
             - callMethod:
               - rover2
               - stopExecution
-            - clearBlockly:
             - playSound:
               - musicSuccessShort
             - scenarioSuccess:

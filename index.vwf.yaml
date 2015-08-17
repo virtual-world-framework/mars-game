@@ -660,6 +660,8 @@ children:
     extends: source/buildings/solarPanel.vwf
   marsTent1: 
     extends: source/buildings/tent.vwf
+  greenhouse1:
+    extends: source/buildings/hydroDome.vwf
   ########################
   ###   Mission List   ###
   ########################
@@ -735,10 +737,10 @@ children:
     includes: source/scenario/mission4task5.vwf
   Mission4Task6:
     includes: source/scenario/mission4task6.vwf
-  Mission4Task7:
-    includes: source/scenario/mission4task7.vwf
-  Mission4Task8:
-    includes: source/scenario/mission4task8.vwf
+#  Mission4Task7:
+#    includes: source/scenario/mission4task7.vwf
+#  Mission4Task8:
+#    includes: source/scenario/mission4task8.vwf
   Mission4Task9:
     includes: source/scenario/mission4task9.vwf
   Mission4Task10:

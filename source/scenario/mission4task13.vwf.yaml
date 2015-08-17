@@ -16,13 +16,13 @@
 extends: ../scenario/scenario.vwf
 properties:
   scenarioName: Mission4Task13
-  nextScenarioPath: "scenario_dummy"
+  nextScenarioPath: "Mission4Task14a"
 
   startState:
 
   # objective
   - setObjective:
-    - "Translate your triangle and reflect it across both axis to get [-7,-9], [-4,-9], [-7,-12]."
+    - "Translate your triangle and reflect it across both axis to get [-9,-9], [-9,-12],[-12,-12]."
 
   # blockly
   - setBlocklyContext:
@@ -111,9 +111,9 @@ properties:
 
   # Solar panel construction
   - drawTriangle:
-    - [ -7, -9 ]
-    - [ -4, -9 ]
-    - [ -7, -12 ]
+    - [ -9, -9 ]
+    - [ -9, -12 ]
+    - [ -12, -9 ]
 
   - addToGrid:
     - solarPanel1
@@ -248,15 +248,12 @@ children:
           triggerCondition:
           - onBlocklyPolygon:
             - rover2
-            - [ [ -7, -9 ], [ -7, -12 ], [ -4, -9 ] ]
+            - [ [ -9, -9 ], [ -9, -12 ], [ -12, -9 ] ]
           actions:
           - writeToBlackboard:
             - disableFailOnIncompleteProgram
           - buildBaseComponent:
             - marsTent1
-          - deleteNanites:
-            - nanites_Mission4Task13
-
           - delay:
             - 3
             - showAlert:
@@ -264,7 +261,6 @@ children:
             - callMethod:
               - rover2
               - stopExecution
-            - clearBlockly:
             - playSound:
               - musicSuccessShort
             - scenarioSuccess:

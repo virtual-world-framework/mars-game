@@ -22,7 +22,7 @@ properties:
 
   # objective
   - setObjective:
-    - "Translate your triangle across both axis and reflect it across the y-axis to get to [-9,-9], [-9,-12],[-12,-12]."
+    - "Translate your triangle across both axis and reflect it across the y-axis to get to [-7,-9], [-4,-9], [-7,-12]."
 
   # blockly
   - setBlocklyContext:
@@ -111,9 +111,9 @@ properties:
 
   # Solar panel construction
   - drawTriangle:
-    - [ -9, -9 ]
-    - [ -9, -12 ]
-    - [ -12, -9 ]
+    - [ -7, -9 ]
+    - [ -4, -9 ]
+    - [ -7, -12 ]
 
   - addToGrid:
     - solarPanel1
@@ -245,7 +245,7 @@ children:
           triggerCondition:
           - onBlocklyPolygon:
             - rover2
-            - [ [ -9, -9 ], [ -9, -12 ], [ -12, -9 ] ]
+            - [ [ -7, -9 ], [ -7, -12 ], [ -4, -9 ] ]
           actions:
           - writeToBlackboard:
             - disableFailOnIncompleteProgram
@@ -256,7 +256,6 @@ children:
             - callMethod:
               - rover2
               - stopExecution
-            - clearBlockly:
             - playSound:
               - musicSuccessShort
             - scenarioSuccess:
