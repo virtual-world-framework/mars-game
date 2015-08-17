@@ -15,25 +15,21 @@
 ---
 extends: ../scenario/scenario.vwf
 properties:
-  scenarioName: Mission4Task6
-  nextScenarioPath: "Mission4Task9"
+  scenarioName: Mission4Task13
+  nextScenarioPath: "scenario_dummy"
 
   startState:
 
   # objective
   - setObjective:
-    - "Reflect your previous triangle across both axes."
+    - "Translate your triangle and reflect it across both axis to get [-7,-9], [-4,-9], [-7,-12]."
 
   # blockly
   - setBlocklyContext:
     - rover2
   - loadToolbox:
     - rover2
-    - source/scenario/blockly/mission4_perry6.xml
-  - setProperty:
-    - rover2
-    - blockly_xml
-    - <xml><block type="draw_triangle" movable="false" deletable="false" inline="false" x="60" y="140"><value name="pointA"><block type="ordered_pair_config" movable="false" inline="true"><value name="XFIELD"><block type="math_number_frozen" inline="false" deletable="false" movable="false" editable="false"><field name="VALUE">0</field></block></value><value name="YFIELD"><block type="math_number_frozen" inline="false" deletable="false" movable="false" editable="false"><field name="VALUE">0</field></block></value></block></value><value name="pointB"><block type="ordered_pair_config" movable="false" inline="true"><value name="XFIELD"><block type="math_number_frozen" inline="false" deletable="false" movable="false" editable="false"><field name="VALUE">0</field></block></value><value name="YFIELD"><block type="math_number_frozen" inline="false" deletable="false" movable="false" editable="false"><field name="VALUE">6</field></block></value></block></value><value name="pointC"><block type="ordered_pair_config" movable="false" inline="true"><value name="XFIELD"><block type="math_number_frozen" inline="false" deletable="false" movable="false" editable="false"><field name="VALUE">-6</field></block></value><value name="YFIELD"><block type="math_number_frozen" inline="false" deletable="false" movable="false" editable="false"><field name="VALUE">0</field></block></value></block></value></block></xml>
+    - source/scenario/blockly/mission4_perry10a.xml
 
   # sounds/music
   - playSound:
@@ -86,11 +82,11 @@ properties:
   - setProperty:
     - rover2
     - blockly_allowedBlocks
-    - 14
+    - 40
   - setProperty:
     - rover2
     - lowRam
-    - 5
+    - 1
   - selectRover:
     - rover2
 
@@ -115,9 +111,9 @@ properties:
 
   # Solar panel construction
   - drawTriangle:
-    - [ 0, 0 ]
-    - [ 0, -6 ]
-    - [ 6, 0 ]
+    - [ -7, -9 ]
+    - [ -4, -9 ]
+    - [ -7, -12 ]
 
   - addToGrid:
     - solarPanel1
@@ -131,6 +127,9 @@ properties:
   - addToGrid:
     - solarPanel4
     - [ -21, 16 ]
+  - addToGrid:
+    - marsTent1
+    - [ -32, 11 ]
 
   - setProperty:
     - solarPanel1
@@ -190,21 +189,21 @@ properties:
   - setProperty:
     - solarPanel4
     - visible
+    - true
+  - setProperty:
+    - solarPanel4
+    - built
+    - false
+
+  - setProperty:
+    - marsTent1
+    - visible
     - false
 
   - setProperty:
     - cargoPod2
     - rotation
     - [0 ,0 ,1 , -45]
-  - setProperty:
-    - cargoPod2
-    - isClosed
-    - false
-
-  - setProperty:
-    - roverTracks2
-    - visible
-    - true
 
 children:
   triggerManager:
@@ -212,7 +211,7 @@ children:
     properties: 
       triggers$:
 
-        openMissionBrief_4_6:
+        openMissionBrief_4_13:
           triggerCondition:
           - and:
             - onScenarioStart:
@@ -222,78 +221,85 @@ children:
             - 2
             - openMissionBrief:
 
-        setStartPosition_4_6:
+        setStartPosition_4_13:
           triggerCondition:
           - and:
             - onScenarioStart:
             - not:
               - isAtPosition:
                 - rover2
-                - [ -24, 19 ]
+                - [ -31, 10 ]
             - not:
               - isAtPosition:
                 - rover2
-                - [ -24, 13 ]
+                - [ -31, 7 ]
             - not:
               - isAtPosition:
                 - rover2
-                - [ -18, 19 ]
+                - [ -28, 10 ]
           actions:
             - addToGrid:
               - rover2
-              - [ -24, 19 ]
+              - [ -31, 10 ]
 
-        succeedOnTriangle_4_6:
+        succeedOnTriangle_4_13:
           group: successOrFailure
           priority: 0
           triggerCondition:
           - onBlocklyPolygon:
             - rover2
-            - [ [ 0, 0 ], [ 0, -6 ], [ 6, 0 ] ]
+            - [ [ -7, -9 ], [ -7, -12 ], [ -4, -9 ] ]
           actions:
           - writeToBlackboard:
             - disableFailOnIncompleteProgram
           - buildBaseComponent:
-            - solarPanel4
+            - marsTent1
           - deleteNanites:
-            - nanites_Mission4Task6
+            - nanites_Mission4Task13
+
           - delay:
-            - 6
+            - 3
             - showAlert:
               - "I created the correct triangle!"
             - callMethod:
               - rover2
               - stopExecution
             - clearBlockly:
-            - scenarioSuccess:
             - playSound:
               - musicSuccessShort
-            - playSound:
-              - PerryDusty
+            - scenarioSuccess:
+            - deleteNanites:
+              - nanites_Mission4Task9
+            - deleteNanites:
+              - nanites_Mission4Task10
+            - deleteNanites:
+              - nanites_Mission4Task11
+            - deleteNanites:
+              - nanites_Mission4Task12
+            - deleteNanites:
+              - nanites_Mission4Task13
 
-        scenarioEnded4_6:
+        scenarioEnded4_13:
           triggerCondition:
           - or: 
             - onScenarioSucceeded:
             - onScenarioFailed:
           actions:
-          - clearTriangle:
           - setProperty:
             - rover2
             - surveyArray
             - []
+
+        onScenarioFailed4_13:
+          triggerCondition:
+          - onScenarioFailed:
+          actions:
           - deleteNanites:
-            - nanites_Mission4Task6
+            - nanites_Mission4Task13
 
   brief:
     extends: ../missionBrief.vwf
     properties:
-      title: "Mission 4, Task 6"
+      title: "Mission 4, Task 13"
       content: >
-        You're almost done! Let’s add one more triangle by 
-        reflecting the triangle across both the x and y axes. <br><br>Remember 
-        that you can reflect across the x axis by multiplying the y values by 
-        -1 and reflect across the y axis by multiplying the x values by 
-        -1. So, to do both, you will have to multiply both the x and y 
-        values by -1. Try multiplying your vertices to reflect over the 
-        x and y axes.
+        Placeholder
