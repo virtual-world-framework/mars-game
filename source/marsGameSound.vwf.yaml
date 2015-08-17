@@ -365,7 +365,7 @@ properties:
     - soundName: "TM3V11_Rover"
       soundURL: "assets/sounds/vo/newmission3vo11.ogg"
       initialVolume: 0.65
-      subtitle: "[ROVER]: I...!"
+      subtitle: "[ROVER]: I..."
       soundGroup: replace
       groupReplacementMethod: queue
     - soundName: "TM3V12_MC"
@@ -383,7 +383,7 @@ properties:
     - soundName: "TM3V14_MC"
       soundURL: "assets/sounds/vo/newmission3vo14.ogg"
       initialVolume: 0.65
-      subtitle: "[MC]: Of course, sometimes you need to move to the left and right as well. Let's try going to the left. Make another duplicate of your original If block, and modify it to travel in the -X direction."
+      subtitle: "[MC]: Of course, sometimes you need to move to the left and right as well. Let's try going to the left. Make another duplicate of your original 'if' block, and modify it to travel in the -X direction."
       soundGroup: vo
       groupReplacementMethod: queue
     - soundName: "TM3V15_Rover"
@@ -401,7 +401,7 @@ properties:
     - soundName: "TM3V17_MC"
       soundURL: "assets/sounds/vo/newmission3vo17.ogg"
       initialVolume: 0.65
-      subtitle: "[MC]: Well done! Now that your Navigate Procedure is working again, let's go get the base pod! As I said before, our satellite imagery shows that it landed at position [-13,-9]."
+      subtitle: "[MC]: Well done! Now that your Navigate procedure is working again, let's go get the base pod! As I said before, our satellite imagery shows that it landed at position [-13,-9]."
       soundGroup: vo
       groupReplacementMethod: replace
     - soundName: "M3VO1_Rover"
