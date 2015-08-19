@@ -16,19 +16,15 @@
 extends: ../scenario/scenario.vwf
 properties:
   scenarioName: Mission4Task2
-  nextScenarioPath: Mission4Task3
+  nextScenarioPath: Mission4Task4
 
   startState:
 
   # objectives
   - setObjective:
-    - "Translate your triangle so that it is 7 spaces farther to the right."
+    - "Dilate your triangle so that it's vertices are at [0,0], [0,2], and [2,0]."
 
   # blockly
-  - setProperty:
-    - rover2
-    - blockly_xml
-    - <xml><block type="draw_triangle" id="10"  movable="false" deletable="false" inline="false" x="60" y="140"><value name="pointA"><block type="ordered_pair_config" movable="false" inline="true"><value name="XFIELD"><block type="math_number_frozen" inline="false" deletable="false" movable="false" editable="false"><field name="VALUE">-7</field></block></value><value name="YFIELD"><block type="math_number_frozen" inline="false" deletable="false" movable="false" editable="false"><field name="VALUE">0</field></block></value></block></value><value name="pointB"><block type="ordered_pair_config" movable="false" inline="true"><value name="XFIELD"><block type="math_number_frozen" inline="false" deletable="false" movable="false" editable="false"><field name="VALUE">-7</field></block></value><value name="YFIELD"><block type="math_number_frozen" inline="false" deletable="false" movable="false" editable="false"><field name="VALUE">3</field></block></value></block></value><value name="pointC"><block type="ordered_pair_config" movable="false" inline="true"><value name="XFIELD"><block type="math_number_frozen" inline="false" deletable="false" movable="false" editable="false"><field name="VALUE">-10</field></block></value><value name="YFIELD"><block type="math_number_frozen" id="41" inline="false" deletable="false" movable="false" editable="false"><field name="VALUE">0</field></block></value></block></value></block></xml>
   - setBlocklyContext:
     - rover2
   - loadToolbox:
@@ -49,22 +45,6 @@ properties:
     - rover
     - setHeading
     - 180
-  - setProperty:
-    - rover
-    - battery
-    - 12
-  - setProperty:
-    - rover
-    - batteryMax
-    - 150
-  - setProperty:
-    - rover
-    - blockly_allowedBlocks
-    - 15
-  - setProperty:
-    - rover
-    - lowRam
-    - 3
 
   # Perry
   - setProperty:
@@ -86,7 +66,7 @@ properties:
   - setProperty:
     - rover2
     - blockly_allowedBlocks
-    - 16
+    - 14
   - setProperty:
     - rover2
     - lowRam
@@ -100,15 +80,15 @@ properties:
     - visible
     - false
 
+  # Grid 
   - setGridAxes:
     - 19
     - -24
 
-  # Draw the desired triangle
   - drawTriangle:
     - [ 0, 0 ]
-    - [ 0, 3 ]
-    - [ -3, 0 ]
+    - [ 0, 2 ]
+    - [ 2, 0 ]
 
   # Disable blocklyLine
   - setProperty:
@@ -119,7 +99,7 @@ properties:
     - blocklyLine
     - opacity
     - 0
-  
+
   # Solar panel construction
   - setProperty:
     - solarPanel1
@@ -145,10 +125,27 @@ properties:
     - cargoPod2
     - rotation
     - [0 ,0 ,1 , -45]
+
   - setProperty:
     - cargoPod2
     - isClosed
     - false
+
+  # TEMPORARY
+
+  - addToGrid:
+    - solarPanel1
+    - [ -23, 20 ]
+  - setProperty:
+    - solarPanel1
+    - scale
+    - [.4, .4, .4]
+  - setProperty:
+    - solarPanel1
+    - visible
+    - false
+
+  # END OF TEMPORARY
 
 children:
   triggerManager:
@@ -156,26 +153,26 @@ children:
     properties: 
       triggers$:
 
-        setStartPosition_4_3:
+        setStartPosition_4_2:
           triggerCondition:
           - and:
             - onScenarioStart:
             - not:
               - isAtPosition:
                 - rover2
-                - [ -31, 19 ]
+                - [ -24, 19 ]
             - not:
               - isAtPosition:
                 - rover2
-                - [ -31, 22 ]
+                - [ -23, 19 ]
             - not:
               - isAtPosition:
                 - rover2
-                - [ -34, 19 ]
+                - [ -24, 20 ]
           actions:
             - addToGrid:
               - rover2
-              - [ -31, 22 ]
+              - [ -24, 19 ]
 
         openMissionBrief_4_2:
           triggerCondition:
@@ -193,12 +190,16 @@ children:
           triggerCondition:
           - onBlocklyPolygon:
             - rover2
-            - [ [ 0, 0 ], [ 0, 3 ], [ -3, 0 ] ]
+            - [ [ 0, 0 ], [ 0, 2 ], [ 2, 0 ] ]
           actions:
           - writeToBlackboard:
             - disableFailOnIncompleteProgram
+          ####This is only here until the new actions can be added to mission 3#####
           - deleteNanites:
             - nanites_Mission4Task2
+          - buildBaseComponent:
+            - solarPanel1
+          ##########################################################################
           - delay:
             - 1
             - showAlert:
@@ -213,6 +214,13 @@ children:
             - playSound:
               - M4VO27_MC
 
+        onScenarioFailed4_2:
+          triggerCondition:
+          - onScenarioFailed:
+          actions:
+          - deleteNanites:
+            - nanites_Mission4Task2
+
         scenarioEnded4_2:
           triggerCondition:
           - or: 
@@ -223,8 +231,6 @@ children:
             - rover2
             - surveyArray
             - []
-          - deleteNanites:
-            - nanites_Mission4Task2
 
   brief:
     extends: ../missionBrief.vwf
