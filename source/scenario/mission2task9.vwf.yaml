@@ -84,6 +84,11 @@ properties:
     - 1
   - selectRover:
     - rover
+
+  - setProperty:
+    - roverTracks2
+    - visible
+    - false
 children:
   triggerManager:
     extends: ../triggers/triggerManager.vwf

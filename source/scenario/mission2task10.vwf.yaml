@@ -79,6 +79,11 @@ properties:
     - rover
   - selectRover:
     - graph
+
+  - setProperty:
+    - roverTracks2
+    - visible
+    - false
     
 children:
   triggerManager:

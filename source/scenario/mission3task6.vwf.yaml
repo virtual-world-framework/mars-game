@@ -112,6 +112,11 @@ properties:
     - isClosed
     - true
 
+  - setProperty:
+    - roverTracks2
+    - visible
+    - true
+
 children:
   triggerManager:
     extends: ../triggers/triggerManager.vwf
