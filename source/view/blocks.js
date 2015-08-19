@@ -2099,7 +2099,7 @@ Blockly.JavaScript['rover_moveRadial_absolute'] = function(block) {
   return constructBlockExeFuncCall( block, action, 'moveRadial' );
 };
 
-Blockly.Blocks['initiate_nano_construction'] = {
+Blockly.Blocks['init_nano_construction'] = {
   init: function() {
     this.appendDummyInput()
         .appendField("Init Nano Construction");
@@ -2107,14 +2107,14 @@ Blockly.Blocks['initiate_nano_construction'] = {
     this.setNextStatement(true);
     this.setColour(180);
     this.data = currentBlocklyNodeID;
-    this.setTooltip('Starts construction of builder nanoparticles.');
+    this.setTooltip('Starts construction of all drawn builder nanoparticles.');
   }
 };
 
-Blockly.JavaScript['initiate_nano_construction'] = function(block) {
+Blockly.JavaScript['init_nano_construction'] = function(block) {
 
   var start = "vwf.callMethod( '" + vwf_view.kernel.application() + 
-                  "', 'handleDrawingBlocks', " + " [ 'endDrawing', '" + block.id + "', '" + block.data + "', " + 1 + " ] );\n";
+                  "', 'handleDrawingBlocks', " + " [ 'endSurvey', '" + block.id + "', '" + block.data + "', " + 1 + " ] );\n";
 
   return code;
 };
