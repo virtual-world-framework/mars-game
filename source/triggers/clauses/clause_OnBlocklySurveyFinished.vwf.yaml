@@ -12,17 +12,24 @@
 # See the License for the specific language governing permissions and 
 # limitations under the License.
 
----
-extends: marsBaseBuilding.vwf
-source: ../../assets/3d/water_vap/water_vap.dae
-type: model/vnd.collada+xml
+--- 
+extends: clauseProto_OnEvent.vwf
+
+implements: 
+  - http://vwf.example.com/sceneGetter.vwf
+  - ../../blocklyObjectGetter.vwf
+
 properties:
-  buildingType: 'waterManagement'
-  useAnimatedShader: true
-  diffuseSrc: "assets/3d/water_vap/water_vap.png"
-  normalSrc: "assets/3d/water_vap/water_vap_n.png"
-  specularSrc: "assets/3d/water_vap/water_vap_s.png"
-  glowLength: 0.1
-  buildDuration: 5
-  buildingHeight: 16
-  built: false
+  blockNodeName:
+  surveyArray:
+  forwardStringArray:
+  reverseStringArray:
+
+methods:
+  # We need our own onEvent method that screens the events and decides which to
+  #   track and which to ignore.
+  onSurveyFinished:
+  clearSurveyAndReset:
+
+scripts:
+- source: clause_OnBlocklySurveyFinished.js

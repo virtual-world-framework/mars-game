@@ -15,20 +15,21 @@
 ---
 extends: ../scenario/scenario.vwf
 properties:
-  scenarioName: Mission4Task3
-  nextScenarioPath: Mission4Task4
+  scenarioName: Mission4Task14a
+  nextScenarioPath: "Mission4Task14b"
+
   startState:
 
   # objective
   - setObjective:
-    - "Move to the blinking tile and initiate construction."
+    - "Translate your triangle and reflect it across both axis to get [-7,-15], [-7,-19], [-3,-19]."
 
   # blockly
   - setBlocklyContext:
     - rover2
   - loadToolbox:
     - rover2
-    - source/scenario/blockly/mission4_perry3.xml
+    - source/scenario/blockly/mission4_perry10a.xml
 
   # sounds/music
   - playSound:
@@ -36,7 +37,7 @@ properties:
   - playSound:
     - environmentWind
 
-    #Manny
+  # Manny
   - addToGrid:
     - rover
     - [ -30, 23 ]
@@ -44,12 +45,32 @@ properties:
     - rover
     - setHeading
     - 180
+  - setProperty:
+    - rover
+    - battery
+    - 12
+  - setProperty:
+    - rover
+    - batteryMax
+    - 150
+  - setProperty:
+    - rover
+    - blockly_allowedBlocks
+    - 15
+  - setProperty:
+    - rover
+    - lowRam
+    - 3
 
-  #Perry
+  # Perry
   - setProperty:
     - rover2
     - visible
     - true
+  # TODO: handle adding him if we jump to this task from elsewhere  
+  # - addToGrid:
+  #   - rover2
+  #   - [ -10, -10 ]
   - setProperty:
     - rover2
     - battery
@@ -61,77 +82,128 @@ properties:
   - setProperty:
     - rover2
     - blockly_allowedBlocks
-    - 14
+    - 40
   - setProperty:
     - rover2
     - lowRam
-    - 5
+    - 1
   - selectRover:
     - rover2
 
-
-  # Rosie  
+  # Rosie disabled
   - setProperty:
     - rover3
     - visible
     - false
 
-  # Grid and disabling blocklyLine
+  # Grid and disable blocklyLine
   - setGridAxes:
     - 19
     - -24
-
   - setProperty:
     - blocklyLine
     - visible
     - false
-
   - setProperty:
     - blocklyLine
     - opacity
     - 0
 
   # Solar panel construction
+  - drawTriangle:
+    - [ -7, -15 ]
+    - [ -7, -19 ]
+    - [ -3, -19 ]
 
   - addToGrid:
     - solarPanel1
-    - [ -23, 20 ]
+    - [ -27, 22 ]
+  - addToGrid:
+    - solarPanel2
+    - [ -21, 22 ]
+  - addToGrid:
+    - solarPanel3
+    - [ -27, 16 ]
+  - addToGrid:
+    - solarPanel4
+    - [ -21, 16 ]
+  - addToGrid:
+    - marsTent1
+    - [ -32, 11 ]
+
   - setProperty:
     - solarPanel1
     - scale
-    - [.4, .4, .4]
+    - [1.2, 1.2, 1.2]
+  - setProperty:
+    - solarPanel1
+    - rotation
+    - [0 ,0 ,1 , 90 ]
   - setProperty:
     - solarPanel1
     - visible
+    - true
+  - setProperty:
+    - solarPanel1
+    - built
     - false
 
   - setProperty:
     - solarPanel2
+    - scale
+    - [1.2, 1.2, 1.2]
+  - setProperty:
+    - solarPanel2
     - visible
+    - true
+  - setProperty:
+    - solarPanel2
+    - built
     - false
 
   - setProperty:
     - solarPanel3
+    - scale
+    - [1.2, 1.2, 1.2]
+  - setProperty:
+    - solarPanel3
+    - rotation
+    - [0 ,0 ,1 , 180 ]
+  - setProperty:
+    - solarPanel3
     - visible
+    - true
+  - setProperty:
+    - solarPanel3
+    - built
     - false
 
   - setProperty:
     - solarPanel4
+    - scale
+    - [1.2, 1.2, 1.2]
+  - setProperty:
+    - solarPanel4
+    - rotation
+    - [0 ,0 ,1 , 270 ]
+  - setProperty:
+    - solarPanel4
     - visible
-    - false    
+    - true
+  - setProperty:
+    - solarPanel4
+    - built
+    - false
+
+  - setProperty:
+    - marsTent1
+    - visible
+    - true
 
   - setProperty:
     - cargoPod2
     - rotation
     - [0 ,0 ,1 , -45]
-
-  - setProperty:
-    - cargoPod2
-    - isClosed
-    - false
-
-  - buildBaseComponent:
-    - solarPanel1
 
 children:
   triggerManager:
@@ -139,76 +211,63 @@ children:
     properties: 
       triggers$:
 
-        openMissionBrief_4_3:
+        openMissionBrief_4_14a:
           triggerCondition:
           - and:
             - onScenarioStart:
             - doOnce:
           actions:
           - delay:
-            - 6
+            - 2
             - openMissionBrief:
 
-        setStartPosition_4_3:
+        setStartPosition_4_14a:
           triggerCondition:
           - and:
             - onScenarioStart:
             - not:
               - isAtPosition:
                 - rover2
-                - [ -24, 19 ]
+                - [ -33, 10 ]
             - not:
               - isAtPosition:
                 - rover2
-                - [ -24, 21 ]
+                - [ -33, 7 ]
             - not:
               - isAtPosition:
                 - rover2
-                - [ -26, 19 ]
+                - [ -36, 7 ]
           actions:
             - addToGrid:
               - rover2
-              - [ -24, 19 ]
+              - [ -33, 10 ]
 
-        #succeedOnTriangle_4_3:
-        #  group: successOrFailure
-        #  priority: 0
-        #  triggerCondition:
-        #  - or:
-        #    - isAtPosition:
-        #      - rover2
-        #      - [ -24, 19 ]
-        #    - isAtPosition:
-        #      - rover2
-        #      - [ -24, 21 ]
-        #    - isAtPosition:
-        #      - rover2
-        #     - [ -26, 19 ]
-        # actions:
-        #  - writeToBlackboard:
-        #    - disableFailOnIncompleteProgram
-        #  - buildBaseComponent:
-        #    - solarPanel1
-        #  - deleteNanites:
-        #    - nanites_Mission4Task2
-        #  - delay:
-        #    - 6
-        #    - showAlert:
-        #      - "I constructed the solar panel!"
-        #    - callMethod:
-        #      - rover2
-        #      - stopExecution
-        #    - scenarioSuccess:
-        #    - playSound:
-        #      - musicSuccessShort
-        #    - playSound:
-        #      - PerryIDidIt
-        #    - playSound:
-        #      - M4VO28_MC
-        #    - playSound:
-        #      - PerryNotDoneGroan
+        succeedOnTriangle_4_14a:
+          group: successOrFailure
+          priority: 0
+          triggerCondition:
+          - onBlocklyPolygon:
+            - rover2
+            - [ [ -7, -15 ], [ -7, -19 ], [ -3, -19 ] ]
+          actions:
+          - writeToBlackboard:
+            - disableFailOnIncompleteProgram
+          - delay:
+            - 3
+            - showAlert:
+              - "I created the correct triangle!"
+            - callMethod:
+              - rover2
+              - stopExecution
+            - playSound:
+              - musicSuccessShort
+            - scenarioSuccess:
+         # - delay:
+         #   - 8
+         #   - scenarioSuccess:
+         #   - returnToMenu:
 
-        scenarioEnded4_3:
+        scenarioEnded4_14a:
           triggerCondition:
           - or: 
             - onScenarioSucceeded:
@@ -218,16 +277,17 @@ children:
             - rover2
             - surveyArray
             - []
+
+        onScenarioFailed4_14a:
+          triggerCondition:
+          - onScenarioFailed:
+          actions:
           - deleteNanites:
-            - nanites_Mission4Task3
+            - nanites_Mission4Task14a
 
   brief:
     extends: ../missionBrief.vwf
     properties:
-      title: "Mission 4, Task 3"
+      title: "Mission 4, Task 14a"
       content: >
-        Good work! Now that you’ve placed the triangle in 
-        a good spot, we should dilate it to make it bigger. <br><br>To dilate, or change the 
-        size of the triangle, you can multiply the x and y values of the vertices by 
-        a number to make them further apart. Let's make the triangle 2 times the "
-        size it was. Try multiplying your vertices to make the triangle twice as large.
+        Placeholder

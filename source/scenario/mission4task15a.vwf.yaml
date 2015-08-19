@@ -15,21 +15,21 @@
 ---
 extends: ../scenario/scenario.vwf
 properties:
-  scenarioName: Mission4Task6
-  nextScenarioPath: "Mission4Task7"
+  scenarioName: Mission4Task15a
+  nextScenarioPath: "Mission4Task15b"
 
   startState:
 
   # objective
   - setObjective:
-    - "Reflect across x and dilate to get [0,0], [-2,0], [2,0]."
+    - "Translate your triangle and reflect it across both axis to get [-1,-6], [-1,-9], [-3,-6]."
 
   # blockly
   - setBlocklyContext:
     - rover2
   - loadToolbox:
     - rover2
-    - source/scenario/blockly/mission4_perry6.xml
+    - source/scenario/blockly/mission4_perry10a.xml
 
   # sounds/music
   - playSound:
@@ -45,6 +45,22 @@ properties:
     - rover
     - setHeading
     - 180
+  - setProperty:
+    - rover
+    - battery
+    - 12
+  - setProperty:
+    - rover
+    - batteryMax
+    - 150
+  - setProperty:
+    - rover
+    - blockly_allowedBlocks
+    - 15
+  - setProperty:
+    - rover
+    - lowRam
+    - 3
 
   # Perry
   - setProperty:
@@ -66,13 +82,16 @@ properties:
   - setProperty:
     - rover2
     - blockly_allowedBlocks
-    - 18
+    - 40
   - setProperty:
     - rover2
     - lowRam
-    - 5
+    - 1
   - selectRover:
     - rover2
+  - addToGrid:
+    - rover2
+    - [ -35, 5 ]
 
   # Rosie disabled
   - setProperty:
@@ -95,24 +114,40 @@ properties:
 
   # Solar panel construction
   - drawTriangle:
-    - [ 0, 0 ]
-    - [ 0, -2 ]
-    - [ 2, 0 ]
+    - [ -1, -6 ]
+    - [ -1, -9 ]
+    - [ -3, -6 ]
 
   - addToGrid:
     - solarPanel1
-    - [ -23, 20 ]
+    - [ -27, 22 ]
   - addToGrid:
     - solarPanel2
-    - [ -25, 20 ]
+    - [ -21, 22 ]
   - addToGrid:
     - solarPanel3
-    - [ -23, 18 ]
+    - [ -27, 16 ]
+  - addToGrid:
+    - solarPanel4
+    - [ -21, 16 ]
+  - addToGrid:
+    - marsTent1
+    - [ -32, 11 ]
+  - addToGrid:
+    - greenhouse1
+    - [ -32, 1 ]
+  - addToGrid:
+    - waterWell1
+    - [ -25, 12 ]
 
   - setProperty:
     - solarPanel1
     - scale
-    - [.4, .4, .4]
+    - [1.2, 1.2, 1.2]
+  - setProperty:
+    - solarPanel1
+    - rotation
+    - [0 ,0 ,1 , 90 ]
   - setProperty:
     - solarPanel1
     - visible
@@ -120,16 +155,12 @@ properties:
   - setProperty:
     - solarPanel1
     - built
-    - true
+    - false
 
   - setProperty:
     - solarPanel2
     - scale
-    - [.4, .4, .4]
-  - setProperty:
-    - solarPanel2
-    - rotation
-    - [0 ,0 ,1 ,90 ]
+    - [1.2, 1.2, 1.2]
   - setProperty:
     - solarPanel2
     - visible
@@ -137,35 +168,60 @@ properties:
   - setProperty:
     - solarPanel2
     - built
-    - true
+    - false
 
   - setProperty:
     - solarPanel3
     - scale
-    - [.4, .4, .4]
+    - [1.2, 1.2, 1.2]
   - setProperty:
     - solarPanel3
     - rotation
-    - [0 ,0 ,1 , 270 ]
+    - [0 ,0 ,1 , 180 ]
   - setProperty:
     - solarPanel3
     - visible
+    - true
+  - setProperty:
+    - solarPanel3
+    - built
     - false
 
   - setProperty:
     - solarPanel4
+    - scale
+    - [1.2, 1.2, 1.2]
+  - setProperty:
+    - solarPanel4
+    - rotation
+    - [0 ,0 ,1 , 270 ]
+  - setProperty:
+    - solarPanel4
     - visible
+    - true
+  - setProperty:
+    - solarPanel4
+    - built
     - false
+
+  - setProperty:
+    - marsTent1
+    - visible
+    - true
 
   - setProperty:
     - cargoPod2
     - rotation
     - [0 ,0 ,1 , -45]
+  - setProperty:
+    - greenhouse1
+    - rotation
+    - [0 ,0 ,1 , 180]
 
   - setProperty:
-    - cargoPod2
-    - isClosed
-    - false
+    - waterWell1
+    - scale
+    - [.45, .45, .45]
 
 children:
   triggerManager:
@@ -173,7 +229,7 @@ children:
     properties: 
       triggers$:
 
-        openMissionBrief_4_6:
+        openMissionBrief_4_15a:
           triggerCondition:
           - and:
             - onScenarioStart:
@@ -183,34 +239,54 @@ children:
             - 2
             - openMissionBrief:
 
-        succeedOnTriangle_4_6:
+      #  setStartPosition_4_15a:
+      #    triggerCondition:
+      #    - and:
+      #      - onScenarioStart:
+      #      - not:
+      #        - isAtPosition:
+      #          - rover2
+      #          - [ -31, -2 ]
+      #      - not:
+      #        - isAtPosition:
+      #          - rover2
+      #          - [ -27, -2 ]
+      #      - not:
+      #        - isAtPosition:
+      #          - rover2
+      #          - [ -31, -6 ]
+      #    actions:
+      #      - addToGrid:
+      #        - rover2
+      #        - [ -31, 2 ]
+
+        succeedOnTriangle_4_15a:
           group: successOrFailure
           priority: 0
           triggerCondition:
           - onBlocklyPolygon:
             - rover2
-            - [ [ 0, 0 ], [ 0, -2 ], [ 2, 0 ] ]
+            - [ [ -1, -9 ], [ -1, -6 ], [ -3, -6 ] ]
           actions:
           - writeToBlackboard:
             - disableFailOnIncompleteProgram
-          - buildBaseComponent:
-            - solarPanel3
-          - deleteNanites:
-            - nanites_Mission4Task6
           - delay:
-            - 6
+            - 3
             - showAlert:
               - "I created the correct triangle!"
             - callMethod:
               - rover2
               - stopExecution
-            - scenarioSuccess:
+            - clearBlockly:
             - playSound:
               - musicSuccessShort
-            - playSound:
-              - PerryDusty
+            - scenarioSuccess:
+         # - delay:
+         #   - 8
+         #   - scenarioSuccess:
+         #   - returnToMenu:
 
-        scenarioEnded4_6:
+        scenarioEnded4_15a:
           triggerCondition:
           - or: 
             - onScenarioSucceeded:
@@ -220,18 +296,17 @@ children:
             - rover2
             - surveyArray
             - []
+
+        onScenarioFailed4_15a:
+          triggerCondition:
+          - onScenarioFailed:
+          actions:
           - deleteNanites:
-            - nanites_Mission4Task6
+            - nanites_Mission4Task15a
 
   brief:
     extends: ../missionBrief.vwf
     properties:
-      title: "Mission 4, Task 6"
+      title: "Mission 4, Task 15a"
       content: >
-        You're almost done! Let’s add one more triangle by 
-        reflecting the triangle across both the x and y axes. <br><br>Remember 
-        that you can reflect across the x axis by multiplying the y values by 
-        -1 and reflect across the y axis by multiplying the x values by 
-        -1. So, to do both, you will have to multiply both the x and y 
-        values by -1. Try multiplying your vertices to reflect over the 
-        x and y axes.
+        Placeholder
