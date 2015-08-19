@@ -256,6 +256,7 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 lastBlockIDExecuted = undefined;
                 currentProcedureBlockID = undefined;
                 lastBlockIDExecuted = undefined;
+                updateBlocklyUI( blocklyNodes[ currentBlocklyNodeID ] );
             case "scenarioReset":
                 removePopup();
                 removeFailScreen();
@@ -790,7 +791,7 @@ function getBlocklyNodeIDByName( name ) {
 }
 
 function updateBlocklyUI( blocklyNode ) {
-    if ( Blockly.mainWorkspace ) {
+    if ( Blockly.mainWorkspace && blocklyNode ) {
         Blockly.mainWorkspace.maxBlocks = blocklyNode.ramMax;
         if ( Blockly.mainWorkspace.toolbox_.tree_.firstChild_ !== undefined && ( currentScenario === 'Mission1Task1' || currentScenario === 'Mission1Task2' || currentScenario === 'Mission1Task3' || currentScenario === 'Mission1Task4' || currentScenario === 'Mission1Task5' || currentScenario === 'Mission1Task6' || currentScenario === 'Mission1Task7' || currentScenario === 'Mission1Task8' || currentScenario === 'Mission2Task1' || currentScenario === 'Mission2Task2' || currentScenario === 'Mission2Task3' ) ) {
             setTimeout( function() { 
