@@ -2202,7 +2202,8 @@ Blockly.JavaScript['draw_triangle'] = function(block) {
   //moveA
   //end
 
-  var overallCode = moveA + start + mark + moveB + mark + moveC + mark + moveA + mark + end;
+  //var overallCode = moveA + start + mark + moveB + mark + moveC + mark + moveA + mark + end;
+  var overallCode = start + moveA + moveB + moveC + moveA + end;
   
   return overallCode;
 };
