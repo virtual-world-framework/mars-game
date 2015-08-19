@@ -117,25 +117,21 @@ properties:
 
   - addToGrid:
     - solarPanel1
-    - [ -27, 22 ]
+    - [ -23, 20 ]
   - addToGrid:
     - solarPanel2
-    - [ -21, 22 ]
+    - [ -25, 20 ]
   - addToGrid:
     - solarPanel3
-    - [ -27, 16 ]
+    - [ -23, 18 ]
   - addToGrid:
     - solarPanel4
-    - [ -21, 16 ]
+    - [ -25, 18]
 
   - setProperty:
     - solarPanel1
     - scale
-    - [1.2, 1.2, 1.2]
-  - setProperty:
-    - solarPanel1
-    - rotation
-    - [0 ,0 ,1 , 90 ]
+    - [.4, .4, .4]
   - setProperty:
     - solarPanel1
     - visible
@@ -143,12 +139,16 @@ properties:
   - setProperty:
     - solarPanel1
     - built
-    - false
+    - true
 
   - setProperty:
     - solarPanel2
     - scale
-    - [1.2, 1.2, 1.2]
+    - [.4, .4, .4]
+  - setProperty:
+    - solarPanel2
+    - rotation
+    - [0 ,0 ,1 ,90 ]
   - setProperty:
     - solarPanel2
     - visible
@@ -156,16 +156,16 @@ properties:
   - setProperty:
     - solarPanel2
     - built
-    - false
+    - true
 
   - setProperty:
     - solarPanel3
     - scale
-    - [1.2, 1.2, 1.2]
+    - [.4, .4, .4]
   - setProperty:
     - solarPanel3
     - rotation
-    - [0 ,0 ,1 , 180 ]
+    - [0 ,0 ,1 ,270 ]
   - setProperty:
     - solarPanel3
     - visible
@@ -173,16 +173,16 @@ properties:
   - setProperty:
     - solarPanel3
     - built
-    - false
+    - true
 
   - setProperty:
     - solarPanel4
     - scale
-    - [1.2, 1.2, 1.2]
+    - [.4, .4, .4]
   - setProperty:
     - solarPanel4
     - rotation
-    - [0 ,0 ,1 , 270 ]
+    - [0 ,0 ,1 ,180 ]
   - setProperty:
     - solarPanel4
     - visible
@@ -190,7 +190,7 @@ properties:
   - setProperty:
     - solarPanel4
     - built
-    - false
+    - true
 
   - setProperty:
     - marsTent1

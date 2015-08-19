@@ -22,13 +22,9 @@ properties:
 
   # objective
   - setObjective:
-    - "Reflect your triangle across the Y axis."
+    - "Reflect your triangle across the Y axis to get [0,0], [0,1], and [-1,0]."
 
   # Blockly
-  - setProperty:
-    - rover2
-    - blockly_xml
-    - <xml><block type="draw_triangle" movable="false" deletable="false" inline="false" x="60" y="140"><value name="pointA"><block type="ordered_pair_config" id="16" movable="false" inline="true"><value name="XFIELD"><block type="math_number_frozen" inline="false" deletable="false" movable="false" editable="false"><field name="VALUE">0</field></block></value><value name="YFIELD"><block type="math_number_frozen" id="43" inline="false" deletable="false" movable="false" editable="false"><field name="VALUE">0</field></block></value></block></value><value name="pointB"><block type="ordered_pair_config" movable="false" inline="true"><value name="XFIELD"><block type="math_number_frozen" id="44" inline="false" deletable="false" movable="false" editable="false"><field name="VALUE">0</field></block></value><value name="YFIELD"><block type="math_number_frozen" id="42" inline="false" deletable="false" movable="false" editable="false"><field name="VALUE">6</field></block></value></block></value><value name="pointC"><block type="ordered_pair_config" id="28" movable="false" inline="true"><value name="XFIELD"><block type="math_number_frozen" id="40" inline="false" deletable="false" movable="false" editable="false"><field name="VALUE">-6</field></block></value><value name="YFIELD"><block type="math_number_frozen" id="41" inline="false" deletable="false" movable="false" editable="false"><field name="VALUE">0</field></block></value></block></value></block></xml>
   - setBlocklyContext:
     - rover2
   - loadToolbox:
@@ -49,22 +45,6 @@ properties:
     - rover
     - setHeading
     - 180
-  - setProperty:
-    - rover
-    - battery
-    - 12
-  - setProperty:
-    - rover
-    - batteryMax
-    - 150
-  - setProperty:
-    - rover
-    - blockly_allowedBlocks
-    - 15
-  - setProperty:
-    - rover
-    - lowRam
-    - 3
 
   # Perry
   - setProperty:
@@ -115,35 +95,21 @@ properties:
     - opacity
     - 0
 
-  - setProperty:
-    - roverTracks2
-    - visible
-    - true
-
-
-  # Solar panel construction
-  
   - drawTriangle:
     - [ 0, 0 ]
-    - [ 0, 6 ]
-    - [ 6, 0 ]
+    - [ 0, 1 ]
+    - [ -1, 0 ]
+
+  # Solar panel construction
 
   - addToGrid:
     - solarPanel1
-    - [ -27, 22 ]
-
-  - addToGrid:
-    - solarPanel2
-    - [ -21, 22 ]
+    - [ -23, 20 ]
 
   - setProperty:
     - solarPanel1
     - scale
-    - [1.2, 1.2, 1.2]
-  - setProperty:
-    - solarPanel1
-    - rotation
-    - [0 ,0 ,1 , 90 ]
+    - [.4, .4, .4]
   - setProperty:
     - solarPanel1
     - visible
@@ -156,11 +122,15 @@ properties:
   - setProperty:
     - solarPanel2
     - scale
-    - [1.2, 1.2, 1.2]
+    - [.4, .4, .4]
   - setProperty:
     - solarPanel2
     - visible
     - false
+  - setProperty:
+    - solarPanel2
+    - rotation
+    - [0 ,0 ,1 , 90 ]
 
   - setProperty:
     - solarPanel3
@@ -180,7 +150,7 @@ properties:
     - cargoPod2
     - isClosed
     - false
-  
+
 children:
   triggerManager:
     extends: ../triggers/triggerManager.vwf
@@ -197,26 +167,26 @@ children:
             - 9
             - openMissionBrief:
 
-        setStartPosition_4_4:
-          triggerCondition:
-          - and:
-            - onScenarioStart:
-            - not:
-              - isAtPosition:
-                - rover2
-                - [ -24, 19 ]
-            - not:
-              - isAtPosition:
-                - rover2
-                - [ -24, 25 ]
-            - not:
-              - isAtPosition:
-                - rover2
-                - [ -30, 19 ]
-          actions:
-            - addToGrid:
-              - rover2
-              - [ -24, 19 ]
+      #  setStartPosition_4_4:
+      #    triggerCondition:
+      #    - and:
+      #      - onScenarioStart:
+      #      - not:
+      #        - isAtPosition:
+      #          - rover2
+      #          - [ -24, 19 ]
+      #      - not:
+      #        - isAtPosition:
+      #          - rover2
+      #          - [ -24, 25 ]
+      #      - not:
+      #        - isAtPosition:
+      #          - rover2
+      #          - [ -30, 19 ]
+      #    actions:
+      #      - addToGrid:
+      #        - rover2
+      #        - [ -24, 19 ]
 
         succeedOnTriangle_4_4:
           group: successOrFailure
@@ -224,12 +194,10 @@ children:
           triggerCondition:
           - onBlocklyPolygon:
             - rover2
-            - [ [ 0, 0 ], [ 0, 6 ], [ 6, 0 ] ]
+            - [ [ 0, 0 ], [ 0, 1 ], [ -1, 0 ] ]
           actions:
           - writeToBlackboard:
             - disableFailOnIncompleteProgram
-          - buildBaseComponent:
-            - solarPanel2
           - deleteNanites:
             - nanites_Mission4Task4
           - delay:
@@ -251,7 +219,6 @@ children:
             - onScenarioSucceeded:
             - onScenarioFailed:
           actions:
-          - clearTriangle:
           - setProperty:
             - rover2
             - surveyArray

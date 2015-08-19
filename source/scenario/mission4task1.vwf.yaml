@@ -23,7 +23,7 @@ properties:
 
   # objective
   - setObjective:
-    - "Lay down nanobuilders in a triangle with vertices at (-7,0), (-7,3), and (-10,0)."
+    - "Lay down nanobuilders in a triangle with vertices at (0,0), (0,1), and (1,0)."
 
   # sound/video
   - playSound:
@@ -43,7 +43,7 @@ properties:
   - loadToolbox:
     - rover2
     - source/scenario/blockly/mission4_perry1.xml
- 
+
   # Manny
   - addToGrid:
     - rover
@@ -52,19 +52,6 @@ properties:
     - rover
     - setHeading
     - 180
-  - setProperty:
-    - rover
-    - battery
-    - 12
-  - setProperty:
-    - rover
-    - batteryMax
-    - 150
-  - setProperty:
-    - rover
-    - blockly_allowedBlocks
-    - 15
-  
 
   # Perry
   - addToGrid:
@@ -75,7 +62,7 @@ properties:
     - visible
     - true
   - callMethod:
-    - rover
+    - rover2
     - setHeading
     - 180
   - setProperty:
@@ -103,14 +90,15 @@ properties:
     - visible
     - false
 
+  # Grid
   - setGridAxes:
     - 19
     - -24
 
   - drawTriangle:
-    - [ -7, 0 ]
-    - [ -7, 3 ]
-    - [ -10, 0 ]
+    - [ 0, 0 ]
+    - [ 0, 1 ]
+    - [ 1, 0 ]
 
   #Disable blocklyLine
   - setProperty:
@@ -169,7 +157,7 @@ children:
     properties: 
       triggers$:
 
-        setStartPosition_4_2:
+        setStartPosition_4_1:
           triggerCondition:
           - and:
             - onScenarioStart:
@@ -188,7 +176,7 @@ children:
           triggerCondition:
           - onBlocklyPolygon:
             - rover2
-            - [ [ -7, 0 ], [ -7, 3 ], [ -10, 0 ] ]
+            - [ [ 0, 0 ], [ 0, 1 ], [ 1, 0 ] ]
           actions:
           - writeToBlackboard:
             - disableFailOnIncompleteProgram
@@ -201,7 +189,6 @@ children:
               - stopExecution
             - showAlert:
               - "I created the correct triangle!"
-            - clearBlockly:
             - scenarioSuccess:
             - playSound:
               - musicSuccessShort
