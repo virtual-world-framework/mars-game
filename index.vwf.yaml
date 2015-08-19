@@ -252,6 +252,12 @@ children:
         extends: http://vwf.example.com/node3.vwf
         source: assets/3d/Mars_Assets/mini_rover_tracks.dae
         type: model/vnd.collada+xml
+      roverTracks2:
+        extends: http://vwf.example.com/node3.vwf
+        source: assets/3d/Mars_Assets/mini_rover_tracks2.dae
+        type: model/vnd.collada+xml
+        properties:
+          visible: false
   tileMap:
     extends: source/tileMap.vwf
     source: assets/3d/Mars_Assets/tilemap.png

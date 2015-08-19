@@ -115,6 +115,11 @@ properties:
     - opacity
     - 0
 
+  - setProperty:
+    - roverTracks2
+    - visible
+    - true
+
 
   # Solar panel construction
   
