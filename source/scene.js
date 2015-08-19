@@ -215,12 +215,16 @@ this.handleDrawingBlocks = function ( blockName, blockID, blockNode, blockExeTim
           this.blocklyFailedPolygon( 'rover2', currentArray );
         }
         this.blocklyCompletedPolygon( 'rover2', currentArray );
+        nodeObject.allSurveys.push( currentArray );
     } else if ( blockName === 'markPoint' && blockNode !== undefined ) {
         var currentPosition = nodeObject.positionSensorValue;
         var currentArray = nodeObject.surveyArray.slice( 0 );
         currentArray.push( currentPosition );
         nodeObject.surveyArray = currentArray;
         this.createNaniteSystem( currentArray.slice(), nodeObject );
+    } else if ( blockName === 'Init Nano Construction' && blockNode !== undefined ) {
+        var currentArray = nodeObject.allSurveys.slice( 0 );
+        this.blocklyCompletedSurvey( 'rover2', currentArray );
     }
     this.blockExecuted( blockName, blockID, blockNode, blockExeTime, blockArgs );
 }

@@ -2089,31 +2089,6 @@ Blockly.JavaScript['rover_moveRadial_absolute'] = function(block) {
   var value_x = Blockly.JavaScript.valueToCode(block, 'x', Blockly.JavaScript.ORDER_ATOMIC) || 0;
   var value_y = Blockly.JavaScript.valueToCode(block, 'y', Blockly.JavaScript.ORDER_ATOMIC) || 0;
 
-  // How long should we take to execute this block?
-
-  // if ( isNaN( value_x ) ) {
-  //   var extractedVal = blocklyVariables[ value_x ];
-  //   if ( extractedVal !== undefined ) {
-  //     console.log('extracting');
-  //     value_x = extractedVal;
-  //   } else {
-  //     value_x = 0;
-  //   }
-  // }
-
-  // if ( isNaN( value_y ) ) {
-  //   var extractedVal = blocklyVariables[ value_y ];
-
-  //   if ( extractedVal !== undefined ) {
-  //     console.log('extracting');
-  //     value_y = extractedVal;
-  //   } else {
-  //     value_y = 0;
-  //   }
-  // }
-
-  // var exeTime = Math.round( Math.sqrt(value_x*value_x + value_y*value_y) );
-
   var action = {
     nodeID: block.data,
     methodName: 'moveRadialAbsolute',
@@ -2122,6 +2097,26 @@ Blockly.JavaScript['rover_moveRadial_absolute'] = function(block) {
   };
 
   return constructBlockExeFuncCall( block, action, 'moveRadial' );
+};
+
+Blockly.Blocks['initiate_nano_construction'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Init Nano Construction");
+    this.setPreviousStatement(true);
+    this.setNextStatement(true);
+    this.setColour(180);
+    this.data = currentBlocklyNodeID;
+    this.setTooltip('Starts construction of builder nanoparticles.');
+  }
+};
+
+Blockly.JavaScript['initiate_nano_construction'] = function(block) {
+
+  var start = "vwf.callMethod( '" + vwf_view.kernel.application() + 
+                  "', 'handleDrawingBlocks', " + " [ 'endDrawing', '" + block.id + "', '" + block.data + "', " + 1 + " ] );\n";
+
+  return code;
 };
 
 Blockly.Blocks['draw_triangle'] = {
