@@ -84,8 +84,7 @@ MainMenu.prototype = {
     },
 
     playGame: function() {
-        var ts = document.getElementById( "transitionScreen" );
-        ts.style.display = "block";
+        $( "#transitionScreen" ).fadeTo( 0, 1 );
         vwf_view.kernel.callMethod( vwf_view.kernel.application(), "newGame" );
     },
 
