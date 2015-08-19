@@ -29,6 +29,9 @@ children:
           triggerCondition:
           - onScenarioStart:
           actions:
+          - setSceneProperty:
+            - enableRenderer
+            - false
           - playVideo:
             - intro_cinematic
 
@@ -39,4 +42,7 @@ children:
           - onVideoPlayed:
             - intro_cinematic
           actions:
+          - setSceneProperty:
+            - enableRenderer
+            - true
           - scenarioSuccess:

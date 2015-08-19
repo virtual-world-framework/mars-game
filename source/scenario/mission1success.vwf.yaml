@@ -15,6 +15,9 @@ children:
           triggerCondition:
           - onScenarioStart:
           actions:
+          - setSceneProperty:
+            - enableRenderer
+            - false
           - stopAllSounds:
           - playVideo:
             - Success1
@@ -26,4 +29,7 @@ children:
           - onVideoPlayed:
             - Success1
           actions:
+          - setSceneProperty:
+            - enableRenderer
+            - true
           - scenarioSuccess:
