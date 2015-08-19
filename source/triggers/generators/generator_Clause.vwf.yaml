@@ -83,6 +83,9 @@ properties:
     # arguments: blockly node
     onBlocklyPolygonFailed: "source/triggers/clauses/clause_OnBlocklyPolygonFailed.vwf"
 
+    # arguments: blockly node and an array of point arrays ( array of polygons );
+    onBlocklySurveyFinished: "source/triggers/clauses/clause_OnBlocklySurveyFinished.vwf"
+
     # arguments: scenarioName(s) (optional)
     onScenarioStart: "source/triggers/clauses/clause_OnScenarioStart.vwf"
     onScenarioSucceeded: "source/triggers/clauses/clause_OnScenarioSucceeded.vwf"

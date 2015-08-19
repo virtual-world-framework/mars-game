@@ -111,6 +111,7 @@ events:
   blockExecuted:
   blocklyCompletedPolygon:
   blocklyFailedPolygon:
+  blocklyCompletedSurvey:
   toggledHelicam:
   toggledGraph:
   toggledTiles:
@@ -440,6 +441,7 @@ children:
           receiveShadows: true
           executionSpeed: 0.5
           roverRadius: 2
+          allSurveys: []
           surveyArray: []
           sceneNode:
             get: |
