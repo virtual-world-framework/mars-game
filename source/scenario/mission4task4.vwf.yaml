@@ -73,6 +73,9 @@ properties:
     - 5
   - selectRover:
     - rover2
+  - addToGrid:
+    - rover2
+    - [-27, 19]
 
   # Rosie disabled
   - setProperty:
@@ -121,16 +124,8 @@ properties:
 
   - setProperty:
     - solarPanel2
-    - scale
-    - [.4, .4, .4]
-  - setProperty:
-    - solarPanel2
     - visible
     - false
-  - setProperty:
-    - solarPanel2
-    - rotation
-    - [0 ,0 ,1 , 90 ]
 
   - setProperty:
     - solarPanel3
@@ -146,6 +141,7 @@ properties:
     - cargoPod2
     - rotation
     - [0 ,0 ,1 , -45 ]
+
   - setProperty:
     - cargoPod2
     - isClosed
@@ -166,27 +162,6 @@ children:
           - delay:
             - 9
             - openMissionBrief:
-
-      #  setStartPosition_4_4:
-      #    triggerCondition:
-      #    - and:
-      #      - onScenarioStart:
-      #      - not:
-      #        - isAtPosition:
-      #          - rover2
-      #          - [ -24, 19 ]
-      #      - not:
-      #        - isAtPosition:
-      #          - rover2
-      #          - [ -24, 25 ]
-      #      - not:
-      #        - isAtPosition:
-      #          - rover2
-      #          - [ -30, 19 ]
-      #    actions:
-      #      - addToGrid:
-      #        - rover2
-      #        - [ -24, 19 ]
 
         succeedOnTriangle_4_4:
           group: successOrFailure

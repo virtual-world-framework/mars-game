@@ -1,8 +1,11 @@
 <xml id="rover" style="display: none">
   
+  <category name="Movement">
+    <block type="rover_moveRadial_absolute" inline="false"></block>
+    <block type="init_nano_construction" inline="false"></block>
+  </category>
   <category name="Math">
-    <block type="math_number_out_two_limited" inline="false"><field name="VALUE">2</field></block>
-    <block type="graph_multiply"></block>
+    <block type="math_number_out_m4t3" inline="false"><field name="VALUE">-3</field></block>
   </category>
 
 </xml>

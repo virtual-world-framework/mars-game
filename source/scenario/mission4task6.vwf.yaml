@@ -66,13 +66,16 @@ properties:
   - setProperty:
     - rover2
     - blockly_allowedBlocks
-    - 18
+    - 22
   - setProperty:
     - rover2
     - lowRam
     - 5
   - selectRover:
     - rover2
+  - addToGrid:
+    - rover2
+    - [-27, 19]
 
   # Rosie disabled
   - setProperty:
@@ -187,9 +190,15 @@ children:
           group: successOrFailure
           priority: 0
           triggerCondition:
-          - onBlocklyPolygon:
-            - rover2
-            - [ [ 0, 0 ], [ 0, -2 ], [ 2, 0 ] ]
+          - and:
+            - onBlocklyPolygon:
+              - rover2
+              - [ [ 0, 0 ], [ 0, -2 ], [ 2, 0 ] ]
+            - isAtPosition:
+              - rover2
+              - [-27, 19]
+            - onBlocklyStopped:
+              - rover2
           actions:
           - writeToBlackboard:
             - disableFailOnIncompleteProgram

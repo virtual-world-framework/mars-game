@@ -1731,7 +1731,7 @@ Blockly.Blocks['init_nano_construction'] = {
 
 Blockly.JavaScript['init_nano_construction'] = function(block) {
 
-  var start = "vwf.callMethod( '" + vwf_view.kernel.application() + 
+  var code = "vwf.callMethod( '" + vwf_view.kernel.application() + 
                   "', 'handleDrawingBlocks', " + " [ 'endSurvey', '" + block.id + "', '" + block.data + "', " + 1 + " ] );\n";
 
   return code;
@@ -1996,11 +1996,49 @@ Blockly.JavaScript['math_number_out' ] = function( block ) {
   }
 };
 
+Blockly.Blocks[ 'math_number_out_m4t3' ] = {
+  init: function() {
+    this.setColour( 60 );
+    this.appendValueInput( "INPUT" )
+        .appendField(new Blockly.FieldDropdown([["0","0"],["-3","-3"]]), "VALUE")
+        .setCheck( [ 'OperatorAddSubtract','OperatorMultiplyDivide','Variable','LeftParenthesis','RightParenthesis','Conditional' ] );
+    this.setOutput( true, 'Number' );
+    this.data = currentBlocklyNodeID;
+    var thisBlock = this;
+    this.setTooltip( function() {
+      var content = {
+        text: "A block representing an integer."
+      }
+      return showTooltipInBlockly( thisBlock, content );
+    } );
+    
+  }
+};
+
+Blockly.JavaScript['math_number_out_m4t3' ] = function( block ) {
+  
+  var dropdown_value = block.getFieldValue('VALUE');
+  
+  if ( isNaN( dropdown_value ) || dropdown_value === "" ){
+    dropdown_value = 0;
+    block.setFieldValue('0','VALUE');
+  }
+
+  var argument0 = Blockly.JavaScript.valueToCode(block, 'INPUT',
+      Blockly.JavaScript.ORDER_ATOMIC) || '';
+
+  if ( argument0[0] === 'x' || argument0[0] === '(' ){
+    return [ dropdown_value + '*' + argument0 , Blockly.JavaScript.ORDER_ATOMIC ];
+  } else {
+    return [ dropdown_value + argument0 , Blockly.JavaScript.ORDER_ATOMIC ];
+  }
+};
+
 Blockly.Blocks[ 'math_number_out_m4t5' ] = {
   init: function() {
     this.setColour( 60 );
     this.appendValueInput( "INPUT" )
-        .appendField(new Blockly.FieldDropdown([["-2", "-2"],["2", "2"],["-1", "-1"],["1", "1"]]), "VALUE")
+        .appendField(new Blockly.FieldDropdown([["-2", "-2"],["2", "2"],["-1", "-1"],["1", "1"],["0","0"],["-3","-3"]]), "VALUE")
         .setCheck( [ 'OperatorAddSubtract','OperatorMultiplyDivide','Variable','LeftParenthesis','RightParenthesis','Conditional' ] );
     this.setOutput( true, 'Number' );
     this.data = currentBlocklyNodeID;

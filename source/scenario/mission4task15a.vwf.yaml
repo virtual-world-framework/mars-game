@@ -16,13 +16,13 @@
 extends: ../scenario/scenario.vwf
 properties:
   scenarioName: Mission4Task15a
-  nextScenarioPath: "Mission4Task15b"
+  nextScenarioPath: "scenario_dummy"
 
   startState:
 
   # objective
   - setObjective:
-    - "Translate your triangle and reflect it across both axis to get [-1,-6], [-1,-9], [-3,-6]."
+    - "Translate your triangle and reflect it across both axis to get [-1,-6], [-1,-9], [-3,-6] and [-1,-6], [-1,-9], [1,-6]."
 
   # blockly
   - setBlocklyContext:
@@ -82,7 +82,7 @@ properties:
   - setProperty:
     - rover2
     - blockly_allowedBlocks
-    - 40
+    - 60
   - setProperty:
     - rover2
     - lowRam

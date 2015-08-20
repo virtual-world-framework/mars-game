@@ -61,7 +61,8 @@ properties:
   - setProperty:
     - rover2
     - blockly_allowedBlocks
-    - 14
+    - 4
+
   - setProperty:
     - rover2
     - lowRam
@@ -130,9 +131,6 @@ properties:
     - isClosed
     - false
 
-  - buildBaseComponent:
-    - solarPanel1
-
 children:
   triggerManager:
     extends: ../triggers/triggerManager.vwf
@@ -166,47 +164,50 @@ children:
                 - rover2
                 - [ -26, 19 ]
           actions:
-            - addToGrid:
-              - rover2
-              - [ -24, 19 ]
+          - addToGrid:
+            - rover2
+            - [ -24, 19 ]
 
-        #succeedOnTriangle_4_3:
-        #  group: successOrFailure
-        #  priority: 0
-        #  triggerCondition:
-        #  - or:
-        #    - isAtPosition:
-        #      - rover2
-        #      - [ -24, 19 ]
-        #    - isAtPosition:
-        #      - rover2
-        #      - [ -24, 21 ]
-        #    - isAtPosition:
-        #      - rover2
-        #     - [ -26, 19 ]
-        # actions:
-        #  - writeToBlackboard:
-        #    - disableFailOnIncompleteProgram
-        #  - buildBaseComponent:
-        #    - solarPanel1
-        #  - deleteNanites:
-        #    - nanites_Mission4Task2
-        #  - delay:
-        #    - 6
-        #    - showAlert:
-        #      - "I constructed the solar panel!"
-        #    - callMethod:
-        #      - rover2
-        #      - stopExecution
-        #    - scenarioSuccess:
-        #    - playSound:
-        #      - musicSuccessShort
-        #    - playSound:
-        #      - PerryIDidIt
-        #    - playSound:
-        #      - M4VO28_MC
-        #    - playSound:
-        #      - PerryNotDoneGroan
+        highlightEndTile_4_3:
+          triggerCondition:
+          - onScenarioStart:
+          actions:
+          - callOutObjective:
+            - [ -27, 19 ]
+
+        succeedOnMove_4_3:
+          group: successOrFailure
+          priority: 0
+          triggerCondition:
+          - and:
+            - onBlocklyStopped:
+              - rover2
+            - isAtPosition:
+              - rover2
+              - [ -27, 19 ]
+          actions:
+          - writeToBlackboard:
+            - disableFailOnIncompleteProgram
+          - buildBaseComponent:
+            - solarPanel1
+          - deleteNanites:
+            - nanites_Mission4Task2
+          - delay:
+            - 6
+            - showAlert:
+              - "I constructed the solar panel!"
+            - callMethod:
+              - rover2
+              - stopExecution
+            - scenarioSuccess:
+            - playSound:
+              - musicSuccessShort
+            - playSound:
+              - PerryIDidIt
+            - playSound:
+              - M4VO28_MC
+            - playSound:
+              - PerryNotDoneGroan
 
         scenarioEnded4_3:
           triggerCondition:
