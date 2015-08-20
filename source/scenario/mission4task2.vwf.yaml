@@ -16,7 +16,7 @@
 extends: ../scenario/scenario.vwf
 properties:
   scenarioName: Mission4Task2
-  nextScenarioPath: Mission4Task4
+  nextScenarioPath: Mission4Task3
 
   startState:
 
@@ -194,12 +194,6 @@ children:
           actions:
           - writeToBlackboard:
             - disableFailOnIncompleteProgram
-          ####This is only here until the new actions can be added to mission 3#####
-          - deleteNanites:
-            - nanites_Mission4Task2
-          - buildBaseComponent:
-            - solarPanel1
-          ##########################################################################
           - delay:
             - 1
             - showAlert:
