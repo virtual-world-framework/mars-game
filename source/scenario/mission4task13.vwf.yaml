@@ -239,6 +239,7 @@ children:
             - onBlocklyStopped:
               - rover2
             - isAtPosition:
+              - rover2
               - [ -35, 5 ]
           actions:
           - writeToBlackboard:
