@@ -60,8 +60,9 @@ this.checkTriggers$ = function() {
     //  impossible - especially with a low frame rate.  In order to address 
     //  this, do another check after a future(0).
     if ( haveTriggerToFire ) {
-        this.future( 0 ).checkTriggersCallback$();
-    } else if ( this.isChecking ) {
+        //this.future( 0 ).checkTriggersCallback$();
+        this.checkTriggersCallback$();
+    } else if ( this.isEvaluating ) {
         // schedule the next check
         this.future( this.checkFrequency$ ).checkTriggers$();
     }
