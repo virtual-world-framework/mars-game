@@ -2,9 +2,10 @@
 
   <category name="Movement">
     <block type="rover_moveRadial_absolute"></block>
+    <block type="init_nano_construction" inline="false"></block>
   </category>
   <category name="Math">
-    <block type="math_number_out" inline="false" x="20" y="-220"><field name="VALUE">0</field></block>
+    <block type="math_number_out_m4t14" inline="false" x="20" y="-220"><field name="VALUE">0</field></block>
     <block type="graph_add"></block>
     <block type="graph_multiply"></block>
     <block type="graph_left_paren"></block>
