@@ -16,20 +16,20 @@
 extends: ../scenario/scenario.vwf
 properties:
   scenarioName: Mission4Task9
-  nextScenarioPath: Mission4Task10
+  nextScenarioPath: "Mission4Task10"
 
   startState:
 
   # objective
   - setObjective:
-    - "Translate your triangle across both axis and reflect across the y-axis to get [-7,-7],[-7,-6],[-6,-7]."
+    - "Translate and dilate your triangle to [-7,-4],[-7,-7],[-4,-7]."
 
   # blockly
   - setBlocklyContext:
     - rover2
   - loadToolbox:
     - rover2
-    - source/scenario/blockly/mission4_perry9a.xml
+    - source/scenario/blockly/mission4_perry10a.xml
 
   # sounds/music
   - playSound:
@@ -45,22 +45,6 @@ properties:
     - rover
     - setHeading
     - 180
-  - setProperty:
-    - rover
-    - battery
-    - 12
-  - setProperty:
-    - rover
-    - batteryMax
-    - 150
-  - setProperty:
-    - rover
-    - blockly_allowedBlocks
-    - 15
-  - setProperty:
-    - rover
-    - lowRam
-    - 3
 
   # Perry
   - setProperty:
@@ -82,7 +66,7 @@ properties:
   - setProperty:
     - rover2
     - blockly_allowedBlocks
-    - 26
+    - 40
   - setProperty:
     - rover2
     - lowRam
@@ -108,12 +92,12 @@ properties:
     - blocklyLine
     - opacity
     - 0
+  - drawTriangle:
+    - [ -7, -4 ]
+    - [ -7, -7 ]
+    - [ -4, -7 ]
 
   # Solar panel construction
-  - drawTriangle:
-    - [ -7, -6 ]
-    - [ -7, -7 ]
-    - [ -6, -7 ]
 
   - addToGrid:
     - solarPanel1
@@ -186,21 +170,22 @@ properties:
   - setProperty:
     - solarPanel4
     - visible
-    - true
-  - setProperty:
-    - solarPanel4
-    - built
-    - true
-
-  - setProperty:
-    - marsTent1
-    - visible
     - false
 
   - setProperty:
     - cargoPod2
     - rotation
-    - [0 ,0 ,1 , -45]
+    - [0 ,0 ,1 ,-45 ]
+
+  - setProperty:
+    - cargoPod2
+    - isClosed
+    - false
+
+  - setProperty:
+    - marsTent1
+    - visible
+    - false
 
 children:
   triggerManager:
@@ -225,19 +210,19 @@ children:
             - not:
               - isAtPosition:
                 - rover2
-                - [ -35, 11 ]
+                - [ -31, 12 ]
             - not:
               - isAtPosition:
                 - rover2
-                - [ -32, 11 ]
+                - [ -31, 13 ]
             - not:
               - isAtPosition:
                 - rover2
-                - [ -32, 14 ]
+                - [ -30, 12 ]
           actions:
             - addToGrid:
               - rover2
-              - [ -32, 11 ]
+              - [ -31, 12 ]
 
         succeedOnTriangle_4_9:
           group: successOrFailure
@@ -245,7 +230,7 @@ children:
           triggerCondition:
           - onBlocklyPolygon:
             - rover2
-            - [ [ -6, -7 ], [ -7, -6 ], [ -7, -7 ] ]
+            - [ [ -4, -7 ], [ -7, -4 ], [ -7, -7 ] ]
           actions:
           - writeToBlackboard:
             - disableFailOnIncompleteProgram
@@ -258,23 +243,18 @@ children:
               - stopExecution
             - playSound:
               - musicSuccessShort
-            - deleteNanites:
-              - nanites_Mission4Task9
             - scenarioSuccess:
 
-
-  #      scenarioEnded4_9:
-  #        triggerCondition:
-  #        - or: 
-  #          - onScenarioSucceeded:
-  #          - onScenarioFailed:
-  #        actions:
-  #        - setProperty:
-  #          - rover2
-  #          - surveyArray
-  #          - []
-  #        - deleteNanites:
-  #          - nanites_Mission4Task9
+        scenarioEnded4_9:
+          triggerCondition:
+          - or: 
+            - onScenarioSucceeded:
+            - onScenarioFailed:
+          actions:
+          - setProperty:
+            - rover2
+            - surveyArray
+            - []
 
         onScenarioFailed4_9:
           triggerCondition:

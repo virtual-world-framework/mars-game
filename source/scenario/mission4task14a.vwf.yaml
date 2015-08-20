@@ -16,7 +16,7 @@
 extends: ../scenario/scenario.vwf
 properties:
   scenarioName: Mission4Task14a
-  nextScenarioPath: "Mission4Task14b"
+  nextScenarioPath: "Mission4Task15a"
 
   startState:
 
@@ -45,22 +45,6 @@ properties:
     - rover
     - setHeading
     - 180
-  - setProperty:
-    - rover
-    - battery
-    - 12
-  - setProperty:
-    - rover
-    - batteryMax
-    - 150
-  - setProperty:
-    - rover
-    - blockly_allowedBlocks
-    - 15
-  - setProperty:
-    - rover
-    - lowRam
-    - 3
 
   # Perry
   - setProperty:
@@ -82,13 +66,16 @@ properties:
   - setProperty:
     - rover2
     - blockly_allowedBlocks
-    - 40
+    - 130
   - setProperty:
     - rover2
     - lowRam
     - 1
   - selectRover:
     - rover2
+  - addToGrid:
+    - rover2
+    - [ -35, 5 ]
 
   # Rosie disabled
   - setProperty:
@@ -108,37 +95,37 @@ properties:
     - blocklyLine
     - opacity
     - 0
-
-  # Solar panel construction
   - drawTriangle:
     - [ -7, -15 ]
     - [ -7, -19 ]
     - [ -3, -19 ]
 
+
+  # Solar panel construction
+
   - addToGrid:
     - solarPanel1
-    - [ -27, 22 ]
+    - [ -23, 20 ]
   - addToGrid:
     - solarPanel2
-    - [ -21, 22 ]
+    - [ -25, 20 ]
   - addToGrid:
     - solarPanel3
-    - [ -27, 16 ]
+    - [ -23, 18 ]
   - addToGrid:
     - solarPanel4
-    - [ -21, 16 ]
+    - [ -25, 18]
   - addToGrid:
     - marsTent1
     - [ -32, 11 ]
+  - addToGrid:
+    - greenhouse1
+    - [ -32, 1 ]
 
   - setProperty:
     - solarPanel1
     - scale
-    - [1.2, 1.2, 1.2]
-  - setProperty:
-    - solarPanel1
-    - rotation
-    - [0 ,0 ,1 , 90 ]
+    - [.4, .4, .4]
   - setProperty:
     - solarPanel1
     - visible
@@ -146,12 +133,16 @@ properties:
   - setProperty:
     - solarPanel1
     - built
-    - false
+    - true
 
   - setProperty:
     - solarPanel2
     - scale
-    - [1.2, 1.2, 1.2]
+    - [.4, .4, .4]
+  - setProperty:
+    - solarPanel2
+    - rotation
+    - [0 ,0 ,1 ,90 ]
   - setProperty:
     - solarPanel2
     - visible
@@ -159,16 +150,16 @@ properties:
   - setProperty:
     - solarPanel2
     - built
-    - false
+    - true
 
   - setProperty:
     - solarPanel3
     - scale
-    - [1.2, 1.2, 1.2]
+    - [.4, .4, .4]
   - setProperty:
     - solarPanel3
     - rotation
-    - [0 ,0 ,1 , 180 ]
+    - [0 ,0 ,1 ,270 ]
   - setProperty:
     - solarPanel3
     - visible
@@ -176,34 +167,45 @@ properties:
   - setProperty:
     - solarPanel3
     - built
-    - false
+    - true
 
   - setProperty:
     - solarPanel4
     - scale
-    - [1.2, 1.2, 1.2]
+    - [.4, .4, .4]
   - setProperty:
     - solarPanel4
     - rotation
-    - [0 ,0 ,1 , 270 ]
+    - [0 ,0 ,1 ,180 ]
   - setProperty:
     - solarPanel4
     - visible
-    - true
-  - setProperty:
-    - solarPanel4
-    - built
     - false
-
-  - setProperty:
-    - marsTent1
-    - visible
-    - true
 
   - setProperty:
     - cargoPod2
     - rotation
-    - [0 ,0 ,1 , -45]
+    - [0 ,0 ,1 ,-45 ]
+
+  - setProperty:
+    - cargoPod2
+    - isClosed
+    - false
+
+  - setProperty:
+    - marsTent1
+    - visible
+    - true
+
+  - setProperty:
+    - greenhouse1
+    - visible
+    - false
+
+  - setProperty:
+    - greenhouse1
+    - rotation
+    - [0 ,0 ,1 , 180]
 
 children:
   triggerManager:
@@ -221,37 +223,39 @@ children:
             - 2
             - openMissionBrief:
 
-        setStartPosition_4_14a:
+        highlightEndTile_4_13:
           triggerCondition:
-          - and:
-            - onScenarioStart:
-            - not:
-              - isAtPosition:
-                - rover2
-                - [ -33, 10 ]
-            - not:
-              - isAtPosition:
-                - rover2
-                - [ -33, 7 ]
-            - not:
-              - isAtPosition:
-                - rover2
-                - [ -36, 7 ]
+          - onScenarioStart:
           actions:
-            - addToGrid:
-              - rover2
-              - [ -33, 10 ]
+          - callOutObjective:
+            - [ -31, 5 ]
 
         succeedOnTriangle_4_14a:
           group: successOrFailure
           priority: 0
           triggerCondition:
-          - onBlocklyPolygon:
-            - rover2
-            - [ [ -7, -15 ], [ -7, -19 ], [ -3, -19 ] ]
+          - and:
+            - onBlocklySurveyFinished:
+              - rover2
+              - [ [ [ -7, -15 ], [ -7, -19 ], [ -3, -19 ] ] , [ [ -9, -15 ], [ -9, -19 ], [ -13, -19 ] ], [ [ -7, -21 ], [ -7, -25 ], [ -3, -21 ] ], [ [ -9, -21 ], [ -9, -25 ], [ -13, -21 ] ] ]
+            - isAtPosition:
+              - rover2
+              - [ -31, 5 ]
+            - onBlocklyStopped:
+              - rover2
           actions:
           - writeToBlackboard:
             - disableFailOnIncompleteProgram
+          - buildBaseComponent:
+            - greenhouse1
+          - deleteNanites:
+            - nanites_Mission4Task14a
+          - deleteNanites:
+            - nanites_Mission4Task14b
+          - deleteNanites:
+            - nanites_Mission4Task14c
+          - deleteNanites:
+            - nanites_Mission4Task14d
           - delay:
             - 3
             - showAlert:
@@ -262,10 +266,6 @@ children:
             - playSound:
               - musicSuccessShort
             - scenarioSuccess:
-         # - delay:
-         #   - 8
-         #   - scenarioSuccess:
-         #   - returnToMenu:
 
         scenarioEnded4_14a:
           triggerCondition:

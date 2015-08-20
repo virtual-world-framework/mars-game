@@ -16,13 +16,13 @@
 extends: ../scenario/scenario.vwf
 properties:
   scenarioName: Mission4Task12
-  nextScenarioPath: Mission4Task13
+  nextScenarioPath: "Mission4Task13"
 
   startState:
 
   # objective
   - setObjective:
-    - "Translate your triangle across both axis and reflect it across the y-axis to get to [-7,-9], [-4,-9], [-7,-12]."
+    - "Translate your triangle and reflect it across both axis to get [-9,-9], [-9,-12],[-12,-12]."
 
   # blockly
   - setBlocklyContext:
@@ -45,22 +45,6 @@ properties:
     - rover
     - setHeading
     - 180
-  - setProperty:
-    - rover
-    - battery
-    - 12
-  - setProperty:
-    - rover
-    - batteryMax
-    - 150
-  - setProperty:
-    - rover
-    - blockly_allowedBlocks
-    - 15
-  - setProperty:
-    - rover
-    - lowRam
-    - 3
 
   # Perry
   - setProperty:
@@ -108,47 +92,48 @@ properties:
     - blocklyLine
     - opacity
     - 0
+  - drawTriangle:
+    - [ -9, -9 ]
+    - [ -9, -12 ]
+    - [ -12, -9 ]
+
 
   # Solar panel construction
-  - drawTriangle:
-    - [ -7, -9 ]
-    - [ -4, -9 ]
-    - [ -7, -12 ]
 
   - addToGrid:
     - solarPanel1
-    - [ -27, 22 ]
+    - [ -23, 20 ]
   - addToGrid:
     - solarPanel2
-    - [ -21, 22 ]
+    - [ -25, 20 ]
   - addToGrid:
     - solarPanel3
-    - [ -27, 16 ]
+    - [ -23, 18 ]
   - addToGrid:
     - solarPanel4
-    - [ -21, 16 ]
+    - [ -25, 18]
 
   - setProperty:
     - solarPanel1
     - scale
-    - [1.2, 1.2, 1.2]
+    - [.4, .4, .4]
   - setProperty:
     - solarPanel1
+    - visible
+    - true
+  - setProperty:
+    - solarPanel1
+    - built
+    - true
+
+  - setProperty:
+    - solarPanel2
+    - scale
+    - [.4, .4, .4]
+  - setProperty:
+    - solarPanel2
     - rotation
-    - [0 ,0 ,1 , 90 ]
-  - setProperty:
-    - solarPanel1
-    - visible
-    - true
-  - setProperty:
-    - solarPanel1
-    - built
-    - false
-
-  - setProperty:
-    - solarPanel2
-    - scale
-    - [1.2, 1.2, 1.2]
+    - [0 ,0 ,1 ,90 ]
   - setProperty:
     - solarPanel2
     - visible
@@ -156,16 +141,16 @@ properties:
   - setProperty:
     - solarPanel2
     - built
-    - false
+    - true
 
   - setProperty:
     - solarPanel3
     - scale
-    - [1.2, 1.2, 1.2]
+    - [.4, .4, .4]
   - setProperty:
     - solarPanel3
     - rotation
-    - [0 ,0 ,1 , 180 ]
+    - [0 ,0 ,1 ,270 ]
   - setProperty:
     - solarPanel3
     - visible
@@ -173,34 +158,35 @@ properties:
   - setProperty:
     - solarPanel3
     - built
-    - false
+    - true
 
   - setProperty:
     - solarPanel4
     - scale
-    - [1.2, 1.2, 1.2]
+    - [.4, .4, .4]
   - setProperty:
     - solarPanel4
     - rotation
-    - [0 ,0 ,1 , 270 ]
+    - [0 ,0 ,1 ,180 ]
   - setProperty:
     - solarPanel4
-    - visible
-    - true
-  - setProperty:
-    - solarPanel4
-    - built
-    - false
-
-  - setProperty:
-    - marsTent1
     - visible
     - false
 
   - setProperty:
     - cargoPod2
     - rotation
-    - [0 ,0 ,1 , -45]
+    - [0 ,0 ,1 ,-45 ]
+
+  - setProperty:
+    - cargoPod2
+    - isClosed
+    - false
+
+  - setProperty:
+    - marsTent1
+    - visible
+    - false
 
 children:
   triggerManager:
@@ -225,19 +211,19 @@ children:
             - not:
               - isAtPosition:
                 - rover2
-                - [ -33, 12 ]
+                - [ -31, 10 ]
             - not:
               - isAtPosition:
                 - rover2
-                - [ -33, 15 ]
+                - [ -31, 7 ]
             - not:
               - isAtPosition:
                 - rover2
-                - [ -36, 12 ]
+                - [ -28, 10 ]
           actions:
             - addToGrid:
               - rover2
-              - [ -33, 12 ]
+              - [ -31, 10 ]
 
         succeedOnTriangle_4_12:
           group: successOrFailure
@@ -245,10 +231,12 @@ children:
           triggerCondition:
           - onBlocklyPolygon:
             - rover2
-            - [ [ -7, -9 ], [ -7, -12 ], [ -4, -9 ] ]
+            - [ [ -9, -9 ], [ -9, -12 ], [ -12, -9 ] ]
           actions:
           - writeToBlackboard:
             - disableFailOnIncompleteProgram
+          - buildBaseComponent:
+            - marsTent1
           - delay:
             - 3
             - showAlert:
