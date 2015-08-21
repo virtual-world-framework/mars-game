@@ -3,11 +3,13 @@
     <block type="rover_moveForward"></block>
     <block type="rover_turn"><field name="DIR">Turn: Left</field></block>
   </category>
+  <sep></sep>
   <category name="Sensors">
     <block type="controls_sensor_metal"></block>
     <block type="controls_sensor_signal"></block>
     <block type="controls_sensor_heading"></block>
   </category>
+  <sep></sep>
   <category name="Conditionals">
     <block type="logic_cond_eq_out"></block>
     <block type="logic_cond_neq_out"></block>
@@ -16,9 +18,11 @@
     <block type="logic_andor_out"></block>
     <block type="logic_boolean"></block>
   </category>
+  <sep></sep>
   <category name="Loops">
     <block type="controls_whileUntil"><field name="MODE">WHILE</field></block>
   </category>
+  <sep></sep>
   <category name="Math">
     <block type="math_number_out" inline="false"><field name="VALUE">0</field></block>
     <block type="graph_add"></block>

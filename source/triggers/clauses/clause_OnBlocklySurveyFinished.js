@@ -27,6 +27,8 @@ this.onGenerated = function( params, generator, payload ) {
     this.blockNodeName = params[ 0 ];
     this.surveyArray = params[ 1 ];
 
+    this.forwardStringArray = [];
+    this.reverseStringArray = [];
     // Check if arrays are cyclic permutations of each other
     // Concatenate the search array and try to find the playerPoints in that array
     // Also check for the reverse
@@ -60,6 +62,7 @@ this.onSurveyFinished = function( blockNodeName, playerArray ) {
     // the point where the polygon is started and where it finishes to determine if it is closed.
 
     var triangles = playerArray.slice( 0 );
+
     var forwardArray = this.forwardStringArray.splice( 0 );
     var reverseArray = this.reverseStringArray.splice( 0 );
 
@@ -106,7 +109,7 @@ this.onSurveyFinished = function( blockNodeName, playerArray ) {
                     // Is this a matching triangle? If so increment the match count and remove the string from strings to search
 
                     matchCount++;
-
+                    console.log( matchCount );
                     // This removes one element at the specified index
 
                     forwardArray.splice( j, 1 );

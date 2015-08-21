@@ -228,7 +228,8 @@ this.handleDrawingBlocks = function ( blockName, blockID, blockNode, blockExeTim
         currentArray.push( currentPosition );
         nodeObject.surveyArray = currentArray;
         this.createNaniteSystem( currentArray.slice(), nodeObject );
-    } else if ( blockName === 'Init Nano Construction' && blockNode !== undefined ) {
+    } else {
+        console.log('completed survey');
         var currentArray = nodeObject.allSurveys.slice( 0 );
         this.blocklyCompletedSurvey( 'rover2', currentArray );
     }
