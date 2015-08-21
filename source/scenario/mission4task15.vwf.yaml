@@ -66,7 +66,7 @@ properties:
   - setProperty:
     - rover2
     - blockly_allowedBlocks
-    - 56
+    - 64
   - setProperty:
     - rover2
     - lowRam
@@ -243,7 +243,7 @@ children:
           - and:
             - onBlocklySurveyFinished:
               - rover2
-              - [[ [ -1, -9 ], [ -1, -6 ], [ -3, -6 ] ], [ [ -1, -9 ], [ -1, -6 ], [ 1, -6 ] ]]
+              - [[ [ -1, -6 ], [ -1, -9 ], [ -3, -6 ] ], [ [ -1, -6 ], [ -1, -9 ], [ 1, -6 ] ]]
             - onBlocklyStopped:
               - rover2
             - isAtPosition:
