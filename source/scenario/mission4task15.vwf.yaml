@@ -15,14 +15,14 @@
 ---
 extends: ../scenario/scenario.vwf
 properties:
-  scenarioName: Mission4Task14a
-  nextScenarioPath: "Mission4Task15a"
+  scenarioName: Mission4Task15
+  nextScenarioPath: "scenario_dummy"
 
   startState:
 
   # objective
   - setObjective:
-    - "Translate your triangle and reflect it across both axis to get [-7,-15], [-7,-19], [-3,-19]."
+    - "Translate your triangle and reflect it across both axis to get [-1,-6], [-1,-9], [-3,-6] and [-1,-6], [-1,-9], [1,-6]."
 
   # blockly
   - setBlocklyContext:
@@ -66,7 +66,7 @@ properties:
   - setProperty:
     - rover2
     - blockly_allowedBlocks
-    - 130
+    - 60
   - setProperty:
     - rover2
     - lowRam
@@ -75,7 +75,7 @@ properties:
     - rover2
   - addToGrid:
     - rover2
-    - [ -35, 5 ]
+    - [ -31, 5 ]
 
   # Rosie disabled
   - setProperty:
@@ -96,11 +96,9 @@ properties:
     - opacity
     - 0
   - drawTriangle:
-    - [ -7, -15 ]
-    - [ -7, -19 ]
-    - [ -3, -19 ]
-
-
+    - [ -1, -6 ]
+    - [ -1, -9 ]
+    - [ -3, -6 ]
   # Solar panel construction
 
   - addToGrid:
@@ -121,6 +119,9 @@ properties:
   - addToGrid:
     - greenhouse1
     - [ -32, 1 ]
+  - addToGrid:
+    - waterWell1
+    - [ -25, 12 ]
 
   - setProperty:
     - solarPanel1
@@ -207,13 +208,18 @@ properties:
     - rotation
     - [0 ,0 ,1 , 180]
 
+  - setProperty:
+    - waterWell1
+    - scale
+    - [.45, .45, .45]
+
 children:
   triggerManager:
     extends: ../triggers/triggerManager.vwf
     properties: 
       triggers$:
 
-        openMissionBrief_4_14a:
+        openMissionBrief_4_15:
           triggerCondition:
           - and:
             - onScenarioStart:
@@ -223,51 +229,49 @@ children:
             - 2
             - openMissionBrief:
 
-        highlightEndTile_4_13:
+        highlightEndTile_4_15:
           triggerCondition:
           - onScenarioStart:
           actions:
           - callOutObjective:
-            - [ -31, 5 ]
+            - [ -25, 12 ]
 
-        succeedOnTriangle_4_14a:
+        succeedOnTriangle_4_15:
           group: successOrFailure
           priority: 0
           triggerCondition:
           - and:
             - onBlocklySurveyFinished:
               - rover2
-              - [ [ [ -7, -15 ], [ -7, -19 ], [ -3, -19 ] ] , [ [ -9, -15 ], [ -9, -19 ], [ -13, -19 ] ], [ [ -7, -21 ], [ -7, -25 ], [ -3, -21 ] ], [ [ -9, -21 ], [ -9, -25 ], [ -13, -21 ] ] ]
-            - isAtPosition:
-              - rover2
-              - [ -31, 5 ]
+              - [[ [ -1, -9 ], [ -1, -6 ], [ -3, -6 ] ], [ [ -1, -9 ], [ -1, -6 ], [ 1, -6 ] ]]
             - onBlocklyStopped:
               - rover2
+            - isAtPosition:
+              - rover2
+              - [ -25, 12]
           actions:
           - writeToBlackboard:
             - disableFailOnIncompleteProgram
+          - deleteNanites:
+            - nanites_Mission4Task15
           - buildBaseComponent:
-            - greenhouse1
-          - deleteNanites:
-            - nanites_Mission4Task14a
-          - deleteNanites:
-            - nanites_Mission4Task14b
-          - deleteNanites:
-            - nanites_Mission4Task14c
-          - deleteNanites:
-            - nanites_Mission4Task14d
+            - waterWell1
           - delay:
-            - 3
+            - 6
             - showAlert:
               - "I created the correct triangle!"
             - callMethod:
               - rover2
               - stopExecution
+            - clearBlockly:
             - playSound:
               - musicSuccessShort
+          - delay:
+            - 11
             - scenarioSuccess:
+            - returnToMenu:
 
-        scenarioEnded4_14a:
+        scenarioEnded4_15:
           triggerCondition:
           - or: 
             - onScenarioSucceeded:
@@ -278,16 +282,16 @@ children:
             - surveyArray
             - []
 
-        onScenarioFailed4_14a:
+        onScenarioFailed4_15:
           triggerCondition:
           - onScenarioFailed:
           actions:
           - deleteNanites:
-            - nanites_Mission4Task14a
+            - nanites_Mission4Task15
 
   brief:
     extends: ../missionBrief.vwf
     properties:
-      title: "Mission 4, Task 14a"
+      title: "Mission 4, Task 15"
       content: >
         Placeholder

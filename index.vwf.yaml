@@ -790,18 +790,10 @@ children:
     includes: source/scenario/mission4task12.vwf
   Mission4Task13:
     includes: source/scenario/mission4task13.vwf
-  Mission4Task14a:
-    includes: source/scenario/mission4task14a.vwf
-  Mission4Task14b:
-    includes: source/scenario/mission4task14b.vwf
-  Mission4Task14c:
-    includes: source/scenario/mission4task14c.vwf
-  Mission4Task14d:
-    includes: source/scenario/mission4task14d.vwf
-  Mission4Task15a:
-    includes: source/scenario/mission4task15a.vwf
-  Mission4Task15b:
-    includes: source/scenario/mission4task15b.vwf
+  Mission4Task14:
+    includes: source/scenario/mission4task14.vwf
+  Mission4Task15:
+    includes: source/scenario/mission4task15.vwf
   # TODO: Use only one graph object. No need for two.
   blocklyGraph:
     extends: http://vwf.example.com/graphtool/graph.vwf
