@@ -4,6 +4,7 @@
     <block type="rover_moveRadial_absolute"></block>
     <block type="init_nano_construction" inline="false"></block>
   </category>
+  <sep></sep>
   <category name="Math">
     <block type="math_number_out_m4t3" inline="false"><field name="VALUE">-3</field></block>
   </category>
