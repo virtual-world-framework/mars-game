@@ -27,6 +27,8 @@ this.onGenerated = function( params, generator, payload ) {
     this.blockNodeName = params[ 0 ];
     this.surveyArray = params[ 1 ];
 
+    this.forwardStringArray = [];
+    this.reverseStringArray = [];
     // Check if arrays are cyclic permutations of each other
     // Concatenate the search array and try to find the playerPoints in that array
     // Also check for the reverse
@@ -42,6 +44,7 @@ this.onGenerated = function( params, generator, payload ) {
 
         this.forwardStringArray.push( concatenatedForward.toString() );
         this.reverseStringArray.push( concatenatedReverse.toString() );
+        console.log( this.forwardStringArray );
     }
 
 
@@ -59,10 +62,16 @@ this.onSurveyFinished = function( blockNodeName, playerArray ) {
     // Note: The subcomponents playerArray should have length v+1 for the correct polygon. This is because we mark
     // the point where the polygon is started and where it finishes to determine if it is closed.
 
+    console.log('are we even looking here?');
+    
     var triangles = playerArray.slice( 0 );
+
+    console.log('starting');
+    console.log( triangles );
     var forwardArray = this.forwardStringArray.splice( 0 );
     var reverseArray = this.reverseStringArray.splice( 0 );
 
+    console.log( forwardArray );
     var matchCount = 0;
 
     if ( this.blockNodeName === blockNodeName ) {
@@ -98,6 +107,7 @@ this.onSurveyFinished = function( blockNodeName, playerArray ) {
 
             var playerString = points.toString();
 
+            console.log( playerString );
             // Loop through stored arrays and compare them forward and backward
 
             for ( var j = 0; j < forwardArray.length; j++ ) {
@@ -106,7 +116,7 @@ this.onSurveyFinished = function( blockNodeName, playerArray ) {
                     // Is this a matching triangle? If so increment the match count and remove the string from strings to search
 
                     matchCount++;
-
+                    console.log( matchCount );
                     // This removes one element at the specified index
 
                     forwardArray.splice( j, 1 );
@@ -120,6 +130,9 @@ this.onSurveyFinished = function( blockNodeName, playerArray ) {
 
     }
 
+    console.log('done');
+    console.log(matchCount);
+    console.log(this.surveyArray.length);
     if ( matchCount === this.surveyArray.length ) {
         this.onEvent();
     } else {
