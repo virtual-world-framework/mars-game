@@ -443,7 +443,12 @@ this.drawSchematicTriangle = function( pointA, pointB, pointC ) {
     // pointA, pointB, and pointC are in the format: [ x, y ]
     // x and y are in world space ( not grid coordinate space )
     var material = this.environment.terrain.material;
-    material.triangle = [ pointA, pointB, pointC ];
+    var triArray = material.triangle.slice();
+    if ( triArray.length >= 12 ) {
+        triArray = triArray.slice( 3 );
+    }
+    triArray.push( pointA, pointB, pointC );
+    material.triangle = triArray;
 }
 
 this.hideSchematicTriangle = function() {

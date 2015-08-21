@@ -224,6 +224,7 @@ children:
             - onScenarioSucceeded:
             - onScenarioFailed:
           actions:
+          - clearTriangle:
           - setProperty:
             - rover2
             - surveyArray
