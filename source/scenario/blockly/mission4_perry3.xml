@@ -1,7 +1,7 @@
 <xml id="rover" style="display: none">
   
   <category name="Movement">
-    <block type="rover_moveRadial_absolute" inline="false"></block>
+    <block type="rover_moveRadial_absolute"></block>
     <block type="init_nano_construction" inline="false"></block>
   </category>
   <category name="Math">

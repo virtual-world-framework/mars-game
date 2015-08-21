@@ -29,7 +29,7 @@ properties:
     - rover2
   - loadToolbox:
     - rover2
-    - source/scenario/blockly/mission4_perry10a.xml
+    - source/scenario/blockly/mission4_perry12.xml
 
   # sounds/music
   - playSound:
