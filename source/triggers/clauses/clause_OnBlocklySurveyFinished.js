@@ -137,4 +137,4 @@ this.clearSurveyAndReset = function( blockNodeName ) {
     
 }
 
-//@ sourceURL=source/triggers/clauses/clause_OnBlocklyPolygon.js
+//@ sourceURL=source/triggers/clauses/clause_OnBlocklySurveyFinished.js
