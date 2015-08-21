@@ -22,7 +22,7 @@ properties:
 
   # objective
   - setObjective:
-    - "Translate your triangle and reflect it across both axis to get [-7,-15], [-7,-19], [-3,-19]."
+    - "Draw these triangles: [[-7,-19], [-7,-15], [-3,-19]], [[-9,-19], [-9,-15], [-13,-19]], [[-7,-21],[-7,-25],[-3,-21]], [[-9,-21],[-9,-25],[-13,-21]]."
 
   # blockly
   - setBlocklyContext:
@@ -66,7 +66,7 @@ properties:
   - setProperty:
     - rover2
     - blockly_allowedBlocks
-    - 108
+    - 124
   - setProperty:
     - rover2
     - lowRam
@@ -237,7 +237,7 @@ children:
           - and:
             - onBlocklySurveyFinished:
               - rover2
-              - [ [ [ -7, -15 ], [ -7, -19 ], [ -3, -19 ] ] , [ [ -9, -15 ], [ -9, -19 ], [ -13, -19 ] ], [ [ -7, -21 ], [ -7, -25 ], [ -3, -21 ] ], [ [ -9, -21 ], [ -9, -25 ], [ -13, -21 ] ] ]
+              - [ [ [ -7, -19 ], [ -7, -15 ], [ -3, -19 ] ] , [ [ -9, -19 ], [ -9, -15 ], [ -13, -19 ] ], [ [ -7, -21 ], [ -7, -25 ], [ -3, -21 ] ], [ [ -9, -21 ], [ -9, -25 ], [ -13, -21 ] ] ]
             - isAtPosition:
               - rover2
               - [ -31, 5 ]
