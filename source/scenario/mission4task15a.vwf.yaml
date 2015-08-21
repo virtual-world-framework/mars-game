@@ -241,9 +241,9 @@ children:
           priority: 0
           triggerCondition:
           - and:
-            - onBlocklySurveyFinished:
-              - rover2
-              - [[ [ -1, -9 ], [ -1, -6 ], [ -3, -6 ] ], [ [ -1, -9 ], [ -1, -6 ], [ 1, -6 ] ]]
+            #- onBlocklySurveyFinished:
+            #  - rover2
+            #  - [[ [ -1, -9 ], [ -1, -6 ], [ -3, -6 ] ], [ [ -1, -9 ], [ -1, -6 ], [ 1, -6 ] ]]
             - onBlocklyStopped:
               - rover2
             - isAtPosition:

@@ -22,8 +22,8 @@ implements:
 properties:
   blockNodeName:
   surveyArray:
-  forwardStringArray:
-  reverseStringArray:
+  forwardStringArray: []
+  reverseStringArray: []
 
 methods:
   # We need our own onEvent method that screens the events and decides which to
