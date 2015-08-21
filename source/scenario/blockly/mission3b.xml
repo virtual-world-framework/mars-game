@@ -3,15 +3,19 @@
   <category name="Movement">
     <block type="rover_turn"><field name="DIR">Turn: Left</field></block>
   </category>
+  <sep></sep>s
   <category name="Sensors">
     <block type="controls_sensor_heading"></block>
   </category>
+  <sep></sep>
   <category name="Loops">
     <block type="controls_whileUntil"><field name="MODE">WHILE</field></block>
   </category>
+  <sep></sep>
   <category name="Conditionals">
     <block type="logic_cond_neq_out"></block>
   </category>
+  <sep></sep>
   <category name="Math">
     <block type="math_number_angle_select"><field name="VALUE">0</field></block>
   </category>
