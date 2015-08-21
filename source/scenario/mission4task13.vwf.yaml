@@ -256,14 +256,15 @@ children:
             - playSound:
               - musicSuccessShort
             - scenarioSuccess:
+
+            - deleteNanites:
+              - nanites_Mission4Task9
             - deleteNanites:
               - nanites_Mission4Task10
             - deleteNanites:
               - nanites_Mission4Task11
             - deleteNanites:
               - nanites_Mission4Task12
-            - deleteNanites:
-              - nanites_Mission4Task13
 
         scenarioEnded4_13:
           triggerCondition:
