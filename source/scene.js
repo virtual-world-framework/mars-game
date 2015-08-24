@@ -326,6 +326,24 @@ this.resetView = function() {
     }
 }
 
+this.cameraMounted = function( mountName ) {
+    var activeNode;
+    activeNode = this.findByID( this, this.blockly_activeNodeID );
+    if ( Boolean( activeNode.facingArrow ) ) {
+        if ( mountName === "topDown" ) {
+            activeNode.facingArrow.visible = true;
+        } else {
+            activeNode.facingArrow.visible = false;
+        }
+    }
+}
+
+this.targetSwitched = function( oldTarget, newTarget ) {
+    if ( Boolean( oldTarget.facingArrow ) ) {
+        oldTarget.facingArrow.visible = false;
+    }
+}
+
 this.restartGame = function() {
     this.sceneBlackboard = {};
     this.soundManager.stopAllSoundInstances();

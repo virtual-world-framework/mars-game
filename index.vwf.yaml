@@ -128,6 +128,8 @@ events:
   missionBriefOpened:
   missionBriefClosed:
   loadedMissionBrief:
+  cameraMounted:
+  targetSwitched:
 children:
   naniteSystems:
     extends: http://vwf.example.com/node3.vwf
@@ -413,6 +415,10 @@ children:
               worldOffset: [ 0, 0, 40 ]
               cameraPose: [ 0, 0, -90 ]
               cameraSpeed: 10
+          facingArrow:
+            extends: source/roverFacingArrow.vwf
+            properties:
+              translation: [ 0, 0, 0.5 ]
           rover_base:
             extends: http://vwf.example.com/node3.vwf
             children: 
@@ -512,6 +518,10 @@ children:
               worldOffset: [ 0, 0, 40 ]
               cameraPose: [ 0, 0, -90 ]
               cameraSpeed: 10
+          facingArrow:
+            extends: source/roverFacingArrow.vwf
+            properties:
+              translation: [ 0, 0, 0.25 ]
           scout_body:
             extends: http://vwf.example.com/node3.vwf
             children:
@@ -622,6 +632,10 @@ children:
               worldOffset: [ 0, 0, 40 ]
               cameraPose: [ 0, 0, -90 ]
               cameraSpeed: 10
+          facingArrow:
+            extends: source/roverFacingArrow.vwf
+            properties:
+              translation: [ 0, 0, 1.5 ]
           wheel_l1:
             extends: http://vwf.example.com/node3.vwf
           wheel_r1:
