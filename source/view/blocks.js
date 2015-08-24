@@ -1853,7 +1853,7 @@ Blockly.Blocks[ 'controls_sensor_heading' ] = {
         .appendField('Direction of Travel: ')
         //.appendField("?", "VALUE")
         .setCheck(['OperatorAddSubtract','OperatorMultiplyDivide','LeftParenthesis','RightParenthesis','Conditional']);
-    this.setOutput(true, null);
+    this.setOutput(true, 'Number');
     this.data = currentBlocklyNodeID;
     //this.setEditable(false);
     var thisBlock = this;

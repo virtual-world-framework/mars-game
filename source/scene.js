@@ -234,16 +234,16 @@ this.resetBlocklyBlocks = function( nodeID ) {
 
     if ( defaultXML !== undefined ) {
 
-        //nodeObject.blockly_xml = defaultXML;
-        vwf.setProperty( nodeID, 'blockly_xml', defaultXML );
+        nodeObject.blockly_xml = defaultXML;
+        //vwf.setProperty( nodeID, 'blockly_xml', defaultXML );
 
-    } else {
-        var xml = '<xml></xml>';
-        nodeObject.blockly_xml = '<xml></xml>';
+        var xml = Blockly.Xml.textToDom( defaultXML );
+        Blockly.mainWorkspace.clear();
+
         var width = Blockly.svgSize().width;
         for (var x = 0, xmlChild; xmlChild = xml.childNodes[x]; x++) {
             if (xmlChild.nodeName.toLowerCase() == 'block') {
-                var block = Blockly.Xml.domToBlock( Blockly.mainworkspace, xmlChild );
+                var block = Blockly.Xml.domToBlock( workspace, xmlChild );
                 var xmlDescendants = xmlChild.getElementsByTagName( "block" );
                 blockIdIterator = 0;
                 setChildBlockIDs( block, xmlChild, xmlDescendants );
@@ -254,6 +254,12 @@ this.resetBlocklyBlocks = function( nodeID ) {
                 }
             }
         }
+
+    } else {
+        var emptyXML = '<xml></xml>';
+        nodeObject.blockly_xml = emptyXML;
+
+        Blockly.mainWorkspace.clear();
     }
     
 }
