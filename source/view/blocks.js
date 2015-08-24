@@ -590,7 +590,7 @@ Blockly.Blocks[ 'logic_cond_eq_out' ] = {
     this.data = currentBlocklyNodeID;
     this.setTooltip( function() {
       var content = {
-        text: "An equal-to conditional operator block."
+        text: "Compares the two number blocks connected to it. The entire clause (the three blocks together) is true if they are equal, false otherwise."
       }
       return showTooltipInBlockly( thisBlock, content );
     } );
@@ -617,7 +617,7 @@ Blockly.Blocks[ 'logic_cond_neq_out' ] = {
     this.data = currentBlocklyNodeID;
     this.setTooltip( function() {
       var content = {
-        text: "A not-equal-to conditional operator block."
+        text: "Compares the two number blocks connected to it. The entire clause (the three blocks together) is true if they are not equal, false otherwise."
       }
       return showTooltipInBlockly( thisBlock, content );
     } );
@@ -644,7 +644,7 @@ Blockly.Blocks[ 'logic_cond_gt_out' ] = {
     this.data = currentBlocklyNodeID;
     this.setTooltip( function() {
       var content = {
-        text: "A greater-than conditional operator block."
+        text: "Compares the two number blocks connected to it. The entire clause (the three blocks together) is true if the left block is greater than the right block, false otherwise."
       }
       return showTooltipInBlockly( thisBlock, content );
     } );
@@ -671,7 +671,7 @@ Blockly.Blocks[ 'logic_cond_lt_out' ] = {
     this.data = currentBlocklyNodeID;
     this.setTooltip( function() {
       var content = {
-        text: "A less-than conditional operator block."
+        text: "Compares the two number blocks connected to it. The entire clause (the three blocks together) is true if the left block is less than the right block, false otherwise."
       }
       return showTooltipInBlockly( thisBlock, content );
     } );
@@ -849,8 +849,8 @@ Blockly.Blocks['controls_whileUntil'] = {
     this.setTooltip(function() {
       var op = thisBlock.getFieldValue('MODE');
       var TOOLTIPS = {
-        'WHILE': Blockly.Msg.CONTROLS_WHILEUNTIL_TOOLTIP_WHILE,
-        'UNTIL': Blockly.Msg.CONTROLS_WHILEUNTIL_TOOLTIP_UNTIL
+        'WHILE': 'Repeat a sequence of blocks while something is true, or until it becomes true',
+        'UNTIL': 'Repeat a sequence of blocks while something is true, or until it becomes true'
       };
       return TOOLTIPS[op];
     });
@@ -921,8 +921,8 @@ Blockly.Blocks['controls_whileUntil_no_in'] = {
     this.setTooltip(function() {
       var op = thisBlock.getFieldValue('MODE');
       var TOOLTIPS = {
-        'WHILE': Blockly.Msg.CONTROLS_WHILEUNTIL_TOOLTIP_WHILE,
-        'UNTIL': Blockly.Msg.CONTROLS_WHILEUNTIL_TOOLTIP_UNTIL
+        'WHILE': 'Repeat a sequence of blocks while something is true, or until it becomes true',
+        'UNTIL': 'Repeat a sequence of blocks while something is true, or until it becomes true'
       };
       return TOOLTIPS[op];
     });
@@ -991,8 +991,8 @@ Blockly.Blocks['controls_whileUntil_no_out'] = {
     this.setTooltip(function() {
       var op = thisBlock.getFieldValue('MODE');
       var TOOLTIPS = {
-        'WHILE': Blockly.Msg.CONTROLS_WHILEUNTIL_TOOLTIP_WHILE,
-        'UNTIL': Blockly.Msg.CONTROLS_WHILEUNTIL_TOOLTIP_UNTIL
+        'WHILE': 'Repeat a sequence of blocks while something is true, or until it becomes true',
+        'UNTIL': 'Repeat a sequence of blocks while something is true, or until it becomes true'
       };
       return TOOLTIPS[op];
     });
@@ -1062,8 +1062,8 @@ Blockly.Blocks['controls_whileUntil_no_out_no_in'] = {
     this.setTooltip(function() {
       var op = thisBlock.getFieldValue('MODE');
       var TOOLTIPS = {
-        'WHILE': Blockly.Msg.CONTROLS_WHILEUNTIL_TOOLTIP_WHILE,
-        'UNTIL': Blockly.Msg.CONTROLS_WHILEUNTIL_TOOLTIP_UNTIL
+        'WHILE': 'Repeat a sequence of blocks while something is true, or until it becomes true',
+        'UNTIL': 'Repeat a sequence of blocks while something is true, or until it becomes true'
       };
       return TOOLTIPS[op];
     });
@@ -1129,7 +1129,7 @@ Blockly.Blocks['controls_repeat_ext'] = {
     var thisBlock = this;
     this.setTooltip( function() {
       var content = {
-        text: "A block that repeats internal blocks a certain number of times."
+        text: "Repeat a sequence of blocks the specified number of times."
       }
       return showTooltipInBlockly( thisBlock, content );
     } );
@@ -1328,7 +1328,7 @@ Blockly.Blocks['controls_if_else_nomut'] = {
     var thisBlock = this;
     this.setTooltip(function() {
       if (!thisBlock.elseifCount_ && !thisBlock.elseCount_) {
-        return Blockly.Msg.CONTROLS_IF_TOOLTIP_1;
+        return 'If the conditional statement is true, then do the sequence of blocks.';
       } else if (!thisBlock.elseifCount_ && thisBlock.elseCount_) {
         return Blockly.Msg.CONTROLS_IF_TOOLTIP_2;
       } else if (thisBlock.elseifCount_ && !thisBlock.elseCount_) {
@@ -1503,7 +1503,7 @@ Blockly.Blocks[ 'controls_sensor_metal' ] = {
     var thisBlock = this;
     this.setTooltip( function() {
       var content = {
-        text: "Checks our scanner for metal (items/rovers/other) in all 8 squares around the rover and provides a boolean value."
+        text: "Checks our scanner for man-made metal objects (such as other rovers, supply canisters, or spacecraft debris) in all 8 squares around the rover. It will be true if there is metal present, false if not."
       }
       return showTooltipInBlockly( thisBlock, content );
     } );
@@ -1640,7 +1640,7 @@ Blockly.Blocks[ 'controls_sensor_position' ] = {
     var thisBlock = this;
     this.setTooltip( function() {
       var content = {
-        text: "Checks our scanner for our current location in the coordinate plane."
+        text: "The [X,Y] value of the rover’s current position."
       }
       return showTooltipInBlockly( thisBlock, content );
     } );
@@ -1686,7 +1686,7 @@ Blockly.Blocks[ 'controls_sensor_position_x' ] = {
     var thisBlock = this;
     this.setTooltip( function() {
       var content = {
-        text: "Checks our scanner for our current location in the coordinate plane."
+        text: "The X value of the rover’s current position."
       }
       return showTooltipInBlockly( thisBlock, content );
     } );
@@ -1732,7 +1732,7 @@ Blockly.Blocks[ 'controls_sensor_position_y' ] = {
     var thisBlock = this;
     this.setTooltip( function() {
       var content = {
-        text: "Checks our scanner for our current location in the coordinate plane."
+        text: "The Y value of the rover’s current position."
       }
       return showTooltipInBlockly( thisBlock, content );
     } );
@@ -1859,7 +1859,7 @@ Blockly.Blocks[ 'controls_sensor_heading' ] = {
     var thisBlock = this;
     this.setTooltip( function() {
       var content = {
-        text: "Checks our rover for its direction of travel (heading) in a 360° arc that starts on the X-axis. Returns a value between 0 and 360."
+        text: "The direction that the rover is currently facing in degrees.  0° is in the positive x direction, 90° is in the positive y direction, 180° is in the negative x direction, and 270° is in the negative y direction."
       }
       return showTooltipInBlockly( thisBlock, content );
     } );
@@ -2141,7 +2141,13 @@ Blockly.Blocks['draw_triangle'] = {
     this.setNextStatement(true);
     this.setColour(315);
     this.data = currentBlocklyNodeID;
-    this.setTooltip('');
+    var thisBlock = this;
+    this.setTooltip( function() {
+      var content = {
+        text: "A block that sprays nanites in a triangle on the ground in order to construct a portion of your base."
+      }
+      return showTooltipInBlockly( thisBlock, content );
+    } );
   }
 };
 
@@ -2329,7 +2335,7 @@ Blockly.Blocks[ 'math_number_out' ] = {
     var thisBlock = this;
     this.setTooltip( function() {
       var content = {
-        text: "A block for selecting number values 10 through -10."
+        text: "Specifies an integer value."
       }
       return showTooltipInBlockly( thisBlock, content );
     } );
@@ -2481,7 +2487,7 @@ Blockly.Blocks['math_number_field'] = {
     var thisBlock = this;
     this.setTooltip( function() {
       var content = {
-        text: "A block for entering number values -999 through 999."
+        text: "Specifies an integer value."
       }
       return showTooltipInBlockly( thisBlock, content );
     } );
@@ -2559,7 +2565,7 @@ Blockly.Blocks['math_number_field_no_out'] = {
     var thisBlock = this;
     this.setTooltip( function() {
       var content = {
-        text: "A block for entering number values -999 through 999."
+        text: "Specifies an integer value."
       }
       return showTooltipInBlockly( thisBlock, content );
     } );
@@ -2627,7 +2633,7 @@ Blockly.Blocks['math_number_angle_select'] = {
         .appendField("")
         .appendField(new Blockly.FieldAngle("90"), "VALUE");
     this.setOutput(true, "Number");
-    this.setTooltip('This is a number block that lets you select a number and preview angle directions.');
+    this.setTooltip('Specifies a heading or number of degrees.');
     //this.setTooltip( function() {
     //  var content = {
     //    text: "This is a number block that lets you select a number and preview angle directions."
@@ -2777,7 +2783,7 @@ Blockly.Blocks[ 'graph_add' ] = {
     var thisBlock = this;
     this.setTooltip( function() {
       var content = {
-        text: "This is the arithmetic operator for adding two values."
+        text: "Adds the two numbers attached to it."
       }
       return showTooltipInBlockly( thisBlock, content );
     } );
@@ -2811,7 +2817,7 @@ Blockly.Blocks['graph_subtract'] = {
     var thisBlock = this;
     this.setTooltip( function() {
       var content = {
-        text: "This is the arithmetic operator for subtracting two values."
+        text: "Subtracts the two numbers attached to it."
       }
       return showTooltipInBlockly( thisBlock, content );
     } ); 
@@ -2850,7 +2856,7 @@ Blockly.Blocks[ 'graph_multiply' ] = {
     var thisBlock = this;
     this.setTooltip( function() {
       var content = {
-        text: "This is the arithmetic operator for multiplying two values."
+        text: "Multiplies the two numbers attached to it."
       }
       return showTooltipInBlockly( thisBlock, content );
     } ); 
@@ -2889,7 +2895,7 @@ Blockly.Blocks[ 'graph_divide' ] = {
     var thisBlock = this;
     this.setTooltip( function() {
       var content = {
-        text: "This is the arithmetic operator for dividing two values."
+        text: "Divides the two numbers attached to it."
       }
       return showTooltipInBlockly( thisBlock, content );
     } ); 
