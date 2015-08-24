@@ -232,11 +232,10 @@ this.resetBlocklyBlocks = function( nodeID ) {
     var nodeObject = this.findByID( this, nodeID );
     var defaultXML = nodeObject.startXML;
 
-    console.log(defaultXML);
     if ( defaultXML !== undefined ) {
 
-        //nodeObject.blockly_xml = defaultXML;
-        vwf.setProperty( nodeID, 'blockly_xml', defaultXML );
+        nodeObject.blockly_xml = defaultXML;
+        //vwf.setProperty( nodeID, 'blockly_xml', defaultXML );
 
     } else {
         var xml = '<xml></xml>';

@@ -83,6 +83,12 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                     currentBlocklyNodeID = nodeID;
                     updateBlocklyRamBar();
                     updateBlocklyUI( blocklyNode );
+                    var resetButton = document.getElementById( "blocklyResetButton" );
+                    if ( currentBlocklyNodeID === blocklyGraphID ) {
+                        resetButton.style.visibility = "hidden";
+                    } else {
+                        resetButton.style.visibility = "inherit";
+                    }
                 } else {
                     currentBlocklyNodeID = undefined;
                 }
