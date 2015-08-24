@@ -227,39 +227,21 @@ this.handleDrawingBlocks = function ( blockName, blockID, blockNode, blockExeTim
 
 this.resetBlocklyBlocks = function( nodeID ) {
 
-    //Blockly.mainWorkspace.clear();
+    Blockly.mainWorkspace.clear();
 
     var nodeObject = this.findByID( this, nodeID );
     var defaultXML = nodeObject.startXML;
 
     if ( defaultXML !== undefined ) {
 
-        nodeObject.blockly_xml = defaultXML;
-        //vwf.setProperty( nodeID, 'blockly_xml', defaultXML );
+        //nodeObject[ 'blockly_xml' ] = defaultXML;
+        vwf.setProperty( nodeID, 'blockly_xml', defaultXML );
+        vwf.setProperty( nodeID, 'new_xml', defaultXML );
+        // this.player.rover.ram = this.player.rover.ramMax;
+        // this.player.rover2.ram = this.player.rover2.ramMax;
+        // this.player.rover3.ram = this.player.rover3.ramMax;
 
-        var xml = Blockly.Xml.textToDom( defaultXML );
-        Blockly.mainWorkspace.clear();
-
-        var width = Blockly.svgSize().width;
-        for (var x = 0, xmlChild; xmlChild = xml.childNodes[x]; x++) {
-            if (xmlChild.nodeName.toLowerCase() == 'block') {
-                var block = Blockly.Xml.domToBlock( workspace, xmlChild );
-                var xmlDescendants = xmlChild.getElementsByTagName( "block" );
-                blockIdIterator = 0;
-                setChildBlockIDs( block, xmlChild, xmlDescendants );
-                var blockX = parseInt(xmlChild.getAttribute('x'), 10);
-                var blockY = parseInt(xmlChild.getAttribute('y'), 10);
-                if (!isNaN(blockX) && !isNaN(blockY)) {
-                    block.moveBy(Blockly.RTL ? width - blockX : blockX, blockY);
-                }
-            }
-        }
-
-    } else {
-        var emptyXML = '<xml></xml>';
-        nodeObject.blockly_xml = emptyXML;
-
-        Blockly.mainWorkspace.clear();
+        Blockly.mainWorkspace.fireChangeEvent();
     }
     
 }
