@@ -187,6 +187,15 @@ properties:
     - visible
     - false
 
+  - setProperty:
+    - rover2
+    - surveyArray
+    - []
+  - setProperty:
+    - rover2
+    - allSurveys
+    - []
+
 children:
   triggerManager:
     extends: ../triggers/triggerManager.vwf
@@ -259,25 +268,23 @@ children:
             - disableFailOnIncompleteProgram
           - buildBaseComponent:
             - marsTent1
-          - delay:
-            - 3
-            - showAlert:
-              - "I created the correct triangle!"
-            - callMethod:
-              - rover2
-              - stopExecution
-            - playSound:
-              - musicSuccessShort
-            - scenarioSuccess:
-
-            - deleteNanites:
-              - nanites_Mission4Task9
-            - deleteNanites:
-              - nanites_Mission4Task10
-            - deleteNanites:
-              - nanites_Mission4Task11
-            - deleteNanites:
-              - nanites_Mission4Task12
+          - showAlert:
+            - "I created the correct triangle!"
+          - callMethod:
+            - rover2
+            - stopExecution
+          - clearBlockly:
+          - playSound:
+            - musicSuccessShort
+          - deleteNanites:
+            - nanites_Mission4Task9
+          - deleteNanites:
+            - nanites_Mission4Task10
+          - deleteNanites:
+            - nanites_Mission4Task11
+          - deleteNanites:
+            - nanites_Mission4Task12
+          - scenarioSuccess:
 
         scenarioEnded4_13:
           triggerCondition:
@@ -288,6 +295,10 @@ children:
           - setProperty:
             - rover2
             - surveyArray
+            - []
+          - setProperty:
+            - rover2
+            - allSurveys
             - []
 
         onScenarioFailed4_13:

@@ -131,6 +131,15 @@ properties:
     - isClosed
     - false
 
+  - setProperty:
+    - rover2
+    - surveyArray
+    - []
+  - setProperty:
+    - rover2
+    - allSurveys
+    - []
+
 children:
   triggerManager:
     extends: ../triggers/triggerManager.vwf
@@ -210,6 +219,7 @@ children:
             - callMethod:
               - rover2
               - stopExecution
+            - clearBlockly:
             - scenarioSuccess:
 
         scenarioEnded4_3:
@@ -221,6 +231,10 @@ children:
           - setProperty:
             - rover2
             - surveyArray
+            - []
+          - setProperty:
+            - rover2
+            - allSurveys
             - []
           - deleteNanites:
             - nanites_Mission4Task3

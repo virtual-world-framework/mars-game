@@ -147,6 +147,15 @@ properties:
     - isClosed
     - false
 
+  - setProperty:
+    - rover2
+    - surveyArray
+    - []
+  - setProperty:
+    - rover2
+    - allSurveys
+    - []
+
 children:
   triggerManager:
     extends: ../triggers/triggerManager.vwf
@@ -186,18 +195,16 @@ children:
             - disableFailOnIncompleteProgram
           - deleteNanites:
             - nanites_Mission4Task4
-          - delay:
-            - 6
-            - showAlert:
-              - "I created the correct triangle!"
-            - callMethod:
-              - rover2
-              - stopExecution
-            - scenarioSuccess:
-            - playSound:
-              - musicSuccessShort
-            - playSound:
-              - TM4V16_MANNY
+          - showAlert:
+            - "I created the correct triangle!"
+          - callMethod:
+            - rover2
+            - stopExecution
+          - playSound:
+            - musicSuccessShort
+          - playSound:
+            - TM4V16_MANNY
+          - scenarioSuccess:
 
         scenarioEnded4_4:
           triggerCondition:
@@ -208,6 +215,10 @@ children:
           - setProperty:
             - rover2
             - surveyArray
+            - []
+          - setProperty:
+            - rover2
+            - allSurveys
             - []
           - deleteNanites:
             - nanites_Mission4Task4

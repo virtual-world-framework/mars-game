@@ -131,21 +131,14 @@ properties:
     - isClosed
     - false
 
-  # TEMPORARY
-
-  - addToGrid:
-    - solarPanel1
-    - [ -23, 20 ]
   - setProperty:
-    - solarPanel1
-    - scale
-    - [.4, .4, .4]
+    - rover2
+    - surveyArray
+    - []
   - setProperty:
-    - solarPanel1
-    - visible
-    - false
-
-  # END OF TEMPORARY
+    - rover2
+    - allSurveys
+    - []
 
 children:
   triggerManager:
@@ -235,6 +228,10 @@ children:
           - setProperty:
             - rover2
             - surveyArray
+            - []
+          - setProperty:
+            - rover2
+            - allSurveys
             - []
 
   brief:

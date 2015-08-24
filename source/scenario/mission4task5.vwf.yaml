@@ -157,9 +157,13 @@ properties:
     - false
 
   - setProperty:
-    - roverTracks2
-    - visible
-    - true
+    - rover2
+    - surveyArray
+    - []
+  - setProperty:
+    - rover2
+    - allSurveys
+    - []
 
 children:
   triggerManager:
@@ -253,10 +257,13 @@ children:
             - onScenarioSucceeded:
             - onScenarioFailed:
           actions:
-          - clearTriangle:
           - setProperty:
             - rover2
             - surveyArray
+            - []
+          - setProperty:
+            - rover2
+            - allSurveys
             - []
           - deleteNanites:
             - nanites_Mission4Task5
