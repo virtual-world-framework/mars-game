@@ -229,6 +229,23 @@ children:
             - 2
             - openMissionBrief:
 
+        playStartingVO_4_15:
+          triggerCondition:
+          - and:
+            - doOnce:
+            - onScenarioStart:
+          actions:
+          - playSound:
+            - TM4V38_MANNY
+          - playSound:
+            - PerryWhatsAClown
+          - playSound:
+            - TM4V40_MANNY
+          - playSound:
+            - PerryDusty
+          - playSound:
+            - TM4V42_MANNY
+
         highlightEndTile_4_15:
           triggerCondition:
           - onScenarioStart:
@@ -266,6 +283,12 @@ children:
             - clearBlockly:
             - playSound:
               - musicSuccessShort
+            - playSound:
+              - TM4V43_MANNY
+            - playSound:
+              - PerryIDidIt
+            - playSound:
+              - TM4V45_MANNY
           - delay:
             - 11
             - scenarioSuccess:
