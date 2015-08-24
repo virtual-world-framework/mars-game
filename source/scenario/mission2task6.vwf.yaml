@@ -128,8 +128,6 @@ children:
             - isBlockMissing:
               - controls_repeat_ext
           actions:
-          - showAlert:
-            - "The scenairo specific trigger fired!"
           - scenarioFailure:
             - incomplete
             - "You should use the repeat block."
@@ -151,12 +149,12 @@ children:
           - playSound:
             - musicSuccessShort
 
-        highlightEndTile:
+        highlightEndTile_2_7:
           triggerCondition:
           - onScenarioStart:
           actions:
           - callOutObjective:
-            - [ 3, 20 ]
+            - [ 3, 6 ]
 
         stopBlinkRoverTab_2f:
           triggerCondition:
