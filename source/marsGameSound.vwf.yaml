@@ -443,7 +443,7 @@ properties:
     - soundName: "TM4V9_MC"
       soundURL: "assets/sounds/vo/TM4_9_MC.ogg" 
       initialVolume: 0.65
-      subtitle: "[MISSION CONTROL]: That is a triangle, but it’s not big enough to collect enough sunlight. You need to dilate the triangle; to change its size so that it is twice as big."
+      subtitle: "[MISSION CONTROL]: That is a triangle, but it’s not big enough to collect enough sunlight. You need to dilate the triangle to change its size so that it is twice as big."
       soundGroup: vo
       groupReplacementMethod: queue
     - soundName: "TM4V10_MANNY"
@@ -455,7 +455,7 @@ properties:
     - soundName: "TM4V11_MC"
       soundURL: "assets/sounds/vo/TM4_11_MC.ogg" 
       initialVolume: 0.65
-      subtitle: "[MISSION CONTROL]: Yes, although it’s only that simple when one of the corners is located at (0,0)."
+      subtitle: "[MISSION CONTROL]: Yes, although it’s only that simple when one of the corners is located at [0,0]."
       soundGroup: vo
       groupReplacementMethod: queue
     - soundName: "TM4V12_MC"
@@ -533,7 +533,7 @@ properties:
     - soundName: "TM4V24_MC"
       soundURL: "assets/sounds/vo/TM4_24_MC.ogg" 
       initialVolume: 0.65
-      subtitle: "[MISSION CONTROL]: Of course, the habitation dome needs to be bigger than that. Translate the triangle again, but this time dilate it to be three times as big. Remember that dilate only works if one of the corners is still at (0,0) when it is done."
+      subtitle: "[MISSION CONTROL]: Of course, the habitation dome needs to be bigger than that. Translate the triangle again, but this time dilate it to be three times as big. Remember that dilate only works if one of the corners is still at [0,0] when it is done."
       soundGroup: vo
       groupReplacementMethod: queue
     - soundName: "TM4V25_MC"

@@ -201,7 +201,7 @@ properties:
   - setProperty:
     - greenhouse1
     - visible
-    - false
+    - true
 
   - setProperty:
     - greenhouse1
@@ -212,6 +212,15 @@ properties:
     - waterWell1
     - scale
     - [.45, .45, .45]
+
+  - setProperty:
+    - rover2
+    - surveyArray
+    - []
+  - setProperty:
+    - rover2
+    - allSurveys
+    - []
 
 children:
   triggerManager:
@@ -290,7 +299,7 @@ children:
             - playSound:
               - TM4V45_MANNY
           - delay:
-            - 11
+            - 17
             - scenarioSuccess:
             - returnToMenu:
 
@@ -303,6 +312,10 @@ children:
           - setProperty:
             - rover2
             - surveyArray
+            - []
+          - setProperty:
+            - rover2
+            - allSurveys
             - []
 
         onScenarioFailed4_15:

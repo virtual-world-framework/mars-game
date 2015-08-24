@@ -187,6 +187,15 @@ properties:
     - visible
     - false
 
+  - setProperty:
+    - rover2
+    - surveyArray
+    - []
+  - setProperty:
+    - rover2
+    - allSurveys
+    - []
+
 children:
   triggerManager:
     extends: ../triggers/triggerManager.vwf
@@ -265,6 +274,10 @@ children:
           - setProperty:
             - rover2
             - surveyArray
+            - []
+          - setProperty:
+            - rover2
+            - allSurveys
             - []
 
         onScenarioFailed4_10:
