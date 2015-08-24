@@ -186,6 +186,15 @@ children:
             - 2
             - openMissionBrief:
 
+        playStartingVO_4_6:
+          triggerCondition:
+          - and:
+            - doOnce:
+            - onScenarioStart:
+          actions:
+          - playSound:
+            - TM4V19_MC
+
         succeedOnTriangle_4_6:
           group: successOrFailure
           priority: 0
@@ -217,7 +226,7 @@ children:
             - playSound:
               - musicSuccessShort
             - playSound:
-              - PerryDusty
+              - TM4V20_MANNY
 
         scenarioEnded4_6:
           triggerCondition:

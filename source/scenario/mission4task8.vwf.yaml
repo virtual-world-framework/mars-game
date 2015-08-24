@@ -210,6 +210,15 @@ children:
             - 2
             - openMissionBrief:
 
+        playStartingVO_4_8:
+          triggerCondition:
+          - and:
+            - doOnce:
+            - onScenarioStart:
+          actions:
+          - playSound:
+            - TM4V23_MC
+
         succeedOnTriangle_4_8:
           group: successOrFailure
           priority: 0

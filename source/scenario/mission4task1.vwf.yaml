@@ -187,8 +187,6 @@ children:
             - scenarioSuccess:
             - playSound:
               - musicSuccessShort
-            - playSound:
-              - M4VO26_MC
 
         playStartingVO_4_1_1:
           triggerCondition:
@@ -197,23 +195,21 @@ children:
             - onScenarioStart:
           actions:
           - playSound:
-            - M4VO19_MC
+            - TM4V1_MC
           - playSound:
-            - M4VO20_Rover
+            - TM4V2_MANNY
           - playSound:
-            - M4VO21_MC
+            - TM4V3_MC
           - playSound:
-            - M4VO22_Rover
+            - PerryAcknowledge
           - playSound:
-            - PerryThanksALot
+            - TM4V5_MC
           - playSound:
-            - M4VO23_MC
-          - playSound:
-            - M4VO24_Rover
+            - TM4V6_MANNY
           - playSound:
             - PerryWhatsAClown
           - playSound:
-            - M4VO25_Rover
+            - TM4V8_MANNY
 
         openMissionBrief_4_1:
           triggerCondition:

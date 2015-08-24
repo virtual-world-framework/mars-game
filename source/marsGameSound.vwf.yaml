@@ -404,6 +404,228 @@ properties:
       subtitle: "[MISSION CONTROL]: Well done! Now that your Navigate Procedure is working again, let's go get the base pod! As I said before, our satellite imagery shows that it landed at position [-13,-9]."
       soundGroup: vo
       groupReplacementMethod: replace
+    - soundName: "TM4V1_MC"
+      soundURL: "assets/sounds/vo/TM4_1_MC.ogg" 
+      initialVolume: 0.65
+      subtitle: "[MISSION CONTROL]: Congratulations on the activating the Base Pod. It contains vital equipment you will need to construct the Mars Base, including a Nano Sprayer. This very versatile tool will apply a layer of nanites to the ground in any shape you outline, and they use the environment itself for materials to build each base item. It’s very efficient!"
+      soundGroup: vo
+      groupReplacementMethod: replace
+    - soundName: "TM4V2_MANNY"
+      soundURL: "assets/sounds/vo/TM4_2_MANNY.ogg" 
+      initialVolume: 0.65
+      subtitle: "[MANNY]: You mean I am going to spray smaller robots on the ground to build the base?"
+      soundGroup: vo
+      groupReplacementMethod: queue
+    - soundName: "TM4V3_MC"
+      soundURL: "assets/sounds/vo/TM4_3_MC.ogg" 
+      initialVolume: 0.65
+      subtitle: "[MISSION CONTROL]: Not at all! Peregrine is equipped with the item in question. You will need to program him to construct the Base."
+      soundGroup: vo
+      groupReplacementMethod: queue
+    - soundName: "TM4V5_MC"
+      soundURL: "assets/sounds/vo/TM4_5_MC.ogg" 
+      initialVolume: 0.65
+      subtitle: "[MISSION CONTROL]: The Base Pod is using batteries that will soon run out if you don’t supply it with a renewable power source. Therefore, the first things you need to build are Solar Panels."
+      soundGroup: vo
+      groupReplacementMethod: queue
+    - soundName: "TM4V6_MANNY"
+      soundURL: "assets/sounds/vo/TM4_6_MANNY.ogg" 
+      initialVolume: 0.65
+      subtitle: "[MANNY]: Well, little buddy, it doesn’t look like we have much time, so we’d better hurry."
+      soundGroup: vo
+      groupReplacementMethod: queue
+    - soundName: "TM4V8_MANNY"
+      soundURL: "assets/sounds/vo/TM4_8_MANNY.ogg" 
+      initialVolume: 0.65
+      subtitle: "[MANNY]: You said it buddy….whatever it is you said…."
+      soundGroup: vo
+      groupReplacementMethod: queue
+    - soundName: "TM4V9_MC"
+      soundURL: "assets/sounds/vo/TM4_9_MC.ogg" 
+      initialVolume: 0.65
+      subtitle: "[MISSION CONTROL]: That is a triangle, but it’s not big enough to collect enough sunlight. You need to dilate the triangle; to change its size so that it is twice as big."
+      soundGroup: vo
+      groupReplacementMethod: queue
+    - soundName: "TM4V10_MANNY"
+      soundURL: "assets/sounds/vo/TM4_10_MANNY.ogg" 
+      initialVolume: 0.65
+      subtitle: "[MANNY]: Got it! So to dilate the triangle, I can multiply each X and Y value by the amount I want its size to change."
+      soundGroup: vo
+      groupReplacementMethod: queue
+    - soundName: "TM4V11_MC"
+      soundURL: "assets/sounds/vo/TM4_11_MC.ogg" 
+      initialVolume: 0.65
+      subtitle: "[MISSION CONTROL]: Yes, although it’s only that simple when one of the corners is located at (0,0)."
+      soundGroup: vo
+      groupReplacementMethod: queue
+    - soundName: "TM4V12_MC"
+      soundURL: "assets/sounds/vo/TM4_12_MC.ogg" 
+      initialVolume: 0.65
+      subtitle: "[MISSION CONTROL]: Ok, that looks correct. Move Peregrine to a safe position, and then you can initiate the Nano Sprayer."
+      soundGroup: vo
+      groupReplacementMethod: queue
+    - soundName: "TM4V13_MANNY"
+      soundURL: "assets/sounds/vo/TM4_13_MANNY.ogg" 
+      initialVolume: 0.65
+      subtitle: "[MANNY]: Let’s see… [-3,0] looks like a safe spot for him to stand."
+      soundGroup: vo
+      groupReplacementMethod: queue
+    - soundName: "TM4V14_MANNY"
+      soundURL: "assets/sounds/vo/TM4_14_MANNY.ogg" 
+      initialVolume: 0.65
+      subtitle: "[MANNY]: One down, three to go!"
+      soundGroup: vo
+      groupReplacementMethod: queue
+    - soundName: "TM4V15_MC"
+      soundURL: "assets/sounds/vo/TM4_15_MC.ogg" 
+      initialVolume: 0.65
+      subtitle: "[MISSION CONTROL]: Another thing you can do with triangles is to reflect them across either the X or Y axis.  Let’s draw a practice triangle that is reflected across the Y axis, but is not yet dilated."
+      soundGroup: vo
+      groupReplacementMethod: queue
+    - soundName: "TM4V16_MANNY"
+      soundURL: "assets/sounds/vo/TM4_16_MANNY.ogg" 
+      initialVolume: 0.65
+      subtitle: "[MANNY]: Got it again!  To reflect the triangle across the *Y* axis, I need to multiply its *X* values by negative one. It’s like a reflection in a mirror…you multiply the opposite values."
+      soundGroup: vo
+      groupReplacementMethod: queue
+    - soundName: "TM4V17_MC"
+      soundURL: "assets/sounds/vo/TM4_17_MC.ogg" 
+      initialVolume: 0.65
+      subtitle: "[MISSION CONTROL]: Of course, it’s not enough to reflect the triangle so that it’s in the right spot. You also need to dilate it in order to make it the right size. Also, don’t forget to move Peregrine to a safe spot and initiate construction once you’re done…"
+      soundGroup: vo
+      groupReplacementMethod: queue
+    - soundName: "TM4V18_MANNY"
+      soundURL: "assets/sounds/vo/TM4_18_MANNY.ogg" 
+      initialVolume: 0.65
+      subtitle: "[MANNY]: That’s two done!"
+      soundGroup: vo
+      groupReplacementMethod: queue
+    - soundName: "TM4V19_MC"
+      soundURL: "assets/sounds/vo/TM4_19_MC.ogg" 
+      initialVolume: 0.65
+      subtitle: "[MISSION CONTROL]: Great job! Halfway there. Now reflect the triangle across the X axis."
+      soundGroup: vo
+      groupReplacementMethod: queue
+    - soundName: "TM4V20_MANNY"
+      soundURL: "assets/sounds/vo/TM4_20_MANNY.ogg" 
+      initialVolume: 0.65
+      subtitle: "[MANNY]: There goes the third! Just one more to go!"
+      soundGroup: vo
+      groupReplacementMethod: queue
+    - soundName: "TM4V21_MC"
+      soundURL: "assets/sounds/vo/TM4_21_MC.ogg" 
+      initialVolume: 0.65
+      subtitle: "[MISSION CONTROL]: Now all you have to do is reflect across both axes, and you can get the last one built."
+      soundGroup: vo
+      groupReplacementMethod: queue
+    - soundName: "TM4V22_MANNY"
+      soundURL: "assets/sounds/vo/TM4_22_MANNY.ogg" 
+      initialVolume: 0.65
+      subtitle: "[MANNY]: Solar panel construction complete… and ready for solar energy collection!"
+      soundGroup: vo
+      groupReplacementMethod: queue
+    - soundName: "TM4V23_MC"
+      soundURL: "assets/sounds/vo/TM4_23_MC.ogg" 
+      initialVolume: 0.65
+      subtitle: "[MISSION CONTROL]: Now we have sufficient power. The human explorers will need a Habitation Dome to live in. This can also be constructed using your Nano Sprayer. You will need to translate the triangle, or move it to the correct coordinates. Let’s lay out another practice triangle, but this time translate it into place."
+      soundGroup: vo
+      groupReplacementMethod: queue
+    - soundName: "TM4V24_MC"
+      soundURL: "assets/sounds/vo/TM4_24_MC.ogg" 
+      initialVolume: 0.65
+      subtitle: "[MISSION CONTROL]: Of course, the habitation dome needs to be bigger than that. Translate the triangle again, but this time dilate it to be three times as big. Remember that dilate only works if one of the corners is still at (0,0) when it is done."
+      soundGroup: vo
+      groupReplacementMethod: queue
+    - soundName: "TM4V25_MC"
+      soundURL: "assets/sounds/vo/TM4_25_MC.ogg" 
+      initialVolume: 0.65
+      subtitle: "[MISSION CONTROL]: You have things under control. I will be temporarily offline while mandatory software updates are installed. In the meantime, proceed on with the mission and complete the rest of the base before the Human Explorers arrive."
+      soundGroup: vo
+      groupReplacementMethod: queue
+    - soundName: "TM4V26_MANNY"
+      soundURL: "assets/sounds/vo/TM4_26_MANNY.ogg" 
+      initialVolume: 0.65
+      subtitle: "[MANNY]: Ok… no pressure now! I guess it’s up to us now, Perry. I think the next thing would be to reflect in across the Y axis, just like last time."
+      soundGroup: vo
+      groupReplacementMethod: queue
+    - soundName: "TM4V27_MANNY"
+      soundURL: "assets/sounds/vo/TM4_27_MANNY.ogg" 
+      initialVolume: 0.65
+      subtitle: "[MANNY]: Got it! Okay, I can do this.  Two to go.  Let’s reflect across X next…"
+      soundGroup: vo
+      groupReplacementMethod: queue
+    - soundName: "TM4V28_MANNY"
+      soundURL: "assets/sounds/vo/TM4_28_MANNY.ogg" 
+      initialVolume: 0.65
+      subtitle: "[MANNY]: Almost there, just one more to go."
+      soundGroup: vo
+      groupReplacementMethod: queue
+    - soundName: "TM4V29_MANNY"
+      soundURL: "assets/sounds/vo/TM4_29_MANNY.ogg" 
+      initialVolume: 0.65
+      subtitle: "[MANNY]: Right.  Good.  What am I forgetting?  Oh yeah… move to a safe spot and send the ‘construct’ command."
+      soundGroup: vo
+      groupReplacementMethod: queue
+    - soundName: "TM4V31_MANNY"
+      soundURL: "assets/sounds/vo/TM4_31_MANNY.ogg" 
+      initialVolume: 0.65
+      subtitle: "[MANNY]: You’re welcome."
+      soundGroup: vo
+      groupReplacementMethod: queue
+    - soundName: "TM4V32_MANNY"
+      soundURL: "assets/sounds/vo/TM4_32_MANNY.ogg" 
+      initialVolume: 0.65
+      subtitle: "[MANNY]: Ok, what’s next?  Power, shelter… I suppose the Humans will probably want to eat.  Let’s build them a Greenhouse Dome, where they can grow some of what they call “food.”"
+      soundGroup: vo
+      groupReplacementMethod: queue
+    - soundName: "TM4V33_MANNY"
+      soundURL: "assets/sounds/vo/TM4_33_MANNY.ogg" 
+      initialVolume: 0.65
+      subtitle: "[MANNY]: Perry, this is silly.  I'm writing programs, after all.  Why don’t I put all four triangles into a single program, and see if I can get the whole thing built at once?"
+      soundGroup: vo
+      groupReplacementMethod: queue
+    - soundName: "TM4V35_MANNY"
+      soundURL: "assets/sounds/vo/TM4_35_MANNY.ogg" 
+      initialVolume: 0.65
+      subtitle: "[MANNY]: Looks like a Greenhouse Dome to me. Perry, what do you think?"
+      soundGroup: vo
+      groupReplacementMethod: queue
+    - soundName: "TM4V37_MANNY"
+      soundURL: "assets/sounds/vo/TM4_37_MANNY.ogg" 
+      initialVolume: 0.65
+      subtitle: "[MANNY]: Yep, that did save a lot of time."
+      soundGroup: vo
+      groupReplacementMethod: queue
+    - soundName: "TM4V38_MANNY"
+      soundURL: "assets/sounds/vo/TM4_38_MANNY.ogg" 
+      initialVolume: 0.65
+      subtitle: "[MANNY]: Alright! Plants can’t grow without water, though. I guess we’d better build the well next."
+      soundGroup: vo
+      groupReplacementMethod: queue
+    - soundName: "TM4V40_MANNY"
+      soundURL: "assets/sounds/vo/TM4_40_MANNY.ogg" 
+      initialVolume: 0.65
+      subtitle: "[MANNY]: Yeah, it does seem strange to build a well when it’s so dry, but apparently there are major ice deposits underground. We can use those for water and to get oxygen too!"
+      soundGroup: vo
+      groupReplacementMethod: queue
+    - soundName: "TM4V42_MANNY"
+      soundURL: "assets/sounds/vo/TM4_42_MANNY.ogg" 
+      initialVolume: 0.65
+      subtitle: "[MANNY]: Yes Perry, I know it’s corrosive, but Humans like to breathe it! So weird…"
+      soundGroup: vo
+      groupReplacementMethod: queue
+    - soundName: "TM4V43_MANNY"
+      soundURL: "assets/sounds/vo/TM4_43_MANNY.ogg" 
+      initialVolume: 0.65
+      subtitle: "[MANNY]: Outstanding! The solar panels have now stored more than enough power…let’s knock off for the night and recharge at the base pod.  We can come back and build some more tomorrow."
+      soundGroup: vo
+      groupReplacementMethod: queue
+    - soundName: "TM4V45_MANNY"
+      soundURL: "assets/sounds/vo/TM4_45_MANNY.ogg" 
+      initialVolume: 0.65
+      subtitle: "[MANNY]: You said it buddy, things are looking good…"
+      soundGroup: vo
+      groupReplacementMethod: queue
     - soundName: "M3VO1_Rover"
       soundURL: "assets/sounds/vo/m3t1VO01Manny.ogg"
       initialVolume: 0.65

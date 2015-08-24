@@ -223,6 +223,19 @@ children:
             - 2
             - openMissionBrief:
 
+        playStartingVO_4_14:
+          triggerCondition:
+          - and:
+            - doOnce:
+            - onScenarioStart:
+          actions:
+          - playSound:
+            - TM4V32_MANNY
+          - playSound:
+            - TM4V33_MANNY
+          - playSound:
+            - PerryNotDoneGroan
+
         highlightEndTile_4_14:
           triggerCondition:
           - onScenarioStart:
@@ -238,11 +251,11 @@ children:
             - onBlocklySurveyFinished:
               - rover2
               - [ [ [ -7, -19 ], [ -7, -15 ], [ -3, -19 ] ] , [ [ -9, -19 ], [ -9, -15 ], [ -13, -19 ] ], [ [ -7, -21 ], [ -7, -25 ], [ -3, -21 ] ], [ [ -9, -21 ], [ -9, -25 ], [ -13, -21 ] ] ]
+            - onBlocklyStopped:
+              - rover2
             - isAtPosition:
               - rover2
               - [ -31, 5 ]
-            - onBlocklyStopped:
-              - rover2
           actions:
           - writeToBlackboard:
             - disableFailOnIncompleteProgram
@@ -259,6 +272,12 @@ children:
               - stopExecution
             - playSound:
               - musicSuccessShort
+            - playSound:
+              - TM4V35_MANNY
+            - playSound:
+              - PerryIDidIt
+            - playSound:
+              - TM4V37_MANNY
             - scenarioSuccess:
 
         scenarioEnded4_14:
