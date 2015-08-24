@@ -59,6 +59,7 @@ methods:
   addSubtitle:
   executeBlock:
   handleDrawingBlocks:
+  resetBlocklyBlocks:
   displayTiles:
   displayGraph:
   setCinematicView:
@@ -336,6 +337,7 @@ children:
           castShadows: true
           receiveShadows: true
           executionSpeed: 0.5
+          startXML: '<xml></xml>'
           roverRadius: 4
           sceneNode:
             get: |
@@ -455,6 +457,7 @@ children:
           castShadows: true
           receiveShadows: true
           executionSpeed: 0.5
+          startXML: '<xml></xml>'
           roverRadius: 2
           surveyArray: []
           sceneNode:
@@ -531,6 +534,7 @@ children:
           castShadows: true
           receiveShadows: true
           executionSpeed: 0.5
+          startXML: '<xml></xml>'
           roverRadius: 7
           sceneNode:
             get: |

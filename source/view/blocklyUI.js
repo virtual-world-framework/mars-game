@@ -17,6 +17,7 @@ var ramBar = document.createElement( "div" );
 var currentRam = document.createElement( "div" );
 var startBlocklyButton = document.getElementById( "runButton" );
 var blocklySpeedButton = document.createElement( "div" );
+var blocklyResetButton = document.createElement( "div" );
 
 function setUpBlocklyPeripherals() {
 
@@ -43,6 +44,7 @@ function setUpBlocklyPeripherals() {
     procedureIndicator.id = "blocklyProcedureIndicator";
     startBlocklyButton.id = "startBlockly";
     blocklySpeedButton.id = "blocklySpeedButton";
+    blocklyResetButton.id = "blocklyResetButton";
     indicatorHighlighter.id = "blocklyHighlighter";
 
     indicator.appendChild( indicatorCount );
@@ -121,10 +123,14 @@ function setUpBlocklyPeripherals() {
     blocklySpeedButton.className = "normal";
     blocklySpeedButton.onclick = clickSpeedButton;
 
+    blocklyResetButton.innerHTML = "";
+    blocklyResetButton.onclick = clickBlockResetButton;
+
     $( "#blocklyDiv" ).wrap( blocklyScrollDiv );
     $( "#blocklyWrapper-top" ).append( blocklyCloseBtn );
     $( blocklyFooter ).append( ramBar );
     //$( blocklyFooter ).append( blocklySpeedButton );
+    $( blocklyFooter ).append( blocklyResetButton );
     $( blocklyFooter ).append( startBlocklyButton );
     $( "#blocklyWrapper" ).append( blocklyFooter );
     ramBar.appendChild( currentRam );
@@ -363,6 +369,10 @@ function clickStartButton() {
         //vwf_view.kernel.callMethod( vwf_view.kernel.application(), "stopAllExecution" );
         vwf_view.kernel.callMethod( currentBlocklyNodeID, "stopExecution");
     }
+}
+
+function clickBlockResetButton() {
+    vwf_view.kernel.callMethod( vwf_view.kernel.application(), "resetBlocklyBlocks", [ currentBlocklyNodeID ] );
 }
 
 function clickSpeedButton() {

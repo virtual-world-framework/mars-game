@@ -225,6 +225,40 @@ this.handleDrawingBlocks = function ( blockName, blockID, blockNode, blockExeTim
     this.blockExecuted( blockName, blockID, blockNode, blockExeTime, blockArgs );
 }
 
+this.resetBlocklyBlocks = function( nodeID ) {
+
+    //Blockly.mainWorkspace.clear();
+
+    var nodeObject = this.findByID( this, nodeID );
+    var defaultXML = nodeObject.startXML;
+
+    console.log(defaultXML);
+    if ( defaultXML !== undefined ) {
+
+        //nodeObject.blockly_xml = defaultXML;
+        vwf.setProperty( nodeID, 'blockly_xml', defaultXML );
+
+    } else {
+        var xml = '<xml></xml>';
+        nodeObject.blockly_xml = '<xml></xml>';
+        var width = Blockly.svgSize().width;
+        for (var x = 0, xmlChild; xmlChild = xml.childNodes[x]; x++) {
+            if (xmlChild.nodeName.toLowerCase() == 'block') {
+                var block = Blockly.Xml.domToBlock( Blockly.mainworkspace, xmlChild );
+                var xmlDescendants = xmlChild.getElementsByTagName( "block" );
+                blockIdIterator = 0;
+                setChildBlockIDs( block, xmlChild, xmlDescendants );
+                var blockX = parseInt(xmlChild.getAttribute('x'), 10);
+                var blockY = parseInt(xmlChild.getAttribute('y'), 10);
+                if (!isNaN(blockX) && !isNaN(blockY)) {
+                    block.moveBy(Blockly.RTL ? width - blockX : blockX, blockY);
+                }
+            }
+        }
+    }
+    
+}
+
 this.createNaniteSystem = function( vertices ) {
     var naniteDef, scenarioNanites, index, vertex, callback, lastEdge, rover;
     scenarioNanites = this.naniteSystems[ "nanites_" + this.activeScenarioPath ];

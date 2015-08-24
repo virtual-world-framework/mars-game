@@ -1110,6 +1110,54 @@ Blockly.JavaScript['controls_whileUntil_no_out_no_in'] = function(block) {
   // return 'while (' + argument0 + ') {\n' + branch + '}\n';
 };
 
+Blockly.Blocks['controls_repeat_ext'] = {
+  /**
+   * Block for repeat n times (external number).
+   * @this Blockly.Block
+   */
+  init: function() {
+    this.setHelpUrl(Blockly.Msg.CONTROLS_REPEAT_HELPURL);
+    this.setColour(Blockly.Blocks.loops.HUE);
+    this.interpolateMsg(Blockly.Msg.CONTROLS_REPEAT_TITLE,
+                        ['TIMES', 'Number', Blockly.ALIGN_RIGHT],
+                        Blockly.ALIGN_RIGHT);
+    this.appendStatementInput('DO')
+        .appendField(Blockly.Msg.CONTROLS_REPEAT_INPUT_DO);
+    this.setPreviousStatement(true);
+    this.setNextStatement(true);
+    this.setInputsInline(true);
+    var thisBlock = this;
+    this.setTooltip( function() {
+      var content = {
+        text: "A block that repeats internal blocks a certain number of times."
+      }
+      return showTooltipInBlockly( thisBlock, content );
+    } );
+  }
+};
+
+Blockly.JavaScript['controls_repeat_ext'] = function(block) {
+  // Repeat n times (external number).
+  var repeats = Blockly.JavaScript.valueToCode(block, 'TIMES',
+      Blockly.JavaScript.ORDER_ASSIGNMENT) || '0';
+  var branch = Blockly.JavaScript.statementToCode(block, 'DO');
+  branch = Blockly.JavaScript.addLoopTrap(branch, block.id);
+  var code = '';
+  var loopVar = Blockly.JavaScript.variableDB_.getDistinctName(
+      'count', Blockly.Variables.NAME_TYPE);
+  var endVar = repeats;
+  if (!repeats.match(/^\w+$/) && !Blockly.isNumber(repeats)) {
+    var endVar = Blockly.JavaScript.variableDB_.getDistinctName(
+        'repeat_end', Blockly.Variables.NAME_TYPE);
+    code += 'var ' + endVar + ' = ' + repeats + ';\n';
+  }
+  code += 'for (var ' + loopVar + ' = 0; ' +
+      loopVar + ' < ' + endVar + '; ' +
+      loopVar + '++) {\n' +
+      branch + '}\n';
+  return code;
+};
+
 Blockly.Blocks['controls_if_nomut'] = {
   // If/elseif/else condition.
   init: function() {
