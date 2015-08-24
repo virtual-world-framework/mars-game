@@ -45,6 +45,11 @@ properties:
     - rover
     - blockly_allowedBlocks
     - 12
+  - setProperty:
+    - rover
+    - startXML
+    - <xml></xml>
+    
   - callMethod:
     - rover
     - setHeading

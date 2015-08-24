@@ -45,6 +45,10 @@ properties:
     - rover
     - lowRam
     - 1
+  - setProperty:
+    - rover
+    - startXML
+    - <xml></xml>
   - setGridAxes:
     - 14
     - 0

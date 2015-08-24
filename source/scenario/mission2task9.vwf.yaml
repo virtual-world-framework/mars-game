@@ -49,6 +49,10 @@ properties:
     - rover
     - lowRam
     - 1
+  - setProperty:
+    - rover
+    - startXML
+    - <xml></xml>
   - addToGrid:
     - rover
     - [ 8, 30 ]

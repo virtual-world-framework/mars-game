@@ -28,6 +28,18 @@ properties:
     - true
   - setProperty:
     - rover
+    - startXML
+    - <xml></xml>
+  - setProperty:
+    - rover2
+    - startXML
+    - <xml></xml>
+  - setProperty:
+    - rover3
+    - startXML
+    - <xml></xml>
+  - setProperty:
+    - rover
     - battery
     - 500
   - setProperty:
