@@ -174,6 +174,15 @@ children:
               - rover2
               - [ -24, 19 ]
 
+        playStartingVO_4_2:
+          triggerCondition:
+          - and:
+            - doOnce:
+            - onScenarioStart:
+          actions:
+          - playSound:
+            - TM4V9_MC
+
         openMissionBrief_4_2:
           triggerCondition:
           - and:
@@ -206,7 +215,9 @@ children:
             - playSound:
               - musicSuccessShort
             - playSound:
-              - M4VO27_MC
+              - TM4V10_MANNY
+            - playSound:
+              - TM4V11_MC
 
         onScenarioFailed4_2:
           triggerCondition:

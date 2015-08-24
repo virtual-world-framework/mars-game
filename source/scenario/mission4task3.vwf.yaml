@@ -175,6 +175,17 @@ children:
           - callOutObjective:
             - [ -27, 19 ]
 
+        playStartingVO_4_3:
+          triggerCondition:
+          - and:
+            - doOnce:
+            - onScenarioStart:
+          actions:
+          - playSound:
+            - TM4V12_MC
+          - playSound:
+            - TM4V13_MANNY
+
         succeedOnMove_4_3:
           group: successOrFailure
           priority: 0
@@ -200,14 +211,6 @@ children:
               - rover2
               - stopExecution
             - scenarioSuccess:
-            - playSound:
-              - musicSuccessShort
-            - playSound:
-              - PerryIDidIt
-            - playSound:
-              - M4VO28_MC
-            - playSound:
-              - PerryNotDoneGroan
 
         scenarioEnded4_3:
           triggerCondition:

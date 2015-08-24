@@ -204,6 +204,15 @@ children:
             - 2
             - openMissionBrief:
 
+        playStartingVO_4_12:
+          triggerCondition:
+          - and:
+            - doOnce:
+            - onScenarioStart:
+          actions:
+          - playSound:
+            - TM4V28_MANNY
+
         setStartPosition_4_12:
           triggerCondition:
           - and:

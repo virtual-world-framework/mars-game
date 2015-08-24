@@ -177,6 +177,15 @@ children:
             - 2
             - openMissionBrief:
 
+        playStartingVO_4_5:
+          triggerCondition:
+          - and:
+            - doOnce:
+            - onScenarioStart:
+          actions:
+          - playSound:
+            - TM4V17_MC
+
         setStartPosition_4_5:
           triggerCondition:
           - and:
@@ -236,7 +245,7 @@ children:
             - playSound:
               - musicSuccessShort
             - playSound:
-              - PerryIDidIt
+              - TM4V18_MANNY
 
         scenarioEnded4_5:
           triggerCondition:
