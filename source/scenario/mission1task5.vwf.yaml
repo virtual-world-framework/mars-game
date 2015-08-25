@@ -53,7 +53,6 @@ properties:
     - rover
     - setHeading
     - 0
-
   - addToGrid:
     - rover
     - [ 0, 1 ]
@@ -84,9 +83,13 @@ properties:
     - opacity
     - 0
 
+  - setGridAxes:
+    - 0
+    - 0
+
   - selectRover:
     - rover
-    
+
 children:
   triggerManager:
     extends: ../triggers/triggerManager.vwf
@@ -146,7 +149,7 @@ children:
           - playSound:
             - L1VO13_Rover
 
-        highlightEndTile:
+        highlightEndTile_1_5:
           triggerCondition:
           - onScenarioStart:
           actions:

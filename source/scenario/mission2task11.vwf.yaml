@@ -86,6 +86,15 @@ properties:
     - roverTracks2
     - visible
     - false
+
+  - setProperty:
+    - cargoPod2
+    - rotation
+    - [0 ,0 ,1 , -45 ]
+  - setProperty:
+    - cargoPod2
+    - isClosed
+    - true
 children:
   triggerManager:
     extends: ../triggers/triggerManager.vwf
@@ -155,7 +164,9 @@ children:
           - onScenarioStart:
           actions:
           - callOutObjective:
-            - [ -21, 14 ]
+            - [ -21, -14 ]
+
+        # [ -21, 14]
 
         failOnMissingBlock_2_11:
           group: successOrFailure

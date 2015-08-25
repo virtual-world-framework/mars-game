@@ -154,12 +154,32 @@ children:
               - enabled
               - true
 
-        highlightEndTile:
+        highlightEndTile_3_3:
           triggerCondition:
           - onScenarioStart:
           actions:
           - callOutObjective:
-            - [ -17, 26 ]
+            - [ 0, -6 ]
+
+        failOnMissingBlock_3_3:
+          group: successOrFailure
+          priority: 0.5
+          triggerCondition:
+          - and:
+            - onBlocklyStopped:
+              - rover
+            - hasHeading:
+              - rover
+              - 270
+            - isAtPosition:
+              - rover
+              - [-17, 26]
+            - isBlockMissing:
+              - controls_if_nomut
+          actions:
+          - scenarioFailure:
+            - incomplete
+            - "You should use an if block."
 
         succeedOnSuccessfulMovement_3_3:
           group: successOrFailure

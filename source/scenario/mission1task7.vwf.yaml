@@ -82,7 +82,11 @@ properties:
     - 0
   - selectRover:
     - rover
-    
+
+  - setGridAxes:
+    - 0
+    - 0
+
 children:
   triggerManager:
     extends: ../triggers/triggerManager.vwf
@@ -133,7 +137,7 @@ children:
           - playSound:
             - musicSuccessShort
 
-        highlightEndTile:
+        highlightEndTile_1_7:
           triggerCondition:
           - onScenarioStart:
           actions:

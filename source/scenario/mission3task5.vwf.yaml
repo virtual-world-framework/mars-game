@@ -157,14 +157,14 @@ children:
               - hud
               - enabled
               - true
-            
-        highlightEndTile:
+
+        highlightEndTile_3_5:
           triggerCondition:
           - onScenarioStart:
           actions:
           - callOutObjective:
-            - [ -20, 26 ]
- 
+            - [ -3, -6 ]
+
         succeedOnSuccessfulMovement_3_5:
           group: successOrFailure
           priority: 0

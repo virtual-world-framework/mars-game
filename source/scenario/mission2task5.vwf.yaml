@@ -148,7 +148,7 @@ children:
           - onScenarioStart:
           actions:
           - callOutObjective:
-            - [ 1, 16 ]
+            - [ 1, 2 ]
 
         stopBlinkRoverTab_2e:
           triggerCondition:

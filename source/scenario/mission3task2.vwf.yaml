@@ -154,12 +154,12 @@ children:
               - enabled
               - true
 
-        highlightEndTile:
+        highlightEndTile_3_2:
           triggerCondition:
           - onScenarioStart:
           actions:
           - callOutObjective:
-            - [ -17, 26 ]
+            - [ 0, -6 ]
 
         succeedOnSuccessfulMovement_3_2:
           group: successOrFailure
