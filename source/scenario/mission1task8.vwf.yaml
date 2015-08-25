@@ -49,7 +49,11 @@ properties:
     - rover
     - lowRam
     - 5    
-
+  - setProperty:
+    - rover
+    - startXML
+    - <xml></xml>
+    
   - callMethod:
     - rover
     - setHeading

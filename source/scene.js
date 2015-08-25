@@ -225,6 +225,32 @@ this.handleDrawingBlocks = function ( blockName, blockID, blockNode, blockExeTim
     this.blockExecuted( blockName, blockID, blockNode, blockExeTime, blockArgs );
 }
 
+this.resetBlocklyBlocks = function( nodeID ) {
+
+    Blockly.mainWorkspace.clear();
+
+    var nodeObject = this.findByID( this, nodeID );
+    var defaultXML = nodeObject.startXML;
+
+    if ( defaultXML !== undefined ) {
+
+        //nodeObject[ 'blockly_xml' ] = defaultXML;
+        vwf.setProperty( nodeID, 'blockly_xml', defaultXML );
+        vwf.setProperty( nodeID, 'new_xml', defaultXML );
+
+        Blockly.mainWorkspace.fireChangeEvent();
+
+        if ( nodeID === this.player.rover.id ) {
+            this.player.rover.calcRam();
+        } else if ( nodeID === this.player.rover2.id ) {
+            this.player.rover2.calcRam();
+        } else if ( nodeID === this.player.rover3.id ) {
+            this.player.rover3.calcRam();
+        }
+    }
+    
+}
+
 this.createNaniteSystem = function( vertices ) {
     var naniteDef, scenarioNanites, index, vertex, callback, lastEdge, rover;
     scenarioNanites = this.naniteSystems[ "nanites_" + this.activeScenarioPath ];

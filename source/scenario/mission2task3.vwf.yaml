@@ -44,6 +44,10 @@ properties:
     - rover
     - blockly_allowedBlocks
     - 12
+  - setProperty:
+    - rover
+    - startXML
+    - <xml></xml>
   - addToGrid:
     - rover
     - [ 0, 14 ]

@@ -252,6 +252,16 @@ a:active {
     border-bottom-right-radius: 8px;
 }
 
+#blocklyResetButton {
+    height: 24px;
+    width: 64px;
+    position: absolute;
+    bottom: 0px;
+    right: 72px;
+    background: url( "../../assets/images/blockly_ui/reset_blockly_button.png" );
+    border-bottom-right-radius: 8px;
+}
+
 #blocklySpeedButton.normal {
     background: url( "../../assets/images/blockly_ui/speed_button_normal.png" );
 }

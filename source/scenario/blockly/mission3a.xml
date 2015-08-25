@@ -1,12 +1,4 @@
 <xml id="rover" style="display: none">
-  <category name="Movement">
-  </category>
-  <category name="Sensors">
-  </category>
-  <category name="Loops">
-  </category>
-  <category name="Math">
-  </category>
-  <category name="Procedures">
+  <category name="">
   </category>
 </xml>
