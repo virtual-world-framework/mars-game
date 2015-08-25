@@ -119,6 +119,10 @@ properties:
     # arguments: vertex1, vertex2, vertex3
     drawTriangle: "source/triggers/actions/action_drawTriangle.vwf"
 
+    # Clears all drawn triangles
+    # arguments: none
+    clearTriangle: "source/triggers/actions/action_clearTriangle.vwf"
+
     # build a base component using our spiffy new shader
     # arguments: component name ( defined in index.vwf.yaml - must be added to scenario grid)
     buildBaseComponent: "source/triggers/actions/action_buildBaseComponent.vwf"

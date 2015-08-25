@@ -605,7 +605,26 @@ properties:
         }
       }
       #if MAX_TRIS > 0
-        if ( testTriangle( vWorldPosition.xy, triangle[ 0 ], triangle[ 1 ], triangle[ 2 ] ) ) {
+        bool inTriangle = false;
+        #if MAX_TRIS >= 3
+          inTriangle = testTriangle( vWorldPosition.xy, triangle[ 0 ], triangle[ 1 ], triangle[ 2 ] );
+        #endif
+        #if MAX_TRIS >= 6
+          if ( !inTriangle ) {
+            inTriangle = testTriangle( vWorldPosition.xy, triangle[ 3 ], triangle[ 4 ], triangle[ 5 ] );
+          }
+        #endif
+        #if MAX_TRIS >= 9
+          if ( !inTriangle ) {
+            inTriangle = testTriangle( vWorldPosition.xy, triangle[ 6 ], triangle[ 7 ], triangle[ 8 ] );
+          }
+        #endif
+        #if MAX_TRIS >= 12
+          if ( !inTriangle ) {
+            inTriangle = testTriangle( vWorldPosition.xy, triangle[ 9 ], triangle[ 10 ], triangle[ 11 ] );
+          }
+        #endif
+        if ( inTriangle ) {
           gl_FragColor.xyz += tileColor * 0.8;
         }
       #endif
