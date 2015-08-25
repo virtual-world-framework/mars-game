@@ -73,6 +73,26 @@ var blocklyDiv = document.getElementById('blocklyDiv');
 
 var cameraTargetPosition = [ 0, 0, 0 ];
 
+function getAppID() {
+    if ( appID === undefined ) {
+        appID = vwf_view.kernel.application();
+    }
+    return appID;
+}
+
+vwf_view.calledMethod = function( nodeID, methodName, methodParams ) {
+    if ( nodeID === getAppID() ) {
+        switch ( methodName ) {
+            case "playVideo":
+                var src = methodParams[ 0 ];
+                $( "#transitionScreen" ).fadeTo( 400, 1, function() {
+                    playVideo( src );
+                } );
+                break;
+        }
+    }
+}
+
 vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
     if ( blocklyNodes[ nodeID ] !== undefined ) {
         var blocklyNode = blocklyNodes[ nodeID ];
@@ -159,7 +179,7 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 break;
 
         }
-    } else if ( nodeID === vwf_view.kernel.application() ) {
+    } else if ( nodeID === getAppID() ) {
         switch ( eventName ) {
 
             case "paused":
@@ -302,7 +322,7 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 break;
 
             case "videoPlayed":
-                $( "#transitionScreen" ).fadeOut( function() {
+                $( "#transitionScreen" ).fadeTo( 400, 0, function() {
                     removeVideo();
                 } );
                 break;
@@ -428,8 +448,7 @@ vwf_view.createdNode = function( nodeID, childID, childExtendsID, childImplement
 }
 
 vwf_view.initializedNode = function( nodeID, childID, childExtendsID, childImplementsIDs, childSource, childType, childIndex, childName ) {
-    if ( childID === vwf_view.kernel.application() ) {
-        appID = vwf_view.kernel.application();
+    if ( childID === getAppID() ) {
         setUpView();
         threejs.render = render;
     } else if ( blocklyNodes[ childID ] !== undefined ) {
@@ -541,7 +560,7 @@ vwf_view.satProperty = function( nodeID, propertyName, propertyValue ) {
             var versionElem = document.getElementById( "version" );
             switch ( state ) {
                 case "loading":
-                    $( "#transitionScreen" ).fadeIn( 0 );
+                    $( "#transitionScreen" ).fadeTo( 0, 1 );
                     break;
                 case "menu":
                     loggerBox.style.display = "none";
@@ -549,14 +568,14 @@ vwf_view.satProperty = function( nodeID, propertyName, propertyValue ) {
                     versionElem.style.display = "block";
                     checkPageZoom();
                     timerWindow.style.display = "none";
-                    $( "#transitionScreen" ).fadeOut();
+                    $( "#transitionScreen" ).fadeTo( 400, 0 );
                     break;
                 case "playing":
                     mainMenu.setVisible( false );
                     versionElem.style.display = "none";
                     loggerBox.style.display = "block";
                     timerWindow.style.display = "block";
-                    $( "#transitionScreen" ).fadeOut();
+                    $( "#transitionScreen" ).fadeTo( 400, 0 );
                     break;
             }
         } else if ( propertyName === "roverTabBlinking" ) {

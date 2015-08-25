@@ -389,16 +389,6 @@ this.stopBlinkTab = function( nodeName ) {
     }
 }
 
-this.playVideo = function( src ) {
-    // var id = getVideoIdFromSrc( src );
-    // if ( isNaN( id ) || id < 0 || id >= videos.length ) {
-    //     id = loadVideo( src );
-    // }
-    $( "#transitionScreen" ).fadeIn( function(){ 
-        playVideo( src );
-    });
-}
-
 this.pauseGame = function() {
     this.paused();
 }
@@ -529,5 +519,8 @@ this.removeCalloutTile = function() {
     var material = this.environment.terrain.material;
     material.stopCallout();
 }
+
+// This method is being handled by the view
+this.playVideo = function( src ) {}
 
 //@ sourceURL=source/scene.js
