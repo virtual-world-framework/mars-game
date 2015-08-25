@@ -74,10 +74,12 @@ properties:
       actions:
       - scenarioFailure:
         - incomplete
+      - writeToBlackboard:
+        - disableFailOnIncompleteProgram
+      - writeToBlackboard:
+        - stepThroughProgramHint
       - delay:
         - 0.2
-        - writeToBlackboard:
-          - stepThroughProgramHint
         - playSound:
           - ALVO33_Rover
 
@@ -98,10 +100,12 @@ properties:
       actions:
       - scenarioFailure:
         - incomplete
+      - writeToBlackboard:
+        - disableFailOnIncompleteProgram
+      - writeToBlackboard:
+        - blocklyTraceHint
       - delay:
         - 0.2
-        - writeToBlackboard:
-          - blocklyTraceHint
         - playSound:
           - ALVO32_Rover
 
