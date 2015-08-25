@@ -13,15 +13,18 @@
 // limitations under the License.
 
 this.setCameraTarget = function( node, mountName ) {
+    var oldTarget;
     if ( !node || !node.getMount ) {
         this.logger.errorx( "setCameraTarget", "This function requires a cameraTarget node." );
     } else {
         if ( this.target ) {
+            oldTarget = this.target;
             this.detachFromTarget();
         }
         this.target = node;
         this.setCameraMount( mountName );
         this.attachToTarget();
+        this.scene.targetSwitched( oldTarget, this.target );
     }
 }
 
@@ -115,6 +118,7 @@ this.convertPoseToTransform = function( pose ) {
 
 this.mounted = function( mount ) {
     this.mount = mount;
+    this.scene.cameraMounted( mount.name );
 }
 
 this.getPoseFromTransform = function() {
