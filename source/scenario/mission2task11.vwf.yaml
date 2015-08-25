@@ -184,6 +184,8 @@ children:
           - scenarioFailure:
             - incomplete
             - "You should use the conditional loop block."
+          - playSound:
+            - FCVO2_Rover
 
         succeedOnSuccessfulMovement_3e:
           group: successOrFailure

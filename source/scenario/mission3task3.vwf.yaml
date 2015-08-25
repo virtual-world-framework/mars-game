@@ -180,6 +180,8 @@ children:
           - scenarioFailure:
             - incomplete
             - "You should use the if block."
+          - playSound:
+            - FCVO2_Rover
 
         succeedOnSuccessfulMovement_3_3:
           group: successOrFailure
