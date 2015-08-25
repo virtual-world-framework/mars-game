@@ -1,4 +1,20 @@
 <xml id="rover" style="display: none">
-  <category name="">
+  <category name="Movement">
+    <block type="rover_moveForward"></block>
+    <block type="rover_turn"><field name="DIR">Turn: Left</field></block>
+  </category>
+  <category name="Sensors">
+    <block type="controls_sensor_metal"></block>
+  </category>
+  <category name="Loops">
+    <block type="controls_whileUntil"><field name="MODE">WHILE</field></block>
+    <block type="controls_repeat_ext"><value name="TIMES"><block type="math_number_out" inline="false"><field name="VALUE">0</field></block></value></block>
+  </category>
+  <category name="Math">
+    <block type="math_number_out" inline="false"><field name="VALUE">0</field></block>
+    <block type="graph_add"></block>
+    <block type="graph_subtract"></block>
+    <block type="graph_multiply"></block>
+    <block type="graph_divide"></block>
   </category>
 </xml>
