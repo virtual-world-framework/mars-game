@@ -76,7 +76,7 @@ properties:
   - setProperty:
     - rover
     - blockly_allowedBlocks
-    - 70
+    - 25
 
   # Perry, Rosie disabled
   - setProperty:
@@ -139,10 +139,10 @@ children:
             - TM3VO7_Rover
           - playSound:
             - TM3VO8_MC
-          - setProperty:
-            - hud
-            - enabled
-            - false
+        #  - setProperty:
+        #    - hud
+        #    - enabled
+        #    - false
 
         openMissionBrief_3_3:
           triggerCondition:

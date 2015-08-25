@@ -76,7 +76,7 @@ properties:
   - setProperty:
     - rover
     - blockly_allowedBlocks
-    - 70
+    - 8
 
   # Perry, Rosie disabled
   - setProperty:
@@ -144,10 +144,10 @@ children:
             - TM3VO3_MC
           - playSound:
             - TM3VO4_MC
-          - setProperty:
-            - hud
-            - enabled
-            - false
+        #  - setProperty:
+        #    - hud
+        #    - enabled
+        #    - false
 
         openMissionBrief_3_1:
           triggerCondition:
@@ -202,5 +202,6 @@ children:
         procedure so that the test program is satisfied.
         <br><br> It looks like this first portion of the Navigate procedure is 
         already correct - just hit START to test it.
-
-        
+        <br><br> Note that the grayed-out portions of the code have been locked 
+        by Mission Control and can’t be changed – you will need to make your 
+        changes to the procedure above or below the locked sections.
