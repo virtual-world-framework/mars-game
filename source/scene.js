@@ -237,11 +237,16 @@ this.resetBlocklyBlocks = function( nodeID ) {
         //nodeObject[ 'blockly_xml' ] = defaultXML;
         vwf.setProperty( nodeID, 'blockly_xml', defaultXML );
         vwf.setProperty( nodeID, 'new_xml', defaultXML );
-        // this.player.rover.ram = this.player.rover.ramMax;
-        // this.player.rover2.ram = this.player.rover2.ramMax;
-        // this.player.rover3.ram = this.player.rover3.ramMax;
 
         Blockly.mainWorkspace.fireChangeEvent();
+
+        if ( nodeID === this.player.rover.id ) {
+            this.player.rover.calcRam();
+        } else if ( nodeID === this.player.rover2.id ) {
+            this.player.rover2.calcRam();
+        } else if ( nodeID === this.player.rover3.id ) {
+            this.player.rover3.calcRam();
+        }
     }
     
 }
