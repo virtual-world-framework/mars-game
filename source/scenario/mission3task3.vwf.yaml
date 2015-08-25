@@ -179,7 +179,7 @@ children:
           actions:
           - scenarioFailure:
             - incomplete
-            - "You should use an if block."
+            - "You should use the if block."
 
         succeedOnSuccessfulMovement_3_3:
           group: successOrFailure
