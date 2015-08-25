@@ -119,5 +119,11 @@ properties:
     onGameLoaded: "source/triggers/clauses/clause_OnGameLoaded.vwf"
     onGameStarted: "source/triggers/clauses/clause_OnGameStarted.vwf"
 
+    # Checks if a certain kind of block is present in the workspace.
+    # It should be used in conjunction with another clause (i.e. "and onBlocklyStopped")
+    # arguments: blockType
+    isBlockMissing: "source/triggers/clauses/clause_IsBlockMissing.vwf"
+
+
 scripts:
 - source: generator_Clause.js

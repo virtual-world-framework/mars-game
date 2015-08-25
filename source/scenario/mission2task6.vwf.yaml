@@ -115,6 +115,25 @@ children:
           - playSound:
             - L2VO9_Control
 
+        failOnMissingBlock_2_6:
+          group: successOrFailure
+          priority: 0.5
+          triggerCondition:
+          - and:
+            - onBlocklyStopped:
+              - rover
+            - isAtPosition:
+              - rover
+              - [ 3, 20 ]
+            - isBlockMissing:
+              - controls_repeat_ext
+          actions:
+          - scenarioFailure:
+            - incomplete
+            - "You should use the repeat block."
+          - playSound:
+            - FCVO2_Rover
+
         succeedOnSuccessfulMovement_2f:
           group: successOrFailure
           priority: 0
@@ -132,12 +151,12 @@ children:
           - playSound:
             - musicSuccessShort
 
-        highlightEndTile:
+        highlightEndTile_2_7:
           triggerCondition:
           - onScenarioStart:
           actions:
           - callOutObjective:
-            - [ 3, 20 ]
+            - [ 3, 6 ]
 
         stopBlinkRoverTab_2f:
           triggerCondition:

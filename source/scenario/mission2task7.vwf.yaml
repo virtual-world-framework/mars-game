@@ -56,8 +56,8 @@ properties:
     - blocklyGraph
     - [ 3, 20 ]
   - setGridAxes:
-    - 22
-    - 4
+    - 20
+    - 3
   - addToWatchList:
     - supplies_1
     - pickup
@@ -110,6 +110,13 @@ children:
           - setThirdPersonStartPose:
             - [ 16.316, 65, -15 ]
 
+        highlightEndTile_2_7:
+          triggerCondition:
+          - onScenarioStart:
+          actions:
+          - callOutObjective:
+            - [ 5, 10 ]
+
         playStartingVO_3a:
           triggerCondition:
           - and:
@@ -131,6 +138,25 @@ children:
           actions:
           - playSound:
             - CTVO1_Rover
+
+        failOnMissingBlock_2_7:
+          group: successOrFailure
+          priority: 0.5
+          triggerCondition:
+          - and:
+            - onBlocklyStopped:
+              - rover
+            - isAtPosition:
+              - rover
+              - [ 8, 30 ]
+            - isBlockMissing:
+              - controls_whileUntil
+          actions:
+          - scenarioFailure:
+            - incomplete
+            - "You should use the conditional loop block."
+          - playSound:
+            - FCVO2_Rover
 
         succeedOnSuccessfulMovement_3a:
           group: successOrFailure

@@ -148,12 +148,12 @@ children:
               - enabled
               - true
 
-        highlightEndTile:
+        highlightEndTile_3_7:
           triggerCondition:
           - onScenarioStart:
           actions:
           - callOutObjective:
-            - [ -30, 23 ]
+            - [ -13, -9 ]
 
         playTravelVO_m3t7:
           triggerCondition:
