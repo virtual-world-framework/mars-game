@@ -120,7 +120,7 @@ properties:
     onGameStarted: "source/triggers/clauses/clause_OnGameStarted.vwf"
 
     # Checks if a certain kind of block is present in the workspace.
-    # It should be used in conjunction with another clause (i.e. "or onBlocklyStarted", "and onBlocklyStopped")
+    # It should be used in conjunction with another clause (i.e. "and onBlocklyStopped")
     # arguments: blockType
     isBlockMissing: "source/triggers/clauses/clause_IsBlockMissing.vwf"
 
