@@ -75,7 +75,7 @@ properties:
     - rover2
   - addToGrid:
     - rover2
-    - [ -31, 5 ]
+    - [ -31, 7 ]
 
   # Rosie disabled
   - setProperty:
@@ -122,7 +122,7 @@ properties:
     - [ -32, 11 ]
   - addToGrid:
     - greenhouse1
-    - [ -32, 1 ]
+    - [ -32, 2 ]
   - addToGrid:
     - waterWell1
     - [ -25, 12 ]

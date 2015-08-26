@@ -22,7 +22,7 @@ properties:
 
   # objective
   - setObjective:
-    - "Draw these triangles: [[-7,-19], [-7,-15], [-3,-19]], [[-9,-19], [-9,-15], [-13,-19]], [[-7,-21],[-7,-25],[-3,-21]], [[-9,-21],[-9,-25],[-13,-21]]."
+    - "Draw these triangles: [[-7,-18], [-7,-14], [-3,-18]], [[-9,-18], [-9,-14], [-13,-18]], [[-7,-20],[-7,-24],[-3,-20]], [[-9,-20],[-9,-24],[-13,-20]]."
 
   # blockly
   - setBlocklyContext:
@@ -75,7 +75,7 @@ properties:
     - rover2
   - addToGrid:
     - rover2
-    - [ -35, 5 ]
+    - [ -35, 7 ]
 
   # Rosie disabled
   - setProperty:
@@ -96,9 +96,9 @@ properties:
     - opacity
     - 0
   - drawTriangle:
-    - [ -7, -15 ]
-    - [ -7, -19 ]
-    - [ -3, -19 ]
+    - [ -7, -14 ]
+    - [ -7, -18 ]
+    - [ -3, -18 ]
   - drawTriangle:
     - [ -9,-19 ]
     - [ -9,-15 ]
@@ -132,7 +132,7 @@ properties:
     - [ -32, 11 ]
   - addToGrid:
     - greenhouse1
-    - [ -32, 1 ]
+    - [ -32, 2 ]
 
   - setProperty:
     - solarPanel1
@@ -267,7 +267,7 @@ children:
           - onScenarioStart:
           actions:
           - callOutObjective:
-            - [ -31, 5 ]
+            - [ -31, 7 ]
 
         succeedOnTriangle_4_14:
           group: successOrFailure
@@ -276,12 +276,12 @@ children:
           - and:
             - onBlocklySurveyFinished:
               - rover2
-              - [ [ [ -7, -19 ], [ -7, -15 ], [ -3, -19 ] ] , [ [ -9, -19 ], [ -9, -15 ], [ -13, -19 ] ], [ [ -7, -21 ], [ -7, -25 ], [ -3, -21 ] ], [ [ -9, -21 ], [ -9, -25 ], [ -13, -21 ] ] ]
+              - [ [ [ -7, -18 ], [ -7, -14 ], [ -3, -18 ] ] , [ [ -9, -18 ], [ -9, -14 ], [ -13, -18 ] ], [ [ -7, -20 ], [ -7, -24 ], [ -3, -20 ] ], [ [ -9, -20 ], [ -9, -24 ], [ -13, -20 ] ] ]
             - onBlocklyStopped:
               - rover2
             - isAtPosition:
               - rover2
-              - [ -31, 5 ]
+              - [ -31, 7 ]
           actions:
           - writeToBlackboard:
             - disableFailOnIncompleteProgram

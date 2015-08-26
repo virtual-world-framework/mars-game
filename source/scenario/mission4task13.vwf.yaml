@@ -251,7 +251,7 @@ children:
           - onScenarioStart:
           actions:
           - callOutObjective:
-            - [ -35, 5 ]
+            - [ -35, 7 ]
 
         succeedOnTriangle_4_13:
           group: successOrFailure
@@ -262,7 +262,7 @@ children:
               - rover2
             - isAtPosition:
               - rover2
-              - [ -35, 5 ]
+              - [ -35, 7 ]
           actions:
           - writeToBlackboard:
             - disableFailOnIncompleteProgram
