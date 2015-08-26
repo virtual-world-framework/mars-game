@@ -846,14 +846,12 @@ Blockly.Blocks['controls_whileUntil'] = {
     this.data = currentBlocklyNodeID;
     // Assign 'this' to a variable for use in the tooltip closure below.
     var thisBlock = this;
-    this.setTooltip(function() {
-      var op = thisBlock.getFieldValue('MODE');
-      var TOOLTIPS = {
-        'WHILE': 'Repeat a sequence of blocks while something is true, or until it becomes true',
-        'UNTIL': 'Repeat a sequence of blocks while something is true, or until it becomes true'
-      };
-      return TOOLTIPS[op];
-    });
+    this.setTooltip( function() {
+      var content = {
+        text: "Repeat a sequence of blocks while something is true, or until it becomes true"
+      }
+      return showTooltipInBlockly( thisBlock, content );
+    } );
   }
 };
 
@@ -918,14 +916,12 @@ Blockly.Blocks['controls_whileUntil_no_in'] = {
     this.data = currentBlocklyNodeID;
     // Assign 'this' to a variable for use in the tooltip closure below.
     var thisBlock = this;
-    this.setTooltip(function() {
-      var op = thisBlock.getFieldValue('MODE');
-      var TOOLTIPS = {
-        'WHILE': 'Repeat a sequence of blocks while something is true, or until it becomes true',
-        'UNTIL': 'Repeat a sequence of blocks while something is true, or until it becomes true'
-      };
-      return TOOLTIPS[op];
-    });
+    this.setTooltip( function() {
+      var content = {
+        text: "Repeat a sequence of blocks while something is true, or until it becomes true"
+      }
+      return showTooltipInBlockly( thisBlock, content );
+    } );
   }
 };
 
@@ -988,14 +984,12 @@ Blockly.Blocks['controls_whileUntil_no_out'] = {
     this.data = currentBlocklyNodeID;
     // Assign 'this' to a variable for use in the tooltip closure below.
     var thisBlock = this;
-    this.setTooltip(function() {
-      var op = thisBlock.getFieldValue('MODE');
-      var TOOLTIPS = {
-        'WHILE': 'Repeat a sequence of blocks while something is true, or until it becomes true',
-        'UNTIL': 'Repeat a sequence of blocks while something is true, or until it becomes true'
-      };
-      return TOOLTIPS[op];
-    });
+    this.setTooltip( function() {
+      var content = {
+        text: "Repeat a sequence of blocks while something is true, or until it becomes true"
+      }
+      return showTooltipInBlockly( thisBlock, content );
+    } );
   }
 };
 
@@ -1059,14 +1053,12 @@ Blockly.Blocks['controls_whileUntil_no_out_no_in'] = {
     this.data = currentBlocklyNodeID;
     // Assign 'this' to a variable for use in the tooltip closure below.
     var thisBlock = this;
-    this.setTooltip(function() {
-      var op = thisBlock.getFieldValue('MODE');
-      var TOOLTIPS = {
-        'WHILE': 'Repeat a sequence of blocks while something is true, or until it becomes true',
-        'UNTIL': 'Repeat a sequence of blocks while something is true, or until it becomes true'
-      };
-      return TOOLTIPS[op];
-    });
+    this.setTooltip( function() {
+      var content = {
+        text: "Repeat a sequence of blocks while something is true, or until it becomes true"
+      }
+      return showTooltipInBlockly( thisBlock, content );
+    } );
   }
 };
 
