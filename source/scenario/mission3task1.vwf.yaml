@@ -168,7 +168,9 @@ children:
           - onScenarioStart:
           actions:
           - setCinematicCameraView:
-            - [ 16, 150, 150 ]
+            - [ 16, 160, -15 ]
+          - setThirdPersonStartPose:
+            - [ 16, 160, -15 ]
 
         highlightEndTile_3_1:
           triggerCondition:
