@@ -133,10 +133,10 @@ children:
           actions:
           - playSound:
             - TM3V17_MC
-        #  - setProperty:
-        #    - hud
-        #    - enabled
-        #    - false
+          - setProperty:
+            - hud
+            - enabled
+            - false
 
         openMissionBrief_3_7:
           triggerCondition:

@@ -143,10 +143,10 @@ children:
             - TM3V13_Rover
           - playSound:
             - TM3V14_MC
-        #  - setProperty:
-        #    - hud
-        #    - enabled
-        #    - false
+          - setProperty:
+            - hud
+            - enabled
+            - false
 
         openMissionBrief_3_5:
           triggerCondition:

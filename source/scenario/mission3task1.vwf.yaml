@@ -144,10 +144,10 @@ children:
             - TM3VO3_MC
           - playSound:
             - TM3VO4_MC
-        #  - setProperty:
-        #    - hud
-        #    - enabled
-        #    - false
+          - setProperty:
+            - hud
+            - enabled
+            - false
 
         openMissionBrief_3_1:
           triggerCondition:
