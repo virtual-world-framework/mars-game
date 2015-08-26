@@ -59,6 +59,7 @@ properties:
     - 14
     - 0
   - setBlocklyContext:
+    - rover
     - graph
   - loadToolbox:
     - rover
