@@ -8,6 +8,9 @@
   <category name="Math">
     <block type="math_number_out_m4t5" inline="false" edtiable="false" x="20" y="-220"><field name="VALUE">2</field></block>
     <block type="graph_multiply"></block>
+    <block type="graph_subtract"></block>
+    <block type="graph_left_paren"></block>
+    <block type="graph_right_paren"></block>
   </category>
   <sep></sep>
   <category name="Procedures">

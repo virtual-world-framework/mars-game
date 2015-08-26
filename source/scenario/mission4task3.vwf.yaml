@@ -61,7 +61,7 @@ properties:
   - setProperty:
     - rover2
     - blockly_allowedBlocks
-    - 4
+    - 7
 
   - setProperty:
     - rover2
