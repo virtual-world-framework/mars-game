@@ -163,6 +163,13 @@ children:
               - enabled
               - true
 
+        setCamera_3_1:
+          triggerCondition:
+          - onScenarioStart:
+          actions:
+          - setCinematicCameraView:
+            - [ 16, -45, -15 ]
+
         highlightEndTile_3_1:
           triggerCondition:
           - onScenarioStart:

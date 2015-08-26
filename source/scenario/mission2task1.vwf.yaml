@@ -127,9 +127,7 @@ children:
             - enabled
             - false
           - setCinematicCameraView:
-            - [ 16.316, 65, -15 ]
-          - setThirdPersonStartPose:
-            - [ 16.316, 65, -15 ]
+            - [ 16, -25, -15 ]
 
         playStartingVO_2a:
           triggerCondition:
