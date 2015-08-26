@@ -66,8 +66,8 @@ properties:
   - setGridAxes:
     - 14
     - 0
-  - setBlocklyContext:
-    - graph
+  #- setBlocklyContext:
+  #  - graph
   - loadToolbox:
     - rover
     - source/scenario/blockly/scenario2a.xml
@@ -127,7 +127,7 @@ children:
             - enabled
             - false
           - setCinematicCameraView:
-            - [ 16, -25, -15 ]
+            - [ 16, 170, 170 ]
 
         playStartingVO_2a:
           triggerCondition:
