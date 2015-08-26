@@ -2899,7 +2899,13 @@ Blockly.Blocks['math_number_angle_select'] = {
         .appendField("")
         .appendField(new Blockly.FieldAngle("90"), "VALUE");
     this.setOutput(true, "Number");
-    this.setTooltip('Specifies a heading or number of degrees.');
+    var thisBlock = this;
+    this.setTooltip( function() {
+      var content = {
+        text: "Specifies a heading or number of degrees."
+      }
+      return showTooltipInBlockly( thisBlock, content );
+    } ); 
     //this.setTooltip( function() {
     //  var content = {
     //    text: "This is a number block that lets you select a number and preview angle directions."
@@ -2928,7 +2934,13 @@ Blockly.Blocks['math_number_angle_select_no_out'] = {
     this.appendDummyInput("NAME")
         .appendField(new Blockly.FieldAngle("90"), "VALUE");
     this.setOutput(true, "Number");
-    this.setTooltip('This is a number block that lets you select a number and preview angle directions.');
+    var thisBlock = this;
+    this.setTooltip( function() {
+      var content = {
+        text: "Specifies a heading or number of degrees."
+      }
+      return showTooltipInBlockly( thisBlock, content );
+    } ); 
     //this.setTooltip( function() {
     //  var content = {
     //    text: "This is a number block that lets you select a number and preview angle directions."
