@@ -64,15 +64,15 @@ properties:
   - setProperty:
     - rover
     - battery
-    - 40
+    - 20
   - setProperty:
     - rover
     - batteryMax
-    - 40
+    - 20
   - setProperty:
     - rover
     - blockly_allowedBlocks
-    - 70
+    - 60
 
   # Perry, Rosie disabled
   - setProperty:

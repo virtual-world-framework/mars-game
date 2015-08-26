@@ -368,18 +368,21 @@ properties:
       subtitle: "[MANNY]: I...!"
       soundGroup: replace
       groupReplacementMethod: queue
+      queueDelayTime: .5
     - soundName: "TM3V12_MC"
       soundURL: "assets/sounds/vo/newmission3vo12.ogg"
       initialVolume: 0.65
       subtitle: "[MISSION CONTROL]: Of course..."
       soundGroup: vo
       groupReplacementMethod: queue
+      queueDelayTime: .5
     - soundName: "TM3V13_Rover"
       soundURL: "assets/sounds/vo/newmission3vo13.ogg"
       initialVolume: 0.65
       subtitle: "[MANNY]: *sigh*"
       soundGroup: vo
       groupReplacementMethod: queue
+      queueDelayTime: .5
     - soundName: "TM3V14_MC"
       soundURL: "assets/sounds/vo/newmission3vo14.ogg"
       initialVolume: 0.65

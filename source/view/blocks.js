@@ -3291,6 +3291,50 @@ Blockly.JavaScript[ 'graph_set_y' ] = function( block ) {
   }
 };
 
+Blockly.Blocks['comment_block_test_program'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("This test program will confirm that your Navigate");
+    this.appendDummyInput()
+        .appendField("procedure works properly. Changes should be made");
+    this.appendDummyInput()
+        .appendField("to the procedure (below), not to this test program.");
+    this.setNextStatement(true);
+    this.setColour(210);
+    this.setTooltip('');
+    this.setHelpUrl('http://www.example.com/');
+  }
+};
+
+Blockly.JavaScript['comment_block_test_program'] = function(block) {
+  // TODO: Assemble JavaScript into code variable.
+  //https://blockly-demo.appspot.com/static/demos/blockfactory/index.html#vv4b9p
+  var code = '';
+  return code;
+};
+
+Blockly.Blocks['comment_block_procedure_definition'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("This Navigate procedure should move you to");
+    this.appendDummyInput()
+        .appendField("the position with the specified X and Y");
+    this.appendDummyInput()
+        .appendField("coordinates.");
+    this.setNextStatement(true);
+    this.setColour(210);
+    this.setTooltip('');
+    this.setHelpUrl('http://www.example.com/');
+  }
+};
+
+Blockly.JavaScript['comment_block_procedure_definition'] = function(block) {
+  // TODO: Assemble JavaScript into code variable.
+  //https://blockly-demo.appspot.com/static/demos/blockfactory/index.html#vv4b9p
+  var code = '';
+  return code;
+};
+
 function constructBlockExeEventCall( block ) {
 
   var eventCall = "vwf.fireEvent( '" + vwf_view.kernel.application() + 
