@@ -3291,16 +3291,14 @@ Blockly.JavaScript[ 'graph_set_y' ] = function( block ) {
   }
 };
 
-Blockly.Blocks['comment_block_3_1'] = {
+Blockly.Blocks['comment_block_test_program'] = {
   init: function() {
     this.appendDummyInput()
-        .appendField("This is a test program, it is not editable.");
+        .appendField("This test program will confirm that your Navigate");
     this.appendDummyInput()
-        .appendField("It tests whether your procedure definition is correct.");
+        .appendField("procedure works properly. Changes should be made");
     this.appendDummyInput()
-        .appendField("Begin by testing the procedure you were provided with.");
-    this.appendDummyInput()
-        .appendField("Press START to navigate to [-3,0].")
+        .appendField("to the procedure below, not to this test program.");
     this.setNextStatement(true);
     this.setColour(210);
     this.setTooltip('');
@@ -3308,23 +3306,21 @@ Blockly.Blocks['comment_block_3_1'] = {
   }
 };
 
-Blockly.JavaScript['comment_block_3_1'] = function(block) {
+Blockly.JavaScript['comment_block_test_program'] = function(block) {
   // TODO: Assemble JavaScript into code variable.
   //https://blockly-demo.appspot.com/static/demos/blockfactory/index.html#vv4b9p
   var code = '';
   return code;
 };
 
-Blockly.Blocks['comment_block_3_2'] = {
+Blockly.Blocks['comment_block_procedure_definition'] = {
   init: function() {
     this.appendDummyInput()
-        .appendField("The test program will turn you away from");
+        .appendField("This Navigate procedure should move you to");
     this.appendDummyInput()
-        .appendField("the direction of travel. Use a while loop");
+        .appendField("the position with the specified X and Y");
     this.appendDummyInput()
-        .appendField("to face the right direction before moving");
-    this.appendDummyInput()
-        .appendField("forward.");
+        .appendField("coordinates.");
     this.setNextStatement(true);
     this.setColour(210);
     this.setTooltip('');
@@ -3332,31 +3328,7 @@ Blockly.Blocks['comment_block_3_2'] = {
   }
 };
 
-Blockly.JavaScript['comment_block_3_2'] = function(block) {
-  // TODO: Assemble JavaScript into code variable.
-  //https://blockly-demo.appspot.com/static/demos/blockfactory/index.html#vv4b9p
-  var code = '';
-  return code;
-};
-
-Blockly.Blocks['comment_block_3_3'] = {
-  init: function() {
-    this.appendDummyInput()
-        .appendField("The test program will turn you away from");
-    this.appendDummyInput()
-        .appendField("the direction of travel. Use an if block");
-    this.appendDummyInput()
-        .appendField("so that you only turn and move if you need");
-    this.appendDummyInput()
-        .appendField("to in order to arrive at your destination.");
-    this.setNextStatement(true);
-    this.setColour(210);
-    this.setTooltip('');
-    this.setHelpUrl('http://www.example.com/');
-  }
-};
-
-Blockly.JavaScript['comment_block_3_3'] = function(block) {
+Blockly.JavaScript['comment_block_procedure_definition'] = function(block) {
   // TODO: Assemble JavaScript into code variable.
   //https://blockly-demo.appspot.com/static/demos/blockfactory/index.html#vv4b9p
   var code = '';
