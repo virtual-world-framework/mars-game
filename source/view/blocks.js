@@ -3298,7 +3298,7 @@ Blockly.Blocks['comment_block_test_program'] = {
     this.appendDummyInput()
         .appendField("procedure works properly. Changes should be made");
     this.appendDummyInput()
-        .appendField("to the procedure below, not to this test program.");
+        .appendField("to the procedure (below), not to this test program.");
     this.setNextStatement(true);
     this.setColour(210);
     this.setTooltip('');
