@@ -1172,18 +1172,13 @@ Blockly.Blocks['controls_if_nomut'] = {
     this.data = currentBlocklyNodeID;
     // Assign 'this' to a variable for use in the tooltip closure below.
     var thisBlock = this;
-    this.setTooltip(function() {
-      if (!thisBlock.elseifCount_ && !thisBlock.elseCount_) {
-        return Blockly.Msg.CONTROLS_IF_TOOLTIP_1;
-      } else if (!thisBlock.elseifCount_ && thisBlock.elseCount_) {
-        return Blockly.Msg.CONTROLS_IF_TOOLTIP_2;
-      } else if (thisBlock.elseifCount_ && !thisBlock.elseCount_) {
-        return Blockly.Msg.CONTROLS_IF_TOOLTIP_3;
-      } else if (thisBlock.elseifCount_ && thisBlock.elseCount_) {
-        return Blockly.Msg.CONTROLS_IF_TOOLTIP_4;
+    var thisBlock = this;
+    this.setTooltip( function() {
+      var content = {
+        text: "If the conditional statement is true, then do the sequence of blocks."
       }
-      return '';
-    });
+      return showTooltipInBlockly( thisBlock, content );
+    } );
     this.elseifCount_ = 0;
     this.elseCount_ = 0;
   },
@@ -1326,18 +1321,12 @@ Blockly.Blocks['controls_if_else_nomut'] = {
        //                                  'controls_if_else']));
     // Assign 'this' to a variable for use in the tooltip closure below.
     var thisBlock = this;
-    this.setTooltip(function() {
-      if (!thisBlock.elseifCount_ && !thisBlock.elseCount_) {
-        return 'If the conditional statement is true, then do the sequence of blocks.';
-      } else if (!thisBlock.elseifCount_ && thisBlock.elseCount_) {
-        return Blockly.Msg.CONTROLS_IF_TOOLTIP_2;
-      } else if (thisBlock.elseifCount_ && !thisBlock.elseCount_) {
-        return Blockly.Msg.CONTROLS_IF_TOOLTIP_3;
-      } else if (thisBlock.elseifCount_ && thisBlock.elseCount_) {
-        return Blockly.Msg.CONTROLS_IF_TOOLTIP_4;
+    this.setTooltip( function() {
+      var content = {
+        text: "If the conditional statement is true, then do the first sequence of blocks, ELSE do the second sequence."
       }
-      return '';
-    });
+      return showTooltipInBlockly( thisBlock, content );
+    } );
     this.elseifCount_ = 0;
     this.elseCount_ = 1;
   },
