@@ -232,6 +232,7 @@ this.handleDrawingBlocks = function ( blockName, blockID, blockNode, blockExeTim
         console.log('completed survey');
         var currentArray = nodeObject.allSurveys.slice( 0 );
         this.blocklyCompletedSurvey( 'rover2', currentArray );
+        nodeObject.allSurveys = [];
     }
     this.blockExecuted( blockName, blockID, blockNode, blockExeTime, blockArgs );
 }
