@@ -1,8 +1,12 @@
 <xml id="rover" style="display: none">
   
   <category name="Math">
-    <block type="math_number_out_minus_one_limited" inline="false" edtiable="false" x="20" y="-220"><field name="VALUE">-1</field></block>
+    <block type="math_number_out_minus_one_limited" inline="false"><field name="VALUE">-1</field></block>
     <block type="graph_multiply"></block>
+  </category>
+  <sep></sep>
+  <category name="Procedures">
+  	<block type="draw_triangle" inline="false" x="60" y="140"><value name="pointA"><block type="ordered_pair_config" movable="false" inline="true"><value name="XFIELD"><block type="math_number_field" inline="false" movable="false" editable="false"><field name="VALUE">0</field></block></value><value name="YFIELD"><block type="math_number_field" inline="false" movable="false" editable="false"><field name="VALUE">0</field></block></value></block></value><value name="pointB"><block type="ordered_pair_config" movable="false" inline="true"><value name="XFIELD"><block type="math_number_field" inline="false" movable="false" editable="false"><field name="VALUE">0</field></block></value><value name="YFIELD"><block type="math_number_field" inline="false" movable="false" editable="false"><field name="VALUE">1</field></block></value></block></value><value name="pointC"><block type="ordered_pair_config" movable="false" inline="true"><value name="XFIELD"><block type="math_number_field" inline="false" movable="false" editable="false"><field name="VALUE">1</field></block></value><value name="YFIELD"><block type="math_number_field" inline="false" movable="false" editable="false"><field name="VALUE">0</field></block></value></block></value></block>
   </category>
 
 </xml>

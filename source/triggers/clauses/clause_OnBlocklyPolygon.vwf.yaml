@@ -22,8 +22,8 @@ implements:
 properties:
   blockNodeName:
   pointArray:
-  forwardString:
-  reverseString:
+  forwardString: 
+  reverseString: 
 
 methods:
   # We need our own onEvent method that screens the events and decides which to

@@ -44,9 +44,9 @@ this.startSubtitle = function( instanceHandle ) {
         if ( character ) {
             character = character.slice( 1, character.length - 1 );
             var imagePath = "";
-            if ( character === "ROVER" ) {
+            if ( character === "MANNY" ) {
                 var imagePath = "assets/images/hud/portrait_rover_communicator.png";
-            } else if ( character === "MC" ) {
+            } else if ( character === "MISSION CONTROL" ) {
                 var imagePath = "assets/images/hud/comms_missioncontrol.png";
             } else if ( character === "PERRY" ) {
                 var imagePath = "assets/images/hud/portrait_scout_large.png";

@@ -1,0 +1,293 @@
+# Copyright 2014 Lockheed Martin Corporation
+#
+# Licensed under the Apache License, Version 2.0 (the "License"); you may 
+# not use this file except in compliance with the License. You may obtain 
+# a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software 
+# distributed under the License is distributed on an "AS IS" BASIS, 
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and 
+# limitations under the License.
+
+---
+extends: ../scenario/scenario.vwf
+properties:
+  scenarioName: Mission4Task9
+  nextScenarioPath: "Mission4Task10"
+
+  startState:
+
+  # objective
+  - setObjective:
+    - "Translate and dilate your triangle to [-7,-4],[-7,-7],[-4,-7]."
+
+  # blockly
+  - setBlocklyContext:
+    - rover2
+  - loadToolbox:
+    - rover2
+    - source/scenario/blockly/mission4_perry9.xml
+
+  # sounds/music
+  - playSound:
+    - musicMission4Loop
+  - playSound:
+    - environmentWind
+
+  # Manny
+  - addToGrid:
+    - rover
+    - [ -30, 23 ]
+  - callMethod:
+    - rover
+    - setHeading
+    - 180
+
+  # Perry
+  - setProperty:
+    - rover2
+    - visible
+    - true
+  # TODO: handle adding him if we jump to this task from elsewhere  
+  # - addToGrid:
+  #   - rover2
+  #   - [ -10, -10 ]
+  - setProperty:
+    - rover2
+    - battery
+    - 1000
+  - setProperty:
+    - rover2
+    - batteryMax
+    - 1000
+  - setProperty:
+    - rover2
+    - blockly_allowedBlocks
+    - 30
+  - setProperty:
+    - rover2
+    - lowRam
+    - 1
+  - selectRover:
+    - rover2
+
+  # Rosie disabled
+  - setProperty:
+    - rover3
+    - visible
+    - false
+
+  # Grid and disable blocklyLine
+  - setGridAxes:
+    - 19
+    - -24
+  - setProperty:
+    - blocklyLine
+    - visible
+    - false
+  - setProperty:
+    - blocklyLine
+    - opacity
+    - 0
+  - drawTriangle:
+    - [ -7, -4 ]
+    - [ -7, -7 ]
+    - [ -4, -7 ]
+
+  # Solar panel construction
+
+  - addToGrid:
+    - solarPanel1
+    - [ -23, 20 ]
+  - addToGrid:
+    - solarPanel2
+    - [ -25, 20 ]
+  - addToGrid:
+    - solarPanel3
+    - [ -23, 18 ]
+  - addToGrid:
+    - solarPanel4
+    - [ -25, 18]
+
+  - setProperty:
+    - solarPanel1
+    - scale
+    - [.4, .4, .4]
+  - setProperty:
+    - solarPanel1
+    - visible
+    - true
+  - setProperty:
+    - solarPanel1
+    - built
+    - true
+
+  - setProperty:
+    - solarPanel2
+    - scale
+    - [.4, .4, .4]
+  - setProperty:
+    - solarPanel2
+    - rotation
+    - [0 ,0 ,1 ,90 ]
+  - setProperty:
+    - solarPanel2
+    - visible
+    - true
+  - setProperty:
+    - solarPanel2
+    - built
+    - true
+
+  - setProperty:
+    - solarPanel3
+    - scale
+    - [.4, .4, .4]
+  - setProperty:
+    - solarPanel3
+    - rotation
+    - [0 ,0 ,1 ,270 ]
+  - setProperty:
+    - solarPanel3
+    - visible
+    - true
+  - setProperty:
+    - solarPanel3
+    - built
+    - true
+
+  - setProperty:
+    - solarPanel4
+    - scale
+    - [.4, .4, .4]
+  - setProperty:
+    - solarPanel4
+    - rotation
+    - [0 ,0 ,1 ,180 ]
+  - setProperty:
+    - solarPanel4
+    - visible
+    - false
+
+  - setProperty:
+    - cargoPod2
+    - rotation
+    - [0 ,0 ,1 ,-45 ]
+
+  - setProperty:
+    - cargoPod2
+    - isClosed
+    - false
+
+  - setProperty:
+    - marsTent1
+    - visible
+    - false
+
+  - setProperty:
+    - rover2
+    - surveyArray
+    - []
+  - setProperty:
+    - rover2
+    - allSurveys
+    - []
+   
+children:
+  triggerManager:
+    extends: ../triggers/triggerManager.vwf
+    properties: 
+      triggers$:
+
+        openMissionBrief_4_9:
+          triggerCondition:
+          - and:
+            - onScenarioStart:
+            - doOnce:
+          actions:
+          - delay:
+            - 2
+            - openMissionBrief:
+
+        playStartingVO_4_9:
+          triggerCondition:
+          - and:
+            - doOnce:
+            - onScenarioStart:
+          actions:
+          - playSound:
+            - TM4V24_MC
+
+        setStartPosition_4_9:
+          triggerCondition:
+          - and:
+            - onScenarioStart:
+            - not:
+              - isAtPosition:
+                - rover2
+                - [ -31, 12 ]
+            - not:
+              - isAtPosition:
+                - rover2
+                - [ -31, 13 ]
+            - not:
+              - isAtPosition:
+                - rover2
+                - [ -30, 12 ]
+          actions:
+            - addToGrid:
+              - rover2
+              - [ -31, 12 ]
+
+        succeedOnTriangle_4_9:
+          group: successOrFailure
+          priority: 0
+          triggerCondition:
+          - onBlocklyPolygon:
+            - rover2
+            - [ [ -4, -7 ], [ -7, -4 ], [ -7, -7 ] ]
+          actions:
+          - writeToBlackboard:
+            - disableFailOnIncompleteProgram
+          - delay:
+            - 3
+            - showAlert:
+              - "I created the correct triangle!"
+            - callMethod:
+              - rover2
+              - stopExecution
+            - playSound:
+              - musicSuccessShort
+            - scenarioSuccess:
+
+        scenarioEnded4_9:
+          triggerCondition:
+          - or: 
+            - onScenarioSucceeded:
+            - onScenarioFailed:
+          actions:
+          - setProperty:
+            - rover2
+            - surveyArray
+            - []
+          - setProperty:
+            - rover2
+            - allSurveys
+            - []
+
+        onScenarioFailed4_9:
+          triggerCondition:
+          - onScenarioFailed:
+          actions:
+          - deleteNanites:
+            - nanites_Mission4Task9
+
+  brief:
+    extends: ../missionBrief.vwf
+    properties:
+      title: "Mission 4, Task 9"
+      content: >
+        Placeholder

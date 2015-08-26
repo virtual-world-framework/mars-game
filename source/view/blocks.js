@@ -2089,31 +2089,6 @@ Blockly.JavaScript['rover_moveRadial_absolute'] = function(block) {
   var value_x = Blockly.JavaScript.valueToCode(block, 'x', Blockly.JavaScript.ORDER_ATOMIC) || 0;
   var value_y = Blockly.JavaScript.valueToCode(block, 'y', Blockly.JavaScript.ORDER_ATOMIC) || 0;
 
-  // How long should we take to execute this block?
-
-  // if ( isNaN( value_x ) ) {
-  //   var extractedVal = blocklyVariables[ value_x ];
-  //   if ( extractedVal !== undefined ) {
-  //     console.log('extracting');
-  //     value_x = extractedVal;
-  //   } else {
-  //     value_x = 0;
-  //   }
-  // }
-
-  // if ( isNaN( value_y ) ) {
-  //   var extractedVal = blocklyVariables[ value_y ];
-
-  //   if ( extractedVal !== undefined ) {
-  //     console.log('extracting');
-  //     value_y = extractedVal;
-  //   } else {
-  //     value_y = 0;
-  //   }
-  // }
-
-  // var exeTime = Math.round( Math.sqrt(value_x*value_x + value_y*value_y) );
-
   var action = {
     nodeID: block.data,
     methodName: 'moveRadialAbsolute',
@@ -2122,6 +2097,26 @@ Blockly.JavaScript['rover_moveRadial_absolute'] = function(block) {
   };
 
   return constructBlockExeFuncCall( block, action, 'moveRadial' );
+};
+
+Blockly.Blocks['init_nano_construction'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Init Nano Construction");
+    this.setPreviousStatement(true);
+    this.setNextStatement(true);
+    this.setColour(180);
+    this.data = currentBlocklyNodeID;
+    this.setTooltip('Starts construction of all drawn builder nanoparticles.');
+  }
+};
+
+Blockly.JavaScript['init_nano_construction'] = function(block) {
+
+  var code = "vwf.callMethod( '" + vwf_view.kernel.application() + 
+                  "', 'handleDrawingBlocks', " + " [ 'endSurvey', '" + block.id + "', '" + block.data + "', " + 1 + " ] );\n";
+
+  return code;
 };
 
 Blockly.Blocks['draw_triangle'] = {
@@ -2207,7 +2202,8 @@ Blockly.JavaScript['draw_triangle'] = function(block) {
   //moveA
   //end
 
-  var overallCode = moveA + start + mark + moveB + mark + moveC + mark + moveA + mark + end;
+  //var overallCode = moveA + start + mark + moveB + mark + moveC + mark + moveA + mark + end;
+  var overallCode = start + moveA + moveB + moveC + moveA + end;
   
   return overallCode;
 };
@@ -2362,6 +2358,276 @@ Blockly.JavaScript['math_number_out' ] = function( block ) {
   }
 };
 
+Blockly.Blocks[ 'math_number_out_m4t3' ] = {
+  init: function() {
+    this.setColour( 60 );
+    this.appendValueInput( "INPUT" )
+        .appendField(new Blockly.FieldDropdown([["0","0"],["-3","-3"]]), "VALUE")
+        .setCheck( [ 'OperatorAddSubtract','OperatorMultiplyDivide','Variable','LeftParenthesis','RightParenthesis','Conditional' ] );
+    this.setOutput( true, 'Number' );
+    this.data = currentBlocklyNodeID;
+    var thisBlock = this;
+    this.setTooltip( function() {
+      var content = {
+        text: "A block representing an integer."
+      }
+      return showTooltipInBlockly( thisBlock, content );
+    } );
+    
+  }
+};
+
+Blockly.JavaScript['math_number_out_m4t3' ] = function( block ) {
+  
+  var dropdown_value = block.getFieldValue('VALUE');
+  
+  if ( isNaN( dropdown_value ) || dropdown_value === "" ){
+    dropdown_value = 0;
+    block.setFieldValue('0','VALUE');
+  }
+
+  var argument0 = Blockly.JavaScript.valueToCode(block, 'INPUT',
+      Blockly.JavaScript.ORDER_ATOMIC) || '';
+
+  if ( argument0[0] === 'x' || argument0[0] === '(' ){
+    return [ dropdown_value + '*' + argument0 , Blockly.JavaScript.ORDER_ATOMIC ];
+  } else {
+    return [ dropdown_value + argument0 , Blockly.JavaScript.ORDER_ATOMIC ];
+  }
+};
+
+Blockly.Blocks[ 'math_number_out_m4t5' ] = {
+  init: function() {
+    this.setColour( 60 );
+    this.appendValueInput( "INPUT" )
+        .appendField(new Blockly.FieldDropdown([["-2", "-2"],["2", "2"],["-1", "-1"],["1", "1"],["0","0"],["-3","-3"]]), "VALUE")
+        .setCheck( [ 'OperatorAddSubtract','OperatorMultiplyDivide','Variable','LeftParenthesis','RightParenthesis','Conditional' ] );
+    this.setOutput( true, 'Number' );
+    this.data = currentBlocklyNodeID;
+    var thisBlock = this;
+    this.setTooltip( function() {
+      var content = {
+        text: "A block representing an integer."
+      }
+      return showTooltipInBlockly( thisBlock, content );
+    } );
+    
+  }
+};
+
+Blockly.JavaScript['math_number_out_m4t5' ] = function( block ) {
+  
+  var dropdown_value = block.getFieldValue('VALUE');
+  
+  if ( isNaN( dropdown_value ) || dropdown_value === "" ){
+    dropdown_value = 0;
+    block.setFieldValue('0','VALUE');
+  }
+
+  var argument0 = Blockly.JavaScript.valueToCode(block, 'INPUT',
+      Blockly.JavaScript.ORDER_ATOMIC) || '';
+
+  if ( argument0[0] === 'x' || argument0[0] === '(' ){
+    return [ dropdown_value + '*' + argument0 , Blockly.JavaScript.ORDER_ATOMIC ];
+  } else {
+    return [ dropdown_value + argument0 , Blockly.JavaScript.ORDER_ATOMIC ];
+  }
+};
+
+Blockly.Blocks[ 'math_number_out_m4t7' ] = {
+  init: function() {
+    this.setColour( 60 );
+    this.appendValueInput( "INPUT" )
+        .appendField(new Blockly.FieldDropdown([["-8", "-8"]]), "VALUE")
+        .setCheck( [ 'OperatorAddSubtract','OperatorMultiplyDivide','Variable','LeftParenthesis','RightParenthesis','Conditional' ] );
+    this.setOutput( true, 'Number' );
+    this.data = currentBlocklyNodeID;
+    var thisBlock = this;
+    this.setTooltip( function() {
+      var content = {
+        text: "A block representing the integer -8."
+      }
+      return showTooltipInBlockly( thisBlock, content );
+    } );
+    
+  }
+};
+
+Blockly.JavaScript['math_number_out_m4t7' ] = function( block ) {
+  
+  var dropdown_value = block.getFieldValue('VALUE');
+  
+  if ( isNaN( dropdown_value ) || dropdown_value === "" ){
+    dropdown_value = 0;
+    block.setFieldValue('0','VALUE');
+  }
+
+  var argument0 = Blockly.JavaScript.valueToCode(block, 'INPUT',
+      Blockly.JavaScript.ORDER_ATOMIC) || '';
+
+  if ( argument0[0] === 'x' || argument0[0] === '(' ){
+    return [ dropdown_value + '*' + argument0 , Blockly.JavaScript.ORDER_ATOMIC ];
+  } else {
+    return [ dropdown_value + argument0 , Blockly.JavaScript.ORDER_ATOMIC ];
+  }
+};
+
+Blockly.Blocks[ 'math_number_out_m4t8' ] = {
+  init: function() {
+    this.setColour( 60 );
+    this.appendValueInput( "INPUT" )
+        .appendField(new Blockly.FieldDropdown([["-8", "-8"],["-7","-7"],["-1","-1"]]), "VALUE")
+        .setCheck( [ 'OperatorAddSubtract','OperatorMultiplyDivide','Variable','LeftParenthesis','RightParenthesis','Conditional' ] );
+    this.setOutput( true, 'Number' );
+    this.data = currentBlocklyNodeID;
+    var thisBlock = this;
+    this.setTooltip( function() {
+      var content = {
+        text: "A block representing an integer."
+      }
+      return showTooltipInBlockly( thisBlock, content );
+    } );
+    
+  }
+};
+
+Blockly.JavaScript['math_number_out_m4t8' ] = function( block ) {
+  
+  var dropdown_value = block.getFieldValue('VALUE');
+  
+  if ( isNaN( dropdown_value ) || dropdown_value === "" ){
+    dropdown_value = 0;
+    block.setFieldValue('0','VALUE');
+  }
+
+  var argument0 = Blockly.JavaScript.valueToCode(block, 'INPUT',
+      Blockly.JavaScript.ORDER_ATOMIC) || '';
+
+  if ( argument0[0] === 'x' || argument0[0] === '(' ){
+    return [ dropdown_value + '*' + argument0 , Blockly.JavaScript.ORDER_ATOMIC ];
+  } else {
+    return [ dropdown_value + argument0 , Blockly.JavaScript.ORDER_ATOMIC ];
+  }
+};
+
+Blockly.Blocks[ 'math_number_out_m4t9' ] = {
+  init: function() {
+    this.setColour( 60 );
+    this.appendValueInput( "INPUT" )
+        .appendField(new Blockly.FieldDropdown([["-8", "-8"],["-9","-9"],["-1","-1"]]), "VALUE")
+        .setCheck( [ 'OperatorAddSubtract','OperatorMultiplyDivide','Variable','LeftParenthesis','RightParenthesis','Conditional' ] );
+    this.setOutput( true, 'Number' );
+    this.data = currentBlocklyNodeID;
+    var thisBlock = this;
+    this.setTooltip( function() {
+      var content = {
+        text: "A block representing an integer."
+      }
+      return showTooltipInBlockly( thisBlock, content );
+    } );
+    
+  }
+};
+
+Blockly.JavaScript['math_number_out_m4t9' ] = function( block ) {
+  
+  var dropdown_value = block.getFieldValue('VALUE');
+  
+  if ( isNaN( dropdown_value ) || dropdown_value === "" ){
+    dropdown_value = 0;
+    block.setFieldValue('0','VALUE');
+  }
+
+  var argument0 = Blockly.JavaScript.valueToCode(block, 'INPUT',
+      Blockly.JavaScript.ORDER_ATOMIC) || '';
+
+  if ( argument0[0] === 'x' || argument0[0] === '(' ){
+    return [ dropdown_value + '*' + argument0 , Blockly.JavaScript.ORDER_ATOMIC ];
+  } else {
+    return [ dropdown_value + argument0 , Blockly.JavaScript.ORDER_ATOMIC ];
+  }
+};
+
+Blockly.Blocks[ 'math_number_out_m4t10' ] = {
+  init: function() {
+    this.setColour( 60 );
+    this.appendValueInput( "INPUT" )
+        .appendField(new Blockly.FieldDropdown([["-7", "-7"],["-9","-9"],["-1","-1"]]), "VALUE")
+        .setCheck( [ 'OperatorAddSubtract','OperatorMultiplyDivide','Variable','LeftParenthesis','RightParenthesis','Conditional' ] );
+    this.setOutput( true, 'Number' );
+    this.data = currentBlocklyNodeID;
+    var thisBlock = this;
+    this.setTooltip( function() {
+      var content = {
+        text: "A block representing an integer."
+      }
+      return showTooltipInBlockly( thisBlock, content );
+    } );
+    
+  }
+};
+
+Blockly.JavaScript['math_number_out_m4t10' ] = function( block ) {
+  
+  var dropdown_value = block.getFieldValue('VALUE');
+  
+  if ( isNaN( dropdown_value ) || dropdown_value === "" ){
+    dropdown_value = 0;
+    block.setFieldValue('0','VALUE');
+  }
+
+  var argument0 = Blockly.JavaScript.valueToCode(block, 'INPUT',
+      Blockly.JavaScript.ORDER_ATOMIC) || '';
+
+  if ( argument0[0] === 'x' || argument0[0] === '(' ){
+    return [ dropdown_value + '*' + argument0 , Blockly.JavaScript.ORDER_ATOMIC ];
+  } else {
+    return [ dropdown_value + argument0 , Blockly.JavaScript.ORDER_ATOMIC ];
+  }
+};
+
+Blockly.Blocks[ 'math_number_out_m4t14' ] = {
+  init: function() {
+    this.setColour( 60 );
+    this.appendValueInput( "INPUT" )
+        .appendField(new Blockly.FieldDropdown([["15", "15"],["14", "14"],["13", "13"],["12", "12"],["11", "11"],["10", "10"],["9", "9"],["8", "8"],
+         ["7", "7"],["6", "6"],["5", "5"],["4", "4"],["3", "3"],["2", "2"],
+         ["1", "1"],["0", "0"],["-1", "-1"], ["-2", "-2"], ["-3", "-3"], 
+         ["-4", "-4"], ["-5", "-5"], ["-6", "-6"], ["-7", "-7"], ["-8", "-8"], 
+         ["-9", "-9"], ["-10", "-10"], ["-11", "-11"], ["-12", "-12"], ["-13", "-13"], ["-14", "-14"], ["-15", "-15"], ["-19", "-19"], ["-21", "-21"]]), "VALUE")
+        .setCheck( [ 'OperatorAddSubtract','OperatorMultiplyDivide','Variable','LeftParenthesis','RightParenthesis','Conditional' ] );
+    this.setOutput( true, 'Number' );
+    this.data = currentBlocklyNodeID;
+    var thisBlock = this;
+    this.setTooltip( function() {
+      var content = {
+        text: "A block for selecting number values 10 through -10."
+      }
+      return showTooltipInBlockly( thisBlock, content );
+    } );
+    
+  }
+};
+
+Blockly.JavaScript['math_number_out_m4t14' ] = function( block ) {
+  
+  var dropdown_value = block.getFieldValue('VALUE');
+  
+  if ( isNaN( dropdown_value ) || dropdown_value === "" ){
+    dropdown_value = 0;
+    block.setFieldValue('0','VALUE');
+  }
+
+  var argument0 = Blockly.JavaScript.valueToCode(block, 'INPUT',
+      Blockly.JavaScript.ORDER_ATOMIC) || '';
+
+  if ( argument0[0] === 'x' || argument0[0] === '(' ){
+    return [ dropdown_value + '*' + argument0 , Blockly.JavaScript.ORDER_ATOMIC ];
+  } else {
+    return [ dropdown_value + argument0 , Blockly.JavaScript.ORDER_ATOMIC ];
+  }
+};
+
 Blockly.Blocks[ 'math_number_out_seven_limited' ] = {
   init: function() {
     this.setColour( 60 );
@@ -2442,7 +2708,7 @@ Blockly.Blocks[ 'math_number_out_minus_one_limited' ] = {
   init: function() {
     this.setColour( 60 );
     this.appendValueInput( "INPUT" )
-        .appendField(new Blockly.FieldDropdown([["7", "7"]]), "VALUE")
+        .appendField(new Blockly.FieldDropdown([["-1", "-1"]]), "VALUE")
         .setCheck( [ 'OperatorAddSubtract','OperatorMultiplyDivide','Variable','LeftParenthesis','RightParenthesis','Conditional' ] );
     this.setOutput( true, 'Number' );
     this.data = currentBlocklyNodeID;

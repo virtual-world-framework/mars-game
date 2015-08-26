@@ -191,6 +191,13 @@ this.executeBlock = function ( block, action ) {
     var args = action[ 2 ];
     var node = this.findByID( this, nodeID );
 
+    if ( methodName === 'moveRadialAbsolute' ) {
+        var currentArray = node.surveyArray.slice( 0 );
+        currentArray.push( args );
+        node.surveyArray = currentArray;
+        this.createNaniteSystem( currentArray.slice(), node );
+    }
+
     if ( node ) {
         args = args instanceof Array ? args : [ args ];
         node[ methodName ].apply( node, args );
@@ -208,19 +215,24 @@ this.handleDrawingBlocks = function ( blockName, blockID, blockNode, blockExeTim
         }
         this.naniteSystems.children.create( "nanites_" + this.activeScenarioPath, scenarioNanites );
     } else if ( blockName === 'endTriangle' && blockNode !== undefined ) {
-        var currentPosition = nodeObject.positionSensorValue;
         var currentArray = nodeObject.surveyArray.slice( 0 );
         if ( currentArray[ 0 ][ 0 ] !== currentArray[ currentArray.length - 1 ][ 0 ] 
             || currentArray[ 0 ][ 1 ] !== currentArray[ currentArray.length - 1 ][ 1 ] ) {
           this.blocklyFailedPolygon( 'rover2', currentArray );
         }
         this.blocklyCompletedPolygon( 'rover2', currentArray );
+        nodeObject.allSurveys.push( currentArray );
     } else if ( blockName === 'markPoint' && blockNode !== undefined ) {
         var currentPosition = nodeObject.positionSensorValue;
         var currentArray = nodeObject.surveyArray.slice( 0 );
         currentArray.push( currentPosition );
         nodeObject.surveyArray = currentArray;
         this.createNaniteSystem( currentArray.slice(), nodeObject );
+    } else {
+        console.log('completed survey');
+        var currentArray = nodeObject.allSurveys.slice( 0 );
+        this.blocklyCompletedSurvey( 'rover2', currentArray );
+        nodeObject.allSurveys = [];
     }
     this.blockExecuted( blockName, blockID, blockNode, blockExeTime, blockArgs );
 }

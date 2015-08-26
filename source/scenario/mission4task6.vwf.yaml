@@ -16,13 +16,13 @@
 extends: ../scenario/scenario.vwf
 properties:
   scenarioName: Mission4Task6
-  nextScenarioPath: ""
+  nextScenarioPath: "Mission4Task7"
 
   startState:
 
   # objective
   - setObjective:
-    - "Reflect your previous triangle across both axes."
+    - "Reflect across x and dilate to get [0,0], [-2,0], [2,0]."
 
   # blockly
   - setBlocklyContext:
@@ -30,11 +30,7 @@ properties:
   - loadToolbox:
     - rover2
     - source/scenario/blockly/mission4_perry6.xml
-  - setProperty:
-    - rover2
-    - blockly_xml
-    - <xml><block type="draw_triangle" movable="false" deletable="false" inline="false" x="60" y="140"><value name="pointA"><block type="ordered_pair_config" movable="false" inline="true"><value name="XFIELD"><block type="math_number_frozen" inline="false" deletable="false" movable="false" editable="false"><field name="VALUE">0</field></block></value><value name="YFIELD"><block type="math_number_frozen" inline="false" deletable="false" movable="false" editable="false"><field name="VALUE">0</field></block></value></block></value><value name="pointB"><block type="ordered_pair_config" movable="false" inline="true"><value name="XFIELD"><block type="math_number_frozen" inline="false" deletable="false" movable="false" editable="false"><field name="VALUE">0</field></block></value><value name="YFIELD"><block type="math_number_frozen" inline="false" deletable="false" movable="false" editable="false"><field name="VALUE">6</field></block></value></block></value><value name="pointC"><block type="ordered_pair_config" movable="false" inline="true"><value name="XFIELD"><block type="math_number_frozen" inline="false" deletable="false" movable="false" editable="false"><field name="VALUE">-6</field></block></value><value name="YFIELD"><block type="math_number_frozen" inline="false" deletable="false" movable="false" editable="false"><field name="VALUE">0</field></block></value></block></value></block></xml>
-  
+
   # sounds/music
   - playSound:
     - musicMission4Loop
@@ -49,22 +45,6 @@ properties:
     - rover
     - setHeading
     - 180
-  - setProperty:
-    - rover
-    - battery
-    - 12
-  - setProperty:
-    - rover
-    - batteryMax
-    - 150
-  - setProperty:
-    - rover
-    - blockly_allowedBlocks
-    - 15
-  - setProperty:
-    - rover
-    - lowRam
-    - 3
 
   # Perry
   - setProperty:
@@ -86,13 +66,16 @@ properties:
   - setProperty:
     - rover2
     - blockly_allowedBlocks
-    - 14
+    - 22
   - setProperty:
     - rover2
     - lowRam
     - 5
   - selectRover:
     - rover2
+  - addToGrid:
+    - rover2
+    - [-27, 19]
 
   # Rosie disabled
   - setProperty:
@@ -116,43 +99,40 @@ properties:
   # Solar panel construction
   - drawTriangle:
     - [ 0, 0 ]
-    - [ 0, -6 ]
-    - [ 6, 0 ]
+    - [ 0, -2 ]
+    - [ 2, 0 ]
 
   - addToGrid:
     - solarPanel1
-    - [ -27, 22 ]
+    - [ -23, 20 ]
   - addToGrid:
     - solarPanel2
-    - [ -21, 22 ]
+    - [ -25, 20 ]
   - addToGrid:
     - solarPanel3
-    - [ -27, 16 ]
-  - addToGrid:
-    - solarPanel4
-    - [ -21, 16 ]
+    - [ -23, 18 ]
 
   - setProperty:
     - solarPanel1
     - scale
-    - [1.2, 1.2, 1.2]
+    - [.4, .4, .4]
   - setProperty:
     - solarPanel1
+    - visible
+    - true
+  - setProperty:
+    - solarPanel1
+    - built
+    - true
+
+  - setProperty:
+    - solarPanel2
+    - scale
+    - [.4, .4, .4]
+  - setProperty:
+    - solarPanel2
     - rotation
-    - [0 ,0 ,1 , 90 ]
-  - setProperty:
-    - solarPanel1
-    - visible
-    - true
-  - setProperty:
-    - solarPanel1
-    - built
-    - false
-
-  - setProperty:
-    - solarPanel2
-    - scale
-    - [1.2, 1.2, 1.2]
+    - [0 ,0 ,1 ,90 ]
   - setProperty:
     - solarPanel2
     - visible
@@ -160,33 +140,21 @@ properties:
   - setProperty:
     - solarPanel2
     - built
-    - false
-
-  - setProperty:
-    - solarPanel3
-    - scale
-    - [1.2, 1.2, 1.2]
-  - setProperty:
-    - solarPanel3
-    - rotation
-    - [0 ,0 ,1 , 180 ]
-  - setProperty:
-    - solarPanel3
-    - visible
     - true
-  - setProperty:
-    - solarPanel3
-    - built
-    - false
 
   - setProperty:
-    - solarPanel4
+    - solarPanel3
     - scale
-    - [1.2, 1.2, 1.2]
+    - [.4, .4, .4]
   - setProperty:
-    - solarPanel4
+    - solarPanel3
     - rotation
     - [0 ,0 ,1 , 270 ]
+  - setProperty:
+    - solarPanel3
+    - visible
+    - false
+
   - setProperty:
     - solarPanel4
     - visible
@@ -196,15 +164,20 @@ properties:
     - cargoPod2
     - rotation
     - [0 ,0 ,1 , -45]
+
   - setProperty:
     - cargoPod2
     - isClosed
     - false
 
   - setProperty:
-    - roverTracks2
-    - visible
-    - true
+    - rover2
+    - surveyArray
+    - []
+  - setProperty:
+    - rover2
+    - allSurveys
+    - []
 
 children:
   triggerManager:
@@ -222,39 +195,33 @@ children:
             - 2
             - openMissionBrief:
 
-        setStartPosition_4_6:
+        playStartingVO_4_6:
           triggerCondition:
           - and:
+            - doOnce:
             - onScenarioStart:
-            - not:
-              - isAtPosition:
-                - rover2
-                - [ -24, 19 ]
-            - not:
-              - isAtPosition:
-                - rover2
-                - [ -24, 13 ]
-            - not:
-              - isAtPosition:
-                - rover2
-                - [ -18, 19 ]
           actions:
-            - addToGrid:
-              - rover2
-              - [ -24, 19 ]
+          - playSound:
+            - TM4V19_MC
 
         succeedOnTriangle_4_6:
           group: successOrFailure
           priority: 0
           triggerCondition:
-          - onBlocklyPolygon:
-            - rover2
-            - [ [ 0, 0 ], [ 0, -6 ], [ 6, 0 ] ]
+          - and:
+            - onBlocklyPolygon:
+              - rover2
+              - [ [ 0, 0 ], [ 0, -2 ], [ 2, 0 ] ]
+            - isAtPosition:
+              - rover2
+              - [-27, 19]
+            - onBlocklyStopped:
+              - rover2
           actions:
           - writeToBlackboard:
             - disableFailOnIncompleteProgram
           - buildBaseComponent:
-            - solarPanel4
+            - solarPanel3
           - deleteNanites:
             - nanites_Mission4Task6
           - delay:
@@ -264,27 +231,25 @@ children:
             - callMethod:
               - rover2
               - stopExecution
-            - clearBlockly:
+            - scenarioSuccess:
             - playSound:
               - musicSuccessShort
             - playSound:
-              - PerryDusty
-          - delay:
-            - 8
-            - scenarioSuccess:
-            - clearEntireBlackboard:
-            - returnToMenu:
-         
+              - TM4V20_MANNY
+
         scenarioEnded4_6:
           triggerCondition:
           - or: 
             - onScenarioSucceeded:
             - onScenarioFailed:
           actions:
-          - clearTriangle:
           - setProperty:
             - rover2
             - surveyArray
+            - []
+          - setProperty:
+            - rover2
+            - allSurveys
             - []
           - deleteNanites:
             - nanites_Mission4Task6
