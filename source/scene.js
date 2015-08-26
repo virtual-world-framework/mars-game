@@ -240,12 +240,21 @@ this.resetBlocklyBlocks = function( nodeID ) {
 
         Blockly.mainWorkspace.fireChangeEvent();
 
+        var xml = Blockly.Xml.textToDom( defaultXML );
+        
+        var blocks = xml.getElementsByTagName( "block" );
+        var count = 0;
+
+        if ( blocks ) {
+            count = blocks.length;
+        }
+
         if ( nodeID === this.player.rover.id ) {
-            this.player.rover.calcRam();
+            this.player.rover.ram = this.player.rover.ramMax - count;
         } else if ( nodeID === this.player.rover2.id ) {
-            this.player.rover2.calcRam();
+            this.player.rover2.ram = this.player.rover2.ramMax - count;
         } else if ( nodeID === this.player.rover3.id ) {
-            this.player.rover3.calcRam();
+            this.player.rover3.ram = this.player.rover3.ramMax - count;
         }
     }
     
