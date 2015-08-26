@@ -195,7 +195,7 @@ this.executeBlock = function ( block, action ) {
         var currentArray = node.surveyArray.slice( 0 );
         currentArray.push( args );
         node.surveyArray = currentArray;
-        this.createNaniteSystem( currentArray.slice(), node );
+        //this.createNaniteSystem( currentArray.slice(), node );
     }
 
     if ( node ) {
@@ -223,10 +223,10 @@ this.handleDrawingBlocks = function ( blockName, blockID, blockNode, blockExeTim
         this.blocklyCompletedPolygon( 'rover2', currentArray );
         nodeObject.allSurveys.push( currentArray );
     } else if ( blockName === 'markPoint' && blockNode !== undefined ) {
-        var currentPosition = nodeObject.positionSensorValue;
+        //var currentPosition = nodeObject.positionSensorValue;
         var currentArray = nodeObject.surveyArray.slice( 0 );
-        currentArray.push( currentPosition );
-        nodeObject.surveyArray = currentArray;
+        //currentArray.push( currentPosition );
+        //nodeObject.surveyArray = currentArray;
         this.createNaniteSystem( currentArray.slice(), nodeObject );
     } else {
         console.log('completed survey');
