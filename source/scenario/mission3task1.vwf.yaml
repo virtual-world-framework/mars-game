@@ -125,6 +125,11 @@ properties:
     - visible
     - true
 
+  - setCinematicCameraView:
+    - [ 16, 160, -15 ]
+  - setThirdPersonStartPose:
+    - [ 16, 160, -15 ]
+
 children:
   triggerManager:
     extends: ../triggers/triggerManager.vwf
@@ -162,15 +167,6 @@ children:
               - hud
               - enabled
               - true
-
-        setCamera_3_1:
-          triggerCondition:
-          - onScenarioStart:
-          actions:
-          - setCinematicCameraView:
-            - [ 16, 160, -15 ]
-          - setThirdPersonStartPose:
-            - [ 16, 160, -15 ]
 
         highlightEndTile_3_1:
           triggerCondition:

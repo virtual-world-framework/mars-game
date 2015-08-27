@@ -195,7 +195,6 @@ this.executeBlock = function ( block, action ) {
         var currentArray = node.surveyArray.slice( 0 );
         currentArray.push( args );
         node.surveyArray = currentArray;
-        //this.createNaniteSystem( currentArray.slice(), node );
     }
 
     if ( node ) {
@@ -229,7 +228,6 @@ this.handleDrawingBlocks = function ( blockName, blockID, blockNode, blockExeTim
         //nodeObject.surveyArray = currentArray;
         this.createNaniteSystem( currentArray.slice(), nodeObject );
     } else {
-        console.log('completed survey');
         var currentArray = nodeObject.allSurveys.slice( 0 );
         this.blocklyCompletedSurvey( 'rover2', currentArray );
         nodeObject.allSurveys = [];
