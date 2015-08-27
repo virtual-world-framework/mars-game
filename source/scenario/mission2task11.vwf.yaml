@@ -114,7 +114,7 @@ children:
             - "Build a program to follow the tracks until your scanner finds something."
           - writeToBlackboard:
             - metalPosition
-            - [ -14, 30 ]
+            - [ -14, 34 ]
           - stopSound:
             - CTVO4
           - setThirdPersonStartPose:
@@ -179,7 +179,7 @@ children:
               - rover
             - isAtPosition:
               - rover
-              - [ -14, 30 ]
+              - [ -14, 34 ]
             - isBlockMissing:
               - controls_whileUntil
           actions:
@@ -198,7 +198,7 @@ children:
               - rover
             - isAtPosition:
               - rover
-              - [ -14, 30 ]
+              - [ -14, 34 ]
           actions:
           - clearBlockly:
           - scenarioSuccess:
