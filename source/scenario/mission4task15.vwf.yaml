@@ -75,7 +75,7 @@ properties:
     - rover2
   - addToGrid:
     - rover2
-    - [ -31, 7 ]
+    - [ -29, 7 ]
 
   # Rosie disabled
   - setProperty:
@@ -95,6 +95,7 @@ properties:
     - blocklyLine
     - opacity
     - 0
+  - clearTriangle:
   - drawTriangle:
     - [ -1, -6 ]
     - [ -1, -9 ]
@@ -264,7 +265,7 @@ children:
           - onScenarioStart:
           actions:
           - callOutObjective:
-            - [ -25, 12 ]
+            - [ -1, -5 ]
 
         succeedOnTriangle_4_15:
           group: successOrFailure
@@ -278,7 +279,7 @@ children:
               - rover2
             - isAtPosition:
               - rover2
-              - [ -25, 12]
+              - [ -25, 14]
           actions:
           - writeToBlackboard:
             - disableFailOnIncompleteProgram

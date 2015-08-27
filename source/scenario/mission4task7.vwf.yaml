@@ -95,6 +95,9 @@ properties:
     - blocklyLine
     - opacity
     - 0
+
+  - clearTriangle:
+
   - drawTriangle:
     - [ 0, 0 ]
     - [ -2, 0 ]
@@ -218,6 +221,13 @@ children:
           actions:
           - playSound:
             - TM4V21_MC
+
+        highlightEndTile_4_7:
+          triggerCondition:
+          - onScenarioStart:
+          actions:
+          - callOutObjective:
+            - [ -3, 0 ]
 
         succeedOnTriangle_4_7:
           group: successOrFailure

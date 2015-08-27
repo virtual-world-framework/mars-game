@@ -96,6 +96,8 @@ properties:
     - opacity
     - 0
 
+  - clearTriangle:
+
   - drawTriangle:
     - [ 0, 0 ]
     - [ 0, 2 ]
@@ -216,7 +218,7 @@ children:
           - onScenarioStart:
           actions:
           - callOutObjective:
-            - [ -27, 19 ]
+            - [ -3, 0 ]
 
         succeedOnTriangle_4_5:
           group: successOrFailure

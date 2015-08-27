@@ -92,6 +92,7 @@ properties:
     - blocklyLine
     - opacity
     - 0
+  - clearTriangle:
 
   # Solar panel construction
 
@@ -251,7 +252,7 @@ children:
           - onScenarioStart:
           actions:
           - callOutObjective:
-            - [ -35, 7 ]
+            - [ -11, -12 ]
 
         succeedOnTriangle_4_13:
           group: successOrFailure

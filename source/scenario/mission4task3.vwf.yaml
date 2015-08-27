@@ -82,6 +82,8 @@ properties:
     - 19
     - -24
 
+  - clearTriangle:
+
   - setProperty:
     - blocklyLine
     - visible
@@ -182,7 +184,7 @@ children:
           - onScenarioStart:
           actions:
           - callOutObjective:
-            - [ -27, 19 ]
+            - [ -3, 0 ]
 
         playStartingVO_4_3:
           triggerCondition:

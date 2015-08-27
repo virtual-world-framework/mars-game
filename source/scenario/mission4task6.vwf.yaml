@@ -96,11 +96,14 @@ properties:
     - opacity
     - 0
 
-  # Solar panel construction
+  - clearTriangle:
+
   - drawTriangle:
     - [ 0, 0 ]
     - [ 0, -2 ]
     - [ 2, 0 ]
+
+  # Solar panel construction
 
   - addToGrid:
     - solarPanel1
@@ -203,6 +206,13 @@ children:
           actions:
           - playSound:
             - TM4V19_MC
+
+        highlightEndTile_4_6:
+          triggerCondition:
+          - onScenarioStart:
+          actions:
+          - callOutObjective:
+            - [ -3, 0 ]
 
         succeedOnTriangle_4_6:
           group: successOrFailure
