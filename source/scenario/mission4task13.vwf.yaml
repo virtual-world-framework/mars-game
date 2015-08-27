@@ -254,6 +254,25 @@ children:
           - callOutObjective:
             - [ -11, -12 ]
 
+        failOnMissingBlock_4_13:
+          group: successOrFailure
+          priority: 0.5
+          triggerCondition:
+          - and:
+            - onBlocklyStopped:
+              - rover2
+            - isAtPosition:
+              - rover2
+              - [ -35, 7 ]
+            - isBlockMissing:
+              - init_nano_construction
+          actions:
+          - scenarioFailure:
+            - incomplete
+            - "You should use the construction block to initiate construction."
+          - playSound:
+            - FCVO2_Rover
+
         succeedOnTriangle_4_13:
           group: successOrFailure
           priority: 0
