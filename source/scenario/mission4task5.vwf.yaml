@@ -66,7 +66,7 @@ properties:
   - setProperty:
     - rover2
     - blockly_allowedBlocks
-    - 20
+    - 24
   - setProperty:
     - rover2
     - lowRam
@@ -95,6 +95,8 @@ properties:
     - blocklyLine
     - opacity
     - 0
+
+  - clearTriangle:
 
   - drawTriangle:
     - [ 0, 0 ]
@@ -216,7 +218,29 @@ children:
           - onScenarioStart:
           actions:
           - callOutObjective:
-            - [ -27, 19 ]
+            - [ -3, 0 ]
+
+        failOnMissingBlock_4_5:
+          group: successOrFailure
+          priority: 0.5
+          triggerCondition:
+          - and:
+            - onBlocklyPolygon:
+              - rover2
+              - [ [ 0, 0 ], [ 0, 2 ], [ -2, 0 ] ]
+            - isAtPosition:
+              - rover2
+              - [ -27, 19 ]
+            - onBlocklyStopped:
+              - rover2
+            - isBlockMissing:
+              - init_nano_construction
+          actions:
+          - scenarioFailure:
+            - incomplete
+            - "You should use the construction block to initiate construction."
+          - playSound:
+            - FCVO2_Rover
 
         succeedOnTriangle_4_5:
           group: successOrFailure

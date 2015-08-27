@@ -22,7 +22,7 @@ properties:
 
   # objective
   - setObjective:
-    - "Draw these triangles: [[-7,-19], [-7,-15], [-3,-19]], [[-9,-19], [-9,-15], [-13,-19]], [[-7,-21],[-7,-25],[-3,-21]], [[-9,-21],[-9,-25],[-13,-21]]."
+    - "Draw these triangles: [[-7,-17], [-7,-13], [-3,-17]], [[-9,-17], [-9,-13], [-13,-17]], [[-7,-19],[-7,-23],[-3,-19]], [[-9,-19],[-9,-23],[-13,-19]]."
 
   # blockly
   - setBlocklyContext:
@@ -66,7 +66,7 @@ properties:
   - setProperty:
     - rover2
     - blockly_allowedBlocks
-    - 124
+    - 198
   - setProperty:
     - rover2
     - lowRam
@@ -75,7 +75,7 @@ properties:
     - rover2
   - addToGrid:
     - rover2
-    - [ -35, 5 ]
+    - [ -35, 7 ]
 
   # Rosie disabled
   - setProperty:
@@ -95,22 +95,23 @@ properties:
     - blocklyLine
     - opacity
     - 0
+  - clearTriangle:
   - drawTriangle:
-    - [ -7, -15 ]
+    - [ -7, -13 ]
+    - [ -7, -17 ]
+    - [ -3, -17 ]
+  - drawTriangle:
+    - [ -9, -17 ]
+    - [ -9, -13 ]
+    - [ -13, -17 ]
+  - drawTriangle:
     - [ -7, -19 ]
+    - [ -7, -23 ]
     - [ -3, -19 ]
-  - drawTriangle:
-    - [ -9,-19 ]
-    - [ -9,-15 ]
-    - [ -13,-19 ]
-  - drawTriangle:
-    - [ -7,-21 ]
-    - [ -7,-25 ]
-    - [ -3,-21 ]
-  - drawTriangle:
-    - [ -9,-21 ]
-    - [ -9,-25 ]
-    - [ -13,-21 ]
+  - drawTriangle: 
+    - [ -9, -19 ]
+    - [ -9, -23 ]
+    - [ -13, -19 ]
 
 
   # Solar panel construction
@@ -132,7 +133,7 @@ properties:
     - [ -32, 11 ]
   - addToGrid:
     - greenhouse1
-    - [ -32, 1 ]
+    - [ -32, 2 ]
 
   - setProperty:
     - solarPanel1
@@ -267,7 +268,29 @@ children:
           - onScenarioStart:
           actions:
           - callOutObjective:
-            - [ -31, 5 ]
+            - [ -5, -12 ]
+
+        failOnMissingBlock_4_14:
+          group: successOrFailure
+          priority: 0.5
+          triggerCondition:
+          - and:
+            - onBlocklySurveyFinished:
+              - rover2
+              - [ [ [ -7, -17 ], [ -7, -13 ], [ -3, -17 ] ] , [ [ -9, -17 ], [ -9, -13 ], [ -13, -17 ] ], [ [ -7, -19 ], [ -7, -23 ], [ -3, -19 ] ], [ [ -9, -19 ], [ -9, -23 ], [ -13, -19 ] ] ]
+            - onBlocklyStopped:
+              - rover2
+            - isAtPosition:
+              - rover2
+              - [ -29, 7 ]
+            - isBlockMissing:
+              - init_nano_construction
+          actions:
+          - scenarioFailure:
+            - incomplete
+            - "You should use the construction block to initiate construction."
+          - playSound:
+            - FCVO2_Rover
 
         succeedOnTriangle_4_14:
           group: successOrFailure
@@ -276,12 +299,12 @@ children:
           - and:
             - onBlocklySurveyFinished:
               - rover2
-              - [ [ [ -7, -19 ], [ -7, -15 ], [ -3, -19 ] ] , [ [ -9, -19 ], [ -9, -15 ], [ -13, -19 ] ], [ [ -7, -21 ], [ -7, -25 ], [ -3, -21 ] ], [ [ -9, -21 ], [ -9, -25 ], [ -13, -21 ] ] ]
+              - [ [ [ -7, -17 ], [ -7, -13 ], [ -3, -17 ] ] , [ [ -9, -17 ], [ -9, -13 ], [ -13, -17 ] ], [ [ -7, -19 ], [ -7, -23 ], [ -3, -19 ] ], [ [ -9, -19 ], [ -9, -23 ], [ -13, -19 ] ] ]
             - onBlocklyStopped:
               - rover2
             - isAtPosition:
               - rover2
-              - [ -31, 5 ]
+              - [ -29, 7 ]
           actions:
           - writeToBlackboard:
             - disableFailOnIncompleteProgram

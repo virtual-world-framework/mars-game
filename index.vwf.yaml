@@ -337,7 +337,7 @@ children:
         type: model/vnd.collada+xml
         properties:
           defaultMount: thirdPerson
-          displayName: "Rover"
+          displayName: "Manny"
           castShadows: true
           receiveShadows: true
           executionSpeed: 0.5
@@ -461,7 +461,7 @@ children:
         type: model/vnd.collada+xml
         properties:
           defaultMount: thirdPerson
-          displayName: "Rover2"
+          displayName: "Peregrine"
           castShadows: true
           receiveShadows: true
           executionSpeed: 0.5
@@ -543,7 +543,7 @@ children:
         properties:
           boundingAreaSize: [ 2, 2 ]
           defaultMount: thirdPerson
-          displayName: "Rover3"
+          displayName: "Rosie"
           castShadows: true
           receiveShadows: true
           executionSpeed: 0.5

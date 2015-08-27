@@ -2302,11 +2302,10 @@ Blockly.Blocks[ 'math_number_out' ] = {
   init: function() {
     this.setColour( 60 );
     this.appendValueInput( "INPUT" )
-        .appendField(new Blockly.FieldDropdown([["15", "15"],["14", "14"],["13", "13"],["12", "12"],["11", "11"],["10", "10"],["9", "9"],["8", "8"],
-         ["7", "7"],["6", "6"],["5", "5"],["4", "4"],["3", "3"],["2", "2"],
-         ["1", "1"],["0", "0"],["-1", "-1"], ["-2", "-2"], ["-3", "-3"], 
-         ["-4", "-4"], ["-5", "-5"], ["-6", "-6"], ["-7", "-7"], ["-8", "-8"], 
-         ["-9", "-9"], ["-10", "-10"], ["-11", "-11"], ["-12", "-12"], ["-13", "-13"], ["-14", "-14"], ["-15", "-15"]]), "VALUE")
+        .appendField(new Blockly.FieldDropdown([["25", "25"],["24", "24"],
+         ["23", "23"],["22", "22"],["21", "21"],["20", "20"],["19", "19"],["18", "18"],["17", "17"],["16", "16"],
+         ["15", "15"],["14", "14"],["13", "13"],["12", "12"],["11", "11"],["10", "10"],["9", "9"],["8", "8"],
+         ["7", "7"],["6", "6"],["5", "5"],["4", "4"],["3", "3"],["2", "2"],["1", "1"],["0", "0"]]), "VALUE")
         .setCheck( [ 'OperatorAddSubtract','OperatorMultiplyDivide','Variable','LeftParenthesis','RightParenthesis','Conditional' ] );
     this.setOutput( true, 'Number' );
     this.data = currentBlocklyNodeID;
@@ -2344,7 +2343,7 @@ Blockly.Blocks[ 'math_number_out_m4t3' ] = {
   init: function() {
     this.setColour( 60 );
     this.appendValueInput( "INPUT" )
-        .appendField(new Blockly.FieldDropdown([["0","0"],["-3","-3"]]), "VALUE")
+        .appendField(new Blockly.FieldDropdown([["0","0"],["3","3"]]), "VALUE")
         .setCheck( [ 'OperatorAddSubtract','OperatorMultiplyDivide','Variable','LeftParenthesis','RightParenthesis','Conditional' ] );
     this.setOutput( true, 'Number' );
     this.data = currentBlocklyNodeID;
@@ -2382,7 +2381,7 @@ Blockly.Blocks[ 'math_number_out_m4t5' ] = {
   init: function() {
     this.setColour( 60 );
     this.appendValueInput( "INPUT" )
-        .appendField(new Blockly.FieldDropdown([["-2", "-2"],["2", "2"],["-1", "-1"],["1", "1"],["0","0"],["-3","-3"]]), "VALUE")
+        .appendField(new Blockly.FieldDropdown([["3","3"],["2", "2"],["1", "1"],["0","0"]]), "VALUE")
         .setCheck( [ 'OperatorAddSubtract','OperatorMultiplyDivide','Variable','LeftParenthesis','RightParenthesis','Conditional' ] );
     this.setOutput( true, 'Number' );
     this.data = currentBlocklyNodeID;
@@ -2686,11 +2685,11 @@ Blockly.JavaScript['math_number_out_two_limited' ] = function( block ) {
   }
 };
 
-Blockly.Blocks[ 'math_number_out_minus_one_limited' ] = {
+Blockly.Blocks[ 'math_number_out_one_limited' ] = {
   init: function() {
     this.setColour( 60 );
     this.appendValueInput( "INPUT" )
-        .appendField(new Blockly.FieldDropdown([["-1", "-1"]]), "VALUE")
+        .appendField(new Blockly.FieldDropdown([["1", "1"]]), "VALUE")
         .setCheck( [ 'OperatorAddSubtract','OperatorMultiplyDivide','Variable','LeftParenthesis','RightParenthesis','Conditional' ] );
     this.setOutput( true, 'Number' );
     this.data = currentBlocklyNodeID;
@@ -2705,7 +2704,7 @@ Blockly.Blocks[ 'math_number_out_minus_one_limited' ] = {
   }
 };
 
-Blockly.JavaScript['math_number_out_minus_one_limited' ] = function( block ) {
+Blockly.JavaScript['math_number_out_one_limited' ] = function( block ) {
   
   var dropdown_value = block.getFieldValue('VALUE');
   

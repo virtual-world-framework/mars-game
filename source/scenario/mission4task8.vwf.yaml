@@ -66,7 +66,7 @@ properties:
   - setProperty:
     - rover2
     - blockly_allowedBlocks
-    - 22
+    - 40
   - setProperty:
     - rover2
     - lowRam
@@ -95,6 +95,11 @@ properties:
     - blocklyLine
     - opacity
     - 0
+
+  - cancelCallOut:
+
+  - clearTriangle:
+
   - drawTriangle:
     - [ -7, -6 ]
     - [ -7, -7 ]
