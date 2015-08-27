@@ -167,7 +167,7 @@ children:
           - onScenarioStart:
           actions:
           - callOutObjective:
-            - [ -21, -14 ]
+            - [ -18, -12 ]
 
         failOnMissingBlock_2_11:
           group: successOrFailure
@@ -178,7 +178,7 @@ children:
               - rover
             - isAtPosition:
               - rover
-              - [ -17, 32 ]
+              - [ -14, 30 ]
             - isBlockMissing:
               - controls_whileUntil
           actions:
@@ -197,7 +197,7 @@ children:
               - rover
             - isAtPosition:
               - rover
-              - [ -17, 32 ]
+              - [ -14, 30 ]
           actions:
           - clearBlockly:
           - scenarioSuccess:

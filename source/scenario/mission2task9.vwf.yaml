@@ -204,7 +204,7 @@ children:
           - and:
             - isAtPosition:
               - rover
-              - [ 6, 38 ]
+              - [ 7, 34 ]
           actions:
           - playSound:
             - CTVO3
