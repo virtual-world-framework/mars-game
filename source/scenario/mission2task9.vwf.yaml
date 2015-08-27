@@ -175,7 +175,7 @@ children:
           - stopSound:
             - CTVO3
 
-        playHint1_3c:
+        playHint_2_9_tricky:
           triggerCondition:
           - and:
             - not:
@@ -183,6 +183,9 @@ children:
                 - thisOneIsTrickyHint
             - delay:
               - 15
+            - not:
+              - isBlocklyExecuting:
+                - rover
             - or:
               - hasHeading:
                 - rover
