@@ -93,6 +93,7 @@ properties:
     - roverTracks2
     - visible
     - false
+
 children:
   triggerManager:
     extends: ../triggers/triggerManager.vwf

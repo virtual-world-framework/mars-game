@@ -87,10 +87,6 @@ properties:
     - rover3
     - visible
     - false
-  - setProperty:
-    - minirover
-    - visible
-    - false
 
   # Disable Blockly line
   - setProperty:
@@ -124,6 +120,21 @@ properties:
     - roverTracks2
     - visible
     - true
+
+  # turning supplies and minirover invisible
+
+  - setProperty:
+    - supplies_1
+    - visible
+    - false
+  - setProperty:
+    - supplies_2
+    - visible
+    - false
+  - setProperty:
+    - minirover
+    - visible
+    - false
 
   - setCinematicCameraView:
     - [ 16, 160, -15 ]

@@ -72,7 +72,7 @@ properties:
   - setProperty:
     - rover
     - blockly_allowedBlocks
-    - 60
+    - 62
 
   # Perry, Rosie disabled
   - setProperty:
@@ -119,6 +119,21 @@ properties:
     - roverTracks2
     - visible
     - true
+
+  # turning supplies and minirover invisible
+
+  - setProperty:
+    - supplies_1
+    - visible
+    - false
+  - setProperty:
+    - supplies_2
+    - visible
+    - false
+  - setProperty:
+    - minirover
+    - visible
+    - false
 
 children:
   triggerManager:
