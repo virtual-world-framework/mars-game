@@ -99,6 +99,18 @@ properties:
     - [ -7, -15 ]
     - [ -7, -19 ]
     - [ -3, -19 ]
+  - drawTriangle:
+    - [ -9,-19 ]
+    - [ -9,-15 ]
+    - [ -13,-19 ]
+  - drawTriangle:
+    - [ -7,-21 ]
+    - [ -7,-25 ]
+    - [ -3,-21 ]
+  - drawTriangle:
+    - [ -9,-21 ]
+    - [ -9,-25 ]
+    - [ -13,-21 ]
 
 
   # Solar panel construction

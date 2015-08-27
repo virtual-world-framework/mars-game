@@ -846,14 +846,12 @@ Blockly.Blocks['controls_whileUntil'] = {
     this.data = currentBlocklyNodeID;
     // Assign 'this' to a variable for use in the tooltip closure below.
     var thisBlock = this;
-    this.setTooltip(function() {
-      var op = thisBlock.getFieldValue('MODE');
-      var TOOLTIPS = {
-        'WHILE': 'Repeat a sequence of blocks while something is true, or until it becomes true',
-        'UNTIL': 'Repeat a sequence of blocks while something is true, or until it becomes true'
-      };
-      return TOOLTIPS[op];
-    });
+    this.setTooltip( function() {
+      var content = {
+        text: "Repeat a sequence of blocks while something is true, or until it becomes true"
+      }
+      return showTooltipInBlockly( thisBlock, content );
+    } );
   }
 };
 
@@ -918,14 +916,12 @@ Blockly.Blocks['controls_whileUntil_no_in'] = {
     this.data = currentBlocklyNodeID;
     // Assign 'this' to a variable for use in the tooltip closure below.
     var thisBlock = this;
-    this.setTooltip(function() {
-      var op = thisBlock.getFieldValue('MODE');
-      var TOOLTIPS = {
-        'WHILE': 'Repeat a sequence of blocks while something is true, or until it becomes true',
-        'UNTIL': 'Repeat a sequence of blocks while something is true, or until it becomes true'
-      };
-      return TOOLTIPS[op];
-    });
+    this.setTooltip( function() {
+      var content = {
+        text: "Repeat a sequence of blocks while something is true, or until it becomes true"
+      }
+      return showTooltipInBlockly( thisBlock, content );
+    } );
   }
 };
 
@@ -988,14 +984,12 @@ Blockly.Blocks['controls_whileUntil_no_out'] = {
     this.data = currentBlocklyNodeID;
     // Assign 'this' to a variable for use in the tooltip closure below.
     var thisBlock = this;
-    this.setTooltip(function() {
-      var op = thisBlock.getFieldValue('MODE');
-      var TOOLTIPS = {
-        'WHILE': 'Repeat a sequence of blocks while something is true, or until it becomes true',
-        'UNTIL': 'Repeat a sequence of blocks while something is true, or until it becomes true'
-      };
-      return TOOLTIPS[op];
-    });
+    this.setTooltip( function() {
+      var content = {
+        text: "Repeat a sequence of blocks while something is true, or until it becomes true"
+      }
+      return showTooltipInBlockly( thisBlock, content );
+    } );
   }
 };
 
@@ -1059,14 +1053,12 @@ Blockly.Blocks['controls_whileUntil_no_out_no_in'] = {
     this.data = currentBlocklyNodeID;
     // Assign 'this' to a variable for use in the tooltip closure below.
     var thisBlock = this;
-    this.setTooltip(function() {
-      var op = thisBlock.getFieldValue('MODE');
-      var TOOLTIPS = {
-        'WHILE': 'Repeat a sequence of blocks while something is true, or until it becomes true',
-        'UNTIL': 'Repeat a sequence of blocks while something is true, or until it becomes true'
-      };
-      return TOOLTIPS[op];
-    });
+    this.setTooltip( function() {
+      var content = {
+        text: "Repeat a sequence of blocks while something is true, or until it becomes true"
+      }
+      return showTooltipInBlockly( thisBlock, content );
+    } );
   }
 };
 
@@ -1172,18 +1164,13 @@ Blockly.Blocks['controls_if_nomut'] = {
     this.data = currentBlocklyNodeID;
     // Assign 'this' to a variable for use in the tooltip closure below.
     var thisBlock = this;
-    this.setTooltip(function() {
-      if (!thisBlock.elseifCount_ && !thisBlock.elseCount_) {
-        return Blockly.Msg.CONTROLS_IF_TOOLTIP_1;
-      } else if (!thisBlock.elseifCount_ && thisBlock.elseCount_) {
-        return Blockly.Msg.CONTROLS_IF_TOOLTIP_2;
-      } else if (thisBlock.elseifCount_ && !thisBlock.elseCount_) {
-        return Blockly.Msg.CONTROLS_IF_TOOLTIP_3;
-      } else if (thisBlock.elseifCount_ && thisBlock.elseCount_) {
-        return Blockly.Msg.CONTROLS_IF_TOOLTIP_4;
+    var thisBlock = this;
+    this.setTooltip( function() {
+      var content = {
+        text: "If the conditional statement is true, then do the sequence of blocks."
       }
-      return '';
-    });
+      return showTooltipInBlockly( thisBlock, content );
+    } );
     this.elseifCount_ = 0;
     this.elseCount_ = 0;
   },
@@ -1326,18 +1313,12 @@ Blockly.Blocks['controls_if_else_nomut'] = {
        //                                  'controls_if_else']));
     // Assign 'this' to a variable for use in the tooltip closure below.
     var thisBlock = this;
-    this.setTooltip(function() {
-      if (!thisBlock.elseifCount_ && !thisBlock.elseCount_) {
-        return 'If the conditional statement is true, then do the sequence of blocks.';
-      } else if (!thisBlock.elseifCount_ && thisBlock.elseCount_) {
-        return Blockly.Msg.CONTROLS_IF_TOOLTIP_2;
-      } else if (thisBlock.elseifCount_ && !thisBlock.elseCount_) {
-        return Blockly.Msg.CONTROLS_IF_TOOLTIP_3;
-      } else if (thisBlock.elseifCount_ && thisBlock.elseCount_) {
-        return Blockly.Msg.CONTROLS_IF_TOOLTIP_4;
+    this.setTooltip( function() {
+      var content = {
+        text: "If the conditional statement is true, then do the first sequence of blocks, ELSE do the second sequence."
       }
-      return '';
-    });
+      return showTooltipInBlockly( thisBlock, content );
+    } );
     this.elseifCount_ = 0;
     this.elseCount_ = 1;
   },
@@ -2203,7 +2184,8 @@ Blockly.JavaScript['draw_triangle'] = function(block) {
   //end
 
   //var overallCode = moveA + start + mark + moveB + mark + moveC + mark + moveA + mark + end;
-  var overallCode = start + moveA + moveB + moveC + moveA + end;
+  var overallCode = start + moveA + mark + moveB + mark + moveC + mark + moveA + mark + end;
+  //var overallCode = start + moveA + moveB + moveC + moveA + end;
   
   return overallCode;
 };
@@ -2899,7 +2881,13 @@ Blockly.Blocks['math_number_angle_select'] = {
         .appendField("")
         .appendField(new Blockly.FieldAngle("90"), "VALUE");
     this.setOutput(true, "Number");
-    this.setTooltip('Specifies a heading or number of degrees.');
+    var thisBlock = this;
+    this.setTooltip( function() {
+      var content = {
+        text: "Specifies a heading or number of degrees."
+      }
+      return showTooltipInBlockly( thisBlock, content );
+    } ); 
     //this.setTooltip( function() {
     //  var content = {
     //    text: "This is a number block that lets you select a number and preview angle directions."
@@ -2928,7 +2916,13 @@ Blockly.Blocks['math_number_angle_select_no_out'] = {
     this.appendDummyInput("NAME")
         .appendField(new Blockly.FieldAngle("90"), "VALUE");
     this.setOutput(true, "Number");
-    this.setTooltip('This is a number block that lets you select a number and preview angle directions.');
+    var thisBlock = this;
+    this.setTooltip( function() {
+      var content = {
+        text: "Specifies a heading or number of degrees."
+      }
+      return showTooltipInBlockly( thisBlock, content );
+    } ); 
     //this.setTooltip( function() {
     //  var content = {
     //    text: "This is a number block that lets you select a number and preview angle directions."

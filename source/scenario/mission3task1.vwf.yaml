@@ -125,6 +125,11 @@ properties:
     - visible
     - true
 
+  - setCinematicCameraView:
+    - [ 16, 160, -15 ]
+  - setThirdPersonStartPose:
+    - [ 16, 160, -15 ]
+
 children:
   triggerManager:
     extends: ../triggers/triggerManager.vwf

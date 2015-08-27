@@ -99,6 +99,10 @@ properties:
     - [ -1, -6 ]
     - [ -1, -9 ]
     - [ -3, -6 ]
+  - drawTriangle:
+    - [ -1, -6 ]
+    - [ -1, -9 ]
+    - [ 1, -6 ]
   # Solar panel construction
 
   - addToGrid:

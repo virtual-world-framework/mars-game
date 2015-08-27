@@ -66,8 +66,6 @@ properties:
   - setGridAxes:
     - 14
     - 0
-  - setBlocklyContext:
-    - graph
   - loadToolbox:
     - rover
     - source/scenario/blockly/scenario2a.xml
@@ -103,7 +101,10 @@ properties:
     - roverTracks2
     - visible
     - false
-
+  - setCinematicCameraView:
+    - [ 13, -10, -15 ]
+  - setThirdPersonStartPose:
+    - [ 13, -10, -15 ]
 
 children:
   triggerManager:
@@ -126,10 +127,6 @@ children:
             - blocklyButton
             - enabled
             - false
-          - setCinematicCameraView:
-            - [ 16.316, 65, -15 ]
-          - setThirdPersonStartPose:
-            - [ 16.316, 65, -15 ]
 
         playStartingVO_2a:
           triggerCondition:
