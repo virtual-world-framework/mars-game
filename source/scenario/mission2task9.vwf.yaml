@@ -93,6 +93,7 @@ properties:
     - roverTracks2
     - visible
     - false
+
 children:
   triggerManager:
     extends: ../triggers/triggerManager.vwf
@@ -175,7 +176,7 @@ children:
           - stopSound:
             - CTVO3
 
-        playHint1_3c:
+        playHint_2_9_tricky:
           triggerCondition:
           - and:
             - not:
@@ -183,6 +184,9 @@ children:
                 - thisOneIsTrickyHint
             - delay:
               - 15
+            - not:
+              - isBlocklyExecuting:
+                - rover
             - or:
               - hasHeading:
                 - rover
@@ -201,7 +205,7 @@ children:
           - and:
             - isAtPosition:
               - rover
-              - [ 6, 38 ]
+              - [ 7, 34 ]
           actions:
           - playSound:
             - CTVO3

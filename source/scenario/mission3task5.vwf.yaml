@@ -124,6 +124,21 @@ properties:
     - visible
     - true
 
+  # turning supplies and minirover invisible
+
+  - setProperty:
+    - supplies_1
+    - visible
+    - false
+  - setProperty:
+    - supplies_2
+    - visible
+    - false
+  - setProperty:
+    - minirover
+    - visible
+    - false
+
 children:
   triggerManager:
     extends: ../triggers/triggerManager.vwf
