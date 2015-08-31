@@ -91,6 +91,7 @@ this.setScenario = function( path ) {
             this.activeScenarioPath = path;
             this.clearWatchList();
             this.removeCalloutTile();
+            this.hideSchematicTriangle();
             // TODO: pass the scenario, not the name.  Or else just send the 
             //  event without looking the scenario itself up.  Or assert that 
             //  the scenario exists.  Or something.
