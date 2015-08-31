@@ -179,5 +179,5 @@ children:
       content: >
         It appears that one of your Mini Rovers has gone astray!
         <br><br> You will need to track it down. In order to do that, you first 
-        need to plot a line that follows matches the direction of the Mini 
+        need to plot a line that matches the direction of the Mini 
         Rover’s tracks, and then build a program to follow that line. 
