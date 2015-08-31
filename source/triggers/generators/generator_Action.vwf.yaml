@@ -127,6 +127,10 @@ properties:
     # arguments: component name ( defined in index.vwf.yaml - must be added to scenario grid)
     buildBaseComponent: "source/triggers/actions/action_buildBaseComponent.vwf"
 
+    # Set a base component to constructed or hidden
+    # arguments: component name, value
+    setConstructed: "source/triggers/actions/action_setConstructed.vwf"
+
     # open the mission brief for the current scenario
     # arguments: none
     openMissionBrief: "source/triggers/actions/action_openMissionBrief.vwf"

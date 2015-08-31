@@ -117,28 +117,20 @@ properties:
     - solarPanel1
     - scale
     - [.4, .4, .4]
-  - setProperty:
+  - setConstructed:
     - solarPanel1
-    - visible
     - true
-  - setProperty:
-    - solarPanel1
-    - built
-    - false
 
-  - setProperty:
+  - setConstructed:
     - solarPanel2
-    - visible
     - false
 
-  - setProperty:
+  - setConstructed:
     - solarPanel3
-    - visible
     - false
 
-  - setProperty:
+  - setConstructed:
     - solarPanel4
-    - visible
     - false
 
   - setProperty:

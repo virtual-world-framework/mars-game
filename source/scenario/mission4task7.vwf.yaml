@@ -122,13 +122,8 @@ properties:
     - solarPanel1
     - scale
     - [.4, .4, .4]
-  - setProperty:
+  - setConstructed:
     - solarPanel1
-    - visible
-    - true
-  - setProperty:
-    - solarPanel1
-    - built
     - true
 
   - setProperty:
@@ -139,13 +134,8 @@ properties:
     - solarPanel2
     - rotation
     - [0 ,0 ,1 ,90 ]
-  - setProperty:
+  - setConstructed:
     - solarPanel2
-    - visible
-    - true
-  - setProperty:
-    - solarPanel2
-    - built
     - true
 
   - setProperty:
@@ -156,13 +146,8 @@ properties:
     - solarPanel3
     - rotation
     - [0 ,0 ,1 ,270 ]
-  - setProperty:
+  - setConstructed:
     - solarPanel3
-    - visible
-    - true
-  - setProperty:
-    - solarPanel3
-    - built
     - true
 
   - setProperty:
@@ -173,9 +158,8 @@ properties:
     - solarPanel4
     - rotation
     - [0 ,0 ,1 ,180 ]
-  - setProperty:
+  - setConstructed:
     - solarPanel4
-    - visible
     - false
 
   - setProperty:

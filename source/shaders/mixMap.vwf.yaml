@@ -644,8 +644,8 @@ properties:
 methods:
   callout: |
     var highlight = this.calloutHighlight;
-    this.calloutHighlight = highlight === 0 ? 1 : 0;
     if ( this.bCallout$ ) {
+      this.calloutHighlight = highlight === 0 ? 1 : 0;
       this.future( 0.25 ).callout();
     }
   stopCallout: |
