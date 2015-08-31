@@ -375,7 +375,7 @@ this.resetView = function() {
 this.cameraMounted = function( mountName ) {
     var activeNode;
     activeNode = this.findByID( this, this.blockly_activeNodeID );
-    if ( Boolean( activeNode.facingArrow ) ) {
+    if ( activeNode && activeNode.facingArrow ) {
         if ( mountName === "topDown" ) {
             activeNode.facingArrow.visible = true;
         } else {
@@ -385,7 +385,7 @@ this.cameraMounted = function( mountName ) {
 }
 
 this.targetSwitched = function( oldTarget, newTarget ) {
-    if ( Boolean( oldTarget.facingArrow ) ) {
+    if ( oldTarget && oldTarget.facingArrow ) {
         oldTarget.facingArrow.visible = false;
     }
 }
