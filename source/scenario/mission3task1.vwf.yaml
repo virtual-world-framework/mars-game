@@ -164,13 +164,6 @@ children:
             - hud
             - enabled
             - false
-
-        openMissionBrief_3_1:
-          triggerCondition:
-          - and:
-            - onScenarioStart:
-            - doOnce:
-          actions:
           - delay:
             - 54
             - openMissionBrief:
@@ -204,20 +197,17 @@ children:
           - playSound:
             - musicSuccessShort
 
-
   brief:
     extends: ../missionBrief.vwf
     properties:
       title: "Mission 3, Task 1"
       content: >
-        Oh no, your Navigate procedure has been corrupted! Luckily, with help
+        Oh no, your Navigate procedure has been corrupted! Luckily, with help 
         from Mission Control, you can rebuild it. 
         <br><br> You'll create the Navigate procedure one step at a time. Each
-        step along the way, Mission Control will provide a test program to
-        checks that things are working correctly. Your job is to modify the 
-        procedure so that the test program is satisfied.
+        step along the way, Mission Control will provide a test program to 
+        checks that things are working correctly. The test program will be 
+        locked so that you can’t change it - your job is to modify the Navigate
+        procedure itself so that the test program is satisfied.
         <br><br> It looks like this first portion of the Navigate procedure is 
         already correct - just hit START to test it.
-        <br><br> Note that the grayed-out portions of the code have been locked 
-        by Mission Control and can’t be changed – you will need to make your 
-        changes to the procedure above or below the locked sections.

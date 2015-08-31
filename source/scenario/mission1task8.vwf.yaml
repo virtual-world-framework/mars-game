@@ -124,6 +124,22 @@ children:
           actions:
           - playSound:
             - L1VO16_Rover
+          - setProperty:
+            - hud
+            - enabled
+            - false
+          - delay:
+            - 5.5
+            - panCamera:
+              - /pickups/radio
+              - 3
+          - delay:
+            - 10
+            - openMissionBrief:
+            - setProperty:
+              - hud
+              - enabled
+              - true
 
         highlightEndTile_1_8:
           triggerCondition:
@@ -177,13 +193,14 @@ children:
           - writeToBlackboard:
             - disableFailOnIncompleteProgram
 
-        panToRadio_1h:
-          triggerCondition:
-          - and:
-            - delay:
-              - 17
-            - doOnce:
-          actions:
-          - panCamera:
-            - /pickups/radio
-            - 3
+  brief:
+    extends: ../missionBrief.vwf
+    properties:
+      title: "Mission 1, Task 8"
+      content: >
+        Alright, progress has been made!  
+        <br><br>Now that you’ve got the basics under control and have gathered 
+        up nearby equipment, it’s time to recover the radio at the far end of 
+        the crash site and make contact with Mission Control. 
+        <br><br>Of course, getting there through the debris may require a bit 
+        of care...

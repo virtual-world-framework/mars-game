@@ -136,8 +136,8 @@ children:
           - scenarioSuccess:
           - showAlert:
             - "Now I can get out of this ditch and find the radio!"
-          - playSound:
-            - SCVO3_Rover
+          # - playSound:
+          #   - SCVO3_Rover
           - playSound:
             - musicSuccessShort
 
@@ -147,3 +147,15 @@ children:
           actions:
           - callOutObjective:
             - [ 0, 0 ]
+
+  brief:
+    extends: ../missionBrief.vwf
+    properties:
+      title: "Mission 1, Task 7"
+      content: >
+        Welcome to The Mars Game!  
+        <br><br>You are an autonomous rover, sent on a mission to Mars… but it 
+        appears that you’ve crashed and you can’t quite remember what it is 
+        that you’re here for! 
+        <br><br>Your first objective is to relearn your control interface and 
+        to gather up nearby equipment.

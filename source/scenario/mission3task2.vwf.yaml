@@ -204,9 +204,10 @@ children:
       title: "Mission 3, Task 2"
       content: >
         The basic navigation procedure appears to be working!
-        <br><br>Unfortunately, it will only work if you're already facing south. 
-        The next step is to edit the procedure so that it turns you to face 
-        south. You'll need to use a conditional loop block (like you used to
-        follow the minirover's tracks), along with your Direction of Travel 
-        sensor, to ensure that you turn the right amount.
+        <br><br>Unfortunately, it will only work if you're already facing down
+        the Y axis. The next step is to edit the procedure so that it turns you
+        to face the correct direction. You'll need to use a conditional loop 
+        block (like you used to follow the minirover's tracks), along with your
+        Direction of Travel sensor, to ensure that you turn the right amount.
+
 

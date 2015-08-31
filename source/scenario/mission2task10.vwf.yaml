@@ -112,6 +112,17 @@ children:
           actions:
           - playSound:
             - L3VO6_Rover
+          - setProperty:
+            - hud
+            - enabled
+            - false
+          - delay:
+            - 12
+            - openMissionBrief:
+            - setProperty:
+              - hud
+              - enabled
+              - true
 
         failOnMove_3d:
           group: successOrFailure
@@ -141,3 +152,21 @@ children:
             - "Course Plotted: Navigation Program Update Required"
           - playSound:
             - musicSuccessShort
+
+        playHint5_2d:
+          triggerCondition:
+          - and:
+            - doOnce:
+            - delay:
+              - 60
+          actions:
+          - playSound:
+            - ALVO31_Rover
+
+  brief:
+    extends: ../missionBrief.vwf
+    properties:
+      title: "Mission 2, Task 10"
+      content: >
+        One set of tracks to go! 
+        <br><br> First, plot your course…

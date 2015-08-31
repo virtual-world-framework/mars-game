@@ -122,6 +122,17 @@ children:
           actions:
           - playSound:
             - L3VO3_Rover_S
+          - setProperty:
+            - hud
+            - enabled
+            - false
+          - delay:
+            - 8
+            - openMissionBrief:
+            - setProperty:
+              - hud
+              - enabled
+              - true
 
         failOnMove_2d:
           group: successOrFailure
@@ -161,3 +172,23 @@ children:
           actions:
           - stopBlinkBlocklyTab:
             - graph
+
+        playHint4_8d:
+          triggerCondition:
+          - and:
+            - doOnce:
+            - delay:
+              - 60
+          actions:
+          - playSound:
+            - ALVO29_Rover
+
+  brief:
+    extends: ../missionBrief.vwf
+    properties:
+      title: "Mission 2, Task 8"
+      content: >
+        Well done! 
+        <br><br>It looks like the Mini Rover dropped some supplies and changed 
+        direction. You need to plot the new direction of the tracks.
+

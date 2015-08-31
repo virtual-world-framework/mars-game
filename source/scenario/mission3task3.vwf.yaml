@@ -231,7 +231,7 @@ children:
       content: >
         Good job editing your Navigation procedure!
         <br><br> Let's ensure that you don't waste energy spinning in place when
-        you don't need to. You can do that by using an If block to check
-        whether the value reported by your Position Y sensor is greater than 
-        the y-coordinate that you're trying to move to. The If block is a new
-        block that only executes its contents if its condition is true.
+        you don't need to. You can do that by using an If block to compare
+        your current position with the spot you want to move to. The If block is
+        a new block that only executes its contents if its condition is true.
+

@@ -128,6 +128,17 @@ children:
           actions:
           - playSound:
             - L3VO6_Mission
+          - setProperty:
+            - hud
+            - enabled
+            - false
+          - delay:
+            - 5
+            - openMissionBrief:
+            - setProperty:
+              - hud
+              - enabled
+              - true
 
         playHint_2_11_tricky:
           triggerCondition:
@@ -211,3 +222,12 @@ children:
             - metalPosition
           - stopSound:
             - CTVO4
+
+  brief:
+    extends: ../missionBrief.vwf
+    properties:
+      title: "Mission 2, Task 11"
+      content: >
+        Path plotted! 
+        <br><br>Update your movement program accordingly.
+
