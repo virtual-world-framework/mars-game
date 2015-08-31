@@ -126,6 +126,17 @@ children:
           actions:
           - playSound:
             - L3VO5_Rover
+          - setProperty:
+            - hud
+            - enabled
+            - false
+          - delay:
+            - 6
+            - openMissionBrief:
+            - setProperty:
+              - hud
+              - enabled
+              - true
 
         highlightEndTile_2_9:
           triggerCondition:
@@ -226,3 +237,12 @@ children:
             - ALVO38_Rover
           - writeToBlackboard:
             - disableFailOnIncompleteProgram
+
+  brief:
+    extends: ../missionBrief.vwf
+    properties:
+      title: "Mission 2, Task 9"
+      content: >
+        Path plotted! 
+        <br><br>Time to change your movement program accordingly…
+

@@ -193,22 +193,12 @@ children:
           - playSound:
             - ALVO30_Rover
 
-        playHint4_2d:
-          triggerCondition:
-          - and:
-            - doOnce:
-            - delay:
-              - 80
-          actions:
-          - playSound:
-            - ALVO29_Rover
-
-        playHint5_2d:
-          triggerCondition:
-          - and:
-            - doOnce:
-            - delay:
-              - 100
-          actions:
-          - playSound:
-            - ALVO31_Rover
+  brief:
+    extends: ../missionBrief.vwf
+    properties:
+      title: "Mission 2, Task 4"
+      content: >
+        It appears that one of your Mini Rovers has gone astray!
+        <br><br> You will need to track it down. In order to do that, you first 
+        need to plot a line that follows matches the direction of the Mini 
+        Rover’s tracks, and then build a program to follow that line. 

@@ -189,3 +189,15 @@ children:
           actions:
           - playSound:
             - ALVO41_Rover
+
+  brief:
+    extends: ../missionBrief.vwf
+    properties:
+      title: "Mission 1, Task 3"
+      content: >
+        Welcome to The Mars Game!  
+        <br><br>You are an autonomous rover, sent on a mission to Mars… but it 
+        appears that you’ve crashed and you can’t quite remember what it is 
+        that you’re here for! 
+        <br><br>Your first objective is to relearn your control interface and 
+        to gather up nearby equipment.

@@ -199,13 +199,13 @@ properties:
       initialVolume: 0.65
       subtitle: "[MANNY]: OK. Now I can move around, it's time to go pick up that Radio Module out there. Then I can call home and find out who is going to rescue me!"
       soundGroup: vo
-      groupReplacementMethod: queue
-    - soundName: "L2VO3_Rover"
-      soundURL: "assets/sounds/vo/L2VO3_Rover_m.ogg"
-      initialVolume: 0.65
-      subtitle: "[MANNY]: I need to match course, got to find a function that matches these tracks."
-      soundGroup: vo
-      groupReplacementMethod: queue
+      groupReplacementMethod: replace
+    # - soundName: "L2VO3_Rover"
+    #   soundURL: "assets/sounds/vo/L2VO3_Rover_m.ogg"
+    #   initialVolume: 0.65
+    #   subtitle: "[MANNY]: I need to match course, got to find a function that matches these tracks."
+    #   soundGroup: vo
+    #   groupReplacementMethod: queue
     - soundName: "L2VO3_Rover_H"
       soundURL: "assets/sounds/vo/L2VO3_Rover_H.ogg"
       initialVolume: 0.65
@@ -1117,12 +1117,12 @@ properties:
       subtitle: "[MANNY]: Whoa! What a view! It's a good thing I'm not afraid of heights."
       soundGroup: vo
       groupReplacementMethod: replace
-    - soundName: "SCVO3_Rover"
-      soundURL: "assets/sounds/vo/SCVO3_Rover_m.ogg"
-      initialVolume: 0.65
-      subtitle: "[MANNY]: Phew! Made it back to the ramp. I need to remember to watch my power level. Turning doesn't take any power, but moving forward on this rough terrain drains my battery."
-      soundGroup: vo
-      groupReplacementMethod: replace
+    # - soundName: "SCVO3_Rover"
+    #   soundURL: "assets/sounds/vo/SCVO3_Rover_m.ogg"
+    #   initialVolume: 0.65
+    #   subtitle: "[MANNY]: Phew! Made it back to the ramp. I need to remember to watch my power level. Turning doesn't take any power, but moving forward on this rough terrain drains my battery."
+    #   soundGroup: vo
+    #   groupReplacementMethod: replace
     - soundName: "SCVO2_Rover"
       soundURL: "assets/sounds/vo/SCVO2_Rover_m.ogg"
       initialVolume: 0.65

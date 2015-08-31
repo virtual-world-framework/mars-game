@@ -152,6 +152,8 @@ children:
             - graph
           - playSound:
             - musicSuccessShort
+          # - playSound:
+          #   - L2VO3_Rover
 
         blocklyOpened_2b:
           triggerCondition:
@@ -159,16 +161,6 @@ children:
           actions:
           - stopBlinkHUDElement:
             - blocklyButton
-
-        playGraphOpenedVO_2b:
-          triggerCondition:
-          - and:
-            - doOnce:
-            - onBlocklyWindowOpened:
-              - graph
-          actions:
-          - playSound:
-            - L2VO3_Rover
 
         playHint1_2b:
           triggerCondition:
@@ -179,3 +171,13 @@ children:
           actions:
           - playSound:
             - ALVO17_Rover
+
+  brief:
+    extends: ../missionBrief.vwf
+    properties:
+      title: "Mission 2, Task 2"
+      content: >
+        It appears that one of your Mini Rovers has gone astray!
+        <br><br> You will need to track it down. In order to do that, you first 
+        need to plot a line that follows matches the direction of the Mini 
+        Rover’s tracks, and then build a program to follow that line. 

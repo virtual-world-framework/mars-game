@@ -127,6 +127,17 @@ children:
           actions:
           - playSound:
             - SCVO8_Control
+          - setProperty:
+            - hud
+            - enabled
+            - false
+          - delay:
+            - 14.5
+            - openMissionBrief:
+            - setProperty:
+              - hud
+              - enabled
+              - true
 
         succeedOnSuccessfulMovement_2e:
           group: successOrFailure
@@ -183,3 +194,12 @@ children:
           actions:
           - playSound:
             - ALVO26_Rover
+
+  brief:
+    extends: ../missionBrief.vwf
+    properties:
+      title: "Mission 2, Task 5"
+      content: >
+        Path plotted! 
+        <br><br>Time to build a program that will follow them. We’ll work on it
+        one step at a time…

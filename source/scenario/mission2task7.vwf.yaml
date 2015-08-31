@@ -204,3 +204,12 @@ children:
           actions:
           - playSound:
             - ALVO28_Rover
+
+  brief:
+    extends: ../missionBrief.vwf
+    properties:
+      title: "Mission 2, Task 7"
+      content: >
+        Path plotted! 
+        <br><br>Time to build a program that will follow them. We’ll work on it
+        one step at a time…

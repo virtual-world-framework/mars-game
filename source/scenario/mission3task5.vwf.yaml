@@ -208,5 +208,5 @@ children:
       title: "Mission 3, Task 5"
       content: >
         Keep it up!
-        <br><br>You still need to be able to move East and West. Let's add 
-        West first.
+        <br><br>You still need to be able to move along the X axis.  Let's add
+        movement to the left first. 

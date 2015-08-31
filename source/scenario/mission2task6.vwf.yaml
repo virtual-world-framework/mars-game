@@ -177,7 +177,7 @@ children:
           - and:
             - doOnce:
             - delay:
-              - 15
+              - 25
           actions:
           - playSound:
             - L3VO2_Rover_H
@@ -187,7 +187,16 @@ children:
           - and:
             - doOnce:
             - delay:
-              - 30
+              - 40
           actions:
           - playSound:
             - L3VO2_Rover_H2
+
+  brief:
+    extends: ../missionBrief.vwf
+    properties:
+      title: "Mission 2, Task 6"
+      content: >
+        Path plotted! 
+        <br><br>Time to build a program that will follow them. We’ll work on it
+        one step at a time…
