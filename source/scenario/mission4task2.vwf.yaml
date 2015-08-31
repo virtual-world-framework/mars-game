@@ -103,24 +103,20 @@ properties:
     - 0
 
   # Solar panel construction
-  - setProperty:
+  - setConstructed:
     - solarPanel1
-    - visible
     - false
 
-  - setProperty:
+  - setConstructed:
     - solarPanel2
-    - visible
     - false
 
-  - setProperty:
+  - setConstructed:
     - solarPanel3
-    - visible
     - false
 
-  - setProperty:
+  - setConstructed:
     - solarPanel4
-    - visible
     - false
 
   - setProperty:
