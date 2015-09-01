@@ -76,6 +76,7 @@ properties:
     - true
   - setBlocklyContext:
     - rover
+    - graph
   - loadToolbox:
     - rover
     - source/scenario/blockly/scenario3c.xml

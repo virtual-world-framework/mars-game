@@ -486,9 +486,15 @@ this.selectBlocklyNode = function( nodeID ) {
     }
 }
 
-this.setBlocklyContext = function( nodeID ) {
-    this.enableBlocklyTabs( [ nodeID ] );
-    this.future( 0.25 ).selectBlocklyNode( nodeID );
+this.setBlocklyContext = function( nodeNames ) {
+    var i, nodeIDs, node;
+    nodeIDs = [];
+    for ( i = 0; i < nodeNames.length; i++ ) {
+        node = this.find( "//" + nodeNames[ i ] )[ 0 ];
+        nodeIDs.push( node.id );
+    }
+    this.enableBlocklyTabs( nodeIDs );
+    this.future( 0.25 ).selectBlocklyNode( nodeIDs[ 0 ] );
 }
 
 this.clearBlocklyContext = function() {
