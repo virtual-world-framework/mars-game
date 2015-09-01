@@ -242,8 +242,8 @@ children:
             - disableFailOnIncompleteProgram
           - buildBaseComponent:
             - solarPanel1
-          - deleteNanites:
-            - nanites_Mission4Task2
+          # - deleteNanites:
+          #   - nanites_Mission4Task2
           - delay:
             - 6
             - showAlert:
@@ -268,8 +268,8 @@ children:
             - rover2
             - allSurveys
             - []
-          - deleteNanites:
-            - nanites_Mission4Task3
+          # - deleteNanites:
+          #   - nanites_Mission4Task3
 
   brief:
     extends: ../missionBrief.vwf

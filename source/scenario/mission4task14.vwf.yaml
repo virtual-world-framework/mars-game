@@ -304,8 +304,8 @@ children:
             - disableFailOnIncompleteProgram
           - buildBaseComponent:
             - greenhouse1
-          - deleteNanites:
-            - nanites_Mission4Task14
+          # - deleteNanites:
+          #   - nanites_Mission4Task14
           - delay:
             - 6
             - showAlert:
@@ -338,12 +338,12 @@ children:
             - allSurveys
             - []
 
-        onScenarioFailed4_14:
-          triggerCondition:
-          - onScenarioFailed:
-          actions:
-          - deleteNanites:
-            - nanites_Mission4Task14
+        # onScenarioFailed4_14:
+        #   triggerCondition:
+        #   - onScenarioFailed:
+        #   actions:
+        #   - deleteNanites:
+        #     - nanites_Mission4Task14
 
   brief:
     extends: ../missionBrief.vwf

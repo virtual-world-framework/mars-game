@@ -295,14 +295,14 @@ children:
           - clearBlockly:
           - playSound:
             - musicSuccessShort
-          - deleteNanites:
-            - nanites_Mission4Task9
-          - deleteNanites:
-            - nanites_Mission4Task10
-          - deleteNanites:
-            - nanites_Mission4Task11
-          - deleteNanites:
-            - nanites_Mission4Task12
+          # - deleteNanites:
+          #   - nanites_Mission4Task9
+          # - deleteNanites:
+          #   - nanites_Mission4Task10
+          # - deleteNanites:
+          #   - nanites_Mission4Task11
+          # - deleteNanites:
+          #   - nanites_Mission4Task12
           - scenarioSuccess:
 
         scenarioEnded4_13:
@@ -320,12 +320,12 @@ children:
             - allSurveys
             - []
 
-        onScenarioFailed4_13:
-          triggerCondition:
-          - onScenarioFailed:
-          actions:
-          - deleteNanites:
-            - nanites_Mission4Task13
+        # onScenarioFailed4_13:
+        #   triggerCondition:
+        #   - onScenarioFailed:
+        #   actions:
+        #   - deleteNanites:
+        #     - nanites_Mission4Task13
 
   brief:
     extends: ../missionBrief.vwf

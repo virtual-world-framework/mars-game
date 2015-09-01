@@ -302,8 +302,8 @@ children:
           actions:
           - writeToBlackboard:
             - disableFailOnIncompleteProgram
-          - deleteNanites:
-            - nanites_Mission4Task15
+          # - deleteNanites:
+          #   - nanites_Mission4Task15
           - buildBaseComponent:
             - waterWell1
           - delay:
@@ -342,12 +342,12 @@ children:
             - allSurveys
             - []
 
-        onScenarioFailed4_15:
-          triggerCondition:
-          - onScenarioFailed:
-          actions:
-          - deleteNanites:
-            - nanites_Mission4Task15
+        # onScenarioFailed4_15:
+        #   triggerCondition:
+        #   - onScenarioFailed:
+        #   actions:
+        #   - deleteNanites:
+        #     - nanites_Mission4Task15
 
   brief:
     extends: ../missionBrief.vwf

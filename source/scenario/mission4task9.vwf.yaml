@@ -272,12 +272,12 @@ children:
             - allSurveys
             - []
 
-        onScenarioFailed4_9:
-          triggerCondition:
-          - onScenarioFailed:
-          actions:
-          - deleteNanites:
-            - nanites_Mission4Task9
+        # onScenarioFailed4_9:
+        #   triggerCondition:
+        #   - onScenarioFailed:
+        #   actions:
+        #   - deleteNanites:
+        #     - nanites_Mission4Task9
 
   brief:
     extends: ../missionBrief.vwf

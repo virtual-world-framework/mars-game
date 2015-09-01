@@ -214,7 +214,7 @@ this.handleDrawingBlocks = function ( blockName, blockID, blockNode, blockExeTim
         var scenarioNanites = {
             "extends": "http://vwf.example.com/node3.vwf"
         }
-        this.naniteSystems.children.create( "nanites_" + this.activeScenarioPath, scenarioNanites );
+        // this.naniteSystems.children.create( "nanites_" + this.activeScenarioPath, scenarioNanites );
     } else if ( blockName === 'endTriangle' && blockNode !== undefined ) {
         var currentArray = nodeObject.surveyArray.slice( 0 );
         if ( currentArray[ 0 ][ 0 ] !== currentArray[ currentArray.length - 1 ][ 0 ] 
@@ -228,7 +228,7 @@ this.handleDrawingBlocks = function ( blockName, blockID, blockNode, blockExeTim
         var currentArray = nodeObject.surveyArray.slice( 0 );
         //currentArray.push( currentPosition );
         //nodeObject.surveyArray = currentArray;
-        this.createNaniteSystem( currentArray.slice(), nodeObject );
+        // this.createNaniteSystem( currentArray.slice(), nodeObject );
     } else {
         var currentArray = nodeObject.allSurveys.slice( 0 );
         this.blocklyCompletedSurvey( 'rover2', currentArray );

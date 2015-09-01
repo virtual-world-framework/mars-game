@@ -268,8 +268,8 @@ children:
             - disableFailOnIncompleteProgram
           - buildBaseComponent:
             - solarPanel4
-          - deleteNanites:
-            - nanites_Mission4Task7
+          # - deleteNanites:
+          #   - nanites_Mission4Task7
           - delay:
             - 6
             - showAlert:
@@ -299,12 +299,12 @@ children:
             - allSurveys
             - []
 
-        onScenarioFailed4_7:
-          triggerCondition:
-          - onScenarioFailed:
-          actions:
-          - deleteNanites:
-            - nanites_Mission4Task7
+        # onScenarioFailed4_7:
+        #   triggerCondition:
+        #   - onScenarioFailed:
+        #   actions:
+        #   - deleteNanites:
+        #     - nanites_Mission4Task7
 
   brief:
     extends: ../missionBrief.vwf
