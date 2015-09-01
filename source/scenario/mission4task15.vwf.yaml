@@ -22,7 +22,7 @@ properties:
 
   # objective
   - setObjective:
-    - "Translate your triangle and reflect it across both axis to get [-1,-6], [-1,-9], [-3,-6] and [-1,-6], [-1,-9], [1,-6]."
+    - "Translate your triangle and reflect it across both axis to get (-1,-6), (-1,-9), (-3,-6) and (-1,-6), (-1,-9), (1,-6)."
 
   # blockly
   - setBlocklyContext:

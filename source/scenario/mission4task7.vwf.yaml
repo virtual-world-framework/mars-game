@@ -22,7 +22,7 @@ properties:
 
   # objective
   - setObjective:
-    - "Translate your triangle to [0,0], [-2,0], [0,-2]."
+    - "Reflect across both axes to build build solar panel #4."
 
   # blockly
   - setBlocklyContext:
@@ -58,15 +58,15 @@ properties:
   - setProperty:
     - rover2
     - battery
-    - 1000
+    - 100
   - setProperty:
     - rover2
     - batteryMax
-    - 1000
+    - 100
   - setProperty:
     - rover2
     - blockly_allowedBlocks
-    - 27
+    - 51
   - setProperty:
     - rover2
     - lowRam
@@ -311,4 +311,6 @@ children:
     properties:
       title: "Mission 4, Task 7"
       content: >
-        Placeholder
+        One more panel to go!
+        <br><br>This time, reflect your triangle across both axes, then dilate 
+        it, move to (-3,0), and initiate construction.

@@ -22,7 +22,7 @@ properties:
 
   # objective
   - setObjective:
-    - "Reflect your triangle across the Y axis to get [0,0], [0,1], and [-1,0]."
+    - "Reflect the unit triangle across the Y axis to get a new triangle."
 
   # Blockly
   - setBlocklyContext:
@@ -58,15 +58,15 @@ properties:
   - setProperty:
     - rover2
     - battery
-    - 1000
+    - 100
   - setProperty:
     - rover2
     - batteryMax
-    - 1000
+    - 100
   - setProperty:
     - rover2
     - blockly_allowedBlocks
-    - 15
+    - 25
   - setProperty:
     - rover2
     - lowRam
@@ -173,16 +173,6 @@ children:
     properties: 
       triggers$:
 
-        openMissionBrief_4_4:
-          triggerCondition:
-          - and:
-            - onScenarioStart:
-            - doOnce:
-          actions:
-          - delay:
-            - 9
-            - openMissionBrief:
-
         playStartingVO_4_4:
           triggerCondition:
           - and:
@@ -193,6 +183,9 @@ children:
             - TM4V14_MANNY
           - playSound:
             - TM4V15_MC
+          - delay:
+            - 9
+            - openMissionBrief:
 
         succeedOnTriangle_4_4:
           group: successOrFailure
@@ -239,10 +232,10 @@ children:
     properties:
       title: "Mission 4, Task 4"
       content: >
-        Excellent! That triangle is perfect for a solar panel! 
-        Let's add some more so we can generate more power. For the next triangle, 
-        we can reflect the last triangle so we don't have to make new vertices from 
-        scratch! <br><br>To reflect, or flip the triangle across the y axis, you multiply 
-        the x values of the vertices by -1. You can do the same across 
-        the x axis by multiplying the y values by -1. Try multiplying the x values 
-        to reflect the triangle across the y axis.
+        Excellent! You have your first solar panel built!
+        <br><br>Let's add some more solar panels so that we don't run out of 
+        power. One easy way to do that is to reflect the triangle that we just
+        drew across the X or Y axes in order to get a new triangle that is the
+        same size.
+        <br><br>To start, let's try simply reflecting the unit triangle that is
+        built in to the DrawTriangle procedure across the Y axis. 

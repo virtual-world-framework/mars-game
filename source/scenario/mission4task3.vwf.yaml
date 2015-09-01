@@ -21,7 +21,7 @@ properties:
 
   # objective
   - setObjective:
-    - "Move to the blinking tile and initiate construction."
+    - "Move to (-3,0) and initiate construction."
 
   # blockly
   - setBlocklyContext:
@@ -53,11 +53,11 @@ properties:
   - setProperty:
     - rover2
     - battery
-    - 1000
+    - 100
   - setProperty:
     - rover2
     - batteryMax
-    - 1000
+    - 100
   - setProperty:
     - rover2
     - blockly_allowedBlocks
@@ -276,8 +276,7 @@ children:
     properties:
       title: "Mission 4, Task 3"
       content: >
-        Good work! Now that you’ve placed the triangle in 
-        a good spot, we should dilate it to make it bigger. <br><br>To dilate, or change the 
-        size of the triangle, you can multiply the x and y values of the vertices by 
-        a number to make them further apart. Let's make the triangle 2 times the "
-        size it was. Try multiplying your vertices to make the triangle twice as large.
+        Good work! 
+        <br><br>Now that you have your triangle placed properly, you need to
+        move Peregrine to the designated "safe spot" and then use the Init
+        Nano Construction block to make the construction start.

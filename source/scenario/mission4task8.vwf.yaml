@@ -22,7 +22,7 @@ properties:
 
   # objective
   - setObjective:
-    - "Translate your triangle across both axes to get [-7,-7],[-7,-6],[-6,-7]."
+    - "Translate the unit triangle to position (-7,-7), (-7,-6), (-6,-7)."
 
   # blockly
   - setBlocklyContext:
@@ -58,15 +58,15 @@ properties:
   - setProperty:
     - rover2
     - battery
-    - 1000
+    - 100
   - setProperty:
     - rover2
     - batteryMax
-    - 1000
+    - 100
   - setProperty:
     - rover2
     - blockly_allowedBlocks
-    - 40
+    - 22
   - setProperty:
     - rover2
     - lowRam
@@ -209,16 +209,6 @@ children:
     properties: 
       triggers$:
 
-        openMissionBrief_4_8:
-          triggerCondition:
-          - and:
-            - onScenarioStart:
-            - doOnce:
-          actions:
-          - delay:
-            - 2
-            - openMissionBrief:
-
         playStartingVO_4_8:
           triggerCondition:
           - and:
@@ -227,6 +217,9 @@ children:
           actions:
           - playSound:
             - TM4V23_MC
+          - delay:
+            - 23
+            - openMissionBrief:
 
         succeedOnTriangle_4_8:
           group: successOrFailure
@@ -279,4 +272,12 @@ children:
     properties:
       title: "Mission 4, Task 8"
       content: >
-        Placeholder
+        Excellent!
+        <br><br>Now that the solar panels are complete, it's time to build a
+        Habitation Dome for the human explorers.
+        <br><br>We don't want to build the Habitation Dome right on top of our 
+        solar panels so we'll need to translate the triangles, or move them to
+        a different position. Let's begin by translating a triangle 7 spaces
+        down and to the left.
+        <br><br>This is just a practice triangle, so there is no need to
+        initiate construction when it is done.

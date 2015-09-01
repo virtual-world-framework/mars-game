@@ -22,7 +22,7 @@ properties:
 
   # objective
   - setObjective:
-    - "Reflect across x and dilate to get [0,0], [-2,0], [2,0]."
+    - "Reflect across the X axis and dilate again to build solar panel #3."
 
   # blockly
   - setBlocklyContext:
@@ -58,11 +58,11 @@ properties:
   - setProperty:
     - rover2
     - battery
-    - 1000
+    - 100
   - setProperty:
     - rover2
     - batteryMax
-    - 1000
+    - 100
   - setProperty:
     - rover2
     - blockly_allowedBlocks
@@ -294,10 +294,8 @@ children:
     properties:
       title: "Mission 4, Task 6"
       content: >
-        You're almost done! Let’s add one more triangle by 
-        reflecting the triangle across both the x and y axes. <br><br>Remember 
-        that you can reflect across the x axis by multiplying the y values by 
-        -1 and reflect across the y axis by multiplying the x values by 
-        -1. So, to do both, you will have to multiply both the x and y 
-        values by -1. Try multiplying your vertices to reflect over the 
-        x and y axes.
+        Solar panel #2 is complete!
+        <br><br>For solar panel #3, you can do the same thing but reflect 
+        across the X axis this time.
+        <br><br>Once again, remember that you can only initiate construction
+        from position (-3,0).

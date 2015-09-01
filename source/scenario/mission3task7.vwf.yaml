@@ -23,7 +23,7 @@ properties:
   startState:
   # objective
   - setObjective:
-    - "Use the navigate procedure to go to [-13,-9]."
+    - "Use the navigate procedure to go to (-13,-9)."
 
   # sounds/video
   - playSound:
@@ -198,8 +198,8 @@ children:
           - scenarioSuccess:
           - showAlert:
             - "Test program completed!"
-          - playSound:
-            - musicSuccessShort
+          # - playSound:
+          #   - musicSuccessShort
 
   brief:
     extends: ../missionBrief.vwf

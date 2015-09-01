@@ -22,7 +22,7 @@ properties:
 
   # objective
   - setObjective:
-    - "Translate your triangle across both axis and reflect it across the y-axis to get to [-7,-9], [-4,-9], [-7,-12]."
+    - "Translate and dilate again, but this time reflect across the X axis and move 2 spaces in the -Y direction."
 
   # blockly
   - setBlocklyContext:
@@ -58,15 +58,15 @@ properties:
   - setProperty:
     - rover2
     - battery
-    - 1000
+    - 100
   - setProperty:
     - rover2
     - batteryMax
-    - 1000
+    - 100
   - setProperty:
     - rover2
     - blockly_allowedBlocks
-    - 47
+    - 60
   - setProperty:
     - rover2
     - lowRam
