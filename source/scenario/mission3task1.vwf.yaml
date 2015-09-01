@@ -206,7 +206,7 @@ children:
         from Mission Control, you can rebuild it. 
         <br><br> You'll create the Navigate procedure one step at a time. Each
         step along the way, Mission Control will provide a test program to 
-        checks that things are working correctly. The test program will be 
+        check that things are working correctly. The test program will be 
         locked so that you can’t change it - your job is to modify the Navigate
         procedure itself so that the test program is satisfied.
         <br><br> It looks like this first portion of the Navigate procedure is 

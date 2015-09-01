@@ -305,7 +305,7 @@ properties:
     - soundName: "TM3VO1B_MC"
       soundURL: "assets/sounds/vo/newmission3vo1.ogg"
       initialVolume: 0.65
-      subtitle: "[MISSION CONTROL]: Well, that was unexpected. He seems to be badly malfunctioning. Hopefully your scout rover will be able to perform his tasks, at least for now...In any case, your next task is to recover the Base Pod, which contains essential supplies for your mission. I am tracking the pod from my satellite view...Its coordinates are [-13,-9]."
+      subtitle: "[MISSION CONTROL]: Well, that was unexpected. He seems to be badly malfunctioning. Hopefully your scout rover will be able to perform his tasks, at least for now...In any case, your next task is to recover the Base Pod, which contains essential supplies for your mission. I am tracking the pod from my satellite view...Its coordinates are (-13,-9)."
       soundGroup: vo
       groupReplacementMethod: replace
     - soundName: "TM3VO2_Rover"
@@ -366,23 +366,22 @@ properties:
       soundURL: "assets/sounds/vo/newmission3vo11.ogg"
       initialVolume: 0.65
       subtitle: "[MANNY]: I...!"
-      soundGroup: replace
+      soundGroup: vo
       groupReplacementMethod: queue
-      queueDelayTime: .5
     - soundName: "TM3V12_MC"
       soundURL: "assets/sounds/vo/newmission3vo12.ogg"
       initialVolume: 0.65
       subtitle: "[MISSION CONTROL]: Of course..."
       soundGroup: vo
       groupReplacementMethod: queue
-      queueDelayTime: .5
+      queueDelayTime: .2
     - soundName: "TM3V13_Rover"
       soundURL: "assets/sounds/vo/newmission3vo13.ogg"
       initialVolume: 0.65
       subtitle: "[MANNY]: *sigh*"
       soundGroup: vo
       groupReplacementMethod: queue
-      queueDelayTime: .5
+      queueDelayTime: .8
     - soundName: "TM3V14_MC"
       soundURL: "assets/sounds/vo/newmission3vo14.ogg"
       initialVolume: 0.65
@@ -404,7 +403,7 @@ properties:
     - soundName: "TM3V17_MC"
       soundURL: "assets/sounds/vo/newmission3vo17.ogg"
       initialVolume: 0.65
-      subtitle: "[MISSION CONTROL]: Well done! Now that your Navigate Procedure is working again, let's go get the base pod! As I said before, our satellite imagery shows that it landed at position [-13,-9]."
+      subtitle: "[MISSION CONTROL]: Well done! Now that your Navigate Procedure is working again, let's go get the base pod! As I said before, our satellite imagery shows that it landed at position (-13,-9)."
       soundGroup: vo
       groupReplacementMethod: replace
     - soundName: "TM4V1_MC"
@@ -458,7 +457,7 @@ properties:
     - soundName: "TM4V11_MC"
       soundURL: "assets/sounds/vo/TM4_11_MC.ogg" 
       initialVolume: 0.65
-      subtitle: "[MISSION CONTROL]: Yes, although it’s only that simple when one of the corners is located at [0,0]."
+      subtitle: "[MISSION CONTROL]: Yes, although it’s only that simple when one of the corners is located at (0,0)."
       soundGroup: vo
       groupReplacementMethod: queue
     - soundName: "TM4V12_MC"
@@ -470,7 +469,7 @@ properties:
     - soundName: "TM4V13_MANNY"
       soundURL: "assets/sounds/vo/TM4_13_MANNY.ogg" 
       initialVolume: 0.65
-      subtitle: "[MANNY]: Let’s see… [-3,0] looks like a safe spot for him to stand."
+      subtitle: "[MANNY]: Let’s see… (-3,0) looks like a safe spot for him to stand."
       soundGroup: vo
       groupReplacementMethod: queue
     - soundName: "TM4V14_MANNY"
@@ -536,7 +535,7 @@ properties:
     - soundName: "TM4V24_MC"
       soundURL: "assets/sounds/vo/TM4_24_MC.ogg" 
       initialVolume: 0.65
-      subtitle: "[MISSION CONTROL]: Of course, the habitation dome needs to be bigger than that. Translate the triangle again, but this time dilate it to be three times as big. Remember that dilate only works if one of the corners is still at [0,0] when it is done."
+      subtitle: "[MISSION CONTROL]: Of course, the habitation dome needs to be bigger than that. Translate the triangle again, but this time dilate it to be three times as big. Remember that dilate only works if one of the corners is still at (0,0) when it is done."
       soundGroup: vo
       groupReplacementMethod: queue
     - soundName: "TM4V25_MC"

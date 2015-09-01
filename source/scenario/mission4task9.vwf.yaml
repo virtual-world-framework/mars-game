@@ -22,7 +22,7 @@ properties:
 
   # objective
   - setObjective:
-    - "Translate and dilate your triangle to [-7,-4],[-7,-7],[-4,-7]."
+    - "Translate and dilate your triangle to (-7,-4), (-7,-7), (-4,-7)."
 
   # blockly
   - setBlocklyContext:
@@ -58,15 +58,15 @@ properties:
   - setProperty:
     - rover2
     - battery
-    - 1000
+    - 100
   - setProperty:
     - rover2
     - batteryMax
-    - 1000
+    - 100
   - setProperty:
     - rover2
     - blockly_allowedBlocks
-    - 44
+    - 34
   - setProperty:
     - rover2
     - lowRam
@@ -203,16 +203,6 @@ children:
     properties: 
       triggers$:
 
-        openMissionBrief_4_9:
-          triggerCondition:
-          - and:
-            - onScenarioStart:
-            - doOnce:
-          actions:
-          - delay:
-            - 2
-            - openMissionBrief:
-
         playStartingVO_4_9:
           triggerCondition:
           - and:
@@ -221,6 +211,9 @@ children:
           actions:
           - playSound:
             - TM4V24_MC
+          - delay:
+            - 15
+            - openMissionBrief:
 
         setStartPosition_4_9:
           triggerCondition:
@@ -291,4 +284,9 @@ children:
     properties:
       title: "Mission 4, Task 9"
       content: >
-        Placeholder
+        That worked.
+        <br><br>The habitation dome is quite large, so in addition to 
+        translating the unit triangle you will need to dilate it so that it is
+        3 times as large.
+        <br><br>Draw the first triangle for the habitation dome. There are more
+        triangles to follow, so don't initiate construction yet.

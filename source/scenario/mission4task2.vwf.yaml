@@ -22,7 +22,7 @@ properties:
 
   # objectives
   - setObjective:
-    - "Dilate your triangle so that it's vertices are at [0,0], [0,2], and [2,0]."
+    - "Dilate your triangle so that it's vertices are at (0,0), (0,2), and (2,0)."
 
   # blockly
   - setBlocklyContext:
@@ -58,15 +58,15 @@ properties:
   - setProperty:
     - rover2
     - battery
-    - 1000
+    - 100
   - setProperty:
     - rover2
     - batteryMax
-    - 1000
+    - 100
   - setProperty:
     - rover2
     - blockly_allowedBlocks
-    - 14
+    - 22
   - setProperty:
     - rover2
     - lowRam
@@ -252,14 +252,14 @@ children:
     properties:
       title: "Mission 4, Task 2"
       content: >
-        Well done! You have successfully placed the nanites! 
-        <br><br>Unfortunately, the spot where we had you place the nanites is too 
-        close to the cliff, so it will be in the shade for much of the day. <br><br>
-        Let's translate the vertices of the last triangle to move them further from 
-        the cliff wall. To translate, or move the triangle, you need to add or 
-        subtract from the x and y values of the vertices. Try translating the 
-        triangle 10 spaces along the positive x axis. <br><br>Remember, the x axis 
-        goes from the left (negative x) to the right (positive x). So you will have to 
-        add to the x values of your triangle vertices in order to move them along the 
-        positive x axis. Try adding 10 to the x values of your triangle's vertices. The 
-        addition operation block may come in handy!
+        Well done! You have successfully placed the nanites! Unfortunately, 
+        however, that triangle is too small to construct a solar panel.
+        <br><br> As you can see, the DrawTriangle procedure comes with a 
+        built-in unit triangle. You can adjust the vertices of the triangle by 
+        applying mathematical operations to them.  The first thing that you 
+        need to do is to dilate your triangle, or change it's size.  This is 
+        done by multiplying the X and Y values of each vertex by the amount 
+        that you want the triangle to grow or shrink.
+        <br><br>Of note, dilation only works properly when one of the vertices
+        is at (0,0) - but for now, that's not a problem.
+
