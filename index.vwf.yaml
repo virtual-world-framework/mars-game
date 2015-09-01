@@ -133,8 +133,8 @@ events:
   cameraMounted:
   targetSwitched:
 children:
-  naniteSystems:
-    extends: http://vwf.example.com/node3.vwf
+  # naniteSystems:
+  #   extends: http://vwf.example.com/node3.vwf
   mediaManager:
     extends: http://vwf.example.com/node.vwf
     children:

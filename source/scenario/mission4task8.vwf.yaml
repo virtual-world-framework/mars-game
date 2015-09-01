@@ -240,8 +240,8 @@ children:
               - stopExecution
             - playSound:
               - musicSuccessShort
-            - deleteNanites:
-              - nanites_Mission4Task8
+            # - deleteNanites:
+            #   - nanites_Mission4Task8
             - scenarioSuccess:
 
 
@@ -260,12 +260,12 @@ children:
             - allSurveys
             - []
 
-        onScenarioFailed4_8:
-          triggerCondition:
-          - onScenarioFailed:
-          actions:
-          - deleteNanites:
-            - nanites_Mission4Task8
+        # onScenarioFailed4_8:
+        #   triggerCondition:
+        #   - onScenarioFailed:
+        #   actions:
+        #   - deleteNanites:
+        #     - nanites_Mission4Task8
 
   brief:
     extends: ../missionBrief.vwf
