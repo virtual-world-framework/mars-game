@@ -158,8 +158,8 @@ children:
           - onBlocklyWindowOpened:
           actions:
           - scenarioSuccess:
-          - showAlert:
-            - "You have accessed your programming interface!"
+          # - showAlert:
+          #   - "You have accessed your programming interface!"
           - playSound:
             - musicSuccessShort
           - stopBlinkHUDElement:

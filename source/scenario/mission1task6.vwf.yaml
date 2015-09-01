@@ -116,6 +116,17 @@ children:
           actions:
           - playSound:
             - L1VO14_Rover
+          - setProperty:
+            - hud
+            - enabled
+            - false
+          - delay:
+            - 12
+            - openMissionBrief:
+            - setProperty:
+              - hud
+              - enabled
+              - true
 
         succeedOnSuccess_1f:
           group: successOrFailure
@@ -132,8 +143,8 @@ children:
               - 180
           actions:
           - scenarioSuccess:
-          - showAlert:
-            - "Turning motors are good to go!"
+          # - showAlert:
+          #   - "Turning motors are good to go!"
           - playSound:
             - musicSuccessShort
           - playSound:
@@ -144,7 +155,7 @@ children:
           - and:
             - doOnce:
             - delay:
-              - 18
+              - 30
           actions:
           - playSound:
             - ALVO35_Rover
@@ -154,9 +165,9 @@ children:
     properties:
       title: "Mission 1, Task 6"
       content: >
-        Welcome to The Mars Game!  
-        <br><br>You are an autonomous rover, sent on a mission to Mars… but it 
-        appears that you’ve crashed and you can’t quite remember what it is 
-        that you’re here for! 
-        <br><br>Your first objective is to relearn your control interface and 
-        to gather up nearby equipment.
+        You have calibrated your motors and picked up a spare battery!  
+        <br><br>Your next task is to turn back the way you came, and then
+        move back to the ramp where you started. 
+        <br><br>Let's start with the turn. To do that, drag the blocks from your 
+        last program down to the trashcan and then make a new program that will 
+        turn you around.

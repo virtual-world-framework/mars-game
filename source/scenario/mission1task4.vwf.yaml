@@ -135,8 +135,8 @@ children:
           - onTilesToggle:
           actions:
           - scenarioSuccess:
-          - showAlert:
-            - "You have accessed the grid!"
+          # - showAlert:
+          #   - "You have accessed the grid!"
           - stopBlinkHUDElement:
             - tilesButton
           - playSound:
@@ -159,9 +159,22 @@ children:
     properties:
       title: "Mission 1, Task 4"
       content: >
-        Welcome to The Mars Game!  
-        <br><br>You are an autonomous rover, sent on a mission to Mars… but it 
-        appears that you’ve crashed and you can’t quite remember what it is 
-        that you’re here for! 
-        <br><br>Your first objective is to relearn your control interface and 
-        to gather up nearby equipment.
+        You have executed a movement command and picked up your helicam!
+        <br><br>Let's take a minute and look around the game window. 
+        <br><br>In the <strong><em>top right</em></strong> corner are the camera controls 
+        that let you switch between first-person camera, third-person camera, 
+        and Helicam (or top-down) view.  You can move the camera using the arrow 
+        keys, the W, A, S, and D keys, or by right-click and dragging.
+        <br><br>In the <strong><em>top left</em></strong> corner, you can see the 
+        currently active rover, as well as your available power and your current 
+        position.
+        <br><br>In the <strong><em>bottom left</em></strong> are the mission objective 
+        and the chat window (which shows everything that the characters in the 
+        game have said). This area is a great place to look when you're stuck, 
+        as it often contains hints about your current task.
+        <br><br>Finally, in the <strong><em>bottom right</em></strong> are several 
+        control buttons. You have already used the PROGRAM button. The GRAPH 
+        button will be introduced in Mission 2. The TILES button enables a 
+        display that shows where you can move. This MISSION button re-opens this 
+        window, in case you want to read it again. Finally, the OPTIONS button
+        lets you adjust system settings or go back to the main menu.

@@ -121,6 +121,17 @@ children:
           actions:
           - playSound:
             - ALVO42_Rover
+          - setProperty:
+            - hud
+            - enabled
+            - false
+          - delay:
+            - 22
+            - openMissionBrief:
+            - setProperty:
+              - hud
+              - enabled
+              - true
 
         succeedOnSuccess_1g:
           group: successOrFailure
@@ -134,8 +145,8 @@ children:
               - [ 0, 0 ]
           actions:
           - scenarioSuccess:
-          - showAlert:
-            - "Now I can get out of this ditch and find the radio!"
+          # - showAlert:
+          #   - "Now I can get out of this ditch and find the radio!"
           # - playSound:
           #   - SCVO3_Rover
           - playSound:
@@ -153,9 +164,11 @@ children:
     properties:
       title: "Mission 1, Task 7"
       content: >
-        Welcome to The Mars Game!  
-        <br><br>You are an autonomous rover, sent on a mission to Mars… but it 
-        appears that you’ve crashed and you can’t quite remember what it is 
-        that you’re here for! 
-        <br><br>Your first objective is to relearn your control interface and 
-        to gather up nearby equipment.
+        Turning motors are good to go! 
+        <br><br>Next you need to get back up onto the ramp. Unfortunately, that
+        is four spaces away, but you only have enough RAM to build a program
+        with three blocks in it. 
+        <br><br>You can solve this problem by using a Repeat block. You can
+        find the Repeat block in the Loops category (on the left-hand side
+        of the programming interface). This block allows you to repeat
+        a sequence of blocks a specified number of times.
