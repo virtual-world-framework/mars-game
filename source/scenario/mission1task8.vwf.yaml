@@ -160,8 +160,8 @@ children:
               - [ 0, 14 ]
           actions:
           - scenarioSuccess:
-          - showAlert:
-            - "You have picked up the radio!"
+          # - showAlert:
+          #   - "You have picked up the radio!"
           - clearBlockly:      
           - stopSound:
             - musicStandardGameplay
@@ -198,9 +198,14 @@ children:
     properties:
       title: "Mission 1, Task 8"
       content: >
-        Alright, progress has been made!  
+        Well done!  
         <br><br>Now that you’ve got the basics under control and have gathered 
         up nearby equipment, it’s time to recover the radio at the far end of 
-        the crash site and make contact with Mission Control. 
-        <br><br>Of course, getting there through the debris may require a bit 
-        of care...
+        the crash site and make contact with Mission Control. Of course, getting
+        there through all of this debris may require a bit of care...
+        <br><br>As you work, you may want to switch to Helicam view and use
+        the arrow keys to look around. You can also use the TILES button to
+        count spaces and see where you can and can't move. Finally, if you 
+        want to start over you can hit the RESET button (next to the START 
+        button in your programming interface) to clear your program out and go
+        back to what you had at the start of the task.

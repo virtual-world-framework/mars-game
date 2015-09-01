@@ -112,7 +112,7 @@ children:
           - playSound:
             - environmentWind
           - setObjective:
-            - "Move forward to pick up your Helicam."
+            - "Move forward one space to pick up your Helicam."
           - setProperty:
             - topDownButton
             - enabled
@@ -136,6 +136,17 @@ children:
           actions:
           - playSound:
             - L1VO2_Rover
+          - setProperty:
+            - hud
+            - enabled
+            - false
+          - delay:
+            - 6
+            - openMissionBrief:
+            - setProperty:
+              - hud
+              - enabled
+              - true
 
         succeedOnSuccess_1b:
           group: successOrFailure
@@ -149,19 +160,17 @@ children:
               - [ 0, 1 ]
           actions:
           - scenarioSuccess:
-          - showAlert:
-            - "You have executed a movement command and picked up your helicam!"
+          # - showAlert:
+          #   - "You have executed a movement command and picked up your helicam!"
           - playSound:
             - musicSuccessShort
-          - playSound:
-            - ALVO40_Rover
 
         playHint1_1b:
           triggerCondition:
           - and:
             - doOnce:
             - delay:
-              - 13
+              - 25
             - not:
               - readBlackboard:
                 - Level1bHint2
@@ -188,9 +197,14 @@ children:
     properties:
       title: "Mission 1, Task 2"
       content: >
-        Welcome to The Mars Game!  
-        <br><br>You are an autonomous rover, sent on a mission to Mars… but it 
-        appears that you’ve crashed and you can’t quite remember what it is 
-        that you’re here for! 
-        <br><br>Your first objective is to relearn your control interface and 
-        to gather up nearby equipment.
+        You have accessed your programming interface! 
+        <br><br>Now that you've got your programming interface open, you need
+        to build your first program. In order to do that, you drag the blocks 
+        that you want to use from the <strong><em>palette</em></strong> (on the 
+        left-hand side of the window) to the <strong><em>assembly area</em></strong> (on 
+        the right), and then hit the START button (in the bottom right) to
+        run your program.
+        <br><br>While you're here, notice the <strong><em>categories</em></strong> to the left 
+        of the palette. Right now there's only one category of blocks, but more
+        will be added as you progress. You can open and close the palette by 
+        clicking on the category.
