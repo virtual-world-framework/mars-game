@@ -111,7 +111,7 @@ children:
             - onScenarioStart:
           actions:
           - playSound:
-            - L3VO6_Rover
+            - m2t10vo010
           - setProperty:
             - hud
             - enabled
@@ -161,7 +161,7 @@ children:
               - 60
           actions:
           - playSound:
-            - ALVO31_Rover
+            - m2t10vo020
 
   brief:
     extends: ../missionBrief.vwf

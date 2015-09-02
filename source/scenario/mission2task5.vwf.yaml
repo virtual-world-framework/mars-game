@@ -157,7 +157,7 @@ children:
           - playSound:
             - musicSuccessShort
           - playSound:
-            - L3VO1_Rover_S
+            - m2t5vo040
 
         highlightEndTile:
           triggerCondition:
