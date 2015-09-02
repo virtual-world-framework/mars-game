@@ -21,10 +21,7 @@ properties:
   nextScenarioPath: "Mission2Task7"
 
   startState:
-  - setProperty:
-    - rover3
-    - visible
-    - false
+  
   - setProperty:
     - rover2
     - visible

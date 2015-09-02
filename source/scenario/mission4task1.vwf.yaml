@@ -85,10 +85,7 @@ properties:
     - rover2
 
   # Rosie 
-  - setProperty:
-    - rover3
-    - visible
-    - false
+  
 
   # Grid
   - setGridAxes:

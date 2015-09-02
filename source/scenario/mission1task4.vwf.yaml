@@ -56,10 +56,7 @@ properties:
     - [ 0, 1 ]
   - selectRover:
     - rover
-  - setProperty:
-    - rover3
-    - visible
-    - false
+  
   - setProperty:
     - rover2
     - visible

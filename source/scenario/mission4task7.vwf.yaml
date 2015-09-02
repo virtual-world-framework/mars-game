@@ -78,10 +78,7 @@ properties:
     - [-27, 19]
 
   # Rosie disabled
-  - setProperty:
-    - rover3
-    - visible
-    - false
+  
 
   # Grid and disable blocklyLine
   - setGridAxes:

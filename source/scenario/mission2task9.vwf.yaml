@@ -25,10 +25,7 @@ properties:
     - videoManager  
     - url 
     - [ "assets/video/end_cinematic.webm", "assets/video/end_cinematic.mp4" ]
-  - setProperty:
-    - rover3
-    - visible
-    - false
+  
   - setProperty:
     - rover2
     - visible
