@@ -2405,7 +2405,7 @@ Blockly.Blocks[ 'math_number_out_m4t8' ] = {
   init: function() {
     this.setColour( 60 );
     this.appendValueInput( "INPUT" )
-        .appendField(new Blockly.FieldDropdown([["-8", "-8"],["-7","-7"],["-1","-1"]]), "VALUE")
+        .appendField(new Blockly.FieldDropdown([["7", "7"],["1","1"],["0","0"]]), "VALUE")
         .setCheck( [ 'OperatorAddSubtract','OperatorMultiplyDivide','Variable','LeftParenthesis','RightParenthesis','Conditional' ] );
     this.setOutput( true, 'Number' );
     this.data = currentBlocklyNodeID;
@@ -2443,7 +2443,7 @@ Blockly.Blocks[ 'math_number_out_m4t9' ] = {
   init: function() {
     this.setColour( 60 );
     this.appendValueInput( "INPUT" )
-        .appendField(new Blockly.FieldDropdown([["-8", "-8"],["-9","-9"],["-1","-1"]]), "VALUE")
+        .appendField(new Blockly.FieldDropdown([["7", "7"],["3","3"],["1","1"],["0","0"]]), "VALUE")
         .setCheck( [ 'OperatorAddSubtract','OperatorMultiplyDivide','Variable','LeftParenthesis','RightParenthesis','Conditional' ] );
     this.setOutput( true, 'Number' );
     this.data = currentBlocklyNodeID;
@@ -2481,7 +2481,7 @@ Blockly.Blocks[ 'math_number_out_m4t10' ] = {
   init: function() {
     this.setColour( 60 );
     this.appendValueInput( "INPUT" )
-        .appendField(new Blockly.FieldDropdown([["-7", "-7"],["-9","-9"],["-1","-1"]]), "VALUE")
+        .appendField(new Blockly.FieldDropdown([["9", "9"],["7", "7"],["3","3"],["2","2"],["1","1"],["0","0"]]), "VALUE")
         .setCheck( [ 'OperatorAddSubtract','OperatorMultiplyDivide','Variable','LeftParenthesis','RightParenthesis','Conditional' ] );
     this.setOutput( true, 'Number' );
     this.data = currentBlocklyNodeID;
