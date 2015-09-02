@@ -2876,7 +2876,7 @@ Blockly.Blocks['math_number_angle_select'] = {
   init: function() {
     this.setColour(120);
     this.appendValueInput("INPUT")
-        .setCheck(['Number','Variable','LeftParenthesis','OperatorAddSubtract','OperatorMultiplyDivide'])
+        .setCheck(['Number','Variable','Conditional','LeftParenthesis','OperatorAddSubtract','OperatorMultiplyDivide'])
         .appendField("")
         .appendField(new Blockly.FieldAngle("90"), "VALUE");
     this.setOutput(true, "Number");
