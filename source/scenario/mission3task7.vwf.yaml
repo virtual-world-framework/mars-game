@@ -152,15 +152,8 @@ children:
             - hud
             - enabled
             - false
-
-        openMissionBrief_3_7:
-          triggerCondition:
-          - and:
-            - onScenarioStart:
-            - doOnce:
-          actions:
           - delay:
-            - 11
+            - 12
             - openMissionBrief:
             - setProperty:
               - hud
@@ -200,6 +193,26 @@ children:
             - "Test program completed!"
           # - playSound:
           #   - musicSuccessShort
+
+        playHint_M3T7_1:
+          triggerCondition:
+          - and:
+            - doOnce:
+            - delay:
+              - 25
+          actions:
+          - playSound:
+            - m3t7vo010
+
+        playHint_M3T7_2:
+          triggerCondition:
+          - and:
+            - doOnce:
+            - delay:
+              - 50
+          actions:
+          - playSound:
+            - m3t7vo020
 
   brief:
     extends: ../missionBrief.vwf

@@ -181,7 +181,7 @@ children:
               - 40
           actions:
           - playSound:
-            - L2VO3_Rover_H2
+            - ALVO3_Rover_m
 
         playHint3_2d:
           triggerCondition:

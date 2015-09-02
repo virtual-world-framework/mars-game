@@ -157,18 +157,11 @@ children:
           - playSound:
             - TM3V13_Rover
           - playSound:
-            - TM3V14_MC
+            - m3t5vo010
           - setProperty:
             - hud
             - enabled
             - false
-
-        openMissionBrief_3_5:
-          triggerCondition:
-          - and:
-            - onScenarioStart:
-            - doOnce:
-          actions:
           - delay:
             - 15
             - openMissionBrief:

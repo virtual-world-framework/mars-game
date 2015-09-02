@@ -155,15 +155,8 @@ children:
             - hud
             - enabled
             - false
-
-        openMissionBrief_3_6:
-          triggerCondition:
-          - and:
-            - onScenarioStart:
-            - doOnce:
-          actions:
           - delay:
-            - 10
+            - 8
             - openMissionBrief:
             - setProperty:
               - hud

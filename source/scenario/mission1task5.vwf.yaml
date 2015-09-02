@@ -125,7 +125,7 @@ children:
             - onScenarioStart:
           actions:
           - playSound:
-            - L1VO12_Rover
+            - m1t5vo010
           - setProperty:
             - hud
             - enabled

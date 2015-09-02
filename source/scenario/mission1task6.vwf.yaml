@@ -158,7 +158,7 @@ children:
               - 30
           actions:
           - playSound:
-            - ALVO35_Rover
+            - m1t6vo020
 
   brief:
     extends: ../missionBrief.vwf

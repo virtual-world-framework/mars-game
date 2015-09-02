@@ -178,10 +178,10 @@ children:
           - and:
             - doOnce:
             - delay:
-              - 60
+              - 40
           actions:
           - playSound:
-            - ALVO29_Rover
+            - m2t8vo060
 
   brief:
     extends: ../missionBrief.vwf

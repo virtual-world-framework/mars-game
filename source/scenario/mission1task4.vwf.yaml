@@ -142,7 +142,7 @@ children:
           - playSound:
             - musicSuccessShort
           - playSound:
-            - L1VO11_Rover
+            - SCVO2_Rover
 
         playHint1_1d:
           triggerCondition:

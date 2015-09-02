@@ -153,20 +153,17 @@ children:
           - playSound:
             - TM3VO7_Rover
           - playSound:
-            - TM3VO8_MC
+            - m3t3vo010
+          - playSound:
+            - m3t3vo020
+          - playSound:
+            - m3t3vo030
           - setProperty:
             - hud
             - enabled
             - false
-
-        openMissionBrief_3_3:
-          triggerCondition:
-          - and:
-            - onScenarioStart:
-            - doOnce:
-          actions:
           - delay:
-            - 24
+            - 19
             - openMissionBrief:
             - setProperty:
               - hud
@@ -223,6 +220,16 @@ children:
             - "Test program completed!"
           - playSound:
             - musicSuccessShort
+
+        playHint_M3T3:
+          triggerCondition:
+          - and:
+            - doOnce:
+            - delay:
+              - 30
+          actions:
+          - playSound:
+            - m3t3vo040
 
   brief:
     extends: ../missionBrief.vwf

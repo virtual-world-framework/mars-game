@@ -183,15 +183,15 @@ children:
           - playSound:
             - L3VO2_Rover_H
 
-        playHint2_2f:
-          triggerCondition:
-          - and:
-            - doOnce:
-            - delay:
-              - 40
-          actions:
-          - playSound:
-            - L3VO2_Rover_H2
+        # playHint2_2f:
+        #   triggerCondition:
+        #   - and:
+        #     - doOnce:
+        #     - delay:
+        #       - 40
+        #   actions:
+        #   - playSound:
+        #     - ALVO38_Rover
 
   brief:
     extends: ../missionBrief.vwf
