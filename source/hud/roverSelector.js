@@ -26,10 +26,6 @@ this.initializeRovers = function() {
         scene.player.rover2,
         "assets/images/hud/portrait_scout_small.png",
         false );
-    scene.hud.roverSelector.addRoverIcon(
-        scene.player.rover3,
-        "assets/images/hud/portrait_heavy_small.png",
-        false );
 }
 
 this.draw = function( context, position ) {

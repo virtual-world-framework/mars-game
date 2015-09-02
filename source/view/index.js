@@ -38,7 +38,6 @@ var targetID;
 
 var mainRover = undefined;
 var perryRover = undefined;
-var rosieRover = undefined;
 
 var roverSignalValue = 0;
 var roverHeadingValue = 0;
@@ -416,10 +415,6 @@ vwf_view.createdNode = function( nodeID, childID, childExtendsID, childImplement
     if ( childName === "rover2" ) {
         perryRover = childID;
     }
-
-    if ( childName === "rover3" ) {
-        rosieRover = childID;
-    }
   
     if ( childName === "graph" ) {
         blocklyGraphID = childID;
@@ -469,8 +464,6 @@ vwf_view.initializedNode = function( nodeID, childID, childExtendsID, childImple
             node.tab.innerHTML = "Manny";
         } else if (childName == "rover2"){
             node.tab.innerHTML = "Peregrine";
-        } else if (childName == "rover3"){
-            node.tab.innerHTML = "Rosie";
         }
     }
 }
@@ -880,9 +873,6 @@ function clearBlockly() {
     }
     if ( perryRover ){
         vwf_view.kernel.setProperty( perryRover, "blockly_xml", '<xml></xml>' );
-    }
-    if ( rosieRover ){
-        vwf_view.kernel.setProperty( rosieRover, "blockly_xml", '<xml></xml>' );
     }
     if ( blocklyGraphID ){
         vwf_view.kernel.setProperty( blocklyGraphID, "blockly_xml", '<xml></xml>' );

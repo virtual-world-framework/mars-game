@@ -421,7 +421,7 @@ children:
           facingArrow:
             extends: source/roverFacingArrow.vwf
             properties:
-              translation: [ 0, 1.5, -2.5 ]
+              translation: [ 0, 1.75, -2 ]
           rover_base:
             extends: http://vwf.example.com/node3.vwf
             children: 
@@ -526,134 +526,12 @@ children:
           facingArrow:
             extends: source/roverFacingArrow.vwf
             properties:
-              translation: [ 0, 0.25, -2.85 ]
+              translation: [ 0, 0.5, -2.25 ]
           scout_body:
             extends: http://vwf.example.com/node3.vwf
             children:
               scout_wheel:
                 extends: http://vwf.example.com/node3.vwf
-      rover3:
-        visible: false
-        extends: source/fourWheeledRover.vwf
-        implements: 
-        - http://vwf.example.com/blockly/controller.vwf
-        - source/cameraTarget.vwf
-        source: assets/3d/Rosie/heavy_rover.dae
-        type: model/vnd.collada+xml
-        properties:
-          boundingAreaSize: [ 2, 2 ]
-          defaultMount: thirdPerson
-          displayName: "Rosie"
-          castShadows: true
-          receiveShadows: true
-          executionSpeed: 0.5
-          startXML: '<xml></xml>'
-          roverRadius: 7
-          sceneNode:
-            get: |
-              if ( !this.sceneNode ) {
-                this.sceneNode = this.find( "/" )[ 0 ];
-              }
-              return this.sceneNode;
-          terrainName:
-            set: |
-              this.terrainName = value;
-              this.terrain = this.find( "//" + value )[ 0 ];
-              //@ sourceURL=index.vwf.player.rover.terrainName.set
-            value: environment
-          terrain:
-            get: |
-              if ( !this.terrain ) {
-                this.terrain = this.find( "//" + this.terrainName )[ 0 ];
-              }
-              return this.terrain;
-              //@ sourceURL=index.vwf.player.rover.terrain.get
-          sensorValue: false
-          wheelFL:
-            get: |
-              if ( !this.wheelFL ) {
-                this.wheelFL = this.find( "wheel_l1" )[ 0 ];
-              }
-              return this.wheelFL;
-          wheelML:
-            get: |
-              if ( !this.wheelML ) {
-                this.wheelML = this.find( "wheel_l2" )[ 0 ];
-              }
-              return this.wheelML;
-          wheelBL:
-            get: |
-              if ( !this.wheelBL ) {
-                this.wheelBL = this.find( "wheel_l3" )[ 0 ];
-              }
-              return this.wheelBL;
-          wheelFR:
-            get: |
-              if ( !this.wheelFR ) {
-                this.wheelFR = this.find( "wheel_r1" )[ 0 ];
-              }
-              return this.wheelFR;
-          wheelMR:
-            get: |
-              if ( !this.wheelMR ) {
-                this.wheelMR = this.find( "wheel_r2" )[ 0 ];
-              }
-              return this.wheelMR;
-          wheelBR:
-            get: |
-              if ( !this.wheelBR ) {
-                this.wheelBR = this.find( "wheel_r3" )[ 0 ];
-              }
-              return this.wheelBR;
-          wheelRadius: 0.635
-          wheels:
-            - "wheelFL"
-            - "wheelML"
-            - "wheelBL"
-            - "wheelFR"
-            - "wheelMR"
-            - "wheelBR"
-        children:
-          firstPerson:
-            extends: source/cameraMount.vwf
-            properties:
-              navmode: walk
-              translation: [ 0, 0, 1 ]
-              cameraPose: [ 0, 0, 0 ]
-              cameraSpeed: 0
-              targetVisible: false
-              useTargetRotation: true
-          thirdPerson:
-            extends: source/cameraMount.vwf
-            properties:
-              navmode: thirdPerson
-              cameraPose: [ 16, 0, -15 ]
-              worldOffset: [ 0, 0, 2 ]
-              cameraSpeed: 0
-              usePoseFromCamera: true
-          topDown:
-            extends: source/cameraMount.vwf
-            properties:
-              navmode: topDown
-              worldOffset: [ 0, 0, 40 ]
-              cameraPose: [ 0, 0, -90 ]
-              cameraSpeed: 10
-          facingArrow:
-            extends: source/roverFacingArrow.vwf
-            properties:
-              translation: [ 0, 0, 1.5 ]
-          wheel_l1:
-            extends: http://vwf.example.com/node3.vwf
-          wheel_r1:
-            extends: http://vwf.example.com/node3.vwf
-          wheel_l2:
-            extends: http://vwf.example.com/node3.vwf
-          wheel_r2:
-            extends: http://vwf.example.com/node3.vwf
-          wheel_l3:
-            extends: http://vwf.example.com/node3.vwf
-          wheel_r3:
-            extends: http://vwf.example.com/node3.vwf
   pickups:
     extends: http://vwf.example.com/node3.vwf
     children:

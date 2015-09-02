@@ -156,7 +156,7 @@ properties:
     loadToolbox: "source/triggers/actions/action_loadToolbox.vwf"
 
     # Allows you to choose which rover is currently active in Blockly/the HUD
-    # arguments: chosenRover (the rover's name as declared in the scenario i.e. rover, rover2, rover3)
+    # arguments: chosenRover (the rover's name as declared in the scenario i.e. rover, rover2)
     selectRover: "source/triggers/actions/action_selectRover.vwf"
 
     # Returns the player to the menu, without the option to continue the game at a specific scenario (they can still start a new game).
