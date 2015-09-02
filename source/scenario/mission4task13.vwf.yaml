@@ -221,7 +221,7 @@ children:
           - playSound:
             - TM4V29_MANNY
           - playSound:
-            - PerryThanksALot
+            - perryIDidIt07
           - playSound:
             - TM4V31_MANNY
 

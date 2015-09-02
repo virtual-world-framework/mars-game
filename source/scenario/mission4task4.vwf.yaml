@@ -179,13 +179,19 @@ children:
             - doOnce:
             - onScenarioStart:
           actions:
-          - playSound:
-            - TM4V14_MANNY
-          - playSound:
-            - TM4V15_MC
+          # - playSound:
+          #   - TM4V14_MANNY
+          - setProperty:
+            - hud
+            - enabled
+            - false
           - delay:
-            - 9
+            - 7
             - openMissionBrief:
+            - setProperty:
+              - hud
+              - enabled
+              - true
 
         succeedOnTriangle_4_4:
           group: successOrFailure

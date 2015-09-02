@@ -159,16 +159,6 @@ children:
     properties: 
       triggers$:
 
-        openMissionBrief_4_3:
-          triggerCondition:
-          - and:
-            - onScenarioStart:
-            - doOnce:
-          actions:
-          - delay:
-            - 6
-            - openMissionBrief:
-
         setStartPosition_4_3:
           triggerCondition:
           - and:
@@ -207,6 +197,17 @@ children:
             - TM4V12_MC
           - playSound:
             - TM4V13_MANNY
+          - setProperty:
+            - hud
+            - enabled
+            - false
+          - delay:
+            - 6
+            - openMissionBrief:
+            - setProperty:
+              - hud
+              - enabled
+              - true
 
         failOnMissingBlock_4_3:
           group: successOrFailure

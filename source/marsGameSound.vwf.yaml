@@ -13,6 +13,7 @@
 # limitations under the License.
 
 --- 
+
 extends: http://vwf.example.com/sound/soundManager.vwf
 properties:
   allSoundsLoaded: false
@@ -481,7 +482,7 @@ properties:
     - soundName: "TM4V8_MANNY"
       soundURL: "assets/sounds/vo/TM4_8_MANNY.ogg" 
       initialVolume: 0.65
-      subtitle: "[MANNY]: You said it buddy….whatever it is you said…."
+      subtitle: "[MANNY]: You said it buddy... whatever it is you said."
       soundGroup: vo
       groupReplacementMethod: queue
     - soundName: "TM4V9_MC"
@@ -511,15 +512,15 @@ properties:
     - soundName: "TM4V13_MANNY"
       soundURL: "assets/sounds/vo/TM4_13_MANNY.ogg" 
       initialVolume: 0.65
-      subtitle: "[MANNY]: Let’s see… (-3,0) looks like a safe spot for him to stand."
+      subtitle: "[MANNY]: Let’s see... (-3,0) looks like a safe spot for him to stand."
       soundGroup: vo
       groupReplacementMethod: queue
-    - soundName: "TM4V14_MANNY"
-      soundURL: "assets/sounds/vo/TM4_14_MANNY.ogg" 
-      initialVolume: 0.65
-      subtitle: "[MANNY]: One down, three to go!"
-      soundGroup: vo
-      groupReplacementMethod: queue
+    # - soundName: "TM4V14_MANNY"
+    #   soundURL: "assets/sounds/vo/TM4_14_MANNY.ogg" 
+    #   initialVolume: 0.65
+    #   subtitle: "[MANNY]: One down, three to go!"
+    #   soundGroup: vo
+    #   groupReplacementMethod: queue
     - soundName: "TM4V15_MC"
       soundURL: "assets/sounds/vo/TM4_15_MC.ogg" 
       initialVolume: 0.65
@@ -535,7 +536,7 @@ properties:
     - soundName: "TM4V17_MC"
       soundURL: "assets/sounds/vo/TM4_17_MC.ogg" 
       initialVolume: 0.65
-      subtitle: "[MISSION CONTROL]: Of course, it’s not enough to reflect the triangle so that it’s in the right spot. You also need to dilate it in order to make it the right size. Also, don’t forget to move Peregrine to a safe spot and initiate construction once you’re done…"
+      subtitle: "[MISSION CONTROL]: Of course, it’s not enough to reflect the triangle so that it’s in the right spot. You also need to dilate it in order to make it the right size. Also, don’t forget to move Peregrine to a safe spot and initiate construction once you’re done..."
       soundGroup: vo
       groupReplacementMethod: queue
     - soundName: "TM4V18_MANNY"
@@ -565,7 +566,7 @@ properties:
     - soundName: "TM4V22_MANNY"
       soundURL: "assets/sounds/vo/TM4_22_MANNY.ogg" 
       initialVolume: 0.65
-      subtitle: "[MANNY]: Solar panel construction complete… and ready for solar energy collection!"
+      subtitle: "[MANNY]: Solar panel construction complete... and ready for solar energy collection!"
       soundGroup: vo
       groupReplacementMethod: queue
     - soundName: "TM4V23_MC"
@@ -589,13 +590,13 @@ properties:
     - soundName: "TM4V26_MANNY"
       soundURL: "assets/sounds/vo/TM4_26_MANNY.ogg" 
       initialVolume: 0.65
-      subtitle: "[MANNY]: Ok… no pressure now! I guess it’s up to us now, Perry. I think the next thing would be to reflect in across the Y axis, just like last time."
+      subtitle: "[MANNY]: Ok... no pressure now! I guess it’s up to us now, Perry. I think the next thing would be to reflect in across the Y axis, just like last time."
       soundGroup: vo
       groupReplacementMethod: queue
     - soundName: "TM4V27_MANNY"
       soundURL: "assets/sounds/vo/TM4_27_MANNY.ogg" 
       initialVolume: 0.65
-      subtitle: "[MANNY]: Got it! Okay, I can do this.  Two to go.  Let’s reflect across X next…"
+      subtitle: "[MANNY]: Got it! Okay, I can do this.  Two to go.  Let’s reflect across X next..."
       soundGroup: vo
       groupReplacementMethod: queue
     - soundName: "TM4V28_MANNY"
@@ -607,7 +608,7 @@ properties:
     - soundName: "TM4V29_MANNY"
       soundURL: "assets/sounds/vo/TM4_29_MANNY.ogg" 
       initialVolume: 0.65
-      subtitle: "[MANNY]: Right.  Good.  What am I forgetting?  Oh yeah… move to a safe spot and send the ‘construct’ command."
+      subtitle: "[MANNY]: Right.  Good.  What am I forgetting?  Oh yeah... move to a safe spot and send the ‘construct’ command."
       soundGroup: vo
       groupReplacementMethod: queue
     - soundName: "TM4V31_MANNY"
@@ -619,7 +620,7 @@ properties:
     - soundName: "TM4V32_MANNY"
       soundURL: "assets/sounds/vo/TM4_32_MANNY.ogg" 
       initialVolume: 0.65
-      subtitle: "[MANNY]: Ok, what’s next?  Power, shelter… I suppose the Humans will probably want to eat.  Let’s build them a Greenhouse Dome, where they can grow some of what they call “food.”"
+      subtitle: "[MANNY]: Ok, what’s next?  Power, shelter... I suppose the Humans will probably want to eat.  Let’s build them a Greenhouse Dome, where they can grow some of what they call “food.”"
       soundGroup: vo
       groupReplacementMethod: queue
     - soundName: "TM4V33_MANNY"
@@ -655,7 +656,7 @@ properties:
     - soundName: "TM4V42_MANNY"
       soundURL: "assets/sounds/vo/TM4_42_MANNY.ogg" 
       initialVolume: 0.65
-      subtitle: "[MANNY]: Yes Perry, I know it’s corrosive, but Humans like to breathe it! So weird…"
+      subtitle: "[MANNY]: Yes Perry, I know it’s corrosive, but Humans like to breathe it! So weird..."
       soundGroup: vo
       groupReplacementMethod: queue
     - soundName: "TM4V43_MANNY"
@@ -915,15 +916,29 @@ properties:
       subtitle: "[PERRY]: [whistles]"
       soundGroup: vo
       groupReplacementMethod: queue
-    - soundName: "PerryWhatsAClown"
-      soundURL: "assets/sounds/vo/perryWhatsAClown.ogg"
+    - soundName: "perryIDidIt04"
+      soundURL: "assets/sounds/vo/perryIDidIt04.ogg"
       isLooping: false
       initialVolume: 0.85
       subtitle: "[PERRY]: [whistles]"
       soundGroup: vo
       groupReplacementMethod: queue
-    - soundName: "PerryIDidIt"
-      soundURL: "assets/sounds/vo/perryIDidIt05.ogg"
+    - soundName: "perryIDidIt06"
+      soundURL: "assets/sounds/vo/perryIDidIt06.ogg"
+      isLooping: false
+      initialVolume: 0.85
+      subtitle: "[PERRY]: [whistles]"
+      soundGroup: vo
+      groupReplacementMethod: queue
+    - soundName: "perryIDidIt07"
+      soundURL: "assets/sounds/vo/perryIDidIt07.ogg"
+      isLooping: false
+      initialVolume: 0.85
+      subtitle: "[PERRY]: [whistles]"
+      soundGroup: vo
+      groupReplacementMethod: queue
+    - soundName: "PerryWhatsAClown"
+      soundURL: "assets/sounds/vo/perryWhatsAClown.ogg"
       isLooping: false
       initialVolume: 0.85
       subtitle: "[PERRY]: [whistles]"

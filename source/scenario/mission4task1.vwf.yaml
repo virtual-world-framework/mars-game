@@ -223,24 +223,26 @@ children:
           - playSound:
             - TM4V3_MC
           - playSound:
-            - PerryAcknowledge
+            - PerryThanksALot
           - playSound:
             - TM4V5_MC
           - playSound:
             - TM4V6_MANNY
           - playSound:
-            - PerryWhatsAClown
+            - perryIDidIt04
           - playSound:
             - TM4V8_MANNY
-
-        openMissionBrief_4_1:
-          triggerCondition:
-          - and:
-            - delay:
-              - 60
-            - doOnce:
-          actions:
-          - openMissionBrief:
+          - setProperty:
+            - hud
+            - enabled
+            - false
+          - delay:
+            - 60
+            - openMissionBrief:
+            - setProperty:
+              - hud
+              - enabled
+              - true
 
         scenarioEnded4_1:
           triggerCondition:
@@ -267,7 +269,7 @@ children:
         Congratulations! You’ve found the Base Pod! 
         <br><br>The pod you've found contains a large supply of nanites! 
         Nanites are microscopic robots that can construct base components using 
-        nothing but the air and soil of Mars. The pod also contained your 
+        nothing but the air and soil of Mars. The pod also contains your 
         newest rover, Peregrine, who is designed to transport the nanites 
         and place them on the ground to build the base for the humans. 
         <br><br>You seem to be running low on battery! Let's get Peregrine 

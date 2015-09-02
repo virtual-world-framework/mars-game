@@ -188,16 +188,17 @@ children:
           actions:
           - playSound:
             - TM4V9_MC
-
-        openMissionBrief_4_2:
-          triggerCondition:
-          - and:
-            - onScenarioStart:
-            - doOnce:
-          actions:
+          - setProperty:
+            - hud
+            - enabled
+            - false
           - delay:
             - 4
             - openMissionBrief:
+            - setProperty:
+              - hud
+              - enabled
+              - true
 
         succeedOnTriangle_4_2:
           group: successOrFailure

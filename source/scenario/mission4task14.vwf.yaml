@@ -318,7 +318,7 @@ children:
             - playSound:
               - TM4V35_MANNY
             - playSound:
-              - PerryIDidIt
+              - perryIDidIt06
             - playSound:
               - TM4V37_MANNY
             - scenarioSuccess:
