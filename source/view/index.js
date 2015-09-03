@@ -88,6 +88,10 @@ vwf_view.calledMethod = function( nodeID, methodName, methodParams ) {
                     playVideo( src );
                 } );
                 break;
+            case "hideUI":
+                var bVisible = methodParams[ 0 ] && Boolean( currentBlocklyNodeID );
+                blocklyArea.style.visibility = bVisible ? "visible" : "hidden";
+                break;
         }
     }
 }

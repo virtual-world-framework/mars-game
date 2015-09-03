@@ -33,6 +33,18 @@ this.setAllVisible = function( value ) {
     }
 }
 
+this.setHUDEnabled = function( value ) {
+    if ( value ) {
+        this.setAllVisible( value );
+    } else {
+        this.isolateComms();
+    }
+    this.enabled = value;
+    if ( this.scene ) {
+        this.scene.hideUI( value );
+    }
+}
+
 this.isolateComms = function() {
     this.setAllVisible( false );
     this.comms.visible = true;
