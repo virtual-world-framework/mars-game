@@ -422,7 +422,7 @@ children:
           facingArrow:
             extends: source/roverFacingArrow.vwf
             properties:
-              translation: [ 0, 1.75, -2 ]
+              translation: [ 0, 2, -2 ]
           rover_base:
             extends: http://vwf.example.com/node3.vwf
             children: 
@@ -527,7 +527,7 @@ children:
           facingArrow:
             extends: source/roverFacingArrow.vwf
             properties:
-              translation: [ 0, 0.5, -2.25 ]
+              translation: [ 0, 1, -2.5 ]
           scout_body:
             extends: http://vwf.example.com/node3.vwf
             children:
