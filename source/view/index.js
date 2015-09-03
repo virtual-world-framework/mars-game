@@ -215,45 +215,45 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
 
                 if ( blockName === 'moveRadial' ) {
 
-                    // if ( isNaN( blockArgs[ 0 ] ) ) {
-                    //   var extractedVal = blocklyVariables[ blockArgs[ 0 ] ];
-                    //   if ( extractedVal !== undefined ) {
-                    //     var value_x = extractedVal;
-                    //   } else {
-                    //     var value_x = 0;
-                    //   }
-                    // } else {
-                    //     var value_x = blockArgs[ 0 ];
-                    // }
+                    if ( isNaN( blockArgs[ 0 ] ) ) {
+                      var extractedVal = blocklyVariables[ blockArgs[ 0 ] ];
+                      if ( extractedVal !== undefined ) {
+                        var value_x = extractedVal;
+                      } else {
+                        var value_x = 0;
+                      }
+                    } else {
+                        var value_x = blockArgs[ 0 ];
+                    }
 
-                    // if ( isNaN( blockArgs[ 1 ] ) ) {
-                    //   var extractedVal = blocklyVariables[ blockArgs[ 1 ] ];
+                    if ( isNaN( blockArgs[ 1 ] ) ) {
+                      var extractedVal = blocklyVariables[ blockArgs[ 1 ] ];
 
-                    //   if ( extractedVal !== undefined ) {
-                    //     var value_y = extractedVal;
-                    //   } else {
-                    //     var value_y = 0;
-                    //   }
-                    // } else {
-                    //     var value_y = blockArgs[ 1 ];
-                    // }
+                      if ( extractedVal !== undefined ) {
+                        var value_y = extractedVal;
+                      } else {
+                        var value_y = 0;
+                      }
+                    } else {
+                        var value_y = blockArgs[ 1 ];
+                    }
 
-                    // var blocklyNodeValues = blocklyNodes[ blockNode ];
+                    var blocklyNodeValues = blocklyNodes[ blockNode ];
 
-                    // if ( blocklyNodeValues === undefined ) {
-                    //     var blocklyNodeValues = blocklyNodes[ currentBlocklyNodeID ];
-                    // }
+                    if ( blocklyNodeValues === undefined ) {
+                        var blocklyNodeValues = blocklyNodes[ currentBlocklyNodeID ];
+                    }
 
-                    // var currentPosition = blocklyNodeValues[ 'positionSensorValue' ];
+                    var currentPosition = blocklyNodeValues[ 'positionSensorValue' ];
 
-                    // var xOffset = value_x - currentPosition[ 0 ];
-                    // var yOffset = value_y - currentPosition[ 1 ];
+                    var xOffset = value_x - currentPosition[ 0 ];
+                    var yOffset = value_y - currentPosition[ 1 ];
 
-                    // var hypot = Math.sqrt( ( xOffset * xOffset ) + ( yOffset * yOffset ) );
+                    var hypot = Math.sqrt( ( xOffset * xOffset ) + ( yOffset * yOffset ) );
 
-                    // vwf_view.kernel.setProperty( blockNode, "blockly_timeBetweenLines", hypot );
+                    vwf_view.kernel.setProperty( blockNode, "blockly_timeBetweenLines", hypot * 0.5 );
                 } else {
-                    //vwf_view.kernel.setProperty( blockNode, "blockly_timeBetweenLines", blockTime );
+                    vwf_view.kernel.setProperty( blockNode, "blockly_timeBetweenLines", 0.5 );
                 }
 
                 if ( blockID ) {

@@ -256,6 +256,7 @@ Blockly.Blocks['ordered_get_noin'] = {
         .appendField(new Blockly.FieldDropdown([[".x", ".x"], [".y", ".y"]]), "OPTION");
     this.setOutput(true, "OrderedGet");
     this.data = currentBlocklyNodeID;
+    var thisBlock = this;
     this.setTooltip( function() {
       var content = {
         text: 'Retrieves X or Y values from ordered pair blocks.'
@@ -295,7 +296,13 @@ Blockly.Blocks[ 'variables_get' ] = {
         .appendField( Blockly.Msg.VARIABLES_GET_TAIL )
         .setCheck( [ 'Number','Boolean','Variable','OrderedGet','OperatorAddSubtract','OperatorMultiplyDivide','LeftParenthesis','RightParenthesis','Conditional','ANDOR' ] );
     this.setOutput( true );
-    this.setTooltip( Blockly.Msg.VARIABLES_GET_TOOLTIP );
+    var thisBlock = this;
+    this.setTooltip( function() {
+      var content = {
+        text: 'One of the parameters that was specified in the procedure call.'
+      }
+      return showTooltipInBlockly( thisBlock, content );
+    } );
     this.contextMenuMsg_ = Blockly.Msg.VARIABLES_GET_CREATE_SET;
     this.contextMenuType_ = 'variables_set';
     this.data = currentBlocklyNodeID;
@@ -1625,19 +1632,6 @@ Blockly.Blocks[ 'controls_sensor_position' ] = {
       }
       return showTooltipInBlockly( thisBlock, content );
     } );
-  },
-  onchange: function() {
-    if (!this.workspace || this.data === undefined) {
-      // Block has been deleted.
-      return;
-    }
-    // this.setEditable(true);
-    // var blocklyNode = blocklyNodes[ this.data ];
-    // var position = blocklyNode[ 'positionSensorValue' ];
-    // if ( position !== undefined ) {
-    //   this.setFieldValue( '(' + position[ 0 ]+ ','+ position[ 1 ] + ')','VALUE' );
-    // }
-    // this.setEditable(false);
   }
 };
 
@@ -1671,19 +1665,6 @@ Blockly.Blocks[ 'controls_sensor_position_x' ] = {
       }
       return showTooltipInBlockly( thisBlock, content );
     } );
-  },
-  onchange: function() {
-    if (!this.workspace || this.data === undefined) {
-      // Block has been deleted.
-      return;
-    }
-    // this.setEditable(true);
-    // var blocklyNode = blocklyNodes[ this.data ];
-    // var position = blocklyNode[ 'positionSensorValueX' ];
-    // if ( position !== undefined ) {
-    //   this.setFieldValue( '(' + position + ')','VALUE' );
-    // }
-    // this.setEditable(false);
   }
 };
 
@@ -1717,19 +1698,6 @@ Blockly.Blocks[ 'controls_sensor_position_y' ] = {
       }
       return showTooltipInBlockly( thisBlock, content );
     } );
-  },
-  onchange: function() {
-    if (!this.workspace || this.data === undefined) {
-      // Block has been deleted.
-      return;
-    }
-    // this.setEditable(true);
-    // var blocklyNode = blocklyNodes[ this.data ];
-    // var position = blocklyNode[ 'positionSensorValueY' ];
-    // if ( position !== undefined ) {
-    //   this.setFieldValue( '(' + position + ')','VALUE' );
-    // }
-    // this.setEditable(false);
   }
 };
 
@@ -1756,23 +1724,10 @@ Blockly.Blocks[ 'controls_sensor_position_x_no_out' ] = {
     var thisBlock = this;
     this.setTooltip( function() {
       var content = {
-        text: "Checks our scanner for our current location in the coordinate plane."
+        text: "The X value of the rover’s current position."
       }
       return showTooltipInBlockly( thisBlock, content );
     } );
-  },
-  onchange: function() {
-    if (!this.workspace || this.data === undefined) {
-      // Block has been deleted.
-      return;
-    }
-    // this.setEditable(true);
-    // var blocklyNode = blocklyNodes[ this.data ];
-    // var position = blocklyNode[ 'positionSensorValueX' ];
-    // if ( position !== undefined ) {
-    //   this.setFieldValue( '(' + position + ')','VALUE' );
-    // }
-    // this.setEditable(false);
   }
 };
 
@@ -1799,23 +1754,10 @@ Blockly.Blocks[ 'controls_sensor_position_y_no_out' ] = {
     var thisBlock = this;
     this.setTooltip( function() {
       var content = {
-        text: "Checks our scanner for our current location in the coordinate plane."
+        text: "The Y value of the rover’s current position."
       }
       return showTooltipInBlockly( thisBlock, content );
     } );
-  },
-  onchange: function() {
-    if (!this.workspace || this.data === undefined) {
-      // Block has been deleted.
-      return;
-    }
-    // this.setEditable(true);
-    // var blocklyNode = blocklyNodes[ this.data ];
-    // var position = blocklyNode[ 'positionSensorValueY' ];
-    // if ( position !== undefined ) {
-    //   this.setFieldValue( '(' + position + ')','VALUE' );
-    // }
-    // this.setEditable(false);
   }
 };
 
@@ -2088,7 +2030,13 @@ Blockly.Blocks['init_nano_construction'] = {
     this.setNextStatement(true);
     this.setColour(180);
     this.data = currentBlocklyNodeID;
-    this.setTooltip('Starts construction of all drawn builder nanoparticles.');
+    var thisBlock = this;
+    this.setTooltip( function() {
+      var content = {
+        text: "Starts construction of all drawn builder nanoparticles."
+      }
+      return showTooltipInBlockly( thisBlock, content );
+    } );
   }
 };
 
@@ -2457,7 +2405,7 @@ Blockly.Blocks[ 'math_number_out_m4t8' ] = {
   init: function() {
     this.setColour( 60 );
     this.appendValueInput( "INPUT" )
-        .appendField(new Blockly.FieldDropdown([["-8", "-8"],["-7","-7"],["-1","-1"]]), "VALUE")
+        .appendField(new Blockly.FieldDropdown([["7", "7"],["1","1"],["0","0"]]), "VALUE")
         .setCheck( [ 'OperatorAddSubtract','OperatorMultiplyDivide','Variable','LeftParenthesis','RightParenthesis','Conditional' ] );
     this.setOutput( true, 'Number' );
     this.data = currentBlocklyNodeID;
@@ -2495,7 +2443,7 @@ Blockly.Blocks[ 'math_number_out_m4t9' ] = {
   init: function() {
     this.setColour( 60 );
     this.appendValueInput( "INPUT" )
-        .appendField(new Blockly.FieldDropdown([["-8", "-8"],["-9","-9"],["-1","-1"]]), "VALUE")
+        .appendField(new Blockly.FieldDropdown([["7", "7"],["3","3"],["1","1"],["0","0"]]), "VALUE")
         .setCheck( [ 'OperatorAddSubtract','OperatorMultiplyDivide','Variable','LeftParenthesis','RightParenthesis','Conditional' ] );
     this.setOutput( true, 'Number' );
     this.data = currentBlocklyNodeID;
@@ -2533,7 +2481,7 @@ Blockly.Blocks[ 'math_number_out_m4t10' ] = {
   init: function() {
     this.setColour( 60 );
     this.appendValueInput( "INPUT" )
-        .appendField(new Blockly.FieldDropdown([["-7", "-7"],["-9","-9"],["-1","-1"]]), "VALUE")
+        .appendField(new Blockly.FieldDropdown([["9", "9"],["7", "7"],["3","3"],["2","2"],["1","1"],["0","0"]]), "VALUE")
         .setCheck( [ 'OperatorAddSubtract','OperatorMultiplyDivide','Variable','LeftParenthesis','RightParenthesis','Conditional' ] );
     this.setOutput( true, 'Number' );
     this.data = currentBlocklyNodeID;
@@ -2876,7 +2824,7 @@ Blockly.Blocks['math_number_angle_select'] = {
   init: function() {
     this.setColour(120);
     this.appendValueInput("INPUT")
-        .setCheck(['Number','Variable','LeftParenthesis','OperatorAddSubtract','OperatorMultiplyDivide'])
+        .setCheck(['Number','Variable','Conditional','LeftParenthesis','OperatorAddSubtract','OperatorMultiplyDivide'])
         .appendField("")
         .appendField(new Blockly.FieldAngle("90"), "VALUE");
     this.setOutput(true, "Number");
@@ -3388,10 +3336,6 @@ Blockly.Blocks['procedures_callnoreturn_no_out_no_in'] = {
   renameProcedure: function(oldName, newName) {
     if (Blockly.Names.equals(oldName, this.getProcedureCall())) {
       this.setFieldValue(newName, 'NAME');
-      this.setTooltip(
-          (this.outputConnection ? Blockly.Msg.PROCEDURES_CALLRETURN_TOOLTIP :
-           Blockly.Msg.PROCEDURES_CALLNORETURN_TOOLTIP)
-          .replace('%1', newName));
     }
   },
   /**
@@ -3619,10 +3563,6 @@ Blockly.Blocks['procedures_callnoreturn_no_out'] = {
   renameProcedure: function(oldName, newName) {
     if (Blockly.Names.equals(oldName, this.getProcedureCall())) {
       this.setFieldValue(newName, 'NAME');
-      this.setTooltip(
-          (this.outputConnection ? Blockly.Msg.PROCEDURES_CALLRETURN_TOOLTIP :
-           Blockly.Msg.PROCEDURES_CALLNORETURN_TOOLTIP)
-          .replace('%1', newName));
     }
   },
   /**

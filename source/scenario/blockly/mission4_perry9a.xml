@@ -1,7 +1,7 @@
 <xml id="rover" style="display: none">
 
   <category name="Math">
-    <block type="math_number_out" inline="false" x="20" y="-220"><field name="VALUE">0</field></block>
+    <block type="math_number_out_m4t9" inline="false"><field name="VALUE">0</field></block>
     <block type="graph_add"></block>
   </category>
   <sep></sep>
