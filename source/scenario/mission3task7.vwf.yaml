@@ -103,10 +103,7 @@ properties:
   - setGridAxes:
     - 32
     - -17
-  - setProperty:
-    - cargoPod2
-    - rotation
-    - [0 ,0 ,1 , -45 ]
+  
   - setProperty:
     - cargoPod2
     - isClosed

@@ -562,24 +562,50 @@ children:
           tilePosition: [ 0, 1 ]
       minirover:
         extends: source/pickups/minirover.vwf
+        properties:
+          tilePosition: [ -41, 52 ]
   cargoPod2:
     includes: source/buildings/basePod.vwf
     properties:
       tilePosition: [ -32, 23 ]
+      rotation: [ 0, 0, 1, -45 ]
   solarPanel1: 
     extends: source/buildings/solarPanel.vwf
+    properties:
+      tilePosition: [ -23, 20 ]
+      scale: [ 0.4, 0.4, 0.4 ]
   solarPanel2: 
     extends: source/buildings/solarPanel.vwf
+    properties:
+      tilePosition: [ -25, 20 ]
+      scale: [ 0.4, 0.4, 0.4 ]
+      rotation: [ 0, 0, 1, 90 ]
   solarPanel3: 
     extends: source/buildings/solarPanel.vwf
+    properties:
+      tilePosition: [ -23, 18 ]
+      scale: [ 0.4, 0.4, 0.4 ]
+      rotation: [ 0, 0, 1, 270 ]
   solarPanel4: 
     extends: source/buildings/solarPanel.vwf
+    properties:
+      tilePosition: [ -25, 18]
+      scale: [ 0.4, 0.4, 0.4 ]
+      rotation: [ 0, 0, 1, 180 ]
   marsTent1: 
     extends: source/buildings/tent.vwf
+    properties:
+      tilePosition: [ -32, 11 ]
   greenhouse1:
     extends: source/buildings/hydroDome.vwf
+    properties:
+      tilePosition: [ -32, 2 ]
+      rotation: [ 0, 0, 1, 180 ]
   waterWell1:
     extends: source/buildings/waterVap.vwf
+    properties:
+      tilePosition: [ -25, 12 ]
+      scale: [ 0.45, 0.45, 0.45 ]
   ########################
   ###   Mission List   ###
   ########################

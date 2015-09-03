@@ -105,15 +105,6 @@ properties:
     - [ -1, 0 ]
 
   # Solar panel construction
-
-  - addToGrid:
-    - solarPanel1
-    - [ -23, 20 ]
-
-  - setProperty:
-    - solarPanel1
-    - scale
-    - [.4, .4, .4]
   - setConstructed:
     - solarPanel1
     - true
@@ -130,10 +121,7 @@ properties:
     - solarPanel4
     - false
 
-  - setProperty:
-    - cargoPod2
-    - rotation
-    - [0 ,0 ,1 , -45 ]
+  
 
   - setProperty:
     - cargoPod2
