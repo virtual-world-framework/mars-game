@@ -25,10 +25,7 @@ properties:
     - videoManager  
     - url 
     - [ "assets/video/end_cinematic.webm", "assets/video/end_cinematic.mp4" ]
-  - setProperty:
-    - rover3
-    - visible
-    - false
+  
   - setProperty:
     - rover2
     - visible
@@ -88,10 +85,7 @@ properties:
     - visible
     - false
 
-  - setProperty:
-    - cargoPod2
-    - rotation
-    - [0 ,0 ,1 , -45 ]
+  
   - setProperty:
     - cargoPod2
     - isClosed

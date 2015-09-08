@@ -590,18 +590,17 @@ properties:
           gl_FragColor.xyz += laserFactor * ( gridFinalColor + intensity );
         }
       }
-      if ( tilesVisible == 1 ) {
-        vec3 tileValue = extractTileValue( vWorldPosition.xy );
-        float intervalHalf = gridInterval / 2.0;
-        vec2 gridLine = vec2( intervalHalf - mod( vWorldPosition.xy + gridOffset, gridInterval ) );
-        gridLine = max( gridLine, -1.0 * gridLine );
-        vec2 tilePosition = vec2( floor( ( vWorldPosition / gridInterval ) + 0.5 ) );
-        if ( gridLine.x > tilePadding && gridLine.y > tilePadding && tileValue.r > 0.0 ) {
-          if ( tilePosition.x == calloutTile.x && tilePosition.y == calloutTile.y ) {
+      vec3 tileValue = extractTileValue( vWorldPosition.xy );
+      float intervalHalf = gridInterval / 2.0;
+      vec2 gridLine = vec2( intervalHalf - mod( vWorldPosition.xy + gridOffset, gridInterval ) );
+      gridLine = max( gridLine, -1.0 * gridLine );
+      vec2 tilePosition = vec2( floor( ( vWorldPosition / gridInterval ) + 0.5 ) );
+      if ( gridLine.x > tilePadding && gridLine.y > tilePadding && tileValue.r > 0.0 ) {
+        if ( tilePosition.x == calloutTile.x && tilePosition.y == calloutTile.y &&
+          ( tilesVisible == 1 || ( tilesVisible == 0 && calloutHighlight == 1.0 ) ) ) {
             gl_FragColor.xyz += tileColor * ( 0.8 + 1.0 * calloutHighlight );
-          } else {
-            gl_FragColor.xyz += tileColor * 0.8;
-          }
+        } else if ( tilesVisible == 1 ) {
+          gl_FragColor.xyz += tileColor * 0.8;
         }
       }
       #if MAX_TRIS > 0

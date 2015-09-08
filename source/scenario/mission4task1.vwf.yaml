@@ -85,10 +85,7 @@ properties:
     - rover2
 
   # Rosie 
-  - setProperty:
-    - rover3
-    - visible
-    - false
+  
 
   # Grid
   - setGridAxes:
@@ -133,11 +130,6 @@ properties:
   - setConstructed:
     - solarPanel4
     - false
-
-  - setProperty:
-    - cargoPod2
-    - rotation
-    - [0 ,0 ,1 , -45]
 
   - setProperty:
     - cargoPod2

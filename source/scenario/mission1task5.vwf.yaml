@@ -24,10 +24,7 @@ properties:
     - videoManager  
     - url 
     - [ "assets/video/Success1.webm", "assets/video/Success1.mp4" ]
-  - setProperty:
-    - rover3
-    - visible
-    - false
+  
   - setProperty:
     - rover2
     - visible

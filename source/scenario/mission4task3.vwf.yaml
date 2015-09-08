@@ -72,10 +72,7 @@ properties:
 
 
   # Rosie  
-  - setProperty:
-    - rover3
-    - visible
-    - false
+  
 
   # Grid and disabling blocklyLine
   - setGridAxes:
@@ -95,14 +92,6 @@ properties:
     - 0
 
   # Solar panel construction
-
-  - addToGrid:
-    - solarPanel1
-    - [ -23, 20 ]
-  - setProperty:
-    - solarPanel1
-    - scale
-    - [.4, .4, .4]
   - setConstructed:
     - solarPanel1
     - false
@@ -118,11 +107,6 @@ properties:
   - setConstructed:
     - solarPanel4
     - false    
-
-  - setProperty:
-    - cargoPod2
-    - rotation
-    - [0 ,0 ,1 , -45]
 
   - setProperty:
     - cargoPod2

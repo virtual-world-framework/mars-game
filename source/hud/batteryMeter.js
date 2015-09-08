@@ -53,16 +53,12 @@ this.draw = function( context, position ) {
 this.setUpListeners = function() {
     var rover = this.find( "//rover" )[ 0 ];
     var rover2 = this.find( "//rover2" )[ 0 ];
-    var rover3 = this.find( "//rover3" )[ 0 ];
     this.rovers.rover.battery = rover.battery;
     this.rovers.rover.maxBattery = rover.batteryMax;
     this.rovers.rover.position = rover.getTileCoord();
     this.rovers.rover2.battery = rover2.battery;
     this.rovers.rover2.maxBattery = rover2.batteryMax;
     this.rovers.rover2.position = rover2.getTileCoord();
-    this.rovers.rover3.battery = rover3.battery;
-    this.rovers.rover3.maxBattery = rover3.batteryMax;
-    this.rovers.rover3.position = rover3.getTileCoord();
     rover.batteryChanged = this.events.add( function( value ) {
         this.rovers.rover.battery = value;
     }, this );
@@ -88,19 +84,6 @@ this.setUpListeners = function() {
         var tileCoord = tileMap.getTileCoordFromWorld( transform[ 12 ], transform[ 13 ] );
         var position = scene.removeAxisOffset( tileCoord );
         this.rovers.rover2.position = position;
-    }, this );
-    rover3.batteryChanged = this.events.add( function( value ) {
-        this.rovers.rover3.battery = value;
-    }, this );
-    rover3.batteryMaxChanged = this.events.add( function( value ) {
-        this.rovers.rover3.maxBattery = value;
-    }, this );
-    rover3.transformChanged = this.events.add( function( transform ) {
-        var scene = this.parent.scene;
-        var tileMap = scene.tileMap;
-        var tileCoord = tileMap.getTileCoordFromWorld( transform[ 12 ], transform[ 13 ] );
-        var position = scene.removeAxisOffset( tileCoord );
-        this.rovers.rover3.position = position;
     }, this );
 }
 

@@ -266,8 +266,6 @@ this.resetBlocklyBlocks = function( nodeID ) {
             this.player.rover.ram = this.player.rover.ramMax - count;
         } else if ( nodeID === this.player.rover2.id ) {
             this.player.rover2.ram = this.player.rover2.ramMax - count;
-        } else if ( nodeID === this.player.rover3.id ) {
-            this.player.rover3.ram = this.player.rover3.ramMax - count;
         }
     }
     

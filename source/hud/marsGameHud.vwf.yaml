@@ -20,14 +20,10 @@ properties:
   visible: true
   enabled:
     set: |
-      if ( value ) {
-        this.setAllVisible( value );
-      } else {
-        this.isolateComms();
-      }
-      this.enabled = value;
+      this.setHUDEnabled( value );
     value: true
 methods:
+  setHUDEnabled:
   elementPreDraw:
   elementPostDraw:
   setAllBlinking:
