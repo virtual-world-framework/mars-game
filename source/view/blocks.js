@@ -1010,7 +1010,7 @@ Blockly.Blocks['controls_whileUntil'] = {
       this.setWarningText('You must specify the conditions for repeating and the actions to repeat!');
       currentBlocklyErrors[ this.id ] = true;
     } else if ( inputBlock === null ) {
-      this.setWarningText('You must attach your conditions that evaluate to a boolean!');
+      this.setWarningText('You must attach your conditions that evaluate to TRUE or FALSE!');
       currentBlocklyErrors[ this.id ] = true;
     } else if ( statementBlock === null ) {
       this.setWarningText('Your repeat block needs something to repeat!');
@@ -1103,7 +1103,7 @@ Blockly.Blocks['controls_whileUntil_no_in'] = {
       this.setWarningText('You must specify the conditions for repeating and the actions to repeat!');
       currentBlocklyErrors[ this.id ] = true;
     } else if ( inputBlock === null ) {
-      this.setWarningText('You must attach your conditions that evaluate to a boolean!');
+      this.setWarningText('You must attach your conditions that evaluate to TRUE or FALSE!');
       currentBlocklyErrors[ this.id ] = true;
     } else if ( statementBlock === null ) {
       this.setWarningText('Your repeat block needs something to repeat!');
@@ -1194,7 +1194,7 @@ Blockly.Blocks['controls_whileUntil_no_out'] = {
       this.setWarningText('You must specify the conditions for repeating and the actions to repeat!');
       currentBlocklyErrors[ this.id ] = true;
     } else if ( inputBlock === null ) {
-      this.setWarningText('You must attach your conditions that evaluate to a boolean!');
+      this.setWarningText('You must attach your conditions that evaluate to TRUE or FALSE!');
       currentBlocklyErrors[ this.id ] = true;
     } else if ( statementBlock === null ) {
       this.setWarningText('Your repeat block needs something to repeat!');
@@ -1286,7 +1286,7 @@ Blockly.Blocks['controls_whileUntil_no_out_no_in'] = {
       this.setWarningText('You must specify the conditions for repeating and the actions to repeat!');
       currentBlocklyErrors[ this.id ] = true;
     } else if ( inputBlock === null ) {
-      this.setWarningText('You must attach your conditions that evaluate to a boolean!');
+      this.setWarningText('You must attach your conditions that evaluate to TRUE or FALSE!');
       currentBlocklyErrors[ this.id ] = true;
     } else if ( statementBlock === null ) {
       this.setWarningText('Your repeat block needs something to repeat!');
@@ -1565,7 +1565,7 @@ Blockly.Blocks['controls_if_nomut'] = {
       this.setWarningText('You must specify your conditions for executing actions and the actions themselves!');
       currentBlocklyErrors[ this.id ] = true;
     } else if ( inputBlock === null ) {
-      this.setWarningText('You must specify a condition!');
+      this.setWarningText('You must specify a condition that evaluates to TRUE or FALSE!');
       currentBlocklyErrors[ this.id ] = true;
     } else if ( statementBlock === null ) {
       this.setWarningText('Your must specify actions to execute!');
