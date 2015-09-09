@@ -175,7 +175,7 @@ children:
           actions:
           - scenarioSuccess:
           - showAlert:
-            - "Looks like the rover changed course!  Time to plot the new line…"
+            - "Looks like the rover changed course!  Time to plot the new line..."
           - playSound:
             - musicSuccessShort
           - playSound:
@@ -242,5 +242,5 @@ children:
       title: "Mission 2, Task 9"
       content: >
         Path plotted! 
-        <br><br>Time to change your movement program accordingly…
+        <br><br>Time to change your movement program accordingly...
 
