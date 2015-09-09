@@ -103,13 +103,6 @@ Blockly.Blocks['mark_point'] = {
       // Block has been deleted.
       return;
     }
-    // this.setEditable(true);
-    // var blocklyNode = blocklyNodes[ this.data ];
-    // var position = blocklyNode[ 'positionSensorValue' ];
-    // if ( position !== undefined ) {
-    //   this.setFieldValue( '[' + position[ 0 ]+ ','+ position[ 1 ] + ']','VALUE' );
-    // }
-    // this.setEditable(false);
   }
 };
 
@@ -303,8 +296,8 @@ Blockly.Blocks[ 'variables_get' ] = {
       }
       return showTooltipInBlockly( thisBlock, content );
     } );
-    this.contextMenuMsg_ = Blockly.Msg.VARIABLES_GET_CREATE_SET;
-    this.contextMenuType_ = 'variables_set';
+    //this.contextMenuMsg_ = Blockly.Msg.VARIABLES_GET_CREATE_SET;
+    //this.contextMenuType_ = 'variables_set';
     this.data = currentBlocklyNodeID;
   },
   /**
@@ -333,15 +326,15 @@ Blockly.Blocks[ 'variables_get' ] = {
    * @this Blockly.Block
    */
   customContextMenu: function( options ) {
-    var option = { enabled: false };
-    var name = this.getFieldValue( 'VAR' );
-    option.text = this.contextMenuMsg_.replace( '%1', name );
-    var xmlField = goog.dom.createDom( 'field', null, name );
-    xmlField.setAttribute( 'name', 'VAR' );
-    var xmlBlock = goog.dom.createDom( 'block', null, xmlField );
-    xmlBlock.setAttribute( 'type', this.contextMenuType_ );
-    option.callback = Blockly.ContextMenu.callbackFactory( this, xmlBlock );
-    options.push( option );
+    // var option = { enabled: false };
+    // var name = this.getFieldValue( 'VAR' );
+    // option.text = this.contextMenuMsg_.replace( '%1', name );
+    // var xmlField = goog.dom.createDom( 'field', null, name );
+    // xmlField.setAttribute( 'name', 'VAR' );
+    // var xmlBlock = goog.dom.createDom( 'block', null, xmlField );
+    // xmlBlock.setAttribute( 'type', this.contextMenuType_ );
+    // option.callback = Blockly.ContextMenu.callbackFactory( this, xmlBlock );
+    // options.push( option );
   },
 
   /**
@@ -570,6 +563,22 @@ Blockly.Blocks[ 'logic_cond_out' ] = {
       }
       return showTooltipInBlockly( thisBlock, content );
     } );
+  },
+  onchange: function() {
+    if (!this.workspace || this.data === undefined) {
+      // Block has been deleted.
+      return;
+    }
+    
+    var inputBlock = this.getInputTargetBlock('INPUT');
+
+    if ( inputBlock === null ) {
+      this.setWarningText('You must attach a block to compare.');
+      currentBlocklyErrors[ this.id ] = true;
+    } else {
+      currentBlocklyErrors[ this.id ] = false;
+      this.setWarningText(null);
+    }
   }
 };
 
@@ -601,6 +610,22 @@ Blockly.Blocks[ 'logic_cond_eq_out' ] = {
       }
       return showTooltipInBlockly( thisBlock, content );
     } );
+  },
+  onchange: function() {
+    if (!this.workspace || this.data === undefined) {
+      // Block has been deleted.
+      return;
+    }
+    
+    var inputBlock = this.getInputTargetBlock('INPUT');
+
+    if ( inputBlock === null ) {
+      this.setWarningText('You must attach a block to compare.');
+      currentBlocklyErrors[ this.id ] = true;
+    } else {
+      currentBlocklyErrors[ this.id ] = false;
+      this.setWarningText(null);
+    }
   }
 };
 
@@ -628,6 +653,22 @@ Blockly.Blocks[ 'logic_cond_neq_out' ] = {
       }
       return showTooltipInBlockly( thisBlock, content );
     } );
+  },
+  onchange: function() {
+    if (!this.workspace || this.data === undefined) {
+      // Block has been deleted.
+      return;
+    }
+    
+    var inputBlock = this.getInputTargetBlock('INPUT');
+
+    if ( inputBlock === null ) {
+      this.setWarningText('You must attach a block to compare.');
+      currentBlocklyErrors[ this.id ] = true;
+    } else {
+      currentBlocklyErrors[ this.id ] = false;
+      this.setWarningText(null);
+    }
   }
 };
 
@@ -655,6 +696,22 @@ Blockly.Blocks[ 'logic_cond_gt_out' ] = {
       }
       return showTooltipInBlockly( thisBlock, content );
     } );
+  },
+  onchange: function() {
+    if (!this.workspace || this.data === undefined) {
+      // Block has been deleted.
+      return;
+    }
+    
+    var inputBlock = this.getInputTargetBlock('INPUT');
+
+    if ( inputBlock === null ) {
+      this.setWarningText('You must attach a block to compare.');
+      currentBlocklyErrors[ this.id ] = true;
+    } else {
+      currentBlocklyErrors[ this.id ] = false;
+      this.setWarningText(null);
+    }
   }
 };
 
@@ -682,6 +739,22 @@ Blockly.Blocks[ 'logic_cond_lt_out' ] = {
       }
       return showTooltipInBlockly( thisBlock, content );
     } );
+  },
+  onchange: function() {
+    if (!this.workspace || this.data === undefined) {
+      // Block has been deleted.
+      return;
+    }
+    
+    var inputBlock = this.getInputTargetBlock('INPUT');
+
+    if ( inputBlock === null ) {
+      this.setWarningText('You must attach a block to compare.');
+      currentBlocklyErrors[ this.id ] = true;
+    } else {
+      currentBlocklyErrors[ this.id ] = false;
+      this.setWarningText(null);
+    }
   }
 };
 
@@ -709,6 +782,22 @@ Blockly.Blocks[ 'logic_andor_out' ] = {
       }
       return showTooltipInBlockly( thisBlock, content );
     } );
+  },
+  onchange: function() {
+    if (!this.workspace || this.data === undefined) {
+      // Block has been deleted.
+      return;
+    }
+    
+    var inputBlock = this.getInputTargetBlock('INPUT');
+
+    if ( inputBlock === null ) {
+      this.setWarningText('You must attach a block to compare.');
+      currentBlocklyErrors[ this.id ] = true;
+    } else {
+      currentBlocklyErrors[ this.id ] = false;
+      this.setWarningText(null);
+    }
   }
 };
 
@@ -738,6 +827,22 @@ Blockly.Blocks[ 'logic_and' ] = {
       }
       return showTooltipInBlockly( thisBlock, content );
     } );
+  },
+  onchange: function() {
+    if (!this.workspace || this.data === undefined) {
+      // Block has been deleted.
+      return;
+    }
+    
+    var inputBlock = this.getInputTargetBlock('INPUT');
+
+    if ( inputBlock === null ) {
+      this.setWarningText('You must attach a block to compare.');
+      currentBlocklyErrors[ this.id ] = true;
+    } else {
+      currentBlocklyErrors[ this.id ] = false;
+      this.setWarningText(null);
+    }
   }
 };
 
@@ -765,6 +870,22 @@ Blockly.Blocks[ 'logic_or' ] = {
       }
       return showTooltipInBlockly( thisBlock, content );
     } );
+  },
+  onchange: function() {
+    if (!this.workspace || this.data === undefined) {
+      // Block has been deleted.
+      return;
+    }
+    
+    var inputBlock = this.getInputTargetBlock('INPUT');
+
+    if ( inputBlock === null ) {
+      this.setWarningText('You must attach a block to compare.');
+      currentBlocklyErrors[ this.id ] = true;
+    } else {
+      currentBlocklyErrors[ this.id ] = false;
+      this.setWarningText(null);
+    }
   }
 };
 
@@ -792,6 +913,22 @@ Blockly.Blocks[ 'logic_not' ] = {
       }
       return showTooltipInBlockly( thisBlock, content );
     } );
+  },
+  onchange: function() {
+    if (!this.workspace || this.data === undefined) {
+      // Block has been deleted.
+      return;
+    }
+    
+    var inputBlock = this.getInputTargetBlock('INPUT');
+
+    if ( inputBlock === null ) {
+      this.setWarningText('You must attach a block to compare.');
+      currentBlocklyErrors[ this.id ] = true;
+    } else {
+      currentBlocklyErrors[ this.id ] = false;
+      this.setWarningText(null);
+    }
   }
 };
 
@@ -859,6 +996,29 @@ Blockly.Blocks['controls_whileUntil'] = {
       }
       return showTooltipInBlockly( thisBlock, content );
     } );
+  },
+  onchange: function() {
+    if (!this.workspace || this.data === undefined) {
+      // Block has been deleted.
+      return;
+    }
+
+    var inputBlock = this.getInputTargetBlock('BOOL');
+    var statementBlock = this.getInputTargetBlock('DO');
+
+    if ( inputBlock === null && statementBlock === null ) {
+      this.setWarningText('You must specify the conditions for repeating and the actions to repeat!');
+      currentBlocklyErrors[ this.id ] = true;
+    } else if ( inputBlock === null ) {
+      this.setWarningText('You must attach your conditions that evaluate to a boolean!');
+      currentBlocklyErrors[ this.id ] = true;
+    } else if ( statementBlock === null ) {
+      this.setWarningText('Your repeat block needs something to repeat!');
+      currentBlocklyErrors[ this.id ] = true;
+    } else {
+      this.setWarningText(null);
+      currentBlocklyErrors[ this.id ] = false;
+    }
   }
 };
 
@@ -929,6 +1089,29 @@ Blockly.Blocks['controls_whileUntil_no_in'] = {
       }
       return showTooltipInBlockly( thisBlock, content );
     } );
+  },
+  onchange: function() {
+    if (!this.workspace || this.data === undefined) {
+      // Block has been deleted.
+      return;
+    }
+
+    var inputBlock = this.getInputTargetBlock('BOOL');
+    var statementBlock = this.getInputTargetBlock('DO');
+
+    if ( inputBlock === null && statementBlock === null ) {
+      this.setWarningText('You must specify the conditions for repeating and the actions to repeat!');
+      currentBlocklyErrors[ this.id ] = true;
+    } else if ( inputBlock === null ) {
+      this.setWarningText('You must attach your conditions that evaluate to a boolean!');
+      currentBlocklyErrors[ this.id ] = true;
+    } else if ( statementBlock === null ) {
+      this.setWarningText('Your repeat block needs something to repeat!');
+      currentBlocklyErrors[ this.id ] = true;
+    } else {
+      this.setWarningText(null);
+      currentBlocklyErrors[ this.id ] = false;
+    }
   }
 };
 
@@ -997,6 +1180,30 @@ Blockly.Blocks['controls_whileUntil_no_out'] = {
       }
       return showTooltipInBlockly( thisBlock, content );
     } );
+  },
+  onchange: function() {
+    if (!this.workspace || this.data === undefined) {
+      // Block has been deleted.
+      return;
+    }
+
+    var inputBlock = this.getInputTargetBlock('BOOL');
+    var statementBlock = this.getInputTargetBlock('DO');
+
+    if ( inputBlock === null && statementBlock === null ) {
+      this.setWarningText('You must specify the conditions for repeating and the actions to repeat!');
+      currentBlocklyErrors[ this.id ] = true;
+    } else if ( inputBlock === null ) {
+      this.setWarningText('You must attach your conditions that evaluate to a boolean!');
+      currentBlocklyErrors[ this.id ] = true;
+    } else if ( statementBlock === null ) {
+      this.setWarningText('Your repeat block needs something to repeat!');
+      currentBlocklyErrors[ this.id ] = true;
+    } else {
+      this.setWarningText(null);
+      currentBlocklyErrors[ this.id ] = false;
+    }
+  }
   }
 };
 
@@ -1066,6 +1273,29 @@ Blockly.Blocks['controls_whileUntil_no_out_no_in'] = {
       }
       return showTooltipInBlockly( thisBlock, content );
     } );
+  },
+  onchange: function() {
+    if (!this.workspace || this.data === undefined) {
+      // Block has been deleted.
+      return;
+    }
+
+    var inputBlock = this.getInputTargetBlock('BOOL');
+    var statementBlock = this.getInputTargetBlock('DO');
+
+    if ( inputBlock === null && statementBlock === null ) {
+      this.setWarningText('You must specify the conditions for repeating and the actions to repeat!');
+      currentBlocklyErrors[ this.id ] = true;
+    } else if ( inputBlock === null ) {
+      this.setWarningText('You must attach your conditions that evaluate to a boolean!');
+      currentBlocklyErrors[ this.id ] = true;
+    } else if ( statementBlock === null ) {
+      this.setWarningText('Your repeat block needs something to repeat!');
+      currentBlocklyErrors[ this.id ] = true;
+    } else {
+      this.setWarningText(null);
+      currentBlocklyErrors[ this.id ] = false;
+    }
   }
 };
 
@@ -1125,6 +1355,7 @@ Blockly.Blocks['controls_repeat_ext'] = {
     this.setPreviousStatement(true);
     this.setNextStatement(true);
     this.setInputsInline(true);
+    this.data = currentBlocklyNodeID;
     var thisBlock = this;
     this.setTooltip( function() {
       var content = {
@@ -1132,6 +1363,29 @@ Blockly.Blocks['controls_repeat_ext'] = {
       }
       return showTooltipInBlockly( thisBlock, content );
     } );
+  },
+  onchange: function() {
+    if (!this.workspace || this.data === undefined) {
+      // Block has been deleted.
+      return;
+    }
+
+    var inputBlock = this.getInputTargetBlock('TIMES');
+    var statementBlock = this.getInputTargetBlock('DO');
+
+    if ( inputBlock === null && statementBlock === null ) {
+      this.setWarningText('You must specify how often to repeat and actions youre repeating!');
+      currentBlocklyErrors[ this.id ] = true;
+    } else if ( inputBlock === null ) {
+      this.setWarningText('You must attach a number block!');
+      currentBlocklyErrors[ this.id ] = true;
+    } else if ( statementBlock === null ) {
+      this.setWarningText('Your repeat block needs something to repeat!');
+      currentBlocklyErrors[ this.id ] = true;
+    } else {
+      this.setWarningText(null);
+      currentBlocklyErrors[ this.id ] = false;
+    }
   }
 };
 
@@ -1170,7 +1424,6 @@ Blockly.Blocks['controls_if_nomut'] = {
     this.setNextStatement(true);
     this.data = currentBlocklyNodeID;
     // Assign 'this' to a variable for use in the tooltip closure below.
-    var thisBlock = this;
     var thisBlock = this;
     this.setTooltip( function() {
       var content = {
@@ -1298,6 +1551,29 @@ Blockly.Blocks['controls_if_nomut'] = {
       }
       clauseBlock = clauseBlock.nextConnection &&
           clauseBlock.nextConnection.targetBlock();
+    }
+  },
+  onchange: function() {
+    if (!this.workspace || this.data === undefined) {
+      // Block has been deleted.
+      return;
+    }
+    
+    var inputBlock = this.getInputTargetBlock('IF');
+    var statementBlock = this.getInputTargetBlock('STACK');
+
+    if ( inputBlock === null && statementBlock === null ) {
+      this.setWarningText('You must specify your conditions for executing actions and the actions themselves!');
+      currentBlocklyErrors[ this.id ] = true;
+    } else if ( inputBlock === null ) {
+      this.setWarningText('You must specify a condition!');
+      currentBlocklyErrors[ this.id ] = true;
+    } else if ( statementBlock === null ) {
+      this.setWarningText('Your must specify actions to execute!');
+      currentBlocklyErrors[ this.id ] = true;
+    } else {
+      currentBlocklyErrors[ this.id ] = false;
+      this.setWarningText(null);
     }
   }
 };
@@ -2994,6 +3270,22 @@ Blockly.Blocks[ 'graph_add' ] = {
       }
       return showTooltipInBlockly( thisBlock, content );
     } );
+  },
+  onchange: function() {
+    if (!this.workspace || this.data === undefined) {
+      // Block has been deleted.
+      return;
+    }
+    
+    var inputBlock = this.getInputTargetBlock('INPUT');
+
+    if ( inputBlock === null ) {
+      this.setWarningText('You must attach a block to add.');
+      currentBlocklyErrors[ this.id ] = true;
+    } else {
+      currentBlocklyErrors[ this.id ] = false;
+      this.setWarningText(null);
+    }
   }
 };
 
@@ -3028,6 +3320,22 @@ Blockly.Blocks['graph_subtract'] = {
       }
       return showTooltipInBlockly( thisBlock, content );
     } ); 
+  },
+  onchange: function() {
+    if (!this.workspace || this.data === undefined) {
+      // Block has been deleted.
+      return;
+    }
+    
+    var inputBlock = this.getInputTargetBlock('INPUT');
+
+    if ( inputBlock === null ) {
+      this.setWarningText('You must attach a block to subtract.');
+      currentBlocklyErrors[ this.id ] = true;
+    } else {
+      currentBlocklyErrors[ this.id ] = false;
+      this.setWarningText(null);
+    }
   }
 };
 
@@ -3067,6 +3375,22 @@ Blockly.Blocks[ 'graph_multiply' ] = {
       }
       return showTooltipInBlockly( thisBlock, content );
     } ); 
+  },
+  onchange: function() {
+    if (!this.workspace || this.data === undefined) {
+      // Block has been deleted.
+      return;
+    }
+    
+    var inputBlock = this.getInputTargetBlock('INPUT');
+
+    if ( inputBlock === null ) {
+      this.setWarningText('You must attach a block to multiply.');
+      currentBlocklyErrors[ this.id ] = true;
+    } else {
+      currentBlocklyErrors[ this.id ] = false;
+      this.setWarningText(null);
+    }
   }
 };
 
@@ -3106,6 +3430,22 @@ Blockly.Blocks[ 'graph_divide' ] = {
       }
       return showTooltipInBlockly( thisBlock, content );
     } ); 
+  },
+  onchange: function() {
+    if (!this.workspace || this.data === undefined) {
+      // Block has been deleted.
+      return;
+    }
+    
+    var inputBlock = this.getInputTargetBlock('INPUT');
+
+    if ( inputBlock === null ) {
+      this.setWarningText('You must attach a block to divide by.');
+      currentBlocklyErrors[ this.id ] = true;
+    } else {
+      currentBlocklyErrors[ this.id ] = false;
+      this.setWarningText(null);
+    }
   }
 };
 
@@ -3143,6 +3483,22 @@ Blockly.Blocks['graph_left_paren'] = {
       }
       return showTooltipInBlockly( thisBlock, content );
     } ); 
+  },
+  onchange: function() {
+    if (!this.workspace || this.data === undefined) {
+      // Block has been deleted.
+      return;
+    }
+    
+    var inputBlock = this.getInputTargetBlock('INPUT');
+
+    if ( inputBlock === null ) {
+      this.setWarningText('You cannot end a statement with an open parenthesis.');
+      currentBlocklyErrors[ this.id ] = true;
+    } else {
+      currentBlocklyErrors[ this.id ] = false;
+      this.setWarningText(null);
+    }
   }
 };
 
@@ -3217,6 +3573,22 @@ Blockly.Blocks['graph_set_y'] = {
       }
       return showTooltipInBlockly( thisBlock, content );
     } ); 
+  },
+  onchange: function() {
+    if (!this.workspace || this.data === undefined) {
+      // Block has been deleted.
+      return;
+    }
+    
+    var inputBlock = this.getInputTargetBlock('INPUT');
+
+    if ( inputBlock === null ) {
+      this.setWarningText('You must specify your equation by attaching blocks to this block!');
+      currentBlocklyErrors[ this.id ] = true;
+    } else {
+      currentBlocklyErrors[ this.id ] = false;
+      this.setWarningText(null);
+    }
   }
 };
 
