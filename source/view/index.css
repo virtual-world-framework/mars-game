@@ -172,12 +172,12 @@ a:active {
 }
 
 #blocklyWrapper {
-    width: 40%;
+    width: 35%;
     height: 70%;
     min-height: 400px;
-    min-width: 600px;
+    min-width: 500px;
     position: absolute;
-    right: 10px;
+    right: 5px;
     top: 15%;
     background-color: rgb( 40, 40, 40 );
     border-radius: 8px;
