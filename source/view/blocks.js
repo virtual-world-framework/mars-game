@@ -1204,7 +1204,6 @@ Blockly.Blocks['controls_whileUntil_no_out'] = {
       currentBlocklyErrors[ this.id ] = false;
     }
   }
-  }
 };
 
 Blockly.JavaScript['controls_whileUntil_no_out'] = function(block) {
@@ -3565,7 +3564,7 @@ Blockly.Blocks['graph_set_y'] = {
     this.appendValueInput('INPUT')
         .appendField('y=')
         .setCheck(['Number','Variable','OperatorAddSubtract','LeftParenthesis']);
-        this.data = currentBlocklyNodeID;
+    this.data = currentBlocklyNodeID;
     var thisBlock = this;
     this.setTooltip( function() {
       var content = {
