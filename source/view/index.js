@@ -19,6 +19,7 @@ var graphLines = {};
 var loggerNodes = {};
 var currentBlocklyNodeID = undefined;
 var currentProcedureBlockID = undefined;
+var currentBlocklyErrors = {};
 
 var currentLoopCheckBlockID = undefined;
 var currentLoopingBlockID = undefined;
@@ -127,12 +128,36 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                                 validTopBlocks+=1; 
                             }
                         }
-                        updateBlocklyUI( blocklyNode )
-                        // SJF: We must allow multiple top blocks to allow procedures
-                        startBlocklyButton.className = validTopBlocks !== 1 ? "disabled" : "" ;
+
+                        
+
+
                         // startBlocklyButton.className = topBlockCount !== 1 ? "disabled" : "" ;
                         // if disabled then need to set the tooltip
                         // There must be only one program for each blockly object
+                        // We're also checking for errors here (empty loops/conditionals)
+
+                        var foundError = false;
+                        for ( var key in currentBlocklyErrors ) {
+                          if ( currentBlocklyErrors.hasOwnProperty( key ) ) {
+                            var blockStatus = currentBlocklyErrors[ key ];
+                            console.log( blockStatus );
+                            console.log( key );
+                            if ( blockStatus === true && Blockly.mainWorkspace.getBlockById( key ) !== null ) {
+                                
+                                foundError = true;
+                            }
+                          }
+                        }
+
+                        if ( validTopBlocks !== 1 || foundError === true ) {
+                            startBlocklyButton.className = "disabled";
+                        } else {
+                            startBlocklyButton.className = "";
+                        }
+
+                        updateBlocklyUI( blocklyNode )
+
                         hideBlocklyIndicator();
                         hideBlocklyProcedureIndicator();
                     }
@@ -204,6 +229,26 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                     vwf_view.kernel.setProperty( graphLines[ "blocklyLine" ].ID, "lineFunction", currentCode );
                 } else {
                     //indicateBlock( lastBlockIDExecuted );
+                    // We're also checking for errors here (empty loops/conditionals)
+
+                    var foundError = false;
+                    for ( var key in currentBlocklyErrors ) {
+                      if ( currentBlocklyErrors.hasOwnProperty( key ) ) {
+                        var blockStatus = currentBlocklyErrors[ key ];
+                        console.log( key );
+                        console.log( blockStatus );
+                        if ( blockStatus === true && Blockly.mainWorkspace.getBlockById( key ) !== null ) {
+                            foundError = true;
+                        }
+                      }
+                    }
+
+                    if ( foundError === true ) {
+                        startBlocklyButton.className = "disabled";
+                    } else {
+                        startBlocklyButton.className = "";
+                    }
+
                 }
                 break;
 
@@ -287,9 +332,11 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 currentProcedureBlockID = undefined;
                 lastBlockIDExecuted = undefined;
                 updateBlocklyUI( blocklyNodes[ currentBlocklyNodeID ] );
+                currentBlocklyErrors = {};
             case "scenarioReset":
                 removePopup();
                 removeFailScreen();
+                currentBlocklyErrors = {};
                 //indicateBlock( lastBlockIDExecuted );
                 break;
 
@@ -299,6 +346,7 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
 
             case "clearBlockly":
                 clearBlockly();
+                currentBlocklyErrors = {};
                 break;
 
             case "resetRoverSensors":
