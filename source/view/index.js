@@ -141,10 +141,7 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                         for ( var key in currentBlocklyErrors ) {
                           if ( currentBlocklyErrors.hasOwnProperty( key ) ) {
                             var blockStatus = currentBlocklyErrors[ key ];
-                            console.log( blockStatus );
-                            console.log( key );
                             if ( blockStatus === true && Blockly.mainWorkspace.getBlockById( key ) !== null ) {
-                                
                                 foundError = true;
                             }
                           }
@@ -235,8 +232,6 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                     for ( var key in currentBlocklyErrors ) {
                       if ( currentBlocklyErrors.hasOwnProperty( key ) ) {
                         var blockStatus = currentBlocklyErrors[ key ];
-                        console.log( key );
-                        console.log( blockStatus );
                         if ( blockStatus === true && Blockly.mainWorkspace.getBlockById( key ) !== null ) {
                             foundError = true;
                         }

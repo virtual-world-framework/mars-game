@@ -1,8 +1,7 @@
 <xml id="graph" style="display: none">
   <category name="Math">
-      <block type="graph_set_y"></block>
       <block type="graph_get_x"></block>
-      <block type="math_number_out"><field name="VALUE">0</field></block>
+      <block type="math_number_out_10"><field name="VALUE">0</field></block>
       <block type="graph_add"></block>
       <block type="graph_subtract"></block>
       <block type="graph_multiply"></block>

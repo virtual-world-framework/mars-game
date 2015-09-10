@@ -50,6 +50,10 @@ properties:
     - rover
     - startXML
     - <xml></xml>
+  - setProperty:
+    - rover
+    - blockly_xml
+    - <xml></xml>
   - addToGrid:
     - rover
     - [ 0, 14 ]

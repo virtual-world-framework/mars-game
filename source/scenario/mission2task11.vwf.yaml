@@ -46,6 +46,10 @@ properties:
     - rover
     - lowRam
     - 1
+  - setProperty:
+    - rover
+    - startXML
+    - <xml></xml>
   - setPickupActive:
     - supplies_1
     - false
