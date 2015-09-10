@@ -9,6 +9,6 @@
   </category>
   <sep></sep>
   <category name="Math">
-  <block type="math_number_out"><field name="VALUE">0</field></block>
+  <block type="math_number_out_10"><field name="VALUE">0</field></block>
   </category>
 </xml>
