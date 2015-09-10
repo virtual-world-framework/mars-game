@@ -1558,8 +1558,8 @@ Blockly.Blocks['controls_if_nomut'] = {
       return;
     }
     
-    var inputBlock = this.getInputTargetBlock('IF');
-    var statementBlock = this.getInputTargetBlock('STACK');
+    var inputBlock = this.getInputTargetBlock('IF0');
+    var statementBlock = this.getInputTargetBlock('DO0');
 
     if ( inputBlock === null && statementBlock === null ) {
       this.setWarningText('You must specify your conditions for executing actions and the actions themselves!');
