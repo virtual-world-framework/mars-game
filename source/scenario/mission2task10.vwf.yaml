@@ -42,6 +42,10 @@ properties:
     - rover
     - blockly_allowedBlocks
     - 11
+  - setProperty:
+    - graph
+    - blockly_xml
+    - <xml><block type="graph_set_y" inline="false" movable="false" editable="false" x="140" y="60"></block></xml>
   - addToGrid:
     - rover
     - [ 4, 46 ]
