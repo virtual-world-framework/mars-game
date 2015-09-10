@@ -179,29 +179,29 @@ children:
           - clearBlackboardEntry:
             - metalPosition
 
-        playHint1_3a:
-          triggerCondition:
-          - and:
-            - doOnce:
-            - delay:
-              - 20
-            - not:
-              - isBlocklyExecuting:
-          actions:
-          - playSound:
-            - ALVO27_Rover
+        # playHint1_3a:
+        #   triggerCondition:
+        #   - and:
+        #     - doOnce:
+        #     - delay:
+        #       - 20
+        #     - not:
+        #       - isBlocklyExecuting:
+        #   actions:
+        #   - playSound:
+        #     - ALVO27_Rover
 
-        playHint2_3a:
-          triggerCondition:
-          - and:
-            - doOnce:
-            - delay:
-              - 40
-            - not:
-              - isBlocklyExecuting:
-          actions:
-          - playSound:
-            - ALVO28_Rover
+        # playHint2_3a:
+        #   triggerCondition:
+        #   - and:
+        #     - doOnce:
+        #     - delay:
+        #       - 40
+        #     - not:
+        #       - isBlocklyExecuting:
+        #   actions:
+        #   - playSound:
+        #     - ALVO28_Rover
 
   brief:
     extends: ../missionBrief.vwf
