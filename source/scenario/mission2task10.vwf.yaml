@@ -24,7 +24,7 @@ properties:
   - setProperty:
     - videoManager  
     - url 
-    - [ "assets/video/end_cinematic.webm", "assets/video/end_cinematic.mp4" ]
+    - [ "assets/video/Success2_800x600.mp4" ]
   
   - setProperty:
     - rover2

@@ -24,7 +24,7 @@ properties:
   - setProperty:
     - videoManager  
     - url 
-    - [ "assets/video/end_cinematic.webm", "assets/video/end_cinematic.mp4" ]
+    - [ "assets/video/Success2_800x600.mp4" ]
   
   - setProperty:
     - rover2
@@ -160,7 +160,7 @@ children:
             - incomplete
             - "You should use the conditional loop block."
           - playSound:
-            - FCVO2_Rover
+            - conditionalFailure_conditionalLoop
 
         succeedOnSuccessfulMovement_3c:
           group: successOrFailure
@@ -229,8 +229,6 @@ children:
           actions:
           - scenarioFailure:
             - incomplete
-          - playSound:
-            - FCVO2_Rover
           - playSound:
             - ALVO38_Rover
           - writeToBlackboard:
