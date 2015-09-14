@@ -23,7 +23,7 @@ this.initialize = function() {
 this.applicationLoaded = function() {
     this.applicationState = "menu";
     // NXM: Preload the intro cinematic.
-    this.mediaManager.videoManager.url = [ "assets/video/intro_cinematic.webm", "assets/video/intro_cinematic.mp4" ];
+    this.mediaManager.videoManager.url = [ "assets/video/Intro_800x600.webm", "assets/video/Intro_800x600.mp4" ];
 }
 
 this.setApplicationState = function( state ) {

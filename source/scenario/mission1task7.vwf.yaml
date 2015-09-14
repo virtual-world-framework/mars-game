@@ -130,6 +130,16 @@ children:
               - enabled
               - true
 
+        playHint1_1g:
+          triggerCondition:
+          - and:
+            - doOnce:
+            - delay:
+              - 35
+          actions:
+          - playSound:
+            - m1t7vo010
+
         succeedOnSuccess_1g:
           group: successOrFailure
           priority: 0

@@ -33,14 +33,14 @@ children:
             - enableRenderer
             - false
           - playVideo:
-            - intro_cinematic
+            - Intro_800x600
 
         succeedOnIntroDone:
           group: successOrFailure
           priority: 0
           triggerCondition:
           - onVideoPlayed:
-            - intro_cinematic
+            - Intro_800x600
           actions:
           - setSceneProperty:
             - enableRenderer

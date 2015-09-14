@@ -24,7 +24,7 @@ properties:
   - setProperty:
     - videoManager  
     - url 
-    - [ "assets/video/end_cinematic.webm", "assets/video/end_cinematic.mp4" ]
+    - [ "assets/video/Success2_800x600.mp4" ]
   
   - setProperty:
     - rover2
@@ -158,7 +158,7 @@ children:
             - incomplete
             - "You should use the conditional loop block."
           - playSound:
-            - FCVO2_Rover
+            - conditionalFailure_conditionalLoop
 
         succeedOnSuccessfulMovement_3a:
           group: successOrFailure
@@ -178,30 +178,6 @@ children:
             - musicSuccessShort
           - clearBlackboardEntry:
             - metalPosition
-
-        # playHint1_3a:
-        #   triggerCondition:
-        #   - and:
-        #     - doOnce:
-        #     - delay:
-        #       - 20
-        #     - not:
-        #       - isBlocklyExecuting:
-        #   actions:
-        #   - playSound:
-        #     - ALVO27_Rover
-
-        # playHint2_3a:
-        #   triggerCondition:
-        #   - and:
-        #     - doOnce:
-        #     - delay:
-        #       - 40
-        #     - not:
-        #       - isBlocklyExecuting:
-        #   actions:
-        #   - playSound:
-        #     - ALVO28_Rover
 
   brief:
     extends: ../missionBrief.vwf

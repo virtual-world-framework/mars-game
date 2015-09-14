@@ -191,7 +191,7 @@ children:
             - incomplete
             - "You should use the if block."
           - playSound:
-            - FCVO2_Rover
+            - conditionalFailure_ifBlock
 
         succeedOnSuccessfulMovement_3_3:
           group: successOrFailure

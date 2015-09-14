@@ -134,7 +134,7 @@ children:
             - incomplete
             - "You should use the repeat block."
           - playSound:
-            - FCVO2_Rover
+            - conditionalFailure_repeatLoop
 
         succeedOnSuccessfulMovement_2f:
           group: successOrFailure

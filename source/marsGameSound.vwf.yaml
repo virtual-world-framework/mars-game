@@ -721,18 +721,6 @@ properties:
       subtitle: "[MANNY]: Slope is the number of grid squares up the Y axis divided by the number of grid squares to the right on the X axis."
       soundGroup: vo
       groupReplacementMethod: queue
-    # - soundName: "ALVO27_Rover"
-    #   soundURL: "assets/sounds/vo/ALVO27_Rover_m.ogg"
-    #   initialVolume: 0.65
-    #   subtitle: "[MANNY]: Try using the Metal Detected Block to detect the Mini Rover."
-    #   soundGroup: vo
-    #   groupReplacementMethod: queue
-    # - soundName: "ALVO28_Rover"
-    #   soundURL: "assets/sounds/vo/ALVO28_Rover_m.ogg"
-    #   initialVolume: 0.65
-    #   subtitle: "[MANNY]: Try using the Conditional Loop Block to decide what to do after you scan."
-    #   soundGroup: vo
-    #   groupReplacementMethod: queue
     - soundName: "m2t8vo060"
       soundURL: "assets/sounds/vo/m2t8vo060.ogg"
       initialVolume: 0.65
@@ -819,10 +807,16 @@ properties:
       subtitle: "[MANNY]: Now that I've got this spare battery, I need to go back to the ramp to get it charged up - but I don't have enough RAM to do that with forward blocks. I can use a loop block to repeat blocks. Doing this saves me time and RAM. I can specify the number of times it repeats by putting a number block in it."
       soundGroup: vo
       groupReplacementMethod: queue
-    - soundName: "SCVO1_Rover"
-      soundURL: "assets/sounds/vo/SCVO1_Rover_m.ogg"
+    - soundName: "ALVO42_Rover"
+      soundURL: "assets/sounds/vo/ALVO42_Rover.ogg"
       initialVolume: 0.65
-      subtitle: "[MANNY]: Whoa! What a view! It's a good thing I'm not afraid of heights."
+      subtitle: "[MANNY]: Now that I've got this spare battery, I need to go back to the ramp to get it charged up - but I don't have enough RAM to do that with forward blocks. I can use a loop block to repeat blocks. Doing this saves me time and RAM. I can specify the number of times it repeats by putting a number block in it."
+      soundGroup: vo
+      groupReplacementMethod: queue
+    - soundName: "m1t7vo010"
+      soundURL: "assets/sounds/vo/m1t7vo010.ogg"
+      initialVolume: 0.65
+      subtitle: "[MANNY]: I remember now... I can find the loop block in the Loops category, on the left hand side of the Blockly window."
       soundGroup: vo
       groupReplacementMethod: replace
     - soundName: "SCVO2_Rover"
@@ -871,6 +865,30 @@ properties:
       soundURL: "assets/sounds/vo/FCVO4_Rover_m.ogg"
       initialVolume: 0.65
       subtitle: "[MANNY]: I need to plot the course before I try to follow it."
+      soundGroup: vo
+      groupReplacementMethod: replace
+    - soundName: "conditionalFailure_conditionalLoop"
+      soundURL: "assets/sounds/vo/conditionalFailure_conditionalLoop.ogg"
+      initialVolume: 0.65
+      subtitle: "[MANNY]: I need to use a conditional loop to solve this problem."
+      soundGroup: vo
+      groupReplacementMethod: replace
+    - soundName: "conditionalFailure_repeatLoop"
+      soundURL: "assets/sounds/vo/conditionalFailure_repeatLoop.ogg"
+      initialVolume: 0.65
+      subtitle: "[MANNY]: I need to use a repeat loop to solve this problem."
+      soundGroup: vo
+      groupReplacementMethod: replace
+    - soundName: "conditionalFailure_ifBlock"
+      soundURL: "assets/sounds/vo/conditionalFailure_ifBlock.ogg"
+      initialVolume: 0.65
+      subtitle: "[MANNY]: I need to use an if block to ensure that I don’t waste energy."
+      soundGroup: vo
+      groupReplacementMethod: replace
+    - soundName: "conditionalFailure_shouldntTurn"
+      soundURL: "assets/sounds/vo/conditionalFailure_shouldntTurn.ogg"
+      initialVolume: 0.65
+      subtitle: "[MANNY]: Hmm. I ended up turning, but I should not have."
       soundGroup: vo
       groupReplacementMethod: replace
     - soundName: "CTVO1_Rover"
