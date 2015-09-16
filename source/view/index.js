@@ -121,7 +121,7 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
             case "topBlockCountChanged":
                 if ( !blocklyNode.blocklyExecuting ) {
                     if ( Blockly.mainWorkspace ) {
-                        workspace = Blockly.getMainWorkspace();
+                        var workspace = Blockly.getMainWorkspace();
                         var validTopBlocks = 0;
                         for ( var i = 0; i < workspace.topBlocks_.length; i++ ) {
                             if ( workspace.topBlocks_[i].type !== "procedures_defnoreturn") {
@@ -234,6 +234,7 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
 
             case "blocklyContentChanged":
                 if ( Blockly.mainWorkspace ) {
+                    var workspace = Blockly.getMainWorkspace();
                     if ( currentBlocklyNodeID === blocklyGraphID ) {
                         var currentCode = getBlocklyFunction();
                         vwf_view.kernel.setProperty( graphLines[ "blocklyLine" ].ID, "lineFunction", currentCode );
