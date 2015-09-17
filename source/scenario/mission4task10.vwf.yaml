@@ -22,7 +22,7 @@ properties:
 
   # objective
   - setObjective:
-    - "Reflect your last triangle across the Y axis and translate 2 more spaces in the -X direction."
+    - "Reflect your last triangle across the X axis."
 
   # blockly
   - setBlocklyContext:
@@ -92,9 +92,9 @@ properties:
   - cancelCallOut:
   - clearTriangle:
   - drawTriangle:
-    - [ -12, -7 ]
-    - [ -9, -4 ]
-    - [ -9, -7 ]
+    - [ -8, -8 ]
+    - [ -8, -11 ]
+    - [ -5, -8 ]
 
   # Solar panel construction
 
@@ -214,7 +214,7 @@ children:
           triggerCondition:
           - onBlocklyPolygon:
             - rover2
-            - [ [ -12, -7 ], [ -9, -4 ], [ -9, -7 ] ]
+            - [ [ -8, -8 ], [ -8, -11 ], [ -5, -8 ] ]
           actions:
           - writeToBlackboard:
             - disableFailOnIncompleteProgram
@@ -258,4 +258,4 @@ children:
       content: >
         One quadrant down!
         <br><br>To draw the next quadrant, build the same triangle but this 
-        time also reflect it across the Y axis.
+        time reflect it across the X axis.

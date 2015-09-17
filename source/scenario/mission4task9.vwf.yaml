@@ -22,7 +22,7 @@ properties:
 
   # objective
   - setObjective:
-    - "Translate and dilate your triangle to (-7,-4), (-7,-7), (-4,-7)."
+    - "Translate and dilate your triangle to (-8,-8), (-8,-5), (-5,-8)."
 
   # blockly
   - setBlocklyContext:
@@ -92,9 +92,9 @@ properties:
   - cancelCallOut:
   - clearTriangle:
   - drawTriangle:
-    - [ -7, -4 ]
-    - [ -7, -7 ]
-    - [ -4, -7 ]
+    - [ -8, -8 ]
+    - [ -8, -5 ]
+    - [ -5, -8 ]
 
   # Solar panel construction
 
@@ -203,7 +203,7 @@ children:
           triggerCondition:
           - onBlocklyPolygon:
             - rover2
-            - [ [ -4, -7 ], [ -7, -4 ], [ -7, -7 ] ]
+            - [ [ -8, -8 ], [ -8, -5 ], [ -5, -8 ] ]
           actions:
           - writeToBlackboard:
             - disableFailOnIncompleteProgram

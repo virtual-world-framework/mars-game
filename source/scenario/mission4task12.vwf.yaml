@@ -22,7 +22,7 @@ properties:
 
   # objective
   - setObjective:
-    - "Translate your triangle and reflect it across both axis to get (-9,-9), (-9,-12),(-12,-12)."
+    - "Translate and scale your triangle, and reflect it across both axes to get (-8,-8), (-8,-11),(-11,-8)."
 
   # blockly
   - setBlocklyContext:
@@ -92,9 +92,9 @@ properties:
   - cancelCallOut:
   - clearTriangle:
   - drawTriangle:
-    - [ -9, -9 ]
-    - [ -9, -12 ]
-    - [ -12, -9 ]
+    - [ -8, -8 ]
+    - [ -8, -11 ]
+    - [ -11, -8 ]
 
 
   # Solar panel construction
@@ -199,7 +199,7 @@ children:
           triggerCondition:
           - onBlocklyPolygon:
             - rover2
-            - [ [ -9, -9 ], [ -9, -12 ], [ -12, -9 ] ]
+            - [ [ -8, -8 ], [ -8, -11 ], [ -11, -8 ] ]
           actions:
           - writeToBlackboard:
             - disableFailOnIncompleteProgram
@@ -244,4 +244,6 @@ children:
     properties:
       title: "Mission 4, Task 12"
       content: >
-        Placeholder
+        Two quadrants down!
+        <br><br>To draw the next quadrant, build the same triangle again, but
+        this time reflect it across both axes.

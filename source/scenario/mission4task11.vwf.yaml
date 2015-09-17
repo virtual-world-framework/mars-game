@@ -22,7 +22,7 @@ properties:
 
   # objective
   - setObjective:
-    - "Translate and dilate again, but this time reflect across the X axis and move 2 spaces in the -Y direction."
+    - "Translate and dilate again, but this time reflect across the Y axis."
 
   # blockly
   - setBlocklyContext:
@@ -92,9 +92,9 @@ properties:
   - cancelCallOut:
   - clearTriangle:
   - drawTriangle:
-    - [ -7, -9 ]
-    - [ -4, -9 ]
-    - [ -7, -12 ]
+    - [ -8, -8 ]
+    - [ -8, -5 ]
+    - [ -11, -8 ]
 
   # Solar panel construction
   - setConstructed:
@@ -198,7 +198,7 @@ children:
           triggerCondition:
           - onBlocklyPolygon:
             - rover2
-            - [ [ -7, -9 ], [ -7, -12 ], [ -4, -9 ] ]
+            - [ [ -8, -8 ], [ -8, -5 ], [ -11, -8 ] ]
           actions:
           - writeToBlackboard:
             - disableFailOnIncompleteProgram
@@ -240,4 +240,6 @@ children:
     properties:
       title: "Mission 4, Task 11"
       content: >
-        Placeholder
+        Two quadrants down!
+        <br><br>To draw the next quadrant, build the same triangle again, but
+        this time reflect it across the Y axis.

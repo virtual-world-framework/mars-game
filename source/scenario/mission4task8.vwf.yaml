@@ -22,7 +22,7 @@ properties:
 
   # objective
   - setObjective:
-    - "Translate the unit triangle to position (-7,-7), (-7,-6), (-6,-7)."
+    - "Translate the unit triangle to position (-8,-8), (-8,-7), (-7,-8)."
 
   # blockly
   - setBlocklyContext:
@@ -98,9 +98,9 @@ properties:
   - clearTriangle:
 
   - drawTriangle:
-    - [ -7, -6 ]
-    - [ -7, -7 ]
-    - [ -6, -7 ]
+    - [ -8, -8 ]
+    - [ -8, -7 ]
+    - [ -7, -8 ]
 
   # Solar panel construction
 
@@ -197,7 +197,7 @@ children:
           triggerCondition:
           - onBlocklyPolygon:
             - rover2
-            - [ [ -6, -7 ], [ -7, -6 ], [ -7, -7 ] ]
+            - [ [ -8, -8 ], [ -8, -7 ], [ -7, -8 ] ]
           actions:
           - writeToBlackboard:
             - disableFailOnIncompleteProgram

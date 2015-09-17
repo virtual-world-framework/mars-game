@@ -22,7 +22,7 @@ properties:
 
   # objective
   - setObjective:
-    - "Move and build."
+    - "Move to position (-11, -12) and initiate construction."
 
   # blockly
   - setBlocklyContext:
@@ -277,4 +277,6 @@ children:
     properties:
       title: "Mission 4, Task 13"
       content: >
-        Placeholder
+        Nice work!
+        <br><br>Now that all four quadrants are done, you just need to move to 
+        a safe position and initiate construction
