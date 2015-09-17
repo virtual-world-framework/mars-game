@@ -50,6 +50,259 @@ Blockly.JavaScript['ordered_pair_config'] = function(block) {
   return [ code, Blockly.JavaScript.ORDER_ATOMIC ];
 };
 
+Blockly.Blocks['ordered_pair_config_out'] = {
+  init: function() {
+    this.setColour(105);
+    this.appendValueInput('INPUT')
+        .setCheck(['Number','Variable','LeftParenthesis','OperatorAddSubtract'])
+        .appendField("(");
+    this.appendValueInput("XFIELD")
+        .setCheck(['LeftParenthesis','Number']);
+    this.appendDummyInput()
+        .appendField(",");
+    this.appendValueInput("YFIELD")
+        .setCheck(['LeftParenthesis','Number'])
+        .setAlign(Blockly.ALIGN_RIGHT);
+    this.appendDummyInput()
+        .appendField(")");
+    this.setInputsInline(true);
+    this.setOutput(true);
+    this.setTooltip('');
+  },
+  onchange: function() {
+    if (!this.workspace || this.data === undefined) {
+      // Block has been deleted.
+      return;
+    }
+    
+    var inputBlock = this.getInputTargetBlock('INPUT');
+
+    if ( inputBlock === null ) {
+      this.setWarningText('You must attach a block to add.');
+      currentBlocklyErrors[ this.id ] = true;
+    } else {
+      currentBlocklyErrors[ this.id ] = false;
+      this.setWarningText(null);
+    }
+  }
+};
+
+Blockly.JavaScript['ordered_pair_config_out'] = function(block) {
+  var value_x = Blockly.JavaScript.valueToCode(block, 'XFIELD', Blockly.JavaScript.ORDER_ATOMIC);
+  var value_y = Blockly.JavaScript.valueToCode(block, 'YFIELD', Blockly.JavaScript.ORDER_ATOMIC);
+
+  var argument0 = Blockly.JavaScript.valueToCode(block, 'INPUT',
+      Blockly.JavaScript.ORDER_ATOMIC) || '0';
+  if ( argument0[0] === '+' ){
+    return ['*' + argument0.substring(1), Blockly.JavaScript.ORDER_ATOMIC];
+  } else {
+    return ['*' + argument0, Blockly.JavaScript.ORDER_ATOMIC];
+  }
+
+  var code = [ value_x, value_y ];
+
+  return [ code, Blockly.JavaScript.ORDER_ATOMIC ];
+};
+
+Blockly.Blocks['triangle_flow'] = {
+  init: function() {
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("Triangle : ")
+        .appendField(new Blockly.FieldColour("#3366ff"), "NAME");
+    this.appendDummyInput()
+        .appendField("▲ ABC (0,0) (0,1) (1,0)");
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("⇩");
+    this.appendStatementInput("NAME");
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("⇩");
+    this.appendDummyInput()
+        .appendField("▲ A'B'C' (0,0) (0,1) (1,0)");
+    this.setInputsInline(false);
+    this.setPreviousStatement(true);
+    this.setNextStatement(true);
+    this.setColour(345);
+    this.setTooltip('');
+    this.setHelpUrl('http://www.example.com/');
+  }
+};
+
+Blockly.JavaScript['triangle_flow'] = function(block) {
+  var statements_name = Blockly.JavaScript.statementToCode(block, 'NAME');
+  // TODO: Assemble JavaScript into code variable.
+  var code = '...';
+  return code;
+};
+
+Blockly.Blocks['triangle_operations'] = {
+  init: function() {
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField(new Blockly.FieldDropdown([["scale", "SCALE"], ["translate", "TRANSLATE"], ["rotate", "ROTATE"]]), "OP")
+        .appendField("(")
+        .appendField(new Blockly.FieldTextInput("0"), "OPX")
+        .appendField(",")
+        .appendField(new Blockly.FieldTextInput("0"), "OPY")
+        .appendField(")");
+    this.appendDummyInput()
+        .appendField(new Blockly.FieldImage("http://i.imgur.com/UpsXHeX.png", 150, 20, "*"));
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("△A ⇒")
+        .appendField("(")
+        .appendField(new Blockly.FieldTextInput("0"), "AX")
+        .appendField(",")
+        .appendField(new Blockly.FieldTextInput("0"), "AY")
+        .appendField(")");
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("△B ⇒")
+        .appendField("(")
+        .appendField(new Blockly.FieldTextInput("0"), "BX")
+        .appendField(",")
+        .appendField(new Blockly.FieldTextInput("0"), "BY")
+        .appendField(")");
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("△C ⇒")
+        .appendField("(")
+        .appendField(new Blockly.FieldTextInput("0"), "CX")
+        .appendField(",")
+        .appendField(new Blockly.FieldTextInput("0"), "CY")
+        .appendField(")");
+    this.setInputsInline(false);
+    this.setPreviousStatement(true);
+    this.setNextStatement(true);
+    this.setColour(195);
+    this.setTooltip('');
+    this.setHelpUrl('http://www.example.com/');
+  }
+};
+
+Blockly.JavaScript['triangle_operations'] = function(block) {
+  var dropdown_op = block.getFieldValue('OP');
+  var text_opx = block.getFieldValue('OPX');
+  var text_opy = block.getFieldValue('OPY');
+  var text_ax = block.getFieldValue('AX');
+  var text_ay = block.getFieldValue('AY');
+  var text_bx = block.getFieldValue('BX');
+  var text_by = block.getFieldValue('BY');
+  var text_cx = block.getFieldValue('CX');
+  var text_cy = block.getFieldValue('CY');
+  // TODO: Assemble JavaScript into code variable.
+  var code = '...';
+  return code;
+};
+
+Blockly.Blocks['triangle_operations_auto'] = {
+  init: function() {
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField(new Blockly.FieldDropdown([["scale", "SCALE"], ["translate", "TRANSLATE"], ["rotate", "ROTATE"]]), "OP")
+        .appendField("(")
+        .appendField(new Blockly.FieldTextInput("0"), "OPX")
+        .appendField(",")
+        .appendField(new Blockly.FieldTextInput("0"), "OPY")
+        .appendField(")");
+    this.appendDummyInput()
+        .appendField(new Blockly.FieldImage("http://i.imgur.com/CRpYLa1.png", 150, 20, "*"));
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("△A ⇒")
+        .appendField("(")
+        .appendField("?")
+        .appendField(",")
+        .appendField("?")
+        .appendField(")");
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("△B ⇒")
+        .appendField("(")
+        .appendField("?")
+        .appendField(",")
+        .appendField("?")
+        .appendField(")");
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("△C ⇒")
+        .appendField("(")
+        .appendField("?")
+        .appendField(",")
+        .appendField("?")
+        .appendField(")");
+    this.setInputsInline(false);
+    this.setPreviousStatement(true);
+    this.setNextStatement(true);
+    this.setColour(195);
+    this.setTooltip('');
+    this.setHelpUrl('http://www.example.com/');
+  }
+};
+
+Blockly.JavaScript['triangle_operations_auto'] = function(block) {
+  var dropdown_op = block.getFieldValue('OP');
+  var text_opx = block.getFieldValue('OPX');
+  var text_opy = block.getFieldValue('OPY');
+  // TODO: Assemble JavaScript into code variable.
+  var code = '...';
+  return code;
+};
+
+Blockly.Blocks['triangle_operations_locked_scale_0_0'] = {
+  init: function() {
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("scale")
+        .appendField("(")
+        .appendField("0")
+        .appendField(",")
+        .appendField("0")
+        .appendField(")");
+    this.appendDummyInput()
+        .appendField(new Blockly.FieldImage("http://i.imgur.com/CRpYLa1.png", 150, 20, "*"));
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("△A ⇒")
+        .appendField("(")
+        .appendField("?")
+        .appendField(",")
+        .appendField("?")
+        .appendField(")");
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("△B ⇒")
+        .appendField("(")
+        .appendField("?")
+        .appendField(",")
+        .appendField("?")
+        .appendField(")");
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("△C ⇒")
+        .appendField("(")
+        .appendField("?")
+        .appendField(",")
+        .appendField("?")
+        .appendField(")");
+    this.setInputsInline(false);
+    this.setPreviousStatement(true);
+    this.setNextStatement(true);
+    this.setColour(195);
+    this.setTooltip('');
+    this.setHelpUrl('http://www.example.com/');
+  }
+};
+
+Blockly.JavaScript['triangle_operations_locked_scale_0_0'] = function(block) {
+  // TODO: Assemble JavaScript into code variable.
+  var code = '...';
+  return code;
+};
+
+
 Blockly.Blocks['start_triangle'] = {
   init: function() {
     this.setColour(90);

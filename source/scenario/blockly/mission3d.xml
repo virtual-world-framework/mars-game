@@ -17,6 +17,7 @@
   <sep></sep>
   <category name="Conditionals">
     <block type="logic_cond_neq_out"></block>
+    <block type="logic_cond_eq_out"></block>
     <block type="logic_cond_lt_out"></block>
     <block type="logic_cond_gt_out"></block>
     <block type="controls_if_nomut"></block>
