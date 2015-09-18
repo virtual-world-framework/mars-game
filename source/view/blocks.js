@@ -111,7 +111,7 @@ Blockly.Blocks['triangle_flow'] = {
         .appendField("Triangle : ")
         .appendField(new Blockly.FieldColour("#3366ff"), "NAME");
     this.appendDummyInput()
-        .appendField("▲ ABC (0,0) (0,1) (1,0)");
+        .appendField("△ ABC (0,0) (0,1) (1,0)");
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
         .appendField("⇩");
@@ -120,7 +120,7 @@ Blockly.Blocks['triangle_flow'] = {
         .setAlign(Blockly.ALIGN_CENTRE)
         .appendField("⇩");
     this.appendDummyInput()
-        .appendField("▲ A'B'C' (0,0) (0,1) (1,0)");
+        .appendField("△ A'B'C' (0,0) (0,1) (1,0)");
     this.setInputsInline(false);
     this.setPreviousStatement(true);
     this.setNextStatement(true);
@@ -141,7 +141,7 @@ Blockly.Blocks['triangle_operations'] = {
   init: function() {
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField(new Blockly.FieldDropdown([["scale", "SCALE"], ["translate", "TRANSLATE"], ["rotate", "ROTATE"]]), "OP")
+        .appendField(new Blockly.FieldDropdown([["dilate", "DILATE"], ["translate", "TRANSLATE"], ["rotate", "ROTATE"]]), "OP")
         .appendField("(")
         .appendField(new Blockly.FieldTextInput("0"), "OPX")
         .appendField(",")
@@ -151,7 +151,7 @@ Blockly.Blocks['triangle_operations'] = {
         .appendField(new Blockly.FieldImage("http://i.imgur.com/UpsXHeX.png", 150, 20, "*"));
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField("△A ⇒")
+        .appendField("A ⇒")
         .appendField("(")
         .appendField(new Blockly.FieldTextInput("0"), "AX")
         .appendField(",")
@@ -159,7 +159,7 @@ Blockly.Blocks['triangle_operations'] = {
         .appendField(")");
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField("△B ⇒")
+        .appendField("B ⇒")
         .appendField("(")
         .appendField(new Blockly.FieldTextInput("0"), "BX")
         .appendField(",")
@@ -167,7 +167,7 @@ Blockly.Blocks['triangle_operations'] = {
         .appendField(")");
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField("△C ⇒")
+        .appendField("C ⇒")
         .appendField("(")
         .appendField(new Blockly.FieldTextInput("0"), "CX")
         .appendField(",")
@@ -201,7 +201,7 @@ Blockly.Blocks['triangle_operations_auto'] = {
   init: function() {
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField(new Blockly.FieldDropdown([["scale", "SCALE"], ["translate", "TRANSLATE"], ["rotate", "ROTATE"]]), "OP")
+        .appendField(new Blockly.FieldDropdown([["dilate", "DILATE"], ["translate", "TRANSLATE"], ["rotate", "ROTATE"]]), "OP")
         .appendField("(")
         .appendField(new Blockly.FieldTextInput("0"), "OPX")
         .appendField(",")
@@ -211,7 +211,7 @@ Blockly.Blocks['triangle_operations_auto'] = {
         .appendField(new Blockly.FieldImage("http://i.imgur.com/CRpYLa1.png", 150, 20, "*"));
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField("△A ⇒")
+        .appendField("A ⇒")
         .appendField("(")
         .appendField("?")
         .appendField(",")
@@ -219,7 +219,7 @@ Blockly.Blocks['triangle_operations_auto'] = {
         .appendField(")");
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField("△B ⇒")
+        .appendField("B ⇒")
         .appendField("(")
         .appendField("?")
         .appendField(",")
@@ -227,7 +227,7 @@ Blockly.Blocks['triangle_operations_auto'] = {
         .appendField(")");
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField("△C ⇒")
+        .appendField("C ⇒")
         .appendField("(")
         .appendField("?")
         .appendField(",")
@@ -251,7 +251,7 @@ Blockly.JavaScript['triangle_operations_auto'] = function(block) {
   return code;
 };
 
-Blockly.Blocks['triangle_operations_locked_scale_0_0'] = {
+Blockly.Blocks['triangle_operations_locked_dilate_0_0'] = {
   init: function() {
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
@@ -265,7 +265,7 @@ Blockly.Blocks['triangle_operations_locked_scale_0_0'] = {
         .appendField(new Blockly.FieldImage("http://i.imgur.com/CRpYLa1.png", 150, 20, "*"));
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField("△A ⇒")
+        .appendField("A ⇒")
         .appendField("(")
         .appendField("?")
         .appendField(",")
@@ -273,7 +273,7 @@ Blockly.Blocks['triangle_operations_locked_scale_0_0'] = {
         .appendField(")");
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField("△B ⇒")
+        .appendField("B ⇒")
         .appendField("(")
         .appendField("?")
         .appendField(",")
@@ -281,7 +281,7 @@ Blockly.Blocks['triangle_operations_locked_scale_0_0'] = {
         .appendField(")");
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField("△C ⇒")
+        .appendField("C ⇒")
         .appendField("(")
         .appendField("?")
         .appendField(",")
@@ -296,7 +296,7 @@ Blockly.Blocks['triangle_operations_locked_scale_0_0'] = {
   }
 };
 
-Blockly.JavaScript['triangle_operations_locked_scale_0_0'] = function(block) {
+Blockly.JavaScript['triangle_operations_locked_dilate_0_0'] = function(block) {
   // TODO: Assemble JavaScript into code variable.
   var code = '...';
   return code;
