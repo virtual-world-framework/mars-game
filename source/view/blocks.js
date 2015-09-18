@@ -284,8 +284,8 @@ Blockly.Blocks[ 'variables_get' ] = {
     this.setColour( 330 );
     this.appendValueInput( 'INPUT' )
         .appendField( Blockly.Msg.VARIABLES_GET_TITLE )
-        .appendField( Blockly.Msg.VARIABLES_GET_ITEM, 'VAR' )
-        // .appendField( new Blockly.FieldVariable( Blockly.Msg.VARIABLES_GET_ITEM ), 'VAR' )
+        //.appendField( Blockly.Msg.VARIABLES_GET_ITEM, 'VAR' )
+        .appendField( new Blockly.FieldVariable( Blockly.Msg.VARIABLES_GET_ITEM ), 'VAR' )
         // .appendField( "?", "VALUE" )
         .appendField( Blockly.Msg.VARIABLES_GET_TAIL )
         .setCheck( [ 'Number','Boolean','Variable','OrderedGet','OperatorAddSubtract','OperatorMultiplyDivide','LeftParenthesis','RightParenthesis','Conditional','ANDOR' ] );
