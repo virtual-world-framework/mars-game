@@ -16,7 +16,7 @@ Source code, subject to the license below, is available on GitHub
 
 =========
 
-Copyright 2014,2015 Lockheed Martin Corporation
+Copyright 2014,2015 Lockheed Martin Corporation<br>
 Copyright 2014,2015 StandardsWork, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may 
