@@ -2,10 +2,10 @@ mars-game
 
 =========
 
-A game designed to teach STEM concepts to under the ADL True Game-Based
+A game designed to teach STEM concepts, developed by the ADL True Game-Based
 Learning project.
 
-Mars-Game is built on top of the Virtual World Framework (VWF, 
+The Mars-Game is built on top of the Virtual World Framework (VWF, 
 https://virtual.wf/).
 
 Funding for this project was provided by Advanced Distributed Learning 
@@ -16,7 +16,8 @@ Source code, subject to the license below, is available on GitHub
 
 =========
 
-Copyright 2014 Lockheed Martin Corporation
+Copyright 2014,2015 Lockheed Martin Corporation
+Copyright 2014,2015 StandardsWork, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may 
 not use this file except in compliance with the License. You may obtain 
