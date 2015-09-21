@@ -64,6 +64,7 @@ methods:
   construct:
   setConstructed:
   setUpShader:
+  handleTransformChanged:
 events:
   buildingCompleted:
 scripts:

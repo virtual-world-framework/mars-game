@@ -28,7 +28,7 @@ this.construct = function() {
 this.setConstructed = function( value ) {
     this.visible = value;
     this.built = value;
-    if ( this.useAnimatedShader ) {
+    if ( this.material && this.material.animate ) {
         this.material._elapsedTime = Number( value ) * this.buildDuration;
     }
 }
@@ -51,11 +51,12 @@ this.setUpShader = function() {
     }
     this.visible = this.built;
     this.children.create( "material", materialDef );
+    this.transformChanged = this.events.add( this.handleTransformChanged, this );
 }
 
-this.transformChanged = function( transform ) {
+this.handleTransformChanged = function( transform ) {
     var z = transform[ 14 ];
-    if ( this.material ) {
+    if ( this.material && this.useAnimatedShader ) {
         this.material._bottom = z;
     }
 }
