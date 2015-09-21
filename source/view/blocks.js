@@ -120,21 +120,90 @@ Blockly.Blocks['triangle_flow'] = {
         .setAlign(Blockly.ALIGN_CENTRE)
         .appendField("⇩");
     this.appendDummyInput()
-        .appendField("△ A'B'C' (0,0) (0,1) (1,0)");
+        .appendField("△ A'B'C'");
+        .appendField("(0,0)", "COORDA");
+        .appendField(" ");
+        .appendField("(0,1)", "COORDB");
+        .appendField(" ");
+        .appendField("(1,0)", "COORDC");
     this.setInputsInline(false);
     this.setPreviousStatement(true);
     this.setNextStatement(true);
     this.setColour(345);
     this.setTooltip('');
     this.setHelpUrl('http://www.example.com/');
+  },
+  onchange: function() {
+    if (!this.workspace || this.data === undefined) {
+      // Block has been deleted.
+      return;
+    }
+
+    //Evaluate the stack of connected triangle operations
+    //Perform the requested operations on the triangle
+    //Update the displayed coordinate values
   }
 };
 
 Blockly.JavaScript['triangle_flow'] = function(block) {
   var statements_name = Blockly.JavaScript.statementToCode(block, 'NAME');
   // TODO: Assemble JavaScript into code variable.
-  var code = '...';
-  return code;
+  
+  // Extract values from dummy fields COORDA - COORDB - COORDC
+  
+  var op_a = op_a_str.split(",");
+  var op_b = op_b_str.split(",");
+  var op_c = op_c_str.split(",");
+
+  if ( op_a.length < 2 || op_b.length < 2 || op_c.length < 2 ) {
+    return '';
+  }
+
+  var actionA = {
+    nodeID: block.data,
+    methodName: 'moveRadialAbsolute',
+    exeTime: 1,
+    args: [ op_a[ 0 ], op_a[ 1 ] ]
+  };
+
+  var moveA = constructBlockExeFuncCall( block, actionA, 'moveRadial' );
+
+  var actionB = {
+    nodeID: block.data,
+    methodName: 'moveRadialAbsolute',
+    exeTime: 1,
+    args: [ op_b[ 0 ], op_b[ 1 ] ]
+  };
+
+  var moveB = constructBlockExeFuncCall( block, actionB, 'moveRadial' );
+
+  var actionC = {
+    nodeID: block.data,
+    methodName: 'moveRadialAbsolute',
+    exeTime: 1,
+    args: [ op_c[ 0 ], op_c[ 1 ] ]
+  };
+
+  var moveC = constructBlockExeFuncCall( block, actionC, 'moveRadial' );
+
+  var start = "vwf.callMethod( '" + vwf_view.kernel.application() + 
+                  "', 'handleDrawingBlocks', " + " [ 'startTriangle', '" + block.id + "', '" + block.data + "', " + 1 + " ] );\n";
+  var end = "vwf.callMethod( '" + vwf_view.kernel.application() + 
+                  "', 'handleDrawingBlocks', " + " [ 'endTriangle', '" + block.id + "', '" + block.data + "', " + 1 + " ] );\n";
+  var mark = "vwf.callMethod( '" + vwf_view.kernel.application() + 
+                  "', 'handleDrawingBlocks', " + " [ 'markPoint', '" + block.id + "', '" + block.data + "', " + 1 + " ] );\n";
+
+  //moveA
+  //start
+  //moveB
+  //mark
+  //moveC
+  //mark
+  //moveA
+  //end
+
+  //var overallCode = moveA + start + mark + moveB + mark + moveC + mark + moveA + mark + end;
+  var overallCode = start + moveA + mark + moveB + mark + moveC + mark + moveA + mark + end;
 };
 
 Blockly.Blocks['triangle_operations'] = {
@@ -178,7 +247,7 @@ Blockly.Blocks['triangle_operations'] = {
     this.setNextStatement(true);
     this.setColour(195);
     this.setTooltip('');
-    this.setHelpUrl('http://www.example.com/');
+    this.data = currentBlocklyNodeID;
   }
 };
 
@@ -238,7 +307,7 @@ Blockly.Blocks['triangle_operations_auto'] = {
     this.setNextStatement(true);
     this.setColour(195);
     this.setTooltip('');
-    this.setHelpUrl('http://www.example.com/');
+    this.data = currentBlocklyNodeID;
   }
 };
 
@@ -292,7 +361,7 @@ Blockly.Blocks['triangle_operations_locked_dilate_0_0'] = {
     this.setNextStatement(true);
     this.setColour(195);
     this.setTooltip('');
-    this.setHelpUrl('http://www.example.com/');
+    this.data = currentBlocklyNodeID;
   }
 };
 
