@@ -26,7 +26,10 @@ type: model/vnd.collada+xml
 properties:
   visible:
     set: |
-      var mountName = this.scene.gameCam.mount.name;
+      var mountName;
+      if ( this.scene && this.scene.gameCam && this.scene.gameCam.mount ) {
+        mountName = this.scene.gameCam.mount.name;
+      }
       if ( mountName === "topDown" ) {
         this.visible = value;
       } else {
