@@ -546,8 +546,9 @@ children:
         extends: source/pickups/battery_1.vwf
         properties:
           tilePosition: [ 0, 4 ]
-      signal:
-        extends: source/pickups/signal.vwf
+      # This is the battery under the ramp. Only used in scenario_dummy
+      # signal:
+      #   extends: source/pickups/signal.vwf
       supplies_1:
         extends: source/pickups/supplies.vwf
         properties:
