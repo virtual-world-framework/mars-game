@@ -13,6 +13,8 @@
 # limitations under the License.
 
 ---
+info:
+  title: "The Mars Game"
 model:
   vwf/model/threejs:
   vwf/model/blockly:
