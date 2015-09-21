@@ -19,8 +19,21 @@
 
 ---
 extends: http://vwf.example.com/node3.vwf
+implements:
+  - http://vwf.example.com/sceneGetter.vwf
 source: ../assets/3d/arrow/arrow.dae
 type: model/vnd.collada+xml
 properties:
-  visible: false
+  visible:
+    set: |
+      var mountName;
+      if ( this.scene && this.scene.gameCam && this.scene.gameCam.mount ) {
+        mountName = this.scene.gameCam.mount.name;
+      }
+      if ( mountName === "topDown" ) {
+        this.visible = value;
+      } else {
+        this.visible = false;
+      }
+    value: false
   translation: [ 0, 0, 1 ]

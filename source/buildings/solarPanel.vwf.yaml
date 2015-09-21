@@ -18,7 +18,7 @@ source: ../../assets/3d/solar_panel/solar_panel.dae
 type: model/vnd.collada+xml
 properties:
   buildingType: 'solarPanel'
-  useAnimatedShader: true
+  useAnimatedShader: false
   diffuseSrc: "assets/3d/solar_panel/solar_panel.png"
   normalSrc: "assets/3d/solar_panel/solar_panel_n.png"
   specularSrc: "assets/3d/solar_panel/solar_panel_s.png"
@@ -28,3 +28,4 @@ properties:
   built: false
   deploySound: solarPanelDeploy
   soundOnComplete: solarPanelActive
+  scale: [ 0.4, 0.4, 0.4 ]

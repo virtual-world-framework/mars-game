@@ -145,8 +145,8 @@ children:
           preload: "auto" 
           containerDivId: "jp_container_1"
           playerDivId: "jquery_jplayer_1"
-          containerSize: [1024, 768]
-          playerSize: [1024, 768]
+          containerSize: [ 800, 600 ]
+          playerSize: [ 800, 600 ]
   hud:
     includes: source/hud/marsGameHud.vwf
   mainMenu:
@@ -546,8 +546,9 @@ children:
         extends: source/pickups/battery_1.vwf
         properties:
           tilePosition: [ 0, 4 ]
-      signal:
-        extends: source/pickups/signal.vwf
+      # This is the battery under the ramp. Only used in scenario_dummy
+      # signal:
+      #   extends: source/pickups/signal.vwf
       supplies_1:
         extends: source/pickups/supplies.vwf
         properties:
@@ -569,30 +570,86 @@ children:
     properties:
       tilePosition: [ -32, 23 ]
       rotation: [ 0, 0, 1, -45 ]
-  solarPanel1: 
+  solarPanel1:
     extends: source/buildings/solarPanel.vwf
     properties:
       tilePosition: [ -23, 20 ]
-      scale: [ 0.4, 0.4, 0.4 ]
-  solarPanel2: 
+      visible: false
+    children:
+      material:
+        extends: source/shaders/animatedShader.vwf
+        properties:
+          diffuseMap: "assets/3d/solar_panel/solar_panel.png"
+          normalMap: "assets/3d/solar_panel/solar_panel_n.png"
+          specularMap: "assets/3d/solar_panel/solar_panel_s.png"
+          lightTrailHeight: 0.1
+          normalScale: [ 0.75, 0.75 ]
+          shininess: 1
+          _duration: 5
+          _bottom: 13.377649687388523
+          _height: 2.5
+          _elapsedTime: 0
+  solarPanel2:
     extends: source/buildings/solarPanel.vwf
     properties:
       tilePosition: [ -25, 20 ]
-      scale: [ 0.4, 0.4, 0.4 ]
       rotation: [ 0, 0, 1, 90 ]
-  solarPanel3: 
+      visible: false
+    children:
+      material:
+        extends: source/shaders/animatedShader.vwf
+        properties:
+          diffuseMap: "assets/3d/solar_panel/solar_panel.png"
+          normalMap: "assets/3d/solar_panel/solar_panel_n.png"
+          specularMap: "assets/3d/solar_panel/solar_panel_s.png"
+          lightTrailHeight: 0.1
+          normalScale: [ 0.75, 0.75 ]
+          shininess: 1
+          _duration: 5
+          _bottom: 13.377649687388523
+          _height: 2.5
+          _elapsedTime: 0
+  solarPanel3:
     extends: source/buildings/solarPanel.vwf
     properties:
       tilePosition: [ -23, 18 ]
-      scale: [ 0.4, 0.4, 0.4 ]
       rotation: [ 0, 0, 1, 270 ]
-  solarPanel4: 
+      visible: false
+    children:
+      material:
+        extends: source/shaders/animatedShader.vwf
+        properties:
+          diffuseMap: "assets/3d/solar_panel/solar_panel.png"
+          normalMap: "assets/3d/solar_panel/solar_panel_n.png"
+          specularMap: "assets/3d/solar_panel/solar_panel_s.png"
+          lightTrailHeight: 0.1
+          normalScale: [ 0.75, 0.75 ]
+          shininess: 1
+          _duration: 5
+          _bottom: 13.377649687388523
+          _height: 2.5
+          _elapsedTime: 0
+  solarPanel4:
     extends: source/buildings/solarPanel.vwf
     properties:
-      tilePosition: [ -25, 18]
-      scale: [ 0.4, 0.4, 0.4 ]
+      tilePosition: [ -25, 18 ]
       rotation: [ 0, 0, 1, 180 ]
-  marsTent1: 
+      visible: false
+    children:
+      material:
+        extends: source/shaders/animatedShader.vwf
+        properties:
+          diffuseMap: "assets/3d/solar_panel/solar_panel.png"
+          normalMap: "assets/3d/solar_panel/solar_panel_n.png"
+          specularMap: "assets/3d/solar_panel/solar_panel_s.png"
+          lightTrailHeight: 0.1
+          normalScale: [ 0.75, 0.75 ]
+          shininess: 1
+          _duration: 5
+          _bottom: 13.377649687388523
+          _height: 2.5
+          _elapsedTime: 0
+  marsTent1:
     extends: source/buildings/tent.vwf
     properties:
       tilePosition: [ -32, 11 ]
