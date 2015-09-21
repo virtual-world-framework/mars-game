@@ -14,14 +14,14 @@
   <library_effects>
     <effect id="hydropon">
       <profile_COMMON>
-        <newparam sid="hydropon_PNG-surface">
+        <newparam sid="hydropon_png-surface">
           <surface type="2D">
-            <init_from>hydropon_PNG</init_from>
+            <init_from>hydropon_png</init_from>
           </surface>
         </newparam>
-        <newparam sid="hydropon_PNG-sampler">
+        <newparam sid="hydropon_png-sampler">
           <sampler2D>
-            <source>hydropon_PNG-surface</source>
+            <source>hydropon_png-surface</source>
           </sampler2D>
         </newparam>
         <newparam sid="hydropon_s_png-surface">
@@ -53,7 +53,7 @@
               <color>0.5882353 0.5882353 0.5882353 1</color>
             </ambient>
             <diffuse>
-              <texture texture="hydropon_PNG-sampler" texcoord="CHANNEL1"/>
+              <texture texture="hydropon_png-sampler" texcoord="CHANNEL1"/>
             </diffuse>
             <specular>
               <color>0.9 0.9 0.9 1</color>
@@ -65,7 +65,7 @@
               <color>0 0 0 1</color>
             </reflective>
             <transparent opaque="A_ONE">
-              <texture texture="hydropon_PNG-sampler" texcoord="CHANNEL1"/>
+              <texture texture="hydropon_png-sampler" texcoord="CHANNEL1"/>
             </transparent>
             <transparency>
               <float>1</float>
@@ -292,8 +292,8 @@
     </light>
   </library_lights>
   <library_images>
-    <image id="hydropon_PNG">
-      <init_from>./hydropon.PNG</init_from>
+    <image id="hydropon_png">
+      <init_from>./hydropon.png</init_from>
     </image>
     <image id="hydropon_n_png">
       <init_from>./hydropon_n.png</init_from>
