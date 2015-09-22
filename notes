@@ -1,0 +1,14 @@
+
+animations in the gltf models aren't yet working.  Rob provided some hints 
+as to how they got it working in sandbox.  Hopefully, its applying a few
+patches.
+
+many static assets are still not being cached because they have the session id
+in the url.
+
+the ".bin" files from gltf aren't being cached, because (I think) the loader
+is setting the if-modified-since field in the request.
+
+the videos aren't caching -- appears to maybe be related to a prefetch that
+it does to validate the browser can play the file, before geting the entire
+file.
