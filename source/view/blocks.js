@@ -115,7 +115,7 @@ Blockly.Blocks['triangle_flow'] = {
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
         .appendField("⇩");
-    this.appendStatementInput("NAME");
+    this.appendStatementInput("STACK");
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
         .appendField("⇩");
@@ -139,14 +139,28 @@ Blockly.Blocks['triangle_flow'] = {
       return;
     }
 
+    var coorda = [ 0, 0 ];
+    var coordb = [ 0, 1 ];
+    var coordc = [ 1, 0 ];
+
     //Evaluate the stack of connected triangle operations
     //Perform the requested operations on the triangle
     //Update the displayed coordinate values
+
+    this.setEditable(true);
+    this.setFieldValue( '(' + coorda + ')','COORDA' );
+    this.setFieldValue( '(' + coordb + ')','COORDB' );
+    this.setFieldValue( '(' + coordc + ')','COORDC' );
+    this.setEditable(false);
   }
 };
 
 Blockly.JavaScript['triangle_flow'] = function(block) {
-  var statements_name = Blockly.JavaScript.statementToCode(block, 'NAME');
+  var statements_stack = Blockly.JavaScript.statementToCode(block, 'STACK');
+
+  // The stack should be the sum of the operations on [ 0, 0 ] [ 0, 1 ] [ 1, 0 ]
+
+  console.log( statements_stack );
   // TODO: Assemble JavaScript into code variable.
   
   // Extract values from dummy fields COORDA - COORDB - COORDC
@@ -248,6 +262,29 @@ Blockly.Blocks['triangle_operations'] = {
     this.setColour(195);
     this.setTooltip('');
     this.data = currentBlocklyNodeID;
+  },
+  onchange: function() {
+    if (!this.workspace) {
+      // Block has been deleted.
+      return;
+    }
+    var legal = false;
+    // Is the block nested in a control statement?
+    var block = this;
+    do {
+      if (block.type == 'triangle_flow') {
+        legal = true;
+        break;
+      }
+      block = block.getSurroundParent();
+    } while ( block );
+    if ( legal ) {
+      this.setWarningText(null);
+      currentBlocklyErrors[ this.id ] = false;
+    } else {
+      this.setWarningText('Block can only be placed within a triangle flow block');
+      currentBlocklyErrors[ this.id ] = true;
+    }
   }
 };
 
