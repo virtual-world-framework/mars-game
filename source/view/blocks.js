@@ -273,6 +273,9 @@ Blockly.Blocks['triangle_operations'] = {
       // Block has been deleted.
       return;
     }
+
+    //if ( this.getFieldValue("OP") == 'ROTATE' ) {}
+    
     var legal = false;
     // Is the block nested in a control statement?
     var block = this;
@@ -319,6 +322,7 @@ Blockly.Blocks['triangle_operations'] = {
         var currentC = [1,0];
 
         if ( dropdown_op === 'DILATE' ) {
+          this.setColour(195);
           currentA[ 0 ] = currentA[ 0 ] + opx;
           currentB[ 0 ] = currentB[ 0 ] + opx;
           currentC[ 0 ] = currentC[ 0 ] + opx;
@@ -337,6 +341,10 @@ Blockly.Blocks['triangle_operations'] = {
           block.setFieldValue( ''+currentB+'','CURRENTB' );
           block.setFieldValue( ''+currentC+'','CURRENTC' );
 
+      } else if ( dropdown_op === 'ROTATE' ) {
+          this.setColour(300);
+      } else if ( dropdown_op === 'TRANSLATE' ) {
+          this.setColour(45);
       }
     } else {
       if ( inputBlock !== undefined ) {
@@ -357,10 +365,12 @@ Blockly.Blocks['triangle_operations'] = {
           block.setFieldValue( ''+currentB+'','CURRENTB' );
           block.setFieldValue( ''+currentC+'','CURRENTC' );
 
+        } else if ( dropdown_op === 'ROTATE' ) {
+          this.setColour(300);
+        } else if ( dropdown_op === 'TRANSLATE' ) {
+            this.setColour(45);
         }
-        //var inputOperator = inputBlock.getFieldValue('OP');
-        //var inputX = inputBlock.getFieldValue('OPX');
-        //var inputY = inputBlock.getFieldValue('OPY');
+
       }
     }
   } 
@@ -386,92 +396,7 @@ Blockly.Blocks['triangle_operations'] = {
 };
 
 Blockly.JavaScript['triangle_operations'] = function(block) {
-  var dropdown_op = block.getFieldValue('OP');
-  var opx = eval( block.getFieldValue('OPX') );
-  var opy = eval( block.getFieldValue('OPY') );
-  var text_ax = block.getFieldValue('AX');
-  var text_ay = block.getFieldValue('AY');
-  var text_bx = block.getFieldValue('BX');
-  var text_by = block.getFieldValue('BY');
-  var text_cx = block.getFieldValue('CX');
-  var text_cy = block.getFieldValue('CY');
-
-  //var inputBlock = block.getSurroundParent();
-  var inputBlock = block.parentBlock_;
-
-  //Check childBlocks_ (array) and parentBlock_ (direct block reference)
-
-  //A triangle flow with 2 operators would have the first operator be the childblock of triangle_flow
-  //The second operator would be the childblock of the first operator
-  //Flow "up" the stack by popping up through parentBlock_ !== null once childblocks_ has a length of 0
-
-  if ( inputBlock !== null ) {
-    if ( inputBlock.type == 'triangle_flow' ) {
-      var currentA = [0,0];
-      var currentB = [0,1];
-      var currentC = [1,0];
-
-      if ( dropdown_op === 'DILATE' ) {
-        currentA[ 0 ] = currentA[ 0 ] + opx;
-        currentB[ 0 ] = currentB[ 0 ] + opx;
-        currentC[ 0 ] = currentC[ 0 ] + opx;
-
-        currentA[ 1 ] = currentA[ 1 ] + opy;
-        currentB[ 1 ] = currentB[ 1 ] + opy;
-        currentC[ 1 ] = currentC[ 1 ] + opy;
-
-        block.setFieldValue( ''+currentA+'','CURRENTA' );
-        block.setFieldValue( ''+currentB+'','CURRENTB' );
-        block.setFieldValue( ''+currentC+'','CURRENTC' );
-
-      }
-    } else {
-      if ( inputBlock !== undefined ) {
-        var currentA = eval( inputBlock.getFieldValue('CURRENTA') );
-        var currentB = eval( inputBlock.getFieldValue('CURRENTB') );
-        var currentC = eval( inputBlock.getFieldValue('CURRENTC') );
-
-        if ( dropdown_op === 'DILATE' ) {
-          currentA[ 0 ] = currentA[ 0 ] + opx;
-          currentB[ 0 ] = currentB[ 0 ] + opx;
-          currentC[ 0 ] = currentC[ 0 ] + opx;
-
-          currentA[ 1 ] = currentA[ 1 ] + opy;
-          currentB[ 1 ] = currentB[ 1 ] + opy;
-          currentC[ 1 ] = currentC[ 1 ] + opy;
-
-          block.setFieldValue( ''+currentA+'','CURRENTA' );
-          block.setFieldValue( ''+currentB+'','CURRENTB' );
-          block.setFieldValue( ''+currentC+'','CURRENTC' );
-
-        }
-        //var inputOperator = inputBlock.getFieldValue('OP');
-        //var inputX = inputBlock.getFieldValue('OPX');
-        //var inputY = inputBlock.getFieldValue('OPY');
-      }
-    }
-  } 
-
-  var block = this;
-  var targetBlock;
-
-  do {
-    targetBlock = block;
-    block = block.parentBlock_;
-  } while ( block );
-
-  if ( targetBlock.type == 'triangle_flow' ) { //Which it should be given our connection checks...
-
-    //Set target block's values with the current A B and C
-
-    targetBlock.setFieldValue( ''+currentA+'','CURRENTA' );
-    targetBlock.setFieldValue( ''+currentB+'','CURRENTB' );
-    targetBlock.setFieldValue( ''+currentC+'','CURRENTC' );
-
-  }
-
-  
-  var code = 'testingflow';
+  var code = '';
   return code;
 };
 
