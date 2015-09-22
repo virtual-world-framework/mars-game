@@ -218,6 +218,7 @@ Blockly.JavaScript['triangle_flow'] = function(block) {
 
   //var overallCode = moveA + start + mark + moveB + mark + moveC + mark + moveA + mark + end;
   var overallCode = start + moveA + mark + moveB + mark + moveC + mark + moveA + mark + end;
+  return overallCode;
 };
 
 Blockly.Blocks['triangle_operations'] = {
@@ -328,7 +329,7 @@ Blockly.Blocks['triangle_operations'] = {
 
           //Check field values against expected values
 
-          if ( ax === currentA[ 0 ] && bx == currentB[ 0 ] && cx == currentC[ 0 ] && ay === currentA[ 1 ] && by == currentB[ 1 ] && cy == currentC[ 1 ] ) {
+          if ( ax === currentA[ 0 ] && bx === currentB[ 0 ] && cx === currentC[ 0 ] && ay === currentA[ 1 ] && by === currentB[ 1 ] && cy === currentC[ 1 ] ) {
             this.setWarningText(null);
             currentBlocklyErrors[ this.id ] = false;
           } else {
