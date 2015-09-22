@@ -129,7 +129,7 @@ Blockly.Blocks['triangle_flow'] = {
     this.setNextStatement(true);
     this.setColour(345);
     this.setTooltip('');
-    this.setHelpUrl('http://www.example.com/');
+    this.data = currentBlocklyNodeID;
   },
   onchange: function() {
     if (!this.workspace || this.data === undefined) {
@@ -157,8 +157,6 @@ Blockly.JavaScript['triangle_flow'] = function(block) {
   var statements_stack = Blockly.JavaScript.statementToCode(block, 'STACK');
 
   // The stack should be the sum of the operations on [ 0, 0 ] [ 0, 1 ] [ 1, 0 ]
-
-  console.log( statements_stack );
   // TODO: Assemble JavaScript into code variable.
   
   // Extract values from dummy fields COORDA - COORDB - COORDC
@@ -171,6 +169,7 @@ Blockly.JavaScript['triangle_flow'] = function(block) {
   //var op_c = op_c_str.split(",");
 
   if ( op_a.length < 2 || op_b.length < 2 || op_c.length < 2 ) {
+    console.log('less length');
     return '';
   }
 
@@ -257,10 +256,6 @@ Blockly.Blocks['triangle_operations'] = {
         .appendField(",")
         .appendField(new Blockly.FieldTextInput("0"), "CY")
         .appendField(")");
-    this.appendDummyInput()
-        .appendField("?", "CURRENTA")
-        .appendField("?", "CURRENTB")
-        .appendField("?", "CURRENTC");
     this.setInputsInline(false);
     this.setPreviousStatement(true, 'INPUT');
     this.setNextStatement(true);
@@ -299,12 +294,12 @@ Blockly.Blocks['triangle_operations'] = {
     var dropdown_op = block.getFieldValue('OP');
     var opx = eval( block.getFieldValue('OPX') );
     var opy = eval( block.getFieldValue('OPY') );
-    var text_ax = block.getFieldValue('AX');
-    var text_ay = block.getFieldValue('AY');
-    var text_bx = block.getFieldValue('BX');
-    var text_by = block.getFieldValue('BY');
-    var text_cx = block.getFieldValue('CX');
-    var text_cy = block.getFieldValue('CY');
+    var ax = eval( block.getFieldValue('AX') );
+    var ay = eval( block.getFieldValue('AY') );
+    var bx = eval( block.getFieldValue('BX') );
+    var by = eval( block.getFieldValue('BY') );
+    var cx = eval( block.getFieldValue('CX') );
+    var cy = eval( block.getFieldValue('CY') );
 
     //var inputBlock = block.getSurroundParent();
     var inputBlock = block.parentBlock_;
@@ -331,15 +326,25 @@ Blockly.Blocks['triangle_operations'] = {
           currentB[ 1 ] = currentB[ 1 ] + opy;
           currentC[ 1 ] = currentC[ 1 ] + opy;
 
+          //Check field values against expected values
+
+          if ( ax === currentA[ 0 ] && bx == currentB[ 0 ] && cx == currentC[ 0 ] && ay === currentA[ 1 ] && by == currentB[ 1 ] && cy == currentC[ 1 ] ) {
+            this.setWarningText(null);
+            currentBlocklyErrors[ this.id ] = false;
+          } else {
+            this.setWarningText('You must input the correct results of this operation!');
+            currentBlocklyErrors[ this.id ] = true;
+          }
+
           //Do the math and check against current values in the AX/AY/BX... etc fields
           //If math matches the numbers, no warning, allow new block to be connected.
           //If math does not match, warning and bump other connections.
 
           //The following would be used when setting automatically with the auto_op block
 
-          block.setFieldValue( ''+currentA+'','CURRENTA' );
-          block.setFieldValue( ''+currentB+'','CURRENTB' );
-          block.setFieldValue( ''+currentC+'','CURRENTC' );
+          //block.setFieldValue( ''+currentA+'','CURRENTA' );
+          //block.setFieldValue( ''+currentB+'','CURRENTB' );
+          //block.setFieldValue( ''+currentC+'','CURRENTC' );
 
       } else if ( dropdown_op === 'ROTATE' ) {
           this.setColour(300);
@@ -348,9 +353,9 @@ Blockly.Blocks['triangle_operations'] = {
       }
     } else {
       if ( inputBlock !== undefined ) {
-        var currentA = eval( inputBlock.getFieldValue('CURRENTA') );
-        var currentB = eval( inputBlock.getFieldValue('CURRENTB') );
-        var currentC = eval( inputBlock.getFieldValue('CURRENTC') );
+        var currentA = [ eval( inputBlock.getFieldValue('AX') ), eval( inputBlock.getFieldValue('AY') ) ];
+        var currentB = [ eval( inputBlock.getFieldValue('BX') ), eval( inputBlock.getFieldValue('BY') ) ];
+        var currentC = [ eval( inputBlock.getFieldValue('CX') ), eval( inputBlock.getFieldValue('CY') ) ];
 
         if ( dropdown_op === 'DILATE' ) {
           currentA[ 0 ] = currentA[ 0 ] + opx;
@@ -361,14 +366,24 @@ Blockly.Blocks['triangle_operations'] = {
           currentB[ 1 ] = currentB[ 1 ] + opy;
           currentC[ 1 ] = currentC[ 1 ] + opy;
 
-          block.setFieldValue( ''+currentA+'','CURRENTA' );
-          block.setFieldValue( ''+currentB+'','CURRENTB' );
-          block.setFieldValue( ''+currentC+'','CURRENTC' );
+          //Check field values against expected values
+
+          if ( ax === currentA[ 0 ] && bx == currentB[ 0 ] && cx == currentC[ 0 ] && ay === currentA[ 1 ] && by == currentB[ 1 ] && cy == currentC[ 1 ] ) {
+            this.setWarningText(null);
+            currentBlocklyErrors[ this.id ] = false;
+          } else {
+            this.setWarningText('You must input the correct results of this operation!');
+            currentBlocklyErrors[ this.id ] = true;
+          }
+
+          //block.setFieldValue( ''+currentA+'','CURRENTA' );
+          //block.setFieldValue( ''+currentB+'','CURRENTB' );
+          //block.setFieldValue( ''+currentC+'','CURRENTC' );
 
         } else if ( dropdown_op === 'ROTATE' ) {
           this.setColour(300);
         } else if ( dropdown_op === 'TRANSLATE' ) {
-            this.setColour(45);
+          this.setColour(45);
         }
 
       }
@@ -378,25 +393,30 @@ Blockly.Blocks['triangle_operations'] = {
     var block = this;
     var targetBlock;
 
-    do {
-      targetBlock = block;
-      block = block.parentBlock_;
-    } while ( block );
+    // Only propagate up if this is the last block in the chain
 
-    if ( targetBlock.type == 'triangle_flow' ) { //Which it should be given our connection checks...
+    if ( this.childBlocks_.length === 0 ) {
+      do {
+        targetBlock = block;
+        block = block.parentBlock_;
+      } while ( block );
 
-      //Set target block's values with the current A B and C
+      if ( targetBlock.type == 'triangle_flow' ) { //Which it should be given our connection checks...
 
-      targetBlock.setFieldValue( ''+currentA+'','CURRENTA' );
-      targetBlock.setFieldValue( ''+currentB+'','CURRENTB' );
-      targetBlock.setFieldValue( ''+currentC+'','CURRENTC' );
+        //Set target block's values (The TRIANGLE FLOW BLOCK's values) with the current A B and C
 
+        targetBlock.setFieldValue( ''+currentA+'','CURRENTA' );
+        targetBlock.setFieldValue( ''+currentB+'','CURRENTB' );
+        targetBlock.setFieldValue( ''+currentC+'','CURRENTC' );
+
+      }
     }
+    
   }
 };
 
-Blockly.JavaScript['triangle_operations'] = function(block) {
-  var code = '';
+Blockly.JavaScript['triangle_operations'] = function( block ) {
+  var code = 'var meaningless = 1';
   return code;
 };
 
