@@ -1,0 +1,435 @@
+{
+    "accessors": {
+        "accessor_38": {
+            "bufferView": "bufferView_49",
+            "byteOffset": 0,
+            "byteStride": 0,
+            "count": 6327,
+            "type": 5123
+        },
+        "accessor_41": {
+            "bufferView": "bufferView_49",
+            "byteOffset": 12654,
+            "byteStride": 0,
+            "count": 1830,
+            "type": 5123
+        },
+        "accessor_43": {
+            "bufferView": "bufferView_50",
+            "byteOffset": 0,
+            "byteStride": 12,
+            "count": 4655,
+            "max": [
+                24.0261,
+                21.6119,
+                22.2951
+            ],
+            "min": [
+                -21.6277,
+                -21.6119,
+                -0.165661
+            ],
+            "type": 35665
+        },
+        "accessor_45": {
+            "bufferView": "bufferView_50",
+            "byteOffset": 55860,
+            "byteStride": 12,
+            "count": 4655,
+            "max": [
+                1,
+                1,
+                1
+            ],
+            "min": [
+                -1,
+                -1,
+                -1
+            ],
+            "type": 35665
+        },
+        "accessor_47": {
+            "bufferView": "bufferView_50",
+            "byteOffset": 111720,
+            "byteStride": 8,
+            "count": 4655,
+            "max": [
+                0.999205,
+                0.998641
+            ],
+            "min": [
+                0.000332021,
+                0.000635922
+            ],
+            "type": 35664
+        }
+    },
+    "animations": {},
+    "asset": {
+        "generator": "collada2gltf@63e932907e3f0c834c8668d04f03ddb6eabf78d1",
+        "premultipliedAlpha": true,
+        "profile": "WebGL 1.0.2",
+        "version": 0.6
+    },
+    "bufferViews": {
+        "bufferView_49": {
+            "buffer": "hydropon_dome",
+            "byteLength": 16316,
+            "byteOffset": 0,
+            "target": 34963
+        },
+        "bufferView_50": {
+            "buffer": "hydropon_dome",
+            "byteLength": 148960,
+            "byteOffset": 16316,
+            "target": 34962
+        }
+    },
+    "buffers": {
+        "hydropon_dome": {
+            "byteLength": 165276,
+            "path": "hydropon_dome.bin",
+            "type": "arraybuffer"
+        }
+    },
+    "images": {
+        "hydropon_n_png": {
+            "path": "hydropon_n.png"
+        },
+        "hydropon_png": {
+            "path": "hydropon.png"
+        },
+        "hydropon_s_png": {
+            "path": "hydropon_s.png"
+        },
+        "mars_tent_n_png": {
+            "path": "mars_tent_n.png"
+        },
+        "mars_tent_png": {
+            "path": "mars_tent.png"
+        },
+        "mars_tent_s_png": {
+            "path": "mars_tent_s.png"
+        }
+    },
+    "lights": {
+        "EnvironmentAmbientLight": {
+            "ambient": {
+                "color": [
+                    0,
+                    0,
+                    0
+                ]
+            },
+            "type": "ambient"
+        }
+    },
+    "materials": {
+        "hydropon": {
+            "instanceTechnique": {
+                "technique": "technique0",
+                "values": {
+                    "ambient": "texture_hydropon_png",
+                    "diffuse": "texture_hydropon_png",
+                    "emission": [
+                        0,
+                        0,
+                        0,
+                        1
+                    ],
+                    "shininess": 1.28,
+                    "specular": [
+                        0.9,
+                        0.9,
+                        0.9,
+                        1
+                    ]
+                }
+            },
+            "name": "hydropon"
+        },
+        "mars_tent": {
+            "instanceTechnique": {
+                "technique": "technique0",
+                "values": {
+                    "ambient": "texture_mars_tent_png",
+                    "diffuse": "texture_mars_tent_png",
+                    "emission": [
+                        0,
+                        0,
+                        0,
+                        1
+                    ],
+                    "shininess": 1.28,
+                    "specular": [
+                        0.9,
+                        0.9,
+                        0.9,
+                        1
+                    ]
+                }
+            },
+            "name": "mars_tent"
+        }
+    },
+    "meshes": {
+        "geom-hydropon_dome": {
+            "name": "hydropon_dome",
+            "primitives": [
+                {
+                    "attributes": {
+                        "NORMAL": "accessor_45",
+                        "POSITION": "accessor_43",
+                        "TEXCOORD_0": "accessor_47"
+                    },
+                    "indices": "accessor_38",
+                    "material": "hydropon",
+                    "primitive": 4
+                },
+                {
+                    "attributes": {
+                        "NORMAL": "accessor_45",
+                        "POSITION": "accessor_43",
+                        "TEXCOORD_0": "accessor_47"
+                    },
+                    "indices": "accessor_41",
+                    "material": "mars_tent",
+                    "primitive": 4
+                }
+            ]
+        }
+    },
+    "nodes": {
+        "node-hydropon_dome": {
+            "children": [
+                "node_2"
+            ],
+            "matrix": [
+                3.05522e-11,
+                -0.680502,
+                0,
+                0,
+                0.680502,
+                3.05522e-11,
+                0,
+                0,
+                0,
+                0,
+                0.680502,
+                0,
+                0,
+                0,
+                0,
+                1
+            ],
+            "name": "hydropon_dome"
+        },
+        "node_0": {
+            "children": [],
+            "light": "EnvironmentAmbientLight",
+            "matrix": [
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1
+            ],
+            "name": "EnvironmentAmbientLight"
+        },
+        "node_2": {
+            "children": [],
+            "matrix": [
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                -2.11517,
+                -0.108949,
+                0.0834036,
+                1
+            ],
+            "meshes": [
+                "geom-hydropon_dome"
+            ],
+            "name": ""
+        }
+    },
+    "programs": {
+        "program_0": {
+            "attributes": [
+                "a_normal",
+                "a_position",
+                "a_texcoord0"
+            ],
+            "fragmentShader": "hydropon_dome0FS",
+            "vertexShader": "hydropon_dome0VS"
+        }
+    },
+    "samplers": {
+        "sampler_0": {
+            "magFilter": 9729,
+            "minFilter": 9729,
+            "wrapS": 10497,
+            "wrapT": 10497
+        }
+    },
+    "scene": "defaultScene",
+    "scenes": {
+        "defaultScene": {
+            "nodes": [
+                "node_0",
+                "node-hydropon_dome"
+            ]
+        }
+    },
+    "shaders": {
+        "hydropon_dome0FS": {
+            "path": "hydropon_dome0FS.glsl",
+            "type": 35632
+        },
+        "hydropon_dome0VS": {
+            "path": "hydropon_dome0VS.glsl",
+            "type": 35633
+        }
+    },
+    "skins": {},
+    "techniques": {
+        "technique0": {
+            "parameters": {
+                "ambient": {
+                    "type": 35678
+                },
+                "diffuse": {
+                    "type": 35678
+                },
+                "emission": {
+                    "type": 35666
+                },
+                "modelViewMatrix": {
+                    "semantic": "MODELVIEW",
+                    "type": 35676
+                },
+                "normal": {
+                    "semantic": "NORMAL",
+                    "type": 35665
+                },
+                "normalMatrix": {
+                    "semantic": "MODELVIEWINVERSETRANSPOSE",
+                    "type": 35675
+                },
+                "position": {
+                    "semantic": "POSITION",
+                    "type": 35665
+                },
+                "projectionMatrix": {
+                    "semantic": "PROJECTION",
+                    "type": 35676
+                },
+                "shininess": {
+                    "type": 5126
+                },
+                "specular": {
+                    "type": 35666
+                },
+                "texcoord0": {
+                    "semantic": "TEXCOORD_0",
+                    "type": 35664
+                }
+            },
+            "pass": "defaultPass",
+            "passes": {
+                "defaultPass": {
+                    "details": {
+                        "commonProfile": {
+                            "extras": {
+                                "doubleSided": false
+                            },
+                            "lightingModel": "Blinn",
+                            "parameters": [
+                                "ambient",
+                                "diffuse",
+                                "emission",
+                                "modelViewMatrix",
+                                "normalMatrix",
+                                "projectionMatrix",
+                                "shininess",
+                                "specular"
+                            ],
+                            "texcoordBindings": {
+                                "ambient": "TEXCOORD_0",
+                                "diffuse": "TEXCOORD_0"
+                            }
+                        },
+                        "type": "COLLADA-1.4.1/commonProfile"
+                    },
+                    "instanceProgram": {
+                        "attributes": {
+                            "a_normal": "normal",
+                            "a_position": "position",
+                            "a_texcoord0": "texcoord0"
+                        },
+                        "program": "program_0",
+                        "uniforms": {
+                            "u_ambient": "ambient",
+                            "u_diffuse": "diffuse",
+                            "u_emission": "emission",
+                            "u_modelViewMatrix": "modelViewMatrix",
+                            "u_normalMatrix": "normalMatrix",
+                            "u_projectionMatrix": "projectionMatrix",
+                            "u_shininess": "shininess",
+                            "u_specular": "specular"
+                        }
+                    },
+                    "states": {
+                        "blendEnable": 1,
+                        "blendEquation": 32774,
+                        "blendFunc": {
+                            "dfactor": 771,
+                            "sfactor": 1
+                        },
+                        "cullFaceEnable": 1,
+                        "depthMask": 1,
+                        "depthTestEnable": 1
+                    }
+                }
+            }
+        }
+    },
+    "textures": {
+        "texture_hydropon_png": {
+            "format": 6408,
+            "internalFormat": 6408,
+            "sampler": "sampler_0",
+            "source": "hydropon_png",
+            "target": 3553,
+            "type": 5121
+        },
+        "texture_mars_tent_png": {
+            "format": 6408,
+            "internalFormat": 6408,
+            "sampler": "sampler_0",
+            "source": "mars_tent_png",
+            "target": 3553,
+            "type": 5121
+        }
+    }
+}

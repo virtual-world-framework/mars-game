@@ -190,8 +190,8 @@ children:
     children:
       terrain:
         extends: http://vwf.example.com/node3.vwf
-        source: assets/3d/Mars_Assets/terrain_mix.dae
-        type: model/vnd.collada+xml
+        source: assets/3d/Mars_Assets/terrain_mix.json
+        type: model/vnd.gltf+json
         properties:
           castShadows: true
           receiveShadows: true
@@ -238,8 +238,8 @@ children:
               triangle: []
       environmentObjects:
         extends: http://vwf.example.com/node3.vwf
-        source: assets/3d/Mars_Assets/mars_assets.dae
-        type: model/vnd.collada+xml
+        source: assets/3d/Mars_Assets/mars_assets.json
+        type: model/vnd.gltf+json
         properties:
           castShadows: true
           receiveShadows: true
@@ -256,8 +256,8 @@ children:
           maxWorldZ: 25
       roverTracks:
         extends: http://vwf.example.com/node3.vwf
-        source: assets/3d/Mars_Assets/mini_rover_tracks.dae
-        type: model/vnd.collada+xml
+        source: assets/3d/Mars_Assets/mini_rover_tracks.json
+        type: model/vnd.gltf+json
         children:
           material:
             extends: http://vwf.example.com/material.vwf
@@ -265,8 +265,8 @@ children:
               alphaTest: 0.25
       roverTracks2:
         extends: http://vwf.example.com/node3.vwf
-        source: assets/3d/Mars_Assets/mini_rover_tracks2.dae
-        type: model/vnd.collada+xml
+        source: assets/3d/Mars_Assets/mini_rover_tracks2.json
+        type: model/vnd.gltf+json
         properties:
           visible: false
         children:
@@ -334,8 +334,8 @@ children:
         implements: 
         - http://vwf.example.com/blockly/controller.vwf
         - source/cameraTarget.vwf
-        source: assets/3d/Rover/rover.dae
-        type: model/vnd.collada+xml
+        source: assets/3d/Rover/rover.json
+        type: model/vnd.gltf+json
         properties:
           defaultMount: thirdPerson
           displayName: "Manny"
@@ -458,8 +458,8 @@ children:
         implements: 
         - http://vwf.example.com/blockly/controller.vwf
         - source/cameraTarget.vwf
-        source: assets/3d/scoutrover/scout_rover.dae
-        type: model/vnd.collada+xml
+        source: assets/3d/scoutrover/scout_rover.json
+        type: model/vnd.gltf+json
         properties:
           defaultMount: thirdPerson
           displayName: "Peregrine"

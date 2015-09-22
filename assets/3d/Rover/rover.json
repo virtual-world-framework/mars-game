@@ -1,0 +1,2339 @@
+{
+    "accessors": {
+        "accessor_102": {
+            "bufferView": "bufferView_515",
+            "byteOffset": 1008,
+            "byteStride": 0,
+            "count": 396,
+            "type": 5123
+        },
+        "accessor_104": {
+            "bufferView": "bufferView_516",
+            "byteOffset": 6304,
+            "byteStride": 12,
+            "count": 140,
+            "max": [
+                -12.2455,
+                95.675,
+                143.822
+            ],
+            "min": [
+                -43.416,
+                66.0829,
+                107.613
+            ],
+            "type": 35665
+        },
+        "accessor_106": {
+            "bufferView": "bufferView_516",
+            "byteOffset": 7984,
+            "byteStride": 12,
+            "count": 140,
+            "max": [
+                0.999991,
+                0.995296,
+                0.893211
+            ],
+            "min": [
+                -0.999991,
+                -0.980293,
+                -0.946481
+            ],
+            "type": 35665
+        },
+        "accessor_108": {
+            "bufferView": "bufferView_516",
+            "byteOffset": 9664,
+            "byteStride": 8,
+            "count": 140,
+            "max": [
+                0.456744,
+                0.853947
+            ],
+            "min": [
+                0.000971612,
+                0.142663
+            ],
+            "type": 35664
+        },
+        "accessor_129": {
+            "bufferView": "bufferView_515",
+            "byteOffset": 2592,
+            "byteStride": 0,
+            "count": 2100,
+            "type": 5123
+        },
+        "accessor_131": {
+            "bufferView": "bufferView_516",
+            "byteOffset": 15456,
+            "byteStride": 12,
+            "count": 771,
+            "max": [
+                0.0521967,
+                0.551733,
+                0.0186555
+            ],
+            "min": [
+                -0.249976,
+                -0.0220553,
+                -0.568831
+            ],
+            "type": 35665
+        },
+        "accessor_133": {
+            "bufferView": "bufferView_516",
+            "byteOffset": 24708,
+            "byteStride": 12,
+            "count": 771,
+            "max": [
+                1,
+                0.968741,
+                0.974668
+            ],
+            "min": [
+                -1,
+                -0.974048,
+                -0.971528
+            ],
+            "type": 35665
+        },
+        "accessor_135": {
+            "bufferView": "bufferView_516",
+            "byteOffset": 33960,
+            "byteStride": 8,
+            "count": 771,
+            "max": [
+                0.997024,
+                0.814723
+            ],
+            "min": [
+                0.267839,
+                0.14986
+            ],
+            "type": 35664
+        },
+        "accessor_156": {
+            "bufferView": "bufferView_515",
+            "byteOffset": 41112,
+            "byteStride": 0,
+            "count": 1152,
+            "type": 5123
+        },
+        "accessor_158": {
+            "bufferView": "bufferView_516",
+            "byteOffset": 231616,
+            "byteStride": 12,
+            "count": 304,
+            "max": [
+                -65.2012,
+                140.494,
+                60.8794
+            ],
+            "min": [
+                -90.4103,
+                79.8721,
+                0.257
+            ],
+            "type": 35665
+        },
+        "accessor_160": {
+            "bufferView": "bufferView_516",
+            "byteOffset": 235264,
+            "byteStride": 12,
+            "count": 304,
+            "max": [
+                1,
+                1,
+                1
+            ],
+            "min": [
+                -1,
+                -1,
+                -1
+            ],
+            "type": 35665
+        },
+        "accessor_162": {
+            "bufferView": "bufferView_516",
+            "byteOffset": 238912,
+            "byteStride": 8,
+            "count": 304,
+            "max": [
+                0.998507,
+                0.999126
+            ],
+            "min": [
+                0.75676,
+                0.151267
+            ],
+            "type": 35664
+        },
+        "accessor_183": {
+            "bufferView": "bufferView_515",
+            "byteOffset": 50328,
+            "byteStride": 0,
+            "count": 468,
+            "type": 5123
+        },
+        "accessor_185": {
+            "bufferView": "bufferView_516",
+            "byteOffset": 270528,
+            "byteStride": 12,
+            "count": 124,
+            "max": [
+                -66.3411,
+                141.47,
+                66.5135
+            ],
+            "min": [
+                -91.1954,
+                81.3421,
+                35.209
+            ],
+            "type": 35665
+        },
+        "accessor_187": {
+            "bufferView": "bufferView_516",
+            "byteOffset": 272016,
+            "byteStride": 12,
+            "count": 124,
+            "max": [
+                0.857226,
+                0.975226,
+                0.992701
+            ],
+            "min": [
+                -0.857225,
+                -0.975813,
+                -0.993296
+            ],
+            "type": 35665
+        },
+        "accessor_189": {
+            "bufferView": "bufferView_516",
+            "byteOffset": 273504,
+            "byteStride": 8,
+            "count": 124,
+            "max": [
+                0.999052,
+                0.146691
+            ],
+            "min": [
+                0.785637,
+                0.00065738
+            ],
+            "type": 35664
+        },
+        "accessor_21": {
+            "bufferView": "bufferView_515",
+            "byteOffset": 20160,
+            "byteStride": 0,
+            "count": 10476,
+            "type": 5123
+        },
+        "accessor_210": {
+            "bufferView": "bufferView_515",
+            "byteOffset": 11760,
+            "byteStride": 0,
+            "count": 2100,
+            "type": 5123
+        },
+        "accessor_212": {
+            "bufferView": "bufferView_516",
+            "byteOffset": 68960,
+            "byteStride": 12,
+            "count": 771,
+            "max": [
+                0.0514145,
+                0.0168099,
+                0.0240775
+            ],
+            "min": [
+                -0.259277,
+                -0.572456,
+                -0.543006
+            ],
+            "type": 35665
+        },
+        "accessor_214": {
+            "bufferView": "bufferView_516",
+            "byteOffset": 78212,
+            "byteStride": 12,
+            "count": 771,
+            "max": [
+                0.99986,
+                0.970046,
+                0.972732
+            ],
+            "min": [
+                -0.99986,
+                -0.968038,
+                -0.966127
+            ],
+            "type": 35665
+        },
+        "accessor_216": {
+            "bufferView": "bufferView_516",
+            "byteOffset": 87464,
+            "byteStride": 8,
+            "count": 771,
+            "max": [
+                0.997024,
+                0.814723
+            ],
+            "min": [
+                0.267839,
+                0.14986
+            ],
+            "type": 35664
+        },
+        "accessor_23": {
+            "bufferView": "bufferView_516",
+            "byteOffset": 118304,
+            "byteStride": 12,
+            "count": 3541,
+            "max": [
+                52.9365,
+                130.183,
+                174.626
+            ],
+            "min": [
+                -52.9365,
+                -149.484,
+                55.0125
+            ],
+            "type": 35665
+        },
+        "accessor_237": {
+            "bufferView": "bufferView_515",
+            "byteOffset": 51264,
+            "byteStride": 0,
+            "count": 468,
+            "type": 5123
+        },
+        "accessor_239": {
+            "bufferView": "bufferView_516",
+            "byteOffset": 274496,
+            "byteStride": 12,
+            "count": 124,
+            "max": [
+                -66.3411,
+                141.47,
+                66.5135
+            ],
+            "min": [
+                -91.1954,
+                81.3421,
+                35.209
+            ],
+            "type": 35665
+        },
+        "accessor_241": {
+            "bufferView": "bufferView_516",
+            "byteOffset": 275984,
+            "byteStride": 12,
+            "count": 124,
+            "max": [
+                0.857226,
+                0.975226,
+                0.992701
+            ],
+            "min": [
+                -0.857225,
+                -0.975813,
+                -0.993296
+            ],
+            "type": 35665
+        },
+        "accessor_243": {
+            "bufferView": "bufferView_516",
+            "byteOffset": 277472,
+            "byteStride": 8,
+            "count": 124,
+            "max": [
+                0.999052,
+                0.146691
+            ],
+            "min": [
+                0.785637,
+                0.00065738
+            ],
+            "type": 35664
+        },
+        "accessor_25": {
+            "bufferView": "bufferView_516",
+            "byteOffset": 160796,
+            "byteStride": 12,
+            "count": 3541,
+            "max": [
+                1,
+                1,
+                1
+            ],
+            "min": [
+                -1,
+                -1,
+                -1
+            ],
+            "type": 35665
+        },
+        "accessor_264": {
+            "bufferView": "bufferView_515",
+            "byteOffset": 43416,
+            "byteStride": 0,
+            "count": 1152,
+            "type": 5123
+        },
+        "accessor_266": {
+            "bufferView": "bufferView_516",
+            "byteOffset": 241344,
+            "byteStride": 12,
+            "count": 304,
+            "max": [
+                -65.2012,
+                140.494,
+                60.8794
+            ],
+            "min": [
+                -90.4103,
+                79.8721,
+                0.257
+            ],
+            "type": 35665
+        },
+        "accessor_268": {
+            "bufferView": "bufferView_516",
+            "byteOffset": 244992,
+            "byteStride": 12,
+            "count": 304,
+            "max": [
+                1,
+                1,
+                1
+            ],
+            "min": [
+                -1,
+                -1,
+                -1
+            ],
+            "type": 35665
+        },
+        "accessor_27": {
+            "bufferView": "bufferView_516",
+            "byteOffset": 203288,
+            "byteStride": 8,
+            "count": 3541,
+            "max": [
+                0.836754,
+                0.999482
+            ],
+            "min": [
+                0.0017393,
+                -0.000270963
+            ],
+            "type": 35664
+        },
+        "accessor_270": {
+            "bufferView": "bufferView_516",
+            "byteOffset": 248640,
+            "byteStride": 8,
+            "count": 304,
+            "max": [
+                0.998507,
+                0.999126
+            ],
+            "min": [
+                0.75676,
+                0.151267
+            ],
+            "type": 35664
+        },
+        "accessor_291": {
+            "bufferView": "bufferView_515",
+            "byteOffset": 6792,
+            "byteStride": 0,
+            "count": 2100,
+            "type": 5123
+        },
+        "accessor_293": {
+            "bufferView": "bufferView_516",
+            "byteOffset": 40128,
+            "byteStride": 12,
+            "count": 771,
+            "max": [
+                0.249976,
+                0.551733,
+                0.0186555
+            ],
+            "min": [
+                -0.0521967,
+                -0.0220553,
+                -0.568831
+            ],
+            "type": 35665
+        },
+        "accessor_295": {
+            "bufferView": "bufferView_516",
+            "byteOffset": 49380,
+            "byteStride": 12,
+            "count": 771,
+            "max": [
+                1,
+                0.968741,
+                0.974668
+            ],
+            "min": [
+                -1,
+                -0.974048,
+                -0.971528
+            ],
+            "type": 35665
+        },
+        "accessor_297": {
+            "bufferView": "bufferView_516",
+            "byteOffset": 58632,
+            "byteStride": 8,
+            "count": 771,
+            "max": [
+                0.997024,
+                0.814723
+            ],
+            "min": [
+                0.267839,
+                0.14986
+            ],
+            "type": 35664
+        },
+        "accessor_318": {
+            "bufferView": "bufferView_515",
+            "byteOffset": 52200,
+            "byteStride": 0,
+            "count": 468,
+            "type": 5123
+        },
+        "accessor_320": {
+            "bufferView": "bufferView_516",
+            "byteOffset": 278464,
+            "byteStride": 12,
+            "count": 124,
+            "max": [
+                0.168797,
+                0.394421,
+                0.405178
+            ],
+            "min": [
+                -0.144531,
+                -0.363588,
+                0.0105351
+            ],
+            "type": 35665
+        },
+        "accessor_322": {
+            "bufferView": "bufferView_516",
+            "byteOffset": 279952,
+            "byteStride": 12,
+            "count": 124,
+            "max": [
+                0.857225,
+                0.975226,
+                0.992701
+            ],
+            "min": [
+                -0.857225,
+                -0.975812,
+                -0.993297
+            ],
+            "type": 35665
+        },
+        "accessor_324": {
+            "bufferView": "bufferView_516",
+            "byteOffset": 281440,
+            "byteStride": 8,
+            "count": 124,
+            "max": [
+                0.999052,
+                0.146691
+            ],
+            "min": [
+                0.785637,
+                0.00065738
+            ],
+            "type": 35664
+        },
+        "accessor_345": {
+            "bufferView": "bufferView_515",
+            "byteOffset": 45720,
+            "byteStride": 0,
+            "count": 1152,
+            "type": 5123
+        },
+        "accessor_347": {
+            "bufferView": "bufferView_516",
+            "byteOffset": 251072,
+            "byteStride": 12,
+            "count": 304,
+            "max": [
+                0.13739,
+                0.330391,
+                0.330392
+            ],
+            "min": [
+                -0.13739,
+                -0.330392,
+                -0.330392
+            ],
+            "type": 35665
+        },
+        "accessor_349": {
+            "bufferView": "bufferView_516",
+            "byteOffset": 254720,
+            "byteStride": 12,
+            "count": 304,
+            "max": [
+                1,
+                1,
+                1
+            ],
+            "min": [
+                -1,
+                -1,
+                -1
+            ],
+            "type": 35665
+        },
+        "accessor_351": {
+            "bufferView": "bufferView_516",
+            "byteOffset": 258368,
+            "byteStride": 8,
+            "count": 304,
+            "max": [
+                0.998507,
+                0.999126
+            ],
+            "min": [
+                0.75676,
+                0.151267
+            ],
+            "type": 35664
+        },
+        "accessor_372": {
+            "bufferView": "bufferView_515",
+            "byteOffset": 15960,
+            "byteStride": 0,
+            "count": 2100,
+            "type": 5123
+        },
+        "accessor_374": {
+            "bufferView": "bufferView_516",
+            "byteOffset": 93632,
+            "byteStride": 12,
+            "count": 771,
+            "max": [
+                0.259277,
+                0.0154506,
+                0.0256304
+            ],
+            "min": [
+                -0.0514145,
+                -0.578963,
+                -0.53502
+            ],
+            "type": 35665
+        },
+        "accessor_376": {
+            "bufferView": "bufferView_516",
+            "byteOffset": 102884,
+            "byteStride": 12,
+            "count": 771,
+            "max": [
+                0.99986,
+                0.969113,
+                0.971304
+            ],
+            "min": [
+                -0.99986,
+                -0.968121,
+                -0.963698
+            ],
+            "type": 35665
+        },
+        "accessor_378": {
+            "bufferView": "bufferView_516",
+            "byteOffset": 112136,
+            "byteStride": 8,
+            "count": 771,
+            "max": [
+                0.997024,
+                0.814723
+            ],
+            "min": [
+                0.267839,
+                0.14986
+            ],
+            "type": 35664
+        },
+        "accessor_399": {
+            "bufferView": "bufferView_515",
+            "byteOffset": 48024,
+            "byteStride": 0,
+            "count": 1152,
+            "type": 5123
+        },
+        "accessor_401": {
+            "bufferView": "bufferView_516",
+            "byteOffset": 260800,
+            "byteStride": 12,
+            "count": 304,
+            "max": [
+                0.13739,
+                0.330319,
+                0.330319
+            ],
+            "min": [
+                -0.13739,
+                -0.330319,
+                -0.33032
+            ],
+            "type": 35665
+        },
+        "accessor_403": {
+            "bufferView": "bufferView_516",
+            "byteOffset": 264448,
+            "byteStride": 12,
+            "count": 304,
+            "max": [
+                1,
+                0.999781,
+                0.999781
+            ],
+            "min": [
+                -1,
+                -0.999781,
+                -0.999781
+            ],
+            "type": 35665
+        },
+        "accessor_405": {
+            "bufferView": "bufferView_516",
+            "byteOffset": 268096,
+            "byteStride": 8,
+            "count": 304,
+            "max": [
+                0.998507,
+                0.999126
+            ],
+            "min": [
+                0.75676,
+                0.151267
+            ],
+            "type": 35664
+        },
+        "accessor_426": {
+            "bufferView": "bufferView_515",
+            "byteOffset": 53136,
+            "byteStride": 0,
+            "count": 468,
+            "type": 5123
+        },
+        "accessor_428": {
+            "bufferView": "bufferView_516",
+            "byteOffset": 282432,
+            "byteStride": 12,
+            "count": 124,
+            "max": [
+                0.168797,
+                0.394069,
+                0.405089
+            ],
+            "min": [
+                -0.144531,
+                -0.366931,
+                0.0185352
+            ],
+            "type": 35665
+        },
+        "accessor_430": {
+            "bufferView": "bufferView_516",
+            "byteOffset": 283920,
+            "byteStride": 12,
+            "count": 124,
+            "max": [
+                0.857225,
+                0.971513,
+                0.992484
+            ],
+            "min": [
+                -0.857225,
+                -0.972077,
+                -0.993079
+            ],
+            "type": 35665
+        },
+        "accessor_432": {
+            "bufferView": "bufferView_516",
+            "byteOffset": 285408,
+            "byteStride": 8,
+            "count": 124,
+            "max": [
+                0.999052,
+                0.146691
+            ],
+            "min": [
+                0.785637,
+                0.00065738
+            ],
+            "type": 35664
+        },
+        "accessor_453": {
+            "bufferView": "bufferView_515",
+            "byteOffset": 576,
+            "byteStride": 0,
+            "count": 216,
+            "type": 5123
+        },
+        "accessor_455": {
+            "bufferView": "bufferView_516",
+            "byteOffset": 3648,
+            "byteStride": 12,
+            "count": 83,
+            "max": [
+                25.3641,
+                25.1711,
+                156.563
+            ],
+            "min": [
+                -0.112237,
+                -77.6297,
+                142.886
+            ],
+            "type": 35665
+        },
+        "accessor_457": {
+            "bufferView": "bufferView_516",
+            "byteOffset": 4644,
+            "byteStride": 12,
+            "count": 83,
+            "max": [
+                0.992741,
+                0.987668,
+                0.992649
+            ],
+            "min": [
+                -0.994061,
+                -0.841167,
+                -0.992639
+            ],
+            "type": 35665
+        },
+        "accessor_459": {
+            "bufferView": "bufferView_516",
+            "byteOffset": 5640,
+            "byteStride": 8,
+            "count": 83,
+            "max": [
+                0.679717,
+                0.853601
+            ],
+            "min": [
+                0.487985,
+                0.748926
+            ],
+            "type": 35664
+        },
+        "accessor_48": {
+            "bufferView": "bufferView_515",
+            "byteOffset": 10992,
+            "byteStride": 0,
+            "count": 384,
+            "type": 5123
+        },
+        "accessor_480": {
+            "bufferView": "bufferView_515",
+            "byteOffset": 144,
+            "byteStride": 0,
+            "count": 216,
+            "type": 5123
+        },
+        "accessor_482": {
+            "bufferView": "bufferView_516",
+            "byteOffset": 992,
+            "byteStride": 12,
+            "count": 83,
+            "max": [
+                0.112225,
+                25.1711,
+                156.563
+            ],
+            "min": [
+                -25.3641,
+                -77.6297,
+                142.886
+            ],
+            "type": 35665
+        },
+        "accessor_484": {
+            "bufferView": "bufferView_516",
+            "byteOffset": 1988,
+            "byteStride": 12,
+            "count": 83,
+            "max": [
+                0.994061,
+                0.987669,
+                0.992649
+            ],
+            "min": [
+                -0.992745,
+                -0.841438,
+                -0.992639
+            ],
+            "type": 35665
+        },
+        "accessor_486": {
+            "bufferView": "bufferView_516",
+            "byteOffset": 2984,
+            "byteStride": 8,
+            "count": 83,
+            "max": [
+                0.778132,
+                0.735182
+            ],
+            "min": [
+                0.677095,
+                0.543065
+            ],
+            "type": 35664
+        },
+        "accessor_50": {
+            "bufferView": "bufferView_516",
+            "byteOffset": 64800,
+            "byteStride": 12,
+            "count": 130,
+            "max": [
+                26.389,
+                104.393,
+                156.206
+            ],
+            "min": [
+                -26.389,
+                48.6107,
+                116.157
+            ],
+            "type": 35665
+        },
+        "accessor_507": {
+            "bufferView": "bufferView_515",
+            "byteOffset": 0,
+            "byteStride": 0,
+            "count": 72,
+            "type": 5123
+        },
+        "accessor_509": {
+            "bufferView": "bufferView_516",
+            "byteOffset": 0,
+            "byteStride": 12,
+            "count": 31,
+            "max": [
+                0.0393811,
+                0.034105,
+                0.17552
+            ],
+            "min": [
+                -0.0393811,
+                -0.034105,
+                0
+            ],
+            "type": 35665
+        },
+        "accessor_511": {
+            "bufferView": "bufferView_516",
+            "byteOffset": 372,
+            "byteStride": 12,
+            "count": 31,
+            "max": [
+                1,
+                0.866025,
+                1
+            ],
+            "min": [
+                -1,
+                -0.866025,
+                -1
+            ],
+            "type": 35665
+        },
+        "accessor_513": {
+            "bufferView": "bufferView_516",
+            "byteOffset": 744,
+            "byteStride": 8,
+            "count": 31,
+            "max": [
+                0.916667,
+                1
+            ],
+            "min": [
+                -0.0833333,
+                0
+            ],
+            "type": 35664
+        },
+        "accessor_52": {
+            "bufferView": "bufferView_516",
+            "byteOffset": 66360,
+            "byteStride": 12,
+            "count": 130,
+            "max": [
+                0.995473,
+                0.902644,
+                0.936984
+            ],
+            "min": [
+                -0.99628,
+                -0.913939,
+                -0.957787
+            ],
+            "type": 35665
+        },
+        "accessor_54": {
+            "bufferView": "bufferView_516",
+            "byteOffset": 67920,
+            "byteStride": 8,
+            "count": 130,
+            "max": [
+                0.833801,
+                0.603014
+            ],
+            "min": [
+                0.264452,
+                0.0856015
+            ],
+            "type": 35664
+        },
+        "accessor_75": {
+            "bufferView": "bufferView_515",
+            "byteOffset": 1800,
+            "byteStride": 0,
+            "count": 396,
+            "type": 5123
+        },
+        "accessor_77": {
+            "bufferView": "bufferView_516",
+            "byteOffset": 10784,
+            "byteStride": 12,
+            "count": 146,
+            "max": [
+                43.416,
+                95.675,
+                143.822
+            ],
+            "min": [
+                12.1674,
+                66.0829,
+                107.546
+            ],
+            "type": 35665
+        },
+        "accessor_79": {
+            "bufferView": "bufferView_516",
+            "byteOffset": 12536,
+            "byteStride": 12,
+            "count": 146,
+            "max": [
+                0.999991,
+                0.995107,
+                0.893204
+            ],
+            "min": [
+                -0.949523,
+                -0.980299,
+                -0.946484
+            ],
+            "type": 35665
+        },
+        "accessor_81": {
+            "bufferView": "bufferView_516",
+            "byteOffset": 14288,
+            "byteStride": 8,
+            "count": 146,
+            "max": [
+                0.494778,
+                0.853294
+            ],
+            "min": [
+                0.00147999,
+                0.185786
+            ],
+            "type": 35664
+        }
+    },
+    "animations": {},
+    "asset": {
+        "generator": "collada2gltf@63e932907e3f0c834c8668d04f03ddb6eabf78d1",
+        "premultipliedAlpha": true,
+        "profile": "WebGL 1.0.2",
+        "version": 0.6
+    },
+    "bufferViews": {
+        "bufferView_515": {
+            "buffer": "rover",
+            "byteLength": 54072,
+            "byteOffset": 0,
+            "target": 34963
+        },
+        "bufferView_516": {
+            "buffer": "rover",
+            "byteLength": 286400,
+            "byteOffset": 54072,
+            "target": 34962
+        }
+    },
+    "buffers": {
+        "rover": {
+            "byteLength": 340472,
+            "path": "rover.bin",
+            "type": "arraybuffer"
+        }
+    },
+    "images": {
+        "rover_teal_n_png": {
+            "path": "rover_teal_n.png"
+        },
+        "rover_teal_png": {
+            "path": "rover_teal.png"
+        },
+        "rover_teal_s_png": {
+            "path": "rover_teal_s.png"
+        }
+    },
+    "lights": {
+        "EnvironmentAmbientLight": {
+            "ambient": {
+                "color": [
+                    0,
+                    0,
+                    0
+                ]
+            },
+            "type": "ambient"
+        }
+    },
+    "materials": {
+        "rover_teal": {
+            "instanceTechnique": {
+                "technique": "technique0",
+                "values": {
+                    "ambient": "texture_rover_teal_png",
+                    "diffuse": "texture_rover_teal_png",
+                    "emission": [
+                        0,
+                        0,
+                        0,
+                        1
+                    ],
+                    "shininess": 1,
+                    "specular": [
+                        0.9,
+                        0.9,
+                        0.9,
+                        1
+                    ]
+                }
+            },
+            "name": "rover_teal"
+        }
+    },
+    "meshes": {
+        "geom-Cylinder053": {
+            "name": "Cylinder053",
+            "primitives": [
+                {
+                    "attributes": {
+                        "NORMAL": "accessor_511",
+                        "POSITION": "accessor_509",
+                        "TEXCOORD_0": "accessor_513"
+                    },
+                    "indices": "accessor_507",
+                    "material": "rover_teal",
+                    "primitive": 4
+                }
+            ]
+        },
+        "geom-Object180": {
+            "name": "Object180",
+            "primitives": [
+                {
+                    "attributes": {
+                        "NORMAL": "accessor_484",
+                        "POSITION": "accessor_482",
+                        "TEXCOORD_0": "accessor_486"
+                    },
+                    "indices": "accessor_480",
+                    "material": "rover_teal",
+                    "primitive": 4
+                }
+            ]
+        },
+        "geom-Object181": {
+            "name": "Object181",
+            "primitives": [
+                {
+                    "attributes": {
+                        "NORMAL": "accessor_457",
+                        "POSITION": "accessor_455",
+                        "TEXCOORD_0": "accessor_459"
+                    },
+                    "indices": "accessor_453",
+                    "material": "rover_teal",
+                    "primitive": 4
+                }
+            ]
+        },
+        "geom-eye_l": {
+            "name": "eye_l",
+            "primitives": [
+                {
+                    "attributes": {
+                        "NORMAL": "accessor_106",
+                        "POSITION": "accessor_104",
+                        "TEXCOORD_0": "accessor_108"
+                    },
+                    "indices": "accessor_102",
+                    "material": "rover_teal",
+                    "primitive": 4
+                }
+            ]
+        },
+        "geom-eye_r": {
+            "name": "eye_r",
+            "primitives": [
+                {
+                    "attributes": {
+                        "NORMAL": "accessor_79",
+                        "POSITION": "accessor_77",
+                        "TEXCOORD_0": "accessor_81"
+                    },
+                    "indices": "accessor_75",
+                    "material": "rover_teal",
+                    "primitive": 4
+                }
+            ]
+        },
+        "geom-front_spring_l": {
+            "name": "front_spring_l",
+            "primitives": [
+                {
+                    "attributes": {
+                        "NORMAL": "accessor_133",
+                        "POSITION": "accessor_131",
+                        "TEXCOORD_0": "accessor_135"
+                    },
+                    "indices": "accessor_129",
+                    "material": "rover_teal",
+                    "primitive": 4
+                }
+            ]
+        },
+        "geom-front_spring_r": {
+            "name": "front_spring_r",
+            "primitives": [
+                {
+                    "attributes": {
+                        "NORMAL": "accessor_295",
+                        "POSITION": "accessor_293",
+                        "TEXCOORD_0": "accessor_297"
+                    },
+                    "indices": "accessor_291",
+                    "material": "rover_teal",
+                    "primitive": 4
+                }
+            ]
+        },
+        "geom-pop_up": {
+            "name": "pop_up",
+            "primitives": [
+                {
+                    "attributes": {
+                        "NORMAL": "accessor_52",
+                        "POSITION": "accessor_50",
+                        "TEXCOORD_0": "accessor_54"
+                    },
+                    "indices": "accessor_48",
+                    "material": "rover_teal",
+                    "primitive": 4
+                }
+            ]
+        },
+        "geom-rear_spring_l": {
+            "name": "rear_spring_l",
+            "primitives": [
+                {
+                    "attributes": {
+                        "NORMAL": "accessor_214",
+                        "POSITION": "accessor_212",
+                        "TEXCOORD_0": "accessor_216"
+                    },
+                    "indices": "accessor_210",
+                    "material": "rover_teal",
+                    "primitive": 4
+                }
+            ]
+        },
+        "geom-rear_spring_r": {
+            "name": "rear_spring_r",
+            "primitives": [
+                {
+                    "attributes": {
+                        "NORMAL": "accessor_376",
+                        "POSITION": "accessor_374",
+                        "TEXCOORD_0": "accessor_378"
+                    },
+                    "indices": "accessor_372",
+                    "material": "rover_teal",
+                    "primitive": 4
+                }
+            ]
+        },
+        "geom-rover_base": {
+            "name": "rover_base",
+            "primitives": [
+                {
+                    "attributes": {
+                        "NORMAL": "accessor_25",
+                        "POSITION": "accessor_23",
+                        "TEXCOORD_0": "accessor_27"
+                    },
+                    "indices": "accessor_21",
+                    "material": "rover_teal",
+                    "primitive": 4
+                }
+            ]
+        },
+        "geom-wheel": {
+            "name": "wheel",
+            "primitives": [
+                {
+                    "attributes": {
+                        "NORMAL": "accessor_160",
+                        "POSITION": "accessor_158",
+                        "TEXCOORD_0": "accessor_162"
+                    },
+                    "indices": "accessor_156",
+                    "material": "rover_teal",
+                    "primitive": 4
+                }
+            ]
+        },
+        "geom-wheel001": {
+            "name": "wheel001",
+            "primitives": [
+                {
+                    "attributes": {
+                        "NORMAL": "accessor_268",
+                        "POSITION": "accessor_266",
+                        "TEXCOORD_0": "accessor_270"
+                    },
+                    "indices": "accessor_264",
+                    "material": "rover_teal",
+                    "primitive": 4
+                }
+            ]
+        },
+        "geom-wheel002": {
+            "name": "wheel002",
+            "primitives": [
+                {
+                    "attributes": {
+                        "NORMAL": "accessor_349",
+                        "POSITION": "accessor_347",
+                        "TEXCOORD_0": "accessor_351"
+                    },
+                    "indices": "accessor_345",
+                    "material": "rover_teal",
+                    "primitive": 4
+                }
+            ]
+        },
+        "geom-wheel003": {
+            "name": "wheel003",
+            "primitives": [
+                {
+                    "attributes": {
+                        "NORMAL": "accessor_403",
+                        "POSITION": "accessor_401",
+                        "TEXCOORD_0": "accessor_405"
+                    },
+                    "indices": "accessor_399",
+                    "material": "rover_teal",
+                    "primitive": 4
+                }
+            ]
+        },
+        "geom-wheel_well": {
+            "name": "wheel_well",
+            "primitives": [
+                {
+                    "attributes": {
+                        "NORMAL": "accessor_187",
+                        "POSITION": "accessor_185",
+                        "TEXCOORD_0": "accessor_189"
+                    },
+                    "indices": "accessor_183",
+                    "material": "rover_teal",
+                    "primitive": 4
+                }
+            ]
+        },
+        "geom-wheel_well001": {
+            "name": "wheel_well001",
+            "primitives": [
+                {
+                    "attributes": {
+                        "NORMAL": "accessor_241",
+                        "POSITION": "accessor_239",
+                        "TEXCOORD_0": "accessor_243"
+                    },
+                    "indices": "accessor_237",
+                    "material": "rover_teal",
+                    "primitive": 4
+                }
+            ]
+        },
+        "geom-wheel_well002": {
+            "name": "wheel_well002",
+            "primitives": [
+                {
+                    "attributes": {
+                        "NORMAL": "accessor_322",
+                        "POSITION": "accessor_320",
+                        "TEXCOORD_0": "accessor_324"
+                    },
+                    "indices": "accessor_318",
+                    "material": "rover_teal",
+                    "primitive": 4
+                }
+            ]
+        },
+        "geom-wheel_well003": {
+            "name": "wheel_well003",
+            "primitives": [
+                {
+                    "attributes": {
+                        "NORMAL": "accessor_430",
+                        "POSITION": "accessor_428",
+                        "TEXCOORD_0": "accessor_432"
+                    },
+                    "indices": "accessor_426",
+                    "material": "rover_teal",
+                    "primitive": 4
+                }
+            ]
+        }
+    },
+    "nodes": {
+        "node-Cylinder053": {
+            "children": [],
+            "matrix": [
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0.000332511,
+                0.174842,
+                1.08786,
+                1
+            ],
+            "meshes": [
+                "geom-Cylinder053"
+            ],
+            "name": "Cylinder053"
+        },
+        "node-Object180": {
+            "children": [
+                "node_28"
+            ],
+            "matrix": [
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                -0.126925,
+                -0.273039,
+                1.50547,
+                1
+            ],
+            "name": "Object180"
+        },
+        "node-Object181": {
+            "children": [
+                "node_26"
+            ],
+            "matrix": [
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0.126925,
+                -0.273039,
+                1.50547,
+                1
+            ],
+            "name": "Object181"
+        },
+        "node-eye_l": {
+            "children": [
+                "node_8"
+            ],
+            "matrix": [
+                0.794695,
+                -0.234259,
+                -0.559985,
+                0,
+                -0.0242354,
+                0.90955,
+                -0.414887,
+                0,
+                0.606526,
+                0.34328,
+                0.717137,
+                0,
+                -0.229708,
+                0.232947,
+                -0.114707,
+                1
+            ],
+            "name": "eye_l"
+        },
+        "node-eye_r": {
+            "children": [
+                "node_6"
+            ],
+            "matrix": [
+                0.780409,
+                0.24222,
+                0.576447,
+                0,
+                0.0241853,
+                0.909535,
+                -0.414924,
+                0,
+                -0.624801,
+                0.337752,
+                0.703951,
+                0,
+                0.229364,
+                0.232835,
+                -0.114575,
+                1
+            ],
+            "name": "eye_r"
+        },
+        "node-front_spring_l": {
+            "children": [
+                "node-wheel",
+                "node-wheel_well"
+            ],
+            "matrix": [
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                -0.348941,
+                0.696691,
+                0.750019,
+                1
+            ],
+            "meshes": [
+                "geom-front_spring_l"
+            ],
+            "name": "front_spring_l"
+        },
+        "node-front_spring_r": {
+            "children": [
+                "node-wheel_well002",
+                "node-wheel002"
+            ],
+            "matrix": [
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0.350673,
+                0.696691,
+                0.750019,
+                1
+            ],
+            "meshes": [
+                "geom-front_spring_r"
+            ],
+            "name": "front_spring_r"
+        },
+        "node-pop_up": {
+            "children": [
+                "node_4",
+                "node-eye_r",
+                "node-eye_l"
+            ],
+            "matrix": [
+                1,
+                0,
+                0,
+                0,
+                0,
+                0.922187,
+                0.386745,
+                0,
+                0,
+                -0.386745,
+                0.922187,
+                0,
+                -5.03417e-08,
+                0.486034,
+                1.55128,
+                1
+            ],
+            "name": "pop_up"
+        },
+        "node-rear_spring_l": {
+            "children": [
+                "node-wheel_well001",
+                "node-wheel001"
+            ],
+            "matrix": [
+                1,
+                0,
+                0,
+                0,
+                0,
+                0.999781,
+                -0.0209426,
+                0,
+                0,
+                0.0209426,
+                0.999781,
+                0,
+                -0.3662,
+                -0.743532,
+                0.708877,
+                1
+            ],
+            "meshes": [
+                "geom-rear_spring_l"
+            ],
+            "name": "rear_spring_l"
+        },
+        "node-rear_spring_r": {
+            "children": [
+                "node-wheel003",
+                "node-wheel_well003"
+            ],
+            "matrix": [
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0.368246,
+                -0.743533,
+                0.708877,
+                1
+            ],
+            "meshes": [
+                "geom-rear_spring_r"
+            ],
+            "name": "rear_spring_r"
+        },
+        "node-rover_base": {
+            "children": [
+                "node_2",
+                "node-pop_up",
+                "node-front_spring_l",
+                "node-rear_spring_l",
+                "node-front_spring_r",
+                "node-rear_spring_r",
+                "node-Object181",
+                "node-Object180"
+            ],
+            "matrix": [
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0.010746,
+                -0.00301361,
+                1
+            ],
+            "name": "rover_base"
+        },
+        "node-wheel": {
+            "children": [
+                "node_11"
+            ],
+            "matrix": [
+                1.09,
+                0,
+                0,
+                0,
+                0,
+                1.09,
+                0,
+                0,
+                0,
+                0,
+                1.09,
+                0,
+                -0.361975,
+                0.405137,
+                -0.42508,
+                1
+            ],
+            "name": "wheel"
+        },
+        "node-wheel001": {
+            "children": [
+                "node_18"
+            ],
+            "matrix": [
+                1.09,
+                1.18265e-07,
+                2.51988e-16,
+                0,
+                -1.1824e-07,
+                1.08976,
+                0.0228273,
+                0,
+                2.47677e-09,
+                -0.0228273,
+                1.08976,
+                0,
+                -0.369913,
+                -0.431291,
+                -0.393056,
+                1
+            ],
+            "name": "wheel001"
+        },
+        "node-wheel002": {
+            "children": [],
+            "matrix": [
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0.360615,
+                0.405137,
+                -0.42508,
+                1
+            ],
+            "meshes": [
+                "geom-wheel002"
+            ],
+            "name": "wheel002"
+        },
+        "node-wheel003": {
+            "children": [],
+            "matrix": [
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0.366567,
+                -0.437265,
+                -0.384854,
+                1
+            ],
+            "meshes": [
+                "geom-wheel003"
+            ],
+            "name": "wheel003"
+        },
+        "node-wheel_well": {
+            "children": [
+                "node_13"
+            ],
+            "matrix": [
+                1.26065,
+                1.96979e-06,
+                -2.02197e-06,
+                0,
+                1.96979e-06,
+                1.26066,
+                -8.94333e-07,
+                0,
+                -2.02197e-06,
+                -8.94333e-07,
+                1.26066,
+                0,
+                -0.362066,
+                0.405142,
+                -0.425145,
+                1
+            ],
+            "name": "wheel_well"
+        },
+        "node-wheel_well001": {
+            "children": [
+                "node_16"
+            ],
+            "matrix": [
+                1.26065,
+                3.88271e-06,
+                -4.3984e-06,
+                0,
+                1.24063e-07,
+                1.26038,
+                0.0264014,
+                0,
+                4.6844e-07,
+                -0.0264031,
+                1.26038,
+                0,
+                -0.370004,
+                -0.431285,
+                -0.393121,
+                1
+            ],
+            "name": "wheel_well001"
+        },
+        "node-wheel_well002": {
+            "children": [],
+            "matrix": [
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0.360706,
+                0.405142,
+                -0.425144,
+                1
+            ],
+            "meshes": [
+                "geom-wheel_well002"
+            ],
+            "name": "wheel_well002"
+        },
+        "node-wheel_well003": {
+            "children": [],
+            "matrix": [
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0.365826,
+                -0.437259,
+                -0.384918,
+                1
+            ],
+            "meshes": [
+                "geom-wheel_well003"
+            ],
+            "name": "wheel_well003"
+        },
+        "node_0": {
+            "children": [],
+            "light": "EnvironmentAmbientLight",
+            "matrix": [
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1
+            ],
+            "name": "EnvironmentAmbientLight"
+        },
+        "node_11": {
+            "children": [],
+            "matrix": [
+                0.01,
+                0,
+                0,
+                0,
+                0,
+                0.01,
+                0,
+                0,
+                0,
+                0,
+                0.01,
+                0,
+                0.778058,
+                -1.10183,
+                -0.305682,
+                1
+            ],
+            "meshes": [
+                "geom-wheel"
+            ],
+            "name": ""
+        },
+        "node_13": {
+            "children": [],
+            "matrix": [
+                0.01,
+                0,
+                0,
+                0,
+                0,
+                0.01,
+                0,
+                0,
+                0,
+                0,
+                0.01,
+                0,
+                0.778058,
+                -1.10183,
+                -0.343733,
+                1
+            ],
+            "meshes": [
+                "geom-wheel_well"
+            ],
+            "name": ""
+        },
+        "node_16": {
+            "children": [],
+            "matrix": [
+                0.01,
+                0,
+                0,
+                0,
+                0,
+                0.01,
+                0,
+                0,
+                0,
+                0,
+                0.01,
+                0,
+                0.778058,
+                -1.10183,
+                -0.343733,
+                1
+            ],
+            "meshes": [
+                "geom-wheel_well001"
+            ],
+            "name": ""
+        },
+        "node_18": {
+            "children": [],
+            "matrix": [
+                0.01,
+                0,
+                0,
+                0,
+                0,
+                0.01,
+                0,
+                0,
+                0,
+                0,
+                0.01,
+                0,
+                0.778058,
+                -1.10183,
+                -0.305682,
+                1
+            ],
+            "meshes": [
+                "geom-wheel001"
+            ],
+            "name": ""
+        },
+        "node_2": {
+            "children": [],
+            "matrix": [
+                0.01,
+                0,
+                0,
+                0,
+                0,
+                0.01,
+                0,
+                0,
+                0,
+                0,
+                0.01,
+                0,
+                0,
+                0,
+                0,
+                1
+            ],
+            "meshes": [
+                "geom-rover_base"
+            ],
+            "name": ""
+        },
+        "node_26": {
+            "children": [],
+            "matrix": [
+                0.01,
+                0,
+                0,
+                0,
+                0,
+                0.01,
+                0,
+                0,
+                0,
+                0,
+                0.01,
+                0,
+                -0.126925,
+                0.262293,
+                -1.50246,
+                1
+            ],
+            "meshes": [
+                "geom-Object181"
+            ],
+            "name": ""
+        },
+        "node_28": {
+            "children": [],
+            "matrix": [
+                0.01,
+                0,
+                0,
+                0,
+                0,
+                0.01,
+                0,
+                0,
+                0,
+                0,
+                0.01,
+                0,
+                0.126925,
+                0.262293,
+                -1.50246,
+                1
+            ],
+            "meshes": [
+                "geom-Object180"
+            ],
+            "name": ""
+        },
+        "node_4": {
+            "children": [],
+            "matrix": [
+                0.01,
+                0,
+                0,
+                0,
+                0,
+                0.01,
+                0,
+                0,
+                0,
+                0,
+                0.01,
+                0,
+                5.03417e-08,
+                -0.486034,
+                -1.55128,
+                1
+            ],
+            "meshes": [
+                "geom-pop_up"
+            ],
+            "name": ""
+        },
+        "node_6": {
+            "children": [],
+            "matrix": [
+                0.01,
+                -4.09542e-11,
+                1.84732e-10,
+                0,
+                -4.09542e-11,
+                0.00906308,
+                0.00422618,
+                0,
+                -1.84732e-10,
+                -0.00422618,
+                0.00906308,
+                0,
+                -0.229364,
+                -0.0443379,
+                -1.60591,
+                1
+            ],
+            "meshes": [
+                "geom-eye_r"
+            ],
+            "name": ""
+        },
+        "node_8": {
+            "children": [],
+            "matrix": [
+                0.01,
+                -4.09542e-11,
+                1.84732e-10,
+                0,
+                -4.09542e-11,
+                0.00906308,
+                0.00422618,
+                0,
+                -1.84732e-10,
+                -0.00422618,
+                0.00906308,
+                0,
+                0.229708,
+                -0.0444949,
+                -1.60583,
+                1
+            ],
+            "meshes": [
+                "geom-eye_l"
+            ],
+            "name": ""
+        }
+    },
+    "programs": {
+        "program_0": {
+            "attributes": [
+                "a_normal",
+                "a_position",
+                "a_texcoord0"
+            ],
+            "fragmentShader": "rover0FS",
+            "vertexShader": "rover0VS"
+        }
+    },
+    "samplers": {
+        "sampler_0": {
+            "magFilter": 9729,
+            "minFilter": 9729,
+            "wrapS": 10497,
+            "wrapT": 10497
+        }
+    },
+    "scene": "defaultScene",
+    "scenes": {
+        "defaultScene": {
+            "nodes": [
+                "node_0",
+                "node-rover_base",
+                "node-Cylinder053"
+            ]
+        }
+    },
+    "shaders": {
+        "rover0FS": {
+            "path": "rover0FS.glsl",
+            "type": 35632
+        },
+        "rover0VS": {
+            "path": "rover0VS.glsl",
+            "type": 35633
+        }
+    },
+    "skins": {},
+    "techniques": {
+        "technique0": {
+            "parameters": {
+                "ambient": {
+                    "type": 35678
+                },
+                "diffuse": {
+                    "type": 35678
+                },
+                "emission": {
+                    "type": 35666
+                },
+                "modelViewMatrix": {
+                    "semantic": "MODELVIEW",
+                    "type": 35676
+                },
+                "normal": {
+                    "semantic": "NORMAL",
+                    "type": 35665
+                },
+                "normalMatrix": {
+                    "semantic": "MODELVIEWINVERSETRANSPOSE",
+                    "type": 35675
+                },
+                "position": {
+                    "semantic": "POSITION",
+                    "type": 35665
+                },
+                "projectionMatrix": {
+                    "semantic": "PROJECTION",
+                    "type": 35676
+                },
+                "shininess": {
+                    "type": 5126
+                },
+                "specular": {
+                    "type": 35666
+                },
+                "texcoord0": {
+                    "semantic": "TEXCOORD_0",
+                    "type": 35664
+                }
+            },
+            "pass": "defaultPass",
+            "passes": {
+                "defaultPass": {
+                    "details": {
+                        "commonProfile": {
+                            "extras": {
+                                "doubleSided": false
+                            },
+                            "lightingModel": "Blinn",
+                            "parameters": [
+                                "ambient",
+                                "diffuse",
+                                "emission",
+                                "modelViewMatrix",
+                                "normalMatrix",
+                                "projectionMatrix",
+                                "shininess",
+                                "specular"
+                            ],
+                            "texcoordBindings": {
+                                "ambient": "TEXCOORD_0",
+                                "diffuse": "TEXCOORD_0"
+                            }
+                        },
+                        "type": "COLLADA-1.4.1/commonProfile"
+                    },
+                    "instanceProgram": {
+                        "attributes": {
+                            "a_normal": "normal",
+                            "a_position": "position",
+                            "a_texcoord0": "texcoord0"
+                        },
+                        "program": "program_0",
+                        "uniforms": {
+                            "u_ambient": "ambient",
+                            "u_diffuse": "diffuse",
+                            "u_emission": "emission",
+                            "u_modelViewMatrix": "modelViewMatrix",
+                            "u_normalMatrix": "normalMatrix",
+                            "u_projectionMatrix": "projectionMatrix",
+                            "u_shininess": "shininess",
+                            "u_specular": "specular"
+                        }
+                    },
+                    "states": {
+                        "blendEnable": 0,
+                        "cullFaceEnable": 1,
+                        "depthMask": 1,
+                        "depthTestEnable": 1
+                    }
+                }
+            }
+        }
+    },
+    "textures": {
+        "texture_rover_teal_png": {
+            "format": 6408,
+            "internalFormat": 6408,
+            "sampler": "sampler_0",
+            "source": "rover_teal_png",
+            "target": 3553,
+            "type": 5121
+        }
+    }
+}

@@ -1,0 +1,1135 @@
+{
+    "accessors": {
+        "accessor_102": {
+            "bufferView": "bufferView_157",
+            "byteOffset": 1320,
+            "byteStride": 0,
+            "count": 330,
+            "type": 5123
+        },
+        "accessor_104": {
+            "bufferView": "bufferView_158",
+            "byteOffset": 9280,
+            "byteStride": 12,
+            "count": 145,
+            "max": [
+                -0.154075,
+                -0.22844,
+                0.244362
+            ],
+            "min": [
+                -1.10783,
+                -1.25929,
+                0.176644
+            ],
+            "type": 35665
+        },
+        "accessor_106": {
+            "bufferView": "bufferView_158",
+            "byteOffset": 11020,
+            "byteStride": 12,
+            "count": 145,
+            "max": [
+                0.996195,
+                0.97437,
+                1
+            ],
+            "min": [
+                -0.996195,
+                -0.97437,
+                -1
+            ],
+            "type": 35665
+        },
+        "accessor_108": {
+            "bufferView": "bufferView_158",
+            "byteOffset": 12760,
+            "byteStride": 8,
+            "count": 145,
+            "max": [
+                0.993508,
+                0.811561
+            ],
+            "min": [
+                0.0155707,
+                0.297787
+            ],
+            "type": 35664
+        },
+        "accessor_129": {
+            "bufferView": "bufferView_157",
+            "byteOffset": 660,
+            "byteStride": 0,
+            "count": 330,
+            "type": 5123
+        },
+        "accessor_131": {
+            "bufferView": "bufferView_158",
+            "byteOffset": 4640,
+            "byteStride": 12,
+            "count": 145,
+            "max": [
+                -0.298502,
+                1.32907,
+                0.243667
+            ],
+            "min": [
+                -1.34202,
+                0.377842,
+                0.176644
+            ],
+            "type": 35665
+        },
+        "accessor_133": {
+            "bufferView": "bufferView_158",
+            "byteOffset": 6380,
+            "byteStride": 12,
+            "count": 145,
+            "max": [
+                0.997564,
+                0.970296,
+                1
+            ],
+            "min": [
+                -0.997564,
+                -0.970296,
+                -1
+            ],
+            "type": 35665
+        },
+        "accessor_135": {
+            "bufferView": "bufferView_158",
+            "byteOffset": 8120,
+            "byteStride": 8,
+            "count": 145,
+            "max": [
+                0.99356,
+                0.742565
+            ],
+            "min": [
+                0.0157998,
+                0.337443
+            ],
+            "type": 35664
+        },
+        "accessor_21": {
+            "bufferView": "bufferView_157",
+            "byteOffset": 2640,
+            "byteStride": 0,
+            "count": 5346,
+            "type": 5123
+        },
+        "accessor_23": {
+            "bufferView": "bufferView_158",
+            "byteOffset": 18560,
+            "byteStride": 12,
+            "count": 1725,
+            "max": [
+                1.41856,
+                1.42541,
+                0.254444
+            ],
+            "min": [
+                -1.41379,
+                -1.43075,
+                -0.36094
+            ],
+            "type": 35665
+        },
+        "accessor_25": {
+            "bufferView": "bufferView_158",
+            "byteOffset": 39260,
+            "byteStride": 12,
+            "count": 1725,
+            "max": [
+                1,
+                1,
+                1
+            ],
+            "min": [
+                -1,
+                -1,
+                -1
+            ],
+            "type": 35665
+        },
+        "accessor_27": {
+            "bufferView": "bufferView_158",
+            "byteOffset": 59960,
+            "byteStride": 8,
+            "count": 1725,
+            "max": [
+                0.999579,
+                0.999717
+            ],
+            "min": [
+                0.000249892,
+                0.000662684
+            ],
+            "type": 35664
+        },
+        "accessor_48": {
+            "bufferView": "bufferView_157",
+            "byteOffset": 0,
+            "byteStride": 0,
+            "count": 330,
+            "type": 5123
+        },
+        "accessor_50": {
+            "bufferView": "bufferView_158",
+            "byteOffset": 0,
+            "byteStride": 12,
+            "count": 145,
+            "max": [
+                1.10894,
+                1.25651,
+                0.250279
+            ],
+            "min": [
+                0.181565,
+                0.190401,
+                0.187001
+            ],
+            "type": 35665
+        },
+        "accessor_52": {
+            "bufferView": "bufferView_158",
+            "byteOffset": 1740,
+            "byteStride": 12,
+            "count": 145,
+            "max": [
+                0.965927,
+                0.999848,
+                1
+            ],
+            "min": [
+                -0.956305,
+                -0.999848,
+                -1
+            ],
+            "type": 35665
+        },
+        "accessor_54": {
+            "bufferView": "bufferView_158",
+            "byteOffset": 3480,
+            "byteStride": 8,
+            "count": 145,
+            "max": [
+                0.99356,
+                0.777203
+            ],
+            "min": [
+                0.0137786,
+                0.317588
+            ],
+            "type": 35664
+        },
+        "accessor_75": {
+            "bufferView": "bufferView_157",
+            "byteOffset": 1980,
+            "byteStride": 0,
+            "count": 330,
+            "type": 5123
+        },
+        "accessor_77": {
+            "bufferView": "bufferView_158",
+            "byteOffset": 13920,
+            "byteStride": 12,
+            "count": 145,
+            "max": [
+                1.22445,
+                -0.403701,
+                0.24779
+            ],
+            "min": [
+                0.168368,
+                -1.36905,
+                0.179618
+            ],
+            "type": 35665
+        },
+        "accessor_79": {
+            "bufferView": "bufferView_158",
+            "byteOffset": 15660,
+            "byteStride": 12,
+            "count": 145,
+            "max": [
+                0.984808,
+                0.990268,
+                1
+            ],
+            "min": [
+                -0.984808,
+                -0.990268,
+                -1
+            ],
+            "type": 35665
+        },
+        "accessor_81": {
+            "bufferView": "bufferView_158",
+            "byteOffset": 17400,
+            "byteStride": 8,
+            "count": 145,
+            "max": [
+                0.99356,
+                0.707635
+            ],
+            "min": [
+                0.00773984,
+                0.357302
+            ],
+            "type": 35664
+        },
+        "animAccessor_0": {
+            "bufferView": "bufferView_156",
+            "byteOffset": 0,
+            "count": 301,
+            "type": 5126
+        },
+        "animAccessor_1": {
+            "bufferView": "bufferView_156",
+            "byteOffset": 1204,
+            "count": 301,
+            "type": 35665
+        },
+        "animAccessor_2": {
+            "bufferView": "bufferView_156",
+            "byteOffset": 4816,
+            "count": 301,
+            "type": 35665
+        },
+        "animAccessor_3": {
+            "bufferView": "bufferView_156",
+            "byteOffset": 8428,
+            "count": 301,
+            "type": 35666
+        },
+        "animAccessor_4": {
+            "bufferView": "bufferView_156",
+            "byteOffset": 13244,
+            "count": 301,
+            "type": 35665
+        },
+        "animAccessor_5": {
+            "bufferView": "bufferView_156",
+            "byteOffset": 16856,
+            "count": 301,
+            "type": 35665
+        },
+        "animAccessor_6": {
+            "bufferView": "bufferView_156",
+            "byteOffset": 20468,
+            "count": 301,
+            "type": 35666
+        },
+        "animAccessor_7": {
+            "bufferView": "bufferView_156",
+            "byteOffset": 25284,
+            "count": 301,
+            "type": 35665
+        },
+        "animAccessor_8": {
+            "bufferView": "bufferView_156",
+            "byteOffset": 28896,
+            "count": 301,
+            "type": 35665
+        },
+        "animAccessor_9": {
+            "bufferView": "bufferView_156",
+            "byteOffset": 32508,
+            "count": 301,
+            "type": 35665
+        }
+    },
+    "animations": {
+        "animation_0": {
+            "channels": [
+                {
+                    "sampler": "animation_0_scale_sampler",
+                    "target": {
+                        "id": "node-Quadcopter",
+                        "path": "scale"
+                    }
+                },
+                {
+                    "sampler": "animation_0_translation_sampler",
+                    "target": {
+                        "id": "node-Quadcopter",
+                        "path": "translation"
+                    }
+                },
+                {
+                    "sampler": "animation_0_rotation_sampler",
+                    "target": {
+                        "id": "node-Quadcopter",
+                        "path": "rotation"
+                    }
+                }
+            ],
+            "count": 301,
+            "parameters": {
+                "TIME": "animAccessor_0",
+                "rotation": "animAccessor_3",
+                "scale": "animAccessor_1",
+                "translation": "animAccessor_2"
+            },
+            "samplers": {
+                "animation_0_rotation_sampler": {
+                    "input": "TIME",
+                    "interpolation": "LINEAR",
+                    "output": "rotation"
+                },
+                "animation_0_scale_sampler": {
+                    "input": "TIME",
+                    "interpolation": "LINEAR",
+                    "output": "scale"
+                },
+                "animation_0_translation_sampler": {
+                    "input": "TIME",
+                    "interpolation": "LINEAR",
+                    "output": "translation"
+                }
+            }
+        },
+        "animation_1": {
+            "channels": [
+                {
+                    "sampler": "animation_1_scale_sampler",
+                    "target": {
+                        "id": "node-Object001",
+                        "path": "scale"
+                    }
+                },
+                {
+                    "sampler": "animation_1_translation_sampler",
+                    "target": {
+                        "id": "node-Object001",
+                        "path": "translation"
+                    }
+                },
+                {
+                    "sampler": "animation_1_rotation_sampler",
+                    "target": {
+                        "id": "node-Object001",
+                        "path": "rotation"
+                    }
+                }
+            ],
+            "count": 301,
+            "parameters": {
+                "TIME": "animAccessor_0",
+                "rotation": "animAccessor_6",
+                "scale": "animAccessor_4",
+                "translation": "animAccessor_5"
+            },
+            "samplers": {
+                "animation_1_rotation_sampler": {
+                    "input": "TIME",
+                    "interpolation": "LINEAR",
+                    "output": "rotation"
+                },
+                "animation_1_scale_sampler": {
+                    "input": "TIME",
+                    "interpolation": "LINEAR",
+                    "output": "scale"
+                },
+                "animation_1_translation_sampler": {
+                    "input": "TIME",
+                    "interpolation": "LINEAR",
+                    "output": "translation"
+                }
+            }
+        },
+        "animation_2": {
+            "channels": [
+                {
+                    "sampler": "animation_2_scale_sampler",
+                    "target": {
+                        "id": "node-Object004",
+                        "path": "scale"
+                    }
+                },
+                {
+                    "sampler": "animation_2_translation_sampler",
+                    "target": {
+                        "id": "node-Object004",
+                        "path": "translation"
+                    }
+                },
+                {
+                    "sampler": "animation_2_rotation_sampler",
+                    "target": {
+                        "id": "node-Object004",
+                        "path": "rotation"
+                    }
+                }
+            ],
+            "count": 301,
+            "parameters": {
+                "TIME": "animAccessor_0",
+                "rotation": "animAccessor_6",
+                "scale": "animAccessor_4",
+                "translation": "animAccessor_7"
+            },
+            "samplers": {
+                "animation_2_rotation_sampler": {
+                    "input": "TIME",
+                    "interpolation": "LINEAR",
+                    "output": "rotation"
+                },
+                "animation_2_scale_sampler": {
+                    "input": "TIME",
+                    "interpolation": "LINEAR",
+                    "output": "scale"
+                },
+                "animation_2_translation_sampler": {
+                    "input": "TIME",
+                    "interpolation": "LINEAR",
+                    "output": "translation"
+                }
+            }
+        },
+        "animation_3": {
+            "channels": [
+                {
+                    "sampler": "animation_3_scale_sampler",
+                    "target": {
+                        "id": "node-Object003",
+                        "path": "scale"
+                    }
+                },
+                {
+                    "sampler": "animation_3_translation_sampler",
+                    "target": {
+                        "id": "node-Object003",
+                        "path": "translation"
+                    }
+                },
+                {
+                    "sampler": "animation_3_rotation_sampler",
+                    "target": {
+                        "id": "node-Object003",
+                        "path": "rotation"
+                    }
+                }
+            ],
+            "count": 301,
+            "parameters": {
+                "TIME": "animAccessor_0",
+                "rotation": "animAccessor_6",
+                "scale": "animAccessor_4",
+                "translation": "animAccessor_8"
+            },
+            "samplers": {
+                "animation_3_rotation_sampler": {
+                    "input": "TIME",
+                    "interpolation": "LINEAR",
+                    "output": "rotation"
+                },
+                "animation_3_scale_sampler": {
+                    "input": "TIME",
+                    "interpolation": "LINEAR",
+                    "output": "scale"
+                },
+                "animation_3_translation_sampler": {
+                    "input": "TIME",
+                    "interpolation": "LINEAR",
+                    "output": "translation"
+                }
+            }
+        },
+        "animation_4": {
+            "channels": [
+                {
+                    "sampler": "animation_4_scale_sampler",
+                    "target": {
+                        "id": "node-Object002",
+                        "path": "scale"
+                    }
+                },
+                {
+                    "sampler": "animation_4_translation_sampler",
+                    "target": {
+                        "id": "node-Object002",
+                        "path": "translation"
+                    }
+                },
+                {
+                    "sampler": "animation_4_rotation_sampler",
+                    "target": {
+                        "id": "node-Object002",
+                        "path": "rotation"
+                    }
+                }
+            ],
+            "count": 301,
+            "parameters": {
+                "TIME": "animAccessor_0",
+                "rotation": "animAccessor_6",
+                "scale": "animAccessor_4",
+                "translation": "animAccessor_9"
+            },
+            "samplers": {
+                "animation_4_rotation_sampler": {
+                    "input": "TIME",
+                    "interpolation": "LINEAR",
+                    "output": "rotation"
+                },
+                "animation_4_scale_sampler": {
+                    "input": "TIME",
+                    "interpolation": "LINEAR",
+                    "output": "scale"
+                },
+                "animation_4_translation_sampler": {
+                    "input": "TIME",
+                    "interpolation": "LINEAR",
+                    "output": "translation"
+                }
+            }
+        }
+    },
+    "asset": {
+        "generator": "collada2gltf@63e932907e3f0c834c8668d04f03ddb6eabf78d1",
+        "premultipliedAlpha": true,
+        "profile": "WebGL 1.0.2",
+        "version": 0.6
+    },
+    "bufferViews": {
+        "bufferView_156": {
+            "buffer": "quadcopter",
+            "byteLength": 36120,
+            "byteOffset": 0
+        },
+        "bufferView_157": {
+            "buffer": "quadcopter",
+            "byteLength": 13332,
+            "byteOffset": 36120,
+            "target": 34963
+        },
+        "bufferView_158": {
+            "buffer": "quadcopter",
+            "byteLength": 73760,
+            "byteOffset": 49452,
+            "target": 34962
+        }
+    },
+    "buffers": {
+        "quadcopter": {
+            "byteLength": 123212,
+            "path": "quadcopter.bin",
+            "type": "arraybuffer"
+        }
+    },
+    "images": {
+        "quadcopter_jpg": {
+            "path": "quadcopter.jpg"
+        },
+        "quadcopter_nrm_jpg": {
+            "path": "quadcopter_nrm.jpg"
+        },
+        "quadcopter_spec_jpg": {
+            "path": "quadcopter_spec.jpg"
+        }
+    },
+    "lights": {
+        "EnvironmentAmbientLight": {
+            "ambient": {
+                "color": [
+                    0,
+                    0,
+                    0
+                ]
+            },
+            "type": "ambient"
+        }
+    },
+    "materials": {
+        "quadcopter": {
+            "instanceTechnique": {
+                "technique": "technique0",
+                "values": {
+                    "ambient": "texture_quadcopter_jpg",
+                    "diffuse": "texture_quadcopter_jpg",
+                    "emission": [
+                        0,
+                        0,
+                        0,
+                        1
+                    ],
+                    "shininess": 1,
+                    "specular": [
+                        0.9,
+                        0.9,
+                        0.9,
+                        1
+                    ]
+                }
+            },
+            "name": "quadcopter"
+        }
+    },
+    "meshes": {
+        "geom-Object001": {
+            "name": "Object001",
+            "primitives": [
+                {
+                    "attributes": {
+                        "NORMAL": "accessor_52",
+                        "POSITION": "accessor_50",
+                        "TEXCOORD_0": "accessor_54"
+                    },
+                    "indices": "accessor_48",
+                    "material": "quadcopter",
+                    "primitive": 4
+                }
+            ]
+        },
+        "geom-Object002": {
+            "name": "Object002",
+            "primitives": [
+                {
+                    "attributes": {
+                        "NORMAL": "accessor_133",
+                        "POSITION": "accessor_131",
+                        "TEXCOORD_0": "accessor_135"
+                    },
+                    "indices": "accessor_129",
+                    "material": "quadcopter",
+                    "primitive": 4
+                }
+            ]
+        },
+        "geom-Object003": {
+            "name": "Object003",
+            "primitives": [
+                {
+                    "attributes": {
+                        "NORMAL": "accessor_106",
+                        "POSITION": "accessor_104",
+                        "TEXCOORD_0": "accessor_108"
+                    },
+                    "indices": "accessor_102",
+                    "material": "quadcopter",
+                    "primitive": 4
+                }
+            ]
+        },
+        "geom-Object004": {
+            "name": "Object004",
+            "primitives": [
+                {
+                    "attributes": {
+                        "NORMAL": "accessor_79",
+                        "POSITION": "accessor_77",
+                        "TEXCOORD_0": "accessor_81"
+                    },
+                    "indices": "accessor_75",
+                    "material": "quadcopter",
+                    "primitive": 4
+                }
+            ]
+        },
+        "geom-Quadcopter": {
+            "name": "Quadcopter",
+            "primitives": [
+                {
+                    "attributes": {
+                        "NORMAL": "accessor_25",
+                        "POSITION": "accessor_23",
+                        "TEXCOORD_0": "accessor_27"
+                    },
+                    "indices": "accessor_21",
+                    "material": "quadcopter",
+                    "primitive": 4
+                }
+            ]
+        }
+    },
+    "nodes": {
+        "node-Object001": {
+            "children": [
+                "node_3"
+            ],
+            "name": "Object001",
+            "rotation": [
+                1,
+                0,
+                0,
+                0
+            ],
+            "scale": [
+                2,
+                2,
+                2
+            ],
+            "translation": [
+                0.755207,
+                0.772158,
+                0.21864
+            ]
+        },
+        "node-Object002": {
+            "children": [
+                "node_9"
+            ],
+            "name": "Object002",
+            "rotation": [
+                1,
+                0,
+                0,
+                0
+            ],
+            "scale": [
+                2,
+                2,
+                2
+            ],
+            "translation": [
+                -0.750505,
+                0.77219,
+                0.210156
+            ]
+        },
+        "node-Object003": {
+            "children": [
+                "node_7"
+            ],
+            "name": "Object003",
+            "rotation": [
+                1,
+                0,
+                0,
+                0
+            ],
+            "scale": [
+                2,
+                2,
+                2
+            ],
+            "translation": [
+                -0.750523,
+                -0.777508,
+                0.210503
+            ]
+        },
+        "node-Object004": {
+            "children": [
+                "node_5"
+            ],
+            "name": "Object004",
+            "rotation": [
+                1,
+                0,
+                0,
+                0
+            ],
+            "scale": [
+                2,
+                2,
+                2
+            ],
+            "translation": [
+                0.755247,
+                -0.777502,
+                0.213704
+            ]
+        },
+        "node-Quadcopter": {
+            "children": [
+                "node-Object001",
+                "node-Object004",
+                "node-Object003",
+                "node-Object002"
+            ],
+            "meshes": [
+                "geom-Quadcopter"
+            ],
+            "name": "Quadcopter",
+            "rotation": [
+                1,
+                0,
+                0,
+                0
+            ],
+            "scale": [
+                0.5,
+                0.5,
+                0.5
+            ],
+            "translation": [
+                0,
+                8.15386e-09,
+                0.179126
+            ]
+        },
+        "node_0": {
+            "children": [],
+            "light": "EnvironmentAmbientLight",
+            "matrix": [
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1
+            ],
+            "name": "EnvironmentAmbientLight"
+        },
+        "node_3": {
+            "children": [],
+            "matrix": [
+                0.5,
+                0,
+                0,
+                0,
+                0,
+                0.5,
+                0,
+                0,
+                0,
+                0,
+                0.5,
+                0,
+                -0.377603,
+                -0.386079,
+                -0.10932,
+                1
+            ],
+            "meshes": [
+                "geom-Object001"
+            ],
+            "name": ""
+        },
+        "node_5": {
+            "children": [],
+            "matrix": [
+                0.5,
+                0,
+                0,
+                0,
+                0,
+                0.5,
+                0,
+                0,
+                0,
+                0,
+                0.5,
+                0,
+                -0.377624,
+                0.388751,
+                -0.106852,
+                1
+            ],
+            "meshes": [
+                "geom-Object004"
+            ],
+            "name": ""
+        },
+        "node_7": {
+            "children": [],
+            "matrix": [
+                0.5,
+                0,
+                0,
+                0,
+                0,
+                0.5,
+                0,
+                0,
+                0,
+                0,
+                0.5,
+                0,
+                0.375261,
+                0.388754,
+                -0.105252,
+                1
+            ],
+            "meshes": [
+                "geom-Object003"
+            ],
+            "name": ""
+        },
+        "node_9": {
+            "children": [],
+            "matrix": [
+                0.5,
+                0,
+                0,
+                0,
+                0,
+                0.5,
+                0,
+                0,
+                0,
+                0,
+                0.5,
+                0,
+                0.375252,
+                -0.386095,
+                -0.105078,
+                1
+            ],
+            "meshes": [
+                "geom-Object002"
+            ],
+            "name": ""
+        }
+    },
+    "programs": {
+        "program_0": {
+            "attributes": [
+                "a_normal",
+                "a_position",
+                "a_texcoord0"
+            ],
+            "fragmentShader": "quadcopter0FS",
+            "vertexShader": "quadcopter0VS"
+        }
+    },
+    "samplers": {
+        "sampler_0": {
+            "magFilter": 9729,
+            "minFilter": 9729,
+            "wrapS": 10497,
+            "wrapT": 10497
+        }
+    },
+    "scene": "defaultScene",
+    "scenes": {
+        "defaultScene": {
+            "nodes": [
+                "node_0",
+                "node-Quadcopter"
+            ]
+        }
+    },
+    "shaders": {
+        "quadcopter0FS": {
+            "path": "quadcopter0FS.glsl",
+            "type": 35632
+        },
+        "quadcopter0VS": {
+            "path": "quadcopter0VS.glsl",
+            "type": 35633
+        }
+    },
+    "skins": {},
+    "techniques": {
+        "technique0": {
+            "parameters": {
+                "ambient": {
+                    "type": 35678
+                },
+                "diffuse": {
+                    "type": 35678
+                },
+                "emission": {
+                    "type": 35666
+                },
+                "modelViewMatrix": {
+                    "semantic": "MODELVIEW",
+                    "type": 35676
+                },
+                "normal": {
+                    "semantic": "NORMAL",
+                    "type": 35665
+                },
+                "normalMatrix": {
+                    "semantic": "MODELVIEWINVERSETRANSPOSE",
+                    "type": 35675
+                },
+                "position": {
+                    "semantic": "POSITION",
+                    "type": 35665
+                },
+                "projectionMatrix": {
+                    "semantic": "PROJECTION",
+                    "type": 35676
+                },
+                "shininess": {
+                    "type": 5126
+                },
+                "specular": {
+                    "type": 35666
+                },
+                "texcoord0": {
+                    "semantic": "TEXCOORD_0",
+                    "type": 35664
+                }
+            },
+            "pass": "defaultPass",
+            "passes": {
+                "defaultPass": {
+                    "details": {
+                        "commonProfile": {
+                            "extras": {
+                                "doubleSided": false
+                            },
+                            "lightingModel": "Blinn",
+                            "parameters": [
+                                "ambient",
+                                "diffuse",
+                                "emission",
+                                "modelViewMatrix",
+                                "normalMatrix",
+                                "projectionMatrix",
+                                "shininess",
+                                "specular"
+                            ],
+                            "texcoordBindings": {
+                                "ambient": "TEXCOORD_0",
+                                "diffuse": "TEXCOORD_0"
+                            }
+                        },
+                        "type": "COLLADA-1.4.1/commonProfile"
+                    },
+                    "instanceProgram": {
+                        "attributes": {
+                            "a_normal": "normal",
+                            "a_position": "position",
+                            "a_texcoord0": "texcoord0"
+                        },
+                        "program": "program_0",
+                        "uniforms": {
+                            "u_ambient": "ambient",
+                            "u_diffuse": "diffuse",
+                            "u_emission": "emission",
+                            "u_modelViewMatrix": "modelViewMatrix",
+                            "u_normalMatrix": "normalMatrix",
+                            "u_projectionMatrix": "projectionMatrix",
+                            "u_shininess": "shininess",
+                            "u_specular": "specular"
+                        }
+                    },
+                    "states": {
+                        "blendEnable": 0,
+                        "cullFaceEnable": 1,
+                        "depthMask": 1,
+                        "depthTestEnable": 1
+                    }
+                }
+            }
+        }
+    },
+    "textures": {
+        "texture_quadcopter_jpg": {
+            "format": 6408,
+            "internalFormat": 6408,
+            "sampler": "sampler_0",
+            "source": "quadcopter_jpg",
+            "target": 3553,
+            "type": 5121
+        }
+    }
+}

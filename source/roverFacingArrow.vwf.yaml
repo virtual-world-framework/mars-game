@@ -21,8 +21,8 @@
 extends: http://vwf.example.com/node3.vwf
 implements:
   - http://vwf.example.com/sceneGetter.vwf
-source: ../assets/3d/arrow/arrow.dae
-type: model/vnd.collada+xml
+source: ../assets/3d/arrow/arrow.json
+type: model/vnd.gltf+json
 properties:
   visible:
     set: |

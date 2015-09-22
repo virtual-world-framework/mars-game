@@ -1,0 +1,861 @@
+{
+    "accessors": {
+        "accessor_102": {
+            "bufferView": "bufferView_164",
+            "byteOffset": 13212,
+            "byteStride": 0,
+            "count": 3006,
+            "type": 5123
+        },
+        "accessor_104": {
+            "bufferView": "bufferView_165",
+            "byteOffset": 81120,
+            "byteStride": 12,
+            "count": 1140,
+            "max": [
+                0.18,
+                0.0762886,
+                0.140977
+            ],
+            "min": [
+                -0.178404,
+                -0.209701,
+                -0.0138477
+            ],
+            "type": 35665
+        },
+        "accessor_106": {
+            "bufferView": "bufferView_165",
+            "byteOffset": 94800,
+            "byteStride": 12,
+            "count": 1140,
+            "max": [
+                1,
+                1,
+                1
+            ],
+            "min": [
+                -1,
+                -1,
+                -1
+            ],
+            "type": 35665
+        },
+        "accessor_108": {
+            "bufferView": "bufferView_165",
+            "byteOffset": 108480,
+            "byteStride": 8,
+            "count": 1140,
+            "max": [
+                0.996733,
+                8.26337
+            ],
+            "min": [
+                -29.4088,
+                0.00317442
+            ],
+            "type": 35664
+        },
+        "accessor_129": {
+            "bufferView": "bufferView_164",
+            "byteOffset": 11244,
+            "byteStride": 0,
+            "count": 984,
+            "type": 5123
+        },
+        "accessor_131": {
+            "bufferView": "bufferView_165",
+            "byteOffset": 70176,
+            "byteStride": 12,
+            "count": 342,
+            "max": [
+                0.139812,
+                0.027559,
+                -5.84906e-05
+            ],
+            "min": [
+                -0.139813,
+                -0.00167497,
+                -0.0946892
+            ],
+            "type": 35665
+        },
+        "accessor_133": {
+            "bufferView": "bufferView_165",
+            "byteOffset": 74280,
+            "byteStride": 12,
+            "count": 342,
+            "max": [
+                1,
+                1,
+                1
+            ],
+            "min": [
+                -1,
+                -1,
+                -1
+            ],
+            "type": 35665
+        },
+        "accessor_135": {
+            "bufferView": "bufferView_165",
+            "byteOffset": 78384,
+            "byteStride": 8,
+            "count": 342,
+            "max": [
+                0.648287,
+                0.394752
+            ],
+            "min": [
+                0.392281,
+                0.247477
+            ],
+            "type": 35664
+        },
+        "accessor_156": {
+            "bufferView": "bufferView_164",
+            "byteOffset": 19224,
+            "byteStride": 0,
+            "count": 1566,
+            "type": 5123
+        },
+        "accessor_158": {
+            "bufferView": "bufferView_165",
+            "byteOffset": 117600,
+            "byteStride": 12,
+            "count": 420,
+            "max": [
+                0.0749957,
+                0.178753,
+                0.176038
+            ],
+            "min": [
+                -0.0749957,
+                -0.178753,
+                -0.176038
+            ],
+            "type": 35665
+        },
+        "accessor_160": {
+            "bufferView": "bufferView_165",
+            "byteOffset": 122640,
+            "byteStride": 12,
+            "count": 420,
+            "max": [
+                1,
+                1,
+                0.984808
+            ],
+            "min": [
+                -1,
+                -1,
+                -0.984808
+            ],
+            "type": 35665
+        },
+        "accessor_162": {
+            "bufferView": "bufferView_165",
+            "byteOffset": 127680,
+            "byteStride": 8,
+            "count": 420,
+            "max": [
+                0.906968,
+                0.999603
+            ],
+            "min": [
+                0.000457864,
+                0.653252
+            ],
+            "type": 35664
+        },
+        "accessor_21": {
+            "bufferView": "bufferView_164",
+            "byteOffset": 1380,
+            "byteStride": 0,
+            "count": 4932,
+            "type": 5123
+        },
+        "accessor_23": {
+            "bufferView": "bufferView_165",
+            "byteOffset": 8320,
+            "byteStride": 12,
+            "count": 1933,
+            "max": [
+                0.18767,
+                0.185686,
+                0.408597
+            ],
+            "min": [
+                -0.18767,
+                -0.351031,
+                -0.200032
+            ],
+            "type": 35665
+        },
+        "accessor_25": {
+            "bufferView": "bufferView_165",
+            "byteOffset": 31516,
+            "byteStride": 12,
+            "count": 1933,
+            "max": [
+                1,
+                1,
+                1
+            ],
+            "min": [
+                -1,
+                -1,
+                -1
+            ],
+            "type": 35665
+        },
+        "accessor_27": {
+            "bufferView": "bufferView_165",
+            "byteOffset": 54712,
+            "byteStride": 8,
+            "count": 1933,
+            "max": [
+                0.99872,
+                8.44894
+            ],
+            "min": [
+                -28.779,
+                0.000412822
+            ],
+            "type": 35664
+        },
+        "accessor_48": {
+            "bufferView": "bufferView_164",
+            "byteOffset": 0,
+            "byteStride": 0,
+            "count": 384,
+            "type": 5123
+        },
+        "accessor_50": {
+            "bufferView": "bufferView_165",
+            "byteOffset": 0,
+            "byteStride": 12,
+            "count": 160,
+            "max": [
+                0.0355602,
+                0.119838,
+                0.0773114
+            ],
+            "min": [
+                -0.0355602,
+                -0.045108,
+                -0.0237842
+            ],
+            "type": 35665
+        },
+        "accessor_52": {
+            "bufferView": "bufferView_165",
+            "byteOffset": 1920,
+            "byteStride": 12,
+            "count": 160,
+            "max": [
+                1,
+                1,
+                1
+            ],
+            "min": [
+                -1,
+                -1,
+                -1
+            ],
+            "type": 35665
+        },
+        "accessor_54": {
+            "bufferView": "bufferView_165",
+            "byteOffset": 3840,
+            "byteStride": 8,
+            "count": 160,
+            "max": [
+                0.930156,
+                0.689209
+            ],
+            "min": [
+                0.244905,
+                0.263281
+            ],
+            "type": 35664
+        },
+        "accessor_75": {
+            "bufferView": "bufferView_164",
+            "byteOffset": 768,
+            "byteStride": 0,
+            "count": 306,
+            "type": 5123
+        },
+        "accessor_77": {
+            "bufferView": "bufferView_165",
+            "byteOffset": 5120,
+            "byteStride": 12,
+            "count": 100,
+            "max": [
+                0.0234035,
+                0.0234035,
+                0.0883734
+            ],
+            "min": [
+                -0.0234035,
+                -0.0234035,
+                -0.0201834
+            ],
+            "type": 35665
+        },
+        "accessor_79": {
+            "bufferView": "bufferView_165",
+            "byteOffset": 6320,
+            "byteStride": 12,
+            "count": 100,
+            "max": [
+                1,
+                1,
+                1
+            ],
+            "min": [
+                -1,
+                -1,
+                -1
+            ],
+            "type": 35665
+        },
+        "accessor_81": {
+            "bufferView": "bufferView_165",
+            "byteOffset": 7520,
+            "byteStride": 8,
+            "count": 100,
+            "max": [
+                0.866964,
+                0.633836
+            ],
+            "min": [
+                0.686938,
+                0.24448
+            ],
+            "type": 35664
+        }
+    },
+    "animations": {},
+    "asset": {
+        "generator": "collada2gltf@63e932907e3f0c834c8668d04f03ddb6eabf78d1",
+        "premultipliedAlpha": true,
+        "profile": "WebGL 1.0.2",
+        "version": 0.6
+    },
+    "bufferViews": {
+        "bufferView_164": {
+            "buffer": "scout_rover",
+            "byteLength": 22356,
+            "byteOffset": 0,
+            "target": 34963
+        },
+        "bufferView_165": {
+            "buffer": "scout_rover",
+            "byteLength": 131040,
+            "byteOffset": 22356,
+            "target": 34962
+        }
+    },
+    "buffers": {
+        "scout_rover": {
+            "byteLength": 153396,
+            "path": "scout_rover.bin",
+            "type": "arraybuffer"
+        }
+    },
+    "images": {
+        "scout_midnight_n_png": {
+            "path": "scout_midnight_n.png"
+        },
+        "scout_midnight_png": {
+            "path": "scout_midnight.png"
+        },
+        "scout_midnight_s_png": {
+            "path": "scout_midnight_s.png"
+        }
+    },
+    "lights": {
+        "EnvironmentAmbientLight": {
+            "ambient": {
+                "color": [
+                    0,
+                    0,
+                    0
+                ]
+            },
+            "type": "ambient"
+        }
+    },
+    "materials": {
+        "scout_rover": {
+            "instanceTechnique": {
+                "technique": "technique0",
+                "values": {
+                    "ambient": "texture_scout_midnight_png",
+                    "diffuse": "texture_scout_midnight_png",
+                    "emission": [
+                        0,
+                        0,
+                        0,
+                        1
+                    ],
+                    "shininess": 1.28,
+                    "specular": [
+                        0.9,
+                        0.9,
+                        0.9,
+                        1
+                    ]
+                }
+            },
+            "name": "scout_rover"
+        }
+    },
+    "meshes": {
+        "geom-Cylinder156": {
+            "name": "Cylinder156",
+            "primitives": [
+                {
+                    "attributes": {
+                        "NORMAL": "accessor_52",
+                        "POSITION": "accessor_50",
+                        "TEXCOORD_0": "accessor_54"
+                    },
+                    "indices": "accessor_48",
+                    "material": "scout_rover",
+                    "primitive": 4
+                }
+            ]
+        },
+        "geom-Cylinder157": {
+            "name": "Cylinder157",
+            "primitives": [
+                {
+                    "attributes": {
+                        "NORMAL": "accessor_79",
+                        "POSITION": "accessor_77",
+                        "TEXCOORD_0": "accessor_81"
+                    },
+                    "indices": "accessor_75",
+                    "material": "scout_rover",
+                    "primitive": 4
+                }
+            ]
+        },
+        "geom-scout_body": {
+            "name": "scout_body",
+            "primitives": [
+                {
+                    "attributes": {
+                        "NORMAL": "accessor_25",
+                        "POSITION": "accessor_23",
+                        "TEXCOORD_0": "accessor_27"
+                    },
+                    "indices": "accessor_21",
+                    "material": "scout_rover",
+                    "primitive": 4
+                }
+            ]
+        },
+        "geom-scout_glasses001": {
+            "name": "scout_glasses001",
+            "primitives": [
+                {
+                    "attributes": {
+                        "NORMAL": "accessor_133",
+                        "POSITION": "accessor_131",
+                        "TEXCOORD_0": "accessor_135"
+                    },
+                    "indices": "accessor_129",
+                    "material": "scout_rover",
+                    "primitive": 4
+                }
+            ]
+        },
+        "geom-scout_head": {
+            "name": "scout_head",
+            "primitives": [
+                {
+                    "attributes": {
+                        "NORMAL": "accessor_106",
+                        "POSITION": "accessor_104",
+                        "TEXCOORD_0": "accessor_108"
+                    },
+                    "indices": "accessor_102",
+                    "material": "scout_rover",
+                    "primitive": 4
+                }
+            ]
+        },
+        "geom-scout_wheel": {
+            "name": "scout_wheel",
+            "primitives": [
+                {
+                    "attributes": {
+                        "NORMAL": "accessor_160",
+                        "POSITION": "accessor_158",
+                        "TEXCOORD_0": "accessor_162"
+                    },
+                    "indices": "accessor_156",
+                    "material": "scout_rover",
+                    "primitive": 4
+                }
+            ]
+        }
+    },
+    "nodes": {
+        "node-Cylinder156": {
+            "children": [
+                "node-Cylinder157"
+            ],
+            "matrix": [
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0.0415983,
+                0.343102,
+                1
+            ],
+            "meshes": [
+                "geom-Cylinder156"
+            ],
+            "name": "Cylinder156"
+        },
+        "node-Cylinder157": {
+            "children": [
+                "node-scout_head"
+            ],
+            "matrix": [
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0.000286102,
+                0.119754,
+                0.0417444,
+                1
+            ],
+            "meshes": [
+                "geom-Cylinder157"
+            ],
+            "name": "Cylinder157"
+        },
+        "node-scout_body": {
+            "children": [
+                "node_2",
+                "node-Cylinder156",
+                "node-scout_wheel"
+            ],
+            "matrix": [
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0.0292352,
+                0.176695,
+                1
+            ],
+            "name": "scout_body"
+        },
+        "node-scout_glasses001": {
+            "children": [],
+            "matrix": [
+                1,
+                0,
+                0,
+                0,
+                0,
+                -0.642788,
+                0.766044,
+                0,
+                0,
+                -0.766044,
+                -0.642788,
+                0,
+                0,
+                0.0715729,
+                0.0952827,
+                1
+            ],
+            "meshes": [
+                "geom-scout_glasses001"
+            ],
+            "name": "scout_glasses001"
+        },
+        "node-scout_head": {
+            "children": [
+                "node-scout_glasses001"
+            ],
+            "matrix": [
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                -0.000284195,
+                3.32594e-05,
+                0.0801169,
+                1
+            ],
+            "meshes": [
+                "geom-scout_head"
+            ],
+            "name": "scout_head"
+        },
+        "node-scout_wheel": {
+            "children": [],
+            "matrix": [
+                1,
+                0,
+                0,
+                0,
+                0,
+                -0.5,
+                0.866025,
+                0,
+                0,
+                -0.866025,
+                -0.5,
+                0,
+                0,
+                0,
+                0,
+                1
+            ],
+            "meshes": [
+                "geom-scout_wheel"
+            ],
+            "name": "scout_wheel"
+        },
+        "node_0": {
+            "children": [],
+            "light": "EnvironmentAmbientLight",
+            "matrix": [
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1
+            ],
+            "name": "EnvironmentAmbientLight"
+        },
+        "node_2": {
+            "children": [],
+            "matrix": [
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                -0.0140109,
+                0.131262,
+                1
+            ],
+            "meshes": [
+                "geom-scout_body"
+            ],
+            "name": ""
+        }
+    },
+    "programs": {
+        "program_0": {
+            "attributes": [
+                "a_normal",
+                "a_position",
+                "a_texcoord0"
+            ],
+            "fragmentShader": "scout_rover0FS",
+            "vertexShader": "scout_rover0VS"
+        }
+    },
+    "samplers": {
+        "sampler_0": {
+            "magFilter": 9729,
+            "minFilter": 9729,
+            "wrapS": 10497,
+            "wrapT": 10497
+        }
+    },
+    "scene": "defaultScene",
+    "scenes": {
+        "defaultScene": {
+            "nodes": [
+                "node_0",
+                "node-scout_body"
+            ]
+        }
+    },
+    "shaders": {
+        "scout_rover0FS": {
+            "path": "scout_rover0FS.glsl",
+            "type": 35632
+        },
+        "scout_rover0VS": {
+            "path": "scout_rover0VS.glsl",
+            "type": 35633
+        }
+    },
+    "skins": {},
+    "techniques": {
+        "technique0": {
+            "parameters": {
+                "ambient": {
+                    "type": 35678
+                },
+                "diffuse": {
+                    "type": 35678
+                },
+                "emission": {
+                    "type": 35666
+                },
+                "modelViewMatrix": {
+                    "semantic": "MODELVIEW",
+                    "type": 35676
+                },
+                "normal": {
+                    "semantic": "NORMAL",
+                    "type": 35665
+                },
+                "normalMatrix": {
+                    "semantic": "MODELVIEWINVERSETRANSPOSE",
+                    "type": 35675
+                },
+                "position": {
+                    "semantic": "POSITION",
+                    "type": 35665
+                },
+                "projectionMatrix": {
+                    "semantic": "PROJECTION",
+                    "type": 35676
+                },
+                "shininess": {
+                    "type": 5126
+                },
+                "specular": {
+                    "type": 35666
+                },
+                "texcoord0": {
+                    "semantic": "TEXCOORD_0",
+                    "type": 35664
+                }
+            },
+            "pass": "defaultPass",
+            "passes": {
+                "defaultPass": {
+                    "details": {
+                        "commonProfile": {
+                            "extras": {
+                                "doubleSided": false
+                            },
+                            "lightingModel": "Blinn",
+                            "parameters": [
+                                "ambient",
+                                "diffuse",
+                                "emission",
+                                "modelViewMatrix",
+                                "normalMatrix",
+                                "projectionMatrix",
+                                "shininess",
+                                "specular"
+                            ],
+                            "texcoordBindings": {
+                                "ambient": "TEXCOORD_0",
+                                "diffuse": "TEXCOORD_0"
+                            }
+                        },
+                        "type": "COLLADA-1.4.1/commonProfile"
+                    },
+                    "instanceProgram": {
+                        "attributes": {
+                            "a_normal": "normal",
+                            "a_position": "position",
+                            "a_texcoord0": "texcoord0"
+                        },
+                        "program": "program_0",
+                        "uniforms": {
+                            "u_ambient": "ambient",
+                            "u_diffuse": "diffuse",
+                            "u_emission": "emission",
+                            "u_modelViewMatrix": "modelViewMatrix",
+                            "u_normalMatrix": "normalMatrix",
+                            "u_projectionMatrix": "projectionMatrix",
+                            "u_shininess": "shininess",
+                            "u_specular": "specular"
+                        }
+                    },
+                    "states": {
+                        "blendEnable": 0,
+                        "cullFaceEnable": 1,
+                        "depthMask": 1,
+                        "depthTestEnable": 1
+                    }
+                }
+            }
+        }
+    },
+    "textures": {
+        "texture_scout_midnight_png": {
+            "format": 6408,
+            "internalFormat": 6408,
+            "sampler": "sampler_0",
+            "source": "scout_midnight_png",
+            "target": 3553,
+            "type": 5121
+        }
+    }
+}

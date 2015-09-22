@@ -14,8 +14,8 @@
 
 ---
 extends: ../pickup.vwf
-source: ../../assets/3d/quadcopter/quadcopter.dae 
-type: model/vnd.collada+xml
+source: ../../assets/3d/quadcopter/quadcopter.json 
+type: model/vnd.gltf+json
 properties:
   isCollidable: false
   terrainName: "environment"

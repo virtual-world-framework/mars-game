@@ -14,8 +14,8 @@
 
 ---
 extends: marsBaseBuilding.vwf
-source: ../../assets/3d/hydropon_dome/hydropon_dome.dae
-type: model/vnd.collada+xml
+source: ../../assets/3d/hydropon_dome/hydropon_dome.json
+type: model/vnd.gltf+json
 properties:
   buildingType: 'waterManagement'
   useAnimatedShader: true

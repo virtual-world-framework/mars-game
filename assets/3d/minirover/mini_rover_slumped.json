@@ -1,0 +1,397 @@
+{
+    "accessors": {
+        "accessor_21": {
+            "bufferView": "bufferView_29",
+            "byteOffset": 0,
+            "byteStride": 0,
+            "count": 10146,
+            "type": 5123
+        },
+        "accessor_23": {
+            "bufferView": "bufferView_30",
+            "byteOffset": 0,
+            "byteStride": 12,
+            "count": 3992,
+            "max": [
+                77.823,
+                227.301,
+                65.9831
+            ],
+            "min": [
+                -108.23,
+                -108.221,
+                -9.5431
+            ],
+            "type": 35665
+        },
+        "accessor_25": {
+            "bufferView": "bufferView_30",
+            "byteOffset": 47904,
+            "byteStride": 12,
+            "count": 3992,
+            "max": [
+                1,
+                1,
+                1
+            ],
+            "min": [
+                -1,
+                -0.999777,
+                -1
+            ],
+            "type": 35665
+        },
+        "accessor_27": {
+            "bufferView": "bufferView_30",
+            "byteOffset": 95808,
+            "byteStride": 8,
+            "count": 3992,
+            "max": [
+                0.999334,
+                0.999603
+            ],
+            "min": [
+                -16.378,
+                -8.70335
+            ],
+            "type": 35664
+        }
+    },
+    "animations": {},
+    "asset": {
+        "generator": "collada2gltf@63e932907e3f0c834c8668d04f03ddb6eabf78d1",
+        "premultipliedAlpha": true,
+        "profile": "WebGL 1.0.2",
+        "version": 0.6
+    },
+    "bufferViews": {
+        "bufferView_29": {
+            "buffer": "mini_rover_slumped",
+            "byteLength": 20292,
+            "byteOffset": 0,
+            "target": 34963
+        },
+        "bufferView_30": {
+            "buffer": "mini_rover_slumped",
+            "byteLength": 127744,
+            "byteOffset": 20292,
+            "target": 34962
+        }
+    },
+    "buffers": {
+        "mini_rover_slumped": {
+            "byteLength": 148036,
+            "path": "mini_rover_slumped.bin",
+            "type": "arraybuffer"
+        }
+    },
+    "images": {
+        "mini_rover_yellow_jpg": {
+            "path": "mini_rover_yellow.jpg"
+        },
+        "mini_rover_yellow_nrm_jpg": {
+            "path": "mini_rover_yellow_nrm.jpg"
+        },
+        "mini_rover_yellow_spec_jpg": {
+            "path": "mini_rover_yellow_spec.jpg"
+        }
+    },
+    "lights": {
+        "EnvironmentAmbientLight": {
+            "ambient": {
+                "color": [
+                    0,
+                    0,
+                    0
+                ]
+            },
+            "type": "ambient"
+        }
+    },
+    "materials": {
+        "mini_rover_yellow": {
+            "instanceTechnique": {
+                "technique": "technique0",
+                "values": {
+                    "ambient": "texture_mini_rover_yellow_jpg",
+                    "diffuse": "texture_mini_rover_yellow_jpg",
+                    "emission": [
+                        0,
+                        0,
+                        0,
+                        1
+                    ],
+                    "shininess": 1,
+                    "specular": [
+                        0.9,
+                        0.9,
+                        0.9,
+                        1
+                    ]
+                }
+            },
+            "name": "mini_rover_yellow"
+        }
+    },
+    "meshes": {
+        "geom-mini_rover_yellow": {
+            "name": "mini_rover_yellow",
+            "primitives": [
+                {
+                    "attributes": {
+                        "NORMAL": "accessor_25",
+                        "POSITION": "accessor_23",
+                        "TEXCOORD_0": "accessor_27"
+                    },
+                    "indices": "accessor_21",
+                    "material": "mini_rover_yellow",
+                    "primitive": 4
+                }
+            ]
+        }
+    },
+    "nodes": {
+        "node-Dummy002": {
+            "children": [
+                "node-mini_rover_yellow"
+            ],
+            "matrix": [
+                4.45398,
+                0,
+                0,
+                0,
+                0,
+                4.45398,
+                0,
+                0,
+                0,
+                0,
+                4.45398,
+                0,
+                0,
+                -7.72812e-09,
+                0.176799,
+                1
+            ],
+            "name": "Dummy002"
+        },
+        "node-mini_rover_yellow": {
+            "children": [
+                "node_3"
+            ],
+            "matrix": [
+                0.224519,
+                0,
+                0,
+                0,
+                0,
+                0.214157,
+                -0.0674196,
+                0,
+                0,
+                0.0674196,
+                0.214157,
+                0,
+                0,
+                0,
+                0,
+                1
+            ],
+            "name": "mini_rover_yellow"
+        },
+        "node_0": {
+            "children": [],
+            "light": "EnvironmentAmbientLight",
+            "matrix": [
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1
+            ],
+            "name": "EnvironmentAmbientLight"
+        },
+        "node_3": {
+            "children": [],
+            "matrix": [
+                -2.98023e-10,
+                -0.0025,
+                0,
+                0,
+                -2.98023e-10,
+                0,
+                0.0025,
+                0,
+                -0.00307655,
+                3.66753e-10,
+                -3.66753e-10,
+                0,
+                0.0884508,
+                -0.000943138,
+                0.0945145,
+                1
+            ],
+            "meshes": [
+                "geom-mini_rover_yellow"
+            ],
+            "name": ""
+        }
+    },
+    "programs": {
+        "program_0": {
+            "attributes": [
+                "a_normal",
+                "a_position",
+                "a_texcoord0"
+            ],
+            "fragmentShader": "mini_rover_slumped0FS",
+            "vertexShader": "mini_rover_slumped0VS"
+        }
+    },
+    "samplers": {
+        "sampler_0": {
+            "magFilter": 9729,
+            "minFilter": 9729,
+            "wrapS": 10497,
+            "wrapT": 10497
+        }
+    },
+    "scene": "defaultScene",
+    "scenes": {
+        "defaultScene": {
+            "nodes": [
+                "node_0",
+                "node-Dummy002"
+            ]
+        }
+    },
+    "shaders": {
+        "mini_rover_slumped0FS": {
+            "path": "mini_rover_slumped0FS.glsl",
+            "type": 35632
+        },
+        "mini_rover_slumped0VS": {
+            "path": "mini_rover_slumped0VS.glsl",
+            "type": 35633
+        }
+    },
+    "skins": {},
+    "techniques": {
+        "technique0": {
+            "parameters": {
+                "ambient": {
+                    "type": 35678
+                },
+                "diffuse": {
+                    "type": 35678
+                },
+                "emission": {
+                    "type": 35666
+                },
+                "modelViewMatrix": {
+                    "semantic": "MODELVIEW",
+                    "type": 35676
+                },
+                "normal": {
+                    "semantic": "NORMAL",
+                    "type": 35665
+                },
+                "normalMatrix": {
+                    "semantic": "MODELVIEWINVERSETRANSPOSE",
+                    "type": 35675
+                },
+                "position": {
+                    "semantic": "POSITION",
+                    "type": 35665
+                },
+                "projectionMatrix": {
+                    "semantic": "PROJECTION",
+                    "type": 35676
+                },
+                "shininess": {
+                    "type": 5126
+                },
+                "specular": {
+                    "type": 35666
+                },
+                "texcoord0": {
+                    "semantic": "TEXCOORD_0",
+                    "type": 35664
+                }
+            },
+            "pass": "defaultPass",
+            "passes": {
+                "defaultPass": {
+                    "details": {
+                        "commonProfile": {
+                            "extras": {
+                                "doubleSided": false
+                            },
+                            "lightingModel": "Blinn",
+                            "parameters": [
+                                "ambient",
+                                "diffuse",
+                                "emission",
+                                "modelViewMatrix",
+                                "normalMatrix",
+                                "projectionMatrix",
+                                "shininess",
+                                "specular"
+                            ],
+                            "texcoordBindings": {
+                                "ambient": "TEXCOORD_0",
+                                "diffuse": "TEXCOORD_0"
+                            }
+                        },
+                        "type": "COLLADA-1.4.1/commonProfile"
+                    },
+                    "instanceProgram": {
+                        "attributes": {
+                            "a_normal": "normal",
+                            "a_position": "position",
+                            "a_texcoord0": "texcoord0"
+                        },
+                        "program": "program_0",
+                        "uniforms": {
+                            "u_ambient": "ambient",
+                            "u_diffuse": "diffuse",
+                            "u_emission": "emission",
+                            "u_modelViewMatrix": "modelViewMatrix",
+                            "u_normalMatrix": "normalMatrix",
+                            "u_projectionMatrix": "projectionMatrix",
+                            "u_shininess": "shininess",
+                            "u_specular": "specular"
+                        }
+                    },
+                    "states": {
+                        "blendEnable": 0,
+                        "cullFaceEnable": 1,
+                        "depthMask": 1,
+                        "depthTestEnable": 1
+                    }
+                }
+            }
+        }
+    },
+    "textures": {
+        "texture_mini_rover_yellow_jpg": {
+            "format": 6408,
+            "internalFormat": 6408,
+            "sampler": "sampler_0",
+            "source": "mini_rover_yellow_jpg",
+            "target": 3553,
+            "type": 5121
+        }
+    }
+}

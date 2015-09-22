@@ -14,8 +14,8 @@
 
 ---
 extends: marsBaseBuilding.vwf
-source: ../../assets/3d/mars_tent/mars_tent.dae
-type: model/vnd.collada+xml
+source: ../../assets/3d/mars_tent/mars_tent.json
+type: model/vnd.gltf+json
 properties:
   buildingType: 'tent'
   useAnimatedShader: true

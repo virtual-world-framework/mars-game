@@ -1,0 +1,4925 @@
+{
+    "accessors": {
+        "accessor_102": {
+            "bufferView": "bufferView_997",
+            "byteOffset": 264840,
+            "byteStride": 0,
+            "count": 1839,
+            "type": 5123
+        },
+        "accessor_104": {
+            "bufferView": "bufferView_998",
+            "byteOffset": 1110448,
+            "byteStride": 12,
+            "count": 363,
+            "max": [
+                245.218,
+                276.52,
+                26.3342
+            ],
+            "min": [
+                59.204,
+                194.871,
+                4.58579
+            ],
+            "type": 35665
+        },
+        "accessor_106": {
+            "bufferView": "bufferView_998",
+            "byteOffset": 1114804,
+            "byteStride": 12,
+            "count": 363,
+            "max": [
+                0.996313,
+                0.999322,
+                0.999999
+            ],
+            "min": [
+                -0.986737,
+                -0.99499,
+                -0.985235
+            ],
+            "type": 35665
+        },
+        "accessor_108": {
+            "bufferView": "bufferView_998",
+            "byteOffset": 1119160,
+            "byteStride": 8,
+            "count": 363,
+            "max": [
+                0.984286,
+                0.998157
+            ],
+            "min": [
+                0.00294585,
+                0.00789678
+            ],
+            "type": 35664
+        },
+        "accessor_129": {
+            "bufferView": "bufferView_997",
+            "byteOffset": 269022,
+            "byteStride": 0,
+            "count": 42,
+            "type": 5123
+        },
+        "accessor_131": {
+            "bufferView": "bufferView_998",
+            "byteOffset": 1125328,
+            "byteStride": 12,
+            "count": 16,
+            "max": [
+                14.3175,
+                -14.3175,
+                18.7755
+            ],
+            "min": [
+                -163.65,
+                -165.535,
+                -26.1728
+            ],
+            "type": 35665
+        },
+        "accessor_133": {
+            "bufferView": "bufferView_998",
+            "byteOffset": 1125520,
+            "byteStride": 12,
+            "count": 16,
+            "max": [
+                0.991445,
+                1,
+                0
+            ],
+            "min": [
+                -0.130526,
+                0.130525,
+                -3.44878e-07
+            ],
+            "type": 35665
+        },
+        "accessor_135": {
+            "bufferView": "bufferView_998",
+            "byteOffset": 1125712,
+            "byteStride": 8,
+            "count": 16,
+            "max": [
+                0.527851,
+                0.999979
+            ],
+            "min": [
+                0.0278496,
+                0.141409
+            ],
+            "type": 35664
+        },
+        "accessor_156": {
+            "bufferView": "bufferView_997",
+            "byteOffset": 268938,
+            "byteStride": 0,
+            "count": 42,
+            "type": 5123
+        },
+        "accessor_158": {
+            "bufferView": "bufferView_998",
+            "byteOffset": 1124752,
+            "byteStride": 12,
+            "count": 18,
+            "max": [
+                165.535,
+                14.3175,
+                18.7755
+            ],
+            "min": [
+                14.3175,
+                -163.65,
+                -26.1728
+            ],
+            "type": 35665
+        },
+        "accessor_160": {
+            "bufferView": "bufferView_998",
+            "byteOffset": 1124968,
+            "byteStride": 12,
+            "count": 18,
+            "max": [
+                -0.130526,
+                0.991445,
+                9.33142e-08
+            ],
+            "min": [
+                -1,
+                -0.130526,
+                -3.44878e-07
+            ],
+            "type": 35665
+        },
+        "accessor_162": {
+            "bufferView": "bufferView_998",
+            "byteOffset": 1125184,
+            "byteStride": 8,
+            "count": 18,
+            "max": [
+                1,
+                0.999979
+            ],
+            "min": [
+                1.09427e-06,
+                0.141409
+            ],
+            "type": 35664
+        },
+        "accessor_183": {
+            "bufferView": "bufferView_997",
+            "byteOffset": 182538,
+            "byteStride": 0,
+            "count": 42,
+            "type": 5123
+        },
+        "accessor_185": {
+            "bufferView": "bufferView_998",
+            "byteOffset": 850128,
+            "byteStride": 12,
+            "count": 16,
+            "max": [
+                165.535,
+                165.535,
+                18.7755
+            ],
+            "min": [
+                4.38315e-06,
+                1.95312e-05,
+                -77.7712
+            ],
+            "type": 35665
+        },
+        "accessor_187": {
+            "bufferView": "bufferView_998",
+            "byteOffset": 850320,
+            "byteStride": 12,
+            "count": 16,
+            "max": [
+                -0.130525,
+                -0.130526,
+                0
+            ],
+            "min": [
+                -0.991445,
+                -0.991445,
+                -3.2824e-07
+            ],
+            "type": 35665
+        },
+        "accessor_189": {
+            "bufferView": "bufferView_998",
+            "byteOffset": 850512,
+            "byteStride": 8,
+            "count": 16,
+            "max": [
+                2,
+                0.9995
+            ],
+            "min": [
+                1.5,
+                0.00500232
+            ],
+            "type": 35664
+        },
+        "accessor_21": {
+            "bufferView": "bufferView_997",
+            "byteOffset": 1056,
+            "byteStride": 0,
+            "count": 864,
+            "type": 5123
+        },
+        "accessor_210": {
+            "bufferView": "bufferView_997",
+            "byteOffset": 182466,
+            "byteStride": 0,
+            "count": 36,
+            "type": 5123
+        },
+        "accessor_212": {
+            "bufferView": "bufferView_998",
+            "byteOffset": 849680,
+            "byteStride": 12,
+            "count": 14,
+            "max": [
+                7.62939e-06,
+                165.535,
+                18.7755
+            ],
+            "min": [
+                -165.535,
+                9.76562e-05,
+                -77.7712
+            ],
+            "type": 35665
+        },
+        "accessor_214": {
+            "bufferView": "bufferView_998",
+            "byteOffset": 849848,
+            "byteStride": 12,
+            "count": 14,
+            "max": [
+                0.991445,
+                -0.130527,
+                -1.08673e-08
+            ],
+            "min": [
+                0.130526,
+                -0.991445,
+                -1.52305e-07
+            ],
+            "type": 35665
+        },
+        "accessor_216": {
+            "bufferView": "bufferView_998",
+            "byteOffset": 850016,
+            "byteStride": 8,
+            "count": 14,
+            "max": [
+                0.5,
+                0.9995
+            ],
+            "min": [
+                -1.19209e-07,
+                0.00500232
+            ],
+            "type": 35664
+        },
+        "accessor_23": {
+            "bufferView": "bufferView_998",
+            "byteOffset": 11488,
+            "byteStride": 12,
+            "count": 165,
+            "max": [
+                0.873292,
+                132.959,
+                19.4131
+            ],
+            "min": [
+                -8.65947,
+                123.799,
+                14.9539
+            ],
+            "type": 35665
+        },
+        "accessor_237": {
+            "bufferView": "bufferView_997",
+            "byteOffset": 268854,
+            "byteStride": 0,
+            "count": 42,
+            "type": 5123
+        },
+        "accessor_239": {
+            "bufferView": "bufferView_998",
+            "byteOffset": 1124240,
+            "byteStride": 12,
+            "count": 16,
+            "max": [
+                163.65,
+                165.535,
+                18.7755
+            ],
+            "min": [
+                -14.3175,
+                14.3175,
+                -26.1728
+            ],
+            "type": 35665
+        },
+        "accessor_241": {
+            "bufferView": "bufferView_998",
+            "byteOffset": 1124432,
+            "byteStride": 12,
+            "count": 16,
+            "max": [
+                0.130527,
+                -0.130526,
+                0
+            ],
+            "min": [
+                -0.991445,
+                -1,
+                -3.31031e-07
+            ],
+            "type": 35665
+        },
+        "accessor_243": {
+            "bufferView": "bufferView_998",
+            "byteOffset": 1124624,
+            "byteStride": 8,
+            "count": 16,
+            "max": [
+                0.527851,
+                0.999979
+            ],
+            "min": [
+                0.0278498,
+                0.141409
+            ],
+            "type": 35664
+        },
+        "accessor_25": {
+            "bufferView": "bufferView_998",
+            "byteOffset": 13468,
+            "byteStride": 12,
+            "count": 165,
+            "max": [
+                0.964852,
+                0.825259,
+                0.999917
+            ],
+            "min": [
+                -0.944066,
+                -0.96955,
+                -0.112556
+            ],
+            "type": 35665
+        },
+        "accessor_264": {
+            "bufferView": "bufferView_997",
+            "byteOffset": 182706,
+            "byteStride": 0,
+            "count": 48,
+            "type": 5123
+        },
+        "accessor_266": {
+            "bufferView": "bufferView_998",
+            "byteOffset": 851152,
+            "byteStride": 12,
+            "count": 18,
+            "max": [
+                11.2715,
+                0.000106812,
+                18.7755
+            ],
+            "min": [
+                -165.535,
+                -165.535,
+                -77.7712
+            ],
+            "type": 35665
+        },
+        "accessor_268": {
+            "bufferView": "bufferView_998",
+            "byteOffset": 851368,
+            "byteStride": 12,
+            "count": 18,
+            "max": [
+                0.991445,
+                1,
+                3.0823e-07
+            ],
+            "min": [
+                -0.130528,
+                0.130525,
+                -3.3929e-08
+            ],
+            "type": 35665
+        },
+        "accessor_27": {
+            "bufferView": "bufferView_998",
+            "byteOffset": 15448,
+            "byteStride": 8,
+            "count": 165,
+            "max": [
+                0.988714,
+                0.989564
+            ],
+            "min": [
+                0.00578297,
+                0.0024966
+            ],
+            "type": 35664
+        },
+        "accessor_270": {
+            "bufferView": "bufferView_998",
+            "byteOffset": 851584,
+            "byteStride": 8,
+            "count": 18,
+            "max": [
+                1.02192,
+                0.9995
+            ],
+            "min": [
+                0.5,
+                0.00500232
+            ],
+            "type": 35664
+        },
+        "accessor_291": {
+            "bufferView": "bufferView_997",
+            "byteOffset": 269106,
+            "byteStride": 0,
+            "count": 42,
+            "type": 5123
+        },
+        "accessor_293": {
+            "bufferView": "bufferView_998",
+            "byteOffset": 1125840,
+            "byteStride": 12,
+            "count": 18,
+            "max": [
+                -14.3175,
+                163.65,
+                18.7755
+            ],
+            "min": [
+                -165.535,
+                -14.3175,
+                -26.1728
+            ],
+            "type": 35665
+        },
+        "accessor_295": {
+            "bufferView": "bufferView_998",
+            "byteOffset": 1126056,
+            "byteStride": 12,
+            "count": 18,
+            "max": [
+                1,
+                0.130526,
+                0
+            ],
+            "min": [
+                0.130526,
+                -0.991445,
+                -3.42109e-07
+            ],
+            "type": 35665
+        },
+        "accessor_297": {
+            "bufferView": "bufferView_998",
+            "byteOffset": 1126272,
+            "byteStride": 8,
+            "count": 18,
+            "max": [
+                1,
+                0.999979
+            ],
+            "min": [
+                6.83672e-07,
+                0.141409
+            ],
+            "type": 35664
+        },
+        "accessor_318": {
+            "bufferView": "bufferView_997",
+            "byteOffset": 182622,
+            "byteStride": 0,
+            "count": 42,
+            "type": 5123
+        },
+        "accessor_320": {
+            "bufferView": "bufferView_998",
+            "byteOffset": 850640,
+            "byteStride": 12,
+            "count": 16,
+            "max": [
+                165.535,
+                3.05176e-05,
+                18.7755
+            ],
+            "min": [
+                11.2715,
+                -164.051,
+                -77.7712
+            ],
+            "type": 35665
+        },
+        "accessor_322": {
+            "bufferView": "bufferView_998",
+            "byteOffset": 850832,
+            "byteStride": 12,
+            "count": 16,
+            "max": [
+                -0.130525,
+                0.991445,
+                3.0823e-07
+            ],
+            "min": [
+                -0.991445,
+                0.130526,
+                -2.98533e-07
+            ],
+            "type": 35665
+        },
+        "accessor_324": {
+            "bufferView": "bufferView_998",
+            "byteOffset": 851024,
+            "byteStride": 8,
+            "count": 16,
+            "max": [
+                1.5,
+                0.9995
+            ],
+            "min": [
+                1.02192,
+                0.00500232
+            ],
+            "type": 35664
+        },
+        "accessor_345": {
+            "bufferView": "bufferView_997",
+            "byteOffset": 268518,
+            "byteStride": 0,
+            "count": 42,
+            "type": 5123
+        },
+        "accessor_347": {
+            "bufferView": "bufferView_998",
+            "byteOffset": 1122064,
+            "byteStride": 12,
+            "count": 18,
+            "max": [
+                165.535,
+                14.3175,
+                18.7755
+            ],
+            "min": [
+                14.3175,
+                -163.65,
+                -26.1728
+            ],
+            "type": 35665
+        },
+        "accessor_349": {
+            "bufferView": "bufferView_998",
+            "byteOffset": 1122280,
+            "byteStride": 12,
+            "count": 18,
+            "max": [
+                -0.130526,
+                0.991445,
+                9.33142e-08
+            ],
+            "min": [
+                -1,
+                -0.130526,
+                -3.44878e-07
+            ],
+            "type": 35665
+        },
+        "accessor_351": {
+            "bufferView": "bufferView_998",
+            "byteOffset": 1122496,
+            "byteStride": 8,
+            "count": 18,
+            "max": [
+                1,
+                0.999979
+            ],
+            "min": [
+                1.09427e-06,
+                0.141409
+            ],
+            "type": 35664
+        },
+        "accessor_372": {
+            "bufferView": "bufferView_997",
+            "byteOffset": 268602,
+            "byteStride": 0,
+            "count": 42,
+            "type": 5123
+        },
+        "accessor_374": {
+            "bufferView": "bufferView_998",
+            "byteOffset": 1122640,
+            "byteStride": 12,
+            "count": 16,
+            "max": [
+                14.3175,
+                -14.3175,
+                18.7755
+            ],
+            "min": [
+                -163.65,
+                -165.535,
+                -26.1728
+            ],
+            "type": 35665
+        },
+        "accessor_376": {
+            "bufferView": "bufferView_998",
+            "byteOffset": 1122832,
+            "byteStride": 12,
+            "count": 16,
+            "max": [
+                0.991445,
+                1,
+                0
+            ],
+            "min": [
+                -0.130526,
+                0.130525,
+                -3.44878e-07
+            ],
+            "type": 35665
+        },
+        "accessor_378": {
+            "bufferView": "bufferView_998",
+            "byteOffset": 1123024,
+            "byteStride": 8,
+            "count": 16,
+            "max": [
+                0.527851,
+                0.999979
+            ],
+            "min": [
+                0.0278496,
+                0.141409
+            ],
+            "type": 35664
+        },
+        "accessor_399": {
+            "bufferView": "bufferView_997",
+            "byteOffset": 268686,
+            "byteStride": 0,
+            "count": 42,
+            "type": 5123
+        },
+        "accessor_401": {
+            "bufferView": "bufferView_998",
+            "byteOffset": 1123152,
+            "byteStride": 12,
+            "count": 18,
+            "max": [
+                -14.3175,
+                163.65,
+                18.7755
+            ],
+            "min": [
+                -165.535,
+                -14.3175,
+                -26.1728
+            ],
+            "type": 35665
+        },
+        "accessor_403": {
+            "bufferView": "bufferView_998",
+            "byteOffset": 1123368,
+            "byteStride": 12,
+            "count": 18,
+            "max": [
+                1,
+                0.130526,
+                0
+            ],
+            "min": [
+                0.130526,
+                -0.991445,
+                -3.42109e-07
+            ],
+            "type": 35665
+        },
+        "accessor_405": {
+            "bufferView": "bufferView_998",
+            "byteOffset": 1123584,
+            "byteStride": 8,
+            "count": 18,
+            "max": [
+                1,
+                0.999979
+            ],
+            "min": [
+                6.83672e-07,
+                0.141409
+            ],
+            "type": 35664
+        },
+        "accessor_426": {
+            "bufferView": "bufferView_997",
+            "byteOffset": 268770,
+            "byteStride": 0,
+            "count": 42,
+            "type": 5123
+        },
+        "accessor_428": {
+            "bufferView": "bufferView_998",
+            "byteOffset": 1123728,
+            "byteStride": 12,
+            "count": 16,
+            "max": [
+                163.65,
+                165.535,
+                18.7755
+            ],
+            "min": [
+                -14.3175,
+                14.3175,
+                -26.1728
+            ],
+            "type": 35665
+        },
+        "accessor_430": {
+            "bufferView": "bufferView_998",
+            "byteOffset": 1123920,
+            "byteStride": 12,
+            "count": 16,
+            "max": [
+                0.130527,
+                -0.130526,
+                0
+            ],
+            "min": [
+                -0.991445,
+                -1,
+                -3.31031e-07
+            ],
+            "type": 35665
+        },
+        "accessor_432": {
+            "bufferView": "bufferView_998",
+            "byteOffset": 1124112,
+            "byteStride": 8,
+            "count": 16,
+            "max": [
+                0.527851,
+                0.999979
+            ],
+            "min": [
+                0.0278498,
+                0.141409
+            ],
+            "type": 35664
+        },
+        "accessor_453": {
+            "bufferView": "bufferView_997",
+            "byteOffset": 496596,
+            "byteStride": 0,
+            "count": 3120,
+            "type": 5123
+        },
+        "accessor_455": {
+            "bufferView": "bufferView_998",
+            "byteOffset": 2696064,
+            "byteStride": 12,
+            "count": 1119,
+            "max": [
+                191.087,
+                189.133,
+                250.049
+            ],
+            "min": [
+                -191.087,
+                -266.126,
+                -54.5358
+            ],
+            "type": 35665
+        },
+        "accessor_457": {
+            "bufferView": "bufferView_998",
+            "byteOffset": 2709492,
+            "byteStride": 12,
+            "count": 1119,
+            "max": [
+                1,
+                1,
+                1
+            ],
+            "min": [
+                -1,
+                -1,
+                -1
+            ],
+            "type": 35665
+        },
+        "accessor_459": {
+            "bufferView": "bufferView_998",
+            "byteOffset": 2722920,
+            "byteStride": 8,
+            "count": 1119,
+            "max": [
+                0.999871,
+                0.999758
+            ],
+            "min": [
+                0.000156879,
+                0.00108278
+            ],
+            "type": 35664
+        },
+        "accessor_48": {
+            "bufferView": "bufferView_997",
+            "byteOffset": 182802,
+            "byteStride": 0,
+            "count": 41019,
+            "type": 5123
+        },
+        "accessor_480": {
+            "bufferView": "bufferView_997",
+            "byteOffset": 269190,
+            "byteStride": 0,
+            "count": 2940,
+            "type": 5123
+        },
+        "accessor_482": {
+            "bufferView": "bufferView_998",
+            "byteOffset": 1126416,
+            "byteStride": 12,
+            "count": 1670,
+            "max": [
+                2.97702,
+                7.35974,
+                0.351057
+            ],
+            "min": [
+                -2.9797,
+                -4.35886,
+                -1.71907
+            ],
+            "type": 35665
+        },
+        "accessor_484": {
+            "bufferView": "bufferView_998",
+            "byteOffset": 1146456,
+            "byteStride": 12,
+            "count": 1670,
+            "max": [
+                1,
+                1,
+                1
+            ],
+            "min": [
+                -1,
+                -1,
+                -1
+            ],
+            "type": 35665
+        },
+        "accessor_486": {
+            "bufferView": "bufferView_998",
+            "byteOffset": 1166496,
+            "byteStride": 8,
+            "count": 1670,
+            "max": [
+                0.998754,
+                0.998541
+            ],
+            "min": [
+                0.000646418,
+                0.000403225
+            ],
+            "type": 35664
+        },
+        "accessor_50": {
+            "bufferView": "bufferView_998",
+            "byteOffset": 851728,
+            "byteStride": 12,
+            "count": 8085,
+            "max": [
+                292.506,
+                265.531,
+                47.2983
+            ],
+            "min": [
+                -319.445,
+                -426.38,
+                -17.8629
+            ],
+            "type": 35665
+        },
+        "accessor_507": {
+            "bufferView": "bufferView_997",
+            "byteOffset": 369060,
+            "byteStride": 0,
+            "count": 9144,
+            "type": 5123
+        },
+        "accessor_509": {
+            "bufferView": "bufferView_998",
+            "byteOffset": 1467920,
+            "byteStride": 12,
+            "count": 2286,
+            "max": [
+                1.20692,
+                36.1251,
+                0.922167
+            ],
+            "min": [
+                -13.5797,
+                -7.74613,
+                -1.54993
+            ],
+            "type": 35665
+        },
+        "accessor_511": {
+            "bufferView": "bufferView_998",
+            "byteOffset": 1495352,
+            "byteStride": 12,
+            "count": 2286,
+            "max": [
+                0.998789,
+                0.999833,
+                0.998413
+            ],
+            "min": [
+                -0.999845,
+                -0.999665,
+                -0.998822
+            ],
+            "type": 35665
+        },
+        "accessor_513": {
+            "bufferView": "bufferView_998",
+            "byteOffset": 1522784,
+            "byteStride": 8,
+            "count": 2286,
+            "max": [
+                0.459152,
+                0.703372
+            ],
+            "min": [
+                0.0320735,
+                0.0210615
+            ],
+            "type": 35664
+        },
+        "accessor_52": {
+            "bufferView": "bufferView_998",
+            "byteOffset": 948748,
+            "byteStride": 12,
+            "count": 8085,
+            "max": [
+                0.999621,
+                0.99993,
+                0.999996
+            ],
+            "min": [
+                -0.999164,
+                -0.99926,
+                -0.99986
+            ],
+            "type": 35665
+        },
+        "accessor_534": {
+            "bufferView": "bufferView_997",
+            "byteOffset": 136782,
+            "byteStride": 0,
+            "count": 7281,
+            "type": 5123
+        },
+        "accessor_536": {
+            "bufferView": "bufferView_998",
+            "byteOffset": 582928,
+            "byteStride": 12,
+            "count": 1257,
+            "max": [
+                34.1398,
+                32.5123,
+                1.36013
+            ],
+            "min": [
+                -3.86957,
+                -3.96397,
+                -1.23871
+            ],
+            "type": 35665
+        },
+        "accessor_538": {
+            "bufferView": "bufferView_998",
+            "byteOffset": 598012,
+            "byteStride": 12,
+            "count": 1257,
+            "max": [
+                0.983155,
+                0.991306,
+                0.999935
+            ],
+            "min": [
+                -0.980259,
+                -0.930926,
+                -0.0618474
+            ],
+            "type": 35665
+        },
+        "accessor_54": {
+            "bufferView": "bufferView_998",
+            "byteOffset": 1045768,
+            "byteStride": 8,
+            "count": 8085,
+            "max": [
+                1.35622,
+                0.998157
+            ],
+            "min": [
+                0.00294585,
+                0.00789678
+            ],
+            "type": 35664
+        },
+        "accessor_540": {
+            "bufferView": "bufferView_998",
+            "byteOffset": 613096,
+            "byteStride": 8,
+            "count": 1257,
+            "max": [
+                0.994842,
+                0.997421
+            ],
+            "min": [
+                0.003868,
+                0.00386798
+            ],
+            "type": 35664
+        },
+        "accessor_561": {
+            "bufferView": "bufferView_997",
+            "byteOffset": 392844,
+            "byteStride": 0,
+            "count": 11652,
+            "type": 5123
+        },
+        "accessor_563": {
+            "bufferView": "bufferView_998",
+            "byteOffset": 1672976,
+            "byteStride": 12,
+            "count": 4794,
+            "max": [
+                25.4456,
+                29.9947,
+                4.55916
+            ],
+            "min": [
+                -13.8359,
+                -14.8826,
+                -4.02602
+            ],
+            "type": 35665
+        },
+        "accessor_565": {
+            "bufferView": "bufferView_998",
+            "byteOffset": 1730504,
+            "byteStride": 12,
+            "count": 4794,
+            "max": [
+                1,
+                0.9963,
+                1
+            ],
+            "min": [
+                -0.999985,
+                -0.999925,
+                -1
+            ],
+            "type": 35665
+        },
+        "accessor_567": {
+            "bufferView": "bufferView_998",
+            "byteOffset": 1788032,
+            "byteStride": 8,
+            "count": 4794,
+            "max": [
+                0.996722,
+                0.993523
+            ],
+            "min": [
+                0.00151819,
+                0.000506282
+            ],
+            "type": 35664
+        },
+        "accessor_610": {
+            "bufferView": "bufferView_997",
+            "byteOffset": 87366,
+            "byteStride": 0,
+            "count": 19200,
+            "type": 5123
+        },
+        "accessor_612": {
+            "bufferView": "bufferView_998",
+            "byteOffset": 275776,
+            "byteStride": 12,
+            "count": 5763,
+            "max": [
+                74.3905,
+                193.768,
+                25.9058
+            ],
+            "min": [
+                -121.917,
+                -121.517,
+                -6.61458
+            ],
+            "type": 35665
+        },
+        "accessor_614": {
+            "bufferView": "bufferView_998",
+            "byteOffset": 344932,
+            "byteStride": 12,
+            "count": 5763,
+            "max": [
+                0.999838,
+                0.999816,
+                0.999987
+            ],
+            "min": [
+                -0.999892,
+                -0.999933,
+                -0.39861
+            ],
+            "type": 35665
+        },
+        "accessor_616": {
+            "bufferView": "bufferView_998",
+            "byteOffset": 414088,
+            "byteStride": 8,
+            "count": 5763,
+            "max": [
+                1.25128,
+                0.999141
+            ],
+            "min": [
+                0.002505,
+                -0.0140899
+            ],
+            "type": 35664
+        },
+        "accessor_618": {
+            "bufferView": "bufferView_998",
+            "byteOffset": 460192,
+            "byteStride": 8,
+            "count": 5763,
+            "max": [
+                319.285,
+                46.7227
+            ],
+            "min": [
+                -233.801,
+                -646.825
+            ],
+            "type": 35664
+        },
+        "accessor_620": {
+            "bufferView": "bufferView_998",
+            "byteOffset": 506296,
+            "byteStride": 8,
+            "count": 5763,
+            "max": [
+                319.285,
+                46.7227
+            ],
+            "min": [
+                -233.801,
+                -646.825
+            ],
+            "type": 35664
+        },
+        "accessor_641": {
+            "bufferView": "bufferView_997",
+            "byteOffset": 365970,
+            "byteStride": 0,
+            "count": 1545,
+            "type": 5123
+        },
+        "accessor_643": {
+            "bufferView": "bufferView_998",
+            "byteOffset": 1457104,
+            "byteStride": 12,
+            "count": 338,
+            "max": [
+                13.1698,
+                37.7715,
+                4.35108
+            ],
+            "min": [
+                -63.495,
+                -13.3851,
+                -9.43609
+            ],
+            "type": 35665
+        },
+        "accessor_645": {
+            "bufferView": "bufferView_998",
+            "byteOffset": 1461160,
+            "byteStride": 12,
+            "count": 338,
+            "max": [
+                0.988051,
+                0.954018,
+                0.999943
+            ],
+            "min": [
+                -0.706816,
+                -0.470656,
+                0.152912
+            ],
+            "type": 35665
+        },
+        "accessor_647": {
+            "bufferView": "bufferView_998",
+            "byteOffset": 1465216,
+            "byteStride": 8,
+            "count": 338,
+            "max": [
+                0.999903,
+                0.999915
+            ],
+            "min": [
+                0.000164,
+                0.000135005
+            ],
+            "type": 35664
+        },
+        "accessor_668": {
+            "bufferView": "bufferView_997",
+            "byteOffset": 125766,
+            "byteStride": 0,
+            "count": 5508,
+            "type": 5123
+        },
+        "accessor_670": {
+            "bufferView": "bufferView_998",
+            "byteOffset": 552400,
+            "byteStride": 12,
+            "count": 954,
+            "max": [
+                5.03431,
+                5.05112,
+                1.54206
+            ],
+            "min": [
+                -5.46368,
+                -9.90845,
+                -1.54206
+            ],
+            "type": 35665
+        },
+        "accessor_672": {
+            "bufferView": "bufferView_998",
+            "byteOffset": 563848,
+            "byteStride": 12,
+            "count": 954,
+            "max": [
+                0.984585,
+                0.991937,
+                0.999609
+            ],
+            "min": [
+                -0.995525,
+                -0.976078,
+                -0.173791
+            ],
+            "type": 35665
+        },
+        "accessor_674": {
+            "bufferView": "bufferView_998",
+            "byteOffset": 575296,
+            "byteStride": 8,
+            "count": 954,
+            "max": [
+                0.979439,
+                0.947596
+            ],
+            "min": [
+                0.434752,
+                0.0344486
+            ],
+            "type": 35664
+        },
+        "accessor_695": {
+            "bufferView": "bufferView_997",
+            "byteOffset": 457716,
+            "byteStride": 0,
+            "count": 19440,
+            "type": 5123
+        },
+        "accessor_697": {
+            "bufferView": "bufferView_998",
+            "byteOffset": 2531072,
+            "byteStride": 12,
+            "count": 5156,
+            "max": [
+                306.493,
+                246.939,
+                11.8386
+            ],
+            "min": [
+                -165.225,
+                -97.0426,
+                -3.29306
+            ],
+            "type": 35665
+        },
+        "accessor_699": {
+            "bufferView": "bufferView_998",
+            "byteOffset": 2592944,
+            "byteStride": 12,
+            "count": 5156,
+            "max": [
+                0.999576,
+                0.99995,
+                0.999359
+            ],
+            "min": [
+                -0.999901,
+                -0.998773,
+                -0.999374
+            ],
+            "type": 35665
+        },
+        "accessor_701": {
+            "bufferView": "bufferView_998",
+            "byteOffset": 2654816,
+            "byteStride": 8,
+            "count": 5156,
+            "max": [
+                0.971925,
+                0.973477
+            ],
+            "min": [
+                0.0239279,
+                0.0210615
+            ],
+            "type": 35664
+        },
+        "accessor_722": {
+            "bufferView": "bufferView_997",
+            "byteOffset": 171882,
+            "byteStride": 0,
+            "count": 5292,
+            "type": 5123
+        },
+        "accessor_724": {
+            "bufferView": "bufferView_998",
+            "byteOffset": 775504,
+            "byteStride": 12,
+            "count": 2318,
+            "max": [
+                425.128,
+                582.695,
+                15.201
+            ],
+            "min": [
+                -219.415,
+                -233.181,
+                -29.9343
+            ],
+            "type": 35665
+        },
+        "accessor_726": {
+            "bufferView": "bufferView_998",
+            "byteOffset": 803320,
+            "byteStride": 12,
+            "count": 2318,
+            "max": [
+                1,
+                1,
+                0.999964
+            ],
+            "min": [
+                -0.999966,
+                -0.999153,
+                -0.898621
+            ],
+            "type": 35665
+        },
+        "accessor_728": {
+            "bufferView": "bufferView_998",
+            "byteOffset": 831136,
+            "byteStride": 8,
+            "count": 2318,
+            "max": [
+                0.992361,
+                0.984844
+            ],
+            "min": [
+                -0.0125894,
+                -0.00192404
+            ],
+            "type": 35664
+        },
+        "accessor_749": {
+            "bufferView": "bufferView_997",
+            "byteOffset": 275070,
+            "byteStride": 0,
+            "count": 45450,
+            "type": 5123
+        },
+        "accessor_75": {
+            "bufferView": "bufferView_997",
+            "byteOffset": 264,
+            "byteStride": 0,
+            "count": 396,
+            "type": 5123
+        },
+        "accessor_751": {
+            "bufferView": "bufferView_998",
+            "byteOffset": 1179856,
+            "byteStride": 12,
+            "count": 8664,
+            "max": [
+                30.4172,
+                56.6395,
+                2.6984
+            ],
+            "min": [
+                -17.6181,
+                -7.34804,
+                -4.23272
+            ],
+            "type": 35665
+        },
+        "accessor_753": {
+            "bufferView": "bufferView_998",
+            "byteOffset": 1283824,
+            "byteStride": 12,
+            "count": 8664,
+            "max": [
+                0.998771,
+                0.999862,
+                0.999867
+            ],
+            "min": [
+                -0.999683,
+                -0.99981,
+                -0.999575
+            ],
+            "type": 35665
+        },
+        "accessor_755": {
+            "bufferView": "bufferView_998",
+            "byteOffset": 1387792,
+            "byteStride": 8,
+            "count": 8664,
+            "max": [
+                1.01665,
+                0.999634
+            ],
+            "min": [
+                0.000475269,
+                0.000467777
+            ],
+            "type": 35664
+        },
+        "accessor_77": {
+            "bufferView": "bufferView_998",
+            "byteOffset": 1152,
+            "byteStride": 12,
+            "count": 323,
+            "max": [
+                196.666,
+                97.6088,
+                10.6914
+            ],
+            "min": [
+                158.338,
+                61.9786,
+                7.83283
+            ],
+            "type": 35665
+        },
+        "accessor_776": {
+            "bufferView": "bufferView_997",
+            "byteOffset": 2784,
+            "byteStride": 0,
+            "count": 42291,
+            "type": 5123
+        },
+        "accessor_778": {
+            "bufferView": "bufferView_998",
+            "byteOffset": 16768,
+            "byteStride": 12,
+            "count": 8094,
+            "max": [
+                90.4427,
+                207.96,
+                26.5825
+            ],
+            "min": [
+                -116.236,
+                83.2041,
+                1.45335
+            ],
+            "type": 35665
+        },
+        "accessor_780": {
+            "bufferView": "bufferView_998",
+            "byteOffset": 113896,
+            "byteStride": 12,
+            "count": 8094,
+            "max": [
+                0.999832,
+                0.999929,
+                0.999917
+            ],
+            "min": [
+                -0.999998,
+                -0.999949,
+                -0.459342
+            ],
+            "type": 35665
+        },
+        "accessor_782": {
+            "bufferView": "bufferView_998",
+            "byteOffset": 211024,
+            "byteStride": 8,
+            "count": 8094,
+            "max": [
+                0.988714,
+                0.989564
+            ],
+            "min": [
+                0.00578297,
+                0.0024966
+            ],
+            "type": 35664
+        },
+        "accessor_79": {
+            "bufferView": "bufferView_998",
+            "byteOffset": 5028,
+            "byteStride": 12,
+            "count": 323,
+            "max": [
+                0.992617,
+                0.9994,
+                0.999985
+            ],
+            "min": [
+                -0.999165,
+                -0.999963,
+                -0.0092497
+            ],
+            "type": 35665
+        },
+        "accessor_803": {
+            "bufferView": "bufferView_997",
+            "byteOffset": 151344,
+            "byteStride": 0,
+            "count": 10269,
+            "type": 5123
+        },
+        "accessor_805": {
+            "bufferView": "bufferView_998",
+            "byteOffset": 623152,
+            "byteStride": 12,
+            "count": 4761,
+            "max": [
+                175.257,
+                242.935,
+                55.6687
+            ],
+            "min": [
+                -198.3,
+                -171.321,
+                -158.042
+            ],
+            "type": 35665
+        },
+        "accessor_807": {
+            "bufferView": "bufferView_998",
+            "byteOffset": 680284,
+            "byteStride": 12,
+            "count": 4761,
+            "max": [
+                0.998876,
+                0.99896,
+                0.999798
+            ],
+            "min": [
+                -0.994856,
+                -0.999683,
+                -0.99975
+            ],
+            "type": 35665
+        },
+        "accessor_809": {
+            "bufferView": "bufferView_998",
+            "byteOffset": 737416,
+            "byteStride": 8,
+            "count": 4761,
+            "max": [
+                0.998107,
+                0.994219
+            ],
+            "min": [
+                0.000417994,
+                0.0003497
+            ],
+            "type": 35664
+        },
+        "accessor_81": {
+            "bufferView": "bufferView_998",
+            "byteOffset": 8904,
+            "byteStride": 8,
+            "count": 323,
+            "max": [
+                0.967972,
+                0.958688
+            ],
+            "min": [
+                0.307736,
+                0.0349972
+            ],
+            "type": 35664
+        },
+        "accessor_852": {
+            "bufferView": "bufferView_997",
+            "byteOffset": 416148,
+            "byteStride": 0,
+            "count": 9180,
+            "type": 5123
+        },
+        "accessor_854": {
+            "bufferView": "bufferView_998",
+            "byteOffset": 1826384,
+            "byteStride": 12,
+            "count": 3669,
+            "max": [
+                116.053,
+                256.33,
+                27.9171
+            ],
+            "min": [
+                81.0649,
+                219.746,
+                10.8081
+            ],
+            "type": 35665
+        },
+        "accessor_856": {
+            "bufferView": "bufferView_998",
+            "byteOffset": 1870412,
+            "byteStride": 12,
+            "count": 3669,
+            "max": [
+                0.998713,
+                0.999629,
+                0.996997
+            ],
+            "min": [
+                -0.998713,
+                -0.997153,
+                -0.996967
+            ],
+            "type": 35665
+        },
+        "accessor_858": {
+            "bufferView": "bufferView_998",
+            "byteOffset": 1914440,
+            "byteStride": 8,
+            "count": 3669,
+            "max": [
+                0.998648,
+                0.999506
+            ],
+            "min": [
+                -9.31537,
+                -0.986376
+            ],
+            "type": 35664
+        },
+        "accessor_860": {
+            "bufferView": "bufferView_998",
+            "byteOffset": 1943792,
+            "byteStride": 8,
+            "count": 3669,
+            "max": [
+                116.053,
+                0.999243
+            ],
+            "min": [
+                -9.31537,
+                -233.333
+            ],
+            "type": 35664
+        },
+        "accessor_862": {
+            "bufferView": "bufferView_998",
+            "byteOffset": 1973144,
+            "byteStride": 8,
+            "count": 3669,
+            "max": [
+                116.053,
+                0.999243
+            ],
+            "min": [
+                -9.31537,
+                -233.333
+            ],
+            "type": 35664
+        },
+        "accessor_905": {
+            "bufferView": "bufferView_997",
+            "byteOffset": 434508,
+            "byteStride": 0,
+            "count": 11604,
+            "type": 5123
+        },
+        "accessor_907": {
+            "bufferView": "bufferView_998",
+            "byteOffset": 2002496,
+            "byteStride": 12,
+            "count": 11012,
+            "max": [
+                39.5421,
+                35.9668,
+                34.8568
+            ],
+            "min": [
+                -48.2398,
+                -57.0295,
+                -27.4244
+            ],
+            "type": 35665
+        },
+        "accessor_909": {
+            "bufferView": "bufferView_998",
+            "byteOffset": 2134640,
+            "byteStride": 12,
+            "count": 11012,
+            "max": [
+                0.941973,
+                0.995255,
+                0.992979
+            ],
+            "min": [
+                -0.986012,
+                -0.986927,
+                -0.992972
+            ],
+            "type": 35665
+        },
+        "accessor_911": {
+            "bufferView": "bufferView_998",
+            "byteOffset": 2266784,
+            "byteStride": 8,
+            "count": 11012,
+            "max": [
+                0.998579,
+                0.997469
+            ],
+            "min": [
+                0.419442,
+                0.58102
+            ],
+            "type": 35664
+        },
+        "accessor_913": {
+            "bufferView": "bufferView_998",
+            "byteOffset": 2354880,
+            "byteStride": 8,
+            "count": 11012,
+            "max": [
+                0.998579,
+                0.997469
+            ],
+            "min": [
+                0.419442,
+                0.58102
+            ],
+            "type": 35664
+        },
+        "accessor_915": {
+            "bufferView": "bufferView_998",
+            "byteOffset": 2442976,
+            "byteStride": 8,
+            "count": 11012,
+            "max": [
+                5.29103,
+                11.4606
+            ],
+            "min": [
+                -4.41493,
+                -10.4606
+            ],
+            "type": 35664
+        },
+        "accessor_958": {
+            "bufferView": "bufferView_997",
+            "byteOffset": 387348,
+            "byteStride": 0,
+            "count": 2748,
+            "type": 5123
+        },
+        "accessor_960": {
+            "bufferView": "bufferView_998",
+            "byteOffset": 1541072,
+            "byteStride": 12,
+            "count": 2748,
+            "max": [
+                5.52668,
+                5.06083,
+                4.82559
+            ],
+            "min": [
+                -4.70465,
+                -5.34621,
+                -1.03731
+            ],
+            "type": 35665
+        },
+        "accessor_962": {
+            "bufferView": "bufferView_998",
+            "byteOffset": 1574048,
+            "byteStride": 12,
+            "count": 2748,
+            "max": [
+                0.975547,
+                0.982866,
+                0.999619
+            ],
+            "min": [
+                -0.999004,
+                -0.999925,
+                -0.997291
+            ],
+            "type": 35665
+        },
+        "accessor_964": {
+            "bufferView": "bufferView_998",
+            "byteOffset": 1607024,
+            "byteStride": 8,
+            "count": 2748,
+            "max": [
+                0.996722,
+                0.949941
+            ],
+            "min": [
+                0.00391406,
+                0.00258058
+            ],
+            "type": 35664
+        },
+        "accessor_966": {
+            "bufferView": "bufferView_998",
+            "byteOffset": 1629008,
+            "byteStride": 8,
+            "count": 2748,
+            "max": [
+                0.996722,
+                0.949941
+            ],
+            "min": [
+                0.00391406,
+                0.00258058
+            ],
+            "type": 35664
+        },
+        "accessor_968": {
+            "bufferView": "bufferView_998",
+            "byteOffset": 1650992,
+            "byteStride": 8,
+            "count": 2748,
+            "max": [
+                0.996722,
+                0.949941
+            ],
+            "min": [
+                0.00391406,
+                0.00258058
+            ],
+            "type": 35664
+        },
+        "accessor_989": {
+            "bufferView": "bufferView_997",
+            "byteOffset": 0,
+            "byteStride": 0,
+            "count": 132,
+            "type": 5123
+        },
+        "accessor_991": {
+            "bufferView": "bufferView_998",
+            "byteOffset": 0,
+            "byteStride": 12,
+            "count": 36,
+            "max": [
+                10.2032,
+                31.214,
+                1.455
+            ],
+            "min": [
+                -20.2012,
+                -24.1175,
+                -1.455
+            ],
+            "type": 35665
+        },
+        "accessor_993": {
+            "bufferView": "bufferView_998",
+            "byteOffset": 432,
+            "byteStride": 12,
+            "count": 36,
+            "max": [
+                0.435222,
+                0.0418898,
+                0.919526
+            ],
+            "min": [
+                0.2467,
+                -0.341912,
+                0.899358
+            ],
+            "type": 35665
+        },
+        "accessor_995": {
+            "bufferView": "bufferView_998",
+            "byteOffset": 864,
+            "byteStride": 8,
+            "count": 36,
+            "max": [
+                4.94078,
+                9.07186
+            ],
+            "min": [
+                -4.1649,
+                -8.22256
+            ],
+            "type": 35664
+        }
+    },
+    "animations": {},
+    "asset": {
+        "generator": "collada2gltf@63e932907e3f0c834c8668d04f03ddb6eabf78d1",
+        "premultipliedAlpha": true,
+        "profile": "WebGL 1.0.2",
+        "version": 0.6
+    },
+    "bufferViews": {
+        "bufferView_997": {
+            "buffer": "mars_assets",
+            "byteLength": 502836,
+            "byteOffset": 0,
+            "target": 34963
+        },
+        "bufferView_998": {
+            "buffer": "mars_assets",
+            "byteLength": 2731872,
+            "byteOffset": 502836,
+            "target": 34962
+        }
+    },
+    "buffers": {
+        "mars_assets": {
+            "byteLength": 3234708,
+            "path": "mars_assets.bin",
+            "type": "arraybuffer"
+        }
+    },
+    "images": {
+        "canyon_n_png": {
+            "path": "canyon_n.png"
+        },
+        "canyon_png": {
+            "path": "canyon.png"
+        },
+        "canyon_rocks_n_png": {
+            "path": "canyon_rocks_n.png"
+        },
+        "canyon_rocks_png": {
+            "path": "canyon_rocks.png"
+        },
+        "canyon_rocks_s_png": {
+            "path": "canyon_rocks_s.png"
+        },
+        "canyon_s_png": {
+            "path": "canyon_s.png"
+        },
+        "crash_grooves_n_png": {
+            "path": "crash_grooves_n.png"
+        },
+        "crash_grooves_png": {
+            "path": "crash_grooves.png"
+        },
+        "crash_grooves_s_png": {
+            "path": "crash_grooves_s.png"
+        },
+        "crater_n_png": {
+            "path": "crater_n.png"
+        },
+        "crater_png": {
+            "path": "crater.png"
+        },
+        "crater_s_png": {
+            "path": "crater_s.png"
+        },
+        "debris_n_png": {
+            "path": "debris_n.png"
+        },
+        "debris_png": {
+            "path": "debris.png"
+        },
+        "debris_s_png": {
+            "path": "debris_s.png"
+        },
+        "dirt_n_png": {
+            "path": "dirt_n.png"
+        },
+        "dirt_png": {
+            "path": "dirt.png"
+        },
+        "dirt_s_png": {
+            "path": "dirt_s.png"
+        },
+        "large_canyon_n_png": {
+            "path": "large_canyon_n.png"
+        },
+        "large_canyon_png": {
+            "path": "large_canyon.png"
+        },
+        "large_canyon_s_png": {
+            "path": "large_canyon_s.png"
+        },
+        "level2_rock1_d_png": {
+            "path": "level2_rock1_d.png"
+        },
+        "level2_rock1_n_png": {
+            "path": "level2_rock1_n.png"
+        },
+        "level2_rock1_s_png": {
+            "path": "level2_rock1_s.png"
+        },
+        "level2_smallrocks_d_png": {
+            "path": "level2_smallrocks_d.png"
+        },
+        "level2_smallrocks_n_png": {
+            "path": "level2_smallrocks_n.png"
+        },
+        "level2_smallrocks_s_png": {
+            "path": "level2_smallrocks_s.png"
+        },
+        "mars_mountain_panoramic_png": {
+            "path": "mars_mountain_panoramic.png"
+        },
+        "mars_panorama_dirt_png": {
+            "path": "mars_panorama_dirt.png"
+        },
+        "platform_n_png": {
+            "path": "platform_n.png"
+        },
+        "platform_png": {
+            "path": "platform.png"
+        },
+        "platform_s_png": {
+            "path": "platform_s.png"
+        },
+        "rock_edge_n_png": {
+            "path": "rock_edge_n.png"
+        },
+        "rock_edge_png": {
+            "path": "rock_edge.png"
+        },
+        "rock_edge_s_png": {
+            "path": "rock_edge_s.png"
+        },
+        "rock_n_png": {
+            "path": "rock_n.png"
+        },
+        "rock_png": {
+            "path": "rock.png"
+        },
+        "rock_s_png": {
+            "path": "rock_s.png"
+        },
+        "rubble_n_png": {
+            "path": "rubble_n.png"
+        },
+        "rubble_png": {
+            "path": "rubble.png"
+        },
+        "rubble_s_png": {
+            "path": "rubble_s.png"
+        },
+        "satellite_des_n_png": {
+            "path": "satellite_des_n.png"
+        },
+        "satellite_des_png": {
+            "path": "satellite_des.png"
+        },
+        "satellite_des_s_png": {
+            "path": "satellite_des_s.png"
+        },
+        "space_craft_n_png": {
+            "path": "space_craft_n.png"
+        },
+        "space_craft_png": {
+            "path": "space_craft.png"
+        },
+        "space_craft_s_png": {
+            "path": "space_craft_s.png"
+        }
+    },
+    "lights": {
+        "EnvironmentAmbientLight": {
+            "ambient": {
+                "color": [
+                    0,
+                    0,
+                    0
+                ]
+            },
+            "type": "ambient"
+        }
+    },
+    "materials": {
+        "Material__117": {
+            "instanceTechnique": {
+                "technique": "technique0",
+                "values": {
+                    "ambient": "texture_rubble_png",
+                    "diffuse": "texture_rubble_png",
+                    "emission": [
+                        0,
+                        0,
+                        0,
+                        1
+                    ],
+                    "shininess": 0,
+                    "specular": [
+                        0.9,
+                        0.9,
+                        0.9,
+                        1
+                    ]
+                }
+            },
+            "name": "Material__117"
+        },
+        "canyon": {
+            "instanceTechnique": {
+                "technique": "technique1",
+                "values": {
+                    "ambient": "texture_canyon_png",
+                    "diffuse": "texture_canyon_png",
+                    "emission": [
+                        0,
+                        0,
+                        0,
+                        1
+                    ],
+                    "shininess": 1.28,
+                    "specular": [
+                        0.9,
+                        0.9,
+                        0.9,
+                        1
+                    ]
+                }
+            },
+            "name": "canyon"
+        },
+        "canyon_rocks": {
+            "instanceTechnique": {
+                "technique": "technique1",
+                "values": {
+                    "ambient": "texture_canyon_rocks_png",
+                    "diffuse": "texture_canyon_rocks_png",
+                    "emission": [
+                        0,
+                        0,
+                        0,
+                        1
+                    ],
+                    "shininess": 1.28,
+                    "specular": [
+                        0.9,
+                        0.9,
+                        0.9,
+                        1
+                    ]
+                }
+            },
+            "name": "canyon_rocks"
+        },
+        "crash_grooves": {
+            "instanceTechnique": {
+                "technique": "technique1",
+                "values": {
+                    "ambient": "texture_crash_grooves_png",
+                    "diffuse": "texture_crash_grooves_png",
+                    "emission": [
+                        0,
+                        0,
+                        0,
+                        1
+                    ],
+                    "shininess": 1.28,
+                    "specular": [
+                        0,
+                        0,
+                        0,
+                        1
+                    ]
+                }
+            },
+            "name": "crash_grooves"
+        },
+        "crater": {
+            "instanceTechnique": {
+                "technique": "technique1",
+                "values": {
+                    "ambient": "texture_crater_png",
+                    "diffuse": "texture_crater_png",
+                    "emission": [
+                        0,
+                        0,
+                        0,
+                        1
+                    ],
+                    "shininess": 1.28,
+                    "specular": [
+                        0,
+                        0,
+                        0,
+                        1
+                    ]
+                }
+            },
+            "name": "crater"
+        },
+        "debris": {
+            "instanceTechnique": {
+                "technique": "technique1",
+                "values": {
+                    "ambient": "texture_debris_png",
+                    "diffuse": "texture_debris_png",
+                    "emission": [
+                        0,
+                        0,
+                        0,
+                        1
+                    ],
+                    "shininess": 1.28,
+                    "specular": [
+                        0.9,
+                        0.9,
+                        0.9,
+                        1
+                    ]
+                }
+            },
+            "name": "debris"
+        },
+        "dirt": {
+            "instanceTechnique": {
+                "technique": "technique0",
+                "values": {
+                    "ambient": "texture_dirt_png",
+                    "diffuse": "texture_dirt_png",
+                    "emission": [
+                        0,
+                        0,
+                        0,
+                        1
+                    ],
+                    "shininess": 1.28,
+                    "specular": [
+                        0,
+                        0,
+                        0,
+                        1
+                    ]
+                }
+            },
+            "name": "dirt"
+        },
+        "large_canyon": {
+            "instanceTechnique": {
+                "technique": "technique1",
+                "values": {
+                    "ambient": "texture_large_canyon_png",
+                    "diffuse": "texture_large_canyon_png",
+                    "emission": [
+                        0,
+                        0,
+                        0,
+                        1
+                    ],
+                    "shininess": 1.28,
+                    "specular": [
+                        0.9,
+                        0.9,
+                        0.9,
+                        1
+                    ]
+                }
+            },
+            "name": "large_canyon"
+        },
+        "level2_rock1": {
+            "instanceTechnique": {
+                "technique": "technique0",
+                "values": {
+                    "ambient": "texture_level2_rock1_d_png",
+                    "diffuse": "texture_level2_rock1_d_png",
+                    "emission": [
+                        0,
+                        0,
+                        0,
+                        1
+                    ],
+                    "shininess": 1.28,
+                    "specular": [
+                        0,
+                        0,
+                        0,
+                        1
+                    ]
+                }
+            },
+            "name": "level2_rock1"
+        },
+        "level2_smallrocks": {
+            "instanceTechnique": {
+                "technique": "technique0",
+                "values": {
+                    "ambient": "texture_level2_smallrocks_d_png",
+                    "diffuse": "texture_level2_smallrocks_d_png",
+                    "emission": [
+                        0,
+                        0,
+                        0,
+                        1
+                    ],
+                    "shininess": 1.28,
+                    "specular": [
+                        0,
+                        0,
+                        0,
+                        1
+                    ]
+                }
+            },
+            "name": "level2_smallrocks"
+        },
+        "mars_mountain_panoramic": {
+            "instanceTechnique": {
+                "technique": "technique1",
+                "values": {
+                    "ambient": "texture_mars_mountain_panoramic_png",
+                    "diffuse": "texture_mars_mountain_panoramic_png",
+                    "emission": [
+                        0,
+                        0,
+                        0,
+                        1
+                    ],
+                    "shininess": 1.28,
+                    "specular": [
+                        0.9,
+                        0.9,
+                        0.9,
+                        1
+                    ]
+                }
+            },
+            "name": "mars_mountain_panoramic"
+        },
+        "mars_panorama_dirt": {
+            "instanceTechnique": {
+                "technique": "technique1",
+                "values": {
+                    "ambient": "texture_mars_panorama_dirt_png",
+                    "diffuse": "texture_mars_panorama_dirt_png",
+                    "emission": [
+                        0,
+                        0,
+                        0,
+                        1
+                    ],
+                    "shininess": 1.28,
+                    "specular": [
+                        0.9,
+                        0.9,
+                        0.9,
+                        1
+                    ]
+                }
+            },
+            "name": "mars_panorama_dirt"
+        },
+        "platform": {
+            "instanceTechnique": {
+                "technique": "technique0",
+                "values": {
+                    "ambient": "texture_platform_png",
+                    "diffuse": "texture_platform_png",
+                    "emission": [
+                        0,
+                        0,
+                        0,
+                        1
+                    ],
+                    "shininess": 1.28,
+                    "specular": [
+                        0,
+                        0,
+                        0,
+                        1
+                    ]
+                }
+            },
+            "name": "platform"
+        },
+        "rock": {
+            "instanceTechnique": {
+                "technique": "technique0",
+                "values": {
+                    "ambient": "texture_rock_png",
+                    "diffuse": "texture_rock_png",
+                    "emission": [
+                        0,
+                        0,
+                        0,
+                        1
+                    ],
+                    "shininess": 1.28,
+                    "specular": [
+                        0,
+                        0,
+                        0,
+                        1
+                    ]
+                }
+            },
+            "name": "rock"
+        },
+        "rock_edge": {
+            "instanceTechnique": {
+                "technique": "technique1",
+                "values": {
+                    "ambient": "texture_rock_edge_png",
+                    "diffuse": "texture_rock_edge_png",
+                    "emission": [
+                        0,
+                        0,
+                        0,
+                        1
+                    ],
+                    "shininess": 1.28,
+                    "specular": [
+                        0.9,
+                        0.9,
+                        0.9,
+                        1
+                    ]
+                }
+            },
+            "name": "rock_edge"
+        },
+        "rubble": {
+            "instanceTechnique": {
+                "technique": "technique0",
+                "values": {
+                    "ambient": "texture_rubble_png",
+                    "diffuse": "texture_rubble_png",
+                    "emission": [
+                        0,
+                        0,
+                        0,
+                        1
+                    ],
+                    "shininess": 1.28,
+                    "specular": [
+                        0.9,
+                        0.9,
+                        0.9,
+                        1
+                    ]
+                }
+            },
+            "name": "rubble"
+        },
+        "sat_des": {
+            "instanceTechnique": {
+                "technique": "technique0",
+                "values": {
+                    "ambient": "texture_satellite_des_png",
+                    "diffuse": "texture_satellite_des_png",
+                    "emission": [
+                        0,
+                        0,
+                        0,
+                        1
+                    ],
+                    "shininess": 1.28,
+                    "specular": [
+                        0.9,
+                        0.9,
+                        0.9,
+                        1
+                    ]
+                }
+            },
+            "name": "sat_des"
+        },
+        "space_craft": {
+            "instanceTechnique": {
+                "technique": "technique0",
+                "values": {
+                    "ambient": "texture_space_craft_png",
+                    "diffuse": "texture_space_craft_png",
+                    "emission": [
+                        0,
+                        0,
+                        0,
+                        1
+                    ],
+                    "shininess": 1.28,
+                    "specular": [
+                        0,
+                        0,
+                        0,
+                        1
+                    ]
+                }
+            },
+            "name": "space_craft"
+        }
+    },
+    "meshes": {
+        "geom-Line047": {
+            "name": "Line047",
+            "primitives": [
+                {
+                    "attributes": {
+                        "NORMAL": "accessor_993",
+                        "POSITION": "accessor_991",
+                        "TEXCOORD_0": "accessor_995"
+                    },
+                    "indices": "accessor_989",
+                    "material": "dirt",
+                    "primitive": 4
+                }
+            ]
+        },
+        "geom-Object473": {
+            "name": "Object473",
+            "primitives": [
+                {
+                    "attributes": {
+                        "NORMAL": "accessor_79",
+                        "POSITION": "accessor_77",
+                        "TEXCOORD_0": "accessor_81"
+                    },
+                    "indices": "accessor_75",
+                    "material": "level2_rock1",
+                    "primitive": 4
+                }
+            ]
+        },
+        "geom-Object481": {
+            "name": "Object481",
+            "primitives": [
+                {
+                    "attributes": {
+                        "NORMAL": "accessor_25",
+                        "POSITION": "accessor_23",
+                        "TEXCOORD_0": "accessor_27"
+                    },
+                    "indices": "accessor_21",
+                    "material": "canyon",
+                    "primitive": 4
+                }
+            ]
+        },
+        "geom-canyon": {
+            "name": "canyon",
+            "primitives": [
+                {
+                    "attributes": {
+                        "NORMAL": "accessor_780",
+                        "POSITION": "accessor_778",
+                        "TEXCOORD_0": "accessor_782"
+                    },
+                    "indices": "accessor_776",
+                    "material": "canyon",
+                    "primitive": 4
+                }
+            ]
+        },
+        "geom-canyon_rocks": {
+            "name": "canyon_rocks",
+            "primitives": [
+                {
+                    "attributes": {
+                        "NORMAL": "accessor_614",
+                        "POSITION": "accessor_612",
+                        "TEXCOORD_0": "accessor_616",
+                        "TEXCOORD_1": "accessor_618",
+                        "TEXCOORD_2": "accessor_620"
+                    },
+                    "indices": "accessor_610",
+                    "material": "canyon_rocks",
+                    "primitive": 4
+                }
+            ]
+        },
+        "geom-crash_groove": {
+            "name": "crash_groove",
+            "primitives": [
+                {
+                    "attributes": {
+                        "NORMAL": "accessor_672",
+                        "POSITION": "accessor_670",
+                        "TEXCOORD_0": "accessor_674"
+                    },
+                    "indices": "accessor_668",
+                    "material": "crash_grooves",
+                    "primitive": 4
+                }
+            ]
+        },
+        "geom-crater1": {
+            "name": "crater1",
+            "primitives": [
+                {
+                    "attributes": {
+                        "NORMAL": "accessor_538",
+                        "POSITION": "accessor_536",
+                        "TEXCOORD_0": "accessor_540"
+                    },
+                    "indices": "accessor_534",
+                    "material": "crater",
+                    "primitive": 4
+                }
+            ]
+        },
+        "geom-debris": {
+            "name": "debris",
+            "primitives": [
+                {
+                    "attributes": {
+                        "NORMAL": "accessor_807",
+                        "POSITION": "accessor_805",
+                        "TEXCOORD_0": "accessor_809"
+                    },
+                    "indices": "accessor_803",
+                    "material": "debris",
+                    "primitive": 4
+                }
+            ]
+        },
+        "geom-flatrocks": {
+            "name": "flatrocks",
+            "primitives": [
+                {
+                    "attributes": {
+                        "NORMAL": "accessor_726",
+                        "POSITION": "accessor_724",
+                        "TEXCOORD_0": "accessor_728"
+                    },
+                    "indices": "accessor_722",
+                    "material": "level2_rock1",
+                    "primitive": 4
+                }
+            ]
+        },
+        "geom-hills1": {
+            "name": "hills1",
+            "primitives": [
+                {
+                    "attributes": {
+                        "NORMAL": "accessor_214",
+                        "POSITION": "accessor_212",
+                        "TEXCOORD_0": "accessor_216"
+                    },
+                    "indices": "accessor_210",
+                    "material": "mars_panorama_dirt",
+                    "primitive": 4
+                }
+            ]
+        },
+        "geom-hills2": {
+            "name": "hills2",
+            "primitives": [
+                {
+                    "attributes": {
+                        "NORMAL": "accessor_187",
+                        "POSITION": "accessor_185",
+                        "TEXCOORD_0": "accessor_189"
+                    },
+                    "indices": "accessor_183",
+                    "material": "mars_panorama_dirt",
+                    "primitive": 4
+                }
+            ]
+        },
+        "geom-hills3": {
+            "name": "hills3",
+            "primitives": [
+                {
+                    "attributes": {
+                        "NORMAL": "accessor_322",
+                        "POSITION": "accessor_320",
+                        "TEXCOORD_0": "accessor_324"
+                    },
+                    "indices": "accessor_318",
+                    "material": "mars_panorama_dirt",
+                    "primitive": 4
+                }
+            ]
+        },
+        "geom-hills4": {
+            "name": "hills4",
+            "primitives": [
+                {
+                    "attributes": {
+                        "NORMAL": "accessor_268",
+                        "POSITION": "accessor_266",
+                        "TEXCOORD_0": "accessor_270"
+                    },
+                    "indices": "accessor_264",
+                    "material": "mars_panorama_dirt",
+                    "primitive": 4
+                }
+            ]
+        },
+        "geom-large_canyon": {
+            "name": "large_canyon",
+            "primitives": [
+                {
+                    "attributes": {
+                        "NORMAL": "accessor_52",
+                        "POSITION": "accessor_50",
+                        "TEXCOORD_0": "accessor_54"
+                    },
+                    "indices": "accessor_48",
+                    "material": "large_canyon",
+                    "primitive": 4
+                }
+            ]
+        },
+        "geom-large_canyon6": {
+            "name": "large_canyon6",
+            "primitives": [
+                {
+                    "attributes": {
+                        "NORMAL": "accessor_106",
+                        "POSITION": "accessor_104",
+                        "TEXCOORD_0": "accessor_108"
+                    },
+                    "indices": "accessor_102",
+                    "material": "large_canyon",
+                    "primitive": 4
+                }
+            ]
+        },
+        "geom-mountains005": {
+            "name": "mountains005",
+            "primitives": [
+                {
+                    "attributes": {
+                        "NORMAL": "accessor_349",
+                        "POSITION": "accessor_347",
+                        "TEXCOORD_0": "accessor_351"
+                    },
+                    "indices": "accessor_345",
+                    "material": "mars_mountain_panoramic",
+                    "primitive": 4
+                }
+            ]
+        },
+        "geom-mountains006": {
+            "name": "mountains006",
+            "primitives": [
+                {
+                    "attributes": {
+                        "NORMAL": "accessor_376",
+                        "POSITION": "accessor_374",
+                        "TEXCOORD_0": "accessor_378"
+                    },
+                    "indices": "accessor_372",
+                    "material": "mars_mountain_panoramic",
+                    "primitive": 4
+                }
+            ]
+        },
+        "geom-mountains007": {
+            "name": "mountains007",
+            "primitives": [
+                {
+                    "attributes": {
+                        "NORMAL": "accessor_403",
+                        "POSITION": "accessor_401",
+                        "TEXCOORD_0": "accessor_405"
+                    },
+                    "indices": "accessor_399",
+                    "material": "mars_mountain_panoramic",
+                    "primitive": 4
+                }
+            ]
+        },
+        "geom-mountains008": {
+            "name": "mountains008",
+            "primitives": [
+                {
+                    "attributes": {
+                        "NORMAL": "accessor_430",
+                        "POSITION": "accessor_428",
+                        "TEXCOORD_0": "accessor_432"
+                    },
+                    "indices": "accessor_426",
+                    "material": "mars_mountain_panoramic",
+                    "primitive": 4
+                }
+            ]
+        },
+        "geom-mountains1": {
+            "name": "mountains1",
+            "primitives": [
+                {
+                    "attributes": {
+                        "NORMAL": "accessor_241",
+                        "POSITION": "accessor_239",
+                        "TEXCOORD_0": "accessor_243"
+                    },
+                    "indices": "accessor_237",
+                    "material": "mars_mountain_panoramic",
+                    "primitive": 4
+                }
+            ]
+        },
+        "geom-mountains2": {
+            "name": "mountains2",
+            "primitives": [
+                {
+                    "attributes": {
+                        "NORMAL": "accessor_160",
+                        "POSITION": "accessor_158",
+                        "TEXCOORD_0": "accessor_162"
+                    },
+                    "indices": "accessor_156",
+                    "material": "mars_mountain_panoramic",
+                    "primitive": 4
+                }
+            ]
+        },
+        "geom-mountains3": {
+            "name": "mountains3",
+            "primitives": [
+                {
+                    "attributes": {
+                        "NORMAL": "accessor_133",
+                        "POSITION": "accessor_131",
+                        "TEXCOORD_0": "accessor_135"
+                    },
+                    "indices": "accessor_129",
+                    "material": "mars_mountain_panoramic",
+                    "primitive": 4
+                }
+            ]
+        },
+        "geom-mountains4": {
+            "name": "mountains4",
+            "primitives": [
+                {
+                    "attributes": {
+                        "NORMAL": "accessor_295",
+                        "POSITION": "accessor_293",
+                        "TEXCOORD_0": "accessor_297"
+                    },
+                    "indices": "accessor_291",
+                    "material": "mars_mountain_panoramic",
+                    "primitive": 4
+                }
+            ]
+        },
+        "geom-platform": {
+            "name": "platform",
+            "primitives": [
+                {
+                    "attributes": {
+                        "NORMAL": "accessor_484",
+                        "POSITION": "accessor_482",
+                        "TEXCOORD_0": "accessor_486"
+                    },
+                    "indices": "accessor_480",
+                    "material": "platform",
+                    "primitive": 4
+                }
+            ]
+        },
+        "geom-rock00": {
+            "name": "rock00",
+            "primitives": [
+                {
+                    "attributes": {
+                        "NORMAL": "accessor_753",
+                        "POSITION": "accessor_751",
+                        "TEXCOORD_0": "accessor_755"
+                    },
+                    "indices": "accessor_749",
+                    "material": "rock",
+                    "primitive": 4
+                }
+            ]
+        },
+        "geom-rock_edge": {
+            "name": "rock_edge",
+            "primitives": [
+                {
+                    "attributes": {
+                        "NORMAL": "accessor_645",
+                        "POSITION": "accessor_643",
+                        "TEXCOORD_0": "accessor_647"
+                    },
+                    "indices": "accessor_641",
+                    "material": "rock_edge",
+                    "primitive": 4
+                }
+            ]
+        },
+        "geom-rocks_small_game_area": {
+            "name": "rocks_small_game_area",
+            "primitives": [
+                {
+                    "attributes": {
+                        "NORMAL": "accessor_511",
+                        "POSITION": "accessor_509",
+                        "TEXCOORD_0": "accessor_513"
+                    },
+                    "indices": "accessor_507",
+                    "material": "level2_smallrocks",
+                    "primitive": 4
+                }
+            ]
+        },
+        "geom-rotary": {
+            "name": "rotary",
+            "primitives": [
+                {
+                    "attributes": {
+                        "NORMAL": "accessor_962",
+                        "POSITION": "accessor_960",
+                        "TEXCOORD_0": "accessor_964",
+                        "TEXCOORD_1": "accessor_966",
+                        "TEXCOORD_2": "accessor_968"
+                    },
+                    "indices": "accessor_958",
+                    "material": "Material__117",
+                    "primitive": 4
+                }
+            ]
+        },
+        "geom-rubble_assets": {
+            "name": "rubble_assets",
+            "primitives": [
+                {
+                    "attributes": {
+                        "NORMAL": "accessor_565",
+                        "POSITION": "accessor_563",
+                        "TEXCOORD_0": "accessor_567"
+                    },
+                    "indices": "accessor_561",
+                    "material": "rubble",
+                    "primitive": 4
+                }
+            ]
+        },
+        "geom-sat_des": {
+            "name": "sat_des",
+            "primitives": [
+                {
+                    "attributes": {
+                        "NORMAL": "accessor_856",
+                        "POSITION": "accessor_854",
+                        "TEXCOORD_0": "accessor_858",
+                        "TEXCOORD_1": "accessor_860",
+                        "TEXCOORD_2": "accessor_862"
+                    },
+                    "indices": "accessor_852",
+                    "material": "sat_des",
+                    "primitive": 4
+                }
+            ]
+        },
+        "geom-shattered_solar": {
+            "name": "shattered_solar",
+            "primitives": [
+                {
+                    "attributes": {
+                        "NORMAL": "accessor_909",
+                        "POSITION": "accessor_907",
+                        "TEXCOORD_0": "accessor_911",
+                        "TEXCOORD_1": "accessor_913",
+                        "TEXCOORD_2": "accessor_915"
+                    },
+                    "indices": "accessor_905",
+                    "material": "sat_des",
+                    "primitive": 4
+                }
+            ]
+        },
+        "geom-small_rocks": {
+            "name": "small_rocks",
+            "primitives": [
+                {
+                    "attributes": {
+                        "NORMAL": "accessor_699",
+                        "POSITION": "accessor_697",
+                        "TEXCOORD_0": "accessor_701"
+                    },
+                    "indices": "accessor_695",
+                    "material": "level2_smallrocks",
+                    "primitive": 4
+                }
+            ]
+        },
+        "geom-space_ship": {
+            "name": "space_ship",
+            "primitives": [
+                {
+                    "attributes": {
+                        "NORMAL": "accessor_457",
+                        "POSITION": "accessor_455",
+                        "TEXCOORD_0": "accessor_459"
+                    },
+                    "indices": "accessor_453",
+                    "material": "space_craft",
+                    "primitive": 4
+                }
+            ]
+        }
+    },
+    "nodes": {
+        "node-Line047": {
+            "children": [],
+            "matrix": [
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                -3.83962,
+                60.7508,
+                1.28308,
+                1
+            ],
+            "meshes": [
+                "geom-Line047"
+            ],
+            "name": "Line047"
+        },
+        "node-Object473": {
+            "children": [
+                "node_6"
+            ],
+            "matrix": [
+                0.55576,
+                0,
+                0.0813318,
+                0,
+                0,
+                0.561679,
+                0,
+                0,
+                -0.0813318,
+                0,
+                0.55576,
+                0,
+                79.2894,
+                -2.83808,
+                17.9647,
+                1
+            ],
+            "name": "Object473"
+        },
+        "node-Object481": {
+            "children": [
+                "node_2"
+            ],
+            "matrix": [
+                1.83739,
+                1.41207,
+                0,
+                0,
+                -1.41207,
+                1.83739,
+                0,
+                0,
+                0,
+                0,
+                2.33136,
+                0,
+                -131.744,
+                -10.5671,
+                17.6497,
+                1
+            ],
+            "name": "Object481"
+        },
+        "node-canyon": {
+            "children": [
+                "node_47"
+            ],
+            "matrix": [
+                1.10724,
+                1.20504,
+                0,
+                0,
+                -1.20504,
+                1.10724,
+                0,
+                0,
+                0,
+                0,
+                1.64641,
+                0,
+                -209.943,
+                1.35846,
+                5.51955,
+                1
+            ],
+            "name": "canyon"
+        },
+        "node-canyon_rocks": {
+            "children": [],
+            "matrix": [
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                -25.1887,
+                13.2053,
+                5.14908,
+                1
+            ],
+            "meshes": [
+                "geom-canyon_rocks"
+            ],
+            "name": "canyon_rocks"
+        },
+        "node-crash_groove": {
+            "children": [],
+            "matrix": [
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                0.676386,
+                0,
+                -5.78834,
+                35.4324,
+                0.191608,
+                1
+            ],
+            "meshes": [
+                "geom-crash_groove"
+            ],
+            "name": "crash_groove"
+        },
+        "node-crater1": {
+            "children": [],
+            "matrix": [
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                -18.4553,
+                -1.46121,
+                -0.0600014,
+                1
+            ],
+            "meshes": [
+                "geom-crater1"
+            ],
+            "name": "crater1"
+        },
+        "node-debris": {
+            "children": [
+                "node_49"
+            ],
+            "matrix": [
+                0.138414,
+                -0.158748,
+                -0.1048,
+                0,
+                0.174473,
+                0.157586,
+                -0.00827249,
+                0,
+                0.075784,
+                -0.0728573,
+                0.210454,
+                0,
+                -59.2504,
+                -46.1302,
+                13.094,
+                1
+            ],
+            "name": "debris"
+        },
+        "node-flatrocks": {
+            "children": [],
+            "matrix": [
+                0.561679,
+                0,
+                0,
+                0,
+                0,
+                0.561679,
+                0,
+                0,
+                0,
+                0,
+                0.561679,
+                0,
+                -20.4824,
+                -47.6566,
+                13.7478,
+                1
+            ],
+            "meshes": [
+                "geom-flatrocks"
+            ],
+            "name": "flatrocks"
+        },
+        "node-hills1": {
+            "children": [
+                "node_16"
+            ],
+            "matrix": [
+                1.60772,
+                0,
+                0,
+                0,
+                0,
+                1.60772,
+                0,
+                0,
+                0,
+                0,
+                0.398366,
+                0,
+                -332.645,
+                -300.811,
+                15.7705,
+                1
+            ],
+            "name": "hills1"
+        },
+        "node-hills2": {
+            "children": [
+                "node_14"
+            ],
+            "matrix": [
+                1.60772,
+                0,
+                0,
+                0,
+                0,
+                1.60772,
+                0,
+                0,
+                0,
+                0,
+                0.398366,
+                0,
+                -300.86,
+                264.834,
+                15.7705,
+                1
+            ],
+            "name": "hills2"
+        },
+        "node-hills3": {
+            "children": [
+                "node_24"
+            ],
+            "matrix": [
+                1.60772,
+                0,
+                0,
+                0,
+                0,
+                1.60772,
+                0,
+                0,
+                0,
+                0,
+                0.398366,
+                0,
+                231.746,
+                258.721,
+                15.7705,
+                1
+            ],
+            "name": "hills3"
+        },
+        "node-hills4": {
+            "children": [
+                "node_20"
+            ],
+            "matrix": [
+                1.60772,
+                0,
+                0,
+                0,
+                0,
+                1.60772,
+                0,
+                0,
+                0,
+                0,
+                0.398366,
+                0,
+                257.941,
+                -293.966,
+                15.7705,
+                1
+            ],
+            "name": "hills4"
+        },
+        "node-large_canyon": {
+            "children": [
+                "node_4"
+            ],
+            "matrix": [
+                0.603173,
+                0,
+                0,
+                0,
+                0,
+                0.603173,
+                0,
+                0,
+                0,
+                0,
+                0.603173,
+                0,
+                47.0698,
+                22.7149,
+                9.2985,
+                1
+            ],
+            "name": "large_canyon"
+        },
+        "node-large_canyon6": {
+            "children": [
+                "node_8"
+            ],
+            "matrix": [
+                0.384707,
+                0.512161,
+                0,
+                0,
+                -0.512161,
+                0.384707,
+                0,
+                0,
+                0,
+                0,
+                0.640553,
+                0,
+                -121.861,
+                93.1906,
+                18.4334,
+                1
+            ],
+            "name": "large_canyon6"
+        },
+        "node-mountains005": {
+            "children": [
+                "node_26"
+            ],
+            "matrix": [
+                -1.48743,
+                1.61933,
+                0,
+                0,
+                -1.61933,
+                -1.48743,
+                0,
+                0,
+                0,
+                0,
+                0.754234,
+                0,
+                -71.6328,
+                -949.832,
+                -5.34147,
+                1
+            ],
+            "name": "mountains005"
+        },
+        "node-mountains006": {
+            "children": [
+                "node_28"
+            ],
+            "matrix": [
+                -1.48743,
+                1.61933,
+                0,
+                0,
+                -1.61933,
+                -1.48743,
+                0,
+                0,
+                0,
+                0,
+                0.754234,
+                0,
+                -976.806,
+                35.6079,
+                -5.34147,
+                1
+            ],
+            "name": "mountains006"
+        },
+        "node-mountains007": {
+            "children": [
+                "node_30"
+            ],
+            "matrix": [
+                -1.48743,
+                1.61933,
+                0,
+                0,
+                -1.61933,
+                -1.48743,
+                0,
+                0,
+                0,
+                0,
+                0.754234,
+                0,
+                8.63379,
+                940.781,
+                -5.34147,
+                1
+            ],
+            "name": "mountains007"
+        },
+        "node-mountains008": {
+            "children": [
+                "node_32"
+            ],
+            "matrix": [
+                -1.48743,
+                1.61933,
+                0,
+                0,
+                -1.61933,
+                -1.48743,
+                0,
+                0,
+                0,
+                0,
+                0.754234,
+                0,
+                913.807,
+                -44.6585,
+                -5.34147,
+                1
+            ],
+            "name": "mountains008"
+        },
+        "node-mountains1": {
+            "children": [
+                "node_18"
+            ],
+            "matrix": [
+                1.60772,
+                0,
+                0,
+                0,
+                0,
+                1.60772,
+                0,
+                0,
+                0,
+                0,
+                0.398366,
+                0,
+                -520.685,
+                -493.711,
+                -9.4546,
+                1
+            ],
+            "name": "mountains1"
+        },
+        "node-mountains2": {
+            "children": [
+                "node_12"
+            ],
+            "matrix": [
+                1.60772,
+                0,
+                0,
+                0,
+                0,
+                1.60772,
+                0,
+                0,
+                0,
+                0,
+                0.398366,
+                0,
+                -520.685,
+                484.66,
+                -9.4546,
+                1
+            ],
+            "name": "mountains2"
+        },
+        "node-mountains3": {
+            "children": [
+                "node_10"
+            ],
+            "matrix": [
+                1.60772,
+                0,
+                0,
+                0,
+                0,
+                1.60772,
+                0,
+                0,
+                0,
+                0,
+                0.398366,
+                0,
+                457.686,
+                484.66,
+                -9.4546,
+                1
+            ],
+            "name": "mountains3"
+        },
+        "node-mountains4": {
+            "children": [
+                "node_22"
+            ],
+            "matrix": [
+                1.60772,
+                0,
+                0,
+                0,
+                0,
+                1.60772,
+                0,
+                0,
+                0,
+                0,
+                0.398366,
+                0,
+                457.686,
+                -493.711,
+                -9.4546,
+                1
+            ],
+            "name": "mountains4"
+        },
+        "node-platform": {
+            "children": [
+                "node_36"
+            ],
+            "matrix": [
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0.597092,
+                1
+            ],
+            "name": "platform"
+        },
+        "node-rock00": {
+            "children": [],
+            "matrix": [
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                -11.4808,
+                -11.9316,
+                0.879589,
+                1
+            ],
+            "meshes": [
+                "geom-rock00"
+            ],
+            "name": "rock00"
+        },
+        "node-rock_edge": {
+            "children": [],
+            "matrix": [
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                16.5492,
+                -27.0533,
+                9.04342,
+                1
+            ],
+            "meshes": [
+                "geom-rock_edge"
+            ],
+            "name": "rock_edge"
+        },
+        "node-rocks_small_game_area": {
+            "children": [],
+            "matrix": [
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                4.01598,
+                -5.51387,
+                0.958168,
+                1
+            ],
+            "meshes": [
+                "geom-rocks_small_game_area"
+            ],
+            "name": "rocks_small_game_area"
+        },
+        "node-rotary": {
+            "children": [
+                "node_56"
+            ],
+            "matrix": [
+                0.972715,
+                -3.7253e-09,
+                0.232005,
+                0,
+                -0.0502221,
+                0.976289,
+                0.210564,
+                0,
+                -0.226504,
+                -0.21647,
+                0.949651,
+                0,
+                -3.19476,
+                -26.5069,
+                -0.599423,
+                1
+            ],
+            "name": "rotary"
+        },
+        "node-rubble_assets": {
+            "children": [],
+            "matrix": [
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                -7.95742,
+                10.3863,
+                1.71419,
+                1
+            ],
+            "meshes": [
+                "geom-rubble_assets"
+            ],
+            "name": "rubble_assets"
+        },
+        "node-sat_des": {
+            "children": [
+                "node_51"
+            ],
+            "matrix": [
+                0.378584,
+                -0.925567,
+                0,
+                0,
+                0.925567,
+                0.378584,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                -17.876,
+                -33.5527,
+                17.2596,
+                1
+            ],
+            "name": "sat_des"
+        },
+        "node-shattered_solar": {
+            "children": [
+                "node_53"
+            ],
+            "matrix": [
+                0.609719,
+                0.5602,
+                -0.560731,
+                0,
+                -0.34803,
+                0.824814,
+                0.445597,
+                0,
+                0.712122,
+                -0.0765376,
+                0.697871,
+                0,
+                -63.7626,
+                -14.0004,
+                18.5767,
+                1
+            ],
+            "name": "shattered_solar"
+        },
+        "node-small_rocks": {
+            "children": [],
+            "matrix": [
+                0.561679,
+                0,
+                0,
+                0,
+                0,
+                0.561679,
+                0,
+                0,
+                0,
+                0,
+                0.561679,
+                0,
+                -50.1895,
+                -129.28,
+                14.3969,
+                1
+            ],
+            "meshes": [
+                "geom-small_rocks"
+            ],
+            "name": "small_rocks"
+        },
+        "node-space_ship": {
+            "children": [
+                "node_34"
+            ],
+            "matrix": [
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                -0.107933,
+                -7.1698,
+                0,
+                1
+            ],
+            "name": "space_ship"
+        },
+        "node-success1": {
+            "children": [
+                "node-rotary"
+            ],
+            "matrix": [
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                15.767,
+                42.3373,
+                2.08732,
+                1
+            ],
+            "name": "success1"
+        },
+        "node_0": {
+            "children": [],
+            "light": "EnvironmentAmbientLight",
+            "matrix": [
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1
+            ],
+            "name": "EnvironmentAmbientLight"
+        },
+        "node_10": {
+            "children": [],
+            "matrix": [
+                -2.60947,
+                0.228299,
+                0,
+                0,
+                -0.228299,
+                -2.60947,
+                0,
+                0,
+                0,
+                0,
+                2.61944,
+                0,
+                -304.273,
+                -304.273,
+                9.68837,
+                1
+            ],
+            "meshes": [
+                "geom-mountains3"
+            ],
+            "name": ""
+        },
+        "node_12": {
+            "children": [],
+            "matrix": [
+                -2.60947,
+                0.228299,
+                0,
+                0,
+                -0.228299,
+                -2.60947,
+                0,
+                0,
+                0,
+                0,
+                2.61944,
+                0,
+                304.273,
+                -304.273,
+                9.68837,
+                1
+            ],
+            "meshes": [
+                "geom-mountains2"
+            ],
+            "name": ""
+        },
+        "node_14": {
+            "children": [],
+            "matrix": [
+                -1.78417e-07,
+                1.49667,
+                0,
+                0,
+                -1.49667,
+                -1.78417e-07,
+                0,
+                0,
+                0,
+                0,
+                1.37261,
+                0,
+                163.162,
+                -184.411,
+                5.07681,
+                1
+            ],
+            "meshes": [
+                "geom-hills2"
+            ],
+            "name": ""
+        },
+        "node_16": {
+            "children": [],
+            "matrix": [
+                -1.78417e-07,
+                1.49667,
+                0,
+                0,
+                -1.49667,
+                -1.78417e-07,
+                0,
+                0,
+                0,
+                0,
+                1.37261,
+                0,
+                182.933,
+                167.42,
+                5.07681,
+                1
+            ],
+            "meshes": [
+                "geom-hills1"
+            ],
+            "name": ""
+        },
+        "node_18": {
+            "children": [],
+            "matrix": [
+                -2.60947,
+                0.228299,
+                0,
+                0,
+                -0.228299,
+                -2.60947,
+                0,
+                0,
+                0,
+                0,
+                2.61944,
+                0,
+                304.273,
+                304.273,
+                9.68836,
+                1
+            ],
+            "meshes": [
+                "geom-mountains1"
+            ],
+            "name": ""
+        },
+        "node_2": {
+            "children": [],
+            "matrix": [
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                3.89308,
+                -128.379,
+                -17.1835,
+                1
+            ],
+            "meshes": [
+                "geom-Object481"
+            ],
+            "name": ""
+        },
+        "node_20": {
+            "children": [],
+            "matrix": [
+                -1.78417e-07,
+                1.49667,
+                0,
+                0,
+                -1.49667,
+                -1.78417e-07,
+                0,
+                0,
+                0,
+                0,
+                1.37261,
+                0,
+                -184.411,
+                163.162,
+                5.07681,
+                1
+            ],
+            "meshes": [
+                "geom-hills4"
+            ],
+            "name": ""
+        },
+        "node_22": {
+            "children": [],
+            "matrix": [
+                -2.60947,
+                0.228299,
+                0,
+                0,
+                -0.228299,
+                -2.60947,
+                0,
+                0,
+                0,
+                0,
+                2.61944,
+                0,
+                -304.273,
+                304.273,
+                9.68836,
+                1
+            ],
+            "meshes": [
+                "geom-mountains4"
+            ],
+            "name": ""
+        },
+        "node_24": {
+            "children": [],
+            "matrix": [
+                -1.78417e-07,
+                1.49667,
+                0,
+                0,
+                -1.49667,
+                -1.78417e-07,
+                0,
+                0,
+                0,
+                0,
+                1.37261,
+                0,
+                -168.118,
+                -180.609,
+                5.07681,
+                1
+            ],
+            "meshes": [
+                "geom-hills3"
+            ],
+            "name": ""
+        },
+        "node_26": {
+            "children": [],
+            "matrix": [
+                -2.60947,
+                0.228299,
+                0,
+                0,
+                -0.228299,
+                -2.60947,
+                0,
+                0,
+                0,
+                0,
+                2.61944,
+                0,
+                304.273,
+                -304.273,
+                9.68837,
+                1
+            ],
+            "meshes": [
+                "geom-mountains005"
+            ],
+            "name": ""
+        },
+        "node_28": {
+            "children": [],
+            "matrix": [
+                -2.60947,
+                0.228299,
+                0,
+                0,
+                -0.228299,
+                -2.60947,
+                0,
+                0,
+                0,
+                0,
+                2.61944,
+                0,
+                -304.273,
+                -304.273,
+                9.68837,
+                1
+            ],
+            "meshes": [
+                "geom-mountains006"
+            ],
+            "name": ""
+        },
+        "node_30": {
+            "children": [],
+            "matrix": [
+                -2.60947,
+                0.228299,
+                0,
+                0,
+                -0.228299,
+                -2.60947,
+                0,
+                0,
+                0,
+                0,
+                2.61944,
+                0,
+                -304.273,
+                304.273,
+                9.68836,
+                1
+            ],
+            "meshes": [
+                "geom-mountains007"
+            ],
+            "name": ""
+        },
+        "node_32": {
+            "children": [],
+            "matrix": [
+                -2.60947,
+                0.228299,
+                0,
+                0,
+                -0.228299,
+                -2.60947,
+                0,
+                0,
+                0,
+                0,
+                2.61944,
+                0,
+                304.273,
+                304.273,
+                9.68836,
+                1
+            ],
+            "meshes": [
+                "geom-mountains008"
+            ],
+            "name": ""
+        },
+        "node_34": {
+            "children": [],
+            "matrix": [
+                -0.0168437,
+                -2.54333e-09,
+                0,
+                0,
+                1.9483e-09,
+                -0.012903,
+                0.0108269,
+                0,
+                -1.63482e-09,
+                0.0108269,
+                0.012903,
+                0,
+                0,
+                0,
+                0,
+                1
+            ],
+            "meshes": [
+                "geom-space_ship"
+            ],
+            "name": ""
+        },
+        "node_36": {
+            "children": [],
+            "matrix": [
+                1,
+                0,
+                -9.10758e-08,
+                0,
+                0,
+                1,
+                0,
+                0,
+                9.10759e-08,
+                0,
+                1,
+                0,
+                3.55271e-15,
+                -6.96377e-09,
+                0.433466,
+                1
+            ],
+            "meshes": [
+                "geom-platform"
+            ],
+            "name": ""
+        },
+        "node_4": {
+            "children": [],
+            "matrix": [
+                0.763805,
+                -0.645447,
+                0,
+                0,
+                0.645447,
+                0.763805,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                -28.1857,
+                37.258,
+                -2.51082,
+                1
+            ],
+            "meshes": [
+                "geom-large_canyon"
+            ],
+            "name": ""
+        },
+        "node_47": {
+            "children": [],
+            "matrix": [
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                80.7253,
+                -200.196,
+                -6.54959,
+                1
+            ],
+            "meshes": [
+                "geom-canyon"
+            ],
+            "name": ""
+        },
+        "node_49": {
+            "children": [],
+            "matrix": [
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                17.6491,
+                -42.3911,
+                49.6342,
+                1
+            ],
+            "meshes": [
+                "geom-debris"
+            ],
+            "name": ""
+        },
+        "node_51": {
+            "children": [],
+            "matrix": [
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                -107.5,
+                -253.574,
+                -19.357,
+                1
+            ],
+            "meshes": [
+                "geom-sat_des"
+            ],
+            "name": ""
+        },
+        "node_53": {
+            "children": [],
+            "matrix": [
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0.301164,
+                4.218,
+                -8.74002,
+                1
+            ],
+            "meshes": [
+                "geom-shattered_solar"
+            ],
+            "name": ""
+        },
+        "node_56": {
+            "children": [],
+            "matrix": [
+                0.972715,
+                -0.0502221,
+                -0.226504,
+                0,
+                -1.86265e-09,
+                0.976289,
+                -0.21647,
+                0,
+                0.232005,
+                0.210564,
+                0.949651,
+                0,
+                -0.603454,
+                -0.00115497,
+                0.105419,
+                1
+            ],
+            "meshes": [
+                "geom-rotary"
+            ],
+            "name": ""
+        },
+        "node_6": {
+            "children": [],
+            "matrix": [
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                -177.502,
+                -79.7937,
+                -9.26212,
+                1
+            ],
+            "meshes": [
+                "geom-Object473"
+            ],
+            "name": ""
+        },
+        "node_8": {
+            "children": [],
+            "matrix": [
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                -152.211,
+                -235.696,
+                -15.46,
+                1
+            ],
+            "meshes": [
+                "geom-large_canyon6"
+            ],
+            "name": ""
+        }
+    },
+    "programs": {
+        "program_0": {
+            "attributes": [
+                "a_normal",
+                "a_position",
+                "a_texcoord0"
+            ],
+            "fragmentShader": "mars_assets0FS",
+            "vertexShader": "mars_assets0VS"
+        },
+        "program_1": {
+            "attributes": [
+                "a_normal",
+                "a_position",
+                "a_texcoord0"
+            ],
+            "fragmentShader": "mars_assets1FS",
+            "vertexShader": "mars_assets1VS"
+        }
+    },
+    "samplers": {
+        "sampler_0": {
+            "magFilter": 9729,
+            "minFilter": 9729,
+            "wrapS": 10497,
+            "wrapT": 10497
+        }
+    },
+    "scene": "defaultScene",
+    "scenes": {
+        "defaultScene": {
+            "nodes": [
+                "node_0",
+                "node-Object481",
+                "node-large_canyon",
+                "node-Object473",
+                "node-large_canyon6",
+                "node-mountains3",
+                "node-mountains2",
+                "node-hills2",
+                "node-hills1",
+                "node-mountains1",
+                "node-hills4",
+                "node-mountains4",
+                "node-hills3",
+                "node-mountains005",
+                "node-mountains006",
+                "node-mountains007",
+                "node-mountains008",
+                "node-space_ship",
+                "node-platform",
+                "node-rocks_small_game_area",
+                "node-crater1",
+                "node-rubble_assets",
+                "node-canyon_rocks",
+                "node-rock_edge",
+                "node-crash_groove",
+                "node-small_rocks",
+                "node-flatrocks",
+                "node-rock00",
+                "node-canyon",
+                "node-debris",
+                "node-sat_des",
+                "node-shattered_solar",
+                "node-success1",
+                "node-Line047"
+            ]
+        }
+    },
+    "shaders": {
+        "mars_assets0FS": {
+            "path": "mars_assets0FS.glsl",
+            "type": 35632
+        },
+        "mars_assets0VS": {
+            "path": "mars_assets0VS.glsl",
+            "type": 35633
+        },
+        "mars_assets1FS": {
+            "path": "mars_assets1FS.glsl",
+            "type": 35632
+        },
+        "mars_assets1VS": {
+            "path": "mars_assets1VS.glsl",
+            "type": 35633
+        }
+    },
+    "skins": {},
+    "techniques": {
+        "technique0": {
+            "parameters": {
+                "ambient": {
+                    "type": 35678
+                },
+                "diffuse": {
+                    "type": 35678
+                },
+                "emission": {
+                    "type": 35666
+                },
+                "modelViewMatrix": {
+                    "semantic": "MODELVIEW",
+                    "type": 35676
+                },
+                "normal": {
+                    "semantic": "NORMAL",
+                    "type": 35665
+                },
+                "normalMatrix": {
+                    "semantic": "MODELVIEWINVERSETRANSPOSE",
+                    "type": 35675
+                },
+                "position": {
+                    "semantic": "POSITION",
+                    "type": 35665
+                },
+                "projectionMatrix": {
+                    "semantic": "PROJECTION",
+                    "type": 35676
+                },
+                "shininess": {
+                    "type": 5126
+                },
+                "specular": {
+                    "type": 35666
+                },
+                "texcoord0": {
+                    "semantic": "TEXCOORD_0",
+                    "type": 35664
+                }
+            },
+            "pass": "defaultPass",
+            "passes": {
+                "defaultPass": {
+                    "details": {
+                        "commonProfile": {
+                            "extras": {
+                                "doubleSided": false
+                            },
+                            "lightingModel": "Phong",
+                            "parameters": [
+                                "ambient",
+                                "diffuse",
+                                "emission",
+                                "modelViewMatrix",
+                                "normalMatrix",
+                                "projectionMatrix",
+                                "shininess",
+                                "specular"
+                            ],
+                            "texcoordBindings": {
+                                "ambient": "TEXCOORD_0",
+                                "diffuse": "TEXCOORD_0"
+                            }
+                        },
+                        "type": "COLLADA-1.4.1/commonProfile"
+                    },
+                    "instanceProgram": {
+                        "attributes": {
+                            "a_normal": "normal",
+                            "a_position": "position",
+                            "a_texcoord0": "texcoord0"
+                        },
+                        "program": "program_0",
+                        "uniforms": {
+                            "u_ambient": "ambient",
+                            "u_diffuse": "diffuse",
+                            "u_emission": "emission",
+                            "u_modelViewMatrix": "modelViewMatrix",
+                            "u_normalMatrix": "normalMatrix",
+                            "u_projectionMatrix": "projectionMatrix",
+                            "u_shininess": "shininess",
+                            "u_specular": "specular"
+                        }
+                    },
+                    "states": {
+                        "blendEnable": 0,
+                        "cullFaceEnable": 1,
+                        "depthMask": 1,
+                        "depthTestEnable": 1
+                    }
+                }
+            }
+        },
+        "technique1": {
+            "parameters": {
+                "ambient": {
+                    "type": 35678
+                },
+                "diffuse": {
+                    "type": 35678
+                },
+                "emission": {
+                    "type": 35666
+                },
+                "modelViewMatrix": {
+                    "semantic": "MODELVIEW",
+                    "type": 35676
+                },
+                "normal": {
+                    "semantic": "NORMAL",
+                    "type": 35665
+                },
+                "normalMatrix": {
+                    "semantic": "MODELVIEWINVERSETRANSPOSE",
+                    "type": 35675
+                },
+                "position": {
+                    "semantic": "POSITION",
+                    "type": 35665
+                },
+                "projectionMatrix": {
+                    "semantic": "PROJECTION",
+                    "type": 35676
+                },
+                "shininess": {
+                    "type": 5126
+                },
+                "specular": {
+                    "type": 35666
+                },
+                "texcoord0": {
+                    "semantic": "TEXCOORD_0",
+                    "type": 35664
+                }
+            },
+            "pass": "defaultPass",
+            "passes": {
+                "defaultPass": {
+                    "details": {
+                        "commonProfile": {
+                            "extras": {
+                                "doubleSided": false
+                            },
+                            "lightingModel": "Phong",
+                            "parameters": [
+                                "ambient",
+                                "diffuse",
+                                "emission",
+                                "modelViewMatrix",
+                                "normalMatrix",
+                                "projectionMatrix",
+                                "shininess",
+                                "specular"
+                            ],
+                            "texcoordBindings": {
+                                "ambient": "TEXCOORD_0",
+                                "diffuse": "TEXCOORD_0"
+                            }
+                        },
+                        "type": "COLLADA-1.4.1/commonProfile"
+                    },
+                    "instanceProgram": {
+                        "attributes": {
+                            "a_normal": "normal",
+                            "a_position": "position",
+                            "a_texcoord0": "texcoord0"
+                        },
+                        "program": "program_1",
+                        "uniforms": {
+                            "u_ambient": "ambient",
+                            "u_diffuse": "diffuse",
+                            "u_emission": "emission",
+                            "u_modelViewMatrix": "modelViewMatrix",
+                            "u_normalMatrix": "normalMatrix",
+                            "u_projectionMatrix": "projectionMatrix",
+                            "u_shininess": "shininess",
+                            "u_specular": "specular"
+                        }
+                    },
+                    "states": {
+                        "blendEnable": 1,
+                        "blendEquation": 32774,
+                        "blendFunc": {
+                            "dfactor": 771,
+                            "sfactor": 1
+                        },
+                        "cullFaceEnable": 1,
+                        "depthMask": 1,
+                        "depthTestEnable": 1
+                    }
+                }
+            }
+        }
+    },
+    "textures": {
+        "texture_canyon_png": {
+            "format": 6408,
+            "internalFormat": 6408,
+            "sampler": "sampler_0",
+            "source": "canyon_png",
+            "target": 3553,
+            "type": 5121
+        },
+        "texture_canyon_rocks_png": {
+            "format": 6408,
+            "internalFormat": 6408,
+            "sampler": "sampler_0",
+            "source": "canyon_rocks_png",
+            "target": 3553,
+            "type": 5121
+        },
+        "texture_crash_grooves_png": {
+            "format": 6408,
+            "internalFormat": 6408,
+            "sampler": "sampler_0",
+            "source": "crash_grooves_png",
+            "target": 3553,
+            "type": 5121
+        },
+        "texture_crater_png": {
+            "format": 6408,
+            "internalFormat": 6408,
+            "sampler": "sampler_0",
+            "source": "crater_png",
+            "target": 3553,
+            "type": 5121
+        },
+        "texture_debris_png": {
+            "format": 6408,
+            "internalFormat": 6408,
+            "sampler": "sampler_0",
+            "source": "debris_png",
+            "target": 3553,
+            "type": 5121
+        },
+        "texture_dirt_png": {
+            "format": 6408,
+            "internalFormat": 6408,
+            "sampler": "sampler_0",
+            "source": "dirt_png",
+            "target": 3553,
+            "type": 5121
+        },
+        "texture_large_canyon_png": {
+            "format": 6408,
+            "internalFormat": 6408,
+            "sampler": "sampler_0",
+            "source": "large_canyon_png",
+            "target": 3553,
+            "type": 5121
+        },
+        "texture_level2_rock1_d_png": {
+            "format": 6408,
+            "internalFormat": 6408,
+            "sampler": "sampler_0",
+            "source": "level2_rock1_d_png",
+            "target": 3553,
+            "type": 5121
+        },
+        "texture_level2_smallrocks_d_png": {
+            "format": 6408,
+            "internalFormat": 6408,
+            "sampler": "sampler_0",
+            "source": "level2_smallrocks_d_png",
+            "target": 3553,
+            "type": 5121
+        },
+        "texture_mars_mountain_panoramic_png": {
+            "format": 6408,
+            "internalFormat": 6408,
+            "sampler": "sampler_0",
+            "source": "mars_mountain_panoramic_png",
+            "target": 3553,
+            "type": 5121
+        },
+        "texture_mars_panorama_dirt_png": {
+            "format": 6408,
+            "internalFormat": 6408,
+            "sampler": "sampler_0",
+            "source": "mars_panorama_dirt_png",
+            "target": 3553,
+            "type": 5121
+        },
+        "texture_platform_png": {
+            "format": 6408,
+            "internalFormat": 6408,
+            "sampler": "sampler_0",
+            "source": "platform_png",
+            "target": 3553,
+            "type": 5121
+        },
+        "texture_rock_edge_png": {
+            "format": 6408,
+            "internalFormat": 6408,
+            "sampler": "sampler_0",
+            "source": "rock_edge_png",
+            "target": 3553,
+            "type": 5121
+        },
+        "texture_rock_png": {
+            "format": 6408,
+            "internalFormat": 6408,
+            "sampler": "sampler_0",
+            "source": "rock_png",
+            "target": 3553,
+            "type": 5121
+        },
+        "texture_rubble_png": {
+            "format": 6408,
+            "internalFormat": 6408,
+            "sampler": "sampler_0",
+            "source": "rubble_png",
+            "target": 3553,
+            "type": 5121
+        },
+        "texture_satellite_des_png": {
+            "format": 6408,
+            "internalFormat": 6408,
+            "sampler": "sampler_0",
+            "source": "satellite_des_png",
+            "target": 3553,
+            "type": 5121
+        },
+        "texture_space_craft_png": {
+            "format": 6408,
+            "internalFormat": 6408,
+            "sampler": "sampler_0",
+            "source": "space_craft_png",
+            "target": 3553,
+            "type": 5121
+        }
+    }
+}

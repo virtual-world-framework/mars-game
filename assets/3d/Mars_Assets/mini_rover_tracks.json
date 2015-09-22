@@ -1,0 +1,396 @@
+{
+    "accessors": {
+        "accessor_60": {
+            "bufferView": "bufferView_74",
+            "byteOffset": 0,
+            "byteStride": 0,
+            "count": 1032,
+            "type": 5123
+        },
+        "accessor_62": {
+            "bufferView": "bufferView_75",
+            "byteOffset": 0,
+            "byteStride": 12,
+            "count": 277,
+            "max": [
+                30.0329,
+                47.496,
+                13.422
+            ],
+            "min": [
+                -46.128,
+                -81.3242,
+                -0.189047
+            ],
+            "type": 35665
+        },
+        "accessor_64": {
+            "bufferView": "bufferView_75",
+            "byteOffset": 3324,
+            "byteStride": 12,
+            "count": 277,
+            "max": [
+                0.277828,
+                0.198558,
+                0.999986
+            ],
+            "min": [
+                -0.23196,
+                -0.145038,
+                0.953758
+            ],
+            "type": 35665
+        },
+        "accessor_66": {
+            "bufferView": "bufferView_75",
+            "byteOffset": 6648,
+            "byteStride": 8,
+            "count": 277,
+            "max": [
+                1.39973,
+                83.472
+            ],
+            "min": [
+                -0.40301,
+                -37.0412
+            ],
+            "type": 35664
+        },
+        "accessor_68": {
+            "bufferView": "bufferView_75",
+            "byteOffset": 8864,
+            "byteStride": 8,
+            "count": 277,
+            "max": [
+                22.284,
+                82.7463
+            ],
+            "min": [
+                -36.228,
+                -44.2455
+            ],
+            "type": 35664
+        },
+        "accessor_70": {
+            "bufferView": "bufferView_75",
+            "byteOffset": 11080,
+            "byteStride": 8,
+            "count": 277,
+            "max": [
+                22.284,
+                82.7463
+            ],
+            "min": [
+                -36.228,
+                -44.2455
+            ],
+            "type": 35664
+        },
+        "accessor_72": {
+            "bufferView": "bufferView_75",
+            "byteOffset": 13296,
+            "byteStride": 8,
+            "count": 277,
+            "max": [
+                22.284,
+                82.7463
+            ],
+            "min": [
+                -36.228,
+                -44.2455
+            ],
+            "type": 35664
+        }
+    },
+    "animations": {},
+    "asset": {
+        "generator": "collada2gltf@63e932907e3f0c834c8668d04f03ddb6eabf78d1",
+        "premultipliedAlpha": true,
+        "profile": "WebGL 1.0.2",
+        "version": 0.6
+    },
+    "bufferViews": {
+        "bufferView_74": {
+            "buffer": "mini_rover_tracks",
+            "byteLength": 2064,
+            "byteOffset": 0,
+            "target": 34963
+        },
+        "bufferView_75": {
+            "buffer": "mini_rover_tracks",
+            "byteLength": 15512,
+            "byteOffset": 2064,
+            "target": 34962
+        }
+    },
+    "buffers": {
+        "mini_rover_tracks": {
+            "byteLength": 17576,
+            "path": "mini_rover_tracks.bin",
+            "type": "arraybuffer"
+        }
+    },
+    "images": {
+        "rover_tracks_png": {
+            "path": "rover_tracks.png"
+        }
+    },
+    "lights": {
+        "EnvironmentAmbientLight": {
+            "ambient": {
+                "color": [
+                    0,
+                    0,
+                    0
+                ]
+            },
+            "type": "ambient"
+        }
+    },
+    "materials": {
+        "rover_tracks": {
+            "instanceTechnique": {
+                "technique": "technique0",
+                "values": {
+                    "ambient": "texture_rover_tracks_png",
+                    "diffuse": "texture_rover_tracks_png",
+                    "emission": [
+                        0,
+                        0,
+                        0,
+                        1
+                    ],
+                    "shininess": 1.28,
+                    "specular": [
+                        0.9,
+                        0.9,
+                        0.9,
+                        1
+                    ]
+                }
+            },
+            "name": "rover_tracks"
+        }
+    },
+    "meshes": {
+        "geom-mini_rover_tracks": {
+            "name": "mini_rover_tracks",
+            "primitives": [
+                {
+                    "attributes": {
+                        "NORMAL": "accessor_64",
+                        "POSITION": "accessor_62",
+                        "TEXCOORD_0": "accessor_66",
+                        "TEXCOORD_1": "accessor_68",
+                        "TEXCOORD_2": "accessor_70",
+                        "TEXCOORD_3": "accessor_72"
+                    },
+                    "indices": "accessor_60",
+                    "material": "rover_tracks",
+                    "primitive": 4
+                }
+            ]
+        }
+    },
+    "nodes": {
+        "node-mini_rover_tracks": {
+            "children": [],
+            "matrix": [
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                -5.32589,
+                91.864,
+                0,
+                1
+            ],
+            "meshes": [
+                "geom-mini_rover_tracks"
+            ],
+            "name": "mini_rover_tracks"
+        },
+        "node_0": {
+            "children": [],
+            "light": "EnvironmentAmbientLight",
+            "matrix": [
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1
+            ],
+            "name": "EnvironmentAmbientLight"
+        }
+    },
+    "programs": {
+        "program_0": {
+            "attributes": [
+                "a_normal",
+                "a_position",
+                "a_texcoord0"
+            ],
+            "fragmentShader": "mini_rover_tracks0FS",
+            "vertexShader": "mini_rover_tracks0VS"
+        }
+    },
+    "samplers": {
+        "sampler_0": {
+            "magFilter": 9729,
+            "minFilter": 9729,
+            "wrapS": 10497,
+            "wrapT": 10497
+        }
+    },
+    "scene": "defaultScene",
+    "scenes": {
+        "defaultScene": {
+            "nodes": [
+                "node_0",
+                "node-mini_rover_tracks"
+            ]
+        }
+    },
+    "shaders": {
+        "mini_rover_tracks0FS": {
+            "path": "mini_rover_tracks0FS.glsl",
+            "type": 35632
+        },
+        "mini_rover_tracks0VS": {
+            "path": "mini_rover_tracks0VS.glsl",
+            "type": 35633
+        }
+    },
+    "skins": {},
+    "techniques": {
+        "technique0": {
+            "parameters": {
+                "ambient": {
+                    "type": 35678
+                },
+                "diffuse": {
+                    "type": 35678
+                },
+                "emission": {
+                    "type": 35666
+                },
+                "modelViewMatrix": {
+                    "semantic": "MODELVIEW",
+                    "type": 35676
+                },
+                "normal": {
+                    "semantic": "NORMAL",
+                    "type": 35665
+                },
+                "normalMatrix": {
+                    "semantic": "MODELVIEWINVERSETRANSPOSE",
+                    "type": 35675
+                },
+                "position": {
+                    "semantic": "POSITION",
+                    "type": 35665
+                },
+                "projectionMatrix": {
+                    "semantic": "PROJECTION",
+                    "type": 35676
+                },
+                "shininess": {
+                    "type": 5126
+                },
+                "specular": {
+                    "type": 35666
+                },
+                "texcoord0": {
+                    "semantic": "TEXCOORD_0",
+                    "type": 35664
+                }
+            },
+            "pass": "defaultPass",
+            "passes": {
+                "defaultPass": {
+                    "details": {
+                        "commonProfile": {
+                            "extras": {
+                                "doubleSided": false
+                            },
+                            "lightingModel": "Blinn",
+                            "parameters": [
+                                "ambient",
+                                "diffuse",
+                                "emission",
+                                "modelViewMatrix",
+                                "normalMatrix",
+                                "projectionMatrix",
+                                "shininess",
+                                "specular"
+                            ],
+                            "texcoordBindings": {
+                                "ambient": "TEXCOORD_0",
+                                "diffuse": "TEXCOORD_0"
+                            }
+                        },
+                        "type": "COLLADA-1.4.1/commonProfile"
+                    },
+                    "instanceProgram": {
+                        "attributes": {
+                            "a_normal": "normal",
+                            "a_position": "position",
+                            "a_texcoord0": "texcoord0"
+                        },
+                        "program": "program_0",
+                        "uniforms": {
+                            "u_ambient": "ambient",
+                            "u_diffuse": "diffuse",
+                            "u_emission": "emission",
+                            "u_modelViewMatrix": "modelViewMatrix",
+                            "u_normalMatrix": "normalMatrix",
+                            "u_projectionMatrix": "projectionMatrix",
+                            "u_shininess": "shininess",
+                            "u_specular": "specular"
+                        }
+                    },
+                    "states": {
+                        "blendEnable": 1,
+                        "blendEquation": 32774,
+                        "blendFunc": {
+                            "dfactor": 771,
+                            "sfactor": 1
+                        },
+                        "cullFaceEnable": 1,
+                        "depthMask": 1,
+                        "depthTestEnable": 1
+                    }
+                }
+            }
+        }
+    },
+    "textures": {
+        "texture_rover_tracks_png": {
+            "format": 6408,
+            "internalFormat": 6408,
+            "sampler": "sampler_0",
+            "source": "rover_tracks_png",
+            "target": 3553,
+            "type": 5121
+        }
+    }
+}

@@ -1,0 +1,1104 @@
+{
+    "accessors": {
+        "accessor_102": {
+            "bufferView": "bufferView_191",
+            "byteOffset": 0,
+            "byteStride": 0,
+            "count": 1866,
+            "type": 5123
+        },
+        "accessor_104": {
+            "bufferView": "bufferView_192",
+            "byteOffset": 0,
+            "byteStride": 12,
+            "count": 1065,
+            "max": [
+                27.8345,
+                58.8418,
+                15.6427
+            ],
+            "min": [
+                -25.8433,
+                -8.37742,
+                -0.457853
+            ],
+            "type": 35665
+        },
+        "accessor_106": {
+            "bufferView": "bufferView_192",
+            "byteOffset": 12780,
+            "byteStride": 12,
+            "count": 1065,
+            "max": [
+                1,
+                1,
+                1
+            ],
+            "min": [
+                -1,
+                -1,
+                -1
+            ],
+            "type": 35665
+        },
+        "accessor_108": {
+            "bufferView": "bufferView_192",
+            "byteOffset": 25560,
+            "byteStride": 8,
+            "count": 1065,
+            "max": [
+                0.680754,
+                0.681026
+            ],
+            "min": [
+                -16.378,
+                -8.70335
+            ],
+            "type": 35664
+        },
+        "accessor_129": {
+            "bufferView": "bufferView_191",
+            "byteOffset": 3852,
+            "byteStride": 0,
+            "count": 1992,
+            "type": 5123
+        },
+        "accessor_131": {
+            "bufferView": "bufferView_192",
+            "byteOffset": 34784,
+            "byteStride": 12,
+            "count": 844,
+            "max": [
+                -24.8072,
+                12.8477,
+                50.9058
+            ],
+            "min": [
+                -49.2895,
+                -60.8534,
+                -44.2874
+            ],
+            "type": 35665
+        },
+        "accessor_133": {
+            "bufferView": "bufferView_192",
+            "byteOffset": 44912,
+            "byteStride": 12,
+            "count": 844,
+            "max": [
+                1,
+                1,
+                1
+            ],
+            "min": [
+                -1,
+                -1,
+                -1
+            ],
+            "type": 35665
+        },
+        "accessor_135": {
+            "bufferView": "bufferView_192",
+            "byteOffset": 55040,
+            "byteStride": 8,
+            "count": 844,
+            "max": [
+                0.997479,
+                0.839248
+            ],
+            "min": [
+                0.00263012,
+                0.00275469
+            ],
+            "type": 35664
+        },
+        "accessor_156": {
+            "bufferView": "bufferView_191",
+            "byteOffset": 7836,
+            "byteStride": 0,
+            "count": 1992,
+            "type": 5123
+        },
+        "accessor_158": {
+            "bufferView": "bufferView_192",
+            "byteOffset": 61792,
+            "byteStride": 12,
+            "count": 844,
+            "max": [
+                35.0774,
+                85.9454,
+                5.8157
+            ],
+            "min": [
+                -5.82212,
+                -8.77682,
+                -67.2177
+            ],
+            "type": 35665
+        },
+        "accessor_160": {
+            "bufferView": "bufferView_192",
+            "byteOffset": 71920,
+            "byteStride": 12,
+            "count": 844,
+            "max": [
+                0.992179,
+                0.999542,
+                0.970974
+            ],
+            "min": [
+                -0.992179,
+                -0.996195,
+                -0.970974
+            ],
+            "type": 35665
+        },
+        "accessor_162": {
+            "bufferView": "bufferView_192",
+            "byteOffset": 82048,
+            "byteStride": 8,
+            "count": 844,
+            "max": [
+                0.996892,
+                0.839837
+            ],
+            "min": [
+                0.00233207,
+                0.00136
+            ],
+            "type": 35664
+        },
+        "accessor_183": {
+            "bufferView": "bufferView_191",
+            "byteOffset": 14148,
+            "byteStride": 0,
+            "count": 1386,
+            "type": 5123
+        },
+        "accessor_185": {
+            "bufferView": "bufferView_192",
+            "byteOffset": 99584,
+            "byteStride": 12,
+            "count": 483,
+            "max": [
+                37.7966,
+                26.2492,
+                145.998
+            ],
+            "min": [
+                -37.7966,
+                -26.2492,
+                -17.1734
+            ],
+            "type": 35665
+        },
+        "accessor_187": {
+            "bufferView": "bufferView_192",
+            "byteOffset": 105380,
+            "byteStride": 12,
+            "count": 483,
+            "max": [
+                1,
+                0.992865,
+                1
+            ],
+            "min": [
+                -1,
+                -1,
+                -1
+            ],
+            "type": 35665
+        },
+        "accessor_189": {
+            "bufferView": "bufferView_192",
+            "byteOffset": 111176,
+            "byteStride": 8,
+            "count": 483,
+            "max": [
+                0.997502,
+                0.670431
+            ],
+            "min": [
+                -0.238503,
+                0.00500262
+            ],
+            "type": 35664
+        },
+        "accessor_21": {
+            "bufferView": "bufferView_191",
+            "byteOffset": 11820,
+            "byteStride": 0,
+            "count": 1164,
+            "type": 5123
+        },
+        "accessor_23": {
+            "bufferView": "bufferView_192",
+            "byteOffset": 88800,
+            "byteStride": 12,
+            "count": 337,
+            "max": [
+                77.823,
+                75.4865,
+                57.5
+            ],
+            "min": [
+                -70.7256,
+                -56.0954,
+                3.8147e-06
+            ],
+            "type": 35665
+        },
+        "accessor_25": {
+            "bufferView": "bufferView_192",
+            "byteOffset": 92844,
+            "byteStride": 12,
+            "count": 337,
+            "max": [
+                0.9941,
+                0.998862,
+                1
+            ],
+            "min": [
+                -0.981728,
+                -0.999236,
+                -1
+            ],
+            "type": 35665
+        },
+        "accessor_27": {
+            "bufferView": "bufferView_192",
+            "byteOffset": 96888,
+            "byteStride": 8,
+            "count": 337,
+            "max": [
+                0.999334,
+                0.469754
+            ],
+            "min": [
+                0.00227402,
+                0.00188202
+            ],
+            "type": 35664
+        },
+        "accessor_48": {
+            "bufferView": "bufferView_191",
+            "byteOffset": 16920,
+            "byteStride": 0,
+            "count": 1566,
+            "type": 5123
+        },
+        "accessor_50": {
+            "bufferView": "bufferView_192",
+            "byteOffset": 115040,
+            "byteStride": 12,
+            "count": 420,
+            "max": [
+                89.7997,
+                88.4354,
+                51.593
+            ],
+            "min": [
+                -89.7997,
+                -88.4354,
+                -1.74251
+            ],
+            "type": 35665
+        },
+        "accessor_52": {
+            "bufferView": "bufferView_192",
+            "byteOffset": 120080,
+            "byteStride": 12,
+            "count": 420,
+            "max": [
+                1,
+                0.984808,
+                1
+            ],
+            "min": [
+                -1,
+                -0.984808,
+                -1
+            ],
+            "type": 35665
+        },
+        "accessor_54": {
+            "bufferView": "bufferView_192",
+            "byteOffset": 125120,
+            "byteStride": 8,
+            "count": 420,
+            "max": [
+                0.7191,
+                0.999603
+            ],
+            "min": [
+                0.000457864,
+                0.375105
+            ],
+            "type": 35664
+        },
+        "accessor_75": {
+            "bufferView": "bufferView_191",
+            "byteOffset": 3732,
+            "byteStride": 0,
+            "count": 60,
+            "type": 5123
+        },
+        "accessor_77": {
+            "bufferView": "bufferView_192",
+            "byteOffset": 34080,
+            "byteStride": 12,
+            "count": 22,
+            "max": [
+                13.5196,
+                12.8579,
+                62.914
+            ],
+            "min": [
+                -13.5196,
+                -12.8579,
+                0
+            ],
+            "type": 35665
+        },
+        "accessor_79": {
+            "bufferView": "bufferView_192",
+            "byteOffset": 34344,
+            "byteStride": 12,
+            "count": 22,
+            "max": [
+                1,
+                0.951056,
+                0
+            ],
+            "min": [
+                -1,
+                -0.951056,
+                0
+            ],
+            "type": 35665
+        },
+        "accessor_81": {
+            "bufferView": "bufferView_192",
+            "byteOffset": 34608,
+            "byteStride": 8,
+            "count": 22,
+            "max": [
+                0.998019,
+                0.998729
+            ],
+            "min": [
+                0.789429,
+                0.841668
+            ],
+            "type": 35664
+        }
+    },
+    "animations": {},
+    "asset": {
+        "generator": "collada2gltf@63e932907e3f0c834c8668d04f03ddb6eabf78d1",
+        "premultipliedAlpha": true,
+        "profile": "WebGL 1.0.2",
+        "version": 0.6
+    },
+    "bufferViews": {
+        "bufferView_191": {
+            "buffer": "minirover",
+            "byteLength": 20052,
+            "byteOffset": 0,
+            "target": 34963
+        },
+        "bufferView_192": {
+            "buffer": "minirover",
+            "byteLength": 128480,
+            "byteOffset": 20052,
+            "target": 34962
+        }
+    },
+    "buffers": {
+        "minirover": {
+            "byteLength": 148532,
+            "path": "minirover.bin",
+            "type": "arraybuffer"
+        }
+    },
+    "images": {
+        "mini_rover_yellow_nrm_png": {
+            "path": "mini_rover_yellow_nrm.png"
+        },
+        "mini_rover_yellow_png": {
+            "path": "mini_rover_yellow.png"
+        },
+        "mini_rover_yellow_spec_png": {
+            "path": "mini_rover_yellow_spec.png"
+        }
+    },
+    "lights": {
+        "EnvironmentAmbientLight": {
+            "ambient": {
+                "color": [
+                    0.894118,
+                    0.894118,
+                    0.894118
+                ]
+            },
+            "type": "ambient"
+        }
+    },
+    "materials": {
+        "mini_rover": {
+            "instanceTechnique": {
+                "technique": "technique0",
+                "values": {
+                    "ambient": "texture_mini_rover_yellow_png",
+                    "diffuse": "texture_mini_rover_yellow_png",
+                    "emission": [
+                        0,
+                        0,
+                        0,
+                        1
+                    ],
+                    "shininess": 1,
+                    "specular": [
+                        0.9,
+                        0.9,
+                        0.9,
+                        1
+                    ]
+                }
+            },
+            "name": "mini_rover"
+        }
+    },
+    "meshes": {
+        "geom-Box001": {
+            "name": "Box001",
+            "primitives": [
+                {
+                    "attributes": {
+                        "NORMAL": "accessor_106",
+                        "POSITION": "accessor_104",
+                        "TEXCOORD_0": "accessor_108"
+                    },
+                    "indices": "accessor_102",
+                    "material": "mini_rover",
+                    "primitive": 4
+                }
+            ]
+        },
+        "geom-Cylinder012": {
+            "name": "Cylinder012",
+            "primitives": [
+                {
+                    "attributes": {
+                        "NORMAL": "accessor_79",
+                        "POSITION": "accessor_77",
+                        "TEXCOORD_0": "accessor_81"
+                    },
+                    "indices": "accessor_75",
+                    "material": "mini_rover",
+                    "primitive": 4
+                }
+            ]
+        },
+        "geom-arm": {
+            "name": "arm",
+            "primitives": [
+                {
+                    "attributes": {
+                        "NORMAL": "accessor_133",
+                        "POSITION": "accessor_131",
+                        "TEXCOORD_0": "accessor_135"
+                    },
+                    "indices": "accessor_129",
+                    "material": "mini_rover",
+                    "primitive": 4
+                }
+            ]
+        },
+        "geom-arm001": {
+            "name": "arm001",
+            "primitives": [
+                {
+                    "attributes": {
+                        "NORMAL": "accessor_160",
+                        "POSITION": "accessor_158",
+                        "TEXCOORD_0": "accessor_162"
+                    },
+                    "indices": "accessor_156",
+                    "material": "mini_rover",
+                    "primitive": 4
+                }
+            ]
+        },
+        "geom-base": {
+            "name": "base",
+            "primitives": [
+                {
+                    "attributes": {
+                        "NORMAL": "accessor_25",
+                        "POSITION": "accessor_23",
+                        "TEXCOORD_0": "accessor_27"
+                    },
+                    "indices": "accessor_21",
+                    "material": "mini_rover",
+                    "primitive": 4
+                }
+            ]
+        },
+        "geom-eye_piece": {
+            "name": "eye_piece",
+            "primitives": [
+                {
+                    "attributes": {
+                        "NORMAL": "accessor_187",
+                        "POSITION": "accessor_185",
+                        "TEXCOORD_0": "accessor_189"
+                    },
+                    "indices": "accessor_183",
+                    "material": "mini_rover",
+                    "primitive": 4
+                }
+            ]
+        },
+        "geom-wheel": {
+            "name": "wheel",
+            "primitives": [
+                {
+                    "attributes": {
+                        "NORMAL": "accessor_52",
+                        "POSITION": "accessor_50",
+                        "TEXCOORD_0": "accessor_54"
+                    },
+                    "indices": "accessor_48",
+                    "material": "mini_rover",
+                    "primitive": 4
+                }
+            ]
+        }
+    },
+    "nodes": {
+        "node-Box001": {
+            "children": [
+                "node_8"
+            ],
+            "matrix": [
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                -0.000401542,
+                0.0182052,
+                0.444698,
+                1
+            ],
+            "name": "Box001"
+        },
+        "node-Cylinder012": {
+            "children": [
+                "node_6"
+            ],
+            "matrix": [
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0.0357027,
+                0.000937462,
+                0.175423,
+                1
+            ],
+            "name": "Cylinder012"
+        },
+        "node-arm": {
+            "children": [
+                "node_10"
+            ],
+            "matrix": [
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                -0.0932388,
+                0.0459399,
+                0.670937,
+                1
+            ],
+            "name": "arm"
+        },
+        "node-arm001": {
+            "children": [
+                "node_12"
+            ],
+            "matrix": [
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0.0932388,
+                0.0494127,
+                0.670937,
+                1
+            ],
+            "name": "arm001"
+        },
+        "node-base": {
+            "children": [
+                "node_2"
+            ],
+            "matrix": [
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                -0.000401542,
+                -0.00664329,
+                0.294176,
+                1
+            ],
+            "name": "base"
+        },
+        "node-eye_piece": {
+            "children": [
+                "node_14"
+            ],
+            "matrix": [
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                1.89917e-07,
+                0.153137,
+                0.65387,
+                1
+            ],
+            "name": "eye_piece"
+        },
+        "node-wheel": {
+            "children": [
+                "node_4"
+            ],
+            "matrix": [
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                -0.000401542,
+                0.000937462,
+                0.175423,
+                1
+            ],
+            "name": "wheel"
+        },
+        "node_0": {
+            "children": [],
+            "light": "EnvironmentAmbientLight",
+            "matrix": [
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1
+            ],
+            "name": "EnvironmentAmbientLight"
+        },
+        "node_10": {
+            "children": [],
+            "matrix": [
+                0.00240563,
+                0.000210465,
+                -0.000647048,
+                0,
+                0.000644586,
+                5.6394e-05,
+                0.00241481,
+                0,
+                0.000217889,
+                -0.00249049,
+                1.52273e-10,
+                0,
+                0.0759768,
+                0.114254,
+                -0.0406171,
+                1
+            ],
+            "meshes": [
+                "geom-arm"
+            ],
+            "name": ""
+        },
+        "node_12": {
+            "children": [],
+            "matrix": [
+                0.0025,
+                0,
+                0,
+                0,
+                0,
+                0.0025,
+                0,
+                0,
+                0,
+                0,
+                0.0025,
+                0,
+                0,
+                0,
+                0,
+                1
+            ],
+            "meshes": [
+                "geom-arm001"
+            ],
+            "name": ""
+        },
+        "node_14": {
+            "children": [],
+            "matrix": [
+                0.0025,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0.0025,
+                0,
+                0,
+                -0.0025,
+                0,
+                0,
+                0,
+                0,
+                0,
+                1
+            ],
+            "meshes": [
+                "geom-eye_piece"
+            ],
+            "name": ""
+        },
+        "node_2": {
+            "children": [],
+            "matrix": [
+                -2.98023e-10,
+                -0.0025,
+                0,
+                0,
+                -2.98023e-10,
+                0,
+                0.0025,
+                0,
+                -0.00307655,
+                3.66753e-10,
+                -3.66753e-10,
+                0,
+                0.0884508,
+                0.00663762,
+                -0.024239,
+                1
+            ],
+            "meshes": [
+                "geom-base"
+            ],
+            "name": ""
+        },
+        "node_4": {
+            "children": [],
+            "matrix": [
+                -2.37295e-10,
+                -0.00199058,
+                -2.96619e-10,
+                0,
+                -5.93239e-11,
+                -2.37295e-10,
+                0.00199058,
+                0,
+                -0.00281222,
+                4.19054e-10,
+                0,
+                0,
+                0.0700954,
+                -1.28733e-08,
+                -1.22178e-08,
+                1
+            ],
+            "meshes": [
+                "geom-wheel"
+            ],
+            "name": ""
+        },
+        "node_6": {
+            "children": [],
+            "matrix": [
+                -2.98023e-10,
+                -0.0025,
+                0,
+                0,
+                -2.98023e-10,
+                0,
+                0.0025,
+                0,
+                -0.0025,
+                2.98023e-10,
+                -2.98023e-10,
+                0,
+                0.0427521,
+                -4.76837e-09,
+                5.6925e-09,
+                1
+            ],
+            "meshes": [
+                "geom-Cylinder012"
+            ],
+            "name": ""
+        },
+        "node_8": {
+            "children": [],
+            "matrix": [
+                -2.98023e-10,
+                -0.0025,
+                0,
+                0,
+                -2.98023e-10,
+                0,
+                0.0025,
+                0,
+                -0.0025,
+                2.98023e-10,
+                -2.98023e-10,
+                0,
+                0.0193828,
+                -4.76837e-09,
+                2.31061e-09,
+                1
+            ],
+            "meshes": [
+                "geom-Box001"
+            ],
+            "name": ""
+        }
+    },
+    "programs": {
+        "program_0": {
+            "attributes": [
+                "a_normal",
+                "a_position",
+                "a_texcoord0"
+            ],
+            "fragmentShader": "minirover0FS",
+            "vertexShader": "minirover0VS"
+        }
+    },
+    "samplers": {
+        "sampler_0": {
+            "magFilter": 9729,
+            "minFilter": 9729,
+            "wrapS": 10497,
+            "wrapT": 10497
+        }
+    },
+    "scene": "defaultScene",
+    "scenes": {
+        "defaultScene": {
+            "nodes": [
+                "node_0",
+                "node-base",
+                "node-wheel",
+                "node-Cylinder012",
+                "node-Box001",
+                "node-arm",
+                "node-arm001",
+                "node-eye_piece"
+            ]
+        }
+    },
+    "shaders": {
+        "minirover0FS": {
+            "path": "minirover0FS.glsl",
+            "type": 35632
+        },
+        "minirover0VS": {
+            "path": "minirover0VS.glsl",
+            "type": 35633
+        }
+    },
+    "skins": {},
+    "techniques": {
+        "technique0": {
+            "parameters": {
+                "ambient": {
+                    "type": 35678
+                },
+                "diffuse": {
+                    "type": 35678
+                },
+                "emission": {
+                    "type": 35666
+                },
+                "modelViewMatrix": {
+                    "semantic": "MODELVIEW",
+                    "type": 35676
+                },
+                "normal": {
+                    "semantic": "NORMAL",
+                    "type": 35665
+                },
+                "normalMatrix": {
+                    "semantic": "MODELVIEWINVERSETRANSPOSE",
+                    "type": 35675
+                },
+                "position": {
+                    "semantic": "POSITION",
+                    "type": 35665
+                },
+                "projectionMatrix": {
+                    "semantic": "PROJECTION",
+                    "type": 35676
+                },
+                "shininess": {
+                    "type": 5126
+                },
+                "specular": {
+                    "type": 35666
+                },
+                "texcoord0": {
+                    "semantic": "TEXCOORD_0",
+                    "type": 35664
+                }
+            },
+            "pass": "defaultPass",
+            "passes": {
+                "defaultPass": {
+                    "details": {
+                        "commonProfile": {
+                            "extras": {
+                                "doubleSided": false
+                            },
+                            "lightingModel": "Blinn",
+                            "parameters": [
+                                "ambient",
+                                "diffuse",
+                                "emission",
+                                "modelViewMatrix",
+                                "normalMatrix",
+                                "projectionMatrix",
+                                "shininess",
+                                "specular"
+                            ],
+                            "texcoordBindings": {
+                                "ambient": "TEXCOORD_0",
+                                "diffuse": "TEXCOORD_0"
+                            }
+                        },
+                        "type": "COLLADA-1.4.1/commonProfile"
+                    },
+                    "instanceProgram": {
+                        "attributes": {
+                            "a_normal": "normal",
+                            "a_position": "position",
+                            "a_texcoord0": "texcoord0"
+                        },
+                        "program": "program_0",
+                        "uniforms": {
+                            "u_ambient": "ambient",
+                            "u_diffuse": "diffuse",
+                            "u_emission": "emission",
+                            "u_modelViewMatrix": "modelViewMatrix",
+                            "u_normalMatrix": "normalMatrix",
+                            "u_projectionMatrix": "projectionMatrix",
+                            "u_shininess": "shininess",
+                            "u_specular": "specular"
+                        }
+                    },
+                    "states": {
+                        "blendEnable": 1,
+                        "blendEquation": 32774,
+                        "blendFunc": {
+                            "dfactor": 771,
+                            "sfactor": 1
+                        },
+                        "cullFaceEnable": 1,
+                        "depthMask": 1,
+                        "depthTestEnable": 1
+                    }
+                }
+            }
+        }
+    },
+    "textures": {
+        "texture_mini_rover_yellow_png": {
+            "format": 6408,
+            "internalFormat": 6408,
+            "sampler": "sampler_0",
+            "source": "mini_rover_yellow_png",
+            "target": 3553,
+            "type": 5121
+        }
+    }
+}

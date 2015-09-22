@@ -14,7 +14,7 @@
 
 ---
 extends: marsBaseBuilding.vwf
-source: ../../assets/3d/power_turbine/power_turbine.dae
-type: model/vnd.collada+xml
+source: ../../assets/3d/power_turbine/power_turbine.json
+type: model/vnd.gltf+json
 properties:
   buildingType: 'powerManagement'

@@ -14,8 +14,8 @@
 
 ---
 extends: ../pickup.vwf
-source: ../../assets/3d/minirover/mini_rover_slumped.dae
-type: model/vnd.collada+xml
+source: ../../assets/3d/minirover/mini_rover_slumped.json
+type: model/vnd.gltf+json
 properties:
   isCollidable: true
   terrainName: "environment"

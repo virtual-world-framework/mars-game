@@ -34,21 +34,21 @@ children:
           worldOffset: [ -3.5, -12, 0 ]
   mars:
     extends: http://vwf.example.com/node3.vwf
-    source: ../assets/3d/Start/planet_mars.dae
-    type: model/vnd.collada+xml
+    source: ../assets/3d/Start/planet_mars.json
+    type: model/vnd.gltf+json
     properties:
       axis: [ 0.25, 0, 0.9 ]
       rotationRate: 0.05
   satellite:
     extends: http://vwf.example.com/node3.vwf
-    source: ../assets/3d/Start/satellite.dae
-    type: model/vnd.collada+xml
+    source: ../assets/3d/Start/satellite.json
+    type: model/vnd.gltf+json
     properties:
       scale: 0.5
   stars:
     extends: http://vwf.example.com/node3.vwf
-    source: ../assets/3d/Start/stars.dae
-    type: model/vnd.collada+xml
+    source: ../assets/3d/Start/stars.json
+    type: model/vnd.gltf+json
     children:
       material:
         extends: shaders/scaledTextureShader.vwf

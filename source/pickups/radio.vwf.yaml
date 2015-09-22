@@ -14,8 +14,8 @@
 
 ---
 extends: ../pickup.vwf
-source: ../../assets/3d/Radio/radio.DAE
-type: model/vnd.collada+xml
+source: ../../assets/3d/Radio/radio.json
+type: model/vnd.gltf+json
 properties:
   isCollidable: false
   terrainName: "environment"

@@ -1,0 +1,1418 @@
+{
+    "accessors": {
+        "accessor_102": {
+            "bufferView": "bufferView_249",
+            "byteOffset": 7740,
+            "byteStride": 0,
+            "count": 2058,
+            "type": 5123
+        },
+        "accessor_104": {
+            "bufferView": "bufferView_250",
+            "byteOffset": 62784,
+            "byteStride": 12,
+            "count": 743,
+            "max": [
+                24.953,
+                24.953,
+                19.5986
+            ],
+            "min": [
+                -24.953,
+                -24.953,
+                -27.0273
+            ],
+            "type": 35665
+        },
+        "accessor_106": {
+            "bufferView": "bufferView_250",
+            "byteOffset": 71700,
+            "byteStride": 12,
+            "count": 743,
+            "max": [
+                1,
+                1,
+                1
+            ],
+            "min": [
+                -1,
+                -1,
+                -1
+            ],
+            "type": 35665
+        },
+        "accessor_108": {
+            "bufferView": "bufferView_250",
+            "byteOffset": 80616,
+            "byteStride": 8,
+            "count": 743,
+            "max": [
+                0.982426,
+                0.554939
+            ],
+            "min": [
+                0.00804007,
+                0.00581992
+            ],
+            "type": 35664
+        },
+        "accessor_129": {
+            "bufferView": "bufferView_249",
+            "byteOffset": 11856,
+            "byteStride": 0,
+            "count": 312,
+            "type": 5123
+        },
+        "accessor_131": {
+            "bufferView": "bufferView_250",
+            "byteOffset": 86560,
+            "byteStride": 12,
+            "count": 200,
+            "max": [
+                90.9772,
+                10.6115,
+                2.55462
+            ],
+            "min": [
+                -18.2754,
+                -10.6115,
+                -9.83869e-06
+            ],
+            "type": 35665
+        },
+        "accessor_133": {
+            "bufferView": "bufferView_250",
+            "byteOffset": 88960,
+            "byteStride": 12,
+            "count": 200,
+            "max": [
+                1,
+                1,
+                1
+            ],
+            "min": [
+                -1,
+                -1,
+                -1
+            ],
+            "type": 35665
+        },
+        "accessor_135": {
+            "bufferView": "bufferView_250",
+            "byteOffset": 91360,
+            "byteStride": 8,
+            "count": 200,
+            "max": [
+                0.425092,
+                0.854556
+            ],
+            "min": [
+                0.00280314,
+                0.364302
+            ],
+            "type": 35664
+        },
+        "accessor_156": {
+            "bufferView": "bufferView_249",
+            "byteOffset": 3288,
+            "byteStride": 0,
+            "count": 1680,
+            "type": 5123
+        },
+        "accessor_158": {
+            "bufferView": "bufferView_250",
+            "byteOffset": 18592,
+            "byteStride": 12,
+            "count": 847,
+            "max": [
+                92.6662,
+                16.9367,
+                65.9101
+            ],
+            "min": [
+                -39.3028,
+                -26.4815,
+                -66.059
+            ],
+            "type": 35665
+        },
+        "accessor_160": {
+            "bufferView": "bufferView_250",
+            "byteOffset": 28756,
+            "byteStride": 12,
+            "count": 847,
+            "max": [
+                1,
+                1,
+                1
+            ],
+            "min": [
+                -1,
+                -1,
+                -1
+            ],
+            "type": 35665
+        },
+        "accessor_162": {
+            "bufferView": "bufferView_250",
+            "byteOffset": 38920,
+            "byteStride": 8,
+            "count": 847,
+            "max": [
+                84.2849,
+                26.9538
+            ],
+            "min": [
+                -30.9214,
+                -0.0838929
+            ],
+            "type": 35664
+        },
+        "accessor_183": {
+            "bufferView": "bufferView_249",
+            "byteOffset": 0,
+            "byteStride": 0,
+            "count": 276,
+            "type": 5123
+        },
+        "accessor_185": {
+            "bufferView": "bufferView_250",
+            "byteOffset": 0,
+            "byteStride": 12,
+            "count": 100,
+            "max": [
+                4.7991,
+                4.7991,
+                73.5725
+            ],
+            "min": [
+                -4.7991,
+                -4.7991,
+                -1.97063
+            ],
+            "type": 35665
+        },
+        "accessor_187": {
+            "bufferView": "bufferView_250",
+            "byteOffset": 1200,
+            "byteStride": 12,
+            "count": 100,
+            "max": [
+                1,
+                1,
+                1
+            ],
+            "min": [
+                -1,
+                -1,
+                -1
+            ],
+            "type": 35665
+        },
+        "accessor_189": {
+            "bufferView": "bufferView_250",
+            "byteOffset": 2400,
+            "byteStride": 8,
+            "count": 100,
+            "max": [
+                0.996855,
+                0.45101
+            ],
+            "min": [
+                -1.11462,
+                -0.105235
+            ],
+            "type": 35664
+        },
+        "accessor_21": {
+            "bufferView": "bufferView_249",
+            "byteOffset": 2160,
+            "byteStride": 0,
+            "count": 564,
+            "type": 5123
+        },
+        "accessor_210": {
+            "bufferView": "bufferView_249",
+            "byteOffset": 552,
+            "byteStride": 0,
+            "count": 288,
+            "type": 5123
+        },
+        "accessor_212": {
+            "bufferView": "bufferView_250",
+            "byteOffset": 3200,
+            "byteStride": 12,
+            "count": 104,
+            "max": [
+                11.641,
+                11.641,
+                3.57466
+            ],
+            "min": [
+                -11.641,
+                -11.641,
+                2.07125
+            ],
+            "type": 35665
+        },
+        "accessor_214": {
+            "bufferView": "bufferView_250",
+            "byteOffset": 4448,
+            "byteStride": 12,
+            "count": 104,
+            "max": [
+                1,
+                1,
+                0.999996
+            ],
+            "min": [
+                -1,
+                -1,
+                -0.999996
+            ],
+            "type": 35665
+        },
+        "accessor_216": {
+            "bufferView": "bufferView_250",
+            "byteOffset": 5696,
+            "byteStride": 8,
+            "count": 104,
+            "max": [
+                0.996271,
+                0.402398
+            ],
+            "min": [
+                0.563642,
+                0.372066
+            ],
+            "type": 35664
+        },
+        "accessor_23": {
+            "bufferView": "bufferView_250",
+            "byteOffset": 12992,
+            "byteStride": 12,
+            "count": 175,
+            "max": [
+                21.8954,
+                21.8954,
+                22.0814
+            ],
+            "min": [
+                -21.8954,
+                -21.8954,
+                -24.7115
+            ],
+            "type": 35665
+        },
+        "accessor_237": {
+            "bufferView": "bufferView_249",
+            "byteOffset": 12480,
+            "byteStride": 0,
+            "count": 312,
+            "type": 5123
+        },
+        "accessor_239": {
+            "bufferView": "bufferView_250",
+            "byteOffset": 92960,
+            "byteStride": 12,
+            "count": 200,
+            "max": [
+                90.9772,
+                10.6115,
+                2.55462
+            ],
+            "min": [
+                -18.2754,
+                -10.6115,
+                -9.83869e-06
+            ],
+            "type": 35665
+        },
+        "accessor_241": {
+            "bufferView": "bufferView_250",
+            "byteOffset": 95360,
+            "byteStride": 12,
+            "count": 200,
+            "max": [
+                1,
+                1,
+                1
+            ],
+            "min": [
+                -1,
+                -1,
+                -1
+            ],
+            "type": 35665
+        },
+        "accessor_243": {
+            "bufferView": "bufferView_250",
+            "byteOffset": 97760,
+            "byteStride": 8,
+            "count": 200,
+            "max": [
+                0.425092,
+                0.854556
+            ],
+            "min": [
+                0.00280314,
+                0.364302
+            ],
+            "type": 35664
+        },
+        "accessor_25": {
+            "bufferView": "bufferView_250",
+            "byteOffset": 15092,
+            "byteStride": 12,
+            "count": 175,
+            "max": [
+                1,
+                1,
+                1
+            ],
+            "min": [
+                -1,
+                -1,
+                -1
+            ],
+            "type": 35665
+        },
+        "accessor_27": {
+            "bufferView": "bufferView_250",
+            "byteOffset": 17192,
+            "byteStride": 8,
+            "count": 175,
+            "max": [
+                0.997983,
+                0.998319
+            ],
+            "min": [
+                0.295044,
+                0.543836
+            ],
+            "type": 35664
+        },
+        "accessor_48": {
+            "bufferView": "bufferView_249",
+            "byteOffset": 1128,
+            "byteStride": 0,
+            "count": 516,
+            "type": 5123
+        },
+        "accessor_50": {
+            "bufferView": "bufferView_250",
+            "byteOffset": 6528,
+            "byteStride": 12,
+            "count": 202,
+            "max": [
+                8.41779,
+                3.87959,
+                19.2148
+            ],
+            "min": [
+                -8.31672,
+                -39.2635,
+                -11.1775
+            ],
+            "type": 35665
+        },
+        "accessor_52": {
+            "bufferView": "bufferView_250",
+            "byteOffset": 8952,
+            "byteStride": 12,
+            "count": 202,
+            "max": [
+                1,
+                1,
+                1
+            ],
+            "min": [
+                -1,
+                -1,
+                -1
+            ],
+            "type": 35665
+        },
+        "accessor_54": {
+            "bufferView": "bufferView_250",
+            "byteOffset": 11376,
+            "byteStride": 8,
+            "count": 202,
+            "max": [
+                0.924458,
+                0.48407
+            ],
+            "min": [
+                0.317763,
+                0.000699818
+            ],
+            "type": 35664
+        },
+        "accessor_75": {
+            "bufferView": "bufferView_249",
+            "byteOffset": 6648,
+            "byteStride": 0,
+            "count": 546,
+            "type": 5123
+        },
+        "accessor_77": {
+            "bufferView": "bufferView_250",
+            "byteOffset": 45696,
+            "byteStride": 12,
+            "count": 534,
+            "max": [
+                28.1059,
+                27.7415,
+                6.5956
+            ],
+            "min": [
+                -28.1059,
+                -5.57364,
+                -10.7663
+            ],
+            "type": 35665
+        },
+        "accessor_79": {
+            "bufferView": "bufferView_250",
+            "byteOffset": 52104,
+            "byteStride": 12,
+            "count": 534,
+            "max": [
+                1,
+                1,
+                1
+            ],
+            "min": [
+                -1,
+                -1,
+                -1
+            ],
+            "type": 35665
+        },
+        "accessor_81": {
+            "bufferView": "bufferView_250",
+            "byteOffset": 58512,
+            "byteStride": 8,
+            "count": 534,
+            "max": [
+                0.997535,
+                0.889132
+            ],
+            "min": [
+                0.422986,
+                0.00335789
+            ],
+            "type": 35664
+        },
+        "animAccessor_0": {
+            "bufferView": "bufferView_248",
+            "byteOffset": 0,
+            "count": 91,
+            "type": 5126
+        },
+        "animAccessor_1": {
+            "bufferView": "bufferView_248",
+            "byteOffset": 364,
+            "count": 91,
+            "type": 35665
+        },
+        "animAccessor_2": {
+            "bufferView": "bufferView_248",
+            "byteOffset": 1456,
+            "count": 91,
+            "type": 35665
+        },
+        "animAccessor_3": {
+            "bufferView": "bufferView_248",
+            "byteOffset": 2548,
+            "count": 91,
+            "type": 35666
+        }
+    },
+    "animations": {
+        "animation_0": {
+            "channels": [
+                {
+                    "sampler": "animation_0_scale_sampler",
+                    "target": {
+                        "id": "node-arm",
+                        "path": "scale"
+                    }
+                },
+                {
+                    "sampler": "animation_0_translation_sampler",
+                    "target": {
+                        "id": "node-arm",
+                        "path": "translation"
+                    }
+                },
+                {
+                    "sampler": "animation_0_rotation_sampler",
+                    "target": {
+                        "id": "node-arm",
+                        "path": "rotation"
+                    }
+                }
+            ],
+            "count": 91,
+            "parameters": {
+                "TIME": "animAccessor_0",
+                "rotation": "animAccessor_3",
+                "scale": "animAccessor_1",
+                "translation": "animAccessor_2"
+            },
+            "samplers": {
+                "animation_0_rotation_sampler": {
+                    "input": "TIME",
+                    "interpolation": "LINEAR",
+                    "output": "rotation"
+                },
+                "animation_0_scale_sampler": {
+                    "input": "TIME",
+                    "interpolation": "LINEAR",
+                    "output": "scale"
+                },
+                "animation_0_translation_sampler": {
+                    "input": "TIME",
+                    "interpolation": "LINEAR",
+                    "output": "translation"
+                }
+            }
+        }
+    },
+    "asset": {
+        "generator": "collada2gltf@63e932907e3f0c834c8668d04f03ddb6eabf78d1",
+        "premultipliedAlpha": true,
+        "profile": "WebGL 1.0.2",
+        "version": 0.6
+    },
+    "bufferViews": {
+        "bufferView_248": {
+            "buffer": "radio",
+            "byteLength": 4004,
+            "byteOffset": 0
+        },
+        "bufferView_249": {
+            "buffer": "radio",
+            "byteLength": 13104,
+            "byteOffset": 4004,
+            "target": 34963
+        },
+        "bufferView_250": {
+            "buffer": "radio",
+            "byteLength": 99360,
+            "byteOffset": 17108,
+            "target": 34962
+        }
+    },
+    "buffers": {
+        "radio": {
+            "byteLength": 116468,
+            "path": "radio.bin",
+            "type": "arraybuffer"
+        }
+    },
+    "images": {
+        "radio_PNG": {
+            "path": "radio.png"
+        },
+        "radio_nrm_png": {
+            "path": "radio_nrm.png"
+        },
+        "radio_spec_png": {
+            "path": "radio_spec.png"
+        }
+    },
+    "lights": {
+        "EnvironmentAmbientLight": {
+            "ambient": {
+                "color": [
+                    0,
+                    0,
+                    0
+                ]
+            },
+            "type": "ambient"
+        }
+    },
+    "materials": {
+        "radio": {
+            "instanceTechnique": {
+                "technique": "technique0",
+                "values": {
+                    "ambient": "texture_radio_PNG",
+                    "diffuse": "texture_radio_PNG",
+                    "emission": [
+                        0,
+                        0,
+                        0,
+                        1
+                    ],
+                    "shininess": 1,
+                    "specular": [
+                        0.9,
+                        0.9,
+                        0.9,
+                        1
+                    ]
+                }
+            },
+            "name": "radio"
+        }
+    },
+    "meshes": {
+        "geom-Cylinder001": {
+            "name": "Cylinder001",
+            "primitives": [
+                {
+                    "attributes": {
+                        "NORMAL": "accessor_187",
+                        "POSITION": "accessor_185",
+                        "TEXCOORD_0": "accessor_189"
+                    },
+                    "indices": "accessor_183",
+                    "material": "radio",
+                    "primitive": 4
+                }
+            ]
+        },
+        "geom-Shape001": {
+            "name": "Shape001",
+            "primitives": [
+                {
+                    "attributes": {
+                        "NORMAL": "accessor_214",
+                        "POSITION": "accessor_212",
+                        "TEXCOORD_0": "accessor_216"
+                    },
+                    "indices": "accessor_210",
+                    "material": "radio",
+                    "primitive": 4
+                }
+            ]
+        },
+        "geom-arm": {
+            "name": "arm",
+            "primitives": [
+                {
+                    "attributes": {
+                        "NORMAL": "accessor_52",
+                        "POSITION": "accessor_50",
+                        "TEXCOORD_0": "accessor_54"
+                    },
+                    "indices": "accessor_48",
+                    "material": "radio",
+                    "primitive": 4
+                }
+            ]
+        },
+        "geom-body": {
+            "name": "body",
+            "primitives": [
+                {
+                    "attributes": {
+                        "NORMAL": "accessor_25",
+                        "POSITION": "accessor_23",
+                        "TEXCOORD_0": "accessor_27"
+                    },
+                    "indices": "accessor_21",
+                    "material": "radio",
+                    "primitive": 4
+                }
+            ]
+        },
+        "geom-legs": {
+            "name": "legs",
+            "primitives": [
+                {
+                    "attributes": {
+                        "NORMAL": "accessor_160",
+                        "POSITION": "accessor_158",
+                        "TEXCOORD_0": "accessor_162"
+                    },
+                    "indices": "accessor_156",
+                    "material": "radio",
+                    "primitive": 4
+                }
+            ]
+        },
+        "geom-mount": {
+            "name": "mount",
+            "primitives": [
+                {
+                    "attributes": {
+                        "NORMAL": "accessor_79",
+                        "POSITION": "accessor_77",
+                        "TEXCOORD_0": "accessor_81"
+                    },
+                    "indices": "accessor_75",
+                    "material": "radio",
+                    "primitive": 4
+                }
+            ]
+        },
+        "geom-satellite": {
+            "name": "satellite",
+            "primitives": [
+                {
+                    "attributes": {
+                        "NORMAL": "accessor_106",
+                        "POSITION": "accessor_104",
+                        "TEXCOORD_0": "accessor_108"
+                    },
+                    "indices": "accessor_102",
+                    "material": "radio",
+                    "primitive": 4
+                }
+            ]
+        },
+        "geom-solar_panels": {
+            "name": "solar_panels",
+            "primitives": [
+                {
+                    "attributes": {
+                        "NORMAL": "accessor_133",
+                        "POSITION": "accessor_131",
+                        "TEXCOORD_0": "accessor_135"
+                    },
+                    "indices": "accessor_129",
+                    "material": "radio",
+                    "primitive": 4
+                }
+            ]
+        },
+        "geom-solar_panels001": {
+            "name": "solar_panels001",
+            "primitives": [
+                {
+                    "attributes": {
+                        "NORMAL": "accessor_241",
+                        "POSITION": "accessor_239",
+                        "TEXCOORD_0": "accessor_243"
+                    },
+                    "indices": "accessor_237",
+                    "material": "radio",
+                    "primitive": 4
+                }
+            ]
+        }
+    },
+    "nodes": {
+        "node-Cylinder001": {
+            "children": [
+                "node_14"
+            ],
+            "matrix": [
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                -0.152643,
+                0.0531173,
+                0.317555,
+                1
+            ],
+            "name": "Cylinder001"
+        },
+        "node-Shape001": {
+            "children": [
+                "node_16"
+            ],
+            "matrix": [
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                2.51151e-08,
+                1.65323e-08,
+                0.332443,
+                1
+            ],
+            "name": "Shape001"
+        },
+        "node-arm": {
+            "children": [
+                "node_4",
+                "node-mount"
+            ],
+            "name": "arm",
+            "rotation": [
+                1,
+                0,
+                0,
+                0
+            ],
+            "scale": [
+                1,
+                1,
+                1
+            ],
+            "translation": [
+                3.30647e-08,
+                1.65323e-08,
+                0.319515
+            ]
+        },
+        "node-body": {
+            "children": [
+                "node_2"
+            ],
+            "matrix": [
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                3.30647e-08,
+                1.65323e-08,
+                0.319515,
+                1
+            ],
+            "name": "body"
+        },
+        "node-legs": {
+            "children": [
+                "node_12"
+            ],
+            "matrix": [
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                1.08494e-08,
+                -0.000645369,
+                0.229435,
+                1
+            ],
+            "name": "legs"
+        },
+        "node-mount": {
+            "children": [
+                "node_6",
+                "node-satellite"
+            ],
+            "matrix": [
+                -0.012693,
+                1.65436e-08,
+                -1.32146e-08,
+                0,
+                5.11021e-10,
+                0.0081589,
+                0.0097234,
+                0,
+                2.11673e-08,
+                0.0097234,
+                -0.0081589,
+                0,
+                0.0895537,
+                0.139106,
+                0.481207,
+                1
+            ],
+            "name": "mount"
+        },
+        "node-satellite": {
+            "children": [
+                "node_8"
+            ],
+            "matrix": [
+                -1,
+                3.25841e-07,
+                0,
+                0,
+                3.25841e-07,
+                1,
+                -5.66244e-07,
+                0,
+                -5.68434e-14,
+                -2.98023e-07,
+                -0.568886,
+                0,
+                7.18825,
+                1.27189,
+                -13.0752,
+                1
+            ],
+            "name": "satellite"
+        },
+        "node-solar_panels": {
+            "children": [
+                "node_10"
+            ],
+            "matrix": [
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                -0.00125924,
+                -8.86377e-05,
+                0.43063,
+                1
+            ],
+            "name": "solar_panels"
+        },
+        "node-solar_panels001": {
+            "children": [
+                "node_18"
+            ],
+            "matrix": [
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                -0.00125924,
+                -8.86377e-05,
+                0.43063,
+                1
+            ],
+            "name": "solar_panels001"
+        },
+        "node_0": {
+            "children": [],
+            "light": "EnvironmentAmbientLight",
+            "matrix": [
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1
+            ],
+            "name": "EnvironmentAmbientLight"
+        },
+        "node_10": {
+            "children": [],
+            "matrix": [
+                0.00866771,
+                0,
+                0,
+                0,
+                0,
+                0.00433385,
+                0.00750646,
+                0,
+                0,
+                -0.0025105,
+                0.00144944,
+                0,
+                -0.315079,
+                0.00320667,
+                -0.00185137,
+                1
+            ],
+            "meshes": [
+                "geom-solar_panels"
+            ],
+            "name": ""
+        },
+        "node_12": {
+            "children": [],
+            "matrix": [
+                0.00866771,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0.00866771,
+                0,
+                0,
+                -0.00866771,
+                0,
+                0,
+                -0.231269,
+                0,
+                0,
+                1
+            ],
+            "meshes": [
+                "geom-legs"
+            ],
+            "name": ""
+        },
+        "node_14": {
+            "children": [],
+            "matrix": [
+                0.00408411,
+                0,
+                0,
+                0,
+                0,
+                0.00408411,
+                0,
+                0,
+                0,
+                0,
+                0.00408411,
+                0,
+                0,
+                0,
+                0,
+                1
+            ],
+            "meshes": [
+                "geom-Cylinder001"
+            ],
+            "name": ""
+        },
+        "node_16": {
+            "children": [],
+            "matrix": [
+                0.0169424,
+                0,
+                0,
+                0,
+                0,
+                0.0169424,
+                0,
+                0,
+                0,
+                0,
+                0.00983857,
+                0,
+                8.07875e-09,
+                0,
+                -0.0277739,
+                1
+            ],
+            "meshes": [
+                "geom-Shape001"
+            ],
+            "name": ""
+        },
+        "node_18": {
+            "children": [],
+            "matrix": [
+                -1.67262e-09,
+                -0.00866771,
+                3.41861e-10,
+                0,
+                0.00433385,
+                -2.5322e-09,
+                0.00750646,
+                0,
+                -0.00251049,
+                2.14708e-10,
+                0.00144943,
+                0,
+                0.00320673,
+                0.315079,
+                -0.00185137,
+                1
+            ],
+            "meshes": [
+                "geom-solar_panels001"
+            ],
+            "name": ""
+        },
+        "node_2": {
+            "children": [],
+            "matrix": [
+                0.00866771,
+                0,
+                0,
+                0,
+                0,
+                0.00866771,
+                0,
+                0,
+                0,
+                0,
+                0.00866771,
+                0,
+                0,
+                0,
+                0,
+                1
+            ],
+            "meshes": [
+                "geom-body"
+            ],
+            "name": ""
+        },
+        "node_4": {
+            "children": [],
+            "matrix": [
+                -0.00866771,
+                1.30879e-09,
+                0,
+                0,
+                0,
+                0,
+                0.00866771,
+                0,
+                1.30879e-09,
+                0.00866771,
+                0,
+                0,
+                -0.00168678,
+                0.0535521,
+                0.525259,
+                1
+            ],
+            "meshes": [
+                "geom-arm"
+            ],
+            "name": ""
+        },
+        "node_6": {
+            "children": [],
+            "matrix": [
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                7.18825,
+                1.27189,
+                -9.0686,
+                1
+            ],
+            "meshes": [
+                "geom-mount"
+            ],
+            "name": ""
+        },
+        "node_8": {
+            "children": [],
+            "matrix": [
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                7.81395e-07,
+                17.8762,
+                1
+            ],
+            "meshes": [
+                "geom-satellite"
+            ],
+            "name": ""
+        }
+    },
+    "programs": {
+        "program_0": {
+            "attributes": [
+                "a_normal",
+                "a_position",
+                "a_texcoord0"
+            ],
+            "fragmentShader": "radio0FS",
+            "vertexShader": "radio0VS"
+        }
+    },
+    "samplers": {
+        "sampler_0": {
+            "magFilter": 9729,
+            "minFilter": 9729,
+            "wrapS": 10497,
+            "wrapT": 10497
+        }
+    },
+    "scene": "defaultScene",
+    "scenes": {
+        "defaultScene": {
+            "nodes": [
+                "node_0",
+                "node-body",
+                "node-arm",
+                "node-solar_panels",
+                "node-legs",
+                "node-Cylinder001",
+                "node-Shape001",
+                "node-solar_panels001"
+            ]
+        }
+    },
+    "shaders": {
+        "radio0FS": {
+            "path": "radio0FS.glsl",
+            "type": 35632
+        },
+        "radio0VS": {
+            "path": "radio0VS.glsl",
+            "type": 35633
+        }
+    },
+    "skins": {},
+    "techniques": {
+        "technique0": {
+            "parameters": {
+                "ambient": {
+                    "type": 35678
+                },
+                "diffuse": {
+                    "type": 35678
+                },
+                "emission": {
+                    "type": 35666
+                },
+                "modelViewMatrix": {
+                    "semantic": "MODELVIEW",
+                    "type": 35676
+                },
+                "normal": {
+                    "semantic": "NORMAL",
+                    "type": 35665
+                },
+                "normalMatrix": {
+                    "semantic": "MODELVIEWINVERSETRANSPOSE",
+                    "type": 35675
+                },
+                "position": {
+                    "semantic": "POSITION",
+                    "type": 35665
+                },
+                "projectionMatrix": {
+                    "semantic": "PROJECTION",
+                    "type": 35676
+                },
+                "shininess": {
+                    "type": 5126
+                },
+                "specular": {
+                    "type": 35666
+                },
+                "texcoord0": {
+                    "semantic": "TEXCOORD_0",
+                    "type": 35664
+                }
+            },
+            "pass": "defaultPass",
+            "passes": {
+                "defaultPass": {
+                    "details": {
+                        "commonProfile": {
+                            "extras": {
+                                "doubleSided": false
+                            },
+                            "lightingModel": "Blinn",
+                            "parameters": [
+                                "ambient",
+                                "diffuse",
+                                "emission",
+                                "modelViewMatrix",
+                                "normalMatrix",
+                                "projectionMatrix",
+                                "shininess",
+                                "specular"
+                            ],
+                            "texcoordBindings": {
+                                "ambient": "TEXCOORD_0",
+                                "diffuse": "TEXCOORD_0"
+                            }
+                        },
+                        "type": "COLLADA-1.4.1/commonProfile"
+                    },
+                    "instanceProgram": {
+                        "attributes": {
+                            "a_normal": "normal",
+                            "a_position": "position",
+                            "a_texcoord0": "texcoord0"
+                        },
+                        "program": "program_0",
+                        "uniforms": {
+                            "u_ambient": "ambient",
+                            "u_diffuse": "diffuse",
+                            "u_emission": "emission",
+                            "u_modelViewMatrix": "modelViewMatrix",
+                            "u_normalMatrix": "normalMatrix",
+                            "u_projectionMatrix": "projectionMatrix",
+                            "u_shininess": "shininess",
+                            "u_specular": "specular"
+                        }
+                    },
+                    "states": {
+                        "blendEnable": 0,
+                        "cullFaceEnable": 1,
+                        "depthMask": 1,
+                        "depthTestEnable": 1
+                    }
+                }
+            }
+        }
+    },
+    "textures": {
+        "texture_radio_PNG": {
+            "format": 6408,
+            "internalFormat": 6408,
+            "sampler": "sampler_0",
+            "source": "radio_PNG",
+            "target": 3553,
+            "type": 5121
+        }
+    }
+}

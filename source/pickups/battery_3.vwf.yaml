@@ -14,8 +14,8 @@
 
 ---
 extends: ../pickup.vwf
-source: ../../assets/3d/Batteries/battery_pickup3.dae
-type: model/vnd.collada+xml
+source: ../../assets/3d/Batteries/battery_pickup3.json
+type: model/vnd.gltf+json
 properties:
   isCollidable: false
   terrainName: "environment"

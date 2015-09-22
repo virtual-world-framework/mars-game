@@ -1,0 +1,683 @@
+{
+    "accessors": {
+        "accessor_120": {
+            "bufferView": "bufferView_155",
+            "byteOffset": 36768,
+            "byteStride": 0,
+            "count": 237,
+            "type": 5123
+        },
+        "accessor_122": {
+            "bufferView": "bufferView_156",
+            "byteOffset": 180616,
+            "byteStride": 12,
+            "count": 56,
+            "max": [
+                84.1315,
+                24.9378,
+                -0.378502
+            ],
+            "min": [
+                24.068,
+                -93.4346,
+                -0.378502
+            ],
+            "type": 35665
+        },
+        "accessor_124": {
+            "bufferView": "bufferView_156",
+            "byteOffset": 181288,
+            "byteStride": 12,
+            "count": 56,
+            "max": [
+                7.92493e-08,
+                3.95703e-08,
+                1
+            ],
+            "min": [
+                -3.65444e-08,
+                -1.31109e-07,
+                1
+            ],
+            "type": 35665
+        },
+        "accessor_126": {
+            "bufferView": "bufferView_156",
+            "byteOffset": 181960,
+            "byteStride": 8,
+            "count": 56,
+            "max": [
+                0.544523,
+                0.572397
+            ],
+            "min": [
+                0.452236,
+                0.390316
+            ],
+            "type": 35664
+        },
+        "accessor_147": {
+            "bufferView": "bufferView_155",
+            "byteOffset": 37242,
+            "byteStride": 0,
+            "count": 2511,
+            "type": 5123
+        },
+        "accessor_149": {
+            "bufferView": "bufferView_156",
+            "byteOffset": 182408,
+            "byteStride": 12,
+            "count": 470,
+            "max": [
+                271.032,
+                243.524,
+                21.9305
+            ],
+            "min": [
+                -260.305,
+                -395.45,
+                -1.01736
+            ],
+            "type": 35665
+        },
+        "accessor_151": {
+            "bufferView": "bufferView_156",
+            "byteOffset": 188048,
+            "byteStride": 12,
+            "count": 470,
+            "max": [
+                0.939786,
+                0.844628,
+                1
+            ],
+            "min": [
+                -0.874059,
+                -0.438282,
+                0.2779
+            ],
+            "type": 35665
+        },
+        "accessor_153": {
+            "bufferView": "bufferView_156",
+            "byteOffset": 193688,
+            "byteStride": 8,
+            "count": 470,
+            "max": [
+                0.876315,
+                0.991111
+            ],
+            "min": [
+                0.0599235,
+                0.00823772
+            ],
+            "type": 35664
+        },
+        "accessor_21": {
+            "bufferView": "bufferView_155",
+            "byteOffset": 0,
+            "byteStride": 0,
+            "count": 3582,
+            "type": 5123
+        },
+        "accessor_23": {
+            "bufferView": "bufferView_156",
+            "byteOffset": 0,
+            "byteStride": 12,
+            "count": 788,
+            "max": [
+                96.5591,
+                228.945,
+                27.8793
+            ],
+            "min": [
+                -154.199,
+                -105.036,
+                -6.51913
+            ],
+            "type": 35665
+        },
+        "accessor_25": {
+            "bufferView": "bufferView_156",
+            "byteOffset": 9456,
+            "byteStride": 12,
+            "count": 788,
+            "max": [
+                0.911781,
+                0.999013,
+                0.999946
+            ],
+            "min": [
+                -0.751635,
+                -0.885391,
+                -0.643851
+            ],
+            "type": 35665
+        },
+        "accessor_27": {
+            "bufferView": "bufferView_156",
+            "byteOffset": 18912,
+            "byteStride": 8,
+            "count": 788,
+            "max": [
+                0.640936,
+                0.67319
+            ],
+            "min": [
+                0.255649,
+                0.15946
+            ],
+            "type": 35664
+        },
+        "accessor_87": {
+            "bufferView": "bufferView_155",
+            "byteOffset": 7164,
+            "byteStride": 0,
+            "count": 14802,
+            "type": 5123
+        },
+        "accessor_89": {
+            "bufferView": "bufferView_156",
+            "byteOffset": 25216,
+            "byteStride": 12,
+            "count": 2775,
+            "max": [
+                26.029,
+                22.5838,
+                1.70175
+            ],
+            "min": [
+                -26.029,
+                -28.5297,
+                -1.06175
+            ],
+            "type": 35665
+        },
+        "accessor_91": {
+            "bufferView": "bufferView_156",
+            "byteOffset": 58516,
+            "byteStride": 12,
+            "count": 2775,
+            "max": [
+                0.994384,
+                0.994149,
+                1
+            ],
+            "min": [
+                -0.971958,
+                -0.762178,
+                -0.288244
+            ],
+            "type": 35665
+        },
+        "accessor_93": {
+            "bufferView": "bufferView_156",
+            "byteOffset": 91816,
+            "byteStride": 8,
+            "count": 2775,
+            "max": [
+                0.544523,
+                0.521129
+            ],
+            "min": [
+                0.464537,
+                0.442506
+            ],
+            "type": 35664
+        },
+        "accessor_95": {
+            "bufferView": "bufferView_156",
+            "byteOffset": 114016,
+            "byteStride": 8,
+            "count": 2775,
+            "max": [
+                0.997361,
+                0.9998
+            ],
+            "min": [
+                0.0002,
+                0.000199974
+            ],
+            "type": 35664
+        },
+        "accessor_97": {
+            "bufferView": "bufferView_156",
+            "byteOffset": 136216,
+            "byteStride": 8,
+            "count": 2775,
+            "max": [
+                0.987173,
+                0.995516
+            ],
+            "min": [
+                0.00103703,
+                0.00105238
+            ],
+            "type": 35664
+        },
+        "accessor_99": {
+            "bufferView": "bufferView_156",
+            "byteOffset": 158416,
+            "byteStride": 8,
+            "count": 2775,
+            "max": [
+                0.987173,
+                0.995516
+            ],
+            "min": [
+                0.00103703,
+                0.00105238
+            ],
+            "type": 35664
+        }
+    },
+    "animations": {},
+    "asset": {
+        "generator": "collada2gltf@63e932907e3f0c834c8668d04f03ddb6eabf78d1",
+        "premultipliedAlpha": true,
+        "profile": "WebGL 1.0.2",
+        "version": 0.6
+    },
+    "bufferViews": {
+        "bufferView_155": {
+            "buffer": "terrain_mix",
+            "byteLength": 42264,
+            "byteOffset": 0,
+            "target": 34963
+        },
+        "bufferView_156": {
+            "buffer": "terrain_mix",
+            "byteLength": 197448,
+            "byteOffset": 42264,
+            "target": 34962
+        }
+    },
+    "buffers": {
+        "terrain_mix": {
+            "byteLength": 239712,
+            "path": "terrain_mix.bin",
+            "type": "arraybuffer"
+        }
+    },
+    "lights": {
+        "EnvironmentAmbientLight": {
+            "ambient": {
+                "color": [
+                    0,
+                    0,
+                    0
+                ]
+            },
+            "type": "ambient"
+        }
+    },
+    "materials": {
+        "_4_-_Default": {
+            "instanceTechnique": {
+                "technique": "technique0",
+                "values": {
+                    "ambient": [
+                        0.588235,
+                        0.588235,
+                        0.588235,
+                        1
+                    ],
+                    "diffuse": [
+                        0.588235,
+                        0.588235,
+                        0.588235,
+                        1
+                    ],
+                    "emission": [
+                        0,
+                        0,
+                        0,
+                        1
+                    ],
+                    "shininess": 0,
+                    "specular": [
+                        0.9,
+                        0.9,
+                        0.9,
+                        1
+                    ]
+                }
+            },
+            "name": "_4_-_Default"
+        }
+    },
+    "meshes": {
+        "geom-dirt_mound": {
+            "name": "dirt_mound",
+            "primitives": [
+                {
+                    "attributes": {
+                        "NORMAL": "accessor_25",
+                        "POSITION": "accessor_23",
+                        "TEXCOORD_0": "accessor_27"
+                    },
+                    "indices": "accessor_21",
+                    "material": "_4_-_Default",
+                    "primitive": 4
+                }
+            ]
+        },
+        "geom-game_space": {
+            "name": "game_space",
+            "primitives": [
+                {
+                    "attributes": {
+                        "NORMAL": "accessor_91",
+                        "POSITION": "accessor_89",
+                        "TEXCOORD_0": "accessor_93",
+                        "TEXCOORD_1": "accessor_95",
+                        "TEXCOORD_2": "accessor_97",
+                        "TEXCOORD_3": "accessor_99"
+                    },
+                    "indices": "accessor_87",
+                    "material": "_4_-_Default",
+                    "primitive": 4
+                }
+            ]
+        },
+        "geom-terrain": {
+            "name": "terrain",
+            "primitives": [
+                {
+                    "attributes": {
+                        "NORMAL": "accessor_124",
+                        "POSITION": "accessor_122",
+                        "TEXCOORD_0": "accessor_126"
+                    },
+                    "indices": "accessor_120",
+                    "material": "_4_-_Default",
+                    "primitive": 4
+                }
+            ]
+        },
+        "geom-terrain_1": {
+            "name": "terrain",
+            "primitives": [
+                {
+                    "attributes": {
+                        "NORMAL": "accessor_151",
+                        "POSITION": "accessor_149",
+                        "TEXCOORD_0": "accessor_153"
+                    },
+                    "indices": "accessor_147",
+                    "material": "_4_-_Default",
+                    "primitive": 4
+                }
+            ]
+        }
+    },
+    "nodes": {
+        "node-dirt_mound": {
+            "children": [
+                "node_2"
+            ],
+            "matrix": [
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                7.07008,
+                178.026,
+                11.8004,
+                1
+            ],
+            "name": "dirt_mound"
+        },
+        "node-game_space": {
+            "children": [],
+            "matrix": [
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0.393189,
+                16.4785,
+                0,
+                1
+            ],
+            "meshes": [
+                "geom-game_space"
+            ],
+            "name": "game_space"
+        },
+        "node-terrain": {
+            "children": [],
+            "matrix": [
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                -57.7094,
+                48.0537,
+                0.378502,
+                1
+            ],
+            "meshes": [
+                "geom-terrain"
+            ],
+            "name": "terrain"
+        },
+        "node-terrain_1": {
+            "children": [],
+            "matrix": [
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                -28.6677,
+                77.8594,
+                -0.239451,
+                1
+            ],
+            "meshes": [
+                "geom-terrain_1"
+            ],
+            "name": "terrain"
+        },
+        "node_0": {
+            "children": [],
+            "light": "EnvironmentAmbientLight",
+            "matrix": [
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1
+            ],
+            "name": "EnvironmentAmbientLight"
+        },
+        "node_2": {
+            "children": [],
+            "matrix": [
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                -14.4582,
+                -183.898,
+                -6.44349,
+                1
+            ],
+            "meshes": [
+                "geom-dirt_mound"
+            ],
+            "name": ""
+        }
+    },
+    "programs": {
+        "program_0": {
+            "attributes": [
+                "a_normal",
+                "a_position"
+            ],
+            "fragmentShader": "terrain_mix0FS",
+            "vertexShader": "terrain_mix0VS"
+        }
+    },
+    "scene": "defaultScene",
+    "scenes": {
+        "defaultScene": {
+            "nodes": [
+                "node_0",
+                "node-dirt_mound",
+                "node-game_space",
+                "node-terrain",
+                "node-terrain_1"
+            ]
+        }
+    },
+    "shaders": {
+        "terrain_mix0FS": {
+            "path": "terrain_mix0FS.glsl",
+            "type": 35632
+        },
+        "terrain_mix0VS": {
+            "path": "terrain_mix0VS.glsl",
+            "type": 35633
+        }
+    },
+    "skins": {},
+    "techniques": {
+        "technique0": {
+            "parameters": {
+                "ambient": {
+                    "type": 35666
+                },
+                "diffuse": {
+                    "type": 35666
+                },
+                "emission": {
+                    "type": 35666
+                },
+                "modelViewMatrix": {
+                    "semantic": "MODELVIEW",
+                    "type": 35676
+                },
+                "normal": {
+                    "semantic": "NORMAL",
+                    "type": 35665
+                },
+                "normalMatrix": {
+                    "semantic": "MODELVIEWINVERSETRANSPOSE",
+                    "type": 35675
+                },
+                "position": {
+                    "semantic": "POSITION",
+                    "type": 35665
+                },
+                "projectionMatrix": {
+                    "semantic": "PROJECTION",
+                    "type": 35676
+                },
+                "shininess": {
+                    "type": 5126
+                },
+                "specular": {
+                    "type": 35666
+                }
+            },
+            "pass": "defaultPass",
+            "passes": {
+                "defaultPass": {
+                    "details": {
+                        "commonProfile": {
+                            "extras": {
+                                "doubleSided": false
+                            },
+                            "lightingModel": "Blinn",
+                            "parameters": [
+                                "ambient",
+                                "diffuse",
+                                "emission",
+                                "modelViewMatrix",
+                                "normalMatrix",
+                                "projectionMatrix",
+                                "shininess",
+                                "specular"
+                            ]
+                        },
+                        "type": "COLLADA-1.4.1/commonProfile"
+                    },
+                    "instanceProgram": {
+                        "attributes": {
+                            "a_normal": "normal",
+                            "a_position": "position"
+                        },
+                        "program": "program_0",
+                        "uniforms": {
+                            "u_ambient": "ambient",
+                            "u_diffuse": "diffuse",
+                            "u_emission": "emission",
+                            "u_modelViewMatrix": "modelViewMatrix",
+                            "u_normalMatrix": "normalMatrix",
+                            "u_projectionMatrix": "projectionMatrix",
+                            "u_shininess": "shininess",
+                            "u_specular": "specular"
+                        }
+                    },
+                    "states": {
+                        "blendEnable": 0,
+                        "cullFaceEnable": 1,
+                        "depthMask": 1,
+                        "depthTestEnable": 1
+                    }
+                }
+            }
+        }
+    }
+}

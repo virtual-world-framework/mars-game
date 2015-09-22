@@ -15,7 +15,7 @@
 ---
 extends: ../rover.vwf
 implements: [ "http://vwf.example.com/blockly/controller.vwf", "griddable.vwf" ]
-source: ../../assets/3d/Rover/rover_pink.dae
-type: model/vnd.collada+xml
+source: ../../assets/3d/Rover/rover_pink.json
+type: model/vnd.gltf+json
 properties:
   displayName: "Rover"

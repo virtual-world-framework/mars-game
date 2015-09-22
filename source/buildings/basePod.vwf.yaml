@@ -31,13 +31,13 @@ properties:
 children:
   closed:
     extends: http://vwf.example.com/node3.vwf
-    source: ../../assets/3d/Mars_Assets/base_pod_closed.dae
-    type: model/vnd.collada+xml
+    source: ../../assets/3d/Mars_Assets/base_pod_closed.json
+    type: model/vnd.gltf+json
     properties:
       visible: false
   open:
     extends: http://vwf.example.com/node3.vwf
-    source: ../../assets/3d/Mars_Assets/base_pod_open.dae
-    type: model/vnd.collada+xml
+    source: ../../assets/3d/Mars_Assets/base_pod_open.json
+    type: model/vnd.gltf+json
     properties:
       visible: false

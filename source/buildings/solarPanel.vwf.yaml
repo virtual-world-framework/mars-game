@@ -14,8 +14,8 @@
 
 ---
 extends: marsBaseBuilding.vwf
-source: ../../assets/3d/solar_panel/solar_panel.dae
-type: model/vnd.collada+xml
+source: ../../assets/3d/solar_panel/solar_panel.json
+type: model/vnd.gltf+json
 properties:
   buildingType: 'solarPanel'
   useAnimatedShader: false

@@ -1,0 +1,928 @@
+{
+    "accessors": {
+        "accessor_100": {
+            "bufferView": "bufferView_215",
+            "byteOffset": 41328,
+            "byteStride": 12,
+            "count": 3444,
+            "max": [
+                0.965926,
+                1,
+                1
+            ],
+            "min": [
+                -0.965926,
+                -1,
+                -1
+            ],
+            "type": 35665
+        },
+        "accessor_102": {
+            "bufferView": "bufferView_215",
+            "byteOffset": 82656,
+            "byteStride": 8,
+            "count": 3444,
+            "max": [
+                0.998579,
+                0.997469
+            ],
+            "min": [
+                0.419442,
+                0.0198922
+            ],
+            "type": 35664
+        },
+        "accessor_104": {
+            "bufferView": "bufferView_215",
+            "byteOffset": 110208,
+            "byteStride": 8,
+            "count": 3444,
+            "max": [
+                0.998579,
+                0.997469
+            ],
+            "min": [
+                0.419442,
+                0.0198922
+            ],
+            "type": 35664
+        },
+        "accessor_106": {
+            "bufferView": "bufferView_215",
+            "byteOffset": 137760,
+            "byteStride": 8,
+            "count": 3444,
+            "max": [
+                0.998579,
+                0.997469
+            ],
+            "min": [
+                0.419442,
+                0.0198922
+            ],
+            "type": 35664
+        },
+        "accessor_149": {
+            "bufferView": "bufferView_214",
+            "byteOffset": 26616,
+            "byteStride": 0,
+            "count": 408,
+            "type": 5123
+        },
+        "accessor_151": {
+            "bufferView": "bufferView_215",
+            "byteOffset": 480480,
+            "byteStride": 12,
+            "count": 408,
+            "max": [
+                94.2757,
+                -27.045,
+                200.736
+            ],
+            "min": [
+                -94.3138,
+                -179.133,
+                34.828
+            ],
+            "type": 35665
+        },
+        "accessor_153": {
+            "bufferView": "bufferView_215",
+            "byteOffset": 485376,
+            "byteStride": 12,
+            "count": 408,
+            "max": [
+                0.948711,
+                0.998838,
+                1
+            ],
+            "min": [
+                -0.948711,
+                -0.984808,
+                -1
+            ],
+            "type": 35665
+        },
+        "accessor_155": {
+            "bufferView": "bufferView_215",
+            "byteOffset": 490272,
+            "byteStride": 8,
+            "count": 408,
+            "max": [
+                0.996851,
+                0.933664
+            ],
+            "min": [
+                0.129042,
+                0.00158828
+            ],
+            "type": 35664
+        },
+        "accessor_157": {
+            "bufferView": "bufferView_215",
+            "byteOffset": 493536,
+            "byteStride": 8,
+            "count": 408,
+            "max": [
+                0.996851,
+                0.933664
+            ],
+            "min": [
+                0.129042,
+                0.00158828
+            ],
+            "type": 35664
+        },
+        "accessor_159": {
+            "bufferView": "bufferView_215",
+            "byteOffset": 496800,
+            "byteStride": 8,
+            "count": 408,
+            "max": [
+                0.996851,
+                0.933664
+            ],
+            "min": [
+                0.129042,
+                0.00158828
+            ],
+            "type": 35664
+        },
+        "accessor_202": {
+            "bufferView": "bufferView_214",
+            "byteOffset": 27432,
+            "byteStride": 0,
+            "count": 2712,
+            "type": 5123
+        },
+        "accessor_204": {
+            "bufferView": "bufferView_215",
+            "byteOffset": 500064,
+            "byteStride": 12,
+            "count": 2712,
+            "max": [
+                191.087,
+                189.133,
+                200.736
+            ],
+            "min": [
+                -191.087,
+                -189.133,
+                -54.5358
+            ],
+            "type": 35665
+        },
+        "accessor_206": {
+            "bufferView": "bufferView_215",
+            "byteOffset": 532608,
+            "byteStride": 12,
+            "count": 2712,
+            "max": [
+                1,
+                1,
+                1
+            ],
+            "min": [
+                -1,
+                -1,
+                -1
+            ],
+            "type": 35665
+        },
+        "accessor_208": {
+            "bufferView": "bufferView_215",
+            "byteOffset": 565152,
+            "byteStride": 8,
+            "count": 2712,
+            "max": [
+                0.999871,
+                0.999758
+            ],
+            "min": [
+                0.000156879,
+                0.00108278
+            ],
+            "type": 35664
+        },
+        "accessor_210": {
+            "bufferView": "bufferView_215",
+            "byteOffset": 586848,
+            "byteStride": 8,
+            "count": 2712,
+            "max": [
+                0.999871,
+                0.999758
+            ],
+            "min": [
+                0.000156879,
+                0.00108278
+            ],
+            "type": 35664
+        },
+        "accessor_212": {
+            "bufferView": "bufferView_215",
+            "byteOffset": 608544,
+            "byteStride": 8,
+            "count": 2712,
+            "max": [
+                0.999871,
+                0.999758
+            ],
+            "min": [
+                0.000156879,
+                0.00108278
+            ],
+            "type": 35664
+        },
+        "accessor_43": {
+            "bufferView": "bufferView_214",
+            "byteOffset": 6888,
+            "byteStride": 0,
+            "count": 9864,
+            "type": 5123
+        },
+        "accessor_45": {
+            "bufferView": "bufferView_215",
+            "byteOffset": 165312,
+            "byteStride": 12,
+            "count": 6566,
+            "max": [
+                127.28,
+                158.705,
+                616.111
+            ],
+            "min": [
+                -127.28,
+                -159.225,
+                28.7655
+            ],
+            "type": 35665
+        },
+        "accessor_47": {
+            "bufferView": "bufferView_215",
+            "byteOffset": 244104,
+            "byteStride": 12,
+            "count": 6566,
+            "max": [
+                1,
+                1,
+                1
+            ],
+            "min": [
+                -1,
+                -1,
+                -1
+            ],
+            "type": 35665
+        },
+        "accessor_49": {
+            "bufferView": "bufferView_215",
+            "byteOffset": 322896,
+            "byteStride": 8,
+            "count": 6566,
+            "max": [
+                0.998648,
+                0.999506
+            ],
+            "min": [
+                -9.31537,
+                -0.986376
+            ],
+            "type": 35664
+        },
+        "accessor_51": {
+            "bufferView": "bufferView_215",
+            "byteOffset": 375424,
+            "byteStride": 8,
+            "count": 6566,
+            "max": [
+                0.998648,
+                0.999506
+            ],
+            "min": [
+                -9.31537,
+                -0.986376
+            ],
+            "type": 35664
+        },
+        "accessor_53": {
+            "bufferView": "bufferView_215",
+            "byteOffset": 427952,
+            "byteStride": 8,
+            "count": 6566,
+            "max": [
+                0.998648,
+                0.999506
+            ],
+            "min": [
+                -9.31537,
+                -0.986376
+            ],
+            "type": 35664
+        },
+        "accessor_96": {
+            "bufferView": "bufferView_214",
+            "byteOffset": 0,
+            "byteStride": 0,
+            "count": 3444,
+            "type": 5123
+        },
+        "accessor_98": {
+            "bufferView": "bufferView_215",
+            "byteOffset": 0,
+            "byteStride": 12,
+            "count": 3444,
+            "max": [
+                533.138,
+                41.5581,
+                593.941
+            ],
+            "min": [
+                -533.231,
+                -41.5582,
+                395.44
+            ],
+            "type": 35665
+        }
+    },
+    "animations": {},
+    "asset": {
+        "generator": "collada2gltf@63e932907e3f0c834c8668d04f03ddb6eabf78d1",
+        "premultipliedAlpha": true,
+        "profile": "WebGL 1.0.2",
+        "version": 0.6
+    },
+    "bufferViews": {
+        "bufferView_214": {
+            "buffer": "satellite",
+            "byteLength": 32856,
+            "byteOffset": 0,
+            "target": 34963
+        },
+        "bufferView_215": {
+            "buffer": "satellite",
+            "byteLength": 630240,
+            "byteOffset": 32856,
+            "target": 34962
+        }
+    },
+    "buffers": {
+        "satellite": {
+            "byteLength": 663096,
+            "path": "satellite.bin",
+            "type": "arraybuffer"
+        }
+    },
+    "images": {
+        "satellite_jpg": {
+            "path": "satellite.jpg"
+        },
+        "satellite_nrm_jpg": {
+            "path": "satellite_nrm.jpg"
+        },
+        "satellite_spec_jpg": {
+            "path": "satellite_spec.jpg"
+        },
+        "space_craft_jpg": {
+            "path": "space_craft.jpg"
+        },
+        "space_craft_nrm_jpg": {
+            "path": "space_craft_nrm.jpg"
+        },
+        "space_craft_spec_jpg": {
+            "path": "space_craft_spec.jpg"
+        }
+    },
+    "lights": {
+        "EnvironmentAmbientLight": {
+            "ambient": {
+                "color": [
+                    0,
+                    0,
+                    0
+                ]
+            },
+            "type": "ambient"
+        }
+    },
+    "materials": {
+        "satellite": {
+            "instanceTechnique": {
+                "technique": "technique0",
+                "values": {
+                    "ambient": "texture_satellite_jpg",
+                    "diffuse": "texture_satellite_jpg",
+                    "emission": [
+                        0,
+                        0,
+                        0,
+                        1
+                    ],
+                    "shininess": 1,
+                    "specular": [
+                        0.9,
+                        0.9,
+                        0.9,
+                        1
+                    ]
+                }
+            },
+            "name": "satellite"
+        },
+        "spacecraft": {
+            "instanceTechnique": {
+                "technique": "technique0",
+                "values": {
+                    "ambient": "texture_space_craft_jpg",
+                    "diffuse": "texture_space_craft_jpg",
+                    "emission": [
+                        0,
+                        0,
+                        0,
+                        1
+                    ],
+                    "shininess": 1,
+                    "specular": [
+                        0.9,
+                        0.9,
+                        0.9,
+                        1
+                    ]
+                }
+            },
+            "name": "spacecraft"
+        }
+    },
+    "meshes": {
+        "geom-Object001": {
+            "name": "Object001",
+            "primitives": [
+                {
+                    "attributes": {
+                        "NORMAL": "accessor_100",
+                        "POSITION": "accessor_98",
+                        "TEXCOORD_0": "accessor_102",
+                        "TEXCOORD_1": "accessor_104",
+                        "TEXCOORD_2": "accessor_106"
+                    },
+                    "indices": "accessor_96",
+                    "material": "satellite",
+                    "primitive": 4
+                }
+            ]
+        },
+        "geom-sat": {
+            "name": "sat",
+            "primitives": [
+                {
+                    "attributes": {
+                        "NORMAL": "accessor_47",
+                        "POSITION": "accessor_45",
+                        "TEXCOORD_0": "accessor_49",
+                        "TEXCOORD_1": "accessor_51",
+                        "TEXCOORD_2": "accessor_53"
+                    },
+                    "indices": "accessor_43",
+                    "material": "satellite",
+                    "primitive": 4
+                }
+            ]
+        },
+        "geom-ship_door": {
+            "name": "ship_door",
+            "primitives": [
+                {
+                    "attributes": {
+                        "NORMAL": "accessor_153",
+                        "POSITION": "accessor_151",
+                        "TEXCOORD_0": "accessor_155",
+                        "TEXCOORD_1": "accessor_157",
+                        "TEXCOORD_2": "accessor_159"
+                    },
+                    "indices": "accessor_149",
+                    "material": "spacecraft",
+                    "primitive": 4
+                }
+            ]
+        },
+        "geom-space_ship": {
+            "name": "space_ship",
+            "primitives": [
+                {
+                    "attributes": {
+                        "NORMAL": "accessor_206",
+                        "POSITION": "accessor_204",
+                        "TEXCOORD_0": "accessor_208",
+                        "TEXCOORD_1": "accessor_210",
+                        "TEXCOORD_2": "accessor_212"
+                    },
+                    "indices": "accessor_202",
+                    "material": "spacecraft",
+                    "primitive": 4
+                }
+            ]
+        }
+    },
+    "nodes": {
+        "node-Group002": {
+            "children": [
+                "node-sat",
+                "node-Object001",
+                "node-ship_door",
+                "node-space_ship"
+            ],
+            "matrix": [
+                3.9412,
+                0,
+                0,
+                0,
+                0,
+                3.9412,
+                0,
+                0,
+                0,
+                0,
+                3.9412,
+                0,
+                -0.474949,
+                -0.050351,
+                0.383438,
+                1
+            ],
+            "name": "Group002"
+        },
+        "node-Object001": {
+            "children": [
+                "node_5"
+            ],
+            "matrix": [
+                0.000601316,
+                0.000106389,
+                0.000427585,
+                0,
+                -0.000129877,
+                0.00073407,
+                -1.54091e-11,
+                0,
+                -0.000421046,
+                -7.44943e-05,
+                0.000610654,
+                0,
+                1.70804,
+                -12.4643,
+                -1.19753,
+                1
+            ],
+            "name": "Object001"
+        },
+        "node-sat": {
+            "children": [
+                "node_3"
+            ],
+            "matrix": [
+                0.000601316,
+                0.000106389,
+                0.000427585,
+                0,
+                -0.000129877,
+                0.00073407,
+                -1.54091e-11,
+                0,
+                -0.000421046,
+                -7.44943e-05,
+                0.000610654,
+                0,
+                1.70804,
+                -12.4643,
+                -1.19753,
+                1
+            ],
+            "name": "sat"
+        },
+        "node-ship_door": {
+            "children": [
+                "node_7"
+            ],
+            "matrix": [
+                0.0237127,
+                0.00419541,
+                0.0168617,
+                0,
+                -0.0137029,
+                -0.0130258,
+                0.0225115,
+                0,
+                0.010684,
+                -0.026018,
+                -0.00855135,
+                0,
+                1.70804,
+                -12.4643,
+                -1.19753,
+                1
+            ],
+            "name": "ship_door"
+        },
+        "node-space_ship": {
+            "children": [
+                "node_9"
+            ],
+            "matrix": [
+                0.0237127,
+                0.00419542,
+                0.0168617,
+                0,
+                -0.0145962,
+                0.0202871,
+                0.015479,
+                0,
+                -0.00942712,
+                -0.0208577,
+                0.0184471,
+                0,
+                1.70804,
+                -12.4643,
+                -1.19753,
+                1
+            ],
+            "name": "space_ship"
+        },
+        "node_0": {
+            "children": [],
+            "light": "EnvironmentAmbientLight",
+            "matrix": [
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1
+            ],
+            "name": "EnvironmentAmbientLight"
+        },
+        "node_3": {
+            "children": [],
+            "matrix": [
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                1521.39,
+                16842.2,
+                505.578,
+                1
+            ],
+            "meshes": [
+                "geom-sat"
+            ],
+            "name": ""
+        },
+        "node_5": {
+            "children": [],
+            "matrix": [
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                1521.38,
+                16842.2,
+                505.566,
+                1
+            ],
+            "meshes": [
+                "geom-Object001"
+            ],
+            "name": ""
+        },
+        "node_7": {
+            "children": [],
+            "matrix": [
+                -0.0168437,
+                -2.54332e-09,
+                1.47252e-09,
+                0,
+                4.74201e-10,
+                0.00597695,
+                0.0157476,
+                0,
+                -2.90034e-09,
+                0.0157476,
+                -0.00597695,
+                0,
+                38.579,
+                -141.851,
+                -402.986,
+                1
+            ],
+            "meshes": [
+                "geom-ship_door"
+            ],
+            "name": ""
+        },
+        "node_9": {
+            "children": [],
+            "matrix": [
+                -0.0168437,
+                -1.47252e-09,
+                -5.68488e-16,
+                0,
+                1.12802e-09,
+                -0.012903,
+                0.0108269,
+                0,
+                -9.46518e-10,
+                0.0108269,
+                0.012903,
+                0,
+                38.5791,
+                333.92,
+                -266.488,
+                1
+            ],
+            "meshes": [
+                "geom-space_ship"
+            ],
+            "name": ""
+        }
+    },
+    "programs": {
+        "program_0": {
+            "attributes": [
+                "a_normal",
+                "a_position",
+                "a_texcoord0"
+            ],
+            "fragmentShader": "satellite0FS",
+            "vertexShader": "satellite0VS"
+        }
+    },
+    "samplers": {
+        "sampler_0": {
+            "magFilter": 9729,
+            "minFilter": 9729,
+            "wrapS": 10497,
+            "wrapT": 10497
+        }
+    },
+    "scene": "defaultScene",
+    "scenes": {
+        "defaultScene": {
+            "nodes": [
+                "node_0",
+                "node-Group002"
+            ]
+        }
+    },
+    "shaders": {
+        "satellite0FS": {
+            "path": "satellite0FS.glsl",
+            "type": 35632
+        },
+        "satellite0VS": {
+            "path": "satellite0VS.glsl",
+            "type": 35633
+        }
+    },
+    "skins": {},
+    "techniques": {
+        "technique0": {
+            "parameters": {
+                "ambient": {
+                    "type": 35678
+                },
+                "diffuse": {
+                    "type": 35678
+                },
+                "emission": {
+                    "type": 35666
+                },
+                "modelViewMatrix": {
+                    "semantic": "MODELVIEW",
+                    "type": 35676
+                },
+                "normal": {
+                    "semantic": "NORMAL",
+                    "type": 35665
+                },
+                "normalMatrix": {
+                    "semantic": "MODELVIEWINVERSETRANSPOSE",
+                    "type": 35675
+                },
+                "position": {
+                    "semantic": "POSITION",
+                    "type": 35665
+                },
+                "projectionMatrix": {
+                    "semantic": "PROJECTION",
+                    "type": 35676
+                },
+                "shininess": {
+                    "type": 5126
+                },
+                "specular": {
+                    "type": 35666
+                },
+                "texcoord0": {
+                    "semantic": "TEXCOORD_0",
+                    "type": 35664
+                }
+            },
+            "pass": "defaultPass",
+            "passes": {
+                "defaultPass": {
+                    "details": {
+                        "commonProfile": {
+                            "extras": {
+                                "doubleSided": false
+                            },
+                            "lightingModel": "Phong",
+                            "parameters": [
+                                "ambient",
+                                "diffuse",
+                                "emission",
+                                "modelViewMatrix",
+                                "normalMatrix",
+                                "projectionMatrix",
+                                "shininess",
+                                "specular"
+                            ],
+                            "texcoordBindings": {
+                                "ambient": "TEXCOORD_0",
+                                "diffuse": "TEXCOORD_0"
+                            }
+                        },
+                        "type": "COLLADA-1.4.1/commonProfile"
+                    },
+                    "instanceProgram": {
+                        "attributes": {
+                            "a_normal": "normal",
+                            "a_position": "position",
+                            "a_texcoord0": "texcoord0"
+                        },
+                        "program": "program_0",
+                        "uniforms": {
+                            "u_ambient": "ambient",
+                            "u_diffuse": "diffuse",
+                            "u_emission": "emission",
+                            "u_modelViewMatrix": "modelViewMatrix",
+                            "u_normalMatrix": "normalMatrix",
+                            "u_projectionMatrix": "projectionMatrix",
+                            "u_shininess": "shininess",
+                            "u_specular": "specular"
+                        }
+                    },
+                    "states": {
+                        "blendEnable": 0,
+                        "cullFaceEnable": 1,
+                        "depthMask": 1,
+                        "depthTestEnable": 1
+                    }
+                }
+            }
+        }
+    },
+    "textures": {
+        "texture_satellite_jpg": {
+            "format": 6408,
+            "internalFormat": 6408,
+            "sampler": "sampler_0",
+            "source": "satellite_jpg",
+            "target": 3553,
+            "type": 5121
+        },
+        "texture_space_craft_jpg": {
+            "format": 6408,
+            "internalFormat": 6408,
+            "sampler": "sampler_0",
+            "source": "space_craft_jpg",
+            "target": 3553,
+            "type": 5121
+        }
+    }
+}

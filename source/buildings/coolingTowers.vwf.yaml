@@ -14,7 +14,7 @@
 
 ---
 extends: marsBaseBuilding.vwf
-source: ../../assets/3d/cooling_towers/cooling_towers.dae
-type: model/vnd.collada+xml
+source: ../../assets/3d/cooling_towers/cooling_towers.json
+type: model/vnd.gltf+json
 properties:
   buildingType: 'waterManagement'
