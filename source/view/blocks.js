@@ -120,11 +120,11 @@ Blockly.Blocks['triangle_flow'] = {
         .setAlign(Blockly.ALIGN_CENTRE)
         .appendField("⇩");
     this.appendDummyInput()
-        .appendField("△ A'B'C'");
-        .appendField("(0,0)", "COORDA");
-        .appendField(" ");
-        .appendField("(0,1)", "COORDB");
-        .appendField(" ");
+        .appendField("△ A'B'C'")
+        .appendField("(0,0)", "COORDA")
+        .appendField(" ")
+        .appendField("(0,1)", "COORDB")
+        .appendField(" ")
         .appendField("(1,0)", "COORDC");
     this.setInputsInline(false);
     this.setPreviousStatement(true);
@@ -165,9 +165,12 @@ Blockly.JavaScript['triangle_flow'] = function(block) {
   
   // Extract values from dummy fields COORDA - COORDB - COORDC
   
-  var op_a = op_a_str.split(",");
-  var op_b = op_b_str.split(",");
-  var op_c = op_c_str.split(",");
+  var op_a = [0,0];
+  var op_b = [0,1];
+  var op_c = [1,0];
+  //var op_a = op_a_str.split(",");
+  //var op_b = op_b_str.split(",");
+  //var op_c = op_c_str.split(",");
 
   if ( op_a.length < 2 || op_b.length < 2 || op_c.length < 2 ) {
     return '';
@@ -222,7 +225,7 @@ Blockly.JavaScript['triangle_flow'] = function(block) {
 
 Blockly.Blocks['triangle_operations'] = {
   init: function() {
-    this.appendDummyInput()
+    this.appendStatementInput('INPUT')
         .setAlign(Blockly.ALIGN_CENTRE)
         .appendField(new Blockly.FieldDropdown([["dilate", "DILATE"], ["translate", "TRANSLATE"], ["rotate", "ROTATE"]]), "OP")
         .appendField("(")
@@ -257,12 +260,12 @@ Blockly.Blocks['triangle_operations'] = {
         .appendField(new Blockly.FieldTextInput("0"), "CY")
         .appendField(")");
     this.appendDummyInput()
-        .appendField("", "CURRENTA");
-        .appendField("", "CURRENTB");
+        .appendField("", "CURRENTA")
+        .appendField("", "CURRENTB")
         .appendField("", "CURRENTC");
     this.setInputsInline(false);
     this.setPreviousStatement(true, 'INPUT');
-    this.setNextStatement(true, 'OUTPUT');
+    this.setNextStatement(true);
     this.setColour(195);
     this.setTooltip('');
     this.data = currentBlocklyNodeID;
@@ -374,6 +377,11 @@ Blockly.JavaScript['triangle_operations'] = function(block) {
 
   var inputBlock = block.getSurroundParent();
 
+  //Check childBlocks_ (array) and parentBlock_ (direct block reference)
+
+  //A triangle flow with 2 operators would have the first operator be the childblock of triangle_flow
+  //The second operator would be the childblock of the first operator
+  //Flow "up" the stack by popping up through parentBlock_ !== null once childblocks_ has a length of 0
 
   if ( inputBlock !== undefined ) {
     if ( inputBlock.type == 'triangle_flow' ) {
@@ -407,7 +415,7 @@ Blockly.JavaScript['triangle_operations'] = function(block) {
     }
   }
   
-  var code = '';
+  var code = 'testingflow';
   return code;
 };
 
