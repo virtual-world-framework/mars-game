@@ -303,9 +303,16 @@ Blockly.Blocks['triangle_operations'] = {
     var text_cx = block.getFieldValue('CX');
     var text_cy = block.getFieldValue('CY');
 
-    var inputBlock = block.getSurroundParent();
+    //var inputBlock = block.getSurroundParent();
+    var inputBlock = block.parentBlock_;
 
-    if ( inputBlock !== undefined ) {
+    //Check childBlocks_ (array) and parentBlock_ (direct block reference)
+
+    //A triangle flow with 2 operators would have the first operator be the childblock of triangle_flow
+    //The second operator would be the childblock of the first operator
+    //Flow "up" the stack by popping up through parentBlock_ !== null once childblocks_ has a length of 0
+
+    if ( inputBlock !== null ) {
       if ( inputBlock.type == 'triangle_flow' ) {
         var currentA = [0,0];
         var currentB = [0,1];
@@ -327,7 +334,7 @@ Blockly.Blocks['triangle_operations'] = {
         }
       }
     } else {
-      inputBlock = block.getInputTargetBlock('INPUT');
+      inputBlock = block.childBlocks_[0];
 
       if ( inputBlock !== undefined ) {
         var currentA = eval( inputBlock.getFieldValue('CURRENTA') );
@@ -362,7 +369,7 @@ Blockly.Blocks['triangle_operations'] = {
       block = block.parentBlock_;
     } while ( block );
 
-    if ( targetBlock.type == 'triangle_flow' ) { //Which it should be given our connectio checks...
+    if ( targetBlock.type == 'triangle_flow' ) { //Which it should be given our connection checks...
 
       //Set target block's values with the current A B and C
 
@@ -384,9 +391,6 @@ Blockly.JavaScript['triangle_operations'] = function(block) {
   var text_by = block.getFieldValue('BY');
   var text_cx = block.getFieldValue('CX');
   var text_cy = block.getFieldValue('CY');
-
-  // TODO: Assemble JavaScript into code variable.
-
 
   //var inputBlock = block.getSurroundParent();
   var inputBlock = block.parentBlock_;
@@ -445,6 +449,25 @@ Blockly.JavaScript['triangle_operations'] = function(block) {
       //var inputY = inputBlock.getFieldValue('OPY');
     }
   }
+
+  var block = this;
+  var targetBlock;
+
+  do {
+    targetBlock = block;
+    block = block.parentBlock_;
+  } while ( block );
+
+  if ( targetBlock.type == 'triangle_flow' ) { //Which it should be given our connection checks...
+
+    //Set target block's values with the current A B and C
+
+    targetBlock.setFieldValue( ''+currentA+'','CURRENTA' );
+    targetBlock.setFieldValue( ''+currentB+'','CURRENTB' );
+    targetBlock.setFieldValue( ''+currentC+'','CURRENTC' );
+
+  }
+    
   
   var code = 'testingflow';
   return code;
