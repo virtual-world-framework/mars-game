@@ -16,10 +16,10 @@
 extends: http://vwf.example.com/hud/element.vwf
 properties:
   images:
-    frame: "assets/images/hud/active_rover_frame.png"
-    rover: "assets/images/hud/portrait_rover_large.png"
-    rover2: "assets/images/hud/portrait_scout_large.png"
-    ring: "assets/images/hud/active_rover_energy_ring.png"
+    frame: "../assets/images/hud/active_rover_frame.png"
+    rover: "../assets/images/hud/portrait_rover_large.png"
+    rover2: "../assets/images/hud/portrait_scout_large.png"
+    ring: "../assets/images/hud/active_rover_energy_ring.png"
   width: 150
   height: 150
   visible: true

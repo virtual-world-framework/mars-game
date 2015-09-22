@@ -19,9 +19,9 @@ type: model/vnd.collada+xml
 properties:
   buildingType: 'waterManagement'
   useAnimatedShader: true
-  diffuseSrc: "assets/3d/water_vap/water_vap.png"
-  normalSrc: "assets/3d/water_vap/water_vap_n.png"
-  specularSrc: "assets/3d/water_vap/water_vap_s.png"
+  diffuseSrc: "../assets/3d/water_vap/water_vap.png"
+  normalSrc: "../assets/3d/water_vap/water_vap_n.png"
+  specularSrc: "../assets/3d/water_vap/water_vap_s.png"
   glowLength: 0.1
   buildDuration: 5
   buildingHeight: 16

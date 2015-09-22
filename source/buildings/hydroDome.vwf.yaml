@@ -19,9 +19,9 @@ type: model/vnd.collada+xml
 properties:
   buildingType: 'waterManagement'
   useAnimatedShader: true
-  diffuseSrc: "assets/3d/hydropon_dome/hydropon.png"
-  normalSrc: "assets/3d/hydropon_dome/hydropon_n.png"
-  specularSrc: "assets/3d/hydropon_dome/hydropon_s.png"
+  diffuseSrc: "../assets/3d/hydropon_dome/hydropon.png"
+  normalSrc: "../assets/3d/hydropon_dome/hydropon_n.png"
+  specularSrc: "../assets/3d/hydropon_dome/hydropon_s.png"
   glowLength: 0.1
   buildDuration: 5
   buildingHeight: 16

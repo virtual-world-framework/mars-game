@@ -199,22 +199,22 @@ children:
           material:
             extends: source/shaders/mixMap.vwf
             properties:
-              mixMap: "assets/3d/Mars_Assets/terrain_mixmap.png"
+              mixMap: "../assets/3d/Mars_Assets/terrain_mixmap.png"
               diffuseMaps:
-                - { "url": "assets/3d/Mars_Assets/level2_ground2_d.png", "wrapTexture": true }
-                - { "url": "assets/3d/Mars_Assets/level2_ground3_d.png", "wrapTexture": true }
-                - { "url": "assets/3d/Mars_Assets/level2_ground1_d.png", "wrapTexture": true }
-                - { "url": "assets/3d/Mars_Assets/level2_rock1_d.png", "wrapTexture": true }
+                - { "url": "../assets/3d/Mars_Assets/level2_ground2_d.png", "wrapTexture": true }
+                - { "url": "../assets/3d/Mars_Assets/level2_ground3_d.png", "wrapTexture": true }
+                - { "url": "../assets/3d/Mars_Assets/level2_ground1_d.png", "wrapTexture": true }
+                - { "url": "../assets/3d/Mars_Assets/level2_rock1_d.png", "wrapTexture": true }
               normalMaps: 
-                - { "url": "assets/3d/Mars_Assets/level2_ground2_n.png", "wrapTexture": true }
-                - { "url": "assets/3d/Mars_Assets/level2_ground3_n.png", "wrapTexture": true }
-                - { "url": "assets/3d/Mars_Assets/level2_ground1_n.png", "wrapTexture": true }
-                - { "url": "assets/3d/Mars_Assets/level2_rock1_n.png", "wrapTexture": true }
+                - { "url": "../assets/3d/Mars_Assets/level2_ground2_n.png", "wrapTexture": true }
+                - { "url": "../assets/3d/Mars_Assets/level2_ground3_n.png", "wrapTexture": true }
+                - { "url": "../assets/3d/Mars_Assets/level2_ground1_n.png", "wrapTexture": true }
+                - { "url": "../assets/3d/Mars_Assets/level2_rock1_n.png", "wrapTexture": true }
               specularMaps:
-                - { "url": "assets/3d/Mars_Assets/level2_ground3_s.png", "wrapTexture": true }
-                - { "url": "assets/3d/Mars_Assets/level2_ground2_s.png", "wrapTexture": true }
-                - { "url": "assets/3d/Mars_Assets/level2_ground1_s.png", "wrapTexture": true }
-                - { "url": "assets/3d/Mars_Assets/level2_rock1_s.png", "wrapTexture": true }
+                - { "url": "../assets/3d/Mars_Assets/level2_ground3_s.png", "wrapTexture": true }
+                - { "url": "../assets/3d/Mars_Assets/level2_ground2_s.png", "wrapTexture": true }
+                - { "url": "../assets/3d/Mars_Assets/level2_ground1_s.png", "wrapTexture": true }
+                - { "url": "../assets/3d/Mars_Assets/level2_rock1_s.png", "wrapTexture": true }
               tileMap:
                 url: "assets/3d/Mars_Assets/tilemap.png"
                 magFilter: "nearest"
@@ -245,7 +245,7 @@ children:
           receiveShadows: true
       heightmap:
         extends: http://vwf.example.com/heightmap.vwf
-        source: assets/3d/Mars_Assets/heightmap.png
+        source: "assets/3d/Mars_Assets/heightmap.png"
         type: image/png
         properties:
           minWorldX: -256
@@ -276,7 +276,7 @@ children:
               alphaTest: 0.25
   tileMap:
     extends: source/tileMap.vwf
-    source: assets/3d/Mars_Assets/tilemap.png
+    source: "assets/3d/Mars_Assets/tilemap.png"
     type: image/png
     properties:
       mapOrigin: [ -128, -128 ]
@@ -579,9 +579,9 @@ children:
       material:
         extends: source/shaders/animatedShader.vwf
         properties:
-          diffuseMap: "assets/3d/solar_panel/solar_panel.png"
-          normalMap: "assets/3d/solar_panel/solar_panel_n.png"
-          specularMap: "assets/3d/solar_panel/solar_panel_s.png"
+          diffuseMap: "../assets/3d/solar_panel/solar_panel.png"
+          normalMap: "../assets/3d/solar_panel/solar_panel_n.png"
+          specularMap: "../assets/3d/solar_panel/solar_panel_s.png"
           lightTrailHeight: 0.1
           normalScale: [ 0.75, 0.75 ]
           shininess: 1
@@ -599,9 +599,9 @@ children:
       material:
         extends: source/shaders/animatedShader.vwf
         properties:
-          diffuseMap: "assets/3d/solar_panel/solar_panel.png"
-          normalMap: "assets/3d/solar_panel/solar_panel_n.png"
-          specularMap: "assets/3d/solar_panel/solar_panel_s.png"
+          diffuseMap: "../assets/3d/solar_panel/solar_panel.png"
+          normalMap: "../assets/3d/solar_panel/solar_panel_n.png"
+          specularMap: "../assets/3d/solar_panel/solar_panel_s.png"
           lightTrailHeight: 0.1
           normalScale: [ 0.75, 0.75 ]
           shininess: 1
@@ -619,9 +619,9 @@ children:
       material:
         extends: source/shaders/animatedShader.vwf
         properties:
-          diffuseMap: "assets/3d/solar_panel/solar_panel.png"
-          normalMap: "assets/3d/solar_panel/solar_panel_n.png"
-          specularMap: "assets/3d/solar_panel/solar_panel_s.png"
+          diffuseMap: "../assets/3d/solar_panel/solar_panel.png"
+          normalMap: "../assets/3d/solar_panel/solar_panel_n.png"
+          specularMap: "../assets/3d/solar_panel/solar_panel_s.png"
           lightTrailHeight: 0.1
           normalScale: [ 0.75, 0.75 ]
           shininess: 1
@@ -639,9 +639,9 @@ children:
       material:
         extends: source/shaders/animatedShader.vwf
         properties:
-          diffuseMap: "assets/3d/solar_panel/solar_panel.png"
-          normalMap: "assets/3d/solar_panel/solar_panel_n.png"
-          specularMap: "assets/3d/solar_panel/solar_panel_s.png"
+          diffuseMap: "../assets/3d/solar_panel/solar_panel.png"
+          normalMap: "../assets/3d/solar_panel/solar_panel_n.png"
+          specularMap: "../assets/3d/solar_panel/solar_panel_s.png"
           lightTrailHeight: 0.1
           normalScale: [ 0.75, 0.75 ]
           shininess: 1

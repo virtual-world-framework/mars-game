@@ -31,6 +31,6 @@ properties:
   emitterType: point
   sizeRange: 1
   colorRange: [ 0.02, 0.02, 0.02, 0 ]
-  image: "assets/images/dust_smoke.png"
+  image: "../assets/images/dust_smoke.png"
   depthWrite: false
   solver: AnalyticShader

@@ -4,6 +4,6 @@ properties:
   wheelFL:
   wheelBL:
   wheelFR:
-  wheelBR: 
+  wheelBR:
 scripts:
  - source: fourWheeledRover.js

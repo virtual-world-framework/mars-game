@@ -30,7 +30,7 @@ properties:
   minLifeTime: 2
   startColor: [ 1, 1, 1, 1 ]
   endColor: [ 0, 0, 0, 0 ]
-  image: ../assets/images/nanite.png
+  image: "../assets/images/nanite.png"
   additive: true
   depthWrite: false
   solver: 'Analytic'

@@ -16,8 +16,8 @@
 extends: http://vwf.example.com/hud/element.vwf
 properties:
   images:
-    frame: "assets/images/hud/communicator_frame.png"
-    meter: "assets/images/hud/communicator_sound_meter.png"
+    frame: "../assets/images/hud/communicator_frame.png"
+    meter: "../assets/images/hud/communicator_sound_meter.png"
     characterImage:
   width: 150
   height: 150

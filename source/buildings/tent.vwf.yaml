@@ -19,9 +19,9 @@ type: model/vnd.collada+xml
 properties:
   buildingType: 'tent'
   useAnimatedShader: true
-  diffuseSrc: "assets/3d/mars_tent/mars_tent.png"
-  normalSrc: "assets/3d/mars_tent/mars_tent_n.png"
-  specularSrc: "assets/3d/mars_tent/mars_tent_s.png"
+  diffuseSrc: "../assets/3d/mars_tent/mars_tent.png"
+  normalSrc: "../assets/3d/mars_tent/mars_tent_n.png"
+  specularSrc: "../assets/3d/mars_tent/mars_tent_s.png"
   glowLength: 0.1
   buildDuration: 5
   buildingHeight: 11

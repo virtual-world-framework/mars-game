@@ -19,9 +19,9 @@ type: model/vnd.collada+xml
 properties:
   buildingType: 'solarPanel'
   useAnimatedShader: false
-  diffuseSrc: "assets/3d/solar_panel/solar_panel.png"
-  normalSrc: "assets/3d/solar_panel/solar_panel_n.png"
-  specularSrc: "assets/3d/solar_panel/solar_panel_s.png"
+  diffuseSrc: "../assets/3d/solar_panel/solar_panel.png"
+  normalSrc: "../assets/3d/solar_panel/solar_panel_n.png"
+  specularSrc: "../assets/3d/solar_panel/solar_panel_s.png"
   glowLength: 0.1
   buildDuration: 5
   buildingHeight: 2.5

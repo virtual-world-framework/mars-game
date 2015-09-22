@@ -28,7 +28,7 @@ properties:
   particleCount: 50
   emitterType: box
   emitterSize: [ 48, 48, 15 ]
-  image: "assets/images/dust_smoke.png"
+  image: "../assets/images/dust_smoke.png"
   depthWrite: false
   offsetFromTarget: [ 10, 10, 3 ]
 methods:
