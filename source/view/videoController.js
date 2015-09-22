@@ -22,17 +22,11 @@ function playVideo( src ) {
         var videoManagerID = vwf_view.kernel.find( "", "//videoManager" )[ 0 ];
         vwf_view.kernel.callMethod( videoManagerID, "show" );
 
-        var videoURLBase = "assets/video/" + src;
+        var videoURLBase = "../assets/video/" + src;
 
-        var redactedURLBase = ( videoURLBase ).replace( new RegExp("/(.*)/.*/assets" ), 
-            function( str, group1 ){ 
-                return group1 + "/assets" 
-            } );
-        
-        //var fileList = [ redactedURLBase + ".webm", redactedURLBase + ".mp4" ]
         var fileList = [];
         for( var i = 0; i < supportedFormats.length; i++ ){
-            fileList.push( redactedURLBase + supportedFormats[i] );
+            fileList.push( videoURLBase + supportedFormats[i] );
         }
         vwf_view.kernel.setProperty( videoManagerID, "url", fileList );
         vwf_view.kernel.callMethod( videoManagerID, "play" );
