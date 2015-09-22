@@ -131,7 +131,7 @@ a:active {
 
 
 #blocklyIndicator {
-    background-image: url( "../../assets/images/blockly_ui/blockly_indicator.png" );
+    background-image: url( "../../../assets/images/blockly_ui/blockly_indicator.png" );
     width: 40px;
     height: 17px;
     position: absolute;
@@ -139,11 +139,11 @@ a:active {
 }
 
 #blocklyIndicator.stopped {
-    background-image: url( "../../assets/images/blockly_ui/blockly_indicator_stopped.png" );
+    background-image: url( "../../../assets/images/blockly_ui/blockly_indicator_stopped.png" );
 }
 
 #blocklyIndicatorCount {
-    background-image: url( "../../assets/images/blockly_ui/number_appendix.png" );
+    background-image: url( "../../../assets/images/blockly_ui/number_appendix.png" );
     width: 38px;
     height: 15px;
     padding-left: 7px;
@@ -156,11 +156,11 @@ a:active {
 }
 
 #blocklyIndicatorCount.stopped {
-    background-image: url( "../../assets/images/blockly_ui/number_appendix_stopped.png" );
+    background-image: url( "../../../assets/images/blockly_ui/number_appendix_stopped.png" );
 }
 
 #blocklyProcedureIndicator {
-    background-image: url( "../../assets/images/blockly_ui/blockly_indicator.png" );
+    background-image: url( "../../../assets/images/blockly_ui/blockly_indicator.png" );
     width: 40px;
     height: 17px;
     position: absolute;
@@ -168,7 +168,7 @@ a:active {
 }
 
 #blocklyProcedureIndicator.stopped {
-    background-image: url( "../../assets/images/blockly_ui/blockly_indicator_stopped.png" );
+    background-image: url( "../../../assets/images/blockly_ui/blockly_indicator_stopped.png" );
 }
 
 #blocklyWrapper {
@@ -229,17 +229,17 @@ a:active {
     position: absolute;
     bottom: 0px;
     right: 0px;
-    background: url( "../../assets/images/blockly_ui/start_button.png" );
+    background: url( "../../../assets/images/blockly_ui/start_button.png" );
     border-bottom-right-radius: 8px;
 }
 
 #startBlockly.disabled {
-    background: url( "../../assets/images/blockly_ui/start_button_disabled.png" );
+    background: url( "../../../assets/images/blockly_ui/start_button_disabled.png" );
     pointer-events: none;
 }
 
 #startBlockly.reset {
-    background: url( "../../assets/images/blockly_ui/reset_button.png" );
+    background: url( "../../../assets/images/blockly_ui/reset_button.png" );
 }
 
 #blocklySpeedButton {
@@ -248,7 +248,7 @@ a:active {
     position: absolute;
     bottom: 0px;
     right: 72px;
-    background: url( "../../assets/images/blockly_ui/speed_button_slow.png" );
+    background: url( "../../../assets/images/blockly_ui/speed_button_slow.png" );
     border-bottom-right-radius: 8px;
 }
 
@@ -258,26 +258,26 @@ a:active {
     position: absolute;
     bottom: 0px;
     right: 72px;
-    background: url( "../../assets/images/blockly_ui/reset_blockly_button.png" );
+    background: url( "../../../assets/images/blockly_ui/reset_blockly_button.png" );
     border-bottom-right-radius: 8px;
 }
 
 #blocklySpeedButton.normal {
-    background: url( "../../assets/images/blockly_ui/speed_button_normal.png" );
+    background: url( "../../../assets/images/blockly_ui/speed_button_normal.png" );
 }
 
 #blocklySpeedButton.fast {
-    background: url( "../../assets/images/blockly_ui/speed_button_fast.png" );
+    background: url( "../../../assets/images/blockly_ui/speed_button_fast.png" );
 }
 
 #blocklySpeedButton.slow {
-    background: url( "../../assets/images/blockly_ui/speed_button_slow.png" );
+    background: url( "../../../assets/images/blockly_ui/speed_button_slow.png" );
 }
 
 .blocklyTab {
     height: 24px;
     width: 96px;
-    background-image: url( "../../assets/images/blockly_ui/tab.png" );
+    background-image: url( "../../../assets/images/blockly_ui/tab.png" );
     background-position: bottom;
     background-repeat: no-repeat;
     display: inline-block;
@@ -291,7 +291,7 @@ a:active {
 }
 
 .blocklyTab.selected {
-    background-image: url( "../../assets/images/blockly_ui/tab_selected.png" );
+    background-image: url( "../../../assets/images/blockly_ui/tab_selected.png" );
     color: rgba( 162, 225, 238, 0.75 );
 }
 
@@ -358,14 +358,14 @@ a:active {
 #blocklyCloseBtn {
     width: 24px;
     height: 24px;
-    background-image: url( "../../assets/images/blockly_ui/close_button.png" );
+    background-image: url( "../../../assets/images/blockly_ui/close_button.png" );
     position: absolute;
     top: 0px;
     right: 4px;
 }
 
 #blocklyCloseBtn.hover {
-    background-image: url( "../../assets/images/blockly_ui/close_button_hover.png" );
+    background-image: url( "../../../assets/images/blockly_ui/close_button_hover.png" );
 }
 
 .subtitleText {
@@ -519,13 +519,13 @@ a:active {
 #previousScenario {
     width: 64px;
     height: 64px;
-    background-image: url( "../../assets/images/previous_arrow.png" );
+    background-image: url( "../../../assets/images/previous_arrow.png" );
 }
 
 #nextScenario {
     width: 64px;
     height: 64px;
-    background-image: url( "../../assets/images/next_arrow.png" );
+    background-image: url( "../../../assets/images/next_arrow.png" );
 }
 
 #scenarioDisplay {
@@ -586,7 +586,7 @@ a:active {
     border-radius: 4px;
     background-position: left bottom;
     background-repeat: repeat-x;
-    background-image: url( "../../assets/images/slider_track.png" );
+    background-image: url( "../../../assets/images/slider_track.png" );
     display: table-cell;
 }
 
@@ -604,15 +604,15 @@ a:active {
     width: 32px;
     background-position: left bottom;
     background-repeat: no-repeat;
-    background-image: url( "../../assets/images/slider_handle.png" );
+    background-image: url( "../../../assets/images/slider_handle.png" );
     pointer-events: none;
 }
 
 #mute {
-    background-image: url( "../../assets/images/volume_icon.png" );
+    background-image: url( "../../../assets/images/volume_icon.png" );
 }
 #mute.muted {
-    background-image: url( "../../assets/images/volume_mute_icon.png" );
+    background-image: url( "../../../assets/images/volume_mute_icon.png" );
 }
 
 #loginBox {

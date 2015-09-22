@@ -16,7 +16,7 @@ var missionBriefDOM = document.getElementById( "mb_screen" );
 var missionBriefTitle = document.getElementById( "mb_title" );
 var missionBriefContent = document.getElementById( "mb_content" );
 var missionBriefImage = document.getElementById( "mb_image" );
-var defaultImage = "../../assets/images/briefBG.png";
+var defaultImage = "../../../assets/images/briefBG.png";
 
 missionBriefDOM.onclick = hideMissionBrief;
 

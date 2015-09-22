@@ -40,7 +40,7 @@
 }
 
 #mb_image {
-    background-image: url( "../../assets/images/briefBG.png" );
+    background-image: url( "../../../assets/images/briefBG.png" );
     background-color: rgb( 0, 0, 0 );
     background-position: center center;
     background-repeat: no-repeat;

@@ -2092,7 +2092,7 @@ Blockly.Blocks['rover_moveForward'] = {
     this.setTooltip( function() {
       var content = {
         text: "Moves the rover one space forward.",
-        imagePath: "assets/images/tooltips/move_forward_smaller.png"
+        imagePath: "../assets/images/tooltips/move_forward_smaller.png"
       }
       return showTooltipInBlockly( thisBlock, content );
     } );
@@ -2127,7 +2127,7 @@ Blockly.Blocks['rover_moveForward_no_out'] = {
     this.setTooltip( function() {
       var content = {
         text: "Moves the rover one space forward.",
-        imagePath: "assets/images/tooltips/move_forward_smaller.png"
+        imagePath: "../assets/images/tooltips/move_forward_smaller.png"
       }
       return showTooltipInBlockly( thisBlock, content );
     } );
@@ -2435,7 +2435,7 @@ Blockly.Blocks['rover_turn_no_out'] = {
     this.setTooltip( function() {
       var content = {
         text: "Turns the rover 90 degrees counter-clockwise (left) or clockwise (right).",
-        imagePath: "assets/images/tooltips/turn_smaller.png"
+        imagePath: "../assets/images/tooltips/turn_smaller.png"
       }
       return showTooltipInBlockly( thisBlock, content );
     } ); 
@@ -2489,7 +2489,7 @@ Blockly.Blocks['rover_turn'] = {
     this.setTooltip( function() {
       var content = {
         text: "Turns the rover 90 degrees counter-clockwise (left) or clockwise (right).",
-        imagePath: "assets/images/tooltips/turn_smaller.png"
+        imagePath: "../assets/images/tooltips/turn_smaller.png"
       }
       return showTooltipInBlockly( thisBlock, content );
     } ); 

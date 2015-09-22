@@ -80,11 +80,11 @@
     background-position: center;
     background-repeat: no-repeat;
     display: table-cell;
-    background-image: url( "../../assets/images/volume_icon.png" );
+    background-image: url( "../../../assets/images/volume_icon.png" );
 }
 
 #mm_mute.muted {
-    background-image: url( "../../assets/images/volume_mute_icon.png" );
+    background-image: url( "../../../assets/images/volume_mute_icon.png" );
 }
 
 #mm_volumeSlider {
@@ -93,7 +93,7 @@
     border-radius: 4px;
     background-position: left bottom;
     background-repeat: repeat-x;
-    background-image: url( "../../assets/images/slider_track.png" );
+    background-image: url( "../../../assets/images/slider_track.png" );
     display: table-cell;
 }
 
@@ -111,6 +111,6 @@
     width: 32px;
     background-position: left bottom;
     background-repeat: no-repeat;
-    background-image: url( "../../assets/images/slider_handle.png" );
+    background-image: url( "../../../assets/images/slider_handle.png" );
     pointer-events: none;
 }
