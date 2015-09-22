@@ -327,6 +327,12 @@ Blockly.Blocks['triangle_operations'] = {
           currentB[ 1 ] = currentB[ 1 ] + opy;
           currentC[ 1 ] = currentC[ 1 ] + opy;
 
+          //Do the math and check against current values in the AX/AY/BX... etc fields
+          //If math matches the numbers, no warning, allow new block to be connected.
+          //If math does not match, warning and bump other connections.
+
+          //The following would be used when setting automatically with the auto_op block
+
           block.setFieldValue( ''+currentA+'','CURRENTA' );
           block.setFieldValue( ''+currentB+'','CURRENTB' );
           block.setFieldValue( ''+currentC+'','CURRENTC' );
