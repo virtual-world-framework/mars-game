@@ -256,9 +256,13 @@ Blockly.Blocks['triangle_operations'] = {
         .appendField(",")
         .appendField(new Blockly.FieldTextInput("0"), "CY")
         .appendField(")");
+    this.appendDummyInput()
+        .appendField("", "CURRENTA");
+        .appendField("", "CURRENTB");
+        .appendField("", "CURRENTC");
     this.setInputsInline(false);
-    this.setPreviousStatement(true);
-    this.setNextStatement(true);
+    this.setPreviousStatement(true, 'INPUT');
+    this.setNextStatement(true, 'OUTPUT');
     this.setColour(195);
     this.setTooltip('');
     this.data = currentBlocklyNodeID;
@@ -285,21 +289,125 @@ Blockly.Blocks['triangle_operations'] = {
       this.setWarningText('Block can only be placed within a triangle flow block');
       currentBlocklyErrors[ this.id ] = true;
     }
+
+    var dropdown_op = block.getFieldValue('OP');
+    var opx = eval( block.getFieldValue('OPX') );
+    var opy = eval( block.getFieldValue('OPY') );
+    var text_ax = block.getFieldValue('AX');
+    var text_ay = block.getFieldValue('AY');
+    var text_bx = block.getFieldValue('BX');
+    var text_by = block.getFieldValue('BY');
+    var text_cx = block.getFieldValue('CX');
+    var text_cy = block.getFieldValue('CY');
+
+    // TODO: Assemble JavaScript into code variable.
+
+
+    var inputBlock = block.getSurroundParent();
+
+
+    if ( inputBlock !== undefined ) {
+      if ( inputBlock.type == 'triangle_flow' ) {
+        var currentA = [0,0];
+        var currentB = [0,1];
+        var currentC = [1,0];
+
+        if ( dropdown_op === 'DILATE' ) {
+          currentA[ 0 ] = currentA[ 0 ] + opx;
+          currentB[ 0 ] = currentB[ 0 ] + opx;
+          currentC[ 0 ] = currentC[ 0 ] + opx;
+
+          currentA[ 1 ] = currentA[ 1 ] + opy;
+          currentB[ 1 ] = currentB[ 1 ] + opy;
+          currentC[ 1 ] = currentC[ 1 ] + opy;
+
+          block.setFieldValue( ''+currentA+'','CURRENTA' );
+          block.setFieldValue( ''+currentB+'','CURRENTB' );
+          block.setFieldValue( ''+currentC+'','CURRENTC' );
+
+        }
+      }
+    } else {
+      inputBlock = block.getInputTargetBlock('INPUT');
+
+      if ( inputBlock !== undefined ) {
+        var currentA = eval( inputBlock.getFieldValue('CURRENTA') );
+        var currentB = eval( inputBlock.getFieldValue('CURRENTB') );
+        var currentC = eval( inputBlock.getFieldValue('CURRENTC') );
+
+        if ( dropdown_op === 'DILATE' ) {
+          currentA[ 0 ] = currentA[ 0 ] + opx;
+          currentB[ 0 ] = currentB[ 0 ] + opx;
+          currentC[ 0 ] = currentC[ 0 ] + opx;
+
+          currentA[ 1 ] = currentA[ 1 ] + opy;
+          currentB[ 1 ] = currentB[ 1 ] + opy;
+          currentC[ 1 ] = currentC[ 1 ] + opy;
+
+          block.setFieldValue( ''+currentA+'','CURRENTA' );
+          block.setFieldValue( ''+currentB+'','CURRENTB' );
+          block.setFieldValue( ''+currentC+'','CURRENTC' );
+
+        }
+        //var inputOperator = inputBlock.getFieldValue('OP');
+        //var inputX = inputBlock.getFieldValue('OPX');
+        //var inputY = inputBlock.getFieldValue('OPY');
+      }
+    }
+
   }
 };
 
 Blockly.JavaScript['triangle_operations'] = function(block) {
   var dropdown_op = block.getFieldValue('OP');
-  var text_opx = block.getFieldValue('OPX');
-  var text_opy = block.getFieldValue('OPY');
+  var opx = eval( block.getFieldValue('OPX') );
+  var opy = eval( block.getFieldValue('OPY') );
   var text_ax = block.getFieldValue('AX');
   var text_ay = block.getFieldValue('AY');
   var text_bx = block.getFieldValue('BX');
   var text_by = block.getFieldValue('BY');
   var text_cx = block.getFieldValue('CX');
   var text_cy = block.getFieldValue('CY');
+
   // TODO: Assemble JavaScript into code variable.
-  var code = '...';
+
+
+  var inputBlock = block.getSurroundParent();
+
+
+  if ( inputBlock !== undefined ) {
+    if ( inputBlock.type == 'triangle_flow' ) {
+
+    }
+  } else {
+    inputBlock = block.getInputTargetBlock('INPUT');
+
+    if ( inputBlock !== undefined ) {
+      var currentA = eval( inputBlock.getFieldValue('CURRENTA') );
+      var currentB = eval( inputBlock.getFieldValue('CURRENTB') );
+      var currentC = eval( inputBlock.getFieldValue('CURRENTC') );
+
+      if ( dropdown_op === 'DILATE' ) {
+        currentA[ 0 ] = currentA[ 0 ] + opx;
+        currentB[ 0 ] = currentB[ 0 ] + opx;
+        currentC[ 0 ] = currentC[ 0 ] + opx;
+
+        currentA[ 1 ] = currentA[ 1 ] + opy;
+        currentB[ 1 ] = currentB[ 1 ] + opy;
+        currentC[ 1 ] = currentC[ 1 ] + opy;
+
+        block.setFieldValue( ''+currentA+'','CURRENTA' );
+        block.setFieldValue( ''+currentB+'','CURRENTB' );
+        block.setFieldValue( ''+currentC+'','CURRENTC' );
+
+      }
+      //var inputOperator = inputBlock.getFieldValue('OP');
+      //var inputX = inputBlock.getFieldValue('OPX');
+      //var inputY = inputBlock.getFieldValue('OPY');
+    }
+  }
+  
+  var code = '';
   return code;
 };
 
