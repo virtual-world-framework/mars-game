@@ -313,29 +313,26 @@ Blockly.Blocks['triangle_operations'] = {
     //Flow "up" the stack by popping up through parentBlock_ !== null once childblocks_ has a length of 0
 
     if ( inputBlock !== null ) {
-      if ( inputBlock.type == 'triangle_flow' ) {
-        var currentA = [0,0];
-        var currentB = [0,1];
-        var currentC = [1,0];
+    if ( inputBlock.type == 'triangle_flow' ) {
+      var currentA = [0,0];
+      var currentB = [0,1];
+      var currentC = [1,0];
 
-        if ( dropdown_op === 'DILATE' ) {
-          currentA[ 0 ] = currentA[ 0 ] + opx;
-          currentB[ 0 ] = currentB[ 0 ] + opx;
-          currentC[ 0 ] = currentC[ 0 ] + opx;
+      if ( dropdown_op === 'DILATE' ) {
+        currentA[ 0 ] = currentA[ 0 ] + opx;
+        currentB[ 0 ] = currentB[ 0 ] + opx;
+        currentC[ 0 ] = currentC[ 0 ] + opx;
 
-          currentA[ 1 ] = currentA[ 1 ] + opy;
-          currentB[ 1 ] = currentB[ 1 ] + opy;
-          currentC[ 1 ] = currentC[ 1 ] + opy;
+        currentA[ 1 ] = currentA[ 1 ] + opy;
+        currentB[ 1 ] = currentB[ 1 ] + opy;
+        currentC[ 1 ] = currentC[ 1 ] + opy;
 
-          block.setFieldValue( ''+currentA+'','CURRENTA' );
-          block.setFieldValue( ''+currentB+'','CURRENTB' );
-          block.setFieldValue( ''+currentC+'','CURRENTC' );
+        block.setFieldValue( ''+currentA+'','CURRENTA' );
+        block.setFieldValue( ''+currentB+'','CURRENTB' );
+        block.setFieldValue( ''+currentC+'','CURRENTC' );
 
-        }
       }
     } else {
-      inputBlock = block.childBlocks_[0];
-
       if ( inputBlock !== undefined ) {
         var currentA = eval( inputBlock.getFieldValue('CURRENTA') );
         var currentB = eval( inputBlock.getFieldValue('CURRENTB') );
@@ -360,6 +357,7 @@ Blockly.Blocks['triangle_operations'] = {
         //var inputY = inputBlock.getFieldValue('OPY');
       }
     }
+  } 
 
     var block = this;
     var targetBlock;
@@ -421,34 +419,32 @@ Blockly.JavaScript['triangle_operations'] = function(block) {
         block.setFieldValue( ''+currentC+'','CURRENTC' );
 
       }
-    }
-  } else {
-    inputBlock = block.childBlocks_[0];
+    } else {
+      if ( inputBlock !== undefined ) {
+        var currentA = eval( inputBlock.getFieldValue('CURRENTA') );
+        var currentB = eval( inputBlock.getFieldValue('CURRENTB') );
+        var currentC = eval( inputBlock.getFieldValue('CURRENTC') );
 
-    if ( inputBlock !== undefined ) {
-      var currentA = eval( inputBlock.getFieldValue('CURRENTA') );
-      var currentB = eval( inputBlock.getFieldValue('CURRENTB') );
-      var currentC = eval( inputBlock.getFieldValue('CURRENTC') );
+        if ( dropdown_op === 'DILATE' ) {
+          currentA[ 0 ] = currentA[ 0 ] + opx;
+          currentB[ 0 ] = currentB[ 0 ] + opx;
+          currentC[ 0 ] = currentC[ 0 ] + opx;
 
-      if ( dropdown_op === 'DILATE' ) {
-        currentA[ 0 ] = currentA[ 0 ] + opx;
-        currentB[ 0 ] = currentB[ 0 ] + opx;
-        currentC[ 0 ] = currentC[ 0 ] + opx;
+          currentA[ 1 ] = currentA[ 1 ] + opy;
+          currentB[ 1 ] = currentB[ 1 ] + opy;
+          currentC[ 1 ] = currentC[ 1 ] + opy;
 
-        currentA[ 1 ] = currentA[ 1 ] + opy;
-        currentB[ 1 ] = currentB[ 1 ] + opy;
-        currentC[ 1 ] = currentC[ 1 ] + opy;
+          block.setFieldValue( ''+currentA+'','CURRENTA' );
+          block.setFieldValue( ''+currentB+'','CURRENTB' );
+          block.setFieldValue( ''+currentC+'','CURRENTC' );
 
-        block.setFieldValue( ''+currentA+'','CURRENTA' );
-        block.setFieldValue( ''+currentB+'','CURRENTB' );
-        block.setFieldValue( ''+currentC+'','CURRENTC' );
-
+        }
+        //var inputOperator = inputBlock.getFieldValue('OP');
+        //var inputX = inputBlock.getFieldValue('OPX');
+        //var inputY = inputBlock.getFieldValue('OPY');
       }
-      //var inputOperator = inputBlock.getFieldValue('OP');
-      //var inputX = inputBlock.getFieldValue('OPX');
-      //var inputY = inputBlock.getFieldValue('OPY');
     }
-  }
+  } 
 
   var block = this;
   var targetBlock;
@@ -467,7 +463,7 @@ Blockly.JavaScript['triangle_operations'] = function(block) {
     targetBlock.setFieldValue( ''+currentC+'','CURRENTC' );
 
   }
-    
+
   
   var code = 'testingflow';
   return code;
