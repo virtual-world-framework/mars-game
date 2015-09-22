@@ -120,12 +120,10 @@ Blockly.Blocks['triangle_flow'] = {
         .setAlign(Blockly.ALIGN_CENTRE)
         .appendField("⇩");
     this.appendDummyInput()
-        .appendField("△ A'B'C'")
-        .appendField("(0,0)", "COORDA")
-        .appendField(" ")
-        .appendField("(0,1)", "COORDB")
-        .appendField(" ")
-        .appendField("(1,0)", "COORDC");
+        .appendField("△ A'B'C' ")
+        .appendField("(0,0)", "CURRENTA")
+        .appendField("(0,1)", "CURRENTB")
+        .appendField("(1,0)", "CURRENTC");
     this.setInputsInline(false);
     this.setPreviousStatement(true);
     this.setNextStatement(true);
@@ -139,19 +137,19 @@ Blockly.Blocks['triangle_flow'] = {
       return;
     }
 
-    var coorda = [ 0, 0 ];
-    var coordb = [ 0, 1 ];
-    var coordc = [ 1, 0 ];
+    // var coorda = [ 0, 0 ];
+    // var coordb = [ 0, 1 ];
+    // var coordc = [ 1, 0 ];
 
-    //Evaluate the stack of connected triangle operations
-    //Perform the requested operations on the triangle
-    //Update the displayed coordinate values
+    // //Evaluate the stack of connected triangle operations
+    // //Perform the requested operations on the triangle
+    // //Update the displayed coordinate values
 
-    this.setEditable(true);
-    this.setFieldValue( '(' + coorda + ')','COORDA' );
-    this.setFieldValue( '(' + coordb + ')','COORDB' );
-    this.setFieldValue( '(' + coordc + ')','COORDC' );
-    this.setEditable(false);
+    // this.setEditable(true);
+    // this.setFieldValue( '(' + coorda + ')','CURRENTA' );
+    // this.setFieldValue( '(' + coordb + ')','CURRENTB' );
+    // this.setFieldValue( '(' + coordc + ')','CURRENTC' );
+    // this.setEditable(false);
   }
 };
 
@@ -225,7 +223,7 @@ Blockly.JavaScript['triangle_flow'] = function(block) {
 
 Blockly.Blocks['triangle_operations'] = {
   init: function() {
-    this.appendStatementInput('INPUT')
+    this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
         .appendField(new Blockly.FieldDropdown([["dilate", "DILATE"], ["translate", "TRANSLATE"], ["rotate", "ROTATE"]]), "OP")
         .appendField("(")
@@ -260,9 +258,9 @@ Blockly.Blocks['triangle_operations'] = {
         .appendField(new Blockly.FieldTextInput("0"), "CY")
         .appendField(")");
     this.appendDummyInput()
-        .appendField("", "CURRENTA")
-        .appendField("", "CURRENTB")
-        .appendField("", "CURRENTC");
+        .appendField("?", "CURRENTA")
+        .appendField("?", "CURRENTB")
+        .appendField("?", "CURRENTC");
     this.setInputsInline(false);
     this.setPreviousStatement(true, 'INPUT');
     this.setNextStatement(true);
@@ -293,6 +291,8 @@ Blockly.Blocks['triangle_operations'] = {
       currentBlocklyErrors[ this.id ] = true;
     }
 
+    block = this;
+
     var dropdown_op = block.getFieldValue('OP');
     var opx = eval( block.getFieldValue('OPX') );
     var opy = eval( block.getFieldValue('OPY') );
@@ -303,11 +303,7 @@ Blockly.Blocks['triangle_operations'] = {
     var text_cx = block.getFieldValue('CX');
     var text_cy = block.getFieldValue('CY');
 
-    // TODO: Assemble JavaScript into code variable.
-
-
     var inputBlock = block.getSurroundParent();
-
 
     if ( inputBlock !== undefined ) {
       if ( inputBlock.type == 'triangle_flow' ) {
@@ -358,6 +354,23 @@ Blockly.Blocks['triangle_operations'] = {
       }
     }
 
+    var block = this;
+    var targetBlock;
+
+    do {
+      targetBlock = block;
+      block = block.parentBlock_;
+    } while ( block );
+
+    if ( targetBlock.type == 'triangle_flow' ) { //Which it should be given our connectio checks...
+
+      //Set target block's values with the current A B and C
+
+      targetBlock.setFieldValue( ''+currentA+'','CURRENTA' );
+      targetBlock.setFieldValue( ''+currentB+'','CURRENTB' );
+      targetBlock.setFieldValue( ''+currentC+'','CURRENTC' );
+
+    }
   }
 };
 
@@ -375,7 +388,8 @@ Blockly.JavaScript['triangle_operations'] = function(block) {
   // TODO: Assemble JavaScript into code variable.
 
 
-  var inputBlock = block.getSurroundParent();
+  //var inputBlock = block.getSurroundParent();
+  var inputBlock = block.parentBlock_;
 
   //Check childBlocks_ (array) and parentBlock_ (direct block reference)
 
@@ -383,12 +397,29 @@ Blockly.JavaScript['triangle_operations'] = function(block) {
   //The second operator would be the childblock of the first operator
   //Flow "up" the stack by popping up through parentBlock_ !== null once childblocks_ has a length of 0
 
-  if ( inputBlock !== undefined ) {
+  if ( inputBlock !== null ) {
     if ( inputBlock.type == 'triangle_flow' ) {
+      var currentA = [0,0];
+      var currentB = [0,1];
+      var currentC = [1,0];
 
+      if ( dropdown_op === 'DILATE' ) {
+        currentA[ 0 ] = currentA[ 0 ] + opx;
+        currentB[ 0 ] = currentB[ 0 ] + opx;
+        currentC[ 0 ] = currentC[ 0 ] + opx;
+
+        currentA[ 1 ] = currentA[ 1 ] + opy;
+        currentB[ 1 ] = currentB[ 1 ] + opy;
+        currentC[ 1 ] = currentC[ 1 ] + opy;
+
+        block.setFieldValue( ''+currentA+'','CURRENTA' );
+        block.setFieldValue( ''+currentB+'','CURRENTB' );
+        block.setFieldValue( ''+currentC+'','CURRENTC' );
+
+      }
     }
   } else {
-    inputBlock = block.getInputTargetBlock('INPUT');
+    inputBlock = block.childBlocks_[0];
 
     if ( inputBlock !== undefined ) {
       var currentA = eval( inputBlock.getFieldValue('CURRENTA') );
