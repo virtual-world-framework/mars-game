@@ -20,6 +20,7 @@ var loggerNodes = {};
 var currentBlocklyNodeID = undefined;
 var currentProcedureBlockID = undefined;
 var currentBlocklyErrors = {};
+var currentBlocklyTriangles = {};
 
 var currentLoopCheckBlockID = undefined;
 var currentLoopingBlockID = undefined;

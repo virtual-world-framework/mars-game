@@ -132,8 +132,11 @@ Blockly.Blocks['triangle_flow'] = {
     this.data = currentBlocklyNodeID;
   },
   onchange: function() {
-    if (!this.workspace || this.data === undefined) {
+    if ( !this.workspace || this.data === undefined ) {
       // Block has been deleted.
+
+      currentBlocklyTriangles[ this.id ] = {}
+
       return;
     }
 
@@ -142,6 +145,13 @@ Blockly.Blocks['triangle_flow'] = {
       this.setFieldValue( '[0,1]','CURRENTB' );
       this.setFieldValue( '[1,0]','CURRENTC' );
     }
+
+    var vertexA = eval( this.getFieldValue( 'CURRENTA' ) );
+    var vertexB = eval( this.getFieldValue( 'CURRENTB' ) );
+    var vertexC = eval( this.getFieldValue( 'CURRENTC' ) );
+
+    currentBlocklyTriangles[ this.id ] = [ vertexA, vertexB, vertexC ];
+
   }
 };
 
