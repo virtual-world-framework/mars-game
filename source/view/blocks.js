@@ -137,7 +137,7 @@ Blockly.Blocks['triangle_flow'] = {
       return;
     }
 
-    if ( this.getInputTargetBlock('STACK') === undefined || this.childBlocks_.length == 0 ) {
+    if ( this.getInputTargetBlock('STACK') === null || this.childBlocks_.length == 0 ) {
       this.setFieldValue( '[0,0]','CURRENTA' );
       this.setFieldValue( '[0,1]','CURRENTB' );
       this.setFieldValue( '[1,0]','CURRENTC' );
