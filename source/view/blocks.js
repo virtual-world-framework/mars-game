@@ -136,6 +136,12 @@ Blockly.Blocks['triangle_flow'] = {
       // Block has been deleted.
       return;
     }
+
+    if ( this.getInputTargetBlock('STACK') === undefined || this.childBlocks_.length == 0 ) {
+      this.setFieldValue( '[0,0]','CURRENTA' );
+      this.setFieldValue( '[0,1]','CURRENTB' );
+      this.setFieldValue( '[1,0]','CURRENTC' );
+    }
   }
 };
 
@@ -215,9 +221,11 @@ Blockly.Blocks['triangle_operations'] = {
         .setAlign(Blockly.ALIGN_CENTRE)
         .appendField(new Blockly.FieldDropdown([["translate", "TRANSLATE"], ["dilate", "DILATE"], ["rotate", "ROTATE"]]), "OP")
         .appendField("(")
-        .appendField(new Blockly.FieldTextInput("0"), "OPX")
+        .appendField(new Blockly.FieldTextInput('0',
+        Blockly.FieldTextInput.numberValidator), "OPX")
         .appendField(",")
-        .appendField(new Blockly.FieldTextInput("0"), "OPY")
+        .appendField(new Blockly.FieldTextInput('0',
+        Blockly.FieldTextInput.numberValidator), "OPY")
         .appendField(")");
     this.appendDummyInput()
         .appendField(new Blockly.FieldImage("http://i.imgur.com/UpsXHeX.png", 150, 20, "*"));
@@ -225,25 +233,31 @@ Blockly.Blocks['triangle_operations'] = {
         .setAlign(Blockly.ALIGN_CENTRE)
         .appendField("A ⇒")
         .appendField("(")
-        .appendField(new Blockly.FieldTextInput("0"), "AX")
+        .appendField(new Blockly.FieldTextInput('0',
+        Blockly.FieldTextInput.numberValidator), "AX")
         .appendField(",")
-        .appendField(new Blockly.FieldTextInput("0"), "AY")
+        .appendField(new Blockly.FieldTextInput('0',
+        Blockly.FieldTextInput.numberValidator), "AY")
         .appendField(")");
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
         .appendField("B ⇒")
         .appendField("(")
-        .appendField(new Blockly.FieldTextInput("0"), "BX")
+        .appendField(new Blockly.FieldTextInput('0',
+        Blockly.FieldTextInput.numberValidator), "BX")
         .appendField(",")
-        .appendField(new Blockly.FieldTextInput("0"), "BY")
+        .appendField(new Blockly.FieldTextInput('0',
+        Blockly.FieldTextInput.numberValidator), "BY")
         .appendField(")");
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
         .appendField("C ⇒")
         .appendField("(")
-        .appendField(new Blockly.FieldTextInput("0"), "CX")
+        .appendField(new Blockly.FieldTextInput('0',
+        Blockly.FieldTextInput.numberValidator), "CX")
         .appendField(",")
-        .appendField(new Blockly.FieldTextInput("0"), "CY")
+        .appendField(new Blockly.FieldTextInput('0',
+        Blockly.FieldTextInput.numberValidator), "CY")
         .appendField(")");
     this.setInputsInline(false);
     this.setPreviousStatement(true, 'INPUT');
@@ -291,17 +305,6 @@ Blockly.Blocks['triangle_operations'] = {
     var by = eval( block.getFieldValue('BY') );
     var cx = eval( block.getFieldValue('CX') );
     var cy = eval( block.getFieldValue('CY') );
-
-    // Input validation
-
-    if ( isNaN( opx ) || opx === "" ) { opx = 0; this.setFieldValue( '0','OPX' ); }
-    if ( isNaN( opy ) || opy === "" ) { opy = 0; this.setFieldValue( '0','OPY' ); }
-    if ( isNaN( ax ) || ax === "" ) { ax = 0; this.setFieldValue( '0','AX' ); }
-    if ( isNaN( bx ) || bx === "" ) { bx = 0; this.setFieldValue( '0','BX' ); }
-    if ( isNaN( cx ) || cx === "" ) { cx = 0; this.setFieldValue( '0','CX' ); }
-    if ( isNaN( ay ) || ay === "" ) { ay = 0; this.setFieldValue( '0','AY' ); }
-    if ( isNaN( by ) || by === "" ) { by = 0; this.setFieldValue( '0','BY' ); }
-    if ( isNaN( cy ) || cy === "" ) { cy = 0; this.setFieldValue( '0','CY' ); }
 
     // block.parentBlock_ is always the block that is attached to the top statement input.
 
@@ -478,9 +481,11 @@ Blockly.Blocks['triangle_operations_auto'] = {
         .setAlign(Blockly.ALIGN_CENTRE)
         .appendField(new Blockly.FieldDropdown([["translate", "TRANSLATE"], ["dilate", "DILATE"], ["rotate", "ROTATE"]]), "OP")
         .appendField("(")
-        .appendField(new Blockly.FieldTextInput("0"), "OPX")
+        .appendField(new Blockly.FieldTextInput('0',
+        Blockly.FieldTextInput.numberValidator), "OPX")
         .appendField(",")
-        .appendField(new Blockly.FieldTextInput("0"), "OPY")
+        .appendField(new Blockly.FieldTextInput('0',
+        Blockly.FieldTextInput.numberValidator), "OPY")
         .appendField(")");
     this.appendDummyInput()
         .appendField(new Blockly.FieldImage("http://i.imgur.com/UpsXHeX.png", 150, 20, "*"));
@@ -488,25 +493,25 @@ Blockly.Blocks['triangle_operations_auto'] = {
         .setAlign(Blockly.ALIGN_CENTRE)
         .appendField("A ⇒")
         .appendField("(")
-        .appendField("?", "AX")
+        .appendField(new Blockly.FieldLabel('?'), "AX")
         .appendField(",")
-        .appendField("?", "AY")
+        .appendField(new Blockly.FieldLabel('?'), "AY")
         .appendField(")");
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
         .appendField("B ⇒")
         .appendField("(")
-        .appendField("?", "BX")
+        .appendField(new Blockly.FieldLabel('?'), "BX")
         .appendField(",")
-        .appendField("?", "BY")
+        .appendField(new Blockly.FieldLabel('?'), "BY")
         .appendField(")");
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
         .appendField("C ⇒")
         .appendField("(")
-        .appendField("?", "CX")
+        .appendField(new Blockly.FieldLabel('?'), "CX")
         .appendField(",")
-        .appendField("?", "CY")
+        .appendField(new Blockly.FieldLabel('?'), "CY")
         .appendField(")");
     this.setInputsInline(false);
     this.setPreviousStatement(true, 'INPUT');
@@ -554,6 +559,9 @@ Blockly.Blocks['triangle_operations_auto'] = {
     if ( isNaN( opx ) || opx === "" ) { opx = 0; this.setFieldValue( '0','OPX' ); }
     if ( isNaN( opy ) || opy === "" ) { opy = 0; this.setFieldValue( '0','OPY' ); }
 
+    console.log( opx );
+    console.log( opy );
+
     // block.parentBlock_ is always the block that is attached to the top statement input.
 
     var inputBlock = block.parentBlock_;
@@ -580,14 +588,18 @@ Blockly.Blocks['triangle_operations_auto'] = {
           currentB[ 1 ] = currentB[ 1 ] + opy;
           currentC[ 1 ] = currentC[ 1 ] + opy;
 
+          console.log( currentA );
+          console.log( currentB );
+          console.log( currentC );
+
           //Set fields appropriately
 
-          this.setFieldValue( currentA[ 0 ],'AX' );
-          this.setFieldValue( currentB[ 0 ],'BX' );
-          this.setFieldValue( currentC[ 0 ],'CX' );
-          this.setFieldValue( currentA[ 1 ],'AY' );
-          this.setFieldValue( currentB[ 1 ],'BY' );
-          this.setFieldValue( currentC[ 1 ],'CY' );
+          this.setFieldValue( ''+currentA[ 0 ]+'','AX' );
+          this.setFieldValue( ''+currentB[ 0 ]+'','BX' );
+          this.setFieldValue( ''+currentC[ 0 ]+'','CX' );
+          this.setFieldValue( ''+currentA[ 1 ]+'','AY' );
+          this.setFieldValue( ''+currentB[ 1 ]+'','BY' );
+          this.setFieldValue( ''+currentC[ 1 ]+'','CY' );
 
         } else if ( dropdown_op === 'ROTATE' ) {
 
@@ -609,12 +621,12 @@ Blockly.Blocks['triangle_operations_auto'] = {
 
           //Set fields appropriately
 
-          this.setFieldValue( currentA[ 0 ],'AX' );
-          this.setFieldValue( currentB[ 0 ],'BX' );
-          this.setFieldValue( currentC[ 0 ],'CX' );
-          this.setFieldValue( currentA[ 1 ],'AY' );
-          this.setFieldValue( currentB[ 1 ],'BY' );
-          this.setFieldValue( currentC[ 1 ],'CY' );
+          this.setFieldValue( ''+currentA[ 0 ]+'','AX' );
+          this.setFieldValue( ''+currentB[ 0 ]+'','BX' );
+          this.setFieldValue( ''+currentC[ 0 ]+'','CX' );
+          this.setFieldValue( ''+currentA[ 1 ]+'','AY' );
+          this.setFieldValue( ''+currentB[ 1 ]+'','BY' );
+          this.setFieldValue( ''+currentC[ 1 ]+'','CY' );
 
         }
       } else {
@@ -639,12 +651,12 @@ Blockly.Blocks['triangle_operations_auto'] = {
 
             //Set fields appropriately
 
-            this.setFieldValue( currentA[ 0 ],'AX' );
-            this.setFieldValue( currentB[ 0 ],'BX' );
-            this.setFieldValue( currentC[ 0 ],'CX' );
-            this.setFieldValue( currentA[ 1 ],'AY' );
-            this.setFieldValue( currentB[ 1 ],'BY' );
-            this.setFieldValue( currentC[ 1 ],'CY' );
+            this.setFieldValue( ''+currentA[ 0 ]+'','AX' );
+            this.setFieldValue( ''+currentB[ 0 ]+'','BX' );
+            this.setFieldValue( ''+currentC[ 0 ]+'','CX' );
+            this.setFieldValue( ''+currentA[ 1 ]+'','AY' );
+            this.setFieldValue( ''+currentB[ 1 ]+'','BY' );
+            this.setFieldValue( ''+currentC[ 1 ]+'','CY' );
 
           } else if ( dropdown_op === 'ROTATE' ) {
 
@@ -664,12 +676,12 @@ Blockly.Blocks['triangle_operations_auto'] = {
 
             //Set fields appropriately
 
-            this.setFieldValue( currentA[ 0 ],'AX' );
-            this.setFieldValue( currentB[ 0 ],'BX' );
-            this.setFieldValue( currentC[ 0 ],'CX' );
-            this.setFieldValue( currentA[ 1 ],'AY' );
-            this.setFieldValue( currentB[ 1 ],'BY' );
-            this.setFieldValue( currentC[ 1 ],'CY' );
+            this.setFieldValue( ''+currentA[ 0 ]+'','AX' );
+            this.setFieldValue( ''+currentB[ 0 ]+'','BX' );
+            this.setFieldValue( ''+currentC[ 0 ]+'','CX' );
+            this.setFieldValue( ''+currentA[ 1 ]+'','AY' );
+            this.setFieldValue( ''+currentB[ 1 ]+'','BY' );
+            this.setFieldValue( ''+currentC[ 1 ]+'','CY' );
 
           }
 
@@ -720,9 +732,11 @@ Blockly.Blocks['triangle_operations_translate'] = {
         .setAlign(Blockly.ALIGN_CENTRE)
         .appendField("Translate")
         .appendField("(")
-        .appendField(new Blockly.FieldTextInput("0"), "OPX")
+        .appendField(new Blockly.FieldTextInput('0',
+        Blockly.FieldTextInput.numberValidator), "OPX")
         .appendField(",")
-        .appendField(new Blockly.FieldTextInput("0"), "OPY")
+        .appendField(new Blockly.FieldTextInput('0',
+        Blockly.FieldTextInput.numberValidator), "OPY")
         .appendField(")");
     this.appendDummyInput()
         .appendField(new Blockly.FieldImage("http://i.imgur.com/UpsXHeX.png", 150, 20, "*"));
@@ -730,25 +744,31 @@ Blockly.Blocks['triangle_operations_translate'] = {
         .setAlign(Blockly.ALIGN_CENTRE)
         .appendField("A ⇒")
         .appendField("(")
-        .appendField(new Blockly.FieldTextInput("0"), "AX")
+        .appendField(new Blockly.FieldTextInput('0',
+        Blockly.FieldTextInput.numberValidator), "AX")
         .appendField(",")
-        .appendField(new Blockly.FieldTextInput("0"), "AY")
+        .appendField(new Blockly.FieldTextInput('0',
+        Blockly.FieldTextInput.numberValidator), "AY")
         .appendField(")");
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
         .appendField("B ⇒")
         .appendField("(")
-        .appendField(new Blockly.FieldTextInput("0"), "BX")
+        .appendField(new Blockly.FieldTextInput('0',
+        Blockly.FieldTextInput.numberValidator), "BX")
         .appendField(",")
-        .appendField(new Blockly.FieldTextInput("0"), "BY")
+        .appendField(new Blockly.FieldTextInput('0',
+        Blockly.FieldTextInput.numberValidator), "BY")
         .appendField(")");
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
         .appendField("C ⇒")
         .appendField("(")
-        .appendField(new Blockly.FieldTextInput("0"), "CX")
+        .appendField(new Blockly.FieldTextInput('0',
+        Blockly.FieldTextInput.numberValidator), "CX")
         .appendField(",")
-        .appendField(new Blockly.FieldTextInput("0"), "CY")
+        .appendField(new Blockly.FieldTextInput('0',
+        Blockly.FieldTextInput.numberValidator), "CY")
         .appendField(")");
     this.setInputsInline(false);
     this.setPreviousStatement(true, 'INPUT');
@@ -795,17 +815,6 @@ Blockly.Blocks['triangle_operations_translate'] = {
     var by = eval( block.getFieldValue('BY') );
     var cx = eval( block.getFieldValue('CX') );
     var cy = eval( block.getFieldValue('CY') );
-
-    // Input validation
-
-    if ( isNaN( opx ) || opx === "" ) { opx = 0; this.setFieldValue( '0','OPX' ); }
-    if ( isNaN( opy ) || opy === "" ) { opy = 0; this.setFieldValue( '0','OPY' ); }
-    if ( isNaN( ax ) || ax === "" ) { ax = 0; this.setFieldValue( '0','AX' ); }
-    if ( isNaN( bx ) || bx === "" ) { bx = 0; this.setFieldValue( '0','BX' ); }
-    if ( isNaN( cx ) || cx === "" ) { cx = 0; this.setFieldValue( '0','CX' ); }
-    if ( isNaN( ay ) || ay === "" ) { ay = 0; this.setFieldValue( '0','AY' ); }
-    if ( isNaN( by ) || by === "" ) { by = 0; this.setFieldValue( '0','BY' ); }
-    if ( isNaN( cy ) || cy === "" ) { cy = 0; this.setFieldValue( '0','CY' ); }
 
     // block.parentBlock_ is always the block that is attached to the top statement input.
 
@@ -1013,12 +1022,12 @@ Blockly.Blocks['triangle_operations_translate_auto'] = {
 
         //Set fields appropriately
 
-        this.setFieldValue( currentA[ 0 ],'AX' );
-        this.setFieldValue( currentB[ 0 ],'BX' );
-        this.setFieldValue( currentC[ 0 ],'CX' );
-        this.setFieldValue( currentA[ 1 ],'AY' );
-        this.setFieldValue( currentB[ 1 ],'BY' );
-        this.setFieldValue( currentC[ 1 ],'CY' );
+        this.setFieldValue( ''+currentA[ 0 ]+'','AX' );
+        this.setFieldValue( ''+currentB[ 0 ]+'','BX' );
+        this.setFieldValue( ''+currentC[ 0 ]+'','CX' );
+        this.setFieldValue( ''+currentA[ 1 ]+'','AY' );
+        this.setFieldValue( ''+currentB[ 1 ]+'','BY' );
+        this.setFieldValue( ''+currentC[ 1 ]+'','CY' );
 
       } else {
 
@@ -1038,12 +1047,12 @@ Blockly.Blocks['triangle_operations_translate_auto'] = {
 
           //Set fields appropriately
 
-          this.setFieldValue( currentA[ 0 ],'AX' );
-          this.setFieldValue( currentB[ 0 ],'BX' );
-          this.setFieldValue( currentC[ 0 ],'CX' );
-          this.setFieldValue( currentA[ 1 ],'AY' );
-          this.setFieldValue( currentB[ 1 ],'BY' );
-          this.setFieldValue( currentC[ 1 ],'CY' );
+          this.setFieldValue( ''+currentA[ 0 ]+'','AX' );
+          this.setFieldValue( ''+currentB[ 0 ]+'','BX' );
+          this.setFieldValue( ''+currentC[ 0 ]+'','CX' );
+          this.setFieldValue( ''+currentA[ 1 ]+'','AY' );
+          this.setFieldValue( ''+currentB[ 1 ]+'','BY' );
+          this.setFieldValue( ''+currentC[ 1 ]+'','CY' );
         }
 
       }
@@ -1088,9 +1097,11 @@ Blockly.Blocks['triangle_operations_dilate'] = {
         .setAlign(Blockly.ALIGN_CENTRE)
         .appendField("Dilate")
         .appendField("(")
-        .appendField(new Blockly.FieldTextInput("0"), "OPX")
+        .appendField(new Blockly.FieldTextInput('0',
+        Blockly.FieldTextInput.numberValidator), "OPX")
         .appendField(",")
-        .appendField(new Blockly.FieldTextInput("0"), "OPY")
+        .appendField(new Blockly.FieldTextInput('0',
+        Blockly.FieldTextInput.numberValidator), "OPY")
         .appendField(")");
     this.appendDummyInput()
         .appendField(new Blockly.FieldImage("http://i.imgur.com/UpsXHeX.png", 150, 20, "*"));
@@ -1098,25 +1109,31 @@ Blockly.Blocks['triangle_operations_dilate'] = {
         .setAlign(Blockly.ALIGN_CENTRE)
         .appendField("A ⇒")
         .appendField("(")
-        .appendField(new Blockly.FieldTextInput("0"), "AX")
+        .appendField(new Blockly.FieldTextInput('0',
+        Blockly.FieldTextInput.numberValidator), "AX")
         .appendField(",")
-        .appendField(new Blockly.FieldTextInput("0"), "AY")
+        .appendField(new Blockly.FieldTextInput('0',
+        Blockly.FieldTextInput.numberValidator), "AY")
         .appendField(")");
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
         .appendField("B ⇒")
         .appendField("(")
-        .appendField(new Blockly.FieldTextInput("0"), "BX")
+        .appendField(new Blockly.FieldTextInput('0',
+        Blockly.FieldTextInput.numberValidator), "BX")
         .appendField(",")
-        .appendField(new Blockly.FieldTextInput("0"), "BY")
+        .appendField(new Blockly.FieldTextInput('0',
+        Blockly.FieldTextInput.numberValidator), "BY")
         .appendField(")");
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
         .appendField("C ⇒")
         .appendField("(")
-        .appendField(new Blockly.FieldTextInput("0"), "CX")
+        .appendField(new Blockly.FieldTextInput('0',
+        Blockly.FieldTextInput.numberValidator), "CX")
         .appendField(",")
-        .appendField(new Blockly.FieldTextInput("0"), "CY")
+        .appendField(new Blockly.FieldTextInput('0',
+        Blockly.FieldTextInput.numberValidator), "CY")
         .appendField(")");
     this.setInputsInline(false);
     this.setPreviousStatement(true, 'INPUT');
@@ -1163,17 +1180,6 @@ Blockly.Blocks['triangle_operations_dilate'] = {
     var by = eval( block.getFieldValue('BY') );
     var cx = eval( block.getFieldValue('CX') );
     var cy = eval( block.getFieldValue('CY') );
-
-    // Input validation
-
-    if ( isNaN( opx ) || opx === "" ) { opx = 0; this.setFieldValue( '0','OPX' ); }
-    if ( isNaN( opy ) || opy === "" ) { opy = 0; this.setFieldValue( '0','OPY' ); }
-    if ( isNaN( ax ) || ax === "" ) { ax = 0; this.setFieldValue( '0','AX' ); }
-    if ( isNaN( bx ) || bx === "" ) { bx = 0; this.setFieldValue( '0','BX' ); }
-    if ( isNaN( cx ) || cx === "" ) { cx = 0; this.setFieldValue( '0','CX' ); }
-    if ( isNaN( ay ) || ay === "" ) { ay = 0; this.setFieldValue( '0','AY' ); }
-    if ( isNaN( by ) || by === "" ) { by = 0; this.setFieldValue( '0','BY' ); }
-    if ( isNaN( cy ) || cy === "" ) { cy = 0; this.setFieldValue( '0','CY' ); }
 
     // block.parentBlock_ is always the block that is attached to the top statement input.
 
@@ -1377,12 +1383,12 @@ Blockly.Blocks['triangle_operations_dilate_auto'] = {
 
         //Set fields appropriately
 
-        this.setFieldValue( currentA[ 0 ],'AX' );
-        this.setFieldValue( currentB[ 0 ],'BX' );
-        this.setFieldValue( currentC[ 0 ],'CX' );
-        this.setFieldValue( currentA[ 1 ],'AY' );
-        this.setFieldValue( currentB[ 1 ],'BY' );
-        this.setFieldValue( currentC[ 1 ],'CY' );
+        this.setFieldValue( ''+currentA[ 0 ]+'','AX' );
+        this.setFieldValue( ''+currentB[ 0 ]+'','BX' );
+        this.setFieldValue( ''+currentC[ 0 ]+'','CX' );
+        this.setFieldValue( ''+currentA[ 1 ]+'','AY' );
+        this.setFieldValue( ''+currentB[ 1 ]+'','BY' );
+        this.setFieldValue( ''+currentC[ 1 ]+'','CY' );
 
       } else {
 
@@ -1402,12 +1408,12 @@ Blockly.Blocks['triangle_operations_dilate_auto'] = {
 
           //Set fields appropriately
 
-          this.setFieldValue( currentA[ 0 ],'AX' );
-          this.setFieldValue( currentB[ 0 ],'BX' );
-          this.setFieldValue( currentC[ 0 ],'CX' );
-          this.setFieldValue( currentA[ 1 ],'AY' );
-          this.setFieldValue( currentB[ 1 ],'BY' );
-          this.setFieldValue( currentC[ 1 ],'CY' );
+          this.setFieldValue( ''+currentA[ 0 ]+'','AX' );
+          this.setFieldValue( ''+currentB[ 0 ]+'','BX' );
+          this.setFieldValue( ''+currentC[ 0 ]+'','CX' );
+          this.setFieldValue( ''+currentA[ 1 ]+'','AY' );
+          this.setFieldValue( ''+currentB[ 1 ]+'','BY' );
+          this.setFieldValue( ''+currentC[ 1 ]+'','CY' );
         }
 
       }
@@ -1547,12 +1553,12 @@ Blockly.Blocks['triangle_operations_dilate_auto_fixed'] = {
 
         //Set fields appropriately
 
-        this.setFieldValue( currentA[ 0 ],'AX' );
-        this.setFieldValue( currentB[ 0 ],'BX' );
-        this.setFieldValue( currentC[ 0 ],'CX' );
-        this.setFieldValue( currentA[ 1 ],'AY' );
-        this.setFieldValue( currentB[ 1 ],'BY' );
-        this.setFieldValue( currentC[ 1 ],'CY' );
+        this.setFieldValue( ''+currentA[ 0 ]+'','AX' );
+        this.setFieldValue( ''+currentB[ 0 ]+'','BX' );
+        this.setFieldValue( ''+currentC[ 0 ]+'','CX' );
+        this.setFieldValue( ''+currentA[ 1 ]+'','AY' );
+        this.setFieldValue( ''+currentB[ 1 ]+'','BY' );
+        this.setFieldValue( ''+currentC[ 1 ]+'','CY' );
 
       } else {
 
@@ -1572,12 +1578,12 @@ Blockly.Blocks['triangle_operations_dilate_auto_fixed'] = {
 
           //Set fields appropriately
 
-          this.setFieldValue( currentA[ 0 ],'AX' );
-          this.setFieldValue( currentB[ 0 ],'BX' );
-          this.setFieldValue( currentC[ 0 ],'CX' );
-          this.setFieldValue( currentA[ 1 ],'AY' );
-          this.setFieldValue( currentB[ 1 ],'BY' );
-          this.setFieldValue( currentC[ 1 ],'CY' );
+          this.setFieldValue( ''+currentA[ 0 ]+'','AX' );
+          this.setFieldValue( ''+currentB[ 0 ]+'','BX' );
+          this.setFieldValue( ''+currentC[ 0 ]+'','CX' );
+          this.setFieldValue( ''+currentA[ 1 ]+'','AY' );
+          this.setFieldValue( ''+currentB[ 1 ]+'','BY' );
+          this.setFieldValue( ''+currentC[ 1 ]+'','CY' );
         }
 
       }
