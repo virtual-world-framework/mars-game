@@ -111,7 +111,7 @@ Blockly.Blocks['triangle_flow'] = {
         .appendField("Triangle : ")
         .appendField(new Blockly.FieldColour("#3366ff"), "NAME");
     this.appendDummyInput()
-        .appendField("△ ABC (0,0) (0,1) (1,0)");
+        .appendField("△ ABC [0,0] [0,1] [1,0]");
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
         .appendField("⇩");
@@ -121,9 +121,9 @@ Blockly.Blocks['triangle_flow'] = {
         .appendField("⇩");
     this.appendDummyInput()
         .appendField("△ A'B'C' ")
-        .appendField("(0,0)", "CURRENTA")
-        .appendField("(0,1)", "CURRENTB")
-        .appendField("(1,0)", "CURRENTC");
+        .appendField("[0,0]", "CURRENTA")
+        .appendField("[0,1]", "CURRENTB")
+        .appendField("[1,0]", "CURRENTC");
     this.setInputsInline(false);
     this.setPreviousStatement(true);
     this.setNextStatement(true);
@@ -136,37 +136,20 @@ Blockly.Blocks['triangle_flow'] = {
       // Block has been deleted.
       return;
     }
-
-    // var coorda = [ 0, 0 ];
-    // var coordb = [ 0, 1 ];
-    // var coordc = [ 1, 0 ];
-
-    // //Evaluate the stack of connected triangle operations
-    // //Perform the requested operations on the triangle
-    // //Update the displayed coordinate values
-
-    // this.setEditable(true);
-    // this.setFieldValue( '(' + coorda + ')','CURRENTA' );
-    // this.setFieldValue( '(' + coordb + ')','CURRENTB' );
-    // this.setFieldValue( '(' + coordc + ')','CURRENTC' );
-    // this.setEditable(false);
   }
 };
 
 Blockly.JavaScript['triangle_flow'] = function(block) {
-  var statements_stack = Blockly.JavaScript.statementToCode(block, 'STACK');
-
-  // The stack should be the sum of the operations on [ 0, 0 ] [ 0, 1 ] [ 1, 0 ]
-  // TODO: Assemble JavaScript into code variable.
+  // The stack should automatically update the CURRENTA, CURRENTB and CURRENTC fields.
   
   // Extract values from dummy fields COORDA - COORDB - COORDC
   
-  var op_a = [0,0];
-  var op_b = [0,1];
-  var op_c = [1,0];
-  //var op_a = op_a_str.split(",");
-  //var op_b = op_b_str.split(",");
-  //var op_c = op_c_str.split(",");
+  //var op_a = [ 0,0 ];
+  //var op_b = [ 0,1 ];
+  //var op_c = [ 1,0 ];
+  var op_a = eval( block.getFieldValue("CURRENTA") );
+  var op_b = eval( block.getFieldValue("CURRENTB") );
+  var op_c = eval( block.getFieldValue("CURRENTC") );
 
   if ( op_a.length < 2 || op_b.length < 2 || op_c.length < 2 ) {
     console.log('less length');
@@ -218,6 +201,7 @@ Blockly.JavaScript['triangle_flow'] = function(block) {
 
   //var overallCode = moveA + start + mark + moveB + mark + moveC + mark + moveA + mark + end;
   var overallCode = start + moveA + mark + moveB + mark + moveC + mark + moveA + mark + end;
+
   return overallCode;
 };
 
@@ -225,7 +209,7 @@ Blockly.Blocks['triangle_operations'] = {
   init: function() {
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField(new Blockly.FieldDropdown([["dilate", "DILATE"], ["translate", "TRANSLATE"], ["rotate", "ROTATE"]]), "OP")
+        .appendField(new Blockly.FieldDropdown([["translate", "TRANSLATE"], ["dilate", "DILATE"], ["rotate", "ROTATE"]]), "OP")
         .appendField("(")
         .appendField(new Blockly.FieldTextInput("0"), "OPX")
         .appendField(",")
@@ -317,7 +301,7 @@ Blockly.Blocks['triangle_operations'] = {
         var currentB = [0,1];
         var currentC = [1,0];
 
-        if ( dropdown_op === 'DILATE' ) {
+        if ( dropdown_op === 'TRANSLATE' ) {
           this.setColour(195);
           currentA[ 0 ] = currentA[ 0 ] + opx;
           currentB[ 0 ] = currentB[ 0 ] + opx;
@@ -349,7 +333,7 @@ Blockly.Blocks['triangle_operations'] = {
 
       } else if ( dropdown_op === 'ROTATE' ) {
           this.setColour(300);
-      } else if ( dropdown_op === 'TRANSLATE' ) {
+      } else if ( dropdown_op === 'DILATE' ) {
           this.setColour(45);
       }
     } else {
@@ -358,7 +342,7 @@ Blockly.Blocks['triangle_operations'] = {
         var currentB = [ eval( inputBlock.getFieldValue('BX') ), eval( inputBlock.getFieldValue('BY') ) ];
         var currentC = [ eval( inputBlock.getFieldValue('CX') ), eval( inputBlock.getFieldValue('CY') ) ];
 
-        if ( dropdown_op === 'DILATE' ) {
+        if ( dropdown_op === 'TRANSLATE' ) {
           currentA[ 0 ] = currentA[ 0 ] + opx;
           currentB[ 0 ] = currentB[ 0 ] + opx;
           currentC[ 0 ] = currentC[ 0 ] + opx;
@@ -383,7 +367,7 @@ Blockly.Blocks['triangle_operations'] = {
 
         } else if ( dropdown_op === 'ROTATE' ) {
           this.setColour(300);
-        } else if ( dropdown_op === 'TRANSLATE' ) {
+        } else if ( dropdown_op === 'DILATE' ) {
           this.setColour(45);
         }
 
@@ -406,9 +390,9 @@ Blockly.Blocks['triangle_operations'] = {
 
         //Set target block's values (The TRIANGLE FLOW BLOCK's values) with the current A B and C
 
-        targetBlock.setFieldValue( ''+currentA+'','CURRENTA' );
-        targetBlock.setFieldValue( ''+currentB+'','CURRENTB' );
-        targetBlock.setFieldValue( ''+currentC+'','CURRENTC' );
+        targetBlock.setFieldValue( '['+currentA+']','CURRENTA' );
+        targetBlock.setFieldValue( '['+currentB+']','CURRENTB' );
+        targetBlock.setFieldValue( '['+currentC+']','CURRENTC' );
 
       }
     }
