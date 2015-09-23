@@ -205,6 +205,10 @@ Blockly.JavaScript['triangle_flow'] = function(block) {
   return overallCode;
 };
 
+// --------------------------------------------------------------------------------------------------------- //
+// triangle_operations should serve as a template for all other child blocks of the triangle_operations type
+// --------------------------------------------------------------------------------------------------------- // 
+
 Blockly.Blocks['triangle_operations'] = {
   init: function() {
     this.appendDummyInput()
@@ -254,7 +258,7 @@ Blockly.Blocks['triangle_operations'] = {
       return;
     }
 
-    //if ( this.getFieldValue("OP") == 'ROTATE' ) {}
+    //First check if we put the block in the right spot
     
     var legal = false;
     // Is the block nested in a control statement?
@@ -274,6 +278,8 @@ Blockly.Blocks['triangle_operations'] = {
       currentBlocklyErrors[ this.id ] = true;
     }
 
+    //Reset block to this since we popped up the stack above.
+
     block = this;
 
     var dropdown_op = block.getFieldValue('OP');
@@ -286,14 +292,25 @@ Blockly.Blocks['triangle_operations'] = {
     var cx = eval( block.getFieldValue('CX') );
     var cy = eval( block.getFieldValue('CY') );
 
-    //var inputBlock = block.getSurroundParent();
+    // Input validation
+
+    if ( isNaN( opx ) || opx === "" ) { opx = 0; this.setFieldValue( '0','OPX' ); }
+    if ( isNaN( opy ) || opy === "" ) { opy = 0; this.setFieldValue( '0','OPY' ); }
+    if ( isNaN( ax ) || ax === "" ) { ax = 0; this.setFieldValue( '0','AX' ); }
+    if ( isNaN( bx ) || bx === "" ) { bx = 0; this.setFieldValue( '0','BX' ); }
+    if ( isNaN( cx ) || cx === "" ) { cx = 0; this.setFieldValue( '0','CX' ); }
+    if ( isNaN( ay ) || ay === "" ) { ay = 0; this.setFieldValue( '0','AY' ); }
+    if ( isNaN( by ) || by === "" ) { by = 0; this.setFieldValue( '0','BY' ); }
+    if ( isNaN( cy ) || cy === "" ) { cy = 0; this.setFieldValue( '0','CY' ); }
+
+    // block.parentBlock_ is always the block that is attached to the top statement input.
+
     var inputBlock = block.parentBlock_;
 
     //Check childBlocks_ (array) and parentBlock_ (direct block reference)
 
     //A triangle flow with 2 operators would have the first operator be the childblock of triangle_flow
     //The second operator would be the childblock of the first operator
-    //Flow "up" the stack by popping up through parentBlock_ !== null once childblocks_ has a length of 0
 
     if ( inputBlock !== null ) {
       if ( inputBlock.type == 'triangle_flow' ) {
@@ -303,6 +320,7 @@ Blockly.Blocks['triangle_operations'] = {
 
         if ( dropdown_op === 'TRANSLATE' ) {
           this.setColour(195);
+
           currentA[ 0 ] = currentA[ 0 ] + opx;
           currentB[ 0 ] = currentB[ 0 ] + opx;
           currentC[ 0 ] = currentC[ 0 ] + opx;
@@ -321,35 +339,23 @@ Blockly.Blocks['triangle_operations'] = {
             currentBlocklyErrors[ this.id ] = true;
           }
 
-          //Do the math and check against current values in the AX/AY/BX... etc fields
-          //If math matches the numbers, no warning, allow new block to be connected.
-          //If math does not match, warning and bump other connections.
+        } else if ( dropdown_op === 'ROTATE' ) {
 
-          //The following would be used when setting automatically with the auto_op block
-
-          //block.setFieldValue( ''+currentA+'','CURRENTA' );
-          //block.setFieldValue( ''+currentB+'','CURRENTB' );
-          //block.setFieldValue( ''+currentC+'','CURRENTC' );
-
-      } else if ( dropdown_op === 'ROTATE' ) {
           this.setColour(300);
-      } else if ( dropdown_op === 'DILATE' ) {
+
+          //TODO: Set rotate
+
+        } else if ( dropdown_op === 'DILATE' ) {
+
           this.setColour(45);
-      }
-    } else {
-      if ( inputBlock !== undefined ) {
-        var currentA = [ eval( inputBlock.getFieldValue('AX') ), eval( inputBlock.getFieldValue('AY') ) ];
-        var currentB = [ eval( inputBlock.getFieldValue('BX') ), eval( inputBlock.getFieldValue('BY') ) ];
-        var currentC = [ eval( inputBlock.getFieldValue('CX') ), eval( inputBlock.getFieldValue('CY') ) ];
 
-        if ( dropdown_op === 'TRANSLATE' ) {
-          currentA[ 0 ] = currentA[ 0 ] + opx;
-          currentB[ 0 ] = currentB[ 0 ] + opx;
-          currentC[ 0 ] = currentC[ 0 ] + opx;
+          currentA[ 0 ] = currentA[ 0 ] * opx;
+          currentB[ 0 ] = currentB[ 0 ] * opx;
+          currentC[ 0 ] = currentC[ 0 ] * opx;
 
-          currentA[ 1 ] = currentA[ 1 ] + opy;
-          currentB[ 1 ] = currentB[ 1 ] + opy;
-          currentC[ 1 ] = currentC[ 1 ] + opy;
+          currentA[ 1 ] = currentA[ 1 ] * opy;
+          currentB[ 1 ] = currentB[ 1 ] * opy;
+          currentC[ 1 ] = currentC[ 1 ] * opy;
 
           //Check field values against expected values
 
@@ -361,24 +367,78 @@ Blockly.Blocks['triangle_operations'] = {
             currentBlocklyErrors[ this.id ] = true;
           }
 
-          //block.setFieldValue( ''+currentA+'','CURRENTA' );
-          //block.setFieldValue( ''+currentB+'','CURRENTB' );
-          //block.setFieldValue( ''+currentC+'','CURRENTC' );
-
-        } else if ( dropdown_op === 'ROTATE' ) {
-          this.setColour(300);
-        } else if ( dropdown_op === 'DILATE' ) {
-          this.setColour(45);
         }
+      } else {
 
+        if ( inputBlock !== undefined ) {
+
+          var currentA = [ eval( inputBlock.getFieldValue('AX') ), eval( inputBlock.getFieldValue('AY') ) ];
+          var currentB = [ eval( inputBlock.getFieldValue('BX') ), eval( inputBlock.getFieldValue('BY') ) ];
+          var currentC = [ eval( inputBlock.getFieldValue('CX') ), eval( inputBlock.getFieldValue('CY') ) ];
+
+          if ( dropdown_op === 'TRANSLATE' ) {
+
+            this.setColour(195);
+
+            currentA[ 0 ] = currentA[ 0 ] + opx;
+            currentB[ 0 ] = currentB[ 0 ] + opx;
+            currentC[ 0 ] = currentC[ 0 ] + opx;
+
+            currentA[ 1 ] = currentA[ 1 ] + opy;
+            currentB[ 1 ] = currentB[ 1 ] + opy;
+            currentC[ 1 ] = currentC[ 1 ] + opy;
+
+            //Check field values against expected values
+
+            if ( ax === currentA[ 0 ] && bx == currentB[ 0 ] && cx == currentC[ 0 ] && ay === currentA[ 1 ] && by == currentB[ 1 ] && cy == currentC[ 1 ] ) {
+              this.setWarningText(null);
+              currentBlocklyErrors[ this.id ] = false;
+            } else {
+              this.setWarningText('You must input the correct results of this operation!');
+              currentBlocklyErrors[ this.id ] = true;
+            }
+
+          } else if ( dropdown_op === 'ROTATE' ) {
+
+            this.setColour(300);
+
+            //TODO: Set rotate
+
+          } else if ( dropdown_op === 'DILATE' ) {
+
+            this.setColour(45);
+
+            currentA[ 0 ] = currentA[ 0 ] * opx;
+            currentB[ 0 ] = currentB[ 0 ] * opx;
+            currentC[ 0 ] = currentC[ 0 ] * opx;
+
+            currentA[ 1 ] = currentA[ 1 ] * opy;
+            currentB[ 1 ] = currentB[ 1 ] * opy;
+            currentC[ 1 ] = currentC[ 1 ] * opy;
+
+            //Check field values against expected values
+
+            if ( ax === currentA[ 0 ] && bx == currentB[ 0 ] && cx == currentC[ 0 ] && ay === currentA[ 1 ] && by == currentB[ 1 ] && cy == currentC[ 1 ] ) {
+              this.setWarningText(null);
+              currentBlocklyErrors[ this.id ] = false;
+            } else {
+              this.setWarningText('You must input the correct results of this operation!');
+              currentBlocklyErrors[ this.id ] = true;
+            }
+
+          }
+
+        }
       }
-    }
-  } 
+    } 
+
+    // Done checking block type.
 
     var block = this;
     var targetBlock;
 
-    // Only propagate up if this is the last block in the chain
+    // Only propagate 'up' if this is the last block in the chain
+    // Flow "up" the stack by popping up through parentBlock_ !== null once childblocks_ has a length of 0
 
     if ( this.childBlocks_.length === 0 ) {
       do {
@@ -401,115 +461,1160 @@ Blockly.Blocks['triangle_operations'] = {
 };
 
 Blockly.JavaScript['triangle_operations'] = function( block ) {
-  var code = 'var meaningless = 1';
+  var code = '';
   return code;
 };
+
+
+// --------------------------------------------------------------------------------------------------------- //
+// triangle_operations_auto should serve as a template for all other child blocks of the triangle_operations 
+// shows the auto-propagating version without user input checks
+// --------------------------------------------------------------------------------------------------------- // 
+
 
 Blockly.Blocks['triangle_operations_auto'] = {
   init: function() {
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField(new Blockly.FieldDropdown([["dilate", "DILATE"], ["translate", "TRANSLATE"], ["rotate", "ROTATE"]]), "OP")
+        .appendField(new Blockly.FieldDropdown([["translate", "TRANSLATE"], ["dilate", "DILATE"], ["rotate", "ROTATE"]]), "OP")
         .appendField("(")
         .appendField(new Blockly.FieldTextInput("0"), "OPX")
         .appendField(",")
         .appendField(new Blockly.FieldTextInput("0"), "OPY")
         .appendField(")");
     this.appendDummyInput()
-        .appendField(new Blockly.FieldImage("http://i.imgur.com/CRpYLa1.png", 150, 20, "*"));
+        .appendField(new Blockly.FieldImage("http://i.imgur.com/UpsXHeX.png", 150, 20, "*"));
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
         .appendField("A ⇒")
         .appendField("(")
-        .appendField("?")
+        .appendField("?", "AX")
         .appendField(",")
-        .appendField("?")
+        .appendField("?", "AY")
         .appendField(")");
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
         .appendField("B ⇒")
         .appendField("(")
-        .appendField("?")
+        .appendField("?", "BX")
         .appendField(",")
-        .appendField("?")
+        .appendField("?", "BY")
         .appendField(")");
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
         .appendField("C ⇒")
         .appendField("(")
-        .appendField("?")
+        .appendField("?", "CX")
         .appendField(",")
-        .appendField("?")
+        .appendField("?", "CY")
         .appendField(")");
     this.setInputsInline(false);
-    this.setPreviousStatement(true);
+    this.setPreviousStatement(true, 'INPUT');
     this.setNextStatement(true);
     this.setColour(195);
     this.setTooltip('');
     this.data = currentBlocklyNodeID;
+  },
+  onchange: function() {
+    if (!this.workspace) {
+      // Block has been deleted.
+      return;
+    }
+
+    //First check if we put the block in the right spot
+    
+    var legal = false;
+    // Is the block nested in a control statement?
+    var block = this;
+    do {
+      if (block.type == 'triangle_flow') {
+        legal = true;
+        break;
+      }
+      block = block.getSurroundParent();
+    } while ( block );
+    if ( legal ) {
+      this.setWarningText(null);
+      currentBlocklyErrors[ this.id ] = false;
+    } else {
+      this.setWarningText('Block can only be placed within a triangle flow block');
+      currentBlocklyErrors[ this.id ] = true;
+    }
+
+    //Reset block to this since we popped up the stack above.
+
+    block = this;
+
+    var dropdown_op = block.getFieldValue('OP');
+    var opx = eval( block.getFieldValue('OPX') );
+    var opy = eval( block.getFieldValue('OPY') );
+
+    // Input validation
+
+    if ( isNaN( opx ) || opx === "" ) { opx = 0; this.setFieldValue( '0','OPX' ); }
+    if ( isNaN( opy ) || opy === "" ) { opy = 0; this.setFieldValue( '0','OPY' ); }
+
+    // block.parentBlock_ is always the block that is attached to the top statement input.
+
+    var inputBlock = block.parentBlock_;
+
+    //Check childBlocks_ (array) and parentBlock_ (direct block reference)
+
+    //A triangle flow with 2 operators would have the first operator be the childblock of triangle_flow
+    //The second operator would be the childblock of the first operator
+
+    if ( inputBlock !== null ) {
+      if ( inputBlock.type == 'triangle_flow' ) {
+        var currentA = [0,0];
+        var currentB = [0,1];
+        var currentC = [1,0];
+
+        if ( dropdown_op === 'TRANSLATE' ) {
+          this.setColour(195);
+
+          currentA[ 0 ] = currentA[ 0 ] + opx;
+          currentB[ 0 ] = currentB[ 0 ] + opx;
+          currentC[ 0 ] = currentC[ 0 ] + opx;
+
+          currentA[ 1 ] = currentA[ 1 ] + opy;
+          currentB[ 1 ] = currentB[ 1 ] + opy;
+          currentC[ 1 ] = currentC[ 1 ] + opy;
+
+          //Set fields appropriately
+
+          this.setFieldValue( currentA[ 0 ],'AX' );
+          this.setFieldValue( currentB[ 0 ],'BX' );
+          this.setFieldValue( currentC[ 0 ],'CX' );
+          this.setFieldValue( currentA[ 1 ],'AY' );
+          this.setFieldValue( currentB[ 1 ],'BY' );
+          this.setFieldValue( currentC[ 1 ],'CY' );
+
+        } else if ( dropdown_op === 'ROTATE' ) {
+
+          this.setColour(300);
+
+          //TODO: Set ROTATE
+
+        } else if ( dropdown_op === 'DILATE' ) {
+
+          this.setColour(45);
+
+          currentA[ 0 ] = currentA[ 0 ] * opx;
+          currentB[ 0 ] = currentB[ 0 ] * opx;
+          currentC[ 0 ] = currentC[ 0 ] * opx;
+
+          currentA[ 1 ] = currentA[ 1 ] * opy;
+          currentB[ 1 ] = currentB[ 1 ] * opy;
+          currentC[ 1 ] = currentC[ 1 ] * opy;
+
+          //Set fields appropriately
+
+          this.setFieldValue( currentA[ 0 ],'AX' );
+          this.setFieldValue( currentB[ 0 ],'BX' );
+          this.setFieldValue( currentC[ 0 ],'CX' );
+          this.setFieldValue( currentA[ 1 ],'AY' );
+          this.setFieldValue( currentB[ 1 ],'BY' );
+          this.setFieldValue( currentC[ 1 ],'CY' );
+
+        }
+      } else {
+
+        if ( inputBlock !== undefined ) {
+
+          var currentA = [ eval( inputBlock.getFieldValue('AX') ), eval( inputBlock.getFieldValue('AY') ) ];
+          var currentB = [ eval( inputBlock.getFieldValue('BX') ), eval( inputBlock.getFieldValue('BY') ) ];
+          var currentC = [ eval( inputBlock.getFieldValue('CX') ), eval( inputBlock.getFieldValue('CY') ) ];
+
+          if ( dropdown_op === 'TRANSLATE' ) {
+
+            this.setColour(195);
+
+            currentA[ 0 ] = currentA[ 0 ] + opx;
+            currentB[ 0 ] = currentB[ 0 ] + opx;
+            currentC[ 0 ] = currentC[ 0 ] + opx;
+
+            currentA[ 1 ] = currentA[ 1 ] + opy;
+            currentB[ 1 ] = currentB[ 1 ] + opy;
+            currentC[ 1 ] = currentC[ 1 ] + opy;
+
+            //Set fields appropriately
+
+            this.setFieldValue( currentA[ 0 ],'AX' );
+            this.setFieldValue( currentB[ 0 ],'BX' );
+            this.setFieldValue( currentC[ 0 ],'CX' );
+            this.setFieldValue( currentA[ 1 ],'AY' );
+            this.setFieldValue( currentB[ 1 ],'BY' );
+            this.setFieldValue( currentC[ 1 ],'CY' );
+
+          } else if ( dropdown_op === 'ROTATE' ) {
+
+            this.setColour(300);
+
+          } else if ( dropdown_op === 'DILATE' ) {
+
+            this.setColour(45);
+
+            currentA[ 0 ] = currentA[ 0 ] * opx;
+            currentB[ 0 ] = currentB[ 0 ] * opx;
+            currentC[ 0 ] = currentC[ 0 ] * opx;
+
+            currentA[ 1 ] = currentA[ 1 ] * opy;
+            currentB[ 1 ] = currentB[ 1 ] * opy;
+            currentC[ 1 ] = currentC[ 1 ] * opy;
+
+            //Set fields appropriately
+
+            this.setFieldValue( currentA[ 0 ],'AX' );
+            this.setFieldValue( currentB[ 0 ],'BX' );
+            this.setFieldValue( currentC[ 0 ],'CX' );
+            this.setFieldValue( currentA[ 1 ],'AY' );
+            this.setFieldValue( currentB[ 1 ],'BY' );
+            this.setFieldValue( currentC[ 1 ],'CY' );
+
+          }
+
+        }
+      }
+    } 
+
+    // Done checking block type.
+    
+    var block = this;
+    var targetBlock;
+
+    // Only propagate 'up' if this is the last block in the chain
+    // Flow "up" the stack by popping up through parentBlock_ !== null once childblocks_ has a length of 0
+
+    if ( this.childBlocks_.length === 0 ) {
+      do {
+        targetBlock = block;
+        block = block.parentBlock_;
+      } while ( block );
+
+      if ( targetBlock.type == 'triangle_flow' ) { //Which it should be given our connection checks...
+
+        //Set target block's values (The TRIANGLE FLOW BLOCK's values) with the current A B and C
+
+        targetBlock.setFieldValue( '['+currentA+']','CURRENTA' );
+        targetBlock.setFieldValue( '['+currentB+']','CURRENTB' );
+        targetBlock.setFieldValue( '['+currentC+']','CURRENTC' );
+
+      }
+    }
+    
   }
 };
 
-Blockly.JavaScript['triangle_operations_auto'] = function(block) {
-  var dropdown_op = block.getFieldValue('OP');
-  var text_opx = block.getFieldValue('OPX');
-  var text_opy = block.getFieldValue('OPY');
-  // TODO: Assemble JavaScript into code variable.
-  var code = '...';
+Blockly.JavaScript['triangle_operations_auto'] = function( block ) {
+  var code = '';
   return code;
 };
 
-Blockly.Blocks['triangle_operations_locked_dilate_0_0'] = {
+// --------------------------------------------------------------------------------------------------------- //
+// triangle_operations_translate is a template for the non-propagating single operations block
+// --------------------------------------------------------------------------------------------------------- // 
+
+Blockly.Blocks['triangle_operations_translate'] = {
   init: function() {
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField("scale")
+        .appendField("Translate")
         .appendField("(")
-        .appendField("0")
+        .appendField(new Blockly.FieldTextInput("0"), "OPX")
         .appendField(",")
-        .appendField("0")
+        .appendField(new Blockly.FieldTextInput("0"), "OPY")
         .appendField(")");
     this.appendDummyInput()
-        .appendField(new Blockly.FieldImage("http://i.imgur.com/CRpYLa1.png", 150, 20, "*"));
+        .appendField(new Blockly.FieldImage("http://i.imgur.com/UpsXHeX.png", 150, 20, "*"));
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
         .appendField("A ⇒")
         .appendField("(")
-        .appendField("?")
+        .appendField(new Blockly.FieldTextInput("0"), "AX")
         .appendField(",")
-        .appendField("?")
+        .appendField(new Blockly.FieldTextInput("0"), "AY")
         .appendField(")");
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
         .appendField("B ⇒")
         .appendField("(")
-        .appendField("?")
+        .appendField(new Blockly.FieldTextInput("0"), "BX")
         .appendField(",")
-        .appendField("?")
+        .appendField(new Blockly.FieldTextInput("0"), "BY")
         .appendField(")");
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
         .appendField("C ⇒")
         .appendField("(")
-        .appendField("?")
+        .appendField(new Blockly.FieldTextInput("0"), "CX")
         .appendField(",")
-        .appendField("?")
+        .appendField(new Blockly.FieldTextInput("0"), "CY")
         .appendField(")");
     this.setInputsInline(false);
-    this.setPreviousStatement(true);
+    this.setPreviousStatement(true, 'INPUT');
     this.setNextStatement(true);
     this.setColour(195);
     this.setTooltip('');
     this.data = currentBlocklyNodeID;
+  },
+  onchange: function() {
+    if (!this.workspace) {
+      // Block has been deleted.
+      return;
+    }
+
+    //First check if we put the block in the right spot
+    
+    var legal = false;
+    // Is the block nested in a control statement?
+    var block = this;
+    do {
+      if (block.type == 'triangle_flow') {
+        legal = true;
+        break;
+      }
+      block = block.getSurroundParent();
+    } while ( block );
+    if ( legal ) {
+      this.setWarningText(null);
+      currentBlocklyErrors[ this.id ] = false;
+    } else {
+      this.setWarningText('Block can only be placed within a triangle flow block');
+      currentBlocklyErrors[ this.id ] = true;
+    }
+
+    //Reset block to this since we popped up the stack above.
+
+    block = this;
+
+    var opx = eval( block.getFieldValue('OPX') );
+    var opy = eval( block.getFieldValue('OPY') );
+    var ax = eval( block.getFieldValue('AX') );
+    var ay = eval( block.getFieldValue('AY') );
+    var bx = eval( block.getFieldValue('BX') );
+    var by = eval( block.getFieldValue('BY') );
+    var cx = eval( block.getFieldValue('CX') );
+    var cy = eval( block.getFieldValue('CY') );
+
+    // Input validation
+
+    if ( isNaN( opx ) || opx === "" ) { opx = 0; this.setFieldValue( '0','OPX' ); }
+    if ( isNaN( opy ) || opy === "" ) { opy = 0; this.setFieldValue( '0','OPY' ); }
+    if ( isNaN( ax ) || ax === "" ) { ax = 0; this.setFieldValue( '0','AX' ); }
+    if ( isNaN( bx ) || bx === "" ) { bx = 0; this.setFieldValue( '0','BX' ); }
+    if ( isNaN( cx ) || cx === "" ) { cx = 0; this.setFieldValue( '0','CX' ); }
+    if ( isNaN( ay ) || ay === "" ) { ay = 0; this.setFieldValue( '0','AY' ); }
+    if ( isNaN( by ) || by === "" ) { by = 0; this.setFieldValue( '0','BY' ); }
+    if ( isNaN( cy ) || cy === "" ) { cy = 0; this.setFieldValue( '0','CY' ); }
+
+    // block.parentBlock_ is always the block that is attached to the top statement input.
+
+    var inputBlock = block.parentBlock_;
+
+    //Check childBlocks_ (array) and parentBlock_ (direct block reference)
+
+    //A triangle flow with 2 operators would have the first operator be the childblock of triangle_flow
+    //The second operator would be the childblock of the first operator
+
+    if ( inputBlock !== null ) {
+      if ( inputBlock.type == 'triangle_flow' ) {
+        var currentA = [ 0,0 ];
+        var currentB = [ 0,1 ];
+        var currentC = [ 1,0 ];
+
+        currentA[ 0 ] = currentA[ 0 ] + opx;
+        currentB[ 0 ] = currentB[ 0 ] + opx;
+        currentC[ 0 ] = currentC[ 0 ] + opx;
+
+        currentA[ 1 ] = currentA[ 1 ] + opy;
+        currentB[ 1 ] = currentB[ 1 ] + opy;
+        currentC[ 1 ] = currentC[ 1 ] + opy;
+
+        //Check field values against expected values
+
+        if ( ax === currentA[ 0 ] && bx === currentB[ 0 ] && cx === currentC[ 0 ] && ay === currentA[ 1 ] && by === currentB[ 1 ] && cy === currentC[ 1 ] ) {
+          this.setWarningText(null);
+          currentBlocklyErrors[ this.id ] = false;
+        } else {
+          this.setWarningText('You must input the correct results of this operation!');
+          currentBlocklyErrors[ this.id ] = true;
+        }
+
+      } else {
+
+        if ( inputBlock !== undefined ) {
+
+          var currentA = [ eval( inputBlock.getFieldValue('AX') ), eval( inputBlock.getFieldValue('AY') ) ];
+          var currentB = [ eval( inputBlock.getFieldValue('BX') ), eval( inputBlock.getFieldValue('BY') ) ];
+          var currentC = [ eval( inputBlock.getFieldValue('CX') ), eval( inputBlock.getFieldValue('CY') ) ];
+
+          currentA[ 0 ] = currentA[ 0 ] + opx;
+          currentB[ 0 ] = currentB[ 0 ] + opx;
+          currentC[ 0 ] = currentC[ 0 ] + opx;
+
+          currentA[ 1 ] = currentA[ 1 ] + opy;
+          currentB[ 1 ] = currentB[ 1 ] + opy;
+          currentC[ 1 ] = currentC[ 1 ] + opy;
+
+          //Check field values against expected values
+
+          if ( ax === currentA[ 0 ] && bx == currentB[ 0 ] && cx == currentC[ 0 ] && ay === currentA[ 1 ] && by == currentB[ 1 ] && cy == currentC[ 1 ] ) {
+            this.setWarningText(null);
+            currentBlocklyErrors[ this.id ] = false;
+          } else {
+            this.setWarningText('You must input the correct results of this operation!');
+            currentBlocklyErrors[ this.id ] = true;
+          }
+        }
+
+      }
+    } 
+
+    // Done checking block type.
+
+    var block = this;
+    var targetBlock;
+
+    // Only propagate 'up' if this is the last block in the chain
+    // Flow "up" the stack by popping up through parentBlock_ !== null once childblocks_ has a length of 0
+
+    if ( this.childBlocks_.length === 0 ) {
+      do {
+        targetBlock = block;
+        block = block.parentBlock_;
+      } while ( block );
+
+      if ( targetBlock.type == 'triangle_flow' ) { //Which it should be given our connection checks...
+
+        //Set target block's values (The TRIANGLE FLOW BLOCK's values) with the current A B and C
+
+        targetBlock.setFieldValue( '['+currentA+']','CURRENTA' );
+        targetBlock.setFieldValue( '['+currentB+']','CURRENTB' );
+        targetBlock.setFieldValue( '['+currentC+']','CURRENTC' );
+
+      }
+    }
+    
   }
 };
 
-Blockly.JavaScript['triangle_operations_locked_dilate_0_0'] = function(block) {
-  // TODO: Assemble JavaScript into code variable.
-  var code = '...';
+Blockly.JavaScript['triangle_operations_translate'] = function( block ) {
+  var code = '';
   return code;
 };
 
+// --------------------------------------------------------------------------------------------------------- //
+// triangle_operations_translate_auto is a template for the auto-propagating single operation block (no user fill)
+// --------------------------------------------------------------------------------------------------------- // 
+
+Blockly.Blocks['triangle_operations_translate_auto'] = {
+  init: function() {
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("Translate")
+        .appendField("(")
+        .appendField(new Blockly.FieldTextInput("0"), "OPX")
+        .appendField(",")
+        .appendField(new Blockly.FieldTextInput("0"), "OPY")
+        .appendField(")");
+    this.appendDummyInput()
+        .appendField(new Blockly.FieldImage("http://i.imgur.com/UpsXHeX.png", 150, 20, "*"));
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("A ⇒")
+        .appendField("(")
+        .appendField("?", "AX")
+        .appendField(",")
+        .appendField("?", "AY")
+        .appendField(")");
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("B ⇒")
+        .appendField("(")
+        .appendField("?", "BX")
+        .appendField(",")
+        .appendField("?", "BY")
+        .appendField(")");
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("C ⇒")
+        .appendField("(")
+        .appendField("?", "CX")
+        .appendField(",")
+        .appendField("?", "CY")
+        .appendField(")");
+    this.setInputsInline(false);
+    this.setPreviousStatement(true, 'INPUT');
+    this.setNextStatement(true);
+    this.setColour(195);
+    this.setTooltip('');
+    this.data = currentBlocklyNodeID;
+  },
+  onchange: function() {
+    if (!this.workspace) {
+      // Block has been deleted.
+      return;
+    }
+
+    //First check if we put the block in the right spot
+    
+    var legal = false;
+    // Is the block nested in a control statement?
+    var block = this;
+    do {
+      if (block.type == 'triangle_flow') {
+        legal = true;
+        break;
+      }
+      block = block.getSurroundParent();
+    } while ( block );
+    if ( legal ) {
+      this.setWarningText(null);
+      currentBlocklyErrors[ this.id ] = false;
+    } else {
+      this.setWarningText('Block can only be placed within a triangle flow block');
+      currentBlocklyErrors[ this.id ] = true;
+    }
+
+    //Reset block to this since we popped up the stack above.
+
+    block = this;
+
+    var opx = eval( block.getFieldValue('OPX') );
+    var opy = eval( block.getFieldValue('OPY') );
+
+    // Input validation
+
+    if ( isNaN( opx ) || opx === "" ) { opx = 0; this.setFieldValue( '0','OPX' ); }
+    if ( isNaN( opy ) || opy === "" ) { opy = 0; this.setFieldValue( '0','OPY' ); }
+
+    // block.parentBlock_ is always the block that is attached to the top statement input.
+
+    var inputBlock = block.parentBlock_;
+
+    //Check childBlocks_ (array) and parentBlock_ (direct block reference)
+
+    //A triangle flow with 2 operators would have the first operator be the childblock of triangle_flow
+    //The second operator would be the childblock of the first operator
+
+    if ( inputBlock !== null ) {
+      if ( inputBlock.type == 'triangle_flow' ) {
+        var currentA = [ 0,0 ];
+        var currentB = [ 0,1 ];
+        var currentC = [ 1,0 ];
+
+        currentA[ 0 ] = currentA[ 0 ] + opx;
+        currentB[ 0 ] = currentB[ 0 ] + opx;
+        currentC[ 0 ] = currentC[ 0 ] + opx;
+
+        currentA[ 1 ] = currentA[ 1 ] + opy;
+        currentB[ 1 ] = currentB[ 1 ] + opy;
+        currentC[ 1 ] = currentC[ 1 ] + opy;
+
+        //Set fields appropriately
+
+        this.setFieldValue( currentA[ 0 ],'AX' );
+        this.setFieldValue( currentB[ 0 ],'BX' );
+        this.setFieldValue( currentC[ 0 ],'CX' );
+        this.setFieldValue( currentA[ 1 ],'AY' );
+        this.setFieldValue( currentB[ 1 ],'BY' );
+        this.setFieldValue( currentC[ 1 ],'CY' );
+
+      } else {
+
+        if ( inputBlock !== undefined ) {
+
+          var currentA = [ eval( inputBlock.getFieldValue('AX') ), eval( inputBlock.getFieldValue('AY') ) ];
+          var currentB = [ eval( inputBlock.getFieldValue('BX') ), eval( inputBlock.getFieldValue('BY') ) ];
+          var currentC = [ eval( inputBlock.getFieldValue('CX') ), eval( inputBlock.getFieldValue('CY') ) ];
+
+          currentA[ 0 ] = currentA[ 0 ] + opx;
+          currentB[ 0 ] = currentB[ 0 ] + opx;
+          currentC[ 0 ] = currentC[ 0 ] + opx;
+
+          currentA[ 1 ] = currentA[ 1 ] + opy;
+          currentB[ 1 ] = currentB[ 1 ] + opy;
+          currentC[ 1 ] = currentC[ 1 ] + opy;
+
+          //Set fields appropriately
+
+          this.setFieldValue( currentA[ 0 ],'AX' );
+          this.setFieldValue( currentB[ 0 ],'BX' );
+          this.setFieldValue( currentC[ 0 ],'CX' );
+          this.setFieldValue( currentA[ 1 ],'AY' );
+          this.setFieldValue( currentB[ 1 ],'BY' );
+          this.setFieldValue( currentC[ 1 ],'CY' );
+        }
+
+      }
+    } 
+
+    // Done checking block type.
+
+    var block = this;
+    var targetBlock;
+
+    // Only propagate 'up' if this is the last block in the chain
+    // Flow "up" the stack by popping up through parentBlock_ !== null once childblocks_ has a length of 0
+
+    if ( this.childBlocks_.length === 0 ) {
+      do {
+        targetBlock = block;
+        block = block.parentBlock_;
+      } while ( block );
+
+      if ( targetBlock.type == 'triangle_flow' ) { //Which it should be given our connection checks...
+
+        //Set target block's values (The TRIANGLE FLOW BLOCK's values) with the current A B and C
+
+        targetBlock.setFieldValue( '['+currentA+']','CURRENTA' );
+        targetBlock.setFieldValue( '['+currentB+']','CURRENTB' );
+        targetBlock.setFieldValue( '['+currentC+']','CURRENTC' );
+
+      }
+    }
+    
+  }
+};
+
+Blockly.JavaScript['triangle_operations_translate_auto'] = function( block ) {
+  var code = '';
+  return code;
+};
+
+Blockly.Blocks['triangle_operations_dilate'] = {
+  init: function() {
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("Dilate")
+        .appendField("(")
+        .appendField(new Blockly.FieldTextInput("0"), "OPX")
+        .appendField(",")
+        .appendField(new Blockly.FieldTextInput("0"), "OPY")
+        .appendField(")");
+    this.appendDummyInput()
+        .appendField(new Blockly.FieldImage("http://i.imgur.com/UpsXHeX.png", 150, 20, "*"));
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("A ⇒")
+        .appendField("(")
+        .appendField(new Blockly.FieldTextInput("0"), "AX")
+        .appendField(",")
+        .appendField(new Blockly.FieldTextInput("0"), "AY")
+        .appendField(")");
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("B ⇒")
+        .appendField("(")
+        .appendField(new Blockly.FieldTextInput("0"), "BX")
+        .appendField(",")
+        .appendField(new Blockly.FieldTextInput("0"), "BY")
+        .appendField(")");
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("C ⇒")
+        .appendField("(")
+        .appendField(new Blockly.FieldTextInput("0"), "CX")
+        .appendField(",")
+        .appendField(new Blockly.FieldTextInput("0"), "CY")
+        .appendField(")");
+    this.setInputsInline(false);
+    this.setPreviousStatement(true, 'INPUT');
+    this.setNextStatement(true);
+    this.setColour(45);
+    this.setTooltip('');
+    this.data = currentBlocklyNodeID;
+  },
+  onchange: function() {
+    if (!this.workspace) {
+      // Block has been deleted.
+      return;
+    }
+
+    //First check if we put the block in the right spot
+    
+    var legal = false;
+    // Is the block nested in a control statement?
+    var block = this;
+    do {
+      if (block.type == 'triangle_flow') {
+        legal = true;
+        break;
+      }
+      block = block.getSurroundParent();
+    } while ( block );
+    if ( legal ) {
+      this.setWarningText(null);
+      currentBlocklyErrors[ this.id ] = false;
+    } else {
+      this.setWarningText('Block can only be placed within a triangle flow block');
+      currentBlocklyErrors[ this.id ] = true;
+    }
+
+    //Reset block to this since we popped up the stack above.
+
+    block = this;
+
+    var opx = eval( block.getFieldValue('OPX') );
+    var opy = eval( block.getFieldValue('OPY') );
+    var ax = eval( block.getFieldValue('AX') );
+    var ay = eval( block.getFieldValue('AY') );
+    var bx = eval( block.getFieldValue('BX') );
+    var by = eval( block.getFieldValue('BY') );
+    var cx = eval( block.getFieldValue('CX') );
+    var cy = eval( block.getFieldValue('CY') );
+
+    // Input validation
+
+    if ( isNaN( opx ) || opx === "" ) { opx = 0; this.setFieldValue( '0','OPX' ); }
+    if ( isNaN( opy ) || opy === "" ) { opy = 0; this.setFieldValue( '0','OPY' ); }
+    if ( isNaN( ax ) || ax === "" ) { ax = 0; this.setFieldValue( '0','AX' ); }
+    if ( isNaN( bx ) || bx === "" ) { bx = 0; this.setFieldValue( '0','BX' ); }
+    if ( isNaN( cx ) || cx === "" ) { cx = 0; this.setFieldValue( '0','CX' ); }
+    if ( isNaN( ay ) || ay === "" ) { ay = 0; this.setFieldValue( '0','AY' ); }
+    if ( isNaN( by ) || by === "" ) { by = 0; this.setFieldValue( '0','BY' ); }
+    if ( isNaN( cy ) || cy === "" ) { cy = 0; this.setFieldValue( '0','CY' ); }
+
+    // block.parentBlock_ is always the block that is attached to the top statement input.
+
+    var inputBlock = block.parentBlock_;
+
+    //Check childBlocks_ (array) and parentBlock_ (direct block reference)
+
+    //A triangle flow with 2 operators would have the first operator be the childblock of triangle_flow
+    //The second operator would be the childblock of the first operator
+
+    if ( inputBlock !== null ) {
+      if ( inputBlock.type == 'triangle_flow' ) {
+        var currentA = [ 0,0 ];
+        var currentB = [ 0,1 ];
+        var currentC = [ 1,0 ];
+
+        currentA[ 0 ] = currentA[ 0 ] * opx;
+        currentB[ 0 ] = currentB[ 0 ] * opx;
+        currentC[ 0 ] = currentC[ 0 ] * opx;
+
+        currentA[ 1 ] = currentA[ 1 ] * opy;
+        currentB[ 1 ] = currentB[ 1 ] * opy;
+        currentC[ 1 ] = currentC[ 1 ] * opy;
+
+        //Check field values against expected values
+
+        if ( ax === currentA[ 0 ] && bx === currentB[ 0 ] && cx === currentC[ 0 ] && ay === currentA[ 1 ] && by === currentB[ 1 ] && cy === currentC[ 1 ] ) {
+          this.setWarningText(null);
+          currentBlocklyErrors[ this.id ] = false;
+        } else {
+          this.setWarningText('You must input the correct results of this operation!');
+          currentBlocklyErrors[ this.id ] = true;
+        }
+
+      } else {
+
+        if ( inputBlock !== undefined ) {
+
+          var currentA = [ eval( inputBlock.getFieldValue('AX') ), eval( inputBlock.getFieldValue('AY') ) ];
+          var currentB = [ eval( inputBlock.getFieldValue('BX') ), eval( inputBlock.getFieldValue('BY') ) ];
+          var currentC = [ eval( inputBlock.getFieldValue('CX') ), eval( inputBlock.getFieldValue('CY') ) ];
+
+          currentA[ 0 ] = currentA[ 0 ] * opx;
+          currentB[ 0 ] = currentB[ 0 ] * opx;
+          currentC[ 0 ] = currentC[ 0 ] * opx;
+
+          currentA[ 1 ] = currentA[ 1 ] * opy;
+          currentB[ 1 ] = currentB[ 1 ] * opy;
+          currentC[ 1 ] = currentC[ 1 ] * opy;
+
+          //Check field values against expected values
+
+          if ( ax === currentA[ 0 ] && bx == currentB[ 0 ] && cx == currentC[ 0 ] && ay === currentA[ 1 ] && by == currentB[ 1 ] && cy == currentC[ 1 ] ) {
+            this.setWarningText(null);
+            currentBlocklyErrors[ this.id ] = false;
+          } else {
+            this.setWarningText('You must input the correct results of this operation!');
+            currentBlocklyErrors[ this.id ] = true;
+          }
+        }
+
+      }
+    } 
+
+    // Done checking block type.
+
+    var block = this;
+    var targetBlock;
+
+    // Only propagate 'up' if this is the last block in the chain
+    // Flow "up" the stack by popping up through parentBlock_ !== null once childblocks_ has a length of 0
+
+    if ( this.childBlocks_.length === 0 ) {
+      do {
+        targetBlock = block;
+        block = block.parentBlock_;
+      } while ( block );
+
+      if ( targetBlock.type == 'triangle_flow' ) { //Which it should be given our connection checks...
+
+        //Set target block's values (The TRIANGLE FLOW BLOCK's values) with the current A B and C
+
+        targetBlock.setFieldValue( '['+currentA+']','CURRENTA' );
+        targetBlock.setFieldValue( '['+currentB+']','CURRENTB' );
+        targetBlock.setFieldValue( '['+currentC+']','CURRENTC' );
+
+      }
+    }
+    
+  }
+};
+
+Blockly.JavaScript['triangle_operations_dilate'] = function( block ) {
+  var code = '';
+  return code;
+};
+
+Blockly.Blocks['triangle_operations_dilate_auto'] = {
+  init: function() {
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("Dilate")
+        .appendField("(")
+        .appendField(new Blockly.FieldTextInput("0"), "OPX")
+        .appendField(",")
+        .appendField(new Blockly.FieldTextInput("0"), "OPY")
+        .appendField(")");
+    this.appendDummyInput()
+        .appendField(new Blockly.FieldImage("http://i.imgur.com/UpsXHeX.png", 150, 20, "*"));
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("A ⇒")
+        .appendField("(")
+        .appendField("?", "AX")
+        .appendField(",")
+        .appendField("?", "AY")
+        .appendField(")");
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("B ⇒")
+        .appendField("(")
+        .appendField("?", "BX")
+        .appendField(",")
+        .appendField("?", "BY")
+        .appendField(")");
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("C ⇒")
+        .appendField("(")
+        .appendField("?", "CX")
+        .appendField(",")
+        .appendField("?", "CY")
+        .appendField(")");
+    this.setInputsInline(false);
+    this.setPreviousStatement(true, 'INPUT');
+    this.setNextStatement(true);
+    this.setColour(45);
+    this.setTooltip('');
+    this.data = currentBlocklyNodeID;
+  },
+  onchange: function() {
+    if (!this.workspace) {
+      // Block has been deleted.
+      return;
+    }
+
+    //First check if we put the block in the right spot
+    
+    var legal = false;
+    // Is the block nested in a control statement?
+    var block = this;
+    do {
+      if (block.type == 'triangle_flow') {
+        legal = true;
+        break;
+      }
+      block = block.getSurroundParent();
+    } while ( block );
+    if ( legal ) {
+      this.setWarningText(null);
+      currentBlocklyErrors[ this.id ] = false;
+    } else {
+      this.setWarningText('Block can only be placed within a triangle flow block');
+      currentBlocklyErrors[ this.id ] = true;
+    }
+
+    //Reset block to this since we popped up the stack above.
+
+    block = this;
+
+    var opx = eval( block.getFieldValue('OPX') );
+    var opy = eval( block.getFieldValue('OPY') );
+
+    // Input validation
+
+    if ( isNaN( opx ) || opx === "" ) { opx = 0; this.setFieldValue( '0','OPX' ); }
+    if ( isNaN( opy ) || opy === "" ) { opy = 0; this.setFieldValue( '0','OPY' ); }
+
+    // block.parentBlock_ is always the block that is attached to the top statement input.
+
+    var inputBlock = block.parentBlock_;
+
+    //Check childBlocks_ (array) and parentBlock_ (direct block reference)
+
+    //A triangle flow with 2 operators would have the first operator be the childblock of triangle_flow
+    //The second operator would be the childblock of the first operator
+
+    if ( inputBlock !== null ) {
+      if ( inputBlock.type == 'triangle_flow' ) {
+        var currentA = [ 0,0 ];
+        var currentB = [ 0,1 ];
+        var currentC = [ 1,0 ];
+
+        currentA[ 0 ] = currentA[ 0 ] * opx;
+        currentB[ 0 ] = currentB[ 0 ] * opx;
+        currentC[ 0 ] = currentC[ 0 ] * opx;
+
+        currentA[ 1 ] = currentA[ 1 ] * opy;
+        currentB[ 1 ] = currentB[ 1 ] * opy;
+        currentC[ 1 ] = currentC[ 1 ] * opy;
+
+        //Set fields appropriately
+
+        this.setFieldValue( currentA[ 0 ],'AX' );
+        this.setFieldValue( currentB[ 0 ],'BX' );
+        this.setFieldValue( currentC[ 0 ],'CX' );
+        this.setFieldValue( currentA[ 1 ],'AY' );
+        this.setFieldValue( currentB[ 1 ],'BY' );
+        this.setFieldValue( currentC[ 1 ],'CY' );
+
+      } else {
+
+        if ( inputBlock !== undefined ) {
+
+          var currentA = [ eval( inputBlock.getFieldValue('AX') ), eval( inputBlock.getFieldValue('AY') ) ];
+          var currentB = [ eval( inputBlock.getFieldValue('BX') ), eval( inputBlock.getFieldValue('BY') ) ];
+          var currentC = [ eval( inputBlock.getFieldValue('CX') ), eval( inputBlock.getFieldValue('CY') ) ];
+
+          currentA[ 0 ] = currentA[ 0 ] + opx;
+          currentB[ 0 ] = currentB[ 0 ] + opx;
+          currentC[ 0 ] = currentC[ 0 ] + opx;
+
+          currentA[ 1 ] = currentA[ 1 ] + opy;
+          currentB[ 1 ] = currentB[ 1 ] + opy;
+          currentC[ 1 ] = currentC[ 1 ] + opy;
+
+          //Set fields appropriately
+
+          this.setFieldValue( currentA[ 0 ],'AX' );
+          this.setFieldValue( currentB[ 0 ],'BX' );
+          this.setFieldValue( currentC[ 0 ],'CX' );
+          this.setFieldValue( currentA[ 1 ],'AY' );
+          this.setFieldValue( currentB[ 1 ],'BY' );
+          this.setFieldValue( currentC[ 1 ],'CY' );
+        }
+
+      }
+    } 
+
+    // Done checking block type.
+
+    var block = this;
+    var targetBlock;
+
+    // Only propagate 'up' if this is the last block in the chain
+    // Flow "up" the stack by popping up through parentBlock_ !== null once childblocks_ has a length of 0
+
+    if ( this.childBlocks_.length === 0 ) {
+      do {
+        targetBlock = block;
+        block = block.parentBlock_;
+      } while ( block );
+
+      if ( targetBlock.type == 'triangle_flow' ) { //Which it should be given our connection checks...
+
+        //Set target block's values (The TRIANGLE FLOW BLOCK's values) with the current A B and C
+
+        targetBlock.setFieldValue( '['+currentA+']','CURRENTA' );
+        targetBlock.setFieldValue( '['+currentB+']','CURRENTB' );
+        targetBlock.setFieldValue( '['+currentC+']','CURRENTC' );
+
+      }
+    }
+    
+  }
+};
+
+Blockly.JavaScript['triangle_operations_dilate_auto'] = function( block ) {
+  var code = '';
+  return code;
+};
+
+Blockly.Blocks['triangle_operations_dilate_auto_fixed'] = {
+  init: function() {
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("Dilate")
+        .appendField("(")
+        .appendField("1", "OPX")
+        .appendField(",")
+        .appendField("1", "OPY")
+        .appendField(")");
+    this.appendDummyInput()
+        .appendField(new Blockly.FieldImage("http://i.imgur.com/UpsXHeX.png", 150, 20, "*"));
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("A ⇒")
+        .appendField("(")
+        .appendField("?", "AX")
+        .appendField(",")
+        .appendField("?", "AY")
+        .appendField(")");
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("B ⇒")
+        .appendField("(")
+        .appendField("?", "BX")
+        .appendField(",")
+        .appendField("?", "BY")
+        .appendField(")");
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("C ⇒")
+        .appendField("(")
+        .appendField("?", "CX")
+        .appendField(",")
+        .appendField("?", "CY")
+        .appendField(")");
+    this.setInputsInline(false);
+    this.setPreviousStatement(true, 'INPUT');
+    this.setNextStatement(true);
+    this.setColour(45);
+    this.setTooltip('');
+    this.data = currentBlocklyNodeID;
+  },
+  onchange: function() {
+    if (!this.workspace) {
+      // Block has been deleted.
+      return;
+    }
+
+    //First check if we put the block in the right spot
+    
+    var legal = false;
+    // Is the block nested in a control statement?
+    var block = this;
+    do {
+      if (block.type == 'triangle_flow') {
+        legal = true;
+        break;
+      }
+      block = block.getSurroundParent();
+    } while ( block );
+    if ( legal ) {
+      this.setWarningText(null);
+      currentBlocklyErrors[ this.id ] = false;
+    } else {
+      this.setWarningText('Block can only be placed within a triangle flow block');
+      currentBlocklyErrors[ this.id ] = true;
+    }
+
+    //Reset block to this since we popped up the stack above.
+
+    block = this;
+
+    var opx = eval( block.getFieldValue('OPX') );
+    var opy = eval( block.getFieldValue('OPY') );
+
+    // block.parentBlock_ is always the block that is attached to the top statement input.
+
+    var inputBlock = block.parentBlock_;
+
+    //Check childBlocks_ (array) and parentBlock_ (direct block reference)
+
+    //A triangle flow with 2 operators would have the first operator be the childblock of triangle_flow
+    //The second operator would be the childblock of the first operator
+
+    if ( inputBlock !== null ) {
+      if ( inputBlock.type == 'triangle_flow' ) {
+        var currentA = [ 0,0 ];
+        var currentB = [ 0,1 ];
+        var currentC = [ 1,0 ];
+
+        currentA[ 0 ] = currentA[ 0 ] * opx;
+        currentB[ 0 ] = currentB[ 0 ] * opx;
+        currentC[ 0 ] = currentC[ 0 ] * opx;
+
+        currentA[ 1 ] = currentA[ 1 ] * opy;
+        currentB[ 1 ] = currentB[ 1 ] * opy;
+        currentC[ 1 ] = currentC[ 1 ] * opy;
+
+        //Set fields appropriately
+
+        this.setFieldValue( currentA[ 0 ],'AX' );
+        this.setFieldValue( currentB[ 0 ],'BX' );
+        this.setFieldValue( currentC[ 0 ],'CX' );
+        this.setFieldValue( currentA[ 1 ],'AY' );
+        this.setFieldValue( currentB[ 1 ],'BY' );
+        this.setFieldValue( currentC[ 1 ],'CY' );
+
+      } else {
+
+        if ( inputBlock !== undefined ) {
+
+          var currentA = [ eval( inputBlock.getFieldValue('AX') ), eval( inputBlock.getFieldValue('AY') ) ];
+          var currentB = [ eval( inputBlock.getFieldValue('BX') ), eval( inputBlock.getFieldValue('BY') ) ];
+          var currentC = [ eval( inputBlock.getFieldValue('CX') ), eval( inputBlock.getFieldValue('CY') ) ];
+
+          currentA[ 0 ] = currentA[ 0 ] + opx;
+          currentB[ 0 ] = currentB[ 0 ] + opx;
+          currentC[ 0 ] = currentC[ 0 ] + opx;
+
+          currentA[ 1 ] = currentA[ 1 ] + opy;
+          currentB[ 1 ] = currentB[ 1 ] + opy;
+          currentC[ 1 ] = currentC[ 1 ] + opy;
+
+          //Set fields appropriately
+
+          this.setFieldValue( currentA[ 0 ],'AX' );
+          this.setFieldValue( currentB[ 0 ],'BX' );
+          this.setFieldValue( currentC[ 0 ],'CX' );
+          this.setFieldValue( currentA[ 1 ],'AY' );
+          this.setFieldValue( currentB[ 1 ],'BY' );
+          this.setFieldValue( currentC[ 1 ],'CY' );
+        }
+
+      }
+    } 
+
+    // Done checking block type.
+
+    var block = this;
+    var targetBlock;
+
+    // Only propagate 'up' if this is the last block in the chain
+    // Flow "up" the stack by popping up through parentBlock_ !== null once childblocks_ has a length of 0
+
+    if ( this.childBlocks_.length === 0 ) {
+      do {
+        targetBlock = block;
+        block = block.parentBlock_;
+      } while ( block );
+
+      if ( targetBlock.type == 'triangle_flow' ) { //Which it should be given our connection checks...
+
+        //Set target block's values (The TRIANGLE FLOW BLOCK's values) with the current A B and C
+
+        targetBlock.setFieldValue( '['+currentA+']','CURRENTA' );
+        targetBlock.setFieldValue( '['+currentB+']','CURRENTB' );
+        targetBlock.setFieldValue( '['+currentC+']','CURRENTC' );
+
+      }
+    }
+    
+  }
+};
+
+Blockly.JavaScript['triangle_operations_dilate_auto_fixed'] = function( block ) {
+  var code = '';
+  return code;
+};
 
 Blockly.Blocks['start_triangle'] = {
   init: function() {
