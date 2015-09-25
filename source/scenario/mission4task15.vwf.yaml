@@ -159,16 +159,6 @@ children:
     properties: 
       triggers$:
 
-        openMissionBrief_4_15:
-          triggerCondition:
-          - and:
-            - onScenarioStart:
-            - doOnce:
-          actions:
-          - delay:
-            - 2
-            - openMissionBrief:
-
         playStartingVO_4_15:
           triggerCondition:
           - and:
@@ -185,6 +175,17 @@ children:
             - PerryDusty
           - playSound:
             - TM4V42_MANNY
+          - setProperty:
+            - hud
+            - enabled
+            - false
+          - delay:
+            - 2
+            - openMissionBrief:
+            - setProperty:
+              - hud
+              - enabled
+              - true
 
         highlightEndTile_4_15:
           triggerCondition:
