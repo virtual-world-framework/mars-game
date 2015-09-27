@@ -193,6 +193,16 @@ children:
               - enabled
               - true
 
+        playHint_M4T3_1:
+          triggerCondition:
+          - and:
+            - doOnce:
+            - delay:
+              - 25
+          actions:
+          - playSound:
+            - TM4_49_Manny
+
         failOnMissingBlock_4_3:
           group: successOrFailure
           priority: 0.5

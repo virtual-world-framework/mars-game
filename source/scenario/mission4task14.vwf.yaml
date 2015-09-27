@@ -170,16 +170,6 @@ children:
     properties: 
       triggers$:
 
-        openMissionBrief_4_14:
-          triggerCondition:
-          - and:
-            - onScenarioStart:
-            - doOnce:
-          actions:
-          - delay:
-            - 2
-            - openMissionBrief:
-
         playStartingVO_4_14:
           triggerCondition:
           - and:
@@ -192,6 +182,17 @@ children:
             - TM4V33_MANNY
           - playSound:
             - PerryNotDoneGroan
+          - setProperty:
+            - hud
+            - enabled
+            - false
+          - delay:
+            - 2
+            - openMissionBrief:
+            - setProperty:
+              - hud
+              - enabled
+              - true
 
         highlightEndTile_4_14:
           triggerCondition:

@@ -236,6 +236,16 @@ children:
               - enabled
               - true
 
+        playHint_M4T1_1:
+          triggerCondition:
+          - and:
+            - doOnce:
+            - delay:
+              - 80
+          actions:
+          - playSound:
+            - TM4_46_Manny
+
         scenarioEnded4_1:
           triggerCondition:
           - or: 

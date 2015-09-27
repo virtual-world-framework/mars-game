@@ -154,16 +154,6 @@ children:
     properties: 
       triggers$:
 
-        openMissionBrief_4_5:
-          triggerCondition:
-          - and:
-            - onScenarioStart:
-            - doOnce:
-          actions:
-          - delay:
-            - 2
-            - openMissionBrief:
-
         playStartingVO_4_5:
           triggerCondition:
           - and:
@@ -172,6 +162,27 @@ children:
           actions:
           - playSound:
             - TM4V17_MC
+          - setProperty:
+            - hud
+            - enabled
+            - false
+          - delay:
+            - 2
+            - openMissionBrief:
+            - setProperty:
+              - hud
+              - enabled
+              - true
+
+        playHint_M4T5_1:
+          triggerCondition:
+          - and:
+            - doOnce:
+            - delay:
+              - 15
+          actions:
+          - playSound:
+            - TM4_51_Manny
 
         setStartPosition_4_5:
           triggerCondition:

@@ -163,9 +163,17 @@ children:
           actions:
           - playSound:
             - TM4V24_MC
+          - setProperty:
+            - hud
+            - enabled
+            - false
           - delay:
             - 15
             - openMissionBrief:
+            - setProperty:
+              - hud
+              - enabled
+              - true
 
         setStartPosition_4_9:
           triggerCondition:
