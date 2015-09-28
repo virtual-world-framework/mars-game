@@ -907,9 +907,9 @@ Blockly.Blocks['triangle_operations_translate'] = {
 
         //Set target block's values (The TRIANGLE FLOW BLOCK's values) with the current A B and C
 
-        targetBlock.setFieldValue( '['+currentA+']','CURRENTA' );
-        targetBlock.setFieldValue( '['+currentB+']','CURRENTB' );
-        targetBlock.setFieldValue( '['+currentC+']','CURRENTC' );
+        targetBlock.setFieldValue( '['+ax+','+ay+']','CURRENTA' );
+        targetBlock.setFieldValue( '['+bx+','+by+']','CURRENTB' );
+        targetBlock.setFieldValue( '['+cx+','+cy+']','CURRENTC' );
 
       }
     }
@@ -1272,9 +1272,9 @@ Blockly.Blocks['triangle_operations_dilate'] = {
 
         //Set target block's values (The TRIANGLE FLOW BLOCK's values) with the current A B and C
 
-        targetBlock.setFieldValue( '['+currentA+']','CURRENTA' );
-        targetBlock.setFieldValue( '['+currentB+']','CURRENTB' );
-        targetBlock.setFieldValue( '['+currentC+']','CURRENTC' );
+        targetBlock.setFieldValue( '['+ax+','+ay+']','CURRENTA' );
+        targetBlock.setFieldValue( '['+bx+','+by+']','CURRENTB' );
+        targetBlock.setFieldValue( '['+cx+','+cy+']','CURRENTC' );
 
       }
     }
