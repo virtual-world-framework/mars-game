@@ -1108,10 +1108,7 @@ Blockly.Blocks['triangle_operations_dilate'] = {
         .appendField("Dilate")
         .appendField("(")
         .appendField(new Blockly.FieldTextInput('0',
-        Blockly.FieldTextInput.numberValidator), "OPX")
-        .appendField(",")
-        .appendField(new Blockly.FieldTextInput('0',
-        Blockly.FieldTextInput.numberValidator), "OPY")
+        Blockly.FieldTextInput.numberValidator), "OP")
         .appendField(")");
     this.appendDummyInput()
         .appendField(new Blockly.FieldImage("http://i.imgur.com/UpsXHeX.png", 150, 20, "*"));
@@ -1182,8 +1179,7 @@ Blockly.Blocks['triangle_operations_dilate'] = {
 
     block = this;
 
-    var opx = eval( block.getFieldValue('OPX') );
-    var opy = eval( block.getFieldValue('OPY') );
+    var op = eval( block.getFieldValue('OP') );
     var ax = eval( block.getFieldValue('AX') );
     var ay = eval( block.getFieldValue('AY') );
     var bx = eval( block.getFieldValue('BX') );
@@ -1206,13 +1202,13 @@ Blockly.Blocks['triangle_operations_dilate'] = {
         var currentB = [ 0,1 ];
         var currentC = [ 1,0 ];
 
-        currentA[ 0 ] = currentA[ 0 ] * opx;
-        currentB[ 0 ] = currentB[ 0 ] * opx;
-        currentC[ 0 ] = currentC[ 0 ] * opx;
+        currentA[ 0 ] = currentA[ 0 ] * op;
+        currentB[ 0 ] = currentB[ 0 ] * op;
+        currentC[ 0 ] = currentC[ 0 ] * op;
 
-        currentA[ 1 ] = currentA[ 1 ] * opy;
-        currentB[ 1 ] = currentB[ 1 ] * opy;
-        currentC[ 1 ] = currentC[ 1 ] * opy;
+        currentA[ 1 ] = currentA[ 1 ] * op;
+        currentB[ 1 ] = currentB[ 1 ] * op;
+        currentC[ 1 ] = currentC[ 1 ] * op;
 
         //Check field values against expected values
 
@@ -1232,13 +1228,13 @@ Blockly.Blocks['triangle_operations_dilate'] = {
           var currentB = [ eval( inputBlock.getFieldValue('BX') ), eval( inputBlock.getFieldValue('BY') ) ];
           var currentC = [ eval( inputBlock.getFieldValue('CX') ), eval( inputBlock.getFieldValue('CY') ) ];
 
-          currentA[ 0 ] = currentA[ 0 ] * opx;
-          currentB[ 0 ] = currentB[ 0 ] * opx;
-          currentC[ 0 ] = currentC[ 0 ] * opx;
+          currentA[ 0 ] = currentA[ 0 ] * op;
+          currentB[ 0 ] = currentB[ 0 ] * op;
+          currentC[ 0 ] = currentC[ 0 ] * op;
 
-          currentA[ 1 ] = currentA[ 1 ] * opy;
-          currentB[ 1 ] = currentB[ 1 ] * opy;
-          currentC[ 1 ] = currentC[ 1 ] * opy;
+          currentA[ 1 ] = currentA[ 1 ] * op;
+          currentB[ 1 ] = currentB[ 1 ] * op;
+          currentC[ 1 ] = currentC[ 1 ] * op;
 
           //Check field values against expected values
 
@@ -1293,9 +1289,8 @@ Blockly.Blocks['triangle_operations_dilate_auto'] = {
         .setAlign(Blockly.ALIGN_CENTRE)
         .appendField("Dilate")
         .appendField("(")
-        .appendField(new Blockly.FieldTextInput("0"), "OPX")
-        .appendField(",")
-        .appendField(new Blockly.FieldTextInput("0"), "OPY")
+        .appendField(new Blockly.FieldTextInput('0',
+        Blockly.FieldTextInput.numberValidator), "OP")
         .appendField(")");
     this.appendDummyInput()
         .appendField(new Blockly.FieldImage("http://i.imgur.com/UpsXHeX.png", 150, 20, "*"));
@@ -1360,13 +1355,7 @@ Blockly.Blocks['triangle_operations_dilate_auto'] = {
 
     block = this;
 
-    var opx = eval( block.getFieldValue('OPX') );
-    var opy = eval( block.getFieldValue('OPY') );
-
-    // Input validation
-
-    if ( isNaN( opx ) || opx === "" ) { opx = 0; this.setFieldValue( '0','OPX' ); }
-    if ( isNaN( opy ) || opy === "" ) { opy = 0; this.setFieldValue( '0','OPY' ); }
+    var op = eval( block.getFieldValue('OP') );
 
     // block.parentBlock_ is always the block that is attached to the top statement input.
 
@@ -1383,13 +1372,13 @@ Blockly.Blocks['triangle_operations_dilate_auto'] = {
         var currentB = [ 0,1 ];
         var currentC = [ 1,0 ];
 
-        currentA[ 0 ] = currentA[ 0 ] * opx;
-        currentB[ 0 ] = currentB[ 0 ] * opx;
-        currentC[ 0 ] = currentC[ 0 ] * opx;
+        currentA[ 0 ] = currentA[ 0 ] * op;
+        currentB[ 0 ] = currentB[ 0 ] * op;
+        currentC[ 0 ] = currentC[ 0 ] * op;
 
-        currentA[ 1 ] = currentA[ 1 ] * opy;
-        currentB[ 1 ] = currentB[ 1 ] * opy;
-        currentC[ 1 ] = currentC[ 1 ] * opy;
+        currentA[ 1 ] = currentA[ 1 ] * op;
+        currentB[ 1 ] = currentB[ 1 ] * op;
+        currentC[ 1 ] = currentC[ 1 ] * op;
 
         //Set fields appropriately
 
@@ -1408,13 +1397,13 @@ Blockly.Blocks['triangle_operations_dilate_auto'] = {
           var currentB = [ eval( inputBlock.getFieldValue('BX') ), eval( inputBlock.getFieldValue('BY') ) ];
           var currentC = [ eval( inputBlock.getFieldValue('CX') ), eval( inputBlock.getFieldValue('CY') ) ];
 
-          currentA[ 0 ] = currentA[ 0 ] + opx;
-          currentB[ 0 ] = currentB[ 0 ] + opx;
-          currentC[ 0 ] = currentC[ 0 ] + opx;
+          currentA[ 0 ] = currentA[ 0 ] + op;
+          currentB[ 0 ] = currentB[ 0 ] + op;
+          currentC[ 0 ] = currentC[ 0 ] + op;
 
-          currentA[ 1 ] = currentA[ 1 ] + opy;
-          currentB[ 1 ] = currentB[ 1 ] + opy;
-          currentC[ 1 ] = currentC[ 1 ] + opy;
+          currentA[ 1 ] = currentA[ 1 ] + op;
+          currentB[ 1 ] = currentB[ 1 ] + op;
+          currentC[ 1 ] = currentC[ 1 ] + op;
 
           //Set fields appropriately
 
