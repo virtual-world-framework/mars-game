@@ -168,9 +168,27 @@ children:
           actions:
           - playSound:
             - TM4V23_MC
+          - setProperty:
+            - hud
+            - enabled
+            - false
           - delay:
             - 23
             - openMissionBrief:
+            - setProperty:
+              - hud
+              - enabled
+              - true
+
+        playHint_M4T8_1:
+          triggerCondition:
+          - and:
+            - doOnce:
+            - delay:
+              - 45
+          actions:
+          - playSound:
+            - TM4_53_Manny
 
         succeedOnTriangle_4_8:
           group: successOrFailure

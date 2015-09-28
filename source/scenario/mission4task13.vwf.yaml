@@ -145,16 +145,6 @@ children:
     properties: 
       triggers$:
 
-        openMissionBrief_4_13:
-          triggerCondition:
-          - and:
-            - onScenarioStart:
-            - doOnce:
-          actions:
-          - delay:
-            - 2
-            - openMissionBrief:
-
         playStartingVO_4_13:
           triggerCondition:
           - and:
@@ -167,6 +157,17 @@ children:
             - perryIDidIt07
           - playSound:
             - TM4V31_MANNY
+          - setProperty:
+            - hud
+            - enabled
+            - false
+          - delay:
+            - 2
+            - openMissionBrief:
+            - setProperty:
+              - hud
+              - enabled
+              - true
 
         setStartPosition_4_13:
           triggerCondition:

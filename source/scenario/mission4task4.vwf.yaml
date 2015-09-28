@@ -178,6 +178,16 @@ children:
               - enabled
               - true
 
+        playHint_M4T4_1:
+          triggerCondition:
+          - and:
+            - doOnce:
+            - delay:
+              - 30
+          actions:
+          - playSound:
+            - TM4_50_Manny
+
         succeedOnTriangle_4_4:
           group: successOrFailure
           priority: 0
