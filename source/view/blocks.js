@@ -4312,7 +4312,7 @@ Blockly.JavaScript['rover_moveRadial_absolute'] = function(block) {
 Blockly.Blocks['init_nano_construction'] = {
   init: function() {
     this.appendDummyInput()
-        .appendField("Init Nano Construction");
+        .appendField("Start Construction");
     this.setPreviousStatement(true);
     this.setNextStatement(true);
     this.setColour(180);
@@ -4320,7 +4320,7 @@ Blockly.Blocks['init_nano_construction'] = {
     var thisBlock = this;
     this.setTooltip( function() {
       var content = {
-        text: "Starts construction of all drawn builder nanoparticles."
+        text: "Starts the Nanite construction."
       }
       return showTooltipInBlockly( thisBlock, content );
     } );
@@ -4731,7 +4731,7 @@ Blockly.Blocks[ 'math_number_out_m4t8' ] = {
   init: function() {
     this.setColour( 60 );
     this.appendValueInput( "INPUT" )
-        .appendField(new Blockly.FieldDropdown([["7", "7"],["1","1"],["0","0"]]), "VALUE")
+        .appendField(new Blockly.FieldDropdown([["8", "8"],["1","1"],["0","0"]]), "VALUE")
         .setCheck( [ 'OperatorAddSubtract','OperatorMultiplyDivide','Variable','LeftParenthesis','RightParenthesis','Conditional' ] );
     this.setOutput( true, 'Number' );
     this.data = currentBlocklyNodeID;

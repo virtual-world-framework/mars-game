@@ -11,7 +11,7 @@
   <sep></sep>
   <category name="Loops">
     <block type="controls_whileUntil"><field name="MODE">WHILE</field></block>
-    <block type="controls_repeat_ext"><value name="TIMES"><block type="math_number_out" inline="false"><field name="VALUE">0</field></block></value></block>
+    <block type="controls_repeat_ext"><value name="TIMES"><block type="math_number_out_10" inline="false"><field name="VALUE">0</field></block></value></block>
   </category>
   <sep></sep>
   <category name="Conditionals">

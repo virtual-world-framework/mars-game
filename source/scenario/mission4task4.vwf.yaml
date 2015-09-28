@@ -166,12 +166,14 @@ children:
           actions:
           # - playSound:
           #   - TM4V14_MANNY
+          - playSound:
+            - TM4V15_MC
           - setProperty:
             - hud
             - enabled
             - false
           - delay:
-            - 7
+            - 11
             - openMissionBrief:
             - setProperty:
               - hud

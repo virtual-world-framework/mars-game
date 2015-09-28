@@ -21,7 +21,7 @@ properties:
 
   # objective
   - setObjective:
-    - "Move to (-3,0) and initiate construction."
+    - "Move to (-3,0) and start construction."
 
   # blockly
   - setBlocklyContext:
@@ -186,7 +186,7 @@ children:
             - enabled
             - false
           - delay:
-            - 6
+            - 27
             - openMissionBrief:
             - setProperty:
               - hud
@@ -199,7 +199,7 @@ children:
           - and:
             - doOnce:
             - delay:
-              - 25
+              - 50
           actions:
           - playSound:
             - TM4_49_Manny
@@ -219,7 +219,7 @@ children:
           actions:
           - scenarioFailure:
             - incomplete
-            - "You should use the construction block to initiate construction."
+            - "Don't forget to use the start construction block to tell the nanites to go to work!"
           - playSound:
             - FCVO2_Rover
 
@@ -274,5 +274,5 @@ children:
       content: >
         Good work! 
         <br><br>Now that you have your triangle placed properly, you need to
-        move Peregrine to the designated "safe spot" and then use the Init
-        Nano Construction block to make the construction start.
+        move Peregrine to the designated "safe spot" and then use the Start 
+        Construction block to make the nanites go to work.

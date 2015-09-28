@@ -166,7 +166,7 @@ children:
             - enabled
             - false
           - delay:
-            - 2
+            - 9
             - openMissionBrief:
             - setProperty:
               - hud
@@ -199,7 +199,7 @@ children:
           actions:
           - scenarioFailure:
             - incomplete
-            - "You should use the construction block to initiate construction."
+            - "Don't forget to use the start construction block to tell the nanites to go to work!"
           - playSound:
             - FCVO2_Rover
 
@@ -266,4 +266,4 @@ children:
       content: >
         One more panel to go!
         <br><br>This time, reflect your triangle across both axes, then dilate 
-        it, move to (-3,0), and initiate construction.
+        it, move to (-3,0), and start construction.

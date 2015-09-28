@@ -406,7 +406,7 @@ properties:
     - soundName: "TM3V15_Rover"
       soundURL: "assets/sounds/vo/newmission3vo15.ogg"
       initialVolume: 0.65
-      subtitle: "[MANNY]: Are we done going in circles *yet*?"
+      subtitle: "[MANNY]: Can we stop going in circles *yet*?"
       soundGroup: vo
       groupReplacementMethod: replace
     - soundName: "TM3V16_MC"

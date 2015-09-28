@@ -220,7 +220,7 @@ children:
           actions:
           - scenarioFailure:
             - incomplete
-            - "You should use the construction block to initiate construction."
+            - "Don't forget to use the start construction block to tell the nanites to go to work!"
           - playSound:
             - FCVO2_Rover
 
@@ -292,4 +292,4 @@ children:
         <br><br>The next thing you need to build is a greenhouse dome. Like the habitation dome, the
         greenhouse dome is built using four triangles.  Let's save some time, and put all four
         triangles into a single program.
-        <br><br>Don't forget to move to a safe spot and initiate construction when you're done!
+        <br><br>Don't forget to move to a safe spot and start construction when you're done!

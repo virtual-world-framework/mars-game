@@ -2,6 +2,15 @@
   
   <category name="Procedures">
   	<block type="draw_triangle" inline="false" x="60" y="140"><value name="pointA"><block type="ordered_pair_config" movable="false" inline="true"><value name="XFIELD"><block type="math_number_field" inline="false" movable="false" editable="false"><field name="VALUE">0</field></block></value><value name="YFIELD"><block type="math_number_field" inline="false" movable="false" editable="false"><field name="VALUE">0</field></block></value></block></value><value name="pointB"><block type="ordered_pair_config" movable="false" inline="true"><value name="XFIELD"><block type="math_number_field" inline="false" movable="false" editable="false"><field name="VALUE">0</field></block></value><value name="YFIELD"><block type="math_number_field" inline="false" movable="false" editable="false"><field name="VALUE">1</field></block></value></block></value><value name="pointC"><block type="ordered_pair_config" movable="false" inline="true"><value name="XFIELD"><block type="math_number_field" inline="false" movable="false" editable="false"><field name="VALUE">1</field></block></value><value name="YFIELD"><block type="math_number_field" inline="false" movable="false" editable="false"><field name="VALUE">0</field></block></value></block></value></block>
+    <block type="math_number_out" inline="false"><field name="VALUE">0</field></block>
+    <block type="triangle_flow"></block>
+    <block type="triangle_operations"></block>
+    <block type="triangle_operations_auto"></block>
+    <block type="triangle_operations_translate"></block>
+    <block type="triangle_operations_translate_auto"></block>
+    <block type="triangle_operations_dilate"></block>
+    <block type="triangle_operations_dilate_auto"></block>
+    <block type="triangle_operations_dilate_auto_fixed"></block>
   </category>
 
 </xml>
