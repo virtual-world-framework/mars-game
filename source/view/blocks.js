@@ -1720,16 +1720,6 @@ Blockly.Blocks['triangle_operations_reflect'] = {
 
         if ( this.getFieldValue('OP') === 'REFX' ) {
 
-              currentA[ 0 ] = currentA[ 0 ] * -1;
-              currentB[ 0 ] = currentB[ 0 ] * -1;
-              currentC[ 0 ] = currentC[ 0 ] * -1;
-
-              currentA[ 1 ] = currentA[ 1 ];
-              currentB[ 1 ] = currentB[ 1 ];
-              currentC[ 1 ] = currentC[ 1 ];
-
-          } else if ( this.getFieldValue('OP') === 'REFY' ) {
-
               currentA[ 0 ] = currentA[ 0 ];
               currentB[ 0 ] = currentB[ 0 ];
               currentC[ 0 ] = currentC[ 0 ];
@@ -1737,6 +1727,16 @@ Blockly.Blocks['triangle_operations_reflect'] = {
               currentA[ 1 ] = currentA[ 1 ] * -1;
               currentB[ 1 ] = currentB[ 1 ] * -1;
               currentC[ 1 ] = currentC[ 1 ] * -1;
+
+          } else if ( this.getFieldValue('OP') === 'REFY' ) {
+
+              currentA[ 0 ] = currentA[ 0 ] * -1;
+              currentB[ 0 ] = currentB[ 0 ] * -1;
+              currentC[ 0 ] = currentC[ 0 ] * -1;
+
+              currentA[ 1 ] = currentA[ 1 ];
+              currentB[ 1 ] = currentB[ 1 ];
+              currentC[ 1 ] = currentC[ 1 ];
 
           } else {
 
@@ -1934,16 +1934,6 @@ Blockly.Blocks['triangle_operations_reflect_auto'] = {
 
         if ( this.getFieldValue('OP') === 'REFX' ) {
 
-              currentA[ 0 ] = currentA[ 0 ] * -1;
-              currentB[ 0 ] = currentB[ 0 ] * -1;
-              currentC[ 0 ] = currentC[ 0 ] * -1;
-
-              currentA[ 1 ] = currentA[ 1 ];
-              currentB[ 1 ] = currentB[ 1 ];
-              currentC[ 1 ] = currentC[ 1 ];
-
-          } else if ( this.getFieldValue('OP') === 'REFY' ) {
-
               currentA[ 0 ] = currentA[ 0 ];
               currentB[ 0 ] = currentB[ 0 ];
               currentC[ 0 ] = currentC[ 0 ];
@@ -1951,6 +1941,16 @@ Blockly.Blocks['triangle_operations_reflect_auto'] = {
               currentA[ 1 ] = currentA[ 1 ] * -1;
               currentB[ 1 ] = currentB[ 1 ] * -1;
               currentC[ 1 ] = currentC[ 1 ] * -1;
+
+          } else if ( this.getFieldValue('OP') === 'REFY' ) {
+
+              currentA[ 0 ] = currentA[ 0 ] * -1;
+              currentB[ 0 ] = currentB[ 0 ] * -1;
+              currentC[ 0 ] = currentC[ 0 ] * -1;
+
+              currentA[ 1 ] = currentA[ 1 ];
+              currentB[ 1 ] = currentB[ 1 ];
+              currentC[ 1 ] = currentC[ 1 ];
 
           } else {
 
