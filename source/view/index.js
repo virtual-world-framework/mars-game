@@ -242,6 +242,13 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                     } else {
                         //indicateBlock( lastBlockIDExecuted );
                         // We're also checking for errors here (empty loops/conditionals)
+                        var workspace = Blockly.getMainWorkspace();
+                        var validTopBlocks = 0;
+                        for ( var i = 0; i < workspace.topBlocks_.length; i++ ) {
+                            if ( workspace.topBlocks_[i].type !== "procedures_defnoreturn") {
+                                validTopBlocks+=1; 
+                            }
+                        }
 
                         var foundError = false;
                         for ( var key in currentBlocklyErrors ) {
@@ -253,7 +260,7 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                           }
                         }
 
-                        if ( foundError === true ) {
+                        if ( validTopBlocks !== -1 || foundError === true ) {
                             startBlocklyButton.className = "disabled";
                         } else {
                             if ( currentScenario !== 'Mission3Task1' && currentScenario !== 'Mission3Task2' && currentScenario !== 'Mission3Task3' && currentScenario !== 'Mission3Task4' && currentScenario !== 'Mission3Task5' && currentScenario !== 'Mission3Task6' && currentScenario !== 'Mission3Task7' && workspace.topBlocks_.length >= 2 ) {
