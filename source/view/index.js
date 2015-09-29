@@ -91,8 +91,10 @@ vwf_view.calledMethod = function( nodeID, methodName, methodParams ) {
                 } );
                 break;
             case "hideUI":
-                var bVisible = methodParams[ 0 ] && Boolean( currentBlocklyNodeID );
+                var uiVisible = methodParams[ 0 ];
+                var bVisible = uiVisible && Boolean( currentBlocklyNodeID );
                 blocklyArea.style.visibility = bVisible ? "visible" : "hidden";
+                timerWindow.style.visibility = uiVisible ? "visible" : "hidden";
                 break;
         }
     }

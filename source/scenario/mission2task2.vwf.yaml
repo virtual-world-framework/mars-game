@@ -113,6 +113,7 @@ children:
             - "Open the GRAPH tab in your PROGRAM interface."
           - setThirdPersonStartPose:
             - [ 16.316, 65, -15 ]
+          - startTimer:
 
         playStartingVO_2b:
           triggerCondition:

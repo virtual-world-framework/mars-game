@@ -138,6 +138,7 @@ children:
               - hud
               - enabled
               - true
+            - startTimer:
 
         playHint_2_11_tricky:
           triggerCondition:

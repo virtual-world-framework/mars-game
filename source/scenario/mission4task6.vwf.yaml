@@ -172,6 +172,7 @@ children:
               - hud
               - enabled
               - true
+            - startTimer:
 
         playHint_M4T6_1:
           triggerCondition:

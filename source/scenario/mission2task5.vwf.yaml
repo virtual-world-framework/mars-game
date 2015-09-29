@@ -136,6 +136,7 @@ children:
               - hud
               - enabled
               - true
+            - startTimer:
 
         succeedOnSuccessfulMovement_2e:
           group: successOrFailure

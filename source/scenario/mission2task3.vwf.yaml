@@ -111,6 +111,7 @@ children:
             - "Build an equation in the GRAPH tab to graph a line."
           - setThirdPersonStartPose:
             - [ 16.316, 65, -15 ]
+          - startTimer:
 
         playStartingVO_2c:
           triggerCondition:
