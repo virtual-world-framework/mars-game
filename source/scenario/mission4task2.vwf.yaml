@@ -179,13 +179,13 @@ children:
             - onScenarioStart:
           actions:
           - playSound:
-            - TM4V9_MC
+            - TM4_56_Manny
           - setProperty:
             - hud
             - enabled
             - false
           - delay:
-            - 9
+            - 25
             - openMissionBrief:
             - setProperty:
               - hud
@@ -198,7 +198,7 @@ children:
           - and:
             - doOnce:
             - delay:
-              - 30
+              - 45
           actions:
           - playSound:
             - TM4_47_Manny
@@ -208,7 +208,7 @@ children:
           - and:
             - doOnce:
             - delay:
-              - 50
+              - 65
           actions:
           - playSound:
             - TM4_48_Manny

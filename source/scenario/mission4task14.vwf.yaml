@@ -179,15 +179,17 @@ children:
           - playSound:
             - TM4V32_MANNY
           - playSound:
-            - TM4V33_MANNY
+            - TM4_58_Manny
           - playSound:
-            - PerryNotDoneGroan
+            - TM4_59_Manny
+          - playSound:
+            - TM4_60_Manny
           - setProperty:
             - hud
             - enabled
             - false
           - delay:
-            - 2
+            - 31
             - openMissionBrief:
             - setProperty:
               - hud

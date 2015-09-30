@@ -180,10 +180,10 @@ children:
           - and:
             - doOnce:
             - delay:
-              - 40
+              - 60
           actions:
           - playSound:
-            - TM4_51_Manny
+            - TM4_57_Manny
 
         setStartPosition_4_5:
           triggerCondition:
