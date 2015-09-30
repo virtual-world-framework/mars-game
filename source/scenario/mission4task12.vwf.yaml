@@ -51,10 +51,9 @@ properties:
     - rover2
     - visible
     - true
-  # TODO: handle adding him if we jump to this task from elsewhere  
-  # - addToGrid:
-  #   - rover2
-  #   - [ -10, -10 ]
+  - addToGrid:
+    - rover2
+    - [ -32, 11 ]
   - setProperty:
     - rover2
     - battery
@@ -75,7 +74,6 @@ properties:
     - rover2
 
   # Rosie disabled
-  
 
   # Grid and disable blocklyLine
   - setGridAxes:
@@ -109,7 +107,7 @@ properties:
     - true
   - setConstructed:
     - solarPanel4
-    - false
+    - true
 
   - setProperty:
     - cargoPod2
@@ -172,27 +170,6 @@ children:
               - true
             - startTimer:
 
-        setStartPosition_4_12:
-          triggerCondition:
-          - and:
-            - onScenarioStart:
-            - not:
-              - isAtPosition:
-                - rover2
-                - [ -31, 10 ]
-            - not:
-              - isAtPosition:
-                - rover2
-                - [ -31, 7 ]
-            - not:
-              - isAtPosition:
-                - rover2
-                - [ -28, 10 ]
-          actions:
-            - addToGrid:
-              - rover2
-              - [ -31, 10 ]
-
         succeedOnTriangle_4_12:
           group: successOrFailure
           priority: 0
@@ -203,19 +180,15 @@ children:
           actions:
           - writeToBlackboard:
             - disableFailOnIncompleteProgram
-          - buildBaseComponent:
-            - marsTent1
-          - delay:
-            - 3
-            - showAlert:
-              - "I created the correct triangle!"
-            - callMethod:
-              - rover2
-              - stopExecution
-            - playSound:
-              - musicSuccessShort
-            - clearBlockly:
-            - scenarioSuccess:
+          - showAlert:
+            - "I created the correct triangle!"
+          - callMethod:
+            - rover2
+            - stopExecution
+          - playSound:
+            - musicSuccessShort
+          - clearBlockly:
+          - scenarioSuccess:
 
         scenarioEnded4_12:
           triggerCondition:

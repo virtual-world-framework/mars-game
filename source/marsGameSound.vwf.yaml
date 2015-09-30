@@ -661,12 +661,12 @@ properties:
       subtitle: "[MANNY]: Hrm. I remember that dilation involves multiplying the X and Y positions by something... but I wonder what value I should use?"
       soundGroup: vo
       groupReplacementMethod: queue
-    - soundName: "TM4_48_Manny"
-      soundURL: "assets/sounds/vo/TM4_48_Manny.ogg" 
-      initialVolume: 0.65
-      subtitle: "[MANNY]: I suppose that multiplying by a number greater than one will make things bigger, and multiplying by a fraction will make them smaller."
-      soundGroup: vo
-      groupReplacementMethod: queue
+    # - soundName: "TM4_48_Manny"
+    #   soundURL: "assets/sounds/vo/TM4_48_Manny.ogg" 
+    #   initialVolume: 0.65
+    #   subtitle: "[MANNY]: I suppose that multiplying by a number greater than one will make things bigger, and multiplying by a fraction will make them smaller."
+    #   soundGroup: vo
+    #   groupReplacementMethod: queue
     - soundName: "TM4_49_Manny"
       soundURL: "assets/sounds/vo/TM4_49_Manny.ogg" 
       initialVolume: 0.65
@@ -709,32 +709,32 @@ properties:
       subtitle: "[MANNY]: The draw triangle block already has the correct values – I just need to use it."
       soundGroup: vo
       groupReplacementMethod: queue
-    - soundName: "TM4_56_Manny"
-      soundURL: "assets/sounds/vo/TM4_56_Manny.ogg" 
+    - soundName: "TM4_56_MC"
+      soundURL: "assets/sounds/vo/TM4_56_MC.ogg" 
       initialVolume: 0.65
       subtitle: "[MANNY]: The Draw Triangle block which you used draws a unit triangle, which is a triangle with two sides of length 1. You can place operation blocks inside of the draw triangle block which modify the unit triangle until it is in the right place, and is the right size and shape. In this case we need to use a Dilate block to make our unit triangle twice as big. I’ll upload a program that should work, but you’ll need to fill in the vertex positions of each operation."
       soundGroup: vo
       groupReplacementMethod: queue
-    - soundName: "TM4_57_Manny"
-      soundURL: "assets/sounds/vo/TM4_57_Manny.ogg" 
+    - soundName: "TM4_57_MC"
+      soundURL: "assets/sounds/vo/TM4_57_MC.ogg" 
       initialVolume: 0.65
       subtitle: "[MANNY]: Don’t forget to move Peregrine to a safe spot and start construction once you’re done..."
       soundGroup: vo
       groupReplacementMethod: queue
-    - soundName: "TM4_58_Manny"
-      soundURL: "assets/sounds/vo/TM4_58_Manny.ogg" 
+    - soundName: "TM4_58_MC"
+      soundURL: "assets/sounds/vo/TM4_58_MC.ogg" 
       initialVolume: 0.65
       subtitle: "[MANNY]: I’m back. Great work on the habitation dome!"
       soundGroup: vo
       groupReplacementMethod: queue
-    - soundName: "TM4_59_Manny"
-      soundURL: "assets/sounds/vo/TM4_59_Manny.ogg" 
+    - soundName: "TM4_59_MC"
+      soundURL: "assets/sounds/vo/TM4_59_MC.ogg" 
       initialVolume: 0.65
       subtitle: "[MANNY]: As part of my update, I have operation blocks that will automatically calculate the vertex positions for you. All you need to do is specify the amount to translate or dilate, or the direction to reflect. I’m am uploading them now."
       soundGroup: vo
       groupReplacementMethod: queue
-    - soundName: "TM4_60_Manny"
-      soundURL: "assets/sounds/vo/TM4_60_Manny.ogg" 
+    - soundName: "TM4_60_MC"
+      soundURL: "assets/sounds/vo/TM4_60_MC.ogg" 
       initialVolume: 0.65
       subtitle: "[MANNY]: Upload complete. Why don’t you try writing one program that includes all four triangles for the Greenhouse Dome?"
       soundGroup: vo

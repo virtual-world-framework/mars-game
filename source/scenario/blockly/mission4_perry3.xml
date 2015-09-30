@@ -6,10 +6,13 @@
   </category>
   <sep></sep>
   <category name="Math">
-    <block type="math_number_out_m4t3" inline="false"><field name="VALUE">0</field></block>
+    <block type="math_number_out" inline="false"><field name="VALUE">0</field></block>
     <block type="graph_subtract"></block>
-    <block type="graph_left_paren"></block>
-    <block type="graph_right_paren"></block>
+  </category>
+  <sep></sep>
+  <category name="Procedures">
+    <block type="triangle_flow"></block>
+    <block type="triangle_operations_dilate"></block>
   </category>
 
 </xml>

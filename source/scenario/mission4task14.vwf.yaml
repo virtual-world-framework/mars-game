@@ -124,7 +124,7 @@ properties:
     - true
   - setConstructed:
     - solarPanel4
-    - false
+    - true
 
   - setProperty:
     - cargoPod2
@@ -134,7 +134,6 @@ properties:
   - setConstructed:
     - marsTent1
     - true
-
 
   - setProperty:
     - greenhouse1
@@ -179,11 +178,11 @@ children:
           - playSound:
             - TM4V32_MANNY
           - playSound:
-            - TM4_58_Manny
+            - TM4_58_MC
           - playSound:
-            - TM4_59_Manny
+            - TM4_59_MC
           - playSound:
-            - TM4_60_Manny
+            - TM4_60_MC
           - setProperty:
             - hud
             - enabled

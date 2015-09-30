@@ -114,7 +114,7 @@ properties:
     - true
   - setConstructed:
     - solarPanel4
-    - false
+    - true
 
   - setProperty:
     - cargoPod2
