@@ -169,6 +169,7 @@ children:
               - hud
               - enabled
               - true
+            - startTimer:
 
         setStartPosition_4_11:
           triggerCondition:

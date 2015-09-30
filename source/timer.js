@@ -18,21 +18,27 @@ this.initialize = function() {
 
 this.listenForScenarioChanged = function() {
     this.scene.scenarioChanged = this.events.add(
-        this.startScenarioTimer, this
+        this.initScenarioTimer, this
     );
 }
 
-this.startScenarioTimer = function( scenarioName ) {
-    var scenarioTimes, currentTime;
+this.initScenarioTimer = function( scenarioName ) {
+    var scenarioTimes;
     this.stopScenarioTimer();
-    this.scenarioStartTime$ = this.time;
     this.currentScenario$ = scenarioName;
     scenarioTimes = this.scenarioElapsedTimes;
     if ( !scenarioTimes.hasOwnProperty( scenarioName ) ) {
         scenarioTimes[ scenarioName ] = 0;
     }
-    currentTime = scenarioTimes[ scenarioName ];
     this.scenarioElapsedTimes = scenarioTimes;
+}
+
+this.startScenarioTimer = function() {
+    var scenarioTimes, scenarioName, currentTime;
+    this.scenarioStartTime$ = this.time;
+    scenarioTimes = this.scenarioElapsedTimes;
+    scenarioName = this.currentScenario$;
+    currentTime = scenarioTimes[ scenarioName ];
     this.startedTimer( scenarioName, currentTime );
 }
 

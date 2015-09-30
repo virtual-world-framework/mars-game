@@ -124,6 +124,7 @@ children:
               - hud
               - enabled
               - true
+            - startTimer:
 
         succeedOnSuccess_1f:
           group: successOrFailure

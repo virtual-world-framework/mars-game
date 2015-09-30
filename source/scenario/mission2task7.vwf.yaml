@@ -111,6 +111,7 @@ children:
             - [ 8, 30 ]
           - setThirdPersonStartPose:
             - [ 16.316, 65, -15 ]
+          - startTimer:
 
         highlightEndTile_2_7:
           triggerCondition:

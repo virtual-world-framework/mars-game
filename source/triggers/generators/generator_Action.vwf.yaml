@@ -166,5 +166,9 @@ properties:
     # arguments: nodeName (add additional names to delete multiple systems)
     deleteNanites: "source/triggers/actions/action_deleteNanites.vwf"
 
+    # Start scenario timer
+    # arguments: none
+    startTimer: "source/triggers/actions/action_startTimer.vwf"
+
 scripts:
 - source: generator_Action.js

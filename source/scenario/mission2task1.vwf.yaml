@@ -144,6 +144,7 @@ children:
               - hud
               - enabled
               - true
+            - startTimer:
 
         failOnMove_2a:
           group: successOrFailure

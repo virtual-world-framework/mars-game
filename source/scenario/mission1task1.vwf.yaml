@@ -138,6 +138,7 @@ children:
               - hud
               - enabled
               - true
+            - startTimer:
 
         playStartingVO_1a:
           triggerCondition:

@@ -150,6 +150,7 @@ children:
               - hud
               - enabled
               - true
+            - startTimer:
 
 
         stopCameraBlinkOnMouseOver_1c:

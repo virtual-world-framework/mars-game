@@ -117,6 +117,7 @@ children:
             - "Graph a line that matches the slope of the tracks."
           - setThirdPersonStartPose:
             - [ 16.316, 65, -15 ]
+          - startTimer:
 
         playStartingVO_2d:
           triggerCondition:

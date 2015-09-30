@@ -107,6 +107,7 @@ children:
             - "Use a loop to move along the slope of the tracks two more times."
           - setThirdPersonStartPose:
             - [ 16.316, 65, -15 ]
+          - startTimer:
 
         playStartingVO_2f:
           triggerCondition:

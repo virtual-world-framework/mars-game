@@ -134,6 +134,7 @@ children:
               - hud
               - enabled
               - true
+            - startTimer:
 
         stopBlinkingBlockly_1e:
           triggerCondition:

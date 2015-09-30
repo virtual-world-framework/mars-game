@@ -129,6 +129,7 @@ children:
               - hud
               - enabled
               - true
+            - startTimer:
 
         playHint1_1g:
           triggerCondition:

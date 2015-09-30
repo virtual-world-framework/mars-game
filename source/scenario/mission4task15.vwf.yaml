@@ -186,6 +186,7 @@ children:
               - hud
               - enabled
               - true
+            - startTimer:
 
         highlightEndTile_4_15:
           triggerCondition:
