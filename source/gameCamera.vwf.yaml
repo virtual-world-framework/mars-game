@@ -29,6 +29,7 @@ properties:
   followingTarget: true
   followRotation: false
   listenerID$:
+  newTarget$: false
 methods:
   setCameraTarget:
   setCameraMount:

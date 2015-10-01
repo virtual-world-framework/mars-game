@@ -22,6 +22,7 @@ this.setCameraTarget = function( node, mountName ) {
             this.detachFromTarget();
         }
         this.target = node;
+        this.newTarget$ = true;
         this.setCameraMount( mountName );
         this.attachToTarget();
         this.scene.targetSwitched( oldTarget, this.target );
@@ -34,10 +35,11 @@ this.setCameraMount = function( mountName ) {
     if ( !mount ) {
         this.logger.errorx( "setCameraMount", "No camera mount could be found!" );
     } else {
-        if ( this.mount && this.mount.usePoseFromCamera ) {
+        if ( this.mount && this.mount.usePoseFromCamera && !this.newTarget$ ) {
             cameraPose = this.getPoseFromTransform();
             this.mount.cameraPose = cameraPose;
         }
+        this.newTarget$ = false;
         mount.mountCamera( this );
     }
 }

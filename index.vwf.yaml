@@ -513,7 +513,7 @@ children:
             extends: source/cameraMount.vwf
             properties:
               navmode: thirdPerson
-              cameraPose: [ 16, 0, -15 ]
+              cameraPose: [ 8, 0, -15 ]
               worldOffset: [ 0, 0, 0.5 ]
               cameraSpeed: 0
               usePoseFromCamera: true
