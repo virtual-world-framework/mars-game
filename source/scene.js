@@ -523,6 +523,7 @@ this.openMissionBrief = function() {
 this.setGridAxes = function( x, y ) {
     var material = this.environment.terrain.material;
     material.gridAxes = [ x, y ];
+    this.gridAxesChanged();
 }
 
 this.addToWatchList = function( node, tile, type ) {
