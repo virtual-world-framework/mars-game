@@ -133,6 +133,7 @@ events:
   loadedMissionBrief:
   cameraMounted:
   targetSwitched:
+  gridAxesChanged:
 children:
   # naniteSystems:
   #   extends: http://vwf.example.com/node3.vwf
@@ -513,7 +514,7 @@ children:
             extends: source/cameraMount.vwf
             properties:
               navmode: thirdPerson
-              cameraPose: [ 16, 0, -15 ]
+              cameraPose: [ 8, 0, -15 ]
               worldOffset: [ 0, 0, 0.5 ]
               cameraSpeed: 0
               usePoseFromCamera: true
@@ -569,7 +570,7 @@ children:
     includes: source/buildings/basePod.vwf
     properties:
       tilePosition: [ -32, 23 ]
-      rotation: [ 0, 0, 1, -45 ]
+      rotation: [ 0, 0, 1, 45 ]
   solarPanel1:
     extends: source/buildings/solarPanel.vwf
     properties:

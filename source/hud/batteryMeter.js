@@ -51,6 +51,7 @@ this.draw = function( context, position ) {
 }
 
 this.setUpListeners = function() {
+    var scene = this.parent.scene;
     var rover = this.find( "//rover" )[ 0 ];
     var rover2 = this.find( "//rover2" )[ 0 ];
     this.rovers.rover.battery = rover.battery;
@@ -84,6 +85,20 @@ this.setUpListeners = function() {
         var tileCoord = tileMap.getTileCoordFromWorld( transform[ 12 ], transform[ 13 ] );
         var position = scene.removeAxisOffset( tileCoord );
         this.rovers.rover2.position = position;
+    }, this );
+    scene.gridAxesChanged = this.events.add( function() {
+        var scene = this.parent.scene;
+        var tileMap = scene.tileMap;
+        var rover = this.find( "//rover" )[ 0 ];
+        var rover2 = this.find( "//rover2" )[ 0 ];
+        function getPos( node ) {
+            var wt = node.worldTransform.slice();
+            var tile = tileMap.getTileCoordFromWorld( wt[ 12 ], wt[ 13 ] );
+            var pos = scene.removeAxisOffset( tile );
+            return pos;
+        }
+        this.rovers.rover.position = getPos( rover );
+        this.rovers.rover2.position = getPos( rover2 );
     }, this );
 }
 
