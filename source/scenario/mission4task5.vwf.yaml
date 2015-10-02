@@ -51,10 +51,9 @@ properties:
     - rover2
     - visible
     - true
-  # TODO: handle adding him if we jump to this task from elsewhere  
-  # - addToGrid:
-  #   - rover2
-  #   - [ -10, -10 ]
+  - addToGrid:
+    - rover2
+    - [ -24, 19 ]
   - setProperty:
     - rover2
     - battery
@@ -76,7 +75,6 @@ properties:
 
 
   # Rosie disabled
-  
 
   # Grid and disable blocklyLine  
   - setGridAxes:
@@ -167,7 +165,7 @@ children:
             - enabled
             - false
           - delay:
-            - 2
+            - 39
             - openMissionBrief:
             - setProperty:
               - hud
@@ -180,31 +178,10 @@ children:
           - and:
             - doOnce:
             - delay:
-              - 15
+              - 75
           actions:
           - playSound:
-            - TM4_51_Manny
-
-        setStartPosition_4_5:
-          triggerCondition:
-          - and:
-            - onScenarioStart:
-            - not:
-              - isAtPosition:
-                - rover2
-                - [ -24, 19 ]
-            - not:
-              - isAtPosition:
-                - rover2
-                - [ -24, 20 ]
-            - not:
-              - isAtPosition:
-                - rover2
-                - [ -25, 19 ]
-          actions:
-           - addToGrid:
-             - rover2
-             - [ -24, 19 ]
+            - TM4_57_MC
 
         highlightEndTile_4_5:
           triggerCondition:
@@ -231,7 +208,7 @@ children:
           actions:
           - scenarioFailure:
             - incomplete
-            - "You should use the construction block to initiate construction."
+            - "Don't forget to use the start construction block to tell the nanites to go to work!"
           - playSound:
             - FCVO2_Rover
 
@@ -256,7 +233,7 @@ children:
           # - deleteNanites:
           #   - nanites_Mission4Task5
           - delay:
-            - 6
+            - 4
             - showAlert:
               - "I created the correct triangle!"
             - callMethod:
@@ -293,5 +270,5 @@ children:
         Well done! 
         <br><br>Let's do that again, but this time you need to both reflect 
         across the Y axis and dilate it to double its original size.
-        <br><br>Remember to move to (-3,0) and initiate construction when you
+        <br><br>Remember to move to (-3,0) and start construction when you
         are done!

@@ -22,7 +22,7 @@ properties:
 
   # objective
   - setObjective:
-    - "Translate and dilate again, but this time reflect across the X axis and move 2 spaces in the -Y direction."
+    - "Translate and dilate again, but this time reflect across the Y axis."
 
   # blockly
   - setBlocklyContext:
@@ -51,10 +51,9 @@ properties:
     - rover2
     - visible
     - true
-  # TODO: handle adding him if we jump to this task from elsewhere  
-  # - addToGrid:
-  #   - rover2
-  #   - [ -10, -10 ]
+  - addToGrid:
+    - rover2
+    - [ -32, 11 ]
   - setProperty:
     - rover2
     - battery
@@ -75,7 +74,6 @@ properties:
     - rover2
 
   # Rosie disabled
-  
 
   # Grid and disable blocklyLine
   - setGridAxes:
@@ -92,9 +90,9 @@ properties:
   - cancelCallOut:
   - clearTriangle:
   - drawTriangle:
-    - [ -7, -9 ]
-    - [ -4, -9 ]
-    - [ -7, -12 ]
+    - [ -8, -8 ]
+    - [ -8, -5 ]
+    - [ -11, -8 ]
 
   # Solar panel construction
   - setConstructed:
@@ -108,7 +106,7 @@ properties:
     - true
   - setConstructed:
     - solarPanel4
-    - false
+    - true
 
   - setProperty:
     - cargoPod2
@@ -163,7 +161,7 @@ children:
             - enabled
             - false
           - delay:
-            - 2
+            - 7
             - openMissionBrief:
             - setProperty:
               - hud
@@ -171,47 +169,24 @@ children:
               - true
             - startTimer:
 
-        setStartPosition_4_11:
-          triggerCondition:
-          - and:
-            - onScenarioStart:
-            - not:
-              - isAtPosition:
-                - rover2
-                - [ -33, 12 ]
-            - not:
-              - isAtPosition:
-                - rover2
-                - [ -33, 15 ]
-            - not:
-              - isAtPosition:
-                - rover2
-                - [ -36, 12 ]
-          actions:
-            - addToGrid:
-              - rover2
-              - [ -33, 12 ]
-
         succeedOnTriangle_4_11:
           group: successOrFailure
           priority: 0
           triggerCondition:
           - onBlocklyPolygon:
             - rover2
-            - [ [ -7, -9 ], [ -7, -12 ], [ -4, -9 ] ]
+            - [ [ -8, -8 ], [ -8, -5 ], [ -11, -8 ] ]
           actions:
           - writeToBlackboard:
             - disableFailOnIncompleteProgram
-          - delay:
-            - 3
-            - showAlert:
-              - "I created the correct triangle!"
-            - callMethod:
-              - rover2
-              - stopExecution
-            - playSound:
-              - musicSuccessShort
-            - scenarioSuccess:
+          - showAlert:
+            - "I created the correct triangle!"
+          - callMethod:
+            - rover2
+            - stopExecution
+          - playSound:
+            - musicSuccessShort
+          - scenarioSuccess:
 
         scenarioEnded4_11:
           triggerCondition:
@@ -240,4 +215,6 @@ children:
     properties:
       title: "Mission 4, Task 11"
       content: >
-        Placeholder
+        Two quadrants down!
+        <br><br>To draw the next quadrant, build the same triangle again, but
+        this time reflect it across the Y axis.

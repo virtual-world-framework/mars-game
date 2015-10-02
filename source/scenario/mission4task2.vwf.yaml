@@ -51,10 +51,9 @@ properties:
     - rover2
     - visible
     - true
-  # TODO: handle adding him if we jump to this task from elsewhere  
-  # - addToGrid:
-  #   - rover2
-  #   - [ -10, -10 ]
+  - addToGrid:
+    - rover2
+    - [ -24, 19 ]
   - setProperty:
     - rover2
     - battery
@@ -73,9 +72,16 @@ properties:
     - 5
   - selectRover:
     - rover2
+  - setProperty:
+    - rover2
+    - startXML
+    - <xml><block type="triangle_flow" x="100" y="60"><statement name="STACK"><block type="triangle_operations_dilate"><field name="OP">2</field><field name="AX">0</field><field name="AY">0</field><field name="BX">0</field><field name="BY">0</field><field name="CX">0</field><field name="CY">0</field></block></statement></block></xml>
+  - setProperty:
+    - rover2
+    - blockly_xml
+    - <xml><block type="triangle_flow" x="100" y="60"><statement name="STACK"><block type="triangle_operations_dilate"><field name="OP">2</field><field name="AX">0</field><field name="AY">0</field><field name="BX">0</field><field name="BY">0</field><field name="CX">0</field><field name="CY">0</field></block></statement></block></xml>
 
   # Rosie disabled
-  
 
   # Grid 
   - setGridAxes:
@@ -103,15 +109,12 @@ properties:
   - setConstructed:
     - solarPanel1
     - false
-
   - setConstructed:
     - solarPanel2
     - false
-
   - setConstructed:
     - solarPanel3
     - false
-
   - setConstructed:
     - solarPanel4
     - false
@@ -151,27 +154,6 @@ children:
     properties: 
       triggers$:
 
-        setStartPosition_4_2:
-          triggerCondition:
-          - and:
-            - onScenarioStart:
-            - not:
-              - isAtPosition:
-                - rover2
-                - [ -24, 19 ]
-            - not:
-              - isAtPosition:
-                - rover2
-                - [ -23, 19 ]
-            - not:
-              - isAtPosition:
-                - rover2
-                - [ -24, 20 ]
-          actions:
-            - addToGrid:
-              - rover2
-              - [ -24, 19 ]
-
         playStartingVO_4_2:
           triggerCondition:
           - and:
@@ -179,13 +161,13 @@ children:
             - onScenarioStart:
           actions:
           - playSound:
-            - TM4V9_MC
+            - TM4_56_MC
           - setProperty:
             - hud
             - enabled
             - false
           - delay:
-            - 4
+            - 26
             - openMissionBrief:
             - setProperty:
               - hud
@@ -198,20 +180,20 @@ children:
           - and:
             - doOnce:
             - delay:
-              - 30
+              - 45
           actions:
           - playSound:
             - TM4_47_Manny
 
-        playHint_M4T2_2:
-          triggerCondition:
-          - and:
-            - doOnce:
-            - delay:
-              - 50
-          actions:
-          - playSound:
-            - TM4_48_Manny
+        # playHint_M4T2_2:
+        #   triggerCondition:
+        #   - and:
+        #     - doOnce:
+        #     - delay:
+        #       - 65
+        #   actions:
+        #   - playSound:
+        #     - TM4_48_Manny
 
         succeedOnTriangle_4_2:
           group: successOrFailure

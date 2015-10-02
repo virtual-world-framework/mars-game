@@ -51,10 +51,9 @@ properties:
     - rover2
     - visible
     - true
-  # TODO: handle adding him if we jump to this task from elsewhere  
-  # - addToGrid:
-  #   - rover2
-  #   - [ -10, -10 ]
+  - addToGrid:
+    - rover2
+    - [ -24, 19 ]
   - setProperty:
     - rover2
     - battery
@@ -78,7 +77,6 @@ properties:
     - [-27, 19]
 
   # Rosie disabled
-  
 
   # Grid and disable blocklyLine
   - setGridAxes:
@@ -105,15 +103,12 @@ properties:
   - setConstructed:
     - solarPanel1
     - true
-
   - setConstructed:
     - solarPanel2
     - true
-
   - setConstructed:
     - solarPanel3
     - true
-
   - setConstructed:
     - solarPanel4
     - false
@@ -166,7 +161,7 @@ children:
             - enabled
             - false
           - delay:
-            - 2
+            - 9
             - openMissionBrief:
             - setProperty:
               - hud
@@ -199,7 +194,7 @@ children:
           actions:
           - scenarioFailure:
             - incomplete
-            - "You should use the construction block to initiate construction."
+            - "Don't forget to use the start construction block to tell the nanites to go to work!"
           - playSound:
             - FCVO2_Rover
 
@@ -224,7 +219,7 @@ children:
           # - deleteNanites:
           #   - nanites_Mission4Task7
           - delay:
-            - 6
+            - 4
             - showAlert:
               - "I created the correct triangle!"
             - callMethod:
@@ -266,4 +261,4 @@ children:
       content: >
         One more panel to go!
         <br><br>This time, reflect your triangle across both axes, then dilate 
-        it, move to (-3,0), and initiate construction.
+        it, move to (-3,0), and start construction.

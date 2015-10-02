@@ -22,7 +22,7 @@ properties:
 
   # objective
   - setObjective:
-    - "Draw these triangles: [(-7,-17), (-7,-13), (-3,-17)], [(-9,-17), (-9,-13), (-13,-17)], [(-7,-19), (-7,-23), (-3,-190)], [(-9,-19), (-9,-230), (-13,-19)]."
+    - "Draw these triangles: [(-8,-17), (-8,-12), (-3,-17)], [(-8,-17), (-8,-12), (-13,-17)], [(-8,-17), (-8,-22), (-3,-17)], [(-8,-17), (-8,-22), (-13,-17)]."
 
   # blockly
   - setBlocklyContext:
@@ -94,21 +94,21 @@ properties:
     - 0
   - clearTriangle:
   - drawTriangle:
-    - [ -7, -13 ]
-    - [ -7, -17 ]
+    - [ -8, -17 ]
+    - [ -8, -12 ]
     - [ -3, -17 ]
   - drawTriangle:
-    - [ -9, -17 ]
-    - [ -9, -13 ]
+    - [ -8, -17 ]
+    - [ -8, -12 ]
     - [ -13, -17 ]
   - drawTriangle:
-    - [ -7, -19 ]
-    - [ -7, -23 ]
-    - [ -3, -19 ]
+    - [ -8, -17 ]
+    - [ -8, -22 ]
+    - [ -3, -17 ]
   - drawTriangle: 
-    - [ -9, -19 ]
-    - [ -9, -23 ]
-    - [ -13, -19 ]
+    - [ -8, -17 ]
+    - [ -8, -22 ]
+    - [ -13, -17 ]
 
 
   # Solar panel construction
@@ -124,7 +124,7 @@ properties:
     - true
   - setConstructed:
     - solarPanel4
-    - false
+    - true
 
   - setProperty:
     - cargoPod2
@@ -134,7 +134,6 @@ properties:
   - setConstructed:
     - marsTent1
     - true
-
 
   - setProperty:
     - greenhouse1
@@ -179,15 +178,17 @@ children:
           - playSound:
             - TM4V32_MANNY
           - playSound:
-            - TM4V33_MANNY
+            - TM4_58_MC
           - playSound:
-            - PerryNotDoneGroan
+            - TM4_59_MC
+          - playSound:
+            - TM4_60_MC
           - setProperty:
             - hud
             - enabled
             - false
           - delay:
-            - 2
+            - 31
             - openMissionBrief:
             - setProperty:
               - hud
@@ -209,7 +210,7 @@ children:
           - and:
             - onBlocklySurveyFinished:
               - rover2
-              - [ [ [ -7, -17 ], [ -7, -13 ], [ -3, -17 ] ] , [ [ -9, -17 ], [ -9, -13 ], [ -13, -17 ] ], [ [ -7, -19 ], [ -7, -23 ], [ -3, -19 ] ], [ [ -9, -19 ], [ -9, -23 ], [ -13, -19 ] ] ]
+              - [ [ [ -8, -17 ], [ -8, -12 ], [ -3, -17 ] ] , [ [ -8, -17 ], [ -8, -12 ], [ -13, -17 ] ], [ [ -8, -17 ], [ -8, -22 ], [ -3, -17 ] ], [ [ -8, -17 ], [ -8, -22 ], [ -13, -17 ] ] ]
             - onBlocklyStopped:
               - rover2
             - isAtPosition:
@@ -220,7 +221,7 @@ children:
           actions:
           - scenarioFailure:
             - incomplete
-            - "You should use the construction block to initiate construction."
+            - "Don't forget to use the start construction block to tell the nanites to go to work!"
           - playSound:
             - FCVO2_Rover
 
@@ -231,7 +232,7 @@ children:
           - and:
             - onBlocklySurveyFinished:
               - rover2
-              - [ [ [ -7, -17 ], [ -7, -13 ], [ -3, -17 ] ] , [ [ -9, -17 ], [ -9, -13 ], [ -13, -17 ] ], [ [ -7, -19 ], [ -7, -23 ], [ -3, -19 ] ], [ [ -9, -19 ], [ -9, -23 ], [ -13, -19 ] ] ]
+              - [ [ [ -8, -17 ], [ -8, -12 ], [ -3, -17 ] ] , [ [ -8, -17 ], [ -8, -12 ], [ -13, -17 ] ], [ [ -8, -17 ], [ -8, -22 ], [ -3, -17 ] ], [ [ -8, -17 ], [ -8, -22 ], [ -13, -17 ] ] ]
             - onBlocklyStopped:
               - rover2
             - isAtPosition:
@@ -288,4 +289,8 @@ children:
     properties:
       title: "Mission 4, Task 14"
       content: >
-        Placeholder
+        There.  Now the colonists will have a place to live.
+        <br><br>The next thing you need to build is a greenhouse dome. Like the habitation dome, the
+        greenhouse dome is built using four triangles.  Let's save some time, and put all four
+        triangles into a single program.
+        <br><br>Don't forget to move to a safe spot and start construction when you're done!

@@ -229,7 +229,7 @@ children:
             - enabled
             - false
           - delay:
-            - 60
+            - 54
             - openMissionBrief:
             - setProperty:
               - hud
@@ -242,10 +242,20 @@ children:
           - and:
             - doOnce:
             - delay:
-              - 80
+              - 70
           actions:
           - playSound:
             - TM4_46_Manny
+
+        playHint_M4T1_2:
+          triggerCondition:
+          - and:
+            - doOnce:
+            - delay:
+              - 100
+          actions:
+          - playSound:
+            - TM4_55_Manny
 
         scenarioEnded4_1:
           triggerCondition:

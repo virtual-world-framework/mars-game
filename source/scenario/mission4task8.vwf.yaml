@@ -22,7 +22,7 @@ properties:
 
   # objective
   - setObjective:
-    - "Translate the unit triangle to position (-7,-7), (-7,-6), (-6,-7)."
+    - "Translate the unit triangle to position (-8,-8), (-8,-7), (-7,-8)."
 
   # blockly
   - setBlocklyContext:
@@ -51,10 +51,9 @@ properties:
     - rover2
     - visible
     - true
-  # TODO: handle adding him if we jump to this task from elsewhere  
-  # - addToGrid:
-  #   - rover2
-  #   - [ -10, -10 ]
+  - addToGrid:
+    - rover2
+    - [ -24, 19 ]
   - setProperty:
     - rover2
     - battery
@@ -66,7 +65,7 @@ properties:
   - setProperty:
     - rover2
     - blockly_allowedBlocks
-    - 22
+    - 24
   - setProperty:
     - rover2
     - lowRam
@@ -78,7 +77,6 @@ properties:
     - [-27, 19]
 
   # Rosie disabled
-  
 
   # Grid and disable blocklyLine
   - setGridAxes:
@@ -98,24 +96,21 @@ properties:
   - clearTriangle:
 
   - drawTriangle:
-    - [ -7, -6 ]
-    - [ -7, -7 ]
-    - [ -6, -7 ]
+    - [ -8, -8 ]
+    - [ -8, -7 ]
+    - [ -7, -8 ]
 
   # Solar panel construction
 
   - setConstructed:
     - solarPanel1
     - true
-
   - setConstructed:
     - solarPanel2
     - true
-
   - setConstructed:
     - solarPanel3
     - true
-
   - setConstructed:
     - solarPanel4
     - true
@@ -173,7 +168,7 @@ children:
             - enabled
             - false
           - delay:
-            - 23
+            - 22
             - openMissionBrief:
             - setProperty:
               - hud
@@ -186,7 +181,7 @@ children:
           - and:
             - doOnce:
             - delay:
-              - 45
+              - 40
           actions:
           - playSound:
             - TM4_53_Manny
@@ -197,23 +192,20 @@ children:
           triggerCondition:
           - onBlocklyPolygon:
             - rover2
-            - [ [ -6, -7 ], [ -7, -6 ], [ -7, -7 ] ]
+            - [ [ -8, -8 ], [ -8, -7 ], [ -7, -8 ] ]
           actions:
           - writeToBlackboard:
             - disableFailOnIncompleteProgram
-          - delay:
-            - 3
-            - showAlert:
-              - "I created the correct triangle!"
-            - callMethod:
-              - rover2
-              - stopExecution
-            - playSound:
-              - musicSuccessShort
-            # - deleteNanites:
-            #   - nanites_Mission4Task8
-            - scenarioSuccess:
-
+          - showAlert:
+            - "I created the correct triangle!"
+          - callMethod:
+            - rover2
+            - stopExecution
+          - playSound:
+            - musicSuccessShort
+          # - deleteNanites:
+          #   - nanites_Mission4Task8
+          - scenarioSuccess:
 
         scenarioEnded4_8:
           triggerCondition:
@@ -250,4 +242,4 @@ children:
         a different position. Let's begin by translating a triangle 7 spaces
         down and to the left.
         <br><br>This is just a practice triangle, so there is no need to
-        initiate construction when it is done.
+        start construction when it is done.

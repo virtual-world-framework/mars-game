@@ -22,7 +22,7 @@ properties:
 
   # objective
   - setObjective:
-    - "Translate and dilate your triangle to (-7,-4), (-7,-7), (-4,-7)."
+    - "Translate and dilate your triangle to (-8,-8), (-8,-5), (-5,-8)."
 
   # blockly
   - setBlocklyContext:
@@ -51,10 +51,9 @@ properties:
     - rover2
     - visible
     - true
-  # TODO: handle adding him if we jump to this task from elsewhere  
-  # - addToGrid:
-  #   - rover2
-  #   - [ -10, -10 ]
+  - addToGrid:
+    - rover2
+    - [ -32, 11 ]
   - setProperty:
     - rover2
     - battery
@@ -92,27 +91,24 @@ properties:
   - cancelCallOut:
   - clearTriangle:
   - drawTriangle:
-    - [ -7, -4 ]
-    - [ -7, -7 ]
-    - [ -4, -7 ]
+    - [ -8, -8 ]
+    - [ -8, -5 ]
+    - [ -5, -8 ]
 
   # Solar panel construction
 
   - setConstructed:
     - solarPanel1
     - true
-
   - setConstructed:
     - solarPanel2
     - true
-
   - setConstructed:
     - solarPanel3
     - true
-
   - setConstructed:
     - solarPanel4
-    - false
+    - true
 
 
   - setProperty:
@@ -148,7 +144,7 @@ properties:
     - minirover
     - visible
     - false
-   
+
 children:
   triggerManager:
     extends: ../triggers/triggerManager.vwf
@@ -176,47 +172,24 @@ children:
               - true
             - startTimer:
 
-        setStartPosition_4_9:
-          triggerCondition:
-          - and:
-            - onScenarioStart:
-            - not:
-              - isAtPosition:
-                - rover2
-                - [ -31, 12 ]
-            - not:
-              - isAtPosition:
-                - rover2
-                - [ -31, 13 ]
-            - not:
-              - isAtPosition:
-                - rover2
-                - [ -30, 12 ]
-          actions:
-            - addToGrid:
-              - rover2
-              - [ -31, 12 ]
-
         succeedOnTriangle_4_9:
           group: successOrFailure
           priority: 0
           triggerCondition:
           - onBlocklyPolygon:
             - rover2
-            - [ [ -4, -7 ], [ -7, -4 ], [ -7, -7 ] ]
+            - [ [ -8, -8 ], [ -8, -5 ], [ -5, -8 ] ]
           actions:
           - writeToBlackboard:
             - disableFailOnIncompleteProgram
-          - delay:
-            - 3
-            - showAlert:
-              - "I created the correct triangle!"
-            - callMethod:
-              - rover2
-              - stopExecution
-            - playSound:
-              - musicSuccessShort
-            - scenarioSuccess:
+          - showAlert:
+            - "I created the correct triangle!"
+          - callMethod:
+            - rover2
+            - stopExecution
+          - playSound:
+            - musicSuccessShort
+          - scenarioSuccess:
 
         scenarioEnded4_9:
           triggerCondition:
@@ -250,4 +223,4 @@ children:
         translating the unit triangle you will need to dilate it so that it is
         3 times as large.
         <br><br>Draw the first triangle for the habitation dome. There are more
-        triangles to follow, so don't initiate construction yet.
+        triangles to follow, so don't start construction yet.

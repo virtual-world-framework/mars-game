@@ -22,7 +22,7 @@ properties:
 
   # objective
   - setObjective:
-    - "Move and build."
+    - "Move to position (-11, -12) and start construction."
 
   # blockly
   - setBlocklyContext:
@@ -51,10 +51,9 @@ properties:
     - rover2
     - visible
     - true
-  # TODO: handle adding him if we jump to this task from elsewhere  
-  # - addToGrid:
-  #   - rover2
-  #   - [ -10, -10 ]
+  - addToGrid:
+    - rover2
+    - [ -32, 11 ]
   - setProperty:
     - rover2
     - battery
@@ -75,7 +74,6 @@ properties:
     - rover2
 
   # Rosie disabled
-  
 
   # Grid and disable blocklyLine
   - setGridAxes:
@@ -103,7 +101,7 @@ properties:
     - true
   - setConstructed:
     - solarPanel4
-    - false
+    - true
 
   - setProperty:
     - cargoPod2
@@ -162,34 +160,13 @@ children:
             - enabled
             - false
           - delay:
-            - 2
+            - 10
             - openMissionBrief:
             - setProperty:
               - hud
               - enabled
               - true
             - startTimer:
-
-        setStartPosition_4_13:
-          triggerCondition:
-          - and:
-            - onScenarioStart:
-            - not:
-              - isAtPosition:
-                - rover2
-                - [ -33, 10 ]
-            - not:
-              - isAtPosition:
-                - rover2
-                - [ -36, 10 ]
-            - not:
-              - isAtPosition:
-                - rover2
-                - [ -33, 7 ]
-          actions:
-            - addToGrid:
-              - rover2
-              - [ -33, 10 ]
 
         highlightEndTile_4_13:
           triggerCondition:
@@ -213,7 +190,7 @@ children:
           actions:
           - scenarioFailure:
             - incomplete
-            - "You should use the construction block to initiate construction."
+            - "Don't forget to use the start construction block to tell the nanites to go to work!"
           - playSound:
             - FCVO2_Rover
 
@@ -232,23 +209,17 @@ children:
             - disableFailOnIncompleteProgram
           - buildBaseComponent:
             - marsTent1
-          - showAlert:
-            - "I created the correct triangle!"
-          - callMethod:
-            - rover2
-            - stopExecution
-          - clearBlockly:
-          - playSound:
-            - musicSuccessShort
-          # - deleteNanites:
-          #   - nanites_Mission4Task9
-          # - deleteNanites:
-          #   - nanites_Mission4Task10
-          # - deleteNanites:
-          #   - nanites_Mission4Task11
-          # - deleteNanites:
-          #   - nanites_Mission4Task12
-          - scenarioSuccess:
+          - delay:
+            - 5
+            - showAlert:
+              - "I created the correct triangle!"
+            - callMethod:
+              - rover2
+              - stopExecution
+            - playSound:
+              - musicSuccessShort
+            - clearBlockly:
+            - scenarioSuccess:
 
         scenarioEnded4_13:
           triggerCondition:
@@ -277,4 +248,6 @@ children:
     properties:
       title: "Mission 4, Task 13"
       content: >
-        Placeholder
+        Nice work!
+        <br><br>Now that all four quadrants are done, you just need to move to 
+        a safe position and start construction

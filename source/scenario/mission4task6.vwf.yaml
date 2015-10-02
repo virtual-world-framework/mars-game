@@ -51,10 +51,9 @@ properties:
     - rover2
     - visible
     - true
-  # TODO: handle adding him if we jump to this task from elsewhere  
-  # - addToGrid:
-  #   - rover2
-  #   - [ -10, -10 ]
+  - addToGrid:
+    - rover2
+    - [ -24, 19 ]
   - setProperty:
     - rover2
     - battery
@@ -78,7 +77,6 @@ properties:
     - [-27, 19]
 
   # Rosie disabled
-  
 
   # Grid and disable blocklyLine
   - setGridAxes:
@@ -166,7 +164,7 @@ children:
             - enabled
             - false
           - delay:
-            - 2
+            - 6.5
             - openMissionBrief:
             - setProperty:
               - hud
@@ -179,7 +177,7 @@ children:
           - and:
             - doOnce:
             - delay:
-              - 15
+              - 25
           actions:
           - playSound:
             - TM4_52_Manny
@@ -209,7 +207,7 @@ children:
           actions:
           - scenarioFailure:
             - incomplete
-            - "You should use the construction block to initiate construction."
+            - "Don't forget to use the start construction block to tell the nanites to go to work!"
           - playSound:
             - FCVO2_Rover
 
@@ -234,7 +232,7 @@ children:
           # - deleteNanites:
           #   - nanites_Mission4Task6
           - delay:
-            - 6
+            - 4
             - showAlert:
               - "I created the correct triangle!"
             - callMethod:
@@ -271,5 +269,5 @@ children:
         Solar panel #2 is complete!
         <br><br>For solar panel #3, you can do the same thing but reflect 
         across the X axis this time.
-        <br><br>Once again, remember that you can only initiate construction
+        <br><br>Once again, remember that you can only start construction
         from position (-3,0).

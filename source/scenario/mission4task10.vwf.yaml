@@ -22,7 +22,7 @@ properties:
 
   # objective
   - setObjective:
-    - "Reflect your last triangle across the Y axis and translate 2 more spaces in the -X direction."
+    - "Reflect your last triangle across the X axis."
 
   # blockly
   - setBlocklyContext:
@@ -51,10 +51,9 @@ properties:
     - rover2
     - visible
     - true
-  # TODO: handle adding him if we jump to this task from elsewhere  
-  # - addToGrid:
-  #   - rover2
-  #   - [ -10, -10 ]
+  - addToGrid:
+    - rover2
+    - [ -32, 11 ]
   - setProperty:
     - rover2
     - battery
@@ -75,7 +74,6 @@ properties:
     - rover2
 
   # Rosie disabled
-  
 
   # Grid and disable blocklyLine
   - setGridAxes:
@@ -92,27 +90,24 @@ properties:
   - cancelCallOut:
   - clearTriangle:
   - drawTriangle:
-    - [ -12, -7 ]
-    - [ -9, -4 ]
-    - [ -9, -7 ]
+    - [ -8, -8 ]
+    - [ -8, -11 ]
+    - [ -5, -8 ]
 
   # Solar panel construction
 
   - setConstructed:
     - solarPanel1
     - true
-
   - setConstructed:
     - solarPanel2
     - true
-
   - setConstructed:
     - solarPanel3
     - true
-
   - setConstructed:
     - solarPanel4
-    - false
+    - true
 
   - setProperty:
     - cargoPod2
@@ -187,47 +182,24 @@ children:
           - playSound:
             - TM4_54_Manny
 
-        setStartPosition_4_10:
-          triggerCondition:
-          - and:
-            - onScenarioStart:
-            - not:
-              - isAtPosition:
-                - rover2
-                - [ -31, 12 ]
-            - not:
-              - isAtPosition:
-                - rover2
-                - [ -31, 15 ]
-            - not:
-              - isAtPosition:
-                - rover2
-                - [ -28, 12 ]
-          actions:
-            - addToGrid:
-              - rover2
-              - [ -31, 12 ]
-
         succeedOnTriangle_4_10:
           group: successOrFailure
           priority: 0
           triggerCondition:
           - onBlocklyPolygon:
             - rover2
-            - [ [ -12, -7 ], [ -9, -4 ], [ -9, -7 ] ]
+            - [ [ -8, -8 ], [ -8, -11 ], [ -5, -8 ] ]
           actions:
           - writeToBlackboard:
             - disableFailOnIncompleteProgram
-          - delay:
-            - 3
-            - showAlert:
-              - "I created the correct triangle!"
-            - callMethod:
-              - rover2
-              - stopExecution
-            - playSound:
-              - musicSuccessShort
-            - scenarioSuccess:
+          - showAlert:
+            - "I created the correct triangle!"
+          - callMethod:
+            - rover2
+            - stopExecution
+          - playSound:
+            - musicSuccessShort
+          - scenarioSuccess:
 
         scenarioEnded4_10:
           triggerCondition:
@@ -258,4 +230,4 @@ children:
       content: >
         One quadrant down!
         <br><br>To draw the next quadrant, build the same triangle but this 
-        time also reflect it across the Y axis.
+        time reflect it across the X axis.
