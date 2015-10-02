@@ -12,13 +12,12 @@
 // See the License for the specific language governing permissions and 
 // limitations under the License.
 
-var missionBriefDOM = document.getElementById( "mb_screen" );
+var missionBriefDOM = document.getElementById( "mb_wrapper" );
 var missionBriefTitle = document.getElementById( "mb_title" );
 var missionBriefContent = document.getElementById( "mb_content" );
-var missionBriefImage = document.getElementById( "mb_image" );
-var defaultImage = "../../assets/images/briefBG.png";
+var missionBriefClose = document.getElementById( "mb_close" );
 
-missionBriefDOM.onclick = hideMissionBrief;
+missionBriefClose.onclick = hideMissionBrief;
 
 function showMissionBrief() {
     missionBriefDOM.style.display = "block";
@@ -29,12 +28,9 @@ function hideMissionBrief() {
     vwf_view.kernel.fireEvent( "missionBriefClosed" );
 }
 
-function setBriefInfo( title, content, imageSrc ) {
+function setBriefInfo( title, content ) {
     missionBriefTitle.innerHTML = title;
     missionBriefContent.innerHTML = content;
-    // TODO: Allow each brief to display it's own image to the left of the brief content.
-    // imageSrc = imageSrc || defaultImage;
-    // missionBriefImage.style.backgroundImage = "url(\"" + imageSrc + "\")";
 }
 
 //@ sourceURL=source/view/missionBriefs.js
