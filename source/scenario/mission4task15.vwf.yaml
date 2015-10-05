@@ -94,13 +94,13 @@ properties:
     - 0
   - clearTriangle:
   - drawTriangle:
-    - [ -1, -6 ]
-    - [ -1, -9 ]
+    - [ -3, -3 ]
+    - [ -1, -3 ]
     - [ -3, -6 ]
   - drawTriangle:
     - [ -1, -6 ]
-    - [ -1, -9 ]
-    - [ 1, -6 ]
+    - [ -1, -3 ]
+    - [ -3, -6 ]
   # Solar panel construction
 
   - setConstructed:
@@ -193,21 +193,25 @@ children:
           - onScenarioStart:
           actions:
           - callOutObjective:
-            - [ -1, -5 ]
+            - [ -1, -8 ]
 
         failOnMissingBlock_4_15:
           group: successOrFailure
           priority: 0.5
           triggerCondition:
           - and:
-            - onBlocklySurveyFinished:
-              - rover2
-              - [[ [ -1, -6 ], [ -1, -9 ], [ -3, -6 ] ], [ [ -1, -6 ], [ -1, -9 ], [ 1, -6 ] ]]
+            - or:
+              - onBlocklySurveyFinished:
+                - rover2
+                - [ [ [ -3, -3 ], [ -1, -3 ], [ -3, -6 ] ], [ [ -1, -6 ], [ -1, -3 ], [ -3, -6 ] ] ]
+              - onBlocklySurveyFinished:
+                - rover2
+                - [ [ [ -3, -3 ], [ -1, -6 ], [ -3, -6 ] ], [ [ -1, -3 ], [ -3, -3 ], [ -3, -6 ] ] ]
             - onBlocklyStopped:
               - rover2
             - isAtPosition:
               - rover2
-              - [ -25, 14]
+              - [ -28, 14]
             - isBlockMissing:
               - init_nano_construction
           actions:
@@ -222,14 +226,18 @@ children:
           priority: 0
           triggerCondition:
           - and:
-            - onBlocklySurveyFinished:
-              - rover2
-              - [[ [ -1, -6 ], [ -1, -9 ], [ -3, -6 ] ], [ [ -1, -6 ], [ -1, -9 ], [ 1, -6 ] ]]
+            - or:
+              - onBlocklySurveyFinished:
+                - rover2
+                - [ [ [ -3, -3 ], [ -1, -3 ], [ -3, -6 ] ], [ [ -1, -6 ], [ -1, -3 ], [ -3, -6 ] ] ]
+              - onBlocklySurveyFinished:
+                - rover2
+                - [ [ [ -3, -3 ], [ -1, -6 ], [ -3, -6 ] ], [ [ -1, -3 ], [ -3, -3 ], [ -3, -6 ] ] ]
             - onBlocklyStopped:
               - rover2
             - isAtPosition:
               - rover2
-              - [ -25, 14]
+              - [ -28, 14]
           actions:
           - writeToBlackboard:
             - disableFailOnIncompleteProgram
