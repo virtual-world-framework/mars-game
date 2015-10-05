@@ -16,7 +16,6 @@
     <block type="triangle_operations_dilate_two_auto"></block>
     <block type="triangle_operations_reflect_auto"></block>
     <block type="triangle_operations_translate_auto"></block>
-    <block type="triangle_operations_reflect"></block>
   </category>
 
 </xml>

@@ -2389,12 +2389,12 @@ Blockly.Blocks['triangle_operations_reflect_auto'] = {
 
         //Set Field Values
 
-        block.setFieldValue('AX', ''+currentA[ 0 ]+'');
-        block.setFieldValue('BX', ''+currentB[ 0 ]+'');
-        block.setFieldValue('CX', ''+currentC[ 0 ]+'');
-        block.setFieldValue('AY', ''+currentA[ 1 ]+'');
-        block.setFieldValue('BY', ''+currentB[ 1 ]+'');
-        block.setFieldValue('CY', ''+currentC[ 1 ]+'');
+        block.setFieldValue( '' + currentA[ 0 ] + '', 'AX' );
+        block.setFieldValue( '' + currentB[ 0 ] + '', 'BX' );
+        block.setFieldValue( '' + currentC[ 0 ] + '', 'CX' );
+        block.setFieldValue( '' + currentA[ 1 ] + '', 'AY' );
+        block.setFieldValue( '' + currentB[ 1 ] + '', 'BY' );
+        block.setFieldValue( '' + currentC[ 1 ] + '', 'CY' );
 
       } else {
 
@@ -2439,12 +2439,12 @@ Blockly.Blocks['triangle_operations_reflect_auto'] = {
 
           //Set Field Values
 
-          block.setFieldValue('AX', ''+currentA[ 0 ]+'');
-          block.setFieldValue('BX', ''+currentB[ 0 ]+'');
-          block.setFieldValue('CX', ''+currentC[ 0 ]+'');
-          block.setFieldValue('AY', ''+currentA[ 1 ]+'');
-          block.setFieldValue('BY', ''+currentB[ 1 ]+'');
-          block.setFieldValue('CY', ''+currentC[ 1 ]+'');
+          block.setFieldValue( '' + currentA[ 0 ] + '', 'AX' );
+          block.setFieldValue( '' + currentB[ 0 ] + '', 'BX' );
+          block.setFieldValue( '' + currentC[ 0 ] + '', 'CX' );
+          block.setFieldValue( '' + currentA[ 1 ] + '', 'AY' );
+          block.setFieldValue( '' + currentB[ 1 ] + '', 'BY' );
+          block.setFieldValue( '' + currentC[ 1 ] + '', 'CY' );
 
         }
 
