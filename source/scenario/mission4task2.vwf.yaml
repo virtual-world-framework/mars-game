@@ -35,7 +35,7 @@ properties:
 
   # blockly
   - setBlocklyContext:
-    - [ 'rover2' ]
+    - rover2
   - loadToolbox:
     - rover2
     - source/scenario/blockly/mission4_perry2.xml
