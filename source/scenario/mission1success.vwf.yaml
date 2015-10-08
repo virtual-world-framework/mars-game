@@ -20,14 +20,14 @@ children:
             - false
           - stopAllSounds:
           - playVideo:
-            - Success1
+            - Success1_800x600
 
         succeedOnIntroDone:
           group: successOrFailure
           priority: 0
           triggerCondition:
           - onVideoPlayed:
-            - Success1
+            - Success1_800x600
           actions:
           - setSceneProperty:
             - enableRenderer
