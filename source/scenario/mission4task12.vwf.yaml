@@ -24,6 +24,15 @@ properties:
   - setObjective:
     - "Translate and scale your triangle, and reflect it across both axes to get (-8,-8), (-8,-11),(-11,-8)."
 
+  - setProperty:
+    - rover2
+    - startXML
+    - <xml></xml>
+  - setProperty:
+    - rover2
+    - blockly_xml
+    - <xml></xml>
+
   # blockly
   - setBlocklyContext:
     - rover2

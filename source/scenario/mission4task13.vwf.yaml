@@ -24,6 +24,15 @@ properties:
   - setObjective:
     - "Move to position (-11, -12) and start construction."
 
+  - setProperty:
+    - rover2
+    - startXML
+    - <xml></xml>
+  - setProperty:
+    - rover2
+    - blockly_xml
+    - <xml></xml>
+
   # blockly
   - setBlocklyContext:
     - rover2

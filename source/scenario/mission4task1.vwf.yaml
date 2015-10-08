@@ -25,6 +25,15 @@ properties:
   - setObjective:
     - "Lay down nanobuilders in a triangle with vertices at (0,0), (0,1), and (1,0)."
 
+  - setProperty:
+    - rover2
+    - startXML
+    - <xml></xml>
+  - setProperty:
+    - rover2
+    - blockly_xml
+    - <xml></xml>
+
   # sound/video
   - playSound:
     - musicMission4Intro

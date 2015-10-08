@@ -24,6 +24,15 @@ properties:
   - setObjective:
     - "Reflect your last triangle across the X axis."
 
+  - setProperty:
+    - rover2
+    - startXML
+    - <xml></xml>
+  - setProperty:
+    - rover2
+    - blockly_xml
+    - <xml></xml>
+
   # blockly
   - setBlocklyContext:
     - rover2

@@ -24,6 +24,15 @@ properties:
   - setObjective:
     - "Reflect the unit triangle across the Y axis to get a new triangle."
 
+  - setProperty:
+    - rover2
+    - startXML
+    - <xml><block type="triangle_flow" id="a" x="100" y="100"><statement name="STACK"><block type="triangle_operations_reflect" id="b"><field name="OP">REFY</field><field name="AX">0</field><field name="AY">0</field><field name="BX">0</field><field name="BY">0</field><field name="CX">0</field><field name="CY">0</field></block></statement></block></xml>
+  - setProperty:
+    - rover2
+    - blockly_xml
+    - <xml><block type="triangle_flow" id="a" x="100" y="100"><statement name="STACK"><block type="triangle_operations_reflect" id="b"><field name="OP">REFY</field><field name="AX">0</field><field name="AY">0</field><field name="BX">0</field><field name="BY">0</field><field name="CX">0</field><field name="CY">0</field></block></statement></block></xml>
+
   # Blockly
   - setBlocklyContext:
     - rover2
