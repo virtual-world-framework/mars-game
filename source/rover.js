@@ -447,24 +447,28 @@ this.activateSensor = function( sensor, value ) {
         if ( metalPos ) {
             this.metalSensorValue = metalPos && (
                                  ( metalPos[ 0 ] === currentPos[ 0 ] && 
-                                 metalPos[ 1 ] === currentPos[ 1 ] ) ||
-                                 ( metalPos[ 0 ] === currentPos[ 0 ] + 1 && 
-                                 metalPos[ 1 ] === currentPos[ 1 ] ) ||
-                                 ( metalPos[ 0 ] === currentPos[ 0 ] - 1 && 
-                                 metalPos[ 1 ] === currentPos[ 1 ] ) ||
-                                 ( metalPos[ 0 ] === currentPos[ 0 ] && 
-                                 metalPos[ 1 ] === currentPos[ 1 ]  + 1 ) ||
-                                 ( metalPos[ 0 ] === currentPos[ 0 ] && 
-                                 metalPos[ 1 ] === currentPos[ 1 ] - 1 ) ||
-                                 ( metalPos[ 0 ] === currentPos[ 0 ] - 1 && 
-                                 metalPos[ 1 ] === currentPos[ 1 ] - 1 ) || //LL
-                                 ( metalPos[ 0 ] === currentPos[ 0 ] + 1 && 
-                                 metalPos[ 1 ] === currentPos[ 1 ] + 1 ) || //UR
-                                 ( metalPos[ 0 ] === currentPos[ 0 ] - 1 && 
-                                 metalPos[ 1 ] === currentPos[ 1 ] + 1) || //UL
-                                 ( metalPos[ 0 ] === currentPos[ 0 ] + 1 && 
-                                 metalPos[ 1 ] === currentPos[ 1 ] - 1) //LR
+                                 metalPos[ 1 ] === currentPos[ 1 ] )
                                  );
+            // this.metalSensorValue = metalPos && (
+            //                      ( metalPos[ 0 ] === currentPos[ 0 ] && 
+            //                      metalPos[ 1 ] === currentPos[ 1 ] ) ||
+            //                      ( metalPos[ 0 ] === currentPos[ 0 ] + 1 && 
+            //                      metalPos[ 1 ] === currentPos[ 1 ] ) ||
+            //                      ( metalPos[ 0 ] === currentPos[ 0 ] - 1 && 
+            //                      metalPos[ 1 ] === currentPos[ 1 ] ) ||
+            //                      ( metalPos[ 0 ] === currentPos[ 0 ] && 
+            //                      metalPos[ 1 ] === currentPos[ 1 ]  + 1 ) ||
+            //                      ( metalPos[ 0 ] === currentPos[ 0 ] && 
+            //                      metalPos[ 1 ] === currentPos[ 1 ] - 1 ) ||
+            //                      ( metalPos[ 0 ] === currentPos[ 0 ] - 1 && 
+            //                      metalPos[ 1 ] === currentPos[ 1 ] - 1 ) || //LL
+            //                      ( metalPos[ 0 ] === currentPos[ 0 ] + 1 && 
+            //                      metalPos[ 1 ] === currentPos[ 1 ] + 1 ) || //UR
+            //                      ( metalPos[ 0 ] === currentPos[ 0 ] - 1 && 
+            //                      metalPos[ 1 ] === currentPos[ 1 ] + 1) || //UL
+            //                      ( metalPos[ 0 ] === currentPos[ 0 ] + 1 && 
+            //                      metalPos[ 1 ] === currentPos[ 1 ] - 1) //LR
+            //                      );
         }
         var surroundingTiles = [];
         for ( var x = -1; x < 2 && !this.metalSensorValue; x++ ) {

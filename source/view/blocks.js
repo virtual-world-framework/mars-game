@@ -128,7 +128,12 @@ Blockly.Blocks['triangle_flow'] = {
     this.setPreviousStatement(true);
     this.setNextStatement(true);
     this.setColour(345);
-    this.setTooltip('A block that sprays nanites in a triangle on the ground in order to construct a portion of your base.');
+    this.setTooltip( function(){
+      var content = {
+        text: "A block that sprays nanites in a triangle on the ground in order to construct a portion of your base."
+      }
+      return showTooltipInBlockly(thisBlock, content);
+    });
     this.data = currentBlocklyNodeID;
   },
   onchange: function() {
@@ -273,7 +278,12 @@ Blockly.Blocks['triangle_operations'] = {
     this.setPreviousStatement(true, 'INPUT');
     this.setNextStatement(true);
     this.setColour(195);
-    this.setTooltip('Operations blocks can be placed inside of the Draw Triangle block, and adjust the shape, size, or position of the triangle being drawn.');
+    this.setTooltip( function(){
+      var content = {
+        text: "Operations blocks can be placed inside of the Draw Triangle block, and adjust the shape, size, or position of the triangle being drawn."
+      }
+      return showTooltipInBlockly(thisBlock, content);
+    });
     this.data = currentBlocklyNodeID;
   },
   onchange: function() {
@@ -527,7 +537,13 @@ Blockly.Blocks['triangle_operations_auto'] = {
     this.setPreviousStatement(true, 'INPUT');
     this.setNextStatement(true);
     this.setColour(195);
-    this.setTooltip('Operations blocks can be placed inside of the Draw Triangle block, and adjust the shape, size, or position of the triangle being drawn.');
+
+    this.setTooltip( function(){
+      var content = {
+        text: "Operations blocks can be placed inside of the Draw Triangle block, and adjust the shape, size, or position of the triangle being drawn."
+      }
+      return showTooltipInBlockly(thisBlock, content);
+    });
     this.data = currentBlocklyNodeID;
   },
   onchange: function() {
@@ -784,7 +800,12 @@ Blockly.Blocks['triangle_operations_translate'] = {
     this.setPreviousStatement(true, 'INPUT');
     this.setNextStatement(true);
     this.setColour(195);
-    this.setTooltip('Operations blocks can be placed inside of the Draw Triangle block. The Translate operation changes the position of the triangle.');
+    this.setTooltip( function(){
+      var content = {
+        text: "Operations blocks can be placed inside of the Draw Triangle block. The Translate operation changes the position of the triangle."
+      }
+      return showTooltipInBlockly(thisBlock, content);
+    });
     this.data = currentBlocklyNodeID;
   },
   onchange: function() {
@@ -966,7 +987,12 @@ Blockly.Blocks['triangle_operations_translate_auto'] = {
     this.setPreviousStatement(true, 'INPUT');
     this.setNextStatement(true);
     this.setColour(195);
-    this.setTooltip('Operations blocks can be placed inside of the Draw Triangle block. The Translate operation changes the position of the triangle.');
+    this.setTooltip( function(){
+      var content = {
+        text: "Operations blocks can be placed inside of the Draw Triangle block. The Translate operation changes the position of the triangle."
+      }
+      return showTooltipInBlockly(thisBlock, content);
+    });
     this.data = currentBlocklyNodeID;
   },
   onchange: function() {
@@ -1146,7 +1172,12 @@ Blockly.Blocks['triangle_operations_dilate'] = {
     this.setPreviousStatement(true, 'INPUT');
     this.setNextStatement(true);
     this.setColour(45);
-    this.setTooltip('Operations blocks can be placed inside of the Draw Triangle block. The Dilate operation changes the size of the triangle.');
+    this.setTooltip( function(){
+      var content = {
+        text: "Operations blocks can be placed inside of the Draw Triangle block. The Dilate operation changes the size of the triangle."
+      }
+      return showTooltipInBlockly(thisBlock, content);
+    });
     this.data = currentBlocklyNodeID;
   },
   onchange: function() {
@@ -1321,8 +1352,13 @@ Blockly.Blocks['triangle_operations_dilate_auto'] = {
     this.setInputsInline(false);
     this.setPreviousStatement(true, 'INPUT');
     this.setNextStatement(true);
-    this.setColour(45);
-    this.setTooltip('Operations blocks can be placed inside of the Draw Triangle block. The Dilate operation changes the size of the triangle.');
+    this.setColour(45);    
+    this.setTooltip( function(){
+      var content = {
+        text: "Operations blocks can be placed inside of the Draw Triangle block. The Dilate operation changes the size of the triangle."
+      }
+      return showTooltipInBlockly(thisBlock, content);
+    });
     this.data = currentBlocklyNodeID;
   },
   onchange: function() {
@@ -1491,7 +1527,12 @@ Blockly.Blocks['triangle_operations_dilate_auto_fixed'] = {
     this.setPreviousStatement(true, 'INPUT');
     this.setNextStatement(true);
     this.setColour(45);
-    this.setTooltip('Operations blocks can be placed inside of the Draw Triangle block. The Dilate operation changes the size of the triangle.');
+    this.setTooltip( function(){
+      var content = {
+        text: "Operations blocks can be placed inside of the Draw Triangle block. The Dilate operation changes the size of the triangle."
+      }
+      return showTooltipInBlockly(thisBlock, content);
+    });
     this.data = currentBlocklyNodeID;
   },
   onchange: function() {
@@ -2035,7 +2076,12 @@ Blockly.Blocks['triangle_operations_reflect'] = {
     this.setPreviousStatement(true, 'INPUT');
     this.setNextStatement(true);
     this.setColour(105);
-    this.setTooltip('Operations blocks can be placed inside of the Draw Triangle block. The Reflect operation reflects the triangle across one or both axes.');
+    this.setTooltip( function(){
+      var content = {
+        text: "Operations blocks can be placed inside of the Draw Triangle block. The Reflect operation reflects the triangle across one or both axes."
+      }
+      return showTooltipInBlockly(thisBlock, content);
+    });
     this.data = currentBlocklyNodeID;
   },
   onchange: function() {
@@ -2256,7 +2302,12 @@ Blockly.Blocks['triangle_operations_reflect_auto'] = {
     this.setPreviousStatement(true, 'INPUT');
     this.setNextStatement(true);
     this.setColour(105);
-    this.setTooltip('Operations blocks can be placed inside of the Draw Triangle block. The Reflect operation reflects the triangle across one or both axes.');
+    this.setTooltip( function(){
+      var content = {
+        text: "Operations blocks can be placed inside of the Draw Triangle block. The Reflect operation reflects the triangle across one or both axes."
+      }
+      return showTooltipInBlockly(thisBlock, content);
+    });
     this.data = currentBlocklyNodeID;
   },
   onchange: function() {
