@@ -800,6 +800,7 @@ Blockly.Blocks['triangle_operations_translate'] = {
     this.setPreviousStatement(true, 'INPUT');
     this.setNextStatement(true);
     this.setColour(195);
+    var thisBlock = this;
     this.setTooltip( function(){
       var content = {
         text: "Operations blocks can be placed inside of the Draw Triangle block. The Translate operation changes the position of the triangle."
@@ -987,6 +988,7 @@ Blockly.Blocks['triangle_operations_translate_auto'] = {
     this.setPreviousStatement(true, 'INPUT');
     this.setNextStatement(true);
     this.setColour(195);
+    var thisBlock = this;
     this.setTooltip( function(){
       var content = {
         text: "Operations blocks can be placed inside of the Draw Triangle block. The Translate operation changes the position of the triangle."
@@ -1172,6 +1174,7 @@ Blockly.Blocks['triangle_operations_dilate'] = {
     this.setPreviousStatement(true, 'INPUT');
     this.setNextStatement(true);
     this.setColour(45);
+    var thisBlock = this;
     this.setTooltip( function(){
       var content = {
         text: "Operations blocks can be placed inside of the Draw Triangle block. The Dilate operation changes the size of the triangle."
@@ -1352,7 +1355,8 @@ Blockly.Blocks['triangle_operations_dilate_auto'] = {
     this.setInputsInline(false);
     this.setPreviousStatement(true, 'INPUT');
     this.setNextStatement(true);
-    this.setColour(45);    
+    this.setColour(45);
+    var thisBlock = this;
     this.setTooltip( function(){
       var content = {
         text: "Operations blocks can be placed inside of the Draw Triangle block. The Dilate operation changes the size of the triangle."
@@ -1527,6 +1531,7 @@ Blockly.Blocks['triangle_operations_dilate_auto_fixed'] = {
     this.setPreviousStatement(true, 'INPUT');
     this.setNextStatement(true);
     this.setColour(45);
+    var thisBlock = this;
     this.setTooltip( function(){
       var content = {
         text: "Operations blocks can be placed inside of the Draw Triangle block. The Dilate operation changes the size of the triangle."
@@ -2076,6 +2081,7 @@ Blockly.Blocks['triangle_operations_reflect'] = {
     this.setPreviousStatement(true, 'INPUT');
     this.setNextStatement(true);
     this.setColour(105);
+    var thisBlock = this;
     this.setTooltip( function(){
       var content = {
         text: "Operations blocks can be placed inside of the Draw Triangle block. The Reflect operation reflects the triangle across one or both axes."
@@ -2302,6 +2308,7 @@ Blockly.Blocks['triangle_operations_reflect_auto'] = {
     this.setPreviousStatement(true, 'INPUT');
     this.setNextStatement(true);
     this.setColour(105);
+    var thisBlock = this;
     this.setTooltip( function(){
       var content = {
         text: "Operations blocks can be placed inside of the Draw Triangle block. The Reflect operation reflects the triangle across one or both axes."
@@ -2652,6 +2659,7 @@ Blockly.Blocks['ordered_get'] = {
         .appendField(new Blockly.FieldDropdown([[".x", ".x"], [".y", ".y"]]), "OPTION");
     this.setOutput(true, "OrderedGet");
     this.data = currentBlocklyNodeID;
+    var thisBlock = this;
     this.setTooltip( function() {
       var content = {
         text: "Retrieves X or Y values from ordered pair blocks."
