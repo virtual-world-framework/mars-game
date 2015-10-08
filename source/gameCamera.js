@@ -55,7 +55,7 @@ this.followTarget = function( transform ) {
         newTransform[ 12 ] += transform[ 12 ] - this.lastTargetPosition[ 0 ];
         newTransform[ 13 ] += transform[ 13 ] - this.lastTargetPosition[ 1 ];
         newTransform[ 14 ] += transform[ 14 ] - this.lastTargetPosition[ 2 ];
-        this.transformTo( newTransform );
+        this.transform = newTransform;
     }
     this.lastTargetPosition = [
         transform[ 12 ],
