@@ -17,8 +17,8 @@ this.onGenerated = function( params, generator, payload ) {
         this.logger.errorx( "onGenerated", 
                             "This clause requires two arguments: the object " +
                             "and an array containing the x and y grid " +
-                            "positions.  In addition, if the third argument "
-                            "is true then we use the position according to the " 
+                            "positions.  In addition, if the third argument " +
+                            "is true then we use the position according to the " +
                             "in-game axis offset.");
         return false;
     }

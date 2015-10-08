@@ -133,18 +133,8 @@ children:
           actions:
           - playSound:
             - L1VO2_Rover
-          - setProperty:
-            - hud
-            - enabled
-            - false
-          - delay:
-            - 6
-            - openMissionBrief:
-            - setProperty:
-              - hud
-              - enabled
-              - true
-            - startTimer:
+          - openMissionBrief:
+          - startTimer:
 
         succeedOnSuccess_1b:
           group: successOrFailure
