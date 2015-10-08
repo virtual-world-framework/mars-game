@@ -454,7 +454,6 @@ children:
                       material:
                         extends: http://vwf.example.com/material.vwf
       rover2:
-        visible: false
         extends: source/rover.vwf
         implements: 
         - http://vwf.example.com/blockly/controller.vwf
