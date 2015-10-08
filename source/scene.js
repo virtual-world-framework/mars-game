@@ -507,6 +507,28 @@ this.clearBlocklyContext = function() {
     this.clearBlocklyTabs();
 }
 
+this.setUserTriangles = function( vertices ) {
+    var tempColors = [
+        [ 0.7, 0.3, 0.3 ],
+        [ 0.3, 0.7, 0.3 ],
+        [ 0.3, 0.3, 0.7 ],
+        [ 0.6, 0.6, 0.2 ]
+    ];
+    var verts, tris;
+    verts = vertices.length;
+    tris = verts / 3;
+    for ( var i = 0; i < verts; i++ ) {
+        var valid = !isNaN( vertices[ i ][ 0 ] ) || !isNaN( vertices[ i ][ 1 ] );
+        if ( !valid ) {
+            return;
+        }
+        vertices[ i ] = this.addAxisOffset( vertices[ i ] );
+    }
+    var material = this.environment.terrain.material;
+    material.userTris = vertices;
+    material.userTriColors = tempColors.slice( 0, tris );
+}
+
 this.drawSchematicTriangle = function( pointA, pointB, pointC ) {
     // pointA, pointB, and pointC are in the format: [ x, y ]
     // x and y are in world space ( not grid coordinate space )

@@ -100,6 +100,7 @@ methods:
   calloutTile:
   removeCalloutTile:
   hideUI:
+  setUserTriangles:
   setActiveRoverPose:
   printCameraPose:
   callout:
@@ -245,6 +246,8 @@ children:
               calloutTile: [ 0, 0 ]
               calloutHighlight: 0
               triangle: []
+              userTris: []
+              userTriColors: []
       environmentObjects:
         extends: http://vwf.example.com/node3.vwf
         source: assets/3d/Mars_Assets/mars_assets.dae

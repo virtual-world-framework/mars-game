@@ -228,6 +228,7 @@ Blockly.Blocks['triangle_flow'] = {
     var vertexC = eval( '[' + this.getFieldValue( 'CURRENTC' ) + ']' );
 
     currentBlocklyTriangles[ this.id ] = [ vertexA, vertexB, vertexC ];
+    updateBlocklyTriangles();
 
   }
 };

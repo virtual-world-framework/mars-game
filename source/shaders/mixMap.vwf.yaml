@@ -21,12 +21,25 @@ properties:
     set: |
       this.setDefine( "MAX_TRIS", value.length );
       this.triangle = value;
+  userTris:
+    set: |
+      var verts = value.length;
+      this.setDefine( "MAX_USER_TRIS", verts );
+      this.userTris = value;
   bCallout$: false
   defines:
     MAX_TRIS: 0
+    MAX_USER_TRIS: 0
+    MAX_USER_TRI_COLORS: 4
   uniforms:
     triangle:
       type: "v2v"
+      value: []
+    userTris:
+      type: "v2v"
+      value: []
+    userTriColors:
+      type: "v3v"
       value: []
     gridVisible:
       type: "i"
@@ -245,6 +258,10 @@ properties:
     uniform float calloutHighlight;
     #if MAX_TRIS > 0
       uniform vec2 triangle[ MAX_TRIS ];
+    #endif
+    #if MAX_USER_TRIS > 0
+      uniform vec2 userTris[ MAX_USER_TRIS ];
+      uniform vec3 userTriColors[ MAX_USER_TRI_COLORS ];
     #endif
     // PROJECTED GRID SHADER UNIFORMS END
     #if MAX_DIR_LIGHTS > 0
@@ -634,6 +651,44 @@ properties:
         #endif
         if ( inTriangle ) {
           gl_FragColor.xyz += tileColor * 0.8;
+        }
+      #endif
+      #if MAX_USER_TRIS > 0
+        bool inTri = false;
+        int triNum = 0;
+        #if MAX_USER_TRIS >= 3
+          inTri = testTriangle( vWorldPosition.xy, userTris[ 0 ], userTris[ 1 ], userTris[ 2 ] );
+          if ( inTri ) {
+            triNum = 1;
+          }
+        #endif
+        #if MAX_USER_TRIS >= 6
+          if ( !inTri ) {
+            inTri = testTriangle( vWorldPosition.xy, userTris[ 3 ], userTris[ 4 ], userTris[ 5 ] );
+            if ( inTri ) {
+              triNum = 2;
+            }
+          }
+        #endif
+        #if MAX_USER_TRIS >= 9
+          if ( !inTri ) {
+            inTri = testTriangle( vWorldPosition.xy, userTris[ 6 ], userTris[ 7 ], userTris[ 8 ] );
+            if ( inTri ) {
+              triNum = 3;
+            }
+          }
+        #endif
+        #if MAX_USER_TRIS >= 12
+          if ( !inTri ) {
+            inTri = testTriangle( vWorldPosition.xy, userTris[ 9 ], userTris[ 10 ], userTris[ 11 ] );
+            if ( inTri ) {
+              triNum = 4;
+            }
+          }
+        #endif
+        if ( inTri ) {
+          vec3 triangleColor = vec3( 0.3, 0.3, 0.7 );
+          gl_FragColor.xyz += triangleColor;
         }
       #endif
       // PROJECTED GRID SHADER END
