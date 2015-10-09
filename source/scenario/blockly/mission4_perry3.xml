@@ -6,7 +6,7 @@
   </category>
   <sep></sep>
   <category name="Math">
-    <block type="math_number_out" inline="false"><field name="VALUE">0</field></block>
+    <block type="math_number_out_10" inline="false"><field name="VALUE">0</field></block>
     <block type="graph_subtract"></block>
   </category>
   <sep></sep>

@@ -23,6 +23,15 @@ properties:
   - setObjective:
     - "Move to (-3,0) and start construction."
 
+  - setProperty:
+    - rover2
+    - startXML
+    - <xml></xml>
+  - setProperty:
+    - rover2
+    - blockly_xml
+    - <xml></xml>
+
   # blockly
   - setBlocklyContext:
     - rover2
@@ -212,7 +221,8 @@ children:
               - rover2
             - isAtPosition:
               - rover2
-              - [ -27, 19 ]
+              - [ -3, 0 ]
+              - true
           actions:
           - writeToBlackboard:
             - disableFailOnIncompleteProgram

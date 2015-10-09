@@ -13,11 +13,13 @@
 // limitations under the License.
 
 this.onGenerated = function( params, generator, payload ) {
-    if ( !params || ( params.length !== 2 ) ) {
+    if ( !params || ( params.length < 2 ) || ( params.length > 3 ) ) {
         this.logger.errorx( "onGenerated", 
                             "This clause requires two arguments: the object " +
                             "and an array containing the x and y grid " +
-                            "positions." );
+                            "positions.  In addition, if the third argument " +
+                            "is true then we use the position according to the " +
+                            "in-game axis offset.");
         return false;
     }
 
@@ -48,6 +50,8 @@ this.onGenerated = function( params, generator, payload ) {
         return false;
     }
 
+    this.useAxisOffset = !!params[ 2 ];
+
     this.object.moved = this.events.add( function() { this.parentTrigger.checkFire(); }, 
                                          this );
 
@@ -55,9 +59,15 @@ this.onGenerated = function( params, generator, payload ) {
 }
 
 this.evaluateClause = function() {
+    var desired = this.targetPos;
+    if ( this.useAxisOffset ) {
+        desired = this.scene.addAxisOffset( desired.slice() );
+    }
+
     var tile = this.object.tilePosition;
-    var retVal = tile[ 0 ] === this.targetPos[ 0 ] && 
-                 tile[ 1 ] === this.targetPos[ 1 ];
+
+    var retVal = ( tile[ 0 ] === desired[ 0 ] ) &&  
+                 ( tile[ 1 ] === desired[ 1 ] );
 
     return retVal;
 }

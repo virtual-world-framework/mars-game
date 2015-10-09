@@ -24,6 +24,15 @@ properties:
   - setObjective:
     - "Translate your triangle and reflect it across both axis to get (-1,-6), (-1,-9), (-3,-6) and (-1,-6), (-1,-9), (1,-6)."
 
+  - setProperty:
+    - rover2
+    - startXML
+    - <xml></xml>
+  - setProperty:
+    - rover2
+    - blockly_xml
+    - <xml></xml>
+
   # blockly
   - setBlocklyContext:
     - rover2
@@ -94,13 +103,13 @@ properties:
     - 0
   - clearTriangle:
   - drawTriangle:
-    - [ -1, -6 ]
-    - [ -1, -9 ]
+    - [ -3, -3 ]
+    - [ -1, -3 ]
     - [ -3, -6 ]
   - drawTriangle:
     - [ -1, -6 ]
-    - [ -1, -9 ]
-    - [ 1, -6 ]
+    - [ -1, -3 ]
+    - [ -3, -6 ]
   # Solar panel construction
 
   - setConstructed:
@@ -193,23 +202,30 @@ children:
           - onScenarioStart:
           actions:
           - callOutObjective:
-            - [ -1, -5 ]
+            - [ -2, -8 ]
 
         failOnMissingBlock_4_15:
           group: successOrFailure
           priority: 0.5
           triggerCondition:
           - and:
-            - onBlocklySurveyFinished:
-              - rover2
-              - [[ [ -1, -6 ], [ -1, -9 ], [ -3, -6 ] ], [ [ -1, -6 ], [ -1, -9 ], [ 1, -6 ] ]]
+            - or:
+              - onBlocklySurveyFinished:
+                - rover2
+                - [ [ [ -3, -3 ], [ -1, -3 ], [ -3, -6 ] ], [ [ -1, -6 ], [ -1, -3 ], [ -3, -6 ] ] ]
+              - onBlocklySurveyFinished:
+                - rover2
+                - [ [ [ -3, -3 ], [ -1, -6 ], [ -3, -6 ] ], [ [ -1, -3 ], [ -3, -3 ], [ -3, -6 ] ] ]
             - onBlocklyStopped:
               - rover2
-            - isAtPosition:
-              - rover2
-              - [ -25, 14]
-            - isBlockMissing:
-              - init_nano_construction
+            - or:
+              - not: 
+                - isAtPosition:
+                  - rover2
+                  - [ -2, -8 ]
+                  - true
+              - isBlockMissing:
+                - init_nano_construction
           actions:
           - scenarioFailure:
             - incomplete
@@ -222,14 +238,19 @@ children:
           priority: 0
           triggerCondition:
           - and:
-            - onBlocklySurveyFinished:
-              - rover2
-              - [[ [ -1, -6 ], [ -1, -9 ], [ -3, -6 ] ], [ [ -1, -6 ], [ -1, -9 ], [ 1, -6 ] ]]
+            - or:
+              - onBlocklySurveyFinished:
+                - rover2
+                - [ [ [ -3, -3 ], [ -1, -3 ], [ -3, -6 ] ], [ [ -1, -6 ], [ -1, -3 ], [ -3, -6 ] ] ]
+              - onBlocklySurveyFinished:
+                - rover2
+                - [ [ [ -3, -3 ], [ -1, -6 ], [ -3, -6 ] ], [ [ -1, -3 ], [ -3, -3 ], [ -3, -6 ] ] ]
             - onBlocklyStopped:
               - rover2
             - isAtPosition:
               - rover2
-              - [ -25, 14]
+              - [ -2, -8 ]
+              - true
           actions:
           - writeToBlackboard:
             - disableFailOnIncompleteProgram

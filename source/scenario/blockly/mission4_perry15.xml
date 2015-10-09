@@ -13,7 +13,7 @@
   <category name="Procedures">
     <block type="triangle_flow"></block>
     <block type="triangle_operations_dilate_auto"></block>
-<!--     <block type="triangle_operations_dilate_two_auto"></block> -->
+    <block type="triangle_operations_dilate_two_auto"></block>
     <block type="triangle_operations_reflect_auto"></block>
     <block type="triangle_operations_translate_auto"></block>
   </category>

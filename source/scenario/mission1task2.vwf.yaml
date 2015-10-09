@@ -23,7 +23,7 @@ properties:
   - setProperty:
     - videoManager  
     - url 
-    - [ "assets/video/Success1.webm", "assets/video/Success1.mp4" ]
+    - [ "assets/video/Success1_800x600.mp4" ]
   
   - setProperty:
     - rover2
@@ -133,18 +133,8 @@ children:
           actions:
           - playSound:
             - L1VO2_Rover
-          - setProperty:
-            - hud
-            - enabled
-            - false
-          - delay:
-            - 6
-            - openMissionBrief:
-            - setProperty:
-              - hud
-              - enabled
-              - true
-            - startTimer:
+          - openMissionBrief:
+          - startTimer:
 
         succeedOnSuccess_1b:
           group: successOrFailure

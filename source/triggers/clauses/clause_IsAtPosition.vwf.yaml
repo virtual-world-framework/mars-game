@@ -21,6 +21,7 @@ implements:
 properties:
   object:
   targetPos:
+  useAxisOffset:
 
 scripts:
 - source: clause_IsAtPosition.js

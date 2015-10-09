@@ -24,6 +24,15 @@ properties:
   - setObjective:
     - "Translate and dilate again, but this time reflect across the Y axis."
 
+  - setProperty:
+    - rover2
+    - startXML
+    - <xml></xml>
+  - setProperty:
+    - rover2
+    - blockly_xml
+    - <xml></xml>
+
   # blockly
   - setBlocklyContext:
     - rover2
