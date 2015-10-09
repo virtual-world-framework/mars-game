@@ -923,17 +923,20 @@ Blockly.Blocks['triangle_operations_translate'] = {
       do {
         targetBlock = block;
         block = block.parentBlock_;
-      } while ( block );
 
-      if ( targetBlock.type == 'triangle_flow' ) { //Which it should be given our connection checks...
+        if ( targetBlock.type == 'triangle_flow' ) { //Which it should be given our connection checks...
 
         //Set target block's values (The TRIANGLE FLOW BLOCK's values) with the current A B and C
 
         targetBlock.setFieldValue( '['+ax+','+ay+']','CURRENTA' );
         targetBlock.setFieldValue( '['+bx+','+by+']','CURRENTB' );
         targetBlock.setFieldValue( '['+cx+','+cy+']','CURRENTC' );
-
+        break;
       }
+
+      } while ( block );
+
+      
     }
     
   }
@@ -1108,17 +1111,17 @@ Blockly.Blocks['triangle_operations_translate_auto'] = {
       do {
         targetBlock = block;
         block = block.parentBlock_;
+        if ( targetBlock.type == 'triangle_flow' ) { //Which it should be given our connection checks...
+
+          //Set target block's values (The TRIANGLE FLOW BLOCK's values) with the current A B and C
+
+          targetBlock.setFieldValue( '['+currentA+']','CURRENTA' );
+          targetBlock.setFieldValue( '['+currentB+']','CURRENTB' );
+          targetBlock.setFieldValue( '['+currentC+']','CURRENTC' );
+          break;
+        }
       } while ( block );
 
-      if ( targetBlock.type == 'triangle_flow' ) { //Which it should be given our connection checks...
-
-        //Set target block's values (The TRIANGLE FLOW BLOCK's values) with the current A B and C
-
-        targetBlock.setFieldValue( '['+currentA+']','CURRENTA' );
-        targetBlock.setFieldValue( '['+currentB+']','CURRENTB' );
-        targetBlock.setFieldValue( '['+currentC+']','CURRENTC' );
-
-      }
     }
     
   }
@@ -1296,17 +1299,18 @@ Blockly.Blocks['triangle_operations_dilate'] = {
       do {
         targetBlock = block;
         block = block.parentBlock_;
+        if ( targetBlock.type == 'triangle_flow' ) { //Which it should be given our connection checks...
+
+          //Set target block's values (The TRIANGLE FLOW BLOCK's values) with the current A B and C
+
+          targetBlock.setFieldValue( '['+ax+','+ay+']','CURRENTA' );
+          targetBlock.setFieldValue( '['+bx+','+by+']','CURRENTB' );
+          targetBlock.setFieldValue( '['+cx+','+cy+']','CURRENTC' );
+          break;
+
+        }
       } while ( block );
-
-      if ( targetBlock.type == 'triangle_flow' ) { //Which it should be given our connection checks...
-
-        //Set target block's values (The TRIANGLE FLOW BLOCK's values) with the current A B and C
-
-        targetBlock.setFieldValue( '['+ax+','+ay+']','CURRENTA' );
-        targetBlock.setFieldValue( '['+bx+','+by+']','CURRENTB' );
-        targetBlock.setFieldValue( '['+cx+','+cy+']','CURRENTC' );
-
-      }
+      
     }
     
   }
@@ -1470,17 +1474,17 @@ Blockly.Blocks['triangle_operations_dilate_auto'] = {
       do {
         targetBlock = block;
         block = block.parentBlock_;
+        if ( targetBlock.type == 'triangle_flow' ) { //Which it should be given our connection checks...
+
+          //Set target block's values (The TRIANGLE FLOW BLOCK's values) with the current A B and C
+
+          targetBlock.setFieldValue( '['+currentA+']','CURRENTA' );
+          targetBlock.setFieldValue( '['+currentB+']','CURRENTB' );
+          targetBlock.setFieldValue( '['+currentC+']','CURRENTC' );
+          break;
+        }
       } while ( block );
 
-      if ( targetBlock.type == 'triangle_flow' ) { //Which it should be given our connection checks...
-
-        //Set target block's values (The TRIANGLE FLOW BLOCK's values) with the current A B and C
-
-        targetBlock.setFieldValue( '['+currentA+']','CURRENTA' );
-        targetBlock.setFieldValue( '['+currentB+']','CURRENTB' );
-        targetBlock.setFieldValue( '['+currentC+']','CURRENTC' );
-
-      }
     }
     
   }
@@ -1646,17 +1650,18 @@ Blockly.Blocks['triangle_operations_dilate_auto_fixed'] = {
       do {
         targetBlock = block;
         block = block.parentBlock_;
+
+        if ( targetBlock.type == 'triangle_flow' ) { //Which it should be given our connection checks...
+
+          //Set target block's values (The TRIANGLE FLOW BLOCK's values) with the current A B and C
+
+          targetBlock.setFieldValue( '['+currentA+']','CURRENTA' );
+          targetBlock.setFieldValue( '['+currentB+']','CURRENTB' );
+          targetBlock.setFieldValue( '['+currentC+']','CURRENTC' );
+          break;
+        }
       } while ( block );
 
-      if ( targetBlock.type == 'triangle_flow' ) { //Which it should be given our connection checks...
-
-        //Set target block's values (The TRIANGLE FLOW BLOCK's values) with the current A B and C
-
-        targetBlock.setFieldValue( '['+currentA+']','CURRENTA' );
-        targetBlock.setFieldValue( '['+currentB+']','CURRENTB' );
-        targetBlock.setFieldValue( '['+currentC+']','CURRENTC' );
-
-      }
     }
     
   }
@@ -1838,17 +1843,18 @@ Blockly.Blocks['triangle_operations_dilate_two'] = {
       do {
         targetBlock = block;
         block = block.parentBlock_;
+        if ( targetBlock.type == 'triangle_flow' ) { //Which it should be given our connection checks...
+
+          //Set target block's values (The TRIANGLE FLOW BLOCK's values) with the current A B and C
+
+          targetBlock.setFieldValue( '['+ax+','+ay+']','CURRENTA' );
+          targetBlock.setFieldValue( '['+bx+','+by+']','CURRENTB' );
+          targetBlock.setFieldValue( '['+cx+','+cy+']','CURRENTC' );
+          break;
+
+        }
       } while ( block );
 
-      if ( targetBlock.type == 'triangle_flow' ) { //Which it should be given our connection checks...
-
-        //Set target block's values (The TRIANGLE FLOW BLOCK's values) with the current A B and C
-
-        targetBlock.setFieldValue( '['+ax+','+ay+']','CURRENTA' );
-        targetBlock.setFieldValue( '['+bx+','+by+']','CURRENTB' );
-        targetBlock.setFieldValue( '['+cx+','+cy+']','CURRENTC' );
-
-      }
     }
     
   }
@@ -2018,17 +2024,18 @@ Blockly.Blocks['triangle_operations_dilate_two_auto'] = {
       do {
         targetBlock = block;
         block = block.parentBlock_;
+        if ( targetBlock.type == 'triangle_flow' ) { //Which it should be given our connection checks...
+
+          //Set target block's values (The TRIANGLE FLOW BLOCK's values) with the current A B and C
+
+          targetBlock.setFieldValue( '['+currentA+']','CURRENTA' );
+          targetBlock.setFieldValue( '['+currentB+']','CURRENTB' );
+          targetBlock.setFieldValue( '['+currentC+']','CURRENTC' );
+          break;
+
+        }
       } while ( block );
 
-      if ( targetBlock.type == 'triangle_flow' ) { //Which it should be given our connection checks...
-
-        //Set target block's values (The TRIANGLE FLOW BLOCK's values) with the current A B and C
-
-        targetBlock.setFieldValue( '['+currentA+']','CURRENTA' );
-        targetBlock.setFieldValue( '['+currentB+']','CURRENTB' );
-        targetBlock.setFieldValue( '['+currentC+']','CURRENTC' );
-
-      }
     }
     
   }
@@ -2251,17 +2258,19 @@ Blockly.Blocks['triangle_operations_reflect'] = {
       do {
         targetBlock = block;
         block = block.parentBlock_;
+
+        if ( targetBlock.type == 'triangle_flow' ) { //Which it should be given our connection checks...
+
+          //Set target block's values (The TRIANGLE FLOW BLOCK's values) with the current A B and C
+
+          targetBlock.setFieldValue( '['+ax+','+ay+']','CURRENTA' );
+          targetBlock.setFieldValue( '['+bx+','+by+']','CURRENTB' );
+          targetBlock.setFieldValue( '['+cx+','+cy+']','CURRENTC' );
+          break;
+
+        }
       } while ( block );
 
-      if ( targetBlock.type == 'triangle_flow' ) { //Which it should be given our connection checks...
-
-        //Set target block's values (The TRIANGLE FLOW BLOCK's values) with the current A B and C
-
-        targetBlock.setFieldValue( '['+ax+','+ay+']','CURRENTA' );
-        targetBlock.setFieldValue( '['+bx+','+by+']','CURRENTB' );
-        targetBlock.setFieldValue( '['+cx+','+cy+']','CURRENTC' );
-
-      }
     }
     
   }
@@ -2470,17 +2479,16 @@ Blockly.Blocks['triangle_operations_reflect_auto'] = {
       do {
         targetBlock = block;
         block = block.parentBlock_;
+        if ( targetBlock.type == 'triangle_flow' ) { //Which it should be given our connection checks...
+
+          //Set target block's values (The TRIANGLE FLOW BLOCK's values) with the current A B and C
+
+          targetBlock.setFieldValue( '['+currentA+']','CURRENTA' );
+          targetBlock.setFieldValue( '['+currentB+']','CURRENTB' );
+          targetBlock.setFieldValue( '['+currentC+']','CURRENTC' );
+          break;
+        }
       } while ( block );
-
-      if ( targetBlock.type == 'triangle_flow' ) { //Which it should be given our connection checks...
-
-        //Set target block's values (The TRIANGLE FLOW BLOCK's values) with the current A B and C
-
-        targetBlock.setFieldValue( '['+currentA+']','CURRENTA' );
-        targetBlock.setFieldValue( '['+currentB+']','CURRENTB' );
-        targetBlock.setFieldValue( '['+currentC+']','CURRENTC' );
-
-      }
     }
     
   }
