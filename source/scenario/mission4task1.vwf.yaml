@@ -207,9 +207,11 @@ children:
               - stopExecution
             - showAlert:
               - "I created the correct triangle!"
-            - scenarioSuccess:
             - playSound:
               - musicSuccessShort
+            - clearBlockly:
+            - scenarioSuccess:
+
 
         playStartingVO_4_1_1:
           triggerCondition:

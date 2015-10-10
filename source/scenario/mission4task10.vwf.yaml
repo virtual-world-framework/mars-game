@@ -208,6 +208,7 @@ children:
             - stopExecution
           - playSound:
             - musicSuccessShort
+          - clearBlockly:
           - scenarioSuccess:
 
         scenarioEnded4_10:

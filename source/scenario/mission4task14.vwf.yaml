@@ -269,6 +269,7 @@ children:
               - perryIDidIt06
             - playSound:
               - TM4V37_MANNY
+            - clearBlockly:
             - scenarioSuccess:
 
         scenarioEnded4_14:

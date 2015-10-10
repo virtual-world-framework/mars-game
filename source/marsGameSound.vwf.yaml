@@ -508,7 +508,7 @@ properties:
     - soundName: "TM4V15_MC"
       soundURL: "assets/sounds/vo/TM4_15_MC.ogg" 
       initialVolume: 0.65
-      subtitle: "[MISSION CONTROL]: Another thing you can do with operation blocks is to reflect your triangle across either the X or Y axis. Let's start be reflecting the unit triangle across the Y axis, and see how that works."
+      subtitle: "[MISSION CONTROL]: Another thing you can do with transformation blocks is to reflect your triangle across either the X or Y axis. Let's start be reflecting the basic triangle across the Y axis, and see how that works."
       soundGroup: vo
       groupReplacementMethod: queue
     - soundName: "TM4V16_MANNY"
@@ -520,7 +520,7 @@ properties:
     - soundName: "TM4V17_MC"
       soundURL: "assets/sounds/vo/TM4_17_MC.ogg" 
       initialVolume: 0.65
-      subtitle: "[MISSION CONTROL]: Of course, it's not enough to reflect the triangle so that it's in the right spot. You also need to dilate it in order to make it the right size. You can do this by placing multiple operations inside of the Draw Triangle block. Just like a normal program, the operations will be performed in the order that they're listed. Let's build the next solar panel by reflecting and then dilating the unit triangle. Once again, I'll upload a program that should work, but you'll need to fill in the vertex positions."
+      subtitle: "[MISSION CONTROL]: Of course, it's not enough to reflect the triangle so that it's in the right spot. You also need to dilate it in order to make it the right size. You can do this by placing multiple transformations inside of the Draw Triangle block. Just like a normal program, the transformations will be performed in the order that they're listed. Let's build the next solar panel by reflecting and then dilating the basic triangle. Once again, I'll upload a program that should work, but you'll need to fill in the vertex positions."
       soundGroup: vo
       groupReplacementMethod: queue
     - soundName: "TM4V18_MANNY"
@@ -682,7 +682,7 @@ properties:
     # - soundName: "TM4_51_Manny"
     #   soundURL: "assets/sounds/vo/TM4_51_Manny.ogg" 
     #   initialVolume: 0.65
-    #   subtitle: "[MANNY]: So... how can I build an equation that includes both a dilate and a reflect operation?"
+    #   subtitle: "[MANNY]: So... how can I build an equation that includes both a dilate and a reflect transformation?"
     #   soundGroup: vo
     #   groupReplacementMethod: queue
     - soundName: "TM4_52_Manny"
@@ -712,7 +712,7 @@ properties:
     - soundName: "TM4_56_MC"
       soundURL: "assets/sounds/vo/TM4_56_MC.ogg" 
       initialVolume: 0.65
-      subtitle: "[MANNY]: The Draw Triangle block which you used draws a unit triangle, which is a triangle with two sides of length 1. You can place operation blocks inside of the draw triangle block which modify the unit triangle until it is in the right place, and is the right size and shape. In this case we need to use a Dilate block to make our unit triangle twice as big. I’ll upload a program that should work, but you’ll need to fill in the vertex positions of each operation."
+      subtitle: "[MANNY]: The Draw Triangle block which you used draws a basic triangle, which is a triangle with two sides of length 1. You can place transformation blocks inside of the draw triangle block which modify the basic triangle until it is in the right place, and is the right size and shape. In this case we need to use a Dilate block to make our basic triangle twice as big. I’ll upload a program that should work, but you’ll need to fill in the vertex positions of each transformation."
       soundGroup: vo
       groupReplacementMethod: queue
     - soundName: "TM4_57_MC"
@@ -730,7 +730,7 @@ properties:
     - soundName: "TM4_59_MC"
       soundURL: "assets/sounds/vo/TM4_59_MC.ogg" 
       initialVolume: 0.65
-      subtitle: "[MANNY]: As part of my update, I have operation blocks that will automatically calculate the vertex positions for you. All you need to do is specify the amount to translate or dilate, or the direction to reflect. I’m am uploading them now."
+      subtitle: "[MANNY]: As part of my update, I have transformation blocks that will automatically calculate the vertex positions for you. All you need to do is specify the amount to translate or dilate, or the direction to reflect. I’m am uploading them now."
       soundGroup: vo
       groupReplacementMethod: queue
     - soundName: "TM4_60_MC"

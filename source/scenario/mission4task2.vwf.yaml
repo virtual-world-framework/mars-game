@@ -27,11 +27,11 @@ properties:
   - setProperty:
     - rover2
     - startXML
-    - <xml><block type="triangle_flow" x="100" y="60"><statement name="STACK"><block type="triangle_operations_dilate"><field name="OP">2</field><field name="AX">0</field><field name="AY">0</field><field name="BX">0</field><field name="BY">0</field><field name="CX">0</field><field name="CY">0</field></block></statement></block></xml>
+    - <xml><block type="triangle_flow" x="100" y="60"><statement name="STACK"><block type="triangle_transformations_dilate"><field name="OP">2</field><field name="AX">0</field><field name="AY">0</field><field name="BX">0</field><field name="BY">0</field><field name="CX">0</field><field name="CY">0</field></block></statement></block></xml>
   - setProperty:
     - rover2
     - blockly_xml
-    - <xml><block type="triangle_flow" x="100" y="60"><statement name="STACK"><block type="triangle_operations_dilate"><field name="OP">2</field><field name="AX">0</field><field name="AY">0</field><field name="BX">0</field><field name="BY">0</field><field name="CX">0</field><field name="CY">0</field></block></statement></block></xml>
+    - <xml><block type="triangle_flow" x="100" y="60"><statement name="STACK"><block type="triangle_transformations_dilate"><field name="OP">2</field><field name="AX">0</field><field name="AY">0</field><field name="BX">0</field><field name="BY">0</field><field name="CX">0</field><field name="CY">0</field></block></statement></block></xml>
 
   # blockly
   - setBlocklyContext:
@@ -215,13 +215,13 @@ children:
               - rover2
               - stopExecution
             - clearBlockly:
-            - scenarioSuccess:
             - playSound:
               - musicSuccessShort
             - playSound:
               - TM4V10_MANNY
             - playSound:
               - TM4V11_MC
+            - scenarioSuccess:
 
         # onScenarioFailed4_2:
         #   triggerCondition:
@@ -253,7 +253,7 @@ children:
         Well done! You have successfully placed the nanites! Unfortunately, 
         however, that triangle is too small to construct a solar panel.
         <br><br> As you can see, the DrawTriangle procedure comes with a 
-        built-in unit triangle. You can adjust the vertices of the triangle by 
+        built-in basic triangle. You can adjust the vertices of the triangle by 
         applying mathematical operations to them.  The first thing that you 
         need to do is to dilate your triangle, or change it's size.  This is 
         done by multiplying the X and Y values of each vertex by the amount 

@@ -27,11 +27,11 @@ properties:
   - setProperty:
     - rover2
     - startXML
-    - <xml><block type="triangle_flow" id="a" x="100" y="60"><statement name="STACK"><block type="triangle_operations_dilate" id="b"><field name="OP">3</field><field name="AX">0</field><field name="AY">0</field><field name="BX">0</field><field name="BY">0</field><field name="CX">0</field><field name="CY">0</field><next><block type="triangle_operations_translate" id="c"><field name="OPX">-8</field><field name="OPY">-8</field><field name="AX">0</field><field name="AY">0</field><field name="BX">0</field><field name="BY">0</field><field name="CX">0</field><field name="CY">0</field></block></next></block></statement></block></xml>
+    - <xml><block type="triangle_flow" id="a" x="100" y="60"><statement name="STACK"><block type="triangle_transformations_dilate" id="b"><field name="OP">3</field><field name="AX">0</field><field name="AY">0</field><field name="BX">0</field><field name="BY">0</field><field name="CX">0</field><field name="CY">0</field><next><block type="triangle_transformations_translate" id="c"><field name="OPX">-8</field><field name="OPY">-8</field><field name="AX">0</field><field name="AY">0</field><field name="BX">0</field><field name="BY">0</field><field name="CX">0</field><field name="CY">0</field></block></next></block></statement></block></xml>
   - setProperty:
     - rover2
     - blockly_xml
-    - <xml><block type="triangle_flow" id="a" x="100" y="60"><statement name="STACK"><block type="triangle_operations_dilate" id="b"><field name="OP">3</field><field name="AX">0</field><field name="AY">0</field><field name="BX">0</field><field name="BY">0</field><field name="CX">0</field><field name="CY">0</field><next><block type="triangle_operations_translate" id="c"><field name="OPX">-8</field><field name="OPY">-8</field><field name="AX">0</field><field name="AY">0</field><field name="BX">0</field><field name="BY">0</field><field name="CX">0</field><field name="CY">0</field></block></next></block></statement></block></xml>
+    - <xml><block type="triangle_flow" id="a" x="100" y="60"><statement name="STACK"><block type="triangle_transformations_dilate" id="b"><field name="OP">3</field><field name="AX">0</field><field name="AY">0</field><field name="BX">0</field><field name="BY">0</field><field name="CX">0</field><field name="CY">0</field><next><block type="triangle_transformations_translate" id="c"><field name="OPX">-8</field><field name="OPY">-8</field><field name="AX">0</field><field name="AY">0</field><field name="BX">0</field><field name="BY">0</field><field name="CX">0</field><field name="CY">0</field></block></next></block></statement></block></xml>
 
   # blockly
   - setBlocklyContext:
@@ -198,6 +198,7 @@ children:
             - stopExecution
           - playSound:
             - musicSuccessShort
+          - clearBlockly:
           - scenarioSuccess:
 
         scenarioEnded4_9:
@@ -229,7 +230,7 @@ children:
       content: >
         That worked.
         <br><br>The habitation dome is quite large, so in addition to 
-        translating the unit triangle you will need to dilate it so that it is
+        translating the basic triangle you will need to dilate it so that it is
         3 times as large.
         <br><br>Draw the first triangle for the habitation dome. There are more
         triangles to follow, so don't start construction yet.

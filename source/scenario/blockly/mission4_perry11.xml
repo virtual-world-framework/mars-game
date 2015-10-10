@@ -12,9 +12,9 @@
   <sep></sep>
   <category name="Procedures">
     <block type="triangle_flow"></block>
-    <block type="triangle_operations_dilate"></block>
-    <block type="triangle_operations_reflect"></block>
-    <block type="triangle_operations_translate"></block>
+    <block type="triangle_transformations_dilate"></block>
+    <block type="triangle_transformations_reflect"></block>
+    <block type="triangle_transformations_translate"></block>
   </category>
 
 </xml>
