@@ -23,7 +23,7 @@ properties:
   startState:
   # objective
   - setObjective:
-    - "Edit the navigate procedure: Duplicate the if block and change the values to move up to [0,-3]."
+    - "Edit your procedure so that it can also move up the Y axis."
 
   # sounds/video
   - playSound:
@@ -215,9 +215,9 @@ children:
         <br><br>Mission Control has changed your procedure a bit to match the
         standard format, and updated your test program so that it provides a 
         y-coordinate that is in the opposite direction. You need to extend your 
-        procedure to do this without changing what you've already got.
+        procedure to handle this without changing what you've already got.
         <br><br> The blocks in the current procedure are a good place to start.
         If you right-click on the If block and select Duplicate, you can make
         a copy of it. Move the copy into your procedure (above or below the If
-        block that's already there), and then change it to move up the Y axis 
-        instead of down it.
+        block that's already there), and then change the copy to move up the Y  
+        axis instead of down it.

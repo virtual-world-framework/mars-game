@@ -109,7 +109,7 @@ children:
             - environmentWind
           - resetRoverSensors:
           - setObjective:
-            - "Build a program to follow the tracks until your scanner finds something."
+            - "Follow the tracks until metal is detected."
           - writeToBlackboard:
             - metalPosition
             - [ -14, 34 ]

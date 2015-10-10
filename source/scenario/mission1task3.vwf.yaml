@@ -212,7 +212,7 @@ children:
     properties:
       title: "Mission 1, Task 3"
       content: >
-        You have executed a movement command and picked up your helicam! 
+        You have executed a movement command and picked up your Helicam! 
         <br><br>Let's take a minute and look around the game window. 
         <br><br>In the <strong><em>top right</em></strong> corner are the camera controls 
         that let you switch between first-person camera, third-person camera, 

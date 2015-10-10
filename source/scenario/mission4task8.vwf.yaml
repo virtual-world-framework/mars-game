@@ -22,7 +22,7 @@ properties:
 
   # objective
   - setObjective:
-    - "Translate the basic triangle to position (-8,-8), (-8,-7), (-7,-8)."
+    - "Translate the basic triangle to position 8 spaces down and to the left."
 
   - setProperty:
     - rover2
@@ -242,12 +242,8 @@ children:
     properties:
       title: "Mission 4, Task 8"
       content: >
-        Excellent!
-        <br><br>Now that the solar panels are complete, it's time to build a
+        Excellent! Now that the solar panels are complete, it's time to build a
         Habitation Dome for the human explorers.
-        <br><br>We don't want to build the Habitation Dome right on top of our 
-        solar panels so we'll need to translate the triangles, or move them to
-        a different position. Let's begin by translating a triangle 7 spaces
-        down and to the left.
-        <br><br>This is just a practice triangle, so there is no need to
-        start construction when it is done.
+        <br><br>Once again, Mission Control has provided Peregrine with a 
+        program that should work, but you'll need to provide the vertices
+        for the Translate block.

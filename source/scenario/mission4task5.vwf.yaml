@@ -22,7 +22,7 @@ properties:
 
   # objective
   - setObjective:
-    - "Reflect and dilate the basic triangle, move to (-3,0), and build solar panel #2."
+    - "Reflect and dilate the basic triangle to build solar panel #2."
 
   - setProperty:
     - rover2
@@ -278,7 +278,10 @@ children:
       title: "Mission 4, Task 5"
       content: >
         Well done! 
-        <br><br>Let's do that again, but this time you need to both reflect 
-        across the Y axis and dilate it to double its original size.
-        <br><br>Remember to move to (-3,0) and start construction when you
-        are done!
+        <br><br>This time, we need to apply two transformations. The vertex
+        positions should be calculated in the order that the transformations
+        are listed, so the vertex positions for Reflect start from the vertices
+        of the basic triangle, and the vertex positions for Dilate use the 
+        vertices that you calculated for Reflect.
+        <br><br>Remember to move to (-3,0) and start construction when you're
+        done!

@@ -23,7 +23,7 @@ properties:
   startState:
   # objective
   - setObjective:
-    - "Edit the navigate procedure: Duplicate an if block and change the values to move North-East towards [0,-3]."
+    - "Edit your procedure so that it can also move right on the X axis."
 
   # sounds/video
   - playSound:

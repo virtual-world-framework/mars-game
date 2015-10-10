@@ -22,7 +22,7 @@ properties:
 
   # objective
   - setObjective:
-    - "Translate and dilate your triangle to (-8,-8), (-8,-5), (-5,-8)."
+    - "Dilate and Translate your triangle to draw the first section of the Habitation Dome."
 
   - setProperty:
     - rover2
@@ -228,9 +228,7 @@ children:
     properties:
       title: "Mission 4, Task 9"
       content: >
-        That worked.
-        <br><br>The habitation dome is quite large, so in addition to 
-        translating the basic triangle you will need to dilate it so that it is
-        3 times as large.
-        <br><br>Draw the first triangle for the habitation dome. There are more
-        triangles to follow, so don't start construction yet.
+        Translation successful.
+        <br><br>Fill in the vertices to draw the first triangle for the 
+        habitation dome. There are more triangles to follow, so don't start 
+        construction yet.

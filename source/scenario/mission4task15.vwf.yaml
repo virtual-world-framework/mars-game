@@ -22,7 +22,7 @@ properties:
 
   # objective
   - setObjective:
-    - "Translate your triangle and reflect it across both axis to get (-1,-6), (-1,-9), (-3,-6) and (-1,-6), (-1,-9), (1,-6)."
+    - "Build the Well."
 
   - setProperty:
     - rover2
@@ -306,4 +306,5 @@ children:
     properties:
       title: "Mission 4, Task 15"
       content: >
-        Placeholder
+        Well done!
+        <br><br>The last thing you need is a supply of water. Build the Well.

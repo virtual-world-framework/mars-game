@@ -271,7 +271,7 @@ properties:
     - soundName: "TM3VO2_Rover"
       soundURL: "assets/sounds/vo/newmission3vo2.ogg"
       initialVolume: 0.65
-      subtitle: "[MANNY]: Oh no! My navigate procedure appears to have been corrupted during the crash!"
+      subtitle: "[MANNY]: Oh no! My Navigate procedure appears to have been corrupted during the crash!"
       soundGroup: vo
       groupReplacementMethod: queue
       queueDelayTime: 1.5
@@ -430,13 +430,13 @@ properties:
     - soundName: "m3t7vo020"
       soundURL: "assets/sounds/vo/m3t7vo020.ogg"
       initialVolume: 0.65
-      subtitle: "[MANNY]: All I have to do should be to drag a Navigate block over, and tell it where to take me!"
+      subtitle: "[MANNY]: All I have to do should be to drag a Navigate block over and tell it where to take me!"
       soundGroup: vo
       groupReplacementMethod: queue
     - soundName: "TM4V1_MC"
       soundURL: "assets/sounds/vo/TM4_1_MC.ogg" 
       initialVolume: 0.65
-      subtitle: "[MISSION CONTROL]: Congratulations on the activating the Base Pod. It contains vital equipment you will need to construct the Mars Base, including a Nano Sprayer. This very versatile tool will apply a layer of nanites to the ground in any shape you outline, and they use the environment itself for materials to build each base item. It's very efficient!"
+      subtitle: "[MISSION CONTROL]: Congratulations on the activating the Base Pod. It contains vital equipment you will need to construct the Mars Base, including a Nano Sprayer. This very versatile tool will apply a layer of Nanites to the ground in any shape you outline, and they use the environment itself for materials to build each base item. It's very efficient!"
       soundGroup: vo
       groupReplacementMethod: replace
     - soundName: "TM4V2_MANNY"
@@ -469,12 +469,6 @@ properties:
       subtitle: "[MANNY]: You said it buddy... whatever it is you said."
       soundGroup: vo
       groupReplacementMethod: queue
-    # - soundName: "TM4V9_MC"
-    #   soundURL: "assets/sounds/vo/TM4_9_MC.ogg" 
-    #   initialVolume: 0.65
-    #   subtitle: "[MISSION CONTROL]: That is a triangle, but it's not big enough to collect enough sunlight. You need to dilate the triangle, to change its size so that it is twice as big."
-    #   soundGroup: vo
-    #   groupReplacementMethod: queue
     - soundName: "TM4V10_MANNY"
       soundURL: "assets/sounds/vo/TM4_10_MANNY.ogg" 
       initialVolume: 0.65
@@ -864,7 +858,7 @@ properties:
     - soundName: "ALVO36_Rover"
       soundURL: "assets/sounds/vo/ALVO36_Rover.ogg"
       initialVolume: 0.65
-      subtitle: "[MANNY]: I can move my helicam around using the arrow keys or the right mouse button."
+      subtitle: "[MANNY]: I can move my Helicam around using the arrow keys or the right mouse button."
       soundGroup: vo
       groupReplacementMethod: queue
     - soundName: "ALVO37_Rover"
@@ -882,7 +876,7 @@ properties:
     - soundName: "ALVO40_Rover"
       soundURL: "assets/sounds/vo/ALVO40_Rover.ogg"
       initialVolume: 0.65
-      subtitle: "[MANNY]: There's my helicam. I should get it reactivated, so that I can take a look around."
+      subtitle: "[MANNY]: There's my Helicam. I should get it reactivated, so that I can take a look around."
       soundGroup: vo
       groupReplacementMethod: replace
     - soundName: "ALVO41_Rover"
@@ -1031,6 +1025,13 @@ properties:
       groupReplacementMethod: queue
     - soundName: "PerryWhatsAClown"
       soundURL: "assets/sounds/vo/perryWhatsAClown.ogg"
+      isLooping: false
+      initialVolume: 0.85
+      subtitle: "[PERRY]: [whistles]"
+      soundGroup: vo
+      groupReplacementMethod: queue
+    - soundName: "PerryDusty02"
+      soundURL: "assets/sounds/vo/perryDidItButImDusty02.ogg"
       isLooping: false
       initialVolume: 0.85
       subtitle: "[PERRY]: [whistles]"

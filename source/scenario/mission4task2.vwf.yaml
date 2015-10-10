@@ -22,7 +22,7 @@ properties:
 
   # objectives
   - setObjective:
-    - "Dilate your triangle so that it's vertices are at (0,0), (0,2), and (2,0)."
+    - "Dilate your triangle so that it's twice as big."
 
   - setProperty:
     - rover2
@@ -250,14 +250,13 @@ children:
     properties:
       title: "Mission 4, Task 2"
       content: >
-        Well done! You have successfully placed the nanites! Unfortunately, 
-        however, that triangle is too small to construct a solar panel.
-        <br><br> As you can see, the DrawTriangle procedure comes with a 
-        built-in basic triangle. You can adjust the vertices of the triangle by 
-        applying mathematical operations to them.  The first thing that you 
-        need to do is to dilate your triangle, or change it's size.  This is 
-        done by multiplying the X and Y values of each vertex by the amount 
-        that you want the triangle to grow or shrink.
-        <br><br>Of note, dilation only works properly when one of the vertices
-        is at (0,0) - but for now, that's not a problem.
-
+        You have successfully placed the nanites, but that triangle is too 
+        small!
+        <br><br> The DrawTriangle block can be modified by placing <strong><em>
+        transformation</em></strong> blocks inside of it. Transformations 
+        use math to modify the size, shape, and position of the triangle to be 
+        drawn.
+        <br><br>The first thing that you need to do is to dilate your triangle,
+        or change it's size. Mission Control has provided a program that will do
+        this, but in order to make it work you need to provide the new vertex 
+        positions to the Dilate block.

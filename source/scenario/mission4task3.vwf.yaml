@@ -21,7 +21,7 @@ properties:
 
   # objective
   - setObjective:
-    - "Move to (-3,0) and start construction."
+    - "Move Peregrine to (-3,0) and start construction."
 
   - setProperty:
     - rover2

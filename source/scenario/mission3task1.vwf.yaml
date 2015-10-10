@@ -23,7 +23,7 @@ properties:
   startState:
   # objective
   - setObjective:
-    - "Test out the basic procedure: Navigate to [0,-3]."
+    - "Run the test program on the basic Navigate procedure."
 
   # sounds/video
   - playSound:
@@ -211,16 +211,18 @@ children:
       content: >
         Oh no, your Navigate procedure has been corrupted! Before you continue
         your mission, you should rebuild it. 
-        <br><br> A procedure is a small program that can be placed inside
-        of a block and used in other programs. Your next task is
-        to write a Navigate procedure that will move Manny in any direction, so 
-        that you don't have to keep putting together long sequences of Turn and 
-        Forward blocks. 
-        <br><br>Information can be passed into the procedure, telling it exactly 
-        what to do. In this case, you can pass in the x-coordinate and 
-        y-coordinate that you want to move to.
+        <br><br>A procedure is a small program that can be placed inside
+        of a block and used in other programs. Information can be passed into 
+        the procedure, telling it exactly what to do. 
+        <br><br> Your next task is to write a Navigate procedure that will move 
+        you in any direction, so that you don't have to keep putting together 
+        long sequences of Turn and Forward blocks. The x-coordinate and 
+        y-coordinate to move to will be passed into the procedure so that it
+        knows where to move.
         <br><br> To get you started, Mission Control has provide a procedure
         that turns until facing down the Y axis and then moves forward until 
         the rover's position matches the desired Y coordinate. She has also 
-        provided a test program that checks whether it works correctly.
+        provided a test program that checks whether it works correctly. 
+        <br><br>START that program now, so we can test that her procedure is 
+        working.
 

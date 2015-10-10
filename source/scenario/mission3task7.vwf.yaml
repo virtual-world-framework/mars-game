@@ -23,7 +23,7 @@ properties:
   startState:
   # objective
   - setObjective:
-    - "Use the navigate procedure to go to (-13,-9)."
+    - "Use the Navigate procedure to go to (-13,-9)."
 
   # sounds/video
   - playSound:

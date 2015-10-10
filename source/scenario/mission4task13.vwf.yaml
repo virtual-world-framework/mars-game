@@ -22,7 +22,7 @@ properties:
 
   # objective
   - setObjective:
-    - "Move to position (-11, -12) and start construction."
+    - "Move to (-11, -12) and start construction."
 
   - setProperty:
     - rover2
@@ -159,11 +159,9 @@ children:
             - onScenarioStart:
           actions:
           - playSound:
+            - PerryDusty02
+          - playSound:
             - TM4V29_MANNY
-          - playSound:
-            - perryIDidIt07
-          - playSound:
-            - TM4V31_MANNY
           - setProperty:
             - hud
             - enabled
@@ -258,5 +256,5 @@ children:
       title: "Mission 4, Task 13"
       content: >
         Nice work!
-        <br><br>Now that all four quadrants are done, you just need to move to 
-        a safe position and start construction
+        <br><br>Now that all four sections are done, you just need to move to 
+        the safe spot and start construction.

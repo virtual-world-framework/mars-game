@@ -23,7 +23,7 @@ properties:
   startState:
   # objective
   - setObjective:
-    - "Edit your navigate procedure: Only turn South if you need to in order to move to [0,-3]."
+    - "Edit your procedure so that it only turns if you need to move down the Y axis."
 
   # sounds/video
   - playSound:

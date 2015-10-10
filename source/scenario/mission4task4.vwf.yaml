@@ -22,7 +22,7 @@ properties:
 
   # objective
   - setObjective:
-    - "Reflect the basic triangle across the Y axis to get a new triangle."
+    - "Reflect the basic triangle across the Y axis and draw it."
 
   - setProperty:
     - rover2
@@ -243,9 +243,5 @@ children:
       title: "Mission 4, Task 4"
       content: >
         Excellent! You have your first solar panel built!
-        <br><br>Let's add some more solar panels so that we don't run out of 
-        power. One easy way to do that is to reflect the triangle that we just
-        drew across the X or Y axes in order to get a new triangle that is the
-        same size.
-        <br><br>To start, let's try simply reflecting the basic triangle that is
-        built in to the DrawTriangle procedure across the Y axis. 
+        <br><br>Mission Control has uploaded a new program to try out the 
+        Reflect transformation. Fill in the vertex positions and hit START.
