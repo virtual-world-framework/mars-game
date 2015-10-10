@@ -37,7 +37,7 @@ properties:
   - setProperty:
     - rover
     - blockly_allowedBlocks
-    - 7
+    - 8
   - setProperty:
     - rover
     - lowRam
@@ -107,7 +107,6 @@ children:
             - "Use a loop to move along the slope of the tracks two more times."
           - setThirdPersonStartPose:
             - [ 16.316, 65, -15 ]
-          - startTimer:
 
         playStartingVO_2f:
           triggerCondition:
@@ -117,6 +116,18 @@ children:
           actions:
           - playSound:
             - L2VO9_Control
+          - setProperty:
+            - hud
+            - enabled
+            - false
+          - delay:
+            - 15
+            - openMissionBrief:
+            - setProperty:
+              - hud
+              - enabled
+              - true
+            - startTimer:
 
         failOnMissingBlock_2_6:
           group: successOrFailure
@@ -149,8 +160,8 @@ children:
               - [ 3, 20 ]
           actions:
           - scenarioSuccess:
-          - showAlert:
-            - "I'm on the right path. How will I stop when I see the rover?"
+          # - showAlert:
+          #   - "I'm on the right path. How will I stop when I see the rover?"
           - playSound:
             - musicSuccessShort
 
@@ -196,6 +207,8 @@ children:
     properties:
       title: "Mission 2, Task 6"
       content: >
-        Path plotted! 
-        <br><br>Time to build a program that will follow it. We’ll work
-        one step at a time...
+        You're on track! 
+        <br><br>Now that you know how to use the slope of the line to move one
+        step along the tracks, you can use a loop block to repeat the same 
+        movement over and over. Try this by using a Repeat loop to move two
+        steps along the tracks.

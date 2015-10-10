@@ -220,8 +220,8 @@ children:
             - marsTent1
           - delay:
             - 5
-            - showAlert:
-              - "I created the correct triangle!"
+            # - showAlert:
+            #   - "I created the correct triangle!"
             - callMethod:
               - rover2
               - stopExecution

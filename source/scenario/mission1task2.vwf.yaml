@@ -40,7 +40,7 @@ properties:
   - setProperty:
     - rover
     - blockly_allowedBlocks
-    - 3
+    - 1
   - setProperty:
     - rover
     - lowRam
@@ -186,13 +186,11 @@ children:
       title: "Mission 1, Task 2"
       content: >
         You have accessed your programming interface! 
-        <br><br>Now that you've got your programming interface open, you need
-        to build your first program. In order to do that, you drag the blocks 
+        <br><br>Now you need to build your first program. Drag the blocks 
         that you want to use from the <strong><em>palette</em></strong> (on the 
         left-hand side of the window) to the <strong><em>assembly area</em></strong> (on 
-        the right), and then hit the START button (in the bottom right) to
-        run your program.
+        the right), and then hit the START button (in the bottom right).
         <br><br>While you're here, notice the <strong><em>categories</em></strong> to the left 
         of the palette. Right now there's only one category of blocks, but more
-        will be added as you progress. You can open and close the palette by 
-        clicking on the category.
+        will be added over time. You can open and close the palette by 
+        clicking on the category icon.

@@ -181,8 +181,8 @@ children:
           actions:
           - clearBlockly:
           - scenarioSuccess:
-          - showAlert:
-            - "Test program completed!"
+          # - showAlert:
+          #   - "Test program completed!"
           - playSound:
             - musicSuccessShort
 
@@ -211,10 +211,13 @@ children:
     properties:
       title: "Mission 3, Task 4"
       content: >
-        You're getting closer!
-        <br><br>Currently the procedure can only move down the Y axis, but it 
-        needs to be able to take you in any direction. As the next step, let's
-        add another clause to your procedure that will move you up the Y axis
-        instead. 
-        <br><br>The easiest way to add a new clause is to right-click the If
-        block from your current procedure, and then select Duplicate.
+        Movement down the Y axis works!
+        <br><br>Mission Control has changed your procedure a bit to match the
+        standard format, and updated your test program so that it provides a 
+        y-coordinate that is in the opposite direction. You need to extend your 
+        procedure to do this without changing what you've already got.
+        <br><br> The blocks in the current procedure are a good place to start.
+        If you right-click on the If block and select Duplicate, you can make
+        a copy of it. Move the copy into your procedure (above or below the If
+        block that's already there), and then change it to move up the Y axis 
+        instead of down it.

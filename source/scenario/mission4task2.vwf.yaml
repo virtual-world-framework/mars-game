@@ -209,8 +209,8 @@ children:
             - disableFailOnIncompleteProgram
           - delay:
             - 1
-            - showAlert:
-              - "I created the correct triangle!"
+            # - showAlert:
+            #   - "I created the correct triangle!"
             - callMethod:
               - rover2
               - stopExecution

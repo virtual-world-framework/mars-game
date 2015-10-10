@@ -211,8 +211,8 @@ children:
           actions:
           - clearBlockly:
           - scenarioSuccess:
-          - showAlert:
-            - "Test program completed!"
+          # - showAlert:
+          #   - "Test program completed!"
           - playSound:
             - musicSuccessShort
 
@@ -231,9 +231,14 @@ children:
     properties:
       title: "Mission 3, Task 3"
       content: >
-        Good job editing your Navigation procedure!
-        <br><br> Let's ensure that you don't waste energy spinning in place when
-        you don't need to. You can do that by using an If block to compare
-        your current position with the spot you want to move to. The If block is
-        a new block that only executes its contents if its condition is true.
-
+        The basic navigation procedure works!
+        <br><br> One good way to write programs is to work one small step at a
+        time, testing each step along the way. Mission Control has given you a
+        new test program that turns you to face a different direction, and then 
+        tests that you don't turn back if you don't need to move down the Y 
+        axis.
+        <br><br> You need to update the Navigate Procedure so that it passes the
+        test. You can do that by using an If block to compare your Position Y 
+        sensor (your current Y position) with the procedure's y-coordinate (the 
+        Y position that you want to move to), and then placing the loops that
+        turn and move you inside of the If block.

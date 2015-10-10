@@ -205,8 +205,8 @@ children:
           actions:
           - writeToBlackboard:
             - disableFailOnIncompleteProgram
-          - showAlert:
-            - "I created the correct triangle!"
+          # - showAlert:
+          #   - "I created the correct triangle!"
           - callMethod:
             - rover2
             - stopExecution

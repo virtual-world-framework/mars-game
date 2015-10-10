@@ -186,8 +186,8 @@ children:
           actions:
           - clearBlockly:
           - scenarioSuccess:
-          - showAlert:
-            - "Test program completed!"
+          # - showAlert:
+          #   - "Test program completed!"
           - playSound:
             - musicSuccessShort
 
@@ -196,6 +196,10 @@ children:
     properties:
       title: "Mission 3, Task 5"
       content: >
-        Keep it up!
-        <br><br>You still need to be able to move along the X axis.  Let's add
-        movement to the left first. 
+        Movement along the Y axis is all set! 
+        <br><br>You still need to be able to move along the X axis. Your next 
+        task is to modify your procedure to that it can also handle movement in
+        the -X direction (that is, movement to the left). 
+        <br><br>Be sure to Duplicate
+        an existing If block and make your changes there, so that you don't
+        break the part that's already working.

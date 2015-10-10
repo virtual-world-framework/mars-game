@@ -205,8 +205,8 @@ children:
             - callMethod:
               - rover2
               - stopExecution
-            - showAlert:
-              - "I created the correct triangle!"
+            # - showAlert:
+            #   - "I created the correct triangle!"
             - playSound:
               - musicSuccessShort
             - clearBlockly:

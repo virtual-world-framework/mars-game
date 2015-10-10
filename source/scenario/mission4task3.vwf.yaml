@@ -232,8 +232,8 @@ children:
           #   - nanites_Mission4Task2
           - delay:
             - 4
-            - showAlert:
-              - "I constructed the solar panel!"
+            # - showAlert:
+            #   - "I constructed the solar panel!"
             - callMethod:
               - rover2
               - stopExecution

@@ -243,8 +243,8 @@ children:
           #   - nanites_Mission4Task5
           - delay:
             - 4
-            - showAlert:
-              - "I created the correct triangle!"
+            # - showAlert:
+            #   - "I created the correct triangle!"
             - callMethod:
               - rover2
               - stopExecution

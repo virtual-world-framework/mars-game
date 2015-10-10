@@ -150,8 +150,8 @@ children:
               - [ -3, -2 ]
           actions:
           - scenarioSuccess:
-          - showAlert:
-            - "Course Plotted: Navigation Program Update Required"
+          # - showAlert:
+          #   - "Course Plotted: Navigation Program Update Required"
           - playSound:
             - musicSuccessShort
 

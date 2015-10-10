@@ -171,8 +171,8 @@ children:
               - rover2
               - [ [-34,32] , [-35,33] , [-35,32] ]
           actions:
-            - showAlert:
-              - "I created the correct triangle!"
+            # - showAlert:
+            #   - "I created the correct triangle!"
 
         disableFailOnIncomplete:
           triggerCondition:

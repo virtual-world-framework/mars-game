@@ -195,13 +195,12 @@ children:
       title: "Mission 1, Task 8"
       content: >
         Well done!  
-        <br><br>Now that you’ve got the basics under control and have gathered 
-        up nearby equipment, it’s time to recover the radio at the far end of 
-        the crash site and make contact with Mission Control. Of course, getting
-        there through all of this debris may require a bit of care...
+        <br><br>Next, it's time to recover your radio and make contact with 
+        Mission Control! Of course, getting there through all of this debris may 
+        require a bit of care...
         <br><br>As you work, you may want to switch to Helicam view and use
-        the arrow keys to look around. You can also use the TILES button to
-        count spaces and see where you can and can't move. Finally, if you 
+        the arrow keys or right mouse button to look around. The mouse wheel 
+        will let you zoom in and out. You can also use the TILES display to 
+        count spaces and see where you can and can't move. Finally, if you  
         want to start over you can hit the RESET button (next to the START 
-        button in your programming interface) to clear your program out and go
-        back to what you had at the start of the task.
+        button) to clear your program and re-start the task.

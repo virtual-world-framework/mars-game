@@ -41,7 +41,7 @@ properties:
   - setProperty:
     - rover
     - blockly_allowedBlocks
-    - 10
+    - 11
   - setProperty:
     - rover
     - lowRam
@@ -130,6 +130,18 @@ children:
             - SCVO9_Rover
           - playSound:
             - L3VO2_Mission_S
+          - setProperty:
+            - hud
+            - enabled
+            - false
+          - delay:
+            - 19
+            - openMissionBrief:
+            - setProperty:
+              - hud
+              - enabled
+              - true
+            - startTimer:
 
         playTravelVO_1_3a:
           triggerCondition:
@@ -173,8 +185,8 @@ children:
               - [ 8, 30 ]
           actions:
           - scenarioSuccess:
-          - showAlert:
-            - "Looks like the rover changed course!  Time to plot the new line..."
+          # - showAlert:
+          #   - "Looks like the rover changed course!  Time to plot the new line..."
           - playSound:
             - musicSuccessShort
           - clearBlackboardEntry:
@@ -185,6 +197,8 @@ children:
     properties:
       title: "Mission 2, Task 7"
       content: >
-        Path plotted! 
-        <br><br>Time to build a program that will follow it. We’ll work
-        one step at a time...
+        Two steps down... how many to go? 
+        <br><br>Loops don't always have to run a set number of times. In order
+        to move to the end of the tracks, replace your Repeat loop with a 
+        Conditional loop that keeps following the tracks until metal is 
+        detected.

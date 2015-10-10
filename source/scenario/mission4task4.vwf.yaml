@@ -208,8 +208,8 @@ children:
             - disableFailOnIncompleteProgram
           # - deleteNanites:
           #   - nanites_Mission4Task4
-          - showAlert:
-            - "I created the correct triangle!"
+          # - showAlert:
+          #   - "I created the correct triangle!"
           - callMethod:
             - rover2
             - stopExecution
