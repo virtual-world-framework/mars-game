@@ -802,7 +802,6 @@ Blockly.Blocks['triangle_transformations_translate'] = {
     this.setPreviousStatement(true, 'INPUT');
     this.setNextStatement(true);
     this.setColour(195);
-    this.setTooltip( function(){
     var thisBlock = this;
     this.setTooltip( function() {
       var content = {
@@ -1363,7 +1362,6 @@ Blockly.Blocks['triangle_transformations_dilate_auto'] = {
     this.setPreviousStatement(true, 'INPUT');
     this.setNextStatement(true);
     this.setColour(45);
-    var thisBlock = this;
     var thisBlock = this;
     this.setTooltip( function() {
       var content = {
