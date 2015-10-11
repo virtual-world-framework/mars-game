@@ -179,7 +179,7 @@ children:
           - and:
             - doOnce:
             - delay:
-              - 20
+              - 30
           actions:
           - playSound:
             - ALVO25_Rover
@@ -189,7 +189,7 @@ children:
           - and:
             - doOnce:
             - delay:
-              - 40
+              - 50
           actions:
           - playSound:
             - ALVO26_Rover

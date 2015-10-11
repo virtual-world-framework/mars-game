@@ -169,7 +169,7 @@ children:
             - [ -17, 28 ]
           actions:
           - playSound:
-            - CTVO4
+            - CTVO3
 
         succeedOnSuccessfulMovement_3_7:
           group: successOrFailure

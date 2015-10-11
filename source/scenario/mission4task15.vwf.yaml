@@ -105,10 +105,10 @@ properties:
   - drawTriangle:
     - [ -3, -3 ]
     - [ -1, -3 ]
-    - [ -3, -6 ]
+    - [ -3, -5 ]
   - drawTriangle:
     - [ -1, -6 ]
-    - [ -1, -3 ]
+    - [ -1, -4 ]
     - [ -3, -6 ]
   # Solar panel construction
 
@@ -209,13 +209,9 @@ children:
           priority: 0.5
           triggerCondition:
           - and:
-            - or:
-              - onBlocklySurveyFinished:
-                - rover2
-                - [ [ [ -3, -3 ], [ -1, -3 ], [ -3, -6 ] ], [ [ -1, -6 ], [ -1, -3 ], [ -3, -6 ] ] ]
-              - onBlocklySurveyFinished:
-                - rover2
-                - [ [ [ -3, -3 ], [ -1, -6 ], [ -3, -6 ] ], [ [ -1, -3 ], [ -3, -3 ], [ -3, -6 ] ] ]
+            - onBlocklySurveyFinished:
+              - rover2
+              - [ [ [ -3, -3 ], [ -1, -3 ], [ -3, -5 ] ], [ [ -1, -6 ], [ -1, -4 ], [ -3, -6 ] ] ]
             - onBlocklyStopped:
               - rover2
             - or:
@@ -238,13 +234,9 @@ children:
           priority: 0
           triggerCondition:
           - and:
-            - or:
-              - onBlocklySurveyFinished:
-                - rover2
-                - [ [ [ -3, -3 ], [ -1, -3 ], [ -3, -6 ] ], [ [ -1, -6 ], [ -1, -3 ], [ -3, -6 ] ] ]
-              - onBlocklySurveyFinished:
-                - rover2
-                - [ [ [ -3, -3 ], [ -1, -6 ], [ -3, -6 ] ], [ [ -1, -3 ], [ -3, -3 ], [ -3, -6 ] ] ]
+            - onBlocklySurveyFinished:
+              - rover2
+              - [ [ [ -3, -3 ], [ -1, -3 ], [ -3, -5 ] ], [ [ -1, -6 ], [ -1, -4 ], [ -3, -6 ] ] ]
             - onBlocklyStopped:
               - rover2
             - isAtPosition:

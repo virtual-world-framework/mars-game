@@ -812,7 +812,7 @@ properties:
       soundGroup: vo
       groupReplacementMethod: queue
     - soundName: "m2t10vo010"
-      soundURL: "assets/sounds/vo/m2t8vo060.ogg"
+      soundURL: "assets/sounds/vo/m2t10vo010.ogg"
       initialVolume: 0.65
       subtitle: "[MANNY]: I think I see him up ahead! Looks like my agricultural rover... One more set of tracks to go!"
       soundGroup: vo

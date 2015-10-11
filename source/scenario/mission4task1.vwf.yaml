@@ -253,7 +253,7 @@ children:
           - and:
             - doOnce:
             - delay:
-              - 70
+              - 80
           actions:
           - playSound:
             - TM4_46_Manny
@@ -263,7 +263,7 @@ children:
           - and:
             - doOnce:
             - delay:
-              - 100
+              - 110
           actions:
           - playSound:
             - TM4_55_Manny
