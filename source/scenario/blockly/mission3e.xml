@@ -34,7 +34,7 @@
   </category>
   <sep></sep>
   <category name="Procedures">
-    <block type="variables_get" inline="false" editable="false"><field name="VAR">y-coordinate</field></block>
+    <block type="variables_get" inline="false" editable="false"><field name="VAR">Destination Y</field></block>
     <block type="variables_get" inline="false" editable="false"><field name="VAR">x-coordinate</field></block>
   </category>
 </xml>

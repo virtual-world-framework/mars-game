@@ -34,8 +34,8 @@
   </category>
   <sep></sep>
   <category name="Procedures">
-    <block type="variables_get" inline="false" editable="false"><field name="VAR">y-coordinate</field></block>
+    <block type="variables_get" inline="false" editable="false"><field name="VAR">Destination Y</field></block>
     <block type="variables_get" inline="false" editable="false"><field name="VAR">x-coordinate</field></block>
-    <block type="procedures_callnoreturn" inline="false"><mutation name="navigate"><arg name="x-coordinate"></arg><arg name="y-coordinate"></arg></mutation><value name="ARG0"><block type="math_number_out" inline="false"><field name="VALUE">0</field></block></value><value name="ARG1"><block type="math_number_out" inline="false"><field name="VALUE">0</field></block></value></block>
+    <block type="procedures_callnoreturn" inline="false"><mutation name="navigate"><arg name="x-coordinate"></arg><arg name="Destination Y"></arg></mutation><value name="ARG0"><block type="math_number_out" inline="false"><field name="VALUE">0</field></block></value><value name="ARG1"><block type="math_number_out" inline="false"><field name="VALUE">0</field></block></value></block>
   </category>
 </xml>
