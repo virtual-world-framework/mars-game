@@ -216,7 +216,7 @@ children:
         the procedure, telling it exactly what to do. 
         <br><br> Your next task is to write a Navigate procedure that will move 
         you in any direction, so that you don't have to keep putting together 
-        long sequences of Turn and Forward blocks. The x-coordinate and 
+        long sequences of Turn and Forward blocks. The Destination X and 
         Destination Y to move to will be passed into the procedure so that it
         knows where to move.
         <br><br> To get you started, Mission Control has provide a procedure
