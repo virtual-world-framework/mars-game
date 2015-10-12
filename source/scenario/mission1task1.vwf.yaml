@@ -127,6 +127,15 @@ children:
             - tilesButton
             - enabled
             - false
+
+        playStartingVO_1a:
+          triggerCondition:
+          - and:
+            - doOnce:
+            - onScenarioStart:
+          actions:
+          - playSound:
+            - L1VO1_Rover
           - setProperty:
             - hud
             - enabled
@@ -139,15 +148,6 @@ children:
               - enabled
               - true
             - startTimer:
-
-        playStartingVO_1a:
-          triggerCondition:
-          - and:
-            - doOnce:
-            - onScenarioStart:
-          actions:
-          - playSound:
-            - L1VO1_Rover
 
         succeedOnSuccess_1a:
           group: successOrFailure

@@ -123,6 +123,7 @@ events:
   clearBlocklyTabs:
   videoPlayed:
   progressFound:
+  startedGame:
   loadedGame:
   storedScenario:
   blackboardWritten:
