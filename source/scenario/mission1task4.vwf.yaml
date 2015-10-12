@@ -45,7 +45,7 @@ properties:
     - rover
     - startXML
     - <xml></xml>
-    
+
   - callMethod:
     - rover
     - setHeading
@@ -56,7 +56,7 @@ properties:
     - [ 0, 1 ]
   - selectRover:
     - rover
-  
+
   - setProperty:
     - rover2
     - visible
@@ -87,7 +87,7 @@ properties:
     - blocklyLine
     - opacity
     - 0
-    
+
 children:
   triggerManager:
     extends: ../triggers/triggerManager.vwf

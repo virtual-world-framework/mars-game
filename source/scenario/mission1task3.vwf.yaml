@@ -24,7 +24,7 @@ properties:
     - videoManager  
     - url 
     - [ "assets/video/Success1_800x600.mp4" ]
-  
+
   - setProperty:
     - rover2
     - visible
@@ -49,7 +49,7 @@ properties:
     - rover
     - startXML
     - <xml></xml>
-    
+
   - setSceneProperty:
     - blockly_interfaceVisible
     - false

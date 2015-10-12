@@ -23,7 +23,7 @@ properties:
 
   # objective
   - setObjective:
-    - "Dilate and Translate your triangle to draw the first section of the Habitation Dome."
+    - "Dilate and Translate the triangle to draw the first section of the Habitation Dome."
 
   - setProperty:
     - rover2

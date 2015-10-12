@@ -25,7 +25,7 @@ properties:
     - videoManager  
     - url 
     - [ "assets/video/Success2_800x600.mp4" ]
-  
+
   - setProperty:
     - rover2
     - visible
@@ -93,7 +93,7 @@ properties:
     - roverTracks2
     - visible
     - false
-    
+
 children:
   triggerManager:
     extends: ../triggers/triggerManager.vwf

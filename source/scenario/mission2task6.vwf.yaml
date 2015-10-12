@@ -21,7 +21,7 @@ properties:
   nextScenarioPath: "Mission2Task7"
 
   startState:
-  
+
   - setProperty:
     - rover2
     - visible
@@ -90,6 +90,7 @@ properties:
     - roverTracks2
     - visible
     - false
+
 children:
   triggerManager:
     extends: ../triggers/triggerManager.vwf
