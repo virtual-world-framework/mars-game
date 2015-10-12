@@ -22,7 +22,7 @@ properties:
 
   # objective
   - setObjective:
-    - "Translate and scale your triangle, and reflect it across both axes to get (-8,-8), (-8,-11),(-11,-8)."
+    - "Draw the final section of the Habitation Dome."
 
   - setProperty:
     - rover2
@@ -189,8 +189,8 @@ children:
           actions:
           - writeToBlackboard:
             - disableFailOnIncompleteProgram
-          - showAlert:
-            - "I created the correct triangle!"
+          # - showAlert:
+          #   - "I created the correct triangle!"
           - callMethod:
             - rover2
             - stopExecution
@@ -226,6 +226,6 @@ children:
     properties:
       title: "Mission 4, Task 12"
       content: >
-        Three quadrants down!
-        <br><br>To draw the next quadrant, build the same triangle again, but
-        this time reflect it across both axes.
+        Three sections down!
+        <br><br>Once again, draw a triangle matching the one your Helicam is
+        projecting.

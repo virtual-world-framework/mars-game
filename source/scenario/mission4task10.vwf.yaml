@@ -22,7 +22,7 @@ properties:
 
   # objective
   - setObjective:
-    - "Reflect your last triangle across the X axis."
+    - "Reflect your last triangle across the Y axis."
 
   - setProperty:
     - rover2
@@ -100,8 +100,8 @@ properties:
   - clearTriangle:
   - drawTriangle:
     - [ -8, -8 ]
-    - [ -8, -11 ]
-    - [ -5, -8 ]
+    - [ -8, -5 ]
+    - [ -11, -8 ]
 
   # Solar panel construction
 
@@ -168,6 +168,8 @@ children:
             - TM4V25_MC
           - playSound:
             - TM4V26_MANNY
+          - playSound:
+            - perryIDidIt07
           - setProperty:
             - hud
             - enabled
@@ -197,17 +199,18 @@ children:
           triggerCondition:
           - onBlocklyPolygon:
             - rover2
-            - [ [ -8, -8 ], [ -8, -11 ], [ -5, -8 ] ]
+            - [ [ -8, -8 ], [ -8, -5 ], [ -11, -8 ] ]
           actions:
           - writeToBlackboard:
             - disableFailOnIncompleteProgram
-          - showAlert:
-            - "I created the correct triangle!"
+          # - showAlert:
+          #   - "I created the correct triangle!"
           - callMethod:
             - rover2
             - stopExecution
           - playSound:
             - musicSuccessShort
+          - clearBlockly:
           - scenarioSuccess:
 
         scenarioEnded4_10:
@@ -237,6 +240,10 @@ children:
     properties:
       title: "Mission 4, Task 10"
       content: >
-        One quadrant down!
-        <br><br>To draw the next quadrant, build the same triangle but this 
-        time reflect it across the X axis.
+        One section down!
+        <br><br>Mission Control has been called away, leaving you to set up
+        the transformations on your own. The next section that you need to draw
+        should be dilated and translated just like last time, but you will also
+        need to reflect the triangle across the Y axis.
+        <br><br>Remember that the transformations will be applied in the order
+        that they are listed. Changing their order can change the result.

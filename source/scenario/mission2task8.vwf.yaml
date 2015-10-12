@@ -160,8 +160,8 @@ children:
               - [ -1, 4 ]
           actions:
           - scenarioSuccess:
-          - showAlert:
-            - "Course Plotted: Navigation Program Update Required"
+          # - showAlert:
+          #   - "Course Plotted: Navigation Program Update Required"
           - playSound:
             - musicSuccessShort
           - playSound:
@@ -190,7 +190,7 @@ children:
     properties:
       title: "Mission 2, Task 8"
       content: >
-        Well done! 
-        <br><br>It looks like the Mini Rover dropped some supplies and changed 
-        direction. You need to plot the new direction of the tracks.
+        You've got the hang of it now! 
+        <br><br>The tracks have changed direction, so the next step is to find
+        the slope of the new line.
 

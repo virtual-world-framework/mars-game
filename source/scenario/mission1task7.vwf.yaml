@@ -171,10 +171,10 @@ children:
       title: "Mission 1, Task 7"
       content: >
         Turning motors are good to go! 
-        <br><br>Next you need to get back up onto the ramp. Unfortunately, that
+        <br><br>Next you need to get back up onto the ramp. That
         is four spaces away, but you only have enough RAM to build a program
         with three blocks in it. 
-        <br><br>You can solve this problem by using a Repeat block. You can
-        find the Repeat block in the Loops category (on the left-hand side
-        of the programming interface). This block allows you to repeat
-        a sequence of blocks a specified number of times.
+        <br><br>You can solve this problem by using a Repeat block. This block 
+        allows you to repeat a sequence of blocks a specified number of times.
+        <br><br>You can find the Repeat block in the Loops category (on the 
+        left-hand side of the programming interface). 

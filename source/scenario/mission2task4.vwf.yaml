@@ -156,8 +156,8 @@ children:
           # - delay:
           #   - 9.5
           - scenarioSuccess:
-          - showAlert:
-            - "Course plotted! Now to find the little guy."
+          # - showAlert:
+          #   - "Course plotted! Now to find the little guy."
           - stopSoundGroup:
             - music
           - stopSoundGroup:
@@ -201,6 +201,5 @@ children:
       title: "Mission 2, Task 4"
       content: >
         It appears that one of your Mini Rovers has gone astray!
-        <br><br> You will need to track it down. In order to do that, you first 
-        need to plot a line that matches the direction of the Mini 
-        Rover’s tracks, and then build a program to follow that line. 
+        <br><br> You will need to track it down. To start, plot a line that 
+        matches the direction of the Mini Rover’s tracks. 

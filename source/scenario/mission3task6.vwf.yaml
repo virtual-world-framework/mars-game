@@ -23,7 +23,7 @@ properties:
   startState:
   # objective
   - setObjective:
-    - "Edit the navigate procedure: Duplicate an if block and change the values to move North-East towards [0,-3]."
+    - "Edit your procedure so that it can also move right on the X axis."
 
   # sounds/video
   - playSound:
@@ -178,8 +178,8 @@ children:
           actions:
           - clearBlockly:
           - scenarioSuccess:
-          - showAlert:
-            - "Test program completed!"
+          # - showAlert:
+          #   - "Test program completed!"
           - playSound:
             - musicSuccessShort
 
@@ -189,6 +189,7 @@ children:
       title: "Mission 3, Task 6"
       content: >
         You're almost done!
-        <br><br>The last thing you need to do is add a clause which will move 
-        you to the right. 
+        <br><br>The last thing you need to do is enable movement in the +X 
+        direction. Once again, Mission Control has provided a test program - 
+        you just need to make the procedure work! 
 

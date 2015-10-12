@@ -23,7 +23,7 @@ properties:
   startState:
   # objective
   - setObjective:
-    - "Use the navigate procedure to go to (-13,-9)."
+    - "Use the Navigate procedure to go to (-13,-9)."
 
   # sounds/video
   - playSound:
@@ -169,7 +169,7 @@ children:
             - [ -17, 28 ]
           actions:
           - playSound:
-            - CTVO4
+            - CTVO3
 
         succeedOnSuccessfulMovement_3_7:
           group: successOrFailure
@@ -184,8 +184,8 @@ children:
           actions:
           - clearBlockly:
           - scenarioSuccess:
-          - showAlert:
-            - "Test program completed!"
+          # - showAlert:
+          #   - "Test program completed!"
           # - playSound:
           #   - musicSuccessShort
 

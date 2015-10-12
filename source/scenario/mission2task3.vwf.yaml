@@ -146,8 +146,8 @@ children:
               - [ -1, -1 ]
           actions:
           - scenarioSuccess:
-          - showAlert:
-            - "Now I can plot course... can I plot the course to match those tracks?"
+          # - showAlert:
+          #   - "Now I can plot course... can I plot the course to match those tracks?"
           - playSound:
             - musicSuccessShort
 
@@ -167,6 +167,5 @@ children:
       title: "Mission 2, Task 3"
       content: >
         It appears that one of your Mini Rovers has gone astray!
-        <br><br> You will need to track it down. In order to do that, you first 
-        need to plot a line that matches the direction of the Mini 
-        Rover’s tracks, and then build a program to follow that line. 
+        <br><br> You will need to track it down. To start, plot a line that 
+        matches the direction of the Mini Rover’s tracks. 

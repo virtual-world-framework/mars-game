@@ -25,7 +25,7 @@ properties:
     - videoManager  
     - url 
     - [ "assets/video/Success2_800x600.mp4" ]
-  
+
   - setProperty:
     - rover2
     - visible
@@ -113,7 +113,7 @@ children:
           - playSound:
             - environmentWind
           - setObjective:
-            - "Build a program to move to the blinking tile."
+            - "Use the slope to move one step along the Mini Rover tracks."
           - setThirdPersonStartPose:
             - [ 16.316, 65, -15 ]
 
@@ -150,8 +150,8 @@ children:
               - [ 1, 16 ]
           actions:
           - scenarioSuccess:
-          - showAlert:
-            - "I found the right rise and run of the path!"
+          # - showAlert:
+          #   - "I found the right rise and run of the path!"
           - playSound:
             - musicSuccessShort
           - playSound:
@@ -179,7 +179,7 @@ children:
           - and:
             - doOnce:
             - delay:
-              - 20
+              - 30
           actions:
           - playSound:
             - ALVO25_Rover
@@ -189,7 +189,7 @@ children:
           - and:
             - doOnce:
             - delay:
-              - 40
+              - 50
           actions:
           - playSound:
             - ALVO26_Rover
@@ -200,5 +200,11 @@ children:
       title: "Mission 2, Task 5"
       content: >
         Path plotted! 
-        <br><br>Time to build a program that will follow it. We’ll work
-        one step at a time...
+        <br><br>You can use the slope to help you build a program that moves
+        along the line. Slope is rise over run, or the amount to move along
+        the Y axis over the amount to move along the X axis.  Your slope is
+        2, or 2/1, so if you move two spaces forward (up the Y axis) and then 1 
+        space to the right (along the X axis) then you should end up back on top
+        of the Mini Rover's tracks.
+        <br><br>Switching to Helicam view can make it easier to tell which way
+        is X and which way is Y.

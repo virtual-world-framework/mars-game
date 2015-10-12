@@ -128,7 +128,8 @@ Blockly.Blocks['triangle_flow'] = {
     this.setPreviousStatement(true);
     this.setNextStatement(true);
     this.setColour(345);
-    this.setTooltip( function(){
+    var thisBlock = this;
+    this.setTooltip( function() {
       var content = {
         text: "A block that sprays nanites in a triangle on the ground in order to construct a portion of your base."
       }
@@ -227,10 +228,10 @@ Blockly.JavaScript['triangle_flow'] = function(block) {
 };
 
 // --------------------------------------------------------------------------------------------------------- //
-// triangle_operations should serve as a template for all other child blocks of the triangle_operations type
+// triangle_transformations should serve as a template for all other child blocks of the triangle_transformations type
 // --------------------------------------------------------------------------------------------------------- // 
 
-Blockly.Blocks['triangle_operations'] = {
+Blockly.Blocks['triangle_transformations'] = {
   init: function() {
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
@@ -278,9 +279,10 @@ Blockly.Blocks['triangle_operations'] = {
     this.setPreviousStatement(true, 'INPUT');
     this.setNextStatement(true);
     this.setColour(195);
-    this.setTooltip( function(){
+    var thisBlock = this;
+    this.setTooltip( function() {
       var content = {
-        text: "Operations blocks can be placed inside of the Draw Triangle block, and adjust the shape, size, or position of the triangle being drawn."
+        text: "Transformation blocks can be placed inside of the Draw Triangle block, and adjust the shape, size, or position of the triangle being drawn."
       }
       return showTooltipInBlockly(thisBlock, content);
     });
@@ -358,7 +360,7 @@ Blockly.Blocks['triangle_operations'] = {
             this.setWarningText(null);
             currentBlocklyErrors[ this.id ] = false;
           } else {
-            this.setWarningText('You must input the correct results of this operation!');
+            this.setWarningText('You must input the correct results of this transformation!');
             currentBlocklyErrors[ this.id ] = true;
           }
 
@@ -386,7 +388,7 @@ Blockly.Blocks['triangle_operations'] = {
             this.setWarningText(null);
             currentBlocklyErrors[ this.id ] = false;
           } else {
-            this.setWarningText('You must input the correct results of this operation!');
+            this.setWarningText('You must input the correct results of this transformation!');
             currentBlocklyErrors[ this.id ] = true;
           }
 
@@ -417,7 +419,7 @@ Blockly.Blocks['triangle_operations'] = {
               this.setWarningText(null);
               currentBlocklyErrors[ this.id ] = false;
             } else {
-              this.setWarningText('You must input the correct results of this operation!');
+              this.setWarningText('You must input the correct results of this transformation!');
               currentBlocklyErrors[ this.id ] = true;
             }
 
@@ -445,7 +447,7 @@ Blockly.Blocks['triangle_operations'] = {
               this.setWarningText(null);
               currentBlocklyErrors[ this.id ] = false;
             } else {
-              this.setWarningText('You must input the correct results of this operation!');
+              this.setWarningText('You must input the correct results of this transformation!');
               currentBlocklyErrors[ this.id ] = true;
             }
 
@@ -483,19 +485,19 @@ Blockly.Blocks['triangle_operations'] = {
   }
 };
 
-Blockly.JavaScript['triangle_operations'] = function( block ) {
+Blockly.JavaScript['triangle_transformations'] = function( block ) {
   var code = '';
   return code;
 };
 
 
 // --------------------------------------------------------------------------------------------------------- //
-// triangle_operations_auto should serve as a template for all other child blocks of the triangle_operations 
+// triangle_transformations_auto should serve as a template for all other child blocks of the triangle_transformations 
 // shows the auto-propagating version without user input checks
 // --------------------------------------------------------------------------------------------------------- // 
 
 
-Blockly.Blocks['triangle_operations_auto'] = {
+Blockly.Blocks['triangle_transformations_auto'] = {
   init: function() {
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
@@ -537,10 +539,10 @@ Blockly.Blocks['triangle_operations_auto'] = {
     this.setPreviousStatement(true, 'INPUT');
     this.setNextStatement(true);
     this.setColour(195);
-
-    this.setTooltip( function(){
+    var thisBlock = this;
+    this.setTooltip( function() {
       var content = {
-        text: "Operations blocks can be placed inside of the Draw Triangle block, and adjust the shape, size, or position of the triangle being drawn."
+        text: "Transformation blocks can be placed inside of the Draw Triangle block, and adjust the shape, size, or position of the triangle being drawn."
       }
       return showTooltipInBlockly(thisBlock, content);
     });
@@ -743,16 +745,16 @@ Blockly.Blocks['triangle_operations_auto'] = {
   }
 };
 
-Blockly.JavaScript['triangle_operations_auto'] = function( block ) {
+Blockly.JavaScript['triangle_transformations_auto'] = function( block ) {
   var code = '';
   return code;
 };
 
 // --------------------------------------------------------------------------------------------------------- //
-// triangle_operations_translate is a template for the non-propagating single operations block
+// triangle_transformations_translate is a template for the non-propagating single transformations block
 // --------------------------------------------------------------------------------------------------------- // 
 
-Blockly.Blocks['triangle_operations_translate'] = {
+Blockly.Blocks['triangle_transformations_translate'] = {
   init: function() {
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
@@ -801,9 +803,9 @@ Blockly.Blocks['triangle_operations_translate'] = {
     this.setNextStatement(true);
     this.setColour(195);
     var thisBlock = this;
-    this.setTooltip( function(){
+    this.setTooltip( function() {
       var content = {
-        text: "Operations blocks can be placed inside of the Draw Triangle block. The Translate operation changes the position of the triangle."
+        text: "Transformation blocks can be placed inside of the Draw Triangle block. The Translate transformation changes the position of the triangle."
       }
       return showTooltipInBlockly(thisBlock, content);
     });
@@ -877,7 +879,7 @@ Blockly.Blocks['triangle_operations_translate'] = {
           this.setWarningText(null);
           currentBlocklyErrors[ this.id ] = false;
         } else {
-          this.setWarningText('You must input the correct results of this operation!');
+          this.setWarningText('You must input the correct results of this transformation!');
           currentBlocklyErrors[ this.id ] = true;
         }
 
@@ -903,7 +905,7 @@ Blockly.Blocks['triangle_operations_translate'] = {
             this.setWarningText(null);
             currentBlocklyErrors[ this.id ] = false;
           } else {
-            this.setWarningText('You must input the correct results of this operation!');
+            this.setWarningText('You must input the correct results of this transformation!');
             currentBlocklyErrors[ this.id ] = true;
           }
         }
@@ -942,16 +944,16 @@ Blockly.Blocks['triangle_operations_translate'] = {
   }
 };
 
-Blockly.JavaScript['triangle_operations_translate'] = function( block ) {
+Blockly.JavaScript['triangle_transformations_translate'] = function( block ) {
   var code = '';
   return code;
 };
 
 // --------------------------------------------------------------------------------------------------------- //
-// triangle_operations_translate_auto is a template for the auto-propagating single operation block (no user fill)
+// triangle_transformations_translate_auto is a template for the auto-propagating single transformation block (no user fill)
 // --------------------------------------------------------------------------------------------------------- // 
 
-Blockly.Blocks['triangle_operations_translate_auto'] = {
+Blockly.Blocks['triangle_transformations_translate_auto'] = {
   init: function() {
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
@@ -992,9 +994,9 @@ Blockly.Blocks['triangle_operations_translate_auto'] = {
     this.setNextStatement(true);
     this.setColour(195);
     var thisBlock = this;
-    this.setTooltip( function(){
+    this.setTooltip( function() {
       var content = {
-        text: "Operations blocks can be placed inside of the Draw Triangle block. The Translate operation changes the position of the triangle."
+        text: "Transformation blocks can be placed inside of the Draw Triangle block. The Translate transformation changes the position of the triangle."
       }
       return showTooltipInBlockly(thisBlock, content);
     });
@@ -1127,12 +1129,12 @@ Blockly.Blocks['triangle_operations_translate_auto'] = {
   }
 };
 
-Blockly.JavaScript['triangle_operations_translate_auto'] = function( block ) {
+Blockly.JavaScript['triangle_transformations_translate_auto'] = function( block ) {
   var code = '';
   return code;
 };
 
-Blockly.Blocks['triangle_operations_dilate'] = {
+Blockly.Blocks['triangle_transformations_dilate'] = {
   init: function() {
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
@@ -1178,9 +1180,9 @@ Blockly.Blocks['triangle_operations_dilate'] = {
     this.setNextStatement(true);
     this.setColour(45);
     var thisBlock = this;
-    this.setTooltip( function(){
+    this.setTooltip( function() {
       var content = {
-        text: "Operations blocks can be placed inside of the Draw Triangle block. The Dilate operation changes the size of the triangle."
+        text: "Transformation blocks can be placed inside of the Draw Triangle block. The Dilate transformation changes the size of the triangle."
       }
       return showTooltipInBlockly(thisBlock, content);
     });
@@ -1253,7 +1255,7 @@ Blockly.Blocks['triangle_operations_dilate'] = {
           this.setWarningText(null);
           currentBlocklyErrors[ this.id ] = false;
         } else {
-          this.setWarningText('You must input the correct results of this operation!');
+          this.setWarningText('You must input the correct results of this transformation!');
           currentBlocklyErrors[ this.id ] = true;
         }
 
@@ -1279,7 +1281,7 @@ Blockly.Blocks['triangle_operations_dilate'] = {
             this.setWarningText(null);
             currentBlocklyErrors[ this.id ] = false;
           } else {
-            this.setWarningText('You must input the correct results of this operation!');
+            this.setWarningText('You must input the correct results of this transformation!');
             currentBlocklyErrors[ this.id ] = true;
           }
         }
@@ -1316,12 +1318,12 @@ Blockly.Blocks['triangle_operations_dilate'] = {
   }
 };
 
-Blockly.JavaScript['triangle_operations_dilate'] = function( block ) {
+Blockly.JavaScript['triangle_transformations_dilate'] = function( block ) {
   var code = '';
   return code;
 };
 
-Blockly.Blocks['triangle_operations_dilate_auto'] = {
+Blockly.Blocks['triangle_transformations_dilate_auto'] = {
   init: function() {
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
@@ -1361,9 +1363,9 @@ Blockly.Blocks['triangle_operations_dilate_auto'] = {
     this.setNextStatement(true);
     this.setColour(45);
     var thisBlock = this;
-    this.setTooltip( function(){
+    this.setTooltip( function() {
       var content = {
-        text: "Operations blocks can be placed inside of the Draw Triangle block. The Dilate operation changes the size of the triangle."
+        text: "Transformation blocks can be placed inside of the Draw Triangle block. The Dilate transformation changes the size of the triangle."
       }
       return showTooltipInBlockly(thisBlock, content);
     });
@@ -1490,12 +1492,12 @@ Blockly.Blocks['triangle_operations_dilate_auto'] = {
   }
 };
 
-Blockly.JavaScript['triangle_operations_dilate_auto'] = function( block ) {
+Blockly.JavaScript['triangle_transformations_dilate_auto'] = function( block ) {
   var code = '';
   return code;
 };
 
-Blockly.Blocks['triangle_operations_dilate_auto_fixed'] = {
+Blockly.Blocks['triangle_transformations_dilate_auto_fixed'] = {
   init: function() {
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
@@ -1536,9 +1538,9 @@ Blockly.Blocks['triangle_operations_dilate_auto_fixed'] = {
     this.setNextStatement(true);
     this.setColour(45);
     var thisBlock = this;
-    this.setTooltip( function(){
+    this.setTooltip( function() {
       var content = {
-        text: "Operations blocks can be placed inside of the Draw Triangle block. The Dilate operation changes the size of the triangle."
+        text: "Transformation blocks can be placed inside of the Draw Triangle block. The Dilate transformation changes the size of the triangle."
       }
       return showTooltipInBlockly(thisBlock, content);
     });
@@ -1667,12 +1669,12 @@ Blockly.Blocks['triangle_operations_dilate_auto_fixed'] = {
   }
 };
 
-Blockly.JavaScript['triangle_operations_dilate_auto_fixed'] = function( block ) {
+Blockly.JavaScript['triangle_transformations_dilate_auto_fixed'] = function( block ) {
   var code = '';
   return code;
 };
 
-Blockly.Blocks['triangle_operations_dilate_two'] = {
+Blockly.Blocks['triangle_transformations_dilate_two'] = {
   init: function() {
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
@@ -1720,7 +1722,13 @@ Blockly.Blocks['triangle_operations_dilate_two'] = {
     this.setPreviousStatement(true, 'INPUT');
     this.setNextStatement(true);
     this.setColour(195);
-    this.setTooltip('');
+    var thisBlock = this;
+    this.setTooltip( function() {
+      var content = {
+        text: "Transformation blocks can be placed inside of the Draw Triangle block. The Dilate transformation changes the size of the triangle."
+      }
+      return showTooltipInBlockly(thisBlock, content);
+    });
     this.data = currentBlocklyNodeID;
   },
   onchange: function() {
@@ -1794,7 +1802,7 @@ Blockly.Blocks['triangle_operations_dilate_two'] = {
           this.setWarningText(null);
           currentBlocklyErrors[ this.id ] = false;
         } else {
-          this.setWarningText('You must input the correct results of this operation!');
+          this.setWarningText('You must input the correct results of this transformation!');
           currentBlocklyErrors[ this.id ] = true;
         }
 
@@ -1824,7 +1832,7 @@ Blockly.Blocks['triangle_operations_dilate_two'] = {
             this.setWarningText(null);
             currentBlocklyErrors[ this.id ] = false;
           } else {
-            this.setWarningText('You must input the correct results of this operation!');
+            this.setWarningText('You must input the correct results of this transformation!');
             currentBlocklyErrors[ this.id ] = true;
           }
         }
@@ -1860,12 +1868,12 @@ Blockly.Blocks['triangle_operations_dilate_two'] = {
   }
 };
 
-Blockly.JavaScript['triangle_operations_dilate_two'] = function( block ) {
+Blockly.JavaScript['triangle_transformations_dilate_two'] = function( block ) {
   var code = '';
   return code;
 };
 
-Blockly.Blocks['triangle_operations_dilate_two_auto'] = {
+Blockly.Blocks['triangle_transformations_dilate_two_auto'] = {
   init: function() {
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
@@ -1907,7 +1915,13 @@ Blockly.Blocks['triangle_operations_dilate_two_auto'] = {
     this.setPreviousStatement(true, 'INPUT');
     this.setNextStatement(true);
     this.setColour(195);
-    this.setTooltip('');
+    var thisBlock = this;
+    this.setTooltip( function() {
+      var content = {
+        text: "Transformation blocks can be placed inside of the Draw Triangle block. The Dilate transformation changes the size of the triangle."
+      }
+      return showTooltipInBlockly(thisBlock, content);
+    });
     this.data = currentBlocklyNodeID;
   },
   onchange: function() {
@@ -2041,12 +2055,12 @@ Blockly.Blocks['triangle_operations_dilate_two_auto'] = {
   }
 };
 
-Blockly.JavaScript['triangle_operations_dilate_two_auto'] = function( block ) {
+Blockly.JavaScript['triangle_transformations_dilate_two_auto'] = function( block ) {
   var code = '';
   return code;
 };
 
-Blockly.Blocks['triangle_operations_reflect'] = {
+Blockly.Blocks['triangle_transformations_reflect'] = {
   init: function() {
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
@@ -2091,7 +2105,7 @@ Blockly.Blocks['triangle_operations_reflect'] = {
     var thisBlock = this;
     this.setTooltip( function(){
       var content = {
-        text: "Operations blocks can be placed inside of the Draw Triangle block. The Reflect operation reflects the triangle across one or both axes."
+        text: "Transformation blocks can be placed inside of the Draw Triangle block. The Reflect transformation reflects the triangle across one or both axes."
       }
       return showTooltipInBlockly(thisBlock, content);
     });
@@ -2187,7 +2201,7 @@ Blockly.Blocks['triangle_operations_reflect'] = {
           this.setWarningText(null);
           currentBlocklyErrors[ this.id ] = false;
         } else {
-          this.setWarningText('You must input the correct results of this operation!');
+          this.setWarningText('You must input the correct results of this transformation!');
           currentBlocklyErrors[ this.id ] = true;
         }
 
@@ -2238,7 +2252,7 @@ Blockly.Blocks['triangle_operations_reflect'] = {
             this.setWarningText(null);
             currentBlocklyErrors[ this.id ] = false;
           } else {
-            this.setWarningText('You must input the correct results of this operation!');
+            this.setWarningText('You must input the correct results of this transformation!');
             currentBlocklyErrors[ this.id ] = true;
           }
         }
@@ -2276,12 +2290,12 @@ Blockly.Blocks['triangle_operations_reflect'] = {
   }
 };
 
-Blockly.JavaScript['triangle_operations_reflect'] = function( block ) {
+Blockly.JavaScript['triangle_transformations_reflect'] = function( block ) {
   var code = '';
   return code;
 };
 
-Blockly.Blocks['triangle_operations_reflect_auto'] = {
+Blockly.Blocks['triangle_transformations_reflect_auto'] = {
   init: function() {
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
@@ -2320,7 +2334,7 @@ Blockly.Blocks['triangle_operations_reflect_auto'] = {
     var thisBlock = this;
     this.setTooltip( function(){
       var content = {
-        text: "Operations blocks can be placed inside of the Draw Triangle block. The Reflect operation reflects the triangle across one or both axes."
+        text: "Transformation blocks can be placed inside of the Draw Triangle block. The Reflect transformation reflects the triangle across one or both axes."
       }
       return showTooltipInBlockly(thisBlock, content);
     });
@@ -2494,7 +2508,7 @@ Blockly.Blocks['triangle_operations_reflect_auto'] = {
   }
 };
 
-Blockly.JavaScript['triangle_operations_reflect_auto'] = function( block ) {
+Blockly.JavaScript['triangle_transformations_reflect_auto'] = function( block ) {
   var code = '';
   return code;
 };

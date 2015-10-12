@@ -164,8 +164,5 @@ children:
       title: "Mission 1, Task 6"
       content: >
         You have calibrated your motors and picked up a spare battery!  
-        <br><br>Your next task is to turn back the way you came, and then
-        move back to the ramp where you started. 
-        <br><br>Let's start with the turn. To do that, drag the blocks from your 
-        last program down to the trashcan and then make a new program that will 
-        turn you around.
+        <br><br>Your next task is to turn around and face toward the ramp where 
+        you started. 

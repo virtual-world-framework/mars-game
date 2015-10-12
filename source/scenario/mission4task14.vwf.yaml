@@ -22,7 +22,7 @@ properties:
 
   # objective
   - setObjective:
-    - "Draw these triangles: [(-8,-17), (-8,-12), (-3,-17)], [(-8,-17), (-8,-12), (-13,-17)], [(-8,-17), (-8,-22), (-3,-17)], [(-8,-17), (-8,-22), (-13,-17)]."
+    - "Build the Greenhouse Dome."
 
   - setProperty:
     - rover2
@@ -85,9 +85,6 @@ properties:
   - addToGrid:
     - rover2
     - [ -35, 7 ]
-
-  # Rosie disabled
-  
 
   # Grid and disable blocklyLine
   - setGridAxes:
@@ -256,8 +253,8 @@ children:
           #   - nanites_Mission4Task14
           - delay:
             - 6
-            - showAlert:
-              - "I created the correct triangle!"
+            # - showAlert:
+            #   - "I created the correct triangle!"
             - callMethod:
               - rover2
               - stopExecution
@@ -269,6 +266,7 @@ children:
               - perryIDidIt06
             - playSound:
               - TM4V37_MANNY
+            - clearBlockly:
             - scenarioSuccess:
 
         scenarioEnded4_14:
@@ -299,7 +297,8 @@ children:
       title: "Mission 4, Task 14"
       content: >
         There.  Now the colonists will have a place to live.
-        <br><br>The next thing you need to build is a greenhouse dome. Like the habitation dome, the
-        greenhouse dome is built using four triangles.  Let's save some time, and put all four
-        triangles into a single program.
-        <br><br>Don't forget to move to a safe spot and start construction when you're done!
+        <br><br>The next thing you need to build is a Greenhouse Dome. Like the 
+        Habitation Dome, the Greenhouse Dome is built using four triangles.  
+        Let's save some time, and put all four triangles into a single program.
+        <br><br>Don't forget to move to a safe spot and start construction when 
+        you're done!

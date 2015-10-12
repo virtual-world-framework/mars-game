@@ -22,16 +22,16 @@ properties:
 
   # objective
   - setObjective:
-    - "Translate and dilate your triangle to (-8,-8), (-8,-5), (-5,-8)."
+    - "Dilate and Translate your triangle to draw the first section of the Habitation Dome."
 
   - setProperty:
     - rover2
     - startXML
-    - <xml><block type="triangle_flow" id="a" x="100" y="60"><statement name="STACK"><block type="triangle_operations_dilate" id="b"><field name="OP">3</field><field name="AX">0</field><field name="AY">0</field><field name="BX">0</field><field name="BY">0</field><field name="CX">0</field><field name="CY">0</field><next><block type="triangle_operations_translate" id="c"><field name="OPX">-8</field><field name="OPY">-8</field><field name="AX">0</field><field name="AY">0</field><field name="BX">0</field><field name="BY">0</field><field name="CX">0</field><field name="CY">0</field></block></next></block></statement></block></xml>
+    - <xml><block type="triangle_flow" id="a" x="100" y="60"><statement name="STACK"><block type="triangle_transformations_dilate" id="b"><field name="OP">3</field><field name="AX">0</field><field name="AY">0</field><field name="BX">0</field><field name="BY">0</field><field name="CX">0</field><field name="CY">0</field><next><block type="triangle_transformations_translate" id="c"><field name="OPX">-8</field><field name="OPY">-8</field><field name="AX">0</field><field name="AY">0</field><field name="BX">0</field><field name="BY">0</field><field name="CX">0</field><field name="CY">0</field></block></next></block></statement></block></xml>
   - setProperty:
     - rover2
     - blockly_xml
-    - <xml><block type="triangle_flow" id="a" x="100" y="60"><statement name="STACK"><block type="triangle_operations_dilate" id="b"><field name="OP">3</field><field name="AX">0</field><field name="AY">0</field><field name="BX">0</field><field name="BY">0</field><field name="CX">0</field><field name="CY">0</field><next><block type="triangle_operations_translate" id="c"><field name="OPX">-8</field><field name="OPY">-8</field><field name="AX">0</field><field name="AY">0</field><field name="BX">0</field><field name="BY">0</field><field name="CX">0</field><field name="CY">0</field></block></next></block></statement></block></xml>
+    - <xml><block type="triangle_flow" id="a" x="100" y="60"><statement name="STACK"><block type="triangle_transformations_dilate" id="b"><field name="OP">3</field><field name="AX">0</field><field name="AY">0</field><field name="BX">0</field><field name="BY">0</field><field name="CX">0</field><field name="CY">0</field><next><block type="triangle_transformations_translate" id="c"><field name="OPX">-8</field><field name="OPY">-8</field><field name="AX">0</field><field name="AY">0</field><field name="BX">0</field><field name="BY">0</field><field name="CX">0</field><field name="CY">0</field></block></next></block></statement></block></xml>
 
   # blockly
   - setBlocklyContext:
@@ -191,13 +191,14 @@ children:
           actions:
           - writeToBlackboard:
             - disableFailOnIncompleteProgram
-          - showAlert:
-            - "I created the correct triangle!"
+          # - showAlert:
+          #   - "I created the correct triangle!"
           - callMethod:
             - rover2
             - stopExecution
           - playSound:
             - musicSuccessShort
+          - clearBlockly:
           - scenarioSuccess:
 
         scenarioEnded4_9:
@@ -227,9 +228,7 @@ children:
     properties:
       title: "Mission 4, Task 9"
       content: >
-        That worked.
-        <br><br>The habitation dome is quite large, so in addition to 
-        translating the unit triangle you will need to dilate it so that it is
-        3 times as large.
-        <br><br>Draw the first triangle for the habitation dome. There are more
-        triangles to follow, so don't start construction yet.
+        Translation successful.
+        <br><br>Fill in the vertices to draw the first triangle for the 
+        habitation dome. There are more triangles to follow, so don't start 
+        construction yet.

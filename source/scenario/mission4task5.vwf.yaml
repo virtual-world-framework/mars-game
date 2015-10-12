@@ -22,16 +22,16 @@ properties:
 
   # objective
   - setObjective:
-    - "Reflect and dilate the unit triangle, move to (-3,0), and build solar panel #2."
+    - "Reflect and dilate the basic triangle to build solar panel #2."
 
   - setProperty:
     - rover2
     - startXML
-    - <xml><block type="triangle_flow" id="a" x="100" y="20"><statement name="STACK"><block type="triangle_operations_reflect" id="b"><field name="OP">REFY</field><field name="AX">0</field><field name="AY">0</field><field name="BX">0</field><field name="BY">0</field><field name="CX">0</field><field name="CY">0</field><next><block type="triangle_operations_dilate" id="c"><field name="OP">2</field><field name="AX">0</field><field name="AY">0</field><field name="BX">0</field><field name="BY">0</field><field name="CX">0</field><field name="CY">0</field></block></next></block></statement><next><block type="rover_moveRadial_absolute" id="d" inline="true"><value name="x"><block type="graph_subtract" id="e" inline="false"><value name="INPUT"><block type="math_number_out" id="f" inline="false"><field name="VALUE">3</field></block></value></block></value><value name="y"><block type="math_number_out" id="g" inline="false"><field name="VALUE">0</field></block></value><next><block type="init_nano_construction" id="h"></block></next></block></next></block></xml>
+    - <xml><block type="triangle_flow" id="a" x="100" y="20"><statement name="STACK"><block type="triangle_transformations_reflect" id="b"><field name="OP">REFY</field><field name="AX">0</field><field name="AY">0</field><field name="BX">0</field><field name="BY">0</field><field name="CX">0</field><field name="CY">0</field><next><block type="triangle_transformations_dilate" id="c"><field name="OP">2</field><field name="AX">0</field><field name="AY">0</field><field name="BX">0</field><field name="BY">0</field><field name="CX">0</field><field name="CY">0</field></block></next></block></statement><next><block type="rover_moveRadial_absolute" id="d" inline="true"><value name="x"><block type="graph_subtract" id="e" inline="false"><value name="INPUT"><block type="math_number_out" id="f" inline="false"><field name="VALUE">3</field></block></value></block></value><value name="y"><block type="math_number_out" id="g" inline="false"><field name="VALUE">0</field></block></value><next><block type="init_nano_construction" id="h"></block></next></block></next></block></xml>
   - setProperty:
     - rover2
     - blockly_xml
-    - <xml><block type="triangle_flow" id="a" x="100" y="20"><statement name="STACK"><block type="triangle_operations_reflect" id="b"><field name="OP">REFY</field><field name="AX">0</field><field name="AY">0</field><field name="BX">0</field><field name="BY">0</field><field name="CX">0</field><field name="CY">0</field><next><block type="triangle_operations_dilate" id="c"><field name="OP">2</field><field name="AX">0</field><field name="AY">0</field><field name="BX">0</field><field name="BY">0</field><field name="CX">0</field><field name="CY">0</field></block></next></block></statement><next><block type="rover_moveRadial_absolute" id="d" inline="true"><value name="x"><block type="graph_subtract" id="e" inline="false"><value name="INPUT"><block type="math_number_out" id="f" inline="false"><field name="VALUE">3</field></block></value></block></value><value name="y"><block type="math_number_out" id="g" inline="false"><field name="VALUE">0</field></block></value><next><block type="init_nano_construction" id="h"></block></next></block></next></block></xml>
+    - <xml><block type="triangle_flow" id="a" x="100" y="20"><statement name="STACK"><block type="triangle_transformations_reflect" id="b"><field name="OP">REFY</field><field name="AX">0</field><field name="AY">0</field><field name="BX">0</field><field name="BY">0</field><field name="CX">0</field><field name="CY">0</field><next><block type="triangle_transformations_dilate" id="c"><field name="OP">2</field><field name="AX">0</field><field name="AY">0</field><field name="BX">0</field><field name="BY">0</field><field name="CX">0</field><field name="CY">0</field></block></next></block></statement><next><block type="rover_moveRadial_absolute" id="d" inline="true"><value name="x"><block type="graph_subtract" id="e" inline="false"><value name="INPUT"><block type="math_number_out" id="f" inline="false"><field name="VALUE">3</field></block></value></block></value><value name="y"><block type="math_number_out" id="g" inline="false"><field name="VALUE">0</field></block></value><next><block type="init_nano_construction" id="h"></block></next></block></next></block></xml>
 
   # blockly
   - setBlocklyContext:
@@ -243,16 +243,17 @@ children:
           #   - nanites_Mission4Task5
           - delay:
             - 4
-            - showAlert:
-              - "I created the correct triangle!"
+            # - showAlert:
+            #   - "I created the correct triangle!"
             - callMethod:
               - rover2
               - stopExecution
-            - scenarioSuccess:
             - playSound:
               - musicSuccessShort
             - playSound:
               - TM4V18_MANNY
+            - clearBlockly:
+            - scenarioSuccess:
 
         scenarioEnded4_5:
           triggerCondition:
@@ -277,7 +278,10 @@ children:
       title: "Mission 4, Task 5"
       content: >
         Well done! 
-        <br><br>Let's do that again, but this time you need to both reflect 
-        across the Y axis and dilate it to double its original size.
-        <br><br>Remember to move to (-3,0) and start construction when you
-        are done!
+        <br><br>This time, we need to apply two transformations. The vertex
+        positions should be calculated in the order that the transformations
+        are listed, so the vertex positions for Reflect start from the vertices
+        of the basic triangle, and the vertex positions for Dilate use the 
+        vertices that you calculated for Reflect.
+        <br><br>Remember to move to (-3,0) and start construction when you're
+        done!

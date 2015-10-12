@@ -25,7 +25,7 @@ properties:
     - videoManager  
     - url 
     - [ "assets/video/Success2_800x600.mp4" ]
-  
+
   - setProperty:
     - rover2
     - visible
@@ -89,7 +89,6 @@ properties:
     - visible
     - false
 
-  
   - setProperty:
     - cargoPod2
     - isClosed
@@ -110,7 +109,7 @@ children:
             - environmentWind
           - resetRoverSensors:
           - setObjective:
-            - "Build a program to follow the tracks until your scanner finds something."
+            - "Follow the tracks until metal is detected."
           - writeToBlackboard:
             - metalPosition
             - [ -14, 34 ]
@@ -213,8 +212,8 @@ children:
           actions:
           - clearBlockly:
           - scenarioSuccess:
-          - showAlert:
-            - "I found the minirover!"
+          # - showAlert:
+          #   - "I found the minirover!"
           - hideBlockly:
           - stopSound:
             - musicLevel2
@@ -229,5 +228,5 @@ children:
       title: "Mission 2, Task 11"
       content: >
         Path plotted! 
-        <br><br>Update your movement program accordingly.
+        <br><br>Update your movement program with the new slope.
 

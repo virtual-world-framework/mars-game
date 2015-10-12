@@ -22,7 +22,7 @@ properties:
 
   # objective
   - setObjective:
-    - "Translate and dilate again, but this time reflect across the Y axis."
+    - "Draw the next section of the Habitation Dome."
 
   - setProperty:
     - rover2
@@ -100,8 +100,8 @@ properties:
   - clearTriangle:
   - drawTriangle:
     - [ -8, -8 ]
-    - [ -8, -5 ]
-    - [ -11, -8 ]
+    - [ -8, -11 ]
+    - [ -5, -8 ]
 
   # Solar panel construction
   - setConstructed:
@@ -165,6 +165,8 @@ children:
           actions:
           - playSound:
             - TM4V27_MANNY
+          - playSound:
+            - PerryAcknowledge
           - setProperty:
             - hud
             - enabled
@@ -184,17 +186,18 @@ children:
           triggerCondition:
           - onBlocklyPolygon:
             - rover2
-            - [ [ -8, -8 ], [ -8, -5 ], [ -11, -8 ] ]
+            - [ [ -8, -8 ], [ -8, -11 ], [ -5, -8 ] ]
           actions:
           - writeToBlackboard:
             - disableFailOnIncompleteProgram
-          - showAlert:
-            - "I created the correct triangle!"
+          # - showAlert:
+          #   - "I created the correct triangle!"
           - callMethod:
             - rover2
             - stopExecution
           - playSound:
             - musicSuccessShort
+          - clearBlockly:
           - scenarioSuccess:
 
         scenarioEnded4_11:
@@ -224,6 +227,6 @@ children:
     properties:
       title: "Mission 4, Task 11"
       content: >
-        Two quadrants down!
-        <br><br>To draw the next quadrant, build the same triangle again, but
-        this time reflect it across the Y axis.
+        Two sections down!
+        <br><br>Draw the third section, matching the one your Helicam is
+        projecting.

@@ -23,7 +23,7 @@ properties:
 
   # objective
   - setObjective:
-    - "Lay down nanobuilders in a triangle with vertices at (0,0), (0,1), and (1,0)."
+    - "Lay down Nanites in a triangle with vertices at (0,0), (0,1), and (1,0)."
 
   - setProperty:
     - rover2
@@ -205,11 +205,13 @@ children:
             - callMethod:
               - rover2
               - stopExecution
-            - showAlert:
-              - "I created the correct triangle!"
-            - scenarioSuccess:
+            # - showAlert:
+            #   - "I created the correct triangle!"
             - playSound:
               - musicSuccessShort
+            - clearBlockly:
+            - scenarioSuccess:
+
 
         playStartingVO_4_1_1:
           triggerCondition:
@@ -251,7 +253,7 @@ children:
           - and:
             - doOnce:
             - delay:
-              - 70
+              - 80
           actions:
           - playSound:
             - TM4_46_Manny
@@ -261,7 +263,7 @@ children:
           - and:
             - doOnce:
             - delay:
-              - 100
+              - 110
           actions:
           - playSound:
             - TM4_55_Manny
@@ -289,16 +291,15 @@ children:
       title: "Mission 4, Task 1"
       content: >
         Congratulations! You’ve found the Base Pod! 
-        <br><br>The pod you've found contains a large supply of nanites! 
+        <br><br>The pod you've found contains a large supply of Nanites! 
         Nanites are microscopic robots that can construct base components using 
         nothing but the air and soil of Mars. The pod also contains your 
-        newest rover, Peregrine, who is designed to transport the nanites 
+        newest rover, Peregrine, who is designed to transport the Nanites 
         and place them on the ground to build the base for the humans. 
         <br><br>You seem to be running low on battery! Let's get Peregrine 
-        working on building some solar panels. Your helicam will illuminate 
+        working on building some solar panels. Your Helicam will illuminate 
         a triangle on the ground where you can build a solar panel. All you 
-        have to do is to specify the vertices of the triangle for Peregrine to 
-        follow and his DrawTriangle procedure will do the rest. 
-        <br><br>Remember, a vertex is an ordered pair of coordinates: ( x, y ). 
-        Adjust the x and y values in the program to match the corners of the 
-        triangle you want to draw.
+        have to do is match the target triangle in Peregrine's program.
+        <br><br>The first triangle has vertices at (0,0), (0,1), and (1,0).
+        These are the same as the vertices built into the Draw Triangle block,
+        so just drag that block over and hit START.

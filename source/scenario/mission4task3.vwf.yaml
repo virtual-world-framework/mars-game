@@ -21,7 +21,7 @@ properties:
 
   # objective
   - setObjective:
-    - "Move to (-3,0) and start construction."
+    - "Move Peregrine to (-3,0) and start construction."
 
   - setProperty:
     - rover2
@@ -232,8 +232,8 @@ children:
           #   - nanites_Mission4Task2
           - delay:
             - 4
-            - showAlert:
-              - "I constructed the solar panel!"
+            # - showAlert:
+            #   - "I constructed the solar panel!"
             - callMethod:
               - rover2
               - stopExecution
