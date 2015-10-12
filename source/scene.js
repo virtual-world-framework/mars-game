@@ -514,7 +514,7 @@ this.setUserTriangles = function( vertices ) {
         [ 0.3, 0.3, 0.7 ],
         [ 0.6, 0.6, 0.2 ]
     ];
-    var verts, tris;
+    var verts, tris, coords;
     verts = vertices.length;
     tris = verts / 3;
     for ( var i = 0; i < verts; i++ ) {
@@ -522,7 +522,8 @@ this.setUserTriangles = function( vertices ) {
         if ( !valid ) {
             return;
         }
-        vertices[ i ] = this.addAxisOffset( vertices[ i ] );
+        coords = this.addAxisOffset( vertices[ i ] );
+        vertices[ i ] = this.tileMap.getWorldCoordFromTile( coords[ 0 ], coords[ 1 ] );
     }
     var material = this.environment.terrain.material;
     material.userTris = vertices;
