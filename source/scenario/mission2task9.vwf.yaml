@@ -137,12 +137,12 @@ children:
               - true
             - startTimer:
 
-        highlightEndTile_2_9:
-          triggerCondition:
-          - onScenarioStart:
-          actions:
-          - callOutObjective:
-            - [ -4, 16 ]
+        # highlightEndTile_2_9:
+        #   triggerCondition:
+        #   - onScenarioStart:
+        #   actions:
+        #   - callOutObjective:
+        #     - [ -4, 16 ]
 
         failOnMissingBlock_2_9:
           group: successOrFailure
