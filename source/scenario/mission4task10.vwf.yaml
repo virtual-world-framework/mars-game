@@ -96,7 +96,6 @@ properties:
     - blocklyLine
     - opacity
     - 0
-  - cancelCallOut:
 
   - drawTriangle:
     - [ -8, -8 ]

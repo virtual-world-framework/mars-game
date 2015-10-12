@@ -98,8 +98,6 @@ properties:
     - opacity
     - 0
 
-  - cancelCallOut:
-
   - drawTriangle:
     - [ -8, -8 ]
     - [ -8, -7 ]
