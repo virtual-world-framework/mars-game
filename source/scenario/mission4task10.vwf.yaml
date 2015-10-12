@@ -97,7 +97,7 @@ properties:
     - opacity
     - 0
   - cancelCallOut:
-  - clearTriangle:
+
   - drawTriangle:
     - [ -8, -8 ]
     - [ -8, -5 ]

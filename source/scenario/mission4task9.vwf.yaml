@@ -13,6 +13,7 @@
 # limitations under the License.
 
 ---
+
 extends: ../scenario/scenario.vwf
 properties:
   scenarioName: Mission4Task9
@@ -82,9 +83,6 @@ properties:
   - selectRover:
     - rover2
 
-  # Rosie disabled
-  
-
   # Grid and disable blocklyLine
   - setGridAxes:
     - 19
@@ -98,14 +96,13 @@ properties:
     - opacity
     - 0
   - cancelCallOut:
-  - clearTriangle:
+
   - drawTriangle:
     - [ -8, -8 ]
     - [ -8, -5 ]
     - [ -5, -8 ]
 
   # Solar panel construction
-
   - setConstructed:
     - solarPanel1
     - true
@@ -118,7 +115,6 @@ properties:
   - setConstructed:
     - solarPanel4
     - true
-
 
   - setProperty:
     - cargoPod2
@@ -140,7 +136,6 @@ properties:
     - []
 
   # turning supplies and minirover invisible
-
   - setProperty:
     - supplies_1
     - visible

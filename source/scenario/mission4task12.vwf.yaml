@@ -82,8 +82,6 @@ properties:
   - selectRover:
     - rover2
 
-  # Rosie disabled
-
   # Grid and disable blocklyLine
   - setGridAxes:
     - 19
@@ -97,12 +95,11 @@ properties:
     - opacity
     - 0
   - cancelCallOut:
-  - clearTriangle:
+
   - drawTriangle:
     - [ -8, -8 ]
     - [ -8, -11 ]
     - [ -11, -8 ]
-
 
   # Solar panel construction
   - setConstructed:

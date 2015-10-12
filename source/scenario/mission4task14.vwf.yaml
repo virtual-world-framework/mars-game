@@ -98,7 +98,7 @@ properties:
     - blocklyLine
     - opacity
     - 0
-  - clearTriangle:
+
   - drawTriangle:
     - [ -8, -17 ]
     - [ -8, -12 ]
@@ -116,9 +116,7 @@ properties:
     - [ -8, -22 ]
     - [ -13, -17 ]
 
-
   # Solar panel construction
-
   - setConstructed:
     - solarPanel1
     - true
@@ -155,7 +153,6 @@ properties:
     - []
 
   # turning supplies and minirover invisible
-
   - setProperty:
     - supplies_1
     - visible
