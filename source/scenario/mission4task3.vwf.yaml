@@ -257,3 +257,7 @@ children:
         <br><br>Now that you have your triangle placed properly, you need to
         move Peregrine to the designated "safe spot" and then use the Start 
         Construction block to make the nanites go to work.
+        <br><br>You can use Peregrine's Move To block to go to the safe spot.
+        Much like the Navigate procedure that you created a little while ago,
+        Move To requires you to tell it the X and Y coordinates where you want
+        to go.

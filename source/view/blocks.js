@@ -2517,7 +2517,7 @@ Blockly.Blocks['start_triangle'] = {
   init: function() {
     this.setColour(90);
     this.appendDummyInput()
-        .appendField("startTriangle");
+        .appendField("Start Triangle");
     this.setPreviousStatement(true);
     this.setNextStatement(true);
     this.setTooltip('');
@@ -2533,7 +2533,7 @@ Blockly.Blocks['end_triangle'] = {
   init: function() {
     this.setColour(0);
     this.appendDummyInput()
-        .appendField("endTriangle");
+        .appendField("End Triangle");
     this.setPreviousStatement(true);
     this.setNextStatement(true);
     this.setTooltip('');
@@ -2549,7 +2549,7 @@ Blockly.Blocks['mark_point'] = {
   init: function() {
     this.setColour(180);
     this.appendDummyInput()
-        .appendField("markPoint")
+        .appendField("Mark Point")
     this.setPreviousStatement(true);
     this.setNextStatement(true);
     this.setTooltip( function() {
@@ -4614,7 +4614,7 @@ Blockly.Blocks['rover_moveRadial_ordered'] = {
     this.setColour(20);
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField("moveTo:");
+        .appendField("Move To:");
     this.appendValueInput("THEOP");
     this.setInputsInline(true);
     this.setPreviousStatement(true, "null");
@@ -4681,7 +4681,7 @@ Blockly.Blocks['rover_moveRadial'] = {
     this.setColour(20);
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField("move:");
+        .appendField("Move:");
      this.appendDummyInput()
          .setAlign(Blockly.ALIGN_CENTRE)
          .appendField("Δx");
@@ -4725,7 +4725,7 @@ Blockly.Blocks['rover_moveRadial_absolute'] = {
     this.setColour(20);
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField("moveTo:");
+        .appendField("Move To:");
      this.appendDummyInput()
          .setAlign(Blockly.ALIGN_CENTRE)
          .appendField("");
