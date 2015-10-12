@@ -28,7 +28,7 @@ this.onGenerated = function( params, generator, payload ) {
 this.executeAction = function() {
     var scene = this.scene;
     if ( scene ) {
-        this.scene.hideSchematicTriangle();
+//        this.scene.hideSchematicTriangle();
     }
 }
 

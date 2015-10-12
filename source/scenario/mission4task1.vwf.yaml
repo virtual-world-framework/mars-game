@@ -93,9 +93,6 @@ properties:
   - selectRover:
     - rover2
 
-  # Rosie 
-  
-
   # Grid
   - setGridAxes:
     - 19
