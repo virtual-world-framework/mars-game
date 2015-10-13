@@ -97,6 +97,8 @@ methods:
   calloutTile:
   removeCalloutTile:
   hideUI:
+  setActiveRoverPose:
+  printCameraPose:
 events:
   gameStarted:
   scenarioReset:

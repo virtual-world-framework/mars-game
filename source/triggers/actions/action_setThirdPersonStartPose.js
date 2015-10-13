@@ -35,8 +35,7 @@ this.onGenerated = function( params, generator, payload ) {
 }
 
 this.executeAction = function() {
-    // TODO: Should we be looking this up instead of hardcoding the path?
-    this.scene.player.rover.thirdPerson.cameraPose = this.pose;
+    this.scene.setActiveRoverPose( this.pose.slice() );
 }
 
 //@ sourceURL=source/triggers/actions/action_setThirdPersonStartPose.js

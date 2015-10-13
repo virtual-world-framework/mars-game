@@ -1548,6 +1548,15 @@ function formatTime( time ) {
     return formattedTime;
 }
 
+function readCameraPose() {
+    vwf_view.kernel.callMethod( getAppID(), "printCameraPose" );
+}
+
+function writeCameraPose( radius, yaw, pitch ) {
+    var pose = [ radius, yaw, pitch ];
+    vwf_view.kernel.callMethod( getAppID(), "setCinematicView", [ pose ] );
+}
+
 window.addEventListener( "resize", checkPageZoom );
 
 //@ sourceURL=source/view/index.js
