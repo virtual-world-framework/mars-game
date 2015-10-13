@@ -72,6 +72,7 @@ Blockly.Blocks['ordered_pair_config_out'] = {
   onchange: function() {
     if (!this.workspace || this.data === undefined) {
       // Block has been deleted.
+      currentBlocklyErrors[ this.id ] = false;
       return;
     }
     
@@ -137,19 +138,19 @@ Blockly.Blocks['triangle_flow'] = {
         .appendField("△ A'B'C' ")
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField("A ⇒")
+        .appendField("A' ⇒")
         .appendField("(")
         .appendField("0,0", "CURRENTA")
         .appendField(")");
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField("B ⇒")
+        .appendField("B' ⇒")
         .appendField("(")
         .appendField("0,1", "CURRENTB")
         .appendField(")");
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField("C ⇒")
+        .appendField("C' ⇒")
         .appendField("(")
         .appendField("1,0", "CURRENTC")
         .appendField(")");
@@ -169,6 +170,7 @@ Blockly.Blocks['triangle_flow'] = {
   onchange: function() {
     if ( !this.workspace || this.data === undefined ) {
       // Block has been deleted.
+      currentBlocklyErrors[ this.id ] = false;
 
       currentBlocklyTriangles[ this.id ] = {}
 
@@ -320,6 +322,7 @@ Blockly.Blocks['triangle_transformations'] = {
   onchange: function() {
     if (!this.workspace) {
       // Block has been deleted.
+      currentBlocklyErrors[ this.id ] = false;
       return;
     }
 
@@ -583,6 +586,7 @@ Blockly.Blocks['triangle_transformations_auto'] = {
   onchange: function() {
     if (!this.workspace) {
       // Block has been deleted.
+      currentBlocklyErrors[ this.id ] = false;
       return;
     }
 
@@ -843,6 +847,7 @@ Blockly.Blocks['triangle_transformations_translate'] = {
   onchange: function() {
     if (!this.workspace) {
       // Block has been deleted.
+      currentBlocklyErrors[ this.id ] = false;
       return;
     }
 
@@ -1034,6 +1039,7 @@ Blockly.Blocks['triangle_transformations_translate_auto'] = {
   onchange: function() {
     if (!this.workspace) {
       // Block has been deleted.
+      currentBlocklyErrors[ this.id ] = false;
       return;
     }
 
@@ -1220,6 +1226,7 @@ Blockly.Blocks['triangle_transformations_dilate'] = {
   onchange: function() {
     if (!this.workspace) {
       // Block has been deleted.
+      currentBlocklyErrors[ this.id ] = false;
       return;
     }
 
@@ -1403,6 +1410,7 @@ Blockly.Blocks['triangle_transformations_dilate_auto'] = {
   onchange: function() {
     if (!this.workspace) {
       // Block has been deleted.
+      currentBlocklyErrors[ this.id ] = false;
       return;
     }
 
@@ -1578,6 +1586,7 @@ Blockly.Blocks['triangle_transformations_dilate_auto_fixed'] = {
   onchange: function() {
     if (!this.workspace) {
       // Block has been deleted.
+      currentBlocklyErrors[ this.id ] = false;
       return;
     }
 
@@ -1763,6 +1772,7 @@ Blockly.Blocks['triangle_transformations_dilate_two'] = {
   onchange: function() {
     if (!this.workspace) {
       // Block has been deleted.
+      currentBlocklyErrors[ this.id ] = false;
       return;
     }
 
@@ -1956,6 +1966,7 @@ Blockly.Blocks['triangle_transformations_dilate_two_auto'] = {
   onchange: function() {
     if (!this.workspace) {
       // Block has been deleted.
+      currentBlocklyErrors[ this.id ] = false;
       return;
     }
 
@@ -2143,6 +2154,7 @@ Blockly.Blocks['triangle_transformations_reflect'] = {
   onchange: function() {
     if (!this.workspace) {
       // Block has been deleted.
+      currentBlocklyErrors[ this.id ] = false;
       return;
     }
 
@@ -2372,6 +2384,7 @@ Blockly.Blocks['triangle_transformations_reflect_auto'] = {
   onchange: function() {
     if (!this.workspace) {
       // Block has been deleted.
+      currentBlocklyErrors[ this.id ] = false;
       return;
     }
 
@@ -2593,6 +2606,7 @@ Blockly.Blocks['mark_point'] = {
   onchange: function() {
     if (!this.workspace || this.data === undefined) {
       // Block has been deleted.
+      currentBlocklyErrors[ this.id ] = false;
       return;
     }
   }
@@ -2629,6 +2643,7 @@ Blockly.Blocks['ordered_pair'] = {
   onchange: function() {
     if (!this.workspace || this.data === undefined) {
       // Block has been deleted.
+      currentBlocklyErrors[ this.id ] = false;
       return;
     }
   }
@@ -2837,6 +2852,7 @@ Blockly.Blocks[ 'variables_get' ] = {
   onchange: function() {
     if (!this.workspace || this.data === undefined) {
       // Block has been deleted.
+      currentBlocklyErrors[ this.id ] = false;
       return;
     }
     //Evaluate and return the code stored in the block.
@@ -2965,6 +2981,7 @@ Blockly.Blocks[ 'variables_get_noin' ] = {
   onchange: function() {
     if (!this.workspace || this.data === undefined) {
       // Block has been deleted.
+      currentBlocklyErrors[ this.id ] = false;
       return;
     }
     //Evaluate and return the code stored in the block.
@@ -3061,6 +3078,7 @@ Blockly.Blocks[ 'logic_cond_out' ] = {
   onchange: function() {
     if (!this.workspace || this.data === undefined) {
       // Block has been deleted.
+      currentBlocklyErrors[ this.id ] = false;
       return;
     }
     
@@ -3108,6 +3126,7 @@ Blockly.Blocks[ 'logic_cond_eq_out' ] = {
   onchange: function() {
     if (!this.workspace || this.data === undefined) {
       // Block has been deleted.
+      currentBlocklyErrors[ this.id ] = false;
       return;
     }
     
@@ -3151,6 +3170,7 @@ Blockly.Blocks[ 'logic_cond_neq_out' ] = {
   onchange: function() {
     if (!this.workspace || this.data === undefined) {
       // Block has been deleted.
+      currentBlocklyErrors[ this.id ] = false;
       return;
     }
     
@@ -3194,6 +3214,7 @@ Blockly.Blocks[ 'logic_cond_gt_out' ] = {
   onchange: function() {
     if (!this.workspace || this.data === undefined) {
       // Block has been deleted.
+      currentBlocklyErrors[ this.id ] = false;
       return;
     }
     
@@ -3237,6 +3258,7 @@ Blockly.Blocks[ 'logic_cond_lt_out' ] = {
   onchange: function() {
     if (!this.workspace || this.data === undefined) {
       // Block has been deleted.
+      currentBlocklyErrors[ this.id ] = false;
       return;
     }
     
@@ -3280,6 +3302,7 @@ Blockly.Blocks[ 'logic_andor_out' ] = {
   onchange: function() {
     if (!this.workspace || this.data === undefined) {
       // Block has been deleted.
+      currentBlocklyErrors[ this.id ] = false;
       return;
     }
     
@@ -3325,6 +3348,7 @@ Blockly.Blocks[ 'logic_and' ] = {
   onchange: function() {
     if (!this.workspace || this.data === undefined) {
       // Block has been deleted.
+      currentBlocklyErrors[ this.id ] = false;
       return;
     }
     
@@ -3368,6 +3392,7 @@ Blockly.Blocks[ 'logic_or' ] = {
   onchange: function() {
     if (!this.workspace || this.data === undefined) {
       // Block has been deleted.
+      currentBlocklyErrors[ this.id ] = false;
       return;
     }
     
@@ -3411,6 +3436,7 @@ Blockly.Blocks[ 'logic_not' ] = {
   onchange: function() {
     if (!this.workspace || this.data === undefined) {
       // Block has been deleted.
+      currentBlocklyErrors[ this.id ] = false;
       return;
     }
     
@@ -3494,6 +3520,7 @@ Blockly.Blocks['controls_whileUntil'] = {
   onchange: function() {
     if (!this.workspace || this.data === undefined) {
       // Block has been deleted.
+      currentBlocklyErrors[ this.id ] = false;
       return;
     }
 
@@ -3587,6 +3614,7 @@ Blockly.Blocks['controls_whileUntil_no_in'] = {
   onchange: function() {
     if (!this.workspace || this.data === undefined) {
       // Block has been deleted.
+      currentBlocklyErrors[ this.id ] = false;
       return;
     }
 
@@ -3678,6 +3706,7 @@ Blockly.Blocks['controls_whileUntil_no_out'] = {
   onchange: function() {
     if (!this.workspace || this.data === undefined) {
       // Block has been deleted.
+      currentBlocklyErrors[ this.id ] = false;
       return;
     }
 
@@ -3770,6 +3799,7 @@ Blockly.Blocks['controls_whileUntil_no_out_no_in'] = {
   onchange: function() {
     if (!this.workspace || this.data === undefined) {
       // Block has been deleted.
+      currentBlocklyErrors[ this.id ] = false;
       return;
     }
 
@@ -3860,6 +3890,7 @@ Blockly.Blocks['controls_repeat_ext'] = {
   onchange: function() {
     if (!this.workspace || this.data === undefined) {
       // Block has been deleted.
+      currentBlocklyErrors[ this.id ] = false;
       return;
     }
 
@@ -4049,6 +4080,7 @@ Blockly.Blocks['controls_if_nomut'] = {
   onchange: function() {
     if (!this.workspace || this.data === undefined) {
       // Block has been deleted.
+      currentBlocklyErrors[ this.id ] = false;
       return;
     }
     
@@ -4268,6 +4300,7 @@ Blockly.Blocks[ 'controls_sensor_metal' ] = {
   onchange: function() {
     if (!this.workspace || this.data === undefined) {
       // Block has been deleted.
+      currentBlocklyErrors[ this.id ] = false;
       return;
     }
     // var metalValue = vwf.getProperty( this.data, "metalSensorValue" );
@@ -4310,6 +4343,7 @@ Blockly.Blocks[ 'controls_sensor_collision' ] = {
   onchange: function() {
     if (!this.workspace || this.data === undefined) {
       // Block has been deleted.
+      currentBlocklyErrors[ this.id ] = false;
       return;
     }
     // var collisionValue = vwf.getProperty( this.data, "collisionSensorValue" );
@@ -4353,6 +4387,7 @@ Blockly.Blocks[ 'controls_sensor_signal' ] = {
   onchange: function() {
     if (!this.workspace || this.data === undefined) {
       // Block has been deleted.
+      currentBlocklyErrors[ this.id ] = false;
       return;
     }
     // this.setEditable(true);
@@ -4559,6 +4594,7 @@ Blockly.Blocks[ 'controls_sensor_heading' ] = {
   onchange: function() {
     if (!this.workspace || this.data === undefined) {
       // Block has been deleted.
+      currentBlocklyErrors[ this.id ] = false;
       return;
     }
     // this.setEditable(true);
@@ -4660,6 +4696,7 @@ Blockly.Blocks['rover_moveRadial_ordered'] = {
   onchange: function() {
     if (!this.workspace || this.data === undefined) {
       // Block has been deleted.
+      currentBlocklyErrors[ this.id ] = false;
       return;
     }
     
@@ -4794,6 +4831,7 @@ Blockly.Blocks['rover_moveRadial_absolute'] = {
   onchange: function() {
     if (!this.workspace || this.data === undefined) {
       // Block has been deleted.
+      currentBlocklyErrors[ this.id ] = false;
       return;
     }
     
@@ -5534,6 +5572,7 @@ Blockly.Blocks['math_number_field'] = {
   onchange: function() {
     if (!this.workspace || this.data === undefined) {
       // Block has been deleted.
+      currentBlocklyErrors[ this.id ] = false;
       return;
     }
 
@@ -5612,6 +5651,7 @@ Blockly.Blocks['math_number_field_no_out'] = {
   onchange: function() {
     if (!this.workspace || this.data === undefined) {
       // Block has been deleted.
+      currentBlocklyErrors[ this.id ] = false;
       return;
     }
 
@@ -5838,6 +5878,7 @@ Blockly.Blocks[ 'graph_add' ] = {
   onchange: function() {
     if (!this.workspace || this.data === undefined) {
       // Block has been deleted.
+      currentBlocklyErrors[ this.id ] = false;
       return;
     }
     
@@ -5888,6 +5929,7 @@ Blockly.Blocks['graph_subtract'] = {
   onchange: function() {
     if (!this.workspace || this.data === undefined) {
       // Block has been deleted.
+      currentBlocklyErrors[ this.id ] = false;
       return;
     }
     
@@ -5943,6 +5985,7 @@ Blockly.Blocks[ 'graph_multiply' ] = {
   onchange: function() {
     if (!this.workspace || this.data === undefined) {
       // Block has been deleted.
+      currentBlocklyErrors[ this.id ] = false;
       return;
     }
     
@@ -5998,6 +6041,7 @@ Blockly.Blocks[ 'graph_divide' ] = {
   onchange: function() {
     if (!this.workspace || this.data === undefined) {
       // Block has been deleted.
+      currentBlocklyErrors[ this.id ] = false;
       return;
     }
     
@@ -6051,6 +6095,7 @@ Blockly.Blocks['graph_left_paren'] = {
   onchange: function() {
     if (!this.workspace || this.data === undefined) {
       // Block has been deleted.
+      currentBlocklyErrors[ this.id ] = false;
       return;
     }
     
@@ -6141,6 +6186,7 @@ Blockly.Blocks['graph_set_y'] = {
   onchange: function() {
     if (!this.workspace || this.data === undefined) {
       // Block has been deleted.
+      currentBlocklyErrors[ this.id ] = false;
       return;
     }
     
