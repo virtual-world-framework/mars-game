@@ -116,7 +116,7 @@ properties:
 
   #Set the camera angle
   - setCinematicCameraView:
-    - [ 21, -18, -10 ]
+    - [ 6, -62, -13 ]
   - displayTiles:
     - false
 

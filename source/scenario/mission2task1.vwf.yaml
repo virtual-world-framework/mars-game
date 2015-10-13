@@ -99,9 +99,9 @@ properties:
     - visible
     - false
   - setCinematicCameraView:
-    - [ 13, -10, -15 ]
+    - [ 13, -5, -7 ]
   - setThirdPersonStartPose:
-    - [ 13, -10, -15 ]
+    - [ 13, -5, -7 ]
   - displayTiles:
     - false
 

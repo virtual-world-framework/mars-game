@@ -131,9 +131,9 @@ properties:
     - false
 
   - setCinematicCameraView:
-    - [ 16, 160, -15 ]
+    - [ 20, 165, -10 ]
   - setThirdPersonStartPose:
-    - [ 16, 160, -15 ]
+    - [ 20, 165, -10 ]
   - displayTiles:
     - false
   - displayGraph:
