@@ -111,12 +111,19 @@ Blockly.Blocks['triangle_flow'] = {
         .appendField("Draw Triangle : ")
 //        .appendField(new Blockly.FieldColour("#3366ff"), "NAME");
     this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
         .appendField("△ ABC");
     this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("A ⇒")
         .appendField("(0,0)");
     this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("B ⇒")
         .appendField("(0,1)");
     this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("C ⇒")
         .appendField("(1,0)");
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
@@ -126,16 +133,23 @@ Blockly.Blocks['triangle_flow'] = {
         .setAlign(Blockly.ALIGN_CENTRE)
         .appendField("⇩");
     this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
         .appendField("△ A'B'C' ")
     this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("A ⇒")
         .appendField("(")
         .appendField("0,0", "CURRENTA")
         .appendField(")");
     this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("B ⇒")
         .appendField("(")
         .appendField("0,1", "CURRENTB")
         .appendField(")");
     this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("C ⇒")
         .appendField("(")
         .appendField("1,0", "CURRENTC")
         .appendField(")");
@@ -162,9 +176,9 @@ Blockly.Blocks['triangle_flow'] = {
     }
 
     if ( this.getInputTargetBlock('STACK') === null || this.childBlocks_.length == 0 ) {
-      this.setFieldValue( '[0,0]','CURRENTA' );
-      this.setFieldValue( '[0,1]','CURRENTB' );
-      this.setFieldValue( '[1,0]','CURRENTC' );
+      this.setFieldValue( '0,0','CURRENTA' );
+      this.setFieldValue( '0,1','CURRENTB' );
+      this.setFieldValue( '1,0','CURRENTC' );
     }
 
     var vertexA = eval( '[' + this.getFieldValue( 'CURRENTA' ) + ']' );
