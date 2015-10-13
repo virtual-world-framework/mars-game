@@ -83,14 +83,10 @@ properties:
   - selectRover:
     - rover2
 
-  # Rosie disabled
-
   # Grid 
   - setGridAxes:
     - 19
     - -24
-
-  - clearTriangle:
 
   - drawTriangle:
     - [ 0, 0 ]
@@ -136,7 +132,6 @@ properties:
     - []
 
   # turning supplies and minirover invisible
-
   - setProperty:
     - supplies_1
     - visible

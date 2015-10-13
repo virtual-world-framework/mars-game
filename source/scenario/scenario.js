@@ -124,10 +124,14 @@ this.onScenarioReset = function( scenarioName ) {
 this.start = function() {
     this.logger.logx( "start", "Scenario started." );
 
-    // This resets any blinking GUI elements or other special HUD effects from
-    //  previous scenarios.  We need to do it before the scenarioStarted event,
-    //  which may set some of those effects going.
+    // Clear out things that are set by the triggers.  We need to do this before
+    //  running the start state actions, as they will set the values for the 
+    //  new scenario
     this.scene.resetHUDState();
+    this.scene.clearWatchList();
+    this.scene.removeCalloutTile();
+    this.scene.hideSchematicTriangle();
+    this.scene.hud.setAllEnabled( true );
 
     // HACK: This is a bit of a hack, but it should work for now.  We want to
     //  look up the orientation of the rover from the last scenario success

@@ -81,15 +81,10 @@ properties:
   - selectRover:
     - rover2
 
-
-  # Rosie  
-
   # Grid and disabling blocklyLine
   - setGridAxes:
     - 19
     - -24
-
-  - clearTriangle:
 
   - setProperty:
     - blocklyLine
@@ -105,15 +100,12 @@ properties:
   - setConstructed:
     - solarPanel1
     - false
-
   - setConstructed:
     - solarPanel2
     - false
-
   - setConstructed:
     - solarPanel3
     - false
-
   - setConstructed:
     - solarPanel4
     - false    
@@ -133,7 +125,6 @@ properties:
     - []
 
   # turning supplies and minirover invisible
-
   - setProperty:
     - supplies_1
     - visible

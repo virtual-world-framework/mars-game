@@ -96,8 +96,7 @@ properties:
     - blocklyLine
     - opacity
     - 0
-  - cancelCallOut:
-  - clearTriangle:
+
   - drawTriangle:
     - [ -8, -8 ]
     - [ -8, -11 ]
@@ -137,7 +136,6 @@ properties:
     - []
 
   # turning supplies and minirover invisible
-
   - setProperty:
     - supplies_1
     - visible

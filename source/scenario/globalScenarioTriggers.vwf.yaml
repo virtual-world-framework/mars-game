@@ -42,7 +42,6 @@ properties:
         - musicSuccess
       - stopSound:
         - musicFailure
-      - cancelCallOut:
 
     recordKeepingOnFailure:
       triggerCondition:

@@ -93,15 +93,10 @@ properties:
   - selectRover:
     - rover2
 
-  # Rosie 
-  
-
   # Grid
   - setGridAxes:
     - 19
     - -24
-
-  - clearTriangle:
 
   - drawTriangle:
     - [ 0, 0 ]

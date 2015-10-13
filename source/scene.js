@@ -90,9 +90,6 @@ this.setScenario = function( path ) {
         var scenario = this.find( path )[ 0 ];
         if ( scenario ) {
             this.activeScenarioPath = path;
-            this.clearWatchList();
-            this.removeCalloutTile();
-            this.hideSchematicTriangle();
             // TODO: pass the scenario, not the name.  Or else just send the 
             //  event without looking the scenario itself up.  Or assert that 
             //  the scenario exists.  Or something.
@@ -129,7 +126,6 @@ this.resetScenario = function() {
 this.advanceScenario = function() {
     // TODO: handle this in the scenario.  Let it depend on us rather than vice
     //  versa (we shouldn't have to know the inner workings of the scenario)
-    this.hud.setAllEnabled( true );
     var scenario = this.getCurrentScenario();
     if ( scenario.nextScenarioPath ) {
         this.activeScenarioPath = scenario.nextScenarioPath;
