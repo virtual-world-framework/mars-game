@@ -117,6 +117,8 @@ properties:
   #Set the camera angle
   - setCinematicCameraView:
     - [ 21, -18, -10 ]
+  - displayTiles:
+    - false
 
   #Solar panel construction
   - setConstructed:
@@ -150,7 +152,6 @@ properties:
     - []
 
   # turning supplies and minirover invisible
-
   - setProperty:
     - supplies_1
     - visible

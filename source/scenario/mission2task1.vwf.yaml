@@ -102,6 +102,8 @@ properties:
     - [ 13, -10, -15 ]
   - setThirdPersonStartPose:
     - [ 13, -10, -15 ]
+  - displayTiles:
+    - false
 
 children:
   triggerManager:

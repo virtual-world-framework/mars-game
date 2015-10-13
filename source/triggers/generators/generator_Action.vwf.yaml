@@ -170,5 +170,10 @@ properties:
     # arguments: none
     startTimer: "source/triggers/actions/action_startTimer.vwf"
 
+    # Display or hide the graph or tiles
+    # arguments: true to display, false to hide.  Default true.
+    displayGraph: "source/triggers/actions/action_displayGraph.vwf"
+    displayTiles: "source/triggers/actions/action_displayTiles.vwf"
+
 scripts:
 - source: generator_Action.js
