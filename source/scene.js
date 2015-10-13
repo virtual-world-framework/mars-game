@@ -360,6 +360,13 @@ this.setCinematicView = function( pose ) {
     }
 }
 
+this.setActiveRoverPose = function( pose ) {
+    var rover = this.findByID( this, this.blockly_activeNodeID );
+    if ( rover && rover.thirdPerson ) {
+        rover.thirdPerson.cameraPose = pose;
+    }
+}
+
 this.resetView = function() {
     var camera = this.player.targetFollower.camera;
     if ( lastCameraPOV === camera.pointOfView ) {
@@ -595,5 +602,10 @@ this.removeCalloutTile = function() {
 
 // This method is being handled by the view
 this.playVideo = function( src ) {}
+
+this.printCameraPose = function() {
+    var pose = this.gameCam.getPoseFromTransform();
+    console.log( "Camera pose: [ " + pose[ 0 ] + ", " + pose[ 1 ] + ", " + pose[ 2 ] + " ]" );
+}
 
 //@ sourceURL=source/scene.js
