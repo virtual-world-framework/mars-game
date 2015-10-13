@@ -15,6 +15,9 @@
 --- 
 extends: clauseProto.vwf
 
+implements: 
+  - http://vwf.example.com/sceneGetter.vwf
+
 properties:
   hasTriggered: false
 

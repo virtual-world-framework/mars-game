@@ -22,6 +22,10 @@ this.onGenerated = function( params, generator, payload ) {
         return false;
     }
 
+    this.scene.startedGame = this.events.add( function() { 
+        this.hasTriggered = false; 
+    }, this );
+
     return true;
 }
 

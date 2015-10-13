@@ -77,6 +77,7 @@ this.setApplicationState = function( state ) {
 this.newGame = function() {
     this.applicationState = "playing";
     this.activeScenarioPath = "introCinematic";
+    this.startedGame();
 }
 
 this.continueGame = function( scenario ) {
