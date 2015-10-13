@@ -105,7 +105,7 @@ children:
             - environmentWind
           - resetRoverSensors:
           - setObjective:
-            - "Continue to follow the tracks until metal is detected."
+            - "Continue to follow the slope of the tracks until metal is detected."
           - writeToBlackboard:
             - metalPosition
             - [ 8, 30 ]
@@ -113,12 +113,12 @@ children:
             - [ 16.316, 65, -15 ]
           - startTimer:
 
-        highlightEndTile_2_7:
-          triggerCondition:
-          - onScenarioStart:
-          actions:
-          - callOutObjective:
-            - [ 5, 10 ]
+        # highlightEndTile_2_7:
+        #   triggerCondition:
+        #   - onScenarioStart:
+        #   actions:
+        #   - callOutObjective:
+        #     - [ 5, 10 ]
 
         playStartingVO_3a:
           triggerCondition:

@@ -22,7 +22,7 @@ properties:
 
   # objective
   - setObjective:
-    - "Translate the basic triangle to position 8 spaces down and to the left."
+    - "Translate the basic triangle 8 spaces down and to the left."
 
   - setProperty:
     - rover2

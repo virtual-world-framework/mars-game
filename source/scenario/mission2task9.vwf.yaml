@@ -25,7 +25,7 @@ properties:
     - videoManager  
     - url 
     - [ "assets/video/Success2_800x600.mp4" ]
-  
+
   - setProperty:
     - rover2
     - visible
@@ -137,12 +137,12 @@ children:
               - true
             - startTimer:
 
-        highlightEndTile_2_9:
-          triggerCondition:
-          - onScenarioStart:
-          actions:
-          - callOutObjective:
-            - [ -4, 16 ]
+        # highlightEndTile_2_9:
+        #   triggerCondition:
+        #   - onScenarioStart:
+        #   actions:
+        #   - callOutObjective:
+        #     - [ -4, 16 ]
 
         failOnMissingBlock_2_9:
           group: successOrFailure

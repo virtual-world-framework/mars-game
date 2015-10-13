@@ -173,12 +173,12 @@ children:
           - playSound:
             - CTVO4
 
-        highlightEndTile_2_11:
-          triggerCondition:
-          - onScenarioStart:
-          actions:
-          - callOutObjective:
-            - [ -18, -12 ]
+        # highlightEndTile_2_11:
+        #   triggerCondition:
+        #   - onScenarioStart:
+        #   actions:
+        #   - callOutObjective:
+        #     - [ -18, -12 ]
 
         failOnMissingBlock_2_11:
           group: successOrFailure

@@ -22,7 +22,7 @@ properties:
 
   # objective
   - setObjective:
-    - "Reflect the basic triangle across the Y axis and draw it."
+    - "Reflect the basic triangle across the Y axis."
 
   - setProperty:
     - rover2
