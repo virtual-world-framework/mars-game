@@ -72,6 +72,7 @@ Blockly.Blocks['ordered_pair_config_out'] = {
   onchange: function() {
     if (!this.workspace || this.data === undefined) {
       // Block has been deleted.
+      currentBlocklyErrors[ this.id ] = false;
       return;
     }
     
@@ -111,22 +112,52 @@ Blockly.Blocks['triangle_flow'] = {
         .appendField("Draw Triangle : ")
 //        .appendField(new Blockly.FieldColour("#3366ff"), "NAME");
     this.appendDummyInput()
-        .appendField("△ ABC [0,0] [0,1] [1,0]");
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("△ ABC");
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("A ⇒")
+        .appendField("(0,0)");
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("B ⇒")
+        .appendField("(0,1)");
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("C ⇒")
+        .appendField("(1,0)");
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
         .appendField("⇩");
-    this.appendStatementInput("STACK");
+    this.appendStatementInput("STACK")
+        .setCheck(['Transformation']);
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
         .appendField("⇩");
     this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
         .appendField("△ A'B'C' ")
-        .appendField("[0,0]", "CURRENTA")
-        .appendField("[0,1]", "CURRENTB")
-        .appendField("[1,0]", "CURRENTC");
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("A' ⇒")
+        .appendField("(")
+        .appendField("0,0", "CURRENTA")
+        .appendField(")");
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("B' ⇒")
+        .appendField("(")
+        .appendField("0,1", "CURRENTB")
+        .appendField(")");
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("C' ⇒")
+        .appendField("(")
+        .appendField("1,0", "CURRENTC")
+        .appendField(")");
     this.setInputsInline(false);
-    this.setPreviousStatement(true);
-    this.setNextStatement(true);
+    this.setPreviousStatement(true,'Triangle');
+    this.setNextStatement(true,'Triangle');
     this.setColour(345);
     var thisBlock = this;
     this.setTooltip( function() {
@@ -140,6 +171,7 @@ Blockly.Blocks['triangle_flow'] = {
   onchange: function() {
     if ( !this.workspace || this.data === undefined ) {
       // Block has been deleted.
+      currentBlocklyErrors[ this.id ] = false;
 
       currentBlocklyTriangles[ this.id ] = {}
 
@@ -147,14 +179,14 @@ Blockly.Blocks['triangle_flow'] = {
     }
 
     if ( this.getInputTargetBlock('STACK') === null || this.childBlocks_.length == 0 ) {
-      this.setFieldValue( '[0,0]','CURRENTA' );
-      this.setFieldValue( '[0,1]','CURRENTB' );
-      this.setFieldValue( '[1,0]','CURRENTC' );
+      this.setFieldValue( '0,0','CURRENTA' );
+      this.setFieldValue( '0,1','CURRENTB' );
+      this.setFieldValue( '1,0','CURRENTC' );
     }
 
-    var vertexA = eval( this.getFieldValue( 'CURRENTA' ) );
-    var vertexB = eval( this.getFieldValue( 'CURRENTB' ) );
-    var vertexC = eval( this.getFieldValue( 'CURRENTC' ) );
+    var vertexA = eval( '[' + this.getFieldValue( 'CURRENTA' ) + ']' );
+    var vertexB = eval( '[' + this.getFieldValue( 'CURRENTB' ) + ']' );
+    var vertexC = eval( '[' + this.getFieldValue( 'CURRENTC' ) + ']' );
 
     currentBlocklyTriangles[ this.id ] = [ vertexA, vertexB, vertexC ];
 
@@ -169,9 +201,9 @@ Blockly.JavaScript['triangle_flow'] = function(block) {
   //var op_a = [ 0,0 ];
   //var op_b = [ 0,1 ];
   //var op_c = [ 1,0 ];
-  var op_a = eval( block.getFieldValue("CURRENTA") );
-  var op_b = eval( block.getFieldValue("CURRENTB") );
-  var op_c = eval( block.getFieldValue("CURRENTC") );
+  var op_a = eval( '[' + block.getFieldValue("CURRENTA") + ']' );
+  var op_b = eval( '[' + block.getFieldValue("CURRENTB") + ']' );
+  var op_c = eval( '[' + block.getFieldValue("CURRENTC") + ']' );
 
   if ( op_a.length < 2 || op_b.length < 2 || op_c.length < 2 ) {
     console.log('less length');
@@ -276,8 +308,8 @@ Blockly.Blocks['triangle_transformations'] = {
         Blockly.FieldTextInput.numberValidator), "CY")
         .appendField(")");
     this.setInputsInline(false);
-    this.setPreviousStatement(true, 'INPUT');
-    this.setNextStatement(true);
+    this.setPreviousStatement(true, 'Transformation');
+    this.setNextStatement(true, 'Transformation');
     this.setColour(195);
     var thisBlock = this;
     this.setTooltip( function() {
@@ -291,6 +323,7 @@ Blockly.Blocks['triangle_transformations'] = {
   onchange: function() {
     if (!this.workspace) {
       // Block has been deleted.
+      currentBlocklyErrors[ this.id ] = false;
       return;
     }
 
@@ -469,17 +502,20 @@ Blockly.Blocks['triangle_transformations'] = {
       do {
         targetBlock = block;
         block = block.parentBlock_;
+
+        if ( targetBlock.type == 'triangle_flow' ) { //Which it should be given our connection checks...
+
+          //Set target block's values (The TRIANGLE FLOW BLOCK's values) with the current A B and C
+
+          targetBlock.setFieldValue( ''+currentA+'','CURRENTA' );
+          targetBlock.setFieldValue( ''+currentB+'','CURRENTB' );
+          targetBlock.setFieldValue( ''+currentC+'','CURRENTC' );
+          break;
+        }
+
       } while ( block );
 
-      if ( targetBlock.type == 'triangle_flow' ) { //Which it should be given our connection checks...
 
-        //Set target block's values (The TRIANGLE FLOW BLOCK's values) with the current A B and C
-
-        targetBlock.setFieldValue( '['+currentA+']','CURRENTA' );
-        targetBlock.setFieldValue( '['+currentB+']','CURRENTB' );
-        targetBlock.setFieldValue( '['+currentC+']','CURRENTC' );
-
-      }
     }
     
   }
@@ -536,8 +572,8 @@ Blockly.Blocks['triangle_transformations_auto'] = {
         .appendField(new Blockly.FieldLabel('?'), "CY")
         .appendField(")");
     this.setInputsInline(false);
-    this.setPreviousStatement(true, 'INPUT');
-    this.setNextStatement(true);
+    this.setPreviousStatement(true, 'Transformation');
+    this.setNextStatement(true, 'Transformation');
     this.setColour(195);
     var thisBlock = this;
     this.setTooltip( function() {
@@ -551,6 +587,7 @@ Blockly.Blocks['triangle_transformations_auto'] = {
   onchange: function() {
     if (!this.workspace) {
       // Block has been deleted.
+      currentBlocklyErrors[ this.id ] = false;
       return;
     }
 
@@ -615,10 +652,6 @@ Blockly.Blocks['triangle_transformations_auto'] = {
           currentA[ 1 ] = currentA[ 1 ] + opy;
           currentB[ 1 ] = currentB[ 1 ] + opy;
           currentC[ 1 ] = currentC[ 1 ] + opy;
-
-          console.log( currentA );
-          console.log( currentB );
-          console.log( currentC );
 
           //Set fields appropriately
 
@@ -729,17 +762,18 @@ Blockly.Blocks['triangle_transformations_auto'] = {
       do {
         targetBlock = block;
         block = block.parentBlock_;
+
+        if ( targetBlock.type == 'triangle_flow' ) { //Which it should be given our connection checks...
+
+          //Set target block's values (The TRIANGLE FLOW BLOCK's values) with the current A B and C
+
+          targetBlock.setFieldValue( ''+currentA+'','CURRENTA' );
+          targetBlock.setFieldValue( ''+currentB+'','CURRENTB' );
+          targetBlock.setFieldValue( ''+currentC+'','CURRENTC' );
+          break;
+        }
+
       } while ( block );
-
-      if ( targetBlock.type == 'triangle_flow' ) { //Which it should be given our connection checks...
-
-        //Set target block's values (The TRIANGLE FLOW BLOCK's values) with the current A B and C
-
-        targetBlock.setFieldValue( '['+currentA+']','CURRENTA' );
-        targetBlock.setFieldValue( '['+currentB+']','CURRENTB' );
-        targetBlock.setFieldValue( '['+currentC+']','CURRENTC' );
-
-      }
     }
     
   }
@@ -799,8 +833,8 @@ Blockly.Blocks['triangle_transformations_translate'] = {
         Blockly.FieldTextInput.numberValidator), "CY")
         .appendField(")");
     this.setInputsInline(false);
-    this.setPreviousStatement(true, 'INPUT');
-    this.setNextStatement(true);
+    this.setPreviousStatement(true, 'Transformation');
+    this.setNextStatement(true, 'Transformation');
     this.setColour(195);
     var thisBlock = this;
     this.setTooltip( function() {
@@ -814,6 +848,7 @@ Blockly.Blocks['triangle_transformations_translate'] = {
   onchange: function() {
     if (!this.workspace) {
       // Block has been deleted.
+      currentBlocklyErrors[ this.id ] = false;
       return;
     }
 
@@ -930,9 +965,9 @@ Blockly.Blocks['triangle_transformations_translate'] = {
 
         //Set target block's values (The TRIANGLE FLOW BLOCK's values) with the current A B and C
 
-        targetBlock.setFieldValue( '['+ax+','+ay+']','CURRENTA' );
-        targetBlock.setFieldValue( '['+bx+','+by+']','CURRENTB' );
-        targetBlock.setFieldValue( '['+cx+','+cy+']','CURRENTC' );
+        targetBlock.setFieldValue( ''+ax+','+ay+'','CURRENTA' );
+        targetBlock.setFieldValue( ''+bx+','+by+'','CURRENTB' );
+        targetBlock.setFieldValue( ''+cx+','+cy+'','CURRENTC' );
         break;
       }
 
@@ -990,8 +1025,8 @@ Blockly.Blocks['triangle_transformations_translate_auto'] = {
         .appendField("?", "CY")
         .appendField(")");
     this.setInputsInline(false);
-    this.setPreviousStatement(true, 'INPUT');
-    this.setNextStatement(true);
+    this.setPreviousStatement(true, 'Transformation');
+    this.setNextStatement(true, 'Transformation');
     this.setColour(195);
     var thisBlock = this;
     this.setTooltip( function() {
@@ -1005,6 +1040,7 @@ Blockly.Blocks['triangle_transformations_translate_auto'] = {
   onchange: function() {
     if (!this.workspace) {
       // Block has been deleted.
+      currentBlocklyErrors[ this.id ] = false;
       return;
     }
 
@@ -1117,9 +1153,9 @@ Blockly.Blocks['triangle_transformations_translate_auto'] = {
 
           //Set target block's values (The TRIANGLE FLOW BLOCK's values) with the current A B and C
 
-          targetBlock.setFieldValue( '['+currentA+']','CURRENTA' );
-          targetBlock.setFieldValue( '['+currentB+']','CURRENTB' );
-          targetBlock.setFieldValue( '['+currentC+']','CURRENTC' );
+          targetBlock.setFieldValue( ''+currentA+'','CURRENTA' );
+          targetBlock.setFieldValue( ''+currentB+'','CURRENTB' );
+          targetBlock.setFieldValue( ''+currentC+'','CURRENTC' );
           break;
         }
       } while ( block );
@@ -1176,8 +1212,8 @@ Blockly.Blocks['triangle_transformations_dilate'] = {
         Blockly.FieldTextInput.numberValidator), "CY")
         .appendField(")");
     this.setInputsInline(false);
-    this.setPreviousStatement(true, 'INPUT');
-    this.setNextStatement(true);
+    this.setPreviousStatement(true, 'Transformation');
+    this.setNextStatement(true, 'Transformation');
     this.setColour(45);
     var thisBlock = this;
     this.setTooltip( function() {
@@ -1191,6 +1227,7 @@ Blockly.Blocks['triangle_transformations_dilate'] = {
   onchange: function() {
     if (!this.workspace) {
       // Block has been deleted.
+      currentBlocklyErrors[ this.id ] = false;
       return;
     }
 
@@ -1305,9 +1342,9 @@ Blockly.Blocks['triangle_transformations_dilate'] = {
 
           //Set target block's values (The TRIANGLE FLOW BLOCK's values) with the current A B and C
 
-          targetBlock.setFieldValue( '['+ax+','+ay+']','CURRENTA' );
-          targetBlock.setFieldValue( '['+bx+','+by+']','CURRENTB' );
-          targetBlock.setFieldValue( '['+cx+','+cy+']','CURRENTC' );
+          targetBlock.setFieldValue( ''+ax+','+ay+'','CURRENTA' );
+          targetBlock.setFieldValue( ''+bx+','+by+'','CURRENTB' );
+          targetBlock.setFieldValue( ''+cx+','+cy+'','CURRENTC' );
           break;
 
         }
@@ -1359,8 +1396,8 @@ Blockly.Blocks['triangle_transformations_dilate_auto'] = {
         .appendField("?", "CY")
         .appendField(")");
     this.setInputsInline(false);
-    this.setPreviousStatement(true, 'INPUT');
-    this.setNextStatement(true);
+    this.setPreviousStatement(true, 'Transformation');
+    this.setNextStatement(true, 'Transformation');
     this.setColour(45);
     var thisBlock = this;
     this.setTooltip( function() {
@@ -1374,6 +1411,7 @@ Blockly.Blocks['triangle_transformations_dilate_auto'] = {
   onchange: function() {
     if (!this.workspace) {
       // Block has been deleted.
+      currentBlocklyErrors[ this.id ] = false;
       return;
     }
 
@@ -1480,9 +1518,9 @@ Blockly.Blocks['triangle_transformations_dilate_auto'] = {
 
           //Set target block's values (The TRIANGLE FLOW BLOCK's values) with the current A B and C
 
-          targetBlock.setFieldValue( '['+currentA+']','CURRENTA' );
-          targetBlock.setFieldValue( '['+currentB+']','CURRENTB' );
-          targetBlock.setFieldValue( '['+currentC+']','CURRENTC' );
+          targetBlock.setFieldValue( ''+currentA+'','CURRENTA' );
+          targetBlock.setFieldValue( ''+currentB+'','CURRENTB' );
+          targetBlock.setFieldValue( ''+currentC+'','CURRENTC' );
           break;
         }
       } while ( block );
@@ -1534,8 +1572,8 @@ Blockly.Blocks['triangle_transformations_dilate_auto_fixed'] = {
         .appendField("?", "CY")
         .appendField(")");
     this.setInputsInline(false);
-    this.setPreviousStatement(true, 'INPUT');
-    this.setNextStatement(true);
+    this.setPreviousStatement(true, 'Transformation');
+    this.setNextStatement(true, 'Transformation');
     this.setColour(45);
     var thisBlock = this;
     this.setTooltip( function() {
@@ -1549,6 +1587,7 @@ Blockly.Blocks['triangle_transformations_dilate_auto_fixed'] = {
   onchange: function() {
     if (!this.workspace) {
       // Block has been deleted.
+      currentBlocklyErrors[ this.id ] = false;
       return;
     }
 
@@ -1657,9 +1696,9 @@ Blockly.Blocks['triangle_transformations_dilate_auto_fixed'] = {
 
           //Set target block's values (The TRIANGLE FLOW BLOCK's values) with the current A B and C
 
-          targetBlock.setFieldValue( '['+currentA+']','CURRENTA' );
-          targetBlock.setFieldValue( '['+currentB+']','CURRENTB' );
-          targetBlock.setFieldValue( '['+currentC+']','CURRENTC' );
+          targetBlock.setFieldValue( ''+currentA+'','CURRENTA' );
+          targetBlock.setFieldValue( ''+currentB+'','CURRENTB' );
+          targetBlock.setFieldValue( ''+currentC+'','CURRENTC' );
           break;
         }
       } while ( block );
@@ -1719,8 +1758,8 @@ Blockly.Blocks['triangle_transformations_dilate_two'] = {
         Blockly.FieldTextInput.numberValidator), "CY")
         .appendField(")");
     this.setInputsInline(false);
-    this.setPreviousStatement(true, 'INPUT');
-    this.setNextStatement(true);
+    this.setPreviousStatement(true, 'Transformation');
+    this.setNextStatement(true, 'Transformation');
     this.setColour(195);
     var thisBlock = this;
     this.setTooltip( function() {
@@ -1734,6 +1773,7 @@ Blockly.Blocks['triangle_transformations_dilate_two'] = {
   onchange: function() {
     if (!this.workspace) {
       // Block has been deleted.
+      currentBlocklyErrors[ this.id ] = false;
       return;
     }
 
@@ -1855,9 +1895,9 @@ Blockly.Blocks['triangle_transformations_dilate_two'] = {
 
           //Set target block's values (The TRIANGLE FLOW BLOCK's values) with the current A B and C
 
-          targetBlock.setFieldValue( '['+ax+','+ay+']','CURRENTA' );
-          targetBlock.setFieldValue( '['+bx+','+by+']','CURRENTB' );
-          targetBlock.setFieldValue( '['+cx+','+cy+']','CURRENTC' );
+          targetBlock.setFieldValue( ''+ax+','+ay+'','CURRENTA' );
+          targetBlock.setFieldValue( ''+bx+','+by+'','CURRENTB' );
+          targetBlock.setFieldValue( ''+cx+','+cy+'','CURRENTC' );
           break;
 
         }
@@ -1912,8 +1952,8 @@ Blockly.Blocks['triangle_transformations_dilate_two_auto'] = {
         .appendField('0', "CY")
         .appendField(")");
     this.setInputsInline(false);
-    this.setPreviousStatement(true, 'INPUT');
-    this.setNextStatement(true);
+    this.setPreviousStatement(true, 'Transformation');
+    this.setNextStatement(true, 'Transformation');
     this.setColour(195);
     var thisBlock = this;
     this.setTooltip( function() {
@@ -1927,6 +1967,7 @@ Blockly.Blocks['triangle_transformations_dilate_two_auto'] = {
   onchange: function() {
     if (!this.workspace) {
       // Block has been deleted.
+      currentBlocklyErrors[ this.id ] = false;
       return;
     }
 
@@ -2042,9 +2083,9 @@ Blockly.Blocks['triangle_transformations_dilate_two_auto'] = {
 
           //Set target block's values (The TRIANGLE FLOW BLOCK's values) with the current A B and C
 
-          targetBlock.setFieldValue( '['+currentA+']','CURRENTA' );
-          targetBlock.setFieldValue( '['+currentB+']','CURRENTB' );
-          targetBlock.setFieldValue( '['+currentC+']','CURRENTC' );
+          targetBlock.setFieldValue( ''+currentA+'','CURRENTA' );
+          targetBlock.setFieldValue( ''+currentB+'','CURRENTB' );
+          targetBlock.setFieldValue( ''+currentC+'','CURRENTC' );
           break;
 
         }
@@ -2099,8 +2140,8 @@ Blockly.Blocks['triangle_transformations_reflect'] = {
         Blockly.FieldTextInput.numberValidator), "CY")
         .appendField(")");
     this.setInputsInline(false);
-    this.setPreviousStatement(true, 'INPUT');
-    this.setNextStatement(true);
+    this.setPreviousStatement(true, 'Transformation');
+    this.setNextStatement(true, 'Transformation');
     this.setColour(105);
     var thisBlock = this;
     this.setTooltip( function(){
@@ -2114,6 +2155,7 @@ Blockly.Blocks['triangle_transformations_reflect'] = {
   onchange: function() {
     if (!this.workspace) {
       // Block has been deleted.
+      currentBlocklyErrors[ this.id ] = false;
       return;
     }
 
@@ -2277,9 +2319,9 @@ Blockly.Blocks['triangle_transformations_reflect'] = {
 
           //Set target block's values (The TRIANGLE FLOW BLOCK's values) with the current A B and C
 
-          targetBlock.setFieldValue( '['+ax+','+ay+']','CURRENTA' );
-          targetBlock.setFieldValue( '['+bx+','+by+']','CURRENTB' );
-          targetBlock.setFieldValue( '['+cx+','+cy+']','CURRENTC' );
+          targetBlock.setFieldValue( ''+ax+','+ay+'','CURRENTA' );
+          targetBlock.setFieldValue( ''+bx+','+by+'','CURRENTB' );
+          targetBlock.setFieldValue( ''+cx+','+cy+'','CURRENTC' );
           break;
 
         }
@@ -2328,8 +2370,8 @@ Blockly.Blocks['triangle_transformations_reflect_auto'] = {
         .appendField('0', "CY")
         .appendField(")");
     this.setInputsInline(false);
-    this.setPreviousStatement(true, 'INPUT');
-    this.setNextStatement(true);
+    this.setPreviousStatement(true, 'Transformation');
+    this.setNextStatement(true, 'Transformation');
     this.setColour(105);
     var thisBlock = this;
     this.setTooltip( function(){
@@ -2343,6 +2385,7 @@ Blockly.Blocks['triangle_transformations_reflect_auto'] = {
   onchange: function() {
     if (!this.workspace) {
       // Block has been deleted.
+      currentBlocklyErrors[ this.id ] = false;
       return;
     }
 
@@ -2497,9 +2540,9 @@ Blockly.Blocks['triangle_transformations_reflect_auto'] = {
 
           //Set target block's values (The TRIANGLE FLOW BLOCK's values) with the current A B and C
 
-          targetBlock.setFieldValue( '['+currentA+']','CURRENTA' );
-          targetBlock.setFieldValue( '['+currentB+']','CURRENTB' );
-          targetBlock.setFieldValue( '['+currentC+']','CURRENTC' );
+          targetBlock.setFieldValue( ''+currentA+'','CURRENTA' );
+          targetBlock.setFieldValue( ''+currentB+'','CURRENTB' );
+          targetBlock.setFieldValue( ''+currentC+'','CURRENTC' );
           break;
         }
       } while ( block );
@@ -2564,6 +2607,7 @@ Blockly.Blocks['mark_point'] = {
   onchange: function() {
     if (!this.workspace || this.data === undefined) {
       // Block has been deleted.
+      currentBlocklyErrors[ this.id ] = false;
       return;
     }
   }
@@ -2600,6 +2644,7 @@ Blockly.Blocks['ordered_pair'] = {
   onchange: function() {
     if (!this.workspace || this.data === undefined) {
       // Block has been deleted.
+      currentBlocklyErrors[ this.id ] = false;
       return;
     }
   }
@@ -2808,6 +2853,7 @@ Blockly.Blocks[ 'variables_get' ] = {
   onchange: function() {
     if (!this.workspace || this.data === undefined) {
       // Block has been deleted.
+      currentBlocklyErrors[ this.id ] = false;
       return;
     }
     //Evaluate and return the code stored in the block.
@@ -2936,6 +2982,7 @@ Blockly.Blocks[ 'variables_get_noin' ] = {
   onchange: function() {
     if (!this.workspace || this.data === undefined) {
       // Block has been deleted.
+      currentBlocklyErrors[ this.id ] = false;
       return;
     }
     //Evaluate and return the code stored in the block.
@@ -3032,6 +3079,7 @@ Blockly.Blocks[ 'logic_cond_out' ] = {
   onchange: function() {
     if (!this.workspace || this.data === undefined) {
       // Block has been deleted.
+      currentBlocklyErrors[ this.id ] = false;
       return;
     }
     
@@ -3079,6 +3127,7 @@ Blockly.Blocks[ 'logic_cond_eq_out' ] = {
   onchange: function() {
     if (!this.workspace || this.data === undefined) {
       // Block has been deleted.
+      currentBlocklyErrors[ this.id ] = false;
       return;
     }
     
@@ -3122,6 +3171,7 @@ Blockly.Blocks[ 'logic_cond_neq_out' ] = {
   onchange: function() {
     if (!this.workspace || this.data === undefined) {
       // Block has been deleted.
+      currentBlocklyErrors[ this.id ] = false;
       return;
     }
     
@@ -3165,6 +3215,7 @@ Blockly.Blocks[ 'logic_cond_gt_out' ] = {
   onchange: function() {
     if (!this.workspace || this.data === undefined) {
       // Block has been deleted.
+      currentBlocklyErrors[ this.id ] = false;
       return;
     }
     
@@ -3208,6 +3259,7 @@ Blockly.Blocks[ 'logic_cond_lt_out' ] = {
   onchange: function() {
     if (!this.workspace || this.data === undefined) {
       // Block has been deleted.
+      currentBlocklyErrors[ this.id ] = false;
       return;
     }
     
@@ -3251,6 +3303,7 @@ Blockly.Blocks[ 'logic_andor_out' ] = {
   onchange: function() {
     if (!this.workspace || this.data === undefined) {
       // Block has been deleted.
+      currentBlocklyErrors[ this.id ] = false;
       return;
     }
     
@@ -3296,6 +3349,7 @@ Blockly.Blocks[ 'logic_and' ] = {
   onchange: function() {
     if (!this.workspace || this.data === undefined) {
       // Block has been deleted.
+      currentBlocklyErrors[ this.id ] = false;
       return;
     }
     
@@ -3339,6 +3393,7 @@ Blockly.Blocks[ 'logic_or' ] = {
   onchange: function() {
     if (!this.workspace || this.data === undefined) {
       // Block has been deleted.
+      currentBlocklyErrors[ this.id ] = false;
       return;
     }
     
@@ -3382,6 +3437,7 @@ Blockly.Blocks[ 'logic_not' ] = {
   onchange: function() {
     if (!this.workspace || this.data === undefined) {
       // Block has been deleted.
+      currentBlocklyErrors[ this.id ] = false;
       return;
     }
     
@@ -3465,6 +3521,7 @@ Blockly.Blocks['controls_whileUntil'] = {
   onchange: function() {
     if (!this.workspace || this.data === undefined) {
       // Block has been deleted.
+      currentBlocklyErrors[ this.id ] = false;
       return;
     }
 
@@ -3558,6 +3615,7 @@ Blockly.Blocks['controls_whileUntil_no_in'] = {
   onchange: function() {
     if (!this.workspace || this.data === undefined) {
       // Block has been deleted.
+      currentBlocklyErrors[ this.id ] = false;
       return;
     }
 
@@ -3649,6 +3707,7 @@ Blockly.Blocks['controls_whileUntil_no_out'] = {
   onchange: function() {
     if (!this.workspace || this.data === undefined) {
       // Block has been deleted.
+      currentBlocklyErrors[ this.id ] = false;
       return;
     }
 
@@ -3741,6 +3800,7 @@ Blockly.Blocks['controls_whileUntil_no_out_no_in'] = {
   onchange: function() {
     if (!this.workspace || this.data === undefined) {
       // Block has been deleted.
+      currentBlocklyErrors[ this.id ] = false;
       return;
     }
 
@@ -3831,6 +3891,7 @@ Blockly.Blocks['controls_repeat_ext'] = {
   onchange: function() {
     if (!this.workspace || this.data === undefined) {
       // Block has been deleted.
+      currentBlocklyErrors[ this.id ] = false;
       return;
     }
 
@@ -4020,6 +4081,7 @@ Blockly.Blocks['controls_if_nomut'] = {
   onchange: function() {
     if (!this.workspace || this.data === undefined) {
       // Block has been deleted.
+      currentBlocklyErrors[ this.id ] = false;
       return;
     }
     
@@ -4239,6 +4301,7 @@ Blockly.Blocks[ 'controls_sensor_metal' ] = {
   onchange: function() {
     if (!this.workspace || this.data === undefined) {
       // Block has been deleted.
+      currentBlocklyErrors[ this.id ] = false;
       return;
     }
     // var metalValue = vwf.getProperty( this.data, "metalSensorValue" );
@@ -4281,6 +4344,7 @@ Blockly.Blocks[ 'controls_sensor_collision' ] = {
   onchange: function() {
     if (!this.workspace || this.data === undefined) {
       // Block has been deleted.
+      currentBlocklyErrors[ this.id ] = false;
       return;
     }
     // var collisionValue = vwf.getProperty( this.data, "collisionSensorValue" );
@@ -4324,6 +4388,7 @@ Blockly.Blocks[ 'controls_sensor_signal' ] = {
   onchange: function() {
     if (!this.workspace || this.data === undefined) {
       // Block has been deleted.
+      currentBlocklyErrors[ this.id ] = false;
       return;
     }
     // this.setEditable(true);
@@ -4530,6 +4595,7 @@ Blockly.Blocks[ 'controls_sensor_heading' ] = {
   onchange: function() {
     if (!this.workspace || this.data === undefined) {
       // Block has been deleted.
+      currentBlocklyErrors[ this.id ] = false;
       return;
     }
     // this.setEditable(true);
@@ -4627,6 +4693,23 @@ Blockly.Blocks['rover_moveRadial_ordered'] = {
       }
       return showTooltipInBlockly(thisBlock, content);
     });
+  },
+  onchange: function() {
+    if (!this.workspace || this.data === undefined) {
+      // Block has been deleted.
+      currentBlocklyErrors[ this.id ] = false;
+      return;
+    }
+    
+    var inputBlock = this.getInputTargetBlock('THEOP');
+
+    if ( inputBlock === null ) {
+      this.setWarningText('You must attach a block to move to.');
+      currentBlocklyErrors[ this.id ] = true;
+    } else {
+      currentBlocklyErrors[ this.id ] = false;
+      this.setWarningText(null);
+    }
   }
 };
 
@@ -4745,6 +4828,24 @@ Blockly.Blocks['rover_moveRadial_absolute'] = {
       }
       return showTooltipInBlockly( thisBlock, content);
     });
+  },
+  onchange: function() {
+    if (!this.workspace || this.data === undefined) {
+      // Block has been deleted.
+      currentBlocklyErrors[ this.id ] = false;
+      return;
+    }
+    
+    var inputXBlock = this.getInputTargetBlock('x');
+    var inputYBlock = this.getInputTargetBlock('y');
+
+    if ( inputXBlock === null || inputYBlock === null ) {
+      this.setWarningText('You must attach a set of blocks ( coordinates ) to move to.');
+      currentBlocklyErrors[ this.id ] = true;
+    } else {
+      currentBlocklyErrors[ this.id ] = false;
+      this.setWarningText(null);
+    }
   }
 };
 
@@ -5472,6 +5573,7 @@ Blockly.Blocks['math_number_field'] = {
   onchange: function() {
     if (!this.workspace || this.data === undefined) {
       // Block has been deleted.
+      currentBlocklyErrors[ this.id ] = false;
       return;
     }
 
@@ -5550,6 +5652,7 @@ Blockly.Blocks['math_number_field_no_out'] = {
   onchange: function() {
     if (!this.workspace || this.data === undefined) {
       // Block has been deleted.
+      currentBlocklyErrors[ this.id ] = false;
       return;
     }
 
@@ -5776,6 +5879,7 @@ Blockly.Blocks[ 'graph_add' ] = {
   onchange: function() {
     if (!this.workspace || this.data === undefined) {
       // Block has been deleted.
+      currentBlocklyErrors[ this.id ] = false;
       return;
     }
     
@@ -5826,6 +5930,7 @@ Blockly.Blocks['graph_subtract'] = {
   onchange: function() {
     if (!this.workspace || this.data === undefined) {
       // Block has been deleted.
+      currentBlocklyErrors[ this.id ] = false;
       return;
     }
     
@@ -5881,6 +5986,7 @@ Blockly.Blocks[ 'graph_multiply' ] = {
   onchange: function() {
     if (!this.workspace || this.data === undefined) {
       // Block has been deleted.
+      currentBlocklyErrors[ this.id ] = false;
       return;
     }
     
@@ -5936,6 +6042,7 @@ Blockly.Blocks[ 'graph_divide' ] = {
   onchange: function() {
     if (!this.workspace || this.data === undefined) {
       // Block has been deleted.
+      currentBlocklyErrors[ this.id ] = false;
       return;
     }
     
@@ -5989,6 +6096,7 @@ Blockly.Blocks['graph_left_paren'] = {
   onchange: function() {
     if (!this.workspace || this.data === undefined) {
       // Block has been deleted.
+      currentBlocklyErrors[ this.id ] = false;
       return;
     }
     
@@ -6079,6 +6187,7 @@ Blockly.Blocks['graph_set_y'] = {
   onchange: function() {
     if (!this.workspace || this.data === undefined) {
       // Block has been deleted.
+      currentBlocklyErrors[ this.id ] = false;
       return;
     }
     
