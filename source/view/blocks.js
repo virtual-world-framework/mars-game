@@ -129,7 +129,8 @@ Blockly.Blocks['triangle_flow'] = {
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
         .appendField("⇩");
-    this.appendStatementInput("STACK");
+    this.appendStatementInput("STACK")
+        .setCheck(['Transformation']);
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
         .appendField("⇩");
@@ -155,8 +156,8 @@ Blockly.Blocks['triangle_flow'] = {
         .appendField("1,0", "CURRENTC")
         .appendField(")");
     this.setInputsInline(false);
-    this.setPreviousStatement(true);
-    this.setNextStatement(true);
+    this.setPreviousStatement(true,'Triangle');
+    this.setNextStatement(true,'Triangle');
     this.setColour(345);
     var thisBlock = this;
     this.setTooltip( function() {
@@ -307,8 +308,8 @@ Blockly.Blocks['triangle_transformations'] = {
         Blockly.FieldTextInput.numberValidator), "CY")
         .appendField(")");
     this.setInputsInline(false);
-    this.setPreviousStatement(true, 'INPUT');
-    this.setNextStatement(true);
+    this.setPreviousStatement(true, 'Transformation');
+    this.setNextStatement(true, 'Transformation');
     this.setColour(195);
     var thisBlock = this;
     this.setTooltip( function() {
@@ -571,8 +572,8 @@ Blockly.Blocks['triangle_transformations_auto'] = {
         .appendField(new Blockly.FieldLabel('?'), "CY")
         .appendField(")");
     this.setInputsInline(false);
-    this.setPreviousStatement(true, 'INPUT');
-    this.setNextStatement(true);
+    this.setPreviousStatement(true, 'Transformation');
+    this.setNextStatement(true, 'Transformation');
     this.setColour(195);
     var thisBlock = this;
     this.setTooltip( function() {
@@ -832,8 +833,8 @@ Blockly.Blocks['triangle_transformations_translate'] = {
         Blockly.FieldTextInput.numberValidator), "CY")
         .appendField(")");
     this.setInputsInline(false);
-    this.setPreviousStatement(true, 'INPUT');
-    this.setNextStatement(true);
+    this.setPreviousStatement(true, 'Transformation');
+    this.setNextStatement(true, 'Transformation');
     this.setColour(195);
     var thisBlock = this;
     this.setTooltip( function() {
@@ -1024,8 +1025,8 @@ Blockly.Blocks['triangle_transformations_translate_auto'] = {
         .appendField("?", "CY")
         .appendField(")");
     this.setInputsInline(false);
-    this.setPreviousStatement(true, 'INPUT');
-    this.setNextStatement(true);
+    this.setPreviousStatement(true, 'Transformation');
+    this.setNextStatement(true, 'Transformation');
     this.setColour(195);
     var thisBlock = this;
     this.setTooltip( function() {
@@ -1211,8 +1212,8 @@ Blockly.Blocks['triangle_transformations_dilate'] = {
         Blockly.FieldTextInput.numberValidator), "CY")
         .appendField(")");
     this.setInputsInline(false);
-    this.setPreviousStatement(true, 'INPUT');
-    this.setNextStatement(true);
+    this.setPreviousStatement(true, 'Transformation');
+    this.setNextStatement(true, 'Transformation');
     this.setColour(45);
     var thisBlock = this;
     this.setTooltip( function() {
@@ -1395,8 +1396,8 @@ Blockly.Blocks['triangle_transformations_dilate_auto'] = {
         .appendField("?", "CY")
         .appendField(")");
     this.setInputsInline(false);
-    this.setPreviousStatement(true, 'INPUT');
-    this.setNextStatement(true);
+    this.setPreviousStatement(true, 'Transformation');
+    this.setNextStatement(true, 'Transformation');
     this.setColour(45);
     var thisBlock = this;
     this.setTooltip( function() {
@@ -1571,8 +1572,8 @@ Blockly.Blocks['triangle_transformations_dilate_auto_fixed'] = {
         .appendField("?", "CY")
         .appendField(")");
     this.setInputsInline(false);
-    this.setPreviousStatement(true, 'INPUT');
-    this.setNextStatement(true);
+    this.setPreviousStatement(true, 'Transformation');
+    this.setNextStatement(true, 'Transformation');
     this.setColour(45);
     var thisBlock = this;
     this.setTooltip( function() {
@@ -1757,8 +1758,8 @@ Blockly.Blocks['triangle_transformations_dilate_two'] = {
         Blockly.FieldTextInput.numberValidator), "CY")
         .appendField(")");
     this.setInputsInline(false);
-    this.setPreviousStatement(true, 'INPUT');
-    this.setNextStatement(true);
+    this.setPreviousStatement(true, 'Transformation');
+    this.setNextStatement(true, 'Transformation');
     this.setColour(195);
     var thisBlock = this;
     this.setTooltip( function() {
@@ -1951,8 +1952,8 @@ Blockly.Blocks['triangle_transformations_dilate_two_auto'] = {
         .appendField('0', "CY")
         .appendField(")");
     this.setInputsInline(false);
-    this.setPreviousStatement(true, 'INPUT');
-    this.setNextStatement(true);
+    this.setPreviousStatement(true, 'Transformation');
+    this.setNextStatement(true, 'Transformation');
     this.setColour(195);
     var thisBlock = this;
     this.setTooltip( function() {
@@ -2139,8 +2140,8 @@ Blockly.Blocks['triangle_transformations_reflect'] = {
         Blockly.FieldTextInput.numberValidator), "CY")
         .appendField(")");
     this.setInputsInline(false);
-    this.setPreviousStatement(true, 'INPUT');
-    this.setNextStatement(true);
+    this.setPreviousStatement(true, 'Transformation');
+    this.setNextStatement(true, 'Transformation');
     this.setColour(105);
     var thisBlock = this;
     this.setTooltip( function(){
@@ -2369,8 +2370,8 @@ Blockly.Blocks['triangle_transformations_reflect_auto'] = {
         .appendField('0', "CY")
         .appendField(")");
     this.setInputsInline(false);
-    this.setPreviousStatement(true, 'INPUT');
-    this.setNextStatement(true);
+    this.setPreviousStatement(true, 'Transformation');
+    this.setNextStatement(true, 'Transformation');
     this.setColour(105);
     var thisBlock = this;
     this.setTooltip( function(){
