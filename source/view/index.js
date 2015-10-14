@@ -173,6 +173,7 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
             case "blocklyStarted":
                 var blocklyDivRef = document.getElementById( "blocklyDiv" );
                 blocklyDivRef.style.pointerEvents = "none";
+                startBlocklyButton.className = "reset";
                 // var indicator = document.getElementById( "blocklyIndicator" );
                 // indicator.className = "";
                 // indicator.style.visibility = "inherit";
