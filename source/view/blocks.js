@@ -116,42 +116,36 @@ Blockly.Blocks['triangle_flow'] = {
         .appendField("△ ABC");
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField("A ⇒")
+        .appendField("A ")
         .appendField("(0,0)");
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField("B ⇒")
+        .appendField("B ")
         .appendField("(0,1)");
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField("C ⇒")
+        .appendField("C ")
         .appendField("(1,0)");
-    this.appendDummyInput()
-        .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField("⇩");
     this.appendStatementInput("STACK")
         .setCheck(['Transformation']);
-    this.appendDummyInput()
-        .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField("⇩");
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
         .appendField("△ A'B'C' ")
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField("A' ⇒")
-        .appendField("(")
+        .appendField("A' ")
+        .appendField(" ( ")
         .appendField("0,0", "CURRENTA")
-        .appendField(")");
+        .appendField(" ) ");
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField("B' ⇒")
-        .appendField("(")
+        .appendField("B' ")
+        .appendField(" ( ")
         .appendField("0,1", "CURRENTB")
-        .appendField(")");
+        .appendField(" ) ");
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField("C' ⇒")
+        .appendField("C' ")
         .appendField("(")
         .appendField("1,0", "CURRENTC")
         .appendField(")");
@@ -193,7 +187,7 @@ Blockly.Blocks['triangle_flow'] = {
   }
 };
 
-Blockly.JavaScript['triangle_flow'] = function(block) {
+Blockly.JavaScript['triangle_flow'] = function( block ) {
   // The stack should automatically update the CURRENTA, CURRENTB and CURRENTC fields.
   
   // Extract values from dummy fields COORDA - COORDB - COORDC
@@ -276,10 +270,10 @@ Blockly.Blocks['triangle_transformations'] = {
         Blockly.FieldTextInput.numberValidator), "OPY")
         .appendField(")");
     this.appendDummyInput()
-        .appendField(new Blockly.FieldImage("http://i.imgur.com/UpsXHeX.png", 150, 20, "*"));
+        .appendField(new Blockly.FieldImage("http://i.imgur.com/jWhLthx.png", 175, 20, "*"));
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField("A ⇒")
+        .appendField("A ")
         .appendField("(")
         .appendField(new Blockly.FieldTextInput('0',
         Blockly.FieldTextInput.numberValidator), "AX")
@@ -289,7 +283,7 @@ Blockly.Blocks['triangle_transformations'] = {
         .appendField(")");
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField("B ⇒")
+        .appendField("B ")
         .appendField("(")
         .appendField(new Blockly.FieldTextInput('0',
         Blockly.FieldTextInput.numberValidator), "BX")
@@ -299,7 +293,7 @@ Blockly.Blocks['triangle_transformations'] = {
         .appendField(")");
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField("C ⇒")
+        .appendField("C ")
         .appendField("(")
         .appendField(new Blockly.FieldTextInput('0',
         Blockly.FieldTextInput.numberValidator), "CX")
@@ -546,10 +540,10 @@ Blockly.Blocks['triangle_transformations_auto'] = {
         Blockly.FieldTextInput.numberValidator), "OPY")
         .appendField(")");
     this.appendDummyInput()
-        .appendField(new Blockly.FieldImage("http://i.imgur.com/UpsXHeX.png", 150, 20, "*"));
+        .appendField(new Blockly.FieldImage("http://i.imgur.com/SlBlKQj.png", 175, 20, "*"));
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField("A ⇒")
+        .appendField("A ")
         .appendField("(")
         .appendField(new Blockly.FieldLabel('?'), "AX")
         .appendField(",")
@@ -557,7 +551,7 @@ Blockly.Blocks['triangle_transformations_auto'] = {
         .appendField(")");
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField("B ⇒")
+        .appendField("B ")
         .appendField("(")
         .appendField(new Blockly.FieldLabel('?'), "BX")
         .appendField(",")
@@ -565,7 +559,7 @@ Blockly.Blocks['triangle_transformations_auto'] = {
         .appendField(")");
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField("C ⇒")
+        .appendField("C ")
         .appendField("(")
         .appendField(new Blockly.FieldLabel('?'), "CX")
         .appendField(",")
@@ -801,10 +795,10 @@ Blockly.Blocks['triangle_transformations_translate'] = {
         Blockly.FieldTextInput.numberValidator), "OPY")
         .appendField(")");
     this.appendDummyInput()
-        .appendField(new Blockly.FieldImage("http://i.imgur.com/UpsXHeX.png", 150, 20, "*"));
+        .appendField(new Blockly.FieldImage("http://i.imgur.com/jWhLthx.png", 175, 20, "*"));
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField("A ⇒")
+        .appendField("A ")
         .appendField("(")
         .appendField(new Blockly.FieldTextInput('0',
         Blockly.FieldTextInput.numberValidator), "AX")
@@ -814,7 +808,7 @@ Blockly.Blocks['triangle_transformations_translate'] = {
         .appendField(")");
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField("B ⇒")
+        .appendField("B ")
         .appendField("(")
         .appendField(new Blockly.FieldTextInput('0',
         Blockly.FieldTextInput.numberValidator), "BX")
@@ -824,7 +818,7 @@ Blockly.Blocks['triangle_transformations_translate'] = {
         .appendField(")");
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField("C ⇒")
+        .appendField("C ")
         .appendField("(")
         .appendField(new Blockly.FieldTextInput('0',
         Blockly.FieldTextInput.numberValidator), "CX")
@@ -999,10 +993,10 @@ Blockly.Blocks['triangle_transformations_translate_auto'] = {
         .appendField(new Blockly.FieldTextInput("0"), "OPY")
         .appendField(")");
     this.appendDummyInput()
-        .appendField(new Blockly.FieldImage("http://i.imgur.com/UpsXHeX.png", 150, 20, "*"));
+        .appendField(new Blockly.FieldImage("http://i.imgur.com/SlBlKQj.png", 175, 20, "*"));
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField("A ⇒")
+        .appendField("A ")
         .appendField("(")
         .appendField("?", "AX")
         .appendField(",")
@@ -1010,7 +1004,7 @@ Blockly.Blocks['triangle_transformations_translate_auto'] = {
         .appendField(")");
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField("B ⇒")
+        .appendField("B ")
         .appendField("(")
         .appendField("?", "BX")
         .appendField(",")
@@ -1018,7 +1012,7 @@ Blockly.Blocks['triangle_transformations_translate_auto'] = {
         .appendField(")");
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField("C ⇒")
+        .appendField("C ")
         .appendField("(")
         .appendField("?", "CX")
         .appendField(",")
@@ -1180,10 +1174,10 @@ Blockly.Blocks['triangle_transformations_dilate'] = {
         Blockly.FieldTextInput.numberValidator), "OP")
         .appendField(")");
     this.appendDummyInput()
-        .appendField(new Blockly.FieldImage("http://i.imgur.com/UpsXHeX.png", 150, 20, "*"));
+        .appendField(new Blockly.FieldImage("http://i.imgur.com/jWhLthx.png", 175, 20, "*"));
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField("A ⇒")
+        .appendField("A ")
         .appendField("(")
         .appendField(new Blockly.FieldTextInput('0',
         Blockly.FieldTextInput.numberValidator), "AX")
@@ -1193,7 +1187,7 @@ Blockly.Blocks['triangle_transformations_dilate'] = {
         .appendField(")");
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField("B ⇒")
+        .appendField("B ")
         .appendField("(")
         .appendField(new Blockly.FieldTextInput('0',
         Blockly.FieldTextInput.numberValidator), "BX")
@@ -1203,7 +1197,7 @@ Blockly.Blocks['triangle_transformations_dilate'] = {
         .appendField(")");
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField("C ⇒")
+        .appendField("C ")
         .appendField("(")
         .appendField(new Blockly.FieldTextInput('0',
         Blockly.FieldTextInput.numberValidator), "CX")
@@ -1370,10 +1364,10 @@ Blockly.Blocks['triangle_transformations_dilate_auto'] = {
         Blockly.FieldTextInput.numberValidator), "OP")
         .appendField(")");
     this.appendDummyInput()
-        .appendField(new Blockly.FieldImage("http://i.imgur.com/UpsXHeX.png", 150, 20, "*"));
+        .appendField(new Blockly.FieldImage("http://i.imgur.com/SlBlKQj.png", 175, 20, "*"));
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField("A ⇒")
+        .appendField("A ")
         .appendField("(")
         .appendField("?", "AX")
         .appendField(",")
@@ -1381,7 +1375,7 @@ Blockly.Blocks['triangle_transformations_dilate_auto'] = {
         .appendField(")");
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField("B ⇒")
+        .appendField("B ")
         .appendField("(")
         .appendField("?", "BX")
         .appendField(",")
@@ -1389,7 +1383,7 @@ Blockly.Blocks['triangle_transformations_dilate_auto'] = {
         .appendField(")");
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField("C ⇒")
+        .appendField("C ")
         .appendField("(")
         .appendField("?", "CX")
         .appendField(",")
@@ -1549,7 +1543,7 @@ Blockly.Blocks['triangle_transformations_dilate_auto_fixed'] = {
         .appendField(new Blockly.FieldImage("http://i.imgur.com/UpsXHeX.png", 150, 20, "*"));
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField("A ⇒")
+        .appendField("A ")
         .appendField("(")
         .appendField("?", "AX")
         .appendField(",")
@@ -1557,7 +1551,7 @@ Blockly.Blocks['triangle_transformations_dilate_auto_fixed'] = {
         .appendField(")");
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField("B ⇒")
+        .appendField("B ")
         .appendField("(")
         .appendField("?", "BX")
         .appendField(",")
@@ -1565,7 +1559,7 @@ Blockly.Blocks['triangle_transformations_dilate_auto_fixed'] = {
         .appendField(")");
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField("C ⇒")
+        .appendField("C ")
         .appendField("(")
         .appendField("?", "CX")
         .appendField(",")
@@ -1729,7 +1723,7 @@ Blockly.Blocks['triangle_transformations_dilate_two'] = {
         .appendField(new Blockly.FieldImage("http://i.imgur.com/UpsXHeX.png", 150, 20, "*"));
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField("A ⇒")
+        .appendField("A ")
         .appendField("(")
         .appendField(new Blockly.FieldTextInput('0',
         Blockly.FieldTextInput.numberValidator), "AX")
@@ -1739,7 +1733,7 @@ Blockly.Blocks['triangle_transformations_dilate_two'] = {
         .appendField(")");
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField("B ⇒")
+        .appendField("B ")
         .appendField("(")
         .appendField(new Blockly.FieldTextInput('0',
         Blockly.FieldTextInput.numberValidator), "BX")
@@ -1749,7 +1743,7 @@ Blockly.Blocks['triangle_transformations_dilate_two'] = {
         .appendField(")");
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField("C ⇒")
+        .appendField("C ")
         .appendField("(")
         .appendField(new Blockly.FieldTextInput('0',
         Blockly.FieldTextInput.numberValidator), "CX")
@@ -1929,7 +1923,7 @@ Blockly.Blocks['triangle_transformations_dilate_two_auto'] = {
         .appendField(new Blockly.FieldImage("http://i.imgur.com/UpsXHeX.png", 150, 20, "*"));
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField("A ⇒")
+        .appendField("A ")
         .appendField("(")
         .appendField('0', "AX")
         .appendField(",")
@@ -1937,7 +1931,7 @@ Blockly.Blocks['triangle_transformations_dilate_two_auto'] = {
         .appendField(")");
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField("B ⇒")
+        .appendField("B ")
         .appendField("(")
         .appendField('0', "BX")
         .appendField(",")
@@ -1945,7 +1939,7 @@ Blockly.Blocks['triangle_transformations_dilate_two_auto'] = {
         .appendField(")");
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField("C ⇒")
+        .appendField("C ")
         .appendField("(")
         .appendField('0', "CX")
         .appendField(",")
@@ -2108,10 +2102,10 @@ Blockly.Blocks['triangle_transformations_reflect'] = {
         .appendField("Reflect")
         .appendField(new Blockly.FieldDropdown([["X", "REFX"], ["Y", "REFY"], ["X & Y", "REFXY"]]), "OP")
     this.appendDummyInput()
-        .appendField(new Blockly.FieldImage("http://i.imgur.com/UpsXHeX.png", 150, 20, "*"));
+        .appendField(new Blockly.FieldImage("http://i.imgur.com/jWhLthx.png", 175, 20, "*"));
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField("A ⇒")
+        .appendField("A ")
         .appendField("(")
         .appendField(new Blockly.FieldTextInput('0',
         Blockly.FieldTextInput.numberValidator), "AX")
@@ -2121,7 +2115,7 @@ Blockly.Blocks['triangle_transformations_reflect'] = {
         .appendField(")");
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField("B ⇒")
+        .appendField("B ")
         .appendField("(")
         .appendField(new Blockly.FieldTextInput('0',
         Blockly.FieldTextInput.numberValidator), "BX")
@@ -2131,7 +2125,7 @@ Blockly.Blocks['triangle_transformations_reflect'] = {
         .appendField(")");
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField("C ⇒")
+        .appendField("C ")
         .appendField("(")
         .appendField(new Blockly.FieldTextInput('0',
         Blockly.FieldTextInput.numberValidator), "CX")
@@ -2344,10 +2338,10 @@ Blockly.Blocks['triangle_transformations_reflect_auto'] = {
         .appendField("Reflect")
         .appendField(new Blockly.FieldDropdown([["X", "REFX"], ["Y", "REFY"], ["X & Y", "REFXY"]]), "OP")
     this.appendDummyInput()
-        .appendField(new Blockly.FieldImage("http://i.imgur.com/UpsXHeX.png", 150, 20, "*"));
+        .appendField(new Blockly.FieldImage("http://i.imgur.com/SlBlKQj.png", 175, 20, "*"));
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField("A ⇒")
+        .appendField("A ")
         .appendField("(")
         .appendField('0', "AX")
         .appendField(",")
@@ -2355,7 +2349,7 @@ Blockly.Blocks['triangle_transformations_reflect_auto'] = {
         .appendField(")");
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField("B ⇒")
+        .appendField("B ")
         .appendField("(")
         .appendField('0', "BX")
         .appendField(",")
@@ -2363,7 +2357,7 @@ Blockly.Blocks['triangle_transformations_reflect_auto'] = {
         .appendField(")");
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField("C ⇒")
+        .appendField("C ")
         .appendField("(")
         .appendField('0', "CX")
         .appendField(",")
