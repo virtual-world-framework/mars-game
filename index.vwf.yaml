@@ -48,6 +48,8 @@ properties:
       this.setApplicationState( value );
     value: loading
   watchList: []
+  calloutHighlight: 0
+  bCallout$: false
 methods:
   setScenario:
   resetScenario:
@@ -99,6 +101,8 @@ methods:
   hideUI:
   setActiveRoverPose:
   printCameraPose:
+  callout:
+  stopCallout:
 events:
   gameStarted:
   scenarioReset:
@@ -247,6 +251,29 @@ children:
         properties:
           castShadows: true
           receiveShadows: true
+        children:
+          platform:
+            extends: http://vwf.example.com/node3.vwf
+            children:
+              material:
+                extends: source/shaders/texturedShader.vwf
+                properties:
+                  diffuseMap: "assets/3d/Mars_Assets/platform.png"
+                  specularMap: "assets/3d/Mars_Assets/platform_s.png"
+                  normalMap: "assets/3d/Mars_Assets/platform_n.png"
+                  tileMap:
+                    url: "assets/3d/Mars_Assets/tilemap.png"
+                    magFilter: "nearest"
+                    minFilter: "nearest"
+                  tileMapOrigin: [ -128, -128 ]
+                  tileMapSize: [ 256, 256 ]
+                  shininess: 5
+                  normalScale: [ 0.5, 0.5 ]
+                  gridInterval: 3
+                  tilesVisible: 0
+                  tileColor: 0x3A4A40
+                  calloutTile: [ 0, 0 ]
+                  calloutHighlight: 0
       heightmap:
         extends: http://vwf.example.com/heightmap.vwf
         source: assets/3d/Mars_Assets/heightmap.png

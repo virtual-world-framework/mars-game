@@ -17,7 +17,38 @@ extends: http://vwf.example.com/shaderMaterial.vwf
 properties:
   lights: true
   fog: true
+  bCallout$: false
   uniforms:
+    gridOffset:
+      type: "f"
+      value: 0
+    gridInterval:
+      type: "f"
+      value: 10
+    tilesVisible:
+      type: "i"
+      value: 0
+    tilePadding:
+      type: "f"
+      value: 0.25
+    tileColor:
+      type: "c"
+      value: 0x00AA22
+    tileMap:
+      type: "t"
+      value: 0
+    tileMapOrigin:
+      type: "v2"
+      value: [ 0, 0 ]
+    tileMapSize:
+      type: "v2"
+      value: [ 0, 0 ]
+    calloutTile:
+      type: "v2"
+      value: [ 0, 0 ]
+    calloutHighlight:
+      type: "f"
+      value: 0
     diffuseMap:
       type: "t"
       value: 0
@@ -145,6 +176,16 @@ properties:
     uniform float shininess;
     uniform vec2 normalScale;
     uniform vec3 ambientLightColor;
+    uniform float gridOffset;
+    uniform float gridInterval;
+    uniform int tilesVisible;
+    uniform float tilePadding;
+    uniform vec3 tileColor;
+    uniform sampler2D tileMap;
+    uniform vec2 tileMapOrigin;
+    uniform vec2 tileMapSize;
+    uniform vec2 calloutTile;
+    uniform float calloutHighlight;
     #if MAX_DIR_LIGHTS > 0
       uniform vec3 directionalLightColor[ MAX_DIR_LIGHTS ];
       uniform vec3 directionalLightDirection[ MAX_DIR_LIGHTS ];
@@ -204,6 +245,16 @@ properties:
       mapN.xy = normalScale * mapN.xy;
       mat3 tsn = mat3( S, T, N );
       return normalize( tsn * mapN );
+    }
+    vec3 extractTileValue( vec2 wp ) {
+      vec2 gridCoord = floor( ( wp / gridInterval ) + 0.5 ) - tileMapOrigin;
+      vec2 tileUV = vec2( 0.0 );
+      vec3 tileValue = vec3( 0.0 );
+      if ( gridCoord.x >= 0.0 && gridCoord.x < tileMapSize.x && gridCoord.y >= 0.0 && gridCoord.y < tileMapSize.y ) {
+        tileUV = gridCoord / tileMapSize;
+        tileValue = texture2D( tileMap, tileUV ).rgb;
+      }
+      return tileValue;
     }
     void main() {
       gl_FragColor = texture2D( diffuseMap, vUv );
@@ -419,6 +470,19 @@ properties:
         #endif
         gl_FragColor.xyz = gl_FragColor.xyz * shadowColor;
       #endif
+      vec3 tileValue = extractTileValue( vWorldPosition.xy );
+      float intervalHalf = gridInterval / 2.0;
+      vec2 gridLine = vec2( intervalHalf - mod( vWorldPosition.xy + gridOffset, gridInterval ) );
+      gridLine = max( gridLine, -1.0 * gridLine );
+      vec2 tilePosition = vec2( floor( ( vWorldPosition / gridInterval ) + 0.5 ) );
+      if ( gridLine.x > tilePadding && gridLine.y > tilePadding && tileValue.r > 0.0 ) {
+        if ( tilePosition.x == calloutTile.x && tilePosition.y == calloutTile.y &&
+          ( tilesVisible == 1 || ( tilesVisible == 0 && calloutHighlight == 1.0 ) ) ) {
+            gl_FragColor.xyz += tileColor * ( 0.8 + 1.0 * calloutHighlight );
+        } else if ( tilesVisible == 1 ) {
+          gl_FragColor.xyz += tileColor * 0.8;
+        }
+      }
       #ifdef USE_FOG
         float depth = gl_FragCoord.z / gl_FragCoord.w;
         #ifdef FOG_EXP2
@@ -431,3 +495,13 @@ properties:
         gl_FragColor = mix( gl_FragColor, vec4( fogColor, gl_FragColor.w ), fogFactor );
       #endif
     }
+methods:
+  callout: |
+    var highlight = this.calloutHighlight;
+    if ( this.bCallout$ ) {
+      this.calloutHighlight = highlight === 0 ? 1 : 0;
+      this.future( 0.25 ).callout();
+    }
+  stopCallout: |
+    this.bCallout$ = false;
+    this.calloutHighlight = 0;
