@@ -117,15 +117,15 @@ Blockly.Blocks['triangle_flow'] = {
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
         .appendField("A ")
-        .appendField("( 0 , 0 )");
+        .appendField("(  0 , 0  )");
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
         .appendField("B ")
-        .appendField("( 0 , 1 )");
+        .appendField("(  0 , 1  )");
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
         .appendField("C ")
-        .appendField("( 1 , 0 )");
+        .appendField("(  1 , 0  )");
     this.appendStatementInput("STACK")
         .setCheck(['Transformation']);
     this.appendDummyInput()
@@ -173,9 +173,9 @@ Blockly.Blocks['triangle_flow'] = {
     }
 
     if ( this.getInputTargetBlock('STACK') === null || this.childBlocks_.length == 0 ) {
-      this.setFieldValue( '0,0','CURRENTA' );
-      this.setFieldValue( '0,1','CURRENTB' );
-      this.setFieldValue( '1,0','CURRENTC' );
+      this.setFieldValue( ' 0 , 0 ','CURRENTA' );
+      this.setFieldValue( ' 0 , 1 ','CURRENTB' );
+      this.setFieldValue( ' 1 , 0 ','CURRENTC' );
     }
 
     var vertexA = eval( '[' + this.getFieldValue( 'CURRENTA' ) + ']' );
