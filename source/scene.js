@@ -325,6 +325,7 @@ this.displayTiles = function( isVisible ) {
     var tilesVisible = Boolean( material.tilesVisible );
     if ( isVisible !== tilesVisible ) {
         material.tilesVisible = isVisible ? 1 : 0;
+        this.environment.environmentObjects.platform.material.tilesVisible = material.tilesVisible;
         this.toggledTiles( isVisible );
         // Should we switch to helicam view for the tiles as well?
         // this.switchToHelicamView( isVisible );
@@ -589,15 +590,31 @@ this.removeAxisOffset = function( coordinate ) {
 }
 
 this.calloutTile = function( coordinate ) {
-    var material = this.environment.terrain.material;
-    material.bCallout$ = true;
-    material.calloutTile = coordinate.slice();
-    material.callout();
+    this.environment.terrain.material.calloutTile = coordinate.slice();
+    this.environment.environmentObjects.platform.material.calloutTile = coordinate.slice();
+    this.bCallout$ = true;
+    this.callout();
 }
 
 this.removeCalloutTile = function() {
-    var material = this.environment.terrain.material;
-    material.stopCallout();
+    this.stopCallout();
+}
+
+this.callout = function() {
+    var highlight = this.calloutHighlight;
+    if ( this.bCallout$ ) {
+      this.calloutHighlight = highlight === 0 ? 1 : 0;
+      this.environment.terrain.material.calloutHighlight = this.calloutHighlight;
+      this.environment.environmentObjects.platform.material.calloutHighlight = this.calloutHighlight;
+      this.future( 0.25 ).callout();
+    }
+}
+
+this.stopCallout = function() {
+    this.bCallout$ = false;
+    this.calloutHighlight = 0;
+    this.environment.terrain.material.calloutHighlight = this.calloutHighlight;
+    this.environment.environmentObjects.platform.material.calloutHighlight = this.calloutHighlight;
 }
 
 // This method is being handled by the view
