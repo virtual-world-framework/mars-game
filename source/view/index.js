@@ -197,6 +197,7 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
             case "blocklyStopped":
                 var blocklyDivRef = document.getElementById( "blocklyDiv" );
                 blocklyDivRef.style.pointerEvents = "";
+                startBlocklyButton.className = "";
                 //vwf_view.kernel.setProperty( nodeID, "blockly_timeBetweenLines", 1 );
                 // startBlocklyButton.className = "";
                 // var indicator = document.getElementById( "blocklyIndicator" );
