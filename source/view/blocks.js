@@ -117,15 +117,15 @@ Blockly.Blocks['triangle_flow'] = {
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
         .appendField("A ")
-        .appendField("(0,0)");
+        .appendField("( 0 , 0 )");
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
         .appendField("B ")
-        .appendField("(0,1)");
+        .appendField("( 0 , 1 )");
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
         .appendField("C ")
-        .appendField("(1,0)");
+        .appendField("( 1 , 0 )");
     this.appendStatementInput("STACK")
         .setCheck(['Transformation']);
     this.appendDummyInput()
@@ -134,21 +134,21 @@ Blockly.Blocks['triangle_flow'] = {
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
         .appendField("A' ")
-        .appendField(" ( ")
-        .appendField("0,0", "CURRENTA")
-        .appendField(" ) ");
+        .appendField(" (")
+        .appendField(" 0 , 0 ", "CURRENTA")
+        .appendField(") ");
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
         .appendField("B' ")
-        .appendField(" ( ")
-        .appendField("0,1", "CURRENTB")
-        .appendField(" ) ");
+        .appendField(" (")
+        .appendField(" 0 , 1 ", "CURRENTB")
+        .appendField(") ");
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
         .appendField("C' ")
-        .appendField("(")
-        .appendField("1,0", "CURRENTC")
-        .appendField(")");
+        .appendField(" (")
+        .appendField(" 1 , 0 ", "CURRENTC")
+        .appendField(") ");
     this.setInputsInline(false);
     this.setPreviousStatement(true,'Triangle');
     this.setNextStatement(true,'Triangle');
@@ -501,9 +501,9 @@ Blockly.Blocks['triangle_transformations'] = {
 
           //Set target block's values (The TRIANGLE FLOW BLOCK's values) with the current A B and C
 
-          targetBlock.setFieldValue( ''+currentA+'','CURRENTA' );
-          targetBlock.setFieldValue( ''+currentB+'','CURRENTB' );
-          targetBlock.setFieldValue( ''+currentC+'','CURRENTC' );
+          targetBlock.setFieldValue( ' ' + currentA[0] + ' , ' + currentA[1] + ' ','CURRENTA' );
+          targetBlock.setFieldValue( ' ' + currentB[0] + ' , ' + currentB[1] + ' ','CURRENTB' );
+          targetBlock.setFieldValue( ' ' + currentC[0] + ' , ' + currentC[1] + ' ','CURRENTC' );
           break;
         }
 
@@ -761,9 +761,9 @@ Blockly.Blocks['triangle_transformations_auto'] = {
 
           //Set target block's values (The TRIANGLE FLOW BLOCK's values) with the current A B and C
 
-          targetBlock.setFieldValue( ''+currentA+'','CURRENTA' );
-          targetBlock.setFieldValue( ''+currentB+'','CURRENTB' );
-          targetBlock.setFieldValue( ''+currentC+'','CURRENTC' );
+          targetBlock.setFieldValue( ' ' + currentA[0] + ' , ' + currentA[1] + ' ','CURRENTA' );
+          targetBlock.setFieldValue( ' ' + currentB[0] + ' , ' + currentB[1] + ' ','CURRENTB' );
+          targetBlock.setFieldValue( ' ' + currentC[0] + ' , ' + currentC[1] + ' ','CURRENTC' );
           break;
         }
 
@@ -959,9 +959,9 @@ Blockly.Blocks['triangle_transformations_translate'] = {
 
         //Set target block's values (The TRIANGLE FLOW BLOCK's values) with the current A B and C
 
-        targetBlock.setFieldValue( ''+ax+','+ay+'','CURRENTA' );
-        targetBlock.setFieldValue( ''+bx+','+by+'','CURRENTB' );
-        targetBlock.setFieldValue( ''+cx+','+cy+'','CURRENTC' );
+        targetBlock.setFieldValue( ' '+ax+' , '+ay+' ','CURRENTA' );
+        targetBlock.setFieldValue( ' '+bx+' , '+by+' ','CURRENTB' );
+        targetBlock.setFieldValue( ' '+cx+' , '+cy+' ','CURRENTC' );
         break;
       }
 
@@ -1147,9 +1147,9 @@ Blockly.Blocks['triangle_transformations_translate_auto'] = {
 
           //Set target block's values (The TRIANGLE FLOW BLOCK's values) with the current A B and C
 
-          targetBlock.setFieldValue( ''+currentA+'','CURRENTA' );
-          targetBlock.setFieldValue( ''+currentB+'','CURRENTB' );
-          targetBlock.setFieldValue( ''+currentC+'','CURRENTC' );
+          targetBlock.setFieldValue( ' ' + currentA[0] + ' , ' + currentA[1] + ' ','CURRENTA' );
+          targetBlock.setFieldValue( ' ' + currentB[0] + ' , ' + currentB[1] + ' ','CURRENTB' );
+          targetBlock.setFieldValue( ' ' + currentC[0] + ' , ' + currentC[1] + ' ','CURRENTC' );
           break;
         }
       } while ( block );
@@ -1336,9 +1336,9 @@ Blockly.Blocks['triangle_transformations_dilate'] = {
 
           //Set target block's values (The TRIANGLE FLOW BLOCK's values) with the current A B and C
 
-          targetBlock.setFieldValue( ''+ax+','+ay+'','CURRENTA' );
-          targetBlock.setFieldValue( ''+bx+','+by+'','CURRENTB' );
-          targetBlock.setFieldValue( ''+cx+','+cy+'','CURRENTC' );
+          targetBlock.setFieldValue( ' '+ax+' , '+ay+' ','CURRENTA' );
+          targetBlock.setFieldValue( ' '+bx+' , '+by+' ','CURRENTB' );
+          targetBlock.setFieldValue( ' '+cx+' , '+cy+' ','CURRENTC' );
           break;
 
         }
@@ -1475,13 +1475,13 @@ Blockly.Blocks['triangle_transformations_dilate_auto'] = {
           var currentB = [ eval( inputBlock.getFieldValue('BX') ), eval( inputBlock.getFieldValue('BY') ) ];
           var currentC = [ eval( inputBlock.getFieldValue('CX') ), eval( inputBlock.getFieldValue('CY') ) ];
 
-          currentA[ 0 ] = currentA[ 0 ] + op;
-          currentB[ 0 ] = currentB[ 0 ] + op;
-          currentC[ 0 ] = currentC[ 0 ] + op;
+          currentA[ 0 ] = currentA[ 0 ] * op;
+          currentB[ 0 ] = currentB[ 0 ] * op;
+          currentC[ 0 ] = currentC[ 0 ] * op;
 
-          currentA[ 1 ] = currentA[ 1 ] + op;
-          currentB[ 1 ] = currentB[ 1 ] + op;
-          currentC[ 1 ] = currentC[ 1 ] + op;
+          currentA[ 1 ] = currentA[ 1 ] * op;
+          currentB[ 1 ] = currentB[ 1 ] * op;
+          currentC[ 1 ] = currentC[ 1 ] * op;
 
           //Set fields appropriately
 
@@ -1512,9 +1512,9 @@ Blockly.Blocks['triangle_transformations_dilate_auto'] = {
 
           //Set target block's values (The TRIANGLE FLOW BLOCK's values) with the current A B and C
 
-          targetBlock.setFieldValue( ''+currentA+'','CURRENTA' );
-          targetBlock.setFieldValue( ''+currentB+'','CURRENTB' );
-          targetBlock.setFieldValue( ''+currentC+'','CURRENTC' );
+          targetBlock.setFieldValue( ' ' + currentA[0] + ' , ' + currentA[1] + ' ','CURRENTA' );
+          targetBlock.setFieldValue( ' ' + currentB[0] + ' , ' + currentB[1] + ' ','CURRENTB' );
+          targetBlock.setFieldValue( ' ' + currentC[0] + ' , ' + currentC[1] + ' ','CURRENTC' );
           break;
         }
       } while ( block );
@@ -1652,13 +1652,13 @@ Blockly.Blocks['triangle_transformations_dilate_auto_fixed'] = {
           var currentB = [ eval( inputBlock.getFieldValue('BX') ), eval( inputBlock.getFieldValue('BY') ) ];
           var currentC = [ eval( inputBlock.getFieldValue('CX') ), eval( inputBlock.getFieldValue('CY') ) ];
 
-          currentA[ 0 ] = currentA[ 0 ] + opx;
-          currentB[ 0 ] = currentB[ 0 ] + opx;
-          currentC[ 0 ] = currentC[ 0 ] + opx;
+          currentA[ 0 ] = currentA[ 0 ] * opx;
+          currentB[ 0 ] = currentB[ 0 ] * opx;
+          currentC[ 0 ] = currentC[ 0 ] * opx;
 
-          currentA[ 1 ] = currentA[ 1 ] + opy;
-          currentB[ 1 ] = currentB[ 1 ] + opy;
-          currentC[ 1 ] = currentC[ 1 ] + opy;
+          currentA[ 1 ] = currentA[ 1 ] * opy;
+          currentB[ 1 ] = currentB[ 1 ] * opy;
+          currentC[ 1 ] = currentC[ 1 ] * opy;
 
           //Set fields appropriately
 
@@ -1690,9 +1690,9 @@ Blockly.Blocks['triangle_transformations_dilate_auto_fixed'] = {
 
           //Set target block's values (The TRIANGLE FLOW BLOCK's values) with the current A B and C
 
-          targetBlock.setFieldValue( ''+currentA+'','CURRENTA' );
-          targetBlock.setFieldValue( ''+currentB+'','CURRENTB' );
-          targetBlock.setFieldValue( ''+currentC+'','CURRENTC' );
+          targetBlock.setFieldValue( ' ' + currentA[0] + ' , ' + currentA[1] + ' ','CURRENTA' );
+          targetBlock.setFieldValue( ' ' + currentB[0] + ' , ' + currentB[1] + ' ','CURRENTB' );
+          targetBlock.setFieldValue( ' ' + currentC[0] + ' , ' + currentC[1] + ' ','CURRENTC' );
           break;
         }
       } while ( block );
@@ -1889,9 +1889,9 @@ Blockly.Blocks['triangle_transformations_dilate_two'] = {
 
           //Set target block's values (The TRIANGLE FLOW BLOCK's values) with the current A B and C
 
-          targetBlock.setFieldValue( ''+ax+','+ay+'','CURRENTA' );
-          targetBlock.setFieldValue( ''+bx+','+by+'','CURRENTB' );
-          targetBlock.setFieldValue( ''+cx+','+cy+'','CURRENTC' );
+          targetBlock.setFieldValue( ' '+ax+' , '+ay+' ','CURRENTA' );
+          targetBlock.setFieldValue( ' '+bx+' , '+by+' ','CURRENTB' );
+          targetBlock.setFieldValue( ' '+cx+' , '+cy+' ','CURRENTC' );
           break;
 
         }
@@ -2077,9 +2077,9 @@ Blockly.Blocks['triangle_transformations_dilate_two_auto'] = {
 
           //Set target block's values (The TRIANGLE FLOW BLOCK's values) with the current A B and C
 
-          targetBlock.setFieldValue( ''+currentA+'','CURRENTA' );
-          targetBlock.setFieldValue( ''+currentB+'','CURRENTB' );
-          targetBlock.setFieldValue( ''+currentC+'','CURRENTC' );
+          targetBlock.setFieldValue( ' ' + currentA[0] + ' , ' + currentA[1] + ' ','CURRENTA' );
+          targetBlock.setFieldValue( ' ' + currentB[0] + ' , ' + currentB[1] + ' ','CURRENTB' );
+          targetBlock.setFieldValue( ' ' + currentC[0] + ' , ' + currentC[1] + ' ','CURRENTC' );
           break;
 
         }
@@ -2313,9 +2313,9 @@ Blockly.Blocks['triangle_transformations_reflect'] = {
 
           //Set target block's values (The TRIANGLE FLOW BLOCK's values) with the current A B and C
 
-          targetBlock.setFieldValue( ''+ax+','+ay+'','CURRENTA' );
-          targetBlock.setFieldValue( ''+bx+','+by+'','CURRENTB' );
-          targetBlock.setFieldValue( ''+cx+','+cy+'','CURRENTC' );
+          targetBlock.setFieldValue( ' '+ax+' , '+ay+' ','CURRENTA' );
+          targetBlock.setFieldValue( ' '+bx+' , '+by+' ','CURRENTB' );
+          targetBlock.setFieldValue( ' '+cx+' , '+cy+' ','CURRENTC' );
           break;
 
         }
@@ -2534,9 +2534,9 @@ Blockly.Blocks['triangle_transformations_reflect_auto'] = {
 
           //Set target block's values (The TRIANGLE FLOW BLOCK's values) with the current A B and C
 
-          targetBlock.setFieldValue( ''+currentA+'','CURRENTA' );
-          targetBlock.setFieldValue( ''+currentB+'','CURRENTB' );
-          targetBlock.setFieldValue( ''+currentC+'','CURRENTC' );
+          targetBlock.setFieldValue( ' ' + currentA[0] + ' , ' + currentA[1] + ' ','CURRENTA' );
+          targetBlock.setFieldValue( ' ' + currentB[0] + ' , ' + currentB[1] + ' ','CURRENTB' );
+          targetBlock.setFieldValue( ' ' + currentC[0] + ' , ' + currentC[1] + ' ','CURRENTC' );
           break;
         }
       } while ( block );
