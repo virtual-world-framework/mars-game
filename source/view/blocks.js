@@ -150,8 +150,8 @@ Blockly.Blocks['triangle_flow'] = {
         .appendField(" 1 , 0 ", "CURRENTC")
         .appendField(") ");
     this.setInputsInline(false);
-    this.setPreviousStatement(true,'Triangle');
-    this.setNextStatement(true,'Triangle');
+    this.setPreviousStatement(true,'Normal');
+    this.setNextStatement(true,'Normal');
     this.setColour(345);
     var thisBlock = this;
     this.setTooltip( function() {
@@ -4668,8 +4668,8 @@ Blockly.Blocks['rover_moveRadial_ordered'] = {
         .appendField("Move To:");
     this.appendValueInput("THEOP");
     this.setInputsInline(true);
-    this.setPreviousStatement(true);
-    this.setNextStatement(true);
+    this.setPreviousStatement(true,'Normal');
+    this.setNextStatement(true,'Normal');
     this.data = currentBlocklyNodeID;
     var thisBlock = this;
     this.setTooltip( function(){
@@ -4759,8 +4759,8 @@ Blockly.Blocks['rover_moveRadial'] = {
          .appendField("Δy");
     this.appendValueInput("y");
     this.setInputsInline(true);
-    this.setPreviousStatement(true, "null");
-    this.setNextStatement(true, "null");
+    this.setPreviousStatement(true,'Normal');
+    this.setNextStatement(true,'Normal');
     this.data = currentBlocklyNodeID;
     var thisBlock = this;
     this.setTooltip( function(){
@@ -4803,8 +4803,8 @@ Blockly.Blocks['rover_moveRadial_absolute'] = {
          .appendField("");
     this.appendValueInput("y");
     this.setInputsInline(true);
-    this.setPreviousStatement(true);
-    this.setNextStatement(true);
+    this.setPreviousStatement(true,'Normal');
+    this.setNextStatement(true,'Normal');
     this.data = currentBlocklyNodeID;
     var thisBlock = this;
     this.setTooltip( function(){
@@ -4852,8 +4852,8 @@ Blockly.Blocks['init_nano_construction'] = {
   init: function() {
     this.appendDummyInput()
         .appendField("Start Construction");
-    this.setPreviousStatement(true);
-    this.setNextStatement(true);
+    this.setPreviousStatement(true,'Normal');
+    this.setNextStatement(true,'Normal');
     this.setColour(180);
     this.data = currentBlocklyNodeID;
     var thisBlock = this;
