@@ -391,7 +391,7 @@ a:active {
 #loggerBox {
     width: 26%;
     height: 140px;
-    background-color: rgba( 48, 64, 76, 0.75 );
+    background-color: rgba( 0, 0, 0, 0.6 );
     position: absolute;
     bottom: 30px;
     left: 180px;
@@ -413,7 +413,7 @@ a:active {
     width: 300px;
     right: 10px;
     bottom: 10px;
-    background-color: rgba( 48, 64, 76, 0.75 );
+    background-color: rgba( 0, 0, 0, 0.6 );
     color: rgb( 193, 244, 255 );
     text-align: center;
     border-radius: 5px;

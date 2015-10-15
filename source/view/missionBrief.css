@@ -1,14 +1,11 @@
 #mb_wrapper {
-    width: 35%;
-    height: 70%;
-    min-height: 400px;
-    min-width: 500px;
+    width: 26%;
+    height: 180px;
     position: absolute;
-    left: 5px;
-    top: 15%;
+    left: 180px;
+    top: 30px;
     font-size: 0px; /* Remove spacing between divs */
-    border: 1px solid rgb( 210, 235, 255 );
-    border-radius: 8px;
+    background-color: rgba( 0, 0, 0, 0.6 );
     user-select: none;
     -webkit-user-select: none;  /* Chrome all / Safari all */
     -moz-user-select: none;     /* Firefox all */
@@ -18,36 +15,36 @@
 }
 
 #mb_main {
-    background-color: rgb( 25, 25, 25 );
     width: 100%;
-    height: 100%;
-    border-radius: 8px;
 }
 
 #mb_title {
     font-variant: small-caps;
     font-weight: bold;
-    font-size: 24px;
+    font-size: 18px;
     text-align: center;
-    line-height: 40px;
-    color: rgb( 210, 235, 255 );
+    line-height: 32px;
+    color: rgb( 255, 255, 255 );
     background-color: rgba( 255, 255, 255, 0.1 );
-    border-top-right-radius: 8px;
-    border-top-left-radius: 8px;
 }
 
 #mb_content {
     font-size: 14px;
     text-align: justify;
-    color: rgb( 255, 245, 175 );
-    padding: 12px;
+    color: rgb( 193, 244, 255 );
+    padding: 8px;
+    height: 132px;
+    overflow-y: scroll;
 }
 
 #mb_close {
     position: absolute;
-    top: 4px;
-    right: 4px;
+    top: 0px;
+    right: 0px;
     color: rgb( 255, 255, 255 );
-    font-size: 16px;
+    font-size: 24px;
+    line-height: 32px;
+    width: 32px;
+    text-align: center;
     cursor: pointer;
 }
