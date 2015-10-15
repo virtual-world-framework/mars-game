@@ -20,7 +20,12 @@ var missionBriefClose = document.getElementById( "mb_close" );
 missionBriefClose.onclick = hideMissionBrief;
 
 function showMissionBrief() {
-    missionBriefDOM.style.display = "block";
+	var visible = Boolean( missionBriefDOM.style.display === "block" );
+	if ( !visible ) {
+    	missionBriefDOM.style.display = "block";
+	} else {
+		hideMissionBrief();
+	}
 }
 
 function hideMissionBrief() {
