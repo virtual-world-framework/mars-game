@@ -1,0 +1,35 @@
+---
+extends: ../scenario/scenario.vwf
+properties:
+  scenarioName: Mission4Success
+  scenePath: /
+  nextScenarioPath: "scenario_dummy"
+
+children:
+  triggerManager:
+    extends: ../triggers/triggerManager.vwf
+    properties: 
+      triggers$:
+
+        beginScenario_Intro:
+          triggerCondition:
+          - onScenarioStart:
+          actions:
+          - setSceneProperty:
+            - enableRenderer
+            - false
+          - stopAllSounds:
+          - playVideo:
+            - Success4_800x600
+
+        succeedOnIntroDone:
+          group: successOrFailure
+          priority: 0
+          triggerCondition:
+          - onVideoPlayed:
+            - Success4_800x600
+          actions:
+          - setSceneProperty:
+            - enableRenderer
+            - true
+          - returnToMenu:

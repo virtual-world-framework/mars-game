@@ -786,6 +786,8 @@ children:
     includes: source/scenario/mission4task14.vwf
   Mission4Task15:
     includes: source/scenario/mission4task15.vwf
+  Mission4Success:
+    includes: source/scenario/mission4success.vwf
   # TODO: Use only one graph object. No need for two.
   blocklyGraph:
     extends: http://vwf.example.com/graphtool/graph.vwf

@@ -16,7 +16,7 @@
 extends: ../scenario/scenario.vwf
 properties:
   scenarioName: Mission4Task13
-  nextScenarioPath: "Mission4Task14"
+  nextScenarioPath: "Mission4Success"
 
   startState:
 
@@ -45,6 +45,10 @@ properties:
     - musicMission4Loop
   - playSound:
     - environmentWind
+  - setProperty:
+    - videoManager  
+    - url 
+    - [ "assets/video/Success4_800x600.mp4" ]
 
   # Manny
   - addToGrid:
@@ -220,8 +224,8 @@ children:
             - callMethod:
               - rover2
               - stopExecution
-            - playSound:
-              - musicSuccessShort
+            # - playSound:
+            #   - musicSuccessShort
             - clearBlockly:
             - scenarioSuccess:
 

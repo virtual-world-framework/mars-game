@@ -44,8 +44,12 @@ properties:
     - musicMission4Loop
   - playSound:
     - environmentWind
+  - setProperty:
+    - videoManager  
+    - url 
+    - [ "assets/video/Success4_800x600.mp4" ]
 
-    #Manny
+  #Manny
   - addToGrid:
     - rover
     - [ -30, 23 ]
