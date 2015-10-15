@@ -170,7 +170,7 @@ children:
             - enabled
             - false
           - delay:
-            - 7
+            - 8
             - openMissionBrief:
             - setProperty:
               - hud
@@ -195,7 +195,6 @@ children:
             - stopExecution
           - playSound:
             - musicSuccessShort
-          - clearBlockly:
           - scenarioSuccess:
 
         scenarioEnded4_11:

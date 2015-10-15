@@ -253,7 +253,7 @@ properties:
     - soundName: "L3VO6_Mission"
       soundURL: "assets/sounds/vo/L3VO6_Mission.ogg"
       initialVolume: 0.65
-      subtitle: "[MISSION CONTROL]: Our satellite data shows that you are getting close! Keep it up!"
+      subtitle: "[MISSION CONTROL]: Our satellite data shows that you are close. Keep it up!"
       soundGroup: vo
       groupReplacementMethod: queue
     - soundName: "m3t1vo020"
@@ -406,7 +406,7 @@ properties:
     - soundName: "m3t5vo010"
       soundURL: "assets/sounds/vo/m3t5vo010.ogg"
       initialVolume: 0.65
-      subtitle: "[MISSION CONTROL]: Of course, you need to move along the X axis as well. Let's try going to the left. Make another duplicate of your original 'if' block, and modify it to travel in the -X direction."
+      subtitle: "[MISSION CONTROL]: Of course, you need to move along the X axis as well. Let's try going to the left. Make another duplicate of your original If block, and modify it to travel in the -X direction."
       soundGroup: vo
       groupReplacementMethod: queue
     - soundName: "newmission3vo15"
@@ -454,7 +454,7 @@ properties:
     - soundName: "TM4V3_MC"
       soundURL: "assets/sounds/vo/TM4_3_MC.ogg" 
       initialVolume: 0.65
-      subtitle: "[MISSION CONTROL]: Not at all! Peregrine is equipped with the item in question. You will need to program her to construct the Base."
+      subtitle: "[MISSION CONTROL]: Not at all! Your new rover, Peregrine, is equipped with the item in question. You will need to program her to construct the Base."
       soundGroup: vo
       groupReplacementMethod: queue
     - soundName: "TM4V5_MC"
@@ -508,7 +508,7 @@ properties:
     - soundName: "TM4_15_MC"
       soundURL: "assets/sounds/vo/TM4_15_MC.ogg" 
       initialVolume: 0.65
-      subtitle: "[MISSION CONTROL]: Another thing you can do with transformation blocks is to reflect your triangle across either the X or Y axis. Let's start be reflecting the basic triangle across the Y axis, and see how that works."
+      subtitle: "[MISSION CONTROL]: Let's add some more solar panels so that we don't run out of power. One easy way to do that is to reflect the triangle that we just drew. Let's start by simply reflecting the basic triangle across the Y axis, and see how that works. I've uploaded a program that will do that for you, but you'll need to fill in the vertex positions again."
       soundGroup: vo
       groupReplacementMethod: queue
     - soundName: "TM4V16_MANNY"
@@ -520,7 +520,7 @@ properties:
     - soundName: "TM4_17_MC"
       soundURL: "assets/sounds/vo/TM4_17_MC.ogg" 
       initialVolume: 0.65
-      subtitle: "[MISSION CONTROL]: Of course, it’s not enough to reflect the triangle so that it’s facing the right way. We’ll also need to dilate it to make it the right size. I’ve updated Peregrine’s program... fill in the vertex positions and give it a try."
+      subtitle: "[MISSION CONTROL]: Of course, it's not enough to reflect the triangle so that it's facing the right way. We'll also need to dilate it to make it the right size. I've updated Peregrine's program... fill in the vertex positions and give it a try."
       soundGroup: vo
       groupReplacementMethod: queue
     - soundName: "TM4V18_MANNY"
@@ -568,7 +568,7 @@ properties:
     - soundName: "TM4_62_MC"
       soundURL: "assets/sounds/vo/TM4_62_MC.ogg" 
       initialVolume: 0.65
-      subtitle: "[MISSION CONTROL]: Excellent. We’re ready to place Nanites for the first section of the Habitation Dome. To do that, we’ll Dilate the triangle to be the correct size, and then Translate it into place."
+      subtitle: "[MISSION CONTROL]: Excellent. We're ready to place Nanites for the first section of the Habitation Dome. To do that, we'll Dilate the triangle to be the correct size, and then Translate it into place."
       soundGroup: vo
       groupReplacementMethod: queue
     - soundName: "TM4_63_Manny"
@@ -580,7 +580,7 @@ properties:
     - soundName: "TM4_64_MC"
       soundURL: "assets/sounds/vo/TM4_64_MC.ogg" 
       initialVolume: 0.65
-      subtitle: "[MISSION CONTROL]: Yes we do. Dilate uses multiplication, and Translate uses addition. If we add and then multiply, we won’t get the same answer as if we multiply and then add. In this case, the correct answer is to multiply first."
+      subtitle: "[MISSION CONTROL]: Yes we do. Dilate uses multiplication, and Translate uses addition. If we add and then multiply, we won't get the same answer as if we multiply and then add. In this case, the correct answer is to multiply first."
       soundGroup: vo
       groupReplacementMethod: queue
     - soundName: "TM4V25_MC"
@@ -730,7 +730,7 @@ properties:
     - soundName: "TM4_56_MC"
       soundURL: "assets/sounds/vo/TM4_56_MC.ogg" 
       initialVolume: 0.65
-      subtitle: "[MISSION CONTROL]: That is a triangle, but it’s not a big enough triangle to construct a solar panel. You can make the triangle bigger by using a Dilate transformation. Here, let me help... I’ll upload a program that should work, but you’ll need to fill in the vertex positions on the Dilate block."
+      subtitle: "[MISSION CONTROL]: That is a triangle, but it's not a big enough triangle to construct a solar panel. You can make the triangle bigger by using a Dilate transformation. Here, let me help... I'll upload a program that should work, but you'll need to fill in the vertex positions on the Dilate block."
       soundGroup: vo
       groupReplacementMethod: queue
     - soundName: "TM4_57_MC"
@@ -748,13 +748,13 @@ properties:
     - soundName: "TM4_59_MC"
       soundURL: "assets/sounds/vo/TM4_59_MC.ogg" 
       initialVolume: 0.65
-      subtitle: "[MANNY]: As part of my update, I have transformation blocks that will automatically calculate the vertex positions for you. All you need to do is specify the amount to translate or dilate, or the direction to reflect. I'm am uploading them now."
+      subtitle: "[MANNY]: As part of my update, I have transformation blocks that will automatically calculate the vertex positions for you. All you need to do is specify the amount to translate or dilate, or the direction to reflect. I'm uploading them now."
       soundGroup: vo
       groupReplacementMethod: queue
     - soundName: "TM4_60_Manny"
       soundURL: "assets/sounds/vo/TM4_60_Manny.ogg" 
       initialVolume: 0.65
-      subtitle: "[MANNY]: Let’s see... I need the vertices for just the Reflect first, then the vertices for both transformations together."
+      subtitle: "[MANNY]: Let's see... I need the vertices for just the Reflect first, then the vertices for both transformations together."
       soundGroup: vo
       groupReplacementMethod: queue
     - soundName: "TM4_60_MC"

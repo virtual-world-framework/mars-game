@@ -164,7 +164,7 @@ children:
             - enabled
             - false
           - delay:
-            - 8
+            - 11
             - openMissionBrief:
             - setProperty:
               - hud
@@ -177,7 +177,7 @@ children:
           - and:
             - doOnce:
             - delay:
-              - 25
+              - 30
           actions:
           - playSound:
             - TM4_52_Manny
