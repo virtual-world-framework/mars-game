@@ -173,6 +173,7 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
             case "blocklyStarted":
                 var blocklyDivRef = document.getElementById( "blocklyDiv" );
                 blocklyDivRef.style.pointerEvents = "none";
+                startBlocklyButton.className = "reset";
                 // var indicator = document.getElementById( "blocklyIndicator" );
                 // indicator.className = "";
                 // indicator.style.visibility = "inherit";
@@ -196,6 +197,7 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
             case "blocklyStopped":
                 var blocklyDivRef = document.getElementById( "blocklyDiv" );
                 blocklyDivRef.style.pointerEvents = "";
+                startBlocklyButton.className = "";
                 //vwf_view.kernel.setProperty( nodeID, "blockly_timeBetweenLines", 1 );
                 // startBlocklyButton.className = "";
                 // var indicator = document.getElementById( "blocklyIndicator" );
@@ -236,42 +238,44 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 break;
 
             case "blocklyContentChanged":
-                if ( Blockly.mainWorkspace ) {
-                    var workspace = Blockly.getMainWorkspace();
-                    if ( currentBlocklyNodeID === blocklyGraphID ) {
-                        var currentCode = getBlocklyFunction();
-                        vwf_view.kernel.setProperty( graphLines[ "blocklyLine" ].ID, "lineFunction", currentCode );
-                    } else {
-                        //indicateBlock( lastBlockIDExecuted );
-                        // We're also checking for errors here (empty loops/conditionals)
+                if ( blocklyStopped ) {
+                    if ( Blockly.mainWorkspace ) {
                         var workspace = Blockly.getMainWorkspace();
-                        var validTopBlocks = 0;
-                        for ( var i = 0; i < workspace.topBlocks_.length; i++ ) {
-                            if ( workspace.topBlocks_[i].type !== "procedures_defnoreturn") {
-                                validTopBlocks+=1; 
-                            }
-                        }
-
-                        var foundError = false;
-                        for ( var key in currentBlocklyErrors ) {
-                          if ( currentBlocklyErrors.hasOwnProperty( key ) ) {
-                            var blockStatus = currentBlocklyErrors[ key ];
-                            if ( blockStatus === true && Blockly.mainWorkspace.getBlockById( key ) !== null ) {
-                                foundError = true;
-                            }
-                          }
-                        }
-
-                        if ( validTopBlocks !== 1 || foundError === true ) {
-                            startBlocklyButton.className = "disabled";
+                        if ( currentBlocklyNodeID === blocklyGraphID ) {
+                            var currentCode = getBlocklyFunction();
+                            vwf_view.kernel.setProperty( graphLines[ "blocklyLine" ].ID, "lineFunction", currentCode );
                         } else {
-                            if ( currentScenario !== 'Mission3Task1' && currentScenario !== 'Mission3Task2' && currentScenario !== 'Mission3Task3' && currentScenario !== 'Mission3Task4' && currentScenario !== 'Mission3Task5' && currentScenario !== 'Mission3Task6' && currentScenario !== 'Mission3Task7' && workspace.topBlocks_.length >= 2 ) {
+                            //indicateBlock( lastBlockIDExecuted );
+                            // We're also checking for errors here (empty loops/conditionals)
+                            var workspace = Blockly.getMainWorkspace();
+                            var validTopBlocks = 0;
+                            for ( var i = 0; i < workspace.topBlocks_.length; i++ ) {
+                                if ( workspace.topBlocks_[i].type !== "procedures_defnoreturn") {
+                                    validTopBlocks+=1; 
+                                }
+                            }
+
+                            var foundError = false;
+                            for ( var key in currentBlocklyErrors ) {
+                              if ( currentBlocklyErrors.hasOwnProperty( key ) ) {
+                                var blockStatus = currentBlocklyErrors[ key ];
+                                if ( blockStatus === true && Blockly.mainWorkspace.getBlockById( key ) !== null ) {
+                                    foundError = true;
+                                }
+                              }
+                            }
+
+                            if ( validTopBlocks !== 1 || foundError === true ) {
                                 startBlocklyButton.className = "disabled";
                             } else {
-                                startBlocklyButton.className = "";
+                                if ( currentScenario !== 'Mission3Task1' && currentScenario !== 'Mission3Task2' && currentScenario !== 'Mission3Task3' && currentScenario !== 'Mission3Task4' && currentScenario !== 'Mission3Task5' && currentScenario !== 'Mission3Task6' && currentScenario !== 'Mission3Task7' && workspace.topBlocks_.length >= 2 ) {
+                                    startBlocklyButton.className = "disabled";
+                                } else {
+                                    startBlocklyButton.className = "";
+                                }
                             }
-                        }
 
+                        }
                     }
                 }
                 break;
