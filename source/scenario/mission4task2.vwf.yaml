@@ -150,7 +150,6 @@ children:
     extends: ../triggers/triggerManager.vwf
     properties: 
       triggers$:
-
         playStartingVO_4_2:
           triggerCondition:
           - and:
@@ -213,9 +212,9 @@ children:
             - playSound:
               - musicSuccessShort
             - playSound:
-              - TM4V10_MANNY
+              - TM4_10_MANNY
             - playSound:
-              - TM4V11_MC
+              - TM4_11_MC
             - scenarioSuccess:
 
         # onScenarioFailed4_2:

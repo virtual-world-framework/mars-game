@@ -157,13 +157,13 @@ children:
             - onScenarioStart:
           actions:
           - playSound:
-            - TM4V17_MC
+            - TM4_17_MC
           - setProperty:
             - hud
             - enabled
             - false
           - delay:
-            - 39
+            - 23
             - openMissionBrief:
             - setProperty:
               - hud
@@ -172,6 +172,16 @@ children:
             - startTimer:
 
         playHint_M4T5_1:
+          triggerCondition:
+          - and:
+            - doOnce:
+            - delay:
+              - 50
+          actions:
+          - playSound:
+            - TM4_60_Manny
+
+        playHint_M4T5_2:
           triggerCondition:
           - and:
             - doOnce:

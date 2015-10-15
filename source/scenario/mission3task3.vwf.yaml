@@ -84,11 +84,6 @@ properties:
     - visible
     - false
 
-  - setProperty:
-    - minirover
-    - visible
-    - false
-
   # Disable Blockly line
   - setProperty:
     - blocklyLine
@@ -100,7 +95,6 @@ properties:
     - 0
 
   # Graph
-
   - addToGrid:
     - blocklyGraph
     - [ -17, 32 ]
@@ -119,7 +113,6 @@ properties:
     - true
 
   # turning supplies and minirover invisible
-
   - setProperty:
     - supplies_1
     - visible
@@ -145,11 +138,11 @@ children:
             - onScenarioStart:
           actions:
           - playSound:
-            - TM3VO5_Rover
+            - TM3VO7_Rover
           - playSound:
             - m3t3vo010
-          - playSound:
-            - m3t3vo020
+          # - playSound:
+          #   - m3t3vo020
           - playSound:
             - m3t3vo030
           - setProperty:

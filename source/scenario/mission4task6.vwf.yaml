@@ -158,13 +158,13 @@ children:
             - onScenarioStart:
           actions:
           - playSound:
-            - TM4V19_MC
+            - TM4_61_MC
           - setProperty:
             - hud
             - enabled
             - false
           - delay:
-            - 6.5
+            - 8
             - openMissionBrief:
             - setProperty:
               - hud
