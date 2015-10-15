@@ -160,7 +160,7 @@ children:
             - onScenarioStart:
           actions:
           - playSound:
-            - TM4V21_MC
+            - TM4_21_MC
           - setProperty:
             - hud
             - enabled

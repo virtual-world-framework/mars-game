@@ -79,11 +79,6 @@ properties:
     - rover2
     - visible
     - false
-  
-  - setProperty:
-    - minirover
-    - visible
-    - false
 
   # Disable Blockly line
   - setProperty:
@@ -96,7 +91,6 @@ properties:
     - 0
 
   # Graph
-
   - addToGrid:
     - blocklyGraph
     - [ -17, 32 ]
@@ -104,7 +98,6 @@ properties:
     - 32
     - -17
 
-  
   - setProperty:
     - cargoPod2
     - isClosed
@@ -116,7 +109,6 @@ properties:
     - true
 
   # turning supplies and minirover invisible
-
   - setProperty:
     - supplies_1
     - visible
@@ -141,10 +133,16 @@ children:
             - doOnce:
             - onScenarioStart:
           actions:
+          # - playSound:
+          #   - newmission3vo11
+          # - playSound:
+          #   - newmission3vo12
+          # - playSound:
+          #   - newmission3vo13
           - playSound:
-            - TM3V15_Rover
+            - newmission3vo15
           - playSound:
-            - TM3V16_MC
+            - newmission3vo16
           - setProperty:
             - hud
             - enabled
