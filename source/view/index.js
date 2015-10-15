@@ -94,7 +94,9 @@ vwf_view.calledMethod = function( nodeID, methodName, methodParams ) {
                 var uiVisible = methodParams[ 0 ];
                 var bVisible = uiVisible && Boolean( currentBlocklyNodeID );
                 blocklyArea.style.visibility = bVisible ? "visible" : "hidden";
+                // blocklyDiv.style.pointerEvents = bVisible ? "all" : "none";
                 timerWindow.style.visibility = uiVisible ? "visible" : "hidden";
+                missionBriefDOM.style.display = uiVisible ? "block" : "none";
                 break;
         }
     }
@@ -893,6 +895,7 @@ function updateBlocklyUI( blocklyNode ) {
                 Blockly.mainWorkspace.toolbox_.tree_.setSelectedItem( Blockly.mainWorkspace.toolbox_.tree_.firstChild_ ); 
                                 }, 1000);
         }
+        // blocklyDiv.style.pointerEvents = "all";
     }
 }
 
