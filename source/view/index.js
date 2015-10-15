@@ -238,7 +238,7 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 break;
 
             case "blocklyContentChanged":
-                if ( !blocklyNode.blocklyExecuting ) {
+                if ( blocklyStopped ) {
                     if ( Blockly.mainWorkspace ) {
                         var workspace = Blockly.getMainWorkspace();
                         if ( currentBlocklyNodeID === blocklyGraphID ) {

@@ -235,9 +235,12 @@ Blockly.JavaScript['triangle_flow'] = function( block ) {
                   "', 'handleDrawingBlocks', " + " [ 'startTriangle', '" + block.id + "', '" + block.data + "', " + 1 + " ] );\n";
   var end = "vwf.callMethod( '" + vwf_view.kernel.application() + 
                   "', 'handleDrawingBlocks', " + " [ 'endTriangle', '" + block.id + "', '" + block.data + "', " + 1 + " ] );\n";
-  var mark = "vwf.callMethod( '" + vwf_view.kernel.application() + 
-                  "', 'handleDrawingBlocks', " + " [ 'markPoint', '" + block.id + "', '" + block.data + "', " + 1 + " ] );\n";
-
+  var markA = "vwf.callMethod( '" + vwf_view.kernel.application() + 
+                  "', 'handleDrawingBlocks', " + " [ 'markPoint', '" + block.id + "', '" + block.data + "', " + 1 + ",[ " +op_a[ 0 ]+ ", " +op_a[ 1 ]+ " ] ] );\n";
+  var markB = "vwf.callMethod( '" + vwf_view.kernel.application() + 
+                  "', 'handleDrawingBlocks', " + " [ 'markPoint', '" + block.id + "', '" + block.data + "', " + 1 + ",[ " +op_b[ 0 ]+ ", " +op_b[ 1 ]+ " ] ] );\n";
+  var markC = "vwf.callMethod( '" + vwf_view.kernel.application() + 
+                  "', 'handleDrawingBlocks', " + " [ 'markPoint', '" + block.id + "', '" + block.data + "', " + 1 + ",[ " +op_c[ 0 ]+ ", " +op_c[ 1 ]+ " ] ] );\n";
   //moveA
   //start
   //moveB
@@ -248,7 +251,7 @@ Blockly.JavaScript['triangle_flow'] = function( block ) {
   //end
 
   //var overallCode = moveA + start + mark + moveB + mark + moveC + mark + moveA + mark + end;
-  var overallCode = start + moveA + mark + moveB + mark + moveC + mark + moveA + mark + end;
+  var overallCode = start + moveA + markA + moveB + markB + moveC + markC + moveA + markA + end;
 
   return overallCode;
 };

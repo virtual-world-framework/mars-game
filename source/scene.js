@@ -191,9 +191,10 @@ this.executeBlock = function ( block, action ) {
     var node = this.findByID( this, nodeID );
 
     if ( methodName === 'moveRadialAbsolute' ) {
-        var currentArray = node.surveyArray.slice( 0 );
-        currentArray.push( args );
-        node.surveyArray = currentArray;
+        //console.log('pushing new points');
+        //var currentArray = node.surveyArray.slice( 0 );
+        //currentArray.push( args );
+        //node.surveyArray = currentArray;
     }
 
     if ( node ) {
@@ -223,6 +224,8 @@ this.handleDrawingBlocks = function ( blockName, blockID, blockNode, blockExeTim
     } else if ( blockName === 'markPoint' && blockNode !== undefined ) {
         //var currentPosition = nodeObject.positionSensorValue;
         var currentArray = nodeObject.surveyArray.slice( 0 );
+        currentArray.push( blockArgs );
+        nodeObject.surveyArray = currentArray;
         //currentArray.push( currentPosition );
         //nodeObject.surveyArray = currentArray;
         // this.createNaniteSystem( currentArray.slice(), nodeObject );
