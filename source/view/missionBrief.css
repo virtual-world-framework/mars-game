@@ -11,7 +11,7 @@
     -moz-user-select: none;     /* Firefox all */
     -ms-user-select: none;      /* IE 10+ */
     cursor: default;
-    z-index: 150;
+    z-index: 0;
 }
 
 #mb_main {
