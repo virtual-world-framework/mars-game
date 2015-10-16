@@ -110,6 +110,7 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
             case "blocklyVisibleChanged":
                 if ( eventArgs[ 0 ] ) {
                     currentBlocklyNodeID = nodeID;
+                    selectBlocklyTab( currentBlocklyNodeID );
                     updateBlocklyRamBar();
                     updateBlocklyUI( blocklyNode );
                     var resetButton = document.getElementById( "blocklyResetButton" );
