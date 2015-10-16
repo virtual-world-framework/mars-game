@@ -114,13 +114,13 @@ a:active {
 }
 
 .blocklySvg {
-    background-color: rgba( 100, 100, 100, 1.0 );
-    border-color: rgba( 255, 255, 255, 0.25 );
+    background-color: rgba( 255, 255, 255, 0.3 );
+    /*border-color: rgba( 255, 255, 255, 1 );*/
 }
 
 .blocklyFlyoutBackground {
     fill: rgb( 0, 0, 0 );
-    fill-opacity: 0.5;
+    fill-opacity: 0.4;
 }
 
 #blocklyBoundaries {
@@ -128,7 +128,6 @@ a:active {
     height: 100%;
     background-color: rgba( 0, 0, 0, 0 );
 }
-
 
 #blocklyIndicator {
     background-image: url( "../../assets/images/blockly_ui/blockly_indicator.png" );
@@ -179,9 +178,7 @@ a:active {
     position: absolute;
     right: 5px;
     top: 15%;
-    background-color: rgb( 40, 40, 40 );
-    border-radius: 8px;
-    border: 1px solid rgb( 0, 0, 0 );
+    background-color: rgba( 0, 0, 0, 0.6 );
     visibility: hidden;
     pointer-events: none;
     z-index: 50;
@@ -215,12 +212,15 @@ a:active {
     -moz-user-select: none;     /* Firefox all */
     -ms-user-select: none;      /* IE 10+ */
     cursor: default;
-    background-color: rgba( 128, 128, 128, 0.5 );
 }
 
 #blocklyDiv {
     position: absolute;
     zoom: 100%;
+}
+
+.blocklyToolboxDiv {
+    background-color: rgba( 0, 0, 0, 0.6 );
 }
 
 #startBlockly {
@@ -230,7 +230,6 @@ a:active {
     bottom: 0px;
     right: 0px;
     background: url( "../../assets/images/blockly_ui/start_button.png" );
-    border-bottom-right-radius: 8px;
 }
 
 #startBlockly.disabled {
@@ -259,7 +258,6 @@ a:active {
     bottom: 0px;
     right: 72px;
     background: url( "../../assets/images/blockly_ui/reset_blockly_button.png" );
-    border-bottom-right-radius: 8px;
 }
 
 #blocklySpeedButton.normal {
@@ -277,11 +275,8 @@ a:active {
 .blocklyTab {
     height: 24px;
     width: 96px;
-    background-image: url( "../../assets/images/blockly_ui/tab.png" );
-    background-position: bottom;
-    background-repeat: no-repeat;
     display: inline-block;
-    color: rgba( 192, 192, 192, 0.75 );
+    color: rgba( 255, 255, 255, 0.5 );
     text-transform: uppercase;
     font-weight: bold;
     text-align: center;
@@ -291,8 +286,7 @@ a:active {
 }
 
 .blocklyTab.selected {
-    background-image: url( "../../assets/images/blockly_ui/tab_selected.png" );
-    color: rgba( 162, 225, 238, 0.75 );
+    color: rgb( 193, 244, 255 );
 }
 
 #transitionScreen {
@@ -312,17 +306,11 @@ a:active {
     position: absolute;
     top: 0px;
     left: 0px;
-    background-repeat: repeat-x;
-    border-top-left-radius: 8px;
-    border-top-right-radius: 8px;
-    cursor: move;
 }
 
 #ramBar {
     height: 24px;
     background-color: rgba( 0, 0, 0, 0.5 );
-    border-bottom-left-radius: 8px;
-    border-bottom-right-radius: 8px;
     user-select: none;
     -webkit-user-select: none;  /* Chrome all / Safari all */
     -moz-user-select: none;     /* Firefox all */
@@ -338,8 +326,6 @@ a:active {
 #currentRam {
     height: 24px;
     background-color: rgba( 225, 0, 0, 0.5 );
-    border-bottom-left-radius: 8px;
-    border-bottom-right-radius: 8px;
 }
 
 #ramBarCount {
