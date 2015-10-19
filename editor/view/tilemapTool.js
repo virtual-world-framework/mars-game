@@ -100,6 +100,16 @@ tilemap.save = function() {
     document.location.href = imageData.replace( "image/png", "image/octet-stream" );
 }
 
+tilemap.load = function( path ) {
+    var img = new Image();
+    var context = this.canvas.getContext( "2d" );
+    img.onload = function() {
+        context.drawImage( img, 0, 0 );
+    }
+    img.src = path;
+    vwf_view.kernel.callMethod( this.vwfID, "updateTexture" );
+}
+
 tilemap.handleEvent = function( eventName, eventArguments ) {
     switch ( eventName ) {
         case "tileMapped":
