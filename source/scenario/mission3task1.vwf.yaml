@@ -146,8 +146,8 @@ children:
             - doOnce:
             - onScenarioStart:
           actions:
-          - playSound:
-            - m3t1vo020
+          # - playSound:
+          #   - m3t1vo020
           - playSound:
             - m3t1vo010
           - playSound:

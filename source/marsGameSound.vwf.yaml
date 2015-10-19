@@ -256,12 +256,12 @@ properties:
       subtitle: "[MISSION CONTROL]: Our satellite data shows that you are close. Keep it up!"
       soundGroup: vo
       groupReplacementMethod: queue
-    - soundName: "m3t1vo020"
-      soundURL: "assets/sounds/vo/m3t1vo020.ogg"
-      initialVolume: 0.65
-      subtitle: "[MANNY]: Uhhh..."
-      soundGroup: vo
-      groupReplacementMethod: replace
+    # - soundName: "m3t1vo020"
+    #   soundURL: "assets/sounds/vo/m3t1vo020.ogg"
+    #   initialVolume: 0.65
+    #   subtitle: "[MANNY]: Uhhh..."
+    #   soundGroup: vo
+    #   groupReplacementMethod: replace
     - soundName: "m3t1vo010"
       soundURL: "assets/sounds/vo/m3t1vo010.ogg"
       initialVolume: 0.65
