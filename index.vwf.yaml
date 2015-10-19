@@ -198,7 +198,7 @@ children:
     children:
       terrain:
         extends: http://vwf.example.com/node3.vwf
-        source: assets/3d/Mars_Assets/terrain_mix.dae
+        source: assets/3d/Mars_Assets/terrain.dae
         type: model/vnd.collada+xml
         properties:
           castShadows: true
