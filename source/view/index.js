@@ -93,8 +93,7 @@ vwf_view.calledMethod = function( nodeID, methodName, methodParams ) {
             case "hideUI":
                 var uiVisible = methodParams[ 0 ];
                 var bVisible = uiVisible && Boolean( currentBlocklyNodeID );
-                blocklyArea.style.visibility = bVisible ? "visible" : "hidden";
-                // blocklyDiv.style.pointerEvents = bVisible ? "all" : "none";
+                vwf_view.kernel.setProperty( getAppID(), "blockly_interfaceVisible", bVisible );
                 timerWindow.style.visibility = uiVisible ? "visible" : "hidden";
                 missionBriefDOM.style.display = uiVisible ? "block" : "none";
                 break;
@@ -174,8 +173,7 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 break;
 
             case "blocklyStarted":
-                var blocklyDivRef = document.getElementById( "blocklyDiv" );
-                blocklyDivRef.style.pointerEvents = "none";
+                blocklyDiv.style.pointerEvents = "none";
                 startBlocklyButton.className = "reset";
                 // var indicator = document.getElementById( "blocklyIndicator" );
                 // indicator.className = "";
@@ -198,8 +196,7 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 break;
 
             case "blocklyStopped":
-                var blocklyDivRef = document.getElementById( "blocklyDiv" );
-                blocklyDivRef.style.pointerEvents = "";
+                blocklyDiv.style.pointerEvents = "all";
                 startBlocklyButton.className = "";
                 //vwf_view.kernel.setProperty( nodeID, "blockly_timeBetweenLines", 1 );
                 // startBlocklyButton.className = "";
@@ -225,8 +222,7 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 // speedButton.style.pointerEvents = "inherit";
                 
             case "blocklyErrored":
-                var blocklyDivRef = document.getElementById( "blocklyDiv" );
-                blocklyDivRef.style.pointerEvents = "";
+                blocklyDiv.style.pointerEvents = "all";
                 startBlocklyButton.className = "";
                 break;
 
@@ -901,7 +897,6 @@ function updateBlocklyUI( blocklyNode ) {
                 Blockly.mainWorkspace.toolbox_.tree_.setSelectedItem( Blockly.mainWorkspace.toolbox_.tree_.firstChild_ ); 
                                 }, 1000);
         }
-        // blocklyDiv.style.pointerEvents = "all";
     }
 }
 
