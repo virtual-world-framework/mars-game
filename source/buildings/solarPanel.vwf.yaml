@@ -28,4 +28,3 @@ properties:
   built: false
   deploySound: solarPanelDeploy
   soundOnComplete: solarPanelActive
-  scale: [ 0.4, 0.4, 0.4 ]
