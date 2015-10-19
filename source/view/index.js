@@ -651,6 +651,7 @@ vwf_view.satProperty = function( nodeID, propertyName, propertyValue ) {
                     versionElem.style.display = "block";
                     checkPageZoom();
                     timerWindow.style.display = "none";
+                    missionBriefDOM.style.display = "none";
                     $( "#transitionScreen" ).fadeTo( 400, 0 );
                     break;
                 case "playing":
