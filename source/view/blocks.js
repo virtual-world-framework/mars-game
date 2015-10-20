@@ -830,7 +830,7 @@ Blockly.Blocks['triangle_transformations_translate'] = {
         .appendField(new Blockly.FieldImage("http://i.imgur.com/jWhLthx.png", 175, 20, "*"));
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField("A ")
+        .appendField("A ", "APRIME")
         .appendField("(")
         .appendField(new Blockly.FieldTextInput('0',
         Blockly.FieldTextInput.numberValidator), "AX")
@@ -840,7 +840,7 @@ Blockly.Blocks['triangle_transformations_translate'] = {
         .appendField(")");
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField("B ")
+        .appendField("B ", "BPRIME")
         .appendField("(")
         .appendField(new Blockly.FieldTextInput('0',
         Blockly.FieldTextInput.numberValidator), "BX")
@@ -850,7 +850,7 @@ Blockly.Blocks['triangle_transformations_translate'] = {
         .appendField(")");
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField("C ")
+        .appendField("C ", "CPRIME")
         .appendField("(")
         .appendField(new Blockly.FieldTextInput('0',
         Blockly.FieldTextInput.numberValidator), "CX")
@@ -999,8 +999,31 @@ Blockly.Blocks['triangle_transformations_translate'] = {
 
       } while ( block );
 
-      
     }
+
+    var parentCount = -1;
+    block = this;
+
+    var aText = 'A';
+    var bText = 'B';
+    var cText = 'C';
+
+    var primeText = '';
+
+    do {
+        targetBlock = block;
+        block = block.parentBlock_;
+        if ( targetBlock.type == 'triangle_flow' ) { //Which it should be given our connection checks...
+          break;
+        } else {
+          parentCount += 1;
+          primeText = primeText + "'";
+        }
+    } while ( block );
+    
+    this.setFieldValue( aText + primeText + ' ', 'APRIME' );
+    this.setFieldValue( bText + primeText + ' ', 'BPRIME' );
+    this.setFieldValue( cText + primeText + ' ', 'CPRIME' );
     
   }
 };
@@ -1027,7 +1050,7 @@ Blockly.Blocks['triangle_transformations_translate_auto'] = {
         .appendField(new Blockly.FieldImage("http://i.imgur.com/SlBlKQj.png", 175, 20, "*"));
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField("A ")
+        .appendField("A ", "APRIME")
         .appendField("(")
         .appendField("?", "AX")
         .appendField(",")
@@ -1035,7 +1058,7 @@ Blockly.Blocks['triangle_transformations_translate_auto'] = {
         .appendField(")");
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField("B ")
+        .appendField("B ", "BPRIME")
         .appendField("(")
         .appendField("?", "BX")
         .appendField(",")
@@ -1043,7 +1066,7 @@ Blockly.Blocks['triangle_transformations_translate_auto'] = {
         .appendField(")");
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField("C ")
+        .appendField("C ", "CPRIME")
         .appendField("(")
         .appendField("?", "CX")
         .appendField(",")
@@ -1187,6 +1210,30 @@ Blockly.Blocks['triangle_transformations_translate_auto'] = {
 
     }
     
+    var parentCount = -1;
+    block = this;
+
+    var aText = 'A';
+    var bText = 'B';
+    var cText = 'C';
+
+    var primeText = '';
+
+    do {
+        targetBlock = block;
+        block = block.parentBlock_;
+        if ( targetBlock.type == 'triangle_flow' ) { //Which it should be given our connection checks...
+          break;
+        } else {
+          parentCount += 1;
+          primeText = primeText + "'";
+        }
+    } while ( block );
+    
+    this.setFieldValue( aText + primeText + ' ', 'APRIME' );
+    this.setFieldValue( bText + primeText + ' ', 'BPRIME' );
+    this.setFieldValue( cText + primeText + ' ', 'CPRIME' );
+
   }
 };
 
@@ -1207,7 +1254,7 @@ Blockly.Blocks['triangle_transformations_dilate'] = {
         .appendField(new Blockly.FieldImage("http://i.imgur.com/jWhLthx.png", 175, 20, "*"));
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField("A ")
+        .appendField("A ", "APRIME")
         .appendField("(")
         .appendField(new Blockly.FieldTextInput('0',
         Blockly.FieldTextInput.numberValidator), "AX")
@@ -1217,7 +1264,7 @@ Blockly.Blocks['triangle_transformations_dilate'] = {
         .appendField(")");
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField("B ")
+        .appendField("B ", "BPRIME")
         .appendField("(")
         .appendField(new Blockly.FieldTextInput('0',
         Blockly.FieldTextInput.numberValidator), "BX")
@@ -1227,7 +1274,7 @@ Blockly.Blocks['triangle_transformations_dilate'] = {
         .appendField(")");
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField("C ")
+        .appendField("C ", "CPRIME")
         .appendField("(")
         .appendField(new Blockly.FieldTextInput('0',
         Blockly.FieldTextInput.numberValidator), "CX")
@@ -1375,7 +1422,31 @@ Blockly.Blocks['triangle_transformations_dilate'] = {
       } while ( block );
       
     }
+
+    var parentCount = -1;
+    block = this;
+
+    var aText = 'A';
+    var bText = 'B';
+    var cText = 'C';
+
+    var primeText = '';
+
+    do {
+        targetBlock = block;
+        block = block.parentBlock_;
+        if ( targetBlock.type == 'triangle_flow' ) { //Which it should be given our connection checks...
+          break;
+        } else {
+          parentCount += 1;
+          primeText = primeText + "'";
+        }
+    } while ( block );
     
+    this.setFieldValue( aText + primeText + ' ', 'APRIME' );
+    this.setFieldValue( bText + primeText + ' ', 'BPRIME' );
+    this.setFieldValue( cText + primeText + ' ', 'CPRIME' );
+
   }
 };
 
@@ -1396,7 +1467,7 @@ Blockly.Blocks['triangle_transformations_dilate_auto'] = {
         .appendField(new Blockly.FieldImage("http://i.imgur.com/SlBlKQj.png", 175, 20, "*"));
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField("A ")
+        .appendField("A ", "APRIME")
         .appendField("(")
         .appendField("?", "AX")
         .appendField(",")
@@ -1404,7 +1475,7 @@ Blockly.Blocks['triangle_transformations_dilate_auto'] = {
         .appendField(")");
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField("B ")
+        .appendField("B ", "BPRIME")
         .appendField("(")
         .appendField("?", "BX")
         .appendField(",")
@@ -1412,7 +1483,7 @@ Blockly.Blocks['triangle_transformations_dilate_auto'] = {
         .appendField(")");
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField("C ")
+        .appendField("C ", "CPRIME")
         .appendField("(")
         .appendField("?", "CX")
         .appendField(",")
@@ -1549,6 +1620,30 @@ Blockly.Blocks['triangle_transformations_dilate_auto'] = {
       } while ( block );
 
     }
+
+    var parentCount = -1;
+    block = this;
+
+    var aText = 'A';
+    var bText = 'B';
+    var cText = 'C';
+
+    var primeText = '';
+
+    do {
+        targetBlock = block;
+        block = block.parentBlock_;
+        if ( targetBlock.type == 'triangle_flow' ) { //Which it should be given our connection checks...
+          break;
+        } else {
+          parentCount += 1;
+          primeText = primeText + "'";
+        }
+    } while ( block );
+    
+    this.setFieldValue( aText + primeText + ' ', 'APRIME' );
+    this.setFieldValue( bText + primeText + ' ', 'BPRIME' );
+    this.setFieldValue( cText + primeText + ' ', 'CPRIME' );
     
   }
 };
@@ -1571,7 +1666,7 @@ Blockly.Blocks['triangle_transformations_dilate_auto_fixed'] = {
         .appendField(new Blockly.FieldImage("http://i.imgur.com/UpsXHeX.png", 150, 20, "*"));
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField("A ")
+        .appendField("A ", "APRIME")
         .appendField("(")
         .appendField("?", "AX")
         .appendField(",")
@@ -1579,7 +1674,7 @@ Blockly.Blocks['triangle_transformations_dilate_auto_fixed'] = {
         .appendField(")");
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField("B ")
+        .appendField("B ", "BPRIME")
         .appendField("(")
         .appendField("?", "BX")
         .appendField(",")
@@ -1587,7 +1682,7 @@ Blockly.Blocks['triangle_transformations_dilate_auto_fixed'] = {
         .appendField(")");
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField("C ")
+        .appendField("C ", "CPRIME")
         .appendField("(")
         .appendField("?", "CX")
         .appendField(",")
@@ -1726,6 +1821,30 @@ Blockly.Blocks['triangle_transformations_dilate_auto_fixed'] = {
       } while ( block );
 
     }
+
+    var parentCount = -1;
+    block = this;
+
+    var aText = 'A';
+    var bText = 'B';
+    var cText = 'C';
+
+    var primeText = '';
+
+    do {
+        targetBlock = block;
+        block = block.parentBlock_;
+        if ( targetBlock.type == 'triangle_flow' ) { //Which it should be given our connection checks...
+          break;
+        } else {
+          parentCount += 1;
+          primeText = primeText + "'";
+        }
+    } while ( block );
+    
+    this.setFieldValue( aText + primeText + ' ', 'APRIME' );
+    this.setFieldValue( bText + primeText + ' ', 'BPRIME' );
+    this.setFieldValue( cText + primeText + ' ', 'CPRIME' );
     
   }
 };
@@ -1750,7 +1869,7 @@ Blockly.Blocks['triangle_transformations_dilate_two'] = {
         .appendField(new Blockly.FieldImage("http://i.imgur.com/UpsXHeX.png", 150, 20, "*"));
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField("A ")
+        .appendField("A ", "APRIME")
         .appendField("(")
         .appendField(new Blockly.FieldTextInput('0',
         Blockly.FieldTextInput.numberValidator), "AX")
@@ -1760,7 +1879,7 @@ Blockly.Blocks['triangle_transformations_dilate_two'] = {
         .appendField(")");
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField("B ")
+        .appendField("B ", "BPRIME")
         .appendField("(")
         .appendField(new Blockly.FieldTextInput('0',
         Blockly.FieldTextInput.numberValidator), "BX")
@@ -1770,7 +1889,7 @@ Blockly.Blocks['triangle_transformations_dilate_two'] = {
         .appendField(")");
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField("C ")
+        .appendField("C ", "CPRIME")
         .appendField("(")
         .appendField(new Blockly.FieldTextInput('0',
         Blockly.FieldTextInput.numberValidator), "CX")
@@ -1925,6 +2044,30 @@ Blockly.Blocks['triangle_transformations_dilate_two'] = {
       } while ( block );
 
     }
+
+    var parentCount = -1;
+    block = this;
+
+    var aText = 'A';
+    var bText = 'B';
+    var cText = 'C';
+
+    var primeText = '';
+
+    do {
+        targetBlock = block;
+        block = block.parentBlock_;
+        if ( targetBlock.type == 'triangle_flow' ) { //Which it should be given our connection checks...
+          break;
+        } else {
+          parentCount += 1;
+          primeText = primeText + "'";
+        }
+    } while ( block );
+    
+    this.setFieldValue( aText + primeText + ' ', 'APRIME' );
+    this.setFieldValue( bText + primeText + ' ', 'BPRIME' );
+    this.setFieldValue( cText + primeText + ' ', 'CPRIME' );
     
   }
 };
@@ -1949,7 +2092,7 @@ Blockly.Blocks['triangle_transformations_dilate_two_auto'] = {
         .appendField(new Blockly.FieldImage("http://i.imgur.com/UpsXHeX.png", 150, 20, "*"));
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField("A ")
+        .appendField("A ", "APRIME")
         .appendField("(")
         .appendField('0', "AX")
         .appendField(",")
@@ -1957,7 +2100,7 @@ Blockly.Blocks['triangle_transformations_dilate_two_auto'] = {
         .appendField(")");
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField("B ")
+        .appendField("B ", "BPRIME")
         .appendField("(")
         .appendField('0', "BX")
         .appendField(",")
@@ -1965,7 +2108,7 @@ Blockly.Blocks['triangle_transformations_dilate_two_auto'] = {
         .appendField(")");
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField("C ")
+        .appendField("C ", "CPRIME")
         .appendField("(")
         .appendField('0', "CX")
         .appendField(",")
@@ -2112,6 +2255,30 @@ Blockly.Blocks['triangle_transformations_dilate_two_auto'] = {
       } while ( block );
 
     }
+
+    var parentCount = -1;
+    block = this;
+
+    var aText = 'A';
+    var bText = 'B';
+    var cText = 'C';
+
+    var primeText = '';
+
+    do {
+        targetBlock = block;
+        block = block.parentBlock_;
+        if ( targetBlock.type == 'triangle_flow' ) { //Which it should be given our connection checks...
+          break;
+        } else {
+          parentCount += 1;
+          primeText = primeText + "'";
+        }
+    } while ( block );
+    
+    this.setFieldValue( aText + primeText + ' ', 'APRIME' );
+    this.setFieldValue( bText + primeText + ' ', 'BPRIME' );
+    this.setFieldValue( cText + primeText + ' ', 'CPRIME' );
     
   }
 };
@@ -2131,7 +2298,7 @@ Blockly.Blocks['triangle_transformations_reflect'] = {
         .appendField(new Blockly.FieldImage("http://i.imgur.com/jWhLthx.png", 175, 20, "*"));
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField("A ")
+        .appendField("A ", "APRIME")
         .appendField("(")
         .appendField(new Blockly.FieldTextInput('0',
         Blockly.FieldTextInput.numberValidator), "AX")
@@ -2141,7 +2308,7 @@ Blockly.Blocks['triangle_transformations_reflect'] = {
         .appendField(")");
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField("B ")
+        .appendField("B ", "BPRIME")
         .appendField("(")
         .appendField(new Blockly.FieldTextInput('0',
         Blockly.FieldTextInput.numberValidator), "BX")
@@ -2151,7 +2318,7 @@ Blockly.Blocks['triangle_transformations_reflect'] = {
         .appendField(")");
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField("C ")
+        .appendField("C ", "CPRIME")
         .appendField("(")
         .appendField(new Blockly.FieldTextInput('0',
         Blockly.FieldTextInput.numberValidator), "CX")
@@ -2348,6 +2515,30 @@ Blockly.Blocks['triangle_transformations_reflect'] = {
       } while ( block );
 
     }
+
+    var parentCount = -1;
+    block = this;
+
+    var aText = 'A';
+    var bText = 'B';
+    var cText = 'C';
+
+    var primeText = '';
+
+    do {
+        targetBlock = block;
+        block = block.parentBlock_;
+        if ( targetBlock.type == 'triangle_flow' ) { //Which it should be given our connection checks...
+          break;
+        } else {
+          parentCount += 1;
+          primeText = primeText + "'";
+        }
+    } while ( block );
+    
+    this.setFieldValue( aText + primeText + ' ', 'APRIME' );
+    this.setFieldValue( bText + primeText + ' ', 'BPRIME' );
+    this.setFieldValue( cText + primeText + ' ', 'CPRIME' );
     
   }
 };
@@ -2367,7 +2558,7 @@ Blockly.Blocks['triangle_transformations_reflect_auto'] = {
         .appendField(new Blockly.FieldImage("http://i.imgur.com/SlBlKQj.png", 175, 20, "*"));
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField("A ")
+        .appendField("A ", "APRIME")
         .appendField("(")
         .appendField('0', "AX")
         .appendField(",")
@@ -2375,7 +2566,7 @@ Blockly.Blocks['triangle_transformations_reflect_auto'] = {
         .appendField(")");
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField("B ")
+        .appendField("B ", "BPRIME")
         .appendField("(")
         .appendField('0', "BX")
         .appendField(",")
@@ -2383,7 +2574,7 @@ Blockly.Blocks['triangle_transformations_reflect_auto'] = {
         .appendField(")");
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField("C ")
+        .appendField("C ", "CPRIME")
         .appendField("(")
         .appendField('0', "CX")
         .appendField(",")
@@ -2567,6 +2758,30 @@ Blockly.Blocks['triangle_transformations_reflect_auto'] = {
         }
       } while ( block );
     }
+
+    var parentCount = -1;
+    block = this;
+
+    var aText = 'A';
+    var bText = 'B';
+    var cText = 'C';
+
+    var primeText = '';
+
+    do {
+        targetBlock = block;
+        block = block.parentBlock_;
+        if ( targetBlock.type == 'triangle_flow' ) { //Which it should be given our connection checks...
+          break;
+        } else {
+          parentCount += 1;
+          primeText = primeText + "'";
+        }
+    } while ( block );
+    
+    this.setFieldValue( aText + primeText + ' ', 'APRIME' );
+    this.setFieldValue( bText + primeText + ' ', 'BPRIME' );
+    this.setFieldValue( cText + primeText + ' ', 'CPRIME' );
     
   }
 };
