@@ -50,6 +50,7 @@ properties:
   watchList: []
   calloutHighlight: 0
   bCallout$: false
+  calloutScheduled$: false
 methods:
   setScenario:
   resetScenario:
