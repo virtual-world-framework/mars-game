@@ -133,19 +133,19 @@ Blockly.Blocks['triangle_flow'] = {
         .appendField("△ A'B'C' ")
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField("A' ")
+        .appendField("A ", "APRIME")
         .appendField(" (")
         .appendField(" 0 , 0 ", "CURRENTA")
         .appendField(") ");
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField("B' ")
+        .appendField("B ", "BPRIME")
         .appendField(" (")
         .appendField(" 0 , 1 ", "CURRENTB")
         .appendField(") ");
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField("C' ")
+        .appendField("C ", "CPRIME")
         .appendField(" (")
         .appendField(" 1 , 0 ", "CURRENTC")
         .appendField(") ");
@@ -172,10 +172,38 @@ Blockly.Blocks['triangle_flow'] = {
       return;
     }
 
-    if ( this.getInputTargetBlock('STACK') === null || this.childBlocks_.length == 0 ) {
+    var targetBlock = this.getInputTargetBlock('STACK');
+    if ( targetBlock === null || this.childBlocks_.length == 0 ) {
       this.setFieldValue( ' 0 , 0 ','CURRENTA' );
       this.setFieldValue( ' 0 , 1 ','CURRENTB' );
       this.setFieldValue( ' 1 , 0 ','CURRENTC' );
+    } else {
+      if ( targetBlock !== null ) {
+        var totalTransformations = targetBlock.childBlocks_.length + 1;
+
+        var aText = "A";
+        var bText = "B";
+        var cText = "C";
+
+        for ( var i = 0; i < totalTransformations; i++ ) {
+          aText = aText + "'";
+          bText = bText + "'";
+          cText = cText + "'";
+        }
+
+        aText = aText + " ";
+        bText = bText + " ";
+        cText = cText + " ";
+
+        this.setFieldValue( aText, 'APRIME' );
+        this.setFieldValue( bText, 'BPRIME' );
+        this.setFieldValue( cText, 'CPRIME' );
+
+      } else {
+        this.setFieldValue( 'A ', 'APRIME' );
+        this.setFieldValue( 'B ', 'BPRIME' );
+        this.setFieldValue( 'C ', 'CPRIME' );
+      }
     }
 
     var vertexA = eval( '[' + this.getFieldValue( 'CURRENTA' ) + ']' );
