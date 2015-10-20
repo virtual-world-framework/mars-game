@@ -130,7 +130,7 @@ Blockly.Blocks['triangle_flow'] = {
         .setCheck(['Transformation']);
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField("△ A'B'C' ")
+        .appendField("△ ABC ", "TRIANGLEDESC")
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
         .appendField("A ", "APRIME")
@@ -191,6 +191,9 @@ Blockly.Blocks['triangle_flow'] = {
           cText = cText + "'";
         }
 
+        var triangleDesc = '△ ' + aText + bText + cText + ' '
+        this.setFieldValue( triangleDesc, 'TRIANGLEDESC' );
+
         aText = aText + " ";
         bText = bText + " ";
         cText = cText + " ";
@@ -203,6 +206,7 @@ Blockly.Blocks['triangle_flow'] = {
         this.setFieldValue( 'A ', 'APRIME' );
         this.setFieldValue( 'B ', 'BPRIME' );
         this.setFieldValue( 'C ', 'CPRIME' );
+        this.setFieldValue( '△ ABC ', 'TRIANGLEDESC' );
       }
     }
 
