@@ -45,7 +45,7 @@ properties:
   - setProperty:
     - graph
     - blockly_xml
-    - <xml><block type="graph_set_y" inline="false" movable="false" editable="false" x="140" y="60"></block></xml>
+    - <xml><block type="graph_set_y" inline="false" editable="false" deletable="false" x="140" y="60"></block></xml>
   - addToGrid:
     - rover
     - [ 0, 14 ]
