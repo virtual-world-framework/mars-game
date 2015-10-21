@@ -4176,7 +4176,6 @@ Blockly.Blocks['controls_if_nomut'] = {
   init: function() {
     this.setColour(20);
     this.appendValueInput('IF0')
-        .setCheck(['Boolean','LeftParenthesis','Variable'])
         .appendField(Blockly.Msg.CONTROLS_IF_MSG_IF);
     this.appendStatementInput('DO0')
         .appendField(Blockly.Msg.CONTROLS_IF_MSG_THEN);
