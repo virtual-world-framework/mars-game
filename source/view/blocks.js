@@ -172,13 +172,27 @@ Blockly.Blocks['triangle_flow'] = {
     }
 
     var targetBlock = this.getInputTargetBlock('STACK');
-    if ( targetBlock === null || this.childBlocks_.length == 0 ) {
+    if ( targetBlock === null ) {
       this.setFieldValue( ' 0 , 0 ','CURRENTA' );
       this.setFieldValue( ' 0 , 1 ','CURRENTB' );
       this.setFieldValue( ' 1 , 0 ','CURRENTC' );
+      this.setFieldValue( 'A ', 'APRIME' );
+      this.setFieldValue( 'B ', 'BPRIME' );
+      this.setFieldValue( 'C ', 'CPRIME' );
+      this.setFieldValue( '△ ABC ', 'TRIANGLEDESC' );
     } else {
       if ( targetBlock !== null ) {
-        var totalTransformations = targetBlock.childBlocks_.length + 1;
+        var totalTransformations = 1;
+
+        var nextBlock = targetBlock;
+        do {
+          if ( nextBlock.childBlocks_.length === 0 ) {
+            break;
+          } else {
+            nextBlock = nextBlock.childBlocks_[0];
+            totalTransformations++;
+          }
+        } while ( nextBlock );
 
         var aText = "A";
         var bText = "B";
