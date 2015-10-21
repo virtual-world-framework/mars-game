@@ -596,7 +596,9 @@ this.calloutTile = function( coordinate ) {
     this.environment.terrain.material.calloutTile = coordinate.slice();
     this.environment.environmentObjects.platform.material.calloutTile = coordinate.slice();
     this.bCallout$ = true;
-    this.callout();
+    if ( !this.calloutScheduled$ ) {
+        this.callout();
+    }
 }
 
 this.removeCalloutTile = function() {
@@ -606,10 +608,13 @@ this.removeCalloutTile = function() {
 this.callout = function() {
     var highlight = this.calloutHighlight;
     if ( this.bCallout$ ) {
-      this.calloutHighlight = highlight === 0 ? 1 : 0;
-      this.environment.terrain.material.calloutHighlight = this.calloutHighlight;
-      this.environment.environmentObjects.platform.material.calloutHighlight = this.calloutHighlight;
-      this.future( 0.25 ).callout();
+        this.calloutHighlight = highlight === 0 ? 1 : 0;
+        this.environment.terrain.material.calloutHighlight = this.calloutHighlight;
+        this.environment.environmentObjects.platform.material.calloutHighlight = this.calloutHighlight;
+        this.calloutScheduled$ = true;
+        this.future( 0.25 ).callout();
+    } else {
+        this.calloutScheduled$ = false;
     }
 }
 
