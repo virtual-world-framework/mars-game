@@ -163,10 +163,9 @@ Blockly.Blocks['triangle_flow'] = {
     this.data = currentBlocklyNodeID;
   },
   onchange: function() {
-    if ( !this.workspace || this.data === undefined ) {
-      // Block has been deleted.
+    if ( !this.workspace || this.data === undefined || this.isInFlyout === true ) {
+      // Block has been deleted or is in the flyout.
       currentBlocklyErrors[ this.id ] = false;
-
       currentBlocklyTriangles[ this.id ] = {}
 
       return;
@@ -232,7 +231,6 @@ Blockly.JavaScript['triangle_flow'] = function( block ) {
   var op_c = eval( '[' + block.getFieldValue("CURRENTC") + ']' );
 
   if ( op_a.length < 2 || op_b.length < 2 || op_c.length < 2 ) {
-    console.log('less length');
     return '';
   }
 
