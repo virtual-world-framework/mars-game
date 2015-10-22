@@ -6267,6 +6267,26 @@ Blockly.JavaScript['comment_block_free_text'] = function(block) {
   return code;
 };
 
+Blockly.Blocks['comment_block_free_text_no_in'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField('Comment: ')
+        .appendField(new Blockly.FieldTextInput(''), "COMMENT");
+    this.setPreviousStatement(false);
+    this.setNextStatement(true);
+    this.setColour(210);
+    this.setTooltip('');
+    this.data = currentBlocklyNodeID;
+  }
+};
+
+Blockly.JavaScript['comment_block_free_text_no_in'] = function(block) {
+  // TODO: Assemble JavaScript into code variable.
+  //https://blockly-demo.appspot.com/static/demos/blockfactory/index.html#vv4b9p
+  var code = '';
+  return code;
+};
+
 function constructBlockExeEventCall( block ) {
 
   var eventCall = "vwf.fireEvent( '" + vwf_view.kernel.application() + 

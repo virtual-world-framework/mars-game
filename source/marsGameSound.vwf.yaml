@@ -267,7 +267,7 @@ properties:
       initialVolume: 0.65
       subtitle: "[MISSION CONTROL]: Well, that was unexpected. He seems to be badly malfunctioning. Regardless, you need to keep going. Your next task is to navigate to the Base Pod, which contains essential supplies for your mission."
       soundGroup: vo
-      groupReplacementMethod: queue
+      groupReplacementMethod: replace
     - soundName: "newmission3vo2"
       soundURL: "assets/sounds/vo/newmission3vo2.ogg"
       initialVolume: 0.65
@@ -913,12 +913,6 @@ properties:
       soundURL: "assets/sounds/vo/ALVO41_Rover.ogg"
       initialVolume: 0.65
       subtitle: "[MANNY]: Up there, in the top right corner. Click the blinky thing."
-      soundGroup: vo
-      groupReplacementMethod: queue
-    - soundName: "ALVO42_Rover"
-      soundURL: "assets/sounds/vo/ALVO42_Rover.ogg"
-      initialVolume: 0.65
-      subtitle: "[MANNY]: Now that I've got this spare battery, I need to go back to the ramp to get it charged up - but I don't have enough RAM to do that with forward blocks. I can use a loop block to repeat blocks. Doing this saves me time and RAM. I can specify the number of times it repeats by putting a number block in it."
       soundGroup: vo
       groupReplacementMethod: queue
     - soundName: "ALVO42_Rover"
