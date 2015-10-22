@@ -195,7 +195,7 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 break;
 
             case "blocklyStopped":
-                blocklyDiv.style.pointerEvents = "all";
+                blocklyDiv.style.pointerEvents = "inherit";
                 startBlocklyButton.className = "";
                 //vwf_view.kernel.setProperty( nodeID, "blockly_timeBetweenLines", 1 );
                 // startBlocklyButton.className = "";
@@ -221,7 +221,7 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 // speedButton.style.pointerEvents = "inherit";
                 
             case "blocklyErrored":
-                blocklyDiv.style.pointerEvents = "all";
+                blocklyDiv.style.pointerEvents = "inherit";
                 startBlocklyButton.className = "";
                 break;
 
