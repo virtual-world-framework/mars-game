@@ -64,11 +64,11 @@ properties:
   - setProperty:
     - rover
     - battery
-    - 20
+    - 25
   - setProperty:
     - rover
     - batteryMax
-    - 20
+    - 25
   - setProperty:
     - rover
     - blockly_allowedBlocks
@@ -77,11 +77,6 @@ properties:
   # Perry, Rosie disabled
   - setProperty:
     - rover2
-    - visible
-    - false
-  
-  - setProperty:
-    - minirover
     - visible
     - false
 
@@ -96,14 +91,13 @@ properties:
     - 0
 
   # Graph
-
   - addToGrid:
     - blocklyGraph
     - [ -17, 32 ]
   - setGridAxes:
     - 32
     - -17
-  
+
   - setProperty:
     - cargoPod2
     - isClosed
@@ -115,7 +109,6 @@ properties:
     - true
 
   # turning supplies and minirover invisible
-
   - setProperty:
     - supplies_1
     - visible
@@ -147,7 +140,7 @@ children:
             - enabled
             - false
           - delay:
-            - 12
+            - 11
             - openMissionBrief:
             - setProperty:
               - hud

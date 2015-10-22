@@ -17,7 +17,7 @@ extends: ../scenario/scenario.vwf
 properties:
   scenarioName: introCinematic
 
-  nextScenarioPath: "Mission1Task1"
+  nextScenarioPath: "Mission2Success"
   blockly: source/scenario/blockly/scenario1.xml
 
 children:
