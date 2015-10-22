@@ -21,9 +21,18 @@ properties:
   nextScenarioPath: "Mission3Task3"
 
   startState:
+  - setProperty:
+    - rover
+    - startXML
+    - <xml><block type="procedures_defnoreturn" id="a" deletable="false" movable="false" editable="false" x="0" y="-340"><mutation><arg name="Destination X"></arg><arg name="Destination Y"></arg></mutation><field name="NAME">Navigate</field><statement name="STACK"><block type="controls_if_nomut" id="b" inline="false"><value name="IF0"><block type="variables_get" id="c" inline="false"><field name="VAR">Destination Y</field><value name="INPUT"><block type="logic_cond_out" id="d" inline="false"><field name="VALUE">&lt;</field><value name="INPUT"><block type="controls_sensor_position_y" id="e" inline="false"></block></value></block></value></block></value><statement name="DO0"><block type="controls_whileUntil" id="f" inline="false"><value name="BOOL"><block type="controls_sensor_heading" id="g" inline="false"><value name="INPUT"><block type="logic_cond_out" id="h" inline="false"><field name="VALUE">!==</field><value name="INPUT"><block type="math_number_angle_select" id="i" inline="false"><field name="VALUE">270</field></block></value></block></value></block></value><statement name="DO"><block type="rover_turn" id="j"></block></statement><next><block type="controls_whileUntil" id="k" inline="false"><value name="BOOL"><block type="variables_get" id="l" inline="false"><field name="VAR">Destination Y</field><value name="INPUT"><block type="logic_cond_out" id="m" inline="false"><field name="VALUE">&lt;</field><value name="INPUT"><block type="controls_sensor_position_y" id="n" inline="false"></block></value></block></value></block></value><statement name="DO"><block type="rover_moveForward" id="o"></block></statement></block></next></block></statement></block></statement></block><block type="comment_block_free_text_no_in" id="p" deletable="false" movable="false" editable="false" inline="false" x="0" y="-500"><field name="COMMENT">This program tests the Navigate procedure.</field><next><block type="procedures_callnoreturn_no_out" id="u" deletable="false" movable="false" editable="false" inline="false"><mutation name="Navigate"><arg name="Destination X"></arg><arg name="Destination Y"></arg></mutation><value name="ARG0"><block type="math_number_field_no_out" inline="false" movable="false" deletable="false" id="a63"><field name="VALUE">0</field></block></value><value name="ARG1"><block type="math_number_field_no_out" inline="false" movable="false" deletable="false" id="a60"><field name="VALUE">0</field></block></value></block></next></block></xml>
+  - setProperty:
+    - rover
+    - blockly_xml
+    - <xml><block type="procedures_defnoreturn" id="a" deletable="false" movable="false" editable="false" x="0" y="-340"><mutation><arg name="Destination X"></arg><arg name="Destination Y"></arg></mutation><field name="NAME">Navigate</field><statement name="STACK"><block type="controls_if_nomut" id="b" inline="false"><value name="IF0"><block type="variables_get" id="c" inline="false"><field name="VAR">Destination Y</field><value name="INPUT"><block type="logic_cond_out" id="d" inline="false"><field name="VALUE">&lt;</field><value name="INPUT"><block type="controls_sensor_position_y" id="e" inline="false"></block></value></block></value></block></value><statement name="DO0"><block type="controls_whileUntil" id="f" inline="false"><value name="BOOL"><block type="controls_sensor_heading" id="g" inline="false"><value name="INPUT"><block type="logic_cond_out" id="h" inline="false"><field name="VALUE">!==</field><value name="INPUT"><block type="math_number_angle_select" id="i" inline="false"><field name="VALUE">270</field></block></value></block></value></block></value><statement name="DO"><block type="rover_turn" id="j"></block></statement><next><block type="controls_whileUntil" id="k" inline="false"><value name="BOOL"><block type="variables_get" id="l" inline="false"><field name="VAR">Destination Y</field><value name="INPUT"><block type="logic_cond_out" id="m" inline="false"><field name="VALUE">&lt;</field><value name="INPUT"><block type="controls_sensor_position_y" id="n" inline="false"></block></value></block></value></block></value><statement name="DO"><block type="rover_moveForward" id="o"></block></statement></block></next></block></statement></block></statement></block><block type="comment_block_free_text_no_in" id="p" deletable="false" movable="false" editable="false" inline="false" x="0" y="-500"><field name="COMMENT">This program tests the Navigate procedure.</field><next><block type="procedures_callnoreturn_no_out" id="u" deletable="false" movable="false" editable="false" inline="false"><mutation name="Navigate"><arg name="Destination X"></arg><arg name="Destination Y"></arg></mutation><value name="ARG0"><block type="math_number_field_no_out" inline="false" movable="false" deletable="false" id="a63"><field name="VALUE">0</field></block></value><value name="ARG1"><block type="math_number_field_no_out" inline="false" movable="false" deletable="false" id="a60"><field name="VALUE">0</field></block></value></block></next></block></xml>
+
   # objective
   - setObjective:
-    - "Edit your navigate procedure: Turn the right direction before moving to [0,-6]."
+    - "Edit your procedure so that it can also move up the Y axis."
 
   # sounds/video
   - playSound:
@@ -40,15 +49,7 @@ properties:
     - rover
   - loadToolbox:
     - rover
-    - source/scenario/blockly/mission3b.xml
-  - setProperty:
-    - rover
-    - startXML
-    - <xml><block type="procedures_defnoreturn" id="a" deletable="false"  movable="false" editable="false" x="-20" y="-340"><mutation><arg name="Destination Y"></arg></mutation><field name="NAME">navigate</field><statement name="STACK"><block type="controls_whileUntil" id="b" deletable="false" editable="false" inline="false"><field name="MODE">WHILE</field><value name="BOOL"><block type="variables_get" id="c" inline="false"><field name="VAR">Destination Y</field><value name="INPUT"><block type="logic_cond_out" id="d" inline="false"><field name="VALUE">&lt;</field><value name="INPUT"><block type="controls_sensor_position_y" id="e" inline="false"></block></value></block></value></block></value><statement name="DO"><block type="rover_moveForward" id="f"></block></statement></block></statement></block><block type="controls_whileUntil_no_in" id="g" inline="false" deletable="false" movable="false" editable="false" x="-20" y="-500"><value name="BOOL"><block type="controls_sensor_heading" id="h" inline="false" deletable="false" movable="false" editable="false"><value name="INPUT"><block type="logic_cond_out" id="i" inline="false" deletable="false" movable="false" editable="false"><field name="VALUE">===</field><value name="INPUT"><block type="math_number_angle_select_no_out" id="j" deletable="false" movable="false" editable="false" inline="false"><field name="VALUE">270</field></block></value></block></value></block></value><statement name="DO"><block type="rover_turn_no_out" id="k" deletable="false" movable="false" editable="false"></block></statement><next><block type="procedures_callnoreturn_no_out" id="l" deletable="false" movable="false" editable="false" inline="false"><mutation name="navigate"><arg name="Destination Y"></arg></mutation><value name="ARG0"><block type="math_number_field_no_out" id="m" deletable="false" movable="false" editable="false" inline="false"><field name="VALUE">-6</field></block></value></block></next></block></xml>
-  - setProperty:
-    - rover
-    - blockly_xml
-    - <xml><block type="procedures_defnoreturn" id="a" deletable="false"  movable="false" editable="false" x="-20" y="-340"><mutation><arg name="Destination Y"></arg></mutation><field name="NAME">navigate</field><statement name="STACK"><block type="controls_whileUntil" id="b" deletable="false" editable="false" inline="false"><field name="MODE">WHILE</field><value name="BOOL"><block type="variables_get" id="c" inline="false"><field name="VAR">Destination Y</field><value name="INPUT"><block type="logic_cond_out" id="d" inline="false"><field name="VALUE">&lt;</field><value name="INPUT"><block type="controls_sensor_position_y" id="e" inline="false"></block></value></block></value></block></value><statement name="DO"><block type="rover_moveForward" id="f"></block></statement></block></statement></block><block type="controls_whileUntil_no_in" id="g" inline="false" deletable="false" movable="false" editable="false" x="-20" y="-500"><value name="BOOL"><block type="controls_sensor_heading" id="h" inline="false" deletable="false" movable="false" editable="false"><value name="INPUT"><block type="logic_cond_out" id="i" inline="false" deletable="false" movable="false" editable="false"><field name="VALUE">===</field><value name="INPUT"><block type="math_number_angle_select_no_out" id="j" deletable="false" movable="false" editable="false" inline="false"><field name="VALUE">270</field></block></value></block></value></block></value><statement name="DO"><block type="rover_turn_no_out" id="k" deletable="false" movable="false" editable="false"></block></statement><next><block type="procedures_callnoreturn_no_out" id="l" deletable="false" movable="false" editable="false" inline="false"><mutation name="navigate"><arg name="Destination Y"></arg></mutation><value name="ARG0"><block type="math_number_field_no_out" id="m" deletable="false" movable="false" editable="false" inline="false"><field name="VALUE">-6</field></block></value></block></next></block></xml>
+    - source/scenario/blockly/mission3d.xml
   - delay:
     - .5  
     - callMethod:
@@ -68,15 +69,15 @@ properties:
   - setProperty:
     - rover
     - battery
-    - 40
+    - 10
   - setProperty:
     - rover
     - batteryMax
-    - 40
+    - 10
   - setProperty:
     - rover
     - blockly_allowedBlocks
-    - 70
+    - 40
 
   # Perry, Rosie disabled
   - setProperty:
@@ -106,6 +107,7 @@ properties:
     - cargoPod2
     - isClosed
     - true
+
   - setProperty:
     - roverTracks2
     - visible
@@ -137,32 +139,30 @@ children:
             - onScenarioStart:
           actions:
           - playSound:
-            - TM3VO5_Rover
+            - newmission3vo5
           - playSound:
-            - m3t2vo010
-          - playSound:
-            - m3t2vo020
-          - setProperty:
-            - hud
-            - enabled
-            - false
-          - delay:
-            - 27
-            - openMissionBrief:
-            - setProperty:
-              - hud
-              - enabled
-              - true
-            - startTimer:
+            - m3t4vo010
+          # - setProperty:
+          #   - hud
+          #   - enabled
+          #   - false
+          # - delay:
+          #   - 18
+          #   - openMissionBrief:
+          #   - setProperty:
+          #     - hud
+          #     - enabled
+          #     - true
+          #   - startTimer:
 
-        highlightEndTile_3_2:
+        highlightEndTile_3_4:
           triggerCondition:
           - onScenarioStart:
           actions:
           - callOutObjective:
-            - [ 0, -6 ]
+            - [ 0, 0 ]
 
-        succeedOnSuccessfulMovement_3_2:
+        succeedOnSuccessfulMovement_3_4:
           group: successOrFailure
           priority: 0
           triggerCondition:
@@ -171,7 +171,7 @@ children:
               - rover
             - isAtPosition:
               - rover
-              - [ -17, 26 ]
+              - [ -17, 32 ]
           actions:
           - clearBlockly:
           - scenarioSuccess:
@@ -180,36 +180,38 @@ children:
           - playSound:
             - musicSuccessShort
 
-        playHint_M3T2_1:
+        playHint_M3T4_1:
           triggerCondition:
           - and:
             - doOnce:
             - delay:
-              - 35
+              - 30
           actions:
           - playSound:
-            - m3t2vo030
+            - m3t4vo020
 
-        playHint_M3T2_2:
+        playHint_M3T4_2:
           triggerCondition:
           - and:
             - doOnce:
             - delay:
-              - 45
+              - 50
           actions:
           - playSound:
-            - m3t2vo040
+            - m3t4vo030
 
   brief:
     extends: ../missionBrief.vwf
     properties:
       title: "Mission 3, Task 2"
       content: >
-        The basic navigation procedure appears to be working!
-        <br><br>Unfortunately, it will only work if you're already facing down
-        the Y axis. The next step is to edit the procedure so that it turns you
-        to face the correct direction. You'll need to use a conditional loop 
-        block (like you used to follow the minirover's tracks), along with your
-        Direction of Travel sensor, to ensure that you turn the right amount.
-
-
+        Movement down the Y axis works!
+        <br><br>Mission Control has changed your procedure a bit to match the
+        standard format, and updated your test program so that it provides a 
+        Destination Y that is in the opposite direction. You need to extend your 
+        procedure to handle this without changing what you've already got.
+        <br><br> The blocks in the current procedure are a good place to start.
+        If you right-click on the If block and select Duplicate, you can make
+        a copy of it. Move the copy into your procedure (above or below the If
+        block that's already there), and then change the copy to move up the Y  
+        axis instead of down it.
