@@ -1562,4 +1562,10 @@ function writeCameraPose( radius, yaw, pitch ) {
 
 window.addEventListener( "resize", checkPageZoom );
 
+$( document ).keydown( function( objEvent ) {
+    if ( objEvent.keyCode == 9 ) {  //tab pressed
+        objEvent.preventDefault(); // stops its action
+    }
+} );
+
 //@ sourceURL=source/view/index.js

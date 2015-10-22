@@ -130,22 +130,22 @@ Blockly.Blocks['triangle_flow'] = {
         .setCheck(['Transformation']);
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField("△ A'B'C' ")
+        .appendField("△ ABC ", "TRIANGLEDESC")
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField("A' ")
+        .appendField("A ", "APRIME")
         .appendField(" (")
         .appendField(" 0 , 0 ", "CURRENTA")
         .appendField(") ");
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField("B' ")
+        .appendField("B ", "BPRIME")
         .appendField(" (")
         .appendField(" 0 , 1 ", "CURRENTB")
         .appendField(") ");
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField("C' ")
+        .appendField("C ", "CPRIME")
         .appendField(" (")
         .appendField(" 1 , 0 ", "CURRENTC")
         .appendField(") ");
@@ -163,19 +163,64 @@ Blockly.Blocks['triangle_flow'] = {
     this.data = currentBlocklyNodeID;
   },
   onchange: function() {
-    if ( !this.workspace || this.data === undefined ) {
-      // Block has been deleted.
+    if ( !this.workspace || this.data === undefined || this.isInFlyout === true ) {
+      // Block has been deleted or is in the flyout.
       currentBlocklyErrors[ this.id ] = false;
-
       currentBlocklyTriangles[ this.id ] = {}
 
       return;
     }
 
-    if ( this.getInputTargetBlock('STACK') === null || this.childBlocks_.length == 0 ) {
+    var targetBlock = this.getInputTargetBlock('STACK');
+    if ( targetBlock === null ) {
       this.setFieldValue( ' 0 , 0 ','CURRENTA' );
       this.setFieldValue( ' 0 , 1 ','CURRENTB' );
       this.setFieldValue( ' 1 , 0 ','CURRENTC' );
+      this.setFieldValue( 'A ', 'APRIME' );
+      this.setFieldValue( 'B ', 'BPRIME' );
+      this.setFieldValue( 'C ', 'CPRIME' );
+      this.setFieldValue( '△ ABC ', 'TRIANGLEDESC' );
+    } else {
+      if ( targetBlock !== null ) {
+        var totalTransformations = 1;
+
+        var nextBlock = targetBlock;
+        do {
+          if ( nextBlock.childBlocks_.length === 0 ) {
+            break;
+          } else {
+            nextBlock = nextBlock.childBlocks_[0];
+            totalTransformations++;
+          }
+        } while ( nextBlock );
+
+        var aText = "A";
+        var bText = "B";
+        var cText = "C";
+
+        for ( var i = 0; i < totalTransformations; i++ ) {
+          aText = aText + "'";
+          bText = bText + "'";
+          cText = cText + "'";
+        }
+
+        var triangleDesc = '△ ' + aText + bText + cText + ' '
+        this.setFieldValue( triangleDesc, 'TRIANGLEDESC' );
+
+        aText = aText + " ";
+        bText = bText + " ";
+        cText = cText + " ";
+
+        this.setFieldValue( aText, 'APRIME' );
+        this.setFieldValue( bText, 'BPRIME' );
+        this.setFieldValue( cText, 'CPRIME' );
+
+      } else {
+        this.setFieldValue( 'A ', 'APRIME' );
+        this.setFieldValue( 'B ', 'BPRIME' );
+        this.setFieldValue( 'C ', 'CPRIME' );
+        this.setFieldValue( '△ ABC ', 'TRIANGLEDESC' );
+      }
     }
 
     var vertexA = eval( '[' + this.getFieldValue( 'CURRENTA' ) + ']' );
@@ -200,7 +245,6 @@ Blockly.JavaScript['triangle_flow'] = function( block ) {
   var op_c = eval( '[' + block.getFieldValue("CURRENTC") + ']' );
 
   if ( op_a.length < 2 || op_b.length < 2 || op_c.length < 2 ) {
-    console.log('less length');
     return '';
   }
 
@@ -339,7 +383,7 @@ Blockly.Blocks['triangle_transformations'] = {
       this.setWarningText(null);
       currentBlocklyErrors[ this.id ] = false;
     } else {
-      this.setWarningText('Block can only be placed within a triangle flow block');
+      this.setWarningText('Block can only be placed \nwithin a triangle flow block');
       currentBlocklyErrors[ this.id ] = true;
     }
 
@@ -389,7 +433,7 @@ Blockly.Blocks['triangle_transformations'] = {
             this.setWarningText(null);
             currentBlocklyErrors[ this.id ] = false;
           } else {
-            this.setWarningText('You must input the correct results of this transformation!');
+            this.setWarningText('You must input the correct \nresults of this transformation!');
             currentBlocklyErrors[ this.id ] = true;
           }
 
@@ -417,7 +461,7 @@ Blockly.Blocks['triangle_transformations'] = {
             this.setWarningText(null);
             currentBlocklyErrors[ this.id ] = false;
           } else {
-            this.setWarningText('You must input the correct results of this transformation!');
+            this.setWarningText('You must input the correct \nresults of this transformation!');
             currentBlocklyErrors[ this.id ] = true;
           }
 
@@ -448,7 +492,7 @@ Blockly.Blocks['triangle_transformations'] = {
               this.setWarningText(null);
               currentBlocklyErrors[ this.id ] = false;
             } else {
-              this.setWarningText('You must input the correct results of this transformation!');
+              this.setWarningText('You must input the correct \nresults of this transformation!');
               currentBlocklyErrors[ this.id ] = true;
             }
 
@@ -476,7 +520,7 @@ Blockly.Blocks['triangle_transformations'] = {
               this.setWarningText(null);
               currentBlocklyErrors[ this.id ] = false;
             } else {
-              this.setWarningText('You must input the correct results of this transformation!');
+              this.setWarningText('You must input the correct \nresults of this transformation!');
               currentBlocklyErrors[ this.id ] = true;
             }
 
@@ -602,7 +646,7 @@ Blockly.Blocks['triangle_transformations_auto'] = {
       this.setWarningText(null);
       currentBlocklyErrors[ this.id ] = false;
     } else {
-      this.setWarningText('Block can only be placed within a triangle flow block');
+      this.setWarningText('Block can only be placed \nwithin a triangle flow block');
       currentBlocklyErrors[ this.id ] = true;
     }
 
@@ -798,7 +842,7 @@ Blockly.Blocks['triangle_transformations_translate'] = {
         .appendField(new Blockly.FieldImage("http://i.imgur.com/jWhLthx.png", 175, 20, "*"));
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField("A ")
+        .appendField("A ", "APRIME")
         .appendField("(")
         .appendField(new Blockly.FieldTextInput('0',
         Blockly.FieldTextInput.numberValidator), "AX")
@@ -808,7 +852,7 @@ Blockly.Blocks['triangle_transformations_translate'] = {
         .appendField(")");
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField("B ")
+        .appendField("B ", "BPRIME")
         .appendField("(")
         .appendField(new Blockly.FieldTextInput('0',
         Blockly.FieldTextInput.numberValidator), "BX")
@@ -818,7 +862,7 @@ Blockly.Blocks['triangle_transformations_translate'] = {
         .appendField(")");
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField("C ")
+        .appendField("C ", "CPRIME")
         .appendField("(")
         .appendField(new Blockly.FieldTextInput('0',
         Blockly.FieldTextInput.numberValidator), "CX")
@@ -862,7 +906,7 @@ Blockly.Blocks['triangle_transformations_translate'] = {
       this.setWarningText(null);
       currentBlocklyErrors[ this.id ] = false;
     } else {
-      this.setWarningText('Block can only be placed within a triangle flow block');
+      this.setWarningText('Block can only be placed within \na triangle flow block');
       currentBlocklyErrors[ this.id ] = true;
     }
 
@@ -908,7 +952,7 @@ Blockly.Blocks['triangle_transformations_translate'] = {
           this.setWarningText(null);
           currentBlocklyErrors[ this.id ] = false;
         } else {
-          this.setWarningText('You must input the correct results of this transformation!');
+          this.setWarningText('You must input the correct \nresults of this transformation!');
           currentBlocklyErrors[ this.id ] = true;
         }
 
@@ -934,7 +978,7 @@ Blockly.Blocks['triangle_transformations_translate'] = {
             this.setWarningText(null);
             currentBlocklyErrors[ this.id ] = false;
           } else {
-            this.setWarningText('You must input the correct results of this transformation!');
+            this.setWarningText('You must input the correct \nresults of this transformation!');
             currentBlocklyErrors[ this.id ] = true;
           }
         }
@@ -967,8 +1011,31 @@ Blockly.Blocks['triangle_transformations_translate'] = {
 
       } while ( block );
 
-      
     }
+
+    var parentCount = -1;
+    block = this;
+
+    var aText = 'A';
+    var bText = 'B';
+    var cText = 'C';
+
+    var primeText = '';
+
+    do {
+        targetBlock = block;
+        block = block.parentBlock_;
+        if ( targetBlock.type == 'triangle_flow' ) { //Which it should be given our connection checks...
+          break;
+        } else {
+          parentCount += 1;
+          primeText = primeText + "'";
+        }
+    } while ( block );
+    
+    this.setFieldValue( aText + primeText + ' ', 'APRIME' );
+    this.setFieldValue( bText + primeText + ' ', 'BPRIME' );
+    this.setFieldValue( cText + primeText + ' ', 'CPRIME' );
     
   }
 };
@@ -995,7 +1062,7 @@ Blockly.Blocks['triangle_transformations_translate_auto'] = {
         .appendField(new Blockly.FieldImage("http://i.imgur.com/SlBlKQj.png", 175, 20, "*"));
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField("A ")
+        .appendField("A ", "APRIME")
         .appendField("(")
         .appendField("?", "AX")
         .appendField(",")
@@ -1003,7 +1070,7 @@ Blockly.Blocks['triangle_transformations_translate_auto'] = {
         .appendField(")");
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField("B ")
+        .appendField("B ", "BPRIME")
         .appendField("(")
         .appendField("?", "BX")
         .appendField(",")
@@ -1011,7 +1078,7 @@ Blockly.Blocks['triangle_transformations_translate_auto'] = {
         .appendField(")");
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField("C ")
+        .appendField("C ", "CPRIME")
         .appendField("(")
         .appendField("?", "CX")
         .appendField(",")
@@ -1053,7 +1120,7 @@ Blockly.Blocks['triangle_transformations_translate_auto'] = {
       this.setWarningText(null);
       currentBlocklyErrors[ this.id ] = false;
     } else {
-      this.setWarningText('Block can only be placed within a triangle flow block');
+      this.setWarningText('Block can only be placed \nwithin a triangle flow block');
       currentBlocklyErrors[ this.id ] = true;
     }
 
@@ -1155,6 +1222,30 @@ Blockly.Blocks['triangle_transformations_translate_auto'] = {
 
     }
     
+    var parentCount = -1;
+    block = this;
+
+    var aText = 'A';
+    var bText = 'B';
+    var cText = 'C';
+
+    var primeText = '';
+
+    do {
+        targetBlock = block;
+        block = block.parentBlock_;
+        if ( targetBlock.type == 'triangle_flow' ) { //Which it should be given our connection checks...
+          break;
+        } else {
+          parentCount += 1;
+          primeText = primeText + "'";
+        }
+    } while ( block );
+    
+    this.setFieldValue( aText + primeText + ' ', 'APRIME' );
+    this.setFieldValue( bText + primeText + ' ', 'BPRIME' );
+    this.setFieldValue( cText + primeText + ' ', 'CPRIME' );
+
   }
 };
 
@@ -1175,7 +1266,7 @@ Blockly.Blocks['triangle_transformations_dilate'] = {
         .appendField(new Blockly.FieldImage("http://i.imgur.com/jWhLthx.png", 175, 20, "*"));
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField("A ")
+        .appendField("A ", "APRIME")
         .appendField("(")
         .appendField(new Blockly.FieldTextInput('0',
         Blockly.FieldTextInput.numberValidator), "AX")
@@ -1185,7 +1276,7 @@ Blockly.Blocks['triangle_transformations_dilate'] = {
         .appendField(")");
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField("B ")
+        .appendField("B ", "BPRIME")
         .appendField("(")
         .appendField(new Blockly.FieldTextInput('0',
         Blockly.FieldTextInput.numberValidator), "BX")
@@ -1195,7 +1286,7 @@ Blockly.Blocks['triangle_transformations_dilate'] = {
         .appendField(")");
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField("C ")
+        .appendField("C ", "CPRIME")
         .appendField("(")
         .appendField(new Blockly.FieldTextInput('0',
         Blockly.FieldTextInput.numberValidator), "CX")
@@ -1239,7 +1330,7 @@ Blockly.Blocks['triangle_transformations_dilate'] = {
       this.setWarningText(null);
       currentBlocklyErrors[ this.id ] = false;
     } else {
-      this.setWarningText('Block can only be placed within a triangle flow block');
+      this.setWarningText('Block can only be placed \nwithin a triangle flow block');
       currentBlocklyErrors[ this.id ] = true;
     }
 
@@ -1284,7 +1375,7 @@ Blockly.Blocks['triangle_transformations_dilate'] = {
           this.setWarningText(null);
           currentBlocklyErrors[ this.id ] = false;
         } else {
-          this.setWarningText('You must input the correct results of this transformation!');
+          this.setWarningText('You must input the correct \nresults of this transformation!');
           currentBlocklyErrors[ this.id ] = true;
         }
 
@@ -1310,7 +1401,7 @@ Blockly.Blocks['triangle_transformations_dilate'] = {
             this.setWarningText(null);
             currentBlocklyErrors[ this.id ] = false;
           } else {
-            this.setWarningText('You must input the correct results of this transformation!');
+            this.setWarningText('You must input the correct \nresults of this transformation!');
             currentBlocklyErrors[ this.id ] = true;
           }
         }
@@ -1343,7 +1434,31 @@ Blockly.Blocks['triangle_transformations_dilate'] = {
       } while ( block );
       
     }
+
+    var parentCount = -1;
+    block = this;
+
+    var aText = 'A';
+    var bText = 'B';
+    var cText = 'C';
+
+    var primeText = '';
+
+    do {
+        targetBlock = block;
+        block = block.parentBlock_;
+        if ( targetBlock.type == 'triangle_flow' ) { //Which it should be given our connection checks...
+          break;
+        } else {
+          parentCount += 1;
+          primeText = primeText + "'";
+        }
+    } while ( block );
     
+    this.setFieldValue( aText + primeText + ' ', 'APRIME' );
+    this.setFieldValue( bText + primeText + ' ', 'BPRIME' );
+    this.setFieldValue( cText + primeText + ' ', 'CPRIME' );
+
   }
 };
 
@@ -1364,7 +1479,7 @@ Blockly.Blocks['triangle_transformations_dilate_auto'] = {
         .appendField(new Blockly.FieldImage("http://i.imgur.com/SlBlKQj.png", 175, 20, "*"));
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField("A ")
+        .appendField("A ", "APRIME")
         .appendField("(")
         .appendField("?", "AX")
         .appendField(",")
@@ -1372,7 +1487,7 @@ Blockly.Blocks['triangle_transformations_dilate_auto'] = {
         .appendField(")");
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField("B ")
+        .appendField("B ", "BPRIME")
         .appendField("(")
         .appendField("?", "BX")
         .appendField(",")
@@ -1380,7 +1495,7 @@ Blockly.Blocks['triangle_transformations_dilate_auto'] = {
         .appendField(")");
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField("C ")
+        .appendField("C ", "CPRIME")
         .appendField("(")
         .appendField("?", "CX")
         .appendField(",")
@@ -1422,7 +1537,7 @@ Blockly.Blocks['triangle_transformations_dilate_auto'] = {
       this.setWarningText(null);
       currentBlocklyErrors[ this.id ] = false;
     } else {
-      this.setWarningText('Block can only be placed within a triangle flow block');
+      this.setWarningText('Block can only be placed within \na triangle flow block');
       currentBlocklyErrors[ this.id ] = true;
     }
 
@@ -1517,6 +1632,30 @@ Blockly.Blocks['triangle_transformations_dilate_auto'] = {
       } while ( block );
 
     }
+
+    var parentCount = -1;
+    block = this;
+
+    var aText = 'A';
+    var bText = 'B';
+    var cText = 'C';
+
+    var primeText = '';
+
+    do {
+        targetBlock = block;
+        block = block.parentBlock_;
+        if ( targetBlock.type == 'triangle_flow' ) { //Which it should be given our connection checks...
+          break;
+        } else {
+          parentCount += 1;
+          primeText = primeText + "'";
+        }
+    } while ( block );
+    
+    this.setFieldValue( aText + primeText + ' ', 'APRIME' );
+    this.setFieldValue( bText + primeText + ' ', 'BPRIME' );
+    this.setFieldValue( cText + primeText + ' ', 'CPRIME' );
     
   }
 };
@@ -1539,7 +1678,7 @@ Blockly.Blocks['triangle_transformations_dilate_auto_fixed'] = {
         .appendField(new Blockly.FieldImage("http://i.imgur.com/UpsXHeX.png", 150, 20, "*"));
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField("A ")
+        .appendField("A ", "APRIME")
         .appendField("(")
         .appendField("?", "AX")
         .appendField(",")
@@ -1547,7 +1686,7 @@ Blockly.Blocks['triangle_transformations_dilate_auto_fixed'] = {
         .appendField(")");
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField("B ")
+        .appendField("B ", "BPRIME")
         .appendField("(")
         .appendField("?", "BX")
         .appendField(",")
@@ -1555,7 +1694,7 @@ Blockly.Blocks['triangle_transformations_dilate_auto_fixed'] = {
         .appendField(")");
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField("C ")
+        .appendField("C ", "CPRIME")
         .appendField("(")
         .appendField("?", "CX")
         .appendField(",")
@@ -1597,7 +1736,7 @@ Blockly.Blocks['triangle_transformations_dilate_auto_fixed'] = {
       this.setWarningText(null);
       currentBlocklyErrors[ this.id ] = false;
     } else {
-      this.setWarningText('Block can only be placed within a triangle flow block');
+      this.setWarningText('Block can only be placed within \na triangle flow block');
       currentBlocklyErrors[ this.id ] = true;
     }
 
@@ -1694,6 +1833,30 @@ Blockly.Blocks['triangle_transformations_dilate_auto_fixed'] = {
       } while ( block );
 
     }
+
+    var parentCount = -1;
+    block = this;
+
+    var aText = 'A';
+    var bText = 'B';
+    var cText = 'C';
+
+    var primeText = '';
+
+    do {
+        targetBlock = block;
+        block = block.parentBlock_;
+        if ( targetBlock.type == 'triangle_flow' ) { //Which it should be given our connection checks...
+          break;
+        } else {
+          parentCount += 1;
+          primeText = primeText + "'";
+        }
+    } while ( block );
+    
+    this.setFieldValue( aText + primeText + ' ', 'APRIME' );
+    this.setFieldValue( bText + primeText + ' ', 'BPRIME' );
+    this.setFieldValue( cText + primeText + ' ', 'CPRIME' );
     
   }
 };
@@ -1718,7 +1881,7 @@ Blockly.Blocks['triangle_transformations_dilate_two'] = {
         .appendField(new Blockly.FieldImage("http://i.imgur.com/UpsXHeX.png", 150, 20, "*"));
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField("A ")
+        .appendField("A ", "APRIME")
         .appendField("(")
         .appendField(new Blockly.FieldTextInput('0',
         Blockly.FieldTextInput.numberValidator), "AX")
@@ -1728,7 +1891,7 @@ Blockly.Blocks['triangle_transformations_dilate_two'] = {
         .appendField(")");
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField("B ")
+        .appendField("B ", "BPRIME")
         .appendField("(")
         .appendField(new Blockly.FieldTextInput('0',
         Blockly.FieldTextInput.numberValidator), "BX")
@@ -1738,7 +1901,7 @@ Blockly.Blocks['triangle_transformations_dilate_two'] = {
         .appendField(")");
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField("C ")
+        .appendField("C ", "CPRIME")
         .appendField("(")
         .appendField(new Blockly.FieldTextInput('0',
         Blockly.FieldTextInput.numberValidator), "CX")
@@ -1782,7 +1945,7 @@ Blockly.Blocks['triangle_transformations_dilate_two'] = {
       this.setWarningText(null);
       currentBlocklyErrors[ this.id ] = false;
     } else {
-      this.setWarningText('Block can only be placed within a triangle flow block');
+      this.setWarningText('Block can only be placed \nwithin a triangle flow block');
       currentBlocklyErrors[ this.id ] = true;
     }
 
@@ -1831,7 +1994,7 @@ Blockly.Blocks['triangle_transformations_dilate_two'] = {
           this.setWarningText(null);
           currentBlocklyErrors[ this.id ] = false;
         } else {
-          this.setWarningText('You must input the correct results of this transformation!');
+          this.setWarningText('You must input the correct \nresults of this transformation!');
           currentBlocklyErrors[ this.id ] = true;
         }
 
@@ -1861,7 +2024,7 @@ Blockly.Blocks['triangle_transformations_dilate_two'] = {
             this.setWarningText(null);
             currentBlocklyErrors[ this.id ] = false;
           } else {
-            this.setWarningText('You must input the correct results of this transformation!');
+            this.setWarningText('You must input the correct \nresults of this transformation!');
             currentBlocklyErrors[ this.id ] = true;
           }
         }
@@ -1893,6 +2056,30 @@ Blockly.Blocks['triangle_transformations_dilate_two'] = {
       } while ( block );
 
     }
+
+    var parentCount = -1;
+    block = this;
+
+    var aText = 'A';
+    var bText = 'B';
+    var cText = 'C';
+
+    var primeText = '';
+
+    do {
+        targetBlock = block;
+        block = block.parentBlock_;
+        if ( targetBlock.type == 'triangle_flow' ) { //Which it should be given our connection checks...
+          break;
+        } else {
+          parentCount += 1;
+          primeText = primeText + "'";
+        }
+    } while ( block );
+    
+    this.setFieldValue( aText + primeText + ' ', 'APRIME' );
+    this.setFieldValue( bText + primeText + ' ', 'BPRIME' );
+    this.setFieldValue( cText + primeText + ' ', 'CPRIME' );
     
   }
 };
@@ -1917,7 +2104,7 @@ Blockly.Blocks['triangle_transformations_dilate_two_auto'] = {
         .appendField(new Blockly.FieldImage("http://i.imgur.com/UpsXHeX.png", 150, 20, "*"));
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField("A ")
+        .appendField("A ", "APRIME")
         .appendField("(")
         .appendField('0', "AX")
         .appendField(",")
@@ -1925,7 +2112,7 @@ Blockly.Blocks['triangle_transformations_dilate_two_auto'] = {
         .appendField(")");
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField("B ")
+        .appendField("B ", "BPRIME")
         .appendField("(")
         .appendField('0', "BX")
         .appendField(",")
@@ -1933,7 +2120,7 @@ Blockly.Blocks['triangle_transformations_dilate_two_auto'] = {
         .appendField(")");
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField("C ")
+        .appendField("C ", "CPRIME")
         .appendField("(")
         .appendField('0', "CX")
         .appendField(",")
@@ -1975,7 +2162,7 @@ Blockly.Blocks['triangle_transformations_dilate_two_auto'] = {
       this.setWarningText(null);
       currentBlocklyErrors[ this.id ] = false;
     } else {
-      this.setWarningText('Block can only be placed within a triangle flow block');
+      this.setWarningText('Block can only be placed within \na triangle flow block');
       currentBlocklyErrors[ this.id ] = true;
     }
 
@@ -2080,6 +2267,30 @@ Blockly.Blocks['triangle_transformations_dilate_two_auto'] = {
       } while ( block );
 
     }
+
+    var parentCount = -1;
+    block = this;
+
+    var aText = 'A';
+    var bText = 'B';
+    var cText = 'C';
+
+    var primeText = '';
+
+    do {
+        targetBlock = block;
+        block = block.parentBlock_;
+        if ( targetBlock.type == 'triangle_flow' ) { //Which it should be given our connection checks...
+          break;
+        } else {
+          parentCount += 1;
+          primeText = primeText + "'";
+        }
+    } while ( block );
+    
+    this.setFieldValue( aText + primeText + ' ', 'APRIME' );
+    this.setFieldValue( bText + primeText + ' ', 'BPRIME' );
+    this.setFieldValue( cText + primeText + ' ', 'CPRIME' );
     
   }
 };
@@ -2099,7 +2310,7 @@ Blockly.Blocks['triangle_transformations_reflect'] = {
         .appendField(new Blockly.FieldImage("http://i.imgur.com/jWhLthx.png", 175, 20, "*"));
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField("A ")
+        .appendField("A ", "APRIME")
         .appendField("(")
         .appendField(new Blockly.FieldTextInput('0',
         Blockly.FieldTextInput.numberValidator), "AX")
@@ -2109,7 +2320,7 @@ Blockly.Blocks['triangle_transformations_reflect'] = {
         .appendField(")");
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField("B ")
+        .appendField("B ", "BPRIME")
         .appendField("(")
         .appendField(new Blockly.FieldTextInput('0',
         Blockly.FieldTextInput.numberValidator), "BX")
@@ -2119,7 +2330,7 @@ Blockly.Blocks['triangle_transformations_reflect'] = {
         .appendField(")");
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField("C ")
+        .appendField("C ", "CPRIME")
         .appendField("(")
         .appendField(new Blockly.FieldTextInput('0',
         Blockly.FieldTextInput.numberValidator), "CX")
@@ -2163,7 +2374,7 @@ Blockly.Blocks['triangle_transformations_reflect'] = {
       this.setWarningText(null);
       currentBlocklyErrors[ this.id ] = false;
     } else {
-      this.setWarningText('Block can only be placed within a triangle flow block');
+      this.setWarningText('Block can only be placed within \na triangle flow block');
       currentBlocklyErrors[ this.id ] = true;
     }
 
@@ -2231,7 +2442,7 @@ Blockly.Blocks['triangle_transformations_reflect'] = {
           this.setWarningText(null);
           currentBlocklyErrors[ this.id ] = false;
         } else {
-          this.setWarningText('You must input the correct results of this transformation!');
+          this.setWarningText('You must input the correct \nresults of this transformation!');
           currentBlocklyErrors[ this.id ] = true;
         }
 
@@ -2259,7 +2470,7 @@ Blockly.Blocks['triangle_transformations_reflect'] = {
               currentB[ 0 ] = currentB[ 0 ] * -1;
               currentC[ 0 ] = currentC[ 0 ] * -1;
 
-              currentA[ 1 ] = currentA[ 1 ];
+              currentA[ 1 ] = currentA[ 1 ];r
               currentB[ 1 ] = currentB[ 1 ];
               currentC[ 1 ] = currentC[ 1 ];
 
@@ -2282,7 +2493,7 @@ Blockly.Blocks['triangle_transformations_reflect'] = {
             this.setWarningText(null);
             currentBlocklyErrors[ this.id ] = false;
           } else {
-            this.setWarningText('You must input the correct results of this transformation!');
+            this.setWarningText('You must input the correct \nresults of this transformation!');
             currentBlocklyErrors[ this.id ] = true;
           }
         }
@@ -2316,6 +2527,30 @@ Blockly.Blocks['triangle_transformations_reflect'] = {
       } while ( block );
 
     }
+
+    var parentCount = -1;
+    block = this;
+
+    var aText = 'A';
+    var bText = 'B';
+    var cText = 'C';
+
+    var primeText = '';
+
+    do {
+        targetBlock = block;
+        block = block.parentBlock_;
+        if ( targetBlock.type == 'triangle_flow' ) { //Which it should be given our connection checks...
+          break;
+        } else {
+          parentCount += 1;
+          primeText = primeText + "'";
+        }
+    } while ( block );
+    
+    this.setFieldValue( aText + primeText + ' ', 'APRIME' );
+    this.setFieldValue( bText + primeText + ' ', 'BPRIME' );
+    this.setFieldValue( cText + primeText + ' ', 'CPRIME' );
     
   }
 };
@@ -2335,7 +2570,7 @@ Blockly.Blocks['triangle_transformations_reflect_auto'] = {
         .appendField(new Blockly.FieldImage("http://i.imgur.com/SlBlKQj.png", 175, 20, "*"));
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField("A ")
+        .appendField("A ", "APRIME")
         .appendField("(")
         .appendField('0', "AX")
         .appendField(",")
@@ -2343,7 +2578,7 @@ Blockly.Blocks['triangle_transformations_reflect_auto'] = {
         .appendField(")");
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField("B ")
+        .appendField("B ", "BPRIME")
         .appendField("(")
         .appendField('0', "BX")
         .appendField(",")
@@ -2351,7 +2586,7 @@ Blockly.Blocks['triangle_transformations_reflect_auto'] = {
         .appendField(")");
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField("C ")
+        .appendField("C ", "CPRIME")
         .appendField("(")
         .appendField('0', "CX")
         .appendField(",")
@@ -2393,7 +2628,7 @@ Blockly.Blocks['triangle_transformations_reflect_auto'] = {
       this.setWarningText(null);
       currentBlocklyErrors[ this.id ] = false;
     } else {
-      this.setWarningText('Block can only be placed within a triangle flow block');
+      this.setWarningText('Block can only be placed within \na triangle flow block');
       currentBlocklyErrors[ this.id ] = true;
     }
 
@@ -2535,6 +2770,30 @@ Blockly.Blocks['triangle_transformations_reflect_auto'] = {
         }
       } while ( block );
     }
+
+    var parentCount = -1;
+    block = this;
+
+    var aText = 'A';
+    var bText = 'B';
+    var cText = 'C';
+
+    var primeText = '';
+
+    do {
+        targetBlock = block;
+        block = block.parentBlock_;
+        if ( targetBlock.type == 'triangle_flow' ) { //Which it should be given our connection checks...
+          break;
+        } else {
+          parentCount += 1;
+          primeText = primeText + "'";
+        }
+    } while ( block );
+    
+    this.setFieldValue( aText + primeText + ' ', 'APRIME' );
+    this.setFieldValue( bText + primeText + ' ', 'BPRIME' );
+    this.setFieldValue( cText + primeText + ' ', 'CPRIME' );
     
   }
 };
@@ -3074,7 +3333,7 @@ Blockly.Blocks[ 'logic_cond_out' ] = {
     var inputBlock = this.getInputTargetBlock('INPUT');
 
     if ( inputBlock === null ) {
-      this.setWarningText('You must attach a block to compare.');
+      this.setWarningText('You must attach a block \nto compare.');
       currentBlocklyErrors[ this.id ] = true;
     } else {
       currentBlocklyErrors[ this.id ] = false;
@@ -3122,7 +3381,7 @@ Blockly.Blocks[ 'logic_cond_eq_out' ] = {
     var inputBlock = this.getInputTargetBlock('INPUT');
 
     if ( inputBlock === null ) {
-      this.setWarningText('You must attach a block to compare.');
+      this.setWarningText('You must attach a block \nto compare.');
       currentBlocklyErrors[ this.id ] = true;
     } else {
       currentBlocklyErrors[ this.id ] = false;
@@ -3166,7 +3425,7 @@ Blockly.Blocks[ 'logic_cond_neq_out' ] = {
     var inputBlock = this.getInputTargetBlock('INPUT');
 
     if ( inputBlock === null ) {
-      this.setWarningText('You must attach a block to compare.');
+      this.setWarningText('You must attach a block \nto compare.');
       currentBlocklyErrors[ this.id ] = true;
     } else {
       currentBlocklyErrors[ this.id ] = false;
@@ -3210,7 +3469,7 @@ Blockly.Blocks[ 'logic_cond_gt_out' ] = {
     var inputBlock = this.getInputTargetBlock('INPUT');
 
     if ( inputBlock === null ) {
-      this.setWarningText('You must attach a block to compare.');
+      this.setWarningText('You must attach a block \nto compare.');
       currentBlocklyErrors[ this.id ] = true;
     } else {
       currentBlocklyErrors[ this.id ] = false;
@@ -3254,7 +3513,7 @@ Blockly.Blocks[ 'logic_cond_lt_out' ] = {
     var inputBlock = this.getInputTargetBlock('INPUT');
 
     if ( inputBlock === null ) {
-      this.setWarningText('You must attach a block to compare.');
+      this.setWarningText('You must attach a block \nto compare.');
       currentBlocklyErrors[ this.id ] = true;
     } else {
       currentBlocklyErrors[ this.id ] = false;
@@ -3298,7 +3557,7 @@ Blockly.Blocks[ 'logic_andor_out' ] = {
     var inputBlock = this.getInputTargetBlock('INPUT');
 
     if ( inputBlock === null ) {
-      this.setWarningText('You must attach a block to compare.');
+      this.setWarningText('You must attach a block \nto compare.');
       currentBlocklyErrors[ this.id ] = true;
     } else {
       currentBlocklyErrors[ this.id ] = false;
@@ -3344,7 +3603,7 @@ Blockly.Blocks[ 'logic_and' ] = {
     var inputBlock = this.getInputTargetBlock('INPUT');
 
     if ( inputBlock === null ) {
-      this.setWarningText('You must attach a block to compare.');
+      this.setWarningText('You must attach a block \nto compare.');
       currentBlocklyErrors[ this.id ] = true;
     } else {
       currentBlocklyErrors[ this.id ] = false;
@@ -3388,7 +3647,7 @@ Blockly.Blocks[ 'logic_or' ] = {
     var inputBlock = this.getInputTargetBlock('INPUT');
 
     if ( inputBlock === null ) {
-      this.setWarningText('You must attach a block to compare.');
+      this.setWarningText('You must attach a block \nto compare.');
       currentBlocklyErrors[ this.id ] = true;
     } else {
       currentBlocklyErrors[ this.id ] = false;
@@ -3432,7 +3691,7 @@ Blockly.Blocks[ 'logic_not' ] = {
     var inputBlock = this.getInputTargetBlock('INPUT');
 
     if ( inputBlock === null ) {
-      this.setWarningText('You must attach a block to compare.');
+      this.setWarningText('You must attach a block \nto compare.');
       currentBlocklyErrors[ this.id ] = true;
     } else {
       currentBlocklyErrors[ this.id ] = false;
@@ -3517,13 +3776,13 @@ Blockly.Blocks['controls_whileUntil'] = {
     var statementBlock = this.getInputTargetBlock('DO');
 
     if ( inputBlock === null && statementBlock === null ) {
-      this.setWarningText('You must specify the conditions for repeating and the actions to repeat!');
+      this.setWarningText('You must specify the conditions for \nrepeating and the actions to repeat!');
       currentBlocklyErrors[ this.id ] = true;
     } else if ( inputBlock === null ) {
-      this.setWarningText('You must attach your conditions that evaluate to TRUE or FALSE!');
+      this.setWarningText('You must attach your conditions that \nevaluate to TRUE or FALSE!');
       currentBlocklyErrors[ this.id ] = true;
     } else if ( statementBlock === null ) {
-      this.setWarningText('Your repeat block needs something to repeat!');
+      this.setWarningText('Your repeat block needs something \nto repeat!');
       currentBlocklyErrors[ this.id ] = true;
     } else {
       this.setWarningText(null);
@@ -3611,13 +3870,13 @@ Blockly.Blocks['controls_whileUntil_no_in'] = {
     var statementBlock = this.getInputTargetBlock('DO');
 
     if ( inputBlock === null && statementBlock === null ) {
-      this.setWarningText('You must specify the conditions for repeating and the actions to repeat!');
+      this.setWarningText('You must specify the conditions for \nrepeating and the actions to repeat!');
       currentBlocklyErrors[ this.id ] = true;
     } else if ( inputBlock === null ) {
-      this.setWarningText('You must attach your conditions that evaluate to TRUE or FALSE!');
+      this.setWarningText('You must attach your conditions that \nevaluate to TRUE or FALSE!');
       currentBlocklyErrors[ this.id ] = true;
     } else if ( statementBlock === null ) {
-      this.setWarningText('Your repeat block needs something to repeat!');
+      this.setWarningText('Your repeat block needs something \nto repeat!');
       currentBlocklyErrors[ this.id ] = true;
     } else {
       this.setWarningText(null);
@@ -3703,13 +3962,13 @@ Blockly.Blocks['controls_whileUntil_no_out'] = {
     var statementBlock = this.getInputTargetBlock('DO');
 
     if ( inputBlock === null && statementBlock === null ) {
-      this.setWarningText('You must specify the conditions for repeating and the actions to repeat!');
+      this.setWarningText('You must specify the conditions for \nrepeating and the actions to repeat!');
       currentBlocklyErrors[ this.id ] = true;
     } else if ( inputBlock === null ) {
-      this.setWarningText('You must attach your conditions that evaluate to TRUE or FALSE!');
+      this.setWarningText('You must attach your conditions that \nevaluate to TRUE or FALSE!');
       currentBlocklyErrors[ this.id ] = true;
     } else if ( statementBlock === null ) {
-      this.setWarningText('Your repeat block needs something to repeat!');
+      this.setWarningText('Your repeat block needs something \nto repeat!');
       currentBlocklyErrors[ this.id ] = true;
     } else {
       this.setWarningText(null);
@@ -3796,13 +4055,13 @@ Blockly.Blocks['controls_whileUntil_no_out_no_in'] = {
     var statementBlock = this.getInputTargetBlock('DO');
 
     if ( inputBlock === null && statementBlock === null ) {
-      this.setWarningText('You must specify the conditions for repeating and the actions to repeat!');
+      this.setWarningText('You must specify the conditions for \nrepeating and the actions to repeat!');
       currentBlocklyErrors[ this.id ] = true;
     } else if ( inputBlock === null ) {
-      this.setWarningText('You must attach your conditions that evaluate to TRUE or FALSE!');
+      this.setWarningText('You must attach your conditions that \nevaluate to TRUE or FALSE!');
       currentBlocklyErrors[ this.id ] = true;
     } else if ( statementBlock === null ) {
-      this.setWarningText('Your repeat block needs something to repeat!');
+      this.setWarningText('Your repeat block needs something \nto repeat!');
       currentBlocklyErrors[ this.id ] = true;
     } else {
       this.setWarningText(null);
@@ -3887,13 +4146,13 @@ Blockly.Blocks['controls_repeat_ext'] = {
     var statementBlock = this.getInputTargetBlock('DO');
 
     if ( inputBlock === null && statementBlock === null ) {
-      this.setWarningText('You must specify how often to repeat and actions youre repeating!');
+      this.setWarningText('You must specify how often to repeat \nand actions youre repeating!');
       currentBlocklyErrors[ this.id ] = true;
     } else if ( inputBlock === null ) {
       this.setWarningText('You must attach a number block!');
       currentBlocklyErrors[ this.id ] = true;
     } else if ( statementBlock === null ) {
-      this.setWarningText('Your repeat block needs something to repeat!');
+      this.setWarningText('Your repeat block needs something \nto repeat!');
       currentBlocklyErrors[ this.id ] = true;
     } else {
       this.setWarningText(null);
@@ -3929,7 +4188,6 @@ Blockly.Blocks['controls_if_nomut'] = {
   init: function() {
     this.setColour(20);
     this.appendValueInput('IF0')
-        .setCheck(['Boolean','LeftParenthesis','Variable'])
         .appendField(Blockly.Msg.CONTROLS_IF_MSG_IF);
     this.appendStatementInput('DO0')
         .appendField(Blockly.Msg.CONTROLS_IF_MSG_THEN);
@@ -4077,13 +4335,13 @@ Blockly.Blocks['controls_if_nomut'] = {
     var statementBlock = this.getInputTargetBlock('DO0');
 
     if ( inputBlock === null && statementBlock === null ) {
-      this.setWarningText('You must specify your conditions for executing actions and the actions themselves!');
+      this.setWarningText('You must specify your conditions for \nexecuting actions and the actions \nthemselves!');
       currentBlocklyErrors[ this.id ] = true;
     } else if ( inputBlock === null ) {
-      this.setWarningText('You must specify a condition that evaluates to TRUE or FALSE!');
+      this.setWarningText('You must specify a condition that evaluates \nto TRUE or FALSE!');
       currentBlocklyErrors[ this.id ] = true;
     } else if ( statementBlock === null ) {
-      this.setWarningText('Your must specify actions to execute!');
+      this.setWarningText('Your must specify actions \nto execute!');
       currentBlocklyErrors[ this.id ] = true;
     } else {
       currentBlocklyErrors[ this.id ] = false;
@@ -4692,7 +4950,7 @@ Blockly.Blocks['rover_moveRadial_ordered'] = {
     var inputBlock = this.getInputTargetBlock('THEOP');
 
     if ( inputBlock === null ) {
-      this.setWarningText('You must attach a block to move to.');
+      this.setWarningText('You must attach a block \nto move to.');
       currentBlocklyErrors[ this.id ] = true;
     } else {
       currentBlocklyErrors[ this.id ] = false;
@@ -4828,7 +5086,7 @@ Blockly.Blocks['rover_moveRadial_absolute'] = {
     var inputYBlock = this.getInputTargetBlock('y');
 
     if ( inputXBlock === null || inputYBlock === null ) {
-      this.setWarningText('You must attach a set of blocks ( coordinates ) to move to.');
+      this.setWarningText('You must attach a set of \nblocks ( coordinates ) to move to.');
       currentBlocklyErrors[ this.id ] = true;
     } else {
       currentBlocklyErrors[ this.id ] = false;
@@ -5874,7 +6132,7 @@ Blockly.Blocks[ 'graph_add' ] = {
     var inputBlock = this.getInputTargetBlock('INPUT');
 
     if ( inputBlock === null ) {
-      this.setWarningText('You must attach a block to add.');
+      this.setWarningText('You must attach a block \nto add.');
       currentBlocklyErrors[ this.id ] = true;
     } else {
       currentBlocklyErrors[ this.id ] = false;
@@ -5925,7 +6183,7 @@ Blockly.Blocks['graph_subtract'] = {
     var inputBlock = this.getInputTargetBlock('INPUT');
 
     if ( inputBlock === null ) {
-      this.setWarningText('You must attach a block to subtract.');
+      this.setWarningText('You must attach a block \nto subtract.');
       currentBlocklyErrors[ this.id ] = true;
     } else {
       currentBlocklyErrors[ this.id ] = false;
@@ -5981,7 +6239,7 @@ Blockly.Blocks[ 'graph_multiply' ] = {
     var inputBlock = this.getInputTargetBlock('INPUT');
 
     if ( inputBlock === null ) {
-      this.setWarningText('You must attach a block to multiply.');
+      this.setWarningText('You must attach a block \nto multiply.');
       currentBlocklyErrors[ this.id ] = true;
     } else {
       currentBlocklyErrors[ this.id ] = false;
@@ -6037,7 +6295,7 @@ Blockly.Blocks[ 'graph_divide' ] = {
     var inputBlock = this.getInputTargetBlock('INPUT');
 
     if ( inputBlock === null ) {
-      this.setWarningText('You must attach a block to divide by.');
+      this.setWarningText('You must attach a block \nto divide by.');
       currentBlocklyErrors[ this.id ] = true;
     } else {
       currentBlocklyErrors[ this.id ] = false;
@@ -6091,7 +6349,7 @@ Blockly.Blocks['graph_left_paren'] = {
     var inputBlock = this.getInputTargetBlock('INPUT');
 
     if ( inputBlock === null ) {
-      this.setWarningText('You cannot end a statement with an open parenthesis.');
+      this.setWarningText('You cannot end a statement with \nan open parenthesis.');
       currentBlocklyErrors[ this.id ] = true;
     } else {
       currentBlocklyErrors[ this.id ] = false;
@@ -6182,7 +6440,7 @@ Blockly.Blocks['graph_set_y'] = {
     var inputBlock = this.getInputTargetBlock('INPUT');
 
     if ( inputBlock === null ) {
-      this.setWarningText('You must specify your equation by attaching blocks to this block!');
+      this.setWarningText('You must specify your equation by \nattaching blocks to this block!');
       currentBlocklyErrors[ this.id ] = true;
     } else {
       currentBlocklyErrors[ this.id ] = false;
