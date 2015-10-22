@@ -58,7 +58,7 @@ properties:
   #Manny
   - addToGrid:
     - rover
-    - [ -17, 29 ]
+    - [ -17, 32 ]
   - selectRover:
     - rover
   - setProperty:
@@ -159,7 +159,7 @@ children:
           triggerCondition:
           - isAtPosition:
             - rover
-            - [ -17, 28 ]
+            - [ -17, 31 ]
           actions:
           - playSound:
             - CTVO3
