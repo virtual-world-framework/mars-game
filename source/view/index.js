@@ -108,8 +108,7 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
 
             case "blocklyVisibleChanged":
                 if ( eventArgs[ 0 ] ) {
-                    currentBlocklyNodeID = nodeID;
-                    selectBlocklyTab( currentBlocklyNodeID );
+                    selectBlocklyTab( nodeID );
                     updateBlocklyRamBar();
                     updateBlocklyUI( blocklyNode );
                     var resetButton = document.getElementById( "blocklyResetButton" );
@@ -859,7 +858,7 @@ function selectBlocklyTab( nodeID ) {
     for ( var i = 0; i < tabs.length; i++ ) {
         tabs[ i ].className = "blocklyTab";
         if ( tabs[ i ].id === nodeID ) {
-            currentBlocklyNodeID = this.id;
+            currentBlocklyNodeID = nodeID;
             tabs[ i ].className += " selected";
             if( blocklyNodes[ nodeID ].blocklyExecuting ) {
                 startBlocklyButton.className = "reset";
