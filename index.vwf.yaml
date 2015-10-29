@@ -754,10 +754,6 @@ children:
     includes: source/scenario/mission3task4.vwf
   Mission3Task5:
     includes: source/scenario/mission3task5.vwf
-  Mission3Task6:
-    includes: source/scenario/mission3task6.vwf
-  Mission3Task7:
-    includes: source/scenario/mission3task7.vwf
   Mission3Success:
     includes: source/scenario/mission3success.vwf
   Mission4Task1:
