@@ -166,7 +166,7 @@ Blockly.Blocks['triangle_flow'] = {
     if ( !this.workspace || this.data === undefined || this.isInFlyout === true ) {
       // Block has been deleted or is in the flyout.
       currentBlocklyErrors[ this.id ] = false;
-      currentBlocklyTriangles[ this.id ] = {}
+      currentBlocklyTriangles[ this.id ] = [];
 
       return;
     }
