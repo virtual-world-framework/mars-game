@@ -113,7 +113,7 @@ children:
           - playSound:
             - environmentWind
           - setObjective:
-            - "Use the slope to move one step along the Mini Rover tracks."
+            - "Use the slope of the line to move one step along the Mini Rover tracks."
           - setThirdPersonStartPose:
             - [ 16.316, 65, -15 ]
 
@@ -200,7 +200,8 @@ children:
       title: "Mission 2, Task 5"
       content: >
         Path plotted! 
-        <br><br>You can use the slope to help you build a program that moves
+        <br><br>You can use the slope of the line (which is also called the 
+        'rate of change') to help you build a program that moves
         along the line. Slope is rise over run, or the amount to move along
         the Y axis over the amount to move along the X axis.  Your slope is
         2, or 2/1, so if you move two spaces forward (up the Y axis) and then 1 

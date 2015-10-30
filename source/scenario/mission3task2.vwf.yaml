@@ -139,15 +139,15 @@ children:
             - onScenarioStart:
           actions:
           - playSound:
-            - newmission3vo5
+            - TM3VO7_Rover
           - playSound:
-            - m3t4vo010
+            - m3t3vo010
           - setProperty:
             - hud
             - enabled
             - false
           - delay:
-            - 18
+            - 21
             - openMissionBrief:
             - setProperty:
               - hud
@@ -185,20 +185,20 @@ children:
           - and:
             - doOnce:
             - delay:
-              - 30
+              - 40
           actions:
           - playSound:
-            - m3t4vo020
+            - m3t3vo031
 
         playHint_M3T4_2:
           triggerCondition:
           - and:
             - doOnce:
             - delay:
-              - 50
+              - 58
           actions:
           - playSound:
-            - m3t4vo030
+            - m3t4vo020
 
   brief:
     extends: ../missionBrief.vwf
@@ -206,12 +206,9 @@ children:
       title: "Mission 3, Task 2"
       content: >
         Movement down the Y axis works!
-        <br><br>Mission Control has changed your procedure a bit to match the
-        standard format, and updated your test program so that it provides a 
-        Destination Y that is in the opposite direction. You need to extend your 
-        procedure to handle this without changing what you've already got.
-        <br><br> The blocks in the current procedure are a good place to start.
-        If you right-click on the If block and select Duplicate, you can make
-        a copy of it. Move the copy into your procedure (above or below the If
-        block that's already there), and then change the copy to move up the Y  
-        axis instead of down it.
+        <br><br> Now that you can Navigate down the Y axis, it's time to extend 
+        the procedure to handle the +Y direction. The easiest way to do that 
+        is to make a copy of the blocks inside of your current Navigate 
+        procedure (starting with the If block), and then change that copy. 
+        <br><br>Mission Control has already provided the next test program, so 
+        when you finish making your changes you can just hit START to test them.

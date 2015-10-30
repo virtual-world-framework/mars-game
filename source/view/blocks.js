@@ -4679,7 +4679,7 @@ Blockly.Blocks[ 'controls_sensor_position' ] = {
     var thisBlock = this;
     this.setTooltip( function() {
       var content = {
-        text: "The [X,Y] value of the rover’s current position."
+        text: "The [X,Y] value of the rover's current position."
       }
       return showTooltipInBlockly( thisBlock, content );
     } );
@@ -4712,7 +4712,7 @@ Blockly.Blocks[ 'controls_sensor_position_x' ] = {
     var thisBlock = this;
     this.setTooltip( function() {
       var content = {
-        text: "The X value of the rover’s current position."
+        text: "The X value of the rover's current position."
       }
       return showTooltipInBlockly( thisBlock, content );
     } );
@@ -4745,7 +4745,7 @@ Blockly.Blocks[ 'controls_sensor_position_y' ] = {
     var thisBlock = this;
     this.setTooltip( function() {
       var content = {
-        text: "The Y value of the rover’s current position."
+        text: "The Y value of the rover's current position."
       }
       return showTooltipInBlockly( thisBlock, content );
     } );
@@ -4775,7 +4775,7 @@ Blockly.Blocks[ 'controls_sensor_position_x_no_out' ] = {
     var thisBlock = this;
     this.setTooltip( function() {
       var content = {
-        text: "The X value of the rover’s current position."
+        text: "The X value of the rover's current position."
       }
       return showTooltipInBlockly( thisBlock, content );
     } );
@@ -4805,7 +4805,7 @@ Blockly.Blocks[ 'controls_sensor_position_y_no_out' ] = {
     var thisBlock = this;
     this.setTooltip( function() {
       var content = {
-        text: "The Y value of the rover’s current position."
+        text: "The Y value of the rover's current position."
       }
       return showTooltipInBlockly( thisBlock, content );
     } );
