@@ -46,7 +46,7 @@ properties:
     laserWidth:
       type: "f"
       value: 2
-    laserStrength:
+    laserFocus:
       type: "f"
       value: 1
     laserIntensity:
@@ -233,7 +233,7 @@ properties:
     uniform float laserWidth;
     uniform vec3 gridColor;
     uniform vec2 gridAxes;
-    uniform float laserStrength;
+    uniform float laserFocus;
     uniform float laserIntensity;
     uniform int tilesVisible;
     uniform float tilePadding;
@@ -568,26 +568,35 @@ properties:
       // PROJECTED GRID SHADER START
       if ( gridVisible == 1 ) {
         // TODO: Restrict grid to boundaries
+        float focusWidth = laserWidth * ( laserFocus / 2.0 );
         float intervalHalf = gridInterval / 2.0;
+        vec3 laserColor = vec3( 0.5, 0.5, 0.5 );
+        vec3 xColor = vec3( 0.0, 0.0, 1.0 );
+        vec3 yColor = vec3( 1.0, 0.0, 0.0 );
+        float laserFactor = 0.0;
         vec2 gridLine = vec2( intervalHalf - mod( vWorldPosition.xy + gridOffset + intervalHalf, gridInterval ) );
         gridLine = max( gridLine, -1.0 * gridLine );
-        float laserFactor = 0.0;
         if ( gridLine.x < laserWidth ) {
-          laserFactor = 1.0 - ( gridLine.x / laserWidth );
+          if ( gridLine.x < focusWidth ) {
+            laserFactor = laserIntensity;
+          } else {
+            laserFactor = ( 1.0 - ( gridLine.x - focusWidth ) / ( laserWidth - focusWidth ) ) * laserIntensity;
+          }
         }
         if ( gridLine.y < laserWidth ) {
-          laserFactor = max( laserFactor, 1.0 - ( gridLine.y / laserWidth ) );
+          if ( gridLine.y < focusWidth ) {
+            laserFactor = laserIntensity;
+          } else {
+            laserFactor = max( ( 1.0 - ( gridLine.y - focusWidth ) / ( laserWidth - focusWidth ) ) * laserIntensity, laserFactor );
+          }
         }
-        if ( laserFactor != 0.0 ) {
-          laserFactor = min( pow( laserFactor, 1.0 - laserStrength + 1.0 ), 1.0 );
-          float avgColor = ( gridColor.r + gridColor.b + gridColor.g ) / 3.0;
-          float intensity = ( avgColor * pow( laserIntensity, laserStrength + 1.0 ) ) * laserStrength;
+        if ( laserFactor > 0.0 ) {
           vec2 axisColorFactor = max( 1.0 - abs( vWorldPosition.xy - gridAxes.yx * gridInterval ), 0.0 );
-          vec3 gridFinalColor = 
-            ( axisColorFactor.x * vec3( 0.0, 0.0, 1.0 ) ) +
-            ( axisColorFactor.y * vec3( 1.0, 0.0, 0.0 ) ) +
-            ( ( 1.0 - max( axisColorFactor.x, axisColorFactor.y ) ) * gridColor );
-          gl_FragColor.xyz += laserFactor * ( gridFinalColor + intensity );
+          float noAxisFactor = min( 1.0 - axisColorFactor.x, 1.0 - axisColorFactor.y );
+          laserColor = ( axisColorFactor.x * xColor) + ( axisColorFactor.y * yColor) + ( noAxisFactor * laserColor );
+          float avgColor = ( gl_FragColor.x + gl_FragColor.y + gl_FragColor.z ) / 3.0;
+          vec3 desaturate = ( avgColor - gl_FragColor.xyz ) * laserFactor;
+          gl_FragColor.xyz = ( gl_FragColor.xyz + desaturate ) + laserFactor * laserColor;
         }
       }
       vec3 tileValue = extractTileValue( vWorldPosition.xy );
