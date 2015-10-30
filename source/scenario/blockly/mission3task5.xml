@@ -7,8 +7,8 @@
   <category name="Sensors">
     <block type="controls_sensor_metal"></block>
     <block type="controls_sensor_heading"></block>
-    <block type="controls_sensor_position_y"></block>
     <block type="controls_sensor_position_x"></block>
+    <block type="controls_sensor_position_y"></block>
   </category>
   <sep></sep>
   <category name="Loops">
@@ -17,10 +17,12 @@
   </category>
   <sep></sep>
   <category name="Conditionals">
-    <block type="logic_cond_neq_out"></block>
-    <block type="logic_cond_eq_out"></block>
-    <block type="logic_cond_lt_out"></block>
-    <block type="logic_cond_gt_out"></block>
+    <block type="logic_cond_out"><field name="VALUE">===</field></block>
+    <block type="logic_cond_out"><field name="VALUE">!==</field></block>
+    <block type="logic_cond_out"><field name="VALUE">&lt;</field></block>
+    <block type="logic_cond_out"><field name="VALUE">&gt;</field></block>
+    <block type="logic_cond_out"><field name="VALUE">&lt;=</field></block>
+    <block type="logic_cond_out"><field name="VALUE">&gt;=</field></block>
     <block type="controls_if_nomut"></block>
   </category>
   <sep></sep>
@@ -34,7 +36,8 @@
   </category>
   <sep></sep>
   <category name="Procedures">
-    <block type="variables_get" inline="false" editable="false"><field name="VAR">Desired Y</field></block>
-    <block type="variables_get" inline="false" editable="false"><field name="VAR">Desired X</field></block>
+    <block type="variables_get" inline="false"><field name="VAR">Desired X</field></block>
+    <block type="variables_get" inline="false"><field name="VAR">Desired Y</field></block>
+    <block type="procedures_callnoreturn" inline="false"><mutation name="navigate"><arg name="Desired X"></arg><arg name="Desired Y"></arg></mutation><value name="ARG0"><block type="math_number_out" inline="false"><field name="VALUE">0</field></block></value><value name="ARG1"><block type="math_number_out" inline="false"><field name="VALUE">0</field></block></value></block>
   </category>
 </xml>
