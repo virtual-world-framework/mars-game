@@ -1045,6 +1045,45 @@ Blockly.JavaScript['triangle_transformations_translate'] = function( block ) {
   return code;
 };
 
+
+//222
+
+var validateFieldValue = function ( value ) {
+  if ( isNaN( value ) || value === "" ){
+      return '?';
+  } else {
+      if ( value % 1 !== 0 ){
+        return '0';
+      }
+      else if ( value > 999 || value < -999){
+        return '0'
+      } else {
+        return '' + value + '';
+      }
+  }
+}
+
+var checkAndSetField = function ( block, field ) {
+
+    var currentBlock = block;
+    var unitTriangle = { "AX": 0, "BX": 0, "CX": 1, "AY": 0, "BY": 1, "CY": 0 };
+
+    do {
+      if ( currentBlock.type === 'triangle_flow' ) {
+        return unitTriangle[ field ];
+        //break;
+      } else if ( !isNaN( currentBlock.getFieldValue( field ) ) ) {
+        console.log(currentBlock.type);
+        console.log('wehere');
+        return currentBlock.getFieldValue( field );
+        //break;
+      } else {
+        currentBlock = currentBlock.parentBlock_;
+      }
+    } while ( currentBlock );
+
+}
+
 // --------------------------------------------------------------------------------------------------------- //
 // triangle_transformations_translate_auto is a template for the auto-propagating single transformation block (no user fill)
 // --------------------------------------------------------------------------------------------------------- // 
@@ -1268,31 +1307,25 @@ Blockly.Blocks['triangle_transformations_dilate'] = {
         .setAlign(Blockly.ALIGN_CENTRE)
         .appendField("A ", "APRIME")
         .appendField("(")
-        .appendField(new Blockly.FieldTextInput('0',
-        Blockly.FieldTextInput.numberValidator), "AX")
+        .appendField(new Blockly.FieldTextInput('?'), "AX")
         .appendField(",")
-        .appendField(new Blockly.FieldTextInput('0',
-        Blockly.FieldTextInput.numberValidator), "AY")
+        .appendField(new Blockly.FieldTextInput('?'), "AY")
         .appendField(")");
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
         .appendField("B ", "BPRIME")
         .appendField("(")
-        .appendField(new Blockly.FieldTextInput('0',
-        Blockly.FieldTextInput.numberValidator), "BX")
+        .appendField(new Blockly.FieldTextInput('?'), "BX")
         .appendField(",")
-        .appendField(new Blockly.FieldTextInput('0',
-        Blockly.FieldTextInput.numberValidator), "BY")
+        .appendField(new Blockly.FieldTextInput('?'), "BY")
         .appendField(")");
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
         .appendField("C ", "CPRIME")
         .appendField("(")
-        .appendField(new Blockly.FieldTextInput('0',
-        Blockly.FieldTextInput.numberValidator), "CX")
+        .appendField(new Blockly.FieldTextInput('?'), "CX")
         .appendField(",")
-        .appendField(new Blockly.FieldTextInput('0',
-        Blockly.FieldTextInput.numberValidator), "CY")
+        .appendField(new Blockly.FieldTextInput('?'), "CY")
         .appendField(")");
     this.setInputsInline(false);
     this.setPreviousStatement(true, 'Transformation');
@@ -1338,13 +1371,22 @@ Blockly.Blocks['triangle_transformations_dilate'] = {
 
     block = this;
 
+    block.setFieldValue( validateFieldValue( block.getFieldValue('AX') ), 'AX' );
+    block.setFieldValue( validateFieldValue( block.getFieldValue('BX') ), 'BX' );
+    block.setFieldValue( validateFieldValue( block.getFieldValue('CX') ), 'CX' );
+    block.setFieldValue( validateFieldValue( block.getFieldValue('AY') ), 'AY' );
+    block.setFieldValue( validateFieldValue( block.getFieldValue('BY') ), 'BY' );
+    block.setFieldValue( validateFieldValue( block.getFieldValue('CY') ), 'CY' );
+
+    //777
+
     var op = eval( block.getFieldValue('OP') );
-    var ax = eval( block.getFieldValue('AX') );
-    var ay = eval( block.getFieldValue('AY') );
-    var bx = eval( block.getFieldValue('BX') );
-    var by = eval( block.getFieldValue('BY') );
-    var cx = eval( block.getFieldValue('CX') );
-    var cy = eval( block.getFieldValue('CY') );
+    var ax = eval( checkAndSetField( block, 'AX' ) );
+    var ay = eval( checkAndSetField( block, 'AY' ) );
+    var bx = eval( checkAndSetField( block, 'BX' ) );
+    var by = eval( checkAndSetField( block, 'BY' ) );
+    var cx = eval( checkAndSetField( block, 'CX' ) );
+    var cy = eval( checkAndSetField( block, 'CY' ) );
 
     // block.parentBlock_ is always the block that is attached to the top statement input.
 
