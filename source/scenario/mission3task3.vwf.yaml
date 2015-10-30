@@ -139,7 +139,7 @@ children:
             - onScenarioStart:
           actions:
           - playSound:
-            - newmission3vo7
+            - newmission3vo5
           - playSound:
             - m3t5vo010
           - setProperty:
@@ -147,7 +147,7 @@ children:
             - enabled
             - false
           - delay:
-            - 15
+            - 15.5
             - openMissionBrief:
             - setProperty:
               - hud
@@ -188,6 +188,7 @@ children:
         Movement along the Y axis is all set! 
         <br><br>You still need to be able to move along the X axis. Your next 
         task is to modify your procedure to that it can also handle movement in
-        the -X direction (that is, movement to the left). 
-        <br><br>Be sure to Duplicate an existing If block and make your changes 
+        the -X direction. 
+        <br><br>Be sure to copy an existing If block and make your changes 
         there, so that you don't break the part that's already working.
+

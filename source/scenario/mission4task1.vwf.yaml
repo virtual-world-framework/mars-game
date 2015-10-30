@@ -286,7 +286,7 @@ children:
     properties:
       title: "Mission 4, Task 1"
       content: >
-        Congratulations! You’ve found the Base Pod! 
+        Congratulations! You've found the Base Pod! 
         <br><br>The pod you've found contains a large supply of Nanites! 
         Nanites are microscopic robots that can construct base components using 
         nothing but the air and soil of Mars. The pod also contains your 

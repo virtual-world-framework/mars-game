@@ -23,7 +23,7 @@ properties:
   startState:
   # objective
   - setObjective:
-    - "Run the test program on the basic Navigate procedure."
+    - "Run the test program on your Navigate procedure."
 
   # sounds/video
   - playSound:
@@ -156,12 +156,14 @@ children:
             - m3t1vo030
           - playSound:
             - m3t1vo040
+          - playSound:
+            - m3t1vo041
           - setProperty:
             - hud
             - enabled
             - false
           - delay:
-            - 39
+            - 43
             - openMissionBrief:
             - setProperty:
               - hud
@@ -209,20 +211,16 @@ children:
     properties:
       title: "Mission 3, Task 1"
       content: >
-        Oh no, your Navigate procedure has been corrupted! Before you continue
-        your mission, you should rebuild it. 
+        Oh no, your Navigate procedure was corrupted during the crash! You will 
+        need to rewrite it before you can continue your mission. 
         <br><br>A procedure is a small program that can be placed inside
         of a block and used in other programs. Information can be passed into 
-        the procedure, telling it exactly what to do. 
-        <br><br> Your next task is to write a Navigate procedure that will move 
-        you in any direction, so that you don't have to keep putting together 
-        long sequences of Turn and Forward blocks. The Destination X and 
-        Destination Y to move to will be passed into the procedure so that it
-        knows where to move.
-        <br><br> To get you started, Mission Control has provide a procedure
-        that turns until facing down the Y axis and then moves forward until 
-        the rover's position matches the desired Y coordinate. She has also 
-        provided a test program that checks whether it works correctly. 
-        <br><br>START that program now, so we can test that her procedure is 
-        working.
+        the procedure, telling it exactly what to do. Your Navigate procedure,
+        for example, takes an X and Y value, and moves you to that position.
+        <br><br>When large programs are written, they often come with test
+        programs that ensure that they're working correctly. Mission Control
+        still has the tests for your Navigate procedure, so she will provide the 
+        tests for each section of the Navigate procedure as you write it.
+        <br><br>To begin, test the portion of your Navigate procedure that you
+        still have, and confirm that it is working correctly. 
 

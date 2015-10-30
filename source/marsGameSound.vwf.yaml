@@ -278,19 +278,25 @@ properties:
     - soundName: "m3t1vo030"
       soundURL: "assets/sounds/vo/m3t1vo030.ogg"
       initialVolume: .65
-      subtitle: "[MISSION CONTROL]: Hmmm. So I see. You'll need to rebuild it. I am downloading a basic procedure to get you started, but you'll need to modify it from there."
+      subtitle: "[MISSION CONTROL]: So I see. You'll need to rebuild it. Luckily, I still have the test programs we used to verify it was correct when you were manufactured."
       soundGroup: vo
       groupReplacementMethod: queue
     - soundName: "m3t1vo040"
       soundURL: "assets/sounds/vo/m3t1vo040.ogg"
       initialVolume: 0.65
-      subtitle: "[MISSION CONTROL]: The procedure download is complete. I've also provided a test program to validate it. Why don't you try running it now to make sure that it works?"
+      subtitle: "[MANNY]: Well, that's something at least. It looks like I can also salvage the section that moves me in the -Y direction, so we can start there."
+      soundGroup: vo
+      groupReplacementMethod: queue
+    - soundName: "m3t1vo041"
+      soundURL: "assets/sounds/vo/m3t1vo041.ogg"
+      initialVolume: 0.65
+      subtitle: "[MISSION CONTROL]: I'm downloading the first test program now... Download complete. Why don't you give that a try?"
       soundGroup: vo
       groupReplacementMethod: queue
     - soundName: "m3t1vo050"
       soundURL: "assets/sounds/vo/m3t1vo050.ogg"
       initialVolume: .65
-      subtitle: "[MISSION CONTROL]: Just start the program I provided. You don't need to change it yet."
+      subtitle: "[MISSION CONTROL]: I see... this section of the Navigate procedure moves me down the Y axis, and the test checks that it is working correctly. Everything looks good – I guess I just need to hit START!"
       soundGroup: vo
       groupReplacementMethod: queue
     - soundName: "newmission3vo5"
@@ -338,7 +344,7 @@ properties:
     - soundName: "m3t3vo010"
       soundURL: "assets/sounds/vo/m3t3vo010.ogg"
       initialVolume: 0.65
-      subtitle: "[MISSION CONTROL]: Excellent. Now let's start improving it. To begin, let's make sure that we don't waste energy by turning when we don't need to move down the Y axis."
+      subtitle: "[MISSION CONTROL]: Excellent. Now let's start improving it. Your original procedure was written in four sections: two for moving left and right on the X axis, and two for moving up and down the Y axis. The section you have moves you down the Y axis; why don't you write the part that moves up the Y axis next?"
       soundGroup: vo
       groupReplacementMethod: queue
     # - soundName: "m3t3vo020"
@@ -371,42 +377,42 @@ properties:
       subtitle: "[MISSION CONTROL]: Of course, this only helps if your destination is in the -Y direction. Next let's enable your procedure to travel up the Y axis. Don't change what you already have, but duplicate it and then change the copy to handle travel in the +Y direction."
       soundGroup: vo
       groupReplacementMethod: queue
+    - soundName: "m3t3vo031"
+      soundURL: "assets/sounds/vo/m3t3vo031.ogg"
+      initialVolume: 0.65
+      subtitle: "[MANNY]: Let's see... If I make a copy of what I have now, what changes do I need to make so that I'll travel up the Y axis instead of down it?"
+      soundGroup: vo
+      groupReplacementMethod: queue
     - soundName: "m3t4vo020"
       soundURL: "assets/sounds/vo/m3t4vo020.ogg"
       initialVolume: 0.65
-      subtitle: "[MANNY]: Let's see... I can duplicate a block by right-clicking on it."
+      subtitle: "[MANNY]: I remember that one way to copy a block is to right-click on it and select 'duplicate.'"
       soundGroup: vo
       groupReplacementMethod: queue
-    - soundName: "m3t4vo030"
-      soundURL: "assets/sounds/vo/m3t4vo030.ogg"
-      initialVolume: 0.65
-      subtitle: "[MANNY]: What changes do I need to make so that I'll travel up the Y axis instead of down it?"
-      soundGroup: vo
-      groupReplacementMethod: queue
-    - soundName: "newmission3vo11"
-      soundURL: "assets/sounds/vo/newmission3vo11.ogg"
-      initialVolume: 0.65
-      subtitle: "[MANNY]: I...!"
-      soundGroup: vo
-      groupReplacementMethod: queue
-    - soundName: "newmission3vo12"
-      soundURL: "assets/sounds/vo/newmission3vo12.ogg"
-      initialVolume: 0.65
-      subtitle: "[MISSION CONTROL]: Of course..."
-      soundGroup: vo
-      groupReplacementMethod: queue
-      queueDelayTime: .2
-    - soundName: "newmission3vo13"
-      soundURL: "assets/sounds/vo/newmission3vo13.ogg"
-      initialVolume: 0.65
-      subtitle: "[MANNY]: *sigh*"
-      soundGroup: vo
-      groupReplacementMethod: queue
-      queueDelayTime: .8
+    # - soundName: "newmission3vo11"
+    #   soundURL: "assets/sounds/vo/newmission3vo11.ogg"
+    #   initialVolume: 0.65
+    #   subtitle: "[MANNY]: I...!"
+    #   soundGroup: vo
+    #   groupReplacementMethod: queue
+    # - soundName: "newmission3vo12"
+    #   soundURL: "assets/sounds/vo/newmission3vo12.ogg"
+    #   initialVolume: 0.65
+    #   subtitle: "[MISSION CONTROL]: Of course..."
+    #   soundGroup: vo
+    #   groupReplacementMethod: queue
+    #   queueDelayTime: .2
+    # - soundName: "newmission3vo13"
+    #   soundURL: "assets/sounds/vo/newmission3vo13.ogg"
+    #   initialVolume: 0.65
+    #   subtitle: "[MANNY]: *sigh*"
+    #   soundGroup: vo
+    #   groupReplacementMethod: queue
+    #   queueDelayTime: .8
     - soundName: "m3t5vo010"
       soundURL: "assets/sounds/vo/m3t5vo010.ogg"
       initialVolume: 0.65
-      subtitle: "[MISSION CONTROL]: Of course, you need to move along the X axis as well. Let's try going to the left. Make another duplicate of your original If block, and modify it to travel in the -X direction."
+      subtitle: "[MISSION CONTROL]: Good work! Of course, you need to move along the X axis as well. Let's try going to the left. Make another copy of your original 'if' block, and modify it to travel in the -X direction."
       soundGroup: vo
       groupReplacementMethod: queue
     - soundName: "newmission3vo15"
