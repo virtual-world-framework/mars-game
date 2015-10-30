@@ -317,12 +317,12 @@ properties:
       subtitle: "[MISSION CONTROL]: Good work. Of course, that will only work if you're already facing in the correct direction."
       soundGroup: vo
       groupReplacementMethod: queue
-    - soundName: "m3t2vo020"
-      soundURL: "assets/sounds/vo/m3t2vo020.ogg"
-      initialVolume: 0.65
-      subtitle: "[MISSION CONTROL]: I've provided a new test program that will turn you to face a different direction before calling Navigate. You need to update the Navigate procedure so that it uses your Direction of Travel sensor to check your heading and turns you to face down the Y axis before it makes you move."
-      soundGroup: vo
-      groupReplacementMethod: queue
+    # - soundName: "m3t2vo020"
+    #   soundURL: "assets/sounds/vo/m3t2vo020.ogg"
+    #   initialVolume: 0.65
+    #   subtitle: "[MISSION CONTROL]: I've provided a new test program that will turn you to face a different direction before calling Navigate. You need to update the Navigate procedure so that it uses your Direction of Travel sensor to check your heading and turns you to face down the Y axis before it makes you move."
+    #   soundGroup: vo
+    #   groupReplacementMethod: queue
     - soundName: "m3t2vo030"
       soundURL: "assets/sounds/vo/m3t2vo030.ogg"
       initialVolume: 0.65

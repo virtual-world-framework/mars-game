@@ -4702,7 +4702,7 @@ Blockly.Blocks[ 'controls_sensor_position_x' ] = {
   init: function() {
     this.setColour( 30 );
     this.appendValueInput('INPUT')
-        .appendField('Position X')
+        .appendField('Current X')
         //.appendField("(?)", "VALUE")
         .setCheck(['OperatorAddSubtract','OperatorMultiplyDivide','Conditional']);
         //.setCheck(['OperatorAddSubtract','OperatorMultiplyDivide','LeftParenthesis','RightParenthesis','Conditional']);
@@ -4735,7 +4735,7 @@ Blockly.Blocks[ 'controls_sensor_position_y' ] = {
   init: function() {
     this.setColour( 30 );
     this.appendValueInput('INPUT')
-        .appendField('Position Y')
+        .appendField('Current Y')
         //.appendField("(?)", "VALUE")
         .setCheck(['OperatorAddSubtract','OperatorMultiplyDivide','Conditional']);
         //.setCheck(['OperatorAddSubtract','OperatorMultiplyDivide','LeftParenthesis','RightParenthesis','Conditional']);
@@ -4766,7 +4766,7 @@ Blockly.Blocks[ 'controls_sensor_position_x_no_out' ] = {
   init: function() {
     this.setColour( 30 );
     this.appendDummyInput('INPUT')
-        .appendField('Position X')
+        .appendField('Current X')
         //.appendField("(?)", "VALUE")
         //.setCheck(['OperatorAddSubtract','OperatorMultiplyDivide','LeftParenthesis','RightParenthesis','Conditional']);
     this.setOutput(true, null);
@@ -4796,7 +4796,7 @@ Blockly.Blocks[ 'controls_sensor_position_y_no_out' ] = {
   init: function() {
     this.setColour( 30 );
     this.appendDummyInput('INPUT')
-        .appendField('Position Y')
+        .appendField('Current Y')
         //.appendField("(?)", "VALUE")
         //.setCheck(['OperatorAddSubtract','OperatorMultiplyDivide','LeftParenthesis','RightParenthesis','Conditional']);
     this.setOutput(true, null);
@@ -4824,7 +4824,7 @@ Blockly.Blocks[ 'controls_sensor_heading' ] = {
   init: function() {
     this.setColour( 30 );
     this.appendValueInput('INPUT')
-        .appendField('Direction of Travel: ')
+        .appendField('Heading')
         //.appendField("?", "VALUE")
         .setCheck(['OperatorAddSubtract','OperatorMultiplyDivide','LeftParenthesis','RightParenthesis','Conditional']);
     this.setOutput(true, 'Number');
@@ -6161,7 +6161,7 @@ Blockly.Blocks['graph_subtract'] = {
   init: function() {
     this.setColour(120);
     this.appendValueInput('INPUT')
-        .appendField('-')
+        .appendField('–')
         .setCheck(['Number','Variable','LeftParenthesis']);
     this.setOutput(true, 'OperatorAddSubtract');
     this.data = currentBlocklyNodeID;

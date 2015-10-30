@@ -33,6 +33,6 @@
   </category>
   <sep></sep>
   <category name="Procedures">
-    <block type="variables_get" inline="false" editable="false"><field name="VAR">Destination Y</field></block>
+    <block type="variables_get" inline="false" editable="false"><field name="VAR">Desired Y</field></block>
   </category>
 </xml>
