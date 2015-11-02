@@ -23,7 +23,7 @@ properties:
   startState:
   # objective
   - setObjective:
-    - "Run the test program on the basic Navigate procedure."
+    - "Run the test program on your Navigate procedure."
 
   # sounds/video
   - playSound:
@@ -41,14 +41,14 @@ properties:
   - setProperty:
     - rover
     - startXML
-    - <xml><block type="procedures_defnoreturn" id="a" deletable="false" movable="false" editable="false" x="0" y="-220"><mutation><arg name="Destination X"></arg><arg name="Destination Y"></arg></mutation><field name="NAME">Navigate</field><statement name="STACK"><block type="controls_if_nomut" id="b" inline="false"><value name="IF0"><block type="variables_get" id="c" inline="false"><field name="VAR">Destination Y</field><value name="INPUT"><block type="logic_cond_out" id="d" inline="false"><field name="VALUE">&lt;</field><value name="INPUT"><block type="controls_sensor_position_y" id="e" inline="false"></block></value></block></value></block></value><statement name="DO0"><block type="controls_whileUntil" id="f" inline="false"><value name="BOOL"><block type="controls_sensor_heading" id="g" inline="false"><value name="INPUT"><block type="logic_cond_out" id="h" inline="false"><field name="VALUE">!==</field><value name="INPUT"><block type="math_number_angle_select" id="i" inline="false"><field name="VALUE">270</field></block></value></block></value></block></value><statement name="DO"><block type="rover_turn" id="j"></block></statement><next><block type="controls_whileUntil" id="k" inline="false"><value name="BOOL"><block type="variables_get" id="l" inline="false"><field name="VAR">Destination Y</field><value name="INPUT"><block type="logic_cond_out" id="m" inline="false"><field name="VALUE">&lt;</field><value name="INPUT"><block type="controls_sensor_position_y" id="n" inline="false"></block></value></block></value></block></value><statement name="DO"><block type="rover_moveForward" id="o"></block></statement></block></next></block></statement></block></statement></block><block type="comment_block_free_text_no_in" id="p" deletable="false" movable="false" editable="false" inline="false" x="0" y="-340"><field name="COMMENT">This program tests the Navigate procedure.</field><next><block type="procedures_callnoreturn_no_out" id="u" deletable="false" movable="false" editable="false" inline="false"><mutation name="Navigate"><arg name="Destination X"></arg><arg name="Destination Y"></arg></mutation><value name="ARG0"><block type="math_number_field_no_out" inline="false" movable="false" deletable="false" id="a63"><field name="VALUE">0</field></block></value><value name="ARG1"><block type="graph_subtract" inline="false" movable="false" deletable="false" id="a60"><value name="INPUT"><block type="math_number_field_no_out" inline="false" movable="false" deletable="false" id="a62"><field name="VALUE">3</field></block></value></block></value></block></next></block></xml>
+    - <xml><block type="procedures_defnoreturn" id="a" deletable="false" movable="false" editable="false" x="0" y="-220"><mutation><arg name="Desired X"></arg><arg name="Desired Y"></arg></mutation><field name="NAME">Navigate</field><statement name="STACK"><block type="controls_if_nomut" id="b" inline="false"><value name="IF0"><block type="variables_get" id="c" inline="false"><field name="VAR">Desired Y</field><value name="INPUT"><block type="logic_cond_out" id="d" inline="false"><field name="VALUE">&lt;</field><value name="INPUT"><block type="controls_sensor_position_y" id="e" inline="false"></block></value></block></value></block></value><statement name="DO0"><block type="controls_whileUntil" id="f" inline="false"><value name="BOOL"><block type="controls_sensor_heading" id="g" inline="false"><value name="INPUT"><block type="logic_cond_out" id="h" inline="false"><field name="VALUE">!==</field><value name="INPUT"><block type="math_number_angle_select" id="i" inline="false"><field name="VALUE">270</field></block></value></block></value></block></value><statement name="DO"><block type="rover_turn" id="j"></block></statement><next><block type="controls_whileUntil" id="k" inline="false"><value name="BOOL"><block type="variables_get" id="l" inline="false"><field name="VAR">Desired Y</field><value name="INPUT"><block type="logic_cond_out" id="m" inline="false"><field name="VALUE">&lt;</field><value name="INPUT"><block type="controls_sensor_position_y" id="n" inline="false"></block></value></block></value></block></value><statement name="DO"><block type="rover_moveForward" id="o"></block></statement></block></next></block></statement></block></statement></block><block type="comment_block_free_text_no_in" id="p" deletable="false" movable="false" editable="false" inline="false" x="0" y="-340"><field name="COMMENT">This program tests the Navigate procedure.</field><next><block type="procedures_callnoreturn_no_out" id="u" deletable="false" movable="false" editable="false" inline="false"><mutation name="Navigate"><arg name="Desired X"></arg><arg name="Desired Y"></arg></mutation><value name="ARG0"><block type="math_number_field_no_out" inline="false" movable="false" deletable="false" id="a63"><field name="VALUE">0</field></block></value><value name="ARG1"><block type="graph_subtract" inline="false" movable="false" deletable="false" id="a60"><value name="INPUT"><block type="math_number_field_no_out" inline="false" movable="false" deletable="false" id="a62"><field name="VALUE">3</field></block></value></block></value></block></next></block></xml>
   - setProperty:
     - rover
     - blockly_xml
-    - <xml><block type="procedures_defnoreturn" id="a" deletable="false" movable="false" editable="false" x="0" y="-220"><mutation><arg name="Destination X"></arg><arg name="Destination Y"></arg></mutation><field name="NAME">Navigate</field><statement name="STACK"><block type="controls_if_nomut" id="b" inline="false"><value name="IF0"><block type="variables_get" id="c" inline="false"><field name="VAR">Destination Y</field><value name="INPUT"><block type="logic_cond_out" id="d" inline="false"><field name="VALUE">&lt;</field><value name="INPUT"><block type="controls_sensor_position_y" id="e" inline="false"></block></value></block></value></block></value><statement name="DO0"><block type="controls_whileUntil" id="f" inline="false"><value name="BOOL"><block type="controls_sensor_heading" id="g" inline="false"><value name="INPUT"><block type="logic_cond_out" id="h" inline="false"><field name="VALUE">!==</field><value name="INPUT"><block type="math_number_angle_select" id="i" inline="false"><field name="VALUE">270</field></block></value></block></value></block></value><statement name="DO"><block type="rover_turn" id="j"></block></statement><next><block type="controls_whileUntil" id="k" inline="false"><value name="BOOL"><block type="variables_get" id="l" inline="false"><field name="VAR">Destination Y</field><value name="INPUT"><block type="logic_cond_out" id="m" inline="false"><field name="VALUE">&lt;</field><value name="INPUT"><block type="controls_sensor_position_y" id="n" inline="false"></block></value></block></value></block></value><statement name="DO"><block type="rover_moveForward" id="o"></block></statement></block></next></block></statement></block></statement></block><block type="comment_block_free_text_no_in" id="p" deletable="false" movable="false" editable="false" inline="false" x="0" y="-340"><field name="COMMENT">This program tests the Navigate procedure.</field><next><block type="procedures_callnoreturn_no_out" id="u" deletable="false" movable="false" editable="false" inline="false"><mutation name="Navigate"><arg name="Destination X"></arg><arg name="Destination Y"></arg></mutation><value name="ARG0"><block type="math_number_field_no_out" inline="false" movable="false" deletable="false" id="a63"><field name="VALUE">0</field></block></value><value name="ARG1"><block type="graph_subtract" inline="false" movable="false" deletable="false" id="a60"><value name="INPUT"><block type="math_number_field_no_out" inline="false" movable="false" deletable="false" id="a62"><field name="VALUE">3</field></block></value></block></value></block></next></block></xml>
+    - <xml><block type="procedures_defnoreturn" id="a" deletable="false" movable="false" editable="false" x="0" y="-220"><mutation><arg name="Desired X"></arg><arg name="Desired Y"></arg></mutation><field name="NAME">Navigate</field><statement name="STACK"><block type="controls_if_nomut" id="b" inline="false"><value name="IF0"><block type="variables_get" id="c" inline="false"><field name="VAR">Desired Y</field><value name="INPUT"><block type="logic_cond_out" id="d" inline="false"><field name="VALUE">&lt;</field><value name="INPUT"><block type="controls_sensor_position_y" id="e" inline="false"></block></value></block></value></block></value><statement name="DO0"><block type="controls_whileUntil" id="f" inline="false"><value name="BOOL"><block type="controls_sensor_heading" id="g" inline="false"><value name="INPUT"><block type="logic_cond_out" id="h" inline="false"><field name="VALUE">!==</field><value name="INPUT"><block type="math_number_angle_select" id="i" inline="false"><field name="VALUE">270</field></block></value></block></value></block></value><statement name="DO"><block type="rover_turn" id="j"></block></statement><next><block type="controls_whileUntil" id="k" inline="false"><value name="BOOL"><block type="variables_get" id="l" inline="false"><field name="VAR">Desired Y</field><value name="INPUT"><block type="logic_cond_out" id="m" inline="false"><field name="VALUE">&lt;</field><value name="INPUT"><block type="controls_sensor_position_y" id="n" inline="false"></block></value></block></value></block></value><statement name="DO"><block type="rover_moveForward" id="o"></block></statement></block></next></block></statement></block></statement></block><block type="comment_block_free_text_no_in" id="p" deletable="false" movable="false" editable="false" inline="false" x="0" y="-340"><field name="COMMENT">This program tests the Navigate procedure.</field><next><block type="procedures_callnoreturn_no_out" id="u" deletable="false" movable="false" editable="false" inline="false"><mutation name="Navigate"><arg name="Desired X"></arg><arg name="Desired Y"></arg></mutation><value name="ARG0"><block type="math_number_field_no_out" inline="false" movable="false" deletable="false" id="a63"><field name="VALUE">0</field></block></value><value name="ARG1"><block type="graph_subtract" inline="false" movable="false" deletable="false" id="a60"><value name="INPUT"><block type="math_number_field_no_out" inline="false" movable="false" deletable="false" id="a62"><field name="VALUE">3</field></block></value></block></value></block></next></block></xml>
   - loadToolbox:
     - rover
-    - source/scenario/blockly/mission3a.xml
+    - source/scenario/blockly/mission3.xml
   - delay:
     - .5  
     - callMethod:
@@ -156,12 +156,14 @@ children:
             - m3t1vo030
           - playSound:
             - m3t1vo040
+          - playSound:
+            - m3t1vo041
           - setProperty:
             - hud
             - enabled
             - false
           - delay:
-            - 39
+            - 43
             - openMissionBrief:
             - setProperty:
               - hud
@@ -209,20 +211,16 @@ children:
     properties:
       title: "Mission 3, Task 1"
       content: >
-        Oh no, your Navigate procedure has been corrupted! Before you continue
-        your mission, you should rebuild it. 
+        Oh no, your Navigate procedure was corrupted during the crash! You will 
+        need to rewrite it before you can continue your mission. 
         <br><br>A procedure is a small program that can be placed inside
         of a block and used in other programs. Information can be passed into 
-        the procedure, telling it exactly what to do. 
-        <br><br> Your next task is to write a Navigate procedure that will move 
-        you in any direction, so that you don't have to keep putting together 
-        long sequences of Turn and Forward blocks. The Destination X and 
-        Destination Y to move to will be passed into the procedure so that it
-        knows where to move.
-        <br><br> To get you started, Mission Control has provide a procedure
-        that turns until facing down the Y axis and then moves forward until 
-        the rover's position matches the desired Y coordinate. She has also 
-        provided a test program that checks whether it works correctly. 
-        <br><br>START that program now, so we can test that her procedure is 
-        working.
+        the procedure, telling it exactly what to do. Your Navigate procedure,
+        for example, takes an X and Y value, and moves you to that position.
+        <br><br>When large programs are written, they often come with test
+        programs that ensure that they're working correctly. Mission Control
+        still has the tests for your Navigate procedure, so she will provide the 
+        tests for each section of the Navigate procedure as you write it.
+        <br><br>To begin, test the portion of your Navigate procedure that you
+        still have, and confirm that it is working correctly. 
 
