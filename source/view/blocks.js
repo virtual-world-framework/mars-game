@@ -323,10 +323,8 @@ var checkAndSetField = function ( block, field ) {
     do {
       if ( currentBlock.type === 'triangle_flow' ) {
         return unitTriangle[ field ];
-        //break;
       } else if ( !isNaN( currentBlock.getFieldValue( field ) ) ) {
         return currentBlock.getFieldValue( field );
-        //break;
       } else {
         currentBlock = currentBlock.parentBlock_;
       }
