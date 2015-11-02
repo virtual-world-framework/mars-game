@@ -42,18 +42,20 @@ properties:
     - rover
     - blockly_allowedBlocks
     - 5
+  - selectBlocklyNode:
+    - graph
   - setProperty:
     - rover
     - lowRam
     - 1
-  - setProperty:
-    - rover
+    - setProperty:
+    - graph
     - startXML
-    - <xml></xml>
+    - <xml><block type="graph_set_y" inline="false" editable="false" deletable="false" x="140" y="60"></block></xml>
   - setProperty:
-    - rover
+    - graph
     - blockly_xml
-    - <xml></xml>
+    - <xml><block type="graph_set_y" inline="false" editable="false" deletable="false" x="140" y="60"></block></xml>
   - addToGrid:
     - rover
     - [ 0, 14 ]
