@@ -832,7 +832,7 @@ properties:
     - soundName: "ALVO25_Rover"
       soundURL: "assets/sounds/vo/ALVO25_Rover_m.ogg"
       initialVolume: 0.65
-      subtitle: "[MANNY]: If I know the slope, I can use that to determine my course."
+      subtitle: "[MANNY]: If I know the rate of change, I can use that to determine my course."
       soundGroup: vo
       groupReplacementMethod: queue
     - soundName: "ALVO26_Rover"
@@ -954,7 +954,7 @@ properties:
     - soundName: "SCVO8_Control"
       soundURL: "assets/sounds/vo/SCVO8_Control.ogg"
       initialVolume: 1.0
-      subtitle: "[MISSION CONTROL]: Now you are on the right track! This graph is going to help you overcome your next challenge: Find the slope of the line, and use that to make a navigation program that will follow that track. Let's start by moving to that blinking tile just to your right."
+      subtitle: "[MISSION CONTROL]: Now you are on the right track! This graph is going to help you overcome your next challenge: Find the rate of change, or “slope” of the line, and use that to make a navigation program that will follow that track. Let’s start by moving to that blinking tile just to your right."
       soundGroup: vo
       groupReplacementMethod: replace
     - soundName: "SCVO9_Rover"
