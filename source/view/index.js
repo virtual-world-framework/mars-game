@@ -997,6 +997,19 @@ function indicateBlock( blockID ) {
 
 }
 
+function updateBlocklyTriangles() {
+    var vertArray = [];
+    for ( var id in currentBlocklyTriangles ) {
+        var tri = currentBlocklyTriangles[ id ];
+        if ( tri.length === 3 ) {
+            vertArray.push( tri[ 0 ] );
+            vertArray.push( tri[ 1 ] );
+            vertArray.push( tri[ 2 ] );
+        }
+    }
+    vwf_view.kernel.callMethod( getAppID(), "setUserTriangles", [ vertArray ] );
+}
+
 // function indicateBlock( blockID ) {
 //     var workspace, block;
 //     workspace = Blockly.getMainWorkspace();
