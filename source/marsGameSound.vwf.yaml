@@ -628,7 +628,7 @@ properties:
     - soundName: "TM4V32_MANNY"
       soundURL: "assets/sounds/vo/TM4_32_MANNY.ogg" 
       initialVolume: 0.65
-      subtitle: "[MANNY]: Ok, what's next?  Power, shelter... I suppose the Humans will probably want to eat. Let's build them a Greenhouse Dome, where they can grow some of what they call “food.”"
+      subtitle: "[MANNY]: Ok, what's next?  Power, shelter... I suppose the Humans will probably want to eat. Let's build them a Greenhouse Dome, where they can grow some of what they call 'food.'"
       soundGroup: vo
       groupReplacementMethod: queue
     # - soundName: "TM4V33_MANNY"
@@ -954,7 +954,7 @@ properties:
     - soundName: "SCVO8_Control"
       soundURL: "assets/sounds/vo/SCVO8_Control.ogg"
       initialVolume: 1.0
-      subtitle: "[MISSION CONTROL]: Now you are on the right track! This graph is going to help you overcome your next challenge: Find the rate of change, or “slope” of the line, and use that to make a navigation program that will follow that track. Let's start by moving to that blinking tile just to your right."
+      subtitle: "[MISSION CONTROL]: Now you are on the right track! This graph is going to help you overcome your next challenge: Find the rate of change, or 'slope' of the line, and use that to make a navigation program that will follow that track. Let's start by moving to that blinking tile just to your right."
       soundGroup: vo
       groupReplacementMethod: replace
     - soundName: "SCVO9_Rover"

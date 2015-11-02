@@ -220,7 +220,7 @@ children:
           - playSound:
             - TM4V2_MANNY
           - playSound:
-            - TM4V3_MC
+            - TM4_3_MC
           - playSound:
             - PerryThanksALot
           - playSound:
