@@ -868,7 +868,7 @@ Blockly.Blocks['triangle_transformations_translate'] = {
     this.appendDummyInput()
         .appendField("Translate")
         .appendField("(")
-        .appendField(new Blockly.FieldTextInput('0', "OPX")
+        .appendField(new Blockly.FieldTextInput('0'), "OPX")
         .appendField(",")
         .appendField(new Blockly.FieldTextInput('0'), "OPY")
         .appendField(")     ");
@@ -878,9 +878,9 @@ Blockly.Blocks['triangle_transformations_translate'] = {
         .setAlign(Blockly.ALIGN_CENTRE)
         .appendField("A ", "APRIME")
         .appendField("(")
-        .appendField(new Blockly.FieldTextInput('0', "AX")
+        .appendField(new Blockly.FieldTextInput('0'), "AX")
         .appendField(",")
-        .appendField(new Blockly.FieldTextInput('0', "AY")
+        .appendField(new Blockly.FieldTextInput('0'), "AY")
         .appendField(")");
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
