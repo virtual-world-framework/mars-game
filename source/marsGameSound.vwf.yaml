@@ -457,10 +457,10 @@ properties:
       subtitle: "[MANNY]: You mean I am going to spray smaller robots on the ground to build the base?"
       soundGroup: vo
       groupReplacementMethod: queue
-    - soundName: "TM4V3_MC"
+    - soundName: "TM4_3_MC"
       soundURL: "assets/sounds/vo/TM4_3_MC.ogg" 
       initialVolume: 0.65
-      subtitle: "[MISSION CONTROL]: Not at all! Your new rover, Peregrine, is equipped with the item in question. You will need to program her to construct the Base."
+      subtitle: "[MISSION CONTROL]: Not at all! Your new rover, Peregrine, is equipped with the item in question. She will construct the Base."
       soundGroup: vo
       groupReplacementMethod: queue
     - soundName: "TM4V5_MC"
@@ -954,7 +954,7 @@ properties:
     - soundName: "SCVO8_Control"
       soundURL: "assets/sounds/vo/SCVO8_Control.ogg"
       initialVolume: 1.0
-      subtitle: "[MISSION CONTROL]: Now you are on the right track! This graph is going to help you overcome your next challenge: Find the rate of change, or “slope” of the line, and use that to make a navigation program that will follow that track. Let’s start by moving to that blinking tile just to your right."
+      subtitle: "[MISSION CONTROL]: Now you are on the right track! This graph is going to help you overcome your next challenge: Find the rate of change, or “slope” of the line, and use that to make a navigation program that will follow that track. Let's start by moving to that blinking tile just to your right."
       soundGroup: vo
       groupReplacementMethod: replace
     - soundName: "SCVO9_Rover"
