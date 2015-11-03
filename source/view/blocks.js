@@ -302,7 +302,7 @@ Blockly.JavaScript['triangle_flow'] = function( block ) {
 
 var validateFieldValue = function ( value ) {
   if ( isNaN( value ) || value === "" ){
-      return '_';
+      return '';
   } else {
       if ( value % 1 !== 0 ){
         return '0';
@@ -873,25 +873,25 @@ Blockly.Blocks['triangle_transformations_translate'] = {
         .setAlign(Blockly.ALIGN_CENTRE)
         .appendField("A ", "APRIME")
         .appendField("(")
-        .appendField(new Blockly.FieldTextInput('_'), "AX")
+        .appendField(new Blockly.FieldTextInput(''), "AX")
         .appendField(",")
-        .appendField(new Blockly.FieldTextInput('_'), "AY")
+        .appendField(new Blockly.FieldTextInput(''), "AY")
         .appendField(")");
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
         .appendField("B ", "BPRIME")
         .appendField("(")
-        .appendField(new Blockly.FieldTextInput('_'), "BX")
+        .appendField(new Blockly.FieldTextInput(''), "BX")
         .appendField(",")
-        .appendField(new Blockly.FieldTextInput('_'), "BY")
+        .appendField(new Blockly.FieldTextInput(''), "BY")
         .appendField(")");
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
         .appendField("C ", "CPRIME")
         .appendField("(")
-        .appendField(new Blockly.FieldTextInput('_'), "CX")
+        .appendField(new Blockly.FieldTextInput(''), "CX")
         .appendField(",")
-        .appendField(new Blockly.FieldTextInput('_'), "CY")
+        .appendField(new Blockly.FieldTextInput(''), "CY")
         .appendField(")");
     this.setInputsInline(false);
     this.setPreviousStatement(true, 'Transformation');
@@ -1302,25 +1302,25 @@ Blockly.Blocks['triangle_transformations_dilate'] = {
         .setAlign(Blockly.ALIGN_CENTRE)
         .appendField("A ", "APRIME")
         .appendField("(")
-        .appendField(new Blockly.FieldTextInput('_'), "AX")
+        .appendField(new Blockly.FieldTextInput(''), "AX")
         .appendField(",")
-        .appendField(new Blockly.FieldTextInput('_'), "AY")
+        .appendField(new Blockly.FieldTextInput(''), "AY")
         .appendField(")");
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
         .appendField("B ", "BPRIME")
         .appendField("(")
-        .appendField(new Blockly.FieldTextInput('_'), "BX")
+        .appendField(new Blockly.FieldTextInput(''), "BX")
         .appendField(",")
-        .appendField(new Blockly.FieldTextInput('_'), "BY")
+        .appendField(new Blockly.FieldTextInput(''), "BY")
         .appendField(")");
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
         .appendField("C ", "CPRIME")
         .appendField("(")
-        .appendField(new Blockly.FieldTextInput('_'), "CX")
+        .appendField(new Blockly.FieldTextInput(''), "CX")
         .appendField(",")
-        .appendField(new Blockly.FieldTextInput('_'), "CY")
+        .appendField(new Blockly.FieldTextInput(''), "CY")
         .appendField(")");
     this.setInputsInline(false);
     this.setPreviousStatement(true, 'Transformation');
@@ -2351,25 +2351,25 @@ Blockly.Blocks['triangle_transformations_reflect'] = {
         .setAlign(Blockly.ALIGN_CENTRE)
         .appendField("A ", "APRIME")
         .appendField("(")
-        .appendField(new Blockly.FieldTextInput('_'), "AX")
+        .appendField(new Blockly.FieldTextInput(''), "AX")
         .appendField(",")
-        .appendField(new Blockly.FieldTextInput('_'), "AY")
+        .appendField(new Blockly.FieldTextInput(''), "AY")
         .appendField(")");
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
         .appendField("B ", "BPRIME")
         .appendField("(")
-        .appendField(new Blockly.FieldTextInput('_'), "BX")
+        .appendField(new Blockly.FieldTextInput(''), "BX")
         .appendField(",")
-        .appendField(new Blockly.FieldTextInput('_'), "BY")
+        .appendField(new Blockly.FieldTextInput(''), "BY")
         .appendField(")");
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
         .appendField("C ", "CPRIME")
         .appendField("(")
-        .appendField(new Blockly.FieldTextInput('_'), "CX")
+        .appendField(new Blockly.FieldTextInput(''), "CX")
         .appendField(",")
-        .appendField(new Blockly.FieldTextInput('_'), "CY")
+        .appendField(new Blockly.FieldTextInput(''), "CY")
         .appendField(")");
     this.setInputsInline(false);
     this.setPreviousStatement(true, 'Transformation');
