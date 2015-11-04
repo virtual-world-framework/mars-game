@@ -302,7 +302,6 @@ Blockly.JavaScript['triangle_flow'] = function( block ) {
 
 var validateFieldValue = function ( value ) {
   if ( isNaN( value ) || value === '' || value === '_' ){
-      console.log('setting empty field');
       return '_';
   } else {
       if ( value % 1 !== 0 ){
@@ -343,8 +342,6 @@ var checkAndSetTriangle = function ( block, field ) {
       if ( currentBlock.type === 'triangle_flow' ) {
         return unitTriangle[ field ];
       } else if ( !isNaN( currentBlock.getFieldValue( field ) ) || currentBlock.getFieldValue( field ) !== '_' ) {
-        console.log(currentBlock.getFieldValue( field ));
-        console.log('validating this is not an empty field to send');
         return currentBlock.getFieldValue( field );
       } else {
         currentBlock = currentBlock.parentBlock_;
