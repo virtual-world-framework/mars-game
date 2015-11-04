@@ -302,8 +302,8 @@ Blockly.JavaScript['triangle_flow'] = function( block ) {
 };
 
 var validateFieldValue = function ( value ) {
-  if ( isNaN( value ) || value === "" ){
-      return '';
+  if ( isNaN( value ) || value === '' || value === '_' ){
+      return '_';
   } else {
       if ( value % 1 !== 0 ){
         return '0';
@@ -325,6 +325,24 @@ var checkAndSetField = function ( block, field ) {
       if ( currentBlock.type === 'triangle_flow' ) {
         return unitTriangle[ field ];
       } else if ( !isNaN( currentBlock.getFieldValue( field ) ) ) {
+        return currentBlock.getFieldValue( field );
+      } else {
+        currentBlock = currentBlock.parentBlock_;
+      }
+    } while ( currentBlock );
+
+}
+
+var checkAndSetTriangle = function ( block, field ) {
+
+    var currentBlock = block;
+    var unitTriangle = { "AX": 0, "BX": 0, "CX": 1, "AY": 0, "BY": 1, "CY": 0 };
+
+
+    do {
+      if ( currentBlock.type === 'triangle_flow' ) {
+        return unitTriangle[ field ];
+      } else if ( !isNaN( currentBlock.getFieldValue( field ) ) || currentBlock.getFieldValue( field ) !== '_' ) {
         return currentBlock.getFieldValue( field );
       } else {
         currentBlock = currentBlock.parentBlock_;
@@ -874,25 +892,25 @@ Blockly.Blocks['triangle_transformations_translate'] = {
         .setAlign(Blockly.ALIGN_CENTRE)
         .appendField("A ", "APRIME")
         .appendField("(")
-        .appendField(new Blockly.FieldTextInput(''), "AX")
+        .appendField(new Blockly.FieldTextInput('_'), "AX")
         .appendField(",")
-        .appendField(new Blockly.FieldTextInput(''), "AY")
+        .appendField(new Blockly.FieldTextInput('_'), "AY")
         .appendField(")");
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
         .appendField("B ", "BPRIME")
         .appendField("(")
-        .appendField(new Blockly.FieldTextInput(''), "BX")
+        .appendField(new Blockly.FieldTextInput('_'), "BX")
         .appendField(",")
-        .appendField(new Blockly.FieldTextInput(''), "BY")
+        .appendField(new Blockly.FieldTextInput('_'), "BY")
         .appendField(")");
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
         .appendField("C ", "CPRIME")
         .appendField("(")
-        .appendField(new Blockly.FieldTextInput(''), "CX")
+        .appendField(new Blockly.FieldTextInput('_'), "CX")
         .appendField(",")
-        .appendField(new Blockly.FieldTextInput(''), "CY")
+        .appendField(new Blockly.FieldTextInput('_'), "CY")
         .appendField(")");
     this.setInputsInline(false);
     this.setPreviousStatement(true, 'Transformation');
@@ -1038,9 +1056,14 @@ Blockly.Blocks['triangle_transformations_translate'] = {
 
         //Set target block's values (The TRIANGLE FLOW BLOCK's values) with the current A B and C
 
-        targetBlock.setFieldValue( ' '+ax+' , '+ay+' ','CURRENTA' );
-        targetBlock.setFieldValue( ' '+bx+' , '+by+' ','CURRENTB' );
-        targetBlock.setFieldValue( ' '+cx+' , '+cy+' ','CURRENTC' );
+        //targetBlock.setFieldValue( ' '+ax+' , '+ay+' ','CURRENTA' );
+        //targetBlock.setFieldValue( ' '+bx+' , '+by+' ','CURRENTB' );
+        //targetBlock.setFieldValue( ' '+cx+' , '+cy+' ','CURRENTC' );
+
+        targetBlock.setFieldValue( ' '+checkAndSetTriangle(this,'AX')+' , '+checkAndSetTriangle(this,'AY')+' ','CURRENTA' );
+        targetBlock.setFieldValue( ' '+checkAndSetTriangle(this,'BX')+' , '+checkAndSetTriangle(this,'BY')+' ','CURRENTB' );
+        targetBlock.setFieldValue( ' '+checkAndSetTriangle(this,'CX')+' , '+checkAndSetTriangle(this,'CY')+' ','CURRENTC' );
+
         break;
       }
 
@@ -1303,25 +1326,25 @@ Blockly.Blocks['triangle_transformations_dilate'] = {
         .setAlign(Blockly.ALIGN_CENTRE)
         .appendField("A ", "APRIME")
         .appendField("(")
-        .appendField(new Blockly.FieldTextInput(''), "AX")
+        .appendField(new Blockly.FieldTextInput('_'), "AX")
         .appendField(",")
-        .appendField(new Blockly.FieldTextInput(''), "AY")
+        .appendField(new Blockly.FieldTextInput('_'), "AY")
         .appendField(")");
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
         .appendField("B ", "BPRIME")
         .appendField("(")
-        .appendField(new Blockly.FieldTextInput(''), "BX")
+        .appendField(new Blockly.FieldTextInput('_'), "BX")
         .appendField(",")
-        .appendField(new Blockly.FieldTextInput(''), "BY")
+        .appendField(new Blockly.FieldTextInput('_'), "BY")
         .appendField(")");
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
         .appendField("C ", "CPRIME")
         .appendField("(")
-        .appendField(new Blockly.FieldTextInput(''), "CX")
+        .appendField(new Blockly.FieldTextInput('_'), "CX")
         .appendField(",")
-        .appendField(new Blockly.FieldTextInput(''), "CY")
+        .appendField(new Blockly.FieldTextInput('_'), "CY")
         .appendField(")");
     this.setInputsInline(false);
     this.setPreviousStatement(true, 'Transformation');
@@ -1465,9 +1488,12 @@ Blockly.Blocks['triangle_transformations_dilate'] = {
 
           //Set target block's values (The TRIANGLE FLOW BLOCK's values) with the current A B and C
 
-          targetBlock.setFieldValue( ' '+ax+' , '+ay+' ','CURRENTA' );
-          targetBlock.setFieldValue( ' '+bx+' , '+by+' ','CURRENTB' );
-          targetBlock.setFieldValue( ' '+cx+' , '+cy+' ','CURRENTC' );
+          //targetBlock.setFieldValue( ' '+ax+' , '+ay+' ','CURRENTA' );
+          //targetBlock.setFieldValue( ' '+bx+' , '+by+' ','CURRENTB' );
+          //targetBlock.setFieldValue( ' '+cx+' , '+cy+' ','CURRENTC' );
+          targetBlock.setFieldValue( ' '+checkAndSetTriangle(this,'AX')+' , '+checkAndSetTriangle(this,'AY')+' ','CURRENTA' );
+          targetBlock.setFieldValue( ' '+checkAndSetTriangle(this,'BX')+' , '+checkAndSetTriangle(this,'BY')+' ','CURRENTB' );
+          targetBlock.setFieldValue( ' '+checkAndSetTriangle(this,'CX')+' , '+checkAndSetTriangle(this,'CY')+' ','CURRENTC' );
           break;
 
         }
@@ -2352,25 +2378,25 @@ Blockly.Blocks['triangle_transformations_reflect'] = {
         .setAlign(Blockly.ALIGN_CENTRE)
         .appendField("A ", "APRIME")
         .appendField("(")
-        .appendField(new Blockly.FieldTextInput(''), "AX")
+        .appendField(new Blockly.FieldTextInput('_'), "AX")
         .appendField(",")
-        .appendField(new Blockly.FieldTextInput(''), "AY")
+        .appendField(new Blockly.FieldTextInput('_'), "AY")
         .appendField(")");
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
         .appendField("B ", "BPRIME")
         .appendField("(")
-        .appendField(new Blockly.FieldTextInput(''), "BX")
+        .appendField(new Blockly.FieldTextInput('_'), "BX")
         .appendField(",")
-        .appendField(new Blockly.FieldTextInput(''), "BY")
+        .appendField(new Blockly.FieldTextInput('_'), "BY")
         .appendField(")");
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
         .appendField("C ", "CPRIME")
         .appendField("(")
-        .appendField(new Blockly.FieldTextInput(''), "CX")
+        .appendField(new Blockly.FieldTextInput('_'), "CX")
         .appendField(",")
-        .appendField(new Blockly.FieldTextInput(''), "CY")
+        .appendField(new Blockly.FieldTextInput('_'), "CY")
         .appendField(")");
     this.setInputsInline(false);
     this.setPreviousStatement(true, 'Transformation');
@@ -2564,9 +2590,12 @@ Blockly.Blocks['triangle_transformations_reflect'] = {
 
           //Set target block's values (The TRIANGLE FLOW BLOCK's values) with the current A B and C
 
-          targetBlock.setFieldValue( ' '+ax+' , '+ay+' ','CURRENTA' );
-          targetBlock.setFieldValue( ' '+bx+' , '+by+' ','CURRENTB' );
-          targetBlock.setFieldValue( ' '+cx+' , '+cy+' ','CURRENTC' );
+          //targetBlock.setFieldValue( ' '+ax+' , '+ay+' ','CURRENTA' );
+          //targetBlock.setFieldValue( ' '+bx+' , '+by+' ','CURRENTB' );
+          //targetBlock.setFieldValue( ' '+cx+' , '+cy+' ','CURRENTC' );
+          targetBlock.setFieldValue( ' '+checkAndSetTriangle(this,'AX')+' , '+checkAndSetTriangle(this,'AY')+' ','CURRENTA' );
+          targetBlock.setFieldValue( ' '+checkAndSetTriangle(this,'BX')+' , '+checkAndSetTriangle(this,'BY')+' ','CURRENTB' );
+          targetBlock.setFieldValue( ' '+checkAndSetTriangle(this,'CX')+' , '+checkAndSetTriangle(this,'CY')+' ','CURRENTC' );
           break;
 
         }
