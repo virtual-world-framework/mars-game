@@ -212,10 +212,9 @@ children:
 
         playTravelVO_3c:
           triggerCondition:
-          - and:
-            - isAtPosition:
-              - rover
-              - [ 7, 34 ]
+          - isAtPosition:
+            - rover
+            - [ 7, 34 ]
           actions:
           - playSound:
             - CTVO3
