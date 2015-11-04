@@ -296,7 +296,7 @@ properties:
     - soundName: "m3t1vo050"
       soundURL: "assets/sounds/vo/m3t1vo050.ogg"
       initialVolume: .65
-      subtitle: "[MISSION CONTROL]: I see... this section of the Navigate procedure moves me down the Y axis, and the test checks that it is working correctly. Everything looks good – I guess I just need to hit START!"
+      subtitle: "[MANNY]: I see... this section of the Navigate procedure moves me down the Y axis, and the test checks that it is working correctly. Everything looks good – I guess I just need to hit START!"
       soundGroup: vo
       groupReplacementMethod: queue
     - soundName: "newmission3vo5"
