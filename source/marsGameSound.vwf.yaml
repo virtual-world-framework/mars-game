@@ -534,7 +534,7 @@ properties:
       initialVolume: 0.65
       subtitle: "[MANNY]: That's two done!"
       soundGroup: vo
-      groupReplacementMethod: queue
+      groupReplacementMethod: replace
     - soundName: "TM4_61_MC"
       soundURL: "assets/sounds/vo/TM4_61_MC.ogg" 
       initialVolume: 0.65
@@ -738,7 +738,7 @@ properties:
       initialVolume: 0.65
       subtitle: "[MISSION CONTROL]: That is a triangle, but it's not a big enough triangle to construct a solar panel. You can make the triangle bigger by using a Dilate transformation. Here, let me help... I'll upload a program that should work, but you'll need to fill in the vertex positions on the Dilate block."
       soundGroup: vo
-      groupReplacementMethod: queue
+      groupReplacementMethod: replace
     - soundName: "TM4_57_MC"
       soundURL: "assets/sounds/vo/TM4_57_MC.ogg" 
       initialVolume: 0.65
