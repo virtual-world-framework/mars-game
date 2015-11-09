@@ -36,8 +36,6 @@ properties:
     - [ "assets/video/Success3_800x600.mp4" ]
 
   #blockly
-  - setBlocklyContext:
-    - rover
   - setProperty:
     - rover
     - startXML
