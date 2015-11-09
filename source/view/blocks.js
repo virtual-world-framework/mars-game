@@ -4831,7 +4831,15 @@ Blockly.JavaScript[ 'controls_sensor_position_drop' ] = function( block ) {
 
   var input = Blockly.JavaScript.valueToCode(block, 'INPUT', Blockly.JavaScript.ORDER_ATOMIC) || '';
 
-  var code = "vwf.getProperty( '" + block.data + "', 'positionSensorValueY' )" + input;
+  var dropdown_name = block.getFieldValue('POS');
+  var value_name = Blockly.JavaScript.valueToCode(block, 'POS', Blockly.JavaScript.ORDER_ATOMIC);
+  
+  if ( value_name === 'POSX' ) {
+    var code = "vwf.getProperty( '" + block.data + "', 'positionSensorValueX' )" + input;
+  } else {
+    var code = "vwf.getProperty( '" + block.data + "', 'positionSensorValueY' )" + input;
+  }
+  
 
   return [ code, Blockly.JavaScript.ORDER_ATOMIC ];
 
