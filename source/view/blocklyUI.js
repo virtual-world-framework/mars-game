@@ -360,7 +360,9 @@ function hideBlocklyLoopCount() {
 }
 
 function clickStartButton() {
+
     if ( this.className === "" ) {
+        vwf_view.kernel.setProperty( vwf_view.kernel.application(), "blockly_interfaceVisible", false );
         runBlockly();
     } else if ( this.className === "reset" ) {
         //NXM: We could make the "reset" button stop ALL the rovers using stopAllExecution, 
