@@ -389,26 +389,6 @@ properties:
       subtitle: "[MANNY]: I remember that one way to copy a block is to right-click on it and select 'duplicate.'"
       soundGroup: vo
       groupReplacementMethod: queue
-    # - soundName: "newmission3vo11"
-    #   soundURL: "assets/sounds/vo/newmission3vo11.ogg"
-    #   initialVolume: 0.65
-    #   subtitle: "[MANNY]: I...!"
-    #   soundGroup: vo
-    #   groupReplacementMethod: queue
-    # - soundName: "newmission3vo12"
-    #   soundURL: "assets/sounds/vo/newmission3vo12.ogg"
-    #   initialVolume: 0.65
-    #   subtitle: "[MISSION CONTROL]: Of course..."
-    #   soundGroup: vo
-    #   groupReplacementMethod: queue
-    #   queueDelayTime: .2
-    # - soundName: "newmission3vo13"
-    #   soundURL: "assets/sounds/vo/newmission3vo13.ogg"
-    #   initialVolume: 0.65
-    #   subtitle: "[MANNY]: *sigh*"
-    #   soundGroup: vo
-    #   groupReplacementMethod: queue
-    #   queueDelayTime: .8
     - soundName: "m3t5vo010"
       soundURL: "assets/sounds/vo/m3t5vo010.ogg"
       initialVolume: 0.65

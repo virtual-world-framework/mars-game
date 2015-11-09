@@ -27,7 +27,6 @@
   </category>
   <sep></sep>
   <category name="Math">
-    <!--block type="math_number_out" inline="false"><field name="VALUE">0</field></block-->
     <block type="math_number_angle_select"><field name="VALUE">0</field></block>
     <block type="graph_add"></block>
     <block type="graph_subtract"></block>
@@ -36,6 +35,7 @@
   </category>
   <sep></sep>
   <category name="Procedures">
+    <block type="comment_block_free_text"/>
     <block type="variables_get" inline="false"><field name="VAR">Desired X</field></block>
     <block type="variables_get" inline="false"><field name="VAR">Desired Y</field></block>
   </category>
