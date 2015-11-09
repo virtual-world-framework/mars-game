@@ -197,6 +197,7 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
             case "blocklyStopped":
                 blocklyDiv.style.pointerEvents = "inherit";
                 startBlocklyButton.className = "";
+                startEnabled = false;
                 //vwf_view.kernel.setProperty( nodeID, "blockly_timeBetweenLines", 1 );
                 // startBlocklyButton.className = "";
                 // var indicator = document.getElementById( "blocklyIndicator" );
@@ -223,6 +224,7 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
             case "blocklyErrored":
                 blocklyDiv.style.pointerEvents = "inherit";
                 startBlocklyButton.className = "";
+                startEnabled = false;
                 break;
 
         }
@@ -359,10 +361,12 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 lastBlockIDExecuted = undefined;
                 updateBlocklyUI( blocklyNodes[ currentBlocklyNodeID ] );
                 currentBlocklyErrors = {};
+                setTimeout( enableStart(), multiClickBuffer );
             case "scenarioReset":
                 removePopup();
                 removeFailScreen();
                 currentBlocklyErrors = {};
+                setTimeout( enableStart(), multiClickBuffer );
                 //indicateBlock( lastBlockIDExecuted );
                 break;
 
