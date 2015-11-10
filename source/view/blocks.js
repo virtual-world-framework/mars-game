@@ -1108,9 +1108,9 @@ Blockly.Blocks['triangle_transformations_translate_static'] = {
     this.appendDummyInput()
         .appendField("Translate")
         .appendField("(")
-        .appendField(new Blockly.FieldTextInput('0', "OPX")
+        .appendField('0', "OPX")
         .appendField(",")
-        .appendField(new Blockly.FieldTextInput('0', "OPY")
+        .appendField('0', "OPY")
         .appendField(")     ");
     this.appendDummyInput()
         .appendField(new Blockly.FieldImage("http://i.imgur.com/jWhLthx.png", 175, 20, "*"));

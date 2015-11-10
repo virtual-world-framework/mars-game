@@ -27,11 +27,11 @@ properties:
   - setProperty:
     - rover2
     - startXML
-    - <xml><block type="triangle_flow" id="a" x="100" y="60"><statement name="STACK"><block type="triangle_transformations_translate" id="b"><field name="OPX">-8</field><field name="OPY">-8</field></block></statement></block></xml>
+    - <xml><block type="triangle_flow" id="a" x="100" y="60"><statement name="STACK"><block type="triangle_transformations_translate_static" id="b"><field name="OPX">-8</field><field name="OPY">-8</field></block></statement></block></xml>
   - setProperty:
     - rover2
     - blockly_xml
-    - <xml><block type="triangle_flow" id="a" x="100" y="60"><statement name="STACK"><block type="triangle_transformations_translate" id="b"><field name="OPX">-8</field><field name="OPY">-8</field></block></statement></block></xml>
+    - <xml><block type="triangle_flow" id="a" x="100" y="60"><statement name="STACK"><block type="triangle_transformations_translate_static" id="b"><field name="OPX">-8</field><field name="OPY">-8</field></block></statement></block></xml>
 
   # blockly
   - setBlocklyContext:
