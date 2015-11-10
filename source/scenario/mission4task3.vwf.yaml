@@ -164,7 +164,7 @@ children:
           - playSound:
             - TM4V12_MC
           - playSound:
-            - TM4V13_MANNY
+            - TM4_13_MANNY
           - setProperty:
             - hud
             - enabled
