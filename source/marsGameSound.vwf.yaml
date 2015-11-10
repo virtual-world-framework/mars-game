@@ -479,7 +479,7 @@ properties:
       subtitle: "[MISSION CONTROL]: Ok, that looks correct. Move Peregrine to a safe position and then you can start the Nanite construction."
       soundGroup: vo
       groupReplacementMethod: queue
-    - soundName: "TM4V13_MANNY"
+    - soundName: "TM4_13_MANNY"
       soundURL: "assets/sounds/vo/TM4_13_MANNY.ogg" 
       initialVolume: 0.65
       subtitle: "[MANNY]: Let's see... (-3,0) looks like a safe spot for her to stand."
