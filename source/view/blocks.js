@@ -4827,6 +4827,48 @@ Blockly.Blocks[ 'controls_sensor_position_y' ] = {
   }
 };
 
+Blockly.JavaScript[ 'controls_sensor_position_drop' ] = function( block ) {
+
+  var input = Blockly.JavaScript.valueToCode(block, 'INPUT', Blockly.JavaScript.ORDER_ATOMIC) || '';
+
+  var dropdown_name = block.getFieldValue('POS');
+  var value_name = Blockly.JavaScript.valueToCode(block, 'POS', Blockly.JavaScript.ORDER_ATOMIC);
+  
+  if ( value_name === 'POSX' ) {
+    var code = "vwf.getProperty( '" + block.data + "', 'positionSensorValueX' )" + input;
+  } else {
+    var code = "vwf.getProperty( '" + block.data + "', 'positionSensorValueY' )" + input;
+  }
+  
+
+  return [ code, Blockly.JavaScript.ORDER_ATOMIC ];
+
+ // return [ "vwf.getProperty( '" + block.data + "', 'positionSensorValue' )", Blockly.JavaScript.ORDER_ATOMIC ];
+
+};
+
+Blockly.Blocks[ 'controls_sensor_position_drop' ] = {
+  init: function() {
+    this.setColour( 30 );
+    this.appendValueInput('INPUT')
+        .appendField('Current ')
+        .appendField(new Blockly.FieldDropdown([["X", "POSX"], ["Y", "POSY"]]), "POS")
+        //.appendField("(?)", "VALUE")
+        .setCheck(['OperatorAddSubtract','OperatorMultiplyDivide','Conditional']);
+        //.setCheck(['OperatorAddSubtract','OperatorMultiplyDivide','LeftParenthesis','RightParenthesis','Conditional']);
+    this.setOutput(true, null);
+    this.data = currentBlocklyNodeID;
+    
+    var thisBlock = this;
+    this.setTooltip( function() {
+      var content = {
+        text: "The X or Y value of the rover's current position."
+      }
+      return showTooltipInBlockly( thisBlock, content );
+    } );
+  }
+};
+
 Blockly.JavaScript[ 'controls_sensor_position_x_no_out' ] = function( block ) {
 
   var code = "vwf.getProperty( '" + block.data + "', 'positionSensorValueX' )";
