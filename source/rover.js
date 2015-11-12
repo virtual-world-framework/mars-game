@@ -355,8 +355,7 @@ this.getTerrainPosUnderNode = function( node, offset ) {
     ];
     posAfterOffset[ 2 ] = this.getTerrainHeight(
         posAfterOffset[ 0 ],
-        posAfterOffset[ 1 ], 
-        posAfterOffset[ 2 ]
+        posAfterOffset[ 1 ]
     );
     return posAfterOffset;
 }
