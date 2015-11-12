@@ -5550,7 +5550,7 @@ Blockly.JavaScript[ 'controls_sensor_position_drop' ] = function( block ) {
   var dropdown_name = block.getFieldValue('POS');
   var value_name = Blockly.JavaScript.valueToCode(block, 'POS', Blockly.JavaScript.ORDER_ATOMIC);
   
-  if ( value_name === 'POSX' ) {
+  if ( dropdown_name === 'POSX' ) {
     var code = "vwf.getProperty( '" + block.data + "', 'positionSensorValueX' )" + input;
   } else {
     var code = "vwf.getProperty( '" + block.data + "', 'positionSensorValueY' )" + input;
