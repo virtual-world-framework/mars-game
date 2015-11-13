@@ -127,6 +127,11 @@ properties:
     # arguments: blockType
     isBlockMissing: "source/triggers/clauses/clause_IsBlockMissing.vwf"
 
+    # Checks if a certain kind of block is present in the workspace and
+    # if it has a field that is of a certain value.
+    # arguments: blockType
+    hasBlockWithFieldValue: "source/triggers/clauses/clause_HasBlockWithFieldValue.vwf"
+
 
 scripts:
 - source: generator_Clause.js
