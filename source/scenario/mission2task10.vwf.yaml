@@ -112,6 +112,8 @@ children:
             - onScenarioStart:
           actions:
           - playSound:
+            - L3VO5_Rover_S
+          - playSound:
             - m2t10vo010
           - setProperty:
             - hud
@@ -156,6 +158,16 @@ children:
             - musicSuccessShort
 
         playHint5_2d:
+          triggerCondition:
+          - and:
+            - doOnce:
+            - delay:
+              - 40
+          actions:
+          - playSound:
+            - VO_Manny_Hint03
+
+        playHint5_2d_2:
           triggerCondition:
           - and:
             - doOnce:

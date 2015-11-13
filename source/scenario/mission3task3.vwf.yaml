@@ -28,7 +28,7 @@ properties:
 
   # sounds/video
   - playSound:
-    - musicStandardGameplay
+    - musicMission3Loop
   - playSound:
     - environmentWind
   - setProperty:
@@ -179,6 +179,20 @@ children:
           #   - "Test program completed!"
           - playSound:
             - musicSuccessShort
+
+        playHint_M3T3_reset:
+          triggerCondition:
+          - and:
+            - delay:
+              - 30
+            - not:
+              - readBlackboard:
+                - mission3ResetHint
+          actions:
+          - playSound:
+            - VO_MissionControl_Hint01
+          - writeToBlackboard:
+            - mission3ResetHint
 
   brief:
     extends: ../missionBrief.vwf

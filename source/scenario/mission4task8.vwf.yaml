@@ -167,6 +167,8 @@ children:
             - onScenarioStart:
           actions:
           - playSound:
+            - TM4V22_MANNY
+          - playSound:
             - TM4V23_MC
           - setProperty:
             - hud

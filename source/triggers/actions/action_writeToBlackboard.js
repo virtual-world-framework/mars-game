@@ -38,7 +38,15 @@ this.onGenerated = function( params, generator, payload ) {
 }
 
 this.executeAction = function() {
-    this.scene.sceneBlackboard[ this.variableName ] = this.value;
+    if ( this.value === "increment" ) {
+        if ( !this.scene.sceneBlackboard[ this.variableName ] ) {
+            this.scene.sceneBlackboard[ this.variableName ] = 1;
+        } else {
+            this.scene.sceneBlackboard[ this.variableName ] += 1;
+        }
+    } else {
+        this.scene.sceneBlackboard[ this.variableName ] = this.value;
+    }
 
     // TODO: think about the best (safe) way to do this.  Maybe 
     //  bring the idea of additional conditions back?

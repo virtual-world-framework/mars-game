@@ -162,6 +162,10 @@ children:
             - onScenarioStart:
           actions:
           - playSound:
+            - TM4_10_MANNY
+          - playSound:
+            - TM4_11_MC
+          - playSound:
             - TM4V12_MC
           - playSound:
             - TM4_13_MANNY
@@ -170,7 +174,7 @@ children:
             - enabled
             - false
           - delay:
-            - 23
+            - 22
             - openMissionBrief:
             - setProperty:
               - hud

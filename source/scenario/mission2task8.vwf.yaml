@@ -164,8 +164,6 @@ children:
           #   - "Course Plotted: Navigation Program Update Required"
           - playSound:
             - musicSuccessShort
-          - playSound:
-            - L3VO4_Rover_S
 
         graphTabOpened_3b:
           triggerCondition:

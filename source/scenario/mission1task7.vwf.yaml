@@ -117,6 +117,8 @@ children:
             - onScenarioStart:
           actions:
           - playSound:
+            - ALVO20_Rover
+          - playSound:
             - ALVO42_Rover
           - setProperty:
             - hud

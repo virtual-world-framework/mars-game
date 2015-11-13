@@ -139,8 +139,6 @@ children:
             - tilesButton
           - playSound:
             - musicSuccessShort
-          - playSound:
-            - SCVO2_Rover
 
         playHint1_1d:
           triggerCondition:

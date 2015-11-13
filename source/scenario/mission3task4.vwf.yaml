@@ -27,7 +27,7 @@ properties:
 
   # sounds/video
   - playSound:
-    - musicStandardGameplay
+    - musicMission3Loop
   - playSound:
     - environmentWind
   - setProperty:

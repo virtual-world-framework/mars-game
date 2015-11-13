@@ -185,15 +185,32 @@ children:
           - playSound:
             - TM4_47_Manny
 
-        # playHint_M4T2_2:
-        #   triggerCondition:
-        #   - and:
-        #     - doOnce:
-        #     - delay:
-        #       - 65
-        #   actions:
-        #   - playSound:
-        #     - TM4_48_Manny
+        playHint_M4T2_2:
+          triggerCondition:
+          - and:
+            - doOnce:
+            - delay:
+              - 65
+          actions:
+          - playSound:
+            - VO_Manny_Hint05
+
+        playHint_M4T2_reset:
+          triggerCondition:
+          - and:
+            - delay:
+              - 10
+            - readBlackboard:
+              - failureCount
+              - 1
+            - not:
+              - readBlackboard:
+                - mission4ResetHint
+          actions:
+          - playSound:
+            - VO_MissionControl_Hint02
+          - writeToBlackboard:
+            - mission4ResetHint
 
         succeedOnTriangle_4_2:
           group: successOrFailure
@@ -215,10 +232,6 @@ children:
             - clearBlockly:
             - playSound:
               - musicSuccessShort
-            - playSound:
-              - TM4_10_MANNY
-            - playSound:
-              - TM4_11_MC
             - scenarioSuccess:
 
         # onScenarioFailed4_2:
