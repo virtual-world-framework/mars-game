@@ -36,9 +36,7 @@ properties:
 
   # sound/video
   - playSound:
-    - musicMission4Intro
-  - playSound:
-    - musicMission4Loop_AfterIntro
+    - musicMission4Loop
   - playSound:
     - environmentWind
   - setProperty:

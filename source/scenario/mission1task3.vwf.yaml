@@ -173,8 +173,6 @@ children:
             - topDownButton
           - playSound:
             - musicSuccessShort
-          - playSound:
-            - SCVO1_Rover
 
         playHint1_1c:
           triggerCondition:

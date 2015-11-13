@@ -36,12 +36,13 @@ this.onGenerated = function( params, generator, payload ) {
 
 this.evaluateClause = function() {
     var checkedValue = this.scene.sceneBlackboard[ this.variableName ];
-    var retVal = ( checkedValue !== undefined );  
 
-    if ( retVal && 
-         ( this.variableValue !== null ) &&
+    var retVal;
+    if ( ( this.variableValue !== null ) &&
          ( this.variableValue !== undefined ) ) {
         retVal = ( checkedValue === this.variableValue );
+    } else {
+        retVal = !!checkedValue;
     }
 
     return retVal;

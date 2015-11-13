@@ -166,7 +166,7 @@ children:
           - stopSoundGroup:
             - vo
           - playSound:
-            - musicSuccess
+            - musicSuccessShort
 
         playHint1_2d:
           triggerCondition:

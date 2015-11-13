@@ -112,6 +112,8 @@ children:
             - onScenarioStart:
           actions:
           - playSound:
+            - L1VO13_Rover
+          - playSound:
             - L1VO14_Rover
           - setProperty:
             - hud
@@ -145,8 +147,6 @@ children:
           #   - "Turning motors are good to go!"
           - playSound:
             - musicSuccessShort
-          - playSound:
-            - ALVO20_Rover
 
         playHint1_1f:
           triggerCondition:

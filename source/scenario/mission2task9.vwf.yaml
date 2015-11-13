@@ -123,13 +123,15 @@ children:
             - onScenarioStart:
           actions:
           - playSound:
+            - L3VO4_Rover_S
+          - playSound:
             - L3VO5_Rover
           - setProperty:
             - hud
             - enabled
             - false
           - delay:
-            - 6
+            - 8
             - openMissionBrief:
             - setProperty:
               - hud
@@ -179,8 +181,6 @@ children:
           #   - "Looks like the rover changed course!  Time to plot the new line..."
           - playSound:
             - musicSuccessShort
-          - playSound:
-            - L3VO5_Rover_S
           - clearBlackboardEntry:
             - metalPosition
           - stopSound:
@@ -209,6 +209,30 @@ children:
             - thisOneIsTrickyHint
           - playSound:
             - ALVO37_Rover
+
+        playHint_2_9_back_to_Tracks:
+          triggerCondition:
+          - and:
+            - readBlackboard:
+              - failureCount
+              - 1
+            - delay:
+              - 10
+          actions:
+          - playSound:
+            - VO_Manny_Hint02
+
+        playHint_2_9_my_slope_is:
+          triggerCondition:
+          - and:
+            - readBlackboard:
+              - failureCount
+              - 2
+            - delay:
+              - 10
+          actions:
+          - playSound:
+            - VO_Manny_Hint01
 
         playTravelVO_3c:
           triggerCondition:

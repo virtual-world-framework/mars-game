@@ -27,7 +27,9 @@ properties:
 
   # sounds/video
   - playSound:
-    - musicStandardGameplay
+    - musicMission3Intro
+  - playSound:
+    - musicMission3Loop_AfterIntro
   - playSound:
     - environmentWind
   - setProperty:
@@ -146,8 +148,6 @@ children:
             - doOnce:
             - onScenarioStart:
           actions:
-          # - playSound:
-          #   - m3t1vo020
           - playSound:
             - m3t1vo010
           - playSound:
@@ -205,6 +205,23 @@ children:
           actions:
           - playSound:
             - m3t1vo050
+
+        playHint_M3T1_reset:
+          triggerCondition:
+          - and:
+            - delay:
+              - 10
+            - readBlackboard:
+              - failureCount
+              - 1
+            - not:
+              - readBlackboard:
+                - mission3ResetHint
+          actions:
+          - playSound:
+            - VO_MissionControl_Hint01
+          - writeToBlackboard:
+            - mission3ResetHint
 
   brief:
     extends: ../missionBrief.vwf

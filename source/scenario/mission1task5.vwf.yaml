@@ -122,6 +122,8 @@ children:
             - onScenarioStart:
           actions:
           - playSound:
+            - SCVO2_Rover
+          - playSound:
             - m1t5vo010
           - setProperty:
             - hud
@@ -159,8 +161,6 @@ children:
           #   - "You have calibrated your motors and picked up a spare battery!"
           - playSound:
             - musicSuccessShort
-          - playSound:
-            - L1VO13_Rover
 
         highlightEndTile_1_5:
           triggerCondition:

@@ -161,6 +161,8 @@ children:
             - onScenarioStart:
           actions:
           - playSound:
+            - TM4V16_MANNY
+          - playSound:
             - TM4_17_MC
           - setProperty:
             - hud
@@ -185,15 +187,32 @@ children:
           - playSound:
             - TM4_60_Manny
 
-        playHint_M4T5_2:
+        playHint_M4T5_reset:
           triggerCondition:
           - and:
-            - doOnce:
             - delay:
-              - 75
+              - 10
+            - readBlackboard:
+              - failureCount
+              - 1
+            - not:
+              - readBlackboard:
+                - mission4ResetHint
           actions:
           - playSound:
-            - TM4_57_MC
+            - VO_MissionControl_Hint02
+          - writeToBlackboard:
+            - mission4ResetHint
+
+        # playHint_M4T5_2:
+        #   triggerCondition:
+        #   - and:
+        #     - doOnce:
+        #     - delay:
+        #       - 75
+        #   actions:
+        #   - playSound:
+        #     - TM4_57_MC
 
         highlightEndTile_4_5:
           triggerCondition:
@@ -253,8 +272,6 @@ children:
               - stopExecution
             - playSound:
               - musicSuccessShort
-            - playSound:
-              - TM4V18_MANNY
             - clearBlockly:
             - scenarioSuccess:
 

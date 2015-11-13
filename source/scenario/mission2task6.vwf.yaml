@@ -116,6 +116,8 @@ children:
             - onScenarioStart:
           actions:
           - playSound:
+            - m2t5vo040
+          - playSound:
             - L2VO9_Control
           - setProperty:
             - hud

@@ -42,6 +42,9 @@ properties:
         - musicSuccess
       - stopSound:
         - musicFailure
+      - writeToBlackboard:
+        - failureCount
+        - 0
 
     recordKeepingOnFailure:
       triggerCondition:
@@ -57,6 +60,9 @@ properties:
         - musicFailure
       - playSound:
         - musicFailure
+      - writeToBlackboard:
+        - failureCount
+        - increment
 
     failOnIncompleteProgram_1:
       group: successOrFailure
