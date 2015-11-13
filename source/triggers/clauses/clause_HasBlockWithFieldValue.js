@@ -39,7 +39,7 @@ this.evaluateClause = function() {
     var present = false;
     for ( var i = 0; i < presentBlocks.length; i++ ) {
         if( presentBlocks[i].type === this.blockType ){
-            
+
             var actualFieldValue = presentBlocks[i].getFieldValue( this.fieldName );
             if ( actualFieldValue ){
                 if ( actualFieldValue === this.fieldValue ) {
@@ -50,7 +50,7 @@ this.evaluateClause = function() {
         
         }
     }
-    return !present;
+    return present;
 }
 
 //@ sourceURL=source/triggers/clauses/clause_HasBlockWithFieldValue.js
