@@ -72,14 +72,14 @@ properties:
       groupReplacementMethod: replace
     - soundName: "musicLevel2"
       soundURL: "assets/sounds/music/musicLevel2Loop.ogg"
-      initialVolume: 1
+      initialVolume: 0.7
       isLooping: true
       allowMultiplay: false
       soundGroup: music
       groupReplacementMethod: replace
     - soundName: "musicFailure"
       soundURL: "assets/sounds/music/musicFailure_01.ogg"
-      initialVolume: 1.0
+      initialVolume: 0.7
       allowMultiplay: false
     - soundName: "musicSuccess"
       soundURL: "assets/sounds/music/musicSuccess_01.ogg"
