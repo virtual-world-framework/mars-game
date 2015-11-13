@@ -284,7 +284,7 @@ properties:
     - soundName: "m3t1vo040"
       soundURL: "assets/sounds/vo/m3t1vo040.ogg"
       initialVolume: 0.65
-      subtitle: "[MANNY]: Well, that's something at least. It looks like I can also salvage the section that moves me in the -Y direction, so we can start there."
+      subtitle: "[MANNY]: Well that's something at least. It looks like I can also salvage the section that moves me in the -Y direction, so we can start there."
       soundGroup: vo
       groupReplacementMethod: queue
     - soundName: "m3t1vo041"
@@ -440,7 +440,7 @@ properties:
     - soundName: "TM4_3_MC"
       soundURL: "assets/sounds/vo/TM4_3_MC.ogg" 
       initialVolume: 0.65
-      subtitle: "[MISSION CONTROL]: Not at all! Your new rover, Peregrine, is equipped with the item in question. She will construct the Base."
+      subtitle: "[MISSION CONTROL]: Not at all! Your new rover, Peregrine, is equipped with the item in question."
       soundGroup: vo
       groupReplacementMethod: queue
     - soundName: "TM4V5_MC"
@@ -482,7 +482,7 @@ properties:
     - soundName: "TM4_13_MANNY"
       soundURL: "assets/sounds/vo/TM4_13_MANNY.ogg" 
       initialVolume: 0.65
-      subtitle: "[MANNY]: Let's see... (-3,0) looks like a safe spot for her to stand."
+      subtitle: "[MANNY]: Let's see... (-3,0) looks like a safe spot."
       soundGroup: vo
       groupReplacementMethod: queue
     # - soundName: "TM4V14_MANNY"

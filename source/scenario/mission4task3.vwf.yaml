@@ -170,7 +170,7 @@ children:
             - enabled
             - false
           - delay:
-            - 23
+            - 22
             - openMissionBrief:
             - setProperty:
               - hud
