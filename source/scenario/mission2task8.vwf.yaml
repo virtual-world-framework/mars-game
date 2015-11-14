@@ -21,6 +21,18 @@ properties:
   nextScenarioPath: "Mission2Task9"
 
   startState:
+  - playSound:
+    - musicLevel2
+  - playSound:
+    - environmentWind
+  - resetRoverSensors:
+  - blinkBlocklyTab:
+    - graph
+  - setObjective:
+    - "Graph a line that matches the slope of the tracks."
+  - setThirdPersonStartPose:
+    - [ 13, 15, -15 ]
+
   - setProperty:
     - videoManager  
     - url 
@@ -99,21 +111,6 @@ children:
     extends: ../triggers/triggerManager.vwf
     properties: 
       triggers$:
-        beginScenario_3b:
-          triggerCondition:
-          - onScenarioStart:
-          actions:
-          - playSound:
-            - musicLevel2
-          - playSound:
-            - environmentWind
-          - resetRoverSensors:
-          - blinkBlocklyTab:
-            - graph
-          - setObjective:
-            - "Graph a line that matches the slope of the tracks."
-          - setThirdPersonStartPose:
-            - [ 13, 15, -15 ]
 
         playStartingVO_3b:
           triggerCondition:

@@ -21,6 +21,18 @@ properties:
   nextScenarioPath: "Mission2Task6"
 
   startState:
+  - addToGrid:
+    - rover
+    - [ 0, 14 ]
+  - playSound:
+    - musicLevel2
+  - playSound:
+    - environmentWind
+  - setObjective:
+    - "Use the slope of the line to move one step along the Mini Rover tracks."
+  - setThirdPersonStartPose:
+    - [ 16.316, 65, -15 ]
+
   - setProperty:
     - videoManager  
     - url 
@@ -101,21 +113,6 @@ children:
     extends: ../triggers/triggerManager.vwf
     properties: 
       triggers$:
-        beginScenario_2e:
-          triggerCondition:
-          - onScenarioStart:
-          actions:
-          - addToGrid:
-            - rover
-            - [ 0, 14 ]
-          - playSound:
-            - musicLevel2
-          - playSound:
-            - environmentWind
-          - setObjective:
-            - "Use the slope of the line to move one step along the Mini Rover tracks."
-          - setThirdPersonStartPose:
-            - [ 16.316, 65, -15 ]
 
         playStartingVO_2e:
           triggerCondition:

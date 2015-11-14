@@ -21,6 +21,19 @@ properties:
   nextScenarioPath: "Mission2Task2"
 
   startState:
+  - playSound:
+    - musicLevel2
+  - playSound:
+    - environmentWind
+  - blinkHUDElement:
+    - graphButton
+  - setObjective:
+    - "Click the GRAPH button to display the coordinate axes."
+  - setProperty:
+    - blocklyButton
+    - enabled
+    - false
+
   - setProperty:
     - videoManager  
     - url 
@@ -110,22 +123,6 @@ children:
     extends: ../triggers/triggerManager.vwf
     properties: 
       triggers$:
-        beginScenario_2a:
-          triggerCondition:
-          - onScenarioStart:
-          actions:
-          - playSound:
-            - musicLevel2
-          - playSound:
-            - environmentWind
-          - blinkHUDElement:
-            - graphButton
-          - setObjective:
-            - "Click the GRAPH button to display the coordinate axes."
-          - setProperty:
-            - blocklyButton
-            - enabled
-            - false
 
         playStartingVO_2a:
           triggerCondition:
