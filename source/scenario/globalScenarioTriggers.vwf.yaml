@@ -39,8 +39,6 @@ properties:
       - onScenarioSucceeded:
       actions:
       - stopSound:
-        - musicSuccess
-      - stopSound:
         - musicFailure
       - writeToBlackboard:
         - failureCount
@@ -54,8 +52,6 @@ properties:
         - musicStandardGameplay
       - stopSound:
         - musicLevel2
-      - stopSound:
-        - musicSuccess
       - stopSound:
         - musicFailure
       - playSound:
