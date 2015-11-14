@@ -20,6 +20,16 @@ properties:
   nextScenarioPath: "Mission2Task4"
 
   startState:
+  - playSound:
+    - musicLevel2
+  - playSound:
+    - environmentWind
+  - setObjective:
+    - "Build an equation in the GRAPH tab to graph a line."
+  - setThirdPersonStartPose:
+    - [ 16.316, 65, -15 ]
+  - startTimer:
+
   - setProperty:
     - videoManager  
     - url 
@@ -100,19 +110,6 @@ children:
     extends: ../triggers/triggerManager.vwf
     properties: 
       triggers$:
-        beginScenario_2c:
-          triggerCondition:
-          - onScenarioStart:
-          actions:
-          - playSound:
-            - musicLevel2
-          - playSound:
-            - environmentWind
-          - setObjective:
-            - "Build an equation in the GRAPH tab to graph a line."
-          - setThirdPersonStartPose:
-            - [ 16.316, 65, -15 ]
-          - startTimer:
 
         playStartingVO_2c:
           triggerCondition:

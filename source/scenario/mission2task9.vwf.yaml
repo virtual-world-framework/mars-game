@@ -21,6 +21,21 @@ properties:
   nextScenarioPath: "Mission2Task10"
 
   startState:
+  - playSound:
+    - musicLevel2
+  - playSound:
+    - environmentWind
+  - resetRoverSensors:
+  - setObjective:
+    - "Follow the tracks until metal is detected."
+  - writeToBlackboard:
+    - metalPosition
+    - [ 4, 46 ]
+  - stopSound:
+    - CTVO3
+  - setThirdPersonStartPose:
+    - [ 13, 15, -15 ]
+
   - setProperty:
     - videoManager  
     - url 
@@ -97,24 +112,6 @@ children:
     extends: ../triggers/triggerManager.vwf
     properties: 
       triggers$:
-        beginScenario_3c:
-          triggerCondition:
-          - onScenarioStart:
-          actions:
-          - playSound:
-            - musicLevel2
-          - playSound:
-            - environmentWind
-          - resetRoverSensors:
-          - setObjective:
-            - "Follow the tracks until metal is detected."
-          - writeToBlackboard:
-            - metalPosition
-            - [ 4, 46 ]
-          - stopSound:
-            - CTVO3
-          - setThirdPersonStartPose:
-            - [ 13, 15, -15 ]
 
         playStartingVO_3c:
           triggerCondition:
@@ -139,13 +136,6 @@ children:
               - true
             - startTimer:
 
-        # highlightEndTile_2_9:
-        #   triggerCondition:
-        #   - onScenarioStart:
-        #   actions:
-        #   - callOutObjective:
-        #     - [ -4, 16 ]
-
         failOnMissingBlock_2_9:
           group: successOrFailure
           priority: 0.5
@@ -153,17 +143,38 @@ children:
           - and:
             - onBlocklyStopped:
               - rover
-            - isAtPosition:
-              - rover
-              - [ 4, 46 ]
             - isBlockMissing:
               - controls_whileUntil
           actions:
           - scenarioFailure:
             - incomplete
-            - "You should use the conditional loop block."
+            - "You must use the conditional loop block."
           - playSound:
             - conditionalFailure_conditionalLoop
+
+        failOnWhile_2_9:
+          group: successOrFailure
+          priority: 0.4
+          triggerCondition:
+          - and:
+            - onBlocklyStopped:
+              - rover
+            - hasBlockWithFieldValue:
+              - controls_whileUntil
+              - MODE
+              - WHILE
+            - not:
+              - readBlackboard:
+                - whileUntilHint
+          actions:
+          - scenarioFailure:
+            - incomplete
+            - "Do you want to loop *while* metal is nearby, or *until* metal is nearby?"
+          - playSound:
+            - VO_Manny_Hint04
+          - writeToBlackboard:
+            - whileUntilHint
+
 
         succeedOnSuccessfulMovement_3c:
           group: successOrFailure

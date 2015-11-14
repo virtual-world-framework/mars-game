@@ -21,6 +21,20 @@ properties:
   nextScenarioPath: "Mission2Task3"
 
   startState:
+  - playSound:
+    - musicLevel2
+  - playSound:
+    - environmentWind
+  - blinkHUDElement:
+    - blocklyButton
+  - blinkBlocklyTab:
+    - graph
+  - setObjective:
+    - "Open the GRAPH tab in your PROGRAM interface."
+  - setThirdPersonStartPose:
+    - [ 16.316, 65, -15 ]
+  - startTimer:
+
   - setProperty:
     - videoManager  
     - url 
@@ -97,23 +111,6 @@ children:
     extends: ../triggers/triggerManager.vwf
     properties: 
       triggers$:
-        beginScenario_2b:
-          triggerCondition:
-          - onScenarioStart:
-          actions:
-          - playSound:
-            - musicLevel2
-          - playSound:
-            - environmentWind
-          - blinkHUDElement:
-            - blocklyButton
-          - blinkBlocklyTab:
-            - graph
-          - setObjective:
-            - "Open the GRAPH tab in your PROGRAM interface."
-          - setThirdPersonStartPose:
-            - [ 16.316, 65, -15 ]
-          - startTimer:
 
         playStartingVO_2b:
           triggerCondition:

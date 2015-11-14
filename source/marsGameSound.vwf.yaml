@@ -81,10 +81,6 @@ properties:
       soundURL: "assets/sounds/music/musicFailure_01.ogg"
       initialVolume: 0.7
       allowMultiplay: false
-    - soundName: "musicSuccess"
-      soundURL: "assets/sounds/music/musicSuccess_01.ogg"
-      initialVolume: 1.0
-      allowMultiplay: false
     - soundName: "musicSuccessShort"
       soundURL: "assets/sounds/music/musicSuccessShort08.ogg"
       initialVolume: 1.0

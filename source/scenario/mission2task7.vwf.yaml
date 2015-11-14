@@ -21,6 +21,20 @@ properties:
   nextScenarioPath: "Mission2Task8"
 
   startState:
+  - playSound:
+    - musicLevel2
+  - playSound:
+    - environmentWind
+  - resetRoverSensors:
+  - setObjective:
+    - "Continue to follow the slope of the tracks until metal is detected."
+  - writeToBlackboard:
+    - metalPosition
+    - [ 8, 30 ]
+  - setThirdPersonStartPose:
+    - [ 16.316, 65, -15 ]
+  - startTimer:
+
   - setProperty:
     - videoManager  
     - url 
@@ -95,30 +109,6 @@ children:
     extends: ../triggers/triggerManager.vwf
     properties: 
       triggers$:
-        beginScenario_3a:
-          triggerCondition:
-          - onScenarioStart:
-          actions:
-          - playSound:
-            - musicLevel2
-          - playSound:
-            - environmentWind
-          - resetRoverSensors:
-          - setObjective:
-            - "Continue to follow the slope of the tracks until metal is detected."
-          - writeToBlackboard:
-            - metalPosition
-            - [ 8, 30 ]
-          - setThirdPersonStartPose:
-            - [ 16.316, 65, -15 ]
-          - startTimer:
-
-        # highlightEndTile_2_7:
-        #   triggerCondition:
-        #   - onScenarioStart:
-        #   actions:
-        #   - callOutObjective:
-        #     - [ 5, 10 ]
 
         playStartingVO_3a:
           triggerCondition:
@@ -161,17 +151,37 @@ children:
           - and:
             - onBlocklyStopped:
               - rover
-            - isAtPosition:
-              - rover
-              - [ 8, 30 ]
             - isBlockMissing:
               - controls_whileUntil
           actions:
           - scenarioFailure:
             - incomplete
-            - "You should use the conditional loop block."
+            - "You must use the conditional loop block."
           - playSound:
             - conditionalFailure_conditionalLoop
+
+        failOnWhile_2_7:
+          group: successOrFailure
+          priority: 0.4
+          triggerCondition:
+          - and:
+            - onBlocklyStopped:
+              - rover
+            - hasBlockWithFieldValue:
+              - controls_whileUntil
+              - MODE
+              - WHILE
+            - not:
+              - readBlackboard:
+                - whileUntilHint
+          actions:
+          - scenarioFailure:
+            - incomplete
+            - "Do you want to loop *while* metal is nearby, or *until* metal is nearby?"
+          - playSound:
+            - VO_Manny_Hint04
+          - writeToBlackboard:
+            - whileUntilHint
 
         succeedOnSuccessfulMovement_3a:
           group: successOrFailure

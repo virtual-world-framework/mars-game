@@ -22,6 +22,20 @@ properties:
 
   startState:
 
+  - playSound:
+    - musicLevel2
+  - playSound:
+    - environmentWind
+  - setObjective:
+    - "Use a loop to move along the slope of the tracks two more times."
+  - setThirdPersonStartPose:
+    - [ 16.316, 65, -15 ]
+
+  - setProperty:
+    - videoManager  
+    - url 
+    - [ "assets/video/Success2_800x600.mp4" ]
+
   - setProperty:
     - rover2
     - visible
@@ -96,18 +110,6 @@ children:
     extends: ../triggers/triggerManager.vwf
     properties: 
       triggers$:
-        beginScenario_2f:
-          triggerCondition:
-          - onScenarioStart:
-          actions:
-          - playSound:
-            - musicLevel2
-          - playSound:
-            - environmentWind
-          - setObjective:
-            - "Use a loop to move along the slope of the tracks two more times."
-          - setThirdPersonStartPose:
-            - [ 16.316, 65, -15 ]
 
         playStartingVO_2f:
           triggerCondition:

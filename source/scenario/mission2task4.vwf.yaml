@@ -21,6 +21,16 @@ properties:
   nextScenarioPath: "Mission2Task5"
 
   startState:
+  - playSound:
+    - musicLevel2
+  - playSound:
+    - environmentWind
+  - setObjective:
+    - "Graph a line that matches the slope of the tracks."
+  - setThirdPersonStartPose:
+    - [ 16.316, 65, -15 ]
+  - startTimer:
+
   - setProperty:
     - videoManager  
     - url 
@@ -108,19 +118,6 @@ children:
     extends: ../triggers/triggerManager.vwf
     properties: 
       triggers$:
-        beginScenario_2d:
-          triggerCondition:
-          - onScenarioStart:
-          actions:
-          - playSound:
-            - musicLevel2
-          - playSound:
-            - environmentWind
-          - setObjective:
-            - "Graph a line that matches the slope of the tracks."
-          - setThirdPersonStartPose:
-            - [ 16.316, 65, -15 ]
-          - startTimer:
 
         playStartingVO_2d:
           triggerCondition:
