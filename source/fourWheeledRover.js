@@ -5,7 +5,7 @@ this.placeOnTerrain = function( pos ) {
         pos[ 1 ] - this.transform[ 13 ], 
         pos[ 2 ] - this.transform[ 14 ] 
     ];
-    var terrainPosCentroid = this.getTerrainPosUnderNode( this, deltaPos );
+    // var terrainPosCentroid = this.getTerrainPosUnderNode( this, deltaPos );
     var terrainPosFL = this.getTerrainPosUnderNode( this.wheelFL, deltaPos );
     var terrainPosBL = this.getTerrainPosUnderNode( this.wheelBL, deltaPos );
     var terrainPosFR = this.getTerrainPosUnderNode( this.wheelFR, deltaPos );

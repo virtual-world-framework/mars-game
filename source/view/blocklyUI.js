@@ -18,6 +18,8 @@ var currentRam = document.createElement( "div" );
 var startBlocklyButton = document.getElementById( "runButton" );
 var blocklySpeedButton = document.createElement( "div" );
 var blocklyResetButton = document.createElement( "div" );
+var multiClickBuffer = 200;
+var startEnabled = true;
 
 function setUpBlocklyPeripherals() {
 
@@ -360,15 +362,25 @@ function hideBlocklyLoopCount() {
 }
 
 function clickStartButton() {
-    if ( this.className === "" ) {
-        runBlockly();
-    } else if ( this.className === "reset" ) {
-        //NXM: We could make the "reset" button stop ALL the rovers using stopAllExecution, 
-        //but for now we stop the rover that corresponds to the current active tab, since
-        //this is the more inutitive behavior. (At least to me it makes more sense).
-        //vwf_view.kernel.callMethod( vwf_view.kernel.application(), "stopAllExecution" );
-        vwf_view.kernel.callMethod( currentBlocklyNodeID, "stopExecution");
+    if ( !startEnabled ) {
+        return;
+    } else {
+        startEnabled = false;
+        if ( this.className === "" ) {
+            setTimeout( enableStart, multiClickBuffer );
+            runBlockly();
+        } else if ( this.className === "reset" ) {
+            //NXM: We could make the "reset" button stop ALL the rovers using stopAllExecution, 
+            //but for now we stop the rover that corresponds to the current active tab, since
+            //this is the more inutitive behavior. (At least to me it makes more sense).
+            //vwf_view.kernel.callMethod( vwf_view.kernel.application(), "stopAllExecution" );
+            vwf_view.kernel.callMethod( currentBlocklyNodeID, "stopExecution" );
+        }
     }
+}
+
+function enableStart() {
+    startEnabled = true;
 }
 
 function clickBlockResetButton() {
