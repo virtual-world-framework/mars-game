@@ -416,7 +416,6 @@ this.returnToMenu = function() {
 }
 
 this.attemptLogin = function( userID, password ) {
-    this.playerId = userID;
     this.instrumentationManager.getRequest( "getPlayerState", [ userID, password ] );
 }
 
@@ -424,8 +423,18 @@ this.loginFailed = function( responseText ) {
     console.log( responseText );
 }
 
-this.loginSucceeded = function( scenarioName ) {
-    console.log( scenarioName );
+this.loginSucceeded = function( userID, scenarioName ) {
+    
+    console.log( 'retrieved scenario:' + scenarioName );
+
+    this.playerId = userID;
+    if ( scenarioName === undefined ) {
+        this.newGame();
+    } else {
+        this.applicationState = 'playing';
+        this.loadGame( scenarioName );
+    }
+    
 }
 
 this.loadGame = function( scenarioName ) {

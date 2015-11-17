@@ -175,7 +175,7 @@ this.getRequest = function( type, params ) {
                 var response = xhr.responseText;
                 var scenarioName;
                 if ( response === "no account" ) {
-                    scene.logInFailed();
+                    scene.loginFailed();
                     return;
                 } else if ( response.lastIndexOf( "$" ) === response.length - 1 ) {
                     response = response.substr( 0, response.length - 1 );
@@ -183,7 +183,7 @@ this.getRequest = function( type, params ) {
                 if ( scene[ response ] && response !== "mainMenuScenario" ) {
                     scenarioName = response;
                 }
-                scene.logInSucceeded( playerId, scenarioName );
+                scene.loginSucceeded( playerId, scenarioName );
             }
         }
         
@@ -193,10 +193,5 @@ this.getRequest = function( type, params ) {
     }
     
 }
-
-this.showLoginPopup = function () {
-
-}
-
 
 //@ sourceURL=source/instrumentationManager.js

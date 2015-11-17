@@ -47,7 +47,7 @@ MainMenu.prototype = {
         this.buttons.newGame = document.getElementById( "newGame" );
         this.buttons.continue = document.getElementById( "continue" );
         this.buttons.settings = document.getElementById( "mm_settings" );
-        this.buttons.login = document.getElementById( "mm_login" );
+        this.buttons.login = document.getElementById( "mm_loginButton" );
         this.buttons.submit = document.getElementById( "mm_submit" );
         this.buttons.back = document.getElementById( "mm_backToMain" );
         this.buttons.backLogin = document.getElementById( "mm_backToMainLogin" );
@@ -55,6 +55,8 @@ MainMenu.prototype = {
         this.controls.volumeSlider = document.getElementById( "mm_volumeSlider" );
         this.menus.settings.style.display = "none";
         this.menus.login.style.display = "none";
+        this.buttons.newGame.style.display = "none";
+        this.buttons.continue.style.display = "none";
        // this.buttons.continue.style.display = "none";
         this.buttons.newGame.addEventListener( "click", this.playGame.bind( this ) );
         this.buttons.continue.addEventListener( "click", this.resumeGame.bind( this ) );
@@ -123,6 +125,7 @@ MainMenu.prototype = {
 
     openMain: function() {
         this.menus.settings.style.display = "none";
+        this.menus.login.style.display = "none";
         this.menus.main.style.display = "block";
     },
 

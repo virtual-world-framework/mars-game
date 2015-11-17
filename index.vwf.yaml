@@ -70,6 +70,8 @@ methods:
   resetView:
   restartGame:
   attemptLogin:
+  loginFailed:
+  loginSucceeded:
   loadGame:
   setApplicationState:
   newGame:

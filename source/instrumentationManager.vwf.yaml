@@ -29,7 +29,6 @@ methods:
   broadcastBlockly:
   createRequest:
   getRequest:
-  showLoginPopup:
-
+  
 scripts:
  - source: instrumentationManager.js
