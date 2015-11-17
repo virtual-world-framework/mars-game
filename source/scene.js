@@ -415,9 +415,9 @@ this.returnToMenu = function() {
     this.applicationState = "menu";
 }
 
-this.attemptLogin = function( userID ) {
+this.attemptLogin = function( userID, password ) {
     this.playerId = userID;
-    this.instrumentationManager.getRequest( "getPlayerState" );
+    this.instrumentationManager.getRequest( "getPlayerState", [ userID, password ] );
 }
 
 this.loginFailed = function( responseText ) {

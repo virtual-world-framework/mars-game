@@ -48,16 +48,21 @@ MainMenu.prototype = {
         this.buttons.continue = document.getElementById( "continue" );
         this.buttons.settings = document.getElementById( "mm_settings" );
         this.buttons.login = document.getElementById( "mm_login" );
+        this.buttons.submit = document.getElementById( "mm_submit" );
         this.buttons.back = document.getElementById( "mm_backToMain" );
+        this.buttons.backLogin = document.getElementById( "mm_backToMainLogin" );
         this.controls.mute = document.getElementById( "mm_mute" );
         this.controls.volumeSlider = document.getElementById( "mm_volumeSlider" );
         this.menus.settings.style.display = "none";
+        this.menus.login.style.display = "none";
        // this.buttons.continue.style.display = "none";
         this.buttons.newGame.addEventListener( "click", this.playGame.bind( this ) );
         this.buttons.continue.addEventListener( "click", this.resumeGame.bind( this ) );
         this.buttons.settings.addEventListener( "click", this.openSettings.bind( this ) );
         this.buttons.login.addEventListener( "click", this.openLogin.bind( this ) );
         this.buttons.back.addEventListener( "click", this.openMain.bind( this ) );
+        this.buttons.backLogin.addEventListener( "click", this.openMain.bind( this ) );
+        this.buttons.submit.addEventListener( "click", this.attemptLogin.bind( this ) );
         this.controls.mute.addEventListener( "click", this.muteVolume.bind( this ) );
         this.controls.volumeSlider.addEventListener( "mousemove", this.moveVolumeSlider.bind( this ) );
         this.controls.volumeSlider.addEventListener( "mousedown", this.moveVolumeSlider.bind( this ) );
@@ -108,6 +113,12 @@ MainMenu.prototype = {
     openLogin: function() {
         this.menus.main.style.display = "none";
         this.menus.login.style.display = "block";
+    },
+
+    attemptLogin: function() {
+        var userName = document.getElementById( "loginUserName" ).value;
+        var password = document.getElementById( "loginPassword" ).value;
+        vwf_view.kernel.callMethod( vwf_view.kernel.application(), "attemptLogin", [ userName, password ] );
     },
 
     openMain: function() {
