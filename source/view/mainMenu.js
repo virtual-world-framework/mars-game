@@ -43,17 +43,20 @@ MainMenu.prototype = {
         this.overlay = document.getElementById( "mainMenuWrapper" );
         this.menus.main = document.getElementById( "mainMenu" );
         this.menus.settings = document.getElementById( "mm_settingsMenu" );
+        this.menus.login = document.getElementById( "mm_loginMenu" );
         this.buttons.newGame = document.getElementById( "newGame" );
         this.buttons.continue = document.getElementById( "continue" );
         this.buttons.settings = document.getElementById( "mm_settings" );
+        this.buttons.login = document.getElementById( "mm_login" );
         this.buttons.back = document.getElementById( "mm_backToMain" );
         this.controls.mute = document.getElementById( "mm_mute" );
         this.controls.volumeSlider = document.getElementById( "mm_volumeSlider" );
         this.menus.settings.style.display = "none";
-        this.buttons.continue.style.display = "none";
+       // this.buttons.continue.style.display = "none";
         this.buttons.newGame.addEventListener( "click", this.playGame.bind( this ) );
         this.buttons.continue.addEventListener( "click", this.resumeGame.bind( this ) );
         this.buttons.settings.addEventListener( "click", this.openSettings.bind( this ) );
+        this.buttons.login.addEventListener( "click", this.openLogin.bind( this ) );
         this.buttons.back.addEventListener( "click", this.openMain.bind( this ) );
         this.controls.mute.addEventListener( "click", this.muteVolume.bind( this ) );
         this.controls.volumeSlider.addEventListener( "mousemove", this.moveVolumeSlider.bind( this ) );
@@ -100,6 +103,11 @@ MainMenu.prototype = {
         this.menus.main.style.display = "none";
         this.menus.settings.style.display = "block";
         this.setVolumeSliderPosition( this.settings.volume );
+    },
+
+    openLogin: function() {
+        this.menus.main.style.display = "none";
+        this.menus.login.style.display = "block";
     },
 
     openMain: function() {
