@@ -407,7 +407,7 @@ properties:
     - soundName: "TM3V17_MC"
       soundURL: "assets/sounds/vo/TM3V17_MC.ogg"
       initialVolume: 0.65
-      subtitle: "[MISSION CONTROL]: Well done! Now that your Navigate procedure is working again, let's go get the base pod! Our satellite imagery shows that it landed at position (-13,-9)."
+      subtitle: "[MISSION CONTROL]: Outstanding! Now that your Navigate procedure is working again, let's go get the base pod! Our satellite imagery shows that it landed at position (-13,-9)."
       soundGroup: vo
       groupReplacementMethod: replace
     - soundName: "m3t7vo010"
