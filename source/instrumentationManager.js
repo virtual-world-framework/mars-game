@@ -14,6 +14,7 @@
 
 var self;
 var scene;
+var timer;
 var camera;
 
 this.initialize = function() {
@@ -27,6 +28,9 @@ this.initialize = function() {
 
 this.onSceneLoaded = function() {
     scene = this.find( "/" )[ 0 ];
+    timer = this.find( "//timer" )[ 0 ];
+    camera = this.find( "//gameCam" )[ 0 ];
+
     this.registerEventListeners();
 }
 
@@ -52,15 +56,19 @@ this.registerEventListeners = function() {
         this.broadcastEvent( 'scenarioReset', scenarioName );
     } ).bind( this );
 
-    scene.playedVO = ( function( soundName ) {
-        this.broadcastEvent( 'playedVO', soundName );
+    scene.missionBriefOpened = ( function() {
+        this.broadcastEvent( 'missionBriefOpened', '' );
+    } ).bind( this );
+
+    scene.missionBriefClosed = ( function() {
+        this.broadcastEvent( 'missionBriefClosed', '' );
     } ).bind( this );
 
     scene.blocklyXmlChanged = ( function( value ) {
         this.broadcastBlockly( value, scene.activeScenarioPath );
     } ).bind( this );
 
-    camera.changedPOV = ( function( pov ) {
+    camera.setCameraPose = ( function( pov ) {
         this.broadcastEvent( 'toggledCamera', pov );
     } ).bind( this );
 
@@ -84,7 +92,12 @@ this.createRequest = function( type, params ) {
     
     var pathArray = window.location.pathname.split( '/' );
     var vwfSession = pathArray[ pathArray.length-2 ];
-            
+    
+    var time = timer.scenarioElapsedTimes[ timer.currentScenario$ ];
+
+    console.log(activeScenario);
+    console.log(time);
+
     if ( type === 'logEvent' ) {
         if ( !params || ( params.length !== 2 ) ) {
             self.logger.warnx( "createRequest", "The logEvent request takes 2 parameters:" +
@@ -99,13 +112,13 @@ this.createRequest = function( type, params ) {
         xhr.open( "POST", this.logEventUrl, true );
         xhr.setRequestHeader( "Content-type", "application/x-www-form-urlencoded" );
         xhr.send("vwf_session=" + vwfSession + "&player_id=" + playerId + "&action=" + 
-                 event + "$&value="+value+"$&version="+version);
+                 event + "&value="+value+"$&version="+version+"&scenario="+activeScenario+"&scenarioTime="+time);
          
         var xhrBackup = new XMLHttpRequest();
         xhrBackup.open( "POST", this.logEventUrl2, true );
         xhrBackup.setRequestHeader( "Content-type", "application/x-www-form-urlencoded" );
         xhrBackup.send("vwf_session=" + vwfSession + "&player_id=" + playerId + "&action=" + 
-                event + "$&value="+value+"$&version="+version);
+                event + "&value="+value+"&version="+version+"&scenario="+activeScenario+"&scenarioTime="+time);
         
         
     }
@@ -130,7 +143,7 @@ this.createRequest = function( type, params ) {
         xhrBackup.open( "POST", this.logBlocklyUrl2, true );
         xhrBackup.setRequestHeader( "Content-type", "application/x-www-form-urlencoded" );
         xhrBackup.send("vwf_session=" + vwfSession + "&player_id=" + playerId + "&xml=" + 
-                xml + "$&scenario="+scenario+"$&version="+version);
+                xml + "&scenario="+scenario+"&version="+version);
         
     }
     if ( type === 'logInactivity' ) {
