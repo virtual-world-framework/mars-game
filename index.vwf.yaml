@@ -30,7 +30,7 @@ properties:
   activeScenarioPath:
     set: |
       this.setScenario( value );
-  playerId: "test"
+  playerId: "default"
   version: "Development"
   sceneBlackboard: {}
   roverSignalValue: 0
@@ -145,6 +145,9 @@ events:
   cameraMounted:
   targetSwitched:
   gridAxesChanged:
+  startedBlocklyExecution:
+  stoppedBlocklyExecution:
+  clearedBlocklyChanges:
 children:
   # naniteSystems:
   #   extends: http://vwf.example.com/node3.vwf

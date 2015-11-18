@@ -41,34 +41,46 @@ this.registerEventListeners = function() {
     } ).bind( this );
 
     scene.scenarioStarted = ( function( ) {
-        this.broadcastEvent( 'scenarioStarted', scene.activeScenarioPath );
+        this.broadcastEvent( 'scenarioStarted', this.time );
     } ).bind( this );
 
     scene.scenarioSucceeded = ( function( ) {
-        this.broadcastEvent( 'scenarioSucceeded', scene.activeScenarioPath );
+        this.broadcastEvent( 'scenarioSucceeded', this.time );
     } ).bind( this );
 
     scene.scenarioFailed = ( function( ) {
-        this.broadcastEvent( 'scenarioFailed', scene.activeScenarioPath );
+        this.broadcastEvent( 'scenarioFailed', this.time );
     } ).bind( this );
 
     scene.scenarioReset = ( function( scenarioName ) {
-        this.broadcastEvent( 'scenarioReset', scenarioName );
+        this.broadcastEvent( 'scenarioReset', this.time );
     } ).bind( this );
 
     scene.missionBriefOpened = ( function() {
-        this.broadcastEvent( 'missionBriefOpened', '' );
+        this.broadcastEvent( 'missionBriefOpened', this.time );
     } ).bind( this );
 
     scene.missionBriefClosed = ( function() {
-        this.broadcastEvent( 'missionBriefClosed', '' );
+        this.broadcastEvent( 'missionBriefClosed', this.time );
+    } ).bind( this );
+
+    scene.startedBlocklyExecution = ( function() {
+        this.broadcastEvent( 'startedBlocklyExecution', this.time );
+    } ).bind( this );
+
+    scene.stoppedBlocklyExecution = ( function() {
+        this.broadcastEvent( 'stoppedBlocklyExecution', this.time );
+    } ).bind( this );
+
+    scene.clearedBlocklyChanges = ( function() {
+        this.broadcastEvent( 'clearedBlocklyChanges', this.time );
     } ).bind( this );
 
     scene.blocklyXmlChanged = ( function( value ) {
         this.broadcastBlockly( value, scene.activeScenarioPath );
     } ).bind( this );
 
-    camera.setCameraPose = ( function( pov ) {
+    scene.cameraMounted = ( function( pov ) {
         this.broadcastEvent( 'toggledCamera', pov );
     } ).bind( this );
 
@@ -92,11 +104,8 @@ this.createRequest = function( type, params ) {
     
     var pathArray = window.location.pathname.split( '/' );
     var vwfSession = pathArray[ pathArray.length-2 ];
-    
-    var time = timer.scenarioElapsedTimes[ timer.currentScenario$ ];
 
-    console.log(activeScenario);
-    console.log(time);
+
 
     if ( type === 'logEvent' ) {
         if ( !params || ( params.length !== 2 ) ) {
@@ -109,16 +118,32 @@ this.createRequest = function( type, params ) {
         var event = params[ 0 ];
         var value = params[ 1 ];
         
+        var timeOnTask = -1;
+
+        if ( this.firstScenarioStarted === false ) {
+            timeOnTask = -1;
+            if ( event === 'scenarioStarted' ) {
+                this.firstScenarioStarted = true;
+                this.lastSuccessTime = this.time;
+                timeOnTask = 0;
+            }
+        } else {
+            timeOnTask = this.time - this.lastSuccessTime;
+        }
+
         xhr.open( "POST", this.logEventUrl, true );
         xhr.setRequestHeader( "Content-type", "application/x-www-form-urlencoded" );
         xhr.send("vwf_session=" + vwfSession + "&player_id=" + playerId + "&action=" + 
-                 event + "&value="+value+"$&version="+version+"&scenario="+activeScenario+"&scenarioTime="+time);
+                 event + "&value="+value+"&version="+version+"&scenario="+activeScenario+"&scenarioTime="+timeOnTask+"&totalTime="+this.time);
          
-        var xhrBackup = new XMLHttpRequest();
-        xhrBackup.open( "POST", this.logEventUrl2, true );
-        xhrBackup.setRequestHeader( "Content-type", "application/x-www-form-urlencoded" );
-        xhrBackup.send("vwf_session=" + vwfSession + "&player_id=" + playerId + "&action=" + 
-                event + "&value="+value+"&version="+version+"&scenario="+activeScenario+"&scenarioTime="+time);
+        if ( event === 'scenarioSucceeded' ) {
+            this.lastSuccessTime = this.time;
+        }
+        // var xhrBackup = new XMLHttpRequest();
+        // xhrBackup.open( "POST", this.logEventUrl2, true );
+        // xhrBackup.setRequestHeader( "Content-type", "application/x-www-form-urlencoded" );
+        // xhrBackup.send("vwf_session=" + vwfSession + "&player_id=" + playerId + "&action=" + 
+        //         event + "&value="+value+"&version="+version+"&scenario="+activeScenario+"&scenarioTime="+time);
         
         
     }
