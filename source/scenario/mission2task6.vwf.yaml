@@ -43,11 +43,11 @@ properties:
   - setProperty:
     - rover
     - battery
-    - 40
+    - 15
   - setProperty:
     - rover
     - batteryMax
-    - 40
+    - 15
   - setProperty:
     - rover
     - blockly_allowedBlocks
