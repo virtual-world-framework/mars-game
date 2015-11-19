@@ -146,7 +146,7 @@ children:
             - blocklyLineEval:
               - [ 3, 2 ]
             - blocklyLineEval:
-              - [ -3, -2 ]
+              - [ -9, -6 ]
           actions:
           - scenarioSuccess:
           # - showAlert:
