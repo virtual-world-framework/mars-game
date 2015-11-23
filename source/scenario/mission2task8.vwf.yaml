@@ -152,7 +152,7 @@ children:
           triggerCondition:
           - and:
             - blocklyLineEval:
-              - [ -1, 4 ]
+              - [ -2, 8 ]
             - blocklyLineEval:
               - [ -1, 4 ]
           actions:
