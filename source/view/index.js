@@ -57,6 +57,7 @@ var muted = false;
 var currentScenario;
 var scenarioList;
 var startingZoom;
+var appState;
 
 var scenarioTimes = {};
 var totalTime = 0;
@@ -638,9 +639,9 @@ vwf_view.satProperty = function( nodeID, propertyName, propertyValue ) {
         } else if ( propertyName === "roverHeadingValue" ) {
             roverHeadingValue = parseFloat( propertyValue );        
         } else if ( propertyName === "applicationState" ) {
-            var state = propertyValue;
+            appState = propertyValue;
             var versionElem = document.getElementById( "version" );
-            switch ( state ) {
+            switch ( appState ) {
                 case "loading":
                     $( "#transitionScreen" ).fadeTo( 0, 1 );
                     break;
@@ -651,6 +652,7 @@ vwf_view.satProperty = function( nodeID, propertyName, propertyValue ) {
                     checkPageZoom();
                     timerWindow.style.display = "none";
                     missionBriefDOM.style.display = "none";
+                    closePauseMenu();
                     $( "#transitionScreen" ).fadeTo( 400, 0 );
                     break;
                 case "playing":
@@ -1212,13 +1214,13 @@ function updateBlocklyTriangles() {
 // }
 
 
-window.onkeypress = function( event ) {
+document.onkeydown = function( event ) {
     var pauseScreen;
-    if ( event.which === 112 ) {
+    if ( event.which === 27 ) {
         pauseScreen = document.getElementById( "pauseScreen" );
         if ( pauseScreen.isOpen ){
             closePauseMenu();
-        } else {// if ( renderMode === RENDER_GAME ) {
+        } else if ( appState === "playing" ) {
             openPauseMenu();
         }
     }
