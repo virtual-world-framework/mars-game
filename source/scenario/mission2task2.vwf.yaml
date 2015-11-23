@@ -27,8 +27,6 @@ properties:
     - environmentWind
   - blinkHUDElement:
     - blocklyButton
-  - blinkBlocklyTab:
-    - graph
   - setObjective:
     - "Open the GRAPH tab in your PROGRAM interface."
   - setThirdPersonStartPose:
@@ -157,6 +155,8 @@ children:
           actions:
           - stopBlinkHUDElement:
             - blocklyButton
+          - blinkBlocklyTab:
+            - graph
 
         playHint1_2b:
           triggerCondition:
