@@ -120,7 +120,15 @@ MainMenu.prototype = {
     attemptLogin: function() {
         var userName = document.getElementById( "loginUserName" ).value;
         var password = document.getElementById( "loginPassword" ).value;
+        var loader = document.getElementById( "loginLoader" );
+        loader.style.display = "block";
         vwf_view.kernel.callMethod( vwf_view.kernel.application(), "attemptLogin", [ userName, password ] );
+        
+        setTimeout(function(){ 
+            var loader = document.getElementById( "loginLoader" );
+            loader.style.display = "none";
+        }, 5000);
+        
     },
 
     openMain: function() {

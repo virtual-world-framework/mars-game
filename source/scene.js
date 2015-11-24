@@ -420,13 +420,17 @@ this.attemptLogin = function( userID, password ) {
 }
 
 this.loginFailed = function( responseText ) {
-    console.log( responseText );
+    alert("Login Failed - Incorrect Username/Password");
+    var loader = document.getElementById( "loginLoader" );
+    loader.style.display = "none";
 }
 
 this.loginSucceeded = function( userID, scenarioName ) {
-    
-    console.log( 'retrieved scenario:' + scenarioName );
-
+    if ( scenarioName !== undefined ) {
+        alert("Retrieved Scenario:" + scenarioName);
+    }
+    var loader = document.getElementById( "loginLoader" );
+    loader.style.display = "none";
     this.playerId = userID;
     if ( scenarioName === undefined ) {
         this.newGame();

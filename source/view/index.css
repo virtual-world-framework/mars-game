@@ -66,6 +66,18 @@ body {
     pointer-events: none;
 }
 
+.loginLoader{
+  display: none;
+  position: fixed;
+  left: 0px;
+  top: 0px;
+  width: 100%;
+  height: 100%;
+  z-index: 9999;
+  background: url( "../../assets/images/hud/ajax-loader.gif" ) 50% 50% no-repeat;
+  background-color: rgba( 0, 0, 0, 0.2 );
+}
+
 #version {
     z-index: 1000;
     color: rgb( 225, 225, 225 );
