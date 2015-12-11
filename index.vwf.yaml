@@ -793,6 +793,10 @@ children:
     includes: source/scenario/mission4task15.vwf
   Mission4Success:
     includes: source/scenario/mission4success.vwf
+  mission1successLinked:
+    includes: source/scenario/mission1successLinked.vwf
+  mission2successLinked:
+    includes: source/scenario/mission2successLinked.vwf
   # TODO: Use only one graph object. No need for two.
   blocklyGraph:
     extends: http://vwf.example.com/graphtool/graph.vwf
