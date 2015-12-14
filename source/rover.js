@@ -399,40 +399,40 @@ this.allowedBlocksChanged = function( value ) {
 }
 
 this.ramChanged = function( value ) {
-    var scene = this.scene;
-    if ( scene !== undefined && scene.alerts ) {
-        if ( value <= this.lowRam ) {
-            if ( value <= 0 ) {
-                scene.addAlert( this.displayName + " is Out of Memory" );
-            } else {
-                scene.addAlert( this.displayName + " is Low on Memory" );
-            }
-        }
-    }
+    // var scene = this.scene;
+    // if ( scene !== undefined && scene.alerts ) {
+    //     if ( value <= this.lowRam ) {
+    //         if ( value <= 0 ) {
+    //             scene.addAlert( this.displayName + " is Out of Memory" );
+    //         } else {
+    //             scene.addAlert( this.displayName + " is Low on Memory" );
+    //         }
+    //     }
+    // }
 }
 
 this.batteryChanged = function( value ) {
-    var scene = this.scene;
-    if ( scene !== undefined && scene.alerts ) {
-        if ( value < this.lowBattery ) {
-            if ( value <= 0 ) {
-                scene.addAlert( this.displayName + " is Out of Power" );
-            } else {
-                scene.addAlert( this.displayName + " is Low on Power" );
-            }
-        }
-    }
+    // var scene = this.scene;
+    // if ( scene !== undefined && scene.alerts ) {
+    //     if ( value < this.lowBattery ) {
+    //         if ( value <= 0 ) {
+    //             scene.addAlert( this.displayName + " is Out of Power" );
+    //         } else {
+    //             scene.addAlert( this.displayName + " is Low on Power" );
+    //         }
+    //     }
+    // }
 }
 
 this.moveFailed = function( value ) {
-    var scene = this.scene;
-    if ( scene !== undefined && scene.alerts ) {
-        switch( value ) {
-            case 'collision':
-                scene.addAlert( this.displayName + " is Blocked" );
-                break;
-        }
-    }
+    // var scene = this.scene;
+    // if ( scene !== undefined && scene.alerts ) {
+    //     switch( value ) {
+    //         case 'collision':
+    //             scene.addAlert( this.displayName + " is Blocked" );
+    //             break;
+    //     }
+    // }
 }
 
 this.activateSensor = function( sensor, value ) {

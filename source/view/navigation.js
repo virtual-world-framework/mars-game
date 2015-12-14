@@ -20,7 +20,7 @@ var defaultNav = {
 }
 
 var thirdPerson_ZoomLevel;
-var topDown_controlRadius = 24;
+var topDown_controlRadius = 30;
 
 // Zoom bounds in meters
 var topDown_MaxAltitude = 100;

@@ -85,10 +85,10 @@ children:
     includes: source/hud/topDownButton.vwf
     properties:
       drawOrder: 12
-  alertDisplay:
-    includes: source/hud/alertDisplay.vwf
-    properties:
-      drawOrder: 13
+  # alertDisplay:
+  #   includes: source/hud/alertDisplay.vwf
+  #   properties:
+  #     drawOrder: 13
   # roverSelector:
   #   includes: source/hud/roverSelector.vwf
   #   properties:
