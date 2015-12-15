@@ -18,7 +18,7 @@ properties:
   scenarioName: Mission2Task11
 
   scenePath: /
-  nextScenarioPath: "Mission2Success"
+  nextScenarioPath: "Mission2successLinked"
 
   startState:
   - playSound:
