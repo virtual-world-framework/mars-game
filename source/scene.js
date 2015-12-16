@@ -427,7 +427,7 @@ this.loginFailed = function( responseText ) {
 
 this.loginSucceeded = function( userID, scenarioName ) {
     if ( scenarioName !== undefined ) {
-        alert("Retrieved Scenario:" + scenarioName);
+        //alert("Retrieved Scenario:" + scenarioName);
     }
     var loader = document.getElementById( "loginLoader" );
     loader.style.display = "none";
