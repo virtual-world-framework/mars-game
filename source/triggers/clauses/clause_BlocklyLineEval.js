@@ -27,7 +27,7 @@ this.onGenerated = function( params, generator, payload ) {
     this.targetPos = params[ 0 ];
 
     // TODO: don't hardcode the name?
-    this.blocklyLine = this.findInScene( "blocklyLine" );
+    this.blocklyLine = this.scene.blocklyGraph.blocklyLine;
     if ( !this.blocklyLine ) {
         this.logger.errorx( "onGenerated", "Line not found!" );
         return false;

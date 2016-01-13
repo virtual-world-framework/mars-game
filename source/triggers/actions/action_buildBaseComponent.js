@@ -32,7 +32,7 @@ this.onGenerated = function( params, generator, payload ) {
 this.executeAction = function() {
     var object = this.findInScene( this.objectName );
     var scenario = this.scenario;
-    var soundMgr = this.findTypeInScene( "http://vwf.example.com/sound/soundManager.vwf" );
+    var soundMgr = this.scene.soundManager;
 
     this.assert( object, "Object not found!" );
     this.assert( scenario, "Scenario not found!" );
