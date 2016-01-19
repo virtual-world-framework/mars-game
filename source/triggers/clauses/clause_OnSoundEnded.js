@@ -26,7 +26,7 @@ this.onGenerated = function( params, generator, payload ) {
     }
 
     this.soundName = params[ 0 ];
-    var soundMgr = this.findTypeInScene( "http://vwf.example.com/sound/soundManager.vwf" );
+    var soundMgr = this.scene.soundManager;
 
     soundMgr.soundFinished = this.events.add( function() { this.onEndedEvent(); }, this );
     return true;

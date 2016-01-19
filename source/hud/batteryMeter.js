@@ -52,8 +52,8 @@ this.draw = function( context, position ) {
 
 this.setUpListeners = function() {
     var scene = this.parent.scene;
-    var rover = this.find( "//rover" )[ 0 ];
-    var rover2 = this.find( "//rover2" )[ 0 ];
+    var rover = scene.player.rover;
+    var rover2 = scene.player.rover2;
     this.rovers.rover.battery = rover.battery;
     this.rovers.rover.maxBattery = rover.batteryMax;
     this.rovers.rover.position = rover.getTileCoord();
@@ -89,8 +89,8 @@ this.setUpListeners = function() {
     scene.gridAxesChanged = this.events.add( function() {
         var scene = this.parent.scene;
         var tileMap = scene.tileMap;
-        var rover = this.find( "//rover" )[ 0 ];
-        var rover2 = this.find( "//rover2" )[ 0 ];
+        var rover = scene.player.rover;
+        var rover2 = scene.player.rover2;
         function getPos( node ) {
             var wt = node.worldTransform.slice();
             var tile = tileMap.getTileCoordFromWorld( wt[ 12 ], wt[ 13 ] );

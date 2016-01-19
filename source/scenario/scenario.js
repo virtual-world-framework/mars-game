@@ -88,7 +88,7 @@ this.completed = function() {
     //  for now.  We want to always store the heading of the rover on
     //  success, so look up the rover, and then stuff that value onto 
     //  the blackboard.
-    var rover = this.scene.find( "//rover" )[ 0 ];
+    var rover = this.scene.player.rover;
     if ( rover ) {
         this.scene.sceneBlackboard[ "lastHeading$" ] = rover.heading;
     } else {
@@ -137,7 +137,7 @@ this.start = function() {
     //  look up the orientation of the rover from the last scenario success
     //  set it back to that.  We do this before loading the start state, so
     //  that the start state can override it.
-    var rover = this.scene.find( "//rover" )[ 0 ];
+    var rover = this.scene.player.rover;
     if ( rover ) {
         if ( this.scene.sceneBlackboard[ "lastHeading$" ] ) {
             rover.setHeading( this.scene.sceneBlackboard[ "lastHeading$" ] );

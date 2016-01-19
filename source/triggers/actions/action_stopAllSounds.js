@@ -23,7 +23,7 @@ this.onGenerated = function( params, generator, payload ) {
         return false;
     }
 
-    this.soundMgr = this.findTypeInScene( "http://vwf.example.com/sound/soundManager.vwf" );
+    this.soundMgr = this.scene.soundManager;
 
     return !!this.soundMgr;
 }
