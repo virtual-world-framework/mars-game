@@ -74,6 +74,7 @@ var blocklyArea = document.getElementById('blocklyWrapper');
 var blocklyDiv = document.getElementById('blocklyDiv');
 
 var cameraTargetPosition = [ 0, 0, 0 ];
+var firstLoad = true;
 
 function getAppID() {
     if ( appID === undefined ) {
@@ -654,6 +655,10 @@ vwf_view.satProperty = function( nodeID, propertyName, propertyValue ) {
                     missionBriefDOM.style.display = "none";
                     closePauseMenu();
                     $( "#transitionScreen" ).fadeTo( 400, 0 );
+                    if ( firstLoad ) {
+                        document.getElementById( "loadingScreen" ).style.display = "none";
+                        firstLoad = false;
+                    }
                     break;
                 case "playing":
                     mainMenu.setVisible( false );
