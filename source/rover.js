@@ -241,9 +241,9 @@ this.checkRadialCollision = function( currentPosition, futurePosition ) {
     futureTranslation[ 2 ] = this.getTerrainHeight( futureTranslation[ 0 ], futureTranslation[ 1 ] ) + 1;
     var dist = goog.vec.Vec3.distance( currentTranslation, futureTranslation );
     var sizeOfRover = 1.5;
-    var player = this.find( "//player" )[ 0 ];
-    var environment = this.find( "//environment" )[ 0 ];
-    var pickups = this.find( "//pickups" )[ 0 ];
+    var player = this.scene.player;
+    var environment = this.scene.environment;
+    var pickups = this.scene.pickups;
     // var backdrop = this.find( "//backdrop" )[ 0 ];
     var directionVector = [ 
         futureTranslation[ 0 ] - currentTranslation[ 0 ],

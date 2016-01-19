@@ -25,7 +25,7 @@ this.onGenerated = function( params, generator, payload ) {
     }
 
     this.chosenRover = params[ 0 ];
-    if ( !this.chosenRover || !this.findInScene(this.chosenRover)) {
+    if ( !this.chosenRover || !this.findInScene( this.chosenRover ) ) {
         this.logger.errorx( "onGenerated", "Invalid rover input!" );
         return false;
     }
@@ -34,8 +34,8 @@ this.onGenerated = function( params, generator, payload ) {
 }
 
 this.executeAction = function() {
-    var chosenRoverID = this.findInScene(this.chosenRover).id;
-    this.scene.selectBlocklyNode(chosenRoverID);
+    var chosenRoverID = this.findInScene( this.chosenRover ).id;
+    this.scene.selectBlocklyNode( chosenRoverID );
 }
 
 //@ sourceURL=source/triggers/actions/action_selectRover.js

@@ -30,7 +30,7 @@ this.draw = function( context, position ) {
 }
 
 this.setUpListeners = function() {
-    var camera = this.find( "//gameCam" )[ 0 ];
+    var camera = this.parent.scene.gameCam;
     camera.mounted = this.events.add( function( mount ) {
         this.activeMode = mount.name;
     }, this );

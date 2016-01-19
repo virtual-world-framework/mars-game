@@ -20,7 +20,7 @@ this.draw = function( context, position ) {
 
 
 this.onClick = function() {
-    var camera = this.find( "//gameCam" )[ 0 ];
+    var camera = this.parent.scene.gameCam;
     camera.setCameraMount( this.mode );
 }
 
