@@ -658,6 +658,7 @@ vwf_view.satProperty = function( nodeID, propertyName, propertyValue ) {
                     if ( firstLoad ) {
                         document.getElementById( "loadingScreen" ).style.display = "none";
                         firstLoad = false;
+                        isLoading = false;
                     }
                     break;
                 case "playing":
