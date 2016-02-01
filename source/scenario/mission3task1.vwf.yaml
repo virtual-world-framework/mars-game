@@ -1,0 +1,243 @@
+# Copyright 2014 Lockheed Martin Corporation
+#
+# Licensed under the Apache License, Version 2.0 (the "License"); you may 
+# not use this file except in compliance with the License. You may obtain 
+# a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software 
+# distributed under the License is distributed on an "AS IS" BASIS, 
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and 
+# limitations under the License.
+
+---
+extends: ../scenario/scenario.vwf
+properties:
+  scenarioName: Mission3Task1
+
+  scenePath: /
+  nextScenarioPath: "Mission3Task2"
+
+  startState:
+  # objective
+  - setObjective:
+    - "Run the test program on your Navigate procedure."
+
+  # sounds/video
+  - playSound:
+    - musicMission3Intro
+  - playSound:
+    - musicMission3Loop_AfterIntro
+  - playSound:
+    - environmentWind
+  - setProperty:
+    - videoManager  
+    - url 
+    - [ "assets/video/Success3_800x600.mp4" ]
+
+  #blockly
+  - setBlocklyContext:
+    - rover
+  - setProperty:
+    - rover
+    - startXML
+    - <xml><block type="comment_block_free_text_no_in" id="p" deletable="false" movable="false" editable="false" inline="false" x="0" y="-340"><field name="COMMENT">This program tests the Navigate procedure.</field><next><block type="comment_block_free_text" id="b37" deletable="false" movable="false" editable="false" inline="false"><field name="COMMENT">Changes should be made to the procedure</field><next><block type="comment_block_free_text" id="b38" deletable="false" movable="false" editable="false" inline="false"><field name="COMMENT">itself, not to this test program.</field><next><block type="procedures_callnoreturn_no_out" id="u" deletable="false" movable="false" editable="false" inline="false"><mutation name="Navigate"><arg name="Desired X"></arg><arg name="Desired Y"></arg></mutation><value name="ARG0"><block type="math_number_field_no_out" inline="false" movable="false" deletable="false" id="a63"><field name="VALUE">0</field></block></value><value name="ARG1"><block type="graph_subtract" inline="false" movable="false" deletable="false" id="a60"><value name="INPUT"><block type="math_number_field_no_out" inline="false" movable="false" deletable="false" id="a62"><field name="VALUE">3</field></block></value></block></value></block></next></block></next></block></next></block><block type="procedures_defnoreturn" id="a" deletable="false" movable="false" editable="false" x="0" y="-140"><mutation><arg name="Desired X"></arg><arg name="Desired Y"></arg></mutation><field name="NAME">Navigate</field><statement name="STACK"><block type="comment_block_free_text" id="b24"><field name="COMMENT">This If block checks whether we need to</field><next><block type="comment_block_free_text" id="b28"><field name="COMMENT">move in the -Y direction.</field><next><block type="controls_if_nomut" id="b" inline="false"><value name="IF0"><block type="controls_sensor_position_drop" id="e" inline="false"><field name="POS">POSY</field><value name="INPUT"><block type="logic_cond_out" id="d" inline="false"><field name="VALUE">&gt;</field><value name="INPUT"><block type="variables_get" id="c" inline="false"><field name="VAR">Desired Y</field></block></value></block></value></block></value><statement name="DO0"><block type="comment_block_free_text" id="bb32"><field name="COMMENT">The first repeat turns us until we are</field><next><block type="comment_block_free_text" id="bb33"><field name="COMMENT">facing the correct direction.</field><next><block type="controls_whileUntil" id="f" inline="false"><value name="BOOL"><block type="controls_sensor_heading" id="g" inline="false"><value name="INPUT"><block type="logic_cond_out" id="h" inline="false"><field name="VALUE">!==</field><value name="INPUT"><block type="math_number_angle_select" id="i" inline="false"><field name="VALUE">270</field></block></value></block></value></block></value><statement name="DO"><block type="rover_turn" id="j"></block></statement><next><block type="comment_block_free_text" id="b34"><field name="COMMENT">The second repeat moves us forward</field><next><block type="comment_block_free_text" id="b35"><field name="COMMENT">until we are at the desired Y position.</field><next><block type="controls_whileUntil" id="k" inline="false"><value name="BOOL"><block type="controls_sensor_position_drop" id="e" inline="false"><field name="POS">POSY</field><value name="INPUT"><block type="logic_cond_out" id="d" inline="false"><field name="VALUE">&gt;</field><value name="INPUT"><block type="variables_get" id="c" inline="false"><field name="VAR">Desired Y</field></block></value></block></value></block></value><statement name="DO"><block type="rover_moveForward" id="o"></block></statement></block></next></block></next></block></next></block></next></block></next></block></statement></block></next></block></next></block></statement></block></xml>
+  - setProperty:
+    - rover
+    - blockly_xml
+    - <xml><block type="comment_block_free_text_no_in" id="p" deletable="false" movable="false" editable="false" inline="false" x="0" y="-340"><field name="COMMENT">This program tests the Navigate procedure.</field><next><block type="comment_block_free_text" id="b37" deletable="false" movable="false" editable="false" inline="false"><field name="COMMENT">Changes should be made to the procedure</field><next><block type="comment_block_free_text" id="b38" deletable="false" movable="false" editable="false" inline="false"><field name="COMMENT">itself, not to this test program.</field><next><block type="procedures_callnoreturn_no_out" id="u" deletable="false" movable="false" editable="false" inline="false"><mutation name="Navigate"><arg name="Desired X"></arg><arg name="Desired Y"></arg></mutation><value name="ARG0"><block type="math_number_field_no_out" inline="false" movable="false" deletable="false" id="a63"><field name="VALUE">0</field></block></value><value name="ARG1"><block type="graph_subtract" inline="false" movable="false" deletable="false" id="a60"><value name="INPUT"><block type="math_number_field_no_out" inline="false" movable="false" deletable="false" id="a62"><field name="VALUE">3</field></block></value></block></value></block></next></block></next></block></next></block><block type="procedures_defnoreturn" id="a" deletable="false" movable="false" editable="false" x="0" y="-140"><mutation><arg name="Desired X"></arg><arg name="Desired Y"></arg></mutation><field name="NAME">Navigate</field><statement name="STACK"><block type="comment_block_free_text" id="b24"><field name="COMMENT">This If block checks whether we need to</field><next><block type="comment_block_free_text" id="b28"><field name="COMMENT">move in the -Y direction.</field><next><block type="controls_if_nomut" id="b" inline="false"><value name="IF0"><block type="controls_sensor_position_drop" id="e" inline="false"><field name="POS">POSY</field><value name="INPUT"><block type="logic_cond_out" id="d" inline="false"><field name="VALUE">&gt;</field><value name="INPUT"><block type="variables_get" id="c" inline="false"><field name="VAR">Desired Y</field></block></value></block></value></block></value><statement name="DO0"><block type="comment_block_free_text" id="bb32"><field name="COMMENT">The first repeat turns us until we are</field><next><block type="comment_block_free_text" id="bb33"><field name="COMMENT">facing the correct direction.</field><next><block type="controls_whileUntil" id="f" inline="false"><value name="BOOL"><block type="controls_sensor_heading" id="g" inline="false"><value name="INPUT"><block type="logic_cond_out" id="h" inline="false"><field name="VALUE">!==</field><value name="INPUT"><block type="math_number_angle_select" id="i" inline="false"><field name="VALUE">270</field></block></value></block></value></block></value><statement name="DO"><block type="rover_turn" id="j"></block></statement><next><block type="comment_block_free_text" id="b34"><field name="COMMENT">The second repeat moves us forward</field><next><block type="comment_block_free_text" id="b35"><field name="COMMENT">until we are at the desired Y position.</field><next><block type="controls_whileUntil" id="k" inline="false"><value name="BOOL"><block type="controls_sensor_position_drop" id="e" inline="false"><field name="POS">POSY</field><value name="INPUT"><block type="logic_cond_out" id="d" inline="false"><field name="VALUE">&gt;</field><value name="INPUT"><block type="variables_get" id="c" inline="false"><field name="VAR">Desired Y</field></block></value></block></value></block></value><statement name="DO"><block type="rover_moveForward" id="o"></block></statement></block></next></block></next></block></next></block></next></block></next></block></statement></block></next></block></next></block></statement></block></xml>
+  - loadToolbox:
+    - rover
+    - source/scenario/blockly/mission3.xml
+  - delay:
+    - .5  
+    - callMethod:
+      - rover
+      - resetSensors
+
+  #Manny
+  - addToGrid:
+    - rover
+    - [ -17, 32 ]
+  - selectRover:
+    - rover
+  - callMethod:
+    - rover
+    - setHeading
+    - 180
+  - setProperty:
+    - rover
+    - battery
+    - 10
+  - setProperty:
+    - rover
+    - batteryMax
+    - 10
+  - setProperty:
+    - rover
+    - blockly_allowedBlocks
+    - 30
+
+  # Perry, Rosie disabled
+  - setProperty:
+    - rover2
+    - visible
+    - false
+
+  # Disable Blockly line
+  - setProperty:
+    - blocklyLine
+    - visible
+    - false
+  - setProperty:
+    - blocklyLine
+    - opacity
+    - 0
+
+  # Graph
+  - addToGrid:
+    - blocklyGraph
+    - [ -17, 32 ]
+  - setGridAxes:
+    - 32
+    - -17
+
+  - setProperty:
+    - cargoPod2
+    - isClosed
+    - true
+
+  - setProperty:
+    - roverTracks2
+    - visible
+    - true
+
+  # turning supplies and minirover invisible
+  - setProperty:
+    - supplies_1
+    - visible
+    - false
+  - setProperty:
+    - supplies_2
+    - visible
+    - false
+  - setProperty:
+    - minirover
+    - visible
+    - false
+
+  - setCinematicCameraView:
+    - [ 20, 165, -10 ]
+  - setThirdPersonStartPose:
+    - [ 20, 165, -10 ]
+  - displayTiles:
+    - false
+  - displayGraph:
+    - false
+
+children:
+  triggerManager:
+    extends: ../triggers/triggerManager.vwf
+    properties: 
+      triggers$:
+        playStartingVO_3d:
+          triggerCondition:
+          - and:
+            - doOnce:
+            - onScenarioStart:
+          actions:
+          - playSound:
+            - m3t1vo010
+          - playSound:
+            - newmission3vo2
+          - playSound:
+            - m3t1vo030
+          - playSound:
+            - m3t1vo040
+          - playSound:
+            - m3t1vo041
+          - setProperty:
+            - hud
+            - enabled
+            - false
+          - delay:
+            - 43
+            - openMissionBrief:
+            - setProperty:
+              - hud
+              - enabled
+              - true
+            - startTimer:
+
+        highlightEndTile_3_1:
+          triggerCondition:
+          - onScenarioStart:
+          actions:
+          - callOutObjective:
+            - [ 0, -3 ]
+
+        succeedOnSuccessfulMovement_3_1:
+          group: successOrFailure
+          priority: 0
+          triggerCondition:
+          - and:
+            - onBlocklyStopped:
+              - rover
+            - isAtPosition:
+              - rover
+              - [ -17, 29 ]
+          actions:
+          - clearBlockly:
+          - scenarioSuccess:
+          # - showAlert:
+          #   - "Test program completed!"
+          - playSound:
+            - musicSuccessShort
+
+        playHint_M3T1:
+          triggerCondition:
+          - and:
+            - doOnce:
+            - delay:
+              - 60
+          actions:
+          - playSound:
+            - m3t1vo050
+
+        playHint_M3T1_reset:
+          triggerCondition:
+          - and:
+            - delay:
+              - 10
+            - readBlackboard:
+              - failureCount
+              - 1
+            - not:
+              - readBlackboard:
+                - mission3ResetHint
+          actions:
+          - playSound:
+            - VO_MissionControl_Hint01
+          - writeToBlackboard:
+            - mission3ResetHint
+
+  brief:
+    extends: ../missionBrief.vwf
+    properties:
+      title: "Mission 3, Task 1"
+      content: >
+        Oh no, your Navigate procedure was corrupted during the crash! You will 
+        need to rewrite it before you can continue your mission. 
+        <br><br>A procedure is a small program that can be placed inside
+        of a block and used in other programs. Information can be passed into 
+        the procedure, telling it exactly what to do. Your Navigate procedure,
+        for example, takes an X and Y value, and moves you to that position.
+        <br><br>When large programs are written, they often come with test
+        programs that ensure that they're working correctly. Mission Control
+        still has the tests for your Navigate procedure, so she will provide the 
+        tests for each section of the Navigate procedure as you write it.
+        <br><br>To begin, test the portion of your Navigate procedure that you
+        still have, and confirm that it is working correctly. 
+

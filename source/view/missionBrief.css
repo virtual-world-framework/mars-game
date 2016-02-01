@@ -1,0 +1,50 @@
+#mb_wrapper {
+    width: 26%;
+    height: 180px;
+    position: absolute;
+    left: 180px;
+    top: 30px;
+    font-size: 0px; /* Remove spacing between divs */
+    background-color: rgba( 0, 0, 0, 0.6 );
+    user-select: none;
+    -webkit-user-select: none;  /* Chrome all / Safari all */
+    -moz-user-select: none;     /* Firefox all */
+    -ms-user-select: none;      /* IE 10+ */
+    cursor: default;
+    z-index: 0;
+}
+
+#mb_main {
+    width: 100%;
+}
+
+#mb_title {
+    font-variant: small-caps;
+    font-weight: bold;
+    font-size: 18px;
+    text-align: center;
+    line-height: 32px;
+    color: rgb( 255, 255, 255 );
+    background-color: rgba( 255, 255, 255, 0.1 );
+}
+
+#mb_content {
+    font-size: 10pt;
+    text-align: justify;
+    color: rgb( 193, 244, 255 );
+    padding: 8px;
+    height: 132px;
+    overflow-y: scroll;
+}
+
+#mb_close {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    color: rgb( 255, 255, 255 );
+    font-size: 24px;
+    line-height: 32px;
+    width: 32px;
+    text-align: center;
+    cursor: pointer;
+}

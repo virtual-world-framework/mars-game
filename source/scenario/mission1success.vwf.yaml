@@ -1,0 +1,35 @@
+---
+extends: ../scenario/scenario.vwf
+properties:
+  scenarioName: Mission1Success
+
+  nextScenarioPath: Mission2Task1
+  blockly: source/scenario/blockly/scenario1.xml
+
+children:
+  triggerManager:
+    extends: ../triggers/triggerManager.vwf
+    properties: 
+      triggers$:
+        beginScenario_Intro:
+          triggerCondition:
+          - onScenarioStart:
+          actions:
+          - setSceneProperty:
+            - enableRenderer
+            - false
+          - stopAllSounds:
+          - playVideo:
+            - Success1_800x600
+
+        succeedOnIntroDone:
+          group: successOrFailure
+          priority: 0
+          triggerCondition:
+          - onVideoPlayed:
+            - Success1_800x600
+          actions:
+          - setSceneProperty:
+            - enableRenderer
+            - true
+          - scenarioSuccess:

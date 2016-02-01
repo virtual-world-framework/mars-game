@@ -20,12 +20,16 @@
 
 ---
 extends: http://vwf.example.com/node3.vwf
+implements:
+  - http://vwf.example.com/sceneGetter.vwf
 properties:
   target:
-  mountName:
+  mount:
   lastTargetPosition: [ 0, 0, 0 ]
   followingTarget: true
   followRotation: false
+  listenerID$:
+  newTarget$: false
 methods:
   setCameraTarget:
   setCameraMount:
@@ -34,12 +38,14 @@ methods:
   detachFromTarget:
   setCameraPose:
   convertPoseToTransform:
+  getPoseFromTransform:
 events:
   mounted:
+  targetMoved:
 children:
   camera:
     extends: http://vwf.example.com/camera.vwf
     implements:
       - http://vwf.example.com/navigable.vwf
 scripts:
-  - source: source/gameCamera.js
+  - source: gameCamera.js

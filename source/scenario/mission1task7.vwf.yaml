@@ -1,0 +1,182 @@
+# Copyright 2014 Lockheed Martin Corporation
+#
+# Licensed under the Apache License, Version 2.0 (the "License"); you may 
+# not use this file except in compliance with the License. You may obtain 
+# a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software 
+# distributed under the License is distributed on an "AS IS" BASIS, 
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and 
+# limitations under the License.
+
+---
+extends: ../scenario/scenario.vwf
+properties:
+  scenarioName: Mission1Task7
+
+  nextScenarioPath: "Mission1Task8"
+
+  startState:
+  - setProperty:
+    - videoManager  
+    - url 
+    - [ "assets/video/Success1_800x600.mp4" ]
+
+  - setProperty:
+    - rover2
+    - visible
+    - false
+  - setProperty:
+    - rover
+    - battery
+    - 4
+  - setProperty:
+    - rover
+    - batteryMax
+    - 25
+  - setProperty:
+    - rover
+    - blockly_allowedBlocks
+    - 3
+  - setProperty:
+    - rover
+    - lowRam
+    - 1
+  - setProperty:
+    - rover
+    - startXML
+    - <xml></xml>
+
+  - callMethod:
+    - rover
+    - setHeading
+    - 180
+
+  - addToGrid:
+    - rover
+    - [ 0, 4 ]
+  - setPickupActive:
+    - helicam
+    - false
+  - setPickupActive:
+    - battery
+    - false
+  - setPickupActive:
+    - radio
+    - true
+  - setBlocklyContext:
+    - rover
+  - loadToolbox:
+    - rover
+    - source/scenario/blockly/scenario1g.xml
+  - setProperty:
+    - blocklyLine
+    - visible
+    - false
+
+  - setProperty:
+    - blocklyLine
+    - opacity
+    - 0
+  - selectRover:
+    - rover
+
+  - setGridAxes:
+    - 0
+    - 0
+
+children:
+  triggerManager:
+    extends: ../triggers/triggerManager.vwf
+    properties: 
+      triggers$:
+        beginScenario_1g:
+          triggerCondition:
+          - onScenarioStart:
+          actions:
+          - playSound:
+            - musicStandardGameplay
+          - playSound:
+            - environmentWind
+          - setObjective:
+            - "Move back to the top of the ramp."
+          - setProperty:
+            - graphButton
+            - enabled
+            - false
+          - setThirdPersonStartPose:
+            - [ 13, 15, -15 ]
+
+        playStartingVO_1g:
+          triggerCondition:
+          - and:
+            - doOnce:
+            - onScenarioStart:
+          actions:
+          - playSound:
+            - ALVO20_Rover
+          - playSound:
+            - ALVO42_Rover
+          - setProperty:
+            - hud
+            - enabled
+            - false
+          - delay:
+            - 22
+            - openMissionBrief:
+            - setProperty:
+              - hud
+              - enabled
+              - true
+            - startTimer:
+
+        playHint1_1g:
+          triggerCondition:
+          - and:
+            - doOnce:
+            - delay:
+              - 35
+          actions:
+          - playSound:
+            - m1t7vo010
+
+        succeedOnSuccess_1g:
+          group: successOrFailure
+          priority: 0
+          triggerCondition:
+          - and:
+            - onBlocklyStopped:
+              - rover
+            - isAtPosition:
+              - rover
+              - [ 0, 0 ]
+          actions:
+          - scenarioSuccess:
+          # - showAlert:
+          #   - "Now I can get out of this ditch and find the radio!"
+          - playSound:
+            - musicSuccessShort
+
+        highlightEndTile_1_7:
+          triggerCondition:
+          - onScenarioStart:
+          actions:
+          - callOutObjective:
+            - [ 0, 0 ]
+
+  brief:
+    extends: ../missionBrief.vwf
+    properties:
+      title: "Mission 1, Task 7"
+      content: >
+        Turning motors are good to go! 
+        <br><br>Next you need to get back up onto the ramp. That
+        is four spaces away, but you only have enough RAM to build a program
+        with three blocks in it. 
+        <br><br>You can solve this problem by using a Repeat block. This block 
+        allows you to repeat a sequence of blocks a specified number of times.
+        <br><br>You can find the Repeat block in the Loops category (on the 
+        left-hand side of the programming interface). 

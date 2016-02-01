@@ -1,0 +1,271 @@
+# Copyright 2014 Lockheed Martin Corporation
+#
+# Licensed under the Apache License, Version 2.0 (the "License"); you may 
+# not use this file except in compliance with the License. You may obtain 
+# a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software 
+# distributed under the License is distributed on an "AS IS" BASIS, 
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and 
+# limitations under the License.
+
+---
+extends: ../scenario/scenario.vwf
+properties:
+  scenarioName: Mission4Task3
+  nextScenarioPath: Mission4Task4
+  startState:
+
+  # objective
+  - setObjective:
+    - "Move Peregrine to (-3,0) and start construction."
+
+  - setProperty:
+    - rover2
+    - startXML
+    - <xml></xml>
+  - setProperty:
+    - rover2
+    - blockly_xml
+    - <xml></xml>
+
+  # blockly
+  - setBlocklyContext:
+    - rover2
+  - loadToolbox:
+    - rover2
+    - source/scenario/blockly/mission4_perry3.xml
+
+  # sounds/music
+  - playSound:
+    - musicMission4Loop
+  - playSound:
+    - environmentWind
+  - setProperty:
+    - videoManager  
+    - url 
+    - [ "assets/video/Success4_800x600.mp4" ]
+
+  #Manny
+  - addToGrid:
+    - rover
+    - [ -30, 23 ]
+  - callMethod:
+    - rover
+    - setHeading
+    - 180
+
+  #Perry
+  - setProperty:
+    - rover2
+    - visible
+    - true
+  - addToGrid:
+    - rover2
+    - [ -24, 19 ]
+  - setProperty:
+    - rover2
+    - battery
+    - 100
+  - setProperty:
+    - rover2
+    - batteryMax
+    - 100
+  - setProperty:
+    - rover2
+    - blockly_allowedBlocks
+    - 7
+  - setProperty:
+    - rover2
+    - lowRam
+    - 5
+  - selectRover:
+    - rover2
+
+  # Grid and disabling blocklyLine
+  - setGridAxes:
+    - 19
+    - -24
+
+  - setProperty:
+    - blocklyLine
+    - visible
+    - false
+
+  - setProperty:
+    - blocklyLine
+    - opacity
+    - 0
+
+  # Solar panel construction
+  - setConstructed:
+    - solarPanel1
+    - false
+  - setConstructed:
+    - solarPanel2
+    - false
+  - setConstructed:
+    - solarPanel3
+    - false
+  - setConstructed:
+    - solarPanel4
+    - false    
+
+  - setProperty:
+    - cargoPod2
+    - isClosed
+    - false
+
+  - setProperty:
+    - rover2
+    - surveyArray
+    - []
+  - setProperty:
+    - rover2
+    - allSurveys
+    - []
+
+  # turning supplies and minirover invisible
+  - setProperty:
+    - supplies_1
+    - visible
+    - false
+  - setProperty:
+    - supplies_2
+    - visible
+    - false
+  - setProperty:
+    - minirover
+    - visible
+    - false
+
+children:
+  triggerManager:
+    extends: ../triggers/triggerManager.vwf
+    properties: 
+      triggers$:
+
+        highlightEndTile_4_3:
+          triggerCondition:
+          - onScenarioStart:
+          actions:
+          - callOutObjective:
+            - [ -3, 0 ]
+
+        playStartingVO_4_3:
+          triggerCondition:
+          - and:
+            - doOnce:
+            - onScenarioStart:
+          actions:
+          - playSound:
+            - TM4_10_MANNY
+          - playSound:
+            - TM4_11_MC
+          - playSound:
+            - TM4V12_MC
+          - playSound:
+            - TM4_13_MANNY
+          - setProperty:
+            - hud
+            - enabled
+            - false
+          - delay:
+            - 22
+            - openMissionBrief:
+            - setProperty:
+              - hud
+              - enabled
+              - true
+            - startTimer:
+
+        playHint_M4T3_1:
+          triggerCondition:
+          - and:
+            - doOnce:
+            - delay:
+              - 40
+          actions:
+          - playSound:
+            - TM4_49_Manny
+
+        failOnMissingBlock_4_3:
+          group: successOrFailure
+          priority: 0.5
+          triggerCondition:
+          - and:
+            - onBlocklyStopped:
+              - rover2
+            - isAtPosition:
+              - rover2
+              - [ -27, 19 ]
+            - isBlockMissing:
+              - init_nano_construction
+          actions:
+          - scenarioFailure:
+            - incomplete
+            - "Don't forget to use the start construction block to tell the nanites to go to work!"
+          - playSound:
+            - FCVO2_Rover
+
+        succeedOnMove_4_3:
+          group: successOrFailure
+          priority: 0
+          triggerCondition:
+          - and:
+            - onBlocklyStopped:
+              - rover2
+            - isAtPosition:
+              - rover2
+              - [ -3, 0 ]
+              - true
+          actions:
+          - writeToBlackboard:
+            - disableFailOnIncompleteProgram
+          - buildBaseComponent:
+            - solarPanel1
+          # - deleteNanites:
+          #   - nanites_Mission4Task2
+          - delay:
+            - 4
+            # - showAlert:
+            #   - "I constructed the solar panel!"
+            - callMethod:
+              - rover2
+              - stopExecution
+            - clearBlockly:
+            - scenarioSuccess:
+
+        scenarioEnded4_3:
+          triggerCondition:
+          - or: 
+            - onScenarioSucceeded:
+            - onScenarioFailed:
+          actions:
+          - setProperty:
+            - rover2
+            - surveyArray
+            - []
+          - setProperty:
+            - rover2
+            - allSurveys
+            - []
+          # - deleteNanites:
+          #   - nanites_Mission4Task3
+
+  brief:
+    extends: ../missionBrief.vwf
+    properties:
+      title: "Mission 4, Task 3"
+      content: >
+        Good work! 
+        <br><br>Now that you have your triangle placed properly, you need to
+        move Peregrine to the designated "safe spot" and then use the Start 
+        Construction block to make the nanites go to work.
+        <br><br>You can use Peregrine's Move To block to go to the safe spot.
+        Much like the Navigate procedure that you created a little while ago,
+        Move To requires you to tell it the X and Y coordinates where you want
+        to go.

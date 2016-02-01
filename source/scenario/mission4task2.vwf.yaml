@@ -1,0 +1,273 @@
+# Copyright 2014 Lockheed Martin Corporation
+#
+# Licensed under the Apache License, Version 2.0 (the "License"); you may 
+# not use this file except in compliance with the License. You may obtain 
+# a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software 
+# distributed under the License is distributed on an "AS IS" BASIS, 
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and 
+# limitations under the License.
+
+---
+extends: ../scenario/scenario.vwf
+properties:
+  scenarioName: Mission4Task2
+  nextScenarioPath: Mission4Task3
+
+  startState:
+
+  # objectives
+  - setObjective:
+    - "Dilate your triangle so that it's twice as big."
+
+  - setProperty:
+    - rover2
+    - startXML
+    - <xml><block type="triangle_flow" x="100" y="60"><statement name="STACK"><block type="triangle_transformations_dilate_static"><field name="OP">2</field></block></statement></block></xml>
+  - setProperty:
+    - rover2
+    - blockly_xml
+    - <xml><block type="triangle_flow" x="100" y="60"><statement name="STACK"><block type="triangle_transformations_dilate_static"><field name="OP">2</field></block></statement></block></xml>
+
+  # blockly
+  - setBlocklyContext:
+    - rover2
+  - loadToolbox:
+    - rover2
+    - source/scenario/blockly/mission4_perry2.xml
+
+  # sounds/music
+  - playSound:
+    - musicMission4Loop
+  - playSound:
+    - environmentWind
+  - setProperty:
+    - videoManager  
+    - url 
+    - [ "assets/video/Success4_800x600.mp4" ]
+
+  # Manny
+  - addToGrid:
+    - rover
+    - [ -30, 23 ]
+  - callMethod:
+    - rover
+    - setHeading
+    - 180
+
+  # Perry
+  - setProperty:
+    - rover2
+    - visible
+    - true
+  - addToGrid:
+    - rover2
+    - [ -24, 19 ]
+  - setProperty:
+    - rover2
+    - battery
+    - 100
+  - setProperty:
+    - rover2
+    - batteryMax
+    - 100
+  - setProperty:
+    - rover2
+    - blockly_allowedBlocks
+    - 22
+  - setProperty:
+    - rover2
+    - lowRam
+    - 5
+
+  - selectRover:
+    - rover2
+
+  # Grid 
+  - setGridAxes:
+    - 19
+    - -24
+
+  - drawTriangle:
+    - [ 0, 0 ]
+    - [ 0, 2 ]
+    - [ 2, 0 ]
+
+  # Disable blocklyLine
+  - setProperty:
+    - blocklyLine
+    - visible
+    - false
+  - setProperty:
+    - blocklyLine
+    - opacity
+    - 0
+
+  # Solar panel construction
+  - setConstructed:
+    - solarPanel1
+    - false
+  - setConstructed:
+    - solarPanel2
+    - false
+  - setConstructed:
+    - solarPanel3
+    - false
+  - setConstructed:
+    - solarPanel4
+    - false
+
+  - setProperty:
+    - cargoPod2
+    - isClosed
+    - false
+
+  - setProperty:
+    - rover2
+    - surveyArray
+    - []
+  - setProperty:
+    - rover2
+    - allSurveys
+    - []
+
+  # turning supplies and minirover invisible
+  - setProperty:
+    - supplies_1
+    - visible
+    - false
+  - setProperty:
+    - supplies_2
+    - visible
+    - false
+  - setProperty:
+    - minirover
+    - visible
+    - false
+
+children:
+  triggerManager:
+    extends: ../triggers/triggerManager.vwf
+    properties: 
+      triggers$:
+        playStartingVO_4_2:
+          triggerCondition:
+          - and:
+            - doOnce:
+            - onScenarioStart:
+          actions:
+          - playSound:
+            - TM4_56_MC
+          - setProperty:
+            - hud
+            - enabled
+            - false
+          - delay:
+            - 16
+            - openMissionBrief:
+            - setProperty:
+              - hud
+              - enabled
+              - true
+            - startTimer:
+
+        playHint_M4T2_1:
+          triggerCondition:
+          - and:
+            - doOnce:
+            - delay:
+              - 45
+          actions:
+          - playSound:
+            - TM4_47_Manny
+
+        playHint_M4T2_2:
+          triggerCondition:
+          - and:
+            - doOnce:
+            - delay:
+              - 65
+          actions:
+          - playSound:
+            - VO_Manny_Hint05
+
+        playHint_M4T2_reset:
+          triggerCondition:
+          - and:
+            - delay:
+              - 10
+            - readBlackboard:
+              - failureCount
+              - 1
+            - not:
+              - readBlackboard:
+                - mission4ResetHint
+          actions:
+          - playSound:
+            - VO_MissionControl_Hint02
+          - writeToBlackboard:
+            - mission4ResetHint
+
+        succeedOnTriangle_4_2:
+          group: successOrFailure
+          priority: 0
+          triggerCondition:
+          - onBlocklyPolygon:
+            - rover2
+            - [ [ 0, 0 ], [ 0, 2 ], [ 2, 0 ] ]
+          actions:
+          - writeToBlackboard:
+            - disableFailOnIncompleteProgram
+          - delay:
+            - 1
+            # - showAlert:
+            #   - "I created the correct triangle!"
+            - callMethod:
+              - rover2
+              - stopExecution
+            - clearBlockly:
+            - playSound:
+              - musicSuccessShort
+            - scenarioSuccess:
+
+        # onScenarioFailed4_2:
+        #   triggerCondition:
+        #   - onScenarioFailed:
+        #   actions:
+        #   - deleteNanites:
+        #     - nanites_Mission4Task2
+
+        scenarioEnded4_2:
+          triggerCondition:
+          - or: 
+            - onScenarioSucceeded:
+            - onScenarioFailed:
+          actions:
+          - setProperty:
+            - rover2
+            - surveyArray
+            - []
+          - setProperty:
+            - rover2
+            - allSurveys
+            - []
+
+  brief:
+    extends: ../missionBrief.vwf
+    properties:
+      title: "Mission 4, Task 2"
+      content: >
+        You have successfully placed the nanites, but that triangle is too 
+        small!
+        <br><br> The DrawTriangle block can be modified by placing <strong><em>
+        transformation</em></strong> blocks inside of it. Transformations 
+        use math to modify the size, shape, and position of the triangle to be 
+        drawn.
+        <br><br>The first thing that you need to do is to dilate your triangle,
+        or change it's size. Mission Control has provided a program that will do
+        this, but in order to make it work you need to provide the new vertex 
+        positions to the Dilate block.

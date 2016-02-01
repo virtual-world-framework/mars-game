@@ -1,0 +1,299 @@
+# Copyright 2014 Lockheed Martin Corporation
+#
+# Licensed under the Apache License, Version 2.0 (the "License"); you may 
+# not use this file except in compliance with the License. You may obtain 
+# a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software 
+# distributed under the License is distributed on an "AS IS" BASIS, 
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and 
+# limitations under the License.
+
+---
+extends: ../scenario/scenario.vwf
+properties:
+  scenarioName: Mission4Task1
+  nextScenarioPath: 'Mission4Task2'
+  scenePath: /
+
+  startState:
+
+  # objective
+  - setObjective:
+    - "Lay down Nanites in a triangle with vertices at (0,0), (0,1), and (1,0)."
+
+  - setProperty:
+    - rover2
+    - startXML
+    - <xml></xml>
+  - setProperty:
+    - rover2
+    - blockly_xml
+    - <xml></xml>
+
+  # sound/video
+  - playSound:
+    - musicMission4Loop
+  - playSound:
+    - environmentWind
+  - setProperty:
+    - videoManager  
+    - url 
+    - [ "assets/video/Success4_800x600.mp4" ]
+
+  # blockly
+  - setBlocklyContext:
+    - rover2
+  - loadToolbox:
+    - rover2
+    - source/scenario/blockly/mission4_perry1.xml
+
+  # Manny
+  - addToGrid:
+    - rover
+    - [ -30, 23 ]
+  - callMethod:
+    - rover
+    - setHeading
+    - 180
+
+  # Perry
+  - addToGrid:
+    - rover2
+    - [ -31, 22 ]
+  - setProperty:
+    - rover2
+    - visible
+    - true
+  - callMethod:
+    - rover2
+    - setHeading
+    - 180
+  - setProperty:
+    - rover2
+    - battery
+    - 100
+  - setProperty:
+    - rover2
+    - batteryMax
+    - 100
+  - setProperty:
+    - rover2
+    - blockly_allowedBlocks
+    - 10
+  - setProperty:
+    - rover2
+    - lowRam
+    - 5
+  - selectRover:
+    - rover2
+
+  # Grid
+  - setGridAxes:
+    - 19
+    - -24
+
+  - drawTriangle:
+    - [ 0, 0 ]
+    - [ 0, 1 ]
+    - [ 1, 0 ]
+
+  #Disable blocklyLine
+  - setProperty:
+    - blocklyLine
+    - visible
+    - false
+
+  - setProperty:
+    - blocklyLine
+    - opacity
+    - 0
+
+  #Set the camera angle
+  - setCinematicCameraView:
+    - [ 6, -62, -13 ]
+  - displayTiles:
+    - false
+
+  #Solar panel construction
+  - setConstructed:
+    - solarPanel1
+    - false
+
+  - setConstructed:
+    - solarPanel2
+    - false
+
+  - setConstructed:
+    - solarPanel3
+    - false
+
+  - setConstructed:
+    - solarPanel4
+    - false
+
+  - setProperty:
+    - cargoPod2
+    - isClosed
+    - false
+
+  - setProperty:
+    - rover2
+    - surveyArray
+    - []
+  - setProperty:
+    - rover2
+    - allSurveys
+    - []
+
+  # turning supplies and minirover invisible
+  - setProperty:
+    - supplies_1
+    - visible
+    - false
+  - setProperty:
+    - supplies_2
+    - visible
+    - false
+  - setProperty:
+    - minirover
+    - visible
+    - false
+
+children:
+  triggerManager:
+    extends: ../triggers/triggerManager.vwf
+    properties: 
+      triggers$:
+
+        setStartPosition_4_1:
+          triggerCondition:
+          - and:
+            - onScenarioStart:
+            - not:
+              - isAtPosition:
+                - rover2
+                - [ -31, 22 ]
+          actions:
+            - addToGrid:
+              - rover2
+              - [ -31, 22 ]
+
+        succeedOnTriangle_4_1:
+          group: successOrFailure
+          priority: 0
+          triggerCondition:
+          - onBlocklyPolygon:
+            - rover2
+            - [ [ 0, 0 ], [ 0, 1 ], [ 1, 0 ] ]
+          actions:
+          - writeToBlackboard:
+            - disableFailOnIncompleteProgram
+          # - deleteNanites:
+          #   - nanites_Mission4Task1
+          - delay:
+            - 1
+            - callMethod:
+              - rover2
+              - stopExecution
+            # - showAlert:
+            #   - "I created the correct triangle!"
+            - playSound:
+              - musicSuccessShort
+            - clearBlockly:
+            - scenarioSuccess:
+
+
+        playStartingVO_4_1_1:
+          triggerCondition:
+          - and:
+            - doOnce:
+            - onScenarioStart:
+          actions:
+          - playSound:
+            - TM4V1_MC
+          - playSound:
+            - TM4V2_MANNY
+          - playSound:
+            - TM4_3_MC
+          - playSound:
+            - PerryThanksALot
+          - playSound:
+            - TM4V5_MC
+          - playSound:
+            - TM4V6_MANNY
+          - playSound:
+            - perryIDidIt04
+          - playSound:
+            - TM4V8_MANNY
+          - setProperty:
+            - hud
+            - enabled
+            - false
+          - delay:
+            - 53
+            - openMissionBrief:
+            - setProperty:
+              - hud
+              - enabled
+              - true
+            - startTimer:
+
+        playHint_M4T1_1:
+          triggerCondition:
+          - and:
+            - doOnce:
+            - delay:
+              - 80
+          actions:
+          - playSound:
+            - TM4_46_Manny
+
+        playHint_M4T1_2:
+          triggerCondition:
+          - and:
+            - doOnce:
+            - delay:
+              - 110
+          actions:
+          - playSound:
+            - TM4_55_Manny
+
+        scenarioEnded4_1:
+          triggerCondition:
+          - or: 
+            - onScenarioSucceeded:
+            - onScenarioFailed:
+          actions:
+          - setProperty:
+            - rover2
+            - surveyArray
+            - []
+          - setProperty:
+            - rover2
+            - allSurveys
+            - []
+          # - deleteNanites:
+          #   - nanites_Mission4Task1
+
+  brief:
+    extends: ../missionBrief.vwf
+    properties:
+      title: "Mission 4, Task 1"
+      content: >
+        Congratulations! You've found the Base Pod! 
+        <br><br>The pod you've found contains a large supply of Nanites! 
+        Nanites are microscopic robots that can construct base components using 
+        nothing but the air and soil of Mars. The pod also contains your 
+        newest rover, Peregrine, who is designed to transport the Nanites 
+        and place them on the ground to build the base for the humans. 
+        <br><br>You seem to be running low on battery! Let's get Peregrine 
+        working on building some solar panels. Your Helicam will illuminate 
+        a triangle on the ground where you can build a solar panel. All you 
+        have to do is match the target triangle in Peregrine's program.
+        <br><br>The first triangle has vertices at (0,0), (0,1), and (1,0).
+        These are the same as the vertices built into the Draw Triangle block,
+        so just drag that block over and hit START.

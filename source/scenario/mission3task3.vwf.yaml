@@ -1,0 +1,208 @@
+# Copyright 2014 Lockheed Martin Corporation
+#
+# Licensed under the Apache License, Version 2.0 (the "License"); you may 
+# not use this file except in compliance with the License. You may obtain 
+# a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software 
+# distributed under the License is distributed on an "AS IS" BASIS, 
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and 
+# limitations under the License.
+
+---
+extends: ../scenario/scenario.vwf
+properties:
+  scenarioName: Mission3Task3
+
+  scenePath: /
+  nextScenarioPath: "Mission3Task4"
+
+  startState:
+  # objective- <xml><block type="procedures_defnoreturn" deletable="false" movable="false" editable="false" x="0" y="-420"><mutation><arg name="Desired X"></arg><arg name="Desired Y"></arg></mutation><field name="NAME">navigate</field><statement name="STACK"><block type="controls_if_nomut" inline="false"><value name="IF0"><block type="variables_get" inline="false"><field name="VAR">Desired Y</field><value name="INPUT"><block type="logic_cond_out" inline="false"><field name="VALUE">&lt;</field><value name="INPUT"><block type="controls_sensor_position_y" inline="false"></block></value></block></value></block></value><statement name="DO0"><block type="controls_whileUntil" inline="false"><value name="BOOL"><block type="controls_sensor_heading" inline="false"><value name="INPUT"><block type="logic_cond_out" inline="false"><field name="VALUE">!==</field><value name="INPUT"><block type="math_number_angle_select" inline="false"><field name="VALUE">270</field></block></value></block></value></block></value><statement name="DO"><block type="rover_turn"></block></statement><next><block type="controls_whileUntil" inline="false"><value name="BOOL"><block type="variables_get" inline="false"><field name="VAR">Desired Y</field><value name="INPUT"><block type="logic_cond_out" inline="false"><field name="VALUE">&lt;</field><value name="INPUT"><block type="controls_sensor_position_y" inline="false"></block></value></block></value></block></value><statement name="DO"><block type="rover_moveForward"></block></statement></block></next></block></statement><next><block type="controls_if_nomut" inline="false"><value name="IF0"><block type="variables_get" inline="false"><field name="VAR">Desired Y</field><value name="INPUT"><block type="logic_cond_out" inline="false"><field name="VALUE">&gt;</field><value name="INPUT"><block type="controls_sensor_position_y" inline="false"></block></value></block></value></block></value><statement name="DO0"><block type="controls_whileUntil" inline="false"><value name="BOOL"><block type="controls_sensor_heading" inline="false"><value name="INPUT"><block type="logic_cond_out" inline="false"><field name="VALUE">!==</field><value name="INPUT"><block type="math_number_angle_select" inline="false"><field name="VALUE">90</field></block></value></block></value></block></value><statement name="DO"><block type="rover_turn"></block></statement><next><block type="controls_whileUntil" inline="false"><value name="BOOL"><block type="variables_get" inline="false"><field name="VAR">Desired Y</field><value name="INPUT"><block type="logic_cond_out" inline="false"><field name="VALUE">&gt;</field><value name="INPUT"><block type="controls_sensor_position_y" inline="false"></block></value></block></value></block></value><statement name="DO"><block type="rover_moveForward"></block></statement></block></next></block></statement></block></next></block></statement></block><block type="controls_whileUntil_no_in" inline="false" deletable="false" movable="false" editable="false" x="0" y="-580"><value name="BOOL"><block type="controls_sensor_heading" inline="false" editable="false" deletable="false" movable="false"><value name="INPUT"><block type="logic_cond_out" inline="false" deletable="false" movable="false" editable="false"><field name="VALUE">===</field><value name="INPUT"><block type="math_number_angle_select_no_out" inline="false" deletable="false" movable="false" editable="false"><field name="VALUE">270</field></block></value></block></value></block></value><statement name="DO"><block type="rover_turn_no_out" deletable="false" movable="false" editable="false"></block></statement><next><block type="procedures_callnoreturn_no_out" deletable="false" movable="false" editable="false" inline="false"><mutation name="navigate"><arg name="Desired X"></arg><arg name="Desired Y"></arg></mutation><value name="ARG0"><block type="math_number_field_no_out" deletable="false" movable="false" editable="false" inline="false"><field name="VALUE">-3</field></block></value><value name="ARG1"><block type="math_number_field_no_out" deletable="false" movable="false" editable="false" inline="false"><field name="VALUE">-6</field></block></value></block></next></block></xml>
+
+  - setObjective:
+    - "Edit your procedure so that it can also move left on the X axis."
+
+  # sounds/video
+  - playSound:
+    - musicMission3Loop
+  - playSound:
+    - environmentWind
+  - setProperty:
+    - videoManager  
+    - url 
+    - [ "assets/video/Success3_800x600.mp4" ]
+
+  #blockly
+  - setBlocklyContext:
+    - rover
+  - setProperty:
+    - rover
+    - startXML
+    - <xml><block type="comment_block_free_text_no_in" id="p" deletable="false" movable="false" editable="false" inline="false" x="0" y="-340"><field name="COMMENT">This program tests the Navigate procedure.</field><next><block type="comment_block_free_text" id="b37" deletable="false" movable="false" editable="false" inline="false"><field name="COMMENT">Changes should be made to the procedure</field><next><block type="comment_block_free_text" id="b38" deletable="false" movable="false" editable="false" inline="false"><field name="COMMENT">itself, not to this test program.</field><next><block type="procedures_callnoreturn_no_out" id="u" deletable="false" movable="false" editable="false" inline="false"><mutation name="Navigate"><arg name="Desired X"></arg><arg name="Desired Y"></arg></mutation><value name="ARG0"><block type="graph_subtract" inline="false" movable="false" deletable="false" id="a60"><value name="INPUT"><block type="math_number_field_no_out" inline="false" movable="false" deletable="false" id="a61"><field name="VALUE">3</field></block></value></block></value><value name="ARG1"><block type="graph_subtract" inline="false" movable="false" deletable="false" id="a62"><value name="INPUT"><block type="math_number_field_no_out" inline="false" movable="false" deletable="false" id="a63"><field name="VALUE">3</field></block></value></block></value></block></next></block></next></block></next></block><block type="procedures_defnoreturn" id="a" deletable="false" movable="false" editable="false" x="0" y="-140"><mutation><arg name="Desired X"></arg><arg name="Desired Y"></arg></mutation><field name="NAME">Navigate</field><statement name="STACK"><block type="comment_block_free_text" id="b24"><field name="COMMENT">This If block checks whether we need to</field><next><block type="comment_block_free_text" id="b28"><field name="COMMENT">move in the -Y direction.</field><next><block type="controls_if_nomut" id="b" inline="false"><value name="IF0"><block type="controls_sensor_position_drop" id="e" inline="false"><field name="POS">POSY</field><value name="INPUT"><block type="logic_cond_out" id="d" inline="false"><field name="VALUE">&gt;</field><value name="INPUT"><block type="variables_get" id="c" inline="false"><field name="VAR">Desired Y</field></block></value></block></value></block></value><statement name="DO0"><block type="comment_block_free_text" id="32"><field name="COMMENT">The first repeat turns us until we are</field><next><block type="comment_block_free_text" id="33"><field name="COMMENT">facing the correct direction.</field><next><block type="controls_whileUntil" id="f" inline="false"><value name="BOOL"><block type="controls_sensor_heading" id="g" inline="false"><value name="INPUT"><block type="logic_cond_out" id="h" inline="false"><field name="VALUE">!==</field><value name="INPUT"><block type="math_number_angle_select" id="i" inline="false"><field name="VALUE">270</field></block></value></block></value></block></value><statement name="DO"><block type="rover_turn" id="j"></block></statement><next><block type="comment_block_free_text" id="b34"><field name="COMMENT">The second repeat moves us forward</field><next><block type="comment_block_free_text" id="b35"><field name="COMMENT">until we are at the desired Y position.</field><next><block type="controls_whileUntil" id="k" inline="false"><value name="BOOL"><block type="controls_sensor_position_drop" id="e" inline="false"><field name="POS">POSY</field><value name="INPUT"><block type="logic_cond_out" id="d" inline="false"><field name="VALUE">&gt;</field><value name="INPUT"><block type="variables_get" id="c" inline="false"><field name="VAR">Desired Y</field></block></value></block></value></block></value><statement name="DO"><block type="rover_moveForward" id="o"></block></statement></block></next></block></next></block></next></block></next></block></next></block></statement><next><block type="comment_block_free_text" id="c31"><field name="COMMENT">This If block works the same as the one</field><next><block type="comment_block_free_text" id="c32"><field name="COMMENT">above, but checks whether we need to</field><next><block type="comment_block_free_text" id="c33"><field name="COMMENT">move in the +Y direction.</field><next><block type="controls_if_nomut" id="c34" inline="false"><value name="IF0"><block type="controls_sensor_position_drop" id="c35" inline="false"><field name="POS">POSY</field><value name="INPUT"><block type="logic_cond_out" id="c36" inline="false"><field name="VALUE">&lt;</field><value name="INPUT"><block type="variables_get" id="c37" inline="false"><field name="VAR">Desired Y</field></block></value></block></value></block></value><statement name="DO0"><block type="controls_whileUntil" id="t" inline="false"><value name="BOOL"><block type="controls_sensor_heading" id="u" inline="false"><value name="INPUT"><block type="logic_cond_out" id="v" inline="false"><field name="VALUE">!==</field><value name="INPUT"><block type="math_number_angle_select" id="w" inline="false"><field name="VALUE">90</field></block></value></block></value></block></value><statement name="DO"><block type="rover_turn" id="x"></block></statement><next><block type="controls_whileUntil" inline="false"><value name="BOOL"><block type="controls_sensor_position_drop" id="c38" inline="false"><field name="POS">POSY</field><value name="INPUT"><block type="logic_cond_out" id="c39" inline="false"><field name="VALUE">&lt;</field><value name="INPUT"><block type="variables_get" id="c40" inline="false"><field name="VAR">Desired Y</field></block></value></block></value></block></value><statement name="DO"><block type="rover_moveForward" id="bb"></block></statement></block></next></block></statement><next><block type="comment_block_free_text" id="b31"><field name="COMMENT">Add a new If block here that moves in the -X</field><next><block type="comment_block_free_text" id="b32"><field name="COMMENT">direction.</field></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block></statement></block></xml>
+  - setProperty:
+    - rover
+    - blockly_xml
+    - <xml><block type="comment_block_free_text_no_in" id="p" deletable="false" movable="false" editable="false" inline="false" x="0" y="-340"><field name="COMMENT">This program tests the Navigate procedure.</field><next><block type="comment_block_free_text" id="b37" deletable="false" movable="false" editable="false" inline="false"><field name="COMMENT">Changes should be made to the procedure</field><next><block type="comment_block_free_text" id="b38" deletable="false" movable="false" editable="false" inline="false"><field name="COMMENT">itself, not to this test program.</field><next><block type="procedures_callnoreturn_no_out" id="u" deletable="false" movable="false" editable="false" inline="false"><mutation name="Navigate"><arg name="Desired X"></arg><arg name="Desired Y"></arg></mutation><value name="ARG0"><block type="graph_subtract" inline="false" movable="false" deletable="false" id="a60"><value name="INPUT"><block type="math_number_field_no_out" inline="false" movable="false" deletable="false" id="a61"><field name="VALUE">3</field></block></value></block></value><value name="ARG1"><block type="graph_subtract" inline="false" movable="false" deletable="false" id="a62"><value name="INPUT"><block type="math_number_field_no_out" inline="false" movable="false" deletable="false" id="a63"><field name="VALUE">3</field></block></value></block></value></block></next></block></next></block></next></block><block type="procedures_defnoreturn" id="a" deletable="false" movable="false" editable="false" x="0" y="-140"><mutation><arg name="Desired X"></arg><arg name="Desired Y"></arg></mutation><field name="NAME">Navigate</field><statement name="STACK"><block type="comment_block_free_text" id="b24"><field name="COMMENT">This If block checks whether we need to</field><next><block type="comment_block_free_text" id="b28"><field name="COMMENT">move in the -Y direction.</field><next><block type="controls_if_nomut" id="b" inline="false"><value name="IF0"><block type="controls_sensor_position_drop" id="e" inline="false"><field name="POS">POSY</field><value name="INPUT"><block type="logic_cond_out" id="d" inline="false"><field name="VALUE">&gt;</field><value name="INPUT"><block type="variables_get" id="c" inline="false"><field name="VAR">Desired Y</field></block></value></block></value></block></value><statement name="DO0"><block type="comment_block_free_text" id="32"><field name="COMMENT">The first repeat turns us until we are</field><next><block type="comment_block_free_text" id="33"><field name="COMMENT">facing the correct direction.</field><next><block type="controls_whileUntil" id="f" inline="false"><value name="BOOL"><block type="controls_sensor_heading" id="g" inline="false"><value name="INPUT"><block type="logic_cond_out" id="h" inline="false"><field name="VALUE">!==</field><value name="INPUT"><block type="math_number_angle_select" id="i" inline="false"><field name="VALUE">270</field></block></value></block></value></block></value><statement name="DO"><block type="rover_turn" id="j"></block></statement><next><block type="comment_block_free_text" id="b34"><field name="COMMENT">The second repeat moves us forward</field><next><block type="comment_block_free_text" id="b35"><field name="COMMENT">until we are at the desired Y position.</field><next><block type="controls_whileUntil" id="k" inline="false"><value name="BOOL"><block type="controls_sensor_position_drop" id="e" inline="false"><field name="POS">POSY</field><value name="INPUT"><block type="logic_cond_out" id="d" inline="false"><field name="VALUE">&gt;</field><value name="INPUT"><block type="variables_get" id="c" inline="false"><field name="VAR">Desired Y</field></block></value></block></value></block></value><statement name="DO"><block type="rover_moveForward" id="o"></block></statement></block></next></block></next></block></next></block></next></block></next></block></statement><next><block type="comment_block_free_text" id="c31"><field name="COMMENT">This If block works the same as the one</field><next><block type="comment_block_free_text" id="c32"><field name="COMMENT">above, but checks whether we need to</field><next><block type="comment_block_free_text" id="c33"><field name="COMMENT">move in the +Y direction.</field><next><block type="controls_if_nomut" id="c34" inline="false"><value name="IF0"><block type="controls_sensor_position_drop" id="c35" inline="false"><field name="POS">POSY</field><value name="INPUT"><block type="logic_cond_out" id="c36" inline="false"><field name="VALUE">&lt;</field><value name="INPUT"><block type="variables_get" id="c37" inline="false"><field name="VAR">Desired Y</field></block></value></block></value></block></value><statement name="DO0"><block type="controls_whileUntil" id="t" inline="false"><value name="BOOL"><block type="controls_sensor_heading" id="u" inline="false"><value name="INPUT"><block type="logic_cond_out" id="v" inline="false"><field name="VALUE">!==</field><value name="INPUT"><block type="math_number_angle_select" id="w" inline="false"><field name="VALUE">90</field></block></value></block></value></block></value><statement name="DO"><block type="rover_turn" id="x"></block></statement><next><block type="controls_whileUntil" inline="false"><value name="BOOL"><block type="controls_sensor_position_drop" id="c38" inline="false"><field name="POS">POSY</field><value name="INPUT"><block type="logic_cond_out" id="c39" inline="false"><field name="VALUE">&lt;</field><value name="INPUT"><block type="variables_get" id="c40" inline="false"><field name="VAR">Desired Y</field></block></value></block></value></block></value><statement name="DO"><block type="rover_moveForward" id="bb"></block></statement></block></next></block></statement><next><block type="comment_block_free_text" id="b31"><field name="COMMENT">Add a new If block here that moves in the -X</field><next><block type="comment_block_free_text" id="b32"><field name="COMMENT">direction.</field></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block></statement></block></xml>
+  - loadToolbox:
+    - rover
+    - source/scenario/blockly/mission3.xml
+  - delay:
+    - .5  
+    - callMethod:
+      - rover
+      - resetSensors
+
+  #Manny
+  - addToGrid:
+    - rover
+    - [ -17,32 ]
+  - selectRover:
+    - rover
+  - callMethod:
+    - rover
+    - setHeading
+    - 0
+  - setProperty:
+    - rover
+    - battery
+    - 10
+  - setProperty:
+    - rover
+    - batteryMax
+    - 10
+  - setProperty:
+    - rover
+    - blockly_allowedBlocks
+    - 75
+
+  # Perry, Rosie disabled
+  - setProperty:
+    - rover2
+    - visible
+    - false
+
+  # Disable Blockly line
+  - setProperty:
+    - blocklyLine
+    - visible
+    - false
+  - setProperty:
+    - blocklyLine
+    - opacity
+    - 0
+
+  # Graph
+  - addToGrid:
+    - blocklyGraph
+    - [ -17, 32 ]
+  - setGridAxes:
+    - 32
+    - -17
+
+  - setProperty:
+    - cargoPod2
+    - isClosed
+    - true
+
+  - setProperty:
+    - roverTracks2
+    - visible
+    - true
+
+  # turning supplies and minirover invisible
+  - setProperty:
+    - supplies_1
+    - visible
+    - false
+  - setProperty:
+    - supplies_2
+    - visible
+    - false
+  - setProperty:
+    - minirover
+    - visible
+    - false
+
+children:
+  triggerManager:
+    extends: ../triggers/triggerManager.vwf
+    properties: 
+      triggers$:
+        playStartingVO_3d:
+          triggerCondition:
+          - and:
+            - doOnce:
+            - onScenarioStart:
+          actions:
+          - playSound:
+            - newmission3vo5
+          - playSound:
+            - m3t5vo010
+          - setProperty:
+            - hud
+            - enabled
+            - false
+          - delay:
+            - 15.5
+            - openMissionBrief:
+            - setProperty:
+              - hud
+              - enabled
+              - true
+            - startTimer:
+
+        highlightEndTile_3_5:
+          triggerCondition:
+          - onScenarioStart:
+          actions:
+          - callOutObjective:
+            - [ -3, -3 ]
+
+        succeedOnSuccessfulMovement_3_5:
+          group: successOrFailure
+          priority: 0
+          triggerCondition:
+          - and:
+            - onBlocklyStopped:
+              - rover
+            - isAtPosition:
+              - rover
+              - [ -20, 29 ]
+          actions:
+          - clearBlockly:
+          - scenarioSuccess:
+          # - showAlert:
+          #   - "Test program completed!"
+          - playSound:
+            - musicSuccessShort
+
+        playHint_M3T3_reset:
+          triggerCondition:
+          - and:
+            - delay:
+              - 30
+            - not:
+              - readBlackboard:
+                - mission3ResetHint
+          actions:
+          - playSound:
+            - VO_MissionControl_Hint01
+          - writeToBlackboard:
+            - mission3ResetHint
+
+  brief:
+    extends: ../missionBrief.vwf
+    properties:
+      title: "Mission 3, Task 3"
+      content: >
+        Movement along the Y axis is all set! 
+        <br><br>You still need to be able to move along the X axis. Your next 
+        task is to modify your procedure to that it can also handle movement in
+        the -X direction. 
+        <br><br>Be sure to copy an existing If block and make your changes 
+        there, so that you don't break the part that's already working.
+

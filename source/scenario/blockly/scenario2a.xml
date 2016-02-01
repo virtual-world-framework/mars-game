@@ -1,2 +1,4 @@
 <xml id="rover" style="display: none">
+  <category name="Movement">
+  </category>
 </xml>

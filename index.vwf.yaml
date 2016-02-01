@@ -12,24 +12,45 @@
 # See the License for the specific language governing permissions and 
 # limitations under the License.
 
---- 
+---
 extends: http://vwf.example.com/scene.vwf
 implements:
-- "http://vwf.example.com/blockly/manager.vwf"
+  - "http://vwf.example.com/blockly/manager.vwf"
+  - "http://vwf.example.com/threejs/fogExp2.vwf"
 properties:
+  enableRenderer: true
   enableShadows: true
   shadowMapCullFace: "back"
-  ambientColor: [ 150, 140, 140 ]
+  ambientColor: [ 70, 65, 65 ]
+  backgroundColor: [ 200, 160, 170 ]
+  fogexp_color: [ 200, 160, 170 ]
+  fogexp_density: 0.0075
   userObject: null
   blockly_autoClose: false
   activeScenarioPath:
     set: |
       this.setScenario( value );
-      this.activeScenarioPath = value;
-    value: "mainMenuScenario"
   playerId: "test"
-  version: 1.0
+  version: "Development"
   sceneBlackboard: {}
+  roverSignalValue: 0
+  roverHeadingValue: 0
+  roverTabBlinking: false
+  graphTabBlinking: false
+  blockly_baseExecutionSpeed: 0.5
+  # applicationState tracks what the application is currently doing
+  #   in its execution process.
+  #   Valid states are: loading, menu, playing
+  # TODO: Potential app states: paused, video, syncing (allowing all
+  #   clients to reach the same state before continuing)
+  applicationState:
+    set: |
+      this.setApplicationState( value );
+    value: loading
+  watchList: []
+  calloutHighlight: 0
+  bCallout$: false
+  calloutScheduled$: false
 methods:
   setScenario:
   resetScenario:
@@ -37,11 +58,12 @@ methods:
   getCurrentScenario:
   getScenarios:
   getScenarioPaths:
-  createGridDisplay:
   addStatus:
   addAlert:
   addSubtitle:
   executeBlock:
+  handleDrawingBlocks:
+  resetBlocklyBlocks:
   displayTiles:
   displayGraph:
   setCinematicView:
@@ -49,6 +71,40 @@ methods:
   restartGame:
   attemptLogin:
   loadGame:
+  setApplicationState:
+  newGame:
+  continueGame:
+  applicationLoaded:
+  blinkTab:
+  stopBlinkTab:
+  playVideo:
+  pauseGame:
+  unpauseGame:
+  resetHUDState:
+  selectBlocklyNode:
+  setBlocklyContext:
+  clearBlocklyContext:
+  drawSchematicTriangle:
+  hideSchematicTriangle:
+  openMissionBrief:
+  setGridAxes:
+  addToWatchList:
+  clearWatchList:
+  checkWatchList:
+  getWatchListNodes:
+  addAxisOffset:
+  removeAxisOffset:
+  createNaniteSystem:
+  deleteNaniteSystem:
+  switchToHelicamView:
+  calloutTile:
+  removeCalloutTile:
+  hideUI:
+  setUserTriangles:
+  setActiveRoverPose:
+  printCameraPose:
+  callout:
+  stopCallout:
 events:
   gameStarted:
   scenarioReset:
@@ -57,31 +113,56 @@ events:
   scenarioSucceeded:
   scenarioFailed:
   gotScenarioPaths:
-  blinkHUD:
-  stopBlinkHUD:
-  blinkTab:
-  stopBlinkTab:
   clearBlockly:
   selectLastBlock:
+  updatedBlocklyVariable:
+  selectedRover:
   showCommsImage:
   hideCommsImage:
   blockExecuted:
+  blocklyCompletedPolygon:
+  blocklyFailedPolygon:
+  blocklyCompletedSurvey:
   toggledHelicam:
   toggledGraph:
   toggledTiles:
   resetRoverSensors:
-  resetHUDState:
-  enableBlocklyTab:
+  enableBlocklyTabs:
   clearBlocklyTabs:
-  playVideo:
   videoPlayed:
-  setObjective:
-  setHUDElementProperty:
-  mouseOverHUD:
   progressFound:
+  startedGame:
   loadedGame:
   storedScenario:
+  blackboardWritten:
+  paused:
+  unpaused:
+  missionBriefOpened:
+  missionBriefClosed:
+  loadedMissionBrief:
+  cameraMounted:
+  targetSwitched:
+  gridAxesChanged:
 children:
+  # naniteSystems:
+  #   extends: http://vwf.example.com/node3.vwf
+  mediaManager:
+    extends: http://vwf.example.com/node.vwf
+    children:
+      videoManager:
+        extends: http://vwf.example.com/jplayer/videoManager.vwf
+        properties:
+          preload: "auto" 
+          containerDivId: "jp_container_1"
+          playerDivId: "jquery_jplayer_1"
+          containerSize: [ 800, 600 ]
+          playerSize: [ 800, 600 ]
+  hud:
+    includes: source/hud/marsGameHud.vwf
+  mainMenu:
+    includes: source/mainMenu.vwf
+  timer:
+    includes: source/timer.vwf
   gameCam:
     includes: source/gameCamera.vwf
   cinematicCameraController:
@@ -103,7 +184,6 @@ children:
         extends: source/cameraMount.vwf
         properties:
           navmode: none
-          cameraPose: [ 12, 0, -25 ]
           cameraSpeed: 0
     scripts:
       - source: source/cinematicCameraController.js
@@ -113,43 +193,130 @@ children:
   #   includes: source/instrumentationManager.vwf
   globalTriggerManager:
     includes: source/scenario/globalScenarioTriggers.vwf
+  triggerGroupManager:
+    includes: source/triggers/groups/triggerGroupManager.vwf
   environment:
     extends: http://vwf.example.com/node3.vwf
-    source: assets/3d/Terrain/scene.dae
-    type: model/vnd.collada+xml
-    properties:
-      castShadows: true
-      receiveShadows: true
     children:
-      heightmap:
-        extends: http://vwf.example.com/heightmap.vwf
-        source: assets/3d/Terrain/heightmap.png
-        type: image/png
-        properties:
-          minWorldX: -275 
-          maxWorldX: 25
-          minWorldY: -45
-          maxWorldY: 255
-          minWorldZ: -2.5
-          maxWorldZ: 15
-      crashPod:
+      terrain:
         extends: http://vwf.example.com/node3.vwf
-        source: assets/3d/crash_pod/crash_pod.dae
+        source: assets/3d/Mars_Assets/terrain.dae
         type: model/vnd.collada+xml
         properties:
           castShadows: true
           receiveShadows: true
-          translation: [ 0, -1.5, 0 ]
+        children:
+          material:
+            extends: source/shaders/mixMap.vwf
+            properties:
+              mixMap: "assets/3d/Mars_Assets/terrain_mixmap.png"
+              diffuseMaps:
+                - { "url": "assets/3d/Mars_Assets/level2_ground2_d.png", "wrapTexture": true }
+                - { "url": "assets/3d/Mars_Assets/level2_ground3_d.png", "wrapTexture": true }
+                - { "url": "assets/3d/Mars_Assets/level2_ground1_d.png", "wrapTexture": true }
+                - { "url": "assets/3d/Mars_Assets/level2_rock1_d.png", "wrapTexture": true }
+              normalMaps: 
+                - { "url": "assets/3d/Mars_Assets/level2_ground2_n.png", "wrapTexture": true }
+                - { "url": "assets/3d/Mars_Assets/level2_ground3_n.png", "wrapTexture": true }
+                - { "url": "assets/3d/Mars_Assets/level2_ground1_n.png", "wrapTexture": true }
+                - { "url": "assets/3d/Mars_Assets/level2_rock1_n.png", "wrapTexture": true }
+              specularMaps:
+                - { "url": "assets/3d/Mars_Assets/level2_ground3_s.png", "wrapTexture": true }
+                - { "url": "assets/3d/Mars_Assets/level2_ground2_s.png", "wrapTexture": true }
+                - { "url": "assets/3d/Mars_Assets/level2_ground1_s.png", "wrapTexture": true }
+                - { "url": "assets/3d/Mars_Assets/level2_rock1_s.png", "wrapTexture": true }
+              tileMap:
+                url: "assets/3d/Mars_Assets/tilemap.png"
+                magFilter: "nearest"
+                minFilter: "nearest"
+              tileMapOrigin: [ -128, -128 ]
+              tileMapSize: [ 256, 256 ]
+              textureResolution: 128
+              shininess: 5
+              normalScale: [ 0.5, 0.5 ]
+              gridInterval: 3
+              laserWidth: 0.085
+              laserFocus: 0.5
+              laserIntensity: 1.1
+              gridColor: 0xFFDDAA
+              gridAxes: [ 0, 0 ]
+              gridVisible: 0
+              tilesVisible: 0
+              tileColor: 0x3A4A40
+              calloutTile: [ 0, 0 ]
+              calloutHighlight: 0
+              triangle: []
+              userTris: []
+              userTriColors: []
+      environmentObjects:
+        extends: http://vwf.example.com/node3.vwf
+        source: assets/3d/Mars_Assets/mars_assets.dae
+        type: model/vnd.collada+xml
+        properties:
+          castShadows: true
+          receiveShadows: true
+        children:
+          platform:
+            extends: http://vwf.example.com/node3.vwf
+            children:
+              material:
+                extends: source/shaders/texturedShader.vwf
+                properties:
+                  diffuseMap: "assets/3d/Mars_Assets/platform.png"
+                  specularMap: "assets/3d/Mars_Assets/platform_s.png"
+                  normalMap: "assets/3d/Mars_Assets/platform_n.png"
+                  tileMap:
+                    url: "assets/3d/Mars_Assets/tilemap.png"
+                    magFilter: "nearest"
+                    minFilter: "nearest"
+                  tileMapOrigin: [ -128, -128 ]
+                  tileMapSize: [ 256, 256 ]
+                  shininess: 5
+                  normalScale: [ 0.5, 0.5 ]
+                  gridInterval: 3
+                  tilesVisible: 0
+                  tileColor: 0x3A4A40
+                  calloutTile: [ 0, 0 ]
+                  calloutHighlight: 0
+      heightmap:
+        extends: http://vwf.example.com/heightmap.vwf
+        source: assets/3d/Mars_Assets/heightmap.png
+        type: image/png
+        properties:
+          minWorldX: -256
+          maxWorldX: 256
+          minWorldY: -192
+          maxWorldY: 320
+          minWorldZ: -5
+          maxWorldZ: 25
       roverTracks:
         extends: http://vwf.example.com/node3.vwf
-        source: assets/3d/Terrain/rover_tracks_straight.dae
+        source: assets/3d/Mars_Assets/mini_rover_tracks.dae
         type: model/vnd.collada+xml
-  collisionTerrain:
-    extends: http://vwf.example.com/node3.vwf
-    source: assets/3d/Terrain/collision_terrain.dae
-    type: model/vnd.collada+xml
+        children:
+          material:
+            extends: http://vwf.example.com/material.vwf
+            properties:
+              alphaTest: 0.25
+      roverTracks2:
+        extends: http://vwf.example.com/node3.vwf
+        source: assets/3d/Mars_Assets/mini_rover_tracks2.dae
+        type: model/vnd.collada+xml
+        properties:
+          visible: false
+        children:
+          material:
+            extends: http://vwf.example.com/material.vwf
+            properties:
+              alphaTest: 0.25
+  tileMap:
+    extends: source/tileMap.vwf
+    source: assets/3d/Mars_Assets/tilemap.png
+    type: image/png
     properties:
-      visible: false
+      mapOrigin: [ -128, -128 ]
+      mapSize: [ 256, 256 ]
+      tileSize: 3
   airDust:
     includes: source/dustAir.vwf
   smoke1:
@@ -164,32 +331,14 @@ children:
     extends: source/smokeParticle.vwf
     properties:
       translation: [ 13.5, 16.5, 2 ]
-  backdrop:
-    extends: http://vwf.example.com/node3.vwf
-    source: assets/3d/Terrain/backdrop.dae
-    type: model/vnd.collada+xml
-    children:
-      Group023:
-        extends: http://vwf.example.com/node3.vwf
-        children:
-          hills: 
-            extends: http://vwf.example.com/node3.vwf
-            children:
-              material:
-                extends: http://vwf.example.com/material.vwf
-                properties:
-                  alphaTest: 0.85
-          mountains:
-            extends: http://vwf.example.com/node3.vwf
   sunLight:
-    extends: http://vwf.example.com/light.vwf
+    extends: http://vwf.example.com/directionallight.vwf
     properties:
-      lightType: "directional"
-      color: [ 255, 245, 230 ]
+      color: [ 200, 200, 200 ]
       translation: [ 2, 1, 16 ]
-      intensity: 0.5
+      intensity: 0.6
       castShadows: true
-      shadowDarkness: 0.5
+      shadowDarkness: 0.7
       shadowCameraBottom: -64
       shadowCameraTop: 64
       shadowCameraLeft: -64
@@ -204,31 +353,32 @@ children:
       setUpEvents:
       followCamera:
     scripts:
-      - source: source/lights.js
+    - source: source/lights.js
   envLight:
-    extends: http://vwf.example.com/light.vwf
+    extends: http://vwf.example.com/hemispherelight.vwf
     properties:
-      lightType: "hemisphere"
       translation: [ 0, 0, 100 ]
-      color: [ 255, 200, 175 ]
+      color: [ 196, 196, 196 ]
       groundColor: [ 200, 160, 80 ]
-      intensity: 0.7
+      intensity: 0.5
   player:
     extends: http://vwf.example.com/node3.vwf
     children:
       rover:
-        extends: source/rover.vwf
+        extends: source/fourWheeledRover.vwf
         implements: 
-          - http://vwf.example.com/blockly/controller.vwf
-          - source/griddable.vwf
-          - source/cameraTarget.vwf
-        source: assets/3d/Rover/rover_retro.dae
+        - http://vwf.example.com/blockly/controller.vwf
+        - source/cameraTarget.vwf
+        source: assets/3d/Rover/rover.dae
         type: model/vnd.collada+xml
         properties:
-          defaultMount: firstPerson
-          displayName: "Rover"
+          defaultMount: thirdPerson
+          displayName: "Manny"
           castShadows: true
           receiveShadows: true
+          executionSpeed: 0.5
+          startXML: '<xml></xml>'
+          roverRadius: 4
           sceneNode:
             get: |
               if ( !this.sceneNode ) {
@@ -240,7 +390,7 @@ children:
               this.terrainName = value;
               this.terrain = this.find( "//" + value )[ 0 ];
               //@ sourceURL=index.vwf.player.rover.terrainName.set
-            value: collisionTerrain
+            value: environment
           terrain:
             get: |
               if ( !this.terrain ) {
@@ -248,33 +398,37 @@ children:
               }
               return this.terrain;
               //@ sourceURL=index.vwf.player.rover.terrain.get
-          currentGridSquare: [ 0, 0 ]
           sensorValue: false
           wheelFL:
             get: |
               if ( !this.wheelFL ) {
-                this.wheelFL = this.find( "Cylinder014/Cylinder058/wheel" )[ 0 ];
+                this.wheelFL = this.find( "rover_base/front_spring_l/wheel" )[ 0 ];
               }
               return this.wheelFL;
           wheelBL:
             get: |
               if ( !this.wheelBL ) {
-                this.wheelBL = this.find( "Cylinder014/Cylinder059/wheel001" )[ 0 ];
+                this.wheelBL = this.find( "rover_base/rear_spring_l/wheel001" )[ 0 ];
               }
               return this.wheelBL;
           wheelFR:
             get: |
               if ( !this.wheelFR ) {
-                this.wheelFR = this.find( "Cylinder014/Cylinder050/wheel002" )[ 0 ];
+                this.wheelFR = this.find( "rover_base/front_spring_r/wheel002" )[ 0 ];
               }
               return this.wheelFR;
           wheelBR:
             get: |
               if ( !this.wheelBR ) {
-                this.wheelBR = this.find( "Cylinder014/Cylinder060/wheel003" )[ 0 ];
+                this.wheelBR = this.find( "rover_base/rear_spring_r/wheel003" )[ 0 ];
               }
               return this.wheelBR;
           wheelRadius: 0.3304
+          wheels:
+            - "wheelFL"
+            - "wheelBL"
+            - "wheelFR"
+            - "wheelBR"
         children:
           firstPerson:
             extends: source/cameraMount.vwf
@@ -290,7 +444,9 @@ children:
             properties:
               navmode: thirdPerson
               cameraPose: [ 16, 0, -15 ]
+              worldOffset: [ 0, 0, 1 ]
               cameraSpeed: 0
+              usePoseFromCamera: true
           topDown:
             extends: source/cameraMount.vwf
             properties:
@@ -298,21 +454,24 @@ children:
               worldOffset: [ 0, 0, 40 ]
               cameraPose: [ 0, 0, -90 ]
               cameraSpeed: 10
-              cameraLock: false
-          Cylinder014:
+          facingArrow:
+            extends: source/roverFacingArrow.vwf
+            properties:
+              translation: [ 0, 2, -2 ]
+          rover_base:
             extends: http://vwf.example.com/node3.vwf
             children: 
-              Cylinder058:
+              front_spring_l:
                 extends: http://vwf.example.com/node3.vwf
                 children: 
                   wheel:
                     extends: http://vwf.example.com/node3.vwf
-              Cylinder059:
+              rear_spring_l:
                 extends: http://vwf.example.com/node3.vwf
                 children: 
                   wheel001:
                     extends: http://vwf.example.com/node3.vwf
-              Cylinder050:
+              front_spring_r:
                 extends: http://vwf.example.com/node3.vwf
                 children: 
                   wheel002:
@@ -320,7 +479,7 @@ children:
                     children: 
                       material:
                         extends: http://vwf.example.com/material.vwf
-              Cylinder060:
+              rear_spring_r:
                 extends: http://vwf.example.com/node3.vwf
                 children: 
                   wheel003:
@@ -328,11 +487,86 @@ children:
                     children: 
                       material:
                         extends: http://vwf.example.com/material.vwf
-          cargo:
-            extends: source/inventory.vwf
+      rover2:
+        extends: source/rover.vwf
+        implements: 
+        - http://vwf.example.com/blockly/controller.vwf
+        - source/cameraTarget.vwf
+        source: assets/3d/scoutrover/scout_rover.dae
+        type: model/vnd.collada+xml
+        properties:
+          defaultMount: thirdPerson
+          displayName: "Peregrine"
+          castShadows: true
+          receiveShadows: true
+          executionSpeed: 0.5
+          startXML: '<xml></xml>'
+          roverRadius: 2
+          allSurveys: []
+          surveyArray: []
+          sceneNode:
+            get: |
+              if ( !this.sceneNode ) {
+                this.sceneNode = this.find( "/" )[ 0 ];
+              }
+              return this.sceneNode;
+          terrainName:
+            set: |
+              this.terrainName = value;
+              this.terrain = this.find( "//" + value )[ 0 ];
+              //@ sourceURL=index.vwf.player.rover.terrainName.set
+            value: environment
+          terrain:
+            get: |
+              if ( !this.terrain ) {
+                this.terrain = this.find( "//" + this.terrainName )[ 0 ];
+              }
+              return this.terrain;
+              //@ sourceURL=index.vwf.player.rover.terrain.get
+          sensorValue: false
+          scoutWheel:
+            get: |
+              if ( !this.scoutWheel ) {
+                this.scoutWheel = this.find( "scout_body/scout_wheel" )[ 0 ];
+              }
+              return this.scoutWheel;
+          wheelRadius: 0.179 
+          wheels:
+            - "scoutWheel"
+        children:
+          firstPerson:
+            extends: source/cameraMount.vwf
             properties:
-              capacity: 4
-              inventoryIsVisible: false
+              navmode: walk
+              translation: [ 0, 0, 1 ]
+              cameraPose: [ 0, 0, 0 ]
+              cameraSpeed: 0
+              targetVisible: false
+              useTargetRotation: true
+          thirdPerson:
+            extends: source/cameraMount.vwf
+            properties:
+              navmode: thirdPerson
+              cameraPose: [ 8, 0, -15 ]
+              worldOffset: [ 0, 0, 0.5 ]
+              cameraSpeed: 0
+              usePoseFromCamera: true
+          topDown:
+            extends: source/cameraMount.vwf
+            properties:
+              navmode: topDown
+              worldOffset: [ 0, 0, 40 ]
+              cameraPose: [ 0, 0, -90 ]
+              cameraSpeed: 10
+          facingArrow:
+            extends: source/roverFacingArrow.vwf
+            properties:
+              translation: [ 0, 1, -2.5 ]
+          scout_body:
+            extends: http://vwf.example.com/node3.vwf
+            children:
+              scout_wheel:
+                extends: http://vwf.example.com/node3.vwf
   pickups:
     extends: http://vwf.example.com/node3.vwf
     children:
@@ -341,65 +575,225 @@ children:
         properties:
           animationPlaying: true
           animationLoop: true
+          tilePosition: [ 0, 14 ]
       battery:
         extends: source/pickups/battery_1.vwf
+        properties:
+          tilePosition: [ 0, 4 ]
+      # This is the battery under the ramp. Only used in scenario_dummy
+      # signal:
+      #   extends: source/pickups/signal.vwf
       supplies_1:
         extends: source/pickups/supplies.vwf
+        properties:
+          tilePosition: [ 8, 30 ]
       supplies_2:
         extends: source/pickups/supplies.vwf
+        properties:
+          tilePosition: [ 4, 46 ]
       helicam:
         extends: source/pickups/helicam.vwf
+        properties:
+          tilePosition: [ 0, 1 ]
       minirover:
         extends: source/pickups/minirover.vwf
-  mainMenuScenario:
-    includes: source/scenario/mainMenu.vwf
-  introScreenScenario:
-    includes: source/scenario/introScreenScenario.vwf
-  scenario1a:
-    includes: source/scenario/scenario1a.vwf
-  scenario1b:
-    includes: source/scenario/scenario1b.vwf
-  scenario1c:
-    includes: source/scenario/scenario1c.vwf
-  scenario1d:
-    includes: source/scenario/scenario1d.vwf
-  scenario1e:
-    includes: source/scenario/scenario1e.vwf
-  scenario1f:
-    includes: source/scenario/scenario1f.vwf
-  scenario1g:
-    includes: source/scenario/scenario1g.vwf
-  scenario1h:
-    includes: source/scenario/scenario1h.vwf
-  scenario1i:
-    includes: source/scenario/scenario1i.vwf
-  scenario2a:
-    includes: source/scenario/scenario2a.vwf
-  scenario2b:
-    includes: source/scenario/scenario2b.vwf
-  scenario2c:
-    includes: source/scenario/scenario2c.vwf
-  scenario2d:
-    includes: source/scenario/scenario2d.vwf
-  scenario2e:
-    includes: source/scenario/scenario2e.vwf
-  scenario2f:
-    includes: source/scenario/scenario2f.vwf
-  scenario3a:
-    includes: source/scenario/scenario3a.vwf
-  scenario3b:
-    includes: source/scenario/scenario3b.vwf
-  scenario3c:
-    includes: source/scenario/scenario3c.vwf
-  scenario3d:
-    includes: source/scenario/scenario3d.vwf
-  scenario3e:
-    includes: source/scenario/scenario3e.vwf
-  scenario3f:
-    includes: source/scenario/scenario3f.vwf
+        properties:
+          tilePosition: [ -41, 52 ]
+  cargoPod2:
+    includes: source/buildings/basePod.vwf
+    properties:
+      tilePosition: [ -32, 23 ]
+      rotation: [ 0, 0, 1, 45 ]
+  solarPanel1:
+    extends: source/buildings/solarPanel.vwf
+    properties:
+      tilePosition: [ -23, 20 ]
+      visible: false
+    children:
+      material:
+        extends: source/shaders/animatedShader.vwf
+        properties:
+          diffuseMap: "assets/3d/solar_panel/solar_panel.png"
+          normalMap: "assets/3d/solar_panel/solar_panel_n.png"
+          specularMap: "assets/3d/solar_panel/solar_panel_s.png"
+          lightTrailHeight: 0.1
+          normalScale: [ 0.75, 0.75 ]
+          shininess: 1
+          _duration: 5
+          _bottom: 13.377649687388523
+          _height: 2.5
+          _elapsedTime: 0
+  solarPanel2:
+    extends: source/buildings/solarPanel.vwf
+    properties:
+      tilePosition: [ -25, 20 ]
+      rotation: [ 0, 0, 1, 90 ]
+      visible: false
+    children:
+      material:
+        extends: source/shaders/animatedShader.vwf
+        properties:
+          diffuseMap: "assets/3d/solar_panel/solar_panel.png"
+          normalMap: "assets/3d/solar_panel/solar_panel_n.png"
+          specularMap: "assets/3d/solar_panel/solar_panel_s.png"
+          lightTrailHeight: 0.1
+          normalScale: [ 0.75, 0.75 ]
+          shininess: 1
+          _duration: 5
+          _bottom: 13.377649687388523
+          _height: 2.5
+          _elapsedTime: 0
+  solarPanel3:
+    extends: source/buildings/solarPanel.vwf
+    properties:
+      tilePosition: [ -23, 18 ]
+      rotation: [ 0, 0, 1, 270 ]
+      visible: false
+    children:
+      material:
+        extends: source/shaders/animatedShader.vwf
+        properties:
+          diffuseMap: "assets/3d/solar_panel/solar_panel.png"
+          normalMap: "assets/3d/solar_panel/solar_panel_n.png"
+          specularMap: "assets/3d/solar_panel/solar_panel_s.png"
+          lightTrailHeight: 0.1
+          normalScale: [ 0.75, 0.75 ]
+          shininess: 1
+          _duration: 5
+          _bottom: 13.377649687388523
+          _height: 2.5
+          _elapsedTime: 0
+  solarPanel4:
+    extends: source/buildings/solarPanel.vwf
+    properties:
+      tilePosition: [ -25, 18 ]
+      rotation: [ 0, 0, 1, 180 ]
+      visible: false
+    children:
+      material:
+        extends: source/shaders/animatedShader.vwf
+        properties:
+          diffuseMap: "assets/3d/solar_panel/solar_panel.png"
+          normalMap: "assets/3d/solar_panel/solar_panel_n.png"
+          specularMap: "assets/3d/solar_panel/solar_panel_s.png"
+          lightTrailHeight: 0.1
+          normalScale: [ 0.75, 0.75 ]
+          shininess: 1
+          _duration: 5
+          _bottom: 13.377649687388523
+          _height: 2.5
+          _elapsedTime: 0
+  marsTent1:
+    extends: source/buildings/tent.vwf
+    properties:
+      tilePosition: [ -32, 11 ]
+  greenhouse1:
+    extends: source/buildings/hydroDome.vwf
+    properties:
+      tilePosition: [ -32, 2 ]
+      rotation: [ 0, 0, 1, 180 ]
+  waterWell1:
+    extends: source/buildings/waterVap.vwf
+    properties:
+      tilePosition: [ -25, 12 ]
+      scale: [ 0.45, 0.45, 0.45 ]
+  ########################
+  ###   Mission List   ###
+  ########################
+  introCinematic:
+    includes: source/scenario/introCinematic.vwf
+  Mission1Task1:
+    includes: source/scenario/mission1task1.vwf
+  Mission1Task2:
+    includes: source/scenario/mission1task2.vwf
+  Mission1Task3:
+    includes: source/scenario/mission1task3.vwf
+  Mission1Task4:
+    includes: source/scenario/mission1task4.vwf
+  Mission1Task5:
+    includes: source/scenario/mission1task5.vwf
+  Mission1Task6:
+    includes: source/scenario/mission1task6.vwf
+  Mission1Task7:
+    includes: source/scenario/mission1task7.vwf
+  Mission1Task8:
+    includes: source/scenario/mission1task8.vwf
+  Mission1Success:
+    includes: source/scenario/mission1success.vwf
+  Mission2Task1:
+    includes: source/scenario/mission2task1.vwf
+  Mission2Task2:
+    includes: source/scenario/mission2task2.vwf
+  Mission2Task3:
+    includes: source/scenario/mission2task3.vwf
+  Mission2Task4:
+    includes: source/scenario/mission2task4.vwf
+  Mission2Task5:
+    includes: source/scenario/mission2task5.vwf
+  Mission2Task6:
+    includes: source/scenario/mission2task6.vwf
+  Mission2Task7:
+    includes: source/scenario/mission2task7.vwf
+  Mission2Task8:
+    includes: source/scenario/mission2task8.vwf
+  Mission2Task9:
+    includes: source/scenario/mission2task9.vwf
+  Mission2Task10:
+    includes: source/scenario/mission2task10.vwf
+  Mission2Task11:
+    includes: source/scenario/mission2task11.vwf
+  Mission2Success:
+    includes: source/scenario/mission2success.vwf
+  Mission3Task1:
+    includes: source/scenario/mission3task1.vwf
+  Mission3Task2:
+    includes: source/scenario/mission3task2.vwf
+  Mission3Task3:
+    includes: source/scenario/mission3task3.vwf
+  Mission3Task4:
+    includes: source/scenario/mission3task4.vwf
+  Mission3Task5:
+    includes: source/scenario/mission3task5.vwf
+  Mission3Success:
+    includes: source/scenario/mission3success.vwf
+  Mission4Task1:
+    includes: source/scenario/mission4task1.vwf
+  Mission4Task2:
+    includes: source/scenario/mission4task2.vwf
+  Mission4Task3:
+    includes: source/scenario/mission4task3.vwf
+  Mission4Task4:
+    includes: source/scenario/mission4task4.vwf
+  Mission4Task5:
+    includes: source/scenario/mission4task5.vwf
+  Mission4Task6:
+    includes: source/scenario/mission4task6.vwf
+  Mission4Task7:
+    includes: source/scenario/mission4task7.vwf
+  Mission4Task8:
+    includes: source/scenario/mission4task8.vwf
+  Mission4Task9:
+    includes: source/scenario/mission4task9.vwf
+  Mission4Task10:
+    includes: source/scenario/mission4task10.vwf
+  Mission4Task11:
+    includes: source/scenario/mission4task11.vwf
+  Mission4Task12:
+    includes: source/scenario/mission4task12.vwf
+  Mission4Task13:
+    includes: source/scenario/mission4task13.vwf
+  Mission4Task14:
+    includes: source/scenario/mission4task14.vwf
+  Mission4Task15:
+    includes: source/scenario/mission4task15.vwf
+  Mission4Success:
+    includes: source/scenario/mission4success.vwf
+  # TODO: Use only one graph object. No need for two.
   blocklyGraph:
     extends: http://vwf.example.com/graphtool/graph.vwf
-    implements: "source/griddable.vwf"
+    implements: 
+      - source/marsGameNode.vwf
+      - http://vwf.example.com/sceneGetter.vwf
     properties:
       graphScale: 3
       gridInterval: 1
@@ -409,9 +803,11 @@ children:
       yAxisVisible: true
       zAxisVisible: false
       gridVisible: true
+      graphVisible: false
       axisOpacity: 1
       gridOpacity: 0.75
       renderTop: true
+      isCollidable: false
     children:
       blocklyLine:
         extends: http://vwf.example.com/graphtool/graphlinefunction.vwf
@@ -431,49 +827,6 @@ children:
           visible: false
         events:
           lineGraphed:
-    scripts: |
-      this.initialize = function() {
-        this.future( 0 ).setGraphVisibility( false );
-      }
-  gridTileGraph:
-    extends: http://vwf.example.com/graphtool/graph.vwf
-    properties:
-      graphScale: 3
-      gridInterval: 1
-      gridLineInterval: 4
-      gridLength: 1
-      xAxisVisible: false
-      yAxisVisible: false
-      zAxisVisible: false
-      gridVisible: false
-      axisOpacity: 1
-      gridOpacity: 1
-      renderTop: false
-      tileVisible: false
-    children:
-      mapTiles:
-        extends: http://vwf.example.com/graphtool/graphgroup.vwf
-        properties:
-          groupVisible: false
-          graphObjects: []
-      callOutTile:
-        extends: http://vwf.example.com/graphtool/graphplane.vwf
-        properties:
-          origin: [ 0, 0, 0 ]
-          normal: [ 0, 0, 1 ]
-          rotationAngle: 90
-          size: 1
-          color: [ 255, 255, 255 ]
-          opacity: 0.5
-          doubleSided: false
-          renderTop: true
-          visible: false
-        methods:
-          callOut:
-          blink:
-          stopBlink:
-        scripts:
-          - source: source/callouttile.js
   graph:
     extends: http://vwf.example.com/node3.vwf
     implements: http://vwf.example.com/blockly/controller.vwf
@@ -486,14 +839,15 @@ children:
       logger_lifeTime: 10000
       logger_logs: []
     scripts:
-    - source: source/loggerHelper.js
+      - source: source/loggerHelper.js
   subtitles:
     extends: http://vwf.example.com/logger.vwf
     properties:
       logger_maxLogs: 10
       logger_lifeTime: 10000
       logger_logs: []
-    events:
+      strings: []
+    methods:
       addSubtitle:
     scripts:
     - source: source/loggerHelper.js

@@ -1,0 +1,186 @@
+# Copyright 2014 Lockheed Martin Corporation
+#
+# Licensed under the Apache License, Version 2.0 (the "License"); you may 
+# not use this file except in compliance with the License. You may obtain 
+# a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software 
+# distributed under the License is distributed on an "AS IS" BASIS, 
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and 
+# limitations under the License.
+
+---
+extends: ../scenario/scenario.vwf
+properties:
+  scenarioName: Mission1Task1
+
+  nextScenarioPath: "Mission1Task2"
+
+  startState:
+  - setProperty:
+    - videoManager
+    - url
+    - [ "assets/video/Success1_800x600.mp4" ]
+
+  - setProperty:
+    - rover2
+    - visible
+    - false
+  - setProperty:
+    - rover
+    - battery
+    - 8
+  - setProperty:
+    - rover
+    - batteryMax
+    - 8
+  - setProperty:
+    - rover
+    - blockly_allowedBlocks
+    - 3
+  - setProperty:
+    - rover
+    - lowRam
+    - 1
+  - setProperty:
+    - rover
+    - startXML
+    - <xml></xml>
+  - setSceneProperty:
+    - blockly_interfaceVisible
+    - false
+
+  - callMethod:
+    - rover
+    - setHeading
+    - 0
+
+  - setProperty:
+    - camera
+    - pointOfView
+    - thirdPerson
+
+  - addToGrid:
+    - rover
+    - [ 0, 0 ]
+
+  - setPickupActive:
+    - helicam
+    - true
+  - setPickupActive:
+    - battery
+    - true
+  - setPickupActive:
+    - radio
+    - true
+  - setBlocklyContext:
+    - rover
+  - loadToolbox:
+    - rover
+    - source/scenario/blockly/scenario1.xml
+  - setProperty:
+    - blocklyLine
+    - visible
+    - false
+
+  - setProperty:
+    - blocklyLine
+    - opacity
+    - 0
+
+  - selectRover:
+    - rover
+
+children:
+  triggerManager:
+    extends: ../triggers/triggerManager.vwf
+    properties: 
+      triggers$:
+        beginScenario_1a:
+          triggerCondition:
+          - onScenarioStart:
+          actions:
+          - playSound:
+            - musicStandardGameplay
+          - playSound:
+            - environmentWind
+          - blinkHUDElement:
+            - blocklyButton
+          - setCinematicCameraView:
+            - [ 13, 15, -9 ]
+          - setThirdPersonStartPose:
+            - [ 13, 15, -9 ]
+          - setObjective:
+            - "Click the PROGRAM button to open your control processor."
+          - setProperty:
+            - topDownButton
+            - enabled
+            - false
+          - setProperty:
+            - graphButton
+            - enabled
+            - false
+          - setProperty:
+            - tilesButton
+            - enabled
+            - false
+
+        playStartingVO_1a:
+          triggerCondition:
+          - and:
+            - doOnce:
+            - onScenarioStart:
+          actions:
+          - playSound:
+            - L1VO1_Rover
+          - setProperty:
+            - hud
+            - enabled
+            - false
+          - delay:
+            - 12
+            - openMissionBrief:
+            - setProperty:
+              - hud
+              - enabled
+              - true
+            - startTimer:
+
+        succeedOnSuccess_1a:
+          group: successOrFailure
+          priority: 0
+          triggerCondition:
+          - onBlocklyWindowOpened:
+          actions:
+          - scenarioSuccess:
+          # - showAlert:
+          #   - "You have accessed your programming interface!"
+          - playSound:
+            - musicSuccessShort
+          - stopBlinkHUDElement:
+            - blocklyButton
+
+        playHint1_1a:
+          triggerCondition:
+          - and:
+            - doOnce:
+            - delay:
+              - 30
+          actions:
+          - playSound:
+            - ALVO14_Rover
+
+  brief:
+    extends: ../missionBrief.vwf
+    properties:
+      title: "Mission 1, Task 1"
+      content: >
+        Welcome to The Mars Game!  
+        <br><br>You are a rover, sent on a mission to Mars... but it 
+        appears that you've crashed and you can't quite remember what it is 
+        that you're here for! 
+        <br><br>Your first task is to relearn your control interface and to
+        gather up nearby equipment.

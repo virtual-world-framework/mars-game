@@ -1,0 +1,208 @@
+# Copyright 2014 Lockheed Martin Corporation
+#
+# Licensed under the Apache License, Version 2.0 (the "License"); you may 
+# not use this file except in compliance with the License. You may obtain 
+# a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software 
+# distributed under the License is distributed on an "AS IS" BASIS, 
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and 
+# limitations under the License.
+
+---
+extends: ../scenario/scenario.vwf
+properties:
+  scenarioName: Mission2Task5
+
+  scenePath: /
+  nextScenarioPath: "Mission2Task6"
+
+  startState:
+  - addToGrid:
+    - rover
+    - [ 0, 14 ]
+  - playSound:
+    - musicLevel2
+  - playSound:
+    - environmentWind
+  - setObjective:
+    - "Use the slope of the line to move one step along the Mini Rover tracks."
+  - setThirdPersonStartPose:
+    - [ 16.316, 65, -15 ]
+
+  - setProperty:
+    - videoManager  
+    - url 
+    - [ "assets/video/Success2_800x600.mp4" ]
+
+  - setProperty:
+    - rover2
+    - visible
+    - false
+  - setProperty:
+    - rover
+    - battery
+    - 10
+  - setProperty:
+    - rover
+    - batteryMax
+    - 10
+  - setProperty:
+    - rover
+    - blockly_allowedBlocks
+    - 5
+  - setProperty:
+    - rover
+    - lowRam
+    - 1
+  - setProperty:
+    - rover
+    - startXML
+    - <xml></xml>
+  - setGridAxes:
+    - 14
+    - 0
+  - setPickupActive:
+    - helicam
+    - false
+  - setPickupActive:
+    - battery
+    - false
+  - setPickupActive:
+    - radio
+    - false
+  - addToGrid:
+    - rover
+    - [ 0, 14 ]
+  - addToGrid:
+    - blocklyGraph
+    - [ 0, 14 ]
+  - setPickupActive:
+    - supplies_1
+    - true
+  - setPickupActive:
+    - supplies_2
+    - true
+  - setBlocklyContext:
+    - rover
+    - graph
+  - loadToolbox:
+    - rover
+    - source/scenario/blockly/scenario2e.xml
+  - loadToolbox:
+    - graph
+    - source/scenario/blockly/graph2e.xml
+  - setProperty:
+    - blocklyLine
+    - opacity
+    - 1
+
+  - selectRover:
+    - rover
+
+  - setProperty:
+    - roverTracks2
+    - visible
+    - false
+
+children:
+  triggerManager:
+    extends: ../triggers/triggerManager.vwf
+    properties: 
+      triggers$:
+
+        playStartingVO_2e:
+          triggerCondition:
+          - and:
+            - doOnce:
+            - onScenarioStart:
+          actions:
+          - playSound:
+            - SCVO8_Control
+          - setProperty:
+            - hud
+            - enabled
+            - false
+          - delay:
+            - 15
+            - openMissionBrief:
+            - setProperty:
+              - hud
+              - enabled
+              - true
+            - startTimer:
+
+        succeedOnSuccessfulMovement_2e:
+          group: successOrFailure
+          priority: 0
+          triggerCondition:
+          - and:
+            - onBlocklyStopped:
+              - rover
+            - isAtPosition:
+              - rover
+              - [ 1, 16 ]
+          actions:
+          - scenarioSuccess:
+          # - showAlert:
+          #   - "I found the right rise and run of the path!"
+          - playSound:
+            - musicSuccessShort
+          - playSound:
+            - m2t5vo040
+
+        highlightEndTile:
+          triggerCondition:
+          - onScenarioStart:
+          actions:
+          - callOutObjective:
+            - [ 1, 2 ]
+
+        stopBlinkRoverTab_2e:
+          triggerCondition:
+          - or:
+            - onBlocklyWindowOpened:
+              - rover
+            - onScenarioChanged:
+          actions:
+          - stopBlinkBlocklyTab:
+            - rover
+
+        playHint1_2e:
+          triggerCondition:
+          - and:
+            - doOnce:
+            - delay:
+              - 30
+          actions:
+          - playSound:
+            - ALVO25_Rover
+
+        playHint2_2e:
+          triggerCondition:
+          - and:
+            - doOnce:
+            - delay:
+              - 50
+          actions:
+          - playSound:
+            - ALVO26_Rover
+
+  brief:
+    extends: ../missionBrief.vwf
+    properties:
+      title: "Mission 2, Task 5"
+      content: >
+        Path plotted! 
+        <br><br>You can use the slope of the line (which is also called the 
+        'rate of change') to help you build a program that moves
+        along the line. Slope is rise over run, or the amount to move along
+        the Y axis over the amount to move along the X axis.  Your slope is
+        2, or 2/1, so if you move two spaces forward (up the Y axis) and then 1 
+        space to the right (along the X axis) then you should end up back on top
+        of the Mini Rover's tracks.
+        <br><br>Switching to Helicam view can make it easier to tell which way
+        is X and which way is Y.

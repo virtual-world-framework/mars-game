@@ -1,0 +1,68 @@
+# Copyright 2014 Lockheed Martin Corporation
+#
+# Licensed under the Apache License, Version 2.0 (the "License"); you may 
+# not use this file except in compliance with the License. You may obtain 
+# a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software 
+# distributed under the License is distributed on an "AS IS" BASIS, 
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and 
+# limitations under the License.
+
+--- 
+
+# The trigger group manager is really just a container onto which we can hang
+#   trigger groups.  The trigger groups themselves do the hard work of tracking
+#   and evaluating their triggers.
+
+extends: http://vwf.example.com/node.vwf
+
+implements: 
+  - http://vwf.example.com/assert.vwf
+
+properties:
+  # We keep an array of triggers, as well as an internal array used to keep 
+  #  track of whether each trigger is ready to fire
+  triggers$:
+  canFire$:
+
+  # True if we're in the process of checking our triggers, false otherwise.
+  isEvaluating$: false
+
+  # How frequently we check our triggers.  This is a bit random (between .08 
+  #   and .12 seconds), so that all the checks won't happen at the same time.
+  checkFrequency$:
+
+  isChecking:
+    set: |
+      this.isChecking = value;
+      if ( value ) {
+        this.checkTriggers$();
+      }
+    value: false
+
+methods:
+  # Add a trigger to its group, creating the group if necessary
+  # Arguments:
+  #   trigger   - the trigger to keep track of
+  addTrigger:
+
+  # Checks whether any triggers should fire, and then uses a future() call to
+  #   schedule itself to run again.
+  checkTriggers$:
+
+  # If checkTriggers$ found triggers to fire, wait one frame (i.e. future(0))
+  #   and then check to see if any additional triggers have fired.  This is the
+  #   callback to do the second check.
+  checkTriggersCallback$:
+
+children:
+  # This will hold all of the trigger groups
+  groups:
+    extends: http://vwf.example.com/node.vwf
+
+scripts:
+  - source: triggerGroup.js

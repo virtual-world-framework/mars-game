@@ -1,0 +1,97 @@
+# Copyright 2014 Lockheed Martin Corporation
+#
+# Licensed under the Apache License, Version 2.0 (the "License"); you may 
+# not use this file except in compliance with the License. You may obtain 
+# a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software 
+# distributed under the License is distributed on an "AS IS" BASIS, 
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and 
+# limitations under the License.
+
+---
+extends: http://vwf.example.com/hud/overlay.vwf
+implements:
+  - http://vwf.example.com/sceneGetter.vwf
+properties:
+  visible: true
+  enabled:
+    set: |
+      this.setHUDEnabled( value );
+    value: true
+methods:
+  setHUDEnabled:
+  elementPreDraw:
+  elementPostDraw:
+  setAllBlinking:
+  setAllEnabled:
+  setAllVisible:
+  isolateComms:
+  selectRover:
+children:
+  # For now, the battery meter has to be drawn first, because
+  # it uses a mask for the battery ring. Drawing it later will
+  # cause previously drawn elements to disappear. No other elements
+  # can use the mask feature.
+  # TODO: Find a clever way to do this without being order restricted.
+  batteryMeter:
+    includes: source/hud/batteryMeter.vwf
+    properties:
+      drawOrder: 1
+  blocklyButton:
+    includes: source/hud/blocklyButton.vwf
+    properties:
+      drawOrder: 2
+  graphButton:
+    includes: source/hud/graphButton.vwf
+    properties:
+      drawOrder: 3
+  tilesButton:
+    includes: source/hud/tilesButton.vwf
+    properties:
+      drawOrder: 4
+  missionButton:
+    includes: source/hud/missionButton.vwf
+    properties:
+      drawOrder: 5
+  optionsButton:
+    includes: source/hud/optionsButton.vwf
+    properties:
+      drawOrder: 6
+  objective:
+    includes: source/hud/objective.vwf
+    properties:
+      drawOrder: 7
+  comms:
+    includes: source/hud/comms.vwf
+    properties:
+      drawOrder: 8
+  cameraSelector:
+    includes: source/hud/cameraSelector.vwf
+    properties:
+      drawOrder: 9
+  firstPersonButton:
+    includes: source/hud/firstPersonButton.vwf
+    properties:
+      drawOrder: 10
+  thirdPersonButton:
+    includes: source/hud/thirdPersonButton.vwf
+    properties:
+      drawOrder: 11
+  topDownButton:
+    includes: source/hud/topDownButton.vwf
+    properties:
+      drawOrder: 12
+  # alertDisplay:
+  #   includes: source/hud/alertDisplay.vwf
+  #   properties:
+  #     drawOrder: 13
+  # roverSelector:
+  #   includes: source/hud/roverSelector.vwf
+  #   properties:
+  #     drawOrder: 14
+scripts:
+  - source: marsGameHud.js

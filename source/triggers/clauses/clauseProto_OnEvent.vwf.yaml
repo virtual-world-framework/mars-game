@@ -1,0 +1,50 @@
+# Copyright 2014 Lockheed Martin Corporation
+#
+# Licensed under the Apache License, Version 2.0 (the "License"); you may 
+# not use this file except in compliance with the License. You may obtain 
+# a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software 
+# distributed under the License is distributed on an "AS IS" BASIS, 
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and 
+# limitations under the License.
+
+# A generated object for OnEvent clauses (i.e. clauses that are true when some
+#   event has just occurred).  Automatically handles tracking how long since 
+#   the event occurred, and can be customized as to how recent the event needs
+#   to have been.
+
+--- 
+extends: clauseProto.vwf
+
+properties:
+  # how recent does the event have to have been?
+  # NOTE: if the trigger is in a trigger group, it could be as much as
+  #   0.12 seconds (two trigger group updates) before the trigger group is 
+  #   ready to fire (plus any frame delay).  I wouldn't set this to less 
+  #   than 0.5 seconds to be safe (especially given that some machines have
+  #   better performance than others).
+  threshold$:
+
+  # when did the event last happen?
+  lastEventTime$:
+
+methods:
+  # This function should be called by every child from inside of onGenerated.
+  #   It handles shared parts of the initialization.  Arguments are the same as
+  #   onGenerated, plus the value for threshold$ (since I don't know which 
+  #   parameter it will be).
+  # NOTE: I call initClause, so you don't have to.
+  initOnEvent:
+
+  # call this when the event occurs, and the magic will happen.
+  onEvent:
+
+  # call when you want to reset the last event time
+  reset:
+
+scripts:
+- source: clauseProto_OnEvent.js

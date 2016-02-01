@@ -19,9 +19,8 @@ limitations under the License.
 <script type="text/javascript" src="source/view/utils.js"></script>
 <script type="text/javascript" src="source/view/blocks.js"></script>
 <script type="text/javascript" src="source/view/index.js"></script>
+<script type="text/javascript" src="source/view/missionBriefs.js"></script>
 <script type="text/javascript" src="source/view/mainMenu.js"></script>
-<script type="text/javascript" src="source/view/HUD.js"></script>
-<script type="text/javascript" src="source/view/hudInstructions.js"></script>
 <script type="text/javascript" src="source/view/navigation.js"></script>
 <script type="text/javascript" src="source/view/popupManager.js"></script>
 <script type="text/javascript" src="source/view/blocklyUI.js"></script>
@@ -31,19 +30,69 @@ limitations under the License.
 <script type="text/javascript" src="source/view/fileManager.js"></script>
 
 <!-- CSS -->
-<link rel="stylesheet" href="source/view/index.css"></link>
-<link rel="stylesheet" href="source/view/jquery-resizable.css"></link>
+<link type="text/css" rel="stylesheet" href="source/view/index.css"></link>
+<link type="text/css" rel="stylesheet" href="source/view/mainMenu.css"></link>
+<link type="text/css" rel="stylesheet" href="source/view/missionBrief.css"></link>
+<link type="text/css" rel="stylesheet" href="source/view/jquery-resizable.css"></link>
+<link type="text/css" rel="stylesheet" href="minimal_jplayer_style.css"></link>
+
+<!-- Loading Screen -->
+<div id="loadingScreen">
+  <div id="loadingText">Loading...</div>
+</div>
+
+<!-- Main Menu -->
+<div id="mainMenuWrapper">
+    <div id="mainMenuContainer">
+        <div id="mainMenuTitle">
+            <h1>Mars Game</h1>
+        </div>
+        <div id="mainMenu">
+            <div id="newGame" class="mainMenuButton">New Game</div>
+            <div id="continue" class="mainMenuButton">Continue</div>
+            <div id="mm_settings" class="mainMenuButton">Settings</div>
+        </div>
+        <div id="mm_settingsMenu">
+            <div id="mm_backToMain" class="mainMenuButton">Back</div>
+            <div id="mm_volume">
+                <div id="mm_mute"></div>
+                <div id="mm_volumeSlider">
+                    <div id="mm_volumeDisplay"></div>
+                    <div id="mm_volumeHandle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 <!-- HTML -->
+
+<!-- JPlayer -->
+<div id="jp_container_1" class="jp-video jp-video-360p">
+    <div id="jquery_jplayer_1" class="jp-jplayer"></div>
+</div>
+
+<!-- Mission Brief Window -->
+<div id="mb_wrapper" style="display: none">
+  <div id="mb_close">&times</div>
+  <div id="mb_main">
+    <div id="mb_title"></div>
+    <div id="mb_content"></div>
+  </div>
+</div>
+
+<!-- Misc -->
 <div id="version"></div>
 <div id="zoomAlert"></div>
 <div id="transitionScreen"></div>
+
+<!-- Pause Menu -->
 <div id="pauseScreen" style="display: none;">
   <div id="pauseWrapper">
     <div id="pauseMenu" class="pauseMenu">
       <div id="resume" class="pauseMenuButton">Resume</div>
       <div id="settings" class="pauseMenuButton">Settings</div>
-      <div id="scenario" class="pauseMenuButton">Switch Scenario</div>
+      <div id="scenario" class="pauseMenuButton">Load Mission</div>
       <div id="exit" class="pauseMenuButton">Exit to Main Menu</div>
     </div>
     <div id="settingsMenu" class="pauseMenu" style="display: none;">
@@ -72,18 +121,29 @@ limitations under the License.
   <div id="subtitleDisplayWrapper"></div>
 </div>
 
+<!-- Timer Window -->
+<div id="timerWindow">
+  <div id="timerScenarioName"></div>
+  <div id="elapsedTime">Elapsed Time</div>
+  <div id="timerScenarioElapsedTime"></div>
+  <div id="timerDetailList"></div>
+  <div id="timerDetailButton" class="closed">Expand</div>
+</div>
+
 <!-- BLOCKLY TOOLBOX -->
 <xml id="toolbox" style="display: none">
-  <block type="rover_moveForward"></block>
-  <block type="rover_turn"><field name="DIR">turnLeft</field></block>
-  <block type="rover_turn"><field name="DIR">turnRight</field></block>
-  <block type="controls_repeat_ext">
-    <value name="TIMES">
-      <block type="math_number">
-        <field name="NUM">10</field>
-      </block>
-    </value>
-  </block>
+  <category name="">
+    <block type="rover_moveForward"></block>
+    <block type="rover_turn"><field name="DIR">turnLeft</field></block>
+    <block type="rover_turn"><field name="DIR">turnRight</field></block>
+    <block type="controls_repeat_ext">
+      <value name="TIMES">
+        <block type="math_number">
+          <field name="NUM">10</field>
+        </block>
+      </value>
+    </block>
+  </category>
 </xml>
 
 <xml id="graph" style="display: none">

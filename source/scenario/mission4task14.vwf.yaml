@@ -1,0 +1,305 @@
+# Copyright 2014 Lockheed Martin Corporation
+#
+# Licensed under the Apache License, Version 2.0 (the "License"); you may 
+# not use this file except in compliance with the License. You may obtain 
+# a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software 
+# distributed under the License is distributed on an "AS IS" BASIS, 
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and 
+# limitations under the License.
+
+---
+extends: ../scenario/scenario.vwf
+properties:
+  scenarioName: Mission4Task14
+  nextScenarioPath: "Mission4Task15"
+
+  startState:
+
+  # objective
+  - setObjective:
+    - "Build the Greenhouse Dome."
+
+  - setProperty:
+    - rover2
+    - startXML
+    - <xml></xml>
+  - setProperty:
+    - rover2
+    - blockly_xml
+    - <xml></xml>
+
+  # blockly
+  - setBlocklyContext:
+    - rover2
+  - loadToolbox:
+    - rover2
+    - source/scenario/blockly/mission4_perry14.xml
+
+  # sounds/music
+  - playSound:
+    - musicMission4Loop
+  - playSound:
+    - environmentWind
+  - setProperty:
+    - videoManager  
+    - url 
+    - [ "assets/video/Success4_800x600.mp4" ]
+
+  # Manny
+  - addToGrid:
+    - rover
+    - [ -30, 23 ]
+  - callMethod:
+    - rover
+    - setHeading
+    - 180
+
+  # Perry
+  - setProperty:
+    - rover2
+    - visible
+    - true
+  # TODO: handle adding him if we jump to this task from elsewhere  
+  # - addToGrid:
+  #   - rover2
+  #   - [ -10, -10 ]
+  - setProperty:
+    - rover2
+    - battery
+    - 1000
+  - setProperty:
+    - rover2
+    - batteryMax
+    - 1000
+  - setProperty:
+    - rover2
+    - blockly_allowedBlocks
+    - 198
+  - setProperty:
+    - rover2
+    - lowRam
+    - 1
+  - selectRover:
+    - rover2
+  - addToGrid:
+    - rover2
+    - [ -35, 7 ]
+
+  # Grid and disable blocklyLine
+  - setGridAxes:
+    - 19
+    - -24
+  - setProperty:
+    - blocklyLine
+    - visible
+    - false
+  - setProperty:
+    - blocklyLine
+    - opacity
+    - 0
+
+  - drawTriangle:
+    - [ -8, -17 ]
+    - [ -8, -12 ]
+    - [ -3, -17 ]
+  - drawTriangle:
+    - [ -8, -17 ]
+    - [ -8, -12 ]
+    - [ -13, -17 ]
+  - drawTriangle:
+    - [ -8, -17 ]
+    - [ -8, -22 ]
+    - [ -3, -17 ]
+  - drawTriangle: 
+    - [ -8, -17 ]
+    - [ -8, -22 ]
+    - [ -13, -17 ]
+
+  # Solar panel construction
+  - setConstructed:
+    - solarPanel1
+    - true
+  - setConstructed:
+    - solarPanel2
+    - true
+  - setConstructed:
+    - solarPanel3
+    - true
+  - setConstructed:
+    - solarPanel4
+    - true
+
+  - setProperty:
+    - cargoPod2
+    - isClosed
+    - false
+
+  - setConstructed:
+    - marsTent1
+    - true
+
+  - setProperty:
+    - greenhouse1
+    - visible
+    - false
+  - setProperty:
+    - rover2
+    - surveyArray
+    - []
+  - setProperty:
+    - rover2
+    - allSurveys
+    - []
+
+  # turning supplies and minirover invisible
+  - setProperty:
+    - supplies_1
+    - visible
+    - false
+  - setProperty:
+    - supplies_2
+    - visible
+    - false
+  - setProperty:
+    - minirover
+    - visible
+    - false
+
+children:
+  triggerManager:
+    extends: ../triggers/triggerManager.vwf
+    properties: 
+      triggers$:
+
+        playStartingVO_4_14:
+          triggerCondition:
+          - and:
+            - doOnce:
+            - onScenarioStart:
+          actions:
+          - playSound:
+            - TM4V32_MANNY
+          - playSound:
+            - TM4_58_MC
+          - playSound:
+            - TM4_59_MC
+          - playSound:
+            - TM4_60_MC
+          - setProperty:
+            - hud
+            - enabled
+            - false
+          - delay:
+            - 31
+            - openMissionBrief:
+            - setProperty:
+              - hud
+              - enabled
+              - true
+            - startTimer:
+
+        highlightEndTile_4_14:
+          triggerCondition:
+          - onScenarioStart:
+          actions:
+          - callOutObjective:
+            - [ -5, -12 ]
+
+        failOnMissingBlock_4_14:
+          group: successOrFailure
+          priority: 0.5
+          triggerCondition:
+          - and:
+            - onBlocklySurveyFinished:
+              - rover2
+              - [ [ [ -8, -17 ], [ -8, -12 ], [ -3, -17 ] ] , [ [ -8, -17 ], [ -8, -12 ], [ -13, -17 ] ], [ [ -8, -17 ], [ -8, -22 ], [ -3, -17 ] ], [ [ -8, -17 ], [ -8, -22 ], [ -13, -17 ] ] ]
+            - onBlocklyStopped:
+              - rover2
+            - isAtPosition:
+              - rover2
+              - [ -29, 7 ]
+            - isBlockMissing:
+              - init_nano_construction
+          actions:
+          - scenarioFailure:
+            - incomplete
+            - "Don't forget to use the start construction block to tell the nanites to go to work!"
+          - playSound:
+            - FCVO2_Rover
+
+        succeedOnTriangle_4_14:
+          group: successOrFailure
+          priority: 0
+          triggerCondition:
+          - and:
+            - onBlocklySurveyFinished:
+              - rover2
+              - [ [ [ -8, -17 ], [ -8, -12 ], [ -3, -17 ] ] , [ [ -8, -17 ], [ -8, -12 ], [ -13, -17 ] ], [ [ -8, -17 ], [ -8, -22 ], [ -3, -17 ] ], [ [ -8, -17 ], [ -8, -22 ], [ -13, -17 ] ] ]
+            - onBlocklyStopped:
+              - rover2
+            - isAtPosition:
+              - rover2
+              - [ -29, 7 ]
+          actions:
+          - writeToBlackboard:
+            - disableFailOnIncompleteProgram
+          - buildBaseComponent:
+            - greenhouse1
+          # - deleteNanites:
+          #   - nanites_Mission4Task14
+          - delay:
+            - 6
+            # - showAlert:
+            #   - "I created the correct triangle!"
+            - callMethod:
+              - rover2
+              - stopExecution
+            - playSound:
+              - musicSuccessShort
+            - playSound:
+              - TM4V35_MANNY
+            - playSound:
+              - perryIDidIt06
+            - playSound:
+              - TM4V37_MANNY
+            - clearBlockly:
+            - scenarioSuccess:
+
+        scenarioEnded4_14:
+          triggerCondition:
+          - or: 
+            - onScenarioSucceeded:
+            - onScenarioFailed:
+          actions:
+          - setProperty:
+            - rover2
+            - surveyArray
+            - []
+          - setProperty:
+            - rover2
+            - allSurveys
+            - []
+
+        # onScenarioFailed4_14:
+        #   triggerCondition:
+        #   - onScenarioFailed:
+        #   actions:
+        #   - deleteNanites:
+        #     - nanites_Mission4Task14
+
+  brief:
+    extends: ../missionBrief.vwf
+    properties:
+      title: "Mission 4, Task 14"
+      content: >
+        There.  Now the colonists will have a place to live.
+        <br><br>The next thing you need to build is a Greenhouse Dome. Like the 
+        Habitation Dome, the Greenhouse Dome is built using four triangles.  
+        Let's save some time, and put all four triangles into a single program.
+        <br><br>Don't forget to move to a safe spot and start construction when 
+        you're done!

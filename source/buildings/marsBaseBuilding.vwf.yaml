@@ -1,0 +1,71 @@
+# Copyright 2014 Lockheed Martin Corporation
+#
+# Licensed under the Apache License, Version 2.0 (the "License"); you may 
+# not use this file except in compliance with the License. You may obtain 
+# a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software 
+# distributed under the License is distributed on an "AS IS" BASIS, 
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and 
+# limitations under the License.
+
+# This has all of the changes we need to manage the constructed state of the 
+# buildings.
+#
+# Here is an example from solarPanel.vwf
+#
+#    useAnimatedShader: true
+#    diffuseSrc: "assets/3d/solar_panel/solar_panel.png"
+#    normalSrc: "assets/3d/solar_panel/solar_panel_n.png"
+#    specularSrc: "assets/3d/solar_panel/solar_panel_s.png"
+#    glowLength: 0.1
+#    buildDuration: 5
+#    buildingHeight: 2.5
+#    built: false
+#
+# - The useAnimatedShader flag sets whether or not the object will generate an 
+#   animated shader material on initialize.
+# - The diffuseSrc, normalSrc, and specularSrc values are required if using the
+#   animated shader and are the paths to the diffuse, normal, and specular maps
+#   respectively. Since the object is created in index.vwf, the paths are
+#   relative to the root folder.
+# - glowLength is just the height of the glowing area at the top of the
+#   animation.
+# - buildDuration specifies how long it will take the building to construct.
+# - buildingHeight is the height of the building (we'll have to guess these
+#   unless we can get dimensions from Ken).
+# - Setting built to true or false determines whether or not the object starts
+#   invisible and the animation is ready to begin (built = false) or whether
+#   the the object is visible and the animation is at its end (built = true).
+# - The construct method will play the animation and build the building.
+# - The setConstructed method is similar to the built property. Passing in true
+#   will make the object visible and the animation at its end. Passing in false
+#   will make the object invisible and the animation at its beginning. Note: I
+#   did not use a setter on the built property here because of where we were
+#   using that property and its negative effects if set on initialize.
+
+---
+extends: ../marsGameNode.vwf
+properties:
+  castShadows: true
+  receiveShadows: true
+  useAnimatedShader: false
+  diffuseSrc: ""
+  normalSrc: ""
+  specularSrc: ""
+  glowLength: 0.1
+  buildDuration: 5
+  buildingHeight: 5
+  built: true
+methods:
+  construct:
+  setConstructed:
+  setUpShader:
+  handleTransformChanged:
+events:
+  buildingCompleted:
+scripts:
+  - source: marsBaseBuilding.js

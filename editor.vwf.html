@@ -12,137 +12,74 @@ distributed under the License is distributed on an "AS IS" BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and 
 limitations under the License.
- -->
+-->
 
-<script type="text/javascript" src="source/view/utils.js"></script>
-<script type="text/javascript" src="source/view/fileManager.js"></script>
-<script type="text/javascript" src="editor/triggerObjects.js"></script>
-<script type="text/javascript" src="editor/JsonEditor.js"></script>
-<script type="text/javascript" src="editor/editor.js"></script>
+<!-- Scripts -->
 
-<link rel="stylesheet" type="text/css" href="editor/editor.css"></link>
+<script type="text/javascript" src="editor/view/vwfCommunication.js"></script>
+<script type="text/javascript" src="editor/view/editorUI.js"></script>
+<script type="text/javascript" src="editor/view/tilemapTool.js"></script>
 
-<div id="uiwrapper" class="wrapper">
-    <div id="header" class="wrapper">
-        <div id="menubar" class="menu">
-            <div id="file" class="menuOption">
-                <div id="fileButton" class="menubutton">File</div>
-                <div id="fileMenu" class="dropDownMenu">
-                    <div id="newLevel" class="ddBtn">New Level</div>
-                    <div id="saveLevel" class="ddBtn">Save Level...</div>
-                    <div id="loadLevel" class="ddBtn">Load Level...</div>
-                </div>
-            </div>
-            <div id="edit" class="menuOption">
-                <div id="editButton" class="menubutton">Edit</div>
-                <div id="editMenu" class="dropDownMenu">
-                    <div id="timeOfDay" class="ddBtn">Set Time of Day...</div>
-                    <div id="scenarioButton" class="ddBtn">Edit Scenarios...</div>
-                </div>
-            </div>
-            <div id="help" class="menuOption">
-                <div id="helpButton" class="menubutton">Help</div>
-                <div id="helpMenu" class="dropDownMenu">
-                    <div id="" class="ddBtn">Placeholder</div>
-                </div>
-            </div>
-        </div>
-        <div id="headertoolbar" class="toolbar">
-            <div id="transformtools" class="toolgroup bordered"></div>
-            <!-- <div id="environmenttools" class="toolgroup bordered"></div> -->
+<!-- Styles -->
+
+<link rel="stylesheet" type="text/css" href="editor/view/editorUI.css"></link>
+
+<!-- HTML -->
+
+<!-- Menu Strip -->
+<div id="menu" class="menuStrip">
+	<div id="file" class="dropWrapper">
+        <div id="fileButton" class="button">File</div>
+        <div id="fileMenu" class="dropMenu">
+            <div id="newButton" class="button">New</div>
+            <div id="saveButton" class="button">Save</div>
+            <div id="loadButton" class="button">Load</div>
         </div>
     </div>
-    <div id="sidepanel" class="wrapper">
-        <div id="assetwrapper" class="events bordered">
-            <form id="assettype" action="">
-                Asset Type: <select id="typeselector" name="type">
-                    <option value="maps">Maps</option>
-                    <option value="obstacles">Obstacles</option>
-                    <option value="pickups">Pickups</option>
-                    <option value="characters">Characters</option>
-                </select>
-            </form>
-            <div id="assetlist"></div>
+    <div id="edit" class="dropWrapper">
+        <div id="editButton" class="button">Edit</div>
+        <div id="editMenu" class="dropMenu">
+            <div id="objectButton" class="button">Add Object</div>
+            <div id="timeButton" class="button">Set Time of Day</div>
+        </div>
+    </div>
+    <div id="tools" class="dropWrapper">
+        <div id="toolsButton" class="button">Tools</div>
+        <div id="toolsMenu" class="dropMenu">
+            <div id="scenarioButton" class="button">Scenario</div>
+            <div id="heightmapButton" class="button">Heightmap</div>
+            <div id="tilemapButton" class="button">Tilemap</div>
         </div>
     </div>
 </div>
-<div id="scenarioEditor">
-    <div id="scenarioHeader">Scenario Editor
-        <div id="scenarioCloseButton">&times</div>
-    </div>
-    <div id="scenarioOptions">
-        <div id="addScenario" class="scenarioOption">+ Add Scenario</div>
-        <div id="deleteEntry" class="scenarioOption">- Delete Entry</div>
-    </div>
-    <div id="scenarioList"></div>
-</div>
-<div class="center">
-    <div id="fileDialog" class="dialog">
-        <div id="title" class="title"></div>
-        <div id="fileCloseButton">&times</div>
-        <div id="fileWrapper" class="dialogGroup"></div>
-    </div>
-    <div id="sliderBox">
-        <div id="readout"></div>
-        <div id="icon" class="inline"></div>
-        <div id="slider" class="inline">
-            <div id="handle"></div>
-        </div>
-        <div style="text-align: center">
-            <button id="closeSlider" class="dialogButton">Close</button>
-        </div>
-    </div>
-    <div id="newElementDialog" class="dialog">
-        <div id="elementDialogTitle">New Element</div>
-        <div class="dialogGroup">
-            <div style="display: inline-block">
-                <div class="label">Name: </div>
-                <input id="elementName">
+
+<!-- Tilemap UI -->
+<div id="tilemapWrapper">
+    <div id="tilemapInput">
+        <div class="titleBar">Tilemap Editor</div>
+        <div id="tilemapCloseButton" class="button">&times</div>
+        <div id="tilemapInputBody">
+            <div id="tilemapSizeSelector">
+                <div class="label">Tilemap Size: </div>
+                <select id="tilemapSize" class="inline">
+                    <option value="64">64 x 64</option>
+                    <option value="128">128 x 128</option>
+                    <option value="256">256 x 256</option>
+                </select> 
             </div>
-            <div style="display: inline-block">
-                <div class="label">Type: </div>
-                <select id="elementType">
-                    <option value="boolean">Boolean</option>
-                    <option value="string">String</option>
-                    <option value="number">Number</option>
-                    <option value="object">Object</option>
-                    <option value="array">Array</option>
-                </select>
+            <div id="tilemapOriginInput">
+                <div class="label">Origin X: </div>
+                <input id="tilemapOriginX" type="text" maxlength="4" class="inline"></input>
+                <div class="label">Y: </div>
+                <input id="tilemapOriginY" type="text" maxlength="4" class="inline"></input>
             </div>
-        </div>
-        <div class="inlineElements">
-            <button id="submitElement" class="dialogButton">Add</button>
-            <button id="cancelElement" class="dialogButton">Cancel</button>
+            <div id="tilemapUpdateButton" class="button">Update</div>
         </div>
     </div>
-    <div id="newScenarioDialog" class="dialog">
-        <div id="newScenarioTitle">Add Scenario</div>
-        <div class="inlineElements dialogGroup">
-            <div class="label">Name: </div>
-            <input id="newScenarioName">
-        </div>
-        <div class="inlineElements">
-            <button id="newScenarioSubmit" class="dialogButton">Add</button>
-            <button id="newScenarioCancel" class="dialogButton">Cancel</button>
-        </div>
-    </div>
-    <div id="newTriggerDialog" class="dialog">
-        <div class="title">New Trigger</div>
-        <div class="dialogGroup">
-            <div class="label">Trigger Name: <input id="triggerName"></div>
-        </div>
-        <div class="dialogGroup">
-            <div class="label">Conditions:</div>
-            <div id="triggerConditions"></div>
-        </div>
-        <div class="dialogGroup">
-            <div class="label">Actions:</div>
-            <div id="triggerActions"></div>
-            <div id="addAction" class="textButton">Add Action...</div>
-        </div>
-        <div class="inlineElements">
-            <button id="submitTrigger" class="dialogButton">Add</button>
-            <button id="cancelTrigger" class="dialogButton">Cancel</button>
+    <div id="tilemapPreview">
+        <div id="tilemapPreviewTitle" class="titleBar">Tilemap Preview</div>
+        <div id="tilemapCanvasWrapper">
+            <canvas id="tilemapCanvas"></canvas>
         </div>
     </div>
 </div>

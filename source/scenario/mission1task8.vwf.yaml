@@ -1,0 +1,206 @@
+# Copyright 2014 Lockheed Martin Corporation
+#
+# Licensed under the Apache License, Version 2.0 (the "License"); you may 
+# not use this file except in compliance with the License. You may obtain 
+# a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software 
+# distributed under the License is distributed on an "AS IS" BASIS, 
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and 
+# limitations under the License.
+
+---
+extends: ../scenario/scenario.vwf
+properties:
+  scenarioName: Mission1Task8
+
+  scenePath: /
+  nextScenarioPath: Mission1Success
+
+  startState:
+  - setProperty:
+    - videoManager  
+    - url 
+    - [ "assets/video/Success1_800x600.mp4" ]
+
+  - setProperty:
+    - rover2
+    - visible
+    - false
+  - setProperty:
+    - rover
+    - battery
+    - 25
+  - setProperty:
+    - rover
+    - batteryMax
+    - 25
+  - setProperty:
+    - rover
+    - blockly_allowedBlocks
+    - 25
+  - setProperty:
+    - rover
+    - lowRam
+    - 5    
+  - setProperty:
+    - rover
+    - startXML
+    - <xml></xml>
+
+  - callMethod:
+    - rover
+    - setHeading
+    - 180
+
+  - addToGrid:
+    - rover
+    - [ 0, 0 ]
+  - setPickupActive:
+    - helicam
+    - false
+  - setPickupActive:
+    - battery
+    - false
+  - setPickupActive:
+    - radio
+    - true
+  - addToWatchList:
+    - radio
+    - pickup
+  - setBlocklyContext:
+    - rover
+  - loadToolbox:
+    - rover
+    - source/scenario/blockly/scenario1h.xml
+  - setProperty:
+    - blocklyLine
+    - visible
+    - false
+  - setProperty:
+    - blocklyLine
+    - opacity
+    - 0
+  - selectRover:
+    - rover
+
+  - setGridAxes:
+    - 0
+    - 0
+
+children:
+  triggerManager:
+    extends: ../triggers/triggerManager.vwf
+    properties: 
+      triggers$:
+        beginScenario_1h:
+          triggerCondition:
+          - onScenarioStart:
+          actions:
+          - playSound:
+            - musicStandardGameplay
+          - playSound:
+            - environmentWind
+          - setObjective:
+            - "Move to the far end of the crash site to pick up the radio."
+          - setProperty:
+            - graphButton
+            - enabled
+            - false
+          - setThirdPersonStartPose:
+            - [ 13, 15, -15 ]
+
+        playStartingVO_1h:
+          triggerCondition:
+          - and:
+            - doOnce:
+            - onScenarioStart:
+          actions:
+          - playSound:
+            - L1VO16_Rover
+          - setProperty:
+            - hud
+            - enabled
+            - false
+          - delay:
+            - 5.5
+            - panCamera:
+              - /pickups/radio
+              - 3
+          - delay:
+            - 10
+            - openMissionBrief:
+            - setProperty:
+              - hud
+              - enabled
+              - true
+            - startTimer:
+
+        highlightEndTile_1_8:
+          triggerCondition:
+          - onScenarioStart:
+          actions:
+          - callOutObjective:
+            - [ 0, 14 ]
+
+        succeedOnSuccess_1h:
+          group: successOrFailure
+          priority: 0
+          triggerCondition:
+          - and:
+            - onBlocklyStopped:
+              - rover
+            - isAtPosition:
+              - rover
+              - [ 0, 14 ]
+          actions:
+          - scenarioSuccess:
+          # - showAlert:
+          #   - "You have picked up the radio!"
+          - clearBlockly:      
+          - stopSound:
+            - musicStandardGameplay
+
+        playHint1_1h:
+          triggerCondition:
+          - and:
+            - doOnce:
+            - delay:
+              - 20
+          actions:
+          - playSound:
+            - ALVO36_Rover
+
+        failOnIncompleteProgram_1h:
+          group: successOrFailure
+          priority: -0.5
+          triggerCondition:
+          - and:
+            - doOnce:
+            - onBlocklyStopped:
+          actions:
+          - scenarioFailure:
+            - incomplete
+          - playSound:
+            - ALVO22_Rover
+          - writeToBlackboard:
+            - disableFailOnIncompleteProgram
+
+  brief:
+    extends: ../missionBrief.vwf
+    properties:
+      title: "Mission 1, Task 8"
+      content: >
+        Well done!  
+        <br><br>Next, it's time to recover your radio and make contact with 
+        Mission Control! Of course, getting there through all of this debris may 
+        require a bit of care...
+        <br><br>As you work, you may want to switch to Helicam view and use
+        the arrow keys or right mouse button to look around. The mouse wheel 
+        will let you zoom in and out. You can also use the TILES display to 
+        count spaces and see where you can and can't move. Finally, if you  
+        want to start over you can hit the RESET button (next to the START 
+        button) to clear your program and re-start the task.

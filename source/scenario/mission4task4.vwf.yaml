@@ -1,0 +1,256 @@
+# Copyright 2014 Lockheed Martin Corporation
+#
+# Licensed under the Apache License, Version 2.0 (the "License"); you may 
+# not use this file except in compliance with the License. You may obtain 
+# a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software 
+# distributed under the License is distributed on an "AS IS" BASIS, 
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and 
+# limitations under the License.
+
+---
+extends: ../scenario/scenario.vwf
+properties:
+  scenarioName: Mission4Task4
+  nextScenarioPath: Mission4Task5
+
+  startState:
+
+  # objective
+  - setObjective:
+    - "Reflect the basic triangle across the Y axis."
+
+  - setProperty:
+    - rover2
+    - startXML
+    - <xml><block type="triangle_flow" id="a" x="100" y="100"><statement name="STACK"><block type="triangle_transformations_reflect_static" id="b"><field name="OP">Y</field></block></statement></block></xml>
+  - setProperty:
+    - rover2
+    - blockly_xml
+    - <xml><block type="triangle_flow" id="a" x="100" y="100"><statement name="STACK"><block type="triangle_transformations_reflect_static" id="b"><field name="OP">Y</field></block></statement></block></xml>
+
+  # Blockly
+  - setBlocklyContext:
+    - rover2
+  - loadToolbox:
+    - rover2
+    - source/scenario/blockly/mission4_perry4.xml
+
+  # sounds/music
+  - playSound:
+    - musicMission4Loop
+  - playSound:
+    - environmentWind
+  - setProperty:
+    - videoManager  
+    - url 
+    - [ "assets/video/Success4_800x600.mp4" ]
+
+  # Manny
+  - addToGrid:
+    - rover
+    - [ -30, 23 ]
+  - callMethod:
+    - rover
+    - setHeading
+    - 180
+
+  # Perry
+  - setProperty:
+    - rover2
+    - visible
+    - true
+  - addToGrid:
+    - rover2
+    - [ -24, 19 ]
+  - setProperty:
+    - rover2
+    - battery
+    - 100
+  - setProperty:
+    - rover2
+    - batteryMax
+    - 100
+  - setProperty:
+    - rover2
+    - blockly_allowedBlocks
+    - 25
+  - setProperty:
+    - rover2
+    - lowRam
+    - 5
+  - selectRover:
+    - rover2
+  - addToGrid:
+    - rover2
+    - [-27, 19]
+
+  # Grid and disable blocklyLine
+  - setGridAxes:
+    - 19
+    - -24
+
+  - setProperty:
+    - blocklyLine
+    - visible
+    - false
+
+  - setProperty:
+    - blocklyLine
+    - opacity
+    - 0
+
+  - drawTriangle:
+    - [ 0, 0 ]
+    - [ 0, 1 ]
+    - [ -1, 0 ]
+
+  # Solar panel construction
+  - setConstructed:
+    - solarPanel1
+    - true
+  - setConstructed:
+    - solarPanel2
+    - false
+  - setConstructed:
+    - solarPanel3
+    - false
+  - setConstructed:
+    - solarPanel4
+    - false
+
+  - setProperty:
+    - cargoPod2
+    - isClosed
+    - false
+
+  - setProperty:
+    - rover2
+    - surveyArray
+    - []
+  - setProperty:
+    - rover2
+    - allSurveys
+    - []
+
+  # turning supplies and minirover invisible
+  - setProperty:
+    - supplies_1
+    - visible
+    - false
+  - setProperty:
+    - supplies_2
+    - visible
+    - false
+  - setProperty:
+    - minirover
+    - visible
+    - false
+
+children:
+  triggerManager:
+    extends: ../triggers/triggerManager.vwf
+    properties: 
+      triggers$:
+
+        playStartingVO_4_4:
+          triggerCondition:
+          - and:
+            - doOnce:
+            - onScenarioStart:
+          actions:
+          # - playSound:
+          #   - TM4V14_MANNY
+          - playSound:
+            - TM4_15_MC
+          - setProperty:
+            - hud
+            - enabled
+            - false
+          - delay:
+            - 20
+            - openMissionBrief:
+            - setProperty:
+              - hud
+              - enabled
+              - true
+            - startTimer:
+
+        playHint_M4T4_1:
+          triggerCondition:
+          - and:
+            - doOnce:
+            - delay:
+              - 30
+          actions:
+          - playSound:
+            - TM4_50_Manny
+
+        playHint_M4T4_reset:
+          triggerCondition:
+          - and:
+            - delay:
+              - 10
+            - readBlackboard:
+              - failureCount
+              - 1
+            - not:
+              - readBlackboard:
+                - mission4ResetHint
+          actions:
+          - playSound:
+            - VO_MissionControl_Hint02
+          - writeToBlackboard:
+            - mission4ResetHint
+
+        succeedOnTriangle_4_4:
+          group: successOrFailure
+          priority: 0
+          triggerCondition:
+          - onBlocklyPolygon:
+            - rover2
+            - [ [ 0, 0 ], [ 0, 1 ], [ -1, 0 ] ]
+          actions:
+          - writeToBlackboard:
+            - disableFailOnIncompleteProgram
+          # - deleteNanites:
+          #   - nanites_Mission4Task4
+          # - showAlert:
+          #   - "I created the correct triangle!"
+          - callMethod:
+            - rover2
+            - stopExecution
+          - playSound:
+            - musicSuccessShort
+          - clearBlockly:
+          - scenarioSuccess:
+
+        scenarioEnded4_4:
+          triggerCondition:
+          - or: 
+            - onScenarioSucceeded:
+            - onScenarioFailed:
+          actions:
+          - setProperty:
+            - rover2
+            - surveyArray
+            - []
+          - setProperty:
+            - rover2
+            - allSurveys
+            - []
+          # - deleteNanites:
+          #   - nanites_Mission4Task4
+
+  brief:
+    extends: ../missionBrief.vwf
+    properties:
+      title: "Mission 4, Task 4"
+      content: >
+        Excellent! You have your first solar panel built!
+        <br><br>Mission Control has uploaded a new program to try out the 
+        Reflect transformation. Fill in the vertex positions and hit START.

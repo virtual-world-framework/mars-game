@@ -13,25 +13,12 @@
 # limitations under the License.
 
 --- 
+
 extends: http://vwf.example.com/sound/soundManager.vwf
 properties:
   allSoundsLoaded: false
   setUpOnce: true
   soundSet:
-    - soundName: "musicStandardGameplay"
-      soundURL: "assets/sounds/music/musicStandardGameplayLoopFullMix.ogg"
-      initialVolume: 0.8
-      isLooping: true
-      allowMultiplay: false
-      soundGroup: music
-      groupReplacementMethod: replace
-    - soundName: "musicLevel2"
-      soundURL: "assets/sounds/music/musicLevel2Loop.ogg"
-      initialVolume: 1
-      isLooping: true
-      allowMultiplay: false
-      soundGroup: music
-      groupReplacementMethod: replace
     - soundName: "musicMenuIntro"
       soundURL: "assets/sounds/music/musicMenuIntro.ogg"
       initialVolume: 0.3
@@ -47,425 +34,1053 @@ properties:
       soundGroup: music
       groupReplacementMethod: queue
       queueDelayTime: 0.0
+    - soundName: "musicMission3Intro"
+      soundURL: "assets/sounds/music/musicMission3_Intro.ogg"
+      initialVolume: 0.3
+      isLooping: false
+      allowMultiplay: false
+      soundGroup: music
+      groupReplacementMethod: replace
+    - soundName: "musicMission3Loop_AfterIntro"
+      soundURL: "assets/sounds/music/musicMission3_Loop.ogg"
+      initialVolume: 0.3
+      isLooping: true
+      allowMultiplay: false
+      soundGroup: music
+      groupReplacementMethod: queue
+      queueDelayTime: 0.0
+    - soundName: "musicMission3Loop"
+      soundURL: "assets/sounds/music/musicMission3_Loop.ogg"
+      initialVolume: 0.3
+      isLooping: true
+      allowMultiplay: false
+      soundGroup: music
+      groupReplacementMethod: replace
+    - soundName: "musicMission4Loop"
+      soundURL: "assets/sounds/music/musicMission4Loop.ogg"
+      initialVolume: 0.3
+      isLooping: true
+      allowMultiplay: false
+      soundGroup: music
+      groupReplacementMethod: replace
+    - soundName: "musicStandardGameplay"
+      soundURL: "assets/sounds/music/musicStandardGameplayLoopFullMix.ogg"
+      initialVolume: 0.8
+      isLooping: true
+      allowMultiplay: false
+      soundGroup: music
+      groupReplacementMethod: replace
+    - soundName: "musicLevel2"
+      soundURL: "assets/sounds/music/musicLevel2Loop.ogg"
+      initialVolume: 0.7
+      isLooping: true
+      allowMultiplay: false
+      soundGroup: music
+      groupReplacementMethod: replace
     - soundName: "musicFailure"
       soundURL: "assets/sounds/music/musicFailure_01.ogg"
-      initialVolume: 1.0
-      allowMultiplay: false
-    - soundName: "musicSuccess"
-      soundURL: "assets/sounds/music/musicSuccess_01.ogg"
-      initialVolume: 1.0
+      initialVolume: 0.7
       allowMultiplay: false
     - soundName: "musicSuccessShort"
       soundURL: "assets/sounds/music/musicSuccessShort08.ogg"
       initialVolume: 1.0
       allowMultiplay: false
-    - soundName: "roverSounds"
-      soundURL: "assets/sounds/sfx/objectRoverMotorGroundCrunch_01.ogg"
+    - soundName: "rover1EngineSound"
+      soundURL: "assets/sounds/sfx/heavyRoverMovementLoop01.ogg"
       initialVolume: 0.6
       isLooping: true
+    - soundName: "rover1GravelSound"
+      soundURL: "assets/sounds/sfx/objectRoverMovementGroundCrunch_01.ogg"
+      initialVolume: 0.6
+      isLooping: true
+    - soundName: "rover1StartSound"
+      soundURL: "assets/sounds/sfx/heavyRoverMovementIntro01.ogg"
+      initialVolume: 0.6
+      isLooping: false
+    - soundName: "rover1EndSound"
+      soundURL: "assets/sounds/sfx/heavyRoverMovementOutro01.ogg"
+      initialVolume: 0.6
+      isLooping: false
+    - soundName: "rover2EngineSound"
+      soundURL: "assets/sounds/sfx/scoutRoverMovementLoop01.ogg"
+      initialVolume: 0.6
+      isLooping: true
+    - soundName: "rover2GravelSound"
+      soundURL: "assets/sounds/sfx/scoutRoverGravel03.ogg"
+      initialVolume: 0.8
+      isLooping: true
+    - soundName: "rover2StartSound"
+      soundURL: "assets/sounds/sfx/scoutRoverMovementIntro01.ogg"
+      initialVolume: 0.6
+      isLooping: false
+    - soundName: "rover2EndSound"
+      soundURL: "assets/sounds/sfx/scoutRoverMovementOutro01.ogg"
+      initialVolume: 0.6
+      isLooping: false
     - soundName: "environmentWind"
       soundURL: "assets/sounds/sfx/environmentWind_04.ogg"
       initialVolume: 0.8
       isLooping: true
       allowMultiplay: false
+    - soundName: "solarPanelActive"
+      soundURL: "assets/sounds/sfx/solarPanelActive_02.ogg"
+      soundGroup: solarpanel
+      initialVolume: 0.5
+      isLooping: false
+      allowMultiplay: false
+      groupReplacementMethod: replace
+    - soundName: "solarPanelDeploy"
+      soundURL: "assets/sounds/sfx/genericConstructionDeploySound02.ogg"
+      soundGroup: solarpanel
+      initialVolume: 0.95
+      isLooping: false
+      allowMultiplay: false
+    - soundName: "gooSprayCan"
+      soundURL: "assets/sounds/sfx/genericConstructionSpray01.ogg"
+      initialVolume: 0.95
+      isLooping: true
     - soundName: "L1VO1_Rover"
       soundURL: "assets/sounds/vo/L1VO1_Rover_m.ogg"
       initialVolume: 0.65
-      subtitle: "[ROVER]: Where am I? Who am I? I appear to be on Mars. I have wheels, a computer for a brain, and a battery. Hmm...if I had to guess I would say that I'm a rover!"
+      subtitle: "[MANNY]: Where am I? Who am I? I appear to be on Mars. I have wheels, a computer for a brain, and a battery. Hmm...if I had to guess I would say that I'm a rover!"
       soundGroup: vo
-      groupReplacementMethod: queue
+      groupReplacementMethod: replace
     - soundName: "L1VO2_Rover"
       soundURL: "assets/sounds/vo/L1VO2_Rover_m.ogg"
       initialVolume: 0.65
-      subtitle: "[ROVER]: I need to relearn the basics. I remember this is my internal interface to my programming..."
+      subtitle: "[MANNY]: I need to relearn the basics. I remember this is my internal interface to my programming..."
       soundGroup: vo
       groupReplacementMethod: replace
     - soundName: "L1VO10_Rover"
       soundURL: "assets/sounds/vo/L1VO10_Rover_m.ogg"
       initialVolume: 0.65
-      subtitle: "[ROVER]: I can display an overlay that will help me navigate."
+      subtitle: "[MANNY]: I can display an overlay that will help me navigate."
       soundGroup: vo
       groupReplacementMethod: queue
-    - soundName: "L1VO11_Rover"
-      soundURL: "assets/sounds/vo/L1VO11_Rover_m.ogg"
+    - soundName: "m1t5vo010"
+      soundURL: "assets/sounds/vo/m1t5vo010.ogg"
       initialVolume: 0.65
-      subtitle: "[ROVER]: Ah that's better...now I can see where I can drive."
-      soundGroup: vo
-      groupReplacementMethod: replace
-    - soundName: "L1VO12_Rover"
-      soundURL: "assets/sounds/vo/L1VO12_Rover_m.ogg"
-      initialVolume: 0.65
-      subtitle: "[ROVER]: I can connect blocks to make a program, and then Run it. I see a spare battery up ahead. Why don't I go and get it?"
+      subtitle: "[MANNY]: I can connect blocks to make a program, and then START it. I see a spare battery up ahead. Why don't I go and get it?"
       soundGroup: vo
       groupReplacementMethod: queue
     - soundName: "L1VO13_Rover"
       soundURL: "assets/sounds/vo/L1VO13_Rover_m.ogg"
       initialVolume: 0.65
-      subtitle: "[ROVER]: Connecting Blocks is fundamental to making Programs. A program is a sequence of Blocks."
+      subtitle: "[MANNY]: Connecting Blocks is fundamental to making Programs. A program is a sequence of Blocks."
       soundGroup: vo
       groupReplacementMethod: replace
     - soundName: "L1VO14_Rover"
       soundURL: "assets/sounds/vo/L1VO14_Rover_m.ogg"
       initialVolume: 0.65
-      subtitle: "[ROVER]: Hmm. I seem to be headed into a dead end.  I’ve done a lot of going forward.  Maybe I should see if I can turn around."
+      subtitle: "[MANNY]: Hmm. I seem to be headed into a dead end. I've done a lot of going forward. Maybe I should see if I can turn around."
       soundGroup: vo
       groupReplacementMethod: queue
     - soundName: "L1VO16_Rover"
       soundURL: "assets/sounds/vo/L1VO16_Rover_m.ogg"
       initialVolume: 0.65
-      subtitle: "[ROVER]: OK. Now I can move around, it's time to go pick up that Radio Module out there. Then I can call home and find out who is going to rescue me!"
+      subtitle: "[MANNY]: OK. Now I can move around, it's time to go pick up that Radio Module out there. Then I can call home and find out who is going to rescue me!"
       soundGroup: vo
-      groupReplacementMethod: queue
-    - soundName: "L2VO3_Rover"
-      soundURL: "assets/sounds/vo/L2VO3_Rover_m.ogg"
-      initialVolume: 0.65
-      subtitle: "[ROVER]: I need to match course, got to find a function that matches these tracks."
-      soundGroup: vo
-      groupReplacementMethod: queue
+      groupReplacementMethod: replace
     - soundName: "L2VO3_Rover_H"
       soundURL: "assets/sounds/vo/L2VO3_Rover_H.ogg"
       initialVolume: 0.65
-      subtitle: "[ROVER]: Hmm. I'm not quite sure what to do. Time to get scientific! I should experiment by doing different things to x and take note about what happens."
+      subtitle: "[MANNY]: Hmm. I'm not quite sure what to do. Time to get scientific! I should experiment by doing different things to x and take note about what happens."
       soundGroup: vo
       groupReplacementMethod: queue
-    - soundName: "L2VO3_Rover_H2"
-      soundURL: "assets/sounds/vo/L2VO3_Rover_H2.ogg"
+    - soundName: "ALVO3_Rover_m"
+      soundURL: "assets/sounds/vo/ALVO3_Rover_m.ogg"
       initialVolume: 0.65
-      subtitle: "[ROVER]: I remember I can put a number in front of X... that will multiply them together. I wonder what will happen if I make the number bigger or smaller."
+      subtitle: "[MANNY]: I wonder what happens if I multiply X by something..."
       soundGroup: vo
       groupReplacementMethod: queue
     - soundName: "L2VO4_Control"
       soundURL: "assets/sounds/vo/L2VO4_Control.ogg"
       initialVolume: 1.0
-      subtitle: "[MC]: My satellite view shows that the Mini Rover's tracks are right next to you. The first thing that you'll need to do is to plot a course to match its tracks. I've beamed a software update which includes a graphing tool and makes your engines more efficient, but takes some of your available RAM."
+      subtitle: "[MISSION CONTROL]: My satellite view shows that the Mini Rover's tracks are right next to you. The first thing that you'll need to do is to plot a course to match its tracks. I've beamed a software update which includes a graphing tool and makes your engines more efficient, but takes some of your available RAM."
       soundGroup: vo
-      groupReplacementMethod: queue
+      groupReplacementMethod: replace
     - soundName: "L2VO7_Control"
       soundURL: "assets/sounds/vo/L2VO7_Control.ogg"
       initialVolume: 1.0
-      subtitle: "[MC]: Now you have your first graph plotted, why don't you try changing it? We see the track of your lost Mini Rover from our satellite view. Can you match it?"
+      subtitle: "[MISSION CONTROL]: Now you have your first graph plotted, why don't you try changing it? We see the track of your lost Mini Rover from our satellite view. Can you match it?"
       soundGroup: vo
       groupReplacementMethod: queue
     - soundName: "L2VO9_Control"
       soundURL: "assets/sounds/vo/L2VO9_Control.ogg"
       initialVolume: 1.0
-      subtitle: "[MC]: You don't want to keep having to do this all the way up the line. Remember you can repeat this small movement program, and save yourself some work. Try repeating it three times to start."
+      subtitle: "[MISSION CONTROL]: You don't want to keep having to do this all the way up the line. Remember you can repeat this small movement program, and save yourself some work. Try repeating it two times to start."
       soundGroup: vo
       groupReplacementMethod: queue
-    - soundName: "L3VO1_Rover_S"
-      soundURL: "assets/sounds/vo/L3VO1_Rover_S.ogg"
+    - soundName: "m2t5vo040"
+      soundURL: "assets/sounds/vo/m2t5vo040.ogg"
       initialVolume: 0.65
-      subtitle: "[ROVER]: OK! So now I know I need to go up one and over two to get to the next point on the line."
+      subtitle: "[MANNY]: OK! So now I know I need to go up two and over one to get to the next point on the line."
       soundGroup: vo
       groupReplacementMethod: replace
     - soundName: "L3VO2_Rover_H"
       soundURL: "assets/sounds/vo/L3VO2_Rover_H.ogg"
       initialVolume: 0.65
-      subtitle: "[ROVER]: Loop blocks repeat actions and save RAM. I remember I used loops to get out of the crash site."
-      soundGroup: vo
-      groupReplacementMethod: queue
-    - soundName: "L3VO2_Rover_H2"
-      soundURL: "assets/sounds/vo/L3VO2_Rover_H2.ogg"
-      initialVolume: 0.65
-      subtitle: "[ROVER]: I need to face the same direction at the beginning and end of the loop. Otherwise, it will take me in a different direction each time it starts."
+      subtitle: "[MANNY]: Loop blocks repeat actions and save RAM. I remember I used loops to get out of the crash site."
       soundGroup: vo
       groupReplacementMethod: queue
     - soundName: "L3VO2_Mission_S"
       soundURL: "assets/sounds/vo/L3VO2_Mission_S.ogg"
       initialVolume: 0.65
-      subtitle: "[MC]: Yes you are... you need to check if you can actually see the Mini Rover! For this you will need two new Blocks: the Conditional Loop Block, and the Scan Block. The Conditional Loop will repeat programs until something happens. The Scan Block detects nearby objects."
+      subtitle: "[MISSION CONTROL]: Yes you are... you need to check if you can actually see the Mini Rover! For this you will need two new Blocks: the Conditional Loop Block, and the Metal Detected Block. The Conditional Loop Block will repeat programs until something happens. The Metal Detected Block detects nearby objects."
       soundGroup: vo
       groupReplacementMethod: queue
     - soundName: "L3VO3_Rover_S"
       soundURL: "assets/sounds/vo/L3VO3_Rover_S.ogg"
       initialVolume: 0.65
-      subtitle: "[ROVER]: I've found something! Looks like the Mini Rover dropped some supplies and changed direction. I'll need to update my Grapher to match its new course."
+      subtitle: "[MANNY]: I've found something! Looks like the Mini Rover dropped some supplies and changed direction. I'll need to update my Grapher to match its new course."
       soundGroup: vo
       groupReplacementMethod: replace
     - soundName: "L3VO4_Rover_S"
       soundURL: "assets/sounds/vo/L3VO4_Rover_S.ogg"
       initialVolume: 0.65
-      subtitle: "[ROVER]: That works! Course plotted."
+      subtitle: "[MANNY]: That works! Course plotted."
       soundGroup: vo
       groupReplacementMethod: replace
     - soundName: "L3VO5_Rover"
       soundURL: "assets/sounds/vo/L3VO5_Rover.ogg"
       initialVolume: 0.65
-      subtitle: "[ROVER]: Now to update my movement program to match the new slope of the line..."
+      subtitle: "[MANNY]: Now to update my movement program to match the new slope of the line..."
       soundGroup: vo
       groupReplacementMethod: queue
     - soundName: "L3VO5_Rover_S"
       soundURL: "assets/sounds/vo/L3VO5_Rover_S.ogg"
       initialVolume: 0.65
-      subtitle: "[ROVER]: Some more dropped supplies, and the  Rover has changed direction again! I wonder why it is driving so erratically."
+      subtitle: "[MANNY]: Some more dropped supplies, and the  Rover has changed direction again! I wonder why it is driving so erratically."
       soundGroup: vo
-      groupReplacementMethod: queue
-    - soundName: "L3VO6_Rover"
-      soundURL: "assets/sounds/vo/L3VO6_Rover.ogg"
-      initialVolume: 0.65
-      subtitle: "[ROVER]: Time to plot a course to match the tracks..."
-      soundGroup: vo
-      groupReplacementMethod: queue
+      groupReplacementMethod: replace
     - soundName: "L3VO6_Mission"
       soundURL: "assets/sounds/vo/L3VO6_Mission.ogg"
       initialVolume: 0.65
-      subtitle: "[MC]: Our satellite data shows that you are getting close! Keep it up!"
+      subtitle: "[MISSION CONTROL]: Our satellite data shows that you are close. Keep it up!"
+      soundGroup: vo
+      groupReplacementMethod: replace
+    - soundName: "m3t1vo010"
+      soundURL: "assets/sounds/vo/m3t1vo010.ogg"
+      initialVolume: 0.65
+      subtitle: "[MISSION CONTROL]: Well, that was unexpected. He seems to be badly malfunctioning. Regardless, you need to keep going. Your next task is to navigate to the Base Pod, which contains essential supplies for your mission."
+      soundGroup: vo
+      groupReplacementMethod: replace
+    - soundName: "newmission3vo2"
+      soundURL: "assets/sounds/vo/newmission3vo2.ogg"
+      initialVolume: 0.65
+      subtitle: "[MANNY]: Oh no! My Navigate procedure appears to have been corrupted during the crash!"
+      soundGroup: vo
+      groupReplacementMethod: queue
+      queueDelayTime: 1.5
+    - soundName: "m3t1vo030"
+      soundURL: "assets/sounds/vo/m3t1vo030.ogg"
+      initialVolume: .65
+      subtitle: "[MISSION CONTROL]: So I see. You'll need to rebuild it. Luckily, I still have the test programs we used to verify it was correct when you were manufactured."
+      soundGroup: vo
+      groupReplacementMethod: queue
+    - soundName: "m3t1vo040"
+      soundURL: "assets/sounds/vo/m3t1vo040.ogg"
+      initialVolume: 0.65
+      subtitle: "[MANNY]: Well that's something at least. It looks like I can also salvage the section that moves me in the -Y direction, so we can start there."
+      soundGroup: vo
+      groupReplacementMethod: queue
+    - soundName: "m3t1vo041"
+      soundURL: "assets/sounds/vo/m3t1vo041.ogg"
+      initialVolume: 0.65
+      subtitle: "[MISSION CONTROL]: I'm downloading the first test program now... Download complete. Why don't you give that a try?"
+      soundGroup: vo
+      groupReplacementMethod: queue
+    - soundName: "m3t1vo050"
+      soundURL: "assets/sounds/vo/m3t1vo050.ogg"
+      initialVolume: .65
+      subtitle: "[MANNY]: I see... this section of the Navigate procedure moves me down the Y axis, and the test checks that it is working correctly. Everything looks good – I guess I just need to hit START!"
+      soundGroup: vo
+      groupReplacementMethod: queue
+    - soundName: "newmission3vo5"
+      soundURL: "assets/sounds/vo/newmission3vo5.ogg"
+      initialVolume: 0.65
+      subtitle: "[MANNY]: Hooray, I did it!"
+      soundGroup: vo
+      groupReplacementMethod: replace
+    - soundName: "TM3VO7_Rover"
+      soundURL: "assets/sounds/vo/TM3VO7_Rover.ogg"
+      initialVolume: 0.65
+      subtitle: "[MANNY]: The procedure worked!"
+      soundGroup: vo
+      groupReplacementMethod: replace
+    - soundName: "m3t2vo010"
+      soundURL: "assets/sounds/vo/m3t2vo010.ogg"
+      initialVolume: 0.65
+      subtitle: "[MISSION CONTROL]: Good work. Of course, that will only work if you're already facing in the correct direction."
+      soundGroup: vo
+      groupReplacementMethod: queue
+    # - soundName: "m3t2vo020"
+    #   soundURL: "assets/sounds/vo/m3t2vo020.ogg"
+    #   initialVolume: 0.65
+    #   subtitle: "[MISSION CONTROL]: I've provided a new test program that will turn you to face a different direction before calling Navigate. You need to update the Navigate procedure so that it uses your Direction of Travel sensor to check your heading and turns you to face down the Y axis before it makes you move."
+    #   soundGroup: vo
+    #   groupReplacementMethod: queue
+    - soundName: "m3t2vo030"
+      soundURL: "assets/sounds/vo/m3t2vo030.ogg"
+      initialVolume: 0.65
+      subtitle: "[MANNY]: Ahhh, I see. I have a new number block that lets me specify a direction in degrees."
+      soundGroup: vo
+      groupReplacementMethod: queue
+    - soundName: "m3t2vo040"
+      soundURL: "assets/sounds/vo/m3t2vo040.ogg"
+      initialVolume: 0.65
+      subtitle: "[MANNY]: Hmm. Can I compare my heading to the desired heading, and use that on a conditional loop block?"
+      soundGroup: vo
+      groupReplacementMethod: queue
+    - soundName: "newmission3vo7"
+      soundURL: "assets/sounds/vo/newmission3vo7.ogg"
+      initialVolume: 0.65
+      subtitle: "[MANNY]: I did it again!"
+      soundGroup: vo
+      groupReplacementMethod: replace
+    - soundName: "m3t3vo010"
+      soundURL: "assets/sounds/vo/m3t3vo010.ogg"
+      initialVolume: 0.65
+      subtitle: "[MISSION CONTROL]: Excellent. Now let's start improving it. Your original procedure was written in four sections: two for moving left and right on the X axis, and two for moving up and down the Y axis. The section you have moves you down the Y axis; why don't you write the part that moves up the Y axis next?"
+      soundGroup: vo
+      groupReplacementMethod: queue
+    # - soundName: "m3t3vo020"
+    #   soundURL: "assets/sounds/vo/m3t3vo020.ogg"
+    #   initialVolume: 0.65
+    #   subtitle: "[MISSION CONTROL]: Let's use an 'if' block to check whether the Y value of your position is greater than that of your destination."
+    #   soundGroup: vo
+    #   groupReplacementMethod: queue
+    - soundName: "m3t3vo030"
+      soundURL: "assets/sounds/vo/m3t3vo030.ogg"
+      initialVolume: 0.65
+      subtitle: "[MISSION CONTROL]: I've provided an updated test program. You need to modify the procedure so that it passes the test."
+      soundGroup: vo
+      groupReplacementMethod: queue
+    - soundName: "m3t3vo040"
+      soundURL: "assets/sounds/vo/m3t3vo040.ogg"
+      initialVolume: 0.65
+      subtitle: "[MANNY]: So let's see... I need to compare my current position to the spot I'm moving to, and only turn or move forward if I actually need to go down the Y axis."
+      soundGroup: vo
+      groupReplacementMethod: queue
+    - soundName: "newmission3vo9"
+      soundURL: "assets/sounds/vo/newmission3vo9.ogg"
+      initialVolume: 0.65
+      subtitle: "[MANNY]: Hooray!"
+      soundGroup: vo
+      groupReplacementMethod: replace
+    - soundName: "m3t4vo010"
+      soundURL: "assets/sounds/vo/m3t4vo010.ogg"
+      initialVolume: 0.65
+      subtitle: "[MISSION CONTROL]: Of course, this only helps if your destination is in the -Y direction. Next let's enable your procedure to travel up the Y axis. Don't change what you already have, but duplicate it and then change the copy to handle travel in the +Y direction."
+      soundGroup: vo
+      groupReplacementMethod: queue
+    - soundName: "m3t3vo031"
+      soundURL: "assets/sounds/vo/m3t3vo031.ogg"
+      initialVolume: 0.65
+      subtitle: "[MANNY]: Let's see... If I make a copy of what I have now, what changes do I need to make so that I'll travel up the Y axis instead of down it?"
+      soundGroup: vo
+      groupReplacementMethod: queue
+    - soundName: "m3t4vo020"
+      soundURL: "assets/sounds/vo/m3t4vo020.ogg"
+      initialVolume: 0.65
+      subtitle: "[MANNY]: I remember that one way to copy a block is to right-click on it and select 'duplicate.'"
+      soundGroup: vo
+      groupReplacementMethod: queue
+    - soundName: "m3t5vo010"
+      soundURL: "assets/sounds/vo/m3t5vo010.ogg"
+      initialVolume: 0.65
+      subtitle: "[MISSION CONTROL]: Good work! Of course, you need to move along the X axis as well. Let's try going to the left. Make another copy of your original 'if' block, and modify it to travel in the -X direction."
+      soundGroup: vo
+      groupReplacementMethod: queue
+    - soundName: "newmission3vo15"
+      soundURL: "assets/sounds/vo/newmission3vo15.ogg"
+      initialVolume: 0.65
+      subtitle: "[MANNY]: Can we stop going in circles yet?"
+      soundGroup: vo
+      groupReplacementMethod: replace
+    - soundName: "newmission3vo16"
+      soundURL: "assets/sounds/vo/newmission3vo16.ogg"
+      initialVolume: 0.65
+      subtitle: "[MISSION CONTROL]: Almost. You just need to handle travel in the +X direction."
+      soundGroup: vo
+      groupReplacementMethod: queue
+    - soundName: "TM3V17_MC"
+      soundURL: "assets/sounds/vo/TM3V17_MC.ogg"
+      initialVolume: 0.65
+      subtitle: "[MISSION CONTROL]: Outstanding! Now that your Navigate procedure is working again, let's go get the base pod! Our satellite imagery shows that it landed at position (-13,-9)."
+      soundGroup: vo
+      groupReplacementMethod: replace
+    - soundName: "m3t7vo010"
+      soundURL: "assets/sounds/vo/m3t7vo010.ogg"
+      initialVolume: 0.65
+      subtitle: "[MANNY]: Now that my Navigate procedure is working again, it should appear in the Blockly palette."
+      soundGroup: vo
+      groupReplacementMethod: queue
+    - soundName: "m3t7vo020"
+      soundURL: "assets/sounds/vo/m3t7vo020.ogg"
+      initialVolume: 0.65
+      subtitle: "[MANNY]: All I have to do should be to drag a Navigate block over and tell it where to take me!"
+      soundGroup: vo
+      groupReplacementMethod: queue
+    - soundName: "TM4V1_MC"
+      soundURL: "assets/sounds/vo/TM4_1_MC.ogg" 
+      initialVolume: 0.65
+      subtitle: "[MISSION CONTROL]: Congratulations on the activating the Base Pod. It contains vital equipment you will need to construct the Mars Base, including a Nano Sprayer. This very versatile tool will apply a layer of Nanites to the ground in any shape you outline, and they use the environment itself for materials to build each base item. It's very efficient!"
+      soundGroup: vo
+      groupReplacementMethod: replace
+    - soundName: "TM4V2_MANNY"
+      soundURL: "assets/sounds/vo/TM4_2_MANNY.ogg" 
+      initialVolume: 0.65
+      subtitle: "[MANNY]: You mean I am going to spray smaller robots on the ground to build the base?"
+      soundGroup: vo
+      groupReplacementMethod: queue
+    - soundName: "TM4_3_MC"
+      soundURL: "assets/sounds/vo/TM4_3_MC.ogg" 
+      initialVolume: 0.65
+      subtitle: "[MISSION CONTROL]: Not at all! Your new rover, Peregrine, is equipped with the item in question."
+      soundGroup: vo
+      groupReplacementMethod: queue
+    - soundName: "TM4V5_MC"
+      soundURL: "assets/sounds/vo/TM4_5_MC.ogg" 
+      initialVolume: 0.65
+      subtitle: "[MISSION CONTROL]: The Base Pod is using batteries that will soon run out if you don't supply it with a renewable power source. Therefore, the first things you need to build are Solar Panels."
+      soundGroup: vo
+      groupReplacementMethod: queue
+    - soundName: "TM4V6_MANNY"
+      soundURL: "assets/sounds/vo/TM4_6_MANNY.ogg" 
+      initialVolume: 0.65
+      subtitle: "[MANNY]: Well, little buddy, it doesn't look like we have much time, so we'd better hurry."
+      soundGroup: vo
+      groupReplacementMethod: queue
+    - soundName: "TM4V8_MANNY"
+      soundURL: "assets/sounds/vo/TM4_8_MANNY.ogg" 
+      initialVolume: 0.65
+      subtitle: "[MANNY]: You said it buddy... whatever it is you said."
+      soundGroup: vo
+      groupReplacementMethod: queue
+    - soundName: "TM4_10_MANNY"
+      soundURL: "assets/sounds/vo/TM4_10_MANNY.ogg" 
+      initialVolume: 0.65
+      subtitle: "[MANNY]: Got it! So to dilate the triangle, I multiply each X and Y value by the amount I want its size to change."
+      soundGroup: vo
+      groupReplacementMethod: replace
+    - soundName: "TM4_11_MC"
+      soundURL: "assets/sounds/vo/TM4_11_MC.ogg" 
+      initialVolume: 0.65
+      subtitle: "[MISSION CONTROL]: Precisely."
+      soundGroup: vo
+      groupReplacementMethod: queue
+    - soundName: "TM4V12_MC"
+      soundURL: "assets/sounds/vo/TM4_12_MC.ogg" 
+      initialVolume: 0.65
+      subtitle: "[MISSION CONTROL]: Ok, that looks correct. Move Peregrine to a safe position and then you can start the Nanite construction."
+      soundGroup: vo
+      groupReplacementMethod: queue
+    - soundName: "TM4_13_MANNY"
+      soundURL: "assets/sounds/vo/TM4_13_MANNY.ogg" 
+      initialVolume: 0.65
+      subtitle: "[MANNY]: Let's see... (-3,0) looks like a safe spot."
+      soundGroup: vo
+      groupReplacementMethod: queue
+    # - soundName: "TM4V14_MANNY"
+    #   soundURL: "assets/sounds/vo/TM4_14_MANNY.ogg" 
+    #   initialVolume: 0.65
+    #   subtitle: "[MANNY]: One down, three to go!"
+    #   soundGroup: vo
+    #   groupReplacementMethod: queue
+    - soundName: "TM4_15_MC"
+      soundURL: "assets/sounds/vo/TM4_15_MC.ogg" 
+      initialVolume: 0.65
+      subtitle: "[MISSION CONTROL]: Let's add some more solar panels so that we don't run out of power. One easy way to do that is to reflect the triangle that we just drew. Let's start by simply reflecting the basic triangle across the Y axis, and see how that works. I've uploaded a program that will do that for you, but you'll need to fill in the vertex positions again."
+      soundGroup: vo
+      groupReplacementMethod: replace
+    - soundName: "TM4V16_MANNY"
+      soundURL: "assets/sounds/vo/TM4_16_MANNY.ogg" 
+      initialVolume: 0.65
+      subtitle: "[MANNY]: Got it again!  To reflect the triangle across the *Y* axis, I need to multiply its *X* values by negative one. It's like a reflection in a mirror... you multiply the opposite values."
+      soundGroup: vo
+      groupReplacementMethod: replace
+    - soundName: "TM4_17_MC"
+      soundURL: "assets/sounds/vo/TM4_17_MC.ogg" 
+      initialVolume: 0.65
+      subtitle: "[MISSION CONTROL]: Of course, it's not enough to reflect the triangle so that it's facing the right way. We'll also need to dilate it to make it the right size. I've updated Peregrine's program... fill in the vertex positions and give it a try."
+      soundGroup: vo
+      groupReplacementMethod: queue
+    - soundName: "TM4V18_MANNY"
+      soundURL: "assets/sounds/vo/TM4_18_MANNY.ogg" 
+      initialVolume: 0.65
+      subtitle: "[MANNY]: That's two done!"
+      soundGroup: vo
+      groupReplacementMethod: replace
+    - soundName: "TM4_61_MC"
+      soundURL: "assets/sounds/vo/TM4_61_MC.ogg" 
+      initialVolume: 0.65
+      subtitle: "[MISSION CONTROL]: Great job! Half way there. Now we do the same thing again, but this time we will reflect the original triangle across the X axis."
+      soundGroup: vo
+      groupReplacementMethod: queue
+    - soundName: "TM4V20_MANNY"
+      soundURL: "assets/sounds/vo/TM4_20_MANNY.ogg" 
+      initialVolume: 0.65
+      subtitle: "[MANNY]: There goes the third! Just one more to go!"
+      soundGroup: vo
+      groupReplacementMethod: replace
+    - soundName: "TM4_21_MC"
+      soundURL: "assets/sounds/vo/TM4_21_MC.ogg" 
+      initialVolume: 0.65
+      subtitle: "[MISSION CONTROL]: Now all you have to do is reflect across both axes, and you can get the last one built."
+      soundGroup: vo
+      groupReplacementMethod: queue
+    - soundName: "TM4V22_MANNY"
+      soundURL: "assets/sounds/vo/TM4_22_MANNY.ogg" 
+      initialVolume: 0.65
+      subtitle: "[MANNY]: Solar panel construction complete... and ready for solar energy collection!"
+      soundGroup: vo
+      groupReplacementMethod: replace
+    - soundName: "TM4V23_MC"
+      soundURL: "assets/sounds/vo/TM4_23_MC.ogg" 
+      initialVolume: 0.65
+      subtitle: "[MISSION CONTROL]: Now we have sufficient power. The human explorers will need a Habitation Dome to live in. This can also be constructed using your Nano Sprayer. You will need to translate the triangle, or move it to the correct coordinates. Let's lay out another practice triangle, but this time translate it 8 spaces down and to the left."
+      soundGroup: vo
+      groupReplacementMethod: queue
+    - soundName: "TM4_62_MC"
+      soundURL: "assets/sounds/vo/TM4_62_MC.ogg" 
+      initialVolume: 0.65
+      subtitle: "[MISSION CONTROL]: Excellent. We're ready to place Nanites for the first section of the Habitation Dome. To do that, we'll Dilate the triangle to be the correct size, and then Translate it into place."
+      soundGroup: vo
+      groupReplacementMethod: replace
+    - soundName: "TM4_63_Manny"
+      soundURL: "assets/sounds/vo/TM4_63_Manny.ogg" 
+      initialVolume: 0.65
+      subtitle: "[MISSION CONTROL]: Do we have to do the Dilate first?"
+      soundGroup: vo
+      groupReplacementMethod: queue
+    - soundName: "TM4_64_MC"
+      soundURL: "assets/sounds/vo/TM4_64_MC.ogg" 
+      initialVolume: 0.65
+      subtitle: "[MISSION CONTROL]: Yes we do. Dilate uses multiplication, and Translate uses addition. If we add and then multiply, we won't get the same answer as if we multiply and then add. In this case, the correct answer is to multiply first."
+      soundGroup: vo
+      groupReplacementMethod: queue
+    - soundName: "TM4V25_MC"
+      soundURL: "assets/sounds/vo/TM4_25_MC.ogg" 
+      initialVolume: 0.65
+      subtitle: "[MISSION CONTROL]: You have things under control. I will be temporarily offline while mandatory software updates are installed. In the meantime, proceed on mission and complete the rest of the base before the Human Explorers arrive."
+      soundGroup: vo
+      groupReplacementMethod: replace
+    - soundName: "TM4V26_MANNY"
+      soundURL: "assets/sounds/vo/TM4_26_MANNY.ogg" 
+      initialVolume: 0.65
+      subtitle: "[MANNY]: Ok... no pressure now! I guess it's up to us, Perry. I think the next thing would be to reflect across the Y axis, just like last time."
+      soundGroup: vo
+      groupReplacementMethod: queue
+    - soundName: "TM4V27_MANNY"
+      soundURL: "assets/sounds/vo/TM4_27_MANNY.ogg" 
+      initialVolume: 0.65
+      subtitle: "[MANNY]: Got it! Okay, I can do this. Two to go. Let's reflect across X next..."
+      soundGroup: vo
+      groupReplacementMethod: replace
+    - soundName: "TM4V28_MANNY"
+      soundURL: "assets/sounds/vo/TM4_28_MANNY.ogg" 
+      initialVolume: 0.65
+      subtitle: "[MANNY]: Almost there, just one more to go."
+      soundGroup: vo
+      groupReplacementMethod: replace
+    - soundName: "TM4V29_MANNY"
+      soundURL: "assets/sounds/vo/TM4_29_MANNY.ogg" 
+      initialVolume: 0.65
+      subtitle: "[MANNY]: Right. Good. What am I forgetting? Oh yes! Move to a safe spot and send the 'construct' command."
+      soundGroup: vo
+      groupReplacementMethod: queue
+    - soundName: "TM4V31_MANNY"
+      soundURL: "assets/sounds/vo/TM4_31_MANNY.ogg" 
+      initialVolume: 0.65
+      subtitle: "[MANNY]: You're welcome."
+      soundGroup: vo
+      groupReplacementMethod: queue
+    - soundName: "TM4V32_MANNY"
+      soundURL: "assets/sounds/vo/TM4_32_MANNY.ogg" 
+      initialVolume: 0.65
+      subtitle: "[MANNY]: Ok, what's next?  Power, shelter... I suppose the Humans will probably want to eat. Let's build them a Greenhouse Dome, where they can grow some of what they call 'food.'"
+      soundGroup: vo
+      groupReplacementMethod: replace
+    - soundName: "TM4V35_MANNY"
+      soundURL: "assets/sounds/vo/TM4_35_MANNY.ogg" 
+      initialVolume: 0.65
+      subtitle: "[MANNY]: Looks like a Greenhouse Dome to me. What do you think, Perry?"
+      soundGroup: vo
+      groupReplacementMethod: queue
+    - soundName: "TM4V37_MANNY"
+      soundURL: "assets/sounds/vo/TM4_37_MANNY.ogg" 
+      initialVolume: 0.65
+      subtitle: "[MANNY]: Yes, that did save a lot of time!"
+      soundGroup: vo
+      groupReplacementMethod: queue
+    - soundName: "TM4V38_MANNY"
+      soundURL: "assets/sounds/vo/TM4_38_MANNY.ogg" 
+      initialVolume: 0.65
+      subtitle: "[MANNY]: Alright! Plants can't grow without water, though. I guess we'd better build the well next."
+      soundGroup: vo
+      groupReplacementMethod: replace
+    - soundName: "TM4V40_MANNY"
+      soundURL: "assets/sounds/vo/TM4_40_MANNY.ogg" 
+      initialVolume: 0.65
+      subtitle: "[MANNY]: Yes, it does seem strange to build a well when it's so dry, but apparently there are major ice deposits underground. We can use those for water and to get oxygen too!"
+      soundGroup: vo
+      groupReplacementMethod: queue
+    - soundName: "TM4V42_MANNY"
+      soundURL: "assets/sounds/vo/TM4_42_MANNY.ogg" 
+      initialVolume: 0.65
+      subtitle: "[MANNY]: Yes Perry, I know it's corrosive, but Humans like to breathe it! So weird..."
+      soundGroup: vo
+      groupReplacementMethod: queue
+    - soundName: "TM4V43_MANNY"
+      soundURL: "assets/sounds/vo/TM4_43_MANNY.ogg" 
+      initialVolume: 0.65
+      subtitle: "[MANNY]: Outstanding! The solar panels have now stored more than enough power... Let's knock off for the night and recharge at the base pod. We can come back and build some more tomorrow."
+      soundGroup: vo
+      groupReplacementMethod: queue
+    - soundName: "TM4_46_Manny"
+      soundURL: "assets/sounds/vo/TM4_46_Manny.ogg" 
+      initialVolume: 0.65
+      subtitle: "[MANNY]: Let's see... It looks like Peregrine already has a Draw Triangle block. Why don't I try calling it?"
+      soundGroup: vo
+      groupReplacementMethod: queue
+    - soundName: "TM4_47_Manny"
+      soundURL: "assets/sounds/vo/TM4_47_Manny.ogg" 
+      initialVolume: 0.65
+      subtitle: "[MANNY]: Hrm. I remember that dilation involves multiplying the X and Y values of each vertex by something..."
+      soundGroup: vo
+      groupReplacementMethod: queue
+    - soundName: "TM4_49_Manny"
+      soundURL: "assets/sounds/vo/TM4_49_Manny.ogg" 
+      initialVolume: 0.65
+      subtitle: "[MANNY]: Hmmm. It looks like Perry already has a basic MoveTo procedure, as well as one to start construction. Let's give those a try..."
+      soundGroup: vo
+      groupReplacementMethod: queue
+    - soundName: "TM4_50_Manny"
+      soundURL: "assets/sounds/vo/TM4_50_Manny.ogg" 
+      initialVolume: 0.65
+      subtitle: "[MANNY]: I seem to remember that reflection involves multiplying the X and Y positions as well..."
+      soundGroup: vo
+      groupReplacementMethod: queue
+    - soundName: "TM4_52_Manny"
+      soundURL: "assets/sounds/vo/TM4_52_Manny.ogg" 
+      initialVolume: 0.65
+      subtitle: "[MANNY]: Reflect... Dilate... Safe spot... Construct. Reflect... Dilate... Safe spot... Construct."
+      soundGroup: vo
+      groupReplacementMethod: queue
+    - soundName: "TM4_53_Manny"
+      soundURL: "assets/sounds/vo/TM4_53_Manny.ogg" 
+      initialVolume: 0.65
+      subtitle: "[MANNY]: Translate has something to do with addition and subtraction... right?"
+      soundGroup: vo
+      groupReplacementMethod: queue
+    - soundName: "TM4_54_Manny"
+      soundURL: "assets/sounds/vo/TM4_54_Manny.ogg" 
+      initialVolume: 0.65
+      subtitle: "[MANNY]: Reflect... Dilate... Translate... Done. Reflect... Dilate... Translate... Done."
+      soundGroup: vo
+      groupReplacementMethod: queue
+    - soundName: "TM4_55_Manny"
+      soundURL: "assets/sounds/vo/TM4_55_Manny.ogg" 
+      initialVolume: 0.65
+      subtitle: "[MANNY]: The draw triangle block already has the correct values – I just need to use it."
+      soundGroup: vo
+      groupReplacementMethod: queue
+    - soundName: "TM4_56_MC"
+      soundURL: "assets/sounds/vo/TM4_56_MC.ogg" 
+      initialVolume: 0.65
+      subtitle: "[MISSION CONTROL]: That is a triangle, but it's not a big enough triangle to construct a solar panel. You can make the triangle bigger by using a Dilate transformation. Here, let me help... I'll upload a program that should work, but you'll need to fill in the vertex positions on the Dilate block."
+      soundGroup: vo
+      groupReplacementMethod: replace
+    # - soundName: "TM4_57_MC"
+    #   soundURL: "assets/sounds/vo/TM4_57_MC.ogg" 
+    #   initialVolume: 0.65
+    #   subtitle: "[MANNY]: Don't forget to move Peregrine to a safe spot and start construction once you're done..."
+    #   soundGroup: vo
+    #   groupReplacementMethod: queue
+    - soundName: "TM4_58_MC"
+      soundURL: "assets/sounds/vo/TM4_58_MC.ogg" 
+      initialVolume: 0.65
+      subtitle: "[MANNY]: I'm back. Great work on the habitation dome!"
+      soundGroup: vo
+      groupReplacementMethod: queue
+    - soundName: "TM4_59_MC"
+      soundURL: "assets/sounds/vo/TM4_59_MC.ogg" 
+      initialVolume: 0.65
+      subtitle: "[MANNY]: As part of my update, I have transformation blocks that will automatically calculate the vertex positions for you. All you need to do is specify the amount to translate or dilate, or the direction to reflect. I'm uploading them now."
+      soundGroup: vo
+      groupReplacementMethod: queue
+    - soundName: "TM4_60_Manny"
+      soundURL: "assets/sounds/vo/TM4_60_Manny.ogg" 
+      initialVolume: 0.65
+      subtitle: "[MANNY]: Let's see... I need the vertices for just the Reflect first, then the vertices for both transformations together."
+      soundGroup: vo
+      groupReplacementMethod: queue
+    - soundName: "TM4_60_MC"
+      soundURL: "assets/sounds/vo/TM4_60_MC.ogg" 
+      initialVolume: 0.65
+      subtitle: "[MANNY]: Upload complete. Why don't you try writing one program that includes all four triangles for the Greenhouse Dome?"
       soundGroup: vo
       groupReplacementMethod: queue
     - soundName: "ALVO1_Rover"
       soundURL: "assets/sounds/vo/ALVO1_Rover_m.ogg"
       initialVolume: 0.65
-      subtitle: "[ROVER]: The red and blue lines look like my axes, so the green line must be the line I'm plotting."
+      subtitle: "[MANNY]: The red and blue lines look like my axes, so the green line must be the line I'm plotting."
       soundGroup: vo
-      groupReplacementMethod: queue
+      groupReplacementMethod: replace
     - soundName: "ALVO14_Rover"
       soundURL: "assets/sounds/vo/ALVO14_Rover_m.ogg"
       initialVolume: 0.65
-      subtitle: "[ROVER]: What's the blinking thing in the corner? I should probably activate it."
+      subtitle: "[MANNY]: What's the blinking thing in the corner? I should probably activate it."
       soundGroup: vo
       groupReplacementMethod: queue
     - soundName: "ALVO15_Rover"
       soundURL: "assets/sounds/vo/ALVO15_Rover_m.ogg"
       initialVolume: 0.65
-      subtitle: "[ROVER]: Maybe if I drag a block over, something will happen."
+      subtitle: "[MANNY]: Maybe if I drag a block over, something will happen."
       soundGroup: vo
       groupReplacementMethod: queue
     - soundName: "ALVO16_Rover"
       soundURL: "assets/sounds/vo/ALVO16_Rover_m.ogg"
       initialVolume: 0.65
-      subtitle: "[ROVER]: I remember now! I need to Start my program."
+      subtitle: "[MANNY]: I remember now! I need to Start my program."
       soundGroup: vo
       groupReplacementMethod: queue
     - soundName: "ALVO17_Rover"
       soundURL: "assets/sounds/vo/ALVO17_Rover_m.ogg"
       initialVolume: 0.65
-      subtitle: "[ROVER]: Another blinking thing. I should probably open that."
+      subtitle: "[MANNY]: Another blinking thing. I should probably open that."
       soundGroup: vo
       groupReplacementMethod: queue
     - soundName: "ALVO18_Rover"
       soundURL: "assets/sounds/vo/ALVO18_Rover_m.ogg"
       initialVolume: 0.65
-      subtitle: "[ROVER]: Yet another blinking thing that needs a click."
+      subtitle: "[MANNY]: Yet another blinking thing that needs a click."
       soundGroup: vo
       groupReplacementMethod: queue
     - soundName: "ALVO19_Rover"
       soundURL: "assets/sounds/vo/ALVO19_Rover_m.ogg"
       initialVolume: 0.65
-      subtitle: "[ROVER]: If I drag a block next to another block, they will connect."
+      subtitle: "[MANNY]: If I drag a block next to another block, they will connect."
       soundGroup: vo
       groupReplacementMethod: queue
     - soundName: "ALVO20_Rover"
       soundURL: "assets/sounds/vo/ALVO20_Rover_m.ogg"
       initialVolume: 0.65
-      subtitle: "[ROVER]: That did it! I can set the direction of the turn by clicking Left or Right on the Block."
+      subtitle: "[MANNY]: That did it! I can set the direction of the turn by clicking Left or Right on the Block."
       soundGroup: vo
       groupReplacementMethod: replace
     - soundName: "ALVO22_Rover"
       soundURL: "assets/sounds/vo/ALVO22_Rover_m.ogg"
       initialVolume: 0.65
-      subtitle: "[ROVER]: I'm going to need to work out the moves all the way to the Radio Module and turn that into a Program."
+      subtitle: "[MANNY]: I'm going to need to work out the moves all the way to the Radio Module and turn that into a Program."
       soundGroup: vo
       groupReplacementMethod: queue
     - soundName: "ALVO24_Rover"
       soundURL: "assets/sounds/vo/ALVO24_Rover_m.ogg"
       initialVolume: 0.65
-      subtitle: "[ROVER]: I wonder what happens if I connect a Y block to an X block?"
+      subtitle: "[MANNY]: I wonder what will happen if I connect a Y block to an X block..."
       soundGroup: vo
       groupReplacementMethod: queue
     - soundName: "ALVO25_Rover"
       soundURL: "assets/sounds/vo/ALVO25_Rover_m.ogg"
       initialVolume: 0.65
-      subtitle: "[ROVER]: If I know the slope, I can use that to determine my course."
+      subtitle: "[MANNY]: If I know the rate of change, I can use that to determine my course."
       soundGroup: vo
       groupReplacementMethod: queue
     - soundName: "ALVO26_Rover"
       soundURL: "assets/sounds/vo/ALVO26_Rover_m.ogg"
       initialVolume: 0.65
-      subtitle: "[ROVER]: Slope is the number of grid squares up the Y axis divided by the number of grid squares to the right on the X axis."
+      subtitle: "[MANNY]: Slope is the number of grid squares up the Y axis divided by the number of grid squares to the right on the X axis."
       soundGroup: vo
       groupReplacementMethod: queue
-    - soundName: "ALVO27_Rover"
-      soundURL: "assets/sounds/vo/ALVO27_Rover_m.ogg"
+    - soundName: "m2t8vo060"
+      soundURL: "assets/sounds/vo/m2t8vo060.ogg"
       initialVolume: 0.65
-      subtitle: "[ROVER]: Try using the Scanblock to detect the Mini Rover."
+      subtitle: "[MANNY]: I wonder what happens if I make X negative..."
       soundGroup: vo
       groupReplacementMethod: queue
-    - soundName: "ALVO28_Rover"
-      soundURL: "assets/sounds/vo/ALVO28_Rover_m.ogg"
+    - soundName: "m2t10vo010"
+      soundURL: "assets/sounds/vo/m2t10vo010.ogg"
       initialVolume: 0.65
-      subtitle: "[ROVER]: Try using the Conditional Block to decide what to do after you scan."
-      soundGroup: vo
-      groupReplacementMethod: queue
-    - soundName: "ALVO29_Rover"
-      soundURL: "assets/sounds/vo/ALVO29_Rover.ogg"
-      initialVolume: 0.65
-      subtitle: "[ROVER]: When I change the sign of the number in front of X, what happens?"
+      subtitle: "[MANNY]: I think I see him up ahead! Looks like my agricultural rover... One more set of tracks to go!"
       soundGroup: vo
       groupReplacementMethod: queue
     - soundName: "ALVO30_Rover"
       soundURL: "assets/sounds/vo/ALVO30_Rover.ogg"
       initialVolume: 0.65
-      subtitle: "[ROVER]: How does the line move as I change the size of the number in front of X?"
+      subtitle: "[MANNY]: How does the line move as I make the number in front of X bigger and smaller?"
       soundGroup: vo
       groupReplacementMethod: queue
-    - soundName: "ALVO31_Rover"
-      soundURL: "assets/sounds/vo/ALVO31_Rover.ogg"
+    - soundName: "m2t10vo020"
+      soundURL: "assets/sounds/vo/m2t10vo020.ogg"
       initialVolume: 0.65
-      subtitle: "[ROVER]: Can I put a number that's between 0 and 1 in front of X?  What happens then?"
+      subtitle: "[MANNY]: Hmmm. How can I put a number that's between 0 and 1 in front of X?"
       soundGroup: vo
       groupReplacementMethod: queue
     - soundName: "ALVO32_Rover"
       soundURL: "assets/sounds/vo/ALVO32_Rover.ogg"
       initialVolume: 0.65
-      subtitle: "[ROVER]: If I open the programming window while I move, I can watch the program execute to see where the mistake is."
+      subtitle: "[MANNY]: If I open the programming window while I move, I can watch the program execute to see where the mistake is."
       soundGroup: vo
       groupReplacementMethod: queue
       queueDelayTime: 2.0
     - soundName: "ALVO33_Rover"
       soundURL: "assets/sounds/vo/ALVO33_Rover.ogg"
       initialVolume: 0.65
-      subtitle: "[ROVER]: Hmmm.  Maybe I should step through the program in my head to make sure it is going to do what I think it should do."
+      subtitle: "[MANNY]: Hmmm. Maybe I should step through the program in my head to make sure it is going to do what I think it should do."
       soundGroup: vo
       groupReplacementMethod: queue
       queueDelayTime: 2.0
     - soundName: "ALVO34_Rover"
       soundURL: "assets/sounds/vo/ALVO34_Rover.ogg"
       initialVolume: 0.65
-      subtitle: "[ROVER]: Up there, in the top right corner.  What's that blinking thing?"
+      subtitle: "[MANNY]: Up there, in the top right corner. What's that blinking thing?"
       soundGroup: vo
       groupReplacementMethod: queue
-    - soundName: "ALVO35_Rover"
-      soundURL: "assets/sounds/vo/ALVO35_Rover.ogg"
+    - soundName: "m1t6vo020"
+      soundURL: "assets/sounds/vo/m1t6vo020.ogg"
       initialVolume: 0.65
-      subtitle: "[ROVER]: I can get rid of blocks by dragging them back over to the left hand side."
+      subtitle: "[MANNY]: I can get rid of blocks by dragging them to the trash can."
       soundGroup: vo
       groupReplacementMethod: queue
     - soundName: "ALVO36_Rover"
       soundURL: "assets/sounds/vo/ALVO36_Rover.ogg"
       initialVolume: 0.65
-      subtitle: "[ROVER]: I can move my helicam around using the arrow keys or the right mouse button."
+      subtitle: "[MANNY]: I can move my Helicam around using the arrow keys or the right mouse button."
       soundGroup: vo
       groupReplacementMethod: queue
     - soundName: "ALVO37_Rover"
       soundURL: "assets/sounds/vo/ALVO37_Rover.ogg"
       initialVolume: 0.65
-      subtitle: "[ROVER]: This one is tricky.  I may need to do some of the work before I enter my loop."
+      subtitle: "[MANNY]: This one is tricky. I may need to do some of the work before I enter my loop."
       soundGroup: vo
       groupReplacementMethod: queue
     - soundName: "ALVO38_Rover"
       soundURL: "assets/sounds/vo/ALVO38_Rover.ogg"
       initialVolume: 0.65
-      subtitle: "[ROVER]: I need to remember to make sure that I end my loop facing the same direction as I started, or else I'm going to go in circles."
+      subtitle: "[MANNY]: I need to remember to make sure that I end my loop facing the same direction as I started, or else I'm going to go in circles."
       soundGroup: vo
       groupReplacementMethod: queue
     - soundName: "ALVO40_Rover"
       soundURL: "assets/sounds/vo/ALVO40_Rover.ogg"
       initialVolume: 0.65
-      subtitle: "[ROVER]: There's my helicam. I should get it reactivated, so that I can take a look around."
+      subtitle: "[MANNY]: There's my Helicam. I should get it reactivated, so that I can take a look around."
       soundGroup: vo
       groupReplacementMethod: replace
     - soundName: "ALVO41_Rover"
       soundURL: "assets/sounds/vo/ALVO41_Rover.ogg"
       initialVolume: 0.65
-      subtitle: "[ROVER]: Up there, in the top right corner.  Click the blinky thing."
+      subtitle: "[MANNY]: Up there, in the top right corner. Click the blinky thing."
       soundGroup: vo
       groupReplacementMethod: queue
     - soundName: "ALVO42_Rover"
       soundURL: "assets/sounds/vo/ALVO42_Rover.ogg"
       initialVolume: 0.65
-      subtitle: "[ROVER]: Now that I've got this spare battery, I need to go back to the ramp to get it charged up - but I don't have enough RAM to do that with forward blocks. I can use a loop block to repeat blocks. Doing this saves me time and RAM. I can specify the number of times it repeats by putting a number block in it."
+      subtitle: "[MANNY]: Now that I've got this spare battery, I need to go back to the ramp to get it charged up - but I don't have enough RAM to do that with forward blocks. I can use a loop block to repeat blocks. Doing this saves me time and RAM. I can specify the number of times it repeats by putting a number block in it."
       soundGroup: vo
       groupReplacementMethod: queue
-    - soundName: "SCVO1_Rover"
-      soundURL: "assets/sounds/vo/SCVO1_Rover_m.ogg"
+    - soundName: "m1t7vo010"
+      soundURL: "assets/sounds/vo/m1t7vo010.ogg"
       initialVolume: 0.65
-      subtitle: "[ROVER]: Whoa! What a view! It's a good thing I'm not afraid of heights."
-      soundGroup: vo
-      groupReplacementMethod: replace
-    - soundName: "SCVO3_Rover"
-      soundURL: "assets/sounds/vo/SCVO3_Rover_m.ogg"
-      initialVolume: 0.65
-      subtitle: "[ROVER]: Phew! Made it back to the ramp. I need to remember to watch my power level. Turning doesn't take any power, but moving forward on this rough terrain drains my battery."
+      subtitle: "[MANNY]: I remember now... I can find the loop block in the Loops category, on the left hand side of the Blockly window."
       soundGroup: vo
       groupReplacementMethod: replace
     - soundName: "SCVO2_Rover"
       soundURL: "assets/sounds/vo/SCVO2_Rover_m.ogg"
       initialVolume: 0.65
-      subtitle: "[ROVER]: Ah that's better...now I can see where I can drive."
+      subtitle: "[MANNY]: Ah that's better... Now I can see where I can drive."
       soundGroup: vo
       groupReplacementMethod: replace
     - soundName: "SCVO5_Rover"
       soundURL: "assets/sounds/vo/SCVO5_Rover_m.ogg"
       initialVolume: 0.65
-      subtitle: "[ROVER]: This grid will help me work things out, but I need some way to make a graph appear. I recall it has something to do with my Blockly programming..."
+      subtitle: "[MANNY]: This grid will help me work things out, but I need some way to make a graph appear. I recall it has something to do with my Blockly programming..."
       soundGroup: vo
       groupReplacementMethod: replace
     - soundName: "SCVO6_Rover"
       soundURL: "assets/sounds/vo/SCVO6_Rover_m.ogg"
       initialVolume: 0.65
-      subtitle: "[ROVER]: Now I need to plot a graph. I recall it starts with the Y Block."
+      subtitle: "[MANNY]: Now I need to plot a graph. I recall it starts with the Y Block."
       soundGroup: vo
       groupReplacementMethod: replace
     - soundName: "SCVO8_Control"
       soundURL: "assets/sounds/vo/SCVO8_Control.ogg"
       initialVolume: 1.0
-      subtitle: "[MC]: Now you are on the right track! This graph is going to help you overcome your next challenge: Find the slope of the line, and use that to make a navigation program that will follow that track.  Let’s start by moving to that blinking tile just to your left."
+      subtitle: "[MISSION CONTROL]: Now you are on the right track! This graph is going to help you overcome your next challenge: Find the rate of change, or 'slope' of the line, and use that to make a navigation program that will follow that track. Let's start by moving to that blinking tile just to your right."
       soundGroup: vo
       groupReplacementMethod: replace
     - soundName: "SCVO9_Rover"
       soundURL: "assets/sounds/vo/SCVO9_Rover_m.ogg"
       initialVolume: 0.65
-      subtitle: "[ROVER]: Yay! That will save some time and memory. But I think I'm forgetting something..."
+      subtitle: "[MANNY]: Yay! That will save some time and memory. But I think I'm forgetting something..."
       soundGroup: vo
       groupReplacementMethod: replace
     - soundName: "FCVO1_Rover"
       soundURL: "assets/sounds/vo/FCVO1_Rover_m.ogg"
       initialVolume: 0.65
-      subtitle: "[ROVER]: I swear I feel dizzy, but I can't be — I'm a Robot. Hmm."
+      subtitle: "[MANNY]: I swear I feel dizzy, but I can't be — I'm a Robot."
       soundGroup: vo
       groupReplacementMethod: replace
     - soundName: "FCVO2_Rover"
       soundURL: "assets/sounds/vo/FCVO2_Rover_m.ogg"
       initialVolume: 0.65
-      subtitle: "[ROVER]: I didn't make it. I need to rethink my Program."
+      subtitle: "[MANNY]: I didn't make it. I need to rethink my Program."
       soundGroup: vo
       groupReplacementMethod: replace
     - soundName: "FCVO4_Rover"
       soundURL: "assets/sounds/vo/FCVO4_Rover_m.ogg"
       initialVolume: 0.65
-      subtitle: "[ROVER]: I need to plot the course before I try to follow it."
+      subtitle: "[MANNY]: I need to plot the course before I try to follow it."
+      soundGroup: vo
+      groupReplacementMethod: replace
+    - soundName: "conditionalFailure_conditionalLoop"
+      soundURL: "assets/sounds/vo/conditionalFailure_conditionalLoop.ogg"
+      initialVolume: 0.65
+      subtitle: "[MANNY]: I need to use a conditional loop to solve this problem."
+      soundGroup: vo
+      groupReplacementMethod: replace
+    - soundName: "conditionalFailure_repeatLoop"
+      soundURL: "assets/sounds/vo/conditionalFailure_repeatLoop.ogg"
+      initialVolume: 0.65
+      subtitle: "[MANNY]: I need to use a repeat loop to solve this problem."
+      soundGroup: vo
+      groupReplacementMethod: replace
+    - soundName: "conditionalFailure_ifBlock"
+      soundURL: "assets/sounds/vo/conditionalFailure_ifBlock.ogg"
+      initialVolume: 0.65
+      subtitle: "[MANNY]: I need to use an if block to ensure that I don't waste energy."
       soundGroup: vo
       groupReplacementMethod: replace
     - soundName: "CTVO1_Rover"
       soundURL: "assets/sounds/vo/CTVO1_Rover.ogg"
       initialVolume: 0.65
-      subtitle: "[ROVER]: What's up with all this turning? They can send a rover to Mars, but I can't drive in reverse and can only make right angle turns?! Hopefully it's just damage from the crash..."
-      soundGroup: vo
-      groupReplacementMethod: queue
-    - soundName: "CTVO2_Control"
-      soundURL: "assets/sounds/vo/CTVO2_Control.ogg"
-      initialVolume: 1.0
-      subtitle: "[MC]: Looks like you're headed into the Cartesian Plain, so named because it's big, wide, and flat."
+      subtitle: "[MANNY]: What's up with all this turning? They can send a rover to Mars, but I can't drive in reverse and can only make right angle turns?! Hopefully it's just damage from the crash..."
       soundGroup: vo
       groupReplacementMethod: queue
     - soundName: "CTVO3"
       soundURL: "assets/sounds/vo/CTVO3.ogg"
       isLooping: true
-      initialVolume: 0.85
-      subtitle: "[ROVER]: ... whistles ..."
+      initialVolume: 0.65
+      subtitle: "[MANNY]: ... whistles ..."
       soundGroup: vo
       groupReplacementMethod: queue
     - soundName: "CTVO4"
       soundURL: "assets/sounds/vo/CTVO4.ogg"
       isLooping: true
-      initialVolume: 0.85
-      subtitle: "[ROVER]: ... whistles ..."
+      initialVolume: 0.65
+      subtitle: "[MANNY]: ... whistles ..."
+      soundGroup: vo
+      groupReplacementMethod: queue
+    - soundName: "PerryThanksALot"
+      soundURL: "assets/sounds/vo/perryThanksALot.ogg"
+      isLooping: false
+      initialVolume: 0.65
+      subtitle: "[PERRY]: [whistles]"
+      soundGroup: vo
+      groupReplacementMethod: queue
+    - soundName: "perryIDidIt04"
+      soundURL: "assets/sounds/vo/perryIDidIt04.ogg"
+      isLooping: false
+      initialVolume: 0.65
+      subtitle: "[PERRY]: [whistles]"
+      soundGroup: vo
+      groupReplacementMethod: queue
+    - soundName: "perryIDidIt06"
+      soundURL: "assets/sounds/vo/perryIDidIt06.ogg"
+      isLooping: false
+      initialVolume: 0.65
+      subtitle: "[PERRY]: [whistles]"
+      soundGroup: vo
+      groupReplacementMethod: queue
+    - soundName: "perryIDidIt07"
+      soundURL: "assets/sounds/vo/perryIDidIt07.ogg"
+      isLooping: false
+      initialVolume: 0.65
+      subtitle: "[PERRY]: [whistles]"
+      soundGroup: vo
+      groupReplacementMethod: queue
+    - soundName: "PerryWhatsAClown"
+      soundURL: "assets/sounds/vo/perryWhatsAClown.ogg"
+      isLooping: false
+      initialVolume: 0.65
+      subtitle: "[PERRY]: [whistles]"
+      soundGroup: vo
+      groupReplacementMethod: queue
+    - soundName: "PerryDusty02"
+      soundURL: "assets/sounds/vo/perryDidItButImDusty02.ogg"
+      isLooping: false
+      initialVolume: 0.65
+      subtitle: "[PERRY]: [whistles]"
+      soundGroup: vo
+      groupReplacementMethod: replace
+    - soundName: "PerryDusty"
+      soundURL: "assets/sounds/vo/perryDidItButImDusty03.ogg"
+      isLooping: false
+      initialVolume: 0.65
+      subtitle: "[PERRY]: [whistles]"
+      soundGroup: vo
+      groupReplacementMethod: queue
+    - soundName: "PerryAcknowledge"
+      soundURL: "assets/sounds/vo/perryAcknowledge04.ogg"
+      isLooping: false
+      initialVolume: 0.65
+      subtitle: "[PERRY]: [whistles]"
+      soundGroup: vo
+      groupReplacementMethod: queue
+    - soundName: "PerryNotDoneGroan"
+      soundURL: "assets/sounds/vo/perryNotDoneGroan04.ogg"
+      isLooping: false
+      initialVolume: 0.65
+      subtitle: "[PERRY]: [whistles]"
+      soundGroup: vo
+      groupReplacementMethod: queue
+    - soundName: "VO_Manny_Hint01"
+      soundURL: "assets/sounds/vo/VO_Manny_Hint01.ogg"
+      initialVolume: 0.65
+      subtitle: "[MANNY]: I know that my slope is -4/1. Can I use that to tell me how many times to move forward and where to turn?"
+      soundGroup: vo
+      groupReplacementMethod: queue
+    - soundName: "VO_Manny_Hint02"
+      soundURL: "assets/sounds/vo/VO_Manny_Hint02.ogg"
+      initialVolume: 0.65
+      subtitle: "[MANNY]: Let’s see...  Each time through the loop should bring me to the tracks, right?"
+      soundGroup: vo
+      groupReplacementMethod: queue
+    - soundName: "VO_Manny_Hint03"
+      soundURL: "assets/sounds/vo/VO_Manny_Hint03.ogg"
+      initialVolume: 0.65
+      subtitle: "[MANNY]: I remember slope is rise over run. Can I use that to figure out what number to put in front of X?"
+      soundGroup: vo
+      groupReplacementMethod: queue
+    - soundName: "VO_Manny_Hint04"
+      soundURL: "assets/sounds/vo/VO_Manny_Hint04.ogg"
+      initialVolume: 0.65
+      subtitle: "[MANNY]: Do I want to repeat *while* I sense metal or *until* I sense metal?"
+      soundGroup: vo
+      groupReplacementMethod: queue
+    - soundName: "VO_Manny_Hint05"
+      soundURL: "assets/sounds/vo/VO_Manny_Hint05.ogg"
+      initialVolume: 0.65
+      subtitle: "[MANNY]: I see... the gray triangle is the one I need Perry to trace and the purple triangle is the result of the values I’ve entered so far."
+      soundGroup: vo
+      groupReplacementMethod: queue
+    - soundName: "VO_MissionControl_Hint01"
+      soundURL: "assets/sounds/vo/VO_MissionControl_Hint01.ogg"
+      initialVolume: 0.65
+      subtitle: "[MISSION CONTROL]: Just so you know, hitting RESET will take you back to the last working version of the program."
+      soundGroup: vo
+      groupReplacementMethod: queue
+    - soundName: "VO_MissionControl_Hint02"
+      soundURL: "assets/sounds/vo/VO_MissionControl_Hint02.ogg"
+      initialVolume: 0.65
+      subtitle: "[MISSION CONTROL]: Remember, hitting RESET will take you back to the program I gave you."
       soundGroup: vo
       groupReplacementMethod: queue
 
 methods:
   setUpSubtitles:
   startSubtitle:
-children:
+  stopSubtitle:
 scripts:
-- source: source/marsGameSound.js
+- source: marsGameSound.js

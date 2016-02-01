@@ -1,0 +1,233 @@
+# Copyright 2014 Lockheed Martin Corporation
+#
+# Licensed under the Apache License, Version 2.0 (the "License"); you may 
+# not use this file except in compliance with the License. You may obtain 
+# a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software 
+# distributed under the License is distributed on an "AS IS" BASIS, 
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and 
+# limitations under the License.
+
+---
+extends: ../scenario/scenario.vwf
+properties:
+  scenarioName: Mission4Task11
+  nextScenarioPath: Mission4Task12
+
+  startState:
+
+  # objective
+  - setObjective:
+    - "Draw the next section of the Habitation Dome."
+
+  - setProperty:
+    - rover2
+    - startXML
+    - <xml></xml>
+  - setProperty:
+    - rover2
+    - blockly_xml
+    - <xml></xml>
+
+  # blockly
+  - setBlocklyContext:
+    - rover2
+  - loadToolbox:
+    - rover2
+    - source/scenario/blockly/mission4_perry11.xml
+
+  # sounds/music
+  - playSound:
+    - musicMission4Loop
+  - playSound:
+    - environmentWind
+  - setProperty:
+    - videoManager  
+    - url 
+    - [ "assets/video/Success4_800x600.mp4" ]
+
+  # Manny
+  - addToGrid:
+    - rover
+    - [ -30, 23 ]
+  - callMethod:
+    - rover
+    - setHeading
+    - 180
+
+  # Perry
+  - setProperty:
+    - rover2
+    - visible
+    - true
+  - addToGrid:
+    - rover2
+    - [ -32, 11 ]
+  - setProperty:
+    - rover2
+    - battery
+    - 100
+  - setProperty:
+    - rover2
+    - batteryMax
+    - 100
+  - setProperty:
+    - rover2
+    - blockly_allowedBlocks
+    - 60
+  - setProperty:
+    - rover2
+    - lowRam
+    - 1
+  - selectRover:
+    - rover2
+
+  # Rosie disabled
+
+  # Grid and disable blocklyLine
+  - setGridAxes:
+    - 19
+    - -24
+  - setProperty:
+    - blocklyLine
+    - visible
+    - false
+  - setProperty:
+    - blocklyLine
+    - opacity
+    - 0
+
+  - drawTriangle:
+    - [ -8, -8 ]
+    - [ -8, -11 ]
+    - [ -5, -8 ]
+
+  # Solar panel construction
+  - setConstructed:
+    - solarPanel1
+    - true
+  - setConstructed:
+    - solarPanel2
+    - true
+  - setConstructed:
+    - solarPanel3
+    - true
+  - setConstructed:
+    - solarPanel4
+    - true
+
+  - setProperty:
+    - cargoPod2
+    - isClosed
+    - false
+
+  - setProperty:
+    - marsTent1
+    - visible
+    - false
+
+  - setProperty:
+    - rover2
+    - surveyArray
+    - []
+  - setProperty:
+    - rover2
+    - allSurveys
+    - []
+
+  # turning supplies and minirover invisible
+  - setProperty:
+    - supplies_1
+    - visible
+    - false
+  - setProperty:
+    - supplies_2
+    - visible
+    - false
+  - setProperty:
+    - minirover
+    - visible
+    - false
+
+children:
+  triggerManager:
+    extends: ../triggers/triggerManager.vwf
+    properties: 
+      triggers$:
+
+        playStartingVO_4_11:
+          triggerCondition:
+          - and:
+            - doOnce:
+            - onScenarioStart:
+          actions:
+          - playSound:
+            - TM4V27_MANNY
+          - playSound:
+            - PerryAcknowledge
+          - setProperty:
+            - hud
+            - enabled
+            - false
+          - delay:
+            - 8
+            - openMissionBrief:
+            - setProperty:
+              - hud
+              - enabled
+              - true
+            - startTimer:
+
+        succeedOnTriangle_4_11:
+          group: successOrFailure
+          priority: 0
+          triggerCondition:
+          - onBlocklyPolygon:
+            - rover2
+            - [ [ -8, -8 ], [ -8, -11 ], [ -5, -8 ] ]
+          actions:
+          - writeToBlackboard:
+            - disableFailOnIncompleteProgram
+          # - showAlert:
+          #   - "I created the correct triangle!"
+          - callMethod:
+            - rover2
+            - stopExecution
+          - playSound:
+            - musicSuccessShort
+          - scenarioSuccess:
+
+        scenarioEnded4_11:
+          triggerCondition:
+          - or: 
+            - onScenarioSucceeded:
+            - onScenarioFailed:
+          actions:
+          - setProperty:
+            - rover2
+            - surveyArray
+            - []
+          - setProperty:
+            - rover2
+            - allSurveys
+            - []
+
+        # onScenarioFailed4_11:
+        #   triggerCondition:
+        #   - onScenarioFailed:
+        #   actions:
+        #   - deleteNanites:
+        #     - nanites_Mission4Task11
+
+  brief:
+    extends: ../missionBrief.vwf
+    properties:
+      title: "Mission 4, Task 11"
+      content: >
+        Two sections down!
+        <br><br>Draw the third section, matching the one your Helicam is
+        projecting.

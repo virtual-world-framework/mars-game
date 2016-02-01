@@ -1,0 +1,39 @@
+# Copyright 2014 Lockheed Martin Corporation
+#
+# Licensed under the Apache License, Version 2.0 (the "License"); you may 
+# not use this file except in compliance with the License. You may obtain 
+# a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software 
+# distributed under the License is distributed on an "AS IS" BASIS, 
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and 
+# limitations under the License.
+
+# The camera mount is used to set properties on the camera to place it in
+# the world and determine how it follows the target. useTargetRotation
+# determines whether the camera will rotate with the target and cameraLock
+# determines whether the camera will follow the target's position.
+
+---
+extends: http://vwf.example.com/node3.vwf
+implements:
+  - http://vwf.example.com/sceneGetter.vwf
+source: ../assets/3d/arrow/arrow.dae
+type: model/vnd.collada+xml
+properties:
+  visible:
+    set: |
+      var mountName;
+      if ( this.scene && this.scene.gameCam && this.scene.gameCam.mount ) {
+        mountName = this.scene.gameCam.mount.name;
+      }
+      if ( mountName === "topDown" ) {
+        this.visible = value;
+      } else {
+        this.visible = false;
+      }
+    value: false
+  translation: [ 0, 0, 1 ]

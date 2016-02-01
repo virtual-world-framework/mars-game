@@ -13,10 +13,20 @@
 # limitations under the License.
 
 ---
+info:
+  title: "Mars Game Editor"
 model:
   vwf/model/threejs:
+  # vwf/model/blockly:
+  vwf/model/sound:
   vwf/model/graphtool:
+  vwf/model/heightmap:
+  vwf/model/jPlayer: 
+  vwf/model/hud:
 view:
   vwf/view/threejs: "#vwf-root"
-configuration:
-  preserve-script-closures: true
+  # vwf/view/blockly: { "blocklyPath": './source/blockly/', "toolbox": 'toolbox' }
+  vwf/view/sound: 
+  vwf/view/jPlayer: 
+  vwf/view/hud:
+  # vwf/view/editor:

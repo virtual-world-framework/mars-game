@@ -1,0 +1,205 @@
+# Copyright 2014 Lockheed Martin Corporation
+#
+# Licensed under the Apache License, Version 2.0 (the "License"); you may 
+# not use this file except in compliance with the License. You may obtain 
+# a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software 
+# distributed under the License is distributed on an "AS IS" BASIS, 
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and 
+# limitations under the License.
+
+---
+extends: ../scenario/scenario.vwf
+properties:
+  scenarioName: Mission2Task4
+
+  scenePath: /
+  nextScenarioPath: "Mission2Task5"
+
+  startState:
+  - playSound:
+    - musicLevel2
+  - playSound:
+    - environmentWind
+  - setObjective:
+    - "Graph a line that matches the slope of the tracks."
+  - setThirdPersonStartPose:
+    - [ 16.316, 65, -15 ]
+  - startTimer:
+
+  - setProperty:
+    - videoManager  
+    - url 
+    - [ "assets/video/Success2_800x600.mp4" ]
+
+  - setProperty:
+    - rover2
+    - visible
+    - false
+  - setProperty:
+    - rover
+    - battery
+    - 10
+  - setProperty:
+    - rover
+    - batteryMax
+    - 10
+  - setProperty:
+    - rover
+    - blockly_allowedBlocks
+    - 5
+  # There is no such action!! -KAD
+  # - selectBlocklyNode:
+  #   - graph
+  - setProperty:
+    - rover
+    - lowRam
+    - 1
+  - setProperty:
+    - graph
+    - startXML
+    - <xml><block type="graph_set_y" inline="false" editable="false" deletable="false" x="140" y="60"></block></xml>
+  - setProperty:
+    - graph
+    - blockly_xml
+    - <xml><block type="graph_set_y" inline="false" editable="false" deletable="false" x="140" y="60"></block></xml>
+  - addToGrid:
+    - rover
+    - [ 0, 14 ]
+  - addToGrid:
+    - blocklyGraph
+    - [ 0, 14 ]
+  - setGridAxes:
+    - 14
+    - 0
+  - setPickupActive:
+    - helicam
+    - false
+  - setPickupActive:
+    - battery
+    - false
+  - setPickupActive:
+    - radio
+    - false
+  - setPickupActive:
+    - supplies_1
+    - true
+  - setPickupActive:
+    - supplies_2
+    - true
+  - setBlocklyContext:
+    - graph
+  - loadToolbox:
+    - rover
+    - source/scenario/blockly/scenario2d.xml
+  - loadToolbox:
+    - graph
+    - source/scenario/blockly/graph2d.xml
+  - setProperty:
+    - blocklyLine
+    - opacity
+    - 1
+  - selectRover:
+    - rover
+  - selectRover:
+    - graph
+
+  - setProperty:
+    - roverTracks2
+    - visible
+    - false
+
+children:
+  triggerManager:
+    extends: ../triggers/triggerManager.vwf
+    properties: 
+      triggers$:
+
+        playStartingVO_2d:
+          triggerCondition:
+          - and:
+            - doOnce:
+            - onScenarioStart:
+          actions:
+          - playSound:
+            - ALVO1_Rover
+          - playSound:
+            - L2VO7_Control
+
+        failOnMove_2d:
+          group: successOrFailure
+          priority: 1
+          triggerCondition:
+          - onMoved:
+            - rover
+          actions:
+          - scenarioFailure:
+            - lost
+            - "You need to plot the course of the wayward rover before going to find it."
+          - playSound:
+            - FCVO4_Rover
+
+        succeedOnSuccessfulCoursePlot_2d:
+          group: successOrFailure
+          priority: 0
+          triggerCondition:
+          - and:
+            - blocklyLineEval:
+              - [ 10, 20 ]
+            - blocklyLineEval:
+              - [ -16, -32 ]
+          actions:
+          # - delay:
+          #   - 9.5
+          - scenarioSuccess:
+          # - showAlert:
+          #   - "Course plotted! Now to find the little guy."
+          - stopSoundGroup:
+            - music
+          - stopSoundGroup:
+            - vo
+          - playSound:
+            - musicSuccessShort
+
+        playHint1_2d:
+          triggerCondition:
+          - and:
+            - doOnce:
+            - delay:
+              - 20
+          actions:
+          - playSound:
+            - L2VO3_Rover_H
+
+        playHint2_2d:
+          triggerCondition:
+          - and:
+            - doOnce:
+            - delay:
+              - 40
+          actions:
+          - playSound:
+            - ALVO3_Rover_m
+
+        playHint3_2d:
+          triggerCondition:
+          - and:
+            - doOnce:
+            - delay:
+              - 60
+          actions:
+          - playSound:
+            - ALVO30_Rover
+
+  brief:
+    extends: ../missionBrief.vwf
+    properties:
+      title: "Mission 2, Task 4"
+      content: >
+        It appears that one of your Mini Rovers has gone astray!
+        <br><br> You will need to track it down. To start, plot a line that 
+        matches the direction of the Mini Rover's tracks. 

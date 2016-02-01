@@ -1,0 +1,307 @@
+# Copyright 2014 Lockheed Martin Corporation
+#
+# Licensed under the Apache License, Version 2.0 (the "License"); you may 
+# not use this file except in compliance with the License. You may obtain 
+# a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software 
+# distributed under the License is distributed on an "AS IS" BASIS, 
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and 
+# limitations under the License.
+
+---
+extends: ../scenario/scenario.vwf
+properties:
+  scenarioName: Mission4Task5
+  nextScenarioPath: Mission4Task6
+
+  startState:
+
+  # objective
+  - setObjective:
+    - "Reflect and dilate the basic triangle to build solar panel #2."
+
+  - setProperty:
+    - rover2
+    - startXML
+    - <xml><block type="triangle_flow" id="a" x="100" y="20"><statement name="STACK"><block type="triangle_transformations_reflect_static" id="b"><field name="OP">Y</field><next><block type="triangle_transformations_dilate_static" id="c"><field name="OP">2</field></block></next></block></statement><next><block type="rover_moveRadial_absolute" id="d" inline="true"><value name="x"><block type="graph_subtract" id="e" inline="false"><value name="INPUT"><block type="math_number_out" id="f" inline="false"><field name="VALUE">3</field></block></value></block></value><value name="y"><block type="math_number_out" id="g" inline="false"><field name="VALUE">0</field></block></value><next><block type="init_nano_construction" id="h"></block></next></block></next></block></xml>
+  - setProperty:
+    - rover2
+    - blockly_xml
+    - <xml><block type="triangle_flow" id="a" x="100" y="20"><statement name="STACK"><block type="triangle_transformations_reflect_static" id="b"><field name="OP">Y</field><next><block type="triangle_transformations_dilate_static" id="c"><field name="OP">2</field></block></next></block></statement><next><block type="rover_moveRadial_absolute" id="d" inline="true"><value name="x"><block type="graph_subtract" id="e" inline="false"><value name="INPUT"><block type="math_number_out" id="f" inline="false"><field name="VALUE">3</field></block></value></block></value><value name="y"><block type="math_number_out" id="g" inline="false"><field name="VALUE">0</field></block></value><next><block type="init_nano_construction" id="h"></block></next></block></next></block></xml>
+
+  # blockly
+  - setBlocklyContext:
+    - rover2
+  - loadToolbox:
+    - rover2
+    - source/scenario/blockly/mission4_perry5.xml
+
+  # sounds/music
+  - playSound:
+    - musicMission4Loop
+  - playSound:
+    - environmentWind
+  - setProperty:
+    - videoManager  
+    - url 
+    - [ "assets/video/Success4_800x600.mp4" ]
+
+  # Manny
+  - addToGrid:
+    - rover
+    - [ -30, 23 ]
+  - callMethod:
+    - rover
+    - setHeading
+    - 180
+
+  # Perry
+  - setProperty:
+    - rover2
+    - visible
+    - true
+  - addToGrid:
+    - rover2
+    - [ -24, 19 ]
+  - setProperty:
+    - rover2
+    - battery
+    - 100
+  - setProperty:
+    - rover2
+    - batteryMax
+    - 100
+  - setProperty:
+    - rover2
+    - blockly_allowedBlocks
+    - 40
+  - setProperty:
+    - rover2
+    - lowRam
+    - 5
+  - selectRover:
+    - rover2
+
+  # Grid and disable blocklyLine  
+  - setGridAxes:
+    - 19
+    - -24
+
+  - setProperty:
+    - blocklyLine
+    - visible
+    - false
+
+  - setProperty:
+    - blocklyLine
+    - opacity
+    - 0
+
+  - drawTriangle:
+    - [ 0, 0 ]
+    - [ 0, 2 ]
+    - [ -2, 0 ]
+
+  # Solar panel construction
+  - setConstructed:
+    - solarPanel1
+    - true
+  - setConstructed:
+    - solarPanel2
+    - false
+  - setConstructed:
+    - solarPanel3
+    - false
+  - setConstructed:
+    - solarPanel4
+    - false
+
+  - setProperty:
+    - cargoPod2
+    - isClosed
+    - false
+
+  - setProperty:
+    - rover2
+    - surveyArray
+    - []
+  - setProperty:
+    - rover2
+    - allSurveys
+    - []
+
+  # turning supplies and minirover invisible
+  - setProperty:
+    - supplies_1
+    - visible
+    - false
+  - setProperty:
+    - supplies_2
+    - visible
+    - false
+  - setProperty:
+    - minirover
+    - visible
+    - false
+
+children:
+  triggerManager:
+    extends: ../triggers/triggerManager.vwf
+    properties: 
+      triggers$:
+
+        playStartingVO_4_5:
+          triggerCondition:
+          - and:
+            - doOnce:
+            - onScenarioStart:
+          actions:
+          - playSound:
+            - TM4V16_MANNY
+          - playSound:
+            - TM4_17_MC
+          - setProperty:
+            - hud
+            - enabled
+            - false
+          - delay:
+            - 24
+            - openMissionBrief:
+            - setProperty:
+              - hud
+              - enabled
+              - true
+            - startTimer:
+
+        playHint_M4T5_1:
+          triggerCondition:
+          - and:
+            - doOnce:
+            - delay:
+              - 50
+          actions:
+          - playSound:
+            - TM4_60_Manny
+
+        playHint_M4T5_reset:
+          triggerCondition:
+          - and:
+            - delay:
+              - 10
+            - readBlackboard:
+              - failureCount
+              - 1
+            - not:
+              - readBlackboard:
+                - mission4ResetHint
+          actions:
+          - playSound:
+            - VO_MissionControl_Hint02
+          - writeToBlackboard:
+            - mission4ResetHint
+
+        # playHint_M4T5_2:
+        #   triggerCondition:
+        #   - and:
+        #     - doOnce:
+        #     - delay:
+        #       - 75
+        #   actions:
+        #   - playSound:
+        #     - TM4_57_MC
+
+        highlightEndTile_4_5:
+          triggerCondition:
+          - onScenarioStart:
+          actions:
+          - callOutObjective:
+            - [ -3, 0 ]
+
+        failOnMissingBlock_4_5:
+          group: successOrFailure
+          priority: 0.5
+          triggerCondition:
+          - and:
+            - onBlocklyPolygon:
+              - rover2
+              - [ [ 0, 0 ], [ 0, 2 ], [ -2, 0 ] ]
+            - isAtPosition:
+              - rover2
+              - [ -27, 19 ]
+            - onBlocklyStopped:
+              - rover2
+            - isBlockMissing:
+              - init_nano_construction
+          actions:
+          - scenarioFailure:
+            - incomplete
+            - "Don't forget to use the start construction block to tell the nanites to go to work!"
+          - playSound:
+            - FCVO2_Rover
+
+        succeedOnTriangle_4_5:
+          group: successOrFailure
+          priority: 0
+          triggerCondition:
+          - and:
+            - onBlocklyPolygon:
+              - rover2
+              - [ [ 0, 0 ], [ 0, 2 ], [ -2, 0 ] ]
+            - isAtPosition:
+              - rover2
+              - [ -27, 19 ]
+            - onBlocklyStopped:
+              - rover2
+          actions:
+          - writeToBlackboard:
+            - disableFailOnIncompleteProgram
+          - buildBaseComponent:
+            - solarPanel2
+          # - deleteNanites:
+          #   - nanites_Mission4Task5
+          - delay:
+            - 4
+            # - showAlert:
+            #   - "I created the correct triangle!"
+            - callMethod:
+              - rover2
+              - stopExecution
+            - playSound:
+              - musicSuccessShort
+            - clearBlockly:
+            - scenarioSuccess:
+
+        scenarioEnded4_5:
+          triggerCondition:
+          - or: 
+            - onScenarioSucceeded:
+            - onScenarioFailed:
+          actions:
+          - setProperty:
+            - rover2
+            - surveyArray
+            - []
+          - setProperty:
+            - rover2
+            - allSurveys
+            - []
+          # - deleteNanites:
+          #   - nanites_Mission4Task5
+
+  brief:
+    extends: ../missionBrief.vwf
+    properties:
+      title: "Mission 4, Task 5"
+      content: >
+        Well done! 
+        <br><br>This time, we need to apply two transformations. The vertex
+        positions should be calculated in the order that the transformations
+        are listed, so the vertex positions for Reflect start from the vertices
+        of the basic triangle, and the vertex positions for Dilate use the 
+        vertices that you calculated for Reflect.
+        <br><br>Remember to move to (-3,0) and start construction when you're
+        done!

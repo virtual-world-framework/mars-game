@@ -21,6 +21,4513 @@ var BlocklyApps = {
 
 // Extensions to Blockly's language and JavaScript generator.
 
+Blockly.Blocks['ordered_pair_config'] = {
+  init: function() {
+    this.setColour(105);
+    this.appendDummyInput()
+        .appendField("(");
+    this.appendValueInput("XFIELD")
+        .setCheck(['LeftParenthesis','Number']);
+    this.appendDummyInput()
+        .appendField(",");
+    this.appendValueInput("YFIELD")
+        .setCheck(['LeftParenthesis','Number'])
+        .setAlign(Blockly.ALIGN_RIGHT);
+    this.appendDummyInput()
+        .appendField(")");
+    this.setInputsInline(true);
+    this.setOutput(true);
+    this.setTooltip('');
+  }
+};
+
+Blockly.JavaScript['ordered_pair_config'] = function(block) {
+  var value_x = Blockly.JavaScript.valueToCode(block, 'XFIELD', Blockly.JavaScript.ORDER_ATOMIC);
+  var value_y = Blockly.JavaScript.valueToCode(block, 'YFIELD', Blockly.JavaScript.ORDER_ATOMIC);
+
+  var code = [ value_x, value_y ];
+
+  return [ code, Blockly.JavaScript.ORDER_ATOMIC ];
+};
+
+Blockly.Blocks['ordered_pair_config_out'] = {
+  init: function() {
+    this.setColour(105);
+    this.appendValueInput('INPUT')
+        .setCheck(['Number','Variable','LeftParenthesis','OperatorAddSubtract'])
+        .appendField("(");
+    this.appendValueInput("XFIELD")
+        .setCheck(['LeftParenthesis','Number']);
+    this.appendDummyInput()
+        .appendField(",");
+    this.appendValueInput("YFIELD")
+        .setCheck(['LeftParenthesis','Number'])
+        .setAlign(Blockly.ALIGN_RIGHT);
+    this.appendDummyInput()
+        .appendField(")");
+    this.setInputsInline(true);
+    this.setOutput(true);
+    this.setTooltip('');
+  },
+  onchange: function() {
+    if (!this.workspace || this.data === undefined) {
+      // Block has been deleted.
+      currentBlocklyErrors[ this.id ] = false;
+      return;
+    }
+    
+    var inputBlock = this.getInputTargetBlock('INPUT');
+
+    if ( inputBlock === null ) {
+      this.setWarningText('You must attach a block to add.');
+      currentBlocklyErrors[ this.id ] = true;
+    } else {
+      currentBlocklyErrors[ this.id ] = false;
+      this.setWarningText(null);
+    }
+  }
+};
+
+Blockly.JavaScript['ordered_pair_config_out'] = function(block) {
+  var value_x = Blockly.JavaScript.valueToCode(block, 'XFIELD', Blockly.JavaScript.ORDER_ATOMIC);
+  var value_y = Blockly.JavaScript.valueToCode(block, 'YFIELD', Blockly.JavaScript.ORDER_ATOMIC);
+
+  var argument0 = Blockly.JavaScript.valueToCode(block, 'INPUT',
+      Blockly.JavaScript.ORDER_ATOMIC) || '0';
+  if ( argument0[0] === '+' ){
+    return ['*' + argument0.substring(1), Blockly.JavaScript.ORDER_ATOMIC];
+  } else {
+    return ['*' + argument0, Blockly.JavaScript.ORDER_ATOMIC];
+  }
+
+  var code = [ value_x, value_y ];
+
+  return [ code, Blockly.JavaScript.ORDER_ATOMIC ];
+};
+
+Blockly.Blocks['triangle_flow'] = {
+  init: function() {
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("Draw Triangle : ")
+//        .appendField(new Blockly.FieldColour("#3366ff"), "NAME");
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("△ ABC");
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("A ")
+        .appendField("(  0 , 0  )");
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("B ")
+        .appendField("(  0 , 1  )");
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("C ")
+        .appendField("(  1 , 0  )");
+    this.appendStatementInput("STACK")
+        .setCheck(['Transformation']);
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("△ ABC ", "TRIANGLEDESC")
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("A ", "APRIME")
+        .appendField(" (")
+        .appendField(" 0 , 0 ", "CURRENTA")
+        .appendField(") ");
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("B ", "BPRIME")
+        .appendField(" (")
+        .appendField(" 0 , 1 ", "CURRENTB")
+        .appendField(") ");
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("C ", "CPRIME")
+        .appendField(" (")
+        .appendField(" 1 , 0 ", "CURRENTC")
+        .appendField(") ");
+    this.setInputsInline(false);
+    this.setPreviousStatement(true,'Normal');
+    this.setNextStatement(true,'Normal');
+    this.setColour(345);
+    var thisBlock = this;
+    this.setTooltip( function() {
+      var content = {
+        text: "A block that sprays nanites in a triangle on the ground in order to construct a portion of your base."
+      }
+      return showTooltipInBlockly(thisBlock, content);
+    });
+    this.data = currentBlocklyNodeID;
+  },
+  onchange: function() {
+    if ( !this.workspace || this.data === undefined || this.isInFlyout === true ) {
+      // Block has been deleted or is in the flyout.
+      currentBlocklyErrors[ this.id ] = false;
+      currentBlocklyTriangles[ this.id ] = [];
+
+      return;
+    }
+
+    var targetBlock = this.getInputTargetBlock('STACK');
+    if ( targetBlock === null ) {
+      this.setFieldValue( ' 0 , 0 ','CURRENTA' );
+      this.setFieldValue( ' 0 , 1 ','CURRENTB' );
+      this.setFieldValue( ' 1 , 0 ','CURRENTC' );
+      this.setFieldValue( 'A ', 'APRIME' );
+      this.setFieldValue( 'B ', 'BPRIME' );
+      this.setFieldValue( 'C ', 'CPRIME' );
+      this.setFieldValue( '△ ABC ', 'TRIANGLEDESC' );
+    } else {
+      if ( targetBlock !== null ) {
+        var totalTransformations = 1;
+
+        var nextBlock = targetBlock;
+        do {
+          if ( nextBlock.childBlocks_.length === 0 ) {
+            break;
+          } else {
+            nextBlock = nextBlock.childBlocks_[0];
+            totalTransformations++;
+          }
+        } while ( nextBlock );
+
+        var aText = "A";
+        var bText = "B";
+        var cText = "C";
+
+        for ( var i = 0; i < totalTransformations; i++ ) {
+          aText = aText + "'";
+          bText = bText + "'";
+          cText = cText + "'";
+        }
+
+        var triangleDesc = '△ ' + aText + bText + cText + ' '
+        this.setFieldValue( triangleDesc, 'TRIANGLEDESC' );
+
+        aText = aText + " ";
+        bText = bText + " ";
+        cText = cText + " ";
+
+        this.setFieldValue( aText, 'APRIME' );
+        this.setFieldValue( bText, 'BPRIME' );
+        this.setFieldValue( cText, 'CPRIME' );
+
+      } else {
+        this.setFieldValue( 'A ', 'APRIME' );
+        this.setFieldValue( 'B ', 'BPRIME' );
+        this.setFieldValue( 'C ', 'CPRIME' );
+        this.setFieldValue( '△ ABC ', 'TRIANGLEDESC' );
+      }
+    }
+
+    var vertexA = eval( '[' + this.getFieldValue( 'CURRENTA' ) + ']' );
+    var vertexB = eval( '[' + this.getFieldValue( 'CURRENTB' ) + ']' );
+    var vertexC = eval( '[' + this.getFieldValue( 'CURRENTC' ) + ']' );
+
+    currentBlocklyTriangles[ this.id ] = [ vertexA, vertexB, vertexC ];
+    updateBlocklyTriangles();
+
+  }
+};
+
+Blockly.JavaScript['triangle_flow'] = function( block ) {
+  // The stack should automatically update the CURRENTA, CURRENTB and CURRENTC fields.
+  
+  // Extract values from dummy fields COORDA - COORDB - COORDC
+  
+  //var op_a = [ 0,0 ];
+  //var op_b = [ 0,1 ];
+  //var op_c = [ 1,0 ];
+  var op_a = eval( '[' + block.getFieldValue("CURRENTA") + ']' );
+  var op_b = eval( '[' + block.getFieldValue("CURRENTB") + ']' );
+  var op_c = eval( '[' + block.getFieldValue("CURRENTC") + ']' );
+
+  if ( op_a.length < 2 || op_b.length < 2 || op_c.length < 2 ) {
+    return '';
+  }
+
+  var actionA = {
+    nodeID: block.data,
+    methodName: 'moveRadialAbsolute',
+    exeTime: 1,
+    args: [ op_a[ 0 ], op_a[ 1 ] ]
+  };
+
+  var moveA = constructBlockExeFuncCall( block, actionA, 'moveRadial' );
+
+  var actionB = {
+    nodeID: block.data,
+    methodName: 'moveRadialAbsolute',
+    exeTime: 1,
+    args: [ op_b[ 0 ], op_b[ 1 ] ]
+  };
+
+  var moveB = constructBlockExeFuncCall( block, actionB, 'moveRadial' );
+
+  var actionC = {
+    nodeID: block.data,
+    methodName: 'moveRadialAbsolute',
+    exeTime: 1,
+    args: [ op_c[ 0 ], op_c[ 1 ] ]
+  };
+
+  var moveC = constructBlockExeFuncCall( block, actionC, 'moveRadial' );
+
+  var start = "vwf.callMethod( '" + vwf_view.kernel.application() + 
+                  "', 'handleDrawingBlocks', " + " [ 'startTriangle', '" + block.id + "', '" + block.data + "', " + 1 + " ] );\n";
+  var end = "vwf.callMethod( '" + vwf_view.kernel.application() + 
+                  "', 'handleDrawingBlocks', " + " [ 'endTriangle', '" + block.id + "', '" + block.data + "', " + 1 + " ] );\n";
+  var markA = "vwf.callMethod( '" + vwf_view.kernel.application() + 
+                  "', 'handleDrawingBlocks', " + " [ 'markPoint', '" + block.id + "', '" + block.data + "', " + 1 + ",[ " +op_a[ 0 ]+ ", " +op_a[ 1 ]+ " ] ] );\n";
+  var markB = "vwf.callMethod( '" + vwf_view.kernel.application() + 
+                  "', 'handleDrawingBlocks', " + " [ 'markPoint', '" + block.id + "', '" + block.data + "', " + 1 + ",[ " +op_b[ 0 ]+ ", " +op_b[ 1 ]+ " ] ] );\n";
+  var markC = "vwf.callMethod( '" + vwf_view.kernel.application() + 
+                  "', 'handleDrawingBlocks', " + " [ 'markPoint', '" + block.id + "', '" + block.data + "', " + 1 + ",[ " +op_c[ 0 ]+ ", " +op_c[ 1 ]+ " ] ] );\n";
+  //moveA
+  //start
+  //moveB
+  //mark
+  //moveC
+  //mark
+  //moveA
+  //end
+
+  //var overallCode = moveA + start + mark + moveB + mark + moveC + mark + moveA + mark + end;
+  var overallCode = start + moveA + markA + moveB + markB + moveC + markC + moveA + markA + end;
+
+  return overallCode;
+};
+
+var validateFieldValue = function ( value ) {
+  if ( isNaN( value ) || value === '' || value === '_' ){
+      return '_';
+  } else {
+      if ( value % 1 !== 0 ){
+        return '0';
+      }
+      else if ( value > 999 || value < -999){
+        return '0'
+      } else {
+        return '' + value + '';
+      }
+  }
+}
+
+var checkAndSetField = function ( block, field ) {
+
+    var currentBlock = block;
+    var unitTriangle = { "AX": 0, "BX": 0, "CX": 1, "AY": 0, "BY": 1, "CY": 0 };
+
+    do {
+      if ( currentBlock.type === 'triangle_flow' ) {
+        return unitTriangle[ field ];
+      } else if ( !isNaN( currentBlock.getFieldValue( field ) ) ) {
+        return currentBlock.getFieldValue( field );
+      } else {
+        currentBlock = currentBlock.parentBlock_;
+      }
+    } while ( currentBlock );
+
+}
+
+var checkAndSetTriangle = function ( block, field ) {
+
+    var currentBlock = block;
+    var unitTriangle = { "AX": 0, "BX": 0, "CX": 1, "AY": 0, "BY": 1, "CY": 0 };
+
+
+    do {
+      if ( currentBlock.type === 'triangle_flow' ) {
+        return unitTriangle[ field ];
+      } else if ( !isNaN( currentBlock.getFieldValue( field ) ) || currentBlock.getFieldValue( field ) !== '_' ) {
+        return currentBlock.getFieldValue( field );
+      } else {
+        currentBlock = currentBlock.parentBlock_;
+      }
+    } while ( currentBlock );
+
+}
+
+// --------------------------------------------------------------------------------------------------------- //
+// triangle_transformations should serve as a template for all other child blocks of the triangle_transformations type
+// --------------------------------------------------------------------------------------------------------- // 
+
+Blockly.Blocks['triangle_transformations'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField(new Blockly.FieldDropdown([["translate", "TRANSLATE"], ["dilate", "DILATE"], ["rotate", "ROTATE"]]), "OP")
+        .appendField("(")
+        .appendField(new Blockly.FieldTextInput('0',
+        Blockly.FieldTextInput.numberValidator), "OPX")
+        .appendField(",")
+        .appendField(new Blockly.FieldTextInput('0',
+        Blockly.FieldTextInput.numberValidator), "OPY")
+        .appendField(")     ");
+    this.appendDummyInput()
+        .appendField(new Blockly.FieldImage("http://i.imgur.com/jWhLthx.png", 175, 20, "*"));
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("A ")
+        .appendField("(")
+        .appendField(new Blockly.FieldTextInput('0',
+        Blockly.FieldTextInput.numberValidator), "AX")
+        .appendField(",")
+        .appendField(new Blockly.FieldTextInput('0',
+        Blockly.FieldTextInput.numberValidator), "AY")
+        .appendField(")");
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("B ")
+        .appendField("(")
+        .appendField(new Blockly.FieldTextInput('0',
+        Blockly.FieldTextInput.numberValidator), "BX")
+        .appendField(",")
+        .appendField(new Blockly.FieldTextInput('0',
+        Blockly.FieldTextInput.numberValidator), "BY")
+        .appendField(")");
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("C ")
+        .appendField("(")
+        .appendField(new Blockly.FieldTextInput('0',
+        Blockly.FieldTextInput.numberValidator), "CX")
+        .appendField(",")
+        .appendField(new Blockly.FieldTextInput('0',
+        Blockly.FieldTextInput.numberValidator), "CY")
+        .appendField(")");
+    this.setInputsInline(false);
+    this.setPreviousStatement(true, 'Transformation');
+    this.setNextStatement(true, 'Transformation');
+    this.setColour(195);
+    var thisBlock = this;
+    this.setTooltip( function() {
+      var content = {
+        text: "Transformation blocks can be placed inside of the Draw Triangle block, and adjust the shape, size, or position of the triangle being drawn."
+      }
+      return showTooltipInBlockly(thisBlock, content);
+    });
+    this.data = currentBlocklyNodeID;
+  },
+  onchange: function() {
+    if (!this.workspace) {
+      // Block has been deleted.
+      currentBlocklyErrors[ this.id ] = false;
+      return;
+    }
+
+    //First check if we put the block in the right spot
+    
+    var legal = false;
+    // Is the block nested in a control statement?
+    var block = this;
+    do {
+      if (block.type == 'triangle_flow') {
+        legal = true;
+        break;
+      }
+      block = block.getSurroundParent();
+    } while ( block );
+    if ( legal ) {
+      this.setWarningText(null);
+      currentBlocklyErrors[ this.id ] = false;
+    } else {
+      this.setWarningText('Block can only be placed \nwithin a triangle flow block');
+      currentBlocklyErrors[ this.id ] = true;
+    }
+
+    //Reset block to this since we popped up the stack above.
+
+    block = this;
+
+    var dropdown_op = block.getFieldValue('OP');
+    var opx = eval( block.getFieldValue('OPX') );
+    var opy = eval( block.getFieldValue('OPY') );
+    var ax = eval( block.getFieldValue('AX') );
+    var ay = eval( block.getFieldValue('AY') );
+    var bx = eval( block.getFieldValue('BX') );
+    var by = eval( block.getFieldValue('BY') );
+    var cx = eval( block.getFieldValue('CX') );
+    var cy = eval( block.getFieldValue('CY') );
+
+    // block.parentBlock_ is always the block that is attached to the top statement input.
+
+    var inputBlock = block.parentBlock_;
+
+    //Check childBlocks_ (array) and parentBlock_ (direct block reference)
+
+    //A triangle flow with 2 operators would have the first operator be the childblock of triangle_flow
+    //The second operator would be the childblock of the first operator
+
+    if ( inputBlock !== null ) {
+      if ( inputBlock.type == 'triangle_flow' ) {
+        var currentA = [0,0];
+        var currentB = [0,1];
+        var currentC = [1,0];
+
+        if ( dropdown_op === 'TRANSLATE' ) {
+          this.setColour(195);
+
+          currentA[ 0 ] = currentA[ 0 ] + opx;
+          currentB[ 0 ] = currentB[ 0 ] + opx;
+          currentC[ 0 ] = currentC[ 0 ] + opx;
+
+          currentA[ 1 ] = currentA[ 1 ] + opy;
+          currentB[ 1 ] = currentB[ 1 ] + opy;
+          currentC[ 1 ] = currentC[ 1 ] + opy;
+
+          //Check field values against expected values
+
+          if ( ax === currentA[ 0 ] && bx === currentB[ 0 ] && cx === currentC[ 0 ] && ay === currentA[ 1 ] && by === currentB[ 1 ] && cy === currentC[ 1 ] ) {
+            this.setWarningText(null);
+            currentBlocklyErrors[ this.id ] = false;
+          } else {
+            this.setWarningText('You must input the correct \nresults of this transformation!');
+            currentBlocklyErrors[ this.id ] = true;
+          }
+
+        } else if ( dropdown_op === 'ROTATE' ) {
+
+          this.setColour(300);
+
+          //TODO: Set rotate
+
+        } else if ( dropdown_op === 'DILATE' ) {
+
+          this.setColour(45);
+
+          currentA[ 0 ] = currentA[ 0 ] * opx;
+          currentB[ 0 ] = currentB[ 0 ] * opx;
+          currentC[ 0 ] = currentC[ 0 ] * opx;
+
+          currentA[ 1 ] = currentA[ 1 ] * opy;
+          currentB[ 1 ] = currentB[ 1 ] * opy;
+          currentC[ 1 ] = currentC[ 1 ] * opy;
+
+          //Check field values against expected values
+
+          if ( ax === currentA[ 0 ] && bx == currentB[ 0 ] && cx == currentC[ 0 ] && ay === currentA[ 1 ] && by == currentB[ 1 ] && cy == currentC[ 1 ] ) {
+            this.setWarningText(null);
+            currentBlocklyErrors[ this.id ] = false;
+          } else {
+            this.setWarningText('You must input the correct \nresults of this transformation!');
+            currentBlocklyErrors[ this.id ] = true;
+          }
+
+        }
+      } else {
+
+        if ( inputBlock !== undefined ) {
+
+          var currentA = [ eval( inputBlock.getFieldValue('AX') ), eval( inputBlock.getFieldValue('AY') ) ];
+          var currentB = [ eval( inputBlock.getFieldValue('BX') ), eval( inputBlock.getFieldValue('BY') ) ];
+          var currentC = [ eval( inputBlock.getFieldValue('CX') ), eval( inputBlock.getFieldValue('CY') ) ];
+
+          if ( dropdown_op === 'TRANSLATE' ) {
+
+            this.setColour(195);
+
+            currentA[ 0 ] = currentA[ 0 ] + opx;
+            currentB[ 0 ] = currentB[ 0 ] + opx;
+            currentC[ 0 ] = currentC[ 0 ] + opx;
+
+            currentA[ 1 ] = currentA[ 1 ] + opy;
+            currentB[ 1 ] = currentB[ 1 ] + opy;
+            currentC[ 1 ] = currentC[ 1 ] + opy;
+
+            //Check field values against expected values
+
+            if ( ax === currentA[ 0 ] && bx == currentB[ 0 ] && cx == currentC[ 0 ] && ay === currentA[ 1 ] && by == currentB[ 1 ] && cy == currentC[ 1 ] ) {
+              this.setWarningText(null);
+              currentBlocklyErrors[ this.id ] = false;
+            } else {
+              this.setWarningText('You must input the correct \nresults of this transformation!');
+              currentBlocklyErrors[ this.id ] = true;
+            }
+
+          } else if ( dropdown_op === 'ROTATE' ) {
+
+            this.setColour(300);
+
+            //TODO: Set rotate
+
+          } else if ( dropdown_op === 'DILATE' ) {
+
+            this.setColour(45);
+
+            currentA[ 0 ] = currentA[ 0 ] * opx;
+            currentB[ 0 ] = currentB[ 0 ] * opx;
+            currentC[ 0 ] = currentC[ 0 ] * opx;
+
+            currentA[ 1 ] = currentA[ 1 ] * opy;
+            currentB[ 1 ] = currentB[ 1 ] * opy;
+            currentC[ 1 ] = currentC[ 1 ] * opy;
+
+            //Check field values against expected values
+
+            if ( ax === currentA[ 0 ] && bx == currentB[ 0 ] && cx == currentC[ 0 ] && ay === currentA[ 1 ] && by == currentB[ 1 ] && cy == currentC[ 1 ] ) {
+              this.setWarningText(null);
+              currentBlocklyErrors[ this.id ] = false;
+            } else {
+              this.setWarningText('You must input the correct \nresults of this transformation!');
+              currentBlocklyErrors[ this.id ] = true;
+            }
+
+          }
+
+        }
+      }
+    } 
+
+    // Done checking block type.
+
+    var block = this;
+    var targetBlock;
+
+    // Only propagate 'up' if this is the last block in the chain
+    // Flow "up" the stack by popping up through parentBlock_ !== null once childblocks_ has a length of 0
+
+    if ( this.childBlocks_.length === 0 ) {
+      do {
+        targetBlock = block;
+        block = block.parentBlock_;
+
+        if ( targetBlock.type == 'triangle_flow' ) { //Which it should be given our connection checks...
+
+          //Set target block's values (The TRIANGLE FLOW BLOCK's values) with the current A B and C
+
+          targetBlock.setFieldValue( ' ' + currentA[0] + ' , ' + currentA[1] + ' ','CURRENTA' );
+          targetBlock.setFieldValue( ' ' + currentB[0] + ' , ' + currentB[1] + ' ','CURRENTB' );
+          targetBlock.setFieldValue( ' ' + currentC[0] + ' , ' + currentC[1] + ' ','CURRENTC' );
+          break;
+        }
+
+      } while ( block );
+
+
+    }
+    
+  }
+};
+
+Blockly.JavaScript['triangle_transformations'] = function( block ) {
+  var code = '';
+  return code;
+};
+
+
+// --------------------------------------------------------------------------------------------------------- //
+// triangle_transformations_auto should serve as a template for all other child blocks of the triangle_transformations 
+// shows the auto-propagating version without user input checks
+// --------------------------------------------------------------------------------------------------------- // 
+
+
+Blockly.Blocks['triangle_transformations_auto'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField(new Blockly.FieldDropdown([["translate", "TRANSLATE"], ["dilate", "DILATE"], ["rotate", "ROTATE"]]), "OP")
+        .appendField("(")
+        .appendField(new Blockly.FieldTextInput('0',
+        Blockly.FieldTextInput.numberValidator), "OPX")
+        .appendField(",")
+        .appendField(new Blockly.FieldTextInput('0',
+        Blockly.FieldTextInput.numberValidator), "OPY")
+        .appendField(")     ");
+    this.appendDummyInput()
+        .appendField(new Blockly.FieldImage("http://i.imgur.com/SlBlKQj.png", 175, 20, "*"));
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("A ")
+        .appendField("(")
+        .appendField(new Blockly.FieldLabel('?'), "AX")
+        .appendField(",")
+        .appendField(new Blockly.FieldLabel('?'), "AY")
+        .appendField(")");
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("B ")
+        .appendField("(")
+        .appendField(new Blockly.FieldLabel('?'), "BX")
+        .appendField(",")
+        .appendField(new Blockly.FieldLabel('?'), "BY")
+        .appendField(")");
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("C ")
+        .appendField("(")
+        .appendField(new Blockly.FieldLabel('?'), "CX")
+        .appendField(",")
+        .appendField(new Blockly.FieldLabel('?'), "CY")
+        .appendField(")");
+    this.setInputsInline(false);
+    this.setPreviousStatement(true, 'Transformation');
+    this.setNextStatement(true, 'Transformation');
+    this.setColour(195);
+    var thisBlock = this;
+    this.setTooltip( function() {
+      var content = {
+        text: "Transformation blocks can be placed inside of the Draw Triangle block, and adjust the shape, size, or position of the triangle being drawn."
+      }
+      return showTooltipInBlockly(thisBlock, content);
+    });
+    this.data = currentBlocklyNodeID;
+  },
+  onchange: function() {
+    if (!this.workspace) {
+      // Block has been deleted.
+      currentBlocklyErrors[ this.id ] = false;
+      return;
+    }
+
+    //First check if we put the block in the right spot
+    
+    var legal = false;
+    // Is the block nested in a control statement?
+    var block = this;
+    do {
+      if (block.type == 'triangle_flow') {
+        legal = true;
+        break;
+      }
+      block = block.getSurroundParent();
+    } while ( block );
+    if ( legal ) {
+      this.setWarningText(null);
+      currentBlocklyErrors[ this.id ] = false;
+    } else {
+      this.setWarningText('Block can only be placed \nwithin a triangle flow block');
+      currentBlocklyErrors[ this.id ] = true;
+    }
+
+    //Reset block to this since we popped up the stack above.
+
+    block = this;
+
+    var dropdown_op = block.getFieldValue('OP');
+    var opx = eval( block.getFieldValue('OPX') );
+    var opy = eval( block.getFieldValue('OPY') );
+
+    // Input validation
+
+    if ( isNaN( opx ) || opx === "" ) { opx = 0; this.setFieldValue( '0','OPX' ); }
+    if ( isNaN( opy ) || opy === "" ) { opy = 0; this.setFieldValue( '0','OPY' ); }
+
+    // block.parentBlock_ is always the block that is attached to the top statement input.
+
+    var inputBlock = block.parentBlock_;
+
+    //Check childBlocks_ (array) and parentBlock_ (direct block reference)
+
+    //A triangle flow with 2 operators would have the first operator be the childblock of triangle_flow
+    //The second operator would be the childblock of the first operator
+
+    if ( inputBlock !== null ) {
+      if ( inputBlock.type == 'triangle_flow' ) {
+        var currentA = [0,0];
+        var currentB = [0,1];
+        var currentC = [1,0];
+
+        if ( dropdown_op === 'TRANSLATE' ) {
+          this.setColour(195);
+
+          currentA[ 0 ] = currentA[ 0 ] + opx;
+          currentB[ 0 ] = currentB[ 0 ] + opx;
+          currentC[ 0 ] = currentC[ 0 ] + opx;
+
+          currentA[ 1 ] = currentA[ 1 ] + opy;
+          currentB[ 1 ] = currentB[ 1 ] + opy;
+          currentC[ 1 ] = currentC[ 1 ] + opy;
+
+          //Set fields appropriately
+
+          this.setFieldValue( ''+currentA[ 0 ]+'','AX' );
+          this.setFieldValue( ''+currentB[ 0 ]+'','BX' );
+          this.setFieldValue( ''+currentC[ 0 ]+'','CX' );
+          this.setFieldValue( ''+currentA[ 1 ]+'','AY' );
+          this.setFieldValue( ''+currentB[ 1 ]+'','BY' );
+          this.setFieldValue( ''+currentC[ 1 ]+'','CY' );
+
+        } else if ( dropdown_op === 'ROTATE' ) {
+
+          this.setColour(300);
+
+          //TODO: Set ROTATE
+
+        } else if ( dropdown_op === 'DILATE' ) {
+
+          this.setColour(45);
+
+          currentA[ 0 ] = currentA[ 0 ] * opx;
+          currentB[ 0 ] = currentB[ 0 ] * opx;
+          currentC[ 0 ] = currentC[ 0 ] * opx;
+
+          currentA[ 1 ] = currentA[ 1 ] * opy;
+          currentB[ 1 ] = currentB[ 1 ] * opy;
+          currentC[ 1 ] = currentC[ 1 ] * opy;
+
+          //Set fields appropriately
+
+          this.setFieldValue( ''+currentA[ 0 ]+'','AX' );
+          this.setFieldValue( ''+currentB[ 0 ]+'','BX' );
+          this.setFieldValue( ''+currentC[ 0 ]+'','CX' );
+          this.setFieldValue( ''+currentA[ 1 ]+'','AY' );
+          this.setFieldValue( ''+currentB[ 1 ]+'','BY' );
+          this.setFieldValue( ''+currentC[ 1 ]+'','CY' );
+
+        }
+      } else {
+
+        if ( inputBlock !== undefined ) {
+
+          var currentA = [ eval( inputBlock.getFieldValue('AX') ), eval( inputBlock.getFieldValue('AY') ) ];
+          var currentB = [ eval( inputBlock.getFieldValue('BX') ), eval( inputBlock.getFieldValue('BY') ) ];
+          var currentC = [ eval( inputBlock.getFieldValue('CX') ), eval( inputBlock.getFieldValue('CY') ) ];
+
+          if ( dropdown_op === 'TRANSLATE' ) {
+
+            this.setColour(195);
+
+            currentA[ 0 ] = currentA[ 0 ] + opx;
+            currentB[ 0 ] = currentB[ 0 ] + opx;
+            currentC[ 0 ] = currentC[ 0 ] + opx;
+
+            currentA[ 1 ] = currentA[ 1 ] + opy;
+            currentB[ 1 ] = currentB[ 1 ] + opy;
+            currentC[ 1 ] = currentC[ 1 ] + opy;
+
+            //Set fields appropriately
+
+            this.setFieldValue( ''+currentA[ 0 ]+'','AX' );
+            this.setFieldValue( ''+currentB[ 0 ]+'','BX' );
+            this.setFieldValue( ''+currentC[ 0 ]+'','CX' );
+            this.setFieldValue( ''+currentA[ 1 ]+'','AY' );
+            this.setFieldValue( ''+currentB[ 1 ]+'','BY' );
+            this.setFieldValue( ''+currentC[ 1 ]+'','CY' );
+
+          } else if ( dropdown_op === 'ROTATE' ) {
+
+            this.setColour(300);
+
+          } else if ( dropdown_op === 'DILATE' ) {
+
+            this.setColour(45);
+
+            currentA[ 0 ] = currentA[ 0 ] * opx;
+            currentB[ 0 ] = currentB[ 0 ] * opx;
+            currentC[ 0 ] = currentC[ 0 ] * opx;
+
+            currentA[ 1 ] = currentA[ 1 ] * opy;
+            currentB[ 1 ] = currentB[ 1 ] * opy;
+            currentC[ 1 ] = currentC[ 1 ] * opy;
+
+            //Set fields appropriately
+
+            this.setFieldValue( ''+currentA[ 0 ]+'','AX' );
+            this.setFieldValue( ''+currentB[ 0 ]+'','BX' );
+            this.setFieldValue( ''+currentC[ 0 ]+'','CX' );
+            this.setFieldValue( ''+currentA[ 1 ]+'','AY' );
+            this.setFieldValue( ''+currentB[ 1 ]+'','BY' );
+            this.setFieldValue( ''+currentC[ 1 ]+'','CY' );
+
+          }
+
+        }
+      }
+    } 
+
+    // Done checking block type.
+    
+    var block = this;
+    var targetBlock;
+
+    // Only propagate 'up' if this is the last block in the chain
+    // Flow "up" the stack by popping up through parentBlock_ !== null once childblocks_ has a length of 0
+
+    if ( this.childBlocks_.length === 0 ) {
+      do {
+        targetBlock = block;
+        block = block.parentBlock_;
+
+        if ( targetBlock.type == 'triangle_flow' ) { //Which it should be given our connection checks...
+
+          //Set target block's values (The TRIANGLE FLOW BLOCK's values) with the current A B and C
+
+          targetBlock.setFieldValue( ' ' + currentA[0] + ' , ' + currentA[1] + ' ','CURRENTA' );
+          targetBlock.setFieldValue( ' ' + currentB[0] + ' , ' + currentB[1] + ' ','CURRENTB' );
+          targetBlock.setFieldValue( ' ' + currentC[0] + ' , ' + currentC[1] + ' ','CURRENTC' );
+          break;
+        }
+
+      } while ( block );
+    }
+    
+  }
+};
+
+Blockly.JavaScript['triangle_transformations_auto'] = function( block ) {
+  var code = '';
+  return code;
+};
+
+// --------------------------------------------------------------------------------------------------------- //
+// triangle_transformations_translate is a template for the non-propagating single transformations block
+// --------------------------------------------------------------------------------------------------------- // 
+
+Blockly.Blocks['triangle_transformations_translate'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Translate")
+        .appendField("(")
+        .appendField(new Blockly.FieldTextInput('0',
+        Blockly.FieldTextInput.numberValidator), "OPX")
+        .appendField(",")
+        .appendField(new Blockly.FieldTextInput('0',
+        Blockly.FieldTextInput.numberValidator), "OPY")
+        .appendField(")     ");
+    this.appendDummyInput()
+        .appendField(new Blockly.FieldImage("http://i.imgur.com/jWhLthx.png", 175, 20, "*"));
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("A ", "APRIME")
+        .appendField("(")
+        .appendField(new Blockly.FieldTextInput('_'), "AX")
+        .appendField(",")
+        .appendField(new Blockly.FieldTextInput('_'), "AY")
+        .appendField(")");
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("B ", "BPRIME")
+        .appendField("(")
+        .appendField(new Blockly.FieldTextInput('_'), "BX")
+        .appendField(",")
+        .appendField(new Blockly.FieldTextInput('_'), "BY")
+        .appendField(")");
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("C ", "CPRIME")
+        .appendField("(")
+        .appendField(new Blockly.FieldTextInput('_'), "CX")
+        .appendField(",")
+        .appendField(new Blockly.FieldTextInput('_'), "CY")
+        .appendField(")");
+    this.setInputsInline(false);
+    this.setPreviousStatement(true, 'Transformation');
+    this.setNextStatement(true, 'Transformation');
+    this.setColour(195);
+    var thisBlock = this;
+    this.setTooltip( function() {
+      var content = {
+        text: "Transformation blocks can be placed inside of the Draw Triangle block. The Translate transformation changes the position of the triangle."
+      }
+      return showTooltipInBlockly(thisBlock, content);
+    });
+    this.data = currentBlocklyNodeID;
+  },
+  onchange: function() {
+    if (!this.workspace) {
+      // Block has been deleted.
+      currentBlocklyErrors[ this.id ] = false;
+      return;
+    }
+
+    //First check if we put the block in the right spot
+    
+    var legal = false;
+    // Is the block nested in a control statement?
+    var block = this;
+    do {
+      if (block.type == 'triangle_flow') {
+        legal = true;
+        break;
+      }
+      block = block.getSurroundParent();
+    } while ( block );
+    if ( legal ) {
+      this.setWarningText(null);
+      currentBlocklyErrors[ this.id ] = false;
+    } else {
+      this.setWarningText('Block can only be placed within \na triangle flow block');
+      currentBlocklyErrors[ this.id ] = true;
+    }
+
+    //Reset block to this since we popped up the stack above.
+
+    block = this;
+
+    block.setFieldValue( validateFieldValue( block.getFieldValue('AX') ), 'AX' );
+    block.setFieldValue( validateFieldValue( block.getFieldValue('BX') ), 'BX' );
+    block.setFieldValue( validateFieldValue( block.getFieldValue('CX') ), 'CX' );
+    block.setFieldValue( validateFieldValue( block.getFieldValue('AY') ), 'AY' );
+    block.setFieldValue( validateFieldValue( block.getFieldValue('BY') ), 'BY' );
+    block.setFieldValue( validateFieldValue( block.getFieldValue('CY') ), 'CY' );
+
+    var opx = eval( block.getFieldValue('OPX') );
+    var opy = eval( block.getFieldValue('OPY') );
+    var ax = eval( checkAndSetField( block, 'AX' ) );
+    var ay = eval( checkAndSetField( block, 'AY' ) );
+    var bx = eval( checkAndSetField( block, 'BX' ) );
+    var by = eval( checkAndSetField( block, 'BY' ) );
+    var cx = eval( checkAndSetField( block, 'CX' ) );
+    var cy = eval( checkAndSetField( block, 'CY' ) );
+
+    // block.parentBlock_ is always the block that is attached to the top statement input.
+
+    var inputBlock = block.parentBlock_;
+
+    //Check childBlocks_ (array) and parentBlock_ (direct block reference)
+
+    //A triangle flow with 2 operators would have the first operator be the childblock of triangle_flow
+    //The second operator would be the childblock of the first operator
+
+    if ( inputBlock !== null ) {
+      if ( inputBlock.type == 'triangle_flow' ) {
+        var currentA = [ 0,0 ];
+        var currentB = [ 0,1 ];
+        var currentC = [ 1,0 ];
+
+        currentA[ 0 ] = currentA[ 0 ] + opx;
+        currentB[ 0 ] = currentB[ 0 ] + opx;
+        currentC[ 0 ] = currentC[ 0 ] + opx;
+
+        currentA[ 1 ] = currentA[ 1 ] + opy;
+        currentB[ 1 ] = currentB[ 1 ] + opy;
+        currentC[ 1 ] = currentC[ 1 ] + opy;
+
+        //Check field values against expected values
+
+        if ( ax === currentA[ 0 ] && bx === currentB[ 0 ] && cx === currentC[ 0 ] && ay === currentA[ 1 ] && by === currentB[ 1 ] && cy === currentC[ 1 ] ) {
+          this.setWarningText(null);
+          currentBlocklyErrors[ this.id ] = false;
+        } else {
+          this.setWarningText('You must input the correct \nresults of this transformation!');
+          currentBlocklyErrors[ this.id ] = true;
+        }
+
+      } else {
+
+        if ( inputBlock !== undefined ) {
+
+          //var currentA = [ eval( inputBlock.getFieldValue('AX') ), eval( inputBlock.getFieldValue('AY') ) ];
+          //var currentB = [ eval( inputBlock.getFieldValue('BX') ), eval( inputBlock.getFieldValue('BY') ) ];
+          //var currentC = [ eval( inputBlock.getFieldValue('CX') ), eval( inputBlock.getFieldValue('CY') ) ];
+
+          var currentA = [ eval( checkAndSetField( inputBlock, 'AX' ) ), eval( checkAndSetField( inputBlock, 'AY' ) ) ];
+          var currentB = [ eval( checkAndSetField( inputBlock, 'BX' ) ), eval( checkAndSetField( inputBlock, 'BY' ) ) ];
+          var currentC = [ eval( checkAndSetField( inputBlock, 'CX' ) ), eval( checkAndSetField( inputBlock, 'CY' ) ) ];
+
+          currentA[ 0 ] = currentA[ 0 ] + opx;
+          currentB[ 0 ] = currentB[ 0 ] + opx;
+          currentC[ 0 ] = currentC[ 0 ] + opx;
+
+          currentA[ 1 ] = currentA[ 1 ] + opy;
+          currentB[ 1 ] = currentB[ 1 ] + opy;
+          currentC[ 1 ] = currentC[ 1 ] + opy;
+
+          //Check field values against expected values
+
+          if ( ax === currentA[ 0 ] && bx == currentB[ 0 ] && cx == currentC[ 0 ] && ay === currentA[ 1 ] && by == currentB[ 1 ] && cy == currentC[ 1 ] ) {
+            this.setWarningText(null);
+            currentBlocklyErrors[ this.id ] = false;
+          } else {
+            this.setWarningText('You must input the correct \nresults of this transformation!');
+            currentBlocklyErrors[ this.id ] = true;
+          }
+        }
+
+      }
+    } 
+
+    // Done checking block type.
+
+    var block = this;
+    var targetBlock;
+
+    // Only propagate 'up' if this is the last block in the chain
+    // Flow "up" the stack by popping up through parentBlock_ !== null once childblocks_ has a length of 0
+
+    if ( this.childBlocks_.length === 0 ) {
+      do {
+        targetBlock = block;
+        block = block.parentBlock_;
+
+        if ( targetBlock.type == 'triangle_flow' ) { //Which it should be given our connection checks...
+
+        //Set target block's values (The TRIANGLE FLOW BLOCK's values) with the current A B and C
+
+        //targetBlock.setFieldValue( ' '+ax+' , '+ay+' ','CURRENTA' );
+        //targetBlock.setFieldValue( ' '+bx+' , '+by+' ','CURRENTB' );
+        //targetBlock.setFieldValue( ' '+cx+' , '+cy+' ','CURRENTC' );
+
+        targetBlock.setFieldValue( ' '+checkAndSetTriangle(this,'AX')+' , '+checkAndSetTriangle(this,'AY')+' ','CURRENTA' );
+        targetBlock.setFieldValue( ' '+checkAndSetTriangle(this,'BX')+' , '+checkAndSetTriangle(this,'BY')+' ','CURRENTB' );
+        targetBlock.setFieldValue( ' '+checkAndSetTriangle(this,'CX')+' , '+checkAndSetTriangle(this,'CY')+' ','CURRENTC' );
+
+        break;
+      }
+
+      } while ( block );
+
+    }
+
+    var parentCount = -1;
+    block = this;
+
+    var aText = 'A';
+    var bText = 'B';
+    var cText = 'C';
+
+    var primeText = '';
+
+    do {
+        targetBlock = block;
+        block = block.parentBlock_;
+        if ( targetBlock.type == 'triangle_flow' ) { //Which it should be given our connection checks...
+          break;
+        } else {
+          parentCount += 1;
+          primeText = primeText + "'";
+        }
+    } while ( block );
+    
+    this.setFieldValue( aText + primeText + ' ', 'APRIME' );
+    this.setFieldValue( bText + primeText + ' ', 'BPRIME' );
+    this.setFieldValue( cText + primeText + ' ', 'CPRIME' );
+    
+  }
+};
+
+Blockly.JavaScript['triangle_transformations_translate'] = function( block ) {
+  var code = '';
+  return code;
+};
+
+Blockly.Blocks['triangle_transformations_translate_static'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Translate")
+        .appendField("(")
+        .appendField('0', "OPX")
+        .appendField(",")
+        .appendField('0', "OPY")
+        .appendField(")     ");
+    this.appendDummyInput()
+        .appendField(new Blockly.FieldImage("http://i.imgur.com/jWhLthx.png", 175, 20, "*"));
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("A ", "APRIME")
+        .appendField("(")
+        .appendField(new Blockly.FieldTextInput('_'), "AX")
+        .appendField(",")
+        .appendField(new Blockly.FieldTextInput('_'), "AY")
+        .appendField(")");
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("B ", "BPRIME")
+        .appendField("(")
+        .appendField(new Blockly.FieldTextInput('_'), "BX")
+        .appendField(",")
+        .appendField(new Blockly.FieldTextInput('_'), "BY")
+        .appendField(")");
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("C ", "CPRIME")
+        .appendField("(")
+        .appendField(new Blockly.FieldTextInput('_'), "CX")
+        .appendField(",")
+        .appendField(new Blockly.FieldTextInput('_'), "CY")
+        .appendField(")");
+    this.setInputsInline(false);
+    this.setPreviousStatement(true, 'Transformation');
+    this.setNextStatement(true, 'Transformation');
+    this.setColour(195);
+    var thisBlock = this;
+    this.setTooltip( function() {
+      var content = {
+        text: "Transformation blocks can be placed inside of the Draw Triangle block. The Translate transformation changes the position of the triangle."
+      }
+      return showTooltipInBlockly(thisBlock, content);
+    });
+    this.data = currentBlocklyNodeID;
+  },
+  onchange: function() {
+    if (!this.workspace) {
+      // Block has been deleted.
+      currentBlocklyErrors[ this.id ] = false;
+      return;
+    }
+
+    //First check if we put the block in the right spot
+    
+    var legal = false;
+    // Is the block nested in a control statement?
+    var block = this;
+    do {
+      if (block.type == 'triangle_flow') {
+        legal = true;
+        break;
+      }
+      block = block.getSurroundParent();
+    } while ( block );
+    if ( legal ) {
+      this.setWarningText(null);
+      currentBlocklyErrors[ this.id ] = false;
+    } else {
+      this.setWarningText('Block can only be placed within \na triangle flow block');
+      currentBlocklyErrors[ this.id ] = true;
+    }
+
+    //Reset block to this since we popped up the stack above.
+
+    block = this;
+
+    block.setFieldValue( validateFieldValue( block.getFieldValue('AX') ), 'AX' );
+    block.setFieldValue( validateFieldValue( block.getFieldValue('BX') ), 'BX' );
+    block.setFieldValue( validateFieldValue( block.getFieldValue('CX') ), 'CX' );
+    block.setFieldValue( validateFieldValue( block.getFieldValue('AY') ), 'AY' );
+    block.setFieldValue( validateFieldValue( block.getFieldValue('BY') ), 'BY' );
+    block.setFieldValue( validateFieldValue( block.getFieldValue('CY') ), 'CY' );
+
+    var opx = eval( block.getFieldValue('OPX') );
+    var opy = eval( block.getFieldValue('OPY') );
+    var ax = eval( checkAndSetField( block, 'AX' ) );
+    var ay = eval( checkAndSetField( block, 'AY' ) );
+    var bx = eval( checkAndSetField( block, 'BX' ) );
+    var by = eval( checkAndSetField( block, 'BY' ) );
+    var cx = eval( checkAndSetField( block, 'CX' ) );
+    var cy = eval( checkAndSetField( block, 'CY' ) );
+
+    // block.parentBlock_ is always the block that is attached to the top statement input.
+
+    var inputBlock = block.parentBlock_;
+
+    //Check childBlocks_ (array) and parentBlock_ (direct block reference)
+
+    //A triangle flow with 2 operators would have the first operator be the childblock of triangle_flow
+    //The second operator would be the childblock of the first operator
+
+    if ( inputBlock !== null ) {
+      if ( inputBlock.type == 'triangle_flow' ) {
+        var currentA = [ 0,0 ];
+        var currentB = [ 0,1 ];
+        var currentC = [ 1,0 ];
+
+        currentA[ 0 ] = currentA[ 0 ] + opx;
+        currentB[ 0 ] = currentB[ 0 ] + opx;
+        currentC[ 0 ] = currentC[ 0 ] + opx;
+
+        currentA[ 1 ] = currentA[ 1 ] + opy;
+        currentB[ 1 ] = currentB[ 1 ] + opy;
+        currentC[ 1 ] = currentC[ 1 ] + opy;
+
+        //Check field values against expected values
+
+        if ( ax === currentA[ 0 ] && bx === currentB[ 0 ] && cx === currentC[ 0 ] && ay === currentA[ 1 ] && by === currentB[ 1 ] && cy === currentC[ 1 ] ) {
+          this.setWarningText(null);
+          currentBlocklyErrors[ this.id ] = false;
+        } else {
+          this.setWarningText('You must input the correct \nresults of this transformation!');
+          currentBlocklyErrors[ this.id ] = true;
+        }
+
+      } else {
+
+        if ( inputBlock !== undefined ) {
+
+          //var currentA = [ eval( inputBlock.getFieldValue('AX') ), eval( inputBlock.getFieldValue('AY') ) ];
+          //var currentB = [ eval( inputBlock.getFieldValue('BX') ), eval( inputBlock.getFieldValue('BY') ) ];
+          //var currentC = [ eval( inputBlock.getFieldValue('CX') ), eval( inputBlock.getFieldValue('CY') ) ];
+
+          var currentA = [ eval( checkAndSetField( inputBlock, 'AX' ) ), eval( checkAndSetField( inputBlock, 'AY' ) ) ];
+          var currentB = [ eval( checkAndSetField( inputBlock, 'BX' ) ), eval( checkAndSetField( inputBlock, 'BY' ) ) ];
+          var currentC = [ eval( checkAndSetField( inputBlock, 'CX' ) ), eval( checkAndSetField( inputBlock, 'CY' ) ) ];
+
+          currentA[ 0 ] = currentA[ 0 ] + opx;
+          currentB[ 0 ] = currentB[ 0 ] + opx;
+          currentC[ 0 ] = currentC[ 0 ] + opx;
+
+          currentA[ 1 ] = currentA[ 1 ] + opy;
+          currentB[ 1 ] = currentB[ 1 ] + opy;
+          currentC[ 1 ] = currentC[ 1 ] + opy;
+
+          //Check field values against expected values
+
+          if ( ax === currentA[ 0 ] && bx == currentB[ 0 ] && cx == currentC[ 0 ] && ay === currentA[ 1 ] && by == currentB[ 1 ] && cy == currentC[ 1 ] ) {
+            this.setWarningText(null);
+            currentBlocklyErrors[ this.id ] = false;
+          } else {
+            this.setWarningText('You must input the correct \nresults of this transformation!');
+            currentBlocklyErrors[ this.id ] = true;
+          }
+        }
+
+      }
+    } 
+
+    // Done checking block type.
+
+    var block = this;
+    var targetBlock;
+
+    // Only propagate 'up' if this is the last block in the chain
+    // Flow "up" the stack by popping up through parentBlock_ !== null once childblocks_ has a length of 0
+
+    if ( this.childBlocks_.length === 0 ) {
+      do {
+        targetBlock = block;
+        block = block.parentBlock_;
+
+        if ( targetBlock.type == 'triangle_flow' ) { //Which it should be given our connection checks...
+
+        //Set target block's values (The TRIANGLE FLOW BLOCK's values) with the current A B and C
+
+        //targetBlock.setFieldValue( ' '+ax+' , '+ay+' ','CURRENTA' );
+        //targetBlock.setFieldValue( ' '+bx+' , '+by+' ','CURRENTB' );
+        //targetBlock.setFieldValue( ' '+cx+' , '+cy+' ','CURRENTC' );
+
+        targetBlock.setFieldValue( ' '+checkAndSetTriangle(this,'AX')+' , '+checkAndSetTriangle(this,'AY')+' ','CURRENTA' );
+        targetBlock.setFieldValue( ' '+checkAndSetTriangle(this,'BX')+' , '+checkAndSetTriangle(this,'BY')+' ','CURRENTB' );
+        targetBlock.setFieldValue( ' '+checkAndSetTriangle(this,'CX')+' , '+checkAndSetTriangle(this,'CY')+' ','CURRENTC' );
+
+        break;
+      }
+
+      } while ( block );
+
+    }
+
+    var parentCount = -1;
+    block = this;
+
+    var aText = 'A';
+    var bText = 'B';
+    var cText = 'C';
+
+    var primeText = '';
+
+    do {
+        targetBlock = block;
+        block = block.parentBlock_;
+        if ( targetBlock.type == 'triangle_flow' ) { //Which it should be given our connection checks...
+          break;
+        } else {
+          parentCount += 1;
+          primeText = primeText + "'";
+        }
+    } while ( block );
+    
+    this.setFieldValue( aText + primeText + ' ', 'APRIME' );
+    this.setFieldValue( bText + primeText + ' ', 'BPRIME' );
+    this.setFieldValue( cText + primeText + ' ', 'CPRIME' );
+    
+  }
+};
+
+Blockly.JavaScript['triangle_transformations_translate_static'] = function( block ) {
+  var code = '';
+  return code;
+};
+
+
+// --------------------------------------------------------------------------------------------------------- //
+// triangle_transformations_translate_auto is a template for the auto-propagating single transformation block (no user fill)
+// --------------------------------------------------------------------------------------------------------- // 
+
+Blockly.Blocks['triangle_transformations_translate_auto'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Translate")
+        .appendField("(")
+        .appendField(new Blockly.FieldTextInput("0"), "OPX")
+        .appendField(",")
+        .appendField(new Blockly.FieldTextInput("0"), "OPY")
+        .appendField(")     ");
+    this.appendDummyInput()
+        .appendField(new Blockly.FieldImage("http://i.imgur.com/SlBlKQj.png", 175, 20, "*"));
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("A ", "APRIME")
+        .appendField("(")
+        .appendField("?", "AX")
+        .appendField(",")
+        .appendField("?", "AY")
+        .appendField(")");
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("B ", "BPRIME")
+        .appendField("(")
+        .appendField("?", "BX")
+        .appendField(",")
+        .appendField("?", "BY")
+        .appendField(")");
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("C ", "CPRIME")
+        .appendField("(")
+        .appendField("?", "CX")
+        .appendField(",")
+        .appendField("?", "CY")
+        .appendField(")");
+    this.setInputsInline(false);
+    this.setPreviousStatement(true, 'Transformation');
+    this.setNextStatement(true, 'Transformation');
+    this.setColour(195);
+    var thisBlock = this;
+    this.setTooltip( function() {
+      var content = {
+        text: "Transformation blocks can be placed inside of the Draw Triangle block. The Translate transformation changes the position of the triangle."
+      }
+      return showTooltipInBlockly(thisBlock, content);
+    });
+    this.data = currentBlocklyNodeID;
+  },
+  onchange: function() {
+    if (!this.workspace) {
+      // Block has been deleted.
+      currentBlocklyErrors[ this.id ] = false;
+      return;
+    }
+
+    //First check if we put the block in the right spot
+    
+    var legal = false;
+    // Is the block nested in a control statement?
+    var block = this;
+    do {
+      if (block.type == 'triangle_flow') {
+        legal = true;
+        break;
+      }
+      block = block.getSurroundParent();
+    } while ( block );
+    if ( legal ) {
+      this.setWarningText(null);
+      currentBlocklyErrors[ this.id ] = false;
+    } else {
+      this.setWarningText('Block can only be placed \nwithin a triangle flow block');
+      currentBlocklyErrors[ this.id ] = true;
+    }
+
+    //Reset block to this since we popped up the stack above.
+
+    block = this;
+
+    var opx = eval( block.getFieldValue('OPX') );
+    var opy = eval( block.getFieldValue('OPY') );
+
+    // Input validation
+
+    if ( isNaN( opx ) || opx === "" ) { opx = 0; this.setFieldValue( '0','OPX' ); }
+    if ( isNaN( opy ) || opy === "" ) { opy = 0; this.setFieldValue( '0','OPY' ); }
+
+    // block.parentBlock_ is always the block that is attached to the top statement input.
+
+    var inputBlock = block.parentBlock_;
+
+    //Check childBlocks_ (array) and parentBlock_ (direct block reference)
+
+    //A triangle flow with 2 operators would have the first operator be the childblock of triangle_flow
+    //The second operator would be the childblock of the first operator
+
+    if ( inputBlock !== null ) {
+      if ( inputBlock.type == 'triangle_flow' ) {
+        var currentA = [ 0,0 ];
+        var currentB = [ 0,1 ];
+        var currentC = [ 1,0 ];
+
+        currentA[ 0 ] = currentA[ 0 ] + opx;
+        currentB[ 0 ] = currentB[ 0 ] + opx;
+        currentC[ 0 ] = currentC[ 0 ] + opx;
+
+        currentA[ 1 ] = currentA[ 1 ] + opy;
+        currentB[ 1 ] = currentB[ 1 ] + opy;
+        currentC[ 1 ] = currentC[ 1 ] + opy;
+
+        //Set fields appropriately
+
+        this.setFieldValue( ''+currentA[ 0 ]+'','AX' );
+        this.setFieldValue( ''+currentB[ 0 ]+'','BX' );
+        this.setFieldValue( ''+currentC[ 0 ]+'','CX' );
+        this.setFieldValue( ''+currentA[ 1 ]+'','AY' );
+        this.setFieldValue( ''+currentB[ 1 ]+'','BY' );
+        this.setFieldValue( ''+currentC[ 1 ]+'','CY' );
+
+      } else {
+
+        if ( inputBlock !== undefined ) {
+
+          var currentA = [ eval( inputBlock.getFieldValue('AX') ), eval( inputBlock.getFieldValue('AY') ) ];
+          var currentB = [ eval( inputBlock.getFieldValue('BX') ), eval( inputBlock.getFieldValue('BY') ) ];
+          var currentC = [ eval( inputBlock.getFieldValue('CX') ), eval( inputBlock.getFieldValue('CY') ) ];
+
+          currentA[ 0 ] = currentA[ 0 ] + opx;
+          currentB[ 0 ] = currentB[ 0 ] + opx;
+          currentC[ 0 ] = currentC[ 0 ] + opx;
+
+          currentA[ 1 ] = currentA[ 1 ] + opy;
+          currentB[ 1 ] = currentB[ 1 ] + opy;
+          currentC[ 1 ] = currentC[ 1 ] + opy;
+
+          //Set fields appropriately
+
+          this.setFieldValue( ''+currentA[ 0 ]+'','AX' );
+          this.setFieldValue( ''+currentB[ 0 ]+'','BX' );
+          this.setFieldValue( ''+currentC[ 0 ]+'','CX' );
+          this.setFieldValue( ''+currentA[ 1 ]+'','AY' );
+          this.setFieldValue( ''+currentB[ 1 ]+'','BY' );
+          this.setFieldValue( ''+currentC[ 1 ]+'','CY' );
+        }
+
+      }
+    } 
+
+    // Done checking block type.
+
+    var block = this;
+    var targetBlock;
+
+    // Only propagate 'up' if this is the last block in the chain
+    // Flow "up" the stack by popping up through parentBlock_ !== null once childblocks_ has a length of 0
+
+    if ( this.childBlocks_.length === 0 ) {
+      do {
+        targetBlock = block;
+        block = block.parentBlock_;
+        if ( targetBlock.type == 'triangle_flow' ) { //Which it should be given our connection checks...
+
+          //Set target block's values (The TRIANGLE FLOW BLOCK's values) with the current A B and C
+
+          targetBlock.setFieldValue( ' ' + currentA[0] + ' , ' + currentA[1] + ' ','CURRENTA' );
+          targetBlock.setFieldValue( ' ' + currentB[0] + ' , ' + currentB[1] + ' ','CURRENTB' );
+          targetBlock.setFieldValue( ' ' + currentC[0] + ' , ' + currentC[1] + ' ','CURRENTC' );
+          break;
+        }
+      } while ( block );
+
+    }
+    
+    var parentCount = -1;
+    block = this;
+
+    var aText = 'A';
+    var bText = 'B';
+    var cText = 'C';
+
+    var primeText = '';
+
+    do {
+        targetBlock = block;
+        block = block.parentBlock_;
+        if ( targetBlock.type == 'triangle_flow' ) { //Which it should be given our connection checks...
+          break;
+        } else {
+          parentCount += 1;
+          primeText = primeText + "'";
+        }
+    } while ( block );
+    
+    this.setFieldValue( aText + primeText + ' ', 'APRIME' );
+    this.setFieldValue( bText + primeText + ' ', 'BPRIME' );
+    this.setFieldValue( cText + primeText + ' ', 'CPRIME' );
+
+  }
+};
+
+Blockly.JavaScript['triangle_transformations_translate_auto'] = function( block ) {
+  var code = '';
+  return code;
+};
+
+Blockly.Blocks['triangle_transformations_dilate'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Dilate")
+        .appendField("(")
+        .appendField(new Blockly.FieldTextInput('0',
+        Blockly.FieldTextInput.numberValidator), "OP")
+        .appendField(")     ");
+    this.appendDummyInput()
+        .appendField(new Blockly.FieldImage("http://i.imgur.com/jWhLthx.png", 175, 20, "*"));
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("A ", "APRIME")
+        .appendField("(")
+        .appendField(new Blockly.FieldTextInput('_'), "AX")
+        .appendField(",")
+        .appendField(new Blockly.FieldTextInput('_'), "AY")
+        .appendField(")");
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("B ", "BPRIME")
+        .appendField("(")
+        .appendField(new Blockly.FieldTextInput('_'), "BX")
+        .appendField(",")
+        .appendField(new Blockly.FieldTextInput('_'), "BY")
+        .appendField(")");
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("C ", "CPRIME")
+        .appendField("(")
+        .appendField(new Blockly.FieldTextInput('_'), "CX")
+        .appendField(",")
+        .appendField(new Blockly.FieldTextInput('_'), "CY")
+        .appendField(")");
+    this.setInputsInline(false);
+    this.setPreviousStatement(true, 'Transformation');
+    this.setNextStatement(true, 'Transformation');
+    this.setColour(45);
+    var thisBlock = this;
+    this.setTooltip( function() {
+      var content = {
+        text: "Transformation blocks can be placed inside of the Draw Triangle block. The Dilate transformation changes the size of the triangle."
+      }
+      return showTooltipInBlockly(thisBlock, content);
+    });
+    this.data = currentBlocklyNodeID;
+  },
+  onchange: function() {
+    if (!this.workspace) {
+      // Block has been deleted.
+      currentBlocklyErrors[ this.id ] = false;
+      return;
+    }
+
+    //First check if we put the block in the right spot
+    
+    var legal = false;
+    // Is the block nested in a control statement?
+    var block = this;
+    do {
+      if (block.type == 'triangle_flow') {
+        legal = true;
+        break;
+      }
+      block = block.getSurroundParent();
+    } while ( block );
+    if ( legal ) {
+      this.setWarningText(null);
+      currentBlocklyErrors[ this.id ] = false;
+    } else {
+      this.setWarningText('Block can only be placed \nwithin a triangle flow block');
+      currentBlocklyErrors[ this.id ] = true;
+    }
+
+    //Reset block to this since we popped up the stack above.
+
+    block = this;
+
+    block.setFieldValue( validateFieldValue( block.getFieldValue('AX') ), 'AX' );
+    block.setFieldValue( validateFieldValue( block.getFieldValue('BX') ), 'BX' );
+    block.setFieldValue( validateFieldValue( block.getFieldValue('CX') ), 'CX' );
+    block.setFieldValue( validateFieldValue( block.getFieldValue('AY') ), 'AY' );
+    block.setFieldValue( validateFieldValue( block.getFieldValue('BY') ), 'BY' );
+    block.setFieldValue( validateFieldValue( block.getFieldValue('CY') ), 'CY' );
+
+    var op = eval( block.getFieldValue('OP') );
+    var ax = eval( checkAndSetField( block, 'AX' ) );
+    var ay = eval( checkAndSetField( block, 'AY' ) );
+    var bx = eval( checkAndSetField( block, 'BX' ) );
+    var by = eval( checkAndSetField( block, 'BY' ) );
+    var cx = eval( checkAndSetField( block, 'CX' ) );
+    var cy = eval( checkAndSetField( block, 'CY' ) );
+
+    // block.parentBlock_ is always the block that is attached to the top statement input.
+
+    var inputBlock = block.parentBlock_;
+
+    //Check childBlocks_ (array) and parentBlock_ (direct block reference)
+
+    //A triangle flow with 2 operators would have the first operator be the childblock of triangle_flow
+    //The second operator would be the childblock of the first operator
+
+    if ( inputBlock !== null ) {
+      if ( inputBlock.type == 'triangle_flow' ) {
+        var currentA = [ 0,0 ];
+        var currentB = [ 0,1 ];
+        var currentC = [ 1,0 ];
+
+        currentA[ 0 ] = currentA[ 0 ] * op;
+        currentB[ 0 ] = currentB[ 0 ] * op;
+        currentC[ 0 ] = currentC[ 0 ] * op;
+
+        currentA[ 1 ] = currentA[ 1 ] * op;
+        currentB[ 1 ] = currentB[ 1 ] * op;
+        currentC[ 1 ] = currentC[ 1 ] * op;
+
+        //Check field values against expected values
+
+        if ( ax === currentA[ 0 ] && bx === currentB[ 0 ] && cx === currentC[ 0 ] && ay === currentA[ 1 ] && by === currentB[ 1 ] && cy === currentC[ 1 ] ) {
+          this.setWarningText(null);
+          currentBlocklyErrors[ this.id ] = false;
+        } else {
+          this.setWarningText('You must input the correct \nresults of this transformation!');
+          currentBlocklyErrors[ this.id ] = true;
+        }
+
+      } else {
+
+        if ( inputBlock !== undefined ) {
+
+          var currentA = [ eval( checkAndSetField( inputBlock, 'AX' ) ), eval( checkAndSetField( inputBlock, 'AY' ) ) ];
+          var currentB = [ eval( checkAndSetField( inputBlock, 'BX' ) ), eval( checkAndSetField( inputBlock, 'BY' ) ) ];
+          var currentC = [ eval( checkAndSetField( inputBlock, 'CX' ) ), eval( checkAndSetField( inputBlock, 'CY' ) ) ];
+
+          //var currentA = [ eval( inputBlock.getFieldValue('AX') ), eval( inputBlock.getFieldValue('AY') ) ];
+          //var currentB = [ eval( inputBlock.getFieldValue('BX') ), eval( inputBlock.getFieldValue('BY') ) ];
+          //var currentC = [ eval( inputBlock.getFieldValue('CX') ), eval( inputBlock.getFieldValue('CY') ) ];
+
+          currentA[ 0 ] = currentA[ 0 ] * op;
+          currentB[ 0 ] = currentB[ 0 ] * op;
+          currentC[ 0 ] = currentC[ 0 ] * op;
+
+          currentA[ 1 ] = currentA[ 1 ] * op;
+          currentB[ 1 ] = currentB[ 1 ] * op;
+          currentC[ 1 ] = currentC[ 1 ] * op;
+
+          //Check field values against expected values
+
+          if ( ax === currentA[ 0 ] && bx == currentB[ 0 ] && cx == currentC[ 0 ] && ay === currentA[ 1 ] && by == currentB[ 1 ] && cy == currentC[ 1 ] ) {
+            this.setWarningText(null);
+            currentBlocklyErrors[ this.id ] = false;
+          } else {
+            this.setWarningText('You must input the correct \nresults of this transformation!');
+            currentBlocklyErrors[ this.id ] = true;
+          }
+        }
+
+      }
+    } 
+
+    // Done checking block type.
+
+    var block = this;
+    var targetBlock;
+
+    // Only propagate 'up' if this is the last block in the chain
+    // Flow "up" the stack by popping up through parentBlock_ !== null once childblocks_ has a length of 0
+
+    if ( this.childBlocks_.length === 0 ) {
+      do {
+        targetBlock = block;
+        block = block.parentBlock_;
+        if ( targetBlock.type == 'triangle_flow' ) { //Which it should be given our connection checks...
+
+          //Set target block's values (The TRIANGLE FLOW BLOCK's values) with the current A B and C
+
+          //targetBlock.setFieldValue( ' '+ax+' , '+ay+' ','CURRENTA' );
+          //targetBlock.setFieldValue( ' '+bx+' , '+by+' ','CURRENTB' );
+          //targetBlock.setFieldValue( ' '+cx+' , '+cy+' ','CURRENTC' );
+          targetBlock.setFieldValue( ' '+checkAndSetTriangle(this,'AX')+' , '+checkAndSetTriangle(this,'AY')+' ','CURRENTA' );
+          targetBlock.setFieldValue( ' '+checkAndSetTriangle(this,'BX')+' , '+checkAndSetTriangle(this,'BY')+' ','CURRENTB' );
+          targetBlock.setFieldValue( ' '+checkAndSetTriangle(this,'CX')+' , '+checkAndSetTriangle(this,'CY')+' ','CURRENTC' );
+          break;
+
+        }
+      } while ( block );
+      
+    }
+
+    var parentCount = -1;
+    block = this;
+
+    var aText = 'A';
+    var bText = 'B';
+    var cText = 'C';
+
+    var primeText = '';
+
+    do {
+        targetBlock = block;
+        block = block.parentBlock_;
+        if ( targetBlock.type == 'triangle_flow' ) { //Which it should be given our connection checks...
+          break;
+        } else {
+          parentCount += 1;
+          primeText = primeText + "'";
+        }
+    } while ( block );
+    
+    this.setFieldValue( aText + primeText + ' ', 'APRIME' );
+    this.setFieldValue( bText + primeText + ' ', 'BPRIME' );
+    this.setFieldValue( cText + primeText + ' ', 'CPRIME' );
+
+  }
+};
+
+Blockly.JavaScript['triangle_transformations_dilate'] = function( block ) {
+  var code = '';
+  return code;
+};
+
+Blockly.Blocks['triangle_transformations_dilate_static'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Dilate")
+        .appendField("(")
+        .appendField('0', "OP")
+        .appendField(")     ");
+    this.appendDummyInput()
+        .appendField(new Blockly.FieldImage("http://i.imgur.com/jWhLthx.png", 175, 20, "*"));
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("A ", "APRIME")
+        .appendField("(")
+        .appendField(new Blockly.FieldTextInput('_'), "AX")
+        .appendField(",")
+        .appendField(new Blockly.FieldTextInput('_'), "AY")
+        .appendField(")");
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("B ", "BPRIME")
+        .appendField("(")
+        .appendField(new Blockly.FieldTextInput('_'), "BX")
+        .appendField(",")
+        .appendField(new Blockly.FieldTextInput('_'), "BY")
+        .appendField(")");
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("C ", "CPRIME")
+        .appendField("(")
+        .appendField(new Blockly.FieldTextInput('_'), "CX")
+        .appendField(",")
+        .appendField(new Blockly.FieldTextInput('_'), "CY")
+        .appendField(")");
+    this.setInputsInline(false);
+    this.setPreviousStatement(true, 'Transformation');
+    this.setNextStatement(true, 'Transformation');
+    this.setColour(45);
+    var thisBlock = this;
+    this.setTooltip( function() {
+      var content = {
+        text: "Transformation blocks can be placed inside of the Draw Triangle block. The Dilate transformation changes the size of the triangle."
+      }
+      return showTooltipInBlockly(thisBlock, content);
+    });
+    this.data = currentBlocklyNodeID;
+  },
+  onchange: function() {
+    if (!this.workspace) {
+      // Block has been deleted.
+      currentBlocklyErrors[ this.id ] = false;
+      return;
+    }
+
+    //First check if we put the block in the right spot
+    
+    var legal = false;
+    // Is the block nested in a control statement?
+    var block = this;
+    do {
+      if (block.type == 'triangle_flow') {
+        legal = true;
+        break;
+      }
+      block = block.getSurroundParent();
+    } while ( block );
+    if ( legal ) {
+      this.setWarningText(null);
+      currentBlocklyErrors[ this.id ] = false;
+    } else {
+      this.setWarningText('Block can only be placed \nwithin a triangle flow block');
+      currentBlocklyErrors[ this.id ] = true;
+    }
+
+    //Reset block to this since we popped up the stack above.
+
+    block = this;
+
+    block.setFieldValue( validateFieldValue( block.getFieldValue('AX') ), 'AX' );
+    block.setFieldValue( validateFieldValue( block.getFieldValue('BX') ), 'BX' );
+    block.setFieldValue( validateFieldValue( block.getFieldValue('CX') ), 'CX' );
+    block.setFieldValue( validateFieldValue( block.getFieldValue('AY') ), 'AY' );
+    block.setFieldValue( validateFieldValue( block.getFieldValue('BY') ), 'BY' );
+    block.setFieldValue( validateFieldValue( block.getFieldValue('CY') ), 'CY' );
+
+    var op = eval( block.getFieldValue('OP') );
+    var ax = eval( checkAndSetField( block, 'AX' ) );
+    var ay = eval( checkAndSetField( block, 'AY' ) );
+    var bx = eval( checkAndSetField( block, 'BX' ) );
+    var by = eval( checkAndSetField( block, 'BY' ) );
+    var cx = eval( checkAndSetField( block, 'CX' ) );
+    var cy = eval( checkAndSetField( block, 'CY' ) );
+
+    // block.parentBlock_ is always the block that is attached to the top statement input.
+
+    var inputBlock = block.parentBlock_;
+
+    //Check childBlocks_ (array) and parentBlock_ (direct block reference)
+
+    //A triangle flow with 2 operators would have the first operator be the childblock of triangle_flow
+    //The second operator would be the childblock of the first operator
+
+    if ( inputBlock !== null ) {
+      if ( inputBlock.type == 'triangle_flow' ) {
+        var currentA = [ 0,0 ];
+        var currentB = [ 0,1 ];
+        var currentC = [ 1,0 ];
+
+        currentA[ 0 ] = currentA[ 0 ] * op;
+        currentB[ 0 ] = currentB[ 0 ] * op;
+        currentC[ 0 ] = currentC[ 0 ] * op;
+
+        currentA[ 1 ] = currentA[ 1 ] * op;
+        currentB[ 1 ] = currentB[ 1 ] * op;
+        currentC[ 1 ] = currentC[ 1 ] * op;
+
+        //Check field values against expected values
+
+        if ( ax === currentA[ 0 ] && bx === currentB[ 0 ] && cx === currentC[ 0 ] && ay === currentA[ 1 ] && by === currentB[ 1 ] && cy === currentC[ 1 ] ) {
+          this.setWarningText(null);
+          currentBlocklyErrors[ this.id ] = false;
+        } else {
+          this.setWarningText('You must input the correct \nresults of this transformation!');
+          currentBlocklyErrors[ this.id ] = true;
+        }
+
+      } else {
+
+        if ( inputBlock !== undefined ) {
+
+          var currentA = [ eval( checkAndSetField( inputBlock, 'AX' ) ), eval( checkAndSetField( inputBlock, 'AY' ) ) ];
+          var currentB = [ eval( checkAndSetField( inputBlock, 'BX' ) ), eval( checkAndSetField( inputBlock, 'BY' ) ) ];
+          var currentC = [ eval( checkAndSetField( inputBlock, 'CX' ) ), eval( checkAndSetField( inputBlock, 'CY' ) ) ];
+
+          //var currentA = [ eval( inputBlock.getFieldValue('AX') ), eval( inputBlock.getFieldValue('AY') ) ];
+          //var currentB = [ eval( inputBlock.getFieldValue('BX') ), eval( inputBlock.getFieldValue('BY') ) ];
+          //var currentC = [ eval( inputBlock.getFieldValue('CX') ), eval( inputBlock.getFieldValue('CY') ) ];
+
+          currentA[ 0 ] = currentA[ 0 ] * op;
+          currentB[ 0 ] = currentB[ 0 ] * op;
+          currentC[ 0 ] = currentC[ 0 ] * op;
+
+          currentA[ 1 ] = currentA[ 1 ] * op;
+          currentB[ 1 ] = currentB[ 1 ] * op;
+          currentC[ 1 ] = currentC[ 1 ] * op;
+
+          //Check field values against expected values
+
+          if ( ax === currentA[ 0 ] && bx == currentB[ 0 ] && cx == currentC[ 0 ] && ay === currentA[ 1 ] && by == currentB[ 1 ] && cy == currentC[ 1 ] ) {
+            this.setWarningText(null);
+            currentBlocklyErrors[ this.id ] = false;
+          } else {
+            this.setWarningText('You must input the correct \nresults of this transformation!');
+            currentBlocklyErrors[ this.id ] = true;
+          }
+        }
+
+      }
+    } 
+
+    // Done checking block type.
+
+    var block = this;
+    var targetBlock;
+
+    // Only propagate 'up' if this is the last block in the chain
+    // Flow "up" the stack by popping up through parentBlock_ !== null once childblocks_ has a length of 0
+
+    if ( this.childBlocks_.length === 0 ) {
+      do {
+        targetBlock = block;
+        block = block.parentBlock_;
+        if ( targetBlock.type == 'triangle_flow' ) { //Which it should be given our connection checks...
+
+          //Set target block's values (The TRIANGLE FLOW BLOCK's values) with the current A B and C
+
+          //targetBlock.setFieldValue( ' '+ax+' , '+ay+' ','CURRENTA' );
+          //targetBlock.setFieldValue( ' '+bx+' , '+by+' ','CURRENTB' );
+          //targetBlock.setFieldValue( ' '+cx+' , '+cy+' ','CURRENTC' );
+          targetBlock.setFieldValue( ' '+checkAndSetTriangle(this,'AX')+' , '+checkAndSetTriangle(this,'AY')+' ','CURRENTA' );
+          targetBlock.setFieldValue( ' '+checkAndSetTriangle(this,'BX')+' , '+checkAndSetTriangle(this,'BY')+' ','CURRENTB' );
+          targetBlock.setFieldValue( ' '+checkAndSetTriangle(this,'CX')+' , '+checkAndSetTriangle(this,'CY')+' ','CURRENTC' );
+          break;
+
+        }
+      } while ( block );
+      
+    }
+
+    var parentCount = -1;
+    block = this;
+
+    var aText = 'A';
+    var bText = 'B';
+    var cText = 'C';
+
+    var primeText = '';
+
+    do {
+        targetBlock = block;
+        block = block.parentBlock_;
+        if ( targetBlock.type == 'triangle_flow' ) { //Which it should be given our connection checks...
+          break;
+        } else {
+          parentCount += 1;
+          primeText = primeText + "'";
+        }
+    } while ( block );
+    
+    this.setFieldValue( aText + primeText + ' ', 'APRIME' );
+    this.setFieldValue( bText + primeText + ' ', 'BPRIME' );
+    this.setFieldValue( cText + primeText + ' ', 'CPRIME' );
+
+  }
+};
+
+Blockly.JavaScript['triangle_transformations_dilate_static'] = function( block ) {
+  var code = '';
+  return code;
+};
+
+Blockly.Blocks['triangle_transformations_dilate_auto'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Dilate")
+        .appendField("(")
+        .appendField(new Blockly.FieldTextInput('0',
+        Blockly.FieldTextInput.numberValidator), "OP")
+        .appendField(")     ");
+    this.appendDummyInput()
+        .appendField(new Blockly.FieldImage("http://i.imgur.com/SlBlKQj.png", 175, 20, "*"));
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("A ", "APRIME")
+        .appendField("(")
+        .appendField("?", "AX")
+        .appendField(",")
+        .appendField("?", "AY")
+        .appendField(")");
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("B ", "BPRIME")
+        .appendField("(")
+        .appendField("?", "BX")
+        .appendField(",")
+        .appendField("?", "BY")
+        .appendField(")");
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("C ", "CPRIME")
+        .appendField("(")
+        .appendField("?", "CX")
+        .appendField(",")
+        .appendField("?", "CY")
+        .appendField(")");
+    this.setInputsInline(false);
+    this.setPreviousStatement(true, 'Transformation');
+    this.setNextStatement(true, 'Transformation');
+    this.setColour(45);
+    var thisBlock = this;
+    this.setTooltip( function() {
+      var content = {
+        text: "Transformation blocks can be placed inside of the Draw Triangle block. The Dilate transformation changes the size of the triangle."
+      }
+      return showTooltipInBlockly(thisBlock, content);
+    });
+    this.data = currentBlocklyNodeID;
+  },
+  onchange: function() {
+    if (!this.workspace) {
+      // Block has been deleted.
+      currentBlocklyErrors[ this.id ] = false;
+      return;
+    }
+
+    //First check if we put the block in the right spot
+    
+    var legal = false;
+    // Is the block nested in a control statement?
+    var block = this;
+    do {
+      if (block.type == 'triangle_flow') {
+        legal = true;
+        break;
+      }
+      block = block.getSurroundParent();
+    } while ( block );
+    if ( legal ) {
+      this.setWarningText(null);
+      currentBlocklyErrors[ this.id ] = false;
+    } else {
+      this.setWarningText('Block can only be placed within \na triangle flow block');
+      currentBlocklyErrors[ this.id ] = true;
+    }
+
+    //Reset block to this since we popped up the stack above.
+
+    block = this;
+
+    var op = eval( block.getFieldValue('OP') );
+
+    // block.parentBlock_ is always the block that is attached to the top statement input.
+
+    var inputBlock = block.parentBlock_;
+
+    //Check childBlocks_ (array) and parentBlock_ (direct block reference)
+
+    //A triangle flow with 2 operators would have the first operator be the childblock of triangle_flow
+    //The second operator would be the childblock of the first operator
+
+    if ( inputBlock !== null ) {
+      if ( inputBlock.type == 'triangle_flow' ) {
+        var currentA = [ 0,0 ];
+        var currentB = [ 0,1 ];
+        var currentC = [ 1,0 ];
+
+        currentA[ 0 ] = currentA[ 0 ] * op;
+        currentB[ 0 ] = currentB[ 0 ] * op;
+        currentC[ 0 ] = currentC[ 0 ] * op;
+
+        currentA[ 1 ] = currentA[ 1 ] * op;
+        currentB[ 1 ] = currentB[ 1 ] * op;
+        currentC[ 1 ] = currentC[ 1 ] * op;
+
+        //Set fields appropriately
+
+        this.setFieldValue( ''+currentA[ 0 ]+'','AX' );
+        this.setFieldValue( ''+currentB[ 0 ]+'','BX' );
+        this.setFieldValue( ''+currentC[ 0 ]+'','CX' );
+        this.setFieldValue( ''+currentA[ 1 ]+'','AY' );
+        this.setFieldValue( ''+currentB[ 1 ]+'','BY' );
+        this.setFieldValue( ''+currentC[ 1 ]+'','CY' );
+
+      } else {
+
+        if ( inputBlock !== undefined ) {
+
+          var currentA = [ eval( inputBlock.getFieldValue('AX') ), eval( inputBlock.getFieldValue('AY') ) ];
+          var currentB = [ eval( inputBlock.getFieldValue('BX') ), eval( inputBlock.getFieldValue('BY') ) ];
+          var currentC = [ eval( inputBlock.getFieldValue('CX') ), eval( inputBlock.getFieldValue('CY') ) ];
+
+          currentA[ 0 ] = currentA[ 0 ] * op;
+          currentB[ 0 ] = currentB[ 0 ] * op;
+          currentC[ 0 ] = currentC[ 0 ] * op;
+
+          currentA[ 1 ] = currentA[ 1 ] * op;
+          currentB[ 1 ] = currentB[ 1 ] * op;
+          currentC[ 1 ] = currentC[ 1 ] * op;
+
+          //Set fields appropriately
+
+          this.setFieldValue( ''+currentA[ 0 ]+'','AX' );
+          this.setFieldValue( ''+currentB[ 0 ]+'','BX' );
+          this.setFieldValue( ''+currentC[ 0 ]+'','CX' );
+          this.setFieldValue( ''+currentA[ 1 ]+'','AY' );
+          this.setFieldValue( ''+currentB[ 1 ]+'','BY' );
+          this.setFieldValue( ''+currentC[ 1 ]+'','CY' );
+        }
+
+      }
+    } 
+
+    // Done checking block type.
+
+    var block = this;
+    var targetBlock;
+
+    // Only propagate 'up' if this is the last block in the chain
+    // Flow "up" the stack by popping up through parentBlock_ !== null once childblocks_ has a length of 0
+
+    if ( this.childBlocks_.length === 0 ) {
+      do {
+        targetBlock = block;
+        block = block.parentBlock_;
+        if ( targetBlock.type == 'triangle_flow' ) { //Which it should be given our connection checks...
+
+          //Set target block's values (The TRIANGLE FLOW BLOCK's values) with the current A B and C
+
+          targetBlock.setFieldValue( ' ' + currentA[0] + ' , ' + currentA[1] + ' ','CURRENTA' );
+          targetBlock.setFieldValue( ' ' + currentB[0] + ' , ' + currentB[1] + ' ','CURRENTB' );
+          targetBlock.setFieldValue( ' ' + currentC[0] + ' , ' + currentC[1] + ' ','CURRENTC' );
+          break;
+        }
+      } while ( block );
+
+    }
+
+    var parentCount = -1;
+    block = this;
+
+    var aText = 'A';
+    var bText = 'B';
+    var cText = 'C';
+
+    var primeText = '';
+
+    do {
+        targetBlock = block;
+        block = block.parentBlock_;
+        if ( targetBlock.type == 'triangle_flow' ) { //Which it should be given our connection checks...
+          break;
+        } else {
+          parentCount += 1;
+          primeText = primeText + "'";
+        }
+    } while ( block );
+    
+    this.setFieldValue( aText + primeText + ' ', 'APRIME' );
+    this.setFieldValue( bText + primeText + ' ', 'BPRIME' );
+    this.setFieldValue( cText + primeText + ' ', 'CPRIME' );
+    
+  }
+};
+
+Blockly.JavaScript['triangle_transformations_dilate_auto'] = function( block ) {
+  var code = '';
+  return code;
+};
+
+Blockly.Blocks['triangle_transformations_dilate_auto_fixed'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Dilate")
+        .appendField("(")
+        .appendField("1", "OPX")
+        .appendField(",")
+        .appendField("1", "OPY")
+        .appendField(")     ");
+    this.appendDummyInput()
+        .appendField(new Blockly.FieldImage("http://i.imgur.com/UpsXHeX.png", 150, 20, "*"));
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("A ", "APRIME")
+        .appendField("(")
+        .appendField("?", "AX")
+        .appendField(",")
+        .appendField("?", "AY")
+        .appendField(")");
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("B ", "BPRIME")
+        .appendField("(")
+        .appendField("?", "BX")
+        .appendField(",")
+        .appendField("?", "BY")
+        .appendField(")");
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("C ", "CPRIME")
+        .appendField("(")
+        .appendField("?", "CX")
+        .appendField(",")
+        .appendField("?", "CY")
+        .appendField(")");
+    this.setInputsInline(false);
+    this.setPreviousStatement(true, 'Transformation');
+    this.setNextStatement(true, 'Transformation');
+    this.setColour(45);
+    var thisBlock = this;
+    this.setTooltip( function() {
+      var content = {
+        text: "Transformation blocks can be placed inside of the Draw Triangle block. The Dilate transformation changes the size of the triangle."
+      }
+      return showTooltipInBlockly(thisBlock, content);
+    });
+    this.data = currentBlocklyNodeID;
+  },
+  onchange: function() {
+    if (!this.workspace) {
+      // Block has been deleted.
+      currentBlocklyErrors[ this.id ] = false;
+      return;
+    }
+
+    //First check if we put the block in the right spot
+    
+    var legal = false;
+    // Is the block nested in a control statement?
+    var block = this;
+    do {
+      if (block.type == 'triangle_flow') {
+        legal = true;
+        break;
+      }
+      block = block.getSurroundParent();
+    } while ( block );
+    if ( legal ) {
+      this.setWarningText(null);
+      currentBlocklyErrors[ this.id ] = false;
+    } else {
+      this.setWarningText('Block can only be placed within \na triangle flow block');
+      currentBlocklyErrors[ this.id ] = true;
+    }
+
+    //Reset block to this since we popped up the stack above.
+
+    block = this;
+
+    var opx = eval( block.getFieldValue('OPX') );
+    var opy = eval( block.getFieldValue('OPY') );
+
+    // block.parentBlock_ is always the block that is attached to the top statement input.
+
+    var inputBlock = block.parentBlock_;
+
+    //Check childBlocks_ (array) and parentBlock_ (direct block reference)
+
+    //A triangle flow with 2 operators would have the first operator be the childblock of triangle_flow
+    //The second operator would be the childblock of the first operator
+
+    if ( inputBlock !== null ) {
+      if ( inputBlock.type == 'triangle_flow' ) {
+        var currentA = [ 0,0 ];
+        var currentB = [ 0,1 ];
+        var currentC = [ 1,0 ];
+
+        currentA[ 0 ] = currentA[ 0 ] * opx;
+        currentB[ 0 ] = currentB[ 0 ] * opx;
+        currentC[ 0 ] = currentC[ 0 ] * opx;
+
+        currentA[ 1 ] = currentA[ 1 ] * opy;
+        currentB[ 1 ] = currentB[ 1 ] * opy;
+        currentC[ 1 ] = currentC[ 1 ] * opy;
+
+        //Set fields appropriately
+
+        this.setFieldValue( ''+currentA[ 0 ]+'','AX' );
+        this.setFieldValue( ''+currentB[ 0 ]+'','BX' );
+        this.setFieldValue( ''+currentC[ 0 ]+'','CX' );
+        this.setFieldValue( ''+currentA[ 1 ]+'','AY' );
+        this.setFieldValue( ''+currentB[ 1 ]+'','BY' );
+        this.setFieldValue( ''+currentC[ 1 ]+'','CY' );
+
+      } else {
+
+        if ( inputBlock !== undefined ) {
+
+          var currentA = [ eval( inputBlock.getFieldValue('AX') ), eval( inputBlock.getFieldValue('AY') ) ];
+          var currentB = [ eval( inputBlock.getFieldValue('BX') ), eval( inputBlock.getFieldValue('BY') ) ];
+          var currentC = [ eval( inputBlock.getFieldValue('CX') ), eval( inputBlock.getFieldValue('CY') ) ];
+
+          currentA[ 0 ] = currentA[ 0 ] * opx;
+          currentB[ 0 ] = currentB[ 0 ] * opx;
+          currentC[ 0 ] = currentC[ 0 ] * opx;
+
+          currentA[ 1 ] = currentA[ 1 ] * opy;
+          currentB[ 1 ] = currentB[ 1 ] * opy;
+          currentC[ 1 ] = currentC[ 1 ] * opy;
+
+          //Set fields appropriately
+
+          this.setFieldValue( ''+currentA[ 0 ]+'','AX' );
+          this.setFieldValue( ''+currentB[ 0 ]+'','BX' );
+          this.setFieldValue( ''+currentC[ 0 ]+'','CX' );
+          this.setFieldValue( ''+currentA[ 1 ]+'','AY' );
+          this.setFieldValue( ''+currentB[ 1 ]+'','BY' );
+          this.setFieldValue( ''+currentC[ 1 ]+'','CY' );
+        }
+
+      }
+    } 
+
+    // Done checking block type.
+
+    var block = this;
+    var targetBlock;
+
+    // Only propagate 'up' if this is the last block in the chain
+    // Flow "up" the stack by popping up through parentBlock_ !== null once childblocks_ has a length of 0
+
+    if ( this.childBlocks_.length === 0 ) {
+      do {
+        targetBlock = block;
+        block = block.parentBlock_;
+
+        if ( targetBlock.type == 'triangle_flow' ) { //Which it should be given our connection checks...
+
+          //Set target block's values (The TRIANGLE FLOW BLOCK's values) with the current A B and C
+
+          targetBlock.setFieldValue( ' ' + currentA[0] + ' , ' + currentA[1] + ' ','CURRENTA' );
+          targetBlock.setFieldValue( ' ' + currentB[0] + ' , ' + currentB[1] + ' ','CURRENTB' );
+          targetBlock.setFieldValue( ' ' + currentC[0] + ' , ' + currentC[1] + ' ','CURRENTC' );
+          break;
+        }
+      } while ( block );
+
+    }
+
+    var parentCount = -1;
+    block = this;
+
+    var aText = 'A';
+    var bText = 'B';
+    var cText = 'C';
+
+    var primeText = '';
+
+    do {
+        targetBlock = block;
+        block = block.parentBlock_;
+        if ( targetBlock.type == 'triangle_flow' ) { //Which it should be given our connection checks...
+          break;
+        } else {
+          parentCount += 1;
+          primeText = primeText + "'";
+        }
+    } while ( block );
+    
+    this.setFieldValue( aText + primeText + ' ', 'APRIME' );
+    this.setFieldValue( bText + primeText + ' ', 'BPRIME' );
+    this.setFieldValue( cText + primeText + ' ', 'CPRIME' );
+    
+  }
+};
+
+Blockly.JavaScript['triangle_transformations_dilate_auto_fixed'] = function( block ) {
+  var code = '';
+  return code;
+};
+
+Blockly.Blocks['triangle_transformations_dilate_two'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Dilate", "OP")
+        .appendField("(")
+        .appendField(new Blockly.FieldTextInput('0',
+        Blockly.FieldTextInput.numberValidator), "OPX")
+        .appendField(",")
+        .appendField(new Blockly.FieldTextInput('0',
+        Blockly.FieldTextInput.numberValidator), "OPY")
+        .appendField(")     ");;
+    this.appendDummyInput()
+        .appendField(new Blockly.FieldImage("http://i.imgur.com/UpsXHeX.png", 150, 20, "*"));
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("A ", "APRIME")
+        .appendField("(")
+        .appendField(new Blockly.FieldTextInput('0',
+        Blockly.FieldTextInput.numberValidator), "AX")
+        .appendField(",")
+        .appendField(new Blockly.FieldTextInput('0',
+        Blockly.FieldTextInput.numberValidator), "AY")
+        .appendField(")");
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("B ", "BPRIME")
+        .appendField("(")
+        .appendField(new Blockly.FieldTextInput('0',
+        Blockly.FieldTextInput.numberValidator), "BX")
+        .appendField(",")
+        .appendField(new Blockly.FieldTextInput('0',
+        Blockly.FieldTextInput.numberValidator), "BY")
+        .appendField(")");
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("C ", "CPRIME")
+        .appendField("(")
+        .appendField(new Blockly.FieldTextInput('0',
+        Blockly.FieldTextInput.numberValidator), "CX")
+        .appendField(",")
+        .appendField(new Blockly.FieldTextInput('0',
+        Blockly.FieldTextInput.numberValidator), "CY")
+        .appendField(")");
+    this.setInputsInline(false);
+    this.setPreviousStatement(true, 'Transformation');
+    this.setNextStatement(true, 'Transformation');
+    this.setColour(195);
+    var thisBlock = this;
+    this.setTooltip( function() {
+      var content = {
+        text: "Transformation blocks can be placed inside of the Draw Triangle block. The Dilate transformation changes the size of the triangle."
+      }
+      return showTooltipInBlockly(thisBlock, content);
+    });
+    this.data = currentBlocklyNodeID;
+  },
+  onchange: function() {
+    if (!this.workspace) {
+      // Block has been deleted.
+      currentBlocklyErrors[ this.id ] = false;
+      return;
+    }
+
+    //First check if we put the block in the right spot
+    
+    var legal = false;
+    // Is the block nested in a control statement?
+    var block = this;
+    do {
+      if (block.type == 'triangle_flow') {
+        legal = true;
+        break;
+      }
+      block = block.getSurroundParent();
+    } while ( block );
+    if ( legal ) {
+      this.setWarningText(null);
+      currentBlocklyErrors[ this.id ] = false;
+    } else {
+      this.setWarningText('Block can only be placed \nwithin a triangle flow block');
+      currentBlocklyErrors[ this.id ] = true;
+    }
+
+    //Reset block to this since we popped up the stack above.
+
+    block = this;
+
+    var dropdown_op = block.getFieldValue('OP');
+    var opx = eval( block.getFieldValue('OPX') );
+    var opy = eval( block.getFieldValue('OPY') );
+    var ax = eval( block.getFieldValue('AX') );
+    var ay = eval( block.getFieldValue('AY') );
+    var bx = eval( block.getFieldValue('BX') );
+    var by = eval( block.getFieldValue('BY') );
+    var cx = eval( block.getFieldValue('CX') );
+    var cy = eval( block.getFieldValue('CY') );
+
+    // block.parentBlock_ is always the block that is attached to the top statement input.
+
+    var inputBlock = block.parentBlock_;
+
+    //Check childBlocks_ (array) and parentBlock_ (direct block reference)
+
+    //A triangle flow with 2 operators would have the first operator be the childblock of triangle_flow
+    //The second operator would be the childblock of the first operator
+
+    if ( inputBlock !== null ) {
+      if ( inputBlock.type == 'triangle_flow' ) {
+        var currentA = [0,0];
+        var currentB = [0,1];
+        var currentC = [1,0];
+
+        this.setColour(45);
+
+        currentA[ 0 ] = currentA[ 0 ] * opx;
+        currentB[ 0 ] = currentB[ 0 ] * opx;
+        currentC[ 0 ] = currentC[ 0 ] * opx;
+
+        currentA[ 1 ] = currentA[ 1 ] * opy;
+        currentB[ 1 ] = currentB[ 1 ] * opy;
+        currentC[ 1 ] = currentC[ 1 ] * opy;
+
+        //Check field values against expected values
+
+        if ( ax === currentA[ 0 ] && bx == currentB[ 0 ] && cx == currentC[ 0 ] && ay === currentA[ 1 ] && by == currentB[ 1 ] && cy == currentC[ 1 ] ) {
+          this.setWarningText(null);
+          currentBlocklyErrors[ this.id ] = false;
+        } else {
+          this.setWarningText('You must input the correct \nresults of this transformation!');
+          currentBlocklyErrors[ this.id ] = true;
+        }
+
+        
+      } else {
+
+        if ( inputBlock !== undefined ) {
+
+          var currentA = [ eval( inputBlock.getFieldValue('AX') ), eval( inputBlock.getFieldValue('AY') ) ];
+          var currentB = [ eval( inputBlock.getFieldValue('BX') ), eval( inputBlock.getFieldValue('BY') ) ];
+          var currentC = [ eval( inputBlock.getFieldValue('CX') ), eval( inputBlock.getFieldValue('CY') ) ];
+
+
+          this.setColour(45);
+
+          currentA[ 0 ] = currentA[ 0 ] * opx;
+          currentB[ 0 ] = currentB[ 0 ] * opx;
+          currentC[ 0 ] = currentC[ 0 ] * opx;
+
+          currentA[ 1 ] = currentA[ 1 ] * opy;
+          currentB[ 1 ] = currentB[ 1 ] * opy;
+          currentC[ 1 ] = currentC[ 1 ] * opy;
+
+          //Check field values against expected values
+
+          if ( ax === currentA[ 0 ] && bx == currentB[ 0 ] && cx == currentC[ 0 ] && ay === currentA[ 1 ] && by == currentB[ 1 ] && cy == currentC[ 1 ] ) {
+            this.setWarningText(null);
+            currentBlocklyErrors[ this.id ] = false;
+          } else {
+            this.setWarningText('You must input the correct \nresults of this transformation!');
+            currentBlocklyErrors[ this.id ] = true;
+          }
+        }
+      }
+    } 
+
+    // Done checking block type.
+
+    var block = this;
+    var targetBlock;
+
+    // Only propagate 'up' if this is the last block in the chain
+    // Flow "up" the stack by popping up through parentBlock_ !== null once childblocks_ has a length of 0
+
+    if ( this.childBlocks_.length === 0 ) {
+      do {
+        targetBlock = block;
+        block = block.parentBlock_;
+        if ( targetBlock.type == 'triangle_flow' ) { //Which it should be given our connection checks...
+
+          //Set target block's values (The TRIANGLE FLOW BLOCK's values) with the current A B and C
+
+          targetBlock.setFieldValue( ' '+ax+' , '+ay+' ','CURRENTA' );
+          targetBlock.setFieldValue( ' '+bx+' , '+by+' ','CURRENTB' );
+          targetBlock.setFieldValue( ' '+cx+' , '+cy+' ','CURRENTC' );
+          break;
+
+        }
+      } while ( block );
+
+    }
+
+    var parentCount = -1;
+    block = this;
+
+    var aText = 'A';
+    var bText = 'B';
+    var cText = 'C';
+
+    var primeText = '';
+
+    do {
+        targetBlock = block;
+        block = block.parentBlock_;
+        if ( targetBlock.type == 'triangle_flow' ) { //Which it should be given our connection checks...
+          break;
+        } else {
+          parentCount += 1;
+          primeText = primeText + "'";
+        }
+    } while ( block );
+    
+    this.setFieldValue( aText + primeText + ' ', 'APRIME' );
+    this.setFieldValue( bText + primeText + ' ', 'BPRIME' );
+    this.setFieldValue( cText + primeText + ' ', 'CPRIME' );
+    
+  }
+};
+
+Blockly.JavaScript['triangle_transformations_dilate_two'] = function( block ) {
+  var code = '';
+  return code;
+};
+
+Blockly.Blocks['triangle_transformations_dilate_two_auto'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Dilate", "OP")
+        .appendField("(")
+        .appendField(new Blockly.FieldTextInput('0',
+        Blockly.FieldTextInput.numberValidator), "OPX")
+        .appendField(",")
+        .appendField(new Blockly.FieldTextInput('0',
+        Blockly.FieldTextInput.numberValidator), "OPY")
+        .appendField(")     ");
+    this.appendDummyInput()
+        .appendField(new Blockly.FieldImage("http://i.imgur.com/UpsXHeX.png", 150, 20, "*"));
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("A ", "APRIME")
+        .appendField("(")
+        .appendField('0', "AX")
+        .appendField(",")
+        .appendField('0', "AY")
+        .appendField(")");
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("B ", "BPRIME")
+        .appendField("(")
+        .appendField('0', "BX")
+        .appendField(",")
+        .appendField('0', "BY")
+        .appendField(")");
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("C ", "CPRIME")
+        .appendField("(")
+        .appendField('0', "CX")
+        .appendField(",")
+        .appendField('0', "CY")
+        .appendField(")");
+    this.setInputsInline(false);
+    this.setPreviousStatement(true, 'Transformation');
+    this.setNextStatement(true, 'Transformation');
+    this.setColour(195);
+    var thisBlock = this;
+    this.setTooltip( function() {
+      var content = {
+        text: "Transformation blocks can be placed inside of the Draw Triangle block. The Dilate transformation changes the size of the triangle."
+      }
+      return showTooltipInBlockly(thisBlock, content);
+    });
+    this.data = currentBlocklyNodeID;
+  },
+  onchange: function() {
+    if (!this.workspace) {
+      // Block has been deleted.
+      currentBlocklyErrors[ this.id ] = false;
+      return;
+    }
+
+    //First check if we put the block in the right spot
+    
+    var legal = false;
+    // Is the block nested in a control statement?
+    var block = this;
+    do {
+      if (block.type == 'triangle_flow') {
+        legal = true;
+        break;
+      }
+      block = block.getSurroundParent();
+    } while ( block );
+    if ( legal ) {
+      this.setWarningText(null);
+      currentBlocklyErrors[ this.id ] = false;
+    } else {
+      this.setWarningText('Block can only be placed within \na triangle flow block');
+      currentBlocklyErrors[ this.id ] = true;
+    }
+
+    //Reset block to this since we popped up the stack above.
+
+    block = this;
+
+    var dropdown_op = block.getFieldValue('OP');
+    var opx = eval( block.getFieldValue('OPX') );
+    var opy = eval( block.getFieldValue('OPY') );
+
+    // block.parentBlock_ is always the block that is attached to the top statement input.
+
+    var inputBlock = block.parentBlock_;
+
+    //Check childBlocks_ (array) and parentBlock_ (direct block reference)
+
+    //A triangle flow with 2 operators would have the first operator be the childblock of triangle_flow
+    //The second operator would be the childblock of the first operator
+
+    if ( inputBlock !== null ) {
+      if ( inputBlock.type == 'triangle_flow' ) {
+        var currentA = [0,0];
+        var currentB = [0,1];
+        var currentC = [1,0];
+
+        this.setColour(45);
+
+        currentA[ 0 ] = currentA[ 0 ] * opx;
+        currentB[ 0 ] = currentB[ 0 ] * opx;
+        currentC[ 0 ] = currentC[ 0 ] * opx;
+
+        currentA[ 1 ] = currentA[ 1 ] * opy;
+        currentB[ 1 ] = currentB[ 1 ] * opy;
+        currentC[ 1 ] = currentC[ 1 ] * opy;
+
+        //Set fields appropriately
+
+        this.setFieldValue( ''+currentA[ 0 ]+'','AX' );
+        this.setFieldValue( ''+currentB[ 0 ]+'','BX' );
+        this.setFieldValue( ''+currentC[ 0 ]+'','CX' );
+        this.setFieldValue( ''+currentA[ 1 ]+'','AY' );
+        this.setFieldValue( ''+currentB[ 1 ]+'','BY' );
+        this.setFieldValue( ''+currentC[ 1 ]+'','CY' );
+
+        
+      } else {
+
+        if ( inputBlock !== undefined ) {
+
+          var currentA = [ eval( inputBlock.getFieldValue('AX') ), eval( inputBlock.getFieldValue('AY') ) ];
+          var currentB = [ eval( inputBlock.getFieldValue('BX') ), eval( inputBlock.getFieldValue('BY') ) ];
+          var currentC = [ eval( inputBlock.getFieldValue('CX') ), eval( inputBlock.getFieldValue('CY') ) ];
+
+
+          this.setColour(45);
+
+          currentA[ 0 ] = currentA[ 0 ] * opx;
+          currentB[ 0 ] = currentB[ 0 ] * opx;
+          currentC[ 0 ] = currentC[ 0 ] * opx;
+
+          currentA[ 1 ] = currentA[ 1 ] * opy;
+          currentB[ 1 ] = currentB[ 1 ] * opy;
+          currentC[ 1 ] = currentC[ 1 ] * opy;
+
+          //Set fields appropriately
+
+          this.setFieldValue( ''+currentA[ 0 ]+'','AX' );
+          this.setFieldValue( ''+currentB[ 0 ]+'','BX' );
+          this.setFieldValue( ''+currentC[ 0 ]+'','CX' );
+          this.setFieldValue( ''+currentA[ 1 ]+'','AY' );
+          this.setFieldValue( ''+currentB[ 1 ]+'','BY' );
+          this.setFieldValue( ''+currentC[ 1 ]+'','CY' );
+
+          
+        }
+      }
+    } 
+
+    // Done checking block type.
+
+    var block = this;
+    var targetBlock;
+
+    // Only propagate 'up' if this is the last block in the chain
+    // Flow "up" the stack by popping up through parentBlock_ !== null once childblocks_ has a length of 0
+
+    if ( this.childBlocks_.length === 0 ) {
+      do {
+        targetBlock = block;
+        block = block.parentBlock_;
+        if ( targetBlock.type == 'triangle_flow' ) { //Which it should be given our connection checks...
+
+          //Set target block's values (The TRIANGLE FLOW BLOCK's values) with the current A B and C
+
+          targetBlock.setFieldValue( ' ' + currentA[0] + ' , ' + currentA[1] + ' ','CURRENTA' );
+          targetBlock.setFieldValue( ' ' + currentB[0] + ' , ' + currentB[1] + ' ','CURRENTB' );
+          targetBlock.setFieldValue( ' ' + currentC[0] + ' , ' + currentC[1] + ' ','CURRENTC' );
+          break;
+
+        }
+      } while ( block );
+
+    }
+
+    var parentCount = -1;
+    block = this;
+
+    var aText = 'A';
+    var bText = 'B';
+    var cText = 'C';
+
+    var primeText = '';
+
+    do {
+        targetBlock = block;
+        block = block.parentBlock_;
+        if ( targetBlock.type == 'triangle_flow' ) { //Which it should be given our connection checks...
+          break;
+        } else {
+          parentCount += 1;
+          primeText = primeText + "'";
+        }
+    } while ( block );
+    
+    this.setFieldValue( aText + primeText + ' ', 'APRIME' );
+    this.setFieldValue( bText + primeText + ' ', 'BPRIME' );
+    this.setFieldValue( cText + primeText + ' ', 'CPRIME' );
+    
+  }
+};
+
+Blockly.JavaScript['triangle_transformations_dilate_two_auto'] = function( block ) {
+  var code = '';
+  return code;
+};
+
+Blockly.Blocks['triangle_transformations_reflect'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Reflect")
+        .appendField(new Blockly.FieldDropdown([["X", "REFX"], ["Y", "REFY"], ["X & Y", "REFXY"]]), "OP")
+        .appendField("     ");
+    this.appendDummyInput()
+        .appendField(new Blockly.FieldImage("http://i.imgur.com/jWhLthx.png", 175, 20, "*"));
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("A ", "APRIME")
+        .appendField("(")
+        .appendField(new Blockly.FieldTextInput('_'), "AX")
+        .appendField(",")
+        .appendField(new Blockly.FieldTextInput('_'), "AY")
+        .appendField(")");
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("B ", "BPRIME")
+        .appendField("(")
+        .appendField(new Blockly.FieldTextInput('_'), "BX")
+        .appendField(",")
+        .appendField(new Blockly.FieldTextInput('_'), "BY")
+        .appendField(")");
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("C ", "CPRIME")
+        .appendField("(")
+        .appendField(new Blockly.FieldTextInput('_'), "CX")
+        .appendField(",")
+        .appendField(new Blockly.FieldTextInput('_'), "CY")
+        .appendField(")");
+    this.setInputsInline(false);
+    this.setPreviousStatement(true, 'Transformation');
+    this.setNextStatement(true, 'Transformation');
+    this.setColour(105);
+    var thisBlock = this;
+    this.setTooltip( function(){
+      var content = {
+        text: "Transformation blocks can be placed inside of the Draw Triangle block. The Reflect transformation reflects the triangle across one or both axes."
+      }
+      return showTooltipInBlockly(thisBlock, content);
+    });
+    this.data = currentBlocklyNodeID;
+  },
+  onchange: function() {
+    if (!this.workspace) {
+      // Block has been deleted.
+      currentBlocklyErrors[ this.id ] = false;
+      return;
+    }
+
+    //First check if we put the block in the right spot
+    
+    var legal = false;
+    // Is the block nested in a control statement?
+    var block = this;
+    do {
+      if (block.type == 'triangle_flow') {
+        legal = true;
+        break;
+      }
+      block = block.getSurroundParent();
+    } while ( block );
+    if ( legal ) {
+      this.setWarningText(null);
+      currentBlocklyErrors[ this.id ] = false;
+    } else {
+      this.setWarningText('Block can only be placed within \na triangle flow block');
+      currentBlocklyErrors[ this.id ] = true;
+    }
+
+    //Reset block to this since we popped up the stack above.
+
+    block = this;
+
+    block.setFieldValue( validateFieldValue( block.getFieldValue('AX') ), 'AX' );
+    block.setFieldValue( validateFieldValue( block.getFieldValue('BX') ), 'BX' );
+    block.setFieldValue( validateFieldValue( block.getFieldValue('CX') ), 'CX' );
+    block.setFieldValue( validateFieldValue( block.getFieldValue('AY') ), 'AY' );
+    block.setFieldValue( validateFieldValue( block.getFieldValue('BY') ), 'BY' );
+    block.setFieldValue( validateFieldValue( block.getFieldValue('CY') ), 'CY' );
+
+    var ax = eval( checkAndSetField( block, 'AX' ) );
+    var ay = eval( checkAndSetField( block, 'AY' ) );
+    var bx = eval( checkAndSetField( block, 'BX' ) );
+    var by = eval( checkAndSetField( block, 'BY' ) );
+    var cx = eval( checkAndSetField( block, 'CX' ) );
+    var cy = eval( checkAndSetField( block, 'CY' ) );
+
+
+    // block.parentBlock_ is always the block that is attached to the top statement input.
+
+    var inputBlock = block.parentBlock_;
+
+    //Check childBlocks_ (array) and parentBlock_ (direct block reference)
+
+    //A triangle flow with 2 operators would have the first operator be the childblock of triangle_flow
+    //The second operator would be the childblock of the first operator
+
+    if ( inputBlock !== null ) {
+      if ( inputBlock.type == 'triangle_flow' ) {
+        var currentA = [ 0,0 ];
+        var currentB = [ 0,1 ];
+        var currentC = [ 1,0 ];
+
+        if ( this.getFieldValue('OP') === 'REFX' ) {
+
+              currentA[ 0 ] = currentA[ 0 ];
+              currentB[ 0 ] = currentB[ 0 ];
+              currentC[ 0 ] = currentC[ 0 ];
+
+              currentA[ 1 ] = currentA[ 1 ] * -1;
+              currentB[ 1 ] = currentB[ 1 ] * -1;
+              currentC[ 1 ] = currentC[ 1 ] * -1;
+
+          } else if ( this.getFieldValue('OP') === 'REFY' ) {
+
+              currentA[ 0 ] = currentA[ 0 ] * -1;
+              currentB[ 0 ] = currentB[ 0 ] * -1;
+              currentC[ 0 ] = currentC[ 0 ] * -1;
+
+              currentA[ 1 ] = currentA[ 1 ];
+              currentB[ 1 ] = currentB[ 1 ];
+              currentC[ 1 ] = currentC[ 1 ];
+
+          } else {
+
+              currentA[ 0 ] = currentA[ 0 ] * -1;
+              currentB[ 0 ] = currentB[ 0 ] * -1;
+              currentC[ 0 ] = currentC[ 0 ] * -1;
+
+              currentA[ 1 ] = currentA[ 1 ] * -1;
+              currentB[ 1 ] = currentB[ 1 ] * -1;
+              currentC[ 1 ] = currentC[ 1 ] * -1;
+              
+          }
+
+        //Check field values against expected values
+
+        if ( ax === currentA[ 0 ] && bx === currentB[ 0 ] && cx === currentC[ 0 ] && ay === currentA[ 1 ] && by === currentB[ 1 ] && cy === currentC[ 1 ] ) {
+          this.setWarningText(null);
+          currentBlocklyErrors[ this.id ] = false;
+        } else {
+          this.setWarningText('You must input the correct \nresults of this transformation!');
+          currentBlocklyErrors[ this.id ] = true;
+        }
+
+      } else {
+
+        if ( inputBlock !== undefined ) {
+
+          //var currentA = [ eval( inputBlock.getFieldValue('AX') ), eval( inputBlock.getFieldValue('AY') ) ];
+          //var currentB = [ eval( inputBlock.getFieldValue('BX') ), eval( inputBlock.getFieldValue('BY') ) ];
+          //var currentC = [ eval( inputBlock.getFieldValue('CX') ), eval( inputBlock.getFieldValue('CY') ) ];
+
+          var currentA = [ eval( checkAndSetField( inputBlock, 'AX' ) ), eval( checkAndSetField( inputBlock, 'AY' ) ) ];
+          var currentB = [ eval( checkAndSetField( inputBlock, 'BX' ) ), eval( checkAndSetField( inputBlock, 'BY' ) ) ];
+          var currentC = [ eval( checkAndSetField( inputBlock, 'CX' ) ), eval( checkAndSetField( inputBlock, 'CY' ) ) ];
+
+          if ( this.getFieldValue('OP') === 'REFX' ) {
+
+              currentA[ 0 ] = currentA[ 0 ];
+              currentB[ 0 ] = currentB[ 0 ];
+              currentC[ 0 ] = currentC[ 0 ];
+
+              currentA[ 1 ] = currentA[ 1 ] * -1;
+              currentB[ 1 ] = currentB[ 1 ] * -1;
+              currentC[ 1 ] = currentC[ 1 ] * -1;
+
+          } else if ( this.getFieldValue('OP') === 'REFY' ) {
+
+              currentA[ 0 ] = currentA[ 0 ] * -1;
+              currentB[ 0 ] = currentB[ 0 ] * -1;
+              currentC[ 0 ] = currentC[ 0 ] * -1;
+
+              currentA[ 1 ] = currentA[ 1 ];r
+              currentB[ 1 ] = currentB[ 1 ];
+              currentC[ 1 ] = currentC[ 1 ];
+
+          } else {
+
+              currentA[ 0 ] = currentA[ 0 ] * -1;
+              currentB[ 0 ] = currentB[ 0 ] * -1;
+              currentC[ 0 ] = currentC[ 0 ] * -1;
+
+              currentA[ 1 ] = currentA[ 1 ] * -1;
+              currentB[ 1 ] = currentB[ 1 ] * -1;
+              currentC[ 1 ] = currentC[ 1 ] * -1;
+
+          }
+
+
+          //Check field values against expected values
+
+          if ( ax === currentA[ 0 ] && bx == currentB[ 0 ] && cx == currentC[ 0 ] && ay === currentA[ 1 ] && by == currentB[ 1 ] && cy == currentC[ 1 ] ) {
+            this.setWarningText(null);
+            currentBlocklyErrors[ this.id ] = false;
+          } else {
+            this.setWarningText('You must input the correct \nresults of this transformation!');
+            currentBlocklyErrors[ this.id ] = true;
+          }
+        }
+
+      }
+    } 
+
+    // Done checking block type.
+
+    var block = this;
+    var targetBlock;
+
+    // Only propagate 'up' if this is the last block in the chain
+    // Flow "up" the stack by popping up through parentBlock_ !== null once childblocks_ has a length of 0
+
+    if ( this.childBlocks_.length === 0 ) {
+      do {
+        targetBlock = block;
+        block = block.parentBlock_;
+
+        if ( targetBlock.type == 'triangle_flow' ) { //Which it should be given our connection checks...
+
+          //Set target block's values (The TRIANGLE FLOW BLOCK's values) with the current A B and C
+
+          //targetBlock.setFieldValue( ' '+ax+' , '+ay+' ','CURRENTA' );
+          //targetBlock.setFieldValue( ' '+bx+' , '+by+' ','CURRENTB' );
+          //targetBlock.setFieldValue( ' '+cx+' , '+cy+' ','CURRENTC' );
+          targetBlock.setFieldValue( ' '+checkAndSetTriangle(this,'AX')+' , '+checkAndSetTriangle(this,'AY')+' ','CURRENTA' );
+          targetBlock.setFieldValue( ' '+checkAndSetTriangle(this,'BX')+' , '+checkAndSetTriangle(this,'BY')+' ','CURRENTB' );
+          targetBlock.setFieldValue( ' '+checkAndSetTriangle(this,'CX')+' , '+checkAndSetTriangle(this,'CY')+' ','CURRENTC' );
+          break;
+
+        }
+      } while ( block );
+
+    }
+
+    var parentCount = -1;
+    block = this;
+
+    var aText = 'A';
+    var bText = 'B';
+    var cText = 'C';
+
+    var primeText = '';
+
+    do {
+        targetBlock = block;
+        block = block.parentBlock_;
+        if ( targetBlock.type == 'triangle_flow' ) { //Which it should be given our connection checks...
+          break;
+        } else {
+          parentCount += 1;
+          primeText = primeText + "'";
+        }
+    } while ( block );
+    
+    this.setFieldValue( aText + primeText + ' ', 'APRIME' );
+    this.setFieldValue( bText + primeText + ' ', 'BPRIME' );
+    this.setFieldValue( cText + primeText + ' ', 'CPRIME' );
+    
+  }
+};
+
+Blockly.JavaScript['triangle_transformations_reflect'] = function( block ) {
+  var code = '';
+  return code;
+};
+
+Blockly.Blocks['triangle_transformations_reflect_static'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Reflect")
+        .appendField("X", "OP")
+        .appendField("     ");
+    this.appendDummyInput()
+        .appendField(new Blockly.FieldImage("http://i.imgur.com/jWhLthx.png", 175, 20, "*"));
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("A ", "APRIME")
+        .appendField("(")
+        .appendField(new Blockly.FieldTextInput('_'), "AX")
+        .appendField(",")
+        .appendField(new Blockly.FieldTextInput('_'), "AY")
+        .appendField(")");
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("B ", "BPRIME")
+        .appendField("(")
+        .appendField(new Blockly.FieldTextInput('_'), "BX")
+        .appendField(",")
+        .appendField(new Blockly.FieldTextInput('_'), "BY")
+        .appendField(")");
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("C ", "CPRIME")
+        .appendField("(")
+        .appendField(new Blockly.FieldTextInput('_'), "CX")
+        .appendField(",")
+        .appendField(new Blockly.FieldTextInput('_'), "CY")
+        .appendField(")");
+    this.setInputsInline(false);
+    this.setPreviousStatement(true, 'Transformation');
+    this.setNextStatement(true, 'Transformation');
+    this.setColour(105);
+    var thisBlock = this;
+    this.setTooltip( function(){
+      var content = {
+        text: "Transformation blocks can be placed inside of the Draw Triangle block. The Reflect transformation reflects the triangle across one or both axes."
+      }
+      return showTooltipInBlockly(thisBlock, content);
+    });
+    this.data = currentBlocklyNodeID;
+  },
+  onchange: function() {
+    if (!this.workspace) {
+      // Block has been deleted.
+      currentBlocklyErrors[ this.id ] = false;
+      return;
+    }
+
+    //First check if we put the block in the right spot
+    
+    var legal = false;
+    // Is the block nested in a control statement?
+    var block = this;
+    do {
+      if (block.type == 'triangle_flow') {
+        legal = true;
+        break;
+      }
+      block = block.getSurroundParent();
+    } while ( block );
+    if ( legal ) {
+      this.setWarningText(null);
+      currentBlocklyErrors[ this.id ] = false;
+    } else {
+      this.setWarningText('Block can only be placed within \na triangle flow block');
+      currentBlocklyErrors[ this.id ] = true;
+    }
+
+    //Reset block to this since we popped up the stack above.
+
+    block = this;
+
+    block.setFieldValue( validateFieldValue( block.getFieldValue('AX') ), 'AX' );
+    block.setFieldValue( validateFieldValue( block.getFieldValue('BX') ), 'BX' );
+    block.setFieldValue( validateFieldValue( block.getFieldValue('CX') ), 'CX' );
+    block.setFieldValue( validateFieldValue( block.getFieldValue('AY') ), 'AY' );
+    block.setFieldValue( validateFieldValue( block.getFieldValue('BY') ), 'BY' );
+    block.setFieldValue( validateFieldValue( block.getFieldValue('CY') ), 'CY' );
+
+    var ax = eval( checkAndSetField( block, 'AX' ) );
+    var ay = eval( checkAndSetField( block, 'AY' ) );
+    var bx = eval( checkAndSetField( block, 'BX' ) );
+    var by = eval( checkAndSetField( block, 'BY' ) );
+    var cx = eval( checkAndSetField( block, 'CX' ) );
+    var cy = eval( checkAndSetField( block, 'CY' ) );
+
+
+    // block.parentBlock_ is always the block that is attached to the top statement input.
+
+    var inputBlock = block.parentBlock_;
+
+    //Check childBlocks_ (array) and parentBlock_ (direct block reference)
+
+    //A triangle flow with 2 operators would have the first operator be the childblock of triangle_flow
+    //The second operator would be the childblock of the first operator
+
+    if ( inputBlock !== null ) {
+      if ( inputBlock.type == 'triangle_flow' ) {
+        var currentA = [ 0,0 ];
+        var currentB = [ 0,1 ];
+        var currentC = [ 1,0 ];
+
+        if ( this.getFieldValue('OP') === 'X' ) {
+
+              currentA[ 0 ] = currentA[ 0 ];
+              currentB[ 0 ] = currentB[ 0 ];
+              currentC[ 0 ] = currentC[ 0 ];
+
+              currentA[ 1 ] = currentA[ 1 ] * -1;
+              currentB[ 1 ] = currentB[ 1 ] * -1;
+              currentC[ 1 ] = currentC[ 1 ] * -1;
+
+          } else if ( this.getFieldValue('OP') === 'Y' ) {
+
+              currentA[ 0 ] = currentA[ 0 ] * -1;
+              currentB[ 0 ] = currentB[ 0 ] * -1;
+              currentC[ 0 ] = currentC[ 0 ] * -1;
+
+              currentA[ 1 ] = currentA[ 1 ];
+              currentB[ 1 ] = currentB[ 1 ];
+              currentC[ 1 ] = currentC[ 1 ];
+
+          } else {
+
+              currentA[ 0 ] = currentA[ 0 ] * -1;
+              currentB[ 0 ] = currentB[ 0 ] * -1;
+              currentC[ 0 ] = currentC[ 0 ] * -1;
+
+              currentA[ 1 ] = currentA[ 1 ] * -1;
+              currentB[ 1 ] = currentB[ 1 ] * -1;
+              currentC[ 1 ] = currentC[ 1 ] * -1;
+              
+          }
+
+        //Check field values against expected values
+
+        if ( ax === currentA[ 0 ] && bx === currentB[ 0 ] && cx === currentC[ 0 ] && ay === currentA[ 1 ] && by === currentB[ 1 ] && cy === currentC[ 1 ] ) {
+          this.setWarningText(null);
+          currentBlocklyErrors[ this.id ] = false;
+        } else {
+          this.setWarningText('You must input the correct \nresults of this transformation!');
+          currentBlocklyErrors[ this.id ] = true;
+        }
+
+      } else {
+
+        if ( inputBlock !== undefined ) {
+
+          //var currentA = [ eval( inputBlock.getFieldValue('AX') ), eval( inputBlock.getFieldValue('AY') ) ];
+          //var currentB = [ eval( inputBlock.getFieldValue('BX') ), eval( inputBlock.getFieldValue('BY') ) ];
+          //var currentC = [ eval( inputBlock.getFieldValue('CX') ), eval( inputBlock.getFieldValue('CY') ) ];
+
+          var currentA = [ eval( checkAndSetField( inputBlock, 'AX' ) ), eval( checkAndSetField( inputBlock, 'AY' ) ) ];
+          var currentB = [ eval( checkAndSetField( inputBlock, 'BX' ) ), eval( checkAndSetField( inputBlock, 'BY' ) ) ];
+          var currentC = [ eval( checkAndSetField( inputBlock, 'CX' ) ), eval( checkAndSetField( inputBlock, 'CY' ) ) ];
+
+          if ( this.getFieldValue('OP') === 'REFX' ) {
+
+              currentA[ 0 ] = currentA[ 0 ];
+              currentB[ 0 ] = currentB[ 0 ];
+              currentC[ 0 ] = currentC[ 0 ];
+
+              currentA[ 1 ] = currentA[ 1 ] * -1;
+              currentB[ 1 ] = currentB[ 1 ] * -1;
+              currentC[ 1 ] = currentC[ 1 ] * -1;
+
+          } else if ( this.getFieldValue('OP') === 'REFY' ) {
+
+              currentA[ 0 ] = currentA[ 0 ] * -1;
+              currentB[ 0 ] = currentB[ 0 ] * -1;
+              currentC[ 0 ] = currentC[ 0 ] * -1;
+
+              currentA[ 1 ] = currentA[ 1 ];r
+              currentB[ 1 ] = currentB[ 1 ];
+              currentC[ 1 ] = currentC[ 1 ];
+
+          } else {
+
+              currentA[ 0 ] = currentA[ 0 ] * -1;
+              currentB[ 0 ] = currentB[ 0 ] * -1;
+              currentC[ 0 ] = currentC[ 0 ] * -1;
+
+              currentA[ 1 ] = currentA[ 1 ] * -1;
+              currentB[ 1 ] = currentB[ 1 ] * -1;
+              currentC[ 1 ] = currentC[ 1 ] * -1;
+
+          }
+
+
+          //Check field values against expected values
+
+          if ( ax === currentA[ 0 ] && bx == currentB[ 0 ] && cx == currentC[ 0 ] && ay === currentA[ 1 ] && by == currentB[ 1 ] && cy == currentC[ 1 ] ) {
+            this.setWarningText(null);
+            currentBlocklyErrors[ this.id ] = false;
+          } else {
+            this.setWarningText('You must input the correct \nresults of this transformation!');
+            currentBlocklyErrors[ this.id ] = true;
+          }
+        }
+
+      }
+    } 
+
+    // Done checking block type.
+
+    var block = this;
+    var targetBlock;
+
+    // Only propagate 'up' if this is the last block in the chain
+    // Flow "up" the stack by popping up through parentBlock_ !== null once childblocks_ has a length of 0
+
+    if ( this.childBlocks_.length === 0 ) {
+      do {
+        targetBlock = block;
+        block = block.parentBlock_;
+
+        if ( targetBlock.type == 'triangle_flow' ) { //Which it should be given our connection checks...
+
+          //Set target block's values (The TRIANGLE FLOW BLOCK's values) with the current A B and C
+
+          //targetBlock.setFieldValue( ' '+ax+' , '+ay+' ','CURRENTA' );
+          //targetBlock.setFieldValue( ' '+bx+' , '+by+' ','CURRENTB' );
+          //targetBlock.setFieldValue( ' '+cx+' , '+cy+' ','CURRENTC' );
+          targetBlock.setFieldValue( ' '+checkAndSetTriangle(this,'AX')+' , '+checkAndSetTriangle(this,'AY')+' ','CURRENTA' );
+          targetBlock.setFieldValue( ' '+checkAndSetTriangle(this,'BX')+' , '+checkAndSetTriangle(this,'BY')+' ','CURRENTB' );
+          targetBlock.setFieldValue( ' '+checkAndSetTriangle(this,'CX')+' , '+checkAndSetTriangle(this,'CY')+' ','CURRENTC' );
+          break;
+
+        }
+      } while ( block );
+
+    }
+
+    var parentCount = -1;
+    block = this;
+
+    var aText = 'A';
+    var bText = 'B';
+    var cText = 'C';
+
+    var primeText = '';
+
+    do {
+        targetBlock = block;
+        block = block.parentBlock_;
+        if ( targetBlock.type == 'triangle_flow' ) { //Which it should be given our connection checks...
+          break;
+        } else {
+          parentCount += 1;
+          primeText = primeText + "'";
+        }
+    } while ( block );
+    
+    this.setFieldValue( aText + primeText + ' ', 'APRIME' );
+    this.setFieldValue( bText + primeText + ' ', 'BPRIME' );
+    this.setFieldValue( cText + primeText + ' ', 'CPRIME' );
+    
+  }
+};
+
+Blockly.JavaScript['triangle_transformations_reflect_static'] = function( block ) {
+  var code = '';
+  return code;
+};
+
+Blockly.Blocks['triangle_transformations_reflect_auto'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Reflect")
+        .appendField(new Blockly.FieldDropdown([["X", "REFX"], ["Y", "REFY"], ["X & Y", "REFXY"]]), "OP")
+        .appendField("     ");
+    this.appendDummyInput()
+        .appendField(new Blockly.FieldImage("http://i.imgur.com/SlBlKQj.png", 175, 20, "*"));
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("A ", "APRIME")
+        .appendField("(")
+        .appendField('0', "AX")
+        .appendField(",")
+        .appendField('0', "AY")
+        .appendField(")");
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("B ", "BPRIME")
+        .appendField("(")
+        .appendField('0', "BX")
+        .appendField(",")
+        .appendField('0', "BY")
+        .appendField(")");
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("C ", "CPRIME")
+        .appendField("(")
+        .appendField('0', "CX")
+        .appendField(",")
+        .appendField('0', "CY")
+        .appendField(")");
+    this.setInputsInline(false);
+    this.setPreviousStatement(true, 'Transformation');
+    this.setNextStatement(true, 'Transformation');
+    this.setColour(105);
+    var thisBlock = this;
+    this.setTooltip( function(){
+      var content = {
+        text: "Transformation blocks can be placed inside of the Draw Triangle block. The Reflect transformation reflects the triangle across one or both axes."
+      }
+      return showTooltipInBlockly(thisBlock, content);
+    });
+    this.data = currentBlocklyNodeID;
+  },
+  onchange: function() {
+    if (!this.workspace) {
+      // Block has been deleted.
+      currentBlocklyErrors[ this.id ] = false;
+      return;
+    }
+
+    //First check if we put the block in the right spot
+    
+    var legal = false;
+    // Is the block nested in a control statement?
+    var block = this;
+    do {
+      if (block.type == 'triangle_flow') {
+        legal = true;
+        break;
+      }
+      block = block.getSurroundParent();
+    } while ( block );
+    if ( legal ) {
+      this.setWarningText(null);
+      currentBlocklyErrors[ this.id ] = false;
+    } else {
+      this.setWarningText('Block can only be placed within \na triangle flow block');
+      currentBlocklyErrors[ this.id ] = true;
+    }
+
+    //Reset block to this since we popped up the stack above.
+
+    block = this;
+
+    // block.parentBlock_ is always the block that is attached to the top statement input.
+
+    var inputBlock = block.parentBlock_;
+
+    //Check childBlocks_ (array) and parentBlock_ (direct block reference)
+
+    //A triangle flow with 2 operators would have the first operator be the childblock of triangle_flow
+    //The second operator would be the childblock of the first operator
+
+    if ( inputBlock !== null ) {
+      if ( inputBlock.type == 'triangle_flow' ) {
+        var currentA = [ 0,0 ];
+        var currentB = [ 0,1 ];
+        var currentC = [ 1,0 ];
+
+        if ( this.getFieldValue('OP') === 'REFX' ) {
+
+              currentA[ 0 ] = currentA[ 0 ];
+              currentB[ 0 ] = currentB[ 0 ];
+              currentC[ 0 ] = currentC[ 0 ];
+
+              currentA[ 1 ] = currentA[ 1 ] * -1;
+              currentB[ 1 ] = currentB[ 1 ] * -1;
+              currentC[ 1 ] = currentC[ 1 ] * -1;
+
+          } else if ( this.getFieldValue('OP') === 'REFY' ) {
+
+              currentA[ 0 ] = currentA[ 0 ] * -1;
+              currentB[ 0 ] = currentB[ 0 ] * -1;
+              currentC[ 0 ] = currentC[ 0 ] * -1;
+
+              currentA[ 1 ] = currentA[ 1 ];
+              currentB[ 1 ] = currentB[ 1 ];
+              currentC[ 1 ] = currentC[ 1 ];
+
+          } else {
+
+              currentA[ 0 ] = currentA[ 0 ] * -1;
+              currentB[ 0 ] = currentB[ 0 ] * -1;
+              currentC[ 0 ] = currentC[ 0 ] * -1;
+
+              currentA[ 1 ] = currentA[ 1 ] * -1;
+              currentB[ 1 ] = currentB[ 1 ] * -1;
+              currentC[ 1 ] = currentC[ 1 ] * -1;
+              
+          }
+
+        //Set Field Values
+
+        block.setFieldValue( '' + currentA[ 0 ] + '', 'AX' );
+        block.setFieldValue( '' + currentB[ 0 ] + '', 'BX' );
+        block.setFieldValue( '' + currentC[ 0 ] + '', 'CX' );
+        block.setFieldValue( '' + currentA[ 1 ] + '', 'AY' );
+        block.setFieldValue( '' + currentB[ 1 ] + '', 'BY' );
+        block.setFieldValue( '' + currentC[ 1 ] + '', 'CY' );
+
+      } else {
+
+        if ( inputBlock !== undefined ) {
+
+          var currentA = [ eval( inputBlock.getFieldValue('AX') ), eval( inputBlock.getFieldValue('AY') ) ];
+          var currentB = [ eval( inputBlock.getFieldValue('BX') ), eval( inputBlock.getFieldValue('BY') ) ];
+          var currentC = [ eval( inputBlock.getFieldValue('CX') ), eval( inputBlock.getFieldValue('CY') ) ];
+
+          if ( this.getFieldValue('OP') === 'REFX' ) {
+
+              currentA[ 0 ] = currentA[ 0 ];
+              currentB[ 0 ] = currentB[ 0 ];
+              currentC[ 0 ] = currentC[ 0 ];
+
+              currentA[ 1 ] = currentA[ 1 ] * -1;
+              currentB[ 1 ] = currentB[ 1 ] * -1;
+              currentC[ 1 ] = currentC[ 1 ] * -1;
+
+          } else if ( this.getFieldValue('OP') === 'REFY' ) {
+
+              currentA[ 0 ] = currentA[ 0 ] * -1;
+              currentB[ 0 ] = currentB[ 0 ] * -1;
+              currentC[ 0 ] = currentC[ 0 ] * -1;
+
+              currentA[ 1 ] = currentA[ 1 ];
+              currentB[ 1 ] = currentB[ 1 ];
+              currentC[ 1 ] = currentC[ 1 ];
+
+          } else {
+
+              currentA[ 0 ] = currentA[ 0 ] * -1;
+              currentB[ 0 ] = currentB[ 0 ] * -1;
+              currentC[ 0 ] = currentC[ 0 ] * -1;
+
+              currentA[ 1 ] = currentA[ 1 ] * -1;
+              currentB[ 1 ] = currentB[ 1 ] * -1;
+              currentC[ 1 ] = currentC[ 1 ] * -1;
+              
+          }
+
+
+          //Set Field Values
+
+          block.setFieldValue( '' + currentA[ 0 ] + '', 'AX' );
+          block.setFieldValue( '' + currentB[ 0 ] + '', 'BX' );
+          block.setFieldValue( '' + currentC[ 0 ] + '', 'CX' );
+          block.setFieldValue( '' + currentA[ 1 ] + '', 'AY' );
+          block.setFieldValue( '' + currentB[ 1 ] + '', 'BY' );
+          block.setFieldValue( '' + currentC[ 1 ] + '', 'CY' );
+
+        }
+
+      }
+    } 
+
+    // Done checking block type.
+
+    var block = this;
+    var targetBlock;
+
+    // Only propagate 'up' if this is the last block in the chain
+    // Flow "up" the stack by popping up through parentBlock_ !== null once childblocks_ has a length of 0
+
+    if ( this.childBlocks_.length === 0 ) {
+      do {
+        targetBlock = block;
+        block = block.parentBlock_;
+        if ( targetBlock.type == 'triangle_flow' ) { //Which it should be given our connection checks...
+
+          //Set target block's values (The TRIANGLE FLOW BLOCK's values) with the current A B and C
+
+          targetBlock.setFieldValue( ' ' + currentA[0] + ' , ' + currentA[1] + ' ','CURRENTA' );
+          targetBlock.setFieldValue( ' ' + currentB[0] + ' , ' + currentB[1] + ' ','CURRENTB' );
+          targetBlock.setFieldValue( ' ' + currentC[0] + ' , ' + currentC[1] + ' ','CURRENTC' );
+          break;
+        }
+      } while ( block );
+    }
+
+    var parentCount = -1;
+    block = this;
+
+    var aText = 'A';
+    var bText = 'B';
+    var cText = 'C';
+
+    var primeText = '';
+
+    do {
+        targetBlock = block;
+        block = block.parentBlock_;
+        if ( targetBlock.type == 'triangle_flow' ) { //Which it should be given our connection checks...
+          break;
+        } else {
+          parentCount += 1;
+          primeText = primeText + "'";
+        }
+    } while ( block );
+    
+    this.setFieldValue( aText + primeText + ' ', 'APRIME' );
+    this.setFieldValue( bText + primeText + ' ', 'BPRIME' );
+    this.setFieldValue( cText + primeText + ' ', 'CPRIME' );
+    
+  }
+};
+
+Blockly.JavaScript['triangle_transformations_reflect_auto'] = function( block ) {
+  var code = '';
+  return code;
+};
+
+Blockly.Blocks['start_triangle'] = {
+  init: function() {
+    this.setColour(90);
+    this.appendDummyInput()
+        .appendField("Start Triangle");
+    this.setPreviousStatement(true);
+    this.setNextStatement(true);
+    this.setTooltip('');
+    this.data = currentBlocklyNodeID;
+  }
+};
+
+Blockly.JavaScript['start_triangle'] = function(block) {
+  return constructBlockExeEventCall( block );
+};
+
+Blockly.Blocks['end_triangle'] = {
+  init: function() {
+    this.setColour(0);
+    this.appendDummyInput()
+        .appendField("End Triangle");
+    this.setPreviousStatement(true);
+    this.setNextStatement(true);
+    this.setTooltip('');
+    this.data = currentBlocklyNodeID;
+  }
+};
+
+Blockly.JavaScript['end_triangle'] = function( block ) {
+  return constructBlockExeEventCall( block );
+};
+
+Blockly.Blocks['mark_point'] = {
+  init: function() {
+    this.setColour(180);
+    this.appendDummyInput()
+        .appendField("Mark Point")
+    this.setPreviousStatement(true);
+    this.setNextStatement(true);
+    this.setTooltip( function() {
+      var content = {
+        text: 'Adds a point to our triangle drawing nanomatrix generator.'
+      }
+      return showTooltipInBlockly( thisBlock, content );
+    } );
+
+    this.data = currentBlocklyNodeID;
+  },
+  onchange: function() {
+    if (!this.workspace || this.data === undefined) {
+      // Block has been deleted.
+      currentBlocklyErrors[ this.id ] = false;
+      return;
+    }
+  }
+};
+
+Blockly.JavaScript['mark_point'] = function(block) {
+  return constructBlockExeEventCall( block );
+};
+
+Blockly.Blocks['ordered_pair'] = {
+  init: function() {
+    this.setColour(75);
+    this.appendValueInput("INPUT")
+        .setCheck(['OperatorAddSubtract','OrderedGet'])
+        .appendField("(")
+        .appendField(new Blockly.FieldTextInput("0"), "x")
+        .appendField(",")
+        .appendField(new Blockly.FieldTextInput("0"), "y")
+        .appendField(")");
+    this.setOutput(true, null);
+    this.data = currentBlocklyNodeID;
+    var thisBlock = this;
+    this.setTooltip( function() {
+      var content = {
+        text: "An ordered pair block."
+      }
+      return showTooltipInBlockly( thisBlock, content );
+    } );
+  },
+
+  /**
+   * Fires when the workspace changes or Blockly.mainWorkspace.fireChangeEvent() is called
+   */
+  onchange: function() {
+    if (!this.workspace || this.data === undefined) {
+      // Block has been deleted.
+      currentBlocklyErrors[ this.id ] = false;
+      return;
+    }
+  }
+};
+
+Blockly.JavaScript['ordered_pair'] = function( block ) {
+  var input = Blockly.JavaScript.valueToCode(block, 'INPUT', Blockly.JavaScript.ORDER_MEMBER) || '';
+  var xValue = block.getFieldValue('x');
+  var yValue = block.getFieldValue('y');
+
+  if ( isNaN( xValue ) || xValue === "" ){
+    xValue = 0;
+    block.setFieldValue( '0','x' );
+  } else if ( isNaN( yValue ) || yValue === "" ){
+    yValue = 0;
+    block.setFieldValue( '0','y' );
+  } else {
+
+    if ( xValue % 1 !== 0 ){
+      block.setFieldValue( '0','x' );
+      block.setWarningText( 'Decimals not allowed.' );
+    }
+    else if ( xValue > 99 || xValue < -99){
+      block.setFieldValue( '0' ,'x' );
+      block.setWarningText( 'Must be between -99 and 99' );
+    } else {
+      block.setWarningText( null );
+      block.setFieldValue( xValue ,'x' );
+    }
+
+    if ( yValue % 1 !== 0 ){
+      block.setFieldValue( '0','y' );
+      block.setWarningText( 'Decimals not allowed.' );
+    }
+    else if ( yValue > 99 || yValue < -99){
+      block.setFieldValue( '0' ,'y' );
+      block.setWarningText( 'Must be between -99 and 99' );
+    } else {
+      block.setWarningText( null );
+      block.setFieldValue( yValue ,'y' );
+    }
+  }
+
+  var inputCheck = input[0] + input[1];
+
+
+  if ( input[0] === '-' ){
+    var otherOP = input.slice( 1 );
+    otherOP = otherOP.split(',');
+    if ( otherOP.constructor === Array ) {
+      var code = [ Number(xValue) - Number(otherOP[0]), Number(yValue) - Number(otherOP[1]) ];
+      return [ code, Blockly.JavaScript.ORDER_ATOMIC ];
+    }
+  } else if ( input[0] === '+' ){
+    var otherOP = input.slice( 1 );
+    otherOP = otherOP.split(',');
+    if ( otherOP.constructor === Array ) {
+      var code = [ Number(xValue) + Number(otherOP[0]), Number(yValue) + Number(otherOP[1]) ];
+      return [ code, Blockly.JavaScript.ORDER_ATOMIC ];
+    }
+  } else if ( inputCheck === '.x') {
+    var code =  xValue + input.slice( 2 );
+    return [ code, Blockly.JavaScript.ORDER_ATOMIC ];
+  } else if ( inputCheck === '.y') {
+    var code =  yValue + input.slice( 2 );
+    return [ code, Blockly.JavaScript.ORDER_ATOMIC ];
+  } else {
+    var code = [ xValue , yValue ] + input;
+    return [ code, Blockly.JavaScript.ORDER_MEMBER ];
+  }
+  
+};
+
+Blockly.Blocks['ordered_get'] = {
+  init: function() {
+    this.setColour(105);
+    this.appendValueInput("INPUT")
+        .setCheck(['OperatorAddSubtract','OperatorMultiplyDivide','LeftParenthesis','RightParenthesis','Conditional','ANDOR' ])
+        .appendField(new Blockly.FieldDropdown([[".x", ".x"], [".y", ".y"]]), "OPTION");
+    this.setOutput(true, "OrderedGet");
+    this.data = currentBlocklyNodeID;
+    var thisBlock = this;
+    this.setTooltip( function() {
+      var content = {
+        text: "Retrieves X or Y values from ordered pair blocks."
+      }
+      return showTooltipInBlockly( thisBlock, content );
+    } );
+  }
+};
+
+Blockly.JavaScript['ordered_get'] = function(block) {
+  var input = Blockly.JavaScript.valueToCode(block, 'INPUT', Blockly.JavaScript.ORDER_ATOMIC) || '';
+  var dropdown = block.getFieldValue('OPTION');
+
+  var code = '';
+
+  if ( dropdown === '.x' ) {
+    code = '.x';
+  } else {
+    code = '.y';
+  }
+
+  return [ code + input, Blockly.JavaScript.ORDER_ATOMIC ];
+};
+
+Blockly.Blocks['ordered_get_noin'] = {
+  init: function() {
+    this.setColour(75);
+    this.appendDummyInput("")
+        .appendField(new Blockly.FieldDropdown([[".x", ".x"], [".y", ".y"]]), "OPTION");
+    this.setOutput(true, "OrderedGet");
+    this.data = currentBlocklyNodeID;
+    var thisBlock = this;
+    this.setTooltip( function() {
+      var content = {
+        text: 'Retrieves X or Y values from ordered pair blocks.'
+      }
+      return showTooltipInBlockly( thisBlock, content );
+    } );
+
+  }
+};
+
+Blockly.JavaScript['ordered_get_noin'] = function(block) {
+
+  var dropdown = block.getFieldValue('OPTION');
+
+  var code = '';
+
+  if ( dropdown === '.x' ) {
+    code = '.x';
+  } else {
+    code = '.y';
+  }
+
+  return [ code, Blockly.JavaScript.ORDER_ATOMIC ];
+};
+
+Blockly.Blocks[ 'variables_get' ] = {
+  /**
+   * Block for variable getter.
+   * @this Blockly.Block
+   */
+  init: function() {
+    this.setColour( 330 );
+    this.appendValueInput( 'INPUT' )
+        .appendField( Blockly.Msg.VARIABLES_GET_TITLE )
+        //.appendField( Blockly.Msg.VARIABLES_GET_ITEM, 'VAR' )
+        .appendField( new Blockly.FieldVariable( Blockly.Msg.VARIABLES_GET_ITEM ), 'VAR' )
+        // .appendField( "?", "VALUE" )
+        .appendField( Blockly.Msg.VARIABLES_GET_TAIL )
+        .setCheck( [ 'Number','Boolean','Variable','OrderedGet','OperatorAddSubtract','OperatorMultiplyDivide','LeftParenthesis','RightParenthesis','Conditional','ANDOR' ] );
+    this.setOutput( true );
+    var thisBlock = this;
+    this.setTooltip( function() {
+      var content = {
+        text: 'One of the parameters that was specified in the procedure call.'
+      }
+      return showTooltipInBlockly( thisBlock, content );
+    } );
+    //this.contextMenuMsg_ = Blockly.Msg.VARIABLES_GET_CREATE_SET;
+    //this.contextMenuType_ = 'variables_set';
+    this.data = currentBlocklyNodeID;
+  },
+  /**
+   * Return all variables referenced by this block.
+   * @return {!Array.<string>} List of variable names.
+   * @this Blockly.Block
+   */
+  getVars: function() {
+    return [ this.getFieldValue( 'VAR' ) ];
+  },
+  /**
+   * Notification that a variable is renaming.
+   * If the name matches one of this block's variables, rename it.
+   * @param {string} oldName Previous name of variable.
+   * @param {string} newName Renamed variable.
+   * @this Blockly.Block
+   */
+  renameVar: function( oldName, newName ) {
+    if ( Blockly.Names.equals( oldName, this.getFieldValue( 'VAR' ) ) ) {
+      this.setFieldValue( newName, 'VAR' );
+    }
+  },
+  /**
+   * Add menu option to create getter/setter block for this setter/getter.
+   * @param {!Array} options List of menu options to add to.
+   * @this Blockly.Block
+   */
+  customContextMenu: function( options ) {
+    // var option = { enabled: false };
+    // var name = this.getFieldValue( 'VAR' );
+    // option.text = this.contextMenuMsg_.replace( '%1', name );
+    // var xmlField = goog.dom.createDom( 'field', null, name );
+    // xmlField.setAttribute( 'name', 'VAR' );
+    // var xmlBlock = goog.dom.createDom( 'block', null, xmlField );
+    // xmlBlock.setAttribute( 'type', this.contextMenuType_ );
+    // option.callback = Blockly.ContextMenu.callbackFactory( this, xmlBlock );
+    // options.push( option );
+  },
+
+  /**
+   * Fires when the workspace changes or Blockly.mainWorkspace.fireChangeEvent() is called
+   */
+  onchange: function() {
+    if (!this.workspace || this.data === undefined) {
+      // Block has been deleted.
+      currentBlocklyErrors[ this.id ] = false;
+      return;
+    }
+    //Evaluate and return the code stored in the block.
+    // var code = Blockly.JavaScript.variableDB_.getName( this.getFieldValue( 'VAR' ),
+    //   Blockly.Variables.NAME_TYPE );
+    // var val = blocklyVariables[ code ];
+
+    // if ( val === undefined ) {
+    //   val = '?';
+    // }
+    
+    // this.setFieldValue( '(' + val + ')','VALUE' );
+    
+  }
+
+};
+
+Blockly.JavaScript[ 'variables_get' ] = function( block ) {
+  // Variable getter.
+  var input = Blockly.JavaScript.valueToCode( block, 'INPUT',
+      Blockly.JavaScript.ORDER_ATOMIC) || '';
+
+  var inputCheck = input[0] + input[1];
+
+  var code = Blockly.JavaScript.variableDB_.getName( block.getFieldValue( 'VAR' ),
+      Blockly.Variables.NAME_TYPE );
+
+  // var val = blocklyVariables[ code ];
+  // if ( input[0] === '-' && input.indexOf( ',' ) !== -1 ){
+  //   var otherOP = input.slice( 1 );
+
+  //   if ( otherOP.constructor === Array ) {
+  //     code = [ code + '[0] -=' + otherOP[0], code + '[1] -=' + otherOP[1] ];
+  //     return [ code, Blockly.JavaScript.ORDER_ATOMIC ];
+  //   }
+  // } else if ( input[0] === '+' && input.indexOf( ',' ) !== -1 ){
+  //   var otherOP =  input.slice( 1 );
+
+  //   if ( otherOP.constructor === Array ) {
+  //     code = [ code + '[0] +=' + otherOP[0], code + '[1] +=' + otherOP[1] ];
+  //     return [ code, Blockly.JavaScript.ORDER_ATOMIC ];
+  //   }
+  // } else if ( inputCheck === '.x') {
+  //    code =  code + '[0]' + input.slice( 2 );
+  //   return [ code, Blockly.JavaScript.ORDER_ATOMIC ];
+  // } else if ( inputCheck === '.y') {
+  //    code =  code + '[1]' + input.slice( 2 );
+  //   return [ code, Blockly.JavaScript.ORDER_ATOMIC ];
+  // } else {
+  //    code = code + input;
+  //   return [ code, Blockly.JavaScript.ORDER_ATOMIC ];
+  // }
+    var val = blocklyVariables[ code ];
+   
+    if ( inputCheck === '.x') {
+       code =  code + '[0]' + input.slice( 2 );
+      return [ code, Blockly.JavaScript.ORDER_ATOMIC ];
+    } else if ( inputCheck === '.y') {
+       code =  code + '[1]' + input.slice( 2 );
+      return [ code, Blockly.JavaScript.ORDER_ATOMIC ];
+    } else {
+       code = code + input;
+      return [ code, Blockly.JavaScript.ORDER_ATOMIC ];
+    }
+
+};
+
+Blockly.Blocks[ 'variables_get_noin' ] = {
+  /**
+   * Block for variable getter.
+   * @this Blockly.Block
+   */
+  init: function() {
+    this.setColour( 330 );
+    this.appendDummyInput('')
+        .appendField( Blockly.Msg.VARIABLES_GET_TITLE )
+        .appendField( new Blockly.FieldVariable( Blockly.Msg.VARIABLES_GET_ITEM ), 'VAR' )
+        .appendField( "?", "VALUE" )
+        .appendField( Blockly.Msg.VARIABLES_GET_TAIL )
+    this.setOutput( true );
+    this.setTooltip( Blockly.Msg.VARIABLES_GET_TOOLTIP );
+    this.contextMenuMsg_ = Blockly.Msg.VARIABLES_GET_CREATE_SET;
+    this.contextMenuType_ = 'variables_set';
+    this.data = currentBlocklyNodeID;
+  },
+  /**
+   * Return all variables referenced by this block.
+   * @return {!Array.<string>} List of variable names.
+   * @this Blockly.Block
+   */
+  getVars: function() {
+    return [ this.getFieldValue( 'VAR' ) ];
+  },
+  /**
+   * Notification that a variable is renaming.
+   * If the name matches one of this block's variables, rename it.
+   * @param {string} oldName Previous name of variable.
+   * @param {string} newName Renamed variable.
+   * @this Blockly.Block
+   */
+  renameVar: function( oldName, newName ) {
+    if ( Blockly.Names.equals( oldName, this.getFieldValue( 'VAR' ) ) ) {
+      this.setFieldValue( newName, 'VAR' );
+    }
+  },
+  /**
+   * Add menu option to create getter/setter block for this setter/getter.
+   * @param {!Array} options List of menu options to add to.
+   * @this Blockly.Block
+   */
+  customContextMenu: function( options ) {
+    var option = { enabled: false };
+    var name = this.getFieldValue( 'VAR' );
+    option.text = this.contextMenuMsg_.replace( '%1', name );
+    var xmlField = goog.dom.createDom( 'field', null, name );
+    xmlField.setAttribute( 'name', 'VAR' );
+    var xmlBlock = goog.dom.createDom( 'block', null, xmlField );
+    xmlBlock.setAttribute( 'type', this.contextMenuType_ );
+    option.callback = Blockly.ContextMenu.callbackFactory( this, xmlBlock );
+    options.push( option );
+  },
+
+  /**
+   * Fires when the workspace changes or Blockly.mainWorkspace.fireChangeEvent() is called
+   */
+  onchange: function() {
+    if (!this.workspace || this.data === undefined) {
+      // Block has been deleted.
+      currentBlocklyErrors[ this.id ] = false;
+      return;
+    }
+    //Evaluate and return the code stored in the block.
+    var code = Blockly.JavaScript.variableDB_.getName( this.getFieldValue( 'VAR' ),
+      Blockly.Variables.NAME_TYPE );
+    var val = blocklyVariables[ code ];
+
+    if ( val === undefined ) {
+      val = '?';
+    }
+    
+    this.setFieldValue( '(' + val + ')','VALUE' );
+    
+  }
+
+};
+
+Blockly.JavaScript[ 'variables_get_noin' ] = function( block ) {
+  // Variable getter.
+  var code = Blockly.JavaScript.variableDB_.getName( block.getFieldValue( 'VAR' ),
+      Blockly.Variables.NAME_TYPE );
+
+    return [ code, Blockly.JavaScript.ORDER_ATOMIC ];
+
+};
+
+Blockly.JavaScript['variables_set'] = function( block ) {
+  // Variable setter.
+  var argument0 = Blockly.JavaScript.valueToCode(block, 'VALUE',
+      Blockly.JavaScript.ORDER_NONE) || '0';
+  var varName = Blockly.JavaScript.variableDB_.getName(
+      block.getFieldValue('VAR'), Blockly.Variables.NAME_TYPE);
+
+  // var extraCode = "vwf.fireEvent( '" + vwf_view.kernel.application() + 
+  //                 "', 'updatedBlocklyVariable', " + " [ '" + varName + "', " + varName + " ] );\n";
+  // var toReturn = varName + ' = ' + argument0 + ';\n' + extraCode;
+  // return toReturn;
+
+  if ( argument0.indexOf(',') !== -1 ) {
+    var extraCode = "vwf.fireEvent( '" + vwf_view.kernel.application() + 
+                  "', 'updatedBlocklyVariable', " + " [ '" + varName + "', [" + argument0 + "] ] );\n";
+    var toReturn = varName + ' = [' +  argument0  + '];\n' + extraCode;
+    return toReturn;
+  } else if ( argument0.indexOf( '[0]' ) !== -1 && argument0.indexOf( varName ) !== -1 && blocklyStopped === false ) {
+      
+      var varOP = blocklyVariables[ varName ];
+
+      if ( varOP !== undefined ) {
+        console.log('updating [0]');
+        var val = varOP[ 0 ];
+        vwf.fireEvent( vwf_view.kernel.application(), 'updatedBlocklyVariable',  [ varName, val ] );
+      }
+      return '';
+
+  } else if ( argument0.indexOf( '[1]' ) !== -1 && argument0.indexOf( varName ) !== -1 && blocklyStopped === false ) {
+      
+      var varOP = blocklyVariables[ varName ];
+
+      if ( varOP !== undefined ) {
+        console.log('updating [1]');
+        var val = varOP[ 1 ];
+        vwf.fireEvent( vwf_view.kernel.application(), 'updatedBlocklyVariable',  [ varName, val ] );
+      }
+      return '';
+
+  } else {
+    var extraCode = "vwf.fireEvent( '" + vwf_view.kernel.application() + 
+                  "', 'updatedBlocklyVariable', " + " [ '" + varName + "', " + argument0 + " ] );\n";
+    var toReturn = varName + ' = ' + argument0 + ';\n' + extraCode;
+    return toReturn;
+  }
+
+
+};
+
+
+Blockly.Blocks[ 'logic_cond_out' ] = {
+  init: function() {
+    this.setColour( 60 );
+    this.appendValueInput( "INPUT" )
+        .appendField(new Blockly.FieldDropdown([["=", "==="],["≠", "!=="],[">", ">"],
+          ["<", "<"],["≥", ">="],["≤", "<="]]), "VALUE")
+        .setCheck( [ 'Boolean','Variable','Number','OperatorAddSubtract','LeftParenthesis','RightParenthesis' ] );
+    this.setOutput( true, "Conditional" );
+    var thisBlock = this;
+    this.data = currentBlocklyNodeID;
+    this.setTooltip( function() {
+      var content = {
+        text: "A block for selecting conditional operators."
+      }
+      return showTooltipInBlockly( thisBlock, content );
+    } );
+  },
+  onchange: function() {
+    if (!this.workspace || this.data === undefined) {
+      // Block has been deleted.
+      currentBlocklyErrors[ this.id ] = false;
+      return;
+    }
+    
+    var inputBlock = this.getInputTargetBlock('INPUT');
+
+    if ( inputBlock === null ) {
+      this.setWarningText('You must attach a block \nto compare.');
+      currentBlocklyErrors[ this.id ] = true;
+    } else {
+      currentBlocklyErrors[ this.id ] = false;
+      this.setWarningText(null);
+    }
+  }
+};
+
+Blockly.JavaScript['logic_cond_out' ] = function( block ) {
+  
+  var dropdown_value = block.getFieldValue('VALUE');
+
+  var argument0 = Blockly.JavaScript.valueToCode(block, 'INPUT',
+      Blockly.JavaScript.ORDER_ATOMIC) || '';
+  if ( argument0[0] === '[' ) {
+    return [ dropdown_value + '.equals(' + argument0 + ')' , Blockly.JavaScript.ORDER_ATOMIC ];
+  } else {
+    return [ dropdown_value + argument0, Blockly.JavaScript.ORDER_ATOMIC ];
+  }
+};
+
+Blockly.Blocks[ 'logic_cond_eq_out' ] = {
+  init: function() {
+    this.setColour( 60 );
+    this.appendValueInput( "INPUT" )
+        .appendField("=", "VALUE")
+        .setCheck( [ 'Boolean','Variable','Number','OperatorAddSubtract','LeftParenthesis','RightParenthesis' ] );
+    this.setOutput( true, "Conditional" );
+    var thisBlock = this;
+    this.data = currentBlocklyNodeID;
+    this.setTooltip( function() {
+      var content = {
+        text: "Compares the two number blocks connected to it. The entire clause (the three blocks together) is true if they are equal, false otherwise."
+      }
+      return showTooltipInBlockly( thisBlock, content );
+    } );
+  },
+  onchange: function() {
+    if (!this.workspace || this.data === undefined) {
+      // Block has been deleted.
+      currentBlocklyErrors[ this.id ] = false;
+      return;
+    }
+    
+    var inputBlock = this.getInputTargetBlock('INPUT');
+
+    if ( inputBlock === null ) {
+      this.setWarningText('You must attach a block \nto compare.');
+      currentBlocklyErrors[ this.id ] = true;
+    } else {
+      currentBlocklyErrors[ this.id ] = false;
+      this.setWarningText(null);
+    }
+  }
+};
+
+Blockly.JavaScript['logic_cond_eq_out' ] = function( block ) {
+  
+  var argument0 = Blockly.JavaScript.valueToCode(block, 'INPUT',
+      Blockly.JavaScript.ORDER_ATOMIC) || '';
+
+    return [ '===' + argument0, Blockly.JavaScript.ORDER_ATOMIC ];
+
+};
+
+Blockly.Blocks[ 'logic_cond_neq_out' ] = {
+  init: function() {
+    this.setColour( 60 );
+    this.appendValueInput( "INPUT" )
+        .appendField("≠", "VALUE")
+        .setCheck( [ 'Boolean','Variable','Number','OperatorAddSubtract','LeftParenthesis','RightParenthesis' ] );
+    this.setOutput( true, "Conditional" );
+    var thisBlock = this;
+    this.data = currentBlocklyNodeID;
+    this.setTooltip( function() {
+      var content = {
+        text: "Compares the two number blocks connected to it. The entire clause (the three blocks together) is true if they are not equal, false otherwise."
+      }
+      return showTooltipInBlockly( thisBlock, content );
+    } );
+  },
+  onchange: function() {
+    if (!this.workspace || this.data === undefined) {
+      // Block has been deleted.
+      currentBlocklyErrors[ this.id ] = false;
+      return;
+    }
+    
+    var inputBlock = this.getInputTargetBlock('INPUT');
+
+    if ( inputBlock === null ) {
+      this.setWarningText('You must attach a block \nto compare.');
+      currentBlocklyErrors[ this.id ] = true;
+    } else {
+      currentBlocklyErrors[ this.id ] = false;
+      this.setWarningText(null);
+    }
+  }
+};
+
+Blockly.JavaScript['logic_cond_neq_out' ] = function( block ) {
+  
+  var argument0 = Blockly.JavaScript.valueToCode(block, 'INPUT',
+      Blockly.JavaScript.ORDER_ATOMIC) || '';
+
+    return [ '!==' + argument0, Blockly.JavaScript.ORDER_ATOMIC ];
+
+};
+
+Blockly.Blocks[ 'logic_cond_gt_out' ] = {
+  init: function() {
+    this.setColour( 60 );
+    this.appendValueInput( "INPUT" )
+        .appendField(">", "VALUE")
+        .setCheck( [ 'Boolean','Variable','Number','OperatorAddSubtract','LeftParenthesis','RightParenthesis' ] );
+    this.setOutput( true, "Conditional" );
+    var thisBlock = this;
+    this.data = currentBlocklyNodeID;
+    this.setTooltip( function() {
+      var content = {
+        text: "Compares the two number blocks connected to it. The entire clause (the three blocks together) is true if the left block is greater than the right block, false otherwise."
+      }
+      return showTooltipInBlockly( thisBlock, content );
+    } );
+  },
+  onchange: function() {
+    if (!this.workspace || this.data === undefined) {
+      // Block has been deleted.
+      currentBlocklyErrors[ this.id ] = false;
+      return;
+    }
+    
+    var inputBlock = this.getInputTargetBlock('INPUT');
+
+    if ( inputBlock === null ) {
+      this.setWarningText('You must attach a block \nto compare.');
+      currentBlocklyErrors[ this.id ] = true;
+    } else {
+      currentBlocklyErrors[ this.id ] = false;
+      this.setWarningText(null);
+    }
+  }
+};
+
+Blockly.JavaScript['logic_cond_gt_out' ] = function( block ) {
+  
+  var argument0 = Blockly.JavaScript.valueToCode(block, 'INPUT',
+      Blockly.JavaScript.ORDER_ATOMIC) || '';
+
+    return [ '>' + argument0, Blockly.JavaScript.ORDER_ATOMIC ];
+
+};
+
+Blockly.Blocks[ 'logic_cond_lt_out' ] = {
+  init: function() {
+    this.setColour( 60 );
+    this.appendValueInput( "INPUT" )
+        .appendField("<", "VALUE")
+        .setCheck( [ 'Boolean','Variable','Number','OperatorAddSubtract','LeftParenthesis','RightParenthesis' ] );
+    this.setOutput( true, "Conditional" );
+    var thisBlock = this;
+    this.data = currentBlocklyNodeID;
+    this.setTooltip( function() {
+      var content = {
+        text: "Compares the two number blocks connected to it. The entire clause (the three blocks together) is true if the left block is less than the right block, false otherwise."
+      }
+      return showTooltipInBlockly( thisBlock, content );
+    } );
+  },
+  onchange: function() {
+    if (!this.workspace || this.data === undefined) {
+      // Block has been deleted.
+      currentBlocklyErrors[ this.id ] = false;
+      return;
+    }
+    
+    var inputBlock = this.getInputTargetBlock('INPUT');
+
+    if ( inputBlock === null ) {
+      this.setWarningText('You must attach a block \nto compare.');
+      currentBlocklyErrors[ this.id ] = true;
+    } else {
+      currentBlocklyErrors[ this.id ] = false;
+      this.setWarningText(null);
+    }
+  }
+};
+
+Blockly.JavaScript['logic_cond_lt_out' ] = function( block ) {
+  
+  var argument0 = Blockly.JavaScript.valueToCode(block, 'INPUT',
+      Blockly.JavaScript.ORDER_ATOMIC) || '';
+
+    return [ '<' + argument0, Blockly.JavaScript.ORDER_ATOMIC ];
+
+};
+
+Blockly.Blocks[ 'logic_andor_out' ] = {
+  init: function() {
+    this.setColour( 60 );
+    this.appendValueInput( "INPUT" )
+        .appendField(new Blockly.FieldDropdown([["AND", "&&"],["OR", "||"],["NOT", "!"]]), "VALUE")
+        .setCheck( [ 'Boolean','Variable','LeftParenthesis','RightParenthesis' ] );
+    this.setOutput( true, "ANDOR" );
+    var thisBlock = this;
+    this.data = currentBlocklyNodeID;
+    this.setTooltip( function() {
+      var content = {
+        text: "A block for selecting and/or operators."
+      }
+      return showTooltipInBlockly( thisBlock, content );
+    } );
+  },
+  onchange: function() {
+    if (!this.workspace || this.data === undefined) {
+      // Block has been deleted.
+      currentBlocklyErrors[ this.id ] = false;
+      return;
+    }
+    
+    var inputBlock = this.getInputTargetBlock('INPUT');
+
+    if ( inputBlock === null ) {
+      this.setWarningText('You must attach a block \nto compare.');
+      currentBlocklyErrors[ this.id ] = true;
+    } else {
+      currentBlocklyErrors[ this.id ] = false;
+      this.setWarningText(null);
+    }
+  }
+};
+
+Blockly.JavaScript['logic_andor_out' ] = function( block ) {
+  
+  var dropdown_value = block.getFieldValue('VALUE');
+
+  var argument0 = Blockly.JavaScript.valueToCode(block, 'INPUT',
+      Blockly.JavaScript.ORDER_ATOMIC) || '';
+
+  return [ dropdown_value + argument0 , Blockly.JavaScript.ORDER_ATOMIC ];
+
+};
+
+Blockly.Blocks[ 'logic_and' ] = {
+  init: function() {
+    this.setColour( 60 );
+    this.appendValueInput( "INPUT" )
+        .appendField("AND", "VALUE")
+        .setCheck( [ 'Boolean','Variable','LeftParenthesis','RightParenthesis' ] );
+    this.setOutput( true, "ANDOR" );
+    var thisBlock = this;
+    this.data = currentBlocklyNodeID;
+    this.setTooltip( function() {
+      var content = {
+        text: "A binary, logical AND block."
+      }
+      return showTooltipInBlockly( thisBlock, content );
+    } );
+  },
+  onchange: function() {
+    if (!this.workspace || this.data === undefined) {
+      // Block has been deleted.
+      currentBlocklyErrors[ this.id ] = false;
+      return;
+    }
+    
+    var inputBlock = this.getInputTargetBlock('INPUT');
+
+    if ( inputBlock === null ) {
+      this.setWarningText('You must attach a block \nto compare.');
+      currentBlocklyErrors[ this.id ] = true;
+    } else {
+      currentBlocklyErrors[ this.id ] = false;
+      this.setWarningText(null);
+    }
+  }
+};
+
+Blockly.JavaScript['logic_and' ] = function( block ) {
+  
+  var argument0 = Blockly.JavaScript.valueToCode(block, 'INPUT',
+      Blockly.JavaScript.ORDER_ATOMIC) || '';
+
+  return [ '&&' + argument0 , Blockly.JavaScript.ORDER_ATOMIC ];
+
+};
+
+Blockly.Blocks[ 'logic_or' ] = {
+  init: function() {
+    this.setColour( 60 );
+    this.appendValueInput( "INPUT" )
+        .appendField("OR", "VALUE")
+        .setCheck( [ 'Boolean','Variable','LeftParenthesis','RightParenthesis' ] );
+    this.setOutput( true, "ANDOR" );
+    var thisBlock = this;
+    this.data = currentBlocklyNodeID;
+    this.setTooltip( function() {
+      var content = {
+        text: "A binary, logical OR block."
+      }
+      return showTooltipInBlockly( thisBlock, content );
+    } );
+  },
+  onchange: function() {
+    if (!this.workspace || this.data === undefined) {
+      // Block has been deleted.
+      currentBlocklyErrors[ this.id ] = false;
+      return;
+    }
+    
+    var inputBlock = this.getInputTargetBlock('INPUT');
+
+    if ( inputBlock === null ) {
+      this.setWarningText('You must attach a block \nto compare.');
+      currentBlocklyErrors[ this.id ] = true;
+    } else {
+      currentBlocklyErrors[ this.id ] = false;
+      this.setWarningText(null);
+    }
+  }
+};
+
+Blockly.JavaScript['logic_or' ] = function( block ) {
+  
+  var argument0 = Blockly.JavaScript.valueToCode(block, 'INPUT',
+      Blockly.JavaScript.ORDER_ATOMIC) || '';
+
+  return [ '||' + argument0 , Blockly.JavaScript.ORDER_ATOMIC ];
+
+};
+
+Blockly.Blocks[ 'logic_not' ] = {
+  init: function() {
+    this.setColour( 60 );
+    this.appendValueInput( "INPUT" )
+        .appendField("NOT", "VALUE")
+        .setCheck( [ 'Boolean','Variable','LeftParenthesis','RightParenthesis' ] );
+    this.setOutput( true, "ANDOR" );
+    var thisBlock = this;
+    this.data = currentBlocklyNodeID;
+    this.setTooltip( function() {
+      var content = {
+        text: "A unary, logical NOT block."
+      }
+      return showTooltipInBlockly( thisBlock, content );
+    } );
+  },
+  onchange: function() {
+    if (!this.workspace || this.data === undefined) {
+      // Block has been deleted.
+      currentBlocklyErrors[ this.id ] = false;
+      return;
+    }
+    
+    var inputBlock = this.getInputTargetBlock('INPUT');
+
+    if ( inputBlock === null ) {
+      this.setWarningText('You must attach a block \nto compare.');
+      currentBlocklyErrors[ this.id ] = true;
+    } else {
+      currentBlocklyErrors[ this.id ] = false;
+      this.setWarningText(null);
+    }
+  }
+};
+
+Blockly.JavaScript['logic_not' ] = function( block ) {
+  
+  var argument0 = Blockly.JavaScript.valueToCode(block, 'INPUT',
+      Blockly.JavaScript.ORDER_ATOMIC) || '';
+
+  return [ '!' + argument0 , Blockly.JavaScript.ORDER_ATOMIC ];
+
+};
+
+Blockly.Blocks[ 'logic_boolean' ] = {
+  init: function() {
+    this.setColour( 60 );
+    this.appendValueInput( "INPUT" )
+        .appendField( new Blockly.FieldDropdown([["false", "false"],["true", "true"]] ), "BOOL" )
+        .setCheck( [ 'ANDOR','Variable','LeftParenthesis','RightParenthesis' ] );
+    this.setOutput( true, "Boolean" );
+    var thisBlock = this;
+    this.data = currentBlocklyNodeID;
+    this.setTooltip( function() {
+      var content = {
+        text: "A block for selecting boolean values."
+      }
+      return showTooltipInBlockly( thisBlock, content );
+    } );
+  }
+};
+
+Blockly.JavaScript['logic_boolean' ] = function( block ) {
+  
+  var dropdown_value = block.getFieldValue('BOOL');
+
+  var argument0 = Blockly.JavaScript.valueToCode(block, 'INPUT',
+      Blockly.JavaScript.ORDER_ATOMIC) || '';
+
+  return [ dropdown_value + argument0 , Blockly.JavaScript.ORDER_ATOMIC ];
+
+};
 
 Blockly.Blocks['controls_whileUntil'] = {
   /**
@@ -31,47 +4538,75 @@ Blockly.Blocks['controls_whileUntil'] = {
     var OPERATORS =
         [[Blockly.Msg.CONTROLS_WHILEUNTIL_OPERATOR_WHILE, 'WHILE'],
          [Blockly.Msg.CONTROLS_WHILEUNTIL_OPERATOR_UNTIL, 'UNTIL']];
-    this.setHelpUrl(Blockly.Msg.CONTROLS_WHILEUNTIL_HELPURL);
     this.setColour(120);
     this.appendValueInput('BOOL')
-        .setCheck('Boolean')
+        .setCheck(['Boolean','Number','LeftParenthesis','Variable'])
         .appendField(new Blockly.FieldDropdown(OPERATORS), 'MODE');
     this.appendStatementInput('DO')
         .appendField(Blockly.Msg.CONTROLS_WHILEUNTIL_INPUT_DO);
     this.setPreviousStatement(true);
     this.setNextStatement(true);
+    this.data = currentBlocklyNodeID;
     // Assign 'this' to a variable for use in the tooltip closure below.
     var thisBlock = this;
-    this.setTooltip(function() {
-      var op = thisBlock.getFieldValue('MODE');
-      var TOOLTIPS = {
-        'WHILE': Blockly.Msg.CONTROLS_WHILEUNTIL_TOOLTIP_WHILE,
-        'UNTIL': Blockly.Msg.CONTROLS_WHILEUNTIL_TOOLTIP_UNTIL
-      };
-      return TOOLTIPS[op];
-    });
+    this.setTooltip( function() {
+      var content = {
+        text: "Repeat a sequence of blocks while something is true, or until it becomes true"
+      }
+      return showTooltipInBlockly( thisBlock, content );
+    } );
+  },
+  onchange: function() {
+    if (!this.workspace || this.data === undefined) {
+      // Block has been deleted.
+      currentBlocklyErrors[ this.id ] = false;
+      return;
+    }
+
+    var inputBlock = this.getInputTargetBlock('BOOL');
+    var statementBlock = this.getInputTargetBlock('DO');
+
+    if ( inputBlock === null && statementBlock === null ) {
+      this.setWarningText('You must specify the conditions for \nrepeating and the actions to repeat!');
+      currentBlocklyErrors[ this.id ] = true;
+    } else if ( inputBlock === null ) {
+      this.setWarningText('You must attach your conditions that \nevaluate to TRUE or FALSE!');
+      currentBlocklyErrors[ this.id ] = true;
+    } else if ( statementBlock === null ) {
+      this.setWarningText('Your repeat block needs something \nto repeat!');
+      currentBlocklyErrors[ this.id ] = true;
+    } else {
+      this.setWarningText(null);
+      currentBlocklyErrors[ this.id ] = false;
+    }
   }
 };
 
 Blockly.JavaScript['controls_whileUntil'] = function(block) {
 
-  var until = block.getFieldValue('MODE') == 'UNTIL';
+  var until = block.getFieldValue( 'MODE' ) == 'UNTIL';
 
-  var argument0 = Blockly.JavaScript.valueToCode(block, 'BOOL',
+  var argument0 = Blockly.JavaScript.valueToCode( block, 'BOOL',
       until ? Blockly.JavaScript.ORDER_LOGICAL_NOT :
-      Blockly.JavaScript.ORDER_NONE) || 'false';
+      Blockly.JavaScript.ORDER_NONE ) || 'false';
 
-  var branch = Blockly.JavaScript.statementToCode(block, 'DO');
+  var branch = Blockly.JavaScript.statementToCode( block, 'DO' );
   // if (Blockly.JavaScript.INFINITE_LOOP_TRAP) {
   //   branch = Blockly.JavaScript.INFINITE_LOOP_TRAP.replace(/%1/g,
   //       '\'block_id_' + block.id + '\'') + branch;
   // }
 
-  if (until) {
-     argument0 = '!' + argument0;
+  if ( until ) {
+     argument0 = '! (' + argument0 + ')';
   }
 
-  var code = 'while ('+ argument0 +') {\n' + branch + '}\n';
+  
+  if( argument0.split('(').length == argument0.split(')').length ) {
+    var code = 'while ('+ argument0 +') {\n' + branch + '}\n';
+  } else {
+    var code = 'while ('+ false +') {\n' + branch + '}\n';
+  }
+
   return constructBlockExeEventCall( block ) + code;
 
   // Do while/until loop.
@@ -87,34 +4622,377 @@ Blockly.JavaScript['controls_whileUntil'] = function(block) {
   // return 'while (' + argument0 + ') {\n' + branch + '}\n';
 };
 
-Blockly.Blocks['controls_if'] = {
+
+Blockly.Blocks['controls_whileUntil_no_in'] = {
+  /**
+   * Block for 'do while/until' loop.
+   * @this Blockly.Block
+   */
+  init: function() {
+    var OPERATORS =
+        [[Blockly.Msg.CONTROLS_WHILEUNTIL_OPERATOR_WHILE, 'WHILE'],
+         [Blockly.Msg.CONTROLS_WHILEUNTIL_OPERATOR_UNTIL, 'UNTIL']];
+    this.setColour(120);
+    this.appendValueInput('BOOL')
+        .setCheck(['Boolean','Number','LeftParenthesis','Variable'])
+        .appendField(new Blockly.FieldDropdown(OPERATORS), 'MODE');
+    this.appendStatementInput('DO')
+        .appendField(Blockly.Msg.CONTROLS_WHILEUNTIL_INPUT_DO);
+    this.setPreviousStatement(false);
+    this.setNextStatement(true);
+    this.data = currentBlocklyNodeID;
+    // Assign 'this' to a variable for use in the tooltip closure below.
+    var thisBlock = this;
+    this.setTooltip( function() {
+      var content = {
+        text: "Repeat a sequence of blocks while something is true, or until it becomes true"
+      }
+      return showTooltipInBlockly( thisBlock, content );
+    } );
+  },
+  onchange: function() {
+    if (!this.workspace || this.data === undefined) {
+      // Block has been deleted.
+      currentBlocklyErrors[ this.id ] = false;
+      return;
+    }
+
+    var inputBlock = this.getInputTargetBlock('BOOL');
+    var statementBlock = this.getInputTargetBlock('DO');
+
+    if ( inputBlock === null && statementBlock === null ) {
+      this.setWarningText('You must specify the conditions for \nrepeating and the actions to repeat!');
+      currentBlocklyErrors[ this.id ] = true;
+    } else if ( inputBlock === null ) {
+      this.setWarningText('You must attach your conditions that \nevaluate to TRUE or FALSE!');
+      currentBlocklyErrors[ this.id ] = true;
+    } else if ( statementBlock === null ) {
+      this.setWarningText('Your repeat block needs something \nto repeat!');
+      currentBlocklyErrors[ this.id ] = true;
+    } else {
+      this.setWarningText(null);
+      currentBlocklyErrors[ this.id ] = false;
+    }
+  }
+};
+
+Blockly.JavaScript['controls_whileUntil_no_in'] = function(block) {
+
+  var until = block.getFieldValue( 'MODE' ) == 'UNTIL';
+
+  var argument0 = Blockly.JavaScript.valueToCode( block, 'BOOL',
+      until ? Blockly.JavaScript.ORDER_LOGICAL_NOT :
+      Blockly.JavaScript.ORDER_NONE ) || 'false';
+
+  var branch = Blockly.JavaScript.statementToCode( block, 'DO' );
+  // if (Blockly.JavaScript.INFINITE_LOOP_TRAP) {
+  //   branch = Blockly.JavaScript.INFINITE_LOOP_TRAP.replace(/%1/g,
+  //       '\'block_id_' + block.id + '\'') + branch;
+  // }
+
+  if ( until ) {
+     argument0 = '! (' + argument0 + ')';
+  }
+
+  
+  if( argument0.split('(').length == argument0.split(')').length ) {
+    var code = 'while ('+ argument0 +') {\n' + branch + '}\n';
+  } else {
+    var code = 'while ('+ false +') {\n' + branch + '}\n';
+  }
+
+  return constructBlockExeEventCall( block ) + code;
+
+  // Do while/until loop.
+  // var until = block.getFieldValue('MODE') == 'UNTIL';
+  // var argument0 = Blockly.JavaScript.valueToCode(block, 'BOOL',
+  //     until ? Blockly.JavaScript.ORDER_LOGICAL_NOT :
+  //     Blockly.JavaScript.ORDER_NONE) || 'false';
+  // var branch = Blockly.JavaScript.statementToCode(block, 'DO');
+  // branch = Blockly.JavaScript.addLoopTrap(branch, block.id);
+  // if (until) {
+  //   argument0 = '!' + argument0;
+  // }
+  // return 'while (' + argument0 + ') {\n' + branch + '}\n';
+};
+Blockly.Blocks['controls_whileUntil_no_out'] = {
+  /**
+   * Block for 'do while/until' loop.
+   * @this Blockly.Block
+   */
+  init: function() {
+    var OPERATORS =
+        [[Blockly.Msg.CONTROLS_WHILEUNTIL_OPERATOR_WHILE, 'WHILE'],
+         [Blockly.Msg.CONTROLS_WHILEUNTIL_OPERATOR_UNTIL, 'UNTIL']];
+    this.setColour(120);
+    this.appendValueInput('BOOL')
+        .setCheck(['Boolean','Number','LeftParenthesis','Variable'])
+        .appendField(new Blockly.FieldDropdown(OPERATORS), 'MODE');
+    this.appendStatementInput('DO')
+        .appendField(Blockly.Msg.CONTROLS_WHILEUNTIL_INPUT_DO);
+    this.setPreviousStatement(true);
+    this.setNextStatement(false);
+    this.data = currentBlocklyNodeID;
+    // Assign 'this' to a variable for use in the tooltip closure below.
+    var thisBlock = this;
+    this.setTooltip( function() {
+      var content = {
+        text: "Repeat a sequence of blocks while something is true, or until it becomes true"
+      }
+      return showTooltipInBlockly( thisBlock, content );
+    } );
+  },
+  onchange: function() {
+    if (!this.workspace || this.data === undefined) {
+      // Block has been deleted.
+      currentBlocklyErrors[ this.id ] = false;
+      return;
+    }
+
+    var inputBlock = this.getInputTargetBlock('BOOL');
+    var statementBlock = this.getInputTargetBlock('DO');
+
+    if ( inputBlock === null && statementBlock === null ) {
+      this.setWarningText('You must specify the conditions for \nrepeating and the actions to repeat!');
+      currentBlocklyErrors[ this.id ] = true;
+    } else if ( inputBlock === null ) {
+      this.setWarningText('You must attach your conditions that \nevaluate to TRUE or FALSE!');
+      currentBlocklyErrors[ this.id ] = true;
+    } else if ( statementBlock === null ) {
+      this.setWarningText('Your repeat block needs something \nto repeat!');
+      currentBlocklyErrors[ this.id ] = true;
+    } else {
+      this.setWarningText(null);
+      currentBlocklyErrors[ this.id ] = false;
+    }
+  }
+};
+
+Blockly.JavaScript['controls_whileUntil_no_out'] = function(block) {
+
+  var until = block.getFieldValue( 'MODE' ) == 'UNTIL';
+
+  var argument0 = Blockly.JavaScript.valueToCode( block, 'BOOL',
+      until ? Blockly.JavaScript.ORDER_LOGICAL_NOT :
+      Blockly.JavaScript.ORDER_NONE ) || 'false';
+
+  var branch = Blockly.JavaScript.statementToCode( block, 'DO' );
+  // if (Blockly.JavaScript.INFINITE_LOOP_TRAP) {
+  //   branch = Blockly.JavaScript.INFINITE_LOOP_TRAP.replace(/%1/g,
+  //       '\'block_id_' + block.id + '\'') + branch;
+  // }
+
+  if ( until ) {
+     argument0 = '! (' + argument0 + ')';
+  }
+
+  
+  if( argument0.split('(').length == argument0.split(')').length ) {
+    var code = 'while ('+ argument0 +') {\n' + branch + '}\n';
+  } else {
+    var code = 'while ('+ false +') {\n' + branch + '}\n';
+  }
+
+  return constructBlockExeEventCall( block ) + code;
+
+  // Do while/until loop.
+  // var until = block.getFieldValue('MODE') == 'UNTIL';
+  // var argument0 = Blockly.JavaScript.valueToCode(block, 'BOOL',
+  //     until ? Blockly.JavaScript.ORDER_LOGICAL_NOT :
+  //     Blockly.JavaScript.ORDER_NONE) || 'false';
+  // var branch = Blockly.JavaScript.statementToCode(block, 'DO');
+  // branch = Blockly.JavaScript.addLoopTrap(branch, block.id);
+  // if (until) {
+  //   argument0 = '!' + argument0;
+  // }
+  // return 'while (' + argument0 + ') {\n' + branch + '}\n';
+};
+
+Blockly.Blocks['controls_whileUntil_no_out_no_in'] = {
+  /**
+   * Block for 'do while/until' loop.
+   * @this Blockly.Block
+   */
+  init: function() {
+    var OPERATORS =
+        [[Blockly.Msg.CONTROLS_WHILEUNTIL_OPERATOR_WHILE, 'WHILE'],
+         [Blockly.Msg.CONTROLS_WHILEUNTIL_OPERATOR_UNTIL, 'UNTIL']];
+    this.setColour(120);
+    this.appendValueInput('BOOL')
+        .setCheck(['Boolean','Number','LeftParenthesis','Variable'])
+        .appendField(new Blockly.FieldDropdown(OPERATORS), 'MODE');
+    this.appendStatementInput('DO')
+        .appendField(Blockly.Msg.CONTROLS_WHILEUNTIL_INPUT_DO);
+    this.setPreviousStatement(false);
+    this.setNextStatement(false);
+    this.data = currentBlocklyNodeID;
+    // Assign 'this' to a variable for use in the tooltip closure below.
+    var thisBlock = this;
+    this.setTooltip( function() {
+      var content = {
+        text: "Repeat a sequence of blocks while something is true, or until it becomes true"
+      }
+      return showTooltipInBlockly( thisBlock, content );
+    } );
+  },
+  onchange: function() {
+    if (!this.workspace || this.data === undefined) {
+      // Block has been deleted.
+      currentBlocklyErrors[ this.id ] = false;
+      return;
+    }
+
+    var inputBlock = this.getInputTargetBlock('BOOL');
+    var statementBlock = this.getInputTargetBlock('DO');
+
+    if ( inputBlock === null && statementBlock === null ) {
+      this.setWarningText('You must specify the conditions for \nrepeating and the actions to repeat!');
+      currentBlocklyErrors[ this.id ] = true;
+    } else if ( inputBlock === null ) {
+      this.setWarningText('You must attach your conditions that \nevaluate to TRUE or FALSE!');
+      currentBlocklyErrors[ this.id ] = true;
+    } else if ( statementBlock === null ) {
+      this.setWarningText('Your repeat block needs something \nto repeat!');
+      currentBlocklyErrors[ this.id ] = true;
+    } else {
+      this.setWarningText(null);
+      currentBlocklyErrors[ this.id ] = false;
+    }
+  }
+};
+
+Blockly.JavaScript['controls_whileUntil_no_out_no_in'] = function(block) {
+
+  var until = block.getFieldValue( 'MODE' ) == 'UNTIL';
+
+  var argument0 = Blockly.JavaScript.valueToCode( block, 'BOOL',
+      until ? Blockly.JavaScript.ORDER_LOGICAL_NOT :
+      Blockly.JavaScript.ORDER_NONE ) || 'false';
+
+  var branch = Blockly.JavaScript.statementToCode( block, 'DO' );
+  // if (Blockly.JavaScript.INFINITE_LOOP_TRAP) {
+  //   branch = Blockly.JavaScript.INFINITE_LOOP_TRAP.replace(/%1/g,
+  //       '\'block_id_' + block.id + '\'') + branch;
+  // }
+
+  if ( until ) {
+     argument0 = '! (' + argument0 + ')';
+  }
+
+  
+  if( argument0.split('(').length == argument0.split(')').length ) {
+    var code = 'while ('+ argument0 +') {\n' + branch + '}\n';
+  } else {
+    var code = 'while ('+ false +') {\n' + branch + '}\n';
+  }
+
+  return constructBlockExeEventCall( block ) + code;
+
+  // Do while/until loop.
+  // var until = block.getFieldValue('MODE') == 'UNTIL';
+  // var argument0 = Blockly.JavaScript.valueToCode(block, 'BOOL',
+  //     until ? Blockly.JavaScript.ORDER_LOGICAL_NOT :
+  //     Blockly.JavaScript.ORDER_NONE) || 'false';
+  // var branch = Blockly.JavaScript.statementToCode(block, 'DO');
+  // branch = Blockly.JavaScript.addLoopTrap(branch, block.id);
+  // if (until) {
+  //   argument0 = '!' + argument0;
+  // }
+  // return 'while (' + argument0 + ') {\n' + branch + '}\n';
+};
+
+Blockly.Blocks['controls_repeat_ext'] = {
+  /**
+   * Block for repeat n times (external number).
+   * @this Blockly.Block
+   */
+  init: function() {
+    this.setHelpUrl(Blockly.Msg.CONTROLS_REPEAT_HELPURL);
+    this.setColour(Blockly.Blocks.loops.HUE);
+    this.interpolateMsg(Blockly.Msg.CONTROLS_REPEAT_TITLE,
+                        ['TIMES', 'Number', Blockly.ALIGN_RIGHT],
+                        Blockly.ALIGN_RIGHT);
+    this.appendStatementInput('DO')
+        .appendField(Blockly.Msg.CONTROLS_REPEAT_INPUT_DO);
+    this.setPreviousStatement(true);
+    this.setNextStatement(true);
+    this.setInputsInline(true);
+    this.data = currentBlocklyNodeID;
+    var thisBlock = this;
+    this.setTooltip( function() {
+      var content = {
+        text: "Repeat a sequence of blocks the specified number of times."
+      }
+      return showTooltipInBlockly( thisBlock, content );
+    } );
+  },
+  onchange: function() {
+    if (!this.workspace || this.data === undefined) {
+      // Block has been deleted.
+      currentBlocklyErrors[ this.id ] = false;
+      return;
+    }
+
+    var inputBlock = this.getInputTargetBlock('TIMES');
+    var statementBlock = this.getInputTargetBlock('DO');
+
+    if ( inputBlock === null && statementBlock === null ) {
+      this.setWarningText('You must specify how often to repeat \nand actions youre repeating!');
+      currentBlocklyErrors[ this.id ] = true;
+    } else if ( inputBlock === null ) {
+      this.setWarningText('You must attach a number block!');
+      currentBlocklyErrors[ this.id ] = true;
+    } else if ( statementBlock === null ) {
+      this.setWarningText('Your repeat block needs something \nto repeat!');
+      currentBlocklyErrors[ this.id ] = true;
+    } else {
+      this.setWarningText(null);
+      currentBlocklyErrors[ this.id ] = false;
+    }
+  }
+};
+
+Blockly.JavaScript['controls_repeat_ext'] = function(block) {
+  // Repeat n times (external number).
+  var repeats = Blockly.JavaScript.valueToCode(block, 'TIMES',
+      Blockly.JavaScript.ORDER_ASSIGNMENT) || '0';
+  var branch = Blockly.JavaScript.statementToCode(block, 'DO');
+  branch = Blockly.JavaScript.addLoopTrap(branch, block.id);
+  var code = '';
+  var loopVar = Blockly.JavaScript.variableDB_.getDistinctName(
+      'count', Blockly.Variables.NAME_TYPE);
+  var endVar = repeats;
+  if (!repeats.match(/^\w+$/) && !Blockly.isNumber(repeats)) {
+    var endVar = Blockly.JavaScript.variableDB_.getDistinctName(
+        'repeat_end', Blockly.Variables.NAME_TYPE);
+    code += 'var ' + endVar + ' = ' + repeats + ';\n';
+  }
+  code += 'for (var ' + loopVar + ' = 0; ' +
+      loopVar + ' < ' + endVar + '; ' +
+      loopVar + '++) {\n' +
+      branch + '}\n';
+  return code;
+};
+
+Blockly.Blocks['controls_if_nomut'] = {
   // If/elseif/else condition.
   init: function() {
-    this.setHelpUrl(Blockly.Msg.CONTROLS_IF_HELPURL);
     this.setColour(20);
     this.appendValueInput('IF0')
-        .setCheck('Boolean')
         .appendField(Blockly.Msg.CONTROLS_IF_MSG_IF);
     this.appendStatementInput('DO0')
         .appendField(Blockly.Msg.CONTROLS_IF_MSG_THEN);
     this.setPreviousStatement(true);
     this.setNextStatement(true);
-    this.setMutator(new Blockly.Mutator(['controls_if_elseif',
-                                         'controls_if_else']));
+    this.data = currentBlocklyNodeID;
     // Assign 'this' to a variable for use in the tooltip closure below.
     var thisBlock = this;
-    this.setTooltip(function() {
-      if (!thisBlock.elseifCount_ && !thisBlock.elseCount_) {
-        return Blockly.Msg.CONTROLS_IF_TOOLTIP_1;
-      } else if (!thisBlock.elseifCount_ && thisBlock.elseCount_) {
-        return Blockly.Msg.CONTROLS_IF_TOOLTIP_2;
-      } else if (thisBlock.elseifCount_ && !thisBlock.elseCount_) {
-        return Blockly.Msg.CONTROLS_IF_TOOLTIP_3;
-      } else if (thisBlock.elseifCount_ && thisBlock.elseCount_) {
-        return Blockly.Msg.CONTROLS_IF_TOOLTIP_4;
+    this.setTooltip( function() {
+      var content = {
+        text: "If the conditional statement is true, then do the sequence of blocks."
       }
-      return '';
-    });
+      return showTooltipInBlockly( thisBlock, content );
+    } );
     this.elseifCount_ = 0;
     this.elseCount_ = 0;
   },
@@ -136,7 +5014,7 @@ Blockly.Blocks['controls_if'] = {
     this.elseCount_ = parseInt(xmlElement.getAttribute('else'), 10);
     for (var x = 1; x <= this.elseifCount_; x++) {
       this.appendValueInput('IF' + x)
-          .setCheck('Boolean')
+          .setCheck(['Boolean','LeftParenthesis','Variable'])
           .appendField(Blockly.Msg.CONTROLS_IF_MSG_ELSEIF);
       this.appendStatementInput('DO' + x)
           .appendField(Blockly.Msg.CONTROLS_IF_MSG_THEN);
@@ -182,7 +5060,175 @@ Blockly.Blocks['controls_if'] = {
         case 'controls_if_elseif':
           this.elseifCount_++;
           var ifInput = this.appendValueInput('IF' + this.elseifCount_)
-              .setCheck('Boolean')
+              .setCheck(['Boolean','LeftParenthesis','Variable'])
+              .appendField(Blockly.Msg.CONTROLS_IF_MSG_ELSEIF);
+          var doInput = this.appendStatementInput('DO' + this.elseifCount_);
+          doInput.appendField(Blockly.Msg.CONTROLS_IF_MSG_THEN);
+          // Reconnect any child blocks.
+          if (clauseBlock.valueConnection_) {
+            ifInput.connection.connect(clauseBlock.valueConnection_);
+          }
+          if (clauseBlock.statementConnection_) {
+            doInput.connection.connect(clauseBlock.statementConnection_);
+          }
+          break;
+        case 'controls_if_else':
+          this.elseCount_++;
+          var elseInput = this.appendStatementInput('ELSE');
+          elseInput.appendField(Blockly.Msg.CONTROLS_IF_MSG_ELSE);
+          // Reconnect any child blocks.
+          if (clauseBlock.statementConnection_) {
+            elseInput.connection.connect(clauseBlock.statementConnection_);
+          }
+          break;
+        default:
+          throw 'Unknown block type.';
+      }
+      clauseBlock = clauseBlock.nextConnection &&
+          clauseBlock.nextConnection.targetBlock();
+    }
+  },
+  saveConnections: function(containerBlock) {
+    // Store a pointer to any connected child blocks.
+    var clauseBlock = containerBlock.getInputTargetBlock('STACK');
+    var x = 1;
+    while (clauseBlock) {
+      switch (clauseBlock.type) {
+        case 'controls_if_elseif':
+          var inputIf = this.getInput('IF' + x);
+          var inputDo = this.getInput('DO' + x);
+          clauseBlock.valueConnection_ =
+              inputIf && inputIf.connection.targetConnection;
+          clauseBlock.statementConnection_ =
+              inputDo && inputDo.connection.targetConnection;
+          x++;
+          break;
+        case 'controls_if_else':
+          var inputDo = this.getInput('ELSE');
+          clauseBlock.statementConnection_ =
+              inputDo && inputDo.connection.targetConnection;
+          break;
+        default:
+          throw 'Unknown block type.';
+      }
+      clauseBlock = clauseBlock.nextConnection &&
+          clauseBlock.nextConnection.targetBlock();
+    }
+  },
+  onchange: function() {
+    if (!this.workspace || this.data === undefined) {
+      // Block has been deleted.
+      currentBlocklyErrors[ this.id ] = false;
+      return;
+    }
+    
+    var inputBlock = this.getInputTargetBlock('IF0');
+    var statementBlock = this.getInputTargetBlock('DO0');
+
+    if ( inputBlock === null && statementBlock === null ) {
+      this.setWarningText('You must specify your conditions for \nexecuting actions and the actions \nthemselves!');
+      currentBlocklyErrors[ this.id ] = true;
+    } else if ( inputBlock === null ) {
+      this.setWarningText('You must specify a condition that evaluates \nto TRUE or FALSE!');
+      currentBlocklyErrors[ this.id ] = true;
+    } else if ( statementBlock === null ) {
+      this.setWarningText('Your must specify actions \nto execute!');
+      currentBlocklyErrors[ this.id ] = true;
+    } else {
+      currentBlocklyErrors[ this.id ] = false;
+      this.setWarningText(null);
+    }
+  }
+};
+
+Blockly.Blocks['controls_if_else_nomut'] = {
+  // If/elseif/else condition.
+  init: function() {
+    this.setColour(20);
+    this.appendValueInput('IF0')
+        .setCheck(['Boolean','LeftParenthesis','Variable'])
+        .appendField(Blockly.Msg.CONTROLS_IF_MSG_IF);
+    this.appendStatementInput('DO0')
+        .appendField(Blockly.Msg.CONTROLS_IF_MSG_THEN);
+    this.setPreviousStatement(true);
+    this.setNextStatement(true);
+    this.appendStatementInput('ELSE')
+          .appendField(Blockly.Msg.CONTROLS_IF_MSG_ELSE);
+    this.data = currentBlocklyNodeID;
+    //this.setMutator(new Blockly.Mutator(['controls_if_elseif',
+       //                                  'controls_if_else']));
+    // Assign 'this' to a variable for use in the tooltip closure below.
+    var thisBlock = this;
+    this.setTooltip( function() {
+      var content = {
+        text: "If the conditional statement is true, then do the first sequence of blocks, ELSE do the second sequence."
+      }
+      return showTooltipInBlockly( thisBlock, content );
+    } );
+    this.elseifCount_ = 0;
+    this.elseCount_ = 1;
+  },
+  mutationToDom: function() {
+    if (!this.elseifCount_ && !this.elseCount_) {
+      return null;
+    }
+    var container = document.createElement('mutation');
+
+    container.setAttribute('else', 1);
+    
+    return container;
+  },
+  domToMutation: function(xmlElement) {
+    //this.elseifCount_ = parseInt(xmlElement.getAttribute('elseif'), 10);
+    this.elseCount_ = 1
+    for (var x = 1; x <= this.elseifCount_; x++) {
+      this.appendValueInput('IF' + x)
+          .setCheck(['Boolean','LeftParenthesis','Variable'])
+          .appendField(Blockly.Msg.CONTROLS_IF_MSG_ELSEIF);
+      this.appendStatementInput('DO' + x)
+          .appendField(Blockly.Msg.CONTROLS_IF_MSG_THEN);
+    }
+    if (this.elseCount_) {
+      
+    }
+  },
+  decompose: function(workspace) {
+    var containerBlock = Blockly.Block.obtain(workspace, 'controls_if_if');
+    containerBlock.initSvg();
+    var connection = containerBlock.getInput('STACK').connection;
+    for (var x = 1; x <= this.elseifCount_; x++) {
+      var elseifBlock = Blockly.Block.obtain(workspace, 'controls_if_elseif');
+      elseifBlock.initSvg();
+      connection.connect(elseifBlock.previousConnection);
+      connection = elseifBlock.nextConnection;
+    }
+    if (this.elseCount_) {
+      var elseBlock = Blockly.Block.obtain(workspace, 'controls_if_else');
+      elseBlock.initSvg();
+      connection.connect(elseBlock.previousConnection);
+    }
+    return containerBlock;
+  },
+  compose: function(containerBlock) {
+    // Disconnect the else input blocks and remove the inputs.
+    if (this.elseCount_) {
+      this.removeInput('ELSE');
+    }
+    this.elseCount_ = 0;
+    // Disconnect all the elseif input blocks and remove the inputs.
+    for (var x = this.elseifCount_; x > 0; x--) {
+      this.removeInput('IF' + x);
+      this.removeInput('DO' + x);
+    }
+    this.elseifCount_ = 0;
+    // Rebuild the block's optional inputs.
+    var clauseBlock = containerBlock.getInputTargetBlock('STACK');
+    while (clauseBlock) {
+      switch (clauseBlock.type) {
+        case 'controls_if_elseif':
+          this.elseifCount_++;
+          var ifInput = this.appendValueInput('IF' + this.elseifCount_)
+              .setCheck(['Boolean','LeftParenthesis','Variable'])
               .appendField(Blockly.Msg.CONTROLS_IF_MSG_ELSEIF);
           var doInput = this.appendStatementInput('DO' + this.elseifCount_);
           doInput.appendField(Blockly.Msg.CONTROLS_IF_MSG_THEN);
@@ -239,56 +5285,23 @@ Blockly.Blocks['controls_if'] = {
   }
 };
 
-Blockly.Blocks['controls_if_if'] = {
-  // If condition.
-  init: function() {
-    this.setColour(20);
-    this.appendDummyInput()
-        .appendField(Blockly.Msg.CONTROLS_IF_IF_TITLE_IF);
-    this.appendStatementInput('STACK');
-    this.setTooltip(Blockly.Msg.CONTROLS_IF_IF_TOOLTIP);
-    this.contextMenu = false;
-  }
-};
-
-Blockly.Blocks['controls_if_elseif'] = {
-  // Else-If condition.
-  init: function() {
-    this.setColour(20);
-    this.appendDummyInput()
-        .appendField(Blockly.Msg.CONTROLS_IF_ELSEIF_TITLE_ELSEIF);
-    this.setPreviousStatement(true);
-    this.setNextStatement(true);
-    this.setTooltip(Blockly.Msg.CONTROLS_IF_ELSEIF_TOOLTIP);
-    this.contextMenu = false;
-  }
-};
-
-Blockly.Blocks['controls_if_else'] = {
-  // Else condition.
-  init: function() {
-    this.setColour(20);
-    this.appendDummyInput()
-        .appendField(Blockly.Msg.CONTROLS_IF_ELSE_TITLE_ELSE);
-    this.setPreviousStatement(true);
-    this.setTooltip(Blockly.Msg.CONTROLS_IF_ELSE_TOOLTIP);
-    this.contextMenu = false;
-  }
-};
-
-Blockly.JavaScript['controls_if'] = function(block) {
+Blockly.JavaScript['controls_if_nomut'] = function(block) {
   // If/elseif/else condition.
   var n = 0;
   var argument = Blockly.JavaScript.valueToCode(block, 'IF' + n,
       Blockly.JavaScript.ORDER_NONE) || 'false';
   var branch = Blockly.JavaScript.statementToCode(block, 'DO' + n);
   var code = 'if (' + argument + ') {\n' + branch + '}';
-  for (n = 1; n <= block.elseifCount_; n++) {
-    argument = Blockly.JavaScript.valueToCode(block, 'IF' + n,
-        Blockly.JavaScript.ORDER_NONE) || 'false';
-    branch = Blockly.JavaScript.statementToCode(block, 'DO' + n);
-    code += ' else if (' + argument + ') {\n' + branch + '}';
-  }
+  return code + '\n';
+};
+
+Blockly.JavaScript['controls_if_else_nomut'] = function(block) {
+  // If/elseif/else condition.
+  var n = 0;
+  var argument = Blockly.JavaScript.valueToCode(block, 'IF' + n,
+      Blockly.JavaScript.ORDER_NONE) || 'false';
+  var branch = Blockly.JavaScript.statementToCode(block, 'DO' + n);
+  var code = 'if (' + argument + ') {\n' + branch + '}';
   if (block.elseCount_) {
     branch = Blockly.JavaScript.statementToCode(block, 'ELSE');
     code += ' else {\n' + branch + '}';
@@ -296,33 +5309,378 @@ Blockly.JavaScript['controls_if'] = function(block) {
   return code + '\n';
 };
 
-Blockly.JavaScript[ 'controls_sensor_tracks' ] = function( block ) {
-  
-  var dropdown_value = block.getFieldValue('MODE');
-  var retVal = false;
-  var rover = vwf_view.kernel.find( "", "//rover" )[ 0 ];
 
-  if ( dropdown_value === 'SCAN: NEGATIVE' ) {
-      return [ "!vwf.getProperty( '" + rover + "', 'tracksSensorValue' )", Blockly.JavaScript.ORDER_ATOMIC ];
-  } else {
-      return [ "vwf.getProperty( '" + rover + "', 'tracksSensorValue' )", Blockly.JavaScript.ORDER_ATOMIC ];
-  }
+Blockly.JavaScript[ 'controls_sensor_metal' ] = function( block ) {
   
+  var argument0 = Blockly.JavaScript.valueToCode(block, 'INPUT', Blockly.JavaScript.ORDER_ATOMIC) || '';
+
+  return [ "vwf.getProperty( '" + block.data + "', 'metalSensorValue' )" + argument0, Blockly.JavaScript.ORDER_ATOMIC ];
+
 };
 
-Blockly.Blocks[ 'controls_sensor_tracks' ] = {
+Blockly.Blocks[ 'controls_sensor_metal' ] = {
   init: function() {
     this.setColour( 30 );
-    this.appendDummyInput("INPUT")
-        .appendField(new Blockly.FieldDropdown([["scan: positive", "SCAN: POSITIVE"],["scan: negative", "SCAN: NEGATIVE"]]), "MODE");
+    this.appendValueInput('INPUT')
+        .appendField('Metal Detected', "VALUE")
+        //.appendField("?", "VALUE");
     this.setOutput( true, "Boolean" );
+    this.data = currentBlocklyNodeID;
+    //this.setEditable(false);
     var thisBlock = this;
     this.setTooltip( function() {
       var content = {
-        text: "Checks our scanner for man-made objects and other anomalies."
+        text: "Checks our scanner for man-made metal objects (such as other rovers, supply canisters, or spacecraft debris) in all 8 squares around the rover. It will be true if there is metal present, false if not."
       }
       return showTooltipInBlockly( thisBlock, content );
     } );
+  },
+  onchange: function() {
+    if (!this.workspace || this.data === undefined) {
+      // Block has been deleted.
+      currentBlocklyErrors[ this.id ] = false;
+      return;
+    }
+    // var metalValue = vwf.getProperty( this.data, "metalSensorValue" );
+    // this.setEditable(true);
+    // if ( metalValue === true ) {
+    //   this.setFieldValue( "Metal Detected",'VALUE' );
+    // } else {
+    //   this.setFieldValue( "Metal Not Detected",'VALUE' );
+    // }
+    // this.setEditable(false);
+  }
+};
+
+Blockly.JavaScript[ 'controls_sensor_collision' ] = function( block ) {
+  
+  var argument0 = Blockly.JavaScript.valueToCode(block, 'INPUT', Blockly.JavaScript.ORDER_ATOMIC) || '';
+
+  return [ "vwf.getProperty( '" + block.data + "', 'collisionSensorValue' )" + argument0, Blockly.JavaScript.ORDER_ATOMIC ];
+
+  
+};
+
+Blockly.Blocks[ 'controls_sensor_collision' ] = {
+  init: function() {
+    this.setColour( 30 );
+    this.appendValueInput('INPUT')
+        .appendField('Collision')
+        //.appendField("?", "VALUE");
+    this.setOutput( true, "Boolean" );
+    this.data = currentBlocklyNodeID;
+    //this.setEditable(false);
+    var thisBlock = this;
+    this.setTooltip( function() {
+      var content = {
+        text: "Checks our scanner to see if there is a collision immediately (one square) ahead."
+      }
+      return showTooltipInBlockly( thisBlock, content );
+    } );
+  },
+  onchange: function() {
+    if (!this.workspace || this.data === undefined) {
+      // Block has been deleted.
+      currentBlocklyErrors[ this.id ] = false;
+      return;
+    }
+    // var collisionValue = vwf.getProperty( this.data, "collisionSensorValue" );
+
+    // this.setEditable(true);
+    // if ( collisionValue === true ) {
+    //   this.setFieldValue( "(TRUE)",'VALUE' );
+    // } else {
+    //   this.setFieldValue( "(FALSE)",'VALUE' );
+    // }
+    // this.setEditable(false);
+  }
+};
+
+Blockly.JavaScript[ 'controls_sensor_signal' ] = function( block ) {
+
+  var argument0 = Blockly.JavaScript.valueToCode(block, 'INPUT', Blockly.JavaScript.ORDER_ATOMIC) || '';
+
+  return [ "vwf.getProperty( '" + block.data + "', 'signalSensorValue' )" + argument0, Blockly.JavaScript.ORDER_ATOMIC ];
+
+};
+
+Blockly.Blocks[ 'controls_sensor_signal' ] = {
+  init: function() {
+    this.setColour( 30 );
+    this.appendValueInput('INPUT')
+        .appendField('Signal')
+        //.appendField("?", "VALUE")
+        .setCheck(['OperatorAddSubtract','OperatorMultiplyDivide','LeftParenthesis','RightParenthesis','Conditional']);
+    this.setOutput(true, null);
+    this.data = currentBlocklyNodeID;
+    
+    var thisBlock = this;
+    this.setTooltip( function() {
+      var content = {
+        text: "Checks our scanner for base location in a 360° arc that starts on the X-axis. Returns a value between 0 and 360. Returns -1 if you are at the signal location."
+      }
+      return showTooltipInBlockly( thisBlock, content );
+    } );
+  },
+  onchange: function() {
+    if (!this.workspace || this.data === undefined) {
+      // Block has been deleted.
+      currentBlocklyErrors[ this.id ] = false;
+      return;
+    }
+    // this.setEditable(true);
+    // var signalValue = vwf.getProperty( this.data, "signalSensorValue" );
+    // this.setFieldValue( '(' + signalValue + '°)','VALUE' );
+    // this.setEditable(false);
+  }
+};
+
+Blockly.JavaScript[ 'controls_sensor_position' ] = function( block ) {
+
+  var input = Blockly.JavaScript.valueToCode(block, 'INPUT', Blockly.JavaScript.ORDER_ATOMIC) || '';
+
+  var inputCheck = input[0] + input[1];
+
+  if ( inputCheck === '.x') {
+    var code =  "vwf.getProperty( '" + block.data + "', 'positionSensorValueX' );" + input.slice( 2 );
+    return [ code, Blockly.JavaScript.ORDER_ATOMIC ];
+  } else if ( inputCheck === '.y') {
+    var code =  "vwf.getProperty( '" + block.data + "', 'positionSensorValueY' );" + input.slice( 2 );
+    return [ code, Blockly.JavaScript.ORDER_ATOMIC ];
+  } else {
+    var code = "vwf.getProperty( '" + block.data + "', 'positionSensorValue' )" + input;
+    return [ code, Blockly.JavaScript.ORDER_ATOMIC ];
+  }
+
+ // return [ "vwf.getProperty( '" + block.data + "', 'positionSensorValue' )", Blockly.JavaScript.ORDER_ATOMIC ];
+
+};
+
+Blockly.Blocks[ 'controls_sensor_position' ] = {
+  init: function() {
+    this.setColour( 30 );
+    this.appendValueInput('INPUT')
+        .appendField('Position')
+        //.appendField("(?,?)", "VALUE")
+        .setCheck(['OrderedGet']);
+        //.setCheck(['OperatorAddSubtract','OperatorMultiplyDivide','LeftParenthesis','RightParenthesis','Conditional']);
+    this.setOutput(true, null);
+    this.data = currentBlocklyNodeID;
+    
+    var thisBlock = this;
+    this.setTooltip( function() {
+      var content = {
+        text: "The [X,Y] value of the rover's current position."
+      }
+      return showTooltipInBlockly( thisBlock, content );
+    } );
+  }
+};
+
+Blockly.JavaScript[ 'controls_sensor_position_x' ] = function( block ) {
+
+  var input = Blockly.JavaScript.valueToCode(block, 'INPUT', Blockly.JavaScript.ORDER_ATOMIC) || '';
+  
+  var code = "vwf.getProperty( '" + block.data + "', 'positionSensorValueX' )" + input;
+  
+  return [ code, Blockly.JavaScript.ORDER_ATOMIC ];
+
+ // return [ "vwf.getProperty( '" + block.data + "', 'positionSensorValue' )", Blockly.JavaScript.ORDER_ATOMIC ];
+
+};
+
+Blockly.Blocks[ 'controls_sensor_position_x' ] = {
+  init: function() {
+    this.setColour( 30 );
+    this.appendValueInput('INPUT')
+        .appendField('Current X')
+        //.appendField("(?)", "VALUE")
+        .setCheck(['OperatorAddSubtract','OperatorMultiplyDivide','Conditional']);
+        //.setCheck(['OperatorAddSubtract','OperatorMultiplyDivide','LeftParenthesis','RightParenthesis','Conditional']);
+    this.setOutput(true, null);
+    this.data = currentBlocklyNodeID;
+    
+    var thisBlock = this;
+    this.setTooltip( function() {
+      var content = {
+        text: "The X value of the rover's current position."
+      }
+      return showTooltipInBlockly( thisBlock, content );
+    } );
+  }
+};
+
+Blockly.JavaScript[ 'controls_sensor_position_y' ] = function( block ) {
+
+  var input = Blockly.JavaScript.valueToCode(block, 'INPUT', Blockly.JavaScript.ORDER_ATOMIC) || '';
+
+  var code = "vwf.getProperty( '" + block.data + "', 'positionSensorValueY' )" + input;
+
+  return [ code, Blockly.JavaScript.ORDER_ATOMIC ];
+
+ // return [ "vwf.getProperty( '" + block.data + "', 'positionSensorValue' )", Blockly.JavaScript.ORDER_ATOMIC ];
+
+};
+
+Blockly.Blocks[ 'controls_sensor_position_y' ] = {
+  init: function() {
+    this.setColour( 30 );
+    this.appendValueInput('INPUT')
+        .appendField('Current Y')
+        //.appendField("(?)", "VALUE")
+        .setCheck(['OperatorAddSubtract','OperatorMultiplyDivide','Conditional']);
+        //.setCheck(['OperatorAddSubtract','OperatorMultiplyDivide','LeftParenthesis','RightParenthesis','Conditional']);
+    this.setOutput(true, null);
+    this.data = currentBlocklyNodeID;
+    
+    var thisBlock = this;
+    this.setTooltip( function() {
+      var content = {
+        text: "The Y value of the rover's current position."
+      }
+      return showTooltipInBlockly( thisBlock, content );
+    } );
+  }
+};
+
+Blockly.JavaScript[ 'controls_sensor_position_drop' ] = function( block ) {
+
+  var input = Blockly.JavaScript.valueToCode(block, 'INPUT', Blockly.JavaScript.ORDER_ATOMIC) || '';
+
+  var dropdown_name = block.getFieldValue('POS');
+  var value_name = Blockly.JavaScript.valueToCode(block, 'POS', Blockly.JavaScript.ORDER_ATOMIC);
+  
+  if ( dropdown_name === 'POSX' ) {
+    var code = "vwf.getProperty( '" + block.data + "', 'positionSensorValueX' )" + input;
+  } else {
+    var code = "vwf.getProperty( '" + block.data + "', 'positionSensorValueY' )" + input;
+  }
+  
+
+  return [ code, Blockly.JavaScript.ORDER_ATOMIC ];
+
+ // return [ "vwf.getProperty( '" + block.data + "', 'positionSensorValue' )", Blockly.JavaScript.ORDER_ATOMIC ];
+
+};
+
+Blockly.Blocks[ 'controls_sensor_position_drop' ] = {
+  init: function() {
+    this.setColour( 30 );
+    this.appendValueInput('INPUT')
+        .appendField('Current ')
+        .appendField(new Blockly.FieldDropdown([["X", "POSX"], ["Y", "POSY"]]), "POS")
+        //.appendField("(?)", "VALUE")
+        .setCheck(['OperatorAddSubtract','OperatorMultiplyDivide','Conditional']);
+        //.setCheck(['OperatorAddSubtract','OperatorMultiplyDivide','LeftParenthesis','RightParenthesis','Conditional']);
+    this.setOutput(true, null);
+    this.data = currentBlocklyNodeID;
+    
+    var thisBlock = this;
+    this.setTooltip( function() {
+      var content = {
+        text: "The X or Y value of the rover's current position."
+      }
+      return showTooltipInBlockly( thisBlock, content );
+    } );
+  }
+};
+
+Blockly.JavaScript[ 'controls_sensor_position_x_no_out' ] = function( block ) {
+
+  var code = "vwf.getProperty( '" + block.data + "', 'positionSensorValueX' )";
+  
+  return [ code, Blockly.JavaScript.ORDER_ATOMIC ];
+
+ // return [ "vwf.getProperty( '" + block.data + "', 'positionSensorValue' )", Blockly.JavaScript.ORDER_ATOMIC ];
+
+};
+
+Blockly.Blocks[ 'controls_sensor_position_x_no_out' ] = {
+  init: function() {
+    this.setColour( 30 );
+    this.appendDummyInput('INPUT')
+        .appendField('Current X')
+        //.appendField("(?)", "VALUE")
+        //.setCheck(['OperatorAddSubtract','OperatorMultiplyDivide','LeftParenthesis','RightParenthesis','Conditional']);
+    this.setOutput(true, null);
+    this.data = currentBlocklyNodeID;
+    
+    var thisBlock = this;
+    this.setTooltip( function() {
+      var content = {
+        text: "The X value of the rover's current position."
+      }
+      return showTooltipInBlockly( thisBlock, content );
+    } );
+  }
+};
+
+Blockly.JavaScript[ 'controls_sensor_position_y_no_out' ] = function( block ) {
+
+  var code = "vwf.getProperty( '" + block.data + "', 'positionSensorValueY' )";
+
+  return [ code, Blockly.JavaScript.ORDER_ATOMIC ];
+
+ // return [ "vwf.getProperty( '" + block.data + "', 'positionSensorValue' )", Blockly.JavaScript.ORDER_ATOMIC ];
+
+};
+
+Blockly.Blocks[ 'controls_sensor_position_y_no_out' ] = {
+  init: function() {
+    this.setColour( 30 );
+    this.appendDummyInput('INPUT')
+        .appendField('Current Y')
+        //.appendField("(?)", "VALUE")
+        //.setCheck(['OperatorAddSubtract','OperatorMultiplyDivide','LeftParenthesis','RightParenthesis','Conditional']);
+    this.setOutput(true, null);
+    this.data = currentBlocklyNodeID;
+    
+    var thisBlock = this;
+    this.setTooltip( function() {
+      var content = {
+        text: "The Y value of the rover's current position."
+      }
+      return showTooltipInBlockly( thisBlock, content );
+    } );
+  }
+};
+
+Blockly.JavaScript[ 'controls_sensor_heading' ] = function( block ) {
+
+  var argument0 = Blockly.JavaScript.valueToCode(block, 'INPUT', Blockly.JavaScript.ORDER_ATOMIC) || '';
+
+  return [ "vwf.getProperty( '" + block.data + "', 'headingSensorValue' )" + argument0, Blockly.JavaScript.ORDER_ATOMIC ];
+ 
+};
+
+Blockly.Blocks[ 'controls_sensor_heading' ] = {
+  init: function() {
+    this.setColour( 30 );
+    this.appendValueInput('INPUT')
+        .appendField('Heading')
+        //.appendField("?", "VALUE")
+        .setCheck(['OperatorAddSubtract','OperatorMultiplyDivide','LeftParenthesis','RightParenthesis','Conditional']);
+    this.setOutput(true, 'Number');
+    this.data = currentBlocklyNodeID;
+    //this.setEditable(false);
+    var thisBlock = this;
+    this.setTooltip( function() {
+      var content = {
+        text: "The direction that the rover is currently facing in degrees.  0° is in the positive x direction, 90° is in the positive y direction, 180° is in the negative x direction, and 270° is in the negative y direction."
+      }
+      return showTooltipInBlockly( thisBlock, content );
+    } );
+  },
+  onchange: function() {
+    if (!this.workspace || this.data === undefined) {
+      // Block has been deleted.
+      currentBlocklyErrors[ this.id ] = false;
+      return;
+    }
+    // this.setEditable(true);
+    // var headingValue = vwf.getProperty( this.data, "headingSensorValue" );
+    // this.setFieldValue( '(' + headingValue + '°)','VALUE' );
+    // this.setEditable(false);
   }
 };
 
@@ -338,12 +5696,12 @@ Blockly.Blocks['rover_moveForward'] = {
     this.setInputsInline(true);
     this.setPreviousStatement(true);
     this.setNextStatement(true);
-
+    this.data = currentBlocklyNodeID;
     var thisBlock = this;
     this.setTooltip( function() {
       var content = {
         text: "Moves the rover one space forward.",
-        imagePath: "assets/images/tooltips/move_forward.png"
+        imagePath: "assets/images/tooltips/move_forward_smaller.png"
       }
       return showTooltipInBlockly( thisBlock, content );
     } );
@@ -361,31 +5719,397 @@ Blockly.JavaScript['rover_moveForward'] = function( block ) {
   return constructBlockExeFuncCall( block, action );
 };
 
-Blockly.Blocks['rover_forward_ext'] = {
+Blockly.Blocks['rover_moveForward_no_out'] = {
+  // Block for moving forward.
   init: function() {
-    
-    //this.setHelpUrl('http://www.example.com/');
+    // we need a url to set this to
+    //this.setHelpUrl('http://code.google.com/p/blockly/wiki/Move');
     
     this.setColour(290);
     this.appendDummyInput()
-        .appendField("forward");
-    this.appendValueInput("UNITS")
-        .setCheck("Number")
-        .appendField("units");
-    this.appendValueInput("TIME")
-        .setCheck("Number")
-        .appendField("time");
+        .appendField( 'Forward' );
     this.setInputsInline(true);
     this.setPreviousStatement(true);
-    this.setNextStatement(true);
-    this.setTooltip('');
+    this.setNextStatement(false);
+    this.data = currentBlocklyNodeID;
+    var thisBlock = this;
+    this.setTooltip( function() {
+      var content = {
+        text: "Moves the rover one space forward.",
+        imagePath: "assets/images/tooltips/move_forward_smaller.png"
+      }
+      return showTooltipInBlockly( thisBlock, content );
+    } );
   }
 };
 
-Blockly.JavaScript['rover_forward_ext'] = function( block ) {
-  var value_units = Blockly.JavaScript.valueToCode(block, 'UNITS', Blockly.JavaScript.ORDER_ATOMIC) || '1';
-  var value_time = Blockly.JavaScript.valueToCode(block, 'TIME', Blockly.JavaScript.ORDER_ATOMIC) || '1';
-  return "vwf.callMethod( '"+Blockly.JavaScript.vwfID+"', 'moveForward', [ "+value_units+", "+value_time+" ] );\n";
+Blockly.JavaScript['rover_moveForward_no_out'] = function( block ) {
+  var dist = Blockly.JavaScript.valueToCode(block, 'DISTANCE', Blockly.JavaScript.ORDER_NONE) || '0';
+  var t = Blockly.JavaScript.valueToCode(block, 'TIME', Blockly.JavaScript.ORDER_NONE) || '1';
+  var action = {
+    nodeID: Blockly.JavaScript.vwfID,
+    methodName: 'moveForward',
+    args: []
+  };
+  return constructBlockExeFuncCall( block, action );
+};
+
+Blockly.Blocks['rover_moveRadial_ordered'] = {
+  init: function() {
+    this.setColour(20);
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("Move To:");
+    this.appendValueInput("THEOP");
+    this.setInputsInline(true);
+    this.setPreviousStatement(true,'Normal');
+    this.setNextStatement(true,'Normal');
+    this.data = currentBlocklyNodeID;
+    var thisBlock = this;
+    this.setTooltip( function(){
+      var content = {
+        text: "Moves to the coordinate specified by a connected ordered pair block."
+      }
+      return showTooltipInBlockly(thisBlock, content);
+    });
+  },
+  onchange: function() {
+    if (!this.workspace || this.data === undefined) {
+      // Block has been deleted.
+      currentBlocklyErrors[ this.id ] = false;
+      return;
+    }
+    
+    var inputBlock = this.getInputTargetBlock('THEOP');
+
+    if ( inputBlock === null ) {
+      this.setWarningText('You must attach a block \nto move to.');
+      currentBlocklyErrors[ this.id ] = true;
+    } else {
+      currentBlocklyErrors[ this.id ] = false;
+      this.setWarningText(null);
+    }
+  }
+};
+
+Blockly.JavaScript['rover_moveRadial_ordered'] = function(block) {
+  var value = Blockly.JavaScript.valueToCode(block, 'THEOP', Blockly.JavaScript.ORDER_ATOMIC) || 0;
+
+  console.log(value );
+  if ( !Array.isArray(value)) {
+   value = [ value ]; 
+  }
+  
+  console.log(value);
+  var value_x = value[ 0 ];
+  var value_y = value[ 1 ];
+
+  if ( isNaN( value_x ) || isNaN( value_y )) {
+    console.log('detecting nan');
+    if ( Array.isArray(value)) {
+      value = value[ 0 ];
+    }
+    var extractedVal = blocklyVariables[ value ];
+    console.log('extracted:'+extractedVal);
+    if ( extractedVal !== undefined ) {
+      if ( Array.isArray(extractedVal[ 0 ])) {
+        console.log('isArray');
+        value_x = extractedVal[ 0 ][0];
+        value_y = extractedVal[ 0 ][1];
+      } else {
+        value_x = extractedVal[0];
+        value_y = extractedVal[1];
+      }
+      
+    }
+  }
+
+  // How long should we take to execute this block?
+  // var exeTime = Math.round( Math.sqrt(value_x*value_x + value_y*value_y) );
+
+  var action = {
+    nodeID: block.data,
+    methodName: 'moveRadialAbsolute',
+    exeTime: 1,
+    args: [ value_x, value_y ]
+  };
+
+  return constructBlockExeFuncCall( block, action );
+
+};
+
+Blockly.Blocks['rover_moveRadial'] = {
+  init: function() {
+    this.setColour(20);
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("Move:");
+     this.appendDummyInput()
+         .setAlign(Blockly.ALIGN_CENTRE)
+         .appendField("Δx");
+    this.appendValueInput("x");
+     this.appendDummyInput()
+         .setAlign(Blockly.ALIGN_CENTRE)
+         .appendField("Δy");
+    this.appendValueInput("y");
+    this.setInputsInline(true);
+    this.setPreviousStatement(true,'Normal');
+    this.setNextStatement(true,'Normal');
+    this.data = currentBlocklyNodeID;
+    var thisBlock = this;
+    this.setTooltip( function(){
+      var content = {
+        text: "Moves the specified number of spaces along the X and Y axes."
+      }
+      return showTooltipInBlockly( thisBlock, content);
+    });
+  }
+};
+
+Blockly.JavaScript['rover_moveRadial'] = function(block) {
+  var value_x = Blockly.JavaScript.valueToCode(block, 'x', Blockly.JavaScript.ORDER_ATOMIC) || 0;
+  var value_y = Blockly.JavaScript.valueToCode(block, 'y', Blockly.JavaScript.ORDER_ATOMIC) || 0;
+
+  // How long should we take to execute this block?
+  var exeTime = Math.round( Math.sqrt(value_x*value_x + value_y*value_y) );
+
+  var action = {
+    nodeID: block.data,
+    methodName: 'moveRadial',
+    exeTime: exeTime,
+    args: [ value_x, value_y, true ]
+  };
+  return constructBlockExeFuncCall( block, action, 'moveRadial' );
+};
+
+Blockly.Blocks['rover_moveRadial_absolute'] = {
+  init: function() {
+    this.setColour(20);
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("Move To:");
+     this.appendDummyInput()
+         .setAlign(Blockly.ALIGN_CENTRE)
+         .appendField("");
+    this.appendValueInput("x");
+     this.appendDummyInput()
+         .setAlign(Blockly.ALIGN_CENTRE)
+         .appendField("");
+    this.appendValueInput("y");
+    this.setInputsInline(true);
+    this.setPreviousStatement(true,'Normal');
+    this.setNextStatement(true,'Normal');
+    this.data = currentBlocklyNodeID;
+    var thisBlock = this;
+    this.setTooltip( function(){
+      var content = {
+        text: "Moves to the specified coordinate."
+      }
+      return showTooltipInBlockly( thisBlock, content);
+    });
+  },
+  onchange: function() {
+    if (!this.workspace || this.data === undefined) {
+      // Block has been deleted.
+      currentBlocklyErrors[ this.id ] = false;
+      return;
+    }
+    
+    var inputXBlock = this.getInputTargetBlock('x');
+    var inputYBlock = this.getInputTargetBlock('y');
+
+    if ( inputXBlock === null || inputYBlock === null ) {
+      this.setWarningText('You must attach a set of \nblocks ( coordinates ) to move to.');
+      currentBlocklyErrors[ this.id ] = true;
+    } else {
+      currentBlocklyErrors[ this.id ] = false;
+      this.setWarningText(null);
+    }
+  }
+};
+
+Blockly.JavaScript['rover_moveRadial_absolute'] = function(block) {
+  var value_x = Blockly.JavaScript.valueToCode(block, 'x', Blockly.JavaScript.ORDER_ATOMIC) || 0;
+  var value_y = Blockly.JavaScript.valueToCode(block, 'y', Blockly.JavaScript.ORDER_ATOMIC) || 0;
+
+  var action = {
+    nodeID: block.data,
+    methodName: 'moveRadialAbsolute',
+    exeTime: 1,
+    args: [ value_x, value_y ]
+  };
+
+  return constructBlockExeFuncCall( block, action, 'moveRadial' );
+};
+
+Blockly.Blocks['init_nano_construction'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Start Construction");
+    this.setPreviousStatement(true,'Normal');
+    this.setNextStatement(true,'Normal');
+    this.setColour(180);
+    this.data = currentBlocklyNodeID;
+    var thisBlock = this;
+    this.setTooltip( function() {
+      var content = {
+        text: "Starts the Nanite construction."
+      }
+      return showTooltipInBlockly( thisBlock, content );
+    } );
+  }
+};
+
+Blockly.JavaScript['init_nano_construction'] = function(block) {
+
+  var code = "vwf.callMethod( '" + vwf_view.kernel.application() + 
+                  "', 'handleDrawingBlocks', " + " [ 'endSurvey', '" + block.id + "', '" + block.data + "', " + 1 + " ] );\n";
+
+  return code;
+};
+
+Blockly.Blocks['draw_triangle'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Draw Triangle");
+    this.appendValueInput("pointA")
+        .setCheck(null)
+        .appendField("Vertex #1");
+    this.appendValueInput("pointB")
+        .setCheck(null)
+        .appendField("Vertex #2");
+    this.appendValueInput("pointC")
+        .setCheck(null)
+        .appendField("Vertex #3");
+    this.setPreviousStatement(true);
+    this.setNextStatement(true);
+    this.setColour(315);
+    this.data = currentBlocklyNodeID;
+    var thisBlock = this;
+    this.setTooltip( function() {
+      var content = {
+        text: "A block that sprays nanites in a triangle on the ground in order to construct a portion of your base."
+      }
+      return showTooltipInBlockly( thisBlock, content );
+    } );
+  }
+};
+
+Blockly.JavaScript['draw_triangle'] = function(block) {
+  var op_a_str = Blockly.JavaScript.valueToCode(block, 'pointA', Blockly.JavaScript.ORDER_ATOMIC);
+  var op_b_str = Blockly.JavaScript.valueToCode(block, 'pointB', Blockly.JavaScript.ORDER_ATOMIC);
+  var op_c_str = Blockly.JavaScript.valueToCode(block, 'pointC', Blockly.JavaScript.ORDER_ATOMIC);
+  
+  var op_a = op_a_str.split(",");
+  var op_b = op_b_str.split(",");
+  var op_c = op_c_str.split(",");
+
+  if ( op_a.length < 2 || op_b.length < 2 || op_c.length < 2 ) {
+    return '';
+  }
+
+  var actionA = {
+    nodeID: block.data,
+    methodName: 'moveRadialAbsolute',
+    exeTime: 1,
+    args: [ op_a[ 0 ], op_a[ 1 ] ]
+  };
+
+  var moveA = constructBlockExeFuncCall( block, actionA, 'moveRadial' );
+
+  var actionB = {
+    nodeID: block.data,
+    methodName: 'moveRadialAbsolute',
+    exeTime: 1,
+    args: [ op_b[ 0 ], op_b[ 1 ] ]
+  };
+
+  var moveB = constructBlockExeFuncCall( block, actionB, 'moveRadial' );
+
+  var actionC = {
+    nodeID: block.data,
+    methodName: 'moveRadialAbsolute',
+    exeTime: 1,
+    args: [ op_c[ 0 ], op_c[ 1 ] ]
+  };
+
+  var moveC = constructBlockExeFuncCall( block, actionC, 'moveRadial' );
+
+  var start = "vwf.callMethod( '" + vwf_view.kernel.application() + 
+                  "', 'handleDrawingBlocks', " + " [ 'startTriangle', '" + block.id + "', '" + block.data + "', " + 1 + " ] );\n";
+  var end = "vwf.callMethod( '" + vwf_view.kernel.application() + 
+                  "', 'handleDrawingBlocks', " + " [ 'endTriangle', '" + block.id + "', '" + block.data + "', " + 1 + " ] );\n";
+  var mark = "vwf.callMethod( '" + vwf_view.kernel.application() + 
+                  "', 'handleDrawingBlocks', " + " [ 'markPoint', '" + block.id + "', '" + block.data + "', " + 1 + " ] );\n";
+
+  //moveA
+  //start
+  //moveB
+  //mark
+  //moveC
+  //mark
+  //moveA
+  //end
+
+  //var overallCode = moveA + start + mark + moveB + mark + moveC + mark + moveA + mark + end;
+  var overallCode = start + moveA + mark + moveB + mark + moveC + mark + moveA + mark + end;
+  //var overallCode = start + moveA + moveB + moveC + moveA + end;
+  
+  return overallCode;
+};
+
+Blockly.Blocks['rover_turn_no_out'] = {
+  // Block for turning left or right.
+  init: function() {
+    var DIRECTIONS =
+        [[ 'Turn: Left', 'Turn: Left' ],
+         [ 'Turn: Right', 'Turn: Right' ] ];
+    
+    // we need a url to set this to
+    //this.setHelpUrl('http://code.google.com/p/blockly/wiki/Turn');
+    
+    this.setColour(290);
+    this.appendDummyInput("Turn: ")
+        .appendField(new Blockly.FieldDropdown(DIRECTIONS), 'DIR');
+    this.setInputsInline(true);
+    this.setPreviousStatement(true);
+    this.setNextStatement(false);
+    this.data = currentBlocklyNodeID;
+    var thisBlock = this;
+    this.setTooltip( function() {
+      var content = {
+        text: "Turns the rover 90 degrees counter-clockwise (left) or clockwise (right).",
+        imagePath: "assets/images/tooltips/turn_smaller.png"
+      }
+      return showTooltipInBlockly( thisBlock, content );
+    } ); 
+  }
+};
+
+Blockly.JavaScript['rover_turn_no_out'] = function( block ) {
+  // Generate JavaScript for turning left or right.
+  var turnCommand;
+  var value = block.getFieldValue('DIR');
+  switch ( value ) {
+    case "Left":
+    case "Turn: Left":
+        turnCommand = "turnLeft";
+        break;
+    case "Right":
+    case "Turn: Right":
+        turnCommand = "turnRight";
+        break;
+    default:
+        console.log( "Error in Turn block!", value );
+  }
+  var angle = Blockly.JavaScript.valueToCode(block, 'ANGLE', Blockly.JavaScript.ORDER_NONE) || '0';
+  var t = Blockly.JavaScript.valueToCode(block, 'TIME', Blockly.JavaScript.ORDER_NONE) || '0';
+  var action = {
+    nodeID: Blockly.JavaScript.vwfID,
+    methodName: turnCommand,
+    args: []
+  };
+  return constructBlockExeFuncCall( block, action );
 };
 
 Blockly.Blocks['rover_turn'] = {
@@ -404,11 +6128,12 @@ Blockly.Blocks['rover_turn'] = {
     this.setInputsInline(true);
     this.setPreviousStatement(true);
     this.setNextStatement(true);
+    this.data = currentBlocklyNodeID;
     var thisBlock = this;
     this.setTooltip( function() {
       var content = {
         text: "Turns the rover 90 degrees counter-clockwise (left) or clockwise (right).",
-        imagePath: "assets/images/tooltips/turn.png"
+        imagePath: "assets/images/tooltips/turn_smaller.png"
       }
       return showTooltipInBlockly( thisBlock, content );
     } ); 
@@ -441,173 +6166,27 @@ Blockly.JavaScript['rover_turn'] = function( block ) {
   return constructBlockExeFuncCall( block, action );
 };
 
-Blockly.Blocks['rover_forever'] = {
-  // Block for forever loop.
-  init: function() {
-    
-    //this.setHelpUrl('http://code.google.com/p/blockly/wiki/Repeat');
-    
-    this.setColour(120);
-    this.appendDummyInput()
-        .appendField( 'repeat until' )
-        .appendField( new Blockly.FieldImage('source/blockly/media/marker.png', 12, 16) );
-    this.appendStatementInput('DO')
-        .appendField( 'do' );
-    this.setPreviousStatement(true);
-    var thisBlock = this;
-    this.setTooltip( function() {
-      var content = {
-        text: "Moves the rover until the next goal is reached."
-      }
-      return showTooltipInBlockly( thisBlock, content );
-    } );
-  }
-};
-
-Blockly.JavaScript['rover_forever'] = function( block ) {
-  // Generate JavaScript for forever loop.
-  var branch = Blockly.JavaScript.statementToCode(block, 'DO');
-  if (Blockly.JavaScript.INFINITE_LOOP_TRAP) {
-    branch = Blockly.JavaScript.INFINITE_LOOP_TRAP.replace(/%1/g,
-        '\'block_id_' + block.id + '\'') + branch;
-  }
-  return 'while (true) {\n' + branch + '}\n';
-};
-
-Blockly.Blocks[ 'controls_repeat_extended' ] = {
-  /**
-   * Block for repeat n times (external number).
-   * @this Blockly.Block
-   */
-  init: function() {
-    this.setHelpUrl( Blockly.Msg.CONTROLS_REPEAT_HELPURL );
-    this.setColour( 120 );
-    this.interpolateMsg( Blockly.Msg.CONTROLS_REPEAT_TITLE,
-                        ['TIMES', 'Number', Blockly.ALIGN_RIGHT ],
-                        Blockly.ALIGN_RIGHT );
-    this.appendStatementInput( 'DO' )
-        .appendField( Blockly.Msg.CONTROLS_REPEAT_INPUT_DO );
-    this.setPreviousStatement( true );
-    this.setNextStatement( true );
-    this.setInputsInline( true );
-    var thisBlock = this;
-    this.setTooltip( function() {
-      var content = {
-        text: "Repeats the contained blocks a certain number of times.",
-        imagePath: "assets/images/tooltips/while.png"
-      }
-      return showTooltipInBlockly( thisBlock, content );
-    } );    
-  }
-};
-
-Blockly.JavaScript[ 'controls_repeat_extended' ] = function( block ) {
-  // Repeat n times (external number).
-  var repeats = Blockly.JavaScript.valueToCode( block, 'TIMES',
-      Blockly.JavaScript.ORDER_ASSIGNMENT ) || '0';
-  var branch = Blockly.JavaScript.statementToCode( block, 'DO' );
-  var code = '';
-  var loopVar = Blockly.JavaScript.variableDB_.getDistinctName(
-      'count', Blockly.Variables.NAME_TYPE);
-  var endVar = repeats;
-  if ( !repeats.match(/^\w+$/) && !Blockly.isNumber( repeats ) ) {
-    var endVar = Blockly.JavaScript.variableDB_.getDistinctName(
-        'repeat_end', Blockly.Variables.NAME_TYPE );
-    code += 'var ' + endVar + ' = ' + repeats + ';\n';
-  }
-  code += 'for (var ' + loopVar + ' = 0; ' +
-      loopVar + ' < ' + endVar + '; ' +
-      loopVar + '++) {\n' +
-      branch + '}\n';
-  return constructBlockExeEventCall( block ) + code;
-};
-
-
-Blockly.Blocks[ 'math_number_drop' ] = {
-  init: function() {
-    //this.setHelpUrl('http://www.example.com/');
-    this.setColour(225);
-    this.appendDummyInput()
-        .appendField(new Blockly.FieldDropdown([["0", "0"],["1", "1"], ["2", "2"],
-         ["3", "3"], ["4", "4"], ["5", "5"], ["6", "6"], ["7", "7"],
-         ["8", "8"], ["9", "9"], ["10", "10"], ["11", "11"], ["12", "12"],
-         ["13", "13"], ["14", "14"], ["15","15"]]), "VALUE");
-    this.setOutput( true, "Number" );
-
-    var thisBlock = this;
-    this.setTooltip( function() {
-      var content = {
-        text: "A dropdown selector for number values."
-      }
-      return showTooltipInBlockly( thisBlock, content );
-    } );
-  }
-};
-
-Blockly.JavaScript[ 'math_number_drop' ] = function( block ) {
-  
-  var dropdown_value = block.getFieldValue('VALUE');
-
-  return [ dropdown_value , Blockly.JavaScript.ORDER_ATOMIC ];
-};
-
-Blockly.Blocks[ 'math_number_drop_output' ] = {
-  init: function() {
-    this.setHelpUrl('http://www.google.com/');
-    this.setColour( 225 );
-    this.appendValueInput( "INPUT" )
-        .appendField(new Blockly.FieldDropdown([["0", "0"],["1", "1"], ["2", "2"],
-         ["3", "3"], ["4", "4"], ["5", "5"], ["6", "6"], ["7", "7"],
-         ["8", "8"], ["9", "9"], ["10", "10"], ["11", "11"], ["12", "12"],
-         ["13", "13"], ["14", "14"], ["15","15"]]), "VALUE")
-        .setCheck(['OperatorAddSubtract','OperatorMultiplyDivide','Variable']);
-    this.setOutput( true, "Number" );
-    var thisBlock = this;
-    this.setTooltip( function() {
-      var content = {
-        text: "A dropdown selector for number values."
-      }
-      return showTooltipInBlockly( thisBlock, content );
-    } );
-  }
-};
-
-Blockly.JavaScript['math_number_drop_output' ] = function( block ) {
-  
-  var dropdown_value = block.getFieldValue('VALUE');
-  
-  var argument0 = Blockly.JavaScript.valueToCode(block, 'INPUT',
-      Blockly.JavaScript.ORDER_ATOMIC) || '';
-
-  if (argument0[0] === 'x'){
-    return [ dropdown_value + '*' + argument0, Blockly.JavaScript.ORDER_ATOMIC ];
-  } else {
-    return [ dropdown_value + argument0, Blockly.JavaScript.ORDER_ATOMIC ];
-  }
-};
-
-Blockly.Blocks[ 'math_number_output' ] = {
+Blockly.Blocks[ 'math_number_out_10' ] = {
   init: function() {
     this.setColour( 60 );
     this.appendValueInput( "INPUT" )
         .appendField(new Blockly.FieldDropdown([["10", "10"],["9", "9"],["8", "8"],
-         ["7", "7"],["6", "6"],["5", "5"],["4", "4"],["3", "3"],["2", "2"],
-         ["1", "1"],["0", "0"],["-1", "-1"], ["-2", "-2"], ["-3", "-3"], 
-         ["-4", "-4"], ["-5", "-5"], ["-6", "-6"], ["-7", "-7"], ["-8", "-8"], 
-         ["-9", "-9"], ["-10", "-10"]]), "VALUE")
-        .setCheck( [ 'OperatorAddSubtract','OperatorMultiplyDivide','Variable','LeftParenthesis','RightParenthesis' ] );
-    this.setOutput( true, "Number" );
+         ["7", "7"],["6", "6"],["5", "5"],["4", "4"],["3", "3"],["2", "2"],["1", "1"],["0", "0"]]), "VALUE")
+        .setCheck( [ 'OperatorAddSubtract','OperatorMultiplyDivide','Variable','LeftParenthesis','RightParenthesis','Conditional' ] );
+    this.setOutput( true, 'Number' );
+    this.data = currentBlocklyNodeID;
     var thisBlock = this;
     this.setTooltip( function() {
       var content = {
-        text: "A block for selecting number values 10 through -10."
+        text: "Specifies an integer value."
       }
       return showTooltipInBlockly( thisBlock, content );
     } );
+    
   }
 };
 
-Blockly.JavaScript['math_number_output' ] = function( block ) {
+Blockly.JavaScript['math_number_out_10' ] = function( block ) {
   
   var dropdown_value = block.getFieldValue('VALUE');
   
@@ -626,6 +6205,695 @@ Blockly.JavaScript['math_number_output' ] = function( block ) {
   }
 };
 
+Blockly.Blocks[ 'math_number_out' ] = {
+  init: function() {
+    this.setColour( 60 );
+    this.appendValueInput( "INPUT" )
+        .appendField(new Blockly.FieldDropdown([["20", "20"],["19", "19"],["18", "18"],["17", "17"],["16", "16"],
+         ["15", "15"],["14", "14"],["13", "13"],["12", "12"],["11", "11"],["10", "10"],["9", "9"],["8", "8"],
+         ["7", "7"],["6", "6"],["5", "5"],["4", "4"],["3", "3"],["2", "2"],["1", "1"],["0", "0"]]), "VALUE")
+        .setCheck( [ 'OperatorAddSubtract','OperatorMultiplyDivide','Variable','LeftParenthesis','RightParenthesis','Conditional' ] );
+    this.setOutput( true, 'Number' );
+    this.data = currentBlocklyNodeID;
+    var thisBlock = this;
+    this.setTooltip( function() {
+      var content = {
+        text: "Specifies an integer value."
+      }
+      return showTooltipInBlockly( thisBlock, content );
+    } );
+    
+  }
+};
+
+Blockly.JavaScript['math_number_out' ] = function( block ) {
+  
+  var dropdown_value = block.getFieldValue('VALUE');
+  
+  if ( isNaN( dropdown_value ) || dropdown_value === "" ){
+    dropdown_value = 0;
+    block.setFieldValue('0','VALUE');
+  }
+
+  var argument0 = Blockly.JavaScript.valueToCode(block, 'INPUT',
+      Blockly.JavaScript.ORDER_ATOMIC) || '';
+
+  if ( argument0[0] === 'x' || argument0[0] === '(' ){
+    return [ dropdown_value + '*' + argument0 , Blockly.JavaScript.ORDER_ATOMIC ];
+  } else {
+    return [ dropdown_value + argument0 , Blockly.JavaScript.ORDER_ATOMIC ];
+  }
+};
+
+Blockly.Blocks[ 'math_number_out_m4t3' ] = {
+  init: function() {
+    this.setColour( 60 );
+    this.appendValueInput( "INPUT" )
+        .appendField(new Blockly.FieldDropdown([["0","0"],["3","3"]]), "VALUE")
+        .setCheck( [ 'OperatorAddSubtract','OperatorMultiplyDivide','Variable','LeftParenthesis','RightParenthesis','Conditional' ] );
+    this.setOutput( true, 'Number' );
+    this.data = currentBlocklyNodeID;
+    var thisBlock = this;
+    this.setTooltip( function() {
+      var content = {
+        text: "A block representing an integer."
+      }
+      return showTooltipInBlockly( thisBlock, content );
+    } );
+    
+  }
+};
+
+Blockly.JavaScript['math_number_out_m4t3' ] = function( block ) {
+  
+  var dropdown_value = block.getFieldValue('VALUE');
+  
+  if ( isNaN( dropdown_value ) || dropdown_value === "" ){
+    dropdown_value = 0;
+    block.setFieldValue('0','VALUE');
+  }
+
+  var argument0 = Blockly.JavaScript.valueToCode(block, 'INPUT',
+      Blockly.JavaScript.ORDER_ATOMIC) || '';
+
+  if ( argument0[0] === 'x' || argument0[0] === '(' ){
+    return [ dropdown_value + '*' + argument0 , Blockly.JavaScript.ORDER_ATOMIC ];
+  } else {
+    return [ dropdown_value + argument0 , Blockly.JavaScript.ORDER_ATOMIC ];
+  }
+};
+
+Blockly.Blocks[ 'math_number_out_m4t5' ] = {
+  init: function() {
+    this.setColour( 60 );
+    this.appendValueInput( "INPUT" )
+        .appendField(new Blockly.FieldDropdown([["3","3"],["2", "2"],["1", "1"],["0","0"]]), "VALUE")
+        .setCheck( [ 'OperatorAddSubtract','OperatorMultiplyDivide','Variable','LeftParenthesis','RightParenthesis','Conditional' ] );
+    this.setOutput( true, 'Number' );
+    this.data = currentBlocklyNodeID;
+    var thisBlock = this;
+    this.setTooltip( function() {
+      var content = {
+        text: "A block representing an integer."
+      }
+      return showTooltipInBlockly( thisBlock, content );
+    } );
+    
+  }
+};
+
+Blockly.JavaScript['math_number_out_m4t5' ] = function( block ) {
+  
+  var dropdown_value = block.getFieldValue('VALUE');
+  
+  if ( isNaN( dropdown_value ) || dropdown_value === "" ){
+    dropdown_value = 0;
+    block.setFieldValue('0','VALUE');
+  }
+
+  var argument0 = Blockly.JavaScript.valueToCode(block, 'INPUT',
+      Blockly.JavaScript.ORDER_ATOMIC) || '';
+
+  if ( argument0[0] === 'x' || argument0[0] === '(' ){
+    return [ dropdown_value + '*' + argument0 , Blockly.JavaScript.ORDER_ATOMIC ];
+  } else {
+    return [ dropdown_value + argument0 , Blockly.JavaScript.ORDER_ATOMIC ];
+  }
+};
+
+Blockly.Blocks[ 'math_number_out_m4t7' ] = {
+  init: function() {
+    this.setColour( 60 );
+    this.appendValueInput( "INPUT" )
+        .appendField(new Blockly.FieldDropdown([["-8", "-8"]]), "VALUE")
+        .setCheck( [ 'OperatorAddSubtract','OperatorMultiplyDivide','Variable','LeftParenthesis','RightParenthesis','Conditional' ] );
+    this.setOutput( true, 'Number' );
+    this.data = currentBlocklyNodeID;
+    var thisBlock = this;
+    this.setTooltip( function() {
+      var content = {
+        text: "A block representing the integer -8."
+      }
+      return showTooltipInBlockly( thisBlock, content );
+    } );
+    
+  }
+};
+
+Blockly.JavaScript['math_number_out_m4t7' ] = function( block ) {
+  
+  var dropdown_value = block.getFieldValue('VALUE');
+  
+  if ( isNaN( dropdown_value ) || dropdown_value === "" ){
+    dropdown_value = 0;
+    block.setFieldValue('0','VALUE');
+  }
+
+  var argument0 = Blockly.JavaScript.valueToCode(block, 'INPUT',
+      Blockly.JavaScript.ORDER_ATOMIC) || '';
+
+  if ( argument0[0] === 'x' || argument0[0] === '(' ){
+    return [ dropdown_value + '*' + argument0 , Blockly.JavaScript.ORDER_ATOMIC ];
+  } else {
+    return [ dropdown_value + argument0 , Blockly.JavaScript.ORDER_ATOMIC ];
+  }
+};
+
+Blockly.Blocks[ 'math_number_out_m4t8' ] = {
+  init: function() {
+    this.setColour( 60 );
+    this.appendValueInput( "INPUT" )
+        .appendField(new Blockly.FieldDropdown([["8", "8"],["1","1"],["0","0"]]), "VALUE")
+        .setCheck( [ 'OperatorAddSubtract','OperatorMultiplyDivide','Variable','LeftParenthesis','RightParenthesis','Conditional' ] );
+    this.setOutput( true, 'Number' );
+    this.data = currentBlocklyNodeID;
+    var thisBlock = this;
+    this.setTooltip( function() {
+      var content = {
+        text: "A block representing an integer."
+      }
+      return showTooltipInBlockly( thisBlock, content );
+    } );
+    
+  }
+};
+
+Blockly.JavaScript['math_number_out_m4t8' ] = function( block ) {
+  
+  var dropdown_value = block.getFieldValue('VALUE');
+  
+  if ( isNaN( dropdown_value ) || dropdown_value === "" ){
+    dropdown_value = 0;
+    block.setFieldValue('0','VALUE');
+  }
+
+  var argument0 = Blockly.JavaScript.valueToCode(block, 'INPUT',
+      Blockly.JavaScript.ORDER_ATOMIC) || '';
+
+  if ( argument0[0] === 'x' || argument0[0] === '(' ){
+    return [ dropdown_value + '*' + argument0 , Blockly.JavaScript.ORDER_ATOMIC ];
+  } else {
+    return [ dropdown_value + argument0 , Blockly.JavaScript.ORDER_ATOMIC ];
+  }
+};
+
+Blockly.Blocks[ 'math_number_out_m4t9' ] = {
+  init: function() {
+    this.setColour( 60 );
+    this.appendValueInput( "INPUT" )
+        .appendField(new Blockly.FieldDropdown([["7", "7"],["3","3"],["1","1"],["0","0"]]), "VALUE")
+        .setCheck( [ 'OperatorAddSubtract','OperatorMultiplyDivide','Variable','LeftParenthesis','RightParenthesis','Conditional' ] );
+    this.setOutput( true, 'Number' );
+    this.data = currentBlocklyNodeID;
+    var thisBlock = this;
+    this.setTooltip( function() {
+      var content = {
+        text: "A block representing an integer."
+      }
+      return showTooltipInBlockly( thisBlock, content );
+    } );
+    
+  }
+};
+
+Blockly.JavaScript['math_number_out_m4t9' ] = function( block ) {
+  
+  var dropdown_value = block.getFieldValue('VALUE');
+  
+  if ( isNaN( dropdown_value ) || dropdown_value === "" ){
+    dropdown_value = 0;
+    block.setFieldValue('0','VALUE');
+  }
+
+  var argument0 = Blockly.JavaScript.valueToCode(block, 'INPUT',
+      Blockly.JavaScript.ORDER_ATOMIC) || '';
+
+  if ( argument0[0] === 'x' || argument0[0] === '(' ){
+    return [ dropdown_value + '*' + argument0 , Blockly.JavaScript.ORDER_ATOMIC ];
+  } else {
+    return [ dropdown_value + argument0 , Blockly.JavaScript.ORDER_ATOMIC ];
+  }
+};
+
+Blockly.Blocks[ 'math_number_out_m4t10' ] = {
+  init: function() {
+    this.setColour( 60 );
+    this.appendValueInput( "INPUT" )
+        .appendField(new Blockly.FieldDropdown([["9", "9"],["7", "7"],["3","3"],["2","2"],["1","1"],["0","0"]]), "VALUE")
+        .setCheck( [ 'OperatorAddSubtract','OperatorMultiplyDivide','Variable','LeftParenthesis','RightParenthesis','Conditional' ] );
+    this.setOutput( true, 'Number' );
+    this.data = currentBlocklyNodeID;
+    var thisBlock = this;
+    this.setTooltip( function() {
+      var content = {
+        text: "A block representing an integer."
+      }
+      return showTooltipInBlockly( thisBlock, content );
+    } );
+    
+  }
+};
+
+Blockly.JavaScript['math_number_out_m4t10' ] = function( block ) {
+  
+  var dropdown_value = block.getFieldValue('VALUE');
+  
+  if ( isNaN( dropdown_value ) || dropdown_value === "" ){
+    dropdown_value = 0;
+    block.setFieldValue('0','VALUE');
+  }
+
+  var argument0 = Blockly.JavaScript.valueToCode(block, 'INPUT',
+      Blockly.JavaScript.ORDER_ATOMIC) || '';
+
+  if ( argument0[0] === 'x' || argument0[0] === '(' ){
+    return [ dropdown_value + '*' + argument0 , Blockly.JavaScript.ORDER_ATOMIC ];
+  } else {
+    return [ dropdown_value + argument0 , Blockly.JavaScript.ORDER_ATOMIC ];
+  }
+};
+
+Blockly.Blocks[ 'math_number_out_m4t14' ] = {
+  init: function() {
+    this.setColour( 60 );
+    this.appendValueInput( "INPUT" )
+        .appendField(new Blockly.FieldDropdown([["15", "15"],["14", "14"],["13", "13"],["12", "12"],["11", "11"],["10", "10"],["9", "9"],["8", "8"],
+         ["7", "7"],["6", "6"],["5", "5"],["4", "4"],["3", "3"],["2", "2"],
+         ["1", "1"],["0", "0"],["-1", "-1"], ["-2", "-2"], ["-3", "-3"], 
+         ["-4", "-4"], ["-5", "-5"], ["-6", "-6"], ["-7", "-7"], ["-8", "-8"], 
+         ["-9", "-9"], ["-10", "-10"], ["-11", "-11"], ["-12", "-12"], ["-13", "-13"], ["-14", "-14"], ["-15", "-15"], ["-19", "-19"], ["-21", "-21"]]), "VALUE")
+        .setCheck( [ 'OperatorAddSubtract','OperatorMultiplyDivide','Variable','LeftParenthesis','RightParenthesis','Conditional' ] );
+    this.setOutput( true, 'Number' );
+    this.data = currentBlocklyNodeID;
+    var thisBlock = this;
+    this.setTooltip( function() {
+      var content = {
+        text: "A block for selecting number values 10 through -10."
+      }
+      return showTooltipInBlockly( thisBlock, content );
+    } );
+    
+  }
+};
+
+Blockly.JavaScript['math_number_out_m4t14' ] = function( block ) {
+  
+  var dropdown_value = block.getFieldValue('VALUE');
+  
+  if ( isNaN( dropdown_value ) || dropdown_value === "" ){
+    dropdown_value = 0;
+    block.setFieldValue('0','VALUE');
+  }
+
+  var argument0 = Blockly.JavaScript.valueToCode(block, 'INPUT',
+      Blockly.JavaScript.ORDER_ATOMIC) || '';
+
+  if ( argument0[0] === 'x' || argument0[0] === '(' ){
+    return [ dropdown_value + '*' + argument0 , Blockly.JavaScript.ORDER_ATOMIC ];
+  } else {
+    return [ dropdown_value + argument0 , Blockly.JavaScript.ORDER_ATOMIC ];
+  }
+};
+
+Blockly.Blocks[ 'math_number_out_seven_limited' ] = {
+  init: function() {
+    this.setColour( 60 );
+    this.appendValueInput( "INPUT" )
+        .appendField(new Blockly.FieldDropdown([["7", "7"]]), "VALUE")
+        .setCheck( [ 'OperatorAddSubtract','OperatorMultiplyDivide','Variable','LeftParenthesis','RightParenthesis','Conditional' ] );
+    this.setOutput( true, 'Number' );
+    this.data = currentBlocklyNodeID;
+    var thisBlock = this;
+    this.setTooltip( function() {
+      var content = {
+        text: "A block representing the integer 7."
+      }
+      return showTooltipInBlockly( thisBlock, content );
+    } );
+    
+  }
+};
+
+Blockly.JavaScript['math_number_out_seven_limited' ] = function( block ) {
+  
+  var dropdown_value = block.getFieldValue('VALUE');
+  
+  if ( isNaN( dropdown_value ) || dropdown_value === "" ){
+    dropdown_value = 0;
+    block.setFieldValue('0','VALUE');
+  }
+
+  var argument0 = Blockly.JavaScript.valueToCode(block, 'INPUT',
+      Blockly.JavaScript.ORDER_ATOMIC) || '';
+
+  if ( argument0[0] === 'x' || argument0[0] === '(' ){
+    return [ dropdown_value + '*' + argument0 , Blockly.JavaScript.ORDER_ATOMIC ];
+  } else {
+    return [ dropdown_value + argument0 , Blockly.JavaScript.ORDER_ATOMIC ];
+  }
+};
+
+Blockly.Blocks[ 'math_number_out_two_limited' ] = {
+  init: function() {
+    this.setColour( 60 );
+    this.appendValueInput( "INPUT" )
+        .appendField(new Blockly.FieldDropdown([["2", "2"]]), "VALUE")
+        .setCheck( [ 'OperatorAddSubtract','OperatorMultiplyDivide','Variable','LeftParenthesis','RightParenthesis','Conditional' ] );
+    this.setOutput( true, 'Number' );
+    this.data = currentBlocklyNodeID;
+    var thisBlock = this;
+    this.setTooltip( function() {
+      var content = {
+        text: "A block representing the integer 2."
+      }
+      return showTooltipInBlockly( thisBlock, content );
+    } );
+    
+  }
+};
+
+Blockly.JavaScript['math_number_out_two_limited' ] = function( block ) {
+  
+  var dropdown_value = block.getFieldValue('VALUE');
+  
+  if ( isNaN( dropdown_value ) || dropdown_value === "" ){
+    dropdown_value = 0;
+    block.setFieldValue('0','VALUE');
+  }
+
+  var argument0 = Blockly.JavaScript.valueToCode(block, 'INPUT',
+      Blockly.JavaScript.ORDER_ATOMIC) || '';
+
+  if ( argument0[0] === 'x' || argument0[0] === '(' ){
+    return [ dropdown_value + '*' + argument0 , Blockly.JavaScript.ORDER_ATOMIC ];
+  } else {
+    return [ dropdown_value + argument0 , Blockly.JavaScript.ORDER_ATOMIC ];
+  }
+};
+
+Blockly.Blocks[ 'math_number_out_one_limited' ] = {
+  init: function() {
+    this.setColour( 60 );
+    this.appendValueInput( "INPUT" )
+        .appendField(new Blockly.FieldDropdown([["1", "1"]]), "VALUE")
+        .setCheck( [ 'OperatorAddSubtract','OperatorMultiplyDivide','Variable','LeftParenthesis','RightParenthesis','Conditional' ] );
+    this.setOutput( true, 'Number' );
+    this.data = currentBlocklyNodeID;
+    var thisBlock = this;
+    this.setTooltip( function() {
+      var content = {
+        text: "A block representing the integer -1."
+      }
+      return showTooltipInBlockly( thisBlock, content );
+    } );
+    
+  }
+};
+
+Blockly.JavaScript['math_number_out_one_limited' ] = function( block ) {
+  
+  var dropdown_value = block.getFieldValue('VALUE');
+  
+  if ( isNaN( dropdown_value ) || dropdown_value === "" ){
+    dropdown_value = 0;
+    block.setFieldValue('0','VALUE');
+  }
+
+  var argument0 = Blockly.JavaScript.valueToCode(block, 'INPUT',
+      Blockly.JavaScript.ORDER_ATOMIC) || '';
+
+  if ( argument0[0] === 'x' || argument0[0] === '(' ){
+    return [ dropdown_value + '*' + argument0 , Blockly.JavaScript.ORDER_ATOMIC ];
+  } else {
+    return [ dropdown_value + argument0 , Blockly.JavaScript.ORDER_ATOMIC ];
+  }
+};
+
+Blockly.Blocks['math_number_field'] = {
+  init: function() {
+    this.setColour( 105 );
+    this.appendValueInput("INPUT")
+        .setCheck( [ 'OperatorAddSubtract','OperatorMultiplyDivide','Variable','LeftParenthesis','RightParenthesis','Conditional' ] )
+        .appendField(new Blockly.FieldTextInput("1"), "VALUE");
+    this.setOutput( true, 'Number' );
+    this.data = currentBlocklyNodeID;
+    var thisBlock = this;
+    this.setTooltip( function() {
+      var content = {
+        text: "Specifies an integer value."
+      }
+      return showTooltipInBlockly( thisBlock, content );
+    } );
+  },
+
+  /**
+   * Fires when the workspace changes or Blockly.mainWorkspace.fireChangeEvent() is called
+   */
+  onchange: function() {
+    if (!this.workspace || this.data === undefined) {
+      // Block has been deleted.
+      currentBlocklyErrors[ this.id ] = false;
+      return;
+    }
+
+  var text_value = this.getFieldValue('VALUE');
+
+  if ( isNaN( text_value ) || text_value === "" ){
+    text_value = 0;
+    this.setFieldValue( '0','VALUE' );
+  } else {
+      if ( text_value % 1 !== 0 ){
+        this.setFieldValue( '0','VALUE' );
+        this.setWarningText( 'Decimals not allowed.' );
+      }
+      else if ( text_value > 999 || text_value < -999){
+        this.setFieldValue( '0' ,'VALUE' );
+        this.setWarningText( 'Must be between -999 and 999.' );
+      } else {
+        this.setWarningText( null );
+        this.setFieldValue( text_value ,'VALUE' );
+      }
+   }
+  }
+};
+
+Blockly.JavaScript['math_number_field'] = function( block ) {
+  var value_input = Blockly.JavaScript.valueToCode(block, 'INPUT', Blockly.JavaScript.ORDER_ATOMIC);
+  var text_value = block.getFieldValue('VALUE');
+
+  if ( isNaN( text_value ) || text_value === "" ){
+    text_value = 0;
+    block.setFieldValue( '0','VALUE' );
+  } else {
+    if ( text_value % 1 !== 0 ){
+      block.setFieldValue( '0','VALUE' );
+      block.setWarningText( 'Decimals not allowed.' );
+    }
+    else if ( text_value > 999 || text_value < -999){
+      block.setFieldValue( '0' ,'VALUE' );
+      block.setWarningText( 'Must be between -999 and 999.' );
+    } else {
+      block.setWarningText( null );
+      block.setFieldValue( text_value ,'VALUE' );
+    }
+  }
+
+  var argument0 = Blockly.JavaScript.valueToCode(block, 'INPUT',
+      Blockly.JavaScript.ORDER_ATOMIC) || '';
+
+  if ( argument0[0] === 'x' || argument0[0] === '(' ){
+    return [ text_value + '*' + argument0 , Blockly.JavaScript.ORDER_ATOMIC ];
+  } else {
+    return [ text_value + argument0 , Blockly.JavaScript.ORDER_ATOMIC ];
+  }
+
+};
+
+Blockly.Blocks['math_number_field_no_out'] = {
+  init: function() {
+    this.setColour( 105 );
+    this.appendDummyInput("INPUT")
+        .appendField(new Blockly.FieldTextInput("1"), "VALUE");
+    this.setOutput( true, 'Number' );
+    this.data = currentBlocklyNodeID;
+    var thisBlock = this;
+    this.setTooltip( function() {
+      var content = {
+        text: "Specifies an integer value."
+      }
+      return showTooltipInBlockly( thisBlock, content );
+    } );
+  },
+
+  /**
+   * Fires when the workspace changes or Blockly.mainWorkspace.fireChangeEvent() is called
+   */
+  onchange: function() {
+    if (!this.workspace || this.data === undefined) {
+      // Block has been deleted.
+      currentBlocklyErrors[ this.id ] = false;
+      return;
+    }
+
+  var text_value = this.getFieldValue('VALUE');
+
+  if ( isNaN( text_value ) || text_value === "" ){
+    text_value = 0;
+    this.setFieldValue( '0','VALUE' );
+  } else {
+      if ( text_value % 1 !== 0 ){
+        this.setFieldValue( '0','VALUE' );
+        this.setWarningText( 'Decimals not allowed.' );
+      }
+      else if ( text_value > 999 || text_value < -999){
+        this.setFieldValue( '0' ,'VALUE' );
+        this.setWarningText( 'Must be between -999 and 999.' );
+      } else {
+        this.setWarningText( null );
+        this.setFieldValue( text_value ,'VALUE' );
+      }
+   }
+  }
+};
+
+Blockly.JavaScript['math_number_field_no_out'] = function( block ) {
+  var text_value = block.getFieldValue('VALUE');
+
+  if ( isNaN( text_value ) || text_value === "" ){
+    text_value = 0;
+    block.setFieldValue( '0','VALUE' );
+  } else {
+    if ( text_value % 1 !== 0 ){
+      block.setFieldValue( '0','VALUE' );
+      block.setWarningText( 'Decimals not allowed.' );
+    }
+    else if ( text_value > 999 || text_value < -999){
+      block.setFieldValue( '0' ,'VALUE' );
+      block.setWarningText( 'Must be between -999 and 999.' );
+    } else {
+      block.setWarningText( null );
+      block.setFieldValue( text_value ,'VALUE' );
+    }
+  }
+
+  return [ text_value, Blockly.JavaScript.ORDER_ATOMIC ];
+
+};
+
+Blockly.Blocks['math_number_angle_select'] = {
+  init: function() {
+    this.setColour(120);
+    this.appendValueInput("INPUT")
+        .setCheck(['Number','Variable','Conditional','LeftParenthesis','OperatorAddSubtract','OperatorMultiplyDivide'])
+        .appendField("")
+        .appendField(new Blockly.FieldAngle("90"), "VALUE");
+    this.setOutput(true, "Number");
+    var thisBlock = this;
+    this.setTooltip( function() {
+      var content = {
+        text: "Specifies a heading or number of degrees."
+      }
+      return showTooltipInBlockly( thisBlock, content );
+    } ); 
+    //this.setTooltip( function() {
+    //  var content = {
+    //    text: "This is a number block that lets you select a number and preview angle directions."
+    //  }
+    //  return showTooltipInBlockly( thisBlock, content );
+    //});  
+  }
+};
+
+
+Blockly.JavaScript['math_number_angle_select'] = function(block) {
+  var argument0 = Blockly.JavaScript.valueToCode(block, 'INPUT', Blockly.JavaScript.ORDER_ATOMIC);
+  var angle_value = block.getFieldValue('VALUE');
+  // TODO: Assemble JavaScript into code variable.
+
+  if ( argument0[0] === 'x' || argument0[0] === '(' ){
+    return [ angle_value + '*' + argument0 , Blockly.JavaScript.ORDER_ATOMIC ];
+  } else {
+    return [ angle_value + argument0 , Blockly.JavaScript.ORDER_ATOMIC ];
+  }
+};
+
+Blockly.Blocks['math_number_angle_select_no_out'] = {
+  init: function() {
+    this.setColour(120);
+    this.appendDummyInput("NAME")
+        .appendField(new Blockly.FieldAngle("90"), "VALUE");
+    this.setOutput(true, "Number");
+    var thisBlock = this;
+    this.setTooltip( function() {
+      var content = {
+        text: "Specifies a heading or number of degrees."
+      }
+      return showTooltipInBlockly( thisBlock, content );
+    } ); 
+    //this.setTooltip( function() {
+    //  var content = {
+    //    text: "This is a number block that lets you select a number and preview angle directions."
+    //  }
+    //  return showTooltipInBlockly( thisBlock, content );
+    //});  
+  }
+};
+
+
+Blockly.JavaScript['math_number_angle_select_no_out'] = function(block) {
+  var argument0 = Blockly.JavaScript.valueToCode(block, 'INPUT', Blockly.JavaScript.ORDER_ATOMIC);
+  var angle_value = block.getFieldValue('VALUE');
+  // TODO: Assemble JavaScript into code variable.
+
+  if ( argument0[0] === 'x' || argument0[0] === '(' ){
+    return [ angle_value + '*' + argument0 , Blockly.JavaScript.ORDER_ATOMIC ];
+  } else {
+    return [ angle_value + argument0 , Blockly.JavaScript.ORDER_ATOMIC ];
+  }
+};
+
+
+Blockly.Blocks[ 'math_number_frozen' ] = {
+  /**
+   * Code for basic frozen number block.
+   * @this Blockly.Block
+   */
+  init: function() {
+    this.setColour(0);
+    this.appendValueInput('INPUT')
+        .appendField('0', "VALUE")
+        .setCheck(['Number','Variable','LeftParenthesis','OperatorAddSubtract','OperatorMultiplyDivide']);
+    this.setOutput(true, 'Number');
+    this.data = currentBlocklyNodeID;
+    var thisBlock = this;
+    this.setTooltip( function() {
+      var content = {
+        text: "This is an unchangeable number block."
+      }
+      return showTooltipInBlockly( thisBlock, content );
+    } ); 
+  }
+};
+
+
+Blockly.JavaScript[ 'math_number_frozen' ] = function( block ) {
+  /**
+   * Code for basic frozen number block.
+   * @this Blockly.Block
+   */
+
+  var num = block.getFieldValue('VALUE');
+
+  var argument0 = Blockly.JavaScript.valueToCode(block, 'INPUT', Blockly.JavaScript.ORDER_ATOMIC) || '';
+
+  if ( argument0[0] === 'x' || argument0[0] === '(' ){
+    return [ num + '*' + argument0 , Blockly.JavaScript.ORDER_ATOMIC ];
+  } else {
+    return [ num + argument0 , Blockly.JavaScript.ORDER_ATOMIC ];
+  }
+  
+};
+
 Blockly.Blocks[ 'graph_get_x' ] = {
   // x variable getter.
   init: function() {
@@ -638,6 +6906,7 @@ Blockly.Blocks[ 'graph_get_x' ] = {
         .setCheck( ['OperatorAddSubtract','OperatorMultiplyDivide','LeftParenthesis','RightParenthesis'] );
     this.setOutput( true, 'Variable' );
     var thisBlock = this;
+    this.data = currentBlocklyNodeID;
     this.setTooltip( function() {
       var content = {
         text: "This is the X variable, also known as the independent variable."
@@ -672,19 +6941,36 @@ Blockly.Blocks[ 'graph_add' ] = {
   init: function() {
     this.setColour(120);
     this.appendValueInput('INPUT')
-        .appendField(new Blockly.FieldDropdown([["+", "+"], ["-", "-"]]), "VALUE")
+        .appendField('+')
 
         .setCheck(['Number','Variable','LeftParenthesis']);
 
     this.setOutput(true, 'OperatorAddSubtract');
-
+    this.data = currentBlocklyNodeID;
     var thisBlock = this;
     this.setTooltip( function() {
       var content = {
-        text: "This is the arithmetic operator for adding two values."
+        text: "Adds the two numbers attached to it."
       }
       return showTooltipInBlockly( thisBlock, content );
     } );
+  },
+  onchange: function() {
+    if (!this.workspace || this.data === undefined) {
+      // Block has been deleted.
+      currentBlocklyErrors[ this.id ] = false;
+      return;
+    }
+    
+    var inputBlock = this.getInputTargetBlock('INPUT');
+
+    if ( inputBlock === null ) {
+      this.setWarningText('You must attach a block \nto add.');
+      currentBlocklyErrors[ this.id ] = true;
+    } else {
+      currentBlocklyErrors[ this.id ] = false;
+      this.setWarningText(null);
+    }
   }
 };
 
@@ -696,11 +6982,7 @@ Blockly.JavaScript[ 'graph_add' ] = function( block ) {
   var argument0 = Blockly.JavaScript.valueToCode(block, 'INPUT',
       Blockly.JavaScript.ORDER_ATOMIC) || '0';
 
-  if ( block.getFieldValue('VALUE') === '-' && argument0[0] === '-' ){
-    return [ "+" + argument0.slice( 1 ), Blockly.JavaScript.ORDER_ATOMIC ];
-  } else {
-    return [ block.getFieldValue('VALUE') + argument0 , Blockly.JavaScript.ORDER_ATOMIC ];
-  }
+  return [ '+' + argument0 , Blockly.JavaScript.ORDER_ATOMIC ];
 
 };
 
@@ -712,16 +6994,34 @@ Blockly.Blocks['graph_subtract'] = {
   init: function() {
     this.setColour(120);
     this.appendValueInput('INPUT')
-        .appendField(new Blockly.FieldDropdown([["-", "-"], ["+", "+"]]), "VALUE")
+        .appendField('–')
         .setCheck(['Number','Variable','LeftParenthesis']);
     this.setOutput(true, 'OperatorAddSubtract');
+    this.data = currentBlocklyNodeID;
     var thisBlock = this;
     this.setTooltip( function() {
       var content = {
-        text: "This is the arithmetic operator for subtracting two values."
+        text: "Subtracts the two numbers attached to it."
       }
       return showTooltipInBlockly( thisBlock, content );
     } ); 
+  },
+  onchange: function() {
+    if (!this.workspace || this.data === undefined) {
+      // Block has been deleted.
+      currentBlocklyErrors[ this.id ] = false;
+      return;
+    }
+    
+    var inputBlock = this.getInputTargetBlock('INPUT');
+
+    if ( inputBlock === null ) {
+      this.setWarningText('You must attach a block \nto subtract.');
+      currentBlocklyErrors[ this.id ] = true;
+    } else {
+      currentBlocklyErrors[ this.id ] = false;
+      this.setWarningText(null);
+    }
   }
 };
 
@@ -733,10 +7033,10 @@ Blockly.JavaScript['graph_subtract'] = function( block ) {
   var argument0 = Blockly.JavaScript.valueToCode(block, 'INPUT',
       Blockly.JavaScript.ORDER_ATOMIC) || '0';
 
-  if ( block.getFieldValue('VALUE') === '-' && argument0[0] === '-' ){
+  if ( argument0[0] === '-' ){
     return [ "+" + argument0.slice( 1 ), Blockly.JavaScript.ORDER_ATOMIC ];
   } else {
-    return [ block.getFieldValue('VALUE') + argument0 , Blockly.JavaScript.ORDER_ATOMIC ];
+    return [ '-' + argument0 , Blockly.JavaScript.ORDER_ATOMIC ];
   }
 
 };
@@ -750,16 +7050,34 @@ Blockly.Blocks[ 'graph_multiply' ] = {
   init: function() {
     this.setColour(120);
     this.appendValueInput('INPUT')
-        .appendField(new Blockly.FieldDropdown([["×", "*"],["/", "/"]]), "VALUE")
+        .appendField('·')
         .setCheck(['Number','Variable','LeftParenthesis','OperatorAddSubtract']);
     this.setOutput(true, 'OperatorMultiplyDivide');
+    this.data = currentBlocklyNodeID;
     var thisBlock = this;
     this.setTooltip( function() {
       var content = {
-        text: "This is the arithmetic operator for multiplying two values."
+        text: "Multiplies the two numbers attached to it."
       }
       return showTooltipInBlockly( thisBlock, content );
     } ); 
+  },
+  onchange: function() {
+    if (!this.workspace || this.data === undefined) {
+      // Block has been deleted.
+      currentBlocklyErrors[ this.id ] = false;
+      return;
+    }
+    
+    var inputBlock = this.getInputTargetBlock('INPUT');
+
+    if ( inputBlock === null ) {
+      this.setWarningText('You must attach a block \nto multiply.');
+      currentBlocklyErrors[ this.id ] = true;
+    } else {
+      currentBlocklyErrors[ this.id ] = false;
+      this.setWarningText(null);
+    }
   }
 };
 
@@ -773,9 +7091,9 @@ Blockly.JavaScript[ 'graph_multiply' ] = function( block ) {
   var argument0 = Blockly.JavaScript.valueToCode(block, 'INPUT',
       Blockly.JavaScript.ORDER_ATOMIC) || '0';
   if ( argument0[0] === '+' ){
-    return [block.getFieldValue('VALUE') + argument0.substring(1), Blockly.JavaScript.ORDER_ATOMIC];
+    return ['*' + argument0.substring(1), Blockly.JavaScript.ORDER_ATOMIC];
   } else {
-    return [block.getFieldValue('VALUE') + argument0, Blockly.JavaScript.ORDER_ATOMIC];
+    return ['*' + argument0, Blockly.JavaScript.ORDER_ATOMIC];
   }
 };
 
@@ -788,16 +7106,34 @@ Blockly.Blocks[ 'graph_divide' ] = {
   init: function() {
     this.setColour(120);
     this.appendValueInput('INPUT')
-        .appendField(new Blockly.FieldDropdown([["/", "/"],["×", "*"]]), "VALUE")
+        .appendField('/')
         .setCheck(['Number','Variable','LeftParenthesis','OperatorAddSubtract']);
     this.setOutput(true, 'OperatorMultiplyDivide');
+    this.data = currentBlocklyNodeID;
     var thisBlock = this;
     this.setTooltip( function() {
       var content = {
-        text: "This is the arithmetic operator for dividing two values."
+        text: "Divides the two numbers attached to it."
       }
       return showTooltipInBlockly( thisBlock, content );
     } ); 
+  },
+  onchange: function() {
+    if (!this.workspace || this.data === undefined) {
+      // Block has been deleted.
+      currentBlocklyErrors[ this.id ] = false;
+      return;
+    }
+    
+    var inputBlock = this.getInputTargetBlock('INPUT');
+
+    if ( inputBlock === null ) {
+      this.setWarningText('You must attach a block \nto divide by.');
+      currentBlocklyErrors[ this.id ] = true;
+    } else {
+      currentBlocklyErrors[ this.id ] = false;
+      this.setWarningText(null);
+    }
   }
 };
 
@@ -810,9 +7146,9 @@ Blockly.JavaScript['graph_divide'] = function( block ) {
   var argument0 = Blockly.JavaScript.valueToCode(block, 'INPUT',
       Blockly.JavaScript.ORDER_ATOMIC) || '0';
   if ( argument0[0] === '+' ){
-    return [block.getFieldValue('VALUE') + argument0.substring(1), Blockly.JavaScript.ORDER_ATOMIC];
+    return ['/' + argument0.substring(1), Blockly.JavaScript.ORDER_ATOMIC];
   } else {
-    return [block.getFieldValue('VALUE') + argument0, Blockly.JavaScript.ORDER_ATOMIC];
+    return ['/' + argument0, Blockly.JavaScript.ORDER_ATOMIC];
   }
 };
 
@@ -825,8 +7161,9 @@ Blockly.Blocks['graph_left_paren'] = {
     this.setColour(280);
     this.appendValueInput('INPUT')
         .appendField('(')
-        .setCheck(['Number','Variable','OperatorAddSubtract','RightParenthesis']);
-    this.setOutput(true, 'LeftParenthesis');
+        .setCheck(['Number','Boolean','Variable','ANDOR','OperatorAddSubtract','RightParenthesis']);
+    this.setOutput(true, null);
+    this.data = currentBlocklyNodeID;
     var thisBlock = this;
     this.setTooltip( function() {
       var content = {
@@ -834,6 +7171,23 @@ Blockly.Blocks['graph_left_paren'] = {
       }
       return showTooltipInBlockly( thisBlock, content );
     } ); 
+  },
+  onchange: function() {
+    if (!this.workspace || this.data === undefined) {
+      // Block has been deleted.
+      currentBlocklyErrors[ this.id ] = false;
+      return;
+    }
+    
+    var inputBlock = this.getInputTargetBlock('INPUT');
+
+    if ( inputBlock === null ) {
+      this.setWarningText('You cannot end a statement with \nan open parenthesis.');
+      currentBlocklyErrors[ this.id ] = true;
+    } else {
+      currentBlocklyErrors[ this.id ] = false;
+      this.setWarningText(null);
+    }
   }
 };
 
@@ -863,6 +7217,7 @@ Blockly.Blocks['graph_right_paren'] = {
     this.appendValueInput('INPUT')
         .appendField(')');
     this.setOutput(true, 'RightParenthesis');
+    this.data = currentBlocklyNodeID;
     var thisBlock = this;
     this.setTooltip( function() {
       var content = {
@@ -899,6 +7254,7 @@ Blockly.Blocks['graph_set_y'] = {
     this.appendValueInput('INPUT')
         .appendField('y=')
         .setCheck(['Number','Variable','OperatorAddSubtract','LeftParenthesis']);
+    this.data = currentBlocklyNodeID;
     var thisBlock = this;
     this.setTooltip( function() {
       var content = {
@@ -906,6 +7262,23 @@ Blockly.Blocks['graph_set_y'] = {
       }
       return showTooltipInBlockly( thisBlock, content );
     } ); 
+  },
+  onchange: function() {
+    if (!this.workspace || this.data === undefined) {
+      // Block has been deleted.
+      currentBlocklyErrors[ this.id ] = false;
+      return;
+    }
+    
+    var inputBlock = this.getInputTargetBlock('INPUT');
+
+    if ( inputBlock === null ) {
+      this.setWarningText('You must specify your equation by \nattaching blocks to this block!');
+      currentBlocklyErrors[ this.id ] = true;
+    } else {
+      currentBlocklyErrors[ this.id ] = false;
+      this.setWarningText(null);
+    }
   }
 };
 
@@ -921,20 +7294,1222 @@ Blockly.JavaScript[ 'graph_set_y' ] = function( block ) {
   }
 };
 
+Blockly.Blocks['comment_block_test_program'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("This test program will confirm that your Navigate");
+    this.appendDummyInput()
+        .appendField("procedure works properly. Changes should be made");
+    this.appendDummyInput()
+        .appendField("to the procedure (below), not to this test program.");
+    this.setNextStatement(true);
+    this.setColour(210);
+    this.setTooltip('');
+    this.setHelpUrl('http://www.example.com/');
+  }
+};
+
+Blockly.JavaScript['comment_block_test_program'] = function(block) {
+  // TODO: Assemble JavaScript into code variable.
+  //https://blockly-demo.appspot.com/static/demos/blockfactory/index.html#vv4b9p
+  var code = '';
+  return code;
+};
+
+Blockly.Blocks['comment_block_procedure_definition'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("This Navigate procedure should move you to");
+    this.appendDummyInput()
+        .appendField("the position with the specified X and Y");
+    this.appendDummyInput()
+        .appendField("coordinates.");
+    this.setNextStatement(true);
+    this.setColour(210);
+    this.setTooltip('');
+    this.setHelpUrl('http://www.example.com/');
+  }
+};
+
+Blockly.JavaScript['comment_block_procedure_definition'] = function(block) {
+  // TODO: Assemble JavaScript into code variable.
+  //https://blockly-demo.appspot.com/static/demos/blockfactory/index.html#vv4b9p
+  var code = '';
+  return code;
+};
+
+Blockly.Blocks['comment_block_free_text'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField('Comment: ')
+        .appendField(new Blockly.FieldTextInput(''), "COMMENT");
+    this.setNextStatement(true);
+    this.setPreviousStatement(true);
+    this.setColour(210);
+    this.setTooltip('');
+    this.data = currentBlocklyNodeID;
+  }
+};
+
+Blockly.JavaScript['comment_block_free_text'] = function(block) {
+  // TODO: Assemble JavaScript into code variable.
+  //https://blockly-demo.appspot.com/static/demos/blockfactory/index.html#vv4b9p
+  var code = '';
+  return code;
+};
+
+Blockly.Blocks['comment_block_free_text_no_in'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField('Comment: ')
+        .appendField(new Blockly.FieldTextInput(''), "COMMENT");
+    this.setPreviousStatement(false);
+    this.setNextStatement(true);
+    this.setColour(210);
+    this.setTooltip('');
+    this.data = currentBlocklyNodeID;
+  }
+};
+
+Blockly.JavaScript['comment_block_free_text_no_in'] = function(block) {
+  // TODO: Assemble JavaScript into code variable.
+  //https://blockly-demo.appspot.com/static/demos/blockfactory/index.html#vv4b9p
+  var code = '';
+  return code;
+};
+
 function constructBlockExeEventCall( block ) {
+
   var eventCall = "vwf.fireEvent( '" + vwf_view.kernel.application() + 
-                  "', 'blockExecuted', " + " [ '" + block + "', " + block.id + " ] );\n";
+                  "', 'blockExecuted', " + " [ '" + block + "', '" + block.id + "', '" + block.data + "', " + 1 + " ] );\n";
   return eventCall;  
 }
 
-function constructBlockExeFuncCall( block, action ) {
-  var blockCode = " { 'blockName': '" + block + "', 'id': " + block.id + "}";
+function constructBlockExeFuncCall( block, action, name ) {
+
+  if ( name !== undefined ) {
+    var blockCode = " { 'blockName': 'moveRadial', 'id': '" + block.id + "', 'node': '" + block.data + "', ";
+  } else {
+    var blockCode = " { 'blockName': '" + block + "', 'id': '" + block.id + "', 'node': '" + block.data + "', ";
+  }
+  blockCode += ( action.exeTime ) ? "'exeTime': " + action.exeTime + "}" : "'exeTime': 1 }";
   var actionCode = "{ 'nodeID': '" + action.nodeID + "', 'methodName': '" + action.methodName + "', ";
-  actionCode += ( action.args.length > 0 ) ? "'args': " + action.args + " } ] );\n" : "'args': [] }";
+  actionCode += ( action.args.length > 0 ) ? "'args': [" + action.args + "]}" : "'args': [] }";
   var returnCode = "vwf.callMethod( '" + vwf_view.kernel.application() + "', 'executeBlock', [ " + blockCode + "," +
-                    actionCode + "] );\n";  
-  return returnCode; 
+                    actionCode + "] );\n"; 
+
+  return returnCode;
 }
 
+Blockly.Blocks['procedures_callnoreturn_no_out_no_in'] = {
+  /**
+   * Block for calling a procedure with no return value.
+   * @this Blockly.Block
+   */
+  init: function() {
+    this.setHelpUrl(Blockly.Msg.PROCEDURES_CALLNORETURN_HELPURL);
+    this.setColour(Blockly.Blocks.procedures.HUE);
+    this.appendDummyInput('TOPROW')
+        .appendField(Blockly.Msg.PROCEDURES_CALLNORETURN_CALL)
+        .appendField('', 'NAME');
+    this.setPreviousStatement(false);
+    this.setNextStatement(false);
+    // Tooltip is set in domToMutation.
+    this.arguments_ = [];
+    this.quarkConnections_ = {};
+    this.quarkArguments_ = null;
+    this.data = currentBlocklyNodeID;
+  },
+  /**
+   * Returns the name of the procedure this block calls.
+   * @return {string} Procedure name.
+   * @this Blockly.Block
+   */
+  getProcedureCall: function() {
+    // The NAME field is guaranteed to exist, null will never be returned.
+    return /** @type {string} */ (this.getFieldValue('NAME'));
+  },
+  /**
+   * Notification that a procedure is renaming.
+   * If the name matches this block's procedure, rename it.
+   * @param {string} oldName Previous name of procedure.
+   * @param {string} newName Renamed procedure.
+   * @this Blockly.Block
+   */
+  renameProcedure: function(oldName, newName) {
+    if (Blockly.Names.equals(oldName, this.getProcedureCall())) {
+      this.setFieldValue(newName, 'NAME');
+    }
+  },
+  /**
+   * Notification that the procedure's parameters have changed.
+   * @param {!Array.<string>} paramNames New param names, e.g. ['x', 'y', 'z'].
+   * @param {!Array.<string>} paramIds IDs of params (consistent for each
+   *     parameter through the life of a mutator, regardless of param renaming),
+   *     e.g. ['piua', 'f8b_', 'oi.o'].
+   * @this Blockly.Block
+   */
+  setProcedureParameters: function(paramNames, paramIds) {
+    // Data structures:
+    // this.arguments = ['x', 'y']
+    //     Existing param names.
+    // this.quarkConnections_ {piua: null, f8b_: Blockly.Connection}
+    //     Look-up of paramIds to connections plugged into the call block.
+    // this.quarkArguments_ = ['piua', 'f8b_']
+    //     Existing param IDs.
+    // Note that quarkConnections_ may include IDs that no longer exist, but
+    // which might reappear if a param is reattached in the mutator.
+    if (!paramIds) {
+      // Reset the quarks (a mutator is about to open).
+      this.quarkConnections_ = {};
+      this.quarkArguments_ = null;
+      return;
+    }
+    if (goog.array.equals(this.arguments_, paramNames)) {
+      // No change.
+      this.quarkArguments_ = paramIds;
+      return;
+    }
+    this.setCollapsed(false);
+    if (paramIds.length != paramNames.length) {
+      throw 'Error: paramNames and paramIds must be the same length.';
+    }
+    if (!this.quarkArguments_) {
+      // Initialize tracking for this block.
+      this.quarkConnections_ = {};
+      if (paramNames.join('\n') == this.arguments_.join('\n')) {
+        // No change to the parameters, allow quarkConnections_ to be
+        // populated with the existing connections.
+        this.quarkArguments_ = paramIds;
+      } else {
+        this.quarkArguments_ = [];
+      }
+    }
+    // Switch off rendering while the block is rebuilt.
+    var savedRendered = this.rendered;
+    this.rendered = false;
+    // Update the quarkConnections_ with existing connections.
+    for (var i = this.arguments_.length - 1; i >= 0; i--) {
+      var input = this.getInput('ARG' + i);
+      if (input) {
+        var connection = input.connection.targetConnection;
+        this.quarkConnections_[this.quarkArguments_[i]] = connection;
+        // Disconnect all argument blocks and remove all inputs.
+        this.removeInput('ARG' + i);
+      }
+    }
+    // Rebuild the block's arguments.
+    this.arguments_ = [].concat(paramNames);
+    this.quarkArguments_ = paramIds;
+    for (var i = 0; i < this.arguments_.length; i++) {
+      var input = this.appendValueInput('ARG' + i)
+          .setAlign(Blockly.ALIGN_RIGHT)
+          .appendField(this.arguments_[i]);
+      if (this.quarkArguments_) {
+        // Reconnect any child blocks.
+        var quarkName = this.quarkArguments_[i];
+        if (quarkName in this.quarkConnections_) {
+          var connection = this.quarkConnections_[quarkName];
+          if (!connection || connection.targetConnection ||
+              connection.sourceBlock_.workspace != this.workspace) {
+            // Block no longer exists or has been attached elsewhere.
+            delete this.quarkConnections_[quarkName];
+          } else {
+            input.connection.connect(connection);
+          }
+        }
+      }
+      input.init();
+    }
+    // Add 'with:' if there are parameters.
+    var input = this.getInput('TOPROW');
+    if (input) {
+      if (this.arguments_.length) {
+        if (!this.getField_('WITH')) {
+          input.appendField(Blockly.Msg.PROCEDURES_CALL_BEFORE_PARAMS, 'WITH');
+          input.init();
+        }
+      } else {
+        if (this.getField_('WITH')) {
+          input.removeField('WITH');
+        }
+      }
+    }
+    // Restore rendering and show the changes.
+    this.rendered = savedRendered;
+    if (this.rendered) {
+      this.render();
+    }
+  },
+  /**
+   * Create XML to represent the (non-editable) name and arguments.
+   * @return {Element} XML storage element.
+   * @this Blockly.Block
+   */
+  mutationToDom: function() {
+    var container = document.createElement('mutation');
+    container.setAttribute('name', this.getProcedureCall());
+    for (var i = 0; i < this.arguments_.length; i++) {
+      var parameter = document.createElement('arg');
+      parameter.setAttribute('name', this.arguments_[i]);
+      container.appendChild(parameter);
+    }
+    return container;
+  },
+  /**
+   * Parse XML to restore the (non-editable) name and parameters.
+   * @param {!Element} xmlElement XML storage element.
+   * @this Blockly.Block
+   */
+  domToMutation: function(xmlElement) {
+    var name = xmlElement.getAttribute('name');
+    this.setFieldValue(name, 'NAME');
+    // Assign 'this' to a variable for use in the tooltip closure below.
+    var thisBlock = this;
+    this.setTooltip( function() {
+      var content = {
+        text: "Runs the user-defined function '%1'".replace('%1', name)
+      }
+      return showTooltipInBlockly( thisBlock, content );
+    } );
+    var def = Blockly.Procedures.getDefinition(name, this.workspace);
+    if (def && def.mutator && def.mutator.isVisible()) {
+      // Initialize caller with the mutator's IDs.
+      this.setProcedureParameters(def.arguments_, def.paramIds_);
+    } else {
+      var args = [];
+      for (var i = 0, childNode; childNode = xmlElement.childNodes[i]; i++) {
+        if (childNode.nodeName.toLowerCase() == 'arg') {
+          args.push(childNode.getAttribute('name'));
+        }
+      }
+      // For the second argument (paramIds) use the arguments list as a dummy
+      // list.
+      this.setProcedureParameters(args, args);
+    }
+  },
+  /**
+   * Notification that a variable is renaming.
+   * If the name matches one of this block's variables, rename it.
+   * @param {string} oldName Previous name of variable.
+   * @param {string} newName Renamed variable.
+   * @this Blockly.Block
+   */
+  renameVar: function(oldName, newName) {
+    for (var i = 0; i < this.arguments_.length; i++) {
+      if (Blockly.Names.equals(oldName, this.arguments_[i])) {
+        this.arguments_[i] = newName;
+        this.getInput('ARG' + i).fieldRow[0].setText(newName);
+      }
+    }
+  },
+  /**
+   * Add menu option to find the definition block for this call.
+   * @param {!Array} options List of menu options to add to.
+   * @this Blockly.Block
+   */
+  customContextMenu: function(options) {
+    var option = {enabled: true};
+    option.text = Blockly.Msg.PROCEDURES_HIGHLIGHT_DEF;
+    var name = this.getProcedureCall();
+    var workspace = this.workspace;
+    option.callback = function() {
+      var def = Blockly.Procedures.getDefinition(name, workspace);
+      def && def.select();
+    };
+    options.push(option);
+  }
+};
+
+Blockly.JavaScript['procedures_callnoreturn_no_out_no_in'] = function(block) {
+  // Call a procedure with no return value.
+  var funcName = Blockly.JavaScript.variableDB_.getName(
+      block.getFieldValue('NAME'), Blockly.Procedures.NAME_TYPE);
+  var args = [];
+  for (var x = 0; x < block.arguments_.length; x++) {
+    args[x] = Blockly.JavaScript.valueToCode(block, 'ARG' + x,
+        Blockly.JavaScript.ORDER_COMMA) || 'null';
+  }
+  var code = funcName + '(' + args.join(', ') + ');\n';
+  return code;
+};
+
+Blockly.Blocks['procedures_callnoreturn_no_out'] = {
+  /**
+   * Block for calling a procedure with no return value.
+   * @this Blockly.Block
+   */
+  init: function() {
+    this.setHelpUrl(Blockly.Msg.PROCEDURES_CALLNORETURN_HELPURL);
+    this.setColour(Blockly.Blocks.procedures.HUE);
+    this.appendDummyInput('TOPROW')
+        .appendField(Blockly.Msg.PROCEDURES_CALLNORETURN_CALL)
+        .appendField('', 'NAME');
+    this.setPreviousStatement(true);
+    this.setNextStatement(false);
+    // Tooltip is set in domToMutation.
+    this.arguments_ = [];
+    this.quarkConnections_ = {};
+    this.quarkArguments_ = null;
+    this.data = currentBlocklyNodeID;
+  },
+  /**
+   * Returns the name of the procedure this block calls.
+   * @return {string} Procedure name.
+   * @this Blockly.Block
+   */
+  getProcedureCall: function() {
+    // The NAME field is guaranteed to exist, null will never be returned.
+    return /** @type {string} */ (this.getFieldValue('NAME'));
+  },
+  /**
+   * Notification that a procedure is renaming.
+   * If the name matches this block's procedure, rename it.
+   * @param {string} oldName Previous name of procedure.
+   * @param {string} newName Renamed procedure.
+   * @this Blockly.Block
+   */
+  renameProcedure: function(oldName, newName) {
+    if (Blockly.Names.equals(oldName, this.getProcedureCall())) {
+      this.setFieldValue(newName, 'NAME');
+    }
+  },
+  /**
+   * Notification that the procedure's parameters have changed.
+   * @param {!Array.<string>} paramNames New param names, e.g. ['x', 'y', 'z'].
+   * @param {!Array.<string>} paramIds IDs of params (consistent for each
+   *     parameter through the life of a mutator, regardless of param renaming),
+   *     e.g. ['piua', 'f8b_', 'oi.o'].
+   * @this Blockly.Block
+   */
+  setProcedureParameters: function(paramNames, paramIds) {
+    // Data structures:
+    // this.arguments = ['x', 'y']
+    //     Existing param names.
+    // this.quarkConnections_ {piua: null, f8b_: Blockly.Connection}
+    //     Look-up of paramIds to connections plugged into the call block.
+    // this.quarkArguments_ = ['piua', 'f8b_']
+    //     Existing param IDs.
+    // Note that quarkConnections_ may include IDs that no longer exist, but
+    // which might reappear if a param is reattached in the mutator.
+    if (!paramIds) {
+      // Reset the quarks (a mutator is about to open).
+      this.quarkConnections_ = {};
+      this.quarkArguments_ = null;
+      return;
+    }
+    if (goog.array.equals(this.arguments_, paramNames)) {
+      // No change.
+      this.quarkArguments_ = paramIds;
+      return;
+    }
+    this.setCollapsed(false);
+    if (paramIds.length != paramNames.length) {
+      throw 'Error: paramNames and paramIds must be the same length.';
+    }
+    if (!this.quarkArguments_) {
+      // Initialize tracking for this block.
+      this.quarkConnections_ = {};
+      if (paramNames.join('\n') == this.arguments_.join('\n')) {
+        // No change to the parameters, allow quarkConnections_ to be
+        // populated with the existing connections.
+        this.quarkArguments_ = paramIds;
+      } else {
+        this.quarkArguments_ = [];
+      }
+    }
+    // Switch off rendering while the block is rebuilt.
+    var savedRendered = this.rendered;
+    this.rendered = false;
+    // Update the quarkConnections_ with existing connections.
+    for (var i = this.arguments_.length - 1; i >= 0; i--) {
+      var input = this.getInput('ARG' + i);
+      if (input) {
+        var connection = input.connection.targetConnection;
+        this.quarkConnections_[this.quarkArguments_[i]] = connection;
+        // Disconnect all argument blocks and remove all inputs.
+        this.removeInput('ARG' + i);
+      }
+    }
+    // Rebuild the block's arguments.
+    this.arguments_ = [].concat(paramNames);
+    this.quarkArguments_ = paramIds;
+    for (var i = 0; i < this.arguments_.length; i++) {
+      var input = this.appendValueInput('ARG' + i)
+          .setAlign(Blockly.ALIGN_RIGHT)
+          .appendField(this.arguments_[i]);
+      if (this.quarkArguments_) {
+        // Reconnect any child blocks.
+        var quarkName = this.quarkArguments_[i];
+        if (quarkName in this.quarkConnections_) {
+          var connection = this.quarkConnections_[quarkName];
+          if (!connection || connection.targetConnection ||
+              connection.sourceBlock_.workspace != this.workspace) {
+            // Block no longer exists or has been attached elsewhere.
+            delete this.quarkConnections_[quarkName];
+          } else {
+            input.connection.connect(connection);
+          }
+        }
+      }
+      input.init();
+    }
+    // Add 'with:' if there are parameters.
+    var input = this.getInput('TOPROW');
+    if (input) {
+      if (this.arguments_.length) {
+        if (!this.getField_('WITH')) {
+          input.appendField(Blockly.Msg.PROCEDURES_CALL_BEFORE_PARAMS, 'WITH');
+          input.init();
+        }
+      } else {
+        if (this.getField_('WITH')) {
+          input.removeField('WITH');
+        }
+      }
+    }
+    // Restore rendering and show the changes.
+    this.rendered = savedRendered;
+    if (this.rendered) {
+      this.render();
+    }
+  },
+  /**
+   * Create XML to represent the (non-editable) name and arguments.
+   * @return {Element} XML storage element.
+   * @this Blockly.Block
+   */
+  mutationToDom: function() {
+    var container = document.createElement('mutation');
+    container.setAttribute('name', this.getProcedureCall());
+    for (var i = 0; i < this.arguments_.length; i++) {
+      var parameter = document.createElement('arg');
+      parameter.setAttribute('name', this.arguments_[i]);
+      container.appendChild(parameter);
+    }
+    return container;
+  },
+  /**
+   * Parse XML to restore the (non-editable) name and parameters.
+   * @param {!Element} xmlElement XML storage element.
+   * @this Blockly.Block
+   */
+  domToMutation: function(xmlElement) {
+    var name = xmlElement.getAttribute('name');
+    this.setFieldValue(name, 'NAME');
+    // Assign 'this' to a variable for use in the tooltip closure below.
+    var thisBlock = this;
+    this.setTooltip( function() {
+      var content = {
+        text: "Runs the user-defined function '%1'".replace('%1', name)
+      }
+      return showTooltipInBlockly( thisBlock, content );
+    } );
+    var def = Blockly.Procedures.getDefinition(name, this.workspace);
+    if (def && def.mutator && def.mutator.isVisible()) {
+      // Initialize caller with the mutator's IDs.
+      this.setProcedureParameters(def.arguments_, def.paramIds_);
+    } else {
+      var args = [];
+      for (var i = 0, childNode; childNode = xmlElement.childNodes[i]; i++) {
+        if (childNode.nodeName.toLowerCase() == 'arg') {
+          args.push(childNode.getAttribute('name'));
+        }
+      }
+      // For the second argument (paramIds) use the arguments list as a dummy
+      // list.
+      this.setProcedureParameters(args, args);
+    }
+  },
+  /**
+   * Notification that a variable is renaming.
+   * If the name matches one of this block's variables, rename it.
+   * @param {string} oldName Previous name of variable.
+   * @param {string} newName Renamed variable.
+   * @this Blockly.Block
+   */
+  renameVar: function(oldName, newName) {
+    for (var i = 0; i < this.arguments_.length; i++) {
+      if (Blockly.Names.equals(oldName, this.arguments_[i])) {
+        this.arguments_[i] = newName;
+        this.getInput('ARG' + i).fieldRow[0].setText(newName);
+      }
+    }
+  },
+  /**
+   * Add menu option to find the definition block for this call.
+   * @param {!Array} options List of menu options to add to.
+   * @this Blockly.Block
+   */
+  customContextMenu: function(options) {
+    var option = {enabled: true};
+    option.text = Blockly.Msg.PROCEDURES_HIGHLIGHT_DEF;
+    var name = this.getProcedureCall();
+    var workspace = this.workspace;
+    option.callback = function() {
+      var def = Blockly.Procedures.getDefinition(name, workspace);
+      def && def.select();
+    };
+    options.push(option);
+  }
+};
+
+Blockly.JavaScript['procedures_callnoreturn_no_out'] = function(block) {
+  // Call a procedure with no return value.
+  var funcName = Blockly.JavaScript.variableDB_.getName(
+      block.getFieldValue('NAME'), Blockly.Procedures.NAME_TYPE);
+  var args = [];
+  for (var x = 0; x < block.arguments_.length; x++) {
+    args[x] = Blockly.JavaScript.valueToCode(block, 'ARG' + x,
+        Blockly.JavaScript.ORDER_COMMA) || 'null';
+  }
+  var code = funcName + '(' + args.join(', ') + ');\n';
+  return code;
+};
+
+Blockly.Blocks['procedures_defnoreturn'] = {
+  /**
+   * Block for defining a procedure with no return value.
+   * @this Blockly.Block
+   */
+  init: function() {
+    this.setHelpUrl(Blockly.Msg.PROCEDURES_DEFNORETURN_HELPURL);
+    this.setColour(290);
+    var name = Blockly.Procedures.findLegalName(
+        Blockly.Msg.PROCEDURES_DEFNORETURN_PROCEDURE, this);
+    var nameField = new Blockly.FieldTextInput(name,
+        Blockly.Procedures.rename);
+    nameField.setSpellcheck(false);
+    this.appendDummyInput()
+        .appendField(Blockly.Msg.PROCEDURES_DEFNORETURN_TITLE)
+        .appendField(nameField, 'NAME')
+        .appendField('', 'PARAMS');
+    this.setMutator(new Blockly.Mutator(['procedures_mutatorarg']));
+    this.data = currentBlocklyNodeID;
+    // Assign 'this' to a variable for use in the tooltip closure below.
+    var thisBlock = this;
+    this.setTooltip( function() {
+      var content = {
+        text: "Defines a function with no output."
+      }
+      return showTooltipInBlockly( thisBlock, content );
+    } );
+    this.arguments_ = [];
+    this.setStatements_(true);
+    this.statementConnection_ = null;
+  },
+  /**
+   * Add or remove the statement block from this function definition.
+   * @param {boolean} hasStatements True if a statement block is needed.
+   * @this Blockly.Block
+   */
+  setStatements_: function(hasStatements) {
+    if (this.hasStatements_ === hasStatements) {
+      return;
+    }
+    if (hasStatements) {
+      this.appendStatementInput('STACK')
+          .appendField(Blockly.Msg.PROCEDURES_DEFNORETURN_DO);
+      if (this.getInput('RETURN')) {
+        this.moveInputBefore('STACK', 'RETURN');
+      }
+    } else {
+      this.removeInput('STACK', true);
+    }
+    this.hasStatements_ = hasStatements;
+  },
+  /**
+   * Update the display of parameters for this procedure definition block.
+   * Display a warning if there are duplicately named parameters.
+   * @private
+   * @this Blockly.Block
+   */
+  updateParams_: function() {
+    // Check for duplicated arguments.
+    var badArg = false;
+    var hash = {};
+    for (var i = 0; i < this.arguments_.length; i++) {
+      if (hash['arg_' + this.arguments_[i].toLowerCase()]) {
+        badArg = true;
+        break;
+      }
+      hash['arg_' + this.arguments_[i].toLowerCase()] = true;
+    }
+    if (badArg) {
+      this.setWarningText(Blockly.Msg.PROCEDURES_DEF_DUPLICATE_WARNING);
+    } else {
+      this.setWarningText(null);
+    }
+    // Merge the arguments into a human-readable list.
+    var paramString = '';
+    if (this.arguments_.length) {
+      paramString = Blockly.Msg.PROCEDURES_BEFORE_PARAMS +
+          ' ' + this.arguments_.join(', ');
+    }
+    this.setFieldValue(paramString, 'PARAMS');
+  },
+  /**
+   * Create XML to represent the argument inputs.
+   * @return {Element} XML storage element.
+   * @this Blockly.Block
+   */
+  mutationToDom: function() {
+    var container = document.createElement('mutation');
+    for (var i = 0; i < this.arguments_.length; i++) {
+      var parameter = document.createElement('arg');
+      parameter.setAttribute('name', this.arguments_[i]);
+      container.appendChild(parameter);
+    }
+
+    // Save whether the statement input is visible.
+    if (!this.hasStatements_) {
+      container.setAttribute('statements', 'false');
+    }
+    return container;
+  },
+  /**
+   * Parse XML to restore the argument inputs.
+   * @param {!Element} xmlElement XML storage element.
+   * @this Blockly.Block
+   */
+  domToMutation: function(xmlElement) {
+    this.arguments_ = [];
+    for (var i = 0, childNode; childNode = xmlElement.childNodes[i]; i++) {
+      if (childNode.nodeName.toLowerCase() == 'arg') {
+        this.arguments_.push(childNode.getAttribute('name'));
+      }
+    }
+    this.updateParams_();
+
+    // Show or hide the statement input.
+    this.setStatements_(xmlElement.getAttribute('statements') !== 'false');
+  },
+  /**
+   * Populate the mutator's dialog with this block's components.
+   * @param {!Blockly.Workspace} workspace Mutator's workspace.
+   * @return {!Blockly.Block} Root block in mutator.
+   * @this Blockly.Block
+   */
+  decompose: function(workspace) {
+    var containerBlock = Blockly.Block.obtain(workspace,
+                                              'procedures_mutatorcontainer');
+    containerBlock.initSvg();
+
+    // Check/uncheck the allow statement box.
+    if (this.getInput('RETURN')) {
+      containerBlock.setFieldValue(this.hasStatements_ ? 'TRUE' : 'FALSE',
+                                   'STATEMENTS');
+    } else {
+      containerBlock.getInput('STATEMENT_INPUT').setVisible(false);
+    }
+
+    // Parameter list.
+    var connection = containerBlock.getInput('STACK').connection;
+    for (var i = 0; i < this.arguments_.length; i++) {
+      var paramBlock = Blockly.Block.obtain(workspace, 'procedures_mutatorarg');
+      paramBlock.initSvg();
+      paramBlock.setFieldValue(this.arguments_[i], 'NAME');
+      // Store the old location.
+      paramBlock.oldLocation = i;
+      connection.connect(paramBlock.previousConnection);
+      connection = paramBlock.nextConnection;
+    }
+    // Initialize procedure's callers with blank IDs.
+    Blockly.Procedures.mutateCallers(this.getFieldValue('NAME'),
+                                     this.workspace, this.arguments_, null);
+    return containerBlock;
+  },
+  /**
+   * Reconfigure this block based on the mutator dialog's components.
+   * @param {!Blockly.Block} containerBlock Root block in mutator.
+   * @this Blockly.Block
+   */
+  compose: function(containerBlock) {
+    // Parameter list.
+    this.arguments_ = [];
+    this.paramIds_ = [];
+    var paramBlock = containerBlock.getInputTargetBlock('STACK');
+    while (paramBlock) {
+      this.arguments_.push(paramBlock.getFieldValue('NAME'));
+      this.paramIds_.push(paramBlock.id);
+      paramBlock = paramBlock.nextConnection &&
+          paramBlock.nextConnection.targetBlock();
+    }
+    this.updateParams_();
+    Blockly.Procedures.mutateCallers(this.getFieldValue('NAME'),
+        this.workspace, this.arguments_, this.paramIds_);
+
+    // Show/hide the statement input.
+    var hasStatements = containerBlock.getFieldValue('STATEMENTS');
+    if (hasStatements !== null) {
+      hasStatements = hasStatements == 'TRUE';
+      if (this.hasStatements_ != hasStatements) {
+        if (hasStatements) {
+          this.setStatements_(true);
+          // Restore the stack, if one was saved.
+          var stackConnection = this.getInput('STACK').connection;
+          if (stackConnection.targetConnection ||
+              !this.statementConnection_ ||
+              this.statementConnection_.targetConnection ||
+              this.statementConnection_.sourceBlock_.workspace !=
+              this.workspace) {
+            // Block no longer exists or has been attached elsewhere.
+            this.statementConnection_ = null;
+          } else {
+            stackConnection.connect(this.statementConnection_);
+          }
+        } else {
+          // Save the stack, then disconnect it.
+          var stackConnection = this.getInput('STACK').connection;
+          this.statementConnection_ = stackConnection.targetConnection;
+          if (this.statementConnection_) {
+            var stackBlock = stackConnection.targetBlock();
+            stackBlock.setParent(null);
+            stackBlock.bumpNeighbours_();
+          }
+          this.setStatements_(false);
+        }
+      }
+    }
+  },
+  /**
+   * Dispose of any callers.
+   * @this Blockly.Block
+   */
+  dispose: function() {
+    var name = this.getFieldValue('NAME');
+    Blockly.Procedures.disposeCallers(name, this.workspace);
+    // Call parent's destructor.
+    this.constructor.prototype.dispose.apply(this, arguments);
+  },
+  /**
+   * Return the signature of this procedure definition.
+   * @return {!Array} Tuple containing three elements:
+   *     - the name of the defined procedure,
+   *     - a list of all its arguments,
+   *     - that it DOES NOT have a return value.
+   * @this Blockly.Block
+   */
+  getProcedureDef: function() {
+    return [this.getFieldValue('NAME'), this.arguments_, false];
+  },
+  /**
+   * Return all variables referenced by this block.
+   * @return {!Array.<string>} List of variable names.
+   * @this Blockly.Block
+   */
+  getVars: function() {
+    return this.arguments_;
+  },
+  /**
+   * Notification that a variable is renaming.
+   * If the name matches one of this block's variables, rename it.
+   * @param {string} oldName Previous name of variable.
+   * @param {string} newName Renamed variable.
+   * @this Blockly.Block
+   */
+  renameVar: function(oldName, newName) {
+    var change = false;
+    for (var i = 0; i < this.arguments_.length; i++) {
+      if (Blockly.Names.equals(oldName, this.arguments_[i])) {
+        this.arguments_[i] = newName;
+        change = true;
+      }
+    }
+    if (change) {
+      this.updateParams_();
+      // Update the mutator's variables if the mutator is open.
+      if (this.mutator.isVisible()) {
+        var blocks = this.mutator.workspace_.getAllBlocks();
+        for (var i = 0, block; block = blocks[i]; i++) {
+          if (block.type == 'procedures_mutatorarg' &&
+              Blockly.Names.equals(oldName, block.getFieldValue('NAME'))) {
+            block.setFieldValue(newName, 'NAME');
+          }
+        }
+      }
+    }
+  },
+  /**
+   * Add custom menu options to this block's context menu.
+   * @param {!Array} options List of menu options to add to.
+   * @this Blockly.Block
+   */
+  customContextMenu: function(options) {
+    // Add option to create caller.
+    var option = {enabled: true};
+    var name = this.getFieldValue('NAME');
+    option.text = Blockly.Msg.PROCEDURES_CREATE_DO.replace('%1', name);
+    var xmlMutation = goog.dom.createDom('mutation');
+    xmlMutation.setAttribute('name', name);
+    for (var i = 0; i < this.arguments_.length; i++) {
+      var xmlArg = goog.dom.createDom('arg');
+      xmlArg.setAttribute('name', this.arguments_[i]);
+      xmlMutation.appendChild(xmlArg);
+    }
+    var xmlBlock = goog.dom.createDom('block', null, xmlMutation);
+    xmlBlock.setAttribute('type', this.callType_);
+    option.callback = Blockly.ContextMenu.callbackFactory(this, xmlBlock);
+    options.push(option);
+
+    // Add options to create getters for each parameter.
+    if (!this.isCollapsed()) {
+      for (var i = 0; i < this.arguments_.length; i++) {
+        var option = {enabled: true};
+        var name = this.arguments_[i];
+        option.text = Blockly.Msg.VARIABLES_SET_CREATE_GET.replace('%1', name);
+        var xmlField = goog.dom.createDom('field', null, name);
+        xmlField.setAttribute('name', 'VAR');
+        var xmlBlock = goog.dom.createDom('block', null, xmlField);
+        xmlBlock.setAttribute('type', 'variables_get');
+        option.callback = Blockly.ContextMenu.callbackFactory(this, xmlBlock);
+        options.push(option);
+      }
+    }
+  },
+  callType_: 'procedures_callnoreturn'
+};
+
+Blockly.Blocks['procedures_defnoreturn_comment'] = {
+  /**
+   * Block for defining a procedure with no return value.
+   * @this Blockly.Block
+   */
+  init: function() {
+    this.setHelpUrl(Blockly.Msg.PROCEDURES_DEFNORETURN_HELPURL);
+    this.setColour(290);
+    this.appendDummyInput()
+        .appendField('Comment: ')
+        .appendField(new Blockly.FieldTextInput(''), "COMMENT");
+    var name = Blockly.Procedures.findLegalName(
+        Blockly.Msg.PROCEDURES_DEFNORETURN_PROCEDURE, this);
+    var nameField = new Blockly.FieldTextInput(name,
+        Blockly.Procedures.rename);
+    nameField.setSpellcheck(false);
+    this.appendDummyInput()
+        .appendField(Blockly.Msg.PROCEDURES_DEFNORETURN_TITLE)
+        .appendField(nameField, 'NAME')
+        .appendField('', 'PARAMS');
+    this.setMutator(new Blockly.Mutator(['procedures_mutatorarg']));
+    this.data = currentBlocklyNodeID;
+    // Assign 'this' to a variable for use in the tooltip closure below.
+    var thisBlock = this;
+    this.setTooltip( function() {
+      var content = {
+        text: "Defines a function with no output."
+      }
+      return showTooltipInBlockly( thisBlock, content );
+    } );
+    this.arguments_ = [];
+    this.setStatements_(true);
+    this.statementConnection_ = null;
+  },
+  /**
+   * Add or remove the statement block from this function definition.
+   * @param {boolean} hasStatements True if a statement block is needed.
+   * @this Blockly.Block
+   */
+  setStatements_: function(hasStatements) {
+    if (this.hasStatements_ === hasStatements) {
+      return;
+    }
+    if (hasStatements) {
+      this.appendStatementInput('STACK')
+          .appendField(Blockly.Msg.PROCEDURES_DEFNORETURN_DO);
+      if (this.getInput('RETURN')) {
+        this.moveInputBefore('STACK', 'RETURN');
+      }
+    } else {
+      this.removeInput('STACK', true);
+    }
+    this.hasStatements_ = hasStatements;
+  },
+  /**
+   * Update the display of parameters for this procedure definition block.
+   * Display a warning if there are duplicately named parameters.
+   * @private
+   * @this Blockly.Block
+   */
+  updateParams_: function() {
+    // Check for duplicated arguments.
+    var badArg = false;
+    var hash = {};
+    for (var i = 0; i < this.arguments_.length; i++) {
+      if (hash['arg_' + this.arguments_[i].toLowerCase()]) {
+        badArg = true;
+        break;
+      }
+      hash['arg_' + this.arguments_[i].toLowerCase()] = true;
+    }
+    if (badArg) {
+      this.setWarningText(Blockly.Msg.PROCEDURES_DEF_DUPLICATE_WARNING);
+    } else {
+      this.setWarningText(null);
+    }
+    // Merge the arguments into a human-readable list.
+    var paramString = '';
+    if (this.arguments_.length) {
+      paramString = Blockly.Msg.PROCEDURES_BEFORE_PARAMS +
+          ' ' + this.arguments_.join(', ');
+    }
+    this.setFieldValue(paramString, 'PARAMS');
+  },
+  /**
+   * Create XML to represent the argument inputs.
+   * @return {Element} XML storage element.
+   * @this Blockly.Block
+   */
+  mutationToDom: function() {
+    var container = document.createElement('mutation');
+    for (var i = 0; i < this.arguments_.length; i++) {
+      var parameter = document.createElement('arg');
+      parameter.setAttribute('name', this.arguments_[i]);
+      container.appendChild(parameter);
+    }
+
+    // Save whether the statement input is visible.
+    if (!this.hasStatements_) {
+      container.setAttribute('statements', 'false');
+    }
+    return container;
+  },
+  /**
+   * Parse XML to restore the argument inputs.
+   * @param {!Element} xmlElement XML storage element.
+   * @this Blockly.Block
+   */
+  domToMutation: function(xmlElement) {
+    this.arguments_ = [];
+    for (var i = 0, childNode; childNode = xmlElement.childNodes[i]; i++) {
+      if (childNode.nodeName.toLowerCase() == 'arg') {
+        this.arguments_.push(childNode.getAttribute('name'));
+      }
+    }
+    this.updateParams_();
+
+    // Show or hide the statement input.
+    this.setStatements_(xmlElement.getAttribute('statements') !== 'false');
+  },
+  /**
+   * Populate the mutator's dialog with this block's components.
+   * @param {!Blockly.Workspace} workspace Mutator's workspace.
+   * @return {!Blockly.Block} Root block in mutator.
+   * @this Blockly.Block
+   */
+  decompose: function(workspace) {
+    var containerBlock = Blockly.Block.obtain(workspace,
+                                              'procedures_mutatorcontainer');
+    containerBlock.initSvg();
+
+    // Check/uncheck the allow statement box.
+    if (this.getInput('RETURN')) {
+      containerBlock.setFieldValue(this.hasStatements_ ? 'TRUE' : 'FALSE',
+                                   'STATEMENTS');
+    } else {
+      containerBlock.getInput('STATEMENT_INPUT').setVisible(false);
+    }
+
+    // Parameter list.
+    var connection = containerBlock.getInput('STACK').connection;
+    for (var i = 0; i < this.arguments_.length; i++) {
+      var paramBlock = Blockly.Block.obtain(workspace, 'procedures_mutatorarg');
+      paramBlock.initSvg();
+      paramBlock.setFieldValue(this.arguments_[i], 'NAME');
+      // Store the old location.
+      paramBlock.oldLocation = i;
+      connection.connect(paramBlock.previousConnection);
+      connection = paramBlock.nextConnection;
+    }
+    // Initialize procedure's callers with blank IDs.
+    Blockly.Procedures.mutateCallers(this.getFieldValue('NAME'),
+                                     this.workspace, this.arguments_, null);
+    return containerBlock;
+  },
+  /**
+   * Reconfigure this block based on the mutator dialog's components.
+   * @param {!Blockly.Block} containerBlock Root block in mutator.
+   * @this Blockly.Block
+   */
+  compose: function(containerBlock) {
+    // Parameter list.
+    this.arguments_ = [];
+    this.paramIds_ = [];
+    var paramBlock = containerBlock.getInputTargetBlock('STACK');
+    while (paramBlock) {
+      this.arguments_.push(paramBlock.getFieldValue('NAME'));
+      this.paramIds_.push(paramBlock.id);
+      paramBlock = paramBlock.nextConnection &&
+          paramBlock.nextConnection.targetBlock();
+    }
+    this.updateParams_();
+    Blockly.Procedures.mutateCallers(this.getFieldValue('NAME'),
+        this.workspace, this.arguments_, this.paramIds_);
+
+    // Show/hide the statement input.
+    var hasStatements = containerBlock.getFieldValue('STATEMENTS');
+    if (hasStatements !== null) {
+      hasStatements = hasStatements == 'TRUE';
+      if (this.hasStatements_ != hasStatements) {
+        if (hasStatements) {
+          this.setStatements_(true);
+          // Restore the stack, if one was saved.
+          var stackConnection = this.getInput('STACK').connection;
+          if (stackConnection.targetConnection ||
+              !this.statementConnection_ ||
+              this.statementConnection_.targetConnection ||
+              this.statementConnection_.sourceBlock_.workspace !=
+              this.workspace) {
+            // Block no longer exists or has been attached elsewhere.
+            this.statementConnection_ = null;
+          } else {
+            stackConnection.connect(this.statementConnection_);
+          }
+        } else {
+          // Save the stack, then disconnect it.
+          var stackConnection = this.getInput('STACK').connection;
+          this.statementConnection_ = stackConnection.targetConnection;
+          if (this.statementConnection_) {
+            var stackBlock = stackConnection.targetBlock();
+            stackBlock.setParent(null);
+            stackBlock.bumpNeighbours_();
+          }
+          this.setStatements_(false);
+        }
+      }
+    }
+  },
+  /**
+   * Dispose of any callers.
+   * @this Blockly.Block
+   */
+  dispose: function() {
+    var name = this.getFieldValue('NAME');
+    Blockly.Procedures.disposeCallers(name, this.workspace);
+    // Call parent's destructor.
+    this.constructor.prototype.dispose.apply(this, arguments);
+  },
+  /**
+   * Return the signature of this procedure definition.
+   * @return {!Array} Tuple containing three elements:
+   *     - the name of the defined procedure,
+   *     - a list of all its arguments,
+   *     - that it DOES NOT have a return value.
+   * @this Blockly.Block
+   */
+  getProcedureDef: function() {
+    return [this.getFieldValue('NAME'), this.arguments_, false];
+  },
+  /**
+   * Return all variables referenced by this block.
+   * @return {!Array.<string>} List of variable names.
+   * @this Blockly.Block
+   */
+  getVars: function() {
+    return this.arguments_;
+  },
+  /**
+   * Notification that a variable is renaming.
+   * If the name matches one of this block's variables, rename it.
+   * @param {string} oldName Previous name of variable.
+   * @param {string} newName Renamed variable.
+   * @this Blockly.Block
+   */
+  renameVar: function(oldName, newName) {
+    var change = false;
+    for (var i = 0; i < this.arguments_.length; i++) {
+      if (Blockly.Names.equals(oldName, this.arguments_[i])) {
+        this.arguments_[i] = newName;
+        change = true;
+      }
+    }
+    if (change) {
+      this.updateParams_();
+      // Update the mutator's variables if the mutator is open.
+      if (this.mutator.isVisible()) {
+        var blocks = this.mutator.workspace_.getAllBlocks();
+        for (var i = 0, block; block = blocks[i]; i++) {
+          if (block.type == 'procedures_mutatorarg' &&
+              Blockly.Names.equals(oldName, block.getFieldValue('NAME'))) {
+            block.setFieldValue(newName, 'NAME');
+          }
+        }
+      }
+    }
+  },
+  /**
+   * Add custom menu options to this block's context menu.
+   * @param {!Array} options List of menu options to add to.
+   * @this Blockly.Block
+   */
+  customContextMenu: function(options) {
+    // Add option to create caller.
+    var option = {enabled: true};
+    var name = this.getFieldValue('NAME');
+    option.text = Blockly.Msg.PROCEDURES_CREATE_DO.replace('%1', name);
+    var xmlMutation = goog.dom.createDom('mutation');
+    xmlMutation.setAttribute('name', name);
+    for (var i = 0; i < this.arguments_.length; i++) {
+      var xmlArg = goog.dom.createDom('arg');
+      xmlArg.setAttribute('name', this.arguments_[i]);
+      xmlMutation.appendChild(xmlArg);
+    }
+    var xmlBlock = goog.dom.createDom('block', null, xmlMutation);
+    xmlBlock.setAttribute('type', this.callType_);
+    option.callback = Blockly.ContextMenu.callbackFactory(this, xmlBlock);
+    options.push(option);
+
+    // Add options to create getters for each parameter.
+    if (!this.isCollapsed()) {
+      for (var i = 0; i < this.arguments_.length; i++) {
+        var option = {enabled: true};
+        var name = this.arguments_[i];
+        option.text = Blockly.Msg.VARIABLES_SET_CREATE_GET.replace('%1', name);
+        var xmlField = goog.dom.createDom('field', null, name);
+        xmlField.setAttribute('name', 'VAR');
+        var xmlBlock = goog.dom.createDom('block', null, xmlField);
+        xmlBlock.setAttribute('type', 'variables_get');
+        option.callback = Blockly.ContextMenu.callbackFactory(this, xmlBlock);
+        options.push(option);
+      }
+    }
+  },
+  callType_: 'procedures_callnoreturn'
+};
+
+Blockly.JavaScript['procedures_defreturn'] = function(block) {
+  // Define a procedure with a return value.
+  var funcName = Blockly.JavaScript.variableDB_.getName(
+      block.getFieldValue('NAME'), Blockly.Procedures.NAME_TYPE);
+  var branch = Blockly.JavaScript.statementToCode(block, 'STACK');
+  if (Blockly.JavaScript.STATEMENT_PREFIX) {
+    branch = Blockly.JavaScript.prefixLines(
+        Blockly.JavaScript.STATEMENT_PREFIX.replace(/%1/g,
+        '\'' + block.id + '\''), Blockly.JavaScript.INDENT) + branch;
+  }
+  if (Blockly.JavaScript.INFINITE_LOOP_TRAP) {
+    branch = Blockly.JavaScript.INFINITE_LOOP_TRAP.replace(/%1/g,
+        '\'' + block.id + '\'') + branch;
+  }
+  var returnValue = Blockly.JavaScript.valueToCode(block, 'RETURN',
+      Blockly.JavaScript.ORDER_NONE) || '';
+  if (returnValue) {
+    returnValue = '  return ' + returnValue + ';\n';
+  }
+  var args = [];
+  for (var x = 0; x < block.arguments_.length; x++) {
+    args[x] = Blockly.JavaScript.variableDB_.getName(block.arguments_[x],
+        Blockly.Variables.NAME_TYPE);
+  }
+  var code = 'function ' + funcName + '(' + args.join(', ') + ') {\n' +
+      branch + returnValue + '}';
+  code = Blockly.JavaScript.scrub_(block, code);
+  Blockly.JavaScript.definitions_[funcName] = code;
+  return null;
+};
+
+// Defining a procedure without a return value uses the same generator as
+// a procedure with a return value.
+Blockly.JavaScript['procedures_defnoreturn'] =
+    Blockly.JavaScript['procedures_defreturn'];
 
 //@ sourceURL=blocks.js

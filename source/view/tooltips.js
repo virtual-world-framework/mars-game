@@ -16,32 +16,45 @@ function showTooltip( x, y, content ) {
     var tooltip = document.createElement( "div" );
     tooltip.className = "tooltip";
     tooltip.innerHTML = tooltipContentToHTML( content );
-    tooltip.style.left = x + "px";
-    tooltip.style.top = y + "px";
-    document.body.appendChild( tooltip );
+    tooltip.style.position = "absolute";
 
-    document.addEventListener( "mousemove", removeTooltip );
+    $( "#blocklyWrapper" ).append( tooltip );
+    //document.body.appendChild( tooltip );
 
+    document.addEventListener("click", removeTooltipClick);
+    document.addEventListener("mousemove", removeTooltipHoverout);
     // Return an empty string because blockly gets mad if we don't
     return "";
 }
 
 function showTooltipInBlockly( block, content ) {
     if ( block && block.isInFlyout ) {
-        var pos = block.getRelativeToSurfaceXY();
-        var dim = block.getHeightWidth();        
-        var offsetX = parseInt( $( "#blocklyWrapper" ).css( "left" ) ) + dim.width;
-        var offsetY = parseInt( $( "#blocklyWrapper" ).css( "top" ) ) + parseInt( $( "#blocklyWrapper-top" ).css( "height" ));
-        return showTooltip( pos.x + offsetX, pos.y + offsetY, content );
-    }
+
+        //var pos = block.getRelativeToSurfaceXY();
+        //var dim = block.getHeightWidth();        
+        //var offsetX = parseInt( $( "#blocklyWrapper" ).css( "right" ) );
+        //var offsetY = parseInt( $( "#blocklyWrapper" ).css( "bottom" ) ); 
+        //return showTooltip( pos.x + offsetX, pos.y + offsetY, content );
+        return showTooltip(0,0,content);
+   }
     return "";
 }
 
-function removeTooltip() {
-    $( ".tooltip" ).fadeOut( function() {
-        $( ".tooltip" ).remove();
-        document.removeEventListener( "mousemove", removeTooltip );
-    } );
+function removeTooltipHoverout(event){
+
+    if(!(event.target.getAttribute("class") == "blocklyPath" || 
+        event.target.getAttribute("class") == "blocklyText" || 
+        event.target.parentNode.getAttribute("class") == "blocklyEditableText" ||
+        event.target.parentNode.getAttribute("class"))){
+        $(".tooltip").remove();
+        document.removeEventListener("mousemove",removeTooltipHoverout);
+        
+    }
+}
+
+function removeTooltipClick(event){
+    $(".tooltip").remove();
+    document.removeEventListener("click",removeTooltipClick);
 }
 
 function tooltipContentToHTML( content ) {

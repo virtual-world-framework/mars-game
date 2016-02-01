@@ -1,0 +1,219 @@
+# Copyright 2014 Lockheed Martin Corporation
+#
+# Licensed under the Apache License, Version 2.0 (the "License"); you may 
+# not use this file except in compliance with the License. You may obtain 
+# a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software 
+# distributed under the License is distributed on an "AS IS" BASIS, 
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and 
+# limitations under the License.
+
+---
+extends: ../scenario/scenario.vwf
+properties:
+  scenarioName: Mission2Task6
+
+  scenePath: /
+  nextScenarioPath: "Mission2Task7"
+
+  startState:
+
+  - playSound:
+    - musicLevel2
+  - playSound:
+    - environmentWind
+  - setObjective:
+    - "Use a loop to move along the slope of the tracks two more times."
+  - setThirdPersonStartPose:
+    - [ 16.316, 65, -15 ]
+
+  - setProperty:
+    - videoManager  
+    - url 
+    - [ "assets/video/Success2_800x600.mp4" ]
+
+  - setProperty:
+    - rover2
+    - visible
+    - false
+  - setProperty:
+    - rover
+    - battery
+    - 15
+  - setProperty:
+    - rover
+    - batteryMax
+    - 15
+  - setProperty:
+    - rover
+    - blockly_allowedBlocks
+    - 8
+  - setProperty:
+    - rover
+    - lowRam
+    - 1
+  - setProperty:
+    - rover
+    - startXML
+    - <xml></xml>
+  - setGridAxes:
+    - 14
+    - 0
+  - setPickupActive:
+    - helicam
+    - false
+  - setPickupActive:
+    - battery
+    - false
+  - setPickupActive:
+    - radio
+    - false
+  - addToGrid:
+    - rover
+    - [ 1, 16 ]
+  - addToGrid:
+    - blocklyGraph
+    - [ 0, 14 ]
+  - setPickupActive:
+    - supplies_1
+    - true
+  - setPickupActive:
+    - supplies_2
+    - true
+  - setBlocklyContext:
+    - rover
+    - graph
+  - loadToolbox:
+    - rover
+    - source/scenario/blockly/scenario2f.xml
+  - loadToolbox:
+    - graph
+    - source/scenario/blockly/graph2f.xml
+  - setProperty:
+    - blocklyLine
+    - opacity
+    - 1
+  - selectRover:
+    - rover
+
+  - setProperty:
+    - roverTracks2
+    - visible
+    - false
+
+children:
+  triggerManager:
+    extends: ../triggers/triggerManager.vwf
+    properties: 
+      triggers$:
+
+        playStartingVO_2f:
+          triggerCondition:
+          - and:
+            - doOnce:
+            - onScenarioStart:
+          actions:
+          - playSound:
+            - m2t5vo040
+          - playSound:
+            - L2VO9_Control
+          - setProperty:
+            - hud
+            - enabled
+            - false
+          - delay:
+            - 15
+            - openMissionBrief:
+            - setProperty:
+              - hud
+              - enabled
+              - true
+            - startTimer:
+
+        failOnMissingBlock_2_6:
+          group: successOrFailure
+          priority: 0.5
+          triggerCondition:
+          - and:
+            - onBlocklyStopped:
+              - rover
+            - isAtPosition:
+              - rover
+              - [ 3, 20 ]
+            - isBlockMissing:
+              - controls_repeat_ext
+          actions:
+          - scenarioFailure:
+            - incomplete
+            - "You should use the repeat block."
+          - playSound:
+            - conditionalFailure_repeatLoop
+
+        succeedOnSuccessfulMovement_2f:
+          group: successOrFailure
+          priority: 0
+          triggerCondition:
+          - and:
+            - onBlocklyStopped:
+              - rover
+            - isAtPosition:
+              - rover
+              - [ 3, 20 ]
+          actions:
+          - scenarioSuccess:
+          # - showAlert:
+          #   - "I'm on the right path. How will I stop when I see the rover?"
+          - playSound:
+            - musicSuccessShort
+
+        highlightEndTile_2_7:
+          triggerCondition:
+          - onScenarioStart:
+          actions:
+          - callOutObjective:
+            - [ 3, 6 ]
+
+        stopBlinkRoverTab_2f:
+          triggerCondition:
+          - or:
+            - onBlocklyWindowOpened:
+              - rover
+            - onScenarioChanged:
+          actions:
+          - stopBlinkBlocklyTab:
+            - rover
+
+        playHint1_2f:
+          triggerCondition:
+          - and:
+            - doOnce:
+            - delay:
+              - 25
+          actions:
+          - playSound:
+            - L3VO2_Rover_H
+
+        # playHint2_2f:
+        #   triggerCondition:
+        #   - and:
+        #     - doOnce:
+        #     - delay:
+        #       - 40
+        #   actions:
+        #   - playSound:
+        #     - ALVO38_Rover
+
+  brief:
+    extends: ../missionBrief.vwf
+    properties:
+      title: "Mission 2, Task 6"
+      content: >
+        You're on track! 
+        <br><br>Now that you know how to use the slope of the line to move one
+        step along the tracks, you can use a loop block to repeat the same 
+        movement over and over. Try this by using a Repeat loop to move two
+        steps along the tracks.

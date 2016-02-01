@@ -13,16 +13,22 @@
 # limitations under the License.
 
 ---
+info:
+  title: "The Mars Game"
 model:
   vwf/model/threejs:
   vwf/model/blockly:
   vwf/model/sound:
   vwf/model/graphtool:
   vwf/model/heightmap:
+  vwf/model/jPlayer: 
+  vwf/model/hud:
 view:
   vwf/view/threejs: "#vwf-root"
   vwf/view/blockly: { "blocklyPath": './source/blockly/', "toolbox": 'toolbox' }
-  vwf/view/sound:
+  vwf/view/sound: 
+  vwf/view/jPlayer: 
+  vwf/view/hud:
   # vwf/view/editor:
 configuration:
   preserve-script-closures: true

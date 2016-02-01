@@ -1,8 +1,19 @@
 <xml id="rover" style="display: none">
+  <category name="Movement">
   <block type="rover_moveForward"></block>
   <block type="rover_turn"><field name="DIR">Turn: Left</field></block>
-  <block type="controls_sensor_tracks"><field name="MODE">SCAN: NEGATIVE</field></block>
+  </category>
+  <sep></sep>
+  <category name="Sensors">
+  <block type="controls_sensor_metal"></block>
+  </category>
+  <sep></sep>
+  <category name="Loops">
   <block type="controls_whileUntil"><field name="MODE">WHILE</field></block>
-  <block type="controls_repeat_extended"></block>
-  <block type="math_number_drop"></block>
+  <block type="controls_repeat_ext"><value name="TIMES"><block type="math_number_out" inline="false"><field name="VALUE">0</field></block></value></block>
+  </category>
+  <sep></sep>
+  <category name="Math">
+  <block type="math_number_out"><field name="VALUE">0</field></block>
+  </category>
 </xml>

@@ -13,7 +13,9 @@
 # limitations under the License.
 
 ---
-extends: http://vwf.example.com/node3.vwf
+extends: marsGameNode.vwf
+implements:
+  - http://vwf.example.com/sceneGetter.vwf
 properties:
   castShadows: true
   receiveShadows: true
@@ -22,58 +24,73 @@ properties:
     set: |
       if ( this.battery != value ) {
         this.battery = value;
-        this.batteryChanged( value );
+        this.batteryChanged( value, this.id );
       }
     value: 100 
   batteryMax:
     set: |
       if ( this.batteryMax != value ) {
         this.batteryMax = value;
-        this.batteryMaxChanged( value );
+        this.batteryMaxChanged( value, this.id );
       }
     value: 100 
   lowBattery:
     set: |
       if ( this.lowBattery != value ) {
         this.lowBattery = value;
-        this.batteryChanged( this.battery );
       }
     value: 5
   ram:
     set: |
       if ( this.ram != value ) {
         this.ram = value;
-        this.ramChanged( value );
+        this.ramChanged( value, this.id );
       }
     value: 100 
   ramMax:
     set: |
       if ( this.ramMax != value ) {
         this.ramMax = value;
-        this.ramMaxChanged( value );
+        this.ramMaxChanged( value, this.id );
       }
     value: 100 
   lowRam: 
     set: |
       if ( this.lowRam != value ) {
         this.lowRam = value;
-        this.ramChanged( this.ram );
       }
     value: 5
-  currentGrid: undefined
-  currentGridSquare: [ 0, 0 ]
-  tracksSensorValue: false
-  heading: 0
+  metalSensorValue: false
+  collisionSensorValue: false
+  headingSensorValue: 0
+  positionSensorValue: []
+  positionSensorValueX: 0
+  positionSensorValueY: 0
+  currentlySurveying: false
+  signalSensorValue:
+    set: |
+      if ( this.signalSensorValue != value ) {
+        this.signalSensorValue = value;
+        this.signalSensorValueChanged( value, this.id );
+      }
+    value: 0
+  heading:
+    set: |
+      if ( this.heading != value ) {
+        this.heading = value;
+        this.activateSensor( 'signal' );
+      }
+    value: 0
+  executionSpeed: 1
   terrainName: undefined
   displayName: undefined
-  wheelFL:
-  wheelBL:
-  wheelFR:
-  wheelBR:
   wheelRadius:
+  wheels:
 methods:
   findAndSetCurrentGrid:
   moveForward:
+  moveRadial:
+  moveRadialAbsolute:
   turnLeft:
   turnRight:
   placeOnTerrain:
@@ -84,6 +101,7 @@ methods:
   activateSensor:
   deactivateSensor:
   setHeading:
+  resetSensors:
 events:
   moved:
   moveFailed:
@@ -91,7 +109,8 @@ events:
   batteryMaxChanged:
   ramChanged:
   ramMaxChanged:
+  signalSensorValueChanged:
   blockCountChanged:
   allowedBlocksChanged:
 scripts:
- - source: source/rover.js
+ - source: rover.js

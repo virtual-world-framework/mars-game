@@ -1,0 +1,716 @@
+# Copyright 2014 Lockheed Martin Corporation
+#
+# Licensed under the Apache License, Version 2.0 (the "License"); you may 
+# not use this file except in compliance with the License. You may obtain 
+# a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software 
+# distributed under the License is distributed on an "AS IS" BASIS, 
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and 
+# limitations under the License.
+
+---
+extends: http://vwf.example.com/shaderMaterial.vwf
+properties:
+  lights: true
+  fog: true
+  triangle:
+    set: |
+      this.setDefine( "MAX_TRIS", value.length );
+      this.triangle = value;
+  userTris:
+    set: |
+      var verts = value.length;
+      this.setDefine( "MAX_USER_TRIS", verts );
+      this.userTris = value;
+  bCallout$: false
+  defines:
+    MAX_TRIS: 0
+    MAX_USER_TRIS: 0
+    MAX_USER_TRI_COLORS: 4
+  uniforms:
+    triangle:
+      type: "v2v"
+      value: []
+    userTris:
+      type: "v2v"
+      value: []
+    userTriColors:
+      type: "v3v"
+      value: []
+    gridVisible:
+      type: "i"
+      value: 0
+    gridOffset:
+      type: "f"
+      value: 0
+    gridInterval:
+      type: "f"
+      value: 10
+    gridColor:
+      type: "c"
+      value: 0xFF4411
+    gridAxes:
+      type: "v2"
+      value: [ 0, 0 ]
+    laserWidth:
+      type: "f"
+      value: 2
+    laserFocus:
+      type: "f"
+      value: 1
+    laserIntensity:
+      type: "f"
+      value: 3
+    tilesVisible:
+      type: "i"
+      value: 0
+    tilePadding:
+      type: "f"
+      value: 0.25
+    tileColor:
+      type: "c"
+      value: 0x00AA22
+    tileMap:
+      type: "t"
+      value: 0
+    tileMapOrigin:
+      type: "v2"
+      value: [ 0, 0 ]
+    tileMapSize:
+      type: "v2"
+      value: [ 0, 0 ]
+    calloutTile:
+      type: "v2"
+      value: [ 0, 0 ]
+    calloutHighlight:
+      type: "f"
+      value: 0
+    mixMap:
+      type: "t"
+      value: 0
+    diffuseMaps:
+      type: "tv"
+      value: []
+    normalMaps:
+      type: "tv"
+      value: []
+    specularMaps:
+      type: "tv"
+      value: []
+    textureResolution:
+      type: "f"
+      value: 1
+    diffuse:
+      type: "c"
+      value: 0xFFFFFF
+    ambient:
+      type: "c"
+      value: 0xFFFFFF
+    emissive:
+      type: "c"
+      value: 0x000000
+    specular:
+      type: "c"
+      value: 0xFFFFFF
+    opacity:
+      type: "f"
+      value: 1
+    shininess:
+      type: "f"
+      value: 15
+    normalScale:
+      type: "v2"
+      value: [ 1, 1 ]
+    ambientLightColor:
+      type: "fv"
+      value: []
+    directionalLightColor:
+      type: "fv"
+      value: []
+    directionalLightDirection:
+      type: "fv"
+      value: []
+    pointLightColor:
+      type: "fv"
+      value: []
+    pointLightPosition:
+      type: "fv"
+      value: []
+    pointLightDistance:
+      type: "fv1"
+      value: []
+    spotLightColor:
+      type: "fv"
+      value: []
+    spotLightPosition:
+      type: "fv"
+      value: []
+    spotLightDistance:
+      type: "fv1"
+      value: []
+    spotLightDirection:
+      type: "fv"
+      value: []
+    spotLightAngleCos:
+      type: "fv1"
+      value: []
+    spotLightExponent:
+      type: "fv1"
+      value: []
+    hemisphereLightSkyColor:
+      type: "fv"
+      value: []
+    hemisphereLightGroundColor:
+      type: "fv"
+      value: []
+    hemisphereLightDirection:
+      type: "fv"
+      value: []
+    shadowMap:
+      type: "tv"
+      value: []
+    shadowMapSize:
+      type: "v2v"
+      value: []
+    shadowBias:
+      type: "fv1"
+      value: []
+    shadowDarkness:
+      type: "fv1"
+      value: []
+    shadowMatrix:
+      type: "m4v"
+      value: []
+    fogColor:
+      type: "c"
+      value: 0x000000
+    fogDensity:
+      type: "f"
+      value: 0.05
+    fogNear:
+      type: "f"
+      value: 1
+    fogFar:
+      type: "f"
+      value: 1000
+  vertexShader: |
+    #ifdef USE_SHADOWMAP
+      varying vec4 vShadowCoord[ MAX_SHADOWS ];
+      uniform mat4 shadowMatrix[ MAX_SHADOWS ];
+    #endif
+    varying vec2 vUv;
+    varying vec3 vWorldPosition;
+    varying vec3 vViewPosition;
+    varying vec3 vNormal;
+    void main() {
+      vec3 objectNormal;
+      objectNormal = normal;
+      vec3 transformedNormal = normalMatrix * objectNormal;
+      vec4 worldPosition = modelMatrix * vec4( position, 1.0 );
+      vWorldPosition = worldPosition.xyz;
+      #ifdef USE_SHADOWMAP
+        for( int i = 0; i < MAX_SHADOWS; i ++ ) {
+          vShadowCoord[ i ] = shadowMatrix[ i ] * worldPosition;
+        }
+      #endif
+      vNormal = normalize( transformedNormal );
+      vUv = uv;
+      vec4 mvPosition = worldPosition;
+      mvPosition = viewMatrix * mvPosition;
+      vViewPosition = -mvPosition.xyz;
+      gl_Position = projectionMatrix * mvPosition;
+    }
+  fragmentShader: |
+    #extension GL_OES_standard_derivatives : enable
+    uniform vec3 diffuse;
+    uniform float opacity;
+    uniform vec3 ambient;
+    uniform vec3 emissive;
+    uniform vec3 specular;
+    uniform float shininess;
+    uniform vec2 normalScale;
+    uniform sampler2D mixMap;
+    uniform sampler2D diffuseMaps[ 4 ];
+    uniform sampler2D normalMaps[ 4 ];
+    uniform sampler2D specularMaps[ 4 ];
+    uniform float textureResolution;
+    uniform vec3 ambientLightColor;
+    // PROJECTED GRID SHADER UNIFORMS START
+    uniform int gridVisible;
+    uniform float gridOffset;
+    uniform float gridInterval;
+    uniform float laserWidth;
+    uniform vec3 gridColor;
+    uniform vec2 gridAxes;
+    uniform float laserFocus;
+    uniform float laserIntensity;
+    uniform int tilesVisible;
+    uniform float tilePadding;
+    uniform vec3 tileColor;
+    uniform sampler2D tileMap;
+    uniform vec2 tileMapOrigin;
+    uniform vec2 tileMapSize;
+    uniform vec2 calloutTile;
+    uniform float calloutHighlight;
+    #if MAX_TRIS > 0
+      uniform vec2 triangle[ MAX_TRIS ];
+    #endif
+    #if MAX_USER_TRIS > 0
+      uniform vec2 userTris[ MAX_USER_TRIS ];
+      uniform vec3 userTriColors[ MAX_USER_TRI_COLORS ];
+    #endif
+    // PROJECTED GRID SHADER UNIFORMS END
+    #if MAX_DIR_LIGHTS > 0
+      uniform vec3 directionalLightColor[ MAX_DIR_LIGHTS ];
+      uniform vec3 directionalLightDirection[ MAX_DIR_LIGHTS ];
+    #endif
+    #if MAX_HEMI_LIGHTS > 0
+      uniform vec3 hemisphereLightSkyColor[ MAX_HEMI_LIGHTS ];
+      uniform vec3 hemisphereLightGroundColor[ MAX_HEMI_LIGHTS ];
+      uniform vec3 hemisphereLightDirection[ MAX_HEMI_LIGHTS ];
+    #endif
+    #if MAX_POINT_LIGHTS > 0
+      uniform vec3 pointLightColor[ MAX_POINT_LIGHTS ];
+      uniform vec3 pointLightPosition[ MAX_POINT_LIGHTS ];
+      uniform float pointLightDistance[ MAX_POINT_LIGHTS ];
+    #endif
+    #if MAX_SPOT_LIGHTS > 0
+      uniform vec3 spotLightColor[ MAX_SPOT_LIGHTS ];
+      uniform vec3 spotLightPosition[ MAX_SPOT_LIGHTS ];
+      uniform vec3 spotLightDirection[ MAX_SPOT_LIGHTS ];
+      uniform float spotLightAngleCos[ MAX_SPOT_LIGHTS ];
+      uniform float spotLightExponent[ MAX_SPOT_LIGHTS ];
+      uniform float spotLightDistance[ MAX_SPOT_LIGHTS ];
+    #endif
+    #ifdef USE_SHADOWMAP
+      uniform sampler2D shadowMap[ MAX_SHADOWS ];
+      uniform vec2 shadowMapSize[ MAX_SHADOWS ];
+      uniform float shadowDarkness[ MAX_SHADOWS ];
+      uniform float shadowBias[ MAX_SHADOWS ];
+      varying vec4 vShadowCoord[ MAX_SHADOWS ];
+      float unpackDepth( const in vec4 rgba_depth ) {
+        const vec4 bit_shift = vec4( 1.0 / ( 256.0 * 256.0 * 256.0 ), 1.0 / ( 256.0 * 256.0 ), 1.0 / 256.0, 1.0 );
+        float depth = dot( rgba_depth, bit_shift );
+        return depth;
+      }
+    #endif
+    #ifdef USE_FOG
+      uniform vec3 fogColor;
+      #ifdef FOG_EXP2
+        uniform float fogDensity;
+      #else
+        uniform float fogNear;
+        uniform float fogFar;
+      #endif
+    #endif
+    varying vec2 vUv;
+    varying vec3 vWorldPosition;
+    varying vec3 vViewPosition;
+    varying vec3 vNormal;
+    bool testTriangle( vec2 point, vec2 p1, vec2 p2, vec2 p3 ) {
+      float alpha = 0.0;
+      float beta = 0.0;
+      float gamma = 0.0;
+      alpha = ( ( p2.y - p3.y ) * ( point.x - p3.x ) + ( p3.x - p2.x ) * ( point.y - p3.y ) )
+        / ( ( p2.y - p3.y ) * ( p1.x - p3.x ) + ( p3.x - p2.x ) * ( p1.y - p3.y ) );
+      beta = ( ( p3.y - p1.y ) * ( point.x - p3.x ) + ( p1.x - p3.x ) * ( point.y - p3.y ) )
+        / ( ( p2.y - p3.y ) * ( p1.x - p3.x ) + ( p3.x - p2.x ) * ( p1.y - p3.y ) );
+      gamma = 1.0 - alpha - beta;
+      if ( alpha > 0.0 && beta > 0.0 && gamma > 0.0 ) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+    vec3 extractTileValue( vec2 wp ) {
+      vec2 gridCoord = floor( ( wp / gridInterval ) + 0.5 ) - tileMapOrigin;
+      vec2 tileUV = vec2( 0.0 );
+      vec3 tileValue = vec3( 0.0 );
+      if ( gridCoord.x >= 0.0 && gridCoord.x < tileMapSize.x && gridCoord.y >= 0.0 && gridCoord.y < tileMapSize.y ) {
+        tileUV = gridCoord / tileMapSize;
+        tileValue = texture2D( tileMap, tileUV ).rgb;
+      }
+      return tileValue;
+    }
+    vec3 perturbNormal2Arb( vec3 eye_pos, vec3 surf_norm, vec3 mapNormal ) {
+      vec3 q0 = dFdx( eye_pos.xyz );
+      vec3 q1 = dFdy( eye_pos.xyz );
+      vec2 st0 = dFdx( vUv.st );
+      vec2 st1 = dFdy( vUv.st );
+      vec3 S = normalize( q0 * st1.t - q1 * st0.t );
+      vec3 T = normalize( -q0 * st1.s + q1 * st0.s );
+      vec3 N = normalize( surf_norm );
+      vec3 mapN = mapNormal * 2.0 - 1.0;
+      mapN.xy = normalScale * mapN.xy;
+      mat3 tsn = mat3( S, T, N );
+      return normalize( tsn * mapN );
+    }
+    vec3 getMixValue( vec4 mixWeights, sampler2D map[ 4 ], vec2 uvs ) {
+      vec3 black = texture2D( map[ 0 ], uvs ).rgb * mixWeights.x;
+      vec3 red = texture2D( map[ 1 ], uvs ).rgb * mixWeights.y;
+      vec3 green = texture2D( map[ 2 ], uvs ).rgb * mixWeights.z;
+      vec3 blue = texture2D( map[ 3 ], uvs ).rgb * mixWeights.w;
+      vec3 result = black + red + green + blue;
+      return result;
+    }
+    void main() {
+      gl_FragColor = vec4( vec3( 1.0 ), opacity );
+      vec3 mixMapTexel = texture2D( mixMap, vUv ).rgb;
+      vec2 texUv = vUv * textureResolution;
+      float rgbWeight = max( max( mixMapTexel.r, mixMapTexel.g), mixMapTexel.b );
+      vec4 mixWeights = vec4(
+          1.0 - rgbWeight,
+          mixMapTexel.r,
+          mixMapTexel.g,
+          mixMapTexel.b
+        );
+      vec3 finalColor = getMixValue( mixWeights, diffuseMaps, texUv );
+      float specularStrength = getMixValue( mixWeights, specularMaps, texUv ).r / 4.0;
+      vec3 normal = normalize( vNormal );
+      vec3 viewPosition = normalize( vViewPosition );
+      vec3 mapNormal = getMixValue( mixWeights, normalMaps, texUv );
+      normal = perturbNormal2Arb( -vViewPosition, normal, mapNormal );
+      vec3 totalDiffuse = vec3( 0.0 );
+      vec3 totalSpecular = vec3( 0.0 );
+      #if MAX_POINT_LIGHTS > 0
+        vec3 pointDiffuse = vec3( 0.0 );
+        vec3 pointSpecular = vec3( 0.0 );
+        for ( int i = 0; i < MAX_POINT_LIGHTS; i ++ ) {
+          vec4 lPosition = viewMatrix * vec4( pointLightPosition[ i ], 1.0 );
+          vec3 lVector = lPosition.xyz + vViewPosition.xyz;
+          float lDistance = 1.0;
+          if ( pointLightDistance[ i ] > 0.0 )
+            lDistance = 1.0 - min( ( length( lVector ) / pointLightDistance[ i ] ), 1.0 );
+          lVector = normalize( lVector );
+          float dotProduct = dot( normal, lVector );
+          float pointDiffuseWeight = max( dotProduct, 0.0 );
+          pointDiffuse += diffuse * pointLightColor[ i ] * pointDiffuseWeight * lDistance;
+          vec3 pointHalfVector = normalize( lVector + viewPosition );
+          float pointDotNormalHalf = max( dot( normal, pointHalfVector ), 0.0 );
+          float pointSpecularWeight = specularStrength * max( pow( pointDotNormalHalf, shininess ), 0.0 );
+          float specularNormalization = ( shininess + 2.0 ) / 8.0;
+          vec3 schlick = specular + vec3( 1.0 - specular ) * pow( max( 1.0 - dot( lVector, pointHalfVector ), 0.0 ), 5.0 );
+          pointSpecular += schlick * pointLightColor[ i ] * pointSpecularWeight * pointDiffuseWeight * lDistance * specularNormalization;
+        }
+        totalDiffuse += pointDiffuse;
+        totalSpecular += pointSpecular;
+      #endif
+      #if MAX_SPOT_LIGHTS > 0
+        vec3 spotDiffuse = vec3( 0.0 );
+        vec3 spotSpecular = vec3( 0.0 );
+        for ( int i = 0; i < MAX_SPOT_LIGHTS; i ++ ) {
+          vec4 lPosition = viewMatrix * vec4( spotLightPosition[ i ], 1.0 );
+          vec3 lVector = lPosition.xyz + vViewPosition.xyz;
+          float lDistance = 1.0;
+          if ( spotLightDistance[ i ] > 0.0 )
+            lDistance = 1.0 - min( ( length( lVector ) / spotLightDistance[ i ] ), 1.0 );
+          lVector = normalize( lVector );
+          float spotEffect = dot( spotLightDirection[ i ], normalize( spotLightPosition[ i ] - vWorldPosition ) );
+          if ( spotEffect > spotLightAngleCos[ i ] ) {
+            spotEffect = max( pow( max( spotEffect, 0.0 ), spotLightExponent[ i ] ), 0.0 );
+            float dotProduct = dot( normal, lVector );
+            float spotDiffuseWeight = max( dotProduct, 0.0 );
+            spotDiffuse += diffuse * spotLightColor[ i ] * spotDiffuseWeight * lDistance * spotEffect;
+            vec3 spotHalfVector = normalize( lVector + viewPosition );
+            float spotDotNormalHalf = max( dot( normal, spotHalfVector ), 0.0 );
+            float spotSpecularWeight = specularStrength * max( pow( spotDotNormalHalf, shininess ), 0.0 );
+            float specularNormalization = ( shininess + 2.0 ) / 8.0;
+            vec3 schlick = specular + vec3( 1.0 - specular ) * pow( max( 1.0 - dot( lVector, spotHalfVector ), 0.0 ), 5.0 );
+            spotSpecular += schlick * spotLightColor[ i ] * spotSpecularWeight * spotDiffuseWeight * lDistance * specularNormalization * spotEffect;
+          }
+        }
+        totalDiffuse += spotDiffuse;
+        totalSpecular += spotSpecular;
+      #endif
+      #if MAX_DIR_LIGHTS > 0
+        vec3 dirDiffuse = vec3( 0.0 );
+        vec3 dirSpecular = vec3( 0.0 );
+        for( int i = 0; i < MAX_DIR_LIGHTS; i ++ ) {
+          vec4 lDirection = viewMatrix * vec4( directionalLightDirection[ i ], 0.0 );
+          vec3 dirVector = normalize( lDirection.xyz );
+          float dotProduct = dot( normal, dirVector );
+          float dirDiffuseWeight = max( dotProduct, 0.0 );
+          dirDiffuse += diffuse * directionalLightColor[ i ] * dirDiffuseWeight;
+          vec3 dirHalfVector = normalize( dirVector + viewPosition );
+          float dirDotNormalHalf = max( dot( normal, dirHalfVector ), 0.0 );
+          float dirSpecularWeight = specularStrength * max( pow( dirDotNormalHalf, shininess ), 0.0 );
+          float specularNormalization = ( shininess + 2.0 ) / 8.0;
+          vec3 schlick = specular + vec3( 1.0 - specular ) * pow( max( 1.0 - dot( dirVector, dirHalfVector ), 0.0 ), 5.0 );
+          dirSpecular += schlick * directionalLightColor[ i ] * dirSpecularWeight * dirDiffuseWeight * specularNormalization;
+        }
+        totalDiffuse += dirDiffuse;
+        totalSpecular += dirSpecular;
+      #endif
+      #if MAX_HEMI_LIGHTS > 0
+        vec3 hemiDiffuse = vec3( 0.0 );
+        vec3 hemiSpecular = vec3( 0.0 );
+        for( int i = 0; i < MAX_HEMI_LIGHTS; i ++ ) {
+          vec4 lDirection = viewMatrix * vec4( hemisphereLightDirection[ i ], 0.0 );
+          vec3 lVector = normalize( lDirection.xyz );
+          float dotProduct = dot( normal, lVector );
+          float hemiDiffuseWeight = 0.5 * dotProduct + 0.5;
+          vec3 hemiColor = mix( hemisphereLightGroundColor[ i ], hemisphereLightSkyColor[ i ], hemiDiffuseWeight );
+          hemiDiffuse += diffuse * hemiColor;
+          vec3 hemiHalfVectorSky = normalize( lVector + viewPosition );
+          float hemiDotNormalHalfSky = 0.5 * dot( normal, hemiHalfVectorSky ) + 0.5;
+          float hemiSpecularWeightSky = specularStrength * max( pow( max( hemiDotNormalHalfSky, 0.0 ), shininess ), 0.0 );
+          vec3 lVectorGround = -lVector;
+          vec3 hemiHalfVectorGround = normalize( lVectorGround + viewPosition );
+          float hemiDotNormalHalfGround = 0.5 * dot( normal, hemiHalfVectorGround ) + 0.5;
+          float hemiSpecularWeightGround = specularStrength * max( pow( max( hemiDotNormalHalfGround, 0.0 ), shininess ), 0.0 );
+          float dotProductGround = dot( normal, lVectorGround );
+          float specularNormalization = ( shininess + 2.0 ) / 8.0;
+          vec3 schlickSky = specular + vec3( 1.0 - specular ) * pow( max( 1.0 - dot( lVector, hemiHalfVectorSky ), 0.0 ), 5.0 );
+          vec3 schlickGround = specular + vec3( 1.0 - specular ) * pow( max( 1.0 - dot( lVectorGround, hemiHalfVectorGround ), 0.0 ), 5.0 );
+          hemiSpecular += hemiColor * specularNormalization * ( schlickSky * hemiSpecularWeightSky * max( dotProduct, 0.0 ) + schlickGround * hemiSpecularWeightGround * max( dotProductGround, 0.0 ) );
+        }
+        totalDiffuse += hemiDiffuse;
+        totalSpecular += hemiSpecular;
+      #endif
+      gl_FragColor.rgb = finalColor.rgb;
+      gl_FragColor.xyz = gl_FragColor.xyz * ( emissive + totalDiffuse + ambientLightColor * ambient ) + totalSpecular;
+      #ifdef USE_SHADOWMAP
+        #ifdef SHADOWMAP_DEBUG
+          vec3 frustumColors[3];
+          frustumColors[0] = vec3( 1.0, 0.5, 0.0 );
+          frustumColors[1] = vec3( 0.0, 1.0, 0.8 );
+          frustumColors[2] = vec3( 0.0, 0.5, 1.0 );
+        #endif
+        #ifdef SHADOWMAP_CASCADE
+          int inFrustumCount = 0;
+        #endif
+        float fDepth;
+        vec3 shadowColor = vec3( 1.0 );
+        for( int i = 0; i < MAX_SHADOWS; i ++ ) {
+          vec3 shadowCoord = vShadowCoord[ i ].xyz / vShadowCoord[ i ].w;
+          bvec4 inFrustumVec = bvec4 ( shadowCoord.x >= 0.0, shadowCoord.x <= 1.0, shadowCoord.y >= 0.0, shadowCoord.y <= 1.0 );
+          bool inFrustum = all( inFrustumVec );
+          #ifdef SHADOWMAP_CASCADE
+            inFrustumCount += int( inFrustum );
+            bvec3 frustumTestVec = bvec3( inFrustum, inFrustumCount == 1, shadowCoord.z <= 1.0 );
+          #else
+            bvec2 frustumTestVec = bvec2( inFrustum, shadowCoord.z <= 1.0 );
+          #endif
+          bool frustumTest = all( frustumTestVec );
+          if ( frustumTest ) {
+            shadowCoord.z += shadowBias[ i ];
+            #if defined( SHADOWMAP_TYPE_PCF )
+              float shadow = 0.0;
+              const float shadowDelta = 1.0 / 9.0;
+              float xPixelOffset = 1.0 / shadowMapSize[ i ].x;
+              float yPixelOffset = 1.0 / shadowMapSize[ i ].y;
+              float dx0 = -1.25 * xPixelOffset;
+              float dy0 = -1.25 * yPixelOffset;
+              float dx1 = 1.25 * xPixelOffset;
+              float dy1 = 1.25 * yPixelOffset;
+              fDepth = unpackDepth( texture2D( shadowMap[ i ], shadowCoord.xy + vec2( dx0, dy0 ) ) );
+              if ( fDepth < shadowCoord.z ) shadow += shadowDelta;
+              fDepth = unpackDepth( texture2D( shadowMap[ i ], shadowCoord.xy + vec2( 0.0, dy0 ) ) );
+              if ( fDepth < shadowCoord.z ) shadow += shadowDelta;
+              fDepth = unpackDepth( texture2D( shadowMap[ i ], shadowCoord.xy + vec2( dx1, dy0 ) ) );
+              if ( fDepth < shadowCoord.z ) shadow += shadowDelta;
+              fDepth = unpackDepth( texture2D( shadowMap[ i ], shadowCoord.xy + vec2( dx0, 0.0 ) ) );
+              if ( fDepth < shadowCoord.z ) shadow += shadowDelta;
+              fDepth = unpackDepth( texture2D( shadowMap[ i ], shadowCoord.xy ) );
+              if ( fDepth < shadowCoord.z ) shadow += shadowDelta;
+              fDepth = unpackDepth( texture2D( shadowMap[ i ], shadowCoord.xy + vec2( dx1, 0.0 ) ) );
+              if ( fDepth < shadowCoord.z ) shadow += shadowDelta;
+              fDepth = unpackDepth( texture2D( shadowMap[ i ], shadowCoord.xy + vec2( dx0, dy1 ) ) );
+              if ( fDepth < shadowCoord.z ) shadow += shadowDelta;
+              fDepth = unpackDepth( texture2D( shadowMap[ i ], shadowCoord.xy + vec2( 0.0, dy1 ) ) );
+              if ( fDepth < shadowCoord.z ) shadow += shadowDelta;
+              fDepth = unpackDepth( texture2D( shadowMap[ i ], shadowCoord.xy + vec2( dx1, dy1 ) ) );
+              if ( fDepth < shadowCoord.z ) shadow += shadowDelta;
+              shadowColor = shadowColor * vec3( ( 1.0 - shadowDarkness[ i ] * shadow ) );
+            #elif defined( SHADOWMAP_TYPE_PCF_SOFT )
+              float shadow = 0.0;
+              float xPixelOffset = 1.0 / shadowMapSize[ i ].x;
+              float yPixelOffset = 1.0 / shadowMapSize[ i ].y;
+              float dx0 = -1.0 * xPixelOffset;
+              float dy0 = -1.0 * yPixelOffset;
+              float dx1 = 1.0 * xPixelOffset;
+              float dy1 = 1.0 * yPixelOffset;
+              mat3 shadowKernel;
+              mat3 depthKernel;
+              depthKernel[0][0] = unpackDepth( texture2D( shadowMap[ i ], shadowCoord.xy + vec2( dx0, dy0 ) ) );
+              depthKernel[0][1] = unpackDepth( texture2D( shadowMap[ i ], shadowCoord.xy + vec2( dx0, 0.0 ) ) );
+              depthKernel[0][2] = unpackDepth( texture2D( shadowMap[ i ], shadowCoord.xy + vec2( dx0, dy1 ) ) );
+              depthKernel[1][0] = unpackDepth( texture2D( shadowMap[ i ], shadowCoord.xy + vec2( 0.0, dy0 ) ) );
+              depthKernel[1][1] = unpackDepth( texture2D( shadowMap[ i ], shadowCoord.xy ) );
+              depthKernel[1][2] = unpackDepth( texture2D( shadowMap[ i ], shadowCoord.xy + vec2( 0.0, dy1 ) ) );
+              depthKernel[2][0] = unpackDepth( texture2D( shadowMap[ i ], shadowCoord.xy + vec2( dx1, dy0 ) ) );
+              depthKernel[2][1] = unpackDepth( texture2D( shadowMap[ i ], shadowCoord.xy + vec2( dx1, 0.0 ) ) );
+              depthKernel[2][2] = unpackDepth( texture2D( shadowMap[ i ], shadowCoord.xy + vec2( dx1, dy1 ) ) );
+              vec3 shadowZ = vec3( shadowCoord.z );
+              shadowKernel[0] = vec3(lessThan(depthKernel[0], shadowZ ));
+              shadowKernel[0] *= vec3(0.25);
+              shadowKernel[1] = vec3(lessThan(depthKernel[1], shadowZ ));
+              shadowKernel[1] *= vec3(0.25);
+              shadowKernel[2] = vec3(lessThan(depthKernel[2], shadowZ ));
+              shadowKernel[2] *= vec3(0.25);
+              vec2 fractionalCoord = 1.0 - fract( shadowCoord.xy * shadowMapSize[i].xy );
+              shadowKernel[0] = mix( shadowKernel[1], shadowKernel[0], fractionalCoord.x );
+              shadowKernel[1] = mix( shadowKernel[2], shadowKernel[1], fractionalCoord.x );
+              vec4 shadowValues;
+              shadowValues.x = mix( shadowKernel[0][1], shadowKernel[0][0], fractionalCoord.y );
+              shadowValues.y = mix( shadowKernel[0][2], shadowKernel[0][1], fractionalCoord.y );
+              shadowValues.z = mix( shadowKernel[1][1], shadowKernel[1][0], fractionalCoord.y );
+              shadowValues.w = mix( shadowKernel[1][2], shadowKernel[1][1], fractionalCoord.y );
+              shadow = dot( shadowValues, vec4( 1.0 ) );
+              shadowColor = shadowColor * vec3( ( 1.0 - shadowDarkness[ i ] * shadow ) );
+            #else
+              vec4 rgbaDepth = texture2D( shadowMap[ i ], shadowCoord.xy );
+              float fDepth = unpackDepth( rgbaDepth );
+              if ( fDepth < shadowCoord.z )
+                shadowColor = shadowColor * vec3( 1.0 - shadowDarkness[ i ] );
+            #endif
+          }
+          #ifdef SHADOWMAP_DEBUG
+            #ifdef SHADOWMAP_CASCADE
+              if ( inFrustum && inFrustumCount == 1 ) gl_FragColor.xyz *= frustumColors[ i ];
+            #else
+              if ( inFrustum ) gl_FragColor.xyz *= frustumColors[ i ];
+            #endif
+          #endif
+        }
+        #ifdef GAMMA_OUTPUT
+          shadowColor *= shadowColor;
+        #endif
+        gl_FragColor.xyz = gl_FragColor.xyz * shadowColor;
+      #endif
+      // PROJECTED GRID SHADER START
+      if ( gridVisible == 1 ) {
+        // TODO: Restrict grid to boundaries
+        float focusWidth = laserWidth * ( laserFocus / 2.0 );
+        float intervalHalf = gridInterval / 2.0;
+        vec3 laserColor = vec3( 0.5, 0.5, 0.5 );
+        vec3 xColor = vec3( 0.0, 0.0, 1.0 );
+        vec3 yColor = vec3( 1.0, 0.0, 0.0 );
+        float laserFactor = 0.0;
+        vec2 gridLine = vec2( intervalHalf - mod( vWorldPosition.xy + gridOffset + intervalHalf, gridInterval ) );
+        gridLine = max( gridLine, -1.0 * gridLine );
+        if ( gridLine.x < laserWidth ) {
+          if ( gridLine.x < focusWidth ) {
+            laserFactor = laserIntensity;
+          } else {
+            laserFactor = ( 1.0 - ( gridLine.x - focusWidth ) / ( laserWidth - focusWidth ) ) * laserIntensity;
+          }
+        }
+        if ( gridLine.y < laserWidth ) {
+          if ( gridLine.y < focusWidth ) {
+            laserFactor = laserIntensity;
+          } else {
+            laserFactor = max( ( 1.0 - ( gridLine.y - focusWidth ) / ( laserWidth - focusWidth ) ) * laserIntensity, laserFactor );
+          }
+        }
+        if ( laserFactor > 0.0 ) {
+          vec2 axisColorFactor = max( 1.0 - abs( vWorldPosition.xy - gridAxes.yx * gridInterval ), 0.0 );
+          float noAxisFactor = min( 1.0 - axisColorFactor.x, 1.0 - axisColorFactor.y );
+          laserColor = ( axisColorFactor.x * xColor) + ( axisColorFactor.y * yColor) + ( noAxisFactor * laserColor );
+          float avgColor = ( gl_FragColor.x + gl_FragColor.y + gl_FragColor.z ) / 3.0;
+          vec3 desaturate = ( avgColor - gl_FragColor.xyz ) * laserFactor;
+          gl_FragColor.xyz = ( gl_FragColor.xyz + desaturate ) + laserFactor * laserColor;
+        }
+      }
+      vec3 tileValue = extractTileValue( vWorldPosition.xy );
+      float intervalHalf = gridInterval / 2.0;
+      vec2 gridLine = vec2( intervalHalf - mod( vWorldPosition.xy + gridOffset, gridInterval ) );
+      gridLine = max( gridLine, -1.0 * gridLine );
+      vec2 tilePosition = vec2( floor( ( vWorldPosition / gridInterval ) + 0.5 ) );
+      if ( gridLine.x > tilePadding && gridLine.y > tilePadding && tileValue.r > 0.0 ) {
+        if ( tilePosition.x == calloutTile.x && tilePosition.y == calloutTile.y &&
+          ( tilesVisible == 1 || ( tilesVisible == 0 && calloutHighlight == 1.0 ) ) ) {
+            gl_FragColor.xyz += tileColor * ( 0.8 + 1.0 * calloutHighlight );
+        } else if ( tilesVisible == 1 ) {
+          gl_FragColor.xyz += tileColor * 0.8;
+        }
+      }
+      #if MAX_TRIS > 0
+        bool inTriangle = false;
+        #if MAX_TRIS >= 3
+          inTriangle = testTriangle( vWorldPosition.xy, triangle[ 0 ], triangle[ 1 ], triangle[ 2 ] );
+        #endif
+        #if MAX_TRIS >= 6
+          if ( !inTriangle ) {
+            inTriangle = testTriangle( vWorldPosition.xy, triangle[ 3 ], triangle[ 4 ], triangle[ 5 ] );
+          }
+        #endif
+        #if MAX_TRIS >= 9
+          if ( !inTriangle ) {
+            inTriangle = testTriangle( vWorldPosition.xy, triangle[ 6 ], triangle[ 7 ], triangle[ 8 ] );
+          }
+        #endif
+        #if MAX_TRIS >= 12
+          if ( !inTriangle ) {
+            inTriangle = testTriangle( vWorldPosition.xy, triangle[ 9 ], triangle[ 10 ], triangle[ 11 ] );
+          }
+        #endif
+        if ( inTriangle ) {
+          gl_FragColor.xyz += tileColor * 0.8;
+        }
+      #endif
+      #if MAX_USER_TRIS > 0
+        bool inTri = false;
+        int triNum = 0;
+        #if MAX_USER_TRIS >= 3
+          inTri = testTriangle( vWorldPosition.xy, userTris[ 0 ], userTris[ 1 ], userTris[ 2 ] );
+          if ( inTri ) {
+            triNum = 1;
+          }
+        #endif
+        #if MAX_USER_TRIS >= 6
+          if ( !inTri ) {
+            inTri = testTriangle( vWorldPosition.xy, userTris[ 3 ], userTris[ 4 ], userTris[ 5 ] );
+            if ( inTri ) {
+              triNum = 2;
+            }
+          }
+        #endif
+        #if MAX_USER_TRIS >= 9
+          if ( !inTri ) {
+            inTri = testTriangle( vWorldPosition.xy, userTris[ 6 ], userTris[ 7 ], userTris[ 8 ] );
+            if ( inTri ) {
+              triNum = 3;
+            }
+          }
+        #endif
+        #if MAX_USER_TRIS >= 12
+          if ( !inTri ) {
+            inTri = testTriangle( vWorldPosition.xy, userTris[ 9 ], userTris[ 10 ], userTris[ 11 ] );
+            if ( inTri ) {
+              triNum = 4;
+            }
+          }
+        #endif
+        if ( inTri ) {
+          vec3 triangleColor = vec3( 0.3, 0.3, 0.7 );
+          gl_FragColor.xyz += triangleColor;
+        }
+      #endif
+      // PROJECTED GRID SHADER END
+      #ifdef USE_FOG
+        float depth = gl_FragCoord.z / gl_FragCoord.w;
+        #ifdef FOG_EXP2
+          const float LOG2 = 1.442695;
+          float fogFactor = exp2( - fogDensity * fogDensity * depth * depth * LOG2 );
+          fogFactor = 1.0 - clamp( fogFactor, 0.0, 1.0 );
+        #else
+          float fogFactor = smoothstep( fogNear, fogFar, depth );
+        #endif
+        gl_FragColor = mix( gl_FragColor, vec4( fogColor, gl_FragColor.w ), fogFactor );
+      #endif
+    }
+methods:
+  callout: |
+    var highlight = this.calloutHighlight;
+    if ( this.bCallout$ ) {
+      this.calloutHighlight = highlight === 0 ? 1 : 0;
+      this.future( 0.25 ).callout();
+    }
+  stopCallout: |
+    this.bCallout$ = false;
+    this.calloutHighlight = 0;

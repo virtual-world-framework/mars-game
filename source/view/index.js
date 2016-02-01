@@ -14,26 +14,41 @@
 
 var appID;
 var mainMenu;
-var hud;
 var blocklyNodes = {};
 var graphLines = {};
 var loggerNodes = {};
 var currentBlocklyNodeID = undefined;
-var blocklyExecuting = false;
+var currentProcedureBlockID = undefined;
+var currentBlocklyErrors = {};
+var currentBlocklyTriangles = {};
+
+var currentLoopCheckBlockID = undefined;
+var currentLoopingBlockID = undefined;
+var currentLoopIndexes = {};
+var currentLoopIndex = 0;
+var maxLoopIndex = 0;
+var lastBlockInLoopID = undefined;
+var currentBlockIndicatedID = undefined;
+var hasLooped = false;
+var tabSwitched = false;
+
 var lastBlockIDExecuted = undefined;
 var currentBlockIDSelected = undefined;
+var blocklyStopped = true;
 var targetPath = undefined;
 var targetID;
+
 var mainRover = undefined;
+var perryRover = undefined;
+
+var roverSignalValue = 0;
+var roverHeadingValue = 0;
 var blocklyGraphID = undefined;
+var blocklyVariables = {};
+var triangleStarted = false;
 var alertNodeID = undefined;
 var graphIsVisible = false;
 var tilesAreVisible = false;
-var gridBounds = {
-    bottomLeft: undefined,
-    topRight: undefined
-};
-var orbitTarget = new Array( 3 );
 var lastRenderTime = 0;
 var threejs = findThreejsView();
 var activePauseMenu;
@@ -42,14 +57,51 @@ var muted = false;
 var currentScenario;
 var scenarioList;
 var startingZoom;
+var appState;
 
-var renderTransition = true;
-var playingVideo = false;
-// Render modes
-var RENDER_NONE = 0;
-var RENDER_MENU = 1;
-var RENDER_GAME = 2;
-var renderMode = RENDER_NONE;
+var scenarioTimes = {};
+var totalTime = 0;
+var clockTickTime;
+var clockElapsedTime;
+var clockScenario;
+var timerWindow = document.getElementById( "timerWindow" );
+var timerScenarioName = document.getElementById( "timerScenarioName" );
+var timerScenarioElapsedTime = document.getElementById( "timerScenarioElapsedTime" );
+var timerDetailButton = document.getElementById( "timerDetailButton" );
+timerDetailButton.onclick = toggleTimerDetailList;
+var timerDetailList = document.getElementById( "timerDetailList" );
+var blocklyArea = document.getElementById('blocklyWrapper');
+var blocklyDiv = document.getElementById('blocklyDiv');
+
+var cameraTargetPosition = [ 0, 0, 0 ];
+var firstLoad = true;
+
+function getAppID() {
+    if ( appID === undefined ) {
+        appID = vwf_view.kernel.application();
+    }
+    return appID;
+}
+
+vwf_view.calledMethod = function( nodeID, methodName, methodParams ) {
+    if ( nodeID === getAppID() ) {
+        switch ( methodName ) {
+            case "playVideo":
+                var src = methodParams[ 0 ];
+                $( "#transitionScreen" ).fadeTo( 400, 1, function() {
+                    playVideo( src );
+                } );
+                break;
+            case "hideUI":
+                var uiVisible = methodParams[ 0 ];
+                var bVisible = uiVisible && Boolean( currentBlocklyNodeID );
+                vwf_view.kernel.setProperty( getAppID(), "blockly_interfaceVisible", bVisible );
+                timerWindow.style.visibility = uiVisible ? "visible" : "hidden";
+                missionBriefDOM.style.display = uiVisible ? "block" : "none";
+                break;
+        }
+    }
+}
 
 vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
     if ( blocklyNodes[ nodeID ] !== undefined ) {
@@ -58,153 +110,290 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
 
             case "blocklyVisibleChanged":
                 if ( eventArgs[ 0 ] ) {
-                    currentBlocklyNodeID = nodeID;
+                    selectBlocklyTab( nodeID );
                     updateBlocklyRamBar();
                     updateBlocklyUI( blocklyNode );
-                    selectBlock( lastBlockIDExecuted );
+                    var resetButton = document.getElementById( "blocklyResetButton" );
+                    if ( currentBlocklyNodeID === blocklyGraphID ) {
+                        resetButton.style.visibility = "hidden";
+                    } else {
+                        resetButton.style.visibility = "inherit";
+                    }
+                } else {
+                    currentBlocklyNodeID = undefined;
                 }
                 break;
 
             case "topBlockCountChanged":
-                if ( !blocklyExecuting ) {
+                if ( !blocklyNode.blocklyExecuting ) {
                     if ( Blockly.mainWorkspace ) {
-                        var topBlockCount = Number( eventArgs[ 0 ] );
-                        startBlocklyButton.className = topBlockCount !== 1 ? "disabled" : "" ;
+                        var workspace = Blockly.getMainWorkspace();
+                        var validTopBlocks = 0;
+                        for ( var i = 0; i < workspace.topBlocks_.length; i++ ) {
+                            if ( workspace.topBlocks_[i].type !== "procedures_defnoreturn") {
+                                validTopBlocks+=1; 
+                            }
+                        }
+
+                        
+
+
+                        // startBlocklyButton.className = topBlockCount !== 1 ? "disabled" : "" ;
                         // if disabled then need to set the tooltip
                         // There must be only one program for each blockly object
+                        // We're also checking for errors here (empty loops/conditionals)
+
+                        var foundError = false;
+                        for ( var key in currentBlocklyErrors ) {
+                          if ( currentBlocklyErrors.hasOwnProperty( key ) ) {
+                            var blockStatus = currentBlocklyErrors[ key ];
+                            if ( blockStatus === true && Blockly.mainWorkspace.getBlockById( key ) !== null ) {
+                                foundError = true;
+                            }
+                          }
+                        }
+
+                        if ( validTopBlocks !== 1 || foundError === true ) {
+                            startBlocklyButton.className = "disabled";
+                        } else {
+                            if ( currentScenario !== 'Mission3Task1' && currentScenario !== 'Mission3Task2' && currentScenario !== 'Mission3Task3' && currentScenario !== 'Mission3Task4' && currentScenario !== 'Mission3Task5' && currentScenario !== 'Mission3Task6' && currentScenario !== 'Mission3Task7' && workspace.topBlocks_.length >= 2 ) {
+                                startBlocklyButton.className = "disabled";
+                            } else {
+                                startBlocklyButton.className = "";
+                            }
+
+                            
+                        }
+
+                        updateBlocklyUI( blocklyNode )
+
+                        hideBlocklyIndicator();
+                        hideBlocklyProcedureIndicator();
                     }
                 }
                 break;
 
             case "blocklyStarted":
+                blocklyDiv.style.pointerEvents = "none";
                 startBlocklyButton.className = "reset";
-                var indicator = document.getElementById( "blocklyIndicator" );
-                indicator.className = "";
-                indicator.style.visibility = "inherit";
-                var indicatorCount = document.getElementById( "blocklyIndicatorCount" );
-                indicatorCount.className = "";
-                indicatorCount.style.visibility = "inherit";
+                // var indicator = document.getElementById( "blocklyIndicator" );
+                // indicator.className = "";
+                // indicator.style.visibility = "inherit";
+                // var indicatorCount = document.getElementById( "blocklyIndicatorCount" );
+                // indicatorCount.className = "";
+                // indicatorCount.style.visibility = "inherit";
+                // var procedureIndicator = document.getElementById( "blocklyProcedureIndicator" );
+                // procedureIndicator.className = "";
+                // procedureIndicator.style.visibility = "inherit";
+                // currentProcedureBlockID = undefined;                
+                // currentLoopingBlockID = 0;
+                // currentLoopIndex = 0;
+                blocklyStopped = false;
+                tabSwitched = false;
+                hideBlocklyLoopCount();
+                //var speedButton = document.getElementById( "blocklySpeedButton" );
+                //speedButton.style.opacity = 0.4;
+                //speedButton.style.pointerEvents = "none";
                 break;
 
             case "blocklyStopped":
+                blocklyDiv.style.pointerEvents = "inherit";
                 startBlocklyButton.className = "";
-                var indicator = document.getElementById( "blocklyIndicator" );
-                var count = document.getElementById( "blocklyIndicatorCount" );
-                indicator.className = "stopped";
-                count.className = "stopped";
+                startEnabled = false;
+                //vwf_view.kernel.setProperty( nodeID, "blockly_timeBetweenLines", 1 );
+                // startBlocklyButton.className = "";
+                // var indicator = document.getElementById( "blocklyIndicator" );
+                // var count = document.getElementById( "blocklyIndicatorCount" );
+                // indicator.className = "stopped";
+                // count.className = "stopped";
+                // var procedureIndicator = document.getElementById( "blocklyProcedureIndicator" );
+                // procedureIndicator.className = "stopped";
 
-                clearBlocklyStatus();
-
-            case "blocklyErrored":
-                startBlocklyButton.className = "";
-                break;
-
-            case "transformChanged":
-                if ( nodeID === targetID ) {
-                    var targetTransform = eventArgs[ 0 ];
-                    if ( targetTransform ) {
-                        orbitTarget[ 0 ] = targetTransform[ 12 ];
-                        orbitTarget[ 1 ] = targetTransform[ 13 ];
-                        orbitTarget[ 2 ] = targetTransform[ 14 ];
+                var workspace, block;
+                workspace = Blockly.getMainWorkspace();
+                if ( workspace ) {
+                    block = workspace.getBlockById( lastBlockIDExecuted );
+                    if ( block && block.data === currentBlocklyNodeID ) {
+                        block.selectStop();
                     }
                 }
+
+                blocklyStopped = true;
+                // var speedButton = document.getElementById( "blocklySpeedButton" );
+                // speedButton.style.opacity = 1.0;
+                // speedButton.style.pointerEvents = "inherit";
+                
+            case "blocklyErrored":
+                blocklyDiv.style.pointerEvents = "inherit";
+                startBlocklyButton.className = "";
+                startEnabled = false;
                 break;
 
         }
-    } else if ( nodeID === this.kernel.application() ) {
+    } else if ( nodeID === getAppID() ) {
         switch ( eventName ) {
-            
+
+            case "paused":
+                openPauseMenu();
+                break;
+            case "unpaused":
+                break;
+
             case "blocklyContentChanged":
-                if ( currentBlocklyNodeID === blocklyGraphID ) {
-                    var currentCode = getBlocklyFunction();
-                    this.kernel.setProperty( graphLines[ "blocklyLine" ].ID, "lineFunction", currentCode );
-                } else {
-                    indicateBlock( lastBlockIDExecuted );
+                if ( blocklyStopped ) {
+                    if ( Blockly.mainWorkspace ) {
+                        var workspace = Blockly.getMainWorkspace();
+                        if ( currentBlocklyNodeID === blocklyGraphID ) {
+                            var currentCode = getBlocklyFunction();
+                            vwf_view.kernel.setProperty( graphLines[ "blocklyLine" ].ID, "lineFunction", currentCode );
+                        } else {
+                            //indicateBlock( lastBlockIDExecuted );
+                            // We're also checking for errors here (empty loops/conditionals)
+                            var workspace = Blockly.getMainWorkspace();
+                            var validTopBlocks = 0;
+                            for ( var i = 0; i < workspace.topBlocks_.length; i++ ) {
+                                if ( workspace.topBlocks_[i].type !== "procedures_defnoreturn") {
+                                    validTopBlocks+=1; 
+                                }
+                            }
+
+                            var foundError = false;
+                            for ( var key in currentBlocklyErrors ) {
+                              if ( currentBlocklyErrors.hasOwnProperty( key ) ) {
+                                var blockStatus = currentBlocklyErrors[ key ];
+                                if ( blockStatus === true && Blockly.mainWorkspace.getBlockById( key ) !== null ) {
+                                    foundError = true;
+                                }
+                              }
+                            }
+
+                            if ( validTopBlocks !== 1 || foundError === true ) {
+                                startBlocklyButton.className = "disabled";
+                            } else {
+                                if ( currentScenario !== 'Mission3Task1' && currentScenario !== 'Mission3Task2' && currentScenario !== 'Mission3Task3' && currentScenario !== 'Mission3Task4' && currentScenario !== 'Mission3Task5' && currentScenario !== 'Mission3Task6' && currentScenario !== 'Mission3Task7' && workspace.topBlocks_.length >= 2 ) {
+                                    startBlocklyButton.className = "disabled";
+                                } else {
+                                    startBlocklyButton.className = "";
+                                }
+                            }
+
+                        }
+                    }
                 }
                 break;
 
             case "blockExecuted":
                 var blockName = eventArgs[ 0 ];
                 var blockID = eventArgs[ 1 ];
+                var blockNode = eventArgs[ 2 ];
+                var blockTime = eventArgs[ 3 ];
+                var blockArgs = eventArgs[ 4 ];
+
+                Blockly.mainWorkspace.fireChangeEvent();
+
+                if ( blockName === 'moveRadial' ) {
+
+                    if ( isNaN( blockArgs[ 0 ] ) ) {
+                      var extractedVal = blocklyVariables[ blockArgs[ 0 ] ];
+                      if ( extractedVal !== undefined ) {
+                        var value_x = extractedVal;
+                      } else {
+                        var value_x = 0;
+                      }
+                    } else {
+                        var value_x = blockArgs[ 0 ];
+                    }
+
+                    if ( isNaN( blockArgs[ 1 ] ) ) {
+                      var extractedVal = blocklyVariables[ blockArgs[ 1 ] ];
+
+                      if ( extractedVal !== undefined ) {
+                        var value_y = extractedVal;
+                      } else {
+                        var value_y = 0;
+                      }
+                    } else {
+                        var value_y = blockArgs[ 1 ];
+                    }
+
+                    var blocklyNodeValues = blocklyNodes[ blockNode ];
+
+                    if ( blocklyNodeValues === undefined ) {
+                        var blocklyNodeValues = blocklyNodes[ currentBlocklyNodeID ];
+                    }
+
+                    var currentPosition = blocklyNodeValues[ 'positionSensorValue' ];
+
+                    var xOffset = value_x - currentPosition[ 0 ];
+                    var yOffset = value_y - currentPosition[ 1 ];
+
+                    var hypot = Math.sqrt( ( xOffset * xOffset ) + ( yOffset * yOffset ) );
+
+                    vwf_view.kernel.setProperty( blockNode, "blockly_timeBetweenLines", hypot * 0.5 );
+                } else {
+                    vwf_view.kernel.setProperty( blockNode, "blockly_timeBetweenLines", 0.5 );
+                }
+
                 if ( blockID ) {
                     selectBlock( blockID );
                     indicateBlock( blockID );
-                    pushNextBlocklyStatus( blockID );
                     lastBlockIDExecuted = blockID;
+                     
                 }
+                
                 break;
+                
+            case "updatedBlocklyVariable":
 
+                var variableName = eventArgs[ 0 ];
+                var variableValue = eventArgs[ 1 ];
+                if ( eventArgs[ 2 ] !== undefined ) {
+                    blocklyVariables[ variableName ] = [ variableValue , eventArgs[ 2 ] ];
+                } else {
+                    blocklyVariables[ variableName ] = variableValue;
+                }
+                
+                Blockly.mainWorkspace.fireChangeEvent();
+
+                break;
             case "scenarioChanged":
                 currentScenario = eventArgs[ 0 ];
-                if ( currentScenario === "mainMenuScenario" ) {
-                    setRenderMode( RENDER_MENU );
-                } else {
-                    setRenderMode( RENDER_GAME );
-                }
                 lastBlockIDExecuted = undefined;
-                enableAllHUDElements();
+                currentProcedureBlockID = undefined;
+                lastBlockIDExecuted = undefined;
+                updateBlocklyUI( blocklyNodes[ currentBlocklyNodeID ] );
+                currentBlocklyErrors = {};
+                setTimeout( enableStart(), multiClickBuffer );
             case "scenarioReset":
                 removePopup();
                 removeFailScreen();
-                clearBlocklyStatus();
-                indicateBlock( lastBlockIDExecuted );
-                gridBounds = eventArgs[ 1 ] || gridBounds;
+                currentBlocklyErrors = {};
+                setTimeout( enableStart(), multiClickBuffer );
+                //indicateBlock( lastBlockIDExecuted );
                 break;
 
             case "gotScenarioPaths":
                 scenarioList = eventArgs[ 0 ];
                 break;
 
-            case "blinkHUD":
-                blinkElement( eventArgs[ 0 ] );
-                break;
-
-            case "stopBlinkHUD":
-                stopElementBlinking( eventArgs[ 0 ] );
-                break;
-
-            case "blinkTab":
-                blinkTab( eventArgs[ 0 ] );
-                break;
-
-            case "stopBlinkTab":
-                stopBlinkTab( eventArgs[ 0 ] );
-                break;
-
-            case "setHUDElementProperty":
-                var element, property, value;
-                element = eventArgs[ 0 ];
-                property = eventArgs[ 1 ];
-                value = eventArgs[ 2 ]
-                setHUDElementProperty( element, property, value );
-                break;
-
-            case "showCommsImage":
-                addImageToCommsDisplay( eventArgs[ 0 ] );
-                break;
-
-            case "hideCommsImage":
-                removeImageFromCommsDisplay();
-                break;
-
             case "clearBlockly":
                 clearBlockly();
+                currentBlocklyErrors = {};
                 break;
 
             case "resetRoverSensors":
                 resetRoverSensors();
                 break;
 
-            case "selectLastBlock":
-                selectBlock( lastBlockIDExecuted );
-                break;
-
-            case "resetHUDState":
-                clearHUDEffects();
-                break;
-
             case "clearBlocklyTabs":
-                clearBlocklyTabs();
+                var tabs = eventArgs[ 0 ];
+                if ( tabs !== undefined ) {
+                    for ( var i = 0; i < tabs.length; i++ ) {
+                        removeBlocklyTab( tabs[ i ] );
+                    }
+                } else {
+                    clearBlocklyTabs( eventArgs[ 0 ] );
+                }
                 break;
 
             case "toggledTiles":
@@ -215,31 +404,17 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 graphIsVisible = eventArgs[ 0 ];
                 break;
             
-            case "enableBlocklyTab":
-                addBlocklyTab( eventArgs[ 0 ], eventArgs[ 1 ] );
-                break;
-
-            case "playVideo":
-                setRenderMode( RENDER_NONE );
-                var src = eventArgs[ 0 ];
-                var id = getVideoIdFromSrc( src );
-                if ( isNaN( id ) || id < 0 || id >= videos.length ) {
-                    id = loadVideo( src );
+            case "enableBlocklyTabs":
+                var tabs = eventArgs[ 0 ];
+                for ( var i = 0; i < tabs.length; i++ ) {
+                    addBlocklyTab( tabs[ i ] );
                 }
-                $( "#transitionScreen" ).fadeIn( function() {
-                    playVideo( id );
-                } );
-                
                 break;
 
             case "videoPlayed":
-                $( "#transitionScreen" ).fadeOut();
-                setRenderMode( RENDER_GAME );
-                break;
-
-            case "setObjective":
-                var objectiveText = eventArgs[ 0 ];
-                setNewObjective( objectiveText );
+                $( "#transitionScreen" ).fadeTo( 400, 0, function() {
+                    removeVideo();
+                } );
                 break;
 
             case "progressFound":
@@ -255,31 +430,23 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 mainMenu.setContinueScenario( scenarioName );
                 break;
 
+            case "missionBriefOpened":
+                showMissionBrief();
+                break;
+
+            case "loadedMissionBrief":
+                var title, content, imageSrc;
+                title = eventArgs[ 0 ];
+                content = eventArgs[ 1 ];
+                imageSrc = eventArgs[ 2 ];
+                setBriefInfo( title, content, imageSrc );
+                break;
+
+            case "selectedRover":
+                updateCameraDistance( eventArgs[ 0 ] );
+                break;
+
         } 
-    } else if ( loggerNodes[ nodeID ] !== undefined ) { 
-        switch ( eventName ) {
-            
-            case "logAdded":
-                var msg = eventArgs[ 0 ];
-                var msgType = loggerNodes[ nodeID ].name;
-                if ( msgType === "alerts" ) {
-                    pushAlert( msg.log );
-                }
-                break;
-
-            case "logRemoved":
-                var index = eventArgs[ 0 ];
-                // not sure this is needed, will always remove the first 
-                // log in the list
-                break;
-
-            case "addSubtitle":
-                var msg = eventArgs[ 0 ];
-                var time = eventArgs[ 1 ] ? eventArgs[ 1 ] : 1;
-                pushSubtitle( msg, time );
-                break;            
-            
-        }
     } else {
         // scenario events
         if ( eventName === "completed" ) {
@@ -297,6 +464,29 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 resetScenario();
             }
         }
+
+        if( eventName === "videoEnded" ){
+            removeVideoOnEvent();
+        }
+
+        if ( eventName === "startedTimer" ) {
+            var name, time;
+            name = eventArgs[ 0 ];
+            time = eventArgs[ 1 ];
+            scenarioTimes[ name ] = time;
+            startClock( name, time );
+        } else if ( eventName === "stoppedTimer" ) {
+            var name, time;
+            name = eventArgs[ 0 ];
+            time = eventArgs[ 1 ];
+            scenarioTimes[ name ] = time;
+        } else if ( eventName === "updatedAggregateTime" ) {
+            totalTime = eventArgs[ 0 ];
+        }
+
+        if ( eventName === "targetMoved" ) {
+            cameraTargetPosition = eventArgs[ 0 ];
+        }
     }
 }
 
@@ -304,6 +494,10 @@ vwf_view.createdNode = function( nodeID, childID, childExtendsID, childImplement
 
     if ( childName === "rover" ) {
         mainRover = childID;
+    }
+
+    if ( childName === "rover2" ) {
+        perryRover = childID;
     }
   
     if ( childName === "graph" ) {
@@ -317,7 +511,8 @@ vwf_view.createdNode = function( nodeID, childID, childExtendsID, childImplement
             "ID": childID, 
             "name": childName,
             "ram": 15, 
-            "ramMax": 15
+            "ramMax": 15,
+            "blocklyExecuting": false
         };
     } else if ( isGraphObject( protos ) && childName === "blocklyLine" ) {
         graphLines[ childName ] = { 
@@ -339,8 +534,7 @@ vwf_view.createdNode = function( nodeID, childID, childExtendsID, childImplement
 }
 
 vwf_view.initializedNode = function( nodeID, childID, childExtendsID, childImplementsIDs, childSource, childType, childIndex, childName ) {
-    if ( childID === vwf_view.kernel.application() ) {
-        appID = vwf_view.kernel.application();
+    if ( childID === getAppID() ) {
         setUpView();
         threejs.render = render;
     } else if ( blocklyNodes[ childID ] !== undefined ) {
@@ -350,6 +544,11 @@ vwf_view.initializedNode = function( nodeID, childID, childExtendsID, childImple
         node.tab.className = "blocklyTab";
         node.tab.onclick = setActiveBlocklyTab;
         node.tab.innerHTML = childName;
+        if (childName == "rover"){
+            node.tab.innerHTML = "Manny";
+        } else if (childName == "rover2"){
+            node.tab.innerHTML = "Peregrine";
+        }
     }
 }
 
@@ -358,20 +557,6 @@ vwf_view.initializedProperty = function( nodeID, propertyName, propertyValue ) {
 } 
 
 vwf_view.satProperty = function( nodeID, propertyName, propertyValue ) {
-    if ( nodeID === mainRover ) {
-        switch ( propertyName ) {
-
-            case "battery":
-                hud.elements.batteryMeter.battery = parseFloat( propertyValue );
-                break;
-
-            case "batteryMax":
-                hud.elements.batteryMeter.maxBattery = parseFloat( propertyValue );
-                break;
-
-        }
-    }
-
     var blocklyNode = blocklyNodes[ nodeID ];
     if ( blocklyNode ) {
         switch ( propertyName ) {
@@ -393,8 +578,41 @@ vwf_view.satProperty = function( nodeID, propertyName, propertyValue ) {
 
             case "blockly_executing":
                 var isExecuting = Boolean( propertyValue );
-                startBlocklyButton.className = isExecuting ? "reset" : "";
-                blocklyExecuting = isExecuting;
+                blocklyNode.blocklyExecuting = isExecuting;
+                if( isExecuting ) {
+                    startBlocklyButton.className = "reset";
+                } else {
+                    startBlocklyButton.className = "";
+                }
+                break;
+
+            case "metalSensorValue":
+                blocklyNode[ propertyName ] = propertyValue;
+                Blockly.mainWorkspace.fireChangeEvent();
+                break;
+            case "signalSensorValue":
+                blocklyNode[ propertyName ] = propertyValue;
+                Blockly.mainWorkspace.fireChangeEvent();
+                break;
+            case "headingSensorValue":
+                blocklyNode[ propertyName ] = propertyValue;
+                Blockly.mainWorkspace.fireChangeEvent();
+                break;
+            case "collisionSensorValue":
+                blocklyNode[ propertyName ] = propertyValue;
+                Blockly.mainWorkspace.fireChangeEvent();
+                break;
+            case "positionSensorValue":
+                blocklyNode[ propertyName ] = propertyValue;
+                Blockly.mainWorkspace.fireChangeEvent();
+                break;
+            case "positionSensorValueX":
+                blocklyNode[ propertyName ] = propertyValue;
+                Blockly.mainWorkspace.fireChangeEvent();
+                break;
+            case "positionSensorValueY":
+                blocklyNode[ propertyName ] = propertyValue;
+                Blockly.mainWorkspace.fireChangeEvent();
                 break;
 
         }
@@ -403,13 +621,6 @@ vwf_view.satProperty = function( nodeID, propertyName, propertyValue ) {
     if ( nodeID === vwf_view.kernel.find( "", "/gameCam" )[ 0 ] ) {
         if ( propertyName === "target" ) {
             targetID = propertyValue.id;
-        } else if ( propertyName === "mountName" ) {
-            if ( hud ) {
-                var selector = hud.elements.cameraSelector;
-                var pov = hud.elements[ "camera_" + propertyValue ];
-                selector.activeMode.icon = pov.icon;
-                selector.activeMode.type = pov.mode;
-            }
         }
     }
 
@@ -417,6 +628,58 @@ vwf_view.satProperty = function( nodeID, propertyName, propertyValue ) {
         if ( propertyName === "blockly_activeNodeID" ) {
             Blockly.SOUNDS_ = {};
             selectBlocklyTab( propertyValue );
+            currentBlocklyNodeID = propertyValue;
+
+            tabSwitched = true;
+            hideBlocklyLoopCount(); //Hide the loop count for now if we switch tabs since it is broken for multiple rovers
+            hideBlocklyIndicator();            
+            hideBlocklyProcedureIndicator();
+            Blockly.mainWorkspace.fireChangeEvent();
+        } else if ( propertyName === "roverSignalValue" ) {
+            roverSignalValue = parseFloat( propertyValue );
+        } else if ( propertyName === "roverHeadingValue" ) {
+            roverHeadingValue = parseFloat( propertyValue );        
+        } else if ( propertyName === "applicationState" ) {
+            appState = propertyValue;
+            var versionElem = document.getElementById( "version" );
+            switch ( appState ) {
+                case "loading":
+                    $( "#transitionScreen" ).fadeTo( 0, 1 );
+                    break;
+                case "menu":
+                    loggerBox.style.display = "none";
+                    mainMenu.setVisible( true );
+                    versionElem.style.display = "block";
+                    checkPageZoom();
+                    timerWindow.style.display = "none";
+                    missionBriefDOM.style.display = "none";
+                    closePauseMenu();
+                    $( "#transitionScreen" ).fadeTo( 400, 0 );
+                    if ( firstLoad ) {
+                        document.getElementById( "loadingScreen" ).style.display = "none";
+                        firstLoad = false;
+                    }
+                    break;
+                case "playing":
+                    mainMenu.setVisible( false );
+                    versionElem.style.display = "none";
+                    loggerBox.style.display = "block";
+                    timerWindow.style.display = "block";
+                    $( "#transitionScreen" ).fadeTo( 400, 0 );
+                    break;
+            }
+        } else if ( propertyName === "roverTabBlinking" ) {
+            if ( propertyValue === true ) {
+                blinkTab( getBlocklyNodeIDByName( "rover" ) );
+            } else {
+                stopBlinkTab( getBlocklyNodeIDByName( "rover" ) );
+            }
+        } else if ( propertyName === "graphTabBlinking" ) {
+            if ( propertyValue === true ) {
+                blinkTab( getBlocklyNodeIDByName( "graph" ) );
+            } else {
+                stopBlinkTab( getBlocklyNodeIDByName( "graph" ) );
+            }
         }
     }
 
@@ -431,6 +694,18 @@ vwf_view.satProperty = function( nodeID, propertyName, propertyValue ) {
             case "logger_lifeTime":
                 loggerNode[ propertyName ] = parseFloat( propertyValue );
                 break;
+
+            case "strings":
+                var strings = propertyValue;
+                var lb = document.getElementById( "loggerBox" );
+                if ( strings.length !== lb.counter ) {
+                    var arrayLength = strings.length;
+                    for (var i = 0; i < arrayLength; i++) {
+                        pushSubtitle( strings[ i ] );
+                    }
+                } else {
+                    pushSubtitle( strings[ strings.length - 1 ] );
+                }
         }
     }
 }
@@ -443,77 +718,50 @@ vwf_view.gotProperty = function( nodeID, propertyName, propertyValue ) {
             element.innerHTML = "Source available on " +
                 "<a target='_blank' href='https://github.com/virtual-world-framework/mars-game'>GitHub</a>. " +
                 "Licensed using " + 
-                "<a target='_blank' href='../LICENSE.txt'>Apache 2</a>. " +
-                "Version: " + version;
-        }
+                "<a target='_blank' href='../LICENSE.txt'>Apache 2</a>. " + version;
+        } 
     }
 }
 
 function setUpView() {
+    // HACK: right now, the JPlayer div is always in the way unless we get rid 
+    //  of it, so...
+    removeVideo();
+    
     vwf_view.kernel.getProperty( appID, "version" );
     mainMenu = new MainMenu();
-    hud = new HUD();
-    createHUD();
     initializePauseMenu();
     setUpNavigation();
     setUpBlocklyPeripherals();
     setUpStatusDisplay();
     loadScenarioList();
-    loadVideo( "intro_cinematic.mp4" );
-    loadVideo( "success_cinematic.mp4" );
-    loadVideo( "end_cinematic.mp4", undefined, true );
-}
 
-function setRenderMode( sceneID ) {
-    renderTransition = true;
-    renderMode = sceneID;
 }
 
 function render( renderer, scene, camera ) {
-    var versionElem;
-    switch ( renderMode ) {
 
-        case RENDER_NONE:
-            if ( renderTransition ) {
-                versionElem = document.getElementById( "version" );
-                versionElem.style.display = "none";
-                renderer.clear();
-                loggerBox.style.display = "none";
-                hud.visible = false;
-                renderTransition = false;
-            }
-            return;
+    blinkTabs();
 
-        case RENDER_MENU:
-            if ( renderTransition ) {
-                versionElem = document.getElementById( "version" );
-                versionElem.style.display = "block";
-                loggerBox.style.display = "none";
-                mainMenu.setupRenderer( renderer );
-                checkPageZoom();
-                hud.visible = false;
-                renderTransition = false;
-            }
-            mainMenu.render( renderer );
-            break;
+    //renderer.render( scene, camera );
 
-        case RENDER_GAME:
-            if ( renderTransition ) {
-                versionElem = document.getElementById( "version" );
-                versionElem.style.display = "none";
-                loggerBox.style.display = "block";
-                scene.fog = new THREE.FogExp2( 0xC49E70, 0.0035 );
-                renderer.setClearColor( scene.fog.color );
-                hud.visible = true;
-                renderTransition = false;
-            }
-            blinkTabs();
-            renderer.render( scene, camera );
-            lastRenderTime = vwf_view.kernel.time();
-            break;
-    }
+    //HACK: Eliminate frustum culling to hide faulty webGL glDrawElements overflow errors.
+    // Frustum culling causes some buffer regeneration to be deferred until later, 
+    // while meshes are still trying to be rendered before their buffers regen 
 
-    hud.update();
+    scene.traverse(function(o){
+        if(o instanceof THREE.Mesh && o.frustumCulled){
+            o.frustumCulled = false;
+            o.hadCullingEnabled = true;
+        }
+    });
+    renderer.render(scene, camera);
+    scene.traverse(function(o){
+        if(o instanceof THREE.Mesh && o.hadCullingEnabled){
+            o.frustumCulled = true;
+            delete o.hadCullingEnabled;
+        }
+    });
+    lastRenderTime = vwf_view.kernel.time();
 }
 
 function findThreejsView() {
@@ -528,7 +776,7 @@ function isBlocklyNode( implementsIDs ) {
     var found = false;
     if ( implementsIDs ) {
         for ( var i = 0; i < implementsIDs.length && !found; i++ ) {
-            found = ( implementsIDs[i] == "http-vwf-example-com-blockly-controller-vwf" ); 
+            found = ( implementsIDs[i] == "http://vwf.example.com/blockly/controller.vwf" ); 
         }
     }
    return found;
@@ -548,7 +796,7 @@ function isLoggerNode( prototypes ) {
     var foundLogger = false;
     if ( prototypes ) {
         for ( var i = 0; i < prototypes.length && !foundLogger; i++ ) {
-            foundLogger = ( prototypes[i] == "http-vwf-example-com-logger-vwf" );    
+            foundLogger = ( prototypes[i] == "http://vwf.example.com/logger.vwf" );    
         }
     }
     return foundLogger;
@@ -558,10 +806,10 @@ function isGraphObject( prototypes ) {
     var foundObject = false;
     if ( prototypes ) {
         for ( var i = 0; i < prototypes.length && !foundObject; i++ ) {
-            foundObject = prototypes[i] === "http-vwf-example-com-graphtool-graphline-vwf" ||
-                          prototypes[i] === "http-vwf-example-com-graphtool-graphlinefunction-vwf" ||
-                          prototypes[i] === "http-vwf-example-com-graphtool-graphplane-vwf" ||
-                          prototypes[i] === "http-vwf-example-com-graphtool-graphgroup-vwf";
+            foundObject = prototypes[i] === "http://vwf.example.com/graphtool/graphline.vwf" ||
+                          prototypes[i] === "http://vwf.example.com/graphtool/graphlinefunction.vwf" ||
+                          prototypes[i] === "http://vwf.example.com/graphtool/graphplane.vwf" ||
+                          prototypes[i] === "http://vwf.example.com/graphtool/graphgroup.vwf";
         }
     }
     return foundObject;
@@ -578,7 +826,7 @@ function getBlocklyFunction() {
     if ( yBlock === undefined ) {
         return undefined;
     }
-    Blockly.JavaScript.init();
+    Blockly.JavaScript.init( Blockly.mainWorkspace );
     var code = Blockly.JavaScript.blockToCode( yBlock );
     var defs = Blockly.JavaScript.finish( '' );
     if ( code !== ";" ) {
@@ -602,20 +850,16 @@ function loadScenarioList() {
 
 function runBlockly() {
     vwf_view.kernel.setProperty( currentBlocklyNodeID, "blockly_executing", true );
-    populateBlockStack();
 }
 
 function setActiveBlocklyTab() {
     if ( currentBlocklyNodeID !== this.id ) {
-        vwf_view.kernel.setProperty( appID, "blockly_activeNodeID", this.id );
+        currentBlocklyNodeID = this.id;
+        vwf_view.kernel.callMethod( appID, "selectBlocklyNode", [ this.id ] );
         if ( blocklyGraphID && blocklyGraphID === this.id ) {
-            var cam = vwf_view.kernel.find( "", "//camera" )[ 0 ];
-            if ( cam ) {
-                vwf_view.kernel.setProperty( cam, "pointOfView", "topDown" );
-            }
             hideBlocklyIndicator();
         } else {
-            indicateBlock( lastBlockIDExecuted );
+            //indicateBlock( lastBlockIDExecuted );
         }
     }
 }
@@ -625,7 +869,13 @@ function selectBlocklyTab( nodeID ) {
     for ( var i = 0; i < tabs.length; i++ ) {
         tabs[ i ].className = "blocklyTab";
         if ( tabs[ i ].id === nodeID ) {
+            currentBlocklyNodeID = nodeID;
             tabs[ i ].className += " selected";
+            if( blocklyNodes[ nodeID ].blocklyExecuting ) {
+                startBlocklyButton.className = "reset";
+            } else {
+                startBlocklyButton.className = "";
+            }
         }
     }
     
@@ -637,17 +887,26 @@ function selectBlocklyTab( nodeID ) {
     }
 }
 
-function updateBlocklyUI( blocklyNode ) {
-    if ( Blockly.mainWorkspace ) {
-        Blockly.mainWorkspace.maxBlocks = blocklyNode.ramMax;
+function getBlocklyNodeIDByName( name ) {
+    var result;
+    var keys = Object.keys( blocklyNodes );
+    for ( var i = 0; i < keys.length; i++ ) {
+        if ( name === blocklyNodes[ keys[ i ] ].name ) {
+            result = keys[ i ];
+            break;
+        }
     }
+    return result;
 }
 
-function blinkTabs() {
-    var tabs = document.getElementsByClassName( "blocklyTab" );
-    for ( var i = 0; i < tabs.length; i++ ) {
-        if ( tabs[ i ].isBlinking )
-        tabs[ i ].blink();
+function updateBlocklyUI( blocklyNode ) {
+    if ( Blockly.mainWorkspace && blocklyNode ) {
+        Blockly.mainWorkspace.maxBlocks = blocklyNode.ramMax;
+        if ( Blockly.mainWorkspace.toolbox_.tree_.firstChild_ !== undefined && ( currentScenario === 'Mission1Task1' || currentScenario === 'Mission1Task2' || currentScenario === 'Mission1Task3' || currentScenario === 'Mission1Task4' || currentScenario === 'Mission1Task5' || currentScenario === 'Mission1Task6' || currentScenario === 'Mission1Task7' || currentScenario === 'Mission1Task8' || currentScenario === 'Mission2Task1' || currentScenario === 'Mission2Task2' || currentScenario === 'Mission2Task3' ) ) {
+            setTimeout( function() { 
+                Blockly.mainWorkspace.toolbox_.tree_.setSelectedItem( Blockly.mainWorkspace.toolbox_.tree_.firstChild_ ); 
+                                }, 1000);
+        }
     }
 }
 
@@ -664,6 +923,21 @@ function blinkTab( nodeID ) {
     }
 }
 
+function stopBlinkTab( nodeID ) {
+    var tab = document.getElementById( nodeID );
+    if ( tab && tab.isBlinking ) {
+        tab.stopBlink();
+    }
+}
+
+function blinkTabs() {
+    var tabs = document.getElementsByClassName( "blocklyTab" );
+    for ( var i = 0; i < tabs.length; i++ ) {
+        if ( tabs[ i ].isBlinking )
+        tabs[ i ].blink();
+    }
+}
+
 function blink() {
     var blinkInterval = 0.25;
     if ( lastRenderTime > this.lastBlinkTime + blinkInterval ) {
@@ -677,19 +951,18 @@ function stopBlink() {
     this.isBlinking = false;
 }
 
-function stopBlinkTab( nodeID ) {
-    var tab = document.getElementById( nodeID );
-    if ( tab && tab.isBlinking ) {
-        tab.stopBlink();
-    }
-}
-
 function clearBlockly() {
+
+    vwf_view.kernel.setProperty( appID, "blockly_interfaceVisible", false );
+    vwf_view.kernel.setProperty( appID, "blockly_activeNodeID", undefined );
     if ( Blockly.mainWorkspace ){
         Blockly.mainWorkspace.clear();
     }
     if ( mainRover ){
         vwf_view.kernel.setProperty( mainRover, "blockly_xml", '<xml></xml>' );
+    }
+    if ( perryRover ){
+        vwf_view.kernel.setProperty( perryRover, "blockly_xml", '<xml></xml>' );
     }
     if ( blocklyGraphID ){
         vwf_view.kernel.setProperty( blocklyGraphID, "blockly_xml", '<xml></xml>' );
@@ -707,12 +980,8 @@ function selectBlock( blockID ) {
     workspace = Blockly.getMainWorkspace();
     if ( workspace ) {
         block = workspace.getBlockById( blockID );
-        lastBlock = workspace.getBlockById( currentBlockIDSelected );
-        if ( lastBlock ) {
-            Blockly.removeClass_( lastBlock.svg_.svgGroup_, "blocklySelected" );
-        }
         if ( block ) {
-            Blockly.addClass_( block.svg_.svgGroup_, "blocklySelected" );
+            block.select();
             currentBlockIDSelected = blockID;
         }
     }
@@ -723,22 +992,240 @@ function indicateBlock( blockID ) {
     workspace = Blockly.getMainWorkspace();
     if ( workspace ) {
         block = workspace.getBlockById( blockID );
+        if ( block && block.data === currentBlocklyNodeID ) {
+            block.selectRun();
+            //returns an object with height and width properties
+            // var bBox = block.svg_.getBBox();
+            // var dim = block.getHeightWidth();
+
+            // var xScrollOffset = workspace.scrollX;
+            // var yScrollOffset = workspace.scrollY;
+
+            // var pos = block.getRelativeToSurfaceXY();
+            // moveBlocklyIndicator( pos.x + xScrollOffset - dim.width, pos.y, bBox.height );
+        }
     }
-    if ( block ) {
-        var pos = block.getRelativeToSurfaceXY();
-        moveBlocklyIndicator( pos.x, pos.y );
-    } else {
-        hideBlocklyIndicator();
-    }
+
 }
 
-window.onkeypress = function( event ) {
+function updateBlocklyTriangles() {
+    var vertArray = [];
+    for ( var id in currentBlocklyTriangles ) {
+        var tri = currentBlocklyTriangles[ id ];
+        if ( tri.length === 3 ) {
+            vertArray.push( tri[ 0 ] );
+            vertArray.push( tri[ 1 ] );
+            vertArray.push( tri[ 2 ] );
+        }
+    }
+    vwf_view.kernel.callMethod( getAppID(), "setUserTriangles", [ vertArray ] );
+}
+
+// function indicateBlock( blockID ) {
+//     var workspace, block;
+//     workspace = Blockly.getMainWorkspace();
+//     if ( workspace ) {
+//         block = workspace.getBlockById( blockID );
+//     }
+
+//     // HACK: New blocks break tracing... disabling all for now.
+
+//     return;
+
+//     // Disable indication with procedures for now.
+//     for ( var i = 0; i < workspace.topBlocks_.length; i++ ) {
+//         if ( workspace.topBlocks_[i].type === "procedures_defnoreturn" || workspace.topBlocks_[i].type === "procedures_defreturn"
+//         || workspace.topBlocks_[i].type === "procedures_callreturn" || workspace.topBlocks_[i].type === "procedures_callnoreturn" ) {
+//             return;
+//         }
+//     }
+//     // Check the appended nodeID data which we attach when the block is being put into the workspace (in blocks.js)
+
+//     if ( block ) {
+//         if ( block.data !== currentBlocklyNodeID ) {
+//             return;
+//         } else {
+//             if ( blocklyNodes[ currentBlocklyNodeID ].isExecuting ) {
+//                 var indicator = document.getElementById( "blocklyIndicator" );
+//                 indicator.className = "";
+//                 indicator.style.visibility = "inherit";
+//                 var indicatorCount = document.getElementById( "blocklyIndicatorCount" );
+//                 indicatorCount.className = "";
+//                 indicatorCount.style.visibility = "inherit";
+//                 var procedureIndicator = document.getElementById( "blocklyProcedureIndicator" );
+//                 procedureIndicator.className = "";
+//                 procedureIndicator.style.visibility = "inherit";
+//             }
+//         }
+//     }
+    
+//     if ( block ) {
+//         if ( block.parentBlock_ ) {
+//             if ( block.parentBlock_.callType_ === "procedures_callnoreturn" || 
+//                 block.parentBlock_.callType_ === "procedures_callreturn" ) {
+                
+//                 for ( var i = 0; i < workspace.topBlocks_.length; i++ ) {
+//                     //Loop through top blocks and find the stack who's first block isnt a procedure def
+//                     if ( workspace.topBlocks_[i].type !== "procedures_defnoreturn" && workspace.topBlocks_[i].type !== "procedures_defreturn" ) {
+                        
+//                         var originBlock = workspace.topBlocks_[i];
+
+//                         // Have we already ducked into a procedure? If so, lets start there to save some time!
+
+//                         if ( currentProcedureBlockID !== undefined ) {
+//                             originBlock = workspace.getBlockById( currentProcedureBlockID );
+//                         } else {
+//                             // Is this first block a procedure block?
+//                             if ( originBlock.type === "procedures_callnoreturn" || 
+//                                 originBlock.type === "procedures_callreturn" ) {
+//                                 currentProcedureBlockID = originBlock.id;
+//                                 var procpos = originBlock.getRelativeToSurfaceXY();
+//                                 showBlocklyProcedureIndicator();
+//                                 moveBlocklyProcedureIndicator( procpos.x, procpos.y );
+//                                 break;
+//                             } 
+//                         }
+                        
+//                         // Dive down the block stack and look for the next procedure call
+//                         // SJF Note: I couldn't find a way to match the procedure names for validation.
+
+//                         while ( true ) {
+//                             if ( originBlock.nextConnection.targetConnection.sourceBlock_ !== undefined ) {
+//                                 var nextBlock = originBlock.nextConnection.targetConnection.sourceBlock_;
+//                                 if ( nextBlock.type === "procedures_callnoreturn" || 
+//                                     nextBlock.type === "procedures_callreturn" ) {
+//                                     currentProcedureBlockID = nextBlock.id;
+//                                     var procpos = nextBlock.getRelativeToSurfaceXY();
+//                                     showBlocklyProcedureIndicator();
+//                                     moveBlocklyProcedureIndicator( procpos.x, procpos.y );
+//                                     break;
+//                                 } else {
+//                                     originBlock = nextBlock;
+//                                 }
+//                             } else {
+//                                 break;
+//                             }
+//                         }
+
+//                         break;
+//                     }
+//                 }
+//             }
+//         }
+
+//         // If the the parent block is the procedure block we were just in, we must have completed
+//         // that block's execution so we should hide the procedure tracer
+
+//         if ( block.parentBlock_ ) {
+//             if ( block.parentBlock_.id === currentProcedureBlockID ) {
+//                 hideBlocklyProcedureIndicator();
+//             }
+//         }
+
+//         showBlocklyIndicator();
+
+//         // This code handles loop counting
+
+//         if ( block.type === "controls_repeat_extended" && block.id !== currentLoopingBlockID ) {
+//             currentLoopingBlockID = block.id;
+//             currentLoopIndex = 0;
+//             maxLoopIndex = parseInt( Blockly.JavaScript.valueToCode( block, 'TIMES', Blockly.JavaScript.ORDER_ASSIGNMENT ) || '0' );
+//             var loopConnection = block.getInput( "DO" ).connection.targetConnection;
+//             if ( loopConnection ) {
+//                 currentLoopCheckBlockID = loopConnection.sourceBlock_.id;
+//             }
+//             showBlocklyLoopCount( currentLoopIndex, maxLoopIndex );
+//         }
+//         if ( block.id === currentLoopCheckBlockID && blocklyStopped === false && tabSwitched === false ) {
+//             if ( hasLooped === true ) {
+//                 lastBlockInLoopID = lastBlockIDExecuted;
+//             } else {
+//                 hasLooped = true;
+//             }
+//             currentLoopIndex++;
+//             showBlocklyLoopCount( currentLoopIndex, maxLoopIndex );
+            
+//         }
+
+//         // If we are at the last block in the loop stack and we're maxed out - hide everything
+
+//         if ( currentLoopIndex === maxLoopIndex ) {
+//             currentLoopingBlockID = undefined;
+//             maxLoopIndex = 0;
+//             currentLoopIndex = 0;
+//             hasLooped = false;
+//             lastBlockInLoopID = undefined;
+//             hideBlocklyLoopCount();
+//         }
+
+//         // Important for checking where we are in the loop stack
+
+//         lastBlockIDExecuted = block.id;
+
+//         var pos = block.getRelativeToSurfaceXY();
+//         // var xScrollOffset = workspace.scrollX;
+//         // var yScrollOffset = workspace.scrollY;
+
+//         // //When the flyout width changes with block sizes in categories we shift
+//         // var flyout = document.getElementsByClassName( "blocklySvg" ); 
+//         // var flyoutDescriptor = flyout[ 0 ].childNodes[ 2 ].childNodes[ 0 ].getAttribute( 'd' );
+//         // var flyoutDimensions = flyoutDescriptor.substring( 8, 11 );
+
+//         // var categoryWidth = document.getElementsByClassName( "blocklyToolboxDiv" )[0].offsetWidth;
+//         // var flyoutOffset = Number( flyoutDimensions ) - categoryWidth + 50;
+
+//         // moveBlocklyIndicator( pos.x + xScrollOffset - flyoutOffset, pos.y + yScrollOffset + 3 );
+//         moveBlocklyIndicator( pos.x , pos.y );
+//     } else {
+//         //hideBlocklyIndicator();
+//     }
+// }
+
+
+// function indicateProcedureBlock( blockID ) {
+//     var workspace, block;
+//     workspace = Blockly.getMainWorkspace();
+//     if ( workspace ) {
+//         block = workspace.getBlockById( blockID );
+//     }
+
+//     // Check the appended nodeID data which we attach when the block is being put into the workspace (in blocks.js)
+
+//     if ( block ) {
+//         if ( block.data !== currentBlocklyNodeID ) {
+//             return;
+//         }
+//     }
+
+//     if ( block ) {
+//         showBlocklyProcedureIndicator();
+//         var pos = block.getRelativeToSurfaceXY();
+//         var xScrollOffset = workspace.scrollX;
+//         var yScrollOffset = workspace.scrollY;
+
+//         //When the flyout width changes with block sizes in categories we shift
+
+//         var flyout = document.getElementsByClassName( "blocklySvg" ); 
+//         var flyoutDescriptor = flyout[ 0 ].childNodes[ 2 ].childNodes[ 0 ].getAttribute( 'd' );
+//         var flyoutDimensions = flyoutDescriptor.substring( 8, 11 );
+
+//         var categoryWidth = document.getElementsByClassName( "blocklyToolboxDiv" )[0].offsetWidth;
+//         var flyoutOffset = Number( flyoutDimensions ) - categoryWidth + 50;
+
+//         moveBlocklyProcedureIndicator( pos.x + xScrollOffset - flyoutOffset, pos.y + yScrollOffset + 3 );
+//     } else {
+//         //hideBlocklyProcedureIndicator();
+//     }
+// }
+
+
+document.onkeydown = function( event ) {
     var pauseScreen;
-    if ( event.which === 112 ) {
+    if ( event.which === 27 ) {
         pauseScreen = document.getElementById( "pauseScreen" );
         if ( pauseScreen.isOpen ){
             closePauseMenu();
-        } else if ( renderMode === RENDER_GAME ) {
+        } else if ( appState === "playing" ) {
             openPauseMenu();
         }
     }
@@ -868,7 +1355,6 @@ function exitToMainMenu() {
     resetSubtitles();
     clearBlockly();
     currentBlocklyNodeID = undefined;
-    vwf_view.kernel.setProperty( sceneID, "blockly_activeNodeID", undefined );
     vwf_view.kernel.callMethod( sceneID, "restartGame" );
     closePauseMenu();
 }
@@ -902,7 +1388,6 @@ function switchToDisplayedScenario() {
     var displayedScenario = display.innerHTML;
     currentBlocklyNodeID = undefined;
     clearBlockly();
-    vwf_view.kernel.setProperty( sceneID, "blockly_activeNodeID", undefined );
     vwf_view.kernel.setProperty( sceneID, "activeScenarioPath", displayedScenario );
     closePauseMenu();
 }
@@ -1028,6 +1513,83 @@ function checkPageZoom() {
     }
 }
 
+function startClock( scenarioName, startTime ) {
+    clockTickTime = Date.now() / 1000;
+    clockElapsedTime = startTime;
+    clockScenario = scenarioName;
+    requestAnimationFrame( tickClock );
+}
+
+function tickClock() {
+    var tickTime = Date.now() / 1000;
+    clockElapsedTime += tickTime - clockTickTime;
+    clockTickTime = tickTime;
+    updateTimerWindow();
+    requestAnimationFrame( tickClock );
+}
+
+function updateTimerWindow() {
+    timerScenarioName.innerHTML = clockScenario;
+    scenarioTimes[ clockScenario ] = clockElapsedTime;
+    timerScenarioElapsedTime.innerHTML = formatTime( clockElapsedTime );
+    if ( timerDetailButton.className === "open" ) {
+        updateTimerDetailList();
+    }
+}
+
+function updateTimerDetailList() {
+    var keys = Object.keys( scenarioTimes );
+    var name, time, itemString, htmlString;
+    htmlString = "";
+    for ( var i = 0; i < keys.length; i++ ) {
+        name = keys[ i ];
+        time = scenarioTimes[ name ];
+        itemString = name + ": " + formatTime( time );
+        htmlString += "<div class='timerListItem'>" + itemString + "</div>";
+    }
+    htmlString += "<div id='timerTotal'>Total: "
+        + formatTime( totalTime + clockElapsedTime ) + "</div>";
+    timerDetailList.innerHTML = htmlString;
+}
+
+function toggleTimerDetailList() {
+    if ( timerDetailButton.className === "open" ) {
+        timerDetailButton.className = "closed";
+        timerDetailButton.innerHTML = "Expand";
+        timerDetailList.style.display = "none";
+    } else {
+        timerDetailButton.className = "open";
+        timerDetailButton.innerHTML = "Collapse";
+        timerDetailList.style.display = "block";
+    }
+}
+
+function formatTime( time ) {
+    var h, m, s, formattedTime;
+    s = time % 60;
+    m = Math.floor( ( time - s ) / 60 % 60 );
+    h = Math.floor( ( time - m * 60 - s ) / 3600 );
+    formattedTime = h > 0 ? h + "h " : "";
+    formattedTime += m > 0 ? m + "m " : "";
+    formattedTime += s.toFixed( 1 ) + "s";
+    return formattedTime;
+}
+
+function readCameraPose() {
+    vwf_view.kernel.callMethod( getAppID(), "printCameraPose" );
+}
+
+function writeCameraPose( radius, yaw, pitch ) {
+    var pose = [ radius, yaw, pitch ];
+    vwf_view.kernel.callMethod( getAppID(), "setCinematicView", [ pose ] );
+}
+
 window.addEventListener( "resize", checkPageZoom );
 
-//@ sourceURL=source/index.js
+$( document ).keydown( function( objEvent ) {
+    if ( objEvent.keyCode == 9 ) {  //tab pressed
+        objEvent.preventDefault(); // stops its action
+    }
+} );
+
+//@ sourceURL=source/view/index.js

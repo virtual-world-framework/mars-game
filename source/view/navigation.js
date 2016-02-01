@@ -19,11 +19,14 @@ var defaultNav = {
     scroll: undefined
 }
 
+var thirdPerson_ZoomLevel;
+var topDown_controlRadius = 30;
+
 // Zoom bounds in meters
-var topDown_MaxAltitude = 42;
+var topDown_MaxAltitude = 100;
 var topDown_MinAltitude = 9;
 var thirdPerson_MaxZoom = 21;
-var thirdPerson_MinZoom = 6;
+var thirdPerson_MinZoom = 4;
 
 // Angle bounds in degrees
 var thirdPerson_MaxAngle = 85;
@@ -62,17 +65,13 @@ function handleMouseNavigation( deltaX, deltaY, navObject, navMode, rotationSpee
                 var worldY = obj.matrixWorld.elements[ 13 ];
                 var heightMod = obj.matrixWorld.elements[ 14 ] * 0.1;
                 var panSpeed = translationSpeed * heightMod;
-                var xMax, xMin, yMax, yMin;
-                deltaX = -deltaX * panSpeed;
-                deltaY = deltaY * panSpeed;
-                xMax = gridBounds.topRight[ 0 ];
-                xMin = gridBounds.bottomLeft[ 0 ];
-                yMax = gridBounds.topRight[ 1 ];
-                yMin = gridBounds.bottomLeft[ 1 ];
-                deltaX = Math.max( Math.min( deltaX + worldX, xMax ), xMin ) - worldX;
-                deltaY = Math.max( Math.min( deltaY + worldY, yMax ), yMin ) - worldY;
-                obj.matrix.elements[ 12 ] += deltaX;
-                obj.matrix.elements[ 13 ] += deltaY;
+                deltaX = ( -deltaX * panSpeed + worldX ) - cameraTargetPosition[ 0 ];
+                deltaY = ( deltaY * panSpeed + worldY ) - cameraTargetPosition[ 1 ];
+                var dir = Math.atan2( deltaX, deltaY );
+                var dist = Math.sqrt( Math.pow( deltaX, 2 ) + Math.pow( deltaY, 2 ) );
+                dist = Math.min( dist, topDown_controlRadius );
+                obj.matrix.elements[ 12 ] = Math.sin( dir ) * dist;
+                obj.matrix.elements[ 13 ] = Math.cos( dir ) * dist;
                 obj.updateMatrixWorld( true );
             }
             break;
@@ -97,6 +96,22 @@ function handleMouseNavigation( deltaX, deltaY, navObject, navMode, rotationSpee
                     newPitch = 0;
                 }
                 newPitch = Math.max( Math.min( newPitch, upperBound ), lowerBound );
+                // ---
+                var origin = [
+                    matrixWorld[ 12 ] - matrix[ 12 ],
+                    matrixWorld[ 13 ] - matrix[ 13 ],
+                    matrixWorld[ 14 ] - matrix[ 14 ]
+                ];
+                var distance = getNearestCollisionDistance( origin, newYaw, newPitch, thirdPerson_MinZoom, thirdPerson_MaxZoom );
+                if ( !thirdPerson_ZoomLevel ) {
+                    thirdPerson_ZoomLevel = radius;
+                }
+                if ( distance ) {
+                    radius = Math.min( Math.max( thirdPerson_MinZoom, distance * 0.8 ), thirdPerson_ZoomLevel );
+                } else {
+                    radius = thirdPerson_ZoomLevel;
+                }
+                // ---
                 var newMatrix = getNewTransformMatrix( radius, newYaw, newPitch );
                 obj.matrix.copy( newMatrix );
                 obj.updateMatrixWorld( true );
@@ -127,13 +142,25 @@ function handleScroll( wheelDelta, navObject, navMode, rotationSpeed, translatio
         case "thirdPerson":
             var obj = navObject.threeObject;
             var matrix = obj.matrix.elements;
+            var matrixWorld = obj.matrixWorld.elements;
             var curPitch = Math.acos( matrix[ 10 ] );
             var yawSign = Math.asin( matrix[ 1 ] ) < 0 ? -1 : 1;
             var curYaw = yawSign * Math.acos( matrix[ 0 ] );
             var radius = matrix[ 14 ] / matrix[ 10 ];
             radius += -wheelDelta / 3;
-            radius = Math.max( Math.min( radius, thirdPerson_MaxZoom ), thirdPerson_MinZoom );
-            var newMatrix = getNewTransformMatrix( radius, curYaw, curPitch );
+            // ---
+            var origin = [
+                matrixWorld[ 12 ] - matrix[ 12 ],
+                matrixWorld[ 13 ] - matrix[ 13 ],
+                matrixWorld[ 14 ] - matrix[ 14 ]
+            ];
+            var distance = getNearestCollisionDistance( origin, curYaw, curPitch, thirdPerson_MinZoom, thirdPerson_MaxZoom );
+            if ( distance ) {
+                radius = Math.min( radius, distance * 0.8 );
+            }
+            thirdPerson_ZoomLevel = Math.max( Math.min( radius, thirdPerson_MaxZoom ), thirdPerson_MinZoom );
+            // ---
+            var newMatrix = getNewTransformMatrix( thirdPerson_ZoomLevel, curYaw, curPitch );
             obj.matrix.copy( newMatrix );
             obj.updateMatrixWorld( true );
             break;
@@ -147,7 +174,7 @@ function moveNavObject( deltaX, deltaY, navObject, navMode, rotationSpeed, trans
         case "walk":
         case "fly":
         case "none":
-            defaultNav.move( dx, dy, navObject, navMode, rotationSpeed, translationSpeed, msSinceLastFrame );
+            defaultNav.move( deltaX, deltaY, navObject, navMode, rotationSpeed, translationSpeed, msSinceLastFrame );
             break;
 
         case "topDown":
@@ -156,17 +183,13 @@ function moveNavObject( deltaX, deltaY, navObject, navMode, rotationSpeed, trans
             var worldY = obj.matrixWorld.elements[ 13 ];
             var heightMod = obj.matrixWorld.elements[ 14 ] * 0.1;
             var panSpeed = translationSpeed * heightMod * Math.min( msSinceLastFrame * 0.001, 0.5 );
-            var xMax, xMin, yMax, yMin;
-            deltaX = deltaX * panSpeed;
-            deltaY = deltaY * panSpeed;
-            xMax = gridBounds.topRight[ 0 ];
-            xMin = gridBounds.bottomLeft[ 0 ];
-            yMax = gridBounds.topRight[ 1 ];
-            yMin = gridBounds.bottomLeft[ 1 ];
-            deltaX = Math.max( Math.min( deltaX + worldX, xMax ), xMin ) - worldX;
-            deltaY = Math.max( Math.min( deltaY + worldY, yMax ), yMin ) - worldY;
-            obj.matrix.elements[ 12 ] += deltaX;
-            obj.matrix.elements[ 13 ] += deltaY;
+            deltaX = ( deltaX * panSpeed + worldX ) - cameraTargetPosition[ 0 ];
+            deltaY = ( deltaY * panSpeed + worldY ) - cameraTargetPosition[ 1 ];
+            var dir = Math.atan2( deltaX, deltaY );
+            var dist = Math.sqrt( Math.pow( deltaX, 2 ) + Math.pow( deltaY, 2 ) );
+            dist = Math.min( dist, topDown_controlRadius );
+            obj.matrix.elements[ 12 ] = Math.sin( dir ) * dist;
+            obj.matrix.elements[ 13 ] = Math.cos( dir ) * dist;
             obj.updateMatrixWorld( true );
             break;
 
@@ -189,6 +212,22 @@ function moveNavObject( deltaX, deltaY, navObject, navMode, rotationSpeed, trans
                 newPitch = 0;
             }
             newPitch = Math.max( Math.min( newPitch, upperBound ), lowerBound );
+            // ---
+            var origin = [
+                matrixWorld[ 12 ] - matrix[ 12 ],
+                matrixWorld[ 13 ] - matrix[ 13 ],
+                matrixWorld[ 14 ] - matrix[ 14 ]
+            ];
+            var distance = getNearestCollisionDistance( origin, newYaw, newPitch, thirdPerson_MinZoom, thirdPerson_MaxZoom );
+            if ( !thirdPerson_ZoomLevel ) {
+                thirdPerson_ZoomLevel = radius;
+            }
+            if ( distance ) {
+                radius = Math.min( Math.max( thirdPerson_MinZoom, distance * 0.8 ), thirdPerson_ZoomLevel );
+            } else {
+                radius = thirdPerson_ZoomLevel;
+            }
+            // ---
             var newMatrix = getNewTransformMatrix( radius, newYaw, newPitch );
             obj.matrix.copy( newMatrix );
             obj.updateMatrixWorld( true );
@@ -236,6 +275,61 @@ function getNewTransformMatrix( radius, yaw, pitch ) {
          x,        y,       z,  1
     ];
     return matrix;
+}
+
+function getNearestCollisionDistance( origin, yaw, pitch, near, far ) {
+    var sy = Math.sin( yaw );
+    var cy = Math.cos( yaw );
+    var sp = Math.sin( pitch );
+    var cp = Math.cos( pitch );
+    var direction = [
+        sp * sy,
+        -sp * cy,
+        cp
+    ];
+    origin = new THREE.Vector3( origin[ 0 ], origin[ 1 ], origin[ 2 ] );
+    direction = new THREE.Vector3( direction[ 0 ], direction[ 1 ], direction[ 2 ] );
+    direction.normalize();
+    var raycaster = new THREE.Raycaster( origin, direction, near, far );
+    // OPTIMIZE: Narrow down list of objects
+    // TODO: Get the scene objects "the right way"
+    var objects = getSceneObjects();
+    var intersects = raycaster.intersectObjects( objects, true );
+    var nearest = getFirstMesh( intersects );
+    var result = nearest ? nearest.distance : undefined;
+    return result;
+}
+
+// Call once?
+function getSceneObjects() {
+    var nodes = vwf.views[ 0 ].state.nodes;
+    var keys = Object.keys( nodes );
+    var objects = [];
+    var i, nodeName, object;
+    for ( i = 0; i < keys.length; i++ ) {
+        nodeName = keys[ i ];
+        object = nodes[ nodeName ].threeObject;
+        if ( object.raycast ) {
+            objects.push( object );
+        }
+    }
+    return objects;
+}
+
+function getFirstMesh( list ) {
+    var object;
+    for ( var i = 0; i < list.length; i++ ) {
+        object = list[ i ].object;
+        if ( object instanceof THREE.Mesh ) {
+            return list[ i ];
+        }
+    }
+}
+
+function updateCameraDistance( radius ) {
+    if ( !isNaN( radius ) ) {
+        thirdPerson_MinZoom = radius;
+    }
 }
 
 //@ sourceURL=source/navigation.js

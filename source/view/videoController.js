@@ -12,78 +12,54 @@
 // See the License for the specific language governing permissions and 
 // limitations under the License.
 
-var videos = new Array();
-var videoID = 0;
 var playingVideo;
+var supportedFormats = [".webm", ".mp4"];
+document.onkeypress = removeVideoOnEvent;
 
-function loadVideo( src, type, dontRemoveWhenEnded ) {
-    var video = {
-        "id" : videoID,
-        "elem" : document.createElement( "video" ),
-        "source" : document.createElement( "source" ),
-        "wrapper" : document.createElement( "div" )
-    };
-    video.elem.appendChild( video.source );
-    video.wrapper.appendChild( video.elem );
-    video.source.src = "assets/video/" + src;
-    video.source.type = type || 'video/mp4;codecs="avc1.42E01E,mp4a.40.2"';
-    video.elem.id = "video" + video.id;
-    video.elem.className = "video";
-    video.wrapper.className = "videoWrapper";
-    video.elem.load();
+function playVideo( src ) {
+    if ( src ) {
+        playingVideo = src;
+        var videoManagerID = vwf_view.kernel.find( "", "//videoManager" )[ 0 ];
+        vwf_view.kernel.callMethod( videoManagerID, "show" );
 
-    document.onkeypress = removeVideoOnEvent;
+        var videoURLBase = "assets/video/" + src;
 
-    if ( !dontRemoveWhenEnded ) {
-        video.elem.onended = removeVideoOnEvent;
-    }
-
-    videos.push( video );
-    videoID++;
-    return videoID - 1;
-}
-
-function playVideo( id ) {
-    var video = videos[ id ];
-    if ( video ) {
-        document.body.appendChild( video.wrapper );
-        playingVideo = video;
-        video.elem.play();
+        var redactedURLBase = ( videoURLBase ).replace( new RegExp("/(.*)/.*/assets" ), 
+            function( str, group1 ){ 
+                return group1 + "/assets" 
+            } );
+        
+        //var fileList = [ redactedURLBase + ".webm", redactedURLBase + ".mp4" ]
+        var fileList = [];
+        for( var i = 0; i < supportedFormats.length; i++ ){
+            fileList.push( redactedURLBase + supportedFormats[i] );
+        }
+        vwf_view.kernel.setProperty( videoManagerID, "url", fileList );
+        vwf_view.kernel.callMethod( videoManagerID, "play" );
     }
 }
 
 function removeVideoOnEvent( event ) {
-    // 32 = space bar character code
-    if ( event.type === "keypress" && event.which !== 32 ) {
+    if ( !playingVideo ) {
         return;
     }
-    var videoElem = playingVideo.elem || event.srcElement;
-    var id = parseInt( videoElem.id.split( "video" )[ 1 ] );
-    var fileName = getVideoFileName( videos[ id ] );
-    vwf_view.kernel.fireEvent( vwf_view.kernel.application(), "videoPlayed", [ fileName ] );
-    removeVideo( id );
-    playingVideo = undefined;
-}
+    
+    // 32 = space bar character code
+    if ( event && event.type === "keypress" && event.which !== 32 ) {
+        return;
+    }
+    var videoManagerID = vwf_view.kernel.find( "", "//videoManager" )[ 0 ];
 
-function removeVideo( id ) {
-    var video = videos[ id ];
-    if ( video && video.wrapper.parentNode === document.body ) {
-        document.body.removeChild( video.wrapper );
+    vwf_view.kernel.callMethod( videoManagerID, "clearMedia" );
+    if( playingVideo ){
+        vwf_view.kernel.fireEvent( vwf_view.kernel.application(), "videoPlayed", [ playingVideo ] );
+        playingVideo = undefined;
     }
 }
 
-function getVideoIdFromSrc( src ) {
-    for ( var i = 0; i < videos.length; i++ ) {
-        var compareSrc = getVideoFileName( videos[ i ] );
-        if ( src === compareSrc ) {
-            return videos[ i ].id;
-        }
-    }
-    return undefined;
+function removeVideo() {
+    var videoManagerID = vwf_view.kernel.find( "", "//videoManager" )[ 0 ];
+    vwf_view.kernel.callMethod( videoManagerID, "hide" );
 }
 
-function getVideoFileName( video ) {
-    var fileName = video.source.src.split( "/" ).pop();
-    return fileName;
-}
 //@ sourceURL=source/videoController.js

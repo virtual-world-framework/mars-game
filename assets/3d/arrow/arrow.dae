@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<COLLADA xmlns="http://www.collada.org/2005/11/COLLADASchema" version="1.4.1">
+  <asset>
+    <contributor>
+      <author>mcclurek</author>
+      <authoring_tool>OpenCOLLADA for 3ds Max;  Version: 1.4.1;  Revision: exported;  Platform: x64;  Configuration: Release_Max2012_static</authoring_tool>
+      <source_data>file:///C:/Users/mcclurek/Desktop/MARS/PHASE1/Rover_ARROW.max</source_data>
+    </contributor>
+    <created>2015-09-01T15:01:10</created>
+    <modified>2015-09-01T15:01:10</modified>
+    <unit name="meter" meter="1"/>
+    <up_axis>Z_UP</up_axis>
+  </asset>
+  <library_effects>
+    <effect id="_3_-_Default">
+      <profile_COMMON>
+        <technique sid="common">
+          <blinn>
+            <emission>
+              <color>0 0 0 1</color>
+            </emission>
+            <ambient>
+              <color>1 1 1 1</color>
+            </ambient>
+            <diffuse>
+              <color>1 1 1 1</color>
+            </diffuse>
+            <specular>
+              <color>0.9 0.9 0.9 1</color>
+            </specular>
+            <shininess>
+              <float>0</float>
+            </shininess>
+            <reflective>
+              <color>0 0 0 1</color>
+            </reflective>
+            <transparent opaque="A_ONE">
+              <color>1 1 1 1</color>
+            </transparent>
+            <transparency>
+              <float>1</float>
+            </transparency>
+          </blinn>
+        </technique>
+      </profile_COMMON>
+      <extra>
+        <technique profile="OpenCOLLADA3dsMax">
+          <extended_shader>
+            <apply_reflection_dimming>0</apply_reflection_dimming>
+            <dim_level>0</dim_level>
+            <falloff_type>0</falloff_type>
+            <index_of_refraction>1.5</index_of_refraction>
+            <opacity_type>0</opacity_type>
+            <reflection_level>3</reflection_level>
+            <wire_size>1</wire_size>
+            <wire_units>0</wire_units>
+          </extended_shader>
+          <shader>
+            <ambient_diffuse_lock>1</ambient_diffuse_lock>
+            <ambient_diffuse_texture_lock>1</ambient_diffuse_texture_lock>
+            <diffuse_specular_lock>0</diffuse_specular_lock>
+            <soften>0.1</soften>
+            <use_self_illum_color>0</use_self_illum_color>
+          </shader>
+        </technique>
+      </extra>
+    </effect>
+  </library_effects>
+  <library_materials>
+    <material id="_3_-_Default-material" name="_3_-_Default">
+      <instance_effect url="#_3_-_Default"/>
+    </material>
+  </library_materials>
+  <library_geometries>
+    <geometry id="geom-arrow_top_down" name="arrow_top_down">
+      <mesh>
+        <source id="geom-arrow_top_down-positions">
+          <float_array id="geom-arrow_top_down-positions-array" count="42">-0.3087672 -0.4442493 0 0.3087672 -0.4442493 0 0 0.3777012 0 -0.3087672 -0.4442493 0.2687346 0.3087672 -0.4442493 0.2687346 0 0.3777012 0.2687346 -0.5152279 -0.4442372 0 -0.5152279 -0.4442372 0.2687346 0.5152279 -0.4442372 0.2687346 0.5152279 -0.4442372 0 -0.3087672 -1.110431 0 0.3087672 -1.110431 0 0.3087672 -1.110431 0.2687346 -0.3087672 -1.110431 0.2687346</float_array>
+          <technique_common>
+            <accessor source="#geom-arrow_top_down-positions-array" count="14" stride="3">
+              <param name="X" type="float"/>
+              <param name="Y" type="float"/>
+              <param name="Z" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <source id="geom-arrow_top_down-normals">
+          <float_array id="geom-arrow_top_down-normals-array" count="198">0 0 -1 0 0 -1 0 0 -1 0 0 1 0 0 1 0 0 1 0 -1 0 0 -1 0 0 -1 0 0 -1 0 0.847295 0.5311225 0 0.847295 0.5311225 0 0.847295 0.5311225 0 0.847295 0.5311225 0 -0.847295 0.5311225 0 -0.847295 0.5311225 0 -0.847295 0.5311225 0 -0.847295 0.5311225 0 0 0 -1 0 0 -1 0 0 -1 -5.88943e-5 -1 0 -5.88943e-5 -1 0 -5.88943e-5 -1 0 -5.88943e-5 -1 0 -5.88943e-5 -1 0 -5.88943e-5 -1 0 0 0 1 0 0 1 0 0 1 0 0 1 0 0 1 0 0 1 5.88943e-5 -1 0 5.88943e-5 -1 0 5.88943e-5 -1 0 5.88943e-5 -1 0 5.88943e-5 -1 0 5.88943e-5 -1 0 0 0 -1 0 0 -1 0 0 -1 0 0 -1 0 0 -1 0 0 -1 0 0 -1 0 0 -1 0 0 -1 1 0 0 1 0 0 1 0 0 1 0 0 1 0 0 1 0 0 0 0 1 0 0 1 0 0 1 0 0 1 0 0 1 0 0 1 -1 0 0 -1 0 0 -1 0 0 -1 0 0 -1 0 0 -1 0 0</float_array>
+          <technique_common>
+            <accessor source="#geom-arrow_top_down-normals-array" count="66" stride="3">
+              <param name="X" type="float"/>
+              <param name="Y" type="float"/>
+              <param name="Z" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <source id="geom-arrow_top_down-map1">
+          <float_array id="geom-arrow_top_down-map1-array" count="54">1 0 0 0 0 0 0.5 0.3333333 0 0 0 0 1 0 0 0.5 1 0 0 0 0 1 0 0 0 1 0 1 1 0 1 0 0 1 1 0 0 1 0 0 0 0 0 0 0 1 0 0 1 1 0 0 1 0</float_array>
+          <technique_common>
+            <accessor source="#geom-arrow_top_down-map1-array" count="18" stride="3">
+              <param name="S" type="float"/>
+              <param name="T" type="float"/>
+              <param name="P" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <source id="geom-arrow_top_down-map1-textangents">
+          <float_array id="geom-arrow_top_down-map1-textangents-array" count="198">-1 0 0 -1 0 0 -1 0 0 1 0 0 1 0 0 1 0 0 1 0 0 1 0 0 1 0 0 1 0 0 -0.5286111 0.8432886 -0.06860129 -0.5260997 0.8392822 -0.1372026 -0.5286111 0.8432886 -0.06860129 -0.5311225 0.847295 0 -0.5299975 -0.8455003 0.04597523 -0.5288724 -0.8437055 0.09195047 -0.5299975 -0.8455003 0.04597523 -0.5311225 -0.847295 0 -0.3516583 -0.9361284 0 -0.3516583 -0.9361284 0 -0.3516583 -0.9361284 0 -1 5.88943e-5 0 -1 5.88943e-5 0 -1 5.88943e-5 0 -1 5.88943e-5 0 -1 5.88943e-5 0 -1 5.88943e-5 0 -0.5311225 -0.847295 0 -0.5311225 -0.847295 0 -0.5311225 -0.847295 0 -0.5311225 0.847295 0 -0.5311225 0.847295 0 -0.5311225 0.847295 0 -1 -5.88943e-5 0 -1 -5.88943e-5 0 -1 -5.88943e-5 0 -1 -5.88943e-5 0 -1 -5.88943e-5 0 -1 -5.88943e-5 0 -0.3516583 0.9361284 0 -0.3516583 0.9361284 0 -0.3516583 0.9361284 0 1 0 0 1 0 0 1 0 0 -1 0 0 -1 0 0 -1 0 0 0 0 1 0 0 1 0 0 1 0 0 -1 0 0 -1 0 0 -1 1 0 0 1 0 0 1 0 0 1 0 0 1 0 0 1 0 0 0 0 -1 0 0 -1 0 0 -1 0 0 1 0 0 1 0 0 1</float_array>
+          <technique_common>
+            <accessor source="#geom-arrow_top_down-map1-textangents-array" count="66" stride="3">
+              <param name="X" type="float"/>
+              <param name="Y" type="float"/>
+              <param name="Z" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <source id="geom-arrow_top_down-map1-texbinormals">
+          <float_array id="geom-arrow_top_down-map1-texbinormals-array" count="198">0 -1 0 0 -1 0 0 -1 0 0 -1 0 0 -1 0 0 -1 0 0 0 -1 0 0 -1 0 0 -1 0 0 -1 0.03652214 -0.05826345 -0.997633 0.07287138 -0.1162511 -0.990543 0.03652214 -0.05826345 -0.997633 0 0 -1 -0.02444438 -0.03899591 -0.9989403 -0.04883696 -0.07790917 -0.9957636 -0.02444438 -0.03899591 -0.9989403 0 0 -1 0.9361284 -0.3516583 0 0.9361284 -0.3516583 0 0.9361284 -0.3516583 0 0 0 1 0 0 1 0 0 1 0 0 1 0 0 1 0 0 1 -0.847295 0.5311225 0 -0.847295 0.5311225 0 -0.847295 0.5311225 0 0.847295 0.5311225 0 0.847295 0.5311225 0 0.847295 0.5311225 0 0 0 1 0 0 1 0 0 1 0 0 1 0 0 1 0 0 1 -0.9361284 -0.3516583 0 -0.9361284 -0.3516583 0 -0.9361284 -0.3516583 0 0 1 0 0 1 0 0 1 0 0 -1 0 0 -1 0 0 -1 0 0 1 0 0 1 0 0 1 0 0 -1 0 0 -1 0 0 -1 0 0 -1 0 0 -1 0 0 -1 0 0 -1 0 0 -1 0 0 -1 0 0 1 0 0 1 0 0 1 0 0 -1 0 0 -1 0 0 -1 0</float_array>
+          <technique_common>
+            <accessor source="#geom-arrow_top_down-map1-texbinormals-array" count="66" stride="3">
+              <param name="X" type="float"/>
+              <param name="Y" type="float"/>
+              <param name="Z" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <vertices id="geom-arrow_top_down-vertices">
+          <input semantic="POSITION" source="#geom-arrow_top_down-positions"/>
+        </vertices>
+        <triangles material="_3_-_Default_1" count="24">
+          <input semantic="VERTEX" source="#geom-arrow_top_down-vertices" offset="0"/>
+          <input semantic="NORMAL" source="#geom-arrow_top_down-normals" offset="1"/>
+          <input semantic="TEXCOORD" source="#geom-arrow_top_down-map1" offset="2" set="0"/>
+          <input semantic="TEXTANGENT" source="#geom-arrow_top_down-map1-textangents" offset="3" set="1"/>
+          <input semantic="TEXBINORMAL" source="#geom-arrow_top_down-map1-texbinormals" offset="3" set="1"/>
+          <p>0 0 0 0 2 1 2 1 1 2 1 2 3 3 3 3 4 4 4 4 5 5 5 5 10 6 14 6 11 7 15 7 12 8 16 8 12 8 16 8 13 9 17 9 10 6 14 6 9 10 13 10 2 11 2 11 5 12 5 12 5 12 5 12 8 13 12 13 9 10 13 10 2 14 2 14 6 15 10 15 7 16 11 16 7 16 11 16 5 17 5 17 2 14 2 14 2 18 2 18 0 19 0 19 6 20 10 20 0 21 6 21 3 22 8 22 7 23 11 23 7 24 11 24 6 25 10 25 0 26 6 26 3 27 3 27 5 28 5 28 7 29 11 29 5 30 5 30 4 31 4 31 8 32 12 32 4 33 9 33 1 34 7 34 9 35 13 35 9 36 13 36 8 37 12 37 4 38 9 38 1 39 1 39 2 40 2 40 9 41 13 41 0 42 0 42 1 43 1 43 11 44 15 44 11 45 15 45 10 46 14 46 0 47 0 47 1 48 7 48 4 49 9 49 12 50 16 50 12 51 16 51 11 52 15 52 1 53 7 53 4 54 4 54 3 55 3 55 13 56 17 56 13 57 17 57 12 58 16 58 4 59 4 59 3 60 8 60 0 61 6 61 10 62 14 62 10 63 14 63 13 64 17 64 3 65 8 65</p>
+        </triangles>
+      </mesh>
+    </geometry>
+  </library_geometries>
+  <library_lights>
+    <light id="EnvironmentAmbientLight" name="EnvironmentAmbientLight">
+      <technique_common>
+        <ambient>
+          <color>0 0 0</color>
+        </ambient>
+      </technique_common>
+    </light>
+  </library_lights>
+  <library_visual_scenes>
+    <visual_scene id="MaxScene">
+      <node name="EnvironmentAmbientLight">
+        <instance_light url="#EnvironmentAmbientLight"/>
+      </node>
+      <node id="node-arrow_top_down" name="arrow_top_down">
+        <translate>0 0 3.032438</translate>
+        <scale>0.5730741 0.5730741 0.08515152</scale>
+        <node>
+          <matrix>1 0 0 0 0 1 0 0.366365 0 0 1 -0.1343673 0 0 0 1</matrix>
+          <instance_geometry url="#geom-arrow_top_down">
+            <bind_material>
+              <technique_common>
+                <instance_material symbol="_3_-_Default_1" target="#_3_-_Default-material"/>
+              </technique_common>
+            </bind_material>
+          </instance_geometry>
+        </node>
+        <extra>
+          <technique profile="OpenCOLLADA">
+            <cast_shadows>1</cast_shadows>
+            <primary_visibility>1</primary_visibility>
+            <receive_shadows>1</receive_shadows>
+            <secondary_visibility>1</secondary_visibility>
+          </technique>
+        </extra>
+      </node>
+    </visual_scene>
+  </library_visual_scenes>
+  <scene>
+    <instance_visual_scene url="#MaxScene"/>
+  </scene>
+</COLLADA>

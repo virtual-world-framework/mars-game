@@ -1,0 +1,169 @@
+# Copyright 2014 Lockheed Martin Corporation
+#
+# Licensed under the Apache License, Version 2.0 (the "License"); you may 
+# not use this file except in compliance with the License. You may obtain 
+# a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software 
+# distributed under the License is distributed on an "AS IS" BASIS, 
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and 
+# limitations under the License.
+
+---
+extends: ../scenario/scenario.vwf
+properties:
+  scenarioName: Mission2Task3
+  scenePath: /
+  nextScenarioPath: "Mission2Task4"
+
+  startState:
+  - playSound:
+    - musicLevel2
+  - playSound:
+    - environmentWind
+  - setObjective:
+    - "Build an equation in the GRAPH tab to graph a line."
+  - setThirdPersonStartPose:
+    - [ 16.316, 65, -15 ]
+  - startTimer:
+
+  - setProperty:
+    - videoManager  
+    - url 
+    - [ "assets/video/Success2_800x600.mp4" ]
+
+  - setProperty:
+    - rover2
+    - visible
+    - false
+  - setProperty:
+    - rover
+    - battery
+    - 10
+  - setProperty:
+    - rover
+    - batteryMax
+    - 10
+  - setProperty:
+    - rover
+    - blockly_allowedBlocks
+    - 12
+  - setProperty:
+    - graph
+    - blockly_xml
+    - <xml><block type="graph_set_y" inline="false" editable="false" deletable="false" x="140" y="60"></block></xml>
+  - setProperty:
+    - rover
+    - startXML
+    - <xml></xml>
+  - addToGrid:
+    - rover
+    - [ 0, 14 ]
+  - addToGrid:
+    - blocklyGraph
+    - [ 0, 14 ]
+  - setGridAxes:
+    - 14
+    - 0
+  - setPickupActive:
+    - helicam
+    - false
+  - setPickupActive:
+    - battery
+    - false
+  - setPickupActive:
+    - radio
+    - false
+  - setPickupActive:
+    - supplies_1
+    - true
+  - setPickupActive:
+    - supplies_2
+    - true
+  - setBlocklyContext:
+    - graph
+  - loadToolbox:
+    - rover
+    - source/scenario/blockly/scenario2c.xml
+  - loadToolbox:
+    - graph
+    - source/scenario/blockly/graph2c.xml
+  - setProperty:
+    - blocklyLine
+    - opacity
+    - 1
+  - selectRover:
+    - rover
+  - selectRover:
+    - graph
+
+  - setProperty:
+    - roverTracks2
+    - visible
+    - false
+
+children:
+  triggerManager:
+    extends: ../triggers/triggerManager.vwf
+    properties: 
+      triggers$:
+
+        playStartingVO_2c:
+          triggerCondition:
+          - and:
+            - doOnce:
+            - onScenarioStart:
+          actions:
+          - playSound:
+            - SCVO6_Rover
+
+        failOnMove_2c:
+          group: successOrFailure
+          priority: 1
+          triggerCondition:
+          - onMoved:
+            - rover
+          actions:
+          - scenarioFailure:
+            - lost
+            - "You need to plot the course of the wayward rover before going to find it."
+          - playSound:
+            - FCVO4_Rover
+
+        succeedOnSuccessfulCoursePlot_2c:
+          group: successOrFailure
+          priority: 0
+          triggerCondition:
+          - and:
+            - blocklyLineEval:
+              - [ 1, 1 ]
+            - blocklyLineEval:
+              - [ -1, -1 ]
+          actions:
+          - scenarioSuccess:
+          # - showAlert:
+          #   - "Now I can plot course... can I plot the course to match those tracks?"
+          - playSound:
+            - musicSuccessShort
+
+        playHint1_2c:
+          triggerCondition:
+          - and:
+            - doOnce:
+            - delay:
+              - 20
+          actions:
+          - playSound:
+            - ALVO24_Rover
+
+  brief:
+    extends: ../missionBrief.vwf
+    properties:
+      title: "Mission 2, Task 3"
+      content: >
+        It appears that one of your Mini Rovers has gone astray!
+        <br><br> You will need to track it down. To start, plot a line that 
+        matches the direction of the Mini Rover's tracks. 

@@ -16,22 +16,23 @@
 
 this.initialize = function() {
     //Load sounds defined in yaml file
-    for ( var i = 0; i < this.soundSet.length; ++i ) {
-            this.loadSound( this.soundSet[i] );
+    var soundSet = this.soundSet;
+    for ( var i = 0; i < soundSet.length; ++i ) {
+        this.loadSound( soundSet[i] );
     }
-    this.future( 0 ).setUpSubtitles();
+    this.future( 0.01 ).setUpSubtitles();
 }
 
 this.setUpSubtitles = function() {
     var scene = this.find( "/" )[ 0 ];
     if ( scene && this.setUpOnce ) {
         this.setUpOnce = false;
-        this.soundStarted = this.events.add( startSubtitle.bind( this ) );
-        this.soundFinished = this.events.add( stopSubtitle.bind( this ) );
+        this.soundStarted = this.events.add( function( instanceHandle ) { this.startSubtitle( instanceHandle ); }, this );
+        this.soundFinished = this.events.add( function( instanceHandle ) { this.stopSubtitle( instanceHandle ); }, this );
     }
 }
 
-function startSubtitle( instanceHandle ) {
+this.startSubtitle = function( instanceHandle ) {
     var scene = this.find( "/" )[ 0 ];
     if ( this.hasSubtitle( instanceHandle ) ) {
         var subtitle = this.getSubtitle( instanceHandle );
@@ -43,20 +44,22 @@ function startSubtitle( instanceHandle ) {
         if ( character ) {
             character = character.slice( 1, character.length - 1 );
             var imagePath = "";
-            if ( character === "ROVER" ) {
-                var imagePath = "assets/images/hud/comms_rover.png";
-            } else if ( character === "MC" ) {
+            if ( character === "MANNY" ) {
+                var imagePath = "assets/images/hud/portrait_rover_communicator.png";
+            } else if ( character === "MISSION CONTROL" ) {
                 var imagePath = "assets/images/hud/comms_missioncontrol.png";
+            } else if ( character === "PERRY" ) {
+                var imagePath = "assets/images/hud/portrait_scout_large.png";
             }
-            scene.showCommsImage( imagePath );
-        }                
+            scene.hud.comms.addCharacterImage( imagePath );
+        }
     }
 }
 
-function stopSubtitle( instanceHandle ) {
+this.stopSubtitle = function( instanceHandle ) {
     var scene = this.find( "/" )[ 0 ];
     if ( this.hasSubtitle( instanceHandle ) ) {
-        scene.hideCommsImage();
+        scene.hud.comms.removeCharacterImage();
     }
 }
 

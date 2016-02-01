@@ -1,0 +1,7 @@
+<xml id="rover" style="display: none">
+  
+  <category name="Procedures">
+    <block type="triangle_flow"/>
+  </category>
+
+</xml>

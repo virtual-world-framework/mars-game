@@ -1,0 +1,19 @@
+<xml id="rover" style="display: none">
+  
+  <category name="Movement">
+    <block type="rover_moveRadial_absolute"></block>
+    <block type="init_nano_construction" inline="false"></block>
+  </category>
+  <sep></sep>
+  <category name="Math">
+    <block type="math_number_out_10" inline="false"><field name="VALUE">0</field></block>
+    <block type="graph_subtract"></block>
+  </category>
+  <sep></sep>
+  <category name="Procedures">
+    <block type="triangle_flow"></block>
+    <block type="triangle_transformations_dilate"></block>
+    <block type="triangle_transformations_reflect"></block>
+  </category>
+
+</xml>
