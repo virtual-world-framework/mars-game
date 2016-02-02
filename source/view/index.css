@@ -456,7 +456,7 @@ a:active {
     bottom: 0px;
 }
 
-#videoScreen {
+#vidScreen {
     height: 100%;
     width: 100%;
     position: absolute;
@@ -465,6 +465,7 @@ a:active {
     background-color: #000;
     z-index: 102;
     pointer-events: none;
+    display: none;
 }
 
 #pauseScreen {
