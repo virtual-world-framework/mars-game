@@ -456,6 +456,18 @@ a:active {
     bottom: 0px;
 }
 
+#vidScreen {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: #000;
+    z-index: 102;
+    pointer-events: none;
+    display: none;
+}
+
 #pauseScreen {
     position: absolute;
     top: 0px;

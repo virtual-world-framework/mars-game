@@ -88,7 +88,7 @@ vwf_view.calledMethod = function( nodeID, methodName, methodParams ) {
         switch ( methodName ) {
             case "playVideo":
                 var src = methodParams[ 0 ];
-                $( "#transitionScreen" ).fadeTo( 400, 1, function() {
+                $( "#vidScreen" ).fadeTo( 0, 1, function() {
                     playVideo( src );
                 } );
                 break;
@@ -412,7 +412,7 @@ vwf_view.firedEvent = function( nodeID, eventName, eventArgs ) {
                 break;
 
             case "videoPlayed":
-                $( "#transitionScreen" ).fadeTo( 400, 0, function() {
+                $( "#vidScreen" ).fadeTo( 400, 0, function() {
                     removeVideo();
                 } );
                 break;
