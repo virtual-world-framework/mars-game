@@ -17,10 +17,10 @@ body {
 }
 
 #loadingText {
-    color: white;
-    font-size: 32px;
+    color: rgb( 237, 27, 36 );
+    font-size: 28px;
     position: absolute;
-    bottom: 32px;
+    bottom: 40px;
     left: 0px;
     right: 0px;
 }
