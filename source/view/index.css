@@ -17,10 +17,10 @@ body {
 }
 
 #loadingText {
-    color: white;
-    font-size: 32px;
+    color: rgb( 237, 27, 36 );
+    font-size: 28px;
     position: absolute;
-    bottom: 32px;
+    bottom: 40px;
     left: 0px;
     right: 0px;
 }
@@ -454,6 +454,18 @@ a:active {
     left: 0px;
     right: 0px;
     bottom: 0px;
+}
+
+#vidScreen {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: #000;
+    z-index: 102;
+    pointer-events: none;
+    display: none;
 }
 
 #pauseScreen {
